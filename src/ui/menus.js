@@ -24,7 +24,7 @@ function kitMovesHtml(c) {
     rows.push(`<div><b>${name}</b> ${label}</div>`);
   }
   if (k.super && SUPERS[k.super]) rows.push(`<div><b>${c.superName ?? SUPERS[k.super].name}</b> SUPER</div>`);
-  rows.push(`<div><b>${c.beam.name}</b> ultimate</div>`);
+  rows.push(`<div><b>${SUPERS[k.ultimate]?.name ?? c.beam.name}</b> ultimate</div>`);
   return rows.join('');
 }
 

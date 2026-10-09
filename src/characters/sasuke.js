@@ -65,6 +65,62 @@ function extraAnims({ st }) {
         [0.98, st({ eyes: 'red' }), 'inout'],
       ],
     },
+    // Chidori Sharp Spear: hand pulled back low, a long straight thrust (the engine draws the lance)
+    specialForward: {
+      samples: [0.04, 0.1, 0.16, 0.22, 0.3, 0.38, 0.46], end: 0.5, phases: [2, 2, 3],
+      keys: [
+        [0, st({ eyes: 'red' })],
+        [0.1, st({ spine: { lean: 18, yaw: 24 }, lF: { kn: 50 }, lN: { kn: 30 }, aN: { sw: -44, ab: 22, el: 12, hand: 'open' }, aF: { sw: 60, ab: -10, el: 70, hand: 'open' }, face: 'angry', eyes: 'red', flutter: 1.5 }), 'out'],
+        [0.16, st({ spine: { lean: 26, yaw: -26 }, root: { x: 0.08 }, lF: { sw: 60, kn: 22 }, lN: { sw: -60, kn: 6, fl: 0.3 }, aN: { sw: 92, ab: 2, el: 0, hand: 'open' }, aF: { sw: -60, ab: 24, el: 20 }, face: 'shout', eyes: 'red', flutter: 3 }), 'snap'],
+        [0.3, st({ spine: { lean: 22, yaw: -20 }, root: { x: 0.07 }, lF: { sw: 58, kn: 24 }, lN: { sw: -58, kn: 8, fl: 0.3 }, aN: { sw: 90, ab: 4, el: 4, hand: 'open' }, aF: { sw: -58, ab: 24, el: 20 }, face: 'angry', eyes: 'red', flutter: 2 })],
+        [0.5, st({ eyes: 'red' }), 'inout'],
+      ],
+    },
+    // Lion's Barrage rise: crouch, rising kick, flip over into the heel drop (airHeavy)
+    specialUp: {
+      samples: [0.05, 0.12, 0.2, 0.28, 0.36, 0.44], end: 0.48, phases: [2, 2, 2],
+      keys: [
+        [0, st()],
+        [0.1, st({ root: { y: -0.08 }, spine: { lean: 24 }, lF: { kn: 84 }, lN: { kn: 72 }, aN: { sw: -40, ab: 24, el: 20 }, aF: { sw: 20, ab: 20, el: 60 }, face: 'angry', eyes: 'red' }), 'out'],
+        [0.22, st({ root: { y: 0.05 }, spine: { lean: -24 }, lF: { sw: 160, kn: 6, fl: 0 }, lN: { sw: -14, kn: 30, fl: 0 }, aN: { sw: 30, ab: 50, el: 20 }, aF: { sw: -50, ab: 30, el: 20 }, head: { nod: -24 }, face: 'shout', eyes: 'red', flutter: 3 }), 'snap'],
+        [0.34, st({ spine: { lean: -12 }, lF: { sw: 128, kn: 24, fl: 0 }, lN: { sw: -24, kn: 46, fl: 0 }, aN: { sw: 50, ab: 40, el: 50 }, aF: { sw: -30, ab: 30, el: 40 }, face: 'angry', eyes: 'red', flutter: 2 })],
+        [0.48, st({ spine: { lean: 22 }, lF: { sw: 165, kn: 0, fl: 0 }, lN: { sw: -10, kn: 60, fl: 0 }, aN: { sw: 130, ab: 30, el: 50 }, aF: { sw: 130, ab: -10, el: 50 }, face: 'angry', eyes: 'red', flutter: 2 })],
+      ],
+    },
+    // Sharingan counter: a still, reading stance, hand raised before the face
+    specialDown: {
+      samples: [0.04, 0.1, 0.2, 0.3], end: 0.34, phases: [2, 1, 1],
+      keys: [
+        [0, st()],
+        [0.1, st({ spine: { lean: 2, yaw: 16 }, head: { nod: 4 }, aN: { sw: 112, ab: 8, el: 58, hand: 'open' }, aF: { sw: -10, ab: 16, el: 30, hand: 'open' }, face: 'angry', eyes: 'red', flutter: 1 }), 'out'],
+        [0.34, st({ spine: { lean: 2, yaw: 16 }, head: { nod: 4 }, aN: { sw: 110, ab: 8, el: 60, hand: 'open' }, aF: { sw: -10, ab: 16, el: 30, hand: 'open' }, face: 'angry', eyes: 'red' })],
+      ],
+    },
+    // Amaterasu (his ultimate): the Mangekyō gaze, a hand raised to the eye
+    superPose: {
+      loop: true, frames: 4, cycle: 0.6,
+      keys: [
+        [0, st({ spine: { lean: -2, yaw: 18 }, head: { nod: -4, yaw: 6 }, lF: { sw: 10, kn: 8 }, lN: { sw: -10, kn: 6 }, aN: { sw: 128, ab: -16, el: 142, hand: 'open' }, aF: { sw: -6, ab: 14, el: 20 }, face: 'angry', eyes: 'red', flutter: 1.5 })],
+        [0.3, st({ spine: { lean: -2, yaw: 18 }, head: { nod: -5, yaw: 6 }, lF: { sw: 10, kn: 10 }, lN: { sw: -10, kn: 8 }, aN: { sw: 129, ab: -16, el: 143, hand: 'open' }, aF: { sw: -6, ab: 14, el: 20 }, face: 'angry', eyes: 'red', flutter: 2.5 })],
+      ],
+    },
+    // Kirin (his SUPER) replaces the beam poses: an arm raised to the storm, then swung down at them
+    beamCharge: {
+      loop: true, frames: 3, cycle: 0.15,
+      keys: [
+        [0, st({ spine: { lean: -8, yaw: 18 }, head: { nod: -26 }, lF: { sw: 20, kn: 14 }, lN: { sw: -20, kn: 10 }, aN: { sw: 176, ab: 10, el: 4, hand: 'open' }, aF: { sw: -10, ab: 20, el: 30 }, face: 'angry', eyes: 'red', flutter: 3 })],
+        [0.05, st({ spine: { lean: -9, yaw: 18 }, head: { nod: -27 }, lF: { sw: 20, kn: 16 }, lN: { sw: -20, kn: 12 }, aN: { sw: 177, ab: 12, el: 3, hand: 'open' }, aF: { sw: -10, ab: 20, el: 30 }, face: 'angry', eyes: 'red', flutter: 3.5 })],
+        [0.1, st({ spine: { lean: -8, yaw: 18 }, head: { nod: -26 }, lF: { sw: 20, kn: 14 }, lN: { sw: -20, kn: 10 }, aN: { sw: 176, ab: 10, el: 4, hand: 'open' }, aF: { sw: -10, ab: 20, el: 30 }, face: 'angry', eyes: 'red', flutter: 3 })],
+      ],
+    },
+    beamFire: {
+      loop: true, frames: 3, cycle: 0.15,
+      keys: [
+        [0, st({ spine: { lean: 20, yaw: -16 }, head: { nod: -6 }, lF: { sw: 40, kn: 30 }, lN: { sw: -40, kn: 12, fl: 0.4 }, aN: { sw: 96, ab: 4, el: 0, hand: 'open' }, aF: { sw: -40, ab: 24, el: 20 }, face: 'shout', eyes: 'red', flutter: 3 })],
+        [0.05, st({ spine: { lean: 21, yaw: -16 }, head: { nod: -7 }, lF: { sw: 40, kn: 32 }, lN: { sw: -40, kn: 14, fl: 0.4 }, aN: { sw: 97, ab: 4, el: 0, hand: 'open' }, aF: { sw: -40, ab: 24, el: 20 }, face: 'shout', eyes: 'red', flutter: 3.5 })],
+        [0.1, st({ spine: { lean: 20, yaw: -16 }, head: { nod: -6 }, lF: { sw: 40, kn: 30 }, lN: { sw: -40, kn: 12, fl: 0.4 }, aN: { sw: 96, ab: 4, el: 0, hand: 'open' }, aF: { sw: -40, ab: 24, el: 20 }, face: 'shout', eyes: 'red', flutter: 3 })],
+      ],
+    },
     intro: {
       loop: true, frames: 4, cycle: 0.8,
       keys: [
@@ -100,9 +156,16 @@ export default {
   beam: { core: '#f0fbff', mid: '#62b8ff', edge: '#3a54ff', name: 'LIGHTNING LANCE' },
   specialName: 'CHIDORI',
   projectileName: 'FIREBALL',
+  superName: 'KIRIN',
   special: 'chidori',
   projectile: 'fireball',
-  stats: { speed: 6.2, power: 1.05, defense: 0.95 },
+  // Hebi era; his ultimate is Amaterasu instead of a beam (ADR 0011)
+  kit: {
+    specials: { neutral: 'chidori', forward: 'chidoriSpear', up: 'lionsBarrage', down: 'sharingan', air: 'fireballAir', airDown: 'lionsBarrageAir' },
+    super: 'kirin',
+    ultimate: 'amaterasu',
+  },
+  stats: { speed: 6.2, power: 1.0, defense: 1.0 },
   model,
   stance,
   extraAnims,

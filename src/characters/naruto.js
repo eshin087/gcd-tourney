@@ -66,6 +66,47 @@ function extraAnims({ st, pose }) {
         [1.0, st(), 'inout'],
       ],
     },
+    // Rasenshuriken, handheld (pre-Sage): raised high to form it, slammed forward, then the arm hurts
+    specialForward: {
+      samples: [0.05, 0.14, 0.24, 0.32, 0.42, 0.52, 0.62], end: 0.66, phases: [2, 2, 3],
+      keys: [
+        [0, st()],
+        [0.12, st({ spine: { lean: -8, yaw: 20 }, lF: { kn: 30 }, lN: { kn: 24 }, aN: { sw: 170, ab: 16, el: 20, hand: 'palm' }, aF: { sw: 150, ab: -10, el: 70, hand: 'open' }, head: { nod: -14 }, face: 'shout', flutter: 2 }), 'out'],
+        [0.24, st({ spine: { lean: 30, yaw: -24 }, root: { x: 0.08 }, lF: { sw: 62, kn: 22 }, lN: { sw: -60, kn: 6, fl: 0.3 }, aN: { sw: 94, ab: 2, el: 0, hand: 'palm' }, aF: { sw: 60, ab: -10, el: 40, hand: 'open' }, face: 'shout', flutter: 3 }), 'snap'],
+        [0.4, st({ spine: { lean: 26, yaw: -20 }, root: { x: 0.07 }, lF: { sw: 60, kn: 24 }, lN: { sw: -58, kn: 8, fl: 0.3 }, aN: { sw: 92, ab: 4, el: 4, hand: 'palm' }, aF: { sw: 58, ab: -10, el: 44, hand: 'open' }, face: 'shout', flutter: 2.5 })],
+        [0.52, st({ spine: { lean: -4, yaw: 10 }, root: { x: -0.02 }, aN: { sw: -10, ab: 30, el: 30, hand: 'open' }, aF: { sw: 40, ab: 10, el: 90, hand: 'open' }, face: 'angry', flutter: 1 }), 'out'],
+        [0.66, st(), 'inout'],
+      ],
+    },
+    // Uzumaki Barrage rise: crouch, rising flip kick, turn over into the heel drop (airHeavy)
+    specialUp: {
+      samples: [0.05, 0.12, 0.2, 0.28, 0.36, 0.44], end: 0.48, phases: [2, 2, 2],
+      keys: [
+        [0, st()],
+        [0.1, st({ root: { y: -0.08 }, spine: { lean: 20 }, lF: { kn: 80 }, lN: { kn: 70 }, aN: { sw: -30, ab: 20, el: 30 }, aF: { sw: -30, ab: 20, el: 30 }, face: 'shout' }), 'out'],
+        [0.22, st({ root: { y: 0.05 }, spine: { lean: -20 }, lF: { sw: 150, kn: 10, fl: 0 }, lN: { sw: -20, kn: 40, fl: 0 }, aN: { sw: 40, ab: 40, el: 30 }, aF: { sw: -40, ab: 30, el: 20 }, head: { nod: -20 }, face: 'shout', flutter: 3 }), 'snap'],
+        [0.34, st({ spine: { lean: -10 }, lF: { sw: 120, kn: 30, fl: 0 }, lN: { sw: -30, kn: 50, fl: 0 }, aN: { sw: 60, ab: 30, el: 60 }, aF: { sw: -20, ab: 30, el: 40 }, face: 'shout', flutter: 2 })],
+        [0.48, st({ spine: { lean: 20 }, lF: { sw: 160, kn: 0, fl: 0 }, lN: { sw: -10, kn: 60, fl: 0 }, aN: { sw: 140, ab: 20, el: 40 }, aF: { sw: 140, ab: -10, el: 40 }, face: 'angry', flutter: 2 })],
+      ],
+    },
+    // Nine-Tails Chakra Cloak: feral crouch, roar with red slit eyes (the engine draws the cloak)
+    specialDown: {
+      samples: [0.05, 0.12, 0.24, 0.34], end: 0.4, phases: [2, 1, 1],
+      keys: [
+        [0, st()],
+        [0.12, st({ root: { y: -0.1 }, spine: { lean: 40 }, head: { nod: 10 }, lF: { kn: 90 }, lN: { kn: 80 }, aN: { sw: 40, ab: 30, el: 60, hand: 'open' }, aF: { sw: 40, ab: 20, el: 60, hand: 'open' }, face: 'angry', eyes: 'red', flutter: 1.5 }), 'out'],
+        [0.24, st({ root: { y: -0.04 }, spine: { lean: 10 }, head: { nod: -26 }, lF: { kn: 50 }, lN: { kn: 40 }, aN: { sw: 30, ab: 50, el: 50, hand: 'open' }, aF: { sw: 30, ab: 40, el: 50, hand: 'open' }, face: 'shout', eyes: 'red', flutter: 3 }), 'snap'],
+        [0.4, st({ spine: { lean: 18 }, aN: { hand: 'open' }, aF: { hand: 'open' }, face: 'angry', eyes: 'red', flutter: 2 }), 'inout'],
+      ],
+    },
+    // Shadow Clone Jutsu seal before the Shadow Clone Barrage
+    superPose: {
+      loop: true, frames: 4, cycle: 0.6,
+      keys: [
+        [0, st({ spine: { lean: 4, yaw: 16 }, lF: { sw: 30, ab: 14, kn: 30 }, lN: { sw: -30, ab: 14, kn: 24 }, aN: { sw: 72, ab: -14, el: 112, hand: 'open' }, aF: { sw: 74, ab: -22, el: 114, hand: 'open' }, face: 'shout', flutter: 2 })],
+        [0.3, st({ spine: { lean: 5, yaw: 16 }, root: { y: -0.01 }, lF: { sw: 30, ab: 14, kn: 34 }, lN: { sw: -30, ab: 14, kn: 28 }, aN: { sw: 73, ab: -14, el: 114, hand: 'open' }, aF: { sw: 75, ab: -22, el: 116, hand: 'open' }, face: 'shout', flutter: 3 })],
+      ],
+    },
     intro: {
       loop: true, frames: 4, cycle: 0.6,
       keys: [
@@ -103,9 +144,15 @@ export default {
   beam: { core: '#fff6d8', mid: '#ffb43a', edge: '#ff6a10', name: 'RASEN CANNON' },
   specialName: 'RASENGAN',
   projectileName: 'SHURIKEN',
+  superName: 'SHADOW CLONE BARRAGE',
   special: 'rasengan',
   projectile: 'shuriken',
-  stats: { speed: 5.9, power: 1.0, defense: 1.0 },
+  // early Shippuden, before Sage Mode (ADR 0011 kit baseline)
+  kit: {
+    specials: { neutral: 'rasengan', forward: 'rasenshuriken', up: 'uzumakiBarrage', down: 'nineTails', back: 'substitution', air: 'shurikenAir', airDown: 'uzumakiBarrageAir' },
+    super: 'shadowCloneBarrage',
+  },
+  stats: { speed: 5.9, power: 1.0, defense: 1.0 }, // stat index 0.95 (ADR 0011)
   model,
   stance,
   extraAnims,

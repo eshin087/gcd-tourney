@@ -176,6 +176,10 @@ A change is done when:
   names, spec changes, packer behavior). Codex normally updates per-asset status and `art/REVIEW.md`.
 - `docs/decisions/NNNN-*.md` gets a new ADR for decisions that future contributors would otherwise
   re-litigate.
+- `docs/NOW.md` gets its "Your next actions" list updated whenever what the user has to do changes
+  (approvals, prompts to paste into Codex, decisions), then run `npm run status -- --write`. The user works
+  from a phone and switches between Claude and Codex; when they say **"status"**, run `npm run status` and
+  answer with their next actions and anything waiting for review, in under 10 lines.
 
 ## Working with the other AIs
 

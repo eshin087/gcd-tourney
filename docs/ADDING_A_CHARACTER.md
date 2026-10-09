@@ -42,7 +42,7 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 | `specialName`, `projectileName` | display names |
 | `special` | a key in `SPECIALS` (`'rasengan'`, `'chidori'`, or a new one, see step 3) |
 | `projectile` | a key in `PROJECTILES` (`'shuriken'`, `'fireball'`, or a new one) |
-| `kit` | optional ([ADR 0009](decisions/0009-move-system-v2.md)): `{ specials: { neutral, forward, up, down, back, air, airDown }, super, passive }`. Slots map to `SPECIAL_MOVES` ids, `super` to a `SUPERS` id, `passive` is `'infinity'` or null. Without `kit`, `special` and `projectile` fill the neutral and air slots. |
+| `kit` | **required** ([ADR 0011](decisions/0011-kit-baseline-and-balance.md)): `{ specials: { neutral, forward, up, down, back?, air, airDown? }, super, ultimate?, passive? }`. Slots map to `SPECIAL_MOVES` ids, `super` (and an optional non-beam `ultimate`) to `SUPERS` ids, `passive` to a `PASSIVES` id. Every slot stays inside the ADR 0011 budget table. |
 | `superName` | display name of the second super (char select) |
 | `stats` | `{ speed, power, defense }`. Start at `{ 6.0, 1.0, 1.0 }` and tune in step 8. |
 | `model`, `stance`, `extraAnims`, `runLean`, `runArms` | 3D placeholder (step 2) |
@@ -84,10 +84,17 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
 - A new projectile is a `PROJECTILES` entry. `sprite` must be a VFX atlas effect name (add one in
   `vfxPainter.js` + the art/vfx briefs if needed).
 - The ultimate beam is shared. Only the colors and name come from `beam`.
+- **The kit baseline is mandatory** ([ADR 0011](decisions/0011-kit-baseline-and-balance.md)): neutral, →, ↑, ↓
+  and air specials, a second super and an ultimate (the shared beam or a `kit.ultimate`), each inside the
+  slot's cost and damage budget, and stats with a stat index `(speed / 6.2) × power × defense` of 0.93-1.02.
+  Pick moves from the fighter's **art era** (early Shippuden Naruto has no Sage Mode).
 - **Kits first** ([ADR 0009](decisions/0009-move-system-v2.md)). Most iconic moves are a `SPECIAL_MOVES`
-  entry of an existing *kind*: `rush`, `shot`, `teleport`, `pull`, `dive`, `counter` or `mode`. Second
-  supers are `SUPERS` entries of kind `flurry` or `domain`. Killua (`src/characters/killua.js`) and Gojo
-  (`gojo.js`) are the worked examples. Tune the numbers in `moves.js`. `kit.js` stays generic.
+  entry of an existing *kind*: `rush`, `shot`, `teleport`, `pull`, `dive`, `counter` (`onCounter` freeze /
+  strike / behind) or `mode`. Second supers and non-beam ultimates are `SUPERS` entries of kind `flurry`,
+  `domain`, `skyStrike` or `ignite`. All four current fighters are worked examples. Tune the numbers in
+  `moves.js`. `kit.js` stays generic.
+- **Balance check:** add the fighter to the CPU round-robin (docs/TESTING.md "Balance round-robin") and log the
+  result in ADR 0011's balance log.
 - A genuinely new mechanic (stance switch, install, sword reach, a new special kind) needs an **ADR** plus a
   data-driven hook (a new kind in `src/game/kit.js`), never `if (def.id === ...)` in shared code. Teach the
   CPU about a new kind in `CpuBrain.pickSpecial` (`src/game/ai.js`).

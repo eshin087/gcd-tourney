@@ -176,6 +176,46 @@ const soak = setInterval(() => {
 
 If `src/main.js` gains a built-in soak helper later, prefer it and update this section.
 
+## Balance round-robin (CPU vs CPU)
+
+Use it after any kit, stat or AI change, and when a fighter joins (ADR 0011). It plays every ordered pair
+(both sides) with Hard CPUs on both sides, by frame stepping (works while the pane is hidden; ~110 s of game
+per match, ~6 min of real time for 72 matches).
+
+1. Open `/?fight=naruto,sasuke&mode=solo&level=hard&debug`.
+2. Paste, then call `rrStep(30000)` repeatedly (each call ~20 s) until it returns `'done'`:
+
+```js
+const { CpuBrain } = await import('/src/game/ai.js');
+const ids = ['naruto', 'sasuke', 'killua', 'gojo'];
+window.RR = { queue: [], results: [], cur: null };
+for (let k = 0; k < 6; k++) for (const a of ids) for (const b of ids) if (a !== b) RR.queue.push([a, b]);
+window.rrStep = (budget) => {
+  for (let used = 0; used < budget; used++) {
+    if (!RR.cur) {
+      const pair = RR.queue.shift(); if (!pair) return 'done';
+      game.startMatch({ mode: 'solo', p1: pair[0], p2: pair[1], level: 'hard' });
+      game.input.bindings = [];
+      game.brains = game.fighters.map((f) => new CpuBrain(f, 'hard'));
+      RR.cur = { pair, frames: 0 };
+    }
+    step(1); RR.cur.frames++;
+    if (game.state === 'results' || RR.cur.frames > 45000) {
+      const [a, b] = game.fighters;
+      RR.results.push({ p1: RR.cur.pair[0], p2: RR.cur.pair[1], winner: a.wins > b.wins ? a.def.id : b.wins > a.wins ? b.def.id : 'draw' });
+      RR.cur = null;
+    }
+  }
+  return `${RR.results.length} done`;
+};
+```
+
+3. Win rate per fighter = wins / matches played. **Target: every fighter within 40-60 %**, and P1-side wins near
+   50 % (a big side bias is an engine bug, not balance). One run of 18 matches per fighter swings ±12 %, so pool
+   several runs before tuning, change one or two numbers at a time, and log every run in ADR 0011's balance log.
+4. The CPU is a stand-in for players: also check that each fighter's kit moves get used (count `kitState` /
+   named moves), and trust hands-on play over CPU numbers when they disagree.
+
 ## Performance budget
 
 | Metric | Budget | How to check |

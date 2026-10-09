@@ -13,6 +13,7 @@
     "review:export": "node tools/export-art-review.mjs",
     "test:sprites": "node tools/test-pack-sprites.mjs",
     "queue": "node tools/queue.mjs",
+    "status": "node tools/status.mjs",
     "publish:github": "node tools/publish.mjs",
     "deploy": "node tools/deploy.mjs"
   },

@@ -471,8 +471,9 @@ export class Effects {
 
   // Charging aura: flame tongues + light streaks + glow, tinted per character.
   auraTick(f, power = 1, camRight) {
-    const c = new THREE.Color(f.def.color);
-    const core = new THREE.Color().setRGB(...f.def.auraCore);
+    // a mode can recolor the aura (Nine-Tails Cloak burns red-orange)
+    const c = new THREE.Color(f.mode?.auraColor ?? f.def.color);
+    const core = new THREE.Color().setRGB(...(f.mode?.auraCore ?? f.def.auraCore));
     const back = this.camFwd;
     const p = f.renderPos || f.pos;
     const count = Math.random() < power % 1 ? Math.ceil(power) : Math.floor(power);
@@ -505,6 +506,19 @@ export class Effects {
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.7 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('star', p.x, p.y, p.z, { scale: 0.2, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
+    } else if (kind === 'rasenshuriken') {
+      // a big wind orb ringed by spinning blades, held high in startup and thrust forward in active
+      const p = phase === 0
+        ? { x: P.x + fx * 0.25, y: P.y + 1.55, z: P.z + fz * 0.25 }
+        : { x: P.x + fx * 0.7, y: P.y + 0.8, z: P.z + fz * 0.7 };
+      const s = phase === 0 ? 0.3 + prog * 0.6 : 0.9;
+      this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, color: 0xe8f6ff, order: 9, glow: 0.8 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
+      if (Math.random() < 0.5) this.spawn('ring', p.x, p.y, p.z, { scale: s * 2.1, color: 0xffffff, glow: 0.6, life: 0.12, fade: true, order: 8 });
+      if (Math.random() < 0.6) {
+        const a = Math.random() * Math.PI * 2;
+        this.spawn('streak', p.x + Math.cos(a) * s * 0.9, p.y + Math.sin(a) * s * 0.5, p.z, { scale: 0.35, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
+      }
     } else if (kind === 'chidori') {
       const back = 0.5;
       const p = phase === 2

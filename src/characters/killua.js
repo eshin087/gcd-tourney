@@ -144,7 +144,7 @@ export default {
     specials: { neutral: 'narukami', forward: 'rhythmEcho', up: 'thunderbolt', down: 'godspeed', air: 'narukamiAir', airDown: 'thunderboltAir' },
     super: 'whirlwind',
   },
-  stats: { speed: 6.8, power: 0.92, defense: 0.9 },
+  stats: { speed: 6.8, power: 0.97, defense: 0.95 }, // stat index 1.01 (ADR 0011)
   model,
   stance,
   extraAnims,

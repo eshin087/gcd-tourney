@@ -71,9 +71,9 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [specialDown](#specialdown) | 4 | 2/1/1 | - | 204 | - (kit) | 9 |
 | [superPose](#superpose) | 4 | - | yes | 208 | - (kit) | 9 |
 
-The four **kit** rows ([ADR 0009](../../../docs/decisions/0009-move-system-v2.md)) are only for a
-fighter whose kit uses them: delete the ones this character doesn't need, here, in PROMPTS.md and in
-its `manifest.json` block. Missing kit animations fall back (`specialForward`/`specialUp` →
+The four **kit** rows ([ADR 0009](../../../docs/decisions/0009-move-system-v2.md)) are part of every
+fighter's baseline kit ([ADR 0011](../../../docs/decisions/0011-kit-baseline-and-balance.md)): fill them for
+this character's →, ↑, ↓ specials and second super. Missing kit animations fall back (`specialForward`/`specialUp` →
 `special`, `specialDown` → `charge`, `superPose` → `taunt`). Worked examples:
 [killua/ANIMATIONS.md](../killua/ANIMATIONS.md), [gojo/ANIMATIONS.md](../gojo/ANIMATIONS.md).
 

@@ -49,6 +49,7 @@ export class Game {
     this.fighters = [];
     this.projectiles = [];
     this.beams = [];
+    this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
     this.clash = null;
     this.pads = [new Pad(), new Pad()];
     this.brains = [null, null];
@@ -179,9 +180,9 @@ export class Game {
     this.excite = 1;
   }
 
-  spawnVortex(f, m) {
+  spawnVortex(f, m, at = null) {
     this.vortices = this.vortices.filter((v) => !v.dead && v.owner !== f);
-    this.vortices.push(new Vortex(this, f, m));
+    this.vortices.push(new Vortex(this, f, m, at));
   }
 
   // Domain Expansion: Unlimited Void: the void replaces the stage and the opponent is frozen.
@@ -273,6 +274,7 @@ export class Game {
     this.projectiles = [];
     this.beams = [];
     this.vortices = [];
+    this.pendingMelee = [];
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
     this.hud.clash(false);
@@ -450,6 +452,7 @@ export class Game {
       return;
     }
     for (const f of this.fighters) f.update();
+    this.resolveMelee();
     this.separate();
     this.checkSpecialClash();
     for (const p of this.projectiles) p.update();
@@ -555,16 +558,34 @@ export class Game {
     }
     if (!pt) return;
     att.hitDone = true;
-    att.moveHit = true;
-    att.hitPoint = { x: att.pos.x + R.x * pt.x + F.x * sd * 0.5, y: att.pos.y + pt.y, z: att.pos.z + R.z * pt.x + F.z * sd * 0.5 };
-    def.takeHit(att, m, att.face.clone());
-    att.hitPoint = null;
-    if (m.rush) {
-      att.vel.multiplyScalar(0.1);
-      att.t = m.startup + m.active;
+    // applied after both fighters moved this frame, so two attacks meeting on the same frame trade
+    // (P1 updates first; applying at once made P1 win every exchange)
+    this.pendingMelee.push({
+      att, def, m, dir: att.face.clone(),
+      at: { x: att.pos.x + R.x * pt.x + F.x * sd * 0.5, y: att.pos.y + pt.y, z: att.pos.z + R.z * pt.x + F.z * sd * 0.5 },
+    });
+  }
+
+  resolveMelee() {
+    if (!this.pendingMelee.length) return;
+    const list = this.pendingMelee;
+    this.pendingMelee = [];
+    for (const { att, def, m, dir, at } of list) {
+      if (def.ko) continue;
+      const attacking = att.state === 'attack' && att.move === m; // false if the other hit landed first
+      att.moveHit = true;
+      att.hitPoint = at;
+      def.takeHit(att, m, dir);
+      att.hitPoint = null;
+      if (!attacking) continue;
+      if (m.rush) {
+        att.vel.multiplyScalar(0.1);
+        att.t = m.startup + m.active;
+        if (m.vortex && def.hp > 0) this.spawnVortex(att, m.vortex, def.pos); // Rasenshuriken grind
+      }
+      // air juggles: start riding up with the victim (Fighter.updateAttack keeps following)
+      if (m.air || m.hover) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
     }
-    // air juggles: start riding up with the victim (Fighter.updateAttack keeps following)
-    if (m.air || m.hover) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
   }
 
   checkSpecialClash() {

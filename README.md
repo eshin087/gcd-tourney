@@ -5,8 +5,9 @@ feel, modeled on Studio Genki's MythicTale tournament clip. It's a real 3D tourn
 ground (tiled ring, mowed grass, temple, cheering crowd, gate) with pixel-art fighters
 standing inside it, a cinematic camera, auras, super flashes and beam clashes.
 
-Four fighters are playable: Naruto, Sasuke, Killua (Godspeed era) and Gojo. Each has their own
-kit of directional specials, and Killua and Gojo also have a second super (see [Fighters](#fighters)).
+Four fighters are playable: Naruto (early Shippuden), Sasuke (Hebi era), Killua (Godspeed era) and Gojo.
+Every fighter has the same baseline kit: directional specials, a second super and an ultimate (see
+[Fighters](#fighters) and [ADR 0011](docs/decisions/0011-kit-baseline-and-balance.md)).
 Their sprites are **3D-baked placeholders**: chibi models built in code,
 animated with smooth keyframes and rendered into pixel-art sprite sheets at startup.
 Hi-res pixel art replaces them one character at a time. It follows art spec v2
@@ -103,13 +104,13 @@ Android goes fullscreen on the first tap; on iPhone use Share > Add to Home Scre
 
 | | Special (tap) | → Special | ↑ Special | ↓ Special | air Special | Super (SUPER) | Ultimate |
 |---|---|---|---|---|---|---|---|
-| **Naruto** | Rasengan (rush) | = tap | = tap | = tap | shuriken | (beam) | Rasengan beam |
-| **Sasuke** | Chidori (rush) | = tap | = tap | = tap | fireball | (beam) | Chidori beam |
-| **Killua** | Narukami (lightning bolt, ½ bar) | Rhythm Echo (afterimage teleport behind, then a wall-bounce strike) | Thunderbolt (lightning leap and slam, anti-air) | **Godspeed** (8 s: faster, +15 % damage, dashes become lightning blinks) | Narukami; +↓ Thunderbolt dive | **Godspeed: Whirlwind** (dash, 8-hit afterimage flurry, slam) | Lightning Palm |
+| **Naruto** | Rasengan (rush) | Rasenshuriken, handheld (slower, grinds them in a wind vortex, costs him some HP) | Uzumaki Barrage (clones kick them up, heel drop; anti-air) | **Nine-Tails Cloak** (8 s: tougher, stronger, a bit faster) · **← Special:** Substitution (counter: a log takes the hit, he kicks them from behind, ½ bar) | shuriken; +↓ Barrage dive | **Shadow Clone Barrage** (clone combo, Giant Rasengan finish) | Rasen Cannon beam |
+| **Sasuke** | Chidori (rush) | Chidori Sharp Spear (short, instant lightning lance, ½ bar) | Lion's Barrage (rising kick, slam; anti-air) | Sharingan (counter: reads the attack and kicks back, ½ bar) | fireball; +↓ Lion's dive | **Kirin** (marks where they stand; lightning dragon hits hard, but they can dash out) | **Amaterasu** (black flames burn them for a few seconds; can't be blocked) |
+| **Killua** | Narukami (lightning bolt, ½ bar) | Rhythm Echo (afterimage teleport behind, then a wall-bounce strike) | Thunderbolt (lightning leap and slam, anti-air) | **Godspeed** (8 s: faster, +12 % damage, dashes become lightning blinks) | Narukami; +↓ Thunderbolt dive | **Godspeed: Whirlwind** (dash, 8-hit afterimage flurry, slam) | Lightning Palm |
 | **Gojo** | Lapse: Blue (gravity vortex: pulls in, ticks, pops up) | Reversal: Red (repulsion blast, wall bounce) | Blink (teleport above them, ½ bar) | Infinity (counter: a melee hit freezes the attacker, ½ bar) | Reversal: Red | **Domain Expansion: Unlimited Void** (the void swallows the stage, opponent frozen ~2.5 s) | Hollow Purple |
 
-**Gojo's Infinity passive:** projectiles stop before they touch him whenever he can act (not while he's
-in hitstun or knocked down). Beams still connect, and so does Killua up close.
+**Gojo's Infinity passive:** projectiles stop before they touch him whenever he can act and has ki (each
+volley of projectiles he stops costs him 15 ki; not while he's in hitstun or knocked down). Beams still connect, and so does everyone up close.
 Design notes: [ADR 0009](docs/decisions/0009-move-system-v2.md) and [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md).
 
 ## How it's built

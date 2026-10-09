@@ -73,6 +73,7 @@ export class Fighter {
     this.heldT = 0; // frames held helpless (Domain Expansion, Whirlwind, Infinity stagger)
     this.counterT = 0; // counter-stance frames left
     this.kitState = null; // data of the running kit move (state 'kit')
+    this.burn = null; // damage over time (Amaterasu), see kit.tickBurn
     this.dashDir = new THREE.Vector2(1, 0);
     this.endMoveFx();
     this.actor.setVisible(true);
@@ -184,6 +185,7 @@ export class Fighter {
   }
 
   startUltimate() {
+    if (kit.startKitUltimate(this)) return; // a non-beam ultimate (Amaterasu)
     const o = this.opp;
     const counter = o.state === 'beamCharge' || o.state === 'beamFire';
     this.ki -= ULTIMATE.cost;
@@ -370,6 +372,7 @@ export class Fighter {
     if (this.chase > 0) this.chase--;
     if (this.airStun > 0) this.airStun--;
     kit.tickMode(this);
+    kit.tickBurn(this);
     if (this.counterT > 0 && this.state !== 'kit') this.counterT = 0;
     if (this.heldT > 0) {
       this.heldT--;
@@ -952,7 +955,7 @@ export class Fighter {
     this.combo = wasStunned ? this.combo + 1 : 1;
     if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; }
     const scale = Math.max(m.minScale ?? 0.4, 1 - (this.combo - 1) * 0.065); // supers keep a higher floor
-    const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / (this.def.stats.defense || 1)));
+    const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
     this.hp = Math.max(0, this.hp - dmg);
     this.comboDmg = wasStunned ? this.comboDmg + dmg : dmg;
     att.ki = Math.min(MAX_KI, att.ki + 4 + dmg * 0.07);
@@ -1014,6 +1017,21 @@ export class Fighter {
     if (!m.projectileHit && !m.beam) att.hitstop = hs;
     this.game.onHit(att, this, m, dmg);
     return 'hit';
+  }
+
+  // Damage over time (kit.tickBurn): no stun, no combo, no state change. A tick that would KO turns
+  // into a real final hit so the KO plays out like any other.
+  dot(att, base) {
+    if (this.ko) return;
+    const d = Math.max(1, Math.round((base * (att.def.stats.power || 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
+    if (this.hp - d > 0 || this.game.training) {
+      this.hp = Math.max(1, this.hp - d);
+      this.flash = Math.max(this.flash, 0.45);
+      return;
+    }
+    this.hp = 1;
+    this.burn = null;
+    this.takeHit(att, { dmg: d, minScale: 1, launch: [5, 9], hitstop: 10, unblockable: true, big: true, spark: 'heavy' }, this.face.clone().negate());
   }
 
   // --------------------------------------------------------------- render sync

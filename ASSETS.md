@@ -28,8 +28,10 @@ The game uses a character's packed sheet once every core animation exists (`"com
 of each strip. Anything missing falls back to the procedural art, so characters and effects can be
 replaced one at a time.
 
-Fighters with a kit ([ADR 0009](docs/decisions/0009-move-system-v2.md): Killua, Gojo) have four extra
-optional strips: `specialForward`, `specialUp`, `specialDown` and `superPose`. When one is missing it
+Every fighter has a kit ([ADR 0009](docs/decisions/0009-move-system-v2.md), baseline
+[ADR 0011](docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter has four extra optional strips:
+`specialForward`, `specialUp`, `specialDown` and `superPose` (Naruto's and Sasuke's briefs:
+`art/characters/<id>/KIT.md` until Codex merges them). When one is missing it
 falls back to `special`, `special`, `charge` and `taunt`. A character drawn taller or shorter than
 the 200 px standard body (Killua 182 px, Gojo 215 px) follows
 [ADR 0010](docs/decisions/0010-per-character-body-scale.md).

@@ -136,7 +136,7 @@ export default {
     super: 'unlimitedVoid',
     passive: 'infinity',
   },
-  stats: { speed: 6.0, power: 1.1, defense: 1.05 },
+  stats: { speed: 6.0, power: 1.0, defense: 1.0 }, // stat index 0.97; Infinity is his edge (ADR 0011)
   model,
   stance,
   extraAnims,

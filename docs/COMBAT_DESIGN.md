@@ -139,26 +139,29 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
 - The fighter hides for 9 frames (invulnerable), reappears 1.2 units behind the opponent at their height,
   then does an automatic `vanishKick` (75 dmg, wall bounce). A 5-frame world freeze sells the teleport.
 
-### Specials and kits (ADR 0009)
+### Specials and kits (ADR 0009, baseline ADR 0011)
 Every fighter has a **kit** (`kit` in `src/characters/<id>.js`): input slots mapped to special ids in
-`SPECIAL_MOVES` (`src/game/moves.js`). The behavior of each *kind* lives in `src/game/kit.js`.
+`SPECIAL_MOVES` (`src/game/moves.js`), a second super and optionally a non-beam ultimate. The behavior of each
+*kind* lives in `src/game/kit.js`. **Every fighter fills the same slots within the same budgets**: see the slot
+and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), which also lists the whole cast.
 
 - **Slots.** Tap Special = `neutral`. Hold a direction: → `forward`, ← `back`, ↑ `up`, ↓ `down`. In the
-  air: `air`, or `airDown` with ↓. The stick is read when Special is released, and falls back to the stick
+  air: `air`, or `airDown` with ↓. Forward/back count **toward the opponent**, not the current facing
+  (walking back turns the sprite). The stick is read when Special is released, and falls back to the stick
   at the press if it's neutral by then, so a quick tap of direction + button works. A missing slot falls
-  back: forward/up/down → neutral, back → down → neutral, airDown → air. Fighters without a `kit`
-  (Naruto, Sasuke) get `neutral` = `def.special` and `air` = `def.projectile + 'Air'`.
+  back: forward/up/down → neutral, back → down → neutral, airDown → air. A fighter without a `kit` (only a
+  safety net now) gets `neutral` = `def.special` and `air` = `def.projectile + 'Air'`.
 - **Kinds.**
 
 | kind | does | examples |
 |---|---|---|
-| `rush` | the classic 1-bar rush below | Rasengan, Chidori |
+| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use) and `vortex` (a grind `Vortex` spawned where it connects) | Rasengan, Chidori, Rasenshuriken |
 | `shot` | a projectile from a `shot`/`throw` move; feet planted | Narukami, Reversal: Red, shuriken |
 | `teleport` | hide for `hide` frames, reappear `behind` or `above`, with afterimages; optional `follow` strike | Rhythm Echo, Blink |
 | `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
-| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang`, then slam (homes in at up to ~45°); landing hits an `area` | Thunderbolt |
-| `counter` | `len` frames where any hit is absorbed: a melee attacker is frozen (`held`) for `stagger` frames, a projectile just stops | Infinity |
-| `mode` | a timed buff on `f.mode`: `speed` x, `damage` x, `blinkDash` (dashes become instant blinks); drains a HUD bar | Godspeed |
+| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `riseFx: 'clones'`, `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
+| `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (smoke + log, teleport behind, `follow`) | Infinity, Sharingan, Substitution |
+| `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`; drains a HUD bar | Godspeed, Nine-Tails Cloak |
 
 - Named kit moves get the special callout and an 8-frame flash. A kit move hit out of startup is
   cancelled cleanly (`kitState` cleared, the fighter made visible again).
@@ -172,19 +175,36 @@ Every fighter has a **kit** (`kit` in `src/characters/<id>.js`): input slots map
 ### Second supers (SUPER button)
 - 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
   through the flash and 12 frames past it.
-- **Flurry** (`whirlwind`, Killua): a 34-frame flash, then a 14-frame dash (range 6.5). On contact the
-  opponent is `held` and Killua teleports around them: 8 hits of 22, then a 130 slam from above with a
-  ground bounce. It whiffs if the dash misses.
+- **Flurry** (`whirlwind`, Killua; `shadowCloneBarrage`, Naruto): a 34-frame flash, then a 14-frame dash
+  (range 6.5). On contact the opponent is `held` and the fighter teleports around them (8 × 22 for Killua,
+  7 × 22 with clone smoke for Naruto), then a 130 slam from above with a ground bounce (lightning, or a Giant
+  Rasengan). It whiffs if the dash misses.
+- **Sky strike** (`kirin`, Sasuke): a 40-frame flash, then the storm **marks the spot** where the opponent
+  stands and a lightning dragon hits it 40 frames later (280, unblockable, radius 2). The opponent can dash
+  out of the mark ("DODGED!"). Uses Sasuke's `beamCharge` / `beamFire` poses.
 - **Domain** (`unlimitedVoid`, Gojo): a 50-frame flash, then the stage becomes the void
   (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
   The domain ends early on a KO.
-- Super hits carry `minScale` (0.8 for Whirlwind): combo scaling never takes them below 80 %.
-- A fighter without a second super fires the beam ultimate from SUPER.
+- Super hits carry `minScale` (0.8 for the flurries): combo scaling never takes them below 80 %.
+- A fighter without a second super fires their ultimate from SUPER.
+
+### Non-beam ultimates (`kit.ultimate`)
+- Heavy + Special normally fires the shared beam. A kit can name a `SUPERS` entry instead.
+- **Amaterasu** (Sasuke, kind `ignite`): a 46-frame flash, then the Mangekyō gaze ignites black flames on
+  the opponent wherever they are (no range limit, can't be blocked, misses only if they're invulnerable or
+  hidden): 80 on ignition, then a **burn** status, 14 every 20 frames for 200 frames. Burn ticks never stun
+  or add to the combo, but they can KO.
 
 ### Passives
 - **Infinity** (Gojo): a projectile that comes within its radius + 1.15 units of him is stopped (ring
   effect, "INFINITY" callout at most every 2 s) whenever he isn't in hitstun, launched, down, getting up or
-  held. Beams, melee and supers still hit. Chip damage doesn't apply to him while he blocks.
+  held **and has at least 15 ki; each stopped volley costs 15 ki** (`PASSIVES.infinity`; a 3-shuriken throw is one charge). Beams, melee and supers still
+  hit. Chip damage doesn't apply to him while he blocks.
+
+### Simultaneous hits (trades)
+- Melee hits found during a frame are applied together after both fighters have moved
+  (`Game.resolveMelee`). Two attacks that connect on the same frame **trade**. (Before, P1 always updated first
+  and won every exchange: in CPU soaks P1 won 81 % of matches; after the fix 51 %.)
 
 ### Held state
 - `held` (Domain, Infinity counter, flurry): the victim can't act or air-tech, drifts down slowly if
@@ -291,12 +311,13 @@ distance-to-line test.
 probabilities). It lines up in the depth lane, then executes the bread-and-butter route by watching its
 own hit confirms. `DummyBrain` drives the training dummy (stand, guard, hop, fight back).
 
-Kits (ADR 0009): `pickSpecial` weighs each slot's kind by the situation. Shots and teleports are for
+Kits (ADR 0009/0011): `pickSpecial` weighs each slot's kind by the situation. Shots and teleports are for
 range, pull for mid range, dive against a jumper, and a mode only when it isn't active. The CPU holds the
 direction through the release frame. On Hard it sometimes answers an incoming attack with a `counter`, and it
 always punishes a `held` or popped-up opponent with a combo. Fighters with a kit choose specials more often
-than legacy fighters, and they use SUPER at 3 bars about half the time (a domain from any range, a
-flurry only within 6 units).
+than legacy fighters. At 3 bars they split between the second super (if its `range` allows) and the
+ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
+the CPU dashes out of a Kirin mark.
 
 ## Bread-and-butter route (reference)
 

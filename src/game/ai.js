@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { ULTIMATE, VANISH } from './moves.js';
-import { specialFor, kitOf } from './kit.js';
+import { ULTIMATE, VANISH, SUPERS } from './moves.js';
+import { specialFor, kitOf, towardSide } from './kit.js';
 
 const LEVELS = {
   easy: { react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, mash: 6, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2 },
@@ -75,13 +75,19 @@ export class CpuBrain {
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;
       if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.planT + L.react;
       if (oppAttacking && this.reactAt === this.planT && dist < 3.4 && !f.busy) {
-        const counter = specialFor(f.def, 'down');
-        if (counter?.kind === 'counter' && f.ki >= counter.cost && R() < L.guard * 0.35) this.useSpecial('down');
+        // a counter may sit on ↓ or ← (Naruto's Substitution)
+        const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
+        const counter = cSlot && specialFor(f.def, cSlot);
+        if (counter && f.ki >= counter.cost && R() < L.guard * 0.35) this.useSpecial(cSlot);
         else if (R() < L.guard) this.setPlan('guard', 14 + (o.move?.special ? 20 : 0));
         else if (R() < L.dodge * 0.3) this.dodge();
       }
       // guard-cancel vanish out of block pressure
       if (f.state === 'block' && f.ki >= VANISH.cost && R() < L.vanish * 0.08) { this.hold.guard = 3; this.press('special', 2); }
+      // Kirin marks a spot: dash out of it before the dragon lands
+      const ks = o.state === 'kit' && o.kitState;
+      if (ks && ks.kind === 'skyStrike' && ks.phase === 'mark' && ks.t0 === L.react && Math.hypot(f.pos.x - ks.at.x, f.pos.z - ks.at.z) < ks.m.radius + 0.5
+        && R() < 0.35 + L.dodge * 0.6) this.dodge();
       if (o.state === 'beamCharge' && o.t === Math.max(1, o.windup - L.react)) {
         if (f.ki >= ULTIMATE.cost && R() < 0.5 + L.combo * 0.3) this.setPlan('ultimate', 5);
         else if (R() < L.dodge + 0.25) this.setPlan('dodgeBeam', 20);
@@ -146,8 +152,8 @@ export class CpuBrain {
         case 'useSpecial': {
           // hold the direction through the release frame: that's when the slot is read
           const d = this.spSlot;
-          if (d === 'forward') mx = f.side;
-          else if (d === 'back') mx = -f.side;
+          if (d === 'forward') mx = towardSide(f);
+          else if (d === 'back') mx = -towardSide(f);
           else if (d === 'up') my = 1;
           else if (d === 'down') my = -1;
           if (this.planT === 1) this.press('special', 3);
@@ -282,9 +288,13 @@ export class CpuBrain {
       this.setPlan(!ult && R() < L.charge + 0.2 ? 'charge' : 'strafe', 40 + R() * 30);
       return;
     }
-    const sup = kitOf(f.def).super;
-    if (ult && sup && R() < 0.5 && (sup === 'unlimitedVoid' || dist < 6)) return this.setPlan('super', 5);
-    if (ult && dist > 2.6 && R() < 0.45 + 0.3 * L.aggro) return this.setPlan('ultimate', 5);
+    // 3 bars: split evenly between the second super and the ultimate (a beam wants some distance)
+    const K = kitOf(f.def), S = SUPERS[K.super], U = SUPERS[K.ultimate];
+    if (ult) {
+      const r = R();
+      if (S && r < 0.45 && (!S.range || dist < S.range)) return this.setPlan('super', 5);
+      if ((U || dist > 2.6) && r < 0.45 + (0.35 + 0.2 * L.aggro)) return this.setPlan('ultimate', 5);
+    }
     if (dist < 1.7) {
       if (R() < L.aggro) return this.setPlan('combo', 70);
       if (R() < 0.3) return this.setPlan('heavy', 5);

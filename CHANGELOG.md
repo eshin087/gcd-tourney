@@ -12,6 +12,17 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 ### Added
+- Full kits for Naruto (Rasenshuriken handheld, Uzumaki Barrage, Nine-Tails Cloak, Substitution, Shadow Clone
+  Barrage) and Sasuke (Chidori Sharp Spear, Lion's Barrage, Sharingan counter, Kirin super, **Amaterasu ultimate**),
+  so every fighter fills the same kit slots (ADR 0011: slot and damage budgets, stat index, balance log).
+- New kit pieces: counter outcomes (freeze / strike / behind), rush `selfDmg` and grind `vortex`, super kinds
+  `skyStrike` (Kirin) and `ignite` + burn status (Amaterasu), non-beam ultimates (`kit.ultimate`), mode defense and
+  chakra look, `PASSIVES` table.
+- Kit-animation briefs for Naruto and Sasuke (`art/characters/<id>/KIT.md`; Sasuke's Kirin poses replace his beam
+  poses) and Codex prompts to merge them (docs/NOW.md).
+- `docs/NOW.md` + `npm run status`: one page with the user's next actions, art waiting for review, per-fighter
+  progress and what Claude and Codex are doing; both AIs keep it current (AGENTS.md rule 6).
+- Balance round-robin recipe (docs/TESTING.md).
 - Codex Prompt 3 (3a Killua, 3b Gojo) in `docs/agents/CODEX_PROMPT.md` to start both fighters' art from the S1 model sheets; Prompt 1 now uses each character's body scale (ADR 0010).
 - Two new fighters: **Killua** (Godspeed era: Narukami, Rhythm Echo, Thunderbolt, Godspeed mode, Godspeed:
   Whirlwind super, Lightning Palm) and **Gojo** (Lapse: Blue, Reversal: Red, Blink, Infinity counter + passive,
@@ -68,6 +79,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- Balance pass from CPU round-robins: Gojo power/defense 1.0 and Infinity costs 15 ki per stopped projectile;
+  Killua sturdier; Rasengan 150 → 140, Chidori 165 → 152; Lapse: Blue a little less safe (see ADR 0011 log).
+- Directional specials count toward the opponent, not the current facing (holding back no longer fired the
+  forward special). The CPU splits 3 bars between super and ultimate and uses counters on ↓ or ←.
 - Saved key bindings move to `gcd.bindings.v2` (resets custom bindings once). Gamepad L2/LT is SUPER now
   (guard stays on L1/LB).
 - The CPU uses specials more often with fighters that have a kit, answers attacks with a counter, and punishes
@@ -88,6 +103,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Melee hits on the same frame now trade: P1 used to update first and win every exchange (P1 won 81 % of CPU
+  matches; 40-51 % after the fix).
 - Body separation could push a fighter pinned at the ring barrier out of the ring (seen in CPU soaks).
 - Ground moves without a lunge kept sliding on the walk speed.
 - Spec v2 doc review: Codex prompts no longer upload `reference/source/` pictures, save one version per

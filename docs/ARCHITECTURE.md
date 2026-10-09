@@ -26,14 +26,16 @@ src/core/
   audio.js                  AudioEngine: everything synthesized with WebAudio (sfx, loops, music, crowd), mute
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
-                            (lanes + boxes), special clash, projectile/beam collisions, beam clash, event hooks
+                            (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
+                            special clash, projectile/beam collisions, beam clash, event hooks
                             (onHit/onBlock/onVanish/...), super flash, KO, render orchestration
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
                             launched/down/getup/charge/beamCharge/beamFire/clash/...), cancels, physics, takeHit
   moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE,
                             SPECIAL_MOVES (kit specials by id), SUPERS (second supers)
-  kit.js                    fighter kits (ADR 0009): stick -> special slot, special kinds (rush/shot/teleport/pull/
-                            dive/counter/mode), second supers (flurry/domain), Infinity passive, modes; state 'kit'
+  kit.js                    fighter kits (ADR 0009/0011): stick -> special slot, special kinds (rush/shot/teleport/
+                            pull/dive/counter/mode), supers and non-beam ultimates (flurry/domain/skyStrike/ignite),
+                            passives, modes, burn; state 'kit'
   ai.js                     CpuBrain (Easy/Normal/Hard) and DummyBrain (training): press buttons on a Pad
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (ultimate) with HDR shader

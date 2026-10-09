@@ -22,19 +22,19 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
-| ENG-001 | Training room in the controls menu: the character mirrors the player's input in real time | Claude | in-progress | `Game.startTraining`, `DummyBrain`; dummy modes, health refill, no timer |
-| ENG-002 | Controller layout diagrams: keyboard / PlayStation / Xbox, player toggle, auto-detect device | Claude | in-progress | `src/ui/controls.js`, `padKind()` in input.js |
-| ENG-003 | Rebind keys and gamepad buttons; persist; reset to defaults | Claude | in-progress | localStorage key `gcd.bindings.v1` |
-| ENG-004 | Mute toggle in the top corner of the screen, unobtrusive, in sync with `M` | Claude | in-progress | uses `audio.setMuted` |
-| ENG-005 | 2.5D lanes: screen-horizontal facing, attack auto depth-step, same-lane rule, CPU lines up | Claude | in-progress | ADR 0005; `LANE` in game.js |
-| ENG-006 | Per-frame hit/hurt boxes from anims.json `boxes` (baked + custom); spark at the contact point | Claude | in-progress | fixes "hit shown but fist not touching body" |
-| ENG-007 | Custom sheet loading: `complete` flag, `?art=custom`, portrait/cutin/select PNGs | Claude | in-progress | contract in art/SPEC.md |
-| ENG-008 | Custom VFX atlas loading (`public/vfx/atlas.*`) with per-effect procedural fallback | Claude | in-progress | |
-| ENG-009 | HD render mode auto-enabled for hi-res sheets | Claude | in-progress | ADR 0002 consequences |
-| TOOL-001 | `tools/pack-sprites.mjs` + `npm run sprites [id\|vfx]`: clean, scale, align, auto boxes, overrides, report | Claude | in-progress | ADR 0006 |
+| ENG-001 | Training room in the controls menu: the character mirrors the player's input in real time | Claude | done | `Game.startTraining`, `DummyBrain`; dummy modes, health refill, no timer |
+| ENG-002 | Controller layout diagrams: keyboard / PlayStation / Xbox, player toggle, auto-detect device | Claude | done | `src/ui/controls.js`, `padKind()` in input.js |
+| ENG-003 | Rebind keys and gamepad buttons; persist; reset to defaults | Claude | done | localStorage key `gcd.bindings.v1` |
+| ENG-004 | Mute toggle in the top corner of the screen, unobtrusive, in sync with `M` | Claude | done | uses `audio.setMuted` |
+| ENG-005 | 2.5D lanes: screen-horizontal facing, attack auto depth-step, same-lane rule, CPU lines up | Claude | done | ADR 0005; `LANE` in game.js |
+| ENG-006 | Per-frame hit/hurt boxes from anims.json `boxes` (baked + custom); spark at the contact point | Claude | done | fixes "hit shown but fist not touching body" |
+| ENG-007 | Custom sheet loading: `complete` flag, `?art=custom`, portrait/cutin/select PNGs | Claude | done | contract in art/SPEC.md |
+| ENG-008 | Custom VFX atlas loading (`public/vfx/atlas.*`) with per-effect procedural fallback | Claude | done | |
+| ENG-009 | HD render mode auto-enabled for hi-res sheets | Claude | done | ADR 0002 consequences |
+| TOOL-001 | `tools/pack-sprites.mjs` + `npm run sprites [id\|vfx]`: clean, scale, align, auto boxes, overrides, report | Claude | done | ADR 0006 |
 | DOC-001 | SDLC docs: CLAUDE.md, AGENTS.md, docs/*, ADRs 0001-0006, CHANGELOG, Codex prompts | Claude | review | check the facts against code after the M2 engine tasks land |
-| DOC-002 | Art briefs: art/README, SPEC, STYLE_GUIDE, PIPELINE, TRACKER, manifest, `_template`, Naruto/Sasuke/VFX/UI | Claude | in-progress | |
-| OPS-001 | Initialize the local git repo, first commit, verify `.gitignore` (node_modules, dist) | Claude | in-progress | conventional commits from here on |
+| DOC-002 | Art briefs: art/README, SPEC, STYLE_GUIDE, PIPELINE, TRACKER, manifest, `_template`, Naruto/Sasuke/VFX/UI | Claude | done | |
+| OPS-001 | Initialize the local git repo, first commit, verify `.gitignore` (node_modules, dist) | Claude | done | conventional commits from here on |
 | USR-001 | Play-test M2 (training room, layouts, rebinding, mute, hit accuracy) and sign off | User | todo | after the ENG tasks reach `review` |
 
 ## Milestone M3: hi-res Naruto & Sasuke (v0.4.0)
@@ -135,7 +135,7 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | ENG-020 | Lazy placeholder baking (on character select) so boot stays flat as the roster grows | Claude | todo | M4 |
 | ENG-021 | Data-driven specials (fx kind, hand anchor, rush/projectile/teleport) to drop per-kind code | Claude | todo | M4, ADR |
 | ENG-022 | Character select grid for 8+ fighters (paging, select art) | Claude | todo | M4 |
-| USR-010 | Pick the next two characters (candidates: Goku, Luffy, Ichigo, Vegeta, Zoro, Kakashi) | User | todo | then CHAR-<id>-* tasks per ADDING_A_CHARACTER.md |
+| USR-010 | Pick the next two characters (candidates: Goku, Luffy, Ichigo, Vegeta, Zoro, Kakashi) | User | done | then CHAR-<id>-* tasks per ADDING_A_CHARACTER.md; 2026-10-09: user picked Killua and Gojo (ENG-028) |
 | ENG-030 | Stage system + first per-series stage | Claude | todo | M5 |
 | ENG-031 | Sample-based SFX and music + volume sliders | Claude | todo | M5 |
 | ENG-040 | Seeded RNG in the simulation (determinism prerequisite for online) | Claude | todo | M7 prerequisite |
@@ -155,6 +155,12 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | ENG-033 | Startup bake grows with the roster (4 fighters = 1.6-2.2 s blocking): bake the selected fighters first or in a worker | Claude | todo | console `[sprites] baked <id> from 3D in N ms` |
 | ENG-034 | Kit VFX polish: lightning between Killua's palms in `beamCharge`, Gojo's blue + red orbs in both hands for Hollow Purple, optional `killua_*` / `gojo_*` effect sheets | Claude | todo | MOVES_AND_VFX.md §4 of both briefs; ENG-014 |
 | ENG-035 | Re-run the ADR 0010 reach table with the packed Killua/Gojo sheets and tune lunge/stats if a normal whiffs | Claude | todo | blocked on ART-KIL-01 / ART-GOJ-01 core attacks |
+| ENG-036 | Full kits for Naruto (Rasenshuriken, Uzumaki Barrage, Nine-Tails Cloak, Substitution, Shadow Clone Barrage) and Sasuke (Chidori Spear, Lion's Barrage, Sharingan counter, Kirin, Amaterasu ultimate); kit baseline + balance pass (ADR 0011) | Claude | done | every move tested with `?debug`; 4 CPU round-robins after the trade fix (288 matches): no errors, ring-outs or stuck states; results in ADR 0011 balance log |
+| TOOL-019 | Cross-agent tracking: `docs/NOW.md` (what the user does next) + `npm run status` (live summary from REVIEW/manifest/TASKS) | Claude | done | files: tools/status.mjs, package.json, docs/NOW.md, AGENTS.md, CLAUDE.md, docs/AI_COLLABORATION.md |
+| ART-NAR-13 | Merge `art/characters/naruto/KIT.md` into ANIMATIONS/PROMPTS (A39-A42), CHARACTER.md, manifest and TRACKER; generate the kit strips at step 9 | Codex | todo | paste prompt N from docs/NOW.md |
+| ART-SAS-12 | Swap in the Kirin `beamCharge`/`beamFire` (KIT.md §4) now; merge the rest of `art/characters/sasuke/KIT.md` (A39-A42); kit strips at step 9 | Codex | todo | paste prompt S from docs/NOW.md; beamCharge bodyHeight 230 |
+| USR-004 | Sasuke cut-in eyes: keep the 3-tomoe Sharingan (shared by Kirin and Amaterasu) or switch to the Mangekyō | User | todo | default: Sharingan; tell Codex/Claude if you want the Mangekyō |
+| ENG-037 | Balance follow-up: re-run the round-robin when real art lands (hurtboxes change) and after any kit tweak; CPU-vs-CPU favours fighters whose neutral special is a rush (combo ender) | Claude | todo | docs/TESTING.md "Balance round-robin"; ADR 0011 log |
 | ART-CRWD-FIX | Killua (hxh) and Gojo (jjk) are fighters now: replace their crowd spectators with other characters | Codex | todo | lead edits art/crowd/roster/hunter-x-hunter.json + jujutsu-kaisen.json, rebuild the queue, reopen if images exist |
 | ENG-027 | Mobile landscape play: touch controls, tap menus, rotate screen, fullscreen, PWA manifest | Claude | done | docs/TESTING.md "Mobile" |
 

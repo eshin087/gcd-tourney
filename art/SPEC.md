@@ -189,9 +189,11 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `specialDown` | 4 | - | 2/1/1 | 204 | - | 80 80 160 90 | **kit**: a stance or power-up, no hit box (Killua's Godspeed activation, Gojo's Infinity palm). Missing → `charge` |
 | `superPose` | 4 | yes | - | 208 | - | 140 each | **kit**: the second super's pose during the super flash (Whirlwind, Domain Expansion hand sign; Gojo lifts the blindfold here). Missing → `taunt` |
 
-Totals: 38 animations, 154 frames per character; 23 core animations. The 4 **kit** animations are
-only drawn for fighters whose kit uses them (ADR 0009; today Killua and Gojo): 42 animations,
-175 frames, an 11-row sheet. `special`, `intro`, `taunt` and
+Totals: 38 animations, 154 frames per character; 23 core animations. Every fighter has a kit
+([ADR 0011](../docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter also draws the 4 **kit**
+animations (optional for the `complete` flag because they fall back): 42 animations, 175 frames, an 11-row
+sheet. A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
+of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`).
 
 **Pose notes forced by the 256 px width.** A realistic body lying flat or flying is about 210-240 px

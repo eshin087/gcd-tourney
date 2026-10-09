@@ -36,6 +36,7 @@ when a decision should be revisited.
 | [0008](0008-world-art-and-parallel-production.md) | World art (crowd, stage, NPCs, UI, VFX) and parallel Codex production with a claim queue | Accepted |
 | [0009](0009-move-system-v2.md) | Move system v2: command specials, special kinds, SUPER button, passives and modes | Accepted |
 | [0010](0010-per-character-body-scale.md) | Per-character body scale (shorter Killua, taller Gojo); amends 0007 | Accepted |
+| [0011](0011-kit-baseline-and-balance.md) | Kit baseline: every fighter fills the same slots within the same budgets; balance log | Accepted |
 
 ## Template
 

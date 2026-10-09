@@ -181,6 +181,12 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
    accepts it.
 5. When you finish, set the task to `review` (or `done` for pure bookkeeping) and write a one-line note
    about what changed and what to check.
+6. **Keep the user's "now" page current.** The user works from a phone and switches between Claude and
+   Codex. Before you stop and hand back, edit "Your next actions" in [docs/NOW.md](docs/NOW.md) (what the
+   user must do next: approvals, prompts to paste, decisions; remove what's done), then run
+   `npm run status -- --write` and commit `docs/NOW.md` with your other files. When the user says
+   **"status"**, run `npm run status` and answer with the "Your next actions" list plus anything waiting for
+   review, in under 10 lines.
 
 ## Definition of done (for agent work)
 

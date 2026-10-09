@@ -3,6 +3,7 @@ import { PROJECTILES, ULTIMATE } from './moves.js';
 import { DT, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 import { infinityStops } from './kit.js';
+import { PASSIVES } from './moves.js';
 
 const BEAM_VERT = /* glsl */ `
   varying vec2 vUv;
@@ -208,6 +209,11 @@ export class Projectile {
         this.game.hud.callout(o.index, 'INFINITY', '#d8f2ff');
       }
       audio.play('block', 0.6);
+      // one charge per volley: a 3-shuriken throw costs Gojo 15 ki, not 45
+      if (!o.infinityPayT || this.game.time - o.infinityPayT > 0.35) {
+        o.ki = Math.max(0, o.ki - PASSIVES.infinity.kiCost);
+        o.infinityPayT = this.game.time;
+      }
       this.kill();
       return;
     }
@@ -258,14 +264,20 @@ export function spawnProjectiles(game, owner, type = owner.def.projectile) {
 // Lapse: Blue (Gojo): a gravity vortex in front of the caster that drags the opponent in,
 // ticks small hits, then pops them up for a combo. Gojo is free to act while it runs.
 export class Vortex {
-  constructor(game, owner, m) {
+  // at: a fixed point (the Rasenshuriken grinds the victim where it hit); otherwise `dist` ahead
+  constructor(game, owner, m, at = null) {
     this.game = game;
     this.owner = owner;
     this.m = m;
     this.t = 0;
     this.dead = false;
+    this.fixed = !!at;
     const f = owner;
-    this.pos = new THREE.Vector3(f.pos.x + f.face.x * m.dist, Math.max(0.9, f.opp.pos.y + 0.9), f.pos.z + f.face.y * m.dist);
+    this.pos = at
+      ? new THREE.Vector3(at.x, at.y + 0.9, at.z)
+      : new THREE.Vector3(f.pos.x + f.face.x * m.dist, Math.max(0.9, f.opp.pos.y + 0.9), f.pos.z + f.face.y * m.dist);
+    const C = m.colors || {};
+    this.colors = { orb: C.orb ?? 0x7ab8ff, glow: C.glow ?? 0x2a6aff, ring: C.ring ?? 0x4aa8ff };
     this.id = 'vortex' + owner.index;
     audio.play('beamCharge', 0.5);
   }
@@ -274,9 +286,10 @@ export class Vortex {
     const m = this.m, g = this.game, fx = g.fx, o = this.owner.opp, p = this.pos;
     this.t++;
     const grow = Math.min(1, this.t / 8) * (this.t > m.len - 6 ? Math.max(0, (m.len - this.t) / 6) : 1);
-    fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: 0x7ab8ff, order: 8, glow: 0.9 });
-    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: 0x2a6aff, opacity: 0.5, order: 3, glow: 1 });
-    if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: 0x4aa8ff, glow: 0.8, life: 0.2, fade: true, order: 7 });
+    const C = this.colors;
+    fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: C.orb, order: 8, glow: 0.9 });
+    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: C.glow, opacity: 0.5, order: 3, glow: 1 });
+    if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: C.ring, glow: 0.8, life: 0.2, fade: true, order: 7 });
     if (this.t % 2 === 0) {
       const a = Math.random() * Math.PI * 2, r = 2.2;
       const sx = p.x + Math.cos(a) * r, sy = p.y + Math.sin(a) * r * 0.6, sz = p.z + Math.sin(a * 1.7) * 0.5;
@@ -286,7 +299,9 @@ export class Vortex {
     const canPull = !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup';
     const dx = p.x - o.pos.x, dz = p.z - o.pos.z, dy = p.y - 0.8 - o.pos.y;
     const d = Math.hypot(dx, dz, dy) || 1;
-    const dir = new THREE.Vector2(-dx, -dz).normalize();
+    const dir = new THREE.Vector2(-dx, -dz);
+    if (this.fixed || dir.lengthSq() < 0.01) dir.set(this.owner.face.x, this.owner.face.y); // grind pops them away
+    dir.normalize();
     if (canPull && d < m.radius) {
       const k = m.pull * Math.min(1, d / 0.6);
       o.vel.x = (dx / d) * k;
