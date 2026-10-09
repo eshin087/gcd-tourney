@@ -5,6 +5,7 @@
 // work. Deploying from a clean export of HEAD (minus art/, the ~1 GB of raw generations the game
 // never reads) means only committed work can reach https://gcd-tourney.vercel.app.
 // Needs: a linked Vercel project (.vercel/project.json, made by `vercel link`) and the Vercel CLI.
+// `vercel build` runs its own `npm install` in the export, so the deploy takes about a minute.
 
 import { execFileSync, execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -24,11 +25,14 @@ if (!fs.existsSync(path.join(ROOT, '.vercel', 'project.json'))) {
 }
 
 const work = fs.mkdtempSync(path.join(os.tmpdir(), 'gcd-deploy-'));
-const tar = path.join(os.tmpdir(), `gcd-deploy-${head}.tar`);
+// export HEAD with git itself, through a private index file so the shared index (and anything
+// another agent has staged) is never touched
+const index = path.join(os.tmpdir(), `gcd-deploy-${process.pid}.index`);
+const gitIdx = (...args) => execFileSync('git', args, { cwd: ROOT, env: { ...process.env, GIT_INDEX_FILE: index } });
 try {
-  git('archive', '--format=tar', '-o', tar, 'HEAD', '--', '.', ':(exclude)art');
-  sh(`tar -xf "${tar}" -C "${work}"`, ROOT);
-  fs.symlinkSync(path.join(ROOT, 'node_modules'), path.join(work, 'node_modules'), 'junction');
+  gitIdx('read-tree', 'HEAD');
+  gitIdx('rm', '--cached', '-r', '-q', '--ignore-unmatch', 'art');
+  gitIdx('checkout-index', '-a', `--prefix=${work.split(path.sep).join('/')}/`);
   fs.mkdirSync(path.join(work, '.vercel'), { recursive: true });
   fs.copyFileSync(path.join(ROOT, '.vercel', 'project.json'), path.join(work, '.vercel', 'project.json'));
   sh('vercel build --prod', work);
@@ -36,7 +40,12 @@ try {
   console.log(`\ndeployed commit ${head} (committed work only)`);
   if (dirty.length) console.log(`not deployed: ${dirty.length} uncommitted change(s) outside art/ (commit them first if they should go live)`);
 } finally {
-  try { fs.unlinkSync(path.join(work, 'node_modules')); } catch {}
-  fs.rmSync(work, { recursive: true, force: true });
-  fs.rmSync(tar, { force: true });
+  // `vercel build` installs its own node_modules into the export (from package-lock.json); Windows can
+  // hold file locks for a moment after the CLI exits, so retry before giving up
+  try {
+    fs.rmSync(work, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 });
+  } catch {
+    console.warn(`deploy: could not delete the temp export ${work} (locked); it is safe to delete by hand`);
+  }
+  fs.rmSync(index, { force: true });
 }
