@@ -1,0 +1,227 @@
+{
+  "group": "my-hero-academia",
+  "kind": "cameo",
+  "series": "My Hero Academia",
+  "spectators": [
+    {
+      "id": "mha-001",
+      "name": "Izuku Midoriya (Deku)",
+      "heightClass": "medium",
+      "look": "earnest teen hero with messy curly dark-green hair, freckled cheeks and big round green eyes, wearing a dark-green hero jumpsuit whose hood has two tips sticking up like rabbit ears, black kneepads and belt pouches, white gloves, a white respirator mask hanging at his neck and red high-top sneakers",
+      "fallbackLook": "earnest teen boy with messy curly dark-green hair, freckles and big green eyes in a dark-green hooded jumpsuit with two ear-like hood tips, black kneepads, white gloves, a white mouth mask hanging at the neck and red high-top sneakers",
+      "idle": "scribbling notes in a small notebook, eyes glued to the ring",
+      "cheer": "both fists pumped high, huge teary-eyed grin",
+      "shocked": "hands clutching his curly hair, mouth wide open, eyes trembling",
+      "tags": ["teen", "hero", "student", "notebook"]
+    },
+    {
+      "id": "mha-002",
+      "name": "Katsuki Bakugo",
+      "heightClass": "medium",
+      "look": "furious teen hero with wild spiky ash-blond hair, sharp red eyes and a permanent scowl, wearing a black sleeveless hero bodysuit with a big orange X across the chest, a black-and-orange eye mask, chunky gray grenade-shaped gauntlets with yellow pins and black cargo pants with knee guards",
+      "fallbackLook": "angry teen boy with wild spiky ash-blond hair and red eyes in a black sleeveless bodysuit with an orange X across the chest, a black eye mask, huge gray grenade-shaped gauntlets and black cargo pants",
+      "idle": "arms crossed, sneering at the ring",
+      "cheer": "palms popping with small orange explosions, yelling with teeth bared",
+      "shocked": "scowl broken, eyes wide, leaning back with gauntlets raised",
+      "tags": ["teen", "hero", "student", "explosive"]
+    },
+    {
+      "id": "mha-003",
+      "name": "Shoto Todoroki",
+      "heightClass": "medium",
+      "look": "stoic teen hero with hair split straight down the middle, white on his right side and crimson on his left, a red burn scar around his left eye and mismatched gray and turquoise eyes, wearing a navy-blue zip-up hero jacket with a white utility belt holding silver canisters, navy pants and a dusting of frost on his right sleeve",
+      "fallbackLook": "calm teen boy with half-white half-red hair split down the middle, a red scar around the left eye and mismatched gray and turquoise eyes, in a navy zip jacket with a white utility belt and frost on one sleeve",
+      "idle": "hands in pockets, expressionless, cold mist curling off his right shoulder",
+      "cheer": "small fist raised, a little flame flickering on his left shoulder, faint smile",
+      "shocked": "eyes slightly widened, frost on one side and flame on the other flaring at once",
+      "tags": ["teen", "hero", "student", "ice", "fire"]
+    },
+    {
+      "id": "mha-004",
+      "name": "Ochaco Uraraka",
+      "heightClass": "short",
+      "look": "cheerful teen hero girl with a short brown bob framing her face, round pink-blushed cheeks and big brown eyes, wearing a black-and-pink hero bodysuit with chunky pink wristbands, thick pink-and-black boots and a pink astronaut-style visor helmet pushed up on her head",
+      "fallbackLook": "cheerful short teen girl with a brown bob, round pink-blushed cheeks and big brown eyes in a black-and-pink bodysuit, chunky pink wristbands, pink boots and a pink astronaut-style visor helmet pushed up on her head",
+      "idle": "fingertips pressed together, bouncing on her toes with a bright smile",
+      "cheer": "floating a few pixels off the ground, both arms waving, happy shout",
+      "shocked": "both hands over her mouth, face turning pale green, eyes huge",
+      "tags": ["teen", "hero", "student", "float"]
+    },
+    {
+      "id": "mha-005",
+      "name": "All Might",
+      "heightClass": "huge",
+      "look": "towering muscle-bound hero with two tall antenna-like blond bangs swept up from his forehead, deeply shadowed blue eyes and an enormous white-toothed grin, wearing a skin-tight blue hero suit with red and white trim, a red striped collar, yellow gloves and yellow boots over a gigantic chest and shoulders",
+      "fallbackLook": "gigantic smiling muscular hero with blond hair swept into two tall antenna-like bangs, shadowed blue eyes and a huge white grin, in a skin-tight blue suit with red and white trim, yellow gloves and yellow boots",
+      "idle": "fists on hips, chest puffed out, beaming grin",
+      "cheer": "arms flung wide to the sides with thumbs up, booming laugh",
+      "shocked": "grin frozen, sweat drops flying, steam puffing from his shoulders",
+      "tags": ["adult", "hero", "pro-hero", "muscular", "big"]
+    },
+    {
+      "id": "mha-006",
+      "name": "Tenya Iida",
+      "heightClass": "tall",
+      "look": "tall ramrod-straight teen class president with short neat navy-blue hair, rectangular black-framed glasses and a stern face, wearing a gray school blazer with dark-green trim, a white shirt with a red tie and dark-green trousers",
+      "fallbackLook": "tall stiff teen boy with short neat navy-blue hair and rectangular black glasses in a gray school blazer with dark-green trim, white shirt, red tie and dark-green trousers",
+      "idle": "standing at attention, one hand raised in a stiff karate-chop gesture, lecturing",
+      "cheer": "both arms chopping out to the sides like a robot, shouting",
+      "shocked": "glasses flashing white, rigid as a board, mouth agape",
+      "tags": ["teen", "student", "glasses", "uniform"]
+    },
+    {
+      "id": "mha-007",
+      "name": "Tsuyu Asui",
+      "heightClass": "short",
+      "look": "frog-like teen girl with very long dark-green hair tied into a bow at the end, huge round black eyes and a wide flat mouth, wearing a dark-green-and-black frog-themed hero bodysuit with a yellow stripe, yellow goggles on her head and big white gloves",
+      "fallbackLook": "frog-like teen girl with very long dark-green hair tied into a bow at the tip, huge round black eyes and a wide flat mouth, in a dark-green-and-black bodysuit with a yellow stripe, yellow goggles on her head and big white gloves",
+      "idle": "squatting slightly, index finger on her chin, calm blank stare",
+      "cheer": "hopping with both arms up, long tongue stuck out happily",
+      "shocked": "big eyes bulging, hands on her cheeks, mouth wide in a croak",
+      "tags": ["teen", "hero", "student", "animal-folk", "frog"]
+    },
+    {
+      "id": "mha-008",
+      "name": "Eijiro Kirishima",
+      "heightClass": "medium",
+      "look": "grinning teen hero with spiky blood-red hair, sharp shark-like teeth and a small scar over his right eye, wearing a bare-chested hero costume with jagged black-and-red shoulder guards, black pants with a red belt and gear-shaped buckle, and red-and-black boots",
+      "fallbackLook": "spiky red-haired teen boy with shark-like teeth and a small scar over one eye, bare chest, jagged black-and-red shoulder guards, black pants with a red belt and red-and-black boots",
+      "idle": "fists bumped together in front of his chest, wide toothy grin",
+      "cheer": "both arms flexed with rocky gray hardened skin, roaring",
+      "shocked": "whole body turned to jagged gray stone, jaw dropped",
+      "tags": ["teen", "hero", "student", "spiky-hair"]
+    },
+    {
+      "id": "mha-009",
+      "name": "Denki Kaminari",
+      "heightClass": "medium",
+      "look": "goofy teen hero with short spiky blond hair marked by a black lightning-bolt streak and golden eyes, wearing a black hero jacket with white lightning-bolt stripes over a white shirt, black pants and a small headset with a yellow visor over one ear",
+      "fallbackLook": "goofy teen boy with spiky blond hair marked by a black lightning-bolt streak, golden eyes, a black jacket with white lightning stripes, black pants and a small headset with a yellow visor",
+      "idle": "hands behind his head, lazy grin, tiny sparks at his fingertips",
+      "cheer": "yellow electricity crackling all over him, both thumbs up",
+      "shocked": "short-circuited: blank dopey eyes, mouth hanging open, limp thumbs up",
+      "tags": ["teen", "hero", "student", "electric"]
+    },
+    {
+      "id": "mha-010",
+      "name": "Kyoka Jiro",
+      "heightClass": "short",
+      "look": "cool teen girl with a short dark-purple bob, sleepy eyes and long cord-like earlobes ending in audio plugs, wearing a dark leather jacket with a high collar over a red top, black pants and chunky black boots with built-in round speakers",
+      "fallbackLook": "cool short teen girl with a dark-purple bob, sleepy eyes and long cord-like earlobes ending in audio plugs, in a dark high-collared leather jacket over a red top, black pants and chunky speaker boots",
+      "idle": "twirling one earlobe cord around a finger, bored half-smile",
+      "cheer": "headbanging with one fist up, earlobe cords whipping",
+      "shocked": "earlobe cords sticking straight up, eyes wide, hands on her cheeks",
+      "tags": ["teen", "hero", "student", "music"]
+    },
+    {
+      "id": "mha-011",
+      "name": "Fumikage Tokoyami",
+      "heightClass": "short",
+      "look": "brooding teen hero with a black bird head, a sharp gray beak and red eyes, wearing a long dark-purple hooded cloak over a black outfit, with a shadowy purple-black bird spirit with glowing yellow eyes peeking over his shoulder",
+      "fallbackLook": "brooding short teen with a black bird head, sharp gray beak and red eyes in a long dark-purple hooded cloak, a shadowy purple-black bird spirit with yellow eyes peeking over his shoulder",
+      "idle": "arms folded under his cloak, solemn stare",
+      "cheer": "shadow bird spirit bursting up above him, both cheering",
+      "shocked": "feathers puffed out, shadow spirit cowering behind his back",
+      "tags": ["teen", "hero", "student", "animal-folk", "bird"]
+    },
+    {
+      "id": "mha-012",
+      "name": "Mina Ashido",
+      "heightClass": "short",
+      "look": "bubbly teen girl with pink skin, fluffy pink hair, two short yellow horns and black eyes with yellow irises, wearing a teal-and-purple camo-pattern hero bodysuit under a cropped cream fur-trimmed vest and white boots",
+      "fallbackLook": "bubbly teen girl with pink skin, fluffy pink hair, two short yellow horns and black eyes with yellow irises, in a teal-and-purple patterned bodysuit, a cropped cream fur vest and white boots",
+      "idle": "hands on hips, swaying side to side with a big smile",
+      "cheer": "dancing with both arms up, one leg kicked out",
+      "shocked": "horns twitching, both hands on her cheeks, screaming",
+      "tags": ["teen", "hero", "student", "horns"]
+    },
+    {
+      "id": "mha-013",
+      "name": "Mezo Shoji",
+      "heightClass": "tall",
+      "look": "very tall broad teen with spiky silver-gray hair, a navy cloth mask over his lower face and six muscular arms joined by skin webbing, wearing a sleeveless dark-blue hero top and dark pants",
+      "fallbackLook": "very tall broad teen with spiky silver-gray hair, a navy cloth mask over the lower face and six muscular arms joined by skin webbing, in a sleeveless dark-blue top and dark pants",
+      "idle": "two arms crossed, two hands on hips, one extra arm sprouting an ear to listen",
+      "cheer": "all six arms spread out to the sides, waving",
+      "shocked": "all six hands raised beside his head, eyes wide above the mask",
+      "tags": ["teen", "hero", "student", "multi-arm", "big"]
+    },
+    {
+      "id": "mha-014",
+      "name": "Shota Aizawa (Eraser Head)",
+      "heightClass": "tall",
+      "look": "tired lanky pro hero with long messy shoulder-length black hair, stubble and bloodshot half-lidded eyes, wearing an all-black long-sleeve jumpsuit, a thick gray cloth capture scarf coiled around his neck and shoulders and yellow goggles hanging at his throat",
+      "fallbackLook": "tired lanky man with long messy black hair, stubble and bloodshot half-lidded eyes in an all-black jumpsuit, a thick gray cloth scarf coiled around his neck and shoulders and yellow goggles at his throat",
+      "idle": "slouching, holding an eye-drop bottle over one eye, deadpan",
+      "cheer": "one fist half-raised out to the side, faint smirk behind the scarf",
+      "shocked": "hair floating up, eyes glowing red, capture scarf flaring",
+      "tags": ["adult", "hero", "pro-hero", "teacher"]
+    },
+    {
+      "id": "mha-015",
+      "name": "Present Mic",
+      "heightClass": "tall",
+      "look": "loud pro hero with a towering blond pompadour swept straight up, a thin blond mustache and orange-tinted sunglasses, wearing a black studded leather jacket, black pants, big black headphones and a large silver directional-speaker collar around his neck",
+      "fallbackLook": "loud tall man with a towering blond pompadour, thin mustache and orange-tinted sunglasses in a black studded leather jacket, black pants, big headphones and a large silver speaker collar",
+      "idle": "finger-guns at the ring, wide grin",
+      "cheer": "arms thrown wide to the sides, screaming, sound rings rippling from his collar",
+      "shocked": "sunglasses cracked, pompadour drooping, jaw hanging",
+      "tags": ["adult", "hero", "pro-hero", "teacher", "music", "announcer"]
+    },
+    {
+      "id": "mha-016",
+      "name": "Endeavor",
+      "heightClass": "huge",
+      "look": "hulking stern pro hero with spiky red hair, a blazing flame beard and mustache, flaming eyebrows and piercing turquoise eyes, wearing a dark-navy bodysuit with flame bands at the shoulders, wrists and boots and a silver belt",
+      "fallbackLook": "hulking stern man with spiky red hair, a beard and mustache made of fire, flaming eyebrows and turquoise eyes in a dark-navy bodysuit with flames at the shoulders, wrists and boots",
+      "idle": "arms crossed, glaring, flames flickering steadily",
+      "cheer": "fists thrust out to the sides, beard flames flaring tall",
+      "shocked": "flames guttering low, eyes wide, mouth clamped tight",
+      "tags": ["adult", "hero", "pro-hero", "fire", "big"]
+    },
+    {
+      "id": "mha-017",
+      "name": "Eri",
+      "heightClass": "tiny",
+      "look": "small shy girl with long messy pale silver-blue hair, a single small horn on the right side of her forehead and big red eyes, wearing a pink dress with a white collar and white socks, holding a red candy apple on a stick",
+      "fallbackLook": "small shy girl with long messy pale silver-blue hair, one small horn on her forehead and big red eyes in a pink dress with a white collar, holding a red candy apple",
+      "idle": "clutching her candy apple, peeking shyly at the ring",
+      "cheer": "candy apple raised high, beaming a big smile",
+      "shocked": "hiding her face behind the candy apple, horn glowing faintly",
+      "tags": ["kid", "horn", "candy"]
+    },
+    {
+      "id": "mha-018",
+      "name": "Fat Gum",
+      "heightClass": "huge",
+      "look": "enormous round hero with a giant spherical body, short blond hair, tiny dot eyes and a cheerful smile, wearing a black-and-yellow hero suit with a wide yellow belt, holding a paper boat of takoyaki with a toothpick",
+      "fallbackLook": "enormous perfectly round cheerful man with short blond hair and tiny dot eyes in a black-and-yellow suit with a wide belt, holding a paper boat of octopus balls with a toothpick",
+      "idle": "munching takoyaki off a toothpick, content",
+      "cheer": "arms out to the sides, belly jiggling, laughing",
+      "shocked": "takoyaki tumbling out of the boat, mouth a round O",
+      "tags": ["adult", "hero", "pro-hero", "food", "big"]
+    },
+    {
+      "id": "mha-019",
+      "name": "Nezu",
+      "heightClass": "tiny",
+      "look": "small white mouse-like animal with round ears, beady black eyes, a scar over his right eye and a polite smile, wearing a neat dark-blue suit with a white shirt, a red tie and tiny dress shoes",
+      "fallbackLook": "small white mouse-like animal with round ears, beady black eyes, a scar over one eye and a polite smile in a neat dark-blue suit, white shirt, red tie and tiny dress shoes",
+      "idle": "sipping from a tiny teacup, smiling",
+      "cheer": "teacup raised in a toast, ears perked up",
+      "shocked": "fur puffed up, teacup tipping over",
+      "tags": ["creature", "animal-folk", "teacher", "tea"]
+    },
+    {
+      "id": "mha-020",
+      "name": "Gran Torino",
+      "heightClass": "tiny",
+      "look": "tiny elderly hero with spiky white hair, a domino eye mask and a wrinkled grin, wearing a white hero costume with a bright yellow cape, yellow boots, leaning on a wooden cane and holding a fish-shaped taiyaki pastry",
+      "fallbackLook": "tiny elderly man with spiky white hair and a domino eye mask in a white costume, bright yellow cape and yellow boots, leaning on a wooden cane and holding a fish-shaped pastry",
+      "idle": "leaning on his cane, chewing a taiyaki",
+      "cheer": "hopping up with his cane raised, cape flapping",
+      "shocked": "taiyaki falling from his mouth, mask askew",
+      "tags": ["elder", "hero", "pro-hero", "cane", "food"]
+    }
+  ]
+}

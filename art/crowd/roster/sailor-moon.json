@@ -1,0 +1,117 @@
+{
+  "group": "sailor-moon",
+  "kind": "cameo",
+  "series": "Sailor Moon",
+  "spectators": [
+    {
+      "id": "sm-001",
+      "name": "Sailor Moon",
+      "heightClass": "medium",
+      "look": "teen girl with long golden-blonde hair in two round buns with very long twin tails, gold tiara with a red gem; white sailor leotard with a navy-blue sailor collar, short navy-blue skirt, big red chest bow with a gold brooch, red knee-high boots, white elbow gloves",
+      "fallbackLook": "teen girl with long golden-blonde hair in two round buns with very long twin tails, gold tiara with a red gem, white sailor-collar leotard with a navy collar and short navy skirt, big red chest bow with a gold brooch, red knee-high boots and white gloves",
+      "idle": "munching a cream bun, watching wide-eyed",
+      "cheer": "both arms up, jumping with joy, twin tails flying",
+      "shocked": "crying waterfall tears, hands on her cheeks",
+      "tags": ["magical-girl", "hero", "teen", "woman"]
+    },
+    {
+      "id": "sm-002",
+      "name": "Sailor Mercury",
+      "heightClass": "medium",
+      "look": "calm studious teen girl with a short pixie cut of dark-blue hair and blue eyes; white sailor leotard with a light-blue collar, short light-blue skirt, light-blue chest bow, blue knee-high boots, white gloves, a small blue handheld minicomputer, a translucent blue visor over her eyes",
+      "fallbackLook": "calm studious teen girl with a short dark-blue pixie cut, white sailor-collar leotard with a light-blue collar and short light-blue skirt, light-blue bow, blue knee-high boots, a small blue handheld computer and a translucent blue visor",
+      "idle": "typing on a small blue handheld computer",
+      "cheer": "small polite fist pump, smiling",
+      "shocked": "visor flipping down, hand covering her mouth",
+      "tags": ["magical-girl", "hero", "teen", "woman"]
+    },
+    {
+      "id": "sm-003",
+      "name": "Sailor Mars",
+      "heightClass": "medium",
+      "look": "fiery teen girl with very long straight black hair and violet eyes; white sailor leotard with a red collar, short red pleated skirt, dark-violet chest bow, red high-heel pumps, white gloves, a paper charm talisman held between two fingers",
+      "fallbackLook": "fiery teen girl with very long straight black hair, white sailor-collar leotard with a red collar and short red pleated skirt, dark-violet chest bow, red high-heel pumps, white gloves and a paper charm talisman between two fingers",
+      "idle": "arms crossed, impatient frown",
+      "cheer": "pointing at the ring with her talisman, shouting",
+      "shocked": "hair puffed out, yelling in angry shock",
+      "tags": ["magical-girl", "hero", "teen", "woman"]
+    },
+    {
+      "id": "sm-004",
+      "name": "Sailor Jupiter",
+      "heightClass": "tall",
+      "look": "tall strong teen girl with a brown high ponytail, green eyes and dusty-rose rose-shaped earrings; white sailor leotard with a green collar, short green skirt, dusty-rose chest bow, green lace-up boots, white gloves",
+      "fallbackLook": "tall strong teen girl with a brown high ponytail and rose-shaped earrings, white sailor-collar leotard with a green collar and short green skirt, dusty-rose chest bow, green lace-up boots and white gloves",
+      "idle": "fists on her hips, confident grin",
+      "cheer": "flexing one arm with a fist pumped out to the side",
+      "shocked": "hands clenched by her face, mouth open",
+      "tags": ["magical-girl", "hero", "teen", "woman"]
+    },
+    {
+      "id": "sm-005",
+      "name": "Sailor Venus",
+      "heightClass": "medium",
+      "look": "cheerful teen girl with very long straight golden-blonde hair and a big red bow on top of her head; white sailor leotard with an orange collar, short orange skirt, blue chest bow, orange heeled sandals, a thin gold chain belt",
+      "fallbackLook": "cheerful teen girl with very long straight golden-blonde hair and a big red hair bow, white sailor-collar leotard with an orange collar and short orange skirt, blue chest bow, orange heeled sandals and a thin gold chain belt",
+      "idle": "winking with a V-sign",
+      "cheer": "twirling her gold chain overhead, cheering",
+      "shocked": "comic fall backwards, tongue out",
+      "tags": ["magical-girl", "hero", "teen", "woman"]
+    },
+    {
+      "id": "sm-006",
+      "name": "Tuxedo Mask",
+      "heightClass": "tall",
+      "look": "tall dashing young man with short black hair and a white domino mask; black top hat, black tuxedo with a white shirt and black bow tie, long black cape with red lining, a single red rose in one hand",
+      "fallbackLook": "tall dashing young man with short black hair, a white domino eye mask, black top hat, black tuxedo with white shirt and bow tie, long black red-lined cape, holding a single red rose",
+      "idle": "rose held up beside his face, posing coolly",
+      "cheer": "tossing a red rose, cape swept out to the side",
+      "shocked": "top hat jumping off his head, mouth open",
+      "tags": ["hero", "gentleman", "masked"]
+    },
+    {
+      "id": "sm-007",
+      "name": "Sailor Chibi Moon (Chibiusa)",
+      "heightClass": "short",
+      "look": "small girl with pale cotton-candy pink hair (not magenta) in two cone-shaped buns with short twin tails and big red eyes; white sailor leotard with a pastel-pink collar, short pastel-pink skirt, red chest bow, pastel-pink boots, holding a grey cat-faced ball toy",
+      "fallbackLook": "small girl with pale cotton-candy pink hair in two cone-shaped buns with short twin tails and big red eyes, white sailor-collar leotard with a pastel-pink collar and short skirt, red chest bow, pastel-pink boots, hugging a grey cat-faced ball toy",
+      "idle": "hugging a grey cat-faced ball toy, pouting",
+      "cheer": "jumping, waving one arm high",
+      "shocked": "bursting into tears, mouth wide",
+      "tags": ["magical-girl", "kid", "girl"]
+    },
+    {
+      "id": "sm-008",
+      "name": "Luna",
+      "heightClass": "tiny",
+      "look": "sleek black cat with a yellow crescent-moon mark on her forehead, big red-brown eyes, pointed ears and a long curling tail",
+      "fallbackLook": "sleek black cat with a yellow crescent-moon mark on her forehead, big red-brown eyes, pointed ears and a long curling tail",
+      "idle": "sitting upright, tail curled, watching attentively",
+      "cheer": "standing on her hind legs, front paws raised, meowing",
+      "shocked": "fur bristling, back arched, tail puffed",
+      "tags": ["creature", "cat", "mascot"]
+    },
+    {
+      "id": "sm-009",
+      "name": "Sailor Uranus",
+      "heightClass": "tall",
+      "look": "tall boyish young woman with short sandy-blond hair and cool dark-blue eyes; white sailor leotard with a navy-blue collar, short navy skirt, yellow chest bow, dark-navy ankle boots, white gloves",
+      "fallbackLook": "tall boyish young woman with short sandy-blond hair and cool eyes, white sailor-collar leotard with a navy collar and short navy skirt, yellow chest bow, dark-navy ankle boots and white gloves",
+      "idle": "hands on hips, cool smirk",
+      "cheer": "one fist punched out to the side, grinning",
+      "shocked": "eyes wide, wind blowing her hair back",
+      "tags": ["magical-girl", "hero", "woman", "cool"]
+    },
+    {
+      "id": "sm-010",
+      "name": "Sailor Pluto",
+      "heightClass": "tall",
+      "look": "tall mysterious woman with very long dark-green hair partly gathered in a small bun and deep red eyes; white sailor leotard with a black collar, short black skirt, maroon chest bow, knee-high black boots, a tall key-shaped staff topped with a red orb",
+      "fallbackLook": "tall mysterious woman with very long dark-green hair partly in a small bun and deep red eyes, white sailor-collar leotard with a black collar and short black skirt, maroon chest bow, knee-high black boots and a tall key-shaped staff with a red orb",
+      "idle": "leaning on her key staff, faint knowing smile",
+      "cheer": "staff raised out to the side, smiling",
+      "shocked": "staff clutched in both hands, eyebrows raised high",
+      "tags": ["magical-girl", "guardian", "woman", "mysterious"]
+    }
+  ]
+}

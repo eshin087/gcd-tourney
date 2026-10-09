@@ -1,0 +1,95 @@
+{
+  "group": "ranma",
+  "kind": "cameo",
+  "series": "Ranma 1/2",
+  "spectators": [
+    {
+      "id": "ranma-001",
+      "name": "Ranma Saotome",
+      "heightClass": "medium",
+      "look": "cocky teen martial artist with black hair in a single short braided pigtail and blue-grey eyes; red long-sleeve Chinese shirt with gold frog-knot buttons, black kung fu pants tied at the ankles, black cloth slippers",
+      "fallbackLook": "cocky teen martial artist with black hair in a single short braided pigtail, red long-sleeve mandarin-collar shirt with gold frog-knot buttons, black kung fu pants and black cloth slippers",
+      "idle": "hands behind his head, cocky grin",
+      "cheer": "fist pumping overhead, whooping",
+      "shocked": "hair sticking up, gaping with sweat drops",
+      "tags": ["martial-artist", "hero", "teen"]
+    },
+    {
+      "id": "ranma-002",
+      "name": "Akane Tendo",
+      "heightClass": "medium",
+      "look": "spirited teen girl with short dark blue-black hair and brown eyes; light-blue knee-length pinafore school dress over a white blouse with a red ribbon tie, white socks, brown loafers, a big wooden mallet in both hands",
+      "fallbackLook": "spirited teen girl with short dark blue-black hair, light-blue knee-length pinafore school dress over a white blouse with a red ribbon tie, white socks and loafers, holding a big wooden mallet",
+      "idle": "gripping a big wooden mallet, scowling",
+      "cheer": "mallet raised high, yelling encouragement",
+      "shocked": "mallet dropped, both hands to her mouth",
+      "tags": ["martial-artist", "student", "teen", "woman"]
+    },
+    {
+      "id": "ranma-003",
+      "name": "Genma Saotome (panda form)",
+      "heightClass": "huge",
+      "look": "huge round black-and-white giant panda wearing a white bandana on its head, small round glasses, holding up a small wooden sign board on a stick with a blank face",
+      "fallbackLook": "huge round black-and-white giant panda with a white bandana and small round glasses, holding up a small blank wooden sign board on a stick",
+      "idle": "holding up a blank wooden sign, bored look",
+      "cheer": "waving the blank sign side to side, mouth open",
+      "shocked": "sign dropped, paws on its cheeks",
+      "tags": ["creature", "panda", "comic"]
+    },
+    {
+      "id": "ranma-004",
+      "name": "Ryoga Hibiki",
+      "heightClass": "medium",
+      "look": "fanged teen boy with spiky black hair under a yellow-and-black tiger-striped bandana; yellow short-sleeve shirt, black pants, a huge overstuffed travel backpack and a closed red paper parasol, lost confused frown",
+      "fallbackLook": "fanged teen boy with spiky black hair under a yellow-and-black striped bandana, yellow short-sleeve shirt, black pants, a huge overstuffed travel backpack and a red paper parasol",
+      "idle": "facing slightly the wrong way, squinting at a crumpled map",
+      "cheer": "red parasol raised, fist pumping",
+      "shocked": "backpack sliding off, fang showing in a gasp",
+      "tags": ["martial-artist", "rival", "teen", "traveler"]
+    },
+    {
+      "id": "ranma-005",
+      "name": "Shampoo",
+      "heightClass": "medium",
+      "look": "bubbly young woman with very long lavender hair and two small buns on top of her head; rose-red Chinese qipao dress with gold trim and side slits over white pants, red cloth shoes, carrying a red lacquered noodle delivery box",
+      "fallbackLook": "bubbly young woman with very long lavender hair and two small buns on top, rose-red qipao dress with gold trim over white pants, red cloth shoes, carrying a red lacquered noodle delivery box",
+      "idle": "holding a noodle delivery box, cheerful wink",
+      "cheer": "both arms up, bouncing happily",
+      "shocked": "cat-like startle, hair standing on end",
+      "tags": ["martial-artist", "rival", "woman", "vendor"]
+    },
+    {
+      "id": "ranma-006",
+      "name": "Ukyo Kuonji",
+      "heightClass": "medium",
+      "look": "tomboyish girl with long brown hair tied back with a big white ribbon; navy-blue okonomiyaki chef jacket with a bandolier of small throwing spatulas across her chest, dark pants, a giant metal spatula strapped across her back",
+      "fallbackLook": "tomboyish girl with long brown hair tied back with a big white ribbon, navy-blue chef jacket with a bandolier of small spatulas across her chest, dark pants and a giant metal spatula strapped across her back",
+      "idle": "flipping a small savory pancake on a spatula",
+      "cheer": "giant spatula raised high, cheering",
+      "shocked": "pancake falling off her spatula, mouth open",
+      "tags": ["martial-artist", "chef", "woman", "vendor"]
+    },
+    {
+      "id": "ranma-007",
+      "name": "Tatewaki Kuno",
+      "heightClass": "tall",
+      "look": "tall pompous young swordsman with neat dark-brown hair and a haughty face; blue-grey kendo kimono top, dark-navy hakama, wooden bokken sword, a red rose between his fingers",
+      "fallbackLook": "tall pompous young swordsman with neat dark-brown hair, blue-grey kendo kimono top, dark-navy hakama, a wooden practice sword and a red rose between his fingers",
+      "idle": "bokken on his shoulder, posing grandly",
+      "cheer": "bokken thrust out to the side, declaring loudly",
+      "shocked": "rose wilting in his hand, stunned stare",
+      "tags": ["swordsman", "rich", "comic"]
+    },
+    {
+      "id": "ranma-008",
+      "name": "Happosai",
+      "heightClass": "tiny",
+      "look": "tiny wrinkly old martial-arts master, bald with huge white bushy eyebrows and a white mustache; dark-purple ninja gi with a dark bandana around his neck, a long smoking pipe, a bulging cloth bundle slung on his back",
+      "fallbackLook": "tiny wrinkly old martial-arts master, bald with huge white bushy eyebrows and a white mustache, dark-purple ninja gi, a long pipe and a bulging cloth bundle slung on his back",
+      "idle": "puffing his long pipe, sly grin",
+      "cheer": "hopping up high, pipe waved",
+      "shocked": "eyebrows shooting up, pipe falling",
+      "tags": ["elder", "martial-artist", "comic"]
+    }
+  ]
+}

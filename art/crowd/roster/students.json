@@ -1,0 +1,156 @@
+{
+  "group": "students",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-stud-001",
+      "label": "Cheer-squad captain",
+      "heightClass": "tall",
+      "look": "stern high-school cheer-squad captain with slicked black hair and fierce eyebrows; ankle-length black high-collar school coat with long tails and gold buttons, white gloves, a long white headband with trailing ends, black pants, wooden geta",
+      "idle": "hands clasped behind his back, chin raised proudly",
+      "cheer": "arms snapped stiffly out to the sides, shouting at full voice",
+      "shocked": "rigid with shock, headband ends drooping",
+      "tags": ["student", "cheer-squad", "teen", "male", "headband"]
+    },
+    {
+      "id": "org-stud-002",
+      "label": "Cheer-squad flag bearer",
+      "heightClass": "medium",
+      "look": "earnest shaved-head schoolboy in a black high-collar school coat and a white headband; black pants, white sneakers, holding a short sturdy pole with a compact crimson flag bearing a plain white star emblem",
+      "idle": "holding the flag pole upright with both hands",
+      "cheer": "swinging the crimson flag in a wide arc",
+      "shocked": "flag pole leaning over, eyes popping",
+      "tags": ["student", "cheer-squad", "teen", "male", "flag"]
+    },
+    {
+      "id": "org-stud-003",
+      "label": "Cheer-squad drummer",
+      "heightClass": "medium",
+      "look": "stocky schoolboy drummer with spiky brown hair and a red headband; black school coat with the sleeves rolled up, a small red-and-wood taiko drum hanging from a neck strap, two wooden drumsticks",
+      "idle": "tapping the drum lightly",
+      "cheer": "both drumsticks raised high, mid-beat",
+      "shocked": "drumsticks dropping, mouth wide",
+      "tags": ["student", "cheer-squad", "teen", "male", "drum"]
+    },
+    {
+      "id": "org-stud-004",
+      "label": "Cheerleader with red pompoms",
+      "heightClass": "medium",
+      "look": "bubbly cheerleader with a high auburn ponytail tied with a white ribbon; long-sleeved red-and-white cheer uniform top, red pleated skirt over white shorts, white sneakers, fluffy red pompoms",
+      "idle": "pompoms on her hips, big smile",
+      "cheer": "jumping with both pompoms thrust high",
+      "shocked": "pompoms pressed over her mouth",
+      "tags": ["student", "cheerleader", "teen", "female", "pompoms"]
+    },
+    {
+      "id": "org-stud-005",
+      "label": "Cheerleader with megaphone",
+      "heightClass": "short",
+      "look": "small loud cheerleader with short sky-blue twin tails; blue-and-gold cheer uniform with a gold pleated skirt over shorts, white sneakers, a white cone megaphone in one hand and a single gold pompom in the other",
+      "idle": "megaphone held at her side, bouncing on her heels",
+      "cheer": "shouting into the megaphone, pompom raised",
+      "shocked": "megaphone drooping, jaw dropped",
+      "tags": ["student", "cheerleader", "teen", "female", "megaphone"]
+    },
+    {
+      "id": "org-stud-006",
+      "label": "Bookworm girl",
+      "heightClass": "medium",
+      "look": "quiet bookworm girl with thick round glasses and a long black braid over one shoulder; navy sailor uniform with a red ribbon, navy pleated skirt, white socks, brown loafers, hugging a stack of thick books",
+      "idle": "reading the top book, glancing at the ring",
+      "cheer": "books held high, suddenly excited",
+      "shocked": "books tumbling down, glasses askew",
+      "tags": ["student", "teen", "female", "books", "glasses"]
+    },
+    {
+      "id": "org-stud-007",
+      "label": "Class president",
+      "heightClass": "medium",
+      "look": "uptight class president with neatly parted dark-green hair and square glasses; navy blazer school uniform with a striped tie, gray slacks, a plain red armband on one sleeve, a clipboard",
+      "idle": "pushing up his glasses, clipboard against his chest",
+      "cheer": "waving the clipboard, uncharacteristically shouting",
+      "shocked": "glasses cracking, clipboard slipping",
+      "tags": ["student", "teen", "male", "clipboard", "glasses"]
+    },
+    {
+      "id": "org-stud-008",
+      "label": "Hungry student with yakisoba bread",
+      "heightClass": "medium",
+      "look": "laid-back schoolboy with spiky light-brown hair; black school coat unbuttoned over a yellow tee, black pants, scuffed sneakers, a yakisoba-stuffed bread roll in one hand and a milk carton in the other",
+      "idle": "chewing a big bite of the bread roll",
+      "cheer": "bread roll and milk raised in both hands",
+      "shocked": "noodles hanging from his gaping mouth",
+      "tags": ["student", "teen", "male", "food"]
+    },
+    {
+      "id": "org-stud-009",
+      "label": "Art-club girl",
+      "heightClass": "medium",
+      "look": "dreamy art-club girl with a messy lavender bob under a mustard beret and a paintbrush behind her ear; oversized paint-stained beige cardigan over a sailor uniform, a sketchbook and pencil",
+      "idle": "sketching the fighters in her sketchbook",
+      "cheer": "holding up the sketchbook showing a doodled star",
+      "shocked": "pencil snapped, sketchbook slipping",
+      "tags": ["student", "artist", "teen", "female", "sketchbook"]
+    },
+    {
+      "id": "org-stud-010",
+      "label": "First-grader with school backpack",
+      "heightClass": "tiny",
+      "look": "small wide-eyed schoolboy with a round yellow safety hat; white short-sleeved shirt, navy shorts, white socks, a big glossy black boxy school backpack on his back",
+      "idle": "holding the backpack straps, staring in awe",
+      "cheer": "jumping with both fists up",
+      "shocked": "hands on his cheeks, mouth wide",
+      "tags": ["student", "kid", "male", "backpack", "hat"]
+    },
+    {
+      "id": "org-stud-011",
+      "label": "Kindergartener with balloon",
+      "heightClass": "tiny",
+      "look": "tiny kindergarten girl with short black pigtails and a round yellow bucket hat; light-blue smock over a white shirt, red shoes, holding the string of a red balloon",
+      "idle": "holding the balloon string, watching quietly",
+      "cheer": "jumping so the balloon bobs",
+      "shocked": "letting go of the balloon, mouth open",
+      "tags": ["student", "kid", "female", "balloon"]
+    },
+    {
+      "id": "org-stud-012",
+      "label": "Science-club boy",
+      "heightClass": "short",
+      "look": "small science-club boy with frizzy white-blond hair and swirly thick glasses; white lab coat too big for him over a school blazer, black shorts, a glass beaker of bubbling green liquid",
+      "idle": "swirling the beaker, studying the fighters",
+      "cheer": "beaker raised high like a toast",
+      "shocked": "beaker foaming over, hair frizzed straight up",
+      "tags": ["student", "scientist", "kid", "male", "beaker", "glasses"]
+    },
+    {
+      "id": "org-stud-013",
+      "label": "Cool transfer student",
+      "heightClass": "tall",
+      "look": "tall aloof transfer student with long silver hair tied low and bangs covering one eye; gray blazer uniform worn draped over his shoulders, white shirt, loose red tie, black headphones around his neck",
+      "idle": "hands in pockets, looking bored",
+      "cheer": "one fist raised calmly, small smile",
+      "shocked": "headphones slipping off, visible eye wide",
+      "tags": ["student", "teen", "male", "headphones"]
+    },
+    {
+      "id": "org-stud-014",
+      "label": "Marching-band trumpeter",
+      "heightClass": "medium",
+      "look": "marching-band girl with a short brown bob under a tall white shako hat with a red plume; red band jacket with gold braid and white sash, white pants, a shiny brass trumpet",
+      "idle": "trumpet held at her chest",
+      "cheer": "blasting the trumpet toward the sky",
+      "shocked": "trumpet lowered, cheeks still puffed",
+      "tags": ["student", "band", "teen", "female", "trumpet"]
+    },
+    {
+      "id": "org-stud-015",
+      "label": "Middle-schooler with foam finger",
+      "heightClass": "short",
+      "look": "peppy middle-school girl with dark hair in twin buns; pastel orange school tracksuit with white stripes, white sneakers, a big blank green foam finger on one hand",
+      "idle": "bouncing, foam finger at her side",
+      "cheer": "foam finger thrust high",
+      "shocked": "foam finger bent over, eyes huge",
+      "tags": ["student", "kid", "female", "foam-finger"]
+    }
+  ]
+}

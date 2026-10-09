@@ -1,0 +1,73 @@
+{
+  "group": "kengan-ashura",
+  "kind": "cameo",
+  "series": "Kengan Ashura",
+  "spectators": [
+    {
+      "id": "kengan-001",
+      "name": "Ohma Tokita",
+      "heightClass": "tall",
+      "look": "feral, muscular underground fighter with messy short black hair and a sharp wolfish grin, shirtless with a lean ripped torso, wearing loose black fighting pants and white-taped hands",
+      "fallbackLook": "feral, muscular young fighter with messy short black hair and a sharp wolfish grin, shirtless with a lean ripped torso, loose black fighting pants and white-taped hands",
+      "idle": "cracking his knuckles, hungry grin at the ring",
+      "cheer": "taped fist thrust out to the side, roaring with excitement",
+      "shocked": "eyes wide, fists tightening, leaning toward the ring",
+      "tags": ["adult", "male", "fighter", "muscular"]
+    },
+    {
+      "id": "kengan-002",
+      "name": "Kazuo Yamashita",
+      "heightClass": "medium",
+      "look": "worn-out middle-aged salaryman with thinning combed-over black hair, a big nose, droopy tired eyes and a sweaty nervous smile, wearing a rumpled grey suit with a loosened tie, clutching a black briefcase",
+      "fallbackLook": "worn-out middle-aged office worker with thinning combed-over black hair, a big nose, droopy tired eyes and a sweaty nervous smile, a rumpled grey suit with a loosened tie, clutching a black briefcase",
+      "idle": "clutching his briefcase, nervously wiping sweat",
+      "cheer": "waving the briefcase, surprised at himself for cheering",
+      "shocked": "jaw dropped, hands on his head, tie flying",
+      "tags": ["adult", "male", "salaryman", "comedy"]
+    },
+    {
+      "id": "kengan-003",
+      "name": "Julius Reinhold",
+      "heightClass": "huge",
+      "look": "monstrous, towering bodybuilder-fighter with short cropped blond hair, a heavy brow and cold blue eyes on an absurdly huge muscular body, wearing a tight black tank top and dark grey trousers",
+      "fallbackLook": "monstrous, towering bodybuilder with short cropped blond hair, a heavy brow and cold blue eyes on an absurdly huge muscular body, a tight black tank top and dark grey trousers",
+      "idle": "arms folded over his massive chest, emotionless",
+      "cheer": "double-biceps flex out to the sides, veins bulging",
+      "shocked": "huge muscles tensing, cold eyes widening slightly",
+      "tags": ["adult", "male", "fighter", "muscular", "giant"]
+    },
+    {
+      "id": "kengan-004",
+      "name": "Raian Kure",
+      "heightClass": "tall",
+      "look": "wild, bloodthirsty assassin-clan fighter with messy shoulder-length black hair, a manic toothy grin and blackened eye whites with pale irises, wearing a black jacket open over a bare chest and black pants",
+      "fallbackLook": "wild young fighter with messy shoulder-length black hair, a manic toothy grin and blackened eye whites with pale irises, a black jacket open over a bare chest and black pants",
+      "idle": "hunched forward, licking his lips at the fighters",
+      "cheer": "arms flung out wide, cackling",
+      "shocked": "head jerking back, crazed grin widening",
+      "tags": ["adult", "male", "fighter", "villain"]
+    },
+    {
+      "id": "kengan-005",
+      "name": "Kaolan Wongsawat",
+      "heightClass": "medium",
+      "look": "calm, elegant Muay Thai champion with short black hair, tan skin and a serene focused face, wearing a braided mongkol headband, prajioud cloth armbands, royal-blue boxing shorts and wrapped fists",
+      "fallbackLook": "calm, elegant Thai boxer with short black hair, tan skin and a serene focused face, a braided ceremonial headband, cloth armbands, royal-blue boxing shorts and wrapped fists",
+      "idle": "palms pressed together in a respectful wai bow",
+      "cheer": "one knee raised and a fist up in a crisp fighting pose",
+      "shocked": "eyes widening, hands rising to a guard",
+      "tags": ["adult", "male", "fighter", "martial-artist", "athlete"]
+    },
+    {
+      "id": "kengan-006",
+      "name": "Agito Kanoh",
+      "heightClass": "tall",
+      "look": "imposing champion bodyguard with long straight black hair falling past his shoulders, a stoic face and sharp eyes on a broad muscular build, wearing a black tailored suit with a black tie",
+      "fallbackLook": "imposing, broad-shouldered man with long straight black hair past his shoulders, a stoic face and sharp eyes, a black tailored suit with a black tie",
+      "idle": "hands clasped behind his back, impassive",
+      "cheer": "slow approving nod, one fist held out to the side",
+      "shocked": "eyes narrowing, shoulders squaring",
+      "tags": ["adult", "male", "fighter", "suit"]
+    }
+  ]
+}

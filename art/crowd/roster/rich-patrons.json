@@ -1,0 +1,146 @@
+{
+  "group": "rich-patrons",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-rich-001",
+      "label": "Cigar tycoon",
+      "heightClass": "tall",
+      "look": "rotund middle-aged tycoon with slicked-back gray hair, a thick walrus mustache and a monocle; white three-piece suit with gold buttons straining over his belly, red bow tie, gold pocket-watch chain, a fat smoking cigar",
+      "idle": "puffing the cigar, thumbs hooked in his vest pockets",
+      "cheer": "arms spread to the sides with the cigar in one hand, guffawing",
+      "shocked": "cigar dropping, monocle popping out of his eye",
+      "tags": ["rich", "adult", "male", "cigar", "big"]
+    },
+    {
+      "id": "org-rich-002",
+      "label": "Lady with peacock fan",
+      "heightClass": "medium",
+      "look": "elegant woman with dark violet hair in a tall updo pinned with jeweled hairpins and a beauty mark; long emerald-green silk high-collar gown with gold embroidery, white elbow gloves, a folding fan painted with a blue-green peacock-feather pattern",
+      "idle": "fanning herself delicately, eyes half closed",
+      "cheer": "fan snapped open and raised high, delighted",
+      "shocked": "fan pressed over her mouth, eyes wide",
+      "tags": ["rich", "adult", "female", "fan"]
+    },
+    {
+      "id": "org-rich-003",
+      "label": "Butler with tea tray",
+      "heightClass": "tall",
+      "look": "thin, ramrod-straight elderly butler with neat white hair and a curled white mustache; black tailcoat, gray vest, crisp white shirt with a black bow tie, white gloves, a silver tray balanced on one hand with a porcelain teacup",
+      "idle": "tray balanced perfectly on one hand, expression unreadable",
+      "cheer": "tray held out to the side, other hand lifted in a polite small wave",
+      "shocked": "teacup jumping off the tray, eyebrows shooting up",
+      "tags": ["rich", "servant", "elder", "male", "tray"]
+    },
+    {
+      "id": "org-rich-004",
+      "label": "Spoiled rich boy",
+      "heightClass": "tiny",
+      "look": "small haughty boy with a shiny blond bowl cut and his nose in the air; navy sailor suit with short pants, white knee socks, polished black shoes, a giant rainbow swirl lollipop",
+      "idle": "licking the lollipop with his chin up",
+      "cheer": "bouncing and waving the lollipop",
+      "shocked": "bawling, lollipop dropped",
+      "tags": ["rich", "kid", "male", "lollipop"]
+    },
+    {
+      "id": "org-rich-005",
+      "label": "Heiress with drill curls",
+      "heightClass": "medium",
+      "look": "proud young heiress with long golden hair in big ringlet drill curls and a huge pink bow; frilly pink-and-white lace dress with puffed sleeves, white gloves, a white lace parasol",
+      "idle": "parasol on her shoulder, back of her hand at her mouth in a haughty laugh",
+      "cheer": "twirling the parasol high, laughing loudly",
+      "shocked": "parasol blown inside out, drill curls bouncing",
+      "tags": ["rich", "teen", "female", "parasol"]
+    },
+    {
+      "id": "org-rich-006",
+      "label": "Oil baron",
+      "heightClass": "tall",
+      "look": "big tanned rancher-tycoon with a white ten-gallon hat and a gray handlebar mustache; cream western suit, turquoise bolo tie, chunky gold rings, pointed brown cowboy boots, a thick stack of plain green paper bills",
+      "idle": "fanning himself with the stack of green bills",
+      "cheer": "tossing bills out to the sides, whooping",
+      "shocked": "bills scattering, hat jumping off his head",
+      "tags": ["rich", "adult", "male", "hat", "money"]
+    },
+    {
+      "id": "org-rich-007",
+      "label": "Matriarch with opera glasses",
+      "heightClass": "short",
+      "look": "tiny elderly matriarch with a towering silver beehive hairdo and cat-eye glasses on a chain; purple fur stole over a black velvet dress, several strands of pearls, gold opera glasses on a handle",
+      "idle": "peering at the ring through her opera glasses",
+      "cheer": "shaking the opera glasses in the air, cackling",
+      "shocked": "clutching her pearls, opera glasses dropped",
+      "tags": ["rich", "elder", "female", "pearls"]
+    },
+    {
+      "id": "org-rich-008",
+      "label": "Young tech CEO",
+      "heightClass": "medium",
+      "look": "sharp young executive with a sleek silver-gray undercut and rimless glasses; slim black suit with a purple tie, silver wristwatch, a thin glowing tablet in one hand",
+      "idle": "tapping the tablet, aloof",
+      "cheer": "tablet tucked under his arm, fist pump, glasses glinting",
+      "shocked": "glasses knocked askew, tablet slipping",
+      "tags": ["rich", "adult", "male", "tablet"]
+    },
+    {
+      "id": "org-rich-009",
+      "label": "Bodyguard in black",
+      "heightClass": "huge",
+      "look": "massive bodyguard with a flat-top haircut, black sunglasses and a coiled earpiece wire; black suit tight across enormous shoulders, white shirt, thin black tie, hands clasped in front",
+      "idle": "hands clasped, completely motionless",
+      "cheer": "one stiff fist raised out to the side, still stone-faced",
+      "shocked": "sunglasses sliding down his nose, eyebrows shooting up",
+      "tags": ["rich", "bodyguard", "adult", "male", "sunglasses", "big"]
+    },
+    {
+      "id": "org-rich-010",
+      "label": "Top-hat aristocrat",
+      "heightClass": "tall",
+      "look": "slender older aristocrat with a tall black top hat and a neat pointed goatee; burgundy velvet tailcoat, white cravat, gray striped trousers, a black cane with a silver head",
+      "idle": "both hands resting on the cane, polite smile",
+      "cheer": "tipping the top hat high, cane lifted",
+      "shocked": "top hat popping off, cane slipping from his grip",
+      "tags": ["rich", "elder", "male", "top-hat", "cane"]
+    },
+    {
+      "id": "org-rich-011",
+      "label": "Socialite with lapdog",
+      "heightClass": "medium",
+      "look": "glamorous woman with a sleek black bob, big sparkling drop earrings and red lips; white fur coat over a sapphire-blue evening dress, a small fluffy white lapdog with a pink bow held in her arms",
+      "idle": "stroking the lapdog in her arms",
+      "cheer": "lifting the lapdog up, both looking thrilled",
+      "shocked": "lapdog's fur puffed out, she gasps",
+      "tags": ["rich", "adult", "female", "dog"]
+    },
+    {
+      "id": "org-rich-012",
+      "label": "Merchant with gold abacus",
+      "heightClass": "medium",
+      "look": "plump merchant with a long thin drooping mustache and a small round black cap; red silk robe with gold coin-pattern embroidery and a black sash, cloth shoes, a shiny gold abacus",
+      "idle": "clicking the beads of the gold abacus",
+      "cheer": "abacus raised high, greedy grin",
+      "shocked": "abacus beads flying everywhere",
+      "tags": ["rich", "merchant", "adult", "male", "abacus"]
+    },
+    {
+      "id": "org-rich-013",
+      "label": "Little princess with teddy",
+      "heightClass": "tiny",
+      "look": "little rich girl with lavender twin ringlets and a small silver tiara; puffy royal-blue velvet dress with a white lace collar, white tights, shiny red shoes, hugging a big brown teddy bear",
+      "idle": "hugging the teddy bear, watching wide-eyed",
+      "cheer": "holding the teddy bear overhead",
+      "shocked": "hiding her face in the teddy bear",
+      "tags": ["rich", "kid", "female", "teddy-bear"]
+    },
+    {
+      "id": "org-rich-014",
+      "label": "Gold-tooth gambler",
+      "heightClass": "medium",
+      "look": "slick gambler with slicked-back red hair, a pencil mustache and a flashing gold tooth; white fedora with a black band, pink pinstripe suit, black shirt with a white tie, a big gold ring, a fanned deck of playing cards",
+      "idle": "shuffling the cards between his hands",
+      "cheer": "spraying cards into the air, flashing the gold tooth",
+      "shocked": "cards raining down, fedora tipped over his eyes",
+      "tags": ["rich", "gambler", "adult", "male", "cards"]
+    }
+  ]
+}

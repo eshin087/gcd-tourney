@@ -1,0 +1,206 @@
+{
+  "group": "martial-artists",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-ma-001",
+      "label": "Dojo student with a red headband",
+      "heightClass": "medium",
+      "look": "lean teenage boy with short spiky black hair, thick determined eyebrows and a scraped nose, wearing a plain white karate gi with frayed sleeves, a white belt and a bright red headband whose long tails trail behind his head",
+      "idle": "fists clenched at his sides, studying the fighters with intense focus",
+      "cheer": "punching the air with one fist, shouting a kiai",
+      "shocked": "headband tails flying up, mouth wide open, eyes like dinner plates",
+      "tags": ["martial-artist", "student", "teen", "gi", "headband"]
+    },
+    {
+      "id": "org-ma-002",
+      "label": "Kung-fu master in crimson silk",
+      "heightClass": "medium",
+      "look": "wiry middle-aged man with black hair in a tight topknot bun, calm narrow eyes and a long thin drooping black mustache, wearing a crimson silk mandarin-collar jacket with gold knot buttons, wide black trousers and black cloth slippers",
+      "idle": "hands clasped behind his back, nodding approvingly",
+      "cheer": "one hand raised high in a crane-beak kung-fu pose, shouting",
+      "shocked": "mustache tips flicked straight up, eyebrows shot high",
+      "tags": ["martial-artist", "master", "kung-fu", "mustache"]
+    },
+    {
+      "id": "org-ma-003",
+      "label": "Heavyweight wrestler in a yukata",
+      "heightClass": "huge",
+      "look": "enormous round heavyweight wrestler with oiled black hair in a small topknot, a round friendly face with tiny eyes and a huge belly, wearing a dark-blue cotton yukata loosely open at the chest, a thick white rope belt and wooden geta sandals",
+      "idle": "arms folded over his big belly, calmly watching",
+      "cheer": "both arms spread wide out to the sides, booming belly laugh",
+      "shocked": "palms slapped to his puffed cheeks, eyes popping",
+      "tags": ["martial-artist", "wrestler", "big"]
+    },
+    {
+      "id": "org-ma-004",
+      "label": "Masked pro wrestler",
+      "heightClass": "tall",
+      "look": "muscular pro wrestler with a bodybuilder physique and a full-head wrestling mask in royal blue with silver flame patterns around the eye holes, wearing a sleeveless blue singlet, a silver championship belt with a round blank gold plate, white knee pads and tall blue boots",
+      "idle": "flexing one bicep and admiring it",
+      "cheer": "double-bicep pose with arms out to the sides, shouting through the mask",
+      "shocked": "both hands gripping the sides of his mask, leaning back",
+      "tags": ["martial-artist", "wrestler", "mask", "big"]
+    },
+    {
+      "id": "org-ma-005",
+      "label": "Boxer in a satin robe",
+      "heightClass": "medium",
+      "look": "athletic young boxer with a short brown buzz cut, a taped nose and a swollen eyebrow, wearing a shiny red satin boxing robe open over a white tank top, red boxing gloves and a white towel draped around his neck",
+      "idle": "bouncing lightly, throwing small jabs at the air",
+      "cheer": "both gloves punching straight up, roaring",
+      "shocked": "gloves pressed up against his cheeks, eyes huge",
+      "tags": ["martial-artist", "boxer", "gloves"]
+    },
+    {
+      "id": "org-ma-006",
+      "label": "Karate girl with a high ponytail",
+      "heightClass": "short",
+      "look": "fierce teenage girl with a high black ponytail, a white headband and sharp confident eyes, wearing a crisp white karate gi with a black belt and white tape wrapped around her wrists",
+      "idle": "arms crossed, smug little grin",
+      "cheer": "jumping fist pump with a sharp kiai shout",
+      "shocked": "hands clapped over her mouth, ponytail flicked straight up",
+      "tags": ["martial-artist", "student", "teen", "gi", "female"]
+    },
+    {
+      "id": "org-ma-007",
+      "label": "Bo-staff fighter with green hair",
+      "heightClass": "medium",
+      "look": "lanky young man with messy green-dyed hair, freckles and a cocky grin, wearing a sleeveless dark-green tunic with a yellow sash, brown wrapped shins and bandaged forearms, carrying a long red-lacquered wooden bo staff",
+      "idle": "staff laid across his shoulders with both wrists draped over it",
+      "cheer": "staff thrust diagonally up in one hand, whooping",
+      "shocked": "staff slipping from his hands, jaw dropped",
+      "tags": ["martial-artist", "staff", "prop"]
+    },
+    {
+      "id": "org-ma-008",
+      "label": "Taekwondo athlete",
+      "heightClass": "medium",
+      "look": "slim athletic young woman with a short chestnut bob and bright eager eyes, wearing a white V-neck taekwondo uniform with black collar trim, a blue belt and white foot pads",
+      "idle": "standing on one foot with the other knee raised in a stretch",
+      "cheer": "jumping with both fists up, cheering loudly",
+      "shocked": "both hands on top of her head, eyes wide",
+      "tags": ["martial-artist", "taekwondo", "female"]
+    },
+    {
+      "id": "org-ma-009",
+      "label": "Muay Thai fighter",
+      "heightClass": "medium",
+      "look": "lean dark-skinned fighter with a short black crew cut and a hard stare, wearing a white-and-red braided headband ring, red cord armbands on both biceps, a red-and-gold satin fight jacket over red shorts, and white tape on his hands and ankles",
+      "idle": "rolling his shoulders, chin tucked, eyes on the ring",
+      "cheer": "elbow pumped up into the air, shouting",
+      "shocked": "taped hands gripping his headband, mouth open",
+      "tags": ["martial-artist", "muay-thai"]
+    },
+    {
+      "id": "org-ma-010",
+      "label": "Judo heavyweight",
+      "heightClass": "tall",
+      "look": "broad square-jawed judoka with a flat-top black haircut, cauliflower ears and a serious frown, wearing a thick royal-blue judo gi with the sleeves rolled up and a brown belt",
+      "idle": "thumbs hooked into his belt, frowning seriously",
+      "cheer": "arms thrown out wide to the sides, roaring",
+      "shocked": "gripping his own lapels, jaw dropped",
+      "tags": ["martial-artist", "judo", "big"]
+    },
+    {
+      "id": "org-ma-011",
+      "label": "Tiny dojo kid",
+      "heightClass": "tiny",
+      "look": "small round-cheeked boy of about six with a black bowl cut and a gap-toothed grin, wearing an oversized white gi whose sleeves cover his hands and a yellow belt tied in a huge bow",
+      "idle": "copying a fighting stance with tiny fists",
+      "cheer": "hopping up and down with both arms up",
+      "shocked": "hands on his cheeks, eyes huge and sparkling",
+      "tags": ["martial-artist", "kid", "student", "gi"]
+    },
+    {
+      "id": "org-ma-012",
+      "label": "Wing chun woman",
+      "heightClass": "medium",
+      "look": "composed woman with long black hair in a single thick braid, a beauty mark under one eye and a calm smile, wearing a sky-blue kung-fu jacket with white cuffs and knot buttons, loose white trousers and black slippers",
+      "idle": "one palm raised in a calm guard, the other at her chest",
+      "cheer": "clapping above her head, laughing",
+      "shocked": "braid whipping sideways, mouth open in surprise",
+      "tags": ["martial-artist", "kung-fu", "female"]
+    },
+    {
+      "id": "org-ma-013",
+      "label": "Capoeira player with a berimbau",
+      "heightClass": "medium",
+      "look": "lean dark-skinned young man with short twists tied on top, a bright wide grin, a white sleeveless top, white loose capoeira trousers with a green-and-yellow cord belt, barefoot, carrying a berimbau musical bow with a gourd over his shoulder",
+      "idle": "swaying side to side to a rhythm",
+      "cheer": "berimbau lifted high in one hand, other arm up, singing",
+      "shocked": "crouching low with one hand on his head, eyes wide",
+      "tags": ["martial-artist", "capoeira", "music", "prop"]
+    },
+    {
+      "id": "org-ma-014",
+      "label": "Scarred street brawler",
+      "heightClass": "huge",
+      "look": "hulking bald brawler with a scar across one eye and a thick black beard, wearing a torn sleeveless brown leather vest, spiked black wristbands, ripped grey pants and a heavy chain belt",
+      "idle": "cracking his knuckles and glaring",
+      "cheer": "arms spread out wide to the sides, bellowing",
+      "shocked": "one eyebrow shot up, jaw dropped, beard bristling",
+      "tags": ["martial-artist", "brawler", "big", "scar"]
+    },
+    {
+      "id": "org-ma-015",
+      "label": "Kendo practitioner",
+      "heightClass": "medium",
+      "look": "serious young man with neat dark hair tied low, wearing a dark-indigo kendo jacket and pleated hakama with a black lacquered chest guard, holding his barred face helmet under one arm and a bamboo practice sword in the other hand",
+      "idle": "helmet tucked under his arm, bamboo sword tip planted at his feet",
+      "cheer": "bamboo sword raised high overhead, shouting",
+      "shocked": "helmet clutched to his chest, eyes wide",
+      "tags": ["martial-artist", "kendo", "sword", "prop"]
+    },
+    {
+      "id": "org-ma-016",
+      "label": "Retired champion with medals",
+      "heightClass": "tall",
+      "look": "burly middle-aged man with a greying flat-top, thick sideburns and a crooked nose, broad shoulders gone a little soft, wearing a green tracksuit jacket over a white tee with three gold medals on red ribbons around his neck",
+      "idle": "arms crossed, critiquing the footwork with a smirk",
+      "cheer": "arms out to the sides, shaking both fists",
+      "shocked": "medals swinging, one hand pressed over his heart",
+      "tags": ["martial-artist", "veteran", "medals"]
+    },
+    {
+      "id": "org-ma-017",
+      "label": "Sporty brawler with pink buns",
+      "heightClass": "medium",
+      "look": "toned young woman with pink-dyed hair in two small buns, a bandage on her cheek and a confident smirk, wearing a black sports top under an open yellow track jacket, black bike shorts, red fingerless gloves and white sneakers",
+      "idle": "hand on her hip, blowing a pink gum bubble",
+      "cheer": "double fist pump, shouting",
+      "shocked": "popped gum stuck across her face, eyes wide",
+      "tags": ["martial-artist", "brawler", "female", "gloves"]
+    },
+    {
+      "id": "org-ma-018",
+      "label": "Steppe wrestler in a deel",
+      "heightClass": "tall",
+      "look": "tall broad wrestler with a round ruddy face and a drooping black mustache, wearing a pointed fur-trimmed hat, an embroidered blue knee-length deel robe with an orange sash, and upturned brown leather boots",
+      "idle": "hands on his hips, chest puffed out",
+      "cheer": "arms spread wide to the sides, flapping like a soaring eagle",
+      "shocked": "hat knocked askew, mouth hanging open",
+      "tags": ["martial-artist", "wrestler", "hat"]
+    },
+    {
+      "id": "org-ma-019",
+      "label": "Nunchaku fan in a red jumpsuit",
+      "heightClass": "medium",
+      "look": "skinny young man with spiky orange hair and dark sunglasses pushed up on his forehead, wearing a red track jumpsuit with white side stripes and white sneakers, holding a pair of wooden nunchaku",
+      "idle": "nunchaku tucked under his armpit, grinning",
+      "cheer": "spinning the nunchaku over his head, whooping",
+      "shocked": "nunchaku dangling limp, sunglasses fallen onto his nose",
+      "tags": ["martial-artist", "nunchaku", "prop", "sunglasses"]
+    },
+    {
+      "id": "org-ma-020",
+      "label": "Stern karate sensei",
+      "heightClass": "tall",
+      "look": "stern middle-aged karate master with a short black beard streaked grey and heavy eyebrows, wearing a faded black gi, a worn black belt and a white headband, carrying a plank of pine wood for breaking under one arm",
+      "idle": "arms folded, the wooden plank pinned against his side",
+      "cheer": "plank held out to the side in one hand, other fist out, shouting",
+      "shocked": "plank snapped in two in his hands, eyes bulging",
+      "tags": ["martial-artist", "master", "karate", "headband", "prop"]
+    }
+  ]
+}

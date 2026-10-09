@@ -3,6 +3,8 @@
 - Status: Accepted
 - Date: 2026-10-04 (recorded retroactively 2026-10-08)
 - Deciders: User, Claude
+- Amended by [0007](0007-art-spec-v2-shippuden-256.md): hi-res sheets are spec v2 (256 px cells, ppu 128);
+  HD mode switches on when `pixelsPerUnit >= 70`.
 
 ## Context
 The target look is "HD-2D": pixel-art characters standing in a 3D world with modern lighting, depth,
@@ -18,7 +20,8 @@ pasted on. Pixel art needs a consistent pixel grid and nearest-neighbor sampling
 - Fighters are **camera-facing sprite planes** anchored at the feet, with a hidden sun-facing silhouette caster
   for real shadows and a blob contact shadow.
 - Pixel textures use `NearestFilter`, no mipmaps, sRGB.
-- **HD render mode** (in progress): when a fighter uses a hi-res custom sheet (192 px cells), the renderer
+- **HD render mode** (in progress): when a fighter uses a hi-res custom sheet (`pixelsPerUnit >= 70`; spec v2:
+  256 px cells, ppu 128), the renderer
   switches to a sharper mode (higher internal resolution for sprites or the whole frame), so the extra
   art detail isn't averaged away by the low-res buffer.
 

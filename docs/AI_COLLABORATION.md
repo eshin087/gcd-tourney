@@ -1,16 +1,21 @@
-# AI collaboration: Claude, ChatGPT and Codex
+# AI collaboration: Claude, Codex and the user (plus optional ChatGPT)
 
-Three AI tools and one human work on this project. This doc defines who does what, how work is handed
-off, and how conflicts get resolved, so nothing is done twice or overwritten.
+Two AI tools and one human work on this project, and the human can bring in ChatGPT by hand. This doc
+defines who does what, how work is handed off, and how conflicts get resolved, so nothing is done twice or
+overwritten.
+
+Since [ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md) **Codex generates the images itself** with
+its built-in image generator and the user reviews them. Before that, the user ran every prompt in ChatGPT
+and Codex only coordinated ([ADR 0006](decisions/0006-ai-art-pipeline.md)).
 
 ## Roles
 
 | Who | Owns | Doesn't do |
 |---|---|---|
-| **User** | vision and taste, final approval of art and game feel, running the ChatGPT image generator, merging to `main`, product decisions | (everything else is delegated) |
-| **Claude (Claude Code)** | engine and gameplay code, integration of art into the game, the packer and tools (`tools/`), architecture and ADRs, code review, QA soak tests, combat tuning, docs for systems | bitmap art |
-| **ChatGPT (image generator)** | all bitmap art: reference model sheets first, then animation strips frame by frame, VFX strips, UI art (portraits, cut-ins, select art, logo), following the briefs and prompts in `art/` | file management, code |
-| **Codex** | art-production coordination: reads `art/` briefs, `art/manifest.json` and `art/TRACKER.md`, tells the user which prompt to run next, files and renames images, runs `npm run sprites`, does QA, updates statuses, writes new character briefs from the template, makes small code/data changes per AGENTS.md | engine refactors, new animation names, hand-editing packer outputs |
+| **User** | vision and taste, reviewing and approving every generated image (`approve vNN`), final approval of game feel, merging to `main`, product decisions; optionally generating an image by hand in ChatGPT | (everything else is delegated) |
+| **Claude (Claude Code)** | engine and gameplay code, integration of art into the game, the packer and tools (`tools/`), the art spec (art/SPEC.md) and ADRs, code review, QA soak tests, combat tuning, docs for systems | bitmap art |
+| **Codex** | art production: generates every image with its built-in image generator from the `art/` prompts (model sheets first, then animation strips, VFX, UI), saves it with a `_vNN` version, runs `npm run sprites`, does QA, keeps the [art/REVIEW.md](../art/REVIEW.md) queue, updates statuses, writes new character briefs from the template, makes small code/data changes per AGENTS.md | engine refactors, new animation names, hand-editing packer outputs, approving its own images |
+| **ChatGPT (optional, run by the user)** | manual image generation from the same prompts, when the user wants it; Codex files the result with the same versioned names and review | file management, code |
 
 ## Which tool for what
 
@@ -18,14 +23,16 @@ off, and how conflicts get resolved, so nothing is done twice or overwritten.
 |---|---|
 | New combat mechanic, bug in the fighter state machine, performance | Claude |
 | Packer bug or new packer feature | Claude (Codex reports it with the exact repro) |
-| "What prompt do I run next?" / "I saved 6 images, file them" | Codex |
-| Drawing a sprite strip, VFX strip, portrait or logo | ChatGPT (the user runs the prompt) |
-| Touching up a few pixels on a frame | the user (any pixel editor) or ChatGPT edit, saved to `frames/<anim>/`, then re-pack |
+| "Generate the next asset" / "where does the art stand?" | Codex |
+| Drawing a model sheet, sprite strip, VFX strip, portrait or logo | Codex (built-in image generator); the user in ChatGPT if they prefer |
+| Approving or rejecting an image | the user, in art/REVIEW.md or in chat (`approve vNN` or feedback) |
+| "I saved an image from ChatGPT, file it" | Codex (next free `_vNN`, REVIEW.md row) |
+| Touching up a few pixels on a frame | the user (any pixel editor, in `frames/<anim>/`) or a patched pose saved as the next strip version ([art/PIPELINE.md "Fixing frames"](../art/PIPELINE.md#fixing-frames)), then re-pack |
 | Writing a new character's briefs | Codex (from `_template`), then Claude reviews the gameplay-facing parts |
 | New character data file + placeholder model | Claude (Codex can draft the data file) |
 | Hitbox overrides (`hitboxes.json`) | Codex or Claude |
 | Reviewing a change | the other AI (Claude reviews Codex changes and vice versa), then the user |
-| Architecture decision | Claude drafts the ADR, and the user accepts |
+| Architecture decision or art spec change | Claude drafts the ADR, and the user accepts |
 
 ## Shared state (the handoff surfaces)
 
@@ -35,8 +42,9 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 |---|---|---|
 | [docs/TASKS.md](TASKS.md) | the task board: id, title, owner, status, notes | everyone, when they claim or finish work |
 | [CHANGELOG.md](../CHANGELOG.md) | every change, under `## [Unreleased]` | whoever made the change |
+| [art/REVIEW.md](../art/REVIEW.md) | the review queue: one row per generated image version, newest first (date, character, asset, file link, version, status `needs review` / `approved` / `rejected`, what changed, QA notes) | Codex adds rows; the user decides; Codex records the decision |
 | [art/TRACKER.md](../art/TRACKER.md) | human-readable per-asset checklist | Codex (Claude when the spec changes) |
-| [art/manifest.json](../art/manifest.json) | machine-readable asset status (`todo, raw, packed, approved`) | Codex, plus the packer report |
+| [art/manifest.json](../art/manifest.json) | machine-readable asset status (`todo, raw, packed, approved`, plus `version` and `approvedVersion`) | Codex, plus the packer report |
 | [docs/decisions/](decisions/README.md) | ADRs | Claude drafts, the user accepts |
 | `CLAUDE.md`, `AGENTS.md` | standing instructions per tool | Claude (keep the two consistent) |
 
@@ -45,45 +53,77 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 1. **Claim.** Before starting, find or create the task in docs/TASKS.md and set `owner` and
    `status: in-progress`. If someone else holds it, don't start. Add a note or ask the user.
 2. **Work small.** One task per branch or commit series. Don't mix engine changes with art filing.
-3. **Log.** Add a CHANGELOG line under Unreleased. Update the tracker and manifest for art.
+3. **Log.** Add a CHANGELOG line under Unreleased. Update REVIEW, the tracker and the manifest for art.
 4. **Hand back.** Set the status to `review` with a one-line note: what changed, how to verify, and any
    follow-up tasks you created (with owners).
 5. **Review gate** (below). Then `done`.
 
 Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` with the reason in notes).
 
-### Art status flow
+### Art review loop (every generated image)
 
 ```
-todo ──(user runs ChatGPT prompt; Codex files raw/<anim>.png)──> raw
-raw  ──(npm run sprites; report clean; frames look right)──────> packed
-packed ──(user checks it in game and approves)─────────────────> approved
-any  ──(redo needed)──> back to todo or raw, with the reason in TRACKER notes
+Codex generates (up to 3 attempts), then saves ONLY the single best attempt
+  -> saves <asset>_vNN.png (next free number; one new version per round; unsaved attempts get no
+     number; never overwrite, reuse or delete a version)
+  -> packs it (strips, VFX), runs QA
+  -> adds a REVIEW.md row "needs review", updates TRACKER + manifest (version)
+  -> STOPS and shows the user the latest version with a 3-line verdict
+user: "approve vNN"  -> row approved, manifest approvedVersion = NN, fixed-name copy
+                        (reference/model_sheet.png, expressions.png, idle_approved.png, ui/<name>.png);
+                        any other "needs review" row of the asset -> rejected (superseded by vNN),
+                        file to _rejected/; commit (explicit paths only, current branch)
+user: feedback       -> row rejected (reason), the file moves to the _rejected/ folder next to it
+                        (raw/_rejected/, reference/_rejected/, ...), Codex generates the next version
 ```
+
+Naruto and Sasuke run in parallel (separate Codex threads, Prompt 1 with `<id>` filled in): each character
+has its own loop, and one can move on while the other waits for review. Never put two characters in one
+image (only exception: the shared title key art in art/ui/PROMPTS.md). The threads share one working copy
+and one art branch: no `git checkout`/`switch`/`stash`, and each commit stages explicit paths only (never
+`git add -A`, `git add .` or `git commit -a`). Each thread re-reads
+art/REVIEW.md right before editing it and only touches its own character's rows.
+
+### Art status flow (manifest + TRACKER)
+
+```
+todo   ──(Codex saves raw/<anim>_vNN.png or reference/<asset>_vNN.png)──> raw
+raw    ──(npm run sprites; report clean; frames look right)────────────> packed
+packed ──(user checks it in game and says "approve vNN")───────────────> approved   (approvedVersion = NN)
+any    ──(redo needed)──> a new higher version (version > approvedVersion) with a `needs review` row;
+                          the status never goes down (reason in REVIEW + TRACKER notes)
+```
+
+Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 
 ## Review gates
 
 | Change type | Gate before `done` |
 |---|---|
 | Engine / gameplay code | testing protocol in CLAUDE.md (clean console, checklist, soak for combat/AI), `npm run build`, user plays it |
-| Packer / tools | re-pack all characters, diff the report against before, `npm run build` |
-| Art batch | packer report clean, frames inspected (feet, height, palette, AA, facing, design drift), visible in game with `?art=custom`, user approval |
+| Packer / tools | `npm run test:sprites`, re-pack all characters, diff the report against before, `npm run build` |
+| Art batch | a REVIEW.md row per version, packer report clean, frames inspected (proportions, feet, height, palette, AA, facing, design drift), visible in game with `?art=custom`, user's `approve vNN` |
 | New character | [ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md) readiness level reached, soak passed |
 | Docs only | links work, facts match the code |
-| Spec change (`art/SPEC.md`, anim names) | ADR or CHANGELOG entry, packer + game + template + manifest updated together |
+| Spec change (`art/SPEC.md`, anim names) | ADR, packer + game + template + manifest + briefs + agent docs updated together |
 
 ## Prompt hygiene
 
-**For ChatGPT (images):**
+**For image generation (Codex's built-in generator, or ChatGPT by hand):**
 - One animation per image, poses in a **single horizontal row**, facing **right**, on flat magenta `#FF00FF`.
-- Always attach the approved **reference sheet** (and the approved `idle` strip once it exists). Say
-  "match this exact character design, proportions and palette".
+  One character per image.
+- Always attach the approved **model sheet** (`reference/model_sheet.png`), then also the expression sheet
+  and, from the run strip on, `reference/idle_approved.png`. Say "match this exact character design,
+  proportions and palette".
+- Spec v2 look: Shippuden designs, **about 6.5 heads tall**, serious anime proportions, not chibi. Prompts
+  carry the size and proportion lines from art/SPEC.md; don't shorten them.
 - Describe **visual traits** (hair, outfit, colors, silhouette) and say "anime fan-art sprite". Don't
   depend on character or artist names. If a request is refused, use the fallback wording in the PROMPTS file.
-- Repeat the hard constraints every time: hard pixels, no anti-aliasing or blur, 1 px dark outline, 3 to 4 tone
-  cel shading, light from the upper front-right, same size in every frame, feet on one baseline, no ground
-  shadow, no text, no borders.
-- If a strip drifts (wrong outfit detail, extra limbs, size creep), regenerate. Don't hand off a bad strip.
+- Repeat the hard constraints every time: hard pixels, no anti-aliasing or blur, 1 px dark outline, flat cel
+  shading (tones per art/STYLE_GUIDE.md), light from the upper front-right, same size in every frame, feet
+  on one baseline, no ground shadow, no text, no borders.
+- If a strip drifts (wrong outfit detail, extra limbs, size creep), generate the next version. Don't hand off
+  a bad strip.
 - Generate in batches of related animations (locomotion, normals, hurt) so details stay consistent.
 
 **For Codex and Claude (code and docs):**
@@ -99,18 +139,20 @@ any  ──(redo needed)──> back to todo or raw, with the reason in TRACKER 
   If unsure, stop and ask the user.
 - **Docs disagree with code.** The code is the current truth for behavior, and the docs get fixed in the
   same change. For **contracts** (art/SPEC.md, anims.json format, animation names), the spec wins and the
-  code gets fixed.
-- **Spec disagreements** (e.g. ChatGPT can't hit the frame count). Don't change the spec ad hoc. Note it in
-  TRACKER, let the packer handle frame-count mismatches (the engine stretches frames over phases), and raise
+  code gets fixed. For art spec numbers, [ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md) wins over
+  any other doc.
+- **Spec disagreements** (e.g. the generator can't hit the frame count). Don't change the spec ad hoc. Note it
+  in TRACKER, let the packer handle frame-count mismatches (the engine stretches frames over phases), and raise
   a task if a real spec change is needed.
 - **Taste disagreements** (does this look right?): the user decides. Record the decision in the character's
-  `CHARACTER.md` (do's and don'ts) so it sticks.
+  `CHARACTER.md` (do's and don'ts) so it sticks, and in the REVIEW.md row.
 - **Priority conflicts**: the order of docs/TASKS.md plus the [ROADMAP.md](ROADMAP.md) milestone decides.
   If both are unclear, ask the user.
 
 ## Session starters
 
 - Claude: "Read CLAUDE.md and docs/TASKS.md, then work on <task id>."
-- Codex: use the prompts in [docs/agents/CODEX_PROMPT.md](agents/CODEX_PROMPT.md).
-- ChatGPT: paste the prompt Codex points you to from `art/characters/<id>/PROMPTS.md`, and attach the
-  reference images it names.
+- Codex: use the prompts in [docs/agents/CODEX_PROMPT.md](agents/CODEX_PROMPT.md) (Prompt 0 restarts the art
+  under spec v2; Prompt 1 for every later session).
+- ChatGPT (optional): paste the prompt from `art/characters/<id>/PROMPTS.md`, attach the approved reference
+  images, save the result anywhere, and tell Codex to file it (one-liner in CODEX_PROMPT.md).

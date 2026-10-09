@@ -1,0 +1,136 @@
+{
+  "group": "ninja-samurai-cosplayers",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-cosp-001",
+      "label": "Cardboard samurai",
+      "heightClass": "short",
+      "look": "proud kid in homemade samurai armor made of red-painted cardboard plates tied with yellow string, a cardboard helmet with a gold paper fan-shaped crest, black sweatpants, sneakers, a plastic toy katana in a black sheath",
+      "idle": "hand on the toy sword hilt, chest out",
+      "cheer": "toy katana raised high",
+      "shocked": "cardboard helmet slipping over his eyes",
+      "tags": ["cosplayer", "samurai", "kid", "male", "toy-sword"]
+    },
+    {
+      "id": "org-cosp-002",
+      "label": "Shadow ninja fan",
+      "heightClass": "medium",
+      "look": "fan in a full black shinobi outfit with a black hood and face mask showing only the eyes, a long dark-gray headband tied at the back, black wrapped shins, split-toe black boots, a plastic kunai on his belt",
+      "idle": "holding a ninja hand-sign at his chest",
+      "cheer": "flinging a paper shuriken, other arm up",
+      "shocked": "face mask slipping down, revealing a gaping mouth",
+      "tags": ["cosplayer", "ninja", "adult", "male", "mask"]
+    },
+    {
+      "id": "org-cosp-003",
+      "label": "Kunoichi with war fans",
+      "heightClass": "medium",
+      "look": "kunoichi cosplayer with a high purple ponytail and a long red scarf trailing behind; short purple wrap top with a black sash, black leggings, wrapped forearms, ankle tabi boots, two folding war fans",
+      "idle": "hand on her hip, one fan held closed",
+      "cheer": "both fans spread open in a pose",
+      "shocked": "fans snapping shut, scarf flying up",
+      "tags": ["cosplayer", "ninja", "adult", "female", "fan"]
+    },
+    {
+      "id": "org-cosp-004",
+      "label": "Wandering ronin cosplayer",
+      "heightClass": "tall",
+      "look": "scruffy ronin cosplayer with a long unkempt black topknot and stubble under a battered straw hat; worn gray kimono over dark hakama trousers, straw sandals, a wooden sword at his hip and a sake gourd on a cord",
+      "idle": "swigging from the gourd lazily",
+      "cheer": "gourd raised out to the side in a toast",
+      "shocked": "straw hat tipping back, gourd spilling",
+      "tags": ["cosplayer", "samurai", "adult", "male", "gourd"]
+    },
+    {
+      "id": "org-cosp-005",
+      "label": "Kid ninja",
+      "heightClass": "tiny",
+      "look": "tiny kid ninja in a red-and-yellow ninja costume with a too-big red hood and face mask, a yellow sash, red split-toe socks, a handful of plastic shuriken",
+      "idle": "striking a dramatic ninja pose",
+      "cheer": "tossing plastic shuriken in the air",
+      "shocked": "hood flopping down over his whole face",
+      "tags": ["cosplayer", "ninja", "kid", "male", "shuriken"]
+    },
+    {
+      "id": "org-cosp-006",
+      "label": "Long-nosed goblin mask cosplayer",
+      "heightClass": "medium",
+      "look": "cosplayer of a mountain goblin spirit with a red long-nosed mask and a small black cap; white mountain-ascetic robe with big fluffy pom-pom tassels on the sash, checkered vest, high geta, a feather fan",
+      "idle": "slowly fanning with the feather fan",
+      "cheer": "feather fan thrust up dramatically",
+      "shocked": "red mask tipping up to reveal a startled face",
+      "tags": ["cosplayer", "folklore", "adult", "male", "mask", "fan"]
+    },
+    {
+      "id": "org-cosp-007",
+      "label": "Armored samurai fan",
+      "heightClass": "huge",
+      "look": "big fan in a full replica suit of lacquered blue-and-gold samurai armor with layered shoulder plates, a helmet with tall golden horn-shaped crests and a black face guard pushed up, black armored boots",
+      "idle": "arms folded across the chest plate",
+      "cheer": "armored arms thrown out to the sides",
+      "shocked": "helmet sliding down, horns tilting",
+      "tags": ["cosplayer", "samurai", "adult", "male", "armor", "big"]
+    },
+    {
+      "id": "org-cosp-008",
+      "label": "Fox-mask festival ninja",
+      "heightClass": "short",
+      "look": "teen girl in a white fox mask with red markings pushed to the side of her head, short dark-blue hair; dark-blue ninja outfit with a red sash, black leggings, a clear festival bag holding a goldfish",
+      "idle": "holding up the goldfish bag, watching",
+      "cheer": "jumping with the goldfish bag held high",
+      "shocked": "fox mask sliding over her face",
+      "tags": ["cosplayer", "ninja", "teen", "female", "mask"]
+    },
+    {
+      "id": "org-cosp-009",
+      "label": "Feudal-lord cosplayer",
+      "heightClass": "medium",
+      "look": "portly middle-aged man cosplaying a feudal lord in a purple formal robe with wide stiff shoulder wings, gray pleated trousers, a fake black topknot wig, a red-and-gold paddle-shaped war fan",
+      "idle": "posing grandly with the war fan at his chest",
+      "cheer": "war fan pointed at the ring, commanding",
+      "shocked": "topknot wig flying off his head",
+      "tags": ["cosplayer", "samurai", "adult", "male", "wig"]
+    },
+    {
+      "id": "org-cosp-010",
+      "label": "Woman warrior with polearm",
+      "heightClass": "tall",
+      "look": "tall woman-warrior cosplayer with long black hair tied in a low ponytail and a white headband; white kimono top with red cords tying back the sleeves, red pleated hakama trousers, a short-handled wooden curved-blade polearm held upright",
+      "idle": "polearm held upright beside her, serene",
+      "cheer": "polearm thrust out to the side, battle cry",
+      "shocked": "headband slipping, eyes wide",
+      "tags": ["cosplayer", "samurai", "adult", "female", "polearm"]
+    },
+    {
+      "id": "org-cosp-011",
+      "label": "Grandpa ninja",
+      "heightClass": "short",
+      "look": "spry little grandpa in a baggy moss-green ninja costume with the mask pulled down under his chin, bushy white eyebrows and mustache, a black round smoke-bomb ball in his hand",
+      "idle": "hands behind his back, chuckling",
+      "cheer": "tossing the smoke ball up with a small gray puff",
+      "shocked": "coughing in a small gray smoke puff",
+      "tags": ["cosplayer", "ninja", "elder", "male", "smoke-bomb"]
+    },
+    {
+      "id": "org-cosp-012",
+      "label": "Foot-soldier cosplayer",
+      "heightClass": "medium",
+      "look": "earnest foot-soldier cosplayer in a flat conical black lacquer hat, simple brown lamellar chest armor over a blue tunic, wrapped shins, a short narrow white banner with a plain black diamond on a pole strapped to his back",
+      "idle": "standing at attention",
+      "cheer": "fist pumped, banner wobbling on his back",
+      "shocked": "hat tilting, banner leaning sideways",
+      "tags": ["cosplayer", "samurai", "adult", "male", "banner"]
+    },
+    {
+      "id": "org-cosp-013",
+      "label": "Cyber-ninja cosplayer",
+      "heightClass": "medium",
+      "look": "cosplayer in a futuristic ninja suit of silver armor plates over a black bodysuit with glowing neon-cyan lines, a cyan LED visor across the eyes, a light-up toy katana glowing cyan",
+      "idle": "light-up katana resting on his shoulder",
+      "cheer": "katana raised, visor flashing",
+      "shocked": "visor flickering, katana light sputtering",
+      "tags": ["cosplayer", "ninja", "adult", "male", "visor", "toy-sword"]
+    }
+  ]
+}

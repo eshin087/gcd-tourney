@@ -1,0 +1,117 @@
+{
+  "group": "chainsaw-man",
+  "kind": "cameo",
+  "series": "Chainsaw Man",
+  "spectators": [
+    {
+      "id": "csm-001",
+      "name": "Denji (Chainsaw Man)",
+      "heightClass": "tall",
+      "look": "lean teen whose head is a grey chainsaw bar jutting up and forward from his forehead above a wide jagged-toothed jaw, chainsaw blades sprouting from both forearms, white collared shirt with a loose black necktie, black trousers, a pull-cord handle hanging from his chest",
+      "fallbackLook": "lean figure whose head is a grey motorized saw-blade bar sticking up from the forehead above a wide jagged-toothed jaw, toothed saw blades jutting from both forearms, a white collared shirt with a loose black necktie, black trousers and a pull-cord handle on his chest",
+      "idle": "slouching, chainsaw arms lowered, blades idling",
+      "cheer": "chainsaw arms flung out to the sides, revving with sparks",
+      "shocked": "leaning back, jaw gaping wide, blades sputtering",
+      "tags": ["devil-hunter", "monster", "suit"]
+    },
+    {
+      "id": "csm-002",
+      "name": "Pochita",
+      "heightClass": "tiny",
+      "look": "small round orange dog-like devil with a grey chainsaw blade sticking out of its forehead, tiny black eyes, a pink tongue, stubby little legs and a short tail ending in a pull-cord handle",
+      "fallbackLook": "small round orange dog-like creature with a grey toothed saw blade sticking out of its forehead, tiny black eyes, a pink tongue, stubby legs and a short tail ending in a pull-cord handle",
+      "idle": "sitting with its tongue out, tail wagging",
+      "cheer": "hopping on stubby legs, forehead chainsaw whirring",
+      "shocked": "flattened on its belly, eyes huge",
+      "tags": ["creature", "cute", "pet"]
+    },
+    {
+      "id": "csm-003",
+      "name": "Power",
+      "heightClass": "medium",
+      "look": "wild young woman with long straight strawberry-blonde hair, two small red horns on her forehead, golden eyes with cross-shaped pupils and a sharp-toothed grin, untucked white collared shirt with a loose black necktie, black trousers",
+      "fallbackLook": "wild young woman with long straight strawberry-blonde hair, two small red horns on her forehead, golden eyes with cross-shaped pupils, a sharp-toothed grin, an untucked white shirt with a loose black necktie and black trousers",
+      "idle": "arms crossed, chin raised, smug fanged grin",
+      "cheer": "thumb jabbed at her own chest, cackling",
+      "shocked": "cowering behind raised arms, teeth chattering",
+      "tags": ["fiend", "devil-hunter", "horns"]
+    },
+    {
+      "id": "csm-004",
+      "name": "Aki Hayakawa",
+      "heightClass": "tall",
+      "look": "serious young man with black hair tied in a small topknot at the back of his head, tired blue eyes and small stud earrings, black suit jacket over a white shirt and black necktie, black trousers, a katana in a dark sheath strapped across his back",
+      "fallbackLook": "serious young man with black hair tied in a small topknot, tired blue eyes, small stud earrings, a black suit over a white shirt and black necktie, a sheathed katana strapped across his back",
+      "idle": "arms crossed, stern frown",
+      "cheer": "a restrained raised fist, slight smile",
+      "shocked": "hand reaching back for his sword, eyes wide",
+      "tags": ["devil-hunter", "swordsman", "suit"]
+    },
+    {
+      "id": "csm-005",
+      "name": "Makima",
+      "heightClass": "medium",
+      "look": "composed young woman with coral-red hair in a long low braid over her shoulder and side-swept bangs, golden eyes with concentric ring pupils and a faint calm smile, crisp white collared shirt with a black necktie tucked in, black trousers, black shoes",
+      "fallbackLook": "composed young woman with coral-red hair in a long low braid and side-swept bangs, golden eyes with concentric ringed pupils, a faint calm smile, a crisp white shirt with a tucked-in black necktie and black trousers",
+      "idle": "hands folded in front of her, serene unblinking smile",
+      "cheer": "a slow polite clap, the same calm smile",
+      "shocked": "barely reacting, a slight head tilt, ringed eyes watching coldly",
+      "tags": ["boss", "suit", "calm"]
+    },
+    {
+      "id": "csm-006",
+      "name": "Kobeni Higashiyama",
+      "heightClass": "short",
+      "look": "timid young woman with messy dark brown hair in a short low ponytail, a small mole under one eye, teary frightened eyes, black suit jacket over a white shirt and black necktie, black trousers",
+      "fallbackLook": "timid young woman with messy dark brown hair in a short low ponytail, a small mole under one eye, teary frightened eyes, a black suit jacket over a white shirt and black necktie, black trousers",
+      "idle": "wringing her hands, trembling, eyes darting around",
+      "cheer": "sobbing and cheering at once, both hands raised",
+      "shocked": "screaming with hands on her head, tears flying",
+      "tags": ["devil-hunter", "suit", "nervous"]
+    },
+    {
+      "id": "csm-007",
+      "name": "Himeno",
+      "heightClass": "medium",
+      "look": "laid-back young woman with short messy dark hair, a black eyepatch over her right eye and a relaxed lopsided smile, open black suit jacket over a white shirt with a loosened black necktie, black trousers",
+      "fallbackLook": "laid-back young woman with short messy dark hair, a black eyepatch over one eye, a lopsided smile, an open black suit jacket over a white shirt with a loosened black necktie, black trousers",
+      "idle": "hands in her pockets, relaxed lopsided smile",
+      "cheer": "one arm raised high, winking her visible eye",
+      "shocked": "leaning back, her one eye wide, hand at her mouth",
+      "tags": ["devil-hunter", "suit", "eyepatch"]
+    },
+    {
+      "id": "csm-008",
+      "name": "Kishibe",
+      "heightClass": "tall",
+      "look": "tall lean middle-aged man with swept-back dark hair greying at the temples, stubble and faint scars on his face, rings pierced through his lower lip and half-closed bored eyes, rumpled black suit, white shirt with a loosened black tie, a small metal hip flask in hand",
+      "fallbackLook": "tall lean middle-aged man with swept-back dark hair greying at the temples, stubble, faint facial scars, lip piercings, bored half-closed eyes, a rumpled black suit with a loosened black tie and a small metal hip flask",
+      "idle": "sipping from his metal flask, bored stare",
+      "cheer": "flask raised in a lazy toast",
+      "shocked": "flask lowered, one eyebrow raised",
+      "tags": ["veteran", "devil-hunter", "suit"]
+    },
+    {
+      "id": "csm-009",
+      "name": "Angel Devil",
+      "heightClass": "medium",
+      "look": "slim androgynous young man with shoulder-length sandy-beige hair and sleepy pale eyes, a thin glowing gold halo floating above his head, small white feathered wings on his back, white collared shirt with a black necktie, black trousers",
+      "fallbackLook": "slim androgynous young man with shoulder-length sandy-beige hair, sleepy pale eyes, a thin glowing gold halo above his head, small white feathered wings, a white shirt with a black necktie and black trousers",
+      "idle": "slouching with a bored, sleepy look",
+      "cheer": "a lazy half-wave, wings fluttering",
+      "shocked": "wings flared out, halo flickering, eyes wide",
+      "tags": ["devil", "wings", "halo"]
+    },
+    {
+      "id": "csm-010",
+      "name": "Beam",
+      "heightClass": "tall",
+      "look": "lanky fiend with a grey-blue shark head on a human body (pointed snout, rows of sharp white teeth, a small dorsal fin on top), white collared shirt with a black necktie, black suit jacket and trousers",
+      "fallbackLook": "lanky figure with a grey-blue shark head on a human body, pointed snout, rows of sharp white teeth and a small dorsal fin on top, wearing a white shirt, black necktie and black suit",
+      "idle": "fidgeting excitedly, staring at the ring and drooling",
+      "cheer": "arms waving out to the sides, jaws wide open shouting",
+      "shocked": "jaw hanging unhinged, fin quivering, hands on his head",
+      "tags": ["fiend", "shark", "suit"]
+    }
+  ]
+}

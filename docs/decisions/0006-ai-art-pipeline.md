@@ -3,6 +3,9 @@
 - Status: Accepted
 - Date: 2026-10-08
 - Deciders: User, Claude
+- Amended by: [0007](0007-art-spec-v2-shippuden-256.md) (art spec v2 numbers and proportions replace the
+  ones in Decision 1; Codex generates the images; every generated image gets a `_vNN` version and a row in
+  `art/REVIEW.md`)
 
 ## Context
 The user wants the game to look "stunning", with characters, projectiles and moves matching the original

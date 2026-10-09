@@ -1,0 +1,106 @@
+{
+  "group": "monks-priests",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-mp-001",
+      "label": "Warrior monk in saffron",
+      "heightClass": "medium",
+      "look": "muscular young monk with a freshly shaved head, thick dark brows and a serious face, wearing a saffron-orange robe draped over one shoulder, a long brown wooden prayer-bead necklace and grey cloth leg wraps with straw sandals",
+      "idle": "palms pressed together in a respectful bow toward the ring",
+      "cheer": "one fist thrust up, shouting",
+      "shocked": "beads flying off a snapped string, eyes wide",
+      "tags": ["monk", "martial-artist", "bald", "beads"]
+    },
+    {
+      "id": "org-mp-002",
+      "label": "Elderly temple abbot",
+      "heightClass": "short",
+      "look": "tiny ancient abbot with a bald wrinkled head and long white eyebrows drooping past his cheeks, a kindly smile, wearing a deep-maroon robe under a gold-trimmed patchwork stole and holding a gnarled wooden staff topped with brass rings",
+      "idle": "leaning on his ringed staff, eyes closed serenely",
+      "cheer": "rattling the ringed staff above his head, laughing",
+      "shocked": "eyebrows blown upward revealing tiny wide eyes",
+      "tags": ["monk", "elder", "bald", "staff", "prop"]
+    },
+    {
+      "id": "org-mp-003",
+      "label": "Little novice monk",
+      "heightClass": "tiny",
+      "look": "chubby little novice boy with a shaved round head and pink cheeks, wearing an oversized plain grey robe with sleeves too long and tiny straw sandals, holding a rice ball",
+      "idle": "nibbling the rice ball, eyes glued to the ring",
+      "cheer": "rice ball held up high, hopping",
+      "shocked": "rice ball dropping from his hand, mouth a big round O",
+      "tags": ["monk", "kid", "bald", "food"]
+    },
+    {
+      "id": "org-mp-004",
+      "label": "Shrine priest in a tall black cap",
+      "heightClass": "medium",
+      "look": "dignified slim man with neat black hair under a tall black lacquered court cap, a calm narrow face, wearing a white wide-sleeved priest robe over pale-purple hakama trousers and holding a wooden purification wand with white zigzag paper streamers",
+      "idle": "wand held formally upright in both hands",
+      "cheer": "waving the wand overhead, paper streamers flying",
+      "shocked": "tall cap tipping backward, mouth open",
+      "tags": ["priest", "hat", "prop"]
+    },
+    {
+      "id": "org-mp-005",
+      "label": "Shrine maiden with a bell staff",
+      "heightClass": "medium",
+      "look": "graceful young woman with long straight black hair tied low with a white paper ribbon and calm dark eyes, wearing a white wide-sleeved shrine top and bright red pleated hakama, holding a short staff hung with golden bells",
+      "idle": "bell staff held close to her chest, polite smile",
+      "cheer": "jingling the golden bells high overhead",
+      "shocked": "free hand covering her mouth, eyes wide",
+      "tags": ["priest", "shrine-maiden", "female", "prop"]
+    },
+    {
+      "id": "org-mp-006",
+      "label": "Mountain ascetic with a conch",
+      "heightClass": "tall",
+      "look": "rugged mountain ascetic with wild shoulder-length black hair, a thick beard and a tiny black pillbox cap on his forehead, wearing a checkered white-and-tan robe with big white pompom tassels on a sash, carrying a cream conch-shell trumpet",
+      "idle": "conch held at his hip, stern gaze on the ring",
+      "cheer": "blowing the conch with cheeks puffed, free arm out to the side",
+      "shocked": "conch slipping from his hands, eyes popping",
+      "tags": ["monk", "beard", "prop", "big"]
+    },
+    {
+      "id": "org-mp-007",
+      "label": "Prayer-wheel monk",
+      "heightClass": "medium",
+      "look": "round-faced cheerful monk with very short black hair and rosy cheeks, wearing layered maroon robes with a mustard-yellow sleeveless vest, spinning a small golden hand-held prayer wheel on a wooden handle",
+      "idle": "spinning the prayer wheel slowly, smiling",
+      "cheer": "prayer wheel whirling high overhead",
+      "shocked": "prayer wheel frozen mid-spin, mouth a round O",
+      "tags": ["monk", "prop"]
+    },
+    {
+      "id": "org-mp-008",
+      "label": "Basket-hat flute monk",
+      "heightClass": "medium",
+      "look": "mysterious wandering monk whose whole head is hidden under a large upside-down woven straw basket hat, wearing a slate-blue robe with a brown patchwork stole and white leg wraps, holding a long bamboo flute",
+      "idle": "flute held downward in both hands, basket hat tilted toward the ring",
+      "cheer": "flute raised high like a sword",
+      "shocked": "basket hat jolted up to reveal only a startled chin",
+      "tags": ["monk", "hat", "music", "prop"]
+    },
+    {
+      "id": "org-mp-009",
+      "label": "Daoist priest with a fly whisk",
+      "heightClass": "medium",
+      "look": "thin elderly-looking priest with grey hair in a topknot pinned with a wooden pin and a long wispy grey beard, wearing a mustard-yellow robe with black trim and a small black-and-white yin-yang circle on the chest, a white horsetail fly whisk draped over one arm",
+      "idle": "stroking his beard, fly whisk resting over his forearm",
+      "cheer": "fly whisk swung overhead, beard flapping",
+      "shocked": "beard standing straight out, whisk dropping",
+      "tags": ["priest", "beard", "prop"]
+    },
+    {
+      "id": "org-mp-010",
+      "label": "Giant guardian monk",
+      "heightClass": "huge",
+      "look": "towering muscular monk with a shaved head, a thick black beard and fierce temple-guardian brows, wearing a dark-grey robe tied up with a red sash, a huge necklace of fist-sized wooden beads, and carrying a log-shaped wooden temple-bell striker",
+      "idle": "arms folded, glaring like a guardian statue",
+      "cheer": "arms out wide to the sides, bellowing",
+      "shocked": "giant beads swinging, eyes popped wide",
+      "tags": ["monk", "bald", "beard", "big", "beads"]
+    }
+  ]
+}

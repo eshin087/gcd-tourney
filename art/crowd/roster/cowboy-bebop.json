@@ -1,0 +1,73 @@
+{
+  "group": "cowboy-bebop",
+  "kind": "cameo",
+  "series": "Cowboy Bebop",
+  "spectators": [
+    {
+      "id": "bebop-001",
+      "name": "Spike Spiegel",
+      "heightClass": "tall",
+      "look": "lanky, laid-back bounty hunter with a mop of fluffy dark-green hair, half-lidded brown eyes and a lazy smirk, wearing a loose navy-blue suit over a mustard-yellow shirt with a skinny black tie, hands stuffed in his pockets",
+      "fallbackLook": "lanky, laid-back man with a mop of fluffy dark-green hair, half-lidded eyes and a lazy smirk, a loose navy-blue suit over a mustard-yellow shirt with a skinny black tie, hands in his pockets",
+      "idle": "slouching with hands in pockets, lazy half-smile",
+      "cheer": "one hand held out beckoning in a cool martial-arts 'come on' gesture, grinning",
+      "shocked": "eyebrows up, leaning back with a hand on his fluffy hair",
+      "tags": ["adult", "male", "bounty-hunter", "martial-artist", "suit"]
+    },
+    {
+      "id": "bebop-002",
+      "name": "Faye Valentine",
+      "heightClass": "medium",
+      "look": "sly gambler with a short violet-purple bob, a yellow headband, green eyes and a confident smirk, wearing a yellow crop top, yellow shorts and white boots, holding a fan of playing cards",
+      "fallbackLook": "sly young woman with a short violet-purple bob, a yellow headband, green eyes and a confident smirk, a yellow crop top, yellow shorts and white boots, holding a fan of playing cards",
+      "idle": "hand on hip, fanning her playing cards, bored smirk",
+      "cheer": "flicking a card into the air with a wink, one fist raised",
+      "shocked": "cards scattering from her hand, mouth open",
+      "tags": ["adult", "female", "bounty-hunter", "gambler", "prop"]
+    },
+    {
+      "id": "bebop-003",
+      "name": "Jet Black",
+      "heightClass": "huge",
+      "look": "burly, bald ex-cop with a thick black beard, a heavy brow and stern kind eyes, wearing a dark navy jacket over a tight dark top and brown pants, a bulky silver mechanical left arm, holding a small potted bonsai tree",
+      "fallbackLook": "burly bald man with a thick black beard and a heavy brow, a dark navy jacket over a tight dark top, brown pants and a bulky silver mechanical left arm, holding a small potted bonsai tree",
+      "idle": "carefully trimming the bonsai with tiny shears",
+      "cheer": "metal fist thrust out to the side, grinning through his beard",
+      "shocked": "rubbing his bald head in disbelief, bonsai tucked under his arm",
+      "tags": ["adult", "male", "bounty-hunter", "big", "cyborg"]
+    },
+    {
+      "id": "bebop-004",
+      "name": "Ed (Radical Edward)",
+      "heightClass": "short",
+      "look": "hyperactive genius hacker kid with messy short red-orange hair, dark tan skin, a wide goofy grin and goggles pushed up on her forehead, wearing a baggy white shirt and black bike shorts, barefoot, a small laptop under her arm",
+      "fallbackLook": "hyperactive kid with messy short red-orange hair, dark tan skin, a wide goofy grin and goggles pushed up on her forehead, a baggy white shirt, black bike shorts, bare feet and a small laptop under her arm",
+      "idle": "wobbling on one foot with the laptop balanced on her head",
+      "cheer": "noodle-like arms flailing above her head, tongue out",
+      "shocked": "crouched low with the laptop held over her head like a helmet, eyes huge",
+      "tags": ["kid", "female", "hacker", "goggles", "comedy"]
+    },
+    {
+      "id": "bebop-005",
+      "name": "Ein",
+      "heightClass": "tiny",
+      "look": "small genius corgi with tan-and-white fur, big upright pointed ears, bright dark eyes, a white chest ruff and short stubby legs, sitting alert",
+      "fallbackLook": "small tan-and-white corgi dog with big upright ears, bright dark eyes, a white chest ruff and short stubby legs, sitting alert",
+      "idle": "sitting alert, head tilted at the fight",
+      "cheer": "up on hind legs, barking happily",
+      "shocked": "ears flat back, tiny legs splayed",
+      "tags": ["animal", "dog", "pet"]
+    },
+    {
+      "id": "bebop-006",
+      "name": "Vicious",
+      "heightClass": "tall",
+      "look": "cold, menacing swordsman with long straight silver hair, narrow pale eyes and a thin sneer, wearing a long dark charcoal coat with a high collar, a sheathed katana held at his side and a black cormorant perched on his shoulder",
+      "fallbackLook": "cold, menacing man with long straight silver hair, narrow pale eyes and a thin sneer, a long dark charcoal high-collared coat, a sheathed katana at his side and a black seabird perched on his shoulder",
+      "idle": "sheathed katana held low, unblinking stare",
+      "cheer": "slow sinister applause, thin smile",
+      "shocked": "eyes narrowing, the bird spreading its wings on his shoulder",
+      "tags": ["adult", "male", "villain", "swordsman", "bird"]
+    }
+  ]
+}

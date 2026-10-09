@@ -15,58 +15,64 @@ drawn in front of the body. "Far" = the side behind the body. Stance is orthodox
 hitbox comes from these frames, so the fist/foot must reach the contact zone), `recovery` frames
 return to stance. `loop` frames must cycle seamlessly.
 
-**Files**: raw strip `raw/<anim>.png` (poses left to right on #FF00FF) or single frames
+**Proportions**: about 6.5 heads tall, Shippuden-era anime anatomy (not chibi): standing body about
+200 px, head about 31 px, idle stance about 204 px including hair. Idle landmarks, strike zones and
+contact zones: [SPEC.md](../../SPEC.md#proportions-and-landmarks). **Body height** below = the tallest
+trimmed frame including hair, in the 256 px cell.
+
+**Files**: every generated strip is saved as the next version `raw/<anim>_vNN.png` (poses left to
+right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW.md`; single frames
 `raw/<anim>_NN.png`. Cleaned frames end up in `frames/<anim>/<anim>_NN.png` (NN = 00, 01, ...).
 
 ## Index
 
 | anim | frames | phases | loop | body height px | core | step |
 |---|---|---|---|---|---|---|
-| [idle](#idle) | 8 | - | yes | 135 | **yes** | 3 |
-| [run](#run) | 8 | - | yes | 135 | **yes** | 4 |
-| [dash](#dash) | 2 | - | yes | 111 | **yes** | 8 |
-| [backDash](#backdash) | 3 | - | - | 137 | - | 9 |
-| [superDash](#superdash) | 2 | - | yes | 70 | - | 9 |
-| [jumpSquat](#jumpsquat) | 1 | - | - | 107 | - | 9 |
-| [jumpUp](#jumpup) | 2 | - | yes | 131 | **yes** | 8 |
-| [jumpFall](#jumpfall) | 2 | - | yes | 138 | **yes** | 8 |
-| [land](#land) | 2 | - | - | 115 | **yes** | 8 |
-| [light1](#light1) | 7 | 2/2/3 | - | 135 | **yes** | 5 |
-| [light2](#light2) | 7 | 2/2/3 | - | 135 | **yes** | 5 |
-| [light3](#light3) | 7 | 2/2/3 | - | 142 | **yes** | 5 |
-| [light4](#light4) | 8 | 3/2/3 | - | 137 | **yes** | 5 |
-| [heavy](#heavy) | 8 | 3/2/3 | - | 144 | **yes** | 5 |
-| [airLight1](#airlight1) | 5 | 1/2/2 | - | 131 | **yes** | 5 |
-| [airLight2](#airlight2) | 5 | 1/2/2 | - | 137 | - | 9 |
-| [airLight3](#airlight3) | 6 | 2/2/2 | - | 133 | - | 9 |
-| [airHeavy](#airheavy) | 6 | 2/2/2 | - | 131 | **yes** | 5 |
-| [guard](#guard) | 2 | - | yes | 131 | **yes** | 6 |
-| [block](#block) | 2 | - | - | 135 | - | 9 |
-| [hurtHigh](#hurthigh) | 3 | - | - | 129 | **yes** | 6 |
-| [hurtLow](#hurtlow) | 3 | - | - | 121 | - | 9 |
-| [launched](#launched) | 2 | - | yes | 94 | **yes** | 6 |
-| [spin](#spin) | 4 | - | yes | 123 | - | 9 |
-| [airRecover](#airrecover) | 3 | - | - | 119 | - | 9 |
-| [down](#down) | 2 | - | - | 68 | **yes** | 6 |
-| [getup](#getup) | 5 | - | - | 135 | **yes** | 6 |
-| [charge](#charge) | 4 | - | yes | 131 | **yes** | 7 |
-| [throw](#throw) | 4 | 1/1/2 | - | 133 | - | 9 |
-| [beamCharge](#beamcharge) | 3 | - | yes | 131 | **yes** | 7 |
-| [beamFire](#beamfire) | 3 | - | yes | 131 | **yes** | 7 |
-| [vanish](#vanish) | 2 | - | - | 146 | - | 9 |
-| [stagger](#stagger) | 4 | - | yes | 137 | - | 9 |
-| [ko](#ko) | 1 | - | - | 62 | - | 9 |
-| [special](#special) | 8 | 3/3/2 | - | 135 | **yes** | 7 |
-| [intro](#intro) | 4 | - | yes | 139 | - | 9 |
-| [taunt](#taunt) | 2 | - | yes | 140 | - | 9 |
-| [win](#win) | 4 | - | yes | 140 | **yes** | 8 |
+| [idle](#idle) | 8 | - | yes | 204 | **yes** | 3 |
+| [run](#run) | 8 | - | yes | 204 | **yes** | 4 |
+| [dash](#dash) | 2 | - | yes | 160 | **yes** | 8 |
+| [backDash](#backdash) | 3 | - | - | 207 | - | 9 |
+| [superDash](#superdash) | 2 | - | yes | 120 | - | 9 |
+| [jumpSquat](#jumpsquat) | 1 | - | - | 162 | - | 9 |
+| [jumpUp](#jumpup) | 2 | - | yes | 198 | **yes** | 8 |
+| [jumpFall](#jumpfall) | 2 | - | yes | 209 | **yes** | 8 |
+| [land](#land) | 2 | - | - | 174 | **yes** | 8 |
+| [light1](#light1) | 7 | 2/2/3 | - | 204 | **yes** | 5 |
+| [light2](#light2) | 7 | 2/2/3 | - | 204 | **yes** | 5 |
+| [light3](#light3) | 7 | 2/2/3 | - | 215 | **yes** | 5 |
+| [light4](#light4) | 8 | 3/2/3 | - | 207 | **yes** | 5 |
+| [heavy](#heavy) | 8 | 3/2/3 | - | 218 | **yes** | 5 |
+| [airLight1](#airlight1) | 5 | 1/2/2 | - | 198 | **yes** | 5 |
+| [airLight2](#airlight2) | 5 | 1/2/2 | - | 207 | - | 9 |
+| [airLight3](#airlight3) | 6 | 2/2/2 | - | 201 | - | 9 |
+| [airHeavy](#airheavy) | 6 | 2/2/2 | - | 198 | **yes** | 5 |
+| [guard](#guard) | 2 | - | yes | 198 | **yes** | 6 |
+| [block](#block) | 2 | - | - | 204 | - | 9 |
+| [hurtHigh](#hurthigh) | 3 | - | - | 195 | **yes** | 6 |
+| [hurtLow](#hurtlow) | 3 | - | - | 183 | - | 9 |
+| [launched](#launched) | 2 | - | yes | 136 | **yes** | 6 |
+| [spin](#spin) | 4 | - | yes | 160 | - | 9 |
+| [airRecover](#airrecover) | 3 | - | - | 180 | - | 9 |
+| [down](#down) | 2 | - | - | 96 | **yes** | 6 |
+| [getup](#getup) | 5 | - | - | 204 | **yes** | 6 |
+| [charge](#charge) | 4 | - | yes | 198 | **yes** | 7 |
+| [throw](#throw) | 4 | 1/1/2 | - | 201 | - | 9 |
+| [beamCharge](#beamcharge) | 3 | - | yes | 198 | **yes** | 7 |
+| [beamFire](#beamfire) | 3 | - | yes | 198 | **yes** | 7 |
+| [vanish](#vanish) | 2 | - | - | 221 | - | 9 |
+| [stagger](#stagger) | 4 | - | yes | 207 | - | 9 |
+| [ko](#ko) | 1 | - | - | 64 | - | 9 |
+| [special](#special) | 8 | 3/3/2 | - | 204 | **yes** | 7 |
+| [intro](#intro) | 4 | - | yes | 210 | - | 9 |
+| [taunt](#taunt) | 2 | - | yes | 212 | - | 9 |
+| [win](#win) | 4 | - | yes | 212 | **yes** | 8 |
 
 ## idle
 
 **fighting stance, fists up, breathing bob (loop)**  
-8 frames · loops · body height 135 px · **CORE** · step 3 · default ms 150, 150, 150, 150, 150, 150, 150, 150
+8 frames · loops · body height 204 px · **CORE** · step 3 · default ms 150, 150, 150, 150, 150, 150, 150, 150
 
-Default standing state. Its bounding box is also the reference the packer uses to find the striking limb in attacks, so keep the lead fist compact (about x 125-135).
+Default standing state. Its bounding box is also the reference the packer uses to find the striking limb in attacks, so keep the lead fist compact (about x 170-185).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -84,7 +90,7 @@ Default standing state. Its bounding box is also the reference the packer uses t
 ## run
 
 **run cycle; ninja run with the torso leaned forward and arms trailing straight back (loop)**  
-8 frames · loops · body height 135 px · **CORE** · step 4 · default ms 60, 60, 60, 60, 60, 60, 60, 60
+8 frames · loops · body height 204 px · **CORE** · step 4 · default ms 60, 60, 60, 60, 60, 60, 60, 60
 
 Running in any direction. The engine moves the sprite; draw the cycle in place.
 
@@ -104,7 +110,7 @@ Running in any direction. The engine moves the sprite; draw the cycle in place.
 ## dash
 
 **low fast forward dash, body leaning far forward, arms back (loop)**  
-2 frames · loops · body height 111 px · **CORE** · step 8 · default ms 60, 60
+2 frames · loops · body height 160 px · **CORE** · step 8 · default ms 60, 60
 
 Forward dash along the ground.
 
@@ -118,7 +124,7 @@ Forward dash along the ground.
 ## backDash
 
 **quick hop backwards**  
-3 frames · plays once · body height 137 px · optional · step 9 · default ms 60, 60, 80
+3 frames · plays once · body height 207 px · optional · step 9 · default ms 60, 60, 80
 
 Back dash (hop away from the opponent).
 
@@ -132,22 +138,22 @@ Back dash (hop away from the opponent).
 
 ## superDash
 
-**flying horizontally like a missile, one fist thrust forward, legs trailing (loop)**  
-2 frames · loops · body height 70 px · optional · step 9 · default ms 50, 50
+**flying like a missile, angled about 25 degrees upward, knees bent, one fist thrust forward (loop)**  
+2 frames · loops · body height 120 px · optional · step 9 · default ms 50, 50
 
-Homing super dash. The whole body is horizontal, so the strip is short (bodyHeight 70).
+Homing super dash. A 6.5-head body stretched fully flat would not fit the 256 px cell, so the body flies **angled about 25 degrees upward with the knees bent** (about 230 px wide); the strip is short (bodyHeight 120).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
 | # | phase | generic pose | {{NAME}} specifics |
 |---|---|---|---|
-| 00 | loop | horizontal flight toward screen-right: body stretched flat, lead fist thrust forward at head level (forward-most point), other arm back along the body, legs together trailing | _{{fill in}}_ |
+| 00 | loop | flight toward screen-right, body angled about 25 degrees upward: lead fist thrust forward at head level (forward-most point), other arm back along the body, knees bent, legs together trailing below and behind | _{{fill in}}_ |
 | 01 | loop | same pose, hair/cloth flap and a 1-2 px limb variation | _{{fill in}}_ |
 
 ## jumpSquat
 
 **crouch right before jumping**  
-1 frame · plays once · body height 107 px · optional · step 9 · default ms 70
+1 frame · plays once · body height 162 px · optional · step 9 · default ms 70
 
 Pre-jump frame.
 
@@ -160,7 +166,7 @@ Pre-jump frame.
 ## jumpUp
 
 **rising in the air, knees tucked, one arm up (loop)**  
-2 frames · loops · body height 131 px · **CORE** · step 8 · default ms 80, 80
+2 frames · loops · body height 198 px · **CORE** · step 8 · default ms 80, 80
 
 Rising part of a jump. Draw the pose only: the engine moves the sprite up.
 
@@ -174,7 +180,7 @@ Rising part of a jump. Draw the pose only: the engine moves the sprite up.
 ## jumpFall
 
 **falling, legs extending down, arms out for balance (loop)**  
-2 frames · loops · body height 138 px · **CORE** · step 8 · default ms 80, 80
+2 frames · loops · body height 209 px · **CORE** · step 8 · default ms 80, 80
 
 Falling part of a jump.
 
@@ -188,7 +194,7 @@ Falling part of a jump.
 ## land
 
 **landing crouch, then rising**  
-2 frames · plays once · body height 115 px · **CORE** · step 8 · default ms 50, 70
+2 frames · plays once · body height 174 px · **CORE** · step 8 · default ms 50, 70
 
 Landing recovery.
 
@@ -202,11 +208,11 @@ Landing recovery.
 ## light1
 
 **jab: wind-up, lead fist fully extended (2 frames), recover**  
-7 frames · phases 2/2/3 (startup/active/recovery) · plays once · body height 135 px · **CORE** · step 5 · default ms 30, 30, 40, 50, 50, 50, 30
+7 frames · phases 2/2/3 (startup/active/recovery) · plays once · body height 204 px · **CORE** · step 5 · default ms 30, 30, 40, 50, 50, 50, 30
 
 Auto-combo hit 1 (moves.js light1). Hits HIGH (face).
 
-Strike point: **lead (far) fist**. Contact zone on active frames: **fist tip around x 150-162, y 70-84** (frame-local px, 192 cell, facing right).
+Strike point: **lead (far) fist**. Contact zone on active frames: **lead fist around x 206-226, y 64-86** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -223,11 +229,11 @@ Strike point: **lead (far) fist**. Contact zone on active frames: **fist tip aro
 ## light2
 
 **straight punch with the rear arm: wind-up, extended (2 frames), recover**  
-7 frames · phases 2/2/3 (startup/active/recovery) · plays once · body height 135 px · **CORE** · step 5 · default ms 35, 30, 40, 50, 60, 50, 30
+7 frames · phases 2/2/3 (startup/active/recovery) · plays once · body height 204 px · **CORE** · step 5 · default ms 35, 30, 40, 50, 60, 50, 30
 
 Auto-combo hit 2. Hits HIGH (face / upper chest).
 
-Strike point: **rear (near) fist**. Contact zone on active frames: **fist tip around x 158-172, y 76-92** (frame-local px, 192 cell, facing right).
+Strike point: **rear (near) fist**. Contact zone on active frames: **fist around x 214-236, y 70-92** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -244,11 +250,11 @@ Strike point: **rear (near) fist**. Contact zone on active frames: **fist tip ar
 ## light3
 
 **front kick at stomach height: knee chambered, leg extended (2 frames), recover**  
-7 frames · phases 2/2/3 (startup/active/recovery) · plays once · body height 142 px · **CORE** · step 5 · default ms 40, 35, 45, 60, 60, 60, 30
+7 frames · phases 2/2/3 (startup/active/recovery) · plays once · body height 215 px · **CORE** · step 5 · default ms 40, 35, 45, 60, 60, 60, 30
 
 Auto-combo hit 3 (moves.js marks it low: true). Hits LOW/MID (stomach).
 
-Strike point: **near foot (sole/heel)**. Contact zone on active frames: **sole around x 166-184, y 110-128** (frame-local px, 192 cell, facing right).
+Strike point: **near foot (sole/heel)**. Contact zone on active frames: **sole around x 222-246, y 122-148** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -265,11 +271,11 @@ Strike point: **near foot (sole/heel)**. Contact zone on active frames: **sole a
 ## light4
 
 **spinning roundhouse finisher: wind-up and spin, leg high and extended (2 frames), recover**  
-8 frames · phases 3/2/3 (startup/active/recovery) · plays once · body height 137 px · **CORE** · step 5 · default ms 50, 45, 35, 40, 70, 70, 70, 40
+8 frames · phases 3/2/3 (startup/active/recovery) · plays once · body height 207 px · **CORE** · step 5 · default ms 50, 45, 35, 40, 70, 70, 70, 40
 
 Auto-combo finisher; wall-bounces. Also used by the vanish attack. Hits HIGH.
 
-Strike point: **kicking foot**. Contact zone on active frames: **foot around x 170-186, y 64-88** (frame-local px, 192 cell, facing right).
+Strike point: **kicking foot**. Contact zone on active frames: **foot around x 224-248, y 56-88** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -287,11 +293,11 @@ Strike point: **kicking foot**. Contact zone on active frames: **foot around x 1
 ## heavy
 
 **rising uppercut launcher: deep crouch, explode upward with the fist straight up (2 frames), land**  
-8 frames · phases 3/2/3 (startup/active/recovery) · plays once · body height 144 px · **CORE** · step 5 · default ms 40, 35, 30, 50, 70, 70, 60, 30
+8 frames · phases 3/2/3 (startup/active/recovery) · plays once · body height 218 px · **CORE** · step 5 · default ms 40, 35, 30, 50, 70, 70, 60, 30
 
 Launcher (moves.js heavy). Frame 03 must connect at chin height in FRONT of the body; frame 04 is the follow-through overhead.
 
-Strike point: **rear (near) fist**. Contact zone on active frames: **F03 fist around x 132-150, y 66-86; F04 fist overhead around x 118-136, y 36-52** (frame-local px, 192 cell, facing right).
+Strike point: **rear (near) fist**. Contact zone on active frames: **F03 fist around x 180-208, y 58-86; F04 fist overhead around x 160-188, y 22-46** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -309,11 +315,11 @@ Strike point: **rear (near) fist**. Contact zone on active frames: **F03 fist ar
 ## airLight1
 
 **mid-air jab**  
-5 frames · phases 1/2/2 (startup/active/recovery) · plays once · body height 131 px · **CORE** · step 5 · default ms 45, 35, 50, 50, 30
+5 frames · phases 1/2/2 (startup/active/recovery) · plays once · body height 198 px · **CORE** · step 5 · default ms 45, 35, 50, 50, 30
 
-Air combo hit 1. Airborne: draw the pose only (lowest pixel is placed on y=180 by the packer).
+Air combo hit 1. Airborne: draw the pose only (lowest pixel is placed on y=240 by the packer).
 
-Strike point: **lead fist**. Contact zone on active frames: **fist around x 150-166, chest height of the attacker** (frame-local px, 192 cell, facing right).
+Strike point: **lead fist**. Contact zone on active frames: **fist around x 206-230, y 100-120** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -328,11 +334,11 @@ Strike point: **lead fist**. Contact zone on active frames: **fist around x 150-
 ## airLight2
 
 **mid-air front kick**  
-5 frames · phases 1/2/2 (startup/active/recovery) · plays once · body height 137 px · optional · step 9 · default ms 45, 40, 50, 50, 30
+5 frames · phases 1/2/2 (startup/active/recovery) · plays once · body height 207 px · optional · step 9 · default ms 45, 40, 50, 50, 30
 
 Air combo hit 2.
 
-Strike point: **near foot**. Contact zone on active frames: **foot around x 164-184, hip height of the attacker** (frame-local px, 192 cell, facing right).
+Strike point: **near foot**. Contact zone on active frames: **foot around x 220-246, y 130-155** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -347,11 +353,11 @@ Strike point: **near foot**. Contact zone on active frames: **foot around x 164-
 ## airLight3
 
 **mid-air spinning kick that knocks away**  
-6 frames · phases 2/2/2 (startup/active/recovery) · plays once · body height 133 px · optional · step 9 · default ms 50, 40, 50, 70, 60, 30
+6 frames · phases 2/2/2 (startup/active/recovery) · plays once · body height 201 px · optional · step 9 · default ms 50, 40, 50, 70, 60, 30
 
 Air combo ender; wall-bounces.
 
-Strike point: **kicking heel**. Contact zone on active frames: **heel around x 166-186, chest/hip height** (frame-local px, 192 cell, facing right).
+Strike point: **kicking heel**. Contact zone on active frames: **heel around x 222-248, y 105-150** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -367,11 +373,11 @@ Strike point: **kicking heel**. Contact zone on active frames: **heel around x 1
 ## airHeavy
 
 **double-fist hammer: both fists raised overhead, then smashed down-forward**  
-6 frames · phases 2/2/2 (startup/active/recovery) · plays once · body height 131 px · **CORE** · step 5 · default ms 50, 45, 45, 70, 70, 40
+6 frames · phases 2/2/2 (startup/active/recovery) · plays once · body height 198 px · **CORE** · step 5 · default ms 50, 45, 45, 70, 70, 40
 
 Air spike; ground-bounces the victim. The strike goes DOWN-FORWARD (the only non-horizontal strike).
 
-Strike point: **both clasped fists**. Contact zone on active frames: **fists around x 140-166, y 120-150 (below the attacker's chest, in front)** (frame-local px, 192 cell, facing right).
+Strike point: **both clasped fists**. Contact zone on active frames: **fists around x 180-218, y 160-206 (below the attacker's chest, in front)** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -387,7 +393,7 @@ Strike point: **both clasped fists**. Contact zone on active frames: **fists aro
 ## guard
 
 **blocking, forearms crossed in front of the face (loop)**  
-2 frames · loops · body height 131 px · **CORE** · step 6 · default ms 300, 300
+2 frames · loops · body height 198 px · **CORE** · step 6 · default ms 300, 300
 
 Holding guard.
 
@@ -401,7 +407,7 @@ Holding guard.
 ## block
 
 **blocking while being pushed back, eyes shut**  
-2 frames · plays once · body height 135 px · optional · step 9 · default ms 60, 80
+2 frames · plays once · body height 204 px · optional · step 9 · default ms 60, 80
 
 Blockstun.
 
@@ -415,7 +421,7 @@ Blockstun.
 ## hurtHigh
 
 **hit in the face: head snapped back, arms flung back**  
-3 frames · plays once · body height 129 px · **CORE** · step 6 · default ms 70, 90, 100
+3 frames · plays once · body height 195 px · **CORE** · step 6 · default ms 70, 90, 100
 
 Hitstun from high hits.
 
@@ -430,7 +436,7 @@ Hitstun from high hits.
 ## hurtLow
 
 **hit in the stomach: doubled over**  
-3 frames · plays once · body height 121 px · optional · step 9 · default ms 70, 90, 100
+3 frames · plays once · body height 183 px · optional · step 9 · default ms 70, 90, 100
 
 Hitstun from low hits.
 
@@ -445,21 +451,21 @@ Hitstun from low hits.
 ## launched
 
 **knocked flying backwards, body arched back, limbs flailing (loop)**  
-2 frames · loops · body height 94 px · **CORE** · step 6 · default ms 70, 70
+2 frames · loops · body height 136 px · **CORE** · step 6 · default ms 70, 70
 
-Airborne knockback. The body travels toward screen-LEFT (backwards) in its own frame.
+Airborne knockback. The body travels toward screen-LEFT (backwards) in its own frame. Arch the body **diagonally**, not fully horizontal, so it fits the 256 px cell.
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
 | # | phase | generic pose | {{NAME}} specifics |
 |---|---|---|---|
-| 00 | loop | flying backwards: body arched back, head trailing toward screen-left, limbs flailing forward | _{{fill in}}_ |
+| 00 | loop | flying backwards: body arched back diagonally, head trailing up-left toward screen-left, limbs flailing forward | _{{fill in}}_ |
 | 01 | loop | limb/hair variation | _{{fill in}}_ |
 
 ## spin
 
 **tumbling head over heels through the air (one full backward rotation, loop)**  
-4 frames · loops · body height 123 px · optional · step 9 · default ms 60, 60, 60, 60
+4 frames · loops · body height 160 px · optional · step 9 · default ms 60, 60, 60, 60
 
 Big-hit tumble.
 
@@ -475,7 +481,7 @@ Big-hit tumble.
 ## airRecover
 
 **backflip recovery in mid-air**  
-3 frames · plays once · body height 119 px · optional · step 9 · default ms 50, 50, 60
+3 frames · plays once · body height 180 px · optional · step 9 · default ms 50, 50, 60
 
 Air recovery after being launched.
 
@@ -490,9 +496,9 @@ Air recovery after being launched.
 ## down
 
 **hitting the ground, then lying flat on the back**  
-2 frames · plays once · body height 68 px · **CORE** · step 6 · default ms 80, 420
+2 frames · plays once · body height 96 px · **CORE** · step 6 · default ms 80, 420
 
-Knockdown. Head toward screen-LEFT, feet toward screen-right.
+Knockdown. Head toward screen-LEFT, feet toward screen-right; lying flat the body is about 210 px long (keep it inside x 4..251).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -504,7 +510,7 @@ Knockdown. Head toward screen-LEFT, feet toward screen-right.
 ## getup
 
 **kip-up from lying on the back to standing**  
-5 frames · plays once · body height 135 px · **CORE** · step 6 · default ms 70, 60, 60, 80, 70
+5 frames · plays once · body height 204 px · **CORE** · step 6 · default ms 70, 60, 60, 80, 70
 
 Wake-up.
 
@@ -521,7 +527,7 @@ Wake-up.
 ## charge
 
 **powering up: wide stance, fists clenched at the sides, shouting upward (loop)**  
-4 frames · loops · body height 131 px · **CORE** · step 7 · default ms 50, 50, 50, 50
+4 frames · loops · body height 198 px · **CORE** · step 7 · default ms 50, 50, 50, 50
 
 Ki charge. Do NOT draw the aura: the engine adds aura flames and streaks.
 
@@ -537,11 +543,11 @@ Ki charge. Do NOT draw the aura: the engine adds aura flames and streaks.
 ## throw
 
 **throwing a projectile in mid-air: arm cocked back, whipped forward, follow-through**  
-4 frames · phases 1/1/2 (startup/active/recovery) · plays once · body height 133 px · optional · step 9 · default ms 50, 60, 70, 50
+4 frames · phases 1/1/2 (startup/active/recovery) · plays once · body height 201 px · optional · step 9 · default ms 50, 60, 70, 50
 
 Air projectile (shuriken / fireball). The projectile spawns from the hand on the active frame; draw the hand where the projectile leaves.
 
-Strike point: **throwing hand (release point)**. Contact zone on active frames: **hand around x 140-160, y 92-110** (frame-local px, 192 cell, facing right).
+Strike point: **throwing hand (release point)**. Contact zone on active frames: **hand around x 186-212, y 116-142** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -555,7 +561,7 @@ Strike point: **throwing hand (release point)**. Contact zone on active frames: 
 ## beamCharge
 
 **charging a beam: both hands cupped together at the rear hip, shouting (loop)**  
-3 frames · loops · body height 131 px · **CORE** · step 7 · default ms 50, 50, 50
+3 frames · loops · body height 198 px · **CORE** · step 7 · default ms 50, 50, 50
 
 Ultimate wind-up. No energy in the sprite: the engine draws the glow.
 
@@ -570,11 +576,11 @@ Ultimate wind-up. No energy in the sprite: the engine draws the glow.
 ## beamFire
 
 **firing a beam: both arms thrust straight forward, palms open, shouting (loop)**  
-3 frames · loops · body height 131 px · **CORE** · step 7 · default ms 50, 50, 50
+3 frames · loops · body height 198 px · **CORE** · step 7 · default ms 50, 50, 50
 
 Ultimate beam. The beam starts at the palms; no beam in the sprite.
 
-Strike point: **both palms (beam origin)**. Contact zone on active frames: **palms around x 158-170, y 94-108** (frame-local px, 192 cell, facing right).
+Strike point: **both palms (beam origin)**. Contact zone on active frames: **palms around x 222-238, y 112-132** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -587,7 +593,7 @@ Strike point: **both palms (beam origin)**. Contact zone on active frames: **pal
 ## vanish
 
 **crouch and blur before teleporting**  
-2 frames · plays once · body height 146 px · optional · step 9 · default ms 50, 50
+2 frames · plays once · body height 221 px · optional · step 9 · default ms 50, 50
 
 Vanish teleport. Draw the "blur" as a solid stretched pose, not motion blur.
 
@@ -601,7 +607,7 @@ Vanish teleport. Draw the "blur" as a solid stretched pose, not motion blur.
 ## stagger
 
 **dizzy stagger (loop)**  
-4 frames · loops · body height 137 px · optional · step 9 · default ms 150, 150, 150, 150
+4 frames · loops · body height 207 px · optional · step 9 · default ms 150, 150, 150, 150
 
 Dizzy state.
 
@@ -617,9 +623,9 @@ Dizzy state.
 ## ko
 
 **knocked out, lying flat on the back**  
-1 frame · plays once · body height 62 px · optional · step 9 · default ms 500
+1 frame · plays once · body height 64 px · optional · step 9 · default ms 500
 
-KO pose. Same orientation as down 01.
+KO pose. Same orientation and length as down 01 (about 210 px long, head toward screen-left).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -630,11 +636,11 @@ KO pose. Same orientation as down 01.
 ## special
 
 **signature rush move: 3 frames charging the technique in hand, 2 running frames holding it forward, 1 thrust, 2 recover**  
-8 frames · phases 3/3/2 (startup/active/recovery) · plays once · body height 135 px · **CORE** · step 7 · default ms 120, 120, 120, 120, 120, 160, 110, 70
+8 frames · phases 3/3/2 (startup/active/recovery) · plays once · body height 204 px · **CORE** · step 7 · default ms 120, 120, 120, 120, 120, 160, 110, 70
 
 Signature rush (Rasengan / Chidori / ...). Draw the HAND that holds the technique, not the energy: the engine draws the orb/lightning at the hand anchor (see SPEC "Effect anchor points").
 
-Strike point: **technique hand**. Contact zone on active frames: **thrust hand around x 148-166, y 100-120** (frame-local px, 192 cell, facing right).
+Strike point: **technique hand**. Contact zone on active frames: **thrust hand around x 194-222, y 128-158** (frame-local px, 256 cell, facing right).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -652,7 +658,7 @@ Strike point: **technique hand**. Contact zone on active frames: **thrust hand a
 ## intro
 
 **pre-fight intro pose (character-specific attitude, loop)**  
-4 frames · loops · body height 139 px · optional · step 9 · default ms 150, 150, 150, 150
+4 frames · loops · body height 210 px · optional · step 9 · default ms 150, 150, 150, 150
 
 Match intro.
 
@@ -668,7 +674,7 @@ Match intro.
 ## taunt
 
 **confident taunt / pointing at the opponent (loop)**  
-2 frames · loops · body height 140 px · optional · step 9 · default ms 250, 250
+2 frames · loops · body height 212 px · optional · step 9 · default ms 250, 250
 
 Taunt.
 
@@ -682,7 +688,7 @@ Taunt.
 ## win
 
 **victory pose (loop)**  
-4 frames · loops · body height 140 px · **CORE** · step 8 · default ms 200, 200, 200, 200
+4 frames · loops · body height 212 px · **CORE** · step 8 · default ms 200, 200, 200, 200
 
 Round/match win.
 

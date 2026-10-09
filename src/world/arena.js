@@ -22,10 +22,72 @@ function box(w, h, d, mat, x, y, z, opts = {}) {
   return m;
 }
 
-// Billboarded, instanced crowd. Each instance picks a variant column in the atlas
-// and flips between idle/cheer rows on its own rhythm; uExcite makes them go wild.
+// Crowd atlas descriptor (procedural or packed art, ADR 0008):
+//   texture, grid [cols, rows] in cells, frames (2: idle/cheer, 3: + shocked), step [dx, dy] from one
+//   frame's cell to the next, size [w, h] world units per cell, lift (world units: feet above the cell
+//   bottom, negative = sink), entries [[col, row], ...] = each spectator's idle cell.
+function proceduralCrowdAtlas() {
+  const a = bakeCrowd(28, 9);
+  return {
+    texture: T.toTex(a.canvas),
+    grid: [a.count, 2],
+    frames: 2,
+    step: [0, 1],
+    size: [CROWD_W / PPU, CROWD_H / PPU],
+    lift: 0,
+    entries: Array.from({ length: a.count }, (_, v) => [v, 0]),
+    source: 'procedural',
+  };
+}
+
+// public/crowd/atlas.{json,png} from `npm run sprites crowd`. Returns null (procedural crowd) when absent.
+export async function loadCrowdAtlas() {
+  try {
+    const res = await fetch('/crowd/atlas.json', { cache: 'no-store' });
+    if (!res.ok || !(res.headers.get('content-type') || '').includes('json')) return null;
+    const m = await res.json();
+    const img = new Image();
+    img.src = `/crowd/atlas.png?v=${Date.now()}`;
+    try {
+      await img.decode();
+    } catch {
+      console.warn('[crowd] atlas.json found but atlas.png is missing or unreadable, keeping the procedural crowd');
+      return null;
+    }
+    const [cw, ch] = m.cell || [64, 96];
+    const cols = m.cols || Math.floor(img.width / cw);
+    const ppu = m.ppu || 50;
+    const pivotY = m.pivot?.[1] ?? ch - 2;
+    const entries = (m.spectators || []).map((sp) => [sp.cell % cols, Math.floor(sp.cell / cols)]);
+    if (!entries.length) {
+      console.warn('[crowd] atlas.json lists no spectators, keeping the procedural crowd');
+      return null;
+    }
+    const tex = new THREE.Texture(img);
+    tex.magFilter = tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.needsUpdate = true;
+    return {
+      texture: tex,
+      grid: [img.width / cw, img.height / ch],
+      frames: (m.frames || ['idle', 'cheer', 'shocked']).length,
+      step: [1, 0],
+      size: [cw / ppu, ch / ppu],
+      lift: -(ch - 1 - pivotY) / ppu,
+      entries,
+      source: 'custom',
+    };
+  } catch (e) {
+    console.warn('[crowd] custom crowd atlas failed, keeping the procedural crowd', e);
+    return null;
+  }
+}
+
+// Billboarded, instanced crowd. Every seat shows its own spectator (reshuffled per match);
+// they flip idle/cheer on their own rhythm, uExcite makes them go wild and uShock (KOs, supers,
+// clashes) switches most of them to the shocked frame when the atlas has one.
 function makeCrowd(positions, atlas) {
-  const tex = T.toTex(atlas.canvas);
   const base = new THREE.PlaneGeometry(1, 1);
   base.translate(0, 0.5, 0);
   const geo = new THREE.InstancedBufferGeometry();
@@ -33,39 +95,48 @@ function makeCrowd(positions, atlas) {
   geo.attributes.position = base.attributes.position;
   geo.attributes.uv = base.attributes.uv;
   const n = positions.length;
-  const aPos = new Float32Array(n * 3), aVar = new Float32Array(n), aPhase = new Float32Array(n);
+  const aPos = new Float32Array(n * 3), aPhase = new Float32Array(n);
   positions.forEach((p, i) => {
     aPos.set([p.x, p.y, p.z], i * 3);
-    aVar[i] = Math.floor(Math.random() * atlas.count);
     aPhase[i] = Math.random();
   });
   geo.setAttribute('aPos', new THREE.InstancedBufferAttribute(aPos, 3));
-  geo.setAttribute('aVar', new THREE.InstancedBufferAttribute(aVar, 1));
+  geo.setAttribute('aCell', new THREE.InstancedBufferAttribute(new Float32Array(n * 2), 2));
   geo.setAttribute('aPhase', new THREE.InstancedBufferAttribute(aPhase, 1));
   geo.instanceCount = n;
   const mat = new THREE.ShaderMaterial({
     uniforms: {
-      map: { value: tex },
+      map: { value: null },
       uTime: { value: 0 },
       uExcite: { value: 0 },
+      uShock: { value: 0 },
       uDim: { value: 0 },
-      uSize: { value: new THREE.Vector2(CROWD_W / PPU, CROWD_H / PPU) },
-      uCount: { value: atlas.count },
+      uSize: { value: new THREE.Vector2() },
+      uGrid: { value: new THREE.Vector2() },
+      uStep: { value: new THREE.Vector2() },
+      uFrames: { value: 2 },
+      uLift: { value: 0 },
     },
     vertexShader: /* glsl */ `
-      attribute vec3 aPos; attribute float aVar; attribute float aPhase;
-      uniform float uTime; uniform float uExcite; uniform vec2 uSize; uniform float uCount;
+      attribute vec3 aPos; attribute vec2 aCell; attribute float aPhase;
+      uniform float uTime, uExcite, uShock, uFrames, uLift; uniform vec2 uSize, uGrid, uStep;
       varying vec2 vUv;
       void main() {
         vec3 right = vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
         vec3 up = vec3(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+        vec3 back = vec3(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2]);
         float rate = 3.0 + aPhase * 4.0 + uExcite * 6.0;
         float s = sin(uTime * rate + aPhase * 40.0);
         float cheer = step(0.75 - uExcite * 0.9, s);
-        float hop = max(0.0, s) * (0.03 + uExcite * 0.12);
-        vec3 wp = aPos + right * (position.x * uSize.x) + up * (position.y * uSize.y) + vec3(0.0, hop, 0.0);
+        // most of the stand gasps on big moments; a few keep cheering
+        float shocked = uFrames > 2.5 ? step(1.0 - uShock * 0.85, fract(aPhase * 7.31)) : 0.0;
+        float frame = shocked > 0.5 ? 2.0 : cheer;
+        float hop = shocked > 0.5 ? 0.0 : max(0.0, s) * (0.03 + uExcite * 0.12);
+        // tiny depth jitter so overlapping neighbours never z-fight
+        vec3 wp = aPos + right * (position.x * uSize.x) + up * (position.y * uSize.y + uLift) + back * (aPhase - 0.5) * 0.06 + vec3(0.0, hop, 0.0);
         gl_Position = projectionMatrix * viewMatrix * vec4(wp, 1.0);
-        vUv = vec2((aVar + uv.x) / uCount, (1.0 - cheer) * 0.5 + uv.y * 0.5);
+        vec2 cell = aCell + uStep * frame;
+        vUv = vec2((cell.x + uv.x) / uGrid.x, 1.0 - (cell.y + 1.0 - uv.y) / uGrid.y);
       }`,
     fragmentShader: /* glsl */ `
       uniform sampler2D map; uniform float uDim; varying vec2 vUv;
@@ -78,7 +149,42 @@ function makeCrowd(positions, atlas) {
   });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.frustumCulled = false;
-  return mesh;
+  const crowd = {
+    mesh,
+    atlas: null,
+    // point every seat at a spectator: a shuffled pass through the roster, repeated only when
+    // there are more seats than spectators, so nobody sits next to their twin
+    shuffle() {
+      const A = crowd.atlas, cells = geo.attributes.aCell;
+      let pool = [];
+      for (let i = 0; i < n; i++) {
+        if (!pool.length) {
+          pool = A.entries.slice();
+          for (let k = pool.length - 1; k > 0; k--) {
+            const j = Math.floor(Math.random() * (k + 1));
+            [pool[k], pool[j]] = [pool[j], pool[k]];
+          }
+        }
+        const [c, r] = pool.pop();
+        cells.setXY(i, c, r);
+      }
+      cells.needsUpdate = true;
+    },
+    setAtlas(A) {
+      if (crowd.atlas?.source === 'custom' && crowd.atlas.texture !== A.texture) crowd.atlas.texture.dispose();
+      crowd.atlas = A;
+      const u = mat.uniforms;
+      u.map.value = A.texture;
+      u.uSize.value.set(A.size[0], A.size[1]);
+      u.uGrid.value.set(A.grid[0], A.grid[1]);
+      u.uStep.value.set(A.step[0], A.step[1]);
+      u.uFrames.value = A.frames;
+      u.uLift.value = A.lift;
+      crowd.shuffle();
+    },
+  };
+  crowd.setAtlas(atlas);
+  return crowd;
 }
 
 function billboard(canvas, w, h, x, y, z, ppu = PPU) {
@@ -237,6 +343,7 @@ export function buildArena(scene) {
   const crowdPos = [];
   const R = Math.random;
   const tierStep = 1.25, tierRise = 0.7, wallH = 1.25;
+  const TIERS = 6; // a packed tournament: ~500 seats so a 500+ spectator roster rarely repeats
   const addCrowdRow = (x0, z0, x1, z1, y, density = 1.05, skipFn = null) => {
     const len = Math.hypot(x1 - x0, z1 - z0);
     const n = Math.floor(len / density);
@@ -254,14 +361,16 @@ export function buildArena(scene) {
     const zA = -13, zB = 13;
     const L = zB - zA;
     world.add(box(0.4, wallH, L, lambert(repeatTex(brickTex, L / 2, 1)), x0, wallH / 2, 0));
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < TIERS; i++) {
       const h = wallH - 0.35 + i * tierRise;
       const xc = x0 + s * (0.2 + tierStep * (i + 0.5));
       world.add(box(tierStep, h, L, [stoneMat(1, 1), stoneMat(1, 1), lambert(repeatTex(stepsTex, 1, L)), stoneMat(1, 1), stoneMat(1, h), stoneMat(1, h)], xc, h / 2, 0));
-      addCrowdRow(xc, zA + 0.5, xc, zB - 0.5, h, 1.0, (x, z) => Math.abs(z) < 0.7 || Math.abs(Math.abs(z) - 8) < 0.6);
+      addCrowdRow(xc, zA + 0.5, xc, zB - 0.5, h, 0.82, (x, z) => Math.abs(z) < 0.7 || Math.abs(Math.abs(z) - 8) < 0.6);
     }
     // aisle stairs
-    for (const az of [-8, 0, 8]) world.add(box(tierStep * 4, 0.12, 1.0, lambert(repeatTex(stepsTex, 2, 1)), x0 + s * (0.2 + tierStep * 2), wallH + 0.9, az));
+    for (const az of [-8, 0, 8]) world.add(box(tierStep * TIERS, 0.12, 1.0, lambert(repeatTex(stepsTex, 2, 1)), x0 + s * (0.2 + tierStep * TIERS / 2), wallH + 0.9, az));
+    // standing room: fans packed against the stand wall at ground level
+    addCrowdRow(x0 - s * 0.55, zA + 0.8, x0 - s * 0.55, zB - 0.8, 0, 0.9, (x, z) => Math.abs(z) < 1.2);
   }
   // front stands (either side of the entrance path), tiers rise toward the gate
   for (const s of [-1, 1]) {
@@ -269,16 +378,16 @@ export function buildArena(scene) {
     const xc = (xa + xb) / 2, L = Math.abs(xb - xa);
     const z0 = 12.8;
     world.add(box(L, wallH, 0.4, lambert(repeatTex(brickTex, L / 2, 1)), xc, wallH / 2, z0));
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < TIERS; i++) {
       const h = wallH - 0.35 + i * tierRise;
       const zc = z0 + 0.2 + tierStep * (i + 0.5);
       world.add(box(L, h, tierStep, [stoneMat(1, h), stoneMat(1, h), lambert(repeatTex(stepsTex, L, 1)), stoneMat(1, 1), stoneMat(L, h), stoneMat(L, h)], xc, h / 2, zc));
-      addCrowdRow(xa + s * 0.5, zc, xb - s * 0.5, zc, h, 1.0);
+      addCrowdRow(xa + s * 0.5, zc, xb - s * 0.5, zc, h, 0.82);
     }
+    addCrowdRow(xa + s * 0.5, z0 - 0.55, xb - s * 0.5, z0 - 0.55, 0, 0.9);
   }
-  const atlas = bakeCrowd(28, 9);
-  const crowd = makeCrowd(crowdPos, atlas);
-  world.add(crowd);
+  const crowd = makeCrowd(crowdPos, proceduralCrowdAtlas());
+  world.add(crowd.mesh);
 
   // ---------------------------------------------------------------- outer walls + gate
   const wallTop = lambert(repeatTex(roofTexBase, 40, 1));
@@ -347,14 +456,30 @@ export function buildArena(scene) {
   const baseHemi = hemi.intensity, baseSun = sun.intensity;
   const hemiSky = hemi.color.clone();
   const dimSky = new THREE.Color('#3a2a6a');
+  let prevExcite = 0, shockT = 0, lastT = null;
   return {
     group: world,
     sun,
-    crowd,
+    crowd: crowd.mesh,
+    seats: crowdPos.length,
     gong: disc,
     update(time, excite) {
-      crowd.material.uniforms.uTime.value = time;
-      crowd.material.uniforms.uExcite.value = excite;
+      const u = crowd.mesh.material.uniforms;
+      u.uTime.value = time;
+      u.uExcite.value = excite;
+      // a sudden jump in excitement (KO, super, clash) makes the stand gasp, then it fades
+      if (excite - prevExcite > 0.3) shockT = 1.4;
+      prevExcite = excite;
+      const dt = Math.min(0.1, Math.max(0, time - (lastT ?? time)));
+      lastT = time;
+      shockT = Math.max(0, shockT - dt);
+      u.uShock.value = Math.min(1, shockT / 0.6);
+    },
+    setCrowdAtlas(A) {
+      crowd.setAtlas(A);
+    },
+    shuffleCrowd() {
+      crowd.shuffle();
     },
     setDim(d) {
       hemi.intensity = baseHemi * (1 - d * 0.78);
@@ -362,7 +487,7 @@ export function buildArena(scene) {
       hemi.color.copy(hemiSky).lerp(dimSky, d);
       const k = 1 - d * 0.8;
       for (const m of unlit) m.color.setRGB(k * (1 - d * 0.1), k * (1 - d * 0.18), k);
-      crowd.material.uniforms.uDim.value = d;
+      crowd.mesh.material.uniforms.uDim.value = d;
     },
   };
 }

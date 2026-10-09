@@ -1,0 +1,95 @@
+{
+  "group": "mob-psycho-100",
+  "kind": "cameo",
+  "series": "Mob Psycho 100",
+  "spectators": [
+    {
+      "id": "mob-001",
+      "name": "Shigeo Kageyama (Mob)",
+      "heightClass": "short",
+      "look": "quiet middle-school boy with a neat black bowl haircut, blank half-lidded dot eyes and a flat expressionless mouth, wearing a fully buttoned black high-collar school uniform with gold buttons, black trousers and black shoes",
+      "fallbackLook": "quiet short schoolboy with a neat black bowl haircut, blank half-lidded dot eyes and a flat mouth in a fully buttoned black high-collar school uniform with gold buttons and black trousers",
+      "idle": "standing perfectly still, arms at his sides, blank face",
+      "cheer": "a polite small clap with the tiniest smile",
+      "shocked": "bowl cut floating straight up, faint pale-blue psychic glow, eyes still blank",
+      "tags": ["teen", "student", "psychic", "uniform"]
+    },
+    {
+      "id": "mob-002",
+      "name": "Arataka Reigen",
+      "heightClass": "medium",
+      "look": "slick self-proclaimed psychic with light ash-blond side-parted hair and a wide confident grin, wearing a light-gray business suit with a white shirt and a thin tie, holding a small bag of salt",
+      "fallbackLook": "slick confident man with light ash-blond side-parted hair and a wide salesman grin in a light-gray business suit, white shirt and thin tie, holding a small bag of salt",
+      "idle": "hands in pockets, smooth salesman grin",
+      "cheer": "flinging a handful of white salt in a wide arc, shouting",
+      "shocked": "sweating buckets, grin frozen, tie flipped over his shoulder",
+      "tags": ["adult", "con-artist", "businessman", "salt"]
+    },
+    {
+      "id": "mob-003",
+      "name": "Dimple",
+      "heightClass": "tiny",
+      "look": "small floating green ghost spirit shaped like a teardrop blob with a wispy tail instead of legs, tiny black eyes, a smug mouth and round rosy-red cheek spots",
+      "fallbackLook": "small floating green teardrop-shaped ghost spirit with a wispy tail instead of legs, tiny black eyes, a smug mouth and round rosy-red cheek spots",
+      "idle": "hovering with a smug smirk, tiny nub arms crossed",
+      "cheer": "swelling bigger and glowing brighter green, cackling",
+      "shocked": "shrinking small, eyes popping, tail curling",
+      "tags": ["creature", "ghost", "spirit", "float"]
+    },
+    {
+      "id": "mob-004",
+      "name": "Ritsu Kageyama",
+      "heightClass": "short",
+      "look": "composed middle-school boy with neat black hair swept to one side and sharp narrow dark eyes, wearing a white short-sleeve summer school shirt, black trousers, black shoes and a red student-council armband on his left sleeve",
+      "fallbackLook": "composed short schoolboy with neat black hair swept to one side and sharp narrow eyes in a white short-sleeve school shirt, black trousers and a red armband on his left sleeve",
+      "idle": "arms crossed, cool expression with a hint of worry",
+      "cheer": "small pebbles floating around his raised hand, rare grin",
+      "shocked": "eyes wide, hands up, pebbles scattering through the air",
+      "tags": ["teen", "student", "psychic", "armband"]
+    },
+    {
+      "id": "mob-005",
+      "name": "Teruki Hanazawa (Teru)",
+      "heightClass": "short",
+      "look": "cocky middle-school boy with golden-blond hair swept up and back, bright confident eyes and a smirk, wearing an open black high-collar school jacket over a white T-shirt, black trousers and white sneakers",
+      "fallbackLook": "cocky short schoolboy with golden-blond hair swept up and back and a smirk in an open black high-collar school jacket over a white T-shirt, black trousers and white sneakers",
+      "idle": "hands in pockets, knowing smile, a sparkle at his collar",
+      "cheer": "pointing at the ring, golden psychic shimmer around his hand",
+      "shocked": "hands on his head, hair suddenly flopped messy, eyes wide",
+      "tags": ["teen", "student", "psychic", "blond"]
+    },
+    {
+      "id": "mob-006",
+      "name": "Musashi Goda",
+      "heightClass": "huge",
+      "look": "giant muscle-packed high-school bodybuilder with short spiky dark-brown hair, thick dark eyebrows and a gentle wide smile, wearing a black sleeveless gym shirt, baggy gray sweatpants, white sneakers and a white towel around his neck",
+      "fallbackLook": "giant muscle-packed teenage bodybuilder with short spiky dark-brown hair, thick eyebrows and a gentle smile in a black sleeveless gym shirt, baggy gray sweatpants and a white towel around his neck",
+      "idle": "polite nod, hands resting on the towel ends, relaxed",
+      "cheer": "double-biceps flex with arms out to the sides, beaming",
+      "shocked": "muscles tensed, gentle eyes wide, towel flying off",
+      "tags": ["teen", "student", "muscular", "big", "gym"]
+    },
+    {
+      "id": "mob-007",
+      "name": "Katsuya Serizawa",
+      "heightClass": "tall",
+      "look": "tall shy man with messy wavy black hair, light stubble and nervous droopy eyes, wearing a slightly rumpled navy-blue suit with a white shirt and a dark tie, a closed black umbrella hooked over his arm",
+      "fallbackLook": "tall shy man with messy wavy black hair, light stubble and nervous droopy eyes in a rumpled navy-blue suit, white shirt and dark tie, a closed black umbrella hooked over his arm",
+      "idle": "both hands clutching the umbrella handle, nervous smile",
+      "cheer": "open umbrella held out to the side and spinning, shy cheer",
+      "shocked": "ducking behind his open umbrella, sweating",
+      "tags": ["adult", "psychic", "umbrella", "shy"]
+    },
+    {
+      "id": "mob-008",
+      "name": "Tsubomi Takane",
+      "heightClass": "short",
+      "look": "popular middle-school girl with shoulder-length light-brown hair, soft side bangs and bright brown eyes, wearing a navy sailor-style school uniform with a white-striped collar and red neckerchief, a navy pleated skirt, white socks and brown loafers",
+      "fallbackLook": "cheerful short schoolgirl with shoulder-length light-brown hair, side bangs and bright brown eyes in a navy sailor-style school uniform with a white-striped collar, red neckerchief, navy pleated skirt and white socks",
+      "idle": "waving brightly at a friend in the stands",
+      "cheer": "jumping with both hands up, cheerful shout",
+      "shocked": "hands over her mouth, eyes wide",
+      "tags": ["teen", "student", "uniform"]
+    }
+  ]
+}

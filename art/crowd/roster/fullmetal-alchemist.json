@@ -1,0 +1,117 @@
+{
+  "group": "fullmetal-alchemist",
+  "kind": "cameo",
+  "series": "Fullmetal Alchemist: Brotherhood",
+  "spectators": [
+    {
+      "id": "fma-001",
+      "name": "Edward Elric",
+      "heightClass": "short",
+      "look": "short, fiery teen alchemist with long golden-blond hair in a braid, one antenna-like cowlick, sharp gold eyes and a cocky grin, wearing a long red hooded coat over a black jacket and black leather pants, white gloves hiding a metal right arm, black boots and a silver pocket-watch chain at his hip",
+      "fallbackLook": "short, fiery teen boy with long golden-blond hair in a braid, a single antenna cowlick and sharp gold eyes, a long red hooded coat over a black jacket and black leather pants, white gloves, black boots and a silver watch chain at his hip",
+      "idle": "arms crossed, scowling and stretching up on his toes to look taller",
+      "cheer": "clapping his palms together with a small blue spark, grinning",
+      "shocked": "hair standing on end, braid flying, teeth bared in outrage",
+      "tags": ["teen", "male", "alchemist", "coat"]
+    },
+    {
+      "id": "fma-002",
+      "name": "Alphonse Elric",
+      "heightClass": "huge",
+      "look": "gentle giant who is a huge hollow steel-grey suit of medieval armor: a spiked helmet with a long white plume, two glowing white eye dots in the dark visor slit, big round spiked shoulder pauldrons, thick gauntlets and a red loincloth hanging from the belt, cradling a small grey kitten",
+      "fallbackLook": "towering hollow steel-grey suit of medieval armor with a spiked helmet and a long white plume, two glowing white eye dots in the dark visor slit, round spiked shoulder pauldrons, thick gauntlets and a red loincloth at the belt, cradling a small grey kitten",
+      "idle": "cupping a tiny kitten in both gauntlets, helmet tilted sweetly",
+      "cheer": "big gauntlets spread wide out to the sides, eye dots shining bright",
+      "shocked": "gauntlets clamped on the sides of his helmet, eye dots huge",
+      "tags": ["teen", "male", "armored", "giant", "pet"]
+    },
+    {
+      "id": "fma-003",
+      "name": "Roy Mustang",
+      "heightClass": "medium",
+      "look": "smug young colonel with short black hair hanging over his forehead, dark narrow eyes and a confident smirk, wearing a dark blue military uniform jacket with gold buttons and shoulder boards, blue trousers, black boots and white gloves with a red flame array drawn on the backs",
+      "fallbackLook": "smug young military officer with short black hair over his forehead, dark narrow eyes and a confident smirk, a dark blue uniform jacket with gold buttons and shoulder boards, black boots and white gloves with a red circular symbol on the backs",
+      "idle": "one gloved hand raised, fingers poised to snap, smirking",
+      "cheer": "snapping his fingers with a tiny orange spark, grinning",
+      "shocked": "staring at his damp glove in dismay, eyebrows shot up",
+      "tags": ["adult", "male", "soldier", "officer", "alchemist"]
+    },
+    {
+      "id": "fma-004",
+      "name": "Riza Hawkeye",
+      "heightClass": "medium",
+      "look": "composed sharpshooter lieutenant with blonde hair clipped up at the back of her head and a few loose bangs, steady amber eyes, wearing a dark blue military uniform with gold buttons, a black shoulder holster and black boots, a small black-and-white puppy sitting at her feet",
+      "fallbackLook": "composed blonde woman officer with her hair clipped up at the back and loose bangs, steady amber eyes, a dark blue military uniform with gold buttons, a black shoulder holster and black boots, a small black-and-white puppy sitting at her feet",
+      "idle": "standing at attention, arms folded, watching alertly",
+      "cheer": "polite applause with a small warm smile",
+      "shocked": "stepping back, eyes wide, one hand moving to her holster",
+      "tags": ["adult", "female", "soldier", "officer", "pet"]
+    },
+    {
+      "id": "fma-005",
+      "name": "Alex Louis Armstrong",
+      "heightClass": "huge",
+      "look": "colossal, absurdly muscular major with a shaved head except one curly blond forelock, a huge blond handlebar mustache and sparkly blue eyes, wearing a dark blue military uniform jacket straining over his muscles and spiked steel gauntlets, pale pink sparkles floating around him",
+      "fallbackLook": "colossal, absurdly muscular man with a shaved head except one curly blond forelock, a huge blond handlebar mustache and sparkly eyes, a dark blue military uniform jacket straining over his muscles, spiked steel gauntlets and pale pink sparkles floating around him",
+      "idle": "flexing one bicep proudly, sparkles drifting around him",
+      "cheer": "shirt bursting open in a double-biceps pose, arms out wide, sparkles everywhere",
+      "shocked": "manly tears streaming down his face, fists clenched to his chest",
+      "tags": ["adult", "male", "soldier", "muscular", "giant", "comedy"]
+    },
+    {
+      "id": "fma-006",
+      "name": "Winry Rockbell",
+      "heightClass": "medium",
+      "look": "spirited young automail mechanic with long blonde hair in a high ponytail with long bangs and big blue eyes, wearing a black tube top, khaki work coveralls with the sleeves tied around her waist and a tool belt, a big steel wrench in her hand",
+      "fallbackLook": "spirited young mechanic girl with long blonde hair in a high ponytail and big blue eyes, a black tube top, khaki work coveralls with the sleeves tied around her waist, a tool belt and a big steel wrench in her hand",
+      "idle": "tapping the wrench against her palm, studying the fighters' joints",
+      "cheer": "waving the wrench overhead, cheering",
+      "shocked": "hands over her mouth, wrench dangling, eyes teary",
+      "tags": ["teen", "female", "mechanic", "prop"]
+    },
+    {
+      "id": "fma-007",
+      "name": "Maes Hughes",
+      "heightClass": "tall",
+      "look": "cheerful, doting officer with short spiky black hair, rectangular glasses and a short stubble beard along his jaw, wearing a dark blue military uniform with gold buttons, eagerly holding up a small photo of his little daughter",
+      "fallbackLook": "cheerful officer with short spiky black hair, rectangular glasses and a short stubble beard, a dark blue military uniform with gold buttons, eagerly holding up a small family photo",
+      "idle": "holding up the photo of his daughter to show his neighbors, beaming",
+      "cheer": "waving the photo out to the side, laughing proudly",
+      "shocked": "clutching the photo to his chest, glasses knocked askew",
+      "tags": ["adult", "male", "soldier", "glasses", "parent"]
+    },
+    {
+      "id": "fma-008",
+      "name": "Scar",
+      "heightClass": "tall",
+      "look": "grim, broad-shouldered avenger with dark brown skin, short spiky white hair, red eyes and a large X-shaped scar across his forehead between the eyes, wearing a mustard-yellow jacket open over a black sleeveless top, light pants and black boots, a dark-blue tattoo pattern running down his right arm",
+      "fallbackLook": "grim, broad-shouldered man with dark brown skin, short spiky white hair, red eyes and a large X-shaped scar across his forehead, a mustard-yellow jacket open over a black sleeveless top, light pants, black boots and a dark-blue tattoo pattern down his right arm",
+      "idle": "arms folded, silent and stern",
+      "cheer": "tattooed right fist held out to the side, a curt nod",
+      "shocked": "red eyes wide, stepping back into a guarded stance",
+      "tags": ["adult", "male", "brawler", "scar", "tattoo"]
+    },
+    {
+      "id": "fma-009",
+      "name": "Gluttony",
+      "heightClass": "short",
+      "look": "short, enormously round homunculus with a bald head, tiny black dot eyes, a huge drooling grin and a finger in his lips, wearing a plain black shirt and pants with a dark bib tied at his neck",
+      "fallbackLook": "short, enormously round creature-man with a bald head, tiny black dot eyes, a huge drooling grin and a finger in his mouth, a plain black outfit with a dark bib at his neck",
+      "idle": "finger in his mouth, drooling hungrily at the fighters",
+      "cheer": "bouncing with both stubby arms raised, giggling",
+      "shocked": "mouth wide open in a huge round O, drool flying",
+      "tags": ["creature", "male", "villain", "round", "food"]
+    },
+    {
+      "id": "fma-010",
+      "name": "Ling Yao",
+      "heightClass": "medium",
+      "look": "cheerful foreign prince with black hair tied back in a short ponytail and long bangs, eyes in a permanent closed squint-smile, wearing a white high-collared Xingese tunic with gold-yellow trim and loose black trousers, a curved sword at his hip, eating from a rice bowl with chopsticks",
+      "fallbackLook": "cheerful young prince with black hair in a short ponytail and long bangs, eyes in a closed squint-smile, a white high-collared eastern tunic with gold-yellow trim, loose black trousers and a curved sword at his hip, eating from a rice bowl with chopsticks",
+      "idle": "shoveling rice from the bowl with chopsticks, cheeks full",
+      "cheer": "chopsticks raised high, grinning wide",
+      "shocked": "one eye snapping open, rice falling from his chopsticks",
+      "tags": ["teen", "male", "prince", "swordsman", "food"]
+    }
+  ]
+}

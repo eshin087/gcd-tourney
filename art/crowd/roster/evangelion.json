@@ -1,0 +1,73 @@
+{
+  "group": "evangelion",
+  "kind": "cameo",
+  "series": "Neon Genesis Evangelion",
+  "spectators": [
+    {
+      "id": "eva-001",
+      "name": "Shinji Ikari",
+      "heightClass": "short",
+      "look": "timid 14-year-old boy with messy dark-brown hair, soft blue eyes and an anxious expression, wearing a white short-sleeve school shirt and black slacks, a small cassette music player clipped to his belt with earbud wires in his ears",
+      "fallbackLook": "timid young teen boy with messy dark-brown hair, soft blue eyes and an anxious expression, a white short-sleeve school shirt and black slacks, a small music player at his belt with earbud wires in his ears",
+      "idle": "earbuds in, slouched, glancing nervously at the ring",
+      "cheer": "small hesitant fist raised, unsure smile",
+      "shocked": "hands gripping his head, trembling",
+      "tags": ["teen", "male", "student", "music"]
+    },
+    {
+      "id": "eva-002",
+      "name": "Asuka Langley Soryu",
+      "heightClass": "short",
+      "look": "fiery 14-year-old pilot with long orange-red hair, two red angular interface clips in her hair, sharp blue eyes and a cocky glare, wearing a glossy red plugsuit with black and orange accents",
+      "fallbackLook": "fiery teen girl with long orange-red hair, two red angular clips in her hair, sharp blue eyes and a cocky glare, a glossy red full-body pilot suit with black and orange accents",
+      "idle": "hands on hips, pouting and glaring at the fighters",
+      "cheer": "fist pumped high, shouting triumphantly",
+      "shocked": "teeth gritted in furious disbelief, fists clenched at her sides",
+      "tags": ["teen", "female", "pilot"]
+    },
+    {
+      "id": "eva-003",
+      "name": "Rei Ayanami",
+      "heightClass": "short",
+      "look": "quiet, ethereal 14-year-old pilot with a short pale-blue bob, red eyes and an expressionless face, wearing a white plugsuit with black and blue accents",
+      "fallbackLook": "quiet, pale teen girl with a short pale-blue bob, red eyes and a blank expression, a white full-body pilot suit with black and blue accents",
+      "idle": "standing perfectly still, expressionless, hands at her sides",
+      "cheer": "a tiny raised hand and the faintest smile",
+      "shocked": "a slow blink, head tilting slightly",
+      "tags": ["teen", "female", "pilot", "quiet"]
+    },
+    {
+      "id": "eva-004",
+      "name": "Misato Katsuragi",
+      "heightClass": "medium",
+      "look": "carefree operations commander with long straight purple hair, brown eyes and a playful grin, wearing a short red jacket over a black dress and a silver cross pendant necklace, holding a can of drink",
+      "fallbackLook": "carefree young woman with long straight purple hair, brown eyes and a playful grin, a short red jacket over a black dress, a silver cross pendant necklace, holding a can of drink",
+      "idle": "leaning back, sipping from the can, winking",
+      "cheer": "can raised high, whooping",
+      "shocked": "can crushed in her hand, eyes wide",
+      "tags": ["adult", "female", "officer"]
+    },
+    {
+      "id": "eva-005",
+      "name": "Gendo Ikari",
+      "heightClass": "tall",
+      "look": "cold, imposing commander with short dark hair, a short dark beard, orange-tinted rectangular glasses and an unreadable face, wearing a high-collared dark navy commander uniform and white gloves",
+      "fallbackLook": "cold, imposing man with short dark hair, a short dark beard, orange-tinted rectangular glasses and an unreadable face, a high-collared dark navy uniform and white gloves",
+      "idle": "gloved hands steepled in front of his mouth, glasses gleaming",
+      "cheer": "still steepled, the tiniest smirk behind his hands",
+      "shocked": "glasses flashing white, hands slowly lowering",
+      "tags": ["adult", "male", "villain", "glasses", "parent"]
+    },
+    {
+      "id": "eva-006",
+      "name": "Pen Pen",
+      "heightClass": "tiny",
+      "look": "small hot-spring penguin with dark blue-black feathers, a white belly, a spiky red crest on his head, round eyes, a yellow beak and orange feet",
+      "fallbackLook": "small round penguin with dark blue-black feathers, a white belly, a spiky red crest on his head, round eyes, a yellow beak and orange feet",
+      "idle": "standing still, flippers at his sides, blinking",
+      "cheer": "flapping both flippers, beak open squawking",
+      "shocked": "crest feathers standing straight up, toppling backward",
+      "tags": ["animal", "bird", "pet"]
+    }
+  ]
+}

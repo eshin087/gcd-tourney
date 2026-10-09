@@ -1,0 +1,95 @@
+{
+  "group": "saint-seiya",
+  "kind": "cameo",
+  "series": "Saint Seiya",
+  "spectators": [
+    {
+      "id": "seiya-001",
+      "name": "Pegasus Seiya",
+      "heightClass": "medium",
+      "look": "determined teen boy with messy spiky brown hair and a bold grin; white-and-silver Pegasus armor with red gem accents, a winged shoulder guard on one side, silver chest plate and a silver headgear tiara, red sleeveless undershirt, blue-grey pants, silver armored boots",
+      "fallbackLook": "determined teen boy with messy spiky brown hair, white-and-silver winged-horse armor with red gems, a winged shoulder guard on one side, silver tiara headgear, red sleeveless undershirt, blue-grey pants and silver armored boots",
+      "idle": "fist on his chest, confident grin",
+      "cheer": "both fists pumping above his head, shouting",
+      "shocked": "jaw dropped, leaning back with arms flailing",
+      "tags": ["warrior", "hero", "armored", "teen"]
+    },
+    {
+      "id": "seiya-002",
+      "name": "Dragon Shiryu",
+      "heightClass": "medium",
+      "look": "calm young man with very long straight black hair to his waist and focused eyes; jade-green dragon armor with a big round green shield on his left forearm bearing a coiled dragon emblem, green dragon-head shoulder guard, dark navy undershirt and pants",
+      "fallbackLook": "calm young man with very long straight black hair to his waist, jade-green dragon-themed armor, a big round green shield on his left forearm with a coiled dragon emblem, dark navy undershirt and pants",
+      "idle": "shield arm raised, eyes closed in meditation",
+      "cheer": "fist raised from behind his shield, shouting",
+      "shocked": "eyes snapping open, long hair flaring",
+      "tags": ["warrior", "hero", "armored", "long-hair"]
+    },
+    {
+      "id": "seiya-003",
+      "name": "Cygnus Hyoga",
+      "heightClass": "medium",
+      "look": "cool young man with blond side-swept hair over one eye and pale blue eyes; icy-white and pale-blue swan armor with a swan-head tiara and wing-shaped shoulder guards, light-blue undershirt, dark-blue pants, white armored boots",
+      "fallbackLook": "cool young man with blond side-swept hair over one eye, icy-white and pale-blue swan-themed armor with a swan-head tiara and wing-shaped shoulder guards, light-blue undershirt and dark-blue pants",
+      "idle": "arms crossed, cold aloof stare, frosty breath",
+      "cheer": "arms sweeping up in a graceful swan-dance pose",
+      "shocked": "frozen stiff, sweat drop, eyes wide",
+      "tags": ["warrior", "hero", "armored", "blond"]
+    },
+    {
+      "id": "seiya-004",
+      "name": "Andromeda Shun",
+      "heightClass": "medium",
+      "look": "gentle slim teen boy with soft wavy green hair and big kind eyes; pale salmon-pink armor (not magenta) with rounded shoulder plates and a pink tiara, a long silver chain coiled around both arms ending in a triangle tip and a round disc, green undershirt and pants",
+      "fallbackLook": "gentle slim teen boy with soft wavy green hair and big kind eyes, pale salmon-pink armor with rounded shoulder plates, a long silver chain coiled around both arms ending in a triangle tip and a round disc, green undershirt",
+      "idle": "chain looped gently in his hands, worried smile",
+      "cheer": "chain swirling in a loop beside him, waving happily",
+      "shocked": "chain clutched to his chest, tears in his eyes",
+      "tags": ["warrior", "hero", "armored", "teen"]
+    },
+    {
+      "id": "seiya-005",
+      "name": "Phoenix Ikki",
+      "heightClass": "tall",
+      "look": "rugged young man with wild spiky dark-blue hair, a scar across the bridge of his nose between his eyes and a fierce glare; dark-navy phoenix armor with orange-gold flame-feather trim, big wing-shaped back plates and a crested phoenix headpiece, red-orange undershirt, dark pants",
+      "fallbackLook": "rugged young man with wild spiky dark-blue hair, a scar across his nose between the eyes, dark-navy fiery-bird armor with orange-gold flame-feather trim, wing-shaped back plates, a crested headpiece and a red-orange undershirt",
+      "idle": "arms crossed, leaning back aloof, smirking",
+      "cheer": "one fist thrust out to the side, shouting with a fierce grin",
+      "shocked": "smirk gone, eyes narrowed in surprise, wings flared",
+      "tags": ["warrior", "rival", "armored", "loner"]
+    },
+    {
+      "id": "seiya-006",
+      "name": "Saori Kido (Athena)",
+      "heightClass": "medium",
+      "look": "elegant young woman with very long straight lavender-purple hair and a serene face; flowing white sleeveless goddess gown, gold armlets and gold necklace, holding a tall golden staff topped with a small winged statue",
+      "fallbackLook": "elegant young woman with very long straight lavender-purple hair and a serene face, flowing white sleeveless gown with gold armlets and necklace, holding a tall golden staff topped with a small winged statue",
+      "idle": "both hands resting on her golden staff, serene",
+      "cheer": "staff raised high, smiling warmly",
+      "shocked": "hand to her chest, gasping",
+      "tags": ["goddess", "rich", "woman"]
+    },
+    {
+      "id": "seiya-007",
+      "name": "Taurus Aldebaran",
+      "heightClass": "huge",
+      "look": "massive towering man with a square jaw, thick brows and a broad jolly smile; gleaming gold armor with a bull-horned gold helmet, bulky gold shoulder plates and gauntlets, long white cape",
+      "fallbackLook": "massive towering man with a square jaw and broad smile, gleaming gold armor with a bull-horned gold helmet, bulky gold shoulder plates and gauntlets and a long white cape",
+      "idle": "arms crossed over a broad golden chest, laughing",
+      "cheer": "arms spread wide to the sides, bellowing",
+      "shocked": "horned helmet tilted, mouth agape",
+      "tags": ["warrior", "armored", "giant", "gold"]
+    },
+    {
+      "id": "seiya-008",
+      "name": "Eagle Marin",
+      "heightClass": "medium",
+      "look": "athletic woman with short wavy red hair and a smooth expressionless silver face mask; silver-and-blue eagle armor with wing-like shoulder pieces, dark crimson bodysuit, silver gauntlets and armored boots",
+      "fallbackLook": "athletic woman with short wavy red hair and a smooth expressionless silver face mask, silver-and-blue eagle-themed armor with wing-like shoulder pieces, dark crimson bodysuit and silver gauntlets",
+      "idle": "hand on hip, masked face tilted toward the ring",
+      "cheer": "fist raised, signaling encouragement",
+      "shocked": "both hands up in alarm, mask tilted",
+      "tags": ["warrior", "mentor", "armored", "masked", "woman"]
+    }
+  ]
+}

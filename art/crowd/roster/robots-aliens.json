@@ -1,0 +1,106 @@
+{
+  "group": "robots-aliens",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-ra-001",
+      "label": "Retro tin robot",
+      "heightClass": "medium",
+      "look": "boxy silver tin robot with a square head, two round red light-bulb eyes, a grille mouth and an antenna topped with a red ball, a chest panel of colored dials and buttons, flexible accordion-tube arms ending in grey pincer claws",
+      "idle": "head tilting, antenna ball blinking, watching the ring",
+      "cheer": "pincers raised high, chest dials flashing",
+      "shocked": "sparks popping from the antenna, light-bulb eyes flashing wide",
+      "tags": ["robot", "retro"]
+    },
+    {
+      "id": "org-ra-002",
+      "label": "One-wheel dome robot",
+      "heightClass": "short",
+      "look": "small white dome-headed robot with a single glowing blue visor band, a round white body with orange stripes and thin black extendable arms, rolling on one big black wheel, holding a tiny plain red pennant",
+      "idle": "rocking back and forth on its wheel, visor scanning",
+      "cheer": "pennant waved high, spinning on its wheel",
+      "shocked": "visor flashing red, arms flung out stiff",
+      "tags": ["robot", "flag"]
+    },
+    {
+      "id": "org-ra-003",
+      "label": "Orange alien kid with a glow stick",
+      "heightClass": "tiny",
+      "look": "small orange-skinned alien kid with a big round head, huge glossy black almond eyes and two curly antennae with glowing yellow tips, wearing a shiny silver jumpsuit and white boots, holding a bright green glow stick",
+      "idle": "waving the glow stick slowly, antennae swaying",
+      "cheer": "glow stick held high, antennae sparkling",
+      "shocked": "antennae curled into tight spirals, mouth a tiny O",
+      "tags": ["alien", "kid", "prop"]
+    },
+    {
+      "id": "org-ra-004",
+      "label": "Three-eyed robed alien",
+      "heightClass": "tall",
+      "look": "lanky pale-blue alien with a long oval head, three calm violet eyes in a row and long thin fingers, wearing a flowing purple robe with a tall stiff gold collar and a glowing white gem on the chest",
+      "idle": "long fingers steepled, studying the fight",
+      "cheer": "long arms spread out wide to the sides, gem glowing bright",
+      "shocked": "all three eyes wide open, fingers splayed",
+      "tags": ["alien", "robe", "big"]
+    },
+    {
+      "id": "org-ra-005",
+      "label": "Horned alien mercenary",
+      "heightClass": "tall",
+      "look": "muscular brick-red-skinned alien with four short black horns along the brow and narrow yellow eyes, wearing a sleeveless silver scale-armor vest, a spiked black shoulder guard on one side, black trousers and a torn black cape",
+      "idle": "arms crossed, judging the fighters with a sneer",
+      "cheer": "fist out to the side, roaring with fangs bared",
+      "shocked": "cape flaring back, eyes wide, horns tilted back",
+      "tags": ["alien", "warrior", "cape", "big"]
+    },
+    {
+      "id": "org-ra-006",
+      "label": "Bowler-hat blob alien",
+      "heightClass": "short",
+      "look": "round squishy orange-pink gelatinous blob alien with one big central eye, a wide wobbly smile and two stubby arms, wearing a tiny black bowler hat and a red bow tie",
+      "idle": "jiggling gently, eye fixed on the ring",
+      "cheer": "stretching tall and wobbling, stubby arms up",
+      "shocked": "body flattened like a pancake, eye huge, hat popping off",
+      "tags": ["alien", "blob", "hat"]
+    },
+    {
+      "id": "org-ra-007",
+      "label": "Giant steel android",
+      "heightClass": "huge",
+      "look": "hulking cobalt-blue steel android with a bucket-shaped head, a single horizontal red visor slit, riveted armor plates, massive shoulders and oversized three-fingered hands",
+      "idle": "standing stiffly, visor light sweeping side to side",
+      "cheer": "huge arms out wide to the sides, visor flashing",
+      "shocked": "steam venting from the shoulders, visor flickering",
+      "tags": ["robot", "android", "big"]
+    },
+    {
+      "id": "org-ra-008",
+      "label": "Cyborg girl with a chrome arm",
+      "heightClass": "medium",
+      "look": "athletic cyborg girl with a violet high ponytail and a glowing cyan visor over her eyes, wearing a white-and-violet bodysuit with orange accents and short boots, her right arm fully chrome-robotic with glowing blue seams",
+      "idle": "visor tapped with the chrome hand, scanning the fighters",
+      "cheer": "chrome fist thrust up, seams glowing bright",
+      "shocked": "visor flickering, hands raised in surprise",
+      "tags": ["robot", "cyborg", "female"]
+    },
+    {
+      "id": "org-ra-009",
+      "label": "Fish-head alien in a water helmet",
+      "heightClass": "medium",
+      "look": "aqua-scaled alien with a goldfish-like head floating inside a round glass dome helmet full of water and bubbles, wearing a bulky orange spacesuit with white gloves and a small air tank on its back",
+      "idle": "blowing bubbles inside the helmet, watching",
+      "cheer": "gloved arms up, bubbles swirling wildly in the helmet",
+      "shocked": "fish face pressed against the glass, mouth gaping",
+      "tags": ["alien", "helmet", "spacesuit"]
+    },
+    {
+      "id": "org-ra-010",
+      "label": "Four-armed insect alien",
+      "heightClass": "medium",
+      "look": "slim mantis-like green insect alien with big faceted red eyes, twitching antennae and four thin arms, wearing a beige poncho with an orange zigzag hem, holding a different snack in each of its four hands",
+      "idle": "nibbling snacks from all four hands at once",
+      "cheer": "all four arms raised, snacks held high",
+      "shocked": "all four snacks dropped, antennae standing straight",
+      "tags": ["alien", "insect", "food"]
+    }
+  ]
+}

@@ -34,28 +34,28 @@ them. Frame details go in `ANIMATIONS.md`.
 | Light 3 | `light3` | {{...}} | near foot | LOW |
 | Light 4 (wall bounce) | `light4` | {{...}} | kicking foot | HIGH |
 | Heavy (launcher) | `heavy` | {{...}} | rear fist | HIGH, then overhead |
-| Air light 1-3 | `airLight1-3` | {{...}} | fist / foot / heel | MID |
+| Air light 1-3 | `airLight1-3` | {{...}} | fist / foot / heel | MID (airLight2: LOW) |
 | Air heavy (ground bounce) | `airHeavy` | {{...}} | clasped fists | down-forward |
 | Super dash | `superDash` | {{...}} | lead fist (contact) | - |
 | Vanish attack | `vanish` -> `light4` | {{...}} | kicking foot | HIGH |
 | Projectile (air, half bar) | `throw` | {{e.g. "throws 3 shuriken" / "hand sign then breathes a fireball"}} | hand / mouth | release point |
-| Signature rush (1 bar) | `special` | {{name + description}} | technique hand | MID |
+| Signature rush (1 bar) | `special` | {{name + description}} | technique hand | LOW (stomach) |
 | Ultimate (3 bars) | `beamCharge` -> `beamFire` | {{name + description}} | palms | beam origin |
 | Charge ki | `charge` | {{...}} | - | - |
 | Intro / taunt / win | `intro` / `taunt` / `win` | {{signature poses, with the source moment they come from}} | - | - |
 
 ## Effect anchor points
 
-Where the engine draws effects relative to the sprite (cell px, facing right). Defaults come from
-[SPEC.md](../../SPEC.md#effect-anchor-points). Draw the hands there, or measure your art and
-fill the "{{NAME}} actual" column so Claude can move the engine offsets.
+Where the engine draws effects relative to the sprite (px in the 256 cell, facing right, pivot
+[128, 240]). Defaults come from [SPEC.md](../../SPEC.md#effect-anchor-points). Draw the hands there,
+or measure your art and fill the "{{NAME}} actual" column so Claude can move the engine offsets.
 
 | effect | default (x, y) | {{NAME}} actual (x, y) | frames |
 |---|---|---|---|
-| signature technique in hand (startup + run) | {{(148, 118) orb-type / (53, 152) trailing-low type}} | {{...}} | `special` 00-04 |
-| signature technique at the thrust | {{(148, 118) orb-type (all frames) / (156, 113) trailing-low type, only after a hit}} | {{...}} | `special` 05 (orb-type), 06-07 after a hit (trailing type; see SPEC.md known gap) |
-| beam origin (palms) | (165, 101) | {{...}} | `beamFire` all |
-| projectile release | (139, 103) | {{...}} | `throw` 01 |
+| signature technique in hand (startup + run) | {{(205, 148) orb-type / (64, 199) trailing-low type}} | {{...}} | `special` 00-04 |
+| signature technique at the thrust | {{(205, 148) orb-type (all frames) / (218, 140) trailing-low type, only after a hit}} | {{...}} | `special` 05 (orb-type), 06-07 after a hit (trailing type; see SPEC.md known gap) |
+| beam origin (palms) | (230, 122) | {{...}} | `beamFire` all |
+| projectile release | (192, 125) | {{...}} | `throw` 01 |
 
 ## VFX used
 
@@ -79,7 +79,8 @@ If this character needs an effect that is not in the atlas (a different techniqu
 trail, a summon), describe it here and open a task for Claude in `docs/TASKS.md` (new effect names
 need engine code). One rule for every character (`art/vfx/README.md` "Adding a new effect"): name
 it `{{id}}_<effect>`, keep the brief in this table and the prompt in `PROMPTS.md`, and save raws as
-`art/vfx/raw/_proposed/{{id}}_<effect>.png` (the packer never reads `_proposed/`). It moves to
+`art/vfx/raw/_proposed/{{id}}_<effect>_vNN.png` (the packer never reads `_proposed/`; queue each
+candidate in `art/REVIEW.md` like any other image). It moves to
 `art/vfx/EFFECTS.md` when the engine task lands.
 
 | proposed effect | frames | color rule | anchor | description |
@@ -88,8 +89,12 @@ it `{{id}}_<effect>`, keep the brief in this table and the prompt in `PROMPTS.md
 
 ## Cut-in and portraits
 
+UI candidates are saved as `raw/ui_<name>_vNN.png` and queued in `art/REVIEW.md`; the approved one is
+copied to `ui/<name>.png` (SPEC.md "Per-character UI images"). Same Shippuden design and ~6.5-head
+proportions as the sprites.
+
 - Cut-in (`ui/cutin.png`, 480x128): {{eye description, expression, special eye state}}. The face
   fills the strip; a flat {{background band color: character color or dark navy}} may show only
-  around the eyes/brows; no speed lines (the HUD adds them). See SPEC.md "Per-character UI images".
+  around the eyes/brows; no speed lines (the HUD adds them).
 - Portrait (`ui/portrait.png`, 96x96): {{expression}}
 - Select art (`ui/select.png`, 384x384): {{full-body pose; usually the intro or win pose}}

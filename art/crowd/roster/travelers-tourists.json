@@ -1,0 +1,156 @@
+{
+  "group": "travelers-tourists",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-trvl-001",
+      "label": "Backpacker with walking stick",
+      "heightClass": "medium",
+      "look": "scruffy young backpacker with messy brown hair under a red bandana and light stubble; olive hiking shirt, khaki shorts, tall hiking boots, a huge overloaded green backpack with a rolled sleeping mat on top, a wooden walking stick",
+      "idle": "thumbs hooked in his backpack straps, gazing at the ring",
+      "cheer": "walking stick waved high, whooping",
+      "shocked": "staggering backward under the weight of the backpack",
+      "tags": ["traveler", "adult", "male", "backpack"]
+    },
+    {
+      "id": "org-trvl-002",
+      "label": "Photographer with telephoto lens",
+      "heightClass": "medium",
+      "look": "focused woman photographer with short teal hair under a beige cap turned backward; tan photographer's vest full of pockets over a gray tee, black pants, a black camera with a long white telephoto lens",
+      "idle": "camera raised to her eye, framing the ring",
+      "cheer": "snapping photos one-handed, other fist raised",
+      "shocked": "camera flash going off as she leans back",
+      "tags": ["traveler", "photographer", "adult", "female", "camera"]
+    },
+    {
+      "id": "org-trvl-003",
+      "label": "Tourist dad with map",
+      "heightClass": "medium",
+      "look": "sunburned chubby tourist dad with sunglasses pushed onto his forehead and a khaki bucket hat; loud yellow Hawaiian shirt with red hibiscus flowers, cargo shorts, white socks with brown sandals, a huge unfolded paper map",
+      "idle": "squinting at the giant unfolded map",
+      "cheer": "waving the map overhead like a flag",
+      "shocked": "map ripping in half, jaw dropped",
+      "tags": ["traveler", "tourist", "adult", "male", "map"]
+    },
+    {
+      "id": "org-trvl-004",
+      "label": "Little tourist with ice cream",
+      "heightClass": "tiny",
+      "look": "small girl in a wide straw sun hat with a red ribbon; pale yellow sundress, white sandals, a dripping strawberry ice-cream cone in one hand and a tiny golden souvenir trophy in the other",
+      "idle": "licking the ice cream, staring at the ring",
+      "cheer": "holding the little trophy up high",
+      "shocked": "ice-cream scoop falling onto her sandals",
+      "tags": ["traveler", "tourist", "kid", "female", "ice-cream"]
+    },
+    {
+      "id": "org-trvl-005",
+      "label": "Lanky tourist with guidebook",
+      "heightClass": "tall",
+      "look": "tall lanky blond foreign tourist with freckles and round wire glasses; white polo shirt, beige shorts, knee-high socks, a bright orange fanny pack, a thick guidebook with a plain blue cover",
+      "idle": "reading the guidebook and pointing at the ring",
+      "cheer": "guidebook held up, arm out to the side, cheering",
+      "shocked": "glasses flying off his face",
+      "tags": ["traveler", "tourist", "adult", "male", "book"]
+    },
+    {
+      "id": "org-trvl-006",
+      "label": "Tour guide with pennant",
+      "heightClass": "medium",
+      "look": "cheerful tour guide with a neat dark bun under a small teal pillbox hat; teal blazer with a white scarf, knee-length teal skirt, a silver whistle on a cord, a small triangular yellow pennant with a star on a short stick",
+      "idle": "holding the pennant up for her tour group",
+      "cheer": "waving the pennant and blowing the whistle",
+      "shocked": "whistle falling from her lips, pennant drooping",
+      "tags": ["traveler", "guide", "adult", "female", "pennant"]
+    },
+    {
+      "id": "org-trvl-007",
+      "label": "Tourist granny with camera",
+      "heightClass": "short",
+      "look": "tiny hunched granny with a white curly perm under a purple sun visor; oversized pink windbreaker, beige slacks, white sneakers, a black fanny pack and a little disposable camera on a wrist strap",
+      "idle": "shading her eyes with one hand, peering at the ring",
+      "cheer": "hopping and waving the little camera",
+      "shocked": "hand on her heart, eyes wide",
+      "tags": ["traveler", "tourist", "elder", "female", "camera"]
+    },
+    {
+      "id": "org-trvl-008",
+      "label": "Desert wanderer",
+      "heightClass": "medium",
+      "look": "tan-skinned desert traveler woman with a sand-colored head wrap and face scarf, brass goggles on her forehead; long dusty khaki duster coat, brown wrapped boots, a dented metal canteen on a strap",
+      "idle": "sipping from the canteen",
+      "cheer": "pulling down the scarf and raising a fist",
+      "shocked": "scarf whipping back, goggles slipping down",
+      "tags": ["traveler", "adult", "female", "canteen"]
+    },
+    {
+      "id": "org-trvl-009",
+      "label": "Selfie influencer",
+      "heightClass": "medium",
+      "look": "trendy young woman with pastel pink and baby-blue split-dyed hair in a high ponytail and heart-shaped sunglasses; lavender bomber jacket, white pleated skirt, chunky white sneakers, a phone on a selfie stick",
+      "idle": "posing for a selfie with the stick, pouting",
+      "cheer": "selfie stick held high, peace sign",
+      "shocked": "phone slipping off the selfie stick, mouth open",
+      "tags": ["traveler", "influencer", "adult", "female", "phone"]
+    },
+    {
+      "id": "org-trvl-010",
+      "label": "Tired salaryman traveler",
+      "heightClass": "medium",
+      "look": "tired traveling salaryman with messy black hair and bags under his eyes, a gray neck pillow around his neck; wrinkled gray suit, loosened blue tie, a small black rolling suitcase at his side",
+      "idle": "yawning, one hand on the suitcase handle",
+      "cheer": "tie tied around his head like a headband, shouting",
+      "shocked": "neck pillow flying off, eyes popping",
+      "tags": ["traveler", "salaryman", "adult", "male", "suitcase"]
+    },
+    {
+      "id": "org-trvl-011",
+      "label": "Safari explorer",
+      "heightClass": "tall",
+      "look": "barrel-chested explorer with a white pith helmet and a bushy ginger handlebar mustache; khaki safari jacket with many pockets, khaki shorts, tall brown socks and boots, black binoculars around his neck",
+      "idle": "peering through the binoculars",
+      "cheer": "pith helmet waved out to the side, cheering",
+      "shocked": "binoculars dropping, mustache bristling",
+      "tags": ["traveler", "explorer", "adult", "male", "binoculars"]
+    },
+    {
+      "id": "org-trvl-012",
+      "label": "Island girl with coconut drink",
+      "heightClass": "short",
+      "look": "dark-skinned teenage island girl with long braided black hair and a pink flower behind her ear; colorful flower lei around her neck, orange sundress with white flowers, a coconut drink with a striped straw",
+      "idle": "sipping the coconut drink",
+      "cheer": "dancing with the coconut held high",
+      "shocked": "coconut drink spilling down her front",
+      "tags": ["traveler", "tourist", "teen", "female", "drink"]
+    },
+    {
+      "id": "org-trvl-013",
+      "label": "Northern traveler in furs",
+      "heightClass": "tall",
+      "look": "big rosy-cheeked traveler from the cold north with a brown fur hat with ear flaps and a bushy blond beard; thick red parka, long red scarf, gray mittens, felt boots, a steaming metal cup of tea",
+      "idle": "blowing on the steaming tea",
+      "cheer": "mittens raised out to the sides, bellowing",
+      "shocked": "hat ear flaps flying straight up",
+      "tags": ["traveler", "adult", "male", "tea"]
+    },
+    {
+      "id": "org-trvl-014",
+      "label": "Autograph hunter boy",
+      "heightClass": "short",
+      "look": "eager freckled boy with a backward blue cap and a gap-toothed grin; yellow-and-white striped tee, red cargo shorts, a small sticker-covered backpack, an autograph notebook and a black marker",
+      "idle": "clutching the notebook hopefully",
+      "cheer": "notebook and marker thrust toward the ring",
+      "shocked": "marker dropped, cap falling off",
+      "tags": ["traveler", "fan", "kid", "male", "notebook"]
+    },
+    {
+      "id": "org-trvl-015",
+      "label": "Traveling painter",
+      "heightClass": "medium",
+      "look": "older traveling painter with a white goatee, a dark red beret and a paintbrush tucked behind his ear; paint-splattered blue smock over brown trousers, a small sketchpad and a wooden palette",
+      "idle": "sketching the fight on the sketchpad",
+      "cheer": "paintbrush raised like a sword",
+      "shocked": "a splash of paint across his face",
+      "tags": ["traveler", "artist", "elder", "male", "sketchpad"]
+    }
+  ]
+}

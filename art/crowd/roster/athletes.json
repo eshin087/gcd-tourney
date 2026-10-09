@@ -1,0 +1,126 @@
+{
+  "group": "athletes",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-athl-001",
+      "label": "Sumo wrestler",
+      "heightClass": "huge",
+      "look": "enormous sumo wrestler with an oiled black topknot, round placid face and thick neck; dark navy mawashi belt with hanging cord fringe, a heavy round belly, bare feet, a small folded white towel over one shoulder",
+      "idle": "standing wide with both hands resting on his belly",
+      "cheer": "one leg lifted out to the side in a ceremonial stomp, arms spread",
+      "shocked": "belly wobbling, mouth a perfect round O",
+      "tags": ["athlete", "sumo", "adult", "male", "big"]
+    },
+    {
+      "id": "org-athl-002",
+      "label": "Rugby forward",
+      "heightClass": "huge",
+      "look": "massive rugby forward with a blond buzz cut, cauliflower ears and white tape wrapped around his head; red-and-white hooped rugby jersey, white shorts, muddy red knee socks, cleats, a brown rugby ball under his arm",
+      "idle": "ball tucked under one arm, chest puffed out",
+      "cheer": "arms spread wide to the sides with the ball in one hand, roaring",
+      "shocked": "fumbling the ball, eyes wide",
+      "tags": ["athlete", "rugby", "adult", "male", "ball", "big"]
+    },
+    {
+      "id": "org-athl-003",
+      "label": "Sprinter with gold medal",
+      "heightClass": "tall",
+      "look": "lean dark-skinned sprinter woman with a high puff ponytail and a gold medal on a ribbon; yellow-and-green racing singlet with a blank white bib, green running shorts, bright orange track spikes",
+      "idle": "stretching one arm across her chest",
+      "cheer": "both arms raised out in a wide V, medal swinging",
+      "shocked": "both hands on her head",
+      "tags": ["athlete", "runner", "adult", "female", "medal"]
+    },
+    {
+      "id": "org-athl-004",
+      "label": "Baseball slugger",
+      "heightClass": "medium",
+      "look": "stocky baseball player with black eye-black stripes under his eyes and a navy cap; white pinstripe uniform with navy trim, brown leather glove on one hand, a wooden bat resting on his shoulder",
+      "idle": "punching his fist into the glove",
+      "cheer": "bat waved high, shouting",
+      "shocked": "cap blown off, bat sliding off his shoulder",
+      "tags": ["athlete", "baseball", "adult", "male", "bat"]
+    },
+    {
+      "id": "org-athl-005",
+      "label": "Bodybuilder with shaker",
+      "heightClass": "huge",
+      "look": "bronze-skinned bodybuilder with a slick black ponytail and a bright white smile; neon orange tank top straining over bulging muscles, gray sweatpants, a purple protein shaker bottle",
+      "idle": "flexing one bicep while sipping from the shaker",
+      "cheer": "double-biceps pose with arms out to the sides",
+      "shocked": "shaker squirting, veins popping on his forehead",
+      "tags": ["athlete", "bodybuilder", "adult", "male", "big"]
+    },
+    {
+      "id": "org-athl-006",
+      "label": "Volleyball player",
+      "heightClass": "medium",
+      "look": "energetic volleyball girl with a short black bob held by a white headband; sky-blue team jersey and shorts, black knee pads, white court shoes, a white-blue-yellow volleyball",
+      "idle": "spinning the volleyball on one fingertip",
+      "cheer": "jumping with the ball held overhead",
+      "shocked": "ball bouncing off her head, mouth open",
+      "tags": ["athlete", "volleyball", "teen", "female", "ball"]
+    },
+    {
+      "id": "org-athl-007",
+      "label": "Boxer in satin robe",
+      "heightClass": "tall",
+      "look": "scrappy young boxer with wild spiky red hair and a bandaged nose; shiny red satin robe hanging open over a white tank top, red boxing trunks, red boxing gloves on both hands",
+      "idle": "shadowboxing lightly, bouncing on his toes",
+      "cheer": "punching the air with both gloves",
+      "shocked": "gloves up in a high guard, eyes wide",
+      "tags": ["athlete", "boxer", "adult", "male", "gloves"]
+    },
+    {
+      "id": "org-athl-008",
+      "label": "Swimmer with towel",
+      "heightClass": "tall",
+      "look": "tall lanky swimmer with a white swim cap and blue goggles pushed up on it; navy-and-white team track jacket zipped up, navy track pants, blue flip-flops, a white towel around his neck",
+      "idle": "drying his face with the towel",
+      "cheer": "swinging the towel in circles, arm out to the side",
+      "shocked": "goggles snapping down onto his eyes",
+      "tags": ["athlete", "swimmer", "adult", "male", "towel"]
+    },
+    {
+      "id": "org-athl-009",
+      "label": "Veteran marathon runner",
+      "heightClass": "medium",
+      "look": "wiry elderly marathon runner with bushy white eyebrows and a white sweatband around his head; sweat-soaked red running tank top, short black running shorts, neon green running shoes, a squeeze water bottle",
+      "idle": "jogging in place",
+      "cheer": "squeezing the water bottle so it sprays upward",
+      "shocked": "frozen mid-jog, eyebrows flying up",
+      "tags": ["athlete", "runner", "elder", "male", "bottle"]
+    },
+    {
+      "id": "org-athl-010",
+      "label": "Soccer goalkeeper",
+      "heightClass": "tall",
+      "look": "goalkeeper with spiky blond hair; long-sleeved neon green goalkeeper jersey with black elbow pads, black shorts, white socks, oversized white padded goalkeeper gloves",
+      "idle": "clapping the big gloves together",
+      "cheer": "gloves spread wide to the sides",
+      "shocked": "both gloves clamped on his head",
+      "tags": ["athlete", "soccer", "adult", "male", "gloves"]
+    },
+    {
+      "id": "org-athl-011",
+      "label": "Rhythmic gymnast",
+      "heightClass": "short",
+      "look": "petite teen gymnast with dark brown hair in a tight bun wrapped with a pink ribbon; white warm-up jacket with violet trim, violet track pants, white slippers, a long pink rhythmic-gymnastics ribbon on a stick",
+      "idle": "twirling the ribbon idly at her side",
+      "cheer": "ribbon spiraling above her head",
+      "shocked": "ribbon tangled around her body",
+      "tags": ["athlete", "gymnast", "teen", "female", "ribbon"]
+    },
+    {
+      "id": "org-athl-012",
+      "label": "Masked luchador",
+      "heightClass": "tall",
+      "look": "muscular masked pro wrestler with a full gold-and-blue face mask decorated with red flame shapes; long red cape, blue wrestling tights, red knee-high boots, a big championship belt with a plain gold plate slung over one shoulder",
+      "idle": "arms crossed, cape draped behind him",
+      "cheer": "arms flexed out to the sides, cape flaring",
+      "shocked": "clutching his mask with both hands",
+      "tags": ["athlete", "wrestler", "adult", "male", "mask", "cape"]
+    }
+  ]
+}

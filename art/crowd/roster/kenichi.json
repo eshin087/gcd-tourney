@@ -1,0 +1,73 @@
+{
+  "group": "kenichi",
+  "kind": "cameo",
+  "series": "History's Strongest Disciple Kenichi",
+  "spectators": [
+    {
+      "id": "ken-001",
+      "name": "Kenichi Shirahama",
+      "heightClass": "medium",
+      "look": "earnest, battered teen disciple with short messy brown hair, a nervous-but-determined face and bandages on his cheek and forearms, wearing a plain white martial-arts gi with a black belt, a big black rubber training tire on a rope over his shoulder",
+      "fallbackLook": "earnest, battered teen boy with short messy brown hair, a nervous-but-determined face and bandages on his cheek and forearms, a plain white martial-arts gi with a black belt and a big black rubber training tire on a rope over his shoulder",
+      "idle": "tire rope over his shoulder, panting and sweating",
+      "cheer": "fist pumped high, happy tears streaming",
+      "shocked": "face gone pale, knees knocking together",
+      "tags": ["teen", "male", "martial-artist", "student"]
+    },
+    {
+      "id": "ken-002",
+      "name": "Miu Furinji",
+      "heightClass": "medium",
+      "look": "kind, skilled martial-arts girl with long golden-blonde hair in a high ponytail, big blue eyes and a gentle smile, wearing a fitted lavender martial-arts top, black leggings and white wrist wraps",
+      "fallbackLook": "kind young martial-arts girl with long golden-blonde hair in a high ponytail, big blue eyes and a gentle smile, a fitted lavender martial-arts top, black leggings and white wrist wraps",
+      "idle": "hands clasped behind her back, watching with a gentle smile",
+      "cheer": "one arm waving high, cheering brightly",
+      "shocked": "hands over her mouth, ponytail flipping up",
+      "tags": ["teen", "female", "martial-artist"]
+    },
+    {
+      "id": "ken-003",
+      "name": "Hayato Furinji (the Elder)",
+      "heightClass": "huge",
+      "look": "towering, legendary old master with very long flowing white hair, a huge white beard and mustache, bushy white brows and a jovial face on a massive muscular frame, wearing a dark blue traditional martial-arts robe with a white sash and wooden geta sandals",
+      "fallbackLook": "towering, legendary old master with very long flowing white hair, a huge white beard and mustache, bushy white brows and a jovial face on a massive frame, a dark blue traditional robe with a white sash and wooden sandals",
+      "idle": "stroking his long beard, chuckling",
+      "cheer": "booming laugh, both arms spread wide out to the sides",
+      "shocked": "bushy brows shooting up, beard blown back",
+      "tags": ["elder", "male", "martial-artist", "giant", "beard"]
+    },
+    {
+      "id": "ken-004",
+      "name": "Akisame Koetsuji",
+      "heightClass": "tall",
+      "look": "calm, slender jujutsu philosopher with short black hair, a neat black mustache and a serene half-smile, wearing a dark grey kimono top with black hakama trousers, holding a calligraphy brush and a small paper scroll",
+      "fallbackLook": "calm, slender master with short black hair, a neat black mustache and a serene half-smile, a dark grey kimono top with black hakama trousers, holding a calligraphy brush and a small paper scroll",
+      "idle": "sketching the fighters on his scroll with the brush",
+      "cheer": "brush held out to the side like a baton, approving nod",
+      "shocked": "brush dropping, mustache twitching",
+      "tags": ["adult", "male", "martial-artist", "artist"]
+    },
+    {
+      "id": "ken-005",
+      "name": "Shigure Kosaka",
+      "heightClass": "medium",
+      "look": "quiet, deadly weapons master with very long straight black hair and blank sleepy eyes, wearing a dark ninja-style outfit with chains and wrapped legs, a katana slung on her back and a tiny brown pet rat on her shoulder",
+      "fallbackLook": "quiet young swordswoman with very long straight black hair and blank sleepy eyes, a dark ninja-style outfit with chains and wrapped legs, a katana slung on her back and a tiny brown rat on her shoulder",
+      "idle": "standing silently, the tiny rat peeking from her shoulder",
+      "cheer": "small fist raised, the rat cheering on top of her head",
+      "shocked": "hand on her katana hilt, the rat hiding in her hair",
+      "tags": ["adult", "female", "martial-artist", "swordsman", "pet"]
+    },
+    {
+      "id": "ken-006",
+      "name": "Sakaki Shio",
+      "heightClass": "tall",
+      "look": "brawny, rough karate master with short spiky black hair, scars across his face and a cocky grin, wearing a white karate gi with the sleeves torn off, a black belt and big muscular bare arms, holding a can of drink",
+      "fallbackLook": "brawny, rough karate master with short spiky black hair, scars across his face and a cocky grin, a white karate gi with the sleeves torn off, a black belt and big muscular arms, holding a can of drink",
+      "idle": "leaning back, swigging from the can, grinning",
+      "cheer": "crushing the can, fist thrust out to the side, roaring",
+      "shocked": "can spilling, eyes popping",
+      "tags": ["adult", "male", "martial-artist", "muscular", "scar"]
+    }
+  ]
+}

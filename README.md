@@ -8,7 +8,11 @@ standing inside it, a cinematic camera, auras, super flashes and beam clashes.
 The two starter fighters are a Naruto-style orange fox ninja and a Sasuke-style
 lightning ninja. Their sprites are **3D-baked placeholders**: chibi models built in code,
 animated with smooth keyframes and rendered into pixel-art sprite sheets at startup.
-Hi-res pixel art generated with ChatGPT replaces them one character at a time. See
+Hi-res pixel art replaces them one character at a time. It follows art spec v2
+([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Shippuden-era designs at about
+6.5 heads tall (serious anime proportions, not chibi) in 256 px cells. Codex generates the images,
+and every version is queued in [art/REVIEW.md](art/REVIEW.md) for the user's approval (the packer packs
+the newest candidate for preview; rejected ones move to `_rejected/`). See
 [art/README.md](art/README.md) for the full pipeline, or [ASSETS.md](ASSETS.md) for the quick Sprite Lab import.
 
 ## Run it
@@ -28,7 +32,7 @@ Then open http://127.0.0.1:5188
 | `npm run dev` | dev server on port 5188 |
 | `npm run dev:alt` | the same on port 5200 (when 5188 is busy) |
 | `npm run build` / `npm run preview` | production build into `dist/` / serve it |
-| `npm run sprites [id\|vfx]` | pack ChatGPT art from `art/` into `public/` (see [art/README.md](art/README.md)) |
+| `npm run sprites [id\|vfx]` | pack generated art from `art/` into `public/` (see [art/README.md](art/README.md)) |
 | `npm run test:sprites` | self-test for the sprite packer |
 
 ## Modes
@@ -38,7 +42,7 @@ Then open http://127.0.0.1:5188
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time
-- **Sprite Lab** (`/sprites.html`): preview every animation, import ChatGPT art, export sheets
+- **Sprite Lab** (`/sprites.html`): preview every animation, import art strips, export sheets
 
 Best of 3 rounds, 99 seconds each. The intro flythrough can be skipped with Enter / Start.
 
@@ -92,9 +96,10 @@ These are the default bindings. You can rebind them in the controls menu.
 - **2.5D lanes + per-frame hitboxes**: fighters face screen-left or screen-right, attacks step into the
   opponent's depth lane, and a hit only lands where the fist or foot on the current sprite frame overlaps the
   body ([ADR 0005](docs/decisions/0005-25d-lanes-frame-hitboxes.md)).
-- **Custom art**: `public/characters/<id>/sheet.png` + `anims.json` (192 px hi-res cells, written by
-  `npm run sprites`) replace the baked placeholder when present. Missing animations fall back per animation,
-  and missing files fall back to the bake.
+- **Custom art**: `public/characters/<id>/sheet.png` + `anims.json` (spec v2: 256 px hi-res cells, pivot
+  `[128,240]`, 128 px per world unit, a 4096 × 2560 sheet; written by `npm run sprites`) replace the baked
+  placeholder when present. Missing animations fall back per animation, and missing files fall back to the
+  bake. Hi-res sheets switch the renderer to a sharper `hd` detail mode automatically.
 
 ```
 src/
@@ -107,7 +112,7 @@ src/
                projectiles & beams, effects, camera director
   ui/          HUD (bars, combo counter, cut-ins) + menus + controls panel (DOM overlay)
 tools/         pack-sprites.mjs: packs art/ into public/ (npm run sprites)
-art/           art briefs, ChatGPT prompts, raw and cleaned frames, tracker + manifest (not shipped)
+art/           art briefs, image prompts, versioned raws, cleaned frames, review queue, tracker + manifest (not shipped)
 public/characters/<id>/   sheet.png + anims.json (+ portrait/cutin/select.png) that replace the placeholder art
 public/vfx/               optional custom VFX atlas
 docs/          architecture, combat design, workflows, ADRs, task board
@@ -123,8 +128,9 @@ docs/          architecture, combat design, workflows, ADRs, task board
 
 ## Docs
 
-The project is set up for long-term work by a human plus three AI tools (Claude Code for engine work,
-ChatGPT for art, Codex for art coordination).
+The project is set up for long-term work by a human plus AI tools: Claude Code for engine work, Codex for
+art generation and production (the user reviews and approves every image), and optionally ChatGPT when the
+user wants to generate an image by hand.
 
 | Doc | What's in it |
 |---|---|
@@ -134,15 +140,16 @@ ChatGPT for art, Codex for art coordination).
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | modules, per-frame data flow, sprite and VFX pipelines, UI, audio |
 | [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md) | moveset, frame data, combo systems, ki, hit detection rules |
 | [docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md) | end-to-end recipe for a new fighter |
-| [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md) | Claude / ChatGPT / Codex roles, handoffs, review gates |
+| [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md) | Claude / Codex / user roles, handoffs, the art review loop, review gates |
 | [docs/TESTING.md](docs/TESTING.md) | manual checklists, debug helpers, soak test, performance budget |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | milestones from training mode to more characters, stages and online |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | branches, conventional commits, review checklist, versioning |
 | [docs/TASKS.md](docs/TASKS.md) | the task board (owner + status) |
 | [docs/STYLE_GUIDE_CODE.md](docs/STYLE_GUIDE_CODE.md) | coding conventions |
 | [docs/decisions/](docs/decisions/README.md) | architecture decision records (ADRs) |
-| [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md) | copy-paste prompts to start Codex as the art coordinator |
+| [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md) | copy-paste prompts to start Codex as the art producer (Prompt 0: spec v2 restart) |
 | [art/README.md](art/README.md) | art pipeline entry point: spec, style guide, pipeline, tracker, per-character briefs and prompts |
+| [art/REVIEW.md](art/REVIEW.md) | art review queue: every generated image version, newest first |
 | [ASSETS.md](ASSETS.md) | sprite sheet format and the Sprite Lab quick-import path |
 
 ## A note on characters

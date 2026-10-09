@@ -18,6 +18,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `/?fight=naruto,sasuke&mode=versus` | skip into a 2P match |
 | `&debug` | expose console helpers (below) |
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
+| `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 
 ## Debug helpers (`?debug`)
@@ -95,6 +96,10 @@ Timings are approximate. If a step misses, print `step(1)` after each press and 
 - [ ] With an incomplete sheet: the baked placeholder is used unless `?art=custom` is set. Missing anims fall back.
 - [ ] Custom VFX atlas: present → used; any missing effect → procedural.
 - [ ] A corrupt `anims.json` or missing `sheet.png` falls back to the bake with a warning and no crash.
+- [ ] A spec v2 custom fighter next to a baked placeholder: both stand about the same world height. The
+      placeholder still looks chibi; that's expected until ENG-016.
+- [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
+      chunky mode back for comparison.
 
 ## Character checklist
 
@@ -103,6 +108,9 @@ Run this for every new or re-packed character (`?fight=<id>,<other>&art=custom&d
 - [ ] All 38 animations play (or fall back sensibly). No frame pops out of the cell or gets clipped.
 - [ ] The feet stay planted between idle, run and attacks (pivot consistent), with no jitter in loops.
 - [ ] Body height matches the other fighters, and design and palette are consistent across animations.
+- [ ] Proportions stay at about 6.5 heads (spec v2) in every animation, with no chibi frames, and every
+      packed animation comes from its approved version in `art/REVIEW.md` (the packer report names the
+      `_vNN` file it used).
 - [ ] Active frames show the limb fully extended toward screen-right (mirrored when facing left).
 - [ ] Hitboxes cover only the striking limb, and hurtboxes cover the body without huge empty margins.
 - [ ] The special's hand effect lines up with the drawn hand. The projectile leaves from the hand.
@@ -153,7 +161,7 @@ If `src/main.js` gains a built-in soak helper later, prefer it and update this s
 | Frame rate | **60 fps at 1080p** during the heaviest moments (beam clash + auras + debris) on a mid-range laptop GPU | DevTools Performance or an FPS meter. Watch the clash and KO crash. |
 | Fixed-step catch-up | the accumulator should rarely hit the 6-step cap | add a temporary counter in debug, then remove it |
 | Placeholder bake | **< 1 s per character** | console: `[sprites] baked <id> from 3D in N ms` |
-| Custom sheet size | ≤ 4096 × 4096 px (pack densely: 16 columns × 192 px = 3072 px wide; ~154 frames ≈ 10 rows ≈ 1920 px) | packer report |
+| Custom sheet size | ≤ 4096 × 4096 px (spec v2: 16 columns × 256 px = 4096 px wide; 154 frames = 10 rows = 2560 px tall). A GPU with a 2048 texture limit gets a downscaled sheet and a three.js warning. | packer report |
 | VFX atlas | ≤ 2048 × 2048 px | packer report |
 | Live effects | no unbounded growth in `game.fx.items`, ghosts or decals over a soak | check the array lengths before and after a soak |
 | Boot | menu interactive in < 3 s with 2 characters on a warm cache | stopwatch or Performance panel |

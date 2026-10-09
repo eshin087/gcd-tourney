@@ -1,0 +1,172 @@
+{
+  "group": "jujutsu-kaisen",
+  "kind": "cameo",
+  "series": "Jujutsu Kaisen",
+  "spectators": [
+    {
+      "id": "jjk-001",
+      "name": "Yuji Itadori",
+      "heightClass": "medium",
+      "look": "athletic teen boy with spiky salmon-pink hair over a short dark undercut, warm brown eyes with a small dark scar-like line under each eye, dark navy high-collar school uniform jacket with an attached red hood and a big gold spiral button at the collar, loose dark navy pants and red-and-white sneakers",
+      "fallbackLook": "athletic teenage boy with spiky salmon-pink hair over a dark undercut, a small dark line under each eye, a dark navy high-collar school jacket with an attached red hood and a gold spiral collar button, loose dark pants and red sneakers",
+      "idle": "bouncing on his heels with fists half-raised, eager grin",
+      "cheer": "both fists pumped high, yelling with a huge open grin",
+      "shocked": "hands clutching his head, eyes bulging, mouth wide open",
+      "tags": ["student", "sorcerer", "brawler"]
+    },
+    {
+      "id": "jjk-002",
+      "name": "Megumi Fushiguro",
+      "heightClass": "medium",
+      "look": "lean teen boy with spiky jet-black hair bursting up in all directions, sharp dark teal eyes and a calm frown, dark navy high-collar school uniform with a gold spiral button, loose dark pants and black shoes, hands often shaped into a dog-head shadow sign",
+      "fallbackLook": "lean teenage boy with wild spiky jet-black hair sticking up in all directions, a cool frown, a dark navy high-collar school uniform with a gold spiral button and loose dark pants, hands forming a dog-head shadow-puppet sign",
+      "idle": "hands in his pockets, unimpressed sideways glance",
+      "cheer": "both hands held up in a dog-head shadow sign, small confident smirk",
+      "shocked": "stepping back with one arm thrown out, eyes wide",
+      "tags": ["student", "sorcerer", "stoic"]
+    },
+    {
+      "id": "jjk-003",
+      "name": "Nobara Kugisaki",
+      "heightClass": "short",
+      "look": "confident teen girl with a chin-length orange-brown bob and brown eyes, dark navy school jacket cinched with a brown belt, dark navy knee-length skirt, black tights and brown lace-up boots, a wooden-handled hammer in one hand and long iron nails between the fingers of the other",
+      "fallbackLook": "confident teenage girl with a chin-length orange-brown bob, a belted dark navy school jacket, a dark skirt, black tights and brown boots, holding a wooden hammer and a handful of long iron nails",
+      "idle": "hammer resting on her shoulder, other hand on her hip, smug look",
+      "cheer": "hammer thrust overhead, shouting with a fierce grin",
+      "shocked": "hammer dropped to her side, jaw hanging open, eyes huge",
+      "tags": ["student", "sorcerer", "hammer"]
+    },
+    {
+      "id": "jjk-004",
+      "name": "Satoru Gojo",
+      "heightClass": "tall",
+      "look": "very tall slender young man with spiky snow-white hair swept straight up, a black cloth blindfold wrapped over his eyes, pale skin and a cocky smile, black high-collar teacher's uniform jacket with a gold spiral button, loose black pants and black shoes",
+      "fallbackLook": "very tall slender man with spiky snow-white hair standing straight up, a black cloth blindfold over his eyes, a cocky smile, a black high-collar uniform jacket with a gold spiral button and loose black pants",
+      "idle": "hands in his pockets, leaning back with a lazy confident smile",
+      "cheer": "one hand tugging the blindfold up to show bright blue eyes, the other flashing a peace sign out to the side",
+      "shocked": "blindfold pushed up on his forehead, bright blue eyes wide, hand over his mouth in mock surprise",
+      "tags": ["teacher", "sorcerer", "showoff"]
+    },
+    {
+      "id": "jjk-005",
+      "name": "Maki Zenin",
+      "heightClass": "medium",
+      "look": "athletic young woman with dark green hair pulled into a high spiky ponytail, black rectangular glasses and a stern scowl, dark navy school jacket, loose dark pants tucked into black boots, a long black-wrapped polearm resting on her shoulder",
+      "fallbackLook": "athletic young woman with dark green hair in a high spiky ponytail, black rectangular glasses, a stern scowl, a dark navy school jacket, loose dark pants and black boots, carrying a long black-wrapped polearm",
+      "idle": "polearm propped on her shoulder, weight on one hip, unimpressed",
+      "cheer": "polearm thrust skyward, fierce shout",
+      "shocked": "pushing her glasses up, eyes wide behind the lenses, teeth gritted",
+      "tags": ["student", "polearm", "glasses"]
+    },
+    {
+      "id": "jjk-006",
+      "name": "Toge Inumaki",
+      "heightClass": "medium",
+      "look": "slim young man with short pale platinum-blond hair and violet eyes, dark navy school uniform with an extra-tall zipped collar hiding his mouth and nose, oversized loose sleeves, loose dark pants",
+      "fallbackLook": "slim young man with short platinum-blond hair and violet eyes, a dark navy uniform with a tall zipped collar covering his mouth and nose, oversized sleeves and loose dark pants",
+      "idle": "collar zipped to his nose, hands in pockets, half-lidded calm eyes",
+      "cheer": "collar unzipped to show dark fang-shaped marks at the corners of his mouth, hands cupped around it shouting",
+      "shocked": "collar yanked up to his eyes, eyes wide, sweat drop on his brow",
+      "tags": ["student", "sorcerer", "quiet"]
+    },
+    {
+      "id": "jjk-007",
+      "name": "Panda",
+      "heightClass": "huge",
+      "look": "giant upright panda with a broad barrel chest, round black ears, black eye patches around small friendly eyes, white fur on his head and belly, black fur on shoulders, arms and legs, stubby clawed paws",
+      "fallbackLook": "giant panda standing upright like a person, broad barrel chest, round black ears, black eye patches around small friendly eyes, white head and belly, black shoulders, arms and legs, stubby clawed paws",
+      "idle": "paws resting on his round belly, calmly watching, ears twitching",
+      "cheer": "both paws spread wide to the sides, mouth open in a happy roar",
+      "shocked": "paws pressed to his cheeks, leaning back, ears flattened",
+      "tags": ["creature", "big", "student"]
+    },
+    {
+      "id": "jjk-008",
+      "name": "Aoi Todo",
+      "heightClass": "huge",
+      "look": "massive muscular man with black hair tied into a short topknot, thick black eyebrows, a scar cutting down through his left eyebrow and a square jaw, dark sleeveless uniform top stretched over a huge chest, bare bulging arms, pale baggy pants and black shoes",
+      "fallbackLook": "massive muscular man with black hair in a short topknot, thick black eyebrows, a scar through one eyebrow, a square jaw, a dark sleeveless top over a huge chest, bare bulging arms and pale baggy pants",
+      "idle": "arms crossed over his huge chest, chin up, sizing up the fighters",
+      "cheer": "clapping his giant hands together in front of his chest, beaming",
+      "shocked": "manly tears streaming down his face, fists clenched, lip trembling",
+      "tags": ["student", "brawler", "big"]
+    },
+    {
+      "id": "jjk-009",
+      "name": "Ryomen Sukuna",
+      "heightClass": "medium",
+      "look": "menacing young man with spiky pink hair swept back, a second pair of narrow eyes beneath his own, thick black tattoo stripes across his cheeks, nose and forehead, black tattoo bands around his wrists, a loose white wide-sleeved kimono open at the chest with a dark sash, sharp fanged grin",
+      "fallbackLook": "menacing young man with spiky pink hair swept back, a second pair of eyes beneath his eyes, thick black tattoo stripes on his face, black tattoo bands around his wrists, a loose white wide-sleeved kimono open at the chest with a dark sash",
+      "idle": "arms crossed, head tilted back, contemptuous smirk",
+      "cheer": "arms spread wide, head thrown back in a maniacal laugh",
+      "shocked": "leaning forward, all four eyes wide, fangs bared in a thrilled grin",
+      "tags": ["villain", "tattooed", "kimono"]
+    },
+    {
+      "id": "jjk-010",
+      "name": "Kento Nanami",
+      "heightClass": "tall",
+      "look": "tall broad-shouldered man with neat blond hair parted at the side, green-tinted goggle-shaped glasses and a weary serious face, beige suit jacket and trousers over a light blue shirt with a leopard-print necktie, a blunt cleaver-like blade wrapped in white cloth with black dots",
+      "fallbackLook": "tall broad-shouldered office man with neat side-parted blond hair, green-tinted goggle-shaped glasses, a beige suit over a light blue shirt and a leopard-print necktie, carrying a blunt blade wrapped in white polka-dot cloth",
+      "idle": "checking his wristwatch with a weary sigh",
+      "cheer": "one fist raised neatly, small approving nod",
+      "shocked": "adjusting his glasses with two fingers, eyebrows raised, mouth tight",
+      "tags": ["salaryman", "sorcerer", "glasses"]
+    },
+    {
+      "id": "jjk-011",
+      "name": "Suguru Geto",
+      "heightClass": "tall",
+      "look": "tall man with long black hair half tied into a bun and a single bang hanging over his forehead, narrow smiling eyes, stretched earlobes with big round gauge earrings, black wide-sleeved monk robes with a dull-gold patchwork monk's stole draped over one shoulder",
+      "fallbackLook": "tall serene man with long black hair half tied in a bun and one bang over his forehead, narrow smiling eyes, large round gauge earrings, black wide-sleeved monk robes and a dull-gold patchwork stole over one shoulder",
+      "idle": "hands tucked into his sleeves, serene smile",
+      "cheer": "one hand raised in a gentle wave, eyes narrowed in a smile",
+      "shocked": "eyes opening wide for once, hand raised to his chin",
+      "tags": ["monk", "villain", "robes"]
+    },
+    {
+      "id": "jjk-012",
+      "name": "Mahito",
+      "heightClass": "medium",
+      "look": "slim young man with long shaggy blue-grey hair, pale patchwork skin crossed by dark stitched seams on his face and arms, mismatched grey and blue eyes, a childlike creepy grin, loose black shirt, dark baggy patchwork trousers and bare feet",
+      "fallbackLook": "slim young man with long shaggy blue-grey hair, pale patchwork skin crossed by dark stitched seams on his face and arms, mismatched grey and blue eyes, a creepy childlike grin, a loose black shirt, baggy patchwork trousers and bare feet",
+      "idle": "hands behind his head, swaying, creepy smile",
+      "cheer": "clapping like a delighted child, tongue sticking out",
+      "shocked": "stitched face stretched into an exaggerated gasp, hands on his cheeks",
+      "tags": ["villain", "spirit", "creepy"]
+    },
+    {
+      "id": "jjk-013",
+      "name": "Yuta Okkotsu",
+      "heightClass": "medium",
+      "look": "slim young man with messy black hair and gentle dark eyes with tired shadows under them, white high-collar school uniform with gold buttons, dark pants, a katana in a black sheath slung across his back on a strap, a silver ring on one finger",
+      "fallbackLook": "slim young man with messy black hair, gentle tired dark eyes, a white high-collar school uniform with gold buttons, dark pants, a sheathed katana slung across his back and a silver ring on one finger",
+      "idle": "hand on his sword strap, shy small smile",
+      "cheer": "sheathed katana raised high, bright cheerful smile",
+      "shocked": "eyes wide, clutching the ring on his finger",
+      "tags": ["student", "swordsman", "white-uniform"]
+    },
+    {
+      "id": "jjk-014",
+      "name": "Toji Fushiguro",
+      "heightClass": "tall",
+      "look": "tall heavily muscled man with short messy black hair, a scar across the right corner of his mouth and sleepy green eyes, tight black short-sleeve shirt, loose cream baggy pants and black shoes, a long purple worm-like creature coiled around his shoulders",
+      "fallbackLook": "tall heavily muscled man with short messy black hair, a scar at the corner of his mouth, sleepy green eyes, a tight black short-sleeve shirt, loose cream baggy pants and a long purple worm-like creature coiled around his shoulders",
+      "idle": "hands in his pockets, bored half-lidded stare",
+      "cheer": "lazy smirk, one fist raised",
+      "shocked": "eyebrows up, scarred lip curled in a low whistle",
+      "tags": ["mercenary", "brawler", "creature-pet"]
+    },
+    {
+      "id": "jjk-015",
+      "name": "Jogo",
+      "heightClass": "short",
+      "look": "short stocky spirit with grey skin and a volcano-shaped head with a smoking crater on top, a single large round eye with black streaks under it, black teeth, a cream robe tied with a dark sash over dark trousers",
+      "fallbackLook": "short stocky grey-skinned spirit with a volcano-shaped head and a smoking crater on top, one large round eye with black streaks under it, black teeth, a cream robe with a dark sash over dark trousers",
+      "idle": "arms crossed, steam puffing from his head, scowling",
+      "cheer": "fists shaking, a burst of smoke and flame from his crater",
+      "shocked": "head erupting with thick smoke, single eye bulging",
+      "tags": ["villain", "spirit", "fire"]
+    }
+  ]
+}

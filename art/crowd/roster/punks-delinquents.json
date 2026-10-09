@@ -1,0 +1,156 @@
+{
+  "group": "punks-delinquents",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-punk-001",
+      "label": "Pompadour gang boss",
+      "heightClass": "tall",
+      "look": "lanky teenage gang boss with a towering glossy black pompadour jutting far forward, narrow scowling eyes and a toothpick in his mouth; ankle-length black high-collar school coat worn open over a red undershirt and a white belly wrap, wide baggy black trousers, wooden geta sandals",
+      "idle": "arms crossed, chewing the toothpick, glaring at the ring",
+      "cheer": "arms thrown out to the sides, roaring, toothpick flying",
+      "shocked": "pompadour sagging, toothpick dropping from his gaping mouth",
+      "tags": ["punk", "delinquent", "teen", "male", "pompadour"]
+    },
+    {
+      "id": "org-punk-002",
+      "label": "Biker gang girl with bat",
+      "heightClass": "medium",
+      "look": "young biker-gang woman with long bleached-blonde hair under a white forehead band, sharp winged eyeliner and a white face mask pulled down to her chin; long purple high-collar gang coat with gold flower embroidery (no lettering) over a white tank top, wide purple pants, black boots, a wooden baseball bat resting on her shoulder",
+      "idle": "bat on her shoulder, hip cocked, chewing gum",
+      "cheer": "bat thrust straight up, yelling",
+      "shocked": "mask slipping off, bat falling, both hands on her cheeks",
+      "tags": ["punk", "biker", "adult", "female", "bat"]
+    },
+    {
+      "id": "org-punk-003",
+      "label": "Green mohawk punk",
+      "heightClass": "medium",
+      "look": "wiry young punk with a tall spiky lime-green mohawk, shaved sides, several silver ear piercings; torn red plaid shirt with the sleeves ripped off, studded black wristbands, ripped blue jeans hung with silver chains, heavy black boots with yellow laces",
+      "idle": "hands in pockets, bobbing his head to a beat",
+      "cheer": "both hands up making horn signs, tongue out",
+      "shocked": "mohawk wilting to one side, eyes bulging",
+      "tags": ["punk", "adult", "male", "mohawk"]
+    },
+    {
+      "id": "org-punk-004",
+      "label": "Pompadour lackey",
+      "heightClass": "short",
+      "look": "small skinny delinquent with a brown pompadour too big for his head, buck teeth and tiny black sunglasses; oversized long white school coat dragging at his ankles over a purple shirt, baggy white pants, a rolled-up newspaper in one hand",
+      "idle": "slapping the rolled newspaper into his palm, sneering",
+      "cheer": "jumping and waving the newspaper overhead",
+      "shocked": "sunglasses cracked, cowering behind the newspaper",
+      "tags": ["punk", "delinquent", "teen", "male", "pompadour"]
+    },
+    {
+      "id": "org-punk-005",
+      "label": "Yo-yo gang queen",
+      "heightClass": "medium",
+      "look": "cool teenage girl gang leader with long straight black hair, half-lidded eyes and red lipstick; navy sailor uniform with an ankle-length pleated skirt and a red scarf, white loafers, a shiny silver steel yo-yo on a string",
+      "idle": "lazily spinning the silver yo-yo, unimpressed",
+      "cheer": "flicking the yo-yo out, smirking with a fist raised",
+      "shocked": "yo-yo string tangled around her hand, eyes wide",
+      "tags": ["punk", "delinquent", "teen", "female", "yo-yo"]
+    },
+    {
+      "id": "org-punk-006",
+      "label": "Flame-helmet rider",
+      "heightClass": "medium",
+      "look": "biker-gang rider in a white open-face helmet painted with red flames and amber goggles pushed up on it; long white high-collar gang coat with red trim (no lettering), black pants, black riding gloves, a small black-and-white checkered flag",
+      "idle": "twisting an imaginary throttle with one hand, flag tucked under his arm",
+      "cheer": "waving the checkered flag overhead",
+      "shocked": "goggles snapping down over his eyes, flag drooping",
+      "tags": ["punk", "biker", "adult", "male", "helmet", "flag"]
+    },
+    {
+      "id": "org-punk-007",
+      "label": "Scarred back-alley punk",
+      "heightClass": "tall",
+      "look": "broad-shouldered street brawler with a black buzz cut, a long scar across his left cheek and a bandage across his nose; sleeveless black tank top, white tape wrapped around both fists, olive cargo pants, beat-up brown boots",
+      "idle": "cracking his knuckles, grinning",
+      "cheer": "arms flexed out to the sides, bellowing",
+      "shocked": "stepping back with fists raised, mouth open",
+      "tags": ["punk", "brawler", "adult", "male", "scar"]
+    },
+    {
+      "id": "org-punk-008",
+      "label": "Visual-rock guitarist",
+      "heightClass": "medium",
+      "look": "androgynous rocker with huge teased lavender hair, pale face makeup and dark plum lipstick; black lace choker, long black coat covered in silver buckles, tight black pants, tall platform boots, a red electric guitar slung on his back",
+      "idle": "flipping his hair aside, posing coolly",
+      "cheer": "head thrown back, playing air guitar on the slung guitar",
+      "shocked": "hands pressed to his face, eyeliner running",
+      "tags": ["punk", "rocker", "adult", "male", "guitar"]
+    },
+    {
+      "id": "org-punk-009",
+      "label": "Skateboard wannabe",
+      "heightClass": "short",
+      "look": "round-faced middle-school wannabe delinquent with hair dyed half red and half black, a band-aid on his forehead; black school coat worn open with sleeves rolled up over a white tee, black pants, white sneakers, a green skateboard under his arm",
+      "idle": "skateboard under his arm, trying hard to look tough",
+      "cheer": "jumping with the skateboard held overhead",
+      "shocked": "skateboard dropping, mouth wide open",
+      "tags": ["punk", "delinquent", "kid", "male", "skateboard"]
+    },
+    {
+      "id": "org-punk-010",
+      "label": "Greaser with comb",
+      "heightClass": "tall",
+      "look": "cocky greaser with a shiny black quiff and long sideburns; black leather jacket with silver zippers over a white t-shirt, cuffed blue jeans, black shoes, a small black pocket comb",
+      "idle": "combing his quiff with the pocket comb",
+      "cheer": "comb raised, thumbs up and a wink",
+      "shocked": "comb snapped in half, quiff collapsed over his face",
+      "tags": ["punk", "greaser", "adult", "male", "comb"]
+    },
+    {
+      "id": "org-punk-011",
+      "label": "Gang heavy with meat bun",
+      "heightClass": "huge",
+      "look": "enormous round gang heavy with a shaved head, a thin mustache and tiny round sunglasses; long purple coat hanging open over a white belly wrap, a thick silver chain around his neck, baggy black pants, a big steaming meat bun in one hand",
+      "idle": "munching the meat bun contentedly",
+      "cheer": "arms spread out to the sides, bun in one hand, laughing",
+      "shocked": "bun falling, cheeks puffed out, sunglasses sliding",
+      "tags": ["punk", "delinquent", "adult", "male", "food", "big"]
+    },
+    {
+      "id": "org-punk-012",
+      "label": "Bubblegum punk girl",
+      "heightClass": "short",
+      "look": "small punk girl with pink twin pigtails, heavy black eyeliner and a studded black choker; oversized sleeveless denim jacket covered in plain round badges, red-and-black plaid skirt over black leggings, chunky combat boots, blowing a big pink bubblegum bubble",
+      "idle": "blowing a pink bubblegum bubble",
+      "cheer": "jumping with both fists up as the bubble pops",
+      "shocked": "popped gum stuck on her face, eyes wide",
+      "tags": ["punk", "teen", "female", "bubblegum"]
+    },
+    {
+      "id": "org-punk-013",
+      "label": "Caped gang captain",
+      "heightClass": "medium",
+      "look": "theatrical gang captain with wild long white hair tied back with a thick red rope and red painted streaks around his eyes; a torn long black school coat worn over his shoulders like a cape, white undershirt, black hakama-style pants, geta sandals, a single red flower clenched in his teeth",
+      "idle": "arms folded, coat-cape fluttering, flower in his teeth",
+      "cheer": "flinging the coat-cape open dramatically",
+      "shocked": "flower falling from his mouth, hair standing on end",
+      "tags": ["punk", "delinquent", "teen", "male", "cape", "flower"]
+    },
+    {
+      "id": "org-punk-014",
+      "label": "Tracksuit tough",
+      "heightClass": "medium",
+      "look": "stocky street tough with shaved sides and a slicked-back top, a heavy gold chain over a shiny maroon tracksuit with white side stripes, white sneakers, cracking sunflower seeds from a paper bag",
+      "idle": "one hand in his pocket, spitting sunflower seed shells",
+      "cheer": "punching the air with both fists",
+      "shocked": "seed bag spilling, leaning back with mouth open",
+      "tags": ["punk", "adult", "male", "tracksuit", "snack"]
+    },
+    {
+      "id": "org-punk-015",
+      "label": "Tanned gyaru with flip phone",
+      "heightClass": "medium",
+      "look": "deeply tanned party girl with huge voluminous bleached-blonde hair and a big hibiscus clip, white lipstick and white eye makeup; neon pink jacket over a lime top, denim skirt over black leggings, towering platform sandals, a pink flip phone covered in dangling charms",
+      "idle": "snapping her flip phone open and shut, bored",
+      "cheer": "double peace signs up, tongue out",
+      "shocked": "phone dropped, both hands on her cheeks",
+      "tags": ["punk", "gyaru", "teen", "female", "phone"]
+    }
+  ]
+}

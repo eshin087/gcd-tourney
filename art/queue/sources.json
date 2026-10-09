@@ -1,0 +1,181 @@
+{
+  "_readme": "Non-crowd batch sources for tools/queue.mjs (crowd batches come from art/crowd/roster/*.json). Lead/Claude edit this file; run `npm run queue -- build` after changing it.",
+  "stage": [
+    {
+      "id": "ringTop"
+    },
+    {
+      "id": "ringSide"
+    },
+    {
+      "id": "grass"
+    },
+    {
+      "id": "steps"
+    },
+    {
+      "id": "stoneBase"
+    },
+    {
+      "id": "brick"
+    },
+    {
+      "id": "path"
+    },
+    {
+      "id": "templeFacade"
+    },
+    {
+      "id": "roof"
+    },
+    {
+      "id": "bannerBu"
+    },
+    {
+      "id": "bannerDo"
+    },
+    {
+      "id": "bannerSai"
+    },
+    {
+      "id": "bannerTo"
+    },
+    {
+      "id": "plaster"
+    },
+    {
+      "id": "sky"
+    },
+    {
+      "id": "cloudA"
+    },
+    {
+      "id": "cloudB"
+    },
+    {
+      "id": "cloudC"
+    },
+    {
+      "id": "gong"
+    },
+    {
+      "id": "parasol"
+    },
+    {
+      "id": "woodDark"
+    },
+    {
+      "id": "treeRoundA"
+    },
+    {
+      "id": "treeRoundB"
+    },
+    {
+      "id": "treePine"
+    },
+    {
+      "id": "treePalm"
+    },
+    {
+      "id": "sign"
+    },
+    {
+      "id": "lanternBu"
+    },
+    {
+      "id": "lanternSai"
+    },
+    {
+      "id": "woodPillar"
+    },
+    {
+      "id": "wood"
+    }
+  ],
+  "npc": [
+    {
+      "id": "announcer",
+      "anims": [
+        "idle",
+        "point",
+        "shout",
+        "cower"
+      ]
+    },
+    {
+      "id": "monk-a",
+      "anims": [
+        "idle",
+        "signal"
+      ]
+    },
+    {
+      "id": "monk-b",
+      "anims": [
+        "idle",
+        "signal"
+      ]
+    },
+    {
+      "id": "vendor",
+      "anims": [
+        "idle"
+      ]
+    }
+  ],
+  "ui": [
+    {
+      "id": "logo"
+    },
+    {
+      "id": "title_art"
+    }
+  ],
+  "vfx": [
+    {
+      "id": "spark"
+    },
+    {
+      "id": "burst"
+    },
+    {
+      "id": "ring"
+    },
+    {
+      "id": "dust"
+    },
+    {
+      "id": "smoke"
+    },
+    {
+      "id": "shuriken"
+    },
+    {
+      "id": "fire"
+    },
+    {
+      "id": "flame"
+    },
+    {
+      "id": "lightning"
+    },
+    {
+      "id": "orb"
+    },
+    {
+      "id": "glow"
+    },
+    {
+      "id": "streak"
+    },
+    {
+      "id": "star"
+    },
+    {
+      "id": "crater"
+    },
+    {
+      "id": "lines"
+    }
+  ]
+}

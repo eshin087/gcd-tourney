@@ -1,0 +1,139 @@
+{
+  "group": "one-punch-man",
+  "kind": "cameo",
+  "series": "One Punch Man",
+  "spectators": [
+    {
+      "id": "opm-001",
+      "name": "Saitama",
+      "heightClass": "medium",
+      "look": "plain-faced hero with a completely bald shiny head and simple dot eyes, wearing a bright yellow zip-up jumpsuit, a white cape fastened with round black buttons, a black belt, red rubber gloves and red boots, holding a plastic supermarket bag full of groceries",
+      "fallbackLook": "plain-looking bald man with simple dot-like eyes in a bright yellow zip-up jumpsuit, a white cape, a black belt, red gloves and red boots, holding a plastic grocery bag with a leek sticking out",
+      "idle": "blank bored face, picking his ear, grocery bag dangling",
+      "cheer": "polite single fist raise with the exact same blank face",
+      "shocked": "rare detailed serious face: sharp eyes, gritted teeth, cape flaring",
+      "tags": ["adult", "hero", "bald", "groceries"]
+    },
+    {
+      "id": "opm-002",
+      "name": "Genos",
+      "heightClass": "medium",
+      "look": "young cyborg with spiky blond hair and black sclera with glowing yellow irises, wearing a black sleeveless top and dark pants, with dark-gray and black mechanical metal arms showing exposed joints, metal plates at his neck and orange glowing vents in his palms",
+      "fallbackLook": "serious young cyborg with spiky blond hair, black eyes with glowing yellow irises, dark-gray mechanical metal arms with orange glowing palm vents, a black sleeveless top and dark pants",
+      "idle": "arms crossed, analyzing the fight with a faint scanning glow in his eyes",
+      "cheer": "one metal arm raised, palm vents glowing orange, steam puffing",
+      "shocked": "arm panels popping open, sparks flying, eyes wide",
+      "tags": ["adult", "hero", "cyborg", "robot"]
+    },
+    {
+      "id": "opm-003",
+      "name": "Tatsumaki",
+      "heightClass": "short",
+      "look": "tiny fierce adult psychic with curly flipped-out dark-green hair, sharp green eyes and a haughty pout, wearing a long fitted black high-collared dress with flowing side panels and black heels, floating inside a faint green psychic glow",
+      "fallbackLook": "tiny fierce woman with curly flipped-out dark-green hair, sharp green eyes and a haughty pout in a long black high-collared dress with flowing side panels, floating in a faint green psychic glow",
+      "idle": "floating cross-armed, nose in the air, scowling",
+      "cheer": "rising higher inside a green psychic swirl, fist pumped",
+      "shocked": "hair flaring, green glow flickering, eyes wide and furious",
+      "tags": ["adult", "hero", "psychic", "float"]
+    },
+    {
+      "id": "opm-004",
+      "name": "Fubuki",
+      "heightClass": "medium",
+      "look": "elegant psychic woman with a sleek jet-black bob flipped out at the ends, sharp green eyes and a confident smile, wearing a long dark-green high-collared long-sleeve gown, a white fur stole over her shoulders and a pearl necklace",
+      "fallbackLook": "elegant woman with a sleek jet-black flipped bob, sharp green eyes and a confident smile in a long dark-green high-collared gown, a white fur stole and a pearl necklace",
+      "idle": "one hand on her hip, superior smirk, green glow on her fingertips",
+      "cheer": "one hand raised elegantly, green psychic aura swirling around her",
+      "shocked": "hand over her mouth, eyes wide, aura sputtering",
+      "tags": ["adult", "hero", "psychic", "elegant"]
+    },
+    {
+      "id": "opm-005",
+      "name": "Silver Fang (Bang)",
+      "heightClass": "medium",
+      "look": "lean elderly martial-arts master with spiky swept-back white hair, a thick white mustache and stern narrowed eyes, wearing a loose dark-navy kung-fu suit with white cuffs and black cloth slippers",
+      "fallbackLook": "lean elderly martial-arts master with spiky swept-back white hair, a thick white mustache and stern eyes in a loose dark-navy kung-fu suit with white cuffs and black slippers",
+      "idle": "stroking his mustache, eyes narrowed in judgment",
+      "cheer": "flowing martial-arts stance, both open palms circling like water",
+      "shocked": "mustache bristling, eyebrows shot up",
+      "tags": ["elder", "hero", "martial-artist", "kung-fu"]
+    },
+    {
+      "id": "opm-006",
+      "name": "King",
+      "heightClass": "tall",
+      "look": "tall broad man with spiky blond hair, an intimidating stern face and three long vertical scars over his left eye, wearing a plain white T-shirt, dark-gray slacks and sneakers, holding a handheld game console",
+      "fallbackLook": "tall broad intimidating man with spiky blond hair and three long scars over one eye in a plain white T-shirt and dark-gray slacks, holding a handheld game console",
+      "idle": "glaring at the ring while secretly playing his handheld game",
+      "cheer": "game console held out to the side, sweaty forced smile",
+      "shocked": "sweat pouring, eyes bugged, loud heartbeat lines around his chest",
+      "tags": ["adult", "hero", "gamer", "scars"]
+    },
+    {
+      "id": "opm-007",
+      "name": "Mumen Rider",
+      "heightClass": "medium",
+      "look": "earnest everyman hero with a green bicycle helmet, large round yellow goggles and a determined face, wearing a light-green padded riding jacket with gray armor pads on the shoulders and knees, dark pants and white gloves, holding a small silver bicycle bell",
+      "fallbackLook": "earnest ordinary man in a green bicycle helmet with large round yellow goggles, a light-green padded riding jacket with gray shoulder and knee pads and white gloves, holding a small silver bicycle bell",
+      "idle": "standing at attention, bicycle bell in hand, nodding seriously",
+      "cheer": "ringing the bicycle bell overhead with both hands",
+      "shocked": "goggles cracked, trembling but standing firm",
+      "tags": ["adult", "hero", "cyclist", "helmet"]
+    },
+    {
+      "id": "opm-008",
+      "name": "Garou",
+      "heightClass": "medium",
+      "look": "lean wolfish young martial artist with wild spiky white hair swept back like a mane, sharp narrow golden eyes and a fanged sneer, wearing a black sleeveless martial-arts top, loose dark-gray pants and white hand wraps",
+      "fallbackLook": "lean wolfish young man with wild spiky white hair swept back like a mane, narrow golden eyes and a fanged sneer in a black sleeveless top, loose dark-gray pants and white hand wraps",
+      "idle": "hunched forward with loose arms, smirking like a predator",
+      "cheer": "one fist thrust out, laughing wildly with fangs bared",
+      "shocked": "hair bristling, eyes narrowed to slits, teeth clenched",
+      "tags": ["adult", "villain", "martial-artist", "wolfish"]
+    },
+    {
+      "id": "opm-009",
+      "name": "Child Emperor",
+      "heightClass": "short",
+      "look": "small genius boy with neat brown hair, round black-framed glasses and a lollipop in his mouth, wearing a white collared shirt with a red bow tie, blue shorts and white knee socks, with a large silver mechanical backpack whose robot arms are folded on top",
+      "fallbackLook": "small genius boy with neat brown hair, round glasses and a lollipop in his mouth in a white shirt with a red bow tie, blue shorts and white knee socks, wearing a big silver robot backpack with folded mechanical arms",
+      "idle": "tapping a small wrist screen, lollipop stick bobbing",
+      "cheer": "backpack robot arms unfolding to wave two tiny blank flags",
+      "shocked": "glasses slipping, lollipop dropping, backpack sparking",
+      "tags": ["kid", "hero", "genius", "robot", "glasses"]
+    },
+    {
+      "id": "opm-010",
+      "name": "Metal Bat",
+      "heightClass": "medium",
+      "look": "tough delinquent hero with a tall black pompadour, a bandage strip across his nose and scowling eyes, wearing a long black delinquent school coat worn open over a white shirt and dark pants, a dented metal baseball bat resting on his shoulder",
+      "fallbackLook": "tough delinquent young man with a tall black pompadour, a bandage across his nose and a scowl in a long open black school coat over a white shirt, a dented metal baseball bat on his shoulder",
+      "idle": "bat on his shoulder, chewing gum, glaring at the ring",
+      "cheer": "bat thrust overhead, pompadour bouncing, shouting",
+      "shocked": "bat slipping from his grip, pompadour flopping, eyes wide",
+      "tags": ["adult", "hero", "delinquent", "pompadour", "bat"]
+    },
+    {
+      "id": "opm-011",
+      "name": "Speed-o'-Sound Sonic",
+      "heightClass": "medium",
+      "look": "lean smug ninja with long black hair in a high ponytail and sharp eyes with purple markings beneath them, wearing a skin-tight black ninja bodysuit, a long purple scarf, purple arm wraps and a short sheathed sword strapped to his back",
+      "fallbackLook": "lean smug ninja with long black hair in a high ponytail and purple markings under sharp eyes in a skin-tight black bodysuit, a long purple scarf, purple arm wraps and a short sheathed sword on his back",
+      "idle": "weight on one leg, arms folded, smug grin",
+      "cheer": "blurred afterimages behind him, fist up with a smug grin",
+      "shocked": "ponytail bristling, sweat drop, stepping back",
+      "tags": ["adult", "ninja", "martial-artist", "scarf"]
+    },
+    {
+      "id": "opm-012",
+      "name": "Tanktop Master",
+      "heightClass": "huge",
+      "look": "massive muscle-bound man with a short black flat-top haircut, a square jaw and bushy eyebrows, wearing a tight white tank top straining over huge pecs, dark-gray trousers and a thick black belt",
+      "fallbackLook": "massive muscle-bound man with a short black flat-top, square jaw and bushy eyebrows in a tight white tank top straining over huge pecs, dark-gray trousers and a thick black belt",
+      "idle": "arms folded over his chest, nodding solemnly",
+      "cheer": "double-biceps flex with arms out to the sides, tank top stretching",
+      "shocked": "tank top seams splitting, mouth open, eyebrows high",
+      "tags": ["adult", "hero", "muscular", "big", "tank-top"]
+    }
+  ]
+}

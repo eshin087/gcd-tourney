@@ -18,7 +18,8 @@ when a decision should be revisited.
 2. Set **Status: Proposed**. Claude usually drafts. Codex may draft for art-pipeline topics.
 3. The user accepts it (**Accepted**) or rejects it (**Rejected**, kept for the record).
 4. ADRs are immutable once accepted. To change course, write a new ADR that **supersedes** the old one, and set
-   the old one's status to `Superseded by NNNN`.
+   the old one's status to `Superseded by NNNN`. When the new ADR replaces only part of the old one, it
+   **amends** it instead: the old ADR gets a one-line `Amended by NNNN` header note and nothing else changes.
 5. Mention the ADR in CHANGELOG and link it from the docs it affects.
 
 ## Index
@@ -30,7 +31,9 @@ when a decision should be revisited.
 | [0003](0003-3d-baked-placeholder-sprites.md) | 3D-baked placeholder sprites | Accepted |
 | [0004](0004-dbfz-combat-model.md) | DBFZ-inspired combat model | Accepted |
 | [0005](0005-25d-lanes-frame-hitboxes.md) | 2.5D lanes + per-frame hitboxes/hurtboxes | Accepted (implementation in progress) |
-| [0006](0006-ai-art-pipeline.md) | AI art pipeline: ChatGPT images, packer, Codex coordination | Accepted |
+| [0006](0006-ai-art-pipeline.md) | AI art pipeline: ChatGPT images, packer, Codex coordination | Accepted (amended by 0007) |
+| [0007](0007-art-spec-v2-shippuden-256.md) | Art spec v2: Shippuden designs, ~6.5 heads, 256 px cells, versioned review; Codex generates the images | Accepted |
+| [0008](0008-world-art-and-parallel-production.md) | World art (crowd, stage, NPCs, UI, VFX) and parallel Codex production with a claim queue | Accepted |
 
 ## Template
 

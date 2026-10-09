@@ -1,0 +1,95 @@
+{
+  "group": "hajime-no-ippo",
+  "kind": "cameo",
+  "series": "Hajime no Ippo",
+  "spectators": [
+    {
+      "id": "ippo-001",
+      "name": "Ippo Makunouchi",
+      "heightClass": "medium",
+      "look": "earnest young boxer with short spiky black hair, a round friendly face and a thick neck; white t-shirt, dark-green track pants, white sneakers, red boxing gloves tied by their laces and hung around his neck",
+      "fallbackLook": "earnest young boxer with short spiky black hair, a round friendly face and a thick neck, white t-shirt, dark-green track pants, white sneakers and red boxing gloves hung around his neck by the laces",
+      "idle": "nervous polite half-bow, gloves swinging",
+      "cheer": "fist pump with a determined shout",
+      "shocked": "hands up to his face in a peekaboo guard, eyes huge",
+      "tags": ["boxer", "athlete", "hero"]
+    },
+    {
+      "id": "ippo-002",
+      "name": "Mamoru Takamura",
+      "heightClass": "tall",
+      "look": "towering muscular boxer with short slicked-back black hair, sharp eyebrows and a wild cocky grin; tight black sleeveless tank top, blue jeans, black boots, a white towel slung around his neck",
+      "fallbackLook": "towering muscular boxer with short slicked-back black hair, sharp eyebrows and a wild cocky grin, tight black tank top, blue jeans and a white towel around his neck",
+      "idle": "flexing one bicep, smug grin",
+      "cheer": "arms flung wide, bellowing laughter",
+      "shocked": "eyes popping out comically, jaw on the floor",
+      "tags": ["boxer", "athlete", "comic", "muscular"]
+    },
+    {
+      "id": "ippo-003",
+      "name": "Genji Kamogawa",
+      "heightClass": "short",
+      "look": "small wiry elderly boxing coach, bald and wrinkled with a fierce glare; dark-brown cardigan over a white shirt, grey slacks, a gnarled wooden cane",
+      "fallbackLook": "small wiry elderly boxing coach, bald and wrinkled with a fierce glare, dark-brown cardigan over a white shirt, grey slacks and a gnarled wooden cane",
+      "idle": "both hands stacked on his cane, stern glare",
+      "cheer": "cane raised, barking orders",
+      "shocked": "cane trembling, mouth open",
+      "tags": ["elder", "coach"]
+    },
+    {
+      "id": "ippo-004",
+      "name": "Ichiro Miyata",
+      "heightClass": "medium",
+      "look": "lean handsome boxer with neat dark hair and long bangs, cool narrow eyes; black zip hoodie, grey sweatpants, white hand wraps on both fists",
+      "fallbackLook": "lean handsome young boxer with neat dark hair and long bangs, cool narrow eyes, black zip hoodie, grey sweatpants and white hand wraps",
+      "idle": "hands in hoodie pockets, cool stare",
+      "cheer": "quick jab thrown, slight smile",
+      "shocked": "eyes widening, stepping back",
+      "tags": ["boxer", "athlete", "rival", "cool"]
+    },
+    {
+      "id": "ippo-005",
+      "name": "Ryo Mashiba",
+      "heightClass": "tall",
+      "look": "tall gaunt menacing boxer with spiky short dark hair, sunken eyes with dark shadows and a long jaw, extremely long arms; black tank top, dark pants, left arm dangling low by his knee",
+      "fallbackLook": "tall gaunt menacing boxer with spiky short dark hair, sunken shadowed eyes, a long jaw and extremely long arms, black tank top and dark pants",
+      "idle": "long left arm dangling, creepy stare",
+      "cheer": "long arm whipping out sideways, snarling",
+      "shocked": "hunched over, eyes bulging",
+      "tags": ["boxer", "athlete", "villain"]
+    },
+    {
+      "id": "ippo-006",
+      "name": "Takeshi Sendo",
+      "heightClass": "medium",
+      "look": "wild Osaka brawler with spiky black hair and a fierce toothy grin; yellow-and-black tiger-stripe jacket over a white tank top, dark pants, sneakers",
+      "fallbackLook": "wild brawler with spiky black hair and a fierce toothy grin, yellow-and-black tiger-stripe jacket over a white tank top, dark pants and sneakers",
+      "idle": "fists clenched, grinning challenge",
+      "cheer": "roaring like a tiger, hands curled like claws",
+      "shocked": "teeth bared, leaning forward in disbelief",
+      "tags": ["boxer", "athlete", "rival", "brawler"]
+    },
+    {
+      "id": "ippo-007",
+      "name": "Masaru Aoki",
+      "heightClass": "medium",
+      "look": "goofy boxer with a tall curly punch-perm pompadour, droopy eyes and thick lips; loud red Hawaiian shirt with white flowers, white slacks, sunglasses pushed up on his hair, a toothpick in his mouth",
+      "fallbackLook": "goofy man with a tall curly punch-perm pompadour, droopy eyes and thick lips, loud red flowered Hawaiian shirt, white slacks, sunglasses pushed up on his hair and a toothpick in his mouth",
+      "idle": "slouching with a toothpick, smug look",
+      "cheer": "silly frog-like dance, arms flailing",
+      "shocked": "pompadour flattened, comic gasp",
+      "tags": ["boxer", "comic"]
+    },
+    {
+      "id": "ippo-008",
+      "name": "Kumi Mashiba",
+      "heightClass": "medium",
+      "look": "kind young woman with long straight dark hair and gentle eyes; pale-blue nurse uniform dress with a white collar, white cardigan over her shoulders, white shoes, a small brown handbag",
+      "fallbackLook": "kind young woman with long straight dark hair and gentle eyes, pale-blue nurse uniform dress with a white collar, white cardigan over her shoulders, white shoes and a small brown handbag",
+      "idle": "hands clasped, watching anxiously",
+      "cheer": "small wave, relieved smile",
+      "shocked": "hands over her mouth, eyes watering",
+      "tags": ["nurse", "fan", "woman"]
+    }
+  ]
+}

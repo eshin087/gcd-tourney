@@ -1,0 +1,172 @@
+{
+  "group": "jojo",
+  "kind": "cameo",
+  "series": "JoJo's Bizarre Adventure",
+  "spectators": [
+    {
+      "id": "jojo-001",
+      "name": "Jonathan Joestar",
+      "heightClass": "huge",
+      "look": "huge broad-shouldered Victorian gentleman fighter with short wavy dark blue hair, a square jaw and kind determined eyes, wearing a dark blue sleeveless top over a massive chest, a cream neck scarf, a wide brown belt, beige trousers and tall dark boots",
+      "fallbackLook": "huge broad-shouldered old-fashioned gentleman with short wavy dark blue hair, a square jaw, a dark blue sleeveless top, a cream neck scarf, beige trousers and tall dark boots",
+      "idle": "standing straight with one hand on his chest, noble polite smile",
+      "cheer": "arms flexed out to the sides, shouting heroically",
+      "shocked": "leaning back in a dramatic twisted pose, eyes wide, sweat flying",
+      "tags": ["adult", "gentleman", "muscular"]
+    },
+    {
+      "id": "jojo-002",
+      "name": "Joseph Joestar (old)",
+      "heightClass": "tall",
+      "look": "tall burly elderly adventurer with short white hair, a neat white beard and a mischievous grin, wearing a tan fedora, a cream long-sleeved shirt, brown trousers and a black glove on his left hand, a thin purple thorny vine coiling around his right arm",
+      "fallbackLook": "tall burly old adventurer with short white hair and a neat white beard, a tan fedora, a cream shirt, brown trousers, one black glove and a thin purple thorny vine coiled around his arm",
+      "idle": "pointing at the ring with his gloved finger, smug grin",
+      "cheer": "fedora swung out to the side, laughing with his mouth wide",
+      "shocked": "hands slapped to his cheeks, mouth stretched in a huge scream",
+      "tags": ["elder", "adventurer", "fedora"]
+    },
+    {
+      "id": "jojo-003",
+      "name": "Jotaro Kujo",
+      "heightClass": "huge",
+      "look": "very tall stern teen with a black peaked school cap that blends into his black hair at the back and a hard frown, wearing a long open black school coat to his shins with a gold chain hanging from the left collar, a dark shirt, dark trousers and two loose belts",
+      "fallbackLook": "very tall stern teen with a black peaked cap merging into his black hair, a long open black school coat with a gold chain on the collar, dark trousers and two loose belts",
+      "idle": "hands in his coat pockets, cap brim low, unbothered frown",
+      "cheer": "one arm thrust out to the side pointing at the ring, coat flaring",
+      "shocked": "tugging the cap brim down over his eyes, a single sweat drop",
+      "tags": ["teen", "delinquent", "cap"]
+    },
+    {
+      "id": "jojo-004",
+      "name": "Noriaki Kakyoin",
+      "heightClass": "tall",
+      "look": "tall slim teen with wavy auburn-red hair and one long curled forelock hanging over his face, calm violet eyes and dangling cherry earrings, wearing a long green high-collared school coat closed to the knees, green trousers and brown shoes",
+      "fallbackLook": "tall slim teen with wavy auburn-red hair and a long curled forelock, cherry earrings, a long green high-collared school coat and green trousers",
+      "idle": "dangling a pair of cherries above his mouth, serene expression",
+      "cheer": "one fist raised elegantly, coat swaying, confident shout",
+      "shocked": "leaning back, cherries flying from his fingers, eyes wide",
+      "tags": ["teen", "school-uniform", "cherries"]
+    },
+    {
+      "id": "jojo-005",
+      "name": "Jean Pierre Polnareff",
+      "heightClass": "huge",
+      "look": "tall muscular swordsman with a towering flat-topped column of silver-white hair, thick dark eyebrows and heart-shaped dangling earrings, wearing a black sleeveless top, high-waisted light grey trousers held by a wide belt and dark boots",
+      "fallbackLook": "tall muscular man with a towering flat-topped column of silver-white hair, thick dark eyebrows, heart-shaped earrings, a black sleeveless top and high-waisted light grey trousers",
+      "idle": "hands on his hips, chin raised, proud grin",
+      "cheer": "both arms flexed out to the sides, shouting with joy",
+      "shocked": "hair column bent sideways, screaming with hands thrown up",
+      "tags": ["adult", "tall-hair", "muscular"]
+    },
+    {
+      "id": "jojo-006",
+      "name": "Muhammad Avdol",
+      "heightClass": "tall",
+      "look": "tall dark-skinned fortune-teller with thick rope-like dark hair tied back under a cloth headband and a serious face, wearing a long flowing red-orange robe over a darker tunic, gold beaded necklaces and gold wristbands",
+      "fallbackLook": "tall dark-skinned mystic with thick rope-like dark hair tied back under a headband, a long flowing red-orange robe, gold beaded necklaces and gold wristbands",
+      "idle": "arms folded inside wide sleeves, solemn stare",
+      "cheer": "arms flung to the sides, small flames flickering at his fingertips, booming shout",
+      "shocked": "robe flapping, eyes huge, one hand raised",
+      "tags": ["adult", "mystic", "robe"]
+    },
+    {
+      "id": "jojo-007",
+      "name": "Iggy",
+      "heightClass": "tiny",
+      "look": "small grumpy black-and-white Boston terrier dog with big bulging eyes, tall upright bat ears, a squashed snout and a permanent scowl, chewing a piece of gum",
+      "fallbackLook": "small grumpy black-and-white terrier dog with big bulging eyes, tall upright bat ears, a squashed snout and a scowl, chewing gum",
+      "idle": "sitting with a bored half-lidded scowl, chewing gum",
+      "cheer": "standing on his hind legs, barking with a smug face",
+      "shocked": "ears flat, fur bristling, eyes bulging",
+      "tags": ["animal", "dog", "grumpy"]
+    },
+    {
+      "id": "jojo-008",
+      "name": "DIO",
+      "heightClass": "tall",
+      "look": "tall pale menacing man with golden-blond hair, glowing red eyes and a heart-shaped headband, wearing a golden-yellow sleeveless jacket over a tight black top, yellow trousers with heart-shaped knee pads and yellow boots",
+      "fallbackLook": "tall pale menacing blond man with red eyes, a heart-shaped headband, a golden-yellow sleeveless jacket over a tight black top and yellow trousers with heart-shaped knee pads",
+      "idle": "arms crossed, head tilted back in a menacing sneer",
+      "cheer": "one arm stretched out dramatically, laughing like a maniac",
+      "shocked": "clutching his head with both hands, red eyes wide, teeth bared",
+      "tags": ["adult", "villain", "vampire"]
+    },
+    {
+      "id": "jojo-009",
+      "name": "Josuke Higashikata",
+      "heightClass": "tall",
+      "look": "tall broad teen with a huge glossy black pompadour and a friendly grin, wearing a fitted dark navy high-collared school uniform with gold buttons and gold heart and peace-sign pins on the collar and chest",
+      "fallbackLook": "tall broad teen with a huge glossy black pompadour, a friendly grin, a fitted dark navy high-collared school uniform with gold heart and peace-sign pins",
+      "idle": "combing his pompadour with a small comb, cool grin",
+      "cheer": "fists punched out to the sides, shouting fired up",
+      "shocked": "both hands guarding his pompadour, eyes wide in panic",
+      "tags": ["teen", "pompadour", "school-uniform"]
+    },
+    {
+      "id": "jojo-010",
+      "name": "Koichi Hirose",
+      "heightClass": "short",
+      "look": "small timid teen boy with short spiky silver-white hair, big round eyes and a nervous smile, wearing a dark blue high-collared school uniform jacket with gold buttons, dark trousers and white sneakers, a school bag strap across his chest",
+      "fallbackLook": "small timid teen boy with short spiky silver-white hair, big round eyes, a dark blue high-collared school uniform, white sneakers and a school bag",
+      "idle": "clutching his school bag strap, nervous little smile",
+      "cheer": "jumping with both arms up, bright brave smile",
+      "shocked": "hands pressed to his cheeks, sweat flying, eyes huge",
+      "tags": ["teen", "school-uniform", "small"]
+    },
+    {
+      "id": "jojo-011",
+      "name": "Yoshikage Kira",
+      "heightClass": "medium",
+      "look": "neat calm office worker with smooth ash-blond hair parted to one side, pale skin and a thin polite smile, wearing a tailored purple suit, a white shirt and a skull-patterned tie, a brown leather briefcase in one hand",
+      "fallbackLook": "neat pale office worker with smooth side-parted ash-blond hair, a thin polite smile, a tailored purple suit with a skull-patterned tie and a brown briefcase",
+      "idle": "checking his wristwatch, thin polite smile",
+      "cheer": "fists clenched at his sides, a rare wide grin, tie flapping",
+      "shocked": "sweating heavily, one hand gripping his tie, eyes twitching wide",
+      "tags": ["adult", "suit", "briefcase"]
+    },
+    {
+      "id": "jojo-012",
+      "name": "Rohan Kishibe",
+      "heightClass": "medium",
+      "look": "sharp-eyed haughty young comic artist with short dark green hair held back by a jagged zigzag headband and pen-nib earrings, wearing a teal-green cropped top and dark trousers, a sketchbook and a dip pen in his hands",
+      "fallbackLook": "haughty young artist with short dark green hair under a jagged zigzag headband, pen-nib earrings, a teal-green cropped top, dark trousers, a sketchbook and a dip pen",
+      "idle": "sketching rapidly in his sketchbook, glancing up at the ring",
+      "cheer": "pen thrust out in a dramatic pose, intense grin",
+      "shocked": "sketchbook pressed to his chest, eyes wide, sweat drop",
+      "tags": ["adult", "artist", "sketchbook"]
+    },
+    {
+      "id": "jojo-013",
+      "name": "Giorno Giovanna",
+      "heightClass": "medium",
+      "look": "elegant teen with golden-blond hair styled into three neat round curls across the front and a long braid down his back, calm eyes, wearing a fitted rose-pink suit (soft pink, not magenta) with a heart-shaped opening on the chest and small gold ladybug brooches on the collar",
+      "fallbackLook": "elegant teen with golden-blond hair in three round front curls and a long back braid, a fitted rose-pink suit (soft pink, not magenta) with a heart-shaped chest opening and gold ladybug brooches",
+      "idle": "standing composed, one hand raised in an elegant pose",
+      "cheer": "pointing dramatically at the ring, fierce determined face",
+      "shocked": "eyes sharp and wide, leaning back, braid flying",
+      "tags": ["teen", "suit", "elegant"]
+    },
+    {
+      "id": "jojo-014",
+      "name": "Bruno Bucciarati",
+      "heightClass": "medium",
+      "look": "cool composed young man with a sleek black bob cut with straight bangs held by small gold hairclips, wearing a white suit covered in black polka dots with zippers running along the jacket and sleeves, over a dark undershirt",
+      "fallbackLook": "cool young man with a sleek black bob and straight bangs held by gold hairclips, a white suit with black polka dots and zippers along the jacket and sleeves",
+      "idle": "one hand on his chin, calmly appraising the fight",
+      "cheer": "fist raised firmly, confident smile",
+      "shocked": "stepping back, bob swinging, eyes wide",
+      "tags": ["adult", "suit", "zippers"]
+    },
+    {
+      "id": "jojo-015",
+      "name": "Jolyne Cujoh",
+      "heightClass": "medium",
+      "look": "tough young woman with dark hair pulled into two buns on top of her head plus a long braid, green streaks in her hair and a small butterfly tattoo on her arm, wearing a sleeveless green top and matching green pants patterned with black spiderweb lines",
+      "fallbackLook": "tough young woman with dark hair in two top buns and a long braid with green streaks, a small butterfly tattoo, a sleeveless green top and green pants patterned with black web lines",
+      "idle": "hands on hips, smirking with one eyebrow raised",
+      "cheer": "fist pumped out to the side, shouting with a fierce grin",
+      "shocked": "leaning back with both fists up, mouth dropped open",
+      "tags": ["young-adult", "tough", "braid"]
+    }
+  ]
+}

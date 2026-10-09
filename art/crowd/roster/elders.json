@@ -1,0 +1,156 @@
+{
+  "group": "elders",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-el-001",
+      "label": "Tai chi grandma with a red fan",
+      "heightClass": "short",
+      "look": "small slender grandmother with white hair in a tight bun held by a green jade hairpin and a warm wrinkled smile, wearing a lilac silk tai chi suit with white knot buttons and black slippers, holding a red folding fan",
+      "idle": "slow graceful tai chi pose, fan held closed",
+      "cheer": "fan snapped open high above her head",
+      "shocked": "open fan covering her mouth, eyes wide",
+      "tags": ["elder", "female", "fan", "martial-artist"]
+    },
+    {
+      "id": "org-el-002",
+      "label": "Grumpy old man with a cane",
+      "heightClass": "short",
+      "look": "hunched grumpy old man, bald on top with fluffy white side tufts and huge bushy white eyebrows over a permanent scowl, wearing a brown knit cardigan over a beige shirt with a green bow tie and grey slacks, leaning on a crooked wooden cane",
+      "idle": "both hands stacked on the cane, scowling",
+      "cheer": "shaking the cane in the air, yelling",
+      "shocked": "eyebrows shot up, false teeth popping out of his open mouth",
+      "tags": ["elder", "cane", "prop"]
+    },
+    {
+      "id": "org-el-003",
+      "label": "Elegant lady with a lace parasol",
+      "heightClass": "medium",
+      "look": "elegant elderly lady with silver curled hair, a long pearl necklace and a refined smile, wearing a long lavender dress with a white lace collar and white gloves, holding a folded white lace parasol",
+      "idle": "both hands resting on the folded parasol, poised",
+      "cheer": "parasol raised and waved, laughing politely",
+      "shocked": "gloved hand at her pearls, gasping",
+      "tags": ["elder", "female", "rich", "prop"]
+    },
+    {
+      "id": "org-el-004",
+      "label": "Retired general with a monocle",
+      "heightClass": "tall",
+      "look": "tall ramrod-straight old man with a huge white walrus mustache and a monocle, wearing a peaked olive cap and an olive military-style dress jacket with gold buttons and rows of colorful ribbon bars, polished black boots",
+      "idle": "hands clasped behind his back, chin raised",
+      "cheer": "cap raised high in one hand held out to the side, harrumphing loudly",
+      "shocked": "monocle popping out, mustache bristling",
+      "tags": ["elder", "mustache", "hat", "uniform"]
+    },
+    {
+      "id": "org-el-005",
+      "label": "Fisherman grandpa",
+      "heightClass": "medium",
+      "look": "weathered old fisherman with deep-tan skin, white stubble and squinting eyes under a frayed straw hat, wearing a rolled-sleeve faded blue work shirt, grey trousers tucked into black rubber boots, holding a dried fish on a skewer",
+      "idle": "chewing on the dried fish skewer, watching",
+      "cheer": "fish skewer waved overhead, hooting",
+      "shocked": "fish skewer dangling from his open mouth",
+      "tags": ["elder", "hat", "food"]
+    },
+    {
+      "id": "org-el-006",
+      "label": "Knitting granny",
+      "heightClass": "short",
+      "look": "plump little granny with grey curls under a red headscarf and round wire glasses, wearing a mossy-green shawl over a brown dress, holding knitting needles with a half-finished bright yellow scarf",
+      "idle": "knitting without looking down, eyes on the ring",
+      "cheer": "needles raised high, yarn trailing",
+      "shocked": "yarn ball dropping and unrolling, glasses slipping",
+      "tags": ["elder", "female", "glasses", "prop"]
+    },
+    {
+      "id": "org-el-007",
+      "label": "Bonsai gardener grandpa",
+      "heightClass": "short",
+      "look": "tiny bent-over old man with a long thin white goatee and tiny round spectacles, wearing an indigo work jacket and loose indigo trousers with wooden sandals, cradling a small potted bonsai pine",
+      "idle": "carefully cradling the bonsai, squinting at the ring",
+      "cheer": "bonsai lifted high, cackling",
+      "shocked": "hugging the bonsai protectively, spectacles flying",
+      "tags": ["elder", "glasses", "plant", "prop"]
+    },
+    {
+      "id": "org-el-008",
+      "label": "Old rocker with tinted glasses",
+      "heightClass": "medium",
+      "look": "lanky old rocker with a long grey ponytail, a grey goatee and round purple-tinted sunglasses, wearing a worn black leather jacket covered in plain round patches, a faded red tee, ripped jeans and cowboy boots",
+      "idle": "nodding along, thumbs hooked in his belt loops",
+      "cheer": "wild air-guitar windmill with one arm up",
+      "shocked": "sunglasses slid down his nose, eyes bulging",
+      "tags": ["elder", "sunglasses", "punk"]
+    },
+    {
+      "id": "org-el-009",
+      "label": "Picnic grandma",
+      "heightClass": "short",
+      "look": "tiny round grandma with white hair in two small side buns and rosy apple cheeks, wearing a navy kimono under a bright orange apron, carrying a wicker picnic basket full of rice balls",
+      "idle": "offering a rice ball from the basket, smiling",
+      "cheer": "rice ball held up high, cheering",
+      "shocked": "rice balls bouncing out of the tilted basket",
+      "tags": ["elder", "female", "food", "basket"]
+    },
+    {
+      "id": "org-el-010",
+      "label": "Old-time strongman",
+      "heightClass": "tall",
+      "look": "barrel-chested old strongman, bald with a huge curled white handlebar mustache, wearing a red-and-white striped one-piece strongman suit under an open long brown coat, holding a small round-weighted dumbbell",
+      "idle": "curling the little dumbbell, admiring his arm",
+      "cheer": "dumbbell held out to the side, other arm flexed",
+      "shocked": "mustache drooping, dumbbell dropped on his foot",
+      "tags": ["elder", "mustache", "strongman", "big"]
+    },
+    {
+      "id": "org-el-011",
+      "label": "Absent-minded old professor",
+      "heightClass": "medium",
+      "look": "thin old professor with a shiny bald dome ringed by two puffs of frizzy white hair, thick round glasses that magnify his eyes and a small pointed white goatee, wearing a rumpled white lab coat over a teal sweater vest and brown slacks, holding a clipboard and a pencil",
+      "idle": "scribbling notes on the clipboard, glancing up at the ring",
+      "cheer": "clipboard thrust up, papers flying",
+      "shocked": "hair puffs standing straight up, pencil snapped",
+      "tags": ["elder", "glasses", "scientist", "prop"]
+    },
+    {
+      "id": "org-el-012",
+      "label": "Tea lady in a crane kimono",
+      "heightClass": "medium",
+      "look": "dignified elderly woman with silver hair in an elaborate bun held by a red lacquer comb, wearing a dark-purple kimono printed with white cranes and a gold obi sash, holding a teacup on a saucer",
+      "idle": "sipping tea serenely",
+      "cheer": "teacup raised in a toast, smiling broadly",
+      "shocked": "tea splashing out of the cup, eyes wide",
+      "tags": ["elder", "female", "kimono", "prop"]
+    },
+    {
+      "id": "org-el-013",
+      "label": "Elderly radish farmer",
+      "heightClass": "medium",
+      "look": "sun-browned elderly farmer with a toothless grin and a white towel around his neck, wearing a wide conical straw hat, a faded green tunic, rolled brown trousers and straw sandals, carrying a basket of giant white radishes on his back",
+      "idle": "leaning forward with a hand on his knee, grinning",
+      "cheer": "waving a giant radish overhead",
+      "shocked": "hat pushed up, radishes sliding out of the basket",
+      "tags": ["elder", "farmer", "hat", "food"]
+    },
+    {
+      "id": "org-el-014",
+      "label": "Cat-eye glasses lady with a fat cat",
+      "heightClass": "short",
+      "look": "sassy old lady with tight purple-rinsed curls and pointed cat-eye glasses on a beaded chain, wearing a leopard-print coat and gold earrings, holding a fat orange tabby cat in her arms",
+      "idle": "stroking the cat, lips pursed",
+      "cheer": "lifting the cat up, both looking excited",
+      "shocked": "glasses flying off, the cat puffed up with fur on end",
+      "tags": ["elder", "female", "glasses", "pet"]
+    },
+    {
+      "id": "org-el-015",
+      "label": "Ancient village elder in a grass cape",
+      "heightClass": "short",
+      "look": "extremely old hunched man with long white hair and a beard reaching his knees, tiny eyes under a wide round straw hat, wearing a shaggy cape of dried straw over a brown robe, holding a twisted staff taller than himself",
+      "idle": "leaning on the staff, peering through his beard",
+      "cheer": "staff lifted with surprising energy, beard swinging",
+      "shocked": "straw cape bristling outward, hat tipping back",
+      "tags": ["elder", "beard", "hat", "staff"]
+    }
+  ]
+}

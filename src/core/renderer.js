@@ -47,7 +47,7 @@ export class PixelRenderer {
     container.appendChild(cv);
     this.pixelSize = 'auto';
     // 'pixel': ~340 px tall internal buffer (chunky placeholder art)
-    // 'hd': ~600+ px tall so hi-res art packs (pixelsPerUnit ~86) keep their detail
+    // 'hd': ~600+ px tall so hi-res art packs (spec v2: pixelsPerUnit 128) keep their detail
     this.detail = 'pixel';
     this.width = 0;
     this.height = 0;

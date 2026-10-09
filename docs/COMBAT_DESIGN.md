@@ -215,7 +215,10 @@ but still took the hit. Sparks also spawned at a fixed body height, not where th
    defender's **hurt** boxes on *their* current frame, in screen-plane coordinates (x along the screen, y up).
    The boxes come from `anims.json` `boxes` (baked placeholders generate them from the 3D limbs, and the packer
    generates them for custom art, with `hitboxes.json` overrides). Sheets without boxes fall back to
-   `reach`/`yTol`.
+   `reach`/`yTol`. Custom art is drawn so active-frame strikes land in the contact zones of
+   [art/SPEC.md](../art/SPEC.md) (spec v2, [ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md): HIGH /
+   face y 58-90, MID / chest y 92-124, LOW / stomach y 122-152 in the 256 px cell, soles on y 240), so the
+   packer's boxes meet a same-size opponent's hurt boxes at the height the move is meant to hit.
 5. **Spark at contact.** The impact effect spawns at the center of the overlap.
 
 When tuning, use the debug overlay (once available, see docs/TASKS.md) or step frame by frame with `step(1)`

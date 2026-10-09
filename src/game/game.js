@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { buildArena } from '../world/arena.js';
+import { buildArena, loadCrowdAtlas } from '../world/arena.js';
 import { buildTrainingRoom } from '../world/trainingRoom.js';
 import { Effects } from './effects.js';
 import { CameraDirector } from './camera.js';
@@ -73,6 +73,11 @@ export class Game {
 
   async init() {
     await this.fx.loadCustom();
+    const crowd = await loadCrowdAtlas();
+    if (crowd) {
+      this.arena.setCrowdAtlas(crowd);
+      console.info(`[crowd] using custom crowd atlas (${crowd.entries.length} spectators, ${this.arena.seats} seats)`);
+    }
     this.rosterAssets = [];
     for (const c of ROSTER) this.rosterAssets.push(await loadFighterAsset(c, this.renderer.renderer));
     // hi-res art packs get the sharper render mode (override with ?res=pixel or ?res=hd)
@@ -93,6 +98,7 @@ export class Game {
     this.menus.hide();
     audio.init();
     this.cleanupMatch();
+    this.arena.shuffleCrowd(); // a different crowd every match
     const defs = [getChar(cfg.p1), getChar(cfg.p2)];
     const assets = defs.map((d) => this.rosterAssets[ROSTER.indexOf(d)]);
     this.assets = assets;

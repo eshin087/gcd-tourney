@@ -1,0 +1,206 @@
+{
+  "group": "animal-folk",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-af-001",
+      "label": "Dog-man in a business suit",
+      "heightClass": "medium",
+      "look": "anthropomorphic brown dog-man with long floppy ears, a black nose and an eager tongue-out face, wearing a navy business suit, a white shirt with a red tie and black shoes, carrying a brown leather briefcase",
+      "idle": "briefcase held in front, tail wagging",
+      "cheer": "briefcase raised high, barking happily",
+      "shocked": "ears flipped straight up, tongue hanging out",
+      "tags": ["animal-folk", "dog", "suit", "prop"]
+    },
+    {
+      "id": "org-af-002",
+      "label": "Cat lady in a cardigan",
+      "heightClass": "medium",
+      "look": "graceful grey tabby cat-woman with bright green eyes, pointed ears and white whiskers, wearing pearl earrings, a pink cardigan over a cream blouse and a long brown skirt, a small red handbag on her arm",
+      "idle": "paws folded, tail curling, watching with half-closed eyes",
+      "cheer": "one paw up waving, tail straight up",
+      "shocked": "fur puffed out, tail bristled, eyes huge",
+      "tags": ["animal-folk", "cat", "female"]
+    },
+    {
+      "id": "org-af-003",
+      "label": "Rabbit kid with a carrot",
+      "heightClass": "tiny",
+      "look": "small white rabbit boy with long upright ears, pink nose and buck teeth, wearing blue overalls over a yellow tee, holding a half-eaten orange carrot",
+      "idle": "munching the carrot, ears twitching",
+      "cheer": "hopping high with the carrot raised",
+      "shocked": "ears drooping flat, carrot dropped",
+      "tags": ["animal-folk", "rabbit", "kid", "food"]
+    },
+    {
+      "id": "org-af-004",
+      "label": "Boar farmer with a potato sack",
+      "heightClass": "tall",
+      "look": "big burly boar-man with bristly dark-brown fur, curved white tusks and a flat pink snout, wearing a frayed straw hat and faded blue dungarees over a white undershirt, a lumpy burlap sack of potatoes over one shoulder",
+      "idle": "sack on his shoulder, snorting contentedly",
+      "cheer": "free arm out to the side, snorting loudly",
+      "shocked": "sack slipping, potatoes rolling, tusks agape",
+      "tags": ["animal-folk", "boar", "farmer", "hat", "big"]
+    },
+    {
+      "id": "org-af-005",
+      "label": "Bird mail carrier",
+      "heightClass": "medium",
+      "look": "slender blue-feathered bird-man with a yellow beak, a fluffy head crest and round black eyes, wearing a grey mail carrier jacket with brass buttons, a peaked grey cap and a brown leather satchel stuffed with blank envelopes",
+      "idle": "satchel strap clutched, head tilted at the ring",
+      "cheer": "wings spread with a few envelopes fluttering out",
+      "shocked": "feathers ruffled out, crest standing on end",
+      "tags": ["animal-folk", "bird", "uniform", "hat"]
+    },
+    {
+      "id": "org-af-006",
+      "label": "Lizard punk",
+      "heightClass": "medium",
+      "look": "wiry green lizard-man with yellow slit eyes, a long tail and a tall spiky red head crest shaped like a mohawk, wearing a studded black leather jacket over a ripped white tank top, black jeans, a silver chain and combat boots",
+      "idle": "slouching, tongue flicking, sneering at the ring",
+      "cheer": "rock-horn hand sign thrown up, hissing a cheer",
+      "shocked": "head crest flared wide, jaw hanging open",
+      "tags": ["animal-folk", "lizard", "punk"]
+    },
+    {
+      "id": "org-af-007",
+      "label": "Bear lumberjack with a honey jar",
+      "heightClass": "huge",
+      "look": "huge black bear-man with a tan muzzle and small friendly eyes, wearing a red-and-black plaid flannel shirt with rolled sleeves, brown suspenders and work pants, cradling a big clay jar of honey with a wooden dipper",
+      "idle": "licking honey off his paw, watching",
+      "cheer": "both arms out wide to the sides, roaring",
+      "shocked": "honey jar tipping, dipper stuck in his open mouth",
+      "tags": ["animal-folk", "bear", "food", "big"]
+    },
+    {
+      "id": "org-af-008",
+      "label": "Pig chef with a ladle",
+      "heightClass": "medium",
+      "look": "round pink pig-man with a curly tail and a jolly snout, wearing a tall white chef's hat, a white double-breasted chef's coat with a red neckerchief and checked trousers, holding a big steel ladle",
+      "idle": "tapping the ladle against his palm, tasting the air",
+      "cheer": "ladle swung overhead, oinking happily",
+      "shocked": "chef's hat flying off, ladle dropped",
+      "tags": ["animal-folk", "pig", "chef", "hat"]
+    },
+    {
+      "id": "org-af-009",
+      "label": "Cow grocer lady",
+      "heightClass": "medium",
+      "look": "sturdy black-and-white spotted cow-woman with small curved horns, long eyelashes and a cowbell on a ribbon at her neck, wearing a yellow headscarf and a green apron over a white blouse, holding a glass milk bottle",
+      "idle": "milk bottle hugged to her chest, mooing softly",
+      "cheer": "milk bottle raised in a toast, bell clanging",
+      "shocked": "eyelashes fluttering wide, milk bottle slipping",
+      "tags": ["animal-folk", "cow", "female", "food"]
+    },
+    {
+      "id": "org-af-010",
+      "label": "Monkey street performer",
+      "heightClass": "short",
+      "look": "nimble brown monkey with a long curling tail and a toothy grin, wearing a small red fez with a gold tassel and a red vest with gold trim over bare fur, holding a pair of brass hand cymbals",
+      "idle": "tapping the cymbals lightly, tail swaying",
+      "cheer": "crashing the cymbals together above his head",
+      "shocked": "cymbals stuck to his ears, eyes popping",
+      "tags": ["animal-folk", "monkey", "music", "hat"]
+    },
+    {
+      "id": "org-af-011",
+      "label": "Fox fortune teller",
+      "heightClass": "medium",
+      "look": "sly orange fox-woman with a big white-tipped bushy tail and narrow amber eyes, wearing a purple fringed shawl over a dark-blue dress, gold hoop earrings and bangles, holding a small glowing crystal ball",
+      "idle": "gazing into the crystal ball with a knowing smile",
+      "cheer": "crystal ball held high, tail swishing",
+      "shocked": "tail puffed huge, crystal ball nearly dropped",
+      "tags": ["animal-folk", "fox", "female", "prop"]
+    },
+    {
+      "id": "org-af-012",
+      "label": "Frog ukulele player",
+      "heightClass": "short",
+      "look": "squat bright-green frog-man with huge bulging eyes and a wide smile, wearing a straw boater hat, a red bow tie and a red-and-white striped blazer over white trousers, strumming a small tan ukulele",
+      "idle": "strumming the ukulele, swaying",
+      "cheer": "ukulele held up, throat sac puffed out croaking",
+      "shocked": "eyes bulging even wider, boater hat bouncing up",
+      "tags": ["animal-folk", "frog", "music", "hat"]
+    },
+    {
+      "id": "org-af-013",
+      "label": "Wolf mechanic",
+      "heightClass": "tall",
+      "look": "lean grey wolf-man with a shaggy neck ruff, sharp yellow eyes and a scar on one ear, wearing oil-stained mustard-yellow overalls with rolled sleeves and brass work goggles pushed up on his forehead, carrying a big steel wrench",
+      "idle": "wrench resting on his shoulder, watching with a grin",
+      "cheer": "wrench held out to the side, howling",
+      "shocked": "goggles dropped over his eyes, ears pinned back",
+      "tags": ["animal-folk", "wolf", "mechanic", "prop"]
+    },
+    {
+      "id": "org-af-014",
+      "label": "Penguin waiter",
+      "heightClass": "short",
+      "look": "plump black-and-white penguin with a bright orange beak and feet, wearing a red bow tie and a white napkin over one flipper, balancing a silver tray with a tall glass of orange soda",
+      "idle": "balancing the tray very carefully, watching sidelong",
+      "cheer": "flapping the free flipper, tray wobbling",
+      "shocked": "soda glass tipping off the tray, beak wide open",
+      "tags": ["animal-folk", "penguin", "waiter", "food"]
+    },
+    {
+      "id": "org-af-015",
+      "label": "Tiger wrestler",
+      "heightClass": "huge",
+      "look": "massive muscular tiger-man with orange fur, bold black stripes and a white muzzle, wearing a purple wrestling singlet, white wrist tape and black wrestling boots",
+      "idle": "arms crossed over his chest, tail flicking",
+      "cheer": "arms out wide to the sides, roaring with fangs bared",
+      "shocked": "fur standing on end, ears flat, jaw dropped",
+      "tags": ["animal-folk", "tiger", "wrestler", "big"]
+    },
+    {
+      "id": "org-af-016",
+      "label": "Mouse girl with a cheese snack",
+      "heightClass": "tiny",
+      "look": "tiny grey mouse girl with huge round pink-lined ears, a thin tail and shiny black eyes, wearing a pink sundress with white dots and a white headband bow, nibbling a yellow wedge of cheese",
+      "idle": "nibbling the cheese wedge, ears perked",
+      "cheer": "cheese held up high, squeaking",
+      "shocked": "ears straight back, cheese dropped, whiskers quivering",
+      "tags": ["animal-folk", "mouse", "kid", "female", "food"]
+    },
+    {
+      "id": "org-af-017",
+      "label": "Crocodile boss in pinstripes",
+      "heightClass": "tall",
+      "look": "smug green crocodile-man with a long toothy snout and heavy-lidded eyes, wearing a white pinstripe suit, a black shirt with a red tie, a white fedora, dark round sunglasses and a gold chain, a thick tail swishing behind",
+      "idle": "hands in pockets, smirking with a toothy grin",
+      "cheer": "fedora waved out to the side, laughing",
+      "shocked": "sunglasses sliding, long jaw hanging wide open",
+      "tags": ["animal-folk", "crocodile", "rich", "suit", "hat"]
+    },
+    {
+      "id": "org-af-018",
+      "label": "Sheep granny with a thermos",
+      "heightClass": "short",
+      "look": "soft round sheep-lady with a cloud of white wool, curled tan horns and sleepy eyes, wearing a lilac knitted shawl and a long grey skirt, holding a red tartan thermos of tea",
+      "idle": "pouring tea into the thermos cap, eyes on the ring",
+      "cheer": "thermos lifted high, baaing happily",
+      "shocked": "wool puffed out double size, tea splashing",
+      "tags": ["animal-folk", "sheep", "elder", "female"]
+    },
+    {
+      "id": "org-af-019",
+      "label": "Owl scholar with books",
+      "heightClass": "medium",
+      "look": "studious brown owl with big round orange eyes behind wire spectacles and feathery ear tufts, wearing a dark-green academic robe with a tasseled square cap, carrying a stack of thick leather-bound books",
+      "idle": "books under one wing, head tilted, observing",
+      "cheer": "books raised high, hooting",
+      "shocked": "eyes blown huge, feathers puffed out, books toppling",
+      "tags": ["animal-folk", "owl", "scholar", "hat", "prop"]
+    },
+    {
+      "id": "org-af-020",
+      "label": "Fawn schoolgirl",
+      "heightClass": "short",
+      "look": "shy young fawn girl with light-brown fur, white speckles on her shoulders, big dark eyes and long ears, a red ribbon tied in her short hair, wearing a green sailor-collar school uniform with a white neckerchief and a brown leather school satchel",
+      "idle": "holding the satchel strap with both hands, watching nervously",
+      "cheer": "jumping with both hands up, ears perked",
+      "shocked": "ears flat back, hands over her mouth",
+      "tags": ["animal-folk", "deer", "kid", "female", "student"]
+    }
+  ]
+}

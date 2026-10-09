@@ -1,0 +1,172 @@
+{
+  "group": "demon-slayer",
+  "kind": "cameo",
+  "series": "Demon Slayer: Kimetsu no Yaiba",
+  "spectators": [
+    {
+      "id": "ds-001",
+      "name": "Tanjiro Kamado",
+      "heightClass": "medium",
+      "look": "earnest teen boy with dark burgundy hair, kind red eyes and a reddish flame-shaped scar on his left forehead, white hanafuda earrings with a red sun, black high-collar uniform with white leg wraps, a green-and-black checkered haori, a katana at his hip and a small wooden box strapped to his back",
+      "fallbackLook": "earnest teenage swordsman with dark burgundy hair, kind red eyes, a reddish scar on his forehead, white earrings with a red sun, a black high-collar uniform, a green-and-black checkered haori, a katana at his hip and a small wooden box on his back",
+      "idle": "hand resting on his sword hilt, earnest focused look",
+      "cheer": "fist raised high, beaming wholeheartedly",
+      "shocked": "gasping, hand on his chest, eyes wide with worry",
+      "tags": ["swordsman", "teen", "kind"]
+    },
+    {
+      "id": "ds-002",
+      "name": "Nezuko Kamado",
+      "heightClass": "tiny",
+      "look": "tiny child-sized girl with very long black hair fading to orange at the tips, big pink eyes, a bamboo muzzle tied across her mouth, a pink ribbon in her hair, a pink kimono with a hemp-leaf pattern under a dark brown haori",
+      "fallbackLook": "tiny child-sized girl with very long black hair fading to orange at the tips, big pink eyes, a bamboo gag tied across her mouth, a pink hair ribbon, a pink patterned kimono and a dark brown haori",
+      "idle": "small hands up by her face, curious wide eyes",
+      "cheer": "hopping with both little arms raised, eyes squeezed shut happily",
+      "shocked": "eyes huge, cheeks puffed around the bamboo muzzle, hands on her head",
+      "tags": ["kid", "demon", "cute"]
+    },
+    {
+      "id": "ds-003",
+      "name": "Zenitsu Agatsuma",
+      "heightClass": "medium",
+      "look": "lean teen boy with bright yellow hair fading to orange at the tips, amber eyes, black high-collar uniform with white leg wraps, a yellow haori with a white triangle-scale pattern, a katana at his hip",
+      "fallbackLook": "lean teenage swordsman with bright yellow hair fading to orange at the tips, amber eyes, a black high-collar uniform with white leg wraps, a yellow haori with a white triangle pattern and a katana at his hip",
+      "idle": "trembling and sweating, hugging himself with tears in his eyes",
+      "cheer": "crying with excitement, both arms flailing overhead",
+      "shocked": "screaming with a huge mouth, hair standing on end, eyes popping",
+      "tags": ["swordsman", "teen", "coward"]
+    },
+    {
+      "id": "ds-004",
+      "name": "Inosuke Hashibira",
+      "heightClass": "medium",
+      "look": "muscular shirtless teen wearing a grey-blue wild boar head mask with tusks and a snout, dark blue loose pants with a brown fur pelt around the waist, white leg wraps, two chipped jagged-edged katanas",
+      "fallbackLook": "muscular shirtless teenager wearing a grey-blue wild boar head as a mask, dark blue loose pants with a brown fur pelt belt, white leg wraps, holding two chipped jagged-edged swords",
+      "idle": "fists on his hips, chest puffed out, snorting through the mask",
+      "cheer": "both jagged swords thrust up, roaring",
+      "shocked": "boar mask pushed up to reveal a delicate face with big green eyes, jaw dropped",
+      "tags": ["swordsman", "teen", "masked", "wild"]
+    },
+    {
+      "id": "ds-005",
+      "name": "Kyojuro Rengoku",
+      "heightClass": "tall",
+      "look": "tall man with a wild mane of golden-blond hair tipped in flame red, wide bright gold-and-red eyes, thick forked eyebrows and a big confident grin, black uniform, white haori with an orange-red flame pattern along the hem, a katana with a flame-shaped guard, holding a bento box and chopsticks",
+      "fallbackLook": "tall swordsman with a wild golden-blond mane tipped flame red, wide bright gold-and-red eyes, thick forked eyebrows, a big grin, a black uniform and a white haori with an orange-red flame hem, holding a bento box and chopsticks",
+      "idle": "eating from his bento box with chopsticks, beaming",
+      "cheer": "fist thrust out to the side, mouth wide in a booming shout",
+      "shocked": "arms crossed, eyes wide but still grinning",
+      "tags": ["swordsman", "food", "loud"]
+    },
+    {
+      "id": "ds-006",
+      "name": "Giyu Tomioka",
+      "heightClass": "medium",
+      "look": "calm young man with messy black hair in a low ponytail, dark blue eyes and an expressionless face, black uniform, a haori split down the middle with the left half solid dark red and the right half a yellow-green-and-orange tortoiseshell hexagon pattern, a katana at his hip",
+      "fallbackLook": "calm young swordsman with messy black hair in a low ponytail, dark blue eyes, an expressionless face, a black uniform and a two-tone haori, solid dark red on one half and yellow-green hexagon pattern on the other",
+      "idle": "standing perfectly still, arms at his sides, blank stare",
+      "cheer": "a tiny smile and one hand raised",
+      "shocked": "eyes barely widened, otherwise perfectly stoic",
+      "tags": ["swordsman", "stoic"]
+    },
+    {
+      "id": "ds-007",
+      "name": "Shinobu Kocho",
+      "heightClass": "short",
+      "look": "petite young woman with black hair fading to purple at the tips tied up at the back, a purple butterfly hair ornament, lilac eyes and a gentle smile, black uniform, white haori with a butterfly-wing pattern fading to teal and green at the hem, a thin needle-like sword",
+      "fallbackLook": "petite young woman with black hair fading to purple tied up at the back, a purple butterfly hair ornament, lilac eyes, a gentle smile, a black uniform and a white haori patterned like butterfly wings fading to teal at the hem",
+      "idle": "hands clasped behind her back, polite smile",
+      "cheer": "dainty clapping, smiling sweetly",
+      "shocked": "smile frozen in place, an angry vein on her forehead",
+      "tags": ["swordsman", "doctor", "butterfly"]
+    },
+    {
+      "id": "ds-008",
+      "name": "Tengen Uzui",
+      "heightClass": "huge",
+      "look": "very tall muscular man with white hair tied back under a silver headband studded with red and green gems, a flashy red makeup pattern around his left eye, sleeveless black uniform top, gold armbands, black pants, two huge cleaver-swords linked by a chain crossed on his back",
+      "fallbackLook": "very tall muscular man with white hair tied back under a gem-studded silver headband, red makeup around one eye, a sleeveless black top, gold armbands, black pants and two huge chained cleaver-swords crossed on his back",
+      "idle": "arms crossed, chin raised, flashy grin",
+      "cheer": "both arms flung wide to the sides, shouting dramatically",
+      "shocked": "hand on his brow, leaning back theatrically",
+      "tags": ["swordsman", "big", "flashy"]
+    },
+    {
+      "id": "ds-009",
+      "name": "Mitsuri Kanroji",
+      "heightClass": "medium",
+      "look": "cheerful young woman with very long pink hair in three thick braids fading to lime green at the tips, green eyes with two small beauty marks under them, rosy cheeks, black uniform jacket, short black pleated skirt, long white haori, green-striped knee-high socks",
+      "fallbackLook": "cheerful young woman with very long pink hair in three thick braids fading to lime green, green eyes, two small beauty marks under her eyes, a black uniform jacket and short pleated skirt, a long white haori and green-striped knee socks",
+      "idle": "hands clasped by her cheek, blushing dreamily",
+      "cheer": "jumping with both arms waving, sparkling heart-shaped eyes",
+      "shocked": "both hands over her mouth, blushing bright red",
+      "tags": ["swordsman", "sweet", "braids"]
+    },
+    {
+      "id": "ds-010",
+      "name": "Gyomei Himejima",
+      "heightClass": "huge",
+      "look": "giant muscular bald monk with blank pale white eyes, a vertical scar on his forehead and tears streaming down his cheeks, black uniform under a long dark olive-brown haori, a long string of large prayer beads wrapped around his hands",
+      "fallbackLook": "giant muscular bald monk with blank pale white eyes, a vertical forehead scar, tears streaming down his cheeks, a black uniform under a long olive-brown haori and a long string of large prayer beads in his hands",
+      "idle": "palms pressed together around his prayer beads, weeping calmly",
+      "cheer": "arms spread wide to the sides, crying tears of joy",
+      "shocked": "head bowed in prayer, tears streaming harder",
+      "tags": ["monk", "big", "weeping"]
+    },
+    {
+      "id": "ds-011",
+      "name": "Muichiro Tokito",
+      "heightClass": "short",
+      "look": "small slim boy with long straight black hair fading to mint teal at the tips, blank pale mint eyes, oversized black uniform with baggy wide sleeves and wide pants, white leg wraps, a katana at his hip",
+      "fallbackLook": "small slim boy with long straight black hair fading to mint teal at the tips, blank pale mint eyes, an oversized black uniform with baggy wide sleeves and wide pants, white leg wraps and a katana",
+      "idle": "gazing up at the clouds absent-mindedly, head tilted",
+      "cheer": "one small hand raised, faint smile",
+      "shocked": "slow blink, eyes slightly wider, hair swaying",
+      "tags": ["swordsman", "kid", "spacey"]
+    },
+    {
+      "id": "ds-012",
+      "name": "Obanai Iguro",
+      "heightClass": "short",
+      "look": "short slim man with straight black chin-length hair, mismatched eyes (one gold, one turquoise), white bandages wrapped over his mouth, a small white snake with red eyes coiled around his neck, black uniform, black-and-white vertical-striped haori",
+      "fallbackLook": "short slim man with straight black chin-length hair, one gold eye and one turquoise eye, white bandages over his mouth, a small white snake coiled around his neck, a black uniform and a black-and-white striped haori",
+      "idle": "arms crossed, glaring sideways, snake flicking its tongue",
+      "cheer": "one stiff fist raised, snake rearing up proudly",
+      "shocked": "eyes narrowing, snake hiding behind his head",
+      "tags": ["swordsman", "masked", "snake"]
+    },
+    {
+      "id": "ds-013",
+      "name": "Sanemi Shinazugawa",
+      "heightClass": "tall",
+      "look": "muscular man with spiky messy white hair, long scars crisscrossing his face, chest and arms, bloodshot light purple eyes, black uniform jacket hanging open over a scarred chest, plain white haori, white leg wraps, a katana at his hip",
+      "fallbackLook": "muscular man with spiky messy white hair, long scars crisscrossing his face and chest, bloodshot light purple eyes, a black uniform jacket hanging open, a plain white haori, white leg wraps and a katana",
+      "idle": "arms crossed, scowling, veins bulging on his forehead",
+      "cheer": "fist pumped out to the side, shouting aggressively",
+      "shocked": "teeth bared, eyes bulging furiously",
+      "tags": ["swordsman", "scarred", "angry"]
+    },
+    {
+      "id": "ds-014",
+      "name": "Sakonji Urokodaki",
+      "heightClass": "medium",
+      "look": "old swordmaster wearing a red tengu mask with a long nose and fierce brows, short spiky grey-white hair, a sky-blue haori with a white cloud pattern over a dark kimono and dark pants, straw sandals",
+      "fallbackLook": "old swordmaster wearing a red long-nosed goblin mask with fierce brows, short spiky grey-white hair, a sky-blue haori with a white cloud pattern over a dark kimono and dark pants, straw sandals",
+      "idle": "standing straight, hands folded behind his back",
+      "cheer": "one hand raised in approval, masked face nodding",
+      "shocked": "leaning forward, one hand pressed to the side of his mask",
+      "tags": ["elder", "masked", "swordsman"]
+    },
+    {
+      "id": "ds-015",
+      "name": "Akaza",
+      "heightClass": "medium",
+      "look": "lean muscular demon man with short spiky pink hair, pale skin covered in dark blue stripe tattoos across his face, arms and bare chest, golden eyes, a short open sleeveless jacket in dusty rose, loose white trousers, bare feet with blue tattoo bands",
+      "fallbackLook": "lean muscular man with short spiky pink hair, pale skin covered in dark blue stripe tattoos on his face, arms and bare chest, golden eyes, a short open sleeveless dusty-rose jacket, loose white trousers and bare tattooed feet",
+      "idle": "fists raised in a martial-arts guard, eager grin",
+      "cheer": "fist pumped, shouting with bared fangs",
+      "shocked": "eyes wide, stepping back with a hand clutching his chest",
+      "tags": ["demon", "martial-artist", "villain"]
+    }
+  ]
+}

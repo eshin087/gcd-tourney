@@ -1,0 +1,227 @@
+{
+  "group": "bleach",
+  "kind": "cameo",
+  "series": "Bleach",
+  "spectators": [
+    {
+      "id": "bl-001",
+      "name": "Ichigo Kurosaki",
+      "heightClass": "tall",
+      "look": "lanky teen Soul Reaper with spiky bright-orange hair and a permanent scowl, brown eyes, a black shihakusho kimono and hakama with a white sash, and the huge cleaver-shaped sword Zangetsu with a wide silver blade and a white-wrapped hilt slung on his back by a red strap",
+      "fallbackLook": "lanky teen swordsman with spiky bright-orange hair and a permanent scowl, brown eyes, a black samurai-style kimono and hakama with a white sash, and a huge cleaver-shaped sword with a wide silver blade and a white-wrapped hilt slung on his back by a red strap",
+      "idle": "arms folded, deep scowl",
+      "cheer": "fist thrust out to the side, fierce shout",
+      "shocked": "scowl breaking, eyes wide, hand on his sword hilt",
+      "tags": ["teen", "swordsman", "orange-hair", "black-robe"]
+    },
+    {
+      "id": "bl-002",
+      "name": "Rukia Kuchiki",
+      "heightClass": "short",
+      "look": "petite Soul Reaper with a black chin-length bob and a single strand of hair falling between her violet eyes, a black shihakusho kimono and hakama with a white sash, a katana at her hip, holding a sketchbook with a crude rabbit doodle",
+      "fallbackLook": "petite young woman with a black chin-length bob and a single strand of hair falling between her violet eyes, a black samurai-style kimono and hakama with a white sash, a katana at her hip, holding a sketchbook with a crude rabbit doodle",
+      "idle": "holding up her rabbit sketchbook proudly",
+      "cheer": "pumping a small fist, shouting",
+      "shocked": "sketchbook dropped, violet eyes wide",
+      "tags": ["young-adult", "swordsman", "black-robe", "artist"]
+    },
+    {
+      "id": "bl-003",
+      "name": "Orihime Inoue",
+      "heightClass": "medium",
+      "look": "sweet high-school girl with very long orange-auburn hair, small blue flower-shaped hairpins near her temples, big grey eyes, a white short-sleeve school blouse with a red ribbon tie and a grey pleated skirt, holding a bread roll stuffed with odd fillings",
+      "fallbackLook": "sweet teen girl with very long orange-auburn hair, small blue flower-shaped hairpins near her temples, big grey eyes, a white short-sleeve school blouse with a red ribbon tie and a grey pleated skirt, holding a bread roll stuffed with odd fillings",
+      "idle": "nibbling the strange stuffed bread, smiling dreamily",
+      "cheer": "waving both hands high, beaming",
+      "shocked": "both hands on her cheeks, eyes teary",
+      "tags": ["teen", "student", "healer", "long-hair"]
+    },
+    {
+      "id": "bl-004",
+      "name": "Uryu Ishida",
+      "heightClass": "medium",
+      "look": "slim teen Quincy with neat black hair and a long side bang, rectangular glasses, a white high-collared archer's uniform with blue trim and a short cape, and a small silver cross pendant hanging from his wrist",
+      "fallbackLook": "slim teen with neat black hair and a long side bang, rectangular glasses, a white high-collared archer's uniform with blue trim and a short cape, and a small silver cross pendant hanging from his wrist",
+      "idle": "pushing his glasses up with one finger, aloof",
+      "cheer": "a glowing blue energy bow raised beside him",
+      "shocked": "glasses flashing white, stepping back",
+      "tags": ["teen", "archer", "glasses", "white-uniform"]
+    },
+    {
+      "id": "bl-005",
+      "name": "Yasutora Sado (Chad)",
+      "heightClass": "huge",
+      "look": "giant gentle teen with tan skin and a heavily muscled build, wavy dark-brown hair hanging over his eyes, a red flower-print short-sleeve shirt, brown trousers, and a black armored right arm with deep crimson-red stripes, a tiny cute plush keychain in his left hand",
+      "fallbackLook": "giant gentle teen with tan skin and a heavily muscled build, wavy dark-brown hair hanging over his eyes, a red flower-print short-sleeve shirt, brown trousers, and a black armored right arm with deep crimson-red stripes, a tiny cute plush keychain in his left hand",
+      "idle": "standing stoically, the tiny plush keychain dangling from his hand",
+      "cheer": "armored right arm thrust out to the side, small quiet smile",
+      "shocked": "hair parting to show wide eyes, armored fist raised in front of him",
+      "tags": ["teen", "big", "brawler", "gentle-giant"]
+    },
+    {
+      "id": "bl-006",
+      "name": "Kisuke Urahara",
+      "heightClass": "tall",
+      "look": "lanky candy-shop owner with messy short blond hair under a green-and-white striped bucket hat, light stubble, a dark green coat over a dark kimono, wooden geta sandals, a wooden cane in one hand and a folding fan covering his mouth",
+      "fallbackLook": "lanky shopkeeper with messy short blond hair under a green-and-white striped bucket hat, light stubble, a dark green coat over a dark kimono, wooden sandals, a wooden cane in one hand and a folding fan covering his mouth",
+      "idle": "fan covering his mouth, shadowed eyes under the hat brim",
+      "cheer": "fan snapped open and held out to the side, laughing",
+      "shocked": "hat tipping off his head, fan dropped",
+      "tags": ["adult", "shopkeeper", "hat", "scientist"]
+    },
+    {
+      "id": "bl-007",
+      "name": "Yoruichi Shihoin",
+      "heightClass": "medium",
+      "look": "athletic flash-step master with dark skin, long purple hair in a high ponytail, golden cat-like eyes, a black sleeveless turtleneck under a short orange jacket, black trousers with white wraps on her shins and forearms, and a small black cat perched on her shoulder",
+      "fallbackLook": "athletic woman with dark skin, long purple hair in a high ponytail, golden cat-like eyes, a black sleeveless turtleneck under a short orange jacket, black trousers with white wraps on her shins and forearms, and a small black cat perched on her shoulder",
+      "idle": "arms behind her head, cocky grin, the black cat on her shoulder",
+      "cheer": "victory sign with a wink, ponytail swinging",
+      "shocked": "eyes wide, the black cat leaping off her shoulder",
+      "tags": ["adult", "martial-artist", "cat", "speedster"]
+    },
+    {
+      "id": "bl-008",
+      "name": "Kenpachi Zaraki (with Yachiru)",
+      "heightClass": "huge",
+      "look": "towering battle-scarred captain with spiky black hair tipped with tiny bells, a black eyepatch over his right eye, a long scar down the left side of his face, a tattered white captain's haori over black robes, a jagged notched katana, and tiny pink-haired lieutenant Yachiru riding on his shoulder",
+      "fallbackLook": "towering battle-scarred brute with spiky black hair tipped with tiny bells, a black eyepatch over his right eye, a long scar down the left side of his face, a tattered white coat over a black kimono, a jagged notched katana, and a tiny pink-haired girl riding on his shoulder",
+      "idle": "savage grin, the pink-haired girl perched on his shoulder",
+      "cheer": "jagged sword swung out to the side, laughing, the girl waving",
+      "shocked": "single eye wide with thrilled glee, bells jingling, the girl clinging to his hair",
+      "tags": ["adult", "swordsman", "big", "scar", "duo"]
+    },
+    {
+      "id": "bl-009",
+      "name": "Byakuya Kuchiki",
+      "heightClass": "tall",
+      "look": "aloof noble captain with long straight black hair held by white kenseikan tube-shaped hair ornaments, cool grey eyes, a long pale silver-white scarf, a white captain's haori over black robes and a katana at his hip",
+      "fallbackLook": "aloof nobleman with long straight black hair held by white tube-shaped hair ornaments, cool grey eyes, a long pale silver-white scarf, a white long coat over a black kimono and a katana at his hip",
+      "idle": "hands tucked in his sleeves, cold distant stare",
+      "cheer": "one hand extended to the side, pink cherry-blossom petals swirling",
+      "shocked": "one eyebrow raised, scarf fluttering, petals scattering",
+      "tags": ["adult", "swordsman", "noble", "scarf"]
+    },
+    {
+      "id": "bl-010",
+      "name": "Toshiro Hitsugaya",
+      "heightClass": "short",
+      "look": "small serious boy captain with spiky snow-white hair, sharp teal eyes and a frown, a white captain's haori over black robes, a green sash across his chest, and a long katana with a star-shaped guard on his back",
+      "fallbackLook": "small serious boy with spiky snow-white hair, sharp teal eyes and a frown, a white coat over a black kimono, a green sash across his chest, and a long katana with a star-shaped guard on his back",
+      "idle": "arms crossed, scowling",
+      "cheer": "sword raised, icy mist swirling around him",
+      "shocked": "frost spreading at his feet, teal eyes wide",
+      "tags": ["kid", "swordsman", "ice", "white-hair"]
+    },
+    {
+      "id": "bl-011",
+      "name": "Rangiku Matsumoto",
+      "heightClass": "medium",
+      "look": "carefree lieutenant with long wavy strawberry-blonde hair, blue eyes, a beauty mark under her lip, a pink scarf draped over her shoulders, a black shihakusho kimono and hakama and a katana at her hip",
+      "fallbackLook": "carefree woman with long wavy strawberry-blonde hair, blue eyes, a beauty mark under her lip, a pink scarf draped over her shoulders, a black samurai-style kimono and hakama and a katana at her hip",
+      "idle": "twirling a lock of hair, lazy smile",
+      "cheer": "waving her pink scarf overhead, hopping",
+      "shocked": "hand over her open mouth, scarf slipping",
+      "tags": ["adult", "swordsman", "black-robe", "scarf"]
+    },
+    {
+      "id": "bl-012",
+      "name": "Renji Abarai",
+      "heightClass": "tall",
+      "look": "tall rowdy lieutenant with long crimson-red hair in a high spiky ponytail, black tribal tattoos on his forehead, eyebrows and neck, a white headband across his forehead, a black shihakusho kimono and hakama, and the segmented saw-toothed sword Zabimaru",
+      "fallbackLook": "tall rowdy swordsman with long crimson-red hair in a high spiky ponytail, black tribal tattoos on his forehead, eyebrows and neck, a white headband across his forehead, a black samurai-style kimono and hakama, and a segmented saw-toothed sword",
+      "idle": "sword resting on his shoulder, cocky smirk",
+      "cheer": "segmented sword extended out to the side, roaring",
+      "shocked": "jaw dropped, tattooed brows shooting up",
+      "tags": ["adult", "swordsman", "tattoos", "red-hair"]
+    },
+    {
+      "id": "bl-013",
+      "name": "Sosuke Aizen",
+      "heightClass": "tall",
+      "look": "calm composed mastermind with slicked-back brown hair and a single loose strand across his forehead, brown eyes, a faint knowing smile, a long white high-collared Hueco Mundo robe with a black sash",
+      "fallbackLook": "calm composed man with slicked-back brown hair and a single loose strand across his forehead, brown eyes, a faint knowing smile, a long white high-collared robe with a black sash",
+      "idle": "hands folded in his sleeves, faint knowing smile",
+      "cheer": "slow polite clap at chest height",
+      "shocked": "one barely raised eyebrow, still smiling",
+      "tags": ["adult", "villain", "swordsman", "white-robe"]
+    },
+    {
+      "id": "bl-014",
+      "name": "Gin Ichimaru",
+      "heightClass": "tall",
+      "look": "lanky captain with short silver hair, a permanent fox-like squinting grin, a white captain's haori over black robes, hands tucked into his long sleeves",
+      "fallbackLook": "lanky man with short silver hair, a permanent fox-like squinting grin, a white coat over a black kimono, hands tucked into his long sleeves",
+      "idle": "hands in his sleeves, eyes shut in a fox grin",
+      "cheer": "waving at shoulder height, grin stretching wider",
+      "shocked": "eyes opening a crack to show pale blue, grin unchanged",
+      "tags": ["adult", "villain", "swordsman", "creepy"]
+    },
+    {
+      "id": "bl-015",
+      "name": "Grimmjow Jaegerjaquez",
+      "heightClass": "tall",
+      "look": "feral Espada with spiky light-blue hair, teal markings under his eyes, a white jawbone mask fragment on his right cheek, a short open white jacket with a turned-up collar, black hakama with a white sash",
+      "fallbackLook": "feral young man with spiky light-blue hair, teal markings under his eyes, a white jawbone-shaped bone fragment on his right cheek, a short open white jacket with a turned-up collar, black wide trousers with a white sash",
+      "idle": "hands in pockets, wild toothy grin",
+      "cheer": "arms flung wide to the sides, roaring, clawed fingers spread",
+      "shocked": "teeth bared, leaning forward in a crouch",
+      "tags": ["adult", "villain", "feral", "mask"]
+    },
+    {
+      "id": "bl-016",
+      "name": "Ulquiorra Cifer",
+      "heightClass": "medium",
+      "look": "pale expressionless Espada with short black hair, green eyes with green tear-like lines running down his cheeks, a broken white horned helmet fragment on the left side of his head, a long white high-collared coat, hands in his pockets",
+      "fallbackLook": "pale expressionless young man with short black hair, green eyes with green tear-like lines running down his cheeks, a broken white horned helmet fragment on the left side of his head, a long white high-collared coat, hands in his pockets",
+      "idle": "hands in pockets, blank stare",
+      "cheer": "one hand lifted slightly, expression unchanged",
+      "shocked": "green eyes slightly widened, coat flaring",
+      "tags": ["young-adult", "villain", "stoic", "mask"]
+    },
+    {
+      "id": "bl-017",
+      "name": "Kon",
+      "heightClass": "tiny",
+      "look": "small stuffed lion plushie with a tan-yellow body, a fluffy orange mane, stubby arms and legs, a stitched mouth and big black eyes",
+      "fallbackLook": "small stuffed lion plushie with a tan-yellow body, a fluffy orange mane, stubby arms and legs, a stitched mouth and big black eyes",
+      "idle": "arms crossed, chest puffed up",
+      "cheer": "flailing stubby arms, shouting",
+      "shocked": "squashed flat, mane bristling, eyes popping",
+      "tags": ["creature", "plush", "comic"]
+    },
+    {
+      "id": "bl-018",
+      "name": "Shunsui Kyoraku",
+      "heightClass": "tall",
+      "look": "laid-back tall captain with wavy brown hair in a low ponytail, stubble and a goatee, a woven straw hat, a pink flower-patterned kimono draped over a white captain's haori and black robes",
+      "fallbackLook": "laid-back tall man with wavy brown hair in a low ponytail, stubble and a goatee, a woven straw hat, a pink flower-patterned kimono draped over a white coat and a black kimono",
+      "idle": "tipping his straw hat, lazy smile",
+      "cheer": "straw hat waved out to the side, laughing",
+      "shocked": "hat pushed back, eyebrows raised, half-smile",
+      "tags": ["adult", "swordsman", "hat", "laid-back"]
+    },
+    {
+      "id": "bl-019",
+      "name": "Mayuri Kurotsuchi",
+      "heightClass": "tall",
+      "look": "eccentric mad-scientist captain with a white-painted face, black paint around his eyes and mouth, a gold headpiece with tall cylindrical ear covers, gold teeth, a white captain's haori over black robes, a purple neck scarf and one long fingernail",
+      "fallbackLook": "eccentric scientist with a white-painted face, black paint around his eyes and mouth, a gold headpiece with tall cylindrical ear covers, gold teeth, a white coat over a black kimono, a purple neck scarf and one long fingernail",
+      "idle": "tapping his long fingernail on his chin, scheming grin",
+      "cheer": "clapping with manic glee at chest height",
+      "shocked": "headpiece askew, gold-toothed mouth gaping",
+      "tags": ["adult", "scientist", "creepy", "face-paint"]
+    },
+    {
+      "id": "bl-020",
+      "name": "Nel Tu",
+      "heightClass": "tiny",
+      "look": "tiny child Arrancar with messy short green hair, a cracked white ram-skull mask on top of her head, a red line across her nose, big hazel eyes and an oversized torn green robe",
+      "fallbackLook": "tiny child with messy short green hair, a cracked white ram-skull mask worn on top of her head, a red line across her nose, big hazel eyes and an oversized torn green robe",
+      "idle": "hands clasped behind her, big curious eyes",
+      "cheer": "jumping with arms flailing, happy tears",
+      "shocked": "bawling with a waterfall of tears, mask slipping",
+      "tags": ["kid", "creature", "mask", "comic"]
+    }
+  ]
+}

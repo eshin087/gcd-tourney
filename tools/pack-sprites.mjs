@@ -6,7 +6,8 @@
 //   npm run sprites vfx             pack only the VFX atlas
 //   npm run sprites -- --dry-run    report only, write nothing
 //
-// See tools/README.md for every option and art/SPEC.md for the sprite spec (HI-RES SPRITE SPEC v1).
+// See tools/README.md for every option, art/SPEC.md for the sprite spec and
+// docs/decisions/0007-art-spec-v2-shippuden-256.md for where the spec v2 numbers come from.
 // Node ESM, single dependency: pngjs. Never throws on missing folders/animations: it reports them.
 
 import fs from 'node:fs';
@@ -17,19 +18,31 @@ import { PNG } from 'pngjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
-const PACKER_VERSION = 1;
+const PACKER_VERSION = 2;
 
-// ============================================================== spec v1
-const SPEC = Object.freeze({ frameWidth: 192, frameHeight: 192, columns: 16, pivot: [96, 180], pixelsPerUnit: 86, facing: 'right' });
+// ============================================================== spec (art/manifest.json "spec" block)
+// The manifest's spec block is the authority. These are the spec v2 defaults (ADR 0007), used for any key
+// the manifest leaves out or gets wrong (a malformed value is warned and replaced by its default).
+const SPEC_DEFAULTS = Object.freeze({
+  name: 'hi-res sprite spec v2', frameWidth: 256, frameHeight: 256, columns: 16, pivot: Object.freeze([128, 240]), pixelsPerUnit: 128,
+  facing: 'right', maxColors: 48, warnColors: 64, cellMargin: 4, standingBodyPx: 200,
+});
+// The only version suffix the file scan understands (raw/<anim>_vNN.png).
+const VERSION_SUFFIX = '_vNN';
 
-// Max trimmed body height (px, hair included) per animation, ~2x the placeholder.
+// Max trimmed body height (px, hair included) per animation in the 256 cell: the ADR 0007 table. Upright poses are
+// spec v1 x 204/135; lying and flying poses are set so they also fit the cell width. The manifest overrides these.
 const BODY_HEIGHT = {
-  idle: 135, run: 135, dash: 111, superDash: 70, backDash: 137, jumpSquat: 107, jumpUp: 131, jumpFall: 138, land: 115, airRecover: 119,
-  light1: 135, light2: 135, light3: 142, light4: 137, heavy: 144, airLight1: 131, airLight2: 137, airLight3: 133, airHeavy: 131, throw: 133,
-  guard: 131, block: 135, hurtHigh: 129, hurtLow: 121, launched: 94, spin: 123, down: 68, ko: 62, getup: 135, stagger: 137, charge: 131,
-  beamCharge: 131, beamFire: 131, vanish: 146, special: 135, intro: 139, taunt: 140, win: 140,
+  idle: 204, run: 204, dash: 160, superDash: 120, backDash: 207, jumpSquat: 162, jumpUp: 198, jumpFall: 209, land: 174, airRecover: 180,
+  light1: 204, light2: 204, light3: 215, light4: 207, heavy: 218, airLight1: 198, airLight2: 207, airLight3: 201, airHeavy: 198, throw: 201,
+  guard: 198, block: 204, hurtHigh: 195, hurtLow: 183, launched: 136, spin: 160, down: 96, ko: 64, getup: 204, stagger: 207, charge: 198,
+  beamCharge: 198, beamFire: 198, vanish: 221, special: 204, intro: 210, taunt: 212, win: 212,
 };
-const DEFAULT_BODY_HEIGHT = 135;
+const DEFAULT_BODY_HEIGHT = 204;
+
+// The pixel thresholds of the hitbox heuristics were tuned on spec v1 art (standing body ~136 px). They scale
+// with the spec's standing body so a bigger sprite behaves the same (spec v2: 200 / 136 = x1.47).
+const V1_STANDING_BODY_PX = 136;
 
 // The game only switches to a custom sheet when all of these exist ("complete": true).
 const CORE = ['idle', 'run', 'dash', 'jumpUp', 'jumpFall', 'land', 'light1', 'light2', 'light3', 'light4', 'heavy', 'airLight1', 'airHeavy',
@@ -114,10 +127,11 @@ options
   --guide <file>    animation guide module (default: src/art/animGuide.js)
   --dry-run         analyse and report, write nothing
   --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
-  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 32
+  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48
   --tolerance <n>   background color tolerance (RGB distance, default 72)
   --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
                     raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
+                    Also raises "version" to the highest raw/<anim>_vNN.png found ("approvedVersion" is never touched).
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
   -h, --help        this help
@@ -838,11 +852,48 @@ function normalizeAnimEntry(v) {
   else if (typeof v.ms === 'number') o.ms = v.ms;
   if (typeof v.hitbox === 'boolean') o.hitbox = v.hitbox;
   if (typeof v.status === 'string') o.status = v.status;
+  if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) o.approvedVersion = v.approvedVersion;
   return o;
 }
 
+// The manifest "spec" block -> the spec the packer follows. Missing keys take the spec v2 default silently;
+// malformed ones are reported (issues) and take the default. Informational keys (adr, rawBackground) are not used.
+function resolveSpec(raw, issues) {
+  const s = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  const D = SPEC_DEFAULTS;
+  // a spec block without a name is not necessarily v2: do not label it as such in the report
+  const out = { ...D, pivot: [...D.pivot], name: s === raw ? 'unnamed manifest spec' : D.name };
+  const int = (v, lo, hi) => Number.isInteger(v) && v >= lo && v <= hi;
+  const take = (k, ok, want) => {
+    if (s[k] === undefined) return;
+    if (ok(s[k])) out[k] = s[k];
+    else issues.push(`spec.${k} is ${JSON.stringify(s[k])} - must be ${want}; using ${JSON.stringify(out[k])}`);
+  };
+  take('name', (v) => typeof v === 'string' && v.trim() !== '', 'a non-empty string');
+  take('frameWidth', (v) => int(v, 16, 2048), 'an integer 16-2048');
+  take('frameHeight', (v) => int(v, 16, 2048), 'an integer 16-2048');
+  take('columns', (v) => int(v, 1, 64), 'an integer 1-64');
+  // checked against the frame size actually in use (a default pivot may not fit a non-default cell)
+  const pivotOk = (v) => Array.isArray(v) && v.length === 2 && int(v[0], 0, out.frameWidth - 1) && int(v[1], 0, out.frameHeight - 1);
+  take('pivot', pivotOk, `[x, y] integers inside the ${out.frameWidth}x${out.frameHeight} cell`);
+  if (!pivotOk(out.pivot)) {
+    const fixed = [Math.floor(out.frameWidth / 2), out.frameHeight - 1 - Math.round(out.frameHeight / 16)];
+    issues.push(`spec.pivot ${JSON.stringify(out.pivot)} does not fit the ${out.frameWidth}x${out.frameHeight} cell - using ${JSON.stringify(fixed)}`);
+    out.pivot = fixed;
+  }
+  take('pixelsPerUnit', (v) => typeof v === 'number' && Number.isFinite(v) && v > 0, 'a positive number');
+  take('facing', (v) => v === 'right' || v === 'left', '"right" or "left"');
+  take('maxColors', (v) => int(v, 2, 256), 'an integer 2-256');
+  take('warnColors', (v) => int(v, 2, 1 << 24), 'an integer >= 2');
+  take('cellMargin', (v) => int(v, 0, Math.floor(Math.min(out.frameWidth, out.frameHeight) / 4)), `an integer 0-${Math.floor(Math.min(out.frameWidth, out.frameHeight) / 4)}`);
+  take('standingBodyPx', (v) => typeof v === 'number' && v >= 8 && v <= out.frameHeight, `a number 8-${out.frameHeight}`);
+  if (s.versionSuffix !== undefined && s.versionSuffix !== VERSION_SUFFIX) issues.push(`spec.versionSuffix is ${JSON.stringify(s.versionSuffix)} - the packer only reads ${VERSION_SUFFIX} file names`);
+  return out;
+}
+
 function normalizeManifest(raw) {
-  const m = { characters: {}, vfx: {}, defaults: {}, core: [], specIssues: [] };
+  const m = { characters: {}, vfx: {}, defaults: {}, core: [], specIssues: [], spec: null };
+  m.spec = resolveSpec(raw && typeof raw === 'object' ? raw.spec : null, m.specIssues);
   if (!raw || typeof raw !== 'object') return m;
   const defAnims = raw.animationDefaults ?? raw.animations ?? raw.defaults?.animations ?? raw.spec?.animations;
   for (const [name, v] of entries(defAnims)) m.defaults[name] = normalizeAnimEntry(v);
@@ -868,12 +919,7 @@ function normalizeManifest(raw) {
     else if (v.anchor === 'center') e.anchor = 'center';
     m.vfx[name] = e;
   }
-  // the manifest restates the spec: flag drift instead of silently following it
-  const s = raw.spec;
-  if (s && typeof s === 'object') {
-    for (const k of ['frameWidth', 'frameHeight', 'columns', 'pixelsPerUnit', 'facing']) if (s[k] !== undefined && s[k] !== SPEC[k]) m.specIssues.push(`spec.${k} is ${JSON.stringify(s[k])}, packer SPEC v1 uses ${JSON.stringify(SPEC[k])}`);
-    if (Array.isArray(s.pivot) && (s.pivot[0] !== SPEC.pivot[0] || s.pivot[1] !== SPEC.pivot[1])) m.specIssues.push(`spec.pivot is ${JSON.stringify(s.pivot)}, packer SPEC v1 uses ${JSON.stringify(SPEC.pivot)}`);
-  }
+  // the VFX cell is still a packer constant (the effects' fill sizes are tuned to it): flag drift
   const v = raw.vfx;
   if (v && typeof v === 'object') {
     for (const [k, want] of [['cell', VFX.cell], ['ppu', VFX.ppu], ['baseline', VFX.baseline]]) if (v[k] !== undefined && v[k] !== want) m.specIssues.push(`vfx.${k} is ${v[k]}, packer uses ${want}`);
@@ -900,6 +946,7 @@ function animDefsFor(id, env) {
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
       durations: c.durations ?? (c.ms != null ? c.ms : undefined) ?? d.durations ?? (d.ms != null ? d.ms : undefined) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? 100,
       hitbox: (c.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
+      approvedVersion: c.approvedVersion ?? null,
     };
   });
 }
@@ -927,19 +974,31 @@ function rescalePhases(ph, n) {
 
 // ============================================================== frame sources
 const SINGLE_RE = /^(.+?)_(\d+)\.png$/i;
+// Versioned candidates (ADR 0007): <anim>_vNN.png and their optional sidecar <anim>_vNN.json. Highest NN = latest.
+const VERSION_RE = /^(.+?)_v(\d+)\.png$/i;
+const VERSION_JSON_RE = /^(.+?)_v(\d+)\.json$/i;
+// One half of a strip that was generated in parts (it belongs in raw/_parts/, joined into <anim>_vNN.png).
+const PART_RE = /^(.+?)_v\d+_[a-z]\.png$/i;
 
 // Index raw/ files by animation name (case-insensitive). Unrecognized files become warnings.
-// Skipped silently: ui_* (optional untouched UI originals; the UI itself lives in ui/), fx_* (effect art
-// left in a character's raw/), <anim>_fixNN.png (fix-up attempts) and every subfolder (_parts/, _proposed/).
+// Skipped silently: ui_* (UI raws such as ui_portrait_v02.png; the fitted UI lives in ui/), fx_* (effect art
+// left in a character's raw/), <anim>_fixNN.png (fix-up attempts) and every subfolder: raw/_rejected/,
+// raw/_parts/, raw/_old/, raw/_proposed/ ... are never read (listFiles does not descend).
 function scanRaw(rawDir, knownNames, warn, label) {
   const byLower = new Map(knownNames.map((n) => [n.toLowerCase(), n]));
   const idx = new Map();
-  const get = (n) => { if (!idx.has(n)) idx.set(n, { strip: null, singles: [], sidecar: null }); return idx.get(n); };
+  const get = (n) => {
+    if (!idx.has(n)) idx.set(n, { strip: null, versions: [], singles: [], sidecar: null, versionSidecars: new Map() });
+    return idx.get(n);
+  };
   for (const f of listFiles(rawDir).sort(natural)) {
     if (f.startsWith('.') || /^readme/i.test(f)) continue;
     if (/^(ui|fx)_/i.test(f) || /_fix\d+\.png$/i.test(f)) continue;
     if (/\.(jpe?g|webp|gif|bmp|avif)$/i.test(f)) { warn(`${label}/${f}: not a PNG - save it as .png`); continue; }
     if (/\.json$/i.test(f)) {
+      const vm = VERSION_JSON_RE.exec(f);
+      const vname = vm && byLower.get(vm[1].toLowerCase());
+      if (vname) { get(vname).versionSidecars.set(Number(vm[2]), path.join(rawDir, f)); continue; }
       const name = byLower.get(f.slice(0, -5).toLowerCase());
       if (name) get(name).sidecar = path.join(rawDir, f);
       continue;
@@ -952,12 +1011,49 @@ function scanRaw(rawDir, knownNames, warn, label) {
       get(name).strip = path.join(rawDir, f);
       continue;
     }
+    const vm = VERSION_RE.exec(f);
+    name = vm && byLower.get(vm[1].toLowerCase());
+    if (name) {
+      const n = Number(vm[2]);
+      const want = `${name}_v${String(n).padStart(2, '0')}.png`;
+      if (vm[1] !== name) warn(`${label}/${f}: rename to ${want} (case)`);
+      else if (vm[2].length < 2) warn(`${label}/${f}: use a two-digit version - rename to ${want}`);
+      const e = get(name);
+      const dup = e.versions.find((v) => v.n === n);
+      if (dup) warn(`${label}/${f}: version ${n} already exists as ${path.basename(dup.file)} - ignored (versions are never reused; give it the next free number)`);
+      else e.versions.push({ n, file: path.join(rawDir, f) });
+      continue;
+    }
     const m = SINGLE_RE.exec(f);
     name = m && byLower.get(m[1].toLowerCase());
     if (name) { get(name).singles.push(path.join(rawDir, f)); continue; }
-    warn(`${label}/${f}: unrecognized name - use <anim>.png (strip) or <anim>_NN.png (single frame)`);
+    const pm = PART_RE.exec(f);
+    if (pm && byLower.has(pm[1].toLowerCase())) { warn(`${label}/${f}: strip part - move it to raw/_parts/ (the packer reads only the joined <anim>_vNN.png)`); continue; }
+    warn(`${label}/${f}: unrecognized name - use <anim>_vNN.png (versioned strip), <anim>.png (strip) or <anim>_NN.png (single frame)`);
   }
   return idx;
+}
+
+// The raw source of one animation, in order: the highest raw/<anim>_vNN.png, else raw/<anim>.png, else the
+// raw/<anim>_NN.png singles. Sidecars: raw/<anim>.json applies to every source of the animation; a versioned
+// strip's own raw/<anim>_vNN.json is merged on top (its keys win).
+function pickRaw(entry, name) {
+  if (!entry) return null;
+  const sidecars = entry.sidecar ? [entry.sidecar] : [];
+  if (entry.versions.length) {
+    const top = entry.versions.reduce((a, b) => (b.n > a.n ? b : a));
+    const own = entry.versionSidecars.get(top.n);
+    const ignored = [];
+    if (entry.strip) ignored.push(`raw/${path.basename(entry.strip)}`);
+    if (entry.singles.length) ignored.push(`${entry.singles.length} raw/${name}_NN.png single(s)`);
+    return { files: [top.file], strip: true, version: top.n, label: `raw/${path.basename(top.file)}`, sidecars: own ? [...sidecars, own] : sidecars, ignored };
+  }
+  if (entry.strip) return { files: [entry.strip], strip: true, version: null, label: `raw/${path.basename(entry.strip)}`, sidecars, ignored: [], conflict: entry.singles.length };
+  if (entry.singles.length) {
+    const label = entry.singles.length === 1 ? `raw/${path.basename(entry.singles[0])}` : `raw/${name}_NN.png x${entry.singles.length}`;
+    return { files: entry.singles, strip: false, version: null, label, sidecars, ignored: [] };
+  }
+  return null; // only a sidecar
 }
 
 function hashFiles(files) {
@@ -966,42 +1062,74 @@ function hashFiles(files) {
   return h.digest('hex');
 }
 
-// Decide where an animation's frames come from: frames/<anim>/ (human-cleaned) or raw/.
-// Packer-written frames carry a marker; if the raw changed and nobody edited the frames, re-import.
-function chooseSource(framesDir, rawEntry, bodyHeight, warn, label) {
-  const rawFiles = rawEntry ? (rawEntry.strip ? [rawEntry.strip] : rawEntry.singles) : [];
-  if (rawEntry?.strip && rawEntry.singles.length) warn(`${label}: raw strip and ${rawEntry.singles.length} single frame(s) both exist - using the strip`);
-  // the sidecar (raw/<anim>.json) is part of the source: editing it re-imports too
-  const hashInputs = rawFiles.length && rawEntry?.sidecar ? [...rawFiles, rawEntry.sidecar] : rawFiles;
+// Which raw file packer-written frames were cleaned from (markers before packer v2 only list the source paths).
+function markerOrigin(marker) {
+  const src = Array.isArray(marker.source) ? marker.source.filter((s) => typeof s === 'string' && /\.png$/i.test(s)) : [];
+  const file = typeof marker.sourceFile === 'string' ? marker.sourceFile : src.length === 1 ? `raw/${path.basename(src[0])}` : src.length ? `raw/ (${src.length} files)` : null;
+  return { file, version: Number.isInteger(marker.version) ? marker.version : null };
+}
+
+// Decide where an animation's frames come from: frames/<anim>/ (cleaned frames) or raw/ (pickRaw).
+// Packer-written frames carry a marker (.packer.json: source file name + hash, bodyHeight, cell). When the source
+// changed (a newer _vNN, an edited raw or sidecar, another bodyHeight or cell size) and nobody edited the frames,
+// they are re-imported; hand-edited frames always win (warned). Frames without a marker are hand-made: they win.
+// Untouched packer-made frames whose raw source is gone (its only version moved to raw/_rejected/) are 'stale':
+// packing them would ship rejected art, so the animation counts as missing.
+// ctx: { bodyHeight, cell, artDir } - what the frames must have been written for.
+function chooseSource(framesDir, raw, ctx, warn, label) {
+  if (raw?.conflict) warn(`${label}: raw strip and ${raw.conflict} single frame(s) both exist - using the strip`);
+  // the sidecars are part of the source: editing one re-imports too
+  const fromRaw = raw && { kind: 'raw', rawFiles: raw.files, hashInputs: [...raw.files, ...raw.sidecars], version: raw.version, label: raw.label, strip: raw.strip };
   const framePngs = listPngs(framesDir);
-  if (!framePngs.length) return rawFiles.length ? { kind: 'raw', rawFiles, hashInputs } : null;
+  if (!framePngs.length) return fromRaw;
   const marker = readJson(path.join(framesDir, MARKER)).data;
-  if (!marker || !rawFiles.length) return { kind: 'frames', framePngs, packerMade: !!marker };
-  const rawHash = hashFiles(hashInputs);
-  if (rawHash === marker.sourceHash && (marker.bodyHeight ?? null) === (bodyHeight ?? null)) return { kind: 'frames', framePngs, packerMade: true };
+  if (!marker) return { kind: 'frames', framePngs, packerMade: false, origin: null };
+  const origin = markerOrigin(marker);
   const files = marker.files || {};
-  const edited = framePngs.length !== Object.keys(files).length ||
+  const isEdited = () => framePngs.length !== Object.keys(files).length ||
     framePngs.some((f) => files[f] !== sha1(fs.readFileSync(path.join(framesDir, f))));
-  if (!edited) return { kind: 'raw', rawFiles, hashInputs };
-  warn(`${label}: raw/ or bodyHeight changed but frames/${path.basename(framesDir)}/ has manual edits - using frames/ (delete that folder to re-import from raw)`);
-  return { kind: 'frames', framePngs, packerMade: true };
+  if (!raw) {
+    const srcPngs = Array.isArray(marker.source) ? marker.source.filter((s) => typeof s === 'string' && /\.png$/i.test(s)) : [];
+    const gone = srcPngs.length > 0 && srcPngs.some((s) => !isFile(path.join(ctx.artDir, s)));
+    const edited = isEdited();
+    if (gone && !edited) return { kind: 'stale', origin };
+    return { kind: 'frames', framePngs, packerMade: true, edited, origin };
+  }
+  const cellOf = (c) => JSON.stringify(c ?? null);
+  const why = [];
+  if (hashFiles(fromRaw.hashInputs) !== marker.sourceHash) {
+    why.push(origin.file && origin.file !== raw.label ? `newer source ${raw.label} (frames/ came from ${origin.file})` : `${raw.label} or its sidecar changed`);
+  }
+  if ((marker.bodyHeight ?? null) !== (ctx.bodyHeight ?? null)) why.push(`bodyHeight changed (${marker.bodyHeight ?? 'none'} -> ${ctx.bodyHeight})`);
+  if (cellOf(marker.cell) !== cellOf(ctx.cell)) why.push('the spec cell changed');
+  if (!why.length) return { kind: 'frames', framePngs, packerMade: true, origin };
+  const edited = isEdited();
+  if (!edited) return { ...fromRaw, replaced: origin.file && origin.file !== raw.label ? origin.file : null };
+  warn(`${label}: ${why.join(', ')} but frames/${path.basename(framesDir)}/ has manual edits - using frames/ (delete that folder to re-import from raw/)`);
+  return { kind: 'frames', framePngs, packerMade: true, edited: true, origin };
 }
 
-function readSidecar(file, warn, label) {
-  if (!file) return {};
-  const r = readJson(file);
-  if (r.error) { warn(`${label}: ${path.basename(file)} is not valid JSON (${r.error}) - ignored`); return {}; }
-  return r.data && typeof r.data === 'object' ? r.data : {};
+const staleText = (label, dir, src) => `${label}: frames/${dir}/ were cleaned from ${src.origin.file || 'a raw file'}, which is no longer in raw/ (rejected?) - not packed. Delete frames/${dir}/ or add a new raw version`;
+
+// Merged sidecar keys (later files win). A broken file is warned and skipped.
+function readSidecars(files, warn, label) {
+  const out = {};
+  for (const file of files || []) {
+    const r = readJson(file);
+    if (r.error) { warn(`${label}: ${path.basename(file)} is not valid JSON (${r.error}) - ignored`); continue; }
+    if (r.data && typeof r.data === 'object' && !Array.isArray(r.data)) Object.assign(out, r.data);
+  }
+  return out;
 }
 
-// Load + clean raw images into trimmed frame images (source resolution).
-function framesFromRaw(rawFiles, expected, side, env, mode, warn, label) {
+// Load + clean raw images into trimmed frame images (source resolution). strip: one image holding every pose
+// (split it) rather than one image per frame.
+function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) {
   const notes = [];
   const out = [];
   const sideTol = Number(side.tolerance ?? side.tol);
   const tol = sideTol > 0 ? sideTol : env.tol;
   const speck = mode === 'vfx' ? { frac: 0.0002, min: 3 } : { frac: 0.0015, min: 4 };
-  const strip = rawFiles.length === 1 && !SINGLE_RE.test(path.basename(rawFiles[0]));
   let unreadable = 0, strays = 0;
   const foreign = new Set();
   for (const f of rawFiles) {
@@ -1108,16 +1236,34 @@ function footAnchor(img) {
   return n ? sx / n : img.w / 2;
 }
 
-function placeCharFrame(sprite) {
-  const cell = newImage(SPEC.frameWidth, SPEC.frameHeight);
-  const dx = Math.round(SPEC.pivot[0] - footAnchor(sprite));
-  const dy = SPEC.pivot[1] - (sprite.h - 1);
+// Feet center on the pivot x, lowest row on the pivot y (the floor line). clip = pixels lost outside the cell;
+// margin = pixels inside the cell but in its safe margin (spec cellMargin, left/right/top: the floor side is the pivot).
+function placeCharFrame(sprite, spec) {
+  const W = spec.frameWidth, H = spec.frameHeight, m = spec.cellMargin;
+  const cell = newImage(W, H);
+  const dx = Math.round(spec.pivot[0] - footAnchor(sprite));
+  const dy = spec.pivot[1] - (sprite.h - 1);
   const lost = blit(cell, sprite, dx, dy);
   const clip = [];
   if (dx < 0) clip.push(`left ${-dx}px`);
-  if (dx + sprite.w > SPEC.frameWidth) clip.push(`right ${dx + sprite.w - SPEC.frameWidth}px`);
+  if (dx + sprite.w > W) clip.push(`right ${dx + sprite.w - W}px`);
   if (dy < 0) clip.push(`top ${-dy}px`);
-  return { cell, lost, clip };
+  const margin = [];
+  const b = !lost && m ? bbox(sprite) : null;
+  if (b) {
+    const x0 = b.x0 + dx, x1 = b.x1 + dx, y0 = b.y0 + dy;
+    if (x0 < m) margin.push(`left ${m - x0}px`);
+    if (x1 > W - 1 - m) margin.push(`right ${x1 - (W - 1 - m)}px`);
+    if (y0 < m) margin.push(`top ${m - y0}px`);
+  }
+  return { cell, lost, clip, margin };
+}
+
+// Pixel thresholds for the box heuristics, scaled from their spec v1 tuning (see V1_STANDING_BODY_PX).
+function boxTuning(spec) {
+  const k = spec.standingBodyPx / V1_STANDING_BODY_PX;
+  const px = (v) => Math.max(1, Math.round(v * k));
+  return { band: px(40), slack: px(6), thick: px(16), tipLen: px(6), blobN: Math.max(4, Math.round(12 * k * k)), fwdExt: px(4), upExt: px(6), upSlack: px(2), pad: px(2), near: px(6) };
 }
 
 const clampBox = ([x, y, w, h], W, H) => {
@@ -1192,47 +1338,46 @@ function colCount(img, x) {
   return n;
 }
 
-// Hitbox for an active frame. Spec v1 rule ("the part of the silhouette beyond the idle pose's
-// maxX - 6px"), made robust for real art:
+// Hitbox for an active frame. Spec rule ("the part of the silhouette beyond the idle pose's maxX - 6px",
+// px at spec v1 scale; T scales every px threshold to the spec's body size), made robust for real art:
 //  1. forward strike (reaches past the idle front): walk back from the tip until the columns get
 //     torso-thick, so only the limb counts; take the blob holding the forward-most pixel (+ smears
-//     touching it) within +-STRIKE_BAND px of the tip row (a guard fist next to a kick is excluded);
+//     touching it) within +-T.band px of the tip row (a guard fist next to a kick is excluded);
 //  2. rising strike (uppercut, rises above the idle head): the same idea around the highest pixel;
 //     whichever of 1/2 reaches further past the idle pose is tried first;
 //  3. otherwise the forward-most 28% of the body at strike height.
-const STRIKE_BAND = 40;
-function hitBox(cell, ref) {
+function hitBox(cell, ref, T) {
   const b = bbox(cell);
   if (!b) return null;
-  const pad = (bb) => clampBox([bb.x0 - 2, bb.y0 - 2, bb.w + 4, bb.h + 4], cell.w, cell.h);
+  const pad = (bb) => clampBox([bb.x0 - T.pad, bb.y0 - T.pad, bb.w + 2 * T.pad, bb.h + 2 * T.pad], cell.w, cell.h);
   const forward = () => {
-    let start = ref.maxX - 6 + 1;
-    const thick = Math.max(16, Math.round(b.h * 0.25));
+    let start = ref.maxX - T.slack + 1;
+    const thick = Math.max(T.thick, Math.round(b.h * 0.25));
     for (let x = b.x1; x >= Math.max(start, b.x0); x--) if (colCount(cell, x) > thick) { start = x + 1; break; }
-    if (b.x1 - start + 1 < 6) return null;
+    if (b.x1 - start + 1 < T.tipLen) return null;
     const ty = midOpaque(cell, { x: b.x1 });
-    const tip = strikeBox(cell, b.x1, ty, start, ty - STRIKE_BAND, cell.w - 1, ty + STRIKE_BAND);
-    if (tip && tip.n >= 12) return { box: pad(tip), rule: 'forward' };
+    const tip = strikeBox(cell, b.x1, ty, start, ty - T.band, cell.w - 1, ty + T.band, T.near);
+    if (tip && tip.n >= T.blobN) return { box: pad(tip), rule: 'forward' };
     const fwd = bbox(cell, start, 0, cell.w - 1, cell.h - 1);
-    return fwd && fwd.n >= 12 ? { box: pad(fwd), rule: 'forward' } : null;
+    return fwd && fwd.n >= T.blobN ? { box: pad(fwd), rule: 'forward' } : null;
   };
   const up = () => {
     // walk down from the top until the rows get head-thick: fist + forearm only
-    let bottom = ref.minY - 2;
-    const thick = Math.max(16, Math.round(b.w * 0.45));
+    let bottom = ref.minY - T.upSlack;
+    const thick = Math.max(T.thick, Math.round(b.w * 0.45));
     for (let y = b.y0; y <= b.y0 + b.h * 0.5; y++) {
       let n = 0;
       for (let x = b.x0; x <= b.x1; x++) if (cell.data[(y * cell.w + x) * 4 + 3]) n++;
       if (n > thick) { bottom = Math.max(bottom, y - 1); break; }
     }
     const tx = midOpaque(cell, { y: b.y0 });
-    const top = strikeBox(cell, tx, b.y0, tx - STRIKE_BAND, 0, tx + STRIKE_BAND, bottom);
-    return top && top.n >= 12 ? { box: pad(top), rule: 'up' } : null;
+    const top = strikeBox(cell, tx, b.y0, tx - T.band, 0, tx + T.band, bottom, T.near);
+    return top && top.n >= T.blobN ? { box: pad(top), rule: 'up' } : null;
   };
   const fwdExt = b.x1 - ref.maxX, upExt = ref.minY - b.y0;
   const tries = [];
-  if (fwdExt >= 4) tries.push([fwdExt, forward]);
-  if (upExt >= 6) tries.push([upExt, up]);
+  if (fwdExt >= T.fwdExt) tries.push([fwdExt, forward]);
+  if (upExt >= T.upExt) tries.push([upExt, up]);
   tries.sort((p, q) => q[0] - p[0]);
   for (const [, fn] of tries) { const h = fn(); if (h) return h; }
   const cw = Math.max(1, Math.round(b.w * 0.28));
@@ -1347,14 +1492,18 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
     fs.writeFileSync(path.join(dir, name), buf);
     files[name] = sha1(buf);
   });
-  const marker = { generatedBy: 'tools/pack-sprites.mjs', note: 'Frames cleaned from raw/. Edit freely: edited frames are never overwritten.', source: src.hashInputs.map((f) => rel(env.artDir, f)), sourceHash: hashFiles(src.hashInputs), ...extra, files };
+  const marker = {
+    generatedBy: 'tools/pack-sprites.mjs', note: 'Frames cleaned from raw/. Edit freely: edited frames are never overwritten.',
+    sourceFile: src.label, version: src.version ?? null, source: src.hashInputs.map((f) => rel(env.artDir, f)), sourceHash: hashFiles(src.hashInputs), ...extra, files,
+  };
   fs.writeFileSync(path.join(dir, MARKER), JSON.stringify(marker, null, 2) + '\n');
   R.writeback.push(rel(env.cwd, dir));
 }
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [] };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [] };
   const warn = (m) => R.warnings.push(m);
+  const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
   const label = `characters/${id}`;
   if (!isDir(charDir)) {
@@ -1369,6 +1518,10 @@ function packCharacter(id, env) {
   for (const d of listDirs(framesRoot)) {
     if (!names.includes(d) && listPngs(path.join(framesRoot, d)).length) warn(`${label}/frames/${d}/: unknown animation (not in manifest or animGuide) - ignored`);
   }
+  // written into every frames/<anim>/.packer.json: a different cell (spec change) re-imports untouched frames
+  const cellKey = { frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, pivot: [...spec.pivot] };
+  // the tallest pose must fit between the top margin of the cell and the floor line (pivot y)
+  const maxBody = spec.pivot[1] + 1 - spec.cellMargin;
 
   // 1) gather + normalize every animation
   const anims = [];
@@ -1376,29 +1529,40 @@ function packCharacter(id, env) {
     const alabel = `${def.name}`;
     try {
       const framesDir = path.join(framesRoot, def.name);
-      const rawEntry = rawIdx.get(def.name);
-      const side = readSidecar(rawEntry?.sidecar, warn, alabel);
+      const raw = pickRaw(rawIdx.get(def.name), def.name);
+      if (raw?.version != null) R.versions[def.name] = raw.version;
+      const side = readSidecars(raw?.sidecars, warn, alabel);
       let bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
-      // the tallest pose must fit between the top of the cell and the floor line (pivot y)
-      const maxBody = SPEC.pivot[1] + 1;
+      let tooTall = null;
       if (!(bodyHeight >= 8 && bodyHeight <= maxBody)) {
         const fixed = Math.min(maxBody, Math.max(8, bodyHeight || DEFAULT_BODY_HEIGHT));
-        warn(`${alabel}: bodyHeight ${bodyHeight} does not fit the ${SPEC.frameHeight}px cell (8-${maxBody}px above the floor line) - using ${fixed}`);
+        tooTall = `${alabel}: bodyHeight ${bodyHeight} does not fit the ${spec.frameHeight}px cell (8-${maxBody}px: floor line y ${spec.pivot[1]}, ${spec.cellMargin}px top margin) - using ${fixed}`;
         bodyHeight = fixed;
       }
-      const src = chooseSource(framesDir, rawEntry, bodyHeight, warn, alabel);
+      const src = chooseSource(framesDir, raw, { bodyHeight, cell: cellKey, artDir: env.artDir }, warn, alabel);
       if (!src) { R.missing.push(def.name); continue; }
+      if (src.kind === 'stale') { warn(staleText(alabel, def.name, src)); R.missing.push(def.name); continue; }
+      if (tooTall) warn(tooTall); // only for animations that have art: the rest would be noise
       let sprites, notes = [], sourceLabel, unreadable = false;
+      // what the art came from: the raw file (also behind packer-written frames/), its version, hand edits
+      let origin = null, version = null, edited = false, handMade = false;
       if (src.kind === 'frames') {
         const items = framesFromFolder(framesDir, src.framePngs, 'char', env, warn, alabel);
         sprites = items.map((f) => f.img);
         const stray = items.reduce((s, f) => s + f.stray, 0);
         if (stray) notes.push(`ignored ${stray} stray pixel(s) - clean them in frames/${def.name}/`);
         sourceLabel = `frames/${def.name}/`;
+        if (src.origin) ({ file: origin, version } = src.origin);
+        edited = !!src.edited;
+        handMade = !src.packerMade;
       } else {
-        ({ frames: sprites, notes, unreadable } = framesFromRaw(src.rawFiles, def.frames, side, env, 'char', warn, alabel));
-        sourceLabel = src.rawFiles.length === 1 ? `raw/${path.basename(src.rawFiles[0])}` : `raw/${def.name}_NN.png x${src.rawFiles.length}`;
+        ({ frames: sprites, notes, unreadable } = framesFromRaw(src.rawFiles, def.frames, side, env, 'char', warn, alabel, src.strip));
+        sourceLabel = origin = src.label;
+        version = src.version;
+        if (src.replaced) notes.push(`re-imported: replaces frames/ cleaned from ${src.replaced}`);
       }
+      if (raw?.ignored.length) notes.push(`ignored ${raw.ignored.join(' and ')} (a _vNN version exists)`);
+      if (def.approvedVersion && version != null && version !== def.approvedVersion) notes.push(`candidate v${String(version).padStart(2, '0')} (approved: v${String(def.approvedVersion).padStart(2, '0')})`);
       if (!sprites.length) {
         if (!unreadable) warn(`${alabel}: no sprite pixels found in ${sourceLabel}`);
         R.missing.push(def.name); R.failed.push(def.name); continue;
@@ -1414,16 +1578,18 @@ function packCharacter(id, env) {
       }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
       const cells = [];
-      const clipped = [];
+      const clipped = [], tight = [];
       sprites.forEach((s, k) => {
         const small = resample(s, scale, { coverage: 0.5, alphaMin: 128 });
-        const { cell, lost, clip } = placeCharFrame(small);
+        const { cell, lost, clip, margin } = placeCharFrame(small, spec);
         if (lost) clipped.push(`#${k} ${clip.join('/')}`);
+        else if (margin.length) tight.push(`#${k} ${margin.join('/')}`);
         cells.push(cell);
       });
-      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${SPEC.frameWidth}px cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; lower bodyHeight or redraw`);
+      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; lower bodyHeight or redraw`);
+      if (tight.length) warn(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; lower bodyHeight or redraw tighter`);
       if (cells.length !== def.frames) warn(`${alabel}: ${cells.length} frame(s), manifest expects ${def.frames}${def.phases ? ` (phases rescaled to ${rescalePhases(def.phases, cells.length).join('/')})` : ''}`);
-      anims.push({ def, cells, scale, sourceLabel, src, notes, bodyHeight });
+      anims.push({ def, cells, scale, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade });
     } catch (e) {
       warn(`${alabel}: failed - ${e.message}`);
       R.missing.push(def.name);
@@ -1436,8 +1602,22 @@ function packCharacter(id, env) {
 
   R.missingCore = defs.filter((d) => d.required && !anims.some((a) => a.def.name === d.name)).map((d) => d.name);
   if (!anims.length) {
-    const existing = path.join(env.outDir, 'characters', id, 'anims.json');
-    if (isFile(existing)) R.notes.push(`no frames in art/ - left the existing ${rel(env.cwd, existing)} untouched`);
+    // A pack this packer made earlier, whose every source is gone (e.g. the only idle version moved to
+    // raw/_rejected/), must not keep shipping the rejected art: remove it so the game falls back to the
+    // placeholder. A sheet that did not come from the packer (Sprite Lab download, hand-made) is left alone.
+    const outChar = path.join(env.outDir, 'characters', id);
+    const existing = path.join(outChar, 'anims.json');
+    if (isFile(existing)) {
+      const old = readJson(existing).data;
+      if (old?.source === 'art-pack') {
+        const stale = [existing, path.join(outChar, 'sheet.png')].filter(isFile);
+        if (!env.dryRun) for (const f of stale) fs.unlinkSync(f);
+        R.removed = stale.map((f) => rel(env.cwd, f));
+        R.notes.push(`${env.dryRun ? 'would remove' : 'removed'} the stale art pack (nothing packable left): ${R.removed.join(', ')}; the game uses the placeholder`);
+      } else {
+        R.notes.push(`no frames in art/ - left the existing ${rel(env.cwd, existing)} untouched (not made by the packer)`);
+      }
+    }
     return R;
   }
 
@@ -1445,11 +1625,13 @@ function packCharacter(id, env) {
   const allCells = anims.flatMap((a) => a.cells);
   if (env.quantize) R.notes.push(`palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
   R.colors = countColors(allCells);
-  if (R.colors > 48) warn(`palette has ${R.colors} colors (> 48) - clean the art or re-run with --quantize 32`);
+  if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);
+  else if (R.colors > spec.maxColors) R.notes.push(`palette has ${R.colors} colors: above the spec target of ${spec.maxColors} (warned above ${spec.warnColors})`);
 
-  // 3) sheet layout + metadata
+  // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here)
   const meta = {
-    ...SPEC, pivot: [...SPEC.pivot], source: 'art-pack', character: id, packer: PACKER_VERSION, complete: R.missingCore.length === 0,
+    frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, columns: spec.columns, pivot: [...spec.pivot], pixelsPerUnit: spec.pixelsPerUnit,
+    facing: spec.facing, spec: spec.name, source: 'art-pack', character: id, packer: PACKER_VERSION, complete: R.missingCore.length === 0,
     missingCore: R.missingCore, animations: {}, boxes: {},
   };
   let idx = 0;
@@ -1470,10 +1652,11 @@ function packCharacter(id, env) {
     const bs = idle.cells.map((c) => bbox(c)).filter(Boolean);
     ref = { maxX: Math.max(...bs.map((b) => b.x1)), minY: Math.min(...bs.map((b) => b.y0)) };
   } else {
-    const bh = BODY_HEIGHT.idle;
-    ref = { maxX: SPEC.pivot[0] + Math.round(bh * 0.26), minY: SPEC.pivot[1] - bh };
-    warn('idle is not packed yet - hitboxes estimated from the spec body size');
+    const bh = defs.find((d) => d.name === 'idle')?.bodyHeight ?? DEFAULT_BODY_HEIGHT;
+    ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
+    warn('idle is not packed yet - hitboxes estimated from the idle bodyHeight');
   }
+  const T = boxTuning(spec);
   const rules = {};
   const big = [];
   for (const p of packed) {
@@ -1483,7 +1666,7 @@ function packCharacter(id, env) {
       meta.boxes[key] = hb ? { hurt: [hb] } : {};
       const active = p.phases && p.def.hitbox && k >= p.phases[0] && k < p.phases[0] + p.phases[1];
       if (active) {
-        const h = hitBox(cell, ref);
+        const h = hitBox(cell, ref, T);
         if (h?.box) {
           meta.boxes[key].hit = [h.box];
           rules[h.rule] = (rules[h.rule] || 0) + 1;
@@ -1499,12 +1682,12 @@ function packCharacter(id, env) {
   if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
 
   // 5) write sheet + json (+ write-back of cleaned frames)
-  const cols = SPEC.columns;
+  const cols = spec.columns;
   const rows = Math.ceil(idx / cols);
-  const sheet = newImage(cols * SPEC.frameWidth, rows * SPEC.frameHeight);
+  const sheet = newImage(cols * spec.frameWidth, rows * spec.frameHeight);
   for (const p of packed) p.cells.forEach((cell, k) => {
     const f = p.indices[k];
-    blit(sheet, cell, (f % cols) * SPEC.frameWidth, Math.floor(f / cols) * SPEC.frameHeight);
+    blit(sheet, cell, (f % cols) * spec.frameWidth, Math.floor(f / cols) * spec.frameHeight);
   });
   R.frames = idx;
   R.sheet = `${sheet.w}x${sheet.h}`;
@@ -1513,8 +1696,11 @@ function packCharacter(id, env) {
   writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
   writeFile(env, path.join(outDir, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const a of anims) {
-    R.packed.push({ anim: a.def.name, frames: a.cells.length, expected: a.def.frames, source: a.sourceLabel, scale: +a.scale.toFixed(3), notes: a.notes });
-    if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight });
+    R.packed.push({
+      anim: a.def.name, frames: a.cells.length, expected: a.def.frames, source: a.sourceLabel, from: a.origin, version: a.version,
+      edited: a.edited, handMade: a.handMade, scale: +a.scale.toFixed(3), notes: a.notes,
+    });
+    if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight, cell: cellKey });
   }
   return R;
 }
@@ -1564,7 +1750,7 @@ function packUi(id, charDir, env, R) {
 
 // ============================================================== VFX packing
 function packVfx(env) {
-  const R = { packed: [], missing: [], failed: [], frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
+  const R = { packed: [], missing: [], failed: [], versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
   const warn = (m) => R.warnings.push(m);
   const vfxDir = path.join(env.artDir, 'vfx');
   const effects = { ...VFX_EFFECTS };
@@ -1580,21 +1766,27 @@ function packVfx(env) {
     const e = effects[name];
     try {
       const framesDir = path.join(framesRoot, name);
-      const rawEntry = rawIdx.get(name);
-      const src = chooseSource(framesDir, rawEntry, null, warn, name);
+      const raw = pickRaw(rawIdx.get(name), name);
+      if (raw?.version != null) R.versions[name] = raw.version;
+      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: null, artDir: env.artDir }, warn, name);
       if (!src) { R.missing.push(name); continue; }
-      let items, notes = [], sourceLabel;
+      if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
+      let items, notes = [], sourceLabel, origin = null, version = null;
       if (src.kind === 'frames') {
         items = framesFromFolder(framesDir, src.framePngs, 'vfx', env, warn, name);
         sourceLabel = `frames/${name}/`;
+        if (src.origin) ({ file: origin, version } = src.origin);
       } else {
-        const side = readSidecar(rawEntry.sidecar, warn, name);
-        const r = framesFromRaw(src.rawFiles, e.frames, side, env, 'vfx', warn, name);
+        const side = readSidecars(raw.sidecars, warn, name);
+        const r = framesFromRaw(src.rawFiles, e.frames, side, env, 'vfx', warn, name, src.strip);
         items = r.frames.map((img) => ({ img, final: false }));
         notes = r.notes;
-        sourceLabel = src.rawFiles.length === 1 ? `raw/${path.basename(src.rawFiles[0])}` : `raw/${name}_NN.png x${src.rawFiles.length}`;
+        sourceLabel = origin = src.label;
+        version = src.version;
+        if (src.replaced) notes.push(`re-imported: replaces frames/ cleaned from ${src.replaced}`);
         if (!items.length && r.unreadable) { R.missing.push(name); R.failed.push(name); continue; }
       }
+      if (raw?.ignored.length) notes.push(`ignored ${raw.ignored.join(' and ')} (a _vNN version exists)`);
       if (!items.length) { warn(`${name}: no pixels found in ${sourceLabel}`); R.missing.push(name); R.failed.push(name); continue; }
       const loose = items.filter((it) => !it.final).map((it) => it.img);
       const target = Math.round(VFX.cell * (e.fill || 0.8));
@@ -1624,7 +1816,7 @@ function packVfx(env) {
       if (e.lumaAlpha) cells.forEach((c, k) => { if (!items[k].final) lumaToAlpha(c); });
       for (const c of cells) quantizeAlpha(c);
       if (cells.length !== e.frames) warn(`${name}: ${cells.length} frame(s), expected ${e.frames}`);
-      packed.push({ name, e, cells, src, sourceLabel, notes, scale });
+      packed.push({ name, e, cells, src, sourceLabel, notes, scale, origin, version, edited: !!src.edited, handMade: src.kind === 'frames' && !src.packerMade });
     } catch (err) {
       warn(`${name}: failed - ${err.message}`);
       R.missing.push(name);
@@ -1639,7 +1831,7 @@ function packVfx(env) {
   packed.forEach((p, row) => {
     p.cells.forEach((c, i) => blit(atlas, c, i * VFX.cell, row * VFX.cell));
     meta.anims[p.name] = { row, n: p.cells.length, ms: p.e.ms ?? 50 };
-    R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)] });
+    R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, from: p.origin, version: p.version, edited: p.edited, handMade: p.handMade, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)] });
     R.frames += p.cells.length;
   });
   R.atlas = `${atlas.w}x${atlas.h}`;
@@ -1660,6 +1852,15 @@ function raiseStatus(obj, status) {
   return 1;
 }
 
+// "version" = the latest candidate number (ADR 0007): raised to the highest raw/<anim>_vNN.png found, never lowered
+// (a rejected version moved to raw/_rejected/ was still a candidate). "approvedVersion" is the reviewer's: never touched.
+function raiseVersion(obj, v) {
+  if (!obj || typeof obj !== 'object' || Array.isArray(obj) || !Number.isInteger(v)) return 0;
+  if (Number.isInteger(obj.version) && obj.version >= v) return 0;
+  obj.version = v;
+  return 1;
+}
+
 function updateManifestStatus(raw, rep) {
   let n = 0;
   for (const c of rep.characters) {
@@ -1668,12 +1869,14 @@ function updateManifestStatus(raw, rep) {
     const anims = mc.animations || {};
     for (const p of c.packed) n += raiseStatus(anims[p.anim], 'packed');
     for (const a of c.failed) n += raiseStatus(anims[a], 'raw');
+    for (const [a, v] of Object.entries(c.versions || {})) n += raiseVersion(anims[a], v);
     for (const u of c.uiItems) n += raiseStatus(mc.ui?.[u], 'packed');
   }
   const fx = raw.vfx?.effects;
   if (rep.vfx && fx && typeof fx === 'object') {
     for (const p of rep.vfx.packed) n += raiseStatus(fx[p.effect], 'packed');
     for (const e of rep.vfx.failed) n += raiseStatus(fx[e], 'raw');
+    for (const [e, v] of Object.entries(rep.vfx.versions || {})) n += raiseVersion(fx[e], v);
   }
   return n;
 }
@@ -1703,24 +1906,35 @@ function stringifyCompact(v, indent = '') {
 }
 
 // ============================================================== report
+// Where an animation's pixels came from, for the report: "raw/idle_v03.png", "frames/idle/ (raw/idle_v03.png)",
+// "frames/idle/ (hand-edited, from raw/idle_v02.png)", "frames/light3/ (hand-made)".
+function originText(p) {
+  if (!p.source.startsWith('frames/')) return p.source;
+  if (p.handMade) return `${p.source} (hand-made)`;
+  if (p.edited) return `${p.source} (hand-edited${p.from ? `, from ${p.from}` : ''})`;
+  return p.from ? `${p.source} (${p.from})` : p.source;
+}
+
 function printReport(rep, env) {
   const L = (s = '') => console.log(s);
+  const S = rep.spec;
   L(`GCD Tourney sprite packer v${PACKER_VERSION}${env.dryRun ? '  (dry run - nothing written)' : ''}`);
   L(`  art:  ${rep.art}${rep.artExists ? '' : '  (missing)'}`);
   L(`  out:  ${rep.out}`);
   L(`  anims: ${rep.guideSource}${rep.manifest}`);
+  L(`  spec: ${S.name} (${S.frameWidth}x${S.frameHeight} cells, pivot [${S.pivot.join(',')}], ppu ${S.pixelsPerUnit}, <= ${S.maxColors} colors)`);
   for (const w of rep.warnings) L(`  ! ${w}`);
   for (const c of rep.characters) {
     L('');
     L(`== ${c.id} ${'='.repeat(Math.max(3, 60 - c.id.length))}`);
     if (!c.packed.length) {
       L('  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md');
-      L('  public/ was not touched for the sheet.');
+      if (!c.removed?.length) L('  public/ was not touched for the sheet.');
     } else {
       L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
       for (const p of c.packed) {
         const n = `${p.frames}`.padStart(2) + (p.frames !== p.expected ? `/${p.expected}` : '');
-        L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} ${p.source.padEnd(24)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+        L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
       }
     }
     if (c.missingCore.length) L(`  missing core (${c.missingCore.length}): ${c.missingCore.join(', ')}`);
@@ -1739,13 +1953,13 @@ function printReport(rep, env) {
     if (!v.packed.length) L('  nothing packed yet (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/) - the game keeps its procedural effects');
     else {
       L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas} (missing ones stay procedural)`);
-      for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${String(p.frames).padStart(2)}${p.frames !== p.expected ? '/' + p.expected : ''}  ${p.source.padEnd(24)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+      for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${(String(p.frames).padStart(2) + (p.frames !== p.expected ? '/' + p.expected : '')).padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
     }
     if (v.missing.length && v.packed.length) L(`  missing (procedural fallback): ${v.missing.join(', ')}`);
     for (const w of v.warnings) L(`  ! ${w}`);
     for (const f of v.wrote) L(`  wrote ${f}`);
   }
-  if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
+  if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status/version value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
   L('');
   const nw = rep.totalWarnings;
   L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${nw} warning(s).`);
@@ -1773,7 +1987,8 @@ async function main() {
   const manifest = normalizeManifest(mj.data);
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
-  const env = { cwd, artDir, outDir, guide, manifest, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol };
+  rep.spec = manifest.spec;
+  const env = { cwd, artDir, outDir, guide, manifest, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol };
 
   const folderIds = listDirs(path.join(artDir, 'characters')).filter((n) => !n.startsWith('_') && !n.startsWith('.'));
   const allIds = [...folderIds, ...Object.keys(manifest.characters).filter((n) => !n.startsWith('_') && !folderIds.includes(n))];

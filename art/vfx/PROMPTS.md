@@ -1,25 +1,27 @@
-# VFX prompts for the ChatGPT image generator
+# VFX image prompts
 
-Copy-paste prompts for every effect in [`EFFECTS.md`](EFFECTS.md). Read [`README.md`](README.md)
-for the rules and the workflow.
+Copy-paste prompts for every effect in [`EFFECTS.md`](EFFECTS.md), for Codex's built-in image
+generator or a ChatGPT chat run by the user. Read [`README.md`](README.md) for the rules and the
+workflow. VFX cells did not change in spec v2 (128 x 128, ppu 56); only the file names are versioned.
 
 ## How to use
 
-1. Start a **new ChatGPT chat** (one chat per effect, or a few related effects, keeps it focused).
-2. Paste the **Preamble** (section 0) as the first message.
-3. Paste one **effect prompt**. If you have `art/vfx/reference/vfx_style_sheet.png` (section 1), attach it
-   to every effect prompt so all effects share one style.
-4. Check the result against the QA list in `README.md`. If something is off, paste a **fix-up prompt**
-   (section 3) in the same chat.
-5. Save the image as `art/vfx/raw/<effect>.png` (the name in each prompt's "Save as" line), then run
-   `npm run sprites vfx`.
+1. Start a **new thread** (one thread per effect, or a few related effects, keeps it focused).
+2. Give the **Preamble** (section 0) as the first message.
+3. Give one **effect prompt**. If the approved `art/vfx/reference/vfx_style_sheet.png` exists
+   (section 1), attach it to every effect prompt so all effects share one style.
+4. Check the result against the QA list in `README.md`. If something is off, use a **fix-up prompt**
+   (section 3) in the same thread.
+5. Save the image under the "Save as" name with the **next free version** in place of `NN`
+   (`spark_v01.png`, `spark_v02.png`, ...; never overwrite or reuse a number), add a `needs review`
+   row to `art/REVIEW.md`, then run `npm run sprites vfx` (it packs the highest version).
 
 Tips:
 
-- ChatGPT draws better pixel art when there are fewer frames per image. If a strip comes out mushy,
-  ask for the first half and the second half as two images and stitch them left to right, or save the
-  single frames as `raw/<effect>_00.png`, `_01.png`... (same convention as characters; check the
-  packer report to confirm they were picked up).
+- Image generators draw better pixel art when there are fewer frames per image. If a strip comes out
+  mushy, ask for the first half and the second half as two images and stitch them left to right into
+  one `raw/<effect>_vNN.png`, or save the single frames as `raw/<effect>_00.png`, `_01.png`... (same
+  convention as characters; check the packer report to confirm they were picked up).
 - Sizes in the prompts are given as **% of the frame's square cell**, because the packer scales the
   whole strip with one factor. Relative sizes between frames matter more than absolute pixels.
 - "WHITE-ONLY" effects are tinted by the game (character color, hit color...). They must stay white
@@ -27,7 +29,7 @@ Tips:
 
 ---
 
-## 0. Preamble (paste once at the start of every chat)
+## 0. Preamble (paste once at the start of every thread)
 
 ```text
 You are drawing pixel-art visual-effect sprite strips for a 2.5D anime arena fighting game (anime fan-art style, modern anime fighting game hit effects, HD-2D pixel art). I will send one effect at a time. Follow these rules for every image:
@@ -60,8 +62,9 @@ Reply only "Ready" and wait for the first effect.
 
 ## 1. VFX style sheet (optional, do this first)
 
-Save as: `art/vfx/reference/vfx_style_sheet.png` (reference only, never packed). Attach it to every
-later effect prompt.
+Save as: `art/vfx/reference/vfx_style_sheet_vNN.png` (reference only, never packed). When the user
+approves one, copy it to `art/vfx/reference/vfx_style_sheet.png` and attach that to every later
+effect prompt.
 
 ```text
 Make a single style-reference sheet for all the effects of this game: a 5 x 3 grid of 15 effects on flat magenta #FF00FF, each in its own square cell with wide gaps, one representative frame each, all in one consistent hard-edged pixel-art style.
@@ -77,7 +80,7 @@ Light comes from the upper right. No text or labels.
 
 ### spark: crescent hit slash
 
-Save as: `art/vfx/raw/spark.png`
+Save as: `art/vfx/raw/spark_vNN.png`
 
 ```text
 Effect: HIT SLASH CRESCENT. WHITE-ONLY. 5 frames. CENTER-ANCHORED. Plays in 0.15 s when a punch or kick connects.
@@ -92,7 +95,7 @@ Colors: white #FFFFFF body, #E6E6E6 band along the inner edge. No outline.
 
 ### burst: spiky impact starburst
 
-Save as: `art/vfx/raw/burst.png`
+Save as: `art/vfx/raw/burst_vNN.png`
 
 ```text
 Effect: IMPACT STARBURST. WHITE-ONLY. 5 frames. CENTER-ANCHORED. Plays in 0.18 s on heavy hits.
@@ -107,7 +110,7 @@ Colors: solid white #FFFFFF, optional #E6E6E6 band near the spike bases. No outl
 
 ### ring: shockwave ring
 
-Save as: `art/vfx/raw/ring.png`
+Save as: `art/vfx/raw/ring_vNN.png`
 
 ```text
 Effect: SHOCKWAVE RING. WHITE-ONLY. 6 frames. CENTER-ANCHORED. Plays in 0.21 s.
@@ -118,7 +121,7 @@ Colors: white #FFFFFF line, optional #C8C8C8 inner edge row. No outline.
 
 ### dust: ground dust puff
 
-Save as: `art/vfx/raw/dust.png`
+Save as: `art/vfx/raw/dust_vNN.png`
 
 ```text
 Effect: GROUND DUST PUFF. FULL COLOR. 6 frames. BOTTOM-ANCHORED (all frames sit on the same ground line, horizontally centered). Plays in 0.36 s when a fighter runs, dashes or lands.
@@ -134,7 +137,7 @@ Palette (warm sand): highlight #F3EADB, light #E4D2BB, mid #CDB9A2, shadow #B39A
 
 ### smoke: vanish poof
 
-Save as: `art/vfx/raw/smoke.png`
+Save as: `art/vfx/raw/smoke_vNN.png`
 
 ```text
 Effect: SMOKE-BOMB POOF. FULL COLOR. 7 frames. CENTER-ANCHORED. Plays in 0.39 s when a ninja vanishes, and around explosions.
@@ -151,7 +154,7 @@ Palette (cool neutral, no pink or lavender): highlight #FFFFFF, light #ECEEF2, m
 
 ### shuriken: spinning throwing star
 
-Save as: `art/vfx/raw/shuriken.png`
+Save as: `art/vfx/raw/shuriken_vNN.png`
 
 ```text
 Effect: SPINNING THROWING STAR. FULL COLOR. 4 frames. CENTER-ANCHORED. Loops while the projectile flies (0.16 s per loop).
@@ -165,7 +168,7 @@ Palette (steel): outline and hole #1A1A24, dark #3A3F4C, mid #5A6070, light #8A9
 
 ### fire: fireball
 
-Save as: `art/vfx/raw/fire.png`
+Save as: `art/vfx/raw/fire_vNN.png`
 
 ```text
 Effect: ROARING FIREBALL. FULL COLOR. 4 frames. CENTER-ANCHORED. Loops (0.24 s) while a big breathed fireball flies; small copies also form its trail.
@@ -180,7 +183,7 @@ Palette (hard bands from outside in): outline #7A1A08, deep red #C42A10, orange 
 
 ### flame: aura flame tongue
 
-Save as: `art/vfx/raw/flame.png`
+Save as: `art/vfx/raw/flame_vNN.png`
 
 ```text
 Effect: AURA FLAME TONGUE. WHITE-ONLY. 7 frames. BOTTOM-ANCHORED (the base of every frame sits on the same ground line, horizontally centered). Plays in 0.39 s; many of these together form a fighter's power-up aura.
@@ -198,7 +201,7 @@ Colors: white #FFFFFF core, #E6E6E6 outer band, optional #C8C8C8 edge. No outlin
 
 ### lightning: crackling electric bolts
 
-Save as: `art/vfx/raw/lightning.png`
+Save as: `art/vfx/raw/lightning_vNN.png`
 
 ```text
 Effect: CRACKLING LIGHTNING CLUSTER. WHITE-ONLY. 6 frames. CENTER-ANCHORED. The game shows these frames in random order and random rotation, so every frame is a different, self-contained cluster (no continuity needed).
@@ -214,7 +217,7 @@ Colors: thick bolts white #FFFFFF with a 1-2 px #C8C8C8 edge; thin forks and the
 
 ### orb: spinning wind sphere
 
-Save as: `art/vfx/raw/orb.png`
+Save as: `art/vfx/raw/orb_vNN.png`
 
 ```text
 Effect: SPINNING WIND-ENERGY SPHERE held in a ninja's palm. FULL COLOR. 6 frames. CENTER-ANCHORED. Loops (0.24 s per turn).
@@ -226,7 +229,7 @@ Palette: rim #1C3FA8, blue #3A7CF0, light blue #7AB8FF, pale #BFE4FF, near-white
 
 ### glow: light disc
 
-Save as: `art/vfx/raw/glow.png` (the packer converts the grey rings luma-to-alpha; see `EFFECTS.md` -> glow)
+Save as: `art/vfx/raw/glow_vNN.png` (the packer converts the grey rings luma-to-alpha; see `EFFECTS.md` -> glow)
 
 ```text
 Effect: LIGHT DISC. 2 frames. CENTER-ANCHORED. Pulses between the two frames.
@@ -238,7 +241,7 @@ Frame 2: slightly smaller: outer 75%, middle 53%, core 31%.
 
 ### streak: aura light streak
 
-Save as: `art/vfx/raw/streak.png`
+Save as: `art/vfx/raw/streak_vNN.png`
 
 ```text
 Effect: AURA LIGHT STREAK. WHITE-ONLY. 6 frames. BOTTOM-ANCHORED (horizontally centered; the bottom of the streak starts on the ground line and lifts a little each frame). Plays in 0.27 s inside a power-up aura.
@@ -255,7 +258,7 @@ Colors: white #FFFFFF line, the wide segment white with #E6E6E6 sides. No outlin
 
 ### star: 4-point flare
 
-Save as: `art/vfx/raw/star.png`
+Save as: `art/vfx/raw/star_vNN.png`
 
 ```text
 Effect: 4-POINT STAR FLARE. WHITE-ONLY. 5 frames. CENTER-ANCHORED. Plays in 0.2 s at the center of every hit. Frame 3 is also used alone as a tiny sparkle particle, so it must read cleanly when shrunk very small.
@@ -271,7 +274,7 @@ Colors: white #FFFFFF arms and core, optional #E6E6E6 on the tapered arm ends. N
 
 ### crater: floor crater decal
 
-Save as: `art/vfx/raw/crater.png`
+Save as: `art/vfx/raw/crater_vNN.png`
 
 ```text
 Effect: FLOOR CRATER DECAL. FULL COLOR. 3 frames = 3 different VARIANTS (not an animation). CENTER-ANCHORED. Seen STRAIGHT FROM ABOVE (top-down, no perspective): it is laid flat on the arena floor in the game.
@@ -284,7 +287,7 @@ Palette: tile tones #EADBC6, #DDC9B0, #CFB79C, #C8AD92; rim/grout #A99079; crack
 
 ### lines: radial impact lines
 
-Save as: `art/vfx/raw/lines.png`
+Save as: `art/vfx/raw/lines_vNN.png`
 
 ```text
 Effect: RADIAL IMPACT LINES. WHITE-ONLY. 4 frames. CENTER-ANCHORED. Plays in 0.16 s around every hit, like the impact lines in modern anime fighting games.
@@ -298,7 +301,7 @@ Colors: solid white #FFFFFF only. No outline.
 
 ---
 
-## 3. Fix-up prompts (paste in the same chat)
+## 3. Fix-up prompts (paste in the same thread; save each result you keep as the next version)
 
 **Too soft / glowy / blurry**
 
@@ -355,12 +358,12 @@ Draw only frames 1 to <K> of this strip in a new image, larger and with finer pi
 ```
 (Then ask for the remaining frames, and stitch the two images left to right before saving.)
 
-## 4. If ChatGPT refuses
+## 4. If the image generator refuses
 
 These prompts describe shapes and colors only, with no franchise or artist names, so refusals should
 be rare. If one happens:
 
-- Start a new chat, paste the preamble, then the effect prompt again.
+- Start a new thread, paste the preamble, then the effect prompt again.
 - For the signature effects, use the neutral wording: `orb` -> "a magical sphere of swirling blue wind",
   `lightning` -> "a cluster of electric sparks", `fire` -> "a round fire spell projectile",
   `shuriken` -> "a 4-pointed metal throwing star".

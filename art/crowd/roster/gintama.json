@@ -1,0 +1,95 @@
+{
+  "group": "gintama",
+  "kind": "cameo",
+  "series": "Gintama",
+  "spectators": [
+    {
+      "id": "gin-001",
+      "name": "Gintoki Sakata",
+      "heightClass": "tall",
+      "look": "lazy samurai odd-jobber with fluffy wavy silver natural-perm hair, half-lidded dead-fish red eyes and a bored face, wearing a white kimono with a blue swirl-wave pattern on the hem worn half off one shoulder over a black high-collar shirt and black pants, black boots, a wooden sword tucked in his belt and a pink strawberry-milk carton in hand",
+      "fallbackLook": "lazy samurai with fluffy wavy silver hair, half-lidded dead-fish red eyes and a bored face, a white kimono with a blue swirl pattern on the hem worn half off one shoulder over a black high-collar shirt and black pants, black boots, a wooden sword tucked in his belt and a pink milk carton in hand",
+      "idle": "sipping the milk carton through a straw, totally bored",
+      "cheer": "wooden sword swung lazily out to the side, half-hearted cheer",
+      "shocked": "eyes bulging out comically, milk spraying from his mouth",
+      "tags": ["adult", "male", "samurai", "swordsman", "comedy"]
+    },
+    {
+      "id": "gin-002",
+      "name": "Shinpachi Shimura",
+      "heightClass": "medium",
+      "look": "earnest, plain teen samurai with short neat black hair and rectangular glasses, wearing a light blue kimono top with white hakama and a wooden sword at his side, plus a red-and-white idol fan-club headband and a glow stick",
+      "fallbackLook": "earnest, plain teen boy with short neat black hair and rectangular glasses, a light blue kimono top with white hakama trousers, a red-and-white fan-club headband and a glow stick",
+      "idle": "pushing up his glasses with a long-suffering sigh",
+      "cheer": "waving the glow stick wildly, idol-fan style",
+      "shocked": "glasses cracked, pointing with a shouting retort face",
+      "tags": ["teen", "male", "samurai", "glasses", "idol-fan", "comedy"]
+    },
+    {
+      "id": "gin-003",
+      "name": "Kagura",
+      "heightClass": "short",
+      "look": "small but monstrously strong alien girl with vermilion hair in two side buns with bun covers, big blue eyes and a cheeky face, wearing a red Chinese cheongsam with yellow trim and black shoes, a purple parasol over her shoulder, chewing a strip of vinegared kelp",
+      "fallbackLook": "small, fierce girl with vermilion hair in two side buns, big blue eyes and a cheeky face, a red Chinese-style dress with yellow trim, black shoes and a purple parasol over her shoulder, chewing a dried snack strip",
+      "idle": "parasol over her shoulder, chewing her kelp snack lazily",
+      "cheer": "parasol thrust skyward, shouting with a huge grin",
+      "shocked": "snack dropping out of her gaping mouth",
+      "tags": ["teen", "female", "alien", "parasol", "food"]
+    },
+    {
+      "id": "gin-004",
+      "name": "Elizabeth",
+      "heightClass": "tall",
+      "look": "mysterious tall white creature like a duck under a sheet: a smooth white rounded body, round blank eyes, a big flat yellow beak and stubby legs, holding up a blank white signboard on a stick",
+      "fallbackLook": "tall white blob-like creature resembling a duck under a sheet, with a smooth white rounded body, round blank eyes, a big flat yellow beak and stubby legs, holding up a blank white signboard on a stick",
+      "idle": "holding up the blank signboard, staring blankly",
+      "cheer": "waving the signboard out to the side, beak wide open",
+      "shocked": "signboard dropped, round eyes even rounder, body leaning back",
+      "tags": ["creature", "comedy", "sign"]
+    },
+    {
+      "id": "gin-005",
+      "name": "Kotaro Katsura",
+      "heightClass": "medium",
+      "look": "earnest, serious rebel samurai with long straight glossy black hair down to his waist and calm dark eyes, wearing a dark indigo kimono under a pale blue haori jacket, a katana at his hip",
+      "fallbackLook": "serious young samurai with long straight glossy black hair down to his waist and calm dark eyes, a dark indigo kimono under a pale blue haori jacket, a katana at his hip",
+      "idle": "arms folded inside his sleeves, solemn nod",
+      "cheer": "fist raised, earnest rallying shout",
+      "shocked": "long hair whipping back, eyes wide, steadying himself",
+      "tags": ["adult", "male", "samurai", "long-hair"]
+    },
+    {
+      "id": "gin-006",
+      "name": "Toshiro Hijikata",
+      "heightClass": "medium",
+      "look": "stern police vice-commander with black hair cut in sharp V-shaped bangs and intense narrow eyes with small pupils, wearing a black Shinsengumi uniform with gold trim and a white cravat, a katana at his hip, squeezing a big bottle of mayonnaise",
+      "fallbackLook": "stern young swordsman with black hair cut in sharp V-shaped bangs and intense narrow eyes, a black uniform jacket with gold trim and a white cravat, a katana at his hip, squeezing a big squeeze-bottle of mayonnaise",
+      "idle": "squirting mayonnaise straight into his mouth, scowling at the ring",
+      "cheer": "mayonnaise bottle raised high like a trophy",
+      "shocked": "bottle squirting everywhere, eyes wide with rage",
+      "tags": ["adult", "male", "samurai", "police", "food"]
+    },
+    {
+      "id": "gin-007",
+      "name": "Shinsuke Takasugi",
+      "heightClass": "medium",
+      "look": "dangerous rebel samurai with short dark-purple hair, a white bandage over his left eye and a cold crescent smirk, wearing a deep violet kimono with gold butterfly patterns, holding an unlit long thin kiseru pipe",
+      "fallbackLook": "dangerous young samurai with short dark-purple hair, a white bandage over his left eye and a cold smirk, a deep violet kimono with gold butterfly patterns, holding an unlit long thin pipe",
+      "idle": "leaning back, long pipe in hand, cold amused smirk",
+      "cheer": "soft menacing chuckle, pipe lifted slightly",
+      "shocked": "visible eye narrowing, kimono sleeves flaring",
+      "tags": ["adult", "male", "samurai", "villain", "eyepatch"]
+    },
+    {
+      "id": "gin-008",
+      "name": "Tae Shimura",
+      "heightClass": "medium",
+      "look": "polite, terrifying young woman with brown hair tied in a high ponytail and a sweet closed-eye smile hiding a dark aura, wearing a pale pink kimono with a darker obi, holding a plate of charred black egg omelets",
+      "fallbackLook": "polite young woman with brown hair in a high ponytail and a sweet closed-eye smile hiding a dark aura, a pale pink kimono with a darker obi, holding a plate of charred black egg omelets",
+      "idle": "smiling sweetly, offering her charred omelets",
+      "cheer": "fist clenched with a sweet but menacing smile",
+      "shocked": "plate cracking in her grip, smile twitching with a dark aura",
+      "tags": ["adult", "female", "kimono", "food", "comedy"]
+    }
+  ]
+}

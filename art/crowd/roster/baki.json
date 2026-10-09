@@ -1,0 +1,95 @@
+{
+  "group": "baki",
+  "kind": "cameo",
+  "series": "Baki the Grappler",
+  "spectators": [
+    {
+      "id": "baki-001",
+      "name": "Baki Hanma",
+      "heightClass": "medium",
+      "look": "compact heavily muscled young fighter with short spiky dark-red hair, faint scars on his face and arms, calm fierce eyes; black sleeveless tank top, loose dark-grey training pants, black sneakers",
+      "fallbackLook": "compact heavily muscled young fighter with short spiky dark-red hair, faint scars and calm fierce eyes, black sleeveless tank top, loose dark-grey training pants and black sneakers",
+      "idle": "arms crossed, calm half-smile",
+      "cheer": "both fists up, grinning wildly",
+      "shocked": "muscles tensed, sweat pouring, eyes wide",
+      "tags": ["martial-artist", "hero", "muscular"]
+    },
+    {
+      "id": "baki-002",
+      "name": "Yujiro Hanma",
+      "heightClass": "huge",
+      "look": "massive terrifying man with wild spiky red hair, sharp brows and a demonic grin, impossibly bulky muscles with a demon-face-shaped back; fitted black sleeveless shirt, grey slacks, black shoes",
+      "fallbackLook": "massive terrifying man with wild spiky red hair and a demonic grin, impossibly bulky muscles, fitted black sleeveless shirt, grey slacks and black shoes",
+      "idle": "arms crossed, demonic grin",
+      "cheer": "arms spread wide, back muscles bulging, laughing",
+      "shocked": "one eyebrow raised, unimpressed sneer",
+      "tags": ["martial-artist", "villain", "giant", "muscular"]
+    },
+    {
+      "id": "baki-003",
+      "name": "Doppo Orochi",
+      "heightClass": "tall",
+      "look": "bald burly karate master with a black eyepatch over one eye, a short dark goatee and a calm smile; white karate gi with a worn black belt, bare forearms wrapped in tape",
+      "fallbackLook": "bald burly karate master with a black eyepatch over one eye and a short dark goatee, white karate gi with a worn black belt and taped forearms",
+      "idle": "arms folded, nodding calmly",
+      "cheer": "straight karate punch thrust out to the side, kiai shout",
+      "shocked": "single eye wide, eyepatch askew",
+      "tags": ["martial-artist", "karate", "elder", "master"]
+    },
+    {
+      "id": "baki-004",
+      "name": "Retsu Kaioh",
+      "heightClass": "tall",
+      "look": "lean fierce kung fu master with long black hair in a single braid, sharp narrow eyes and a stern mouth; black mandarin-collar kung fu jacket with white frog buttons, black pants, white cloth shoes",
+      "fallbackLook": "lean fierce kung fu master with long black hair in a single braid and sharp narrow eyes, black mandarin-collar kung fu jacket with white frog buttons, black pants and white cloth shoes",
+      "idle": "fist-in-palm salute, stern",
+      "cheer": "one-legged crane pose, shouting",
+      "shocked": "braid whipping around, eyes narrowed",
+      "tags": ["martial-artist", "kung-fu", "master"]
+    },
+    {
+      "id": "baki-005",
+      "name": "Jack Hanma",
+      "heightClass": "huge",
+      "look": "giant long-limbed fighter with shaggy blond hair, a stitched scarred face and sharp jagged teeth, enormous veiny muscles; torn black tank top, faded blue jeans, a meat skewer in one hand",
+      "fallbackLook": "giant long-limbed fighter with shaggy blond hair, a stitched scarred face and sharp jagged teeth, enormous veiny muscles, torn black tank top, faded blue jeans and a meat skewer",
+      "idle": "chewing a meat skewer, staring hungrily",
+      "cheer": "arms wide, roaring with sharp teeth",
+      "shocked": "jaw open, veins bulging",
+      "tags": ["martial-artist", "giant", "muscular"]
+    },
+    {
+      "id": "baki-006",
+      "name": "Kaoru Hanayama",
+      "heightClass": "tall",
+      "look": "tall broad yakuza boss with slicked-back dark hair, square glasses and a scarred stern face; crisp white double-breasted suit, dark shirt, black shoes, huge fists",
+      "fallbackLook": "tall broad gangster boss with slicked-back dark hair, square glasses and a scarred stern face, crisp white double-breasted suit over a dark shirt, black shoes and huge fists",
+      "idle": "hands in his pockets, impassive",
+      "cheer": "one huge fist raised, slow approving nod",
+      "shocked": "glasses glinting, stiff stare",
+      "tags": ["gangster", "rich", "brawler"]
+    },
+    {
+      "id": "baki-007",
+      "name": "Biscuit Oliva",
+      "heightClass": "huge",
+      "look": "absurdly muscular giant with a shaved head, thick dark mustache and tiny round sunglasses; skin-tight dark-grey suit straining over enormous muscles, white shirt, a thick hardcover book in one hand",
+      "fallbackLook": "absurdly muscular giant with a shaved head, thick dark mustache and tiny round sunglasses, skin-tight dark-grey suit straining over enormous muscles, holding a thick hardcover book",
+      "idle": "reading a thick book, sunglasses on",
+      "cheer": "flexing both arms out to the sides, laughing",
+      "shocked": "sunglasses sliding down his nose, eyebrows up",
+      "tags": ["giant", "muscular", "rich"]
+    },
+    {
+      "id": "baki-008",
+      "name": "Mitsunari Tokugawa",
+      "heightClass": "short",
+      "look": "small mischievous elderly patron, bald with a fringe of grey hair, bushy grey brows and a wrinkled grin; dark-brown kimono with a black haori jacket, wooden geta sandals, a folding fan",
+      "fallbackLook": "small mischievous elderly man, bald with a fringe of grey hair, bushy grey brows and a wrinkled grin, dark-brown kimono with a black haori jacket, wooden geta sandals and a folding fan",
+      "idle": "fanning himself, sly grin",
+      "cheer": "fan snapped open overhead, cackling",
+      "shocked": "fan dropped, eyes popping",
+      "tags": ["elder", "rich", "patron"]
+    }
+  ]
+}

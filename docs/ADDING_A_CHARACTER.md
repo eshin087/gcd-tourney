@@ -10,7 +10,7 @@ A new character touches four places:
 |---|---|
 | `src/characters/<id>.js` | gameplay data, colors, stats, special/projectile/beam, 3D placeholder model, stance, extra anims |
 | `src/characters/index.js` | registration in `ROSTER` |
-| `art/characters/<id>/` | briefs and prompts for ChatGPT, raw images, cleaned frames, UI art, hitbox overrides |
+| `art/characters/<id>/` | briefs and image prompts, versioned reference sheets and raw images, cleaned frames, UI art, hitbox overrides |
 | `public/characters/<id>/` | packer output (never edit by hand) |
 
 Shared code (`src/game/moves.js`, `effects.js`, `audio.js`) changes only when the character brings a **new**
@@ -21,8 +21,9 @@ special, projectile or effect type.
 - Pick an **id**: lowercase ascii letters, digits and `_` (not leading: the packer skips folders that
   start with `_` or `.`), no spaces, e.g. `goku`, `rock_lee`. It's used in file names, URLs and the
   manifest.
-- Write a one-paragraph concept: archetype, silhouette, signature special, projectile, ultimate name, colors,
-  and how it should *feel* (rushdown, zoner, bruiser).
+- Write a one-paragraph concept: design era / outfit (Naruto and Sasuke use their Shippuden designs), archetype,
+  silhouette, signature special, projectile, ultimate name, colors, and how it should *feel* (rushdown,
+  zoner, bruiser).
 - Add tasks to [TASKS.md](TASKS.md): `CHAR-<id>-data`, `CHAR-<id>-briefs`, `ART-<id>-ref`, `ART-<id>-core`,
   `ART-<id>-optional`, `ART-<id>-ui`, `CHAR-<id>-balance`.
 - Create a branch: `feature/char-<id>`.
@@ -50,7 +51,9 @@ characters go at the end.
 
 ## 2. 3D placeholder model (Claude)
 
-The game must be playable before any custom art exists, so every character gets a baked placeholder.
+The game must be playable before any custom art exists, so every character gets a baked placeholder. The
+placeholder rig is chibi (112 px cells, PPU 44) even though the real art is ~6.5 heads (spec v2). That's
+expected: it stands at the same world height, and restyling the rig is a separate task (ENG-016).
 
 - `model.palette`: color ramps per material (`base`, `shadow`, `light`, optional `hi`). Use the character's
   real colors. The same hexes go into `art/characters/<id>/CHARACTER.md`.
@@ -82,15 +85,19 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
 
 1. Copy `art/characters/_template/` to `art/characters/<id>/`.
 2. Fill in:
-   - `CHARACTER.md`: visual traits from the source material (hair shape and color, eyes, marks, outfit layers,
-     accessories, silhouette notes), the hex palette (≤ 32 colors, matching `model.palette`), proportions
-     per art/SPEC.md, do's and don'ts, and what makes the character instantly recognizable.
+   - `CHARACTER.md`: the design era, visual traits from the source material (hair shape and color, eyes,
+     marks, outfit layers, accessories, silhouette notes), the hex palette (≤ 48 colors, matching
+     `model.palette`), proportions per art/SPEC.md (spec v2: about 6.5 heads, not chibi), an identity
+     checklist that every model sheet is checked against, do's and don'ts, and what makes the character
+     instantly recognizable.
    - `ANIMATIONS.md`: every animation from `src/art/animGuide.js` with frame counts, phases and the
      character-specific pose description (how *this* character punches, runs, charges, wins).
    - `MOVES_AND_VFX.md`: special, projectile, ultimate and aura look, plus which VFX effects they use and
      where the effect sits relative to the hand on each frame.
-   - `PROMPTS.md`: copy-paste ChatGPT prompts in `art/manifest.json` step order: model sheet, expression
-     sheet, then one prompt per animation strip, then UI (portrait, cut-in, select). Describe visual traits and say "anime fan-art sprite". Include the
+   - `PROMPTS.md`: copy-paste image prompts (for Codex's built-in image generator, also usable by hand in
+     ChatGPT) in `art/manifest.json` step order: S1 model sheet, S2 expression sheet, then one prompt per
+     animation strip, then UI (portrait, cut-in, select), each with its versioned save name
+     (`<asset>_vNN.png`). Describe visual traits and say "anime fan-art sprite". Include the
      **fallback wording** for when a name or style request is refused.
 3. Add the character to `art/manifest.json` (every animation with `frames`, `phases`, `bodyHeight`,
    `required`, `status: "todo"`) and to `art/TRACKER.md`.
@@ -98,23 +105,34 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
 Don't invent animation names. If the character needs a pose the list doesn't have, raise a task for
 Claude (see CLAUDE.md, hard rule 2).
 
-## 5. Generate the art (User in ChatGPT, coordinated by Codex)
+## 5. Generate the art (Codex generates, the user approves)
 
-Order matters for consistency. Follow the `step` numbers in `art/manifest.json` (details:
-[art/PIPELINE.md "Generation order"](../art/PIPELINE.md#generation-order)):
+Codex generates every image with its built-in image generator (session prompt: Prompt 1 in
+[agents/CODEX_PROMPT.md](agents/CODEX_PROMPT.md)). The user can also generate one by hand in ChatGPT; it
+gets the same naming and review. Order matters for consistency. Follow the `step` numbers in
+`art/manifest.json` (details: [art/PIPELINE.md "Generation order"](../art/PIPELINE.md#generation-order)):
 
-1. **Model sheet** (front, 3/4 right, side, back, fighting stance, palette swatches) →
-   **expression sheet** → **idle** (approved copy saved as `reference/idle_approved.png`). Save them to
-   `art/characters/<id>/reference/` and attach them to every later prompt.
+1. **Model sheet** (front, 3/4 right, true side profile, back, fighting stance, palette swatches) →
+   **expression sheet** → **idle**. Each approved one is copied to its fixed name in
+   `art/characters/<id>/reference/` (`model_sheet.png`, `expressions.png`, `idle_approved.png`) and
+   attached to every later prompt.
 2. **CORE animations**, in step order: run; light1 to light4, heavy, airLight1, airHeavy; guard, hurtHigh,
    launched, down, getup; charge, beamCharge, beamFire, special; dash, jumpUp, jumpFall, land, win. The game
    uses a custom sheet only when all of these exist (or with `?art=custom`).
 3. Optional animations, which otherwise fall back (see `FALLBACK` in `src/game/sprites.js`).
-4. UI: `portrait.png` (96×96), `cutin.png` (480×128), `select.png` (384×384) saved in
-   `art/characters/<id>/ui/` (the packer removes the magenta and fits the size).
+4. UI: portrait (96×96), cut-in (480×128), select (384×384), generated as `raw/ui_<name>_vNN.png`; the
+   approved one is copied to `art/characters/<id>/ui/<name>.png` (the packer removes the magenta and fits
+   the size).
 
-Codex files each image as `raw/<anim>.png` (strip) or `raw/<anim>_NN.png` (single frames) and sets the status
-to `raw`.
+Every generated image is saved with a version number and never overwritten
+([ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md)): `reference/model_sheet_vNN.png`,
+`reference/expressions_vNN.png`, `raw/<anim>_vNN.png` (strip; the packer uses the highest version),
+`raw/_parts/<anim>_vNN_A.png` / `_B.png`, `raw/<anim>_NN_fixMM.png` for single-frame fix attempts (the
+patched strip is saved as the next `raw/<anim>_vNN.png`), and `raw/<anim>_NN.png` only for an animation
+delivered frame by frame. Codex adds a row for each one to [art/REVIEW.md](../art/REVIEW.md), sets the
+status to `raw` (when it was `todo`; a status never goes down) with the newest `version`, and
+stops for the user's `approve vNN` (which sets `approvedVersion`) or feedback (the version is rejected and
+the next one generated).
 
 ## 6. Pack and review (Codex)
 
@@ -122,9 +140,10 @@ to `raw`.
 npm run sprites <id>
 ```
 
-- Read the report: packed anims, missing CORE anims, frame-count mismatches, clipped frames, palette > 48.
+- Read the report: the `_vNN` file used per animation, packed anims, missing CORE anims, frame-count
+  mismatches, clipped frames, palette warnings (spec v2 target ≤ 48 colors; the packer warns above 64).
 - Inspect `art/characters/<id>/frames/<anim>/` (cleaned frames you can touch up by hand and re-pack).
-- Fix hit/hurt boxes with `art/characters/<id>/hitboxes.json` (frame-local px in the 192 cell, per animation
+- Fix hit/hurt boxes with `art/characters/<id>/hitboxes.json` (frame-local px in the 256 cell, per animation
   and frame number). Strikes on active frames must cover the fist, foot or palm, nothing more.
 - Set the status to `packed` in the manifest and tracker.
 

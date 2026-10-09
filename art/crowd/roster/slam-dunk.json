@@ -1,0 +1,73 @@
+{
+  "group": "slam-dunk",
+  "kind": "cameo",
+  "series": "Slam Dunk",
+  "spectators": [
+    {
+      "id": "sd-001",
+      "name": "Hanamichi Sakuragi",
+      "heightClass": "tall",
+      "look": "tall lanky teen with short spiky red buzz-cut hair and a cocky grin; red basketball tank jersey with white-and-black trim and no lettering, matching red shorts, white wristbands, white high-top sneakers, a basketball in one hand",
+      "fallbackLook": "tall lanky teen with short spiky red buzz-cut hair and a cocky grin, plain red basketball tank jersey and shorts with white-and-black trim, white wristbands, white high-top sneakers and a basketball",
+      "idle": "spinning a basketball on one finger, smug",
+      "cheer": "arms flung wide to the sides, bragging laugh",
+      "shocked": "basketball bouncing off his head, gaping",
+      "tags": ["athlete", "basketball", "teen", "delinquent"]
+    },
+    {
+      "id": "sd-002",
+      "name": "Kaede Rukawa",
+      "heightClass": "tall",
+      "look": "tall cool teen with straight black hair and long bangs over sleepy half-lidded eyes; black high-collar gakuran school uniform with gold buttons, white earphones with a cord, a basketball tucked under one arm",
+      "fallbackLook": "tall cool teen with straight black hair and long bangs over sleepy half-lidded eyes, black high-collar school uniform with gold buttons, white corded earphones and a basketball under one arm",
+      "idle": "half-asleep on his feet, yawning",
+      "cheer": "small fist raised, deadpan nod",
+      "shocked": "waking with a start, earphones popping out",
+      "tags": ["athlete", "basketball", "teen", "cool"]
+    },
+    {
+      "id": "sd-003",
+      "name": "Takenori Akagi",
+      "heightClass": "huge",
+      "look": "huge burly teen center with a short buzzed flat-top, heavy brows, a broad gorilla-like jaw and a stern frown; red zip warm-up jacket over a red tank jersey, red shorts, big white sneakers",
+      "fallbackLook": "huge burly teen basketball center with a short buzzed flat-top, heavy brows, a broad gorilla-like jaw and stern frown, red zip warm-up jacket over a red tank jersey, red shorts and big white sneakers",
+      "idle": "arms crossed, stern frown",
+      "cheer": "both fists out to the sides, roaring like a gorilla",
+      "shocked": "eyes bulging, mouth hanging open",
+      "tags": ["athlete", "basketball", "giant", "captain"]
+    },
+    {
+      "id": "sd-004",
+      "name": "Hisashi Mitsui",
+      "heightClass": "tall",
+      "look": "lean teen shooter with short dark hair, a small scar on his chin and determined eyes; red tank jersey and shorts, white knee pads, a white towel draped around his neck",
+      "fallbackLook": "lean teen basketball shooter with short dark hair, a small scar on his chin, red tank jersey and shorts, white knee pads and a white towel draped around his neck",
+      "idle": "towel over his shoulders, catching his breath",
+      "cheer": "three fingers raised, grinning",
+      "shocked": "towel slipping off, jaw dropped",
+      "tags": ["athlete", "basketball", "teen"]
+    },
+    {
+      "id": "sd-005",
+      "name": "Haruko Akagi",
+      "heightClass": "medium",
+      "look": "sweet petite teen girl with long straight dark-brown hair and big sparkling eyes; navy sailor school uniform with white collar stripes and a red neck scarf, navy pleated skirt, white socks, a red-and-white pom-pom in each hand",
+      "fallbackLook": "sweet petite teen girl with long straight dark-brown hair and big sparkling eyes, navy sailor school uniform with white collar stripes and a red neck scarf, navy pleated skirt, holding red-and-white pom-poms",
+      "idle": "hands clasped under her chin, starry-eyed",
+      "cheer": "jumping, waving her pom-poms",
+      "shocked": "hands over her mouth, tearful eyes",
+      "tags": ["fan", "student", "teen", "woman"]
+    },
+    {
+      "id": "sd-006",
+      "name": "Coach Anzai",
+      "heightClass": "medium",
+      "look": "plump gentle elderly coach with short white hair, round rimless glasses, a fluffy white beard and double chin, round belly; dark-navy polo shirt, khaki slacks, brown shoes",
+      "fallbackLook": "plump gentle elderly coach with short white hair, round rimless glasses, a fluffy white beard and double chin, dark-navy polo shirt over a round belly, khaki slacks",
+      "idle": "hands on his belly, chuckling",
+      "cheer": "small happy clap, glasses glinting",
+      "shocked": "glasses flashing white, mouth a small O",
+      "tags": ["elder", "coach"]
+    }
+  ]
+}

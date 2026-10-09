@@ -1,0 +1,156 @@
+{
+  "group": "vendors-workers",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-vw-001",
+      "label": "Noodle seller",
+      "heightClass": "medium",
+      "look": "stocky cheerful cook with a round face, a thin black mustache and a twisted white towel headband, wearing a white cook's jacket with rolled sleeves and a long navy apron, carrying a wooden tray with a steaming bowl of noodles and chopsticks",
+      "idle": "balancing the tray, craning to see the ring",
+      "cheer": "tray raised high in one hand, other fist up",
+      "shocked": "noodles flying out of the bowl, eyes wide",
+      "tags": ["vendor", "food", "headband"]
+    },
+    {
+      "id": "org-vw-002",
+      "label": "Popcorn vendor",
+      "heightClass": "medium",
+      "look": "skinny freckled young man with a red-and-white striped vest, a white paper boat hat and a bow tie, carrying a neck-strap tray stacked with red-striped paper cones of popcorn",
+      "idle": "holding out a cone of popcorn to a customer, eyes on the ring",
+      "cheer": "tossing popcorn in the air, cheering",
+      "shocked": "popcorn exploding out of the tray, paper hat flying",
+      "tags": ["vendor", "food", "hat"]
+    },
+    {
+      "id": "org-vw-003",
+      "label": "TV cameraman",
+      "heightClass": "tall",
+      "look": "burly cameraman with a backwards black cap, a short beard and a headset with a mic, wearing a black t-shirt under a khaki many-pocket vest and cargo pants, a big shoulder-mounted broadcast camera with a red tally light",
+      "idle": "filming the ring with the camera on his shoulder",
+      "cheer": "camera steadied with one hand, other arm out to the side, whooping",
+      "shocked": "camera tilting off his shoulder, mouth open under the headset",
+      "tags": ["worker", "camera", "cap", "big"]
+    },
+    {
+      "id": "org-vw-004",
+      "label": "Huge security guard",
+      "heightClass": "huge",
+      "look": "massive broad-shouldered security guard with a flat-top haircut, dark sunglasses, a coiled earpiece and a stone face, wearing a navy uniform shirt with a plain yellow armband, black trousers and a black belt with a flashlight",
+      "idle": "arms crossed, scanning the crowd",
+      "cheer": "arms out to the sides, a rare grin cracking his face",
+      "shocked": "sunglasses sliding off, jaw dropped",
+      "tags": ["worker", "security", "sunglasses", "big"]
+    },
+    {
+      "id": "org-vw-005",
+      "label": "Sleepy janitor with a mop",
+      "heightClass": "medium",
+      "look": "lanky middle-aged janitor with a long face, sleepy droopy eyes and a grey stubble, wearing a grey cap and grey work overalls with a rag in the back pocket, holding a mop next to a yellow bucket on wheels",
+      "idle": "leaning on the mop handle, watching the fight",
+      "cheer": "mop raised high like a flag",
+      "shocked": "mop dropped, cap blown back",
+      "tags": ["worker", "cleaner", "cap", "prop"]
+    },
+    {
+      "id": "org-vw-006",
+      "label": "Drink-tank vendor girl",
+      "heightClass": "medium",
+      "look": "energetic young woman with a short orange bob and a green sun visor, wearing a green-and-white uniform polo and shorts, carrying a silver drink tank on her back with a hose nozzle and a stack of paper cups",
+      "idle": "filling a cup from the hose, glancing at the ring",
+      "cheer": "spraying a little arc of drink in the air, laughing",
+      "shocked": "hose flailing, cups scattering",
+      "tags": ["vendor", "food", "female", "visor"]
+    },
+    {
+      "id": "org-vw-007",
+      "label": "Steamed-bun vendor auntie",
+      "heightClass": "short",
+      "look": "small round auntie with her hair tucked in a white hairnet and flour on her cheek, wearing a pink apron over a white blouse with rolled sleeves, carrying a stack of round bamboo steamer baskets",
+      "idle": "lifting a steamer lid, steam rising",
+      "cheer": "holding up a fluffy white bun, cheering",
+      "shocked": "steamer stack wobbling, lid dropped",
+      "tags": ["vendor", "food", "female"]
+    },
+    {
+      "id": "org-vw-008",
+      "label": "Press photographer",
+      "heightClass": "medium",
+      "look": "sharp-eyed reporter woman with short wavy brown hair and a pencil tucked behind one ear, wearing a beige safari vest over a white shirt and brown slacks, holding an old-fashioned press camera with a big round flash dish",
+      "idle": "camera raised, lining up a shot",
+      "cheer": "camera flash popping, fist up",
+      "shocked": "camera lowered, pencil fallen, mouth open",
+      "tags": ["worker", "press", "camera", "female"]
+    },
+    {
+      "id": "org-vw-009",
+      "label": "Usher in a pillbox hat",
+      "heightClass": "medium",
+      "look": "thin young usher with slicked black hair and a polite smile, wearing a burgundy uniform jacket with gold piping and buttons, a small burgundy pillbox hat with a chin strap and white gloves, holding a flashlight",
+      "idle": "standing at attention, flashlight pointed at the floor",
+      "cheer": "waving the flashlight overhead",
+      "shocked": "pillbox hat popping up off his head",
+      "tags": ["worker", "usher", "hat", "uniform"]
+    },
+    {
+      "id": "org-vw-010",
+      "label": "Tournament medic",
+      "heightClass": "medium",
+      "look": "calm young medic with a short black ponytail and a surgical mask pulled down to her chin, wearing a white medical coat over light-green scrubs and white sneakers, carrying a white first-aid case",
+      "idle": "first-aid case at her side, watching for injuries",
+      "cheer": "first-aid case lifted, cheering",
+      "shocked": "rushing forward with the case, eyes wide",
+      "tags": ["worker", "medic", "female"]
+    },
+    {
+      "id": "org-vw-011",
+      "label": "Ring repair worker",
+      "heightClass": "tall",
+      "look": "big friendly construction worker with a yellow hard hat, a bushy brown mustache and sunburned arms, wearing a sleeveless orange work vest over a navy tee, a tool belt and work boots, holding a big hammer and a white stone tile",
+      "idle": "resting the hammer on his shoulder, sighing at the cracked ring",
+      "cheer": "hammer held out to the side, other arm out, cheering",
+      "shocked": "stone tile dropped, hard hat tipped back",
+      "tags": ["worker", "hat", "mustache", "big", "prop"]
+    },
+    {
+      "id": "org-vw-012",
+      "label": "Balloon seller",
+      "heightClass": "short",
+      "look": "round little man with a black bowler hat, a curly black mustache and rosy cheeks, wearing a red-and-yellow checkered vest over a white shirt with sleeve garters, a bunch of colorful balloons tied to his wrist bobbing at shoulder height",
+      "idle": "holding the balloon strings, smiling at the ring",
+      "cheer": "balloon bunch bouncing, other hand waving",
+      "shocked": "one balloon popping, hat jumping off his head",
+      "tags": ["vendor", "balloon", "hat", "mustache"]
+    },
+    {
+      "id": "org-vw-013",
+      "label": "Bento delivery boy",
+      "heightClass": "medium",
+      "look": "hurried teenage delivery boy with spiky brown hair under a blue cap and a sweatband, wearing a blue delivery uniform jacket with white stripes on the sleeves and blue shorts, balancing a stack of cloth-wrapped bento boxes on one shoulder",
+      "idle": "bento stack on his shoulder, distracted by the fight",
+      "cheer": "free fist pumped up, bento stack wobbling",
+      "shocked": "bento boxes tumbling, cap flying",
+      "tags": ["worker", "food", "teen", "cap"]
+    },
+    {
+      "id": "org-vw-014",
+      "label": "Souvenir hawker",
+      "heightClass": "medium",
+      "look": "wiry woman with a wide straw sun hat and a loud grin, wearing a many-pocket green apron over a striped shirt, carrying a tray of small red pennant flags and shiny orange glass orbs",
+      "idle": "holding up a pennant to sell, eyeing the ring",
+      "cheer": "waving two pennants at once",
+      "shocked": "orange orbs rolling off the tray",
+      "tags": ["vendor", "hat", "flag", "female"]
+    },
+    {
+      "id": "org-vw-015",
+      "label": "Boom-mic operator",
+      "heightClass": "medium",
+      "look": "laid-back sound technician with a long black ponytail, a chin-strap beard and big over-ear headphones, wearing an all-black outfit with a utility belt, holding a long boom pole with a fuzzy grey microphone held low and diagonal",
+      "idle": "pole angled toward the ring, listening intently",
+      "cheer": "headphones pressed tight, pole raised diagonally, grinning",
+      "shocked": "wincing at the noise, headphones pushed off",
+      "tags": ["worker", "headphones", "prop"]
+    }
+  ]
+}

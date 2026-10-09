@@ -1,7 +1,9 @@
 # VFX brief: every effect, frame by frame
 
 Single source of truth for effect art. Prompts live in [`PROMPTS.md`](PROMPTS.md); rules and workflow
-in [`README.md`](README.md). The engine side is `src/game/effects.js` (recipes) and
+in [`README.md`](README.md). Spec v2 (ADR 0007) did not change the VFX cell, anchors or sizes below;
+raw candidates are versioned (`art/vfx/raw/<effect>_vNN.png`, highest version packed) and reviewed in
+[`../REVIEW.md`](../REVIEW.md). The engine side is `src/game/effects.js` (recipes) and
 `src/art/vfxPainter.js` (procedural fallback with the same names, frame counts and timing).
 
 ## Common spec
@@ -11,9 +13,10 @@ in [`README.md`](README.md). The engine side is `src/game/effects.js` (recipes) 
 | Cell | 128 x 128 px, transparent PNG, one frame per cell |
 | Center anchor | pixel (64, 64) |
 | Bottom anchor | x = 64, base on y = 120 (8 px empty below) |
-| World scale | atlas `ppu: 56` -> one cell = 2.29 world units at scale 1 (a fighter is ~1.6 units tall) |
+| World scale | atlas `ppu: 56` -> one cell = 2.29 world units at scale 1 (a fighter is ~1.6 units tall: a 200 px spec v2 body at ppu 128) |
 | Pixel style | hard pixels, no anti-aliasing, no blur, no gradients, no dithering, no motion blur |
 | Raw background | flat magenta #FF00FF; no magenta / hot pink / violet inside effects |
+| Raw file names | `art/vfx/raw/<effect>_vNN.png` (v01, v02, ...; never reused); rejected ones move to `art/vfx/raw/_rejected/` |
 | White (tinted) palette | #FFFFFF main, #E6E6E6 and #C8C8C8 shading steps, #A8A8A8 optional deepest step. No outline. |
 | Packer output | `public/vfx/atlas.png` + `atlas.json` = `{ "cell":128, "cols":<max frames>, "rows":<n effects>, "ppu":56, "anims": { "<name>": { "row":r, "n":frames, "ms":ms } } }` |
 | Fallback | Any effect without art keeps its procedural version |
@@ -259,7 +262,7 @@ line thicknesses come out as specified.
   ring ~70%, core 100%. No smooth gradient.
 - **Color:** white (tinted), **with real alpha**.
 - **Anchor:** center.
-- **Alpha note:** ChatGPT cannot output partial transparency on magenta. Draw the raw strip as three
+- **Alpha note:** image generators cannot output partial transparency on magenta. Draw the raw strip as three
   flat opaque rings: core #FFFFFF, middle #B4B4B4, outer #5A5A5A. The packer converts `glow` "luma to
   alpha": every pixel becomes white with alpha = its grey value, snapped to the atlas alpha steps
   (255 / 200 / 110, the same steps as the procedural glow). Hand-made 128x128 frames in
@@ -372,7 +375,7 @@ billboard caps). If you want to prepare art ahead of time, use this spec:
   flecks; the body has 2-3 brighter streaks racing forward.
 - Names follow the character-effect rule in [`README.md`](README.md) ("Adding a new effect"):
   `<charId>_<effect>`. Until the engine task exists, save raws as
-  `art/vfx/raw/_proposed/<charId>_beamBody.png` etc. (the packer never reads `_proposed/`) and do not
+  `art/vfx/raw/_proposed/<charId>_beamBody_vNN.png` etc. (the packer never reads `_proposed/`) and do not
   create `frames/<charId>_beamBody/` folders (keeps the tracker honest).
 
 ## Not in the atlas (no art needed)

@@ -1,0 +1,206 @@
+{
+  "group": "families-kids",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-fk-001",
+      "label": "Dad with his son on his shoulders",
+      "heightClass": "huge",
+      "look": "stocky dad with short brown hair and stubble in a light-blue polo shirt and khaki shorts, holding the ankles of a small boy riding on his shoulders; the boy has spiky black hair, a red tee and waves a small plain orange pennant",
+      "idle": "dad pointing at the ring, the boy hugging dad's head",
+      "cheer": "dad's arms out to the sides yelling, the boy waving the pennant",
+      "shocked": "dad's jaw dropped, the boy covering dad's eyes with both hands",
+      "tags": ["family", "parent", "kid", "with-kid", "flag"]
+    },
+    {
+      "id": "org-fk-002",
+      "label": "Mom with a baby in a front carrier",
+      "heightClass": "medium",
+      "look": "young mom with shoulder-length wavy auburn hair and a kind face, wearing a mint-green cardigan over a white sundress, with a pink baby carrier strapped to her chest holding a bald baby in a yellow bonnet",
+      "idle": "gently swaying, patting the baby's back",
+      "cheer": "one fist up cheering, other hand on the baby",
+      "shocked": "covering the baby's ears with both hands, eyes wide",
+      "tags": ["family", "parent", "baby", "carrier", "female"]
+    },
+    {
+      "id": "org-fk-003",
+      "label": "Big sister giving a piggyback",
+      "heightClass": "medium",
+      "look": "teenage girl with two long dark-brown braids and a navy sailor-collar school blouse with a red neckerchief and navy pleated skirt, giving a piggyback to her little brother in green overalls who peeks over her shoulder",
+      "idle": "hitching her brother up higher, both watching the ring",
+      "cheer": "both cheering, her brother throwing his arms up",
+      "shocked": "both mouths open in the same round O",
+      "tags": ["family", "sibling", "teen", "kid", "with-kid", "female"]
+    },
+    {
+      "id": "org-fk-004",
+      "label": "Mom with a toddler on her hip",
+      "heightClass": "medium",
+      "look": "tired but happy mom with a messy brown bun and round glasses, wearing a purple t-shirt, blue jeans and a canvas tote bag, holding a toddler girl on her hip who has short pigtails, a pink dress and a swirly lollipop",
+      "idle": "bouncing the toddler on her hip, the toddler licking the lollipop",
+      "cheer": "mom pumping a fist, the toddler waving the lollipop",
+      "shocked": "mom's glasses askew, the toddler's lollipop dropping",
+      "tags": ["family", "parent", "kid", "with-kid", "food", "female"]
+    },
+    {
+      "id": "org-fk-005",
+      "label": "Hyper kid with a foam hand",
+      "heightClass": "tiny",
+      "look": "excitable little boy with messy chestnut hair and a missing front tooth, wearing a blue-and-white horizontally striped tee and red shorts, one hand inside a giant blue foam pointing-finger glove",
+      "idle": "pointing the foam finger at the ring, grinning",
+      "cheer": "foam finger thrust straight up, jumping",
+      "shocked": "foam finger drooping, mouth wide open",
+      "tags": ["kid", "prop"]
+    },
+    {
+      "id": "org-fk-006",
+      "label": "Shy girl hugging a plush dragon",
+      "heightClass": "tiny",
+      "look": "small shy girl with a black bob held by a red hair clip and big round eyes, wearing a bright yellow raincoat and red rain boots, hugging a green plush dragon toy",
+      "idle": "peeking at the ring over the plush dragon's head",
+      "cheer": "holding the plush dragon up high",
+      "shocked": "face hidden in the plush dragon, only her eyes peeking",
+      "tags": ["kid", "toy", "female"]
+    },
+    {
+      "id": "org-fk-007",
+      "label": "Kid hero with a towel cape",
+      "heightClass": "short",
+      "look": "chubby boy of about nine with a tall cowlick of brown hair and a confident grin, wearing a red bath towel tied as a cape over a green tee, brown shorts and sneakers, holding a cardboard sword",
+      "idle": "hero pose with a hand on his hip, sword resting on his shoulder",
+      "cheer": "cardboard sword raised high, cape flaring",
+      "shocked": "cape flipped over his face, sword bent",
+      "tags": ["kid", "cape", "prop"]
+    },
+    {
+      "id": "org-fk-008",
+      "label": "Teen fan with a camera",
+      "heightClass": "medium",
+      "look": "bubbly teenage girl with a high side ponytail dyed teal and star-shaped earrings, wearing an oversized pastel-pink hoodie, denim shorts and chunky white sneakers, holding up a small silver camera",
+      "idle": "framing the ring through the camera, tongue out in concentration",
+      "cheer": "camera held up high, squealing",
+      "shocked": "camera lowered, jaw dropped",
+      "tags": ["teen", "camera", "female", "prop"]
+    },
+    {
+      "id": "org-fk-009",
+      "label": "Toddler in a bear-ear hoodie",
+      "heightClass": "tiny",
+      "look": "stumpy toddler with chubby cheeks and a blue pacifier, wearing a brown hooded onesie with round bear ears on the hood, holding the string of a red balloon that bobs at head height",
+      "idle": "sucking the pacifier, staring at the ring",
+      "cheer": "bouncing with both stubby arms up, balloon bobbing",
+      "shocked": "pacifier falling out, mouth wide",
+      "tags": ["kid", "toddler", "balloon"]
+    },
+    {
+      "id": "org-fk-010",
+      "label": "Mother with a baby on her back",
+      "heightClass": "medium",
+      "look": "gentle young mother with a neat black bun and a soft smile, wearing a light-brown dress with a white apron, carrying a sleeping baby in a blue cloth sling on her back; the baby wears a red knit hat",
+      "idle": "hands folded, glancing back at the sleeping baby",
+      "cheer": "waving a white handkerchief, the baby waking up giggling",
+      "shocked": "startled with hands raised, the baby crying",
+      "tags": ["family", "parent", "baby", "carrier", "female"]
+    },
+    {
+      "id": "org-fk-011",
+      "label": "Lanky dad with a snack stack",
+      "heightClass": "tall",
+      "look": "lanky dad with thick glasses, a floppy khaki fishing hat and a goofy smile, wearing an orange shirt with a white palm-tree print, beige shorts and sandals, balancing a tall stack of snack boxes and drinks",
+      "idle": "balancing the snack stack, peering around it at the ring",
+      "cheer": "snack stack held out to one side, other arm out, cheering",
+      "shocked": "snack stack toppling, glasses slipping",
+      "tags": ["family", "parent", "food", "hat", "glasses"]
+    },
+    {
+      "id": "org-fk-012",
+      "label": "Tomboy big sister in a ball cap",
+      "heightClass": "short",
+      "look": "sporty girl of about eleven with a short tomboy haircut, a backwards red baseball cap and a bandage on one knee, wearing a red-and-white striped tee and denim shorts, a brown baseball glove on one hand",
+      "idle": "punching her fist into the glove, watching",
+      "cheer": "glove raised high, shouting",
+      "shocked": "cap knocked crooked, mouth open",
+      "tags": ["kid", "sibling", "cap", "female"]
+    },
+    {
+      "id": "org-fk-013",
+      "label": "Little brother in matching stripes",
+      "heightClass": "tiny",
+      "look": "small boy of about six in the same red-and-white striped tee as his big sister, wearing an oversized red baseball cap that slips over his eyes and blue shorts, holding a juice box with a straw",
+      "idle": "sipping the juice box, pushing the cap up",
+      "cheer": "juice box squeezed overhead, spraying",
+      "shocked": "cap fallen over his eyes, juice box squished",
+      "tags": ["kid", "sibling", "cap", "food"]
+    },
+    {
+      "id": "org-fk-014",
+      "label": "Dad with a baby in a dinosaur hat",
+      "heightClass": "medium",
+      "look": "bearded young dad with a dark man-bun and a relaxed smile, wearing a red-and-black plaid flannel shirt, dark jeans and boots, with a grey front carrier holding a baby in a green dinosaur-spike knit hat",
+      "idle": "swaying gently, holding the baby's tiny hand",
+      "cheer": "one arm up hollering, the baby flailing happily",
+      "shocked": "both hands shielding the baby, eyebrows up",
+      "tags": ["family", "parent", "baby", "carrier", "beard"]
+    },
+    {
+      "id": "org-fk-015",
+      "label": "Sporty mom with daughter on her shoulders",
+      "heightClass": "huge",
+      "look": "athletic mom with a short black pixie cut and a bright yellow windbreaker over black leggings, carrying her daughter on her shoulders; the daughter has orange pigtails, a green dress and spins a rainbow pinwheel",
+      "idle": "mom holding the daughter's knees, both watching intently",
+      "cheer": "mom's arms out to the sides, the daughter spinning the pinwheel",
+      "shocked": "both mouths open, the daughter hugging mom's head",
+      "tags": ["family", "parent", "kid", "with-kid", "female"]
+    },
+    {
+      "id": "org-fk-016",
+      "label": "Twin-tail girl with an ice cream",
+      "heightClass": "tiny",
+      "look": "cheerful little girl with bubblegum-pink twin tails tied with yellow star clips, wearing a blue polka-dot dress and white sandals, holding a dripping strawberry ice cream cone",
+      "idle": "licking the ice cream cone, eyes on the ring",
+      "cheer": "ice cream raised high, giggling",
+      "shocked": "ice cream scoop tipping off the cone, mouth open",
+      "tags": ["kid", "food", "female"]
+    },
+    {
+      "id": "org-fk-017",
+      "label": "Rich kid in a sailor suit",
+      "heightClass": "short",
+      "look": "prim boy of about ten with a neat blond bob and a snooty smile, wearing a navy sailor suit with a white collar and gold buttons, white knee socks and shiny black shoes, holding small brass opera glasses",
+      "idle": "peering through the opera glasses, nose in the air",
+      "cheer": "opera glasses waved overhead, cheering despite himself",
+      "shocked": "opera glasses dropped, both hands on his cheeks",
+      "tags": ["kid", "rich", "prop"]
+    },
+    {
+      "id": "org-fk-018",
+      "label": "Teen with big headphones",
+      "heightClass": "medium",
+      "look": "lanky teenage boy with shaggy dark-blue hair hanging over his eyes and a bored expression, wearing big lime-green headphones around his neck, a grey hoodie, black skinny jeans and red high-top sneakers",
+      "idle": "hands in hoodie pockets, pretending not to care",
+      "cheer": "headphones flung around his neck, both fists up, finally excited",
+      "shocked": "hair blown back revealing wide eyes, hands frozen mid-air",
+      "tags": ["teen", "headphones"]
+    },
+    {
+      "id": "org-fk-019",
+      "label": "Muscular dad holding a toddler",
+      "heightClass": "tall",
+      "look": "tanned muscular dad with a black flat-top and a big grin, wearing a white tank top, olive cargo shorts and sandals, holding a toddler in a tiny orange training gi in the crook of one arm",
+      "idle": "showing the toddler the ring, pointing",
+      "cheer": "lifting the toddler to shoulder height, other arm out to the side",
+      "shocked": "pulling the toddler close, mouth open",
+      "tags": ["family", "parent", "kid", "with-kid", "big"]
+    },
+    {
+      "id": "org-fk-020",
+      "label": "Schoolgirl with a handmade sign",
+      "heightClass": "short",
+      "look": "earnest girl of about twelve with long straight black hair and bangs, wearing a navy school blazer, a green plaid skirt and knee socks, holding up a handmade cardboard sign painted with a red star and a fist (no words)",
+      "idle": "holding the sign at chest height, watching hopefully",
+      "cheer": "sign lifted high above her head, shouting",
+      "shocked": "sign drooping, mouth open, eyes wide",
+      "tags": ["kid", "sign", "female", "student"]
+    }
+  ]
+}

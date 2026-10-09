@@ -1,0 +1,73 @@
+{
+  "group": "spy-x-family",
+  "kind": "cameo",
+  "series": "Spy x Family",
+  "spectators": [
+    {
+      "id": "sxf-001",
+      "name": "Loid Forger",
+      "heightClass": "tall",
+      "look": "handsome, composed spy-dad with neatly combed short blond hair, calm green eyes and a polite practiced smile, wearing a tailored dark suit with a white shirt and dark tie, holding a folded newspaper",
+      "fallbackLook": "handsome, composed man with neatly combed short blond hair, calm green eyes and a polite smile, a tailored dark suit with a white shirt and dark tie, holding a folded newspaper",
+      "idle": "reading the newspaper while secretly peeking at the ring over its edge",
+      "cheer": "polite, perfectly measured applause with a practiced smile",
+      "shocked": "newspaper crumpling in his hands, a sweat drop on his forehead",
+      "tags": ["adult", "male", "spy", "parent", "suit"]
+    },
+    {
+      "id": "sxf-002",
+      "name": "Anya Forger",
+      "heightClass": "tiny",
+      "look": "tiny mind-reading girl with shoulder-length light pink hair and two black cone-shaped hair clips like little horns, huge green eyes and a smug little mouth, wearing a black elite-school dress with gold trim and a white collar, holding a small bag of peanuts",
+      "fallbackLook": "tiny girl with shoulder-length light pink hair and two black cone-shaped hair clips like little horns, huge green eyes and a smug little smile, a black school dress with gold trim and a white collar, holding a small bag of peanuts",
+      "idle": "munching peanuts with a smug smirk",
+      "cheer": "both tiny arms up, eyes sparkling with excitement",
+      "shocked": "scrunched gasp face, peanuts spilling everywhere",
+      "tags": ["kid", "female", "student", "food"]
+    },
+    {
+      "id": "sxf-003",
+      "name": "Yor Forger",
+      "heightClass": "medium",
+      "look": "gentle, slightly clumsy beauty with long black hair, long sidelocks and a gold headband, red eyes and a shy blush, wearing a red off-shoulder knit sweater dress and black tights",
+      "fallbackLook": "gentle young woman with long black hair, long sidelocks and a gold headband, red eyes and a shy blush, a red off-shoulder knit sweater dress and black tights",
+      "idle": "hands clasped politely in front of her, smiling softly",
+      "cheer": "fists clenched by her face, eyes blazing with fighting spirit",
+      "shocked": "hands on her flushed cheeks, eyes wide",
+      "tags": ["adult", "female", "parent", "fighter"]
+    },
+    {
+      "id": "sxf-004",
+      "name": "Bond Forger",
+      "heightClass": "short",
+      "look": "huge, fluffy white family dog with a big round head, floppy ears, small dark eyes under bushy fur brows, a black nose and a lolling pink tongue, sitting upright",
+      "fallbackLook": "huge, fluffy white dog with a big round head, floppy ears, small dark eyes under bushy fur brows, a black nose and a lolling pink tongue, sitting upright",
+      "idle": "sitting upright, panting happily",
+      "cheer": "rearing up on hind legs with front paws raised, barking",
+      "shocked": "ears flattened, eyes huge, fur puffed out",
+      "tags": ["animal", "dog", "pet"]
+    },
+    {
+      "id": "sxf-005",
+      "name": "Yuri Briar",
+      "heightClass": "medium",
+      "look": "intense young man with short black hair, sharp crimson eyes and a protective scowl, wearing a dark navy suit with a white shirt and dark tie, clutching a bouquet of red roses for his beloved older sister",
+      "fallbackLook": "intense young man with short black hair, sharp crimson eyes and a protective scowl, a dark navy suit with a white shirt and dark tie, clutching a bouquet of red roses",
+      "idle": "glaring suspiciously sideways, roses held tight",
+      "cheer": "waving the roses overhead, shouting with teary devotion",
+      "shocked": "roses crushed in his fist, face gone pale",
+      "tags": ["adult", "male", "suit", "flowers"]
+    },
+    {
+      "id": "sxf-006",
+      "name": "Damian Desmond",
+      "heightClass": "tiny",
+      "look": "haughty little rich boy with neat black hair and swept bangs, sharp eyes and a proud pout, wearing a black elite-school uniform jacket with gold piping, black shorts and white knee socks",
+      "fallbackLook": "haughty little rich boy with neat black hair and swept bangs, sharp eyes and a proud pout, a black school uniform jacket with gold piping, black shorts and white knee socks",
+      "idle": "arms crossed, nose in the air",
+      "cheer": "starting to cheer then catching himself, red-faced, one fist half raised",
+      "shocked": "jaw dropped, pointing at the ring",
+      "tags": ["kid", "male", "student", "rich"]
+    }
+  ]
+}

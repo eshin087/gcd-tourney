@@ -1,0 +1,136 @@
+{
+  "group": "idol-fans",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-idol-001",
+      "label": "Glow-stick otaku",
+      "heightClass": "medium",
+      "look": "chubby, sweaty young superfan with a red bandana and round glasses; pink happi coat with a white heart pattern over a white tee, jeans, a backpack with poster tubes sticking out, a glowing pink stick in one hand and a blue one in the other",
+      "idle": "glow sticks crossed at his chest, grinning eagerly",
+      "cheer": "glow sticks swinging in big arcs overhead",
+      "shocked": "glow sticks falling, glasses fogged",
+      "tags": ["idol-fan", "otaku", "adult", "male", "glow-stick"]
+    },
+    {
+      "id": "org-idol-002",
+      "label": "Fan girl with heart fan",
+      "heightClass": "short",
+      "look": "small fan girl with pink twin tails and yellow star hair clips; white tee with a pink star print, pink skirt, pink sneakers, a round handmade hand fan decorated with a big red heart and glitter",
+      "idle": "heart fan held to her chest, starry-eyed",
+      "cheer": "heart fan raised high, squealing",
+      "shocked": "heart fan covering her mouth",
+      "tags": ["idol-fan", "teen", "female", "fan-board", "heart"]
+    },
+    {
+      "id": "org-idol-003",
+      "label": "Happi-coat dad",
+      "heightClass": "medium",
+      "look": "middle-aged fan dad with a balding head and a thin side comb-over, a blue headband; blue happi coat with a white wave pattern over a gray shirt, khaki slacks, a long white fan towel around his neck",
+      "idle": "arms folded proudly",
+      "cheer": "swinging the towel in circles overhead",
+      "shocked": "comb-over flapping straight up",
+      "tags": ["idol-fan", "adult", "male", "happi", "towel"]
+    },
+    {
+      "id": "org-idol-004",
+      "label": "Glow-claw commander",
+      "heightClass": "tall",
+      "look": "tall skinny superfan with long stringy black hair and round glasses; orange happi coat with a yellow star pattern, black pants, four colorful glowing sticks gripped between the fingers of each hand like claws",
+      "idle": "glow-stick claws hanging at his sides",
+      "cheer": "glow-stick claws thrust out to the sides",
+      "shocked": "glow sticks scattering from his fingers",
+      "tags": ["idol-fan", "otaku", "adult", "male", "glow-stick"]
+    },
+    {
+      "id": "org-idol-005",
+      "label": "Fan with glitter board",
+      "heightClass": "medium",
+      "look": "young woman with short purple hair and a star sticker on her cheek; oversized neon green hoodie, black skirt, white sneakers, a big rectangular handmade board decorated with glitter stars and a big heart (no words)",
+      "idle": "board held at her chest",
+      "cheer": "board lifted high over her head",
+      "shocked": "board slipping from her hands",
+      "tags": ["idol-fan", "adult", "female", "fan-board", "heart"]
+    },
+    {
+      "id": "org-idol-006",
+      "label": "Idol costume fan",
+      "heightClass": "short",
+      "look": "teen girl in a homemade replica idol stage outfit: aqua-and-white frilly dress with ribbons, cat-ear headband, wavy light-brown hair, white boots, a glowing star wand",
+      "idle": "twirling the star wand",
+      "cheer": "idol pose with the wand pointed up and a wink",
+      "shocked": "cat ears knocked askew, wand drooping",
+      "tags": ["idol-fan", "teen", "female", "wand"]
+    },
+    {
+      "id": "org-idol-007",
+      "label": "Merch-laden collector",
+      "heightClass": "medium",
+      "look": "bespectacled collector with spiky dark-blue hair under a cap with plush bear ears; vest covered in plain round pin badges, cargo pants, a tote bag dripping with plush keychains, two stuffed shopping bags",
+      "idle": "clutching the shopping bags protectively",
+      "cheer": "shaking the tote so the keychains jingle",
+      "shocked": "shopping bags dropping, merch spilling",
+      "tags": ["idol-fan", "collector", "adult", "male", "bags"]
+    },
+    {
+      "id": "org-idol-008",
+      "label": "Fan-club granny",
+      "heightClass": "short",
+      "look": "spry little granny with a white hair bun and a pink headband; pink happi coat with white hearts over a lilac blouse, gray slacks, a round heart-patterned hand fan in each hand",
+      "idle": "fanning herself with both fans",
+      "cheer": "both heart fans raised, beaming",
+      "shocked": "fans dropped, hand on her cheek",
+      "tags": ["idol-fan", "elder", "female", "fan-board", "happi"]
+    },
+    {
+      "id": "org-idol-009",
+      "label": "Fan-club leader with megaphone",
+      "heightClass": "tall",
+      "look": "muscular fan-club leader with a black crew cut and a red headband with a white heart; white happi coat with red trim, black pants, red sneakers, a red megaphone",
+      "idle": "megaphone held at his side, scanning the crowd",
+      "cheer": "shouting through the megaphone, other arm out to the side",
+      "shocked": "wincing as the megaphone shrieks",
+      "tags": ["idol-fan", "adult", "male", "megaphone", "happi"]
+    },
+    {
+      "id": "org-idol-010",
+      "label": "Fan with heart balloons",
+      "heightClass": "medium",
+      "look": "cheerful girl with an orange bob and freckles; pastel yellow happi coat over a white tee, denim overall shorts with leggings, holding a small bunch of pink heart-shaped balloons",
+      "idle": "holding the balloon bunch, swaying",
+      "cheer": "jumping with the balloons",
+      "shocked": "one balloon popping, she flinches",
+      "tags": ["idol-fan", "teen", "female", "balloon", "heart"]
+    },
+    {
+      "id": "org-idol-011",
+      "label": "Little fan in big happi",
+      "heightClass": "tiny",
+      "look": "little boy with messy black hair and star-shaped toy glasses; oversized purple happi coat reaching his ankles, red sneakers, a small glowing yellow stick",
+      "idle": "waving the small glow stick",
+      "cheer": "jumping with the glow stick held up",
+      "shocked": "star glasses falling off",
+      "tags": ["idol-fan", "kid", "male", "glow-stick"]
+    },
+    {
+      "id": "org-idol-012",
+      "label": "Towel-waving fan",
+      "heightClass": "medium",
+      "look": "sporty woman with a high black ponytail and a black cap; black concert tee, red track pants, white sneakers, a long fan towel with bold red-and-white stripes",
+      "idle": "towel draped around her neck",
+      "cheer": "towel stretched taut overhead between both hands",
+      "shocked": "towel dropped, both hands on her head",
+      "tags": ["idol-fan", "adult", "female", "towel"]
+    },
+    {
+      "id": "org-idol-013",
+      "label": "Light-up headband girl",
+      "heightClass": "medium",
+      "look": "lively girl with navy hair in a high bun and a headband with two glowing heart boppers on springs; silver satin tour jacket, black skirt, glowing pink and cyan bracelets on both wrists",
+      "idle": "bopping her head so the heart boppers wobble",
+      "cheer": "arms raised, bracelets glowing",
+      "shocked": "heart boppers springing wildly, mouth open",
+      "tags": ["idol-fan", "teen", "female", "headband", "glow-stick"]
+    }
+  ]
+}

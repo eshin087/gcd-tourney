@@ -1,0 +1,136 @@
+{
+  "group": "farmers-villagers",
+  "kind": "original",
+  "spectators": [
+    {
+      "id": "org-farm-001",
+      "label": "Rice farmer with hoe",
+      "heightClass": "medium",
+      "look": "weathered rice farmer with a wide conical straw hat and a white towel around his neck; faded indigo work jacket, rolled-up gray pants, black rubber boots, a wooden hoe over his shoulder",
+      "idle": "leaning on the hoe handle",
+      "cheer": "hoe raised high, shouting",
+      "shocked": "straw hat blown back on its cord",
+      "tags": ["villager", "farmer", "adult", "male", "hoe", "hat"]
+    },
+    {
+      "id": "org-farm-002",
+      "label": "Farm wife with radish basket",
+      "heightClass": "medium",
+      "look": "sturdy farm woman with a red polka-dot headscarf and rosy cheeks; green work blouse, a white apron, brown skirt, a woven basket of long white radishes on her arm",
+      "idle": "basket on her arm, nodding along",
+      "cheer": "waving a giant white radish in the air",
+      "shocked": "radishes spilling from the basket",
+      "tags": ["villager", "farmer", "adult", "female", "basket"]
+    },
+    {
+      "id": "org-farm-003",
+      "label": "Village elder with clay pipe",
+      "heightClass": "short",
+      "look": "bent old villager with a wispy white goatee and small round spectacles; faded green quilted farmer's jacket, brown baggy pants, straw sandals, a small clay pipe and a knotty wooden cane",
+      "idle": "puffing the clay pipe, leaning on the cane",
+      "cheer": "cane waved in the air",
+      "shocked": "pipe falling from his mouth",
+      "tags": ["villager", "elder", "male", "pipe", "cane"]
+    },
+    {
+      "id": "org-farm-004",
+      "label": "Farm boy with chicken",
+      "heightClass": "short",
+      "look": "freckled farm boy with tufty red hair and a gap-toothed grin; blue denim overalls over a white tee, bare feet, hugging a plump white chicken",
+      "idle": "hugging the chicken",
+      "cheer": "holding the flapping chicken up high",
+      "shocked": "chicken bursting out of his arms in a flurry of feathers",
+      "tags": ["villager", "farmer", "kid", "male", "animal"]
+    },
+    {
+      "id": "org-farm-005",
+      "label": "Burly dairy farmer",
+      "heightClass": "huge",
+      "look": "burly dairy farmer with a bushy brown beard and a straw cowboy hat; red-and-black plaid shirt under green overalls, muddy boots, a wooden pitchfork",
+      "idle": "pitchfork planted at his side",
+      "cheer": "arms spread wide to the sides, pitchfork in one hand, bellowing",
+      "shocked": "pitchfork dropped, beard bristling",
+      "tags": ["villager", "farmer", "adult", "male", "pitchfork", "big"]
+    },
+    {
+      "id": "org-farm-006",
+      "label": "Village girl with flower crown",
+      "heightClass": "short",
+      "look": "sweet village girl with long auburn braids and a crown of white and yellow wildflowers; simple green dress with a white apron, brown shoes, a bouquet of wildflowers",
+      "idle": "smelling the bouquet",
+      "cheer": "tossing petals into the air",
+      "shocked": "bouquet dropped, hands over her mouth",
+      "tags": ["villager", "kid", "female", "flowers"]
+    },
+    {
+      "id": "org-farm-007",
+      "label": "Fisherman with catch",
+      "heightClass": "medium",
+      "look": "sun-tanned coastal fisherman with a twisted white headband and a scruffy black beard; bright yellow rain slicker, navy rubber boots, a bamboo fishing rod over his shoulder with a silver fish dangling from the line",
+      "idle": "rod on his shoulder, fish swinging",
+      "cheer": "holding the fish up proudly",
+      "shocked": "fish flopping out of his grip",
+      "tags": ["villager", "fisherman", "adult", "male", "fish"]
+    },
+    {
+      "id": "org-farm-008",
+      "label": "Woodcutter with axe",
+      "heightClass": "tall",
+      "look": "rugged woodcutter with a short black beard and a green knit cap; red-and-black buffalo-check flannel shirt with rolled sleeves, brown suspenders, tan work pants, a wood axe resting on his shoulder",
+      "idle": "axe on his shoulder, calm stare",
+      "cheer": "arms spread to the sides, axe held out, whooping",
+      "shocked": "knit cap popping off, eyes wide",
+      "tags": ["villager", "woodcutter", "adult", "male", "axe"]
+    },
+    {
+      "id": "org-farm-009",
+      "label": "Granny with rice balls",
+      "heightClass": "short",
+      "look": "tiny kindly granny with a gray hair bun; plain brown kimono with a dark green sash, white socks and straw sandals, a cloth-wrapped bundle and a white rice ball wrapped in seaweed",
+      "idle": "nibbling the rice ball",
+      "cheer": "holding the rice ball up like a trophy",
+      "shocked": "rice ball dropping, hands to her cheeks",
+      "tags": ["villager", "elder", "female", "food"]
+    },
+    {
+      "id": "org-farm-010",
+      "label": "Watermelon farmer",
+      "heightClass": "medium",
+      "look": "cheerful tanned farmer with cropped black hair and a white headband; white sleeveless undershirt, baggy brown work pants, rubber sandals, hugging a big green striped watermelon",
+      "idle": "hugging the watermelon",
+      "cheer": "hoisting the watermelon overhead",
+      "shocked": "watermelon slipping out of his arms",
+      "tags": ["villager", "farmer", "adult", "male", "watermelon"]
+    },
+    {
+      "id": "org-farm-011",
+      "label": "Village blacksmith",
+      "heightClass": "tall",
+      "look": "muscular village blacksmith with a soot-smudged face, singed short gray hair and thick forearms; brown leather apron over a sleeveless gray shirt, thick work gloves, a heavy iron hammer",
+      "idle": "hammer resting on his shoulder",
+      "cheer": "hammer thrust out to the side, roaring",
+      "shocked": "eyebrows singed straight up, hammer dropping",
+      "tags": ["villager", "blacksmith", "adult", "male", "hammer"]
+    },
+    {
+      "id": "org-farm-012",
+      "label": "Toddler with tin bucket",
+      "heightClass": "tiny",
+      "look": "chubby village toddler with a tuft of black hair and round red cheeks; red overall shorts over a white shirt, little straw sandals, a small tin bucket",
+      "idle": "holding the bucket, staring curiously",
+      "cheer": "banging the bucket and giggling",
+      "shocked": "bucket on his head, peeking out",
+      "tags": ["villager", "kid", "male", "bucket"]
+    },
+    {
+      "id": "org-farm-013",
+      "label": "Beekeeper with honey jar",
+      "heightClass": "medium",
+      "look": "beekeeper woman in a wide white hat with a mesh veil pushed back, revealing a braid of golden hair; baggy white beekeeping suit, yellow gloves, a glass jar of golden honey",
+      "idle": "holding the honey jar up to the light",
+      "cheer": "waving the honey jar, laughing",
+      "shocked": "veil dropping over her face, honey jar wobbling",
+      "tags": ["villager", "beekeeper", "adult", "female", "honey"]
+    }
+  ]
+}

@@ -12,7 +12,11 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 ### Added
+- World art pipeline (ADR 0008): 576-spectator crowd roster (356 cameos, 220 originals), stage and NPC
+  briefs and prompts, `npm run queue` claim queue for parallel Codex agents, crowd atlas loader with
+  idle/cheer/shocked frames, a unique seat shuffle per match and 471 seats.
 - Naruto S1 model-sheet review candidate and QA notes; exact scale and color cleanup remain open (ART-NAR-01).
+  Spec v1; archived in `reference/_old/` by the spec v2 restart (see Changed).
 - Training room inside the controls menu: your fighter mirrors your input in real time against a
   configurable dummy (stand, guard, hop, fight back), with input history, health refill and no timer (ENG-001).
 - Controller layout diagrams for keyboard, PlayStation and Xbox, with a toggle and automatic device
@@ -39,12 +43,30 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- Art spec v2 ([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md), amends ADR 0006): Naruto
+  Shippuden designs at about 6.5 heads (serious anime proportions instead of the chibi ~4.3-head Part 1
+  look), 256×256 cells, pivot [128,240], pixelsPerUnit 128 (~200 px standing body, same world size), ≤ 48
+  colors per character (packer warns > 64), new landmarks, contact zones, effect anchors and one shared
+  body-height table. Codex now generates the images with its built-in image generator and the user approves
+  them. Every generated image is saved as `<asset>_vNN.png` (never overwritten; the packer uses the highest
+  version, `raw/_rejected/` is ignored) and queued in the new `art/REVIEW.md`. The v1 Naruto candidate is
+  archived in `reference/_old/`, all art statuses are reset to `todo`, and Codex Prompt 0 restarts the art
+  with the Naruto and Sasuke model sheets in parallel (DOC-005, TOOL-006). The in-game 3D placeholder stays
+  chibi (112 px, ppu 44) until ENG-016.
 - Art docs: one generation order everywhere (manifest `step`; Naruto prompts reordered with a step column),
   0-based frame labels in the Naruto briefs, UI images saved straight to `ui/<name>.png`, character effects
   named `<charId>_<effect>` in `art/vfx/raw/_proposed/`, Sasuke drawn at Naruto's body scale (upright
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Spec v2 doc review: Codex prompts no longer upload `reference/source/` pictures, save one version per
+  round, bind Prompt 1 to one character, stage explicit paths on one shared art branch and never lower a
+  status; ADR 0007 amended (heavy F04 zone y 22-46, airLight2/special are LOW, fix attempts are
+  `raw/<anim>_NN_fixMM.png`, 9 px hitbox slack); the template PROMPTS splits long strips into Part A/B with
+  SIZE lines; Sasuke's splits keep hit frames in one image; Naruto's launched/superDash poses keep the
+  lowest point centered (DOC-006).
+- Packer: rejecting the only version of a character's art removes the stale packer-made sheet from
+  `public/characters/<id>/`, so rejected art no longer stays in the game (TOOL-007).
 - Code review of the lanes/hitbox work: the heavy launcher could never hit (placeholder uppercut pose), vanish
   reappeared out of range, air combos dropped after the first hit (the attacker now rides along with a juggled
   victim), the ultimate windup swung the camera ~90°, and the intro could show both fighters facing away.
@@ -55,7 +77,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   prompt showed versus keys, input history miscounted neutral frames, debris rendered black (no light).
 - Super dash projectile immunity could stick forever; GPU resources leaked on every character switch; custom
   art packs without `idle` crashed `?art=custom`; broken VFX atlases now log a `[vfx]` line.
-- Packer keeps an explicit `"hit": []` override ("cannot hit") instead of falling back to reach.- Attacks could register as hits while the fist or foot visibly missed the body (depth offset in the 3D
+- Packer keeps an explicit `"hit": []` override ("cannot hit") instead of falling back to reach.
+- Attacks could register as hits while the fist or foot visibly missed the body (depth offset in the 3D
   ring, plus a forgiving cylinder hit test). Fixed by lanes + frame boxes (ENG-005, ENG-006).
 - Packer: VFX frames keep their position in the strip row (a spark flare, a rising puff or a leaning
   flame tip no longer re-centers the frame), `glow` grey rings become white + alpha steps, custom craters

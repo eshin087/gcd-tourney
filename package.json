@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "dev:alt": "vite --port 5200",
     "sprites": "node tools/pack-sprites.mjs",
-    "test:sprites": "node tools/test-pack-sprites.mjs"
+    "test:sprites": "node tools/test-pack-sprites.mjs",
+    "queue": "node tools/queue.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"

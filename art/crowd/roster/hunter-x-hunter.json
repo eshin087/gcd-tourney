@@ -1,0 +1,172 @@
+{
+  "group": "hunter-x-hunter",
+  "kind": "cameo",
+  "series": "Hunter x Hunter",
+  "spectators": [
+    {
+      "id": "hxh-001",
+      "name": "Gon Freecss",
+      "heightClass": "short",
+      "look": "sunny 12-year-old boy with tall spiky black hair that fades to dark green at the tips, big round brown eyes and a wide grin, wearing a short green jacket, matching green shorts, white socks and sturdy green boots, a long wooden fishing rod resting on his shoulder",
+      "fallbackLook": "energetic young boy with tall upswept spiky black hair tipped dark green, big brown eyes, a green jacket and green shorts, sturdy boots and a long wooden fishing rod over his shoulder",
+      "idle": "fishing rod on his shoulder, leaning forward with wide curious eyes",
+      "cheer": "jumping with both fists up, huge open-mouthed grin",
+      "shocked": "spiky hair bristling even higher, mouth a wide O, rod clutched tight",
+      "tags": ["kid", "hero", "fishing-rod"]
+    },
+    {
+      "id": "hxh-002",
+      "name": "Killua Zoldyck",
+      "heightClass": "short",
+      "look": "slim 12-year-old boy with fluffy spiky silver-white hair, sharp cat-like blue eyes and a smug little grin, wearing a dark navy-purple short-sleeved tunic over a white long-sleeved shirt, white shorts and purple sneakers, a skateboard tucked under one arm",
+      "fallbackLook": "slim young boy with fluffy spiky silver-white hair, sharp cat-like blue eyes, a dark purple tunic over a white long-sleeved shirt, white shorts, purple sneakers and a skateboard under his arm",
+      "idle": "slouching with one hand in his pocket, a chocolate bar in his mouth, skateboard under his arm",
+      "cheer": "skateboard held overhead, tongue out with a cocky grin",
+      "shocked": "cat eyes huge and round, hair puffed up, chocolate bar falling from his mouth",
+      "tags": ["kid", "assassin", "skateboard"]
+    },
+    {
+      "id": "hxh-003",
+      "name": "Kurapika",
+      "heightClass": "medium",
+      "look": "slender serious young man with straight chin-length blond hair and grey-blue eyes, wearing a long blue tabard robe edged with yellow-gold geometric trim over a white long-sleeved tunic and loose white trousers, a silver chain with small weights hanging from the fingers of his right hand",
+      "fallbackLook": "slender young man with straight chin-length blond hair, a calm stern face, a long blue tabard with yellow-gold geometric trim over white clothes and a thin silver chain dangling from his right hand",
+      "idle": "arms folded, watching with a cold focused stare",
+      "cheer": "chain hand raised in a fist, a rare determined smile",
+      "shocked": "eyes flaring bright scarlet, chain swinging, mouth pressed tight",
+      "tags": ["young-adult", "hero", "chain"]
+    },
+    {
+      "id": "hxh-004",
+      "name": "Leorio Paradinight",
+      "heightClass": "tall",
+      "look": "tall lanky young man with short spiky black hair, small round blue-tinted sunglasses and a big expressive mouth, wearing a dark navy business suit, a white shirt with a loose blue necktie and brown shoes, a brown leather doctor's briefcase in one hand",
+      "fallbackLook": "tall lanky young man with short spiky black hair, tiny round blue-tinted sunglasses, a dark navy suit with a loose blue tie and a brown leather doctor's briefcase",
+      "idle": "briefcase in hand, pushing up his sunglasses with a cool smirk",
+      "cheer": "briefcase swung out to the side, yelling with a huge open mouth",
+      "shocked": "sunglasses knocked crooked, jaw hanging, tie flapping",
+      "tags": ["young-adult", "suit", "briefcase"]
+    },
+    {
+      "id": "hxh-005",
+      "name": "Hisoka Morow",
+      "heightClass": "tall",
+      "look": "tall lean magician-clown with swept-up spiky bright crimson-red hair, narrow golden eyes, a small star painted on one cheek and a teardrop on the other, wearing a loose pale jester shirt marked with a spade and a heart, baggy pale trousers marked with a club and a diamond, a wide pink sash and pointed shoes, a fan of playing cards in one hand",
+      "fallbackLook": "tall lean jester-like magician with swept-up spiky bright crimson-red hair, golden eyes, a star and a teardrop painted on his cheeks, a loose pale outfit decorated with playing-card suit symbols, a pink sash and a fan of playing cards",
+      "idle": "fanning a hand of playing cards, licking his lips with a sly smile",
+      "cheer": "arms spread wide theatrically, cards fluttering, head thrown back laughing",
+      "shocked": "golden eyes flashing wide with thrilled delight, one card frozen mid-flick",
+      "tags": ["adult", "villain", "cards"]
+    },
+    {
+      "id": "hxh-006",
+      "name": "Illumi Zoldyck",
+      "heightClass": "tall",
+      "look": "tall pale young man with very long straight jet-black hair down to his waist, huge flat black eyes and a completely blank face, wearing a dark green high-collared long-sleeved tunic with large round studs down the front and loose dark trousers, thin metal needles held between his fingers",
+      "fallbackLook": "tall pale young man with waist-length straight black hair, empty round black eyes and an expressionless face, a dark green high-collared tunic with round studs and thin metal needles between his fingers",
+      "idle": "standing perfectly still, head tilted slightly, totally blank face",
+      "cheer": "one hand raised stiffly with fanned needles, still expressionless",
+      "shocked": "head tilted sharply sideways, same blank stare, a single sweat drop, long hair swaying",
+      "tags": ["adult", "assassin", "long-hair"]
+    },
+    {
+      "id": "hxh-007",
+      "name": "Isaac Netero",
+      "heightClass": "short",
+      "look": "tiny ancient martial-arts master with a bald head topped by one thin white topknot, long white eyebrows, a bushy white mustache, a long pointed white beard and long earlobes, wearing a plain white long-sleeved kimono top tied at the waist, wide dark navy hakama trousers and wooden sandals",
+      "fallbackLook": "tiny ancient bald master with a thin white topknot, long white eyebrows, a bushy white mustache and pointed beard, a plain white kimono top, wide dark navy hakama trousers and wooden sandals",
+      "idle": "hands clasped behind his back, squinting at the ring with an amused smile",
+      "cheer": "one bony fist raised, cackling with his eyes shut",
+      "shocked": "eyebrows flying up, beard bristling, mouth wide open",
+      "tags": ["elder", "martial-artist", "master"]
+    },
+    {
+      "id": "hxh-008",
+      "name": "Chrollo Lucilfer",
+      "heightClass": "medium",
+      "look": "calm young man with slicked-back black hair, dark eyes, a small cross tattoo in the middle of his forehead and round silver earrings, wearing a long black coat with a white fur collar over black trousers, holding an open leather-bound book",
+      "fallbackLook": "calm young man with slicked-back black hair, a small cross mark on his forehead, round earrings, a long black coat with a white fur collar and an open leather-bound book in his hand",
+      "idle": "reading the open book, glancing up at the ring with a faint smile",
+      "cheer": "book snapped shut and raised, coat flaring, quiet smirk",
+      "shocked": "book hanging open at his side, eyes widened in cold surprise",
+      "tags": ["adult", "villain", "book"]
+    },
+    {
+      "id": "hxh-009",
+      "name": "Uvogin",
+      "heightClass": "huge",
+      "look": "giant hulking brute with a wild mane of long shaggy brown hair, a heavy brow and a toothy grin, enormous bare arms and shoulders, wearing a tattered fur-trimmed animal-pelt vest, a thick leather belt and ragged dark brown trousers",
+      "fallbackLook": "giant hulking brute with a wild mane of long shaggy brown hair, a heavy brow, huge bare muscular arms, a tattered fur-trimmed pelt vest and ragged dark brown trousers",
+      "idle": "arms crossed over his huge chest, grinning with bared teeth",
+      "cheer": "arms flung out wide to the sides, roaring at the sky",
+      "shocked": "leaning back, mane standing on end, jaw dropped mid-roar",
+      "tags": ["adult", "brute", "big"]
+    },
+    {
+      "id": "hxh-010",
+      "name": "Biscuit Krueger",
+      "heightClass": "short",
+      "look": "doll-faced little girl with long curly blonde hair in two high pigtails tied with pink ribbons and big sparkly blue eyes, wearing a frilly pink gothic-lolita dress with puffy sleeves and a white lace petticoat, white stockings and black strap shoes",
+      "fallbackLook": "doll-faced little girl with curly blonde pigtails tied with pink ribbons, big sparkly blue eyes, a frilly pink lace dress with puffy sleeves, white stockings and black strap shoes",
+      "idle": "hands clasped against one cheek in a cute pose, sweet smile",
+      "cheer": "bouncing on her toes with both fists up, eyes sparkling",
+      "shocked": "hands slapped to her cheeks, pigtails flying, eyes huge",
+      "tags": ["kid", "master", "frilly-dress"]
+    },
+    {
+      "id": "hxh-011",
+      "name": "Meruem",
+      "heightClass": "medium",
+      "look": "slim humanoid insect king with smooth pale grey-green exoskeleton skin, a crest of curved green plates sweeping back from his head like spiked hair, cold slit-pupil eyes, armored segmented shoulders and a long thick segmented tail curling behind him",
+      "fallbackLook": "slim regal insect-humanoid with smooth pale grey-green armored skin, curved green head plates swept back like hair, cold slit-pupil eyes and a long thick segmented tail",
+      "idle": "arms folded, tail swaying slowly, regal unimpressed stare",
+      "cheer": "one clawed hand raised in a commanding gesture, tail lifted high",
+      "shocked": "eyes wide, tail gone stiff, leaning back with one hand raised",
+      "tags": ["creature", "royal", "tail"]
+    },
+    {
+      "id": "hxh-012",
+      "name": "Neferpitou",
+      "heightClass": "medium",
+      "look": "lithe cat-like insect warrior with short wavy white hair, fuzzy white cat ears, big red cat eyes and a long thin white tail, wearing a loose white blouse with a dark navy collar, dark navy shorts and white socks, with doll-like ball joints at the knees",
+      "fallbackLook": "lithe cat-eared humanoid with short wavy white hair, big red cat eyes, a long thin tail, a loose white blouse, dark navy shorts and doll-like ball joints at the knees",
+      "idle": "crouched slightly with hands curled like paws, tail swishing, playful grin",
+      "cheer": "hopping with paws up, tail pointing straight up, wide fanged smile",
+      "shocked": "ears pinned flat, hair and tail fluffed out, eyes huge",
+      "tags": ["creature", "cat", "tail"]
+    },
+    {
+      "id": "hxh-013",
+      "name": "Kite",
+      "heightClass": "tall",
+      "look": "tall lean man with very long straight white hair falling past his shoulders and sharp watchful eyes, wearing a white wide-brimmed hat, a long dark navy coat over a light shirt and pale trousers, carrying a large scythe topped with a grinning clown-face ornament",
+      "fallbackLook": "tall lean man with very long straight white hair, a white wide-brimmed hat, a long dark navy coat and a large scythe topped with a grinning clown-face ornament",
+      "idle": "scythe resting on his shoulder, calm watchful look under the hat brim",
+      "cheer": "scythe held out to the side, hat brim pushed up, approving shout",
+      "shocked": "hand clamped on his hat brim, coat whipping, eyes wide",
+      "tags": ["adult", "long-hair", "scythe"]
+    },
+    {
+      "id": "hxh-014",
+      "name": "Zushi",
+      "heightClass": "short",
+      "look": "small earnest boy with a black buzz cut, big round eyes and a determined little frown, wearing a white martial-arts gi with a dark belt, white trousers and cloth shoes",
+      "fallbackLook": "small earnest boy with a black buzz cut, big round eyes, a white martial-arts gi with a dark belt and cloth shoes",
+      "idle": "standing at attention, hands at his sides, studying the fighters intently",
+      "cheer": "both fists raised, shouting with his eyes squeezed shut",
+      "shocked": "hands on his buzzed head, mouth a huge O",
+      "tags": ["kid", "martial-artist", "student"]
+    },
+    {
+      "id": "hxh-015",
+      "name": "Feitan Portor",
+      "heightClass": "short",
+      "look": "short wiry man with messy black hair and narrow golden eyes, the lower half of his face hidden by a black mask printed with a grinning skull mouth, wearing a long dark navy coat with a tall collar and long sleeves, holding a closed black umbrella like a cane",
+      "fallbackLook": "short wiry man with messy black hair, narrow golden eyes, a black face mask printed with a grinning skull mouth, a long dark navy high-collared coat and a closed black umbrella",
+      "idle": "leaning on the closed umbrella, narrow eyes glaring over the mask",
+      "cheer": "umbrella thrust up, eyes curved in a cruel smile",
+      "shocked": "eyes snapping wide, coat collar flaring, umbrella popping half open",
+      "tags": ["adult", "villain", "umbrella"]
+    }
+  ]
+}

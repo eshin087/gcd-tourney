@@ -1,0 +1,139 @@
+{
+  "group": "yu-yu-hakusho",
+  "kind": "cameo",
+  "series": "Yu Yu Hakusho",
+  "spectators": [
+    {
+      "id": "yyh-001",
+      "name": "Yusuke Urameshi",
+      "heightClass": "medium",
+      "look": "tough teenage delinquent with slicked-back glossy black hair, sharp brown eyes and a cocky smirk, wearing a green high-collared school uniform jacket hanging open over a white T-shirt, matching green trousers and sneakers",
+      "fallbackLook": "tough teenage street fighter with slicked-back black hair, a cocky smirk, an open green high-collared school jacket over a white T-shirt and green trousers",
+      "idle": "hands in his pockets, chin up, cocky smirk",
+      "cheer": "index finger pointed at the ring like a pistol, fingertip glowing faint blue, shouting",
+      "shocked": "slicked hair flopping into his eyes, mouth wide, both hands raised",
+      "tags": ["teen", "delinquent", "school-uniform"]
+    },
+    {
+      "id": "yyh-002",
+      "name": "Kazuma Kuwabara",
+      "heightClass": "tall",
+      "look": "tall lanky teen with a tall swept-up orange pompadour, small eyes, a huge square chin and a goofy brave face, wearing a dark blue high-collared school uniform jacket and matching trousers",
+      "fallbackLook": "tall lanky teen with a tall orange pompadour, small eyes, a big square chin and a dark blue high-collared school uniform",
+      "idle": "fists on his hips, chest puffed out proudly",
+      "cheer": "swinging a glowing orange energy sword out to the side, yelling",
+      "shocked": "pompadour drooping, eyes bugging out, knees knocking together",
+      "tags": ["teen", "delinquent", "pompadour"]
+    },
+    {
+      "id": "yyh-003",
+      "name": "Kurama",
+      "heightClass": "medium",
+      "look": "graceful pretty-boy teen with very long straight red hair past his waist, bright green eyes and a gentle smile, wearing a rose-pink high-collared school uniform jacket with matching pink trousers, a single red rose held in one hand",
+      "fallbackLook": "graceful teen boy with waist-length straight red hair, bright green eyes, a rose-pink high-collared school uniform and a single red rose in his hand",
+      "idle": "holding a red rose to his chest, calm knowing smile",
+      "cheer": "rose raised high with petals scattering, bright polite cheer",
+      "shocked": "rose dropped, long hair blown back, green eyes wide",
+      "tags": ["teen", "pretty-boy", "rose"]
+    },
+    {
+      "id": "yyh-004",
+      "name": "Hiei",
+      "heightClass": "short",
+      "look": "short scowling demon swordsman with upswept spiky black hair streaked with a white starburst, narrow red eyes and a white headband across his forehead, wearing a long black cloak with a white scarf, black trousers and boots, a sheathed katana in one hand",
+      "fallbackLook": "short scowling swordsman with upswept spiky black hair and a white streak, narrow red eyes, a white headband, a long black cloak with a white scarf and a sheathed katana",
+      "idle": "arms crossed inside his cloak, scowling at the ring",
+      "cheer": "katana half drawn and raised, a rare smug smirk",
+      "shocked": "headband slipping to reveal a glowing third eye on his forehead, red eyes wide",
+      "tags": ["adult", "demon", "sword"]
+    },
+    {
+      "id": "yyh-005",
+      "name": "Genkai",
+      "heightClass": "short",
+      "look": "tiny elderly martial-arts master woman with short messy pale pink-grey hair, a stern wrinkled face and sharp eyes, wearing a faded red long-sleeved kung-fu jacket over a white undershirt, loose dark blue trousers and cloth shoes",
+      "fallbackLook": "tiny stern old woman martial-arts master with short messy pale pink-grey hair, a faded red kung-fu jacket, loose dark blue trousers and cloth shoes",
+      "idle": "hands behind her back, unimpressed stern frown",
+      "cheer": "one small fist raised, barking an order at the ring",
+      "shocked": "eyebrows shooting up, jaw open, hair whipped back",
+      "tags": ["elder", "martial-artist", "master"]
+    },
+    {
+      "id": "yyh-006",
+      "name": "Botan",
+      "heightClass": "medium",
+      "look": "cheerful ferry-girl of the dead with long sky-blue hair in a high ponytail, bright pink eyes and a beaming smile, wearing a pink kimono with a deep crimson sash, a long wooden oar held at her side",
+      "fallbackLook": "cheerful young woman with long sky-blue hair in a high ponytail, bright pink eyes, a pink kimono with a deep crimson sash and a long wooden oar",
+      "idle": "leaning on her oar, waving cheerfully",
+      "cheer": "oar swung overhead, jumping with a big open smile",
+      "shocked": "hands over her mouth, ponytail flying, eyes huge",
+      "tags": ["young-adult", "kimono", "oar"]
+    },
+    {
+      "id": "yyh-007",
+      "name": "Koenma",
+      "heightClass": "tiny",
+      "look": "toddler-sized prince with short brown hair, big round eyes and a pacifier in his mouth, wearing a tall blue cylindrical cap with a plain round gold emblem, a small blue robe and a flowing red cape",
+      "fallbackLook": "toddler-sized prince with short brown hair, a pacifier in his mouth, a tall blue cylindrical cap with a plain gold emblem, a blue robe and a red cape",
+      "idle": "sucking his pacifier, arms crossed importantly",
+      "cheer": "standing on tiptoe waving both arms, pacifier bobbing",
+      "shocked": "pacifier popping out of his mouth, cap tipping sideways",
+      "tags": ["kid", "royal", "pacifier"]
+    },
+    {
+      "id": "yyh-008",
+      "name": "Younger Toguro",
+      "heightClass": "huge",
+      "look": "towering hulking man with a short dark flat-top haircut, small dark sunglasses and a grim square face, wearing a tight black tank top and dark slacks that show off massively muscled arms and shoulders",
+      "fallbackLook": "towering hulking man with a short dark flat-top, small dark sunglasses, a grim square face, a tight black tank top, dark slacks and enormous muscled arms",
+      "idle": "arms crossed, perfectly still, sunglasses glinting",
+      "cheer": "arms spread wide to the sides, veins bulging, a slight grim smile",
+      "shocked": "sunglasses cracking, muscles tensed, leaning back",
+      "tags": ["adult", "brute", "sunglasses"]
+    },
+    {
+      "id": "yyh-009",
+      "name": "Elder Toguro",
+      "heightClass": "short",
+      "look": "short skinny pale man with long straight black hair, a gaunt face, sunken eyes and a wicked grin, wearing a black suit with a white shirt open at the collar, thin bony hands",
+      "fallbackLook": "short skinny pale man with long straight black hair, a gaunt grinning face, sunken eyes, a black suit and thin bony hands",
+      "idle": "hunched forward, rubbing his bony hands together, sneering",
+      "cheer": "cackling with arms stretched forward, fingers wiggling",
+      "shocked": "flinching back, eyes bulging, hair whipping",
+      "tags": ["adult", "villain", "gaunt"]
+    },
+    {
+      "id": "yyh-010",
+      "name": "Yukina",
+      "heightClass": "short",
+      "look": "gentle petite ice-maiden girl with long mint-teal hair tied low at the nape with a red ribbon, soft red eyes and a shy smile, wearing a light blue kimono with a white collar and a pale blue sash",
+      "fallbackLook": "gentle petite girl with long mint-teal hair tied low with a red ribbon, soft red eyes, a light blue kimono with a white collar and a pale blue sash",
+      "idle": "hands folded in front of her, small polite smile",
+      "cheer": "clapping softly with a bright smile, tiny ice sparkles around her hands",
+      "shocked": "hands to her mouth, eyes wide and teary",
+      "tags": ["teen", "kimono", "gentle"]
+    },
+    {
+      "id": "yyh-011",
+      "name": "Puu",
+      "heightClass": "tiny",
+      "look": "small round blue spirit-beast chick with a single tall feather tuft on its head, big shiny black eyes, a little orange beak, stubby blue wings and small orange feet",
+      "fallbackLook": "small round blue penguin-like chick with a single tall feather tuft on its head, big black eyes, a little orange beak, stubby wings and orange feet",
+      "idle": "sitting on its round bottom, blinking happily",
+      "cheer": "flapping its tiny wings, beak wide open",
+      "shocked": "feathers puffed out into a ball, eyes huge",
+      "tags": ["creature", "mascot", "bird"]
+    },
+    {
+      "id": "yyh-012",
+      "name": "Jin",
+      "heightClass": "medium",
+      "look": "wild grinning wind demon with messy spiky red hair, a single small horn on his forehead, long pointed elf ears and bright blue eyes, wearing a loose dark blue martial-arts shirt and trousers with a white sash and cloth-wrapped forearms",
+      "fallbackLook": "wild grinning young man with messy spiky red hair, a small horn on his forehead, long pointed ears, bright blue eyes, loose dark blue martial-arts clothes with a white sash and wrapped forearms",
+      "idle": "hands behind his head, big toothy grin",
+      "cheer": "spinning one arm overhead with a little whirlwind around his fist, laughing",
+      "shocked": "pointed ears perked straight up, hair blown back, mouth wide",
+      "tags": ["adult", "demon", "horn"]
+    }
+  ]
+}

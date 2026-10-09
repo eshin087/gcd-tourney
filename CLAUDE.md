@@ -12,9 +12,12 @@ game has auras, super flashes and beam clashes. Two fighters exist today (Naruto
 more will follow, so everything should stay data-driven and template-based.
 
 The fighter art in the game today is **3D-baked placeholder art**: chibi models built in code and
-rendered into 112 px sprite sheets at startup. The long-term art is **hi-res pixel art** (192 px
-cells). The user generates it in the ChatGPT image generator, and `npm run sprites` packs it
-(see [art/README.md](art/README.md) and [art/SPEC.md](art/SPEC.md)).
+rendered into 112 px sprite sheets (ppu 44) at startup. The long-term art is **hi-res pixel art on art
+spec v2** ([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Naruto Shippuden designs,
+about 6.5 heads tall (serious anime proportions, not chibi), 256 px cells, pivot `[128,240]`, ppu 128.
+Codex generates it with its built-in image generator, the user approves every versioned image in
+[art/REVIEW.md](art/REVIEW.md), and `npm run sprites` packs it (see [art/README.md](art/README.md) and
+[art/SPEC.md](art/SPEC.md)).
 
 The user means this to be a long-term project. Optimize for clarity, small reversible changes and
 documentation that stays true.
@@ -31,8 +34,7 @@ documentation that stays true.
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` (+ VFX) |
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` |
-| `npm run test:sprites` | packer regression test (fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
-| `npm run test:sprites` | packer self-test (`tools/test-pack-sprites.mjs`). Run it after any packer change. |
+| `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
 commands. The shell is Windows. Use the PowerShell tool or Git Bash with POSIX syntax.
@@ -58,7 +60,7 @@ src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sk
 src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
                controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints)
 tools/         pack-sprites.mjs (art/ -> public/ packer, Node + pngjs)
-art/           art source + briefs for ChatGPT/Codex (see art/README.md). Not shipped.
+art/           art source (versioned raws), briefs + image prompts, REVIEW.md queue (see art/README.md). Not shipped.
 public/        shipped static files: characters/<id>/{sheet.png, anims.json, portrait.png, cutin.png, select.png}, vfx/atlas.*
 docs/          SDLC docs, ADRs, task board, agent prompts
 ```
@@ -72,6 +74,7 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    `art/manifest.json`, `art/SPEC.md`, `ASSETS.md` and the art template, all in the same change.
 3. **Generated files are outputs.** Never hand-edit `public/characters/<id>/sheet.png`, `anims.json` or
    `public/vfx/atlas.*`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
+   Generated images are inputs with a `_vNN` version (ADR 0007): never overwrite, reuse or delete one.
 4. **Character data lives in `src/characters/<id>.js`**. Shared systems should not special-case a character
    id (`if (def.id === 'naruto')`). Add a data field instead.
 5. **No new runtime dependencies** without an ADR in `docs/decisions/`. Dev-only tools (pngjs) are fine
@@ -144,7 +147,7 @@ A change is done when:
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | modules, frame data flow, sprite pipeline, render |
 | [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md) | moveset, frame data, combat systems, hit rules |
 | [docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md) | end-to-end new-fighter recipe |
-| [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md) | Claude / ChatGPT / Codex roles and handoffs |
+| [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md) | Claude / Codex / user (+ optional ChatGPT) roles and handoffs |
 | [docs/TESTING.md](docs/TESTING.md) | manual checklists, debug helpers, soak, perf budget |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | milestones |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | branches, commits, review, versioning |
@@ -154,6 +157,7 @@ A change is done when:
 | [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md) | copy-paste prompts for Codex |
 | [CHANGELOG.md](CHANGELOG.md) | Keep a Changelog |
 | [art/README.md](art/README.md) | art pipeline entry point (SPEC, STYLE_GUIDE, PIPELINE, TRACKER, manifest) |
+| [art/REVIEW.md](art/REVIEW.md) | art review queue: one row per generated image version, newest first |
 | [ASSETS.md](ASSETS.md) | sheet format + Sprite Lab quick-import path |
 
 ## Bookkeeping after every change
@@ -161,17 +165,21 @@ A change is done when:
 - `CHANGELOG.md` gets one line under `## [Unreleased]` in the right group (Added / Changed / Fixed / Removed).
 - `docs/TASKS.md` moves the task's status and adds new follow-ups you discovered (owner + one-line note).
 - `art/TRACKER.md` + `art/manifest.json` get updated when you change anything art-facing (new animation
-  names, spec changes, packer behavior). Codex normally updates per-asset status.
+  names, spec changes, packer behavior). Codex normally updates per-asset status and `art/REVIEW.md`.
 - `docs/decisions/NNNN-*.md` gets a new ADR for decisions that future contributors would otherwise
   re-litigate.
 
 ## Working with the other AIs
 
-- **ChatGPT (image generator, run by the user)** draws all bitmap art from the briefs in `art/`.
-- **Codex** coordinates art production: it tells the user which prompt to run next, files images, runs
-  `npm run sprites`, does QA and updates statuses. It can make small code/data changes that follow AGENTS.md.
-- **Claude (you)** owns engine and gameplay code, integration, the packer and tooling, code review,
-  QA soaks and ADRs. When Codex or the user reports a packer or integration problem, fix the tool, not the output.
+- **Codex** produces the art: it generates every image with its built-in image generator from the prompts
+  in `art/`, saves it with a `_vNN` version, runs `npm run sprites`, does QA, adds a row to `art/REVIEW.md`,
+  then stops for the user's `approve vNN` and updates the statuses. It can make small code/data changes that
+  follow AGENTS.md. Session prompts: [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md).
+- **The user** reviews and approves every image (and can still generate one by hand in ChatGPT; it gets the
+  same naming and review).
+- **Claude (you)** owns engine and gameplay code, integration, the packer and tooling, the art spec
+  (art/SPEC.md + ADRs), code review and QA soaks. When Codex or the user reports a packer or integration
+  problem, fix the tool, not the output.
 - The handoff protocol is in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md). In short: claim a task in
   docs/TASKS.md, make the change, log it in CHANGELOG, then hand back with a status and a note.
 
@@ -183,6 +191,10 @@ A change is done when:
 - Gamepads only take control after one of their buttons is pressed (`InputManager.activeGamepads`).
 - Audio needs a user gesture (first pointerdown/keydown calls `audio.init()`). `M` toggles mute.
 - The renderer draws into a small buffer (360 px tall at 1080p; integer scale = round(height / 340)) and upscales with nearest-neighbor. Sub-pixel jitter in
-  sprites shows up as shimmering, so keep sprite placement and scales pixel-consistent.
+  sprites shows up as shimmering, so keep sprite placement and scales pixel-consistent. Hi-res packs
+  (`pixelsPerUnit` >= 70; spec v2 is 128) switch it to the `hd` detail (scale = floor(height / 600));
+  override with `?res=pixel` or `?res=hd`.
+- Spec v2 custom sheets are 4096 × 2560 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
+  2048 texture limit gets a downscaled sheet and a three.js warning (ADR 0007).
 - Simulation randomness uses `Math.random()` (clash wobble, AI, FX). That's fine for now. Online play
   will need a seeded RNG for the sim (see docs/ROADMAP.md).

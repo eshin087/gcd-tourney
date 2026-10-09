@@ -6,14 +6,17 @@ change.
 
 - Stack: **Three.js 0.170 + Vite 6**, plain JavaScript ES modules, no other runtime dependencies.
 - Two HTML entries: `index.html` (the game, `src/main.js`) and `sprites.html` (Sprite Lab, `src/spriteLab.js`).
-- Dev tooling: `tools/pack-sprites.mjs` (Node + `pngjs`) packs `art/` into `public/`.
+- Dev tooling: `tools/pack-sprites.mjs` (Node + `pngjs`) packs `art/` into `public/`. It reads the art spec
+  (cell, pivot, PPU) from the `spec` block in `art/manifest.json` and packs the highest `_vNN` version of
+  each raw image.
 
 ## Module map
 
 ```
 src/main.js                 boot: PixelRenderer + InputManager + Game, rAF loop, ?fight= shortcut, ?debug helpers
 src/core/
-  renderer.js               PixelRenderer: renders into a small buffer (360 px tall at 1080p), CSS nearest-neighbor
+  renderer.js               PixelRenderer: renders into a small buffer (360 px tall at 1080p; ~600+ px in the
+                            `hd` detail used for hi-res art), CSS nearest-neighbor
                             upscale, EffectComposer with UnrealBloom (HDR > 1.0 glows) + a grade/vignette pass
   input.js                  InputManager (keyboard + gamepads -> per-player Pad), rebindable KEYMAPS / PAD_BUTTONS
                             saved to localStorage ('gcd.bindings.v1'), PS/Xbox pad detection, menu events
@@ -139,10 +142,11 @@ src/characters/<id>.js ─> rig/anims.js + extraAnims ─> rig/baker.js ──> 
                                                                         + meta (animations, phases, boxes)
                                                                         + portrait + cut-in canvases
                        └────────────────────────────────────────────────────────────────┘
-                       ┌────────────────────────────── custom hi-res art ───────────────┐
-ChatGPT strips ─> art/characters/<id>/raw/ ─> npm run sprites ─> public/characters/<id>/sheet.png (192 px cells, PPU 86)
-                     (+ frames/, hitboxes.json)                 + anims.json (animations, phases, boxes, complete)
-                                                                + portrait.png, cutin.png, select.png
+                       ┌────────────────────────────── custom hi-res art (spec v2) ─────┐
+generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprites ─> public/characters/<id>/sheet.png
+(Codex; reviewed in    (highest version wins; _rejected/ ignored;         (256 px cells, PPU 128, 4096 × 2560)
+ art/REVIEW.md)         + frames/, hitboxes.json)                         + anims.json (animations, phases, boxes, complete)
+                                                                          + portrait.png, cutin.png, select.png
                        └────────────────────────────────────────────────────────────────┘
                                           │
                               loadFighterAsset() picks custom if present and complete (or ?art=custom),
@@ -158,12 +162,16 @@ ChatGPT strips ─> art/characters/<id>/raw/ ─> npm run sprites ─> public/ch
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
   shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
-- World size stays the same across art sources. 112 px / PPU 44 and 192 px / PPU 86 both give a standing
-  body of about 1.6 units.
-- Hi-res sheets switch the renderer to a sharper render mode automatically, so the extra detail isn't
-  thrown away by the low-res buffer. This is in progress. See docs/TASKS.md.
-- The contract for art (cell size, pivot, PPU, boxes, naming) is [art/SPEC.md](../art/SPEC.md). The
-  packer is the only thing that writes `public/characters/**`.
+- World size stays the same across art sources. The chibi placeholder (112 px cells, PPU 44) and spec v2
+  custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
+  tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
+- The engine reads frame size, pivot and PPU from `anims.json`, so a spec change needs no engine code.
+- When any loaded sheet has `pixelsPerUnit` >= 70 (spec v2: 128), `Game.init` switches the renderer to its
+  `hd` detail (buffer ~600+ px tall instead of ~340), so the extra detail isn't thrown away by the low-res
+  buffer. `?res=pixel` / `?res=hd` override it.
+- The contract for art (cell size, pivot, PPU, boxes, naming) is [art/SPEC.md](../art/SPEC.md), with the v2
+  numbers decided in [ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md). The packer is the only thing
+  that writes `public/characters/**`.
 
 ## VFX pipeline
 

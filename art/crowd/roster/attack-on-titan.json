@@ -1,0 +1,117 @@
+{
+  "group": "attack-on-titan",
+  "kind": "cameo",
+  "series": "Attack on Titan",
+  "spectators": [
+    {
+      "id": "aot-001",
+      "name": "Eren Yeager",
+      "heightClass": "medium",
+      "look": "lean, intense teen soldier with messy short dark-brown hair, fierce teal-green eyes and a clenched scowl, wearing a short tan Survey Corps jacket with the blue-and-white Wings of Freedom emblem on the chest pocket, a white shirt, white pants crossed by brown leather harness straps, brown knee boots, a green hooded cloak and grey 3D-maneuver gear boxes at his hips",
+      "fallbackLook": "lean, intense teen soldier with messy short dark-brown hair and fierce green eyes, a short tan military jacket with a blue-and-white wings emblem on the chest, white pants crossed by brown leather harness straps, brown knee boots, a green hooded cloak and grey mechanical gear boxes at his hips",
+      "idle": "arms crossed, jaw clenched, glaring hard at the ring",
+      "cheer": "fist thrust high, shouting with fierce determination",
+      "shocked": "eyes wide and teeth gritted, leaning forward with both fists clenched",
+      "tags": ["teen", "male", "soldier", "cloak"]
+    },
+    {
+      "id": "aot-002",
+      "name": "Mikasa Ackerman",
+      "heightClass": "medium",
+      "look": "stoic, athletic teen soldier with a short straight black bob, calm grey eyes and pale skin, her signature long red scarf wrapped around her neck, wearing a short tan Survey Corps jacket with the blue-and-white wings emblem, white pants with brown leather harness straps, brown knee boots and a green cloak",
+      "fallbackLook": "stoic, athletic teen girl soldier with a short straight black bob and calm grey eyes, a long red scarf wrapped around her neck, a short tan military jacket with a blue-and-white wings emblem, white pants with brown leather harness straps, brown knee boots and a green cloak",
+      "idle": "pulling her red scarf up over her mouth, watching calmly",
+      "cheer": "one fist raised, a rare small smile",
+      "shocked": "stepping forward with one arm out protectively, eyes sharp",
+      "tags": ["teen", "female", "soldier", "scarf"]
+    },
+    {
+      "id": "aot-003",
+      "name": "Armin Arlert",
+      "heightClass": "short",
+      "look": "slight, gentle teen boy with a blond chin-length bowl cut and big worried blue eyes, wearing a short tan Survey Corps jacket with the blue-and-white wings emblem, white pants with brown leather harness straps, brown knee boots and a green cloak, clutching a thick brown leather book",
+      "fallbackLook": "slight, gentle teen boy with a blond chin-length bowl cut and big blue eyes, a short tan military jacket with a blue-and-white wings emblem, white pants with brown leather harness straps, a green cloak, clutching a thick brown book",
+      "idle": "hugging his book to his chest, studying the fighters thoughtfully",
+      "cheer": "book held up overhead in both hands, beaming",
+      "shocked": "book slipping from his hands, mouth open in a gasp",
+      "tags": ["teen", "male", "soldier", "book"]
+    },
+    {
+      "id": "aot-004",
+      "name": "Levi Ackerman",
+      "heightClass": "short",
+      "look": "short, compact veteran soldier with a black undercut parted down the middle, narrow tired grey eyes and a permanent bored scowl, wearing a white cravat at the throat, a short tan Survey Corps jacket with the wings emblem, white pants with harness straps, brown knee boots and a green cloak, holding a white teacup oddly by its rim",
+      "fallbackLook": "short, compact soldier with a black center-parted undercut and narrow bored grey eyes, a white cravat at his throat, a short tan military jacket with a wings emblem, white pants with harness straps, brown knee boots and a green cloak, holding a white teacup by its rim",
+      "idle": "sipping from the teacup held by its rim, unimpressed stare",
+      "cheer": "raising the teacup an inch, the faintest approving nod",
+      "shocked": "teacup tilting, narrow eyes widened just slightly",
+      "tags": ["adult", "male", "soldier", "teacup"]
+    },
+    {
+      "id": "aot-005",
+      "name": "Hange Zoe",
+      "heightClass": "medium",
+      "look": "wildly enthusiastic scientist-soldier with messy brown hair in a high ponytail, rectangular glasses, brass-rimmed goggles pushed up on the forehead and a manic grin, wearing a short tan Survey Corps jacket, white pants with harness straps, brown knee boots and a green cloak, scribbling in a small notebook with a pencil",
+      "fallbackLook": "excitable scientist-soldier with messy brown hair in a high ponytail, rectangular glasses, brass-rimmed goggles pushed up on the forehead and a manic grin, a short tan military jacket, white pants with harness straps, brown knee boots and a green cloak, holding a small notebook and pencil",
+      "idle": "scribbling notes furiously, glasses glinting",
+      "cheer": "both arms flung up, notebook flapping, ecstatic shout",
+      "shocked": "hands clutching her head, eyes sparkling with fascinated shock",
+      "tags": ["adult", "soldier", "scientist", "glasses", "goggles"]
+    },
+    {
+      "id": "aot-006",
+      "name": "Sasha Blouse",
+      "heightClass": "medium",
+      "look": "cheerful country-girl soldier with auburn hair in a high ponytail with side bangs, warm brown eyes and a hungry grin, wearing a short tan Survey Corps jacket, white pants with harness straps, brown boots and a green cloak, cradling a steaming baked potato",
+      "fallbackLook": "cheerful country girl soldier with auburn hair in a high ponytail, brown eyes and a hungry grin, a short tan military jacket, white pants with harness straps, brown boots and a green cloak, holding a steaming baked potato",
+      "idle": "taking a huge bite of her potato, cheeks bulging",
+      "cheer": "potato raised high like a trophy, shouting",
+      "shocked": "potato dropping from her hand, mouth hanging open",
+      "tags": ["teen", "female", "soldier", "food"]
+    },
+    {
+      "id": "aot-007",
+      "name": "Annie Leonhart",
+      "heightClass": "short",
+      "look": "small, cold-faced teen fighter with pale blonde hair in a messy low bun and long side bangs over one eye, pale blue eyes, a prominent nose and a blank stare, wearing a white hooded sweatshirt with the hood out over the collar of a short tan military jacket, white pants and brown boots",
+      "fallbackLook": "small, cold-faced teen girl with pale blonde hair in a messy low bun and side bangs over one eye, pale blue eyes and a blank stare, a white hooded sweatshirt under a short tan military jacket, white pants and brown boots",
+      "idle": "hands tucked in her hoodie pocket, expressionless stare",
+      "cheer": "fists up in a tight kickboxing guard, faint smirk",
+      "shocked": "flinching back, eyes narrowing in alarm",
+      "tags": ["teen", "female", "soldier", "martial-artist", "hoodie"]
+    },
+    {
+      "id": "aot-008",
+      "name": "Reiner Braun",
+      "heightClass": "tall",
+      "look": "broad, heavy-built warrior with short cropped blond hair and a weary square-jawed face with light stubble and dark eye bags, wearing his later olive-khaki military uniform with a stand collar and brown belt, a red armband on his upper arm and brown boots",
+      "fallbackLook": "broad, heavy-built soldier with short cropped blond hair and a weary square-jawed face with stubble and dark eye bags, an olive-khaki military uniform with a stand collar and brown belt, a red armband on his upper arm and brown boots",
+      "idle": "arms folded, staring at the ring with a haunted, tired look",
+      "cheer": "big fist pump out to the side, gruff shout",
+      "shocked": "hand dragging down his face, sweating, eyes wide",
+      "tags": ["adult", "male", "soldier", "big"]
+    },
+    {
+      "id": "aot-009",
+      "name": "Erwin Smith",
+      "heightClass": "tall",
+      "look": "tall, commanding officer with neatly side-parted blond hair, thick blond eyebrows, piercing blue eyes and a strong jaw, wearing a bolo tie with a green gem, a short tan Survey Corps jacket with the wings emblem, white pants with harness straps, brown knee boots and a long green cloak",
+      "fallbackLook": "tall, commanding officer with neatly side-parted blond hair, thick eyebrows, piercing blue eyes and a strong jaw, a bolo tie with a green gem, a short tan military jacket with a wings emblem, white pants with harness straps, brown knee boots and a long green cloak",
+      "idle": "right fist pressed over his heart in a solemn salute",
+      "cheer": "arm swept out to the side, rallying roar",
+      "shocked": "stern brows lifting, hand gripping the edge of his cloak",
+      "tags": ["adult", "male", "soldier", "officer", "cloak"]
+    },
+    {
+      "id": "aot-010",
+      "name": "Jean Kirstein",
+      "heightClass": "medium",
+      "look": "lanky teen soldier with a two-tone undercut of light ash-brown hair over dark shaved sides, a long face, narrow amber eyes and a cocky smirk, wearing a short tan Survey Corps jacket with the wings emblem, white pants with harness straps, brown knee boots and a green cloak",
+      "fallbackLook": "lanky teen soldier with a two-tone undercut of light ash-brown hair over dark shaved sides, a long face, narrow amber eyes and a cocky smirk, a short tan military jacket with a wings emblem, white pants with harness straps, brown boots and a green cloak",
+      "idle": "hands in his pockets, smirking with his chin raised",
+      "cheer": "both fists pumped, yelling with a wide grin",
+      "shocked": "jaw dropped comically, long face stretched in disbelief",
+      "tags": ["teen", "male", "soldier"]
+    }
+  ]
+}

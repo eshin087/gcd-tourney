@@ -1,0 +1,95 @@
+{
+  "group": "fist-of-the-north-star",
+  "kind": "cameo",
+  "series": "Fist of the North Star",
+  "spectators": [
+    {
+      "id": "fotns-001",
+      "name": "Kenshiro",
+      "heightClass": "tall",
+      "look": "towering heavily muscled martial artist with short black hair, thick brows and a stern stoic face; dark blue-black sleeveless leather jacket with big padded shoulders hanging open over a bare chest marked with seven red scars in a Big Dipper pattern, wide brown belt, black pants, black boots, white wrist wraps",
+      "fallbackLook": "towering stoic muscular man with short black hair, an open dark sleeveless leather jacket with large padded shoulders, seven red scars in a dipper-constellation pattern on his bare chest, wide brown belt, black pants and boots",
+      "idle": "arms crossed, stoic unblinking stare at the ring",
+      "cheer": "one fist pushed out to the side, cracking his knuckles with a faint smile",
+      "shocked": "rare startled look, eyes wide, both fists clenched at his sides",
+      "tags": ["martial-artist", "hero", "muscular"]
+    },
+    {
+      "id": "fotns-002",
+      "name": "Raoh",
+      "heightClass": "huge",
+      "look": "giant muscular warlord with long wild dark-brown hair and a fierce scowl; black armor with gold trim, huge spiked shoulder plates, a black helmet with a gold crest, thick black gauntlets and a long black cape with red lining",
+      "fallbackLook": "giant muscular warlord with long wild dark hair and a fierce scowl, black armor trimmed in gold with huge spiked shoulder plates, a gold-crested helmet, thick gauntlets and a long black red-lined cape",
+      "idle": "arms folded, chin raised in arrogant judgment",
+      "cheer": "both arms spread wide to the sides, roaring, cape flaring",
+      "shocked": "leaning back, gritting his teeth, one gauntlet raised",
+      "tags": ["warlord", "villain", "armored", "giant"]
+    },
+    {
+      "id": "fotns-003",
+      "name": "Toki",
+      "heightClass": "tall",
+      "look": "tall lean gentle man with long flowing silver-white hair, a pale serene face and calm half-closed eyes; loose grey-white hooded robe wrapped over a dark grey tunic, simple cloth belt, cloth shoes",
+      "fallbackLook": "tall lean gentle man with long flowing silver-white hair, a pale serene face and calm half-closed eyes, wearing a loose grey-white hooded robe over a dark grey tunic with a simple cloth belt",
+      "idle": "hands tucked in his sleeves, serene smile",
+      "cheer": "one open palm raised beside his head, smiling warmly",
+      "shocked": "hand over his mouth, coughing in surprise, eyes open wide",
+      "tags": ["martial-artist", "healer", "robed"]
+    },
+    {
+      "id": "fotns-004",
+      "name": "Rei",
+      "heightClass": "tall",
+      "look": "lean handsome martial artist with very long straight dark-blue hair, sharp narrow eyes and a confident smirk; light-blue sleeveless high-collar martial top, wide white sash, dark-blue pants, white cloth wraps on both forearms",
+      "fallbackLook": "lean handsome man with very long straight dark-blue hair and sharp narrow eyes, light-blue sleeveless high-collar martial top, wide white sash, dark-blue pants and white forearm wraps",
+      "idle": "hand on hip, flicking his long hair back",
+      "cheer": "fingers held stiff like blades, slashing the air sideways with a shout",
+      "shocked": "hair whipping across his face, eyes wide",
+      "tags": ["martial-artist", "hero", "long-hair"]
+    },
+    {
+      "id": "fotns-005",
+      "name": "Jagi",
+      "heightClass": "tall",
+      "look": "hulking punk villain in a battered steel helmet with a narrow visor slit over a swollen scarred face; studded black leather vest with spiked shoulder pads, seven crude scars on his bare chest, ripped black pants, heavy boots, sawed-off shotgun in one hand",
+      "fallbackLook": "hulking punk thug in a battered steel helmet with a visor slit over a swollen scarred face, studded black leather vest with spiked shoulder pads, crude scars on his bare chest, ripped black pants and a sawed-off shotgun",
+      "idle": "shotgun resting on his shoulder, sneering",
+      "cheer": "shotgun waved sideways, shouting with menace",
+      "shocked": "helmet knocked crooked, recoiling with a snarl",
+      "tags": ["villain", "punk", "armored"]
+    },
+    {
+      "id": "fotns-006",
+      "name": "Lin",
+      "heightClass": "tiny",
+      "look": "small brave girl with short chestnut-brown bob hair and big hopeful eyes; simple pale-pink short-sleeve dress with a white collar, brown sandals, a small yellow wildflower in her hands",
+      "fallbackLook": "small brave girl with short chestnut-brown bob hair and big hopeful eyes, simple pale-pink short-sleeve dress with a white collar, brown sandals, holding a small yellow wildflower",
+      "idle": "hugging a little flower, watching hopefully",
+      "cheer": "jumping with both hands up, cheering",
+      "shocked": "hands over her eyes, peeking between her fingers",
+      "tags": ["kid", "girl"]
+    },
+    {
+      "id": "fotns-007",
+      "name": "Bat",
+      "heightClass": "short",
+      "look": "scrappy street-kid boy with messy spiky brown hair, a cocky grin and a smudged nose; oversized brown leather vest over a torn mustard-yellow shirt, red scarf around his neck, patched grey pants, a coil of rope on his belt",
+      "fallbackLook": "scrappy street-kid boy with messy spiky brown hair, a cocky grin and a smudged nose, oversized brown leather vest over a torn mustard-yellow shirt, red neck scarf, patched grey pants and a rope coil on his belt",
+      "idle": "hands behind his head, cocky grin",
+      "cheer": "waving his red scarf overhead, yelling",
+      "shocked": "jumping back, hair standing on end",
+      "tags": ["kid", "boy", "scavenger"]
+    },
+    {
+      "id": "fotns-008",
+      "name": "Mohawk Raider (wasteland thug)",
+      "heightClass": "huge",
+      "look": "hulking wasteland raider with a towering acid-green mohawk, shaved sides and a gap-toothed grin; spiked black leather shoulder pads, studded leather harness over a bare chest, torn camo pants, combat boots, a heavy chain wrapped around one fist",
+      "fallbackLook": "hulking post-apocalyptic raider with a towering acid-green mohawk and shaved sides, gap-toothed grin, spiked black leather shoulder pads, studded harness over a bare chest, torn camo pants and a chain wrapped around one fist",
+      "idle": "licking his lips, swinging the chain lazily",
+      "cheer": "both arms flung wide to the sides, howling",
+      "shocked": "mohawk drooping, mouth gaping, chain dropped",
+      "tags": ["punk", "villain", "giant"]
+    }
+  ]
+}

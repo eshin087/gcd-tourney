@@ -2,8 +2,9 @@
 // Regression test for tools/pack-sprites.mjs.
 //   npm run test:sprites            (add -- --keep to keep tools/.test-fixtures/ for inspection)
 // Generates fake ChatGPT-style strips (magenta background, 6x "art pixels", noise, magenta fringe,
-// specks, touching poses, a 2-row grid, single-frame files, human-cleaned frames, UI, VFX), runs the
-// packer into a scratch output folder and checks the result. Never touches art/ or public/.
+// specks, touching poses, a 2-row grid, single-frame files, human-cleaned frames, versioned _vNN
+// candidates, rejected versions, UI, VFX), runs the packer into a scratch output folder and checks the
+// result against spec v2 (docs/decisions/0007-art-spec-v2-shippuden-256.md). Never touches art/ or public/.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,6 +18,14 @@ const FIX = path.join(TOOL_DIR, '.test-fixtures');
 const ART = path.join(FIX, 'art');
 const OUT = path.join(FIX, 'out');
 const KEEP = process.argv.includes('--keep');
+
+// spec v2 (ADR 0007); the test writes it into its own manifest fixture
+const SPEC = { name: 'hi-res sprite spec v2', adr: 'docs/decisions/0007-art-spec-v2-shippuden-256.md', frameWidth: 256, frameHeight: 256, columns: 16,
+  pivot: [128, 240], pixelsPerUnit: 128, facing: 'right', maxColors: 48, warnColors: 64, rawBackground: '#FF00FF', standingBodyPx: 200, cellMargin: 4, versionSuffix: '_vNN' };
+const FW = SPEC.frameWidth, [PX, PY] = SPEC.pivot;
+// box thresholds below were measured at spec v1 (body ~135 px); bodies are ~204/135 bigger now
+const K = 204 / 135;
+const v2px = (v) => Math.round(v * K);
 
 let failures = 0, passes = 0;
 const check = (ok, msg) => {
@@ -152,14 +161,14 @@ function makeFixtures() {
     fringe(img, rand);
     savePng(raw(`light2_${String(k).padStart(2, '0')}.png`), img);
   });
-  // light3: human-cleaned frames (192x192 transparent, drawn at 2x art scale -> ~152px tall, rescaled to 142)
+  // light3: human-cleaned frames (256x256 transparent, drawn at 3x art scale -> ~231px tall, rescaled to 215)
   [{}, { kick: 4 }, { kick: 16 }, { kick: 16 }, { kick: 8 }, { kick: 3 }, {}].forEach((p, k) => {
     const rand = mulberry(200 + k);
-    const img = image(192, 192, null, rand);
-    const s2 = 2;
+    const img = image(FW, FW, null, rand);
+    const s3 = 3;
     const rects = figure(p);
-    for (const [x0, x1, y0, y1] of rects) rect(img, 80 + (x0 - 1) * s2, 186 - (y1 + 1) * s2, (x1 - x0 + 2) * s2, (y1 - y0 + 2) * s2, COL.outline, rand, 0);
-    for (const [x0, x1, y0, y1, c] of rects) rect(img, 80 + x0 * s2, 186 - y1 * s2, (x1 - x0) * s2, (y1 - y0) * s2, c, rand, 0);
+    for (const [x0, x1, y0, y1] of rects) rect(img, 110 + (x0 - 1) * s3, 246 - (y1 + 1) * s3, (x1 - x0 + 2) * s3, (y1 - y0 + 2) * s3, COL.outline, rand, 0);
+    for (const [x0, x1, y0, y1, c] of rects) rect(img, 110 + x0 * s3, 246 - y1 * s3, (x1 - x0) * s3, (y1 - y0) * s3, c, rand, 0);
     savePng(path.join(T, 'frames', 'light3', `light3_${String(k).padStart(2, '0')}.png`), img);
   });
   // heavy: 2-row grid, frames 3,4 = uppercut (fist straight up)
@@ -172,12 +181,43 @@ function makeFixtures() {
   savePng(raw('foo.png'), strip([{}], { seed: 19 }));
   fs.writeFileSync(raw('win.jpg'), 'jpeg bytes');
   // documented side files the packer must skip silently (UI raws, effect art, fix-up attempts, subfolders)
-  for (const n of ['ui_portrait.png', 'fx_chidoriBall.png', 'light1_fix01.png', path.join('_proposed', 'cloneAssist.png')]) savePng(raw(n), strip([{}], { seed: 21 }));
+  for (const n of ['ui_portrait.png', 'ui_portrait_v02.png', 'fx_chidoriBall.png', 'light1_fix01.png', path.join('_proposed', 'cloneAssist.png')]) savePng(raw(n), strip([{}], { seed: 21 }));
   fs.writeFileSync(path.join(T, 'hitboxes.json'), JSON.stringify({
     _comment: 'test overrides',
-    light1: { 3: { hit: [[120, 60, 30, 20]] } },
+    light1: { 3: { hit: [[180, 80, 45, 30]] } },
     idle: { 9: { hit: [[1, 1, 1, 1]] } },
   }, null, 2));
+
+  // vers: versioned candidates (ADR 0007). The pose count tells which file was packed:
+  // plain 5, v01 6, v02 7, v03 9 (its own sidecar drops one -> 8), rejected v04 3.
+  {
+    const V = (n) => path.join(ART, 'characters', 'vers', 'raw', n);
+    const idle = (n, seed) => strip(Array.from({ length: n }, (_, i) => ({ bob: i % 2 })), { seed, specks: 0 });
+    savePng(V('idle.png'), idle(5, 301));
+    savePng(V('idle_v01.png'), idle(6, 302));
+    savePng(V('idle_v02.png'), idle(7, 303));
+    savePng(V('idle_v03.png'), idle(9, 304));
+    fs.writeFileSync(V('idle.json'), JSON.stringify({ bodyHeight: 190 })); // every version of idle
+    fs.writeFileSync(V('idle_v03.json'), JSON.stringify({ drop: [8] })); // v03 only, merged on top
+    fs.writeFileSync(V('idle_v02.json'), JSON.stringify({ drop: [0, 1, 2] })); // not the packed version: unused
+    savePng(V(path.join('_rejected', 'idle_v04.png')), idle(3, 305));
+    savePng(V(path.join('_parts', 'idle_v05_A.png')), idle(2, 306));
+    savePng(V(path.join('_old', 'idle_v06.png')), idle(2, 307));
+    savePng(V(path.join('_proposed', 'idle_v07.png')), idle(2, 308));
+    savePng(V('idle_v03_B.png'), idle(2, 309)); // a strip half left in raw/ root
+    savePng(V('jumpSquat_v1.png'), strip([{ bob: -3 }], { seed: 310, specks: 0 })); // one-digit version: used, warned
+    savePng(V('foo_v01.png'), idle(1, 311));
+  }
+
+  // pal64 / pal65: hand-made frames at exactly the target size (not resampled, so colors are kept exactly)
+  for (const n of [64, 65]) {
+    const img = image(FW, FW, null, mulberry(400 + n));
+    for (let y = 0; y < 204; y++) for (let x = 108; x < 148; x++) {
+      const c = y % n;
+      setPx(img, x, PY - y, [20 + 3 * c, 60 + (c % 7) * 10, 40 + (c % 5) * 20]);
+    }
+    savePng(path.join(ART, 'characters', `pal${n}`, 'frames', 'idle', 'idle_00.png'), img);
+  }
   // UI: magenta-backed portrait (needs fitting) + opaque cut-in (needs crop/downscale)
   {
     const rand = mulberry(30);
@@ -234,15 +274,24 @@ function makeFixtures() {
   {
     const rand = mulberry(40);
     const s4 = 4;
-    const img = image(5 * 60 * s4, 70 * s4, [255, 0, 255], rand);
-    for (let k = 0; k < 5; k++) {
-      const r = 8 + k * 5, cx = (30 + k * 60) * s4, cy = 35 * s4;
-      rect(img, cx - r * s4, cy - r * s4, 2 * r * s4, 3 * s4, [250, 250, 250], rand);
-      rect(img, cx - r * s4, cy + (r - 3) * s4, 2 * r * s4, 3 * s4, [250, 250, 250], rand);
-      rect(img, cx - r * s4, cy - r * s4, 3 * s4, 2 * r * s4, [250, 250, 250], rand);
-      rect(img, cx + (r - 3) * s4, cy - r * s4, 3 * s4, 2 * r * s4, [250, 250, 250], rand);
-    }
-    savePng(path.join(V, 'raw', 'spark.png'), img);
+    // spark: hollow squares growing frame to frame. Versioned like character strips: v02 (5 frames) must win over
+    // v01 (4), the plain spark.png (3) and the rejected v03 (2)
+    const sparkStrip = (n, rnd) => {
+      const img = image(n * 60 * s4, 70 * s4, [255, 0, 255], rnd);
+      for (let k = 0; k < n; k++) {
+        const r = 8 + k * 5, cx = (30 + k * 60) * s4, cy = 35 * s4;
+        rect(img, cx - r * s4, cy - r * s4, 2 * r * s4, 3 * s4, [250, 250, 250], rnd);
+        rect(img, cx - r * s4, cy + (r - 3) * s4, 2 * r * s4, 3 * s4, [250, 250, 250], rnd);
+        rect(img, cx - r * s4, cy - r * s4, 3 * s4, 2 * r * s4, [250, 250, 250], rnd);
+        rect(img, cx + (r - 3) * s4, cy - r * s4, 3 * s4, 2 * r * s4, [250, 250, 250], rnd);
+      }
+      return img;
+    };
+    savePng(path.join(V, 'raw', 'spark_v02.png'), sparkStrip(5, rand));
+    const other = mulberry(41);
+    savePng(path.join(V, 'raw', 'spark_v01.png'), sparkStrip(4, other));
+    savePng(path.join(V, 'raw', 'spark.png'), sparkStrip(3, other));
+    savePng(path.join(V, 'raw', '_rejected', 'spark_v03.png'), sparkStrip(2, other));
     // flame: the upper half leans (tip sway) while the base stays put
     const fl = image(7 * 40 * s4, 80 * s4, [255, 0, 255], rand);
     const lean = [0, 14, 14, 0, -14, -16, 0]; // art px at the tip: past the base edge, so a bbox center would move the base
@@ -295,13 +344,14 @@ function makeFixtures() {
 
   fs.writeFileSync(path.join(ART, 'manifest.json'), JSON.stringify({
     version: 1,
-    spec: { frameWidth: 192, frameHeight: 192, columns: 16, pivot: [96, 180], pixelsPerUnit: 86, facing: 'right' },
+    spec: SPEC,
     coreAnimations: ['idle', 'run'],
-    animationDefaults: { idle: { frames: 8, loop: true, bodyHeight: 135, ms: [150, 150, 150, 150, 150, 150, 150, 150], required: true, status: 'todo' } },
+    animationDefaults: { idle: { frames: 8, loop: true, bodyHeight: 204, ms: [150, 150, 150, 150, 150, 150, 150, 150], required: true, status: 'todo', version: 0, approvedVersion: null } },
     characters: {
-      testy: { name: 'Testy', animations: { idle: { frames: 8, loop: true, bodyHeight: 135, status: 'todo' }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 135, status: 'approved' }, land: { frames: 2, status: 'todo' } }, ui: { portrait: { status: 'todo' } } },
+      testy: { name: 'Testy', animations: { idle: { frames: 8, loop: true, bodyHeight: 204, status: 'todo' }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'approved' }, land: { frames: 2, status: 'todo' } }, ui: { portrait: { status: 'todo' } } },
+      vers: { name: 'Vers', animations: { idle: { frames: 8, loop: true, status: 'todo', version: 0, approvedVersion: 2 } } },
     },
-    vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo' }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo' } } },
+    vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: null }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo' } } },
   }, null, 2));
 }
 
@@ -312,7 +362,7 @@ function pack(args) {
   if (args.includes('--json')) { try { json = JSON.parse(r.stdout); } catch { /* reported below */ } }
   return { code: r.status, out: r.stdout, err: r.stderr, json };
 }
-function cell(sheet, idx, fw = 192, cols = 16) {
+function cell(sheet, idx, fw = FW, cols = 16) {
   const x0 = (idx % cols) * fw, y0 = Math.floor(idx / cols) * fw;
   const c = { w: fw, h: fw, data: new Uint8Array(fw * fw * 4) };
   for (let y = 0; y < fw; y++) for (let x = 0; x < fw; x++) {
@@ -354,8 +404,10 @@ function main() {
   const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
   const sheet = loadPng(path.join(OUT, 'characters', 'testy', 'sheet.png'));
   const total = Object.values(meta.animations).reduce((s, a) => s + a.frames.length, 0);
-  check(sheet.w === 16 * 192 && sheet.h === Math.ceil(total / 16) * 192, `sheet ${sheet.w}x${sheet.h} for ${total} frames`);
-  check(meta.frameWidth === 192 && meta.frameHeight === 192 && meta.columns === 16 && meta.pivot[0] === 96 && meta.pivot[1] === 180 && meta.pixelsPerUnit === 86 && meta.facing === 'right' && meta.source === 'art-pack', 'anims.json header matches SPEC v1');
+  check(sheet.w === 16 * 256 && sheet.h === Math.ceil(total / 16) * 256, `sheet ${sheet.w}x${sheet.h} for ${total} frames`);
+  check(meta.frameWidth === 256 && meta.frameHeight === 256 && meta.columns === 16 && meta.pivot[0] === 128 && meta.pivot[1] === 240 && meta.pixelsPerUnit === 128
+    && meta.facing === 'right' && meta.spec === 'hi-res sprite spec v2' && meta.source === 'art-pack' && meta.packer === 2, 'anims.json header matches spec v2');
+  check(rep.spec?.frameWidth === 256 && rep.spec.warnColors === 64 && !anyWarn(rep.warnings, /spec/), 'spec v2 read from the manifest, no spec warnings');
   check(meta.complete === false && meta.missingCore.includes('special'), 'complete=false while core anims are missing');
 
   const expectCounts = { idle: 8, run: 8, light1: 7, light2: 7, light3: 7, heavy: 8, down: 2, guard: 3, jumpSquat: 1 };
@@ -364,7 +416,8 @@ function main() {
   check(JSON.stringify(meta.animations.idle.durations) === JSON.stringify([150, 150, 150, 150, 150, 150, 150, 150]) && meta.animations.idle.loop === true, 'idle durations/loop from manifest');
   check(JSON.stringify(meta.animations.light1.phases) === '[2,2,3]' && JSON.stringify(meta.animations.heavy.phases) === '[3,2,3]', 'attack phases');
 
-  const BH = { idle: 135, run: 135, light1: 135, light2: 135, light3: 142, heavy: 144, down: 68, guard: 131, jumpSquat: 107 };
+  // ADR 0007 body heights (light1 from the manifest, the rest from the packer's default table)
+  const BH = { idle: 204, run: 204, light1: 204, light2: 204, light3: 215, heavy: 218, down: 96, guard: 198, jumpSquat: 162 };
   let pivotOk = true, footOk = true;
   for (const [a, info] of Object.entries(meta.animations)) {
     let maxH = 0;
@@ -373,14 +426,15 @@ function main() {
       const b = bb(c);
       if (!b) { pivotOk = false; continue; }
       maxH = Math.max(maxH, b.h);
-      if (b.y1 !== 180) { pivotOk = false; console.log(`    ${a} frame ${f}: lowest row ${b.y1}`); }
+      if (b.y1 !== PY) { pivotOk = false; console.log(`    ${a} frame ${f}: lowest row ${b.y1}`); }
       const fx = footX(c, b);
-      if (Math.abs(fx - 96) > 0.51) { footOk = false; console.log(`    ${a} frame ${f}: foot center ${fx.toFixed(2)}`); }
+      if (Math.abs(fx - PX) > 0.51) { footOk = false; console.log(`    ${a} frame ${f}: foot center ${fx.toFixed(2)}`); }
     }
     if (BH[a]) check(maxH >= BH[a] - 2 && maxH <= BH[a], `${a}: tallest frame ${maxH}px ~ bodyHeight ${BH[a]}`);
   }
-  check(pivotOk, 'every frame: lowest opaque pixel on y=180');
-  check(footOk, 'every frame: feet center on x=96 (+-0.5)');
+  check(pivotOk, `every frame: lowest opaque pixel on y=${PY}`);
+  check(footOk, `every frame: feet center on x=${PX} (+-0.5)`);
+  check(!anyWarn(testy.warnings, /clipped|cell margin/), 'no frame clipped or inside the 4px cell margin');
 
   // boxes
   const activeOf = (a) => { const m = meta.animations[a]; return m.phases ? m.frames.slice(m.phases[0], m.phases[0] + m.phases[1]) : []; };
@@ -395,19 +449,20 @@ function main() {
     const f = meta.animations.light1.frames[2];
     const hit = meta.boxes[f].hit[0];
     const b = bb(cell(sheet, f));
-    check(hit[0] >= idleMaxX - 8 && hit[0] + hit[2] >= b.x1 && hit[2] >= 20 && hit[2] < 60 && hit[3] < 30, `light1 #2 hitbox ${JSON.stringify(hit)} covers forearm + fist + smear (idle maxX ${idleMaxX}, frame maxX ${b.x1})`);
-    check(JSON.stringify(meta.boxes[meta.animations.light1.frames[3]].hit) === '[[120,60,30,20]]', 'hitboxes.json override applied to light1 #3');
+    check(hit[0] >= idleMaxX - v2px(8) && hit[0] + hit[2] >= b.x1 && hit[2] >= v2px(20) && hit[2] < v2px(60) && hit[3] < v2px(30), `light1 #2 hitbox ${JSON.stringify(hit)} covers forearm + fist + smear (idle maxX ${idleMaxX}, frame maxX ${b.x1})`);
+    check(JSON.stringify(meta.boxes[meta.animations.light1.frames[3]].hit) === '[[180,80,45,30]]', 'hitboxes.json override applied to light1 #3');
     const hurt = meta.boxes[f].hurt[0];
     check(!overlap(hurt, [b.x1 - 2, hit[1], 2, hit[3]]) || hurt[0] + hurt[2] < b.x1, 'light1 #2 hurtbox does not reach the fist tip');
   }
   for (const k of [3, 4]) {
     const hit = meta.boxes[meta.animations.heavy.frames[k]].hit[0];
-    check(hit[1] < idleMinY - 4 && hit[3] < 40 && hit[1] + hit[3] >= idleMinY, `heavy #${k} (uppercut) hitbox is the raised fist + forearm: ${JSON.stringify(hit)} vs idle top ${idleMinY}`);
+    check(hit[1] < idleMinY - v2px(4) && hit[3] < v2px(40) && hit[1] + hit[3] >= idleMinY, `heavy #${k} (uppercut) hitbox is the raised fist + forearm: ${JSON.stringify(hit)} vs idle top ${idleMinY}`);
   }
   for (const k of [2, 3]) {
     const f = meta.animations.light3.frames[k];
     const hit = meta.boxes[f].hit[0];
-    check(hit[1] > 120 && hit[3] < 30 && hit[0] >= idleMaxX - 8, `light3 #${k} (kick) hitbox is the leg at kick height, not the guard fist ${JSON.stringify(hit)}`);
+    // v1: below y 120 of 180 = less than 60 px above the floor
+    check(hit[1] > PY - v2px(60) && hit[3] < v2px(30) && hit[0] >= idleMaxX - v2px(8), `light3 #${k} (kick) hitbox is the leg at kick height, not the guard fist ${JSON.stringify(hit)}`);
   }
   check(!anyWarn(testy.warnings, /large auto hitbox/), 'no oversized auto hitboxes');
   check(!meta.boxes[meta.animations.idle.frames[0]].hit, 'idle has no hitbox');
@@ -420,7 +475,8 @@ function main() {
   check(anyWarn(W, /win\.jpg: not a PNG/), 'warning: jpg');
   check(anyWarn(W, /land: cannot read/), 'warning: corrupt PNG');
   check(anyWarn(W, /idle frame "9" out of range/), 'warning: override out of range');
-  check(!anyWarn(W, /ui_portrait|fx_chidoriBall|light1_fix01|cloneAssist/), 'ui_*, fx_*, <anim>_fixNN and raw/ subfolders skipped silently');
+  check(!anyWarn(W, /ui_portrait|fx_chidoriBall|light1_fix01|cloneAssist/), 'ui_* (also ui_<name>_vNN), fx_*, <anim>_fixNN and raw/ subfolders skipped silently');
+  check(testy.packed.find((p) => p.anim === 'idle')?.source === 'raw/idle.png' && testy.packed.find((p) => p.anim === 'idle').version === null, 'plain raw/idle.png used when no versioned file exists');
   check(testy.packed.find((p) => p.anim === 'run')?.notes.some((n) => /touching/.test(n)), 'run: touching poses split');
   check(testy.packed.find((p) => p.anim === 'heavy')?.notes.some((n) => /grid of 2 rows/.test(n)), 'heavy: 2-row grid detected');
 
@@ -478,6 +534,9 @@ function main() {
     check(Buffer.compare(Buffer.from(orb0.data), Buffer.from(c0.data)) === 0, 'final 128x128 orb cells used as-is (alpha steps kept)');
     const spark = bb(cell(atlas, 4, 128, 7));
     check(spark && Math.abs(Math.max(spark.w, spark.h) - Math.round(128 * 0.85)) <= 2 && Math.abs((spark.x0 + spark.x1) / 2 - 63.5) <= 1, `spark largest frame fills ~85% of the cell, centered (${spark?.w}x${spark?.h})`);
+    const sp = rep.vfx.packed.find((p) => p.effect === 'spark');
+    check(sp?.source === 'raw/spark_v02.png' && sp.version === 2 && sp.notes.some((n) => /ignored raw\/spark\.png/.test(n)), `vfx: highest spark_vNN wins over v01, plain spark.png and _rejected/ (${sp?.source}, ${sp?.frames} frames)`);
+    check(!anyWarn(rep.vfx.warnings, /spark/), 'vfx: versioned spark files accepted silently');
   }
 
   // edgy: adversarial raw art
@@ -510,7 +569,7 @@ function main() {
     };
     const count = (c, col) => { let k = 0; for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3] && near(c, i, col, 30)) k++; return k; };
     const hs = cells('idle').map((c) => bb(c).h);
-    check(n('idle') === 8 && Math.max(...hs) - Math.min(...hs) <= 1 && Math.max(...hs) >= 133, `edgy idle: specks above/below a pose do not change the anim's size (${hs.join(',')})`);
+    check(n('idle') === 8 && Math.max(...hs) - Math.min(...hs) <= 1 && Math.max(...hs) >= 202, `edgy idle: specks above/below a pose do not change the anim's size (${hs.join(',')})`);
     check(cells('idle').every((c) => darkEdge(c) > 0.85), 'edgy idle: dark outline survives a black background');
     check(anyWarn(edgy.warnings, /idle: background #[0-9a-f]{6} is not magenta/), 'edgy idle: off-spec background warned');
     check(n('light1') === 7 && cells('light1').every((c) => darkEdge(c) > 0.85 && count(c, COL.pants) > 200), 'edgy light1: tightly trimmed transparent frames keep outline + dark colors');
@@ -528,6 +587,37 @@ function main() {
   check(man.characters.testy.animations.land.status === 'raw', 'manifest: unreadable land raw -> raw');
   check(man.characters.testy.ui.portrait.status === 'packed', 'manifest: ui portrait -> packed');
   check(man.vfx.effects.spark.status === 'packed' && man.vfx.effects.flame.status === 'packed', 'manifest: vfx -> packed');
+  check(man.characters.vers.animations.idle.version === 3 && man.characters.vers.animations.idle.approvedVersion === 2, 'manifest: version raised to the highest raw _vNN (not the rejected one), approvedVersion untouched');
+  check(man.vfx.effects.spark.version === 2, 'manifest: vfx spark version raised to 2');
+  check(man.characters.testy.animations.idle.version === undefined, 'manifest: no version added for unversioned raws');
+
+  // versioned candidates (ADR 0007)
+  const versDir = path.join(ART, 'characters', 'vers');
+  const versIdle = path.join(versDir, 'frames', 'idle');
+  {
+    const vers = rep.characters.find((c) => c.id === 'vers');
+    const vm = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'vers', 'anims.json'), 'utf8'));
+    const vs = loadPng(path.join(OUT, 'characters', 'vers', 'sheet.png'));
+    const vi = vers.packed.find((p) => p.anim === 'idle');
+    check(vi?.source === 'raw/idle_v03.png' && vi.version === 3 && vi.from === 'raw/idle_v03.png', `vers idle: highest version packed and named in the report (${vi?.source}, v${vi?.version})`);
+    check(vm.animations.idle.frames.length === 8 && vi.notes.some((n) => /dropped frame\(s\) 8 \(sidecar\)/.test(n)), `vers idle: v03 (9 poses) + its own sidecar drop -> 8 frames, not plain/v01/v02/_rejected v04 (${vm.animations.idle.frames.length})`);
+    const vh = Math.max(...vm.animations.idle.frames.map((f) => bb(cell(vs, f)).h));
+    check(vh >= 188 && vh <= 190, `vers idle: raw/idle.json bodyHeight 190 merged under raw/idle_v03.json (${vh}px)`);
+    check(vi.notes.some((n) => /ignored raw\/idle\.png/.test(n)) && vi.notes.some((n) => /candidate v03 \(approved: v02\)/.test(n)), 'vers idle: notes name the ignored plain strip and the approved version');
+    const unexpected = vers.warnings.filter((w) => !/foo_v01\.png|idle_v03_B\.png|jumpSquat_v1\.png|palette has/.test(w));
+    check(!unexpected.length, `vers: _vNN files accepted silently, _rejected/ _parts/ _old/ _proposed/ ignored (${unexpected.join(' | ')})`);
+    check(anyWarn(vers.warnings, /idle_v03_B\.png: strip part - move it to raw\/_parts\//), 'vers: a strip part in raw/ root is warned');
+    check(anyWarn(vers.warnings, /jumpSquat_v1\.png: use a two-digit version - rename to jumpSquat_v01\.png/) && vers.packed.find((p) => p.anim === 'jumpSquat')?.version === 1, 'vers: one-digit version used and warned');
+    check(anyWarn(vers.warnings, /foo_v01\.png: unrecognized name/), 'vers: unknown animation with a version suffix is warned');
+    const mk = JSON.parse(fs.readFileSync(path.join(versIdle, '.packer.json'), 'utf8'));
+    check(mk.sourceFile === 'raw/idle_v03.png' && mk.version === 3 && mk.cell?.frameWidth === 256 && mk.source.some((s) => /idle_v03\.json$/.test(s)), 'vers idle: marker records source file, version, cell and both sidecars');
+
+    // pal64 / pal65: the palette warning starts above spec.warnColors (64)
+    const p64 = rep.characters.find((c) => c.id === 'pal64'), p65 = rep.characters.find((c) => c.id === 'pal65');
+    check(p64?.colors === 64 && !anyWarn(p64.warnings, /palette/) && p64.notes.some((n) => /above the spec target of 48/.test(n)), `64 colors: note only, no warning (${p64?.colors})`);
+    check(p65?.colors === 65 && anyWarn(p65.warnings, /palette has 65 colors \(> 64; spec target <= 48\) - .*--quantize 48/), `65 colors: warned (${p65?.colors})`);
+    check(p64.packed[0]?.handMade === true && p64.packed[0].scale === 1, 'hand-made frames at the target size are not resampled');
+  }
 
   // run 2: idempotent (frames/ written back are re-read without resampling)
   const sheet1 = fs.readFileSync(path.join(OUT, 'characters', 'testy', 'sheet.png'));
@@ -556,8 +646,8 @@ function main() {
   savePng(path.join(ART, 'characters', 'testy', 'raw', 'idle.png'), strip([0, 0, 0, 0, 0, 0, 0, 0].map((bob) => ({ bob })), { seed: 7 }));
   const r4 = pack(base);
   const t4 = r4.json.characters.find((c) => c.id === 'testy');
-  check(t4.packed.find((p) => p.anim === 'idle').source === 'frames/idle/', 'run 4: edited frames used');
-  check(anyWarn(t4.warnings, /idle: raw\/ or bodyHeight changed but frames\/idle\/ has manual edits/), 'run 4: manual-edit warning');
+  check(t4.packed.find((p) => p.anim === 'idle').source === 'frames/idle/' && t4.packed.find((p) => p.anim === 'idle').edited === true, 'run 4: edited frames used');
+  check(anyWarn(t4.warnings, /idle: raw\/idle\.png or its sidecar changed but frames\/idle\/ has manual edits/), 'run 4: manual-edit warning');
   check(Buffer.compare(edited, fs.readFileSync(path.join(idleDir, 'idle_00.png'))) === 0, 'run 4: edited frame preserved');
   const idle4 = t4.packed.find((p) => p.anim === 'idle');
   check(idle4.scale === 1 && idle4.notes.some((n) => /stray pixel/.test(n)), `run 4: stray pixel ignored, idle not rescaled (x${idle4.scale})`);
@@ -567,12 +657,72 @@ function main() {
   const minY4 = Math.min(...meta4.animations.idle.frames.map((f) => bb(cell(sheet4, f)).y0));
   for (const [a, k] of [['light1', 2], ['light3', 2], ['light3', 3]]) {
     const hit = meta4.boxes[meta4.animations[a].frames[k]].hit[0];
-    check(hit[3] < 30, `run 4 (tight idle stance): ${a} #${k} hitbox is just the limb ${JSON.stringify(hit)}`);
+    check(hit[3] < v2px(30), `run 4 (tight idle stance): ${a} #${k} hitbox is just the limb ${JSON.stringify(hit)}`);
   }
   for (const k of [3, 4]) {
     const hit = meta4.boxes[meta4.animations.heavy.frames[k]].hit[0];
-    check(hit[1] < minY4 && hit[3] < 40 && hit[1] + hit[3] >= minY4, `run 4 (tight idle stance): heavy #${k} hitbox is the raised fist + forearm ${JSON.stringify(hit)}`);
+    check(hit[1] < minY4 && hit[3] < v2px(40) && hit[1] + hit[3] >= minY4, `run 4 (tight idle stance): heavy #${k} hitbox is the raised fist + forearm ${JSON.stringify(hit)}`);
   }
+
+  // versions 1: a newer _vNN re-imports over untouched packer-made frames; the text report names it
+  const vraw = (n) => path.join(versDir, 'raw', n);
+  const vIdle0 = fs.readFileSync(path.join(versIdle, 'idle_00.png'));
+  savePng(vraw('idle_v05.png'), strip([1, 1, 0, 0, 1, 1, 0, 0].map((bob) => ({ bob, punch: 2 })), { seed: 320, specks: 0 }));
+  const rv1 = pack(['--root', ART, '--out', OUT, 'vers']);
+  check(rv1.code === 0 && /idle\s+8\s+<- raw\/idle_v05\.png/.test(rv1.out) && /re-imported: replaces frames\/ cleaned from raw\/idle_v03\.png/.test(rv1.out), 'versions 1: text report shows "idle 8 <- raw/idle_v05.png" and the re-import');
+  check(Buffer.compare(vIdle0, fs.readFileSync(path.join(versIdle, 'idle_00.png'))) !== 0, 'versions 1: frames/idle refreshed from v05');
+  const mk5 = JSON.parse(fs.readFileSync(path.join(versIdle, '.packer.json'), 'utf8'));
+  check(mk5.sourceFile === 'raw/idle_v05.png' && mk5.version === 5, 'versions 1: marker now points at v05');
+  const rv1b = pack(['--root', ART, '--out', OUT, '--json', 'vers']);
+  const vi1b = rv1b.json?.characters[0]?.packed.find((p) => p.anim === 'idle');
+  check(vi1b?.source === 'frames/idle/' && vi1b.from === 'raw/idle_v05.png' && vi1b.version === 5 && !vi1b.edited, 'versions 1: next run reads the cleaned frames and still reports v05');
+
+  // versions 2: rejecting the newest (moved to raw/_rejected/) falls back to the highest version left
+  fs.renameSync(vraw('idle_v05.png'), vraw(path.join('_rejected', 'idle_v05.png')));
+  const rv2 = pack(['--root', ART, '--out', OUT, '--json', 'vers']);
+  const vi2 = rv2.json?.characters[0]?.packed.find((p) => p.anim === 'idle');
+  check(vi2?.source === 'raw/idle_v03.png' && vi2.version === 3 && rv2.json.characters[0].packed.length && JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'vers', 'anims.json'), 'utf8')).animations.idle.frames.length === 8,
+    `versions 2: rejected v05 ignored, v03 re-imported (${vi2?.source})`);
+
+  // versions 3: hand-edited frames win over a newer version, with a warning naming both files
+  const fe = loadPng(path.join(versIdle, 'idle_00.png'));
+  fe.data[0] = 9; fe.data[1] = 9; fe.data[2] = 9; fe.data[3] = 255;
+  savePng(path.join(versIdle, 'idle_00.png'), { w: fe.w, h: fe.h, data: fe.data });
+  savePng(vraw('idle_v06.png'), strip([0, 0, 0, 0, 0, 0, 0, 0].map((bob) => ({ bob })), { seed: 321, specks: 0 }));
+  const rv3 = pack(['--root', ART, '--out', OUT, '--json', '--update-manifest', 'vers']);
+  const v3 = rv3.json?.characters[0];
+  const vi3 = v3?.packed.find((p) => p.anim === 'idle');
+  check(vi3?.source === 'frames/idle/' && vi3.edited === true && vi3.from === 'raw/idle_v03.png', 'versions 3: hand-edited frames used');
+  check(anyWarn(v3?.warnings || [], /idle: newer source raw\/idle_v06\.png \(frames\/ came from raw\/idle_v03\.png\) but frames\/idle\/ has manual edits/), 'versions 3: warning names the new version and the edited source');
+  const man3 = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
+  check(man3.characters.vers.animations.idle.version === 6 && man3.characters.vers.animations.idle.approvedVersion === 2, 'versions 3: --update-manifest raises version to 6 (latest candidate), approvedVersion untouched');
+
+  // versions 4: rejecting the only version must not keep shipping its packer-made frames/
+  fs.renameSync(vraw('jumpSquat_v1.png'), vraw(path.join('_rejected', 'jumpSquat_v1.png')));
+  const rv4 = pack(['--root', ART, '--out', OUT, '--json', 'vers']);
+  const v4 = rv4.json?.characters[0];
+  check(v4 && !v4.packed.some((p) => p.anim === 'jumpSquat') && !JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'vers', 'anims.json'), 'utf8')).animations.jumpSquat,
+    'versions 4: frames/ cleaned from a rejected (moved) raw are not packed');
+  check(anyWarn(v4?.warnings || [], /jumpSquat: frames\/jumpSquat\/ were cleaned from raw\/jumpSquat_v1\.png, which is no longer in raw\//), 'versions 4: stale frames/ warned');
+  check(v4?.packed.find((p) => p.anim === 'idle')?.source === 'frames/idle/', 'versions 4: hand-edited idle frames still used');
+
+  // versions 5: rejecting the only version of a character's only strip removes its stale art pack from public/
+  const loneRaw = (n) => path.join(ART, 'characters', 'lone', 'raw', n);
+  const loneOut = path.join(OUT, 'characters', 'lone');
+  savePng(loneRaw('idle_v01.png'), strip([0, 1, 0, 1].map((bob) => ({ bob })), { seed: 330, specks: 0 }));
+  const rl1 = pack(['--root', ART, '--out', OUT, '--json', 'lone']);
+  check(rl1.code === 0 && fs.existsSync(path.join(loneOut, 'anims.json')) && fs.existsSync(path.join(loneOut, 'sheet.png')), 'versions 5: lone idle_v01 packed');
+  fs.mkdirSync(path.dirname(loneRaw(path.join('_rejected', 'x'))), { recursive: true });
+  fs.renameSync(loneRaw('idle_v01.png'), loneRaw(path.join('_rejected', 'idle_v01.png')));
+  const rl2dry = pack(['--root', ART, '--out', OUT, '--json', '--dry-run', 'lone']);
+  check(rl2dry.code === 0 && fs.existsSync(path.join(loneOut, 'anims.json')) && rl2dry.json?.characters[0]?.notes.some((n) => /would remove the stale art pack/.test(n)), 'versions 5: --dry-run only reports the stale pack');
+  const rl2 = pack(['--root', ART, '--out', OUT, '--json', 'lone']);
+  check(rl2.code === 0 && !fs.existsSync(path.join(loneOut, 'anims.json')) && !fs.existsSync(path.join(loneOut, 'sheet.png'))
+    && rl2.json?.characters[0]?.notes.some((n) => /removed the stale art pack/.test(n)), 'versions 5: rejected only version -> stale anims.json + sheet.png removed');
+  fs.mkdirSync(loneOut, { recursive: true });
+  fs.writeFileSync(path.join(loneOut, 'anims.json'), JSON.stringify({ source: 'sprite-lab', animations: {} }));
+  pack(['--root', ART, '--out', OUT, 'lone']);
+  check(fs.existsSync(path.join(loneOut, 'anims.json')), 'versions 5: a sheet the packer did not make is left alone');
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -584,6 +734,8 @@ function main() {
   fs.renameSync(path.join(ART, 'manifest.json'), path.join(FIX, 'manifest.bak'));
   const r6 = pack([...base, '--dry-run', 'testy']);
   check(r6.code === 0 && r6.json?.characters[0]?.packed.length >= 8, 'run 6: works without manifest.json (dry run)');
+  check(r6.json?.spec?.name === 'hi-res sprite spec v2' && r6.json.spec.frameWidth === 256 && r6.json.spec.pivot.join() === '128,240' && r6.json.spec.pixelsPerUnit === 128
+    && r6.json.spec.maxColors === 48 && r6.json.spec.warnColors === 64 && r6.json.spec.cellMargin === 4 && !anyWarn(r6.json.warnings, /spec/), 'run 6: no manifest -> spec v2 defaults, silently');
   // run 7: corrupt manifest
   fs.writeFileSync(path.join(ART, 'manifest.json'), '{ broken');
   const r7 = pack([...base, '--dry-run', 'vfx']);
@@ -594,7 +746,33 @@ function main() {
   check(pack(['--bogus']).code === 1, 'run 8: unknown option -> exit 1');
   // run 9: text report + --strict
   const r9 = pack(['--root', ART, '--out', OUT, '--dry-run', '--strict', 'testy']);
-  check(r9.code === 2 && /== testy/.test(r9.out) && /missing core/.test(r9.out), 'run 9: text report, --strict exits 2 on warnings');
+  check(r9.code === 2 && /== testy/.test(r9.out) && /missing core/.test(r9.out) && /spec: hi-res sprite spec v2 \(256x256 cells, pivot \[128,240\], ppu 128/.test(r9.out), 'run 9: text report, --strict exits 2 on warnings');
+
+  // run 10: the manifest spec is the authority - a different (valid) spec is followed without "mismatch" warnings
+  const m10 = path.join(FIX, 'manifest-v1.json');
+  fs.writeFileSync(m10, JSON.stringify({ spec: { name: 'old 192 spec', frameWidth: 192, frameHeight: 192, columns: 8, pivot: [96, 180], pixelsPerUnit: 86, facing: 'right', maxColors: 32, warnColors: 48, cellMargin: 2, standingBodyPx: 136 },
+    animationDefaults: { idle: { frames: 8, loop: true, bodyHeight: 135 }, run: { frames: 8, loop: true, bodyHeight: 135 } } }));
+  const out10 = path.join(FIX, 'out10');
+  const r10 = pack(['--root', ART, '--out', out10, '--manifest', m10, '--no-writeback', '--json', 'testy']);
+  const meta10 = r10.json && JSON.parse(fs.readFileSync(path.join(out10, 'characters', 'testy', 'anims.json'), 'utf8'));
+  const sheet10 = loadPng(path.join(out10, 'characters', 'testy', 'sheet.png'));
+  check(r10.code === 0 && meta10?.frameWidth === 192 && meta10.pivot.join() === '96,180' && meta10.pixelsPerUnit === 86 && meta10.columns === 8 && meta10.spec === 'old 192 spec' && sheet10.w === 8 * 192,
+    `run 10: anims.json + sheet follow the manifest spec (${meta10?.frameWidth}, [${meta10?.pivot}], cols ${meta10?.columns}, sheet ${sheet10.w}px)`);
+  check(!anyWarn(r10.json?.warnings || [], /spec/), 'run 10: no spec mismatch warnings');
+  const idle10 = meta10.animations.idle.frames.map((f) => bb(cell(sheet10, f, 192, 8)));
+  check(idle10.every((b) => b.y1 === 180) && Math.max(...idle10.map((b) => b.h)) <= 135, 'run 10: idle on the manifest pivot at the manifest bodyHeight');
+  // run: packer-made frames/ from run 1, untouched (idle was hand-edited in run 4 and keeps its frames/)
+  check(r10.json.characters[0].packed.find((p) => p.anim === 'run')?.source === 'raw/run.png', 'run 10: untouched frames/ written at another cell size are re-imported from raw');
+  const w10 = r10.json.characters[0].warnings;
+  check(anyWarn(w10, /light3: bodyHeight 215 does not fit the 192px cell \(8-179px/) && !anyWarn(w10, /backDash: bodyHeight/), 'run 10: a body height too tall for the cell (minus the margin) is clamped and warned, only for animations with art');
+  // run 11: malformed spec values are warned and replaced by the v2 default
+  const m11 = path.join(FIX, 'manifest-bad.json');
+  fs.writeFileSync(m11, JSON.stringify({ spec: { frameWidth: 'wide', pivot: [300, 240], warnColors: -1, cellMargin: 'x', versionSuffix: '_rNN' } }));
+  const r11 = pack(['--root', ART, '--out', OUT, '--manifest', m11, '--dry-run', '--json', 'testy']);
+  const w11 = r11.json?.warnings || [];
+  check(r11.code === 0 && anyWarn(w11, /spec\.frameWidth is "wide"/) && anyWarn(w11, /spec\.pivot is \[300,240\]/) && anyWarn(w11, /spec\.warnColors is -1/) && anyWarn(w11, /spec\.cellMargin is "x"/) && anyWarn(w11, /versionSuffix/),
+    'run 11: malformed spec values warned');
+  check(r11.json?.spec.frameWidth === 256 && r11.json.spec.pivot.join() === '128,240' && r11.json.spec.warnColors === 64 && r11.json.spec.cellMargin === 4, 'run 11: malformed values fall back to the spec v2 defaults');
 
   return finish();
 }

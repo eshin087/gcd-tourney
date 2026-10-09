@@ -6,12 +6,16 @@ custom art exists here, `npm run sprites vfx` packs it into `public/vfx/atlas.pn
 `public/vfx/atlas.json` and the game uses it instead. **Any effect without art keeps its
 procedural fallback**, so effects can be replaced one at a time.
 
+Spec v2 ([ADR 0007](../../docs/decisions/0007-art-spec-v2-shippuden-256.md)) changed the character
+cells (256 px) but **not the VFX cells**: they stay 128 x 128 at ppu 56. What v2 adds here is the
+versioned file names (`raw/<effect>_vNN.png`) and the review queue ([../REVIEW.md](../REVIEW.md)).
+
 Who does what:
 
 | Role | Job in this folder |
 |---|---|
-| **User + ChatGPT image generator** | Generates the strips using `PROMPTS.md`, saves them into `raw/`. |
-| **Codex** | Tells the user which prompt to run next (from `../TRACKER.md` / `../manifest.json`), files the images under the right names, runs `npm run sprites vfx`, checks the result, updates status. |
+| **Codex** | Picks the next effect (from `../TRACKER.md` / `../manifest.json`), generates the strip with its built-in image generator using `PROMPTS.md` (style sheet attached once approved), saves it as the next `raw/<effect>_vNN.png`, queues it in `../REVIEW.md`, runs `npm run sprites vfx`, checks the result, records the user's decision and updates status. |
+| **User** | Reviews each candidate in `../REVIEW.md` (approve / reject, in chat or in the table). Can still generate a strip in ChatGPT by hand; same naming. |
 | **Claude (Claude Code)** | Engine side (`src/game/effects.js`), packer (`tools/pack-sprites.mjs`), new effect names, beam art support. |
 
 ## Files
@@ -20,11 +24,12 @@ Who does what:
 |---|---|
 | `README.md` | This page: rules, folder layout, workflow, QA. |
 | `EFFECTS.md` | The brief: every effect, what it does in the game, frame by frame, size, anchor, color rule, timing. Also *Beams (future)*. |
-| `PROMPTS.md` | Copy-paste ChatGPT prompts, one per effect, plus fix-up prompts. |
-| `raw/` | Unedited ChatGPT output. One strip per effect: `raw/<effect>.png`. |
-| `raw/_proposed/` | Character effects the engine does not use yet: `<charId>_<effect>.png`. Never packed (see "Adding a new effect"). |
+| `PROMPTS.md` | Copy-paste image prompts, one per effect, plus fix-up prompts. |
+| `raw/` | Unedited generator output, versioned: `raw/<effect>_vNN.png` (v01, v02, ...; never overwritten or reused). The packer uses the highest version; a plain `raw/<effect>.png` only when no versioned file exists. |
+| `raw/_rejected/` | Rejected candidates (names kept). Never packed. |
+| `raw/_proposed/` | Character effects the engine does not use yet: `<charId>_<effect>_vNN.png`. Never packed (see "Adding a new effect"). |
 | `frames/<effect>/` | Cleaned final frames: `frames/<effect>/<effect>_00.png`, `_01.png`, ... (128x128, transparent). |
-| `reference/` | Optional style anchors (e.g. `vfx_style_sheet.png`, a screenshot of an approved effect) to attach to ChatGPT so every effect matches. Never packed. |
+| `reference/` | Optional style anchors to attach to the image generator so every effect matches: candidates `vfx_style_sheet_vNN.png`, the approved one copied to `vfx_style_sheet.png` (or a screenshot of an approved effect). Never packed. |
 
 ## The 15 engine effects (names are fixed: the engine looks them up by name)
 
@@ -88,19 +93,27 @@ Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
    `lightning`, `fire`, `shuriken` (signature moves) -> `flame`, `streak` (aura) -> `dust`, `smoke`,
    `crater` -> `glow` (optional, the procedural one is fine).
 2. Optional, once: generate the **VFX style sheet** (first prompt in `PROMPTS.md`) and save it as
-   `reference/vfx_style_sheet.png`. Attach it to every later effect prompt.
-3. In ChatGPT, paste the **preamble** from `PROMPTS.md`, then the effect's prompt. Attach the style
-   sheet if you have it.
+   `reference/vfx_style_sheet_vNN.png`. When the user approves one, copy it to
+   `reference/vfx_style_sheet.png` and attach that to every later effect prompt.
+3. In the image generator (Codex's built-in one, or a ChatGPT chat), give the **preamble** from
+   `PROMPTS.md`, then the effect's prompt. Attach the approved style sheet if there is one.
 4. Check the image against the QA list below. Use a fix-up prompt if needed.
-5. Save it as `art/vfx/raw/<effect>.png` (exact engine name, lowercase). Set status `raw`.
-6. Run `npm run sprites vfx`. The packer removes the magenta, splits the strip into frames, fits them
-   into 128 px cells, writes cleaned frames to `frames/<effect>/` and builds `public/vfx/atlas.*`.
-   Read the report for warnings (frame count mismatch, clipped frames). Set status `packed`.
+5. Save it as the next version `art/vfx/raw/<effect>_vNN.png` (exact engine name, lowercase; `NN` =
+   1 + the highest number used for that effect, including `raw/_rejected/` and REVIEW.md). Add a
+   `needs review` row to `../REVIEW.md` (character column `vfx`), set `version` in the manifest and
+   status `raw`.
+6. Run `npm run sprites vfx`. The packer takes the highest `_vNN` per effect (and prints which file),
+   removes the magenta, splits the strip into frames, fits them into 128 px cells, writes cleaned
+   frames to `frames/<effect>/` and builds `public/vfx/atlas.*`. Read the report for warnings (frame
+   count mismatch, clipped frames). Set status `packed`.
 7. Hand touch-ups go into `frames/<effect>/<effect>_NN.png` (edited frames win over `raw/` on the next
-   pack; untouched packer-written frames are re-imported automatically when `raw/` changes).
+   pack; untouched packer-written frames are re-imported automatically when a new raw version appears).
 8. Test in game (`npm run dev`): trigger the effect (see "Where to see it" in `EFFECTS.md`), check
-   size, anchor, tint and timing next to the fighters. If it looks right, set status `approved` and
-   add a line to `CHANGELOG.md` (`feat(art): vfx <effect> hi-res art`).
+   size, anchor, tint and timing next to the fighters, and write the result in the REVIEW row.
+9. The user approves or rejects it. Approved: set the REVIEW row, `approvedVersion` and status
+   `approved`, and add a line to `CHANGELOG.md` (`feat(art): vfx <effect> hi-res art`). Rejected: move
+   the file to `raw/_rejected/` (the packer falls back to the highest version left) and generate the
+   next version.
 
 ### Packing notes (for Codex / whoever maintains the packer)
 
@@ -114,7 +127,7 @@ Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
     streak, rising dust) stays higher; `flame` is centered on its base (x = 64) so the tip keeps its lean;
   - horizontally, a strip frame is centered on its split slot. With the default split the slot is the
     frame's own columns (no common reference exists in a strip), so a one-sided part (the `spark`
-    flare) shifts that frame. For exact horizontal placement add `raw/<effect>.json` with
+    flare) shifts that frame. For exact horizontal placement add `raw/<effect>.json` (applies to every version; a `raw/<effect>_vNN.json` next to one version is merged on top for that version only) with
     `{ "split": "even" }` (equal slots across the image; needs evenly spaced frames with equal margins),
     or save single frames `raw/<effect>_NN.png` on one canvas size (aligned on the union of all frames),
     or hand-place 128x128 frames in `frames/<effect>/`.
@@ -152,10 +165,10 @@ New effect names need engine support, so this is a joint Claude + art task:
    `naruto_beamBody`). One rule for every character:
    - the brief (frames, size, anchor, colors) is a row in that character's `MOVES_AND_VFX.md`;
    - the prompt goes in that character's `PROMPTS.md`;
-   - raws are saved as `art/vfx/raw/_proposed/<charId>_<effect>.png`. The packer never reads
+   - raws are saved as `art/vfx/raw/_proposed/<charId>_<effect>_vNN.png` (queued in `../REVIEW.md`). The packer never reads
      `_proposed/`, so art can be made before the engine supports it, without warnings.
 3. When the engine task lands: move the brief to `EFFECTS.md` and the prompt to `PROMPTS.md`, add an
-   entry in `../manifest.json` (`vfx`) and `../TRACKER.md`, move the raw to `raw/<name>.png` and create
+   entry in `../manifest.json` (`vfx`, with `version` / `approvedVersion`) and `../TRACKER.md`, move the raws to `raw/<name>_vNN.png` (same numbers) and create
    `frames/<name>/` with a `.gitkeep`.
 4. Claude adds the procedural fallback / recipe in `src/art/vfxPainter.js` + `src/game/effects.js`,
    the packer entry (`VFX_EFFECTS` in `tools/pack-sprites.mjs`: frames, ms, tinted, fill, anchor) and an
