@@ -1,12 +1,12 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/idle_v01.png",
-  "version": 1,
+  "sourceFile": "raw/idle_v02.png",
+  "version": 2,
   "source": [
-    "characters/naruto/raw/idle_v01.png"
+    "characters/naruto/raw/idle_v02.png"
   ],
-  "sourceHash": "0ef17786bbcb1744b5c0d2f93af8ae3e7a9a34ef",
+  "sourceHash": "8477ab61daad64a3252c66dd9165b9601c684ce6",
   "bodyHeight": 204,
   "cell": {
     "frameWidth": 256,
@@ -17,13 +17,13 @@
     ]
   },
   "files": {
-    "idle_00.png": "109a0035a3ec6bb7c6791318b620e3013411a165",
-    "idle_01.png": "32530802dd6890be6899fcfa86dcf343df428861",
-    "idle_02.png": "10eab9c01c4ff4a88ed2ca6d9cb218d5afb245dc",
-    "idle_03.png": "dba203e049cfbdd20fc688296b758fd42d2e5537",
-    "idle_04.png": "9466527f39dd66f1d7ec608eb55b0436eb605645",
-    "idle_05.png": "ebf57f4d25b3aad7bef9eea262650cc3c38670ab",
-    "idle_06.png": "3ed1438dda5ede03d090d6c148267c358232cb31",
-    "idle_07.png": "c259933dcffd00fb642fb4c36dc629db431f3f03"
+    "idle_00.png": "623bfad8f316a4a9c1b42f42dae0576cf17b3402",
+    "idle_01.png": "f12e93df78fd4f3079a085849938edeb42d51352",
+    "idle_02.png": "9d38c60aca82d7182857549b8978efe6f536aa2e",
+    "idle_03.png": "e71512e8a03314c24435f5682765a7c961a58552",
+    "idle_04.png": "2bff5848ea18fa16b2d16cc8f0adbd77b5630a58",
+    "idle_05.png": "4e89230d44e730ba113720e3164a9a0c36f5c194",
+    "idle_06.png": "30135aea27b6ef477bcb73cc0aeef59b3346b0ee",
+    "idle_07.png": "6e8c5adede7a00fbc06928b1ba5353aea2e581b4"
   }
 }

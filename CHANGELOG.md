@@ -79,6 +79,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- Approved Naruto expressions v02 and queued idle v02 with the shorter haircut across eight frames; existing idle/run approvals remain recorded (ART-NAR-12).
 - Balance pass from CPU round-robins: Gojo power/defense 1.0 and Infinity costs 15 ki per stopped projectile;
   Killua sturdier; Rasengan 150 → 140, Chidori 165 → 152; Lapse: Blue a little less safe (see ADR 0011 log).
 - Directional specials count toward the opponent, not the current facing (holding back no longer fired the
@@ -103,6 +104,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Mobile art review now displays newer packed idle candidates while retaining the approved idle reference separately (TOOL-017).
 - Melee hits on the same frame now trade: P1 used to update first and win every exchange (P1 won 81 % of CPU
   matches; 40-51 % after the fix).
 - Body separation could push a fighter pinned at the ring barrier out of the ring (seen in CPU soaks).

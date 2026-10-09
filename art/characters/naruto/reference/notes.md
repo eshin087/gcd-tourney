@@ -126,3 +126,18 @@ User selected "approve Naruto model sheet v02". The v02 candidate was copied byt
 - Recommendation: approve expressions v02 before editing idle hair. Mobile review: https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=expressions .
 
 - Local production build passed. Review exporter validated the approved model v02 and pending expressions v02; publishing uses the committed-HEAD export so concurrent engine work stays outside this art release.
+
+
+## 2026-10-09: expressions v02 approved
+
+User replied "I approve" to the expressions v02 review. The candidate was copied unchanged to expressions.png (SHA25661a2914d6261b0a7160dcf24bb8a84eb44a1eb38766b2de52afc38b4cfd52bfe); approvedVersion=2. Model v02 and expressions v02 are the identity inputs for the idle hair edit.
+
+## 2026-10-09: idle v02 short-hair candidate
+
+- Built-in imagegen precise-object-edit, first attempt selected for both A and B. Inputs: each approved v01 part as edit target, approved fixed model_sheet.png and expressions.png v02; B also attaches new v02 A. [Executed prompts](../raw/idle_v02_prompt.md). Both original1536x1024 outputs preserved; Node/pngjs stitched at1:1, A(0,0), B(1560,0),24px magenta gutter,3096x1024. SHA2565963893a6472e6841f8ccffa2cf9c0592e901267b9629c93288994251d9d0e06. No resampling or retouching.
+- Identity: all8poses use compact spikes and upper-ear tufts; long blond jaw locks removed, long black cloth tails retained. Mature determined face, guard, body proportions, holster, jacket, cuffs and sandals remain visually consistent. Nonhair RGB is regenerated; this is visual continuity, not a lossless hair-only patch. Raw A/B dominant backgrounds#FB08FA/#FA08FA (118918/115378RGBcolors), not exact#FF00FF.
+- Geometry: v02 raw tallest706px vs709v01; common scaling changes only~0.4%; head remains~31px. Packed topY[37,39,40,41,40,38,38,38],4px bob; soles all y240. Rear shoe x77-79..94-96, lead x152-154..179-182, <=2px foot drift. A/B crown seam41->40; f4->f5 rises2px; loop crown38->37. Inherited roughly4px horizontal head shift at f7->f0 remains; accepted prior motion is visually preserved. Recommend reviewing the loop at its recorded1.2second duration.
+- Packing: npm run sprites naruto re-imported idle_v02 into frames/idle and reported56628colors; then node tools/pack-sprites.mjs naruto --quantize48 produced48colors withzero warnings. Quantize intentionally skips cleaned-frame writeback, so normal import must precede it for new raws. Marker now identifiesv02. Atlas4096x256,256cells,pivot[128,240],ppu128,hard alpha,no opaque magenta,no clipping.21missingCORE/19optional expected. Run geometry and source stayv02; shared palette RGB may change when re-quantized.
+- Browser game logged custom Naruto sheet (2animations,incomplete preview), no console errors. Exporter now supports pending idles while validating idle_approved.png against approvedv01. Review catalog selects idle v02 needs review; fixed idle_approved.png remains byte-identical to raw/idle_v01.png.
+- Validation:18 focused exporter fixture cases passed;160 packer regression checks passed. Initial sandbox test failed on child image-buffer allocation and initial build hit EPERM resolving index.html; both passed outside the sandbox without source changes. Production build passed60modules. No engine or packer code changed. Mobile review: https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=idle .
+- Recommendation: approve haircut update with the inherited small head-loop shift noted. Run hair correction waits for idle approval.

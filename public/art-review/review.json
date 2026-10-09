@@ -1,6 +1,6 @@
 {
   "title": "GCD Tourney art review",
-  "updatedAt": "2026-10-09T19:25:27.240Z",
+  "updatedAt": "2026-10-09T20:06:53.122Z",
   "characters": [
     {
       "id": "naruto",
@@ -16,7 +16,7 @@
           "raw": "art-review/naruto/model_sheet_v02.png",
           "notes": [
             "Approved shorter haircut: compact golden spikes and short temple tufts.",
-            "Expressions v02 is the next candidate; idle and run still retain the earlier haircut."
+            "Model and expressions v02 are approved; idle v02 is the next review."
           ],
           "recommendation": "Model sheet v02 approved on October 9, 2026."
         },
@@ -25,29 +25,30 @@
           "label": "Expressions",
           "kind": "image",
           "version": 2,
-          "status": "needs review",
+          "status": "approved",
           "raw": "art-review/naruto/expressions_v02.png",
           "notes": [
-            "All nine expressions now use the approved shorter haircut.",
-            "Check the face shapes, focused eyes, gasp, and cheek marks.",
-            "The long black headband tails are preserved. Idle and run hair will follow after this expression sheet is approved."
+            "Approved shorter haircut across all nine expressions.",
+            "The long black headband tails and distinct expressions are preserved."
           ],
-          "recommendation": "Review expressions v02 before it becomes the reference for animation updates."
+          "recommendation": "Expressions v02 approved on October 9, 2026."
         },
         {
           "id": "idle",
           "label": "Idle",
           "kind": "animation",
-          "version": 1,
-          "status": "approved",
-          "raw": "art-review/naruto/idle_v01.png",
+          "version": 2,
+          "status": "needs review",
+          "raw": "art-review/naruto/idle_v02.png",
           "notes": [
-            "Approved idle v01.",
-            "The breathing motion is larger than the original brief; this was accepted."
+            "All eight idle poses now use the approved shorter haircut.",
+            "Feet remain planted; the breathing bob is 4 px. A small sideways head shift at the loop join remains from the approved motion.",
+            "The long black headband tails are preserved. Run hair will follow after this idle revision is approved."
           ],
+          "recommendation": "Review idle v02 before it becomes the reference for the run haircut update.",
           "animation": "idle",
-          "sheet": "art-review/naruto/sheet-f0f2aeb3e7c9.png",
-          "meta": "art-review/naruto/anims-1e017270ae1d.json"
+          "sheet": "art-review/naruto/sheet-92708122de02.png",
+          "meta": "art-review/naruto/anims-369d9cfc023b.json"
         },
         {
           "id": "run",
@@ -63,8 +64,8 @@
           ],
           "recommendation": "Run v02 approved on October 9, 2026.",
           "animation": "run",
-          "sheet": "art-review/naruto/sheet-f0f2aeb3e7c9.png",
-          "meta": "art-review/naruto/anims-1e017270ae1d.json"
+          "sheet": "art-review/naruto/sheet-92708122de02.png",
+          "meta": "art-review/naruto/anims-369d9cfc023b.json"
         }
       ]
     },

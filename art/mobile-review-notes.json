@@ -2,23 +2,24 @@
   "naruto.modelSheet": {
     "notes": [
       "Approved shorter haircut: compact golden spikes and short temple tufts.",
-      "Expressions v02 is the next candidate; idle and run still retain the earlier haircut."
+      "Model and expressions v02 are approved; idle v02 is the next review."
     ],
     "recommendation": "Model sheet v02 approved on October 9, 2026."
   },
   "naruto.expressions": {
     "notes": [
-      "All nine expressions now use the approved shorter haircut.",
-      "Check the face shapes, focused eyes, gasp, and cheek marks.",
-      "The long black headband tails are preserved. Idle and run hair will follow after this expression sheet is approved."
+      "Approved shorter haircut across all nine expressions.",
+      "The long black headband tails and distinct expressions are preserved."
     ],
-    "recommendation": "Review expressions v02 before it becomes the reference for animation updates."
+    "recommendation": "Expressions v02 approved on October 9, 2026."
   },
   "naruto.idle": {
     "notes": [
-      "Approved idle v01.",
-      "The breathing motion is larger than the original brief; this was accepted."
-    ]
+      "All eight idle poses now use the approved shorter haircut.",
+      "Feet remain planted; the breathing bob is 4 px. A small sideways head shift at the loop join remains from the approved motion.",
+      "The long black headband tails are preserved. Run hair will follow after this idle revision is approved."
+    ],
+    "recommendation": "Review idle v02 before it becomes the reference for the run haircut update."
   },
   "naruto.run": {
     "notes": [

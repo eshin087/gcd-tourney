@@ -24,8 +24,8 @@
 | Legal | Fan art for a personal, non-commercial demo. A public or commercial release needs a license or an original redesign (see the root README). |
 
 > **Shorter-hair revision:** the user approved the compact spikes and upper-ear temple tufts.
-> `reference/model_sheet.png` is now the approved **v02** hair reference. The next review is
-> `expressions_v02.png`, followed by revised idle and run assets, reviewing and approving each
+> `reference/model_sheet.png` and `reference/expressions.png` are now approved **v02** references.
+> The next review is `idle_v02.png`, followed by a revised run strip, reviewing and approving each
 > in order before propagating the change to the next asset.
 
 ## One-paragraph look
