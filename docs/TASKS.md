@@ -58,6 +58,7 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 | TOOL-006 | Packer spec v2: `spec` block read from the manifest (256 cells, pivot [128,240], ppu 128, palette warning > 64), highest `raw/<anim>_vNN.png` wins (plain `<anim>.png` only without versions), `raw/_rejected/` ignored, report names the file used | Claude | done | ADR 0007; `npm run test:sprites` |
 | DOC-005 | Art spec v2 docs: ADR 0007, art/ SPEC, STYLE_GUIDE, PIPELINE, REVIEW.md queue, manifest, briefs and prompts, template, agent docs, Codex Prompt 0 (Codex generates, versioned review) | Claude | done | ADR 0007; v1 Naruto candidate archived in `reference/_old/` |
 | DOC-006 | Spec v2 review fixes: ADR 0007 amendments (heavy F04 zone y 22-46, airLight2/special LOW, `_NN_fixMM` fix attempts, 9 px hitbox slack), Codex prompts (no reference/source/ uploads, one saved version per round, per-character Prompt 1, explicit-path commits on one shared art branch, status never goes down), template PROMPTS split into Part A/B with SIZE lines, Sasuke splits keep hit frames together, Naruto launched/superDash centering, Sprite Lab load-sheet instructions | Claude | done | `npm run test:sprites`, `npm run sprites` |
+| DOC-007 | Reconcile remaining art-doc wording with ADR 0007 | Claude | todo | Naruto PROMPTS S1 says same scale and height despite a bent-knee stance (keep anatomical scale, allow lower stance); SPEC Chidori anchor table keeps the thrust at (64,199), while ADR 0007 lists thrust/recovery at (218,140); reconcile with ENG-015 without changing the accepted v2 contract |
 | TOOL-007 | Packer: when nothing packable is left for a character, remove its stale packer-made `anims.json` + `sheet.png` (rejecting the only version no longer leaves rejected art in the game) | Claude | done | `npm run test:sprites` (versions 5); tools/README |
 | TOOL-008 | Stitch tool for long strips: join `raw/_parts/<anim>_vNN_A.png` + `_B.png` into `raw/<anim>_vNN.png` (bottom-aligned, >= 24 px magenta gap, nearest-neighbor rescale of B to A's head size); packer option or `npm run stitch` | Claude | todo | until then Codex uses a throwaway script (art/PIPELINE.md "Long strips (parts)") |
 | TOOL-009 | Sprite Lab: auto-load `public/characters/<id>/sheet.png` + `anims.json` when present (today it always shows the baked placeholder unless the sheet is loaded by hand) | Claude | todo | docs tell users to use "Load full sheet (.png + .json)…" |
@@ -75,8 +76,8 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
-| ART-NAR-01 | S1 model sheet (spec v2, Shippuden jacket, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | todo | **do first, in parallel with ART-SAS-01**; `reference/model_sheet_vNN.png`, approved copy `reference/model_sheet.png`, attached to every later prompt |
-| USR-002 | Approve the Naruto model sheet (`approve vNN`) before anything else is generated for him | User | todo | locks design, proportions and palette |
+| ART-NAR-01 | S1 model sheet (spec v2, Shippuden jacket, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
+| USR-002 | Approve the Naruto model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
 | ART-NAR-02 | S2 expression sheet | Codex | todo | `reference/expressions_vNN.png`, approved copy `reference/expressions.png`; attached from here on |
 | ART-NAR-03 | Steps 3-4 (CORE): idle, then run | Codex | todo | `raw/<anim>_vNN.png`; approve `idle` first, Codex copies it to `reference/idle_approved.png`, attached from then on |
 | ART-NAR-04 | Step 5 core attacks (CORE): light1, light2, light3, light4, heavy, airLight1, airHeavy | Codex | todo | strikes reach the v2 contact zones (art/SPEC.md) toward screen-right on active frames |
@@ -92,8 +93,8 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
-| ART-SAS-01 | S1 model sheet (spec v2, Hebi-era white open-chest shirt, purple rope belt, sword sheathed at the back of the belt, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | todo | **do first, in parallel with ART-NAR-01**; `reference/model_sheet_vNN.png`, approved copy `reference/model_sheet.png` |
-| USR-003 | Approve the Sasuke model sheet (`approve vNN`) before anything else is generated for him | User | todo | locks design, proportions and palette |
+| ART-SAS-01 | S1 model sheet (spec v2, Hebi-era white open-chest shirt, purple rope belt, sword sheathed at the back of the belt, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
+| USR-003 | Approve the Sasuke model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
 | ART-SAS-02 | S2 expression sheet (incl. Sharingan) | Codex | todo | `reference/expressions_vNN.png`, approved copy `reference/expressions.png` |
 | ART-SAS-03 | Steps 3-4 (CORE): idle, then run | Codex | todo | approve `idle` first, Codex copies it to `reference/idle_approved.png`; Sasuke runs with a stronger forward lean |
 | ART-SAS-04 | Step 5 core attacks (CORE): light1, light2, light3, light4, heavy, airLight1, airHeavy | Codex | todo | same body-height table as Naruto (ADR 0007); the sword stays sheathed (the moveset doesn't swing it) |

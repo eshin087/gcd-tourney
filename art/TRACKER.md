@@ -35,8 +35,8 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
 | character | reference (2) | core anims (23) | optional anims (15) | UI (3) | sheet complete |
 |---|---|---|---|---|---|
-| naruto | 0/2 | 0/23 | 0/15 | 0/3 | no |
-| sasuke | 0/2 | 0/23 | 0/15 | 0/3 | no |
+| naruto | 1/2 approved | 0/23 | 0/15 | 0/3 | no |
+| sasuke | 1/2 approved | 0/23 | 0/15 | 0/3 | no |
 | VFX atlas | 0/1 (style sheet, optional) | 0/15 effects | - | - | procedural fallback |
 | shared UI | - | - | - | 0/2 | - |
 
@@ -49,7 +49,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | turnaround (front, 3/4 right, side, back), fighting stance, palette swatches. The spec v1 candidate is archived in `reference/_old/` and rejected in REVIEW.md (chibi); v2 starts at v01 |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: estimated 6.8 heads and true profile; side locks too straight, 36/34 swatches, near-magenta background. V1 remains archived/rejected; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | neutral, angry, shout, grin/smirk, hurt, eyes closed, special state |
 | 3 | idle | 8 | - | **yes** | 204 | todo | - | - | approved strip is copied to reference/idle_approved.png |
 | 4 | run | 8 | - | **yes** | 204 | todo | - | - | |
@@ -105,7 +105,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | turnaround (front, 3/4 right, side, back), fighting stance, palette swatches |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | neutral, angry, shout, grin/smirk, hurt, eyes closed, special state |
 | 3 | idle | 8 | - | **yes** | 204 | todo | - | - | approved strip is copied to reference/idle_approved.png |
 | 4 | run | 8 | - | **yes** | 204 | todo | - | - | |

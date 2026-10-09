@@ -68,9 +68,9 @@
           "candidates": "art/characters/naruto/reference/model_sheet_vNN.png",
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
-          "status": "todo",
-          "version": 0,
-          "approvedVersion": null
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
         },
         "expressions": { "file": "art/characters/naruto/reference/expressions.png", "candidates": "art/characters/naruto/reference/expressions_vNN.png", "step": 2, "status": "todo", "version": 0, "approvedVersion": null }
       },
@@ -130,9 +130,9 @@
           "candidates": "art/characters/sasuke/reference/model_sheet_vNN.png",
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
-          "status": "todo",
-          "version": 0,
-          "approvedVersion": null
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
         },
         "expressions": { "file": "art/characters/sasuke/reference/expressions.png", "candidates": "art/characters/sasuke/reference/expressions_vNN.png", "step": 2, "status": "todo", "version": 0, "approvedVersion": null }
       },
