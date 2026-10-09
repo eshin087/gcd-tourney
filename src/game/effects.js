@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
+import { fetchArtJson } from '../core/artIndex.js';
 import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 
 const VERT = /* glsl */ `
@@ -86,9 +87,8 @@ export class Effects {
   // Effects missing from the custom atlas keep their procedural frames (upscaled).
   async loadCustom() {
     try {
-      const res = await fetch('/vfx/atlas.json', { cache: 'no-store' });
-      if (!res.ok || !(res.headers.get('content-type') || '').includes('json')) return false;
-      const cm = await res.json();
+      const cm = await fetchArtJson('/vfx/atlas.json');
+      if (!cm) return false;
       if (!cm.anims) {
         console.warn('[vfx] atlas.json has no "anims", keeping procedural effects');
         return false;

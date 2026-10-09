@@ -3,3 +3,10 @@ dist
 tools/.test-fixtures/
 # official anime/manga pictures collected for comparison: copyrighted, local only
 art/**/reference/source/
+# Vercel CLI link + prebuilt output (deploys: npm run deploy)
+.vercel
+
+.vercel
+.env*
+# generated before every build (tools/art-index.mjs)
+public/art-index.json

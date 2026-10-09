@@ -123,3 +123,15 @@ exists for architectural decisions, and the commit is conventional.
 - Generated images can be large, and the versions add up. When a remote is added, consider Git LFS for
   `art/**/raw/**/*.png` and `art/**/reference/*.png` (and decide in an ADR).
 - Never commit `dist/` or `node_modules/` (they're in `.gitignore`).
+
+## Hosting and the GitHub mirror
+
+- **GitHub** (private): https://github.com/eshin087/gcd-tourney. `npm run publish:github` pushes `main`
+  without raw image generations (`art/**/raw/`, `_rejected/`, `_old/`, contact sheets), which stay only in
+  the local repository (~1 GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
+  `python -m pip install git-filter-repo`.
+- **Vercel**: https://gcd-tourney.vercel.app. `npm run deploy` builds locally (`prebuild` writes
+  `public/art-index.json`, the list of packed art files, so production never requests a missing file) and
+  deploys the prebuilt output to production. Deploys are on demand, not on every push.
+- The site and repo contain fan art of copyrighted characters: keep the repo private, and see ADR 0008
+  (ENG-020) before any public release.

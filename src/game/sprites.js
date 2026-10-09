@@ -1,3 +1,4 @@
+import { hasArt, fetchArtJson } from '../core/artIndex.js';
 import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF } from './constants.js';
@@ -15,18 +16,17 @@ const FALLBACK = {
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
 const ART_MODE = new URLSearchParams(location.search).get('art');
 
-// Vite answers missing files with index.html (200), so check the type, not just res.ok.
-const isJson = (res) => res.ok && (res.headers.get('content-type') || '').includes('json');
-
 export async function loadImage(url) {
+  if (!hasArt(url)) return null; // production: only request files the art index lists (no 404s)
+  // load/error events, not img.decode(): decode() can stay pending while the tab is in the
+  // background, which would freeze boot for a player who opened the game in another tab
   const img = new Image();
-  img.src = url;
-  try {
-    await img.decode();
-    return img;
-  } catch {
-    return null;
-  }
+  const ok = await new Promise((resolve) => {
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+  return ok && img.naturalWidth > 0 ? img : null;
 }
 
 export class SheetAsset {
@@ -84,9 +84,8 @@ export async function loadFighterAsset(def, renderer = null) {
   const ui = () => (ART_MODE === 'procedural' ? [null, null] : Promise.all([loadImage(base + 'portrait.png'), loadImage(base + 'cutin.png')]));
   if (ART_MODE !== 'procedural') {
     try {
-      const res = await fetch(base + 'anims.json', { cache: 'no-store' });
-      if (isJson(res)) {
-        const meta = await res.json();
+      const meta = await fetchArtJson(base + 'anims.json');
+      if (meta) {
         if (!meta.animations?.idle?.frames?.length) {
           console.info(`[sprites] ${def.id}: art pack has no idle yet, using the placeholder`);
         } else if (meta.complete || ART_MODE === 'custom') {

@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node tools/art-index.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "dev:alt": "vite --port 5200",
     "sprites": "node tools/pack-sprites.mjs",
     "test:sprites": "node tools/test-pack-sprites.mjs",
-    "queue": "node tools/queue.mjs"
+    "queue": "node tools/queue.mjs",
+    "publish:github": "node tools/publish.mjs",
+    "deploy": "vercel build --prod && vercel deploy --prebuilt --prod"
   },
   "dependencies": {
     "three": "^0.170.0"

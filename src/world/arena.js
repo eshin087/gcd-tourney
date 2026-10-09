@@ -3,6 +3,8 @@ import * as T from '../art/textures.js';
 import { bakeCrowd, bakeAnnouncer, CROWD_W, CROWD_H } from '../art/crowdPainter.js';
 import { CROWD_PPU as PPU } from '../game/constants.js';
 import { RING_HALF, RING_TOP } from '../game/constants.js';
+import { hasArt, fetchArtJson } from '../core/artIndex.js';
+import { loadImage } from '../game/sprites.js';
 
 const lambert = (map, extra = {}) => new THREE.MeshLambertMaterial({ map, ...extra });
 
@@ -43,14 +45,14 @@ function proceduralCrowdAtlas() {
 // public/crowd/atlas.{json,png} from `npm run sprites crowd`. Returns null (procedural crowd) when absent.
 export async function loadCrowdAtlas() {
   try {
-    const res = await fetch('/crowd/atlas.json', { cache: 'no-store' });
-    if (!res.ok || !(res.headers.get('content-type') || '').includes('json')) return null;
-    const m = await res.json();
-    const img = new Image();
-    img.src = `/crowd/atlas.png?v=${Date.now()}`;
-    try {
-      await img.decode();
-    } catch {
+    const m = await fetchArtJson('/crowd/atlas.json');
+    if (!m) return null;
+    if (!hasArt('/crowd/atlas.png')) {
+      console.warn('[crowd] atlas.json found but atlas.png is missing, keeping the procedural crowd');
+      return null;
+    }
+    const img = await loadImage(`/crowd/atlas.png?v=${Date.now()}`);
+    if (!img) {
       console.warn('[crowd] atlas.json found but atlas.png is missing or unreadable, keeping the procedural crowd');
       return null;
     }

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { buildArena, loadCrowdAtlas } from '../world/arena.js';
+import { loadArtIndex } from '../core/artIndex.js';
 import { buildTrainingRoom } from '../world/trainingRoom.js';
 import { Effects } from './effects.js';
 import { CameraDirector } from './camera.js';
@@ -72,6 +73,7 @@ export class Game {
   }
 
   async init() {
+    await loadArtIndex();
     await this.fx.loadCustom();
     const crowd = await loadCrowdAtlas();
     if (crowd) {

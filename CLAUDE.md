@@ -34,6 +34,8 @@ documentation that stays true.
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` (+ VFX) |
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` |
+| `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
+| `npm run deploy` | build + deploy to Vercel production: https://gcd-tourney.vercel.app (on demand, not on every push) |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
@@ -81,7 +83,8 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    when they're documented.
 6. **Fail soft on art.** Missing or broken custom art must fall back to the baked placeholder or the
    procedural VFX, with one clear console line (prefix `[sprites]` / `[vfx]`). It must never crash.
-7. Don't commit `node_modules/`, `dist/`, or secrets. Don't touch `.claude/` unless the user asks.
+7. Don't commit `node_modules/`, `dist/`, `.vercel/`, `.env*`, or secrets. Other agents (Codex) commit in the same
+   working copy: commit only your own paths (`git commit -- <paths>`), never `git add -A`. Don't touch `.claude/` unless the user asks.
 8. Keep changes focused. Don't refactor unrelated code in the same change. Propose it as a task in
    [docs/TASKS.md](docs/TASKS.md).
 
