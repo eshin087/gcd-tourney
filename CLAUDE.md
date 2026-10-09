@@ -35,7 +35,7 @@ documentation that stays true.
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
-| `npm run deploy` | build + deploy to Vercel production: https://gcd-tourney.vercel.app (on demand, not on every push) |
+| `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
@@ -86,7 +86,10 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    procedural VFX, with one clear console line (prefix `[sprites]` / `[vfx]`). It must never crash.
 7. Don't commit `node_modules/`, `dist/`, `.vercel/`, `.env*`, or secrets. Other agents (Codex) commit in the same
    working copy: commit only your own paths (`git commit -- <paths>`), never `git add -A`. Don't touch `.claude/` unless the user asks.
-8. Keep changes focused. Don't refactor unrelated code in the same change. Propose it as a task in
+8. **Claim shared files.** Codex edits in the same working copy: before editing a file outside your usual lane,
+   list it in your docs/TASKS.md row (`files: ...`) and check no in-progress Codex row lists it. Deploy only
+   committed work (`npm run deploy` builds a clean export of HEAD).
+9. Keep changes focused. Don't refactor unrelated code in the same change. Propose it as a task in
    [docs/TASKS.md](docs/TASKS.md).
 
 ## Conventions (summary)

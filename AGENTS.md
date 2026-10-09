@@ -141,6 +141,13 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 
 ## Safe boundaries for code changes
 
+- **Shared code files: claim before you edit.** Claude and Codex work in the same folder at the same time. Before
+  editing anything outside `art/` and `public/` (e.g. `tools/`, `src/`, `vite.config.js`, `package.json`), put the
+  file paths in your task row in docs/TASKS.md (`files: tools/pack-sprites.mjs`) and check that no in-progress row
+  of the other agent lists the same file. If one does, wait or ask. Run `npm run test:sprites` / `npm run build`
+  before committing tool or code changes.
+- **Deploys ship committed work only.** Use `npm run deploy` (it builds a clean export of HEAD). Never run
+  `vercel deploy` from the working folder: it would publish whatever is half-finished there.
 - **Don't refactor engine code** (`src/core`, `src/game`, `src/art/rig`, `src/world`) without a task in
   docs/TASKS.md that assigns it to you. Engine and gameplay belong to Claude by default.
 - Small, focused data changes are fine when a task asks for them: a new character file in

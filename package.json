@@ -14,7 +14,7 @@
     "test:sprites": "node tools/test-pack-sprites.mjs",
     "queue": "node tools/queue.mjs",
     "publish:github": "node tools/publish.mjs",
-    "deploy": "vercel build --prod && vercel deploy --prebuilt --prod"
+    "deploy": "node tools/deploy.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"
