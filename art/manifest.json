@@ -218,19 +218,19 @@
     "crowd": {
       "batches": {
         "crowd-animal-folk-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-af-001": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-002": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-003": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-004": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-005": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-006": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-007": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-008": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-009": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-010": { "status": "raw", "version": 1, "approvedVersion": null }
+            "org-af-001": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-002": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-003": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-004": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-005": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-006": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-007": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-008": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-009": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-010": { "status": "approved", "version": 1, "approvedVersion": 1 }
           }
         },
         "crowd-animal-folk-02": {
