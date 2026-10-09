@@ -12,6 +12,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 ### Added
+- Approved Naruto short-hair idle v02 and queued run v03 with matching hair, preserved gait/placement, 48-color packing and phone review exports (ART-NAR-12).
 - Full kits for Naruto (Rasenshuriken handheld, Uzumaki Barrage, Nine-Tails Cloak, Substitution, Shadow Clone
   Barrage) and Sasuke (Chidori Sharp Spear, Lion's Barrage, Sharingan counter, Kirin super, **Amaterasu ultimate**),
   so every fighter fills the same kit slots (ADR 0011: slot and damage budgets, stat index, balance log).

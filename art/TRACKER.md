@@ -52,9 +52,9 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Propagating haircut to expressions, then idle/run with separate reviews (ART-NAR-12) |
-| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle hair update is next (ART-NAR-12) |
-| 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v01 | Short-hair v02 candidate needs review; 8 frames/150ms, same guard and breathing motion. 48-color pack, zero warnings. Fixed idle_approved.png remains approved v01 (ART-NAR-12) |
-| 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
+| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 also approved; run v03 awaits review (ART-NAR-12) |
+| 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
+| 4 | run | 8 | - | **yes** | 204 | approved | v03 | v02 | Short-hair v03 needs review; same 8 poses, 60ms timing and placement offsets. Ground soles y240, flights y210/212; 48 colors, zero warnings. Motion v02 remains approved (ART-NAR-12) |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | todo | - | - | |

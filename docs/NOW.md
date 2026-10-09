@@ -9,7 +9,7 @@ https://gcd-tourney.vercel.app._
 
 ## Your next actions
 
-1. **Naruto: review idle v02 with the shorter haircut** at https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=idle . Model and expressions v02 are approved. Reply `approve Naruto idle v02` or send changes; the run haircut update follows idle approval.
+1. **Naruto: review run v03 with the shorter haircut** at https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=run . Model, expressions and idle v02 are approved. Reply `approve Naruto run v03` or send changes; this is the final haircut propagation review before core attacks.
 2. **Review the other art waiting for you** (list below, generated). Reply in the Codex thread that owns it:
    `approve <id> vNN`, or your feedback.
    - Gojo `model_sheet_v01`: Codex's own QA measured **~9-10 heads** (he should be ~7). Suggested reply:
