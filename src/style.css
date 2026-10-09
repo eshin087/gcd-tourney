@@ -11,7 +11,7 @@
   --u: min(1vh, 0.6vw);
 }
 
-html, body { margin: 0; height: 100%; overflow: hidden; background: #0d0b14; color: var(--text); font-family: 'Bangers', system-ui, sans-serif; user-select: none; }
+html, body { margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; background: #0d0b14; color: var(--text); font-family: 'Bangers', system-ui, sans-serif; user-select: none; }
 #app { position: fixed; inset: 0; }
 #game-canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; }
 #fx-overlay { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -21,7 +21,7 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 
 /* ------------------------------------------------------------------ HUD */
 .hud { position: absolute; inset: 0; }
-.hud-top { position: absolute; top: calc(var(--u) * 2.4); left: calc(var(--u) * 3 + 22px); right: calc(var(--u) * 3 + 22px); display: flex; align-items: flex-start; justify-content: space-between; gap: calc(var(--u) * 2); }
+.hud-top { position: absolute; top: calc(var(--u) * 2.4 + env(safe-area-inset-top)); left: calc(var(--u) * 3 + 30px + env(safe-area-inset-left)); right: calc(var(--u) * 3 + 30px + env(safe-area-inset-right)); display: flex; align-items: flex-start; justify-content: space-between; gap: calc(var(--u) * 2); }
 .pbar { position: relative; display: flex; align-items: flex-start; gap: calc(var(--u) * 1.2); width: min(41vw, calc(var(--u) * 78)); }
 .pbar.p2 { flex-direction: row-reverse; }
 .portrait { flex: none; width: calc(var(--u) * 10); height: calc(var(--u) * 10); background: linear-gradient(160deg, color-mix(in srgb, var(--pc) 70%, #fff), color-mix(in srgb, var(--pc) 60%, #000)); border: calc(var(--u) * 0.45) solid #fff; outline: calc(var(--u) * 0.35) solid var(--ink); transform: skewX(-8deg); overflow: hidden; box-shadow: 0 calc(var(--u) * 0.6) 0 rgba(0,0,0,0.35); }
@@ -190,7 +190,7 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 #loading.done { display: none; }
 
 /* ------------------------------------------------------------ mute toggle (top-right, unobtrusive) */
-#mute { all: unset; position: fixed; top: 8px; right: 8px; z-index: 50; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(10, 8, 24, 0.3); opacity: 0.32; cursor: pointer; transition: opacity 0.15s, background 0.15s; }
+#mute { all: unset; position: fixed; top: calc(8px + env(safe-area-inset-top)); right: calc(8px + env(safe-area-inset-right)); z-index: 50; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(10, 8, 24, 0.3); opacity: 0.32; cursor: pointer; transition: opacity 0.15s, background 0.15s; }
 #mute svg { width: 15px; height: 15px; }
 #mute:hover, #mute:focus-visible { opacity: 0.95; background: rgba(10, 8, 24, 0.6); }
 #mute.muted { opacity: 0.55; color: #ff9a8a; }
@@ -284,3 +284,60 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 .tr-legend .lg-hurt { border-color: #3fd6ff; }
 .tr-legend .lg-hit { border-color: #ff3a4a; }
 .ih-row.idle { border-left-color: rgba(255, 255, 255, 0.15); opacity: 0.55; }
+
+/* ------------------------------------------------------------ mobile / touch (src/core/touch.js) */
+#app, #game-canvas { touch-action: none; }
+#ui { z-index: 25; } /* menus + training panel sit above the touch buttons; the HUD itself ignores pointers */
+#touch { position: fixed; inset: 0; z-index: 20; display: none; pointer-events: none; touch-action: none; user-select: none; --b: min(16vh, 68px); }
+#touch.size-s { --b: min(13vh, 56px); }
+#touch.size-l { --b: min(19vh, 82px); }
+#touch.show { display: block; }
+.t-zone { position: absolute; left: 0; top: 18%; bottom: 0; width: 46%; pointer-events: auto; }
+.t-stick { position: fixed; width: calc(var(--b) * 1.9); height: calc(var(--b) * 1.9); margin: calc(var(--b) * -0.95) 0 0 calc(var(--b) * -0.95); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.35); background: radial-gradient(circle, rgba(255, 255, 255, 0.08), rgba(10, 8, 24, 0.25)); opacity: 0; transition: opacity 0.1s; pointer-events: none; }
+.t-stick.on { opacity: 1; }
+.t-knob { position: absolute; left: 50%; top: 50%; width: calc(var(--b) * 0.8); height: calc(var(--b) * 0.8); margin: calc(var(--b) * -0.4) 0 0 calc(var(--b) * -0.4); border-radius: 50%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 10px rgba(127, 232, 255, 0.5); }
+.t-buttons { position: absolute; right: env(safe-area-inset-right); bottom: env(safe-area-inset-bottom); width: calc(var(--b) * 4); height: calc(var(--b) * 3.9); pointer-events: auto; }
+.t-btn { position: absolute; width: var(--b); height: var(--b); border-radius: 50%; display: grid; place-items: center; font-family: 'Bangers', sans-serif; font-size: calc(var(--b) * 0.24); letter-spacing: 0.04em; color: #fff; background: rgba(16, 12, 34, 0.42); border: 2px solid var(--tc, rgba(255, 255, 255, 0.5)); box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.35); opacity: 0.78; }
+.t-btn span { pointer-events: none; text-shadow: 0 1px 0 #000; }
+.t-btn.down { background: var(--tc, #fff); color: #120c22; opacity: 1; transform: scale(0.94); }
+.t-btn.down span { text-shadow: none; }
+.t-btn.big { width: calc(var(--b) * 1.3); height: calc(var(--b) * 1.3); font-size: calc(var(--b) * 0.3); }
+.t-btn.small { width: calc(var(--b) * 0.8); height: calc(var(--b) * 0.8); font-size: calc(var(--b) * 0.2); }
+.t-btn.macro { width: calc(var(--b) * 0.78); height: calc(var(--b) * 0.78); font-size: calc(var(--b) * 0.19); border-style: dashed; }
+.t-btn.off { opacity: 0.3; }
+.t-light { --tc: #ffd23a; right: calc(var(--b) * 1.3); bottom: calc(var(--b) * 0.3); }
+.t-heavy { --tc: #ff7a3a; right: calc(var(--b) * 0.2); bottom: calc(var(--b) * 1.2); }
+.t-special { --tc: #3fd6ff; right: calc(var(--b) * 1.45); bottom: calc(var(--b) * 1.8); }
+.t-jump { --tc: #7dff9a; right: calc(var(--b) * 2.75); bottom: calc(var(--b) * 0.2); }
+.t-guard { --tc: #b9b4ff; right: calc(var(--b) * 2.95); bottom: calc(var(--b) * 1.45); }
+.t-dash { --tc: #ff9ae0; right: calc(var(--b) * 0.3); bottom: calc(var(--b) * 2.4); }
+.t-ult { --tc: #ffb000; right: calc(var(--b) * 2.6); bottom: calc(var(--b) * 2.55); }
+.t-vanish { --tc: #c7a6ff; right: calc(var(--b) * 1.55); bottom: calc(var(--b) * 2.95); }
+.t-pause { position: absolute; top: calc(8px + env(safe-area-inset-top)); left: calc(8px + env(safe-area-inset-left)); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 4px; background: rgba(10, 8, 24, 0.45); pointer-events: auto; opacity: 0.7; }
+.t-pause i { width: 4px; height: 11px; background: #fff; border-radius: 1px; }
+#fs { all: unset; position: fixed; top: calc(40px + env(safe-area-inset-top)); right: calc(8px + env(safe-area-inset-right)); z-index: 50; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(10, 8, 24, 0.3); opacity: 0.4; cursor: pointer; }
+#fs svg { width: 14px; height: 14px; }
+.m-back { all: unset; display: none; position: fixed; left: calc(10px + env(safe-area-inset-left)); bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 30; padding: 8px 14px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #fff; background: rgba(16, 12, 34, 0.75); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 8px; pointer-events: auto; cursor: pointer; }
+.m-back.show { display: block; }
+.ctl-size-label { align-self: center; margin-right: 4px; font-family: 'Press Start 2P', monospace; font-size: 8px; color: rgba(255, 255, 255, 0.55); }
+.touch-row kbd { color: #fff; }
+/* menus and panels that can overflow on a short phone screen scroll with a finger */
+.tr-panel, .controls-page .ctl-panel, .moves-box { touch-action: pan-y; -webkit-overflow-scrolling: touch; }
+
+/* portrait phone: ask for landscape */
+#rotate { display: none; position: fixed; inset: 0; z-index: 100; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #0d0b14; color: #fff; font-family: 'Press Start 2P', monospace; font-size: 12px; text-align: center; padding: 24px; }
+#rotate small { font-family: system-ui, sans-serif; font-size: 12px; color: rgba(255, 255, 255, 0.55); }
+.rot-phone { width: 44px; height: 76px; border: 3px solid #ffd23a; border-radius: 8px; animation: rotPhone 2s ease-in-out infinite; }
+@keyframes rotPhone { 0%, 20% { transform: rotate(0deg); } 50%, 80% { transform: rotate(-90deg); } 100% { transform: rotate(0deg); } }
+@media (orientation: portrait) and (pointer: coarse) { #rotate { display: flex; } }
+
+/* short landscape screens (phones): tighter menus */
+@media (max-height: 480px) {
+  :root { --u: max(min(1vh, 0.6vw), 4.2px); } /* a 360 px tall phone: everything ~17% larger so labels stay legible */
+  .cs-hint, .cs-sub, .cs-moves, .foot, .tr-foot, .ctl-tip { font-size: 11px !important; }
+  .screen-title { margin-bottom: calc(var(--u) * 1.5); }
+  .list .item small { display: none; }
+  .tr-panel { top: calc(var(--u) * 14); min-width: 260px; }
+}
+.touch-row { justify-content: flex-start; }
+.touch-row .ctl-key { flex: none; min-width: 92px; text-align: left; }

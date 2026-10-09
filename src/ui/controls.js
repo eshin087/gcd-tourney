@@ -3,6 +3,7 @@
 // keyboard/gamepad navigable (nav()) on the pause / menu controls page.
 import { ACTIONS, DIRECTIONS, ACTION_LABELS, KEYMAPS, PAD_BUTTONS, PAD_NAMES, RESERVED_KEYS, keyLabel } from '../core/input.js';
 import { audio } from '../core/audio.js';
+import { IS_TOUCH_DEVICE } from '../core/touch.js';
 
 const el = (tag, cls, html = '') => {
   const e = document.createElement(tag);
@@ -11,7 +12,20 @@ const el = (tag, cls, html = '') => {
   return e;
 };
 
-const LAYOUTS = [['keyboard', 'KEYBOARD'], ['playstation', 'PLAYSTATION'], ['xbox', 'XBOX']];
+const LAYOUTS = [['keyboard', 'KEYBOARD'], ['playstation', 'PLAYSTATION'], ['xbox', 'XBOX'], ...(IS_TOUCH_DEVICE ? [['touch', 'TOUCH']] : [])];
+
+// On-screen controls (src/core/touch.js): what each one does
+const TOUCH_ROWS = [
+  ['move', 'Joystick (left half)', 'Move · flick twice to dash'],
+  ['light', 'LIGHT', 'Light attack · auto combo'],
+  ['heavy', 'HEAVY', 'Heavy / launcher'],
+  ['special', 'SPECIAL', 'Signature rush · hold to charge ki'],
+  ['jump', 'JUMP', 'Jump · chase after a launcher'],
+  ['guard', 'GUARD', 'Block'],
+  ['dash', 'DASH', 'Dash with the stick · super dash without'],
+  ['ult', 'ULT', 'Ultimate (Heavy + Special, 3 bars)'],
+  ['vanish', 'VANISH', 'Vanish (Guard + Special, 1 bar)'],
+];
 const PROFILES = [['solo', 'VS CPU / TRAINING'], ['p1', '2P · PLAYER 1'], ['p2', '2P · PLAYER 2']];
 const PROFILE_SHORT = { solo: 'Solo', p1: 'P1', p2: 'P2' };
 
@@ -92,7 +106,8 @@ export class ControlsPanel {
     };
     this.items.push({ el: tabs, left: () => cycleLayout(-1), right: () => cycleLayout(1), confirm: () => cycleLayout(1) });
 
-    if (this.layout === 'keyboard') this.renderKeyboard(r);
+    if (this.layout === 'touch') this.renderTouch(r);
+    else if (this.layout === 'keyboard') this.renderKeyboard(r);
     else this.renderPad(r);
 
     const foot = el('div', 'ctl-foot');
@@ -109,7 +124,9 @@ export class ControlsPanel {
       this.items.push({ el: back, confirm: goBack });
     }
     r.append(foot);
-    this.tip = el('div', 'ctl-tip', this.layout === 'keyboard'
+    this.tip = el('div', 'ctl-tip', this.layout === 'touch'
+      ? 'Touch buttons are fixed; pick a size that fits your thumbs. The pause button is top-left.'
+      : this.layout === 'keyboard'
       ? 'Click a row (or select it and confirm), then press the new key. Esc cancels.'
       : 'Click a row (or select it and press ✕ / A), then press the new button. Esc or Options / Menu cancels.');
     r.append(this.tip);
@@ -156,6 +173,27 @@ export class ControlsPanel {
       <div><b>Vanish</b>${k('guard')}+${k('special')}</div>
       <div><b>Super dash</b>${k('dash')} no direction</div>
       <div><b>Dash</b>double-tap a direction</div>`));
+  }
+
+  // Touch layout: what every on-screen control does, live highlights, button size.
+  renderTouch(r) {
+    const list = el('div', 'ctl-list');
+    for (const [id, name, what] of TOUCH_ROWS) {
+      const row = el('div', 'ctl-row touch-row', `<span class="ctl-key"><kbd class="t-${id}">${name}</kbd></span><span class="ctl-name">${what}</span>`);
+      list.append(row);
+      this.rows[id] = row;
+    }
+    r.append(list);
+    const t = this.input.touch;
+    if (!t) return;
+    const sizes = el('div', 'ctl-profiles');
+    sizes.append(el('span', 'ctl-size-label', 'BUTTON SIZE'));
+    for (const [id, label] of [['s', 'SMALL'], ['m', 'MEDIUM'], ['l', 'LARGE']]) {
+      const b = el('button', 'ctl-chip' + (t.prefs.size === id ? ' on' : ''), label);
+      b.onclick = () => { t.setSize(id); audio.play('ui'); this.render(); };
+      sizes.append(b);
+    }
+    r.append(sizes);
   }
 
   renderPad(r) {
@@ -272,6 +310,14 @@ export class ControlsPanel {
   tick() {
     if (!this.rows || this.capturing) return;
     const inp = this.input;
+    if (this.layout === 'touch') {
+      const t = inp.touch;
+      for (const [id] of TOUCH_ROWS) {
+        const on = !t ? false : id === 'move' ? !!(t.mx || t.my) : id === 'ult' ? t.held.has('heavy') && t.held.has('special') : id === 'vanish' ? t.held.has('guard') && t.held.has('special') : t.held.has(id);
+        this.rows[id]?.classList.toggle('live', on);
+      }
+      return;
+    }
     if (this.layout === 'keyboard') {
       const map = KEYMAPS[this.profile];
       for (const a of [...DIRECTIONS, ...ACTIONS]) this.rows[a]?.classList.toggle('live', (map[a] || []).some((c) => inp.keys.has(c)));
@@ -331,6 +377,7 @@ export class InputHistory {
 
 // Bottom-of-screen hint for matches, built from the live bindings + active device.
 export function matchHint(mode, layout) {
+  if (layout === 'touch') return ''; // the on-screen buttons are labelled
   const k = (map, a) => `<kbd>${keyLabel(map[a]?.[0])}</kbd>`;
   if (layout !== 'keyboard' && PAD_NAMES[layout]) {
     const n = PAD_NAMES[layout], face = FACE[layout];
@@ -350,6 +397,7 @@ export function matchHint(mode, layout) {
 
 // Beam-clash mash prompt, from the live bindings (training and VS CPU use the solo map).
 export function clashHint(mode, layout) {
+  if (layout === 'touch' && mode !== 'versus') return 'MASH <kbd>LIGHT</kbd><kbd>HEAVY</kbd><kbd>SPECIAL</kbd>!';
   const keys = (m) => ['light', 'heavy', 'special'].map((a) => `<kbd>${keyLabel(m[a]?.[0])}</kbd>`).join('');
   if (mode === 'versus') return `MASH! P1 ${keys(KEYMAPS.p1)} · P2 ${keys(KEYMAPS.p2)}`;
   if (layout !== 'keyboard' && PAD_NAMES[layout]) {

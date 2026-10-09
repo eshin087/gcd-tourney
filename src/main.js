@@ -2,11 +2,46 @@ import { PixelRenderer } from './core/renderer.js';
 import { InputManager } from './core/input.js';
 import { audio } from './core/audio.js';
 import { Game } from './game/game.js';
+import { TouchControls, IS_TOUCH_DEVICE } from './core/touch.js';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
 const input = new InputManager();
+if (IS_TOUCH_DEVICE) input.lastDevice = 'touch'; // phones start with the on-screen controls
 const game = new Game(renderer, input);
 window.game = game; // handy for debugging in the console
+
+// ---------------------------------------------------------------- touch / mobile
+const touch = new TouchControls({ onPause: () => game.pauseFromTouch() });
+input.touch = touch;
+game.touch = touch;
+window.addEventListener('touchstart', () => input.setDevice('touch'), { capture: true, passive: true });
+// tap the game view to skip the pre-fight intro (there is no Enter key on a phone)
+document.getElementById('app').addEventListener('pointerdown', () => game.tapSkip());
+
+// Fullscreen + landscape lock on the first touch (Android; iOS Safari has no fullscreen API for
+// pages: Add to Home Screen gives a fullscreen landscape app via the web manifest instead).
+const canFullscreen = !!document.documentElement.requestFullscreen && document.fullscreenEnabled;
+const enterFullscreen = () => {
+  if (document.fullscreenElement || !canFullscreen) return;
+  document.documentElement.requestFullscreen({ navigationUI: 'hide' })
+    .then(() => screen.orientation?.lock?.('landscape'))
+    .catch(() => {});
+};
+if (IS_TOUCH_DEVICE) {
+  window.addEventListener('pointerdown', (e) => { if (e.pointerType === 'touch') enterFullscreen(); }, { once: true });
+  if (canFullscreen) {
+    const fs = document.createElement('button');
+    fs.id = 'fs';
+    fs.setAttribute('aria-label', 'Toggle fullscreen');
+    fs.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+    fs.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      else enterFullscreen();
+    });
+    document.body.append(fs);
+  }
+}
 
 // first interaction unlocks audio; M (or the small speaker top-right) toggles mute
 const unlock = () => audio.init();

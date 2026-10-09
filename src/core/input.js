@@ -167,6 +167,7 @@ export class InputManager {
     this.active = new Set();
     this.lastDevice = 'keyboard'; // keyboard | playstation | xbox
     this.lastPad = -1; // gamepad index pressed most recently: it drives a lone (solo / training) player
+    this.touch = null; // TouchControls (src/core/touch.js), merged into player 1 when visible
     this.capture = null; // rebinding: callback waiting for the next key / button
     this.capturePrev = {}; // per gamepad index: buttons already held when the capture started
     // Keys / buttons held across a menu -> gameplay boundary (or a pad rebind) are ignored
@@ -334,7 +335,9 @@ export class InputManager {
       if (!held.size) this.suppressPad.delete(gi);
     }
     const live = (c) => !capturing && !this.suppressKeys.has(c) && (this.keys.has(c) || this.tapped.has(c));
-    for (const { pad, keymap, gp } of this.bindings) {
+    const touch = !capturing && this.touch?.visible ? this.touch : null;
+    this.bindings.forEach(({ pad, keymap, gp }, bi) => {
+      const t = bi === 0 ? touch : null; // on-screen controls drive player 1
       const k = (list) => (list || []).some(live);
       let x = (k(keymap.right) ? 1 : 0) - (k(keymap.left) ? 1 : 0);
       let y = (k(keymap.up) ? 1 : 0) - (k(keymap.down) ? 1 : 0);
@@ -350,10 +353,11 @@ export class InputManager {
         if (gb([12])) y = 1;
         if (gb([13])) y = -1;
       }
+      if (t && (t.mx || t.my)) { x = t.mx; y = t.my; }
       pad.tick();
       pad.setMove(x, y);
-      for (const a of ACTIONS) pad.set(a, k(keymap[a]) || !!gb(PAD_BUTTONS[a]));
-    }
+      for (const a of ACTIONS) pad.set(a, k(keymap[a]) || !!gb(PAD_BUTTONS[a]) || !!t?.isHeld(a));
+    });
     this.tapped.clear();
   }
 

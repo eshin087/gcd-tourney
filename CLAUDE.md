@@ -48,7 +48,8 @@ Full write-up: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 ```
 index.html, src/main.js     game entry: renderer + input + Game, rAF loop, ?fight= / ?debug helpers
 sprites.html, src/spriteLab.js   Sprite Lab: preview baked anims, copy ChatGPT prompts, import strips
-src/core/      renderer.js (low-res render + nearest upscale, bloom, grade), input.js (keyboard/gamepad -> Pad),
+src/core/      renderer.js (low-res render + nearest upscale, bloom, grade), input.js (keyboard/gamepad/touch -> Pad),
+               touch.js (on-screen joystick + buttons for phones), artIndex.js (prod list of packed art),
                audio.js (WebAudio synth: sfx, loops, music, crowd; no audio files)
 src/game/      game.js (loop, match flow, melee/clash/KO hooks), fighter.js (state machine + physics + takeHit),
                moves.js (ALL move/frame data), ai.js (CpuBrain drives a Pad), projectiles.js (projectiles + beams),

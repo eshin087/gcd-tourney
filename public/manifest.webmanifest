@@ -1,0 +1,10 @@
+{
+  "name": "GCD Tourney",
+  "short_name": "GCD Tourney",
+  "description": "HD-2D pixel-art anime arena fighter",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0d0b14",
+  "theme_color": "#0d0b14"
+}

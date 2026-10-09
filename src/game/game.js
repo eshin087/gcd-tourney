@@ -64,7 +64,8 @@ export class Game {
     this.superFlash = null;
     this.dim = 0;
     this.dimTarget = 0;
-    this.viewCover = 0; // fraction of the screen width hidden behind the training panel
+    this.viewCover = 0; // fraction of the screen width hidden behind the training panel / touch buttons
+    this.viewLift = 0; // projection shift up while touch buttons cover the bottom
     this.showBoxes = new URLSearchParams(location.search).has('boxes'); // hit/hurt box overlay
     // keep the on-screen button hints in sync with the device being used
     input.onDevice((d) => {
@@ -315,6 +316,16 @@ export class Game {
       else if (this.training && e.action === 'panel') this.menus.toggleTrainingPanel();
       else if (this.training && (e.action === 'select' || e.code === 'Backspace')) this.resetTrainingPositions();
     }
+  }
+
+  // on-screen pause button (touch)
+  pauseFromTouch() {
+    if (this.fighters.length === 2 && !this.paused && this.state !== 'intro') this.pause();
+  }
+
+  // a tap on the game view during the pre-fight intro skips it (touch has no Enter key)
+  tapSkip() {
+    if (this.state === 'intro' && this.stateT > 0.3 && !this.paused) this.skipIntro();
   }
 
   pause() {
@@ -944,10 +955,20 @@ export class Game {
     this.room.update(performance.now() / 1000);
     if (this.fighters.length === 2) this.hud.update(this.fighters, this.timeLeft, dt);
     this.menus.tick?.(dt);
-    // training: shift the projection so the fight stays centered in the space the side panel leaves free
-    const cover = this.training && !this.paused ? this.menus.panelCover() : 0;
-    this.viewCover += (cover - this.viewCover) * Math.min(1, dt * 8);
-    if (this.viewCover > 0.002) this.camera.setViewOffset(1, 1, this.viewCover / 2, 0, 1, 1);
+    if (this.touch) {
+      // on-screen controls only while there is something to control
+      const live = this.input.lastDevice === 'touch' && this.fighters.length === 2 && !this.paused &&
+        (this.state === 'fight' || this.state === 'roundIntro' || this.state === 'training');
+      this.touch.setVisible(live);
+      if (live) this.touch.setKi(this.fighters[0].ki);
+    }
+    // keep the fight centered in the space the training panel / touch buttons leave free
+    const touchUi = !!this.touch?.visible;
+    const cover = Math.max(this.training && !this.paused ? this.menus.panelCover() : 0, touchUi ? 0.16 : 0);
+    const k = Math.min(1, dt * 8);
+    this.viewCover += (cover - this.viewCover) * k;
+    this.viewLift += ((touchUi ? 0.07 : 0) - this.viewLift) * k; // lift the action above the bottom buttons
+    if (this.viewCover > 0.002 || this.viewLift > 0.002) this.camera.setViewOffset(1, 1, this.viewCover / 2, this.viewLift, 1, 1);
     else if (this.camera.view?.enabled) this.camera.clearViewOffset();
     this.renderer.render(this.scene, this.camera);
   }

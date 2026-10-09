@@ -78,6 +78,18 @@ These are the default bindings. You can rebind them in the controls menu.
 - A gamepad only takes control after you press one of its buttons, so an idle controller with a
   drifting stick can't move your fighter.
 
+### Phone / tablet (landscape)
+
+Open https://gcd-tourney.vercel.app on your phone and turn it sideways (portrait shows a "rotate" screen).
+Android goes fullscreen on the first tap; on iPhone use Share > Add to Home Screen for a fullscreen app.
+
+- **Left half of the screen:** a joystick appears under your thumb. Flick twice in a direction to dash.
+- **Right side:** LIGHT, HEAVY, SPECIAL, JUMP, GUARD, DASH, plus **ULT** (Heavy + Special) and **VANISH**
+  (Guard + Special) so you never need a two-finger chord. ULT / VANISH dim until you have the ki.
+- **Top-left:** pause. In menus, tap items; the **BACK** button bottom-left replaces Esc. Tap the screen to
+  skip the pre-fight intro.
+- Button size: Pause > Controls > TOUCH tab (small / medium / large).
+
 ## How it's built
 
 - **Three.js + Vite**, no other runtime dependencies. Audio is synthesized with WebAudio, so there

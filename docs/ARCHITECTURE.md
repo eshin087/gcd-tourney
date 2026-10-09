@@ -19,6 +19,9 @@ src/core/
                             `hd` detail used for hi-res art), CSS nearest-neighbor
                             upscale, EffectComposer with UnrealBloom (HDR > 1.0 glows) + a grade/vignette pass
   input.js                  InputManager (keyboard + gamepads -> per-player Pad), rebindable KEYMAPS / PAD_BUTTONS
+  touch.js                  TouchControls: floating joystick + action buttons for phones (merged into P1's Pad by
+                            InputManager.poll), IS_TOUCH_DEVICE, button size prefs
+  artIndex.js               production art index (public/art-index.json): only request art files that exist
                             saved to localStorage ('gcd.bindings.v1'), PS/Xbox pad detection, menu events
   audio.js                  AudioEngine: everything synthesized with WebAudio (sfx, loops, music, crowd), mute
 src/game/

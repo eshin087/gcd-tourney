@@ -141,6 +141,7 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | TOOL-011 | Packer world modes: `npm run sprites crowd` (atlas + contact sheets), `stage`, `npc`, `ui` | Claude | todo | until then the Codex lead reviews raw files |
 | TOOL-012 | `tools/queue.mjs` claim queue (`npm run queue`) | Claude | done | race-tested: 20 simultaneous claims, 1 winner |
 | ENG-026 | Crowd atlas loader: 3 frames, shock on big moments, unique seat shuffle, 471 seats | Claude | done | ADR 0008 |
+| ENG-027 | Mobile landscape play: touch controls, tap menus, rotate screen, fullscreen, PWA manifest | Claude | done | docs/TESTING.md "Mobile" |
 
 ## Done
 

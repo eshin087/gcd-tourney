@@ -1,6 +1,7 @@
 import { audio } from '../core/audio.js';
 import { portraitCanvas } from './hud.js';
 import { ControlsPanel } from './controls.js';
+import { IS_TOUCH_DEVICE } from '../core/touch.js';
 
 const el = (tag, cls, html = '') => {
   const e = document.createElement(tag);
@@ -39,7 +40,14 @@ export class Menus {
     this.previews = [];
     this.panel = null; // live ControlsPanel (training room or controls page)
     this.ctlLayout = null; // layout tab the player picked (null = follow the active device)
-    this.trainCollapsed = false;
+    this.trainCollapsed = IS_TOUCH_DEVICE; // on a phone the panel would cover the touch buttons
+    // touch has no Esc: a back button for every screen that has a 'back' action
+    this.backBtn = el('button', 'm-back', '‹ BACK');
+    this.backBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (this.ctrl?.back) { audio.play('ui'); this.ctrl.back(); }
+    });
+    root.appendChild(this.backBtn);
     this.lastTick = performance.now();
     const tick = () => {
       requestAnimationFrame(tick);
@@ -64,6 +72,8 @@ export class Menus {
   // per rendered frame (from Game.render): live input highlights
   tick() {
     if (this.panel && !(this.screen === 'training' && this.trainCollapsed)) this.panel.tick();
+    const showBack = this.game.input.lastDevice === 'touch' && !!this.ctrl?.back && this.screen !== 'training';
+    if (showBack !== this._back) this.backBtn.classList.toggle('show', (this._back = showBack));
   }
 
   hide() {
@@ -135,7 +145,7 @@ export class Menus {
         <div class="logo-main" data-t="GCD TOURNEY">GCD TOURNEY</div>
         <div class="logo-sub">天下一武闘祭</div>
       </div>
-      <div class="press">PRESS ENTER / START</div>
+      <div class="press">${this.game.input.lastDevice === 'touch' ? 'TAP TO START' : 'PRESS ENTER / START'}</div>
       <div class="foot">HD-2D anime arena fighter · tech demo · placeholder art</div>`;
     const go = () => {
       audio.init();
@@ -197,7 +207,8 @@ export class Menus {
     panel.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
 
     const head = el('div', 'tr-head', '<b>TRAINING ROOM</b>');
-    const hide = el('button', 'tr-hide', 'HIDE <kbd>Tab</kbd>');
+    const touchUi = g.input.lastDevice === 'touch';
+    const hide = el('button', 'tr-hide', touchUi ? 'HIDE ▶' : 'HIDE <kbd>Tab</kbd>');
     hide.onclick = () => this.toggleTrainingPanel();
     head.append(hide);
 
@@ -237,7 +248,7 @@ export class Menus {
       ki.textContent = cfg.infiniteKi ? 'ON' : 'OFF';
       audio.play('ui');
     };
-    const reset = el('button', 'ctl-btn tr-reset', 'RESET <kbd>Backspace</kbd>');
+    const reset = el('button', 'ctl-btn tr-reset', touchUi ? 'RESET' : 'RESET <kbd>Backspace</kbd>');
     reset.onclick = () => g.resetTrainingPositions();
     kiRow.append(el('span', 'tr-label', 'INFINITE KI'), ki, reset);
     const boxRow = el('div', 'tr-row');
@@ -361,7 +372,10 @@ export class Menus {
       if (step < 2) showSide(step, cursor);
       diff.classList.toggle('hidden', step !== 2);
       diff.innerHTML = `<span class="arrow">◀</span> CPU LEVEL: <b>${levels[level]}</b> <span class="arrow">▶</span>`;
-      hint.textContent = step === 2 ? 'Left/Right to change · Enter to FIGHT · Esc to go back'
+      const touchUi = this.game.input.lastDevice === 'touch';
+      hint.textContent = touchUi
+        ? step === 2 ? 'Tap ◀ ▶ to change the level · tap the level to FIGHT' : 'Tap a fighter to pick'
+        : step === 2 ? 'Left/Right to change · Enter to FIGHT · Esc to go back'
         : `${step === 0 ? 'P1' : mode === 'solo' ? 'Pick the CPU opponent' : mode === 'training' ? 'Pick the training dummy' : 'P2'} · Arrows/WASD to move · Enter to select · Esc to go back`;
     };
 
@@ -407,7 +421,12 @@ export class Menus {
         render();
       },
     };
-    diff.onclick = () => confirm();
+    // tap the arrows to change the level, anywhere else to fight
+    diff.onclick = (e) => {
+      const arrow = e.target.closest?.('.arrow');
+      if (arrow) move(arrow.textContent.includes('◀') ? -1 : 1);
+      else confirm();
+    };
     showSide(1, null);
     render();
   }

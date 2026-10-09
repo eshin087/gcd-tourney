@@ -101,6 +101,21 @@ Timings are approximate. If a step misses, print `step(1)` after each press and 
 - [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
       chunky mode back for comparison.
 
+### Mobile (landscape touch)
+
+Emulate a phone in the browser dev tools (landscape, width under 768 px so touch is emulated, e.g. 740 x 360),
+or add `?touch=1` on desktop to force the touch UI (`?touch=0` hides it).
+
+- [ ] Portrait shows the rotate screen; landscape shows the game.
+- [ ] Title says TAP TO START; every menu works by tapping; the BACK button appears wherever Esc would work.
+- [ ] Character select: tap fighters; difficulty arrows change the level, tapping the level starts the fight.
+- [ ] Tap skips the intro. Touch controls appear only during the fight / training, not in menus or pause.
+- [ ] Joystick moves (double flick dashes); every button acts; sliding a finger between buttons switches them;
+      ULT fires the ultimate with 3 bars, VANISH with 1; both dim without enough ki.
+- [ ] The fight stays framed left of / above the button cluster. Pause button pauses; BACK resumes.
+- [ ] Training: the panel starts collapsed; the TOUCH tab lists the controls and changes the button size.
+- [ ] Desktop is unchanged: keyboard hint bar, no touch UI, no rotate screen.
+
 ## Character checklist
 
 Run this for every new or re-packed character (`?fight=<id>,<other>&art=custom&debug`):
