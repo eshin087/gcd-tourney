@@ -1,0 +1,119 @@
+{
+  "batches": [
+    {
+      "id": "crowd-athletes-01-r1",
+      "type": "crowd",
+      "items": [
+        "org-athl-005",
+        "org-athl-006",
+        "org-athl-009"
+      ],
+      "roster": "art/crowd/roster/athletes.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-athl-005",
+        "art/crowd/raw/org-athl-006",
+        "art/crowd/raw/org-athl-009"
+      ],
+      "note": "Remove detached shaker splash, volleyball impact marks, and bottle spray; preserve each approved identity and three poses; match approved crowd style anchor."
+    },
+    {
+      "id": "crowd-athletes-02-r1",
+      "type": "crowd",
+      "items": [
+        "org-athl-011",
+        "org-athl-012"
+      ],
+      "roster": "art/crowd/roster/athletes.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-athl-011",
+        "art/crowd/raw/org-athl-012"
+      ],
+      "note": "Regenerate both with pixel size, outline weight and cel shading matching approved crowd style anchor org-af-013_v02; retain the gymnast ribbon and luchador colors and three readable poses."
+    },
+    {
+      "id": "crowd-chainsaw-man-01-r1",
+      "type": "crowd",
+      "items": [
+        "csm-010"
+      ],
+      "roster": "art/crowd/roster/chainsaw-man.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/csm-010"
+      ],
+      "note": "csm-010: remove detached black motion ticks above the shocked pose's dorsal fin; keep three poses and shared baseline"
+    },
+    {
+      "id": "crowd-cowboy-bebop-01-r1",
+      "type": "crowd",
+      "items": [
+        "bebop-003",
+        "bebop-004"
+      ],
+      "roster": "art/crowd/roster/cowboy-bebop.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/bebop-003",
+        "art/crowd/raw/bebop-004"
+      ],
+      "note": "bebop-003: keep bonsai visible in cheer, held or safely placed within that pose; bebop-004: keep laptop visible in cheer, held or balanced within that pose; avoid prop popping between frames"
+    },
+    {
+      "id": "crowd-attack-on-titan-01-r1",
+      "type": "crowd",
+      "items": [
+        "aot-008",
+        "aot-009"
+      ],
+      "roster": "art/crowd/roster/attack-on-titan.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/aot-008",
+        "art/crowd/raw/aot-009"
+      ],
+      "note": "Lead QA: in cheer pose, arms cross the 512-px pose-column boundary (aot-008 45, aot-009 29 foreground pixels at cut line); redraw narrower and centered, preserve identity and three poses"
+    },
+    {
+      "id": "crowd-baki-01-r1",
+      "type": "crowd",
+      "items": [
+        "baki-002",
+        "baki-003",
+        "baki-005",
+        "baki-006",
+        "baki-007"
+      ],
+      "roster": "art/crowd/roster/baki.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/baki-002",
+        "art/crowd/raw/baki-003",
+        "art/crowd/raw/baki-005",
+        "art/crowd/raw/baki-006",
+        "art/crowd/raw/baki-007"
+      ],
+      "note": "Lead QA: baki-003 eyepatch switches eyes in shocked pose, keep same eye as idle/cheer. baki-002,005,006,007 have wide pose arms crossing 512-px cut lines; redraw narrower within own 480-px column, with clean gaps and same baseline"
+    },
+    {
+      "id": "crowd-bleach-01-r1",
+      "type": "crowd",
+      "items": [
+        "bl-001",
+        "bl-003",
+        "bl-005",
+        "bl-006"
+      ],
+      "roster": "art/crowd/roster/bleach.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/bl-001",
+        "art/crowd/raw/bl-003",
+        "art/crowd/raw/bl-005",
+        "art/crowd/raw/bl-006"
+      ],
+      "note": "Lead QA: bl-003 cheer has an impossible third arm holding bread; redraw with exactly two arms. bl-001,005,006 cross 512-px pose-column cut lines (bl-006 fan enters idle third); narrow/recenter while preserving identity, props and three baseline poses"
+    }
+  ]
+}

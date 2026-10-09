@@ -82,14 +82,14 @@
     },
     {
       "id": "bl-008",
-      "name": "Kenpachi Zaraki (with Yachiru)",
+      "name": "Kenpachi Zaraki",
       "heightClass": "huge",
-      "look": "towering battle-scarred captain with spiky black hair tipped with tiny bells, a black eyepatch over his right eye, a long scar down the left side of his face, a tattered white captain's haori over black robes, a jagged notched katana, and tiny pink-haired lieutenant Yachiru riding on his shoulder",
-      "fallbackLook": "towering battle-scarred brute with spiky black hair tipped with tiny bells, a black eyepatch over his right eye, a long scar down the left side of his face, a tattered white coat over a black kimono, a jagged notched katana, and a tiny pink-haired girl riding on his shoulder",
-      "idle": "savage grin, the pink-haired girl perched on his shoulder",
-      "cheer": "jagged sword swung out to the side, laughing, the girl waving",
-      "shocked": "single eye wide with thrilled glee, bells jingling, the girl clinging to his hair",
-      "tags": ["adult", "swordsman", "big", "scar", "duo"]
+      "look": "towering battle-scarred captain with spiky black hair tipped with tiny bells, a black eyepatch over his right eye, a long scar down the left side of his face, a tattered white captain's haori over black robes, and a jagged notched katana",
+      "fallbackLook": "towering battle-scarred brute with spiky black hair tipped with tiny bells, a black eyepatch over his right eye, a long scar down the left side of his face, a tattered white coat over a black kimono, and a jagged notched katana",
+      "idle": "savage grin with sword lowered at his side",
+      "cheer": "jagged sword swung out to the side, laughing",
+      "shocked": "single eye wide with thrilled glee, bells jingling",
+      "tags": ["adult", "swordsman", "big", "scar"]
     },
     {
       "id": "bl-009",

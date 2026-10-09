@@ -289,6 +289,199 @@
             "org-athl-011": { "status": "raw", "version": 2, "approvedVersion": null },
             "org-athl-012": { "status": "raw", "version": 2, "approvedVersion": null }
           }
+        },
+        "crowd-attack-on-titan-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "aot-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-008": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-009": { "status": "raw", "version": 1, "approvedVersion": null },
+            "aot-010": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-baki-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "baki-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "baki-008": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-bleach-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "bl-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-008": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-009": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-010": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-bleach-02": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "bl-011": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-012": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-013": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-014": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-015": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-016": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-017": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-018": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-019": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bl-020": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-chainsaw-man-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "csm-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-008": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-009": { "status": "raw", "version": 1, "approvedVersion": null },
+            "csm-010": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-cowboy-bebop-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "bebop-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bebop-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bebop-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bebop-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bebop-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "bebop-006": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-demon-slayer-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "ds-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-008": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-009": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-010": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-demon-slayer-02": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "ds-011": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-012": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-013": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-014": { "status": "raw", "version": 1, "approvedVersion": null },
+            "ds-015": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-dragon-ball-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "db-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-008": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-009": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-010": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-dragon-ball-02": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "db-011": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-012": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-013": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-014": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-015": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-016": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-017": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-018": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-019": { "status": "raw", "version": 1, "approvedVersion": null },
+            "db-020": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-attack-on-titan-01-r1": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "aot-008": { "status": "raw", "version": 2, "approvedVersion": null },
+            "aot-009": { "status": "raw", "version": 2, "approvedVersion": null }
+          }
+        },
+        "crowd-baki-01-r1": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "baki-002": { "status": "raw", "version": 2, "approvedVersion": null },
+            "baki-003": { "status": "raw", "version": 2, "approvedVersion": null },
+            "baki-005": { "status": "raw", "version": 2, "approvedVersion": null },
+            "baki-006": { "status": "raw", "version": 2, "approvedVersion": null },
+            "baki-007": { "status": "raw", "version": 2, "approvedVersion": null }
+          }
+        },
+        "crowd-bleach-01-r1": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "bl-001": { "status": "raw", "version": 2, "approvedVersion": null },
+            "bl-003": { "status": "raw", "version": 2, "approvedVersion": null },
+            "bl-005": { "status": "raw", "version": 2, "approvedVersion": null },
+            "bl-006": { "status": "raw", "version": 2, "approvedVersion": null }
+          }
+        },
+        "crowd-chainsaw-man-01-r1": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "csm-010": { "status": "raw", "version": 2, "approvedVersion": null }
+          }
+        },
+        "crowd-cowboy-bebop-01-r1": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "bebop-003": { "status": "raw", "version": 2, "approvedVersion": null },
+            "bebop-004": { "status": "raw", "version": 2, "approvedVersion": null }
+          }
         }
       }
     }
