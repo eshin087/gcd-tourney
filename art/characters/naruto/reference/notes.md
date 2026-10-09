@@ -32,3 +32,17 @@ Views PASS: five ordered views, true right profile with one eye and a nose/lip/c
 Technical:1536x1024. PASS crisp pixel-art appearance, readable flat cel bands, no text, ground shadow, floor or effects. FAIL36 swatches instead of34 and imperfect palette order. FAIL exact background: dominant #F903F9 with corner variation, visually near-flat magenta. Character palette families read correctly without obvious soft material gradients. Raw unique RGB count and antialiased edges are not reference-sheet failure criteria; the packed-strip palette limit is tested later.
 
 Recommendation: regenerate spikier side locks and the 34-color swatch/background treatment. User approved v01 on 2026-10-09 with the documented deviations accepted. The versioned file is preserved and copied unchanged to model_sheet.png. No packer/game integration applies to this reference-only round. Repository build passed.
+
+
+## 2026-10-09: expressions v01, approved
+
+Source: built-in image generator, exact S2 prompt with approved fixed-name model_sheet.png on attempt 1. Selected attempt 2 of 2: also attached the first candidate and requested visible far-cheek whiskers, narrower focused eyes and smaller gasp irises while preserving the layout and identity. Saved unchanged with SHA256 `711E156E27F5FA4EF53B2518802207410747705A83AA69CC1D8D297B3BC4AB2F`.
+
+- Identity PASS with visibility caveat: angular teenage face, golden hair, side locks, blue eyes, black headband/tails, steel plate and black jacket collar match approved S1. Three near-cheek whiskers are clear; about two short far-cheek strokes are distinct, with the third lost at the narrow contour/hair. This improves attempt 1, which lacked the far marks.
+- Expressions PASS: 9 busts in the correct 3x3 row-major order: determined, focused, fierce/gritted teeth, shout, confident open-eye grin, pain with shut eyes, gasp, serious dazed, knocked out. Focused now has narrower eyes; gasp now has small irises.
+- Pose/scale PASS for consistency: all face right 3/4, consistent heads and shoulders. Face 1 crown under hair estimated y100 +/-20, chin310 +/-4, skull-to-chin about210 +/-24 px versus nominal124 px; shout jaw naturally lowers. Full-body head ratio does not apply to busts.
+- Layout: actual1254x1254 versus requested1024x1024; square grid retained, no resizing performed. Row content bounds y14-402,420-805,825-1216 with 17/19 px clear gaps and 14-38 px outside margins. No overlap or clipping; shoulder/chest crops intentional.
+- Technical: crisp pixel appearance, flat cel bands, palette families match, no visible text, floor, shadow or glow. Visually flat magenta, but dominant RGB250,3,251 (#FA03FB) instead of exact #FF00FF. Exact4x grid is not confirmed; raw RGB count/edge anti-aliasing alone is not a reference-sheet failure criterion.
+- Reference-only asset: packer frame counts, pivots, contact zones and game integration do not apply. Production build passed 2026-10-09.
+
+Recommendation: approve with the recorded whisker visibility, raw size and background caveats. User approved expressions v01 on 2026-10-09 with documented deviations accepted. The versioned source is preserved and copied unchanged to expressions.png.

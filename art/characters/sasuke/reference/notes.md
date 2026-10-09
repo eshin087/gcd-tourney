@@ -28,3 +28,17 @@ Views PASS: five ordered views, true right profile with one eye and a nose/lip/c
 Technical: 1536x1024. PASS crisp pixel-art appearance, readable flat cel bands, no text, ground shadow, floor or effects. FAIL 36 swatches instead of34 and imperfect palette order. FAIL exact background: dominant #FB02FB, corners vary; visually near-flat magenta. Palette families are recognizable, with some blue/purple saturation drift. Raw unique RGB count and antialiased edges are not reference-sheet failure criteria; the packed-strip palette limit is tested later.
 
 Recommendation: regenerate the shirt V, anatomical ratio, sword projection and 34-color swatch row. User approved v01 on 2026-10-09 with the documented deviations accepted. The versioned file is preserved and copied unchanged to model_sheet.png. No packer/game integration applies to this reference-only round. Repository build passed.
+
+
+## 2026-10-09: expressions v01, approved
+
+Source: built-in image generator, exact S2 prompt unchanged, approved fixed-name model_sheet.png attached. First attempt selected; no retries. Saved unmodified with SHA256 `55EBCB0E570327444F1A244D1B315861D0E159551FC68ED6ACA51C220180A758`.
+
+- Identity PASS: mature angular face, swept-back dark hair, long bangs, no headband, tall open white collar and palette families match the approved model.
+- Expressions PASS: 8 in a 4x2 row-major grid: cold neutral, faint smirk, focused anger, shout, pain, eyes-shut strain, dazed, Sharingan glare. Eyes 1-7 are dark (5-6 closed); 8 is red.
+- Sharingan precision caveat: the near iris has three dark wedge-like marks around its center, rather than clear comma curls. The far iris is partly obscured by hair; three individual marks cannot be confirmed.
+- Pose/scale PASS for consistency: all right 3/4; 360-364 px wide, 460-464 px tall portrait bounds; about 24 px gaps, intentional chest crop, no accidentally clipped hair/ears/collars. Estimated skull-to-chin 211 +/-15 px (crown y110 +/-15, chin about321), larger than the prompt's nominal124 px. Full-body head ratio does not apply to busts.
+- Technical: 1536x1024, crisp pixel appearance and flat cel bands, no visible text, shadow, floor, glow or soft gradients. Visually flat magenta but dominant RGB251,2,251 (#FB02FB); corners (238,12,240), (246,21,243), (235,35,233), (240,30,238), so exact background FAIL. Exact4x grid is not confirmed; raw RGB count/edge anti-aliasing alone is not a reference-sheet failure criterion.
+- Reference-only asset: packer frame counts, pivot, contact zones and game integration do not apply. Production build passed 2026-10-09.
+
+Recommendation: approve with the recorded Sharingan, raw scale and background caveats. User approved expressions v01 on 2026-10-09 with documented deviations accepted. The versioned source is preserved and copied unchanged to expressions.png.

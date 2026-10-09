@@ -78,7 +78,7 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 |---|---|---|---|---|
 | ART-NAR-01 | S1 model sheet (spec v2, Shippuden jacket, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
 | USR-002 | Approve the Naruto model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
-| ART-NAR-02 | S2 expression sheet | Codex | todo | `reference/expressions_vNN.png`, approved copy `reference/expressions.png`; attached from here on |
+| ART-NAR-02 | S2 expression sheet | Codex | done | User approved expressions v01 on 2026-10-09; fixed expressions.png saved unchanged; documented QA deviations accepted; ready for idle |
 | ART-NAR-03 | Steps 3-4 (CORE): idle, then run | Codex | todo | `raw/<anim>_vNN.png`; approve `idle` first, Codex copies it to `reference/idle_approved.png`, attached from then on |
 | ART-NAR-04 | Step 5 core attacks (CORE): light1, light2, light3, light4, heavy, airLight1, airHeavy | Codex | todo | strikes reach the v2 contact zones (art/SPEC.md) toward screen-right on active frames |
 | ART-NAR-05 | Step 6 reactions (CORE): guard, hurtHigh, launched, down, getup | Codex | todo | lying poses: lowest point on the floor line (y 240); `down` lies flat, head toward screen-left |
@@ -95,7 +95,7 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 |---|---|---|---|---|
 | ART-SAS-01 | S1 model sheet (spec v2, Hebi-era white open-chest shirt, purple rope belt, sword sheathed at the back of the belt, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
 | USR-003 | Approve the Sasuke model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
-| ART-SAS-02 | S2 expression sheet (incl. Sharingan) | Codex | todo | `reference/expressions_vNN.png`, approved copy `reference/expressions.png` |
+| ART-SAS-02 | S2 expression sheet (incl. Sharingan) | Codex | done | User approved expressions v01 on 2026-10-09; fixed expressions.png saved unchanged; documented QA deviations accepted; ready for idle |
 | ART-SAS-03 | Steps 3-4 (CORE): idle, then run | Codex | todo | approve `idle` first, Codex copies it to `reference/idle_approved.png`; Sasuke runs with a stronger forward lean |
 | ART-SAS-04 | Step 5 core attacks (CORE): light1, light2, light3, light4, heavy, airLight1, airHeavy | Codex | todo | same body-height table as Naruto (ADR 0007); the sword stays sheathed (the moveset doesn't swing it) |
 | ART-SAS-05 | Step 6 reactions (CORE): guard, hurtHigh, launched, down, getup | Codex | todo | |
