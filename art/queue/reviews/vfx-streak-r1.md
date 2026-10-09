@@ -2,7 +2,7 @@
 
 Final approval pending.
 
-76 frames across15 effects, canonical palettes and zero magenta verified; ring/streak deviations documented. Browser verification tracked in final packet.
+76 frames across15 effects, canonical palettes and zero magenta verified; ring/streak cleaned-frame placement corrections documented in ../vfx-placement-qa.md. Browser verification tracked in final packet.
 
 [Packed atlas](../../../public/vfx/atlas.png); edited canonical-palette frames under art/vfx/frames/.
 

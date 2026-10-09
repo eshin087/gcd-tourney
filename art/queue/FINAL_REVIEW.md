@@ -8,7 +8,7 @@ User instruction (2026-10-09): finish all world-art work, then request one final
 - 30 stage slots: exact-size fitted candidates, all palette budgets and alpha checked.
 - 4 NPCs: all required models/strips saved; monk-a/vendor proportion redraws complete.
 - 2 shared UI candidates: logo480x180 and title640x360 fitted, palette-cleaned and visually checked.
-- 15 VFX effects:76 frames, canonical palettes, zero magenta, zero packer warnings. Ring/streak redraws saved.
+- 15 VFX effects:76 frames, canonical palettes, zero magenta, zero packer warnings. Ring/streak redraws saved and cleaned frames fitted to prescribed geometry.
 - All145 production/redo batches done; no active claims. Build passed outside the Windows sandbox (60modules).
 
 ## Still blocking final acceptance
@@ -16,7 +16,7 @@ User instruction (2026-10-09): finish all world-art work, then request one final
 - TOOL-011: crowd/stage/NPC/UI packer modes all exit1, unknown character. Crowd/NPC background cleanup, palette limits, anchors and final-scale QA therefore remain.
 - ENG-023/024/025: stage/NPC/UI integration and in-game verification.
 - NPC cross-strip normalization: announcer point and monk-b signal against idle; see audit.
-- Known candidate deviations: vendor idle first frame glances left; ring largest ellipse120x72 versus120x66; streak peak102px versus88 and bottom sequence120,115,109,109,106,83 versus120,116,112,108,104,100. Do not call exact geometry passed.
+- Known candidate deviations: vendor idle first frame glances left; early ring frames have thinner outlines than the prescribed thick start. Ring/streak geometry was corrected through documented cleaned-frame fitting; [placement QA](vfx-placement-qa.md).
 
 This is a completed source-art handoff, **not full game completion and not yet a final approval request**. Claude owns packers/loaders; Codex must re-pack and check integration after those land. VFX browser load verified: all15 custom effects logged, no JavaScript errors; screenshot captured during intro. Per-effect combat timing/tint acceptance remains. No deployment performed.
 
