@@ -49,8 +49,8 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v01 | v02 needs review: shorter compact blond spikes and no jaw-length side locks. Approved v01 fixed reference retained; hair propagation waits for approval (ART-NAR-12) |
-| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 9 readable expressions; far-cheek third whisker obscured; 1254-square raw and oversized heads, near-magenta; see REVIEW.md |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Propagating haircut to expressions, then idle/run with separate reviews (ART-NAR-12) |
+| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v01 | Hair correction v02 needs review; all9 expressions use approved model v02 haircut. Fixed expressions.png remains approved v01 until review (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 5 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |

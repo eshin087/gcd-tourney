@@ -110,3 +110,19 @@ User: "The runs are approved." Recorded approvedVersion=2 and retained all previ
 - Phone review link: https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=modelSheet .
 
 - Final local gates: both character packs at48colors with zero warnings; npm run test:sprites160passed; npm run build passed. Exporter fixtures verify pending references remain separate from approved fixed copies.
+
+## 2026-10-09: shorter-hair model sheet v02 approved
+
+User selected "approve Naruto model sheet v02". The v02 candidate was copied byte-for-byte to model_sheet.png; approvedVersion=2. Existing deviations remain documented. Expressions v02 is the next haircut edit; expressions.png remains approved v01 until separate review.
+
+## 2026-10-09: expressions v02 shorter-hair candidate
+
+- Built-in imagegen edit, first attempt selected. Input1: approved expressions.png v01 as edit target; input2: newly approved model_sheet.png v02 as haircut/identity reference. No source/_old inputs. Prompt: [expressions_v02_prompt.md](expressions_v02_prompt.md). Candidate SHA256: 61a2914d6261b0a7160dcf24bb8a84eb44a1eb38766b2de52afc38b4cfd52bfe.
+- All9 busts retained in row-major order: determined, focused, fierce/gritted, shouting, confident open-eye grin, pain/closed eyes, gasp, dazed, knocked out. Right3/4, consistent face scale and grid positions. Crown spikes are about14-16rawpx shorter, temple hair stops around upper ears; no long jaw locks. Long black headband tails, collar and face/expression identity remain visually consistent.
+- Focused eyes visibly narrower than determined; gasp eyes are wide with small irises. Three near-cheek whiskers read clearly; the third far-cheek mark remains difficult to resolve on narrow contours.
+- Canvas1254x1254 unchanged from v01, rather than nominal S2 1024x1024. Dominant background#F903FA and cornerRGB237,13,239: raw background remains nonuniform near-magenta, not exact#FF00FF. RGB differs across about99.3% of canvas, so preserve means visual continuity, not lossless pixel identity. Existing oversized-head/raw-raster caveats remain. No new cropping, text or layout fault.
+- Model_sheet.png now byte-equals approved v02. Expressions.png still byte-equals approved v01. Status stays approved with newest expressions version2 and approvedVersion1. Idle v01 and run v02 remain approved; hair propagation waits for expression review.
+- Repack check: node tools/pack-sprites.mjs naruto --quantize48 reports2animations/16frames,48colors,zero warnings; public sheet/anims unchanged.21missingCORE expected.19optional reported because concurrent Claude animGuide work adds4optional names; no engine edits included in this art change.
+- Recommendation: approve expressions v02 before editing idle hair. Mobile review: https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=expressions .
+
+- Local production build passed. Review exporter validated the approved model v02 and pending expressions v02; publishing uses the committed-HEAD export so concurrent engine work stays outside this art release.

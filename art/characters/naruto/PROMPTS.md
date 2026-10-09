@@ -8,10 +8,10 @@
 > [art/REVIEW.md](../../REVIEW.md). If anything here disagrees with ADR 0007 or
 > [art/SPEC.md](../../SPEC.md), they win.
 
-> **Shorter-hair revision:** the user requested compact spikes and upper-ear temple tufts.
-> Keep the approved `reference/model_sheet.png` at **v01** while `model_sheet_v02.png` is reviewed;
-> only replace it after explicit approval. Approve that new hair reference before propagating the
-> change to S2 expressions, then idle, then run, reviewing and approving each revised asset in order.
+> **Shorter-hair revision:** the user approved the compact spikes and upper-ear temple tufts.
+> `reference/model_sheet.png` is now the approved **v02** hair reference. The next review is
+> `expressions_v02.png`, followed by revised idle and run assets, reviewing and approving each
+> in order before propagating the change to the next asset.
 
 ## How to use (Codex + user)
 

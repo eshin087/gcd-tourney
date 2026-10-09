@@ -90,7 +90,7 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 | ART-NAR-07 | Step 8 rest of the core (CORE): dash, jumpUp, jumpFall, land, win | Codex | todo | completes the core set: the sheet loads by default |
 | ART-NAR-08 | Step 9 optional: backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt | Codex | todo | fallbacks cover them until then; `superDash` angled ~25° up to fit the cell |
 | ART-NAR-09 | Step 11 UI: portrait 96×96, cut-in 480×128, select 384×384 | Codex | todo | `raw/ui_<name>_vNN.png`; approved copy `ui/<name>.png` (the packer fits the size) |
-| ART-NAR-12 | Shorten Naruto hair and update reference direction | Codex | review | Built-in hair edit saved as model_sheet_v02.png; short compact spikes and temple tufts, five views/face/outfit/poses visually preserved. Brief/prompts corrected. Needs explicit model-sheet v02 approval before expressions, idle and run hair updates. Run v02 motion approvals are retained. |
+| ART-NAR-12 | Shorten Naruto hair and update reference direction | Codex | review | Model-sheet v02 approved on 2026-10-09 and copied to fixed reference. Expressions v02 candidate applies short hair to all9 faces and needs review. Next after its approval: idle, then run hair updates; motion approvals remain valid. |
 | ART-NAR-10 | Pack, QA, REVIEW.md rows, hitbox overrides for every batch; keep TRACKER + manifest (`version`, `approvedVersion`) current | Codex | todo | `npm run sprites naruto` |
 | ART-NAR-11 | In-game approval of the Naruto hi-res set | User | todo | status `approved` |
 

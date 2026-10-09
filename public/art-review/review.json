@@ -1,6 +1,6 @@
 {
   "title": "GCD Tourney art review",
-  "updatedAt": "2026-10-09T18:32:07.072Z",
+  "updatedAt": "2026-10-09T19:25:27.240Z",
   "characters": [
     {
       "id": "naruto",
@@ -12,26 +12,27 @@
           "label": "Model sheet",
           "kind": "image",
           "version": 2,
-          "status": "needs review",
+          "status": "approved",
           "raw": "art-review/naruto/model_sheet_v02.png",
           "notes": [
-            "Shorter, compact golden spikes replace the long face-framing locks.",
-            "Check the haircut in all five views; face, outfit and poses remain consistent.",
-            "This is the new design candidate. Expressions, idle and approved run v02 still show the previous haircut."
+            "Approved shorter haircut: compact golden spikes and short temple tufts.",
+            "Expressions v02 is the next candidate; idle and run still retain the earlier haircut."
           ],
-          "recommendation": "Review the shorter haircut before it is applied to expressions and animation strips."
+          "recommendation": "Model sheet v02 approved on October 9, 2026."
         },
         {
           "id": "expressions",
           "label": "Expressions",
           "kind": "image",
-          "version": 1,
-          "status": "approved",
-          "raw": "art-review/naruto/expressions_v01.png",
+          "version": 2,
+          "status": "needs review",
+          "raw": "art-review/naruto/expressions_v02.png",
           "notes": [
-            "Approved expression reference.",
-            "Some far-cheek whiskers are obscured by the face angle."
-          ]
+            "All nine expressions now use the approved shorter haircut.",
+            "Check the face shapes, focused eyes, gasp, and cheek marks.",
+            "The long black headband tails are preserved. Idle and run hair will follow after this expression sheet is approved."
+          ],
+          "recommendation": "Review expressions v02 before it becomes the reference for animation updates."
         },
         {
           "id": "idle",
