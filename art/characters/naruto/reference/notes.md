@@ -46,3 +46,18 @@ Source: built-in image generator, exact S2 prompt with approved fixed-name model
 - Reference-only asset: packer frame counts, pivots, contact zones and game integration do not apply. Production build passed 2026-10-09.
 
 Recommendation: approve with the recorded whisker visibility, raw size and background caveats. User approved expressions v01 on 2026-10-09 with documented deviations accepted. The versioned source is preserved and copied unchanged to expressions.png.
+
+
+## 2026-10-09: idle v01, approved
+
+Selected A attempt 3 and B attempt 2. A retries reduced a deep crouch (~27 then9 game px) to a5 px packed bob. B retry corrected the first B pose and loop closure. Original PNG parts are preserved; Node/pngjs stitched A at(0,0), B at(1560,0), original scale with a24 px magenta gutter; output3096x1024. No resampling or retouching. Strip SHA256: db820c67b7f9753594af0caeea5a052abfcdac803b625d748bdb98f0f7914e87.
+
+Input lineage exception: initial A/B attached approved model_sheet.png and expressions.png; B also selected A. A2 used those fixed references plus candidate. Final A3 used A2 alone as its edit target; B2 used selected A plus B1. These final correction calls did not reattach the fixed references required by the workflow. Visual comparison against both approved references found no identity drift; this exception is recorded rather than described as fully compliant. Future corrections must reattach fixed approved references.
+
+- Identity: mature Shippuden face, leaf plate, black collar/headband, orange outfit, whiskers, holster and compact guard preserved. Tails angle backward more than their requested relaxed downward hang.
+- Geometry: all8 right-facing cells, head about31 px; skull/sole ratio about188/31=6.1 in bent stance, consistent with6.5 upright target. Tops [37,38,40,42,41,37,37,37], soles y240. Body maximum204 px. Rear shoe x77-79..94-96; lead x152-153..179-181: drift <=2 px. f7-to-f0 head height matches and shoes within1 px. No clipping or margin warnings.
+- Motion: total5 px crown bob, larger than1-2 px brief; f4-to-f5 rises4 px in150 ms. A/B seam is close; final-to-first geometry closes.
+- Packing: npm run sprites naruto selected raw/idle_v01.png at scale0.288, wrote8 cleaned frames, warned25933 colors. Then node tools/pack-sprites.mjs naruto --quantize 48 yielded48 colors and zero warnings from frames/idle linked to the same raw. Final4096x256 sheet,256px cells,pivot[128,240],ppu128,8x150ms looping idle. Hard alpha, zero opaque magenta remnants. Cleaned frames remain pre-quantization; final public sheet is the color-authoritative preview. Repack with --quantize 48 to retain the palette cap; no public files edited by hand.
+- Runtime: game at http://127.0.0.1:5188/?fight=naruto,naruto&mode=solo&art=custom&debug logged custom sheet with1 animation/incomplete preview; no console errors. Sprite Lab loaded actual sheet.png+anims.json and displayed idle(8) with body height204. Other22 CORE actions and15 optional actions remain missing as expected. Production build passed.
+
+User approved idle v01 on 2026-10-09 with the recorded QA caveats. The versioned strip and A/B parts are preserved; idle_approved.png is an unchanged copy of idle_v01.png. Run production may now use all three approved fixed references.

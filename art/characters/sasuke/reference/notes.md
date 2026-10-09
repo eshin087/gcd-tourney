@@ -42,3 +42,16 @@ Source: built-in image generator, exact S2 prompt unchanged, approved fixed-name
 - Reference-only asset: packer frame counts, pivot, contact zones and game integration do not apply. Production build passed 2026-10-09.
 
 Recommendation: approve with the recorded Sharingan, raw scale and background caveats. User approved expressions v01 on 2026-10-09 with documented deviations accepted. The versioned source is preserved and copied unchanged to expressions.png.
+
+
+## 2026-10-09: idle v01, approved
+
+Selected A1+B1. Two B retries attempted to reduce f6's dip but changed the head angle/width without materially improving amplitude; both remained unsaved. Selected initial prompts used approved model_sheet.png+expressions.png; B also attached selected A. Parts preserved byte-for-byte. Node/pngjs stitched A at(0,1), B at(1568,0),32 px pure-magenta separator, no resizing/remapping/cropping. Output3104x1025, common max raw sole y862. Strip SHA256: 9a58a14fdce2c2c2660efb91c323d74127804febd0231483cb65d07dda793f93.
+
+- Identity: approved mature face/hair/no headband, white collar/open V, purple rear rope bow, sheathed sword, dark eyes and knife-hand/chest-fist guard maintained. User-accepted deep V from S1 persists.
+- Geometry: all8 right-facing cells; head approximately32-33 px, near31 target; raw anatomy approximately6.3-6.7 heads. f0 top39, f2 top37, f6 top43, f7 top39; soles y240, maximum204 px body. Rear foot x77-78..94-96; lead x152-153..179-180: <=2 px drift. f7 and f0 match head height and shoes within1 px. Fourth raw A toes end x1533 of1536 but remain intact; seam adds padding. No cell clipping/margin warning.
+- Motion:6 px total crown bob; f6 is4 px below neutral, exceeding tiny breathing brief. Loop closes, but the lower pose is visibly more pronounced.
+- Packing: npm run sprites sasuke selected raw/idle_v01.png at scale0.281, wrote8 cleaned frames, warned32370 colors. Then node tools/pack-sprites.mjs sasuke --quantize 48 yielded48 colors/zero warnings from frames/idle tied to that raw. Final4096x256 sheet,256px cells,pivot[128,240],ppu128,8x150ms looping idle. Hard alpha; each cleaned cell has one8-connected opaque component and no stray background specks. Cleaned frames retain pre-quantization colors; final public sheet is authoritative for color. Repack with --quantize 48; no manual public edits.
+- Runtime: game at http://127.0.0.1:5188/?fight=sasuke,sasuke&mode=solo&art=custom&debug logged custom sheet with1 animation/incomplete preview; no console errors. Sprite Lab loaded actual sheet.png+anims.json and displayed idle(8), body height204. Its center floor dot is the UI's pivot marker (src/spriteLab.js:81), not an art artifact. Other22 CORE and15 optional animations remain missing as expected. Production build passed.
+
+User approved idle v01 on 2026-10-09 with the recorded QA caveats. The versioned strip and A/B parts are preserved; idle_approved.png is an unchanged copy of idle_v01.png. Run production may now use all three approved fixed references.
