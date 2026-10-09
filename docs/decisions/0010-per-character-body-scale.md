@@ -13,7 +13,7 @@ reach/lunge check before a genuinely taller or shorter character is added.
 
 The next two fighters are not the same size as the Shippuden cast:
 
-- **Killua** (Hunter x Hunter, Godspeed era) is a slight 14-year-old and clearly shorter.
+- **Killua** (Hunter x Hunter, Godspeed era) is a slight 13-year-old and clearly shorter.
 - **Gojo** (Jujutsu Kaisen) is very tall. His height and long limbs are part of how people recognize him.
 
 Drawing both at 200 px would erase that. The art briefs (`art/characters/killua/`,

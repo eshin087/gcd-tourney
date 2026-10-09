@@ -228,7 +228,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | blindfold on; one inset with the eyes shown |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | blindfold on in every view (eyes only in S2 expression 8, superPose and the cut-in) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | |
 | 3 | idle | 8 | - | **yes** | 222 | todo | - | - |  |
 | 4 | run | 8 | - | **yes** | 222 | todo | - | - |  |

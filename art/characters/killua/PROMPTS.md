@@ -11,11 +11,9 @@
 > disagrees with the ADRs or [art/SPEC.md](../../SPEC.md), they win; if a prompt and ANIMATIONS.md
 > disagree, ANIMATIONS.md wins.
 
-> **Before the first strip (A01):** `art/manifest.json` must have a `killua` entry with his per-animation
-> `bodyHeight` overrides ([ANIMATIONS.md "Body heights for the manifest"](ANIMATIONS.md#body-heights-for-the-manifest))
-> and rows for the 4 optional move-system-v2 animations. Without them `npm run sprites killua` packs him at
-> the older fighters' size and skips A39-A42. If the entry is missing, ask Claude (S1 and S2 can run
-> before that).
+> **Manifest:** `art/manifest.json` has the `killua` entry (since 2026-10-09) with `standingBodyPx` 182, his
+> per-animation `bodyHeight` overrides ([ANIMATIONS.md "Body heights for the manifest"](ANIMATIONS.md#body-heights-for-the-manifest))
+> and the 4 kit animations (A39-A42, step 9), so `npm run sprites killua` packs him at his own size.
 
 ## How to use (Codex + user)
 

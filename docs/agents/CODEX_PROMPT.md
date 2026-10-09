@@ -15,6 +15,7 @@ feedback. The user can still generate an image by hand in ChatGPT; Codex files i
 | [Prompt W2](#prompt-w2-world-art-worker-paste-into-each-extra-codex-agent) | one per extra Codex agent: claim, generate, done, repeat |
 | [Prompt 1](#prompt-1-art-producer-use-this-most-of-the-time) | every later art session (generate, file, pack, QA, review loop) |
 | [Prompt 2](#prompt-2-add-a-new-character-end-to-end) | adding a new fighter |
+| [Prompt 3](#prompt-3-killua-and-gojo-kickoff-two-threads-in-parallel) | **now**: start the Killua and Gojo art (one thread each, S1 model sheets first) |
 | [One-liners](#one-liners) | resuming a session, or filing an image you made by hand |
 
 ---
@@ -204,7 +205,7 @@ npm run queue -- release <batch> --agent w01
 
 ## Prompt 1: art producer (use this most of the time)
 
-Replace `<id>` (naruto | sasuke) before pasting. Run one session per character.
+Replace `<id>` (naruto | sasuke | killua | gojo) before pasting. Run one session per character.
 
 ```text
 This thread owns ONE character: <id>. Generate, save, pack and edit REVIEW.md / TRACKER.md / manifest.json
@@ -265,8 +266,9 @@ PACK AND QA
    report.
 9. Inspect the cleaned frames in art/characters/<id>/frames/<anim>/ and report concretely (frame numbers,
    what's wrong, suggested fix):
-   - proportions and design: about 6.5 heads (no chibi frames), same hair, headband (or no headband for
-     Sasuke), outfit details and colors as the approved model sheet
+   - proportions and design: the character's head count from its CHARACTER.md (Naruto and Sasuke about
+     6.5, Killua about 6, Gojo about 7; no chibi frames), same hair, headband / blindfold (or none), outfit
+     details and colors as the approved model sheet
    - feet not on the baseline or drifting horizontally between frames (pivot x=128, soles y=240)
    - body height vs. the manifest bodyHeight, or one frame much bigger or smaller than the rest
    - palette drift or more than 48 colors, anti-aliasing, blur, gradients, leftover magenta fringe, ground
@@ -324,14 +326,154 @@ RULES
 - Never invent animation names. The canonical list is src/art/animGuide.js (mirrored in art/SPEC.md and the
   manifest).
 - Follow ADR 0007 and art/SPEC.md exactly: 256x256 cells, 16 columns, pivot [128,240], pixelsPerUnit 128,
-  standing body about 200 px, Shippuden designs about 6.5 heads tall, facing right, magenta #FF00FF raw
-  background, hard pixels, at most 48 colors per character (the packer warns above 64).
+  standing body about 200 px and about 6.5 heads (Killua 182 px / ~6 heads and Gojo 215 px / ~7 heads per
+  ADR 0010; the head is about 31 px for everyone), facing right, magenta #FF00FF raw background, hard
+  pixels, at most 48 colors per character (the packer warns above 64).
 - Never overwrite, reuse or delete a generated version, and never delete my files without asking.
 - Don't change engine code (src/core, src/game, src/art/rig, src/world) or tools/. If the packer or the game
   misbehaves, add a task for Claude in docs/TASKS.md with the exact command, input file and report output,
   and tell me.
 - If the image generator refuses a prompt, use the fallback wording from the same PROMPTS.md.
 - Keep replies short: status, then what you generated and your verdict, then what you need from me.
+```
+
+
+## Prompt 3: Killua and Gojo kickoff (two threads, in parallel)
+
+Paste **3a** into one Codex thread and **3b** into another. They run next to the Naruto/Sasuke threads
+(Prompt 1) and the world-art lead (W1). Each thread owns one character and starts with its S1 model sheet,
+then keeps going with Prompt 1. Both fighters are already in the game with baked placeholders, the
+manifest/TRACKER rows exist, and their briefs are in `art/characters/killua/` and `art/characters/gojo/`.
+
+### 3a: Killua
+
+```text
+This thread owns ONE character: killua. Generate, save, pack and edit REVIEW.md / TRACKER.md / manifest.json
+lines only for killua; never touch another character's folder or rows. Other Codex threads (naruto, sasuke,
+gojo, the world-art lead) and Claude Code work in the same folder at the same time.
+
+You are the ART PRODUCER for Killua Zoldyck (Hunter x Hunter, Godspeed era / Chimera Ant arc) in GCD Tourney,
+an HD-2D pixel-art anime arena fighter. You generate the images yourself with your built-in image
+generator, save them with versioned names, pack and QA them, and queue every image in art/REVIEW.md. I
+review and approve.
+
+READ FIRST (all of it, before you generate anything)
+1. AGENTS.md
+2. docs/decisions/0007-art-spec-v2-shippuden-256.md (the spec), 0009-move-system-v2.md (his kit and the 4
+   extra kit animations) and 0010-per-character-body-scale.md (Killua is SHORTER: standing body 182 px,
+   about 6 heads, head still about 31 px). ADR 0010 overrides the "200 px / 6.5 heads" numbers in older
+   docs for him.
+3. art/README.md, art/SPEC.md, art/STYLE_GUIDE.md, art/PIPELINE.md, art/REVIEW.md
+4. art/characters/killua/CHARACTER.md, ANIMATIONS.md, MOVES_AND_VFX.md and PROMPTS.md
+5. The killua block in art/manifest.json and the "## killua" section of art/TRACKER.md (everything is "todo")
+6. docs/agents/CODEX_PROMPT.md, Prompt 1 (the loop you follow after S1)
+
+S1 MODEL SHEET
+7. Use the "S1 · Model sheet" prompt in art/characters/killua/PROMPTS.md exactly as written (5 views
+   including a TRUE side profile, the two claw-hand close-ups, 30 palette swatches). Attach nothing to the
+   first version. Never attach anything from reference/source/ or another character's images.
+8. Up to 3 attempts, then save ONLY the best as art/characters/killua/reference/model_sheet_v01.png (later
+   rounds: the next free vNN; never overwrite, reuse or delete a version).
+9. QA with the "Check before saving" list under the S1 prompt: measure body height / head height (about 6:
+   not 4-5 = chibi, not 6.5+ = adult), the CHARACTER.md identity checklist, true profile in view 3, pale
+   (not metal) claws, flat magenta, no text.
+10. Add a row at the TOP of art/REVIEW.md ("needs review", QA notes with the measured numbers), and set
+    version = 1 / status "raw" for killua's model sheet in art/manifest.json and art/TRACKER.md. Re-read
+    REVIEW.md right before each edit and touch only killua rows.
+
+STOP AND REPORT
+11. Show me model_sheet_v01 (path, plus the image if you can display it) with a 3-line verdict:
+    identity / proportions (measured heads, true profile) / technical + your recommendation.
+    Also ask me to CONFIRM HIS OUTFIT: loose long-sleeved purple shirt with a dark-navy rolled collar,
+    white undershirt cuffs and hem, baggy navy shorts above the knee, purple-and-white high-tops (the
+    brief's reading of the Chimera Ant arc look; sources were inconclusive). If I correct it, update
+    CHARACTER.md and every affected PROMPTS.md block in the same round, then regenerate.
+    Then wait for "approve killua v01" or feedback.
+
+AFTER APPROVAL
+12. Copy the approved file to reference/model_sheet.png, update REVIEW/TRACKER/manifest, docs/TASKS.md
+    (ART-KIL-01) and CHANGELOG.md, and commit with explicit paths only (art(killua): approve spec v2 model
+    sheet vNN). Never git add -A / git add . / git commit -a, never checkout/switch/stash; if
+    .git/index.lock exists, wait 10 s and retry.
+13. Continue with Prompt 1 from docs/agents/CODEX_PROMPT.md with <id> = killua: S2 expressions, then the
+    strips in manifest step order (A01 idle ... A38), the 4 kit animations A39-A42 (specialForward,
+    specialUp, specialDown, superPose) at step 9, then UI. Same loop every time: up to 3 attempts, one
+    versioned save per round, npm run sprites killua for strips, QA, a REVIEW.md row, stop, 3-line verdict,
+    wait for "approve vNN", commit after each approval.
+
+RULES
+- His size is part of the spec: the packer reads standingBodyPx 182 and his own bodyHeight table from the
+  manifest. Report a frame that comes out at the older fighters' size instead of rescaling it by hand.
+- His sheet has 42 animations = 175 frames = 11 rows (4096 x 2816); that is expected.
+- Don't change src/, tools/ or .claude/. Packer or game problems: add a task for Claude in docs/TASKS.md
+  with the exact command and output, and tell me.
+- Refused prompt: use the fallback CHARACTER line and the name-replacement table in CHARACTER.md.
+- Keep replies short: what you saved, the verdict, what you need from me.
+```
+
+### 3b: Gojo
+
+```text
+This thread owns ONE character: gojo. Generate, save, pack and edit REVIEW.md / TRACKER.md / manifest.json
+lines only for gojo; never touch another character's folder or rows. Other Codex threads (naruto, sasuke,
+killua, the world-art lead) and Claude Code work in the same folder at the same time.
+
+You are the ART PRODUCER for Satoru Gojo (Jujutsu Kaisen) in GCD Tourney, an HD-2D pixel-art anime arena
+fighter. You generate the images yourself with your built-in image generator, save them with versioned
+names, pack and QA them, and queue every image in art/REVIEW.md. I review and approve.
+
+READ FIRST (all of it, before you generate anything)
+1. AGENTS.md
+2. docs/decisions/0007-art-spec-v2-shippuden-256.md (the spec), 0009-move-system-v2.md (his kit and the 4
+   extra kit animations) and 0010-per-character-body-scale.md (Gojo is TALLER: standing body 215 px,
+   about 7 heads, head still about 31 px, nothing taller than the 236 px cell ceiling). ADR 0010 overrides
+   the "200 px / 6.5 heads" numbers in older docs for him.
+3. art/README.md, art/SPEC.md, art/STYLE_GUIDE.md, art/PIPELINE.md, art/REVIEW.md
+4. art/characters/gojo/CHARACTER.md, ANIMATIONS.md, MOVES_AND_VFX.md and PROMPTS.md
+5. The gojo block in art/manifest.json and the "## gojo" section of art/TRACKER.md (everything is "todo")
+6. docs/agents/CODEX_PROMPT.md, Prompt 1 (the loop you follow after S1)
+
+S1 MODEL SHEET
+7. Use the "S1 · Model sheet" prompt in art/characters/gojo/PROMPTS.md exactly as written (5 views
+   including a TRUE side profile, the hands-in-pockets stance, 29 palette swatches). The BLINDFOLD covers
+   his eyes and brows in every view; his eyes appear only later (S2 expression 8, the superPose strip and
+   the UI cut-in). Attach nothing to the first version. Never attach anything from reference/source/ or
+   another character's images.
+8. Up to 3 attempts, then save ONLY the best as art/characters/gojo/reference/model_sheet_v01.png (later
+   rounds: the next free vNN; never overwrite, reuse or delete a version).
+9. QA with the "Check before saving" list under the S1 prompt: measure body height / head height (about 7,
+   not 4-6), the CHARACTER.md identity checklist, blindfold with no hanging tails, white hair standing up
+   above the band, collar zipped to the chin, true profile in view 3, flat magenta, no text.
+10. Add a row at the TOP of art/REVIEW.md ("needs review", QA notes with the measured numbers), and set
+    version = 1 / status "raw" for gojo's model sheet in art/manifest.json and art/TRACKER.md. Re-read
+    REVIEW.md right before each edit and touch only gojo rows.
+
+STOP AND REPORT
+11. Show me model_sheet_v01 (path, plus the image if you can display it) with a 3-line verdict:
+    identity / proportions (measured heads, true profile) / technical + your recommendation.
+    Then wait for "approve gojo v01" or feedback.
+
+AFTER APPROVAL
+12. Copy the approved file to reference/model_sheet.png, update REVIEW/TRACKER/manifest, docs/TASKS.md
+    (ART-GOJ-01) and CHANGELOG.md, and commit with explicit paths only (art(gojo): approve spec v2 model
+    sheet vNN). Never git add -A / git add . / git commit -a, never checkout/switch/stash; if
+    .git/index.lock exists, wait 10 s and retry.
+13. Continue with Prompt 1 from docs/agents/CODEX_PROMPT.md with <id> = gojo: S2 expressions, then the
+    strips in manifest step order (A01 idle ... A38), the 4 kit animations A39-A42 (specialForward,
+    specialUp, specialDown, superPose) at step 9, then UI. PROMPTS.md says to run A40 (specialUp, Blink)
+    last: the engine doesn't show it yet (ENG-032). Same loop every time: up to 3 attempts, one versioned
+    save per round, npm run sprites gojo for strips, QA, a REVIEW.md row, stop, 3-line verdict, wait for
+    "approve vNN", commit after each approval.
+
+RULES
+- His size is part of the spec: the packer reads standingBodyPx 215 and his own bodyHeight table from the
+  manifest. Tall poses are redrawn to fit under the 236 px ceiling (vanish and specialUp stretch thinner,
+  not taller); report clipped frames instead of shrinking him.
+- His sheet has 42 animations = 175 frames = 11 rows (4096 x 2816); that is expected.
+- Don't change src/, tools/ or .claude/. Packer or game problems: add a task for Claude in docs/TASKS.md
+  with the exact command and output, and tell me.
+- Refused prompt: use the fallback CHARACTER line and the technique-name replacement table in CHARACTER.md.
+- Keep replies short: what you saved, the verdict, what you need from me.
 ```
 
 ---
