@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-naruto-03",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:50:50.030Z",
+  "touchedAt": "2026-10-09T09:05:34.095Z",
+  "items": [
+    "nar-021",
+    "nar-022",
+    "nar-023",
+    "nar-024",
+    "nar-025",
+    "nar-026",
+    "nar-027",
+    "nar-028",
+    "nar-029",
+    "nar-030"
+  ],
+  "doneAt": "2026-10-09T09:05:34.094Z",
+  "note": "Saved all ten cameo v01 sprites; no refusals. Retried nar-021 shark sword and nar-025 cleaver for clear columns, nar-027 for child scale, nar-028 raised punch clearance, and nar-029 stretched arm clearance. Doubts: generator persists with noisy near-magenta rather than exact flat #FF00FF and excessive RGB colors; short-class nar-027/028/029 remain larger than target. Nar-021 cheer sword is angled over shoulder rather than fully sideward for separation; nar-025 same compromise. Muted purple clothing/rope from roster conflicts with generic violet key caution."
+}

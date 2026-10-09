@@ -1,0 +1,15 @@
+{
+  "batch": "npc-monk-a-r1",
+  "type": "npc",
+  "agent": "w11",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:35:30.116Z",
+  "touchedAt": "2026-10-09T22:39:47.192Z",
+  "items": [
+    "model_sheet",
+    "idle",
+    "signal"
+  ],
+  "doneAt": "2026-10-09T22:39:47.192Z",
+  "note": "Corrected all three files v02 to small adult head about five heads; model chosen after two attempts, idle and signal first attempts. Four model views and two frames per strip, matching idle/signal scale. Raw palette cleanup and packed anchors still required."
+}

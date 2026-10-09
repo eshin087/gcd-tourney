@@ -1,0 +1,10 @@
+{
+  "logs": [
+    "[vfx] custom effects: spark, burst, ring, dust, smoke, shuriken, fire, flame, lightning, orb, glow, streak, star, crater, lines"
+  ],
+  "errors": [],
+  "state": {
+    "state": "intro",
+    "canvas": true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-one-piece-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:59:29.354Z",
+  "touchedAt": "2026-10-09T09:17:04.237Z",
+  "items": [
+    "op-011",
+    "op-012",
+    "op-013",
+    "op-014",
+    "op-015",
+    "op-016",
+    "op-017",
+    "op-018",
+    "op-019",
+    "op-020"
+  ],
+  "doneAt": "2026-10-09T09:17:04.236Z",
+  "note": "Ten images saved and visually checked. op-015 pipe sits close to the left panel boundary; all poses retain it. Generator background is noisy near-magenta rather than exact #FF00FF and outputs far more than 24 RGB colors; no pixel postprocessing performed. Review palette, masking, and pose alignment before packing."
+}

@@ -285,21 +285,21 @@ ones.
 | effect | frames | ms | color rule | anchor | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|
 | reference/vfx_style_sheet_vNN.png -> vfx_style_sheet.png (optional style anchor) | - | - | - | - | todo | - | - | attach the approved copy to every VFX prompt |
-| spark | 5 | 30 | white (tinted) | center | todo | - | - |  |
-| burst | 5 | 35 | white (tinted) | center | todo | - | - |  |
-| ring | 6 | 35 | white (tinted) | center | todo | - | - |  |
-| dust | 6 | 60 | full color | bottom | todo | - | - |  |
-| smoke | 7 | 55 | full color | center | todo | - | - |  |
-| shuriken | 4 | 40 | full color | center | todo | - | - |  |
-| fire | 4 | 60 | full color | center | todo | - | - |  |
-| flame | 7 | 55 | white (tinted) | bottom | todo | - | - |  |
-| lightning | 6 | 40 | white (tinted) | center | todo | - | - |  |
-| orb | 6 | 40 | full color | center | todo | - | - |  |
-| glow | 2 | 60 | white (tinted) | center | todo | - | - |  |
-| streak | 6 | 45 | white (tinted) | bottom | todo | - | - |  |
-| star | 5 | 40 | white (tinted) | center | todo | - | - |  |
-| crater | 3 | 1000 (static; 3 random variants) | full color | decal | todo | - | - |  |
-| lines | 4 | 40 | white (tinted) | center | todo | - | - |  |
+| spark | 5 | 30 | white (tinted) | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| burst | 5 | 35 | white (tinted) | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| ring | 6 | 35 | white (tinted) | center | packed | v02 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| dust | 6 | 60 | full color | bottom | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| smoke | 7 | 55 | full color | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| shuriken | 4 | 40 | full color | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| fire | 4 | 60 | full color | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| flame | 7 | 55 | white (tinted) | bottom | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| lightning | 6 | 40 | white (tinted) | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| orb | 6 | 40 | full color | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| glow | 2 | 60 | white (tinted) | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| streak | 6 | 45 | white (tinted) | bottom | packed | v02 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| star | 5 | 40 | white (tinted) | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| crater | 3 | 1000 (static; 3 random variants) | full color | decal | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
+| lines | 4 | 40 | white (tinted) | center | packed | v01 | - | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. |
 
 ## Shared UI (step 11)
 
@@ -308,8 +308,8 @@ cleaned into `art/ui/final/`.
 
 | asset | size | status | version | approved | notes |
 |---|---|---|---|---|---|
-| ui/final/logo.png ("GCD TOURNEY" + 天下一武闘祭) | ~480x180 | todo | - | - | not wired into the game yet (needs a task for Claude) |
-| ui/final/title_art.png (title key art) | 640x360 | todo | - | - | not wired into the game yet; attaches both approved v2 model sheets |
+| ui/final/logo.png ("GCD TOURNEY" + 天下一武闘祭) | ~480x180 | raw | v01 | - | Fitted candidate in ui/review; final approval and engine hooks pending. |
+| ui/final/title_art.png (title key art) | 640x360 | raw | v01 | - | Fitted candidate in ui/review; final approval and engine hooks pending. |
 
 ## World art (ADR 0008)
 
@@ -339,6 +339,132 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | crowd | crowd-bleach-01-r1 | bl-001, bl-003, bl-005, bl-006 | approved | v02 | v02 | Lead raw QA: four targeted v02 corrections; pose columns and two-arm anatomy checked. Recommend visual approval if the linked redraws look right. Packed QA pending TOOL-011. User approved v02 redo on 2026-10-09. |
 | crowd | crowd-chainsaw-man-01-r1 | csm-010 | approved | v02 | v02 | Lead raw QA: 010 v02 removes the detached fin ticks and retains identity, three poses and shared baseline. Recommend visual approval. 010 v02 still crosses both pose cuts; verify adaptive extraction. Packed QA pending TOOL-011. User approved v02 redo on 2026-10-09. |
 | crowd | crowd-cowboy-bebop-01-r1 | bebop-003, bebop-004 | approved | v02 | v02 | Lead raw QA: 003/004 v02 keep bonsai/laptop visible across all three poses, with stable baselines and clean gaps. Recommend visual approval. 004 v02 crosses a pose cut; verify adaptive extraction. Packed QA pending TOOL-011. User approved v02 redo on 2026-10-09. |
+
+| crowd | crowd-dragon-ball-03 | 10 | raw | v01/v03 | - | [Files/QA](queue/reviews/crowd-dragon-ball-03.md); final review pending |
+| crowd | crowd-dragon-ball-04 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-dragon-ball-04.md); final review pending |
+| crowd | crowd-elders-01 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-elders-01.md); final review pending |
+| crowd | crowd-elders-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-elders-02.md); final review pending |
+| crowd | crowd-evangelion-01 | 6 | raw | v01 | - | [Files/QA](queue/reviews/crowd-evangelion-01.md); final review pending |
+| crowd | crowd-families-kids-01 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-families-kids-01.md); final review pending |
+| crowd | crowd-families-kids-02 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-families-kids-02.md); final review pending |
+| crowd | crowd-farmers-villagers-01 | 10 | raw | v02/v01 | - | [Files/QA](queue/reviews/crowd-farmers-villagers-01.md); final review pending |
+| crowd | crowd-farmers-villagers-02 | 3 | raw | v01 | - | [Files/QA](queue/reviews/crowd-farmers-villagers-02.md); final review pending |
+| crowd | crowd-fist-of-the-north-star-01 | 8 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-fist-of-the-north-star-01.md); final review pending |
+| crowd | crowd-fullmetal-alchemist-01 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-fullmetal-alchemist-01.md); final review pending |
+| crowd | crowd-gintama-01 | 8 | raw | v01 | - | [Files/QA](queue/reviews/crowd-gintama-01.md); final review pending |
+| crowd | crowd-hajime-no-ippo-01 | 8 | raw | v01 | - | [Files/QA](queue/reviews/crowd-hajime-no-ippo-01.md); final review pending |
+| crowd | crowd-hunter-x-hunter-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-hunter-x-hunter-01.md); final review pending |
+| crowd | crowd-hunter-x-hunter-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-hunter-x-hunter-02.md); final review pending |
+| crowd | crowd-idol-fans-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-idol-fans-01.md); final review pending |
+| crowd | crowd-idol-fans-02 | 3 | raw | v01 | - | [Files/QA](queue/reviews/crowd-idol-fans-02.md); final review pending |
+| crowd | crowd-jojo-01 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-jojo-01.md); final review pending |
+| crowd | crowd-jojo-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-jojo-02.md); final review pending |
+| crowd | crowd-jujutsu-kaisen-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-jujutsu-kaisen-01.md); final review pending |
+| crowd | crowd-jujutsu-kaisen-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-jujutsu-kaisen-02.md); final review pending |
+| crowd | crowd-kengan-ashura-01 | 6 | raw | v01 | - | [Files/QA](queue/reviews/crowd-kengan-ashura-01.md); final review pending |
+| crowd | crowd-kenichi-01 | 6 | raw | v01 | - | [Files/QA](queue/reviews/crowd-kenichi-01.md); final review pending |
+| crowd | crowd-martial-artists-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-martial-artists-01.md); final review pending |
+| crowd | crowd-martial-artists-02 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-martial-artists-02.md); final review pending |
+| crowd | crowd-mob-psycho-100-01 | 8 | raw | v01 | - | [Files/QA](queue/reviews/crowd-mob-psycho-100-01.md); final review pending |
+| crowd | crowd-monks-priests-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-monks-priests-01.md); final review pending |
+| crowd | crowd-my-hero-academia-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-my-hero-academia-01.md); final review pending |
+| crowd | crowd-my-hero-academia-02 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-my-hero-academia-02.md); final review pending |
+| crowd | crowd-naruto-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-naruto-01.md); final review pending |
+| crowd | crowd-naruto-02 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-naruto-02.md); final review pending |
+| crowd | crowd-naruto-03 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-naruto-03.md); final review pending |
+| crowd | crowd-ninja-samurai-cosplayers-01 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-ninja-samurai-cosplayers-01.md); final review pending |
+| crowd | crowd-ninja-samurai-cosplayers-02 | 3 | raw | v01 | - | [Files/QA](queue/reviews/crowd-ninja-samurai-cosplayers-02.md); final review pending |
+| crowd | crowd-one-piece-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-one-piece-01.md); final review pending |
+| crowd | crowd-one-piece-02 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-one-piece-02.md); final review pending |
+| crowd | crowd-one-piece-03 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-one-piece-03.md); final review pending |
+| crowd | crowd-one-punch-man-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-one-punch-man-01.md); final review pending |
+| crowd | crowd-one-punch-man-02 | 2 | raw | v01 | - | [Files/QA](queue/reviews/crowd-one-punch-man-02.md); final review pending |
+| crowd | crowd-punks-delinquents-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-punks-delinquents-01.md); final review pending |
+| crowd | crowd-punks-delinquents-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-punks-delinquents-02.md); final review pending |
+| crowd | crowd-ranma-01 | 8 | raw | v01 | - | [Files/QA](queue/reviews/crowd-ranma-01.md); final review pending |
+| crowd | crowd-rich-patrons-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-rich-patrons-01.md); final review pending |
+| crowd | crowd-rich-patrons-02 | 4 | raw | v01 | - | [Files/QA](queue/reviews/crowd-rich-patrons-02.md); final review pending |
+| crowd | crowd-robots-aliens-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-robots-aliens-01.md); final review pending |
+| crowd | crowd-sailor-moon-01 | 10 | raw | v01/v02 | - | [Files/QA](queue/reviews/crowd-sailor-moon-01.md); final review pending |
+| crowd | crowd-saint-seiya-01 | 8 | raw | v01 | - | [Files/QA](queue/reviews/crowd-saint-seiya-01.md); final review pending |
+| crowd | crowd-slam-dunk-01 | 6 | raw | v01 | - | [Files/QA](queue/reviews/crowd-slam-dunk-01.md); final review pending |
+| crowd | crowd-spy-x-family-01 | 6 | raw | v01 | - | [Files/QA](queue/reviews/crowd-spy-x-family-01.md); final review pending |
+| crowd | crowd-students-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-students-01.md); final review pending |
+| crowd | crowd-students-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-students-02.md); final review pending |
+| crowd | crowd-travelers-tourists-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-travelers-tourists-01.md); final review pending |
+| crowd | crowd-travelers-tourists-02 | 5 | raw | v02/v01 | - | [Files/QA](queue/reviews/crowd-travelers-tourists-02.md); final review pending |
+| crowd | crowd-vendors-workers-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-vendors-workers-01.md); final review pending |
+| crowd | crowd-vendors-workers-02 | 5 | raw | v01 | - | [Files/QA](queue/reviews/crowd-vendors-workers-02.md); final review pending |
+| crowd | crowd-yu-yu-hakusho-01 | 10 | raw | v01 | - | [Files/QA](queue/reviews/crowd-yu-yu-hakusho-01.md); final review pending |
+| crowd | crowd-yu-yu-hakusho-02 | 2 | raw | v01 | - | [Files/QA](queue/reviews/crowd-yu-yu-hakusho-02.md); final review pending |
+| stage | stage-ringTop | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-ringTop.md); final review pending |
+| stage | stage-ringSide | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-ringSide.md); final review pending |
+| stage | stage-grass | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-grass.md); final review pending |
+| stage | stage-steps | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-steps.md); final review pending |
+| stage | stage-stoneBase | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-stoneBase.md); final review pending |
+| stage | stage-brick | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-brick.md); final review pending |
+| stage | stage-path | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-path.md); final review pending |
+| stage | stage-templeFacade | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-templeFacade.md); final review pending |
+| stage | stage-roof | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-roof.md); final review pending |
+| stage | stage-bannerBu | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-bannerBu.md); final review pending |
+| stage | stage-bannerDo | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-bannerDo.md); final review pending |
+| stage | stage-bannerSai | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-bannerSai.md); final review pending |
+| stage | stage-bannerTo | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-bannerTo.md); final review pending |
+| stage | stage-plaster | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-plaster.md); final review pending |
+| stage | stage-sky | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-sky.md); final review pending |
+| stage | stage-cloudA | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-cloudA.md); final review pending |
+| stage | stage-cloudB | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-cloudB.md); final review pending |
+| stage | stage-cloudC | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-cloudC.md); final review pending |
+| stage | stage-gong | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-gong.md); final review pending |
+| stage | stage-parasol | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-parasol.md); final review pending |
+| stage | stage-woodDark | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-woodDark.md); final review pending |
+| stage | stage-treeRoundA | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-treeRoundA.md); final review pending |
+| stage | stage-treeRoundB | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-treeRoundB.md); final review pending |
+| stage | stage-treePine | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-treePine.md); final review pending |
+| stage | stage-treePalm | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-treePalm.md); final review pending |
+| stage | stage-sign | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-sign.md); final review pending |
+| stage | stage-lanternBu | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-lanternBu.md); final review pending |
+| stage | stage-lanternSai | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-lanternSai.md); final review pending |
+| stage | stage-woodPillar | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-woodPillar.md); final review pending |
+| stage | stage-wood | 1 | raw | v01 | - | [Files/QA](queue/reviews/stage-wood.md); final review pending |
+| npc | npc-announcer | 5 | raw | v01 | - | [Files/QA](queue/reviews/npc-announcer.md); final review pending |
+| npc | npc-monk-a | 3 | raw | v02 | - | [Files/QA](queue/reviews/npc-monk-a.md); final review pending |
+| npc | npc-monk-b | 3 | raw | v01 | - | [Files/QA](queue/reviews/npc-monk-b.md); final review pending |
+| npc | npc-vendor | 2 | raw | v02 | - | [Files/QA](queue/reviews/npc-vendor.md); final review pending |
+| ui | ui-logo | 1 | raw | v01 | - | [Files/QA](queue/reviews/ui-logo.md); final review pending |
+| ui | ui-title_art | 1 | raw | v01 | - | [Files/QA](queue/reviews/ui-title_art.md); final review pending |
+| vfx | vfx-spark | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-spark.md); final review pending |
+| vfx | vfx-burst | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-burst.md); final review pending |
+| vfx | vfx-ring | 1 | packed | v02 | - | [Files/QA](queue/reviews/vfx-ring.md); final review pending |
+| vfx | vfx-dust | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-dust.md); final review pending |
+| vfx | vfx-smoke | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-smoke.md); final review pending |
+| vfx | vfx-shuriken | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-shuriken.md); final review pending |
+| vfx | vfx-fire | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-fire.md); final review pending |
+| vfx | vfx-flame | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-flame.md); final review pending |
+| vfx | vfx-lightning | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-lightning.md); final review pending |
+| vfx | vfx-orb | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-orb.md); final review pending |
+| vfx | vfx-glow | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-glow.md); final review pending |
+| vfx | vfx-streak | 1 | packed | v02 | - | [Files/QA](queue/reviews/vfx-streak.md); final review pending |
+| vfx | vfx-star | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-star.md); final review pending |
+| vfx | vfx-crater | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-crater.md); final review pending |
+| vfx | vfx-lines | 1 | packed | v01 | - | [Files/QA](queue/reviews/vfx-lines.md); final review pending |
+| crowd | crowd-farmers-villagers-01-r1 | 2 | raw | v02 | - | [Files/QA](queue/reviews/crowd-farmers-villagers-01-r1.md); final review pending |
+| crowd | crowd-fist-of-the-north-star-01-r1 | 3 | raw | v02 | - | [Files/QA](queue/reviews/crowd-fist-of-the-north-star-01-r1.md); final review pending |
+| crowd | crowd-dragon-ball-03-r1 | 1 | raw | v03 | - | [Files/QA](queue/reviews/crowd-dragon-ball-03-r1.md); final review pending |
+| crowd | crowd-dragon-ball-04-r1 | 4 | raw | v02 | - | [Files/QA](queue/reviews/crowd-dragon-ball-04-r1.md); final review pending |
+| crowd | crowd-elders-01-r1 | 1 | raw | v02 | - | [Files/QA](queue/reviews/crowd-elders-01-r1.md); final review pending |
+| crowd | crowd-families-kids-01-r1 | 1 | raw | v02 | - | [Files/QA](queue/reviews/crowd-families-kids-01-r1.md); final review pending |
+| npc | npc-monk-a-r1 | 3 | raw | v02 | - | [Files/QA](queue/reviews/npc-monk-a-r1.md); final review pending |
+| npc | npc-vendor-r1 | 2 | raw | v02 | - | [Files/QA](queue/reviews/npc-vendor-r1.md); final review pending |
+| vfx | vfx-ring-r1 | 1 | packed | v02 | - | [Files/QA](queue/reviews/vfx-ring-r1.md); final review pending |
+| vfx | vfx-streak-r1 | 1 | packed | v02 | - | [Files/QA](queue/reviews/vfx-streak-r1.md); final review pending |
+| crowd | crowd-dragon-ball-03-r2 | 1 | raw | v03 | - | [Files/QA](queue/reviews/crowd-dragon-ball-03-r2.md); final review pending |
+| crowd | crowd-fullmetal-alchemist-01-r1 | 2 | raw | v02 | - | [Files/QA](queue/reviews/crowd-fullmetal-alchemist-01-r1.md); final review pending |
+| crowd | crowd-jojo-01-r1 | 1 | raw | v02 | - | [Files/QA](queue/reviews/crowd-jojo-01-r1.md); final review pending |
+| crowd | crowd-ninja-samurai-cosplayers-01-r1 | 1 | raw | v02 | - | [Files/QA](queue/reviews/crowd-ninja-samurai-cosplayers-01-r1.md); final review pending |
+| crowd | crowd-sailor-moon-01-r1 | 1 | raw | v02 | - | [Files/QA](queue/reviews/crowd-sailor-moon-01-r1.md); final review pending |
+| crowd | crowd-travelers-tourists-02-r1 | 1 | raw | v02 | - | [Files/QA](queue/reviews/crowd-travelers-tourists-02-r1.md); final review pending |
+
 ## Adding a character
 
 Copy the naruto section, rename it, and add the same block to `manifest.json`

@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-yu-yu-hakusho-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:47:30.100Z",
+  "touchedAt": "2026-10-09T09:51:41.044Z",
+  "items": [
+    "yyh-011",
+    "yyh-012"
+  ],
+  "doneAt": "2026-10-09T09:51:41.043Z",
+  "note": "Two sheets saved and visually checked; no cameo refusals. Puu remains about 600px tall versus tiny 350px target after retry. Jin's retry includes small whirlwind but its raised arm/effect reaches y~30 rather than leaving 140px top margin; body is oversized. Generator background is noisy near-magenta rather than exact #FF00FF and far exceeds 24 RGB colors; no pixel postprocessing. Review scale, margins, masking, and palette before packing."
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-hunter-x-hunter-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:58:10.417Z",
+  "touchedAt": "2026-10-09T08:06:43.996Z",
+  "items": [
+    "hxh-001",
+    "hxh-002",
+    "hxh-003",
+    "hxh-004",
+    "hxh-005",
+    "hxh-006",
+    "hxh-007",
+    "hxh-008",
+    "hxh-009",
+    "hxh-010"
+  ],
+  "doneAt": "2026-10-09T08:06:43.995Z",
+  "note": "Ten three-pose full-body sheets saved; no refusals. HxH-009 huge brute took three attempts; best still lets middle arm project roughly 15 px across pose-column boundary, so crop may clip it. Other silhouettes, props, feet, and poses read clearly. Imagegen repeatedly produced noisy near-magenta rather than flat exact #FF00FF, over 24 colors, and some height/overhead prop deviations; requires lead review/packer assessment."
+}

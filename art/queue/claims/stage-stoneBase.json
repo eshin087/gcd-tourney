@@ -1,0 +1,13 @@
+{
+  "batch": "stage-stoneBase",
+  "type": "stage",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:56:48.849Z",
+  "touchedAt": "2026-10-09T10:00:16.712Z",
+  "items": [
+    "stoneBase"
+  ],
+  "doneAt": "2026-10-09T10:00:16.712Z",
+  "note": "Three attempts; chose the cleanest seamless tile. Saved raw plus exact 128x64 reference fit and 2x2 preview. Tile has 17 colors versus <=16 target, opaque; left-right wrap 1.4 vs inner 8.0, top-bottom 3.6 vs inner 22.2, visually seamless. Raw generator ignored requested 1536x1024 and returned 1774x887; fit crops band. No approved ringSide existed to attach."
+}

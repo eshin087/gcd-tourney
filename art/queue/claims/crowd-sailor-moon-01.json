@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-sailor-moon-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:23:18.543Z",
+  "touchedAt": "2026-10-09T09:31:28.047Z",
+  "items": [
+    "sm-001",
+    "sm-002",
+    "sm-003",
+    "sm-004",
+    "sm-005",
+    "sm-006",
+    "sm-007",
+    "sm-008",
+    "sm-009",
+    "sm-010"
+  ],
+  "doneAt": "2026-10-09T09:31:28.046Z",
+  "note": "Saved sm-001..010 v01 after visual QA. Retried 003 to make talisman blank and 010 so complete red-orb key staff appears in all poses. Identities, pose order, margins and main props readable. Generator repeatedly produced noisy near-magenta background and excessive RGB colors despite pure flat #FF00FF and palette prompts; packer/review should assess. sm-007 pale pink hair/costume may be close to chroma key."
+}

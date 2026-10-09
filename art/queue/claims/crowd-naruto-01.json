@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-naruto-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:40:36.107Z",
+  "touchedAt": "2026-10-09T08:52:40.101Z",
+  "items": [
+    "nar-001",
+    "nar-002",
+    "nar-003",
+    "nar-004",
+    "nar-005",
+    "nar-006",
+    "nar-007",
+    "nar-008",
+    "nar-009",
+    "nar-010"
+  ],
+  "doneAt": "2026-10-09T08:52:40.100Z",
+  "note": "Ten full-body three-pose crowd cameo sprites saved; no name refusals/fallback. nar-003 used second attempt for less chibi teen proportions. To honor no extra effects, nar-006 throwing stars remain held, nar-009 no detached crumbs/chips, nar-010 bouquet stays gripped; nar-009 cheer uses raised fist with bag in other hand rather than bag thrust sideways. Pink hair/skirt nar-002 and purple nar-007/010 may need matte edge review. All 1536x1024. Generator still yields corners RGB about (235-243,11-15,239-242) and 77k-168k colors instead of exact #FF00FF and <=24 hard 8px colors. Lead should inspect masking/palette."
+}

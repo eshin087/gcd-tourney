@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-streak",
+  "type": "vfx",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:33:22.411Z",
+  "touchedAt": "2026-10-09T10:34:13.546Z",
+  "items": [
+    "streak"
+  ],
+  "doneAt": "2026-10-09T10:34:13.545Z",
+  "note": "Six thin vertical white streak cels, tiny-medium-tall-tall-medium-tiny with lower-middle bright wide segment; endpoints rise overall, though middle two share near-same bottom. Technical doubt: corner near-magenta #F10CF0 rather than flat #FF00FF, ~7.3k RGB colors instead of white/grey steps; edge cleanup needed. No refusal."
+}

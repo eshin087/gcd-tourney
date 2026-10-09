@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-elders-01-r1",
+  "type": "crowd",
+  "agent": "w08",
+  "status": "done",
+  "claimedAt": "2026-10-09T20:23:59.581Z",
+  "touchedAt": "2026-10-09T20:25:04.361Z",
+  "items": [
+    "org-el-010"
+  ],
+  "doneAt": "2026-10-09T20:25:04.360Z",
+  "note": "org-el-010 v02: tucked cheer arms and dumbbell inside middle third; shocked dumbbell remains on foot. Visual QA: clear magenta gaps at both pose cuts. Generated background may need packer cleanup to exact #FF00FF."
+}

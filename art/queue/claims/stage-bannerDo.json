@@ -1,0 +1,13 @@
+{
+  "batch": "stage-bannerDo",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:05:27.683Z",
+  "touchedAt": "2026-10-09T10:06:11.678Z",
+  "items": [
+    "bannerDo"
+  ],
+  "doneAt": "2026-10-09T10:06:11.677Z",
+  "note": "1 imagegen attempt; 道 glyph visually correct, blue cloth/gold band and swallowtail notch present. Saved raw and 64x192 cutout fit; 936 transparent pixels. Fit has 49 colors versus <=12 target and visible cloth gradient; inspect before approval."
+}

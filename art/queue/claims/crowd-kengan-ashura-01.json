@@ -1,0 +1,18 @@
+{
+  "batch": "crowd-kengan-ashura-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:16:36.342Z",
+  "touchedAt": "2026-10-09T08:25:00.843Z",
+  "items": [
+    "kengan-001",
+    "kengan-002",
+    "kengan-003",
+    "kengan-004",
+    "kengan-005",
+    "kengan-006"
+  ],
+  "doneAt": "2026-10-09T08:25:00.843Z",
+  "note": "Saved all six cameo v01 sprites; no refusals. Retried kengan-002 briefcase clearance (3 attempts), kengan-003 huge flex to reduce column overlap, and kengan-005 raised fist while preserving grounded feet. Doubts: generator still produces noisy near-magenta rather than exact flat #FF00FF and excessive RGB colors; kengan-002 cheer briefcase extends slightly past the ideal middle-third boundary although poses remain separated."
+}

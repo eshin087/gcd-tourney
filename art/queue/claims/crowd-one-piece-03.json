@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-one-piece-03",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:01:07.800Z",
+  "touchedAt": "2026-10-09T09:15:29.852Z",
+  "items": [
+    "op-021",
+    "op-022",
+    "op-023",
+    "op-024",
+    "op-025",
+    "op-026",
+    "op-027",
+    "op-028",
+    "op-029",
+    "op-030"
+  ],
+  "doneAt": "2026-10-09T09:15:29.851Z",
+  "note": "Saved op-021..030 v01, all 1536x1024 with three visually distinct full-body poses. No generator refusal. Retried 023-030 except first two to improve size, costume, and column fit; some medium/short/tall heights still exceed target. 021 retains small cigar smoke; 028 keeps two roster-specified ghost companions per pose. Direct imagegen output corners are near-magenta RGB 237-243,10-13,238-242 instead of exact #FF00FF, with soft/high-color pixels; lead technical QA and correction needed before packing. No shared files edited by worker."
+}

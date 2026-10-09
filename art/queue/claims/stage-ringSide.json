@@ -1,0 +1,13 @@
+{
+  "batch": "stage-ringSide",
+  "type": "stage",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:52:22.195Z",
+  "touchedAt": "2026-10-09T10:00:32.811Z",
+  "items": [
+    "ringSide"
+  ],
+  "doneAt": "2026-10-09T10:00:32.810Z",
+  "note": "Three imagegen attempts. Saved calmest raw plus exact 256x40 fit and 2x2 preview. Fit is opaque and visually reads as two staggered stone courses with coping/plinth; generated band was 260px tall rather than requested 240. Tile QA: 30 colors exceeds <=16 budget; horizontal wrap 10.4 vs inner 4.6 (~2.3x), with a subtle vertical seam. Magenta background is noisy near-magenta, not exact #FF00FF. No approved ringTop reference existed. Review palette and seam before approval/packing."
+}

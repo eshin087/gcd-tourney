@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-bleach-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:10:43.296Z",
+  "touchedAt": "2026-10-09T07:18:32.061Z",
+  "items": [
+    "bl-011",
+    "bl-012",
+    "bl-013",
+    "bl-014",
+    "bl-015",
+    "bl-016",
+    "bl-017",
+    "bl-018",
+    "bl-019",
+    "bl-020"
+  ],
+  "doneAt": "2026-10-09T07:18:32.059Z",
+  "note": "10 v01 PNGs saved; no refusals or fallback prompts. bl-012 needed 3 attempts to keep the sword inside its pose column; final blade is compact. Shared QA doubt: near-magenta textured backgrounds instead of exact #FF00FF and color counts far above 24; raw figures also exceed height guidance despite prompts. bl-020 tiny child drawn large on raw canvas; packer heightClass should rescale, inspect contact sheet. Inspect salmon-pink clothing and dark-purple scarf for magenta removal."
+}

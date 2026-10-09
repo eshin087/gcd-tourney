@@ -1,0 +1,15 @@
+{
+  "batch": "crowd-farmers-villagers-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:44:11.843Z",
+  "touchedAt": "2026-10-09T07:49:37.016Z",
+  "items": [
+    "org-farm-011",
+    "org-farm-012",
+    "org-farm-013"
+  ],
+  "doneAt": "2026-10-09T07:49:37.015Z",
+  "note": "3 v01 original spectator PNGs saved. org-farm-011 took 3 attempts; saved second, with cheer hammer horizontal as briefed, but shocked dropped hammer comes close to right canvas edge. org-farm-013 raised honey jar approaches top margin and mesh veil has dense pattern. Persistent generator QA doubt: near-magenta/noisy background, color count far above 24, and oversized raw figures. No refusals or fallbacks."
+}

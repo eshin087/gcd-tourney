@@ -1,0 +1,14 @@
+{
+  "batch": "npc-vendor",
+  "type": "npc",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:21:37.306Z",
+  "touchedAt": "2026-10-09T10:29:38.993Z",
+  "items": [
+    "model_sheet",
+    "idle"
+  ],
+  "doneAt": "2026-10-09T10:29:38.992Z",
+  "note": "model_sheet_v01: best of 3 attempts, four distinct views on shared y=791 sole baseline, in-game towel knot image-right, swatches and food tray present; figures ~667-672 raw px tall versus ~415 target, near-magenta corner RGB 241,12,241 and extra colors. idle_v01: best of 3, exactly two 3/4 poses with same 627px height and y=850 soles; f0 calling hand by open mouth and f1 both hands on tray with closed-mouth grin; food appears same with two noodle bowls, three skewers and three buns. Raw figures still ~627px versus ~415 target, near-magenta RGB 242,12,243, palette/soft edges and 2px body dip need lead QA before packing."
+}

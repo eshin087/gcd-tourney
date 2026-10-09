@@ -1,0 +1,20 @@
+{
+  "batch": "crowd-gintama-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:54:38.635Z",
+  "touchedAt": "2026-10-09T08:06:32.956Z",
+  "items": [
+    "gin-001",
+    "gin-002",
+    "gin-003",
+    "gin-004",
+    "gin-005",
+    "gin-006",
+    "gin-007",
+    "gin-008"
+  ],
+  "doneAt": "2026-10-09T08:06:32.955Z",
+  "note": "No refusals. Eight direct imagegen files are 1536x1024 and visually three full-body poses. All backgrounds are noisy near-magenta, not exact #FF00FF (corner RGB ~239-244,12-16,238-242), and likely exceed 24 colors. Some height classes still run tall. gin-001 needed three attempts for one sword inside center column; gin-003 and -004 used second attempts for parasol/sign margins. gin-002 glow stick and gin-006 mayonnaise bottle approach top margin; gin-007 pipe approaches right edge. gin-008 renders ominous expression without literal aura, with pastel pink kimono distinct from magenta."
+}

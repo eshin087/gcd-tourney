@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-rich-patrons-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:16:47.450Z",
+  "touchedAt": "2026-10-09T09:25:00.594Z",
+  "items": [
+    "org-rich-001",
+    "org-rich-002",
+    "org-rich-003",
+    "org-rich-004",
+    "org-rich-005",
+    "org-rich-006",
+    "org-rich-007",
+    "org-rich-008",
+    "org-rich-009",
+    "org-rich-010"
+  ],
+  "doneAt": "2026-10-09T09:25:00.593Z",
+  "note": "10 direct imagegen PNGs saved; no refusals. Retried 004/005/006 once for height/headroom, saved stronger attempts. Visual QA: three distinct full-body poses, same identity/outfit and aligned feet. Small changes kept cigars, bills, hat, glassware and other props attached instead of flying; 005 remains larger than medium height target and 007 larger than short target, packer rescale needed. Technical doubt: noisy near-magenta corners (238-242,11-15,238-242) not exact #FF00FF and 51k-234k colors rather than <=24. Lead should inspect packer cleanup."
+}

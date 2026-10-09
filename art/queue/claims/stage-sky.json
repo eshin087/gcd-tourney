@@ -1,0 +1,13 @@
+{
+  "batch": "stage-sky",
+  "type": "stage",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:07:31.163Z",
+  "touchedAt": "2026-10-09T10:12:39.118Z",
+  "items": [
+    "sky"
+  ],
+  "doneAt": "2026-10-09T10:12:39.117Z",
+  "note": "Three imagegen attempts. Saved least noisy banded raw plus exact 16x512 row-flat fit and horizontal 2x2 preview. Fitted rows are horizontally flat and wrap left/right exactly, but 60 colors exceed <=16 budget; generator inserted vertical gradients within bands and below the horizon despite hard-band prompts. The lower half is not one flat haze color. Top/bottom wrap number is irrelevant for this horizontal-only slot. Requires palette/band correction before approval or packing."
+}

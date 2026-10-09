@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-punks-delinquents-02",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:15:46.647Z",
+  "touchedAt": "2026-10-09T09:24:47.849Z",
+  "items": [
+    "org-punk-011",
+    "org-punk-012",
+    "org-punk-013",
+    "org-punk-014",
+    "org-punk-015"
+  ],
+  "doneAt": "2026-10-09T09:24:47.848Z",
+  "note": "Saved org-punk-011..015 v01, all 1536x1024 with three visually distinct full-body poses. No generator refusal. All five had second attempts for scale/column or pose details; short and medium sizes remain somewhat oversized. 011 meat bun, 013 flower, 014 few seeds, and 015 phone/charms follow roster but include close loose props. Direct output corners near-magenta RGB 240-243,12,239-241 instead of exact #FF00FF and soft/high-color pixels; lead technical QA and correction needed before packing. No shared files edited by worker."
+}

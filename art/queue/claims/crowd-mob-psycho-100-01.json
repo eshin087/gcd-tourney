@@ -1,0 +1,20 @@
+{
+  "batch": "crowd-mob-psycho-100-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:25:30.241Z",
+  "touchedAt": "2026-10-09T08:36:14.099Z",
+  "items": [
+    "mob-001",
+    "mob-002",
+    "mob-003",
+    "mob-004",
+    "mob-005",
+    "mob-006",
+    "mob-007",
+    "mob-008"
+  ],
+  "doneAt": "2026-10-09T08:36:14.098Z",
+  "note": "Saved all eight cameo v01 sprites; no refusals. Retried mob-001/003/004/008 for short or tiny scale; retried mob-007 three times for umbrella size and separation, chose best. Ghost mob-003 uses a consistent tail-tip baseline instead of soles. Doubts: generator continues noisy near-magenta key background and excessive RGB colors; several short/tiny sprites still exceed requested height; mob-007 middle umbrella slightly intrudes into left column. Roster-requested psychic rims, salt, pebbles, and shimmer conflict with generic no-effects rule; kept them minimal."
+}

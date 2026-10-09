@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-spark",
+  "type": "vfx",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:28:41.122Z",
+  "touchedAt": "2026-10-09T10:29:39.067Z",
+  "items": [
+    "spark"
+  ],
+  "doneAt": "2026-10-09T10:29:39.066Z",
+  "note": "Five clearly separated white/light-grey crescent cels, ordered small/thick to large/thin/fragments, flare on frames 1-3, saved. Technical doubt: imagegen produced noisy near-magenta corner #F30FF2 rather than flat #FF00FF and ~14,622 RGB colors instead of white/grey steps; probable pink fringe/packer cleanup risk. No refusal."
+}

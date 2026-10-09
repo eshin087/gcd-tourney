@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-jojo-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:10:00.187Z",
+  "touchedAt": "2026-10-09T08:15:03.164Z",
+  "items": [
+    "jojo-011",
+    "jojo-012",
+    "jojo-013",
+    "jojo-014",
+    "jojo-015"
+  ],
+  "doneAt": "2026-10-09T08:15:03.163Z",
+  "note": "Five full-body three-pose sprites saved; no name refusals/fallback. jojo-012 took second attempt for clearly masculine artist silhouette. jojo-013 dusty rose suit remains visually distinct from magenta but may need edge review. jojo-014 dot/zipper detail and jojo-015 web pattern visible. All 1536x1024. Generator still failed exact palette/background/8px targets: sampled corners RGB (238-243,12-14,239-242) and 92k-156k colors/image, with noisy anti-aliased pixels. Lead should inspect masking/palette warnings."
+}

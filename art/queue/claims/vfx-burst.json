@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-burst",
+  "type": "vfx",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:29:05.566Z",
+  "touchedAt": "2026-10-09T10:30:55.413Z",
+  "items": [
+    "burst"
+  ],
+  "doneAt": "2026-10-09T10:30:55.412Z",
+  "note": "Best of three attempts saved. Five frames with clear solid-grow-hole-ring-separated-tip progression, white-only, centered and uncropped. Generator repeatedly drew about 8 spikes/shards rather than specified 10; lead should review or reopen if exact count matters. Background noisy near-magenta, not exact flat #FF00FF, possible pale gray antialiasing. No refusal."
+}

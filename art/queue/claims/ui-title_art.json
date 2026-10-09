@@ -1,0 +1,13 @@
+{
+  "batch": "ui-title_art",
+  "type": "ui",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:28:31.695Z",
+  "touchedAt": "2026-10-09T10:32:51.643Z",
+  "items": [
+    "title_art"
+  ],
+  "doneAt": "2026-10-09T10:32:51.642Z",
+  "note": "2 imagegen attempts using both approved fighter model sheets; chose edited second at 1672x941 (~16:9). Full-body orange-left/blue-right face-off, Shippuden outfits, auras, tiled ring, grass, temple, gate, packed stands and trees. Top ~35% is mostly sky for logo; fighters begin below it. Raw only saved per queue; final 640x360 awaits lead/approval. Generator produced 449765 colors and smooth sky shading rather than strictly hard limited pixels; inspect at 640x360."
+}

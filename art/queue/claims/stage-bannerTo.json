@@ -1,0 +1,13 @@
+{
+  "batch": "stage-bannerTo",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:06:18.542Z",
+  "touchedAt": "2026-10-09T10:07:12.049Z",
+  "items": [
+    "bannerTo"
+  ],
+  "doneAt": "2026-10-09T10:07:12.048Z",
+  "note": "1 imagegen attempt; 闘 glyph visually correct, red cloth/gold band and swallowtail notch present. Saved raw and 64x192 cutout fit; 840 transparent pixels. Fit has 51 colors versus <=12 target and cloth gradient; inspect before approval."
+}

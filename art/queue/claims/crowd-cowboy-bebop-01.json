@@ -1,0 +1,18 @@
+{
+  "batch": "crowd-cowboy-bebop-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:16:19.832Z",
+  "touchedAt": "2026-10-09T07:23:47.937Z",
+  "items": [
+    "bebop-001",
+    "bebop-002",
+    "bebop-003",
+    "bebop-004",
+    "bebop-005",
+    "bebop-006"
+  ],
+  "doneAt": "2026-10-09T07:23:47.936Z",
+  "note": "No refusals or fallbacks. Six three-pose 1536x1024 PNGs saved. Generator again gives noisy near-magenta backgrounds and excessive colors; exact #FF00FF/24-color QA fails. bebop-002 hair is dark violet per roster despite no-violet art rule; bebop-004 laptop absent in cheer due arms-flailing pose; bebop-006 bird wing approaches right edge. Lead should inspect."
+}

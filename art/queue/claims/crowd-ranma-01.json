@@ -1,0 +1,20 @@
+{
+  "batch": "crowd-ranma-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:16:33.784Z",
+  "touchedAt": "2026-10-09T09:23:03.096Z",
+  "items": [
+    "ranma-001",
+    "ranma-002",
+    "ranma-003",
+    "ranma-004",
+    "ranma-005",
+    "ranma-006",
+    "ranma-007",
+    "ranma-008"
+  ],
+  "doneAt": "2026-10-09T09:23:03.095Z",
+  "note": "Saved ranma-001..008 v01 after visual QA. Retried 004 to remove duplicate parasol and 005 to shift saturated violet hair toward blue-lavender for chroma separation. Poses and silhouettes readable; 003 is comic panda and 008 tiny elder as brief. Generator repeatedly produced noisy near-magenta background and excessive RGB colors despite exact flat #FF00FF and palette prompts; packer/review should assess. Some 005 hair may still be close to key."
+}

@@ -114,6 +114,234 @@
         "art/crowd/raw/bl-006"
       ],
       "note": "Lead QA: bl-003 cheer has an impossible third arm holding bread; redraw with exactly two arms. bl-001,005,006 cross 512-px pose-column cut lines (bl-006 fan enters idle third); narrow/recenter while preserving identity, props and three baseline poses"
+    },
+    {
+      "id": "crowd-farmers-villagers-01-r1",
+      "type": "crowd",
+      "items": [
+        "org-farm-001",
+        "org-farm-008"
+      ],
+      "roster": "art/crowd/roster/farmers-villagers.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-farm-001",
+        "art/crowd/raw/org-farm-008"
+      ],
+      "note": "org-farm-001: hoe becomes a broad axe and cheer crosses left pose cut; org-farm-008: cheer axe head and handle cross left pose cut. Keep identity and full three poses inside separate 512 px thirds."
+    },
+    {
+      "id": "crowd-fist-of-the-north-star-01-r1",
+      "type": "crowd",
+      "items": [
+        "fotns-002",
+        "fotns-005",
+        "fotns-008"
+      ],
+      "roster": "art/crowd/roster/fist-of-the-north-star.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/fotns-002",
+        "art/crowd/raw/fotns-005",
+        "art/crowd/raw/fotns-008"
+      ],
+      "note": "Cape, props, and outstretched arms spill across fixed 512/1024 pose cuts. Preserve identity and three full poses with magenta gutters between thirds."
+    },
+    {
+      "id": "crowd-dragon-ball-03-r1",
+      "type": "crowd",
+      "items": [
+        "db-029"
+      ],
+      "roster": "art/crowd/roster/dragon-ball.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/db-029"
+      ],
+      "note": "Cape and cheer arm cross both 512/1024 pose cuts; keep lollipop/steam, identity and three front poses, with each complete silhouette inside its own 512 px third."
+    },
+    {
+      "id": "crowd-dragon-ball-04-r1",
+      "type": "crowd",
+      "items": [
+        "db-033",
+        "db-034",
+        "db-035",
+        "db-038"
+      ],
+      "roster": "art/crowd/roster/dragon-ball.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/db-033",
+        "art/crowd/raw/db-034",
+        "art/crowd/raw/db-035",
+        "art/crowd/raw/db-038"
+      ],
+      "note": "Spread or raised hands and arms cross pose cuts. Keep every roster identity and three front poses, but narrow/recenter silhouettes with clean gutters at x512 and x1024."
+    },
+    {
+      "id": "crowd-elders-01-r1",
+      "type": "crowd",
+      "items": [
+        "org-el-010"
+      ],
+      "roster": "art/crowd/roster/elders.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-el-010"
+      ],
+      "note": "Dumbbell and arms cross pose cuts in cheer/shock. Keep strong elder identity, three full poses and dumbbell, but fit inside separate 512 px thirds."
+    },
+    {
+      "id": "crowd-families-kids-01-r1",
+      "type": "crowd",
+      "items": [
+        "org-fk-010"
+      ],
+      "roster": "art/crowd/roster/families-kids.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-fk-010"
+      ],
+      "note": "Middle pose white handkerchief begins in idle third and crosses x512 for about 60 scanlines; keep identity and three full poses, but fit handkerchief inside cheer third."
+    },
+    {
+      "id": "npc-monk-a-r1",
+      "type": "npc",
+      "items": [
+        "model_sheet",
+        "idle",
+        "signal"
+      ],
+      "prompt": "art/npc/monk-a/PROMPTS.md",
+      "brief": "art/npc/monk-a/CHARACTER.md",
+      "outputs": [
+        "art/npc/monk-a/reference/model_sheet",
+        "art/npc/monk-a/raw/idle",
+        "art/npc/monk-a/raw/signal"
+      ],
+      "note": "Correct adult proportions to about five heads tall; preserve identity, redo model and strips"
+    },
+    {
+      "id": "npc-vendor-r1",
+      "type": "npc",
+      "items": [
+        "model_sheet",
+        "idle"
+      ],
+      "prompt": "art/npc/vendor/PROMPTS.md",
+      "brief": "art/npc/vendor/CHARACTER.md",
+      "outputs": [
+        "art/npc/vendor/reference/model_sheet",
+        "art/npc/vendor/raw/idle"
+      ],
+      "note": "Correct proportions to 5.5 heads tall and hard pixel craft; redo model and idle"
+    },
+    {
+      "id": "vfx-ring-r1",
+      "type": "vfx",
+      "items": [
+        "ring"
+      ],
+      "prompt": "art/vfx/PROMPTS.md",
+      "brief": "art/vfx/EFFECTS.md",
+      "outputs": [
+        "art/vfx/raw/ring"
+      ],
+      "note": "Six white ellipses width:height 1:0.55, expand from32x18 to120x66; keep centers fixed and shrink stroke thickness"
+    },
+    {
+      "id": "vfx-streak-r1",
+      "type": "vfx",
+      "items": [
+        "streak"
+      ],
+      "prompt": "art/vfx/PROMPTS.md",
+      "brief": "art/vfx/EFFECTS.md",
+      "outputs": [
+        "art/vfx/raw/streak"
+      ],
+      "note": "Correct final-frame downward jump; six white streaks with bottom rising120,118,116,114,112,110"
+    },
+    {
+      "id": "crowd-dragon-ball-03-r2",
+      "type": "crowd",
+      "items": [
+        "db-029"
+      ],
+      "roster": "art/crowd/roster/dragon-ball.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/db-029"
+      ],
+      "note": "Remove detached steam clouds; cheeks puffed eyes wide, preserve isolated poses and lollipop. Roster corrected."
+    },
+    {
+      "id": "crowd-fullmetal-alchemist-01-r1",
+      "type": "crowd",
+      "items": [
+        "fma-002",
+        "fma-005"
+      ],
+      "roster": "art/crowd/roster/fullmetal-alchemist.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/fma-002",
+        "art/crowd/raw/fma-005"
+      ],
+      "note": "fma002 exactly TWO arms each pose, one holding kitten other gesturing. fma005 remove all floating sparkles. Roster corrected."
+    },
+    {
+      "id": "crowd-jojo-01-r1",
+      "type": "crowd",
+      "items": [
+        "jojo-006"
+      ],
+      "roster": "art/crowd/roster/jojo.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/jojo-006"
+      ],
+      "note": "Remove fingertip flames and detached effects, preserve robe and cheer. Roster corrected."
+    },
+    {
+      "id": "crowd-ninja-samurai-cosplayers-01-r1",
+      "type": "crowd",
+      "items": [
+        "org-cosp-010"
+      ],
+      "roster": "art/crowd/roster/ninja-samurai-cosplayers.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-cosp-010"
+      ],
+      "note": "Shocked pose has three arms: exactly TWO arms, one grips polearm and other open startled hand."
+    },
+    {
+      "id": "crowd-sailor-moon-01-r1",
+      "type": "crowd",
+      "items": [
+        "sm-010"
+      ],
+      "roster": "art/crowd/roster/sailor-moon.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/sm-010"
+      ],
+      "note": "Idle has three arms: exactly TWO arms, one holds staff and other under chin; remove hanging extra arm, consistent staff length."
+    },
+    {
+      "id": "crowd-travelers-tourists-02-r1",
+      "type": "crowd",
+      "items": [
+        "org-trvl-011"
+      ],
+      "roster": "art/crowd/roster/travelers-tourists.json",
+      "prompt": "art/crowd/PROMPTS.md",
+      "outputs": [
+        "art/crowd/raw/org-trvl-011"
+      ],
+      "note": "Remove duplicated binoculars in idle: only one pair at eyes, no second chest pair; preserve single pair across poses."
     }
   ]
 }

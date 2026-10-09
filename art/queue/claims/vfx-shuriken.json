@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-shuriken",
+  "type": "vfx",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:31:03.750Z",
+  "touchedAt": "2026-10-09T10:31:47.867Z",
+  "items": [
+    "shuriken"
+  ],
+  "doneAt": "2026-10-09T10:31:47.866Z",
+  "note": "Four same-scale centered steel four-blade stars with center holes and distinct clockwise quarter-step rotations; loop visually plausible. Generator background remains noisy near-magenta rather than exact flat #FF00FF, and steel has more RGB shades/antialiasing than listed palette. No refusal."
+}

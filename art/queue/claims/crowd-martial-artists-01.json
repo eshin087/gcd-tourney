@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-martial-artists-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:19:57.262Z",
+  "touchedAt": "2026-10-09T08:29:01.919Z",
+  "items": [
+    "org-ma-001",
+    "org-ma-002",
+    "org-ma-003",
+    "org-ma-004",
+    "org-ma-005",
+    "org-ma-006",
+    "org-ma-007",
+    "org-ma-008",
+    "org-ma-009",
+    "org-ma-010"
+  ],
+  "doneAt": "2026-10-09T08:29:01.919Z",
+  "note": "Ten original three-pose martial artist sprites saved; no refusal/fallback. org-ma-010 second attempt removed unwanted vertical separator lines; best has compact cheer fists with narrow gap to idle. org-ma-007 staff approaches left pose boundary but does not overlap a neighboring figure. All 1536x1024. Generator still missed exact background and palette: corners RGB about (234-243,12-15,236-241) rather than #FF00FF and roughly 83k-169k colors each, with noisy/antialiased pixels instead of <=24 hard 8px colors. Lead should inspect masking/palette and pose spacing."
+}

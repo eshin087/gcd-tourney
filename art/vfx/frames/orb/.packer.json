@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/orb_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/orb_v01.png"
+  ],
+  "sourceHash": "91065dff2cf53dfe5854cb2c3115bbaef4055993",
+  "files": {
+    "orb_00.png": "7f9486305e7855c969af7b6cba4e27f6cd0bdb02",
+    "orb_01.png": "09b87d5368632679a260068806aae4994dc575a8",
+    "orb_02.png": "6f6b95a9b709d510db945bc468cf47c8fd1f7926",
+    "orb_03.png": "0690cc83172233b245f439276fa30027872f6a5f",
+    "orb_04.png": "dc53914bb59cb9c6ecffac1662c7424d9875075a",
+    "orb_05.png": "bd8e7f8d446b653635d5e736d86fd3a3bbd9ca1f"
+  }
+}

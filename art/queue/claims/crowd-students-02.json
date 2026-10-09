@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-students-02",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:31:52.464Z",
+  "touchedAt": "2026-10-09T09:35:37.192Z",
+  "items": [
+    "org-stud-011",
+    "org-stud-012",
+    "org-stud-013",
+    "org-stud-014",
+    "org-stud-015"
+  ],
+  "doneAt": "2026-10-09T09:35:37.191Z",
+  "note": "Saved org-stud-011..015 v01 after visual QA. Distinct silhouettes and three readable poses; balloon, beaker, headphones, trumpet and blank foam finger match briefs. Generator repeatedly produced noisy near-magenta background and excessive RGB colors despite exact pure flat #FF00FF and palette prompts; packer/review should assess. 011 shock balloon intentionally detached per brief; 012 contains beaker bubbles per brief."
+}

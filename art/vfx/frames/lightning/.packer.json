@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/lightning_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/lightning_v01.png"
+  ],
+  "sourceHash": "314c476f97f55ea721895668d68eb9876e22b600",
+  "files": {
+    "lightning_00.png": "eace929343d13e29bbf7cfcc628a591e030377bf",
+    "lightning_01.png": "3c4d1cd356adb9c2ac7a7d73090bac3a22aa6565",
+    "lightning_02.png": "7806979f4892420847257fc53ea5605040ac73c7",
+    "lightning_03.png": "207f11f0606d510f0db75f7d805ebf07c3b02b00",
+    "lightning_04.png": "b87049aac31e3b44ed744114065728a96bdb66d9",
+    "lightning_05.png": "a7eb3382bca810ea2500f5bd0b3f1c4894bf39bd"
+  }
+}

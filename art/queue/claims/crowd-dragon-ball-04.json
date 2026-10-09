@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-dragon-ball-04",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:29:16.569Z",
+  "touchedAt": "2026-10-09T07:43:37.641Z",
+  "items": [
+    "db-031",
+    "db-032",
+    "db-033",
+    "db-034",
+    "db-035",
+    "db-036",
+    "db-037",
+    "db-038",
+    "db-039",
+    "db-040"
+  ],
+  "doneAt": "2026-10-09T07:43:37.640Z",
+  "note": "10 v01 PNGs saved; no refusals or fallback prompts. Retried db-031 to remove unbriefed robe symbol, db-035 to remove scouter sparks, db-037/db-038 to remove unbriefed armor badges, and db-039 for gray hair/flatter ball. db-038 took 3 attempts; final middle pose keeps feet planted but raised hand reaches near canvas top. Persistent QA doubt: near-magenta noisy background, far above 24 colors, and oversized raw figures. Inspect purple skin/plates/hat (db-032/033/038/039) for magenta removal."
+}

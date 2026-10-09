@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/star_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/star_v01.png"
+  ],
+  "sourceHash": "d691bb9a132c9434573761f62b76f591c8826435",
+  "files": {
+    "star_00.png": "c8eda7286b70743f81499c5fb5972ac31acd18c9",
+    "star_01.png": "737b9dfc65bfb7a02d9034b2eef9a3c4b6489fee",
+    "star_02.png": "f9ac33ac948f5cb8c2c5d180b0653f7a900079dc",
+    "star_03.png": "6a40bf76ccc08485bfe4b0d5078e8970efe3e455",
+    "star_04.png": "9cdc6c7bea2cdf459b8f6031349066571173b717"
+  }
+}

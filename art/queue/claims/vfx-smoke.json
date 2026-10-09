@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-smoke",
+  "type": "vfx",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:30:49.236Z",
+  "touchedAt": "2026-10-09T10:32:08.186Z",
+  "items": [
+    "smoke"
+  ],
+  "doneAt": "2026-10-09T10:32:08.185Z",
+  "note": "Seven separate smoke cels, compact-to-billowing-to-separated wisps. Second imagegen attempt corrected bluish/lavender shading toward neutral grey. Technical doubt: background near-magenta corner #F30FF3, not flat #FF00FF; ~30k RGB colors and softened edges still exceed five-color spec and may leave fringe after pack. No refusal."
+}

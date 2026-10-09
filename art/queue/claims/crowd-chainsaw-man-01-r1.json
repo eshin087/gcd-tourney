@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-chainsaw-man-01-r1",
+  "type": "crowd",
+  "agent": "w03",
+  "status": "done",
+  "claimedAt": "2026-10-09T15:53:02.477Z",
+  "touchedAt": "2026-10-09T15:54:17.638Z",
+  "items": [
+    "csm-010"
+  ],
+  "doneAt": "2026-10-09T15:54:17.637Z",
+  "note": "csm-010 v02: removed detached black motion ticks above shocked dorsal fin; three poses, shared baseline, 1536x1024. Raw magenta varies slightly in sampled corners (approx RGB 230-237,15-38,237-239), as in other raws; packed QA pending TOOL-011. No fallback or refusal."
+}

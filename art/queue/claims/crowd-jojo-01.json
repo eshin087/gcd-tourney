@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-jojo-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:06:59.440Z",
+  "touchedAt": "2026-10-09T08:16:21.303Z",
+  "items": [
+    "jojo-001",
+    "jojo-002",
+    "jojo-003",
+    "jojo-004",
+    "jojo-005",
+    "jojo-006",
+    "jojo-007",
+    "jojo-008",
+    "jojo-009",
+    "jojo-010"
+  ],
+  "doneAt": "2026-10-09T08:16:21.303Z",
+  "note": "Ten three-pose sheets saved, no refusals. Iggy took three attempts to reduce dog scale; best idle is roughly 370 px tall versus 350 target, cheer taller. Distinct poses, costumes, props and feet visible. Imagegen continues to produce noisy near-magenta instead of exact flat #FF00FF, over 24 colors, and occasional overhead pose/prop margin violations; lead review and packer assessment needed."
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-glow",
+  "type": "vfx",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:33:13.261Z",
+  "touchedAt": "2026-10-09T10:36:21.916Z",
+  "items": [
+    "glow"
+  ],
+  "doneAt": "2026-10-09T10:36:21.915Z",
+  "note": "3 imagegen attempts; selected first for centered, separated 2-frame pulse and three hard concentric zones at intended relative sizes. Direct raw 1536x1024 PNG saved. Generator ignored exact 4-color requirement: ~17672 colors with smooth grey variation inside rings, near-magenta background RGB 244,17,243 rather than #FF00FF. Packer luma-to-alpha snapping and magenta removal need inspection; no postprocessing applied."
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-dragon-ball-03-r2",
+  "type": "crowd",
+  "agent": "w12",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:43:05.879Z",
+  "touchedAt": "2026-10-09T22:45:27.729Z",
+  "items": [
+    "db-029"
+  ],
+  "doneAt": "2026-10-09T22:45:27.728Z",
+  "note": "db029 v03 imagegen precise edit: removed both steam clouds/jets, widened shocked eyes; identity, three isolated poses, lollipop and baseline visually preserved. Raw palette/key QA still pending packer."
+}

@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-baki-01-r1",
+  "type": "crowd",
+  "agent": "w06",
+  "status": "done",
+  "claimedAt": "2026-10-09T15:58:31.125Z",
+  "touchedAt": "2026-10-09T16:03:09.260Z",
+  "items": [
+    "baki-002",
+    "baki-003",
+    "baki-005",
+    "baki-006",
+    "baki-007"
+  ],
+  "doneAt": "2026-10-09T16:03:09.259Z",
+  "note": "Five v02 redraws: 002/005/006/007 have clear pose-column gaps; 003 eyepatch stays on viewer-left eye in all poses. All 1536x1024, full bodies, aligned feet. Raw backgrounds remain near-magenta with slight RGB variation (generator limitation; verify keying when TOOL-011 crowd packer lands). No cameo refusals or fallbacks."
+}

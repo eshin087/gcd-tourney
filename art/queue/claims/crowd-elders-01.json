@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-elders-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:31:59.294Z",
+  "touchedAt": "2026-10-09T07:42:42.977Z",
+  "items": [
+    "org-el-001",
+    "org-el-002",
+    "org-el-003",
+    "org-el-004",
+    "org-el-005",
+    "org-el-006",
+    "org-el-007",
+    "org-el-008",
+    "org-el-009",
+    "org-el-010"
+  ],
+  "doneAt": "2026-10-09T07:42:42.976Z",
+  "note": "All 10 v01 PNGs saved. Major technical doubt: imagegen continues to produce noisy near-magenta backgrounds and excessive RGB colors, not flat #FF00FF or <=24; lead/packer QA needed. org-el-004 took 3 attempts to keep the cap within center pose. org-el-003 gained an unbriefed hat; org-el-009 has bouncing rice balls as roster requests."
+}

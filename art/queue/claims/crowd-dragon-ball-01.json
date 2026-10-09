@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-dragon-ball-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:22:11.158Z",
+  "touchedAt": "2026-10-09T07:31:31.846Z",
+  "items": [
+    "db-001",
+    "db-002",
+    "db-003",
+    "db-004",
+    "db-005",
+    "db-006",
+    "db-007",
+    "db-008",
+    "db-009",
+    "db-010"
+  ],
+  "doneAt": "2026-10-09T07:31:31.845Z",
+  "note": "All 10 v01 PNGs saved. Major technical doubt persists: imagegen produces noisy near-magenta, not flat #FF00FF, with far over 24 RGB colors; packer/lead QA required. db-003 retried to remove detached sweat drops; db-009 retried to narrow huge cheer arms. db-008 roster calls for violet clothing while worker checklist forbids violet in keyed art; saved dark purple well separated from magenta for lead review."
+}

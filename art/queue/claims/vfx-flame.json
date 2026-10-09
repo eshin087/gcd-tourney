@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-flame",
+  "type": "vfx",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:32:20.831Z",
+  "touchedAt": "2026-10-09T10:33:09.876Z",
+  "items": [
+    "flame"
+  ],
+  "doneAt": "2026-10-09T10:33:09.876Z",
+  "note": "Seven white/light-grey aura tongues in one row, same base line, heights rise to frame 4 peak then shrink, tip sways and detaches in final frames. Technical doubt: imagegen output near-magenta corner #F40FF3 instead of flat #FF00FF and ~26.7k RGB colors/soft fringe despite white-only palette. No refusal."
+}

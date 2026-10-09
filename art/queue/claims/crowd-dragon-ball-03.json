@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-dragon-ball-03",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:24:15.032Z",
+  "touchedAt": "2026-10-09T07:37:17.031Z",
+  "items": [
+    "db-021",
+    "db-022",
+    "db-023",
+    "db-024",
+    "db-025",
+    "db-026",
+    "db-027",
+    "db-028",
+    "db-029",
+    "db-030"
+  ],
+  "doneAt": "2026-10-09T07:37:17.030Z",
+  "note": "No refusals. All ten direct imagegen outputs have 1536x1024 dimensions and three visual poses, but backgrounds are noisy near-magenta rather than exact #FF00FF and palettes exceed spec. Lavender/purple roster colors may merge with magenta. db-029 has small steam clouds and close cape spacing after three attempts; lead should review."
+}

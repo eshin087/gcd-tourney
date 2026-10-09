@@ -319,7 +319,7 @@
       "fallbackLook": "huge round childlike creature with soft bubblegum-pink skin, a long curling head tentacle, beady eyes, a wide smile, a dark-purple gold-trimmed vest, violet cape, white baggy pants, white gloves and a black belt with a round gold buckle",
       "idle": "licking a giant swirl lollipop",
       "cheer": "arms flung wide to the sides, giggling",
-      "shocked": "steam puffing from his head holes, cheeks puffed",
+      "shocked": "cheeks puffed, eyes wide; no steam clouds or detached effects",
       "tags": ["creature", "big", "sweet-tooth"]
     },
     {

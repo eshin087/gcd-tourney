@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-bleach-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:08:14.385Z",
+  "touchedAt": "2026-10-09T07:18:47.031Z",
+  "items": [
+    "bl-001",
+    "bl-002",
+    "bl-003",
+    "bl-004",
+    "bl-005",
+    "bl-006",
+    "bl-007",
+    "bl-008",
+    "bl-009",
+    "bl-010"
+  ],
+  "doneAt": "2026-10-09T07:18:47.029Z",
+  "note": "No refusals. All ten v01 images saved from built-in imagegen with readable three-pose identities. Technical doubt: generated backgrounds are visibly near-magenta/noisy rather than exact flat #FF00FF, and palettes exceed 24 colors; lead should inspect packer output. To honor one-person/no-effects crowd QA, bl-008 omits Yachiru; bl-004 uses solid blue bow without glow; bl-009 omits petals; bl-010 omits icy mist/frost. bl-008 and bl-009 needed a second attempt to keep props inside columns."
+}

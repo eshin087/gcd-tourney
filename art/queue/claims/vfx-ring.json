@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-ring",
+  "type": "vfx",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:29:49.761Z",
+  "touchedAt": "2026-10-09T10:30:37.266Z",
+  "items": [
+    "ring"
+  ],
+  "doneAt": "2026-10-09T10:30:37.265Z",
+  "note": "Six horizontal white/grey oval cels in one row; centers aligned, progressively wider and thinner, final ring dashed. Technical doubt: imagegen background near-magenta (~#F20FF0) rather than flat #FF00FF and ~16k RGB colors from noisy/soft pixels; packer cleanup may leave fringe. No refusal."
+}

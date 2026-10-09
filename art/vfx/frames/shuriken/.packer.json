@@ -1,0 +1,16 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/shuriken_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/shuriken_v01.png"
+  ],
+  "sourceHash": "60bcf2e55191936a5dfcd7b9170c4b4250d10bf7",
+  "files": {
+    "shuriken_00.png": "40feb6ffe10ec4ac0e572652ee8b29ed87a706a0",
+    "shuriken_01.png": "94e930e4b7070e2ff4e03e9dbadcb6c2fecd92b9",
+    "shuriken_02.png": "55b1603eb4170fdd63a108662411441e1487be5b",
+    "shuriken_03.png": "090072a2fabfc3d86fdd011f1b628a6b3aa0c0f0"
+  }
+}

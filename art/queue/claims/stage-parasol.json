@@ -1,0 +1,13 @@
+{
+  "batch": "stage-parasol",
+  "type": "stage",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:11:37.501Z",
+  "touchedAt": "2026-10-09T10:14:23.646Z",
+  "items": [
+    "parasol"
+  ],
+  "doneAt": "2026-10-09T10:14:23.645Z",
+  "note": "Two attempts; chose second for slightly cleaner flat red/cream bands. Saved raw, exact 256x96 cutout fit and 2x2 preview. Exactly eight alternating straight panels and eight transparent scallops; horizontal wrap 4.8 vs inner 18.0 with no visible x seam. Vertical wrapping is not required. Fit remains 46 colors versus <=12 target because generator retained subtle gradients; raw band is 625px tall versus requested 576px."
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "stage-grass",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:53:45.650Z",
+  "touchedAt": "2026-10-09T10:04:13.641Z",
+  "items": [
+    "grass"
+  ],
+  "doneAt": "2026-10-09T10:04:13.640Z",
+  "note": "3 imagegen attempts; selected second for closest seamless wrap. Raw generator gave 1254x1254 despite 1024 request; fitted 256x256 opaque and 2x2 preview saved. Fit has 90 colors versus <=16 target; horizontal seam jump 7.2 versus inner 6.6, vertical 3.5 versus inner 5.9. Lead should inspect palette."
+}

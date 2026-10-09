@@ -1,0 +1,15 @@
+{
+  "batch": "crowd-ninja-samurai-cosplayers-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:53:24.577Z",
+  "touchedAt": "2026-10-09T08:58:04.463Z",
+  "items": [
+    "org-cosp-011",
+    "org-cosp-012",
+    "org-cosp-013"
+  ],
+  "doneAt": "2026-10-09T08:58:04.462Z",
+  "note": "Three original three-pose cosplayer sprites saved; no refusals/fallback. org-cosp-011 used second attempt to remove floating bomb motion lines; smoke puffs omitted to follow crowd no-extra-effects rule. org-cosp-012 back banner and org-cosp-013 solid cyan costume LEDs/toy katana are intact; glow/flash/sputter effects omitted, visor/shading changes carry reactions. All 1536x1024. Built-in imagegen still generated noisy near-magenta corners (240-242,12-15,239-241) and 82k-126k colors/image rather than exact #FF00FF, <=24 colors and clean 8px blocks. Lead should inspect masking and palette."
+}

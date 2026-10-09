@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-travelers-tourists-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:40:05.520Z",
+  "touchedAt": "2026-10-09T09:47:00.539Z",
+  "items": [
+    "org-trvl-011",
+    "org-trvl-012",
+    "org-trvl-013",
+    "org-trvl-014",
+    "org-trvl-015"
+  ],
+  "doneAt": "2026-10-09T09:47:00.538Z",
+  "note": "Five sheets saved and visually checked. Explorer hat and island girl's raised coconut breach the requested 140px top margin after retry; figures are often oversized versus height class, especially short teen and boy. Painter retry brought brush tip to about y140. Generator background is noisy near-magenta instead of exact #FF00FF and far exceeds 24 RGB colors; no pixel postprocessing. Review scale, masking, margins, and palette before packing."
+}

@@ -1,0 +1,18 @@
+{
+  "batch": "crowd-slam-dunk-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:25:25.079Z",
+  "touchedAt": "2026-10-09T09:31:08.376Z",
+  "items": [
+    "sd-001",
+    "sd-002",
+    "sd-003",
+    "sd-004",
+    "sd-005",
+    "sd-006"
+  ],
+  "doneAt": "2026-10-09T09:31:08.375Z",
+  "note": "6 direct imagegen PNGs saved; no refusals. Retried sd-001/sd-003 once to keep broad cheer arms within pose columns; saved better takes. Visual QA: three full-body same-character front-view poses, aligned soles. sd-001 shocked basketball stays held, sd-002 earphones tangle instead of flying, sd-005 cheer stays on baseline. sd-003 middle left fist still approaches column edge, inspect crop. Technical doubt: noisy near-magenta corners (235-242,12-13,239-242), not exact #FF00FF, and 64k-141k colors rather than <=24; lead should inspect packer cleanup."
+}

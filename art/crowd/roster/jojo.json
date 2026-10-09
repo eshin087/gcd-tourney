@@ -65,7 +65,7 @@
       "look": "tall dark-skinned fortune-teller with thick rope-like dark hair tied back under a cloth headband and a serious face, wearing a long flowing red-orange robe over a darker tunic, gold beaded necklaces and gold wristbands",
       "fallbackLook": "tall dark-skinned mystic with thick rope-like dark hair tied back under a headband, a long flowing red-orange robe, gold beaded necklaces and gold wristbands",
       "idle": "arms folded inside wide sleeves, solemn stare",
-      "cheer": "arms flung to the sides, small flames flickering at his fingertips, booming shout",
+      "cheer": "arms bent to the sides, booming shout; no flames or detached effects",
       "shocked": "robe flapping, eyes huge, one hand raised",
       "tags": ["adult", "mystic", "robe"]
     },

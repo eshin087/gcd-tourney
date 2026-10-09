@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-attack-on-titan-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:03:42.207Z",
+  "touchedAt": "2026-10-09T07:12:51.389Z",
+  "items": [
+    "aot-001",
+    "aot-002",
+    "aot-003",
+    "aot-004",
+    "aot-005",
+    "aot-006",
+    "aot-007",
+    "aot-008",
+    "aot-009",
+    "aot-010"
+  ],
+  "doneAt": "2026-10-09T07:12:51.388Z",
+  "note": "All 10 v01 images saved. Major technical doubt: imagegen repeatedly produced textured near-magenta backgrounds rather than flat #FF00FF (all corner pixels off-target; 88k-146k RGB colors per PNG), despite explicit flat-fill retry on aot-001. Packer/lead QA needed. aot-004 cheer/shock are deliberately subtle per roster; aot-005 shocked reads delighted more than alarmed."
+}

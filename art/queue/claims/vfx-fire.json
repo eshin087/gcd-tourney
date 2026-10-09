@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-fire",
+  "type": "vfx",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:31:55.893Z",
+  "touchedAt": "2026-10-09T10:33:03.369Z",
+  "items": [
+    "fire"
+  ],
+  "doneAt": "2026-10-09T10:33:03.368Z",
+  "note": "Four same-scale centered round fireballs with rearranged all-around tongues, bright cores, no directional tail; frame 3 has small detached embers. Visually strong loop candidate. Generated background remains noisy near-magenta rather than exact flat #FF00FF; RGB colors/antialiasing exceed six-tone ideal. No refusal."
+}

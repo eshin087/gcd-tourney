@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-punks-delinquents-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:10:22.058Z",
+  "touchedAt": "2026-10-09T09:16:31.276Z",
+  "items": [
+    "org-punk-001",
+    "org-punk-002",
+    "org-punk-003",
+    "org-punk-004",
+    "org-punk-005",
+    "org-punk-006",
+    "org-punk-007",
+    "org-punk-008",
+    "org-punk-009",
+    "org-punk-010"
+  ],
+  "doneAt": "2026-10-09T09:16:31.275Z",
+  "note": "10 direct imagegen PNGs saved; no refusals. Visual QA: three full-body distinct poses, consistent identity/outfit and feet baseline. Small roster pose changes avoid flying props: 001 toothpick stays at mouth; 002 and 009 bats/skateboard remain held; 007 keeps both soles on baseline. Technical doubt: generator returned noisy near-magenta corners (231-243,11-15,237-242) and 78k-170k unique colors, not exact #FF00FF or <=24 colors. Lead should inspect packer cleanup."
+}

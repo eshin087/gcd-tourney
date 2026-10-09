@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-farmers-villagers-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:44:09.803Z",
+  "touchedAt": "2026-10-09T07:54:28.262Z",
+  "items": [
+    "org-farm-001",
+    "org-farm-002",
+    "org-farm-003",
+    "org-farm-004",
+    "org-farm-005",
+    "org-farm-006",
+    "org-farm-007",
+    "org-farm-008",
+    "org-farm-009",
+    "org-farm-010"
+  ],
+  "doneAt": "2026-10-09T07:54:28.261Z",
+  "note": "No refusals. Ten direct imagegen PNGs are 1536x1024 with visually separate three-pose rows. All have noisy near-magenta corners (RGB about 238-243,11-13,238-242) instead of flat #FF00FF and likely exceed palette cap; several figures are taller than height-class targets. org-farm-003 has an unbriefed straw hat. org-farm-004 has small chicken motion marks. org-farm-005 and -008 used second attempts for prop and column separation. Some raised props approach the top margin; lead should review."
+}

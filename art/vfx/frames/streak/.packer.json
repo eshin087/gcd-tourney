@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/streak_v02.png",
+  "version": 2,
+  "source": [
+    "vfx/raw/streak_v02.png"
+  ],
+  "sourceHash": "5036a4c6550befccfc6e60bd60f238cea7276f56",
+  "files": {
+    "streak_00.png": "005044a89c3b87f3fc2ab01935ed39d7940c3d8f",
+    "streak_01.png": "14bf8043bda82dc7e5febe522dc434cc49b0d953",
+    "streak_02.png": "bab54f4d72d716259061006e377035f3beecc87f",
+    "streak_03.png": "e51cb3b0a15d892e717ff9ef39167f1787d11d25",
+    "streak_04.png": "11fada66d49d553788a56cba8e94282b8dc05d7f",
+    "streak_05.png": "157428cd3a8e030fa8a0ceeab612bfefebf15ae5"
+  }
+}

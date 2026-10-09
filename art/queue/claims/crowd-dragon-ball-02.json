@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-dragon-ball-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:24:04.573Z",
+  "touchedAt": "2026-10-09T07:35:41.427Z",
+  "items": [
+    "db-011",
+    "db-012",
+    "db-013",
+    "db-014",
+    "db-015",
+    "db-016",
+    "db-017",
+    "db-018",
+    "db-019",
+    "db-020"
+  ],
+  "doneAt": "2026-10-09T07:35:41.426Z",
+  "note": "No refusals or fallbackLooks. Ten v01 three-pose fan-art spectators saved directly from built-in imagegen. db-011 and db-018 used second attempts for safe pose-column gaps. Technical doubt: generated backgrounds are noisy near-magenta rather than exact flat #FF00FF and palettes exceed 24 colors despite prompts; lead should inspect packer output. db-013 deep blue-purple gi and db-015/016 pale lavender hair should be checked for magenta separation."
+}

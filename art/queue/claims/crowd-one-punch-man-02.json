@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-one-punch-man-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:08:46.341Z",
+  "touchedAt": "2026-10-09T09:10:10.591Z",
+  "items": [
+    "opm-011",
+    "opm-012"
+  ],
+  "doneAt": "2026-10-09T09:10:10.590Z",
+  "note": "2 direct imagegen PNGs saved; no refusals. Visual QA: three full-body front-facing poses with consistent outfits/scale and baseline. opm-011 omits roster afterimages and floating sweat drop to keep one spectator/no effects. Technical doubt: noisy near-magenta corners (243-244,13-14,242) not exact #FF00FF; ~88k-93k colors despite 24-color prompt. Lead should inspect packer cleanup."
+}

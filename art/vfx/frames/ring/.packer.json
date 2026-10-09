@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/ring_v02.png",
+  "version": 2,
+  "source": [
+    "vfx/raw/ring_v02.png"
+  ],
+  "sourceHash": "1889bcf1b5cbeeb8c56827bc59debce78f419e5d",
+  "files": {
+    "ring_00.png": "91cfc88f67aad598fc645aeef1cf09cb1151f036",
+    "ring_01.png": "1b56a51988fbeba02c68b6809f217c28311b5e97",
+    "ring_02.png": "7b5779bc47f8e6ce32d97c69fbeb7fe59721c643",
+    "ring_03.png": "799eaac0cf09086f7af0bd33d9ae8da875b1b3b5",
+    "ring_04.png": "cdc79f11e3abe8cc17a1315046138886756e7d4f",
+    "ring_05.png": "7bc537dd89b493df61e7cbcae2006f29892c09e8"
+  }
+}

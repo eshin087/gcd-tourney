@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-star",
+  "type": "vfx",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:34:09.383Z",
+  "touchedAt": "2026-10-09T10:34:55.448Z",
+  "items": [
+    "star"
+  ],
+  "doneAt": "2026-10-09T10:34:55.447Z",
+  "note": "Five aligned white four-point flares shrink clearly left-to-right; diagonal twinkle rays only in frames 1-2, clean frame 3 particle silhouette. Generated background remains noisy near-magenta rather than exact #FF00FF; slight pale edge/fringe and extra RGB shades need packer QA. No refusal."
+}

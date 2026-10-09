@@ -1,0 +1,18 @@
+{
+  "batch": "crowd-evangelion-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:37:20.423Z",
+  "touchedAt": "2026-10-09T07:44:03.150Z",
+  "items": [
+    "eva-001",
+    "eva-002",
+    "eva-003",
+    "eva-004",
+    "eva-005",
+    "eva-006"
+  ],
+  "doneAt": "2026-10-09T07:44:03.150Z",
+  "note": "No refusals. Six direct imagegen files are 1536x1024 and visually three poses; Shinji, Misato, and Pen Pen used second attempts for framing. The generator's backgrounds remain noisy near-magenta (corner RGB about 237-243,11-14,239-243) rather than #FF00FF and likely exceed 24 colors. Human figures exceed roster height targets despite explicit prompt; Pen Pen second attempt approaches tiny target. Rei's subtle poses intentionally look similar; Misato's dark purple hair stays separated from magenta."
+}

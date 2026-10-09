@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-crater",
+  "type": "vfx",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:34:26.755Z",
+  "touchedAt": "2026-10-09T10:35:16.317Z",
+  "items": [
+    "crater"
+  ],
+  "doneAt": "2026-10-09T10:35:16.316Z",
+  "note": "Three distinct top-down beige crater decal variants, increasing bowl size/crack reach with varied rim chunks and debris; all separated and inside border. Technical doubt: imagegen near-magenta corner #F00DF1 rather than #FF00FF, ~94k RGB colors vs 8-color brief, soft shading/edge fringe and some perspective-like rim depth; lead review and cleanup needed. No refusal."
+}

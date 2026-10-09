@@ -1,0 +1,16 @@
+{
+  "batch": "crowd-dragon-ball-04-r1",
+  "type": "crowd",
+  "agent": "lead",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:32:10.933Z",
+  "touchedAt": "2026-10-09T22:36:48.807Z",
+  "items": [
+    "db-033",
+    "db-034",
+    "db-035",
+    "db-038"
+  ],
+  "doneAt": "2026-10-09T22:36:48.807Z",
+  "note": "Four v02 spacing corrections visually checked: three isolated full poses, narrowed arms; final palette/key/scale QA awaits crowd packer."
+}

@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/lines_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/lines_v01.png",
+    "vfx/raw/lines.json"
+  ],
+  "sourceHash": "45e1ba7d0e71d14bd7d9fd0872084544391a964e",
+  "files": {
+    "lines_00.png": "5bec30bf128c5de2dba187999ab4f074242d5761",
+    "lines_01.png": "9c4e6985ac368cd53e879213bb34c4de0c5b9c5e",
+    "lines_02.png": "8e1c2dbf88e0885130f7c18112f3a52b0ed730e9",
+    "lines_03.png": "c5ce93403d6d81e60eed3a790698e5a04b9ae491"
+  }
+}

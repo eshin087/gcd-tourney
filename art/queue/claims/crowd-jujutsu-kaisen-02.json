@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-jujutsu-kaisen-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:15:24.097Z",
+  "touchedAt": "2026-10-09T08:19:35.999Z",
+  "items": [
+    "jjk-011",
+    "jjk-012",
+    "jjk-013",
+    "jjk-014",
+    "jjk-015"
+  ],
+  "doneAt": "2026-10-09T08:19:35.998Z",
+  "note": "Five complete three-pose sprites saved; no name refusal/fallback and no pose retry needed. jjk-014 keeps the purple worm pet coiled as a shoulder prop. For jjk-015 I omitted detached smoke/flames specified by roster to honor crowd brief no extra effects; crater remains visible. All 1536x1024. Generator again missed exact technical targets: corners RGB about (239-242,12-16,239-242) versus #FF00FF, measured 80k-97k colors each and soft/noisy pixels rather than <=24 hard 8px colors. Lead should inspect masking and palette warnings."
+}

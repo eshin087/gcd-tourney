@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-robots-aliens-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:21:59.691Z",
+  "touchedAt": "2026-10-09T09:30:31.888Z",
+  "items": [
+    "org-ra-001",
+    "org-ra-002",
+    "org-ra-003",
+    "org-ra-004",
+    "org-ra-005",
+    "org-ra-006",
+    "org-ra-007",
+    "org-ra-008",
+    "org-ra-009",
+    "org-ra-010"
+  ],
+  "doneAt": "2026-10-09T09:30:31.887Z",
+  "note": "Ten sheets saved and visually checked. org-ra-003 tiny alien still about 470px vs 350px requested, and org-ra-004 tall alien remains about 820px vs 625px after retries; many figures render large. org-ra-002 red pennant disappears in shocked pose. Generator background is noisy near-magenta instead of exact #FF00FF and far exceeds 24 RGB colors; no pixel postprocessing. Review scale, masking, and palette before packing."
+}

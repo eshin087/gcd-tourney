@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-vendors-workers-02",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:43:39.379Z",
+  "touchedAt": "2026-10-09T09:51:56.939Z",
+  "items": [
+    "org-vw-011",
+    "org-vw-012",
+    "org-vw-013",
+    "org-vw-014",
+    "org-vw-015"
+  ],
+  "doneAt": "2026-10-09T09:51:56.938Z",
+  "note": "Five 1536x1024 three-pose sheets saved; identities and props checked. No refusal. Background corners are near-magenta (RGB 239-242,11-13,238-242), not exact #FF00FF, with generated color noise. Some bodies exceed height-class target. Boom mic needed three attempts to fit all props in columns; final is in bounds. Lead should review chroma key, palette, and scale before packing."
+}

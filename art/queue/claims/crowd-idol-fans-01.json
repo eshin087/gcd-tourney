@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-idol-fans-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:05:27.610Z",
+  "touchedAt": "2026-10-09T08:16:13.494Z",
+  "items": [
+    "org-idol-001",
+    "org-idol-002",
+    "org-idol-003",
+    "org-idol-004",
+    "org-idol-005",
+    "org-idol-006",
+    "org-idol-007",
+    "org-idol-008",
+    "org-idol-009",
+    "org-idol-010"
+  ],
+  "doneAt": "2026-10-09T08:16:13.493Z",
+  "note": "Saved all ten original idol-fan v01 sprites. Retried org-idol-001/002/003/005/006/010 to keep raised sticks, fans, towels, boards, wand, and balloons away from top edge. Doubts: image generator persistently renders noisy near-magenta background and far more than 24 RGB colors despite exact-fill prompt; short-class org-idol-002 and org-idol-006 are larger than target; org-idol-010 shocked eyes drift from brown to blue. Glitter, glow sticks, and scattering props from roster were depicted without glow effects where possible."
+}

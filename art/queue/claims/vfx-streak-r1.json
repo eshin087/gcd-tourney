@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-streak-r1",
+  "type": "vfx",
+  "agent": "lead",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:39:15.699Z",
+  "touchedAt": "2026-10-09T22:39:51.438Z",
+  "items": [
+    "streak"
+  ],
+  "doneAt": "2026-10-09T22:39:51.437Z",
+  "note": "v02 fixes final-frame downward jump; palette and precise timing/anchor QA pending."
+}

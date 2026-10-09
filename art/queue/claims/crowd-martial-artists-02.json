@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-martial-artists-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:23:34.777Z",
+  "touchedAt": "2026-10-09T08:41:11.055Z",
+  "items": [
+    "org-ma-011",
+    "org-ma-012",
+    "org-ma-013",
+    "org-ma-014",
+    "org-ma-015",
+    "org-ma-016",
+    "org-ma-017",
+    "org-ma-018",
+    "org-ma-019",
+    "org-ma-020"
+  ],
+  "doneAt": "2026-10-09T08:41:11.054Z",
+  "note": "Ten original three-pose sheets saved; no refusals. Tiny dojo kid needed three attempts to reach ~350px height. Berimbau fan used first attempt after three candidates: prop appears all poses, but middle bow reaches near canvas top, violating 140px top margin. Kendo sword and steppe wrestler retried for column fit; selected versions fit. Persistent imagegen near-magenta/noisy background is not exact flat #FF00FF and palette exceeds 24 colors; lead review/packer assessment needed."
+}

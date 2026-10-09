@@ -1,0 +1,16 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fire_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/fire_v01.png"
+  ],
+  "sourceHash": "0fb7b09e0d5d3e5a89cfac7113d51a68be97b15a",
+  "files": {
+    "fire_00.png": "c0e3de975ce512c430e3f175a4a54325b4b735a7",
+    "fire_01.png": "f968acf5f92f85cfc8cd3cc0342a2193acd39631",
+    "fire_02.png": "838e00ef1b76d0afbddd41e09374fe50210cc773",
+    "fire_03.png": "7b48358d78ea3f4fa2285fd1212b93fc07569b39"
+  }
+}

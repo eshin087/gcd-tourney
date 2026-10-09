@@ -1,0 +1,14 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/glow_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/glow_v01.png"
+  ],
+  "sourceHash": "44480a4c877ed8c9eac78cb604c5436af51474ee",
+  "files": {
+    "glow_00.png": "ca057f0f51d530350bd29926915b5ac3330f292b",
+    "glow_01.png": "24ef845501923546a9823bff520a0a6b0349e3cc"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "stage-bannerSai",
+  "type": "stage",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:05:42.712Z",
+  "touchedAt": "2026-10-09T10:08:09.972Z",
+  "items": [
+    "bannerSai"
+  ],
+  "doneAt": "2026-10-09T10:08:09.971Z",
+  "note": "Two attempts; kept first for cleaner 祭 glyph. Saved raw and exact 64x192 cutout fit. Glyph appears readable as 祭; gold rod, blue cloth, swallowtail notch and transparent margins present. Fit alpha is only 0/255; 39 opaque colors versus <=12 budget, with slight cloth gradient. User/lead should verify kanji strokes before approval."
+}

@@ -1,0 +1,16 @@
+{
+  "batch": "crowd-rich-patrons-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:17:10.751Z",
+  "touchedAt": "2026-10-09T09:21:47.336Z",
+  "items": [
+    "org-rich-011",
+    "org-rich-012",
+    "org-rich-013",
+    "org-rich-014"
+  ],
+  "doneAt": "2026-10-09T09:21:47.336Z",
+  "note": "Four images saved and visually checked. op-rich-013 tiny princess remains around 460px instead of requested 350px after two attempts; merchant and gambler also render larger than target. Character traits and three poses read well. Generator background is noisy near-magenta rather than exact #FF00FF and far exceeds 24 RGB colors; no pixel postprocessing performed. Review scale, masking, and palette before packing."
+}

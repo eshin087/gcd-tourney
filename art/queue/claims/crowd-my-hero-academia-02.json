@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-my-hero-academia-02",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:36:53.979Z",
+  "touchedAt": "2026-10-09T08:49:55.329Z",
+  "items": [
+    "mha-011",
+    "mha-012",
+    "mha-013",
+    "mha-014",
+    "mha-015",
+    "mha-016",
+    "mha-017",
+    "mha-018",
+    "mha-019",
+    "mha-020"
+  ],
+  "doneAt": "2026-10-09T08:49:55.328Z",
+  "note": "Saved all ten cameo v01 sprites; no refusals. Retried mha-014 scarf/hair clearance, mha-015 pompadour top clearance, mha-017 tiny child scale, and mha-019 mouse identity. Doubts: image generator persistently makes noisy near-magenta background instead of exact #FF00FF and excessive RGB colors; tiny/short class figures still exceed height targets, especially mha-017/019/020; mha-011 muted purple cloak and mha-012 pink skin/hair are roster-required but can conflict with key-color caution. Mha-019 chosen image has extra teacup/saucer details."
+}

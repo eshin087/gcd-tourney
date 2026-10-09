@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-dragon-ball-04-r1",
+  "type": "crowd",
+  "agent": "w10",
+  "status": "claimed",
+  "claimedAt": "2026-10-09T20:23:04.829Z",
+  "touchedAt": "2026-10-09T20:23:04.830Z",
+  "items": [
+    "db-033",
+    "db-034",
+    "db-035",
+    "db-038"
+  ]
+}

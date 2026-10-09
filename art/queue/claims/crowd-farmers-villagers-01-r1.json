@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-farmers-villagers-01-r1",
+  "type": "crowd",
+  "agent": "w08",
+  "status": "done",
+  "claimedAt": "2026-10-09T20:20:24.973Z",
+  "touchedAt": "2026-10-09T20:23:55.712Z",
+  "items": [
+    "org-farm-001",
+    "org-farm-008"
+  ],
+  "doneAt": "2026-10-09T20:23:55.711Z",
+  "note": "org-farm-001 v02: agricultural hoe restored and cheer tool pulled inside middle third; org-farm-008 v02: cheer axe upright inside middle third. Pixel QA: no foreground at x=512/1024. Background remains generated near-magenta rather than exact flat #FF00FF, requiring packer cleanup."
+}

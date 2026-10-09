@@ -1,0 +1,13 @@
+{
+  "batch": "stage-brick",
+  "type": "stage",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:00:23.910Z",
+  "touchedAt": "2026-10-09T10:02:30.804Z",
+  "items": [
+    "brick"
+  ],
+  "doneAt": "2026-10-09T10:02:30.803Z",
+  "note": "Two attempts; selected the second for seamless edges and flatter brick faces. Saved raw, exact 128x64 fit, and 2x2 preview. Opaque, 14 colors (budget <=16); left-right wrap 2.5 vs inner 5.2, top-bottom 2.3 vs inner 24.6; tiled preview visually continuous. Raw band is about 612px tall rather than requested 768px, corrected by fit."
+}

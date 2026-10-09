@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-fullmetal-alchemist-01-r1",
+  "type": "crowd",
+  "agent": "w13",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:44:08.175Z",
+  "touchedAt": "2026-10-09T22:49:04.763Z",
+  "items": [
+    "fma-002",
+    "fma-005"
+  ],
+  "doneAt": "2026-10-09T22:49:04.762Z",
+  "note": "fma002 exactly two connected arms per pose after two edit attempts; fma005 all detached sparkles removed in one edit. Both v02 visually QA passed; v01 preserved rejected. No refusals. Background and palette remain packer cleanup."
+}

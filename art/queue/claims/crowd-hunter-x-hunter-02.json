@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-hunter-x-hunter-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:04:17.232Z",
+  "touchedAt": "2026-10-09T08:09:41.450Z",
+  "items": [
+    "hxh-011",
+    "hxh-012",
+    "hxh-013",
+    "hxh-014",
+    "hxh-015"
+  ],
+  "doneAt": "2026-10-09T08:09:41.449Z",
+  "note": "Five three-pose full-body outputs saved; no name refusals/fallback. hxh-014 took all three attempts: selected second, but head remains too large/short-proportioned versus serious style. hxh-013 large scythe and hxh-015 opened umbrella stay in their pose areas, though prop edges are close to boundaries. Built-in imagegen again failed exact technical limits: corner magenta RGB (235-245,11-13,238-242), 51k-127k colors and antialiased/noisy pixels rather than <=24 hard 8px colors. Lead should review masking, palette and hxh-014 proportions."
+}

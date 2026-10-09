@@ -1,0 +1,13 @@
+{
+  "batch": "stage-cloudC",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:10:12.171Z",
+  "touchedAt": "2026-10-09T10:11:27.738Z",
+  "items": [
+    "cloudC"
+  ],
+  "doneAt": "2026-10-09T10:11:27.737Z",
+  "note": "2 imagegen attempts; chose second for clearly separated 3-puff group and thin flat connecting base. Saved raw and 256x96 bottom-anchored transparent fit; 14567 transparent pixels. Fit has 53 colors versus <=6 target due blue-grey shade variation; inspect palette."
+}

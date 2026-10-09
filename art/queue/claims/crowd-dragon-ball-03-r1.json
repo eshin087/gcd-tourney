@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-dragon-ball-03-r1",
+  "type": "crowd",
+  "agent": "w10",
+  "status": "done",
+  "claimedAt": "2026-10-09T20:20:35.093Z",
+  "touchedAt": "2026-10-09T20:23:01.297Z",
+  "items": [
+    "db-029"
+  ],
+  "doneAt": "2026-10-09T20:23:01.296Z",
+  "note": "db-029_v02: preserved lollipop, violet cape, cheer and steam; x=512/1024 cut lines clear and poses within thirds. Visual QA passed; generated raw still has near-magenta/noisy edge colors pending packer cleanup."
+}

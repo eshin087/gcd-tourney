@@ -1,0 +1,17 @@
+{
+  "batch": "npc-announcer",
+  "type": "npc",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:19:55.034Z",
+  "touchedAt": "2026-10-09T10:28:29.539Z",
+  "items": [
+    "model_sheet",
+    "idle",
+    "point",
+    "shout",
+    "cower"
+  ],
+  "doneAt": "2026-10-09T10:28:29.538Z",
+  "note": "S1 and four 2-frame strips saved. Identity and handedness read correctly; point/shout/cower poses are clear. Image generator still misses technical pixel constraints: noisy near-magenta rather than exact #FF00FF (corners ~#EF0DF0-#F411F3), 53k-87k RGB colors vs 26-color palette, soft/shaded edges, and standing figures ~600px vs requested 450px (cower ~400px vs 300px). Pack/cleaning and lead review needed. No refusal."
+}

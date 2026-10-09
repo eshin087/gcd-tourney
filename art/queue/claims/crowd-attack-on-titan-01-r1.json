@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-attack-on-titan-01-r1",
+  "type": "crowd",
+  "agent": "w05",
+  "status": "done",
+  "claimedAt": "2026-10-09T15:58:18.752Z",
+  "touchedAt": "2026-10-09T16:01:16.256Z",
+  "items": [
+    "aot-008",
+    "aot-009"
+  ],
+  "doneAt": "2026-10-09T16:01:16.255Z",
+  "note": "aot-008 and aot-009 v02: cheer arms now clear both 512px cuts; visual QA three poses and consistent identities. Raw background is near-magenta (about RGB 239,14,240), so packer color-key QA remains needed."
+}

@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-demon-slayer-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:19:03.438Z",
+  "touchedAt": "2026-10-09T07:23:41.288Z",
+  "items": [
+    "ds-011",
+    "ds-012",
+    "ds-013",
+    "ds-014",
+    "ds-015"
+  ],
+  "doneAt": "2026-10-09T07:23:41.287Z",
+  "note": "No refusals or fallbackLooks. Five v01 three-pose images saved directly from built-in imagegen. Technical doubt: near-magenta noisy backgrounds and excessive RGB colors persist despite exact palette prompts; lead should inspect packer output. ds-015 soft pink hair/dusty rose jacket may need color-separation check against background. No other notable compromises."
+}

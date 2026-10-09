@@ -1,0 +1,17 @@
+{
+  "batch": "crowd-elders-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:36:21.314Z",
+  "touchedAt": "2026-10-09T07:42:18.833Z",
+  "items": [
+    "org-el-011",
+    "org-el-012",
+    "org-el-013",
+    "org-el-014",
+    "org-el-015"
+  ],
+  "doneAt": "2026-10-09T07:42:18.832Z",
+  "note": "No refusals or fallbacks. Five original v01 three-pose images saved directly from built-in imagegen. Technical doubt: generated backgrounds remain noisy near-magenta rather than exact flat #FF00FF and palettes exceed 24 colors; lead should inspect packer output. org-el-011 has small pencil spark and blank flying papers; org-el-012 dark blue-purple kimono and org-el-014 lavender curls need magenta-separation check."
+}

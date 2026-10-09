@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-naruto-02",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:41:48.567Z",
+  "touchedAt": "2026-10-09T08:58:39.424Z",
+  "items": [
+    "nar-011",
+    "nar-012",
+    "nar-013",
+    "nar-014",
+    "nar-015",
+    "nar-016",
+    "nar-017",
+    "nar-018",
+    "nar-019",
+    "nar-020"
+  ],
+  "doneAt": "2026-10-09T08:58:39.423Z",
+  "note": "Ten three-pose sheets saved; no refusals. Temari's fan retried to stay within center column; giant sage retried for narrower cheer. Tiny child nar-019 took three attempts but best remains about 525px tall rather than 350px height target, despite explicit scale prompts; scarf and poses otherwise clear. Imagegen persistently outputs noisy near-magenta, not flat exact #FF00FF, and over 24 colors; lead review/packer assessment needed."
+}

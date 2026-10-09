@@ -1,0 +1,13 @@
+{
+  "batch": "stage-sign",
+  "type": "stage",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:14:51.599Z",
+  "touchedAt": "2026-10-09T10:19:30.696Z",
+  "items": [
+    "sign"
+  ],
+  "doneAt": "2026-10-09T10:19:30.695Z",
+  "note": "Saved sign_v01 raw and opaque 288x72 fit using explicit crop 40,340,1456,335 to trim decorative corners/magenta. Fitted glyphs visually read 天下一武闘祭 in order, but generator kanji must be checked stroke by stroke by reviewer; if inaccurate, use blank/font fallback. Fitted palette still 165 colors with subtle shading rather than strict pixel palette. No approved woodDark neighbor existed."
+}

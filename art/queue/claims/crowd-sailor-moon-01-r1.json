@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-sailor-moon-01-r1",
+  "type": "crowd",
+  "agent": "w13",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:49:05.882Z",
+  "touchedAt": "2026-10-09T22:50:52.753Z",
+  "items": [
+    "sm-010"
+  ],
+  "doneAt": "2026-10-09T22:50:52.753Z",
+  "note": "sm010 v02 two attempts: all poses exactly two connected arms, staff consistent full length. Simplified idle to staff grip plus hand on hip because chin hand retried with malformed extra arm. Visual QA passed. v01 preserved rejected. No refusals; palette cleanup at pack."
+}

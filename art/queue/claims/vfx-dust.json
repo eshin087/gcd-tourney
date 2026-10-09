@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-dust",
+  "type": "vfx",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:29:52.173Z",
+  "touchedAt": "2026-10-09T10:32:32.773Z",
+  "items": [
+    "dust"
+  ],
+  "doneAt": "2026-10-09T10:32:32.772Z",
+  "note": "Six dust stages progress from tight puffs to dispersed wisps; exact 1536x1024 and six 256px slots. Near-magenta background RGB 242,13,242, excessive 28461-color palette, and 3px baseline drift remain for lead QA."
+}

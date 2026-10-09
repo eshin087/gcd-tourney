@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-demon-slayer-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:18:57.176Z",
+  "touchedAt": "2026-10-09T07:28:41.940Z",
+  "items": [
+    "ds-001",
+    "ds-002",
+    "ds-003",
+    "ds-004",
+    "ds-005",
+    "ds-006",
+    "ds-007",
+    "ds-008",
+    "ds-009",
+    "ds-010"
+  ],
+  "doneAt": "2026-10-09T07:28:41.939Z",
+  "note": "10 v01 PNGs saved; no refusals or fallback prompts. ds-004 retried for sword top margin (final short blades still slightly above desired y=140); ds-007 retried to restore black uniform and muted purple; ds-010 retried to restore bald head/scar (final cheer fists still more forward than lateral). Persistent generator QA doubt: near-magenta noisy backgrounds, far above 24 colors, and raw figures taller than specified classes. Inspect ds-002/ds-009 pink and ds-007 purple for magenta removal."
+}

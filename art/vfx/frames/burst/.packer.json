@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/burst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/burst_v01.png"
+  ],
+  "sourceHash": "310edf2ca2d4096f687118a6429b5d0c7a5851db",
+  "files": {
+    "burst_00.png": "1bd993c69f4f0b27703e7fea25f1aaa5b4f4a68e",
+    "burst_01.png": "ea57e0887eedbe0c93f22a632e8c9f81fc9dc29e",
+    "burst_02.png": "aff164af04ce4751ba1d2a17739c2bb752c4c059",
+    "burst_03.png": "edf3af5015120ce882341c29ed7825c043a2a501",
+    "burst_04.png": "aa0d44f4159856f9761678f1693fd5bb734a4d6c"
+  }
+}

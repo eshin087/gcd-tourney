@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-families-kids-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:42:48.977Z",
+  "touchedAt": "2026-10-09T07:55:41.386Z",
+  "items": [
+    "org-fk-001",
+    "org-fk-002",
+    "org-fk-003",
+    "org-fk-004",
+    "org-fk-005",
+    "org-fk-006",
+    "org-fk-007",
+    "org-fk-008",
+    "org-fk-009",
+    "org-fk-010"
+  ],
+  "doneAt": "2026-10-09T07:55:41.385Z",
+  "note": "org-fk-005 first prompt was rejected by generator input safety; rephrased the foam cheering hand description and generated successfully, no roster fallback needed. Ten v01 images saved directly from built-in imagegen. org-fk-001..004 and -010 deliberately contain parent/child composite units as roster requires, conflicting with generic one-person checklist; lead should confirm this exception. Technical doubt: noisy near-magenta backgrounds and palettes over 24 colors persist; inspect packer output. org-fk-004/008 pastel pink items need magenta separation check."
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "stage-path",
+  "type": "stage",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:01:05.867Z",
+  "touchedAt": "2026-10-09T10:06:57.005Z",
+  "items": [
+    "path"
+  ],
+  "doneAt": "2026-10-09T10:06:57.004Z",
+  "note": "Three attempts. Saved second attempt: exact 128x128 opaque fit and 2x2 preview show clean horizontal/vertical seams (wrap 0.0/0.3 vs inner 6.6/8.4). Fit has 20 colors, above <=16 budget; third attempt met palette but had severe seams, so second is best. Raw imagegen square was 1254x1254 despite 1024x1024 prompt; reference fitter downscaled it. Mild repeated chip at tile corner. No approved ringTop reference existed. Review palette and repeated chip before approval."
+}

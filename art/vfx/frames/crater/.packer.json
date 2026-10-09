@@ -1,0 +1,15 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/crater_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/crater_v01.png"
+  ],
+  "sourceHash": "3c598918cec857c881eb8b154f1d444b6c11711d",
+  "files": {
+    "crater_00.png": "e07d360c02435bb8f0a1372a55013adc807a56b2",
+    "crater_01.png": "1625e91b1c5d868f75ab63f47c0b006d901e3d0e",
+    "crater_02.png": "41972c68c80f1394f35763f7e995a1700d05d069"
+  }
+}

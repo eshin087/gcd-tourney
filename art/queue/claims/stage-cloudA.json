@@ -1,0 +1,13 @@
+{
+  "batch": "stage-cloudA",
+  "type": "stage",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:08:17.958Z",
+  "touchedAt": "2026-10-09T10:11:27.196Z",
+  "items": [
+    "cloudA"
+  ],
+  "doneAt": "2026-10-09T10:11:27.195Z",
+  "note": "Three attempts; chose second for fuller low cumulus bank and lowest palette count. Saved raw and exact 256x96 bottom-anchored sprite fit. One joined five-puff cloud with flat base, no text; alpha only 0/255. Fit occupies y=14..95 rather than desired 2-6px top margin and has 34 colors versus <=6 budget due generated shading. No approved cloud neighbor existed."
+}

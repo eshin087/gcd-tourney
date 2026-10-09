@@ -1,0 +1,13 @@
+{
+  "batch": "stage-templeFacade",
+  "type": "stage",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:01:16.274Z",
+  "touchedAt": "2026-10-09T10:09:34.257Z",
+  "items": [
+    "templeFacade"
+  ],
+  "doneAt": "2026-10-09T10:09:34.256Z",
+  "note": "Saved templeFacade_v01 raw and 1536x384 mirror fit after three imagegen attempts. Four-bay left half, red pillars, lattice upper windows, lower shoji and one studded door leaf mirror correctly; fit uses explicit crop 0,160,1536,670 to remove thin magenta edge rows and is fully opaque. However generator ignored strict 16/24-color requests: fitted image still has about 881 colors with residual edge antialiasing; review pixel craft/palette carefully before approval. No approved neighbor references existed."
+}

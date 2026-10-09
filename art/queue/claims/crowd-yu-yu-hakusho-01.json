@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-yu-yu-hakusho-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:45:00.055Z",
+  "touchedAt": "2026-10-09T09:54:11.277Z",
+  "items": [
+    "yyh-001",
+    "yyh-002",
+    "yyh-003",
+    "yyh-004",
+    "yyh-005",
+    "yyh-006",
+    "yyh-007",
+    "yyh-008",
+    "yyh-009",
+    "yyh-010"
+  ],
+  "doneAt": "2026-10-09T09:54:11.276Z",
+  "note": "Saved yyh-001..010 v01 after visual QA. Character identities, three pose order, shared scale and main props are readable. Generator repeatedly produced noisy near-magenta background and excessive RGB colors despite exact pure flat #FF00FF and palette prompts; packer/review should assess. 003 salmon uniform and 006 pink kimono may warrant chroma inspection; 002 orange sword and 001 blue fingertip effect are brief-specific."
+}

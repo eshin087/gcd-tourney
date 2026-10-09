@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-chainsaw-man-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:13:05.178Z",
+  "touchedAt": "2026-10-09T07:21:50.089Z",
+  "items": [
+    "csm-001",
+    "csm-002",
+    "csm-003",
+    "csm-004",
+    "csm-005",
+    "csm-006",
+    "csm-007",
+    "csm-008",
+    "csm-009",
+    "csm-010"
+  ],
+  "doneAt": "2026-10-09T07:21:50.089Z",
+  "note": "All 10 v01 PNGs saved. Imagegen still renders noisy near-magenta rather than uniform #FF00FF and far exceeds 24 RGB colors; lead/packer QA needed. csm-001 and csm-002 were retried to remove detached sparks/motion marks; csm-006 retried for adult proportions. csm-010 still has tiny detached fin motion marks; csm-009 halo is an intentional roster trait."
+}

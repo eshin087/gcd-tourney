@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-fullmetal-alchemist-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:53:38.050Z",
+  "touchedAt": "2026-10-09T08:05:11.737Z",
+  "items": [
+    "fma-001",
+    "fma-002",
+    "fma-003",
+    "fma-004",
+    "fma-005",
+    "fma-006",
+    "fma-007",
+    "fma-008",
+    "fma-009",
+    "fma-010"
+  ],
+  "doneAt": "2026-10-09T08:05:11.736Z",
+  "note": "Saved all ten v01 sprites; no cameo refusal. Retried fma-001/002/003 to remove effects or keep kitten in every pose; retried fma-006 and fma-010 for top-edge clearance. fma-004 puppy remains in all three poses. Doubts: generator repeatedly produces noisy near-magenta rather than exact flat #FF00FF and many more than 24 RGB colors despite prompt; fma-005 has roster-requested pale pink sparkles that conflict with no-effects checklist; fma-009 remains somewhat taller than short-class target. Review these before packing."
+}

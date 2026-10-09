@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-animal-folk-02",
+  "type": "crowd",
+  "agent": "lead",
+  "status": "done",
+  "claimedAt": "2026-10-09T06:50:57.204Z",
+  "touchedAt": "2026-10-09T07:01:11.973Z",
+  "items": [
+    "org-af-011",
+    "org-af-012",
+    "org-af-013",
+    "org-af-014",
+    "org-af-015",
+    "org-af-016",
+    "org-af-017",
+    "org-af-018",
+    "org-af-019",
+    "org-af-020"
+  ],
+  "doneAt": "2026-10-09T07:01:11.972Z",
+  "note": "Pilot: inspect tray and soda on org-af-014, pastel dress on org-af-016, and pose readability at 64x96."
+}

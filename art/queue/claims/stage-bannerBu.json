@@ -1,0 +1,13 @@
+{
+  "batch": "stage-bannerBu",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:04:21.497Z",
+  "touchedAt": "2026-10-09T10:05:20.148Z",
+  "items": [
+    "bannerBu"
+  ],
+  "doneAt": "2026-10-09T10:05:20.147Z",
+  "note": "1 imagegen attempt; 武 glyph visually correct, red cloth/gold band and swallowtail notch present. Saved raw and 64x192 cutout fit; 887 transparent pixels. Fit has 34 colors versus <=12 target, with slight cloth gradient/noisy shading; inspect before approval."
+}

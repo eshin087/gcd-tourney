@@ -1,0 +1,20 @@
+{
+  "batch": "crowd-baki-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:03:43.182Z",
+  "touchedAt": "2026-10-09T07:10:36.256Z",
+  "items": [
+    "baki-001",
+    "baki-002",
+    "baki-003",
+    "baki-004",
+    "baki-005",
+    "baki-006",
+    "baki-007",
+    "baki-008"
+  ],
+  "doneAt": "2026-10-09T07:10:36.255Z",
+  "note": "8 v01 PNGs saved. Built-in generator kept 3 poses and identity; baki-004 retried for planted feet. QA doubts: backgrounds are near-magenta/noisy rather than exact flat #FF00FF, foregrounds exceed 24 colors, and figures are taller than height guidance despite prompts; lead should inspect packer output. Minor: baki-004 cheer is bent-knee crane suggestion; baki-008 shocked fan is detached near feet. No refusals or fallbacks."
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-monks-priests-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:29:29.196Z",
+  "touchedAt": "2026-10-09T08:39:55.859Z",
+  "items": [
+    "org-mp-001",
+    "org-mp-002",
+    "org-mp-003",
+    "org-mp-004",
+    "org-mp-005",
+    "org-mp-006",
+    "org-mp-007",
+    "org-mp-008",
+    "org-mp-009",
+    "org-mp-010"
+  ],
+  "doneAt": "2026-10-09T08:39:55.858Z",
+  "note": "Ten three-pose original sprites saved; no refusals/fallback. org-mp-007 took a second attempt to correct childlike proportions for adult prayer-wheel monk. org-mp-001 shocked necklace swings wide, org-mp-003 rice ball is separated near hand per brief, org-mp-010 middle striker reads tucked at waist and one large bead may appear loose. All 1536x1024. Direct imagegen still misses exact technical limits: sampled corners RGB about (236-242,11-15,236-242), 66k-162k colors/image and noisy/antialiased pixels versus <=24 hard 8px colors. Lead should inspect masking, palette, and small props."
+}

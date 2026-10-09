@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/spark_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/spark_v01.png"
+  ],
+  "sourceHash": "2330e6bc34d7b7a256dc0b90a26018b2c5bdfba1",
+  "files": {
+    "spark_00.png": "bd367e89b43407012a4dd9c9051d2c2e12507d8e",
+    "spark_01.png": "d9471c297b00d4f2cad93bc16ba50cb4d3dc5ca5",
+    "spark_02.png": "dddf454130ff8999e502f1fe7dfe913d656c2271",
+    "spark_03.png": "40c02ec79e67827c287d120fb501603056202b3f",
+    "spark_04.png": "05186371ad189adb5c06d37ba1972785d97d073f"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-my-hero-academia-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:32:09.451Z",
+  "touchedAt": "2026-10-09T08:50:52.894Z",
+  "items": [
+    "mha-001",
+    "mha-002",
+    "mha-003",
+    "mha-004",
+    "mha-005",
+    "mha-006",
+    "mha-007",
+    "mha-008",
+    "mha-009",
+    "mha-010"
+  ],
+  "doneAt": "2026-10-09T08:50:52.894Z",
+  "note": "Saved mha-001..010 v01, all 1536x1024 with three visually distinct full-body poses. No generator refusal. Scale remains above short/medium targets in several images despite retry; mha-002/003/009 include small effect marks from roster. Background corners are near-magenta RGB 239-242,11-15,240-243 rather than exact #FF00FF, and generated art has soft/high-color pixels, requiring lead technical QA and correction before packing. No shared files edited by worker."
+}

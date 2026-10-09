@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-travelers-tourists-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:36:04.682Z",
+  "touchedAt": "2026-10-09T09:44:24.015Z",
+  "items": [
+    "org-trvl-001",
+    "org-trvl-002",
+    "org-trvl-003",
+    "org-trvl-004",
+    "org-trvl-005",
+    "org-trvl-006",
+    "org-trvl-007",
+    "org-trvl-008",
+    "org-trvl-009",
+    "org-trvl-010"
+  ],
+  "doneAt": "2026-10-09T09:44:24.015Z",
+  "note": "Saved org-trvl-001..010 v01 after visual QA. Retried 009 to shift split hair to pale salmon/cyan and jacket to blue-gray for chroma separation. Readable three-pose props and silhouettes overall. Generator repeatedly produced noisy near-magenta background and excessive RGB colors despite pure flat #FF00FF and palette prompts; packer/review should assess. 009 phone is close to left edge in idle; 004 pale pink ice cream and 007 pink coat may warrant chroma inspection."
+}

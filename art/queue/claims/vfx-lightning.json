@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-lightning",
+  "type": "vfx",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:32:36.422Z",
+  "touchedAt": "2026-10-09T10:34:33.300Z",
+  "items": [
+    "lightning"
+  ],
+  "doneAt": "2026-10-09T10:34:33.299Z",
+  "note": "Six distinct centered white bolt clusters; frame 4 narrowed in second attempt so all fit their 256px slots. Exact 1536x1024. Generator left near-magenta RGB 241,13,242 and noisy 27264-color palette; lead should inspect chroma and hard-pixel quality."
+}

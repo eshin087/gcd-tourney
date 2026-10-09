@@ -1,0 +1,13 @@
+{
+  "batch": "stage-plaster",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:07:20.500Z",
+  "touchedAt": "2026-10-09T10:08:58.792Z",
+  "items": [
+    "plaster"
+  ],
+  "doneAt": "2026-10-09T10:08:58.791Z",
+  "note": "2 imagegen attempts; chose second for subtle mottling and smooth 2x2 wrap (horizontal seam 1.6 vs inner 3.7; vertical 3.1 vs inner 3.6). Raw generator gave 1254x1254 despite 1024 request; fitted 128x128 opaque and 2x2 preview saved. Fit has 10 colors versus <=8 target; faint cracks become barely visible at game resolution."
+}

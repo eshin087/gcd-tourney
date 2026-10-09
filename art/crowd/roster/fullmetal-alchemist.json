@@ -21,8 +21,8 @@
       "look": "gentle giant who is a huge hollow steel-grey suit of medieval armor: a spiked helmet with a long white plume, two glowing white eye dots in the dark visor slit, big round spiked shoulder pauldrons, thick gauntlets and a red loincloth hanging from the belt, cradling a small grey kitten",
       "fallbackLook": "towering hollow steel-grey suit of medieval armor with a spiked helmet and a long white plume, two glowing white eye dots in the dark visor slit, round spiked shoulder pauldrons, thick gauntlets and a red loincloth at the belt, cradling a small grey kitten",
       "idle": "cupping a tiny kitten in both gauntlets, helmet tilted sweetly",
-      "cheer": "big gauntlets spread wide out to the sides, eye dots shining bright",
-      "shocked": "gauntlets clamped on the sides of his helmet, eye dots huge",
+      "cheer": "one gauntlet cradles kitten against chest; the other bent arm raises a cheering fist; exactly two arms",
+      "shocked": "one gauntlet cradles kitten against chest, other hand against helmet; exactly two arms",
       "tags": ["teen", "male", "armored", "giant", "pet"]
     },
     {
@@ -51,10 +51,10 @@
       "id": "fma-005",
       "name": "Alex Louis Armstrong",
       "heightClass": "huge",
-      "look": "colossal, absurdly muscular major with a shaved head except one curly blond forelock, a huge blond handlebar mustache and sparkly blue eyes, wearing a dark blue military uniform jacket straining over his muscles and spiked steel gauntlets, pale pink sparkles floating around him",
-      "fallbackLook": "colossal, absurdly muscular man with a shaved head except one curly blond forelock, a huge blond handlebar mustache and sparkly eyes, a dark blue military uniform jacket straining over his muscles, spiked steel gauntlets and pale pink sparkles floating around him",
-      "idle": "flexing one bicep proudly, sparkles drifting around him",
-      "cheer": "shirt bursting open in a double-biceps pose, arms out wide, sparkles everywhere",
+      "look": "colossal, absurdly muscular major with a shaved head except one curly blond forelock, a huge blond handlebar mustache and bright blue eyes, wearing a dark blue military uniform jacket straining over his muscles and spiked steel gauntlets",
+      "fallbackLook": "colossal muscular man with a shaved head and one curly blond forelock, huge blond handlebar mustache, bright eyes, a dark blue military uniform jacket and spiked steel gauntlets",
+      "idle": "flexing one bicep proudly, no floating sparkles",
+      "cheer": "shirt open in a double-biceps pose, arms bent within own pose column; no floating sparkles",
       "shocked": "manly tears streaming down his face, fists clenched to his chest",
       "tags": ["adult", "male", "soldier", "muscular", "giant", "comedy"]
     },

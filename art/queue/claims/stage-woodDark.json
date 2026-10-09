@@ -1,0 +1,13 @@
+{
+  "batch": "stage-woodDark",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:11:37.906Z",
+  "touchedAt": "2026-10-09T10:13:00.331Z",
+  "items": [
+    "woodDark"
+  ],
+  "doneAt": "2026-10-09T10:13:00.330Z",
+  "note": "2 imagegen attempts; chose second for exactly four 16px boards and better horizontal wrap (seam jump 20.0 vs inner 25.8; vertical 5.9 vs inner 3.7). Saved raw plus opaque 64x128 fit and 2x2 preview. Fit has 23 colors versus <=12 target and slight vertical seam variation."
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-vendors-workers-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:42:04.921Z",
+  "touchedAt": "2026-10-09T09:53:05.344Z",
+  "items": [
+    "org-vw-001",
+    "org-vw-002",
+    "org-vw-003",
+    "org-vw-004",
+    "org-vw-005",
+    "org-vw-006",
+    "org-vw-007",
+    "org-vw-008",
+    "org-vw-009",
+    "org-vw-010"
+  ],
+  "doneAt": "2026-10-09T09:53:05.343Z",
+  "note": "10 direct imagegen PNGs saved; no refusals. Retried 002 popcorn vendor and 005 janitor once for headroom/prop placement. Visual QA: three same-character full-body front-view poses, generally aligned baseline and props within columns. Roster action simplifications kept popcorn, noodles, hats, lids, cups and pencils attached; 006 omits spray and 008 omits flash effects. 001/007 retain small drawn steam at food despite no-effects guidance, and 007 appears oversize for short class before packer scale. Technical doubt: noisy near-magenta corners (236-245,12-18,237-242), not exact #FF00FF, and 80k-184k colors rather than <=24; lead should inspect packer cleanup."
+}

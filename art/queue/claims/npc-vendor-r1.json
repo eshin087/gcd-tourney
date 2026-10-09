@@ -1,0 +1,14 @@
+{
+  "batch": "npc-vendor-r1",
+  "type": "npc",
+  "agent": "w11",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:39:47.243Z",
+  "touchedAt": "2026-10-09T22:44:43.875Z",
+  "items": [
+    "model_sheet",
+    "idle"
+  ],
+  "doneAt": "2026-10-09T22:44:43.874Z",
+  "note": "v02 model selected after2 attempts: smaller adult head and pixel craft improved. Idle best of3 attempts; exactly2 frames, correct calling hand/tray food, but f0 face still turns toward image-left while f1 faces right. Remaining facing deviation flagged; palette cleanup/packed QA required."
+}

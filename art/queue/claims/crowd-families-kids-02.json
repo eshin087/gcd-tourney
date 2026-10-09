@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-families-kids-02",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:43:18.211Z",
+  "touchedAt": "2026-10-09T07:52:53.445Z",
+  "items": [
+    "org-fk-011",
+    "org-fk-012",
+    "org-fk-013",
+    "org-fk-014",
+    "org-fk-015",
+    "org-fk-016",
+    "org-fk-017",
+    "org-fk-018",
+    "org-fk-019",
+    "org-fk-020"
+  ],
+  "doneAt": "2026-10-09T07:52:53.444Z",
+  "note": "All 10 v01 PNGs saved. Major technical doubt persists: imagegen near-magenta textured backgrounds and high color counts, not exact #FF00FF or <=24 colors; lead/packer QA needed. org-fk-014, 015, 019 are parent+child roster exceptions to the one-person wording. org-fk-011/013/016 include detached food or spray as their roster poses specify."
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-jojo-01-r1",
+  "type": "crowd",
+  "agent": "w12",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:45:27.797Z",
+  "touchedAt": "2026-10-09T22:46:52.071Z",
+  "items": [
+    "jojo-006"
+  ],
+  "doneAt": "2026-10-09T22:46:52.070Z",
+  "note": "jojo006 v02 imagegen precise edit removed both fingertip flames/sparks; identity, three isolated poses and baseline visually preserved. Raw palette/key QA still pending packer."
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "stage-treeRoundA",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:13:10.526Z",
+  "touchedAt": "2026-10-09T10:14:12.018Z",
+  "items": [
+    "treeRoundA"
+  ],
+  "doneAt": "2026-10-09T10:14:12.017Z",
+  "note": "1 imagegen attempt; full round broadleaf crown, short sturdy centered trunk, no ground; saved raw and 192x256 bottom-anchored transparent fit. Trunk reaches bottom row. Fit has 283 colors versus <=24 target from excessive green/brown shade variation; slight trunk-base flare resembling roots, inspect."
+}

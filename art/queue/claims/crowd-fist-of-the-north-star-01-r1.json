@@ -1,0 +1,15 @@
+{
+  "batch": "crowd-fist-of-the-north-star-01-r1",
+  "type": "crowd",
+  "agent": "w09",
+  "status": "done",
+  "claimedAt": "2026-10-09T20:20:25.920Z",
+  "touchedAt": "2026-10-09T20:26:37.976Z",
+  "items": [
+    "fotns-002",
+    "fotns-005",
+    "fotns-008"
+  ],
+  "doneAt": "2026-10-09T20:26:37.976Z",
+  "note": "fotns-002/005/008 v02: fixed pose cut-line spill; each has zero foreground in 24px bands centered on x=512 and 1024. Pixel-art identities and three full poses preserved. Raw backgrounds remain near-magenta (corner RGB 239,13,241; 238,14,241; 242,14,241), not exact #FF00FF; packer normalization/QA needed."
+}

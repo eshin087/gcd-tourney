@@ -1,0 +1,18 @@
+{
+  "batch": "crowd-kenichi-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:16:44.238Z",
+  "touchedAt": "2026-10-09T08:23:08.382Z",
+  "items": [
+    "ken-001",
+    "ken-002",
+    "ken-003",
+    "ken-004",
+    "ken-005",
+    "ken-006"
+  ],
+  "doneAt": "2026-10-09T08:23:08.381Z",
+  "note": "Six three-pose sheets saved, no refusals. Huge elder ken-003 retried for tighter column fit; best still has a small near-boundary sleeve but separated figures. Distinct props, feet and expressions visible. Imagegen continues to produce noisy near-magenta rather than flat exact #FF00FF, over 24 colors, and frequent vertical sizing/margin deviations; lead review/packer assessment needed."
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-jujutsu-kaisen-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:11:46.266Z",
+  "touchedAt": "2026-10-09T08:31:51.320Z",
+  "items": [
+    "jjk-001",
+    "jjk-002",
+    "jjk-003",
+    "jjk-004",
+    "jjk-005",
+    "jjk-006",
+    "jjk-007",
+    "jjk-008",
+    "jjk-009",
+    "jjk-010"
+  ],
+  "doneAt": "2026-10-09T08:31:51.319Z",
+  "note": "No refusals. Ten direct imagegen PNGs are 1536x1024 with visually distinct three-pose rows. All have noisy near-magenta backgrounds (corner RGB about 238-243,11-15,240-243), not flat #FF00FF, and likely exceed 24 colors; several height classes look oversized. jjk-002, -003 used second attempts for hand sign/hammer top clearance. jjk-005 and -007 used all three for polearm top and panda column spacing; jjk-005 center blade still starts near canvas top. jjk-009 used all three; arms fit columns, but the second pair of eyes is not clearly legible. Lead should review these limits."
+}

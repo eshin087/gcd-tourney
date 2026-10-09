@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/smoke_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/smoke_v01.png"
+  ],
+  "sourceHash": "fcc04a0da239b5fc343f5dec41feb1a4fa2e214c",
+  "files": {
+    "smoke_00.png": "8d462e70ef942491150c7c40891f2537ba53df3a",
+    "smoke_01.png": "a4ad23956ac5d5c78ce89af6b7faae1a4d306b59",
+    "smoke_02.png": "db33479860ce3e4fcfe05221237122f3d5d55134",
+    "smoke_03.png": "1d145dea3380e5773813def7915d9b828fb82e11",
+    "smoke_04.png": "309e838168c97b59c6e352c481c548d6aedaf681",
+    "smoke_05.png": "2515e3de1e11e3d8fb90d573892eabeeb76d954f",
+    "smoke_06.png": "248babc3864273d94adc1c4ff5217ea3ca4cb90a"
+  }
+}

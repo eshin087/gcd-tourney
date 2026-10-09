@@ -1,0 +1,13 @@
+{
+  "batch": "vfx-ring-r1",
+  "type": "vfx",
+  "agent": "lead",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:37:38.065Z",
+  "touchedAt": "2026-10-09T22:39:15.643Z",
+  "items": [
+    "ring"
+  ],
+  "doneAt": "2026-10-09T22:39:15.642Z",
+  "note": "Best of3 attempts: pronounced expansion and rounder ellipses; first stroke thinner than brief, exact ellipse QA pending packed measurement."
+}

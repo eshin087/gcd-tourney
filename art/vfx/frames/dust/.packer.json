@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dust_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/dust_v01.png",
+    "vfx/raw/dust.json"
+  ],
+  "sourceHash": "10bb828a739109a781723379070b12c040e270f1",
+  "files": {
+    "dust_00.png": "2f3f1ee94ea62635afec96e89a0ffe72871a22e8",
+    "dust_01.png": "7f464174fac49564028ed7aa7bb846f3f4d6608a",
+    "dust_02.png": "5a0e1cd9f62476b835217a1771f9a36f34180442",
+    "dust_03.png": "ea9e16966469397c4e0da4d3bc45a3093c812fb1",
+    "dust_04.png": "6440ff9c59155c9b86f28a55d423f8dcd0eb1087",
+    "dust_05.png": "d929d2310478144a6c4b75f4279573facea9a0ad"
+  }
+}

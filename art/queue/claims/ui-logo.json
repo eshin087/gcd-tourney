@@ -1,0 +1,13 @@
+{
+  "batch": "ui-logo",
+  "type": "ui",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:28:08.731Z",
+  "touchedAt": "2026-10-09T10:28:58.512Z",
+  "items": [
+    "logo"
+  ],
+  "doneAt": "2026-10-09T10:28:58.511Z",
+  "note": "One generated candidate saved. GCD TOURNEY reads correctly; subtitle visually reads six glyphs 天下一武闘祭 in order. Bold stepped orange-to-blue bands, navy outline and white offset. Background appears noisy near-magenta rather than exact flat #FF00FF; verify glyph strokes and chroma cleanup before approval. No refusal."
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-one-punch-man-01",
+  "type": "crowd",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:06:28.527Z",
+  "touchedAt": "2026-10-09T09:16:23.785Z",
+  "items": [
+    "opm-001",
+    "opm-002",
+    "opm-003",
+    "opm-004",
+    "opm-005",
+    "opm-006",
+    "opm-007",
+    "opm-008",
+    "opm-009",
+    "opm-010"
+  ],
+  "doneAt": "2026-10-09T09:16:23.784Z",
+  "note": "Saved opm-001..010 v01 after visual QA; 001, 002, 004 retried for better margins and simpler effects. Character traits, three poses, props and column separation are readable. Generator repeatedly produced noisy near-magenta background and excessive RGB colors despite exact flat #FF00FF and palette prompts; packer/review should assess. opm-009 remains relatively cute/short per brief; opm-010 has a gum bubble in idle not specified by roster."
+}

@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-cowboy-bebop-01-r1",
+  "type": "crowd",
+  "agent": "w04",
+  "status": "done",
+  "claimedAt": "2026-10-09T15:53:21.617Z",
+  "touchedAt": "2026-10-09T15:57:03.186Z",
+  "items": [
+    "bebop-003",
+    "bebop-004"
+  ],
+  "doneAt": "2026-10-09T15:57:03.185Z",
+  "note": "bebop-003 v02: bonsai visible in idle/cheer/shocked; cheer mechanical fist bent inside middle column. bebop-004 v02: laptop visible in idle/cheer/shocked, securely tucked under arm in cheer. Both 1536x1024; raw magenta varies slightly and color counts exceed 24, matching approved style anchor; needs packer QA when TOOL-011 lands."
+}

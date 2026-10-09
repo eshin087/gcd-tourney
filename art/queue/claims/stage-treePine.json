@@ -1,0 +1,13 @@
+{
+  "batch": "stage-treePine",
+  "type": "stage",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:14:24.370Z",
+  "touchedAt": "2026-10-09T10:15:18.319Z",
+  "items": [
+    "treePine"
+  ],
+  "doneAt": "2026-10-09T10:15:18.318Z",
+  "note": "1 imagegen attempt; five tiered pine layers increasing in width, centered short trunk, no ground; saved raw and 192x256 bottom-anchored transparent fit. Fit has 175 colors versus <=24 target due excessive green/brown shades; inspect palette."
+}

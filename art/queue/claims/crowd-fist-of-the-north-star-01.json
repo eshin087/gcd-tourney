@@ -1,0 +1,20 @@
+{
+  "batch": "crowd-fist-of-the-north-star-01",
+  "type": "crowd",
+  "agent": "w93",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:50:16.058Z",
+  "touchedAt": "2026-10-09T07:58:02.082Z",
+  "items": [
+    "fotns-001",
+    "fotns-002",
+    "fotns-003",
+    "fotns-004",
+    "fotns-005",
+    "fotns-006",
+    "fotns-007",
+    "fotns-008"
+  ],
+  "doneAt": "2026-10-09T07:58:02.081Z",
+  "note": "Eight three-pose full-body sheets saved. Jagi retried to keep shotgun sideways and within column. Visual QA: identities, props, separated poses, and feet broadly clear; minor model details remain approximate. Imagegen repeatedly produced noisy near-magenta rather than flat exact #FF00FF, over 24 colors, and tall figures that can exceed stated height targets; requires lead review/packer assessment."
+}

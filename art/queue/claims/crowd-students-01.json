@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-students-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T09:31:40.051Z",
+  "touchedAt": "2026-10-09T09:41:25.299Z",
+  "items": [
+    "org-stud-001",
+    "org-stud-002",
+    "org-stud-003",
+    "org-stud-004",
+    "org-stud-005",
+    "org-stud-006",
+    "org-stud-007",
+    "org-stud-008",
+    "org-stud-009",
+    "org-stud-010"
+  ],
+  "doneAt": "2026-10-09T09:41:25.298Z",
+  "note": "10 direct imagegen PNGs saved; no refusals. Retried 002 for flag column containment, 007 to remove floating emotion symbols, 010 to improve tiny child scale. Visual QA: three distinct full-body front-view poses with shared feet line and consistent outfit. 010 still larger than 350px tiny target before packer rescale. Small roster changes keep drumsticks, books and clipboard held rather than flying. Technical doubt: noisy near-magenta corners (235-243,11-16,237-242) not exact #FF00FF, 67k-180k colors rather than <=24; lead should inspect packer cleanup."
+}

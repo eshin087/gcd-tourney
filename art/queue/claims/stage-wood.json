@@ -1,0 +1,13 @@
+{
+  "batch": "stage-wood",
+  "type": "stage",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:18:39.627Z",
+  "touchedAt": "2026-10-09T10:21:26.864Z",
+  "items": [
+    "wood"
+  ],
+  "doneAt": "2026-10-09T10:21:26.863Z",
+  "note": "Two attempts; selected simpler four-board pattern with sparse vertical grain. Saved raw, exact 64x128 fit, and 2x2 preview. Opaque, no obvious seams; horizontal wrap 3.8 vs inner 38.0 and vertical wrap 1.6 vs inner 2.6. Fit has 21 colors versus <=12 target; image generator made a 640px raw band rather than requested 768px, stretched by the fit. No approved woodDark neighbor existed."
+}

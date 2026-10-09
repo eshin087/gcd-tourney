@@ -1,0 +1,15 @@
+{
+  "batch": "crowd-idol-fans-02",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:06:45.781Z",
+  "touchedAt": "2026-10-09T08:11:33.595Z",
+  "items": [
+    "org-idol-011",
+    "org-idol-012",
+    "org-idol-013"
+  ],
+  "doneAt": "2026-10-09T08:11:33.594Z",
+  "note": "No refusals. Three direct imagegen PNGs are 1536x1024 with visually clear three-pose rows. Backgrounds remain noisy near-magenta (corner RGB 239-241,12,240-241), not flat #FF00FF; palette cap likely exceeded. org-idol-011 used second attempt to reduce tiny child but still appears taller than 350px and has unbriefed simple shirt emblem. org-idol-012 raised towel and org-idol-013 shocked boppers approach top margin. The requested glow is represented only with flat bright colors."
+}

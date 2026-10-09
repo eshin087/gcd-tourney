@@ -1,0 +1,15 @@
+{
+  "batch": "npc-monk-b",
+  "type": "npc",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:21:03.523Z",
+  "touchedAt": "2026-10-09T10:28:02.678Z",
+  "items": [
+    "model_sheet",
+    "idle",
+    "signal"
+  ],
+  "doneAt": "2026-10-09T10:28:02.677Z",
+  "note": "Model sheet v01: 4 consistent views and 21 swatches, but figure height ~505px vs ~430 target. Idle v01: 2 matching 3/4 poses, shared feet baseline, image-left planted staff, near-identical breath; figure ~533px, subtle motion. Signal v01: 2 poses, f0 horizontal staff above head inside left half, f1 both-hand rightward thrust and shout, feet level; f1 downward angle ~11 degrees rather than requested ~20 and f0 raised silhouette ~595px. All three are direct imagegen PNGs with noisy near-magenta backgrounds (e.g. 238,13,242 / 241,15,242) and far more than <=32 colors; palette/background QA will need attention."
+}

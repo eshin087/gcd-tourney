@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-one-piece-01",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:58:50.129Z",
+  "touchedAt": "2026-10-09T09:08:23.995Z",
+  "items": [
+    "op-001",
+    "op-002",
+    "op-003",
+    "op-004",
+    "op-005",
+    "op-006",
+    "op-007",
+    "op-008",
+    "op-009",
+    "op-010"
+  ],
+  "doneAt": "2026-10-09T09:08:23.994Z",
+  "note": "10 direct imagegen PNGs saved; no refusals. Visual QA: three full-body same-character front-view poses, generally aligned. op-007 uses her ordinary two arms instead of the roster disembodied extra arms to preserve one spectator/no effects. op-009 jaw stays attached in shock. Technical doubt: generator outputs noisy near-magenta corners (235-245,12-16,237-244), not exact #FF00FF, and 93k-230k sampled unique colors despite <=24-color prompts; lead should inspect packer cleanup."
+}

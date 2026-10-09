@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-ninja-samurai-cosplayers-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T08:50:58.228Z",
+  "touchedAt": "2026-10-09T09:00:55.246Z",
+  "items": [
+    "org-cosp-001",
+    "org-cosp-002",
+    "org-cosp-003",
+    "org-cosp-004",
+    "org-cosp-005",
+    "org-cosp-006",
+    "org-cosp-007",
+    "org-cosp-008",
+    "org-cosp-009",
+    "org-cosp-010"
+  ],
+  "doneAt": "2026-10-09T09:00:55.245Z",
+  "note": "Saved org-cosp-001..010 v01, all 1536x1024, three visually distinct full-body poses. No generator refusal. Retried 001/002/005/006/008 for scale; some short/medium figures remain oversized. Roster-called thrown toy shuriken in 005 and flying wig in 009 are detached but within their pose columns. Direct imagegen output has near-magenta corners RGB 235-243,12,237-243 rather than exact #FF00FF and soft/high-color pixels; lead technical QA and correction needed before packing. No shared files edited by worker."
+}

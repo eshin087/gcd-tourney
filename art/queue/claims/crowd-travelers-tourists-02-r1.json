@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-travelers-tourists-02-r1",
+  "type": "crowd",
+  "agent": "w12",
+  "status": "done",
+  "claimedAt": "2026-10-09T22:50:02.437Z",
+  "touchedAt": "2026-10-09T22:52:27.197Z",
+  "items": [
+    "org-trvl-011"
+  ],
+  "doneAt": "2026-10-09T22:52:27.196Z",
+  "note": "org-trvl011 v02 removes duplicated idle chest binoculars; one pair in each pose now. Identity, three poses and baseline self-QA pass. Palette/key packing pending."
+}

@@ -1,0 +1,15 @@
+{
+  "batch": "npc-monk-a",
+  "type": "npc",
+  "agent": "w92",
+  "status": "done",
+  "claimedAt": "2026-10-09T10:20:10.961Z",
+  "touchedAt": "2026-10-09T10:28:01.872Z",
+  "items": [
+    "model_sheet",
+    "idle",
+    "signal"
+  ],
+  "doneAt": "2026-10-09T10:28:01.871Z",
+  "note": "Model sheet: four views, correct monk props and swatches. Idle: two aligned, subtle breathing poses. Signal: raised paddle to outward/downward sweep, fixed feet; second pose is more horizontal than ideal. Generated magenta is noisy near-magenta, with excess RGB/palette colors and some anti-aliasing; packer review needed. No refusal."
+}

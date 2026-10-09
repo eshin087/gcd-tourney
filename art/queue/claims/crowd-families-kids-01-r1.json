@@ -1,0 +1,13 @@
+{
+  "batch": "crowd-families-kids-01-r1",
+  "type": "crowd",
+  "agent": "w08",
+  "status": "done",
+  "claimedAt": "2026-10-09T20:25:08.359Z",
+  "touchedAt": "2026-10-09T20:26:09.474Z",
+  "items": [
+    "org-fk-010"
+  ],
+  "doneAt": "2026-10-09T20:26:09.473Z",
+  "note": "org-fk-010 v02: cheer handkerchief pulled beside face into middle third; same mother and baby identities, three poses and baseline retained. Generated background still near-magenta, for packer cleanup."
+}
