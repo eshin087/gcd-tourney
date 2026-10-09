@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-athletes-02-r1",
+  "type": "crowd",
+  "agent": "w02",
+  "status": "done",
+  "claimedAt": "2026-10-09T14:53:22.053Z",
+  "touchedAt": "2026-10-09T14:56:13.043Z",
+  "items": [
+    "org-athl-011",
+    "org-athl-012"
+  ],
+  "doneAt": "2026-10-09T14:56:13.042Z",
+  "note": "Both v02 redrawn against approved org-af-013_v02 anchor: stronger dark contour and layered cel shading; gymnast pastel ribbon and luchador gold-blue-red costume preserved; three full-body, front-view poses on one baseline. QA doubt: generator/anchor use magenta-ish rather than exact #FF00FF and high raw color counts; packer tolerance/quantization needs lead review."
+}

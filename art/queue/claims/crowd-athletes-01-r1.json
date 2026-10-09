@@ -1,0 +1,15 @@
+{
+  "batch": "crowd-athletes-01-r1",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T14:53:01.587Z",
+  "touchedAt": "2026-10-09T14:56:10.019Z",
+  "items": [
+    "org-athl-005",
+    "org-athl-006",
+    "org-athl-009"
+  ],
+  "doneAt": "2026-10-09T14:56:10.018Z",
+  "note": "org-athl-005: removed detached shaker splash; org-athl-006: removed black volleyball impact marks; org-athl-009: removed bottle spray. All three preserve v01 identities, three front-facing poses and shared feet baseline. QA doubt: generator retains near-magenta varying background rather than exact flat #FF00FF, plus high raw color count; lead should verify packer cleanup."
+}

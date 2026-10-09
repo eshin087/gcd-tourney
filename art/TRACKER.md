@@ -194,6 +194,8 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | crowd | crowd-animal-folk-02 | org-af-011..020 | approved | v01 except 013, 015, 019 v02 | same as current | User approved pilot on 2026-10-09; raw backgrounds are near-magenta; `npm run sprites crowd` unavailable (TOOL-011), so atlas and in-game QA are pending. |
 | crowd | crowd-athletes-01 | org-athl-001..010 | approved 7/10 | v01 | 001-004, 007-008, 010 v01 | User approved seven on 2026-10-09; 005, 006 and 009 reopened as crowd-athletes-01-r1 for detached splash/impact marks. Near-magenta and packed QA pending TOOL-011. |
 | crowd | crowd-athletes-02 | org-athl-011..012 | rejected | v01 | - | User requested redo of both on 2026-10-09 for coarse pixel scale; reopened as crowd-athletes-02-r1. Packed QA pending TOOL-011. |
+| crowd | crowd-athletes-01-r1 | org-athl-005, 006, 009 | raw | v02 | - | Redo removes detached marks; three visual passes need batch review. Near-magenta and packed QA pending TOOL-011. |
+| crowd | crowd-athletes-02-r1 | org-athl-011..012 | raw | v02 | - | Redo matches approved crowd pixel scale more closely; two visual passes need batch review. Packed QA pending TOOL-011. |
 
 ## Adding a character
 
