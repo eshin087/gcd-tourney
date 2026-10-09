@@ -1,0 +1,14 @@
+{
+  "batch": "crowd-athletes-02",
+  "type": "crowd",
+  "agent": "w91",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:03:23.531Z",
+  "touchedAt": "2026-10-09T07:08:07.165Z",
+  "items": [
+    "org-athl-011",
+    "org-athl-012"
+  ],
+  "doneAt": "2026-10-09T07:08:07.164Z",
+  "note": "No refusals or fallbacks. Both originals have three readable full-body poses. Built-in generator produced noisy near-magenta and excessive RGB colors; selected outputs were cleaned to exact #FF00FF, 24 colors and 8px blocks. Gymnast has pink ribbon and muted violet clothing per roster; inspect magenta fringe after packing. Raw figures are taller than prompt height guide; packer sets final height."
+}

@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-athletes-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T07:02:33.185Z",
+  "touchedAt": "2026-10-09T07:16:06.711Z",
+  "items": [
+    "org-athl-001",
+    "org-athl-002",
+    "org-athl-003",
+    "org-athl-004",
+    "org-athl-005",
+    "org-athl-006",
+    "org-athl-007",
+    "org-athl-008",
+    "org-athl-009",
+    "org-athl-010"
+  ],
+  "doneAt": "2026-10-09T07:16:06.710Z",
+  "note": "No refusals or fallbacks. All 10 are 1536x1024 and visually show 3 poses. Generator did not produce exact #FF00FF or <=24-color hard-pixel output; background corners are near-magenta with noise despite retries. org-athl-001 ceremonial stomp is subtle; org-athl-006 has tiny impact marks; lead should inspect in contact sheet."
+}

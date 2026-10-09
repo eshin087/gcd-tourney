@@ -248,6 +248,30 @@
             "org-af-019": { "status": "approved", "version": 2, "approvedVersion": 2 },
             "org-af-020": { "status": "approved", "version": 1, "approvedVersion": 1 }
           }
+        },
+        "crowd-athletes-01": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "org-athl-001": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-002": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-003": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-004": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-005": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-006": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-007": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-008": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-009": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-010": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
+        },
+        "crowd-athletes-02": {
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "items": {
+            "org-athl-011": { "status": "raw", "version": 1, "approvedVersion": null },
+            "org-athl-012": { "status": "raw", "version": 1, "approvedVersion": null }
+          }
         }
       }
     }
