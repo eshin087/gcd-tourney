@@ -1,0 +1,22 @@
+{
+  "batch": "crowd-animal-folk-01",
+  "type": "crowd",
+  "agent": "w01",
+  "status": "done",
+  "claimedAt": "2026-10-09T06:49:53.117Z",
+  "touchedAt": "2026-10-09T07:02:25.080Z",
+  "items": [
+    "org-af-001",
+    "org-af-002",
+    "org-af-003",
+    "org-af-004",
+    "org-af-005",
+    "org-af-006",
+    "org-af-007",
+    "org-af-008",
+    "org-af-009",
+    "org-af-010"
+  ],
+  "doneAt": "2026-10-09T07:02:25.079Z",
+  "note": "No refusals or fallbacks. All 10 images are 1536x1024, but generator added noisy near-magenta backgrounds and >100k RGB colors despite retries; they need lead cleanup or redo before packing. org-af-001 shocked ears read rabbit-like; org-af-004 remains wide."
+}
