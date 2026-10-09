@@ -192,8 +192,8 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 |---|---|---|---|---|---|---|
 | crowd | crowd-animal-folk-01 | org-af-001..010 | approved | v01 | v01 | User approved batch on 2026-10-09; visual QA passed with minor pose details noted in REVIEW.md. Near-magenta/noisy palette and packed QA pending TOOL-011. |
 | crowd | crowd-animal-folk-02 | org-af-011..020 | approved | v01 except 013, 015, 019 v02 | same as current | User approved pilot on 2026-10-09; raw backgrounds are near-magenta; `npm run sprites crowd` unavailable (TOOL-011), so atlas and in-game QA are pending. |
-| crowd | crowd-athletes-01 | org-athl-001..010 | raw | v01 | - | Ten candidates need batch review; 005, 006 and 009 have small detached splash/impact marks. Near-magenta and packed QA pending TOOL-011; see REVIEW.md. |
-| crowd | crowd-athletes-02 | org-athl-011..012 | raw | v01 | - | Two candidates need batch review; visibly coarse pixel scale compared with approved anchor. Packed QA pending TOOL-011; see REVIEW.md. |
+| crowd | crowd-athletes-01 | org-athl-001..010 | approved 7/10 | v01 | 001-004, 007-008, 010 v01 | User approved seven on 2026-10-09; 005, 006 and 009 reopened as crowd-athletes-01-r1 for detached splash/impact marks. Near-magenta and packed QA pending TOOL-011. |
+| crowd | crowd-athletes-02 | org-athl-011..012 | rejected | v01 | - | User requested redo of both on 2026-10-09 for coarse pixel scale; reopened as crowd-athletes-02-r1. Packed QA pending TOOL-011. |
 
 ## Adding a character
 
