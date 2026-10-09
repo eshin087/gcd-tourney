@@ -1,9 +1,11 @@
 {
   "naruto.modelSheet": {
     "notes": [
-      "Approved Shippuden design reference.",
-      "Compare the face, outfit and body proportions when reviewing animations."
-    ]
+      "Shorter, compact golden spikes replace the long face-framing locks.",
+      "Check the haircut in all five views; face, outfit and poses remain consistent.",
+      "This is the new design candidate. Expressions, idle and approved run v02 still show the previous haircut."
+    ],
+    "recommendation": "Review the shorter haircut before it is applied to expressions and animation strips."
   },
   "naruto.expressions": {
     "notes": [
@@ -23,7 +25,7 @@
       "Check the opposite-leg stride and the flight-to-contact transition.",
       "Eight frames at 60 ms each; the loop lasts 0.48 seconds."
     ],
-    "recommendation": "Placement checks passed. Review the movement at actual speed before approving v02."
+    "recommendation": "Run v02 approved on October 9, 2026."
   },
   "sasuke.modelSheet": {
     "notes": [
@@ -49,6 +51,6 @@
       "Check the alternating legs, which remain subtle under the waist cloth.",
       "Eight frames at 60 ms each; the loop lasts 0.48 seconds."
     ],
-    "recommendation": "Placement checks passed. Review the movement at actual speed before approving v02."
+    "recommendation": "Run v02 approved on October 9, 2026."
   }
 }

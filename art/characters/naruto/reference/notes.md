@@ -94,3 +94,19 @@ User requested the recommended fixes. Run v01 is rejected/superseded and archive
 - Release verification: production build and all160 packer regression tests passed. Public gallery https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=run is available without login; selected originals and packed exports match local files byte-for-byte. Deployment dpl_5FpjDBc4RffrPvPMoDciYJoqLkKZ (concurrent mobile release) already included the gallery. No extra deployment was needed.
 
 - Hosted game integration rechecked after v02: custom-sheet log for both fighters (2 animations, incomplete preview); no console errors. Full CORE completion still required for normal automatic activation.
+
+## 2026-10-09: run v02 approved
+
+User: "The runs are approved." Recorded approvedVersion=2 and retained all previous geometry/identity QA. The same message requests shorter Naruto hair; that separate design revision does not revoke the run-motion approval.
+
+## 2026-10-09: model sheet v02 hair correction, needs review
+
+- User asked to shorten Naruto hair because the long design resembled Minato. The old brief explicitly requested jaw-length locks; CHARACTER.md and all repeated prompts now describe short compact spikes and upper-ear temple tufts. Black cloth headband tails remain long.
+- Built-in imagegen precise-object-edit, first attempt selected. Input was approved model_sheet.png only; no source/_old images. Executed prompt: [model_sheet_v02_prompt.md](model_sheet_v02_prompt.md).
+- Candidate SHA256: fbf9e4cb992032ea822aeb566819b84ba4c4187ad975c7682df0dc4e0c0b9fc8. Canvas1536x1024; all5 views retained. Front/three-quarter/profile/back crown is10-12 rawpx lower; fighting crown7px lower. Blond silhouette narrows about9-14%; long straight cheek locks replaced by short temple tufts.
+- Face, blue eyes, visible whiskers, outfit, back spiral, holster, long black headband tails and poses remain visually consistent. Foot bottoms match v01 at y829/831/832/827/819. Lower-body foreground silhouette IoU about0.9946. Generation changes RGB broadly (about95.6% canvas pixels), so this is visual preservation, not a lossless hair-only pixel patch.
+- Inherited technical deviations:36 swatches rather than34; sampled cornerRGB236,13,238 and nonuniform near-magenta rather than exact#FF00FF; antialiased raw appearance; uneven neutral/stance baseline. Reference only, no direct game packing.
+- Recommend user approval of the shorter haircut. model_sheet.png and approvedVersion1 remain unchanged. Expressions v01, idle v01 and run v02 remain approved with old hair; propagate only after the model revision is reviewed.
+- Phone review link: https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=modelSheet .
+
+- Final local gates: both character packs at48colors with zero warnings; npm run test:sprites160passed; npm run build passed. Exporter fixtures verify pending references remain separate from approved fixed copies.

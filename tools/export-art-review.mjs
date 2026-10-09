@@ -138,8 +138,17 @@ function prepare(opts) {
     const assets = ASSETS.map((asset) => {
       const label = `${id}/${asset.id}`;
       const state = asset.animation ? character.animations?.[asset.animation] : character.reference?.[asset.id];
-      const version = asset.id === 'run' ? state?.version : approvedVersion(state, label);
+      const approved = asset.fixed ? approvedVersion(state, label) : null;
+      const version = asset.id === 'idle' ? approved : state?.version;
       assert(Number.isInteger(version) && version > 0, `${label}: missing selected version.`);
+      if (!asset.animation) {
+        assert(version >= approved, `${label}: latest reference version predates the approved version.`);
+        const pattern = new RegExp(`^${asset.stem}_v(\\d{2,})\\.png$`);
+        const versions = fs.readdirSync(path.join(ROOT, `art/characters/${id}/reference`), { withFileTypes: true })
+          .filter((entry) => entry.isFile()).map((entry) => pattern.exec(entry.name))
+          .filter(Boolean).map((match) => Number(match[1]));
+        assert(Math.max(0, ...versions) === version, `${label}: manifest does not identify the latest active reference version.`);
+      }
       if (asset.id === 'run') {
         assert(['packed', 'approved'].includes(state.status), `${label}: latest run must be packed before export.`);
         const versions = fs.readdirSync(path.join(ROOT, `art/characters/${id}/raw`))
@@ -149,8 +158,11 @@ function prepare(opts) {
       const basename = `${asset.stem}_v${versionTag(version)}.png`;
       const source = read(`art/characters/${id}/${asset.folder}/${basename}`);
       if (asset.fixed) {
+        // Pending references are review candidates; the identity copy must still match the user's approved version.
+        const approvedName = `${asset.stem}_v${versionTag(approved)}.png`;
+        const approvedSource = version === approved ? source : read(`art/characters/${id}/${asset.folder}/${approvedName}`);
         const fixed = read(`art/characters/${id}/reference/${asset.fixed}`);
-        assert(source.equals(fixed), `${label}: approved fixed reference differs from ${basename}.`);
+        assert(approvedSource.equals(fixed), `${label}: approved fixed reference differs from ${approvedName}.`);
       }
       const status = state.approvedVersion === version ? 'approved' : 'needs review';
       const entry = {

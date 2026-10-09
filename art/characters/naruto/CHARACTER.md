@@ -23,15 +23,21 @@
 | Stats | all-rounder: speed 5.9, power 1.0, defense 1.0 |
 | Legal | Fan art for a personal, non-commercial demo. A public or commercial release needs a license or an original redesign (see the root README). |
 
+> **Shorter-hair revision:** the user requested compact spikes and upper-ear temple tufts.
+> Keep the approved `reference/model_sheet.png` at **v01** while `model_sheet_v02.png` is reviewed;
+> only replace it after explicit approval. Approve that new hair reference before propagating the
+> change to S2 expressions, then idle, then run, reviewing and approving each revised asset in order.
+
 ## One-paragraph look
 
 Trait-only description (no names), used as `{{TRAITS}}` in shared prompts such as the title key art
 (`art/ui/PROMPTS.md`) and as the fallback `CHARACTER:` line (§9):
 
 > a lean, athletic young ninja of about 16 with a serious, confident, determined air, drawn with
-> realistic anime proportions (about 6.5 heads tall, not chibi); thick spiky bright golden-blond hair,
-> a little long, with pointed bangs falling over the top of his forehead plate and long spiky locks
-> framing both sides of his face; sharp bright blue eyes; three thin whisker-like marks on each cheek;
+> realistic anime proportions (about 6.5 heads tall, not chibi); short, compact bright golden-blond
+> spikes, shortened pointed bangs ending above or at the top edge of his forehead plate, short
+> temple tufts ending around the upper ears with no cheek- or jaw-length locks, and short back hair
+> close to the nape; sharp bright blue eyes; three thin whisker-like marks on each cheek;
 > a black cloth forehead band with two long tails and a polished steel plate engraved with a
 > leaf-swirl symbol; an orange-and-black zip-up track jacket (black across the shoulders, upper chest,
 > upper back and upper sleeves, a black high stand-up collar, a front zipper with a small steel pull,
@@ -72,11 +78,11 @@ Motion language for every animation:
 
 If a frame is missing any of these, it is off-model. Check them in every strip.
 
-1. **Hair:** bright golden-blond. Thick, sharp, triangular spikes that sweep up, back and out from
-   the head, a little longer than the Part 1 look (less of a round spiky ball, more layered).
-   **Longer pointed bangs** fall over the top edge of the forehead plate (they may cover part of
-   the plate, never the eyes), and **long spiky side locks** frame both sides of the face down to
-   about the jawline. The hair adds about 16 px above the skull and 20 to 28 px behind the head.
+1. **Hair:** bright golden-blond, with short, compact, sharp triangular spikes. **Shortened pointed
+   bangs** end above or at the top edge of the forehead plate, leaving the plate and eyes clear.
+   **Short temple tufts** end around the upper ears; no locks extend along the cheeks or to the
+   jawline. Back hair stays short and close to the nape. The black cloth headband tails remain long.
+   The hair follows the approved model silhouette, with up to 20 px above the skull as allowed by SPEC.
 2. **Forehead protector:** a **black** cloth band (never navy blue: that is the Part 1 band), a bit
    wider than before, knotted at the back of the head with **two long tails** that hang to about
    the middle of the back. A rectangular polished steel plate on the forehead, engraved with the
@@ -136,7 +142,7 @@ center line x 128). They match the ADR 0007 landmark table:
 | top of hair spikes | ~36 | spikes reach back to ~x 100 |
 | top of skull / headband | ~52 to 62 | plate centered ~x 142 (the face is turned toward screen-right) |
 | eyes | ~66 to 70 | |
-| chin | ~83 | side locks hang to ~y 80; headband tails hang behind the head to ~y 130 |
+| chin | ~83 | cheeks and jaw clear of hair; temple tufts end around the upper ears; headband tails hang behind the head to ~y 130 |
 | shoulders | ~92 | black yoke from the collar down to ~y 108 on the chest |
 | chest | ~96 to 124 | |
 | stomach / jacket hem | ~124 to 150 | jacket hem at ~y 148 |
@@ -159,7 +165,7 @@ Strike heights on a same-size opponent (ADR 0007) and the contact zones of his a
 | hand anchors | | Rasengan orb in the R palm (205, 148) on every `special` frame; Rasen Cannon palms in (222-238, 112-132), beam origin (230, 122); shuriken release (186-212, 116-142), spawn point (192, 125) |
 
 **Forward-most rule.** On active frames the striking fist, foot or palm is the right-most part of the
-silhouette. Bangs, side locks, headband tails and the jacket hem stay behind it (and behind about
+silhouette. Bangs, short temple tufts, headband tails and the jacket hem stay behind it (and behind about
 x 174, the idle front edge minus 9 px, unless the frame is a lunge; keep hair and tails behind about
 x 172 on active frames).
 
@@ -209,7 +215,7 @@ crispness.
 ## 6. Hair, headband and jacket motion
 
 - **Hair spikes** are stiff. They move as one mass (1 to 2 px squash or stretch on landings and
-  impacts, 1 px lag on bobs) and never bend like cloth. The **side locks** and **bangs** lag one
+  impacts, 1 px lag on bobs) and never bend like cloth. The **short temple tufts** and **bangs** lag one
   frame behind the head.
 - **Headband tails** are the main secondary-motion part. They are long now, so keep them readable but
   inside the cell. They lag one frame behind the head:
@@ -315,9 +321,10 @@ studio.
 > CHARACTER: an original character inspired by classic shonen ninja anime, fan-art sprite for a
 > personal non-commercial game project: a lean, athletic young ninja of about 16 with a serious,
 > confident, determined air, about 6.5 heads tall with realistic anime proportions (not chibi);
-> thick spiky bright golden-blond hair, a little long, with pointed bangs falling over the top of his
-> forehead plate and long spiky locks framing both sides of his face; sharp bright blue eyes; three
-> thin whisker-like marks on each cheek; a black cloth forehead band with two long tails and a
+> short, compact bright golden-blond spikes, shortened pointed bangs ending above or at the top
+> edge of his forehead plate, short temple tufts ending around the upper ears with no cheek- or
+> jaw-length locks, and short back hair close to the nape; sharp bright blue eyes; three thin
+> whisker-like marks on each cheek; a black cloth forehead band with two long tails and a
 > polished steel plate engraved with a leaf-swirl symbol; an orange-and-black zip-up track jacket
 > (black across the shoulders, upper chest, upper back and upper sleeves, a black high stand-up
 > collar, a front zipper with a small steel pull, orange body and lower sleeves, a red spiral emblem

@@ -69,14 +69,14 @@
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
           "status": "approved",
-          "version": 1,
+          "version": 2,
           "approvedVersion": 1
         },
         "expressions": { "file": "art/characters/naruto/reference/expressions.png", "candidates": "art/characters/naruto/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
       "animations": {
         "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "packed", "version": 2, "approvedVersion": null },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 2, "approvedVersion": 2 },
         "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "superDash": { "frames": 2, "loop": true, "bodyHeight": 120, "ms": [50, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
@@ -138,7 +138,7 @@
       },
       "animations": {
         "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "packed", "version": 2, "approvedVersion": null },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 2, "approvedVersion": 2 },
         "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "superDash": { "frames": 2, "loop": true, "bodyHeight": 120, "ms": [50, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },

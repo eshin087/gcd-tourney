@@ -88,3 +88,7 @@ User requested the recommended fixes. Run v01 is rejected/superseded and archive
 - Release verification: production build and all160 packer regression tests passed. Public gallery https://gcd-tourney.vercel.app/art-review.html?c=sasuke&a=run is available without login; selected originals and packed exports match local files byte-for-byte. Deployment dpl_5FpjDBc4RffrPvPMoDciYJoqLkKZ (concurrent mobile release) already included the gallery. No extra deployment was needed.
 
 - Hosted game integration rechecked after v02: custom-sheet log for both fighters (2 animations, incomplete preview); no console errors. Full CORE completion still required for normal automatic activation.
+
+## 2026-10-09: run v02 approved
+
+User: "The runs are approved." Recorded approvedVersion=2 and retained all previous geometry/identity QA. The same message requests shorter Naruto hair; that separate design revision does not revoke the run-motion approval.
