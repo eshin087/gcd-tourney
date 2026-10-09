@@ -1,6 +1,6 @@
 {
   "title": "GCD Tourney art review",
-  "updatedAt": "2026-10-09T22:29:47.774Z",
+  "updatedAt": "2026-10-09T23:39:28.232Z",
   "characters": [
     {
       "id": "naruto",
@@ -16,7 +16,7 @@
           "raw": "art-review/naruto/model_sheet_v02.png",
           "notes": [
             "Approved shorter haircut: compact golden spikes and short temple tufts.",
-            "Model, expressions and idle v02 are approved; run v03 is the next review."
+            "Model, expressions and idle v02 and run v03 are approved; the shorter-hair update is complete."
           ],
           "recommendation": "Model sheet v02 approved on October 9, 2026."
         },
@@ -44,7 +44,7 @@
             "Approved short-hair idle v02. Compact spikes and upper-ear tufts match the approved model and expressions.",
             "Eight frames, 150ms each. Inherited small head shift at the loop join remains documented."
           ],
-          "recommendation": "Approved. Run v03 is the remaining haircut review.",
+          "recommendation": "Approved. Remaining Naruto assets will receive one final set review.",
           "animation": "idle",
           "sheet": "art-review/naruto/sheet-0c5cf8694122.png",
           "meta": "art-review/naruto/anims-9954662fdf12.json"
@@ -54,15 +54,15 @@
           "label": "Run",
           "kind": "animation",
           "version": 3,
-          "status": "needs review",
+          "status": "approved",
           "raw": "art-review/naruto/run_v03.png",
           "notes": [
-            "Short-hair run v03 candidate. All eight poses have compact spikes and short temple tufts; black headband tails remain long.",
+            "Approved run v03. All eight poses have compact spikes and short temple tufts; black headband tails remain long.",
             "Approved gait, placement offsets and eight 60ms frames retained. Grounded soles y240; flight soles y210/212. Upper-hair horizontal range about2.7px.",
             "Packed with48 colors, hard transparency and no clipping or pack warnings. Raw originals retain near-magenta background and antialiasing deviations.",
             "Review playback on your phone; this session verified packed frames and files but had no fresh browser playback check."
           ],
-          "recommendation": "Recommend approval of run v03 after watching the loop. Run v02 remains approved until your decision.",
+          "recommendation": "Run v03 approved. Future Naruto candidates will be reviewed together as a finished set.",
           "animation": "run",
           "sheet": "art-review/naruto/sheet-0c5cf8694122.png",
           "meta": "art-review/naruto/anims-9954662fdf12.json"

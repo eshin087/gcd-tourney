@@ -74,7 +74,7 @@
 
 ## All animations
 
-38 animations, 154 frames in total (10 rows of the 16-column sheet).
+42 animations, 175 frames in total (11 rows of the 16-column sheet).
 **CORE** animations must all exist before the game uses the custom sheet (`"complete": true`).
 Everything else falls back to a similar animation when missing.
 `bodyHeight` is the tallest trimmed frame of the strip in final pixels (the packer scales each strip
@@ -120,6 +120,10 @@ are authoritative, and attacks are time-stretched over the move phases anyway.
 | [`special`](#special) | RASENGAN rush | 8 | 3/3/2 |  | **CORE** | 204 | 120, 120, 120, 120, 120, 160, 110, 70 | A18 | 2 (A + B) |
 | [`intro`](#intro) | shadow-clone hand seal (loop) | 4 |  | yes |  | 210 | 150, 150, 150, 150 | A37 | 1 |
 | [`taunt`](#taunt) | pointing taunt (loop) | 2 |  | yes |  | 212 | 250, 250 | A38 | 1 |
+| [`specialForward`](#specialforward) | WIND STYLE: RASENSHURIKEN, held in the hand (kit) | 7 | 2/2/3 |  |  | 204 | 60, 60, 70, 90, 80, 80, 60 | A39 | 2 (A + B) |
+| [`specialUp`](#specialup) | UZUMAKI BARRAGE rising flip kick (kit) | 6 | 2/2/2 |  |  | 214 | 50, 50, 60, 60, 70, 70 | A40 | 2 (A + B) |
+| [`specialDown`](#specialdown) | NINE-TAILS CHAKRA CLOAK activation (kit) | 4 | 2/1/1 |  |  | 204 | 80, 80, 220, 90 | A41 | 1 |
+| [`superPose`](#superpose) | SHADOW CLONE seal, super flash (kit, loop) | 4 |  | yes |  | 208 | 140, 140, 140, 140 | A42 | 1 |
 | [`win`](#win) | fist-pump victory (loop) | 4 |  | yes | **CORE** | 212 | 110, 90, 260, 180 | A23 | 1 |
 
 ## Air base pose
@@ -838,6 +842,92 @@ Victory pose after the match.
 | f3 | `win_03` | loop | Arm lowering slightly (fist at head height), settling. Flows back into the chamber. | confident grin |  |
 
 ---
+
+## Kit (move system v2, optional)
+
+<a id="specialforward"></a>
+
+### `specialForward`: WIND STYLE: RASENSHURIKEN, held in the hand
+
+7 frames · phases 2/2/3 (startup f0–f1, active f2–f3, recovery f4–f6) · plays once · optional (kit, fallback `special`) · bodyHeight 204 · ms 60/60/70/90/80/80/60 · prompt A39 (2 images: f0–f3 + f4–f6)
+
+Before Sage Mode he cannot throw the Rasenshuriken. He raises it on his open palm, lunges in and slams it into the opponent by hand, and the technique tears up his own arm. The engine draws the spinning wind shuriken at his palm on the startup and active frames and the wind explosion on hit, so the palm stays EMPTY in every frame.
+
+- **Strike target:** f2–f3: open R palm in the contact zone **x 194-222, y 128-158** (aim about x 212, y 146), the same LOW zone as the Rasengan thrust. The engine draws the wind shuriken at about **(205, 148)** on the active frames, so the palm center stays within about 15 px of that point. Only the R arm goes past the idle front edge (about x 182).
+- **Raised-palm anchor:** f0–f1: the raised R palm, palm up, center about **(172, 44)**. Codex measures the packed palm center on f0 and f1 and writes it in the REVIEW QA notes, so Claude can set the engine's startup anchor.
+- **Hair and cloth:** Technique wind blows the hair, temple tufts and headband tails up and back on f0–f1. They stream back (left) on f2–f3, whip forward on f4 as he staggers back, and settle by f6.
+- **QA:** f0–f1 (raised palm) and f6 (stance) are the tallest frames, about 204: the top of the raised palm is no higher than the idle hair top (about y 36). If an approved strip still packs smaller than idle (head clearly under 31 px), Codex raises this row's `bodyHeight` in the manifest instead of redrawing. The lunge stays inside x 4-251 (rear R foot about x 40-60). If the packed f2–f3 hit box takes in the front knee or foot, Codex adds a `hitboxes.json` override for the palm only (MOVES_AND_VFX.md §6).
+
+| f | file | phase | pose | face | notes |
+|---|---|---|---|---|---|
+| f0 | `specialForward_00` | startup | Raising the technique: weight back on the R (rear) leg, knees bent about 30°, torso leaning back about 10°, L foot forward. R arm raised up and forward with the elbow slightly bent, the open R palm facing UP above the front of his head, fingers spread, EMPTY. L hand grips the R wrist from below to steady it. | fierce: teeth gritted, eyes intense on the opponent | Hair/tails: blown up and back · QA: R palm center ~(172, 44), palm top ≤ ~y 36 |
+| f1 | `specialForward_01` | startup | Straining: knees deeper, torso leaning back a touch more, R arm trembling, L hand still on the R wrist; palm still up and EMPTY. | fierce, teeth gritted, one eye narrower | Hair/tails: second wind shape · QA: palm within ~4 px of f0 |
+| f2 | `specialForward_02` | **active** | IMPACT: deep lunge to the right, L knee bent far forward (L toes no further than ~x 190), R leg straight behind; torso pitched forward about 25° and rotated so the R shoulder leads (chest toward the viewer). R arm fully extended straight forward at his own chest height (the deep lunge drops it to an opponent's stomach), open palm facing screen-right, fingers spread and pointing up, EMPTY. L fist pulled back to the L hip. | shout ("RASENSHURIKEN!") | **Smear:** a solid streak behind the R forearm · QA: R palm x 212 ±8, y 146 ±8 (zone x 194-222, y 128-158; within ~15 px of (205, 148)); hair and tails behind x 172 |
+| f3 | `specialForward_03` | **active** | Hold the extension (palm 2 px back), clean arm, no smear. | shout | QA: palm ~x 210 |
+| f4 | `specialForward_04` | recovery | Recoil: staggering half a step back onto the R leg, torso hunched; the R arm hangs limp straight down at his side (the technique hurt it), the L hand clutching the R forearm. No wounds, burns or bandages drawn. | pain: one eye squeezed shut, teeth gritted | Hair/tails: tails whip forward (right), still behind the head |
+| f5 | `specialForward_05` | recovery | Straightening up: the R arm still low and limp, fingers twitching; the L fist rising toward the guard; weight re-centering. | pained, teeth gritted, eyes open | |
+| f6 | `specialForward_06` | recovery | Back in the stance (same as idle f0), the R fist back beside the jaw. | determined, teeth slightly gritted | QA: within 1-2 px of idle f0 |
+
+<a id="specialup"></a>
+
+### `specialUp`: UZUMAKI BARRAGE rising flip kick
+
+6 frames · phases 2/2/2 (startup f0–f1, active f2–f3, recovery f4–f5) · plays once · optional (kit, fallback `special`) · bodyHeight 214 · ms 50/50/60/60/70/70 · prompt A40 (2 images: f0–f3 + f4–f5)
+
+A `dive` kind: he springs straight up with a rising flip kick (an anti-air hit on the way up), turns over at the top of the arc and hammers down. The engine adds the shadow-clone afterimages (ghost copies of his sprite) and a smoke puff on the rise. This strip covers the takeoff, the rise and the turn-over. **The slam reuses `airHeavy`** and the landing reuses `land`. In the current dive kind (`src/game/kit.js`) the rise plays f0–f1, then f2–f3, and the hang already switches to `airHeavy` startup. f4–f5 bridge into `airHeavy` f0 (the Sprite Lab preview and any later engine use), so f5 must match `airHeavy` f0.
+
+- **Strike target:** f2–f3: the R foot leads up and forward, in front of his face, about **x 150-182, y 26-50**. Its top is the highest point of the strip (about y 26 at bodyHeight 214). The rise hit is a distance check in the engine, not the packed box, so the kick only has to read clearly. Like the `heavy` uppercut, it must end in front of his body, never only straight above his own head.
+- **Hair and cloth:** Rising: hair spikes, temple tufts and headband tails are dragged DOWN on f1–f3 and float up at the apex (f4–f5). The jacket hem and pant legs flap down while rising.
+- **QA:** f2 is the tallest frame (214). f1 stays lower than f2 (knees still bent, leaning forward, not stretched up on the toes). Nothing on f4–f5 rises above the f2 foot. f5 matches `airHeavy` f0 closely: same clasped fists overhead, same arch, same head size (about 31 px). The lowest point of every frame sits on the baseline. In f2–f3 the lowest point is the trailing L foot, under the hips, so the packer centers the body on it.
+
+| f | file | phase | pose | face | notes |
+|---|---|---|---|---|---|
+| f0 | `specialUp_00` | startup | Crouch (like `jumpSquat`): knees bent about 90°, torso leaning forward, both arms swung down and back behind the hips, heels down, head up looking up-forward at the target. | focused | Hair/tails: spikes compressed 2 px, tails droop |
+| f1 | `specialUp_01` | startup | Spring: legs driving up, heels off, toes last on the floor, knees still slightly bent; arms swinging forward and up to shoulder height; body leaning up and forward. | fierce | QA: lower than f2 |
+| f2 | `specialUp_02` | **active** | RISING FLIP KICK: airborne, the body leaning back about 40° from vertical as he flips; the R leg kicks straight up and slightly forward, fully extended, instep and toes leading at the top right, in front of his face; the L leg trails straight down under the hips with pointed toes (the lowest point); both arms swept down and back for balance; head tilted back, eyes on the foot and the target above. | shout ("U-ZU-MA-KI!") | **Smear:** a solid crescent in the pant-leg colors trailing below and behind the R leg along its upward arc · QA: R foot x 150-182, top ~y 26 (the highest point, 214) |
+| f3 | `specialUp_03` | **active** | Hold the kick, no smear; legs 2 px wider apart. | shout | QA: foot no higher than in f2 |
+| f4 | `specialUp_04` | recovery | Turning over at the top of the arc: the R leg swings down and folds, the body rolls forward toward upright, knees pulled up toward the chest, both hands coming together above the shoulders, head coming forward and looking down at the target (below-right). | focused | Hair/tails: floating up |
+| f5 | `specialUp_05` | recovery | Apex, the same pose as `airHeavy` f0: both arms raised overhead, fists clasped together (one hand wrapped over the other fist) above and slightly behind the head; torso arched back about 20°; knees tucked. | shout | QA: matches `airHeavy` f0; hands on to the slam |
+
+<a id="specialdown"></a>
+
+### `specialDown`: NINE-TAILS CHAKRA CLOAK activation
+
+4 frames · phases 2/1/1 (startup f0–f1, activation f2, recovery f3) · plays once · no hit box · optional (kit, fallback `charge`) · bodyHeight 204 · ms 80/80/220/90 · prompt A41
+
+A `mode` kind: the one-tail Nine-Tails chakra cloak. He drops into a feral crouch, roars and rises, still feral. The engine draws the red chakra cloak around him for the whole mode and the activation burst. It does not swap his sprites, so after f3 he plays his normal animations with his normal blue eyes. This is the **only** strip with the feral face, an exception to CHARACTER.md §2 item 10 and the off-model list.
+
+- **Feral face and hands (fully on f2–f3, starting on f1):** eyes RED with thin black vertical slit pupils: iris base `#e0302a` ✚, lower-edge light `#ff6a4d` ✚, dark upper half and rim `#8a1a20` (shared with the back spiral), slit and lash line `#1d1420`, whites `#f1eef6`, one `#ffffff` catch-light. Whisker marks 2 px thick, slightly jagged, in `#1d1420` (instead of 1 px `#b9704f`). Two small pointed upper canines in the white ramp. Fingernails grown into short pointed claws (3-4 px past the fingertips) in the pale skin and white tones, outlined; never metal, never glowing. The hair keeps the approved short, compact shape; it may bristle up 1-2 px.
+- **Palette:** + 2 colors (`#e0302a`, `#ff6a4d`), used in this strip only: 36 of 48. The packed strip must still report 48 colors or fewer.
+- **No hit box:** the manifest row sets `"hitbox": false`.
+- **Hair and cloth:** Chakra updraft: hair, temple tufts and headband tails lift on f0–f1 and blow straight up on f2; the jacket hem lifts; everything settles on f3.
+- **QA:** f2 is the tallest frame (about 204: head up, knees still bent). The feet stay planted on the same spot in all 4 frames. No cloak, glow, bubbles, chakra tail, red skin tint or aura in the sprite.
+
+| f | file | phase | pose | face | notes |
+|---|---|---|---|---|---|
+| f0 | `specialDown_00` | startup | Dropping into a feral crouch: knees bent about 80°, feet planted wide, torso hunched far forward (about 40°), both hands low in front of the knees with the fingers curled like claws, head down so the bangs shade the eyes. | teeth gritted, eyes hidden in the shadow of the bangs | Hair/tails: starting to lift |
+| f1 | `specialDown_01` | startup | Deeper: crouched lower, shoulders hunched and trembling, the clawed hands nearly touching the floor, head still down; the whisker marks start to thicken and the nails start to grow. | teeth gritted, a red glint in the shadowed eyes | |
+| f2 | `specialDown_02` | activation (no hit) | ROAR (held longest): torso rising and arched back, chest out, knees still bent and wide; both arms spread down and out to the sides, hands open with the fingers hooked into claws; head thrown up and back, mouth wide open. | feral roar: red slit eyes, canines bared, thick dark whiskers | Hair/tails: blown straight up · QA: tallest frame (204) |
+| f3 | `specialDown_03` | recovery | Rising back toward the stance, still feral: knees bent, a slight forward lean, both hands raised in front at chest height as open claws instead of fists, head level, glaring at the opponent. | feral snarl: red slit eyes, lips pulled back over clenched teeth and canines | Flows into idle (the engine switches back to his normal sprites) |
+
+<a id="superpose"></a>
+
+### `superPose`: SHADOW CLONE seal (SHADOW CLONE BARRAGE super flash)
+
+4 frames · loops · optional (kit, fallback `taunt`) · bodyHeight 208 · ms 140/140/140/140 · prompt A42
+
+Shown during the super flash of his second super, SHADOW CLONE BARRAGE: he forms the seal, rushes in, his shadow clones beat the opponent up and he finishes with a Giant Rasengan. The engine draws the clones (ghost copies of his sprites), the smoke puffs, the cut-in and the Giant Rasengan; this strip is only the seal pose. It differs from `intro` (calm, feet shoulder width, a hint of a smile): here he is braced wide and shouting.
+
+- **Seal:** both hands in front of the middle of the chest, about x 148-176, y 100-128: index and middle fingers of both hands extended and crossed in a plus shape (R hand fingers vertical, L hand fingers horizontal), the other fingers curled, elbows out. The hands never cover the face, and the collar never hides the seal.
+- **Hair and cloth:** Super-flash wind: hair spikes, temple tufts and headband tails blown up and back; the tails, jacket hem and pant legs cycle through wind shapes. Hands, face and feet stay put.
+- **QA:** The feet are identical in all 4 frames (no sliding in the loop). The tallest frame (hair blown up) is about 208.
+
+| f | file | phase | pose | face | notes |
+|---|---|---|---|---|---|
+| f0 | `superPose_00` | loop | Braced: feet well wider than the shoulders (L foot forward), knees bent about 30°, weight low and centered; torso upright and turned a bit more toward the viewer so the seal reads; both hands in the seal in front of the chest; head up, eyes on the opponent. | shout: brows hard down, determined | Hair/tails: blown up and back |
+| f1 | `superPose_01` | loop | Same, body 1 px lower; tails and jacket hem in a second wind shape. | shout | |
+| f2 | `superPose_02` | loop | Same as f0, hair spikes 1 px up, tails in a third shape. | shout | |
+| f3 | `superPose_03` | loop | Same as f1 with the pant legs fluttering. Flows into f0. | shout | |
 
 ## Changing an animation
 

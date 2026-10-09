@@ -25,7 +25,7 @@ How it works:
 
 ## Naruto thread
 
-- [ ] **(2026-10-09) Merge the kit animations (ADR 0011).** Read
+- [x] **(2026-10-09) Merge the kit animations (ADR 0011).** Done 2026-10-09: A39–A42, frame briefs, palette exception and tracking rows merged; user now requests one final Naruto set review. Read
   [docs/decisions/0011-kit-baseline-and-balance.md](../decisions/0011-kit-baseline-and-balance.md) and
   `art/characters/naruto/KIT.md`, then:
   1. Merge KIT.md exactly as its header says: section 2 into ANIMATIONS.md, section 3 into PROMPTS.md as

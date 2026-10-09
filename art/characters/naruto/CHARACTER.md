@@ -25,8 +25,9 @@
 
 > **Shorter-hair revision:** the user approved the compact spikes and upper-ear temple tufts.
 > `reference/model_sheet.png`, `reference/expressions.png` and `reference/idle_approved.png`
-> are approved **v02** references. The next review is the shorter-hair `run_v03.png`;
-> run v02 remains approved until the user decides on v03.
+> are approved **v02** references; run **v03** is also approved.
+> **User workflow override (2026-10-09):** finish the remaining Naruto set and QA without
+> intermediate approval pauses. Keep new candidates provisional until one final set review.
 
 ## One-paragraph look
 
@@ -108,12 +109,13 @@ If a frame is missing any of these, it is off-model. Check them in every strip.
    clearly broader than the hips, long legs (the crotch at about half the body height), defined
    forearms and hands, a slim neck under the collar. Not chibi, not bulky, not western-realistic.
 10. **Face:** slimmer and more angular than the Part 1 face: defined cheekbones and jaw, a smaller
-    chin, a small nose, a wide mouth that can open in a big grin or shout. No fangs, no red or
-    orange-ringed eyes (the nine-tails and sage forms are out of scope).
+    chin, a small nose, a wide mouth that can open in a big grin or shout. Only `specialDown`
+    permits red vertical slit eyes, sharper canines, thicker whiskers and short claws.
+    Orange-ringed sage eyes and sage features remain out of scope.
 
 Off-model in any frame: the Part 1 jumpsuit (big white collar, navy headband, blue sandals, pants
 bound at the shins), the sage cloak or the red-flame coat, a glowing chakra-mode body, fangs or red
-eyes, chibi proportions (a big head, short legs).
+eyes outside the `specialDown` exception, chibi proportions (a big head, short legs).
 
 ## 3. Proportions and landmarks (final 256×256 cell)
 
@@ -212,6 +214,8 @@ eye is about 4 to 5 px tall. Whisker marks: three 1 px lines per cheek, 4 to 6 p
 On the large UI art (portrait, cut-in, select) they may be drawn in the outline color `#1d1420` for
 crispness.
 
+`specialDown` only: f1 shows a red glint; f2–f3 use red vertical slit eyes, thicker dark whiskers, sharper canines and short claws. Iris base `#e0302a`, lower light `#ff6a4d`, dark rim `#8a1a20`; slit/whiskers `#1d1420`. No red skin, cloak, aura or sage features. Other animations retain normal blue eyes.
+
 ## 6. Hair, headband and jacket motion
 
 - **Hair spikes** are stiff. They move as one mass (1 to 2 px squash or stretch on landings and
@@ -228,7 +232,7 @@ crispness.
 - **Collar** is stiff and never flutters. The **jacket hem**, **sleeve cuffs** and **folded pant
   cuffs** can ripple 1 to 2 px. The **zipper pull** may swing 1 px. The holster is rigid.
 
-## 7. Palette (34 colors, limit 48)
+## 7. Palette (36 colors, limit 48)
 
 Some ramps are the exact hexes from `src/characters/naruto.js` (`model.palette`, `model.face`):
 skin, hair, the orange `jacket` ramp, steel, whites, iris, mouth, outline. The Shippuden outfit
@@ -248,6 +252,7 @@ warns above 64), so there are 14 spare slots: list any color you add here first.
 | 28–30 | whites: eye whites, teeth, catch-lights (and a thigh bandage only if the approved model sheet shows one) | `#ffffff` | | `#f1eef6` | `#bbb5cc` | | `white` |
 | 31–32 | mouth interior, tongue | | | `#5a1a22` | | `#a8424a` ✚ (tongue) | `face.mouth` |
 | 33–34 | back spiral emblem | | | `#c8282a` ✚ | `#8a1a20` ✚ | | new |
+| 35–36 | specialDown eyes only | `#ff6a4d` | | `#e0302a` | `#8a1a20` (shared) | | kit |
 
 Not used in v2 (Part 1 or placeholder only, do **not** add back): the navy headband ramp
 `#3e4fa0` / `#25306e` / `#141a46` (`band`), the blue sandal ramp `#5a88e2` / `#2d55b4` / `#1b3376`
@@ -340,6 +345,10 @@ Replacement terms:
 | shadow-clone seal / Shadow Clone Jutsu | "a cross-shaped hand sign: index and middle fingers of both hands extended and crossed in a plus shape" |
 | Rasen Cannon | "a huge orange spiraling energy beam fired from both palms" |
 | Uzumaki spiral | "a red spiral emblem" |
+| WIND STYLE: RASENSHURIKEN | "a spinning wind-energy technique held on his open palm (the game draws it; his hand stays empty)" |
+| UZUMAKI BARRAGE | "a rising flip kick that ends in a mid-air double-fist hammer blow" |
+| NINE-TAILS CHAKRA CLOAK | "a feral beast-power awakening: red eyes with vertical slit pupils, thicker dark whisker marks, sharper canines, short claws" |
+| SHADOW CLONE seal / SHADOW CLONE BARRAGE | "a cross-shaped hand sign: index and middle fingers of both hands extended and crossed in a plus shape" (already in §9) |
 | leaf symbol / Konoha | "a leaf-swirl symbol" |
 | shuriken | "small four-pointed steel throwing stars" (usually fine as is) |
 | "in the style of <artist / studio>" | "modern 2000s shonen anime TV look: clean confident line art, realistic teen proportions, sharp eyes, spiky hair, flat cel shading" |

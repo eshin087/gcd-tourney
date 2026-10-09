@@ -80,7 +80,7 @@
       },
       "animations": {
         "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 3, "approvedVersion": 3 },
         "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "superDash": { "frames": 2, "loop": true, "bodyHeight": 120, "ms": [50, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
@@ -116,7 +116,11 @@
         "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 204, "ms": [120, 120, 120, 120, 120, 160, 110, 70], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
         "intro": { "frames": 4, "loop": true, "bodyHeight": 210, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "taunt": { "frames": 2, "loop": true, "bodyHeight": 212, "ms": [250, 250], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "win": { "frames": 4, "loop": true, "bodyHeight": 212, "ms": [110, 90, 260, 180], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null }
+        "win": { "frames": 4, "loop": true, "bodyHeight": 212, "ms": [110, 90, 260, 180], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
+        "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [60, 60, 70, 90, 80, 80, 60], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 220, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },

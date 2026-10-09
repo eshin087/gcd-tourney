@@ -153,3 +153,7 @@ User replied "I approve" to the expressions v02 review. The candidate was copied
 - Inspected packed8-frame contact sheet. Fresh browser tooling unavailable this session; prior gallery/game check is historical, not new runtime evidence. User phone review remains required.
 - Delivery blocked: review export/status update succeeded. Production build hit sandbox EPERM resolving index.html; the requested outside-sandbox retry was declined. No successful current build, commit or deployment for this candidate. The live phone gallery still shows the preceding release.
 - Follow-up: user explicitly approved the outside-sandbox build retry; npm run build passed (60 modules). Publishing can now proceed from committed HEAD. No fresh browser playback claim.
+
+## 2026-10-09: run v03 approved; final-review workflow
+
+User: "i approve but can we stop with the multi approvals just give me a final approval after everything is finished." Run v03 approved, completing the shorter-hair model/expressions/idle/run revision. Subsequent Naruto art may be generated, packed, corrected and tested without intermediate user review; keep versioned candidates and accurate provisional status until one final set approval. Routine testing does not need a fresh conversational confirmation; tool-enforced permissions remain separate.

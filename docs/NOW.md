@@ -14,7 +14,7 @@ _Last updated by Claude, 2026-10-09: Codex work now goes through one inbox file 
 Read docs/agents/CODEX_INBOX.md and do the section for your thread.
 ```
 
-1. **Naruto: review run v03 with the shorter haircut** at https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=run . Model, expressions and idle v02 are approved. Reply `approve Naruto run v03` or send changes; this is the final haircut propagation review before core attacks.
+1. **Naruto:** run v03 approved; shorter-hair revision complete. Future Naruto art is grouped into one final review after production and QA. No intermediate art decisions or routine testing confirmations needed.
 2. **Gojo `model_sheet_v02`**: Claude checked it: ~7 heads, true side profile, blindfold, zipped collar. Recommended
    reply in the Gojo thread: `approve gojo model_sheet v02`. Then review his expressions v01.
 3. **Review the other art waiting for you** (list below, generated): reply in the Codex thread that owns it,
