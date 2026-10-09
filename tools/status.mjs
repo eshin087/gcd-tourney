@@ -77,7 +77,13 @@ function render() {
   const q = reviewQueue();
   L.push(`### Waiting for your review (${q.length})`);
   if (!q.length) L.push('- nothing');
-  for (const r of q) L.push(`- **${r.who} ${r.asset} ${r.version}** (${r.date}): \`art/${r.file}\`. Reply to Codex: \`approve ${r.who} ${r.version}\` or your feedback`);
+  // grouped per character/area so a phone screen stays readable; newest first
+  const groups = new Map();
+  for (const r of q) { if (!groups.has(r.who)) groups.set(r.who, []); groups.get(r.who).push(r); }
+  for (const [who, list] of groups) {
+    const shown = list.slice(0, 4).map((r) => `${r.asset} ${r.version}`).join(', ');
+    L.push(`- **${who}** (${list.length}): ${shown}${list.length > 4 ? ', …' : ''}. Reply in the ${who} Codex thread: \`approve ${who} <asset> vNN\` or feedback`);
+  }
   L.push('');
   L.push('### Fighter art (approved)');
   L.push('');

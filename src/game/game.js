@@ -27,6 +27,15 @@ const DEFAULT_HURT = [{ x0: -0.3, x1: 0.3, y0: 0, y1: 1.45 }];
 // so juggles survive the victim's float. Per move: `boxPad` in moves.js.
 const BOX_PAD = [0.1, 0.12];
 const AIR_BOX_PAD = [0.18, 0.45];
+// Narrowest body a hurtbox may have (world units). Art packs trace the real silhouette, and a slim
+// fighter (Killua's art: 0.43) became much harder to hit than the cast; every body is at least this wide.
+const HURT_MIN_W = 0.56;
+const widen = (u) => {
+  const w = u.x1 - u.x0;
+  if (w >= HURT_MIN_W) return u;
+  const c = (u.x0 + u.x1) / 2;
+  return { x0: c - HURT_MIN_W / 2, x1: c + HURT_MIN_W / 2, y0: u.y0, y1: u.y1 };
+};
 
 export class Game {
   constructor(renderer, input) {
@@ -542,7 +551,7 @@ export class Game {
     let pt = null;
     const hits = att.asset.boxes(att.actor.frame, 'hit', att.side);
     if (hits) {
-      const hurts = def.asset.boxes(def.actor.frame, 'hurt', def.side) || DEFAULT_HURT;
+      const hurts = (def.asset.boxes(def.actor.frame, 'hurt', def.side) || DEFAULT_HURT).map(widen);
       const [px, py] = m.boxPad ?? (m.air || m.hover ? AIR_BOX_PAD : BOX_PAD);
       for (const h of hits) {
         for (const u of hurts) {

@@ -181,7 +181,10 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
    accepts it.
 5. When you finish, set the task to `review` (or `done` for pure bookkeeping) and write a one-line note
    about what changed and what to check.
-6. **Keep the user's "now" page current.** The user works from a phone and switches between Claude and
+6. **Check your inbox.** At the start of every session, and whenever the user says "read the inbox", read
+   [docs/agents/CODEX_INBOX.md](docs/agents/CODEX_INBOX.md) and do the open items in the section for your thread
+   (plus "Every thread"). That file is how Claude hands you work; tick items when done.
+7. **Keep the user's "now" page current.** The user works from a phone and switches between Claude and
    Codex. Before you stop and hand back, edit "Your next actions" in [docs/NOW.md](docs/NOW.md) (what the
    user must do next: approvals, prompts to paste, decisions; remove what's done), then run
    `npm run status -- --write` and commit `docs/NOW.md` with your other files. When the user says

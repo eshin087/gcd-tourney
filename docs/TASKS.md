@@ -161,6 +161,7 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | ART-SAS-12 | Swap in the Kirin `beamCharge`/`beamFire` (KIT.md §4) now; merge the rest of `art/characters/sasuke/KIT.md` (A39-A42); kit strips at step 9 | Codex | todo | paste prompt S from docs/NOW.md; beamCharge bodyHeight 230 |
 | USR-004 | Sasuke cut-in eyes: keep the 3-tomoe Sharingan (shared by Kirin and Amaterasu) or switch to the Mangekyō | User | todo | default: Sharingan; tell Codex/Claude if you want the Mangekyō |
 | ENG-037 | Balance follow-up: re-run the round-robin when real art lands (hurtboxes change) and after any kit tweak; CPU-vs-CPU favours fighters whose neutral special is a rush (combo ender) | Claude | todo | docs/TESTING.md "Balance round-robin"; ADR 0011 log |
+| TOOL-020 | Codex inbox (`docs/agents/CODEX_INBOX.md`) + QA of Killua's full art set and Gojo's first strips; engine minimum hurtbox width | Claude | done | Killua set loads complete; 24 CPU matches clean |
 | ART-CRWD-FIX | Killua (hxh) and Gojo (jjk) are fighters now: replace their crowd spectators with other characters | Codex | todo | lead edits art/crowd/roster/hunter-x-hunter.json + jujutsu-kaisen.json, rebuild the queue, reopen if images exist |
 | ENG-027 | Mobile landscape play: touch controls, tap menus, rotate screen, fullscreen, PWA manifest | Claude | done | docs/TESTING.md "Mobile" |
 
