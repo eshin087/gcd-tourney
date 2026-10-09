@@ -190,7 +190,7 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 
 | area | batch | items | status | current versions | approved | notes |
 |---|---|---|---|---|---|---|
-| crowd | crowd-animal-folk-02 | org-af-011..020 | raw | v01 except 013, 015, 019 v02 | - | 10 three-pose raws need batch review; raw backgrounds are near-magenta; `npm run sprites crowd` unavailable (TOOL-011), so atlas and in-game QA are pending. |
+| crowd | crowd-animal-folk-02 | org-af-011..020 | approved | v01 except 013, 015, 019 v02 | same as current | User approved pilot on 2026-10-09; raw backgrounds are near-magenta; `npm run sprites crowd` unavailable (TOOL-011), so atlas and in-game QA are pending. |
 
 ## Adding a character
 

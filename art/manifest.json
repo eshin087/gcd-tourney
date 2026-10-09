@@ -218,19 +218,19 @@
     "crowd": {
       "batches": {
         "crowd-animal-folk-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-af-011": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-012": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-013": { "status": "raw", "version": 2, "approvedVersion": null },
-            "org-af-014": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-015": { "status": "raw", "version": 2, "approvedVersion": null },
-            "org-af-016": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-017": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-018": { "status": "raw", "version": 1, "approvedVersion": null },
-            "org-af-019": { "status": "raw", "version": 2, "approvedVersion": null },
-            "org-af-020": { "status": "raw", "version": 1, "approvedVersion": null }
+            "org-af-011": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-012": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-013": { "status": "approved", "version": 2, "approvedVersion": 2 },
+            "org-af-014": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-015": { "status": "approved", "version": 2, "approvedVersion": 2 },
+            "org-af-016": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-017": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-018": { "status": "approved", "version": 1, "approvedVersion": 1 },
+            "org-af-019": { "status": "approved", "version": 2, "approvedVersion": 2 },
+            "org-af-020": { "status": "approved", "version": 1, "approvedVersion": 1 }
           }
         }
       }

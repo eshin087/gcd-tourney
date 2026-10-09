@@ -198,9 +198,9 @@ For each id in your claimed batch, in order:
 
 Keep moving. A spectator is 64 x 96 pixels in the end: good-and-consistent beats perfect.
 
-**Style anchor:** _none yet_. After the first crowd batch is approved, the lead names one approved
-raw here (for example `art/crowd/raw/db-001_v01.png`). Workers attach it to every generation as a
-**style** reference (outline weight, pixel size, shading), never as a character reference.
+**Style anchor:** [org-af-013_v02.png](raw/org-af-013_v02.png), approved in
+`crowd-animal-folk-02`. Workers attach it to every generation as a **style** reference
+(outline weight, pixel size, shading), never as a character reference.
 
 ### Quick QA checklist (every raw, before saving)
 
