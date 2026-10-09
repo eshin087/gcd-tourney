@@ -184,6 +184,14 @@ cleaned into `art/ui/final/`.
 | ui/final/logo.png ("GCD TOURNEY" + 天下一武闘祭) | ~480x180 | todo | - | - | not wired into the game yet (needs a task for Claude) |
 | ui/final/title_art.png (title key art) | 640x360 | todo | - | - | not wired into the game yet; attaches both approved v2 model sheets |
 
+## World art (ADR 0008)
+
+World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue tracks production in [queue/STATUS.md](queue/STATUS.md). `raw` means the review candidate exists, while `packed` awaits the corresponding world packer mode.
+
+| area | batch | items | status | current versions | approved | notes |
+|---|---|---|---|---|---|---|
+| crowd | crowd-animal-folk-02 | org-af-011..020 | raw | v01 except 013, 015, 019 v02 | - | 10 three-pose raws need batch review; raw backgrounds are near-magenta; `npm run sprites crowd` unavailable (TOOL-011), so atlas and in-game QA are pending. |
+
 ## Adding a character
 
 Copy the naruto section, rename it, and add the same block to `manifest.json`
