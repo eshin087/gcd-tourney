@@ -44,12 +44,16 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Move | WASD / Arrows | left stick / D-pad |
 | Light | J | □ / X |
 | Heavy | K | △ / Y |
-| Special (tap) / charge (hold) | L | ○ / B |
+| Special (tap, + direction) / charge (hold) | L | ○ / B |
 | Jump | Space | ✕ / A |
-| Guard | Shift | L1 / LB (also L2 / LT) |
+| Guard | Shift | L1 / LB |
 | Dash (+direction) / super dash (neutral), or double-tap a direction | O | R1 / RB (also R2 / RT) |
 | Ultimate | Heavy + Special | △ + ○ |
 | Vanish | Guard + Special | L1 + ○ |
+| Super (second super) | H or B | L2 / LT |
+
+Adding SUPER took L2/LT from guard. Bindings moved to a new localStorage key (`gcd.bindings.v2`), so saved
+custom bindings reset once.
 
 2P keyboard bindings are in README.md. Bindings are rebindable in the controls panel and saved to localStorage.
 
@@ -135,13 +139,56 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
 - The fighter hides for 9 frames (invulnerable), reappears 1.2 units behind the opponent at their height,
   then does an automatic `vanishKick` (75 dmg, wall bounce). A 5-frame world freeze sells the teleport.
 
-### Signature specials
-- **Tap Special** (press and release within 14 frames): a 1-bar rush special. Startup forms the technique in the
+### Specials and kits (ADR 0009)
+Every fighter has a **kit** (`kit` in `src/characters/<id>.js`): input slots mapped to special ids in
+`SPECIAL_MOVES` (`src/game/moves.js`). The behavior of each *kind* lives in `src/game/kit.js`.
+
+- **Slots.** Tap Special = `neutral`. Hold a direction: → `forward`, ← `back`, ↑ `up`, ↓ `down`. In the
+  air: `air`, or `airDown` with ↓. The stick is read when Special is released, and falls back to the stick
+  at the press if it's neutral by then, so a quick tap of direction + button works. A missing slot falls
+  back: forward/up/down → neutral, back → down → neutral, airDown → air. Fighters without a `kit`
+  (Naruto, Sasuke) get `neutral` = `def.special` and `air` = `def.projectile + 'Air'`.
+- **Kinds.**
+
+| kind | does | examples |
+|---|---|---|
+| `rush` | the classic 1-bar rush below | Rasengan, Chidori |
+| `shot` | a projectile from a `shot`/`throw` move; feet planted | Narukami, Reversal: Red, shuriken |
+| `teleport` | hide for `hide` frames, reappear `behind` or `above`, with afterimages; optional `follow` strike | Rhythm Echo, Blink |
+| `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
+| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang`, then slam (homes in at up to ~45°); landing hits an `area` | Thunderbolt |
+| `counter` | `len` frames where any hit is absorbed: a melee attacker is frozen (`held`) for `stagger` frames, a projectile just stops | Infinity |
+| `mode` | a timed buff on `f.mode`: `speed` x, `damage` x, `blinkDash` (dashes become instant blinks); drains a HUD bar | Godspeed |
+
+- Named kit moves get the special callout and an 8-frame flash. A kit move hit out of startup is
+  cancelled cleanly (`kitState` cleared, the fighter made visible again).
+- **Tap Special** (press and release within 14 frames) on a `rush` kit move: a 1-bar rush special. Startup forms the technique in the
   hand (hand VFX via `Effects.handTick`), active rushes forward at `rush` speed, and on hit the move skips to
   recovery.
 - Starting a special triggers a 12-frame **super flash** (time freeze, 45% stage dim, callout).
 - Two specials whose active frames meet within 1.6 units cause a **special clash**: an explosion, and both
   fighters take 60 dmg and get blown apart.
+
+### Second supers (SUPER button)
+- 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
+  through the flash and 12 frames past it.
+- **Flurry** (`whirlwind`, Killua): a 34-frame flash, then a 14-frame dash (range 6.5). On contact the
+  opponent is `held` and Killua teleports around them: 8 hits of 22, then a 130 slam from above with a
+  ground bounce. It whiffs if the dash misses.
+- **Domain** (`unlimitedVoid`, Gojo): a 50-frame flash, then the stage becomes the void
+  (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
+  The domain ends early on a KO.
+- Super hits carry `minScale` (0.8 for Whirlwind): combo scaling never takes them below 80 %.
+- A fighter without a second super fires the beam ultimate from SUPER.
+
+### Passives
+- **Infinity** (Gojo): a projectile that comes within its radius + 1.15 units of him is stopped (ring
+  effect, "INFINITY" callout at most every 2 s) whenever he isn't in hitstun, launched, down, getting up or
+  held. Beams, melee and supers still hit. Chip damage doesn't apply to him while he blocks.
+
+### Held state
+- `held` (Domain, Infinity counter, flurry): the victim can't act or air-tech, drifts down slowly if
+  airborne (gravity x 0.25), and counts down `heldT`. Hits during it combo normally.
 
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
@@ -166,11 +213,12 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
 | Landing a hit | +4 + 7% of damage dealt |
 | Getting hit | +2 + 4% of damage taken |
 | Blocking a hit | +4 |
-| Costs | projectile 50 · vanish 100 · special 100 · ultimate 300 |
+| Costs | projectile 50 · vanish 100 · special 100 (kit moves: ½ or 1 bar, see `SPECIAL_MOVES`) · ultimate 300 · super 300 |
 
 ### Damage scaling, hitstun decay and the combo cap
 - Combo counter: hits while the victim is in `hitstun` or `launched` add to `combo`.
-- **Damage scaling**: `dmg × max(0.4, 1 − (combo−1) × 0.065) × power ÷ defense`.
+- **Damage scaling**: `dmg × max(minScale ?? 0.4, 1 − (combo−1) × 0.065) × power × modeDamage ÷ defense`
+  (`modeDamage` is 1.15 in Godspeed).
 - **Hitstun decay**: `decay = max(0.35, 1 − (combo−1) × 0.045)` scales grounded hitstun and air stun.
   Launch air stun is `max(6, 40 − 1.6·combo) × decay`, and a juggle hit's air stun is
   `max(5, 26 − combo) × decay`. Juggle pop shrinks with the combo (`airPop × max(0.5, 1 − 0.03·combo)`), and
@@ -242,6 +290,13 @@ distance-to-line test.
 (reaction frames, guard and aggression rates, combo completion, mash speed, special/vanish/tech
 probabilities). It lines up in the depth lane, then executes the bread-and-butter route by watching its
 own hit confirms. `DummyBrain` drives the training dummy (stand, guard, hop, fight back).
+
+Kits (ADR 0009): `pickSpecial` weighs each slot's kind by the situation. Shots and teleports are for
+range, pull for mid range, dive against a jumper, and a mode only when it isn't active. The CPU holds the
+direction through the release frame. On Hard it sometimes answers an incoming attack with a `counter`, and it
+always punishes a `held` or popped-up opponent with a combo. Fighters with a kit choose specials more often
+than legacy fighters, and they use SUPER at 3 bars about half the time (a domain from any range, a
+flurry only within 6 units).
 
 ## Bread-and-butter route (reference)
 

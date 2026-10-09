@@ -38,13 +38,15 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 | `look` | one line of **visual traits** (hair, eyes, outfit, colors). The Sprite Lab prompt builder uses it. |
 | `color` | signature UI and aura color (hex) |
 | `aura`, `auraCore` | aura RGB (0..1) for flame tongues and the core streaks |
-| `beam` | `{ core, mid, edge, name }`: ultimate beam colors + its name in the cut-in |
+| `beam` | `{ core, mid, edge, name, width? }`: ultimate beam colors, its name in the cut-in, optional width |
 | `specialName`, `projectileName` | display names |
 | `special` | a key in `SPECIALS` (`'rasengan'`, `'chidori'`, or a new one, see step 3) |
 | `projectile` | a key in `PROJECTILES` (`'shuriken'`, `'fireball'`, or a new one) |
+| `kit` | optional ([ADR 0009](decisions/0009-move-system-v2.md)): `{ specials: { neutral, forward, up, down, back, air, airDown }, super, passive }`. Slots map to `SPECIAL_MOVES` ids, `super` to a `SUPERS` id, `passive` is `'infinity'` or null. Without `kit`, `special` and `projectile` fill the neutral and air slots. |
+| `superName` | display name of the second super (char select) |
 | `stats` | `{ speed, power, defense }`. Start at `{ 6.0, 1.0, 1.0 }` and tune in step 8. |
 | `model`, `stance`, `extraAnims`, `runLean`, `runArms` | 3D placeholder (step 2) |
-| `portraitFace`, `cutinRedEyes` | placeholder portrait expression, red eyes in the baked cut-in |
+| `portraitFace`, `cutinEyes` | placeholder portrait expression; baked cut-in eyes (`true`/`'red'` Sharingan, `'six'` Six Eyes; `cutinRedEyes` still works) |
 
 Register it in `src/characters/index.js` (`import` + add it to `ROSTER`). Keep the existing order. New
 characters go at the end.
@@ -60,10 +62,14 @@ expected: it stands at the same world height, and restyling the rig is a separat
 - `model.outfit`: which material covers which body part (torso bands, sleeves, legs, sandals, collar).
 - `model.hair`: spikes `[elevation, azimuth, length, radius, sides, tiltBack]` + bangs. Silhouette matters
   more than detail.
-- `headband`, `face` (iris colors, whiskers, marks).
+- `headband`, `blindfold` (`{ mat, y, h, r }`; a pose lifts it with `blindfold: false`), `face` (iris colors, whiskers, marks).
 - `stance`: the fighting stance every move blends from (joint angles; see `src/art/rig/pose.js`).
-- `extraAnims`: the character-specific keyframed `special`, `intro`, `taunt`, `win`. The shared moveset
-  lives in `src/art/rig/anims.js`.
+- `extraAnims`: the character-specific keyframed `special`, `intro`, `taunt`, `win`, plus any kit
+  animations the kit uses (`specialForward`, `specialUp`, `specialDown`, `superPose`; missing ones fall back to
+  `special`/`special`/`charge`/`taunt`). The shared moveset lives in `src/art/rig/anims.js`.
+- A body that is genuinely taller or shorter than the cast (Gojo, Killua) changes `props` and needs the art
+  side of [ADR 0010](decisions/0010-per-character-body-scale.md): `standingBodyPx`, a scaled `bodyHeight`
+  table and a reach check.
 
 Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console prints the bake time. Keep it
 **under 1 s per character**.
@@ -78,8 +84,13 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
 - A new projectile is a `PROJECTILES` entry. `sprite` must be a VFX atlas effect name (add one in
   `vfxPainter.js` + the art/vfx briefs if needed).
 - The ultimate beam is shared. Only the colors and name come from `beam`.
-- A genuinely new mechanic (stance switch, install, teleport special, sword reach) needs an **ADR** plus a
-  data-driven hook, never `if (def.id === ...)` in shared code.
+- **Kits first** ([ADR 0009](decisions/0009-move-system-v2.md)). Most iconic moves are a `SPECIAL_MOVES`
+  entry of an existing *kind*: `rush`, `shot`, `teleport`, `pull`, `dive`, `counter` or `mode`. Second
+  supers are `SUPERS` entries of kind `flurry` or `domain`. Killua (`src/characters/killua.js`) and Gojo
+  (`gojo.js`) are the worked examples. Tune the numbers in `moves.js`. `kit.js` stays generic.
+- A genuinely new mechanic (stance switch, install, sword reach, a new special kind) needs an **ADR** plus a
+  data-driven hook (a new kind in `src/game/kit.js`), never `if (def.id === ...)` in shared code. Teach the
+  CPU about a new kind in `CpuBrain.pickSpecial` (`src/game/ai.js`).
 
 ## 4. Art briefs (Codex, reviewed by the user)
 

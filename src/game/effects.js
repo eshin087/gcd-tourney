@@ -322,6 +322,17 @@ export class Effects {
   }
 
   // ------------------------------------------------------------ recipes
+  // Lightning strike column (Thunderbolt slam, Whirlwind finish)
+  thunder(x, z, color = 0xd8f0ff) {
+    for (let i = 0; i < 6; i++) {
+      this.spawn('lightning', x + (Math.random() - 0.5) * 0.3, 0.3 + i, z, { scale: 1.25, random: true, life: 0.22, color, rot: Math.random() * 6.28, order: 9, glow: 2.2 });
+    }
+    this.spawn('streak', x, 0, z, { bottom: true, scale: 3.5, color, life: 0.25, glow: 2, order: 8 });
+    this.spawn('glow', x, 0.4, z, { scale: 3, color, opacity: 0.8, life: 0.3, fade: true, glow: 1.5 });
+    this.ring({ x, z }, color, 1.6);
+    this.overlay.flash('#e8f6ff', 0.5);
+  }
+
   dust(pos, scale = 1) {
     for (let k = 0; k < 2; k++) {
       this.spawn('dust', pos.x + (Math.random() - 0.5) * 0.5, Math.min(0, pos.y), pos.z + (Math.random() - 0.5) * 0.3, {

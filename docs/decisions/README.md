@@ -34,6 +34,8 @@ when a decision should be revisited.
 | [0006](0006-ai-art-pipeline.md) | AI art pipeline: ChatGPT images, packer, Codex coordination | Accepted (amended by 0007) |
 | [0007](0007-art-spec-v2-shippuden-256.md) | Art spec v2: Shippuden designs, ~6.5 heads, 256 px cells, versioned review; Codex generates the images | Accepted |
 | [0008](0008-world-art-and-parallel-production.md) | World art (crowd, stage, NPCs, UI, VFX) and parallel Codex production with a claim queue | Accepted |
+| [0009](0009-move-system-v2.md) | Move system v2: command specials, special kinds, SUPER button, passives and modes | Accepted |
+| [0010](0010-per-character-body-scale.md) | Per-character body scale (shorter Killua, taller Gojo); amends 0007 | Accepted |
 
 ## Template
 

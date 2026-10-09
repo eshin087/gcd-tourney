@@ -2,11 +2,12 @@ import * as THREE from 'three';
 import { buildArena, loadCrowdAtlas } from '../world/arena.js';
 import { loadArtIndex } from '../core/artIndex.js';
 import { buildTrainingRoom } from '../world/trainingRoom.js';
+import { buildVoidStage } from '../world/voidStage.js';
 import { Effects } from './effects.js';
 import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { CpuBrain, DummyBrain } from './ai.js';
-import { Beam, spawnProjectiles } from './projectiles.js';
+import { Beam, Vortex, spawnProjectiles } from './projectiles.js';
 import { ULTIMATE } from './moves.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -16,7 +17,7 @@ import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
 import { loadFighterAsset } from './sprites.js';
 import { BoxViewer } from './boxViewer.js';
-import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP } from './constants.js';
+import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT } from './constants.js';
 
 const v3 = new THREE.Vector3();
 const LANE = 0.6; // max depth offset (world units) for a melee hit to connect
@@ -35,6 +36,9 @@ export class Game {
     this.camera = new THREE.PerspectiveCamera(30, 16 / 9, 0.3, 900);
     this.arena = buildArena(this.scene);
     this.room = buildTrainingRoom(this.scene);
+    this.voidStage = buildVoidStage(this.scene); // Domain Expansion
+    this.vortices = []; // Lapse: Blue
+    this.domain = null;
     this.fx = new Effects(this.scene);
     this.cam = new CameraDirector(this.camera);
     const ui = document.getElementById('ui');
@@ -157,6 +161,59 @@ export class Game {
   setStage(kind) {
     this.arena.group.visible = kind === 'arena';
     this.room.group.visible = kind === 'training';
+    this.voidStage.group.visible = kind === 'void';
+  }
+
+  // ------------------------------------------------------------ kits (ADR 0009)
+  // named kit moves: callout + a short flash
+  onKitMove(f, m) {
+    if (!m.name) return;
+    this.hud.callout(f.index, m.name, m.color || f.def.color);
+    this.superFlashFor(f, 8, 0.3);
+    this.cam.zoomPunch(0.25);
+  }
+
+  onSuperStart(f, S) {
+    this.superFlashFor(f, S.flash, 0.78, true, S.name);
+    this.fx.overlay.flash(S.color || f.def.color, 0.45);
+    this.excite = 1;
+  }
+
+  spawnVortex(f, m) {
+    this.vortices = this.vortices.filter((v) => !v.dead && v.owner !== f);
+    this.vortices.push(new Vortex(this, f, m));
+  }
+
+  // Domain Expansion: Unlimited Void: the void replaces the stage and the opponent is frozen.
+  startDomain(f, S) {
+    const o = f.opp;
+    this.domain = { owner: f, t: S.len };
+    this.setStage('void');
+    if (!o.ko) {
+      o.endMoveFx();
+      o.move = null;
+      o.kitState = null;
+      o.counterT = 0;
+      o.hidden = false;
+      o.actor.setVisible(true);
+      o.heldT = S.len;
+      o.vel.set(0, 0, 0);
+      if (!['hitstun', 'launched', 'down', 'getup'].includes(o.state)) o.setState('held', 'stagger');
+    }
+    for (const b of this.beams) if (b.owner === o) b.kill();
+    this.hud.announce('UNLIMITED VOID', 'clash', 1500);
+    this.fx.overlay.flash('#ffffff', 0.9);
+    this.fx.overlay.impactFrame(4);
+    this.cam.shake(0.6);
+    audio.play('gong');
+    this.excite = 1;
+  }
+
+  endDomain() {
+    if (!this.domain) return;
+    this.domain = null;
+    this.setStage(this.training ? 'training' : 'arena');
+    this.fx.overlay.flash('#ffffff', 0.5);
   }
 
   setDummy(mode) {
@@ -179,6 +236,9 @@ export class Game {
 
   cleanupMatch() {
     this.training = false;
+    this.domain = null;
+    for (const v of this.vortices) v.kill();
+    this.vortices = [];
     this.setStage('arena');
     this.hud.training(false);
     for (const f of this.fighters) { f.endMoveFx(); f.boxViewer?.dispose(); f.actor.dispose(); }
@@ -209,8 +269,11 @@ export class Game {
     this.faceEachOther();
     for (const p of this.projectiles) p.kill();
     for (const bm of this.beams) bm.kill();
+    for (const v of this.vortices) v.kill();
     this.projectiles = [];
     this.beams = [];
+    this.vortices = [];
+    if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
     this.hud.clash(false);
     audio.stopAllLoops();
@@ -392,6 +455,9 @@ export class Game {
     for (const p of this.projectiles) p.update();
     this.projectileCollisions();
     this.projectiles = this.projectiles.filter((p) => !p.dead);
+    for (const v of this.vortices) v.update();
+    this.vortices = this.vortices.filter((v) => !v.dead);
+    if (this.domain && --this.domain.t <= 0) this.endDomain();
     for (const b of this.beams) b.update();
     this.checkBeamClash();
     if (this.clash) this.updateClash();
@@ -422,6 +488,17 @@ export class Game {
       const push = (0.72 - d) / 2;
       a.pos.x -= nx * push; a.pos.z -= nz * push;
       b.pos.x += nx * push; b.pos.z += nz * push;
+      // never shove a cornered fighter through the ring barrier: the other one gives way instead
+      for (const [f, g] of [[a, b], [b, a]]) {
+        for (const k of ['x', 'z']) {
+          const over = Math.abs(f.pos[k]) - ARENA_LIMIT;
+          if (over > 0) {
+            const s = Math.sign(f.pos[k]);
+            f.pos[k] -= s * over;
+            g.pos[k] -= s * over;
+          }
+        }
+      }
     }
   }
 
@@ -540,7 +617,7 @@ export class Game {
   }
 
   spawnProjectile(f) {
-    this.projectiles.push(...spawnProjectiles(this, f));
+    this.projectiles.push(...spawnProjectiles(this, f, f.move?.proj || f.def.projectile));
   }
 
   fireBeam(f) {
@@ -756,11 +833,11 @@ export class Game {
   }
 
   // DBFZ super flash: freeze time, darken the stage, flash the user, cut-in
-  superFlashFor(f, len, dim, cutin = false) {
+  superFlashFor(f, len, dim, cutin = false, name = f.def.beam.name) {
     this.freeze = Math.max(this.freeze, len);
     this.superFlash = { who: f, t: 0, len };
     this.dimTarget = dim;
-    if (cutin) this.hud.superCutin(f.index, f.asset?.cutin, f.def.color, f.def.beam.name);
+    if (cutin) this.hud.superCutin(f.index, f.asset?.cutin, f.def.color, name);
     audio.play('flash');
   }
 
@@ -785,6 +862,7 @@ export class Game {
     this.setState('ko');
     this.slowmo(0.22, 1.4);
     this.hud.announce('K.O.', 'ko', 1900);
+    this.endDomain();
     audio.play('ko');
     audio.play('cheer', 1.4);
     this.excite = 1;
@@ -950,9 +1028,11 @@ export class Game {
     this.dim += (this.dimTarget - this.dim) * Math.min(1, dt * (this.dimTarget > this.dim ? 18 : 5));
     this.arena.setDim(this.dim);
     this.room.setDim(this.dim);
+    this.voidStage.setDim(this.dim);
     this.excite = Math.max(0.12, this.excite - dt * 0.22);
     this.arena.update(performance.now() / 1000, this.excite);
     this.room.update(performance.now() / 1000);
+    if (this.domain) this.voidStage.update(performance.now() / 1000);
     if (this.fighters.length === 2) this.hud.update(this.fighters, this.timeLeft, dt);
     this.menus.tick?.(dt);
     if (this.touch) {

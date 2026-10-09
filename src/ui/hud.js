@@ -58,8 +58,10 @@ export class Hud {
       });
       const kiNum = h('div', 'ki-num', '1');
       kiRow.append(kiNum);
+      // timed mode (Godspeed): a thin draining bar under the ki gauge
+      const modeBar = h('div', 'mode-bar', '<i></i>');
       const wins = h('div', 'wins', '<i></i><i></i>');
-      bars.append(name, hp, kiRow);
+      bars.append(name, hp, kiRow, modeBar);
       side.append(portrait, bars, wins);
       top.append(side);
       if (i === 0) {
@@ -67,7 +69,7 @@ export class Hud {
         this.trainTag = h('div', 'train-tag', 'TRAINING');
         top.append(this.timer, this.trainTag);
       }
-      return { side, portrait, name, trail, fill, segs, kiNum, kiRow, wins, trailHp: MAX_HP, shown: -1 };
+      return { side, portrait, name, trail, fill, segs, kiNum, kiRow, wins, modeBar, trailHp: MAX_HP, shown: -1 };
     });
     this.root.append(top);
     this.combo = [0, 1].map((i) => {
@@ -166,6 +168,11 @@ export class Hud {
       });
       P.kiNum.textContent = bars;
       P.kiRow.classList.toggle('max', f.ki >= MAX_KI);
+      P.modeBar.classList.toggle('on', !!f.mode);
+      if (f.mode) {
+        P.modeBar.firstChild.style.width = (f.mode.t / f.mode.len) * 100 + '%';
+        P.modeBar.style.setProperty('--mc', f.mode.color || f.def.color);
+      }
       const w = P.wins.children;
       for (let k = 0; k < w.length; k++) w[k].classList.toggle('on', f.wins > k);
 

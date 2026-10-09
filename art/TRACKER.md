@@ -33,10 +33,12 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
 ## Summary
 
-| character | reference (2) | core anims (23) | optional anims (15) | UI (3) | sheet complete |
+| character | reference (2) | core anims (23) | optional anims | UI (3) | sheet complete |
 |---|---|---|---|---|---|
 | naruto | 2/2 approved | 2/23 approved | 0/15 | 0/3 | no |
 | sasuke | 2/2 approved | 2/23 approved | 0/15 | 0/3 | no |
+| killua | 0/2 | 0/23 | 0/19 | 0/3 | no |
+| gojo | 0/2 | 0/23 | 0/19 | 0/3 | no |
 | VFX atlas | 0/1 (style sheet, optional) | 0/15 effects | - | - | procedural fallback |
 | shared UI | - | - | - | 0/2 | - |
 
@@ -149,6 +151,131 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
 | 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
 
+## killua
+
+Brief: [characters/killua/](characters/killua/). Godspeed era (Chimera Ant arc): loose purple
+long-sleeved shirt with a navy rolled collar, white undershirt cuffs and hem, navy shorts,
+purple-and-white high-tops; ~6 heads. Confirm the outfit at the S1 model-sheet review.
+
+Body scale: **shorter than the cast** (standing body 182 px instead of 200, `standingBodyPx: 182`,
+[ADR 0010](../docs/decisions/0010-per-character-body-scale.md)): every `bodyHeight` is the shared
+value x 0.91 (`heavy` 206 so its claw still reaches the F04 zone). Kit animations (ADR 0009):
+`specialForward` = Rhythm Echo strike, `specialUp` = Thunderbolt rise, `specialDown` = Godspeed
+activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row sheet.
+
+| step | asset | frames | phases | core | body px | status | version | approved | notes |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | true side profile + claw-hand close-ups |
+| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | |
+| 3 | idle | 8 | - | **yes** | 186 | todo | - | - |  |
+| 4 | run | 8 | - | **yes** | 186 | todo | - | - |  |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | todo | - | - |  |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | todo | - | - |  |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | todo | - | - |  |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | todo | - | - |  |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | todo | - | - |  |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | todo | - | - |  |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | todo | - | - |  |
+| 6 | guard | 2 | - | **yes** | 180 | todo | - | - |  |
+| 6 | hurtHigh | 3 | - | **yes** | 177 | todo | - | - |  |
+| 6 | launched | 2 | - | **yes** | 124 | todo | - | - |  |
+| 6 | down | 2 | - | **yes** | 87 | todo | - | - |  |
+| 6 | getup | 5 | - | **yes** | 186 | todo | - | - |  |
+| 7 | charge | 4 | - | **yes** | 180 | todo | - | - |  |
+| 7 | beamCharge | 3 | - | **yes** | 180 | todo | - | - |  |
+| 7 | beamFire | 3 | - | **yes** | 180 | todo | - | - |  |
+| 7 | special | 8 | 3/3/2 | **yes** | 186 | todo | - | - |  |
+| 8 | dash | 2 | - | **yes** | 146 | todo | - | - |  |
+| 8 | jumpUp | 2 | - | **yes** | 180 | todo | - | - |  |
+| 8 | jumpFall | 2 | - | **yes** | 190 | todo | - | - |  |
+| 8 | land | 2 | - | **yes** | 158 | todo | - | - |  |
+| 8 | win | 4 | - | **yes** | 193 | todo | - | - |  |
+| 9 | backDash | 3 | - | no | 188 | todo | - | - |  |
+| 9 | superDash | 2 | - | no | 109 | todo | - | - |  |
+| 9 | jumpSquat | 1 | - | no | 147 | todo | - | - |  |
+| 9 | airLight2 | 5 | 1/2/2 | no | 188 | todo | - | - |  |
+| 9 | airLight3 | 6 | 2/2/2 | no | 183 | todo | - | - |  |
+| 9 | block | 2 | - | no | 186 | todo | - | - |  |
+| 9 | hurtLow | 3 | - | no | 167 | todo | - | - |  |
+| 9 | spin | 4 | - | no | 146 | todo | - | - |  |
+| 9 | airRecover | 3 | - | no | 164 | todo | - | - |  |
+| 9 | throw | 4 | 1/1/2 | no | 183 | todo | - | - |  |
+| 9 | vanish | 2 | - | no | 201 | todo | - | - |  |
+| 9 | stagger | 4 | - | no | 188 | todo | - | - |  |
+| 9 | ko | 1 | - | no | 58 | todo | - | - |  |
+| 9 | intro | 4 | - | no | 191 | todo | - | - |  |
+| 9 | taunt | 2 | - | no | 193 | todo | - | - |  |
+| 9 | specialForward | 7 | 2/2/3 | no | 186 | todo | - | - | kit animation (ADR 0009) |
+| 9 | specialUp | 6 | 2/2/2 | no | 198 | todo | - | - | kit animation (ADR 0009) |
+| 9 | specialDown | 4 | 2/1/1 | no | 188 | todo | - | - | kit animation (ADR 0009) |
+| 9 | superPose | 4 | - | no | 191 | todo | - | - | kit animation (ADR 0009) |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
+| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+
+## gojo
+
+Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
+Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
+white hair swept up; ~7 heads.
+
+Body scale: **taller than the cast** (standing body 215 px, `standingBodyPx: 215`,
+[ADR 0010](../docs/decisions/0010-per-character-body-scale.md)): every `bodyHeight` is the shared
+value x ~1.09, capped at the 236 px cell ceiling. Kit animations (ADR 0009): `special` = Lapse:
+Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the engine yet, ENG-032),
+`specialDown` = Infinity, `superPose` = Domain Expansion hand sign. 42 animations = 175 frames = an
+11-row sheet.
+
+| step | asset | frames | phases | core | body px | status | version | approved | notes |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | blindfold on; one inset with the eyes shown |
+| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | |
+| 3 | idle | 8 | - | **yes** | 222 | todo | - | - |  |
+| 4 | run | 8 | - | **yes** | 222 | todo | - | - |  |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | todo | - | - |  |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | todo | - | - |  |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | todo | - | - |  |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | todo | - | - |  |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | todo | - | - |  |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | todo | - | - |  |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | todo | - | - |  |
+| 6 | guard | 2 | - | **yes** | 215 | todo | - | - |  |
+| 6 | hurtHigh | 3 | - | **yes** | 212 | todo | - | - |  |
+| 6 | launched | 2 | - | **yes** | 148 | todo | - | - |  |
+| 6 | down | 2 | - | **yes** | 104 | todo | - | - |  |
+| 6 | getup | 5 | - | **yes** | 222 | todo | - | - |  |
+| 7 | charge | 4 | - | **yes** | 215 | todo | - | - |  |
+| 7 | beamCharge | 3 | - | **yes** | 215 | todo | - | - |  |
+| 7 | beamFire | 3 | - | **yes** | 215 | todo | - | - |  |
+| 7 | special | 8 | 3/3/2 | **yes** | 222 | todo | - | - |  |
+| 8 | dash | 2 | - | **yes** | 174 | todo | - | - |  |
+| 8 | jumpUp | 2 | - | **yes** | 215 | todo | - | - |  |
+| 8 | jumpFall | 2 | - | **yes** | 227 | todo | - | - |  |
+| 8 | land | 2 | - | **yes** | 189 | todo | - | - |  |
+| 8 | win | 4 | - | **yes** | 230 | todo | - | - |  |
+| 9 | backDash | 3 | - | no | 225 | todo | - | - |  |
+| 9 | superDash | 2 | - | no | 140 | todo | - | - |  |
+| 9 | jumpSquat | 1 | - | no | 176 | todo | - | - |  |
+| 9 | airLight2 | 5 | 1/2/2 | no | 225 | todo | - | - |  |
+| 9 | airLight3 | 6 | 2/2/2 | no | 219 | todo | - | - |  |
+| 9 | block | 2 | - | no | 222 | todo | - | - |  |
+| 9 | hurtLow | 3 | - | no | 199 | todo | - | - |  |
+| 9 | spin | 4 | - | no | 174 | todo | - | - |  |
+| 9 | airRecover | 3 | - | no | 196 | todo | - | - |  |
+| 9 | throw | 4 | 1/1/2 | no | 219 | todo | - | - |  |
+| 9 | vanish | 2 | - | no | 232 | todo | - | - |  |
+| 9 | stagger | 4 | - | no | 225 | todo | - | - |  |
+| 9 | ko | 1 | - | no | 70 | todo | - | - |  |
+| 9 | intro | 4 | - | no | 228 | todo | - | - |  |
+| 9 | taunt | 2 | - | no | 228 | todo | - | - |  |
+| 9 | specialForward | 7 | 2/2/3 | no | 222 | todo | - | - | kit animation (ADR 0009) |
+| 9 | specialUp | 6 | 2/2/2 | no | 232 | todo | - | - | kit animation (ADR 0009) |
+| 9 | specialDown | 4 | 2/1/1 | no | 222 | todo | - | - | kit animation (ADR 0009) |
+| 9 | superPose | 4 | - | no | 230 | todo | - | - | kit animation (ADR 0009) |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
+| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+
 ## VFX atlas (step 10)
 
 Brief: [vfx/EFFECTS.md](vfx/EFFECTS.md). Candidates `art/vfx/raw/<effect>_vNN.png` (the packer uses
@@ -216,4 +343,8 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 
 Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`characters.<id>`, copied from `animationDefaults`, every asset with `version: 0` and
-`approvedVersion: null`). See [PIPELINE.md](PIPELINE.md#adding-a-new-character).
+`approvedVersion: null`). See [PIPELINE.md](PIPELINE.md#adding-a-new-character). The four kit animations
+(`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
+fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke
+don't, so their sections leave them out. A fighter whose body is genuinely taller or shorter sets
+`standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).

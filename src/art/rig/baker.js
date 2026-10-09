@@ -21,6 +21,7 @@ export const STRIKES = {
   light1: ['handF'], light2: ['handN'], light3: ['footN'], light4: ['footN'], heavy: ['handN'],
   airLight1: ['handF'], airLight2: ['footN'], airLight3: ['footF'], airHeavy: ['handN', 'handF'],
   special: ['body'],
+  specialForward: ['handN'], // Rhythm Echo claw (Killua); harmless for cast poses (shot kinds never check melee)
 };
 
 // Hurtbox = silhouette bounds, trimmed so grazing a hair spike doesn't count.
@@ -382,7 +383,7 @@ function bakeCutin(B, def) {
   const mid = eye.clone().add(eyeF).multiplyScalar(0.5);
   const ppu = 330;
   B.setup(W, H, ppu, [W / 2 - mid.x * ppu, H / 2 + mid.y * ppu - 6], 4);
-  const px = B.frame({ ...p, face: 'closed' }, null, true); // face pixels replaced by big eyes below
+  const px = B.frame({ ...p, face: 'closed', blindfold: false }, null, true); // face pixels replaced by big eyes below
   const c = document.createElement('canvas');
   c.width = W; c.height = H;
   const ctx = c.getContext('2d');
@@ -397,7 +398,7 @@ function bakeCutin(B, def) {
     const q = B.project(o);
     ctx.fillStyle = skinHex;
     ctx.fillRect(q.x - 24, q.y - 14, 48, 26);
-    drawBigEye(ctx, q.x, q.y, 46, 30, C, mirror, def.cutinRedEyes);
+    drawBigEye(ctx, q.x, q.y, 46, 30, C, mirror, def.cutinEyes ?? def.cutinRedEyes);
   }
   // harden edges (no anti-aliasing)
   const im = ctx.getImageData(0, 0, W, H);

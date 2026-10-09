@@ -39,6 +39,11 @@ export const ANIM_GUIDE = {
   intro: { frames: 4, loop: true, pose: 'pre-fight intro pose (character-specific attitude)' },
   taunt: { frames: 2, loop: true, pose: 'confident taunt / pointing at the opponent' },
   win: { frames: 4, loop: true, pose: 'victory pose' },
+  // move system v2 (ADR 0009): optional, character-specific; missing ones fall back (src/game/sprites.js FALLBACK)
+  specialForward: { frames: 7, phases: [2, 2, 3], optional: true, pose: 'forward special: e.g. a dashing claw strike, or a finger-flick blast' },
+  specialUp: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'up special: a leap or rising anti-air technique' },
+  specialDown: { frames: 4, phases: [2, 1, 1], optional: true, pose: 'down special: a power-up or a calm defensive stance' },
+  superPose: { frames: 4, loop: true, optional: true, pose: 'second super activation pose (the cut-in moment)' },
 };
 
 export function chatgptPrompt(charName, look, anim) {

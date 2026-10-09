@@ -2,12 +2,13 @@
 // The CPU drives the exact same Pad interface, so fighters never know who's playing.
 // Bindings are rebindable and saved to localStorage.
 
-export const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
+export const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 export const DIRECTIONS = ['up', 'down', 'left', 'right'];
 
 export const ACTION_LABELS = {
   up: 'Up', down: 'Down', left: 'Left', right: 'Right',
-  light: 'Light', heavy: 'Heavy / Launcher', special: 'Special (hold: charge)', jump: 'Jump', guard: 'Guard', dash: 'Dash / Super dash',
+  light: 'Light', heavy: 'Heavy / Launcher', special: 'Special (+direction)', jump: 'Jump', guard: 'Guard', dash: 'Dash / Super dash',
+  super: 'Super (2nd super)',
 };
 
 export const DEFAULT_KEYMAPS = {
@@ -15,22 +16,22 @@ export const DEFAULT_KEYMAPS = {
   solo: {
     up: ['KeyW', 'ArrowUp'], down: ['KeyS', 'ArrowDown'], left: ['KeyA', 'ArrowLeft'], right: ['KeyD', 'ArrowRight'],
     light: ['KeyJ', 'KeyZ'], heavy: ['KeyK', 'KeyX'], special: ['KeyL', 'KeyC'], jump: ['Space', 'KeyI'],
-    guard: ['ShiftLeft', 'ShiftRight', 'KeyU'], dash: ['KeyO', 'KeyV'],
+    guard: ['ShiftLeft', 'ShiftRight', 'KeyU'], dash: ['KeyO', 'KeyV'], super: ['KeyH', 'KeyB'],
   },
   // Local versus: two players share the keyboard
   p1: {
     up: ['KeyW'], down: ['KeyS'], left: ['KeyA'], right: ['KeyD'],
-    light: ['KeyF'], heavy: ['KeyG'], special: ['KeyH'], jump: ['Space'], guard: ['ShiftLeft'], dash: ['KeyR'],
+    light: ['KeyF'], heavy: ['KeyG'], special: ['KeyH'], jump: ['Space'], guard: ['ShiftLeft'], dash: ['KeyR'], super: ['KeyT'],
   },
   p2: {
     up: ['ArrowUp'], down: ['ArrowDown'], left: ['ArrowLeft'], right: ['ArrowRight'],
     light: ['Comma', 'Numpad1'], heavy: ['Period', 'Numpad2'], special: ['Slash', 'Numpad3'],
-    jump: ['KeyL', 'Numpad0'], guard: ['Semicolon', 'NumpadDecimal', 'ShiftRight'], dash: ['KeyK', 'NumpadEnter'],
+    jump: ['KeyL', 'Numpad0'], guard: ['Semicolon', 'NumpadDecimal', 'ShiftRight'], dash: ['KeyK', 'NumpadEnter'], super: ['Quote', 'NumpadAdd'],
   },
 };
 
 // Standard gamepad mapping indices. 0 ✕/A, 1 ○/B, 2 □/X, 3 △/Y, 4 L1/LB, 5 R1/RB, 6 L2/LT, 7 R2/RT
-export const DEFAULT_PAD = { jump: [0], light: [2], heavy: [3], special: [1], guard: [4, 6], dash: [5, 7] };
+export const DEFAULT_PAD = { jump: [0], light: [2], heavy: [3], special: [1], guard: [4], dash: [5, 7], super: [6] };
 
 export const PAD_NAMES = {
   playstation: ['✕', '○', '□', '△', 'L1', 'R1', 'L2', 'R2', 'Create', 'Options', 'L3', 'R3', 'D-Up', 'D-Down', 'D-Left', 'D-Right', 'PS'],
@@ -41,7 +42,7 @@ export const PAD_NAMES = {
 export const RESERVED_KEYS = ['Escape', 'Enter', 'Tab', 'Backspace', 'KeyP', 'KeyM'];
 export const RESERVED_PAD = [8, 9];
 
-const STORE_KEY = 'gcd.bindings.v1';
+const STORE_KEY = 'gcd.bindings.v2'; // v2: the SUPER action took L2 / LT from guard (ADR 0009)
 const clone = (o) => JSON.parse(JSON.stringify(o));
 
 function loadStored() {

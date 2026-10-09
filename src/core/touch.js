@@ -21,6 +21,7 @@ const BUTTONS = [
   ['dash', 'DASH', ['dash'], 'small'],
   ['ult', 'ULT', ['heavy', 'special'], 'macro'],
   ['vanish', 'VANISH', ['guard', 'special'], 'macro'],
+  ['super', 'SUPER', ['super'], 'macro'],
 ];
 
 // keep receiving a finger's moves after it leaves the element; never let a capture failure drop the press
@@ -160,6 +161,7 @@ export class TouchControls {
   setKi(ki) {
     this.btns.ult.classList.toggle('off', ki < 300);
     this.btns.vanish.classList.toggle('off', ki < 100);
+    this.btns.super.classList.toggle('off', ki < 300);
   }
 
   setSize(size) {

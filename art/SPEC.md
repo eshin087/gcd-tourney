@@ -41,7 +41,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 | property | value |
 |---|---|
 | cell | **256 x 256 px**, transparent PNG, one pose per cell |
-| sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall) |
+| sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 175 frames = 11 rows = 2816 px) |
 | facing | **right** (the engine mirrors the sprite when the fighter faces left) |
 | pivot | **[128, 240]**: x 128 = midpoint between the feet / body center line; y 240 = floor line. Soles touch y 240, 16 px empty below |
 | airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air) |
@@ -75,7 +75,10 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
   for every fighter and a hit lands at the same heights on anyone. Both current characters use the
   same `bodyHeight` table; per-character overrides stay possible in `manifest.json` (for example when
   a character's hair adds clearly more or less height than ~16-20 px, so the head would come out a
-  different size). A genuinely taller or shorter character needs an ADR and a reach/lunge check by Claude.
+  different size). A genuinely taller or shorter character needs an ADR and a reach/lunge check by Claude:
+  [ADR 0010](../docs/decisions/0010-per-character-body-scale.md) sets the rule. The character gets
+  `standingBodyPx` in `manifest.json` and a `bodyHeight` table scaled by `standingBodyPx / 200`, the head
+  stays ~31 px, and strike zones stay the same. Today **Killua is 182 px** and **Gojo is 215 px**.
 
 Landmarks for the idle fighting stance, y in the 256 cell, soles on y 240 (use them to aim strikes;
 a same-size opponent's body is at the same heights):
@@ -181,8 +184,14 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `intro` | 4 | yes | - | 210 | - | 150 each | pre-fight intro pose (character-specific attitude, loop) |
 | `taunt` | 2 | yes | - | 212 | - | 250 each | confident taunt / pointing at the opponent (loop) |
 | `win` | 4 | yes | - | 212 | **yes** | 200 each | victory pose (loop) |
+| `specialForward` | 7 | - | 2/2/3 | 204 | - | 50 50 60 80 70 60 50 | **kit** ([ADR 0009](../docs/decisions/0009-move-system-v2.md)): the forward special's strike or cast (Killua's Rhythm Echo strike, Gojo's Reversal: Red flick). Missing → `special` |
+| `specialUp` | 6 | - | 2/2/2 | 214 | - | 50 50 60 60 70 70 | **kit**: a rising special (Killua's Thunderbolt leap; f5 hands over to `airHeavy` f0). Missing → `special` |
+| `specialDown` | 4 | - | 2/1/1 | 204 | - | 80 80 160 90 | **kit**: a stance or power-up, no hit box (Killua's Godspeed activation, Gojo's Infinity palm). Missing → `charge` |
+| `superPose` | 4 | yes | - | 208 | - | 140 each | **kit**: the second super's pose during the super flash (Whirlwind, Domain Expansion hand sign; Gojo lifts the blindfold here). Missing → `taunt` |
 
-Totals: 38 animations, 154 frames per character; 23 core animations. `special`, `intro`, `taunt` and
+Totals: 38 animations, 154 frames per character; 23 core animations. The 4 **kit** animations are
+only drawn for fighters whose kit uses them (ADR 0009; today Killua and Gojo): 42 animations,
+175 frames, an 11-row sheet. `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`).
 
 **Pose notes forced by the 256 px width.** A realistic body lying flat or flying is about 210-240 px

@@ -12,6 +12,17 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 ### Added
+- Two new fighters: **Killua** (Godspeed era: Narukami, Rhythm Echo, Thunderbolt, Godspeed mode, Godspeed:
+  Whirlwind super, Lightning Palm) and **Gojo** (Lapse: Blue, Reversal: Red, Blink, Infinity counter + passive,
+  Domain Expansion: Unlimited Void super, Hollow Purple), with 3D placeholder models (Gojo's blindfold lifts for
+  the Six Eyes on his super and cut-in), CPU support, and spec v2 art briefs, prompts and manifest/TRACKER rows
+  (ENG-028, DOC-008).
+- Move system v2 (ADR 0009): directional specials (Special + →/↑/↓, air ↓), special kinds (shot, teleport,
+  pull, dive, counter, mode), a SUPER button for second supers (keyboard H/B · P1 T · P2 ' · L2/LT · touch
+  SUPER), the Godspeed mode bar, a domain stage (Unlimited Void), and kit move lists on character select.
+- ADR 0010: per-character body scale (Killua 182 px, Gojo 215 px). The packer reads `standingBodyPx` per
+  character, and the 4 optional kit animations (`specialForward`, `specialUp`, `specialDown`, `superPose`) are
+  in SPEC.md, the template and the manifest defaults.
 - Naruto expressions v02 candidate applies the approved shorter haircut across all nine expressions; v01 fixed expression reference remains until user approval (ART-NAR-12).
 - User approved Naruto shorter-hair model sheet v02; fixed model_sheet.png now anchors subsequent hair revisions (ART-NAR-12).
 - Naruto model-sheet v02 hair candidate: shorter crown/rear spikes and temple tufts replace long cheek locks; approved v01 reference is retained pending user review. Mobile gallery now supports newer reference candidates (ART-NAR-12, TOOL-017).
@@ -56,6 +67,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- Saved key bindings move to `gcd.bindings.v2` (resets custom bindings once). Gamepad L2/LT is SUPER now
+  (guard stays on L1/LB).
+- The CPU uses specials more often with fighters that have a kit, answers attacks with a counter, and punishes
+  frozen or popped-up opponents.
 - Art spec v2 ([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md), amends ADR 0006): Naruto
   Shippuden designs at about 6.5 heads (serious anime proportions instead of the chibi ~4.3-head Part 1
   look), 256×256 cells, pivot [128,240], pixelsPerUnit 128 (~200 px standing body, same world size), ≤ 48
@@ -72,6 +87,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Body separation could push a fighter pinned at the ring barrier out of the ring (seen in CPU soaks).
+- Ground moves without a lunge kept sliding on the walk speed.
 - Spec v2 doc review: Codex prompts no longer upload `reference/source/` pictures, save one version per
   round, bind Prompt 1 to one character, stage explicit paths on one shared art branch and never lower a
   status; ADR 0007 amended (heavy F04 zone y 22-46, airLight2/special are LOW, fix attempts are

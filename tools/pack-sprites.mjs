@@ -901,7 +901,9 @@ function normalizeManifest(raw) {
   for (const [id, c] of entries(raw.characters)) {
     const anims = {};
     for (const [name, v] of entries(c.animations ?? c.anims)) anims[name] = normalizeAnimEntry(v);
-    m.characters[id] = { name: c.name, animations: anims };
+    // standingBodyPx: a genuinely taller/shorter fighter (ADR 0010) scales the hitbox heuristics with its body
+    const sb = Number(c.standingBodyPx);
+    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? sb : null };
   }
   const vfx = raw.vfx?.effects ?? raw.vfx ?? raw.effects;
   for (const [name, v] of entries(vfx)) {
@@ -1674,7 +1676,7 @@ function packCharacter(id, env) {
     ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
     warn('idle is not packed yet - hitboxes estimated from the idle bodyHeight');
   }
-  const T = boxTuning(spec);
+  const T = boxTuning({ ...spec, standingBodyPx: env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx });
   const rules = {};
   const big = [];
   for (const p of packed) {

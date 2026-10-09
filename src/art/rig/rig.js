@@ -161,6 +161,18 @@ export function buildRig(model) {
     }
   }
 
+  // blindfold (Gojo): a wide band over the eyes; a pose can lift it with `blindfold: false`.
+  // Face stamps only land on skin pixels, so the band hides the eyes by itself.
+  let blindfold = null;
+  if (model.blindfold) {
+    const B = model.blindfold;
+    blindfold = new THREE.Group();
+    blindfold.position.copy(HC).add(new THREE.Vector3(0, B.y ?? -0.03, 0));
+    blindfold.rotation.z = (B.tilt ?? 0) * D;
+    head.add(blindfold);
+    add(blindfold, new THREE.CylinderGeometry(P.headR * (B.r ?? 1.06), P.headR * (B.r ?? 1.06), B.h ?? 0.1, 28, 1, true), B.mat, 'band', { side: THREE.DoubleSide });
+  }
+
   // face anchors (head-local)
   const anchors = {};
   const anchor = (name, x, y, z) => {
@@ -244,7 +256,7 @@ export function buildRig(model) {
 
   if (model.extras) model.extras({ add, root, hips, spine, neck, head, HC, P, THREE, D, arms, legs });
 
-  const rig = { root, hips, spine, neck, head, arms, legs, parts, anchors, spikes, tails, P, HC, groups, headMesh, model, hipH: P.thigh + P.shin + P.ankle };
+  const rig = { root, hips, spine, neck, head, arms, legs, parts, anchors, spikes, tails, blindfold, P, HC, groups, headMesh, model, hipH: P.thigh + P.shin + P.ankle };
 
   // snap helpers: parts whose bottoms can touch the floor
   rig.snapParts = parts.filter((m) => /^(foot|hand|head|pelvis|torso|shin|thigh|hair)/.test(m.userData.groupName));
@@ -288,6 +300,7 @@ export function applyPose(rig, p, t) {
     L.an.rotation.set(0, 0, ank * D);
   }
 
+  if (rig.blindfold) rig.blindfold.visible = p.blindfold !== false;
   // secondary motion: hair spikes and headband tails sway with "flutter"
   const fl = p.flutter || 0;
   rig.spikes.forEach((s, i) => {

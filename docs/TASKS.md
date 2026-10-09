@@ -147,6 +147,15 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | TOOL-011 | Packer world modes: `npm run sprites crowd` (atlas + contact sheets), `stage`, `npc`, `ui` | Claude | todo | until then the Codex lead reviews raw files |
 | TOOL-012 | `tools/queue.mjs` claim queue (`npm run queue`) | Claude | done | race-tested: 20 simultaneous claims, 1 winner |
 | ENG-026 | Crowd atlas loader: 3 frames, shock on big moments, unique seat shuffle, 471 seats | Claude | done | ADR 0008 |
+| ENG-028 | Move system v2 (ADR 0009): command specials, special kinds, SUPER button, passives/modes; Killua + Gojo fighters | Claude | done | every move tested with `?debug`; CPU soaks Killua-Gojo x3, Gojo-Naruto, Sasuke-Killua, both mirrors, Naruto-Sasuke: clean |
+| DOC-008 | Killua + Gojo art briefs (spec v2) and move-system-v2 art contract (4 optional anims) | Claude | done | briefs + PROMPTS (A39-A42 = kit anims), manifest/TRACKER rows, SPEC, template, ADR 0010 (Killua 182 px, Gojo 215 px) |
+| ART-KIL-01 | Killua spec v2 art, starting at S1 model sheet (user confirms the Chimera Ant outfit at S1 review) | Codex | todo | `art/characters/killua/PROMPTS.md`; standingBodyPx 182, sheet is 11 rows |
+| ART-GOJ-01 | Gojo spec v2 art, starting at S1 model sheet (blindfold on; one eyes-shown inset) | Codex | todo | `art/characters/gojo/PROMPTS.md`; standingBodyPx 215, sheet is 11 rows |
+| ENG-032 | Teleport kit moves play their own anim before hiding (Gojo's Blink shows `specialUp` f0-f1, reappears on f4-f5) | Claude | todo | `kit.js` START/UPDATE.teleport; `blink` gets `anim: 'specialUp'` (Gojo brief A40) |
+| ENG-033 | Startup bake grows with the roster (4 fighters = 1.6-2.2 s blocking): bake the selected fighters first or in a worker | Claude | todo | console `[sprites] baked <id> from 3D in N ms` |
+| ENG-034 | Kit VFX polish: lightning between Killua's palms in `beamCharge`, Gojo's blue + red orbs in both hands for Hollow Purple, optional `killua_*` / `gojo_*` effect sheets | Claude | todo | MOVES_AND_VFX.md §4 of both briefs; ENG-014 |
+| ENG-035 | Re-run the ADR 0010 reach table with the packed Killua/Gojo sheets and tune lunge/stats if a normal whiffs | Claude | todo | blocked on ART-KIL-01 / ART-GOJ-01 core attacks |
+| ART-CRWD-FIX | Killua (hxh) and Gojo (jjk) are fighters now: replace their crowd spectators with other characters | Codex | todo | lead edits art/crowd/roster/hunter-x-hunter.json + jujutsu-kaisen.json, rebuild the queue, reopen if images exist |
 | ENG-027 | Mobile landscape play: touch controls, tap menus, rotate screen, fullscreen, PWA manifest | Claude | done | docs/TESTING.md "Mobile" |
 
 ## Done

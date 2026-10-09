@@ -341,3 +341,11 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 }
 .touch-row { justify-content: flex-start; }
 .touch-row .ctl-key { flex: none; min-width: 92px; text-align: left; }
+
+/* move system v2 (ADR 0009) */
+.mode-bar { display: none; height: calc(var(--u) * 0.7); margin-top: calc(var(--u) * 0.5); width: 70%; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.35); transform: skewX(-20deg); }
+.pbar.p2 .mode-bar { margin-left: auto; transform: skewX(20deg); }
+.mode-bar.on { display: block; }
+.mode-bar i { display: block; height: 100%; background: var(--mc, #bfe6ff); box-shadow: 0 0 8px var(--mc, #bfe6ff); }
+.t-super { --tc: #ff5ad8; right: calc(var(--b) * 0.35); bottom: calc(var(--b) * 3.3); }
+.t-buttons { height: calc(var(--b) * 4.15) !important; }

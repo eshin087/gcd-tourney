@@ -992,6 +992,18 @@ Pose 1: signature taunt pose{{; NAME specifics}}.
 Pose 2: small variation (cloth/hair){{; NAME specifics}}.
 ```
 
+#### Kit animations (only if this fighter's kit uses them)
+
+`specialForward` (7 poses, 2/2/3), `specialUp` (6, 2/2/2), `specialDown` (4, 2/1/1) and `superPose`
+(4, loop) are drawn only for a fighter whose kit maps moves to them
+([ADR 0009](../../../docs/decisions/0009-move-system-v2.md), [ANIMATIONS.md](ANIMATIONS.md#specialforward)).
+Write each block like the `taunt` block above: same SIZE/BODY/PIXEL/BACKGROUND lines, then
+`Animation "<name>": <description>` and one `Pose N:` line per frame from ANIMATIONS.md. Save as
+`raw/<name>_vNN.png`. Paste-ready examples: [killua/PROMPTS.md](../killua/PROMPTS.md) (A39-A42) and
+[gojo/PROMPTS.md](../gojo/PROMPTS.md) (A39-A42). A shorter or taller fighter
+([ADR 0010](../../../docs/decisions/0010-per-character-body-scale.md)) changes the SIZE line's body
+height in every block.
+
 ## Step 11: UI
 
 Save each candidate as `raw/ui_<name>_vNN.png` (the sheet packer skips `ui_*`) and queue it in

@@ -16,6 +16,7 @@ export const BASE = {
   lF: { sw: 0, ab: 3, tw: 0, kn: 0, an: 0, fl: 1 },
   face: 'normal',
   eyes: null,
+  blindfold: true, // only rigs with model.blindfold care; a pose lifts it with false
   flutter: 0,
   squash: 1,
   snap: true,

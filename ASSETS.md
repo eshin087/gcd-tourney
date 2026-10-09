@@ -28,6 +28,12 @@ The game uses a character's packed sheet once every core animation exists (`"com
 of each strip. Anything missing falls back to the procedural art, so characters and effects can be
 replaced one at a time.
 
+Fighters with a kit ([ADR 0009](docs/decisions/0009-move-system-v2.md): Killua, Gojo) have four extra
+optional strips: `specialForward`, `specialUp`, `specialDown` and `superPose`. When one is missing it
+falls back to `special`, `special`, `charge` and `taunt`. A character drawn taller or shorter than
+the 200 px standard body (Killua 182 px, Gojo 215 px) follows
+[ADR 0010](docs/decisions/0010-per-character-body-scale.md).
+
 ## Sprite Lab
 
 Open **http://127.0.0.1:5188/sprites.html** (or *Sprite Lab* in the main menu) while `npm run dev`

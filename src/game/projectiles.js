@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { PROJECTILES, ULTIMATE } from './moves.js';
 import { DT, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
+import { infinityStops } from './kit.js';
 
 const BEAM_VERT = /* glsl */ `
   varying vec2 vUv;
@@ -51,7 +52,7 @@ export class Beam {
     this.ticks = 0;
     this.hitting = false;
     this.hasHit = false;
-    this.width = ULTIMATE.width;
+    this.width = owner.def.beam.width ?? ULTIMATE.width; // Hollow Purple is wider
     const b = owner.def.beam;
     this.mat = new THREE.ShaderMaterial({
       uniforms: {
@@ -169,9 +170,9 @@ export class Projectile {
     this.vel = dir.clone().multiplyScalar(P.speed);
     this.life = P.life;
     this.dead = false;
-    this.sprite = game.fx.spawn(P.sprite, this.pos.x, this.pos.y, this.pos.z, { scale: P.scale, loop: true, life: 999, order: 7 });
-    if (type === 'fireball') {
-      this.glow = game.fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1.3, color: 0xff7a20, loop: true, life: 999, opacity: 0.5, order: 6 });
+    this.sprite = game.fx.spawn(P.sprite, this.pos.x, this.pos.y, this.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random });
+    if (P.glowColor) {
+      this.glow = game.fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
     }
   }
 
@@ -181,12 +182,13 @@ export class Projectile {
     const fx = this.game.fx;
     this.sprite.mesh.position.set(this.pos.x, this.pos.y + RING_TOP, this.pos.z);
     if (this.glow) this.glow.mesh.position.copy(this.sprite.mesh.position);
-    if (this.type === 'fireball' && Math.random() < 0.5) {
-      fx.spawn('fire', this.pos.x - this.vel.x * 0.03, this.pos.y, this.pos.z - this.vel.z * 0.03, { scale: 0.7, life: 0.2, fade: true, opacity: 0.8 });
-    }
+    const back = { x: this.pos.x - this.vel.x * 0.03, z: this.pos.z - this.vel.z * 0.03 };
+    if (this.P.trail === 'fire' && Math.random() < 0.5) fx.spawn('fire', back.x, this.pos.y, back.z, { scale: 0.7, life: 0.2, fade: true, opacity: 0.8 });
+    if (this.P.trail === 'bolt') fx.spawn('lightning', back.x, this.pos.y, back.z, { scale: 0.55, random: true, life: 0.06, color: 0xd8f0ff, rot: Math.random() * 6.28, order: 7, glow: 1.6 });
+    if (this.P.trail === 'red' && Math.random() < 0.6) fx.spawn('glow', back.x, this.pos.y, back.z, { scale: 0.8, life: 0.12, color: 0xff3048, opacity: 0.6, fade: true, order: 6 });
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
-      if (this.pos.y < 0.1 && this.type === 'fireball') {
-        fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(0xff8a30));
+      if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
+        fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
         audio.play('hitHeavy', 0.7);
       }
       this.kill();
@@ -197,13 +199,29 @@ export class Projectile {
     // distance to the victim's body capsule
     const by = THREE.MathUtils.clamp(this.pos.y, o.pos.y + 0.25, o.pos.y + 1.4);
     const d = Math.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);
+    // Infinity (Gojo's passive): the projectile slows to nothing before it can touch him
+    if (d < this.P.radius + 1.15 && infinityStops(o)) {
+      fx.spawn('ring', this.pos.x, this.pos.y, this.pos.z, { scale: 0.9, color: 0xd8f2ff, glow: 1, order: 8 });
+      fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1, color: 0x9fd8ff, opacity: 0.5, life: 0.25, fade: true });
+      if (!o.infinityCallT || this.game.time - o.infinityCallT > 2) {
+        o.infinityCallT = this.game.time;
+        this.game.hud.callout(o.index, 'INFINITY', '#d8f2ff');
+      }
+      audio.play('block', 0.6);
+      this.kill();
+      return;
+    }
     if (d < this.P.radius + 0.42) {
       const dir = new THREE.Vector2(this.vel.x, this.vel.z).normalize();
       const r = o.takeHit(this.owner, { ...this.P, hitstop: this.P.big ? 10 : 4, projectileHit: true, big: this.P.big }, dir);
-      if (this.type === 'fireball') {
-        fx.explosion(this.pos.x, this.pos.y, this.pos.z, new THREE.Color(0xff8a30));
+      if (this.P.burst === 'explosion') {
+        fx.explosion(this.pos.x, this.pos.y, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
         audio.play('explosion', 0.7);
         this.game.cam.shake(0.5);
+      } else if (this.P.trail === 'bolt') {
+        fx.spawn('lightning', this.pos.x, this.pos.y, this.pos.z, { scale: 1.3, random: true, life: 0.18, color: 0xffffff, order: 9, glow: 2 });
+        fx.hitSpark(this.pos.x, this.pos.y, this.pos.z, true, 0xbfe6ff);
+        audio.play(r === 'block' ? 'block' : 'hitHeavy', 0.8);
       } else {
         fx.hitSpark(this.pos.x, this.pos.y, this.pos.z, false);
         audio.play(r === 'block' ? 'block' : 'hit', 0.8);
@@ -221,8 +239,7 @@ export class Projectile {
 }
 
 // Aim from the thrower's hand toward the opponent's chest, fanned out for volleys.
-export function spawnProjectiles(game, owner) {
-  const type = owner.def.projectile;
+export function spawnProjectiles(game, owner, type = owner.def.projectile) {
   const P = PROJECTILES[type];
   const o = owner.opp;
   const from = new THREE.Vector3(owner.pos.x, owner.pos.y + 0.9, owner.pos.z);
@@ -236,4 +253,63 @@ export function spawnProjectiles(game, owner) {
   }
   audio.play(P.sfx);
   return list;
+}
+
+// Lapse: Blue (Gojo): a gravity vortex in front of the caster that drags the opponent in,
+// ticks small hits, then pops them up for a combo. Gojo is free to act while it runs.
+export class Vortex {
+  constructor(game, owner, m) {
+    this.game = game;
+    this.owner = owner;
+    this.m = m;
+    this.t = 0;
+    this.dead = false;
+    const f = owner;
+    this.pos = new THREE.Vector3(f.pos.x + f.face.x * m.dist, Math.max(0.9, f.opp.pos.y + 0.9), f.pos.z + f.face.y * m.dist);
+    this.id = 'vortex' + owner.index;
+    audio.play('beamCharge', 0.5);
+  }
+
+  update() {
+    const m = this.m, g = this.game, fx = g.fx, o = this.owner.opp, p = this.pos;
+    this.t++;
+    const grow = Math.min(1, this.t / 8) * (this.t > m.len - 6 ? Math.max(0, (m.len - this.t) / 6) : 1);
+    fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: 0x7ab8ff, order: 8, glow: 0.9 });
+    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: 0x2a6aff, opacity: 0.5, order: 3, glow: 1 });
+    if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: 0x4aa8ff, glow: 0.8, life: 0.2, fade: true, order: 7 });
+    if (this.t % 2 === 0) {
+      const a = Math.random() * Math.PI * 2, r = 2.2;
+      const sx = p.x + Math.cos(a) * r, sy = p.y + Math.sin(a) * r * 0.6, sz = p.z + Math.sin(a * 1.7) * 0.5;
+      fx.spawn('star', sx, sy, sz, { scale: 0.2, frame: 2, vel: [(p.x - sx) * 5, (p.y - sy) * 5, (p.z - sz) * 5], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
+    }
+    // drag the opponent toward the core
+    const canPull = !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup';
+    const dx = p.x - o.pos.x, dz = p.z - o.pos.z, dy = p.y - 0.8 - o.pos.y;
+    const d = Math.hypot(dx, dz, dy) || 1;
+    const dir = new THREE.Vector2(-dx, -dz).normalize();
+    if (canPull && d < m.radius) {
+      const k = m.pull * Math.min(1, d / 0.6);
+      o.vel.x = (dx / d) * k;
+      o.vel.z = (dz / d) * k;
+      if (o.air || dy > 0.3) {
+        o.vel.y = (dy / d) * k;
+        o.air = true;
+      }
+      if (this.t % m.tick === 0 && o.hittable) o.takeHit(this.owner, { ...m.tickHit, projectileHit: true }, dir);
+    }
+    if (this.t >= m.len) {
+      if (canPull && d < 1.8 && o.hittable) o.takeHit(this.owner, { ...m.pop, projectileHit: true }, dir);
+      fx.explosion(p.x, p.y, p.z, new THREE.Color(0x6ab4ff));
+      g.cam.shake(0.4);
+      audio.play('explosion', 0.6);
+      this.kill();
+    }
+  }
+
+  kill() {
+    if (this.dead) return;
+    this.dead = true;
+    this.game.fx.drop(this.id);
+    this.game.fx.drop(this.id + 'g');
+  }
 }

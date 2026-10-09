@@ -25,6 +25,7 @@ const TOUCH_ROWS = [
   ['dash', 'DASH', 'Dash with the stick · super dash without'],
   ['ult', 'ULT', 'Ultimate (Heavy + Special, 3 bars)'],
   ['vanish', 'VANISH', 'Vanish (Guard + Special, 1 bar)'],
+  ['super', 'SUPER', 'Second super (3 bars)'],
 ];
 const PROFILES = [['solo', 'VS CPU / TRAINING'], ['p1', '2P · PLAYER 1'], ['p2', '2P · PLAYER 2']];
 const PROFILE_SHORT = { solo: 'Solo', p1: 'P1', p2: 'P2' };
@@ -35,7 +36,7 @@ const FACE = {
   xbox: { 0: '#6ed35a', 1: '#ff5a5a', 2: '#4aa8ff', 3: '#ffcf3a' },
 };
 
-const SHORT = { light: 'Light', heavy: 'Heavy', special: 'Special', jump: 'Jump', guard: 'Guard', dash: 'Dash' };
+const SHORT = { light: 'Light', heavy: 'Heavy', special: 'Special', jump: 'Jump', guard: 'Guard', dash: 'Dash', super: 'Super' };
 
 // Gamepad diagram: button index -> [x, y] in a 440x250 viewBox.
 const SPOTS = {
@@ -172,6 +173,7 @@ export class ControlsPanel {
       <div><b>Ultimate</b>${k('heavy')}+${k('special')}</div>
       <div><b>Vanish</b>${k('guard')}+${k('special')}</div>
       <div><b>Super dash</b>${k('dash')} no direction</div>
+      <div><b>Specials</b>${k('special')} + ←↑→↓ for more</div>
       <div><b>Dash</b>double-tap a direction</div>`));
   }
 
@@ -243,6 +245,7 @@ export class ControlsPanel {
       <div><b>Ultimate</b>${b('heavy')}+${b('special')}</div>
       <div><b>Vanish</b>${b('guard')}+${b('special')}</div>
       <div><b>Super dash</b>${b('dash')} stick neutral</div>
+      <div><b>Specials</b>${b('special')} + stick direction</div>
       <div><b>*Training</b><kbd>${names[8]}</kbd> resets positions</div>`));
   }
 
@@ -385,14 +388,14 @@ export function matchHint(mode, layout) {
       const i = PAD_BUTTONS[a]?.[0];
       return `<kbd style="${i <= 3 ? `color:${face[i]}` : ''}">${n[i] ?? '—'}</kbd>`;
     };
-    return `Stick move · ${b('light')} light · ${b('heavy')} launcher · ${b('special')} special · ${b('heavy')}+${b('special')} ultimate · ${b('guard')}+${b('special')} vanish · ${b('jump')} jump · ${b('dash')} super dash · <kbd>${n[9]}</kbd> pause`;
+    return `Stick move · ${b('light')} light · ${b('heavy')} launcher · ${b('special')} special · ${b('heavy')}+${b('special')} ultimate · ${b('super')} super · ${b('guard')}+${b('special')} vanish · ${b('jump')} jump · ${b('dash')} super dash · <kbd>${n[9]}</kbd> pause`;
   }
   if (mode === 'versus') {
     const p = (m) => `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} ${k(m, 'light')}${k(m, 'heavy')}${k(m, 'special')} ${k(m, 'jump')} ${k(m, 'guard')} ${k(m, 'dash')}`;
     return `P1 ${p(KEYMAPS.p1)} · P2 ${p(KEYMAPS.p2)} · Heavy+Special ultimate · Guard+Special vanish · <kbd>Esc</kbd> pause`;
   }
   const m = KEYMAPS.solo;
-  return `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} move · ${k(m, 'light')} light · ${k(m, 'heavy')} launcher · ${k(m, 'special')} special (hold: charge) · ${k(m, 'heavy')}+${k(m, 'special')} ultimate · ${k(m, 'guard')}+${k(m, 'special')} vanish · ${k(m, 'jump')} jump · ${k(m, 'dash')} super dash · <kbd>Esc</kbd> pause`;
+  return `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} move · ${k(m, 'light')} light · ${k(m, 'heavy')} launcher · ${k(m, 'special')} special (hold: charge) · ${k(m, 'heavy')}+${k(m, 'special')} ultimate · ${k(m, 'super')} super · ${k(m, 'guard')}+${k(m, 'special')} vanish · ${k(m, 'jump')} jump · ${k(m, 'dash')} super dash · <kbd>Esc</kbd> pause`;
 }
 
 // Beam-clash mash prompt, from the live bindings (training and VS CPU use the solo map).

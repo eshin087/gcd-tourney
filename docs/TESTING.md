@@ -77,6 +77,12 @@ Timings are approximate. If a step misses, print `step(1)` after each press and 
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
 - [ ] Ultimate (3 bars): cut-in, beam. Counter-beam during theirs → clash → mash → winner or draw.
+- [ ] Kits (ADR 0009), with Killua and Gojo: Special, Special + → / ↑ / ↓ and air Special (+↓) each give the
+      move in the README Fighters table. SUPER fires Whirlwind / Unlimited Void (the void stage replaces the
+      arena, then comes back), and Naruto's SUPER fires his beam. Godspeed shows the mode bar and blink dashes.
+      Infinity stops a projectile (callout), and the counter freezes a melee attacker.
+      Debug recipe: `freezeCpu()`, set `game.fighters[0].ki = 300`, then `hold('KeyD'); press('KeyL', 3); release('KeyD')`
+      and `step(1)` while logging `f.state`, `f.kitState?.kind`, and the opponent's state and HP.
 - [ ] Air recover after launch. At 22+ hits the victim auto-techs.
 - [ ] KO by a big hit sends the loser out of the ring and into the stands.
 
@@ -120,9 +126,10 @@ or add `?touch=1` on desktop to force the touch UI (`?touch=0` hides it).
 
 Run this for every new or re-packed character (`?fight=<id>,<other>&art=custom&debug`):
 
-- [ ] All 38 animations play (or fall back sensibly). No frame pops out of the cell or gets clipped.
+- [ ] All 38 animations (42 with the kit animations) play (or fall back sensibly). No frame pops out of the cell or gets clipped.
 - [ ] The feet stay planted between idle, run and attacks (pivot consistent), with no jitter in loops.
-- [ ] Body height matches the other fighters, and design and palette are consistent across animations.
+- [ ] Body height matches the other fighters (or its ADR 0010 `standingBodyPx`), and design and palette are
+      consistent across animations.
 - [ ] Proportions stay at about 6.5 heads (spec v2) in every animation, with no chibi frames, and every
       packed animation comes from its approved version in `art/REVIEW.md` (the packer report names the
       `_vNN` file it used).

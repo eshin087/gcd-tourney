@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { ULTIMATE, SPECIALS, VANISH } from './moves.js';
+import { ULTIMATE, VANISH } from './moves.js';
+import { specialFor, kitOf } from './kit.js';
 
 const LEVELS = {
   easy: { react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, mash: 6, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2 },
@@ -74,7 +75,9 @@ export class CpuBrain {
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;
       if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.planT + L.react;
       if (oppAttacking && this.reactAt === this.planT && dist < 3.4 && !f.busy) {
-        if (R() < L.guard) this.setPlan('guard', 14 + (o.move?.special ? 20 : 0));
+        const counter = specialFor(f.def, 'down');
+        if (counter?.kind === 'counter' && f.ki >= counter.cost && R() < L.guard * 0.35) this.useSpecial('down');
+        else if (R() < L.guard) this.setPlan('guard', 14 + (o.move?.special ? 20 : 0));
         else if (R() < L.dodge * 0.3) this.dodge();
       }
       // guard-cancel vanish out of block pressure
@@ -94,6 +97,11 @@ export class CpuBrain {
         }
       }
       this.lastOppState = o.state;
+      // free combo on a frozen (Domain / Infinity stagger) or popped-up (Blue) opponent
+      if (!f.busy && this.plan !== 'combo' && this.plan !== 'jumpAttack') {
+        if (o.state === 'held' && R() < L.combo) this.setPlan('combo', 90);
+        else if (o.state === 'launched' && o.pos.y > 1.2 && dist < 3 && f.state !== 'air' && R() < 0.4 * L.combo) this.setPlan('jumpAttack', 50);
+      }
 
       if (this.wait <= 0 && !f.busy && f.state !== 'air') this.choose(dist, f, o);
 
@@ -132,8 +140,23 @@ export class CpuBrain {
           this.setPlan('idle', 30);
           break;
         case 'special':
-          if (dist > 7) moveWorld(toOpp.x, toOpp.y);
-          else { this.press('special', 3); this.setPlan('idle', 40); }
+          if (dist > 7 && this.planT < 20) moveWorld(toOpp.x, toOpp.y);
+          else this.useSpecial(this.pickSpecial(f, o, dist));
+          break;
+        case 'useSpecial': {
+          // hold the direction through the release frame: that's when the slot is read
+          const d = this.spSlot;
+          if (d === 'forward') mx = f.side;
+          else if (d === 'back') mx = -f.side;
+          else if (d === 'up') my = 1;
+          else if (d === 'down') my = -1;
+          if (this.planT === 1) this.press('special', 3);
+          if (this.planT > 7) this.setPlan('idle', 36);
+          break;
+        }
+        case 'super':
+          this.press('super', 2);
+          this.setPlan('idle', 60);
           break;
         case 'jumpAttack':
           if (this.planT === 1) { moveWorld(toOpp.x, toOpp.y); this.press('jump', 2); }
@@ -174,7 +197,7 @@ export class CpuBrain {
 
     pad.setMove(mx, my);
     pad.dashDir = null; // laneGo flicks the stick on/off: never let that read as a double-tap dash
-    for (const name of ['light', 'heavy', 'special', 'jump', 'guard', 'dash']) {
+    for (const name of ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super']) {
       const h = this.hold[name] ?? -1;
       pad.set(name, h > 0);
       this.hold[name] = h > 0 ? h - 1 : -1;
@@ -196,7 +219,7 @@ export class CpuBrain {
     if (n === 'light1' || n === 'light2') return this.press('light');
     if (n === 'light3') {
       if (this.route === 'launch') return this.press('heavy');
-      if (this.route === 'special' && f.ki >= SPECIALS[f.def.special].cost) return this.press('special', 2);
+      if (this.route === 'special' && f.ki >= (specialFor(f.def, 'neutral')?.cost ?? 100)) return this.press('special', 2);
       return this.press('light');
     }
     if (n === 'light4' && t >= B && f.ki >= VANISH.cost && R() < L.vanish) { this.hold.guard = 3; this.press('special', 2); return; }
@@ -205,6 +228,36 @@ export class CpuBrain {
     if (n === 'airLight1') return this.press('light');
     if (n === 'airLight2') return this.press(R() < 0.6 ? 'heavy' : 'light');
     if (n === 'airLight3' && t >= B && R() < L.dash) return this.press('dash', 2);
+  }
+
+  // Pick a special slot that suits the situation (ADR 0009 kinds), weighted at random.
+  pickSpecial(f, o, dist) {
+    const seen = new Set(), opts = [];
+    for (const slot of ['neutral', 'forward', 'up', 'down', 'back']) {
+      const m = specialFor(f.def, slot);
+      if (!m || seen.has(m) || f.ki < (m.cost ?? 0)) continue;
+      seen.add(m);
+      let w = 1;
+      switch (m.kind) {
+        case 'shot': w = dist > 3 ? 3 : 0.6; break;
+        case 'rush': w = dist > 1.8 && dist < 7 ? 3 : 0.8; break;
+        case 'teleport': w = dist > 2.5 ? 2 : 0.8; break;
+        case 'pull': w = dist > 1.4 && dist < 4.5 ? 3 : 0.4; break;
+        case 'dive': w = o.air ? 3 : dist > 2 && dist < 6 ? 1.6 : 0.4; break;
+        case 'counter': w = 0.2; break;
+        case 'mode': w = f.mode ? 0 : 2.5; break;
+      }
+      opts.push([slot, w]);
+    }
+    const total = opts.reduce((a, [, w]) => a + w, 0);
+    let r = Math.random() * total;
+    for (const [slot, w] of opts) if ((r -= w) <= 0) return slot;
+    return 'neutral';
+  }
+
+  useSpecial(slot) {
+    this.spSlot = slot;
+    this.setPlan('useSpecial', 10);
   }
 
   dodge() {
@@ -224,10 +277,13 @@ export class CpuBrain {
     const L = this.L, R = Math.random;
     const ult = f.ki >= ULTIMATE.cost;
     const saving = f.ki >= 180 && !ult;
+    const kitted = !!f.def.kit; // fighters with a full kit show it off more often
     if (o.state === 'down' || o.state === 'getup') {
       this.setPlan(!ult && R() < L.charge + 0.2 ? 'charge' : 'strafe', 40 + R() * 30);
       return;
     }
+    const sup = kitOf(f.def).super;
+    if (ult && sup && R() < 0.5 && (sup === 'unlimitedVoid' || dist < 6)) return this.setPlan('super', 5);
     if (ult && dist > 2.6 && R() < 0.45 + 0.3 * L.aggro) return this.setPlan('ultimate', 5);
     if (dist < 1.7) {
       if (R() < L.aggro) return this.setPlan('combo', 70);
@@ -236,7 +292,7 @@ export class CpuBrain {
     }
     if (dist < 5) {
       const r = R();
-      if (f.ki >= 100 && !saving && r < L.special * 0.6) return this.setPlan('special', 30);
+      if (f.ki >= 100 && !saving && r < L.special * (kitted ? 1 : 0.6)) return this.setPlan('special', 30);
       if (saving && r < 0.35) return this.setPlan('retreat', 30);
       if (r < 0.22) return this.setPlan('dashIn', 4);
       if (r < 0.36) return this.setPlan('jumpAttack', 50);
@@ -246,6 +302,7 @@ export class CpuBrain {
     const r = R();
     if (!ult && r < L.charge * (saving ? 0.95 : 0.45)) return this.setPlan('charge', 60 + R() * 80);
     if (r < L.dash * 0.6) return this.setPlan('superDash', 45);
+    if (kitted && f.ki >= 100 && !saving && r < 0.3 + L.special * 0.5) return this.setPlan('special', 40);
     if (f.ki >= 50 && !saving && r < 0.6) return this.setPlan('projectile', 45);
     if (f.ki >= 100 && !saving && r < 0.6 + L.special * 0.3) return this.setPlan('special', 40);
     if (r < 0.7) return this.setPlan('dashIn', 4);

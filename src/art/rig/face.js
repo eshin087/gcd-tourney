@@ -42,8 +42,8 @@ export function stampFace(px, id, W, H, skinIds, f, opt) {
   const C = opt.colors;
   const col = {
     K: pack(hex(C.line || '#1a1220')),
-    I: pack(hex(f.eyes === 'red' ? '#d21c2c' : C.iris)),
-    D: pack(hex(f.eyes === 'red' ? '#600812' : C.irisDark)),
+    I: pack(hex(f.eyes === 'red' ? '#d21c2c' : f.eyes === 'six' ? '#5fe2ff' : C.iris)),
+    D: pack(hex(f.eyes === 'red' ? '#600812' : f.eyes === 'six' ? '#1f8ee8' : C.irisDark)),
     W: pack(hex('#ffffff')),
     S: pack(hex(C.sclera || '#f6f2f4')),
     M: pack(hex(C.mouth || '#5a1a22')),
@@ -102,11 +102,13 @@ export function stampFace(px, id, W, H, skinIds, f, opt) {
 }
 
 // Big DBFZ-style eye for the super cut-in banner, drawn with canvas 2D then hard-edged.
-export function drawBigEye(ctx, cx, cy, w, h, C, mirror, eyesRed = false) {
+// eyes: false | true | 'red' (Sharingan) | 'six' (Six Eyes: glowing sky blue)
+export function drawBigEye(ctx, cx, cy, w, h, C, mirror, eyes = false) {
   ctx.save();
   ctx.translate(cx, cy);
   if (mirror) ctx.scale(-1, 1);
-  const iris = eyesRed ? '#d21c2c' : C.iris, irisD = eyesRed ? '#5a0610' : C.irisDark;
+  const red = eyes === true || eyes === 'red', six = eyes === 'six';
+  const iris = red ? '#d21c2c' : six ? '#5fe2ff' : C.iris, irisD = red ? '#5a0610' : six ? '#1f8ee8' : C.irisDark;
   // sclera
   ctx.fillStyle = '#f8f4f6';
   ctx.beginPath();
@@ -121,7 +123,7 @@ export function drawBigEye(ctx, cx, cy, w, h, C, mirror, eyesRed = false) {
   ctx.beginPath(); ctx.ellipse(w * 0.06, h * 0.06, w * 0.19, h * 0.26, 0, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = '#0c0812';
   ctx.beginPath(); ctx.ellipse(w * 0.06, h * 0.0, w * 0.09, h * 0.14, 0, 0, Math.PI * 2); ctx.fill();
-  if (eyesRed) {
+  if (red) {
     ctx.fillStyle = '#0c0812';
     for (let k = 0; k < 3; k++) {
       const a = (k / 3) * Math.PI * 2 + 0.4;

@@ -8,7 +8,7 @@ Project instructions for Claude Code. Read this first in every session. Codex an
 GCD Tourney is a browser **HD-2D pixel-art anime arena fighter** with a Dragon Ball FighterZ-style
 feel. It's built with Three.js and Vite and has no other runtime dependencies. A real 3D tournament ground
 (ring, temple, crowd, gate) hosts camera-facing pixel sprites. The camera is cinematic, and the
-game has auras, super flashes and beam clashes. Two fighters exist today (Naruto, Sasuke). Many
+game has auras, super flashes and beam clashes. Four fighters exist today (Naruto, Sasuke, Killua, Gojo). Many
 more will follow, so everything should stay data-driven and template-based.
 
 The fighter art in the game today is **3D-baked placeholder art**: chibi models built in code and
@@ -52,14 +52,15 @@ src/core/      renderer.js (low-res render + nearest upscale, bloom, grade), inp
                touch.js (on-screen joystick + buttons for phones), artIndex.js (prod list of packed art),
                audio.js (WebAudio synth: sfx, loops, music, crowd; no audio files)
 src/game/      game.js (loop, match flow, melee/clash/KO hooks), fighter.js (state machine + physics + takeHit),
-               moves.js (ALL move/frame data), ai.js (CpuBrain drives a Pad), projectiles.js (projectiles + beams),
+               moves.js (ALL move/frame data), kit.js (fighter kits: directional specials, special kinds, SUPER,
+               passives; ADR 0009), ai.js (CpuBrain drives a Pad), projectiles.js (projectiles, vortex, beams),
                effects.js (VFX sprites, aura, overlay), camera.js (CameraDirector modes), boxViewer.js (hit/hurt box overlay), sprites.js (SheetAsset,
                SpriteActor, custom-sheet loading + animation FALLBACK), constants.js (world/ruleset constants)
 src/characters/  one file per fighter (look, colors, stats, special/projectile, 3D model, stance, extra anims); index.js = ROSTER
 src/art/       animGuide.js (canonical animation list + poses), vfxPainter.js (procedural VFX atlas),
                pixel.js, textures.js, crowdPainter.js (procedural pixel art)
 src/art/rig/   3D chibi rig, toon shader, pose/keyframe system, shared anim library, sprite baker
-src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky), trainingRoom.js (holographic practice stage)
+src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky), voidStage.js (domain stage), trainingRoom.js (holographic practice stage)
 src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
                controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints)
 tools/         pack-sprites.mjs (art/ -> public/ packer, Node + pngjs)

@@ -2,6 +2,8 @@ import { audio } from '../core/audio.js';
 import { portraitCanvas } from './hud.js';
 import { ControlsPanel } from './controls.js';
 import { IS_TOUCH_DEVICE } from '../core/touch.js';
+import { kitOf } from '../game/kit.js';
+import { SPECIAL_MOVES, SUPERS } from '../game/moves.js';
 
 const el = (tag, cls, html = '') => {
   const e = document.createElement(tag);
@@ -9,6 +11,22 @@ const el = (tag, cls, html = '') => {
   if (html) e.innerHTML = html;
   return e;
 };
+
+// Char-select move list: one line per distinct special in the fighter's kit, then the supers.
+const SLOT_LABEL = [['neutral', 'SP'], ['forward', '→SP'], ['up', '↑SP'], ['down', '↓SP'], ['back', '←SP'], ['air', 'air SP'], ['airDown', 'air ↓SP']];
+function kitMovesHtml(c) {
+  const k = kitOf(c), seen = new Set(), rows = [];
+  for (const [slot, label] of SLOT_LABEL) {
+    const m = SPECIAL_MOVES[k.specials[slot]];
+    const name = m?.name ?? (slot === 'air' ? c.projectileName : null);
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    rows.push(`<div><b>${name}</b> ${label}</div>`);
+  }
+  if (k.super && SUPERS[k.super]) rows.push(`<div><b>${c.superName ?? SUPERS[k.super].name}</b> SUPER</div>`);
+  rows.push(`<div><b>${c.beam.name}</b> ultimate</div>`);
+  return rows.join('');
+}
 
 // Move list shown beside the bindings on the controls page (button names are layout-agnostic).
 export const MOVES_HTML = `
@@ -20,10 +38,11 @@ export const MOVES_HTML = `
       <tr><td>Super dash</td><td>Dash with no direction: homing flight (once per jump)</td></tr>
       <tr><td>Dash</td><td>Dash + direction, or double-tap a direction</td></tr>
       <tr><td>Vanish</td><td>Guard + Special <small>(1 bar)</small>: teleport behind &amp; smash, works from block</td></tr>
-      <tr><td>Signature rush</td><td>tap Special <small>(1 bar)</small></td></tr>
+      <tr><td>Specials</td><td>tap Special, or Special + → / ↑ / ↓ for the fighter's other specials <small>(½–1 bar)</small></td></tr>
       <tr><td>Ki charge</td><td>hold Special</td></tr>
-      <tr><td>Projectile</td><td>Special in the air <small>(½ bar)</small></td></tr>
+      <tr><td>Air special</td><td>Special in the air <small>(+↓ for some fighters)</small></td></tr>
       <tr><td>Ultimate beam</td><td>Heavy + Special <small>(3 bars)</small> · fire back to CLASH, then mash</td></tr>
+      <tr><td>Second super</td><td>SUPER <small>(3 bars)</small>: Godspeed Whirlwind, Unlimited Void… (the beam if the fighter has none)</td></tr>
       <tr><td>Air recover</td><td>any button while launched</td></tr>
     </table>
   </div>`;
@@ -357,7 +376,7 @@ export class Menus {
       S.name.textContent = c.name;
       S.name.style.color = c.color;
       S.sub.textContent = c.subtitle;
-      S.moves.innerHTML = `<div><b>${c.specialName}</b> rush</div><div><b>${c.projectileName}</b> air</div><div><b>${c.beam.name}</b> ultimate</div>`;
+      S.moves.innerHTML = kitMovesHtml(c);
       S.preview = new SpritePreview(S.cv, assets[idx], anim, i === 1);
       this.previews = sides.map((x) => x.preview).filter(Boolean);
     };

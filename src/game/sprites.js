@@ -11,6 +11,8 @@ const FALLBACK = {
   superDash: 'dash', backDash: 'jumpFall', airRecover: 'jumpUp', vanish: 'dash', spin: 'launched',
   launched: 'hurtHigh', down: 'hurtHigh', guard: 'idle', charge: 'idle', light2: 'light1', light3: 'light1', light4: 'heavy',
   heavy: 'light1', jumpUp: 'idle', jumpFall: 'jumpUp', run: 'idle',
+  // move system v2 (ADR 0009), optional per character
+  specialForward: 'special', specialUp: 'special', specialDown: 'charge', superPose: 'taunt',
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.

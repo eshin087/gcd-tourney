@@ -5,8 +5,9 @@ feel, modeled on Studio Genki's MythicTale tournament clip. It's a real 3D tourn
 ground (tiled ring, mowed grass, temple, cheering crowd, gate) with pixel-art fighters
 standing inside it, a cinematic camera, auras, super flashes and beam clashes.
 
-The two starter fighters are a Naruto-style orange fox ninja and a Sasuke-style
-lightning ninja. Their sprites are **3D-baked placeholders**: chibi models built in code,
+Four fighters are playable: Naruto, Sasuke, Killua (Godspeed era) and Gojo. Each has their own
+kit of directional specials, and Killua and Gojo also have a second super (see [Fighters](#fighters)).
+Their sprites are **3D-baked placeholders**: chibi models built in code,
 animated with smooth keyframes and rendered into pixel-art sprite sheets at startup.
 Hi-res pixel art replaces them one character at a time. It follows art spec v2
 ([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Shippuden-era designs at about
@@ -55,12 +56,16 @@ These are the default bindings. You can rebind them in the controls menu.
 | Move | WASD / Arrows | WASD | Arrows | Left stick / D-pad |
 | Light (auto combo) | J | F | , | □ / X |
 | Heavy (launcher) | K | G | . | △ / Y |
-| Special (tap) / charge ki (hold) | L | H | / | ○ / B |
+| Special (tap, + direction) / charge ki (hold) | L | H | / | ○ / B |
 | Jump | Space | Space | L | ✕ / A |
 | Guard | Shift | L-Shift | ; | L1 / LB |
 | Dash (with direction) / **super dash** (neutral) | O · double-tap | R · double-tap | K · double-tap | R1 / RB |
 | **Ultimate beam** | **K + L** | **G + H** | **. + /** | **△ + ○** |
 | **Vanish** | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
+| **Super** (2nd super, 3 bars) | **H** or **B** | **T** | **'** | **L2 / LT** |
+
+Adding the SUPER button reset saved key bindings once (new storage key). Rebind again if you had
+custom keys.
 
 ### The DBFZ-style toolkit
 
@@ -69,9 +74,12 @@ These are the default bindings. You can rebind them in the controls menu.
 - **Air combo**: Light ×3 in the air, or end with **Heavy** (double-axe spike) for a **ground bounce**.
 - **Super dash**: Dash with no direction. Homing flight that hits on contact, once per trip through the air.
 - **Vanish** (1 bar): teleport behind the opponent and smash them. Also works while blocking.
-- **Signature rush** (1 bar): Rasengan / Chidori. **Projectile** (½ bar): Special in the air.
-- **Ultimate** (3 bars): super flash with a cut-in, then a beam. Fire back during their beam
-  to start a **beam clash** and mash.
+- **Specials** (½-1 bar): tap Special for the neutral special. Hold a direction while you press it
+  (→ toward the opponent, ↑, ↓) for the fighter's other specials. In the air: Special (+↓ for some
+  fighters). The direction you hold when you *press* Special counts, so a quick tap works.
+- **Ultimate** (3 bars, Heavy + Special): super flash with a cut-in, then a beam. Fire back during
+  their beam to start a **beam clash** and mash.
+- **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
 - **Air recover**: press any button while launched (hitstun decay makes long combos escapable).
 - KO with a big hit sends the loser flying out of the ring into the stands.
 - Esc / P / Start: pause. M (or the small speaker toggle in the top corner): mute.
@@ -84,11 +92,25 @@ Open https://gcd-tourney.vercel.app on your phone and turn it sideways (portrait
 Android goes fullscreen on the first tap; on iPhone use Share > Add to Home Screen for a fullscreen app.
 
 - **Left half of the screen:** a joystick appears under your thumb. Flick twice in a direction to dash.
-- **Right side:** LIGHT, HEAVY, SPECIAL, JUMP, GUARD, DASH, plus **ULT** (Heavy + Special) and **VANISH**
-  (Guard + Special) so you never need a two-finger chord. ULT / VANISH dim until you have the ki.
+- **Right side:** LIGHT, HEAVY, SPECIAL, JUMP, GUARD, DASH, plus **ULT** (Heavy + Special), **VANISH**
+  (Guard + Special) and **SUPER**, so you never need a two-finger chord. They dim until you have the ki.
+  Hold the joystick in a direction while you tap SPECIAL for the directional specials.
 - **Top-left:** pause. In menus, tap items; the **BACK** button bottom-left replaces Esc. Tap the screen to
   skip the pre-fight intro.
 - Button size: Pause > Controls > TOUCH tab (small / medium / large).
+
+## Fighters
+
+| | Special (tap) | → Special | ↑ Special | ↓ Special | air Special | Super (SUPER) | Ultimate |
+|---|---|---|---|---|---|---|---|
+| **Naruto** | Rasengan (rush) | = tap | = tap | = tap | shuriken | (beam) | Rasengan beam |
+| **Sasuke** | Chidori (rush) | = tap | = tap | = tap | fireball | (beam) | Chidori beam |
+| **Killua** | Narukami (lightning bolt, ½ bar) | Rhythm Echo (afterimage teleport behind, then a wall-bounce strike) | Thunderbolt (lightning leap and slam, anti-air) | **Godspeed** (8 s: faster, +15 % damage, dashes become lightning blinks) | Narukami; +↓ Thunderbolt dive | **Godspeed: Whirlwind** (dash, 8-hit afterimage flurry, slam) | Lightning Palm |
+| **Gojo** | Lapse: Blue (gravity vortex: pulls in, ticks, pops up) | Reversal: Red (repulsion blast, wall bounce) | Blink (teleport above them, ½ bar) | Infinity (counter: a melee hit freezes the attacker, ½ bar) | Reversal: Red | **Domain Expansion: Unlimited Void** (the void swallows the stage, opponent frozen ~2.5 s) | Hollow Purple |
+
+**Gojo's Infinity passive:** projectiles stop before they touch him whenever he can act (not while he's
+in hitstun or knocked down). Beams still connect, and so does Killua up close.
+Design notes: [ADR 0009](docs/decisions/0009-move-system-v2.md) and [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md).
 
 ## How it's built
 
@@ -168,4 +190,5 @@ user wants to generate an image by hand.
 
 Using recognizable anime characters is fine for a personal demo. A public or commercial
 release would need licenses from the rights holders (Shueisha / Studio Pierrot for Naruto,
-for example), or original characters inspired by those archetypes.
+Shueisha / Madhouse for Hunter x Hunter, Shueisha / MAPPA for Jujutsu Kaisen, for example), or
+original characters inspired by those archetypes.

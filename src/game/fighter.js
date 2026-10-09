@@ -4,8 +4,11 @@ import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
+import * as kit from './kit.js';
 
 const NEUTRAL_PAD = new Pad();
+// states a held fighter is pulled out of (they can't act until the hold wears off)
+const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit']);
 const FRAME_MS = 1000 / 60;
 const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 
@@ -66,6 +69,10 @@ export class Fighter {
     this.forceTech = false;
     this.shaking = false;
     this.hidden = false;
+    this.mode = null; // timed power-up (Godspeed), see kit.js
+    this.heldT = 0; // frames held helpless (Domain Expansion, Whirlwind, Infinity stagger)
+    this.counterT = 0; // counter-stance frames left
+    this.kitState = null; // data of the running kit move (state 'kit')
     this.dashDir = new THREE.Vector2(1, 0);
     this.endMoveFx();
     this.actor.setVisible(true);
@@ -75,6 +82,13 @@ export class Fighter {
   // --------------------------------------------------------------- helpers
   setState(s, anim = s) {
     if (this.state === 'attack' && s !== 'attack') this.endMoveFx();
+    if (this.state === 'kit' && s !== 'kit' && this.kitState) {
+      // leaving a kit move by any route (round reset, debug tools) never leaves it half-running
+      this.kitState = null;
+      this.counterT = 0;
+      this.hidden = false;
+      this.actor.setVisible(true);
+    }
     this.state = s;
     this.t = 0;
     if (anim) this.actor.play(anim, true);
@@ -125,6 +139,10 @@ export class Fighter {
     audio.stopLoop('sp' + this.index);
   }
 
+  get speedStat() {
+    return this.def.stats.speed * (this.mode?.speed ?? 1);
+  }
+
   get busy() {
     return !['idle', 'run', 'guard', 'air'].includes(this.state);
   }
@@ -156,19 +174,13 @@ export class Fighter {
     this.actor.setPhase(m.anim, 0, 0);
   }
 
+  // The stick picks which special comes out (kit.js, ADR 0009).
   doSpecial() {
-    const sp = SPECIALS[this.def.special];
-    if (!this.canAfford(sp.cost)) return false;
-    this.ki -= sp.cost;
-    this.startMove('special', sp);
-    return true;
+    return kit.doSpecial(this, false);
   }
 
   doProjectile() {
-    if (!this.canAfford(MOVES.throw.cost)) return false;
-    this.ki -= MOVES.throw.cost;
-    this.startMove('throw', MOVES.throw);
-    return true;
+    return kit.doSpecial(this, true);
   }
 
   startUltimate() {
@@ -195,6 +207,15 @@ export class Fighter {
     }
     d.normalize();
     this.dashDir.copy(d);
+    if (this.mode?.blinkDash) {
+      // Godspeed: a lightning blink, then the tail of a dash (attacks can still cancel it)
+      kit.blinkDash(this, d);
+      this.backDash = false;
+      this.face.copy(d);
+      this.setState('dash', 'dash');
+      this.t = 11;
+      return;
+    }
     const toOpp = new THREE.Vector2(this.opp.pos.x - this.pos.x, this.opp.pos.z - this.pos.z).normalize();
     this.backDash = d.dot(toOpp) < -0.4;
     if (!this.backDash) {
@@ -272,6 +293,7 @@ export class Fighter {
   tryActions() {
     const p = this.pad, b = p.b;
     if (this.wantsVanish()) { this.startVanish(); return true; }
+    if (kit.wantsSuper(this)) { kit.startSuper(this); return true; }
     if (this.wantsUltimate()) {
       p.consume('heavy'); p.consume('special');
       this.startUltimate();
@@ -315,6 +337,7 @@ export class Fighter {
   tryAirActions() {
     const p = this.pad, b = p.b;
     if (this.wantsVanish()) { this.startVanish(); return true; }
+    if (kit.wantsSuper(this)) { kit.startSuper(this); return true; }
     if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return true; }
     if (this.airAttack) {
       if ((b.dash.pressed || p.dashDir) && this.startSuperDash()) return true;
@@ -333,7 +356,7 @@ export class Fighter {
     const p = this.game.inputLive ? this.pad : NEUTRAL_PAD;
     const real = this.pad;
     this.pad = p;
-    if (p.b.special.pressed) { this.spPress = p.frame; this.spPending = true; }
+    if (p.b.special.pressed) { this.spPress = p.frame; this.spPending = true; this.spMx = p.mx; this.spMy = p.my; }
 
     if (this.hitstop > 0) {
       this.hitstop--;
@@ -346,6 +369,13 @@ export class Fighter {
     if (this.flash > 0) this.flash = Math.max(0, this.flash - 0.1);
     if (this.chase > 0) this.chase--;
     if (this.airStun > 0) this.airStun--;
+    kit.tickMode(this);
+    if (this.counterT > 0 && this.state !== 'kit') this.counterT = 0;
+    if (this.heldT > 0) {
+      this.heldT--;
+      // Domain / Whirlwind / Infinity stagger: no actions until it wears off (hits still land)
+      if (HOLDABLE.has(this.state)) this.setState('held', 'stagger');
+    }
     if (this.game.inputLive && !this.ko && this.state !== 'charge' && this.ki < MAX_KI) this.ki = Math.min(MAX_KI, this.ki + 0.1);
 
     const freeAnim = () => this.actor.update(FRAME_MS);
@@ -359,6 +389,7 @@ export class Fighter {
         this.vel.x *= 0.6; this.vel.z *= 0.6;
         this.faceOpponent();
         if (this.wantsVanish()) { this.startVanish(); break; }
+        if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
         if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
         if (p.dashDir) { this.startDash(p.dashDir); break; }
         if (p.buffered('jump', 4)) { p.consume('jump'); this.setState('jumpSquat'); break; }
@@ -378,6 +409,7 @@ export class Fighter {
         if (this.backDash) this.faceOpponent();
         if (this.t % 2 === 0) this.actor.ghost(this.def.color, 0.22, 0.5);
         if (this.t >= 4) {
+          if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
           if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
           if (p.buffered('heavy', 6)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); break; }
           if (p.buffered('light', 6)) { p.consume('light'); this.startMove('light1', { ...MOVES.light1, lunge: 9 }); break; }
@@ -392,6 +424,17 @@ export class Fighter {
       }
       case 'superDash':
         this.updateSuperDash();
+        freeAnim();
+        break;
+      case 'kit':
+        kit.update(this);
+        break;
+      case 'held':
+        this.vel.x *= 0.8; this.vel.z *= 0.8;
+        if (this.heldT <= 0) {
+          if (this.air) this.setState('air', 'jumpFall');
+          else this.setState('idle');
+        }
         freeAnim();
         break;
       case 'vanish':
@@ -419,7 +462,7 @@ export class Fighter {
         this.vel.x *= 0.7; this.vel.z *= 0.7;
         if (this.t >= 4) {
           const d = this.inputDir();
-          const sp = this.def.stats.speed;
+          const sp = this.speedStat;
           this.vel.set(d.x * sp, 13.6, d.y * sp);
           this.air = true;
           this.airAttack = false;
@@ -433,7 +476,7 @@ export class Fighter {
         this.actor.play(this.vel.y > 1.5 ? 'jumpUp' : 'jumpFall');
         if (this.chase <= 0) {
           const d = this.inputDir();
-          const sp = this.def.stats.speed;
+          const sp = this.speedStat;
           this.vel.x += d.x * 0.45; this.vel.z += d.y * 0.45;
           const h = Math.hypot(this.vel.x, this.vel.z);
           if (h > sp) { this.vel.x *= sp / h; this.vel.z *= sp / h; }
@@ -458,8 +501,8 @@ export class Fighter {
         freeAnim();
         break;
       case 'launched':
-        if (!this.ko && this.forceTech && this.t > 4 && this.pos.y > 0.2) { this.forceTech = false; this.airRecover(); break; }
-        if (!this.ko && this.airStun <= 0 && this.pos.y > 0.35 && this.anyPress()) {
+        if (!this.ko && !this.heldT && this.forceTech && this.t > 4 && this.pos.y > 0.2) { this.forceTech = false; this.airRecover(); break; }
+        if (!this.ko && !this.heldT && this.airStun <= 0 && this.pos.y > 0.35 && this.anyPress()) {
           this.airRecover();
           break;
         }
@@ -547,7 +590,7 @@ export class Fighter {
     if (this.tryActions()) return;
     const d = this.inputDir();
     if (d.lengthSq() > 0.04) {
-      const sp = this.def.stats.speed;
+      const sp = this.speedStat;
       this.vel.x += (d.x * sp - this.vel.x) * 0.38;
       this.vel.z += (d.y * sp - this.vel.z) * 0.38;
       this.face.set(d.x, d.y).normalize();
@@ -658,6 +701,9 @@ export class Fighter {
       this.vel.z += (this.face.y * k - this.vel.z) * 0.2;
       if (this.vel.y < -2.5) this.vel.y = -2.5;
       if (this.vel.y > 0) this.vel.y *= 0.82; // hover at the victim's height instead of drifting up
+    } else if (!this.air) {
+      // ground moves without a lunge (shots) plant the feet instead of sliding on the walk speed
+      this.vel.x *= 0.7; this.vel.z *= 0.7;
     }
     if (m.hop && t === A && !this.air) {
       this.vel.y = m.hop;
@@ -681,14 +727,14 @@ export class Fighter {
         return;
       }
       if (this.wantsVanish()) { this.startVanish(); return; }
+      if (!m.special && kit.wantsSuper(this)) { kit.startSuper(this); return; }
       if (!m.special && this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return; }
       if (m.light && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); return; }
       if (m.air && !m.next && p.buffered('heavy', 8) && this.moveName !== 'airHeavy') { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
       if (m.air && m.next && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
-      if (!m.special && !m.air && this.spPending && this.ki >= SPECIALS[this.def.special].cost) {
+      if (!m.special && !m.air && this.spPending) {
         this.spPending = false;
-        this.doSpecial();
-        return;
+        if (this.doSpecial()) return;
       }
       if ((m.wallBounce || m.launch) && t >= B && (p.buffered('dash', 8) || p.dashDir) && this.airDashes === 0) {
         p.consume('dash');
@@ -716,6 +762,11 @@ export class Fighter {
 
   onLand() {
     switch (this.state) {
+      case 'kit':
+        kit.onLand(this);
+        break;
+      case 'held':
+        break;
       case 'air':
         this.landLag = 5;
         this.setState('land');
@@ -775,6 +826,10 @@ export class Fighter {
 
   gravityScale() {
     switch (this.state) {
+      case 'kit':
+        return kit.gravityScale(this);
+      case 'held':
+        return this.air ? 0.25 : 1;
       case 'superDash':
       case 'vanish':
       case 'beamCharge':
@@ -870,6 +925,7 @@ export class Fighter {
   // --------------------------------------------------------------- getting hit
   takeHit(att, m, dir) {
     if (this.ko) return 'miss';
+    if (this.counterT > 0 && this.state === 'kit' && !m.beam && !m.unblockable) return kit.counterHit(this, att, m);
     this.sinceHit = 0; // blocked or not (training health refill waits for a calm spell)
     if (m.projectileHit && this.state === 'superDash') return 'miss'; // super dash plows through projectiles
     const tx = att.pos.x - this.pos.x, tz = att.pos.z - this.pos.z;
@@ -878,7 +934,7 @@ export class Fighter {
     const hs = m.hitstop ?? 6;
     const blocking = (this.state === 'guard' || this.state === 'block') && facingAtt && !m.unblockable;
     if (blocking) {
-      const chip = Math.round(m.dmg * (m.beam ? 0.3 : 0.1));
+      const chip = kit.noChip(this) ? 0 : Math.round(m.dmg * (m.beam ? 0.3 : 0.1));
       this.hp = Math.max(1, this.hp - chip);
       this.stun = Math.round((m.hitstun ?? 26) * 0.6 + (m.big ? 8 : 0));
       this.setState('block');
@@ -895,8 +951,8 @@ export class Fighter {
     const wasStunned = this.state === 'hitstun' || this.state === 'launched';
     this.combo = wasStunned ? this.combo + 1 : 1;
     if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; }
-    const scale = Math.max(0.4, 1 - (this.combo - 1) * 0.065);
-    const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1)) / (this.def.stats.defense || 1)));
+    const scale = Math.max(m.minScale ?? 0.4, 1 - (this.combo - 1) * 0.065); // supers keep a higher floor
+    const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / (this.def.stats.defense || 1)));
     this.hp = Math.max(0, this.hp - dmg);
     this.comboDmg = wasStunned ? this.comboDmg + dmg : dmg;
     att.ki = Math.min(MAX_KI, att.ki + 4 + dmg * 0.07);
@@ -906,6 +962,13 @@ export class Fighter {
     if (this.state === 'charge') audio.stopLoop('charge' + this.index);
     if (this.state === 'beamCharge' || this.state === 'beamFire') this.beam?.kill?.();
     this.move = null;
+    if (this.kitState) {
+      // knocked out of a kit move (dive, pull cast, counter whiff...)
+      this.kitState = null;
+      this.counterT = 0;
+      this.hidden = false;
+      this.actor.setVisible(true);
+    }
     if (this.hp <= 0) {
       if (this.game.training) this.hp = 1;
       else this.ko = true;

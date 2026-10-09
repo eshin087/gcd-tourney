@@ -30,9 +30,13 @@ src/game/
                             (onHit/onBlock/onVanish/...), super flash, KO, render orchestration
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
                             launched/down/getup/charge/beamCharge/beamFire/clash/...), cancels, physics, takeHit
-  moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE
+  moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE,
+                            SPECIAL_MOVES (kit specials by id), SUPERS (second supers)
+  kit.js                    fighter kits (ADR 0009): stick -> special slot, special kinds (rush/shot/teleport/pull/
+                            dive/counter/mode), second supers (flurry/domain), Infinity passive, modes; state 'kit'
   ai.js                     CpuBrain (Easy/Normal/Hard) and DummyBrain (training): press buttons on a Pad
-  projectiles.js            Projectile (shuriken, fireball) and Beam (ultimate) with HDR shader
+  projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
+                            pull) and Beam (ultimate) with HDR shader
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames)
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory; shake, zoom punch
@@ -48,6 +52,8 @@ src/art/
                             pose.js (pose model, keyframes), anims.js (shared moveset), face.js (pixel faces),
                             baker.js (bake to sheet + boxes + portrait + cut-in)
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
+src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
+                            by Game.startDomain via setStage('void')
 src/ui/
   hud.js                    health/ki bars, timer, combo counter, callouts, announcements, super cut-in, clash meter
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
@@ -227,10 +233,11 @@ click-to-rebind. Bindings persist in localStorage.
 |---|---|
 | a fighter | `src/characters/<id>.js` + `index.js`; art in `art/characters/<id>/` ([ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md)) |
 | a move or tuning change | `src/game/moves.js` (data), with state logic in `fighter.js` only if it's a new mechanic |
-| a signature special | `SPECIALS` in `moves.js` + hand effect in `Effects.handTick` + loop sound in `audio.js` |
+| a signature special | a `SPECIAL_MOVES` entry of an existing kind + the fighter's `kit` slot ([ADR 0009](decisions/0009-move-system-v2.md)); rush specials also use `SPECIALS` + `Effects.handTick` + a loop sound |
+| a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight |
 | a projectile type | `PROJECTILES` in `moves.js` (sprite = a VFX atlas name) |
 | a VFX effect | `VFX_ANIMS` + painter in `vfxPainter.js`; custom art via `art/vfx/` |
 | a sound | a case in `AudioEngine.play()` / `loop()` |
 | a camera move | a mode in `CameraDirector.update()` |
 | a menu screen | a method on `Menus` + CSS |
-| a stage | today one arena (`src/world/arena.js`). Multi-stage support is on the roadmap. |
+| a stage | today one arena (`src/world/arena.js`), the training room and the domain void, switched by `Game.setStage`. Multi-stage support is on the roadmap. |

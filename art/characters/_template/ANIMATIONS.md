@@ -66,6 +66,16 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [intro](#intro) | 4 | - | yes | 210 | - | 9 |
 | [taunt](#taunt) | 2 | - | yes | 212 | - | 9 |
 | [win](#win) | 4 | - | yes | 212 | **yes** | 8 |
+| [specialForward](#specialforward) | 7 | 2/2/3 | - | 204 | - (kit) | 9 |
+| [specialUp](#specialup) | 6 | 2/2/2 | - | 214 | - (kit) | 9 |
+| [specialDown](#specialdown) | 4 | 2/1/1 | - | 204 | - (kit) | 9 |
+| [superPose](#superpose) | 4 | - | yes | 208 | - (kit) | 9 |
+
+The four **kit** rows ([ADR 0009](../../../docs/decisions/0009-move-system-v2.md)) are only for a
+fighter whose kit uses them: delete the ones this character doesn't need, here, in PROMPTS.md and in
+its `manifest.json` block. Missing kit animations fall back (`specialForward`/`specialUp` →
+`special`, `specialDown` → `charge`, `superPose` → `taunt`). Worked examples:
+[killua/ANIMATIONS.md](../killua/ANIMATIONS.md), [gojo/ANIMATIONS.md](../gojo/ANIMATIONS.md).
 
 ## idle
 
@@ -701,3 +711,65 @@ Round/match win.
 | 02 | loop | like 00 with hair variation | _{{fill in}}_ |
 | 03 | loop | variation, loops into 00 | _{{fill in}}_ |
 
+## specialForward
+
+**kit: the forward special's strike or cast (Special + forward)**  
+7 frames · body height 204 px · optional (kit) · step 9 · phases 2/2/3 · default ms 50, 50, 60, 80, 70, 60, 50
+
+Only if the kit maps a move to `specialForward` (ADR 0009). The active frames carry the hit box.
+
+{{NAME}} flavor for the whole animation: _{{fill in: which technique, where it hits or where the effect spawns}}_
+
+| # | phase | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | startup | wind-up | _{{fill in}}_ |
+| 01 | startup | wind-up peak | _{{fill in}}_ |
+| 02 | active | strike / release, arm fully extended | _{{fill in}}_ |
+| 03 | active | contact held | _{{fill in}}_ |
+| 04 | recovery | follow-through | _{{fill in}}_ |
+| 05 | recovery | settling | _{{fill in}}_ |
+| 06 | recovery | back toward idle | _{{fill in}}_ |
+
+## specialUp
+
+**kit: a rising special (Special + up)**  
+6 frames · body height 214 px · optional (kit) · step 9 · phases 2/2/2 · default ms 50, 50, 60, 60, 70, 70
+
+Only if the kit maps a move to `specialUp`. For a leap into a dive, draw the last frame so it flows into `airHeavy` frame 00.
+
+| # | phase | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | startup | crouch | _{{fill in}}_ |
+| 01 | startup | push-off | _{{fill in}}_ |
+| 02 | active | rising, body stretched upward | _{{fill in}}_ |
+| 03 | active | rising, peak energy | _{{fill in}}_ |
+| 04 | recovery | top of the arc | _{{fill in}}_ |
+| 05 | recovery | turning over toward the next move | _{{fill in}}_ |
+
+## specialDown
+
+**kit: a stance or power-up, no hit box (Special + down)**  
+4 frames · body height 204 px · optional (kit) · step 9 · phases 2/1/1 · default ms 80, 80, 160, 90
+
+Only if the kit maps a move to `specialDown` (a mode activation, a counter stance). The packer writes no hit box for it.
+
+| # | phase | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | startup | gathering | _{{fill in}}_ |
+| 01 | startup | gathering peak | _{{fill in}}_ |
+| 02 | active | the stance / power-up pose (held longest) | _{{fill in}}_ |
+| 03 | recovery | back toward idle | _{{fill in}}_ |
+
+## superPose
+
+**kit: the second super's pose during the super flash (loop)**  
+4 frames · loops · body height 208 px · optional (kit) · step 9 · default ms 140, 140, 140, 140
+
+Only if the kit has a second super (SUPER button). Shown during the freeze before the super plays out.
+
+| # | phase | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | loop | signature super pose | _{{fill in}}_ |
+| 01 | loop | aura / cloth / hair variation | _{{fill in}}_ |
+| 02 | loop | like 00, stronger energy | _{{fill in}}_ |
+| 03 | loop | variation, loops into 00 | _{{fill in}}_ |
