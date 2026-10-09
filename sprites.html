@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sprite Lab</title>
+  <style>
+    :root { --bg: #14121c; --panel: #1f1c2b; --text: #e9e6f2; --muted: #9a94b0; --accent: #ff9a2e; --line: #3a3550; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, sans-serif; padding: 16px; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 0 0 8px; }
+    p { color: var(--muted); margin: 0 0 12px; max-width: 980px; }
+    code { background: #2a2638; padding: 1px 5px; border-radius: 4px; }
+    .bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+    button, select, input[type=number], label.btn { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; font: inherit; }
+    input[type=number] { width: 72px; cursor: text; }
+    button:hover, label.btn:hover { border-color: var(--accent); }
+    button.primary { background: var(--accent); color: #1a1000; border-color: var(--accent); font-weight: 600; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .cell { background: var(--panel); border-radius: 8px; padding: 6px; text-align: center; cursor: pointer; border: 1px solid transparent; }
+    .cell.sel { border-color: var(--accent); }
+    .cell canvas { image-rendering: pixelated; background: #c9b9a4; border-radius: 4px; }
+    .cell .n { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    #sheetWrap { margin-top: 20px; overflow: auto; background: var(--panel); padding: 8px; border-radius: 8px; }
+    #sheetWrap canvas { image-rendering: pixelated; background: repeating-conic-gradient(#2a2638 0 25%, #222030 0 50%) 0 0 / 16px 16px; }
+    input[type=file] { display: none; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 16px; }
+    .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+    .row label { color: var(--muted); display: flex; gap: 6px; align-items: center; }
+    #drop { border: 2px dashed var(--line); border-radius: 10px; padding: 18px; text-align: center; color: var(--muted); margin-bottom: 10px; }
+    #drop.over { border-color: var(--accent); color: var(--text); }
+    #impPreview { display: flex; gap: 8px; flex-wrap: wrap; min-height: 10px; }
+    #impPreview canvas { image-rendering: pixelated; width: 128px; height: 128px; background: #c9b9a4; border-radius: 4px; }
+    textarea { width: 100%; min-height: 86px; background: #15131e; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 8px; font: 12px/1.4 ui-monospace, monospace; }
+    #status { color: var(--muted); }
+    .warn { color: #ffb36b; }
+  </style>
+</head>
+<body>
+  <h1>Sprite Lab</h1>
+  <p>Every animation for each fighter, played at game speed. The procedural placeholder sheet doubles as a pose template. Click an animation to select it, generate that pose strip in ChatGPT with the prompt below, drop the image in, then download <code>sheet.png</code> + <code>anims.json</code> into <code>public/characters/&lt;id&gt;/</code>. The game picks them up on reload.</p>
+  <div class="bar">
+    <select id="who"></select>
+    <label><input type="checkbox" id="flip" /> flip</label>
+    <select id="zoom"><option value="2">2x</option><option value="3" selected>3x</option><option value="4">4x</option></select>
+    <button id="dlPng" class="primary">Download sheet.png</button>
+    <button id="dlJson" class="primary">Download anims.json</button>
+    <label class="btn">Load full sheet (.png + .json)… <input type="file" id="custom" accept=".png,.json" multiple /></label>
+    <button id="reset">Reset to procedural</button>
+    <span id="status"></span>
+  </div>
+
+  <div class="panel">
+    <h2>Import AI art into an animation</h2>
+    <div class="row">
+      <label>Animation <select id="impAnim"></select></label>
+      <label>Frames <input type="number" id="impFrames" min="0" value="0" title="0 = auto-detect from gaps between poses" /></label>
+      <label>Body height px <input type="number" id="impHeight" min="8" max="64" value="46" title="Tallest frame is scaled to this many pixels (defaults to the placeholder's height for this animation)" /></label>
+      <label>Background <select id="impBg"><option value="auto">auto (corner color)</option><option value="none">already transparent</option></select></label>
+      <label>Tolerance <input type="number" id="impTol" min="0" max="200" value="48" /></label>
+    </div>
+    <div id="drop">Drop a pose strip (one image, poses in a row) or several single-frame images here — or <label class="btn" style="display:inline-block">browse… <input type="file" id="impFiles" accept="image/*" multiple /></label></div>
+    <div id="impPreview"></div>
+    <div class="row" style="margin-top:10px">
+      <button id="impApply" class="primary" disabled>Apply to animation</button>
+      <span id="impInfo" style="color:var(--muted)"></span>
+    </div>
+    <h2 style="margin-top:12px">ChatGPT prompt for this animation</h2>
+    <textarea id="prompt" readonly></textarea>
+    <div class="row" style="margin-top:6px"><button id="copyPrompt">Copy prompt</button><span style="color:var(--muted)">Tip: attach the downloaded placeholder sheet (or an earlier approved frame) so ChatGPT keeps the character consistent.</span></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div id="sheetWrap"></div>
+  <script type="module" src="/src/spriteLab.js"></script>
+</body>
+</html>

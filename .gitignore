@@ -1,0 +1,5 @@
+node_modules
+dist
+tools/.test-fixtures/
+# official anime/manga pictures collected for comparison: copyrighted, local only
+art/**/reference/source/

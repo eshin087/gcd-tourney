@@ -1,0 +1,188 @@
+# CLAUDE.md: GCD Tourney
+
+Project instructions for Claude Code. Read this first in every session. Codex and other agents read
+[AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
+
+## What this project is
+
+GCD Tourney is a browser **HD-2D pixel-art anime arena fighter** with a Dragon Ball FighterZ-style
+feel. It's built with Three.js and Vite and has no other runtime dependencies. A real 3D tournament ground
+(ring, temple, crowd, gate) hosts camera-facing pixel sprites. The camera is cinematic, and the
+game has auras, super flashes and beam clashes. Two fighters exist today (Naruto, Sasuke). Many
+more will follow, so everything should stay data-driven and template-based.
+
+The fighter art in the game today is **3D-baked placeholder art**: chibi models built in code and
+rendered into 112 px sprite sheets at startup. The long-term art is **hi-res pixel art** (192 px
+cells). The user generates it in the ChatGPT image generator, and `npm run sprites` packs it
+(see [art/README.md](art/README.md) and [art/SPEC.md](art/SPEC.md)).
+
+The user means this to be a long-term project. Optimize for clarity, small reversible changes and
+documentation that stays true.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `npm install` | install deps (three, vite, pngjs for the packer) |
+| `npm run dev` | dev server at **http://127.0.0.1:5188** (`strictPort`, fails if the port is busy) |
+| `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
+| `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
+| `npm run preview` | serve the built `dist/` |
+| `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` (+ VFX) |
+| `npm run sprites naruto` | pack one character |
+| `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` |
+| `npm run test:sprites` | packer regression test (fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
+| `npm run test:sprites` | packer self-test (`tools/test-pack-sprites.mjs`). Run it after any packer change. |
+
+The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
+commands. The shell is Windows. Use the PowerShell tool or Git Bash with POSIX syntax.
+
+## Architecture map
+
+Full write-up: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+```
+index.html, src/main.js     game entry: renderer + input + Game, rAF loop, ?fight= / ?debug helpers
+sprites.html, src/spriteLab.js   Sprite Lab: preview baked anims, copy ChatGPT prompts, import strips
+src/core/      renderer.js (low-res render + nearest upscale, bloom, grade), input.js (keyboard/gamepad -> Pad),
+               audio.js (WebAudio synth: sfx, loops, music, crowd; no audio files)
+src/game/      game.js (loop, match flow, melee/clash/KO hooks), fighter.js (state machine + physics + takeHit),
+               moves.js (ALL move/frame data), ai.js (CpuBrain drives a Pad), projectiles.js (projectiles + beams),
+               effects.js (VFX sprites, aura, overlay), camera.js (CameraDirector modes), boxViewer.js (hit/hurt box overlay), sprites.js (SheetAsset,
+               SpriteActor, custom-sheet loading + animation FALLBACK), constants.js (world/ruleset constants)
+src/characters/  one file per fighter (look, colors, stats, special/projectile, 3D model, stance, extra anims); index.js = ROSTER
+src/art/       animGuide.js (canonical animation list + poses), vfxPainter.js (procedural VFX atlas),
+               pixel.js, textures.js, crowdPainter.js (procedural pixel art)
+src/art/rig/   3D chibi rig, toon shader, pose/keyframe system, shared anim library, sprite baker
+src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky), trainingRoom.js (holographic practice stage)
+src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
+               controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints)
+tools/         pack-sprites.mjs (art/ -> public/ packer, Node + pngjs)
+art/           art source + briefs for ChatGPT/Codex (see art/README.md). Not shipped.
+public/        shipped static files: characters/<id>/{sheet.png, anims.json, portrait.png, cutin.png, select.png}, vfx/atlas.*
+docs/          SDLC docs, ADRs, task board, agent prompts
+```
+
+## Hard rules
+
+1. **Gameplay timing lives in `src/game/moves.js`**, never in art. Animation frames are stretched over a
+   move's startup, active and recovery phases (`phases` in anims.json).
+2. **Animation names are a contract.** The canonical list is `src/art/animGuide.js`. Adding or renaming one
+   means updating `animGuide.js`, `FALLBACK` in `src/game/sprites.js`, `src/art/rig/anims.js` (placeholder),
+   `art/manifest.json`, `art/SPEC.md`, `ASSETS.md` and the art template, all in the same change.
+3. **Generated files are outputs.** Never hand-edit `public/characters/<id>/sheet.png`, `anims.json` or
+   `public/vfx/atlas.*`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
+4. **Character data lives in `src/characters/<id>.js`**. Shared systems should not special-case a character
+   id (`if (def.id === 'naruto')`). Add a data field instead.
+5. **No new runtime dependencies** without an ADR in `docs/decisions/`. Dev-only tools (pngjs) are fine
+   when they're documented.
+6. **Fail soft on art.** Missing or broken custom art must fall back to the baked placeholder or the
+   procedural VFX, with one clear console line (prefix `[sprites]` / `[vfx]`). It must never crash.
+7. Don't commit `node_modules/`, `dist/`, or secrets. Don't touch `.claude/` unless the user asks.
+8. Keep changes focused. Don't refactor unrelated code in the same change. Propose it as a task in
+   [docs/TASKS.md](docs/TASKS.md).
+
+## Conventions (summary)
+
+Full guide: [docs/STYLE_GUIDE_CODE.md](docs/STYLE_GUIDE_CODE.md).
+
+- Plain JavaScript ES modules, no TypeScript, no framework. Three.js via `import * as THREE from 'three'`.
+- Match the surrounding style: 2-space indent, single quotes, semicolons, `const` by default, small arrow helpers.
+- Comments explain **why** (intent, game-feel reasons, gotchas), not what the line does. Each module opens with a
+  short header comment.
+- Units: time in **60 fps frames** in the simulation (`DT = 1/60`), **world units = floor tiles**, angles in
+  degrees in pose data and radians elsewhere.
+- Data tables (`MOVES`, `SPECIALS`, `PROJECTILES`, character files) are plain object literals. Tune numbers
+  there, not in logic.
+- Hot paths (per-frame update/render) avoid allocations where it's easy. Reuse module-level temp vectors.
+- Dispose GPU resources (materials, textures, geometries) you create per match or per effect.
+- Debug-only code goes behind `?debug` in `src/main.js`.
+
+## Testing protocol
+
+Full checklist: [docs/TESTING.md](docs/TESTING.md).
+
+1. `npm run dev` (or `dev:alt`), open `http://127.0.0.1:5188/?fight=naruto,sasuke&mode=solo&level=hard&debug`.
+2. **The console must be clean.** No errors and no new warnings. Expected info lines are `[sprites] baked <id> from 3D in N ms`
+   or `[sprites] using custom sheet for <id>`.
+3. Drive the change with the debug helpers (only with `?debug`):
+   - `step(n)` advances n fixed frames deterministically and pauses the live loop. It returns fighter states.
+     `resumeLoop()` resumes.
+   - `press('KeyJ', frames=3)` taps a key while stepping. `hold('KeyD')` / `release('KeyD')` hold one.
+   - `tap(['KeyK','KeyL'])` sends a real-time key chord (async). `sleep(ms)`, `waitFight()`.
+   - `freezeCpu()` makes the CPU stand still (a training dummy).
+   - `snap()` / `unsnap()` copies the WebGL frame into a 2D canvas so screenshots of hidden tabs aren't blank.
+   - `window.game` is the live `Game` (fighters, cam, fx, hud, brains, state).
+   - Solo keys: move WASD, light J, heavy K, special L, jump Space, guard ShiftLeft, dash O.
+4. For combat, AI or performance changes, run a **CPU-vs-CPU soak** of at least 3 full matches
+   (recipe in docs/TESTING.md §Soak). Watch for console errors, NaN positions, stuck states and fighters
+   leaving the ring outside a KO.
+5. `npm run build` must pass.
+6. When something visual changed, take a screenshot (`snap()` first) and look at it. Don't guess.
+
+## Definition of done
+
+A change is done when:
+
+- [ ] It does what the task asked, and nothing else snuck in.
+- [ ] The console is clean in a real match, and the relevant docs/TESTING.md checklist items pass.
+- [ ] A CPU-vs-CPU soak passed (combat/AI/perf changes).
+- [ ] `npm run build` passes.
+- [ ] Docs are updated where behavior or contracts changed (README controls, ARCHITECTURE, COMBAT_DESIGN,
+      art/SPEC.md, ASSETS.md).
+- [ ] `CHANGELOG.md` has an entry under **Unreleased**.
+- [ ] `docs/TASKS.md` status is updated (and `art/TRACKER.md` + `art/manifest.json` for art-facing work).
+- [ ] An ADR exists for any architecture-level decision (new dependency, new pipeline, new core system).
+- [ ] The commit message is a conventional commit (`feat(combat): ...`). See docs/CONTRIBUTING.md.
+
+## Where docs live
+
+| Doc | Purpose |
+|---|---|
+| [README.md](README.md) | player-facing overview, controls, run instructions |
+| [AGENTS.md](AGENTS.md) | rules for Codex and other agents |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | modules, frame data flow, sprite pipeline, render |
+| [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md) | moveset, frame data, combat systems, hit rules |
+| [docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md) | end-to-end new-fighter recipe |
+| [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md) | Claude / ChatGPT / Codex roles and handoffs |
+| [docs/TESTING.md](docs/TESTING.md) | manual checklists, debug helpers, soak, perf budget |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | milestones |
+| [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | branches, commits, review, versioning |
+| [docs/TASKS.md](docs/TASKS.md) | the task board (owner, status) |
+| [docs/STYLE_GUIDE_CODE.md](docs/STYLE_GUIDE_CODE.md) | coding conventions |
+| [docs/decisions/](docs/decisions/README.md) | ADRs |
+| [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md) | copy-paste prompts for Codex |
+| [CHANGELOG.md](CHANGELOG.md) | Keep a Changelog |
+| [art/README.md](art/README.md) | art pipeline entry point (SPEC, STYLE_GUIDE, PIPELINE, TRACKER, manifest) |
+| [ASSETS.md](ASSETS.md) | sheet format + Sprite Lab quick-import path |
+
+## Bookkeeping after every change
+
+- `CHANGELOG.md` gets one line under `## [Unreleased]` in the right group (Added / Changed / Fixed / Removed).
+- `docs/TASKS.md` moves the task's status and adds new follow-ups you discovered (owner + one-line note).
+- `art/TRACKER.md` + `art/manifest.json` get updated when you change anything art-facing (new animation
+  names, spec changes, packer behavior). Codex normally updates per-asset status.
+- `docs/decisions/NNNN-*.md` gets a new ADR for decisions that future contributors would otherwise
+  re-litigate.
+
+## Working with the other AIs
+
+- **ChatGPT (image generator, run by the user)** draws all bitmap art from the briefs in `art/`.
+- **Codex** coordinates art production: it tells the user which prompt to run next, files images, runs
+  `npm run sprites`, does QA and updates statuses. It can make small code/data changes that follow AGENTS.md.
+- **Claude (you)** owns engine and gameplay code, integration, the packer and tooling, code review,
+  QA soaks and ADRs. When Codex or the user reports a packer or integration problem, fix the tool, not the output.
+- The handoff protocol is in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md). In short: claim a task in
+  docs/TASKS.md, make the change, log it in CHANGELOG, then hand back with a status and a note.
+
+## Gotchas
+
+- `step()` sets `window.__manualStep = true`, which stops the rAF loop from driving the game. Call
+  `resumeLoop()` before testing in real time.
+- Startup bakes every fighter on the main thread (blocking). Keep the bake under ~1 s per character.
+- Gamepads only take control after one of their buttons is pressed (`InputManager.activeGamepads`).
+- Audio needs a user gesture (first pointerdown/keydown calls `audio.init()`). `M` toggles mute.
+- The renderer draws into a small buffer (360 px tall at 1080p; integer scale = round(height / 340)) and upscales with nearest-neighbor. Sub-pixel jitter in
+  sprites shows up as shimmering, so keep sprite placement and scales pixel-consistent.
+- Simulation randomness uses `Math.random()` (clash wobble, AI, FX). That's fine for now. Online play
+  will need a seeded RNG for the sim (see docs/ROADMAP.md).

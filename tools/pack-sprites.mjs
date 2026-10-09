@@ -1,0 +1,1813 @@
+#!/usr/bin/env node
+// GCD Tourney sprite packer: art/ (ChatGPT output) -> public/ (what the game loads).
+//
+//   npm run sprites                 pack every character + the VFX atlas
+//   npm run sprites naruto          pack one character (several ids allowed)
+//   npm run sprites vfx             pack only the VFX atlas
+//   npm run sprites -- --dry-run    report only, write nothing
+//
+// See tools/README.md for every option and art/SPEC.md for the sprite spec (HI-RES SPRITE SPEC v1).
+// Node ESM, single dependency: pngjs. Never throws on missing folders/animations: it reports them.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { PNG } from 'pngjs';
+
+const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
+const PACKER_VERSION = 1;
+
+// ============================================================== spec v1
+const SPEC = Object.freeze({ frameWidth: 192, frameHeight: 192, columns: 16, pivot: [96, 180], pixelsPerUnit: 86, facing: 'right' });
+
+// Max trimmed body height (px, hair included) per animation, ~2x the placeholder.
+const BODY_HEIGHT = {
+  idle: 135, run: 135, dash: 111, superDash: 70, backDash: 137, jumpSquat: 107, jumpUp: 131, jumpFall: 138, land: 115, airRecover: 119,
+  light1: 135, light2: 135, light3: 142, light4: 137, heavy: 144, airLight1: 131, airLight2: 137, airLight3: 133, airHeavy: 131, throw: 133,
+  guard: 131, block: 135, hurtHigh: 129, hurtLow: 121, launched: 94, spin: 123, down: 68, ko: 62, getup: 135, stagger: 137, charge: 131,
+  beamCharge: 131, beamFire: 131, vanish: 146, special: 135, intro: 139, taunt: 140, win: 140,
+};
+const DEFAULT_BODY_HEIGHT = 135;
+
+// The game only switches to a custom sheet when all of these exist ("complete": true).
+const CORE = ['idle', 'run', 'dash', 'jumpUp', 'jumpFall', 'land', 'light1', 'light2', 'light3', 'light4', 'heavy', 'airLight1', 'airHeavy',
+  'guard', 'hurtHigh', 'launched', 'down', 'getup', 'special', 'beamCharge', 'beamFire', 'charge', 'win'];
+
+// Default ms per frame (number = every frame). Mirrors the placeholder bake timings (src/art/rig/anims.js).
+// When the frame count differs, the total duration is kept and spread evenly.
+const DEFAULT_MS = {
+  idle: 150, run: 60, dash: 60, superDash: 50, backDash: [60, 60, 80], jumpSquat: [70], jumpUp: 80, jumpFall: 80, land: [50, 70], airRecover: [50, 50, 60],
+  light1: [30, 30, 40, 50, 50, 50, 30], light2: [35, 30, 40, 50, 60, 50, 30], light3: [40, 35, 45, 60, 60, 60, 30], light4: [50, 45, 35, 40, 70, 70, 70, 40],
+  heavy: [40, 35, 30, 50, 70, 70, 60, 30], airLight1: [45, 35, 50, 50, 30], airLight2: [45, 40, 50, 50, 30], airLight3: [50, 40, 50, 70, 60, 30],
+  airHeavy: [50, 45, 45, 70, 70, 40], throw: [50, 60, 70, 50], guard: 300, block: [60, 80], hurtHigh: [70, 90, 100], hurtLow: [70, 90, 100],
+  launched: 70, spin: 60, down: [80, 420], ko: [500], getup: [70, 60, 60, 80, 70], stagger: 150, charge: 50, beamCharge: 50, beamFire: 50,
+  vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
+};
+
+// Attacks whose damage comes from something else (projectile): no melee hitbox.
+const NO_HITBOX = new Set(['throw']);
+
+// Used only if src/art/animGuide.js cannot be imported or parsed.
+const FALLBACK_GUIDE = {
+  idle: { frames: 8, loop: true }, run: { frames: 8, loop: true }, dash: { frames: 2, loop: true }, backDash: { frames: 3 },
+  superDash: { frames: 2, loop: true }, jumpSquat: { frames: 1 }, jumpUp: { frames: 2, loop: true }, jumpFall: { frames: 2, loop: true },
+  land: { frames: 2 }, light1: { frames: 7, phases: [2, 2, 3] }, light2: { frames: 7, phases: [2, 2, 3] }, light3: { frames: 7, phases: [2, 2, 3] },
+  light4: { frames: 8, phases: [3, 2, 3] }, heavy: { frames: 8, phases: [3, 2, 3] }, airLight1: { frames: 5, phases: [1, 2, 2] },
+  airLight2: { frames: 5, phases: [1, 2, 2] }, airLight3: { frames: 6, phases: [2, 2, 2] }, airHeavy: { frames: 6, phases: [2, 2, 2] },
+  guard: { frames: 2, loop: true }, block: { frames: 2 }, hurtHigh: { frames: 3 }, hurtLow: { frames: 3 }, launched: { frames: 2, loop: true },
+  spin: { frames: 4, loop: true }, airRecover: { frames: 3 }, down: { frames: 2 }, getup: { frames: 5 }, charge: { frames: 4, loop: true },
+  throw: { frames: 4, phases: [1, 1, 2] }, beamCharge: { frames: 3, loop: true }, beamFire: { frames: 3, loop: true }, vanish: { frames: 2 },
+  stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
+  taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
+};
+
+// VFX atlas spec. fill = size of the largest frame of the strip as a fraction of the cell
+// (matches the procedural effects in src/art/vfxPainter.js so world sizes stay the same).
+// baseX: bottom effects centered on the mean x of their base rows (keeps a leaning tip leaning).
+// lumaAlpha: drawn as opaque grey rings on magenta; packed as white with alpha = grey value.
+const VFX = Object.freeze({ cell: 128, ppu: 56, baseline: 120 });
+const VFX_EFFECTS = {
+  spark: { frames: 5, ms: 30, tinted: true, fill: 0.85 },
+  burst: { frames: 5, ms: 35, tinted: true, fill: 0.9 },
+  ring: { frames: 6, ms: 35, tinted: true, fill: 0.94 },
+  dust: { frames: 6, ms: 60, tinted: false, fill: 0.6 },
+  smoke: { frames: 7, ms: 55, tinted: false, fill: 0.7 },
+  shuriken: { frames: 4, ms: 40, tinted: false, fill: 0.3 },
+  fire: { frames: 4, ms: 60, tinted: false, fill: 0.62 },
+  flame: { frames: 7, ms: 55, tinted: true, fill: 0.75, anchor: 'bottom', baseX: true },
+  lightning: { frames: 6, ms: 40, tinted: true, fill: 0.9 },
+  orb: { frames: 6, ms: 40, tinted: false, fill: 0.42 },
+  glow: { frames: 2, ms: 60, tinted: true, fill: 0.82, lumaAlpha: true },
+  streak: { frames: 6, ms: 45, tinted: true, fill: 0.8, anchor: 'bottom' },
+  star: { frames: 5, ms: 40, tinted: true, fill: 0.4 },
+  crater: { frames: 3, ms: 1000, tinted: false, fill: 0.97 },
+  lines: { frames: 4, ms: 40, tinted: true, fill: 0.95 },
+};
+const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
+
+// Per-character UI images: art/characters/<id>/ui/<name>.png -> public/characters/<id>/<name>.png
+const UI_ITEMS = {
+  portrait: { w: 96, h: 96, align: 'bottom' },
+  cutin: { w: 480, h: 128, align: 'center' },
+  select: { w: 384, h: 384, align: 'bottom' },
+};
+
+const MAGENTA = [255, 0, 255];
+const MARKER = '.packer.json';
+
+// ============================================================== CLI
+class UsageError extends Error {}
+
+const HELP = `GCD Tourney sprite packer  (art/ -> public/)
+
+usage: node tools/pack-sprites.mjs [targets...] [options]
+       npm run sprites [targets...] [-- options]
+
+targets   character ids (folder names under art/characters/), "vfx", or "all" (default: every character + vfx)
+
+options
+  --root <dir>      art folder to read (default: ./art). Aliases: --src, --art
+  --out <dir>       public folder to write (default: ./public) -> <out>/characters/<id>/, <out>/vfx/
+  --manifest <file> manifest to read (default: <root>/manifest.json; falls back to src/art/animGuide.js)
+  --guide <file>    animation guide module (default: src/art/animGuide.js)
+  --dry-run         analyse and report, write nothing
+  --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
+  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 32
+  --tolerance <n>   background color tolerance (RGB distance, default 72)
+  --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
+                    raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
+  --json            print the report as JSON (for scripts/agents) instead of text
+  --strict          exit code 2 when there are warnings
+  -h, --help        this help
+`;
+
+function parseArgs(argv) {
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, help: false };
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    const eq = a.indexOf('=');
+    const key = a.startsWith('--') && eq > 0 ? a.slice(0, eq) : a;
+    const val = () => {
+      const v = a.startsWith('--') && eq > 0 ? a.slice(eq + 1) : argv[++i];
+      if (v == null || v === '') throw new UsageError(`${key} needs a value`);
+      return v;
+    };
+    const num = () => {
+      const v = Number(val());
+      if (!Number.isFinite(v)) throw new UsageError(`${key} needs a number`);
+      return v;
+    };
+    switch (key) {
+      case '--root': case '--src': case '--art': o.root = val(); break;
+      case '--out': o.out = val(); break;
+      case '--manifest': o.manifest = val(); break;
+      case '--guide': o.guide = val(); break;
+      case '--dry-run': o.dryRun = true; break;
+      case '--no-writeback': o.writeback = false; break;
+      case '--json': o.json = true; break;
+      case '--update-manifest': o.updateManifest = true; break;
+      case '--strict': o.strict = true; break;
+      case '--quantize': o.quantize = Math.round(num()); break;
+      case '--tolerance': case '--tol': o.tol = num(); break;
+      case '-h': case '--help': o.help = true; break;
+      default:
+        if (a.startsWith('-')) throw new UsageError(`unknown option ${a}`);
+        o.targets.push(a);
+    }
+  }
+  if (o.quantize && (o.quantize < 2 || o.quantize > 256)) throw new UsageError('--quantize must be between 2 and 256');
+  if (!(o.tol > 0 && o.tol <= 442)) throw new UsageError('--tolerance must be between 1 and 442 (RGB distance)');
+  return o;
+}
+
+// ============================================================== fs helpers
+const isDir = (p) => { try { return fs.statSync(p).isDirectory(); } catch { return false; } };
+const isFile = (p) => { try { return fs.statSync(p).isFile(); } catch { return false; } };
+const listDir = (p) => { try { return fs.readdirSync(p, { withFileTypes: true }); } catch { return []; } };
+const listDirs = (p) => listDir(p).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+const listFiles = (p) => listDir(p).filter((d) => d.isFile()).map((d) => d.name);
+const natural = (a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
+const listPngs = (p) => listFiles(p).filter((n) => /\.png$/i.test(n)).sort(natural);
+const sha1 = (buf) => crypto.createHash('sha1').update(buf).digest('hex');
+const rel = (from, p) => path.relative(from, p).split(path.sep).join('/');
+
+function readJson(file) {
+  if (!isFile(file)) return { exists: false, data: null, error: null };
+  try {
+    return { exists: true, data: JSON.parse(fs.readFileSync(file, 'utf8').replace(/^﻿/, '')), error: null };
+  } catch (e) {
+    return { exists: true, data: null, error: e.message };
+  }
+}
+
+// ============================================================== image helpers (RGBA8)
+function newImage(w, h) { return { w, h, data: new Uint8Array(w * h * 4) }; }
+
+const PNG_SIG = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+const MAX_PIXELS = 40e6; // ChatGPT images are ~2 MP; anything this big is a mistake and could exhaust memory
+
+function readPng(file) {
+  const buf = fs.readFileSync(file);
+  if (!buf.length) throw new Error('empty file');
+  if (buf.length < 24 || !buf.subarray(0, 8).equals(PNG_SIG)) throw new Error('not a PNG file (wrong signature - re-save it as PNG)');
+  const w0 = buf.readUInt32BE(16), h0 = buf.readUInt32BE(20);
+  if (w0 * h0 > MAX_PIXELS) throw new Error(`image too large (${w0}x${h0})`);
+  let png;
+  try { png = PNG.sync.read(buf); } catch (e) { throw new Error(`corrupt PNG (${e.message})`); }
+  return { w: png.width, h: png.height, data: new Uint8Array(png.data.buffer, png.data.byteOffset, png.data.length) };
+}
+
+function encodePng(img) {
+  const png = new PNG({ width: img.w, height: img.h });
+  png.data = Buffer.from(img.data.buffer, img.data.byteOffset, img.data.length);
+  return PNG.sync.write(png, { colorType: 6 });
+}
+
+function crop(img, x0, y0, w, h) {
+  const out = newImage(w, h);
+  for (let y = 0; y < h; y++) {
+    const sy = y0 + y;
+    if (sy < 0 || sy >= img.h) continue;
+    for (let x = 0; x < w; x++) {
+      const sx = x0 + x;
+      if (sx < 0 || sx >= img.w) continue;
+      const si = (sy * img.w + sx) * 4, di = (y * w + x) * 4;
+      out.data[di] = img.data[si]; out.data[di + 1] = img.data[si + 1]; out.data[di + 2] = img.data[si + 2]; out.data[di + 3] = img.data[si + 3];
+    }
+  }
+  return out;
+}
+
+// Copy src into dst at (dx, dy). Returns how many opaque src pixels fell outside dst.
+function blit(dst, src, dx, dy) {
+  let lost = 0;
+  for (let y = 0; y < src.h; y++) {
+    for (let x = 0; x < src.w; x++) {
+      const si = (y * src.w + x) * 4;
+      if (!src.data[si + 3]) continue;
+      const tx = x + dx, ty = y + dy;
+      if (tx < 0 || ty < 0 || tx >= dst.w || ty >= dst.h) { lost++; continue; }
+      const di = (ty * dst.w + tx) * 4;
+      dst.data[di] = src.data[si]; dst.data[di + 1] = src.data[si + 1]; dst.data[di + 2] = src.data[si + 2]; dst.data[di + 3] = src.data[si + 3];
+    }
+  }
+  return lost;
+}
+
+function bbox(img, x0 = 0, y0 = 0, x1 = img.w - 1, y1 = img.h - 1) {
+  let bx0 = Infinity, by0 = Infinity, bx1 = -1, by1 = -1, n = 0;
+  const d = img.data;
+  for (let y = Math.max(0, y0); y <= Math.min(img.h - 1, y1); y++) {
+    for (let x = Math.max(0, x0); x <= Math.min(img.w - 1, x1); x++) {
+      if (!d[(y * img.w + x) * 4 + 3]) continue;
+      n++;
+      if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y;
+    }
+  }
+  return n ? { x0: bx0, y0: by0, x1: bx1, y1: by1, w: bx1 - bx0 + 1, h: by1 - by0 + 1, n } : null;
+}
+
+function trim(img) {
+  const b = bbox(img);
+  return b ? crop(img, b.x0, b.y0, b.w, b.h) : null;
+}
+
+const dist2 = (d, i, c) => (d[i] - c[0]) ** 2 + (d[i + 1] - c[1]) ** 2 + (d[i + 2] - c[2]) ** 2;
+const isMagentaish = (c) => c[0] > 170 && c[2] > 170 && c[1] < 100;
+// Anti-aliased magenta fringe (magenta blended with the outline/body colors).
+const isMagentaHue = (r, g, b) => {
+  const mn = Math.min(r, b);
+  return mn > 70 && mn - g > 60 && Math.abs(r - b) < 0.35 * Math.max(r, b) + 20;
+};
+
+// Remove a flat background: cluster the border colors, flood-fill them from the edges, then
+// drop every near-magenta pixel (magenta never appears in characters) and magenta fringe.
+// mode 'char' binarizes alpha (hard pixels); mode 'vfx' keeps alpha (quantized later).
+// Already-transparent art (a transparent border) keeps every opaque color: a tightly cropped frame
+// touches the border with its own outline, which must not be mistaken for a background.
+// A non-magenta background (white, black, ...) is off-spec: in 'char' mode it is flooded with half
+// the tolerance so the dark outline survives next to a dark background (reported as `foreign`).
+function removeBackground(img, { tol = 72, mode = 'char' } = {}) {
+  const { w, h, data: d } = img;
+  const tol2 = tol * tol;
+  const clusters = [];
+  let borderN = 0, borderClear = 0;
+  const addBorder = (x, y) => {
+    const i = (y * w + x) * 4;
+    borderN++;
+    if (d[i + 3] < 16) { borderClear++; return; }
+    const side = (y === 0 ? 1 : 0) | (y === h - 1 ? 2 : 0) | (x === 0 ? 4 : 0) | (x === w - 1 ? 8 : 0);
+    let best = null, bd = Infinity;
+    for (const c of clusters) {
+      const dd = dist2(d, i, [c.r / c.n, c.g / c.n, c.b / c.n]);
+      if (dd < bd) { bd = dd; best = c; }
+    }
+    if (best && bd <= tol2 / 4) { best.r += d[i]; best.g += d[i + 1]; best.b += d[i + 2]; best.n++; best.sides |= side; }
+    else if (clusters.length < 24) clusters.push({ r: d[i], g: d[i + 1], b: d[i + 2], n: 1, sides: side });
+  };
+  for (let x = 0; x < w; x++) { addBorder(x, 0); if (h > 1) addBorder(x, h - 1); }
+  for (let y = 1; y < h - 1; y++) { addBorder(0, y); if (w > 1) addBorder(w - 1, y); }
+  const mean = (c) => [c.r / c.n, c.g / c.n, c.b / c.n];
+  const magN = clusters.filter((c) => isMagentaish(mean(c))).reduce((s, c) => s + c.n, 0);
+  // On a magenta strip, another border color is background only if it spans the image (a ground band,
+  // a frame) - feet or hair cut by one edge of a tight crop are character, not background.
+  const spans = (c) => (c.sides & 3) === 3 || (c.sides & 12) === 12;
+  let seeds = clusters.filter((c) => c.n >= borderN * 0.08 && (magN < borderN * 0.5 || isMagentaish(mean(c)) || spans(c))).map(mean);
+  if (borderClear >= borderN * 0.25) seeds = seeds.filter(isMagentaish);
+  const magentaBg = seeds.some(isMagentaish);
+  const foreignSeeds = seeds.filter((c) => !isMagentaish(c));
+  const foreign = foreignSeeds.length ? '#' + foreignSeeds[0].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('') : null;
+  seeds.push(MAGENTA);
+  const seedTol2 = seeds.map((c) => (mode === 'char' && !isMagentaish(c) ? tol2 / 4 : tol2));
+  const isBg = (i) => d[i + 3] < 16 || seeds.some((c, k) => dist2(d, i, c) <= seedTol2[k]);
+
+  const N = w * h;
+  const seen = new Uint8Array(N);
+  const stack = new Int32Array(N);
+  let sp = 0;
+  const push = (p) => { if (!seen[p]) { seen[p] = 1; stack[sp++] = p; } };
+  for (let x = 0; x < w; x++) { push(x); push((h - 1) * w + x); }
+  for (let y = 0; y < h; y++) { push(y * w); push(y * w + w - 1); }
+  let removed = 0;
+  while (sp) {
+    const p = stack[--sp];
+    const i = p * 4;
+    if (!isBg(i)) continue;
+    if (d[i + 3]) removed++;
+    d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0;
+    const x = p % w;
+    if (x > 0) push(p - 1);
+    if (x < w - 1) push(p + 1);
+    if (p >= w) push(p - w);
+    if (p < N - w) push(p + w);
+  }
+  // enclosed background (between arm and body...): anything still near the magenta seeds
+  const mSeeds = [MAGENTA, ...seeds.filter(isMagentaish)];
+  for (let p = 0; p < N; p++) {
+    const i = p * 4;
+    if (d[i + 3] && mSeeds.some((c) => dist2(d, i, c) <= tol2)) { d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0; removed++; }
+  }
+  // fringe: magenta-hued pixels touching transparency (2 passes)
+  if (magentaBg) {
+    for (let pass = 0; pass < 2; pass++) {
+      const kill = [];
+      for (let p = 0; p < N; p++) {
+        const i = p * 4;
+        if (!d[i + 3] || !isMagentaHue(d[i], d[i + 1], d[i + 2])) continue;
+        const x = p % w;
+        if ((x > 0 && !d[i - 1]) || (x < w - 1 && !d[i + 7]) || (p >= w && !d[i - w * 4 + 3]) || (p < N - w && !d[i + w * 4 + 3])) kill.push(i);
+      }
+      for (const i of kill) d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0;
+      removed += kill.length;
+      if (!kill.length) break;
+    }
+  }
+  if (mode === 'char') {
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 128) d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0;
+      else d[i + 3] = 255;
+    }
+  } else {
+    quantizeAlpha(img);
+  }
+  return { removed, magentaBg, foreign, seeds: seeds.length - 1 };
+}
+
+function quantizeAlpha(img, levels = VFX_ALPHA_LEVELS) {
+  const d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3];
+    let best = levels[0];
+    for (const l of levels) if (Math.abs(l - a) < Math.abs(best - a)) best = l;
+    if (a < 40) best = 0;
+    if (!best) d[i] = d[i + 1] = d[i + 2] = 0;
+    d[i + 3] = best;
+  }
+}
+
+// 8-connected components of the opaque pixels: label per pixel + { n, x0, y0, x1, y1 } per id (comps[0] unused).
+function components(img) {
+  const { w, h, data: d } = img;
+  const N = w * h;
+  const label = new Int32Array(N);
+  const stack = new Int32Array(N);
+  const comps = [null];
+  for (let p0 = 0; p0 < N; p0++) {
+    if (label[p0] || !d[p0 * 4 + 3]) continue;
+    const id = comps.length;
+    const c = { n: 0, x0: w, y0: h, x1: -1, y1: -1 };
+    let sp = 0;
+    label[p0] = id;
+    stack[sp++] = p0;
+    while (sp) {
+      const p = stack[--sp];
+      const x = p % w, y = (p - x) / w;
+      c.n++;
+      if (x < c.x0) c.x0 = x; if (x > c.x1) c.x1 = x; if (y < c.y0) c.y0 = y; if (y > c.y1) c.y1 = y;
+      for (let dy = -1; dy <= 1; dy++) {
+        const yy = y + dy;
+        if (yy < 0 || yy >= h) continue;
+        for (let dx = -1; dx <= 1; dx++) {
+          const xx = x + dx;
+          if (xx < 0 || xx >= w || (!dx && !dy)) continue;
+          const q = yy * w + xx;
+          if (!label[q] && d[q * 4 + 3]) { label[q] = id; stack[sp++] = q; }
+        }
+      }
+    }
+    comps.push(c);
+  }
+  return { label, comps };
+}
+
+function clearLabels(img, label, kill) {
+  const d = img.data;
+  for (let p = 0; p < label.length; p++) if (kill[label[p]]) { const i = p * 4; d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0; }
+}
+
+// Drop tiny disconnected blobs (noise, stray specks).
+function removeSpecks(img, { frac = 0.0015, min = 4 } = {}) {
+  const { label, comps } = components(img);
+  // a loop, not Math.max(...): a noisy image can have 100k+ blobs (spread would overflow the stack)
+  let largest = 0;
+  for (let k = 1; k < comps.length; k++) if (comps[k].n > largest) largest = comps[k].n;
+  const limit = Math.max(min, largest * frac);
+  let removed = 0, blobs = 0;
+  const kill = new Uint8Array(comps.length);
+  for (let k = 1; k < comps.length; k++) if (comps[k].n < limit) { kill[k] = 1; blobs++; removed += comps[k].n; }
+  if (blobs) clearLabels(img, label, kill);
+  return { blobs, removed };
+}
+
+// Per-frame cleanup of a raw character pose: a small blob far from the body (a stray mark above the
+// head) or below the soles would set the trimmed height (= the scale of the whole animation) or the
+// floor line. Small blobs close to the body (smears, sweat drops, sparks at the fist) are kept.
+function dropStrays(img, { frac = 0.02, far = 0.1 } = {}) {
+  const { label, comps } = components(img);
+  if (comps.length <= 2) return 0;
+  let L = 0;
+  for (let k = 1; k < comps.length; k++) if (comps[k].n > L) L = comps[k].n;
+  const main = { x0: Infinity, y0: Infinity, x1: -1, y1: -1 };
+  for (let k = 1; k < comps.length; k++) {
+    const c = comps[k];
+    if (c.n < L * 0.1) continue;
+    main.x0 = Math.min(main.x0, c.x0); main.y0 = Math.min(main.y0, c.y0); main.x1 = Math.max(main.x1, c.x1); main.y1 = Math.max(main.y1, c.y1);
+  }
+  const reach = far * (main.y1 - main.y0 + 1);
+  const kill = new Uint8Array(comps.length);
+  let n = 0;
+  for (let k = 1; k < comps.length; k++) {
+    const c = comps[k];
+    if (c.n >= L * frac) continue;
+    const gap = Math.max(0, c.x0 - main.x1, main.x0 - c.x1, c.y0 - main.y1, main.y0 - c.y1);
+    if (gap > reach || c.y0 > main.y1) { kill[k] = 1; n++; }
+  }
+  if (n) clearLabels(img, label, kill);
+  return n;
+}
+
+// Downscale by taking the most common color of each source block (palette-preserving, no blur).
+function downscaleMode(img, w2, h2, { coverage = 0.5, alphaMin = 128 } = {}) {
+  const { w, h, data: s } = img;
+  const out = newImage(w2, h2);
+  const d = out.data;
+  const buckets = new Map();
+  const exact = new Map();
+  for (let y = 0; y < h2; y++) {
+    const sy0 = Math.floor((y * h) / h2), sy1 = Math.max(sy0 + 1, Math.floor(((y + 1) * h) / h2));
+    for (let x = 0; x < w2; x++) {
+      const sx0 = Math.floor((x * w) / w2), sx1 = Math.max(sx0 + 1, Math.floor(((x + 1) * w) / w2));
+      buckets.clear();
+      let opaque = 0, total = 0, bestKey = -1, bestN = 0;
+      for (let yy = sy0; yy < sy1; yy++) {
+        for (let xx = sx0; xx < sx1; xx++) {
+          const i = (yy * w + xx) * 4;
+          total++;
+          if (s[i + 3] < alphaMin) continue;
+          opaque++;
+          const key = ((s[i] >> 3) << 10) | ((s[i + 1] >> 3) << 5) | (s[i + 2] >> 3);
+          const n = (buckets.get(key) || 0) + 1;
+          buckets.set(key, n);
+          if (n > bestN) { bestN = n; bestKey = key; }
+        }
+      }
+      if (!opaque || opaque < total * coverage) continue;
+      // exact most common color inside the winning bucket (keeps the source palette exactly)
+      exact.clear();
+      let bestC = 0, bestCN = 0;
+      for (let yy = sy0; yy < sy1; yy++) {
+        for (let xx = sx0; xx < sx1; xx++) {
+          const i = (yy * w + xx) * 4;
+          if (s[i + 3] < alphaMin) continue;
+          if ((((s[i] >> 3) << 10) | ((s[i + 1] >> 3) << 5) | (s[i + 2] >> 3)) !== bestKey) continue;
+          const c = ((s[i] << 24) | (s[i + 1] << 16) | (s[i + 2] << 8) | s[i + 3]) >>> 0;
+          const n = (exact.get(c) || 0) + 1;
+          exact.set(c, n);
+          if (n > bestCN) { bestCN = n; bestC = c; }
+        }
+      }
+      const o = (y * w2 + x) * 4;
+      d[o] = bestC >>> 24; d[o + 1] = (bestC >>> 16) & 255; d[o + 2] = (bestC >>> 8) & 255; d[o + 3] = bestC & 255;
+    }
+  }
+  return out;
+}
+
+function upscaleNearest(img, w2, h2) {
+  const out = newImage(w2, h2);
+  for (let y = 0; y < h2; y++) {
+    const sy = Math.min(img.h - 1, Math.floor((y * img.h) / h2));
+    for (let x = 0; x < w2; x++) {
+      const sx = Math.min(img.w - 1, Math.floor((x * img.w) / w2));
+      const si = (sy * img.w + sx) * 4, di = (y * w2 + x) * 4;
+      out.data[di] = img.data[si]; out.data[di + 1] = img.data[si + 1]; out.data[di + 2] = img.data[si + 2]; out.data[di + 3] = img.data[si + 3];
+    }
+  }
+  return out;
+}
+
+function resample(img, s, opts) {
+  if (s === 1) return img;
+  const w2 = Math.max(1, Math.round(img.w * s)), h2 = Math.max(1, Math.round(img.h * s));
+  return s < 1 ? downscaleMode(img, w2, h2, opts) : upscaleNearest(img, w2, h2);
+}
+
+// ChatGPT cannot draw partial transparency on magenta, so `glow` is drawn as opaque grey rings:
+// white with alpha = brightness (#FFFFFF 100%, #B4B4B4 ~70%, #5A5A5A ~35%; quantizeAlpha snaps the steps).
+// Multiplying by the existing alpha leaves already-converted (white + alpha) art unchanged.
+function lumaToAlpha(img) {
+  const d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    if (!d[i + 3]) continue;
+    const l = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    d[i + 3] = Math.round((d[i + 3] * l) / 255);
+    d[i] = d[i + 1] = d[i + 2] = 255;
+  }
+}
+
+function toGreyscale(img) {
+  const d = img.data;
+  let colored = 0, opaque = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    if (!d[i + 3]) continue;
+    opaque++;
+    const mx = Math.max(d[i], d[i + 1], d[i + 2]), mn = Math.min(d[i], d[i + 1], d[i + 2]);
+    if (mx - mn > 40) colored++;
+    const l = Math.round(0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]);
+    d[i] = d[i + 1] = d[i + 2] = l;
+  }
+  return opaque ? colored / opaque : 0;
+}
+
+// ============================================================== strip splitting
+// Runs of non-zero entries in occ, bridging zero-gaps shorter than minGap. Returns [[start, end)].
+function runs(occ, minGap) {
+  const out = [];
+  let start = -1, lastOn = -1;
+  for (let i = 0; i < occ.length; i++) {
+    if (!occ[i]) continue;
+    if (start < 0) start = i;
+    else if (i - lastOn - 1 >= minGap) { out.push([start, lastOn + 1]); start = i; }
+    lastOn = i;
+  }
+  if (start >= 0) out.push([start, lastOn + 1]);
+  return out;
+}
+
+const median = (arr) => {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+};
+
+// Split [a, b) into k parts, cutting at the emptiest column near each even cut.
+function smartCuts(colOcc, a, b, k) {
+  const parts = [];
+  let prev = a;
+  const step = (b - a) / k;
+  for (let j = 1; j < k; j++) {
+    const target = Math.round(a + j * step);
+    const win = Math.max(1, Math.round(step * 0.2));
+    let best = target, bestV = Infinity;
+    for (let x = Math.max(prev + 1, target - win); x <= Math.min(b - 1, target + win); x++) {
+      const v = colOcc[x];
+      if (v < bestV || (v === bestV && Math.abs(x - target) < Math.abs(best - target))) { bestV = v; best = x; }
+    }
+    parts.push([prev, best]);
+    prev = best;
+  }
+  parts.push([prev, b]);
+  return parts.filter(([s, e]) => e > s);
+}
+
+const peakOf = (colOcc, a, b) => { let m = 0; for (let x = a; x < b; x++) if (colOcc[x] > m) m = colOcc[x]; return m; };
+
+// Does [s, e) hold two bodies, i.e. a deep column valley between two tall peaks?
+function twoBodies(colOcc, s, e, tall) {
+  const n = e - s;
+  if (n < 3) return false;
+  const suf = new Int32Array(n);
+  for (let i = n - 1; i >= 0; i--) suf[i] = Math.max(i < n - 1 ? suf[i + 1] : 0, colOcc[s + i]);
+  let pre = colOcc[s];
+  for (let i = 1; i < n - 1; i++) {
+    const v = colOcc[s + i];
+    if (pre >= tall && suf[i + 1] >= tall && v <= 0.5 * Math.min(pre, suf[i + 1])) return true;
+    if (v > pre) pre = v;
+  }
+  return false;
+}
+
+// Strip-splitting thresholds. Characters: every pose is a body-sized piece, so small pieces are props
+// to fold in and two bodies are never merged into one frame (`bodies`). VFX: frames grow (a first spark
+// is a fraction of the last one) and are often made of separate pieces (rays), and a ring's hollow
+// middle looks like a gap between two bodies, so a "body" may be smaller but a valley must be nearly empty.
+const SPLIT = {
+  char: { tall: 0.45, valley: 0.35, minW: 0.12, bodies: true },
+  vfx: { tall: 0.2, valley: 0.15, minW: 0.05, bodies: false },
+};
+
+// Split a run of touching poses at the deep column valleys between bodies. A body is a column at least
+// P.tall x as tall as the run's tallest; a valley is <= P.valley x the smaller of the tallest columns on
+// each side. Valleys, not even slices: touching poses (or growing VFX frames) differ in width, and a
+// single pose (a big 1-pose image, a punch with a long arm) has no such valley, so it is never sliced
+// into slivers. Returns the slices (>= 2) or null.
+function sliceRun(colOcc, a, b, bandH, P) {
+  const n = b - a;
+  if (n < 3) return null;
+  const tall = P.tall * peakOf(colOcc, a, b), valley = P.valley;
+  const L = new Int32Array(n), R = new Int32Array(n);
+  for (let i = 0; i < n; i++) L[i] = Math.max(i ? L[i - 1] : 0, colOcc[a + i]);
+  for (let i = n - 1; i >= 0; i--) R[i] = Math.max(i < n - 1 ? R[i + 1] : 0, colOcc[a + i]);
+  const deep = (i) => L[i - 1] >= tall && R[i + 1] >= tall && colOcc[a + i] <= valley * Math.min(L[i - 1], R[i + 1]);
+  const cuts = [];
+  for (let i = 1; i < n - 1; i++) {
+    if (!deep(i)) continue;
+    let best = i;
+    for (; i < n - 1 && deep(i); i++) if (colOcc[a + i] < colOcc[a + best]) best = i;
+    const x = a + best;
+    // two valleys with no body between them (forearm, then the gap after the fist) are one valley: keep the deeper
+    const prev = cuts[cuts.length - 1];
+    if (prev !== undefined && peakOf(colOcc, prev, x) < tall) { if (colOcc[x] <= colOcc[prev]) cuts[cuts.length - 1] = x; }
+    else cuts.push(x);
+  }
+  if (!cuts.length) return null;
+  const edges = [a, ...cuts, b];
+  const parts = edges.slice(1).map((e, q) => [edges[q], e]);
+  const minW = Math.max(3, bandH * P.minW);
+  return parts.every(([s, e]) => e - s >= minW && peakOf(colOcc, s, e) >= tall) ? parts : null;
+}
+
+// Runs that are clearly not a pose (small area AND short) are merged into the nearest run when close,
+// dropped when far: a detached prop or speed line must not become a frame of its own.
+function absorbFragments(cols, colOcc, notes) {
+  for (let guard = 0; cols.length > 1 && guard < 200; guard++) {
+    const st = cols.map(([a, b]) => { let n = 0; for (let x = a; x < b; x++) n += colOcc[x]; return { n, pk: peakOf(colOcc, a, b), w: b - a }; });
+    const maxN = Math.max(...st.map((s) => s.n)), maxP = Math.max(...st.map((s) => s.pk));
+    const frag = st.map((s) => s.n < maxN * 0.2 && s.pk < maxP * 0.5);
+    const k = frag.indexOf(true);
+    if (k < 0) break;
+    const medW = median(st.filter((_, q) => !frag[q]).map((s) => s.w));
+    const gapL = k > 0 ? cols[k][0] - cols[k - 1][1] : Infinity;
+    const gapR = k < cols.length - 1 ? cols[k + 1][0] - cols[k][1] : Infinity;
+    if (Math.min(gapL, gapR) <= medW) {
+      const lo = Math.min(k, gapL <= gapR ? k - 1 : k + 1);
+      cols.splice(lo, 2, [cols[lo][0], cols[lo + 1][1]]);
+    } else {
+      notes.push(`dropped a detached piece at x=${cols[k][0]}`);
+      cols.splice(k, 1);
+    }
+  }
+  return cols;
+}
+
+// Returns { rects: [{x0,x1,y0,y1}], notes: [] } in reading order. expected <= 0 means "auto".
+function splitStrip(img, expected, { split = 'auto', mode = 'char' } = {}) {
+  const P = SPLIT[mode] || SPLIT.char;
+  const { w, h, data: d } = img;
+  const notes = [];
+  const rowOcc = new Int32Array(h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3]) rowOcc[y]++;
+  let bands = runs(rowOcc, Math.max(2, Math.round(h * 0.01)));
+  if (!bands.length) return { rects: [], notes };
+
+  // merge thin bands (detached bits) into their nearest neighbour
+  for (let guard = 0; bands.length > 1 && guard < 100; guard++) {
+    const maxH = Math.max(...bands.map(([a, b]) => b - a));
+    const k = bands.findIndex(([a, b]) => b - a < maxH * 0.3);
+    if (k < 0) break;
+    const gapL = k > 0 ? bands[k][0] - bands[k - 1][1] : Infinity;
+    const gapR = k < bands.length - 1 ? bands[k + 1][0] - bands[k][1] : Infinity;
+    const j = gapL <= gapR ? k - 1 : k + 1;
+    const lo = Math.min(k, j);
+    bands.splice(lo, 2, [bands[lo][0], bands[lo + 1][1]]);
+  }
+
+  const colOccOf = (y0, y1) => {
+    const occ = new Int32Array(w);
+    for (let y = y0; y < y1; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3]) occ[x]++;
+    return occ;
+  };
+
+  // multi-row grid only if the bands span overlapping x ranges (a jump arc drawn in one row does not)
+  if (bands.length > 1) {
+    const ext = bands.map(([y0, y1]) => {
+      const r = runs(colOccOf(y0, y1), 1);
+      return [r[0][0], r[r.length - 1][1]];
+    });
+    let grid = true;
+    for (let k = 1; k < ext.length; k++) {
+      const ov = Math.min(ext[k][1], ext[k - 1][1]) - Math.max(ext[k][0], ext[k - 1][0]);
+      const mn = Math.min(ext[k][1] - ext[k][0], ext[k - 1][1] - ext[k - 1][0]);
+      if (ov < mn * 0.5) grid = false;
+    }
+    if (grid) notes.push(`grid of ${bands.length} rows detected`);
+    else bands = [[bands[0][0], bands[bands.length - 1][1]]];
+  }
+
+  const rects = [];
+  for (const [y0, y1] of bands) {
+    const colOcc = colOccOf(y0, y1);
+    let cols;
+    if (split === 'even' && expected > 0 && bands.length === 1) {
+      cols = smartCuts(colOcc, 0, w, expected);
+    } else {
+      cols = runs(colOcc, Math.max(2, Math.round((y1 - y0) * 0.01)));
+      // tiny runs: merge into the closer neighbour, or drop if far away
+      for (let guard = 0; cols.length > 1 && guard < 200; guard++) {
+        const maxW = Math.max(...cols.map(([a, b]) => b - a));
+        const medW = median(cols.map(([a, b]) => b - a));
+        const k = cols.findIndex(([a, b]) => b - a < maxW * 0.12);
+        if (k < 0) break;
+        const gapL = k > 0 ? cols[k][0] - cols[k - 1][1] : Infinity;
+        const gapR = k < cols.length - 1 ? cols[k + 1][0] - cols[k][1] : Infinity;
+        if (Math.min(gapL, gapR) < medW * 0.5) {
+          const j = gapL <= gapR ? k - 1 : k + 1;
+          const lo = Math.min(k, j);
+          cols.splice(lo, 2, [cols[lo][0], cols[lo + 1][1]]);
+        } else {
+          notes.push(`dropped a small detached blob at x=${cols[k][0]}`);
+          cols.splice(k, 1);
+        }
+      }
+      if (bands.length === 1 && expected > 0) {
+        // too many pieces: first fold in detached props/smears, then merge the clearly-smaller gaps,
+        // but never two bodies into one frame (punch poses sit closer together than idle poses)
+        if (cols.length > expected && P.bodies) absorbFragments(cols, colOcc, notes);
+        const tall = P.tall * peakOf(colOcc, 0, w);
+        while (cols.length > expected) {
+          const gaps = cols.slice(1).map((c, k) => c[0] - cols[k][1]);
+          const mg = median(gaps);
+          let k = 0;
+          for (let q = 1; q < gaps.length; q++) if (gaps[q] < gaps[k]) k = q;
+          if (!(gaps[k] < mg * 0.5) || (P.bodies && twoBodies(colOcc, cols[k][0], cols[k + 1][1], tall))) break;
+          cols.splice(k, 2, [cols[k][0], cols[k + 1][1]]);
+        }
+        // too few: poses touch each other -> cut the (wide) runs at the valleys between bodies (sliceRun)
+        if (cols.length < expected) {
+          if (cols.length === 1) {
+            const parts = sliceRun(colOcc, cols[0][0], cols[0][1], y1 - y0, P);
+            if (parts) {
+              cols = parts;
+              notes.push(`poses touch: split into ${parts.length}`);
+            } else notes.push(`found 1 pose, expected ${expected} - not sliced (leave a gap between poses, or add raw/<anim>.json { "split": "even" })`);
+          } else {
+            const refW = median(cols.map(([a, b]) => b - a));
+            const out = [];
+            let groups = 0, whole = 0;
+            for (const [a, b] of cols) {
+              if (b - a >= refW * 1.6) {
+                const parts = sliceRun(colOcc, a, b, y1 - y0, P);
+                if (parts) { out.push(...parts); groups++; continue; }
+                whole++;
+              }
+              out.push([a, b]);
+            }
+            if (groups) notes.push(`split ${groups} touching pose group(s)`);
+            if (whole) notes.push(`kept ${whole} wide pose(s) whole (a long limb, not touching poses)`);
+            cols = out;
+          }
+        }
+      }
+    }
+    for (const [x0, x1] of cols) rects.push({ x0, x1, y0, y1 });
+  }
+  return { rects, notes };
+}
+
+// ============================================================== guide + manifest
+async function loadGuide(file) {
+  try {
+    const mod = await import(pathToFileURL(file).href);
+    if (mod && mod.ANIM_GUIDE && typeof mod.ANIM_GUIDE === 'object') return { guide: normalizeGuide(mod.ANIM_GUIDE), source: 'animGuide.js' };
+  } catch { /* fall through to text parsing */ }
+  try {
+    const text = fs.readFileSync(file, 'utf8');
+    const block = text.slice(text.indexOf('ANIM_GUIDE'));
+    const g = {};
+    const re = /^\s*([A-Za-z]\w*)\s*:\s*\{([^}]*)\}/gm;
+    let m;
+    while ((m = re.exec(block))) {
+      const body = m[2];
+      const frames = /frames\s*:\s*(\d+)/.exec(body);
+      if (!frames) continue;
+      const phases = /phases\s*:\s*\[\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\]/.exec(body);
+      g[m[1]] = { frames: +frames[1], loop: /loop\s*:\s*true/.test(body) };
+      if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
+    }
+    if (Object.keys(g).length >= 10) return { guide: g, source: 'animGuide.js (parsed)' };
+  } catch { /* fall through */ }
+  return { guide: normalizeGuide(FALLBACK_GUIDE), source: 'built-in fallback' };
+}
+
+function normalizeGuide(g) {
+  const out = {};
+  for (const [name, a] of Object.entries(g)) {
+    if (!a || typeof a !== 'object') continue;
+    out[name] = { frames: a.frames | 0 || 1, loop: !!a.loop };
+    if (Array.isArray(a.phases) && a.phases.length === 3) out[name].phases = a.phases.map((v) => v | 0);
+    if (a.durations) out[name].durations = a.durations;
+    if (a.ms) out[name].ms = a.ms;
+  }
+  return out;
+}
+
+// Accepts objects keyed by name or arrays of { id|name, ... }.
+function entries(x) {
+  if (!x) return [];
+  if (Array.isArray(x)) return x.filter((v) => v && typeof v === 'object').map((v) => [String(v.id ?? v.name ?? v.anim ?? v.effect ?? ''), v]).filter(([k]) => k);
+  if (typeof x === 'object') return Object.entries(x).filter(([k, v]) => !k.startsWith('_') && v && typeof v === 'object');
+  return [];
+}
+
+function normalizeAnimEntry(v) {
+  const o = {};
+  if (typeof v.frames === 'number') o.frames = v.frames;
+  else if (Array.isArray(v.frames)) o.frames = v.frames.length;
+  else if (typeof v.frameCount === 'number') o.frames = v.frameCount;
+  if (Array.isArray(v.phases) && v.phases.length === 3) o.phases = v.phases.map((n) => n | 0);
+  const bh = v.bodyHeight ?? v.body_height ?? v.height;
+  if (typeof bh === 'number' && bh > 0) o.bodyHeight = bh;
+  if (typeof v.required === 'boolean') o.required = v.required;
+  if (typeof v.core === 'boolean') o.required = o.required || v.core;
+  if (typeof v.loop === 'boolean') o.loop = v.loop;
+  if (Array.isArray(v.durations)) o.durations = v.durations;
+  else if (Array.isArray(v.ms)) o.durations = v.ms;
+  else if (typeof v.ms === 'number') o.ms = v.ms;
+  if (typeof v.hitbox === 'boolean') o.hitbox = v.hitbox;
+  if (typeof v.status === 'string') o.status = v.status;
+  return o;
+}
+
+function normalizeManifest(raw) {
+  const m = { characters: {}, vfx: {}, defaults: {}, core: [], specIssues: [] };
+  if (!raw || typeof raw !== 'object') return m;
+  const defAnims = raw.animationDefaults ?? raw.animations ?? raw.defaults?.animations ?? raw.spec?.animations;
+  for (const [name, v] of entries(defAnims)) m.defaults[name] = normalizeAnimEntry(v);
+  if (Array.isArray(raw.coreAnimations)) m.core = raw.coreAnimations.filter((n) => typeof n === 'string');
+  for (const [id, c] of entries(raw.characters)) {
+    const anims = {};
+    for (const [name, v] of entries(c.animations ?? c.anims)) anims[name] = normalizeAnimEntry(v);
+    m.characters[id] = { name: c.name, animations: anims };
+  }
+  const vfx = raw.vfx?.effects ?? raw.vfx ?? raw.effects;
+  for (const [name, v] of entries(vfx)) {
+    const e = {};
+    const n = typeof v.frames === 'number' ? v.frames : Array.isArray(v.frames) ? v.frames.length : typeof v.n === 'number' ? v.n : undefined;
+    if (n) e.frames = n;
+    if (typeof v.ms === 'number') e.ms = v.ms;
+    if (typeof v.tinted === 'boolean') e.tinted = v.tinted;
+    else if (typeof v.tint === 'boolean') e.tinted = v.tint;
+    else if (typeof v.colorRule === 'string') e.tinted = /tint|white/i.test(v.colorRule);
+    else if (typeof v.color === 'string') e.tinted = /white|tint/i.test(v.color);
+    if (typeof v.fill === 'number') e.fill = v.fill;
+    for (const k of ['lumaAlpha', 'baseX']) if (typeof v[k] === 'boolean') e[k] = v[k];
+    if (v.anchor === 'bottom' || v.bottomAnchored === true) e.anchor = 'bottom';
+    else if (v.anchor === 'center') e.anchor = 'center';
+    m.vfx[name] = e;
+  }
+  // the manifest restates the spec: flag drift instead of silently following it
+  const s = raw.spec;
+  if (s && typeof s === 'object') {
+    for (const k of ['frameWidth', 'frameHeight', 'columns', 'pixelsPerUnit', 'facing']) if (s[k] !== undefined && s[k] !== SPEC[k]) m.specIssues.push(`spec.${k} is ${JSON.stringify(s[k])}, packer SPEC v1 uses ${JSON.stringify(SPEC[k])}`);
+    if (Array.isArray(s.pivot) && (s.pivot[0] !== SPEC.pivot[0] || s.pivot[1] !== SPEC.pivot[1])) m.specIssues.push(`spec.pivot is ${JSON.stringify(s.pivot)}, packer SPEC v1 uses ${JSON.stringify(SPEC.pivot)}`);
+  }
+  const v = raw.vfx;
+  if (v && typeof v === 'object') {
+    for (const [k, want] of [['cell', VFX.cell], ['ppu', VFX.ppu], ['baseline', VFX.baseline]]) if (v[k] !== undefined && v[k] !== want) m.specIssues.push(`vfx.${k} is ${v[k]}, packer uses ${want}`);
+  }
+  return m;
+}
+
+// Ordered animation definitions for one character: guide order, then manifest-only extras.
+function animDefsFor(id, env) {
+  const mc = env.manifest.characters[id]?.animations || {};
+  const names = [...Object.keys(env.guide)];
+  for (const n of [...Object.keys(env.manifest.defaults), ...Object.keys(mc)]) if (!names.includes(n)) names.push(n);
+  return names.map((name) => {
+    const g = env.guide[name] || {};
+    const d = env.manifest.defaults[name] || {};
+    const c = mc[name] || {};
+    const pick = (k) => c[k] ?? d[k] ?? g[k];
+    return {
+      name,
+      frames: pick('frames') || 1,
+      phases: pick('phases') || null,
+      loop: !!pick('loop'),
+      bodyHeight: c.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? DEFAULT_BODY_HEIGHT,
+      required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
+      durations: c.durations ?? (c.ms != null ? c.ms : undefined) ?? d.durations ?? (d.ms != null ? d.ms : undefined) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? 100,
+      hitbox: (c.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
+    };
+  });
+}
+
+function resolveDurations(spec, n) {
+  let arr = typeof spec === 'number' ? Array(n).fill(spec) : Array.isArray(spec) ? spec.map(Number).filter(Number.isFinite) : [];
+  if (!arr.length) arr = Array(n).fill(100);
+  if (arr.length !== n) {
+    const total = arr.reduce((p, c) => p + c, 0);
+    arr = Array(n).fill(total / n);
+  }
+  return arr.map((v) => Math.max(16, Math.round(v)));
+}
+
+function rescalePhases(ph, n) {
+  if (!ph) return null;
+  const T = ph[0] + ph[1] + ph[2];
+  if (T === n) return ph.slice();
+  if (n <= 1) return [0, 1, 0];
+  if (n === 2) return [1, 1, 0];
+  const s0 = Math.min(n - 1, Math.max(1, Math.round((n * ph[0]) / T)));
+  const s1 = Math.max(1, Math.min(n - s0, Math.round((n * ph[1]) / T)));
+  return [s0, s1, Math.max(0, n - s0 - s1)];
+}
+
+// ============================================================== frame sources
+const SINGLE_RE = /^(.+?)_(\d+)\.png$/i;
+
+// Index raw/ files by animation name (case-insensitive). Unrecognized files become warnings.
+// Skipped silently: ui_* (optional untouched UI originals; the UI itself lives in ui/), fx_* (effect art
+// left in a character's raw/), <anim>_fixNN.png (fix-up attempts) and every subfolder (_parts/, _proposed/).
+function scanRaw(rawDir, knownNames, warn, label) {
+  const byLower = new Map(knownNames.map((n) => [n.toLowerCase(), n]));
+  const idx = new Map();
+  const get = (n) => { if (!idx.has(n)) idx.set(n, { strip: null, singles: [], sidecar: null }); return idx.get(n); };
+  for (const f of listFiles(rawDir).sort(natural)) {
+    if (f.startsWith('.') || /^readme/i.test(f)) continue;
+    if (/^(ui|fx)_/i.test(f) || /_fix\d+\.png$/i.test(f)) continue;
+    if (/\.(jpe?g|webp|gif|bmp|avif)$/i.test(f)) { warn(`${label}/${f}: not a PNG - save it as .png`); continue; }
+    if (/\.json$/i.test(f)) {
+      const name = byLower.get(f.slice(0, -5).toLowerCase());
+      if (name) get(name).sidecar = path.join(rawDir, f);
+      continue;
+    }
+    if (!/\.png$/i.test(f)) continue;
+    const base = f.slice(0, -4);
+    let name = byLower.get(base.toLowerCase());
+    if (name) {
+      if (name !== base) warn(`${label}/${f}: rename to ${name}.png (case)`);
+      get(name).strip = path.join(rawDir, f);
+      continue;
+    }
+    const m = SINGLE_RE.exec(f);
+    name = m && byLower.get(m[1].toLowerCase());
+    if (name) { get(name).singles.push(path.join(rawDir, f)); continue; }
+    warn(`${label}/${f}: unrecognized name - use <anim>.png (strip) or <anim>_NN.png (single frame)`);
+  }
+  return idx;
+}
+
+function hashFiles(files) {
+  const h = crypto.createHash('sha1');
+  for (const f of files) { h.update(path.basename(f)); h.update(fs.readFileSync(f)); }
+  return h.digest('hex');
+}
+
+// Decide where an animation's frames come from: frames/<anim>/ (human-cleaned) or raw/.
+// Packer-written frames carry a marker; if the raw changed and nobody edited the frames, re-import.
+function chooseSource(framesDir, rawEntry, bodyHeight, warn, label) {
+  const rawFiles = rawEntry ? (rawEntry.strip ? [rawEntry.strip] : rawEntry.singles) : [];
+  if (rawEntry?.strip && rawEntry.singles.length) warn(`${label}: raw strip and ${rawEntry.singles.length} single frame(s) both exist - using the strip`);
+  // the sidecar (raw/<anim>.json) is part of the source: editing it re-imports too
+  const hashInputs = rawFiles.length && rawEntry?.sidecar ? [...rawFiles, rawEntry.sidecar] : rawFiles;
+  const framePngs = listPngs(framesDir);
+  if (!framePngs.length) return rawFiles.length ? { kind: 'raw', rawFiles, hashInputs } : null;
+  const marker = readJson(path.join(framesDir, MARKER)).data;
+  if (!marker || !rawFiles.length) return { kind: 'frames', framePngs, packerMade: !!marker };
+  const rawHash = hashFiles(hashInputs);
+  if (rawHash === marker.sourceHash && (marker.bodyHeight ?? null) === (bodyHeight ?? null)) return { kind: 'frames', framePngs, packerMade: true };
+  const files = marker.files || {};
+  const edited = framePngs.length !== Object.keys(files).length ||
+    framePngs.some((f) => files[f] !== sha1(fs.readFileSync(path.join(framesDir, f))));
+  if (!edited) return { kind: 'raw', rawFiles, hashInputs };
+  warn(`${label}: raw/ or bodyHeight changed but frames/${path.basename(framesDir)}/ has manual edits - using frames/ (delete that folder to re-import from raw)`);
+  return { kind: 'frames', framePngs, packerMade: true };
+}
+
+function readSidecar(file, warn, label) {
+  if (!file) return {};
+  const r = readJson(file);
+  if (r.error) { warn(`${label}: ${path.basename(file)} is not valid JSON (${r.error}) - ignored`); return {}; }
+  return r.data && typeof r.data === 'object' ? r.data : {};
+}
+
+// Load + clean raw images into trimmed frame images (source resolution).
+function framesFromRaw(rawFiles, expected, side, env, mode, warn, label) {
+  const notes = [];
+  const out = [];
+  const sideTol = Number(side.tolerance ?? side.tol);
+  const tol = sideTol > 0 ? sideTol : env.tol;
+  const speck = mode === 'vfx' ? { frac: 0.0002, min: 3 } : { frac: 0.0015, min: 4 };
+  const strip = rawFiles.length === 1 && !SINGLE_RE.test(path.basename(rawFiles[0]));
+  let unreadable = 0, strays = 0;
+  const foreign = new Set();
+  for (const f of rawFiles) {
+    let img;
+    try { img = readPng(f); } catch (e) { warn(`${label}: cannot read ${path.basename(f)} (${e.message})`); unreadable++; continue; }
+    const bg = removeBackground(img, { tol, mode });
+    if (!bg.magentaBg && bg.removed === 0 && !hasTransparency(img)) warn(`${label}: ${path.basename(f)} has no removable background (use flat magenta #FF00FF)`);
+    else if (mode === 'char' && bg.foreign && bg.removed) foreign.add(bg.foreign);
+    const sp = removeSpecks(img, speck);
+    if (sp.blobs > 3) notes.push(`removed ${sp.blobs} specks`);
+    if (strip) {
+      const want = Number(side.frames) > 0 ? Number(side.frames) : expected;
+      const { rects, notes: n2 } = splitStrip(img, want, { split: side.split === 'even' ? 'even' : 'auto', mode });
+      notes.push(...n2);
+      for (const r of rects) {
+        const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+        if (mode === 'char') strays += dropStrays(piece);
+        const b = bbox(piece);
+        if (!b) continue;
+        const t = crop(piece, b.x0, b.y0, b.w, b.h);
+        // where the frame sat in the strip (VFX keep their offset inside the strip row, see vfxAnchors)
+        if (mode === 'vfx') t.at = { row: `${r.y0}:${r.y1}`, slotCx: (r.x0 + r.x1) / 2, left: r.x0 + b.x0, top: r.y0 + b.y0, bottom: r.y0 + b.y1 };
+        out.push(t);
+      }
+    } else {
+      if (mode === 'char') strays += dropStrays(img);
+      const b = bbox(img);
+      if (b) {
+        const t = crop(img, b.x0, b.y0, b.w, b.h);
+        if (mode === 'vfx') t.at = { row: 'single', canvas: `${img.w}x${img.h}`, left: b.x0, right: b.x1, top: b.y0, bottom: b.y1 };
+        out.push(t);
+      } else warn(`${label}: ${path.basename(f)} is empty after background removal`);
+    }
+  }
+  if (strays) notes.push(`dropped ${strays} stray mark(s) far from the body`);
+  if (foreign.size) warn(`${label}: background ${[...foreign].join('/')} is not magenta #FF00FF - removed with half tolerance; gaps enclosed by the body (between arm and torso) stay filled. Regenerate on magenta`);
+  let frames = out;
+  if (Array.isArray(side.drop) && side.drop.length) {
+    const drop = new Set(side.drop.map(Number).filter((k) => Number.isInteger(k) && k >= 0 && k < frames.length));
+    const bad = side.drop.filter((k) => !drop.has(Number(k)));
+    if (bad.length) warn(`${label}: sidecar "drop" ${JSON.stringify(bad)} ignored - frame indices are 0-${frames.length - 1}`);
+    if (drop.size) {
+      frames = frames.filter((_, k) => !drop.has(k));
+      notes.push(`dropped frame(s) ${[...drop].join(',')} (sidecar)`);
+    }
+  }
+  if (mode === 'vfx') vfxAnchors(frames, notes);
+  return { frames, notes, unreadable: unreadable === rawFiles.length };
+}
+
+// Effects grow, shrink, rise and lean on purpose, so a VFX frame must not be re-centered on its own
+// bbox (a spark flare that disappears would make the crescent jump, a rising puff would not rise).
+// Sets frame.anchor = { cx, cy, gap } in source px, relative to the trimmed frame's top-left:
+//  - strip: cy = center of the union of the row's frames (all frames share the row's center line),
+//    gap = how far the frame's lowest pixel sits above the row's lowest pixel (bottom effects),
+//    cx = center of the frame's split slot (its own columns, or an even slot with { "split": "even" });
+//  - single files of one canvas size: the union of all frames on that shared canvas, in x and y.
+// Single files of different sizes have no common reference: they stay centered per frame.
+function vfxAnchors(frames, notes) {
+  const singles = frames.filter((f) => f.at?.row === 'single');
+  if (singles.length > 1 && new Set(singles.map((f) => f.at.canvas)).size > 1) {
+    for (const f of singles) delete f.at;
+    notes.push('single frames have different canvas sizes - each frame centered on its own bbox');
+  }
+  const rows = new Map();
+  for (const f of frames) if (f.at) { if (!rows.has(f.at.row)) rows.set(f.at.row, []); rows.get(f.at.row).push(f); }
+  for (const [row, list] of rows) {
+    const uy0 = Math.min(...list.map((f) => f.at.top)), uy1 = Math.max(...list.map((f) => f.at.bottom));
+    const ux = row === 'single' ? (Math.min(...list.map((f) => f.at.left)) + Math.max(...list.map((f) => f.at.right)) + 1) / 2 : null;
+    for (const f of list) {
+      f.anchor = { cx: (ux ?? f.at.slotCx) - f.at.left, cy: (uy0 + uy1 + 1) / 2 - f.at.top, gap: uy1 - f.at.bottom };
+      delete f.at;
+    }
+  }
+}
+
+function hasTransparency(img) {
+  const d = img.data;
+  for (let i = 3; i < d.length; i += 4) if (d[i] < 128) return true;
+  return false;
+}
+
+function framesFromFolder(dir, files, mode, env, warn, label) {
+  const out = [];
+  for (const f of files) {
+    let img;
+    try { img = readPng(path.join(dir, f)); } catch (e) { warn(`${label}: cannot read frames/${f} (${e.message})`); continue; }
+    if (mode === 'vfx' && img.w === VFX.cell && img.h === VFX.cell) { quantizeAlpha(img); out.push({ img, final: true }); continue; }
+    removeBackground(img, { tol: env.tol, mode });
+    // a forgotten stray pixel would change the trimmed size (and so the scale of the whole anim)
+    const stray = mode === 'char' ? removeSpecks(img, { frac: 0, min: 3 }).removed : 0;
+    const t = trim(img);
+    if (t) out.push({ img: t, final: false, stray });
+    else warn(`${label}: frames/${f} is empty`);
+  }
+  return out;
+}
+
+// ============================================================== character packing
+function footAnchor(img) {
+  const y0 = Math.min(img.h - 1, Math.floor(img.h * 0.8));
+  let sx = 0, n = 0;
+  for (let y = y0; y < img.h; y++) for (let x = 0; x < img.w; x++) if (img.data[(y * img.w + x) * 4 + 3]) { sx += x; n++; }
+  return n ? sx / n : img.w / 2;
+}
+
+function placeCharFrame(sprite) {
+  const cell = newImage(SPEC.frameWidth, SPEC.frameHeight);
+  const dx = Math.round(SPEC.pivot[0] - footAnchor(sprite));
+  const dy = SPEC.pivot[1] - (sprite.h - 1);
+  const lost = blit(cell, sprite, dx, dy);
+  const clip = [];
+  if (dx < 0) clip.push(`left ${-dx}px`);
+  if (dx + sprite.w > SPEC.frameWidth) clip.push(`right ${dx + sprite.w - SPEC.frameWidth}px`);
+  if (dy < 0) clip.push(`top ${-dy}px`);
+  return { cell, lost, clip };
+}
+
+const clampBox = ([x, y, w, h], W, H) => {
+  const x0 = Math.max(0, x), y0 = Math.max(0, y), x1 = Math.min(W, x + w), y1 = Math.min(H, y + h);
+  return [x0, y0, Math.max(1, x1 - x0), Math.max(1, y1 - y0)];
+};
+
+function hurtBox(cell) {
+  const b = bbox(cell);
+  if (!b) return null;
+  const ix = Math.round(b.w * 0.18), it = Math.round(b.h * 0.04);
+  return [b.x0 + ix, b.y0 + it, Math.max(2, b.w - 2 * ix), Math.max(2, b.h - it)];
+}
+
+// The striking part: the 8-connected blob containing (sx, sy) inside a region, plus any other blob
+// of the region within `near` px of it (a smear or spark drawn just in front of the fist).
+function strikeBox(img, sx, sy, x0, y0, x1, y1, near = 6) {
+  x0 = Math.max(0, x0); y0 = Math.max(0, y0); x1 = Math.min(img.w - 1, x1); y1 = Math.min(img.h - 1, y1);
+  if (sx < x0 || sx > x1 || sy < y0 || sy > y1 || x1 < x0 || y1 < y0) return null;
+  const W = x1 - x0 + 1, H = y1 - y0 + 1;
+  const op = (x, y) => img.data[(y * img.w + x) * 4 + 3] !== 0;
+  const label = new Int32Array(W * H);
+  const blobs = [];
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+    if (label[(y - y0) * W + x - x0] || !op(x, y)) continue;
+    const id = blobs.length + 1;
+    const b = { x0: x, y0: y, x1: x, y1: y, n: 0 };
+    const stack = [[x, y]];
+    label[(y - y0) * W + x - x0] = id;
+    while (stack.length) {
+      const [px, py] = stack.pop();
+      b.n++;
+      if (px < b.x0) b.x0 = px; if (px > b.x1) b.x1 = px; if (py < b.y0) b.y0 = py; if (py > b.y1) b.y1 = py;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const xx = px + dx, yy = py + dy;
+        if (xx < x0 || xx > x1 || yy < y0 || yy > y1) continue;
+        const k = (yy - y0) * W + xx - x0;
+        if (label[k] || !op(xx, yy)) continue;
+        label[k] = id;
+        stack.push([xx, yy]);
+      }
+    }
+    blobs.push(b);
+  }
+  const start = label[(sy - y0) * W + sx - x0] - 1;
+  if (start < 0) return null;
+  const box = { ...blobs[start] };
+  const used = new Set([start]);
+  for (let grown = true; grown;) {
+    grown = false;
+    blobs.forEach((b, i) => {
+      if (used.has(i) || b.x0 > box.x1 + near || b.x1 < box.x0 - near || b.y0 > box.y1 + near || b.y1 < box.y0 - near) return;
+      used.add(i);
+      box.x0 = Math.min(box.x0, b.x0); box.y0 = Math.min(box.y0, b.y0); box.x1 = Math.max(box.x1, b.x1); box.y1 = Math.max(box.y1, b.y1); box.n += b.n;
+      grown = true;
+    });
+  }
+  return { ...box, w: box.x1 - box.x0 + 1, h: box.y1 - box.y0 + 1 };
+}
+
+// Opaque pixel of column x (or row y) closest to the middle of its opaque run.
+function midOpaque(img, { x, y }) {
+  const hits = [];
+  if (x !== undefined) { for (let yy = 0; yy < img.h; yy++) if (img.data[(yy * img.w + x) * 4 + 3]) hits.push(yy); }
+  else for (let xx = 0; xx < img.w; xx++) if (img.data[(y * img.w + xx) * 4 + 3]) hits.push(xx);
+  return hits.length ? hits[hits.length >> 1] : -1;
+}
+
+function colCount(img, x) {
+  let n = 0;
+  for (let y = 0; y < img.h; y++) if (img.data[(y * img.w + x) * 4 + 3]) n++;
+  return n;
+}
+
+// Hitbox for an active frame. Spec v1 rule ("the part of the silhouette beyond the idle pose's
+// maxX - 6px"), made robust for real art:
+//  1. forward strike (reaches past the idle front): walk back from the tip until the columns get
+//     torso-thick, so only the limb counts; take the blob holding the forward-most pixel (+ smears
+//     touching it) within +-STRIKE_BAND px of the tip row (a guard fist next to a kick is excluded);
+//  2. rising strike (uppercut, rises above the idle head): the same idea around the highest pixel;
+//     whichever of 1/2 reaches further past the idle pose is tried first;
+//  3. otherwise the forward-most 28% of the body at strike height.
+const STRIKE_BAND = 40;
+function hitBox(cell, ref) {
+  const b = bbox(cell);
+  if (!b) return null;
+  const pad = (bb) => clampBox([bb.x0 - 2, bb.y0 - 2, bb.w + 4, bb.h + 4], cell.w, cell.h);
+  const forward = () => {
+    let start = ref.maxX - 6 + 1;
+    const thick = Math.max(16, Math.round(b.h * 0.25));
+    for (let x = b.x1; x >= Math.max(start, b.x0); x--) if (colCount(cell, x) > thick) { start = x + 1; break; }
+    if (b.x1 - start + 1 < 6) return null;
+    const ty = midOpaque(cell, { x: b.x1 });
+    const tip = strikeBox(cell, b.x1, ty, start, ty - STRIKE_BAND, cell.w - 1, ty + STRIKE_BAND);
+    if (tip && tip.n >= 12) return { box: pad(tip), rule: 'forward' };
+    const fwd = bbox(cell, start, 0, cell.w - 1, cell.h - 1);
+    return fwd && fwd.n >= 12 ? { box: pad(fwd), rule: 'forward' } : null;
+  };
+  const up = () => {
+    // walk down from the top until the rows get head-thick: fist + forearm only
+    let bottom = ref.minY - 2;
+    const thick = Math.max(16, Math.round(b.w * 0.45));
+    for (let y = b.y0; y <= b.y0 + b.h * 0.5; y++) {
+      let n = 0;
+      for (let x = b.x0; x <= b.x1; x++) if (cell.data[(y * cell.w + x) * 4 + 3]) n++;
+      if (n > thick) { bottom = Math.max(bottom, y - 1); break; }
+    }
+    const tx = midOpaque(cell, { y: b.y0 });
+    const top = strikeBox(cell, tx, b.y0, tx - STRIKE_BAND, 0, tx + STRIKE_BAND, bottom);
+    return top && top.n >= 12 ? { box: pad(top), rule: 'up' } : null;
+  };
+  const fwdExt = b.x1 - ref.maxX, upExt = ref.minY - b.y0;
+  const tries = [];
+  if (fwdExt >= 4) tries.push([fwdExt, forward]);
+  if (upExt >= 6) tries.push([upExt, up]);
+  tries.sort((p, q) => q[0] - p[0]);
+  for (const [, fn] of tries) { const h = fn(); if (h) return h; }
+  const cw = Math.max(1, Math.round(b.w * 0.28));
+  const front = bbox(cell, b.x1 - cw + 1, 0, b.x1, cell.h - 1);
+  return { box: pad(front), rule: 'front' };
+}
+
+function validBox(b) { return Array.isArray(b) && b.length === 4 && b.every((v) => Number.isFinite(v)); }
+
+function applyOverrides(file, packed, boxes, warn, label) {
+  const r = readJson(file);
+  if (!r.exists) return 0;
+  if (r.error) { warn(`${label}/hitboxes.json is not valid JSON (${r.error}) - ignored`); return 0; }
+  let n = 0;
+  for (const [anim, frames] of Object.entries(r.data || {})) {
+    if (anim.startsWith('_') || !frames || typeof frames !== 'object') continue;
+    const p = packed.find((a) => a.name === anim);
+    if (!p) { warn(`hitboxes.json: "${anim}" is not packed - override skipped`); continue; }
+    const keys = Object.keys(frames).filter((k) => !k.startsWith('_')).sort((a, b) => (a === '*' ? -1 : b === '*' ? 1 : 0));
+    for (const k of keys) {
+      const ov = frames[k];
+      const targets = k === '*' ? p.indices.map((_, i) => i) : [Number(k)];
+      if (!targets.every((i) => Number.isInteger(i) && i >= 0 && i < p.indices.length)) { warn(`hitboxes.json: ${anim} frame "${k}" out of range (0-${p.indices.length - 1})`); continue; }
+      for (const i of targets) {
+        const key = String(p.indices[i]);
+        boxes[key] = boxes[key] || {};
+        for (const kind of ['hit', 'hurt']) {
+          if (!(kind in (ov || {}))) continue;
+          const list = ov[kind];
+          if (!Array.isArray(list) || !list.every(validBox)) { warn(`hitboxes.json: ${anim}[${k}].${kind} must be [[x,y,w,h], ...]`); continue; }
+          // an explicit empty `hit` list is kept: the engine reads it as "this frame cannot hit"
+          // (a missing list falls back to the move's reach); an empty `hurt` list means "use the default body box"
+          if (list.length) boxes[key][kind] = list.map((bx) => bx.map((v) => Math.round(v)));
+          else if (kind === 'hit') boxes[key].hit = [];
+          else delete boxes[key][kind];
+        }
+        n++;
+      }
+    }
+  }
+  return n;
+}
+
+// Median-cut palette over all opaque pixels, then snap every pixel to it.
+function quantizeFrames(cells, n) {
+  const colors = new Map();
+  for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
+    const k = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
+    colors.set(k, (colors.get(k) || 0) + 1);
+  }
+  if (colors.size <= n) return colors.size;
+  let boxes = [[...colors.entries()].map(([k, cnt]) => [k >> 16, (k >> 8) & 255, k & 255, cnt])];
+  while (boxes.length < n) {
+    let bi = -1, bestRange = -1, ch = 0;
+    boxes.forEach((bx, i) => {
+      if (bx.length < 2) return;
+      for (let c = 0; c < 3; c++) {
+        let mn = 255, mx = 0;
+        for (const p of bx) { if (p[c] < mn) mn = p[c]; if (p[c] > mx) mx = p[c]; }
+        if (mx - mn > bestRange) { bestRange = mx - mn; bi = i; ch = c; }
+      }
+    });
+    if (bi < 0 || bestRange <= 0) break;
+    const bx = boxes[bi].sort((a, b) => a[ch] - b[ch]);
+    const total = bx.reduce((s, p) => s + p[3], 0);
+    let acc = 0, cut = 1;
+    for (let i = 0; i < bx.length - 1; i++) { acc += bx[i][3]; if (acc >= total / 2) { cut = i + 1; break; } }
+    boxes.splice(bi, 1, bx.slice(0, cut), bx.slice(cut));
+  }
+  const palette = boxes.map((bx) => {
+    let r = 0, g = 0, b = 0, t = 0;
+    for (const p of bx) { r += p[0] * p[3]; g += p[1] * p[3]; b += p[2] * p[3]; t += p[3]; }
+    return [Math.round(r / t), Math.round(g / t), Math.round(b / t)];
+  });
+  const cache = new Map();
+  for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
+    const k = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
+    let p = cache.get(k);
+    if (!p) {
+      let bd = Infinity;
+      for (const q of palette) { const dd = (q[0] - c.data[i]) ** 2 + (q[1] - c.data[i + 1]) ** 2 + (q[2] - c.data[i + 2]) ** 2; if (dd < bd) { bd = dd; p = q; } }
+      cache.set(k, p);
+    }
+    c.data[i] = p[0]; c.data[i + 1] = p[1]; c.data[i + 2] = p[2];
+  }
+  return palette.length;
+}
+
+function countColors(cells) {
+  const s = new Set();
+  for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) s.add((c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2]);
+  return s.size;
+}
+
+function writeFile(env, file, buf, R) {
+  if (env.dryRun) return;
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, buf);
+  R.wrote.push(rel(env.cwd, file));
+}
+
+// Clean frames written back to art/.../frames/<anim>/ so humans can touch them up.
+function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
+  if (env.dryRun || !env.writeback) return;
+  fs.mkdirSync(dir, { recursive: true });
+  const old = readJson(path.join(dir, MARKER)).data;
+  if (old?.files) for (const f of Object.keys(old.files)) if (new RegExp(`^${prefix}_\\d+\\.png$`, 'i').test(f)) { try { fs.unlinkSync(path.join(dir, f)); } catch { /* gone */ } }
+  const files = {};
+  cells.forEach((c, k) => {
+    const name = `${prefix}_${String(k).padStart(2, '0')}.png`;
+    const buf = encodePng(c);
+    fs.writeFileSync(path.join(dir, name), buf);
+    files[name] = sha1(buf);
+  });
+  const marker = { generatedBy: 'tools/pack-sprites.mjs', note: 'Frames cleaned from raw/. Edit freely: edited frames are never overwritten.', source: src.hashInputs.map((f) => rel(env.artDir, f)), sourceHash: hashFiles(src.hashInputs), ...extra, files };
+  fs.writeFileSync(path.join(dir, MARKER), JSON.stringify(marker, null, 2) + '\n');
+  R.writeback.push(rel(env.cwd, dir));
+}
+
+function packCharacter(id, env) {
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [] };
+  const warn = (m) => R.warnings.push(m);
+  const charDir = path.join(env.artDir, 'characters', id);
+  const label = `characters/${id}`;
+  if (!isDir(charDir)) {
+    warn(`no folder art/characters/${id}/ - copy art/characters/_template/ to start it`);
+    R.missingCore = [...CORE];
+    return R;
+  }
+  const defs = animDefsFor(id, env);
+  const names = defs.map((d) => d.name);
+  const rawIdx = scanRaw(path.join(charDir, 'raw'), names, warn, `${label}/raw`);
+  const framesRoot = path.join(charDir, 'frames');
+  for (const d of listDirs(framesRoot)) {
+    if (!names.includes(d) && listPngs(path.join(framesRoot, d)).length) warn(`${label}/frames/${d}/: unknown animation (not in manifest or animGuide) - ignored`);
+  }
+
+  // 1) gather + normalize every animation
+  const anims = [];
+  for (const def of defs) {
+    const alabel = `${def.name}`;
+    try {
+      const framesDir = path.join(framesRoot, def.name);
+      const rawEntry = rawIdx.get(def.name);
+      const side = readSidecar(rawEntry?.sidecar, warn, alabel);
+      let bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
+      // the tallest pose must fit between the top of the cell and the floor line (pivot y)
+      const maxBody = SPEC.pivot[1] + 1;
+      if (!(bodyHeight >= 8 && bodyHeight <= maxBody)) {
+        const fixed = Math.min(maxBody, Math.max(8, bodyHeight || DEFAULT_BODY_HEIGHT));
+        warn(`${alabel}: bodyHeight ${bodyHeight} does not fit the ${SPEC.frameHeight}px cell (8-${maxBody}px above the floor line) - using ${fixed}`);
+        bodyHeight = fixed;
+      }
+      const src = chooseSource(framesDir, rawEntry, bodyHeight, warn, alabel);
+      if (!src) { R.missing.push(def.name); continue; }
+      let sprites, notes = [], sourceLabel, unreadable = false;
+      if (src.kind === 'frames') {
+        const items = framesFromFolder(framesDir, src.framePngs, 'char', env, warn, alabel);
+        sprites = items.map((f) => f.img);
+        const stray = items.reduce((s, f) => s + f.stray, 0);
+        if (stray) notes.push(`ignored ${stray} stray pixel(s) - clean them in frames/${def.name}/`);
+        sourceLabel = `frames/${def.name}/`;
+      } else {
+        ({ frames: sprites, notes, unreadable } = framesFromRaw(src.rawFiles, def.frames, side, env, 'char', warn, alabel));
+        sourceLabel = src.rawFiles.length === 1 ? `raw/${path.basename(src.rawFiles[0])}` : `raw/${def.name}_NN.png x${src.rawFiles.length}`;
+      }
+      if (!sprites.length) {
+        if (!unreadable) warn(`${alabel}: no sprite pixels found in ${sourceLabel}`);
+        R.missing.push(def.name); R.failed.push(def.name); continue;
+      }
+      const maxH = Math.max(...sprites.map((s) => s.h));
+      let scale = bodyHeight / maxH;
+      // raw art is scaled exactly; already-clean frames are only resampled when clearly off-size
+      // (mode-downscaling can lose a partial top row, so a clean frame may be 1-2px short)
+      const keep = src.kind === 'frames' ? Math.max(2, Math.round(bodyHeight * 0.04)) : 1;
+      if (Math.abs(maxH - bodyHeight) <= keep) {
+        if (maxH !== bodyHeight && src.kind === 'frames' && !src.packerMade) notes.push(`kept native size (${maxH}px vs ${bodyHeight}px)`);
+        scale = 1;
+      }
+      if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
+      const cells = [];
+      const clipped = [];
+      sprites.forEach((s, k) => {
+        const small = resample(s, scale, { coverage: 0.5, alphaMin: 128 });
+        const { cell, lost, clip } = placeCharFrame(small);
+        if (lost) clipped.push(`#${k} ${clip.join('/')}`);
+        cells.push(cell);
+      });
+      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${SPEC.frameWidth}px cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; lower bodyHeight or redraw`);
+      if (cells.length !== def.frames) warn(`${alabel}: ${cells.length} frame(s), manifest expects ${def.frames}${def.phases ? ` (phases rescaled to ${rescalePhases(def.phases, cells.length).join('/')})` : ''}`);
+      anims.push({ def, cells, scale, sourceLabel, src, notes, bodyHeight });
+    } catch (e) {
+      warn(`${alabel}: failed - ${e.message}`);
+      R.missing.push(def.name);
+      R.failed.push(def.name);
+    }
+  }
+
+  // UI images are independent of the sheet
+  packUi(id, charDir, env, R);
+
+  R.missingCore = defs.filter((d) => d.required && !anims.some((a) => a.def.name === d.name)).map((d) => d.name);
+  if (!anims.length) {
+    const existing = path.join(env.outDir, 'characters', id, 'anims.json');
+    if (isFile(existing)) R.notes.push(`no frames in art/ - left the existing ${rel(env.cwd, existing)} untouched`);
+    return R;
+  }
+
+  // 2) optional palette snap (across the whole character so colors stay consistent)
+  const allCells = anims.flatMap((a) => a.cells);
+  if (env.quantize) R.notes.push(`palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+  R.colors = countColors(allCells);
+  if (R.colors > 48) warn(`palette has ${R.colors} colors (> 48) - clean the art or re-run with --quantize 32`);
+
+  // 3) sheet layout + metadata
+  const meta = {
+    ...SPEC, pivot: [...SPEC.pivot], source: 'art-pack', character: id, packer: PACKER_VERSION, complete: R.missingCore.length === 0,
+    missingCore: R.missingCore, animations: {}, boxes: {},
+  };
+  let idx = 0;
+  const packed = [];
+  for (const a of anims) {
+    const indices = a.cells.map(() => idx++);
+    const m = { frames: indices, durations: resolveDurations(a.def.durations, indices.length), loop: a.def.loop };
+    const ph = rescalePhases(a.def.phases, indices.length);
+    if (ph) m.phases = ph;
+    meta.animations[a.def.name] = m;
+    packed.push({ name: a.def.name, indices, cells: a.cells, phases: ph, def: a.def });
+  }
+
+  // 4) boxes: hurt on every frame, hit on active attack frames
+  const idle = packed.find((p) => p.name === 'idle');
+  let ref;
+  if (idle) {
+    const bs = idle.cells.map((c) => bbox(c)).filter(Boolean);
+    ref = { maxX: Math.max(...bs.map((b) => b.x1)), minY: Math.min(...bs.map((b) => b.y0)) };
+  } else {
+    const bh = BODY_HEIGHT.idle;
+    ref = { maxX: SPEC.pivot[0] + Math.round(bh * 0.26), minY: SPEC.pivot[1] - bh };
+    warn('idle is not packed yet - hitboxes estimated from the spec body size');
+  }
+  const rules = {};
+  const big = [];
+  for (const p of packed) {
+    p.cells.forEach((cell, k) => {
+      const key = String(p.indices[k]);
+      const hb = hurtBox(cell);
+      meta.boxes[key] = hb ? { hurt: [hb] } : {};
+      const active = p.phases && p.def.hitbox && k >= p.phases[0] && k < p.phases[0] + p.phases[1];
+      if (active) {
+        const h = hitBox(cell, ref);
+        if (h?.box) {
+          meta.boxes[key].hit = [h.box];
+          rules[h.rule] = (rules[h.rule] || 0) + 1;
+          const b = bbox(cell);
+          if (h.box[2] * h.box[3] > 0.4 * b.w * b.h) big.push(`${p.name}#${k}`);
+        }
+      }
+    });
+  }
+  if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
+  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label);
+  if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
+  if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
+
+  // 5) write sheet + json (+ write-back of cleaned frames)
+  const cols = SPEC.columns;
+  const rows = Math.ceil(idx / cols);
+  const sheet = newImage(cols * SPEC.frameWidth, rows * SPEC.frameHeight);
+  for (const p of packed) p.cells.forEach((cell, k) => {
+    const f = p.indices[k];
+    blit(sheet, cell, (f % cols) * SPEC.frameWidth, Math.floor(f / cols) * SPEC.frameHeight);
+  });
+  R.frames = idx;
+  R.sheet = `${sheet.w}x${sheet.h}`;
+  R.complete = meta.complete;
+  const outDir = path.join(env.outDir, 'characters', id);
+  writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
+  writeFile(env, path.join(outDir, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
+  for (const a of anims) {
+    R.packed.push({ anim: a.def.name, frames: a.cells.length, expected: a.def.frames, source: a.sourceLabel, scale: +a.scale.toFixed(3), notes: a.notes });
+    if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight });
+  }
+  return R;
+}
+
+// portrait / cutin / select: remove magenta bg, fit to the spec size, write next to the sheet.
+function packUi(id, charDir, env, R) {
+  const uiDir = path.join(charDir, 'ui');
+  for (const [name, spec] of Object.entries(UI_ITEMS)) {
+    const file = path.join(uiDir, `${name}.png`);
+    if (!isFile(file)) continue;
+    try {
+      let img = readPng(file);
+      const corner = [0, (img.w - 1) * 4, (img.h - 1) * img.w * 4, ((img.h - 1) * img.w + img.w - 1) * 4];
+      if (corner.some((i) => isMagentaish([img.data[i], img.data[i + 1], img.data[i + 2]]) && img.data[i + 3] > 128)) removeBackground(img, { tol: env.tol, mode: 'char' });
+      // a blank image would replace the game's fallback portrait/cut-in with nothing
+      if (!bbox(img)) { R.warnings.push(`ui/${name}.png: empty after background removal - not written`); continue; }
+      let note = 'copied';
+      if (img.w !== spec.w || img.h !== spec.h) {
+        const t = hasTransparency(img) ? trim(img) : null;
+        if (t) {
+          // contain-fit the trimmed art
+          const s = Math.min(spec.w / t.w, spec.h / t.h);
+          const small = resample(t, Math.abs(s - 1) < 0.005 ? 1 : s, { coverage: 0.5 });
+          const out = newImage(spec.w, spec.h);
+          const dx = Math.round((spec.w - small.w) / 2);
+          const dy = spec.align === 'bottom' ? spec.h - small.h : Math.round((spec.h - small.h) / 2);
+          blit(out, small, dx, dy);
+          img = out;
+        } else {
+          // opaque art: center-crop to the aspect ratio, then downscale
+          const ar = spec.w / spec.h;
+          let cw = img.w, ch = Math.round(img.w / ar);
+          if (ch > img.h) { ch = img.h; cw = Math.round(img.h * ar); }
+          const c = crop(img, Math.floor((img.w - cw) / 2), Math.floor((img.h - ch) / 2), cw, ch);
+          img = cw > spec.w ? downscaleMode(c, spec.w, spec.h, { coverage: 0.5 }) : upscaleNearest(c, spec.w, spec.h);
+        }
+        note = `fitted to ${spec.w}x${spec.h}`;
+      }
+      writeFile(env, path.join(env.outDir, 'characters', id, `${name}.png`), encodePng(img), R);
+      R.ui.push(`${name} (${note})`);
+      R.uiItems.push(name);
+    } catch (e) {
+      R.warnings.push(`ui/${name}.png: failed - ${e.message}`);
+    }
+  }
+}
+
+// ============================================================== VFX packing
+function packVfx(env) {
+  const R = { packed: [], missing: [], failed: [], frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
+  const warn = (m) => R.warnings.push(m);
+  const vfxDir = path.join(env.artDir, 'vfx');
+  const effects = { ...VFX_EFFECTS };
+  for (const [name, e] of Object.entries(env.manifest.vfx)) effects[name] = { ...(VFX_EFFECTS[name] || { frames: e.frames || 4, ms: 50, tinted: false, fill: 0.8 }), ...e };
+  if (!isDir(vfxDir)) { R.missing = Object.keys(effects); return R; }
+  const names = Object.keys(effects);
+  const rawIdx = scanRaw(path.join(vfxDir, 'raw'), names, warn, 'vfx/raw');
+  const framesRoot = path.join(vfxDir, 'frames');
+  for (const d of listDirs(framesRoot)) if (!names.includes(d) && listPngs(path.join(framesRoot, d)).length) warn(`vfx/frames/${d}/: unknown effect - ignored (engine names are fixed)`);
+
+  const packed = [];
+  for (const name of names) {
+    const e = effects[name];
+    try {
+      const framesDir = path.join(framesRoot, name);
+      const rawEntry = rawIdx.get(name);
+      const src = chooseSource(framesDir, rawEntry, null, warn, name);
+      if (!src) { R.missing.push(name); continue; }
+      let items, notes = [], sourceLabel;
+      if (src.kind === 'frames') {
+        items = framesFromFolder(framesDir, src.framePngs, 'vfx', env, warn, name);
+        sourceLabel = `frames/${name}/`;
+      } else {
+        const side = readSidecar(rawEntry.sidecar, warn, name);
+        const r = framesFromRaw(src.rawFiles, e.frames, side, env, 'vfx', warn, name);
+        items = r.frames.map((img) => ({ img, final: false }));
+        notes = r.notes;
+        sourceLabel = src.rawFiles.length === 1 ? `raw/${path.basename(src.rawFiles[0])}` : `raw/${name}_NN.png x${src.rawFiles.length}`;
+        if (!items.length && r.unreadable) { R.missing.push(name); R.failed.push(name); continue; }
+      }
+      if (!items.length) { warn(`${name}: no pixels found in ${sourceLabel}`); R.missing.push(name); R.failed.push(name); continue; }
+      const loose = items.filter((it) => !it.final).map((it) => it.img);
+      const target = Math.round(VFX.cell * (e.fill || 0.8));
+      const maxDim = loose.length ? Math.max(...loose.map((s) => Math.max(s.w, s.h))) : 0;
+      let scale = loose.length ? target / maxDim : 1;
+      if (Math.abs(maxDim - target) <= 1) scale = 1;
+      const cells = items.map((it) => {
+        if (it.final) return it.img;
+        const s = resample(it.img, scale, { coverage: 0.34, alphaMin: 40 });
+        const cell = newImage(VFX.cell, VFX.cell);
+        // keep the frame's offset inside its strip row (vfxAnchors); no anchor = center on its own bbox
+        const a = it.img.anchor;
+        const half = VFX.cell / 2;
+        let dx = a ? Math.round(half - a.cx * scale) : Math.round((VFX.cell - s.w) / 2);
+        let dy = a ? Math.round(half - a.cy * scale) : Math.round((VFX.cell - s.h) / 2);
+        if (e.anchor === 'bottom') {
+          dy = VFX.baseline - (s.h - 1) - (a ? Math.round(a.gap * scale) : 0);
+          if (e.baseX) dx = Math.round(half - (footAnchor(s) + 0.5));
+        }
+        if (blit(cell, s, dx, dy)) notes.push('clipped');
+        return cell;
+      });
+      if (e.tinted) {
+        const colored = Math.max(...cells.map(toGreyscale));
+        if (colored > 0.05) warn(`${name}: drawn in color but the engine tints it - converted to greyscale (draw it white/grey)`);
+      }
+      if (e.lumaAlpha) cells.forEach((c, k) => { if (!items[k].final) lumaToAlpha(c); });
+      for (const c of cells) quantizeAlpha(c);
+      if (cells.length !== e.frames) warn(`${name}: ${cells.length} frame(s), expected ${e.frames}`);
+      packed.push({ name, e, cells, src, sourceLabel, notes, scale });
+    } catch (err) {
+      warn(`${name}: failed - ${err.message}`);
+      R.missing.push(name);
+      R.failed.push(name);
+    }
+  }
+  if (!packed.length) return R;
+
+  const cols = Math.max(...packed.map((p) => p.cells.length));
+  const atlas = newImage(cols * VFX.cell, packed.length * VFX.cell);
+  const meta = { cell: VFX.cell, cols, rows: packed.length, ppu: VFX.ppu, source: 'art-pack', packer: PACKER_VERSION, anims: {} };
+  packed.forEach((p, row) => {
+    p.cells.forEach((c, i) => blit(atlas, c, i * VFX.cell, row * VFX.cell));
+    meta.anims[p.name] = { row, n: p.cells.length, ms: p.e.ms ?? 50 };
+    R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)] });
+    R.frames += p.cells.length;
+  });
+  R.atlas = `${atlas.w}x${atlas.h}`;
+  writeFile(env, path.join(env.outDir, 'vfx', 'atlas.png'), encodePng(atlas), R);
+  writeFile(env, path.join(env.outDir, 'vfx', 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
+  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, {});
+  return R;
+}
+
+// ============================================================== manifest status sync (--update-manifest)
+const STATUS_ORDER = ['todo', 'raw', 'packed', 'approved'];
+
+function raiseStatus(obj, status) {
+  if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return 0;
+  const cur = STATUS_ORDER.indexOf(obj.status);
+  if (cur >= STATUS_ORDER.indexOf(status)) return 0;
+  obj.status = status;
+  return 1;
+}
+
+function updateManifestStatus(raw, rep) {
+  let n = 0;
+  for (const c of rep.characters) {
+    const mc = raw.characters?.[c.id];
+    if (!mc || typeof mc !== 'object') continue;
+    const anims = mc.animations || {};
+    for (const p of c.packed) n += raiseStatus(anims[p.anim], 'packed');
+    for (const a of c.failed) n += raiseStatus(anims[a], 'raw');
+    for (const u of c.uiItems) n += raiseStatus(mc.ui?.[u], 'packed');
+  }
+  const fx = raw.vfx?.effects;
+  if (rep.vfx && fx && typeof fx === 'object') {
+    for (const p of rep.vfx.packed) n += raiseStatus(fx[p.effect], 'packed');
+    for (const e of rep.vfx.failed) n += raiseStatus(fx[e], 'raw');
+  }
+  return n;
+}
+
+// JSON with small leaf objects/arrays on one line (the manifest's hand-written style; small git diffs).
+function stringifyCompact(v, indent = '') {
+  const inner = indent + '  ';
+  const prim = (x) => x === null || typeof x !== 'object';
+  const primArr = (x) => Array.isArray(x) && x.every(prim);
+  const leaf = (x) => prim(x) || primArr(x) || (Array.isArray(x) && x.every(primArr));
+  if (prim(v)) return JSON.stringify(v);
+  if (Array.isArray(v)) {
+    if (leaf(v)) {
+      const one = `[${v.map((x) => (prim(x) ? JSON.stringify(x) : stringifyCompact(x, inner))).join(', ')}]`;
+      if (one.length <= 140) return one;
+    }
+    if (!v.length) return '[]';
+    return `[\n${v.map((x) => inner + stringifyCompact(x, inner)).join(',\n')}\n${indent}]`;
+  }
+  const keys = Object.keys(v);
+  if (!keys.length) return '{}';
+  if (keys.every((k) => leaf(v[k]))) {
+    const one = `{ ${keys.map((k) => `${JSON.stringify(k)}: ${stringifyCompact(v[k], inner)}`).join(', ')} }`;
+    if (one.length <= 160 && !one.includes('\n')) return one;
+  }
+  return `{\n${keys.map((k) => `${inner}${JSON.stringify(k)}: ${stringifyCompact(v[k], inner)}`).join(',\n')}\n${indent}}`;
+}
+
+// ============================================================== report
+function printReport(rep, env) {
+  const L = (s = '') => console.log(s);
+  L(`GCD Tourney sprite packer v${PACKER_VERSION}${env.dryRun ? '  (dry run - nothing written)' : ''}`);
+  L(`  art:  ${rep.art}${rep.artExists ? '' : '  (missing)'}`);
+  L(`  out:  ${rep.out}`);
+  L(`  anims: ${rep.guideSource}${rep.manifest}`);
+  for (const w of rep.warnings) L(`  ! ${w}`);
+  for (const c of rep.characters) {
+    L('');
+    L(`== ${c.id} ${'='.repeat(Math.max(3, 60 - c.id.length))}`);
+    if (!c.packed.length) {
+      L('  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md');
+      L('  public/ was not touched for the sheet.');
+    } else {
+      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
+      for (const p of c.packed) {
+        const n = `${p.frames}`.padStart(2) + (p.frames !== p.expected ? `/${p.expected}` : '');
+        L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} ${p.source.padEnd(24)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+      }
+    }
+    if (c.missingCore.length) L(`  missing core (${c.missingCore.length}): ${c.missingCore.join(', ')}`);
+    const opt = c.missing.filter((m) => !c.missingCore.includes(m));
+    if (opt.length) L(`  missing optional (${opt.length}): ${opt.join(', ')}`);
+    if (c.ui.length) L(`  ui: ${c.ui.join(', ')}`);
+    for (const n of c.notes) L(`  - ${n}`);
+    for (const w of c.warnings) L(`  ! ${w}`);
+    if (c.writeback.length) L(`  cleaned frames written back to ${c.writeback.length} folder(s) under art/characters/${c.id}/frames/`);
+    for (const f of c.wrote) L(`  wrote ${f}`);
+  }
+  if (rep.vfx) {
+    const v = rep.vfx;
+    L('');
+    L(`== vfx ${'='.repeat(57)}`);
+    if (!v.packed.length) L('  nothing packed yet (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/) - the game keeps its procedural effects');
+    else {
+      L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas} (missing ones stay procedural)`);
+      for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${String(p.frames).padStart(2)}${p.frames !== p.expected ? '/' + p.expected : ''}  ${p.source.padEnd(24)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+    }
+    if (v.missing.length && v.packed.length) L(`  missing (procedural fallback): ${v.missing.join(', ')}`);
+    for (const w of v.warnings) L(`  ! ${w}`);
+    for (const f of v.wrote) L(`  wrote ${f}`);
+  }
+  if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
+  L('');
+  const nw = rep.totalWarnings;
+  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${nw} warning(s).`);
+}
+
+// ============================================================== main
+async function main() {
+  let opts;
+  try { opts = parseArgs(process.argv.slice(2)); } catch (e) {
+    if (e instanceof UsageError) { console.error(`error: ${e.message}\n\n${HELP}`); return 1; }
+    throw e;
+  }
+  if (opts.help) { console.log(HELP); return 0; }
+  const cwd = process.cwd();
+  const artDir = path.resolve(opts.root || path.join(PROJECT_ROOT, 'art'));
+  const outDir = path.resolve(opts.out || path.join(PROJECT_ROOT, 'public'));
+  const manifestPath = path.resolve(opts.manifest || path.join(artDir, 'manifest.json'));
+  const guidePath = path.resolve(opts.guide || path.join(PROJECT_ROOT, 'src', 'art', 'animGuide.js'));
+  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null };
+
+  const { guide, source: guideSource } = await loadGuide(guidePath);
+  rep.guideSource = guideSource;
+  const mj = readJson(manifestPath);
+  if (mj.error) rep.warnings.push(`${rel(cwd, manifestPath)} is not valid JSON (${mj.error}) - using animGuide.js + spec defaults`);
+  const manifest = normalizeManifest(mj.data);
+  for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
+  rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
+  const env = { cwd, artDir, outDir, guide, manifest, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol };
+
+  const folderIds = listDirs(path.join(artDir, 'characters')).filter((n) => !n.startsWith('_') && !n.startsWith('.'));
+  const allIds = [...folderIds, ...Object.keys(manifest.characters).filter((n) => !n.startsWith('_') && !folderIds.includes(n))];
+  let ids = [], doVfx = false;
+  const targets = opts.targets.length ? opts.targets : ['all'];
+  for (const t of targets) {
+    if (t === 'all') { ids.push(...allIds); doVfx = true; }
+    else if (t === 'vfx') doVfx = true;
+    else if (allIds.includes(t)) ids.push(t);
+    else {
+      console.error(`error: unknown character "${t}". Known: ${allIds.join(', ') || '(none - create art/characters/<id>/ from _template)'}`);
+      return 1;
+    }
+  }
+  ids = [...new Set(ids)];
+
+  for (const id of ids) rep.characters.push(packCharacter(id, env));
+  if (doVfx) rep.vfx = packVfx(env);
+  if (opts.updateManifest) {
+    if (!mj.data) rep.warnings.push('--update-manifest: no readable manifest.json - nothing updated');
+    else {
+      const n = updateManifestStatus(mj.data, rep);
+      rep.manifestUpdates = n;
+      if (n && !opts.dryRun) fs.writeFileSync(manifestPath, stringifyCompact(mj.data) + '\n');
+    }
+  }
+  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + (rep.vfx?.warnings.length || 0);
+
+  if (opts.json) console.log(JSON.stringify(rep, null, 2));
+  else printReport(rep, env);
+  return opts.strict && rep.totalWarnings ? 2 : 0;
+}
+
+main().then((code) => { process.exitCode = code; }).catch((e) => {
+  console.error(`pack-sprites failed: ${e.stack || e.message}`);
+  process.exitCode = 1;
+});

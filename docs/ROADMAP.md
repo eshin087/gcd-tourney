@@ -1,0 +1,83 @@
+# Roadmap
+
+GCD Tourney is a long-term project. This roadmap groups work into milestones, each with a version
+target and exit criteria. The day-to-day breakdown lives in [TASKS.md](TASKS.md). Dates are
+intentionally omitted: a milestone ships when its exit criteria are met.
+
+Legend: ✅ done · 🔨 in progress · ⏳ next · 💭 later / exploratory
+
+## ✅ M0: Playable demo (v0.1.0)
+Arena, two fighters, VS CPU and 2P, rounds, synthesized audio, Sprite Lab import path.
+
+## ✅ M1: DBFZ feel + 3D-baked placeholders (v0.2.0)
+3D chibi rig baked to pixel sheets, auto combo / launcher / chase / air combo / spike, super dash, vanish,
+specials, ultimate with super flash and beam clash, wall and ground bounce, air tech, KO destructive finish,
+cinematic camera.
+
+## 🔨 M2: Training, input and hit accuracy (v0.3.0)
+- Training room inside the controls menu: the character mirrors your input live, with dummy modes and input
+  history.
+- PlayStation / Xbox / keyboard layout diagrams with a toggle, and key/button rebinding saved per browser.
+- Unobtrusive mute toggle in the top corner.
+- **2.5D lanes + per-frame hitboxes/hurtboxes**: hits only land where the fist or foot touches the body, and
+  sparks appear at the contact point.
+- Long-term SDLC: CLAUDE.md, AGENTS.md, docs/, ADRs, CHANGELOG, task board, git.
+- Art pipeline: the `art/` briefs, manifest and tracker, plus `npm run sprites` (packer).
+
+**Exit:** all M2 tasks done, the TESTING.md checklists pass, soak is clean, the user signs off on the feel.
+
+## ⏳ M3: Hi-res Naruto & Sasuke (v0.4.0)
+- Reference sheets → CORE animations → optional animations for both fighters, generated in ChatGPT and
+  packed. Sheets are `complete`.
+- Custom VFX atlas (sparks, bursts, aura flames, Rasengan orb, Chidori lightning, shuriken, fire).
+- Portraits, cut-ins and select art. Title logo.
+- HD render mode for hi-res sheets, tuned so 192 px art reads crisply over the HD-2D world.
+- Hitbox tuning pass on real art (`hitboxes.json`). Hand anchor points so effects attach to the drawn hand
+  (spec v2 proposal).
+- Sprite Lab previews packed custom sheets with a box overlay.
+
+**Exit:** both characters at readiness **L2** ([ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md)), and the user approves.
+
+## ⏳ M4: Roster expansion I (v0.5.0)
+- Prove the template with two new fighters from different series (candidates: **Goku**, **Luffy**,
+  **Ichigo**, Vegeta, Zoro, Kakashi).
+- Data-driven specials: generalize `Effects.handTick` and special behaviors into data (fx kind, hand anchor,
+  rush or projectile or teleport), so most new specials need no engine code.
+- Character select scales to 8+ fighters (grid, paging, select art).
+- Lazy placeholder baking (bake on select, not at boot), so boot time stays flat as the roster grows.
+- Per-character ultimate variations (beam, rush cinematic).
+
+**Exit:** two new characters at L1+, boot < 3 s, soak clean across all pairings.
+
+## 💭 M5: Stages and sound (v0.6.0)
+- Stage system: arena data per stage, and selection. Stages per series: a Hidden Leaf training ground,
+  the World Martial Arts tournament, a ship deck, Soul Society rooftops.
+- Recorded or sample-based SFX through `AudioEngine.play()` (the API stays the same), music tracks per stage,
+  and an optional voice-bark system. Volume sliders (master, music, sfx) replace the plain mute.
+- Settings menu: volumes, pixel size, render quality, input display.
+
+## 💭 M6: Modes and depth (v0.7.0)
+- Training mode: frame data display, hitbox overlay toggle, dummy recording and playback, reset positions.
+- Arcade ladder with a simple story card per character. Survival.
+- Assists or tag teams (3v3, DBFZ-style) as an **ADR-gated** design decision.
+
+## 💭 M7: Online (exploratory, v0.8.x)
+- Prerequisite: a **deterministic simulation**. Seeded RNG instead of `Math.random()` in the sim (clash
+  wobble, AI), and a fixed input→state pipeline with no render-time state changes.
+- Rollback netcode over WebRTC data channels (a GGPO-style design), with a lobby via a tiny signaling server.
+- This needs an ADR and a spike first. Not promised.
+
+## 💭 v1.0: Release readiness
+- Performance pass, accessibility (remappable everything, colorblind-safe UI cues, reduced flashing option).
+- **Licensing decision**: recognizable anime characters are fine for a personal or fan demo. A public or
+  commercial release needs licenses from the rights holders, or original characters inspired by the
+  archetypes. Decide before any public release.
+
+## Ongoing tech-debt track
+- Automated tests for pure modules (packer image ops, move data validation, input Pad edges). Vitest is the
+  likely choice, decided by ADR.
+- A CI-like pre-commit script: `npm run build` + a data lint (animation names in manifest = animGuide =
+  FALLBACK coverage).
+- Split `fighter.js` (~940 lines) by concern once the lane/hitbox work settles (state handlers, physics,
+  hit reaction).
+- Asset size: consider Git LFS for `art/**/raw/*.png` when a remote is added.

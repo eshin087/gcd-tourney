@@ -1,0 +1,4 @@
+# one line ending for every agent and editor (Claude, Codex, Windows tools)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
