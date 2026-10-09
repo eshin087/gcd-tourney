@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "dev:alt": "vite --port 5200",
     "sprites": "node tools/pack-sprites.mjs",
+    "review:export": "node tools/export-art-review.mjs",
     "test:sprites": "node tools/test-pack-sprites.mjs",
     "queue": "node tools/queue.mjs",
     "publish:github": "node tools/publish.mjs",

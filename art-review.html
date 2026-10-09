@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#14151a" />
+  <meta name="description" content="Review GCD Tourney character art, references and animation candidates." />
+  <title>Art Review · GCD Tourney</title>
+</head>
+<body>
+  <header class="page-header">
+    <div><p class="eyebrow">GCD TOURNEY</p><h1>Art review</h1></div>
+    <span class="review-only">Read-only review</span>
+  </header>
+  <main id="review-app">
+    <div id="catalog-status" class="notice" role="status">Loading review collection…</div>
+    <button id="retry" class="button" hidden>Reload collection</button>
+    <div id="collection" hidden>
+      <nav id="characters" class="character-tabs" aria-label="Character"></nav>
+      <div class="selection-row">
+        <label for="asset-select">Asset<select id="asset-select"></select></label>
+        <p id="collection-date" class="muted"></p>
+      </div>
+      <div class="review-layout">
+        <section class="viewer panel" aria-labelledby="asset-title">
+          <div class="viewer-heading">
+            <div><p id="character-name" class="eyebrow"></p><h2 id="asset-title"></h2></div>
+            <div class="asset-tags"><span id="version" class="version"></span><span id="review-status" class="status"></span></div>
+          </div>
+          <p id="asset-loading" class="notice" role="status"></p>
+          <div id="animation-view" hidden>
+            <div id="stage" class="stage" tabindex="0" aria-label="Animation preview; scroll to pan when zoomed">
+              <div class="canvas-surface"><canvas id="sprite" width="256" height="256" aria-label="Selected animation frame"></canvas></div>
+            </div>
+            <div class="playback">
+              <div class="transport" aria-label="Playback controls">
+                <button id="previous" class="button" aria-label="Previous frame">← Previous</button>
+                <button id="play" class="button primary" aria-pressed="false">Play</button>
+                <button id="next" class="button" aria-label="Next frame">Next →</button>
+              </div>
+              <div class="scrubber-row"><label for="frame">Frame</label><input id="frame" type="range" min="0" max="0" value="0" /><output id="frame-label" for="frame" aria-live="off"></output></div>
+              <div class="view-options">
+                <label>Speed<select id="speed"><option value="0.25">¼ speed</option><option value="0.5">½ speed</option><option value="1" selected>Actual speed</option></select></label>
+                <label>Zoom<select id="zoom"><option value="1">1× pixels</option><option value="2">2× pixels</option><option value="3">3× pixels</option></select></label>
+                <label>Background<select id="background"><option value="dark">Dark</option><option value="light">Light</option><option value="magenta">Magenta</option></select></label>
+                <label class="checkbox-label"><input id="guides" type="checkbox" /> Foot guides</label>
+              </div>
+              <p id="timing" class="muted timing"></p>
+            </div>
+          </div>
+          <div id="image-view" class="reference-view" hidden><img id="reference-image" alt="" /></div>
+          <a id="full-image" class="text-link" target="_blank" rel="noopener">Open full-resolution original ↗</a>
+        </section>
+        <aside class="notes panel" aria-labelledby="notes-title">
+          <p class="eyebrow">REVIEW NOTES</p><h2 id="notes-title">What to check</h2>
+          <p id="recommendation" class="recommendation" hidden></p>
+          <ul id="qa-notes"></ul>
+          <div class="review-help"><h3>Your decision</h3><p>Send your approval or changes in the art review conversation. Include the character, asset and version shown here.</p></div>
+        </aside>
+      </div>
+      <details id="raw-panel" class="panel raw-panel">
+        <summary>Original pose strip <span>Full source image</span></summary>
+        <div class="raw-content"><p class="muted">Use the full-resolution link above to inspect individual pixels and pinch to zoom.</p><img id="raw-image" alt="" loading="lazy" /></div>
+      </details>
+      <footer><p>Reference images show the original artwork. Animation previews show the packed frames at their recorded timings.</p></footer>
+    </div>
+  </main>
+  <noscript><p class="notice">Enable JavaScript to view the art collection and animation controls.</p></noscript>
+  <script type="module" src="/src/artReview.js"></script>
+</body>
+</html>

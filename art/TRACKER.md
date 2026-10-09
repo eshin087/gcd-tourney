@@ -35,8 +35,8 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
 | character | reference (2) | core anims (23) | optional anims (15) | UI (3) | sheet complete |
 |---|---|---|---|---|---|
-| naruto | 2/2 approved | 1/23 approved | 0/15 | 0/3 | no |
-| sasuke | 2/2 approved | 1/23 approved | 0/15 | 0/3 | no |
+| naruto | 2/2 approved | 1/23 approved + 1 packed | 0/15 | 0/3 | no |
+| sasuke | 2/2 approved | 1/23 approved + 1 packed | 0/15 | 0/3 | no |
 | VFX atlas | 0/1 (style sheet, optional) | 0/15 effects | - | - | procedural fallback |
 | shared UI | - | - | - | 0/2 | - |
 
@@ -52,7 +52,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: estimated 6.8 heads and true profile; side locks too straight, 36/34 swatches, near-magenta background. V1 remains archived/rejected; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 9 readable expressions; far-cheek third whisker obscured; 1254-square raw and oversized heads, near-magenta; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 5 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
-| 4 | run | 8 | - | **yes** | 204 | todo | - | - | |
+| 4 | run | 8 | - | **yes** | 204 | packed | v02 | - | Needs review: source preserved; explicit placement removes jumps; 48 colors, zero final warnings; mobile review available (TOOL-013/014) |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | todo | - | - | |
@@ -108,7 +108,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
-| 4 | run | 8 | - | **yes** | 204 | todo | - | - | |
+| 4 | run | 8 | - | **yes** | 204 | packed | v02 | - | Needs review: source preserved; explicit placement removes jumps and recovers clipped face; 48 colors, zero final warnings; mobile review available (TOOL-013/014) |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | todo | - | - | |

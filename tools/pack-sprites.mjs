@@ -1236,18 +1236,34 @@ function footAnchor(img) {
   return n ? sx / n : img.w / 2;
 }
 
-// Feet center on the pivot x, lowest row on the pivot y (the floor line). clip = pixels lost outside the cell;
-// margin = pixels inside the cell but in its safe margin (spec cellMargin, left/right/top: the floor side is the pivot).
-function placeCharFrame(sprite, spec) {
+// A versioned sidecar can correct a pose's gait center and lift flight frames without changing the
+// shared cell pivot or the raw art. Offsets are final-cell pixels, after the animation's common scale.
+function frameOffsetsFor(side, count, spec, warn, label) {
+  if (!Object.hasOwn(side, 'frameOffsets')) return null;
+  const offsets = side.frameOffsets;
+  const valid = Array.isArray(offsets) && offsets.length === count && offsets.every((pair) =>
+    Array.isArray(pair) && pair.length === 2 && pair.every(Number.isInteger) &&
+    Math.abs(pair[0]) <= spec.frameWidth && Math.abs(pair[1]) <= spec.frameHeight);
+  if (!valid) {
+    warn(`${label}: frameOffsets must have ${count} [dx,dy] integer pair(s) within the cell size - ignored`);
+    return null;
+  }
+  return offsets;
+}
+
+// Feet center on the pivot x, lowest row on the pivot y (the floor line) before any per-frame correction.
+// clip = pixels lost outside the cell; margin = pixels inside its safe margin (including below the floor).
+function placeCharFrame(sprite, spec, offset = [0, 0]) {
   const W = spec.frameWidth, H = spec.frameHeight, m = spec.cellMargin;
   const cell = newImage(W, H);
-  const dx = Math.round(spec.pivot[0] - footAnchor(sprite));
-  const dy = spec.pivot[1] - (sprite.h - 1);
+  const dx = Math.round(spec.pivot[0] - footAnchor(sprite)) + offset[0];
+  const dy = spec.pivot[1] - (sprite.h - 1) + offset[1];
   const lost = blit(cell, sprite, dx, dy);
   const clip = [];
   if (dx < 0) clip.push(`left ${-dx}px`);
   if (dx + sprite.w > W) clip.push(`right ${dx + sprite.w - W}px`);
   if (dy < 0) clip.push(`top ${-dy}px`);
+  if (dy + sprite.h > H) clip.push(`bottom ${dy + sprite.h - H}px`);
   const margin = [];
   const b = !lost && m ? bbox(sprite) : null;
   if (b) {
@@ -1255,6 +1271,7 @@ function placeCharFrame(sprite, spec) {
     if (x0 < m) margin.push(`left ${m - x0}px`);
     if (x1 > W - 1 - m) margin.push(`right ${x1 - (W - 1 - m)}px`);
     if (y0 < m) margin.push(`top ${m - y0}px`);
+    if (b.y1 + dy > spec.pivot[1]) margin.push(`below floor ${b.y1 + dy - spec.pivot[1]}px`);
   }
   return { cell, lost, clip, margin };
 }
@@ -1577,11 +1594,12 @@ function packCharacter(id, env) {
         scale = 1;
       }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
+      const frameOffsets = frameOffsetsFor(side, sprites.length, spec, warn, alabel);
       const cells = [];
       const clipped = [], tight = [];
       sprites.forEach((s, k) => {
         const small = resample(s, scale, { coverage: 0.5, alphaMin: 128 });
-        const { cell, lost, clip, margin } = placeCharFrame(small, spec);
+        const { cell, lost, clip, margin } = placeCharFrame(small, spec, frameOffsets?.[k]);
         if (lost) clipped.push(`#${k} ${clip.join('/')}`);
         else if (margin.length) tight.push(`#${k} ${margin.join('/')}`);
         cells.push(cell);

@@ -1,0 +1,54 @@
+{
+  "naruto.modelSheet": {
+    "notes": [
+      "Approved Shippuden design reference.",
+      "Compare the face, outfit and body proportions when reviewing animations."
+    ]
+  },
+  "naruto.expressions": {
+    "notes": [
+      "Approved expression reference.",
+      "Some far-cheek whiskers are obscured by the face angle."
+    ]
+  },
+  "naruto.idle": {
+    "notes": [
+      "Approved idle v01.",
+      "The breathing motion is larger than the original brief; this was accepted."
+    ]
+  },
+  "naruto.run": {
+    "notes": [
+      "The artwork is unchanged; v02 corrects frame placement.",
+      "Check the opposite-leg stride and the flight-to-contact transition.",
+      "Eight frames at 60 ms each; the loop lasts 0.48 seconds."
+    ],
+    "recommendation": "Placement checks passed. Review the movement at actual speed before approving v02."
+  },
+  "sasuke.modelSheet": {
+    "notes": [
+      "Approved outfit and proportions reference.",
+      "The deep shirt opening is part of the accepted design."
+    ]
+  },
+  "sasuke.expressions": {
+    "notes": [
+      "Approved expression reference.",
+      "Sharingan marks are stylized in the original sheet."
+    ]
+  },
+  "sasuke.idle": {
+    "notes": [
+      "Approved idle v01.",
+      "The larger breathing motion was accepted."
+    ]
+  },
+  "sasuke.run": {
+    "notes": [
+      "The clipped face is restored and frame placement is corrected.",
+      "Check the alternating legs, which remain subtle under the waist cloth.",
+      "Eight frames at 60 ms each; the loop lasts 0.48 seconds."
+    ],
+    "recommendation": "Placement checks passed. Review the movement at actual speed before approving v02."
+  }
+}

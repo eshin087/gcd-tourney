@@ -73,6 +73,20 @@ art/
 6. Codex updates REVIEW.md, `TRACKER.md` and `manifest.json` (`version`, `approvedVersion`) together.
 7. Commit (`art(<id>): ...`). Naruto and Sasuke can run in parallel in separate threads.
 
+## Review the art on a phone
+
+After packing the current Naruto and Sasuke candidates or recording an approval, run
+`npm run review:export`, then `npm run build`. Open the built site on a URL your phone can reach:
+`/art-review.html?c=naruto&a=run` or `/art-review.html?c=sasuke&a=run`. The page plays packed
+frames at their recorded timings, shows QA notes, and links to the full-resolution original. It
+is read-only; send the character, asset and version with your decision in chat or [REVIEW.md](REVIEW.md).
+
+The export copies the selected `_vNN` originals into `public/art-review/` and gives each packed
+sheet and metadata export a content-hashed name. It writes `review.json` for the page to load.
+Export is **manual and intentional**: packing or building alone does not refresh the review
+collection. The exporter validates the approved references and latest packed run before writing;
+fix any reported mismatch, re-pack, then export again.
+
 ## The spec in 10 numbers
 
 256x256 cell · 16 columns · pivot [128, 240] · 128 px per world unit · facing right, 3/4 view ·

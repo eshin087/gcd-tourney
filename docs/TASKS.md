@@ -62,7 +62,10 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 | TOOL-007 | Packer: when nothing packable is left for a character, remove its stale packer-made `anims.json` + `sheet.png` (rejecting the only version no longer leaves rejected art in the game) | Claude | done | `npm run test:sprites` (versions 5); tools/README |
 | TOOL-008 | Stitch tool for long strips: join `raw/_parts/<anim>_vNN_A.png` + `_B.png` into `raw/<anim>_vNN.png` (bottom-aligned, >= 24 px magenta gap, nearest-neighbor rescale of B to A's head size); packer option or `npm run stitch` | Claude | todo | until then Codex uses a throwaway script (art/PIPELINE.md "Long strips (parts)") |
 | TOOL-009 | Sprite Lab: auto-load `public/characters/<id>/sheet.png` + `anims.json` when present (today it always shows the baked placeholder unless the sheet is loaded by hand) | Claude | todo | docs tell users to use "Load full sheet (.png + .json)…" |
+| TOOL-013 | Correct run frame alignment with explicit placement | Codex | review | User authorized 2026-10-09. Added validated per-frame final-cell frameOffsets sidecars, applied before clipping; source-hash invalidation recovers original pixels. v02 keeps unchanged raw source and fixed pivot/bodyHeight. Naruto horizontal head range 0.8 px, Sasuke 1.2 px; flight lift restored and Sasuke f7 face recovered. 160 packer tests passed; final 48-color packs have zero warnings. Review tools change; art approval remains pending. |
+| TOOL-014 | Mobile art review page and hosted asset export | Codex | review | Read-only /art-review.html with exact timing, pause/step/scrub, speed, zoom, full-resolution originals and approval status. npm run review:export validates selected versions and writes 13 allowlisted files (19.99 MiB). Phone-width browser checks passed; deployed HTTPS gallery and all exports verified byte-identical without login. The concurrent mobile release already included the gallery; no additional deployment needed. User reviews art via HTTPS and replies in chat. |
 | OPS-002 | Bump `package.json` version at the next release (it says 0.1.0, but 0.2.0 has shipped) | Claude | todo | see CONTRIBUTING versioning |
+
 
 ### Spec v2 restart
 
@@ -79,7 +82,7 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 | ART-NAR-01 | S1 model sheet (spec v2, Shippuden jacket, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
 | USR-002 | Approve the Naruto model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
 | ART-NAR-02 | S2 expression sheet | Codex | done | User approved expressions v01 on 2026-10-09; fixed expressions.png saved unchanged; documented QA deviations accepted; ready for idle |
-| ART-NAR-03 | Steps 3-4 (CORE): idle, then run | Codex | in-progress | User approved idle v01 on 2026-10-09 with documented QA caveats; fixed idle_approved.png saved unchanged; 8 frames, 48-color pack, game/Sprite Lab and build passed. Run is next under the same task |
+| ART-NAR-03 | Steps 3-4 (CORE): idle, then run | Codex | review | Idle v01 approved and committed 194bc4a; run v01 rejected/superseded at user request, source retained. Run v02 corrects placement (TOOL-013), 8 frames at 60 ms, 48 colors, zero final warnings. Mobile review page tested; 160 regression tests and production build passed. Waiting for explicit run v02 approval before attacks. |
 | ART-NAR-04 | Step 5 core attacks (CORE): light1, light2, light3, light4, heavy, airLight1, airHeavy | Codex | todo | strikes reach the v2 contact zones (art/SPEC.md) toward screen-right on active frames |
 | ART-NAR-05 | Step 6 reactions (CORE): guard, hurtHigh, launched, down, getup | Codex | todo | lying poses: lowest point on the floor line (y 240); `down` lies flat, head toward screen-left |
 | ART-NAR-06 | Step 7 specials (CORE): charge, beamCharge, beamFire, special/Rasengan | Codex | todo | palm EMPTY; the engine draws the orb at the hand anchor (≈ x205, y148 in the 256 cell) |
@@ -96,7 +99,7 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 | ART-SAS-01 | S1 model sheet (spec v2, Hebi-era white open-chest shirt, purple rope belt, sword sheathed at the back of the belt, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
 | USR-003 | Approve the Sasuke model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
 | ART-SAS-02 | S2 expression sheet (incl. Sharingan) | Codex | done | User approved expressions v01 on 2026-10-09; fixed expressions.png saved unchanged; documented QA deviations accepted; ready for idle |
-| ART-SAS-03 | Steps 3-4 (CORE): idle, then run | Codex | in-progress | User approved idle v01 on 2026-10-09 with documented QA caveats; fixed idle_approved.png saved unchanged; 8 frames, 48-color pack, game/Sprite Lab and build passed. Run is next under the same task |
+| ART-SAS-03 | Steps 3-4 (CORE): idle, then run | Codex | review | Idle v01 approved and committed 194bc4a; run v01 rejected/superseded at user request, source retained. Run v02 corrects placement (TOOL-013), 8 frames at 60 ms, 48 colors, zero final warnings. Mobile review page tested; 160 regression tests and production build passed. Waiting for explicit run v02 approval before attacks. |
 | ART-SAS-04 | Step 5 core attacks (CORE): light1, light2, light3, light4, heavy, airLight1, airHeavy | Codex | todo | same body-height table as Naruto (ADR 0007); the sword stays sheathed (the moveset doesn't swing it) |
 | ART-SAS-05 | Step 6 reactions (CORE): guard, hurtHigh, launched, down, getup | Codex | todo | |
 | ART-SAS-06 | Step 7 specials (CORE): charge, beamCharge, beamFire, special/Chidori | Codex | todo | hand trails low behind (≈ x64, y199 in the 256 cell) through startup and sprint f3-f4; thrust f5 (≈ x218, y140), impact f6; no lightning drawn |
@@ -121,6 +124,7 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | ART-UI-01 | Title logo "GCD TOURNEY" (+ 天下一武闘祭 subtitle) | Codex | todo | `art/ui/PROMPTS.md`; versioned `_vNN`, user approves |
 | ART-UI-02 | Title / menu background art | Codex | todo | versioned `_vNN`, user approves |
 | ENG-013 | Use custom logo and title art in menus when present | Claude | todo | after ART-UI-01/02 |
+
 
 ## Later (M4+)
 

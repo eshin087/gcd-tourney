@@ -61,3 +61,36 @@ Input lineage exception: initial A/B attached approved model_sheet.png and expre
 - Runtime: game at http://127.0.0.1:5188/?fight=naruto,naruto&mode=solo&art=custom&debug logged custom sheet with1 animation/incomplete preview; no console errors. Sprite Lab loaded actual sheet.png+anims.json and displayed idle(8) with body height204. Other22 CORE actions and15 optional actions remain missing as expected. Production build passed.
 
 User approved idle v01 on 2026-10-09 with the recorded QA caveats. The versioned strip and A/B parts are preserved; idle_approved.png is an unchanged copy of idle_v01.png. Run production may now use all three approved fixed references.
+
+
+## 2026-10-09: run v01, needs review
+
+Selected A3+B2 (3 A attempts,2 B attempts). A1/A2 overlapped neighboring pose columns and used the wrong support-leg cue; A3 corrected spacing and unholstered left support. B1 repeated A leg roles and enlarged scale; B2 corrected the opposite-foot half-cycle. Stitched3096x1024: A(0,0), B(1560,-2),24px pure-magenta gutter,1:1 pixels. Original parts are preserved; only blank top background is outside the stitched canvas. Strip SHA256:30d0904780a6c71f00dc943dbea0b558c6b591846b189e37f34e0ceb26dd3192.
+
+- Identity/pose: approved mature Shippuden face, outfit, holster and streaming headband tails;8 right-facing contact/down/passing/flight poses with corrected anatomical leg order. Far-cheek marks are tiny. Flight mouth is gritted rather than slightly open.
+- Scale: bright-hair vertical band34-35px across run vs34px idle00. Crown width45-50px vs40px idle reflects streaming spikes. Approximate hidden-skull estimates remain uncertain; no obvious >3px vertical head-scale drift. Raw A heights437/438/437/386 and B451/453/447/393; first source backgrounds modeRGB252,3,250, with94,094/94,428 colors.
+- Motion FAIL: packed hair-centroid x approximately[156,157,217,199,152,158,224,203]; both f3-to-f4 and f7-to-f0 jump about47px left. Packed topY[44,43,44,67,37,37,40,64], all soles y240. Flight poses consequently sit lower in packed cells; loop continuity is not clean despite correct leg roles.
+- Packing: npm run sprites naruto imported8run frames from raw/run_v01.png atscale0.452, warned57,384 total colors. node tools/pack-sprites.mjs naruto --quantize 48 produced48colors withzero final warnings, no clipping/margin issue. Status packed records this technical pass, not visual approval.
+- Shared palette: quantizing idle+run together changes75,083 of75,699 opaque idle RGB pixels; alpha/geometry unchanged. Mean absolute channel change about4.09 levels (RGB L1mean12.26). Approved idle source/reference remains byte-identical.
+
+- References: every generation attached approved model_sheet.png, expressions.png and idle_approved.png. Every Part B also attached selected A; each correction also attached its target candidate. Only the single best pair is versioned, originals preserved.
+- Final output: 4096x256 atlas, 256x256 cells, 16 columns, pivot [128,240], ppu128. Idle8 and run8; run durations eight60ms, loop true, total480ms. Exactly48 opaque colors, alpha only0/255, zero magenta remnants. Missing21 CORE and15 optional animations remain expected. Cleaned frames retain pre-quantization colors; public sheet is authoritative for palette.
+- Runtime: http://127.0.0.1:5188/?fight=naruto,sasuke&mode=solo&art=custom&debug logged custom sheets for both (2 animations, incomplete preview), no console errors. Sprite Lab loaded actual public sheet.png+anims.json and played run(8) for both. Production build passed.
+- Alignment finding (TOOL-013, Claude): footAnchor() in tools/pack-sprites.mjs averages opaque pixels in the bottom20% of each trimmed frame; placeCharFrame() puts that anchor at x128 and every lowest pixel at y240. Changing which foot is low moves the head/torso laterally, while raw flight elevation is removed. Translating an entire pose inside its raw slot cannot fix this relative anchor. Recommend reviewing stable body/phase anchors before approving these loops; do not hand-edit public outputs.
+
+Recommendation: correct visible horizontal/vertical alignment before approval. Keep v01 needs review; no run approval or next attack generation yet.
+
+
+## 2026-10-09: run v02 placement revision, needs review
+
+User requested the recommended fixes. Run v01 is rejected/superseded and archived under raw/_rejected/; its A/B sources remain preserved. Run v02 and its A/B copies are byte-identical to v01: no new drawing or resampling. The versioned JSON sidecar applies explicit final-cell offsets before packing/clipping. The packer reimports original source on sidecar change, so previously clipped source pixels are recovered.
+
+- Identity and source pixels preserved. 8 right-facing poses; horizontal hair-centroid range 0.8 px; half-cycle jump 0.3 px, loop jump <0.1 px. Grounded soles y240; flight f3/f7 y210/212. 48 colors, hard alpha, no clipping or final pack warnings; 21 missing CORE expected. Mobile-width playback, pause/step/zoom checked. Source pose caveats remain; recommend user review of v02.
+- Cell 256x256, pivot [128,240], ppu128 and bodyHeight204 unchanged; run timing is eight60ms frames (480ms loop). All idle frame geometry and approved raw/reference copies remain unchanged. Public quantized RGB may differ from cleaned pre-quantization frames; comparison checks alpha/geometry.
+- Commands: npm run sprites naruto sasuke; node tools/pack-sprites.mjs naruto sasuke --quantize 48. Final report has zero warnings; 21 missing CORE and15 optional animations per character remain expected.
+- Mobile review: /art-review.html?c=naruto&a=run uses exported versioned originals and content-hashed sheet/meta. Browser at390x844 verified selection, pause/step and zoom with no document overflow or console errors. Physical phone confirmation remains with the user.
+- Recommendation: review the corrected v02 at actual speed, including opposite-leg readability. It is packed, not approved; no next animation is generated.
+
+- Release verification: production build and all160 packer regression tests passed. Public gallery https://gcd-tourney.vercel.app/art-review.html?c=naruto&a=run is available without login; selected originals and packed exports match local files byte-for-byte. Deployment dpl_5FpjDBc4RffrPvPMoDciYJoqLkKZ (concurrent mobile release) already included the gallery. No extra deployment was needed.
+
+- Hosted game integration rechecked after v02: custom-sheet log for both fighters (2 animations, incomplete preview); no console errors. Full CORE completion still required for normal automatic activation.

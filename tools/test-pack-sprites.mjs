@@ -724,6 +724,88 @@ function main() {
   pack(['--root', ART, '--out', OUT, 'lone']);
   check(fs.existsSync(path.join(loneOut, 'anims.json')), 'versions 5: a sheet the packer did not make is left alone');
 
+  // Per-frame offsets re-import the original raw pixels after an uncorrected pack clipped a leaning pose.
+  // They must also survive a later pack from the cached cleaned frames without accumulating twice.
+  {
+    const anchorDir = path.join(ART, 'characters', 'anchor');
+    const anchorRaw = path.join(anchorDir, 'raw');
+    const rnd = mulberry(510);
+    const run = image(1100, 650, [255, 0, 255], rnd, 0);
+    const pose = (baseX, headX) => {
+      rect(run, baseX + 75, 530, 50, 30, COL.outline, rnd, 0);
+      rect(run, baseX + 90, 370, 40, 175, COL.pants, rnd, 0);
+      rect(run, baseX + 110, 245, headX - 85, 155, COL.orange, rnd, 0);
+      rect(run, baseX + headX + 15, 195, 30, 75, COL.skin, rnd, 0);
+      rect(run, baseX + headX, 100, 70, 110, COL.hair, rnd, 0);
+    };
+    pose(0, 160);
+    pose(550, 350);
+    savePng(path.join(anchorRaw, 'run_v01.png'), run);
+    const manifestPath = path.join(ART, 'manifest.json');
+    const anchorManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    anchorManifest.characters.anchor = { name: 'Anchor', animations: { run: { frames: 2, loop: true, bodyHeight: 204, status: 'todo' } } };
+    fs.writeFileSync(manifestPath, JSON.stringify(anchorManifest, null, 2));
+    const anchorOut = path.join(OUT, 'characters', 'anchor');
+    const anchorSidecar = path.join(anchorRaw, 'run_v01.json');
+    const packedRun = () => {
+      const meta = JSON.parse(fs.readFileSync(path.join(anchorOut, 'anims.json'), 'utf8'));
+      const sheet = loadPng(path.join(anchorOut, 'sheet.png'));
+      return meta.animations.run.frames.map((f) => cell(sheet, f));
+    };
+    const hairX = (c) => {
+      let sum = 0, count = 0;
+      for (let y = 0; y < c.h; y++) for (let x = 0; x < c.w; x++) {
+        const i = (y * c.w + x) * 4;
+        if (c.data[i + 3] && c.data[i] === COL.hair[0] && c.data[i + 1] === COL.hair[1] && c.data[i + 2] === COL.hair[2]) { sum += x; count++; }
+      }
+      return count ? sum / count : NaN;
+    };
+    const hairCount = (c) => {
+      let n = 0;
+      for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3] && c.data[i] === COL.hair[0] && c.data[i + 1] === COL.hair[1] && c.data[i + 2] === COL.hair[2]) n++;
+      return n;
+    };
+    const before = pack([...base, 'anchor']);
+    const beforeCells = packedRun();
+    check(before.code === 0 && anyWarn(before.json.characters[0].warnings, /run: 1 frame\(s\) clipped/) && bb(beforeCells[1]).x1 === 255,
+      'frameOffsets: no sidecar preserves default foot pivot and reports a clipped forward pose');
+    check(Math.abs(footX(beforeCells[0], bb(beforeCells[0])) - PX) <= 0.51, 'frameOffsets: no-offset placement is unchanged');
+
+    fs.writeFileSync(anchorSidecar, JSON.stringify({ frameOffsets: [[0, 0], [-84, -12]] }));
+    const corrected = pack([...base, 'anchor']);
+    const correctedCells = packedRun();
+    const correctedSheet = fs.readFileSync(path.join(anchorOut, 'sheet.png'));
+    const correctedMeta = JSON.parse(fs.readFileSync(path.join(anchorOut, 'anims.json'), 'utf8'));
+    check(corrected.code === 0 && corrected.json.characters[0].packed.find((p) => p.anim === 'run')?.source === 'raw/run_v01.png'
+      && !anyWarn(corrected.json.characters[0].warnings, /clipped|cell margin/), 'frameOffsets: sidecar change re-imports uncut raw pixels with no clip/margin warning');
+    check(hairCount(correctedCells[1]) > hairCount(beforeCells[1]) && bb(correctedCells[1]).x1 < FW - SPEC.cellMargin
+      && Math.abs(hairX(correctedCells[1]) - hairX(correctedCells[0])) <= 2, 'frameOffsets: forward head restored and aligned to the contact pose');
+    check(bb(correctedCells[0]).y1 === PY && bb(correctedCells[1]).y1 === PY - 12 && correctedMeta.pivot.join() === '128,240',
+      'frameOffsets: flight lifts 12px, contact stays grounded, metadata pivot unchanged');
+
+    const cached = pack([...base, 'anchor']);
+    check(cached.code === 0 && cached.json.characters[0].packed.find((p) => p.anim === 'run')?.source === 'frames/run/'
+      && Buffer.compare(correctedSheet, fs.readFileSync(path.join(anchorOut, 'sheet.png'))) === 0,
+    'frameOffsets: second pack from cached frames is byte-identical (offsets do not accumulate)');
+
+    fs.writeFileSync(anchorSidecar, JSON.stringify({ frameOffsets: [[0, 0], [-80, -12]] }));
+    const changed = pack([...base, 'anchor']);
+    const changedCells = packedRun();
+    check(changed.code === 0 && changed.json.characters[0].packed.find((p) => p.anim === 'run')?.source === 'raw/run_v01.png'
+      && Math.abs(hairX(changedCells[1]) - hairX(correctedCells[1]) - 4) <= 1,
+      'frameOffsets: changing only the sidecar re-imports raw and moves the pose by four final pixels');
+
+    fs.writeFileSync(anchorSidecar, JSON.stringify({ frameOffsets: [[0, 0], [256, 0]] }));
+    const overflow = pack([...base, 'anchor']);
+    check(overflow.code === 0 && anyWarn(overflow.json.characters[0].warnings, /run: 1 frame\(s\) clipped.*right/),
+      'frameOffsets: a valid but overflowing offset emits the normal clipping warning');
+    fs.writeFileSync(anchorSidecar, JSON.stringify({ frameOffsets: [[0, 0], ['bad', 0]] }));
+    const malformed = pack([...base, 'anchor']);
+    check(malformed.code === 0 && anyWarn(malformed.json.characters[0].warnings, /frameOffsets must have 2 \[dx,dy\] integer pair/)
+      && anyWarn(malformed.json.characters[0].warnings, /run: 1 frame\(s\) clipped/),
+      'frameOffsets: malformed sidecar warns, is ignored, and falls back to legacy placement');
+  }
+
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
   const r5 = pack(['--src', path.join(FIX, 'does-not-exist'), '--out', ghostOut]);

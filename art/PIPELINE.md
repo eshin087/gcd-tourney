@@ -214,6 +214,23 @@ Pick the lightest fix that works:
 Delete `frames/<anim>/` only if you hand-edited it and want to discard the edits: hand-edited frames
 win over a newer raw, with a warning in the report.
 
+### Per-frame placement corrections
+
+If the packer's automatic foot centering makes a run pose slide or clips a limb, put a
+`frameOffsets` array in that candidate's `raw/<anim>_vNN.json` sidecar. It needs one `[dx, dy]`
+integer pair per packed frame, in 0-based frame order. These are **final cell pixels**, applied
+after the animation's common body-height scale: positive x moves the art right, positive y moves
+it down. Use `dy = 0` for grounded poses; a negative `dy` can lift a flight pose above the floor.
+`[0, 0]` keeps the automatic placement for that frame.
+
+The offsets change where pixels sit inside the cell. They do not change the shared pivot
+`[128, 240]`, pixels per unit, or the manifest's `bodyHeight`. The packer validates the pair
+count and integer values, and still warns if corrected pixels clip or enter the cell margin.
+Editing a sidecar re-imports the original raw image when its cleaned frames are untouched; a
+manually edited `frames/<anim>/` folder keeps precedence and produces a warning. Preserve the
+earlier `_vNN` image, save a new candidate version and its matching sidecar, then re-pack and
+queue that version for user review. A placement correction does not approve the image.
+
 ## Hitbox tuning
 
 1. Pack, then preview the attack in game with `?art=custom` (and `?debug`, if the lead engineer

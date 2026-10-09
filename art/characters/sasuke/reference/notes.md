@@ -55,3 +55,36 @@ Selected A1+B1. Two B retries attempted to reduce f6's dip but changed the head 
 - Runtime: game at http://127.0.0.1:5188/?fight=sasuke,sasuke&mode=solo&art=custom&debug logged custom sheet with1 animation/incomplete preview; no console errors. Sprite Lab loaded actual sheet.png+anims.json and displayed idle(8), body height204. Its center floor dot is the UI's pivot marker (src/spriteLab.js:81), not an art artifact. Other22 CORE and15 optional animations remain missing as expected. Production build passed.
 
 User approved idle v01 on 2026-10-09 with the recorded QA caveats. The versioned strip and A/B parts are preserved; idle_approved.png is an unchanged copy of idle_v01.png. Run production may now use all three approved fixed references.
+
+
+## 2026-10-09: run v01, needs review
+
+Selected A2+B3 (2 A attempts,3 B attempts). A2 improved separated silhouettes and visible trailing arms. B1/B2 repeated near/far leg layering and overlapped contact toe with next hand; B3 is best, but the alternate-leg depth remains subtle under the waist cloth. Stitched3104x1025: A(0,1), B(1568,0),32px pure-magenta gutter,1:1 unchanged source pixels. Strip SHA256:45221bfc53dc0c2588e361c15f5657084add99b4eb890ca18a844907e01f45cf. Part A SHA256:c7b6249b768ea30f5fbe89af62168c8c64935c47ea50d979808dd0c33a710002; B:bdcc478ce24d2160b220eac3ec508cc8665d5c1c76f66ca2856a42543b892941.
+
+- Identity/pose: approved dark eyes, swept hair, white open shirt, rope/waist cloth and sheathed sword retained;8 right-facing phases. Both arms are visible but nearly level rather than20degrees above horizontal. Opposite-leg ordering is less readable than Naruto.
+- Scale: top hair/skull width45-48px vs40px idle (swept spikes); visible face vertical span approximately34-36px vs38px idle. No oversized face apparent; head landmarks are partly hidden by hair/lean. Raw grounded bottoms after stitch A778/780/781, B779/779/781; flight bottoms740/739.
+- Motion FAIL: packed head-centroid x approximately[161,162,192,225,161,161,199,232]; f3-to-f4 shifts64px left, f7-to-f0 shifts71px left. TopY[45,50,39,47,42,48,37,46]; every lowest pixel y240. Source flight lift is removed by packing.
+- Packing FAIL: npm run sprites sasuke imported8run frames atscale0.389 and split1touching group across B's3px gap; f4 toe/f5 hand remain separate. Initial warnings:62,762 total colors and run#7 clipped right1px. node tools/pack-sprites.mjs sasuke --quantize 48 produced48colors but still warns run#7right4px margin intrusion. Cached cleaned frames already contain the initial clipping, so the second report is not evidence that clipping disappeared. run07 bbox reaches x255;21 opaque edge pixels at y61-81 cross the head/face. Do not mark packed-clean; status remains raw pending correction/review.
+- Shared palette: quantizing idle+run changes81,851 of83,670 opaque idle RGB pixels; alpha/geometry unchanged. Mean absolute channel change about4.47 levels (RGB L1mean13.40). Approved idle source/reference remains byte-identical.
+
+- References: every generation attached approved model_sheet.png, expressions.png and idle_approved.png. Every Part B also attached selected A; each correction also attached its target candidate. Only the single best pair is versioned, originals preserved.
+- Final output: 4096x256 atlas, 256x256 cells, 16 columns, pivot [128,240], ppu128. Idle8 and run8; run durations eight60ms, loop true, total480ms. Exactly48 opaque colors, alpha only0/255, zero magenta remnants. Missing21 CORE and15 optional animations remain expected. Cleaned frames retain pre-quantization colors; public sheet is authoritative for palette.
+- Runtime: http://127.0.0.1:5188/?fight=naruto,sasuke&mode=solo&art=custom&debug logged custom sheets for both (2 animations, incomplete preview), no console errors. Sprite Lab loaded actual public sheet.png+anims.json and played run(8) for both. Production build passed.
+- Alignment finding (TOOL-013, Claude): footAnchor() in tools/pack-sprites.mjs averages opaque pixels in the bottom20% of each trimmed frame; placeCharFrame() puts that anchor at x128 and every lowest pixel at y240. Changing which foot is low moves the head/torso laterally, while raw flight elevation is removed. Translating an entire pose inside its raw slot cannot fix this relative anchor. Recommend reviewing stable body/phase anchors before approving these loops; do not hand-edit public outputs.
+
+Recommendation: fix alignment and the clipped face edge before approval, with v02 or an approved packer anchor solution. Three B attempts are exhausted for this round; v01 remains needs review, with no next attack generation.
+
+
+## 2026-10-09: run v02 placement revision, needs review
+
+User requested the recommended fixes. Run v01 is rejected/superseded and archived under raw/_rejected/; its A/B sources remain preserved. Run v02 and its A/B copies are byte-identical to v01: no new drawing or resampling. The versioned JSON sidecar applies explicit final-cell offsets before packing/clipping. The packer reimports original source on sidecar change, so previously clipped source pixels are recovered.
+
+- Identity and source pixels preserved; face recovered by reimporting original source before placement. 8 right-facing poses; horizontal head-centroid range 1.2 px; half-cycle jump 0.2 px, loop jump 0.3 px. Grounded soles y240; flight f3/f7 y224. Frame07 bbox x39..185, 70 px clear at right. 48 colors, hard alpha, no clipping or final pack warnings; 21 missing CORE expected. Mobile-width playback checked; alternating legs remain subtle. Recommend user review of v02.
+- Cell 256x256, pivot [128,240], ppu128 and bodyHeight204 unchanged; run timing is eight60ms frames (480ms loop). All idle frame geometry and approved raw/reference copies remain unchanged. Public quantized RGB may differ from cleaned pre-quantization frames; comparison checks alpha/geometry.
+- Commands: npm run sprites naruto sasuke; node tools/pack-sprites.mjs naruto sasuke --quantize 48. Final report has zero warnings; 21 missing CORE and15 optional animations per character remain expected.
+- Mobile review: /art-review.html?c=sasuke&a=run uses exported versioned originals and content-hashed sheet/meta. Browser at390x844 verified selection, pause/step and zoom with no document overflow or console errors. Physical phone confirmation remains with the user.
+- Recommendation: review the corrected v02 at actual speed, including opposite-leg readability. It is packed, not approved; no next animation is generated.
+
+- Release verification: production build and all160 packer regression tests passed. Public gallery https://gcd-tourney.vercel.app/art-review.html?c=sasuke&a=run is available without login; selected originals and packed exports match local files byte-for-byte. Deployment dpl_5FpjDBc4RffrPvPMoDciYJoqLkKZ (concurrent mobile release) already included the gallery. No extra deployment was needed.
+
+- Hosted game integration rechecked after v02: custom-sheet log for both fighters (2 animations, incomplete preview); no console errors. Full CORE completion still required for normal automatic activation.
