@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Test lab** (`/lab.html`, ADR 0018): every move of either fighter in one tap with frame data, all 42 animations frame by frame with hit and hurt boxes, one-tap scenarios for the shared mechanics (clashes, throws, parry, dodges, wavedash, air combos, bounces, vanish, super dash, counters, Whirlwind, Hollow Purple), slow motion, frame step, and record/replay on the dummy. Works on PR preview links (ENG-055).
+
 - Tools: `npm run pr -- preview` deploys a PR's branch to a Vercel preview link and posts it on the PR, so it can be tried on a phone before it merges; `npm run deploy` (production) now runs only on `main` (ADR 0018, TOOL-022).
 
 - **CPU vs CPU is a showcase now** (ADR 0016, ENG-049): the IMPOSSIBLE `showman` style plays short combos that end in a special, shot, teleport, vanish kick or super instead of long air juggles, fights at mid range with its whole kit (shots, kit tools, air specials, modes, Domain / Kirin / Amaterasu / flurry supers and beams, charging at a distance), and answers attacks with a rotating mix of parries, spot dodges, air dodges, counters, vanishes, super dashes through shots and beam clashes. Rounds last 35-70 s instead of 20-35 s; neutral went from 13 % to about 30 % of fight time.

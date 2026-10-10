@@ -1,6 +1,6 @@
 # 0018. Every PR gets a preview link; a test lab page for checking it
 
-- Status: Accepted (part 1, preview deploys: implemented; part 2, the test lab: in progress)
+- Status: Accepted (both parts implemented)
 - Date: 2026-10-10
 - Deciders: User, Claude
 - Builds on: [0013](0013-pull-requests-in-worktrees.md) (PRs in worktrees)
@@ -25,7 +25,7 @@ throws, dodges, bounces) without setting up a match by hand.
 - Previews are behind Vercel Authentication (the project's default Deployment Protection): the user signs in to
   Vercel once in the phone's browser. Changing that protection is the user's call, in the Vercel dashboard.
 
-### 2. The test lab (in progress)
+### 2. The test lab
 
 A separate page, `lab.html`, like the Sprite Lab: shipped with the build (so it works on previews and the live
 site) but not linked from the game's menus. First version: every fighter's move list (normals, each directional
@@ -33,6 +33,11 @@ special, SUPER, ultimate, as one tap against a dummy, with frame data), an anima
 frame by frame with hit and hurt boxes, on the real packed art), mechanic scenarios (ultimate clash, special clash,
 throw and break, parry, dodges, wavedash, air combo, wall and ground bounce, vanish, super dash), and tools
 (infinite meter, slow motion, frame step, dummy record and replay, the box overlay, instant fighter swaps).
+
+It is the training room (`Game.startTraining`) plus a DOM panel (`src/lab/lab.js`). Moves and scenarios are input
+timelines that drive a fighter's `Pad` exactly like a CPU brain (`ScriptBrain` in `src/lab/scripts.js`), so they go
+through the real input rules (buffers, cancels, hitstop) and every run is identical. The lists are built from the kit
+data, so new fighters and moves appear without lab changes; a new shared mechanic adds one `SCENARIOS` entry.
 
 ## Alternatives considered
 
