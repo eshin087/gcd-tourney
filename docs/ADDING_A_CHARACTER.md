@@ -155,7 +155,10 @@ gets the same naming and review. Order matters for consistency. Follow the `step
 `art/manifest.json` (details: [art/PIPELINE.md "Generation order"](../art/PIPELINE.md#generation-order)):
 
 1. **Model sheet** (front, 3/4 right, true side profile, back, fighting stance, palette swatches) →
-   **expression sheet** → **idle**. Each approved one is copied to its fixed name in
+   **expression sheet** → **idle**. Before S1, the canon height and **build class** go into CHARACTER.md §3 and
+   `art/scale/builds.json`; the model sheet, idle, run and heavy reviews each attach an `npm run lineup` image of
+   the new fighter next to the cast (art/CHARACTER_SCALE.md "Lineup review"), and a build outside its class band is
+   rejected. Each approved one is copied to its fixed name in
    `art/characters/<id>/reference/` (`model_sheet.png`, `expressions.png`, `idle_approved.png`) and
    attached to every later prompt.
 2. **CORE animations**, in step order: run; light1 to light4, heavy, airLight1, airHeavy; guard, hurtHigh,
