@@ -157,7 +157,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 |---|---|---|
 | `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use) and `vortex` (a grind `Vortex` spawned where it connects) | Rasengan, Chidori, Rasenshuriken |
 | `shot` | a projectile from a `shot`/`throw` move; feet planted | Narukami, Reversal: Red, shuriken |
-| `teleport` | hide for `hide` frames, reappear `behind` or `above`, with afterimages; optional `follow` strike | Rhythm Echo, Blink |
+| `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike | Rhythm Echo, Blink |
 | `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
 | `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `riseFx: 'clones'`, `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
 | `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (smoke + log, teleport behind, `follow`) | Infinity, Sharingan, Substitution |

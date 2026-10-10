@@ -10,5 +10,5 @@ art/**/reference/source/
 .env*
 # generated before every build (tools/art-index.mjs)
 public/art-index.json
-# unapproved world art packed for local review (npm run sprites -- --candidates; ?art=custom)
+# unapproved world art (vfx, crowd, stage, npc, ui) packed for local review with --candidates; seen with ?art=custom
 public/preview/

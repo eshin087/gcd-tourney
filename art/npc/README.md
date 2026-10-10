@@ -77,8 +77,12 @@ art/npc/
       <anim>/<anim>_NN.png      cleaned 128 x 128 frames (packer output or hand touch-ups)
 ```
 
-Packer output (Claude's packer NPC mode, `npm run sprites npc`): `public/npc/<id>/sheet.png` +
-`anims.json`. Never edit those by hand (CLAUDE.md rule 3); change the raw art and re-pack.
+Packer output (`npm run sprites npc`, approved animations only): `public/npc/<id>/sheet.png` + `anims.json`.
+The animation list, loop flags, frame times and target heights come from the table in `<id>/ANIMATIONS.md`;
+each strip is scaled so its tallest frame matches its row's height (strips drift in scale between images), feet
+on y 124, centered on x 64, inside the 4 px margin, <= 32 colors. An NPC ships only when its `idle` is approved.
+`node tools/pack-sprites.mjs npc --candidates` packs the latest strips into the git-ignored `public/preview/npc/`
+(seen in the arena with `?art=custom`). Never edit the outputs by hand (CLAUDE.md rule 3); change the raw art and re-pack.
 
 ## File flow (parallel production)
 
@@ -94,7 +98,7 @@ NPCs go through the claim queue like every other world asset (ADR 0008). **One b
 | 5. self-QA | worker | the [quick check](#quick-check-before-saving) on every image before saving. A failed attempt that was never saved needs no number; regenerate it |
 | 6. done | worker | `npm run queue -- done npc-<id> --agent <name>`; hand back to the lead with one QA line per file (pose count, scale match, palette drift, anything off-model). Workers never edit `REVIEW.md`, `TRACKER.md`, `manifest.json` and never commit |
 | 7. queue for review | lead | **one `art/REVIEW.md` row per `npc-<id>` batch** (`needs review`, ADR 0008), linking the model sheet and every strip with their versions; `manifest.json` / `TRACKER.md` updated |
-| 8. pack + preview | lead | `npm run sprites npc` (once the packer mode exists; until then the raw files wait in `raw/`), check the frames and the report |
+| 8. pack + preview | lead | `node tools/pack-sprites.mjs npc --candidates`, then the game with `?art=custom` (local preview in the arena; the NPCs react to round start, supers, clashes and KOs); check the report |
 | 9. decision | user | approve the batch row, or name the files to redo; per-file approve / redo goes in that row's notes (chat or REVIEW.md) |
 | 10. record | lead | approved: copy the sheet to `reference/model_sheet.png` and the idle strip to `reference/idle_approved.png`, set `approvedVersion`. Rejected: move the file to `_rejected/` next to it, fix the REVIEW link, re-open the batch with the reason |
 | 11. commit | lead | explicit paths only: `art/npc/**`, `public/npc/**` (never `git add -A`) |
@@ -136,9 +140,9 @@ Run this on every image (30 seconds). If one item fails, regenerate instead of s
 ## QA after packing (lead)
 
 - [ ] Every frame inside x 4..123, y 4..124 (no clipped hand, fan, staff tip or hair).
-- [ ] Trimmed heights within about 4 px of the targets in ANIMATIONS.md, and the head the same size in
-      every animation (proposed packer rule: one scale and one feet anchor per NPC, both taken from
-      `idle`, so no animation changes the head size or slides the feet).
+- [ ] Trimmed heights match the targets in ANIMATIONS.md (the packer scales each strip so its tallest frame
+      equals its row's height, which also evens out scale drift between generated strips; a row without a height
+      takes idle's scale), and the head reads the same size in every animation.
 - [ ] Feet centered on x 64 and on y 124 in every frame: the NPC does not slide or hop between frames
       unless the pose says so.
 - [ ] Readable at 1x in the game buffer: the face and the identity props (sunglasses, beard, staff,
@@ -148,8 +152,10 @@ Run this on every image (30 seconds). If one item fails, regenerate instead of s
 
 ## How the engine will use them
 
-Engine work is Claude's (ADR 0008 "Claude's side"); this section is the brief for it, so the art can be
-drawn for the right job. Nothing below is wired yet.
+Wired on 2026-10-10 (ADR 0012): `src/world/worldArt.js` (`NPCS` placement table, `NPC_CUES` event table,
+`NpcSprite`) and the cue calls in `src/game/game.js`. Placement today: announcer at the gong (replaces the painted
+one), monk-a at the back-left ring corner, monk-b mirrored at the back-right corner, the vendor in the left
+stand's standing-room gap. The notes below were the brief.
 
 - **Loading.** An NPC loader reads `public/npc/<id>/anims.json` + `sheet.png` (cell, pivot, ppu and
   per-animation `frames` / `durations` / `loop`, like a fighter's anims.json) and draws each NPC as a
@@ -193,6 +199,6 @@ drawn for the right job. Nothing below is wired yet.
 
 ## Status
 
-Briefs and prompts: ready for all four NPCs. Engine loader, packer NPC mode and queue tool: Claude's
-side of ADR 0008 (pending). Per-asset status lives in [TRACKER.md](../TRACKER.md) and
-[manifest.json](../manifest.json), maintained by the Codex lead.
+Briefs and prompts: ready for all four NPCs. Engine loader, packer NPC mode and queue tool: done (ADR 0012).
+Per-asset status lives in [TRACKER.md](../TRACKER.md) and [manifest.json](../manifest.json), maintained by the
+Codex lead.

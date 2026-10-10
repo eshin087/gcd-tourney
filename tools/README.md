@@ -20,11 +20,12 @@ proportions, pivot `[128, 240]`, ppu 128. Where the numbers come from:
 ### Run it
 
 ```bash
-npm run sprites                 # every character in art/characters/ + the VFX atlas + the crowd atlas
+npm run sprites                 # every character in art/characters/ + every world-art kind (vfx, crowd, stage, npc, ui)
 npm run sprites naruto          # one character (several ids allowed: npm run sprites naruto sasuke)
 npm run sprites vfx             # only the VFX atlas (approved effects only)
 npm run sprites crowd           # only the crowd atlas (approved spectators only)
-node tools/pack-sprites.mjs vfx crowd --candidates   # every candidate -> public/preview/ (local, ?art=custom)
+npm run sprites stage npc ui    # approved stage slots, NPC sheets and shared UI images
+node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates   # every candidate -> public/preview/ (local, ?art=custom)
 npm run test:sprites            # packer regression test (never touches art/ or public/)
 ```
 
@@ -45,7 +46,7 @@ node tools/pack-sprites.mjs --dry-run naruto
 | `--tolerance <n>` | background color tolerance, RGB distance (default 72). Raise it if a pink halo remains, lower it if the character loses pink/purple pixels. |
 | `--no-writeback` | do not write cleaned frames back to `art/.../frames/<anim>/` |
 | `--strict` | exit code 2 when there are warnings (CI) |
-| `--candidates` | world art (VFX, crowd) is **approval-gated**: by default only effects / spectators with an `approvedVersion` in the manifest are packed, a newer unapproved source is warned and skipped, and a stale atlas is removed when nothing approved is left. `--candidates` packs every candidate (latest version) into `<out>/preview/vfx/` and `<out>/preview/crowd/` instead, leaving the shipped atlases alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
+| `--candidates` | world art (VFX, crowd, stage, NPC, UI) is **approval-gated**: by default only items with an `approvedVersion` in the manifest are packed, at that version (a newer candidate is noted in the report and waits), outputs whose approval is gone are removed, and an unreadable manifest leaves every world-art output untouched. `--candidates` packs every latest candidate into `<out>/preview/<kind>/` instead (an item without a candidate previews its approved image), leaving the shipped outputs alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
 | `--root <dir>` (`--src`, `--art`) | art folder to read (default `./art`). Used by tests. |
 | `--out <dir>` | public folder to write (default `./public`). Used by tests, so they never overwrite real characters. |
 | `--manifest <file>` | manifest to read (default `<root>/manifest.json`) |
@@ -269,7 +270,20 @@ version is the one packed, and its keys win over `raw/<anim>.json`. Put image-sp
   one scale per spectator so idle = its height class (`tiny` 44, `short` 58, `medium` 70, `tall` 78, `huge` 84 px),
   shrunk for the whole spectator only if a pose would rise above y 2 or exceed 64 px; each pose stands on y 94,
   centered on its feet; <= 24 colors per spectator (median cut), binary alpha. 21 spectators per row (`cell` = the
-  idle cell index). Not written yet: `art/crowd/frames/` write-back and per-batch contact sheets (TOOL-011).
+  idle cell index). Not written yet: `art/crowd/frames/` write-back and per-batch contact sheets (TOOL-021).
+
+- Stage (`art/stage/ASSETS.md`): `public/stage/<slot>.png` + `manifest.json` = `{ "source", "packer", "slots": { "<slot>":
+  { "file", "size": [w, h], "kind": "texture"|"cutout"|"sprite", "version" } } }` for the 30 slots in `STAGE_SLOTS`. Source per
+  approved slot: `final/<slot>.png`, else `review/<slot>_palette_vNN.png`, else `raw/_fit/<slot>_vNN.png` at the approved
+  version. The size must be exact (else warned, not shipped); textures are made opaque, cutouts/sprites keyed to alpha 0/255.
+- NPCs (`art/npc/README.md`): `public/npc/<id>/sheet.png` (8 columns of 128 px cells) + `anims.json` (`frameWidth` 128,
+  `pivot` [64, 124], `pixelsPerUnit` 80, `facing` "viewer-right", `animations: { name: { frames, durations, loop, version } }`).
+  The animation table of `art/npc/<id>/ANIMATIONS.md` gives the names, loop flags, frame times and target heights; each strip
+  (2 poses on magenta) is scaled to its own height row, feet on y 124, inside the 4 px margin, <= 32 colors per NPC. An NPC
+  without an approved `idle` is not packed (and its old output is removed).
+- Shared UI (`art/ui/README.md`): `public/ui/logo.png` (at most 640 x 240, alpha 0/255), `public/ui/title_art.png` (exactly
+  640 x 360, opaque) + `manifest.json` (`assets: { name: { file, size, version } }`). Approval: `sharedUi.<logo|titleArt>` or the
+  `worldArt.ui` batches; source `final/<asset>.png`, else `review/<asset>_palette_vNN.png` / `_fit_vNN.png`.
 
 ### `hitboxes.json` (optional, per character)
 

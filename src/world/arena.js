@@ -5,14 +5,32 @@ import { CROWD_PPU as PPU } from '../game/constants.js';
 import { RING_HALF, RING_TOP } from '../game/constants.js';
 import { hasArt, fetchAtlasJson } from '../core/artIndex.js';
 import { loadImage } from '../game/sprites.js';
+import { NPCS, NPC_CUES, NpcSprite } from './worldArt.js';
 
 const lambert = (map, extra = {}) => new THREE.MeshLambertMaterial({ map, ...extra });
+
+// Stage slots (art/stage/ASSETS.md): every painted texture is registered under its slot name, so packed stage
+// art can replace the image later without touching geometry or repeat counts (the world coverage stays the
+// same whatever the image size). Clones made by repeatTex join their base's slot.
+let slotTextures = new Map();
+const slotOf = new WeakMap();
+function slotTex(slot, tex) {
+  if (!slotTextures.has(slot)) slotTextures.set(slot, []);
+  slotTextures.get(slot).push(tex);
+  slotOf.set(tex, slot);
+  return tex;
+}
+const BANNER_SLOT = { 武: 'bannerBu', 道: 'bannerDo', 祭: 'bannerSai', 闘: 'bannerTo' };
+const LANTERN_SLOT = { 武: 'lanternBu', 祭: 'lanternSai' };
+const CLOUD_SLOTS = ['cloudA', 'cloudB', 'cloudC'];
+const TREE_SLOTS = ['treeRoundA', 'treeRoundB', 'treePine', 'treePalm'];
 
 function repeatTex(base, rx, ry) {
   const t = base.clone();
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
   t.repeat.set(rx, ry);
   t.needsUpdate = true;
+  if (slotOf.has(base)) slotTex(slotOf.get(base), t);
   return t;
 }
 
@@ -191,8 +209,10 @@ function makeCrowd(positions, atlas) {
   return crowd;
 }
 
-function billboard(canvas, w, h, x, y, z, ppu = PPU) {
-  const mat = new THREE.SpriteMaterial({ map: T.toTex(canvas), alphaTest: 0.5, transparent: false });
+function billboard(canvas, w, h, x, y, z, ppu = PPU, slot = null) {
+  const map = T.toTex(canvas);
+  if (slot) slotTex(slot, map);
+  const mat = new THREE.SpriteMaterial({ map, alphaTest: 0.5, transparent: false });
   const s = new THREE.Sprite(mat);
   s.center.set(0.5, 0);
   s.scale.set(w || canvas.width / ppu, h || canvas.height / ppu, 1);
@@ -223,6 +243,8 @@ function slopeAwning(len, depth, drop, mat, x, y, z) {
 }
 
 export function buildArena(scene) {
+  slotTextures = new Map();
+  const slots = slotTextures;
   const world = new THREE.Group();
   scene.add(world);
 
@@ -238,23 +260,23 @@ export function buildArena(scene) {
   sun.shadow.bias = -0.0008;
   world.add(sun, sun.target);
 
-  const sky = new THREE.Mesh(new THREE.SphereGeometry(400, 16, 12), new THREE.MeshBasicMaterial({ map: T.skyTexture(), side: THREE.BackSide, depthWrite: false, fog: false }));
+  const sky = new THREE.Mesh(new THREE.SphereGeometry(400, 16, 12), new THREE.MeshBasicMaterial({ map: slotTex('sky', T.skyTexture()), side: THREE.BackSide, depthWrite: false, fog: false }));
   sky.renderOrder = -10;
   world.add(sky);
   for (let i = 0; i < 9; i++) {
     const a = (i / 9) * Math.PI * 2 + 0.3;
-    const cl = billboard(T.cloudCanvas(100 + i), 0, 0, Math.cos(a) * 220, 40 + (i % 3) * 18, Math.sin(a) * 220, 1.4);
+    const cl = billboard(T.cloudCanvas(100 + i), 0, 0, Math.cos(a) * 220, 40 + (i % 3) * 18, Math.sin(a) * 220, 1.4, CLOUD_SLOTS[i % 3]);
     world.add(cl);
   }
 
   // ---------------------------------------------------------------- ground
-  const grassTex = T.grassTexture();
+  const grassTex = slotTex('grass', T.grassTexture());
   const grass = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), lambert(repeatTex(grassTex, 50, 50)));
   grass.rotation.x = -Math.PI / 2;
   grass.receiveShadow = true;
   world.add(grass);
 
-  const pathTex = T.pathTexture();
+  const pathTex = slotTex('path', T.pathTexture());
   const pathMat = (len) => lambert(repeatTex(pathTex, 2, len / 2));
   const path = (x, z, w, len) => {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, len), pathMat(len));
@@ -269,9 +291,9 @@ export function buildArena(scene) {
 
   // ---------------------------------------------------------------- ring
   const S = RING_HALF * 2;
-  const sideTex = T.ringSideTexture();
+  const sideTex = slotTex('ringSide', T.ringSideTexture());
   const sideMat = lambert(repeatTex(sideTex, S / 4, 1));
-  const topMat = lambert(T.ringTopTexture(S, 24));
+  const topMat = lambert(slotTex('ringTop', T.ringTopTexture(S, 24)));
   const ring = new THREE.Mesh(new THREE.BoxGeometry(S, RING_TOP, S), [sideMat, sideMat, topMat, sideMat, sideMat, sideMat]);
   ring.position.y = RING_TOP / 2;
   ring.receiveShadow = true;
@@ -280,25 +302,25 @@ export function buildArena(scene) {
   world.add(lip);
 
   // ---------------------------------------------------------------- temple
-  const plaster = T.plasterTexture();
+  const plaster = slotTex('plaster', T.plasterTexture());
   const plasterMat = (rx, ry) => lambert(repeatTex(plaster, rx, ry));
-  const woodTex = T.woodTexture();
+  const woodTex = slotTex('wood', T.woodTexture());
   const woodMat = lambert(repeatTex(woodTex, 1, 1));
-  const darkWoodMat = lambert(repeatTex(T.woodTexture('#6e4a2e'), 1, 1));
-  const roofTexBase = T.roofTexture('#5e4436');
+  const darkWoodMat = lambert(repeatTex(slotTex('woodDark', T.woodTexture('#6e4a2e')), 1, 1));
+  const roofTexBase = slotTex('roof', T.roofTexture('#5e4436'));
   const roofMat = lambert(repeatTex(roofTexBase, 16, 4));
-  const stoneTex = T.stoneBaseTexture();
+  const stoneTex = slotTex('stoneBase', T.stoneBaseTexture());
   const stoneMat = (rx, ry) => lambert(repeatTex(stoneTex, rx, ry));
 
   const TZ = -24;
   world.add(box(32, 0.9, 8, stoneMat(16, 1), 0, 0.45, TZ));
-  const facade = lambert(T.templeFacadeTexture());
+  const facade = lambert(slotTex('templeFacade', T.templeFacadeTexture()));
   const side = plasterMat(3, 3);
   world.add(box(28, 7, 6, [side, side, plasterMat(14, 3), side, facade, side], 0, 0.9 + 3.5, TZ));
   world.add(gableRoof(28, 6, 2.8, roofMat, 0, 7.9, TZ, 1.2));
   world.add(slopeAwning(28.6, 1.6, 0.7, roofMat, 0, 0.9 + 4.3, TZ + 3));
   // steps
-  const stepsTex = T.stepsTexture();
+  const stepsTex = slotTex('steps', T.stepsTexture());
   for (let i = 0; i < 3; i++) {
     world.add(box(6, 0.3 * (3 - i), 0.7, lambert(repeatTex(stepsTex, 3, 1)), 0, 0.15 * (3 - i), TZ + 4 + i * 0.7));
   }
@@ -306,7 +328,7 @@ export function buildArena(scene) {
   const banners = [['#c8323c', '#fff0d0', '武'], ['#2a4a8a', '#f4f4ff', '道'], ['#2a4a8a', '#f4f4ff', '祭'], ['#c8323c', '#fff0d0', '闘']];
   [-10.5, -6.5, 6.5, 10.5].forEach((x, i) => {
     const [bg, fg, g] = banners[i];
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 3.2), new THREE.MeshLambertMaterial({ map: T.bannerTexture(bg, fg, g), alphaTest: 0.5, side: THREE.DoubleSide }));
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 3.2), new THREE.MeshLambertMaterial({ map: slotTex(BANNER_SLOT[g], T.bannerTexture(bg, fg, g)), alphaTest: 0.5, side: THREE.DoubleSide }));
     m.position.set(x, 0.9 + 4.6, TZ + 3.05);
     world.add(m);
   });
@@ -316,7 +338,7 @@ export function buildArena(scene) {
   gong.add(box(0.25, 2.8, 0.25, darkWoodMat, -1.1, 1.4, 0, { cast: true }));
   gong.add(box(0.25, 2.8, 0.25, darkWoodMat, 1.1, 1.4, 0, { cast: true }));
   gong.add(box(2.7, 0.25, 0.3, darkWoodMat, 0, 2.75, 0, { cast: true }));
-  const disc = new THREE.Mesh(new THREE.CircleGeometry(0.85, 20), new THREE.MeshLambertMaterial({ map: T.gongTexture(), side: THREE.DoubleSide }));
+  const disc = new THREE.Mesh(new THREE.CircleGeometry(0.85, 20), new THREE.MeshLambertMaterial({ map: slotTex('gong', T.gongTexture()), side: THREE.DoubleSide }));
   disc.position.set(0, 1.65, 0);
   disc.castShadow = true;
   gong.add(disc);
@@ -324,10 +346,10 @@ export function buildArena(scene) {
   gong.rotation.y = 0.25;
   world.add(gong);
 
-  const parasolTex = T.parasolTexture();
+  const parasolTex = slotTex('parasol', T.parasolTexture());
   const parasol = (x, z) => {
     const g = new THREE.Group();
-    const cone = new THREE.Mesh(new THREE.ConeGeometry(1.7, 0.8, 16, 1, true), new THREE.MeshLambertMaterial({ map: repeatTex(parasolTex, 2, 1), side: THREE.DoubleSide }));
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(1.7, 0.8, 16, 1, true), new THREE.MeshLambertMaterial({ map: repeatTex(parasolTex, 2, 1), alphaTest: 0.5, side: THREE.DoubleSide }));
     cone.position.y = 2.7;
     cone.castShadow = true;
     g.add(cone);
@@ -340,10 +362,12 @@ export function buildArena(scene) {
   };
   parasol(-13.2, -15);
   parasol(13.2, -15);
-  world.add(billboard(bakeAnnouncer(), 0, 0, -11.8, 0, -14.4));
+  // the painted announcer; a packed announcer sheet (setNpcArt) replaces it
+  const announcer = billboard(bakeAnnouncer(), 0, 0, -11.8, 0, -14.4);
+  world.add(announcer);
 
   // ---------------------------------------------------------------- stands + crowd
-  const brickTex = T.brickTexture();
+  const brickTex = slotTex('brick', T.brickTexture());
   const crowdPos = [];
   const R = Math.random;
   const tierStep = 1.25, tierRise = 0.7, wallH = 1.25;
@@ -411,13 +435,13 @@ export function buildArena(scene) {
 
   // gate
   const gate = new THREE.Group();
-  const pillarMat = lambert(repeatTex(T.woodTexture('#8a5634'), 1, 3));
+  const pillarMat = lambert(repeatTex(slotTex('woodPillar', T.woodTexture('#8a5634')), 1, 3));
   gate.add(box(0.7, 5.4, 0.7, pillarMat, -3.4, 2.7, 0, { cast: true }));
   gate.add(box(0.7, 5.4, 0.7, pillarMat, 3.4, 2.7, 0, { cast: true }));
   gate.add(box(8.6, 0.45, 0.6, darkWoodMat, 0, 4.9, 0));
   gate.add(box(7.4, 0.3, 0.5, darkWoodMat, 0, 4.1, 0));
   gate.add(gableRoof(8.4, 1.6, 0.9, lambert(repeatTex(roofTexBase, 6, 2)), 0, 5.15, 0, 0.6));
-  const sign = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 1.1), new THREE.MeshLambertMaterial({ map: T.signTexture('天下一武闘祭'), side: THREE.DoubleSide }));
+  const sign = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 1.1), new THREE.MeshLambertMaterial({ map: slotTex('sign', T.signTexture('天下一武闘祭')), side: THREE.DoubleSide }));
   sign.position.set(0, 3.5, 0.36);
   gate.add(sign);
   const sign2 = sign.clone();
@@ -425,7 +449,7 @@ export function buildArena(scene) {
   sign2.rotation.y = Math.PI;
   gate.add(sign2);
   for (const [x, g] of [[-3.4, '武'], [3.4, '祭']]) {
-    const lan = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.95, 12), new THREE.MeshLambertMaterial({ map: T.lanternTexture(g) }));
+    const lan = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.95, 12), new THREE.MeshLambertMaterial({ map: slotTex(LANTERN_SLOT[g], T.lanternTexture(g)) }));
     lan.position.set(x, 2.6, 0.75);
     gate.add(lan);
     gate.add(box(0.5, 0.12, 0.5, darkWoodMat, x, 3.12, 0.75));
@@ -437,7 +461,7 @@ export function buildArena(scene) {
 
   // ---------------------------------------------------------------- trees
   const treeCanvases = [T.treeCanvas(3, 'round'), T.treeCanvas(4, 'round'), T.treeCanvas(5, 'pine'), T.treeCanvas(6, 'round')];
-  const treeMats = treeCanvases.map((c) => new THREE.SpriteMaterial({ map: T.toTex(c), alphaTest: 0.5 }));
+  const treeMats = treeCanvases.map((c, i) => new THREE.SpriteMaterial({ map: slotTex(TREE_SLOTS[i], T.toTex(c)), alphaTest: 0.5 }));
   const tree = (x, z, s) => {
     const sp = new THREE.Sprite(treeMats[Math.floor(Math.random() * treeMats.length)]);
     sp.center.set(0.5, 0);
@@ -461,6 +485,7 @@ export function buildArena(scene) {
   const hemiSky = hemi.color.clone();
   const dimSky = new THREE.Color('#3a2a6a');
   let prevExcite = 0, shockT = 0, lastT = null;
+  const npcs = [];
   return {
     group: world,
     sun,
@@ -478,6 +503,56 @@ export function buildArena(scene) {
       lastT = time;
       shockT = Math.max(0, shockT - dt);
       u.uShock.value = Math.min(1, shockT / 0.6);
+      for (const n of npcs) n.update(dt);
+    },
+    // packed stage art (worldArt.loadStageArt): Map(slot -> image). Returns the slots that were replaced.
+    applyStageArt(art) {
+      const used = [];
+      for (const [slot, img] of art) {
+        const list = slots.get(slot);
+        if (!list) continue;
+        for (const t of list) {
+          t.dispose(); // the GPU copy has the painter's size; a new size needs a fresh upload
+          t.image = img;
+          t.magFilter = t.minFilter = THREE.NearestFilter;
+          t.generateMipmaps = false;
+          t.colorSpace = THREE.SRGBColorSpace;
+          t.needsUpdate = true;
+        }
+        used.push(slot);
+      }
+      return used;
+    },
+    // packed NPC sheets (worldArt.loadNpcArt): Map(id -> { meta, image }). NPCs without a sheet are not placed.
+    setNpcArt(art) {
+      for (const n of npcs.splice(0)) {
+        world.remove(n.sprite);
+        unlit.delete(n.material);
+        n.dispose();
+      }
+      announcer.visible = true;
+      for (const def of NPCS) {
+        const a = art.get(def.id);
+        if (!a) continue;
+        let n;
+        try {
+          n = new NpcSprite(def, a);
+        } catch (e) {
+          console.warn(`[npc] ${def.id}: sheet could not be used, not placed`, e);
+          continue;
+        }
+        world.add(n.sprite);
+        unlit.add(n.material); // unlit like the crowd: darkens with it during super flashes
+        npcs.push(n);
+        if (def.replaces === 'announcer') announcer.visible = false;
+      }
+      return npcs.map((n) => n.def.id);
+    },
+    // a game event (NPC_CUES: intro, roundStart, super, ultimate, clash, ko, crash, roundEnd)
+    npcCue(kind) {
+      const cue = NPC_CUES[kind];
+      if (!cue) return;
+      for (const n of npcs) if (cue[n.def.id]) n.play(...cue[n.def.id]);
     },
     setCrowdAtlas(A) {
       crowd.setAtlas(A);

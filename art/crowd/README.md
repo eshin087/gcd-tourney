@@ -18,7 +18,7 @@ prompts: [PROMPTS.md](PROMPTS.md). Fighter-wide craft rules: [art/STYLE_GUIDE.md
 > spectators only (`approvedVersion` in `worldArt.crowd.batches` of `art/manifest.json`) into
 > `public/crowd/`; `node tools/pack-sprites.mjs crowd --candidates` packs every latest version into the
 > git-ignored `public/preview/crowd/` for review in a match with `?art=custom`. Per-batch contact sheets and
-> `frames/` write-back are not built yet (TOOL-011): until then the lead reviews raws directly.
+> `frames/` write-back are not built yet (TOOL-021): until then the lead reviews raws directly.
 
 ## Folder layout
 
@@ -233,7 +233,7 @@ The user reviews **batches, not single images**:
 
 1. The lead shows the batch's raws (the phone gallery, or the candidate atlas in a match with
    `?art=custom` after `node tools/pack-sprites.mjs crowd --candidates`). Per-batch contact sheets in
-   `art/crowd/contact/<batch>.png` come with TOOL-011.
+   `art/crowd/contact/<batch>.png` come with TOOL-021.
 2. The lead adds **one `art/REVIEW.md` row per batch** (`needs review`) linking the contact sheet,
    with the ids that workers flagged.
 3. The user answers in chat or in REVIEW.md: `approve crowd-dragon-ball-01`, or

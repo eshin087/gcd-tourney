@@ -368,6 +368,45 @@ function makeFixtures() {
     savePng(path.join(C, 'raw', '_rejected', 'c-002_v02.png'), crowdRaw([{}, {}, {}], 65));
   }
 
+  // stage slots, NPCs and shared UI (ADR 0012): approved items ship, the rest only with --candidates
+  {
+    const rand = mulberry(70);
+    const STG = path.join(ART, 'stage');
+    savePng(path.join(STG, 'review', 'grass_palette_v01.png'), image(256, 256, [70, 150, 60], rand, 6));
+    savePng(path.join(STG, 'raw', '_fit', 'grass_v02.png'), image(256, 256, [90, 170, 70], rand, 6)); // newer, not approved
+    const tree = image(192, 256, [255, 0, 255], rand, 1); // a sprite slot still on magenta: the packer keys it
+    rect(tree, 60, 40, 72, 180, [40, 110, 50], rand, 4);
+    savePng(path.join(STG, 'final', 'treePine.png'), tree);
+    savePng(path.join(STG, 'raw', '_fit', 'sky_v01.png'), image(20, 512, [120, 180, 240], rand, 2)); // wrong size: 16 x 512
+    const NP = path.join(ART, 'npc');
+    const npcStrip = (poses, seed) => {
+      const r = mulberry(seed);
+      const img = image(1536, 1024, [252, 3, 252], r);
+      poses.forEach((p, k) => drawFigure(img, 384 + k * 768, 900, p, r));
+      fringe(img, r);
+      return img;
+    };
+    const table = (rows) => `# test NPC\n\n| anim | what | frames | loop | ms per frame | height | engine trigger | fallback |\n|---|---|---|---|---|---|---|---|\n${rows}\n\nprose after the table | not a row |\n`;
+    fs.mkdirSync(path.join(NP, 'tester'), { recursive: true });
+    fs.writeFileSync(path.join(NP, 'tester', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 520, 520 | 100 | default | - |\n| [`wave`](#wave) | arm up | 2 | no (f0 wind-up, f1 held) | 180, 900 | 110 | round start | `idle` |\n| [`broken`](#broken) | half-written row | 2 |'));
+    savePng(path.join(NP, 'tester', 'raw', 'idle_v01.png'), npcStrip([{}, { bob: -1 }], 71));
+    savePng(path.join(NP, 'tester', 'raw', 'wave_v01.png'), npcStrip([{ up: 8 }, { up: 16 }], 72));
+    savePng(path.join(NP, 'tester', 'raw', 'idle_v02.png'), npcStrip([{ up: 30 }, { up: 30 }], 75)); // newer, not approved
+    fs.mkdirSync(path.join(NP, 'ghost'), { recursive: true });
+    fs.writeFileSync(path.join(NP, 'ghost', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 600, 600 | 90 | default | - |'));
+    savePng(path.join(NP, 'ghost', 'raw', 'idle_v01.png'), npcStrip([{}, {}], 73));
+    fs.mkdirSync(path.join(NP, 'redo'), { recursive: true });
+    fs.writeFileSync(path.join(NP, 'redo', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 600, 600 | 96 | default | - |'));
+    savePng(path.join(NP, 'redo', 'raw', 'idle_v02.png'), npcStrip([{}, { bob: -1 }], 74));
+    const UI = path.join(ART, 'ui');
+    const logo = image(300, 100, [0, 0, 0], rand, 0);
+    for (let i = 3; i < logo.data.length; i += 4) logo.data[i] = 0;
+    rect(logo, 19, 19, 262, 62, [171, 5, 196], rand, 0); // a 1 px magenta-blend fringe left by a fit script
+    rect(logo, 20, 20, 260, 60, [255, 176, 0], rand, 2);
+    savePng(path.join(UI, 'review', 'logo_palette_v01.png'), logo);
+    savePng(path.join(UI, 'review', 'title_art_fit_v01.png'), image(640, 360, [200, 140, 80], rand, 4));
+  }
+
   fs.writeFileSync(path.join(ART, 'manifest.json'), JSON.stringify({
     version: 1,
     spec: SPEC,
@@ -383,7 +422,11 @@ function makeFixtures() {
     worldArt: { crowd: { batches: {
       'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
-    } } },
+    } },
+    stage: { batches: { 'stage-grass': { items: { grass: { approvedVersion: 1 } } }, 'stage-treePine': { items: { treePine: { approvedVersion: 1 } } }, 'stage-sky': { items: { sky: { approvedVersion: 1 } } } } },
+    npc: { batches: { 'npc-tester': { items: { model_sheet: { approvedVersion: 1 }, idle: { approvedVersion: 1 }, wave: { approvedVersion: 1 } } }, 'npc-ghost': { items: { idle: { approvedVersion: null } } }, 'npc-redo': { items: { idle: { approvedVersion: null } } }, 'npc-redo-r1': { items: { idle: { approvedVersion: 2 } } } } },
+    ui: { batches: { 'ui-title_art': { items: { title_art: { approvedVersion: 1 } } } } } },
+    sharedUi: { logo: { approvedVersion: 1 }, titleArt: { approvedVersion: null } },
   }, null, 2));
 }
 
@@ -939,21 +982,89 @@ function main() {
   check(fs.existsSync(path.join(out12, 'preview', 'vfx', 'atlas.json')) && !fs.existsSync(path.join(out12, 'vfx')), 'run 13: candidate effects go to preview/vfx only');
   check(Buffer.compare(shipped, fs.readFileSync(path.join(out12, 'crowd', 'atlas.png'))) === 0, 'run 13: the shipped crowd atlas is untouched');
 
-  // run 14: nothing approved any more -> the shipped atlases are removed; a newer unapproved source is not packed
+  // run 15: stage, NPC and UI modes ship approved items only
+  const out15 = path.join(FIX, 'out15');
+  const r15 = pack(['--root', ART, '--out', out15, '--json', 'stage', 'npc', 'ui']);
+  const j15 = r15.json;
+  check(r15.code === 0 && j15?.stage && j15.npc && j15.ui && !j15.vfx && !j15.crowd && j15.characters.length === 0, `run 15: "stage npc ui" targets pack only those (exit ${r15.code}) ${r15.err}`);
+  if (j15?.stage) {
+    const sm = JSON.parse(fs.readFileSync(path.join(out15, 'stage', 'manifest.json'), 'utf8'));
+    check(Object.keys(sm.slots).sort().join() === 'grass,treePine' && sm.slots.grass.version === 1 && sm.slots.grass.size.join() === '256,256' && sm.source === 'approved',
+      `run 15: approved stage slots only, at the approved version (${Object.keys(sm.slots)}; grass v${sm.slots.grass?.version})`);
+    check(j15.stage.packed.find((p) => p.slot === 'grass')?.from === 'stage/review/grass_palette_v01.png', 'run 15: the approved version is packed, not the newer raw/_fit/grass_v02.png');
+    check(anyWarn(j15.stage.warnings, /sky_v01\.png is 20x512, the sky slot needs exactly 16x512/) && !fs.existsSync(path.join(out15, 'stage', 'sky.png')), 'run 15: a wrong-size slot image is warned and not shipped');
+    const tp = loadPng(path.join(out15, 'stage', 'treePine.png'));
+    let corner = tp.data[3], alphas = new Set();
+    for (let i = 3; i < tp.data.length; i += 4) alphas.add(tp.data[i]);
+    check(corner === 0 && [...alphas].sort((a, b) => a - b).join() === '0,255', 'run 15: a sprite slot on magenta is keyed to alpha 0/255');
+    const nm = JSON.parse(fs.readFileSync(path.join(out15, 'npc', 'tester', 'anims.json'), 'utf8'));
+    const ns = loadPng(path.join(out15, 'npc', 'tester', 'sheet.png'));
+    check(nm.frameWidth === 128 && nm.pivot.join() === '64,124' && nm.pixelsPerUnit === 80 && nm.columns === 8 && ns.w === 1024 && ns.h === 128, `run 15: NPC sheet shape (${ns.w}x${ns.h}, pivot ${nm.pivot})`);
+    check(JSON.stringify(nm.animations.idle) === JSON.stringify({ frames: [0, 1], durations: [520, 520], loop: true, version: 1 }) && nm.animations.wave.loop === false && nm.animations.wave.durations.join() === '180,900',
+      'run 15: animations, timing and loop flags come from the ANIMATIONS.md table');
+    const nb = [0, 1, 2, 3].map((i) => bb(cell(ns, i, 128, 8)));
+    check(nb.every((b) => b && b.y1 === 124 && b.x0 >= 4 && b.x1 <= 123 && b.y0 >= 4), `run 15: NPC feet on y 124, inside the 4 px margin (${nb.map((b) => `${b?.x0}-${b?.x1}/${b?.y0}-${b?.y1}`)})`);
+    check(Math.max(nb[0].h, nb[1].h) === 100 && Math.max(nb[2].h, nb[3].h) === 110, `run 15: each animation is scaled to its own target height (idle ${Math.max(nb[0].h, nb[1].h)}/100, wave ${Math.max(nb[2].h, nb[3].h)}/110)`);
+    check(!fs.existsSync(path.join(out15, 'npc', 'ghost')) && j15.npc.unapproved === 1, 'run 15: an NPC without an approved idle is not packed');
+    check(fs.existsSync(path.join(out15, 'npc', 'redo', 'anims.json')), 'run 15: an NPC approved only in its redo batch (npc-<id>-r1) is packed');
+    check(anyWarn(j15.npc.warnings, /tester: the ANIMATIONS\.md row for broken has 3 columns/) && !nm.animations.broken, 'run 15: a short ANIMATIONS.md row is warned and skipped, not fatal');
+    const lg = loadPng(path.join(out15, 'ui', 'logo.png'));
+    let magenta = 0;
+    for (let i = 0; i < lg.data.length; i += 4) if (lg.data[i + 3] && lg.data[i] > 150 && lg.data[i + 1] < 40 && lg.data[i + 2] > 150) magenta++;
+    check(magenta === 0 && j15.ui.packed.find((p) => p.asset === 'logo')?.notes.some((n) => /magenta fringe px removed/.test(n)), `run 15: the magenta fringe on a keyed cutout is removed (${magenta} left)`);
+    const um = JSON.parse(fs.readFileSync(path.join(out15, 'ui', 'manifest.json'), 'utf8'));
+    check(Object.keys(um.assets).join() === 'logo,title_art' && um.assets.logo.size.join() === '300,100' && um.assets.title_art.size.join() === '640,360',
+      'run 15: approved UI images ship (logo via sharedUi.logo, title_art via its worldArt.ui batch)');
+    const tester = j15.npc.packed.find((p) => p.id === 'tester');
+    check(nm.animations.idle.version === 1 && tester?.notes.some((n) => /idle: newer candidate v02 not shipped/.test(n)), 'run 15: an NPC ships its approved idle v01 while a newer v02 waits (noted)');
+  }
+  // run 16: --candidates packs every latest candidate into preview/ and leaves out15's shipped files alone
+  const grassShipped = fs.readFileSync(path.join(out15, 'stage', 'grass.png'));
+  const r16 = pack(['--root', ART, '--out', out15, '--json', '--candidates', 'stage', 'npc', 'ui']);
+  const pm16 = r16.code === 0 && JSON.parse(fs.readFileSync(path.join(out15, 'preview', 'stage', 'manifest.json'), 'utf8'));
+  check(pm16 && pm16.slots.grass.version === 2 && pm16.slots.treePine?.version === 1 && pm16.source === 'candidates', `run 16: stage candidates = the highest review/ or raw/_fit/ version; a slot without one previews its approved final/ (${pm16 && Object.keys(pm16.slots)})`);
+  check(fs.existsSync(path.join(out15, 'preview', 'npc', 'ghost', 'anims.json')) && fs.existsSync(path.join(out15, 'preview', 'ui', 'title_art.png')), 'run 16: unapproved NPCs and UI images are previewed');
+  check(Buffer.compare(grassShipped, fs.readFileSync(path.join(out15, 'stage', 'grass.png'))) === 0, 'run 16: the shipped stage image is untouched');
+  // run 17: an unreadable manifest means unknown approvals - shipped world art is left as it is
+  const m17 = path.join(FIX, 'manifest-conflict.json');
+  fs.writeFileSync(m17, '<<<<<<< HEAD\n{ "broken": ');
+  const r17 = pack(['--root', ART, '--out', out15, '--manifest', m17, '--json', 'stage', 'npc', 'ui']);
+  check(r17.code === 0 && anyWarn(r17.json?.stage?.warnings || [], /approvals unknown, stage output left untouched/) && !r17.json.stage.removed.length
+    && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'ui/logo.png'].every((f) => fs.existsSync(path.join(out15, f))), 'run 17: an unreadable manifest never removes shipped world art');
+
+  // run 13b: an approved effect ships at its approved version while a newer candidate waits for review
+  const m13 = path.join(FIX, 'manifest-spark-v1.json');
+  const man13 = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
+  for (const e of Object.values(man13.vfx.effects)) delete e.approvedVersion;
+  man13.vfx.effects.spark.approvedVersion = 1;
+  fs.writeFileSync(m13, JSON.stringify(man13));
+  const r13b = pack(['--root', ART, '--out', path.join(FIX, 'out13'), '--manifest', m13, '--no-writeback', '--json', 'vfx']);
+  const sp13 = r13b.json?.vfx.packed.find((p) => p.effect === 'spark');
+  check(sp13?.source === 'raw/spark_v01.png' && sp13.version === 1 && sp13.notes.some((n) => /newer candidate v02 not shipped/.test(n)) && r13b.json.vfx.unapproved.includes('flame') && !r13b.json.vfx.unapproved.includes('spark'),
+    `run 13b: the approved spark v01 ships although v02 exists (${sp13?.source})`);
+
+  // run 13c: --candidates ignores the gate: an unapproved effect and the newest spark are previewed
+  const r13c = pack(['--root', ART, '--out', path.join(FIX, 'out13'), '--manifest', m13, '--no-writeback', '--json', '--candidates', 'vfx']);
+  const pa13 = r13c.code === 0 && JSON.parse(fs.readFileSync(path.join(FIX, 'out13', 'preview', 'vfx', 'atlas.json'), 'utf8'));
+  check(pa13 && pa13.anims.flame && pa13.anims.spark?.n === 5 && r13c.json.vfx.unapproved.length === 0, `run 13c: candidates preview every effect at its newest version (spark ${pa13 && pa13.anims.spark?.n} frames)`);
+
+  // run 14: nothing approved any more -> the shipped outputs are removed
   const m14 = path.join(FIX, 'manifest-unapproved.json');
   const man14 = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
   for (const e of Object.values(man14.vfx.effects)) delete e.approvedVersion;
-  man14.vfx.effects.spark.approvedVersion = 1;
   delete man14.worldArt;
+  delete man14.sharedUi;
   fs.writeFileSync(m14, JSON.stringify(man14));
   const r14dry = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', '--dry-run', 'vfx', 'crowd']);
   check(r14dry.json?.vfx.removed.length === 2 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), 'run 14: --dry-run only reports the stale atlas');
-  const r14 = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', 'vfx', 'crowd']);
+  const shippedBefore = ['stage/grass.png', 'npc/tester/sheet.png', 'ui/logo.png'].every((f) => fs.existsSync(path.join(OUT, f)));
+  const r14 = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', 'vfx', 'crowd', 'stage', 'npc', 'ui']);
   const v14 = r14.json?.vfx;
-  check(v14 && v14.packed.length === 0 && v14.unapproved.includes('flame') && v14.unapproved.includes('spark') && anyWarn(v14.warnings, /spark: the source is v02 but v01 is approved/),
-    `run 14: unapproved effects and a newer unapproved spark version are not packed (${v14?.unapproved})`);
+  check(v14 && v14.packed.length === 0 && v14.unapproved.includes('flame') && v14.unapproved.includes('spark'), `run 14: unapproved effects are not packed (${v14?.unapproved})`);
   check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
     'run 14: stale vfx and crowd atlases removed (the game falls back to procedural art)');
+  check(shippedBefore && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'npc/tester/anims.json', 'ui/logo.png', 'ui/manifest.json'].every((f) => !fs.existsSync(path.join(OUT, f))),
+    'run 14: stage, NPC and UI outputs whose approval is gone are removed');
 
   return finish();
 }

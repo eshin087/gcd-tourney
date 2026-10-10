@@ -40,3 +40,13 @@ Windows sandbox restrictions prevented browser launch and communication with the
 - Browser mobile viewport testing is not a physical-phone gameplay or performance test. No balance soak or controller hardware test is claimed.
 
 Recommendation: review the complete batch in motion, especially aerial transitions, high attacks and Rasengan alignment. Reply `approve Naruto final batch` or list changes. New art remains provisional until that decision.
+
+## Integration check (Claude, 2026-10-10)
+
+- Rasengan alignment: fixed in the engine with per-frame hand anchors (`hand` in `hitboxes.json`, ADR 0012). The orb
+  forms between the cupped hands on special f0-2 (anchors ~[168,116] / [174,124] / [164,111]) and rides the palm's hit
+  box on the active frames; Rasenshuriken sits on the raised palm (specialForward f0-1), shuriken leave the hand
+  (throw f1-2), Rasen Cannon starts at the palms (beamFire f0-2). Checked in the browser. The short-hair design is
+  unchanged (the sheet re-packed byte-identical; only box data changed).
+- Reach: all kit moves connect in training; 144 CPU matches with the art packs ran without errors (ADR 0011 log run
+  10-11).

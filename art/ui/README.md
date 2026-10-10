@@ -88,12 +88,14 @@ Alternatively, keep the subtitle as the styled HTML text the title screen alread
 4. Save in `final/`, update REVIEW.md, TRACKER.md and manifest.json (`sharedUi`: `version`,
    `approvedVersion`, `status`).
 
-## Integration (not wired yet)
+## Integration
 
-The game does not load these files yet. When the first one is approved, open a task for Claude in
-`docs/TASKS.md`: copy to `public/ui/` and show it on the title screen (`src/ui/menus.js`) with
-`image-rendering: pixelated` at an integer scale. Until then the title screen keeps its current
-text logo.
+`npm run sprites ui` ships the **approved** images (`approvedVersion` in `sharedUi.<logo|titleArt>` or the
+`worldArt.ui` batches): `final/<asset>.png`, else the approved version's `review/<asset>_palette_vNN.png` /
+`_fit_vNN.png`, to `public/ui/<asset>.png` + `manifest.json` (the logo at most 640 x 240 with alpha 0/255, the title
+art exactly 640 x 360, opaque). The title screen (`src/ui/menus.js`) then shows the logo image instead of the CSS
+logo and the key art behind it, pixelated. `node tools/pack-sprites.mjs ui --candidates` + `?art=custom` previews
+unapproved candidates locally. Without an approved image the text logo stays.
 
 ## Backlog (not in the manifest yet)
 

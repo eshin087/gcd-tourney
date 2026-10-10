@@ -11,7 +11,8 @@
   QA numbers for the lead and Claude; the prompt describes the same poses in words.
 - **R / L** are the vendor's own right / left. He mostly faces the viewer, so **R is on the image's
   left** and **L is on the image's right**.
-- **height** = trimmed height of the tallest frame in px.
+- **height** = trimmed height of the tallest frame in px. The packer scales each strip so its tallest frame equals this value
+  (generated strips drift in scale between images); a row without a height takes idle's scale.
 
 ## Rules
 

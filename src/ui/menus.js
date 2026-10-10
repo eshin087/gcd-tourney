@@ -159,13 +159,16 @@ export class Menus {
     this.clear();
     this.screen = 'title';
     this.root.classList.add('title-screen');
+    // packed title art (npm run sprites ui) replaces the CSS logo / sits behind it; without it the text logo stays
+    const art = this.game.uiArt;
     this.root.innerHTML = `
+      ${art?.titleArt ? `<img class="title-art" src="${art.titleArt}" alt="">` : ''}
       <div class="logo">
-        <div class="logo-main" data-t="GCD TOURNEY">GCD TOURNEY</div>
-        <div class="logo-sub">天下一武闘祭</div>
+        ${art?.logo ? `<img class="logo-img" src="${art.logo}" alt="GCD TOURNEY 天下一武闘祭">` : `<div class="logo-main" data-t="GCD TOURNEY">GCD TOURNEY</div>
+        <div class="logo-sub">天下一武闘祭</div>`}
       </div>
       <div class="press">${this.game.input.lastDevice === 'touch' ? 'TAP TO START' : 'PRESS ENTER / START'}</div>
-      <div class="foot">HD-2D anime arena fighter · tech demo · placeholder art</div>`;
+      <div class="foot">HD-2D anime arena fighter · tech demo · art in progress</div>`;
     const go = () => {
       audio.init();
       audio.play('gong');
@@ -176,6 +179,11 @@ export class Menus {
     this.ctrl = { confirm: go, pause: go };
   }
 
+  // Row of a mode on the SELECT MODE list (for going back to it with the cursor in place).
+  modeIndex(mode) {
+    return Math.max(0, MODE_ORDER.indexOf(mode));
+  }
+
   modeSelect(index = 0) {
     this.clear();
     this.screen = 'mode';
@@ -184,6 +192,7 @@ export class Menus {
     const { box, ctrl } = this.list([
       { label: 'VS CPU', sub: 'fight the computer', action: () => this.charSelect('solo') },
       { label: '2 PLAYERS', sub: 'same keyboard or two gamepads', action: () => this.charSelect('versus') },
+      { label: 'CPU VS CPU', sub: 'sit back and watch two hard CPUs fight', action: () => this.charSelect('cpu') },
       { label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind', action: () => this.game.startTraining() },
       { label: 'SPRITE LAB', sub: 'preview & export sprite sheets', action: () => window.open('/sprites.html', '_blank') },
     ], { index, back: () => this.title() });
@@ -311,7 +320,7 @@ export class Menus {
     audio.play('ui');
   }
 
-  // mode: 'solo' | 'versus' | 'training'. onBack overrides where Esc on the first pick goes.
+  // mode: 'solo' | 'versus' | 'cpu' | 'training'. onBack overrides where Esc on the first pick goes.
   charSelect(mode, onBack = null) {
     this.clear();
     this.screen = 'chars';
@@ -323,14 +332,18 @@ export class Menus {
     let cursor = 0;
     let step = 0; // 0 = P1 picking, 1 = P2/CPU picking, 2 = difficulty
     const picks = [null, null];
-    let level = 1;
+    const cpuLevel = mode === 'solo' || mode === 'cpu'; // modes with a difficulty step
+    let level = mode === 'cpu' ? 2 : 1; // spectating defaults to HARD: the point is to watch the best bots
     const levels = ['EASY', 'NORMAL', 'HARD'];
+    const tags = { solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'], training: ['P1', 'DUMMY'] }[mode] || ['P1', 'P2'];
+    const who = { solo: ['P1', 'Pick the CPU opponent'], cpu: ['Pick CPU 1', 'Pick CPU 2'], training: ['P1', 'Pick the training dummy'] }[mode] || ['P1', 'P2'];
+    const go = mode === 'cpu' ? 'WATCH' : 'FIGHT';
 
-    const title = el('div', 'screen-title', 'CHOOSE YOUR FIGHTER');
+    const title = el('div', 'screen-title', mode === 'cpu' ? 'CHOOSE THE FIGHTERS' : 'CHOOSE YOUR FIGHTER');
     const wrap = el('div', 'cs-wrap');
     const sides = [0, 1].map((i) => {
       const s = el('div', `cs-side s${i + 1}`);
-      const tag = el('div', 'cs-tag', i === 0 ? 'P1' : mode === 'solo' ? 'CPU' : mode === 'training' ? 'DUMMY' : 'P2');
+      const tag = el('div', 'cs-tag', tags[i]);
       const cv = document.createElement('canvas');
       cv.width = assets[0].meta.frameWidth; cv.height = assets[0].meta.frameHeight;
       cv.className = 'cs-sprite';
@@ -410,9 +423,9 @@ export class Menus {
       diff.innerHTML = `<span class="arrow">◀</span> CPU LEVEL: <b>${levels[level]}</b> <span class="arrow">▶</span>`;
       const touchUi = this.game.input.lastDevice === 'touch';
       hint.textContent = touchUi
-        ? step === 2 ? 'Tap ◀ ▶ to change the level · tap the level to FIGHT' : 'Tap a fighter to pick'
-        : step === 2 ? 'Left/Right to change · Enter to FIGHT · Esc to go back'
-        : `${step === 0 ? 'P1' : mode === 'solo' ? 'Pick the CPU opponent' : mode === 'training' ? 'Pick the training dummy' : 'P2'} · Arrows/WASD to move · Enter to select · Esc to go back`;
+        ? step === 2 ? `Tap ◀ ▶ to change the level · tap the level to ${go}` : 'Tap a fighter to pick'
+        : step === 2 ? `Left/Right to change · Enter to ${go} · Esc to go back`
+        : `${who[step]} · Arrows/WASD to move · Enter to select · Esc to go back`;
     };
 
     const confirm = () => {
@@ -426,7 +439,7 @@ export class Menus {
       } else if (step === 1) {
         picks[1] = cursor;
         showSide(1, cursor, 'taunt');
-        if (mode === 'solo') step = 2;
+        if (cpuLevel) step = 2;
         else if (mode === 'training') return this.game.startTraining({ p1: roster[picks[0]].id, p2: roster[picks[1]].id });
         else return this.game.startMatch({ mode, p1: roster[picks[0]].id, p2: roster[picks[1]].id });
       } else {
@@ -450,7 +463,7 @@ export class Menus {
       confirm,
       back: () => {
         audio.play('ui');
-        if (step === 0) return onBack ? onBack() : this.modeSelect(mode === 'solo' ? 0 : mode === 'training' ? 2 : 1);
+        if (step === 0) return onBack ? onBack() : this.modeSelect(this.modeIndex(mode));
         step--;
         picks[step] = null;
         if (step === 0) showSide(1, null);

@@ -46,3 +46,11 @@ User approved the latest 46 versions in progress.json on 2026-10-09. Expression/
 No deployment was made in this approval step.
 
 Commit status: not committed or staged. User requested work stay inside the writable project folder without permission prompts. Protected Git writes and deployment are deferred; the scoped shared-file patch is preserved in staging/approval.patch. All art approvals and local installation are complete.
+
+## Integration check (Claude, 2026-10-10)
+
+- Committed in 5f17ce9 (the commit status above is superseded); `staging/` and `status-approved.txt` were left out.
+- Hand anchors for throw f1-2 and beamFire f0-2 (Narukami and Lightning Palm start at the drawn hand), ADR 0012.
+- light4 f3 and airLight3 f2 hit boxes now cover the kicking foot and the leading arc, not the smear trail behind the
+  leg (it reached knee height).
+- 144 CPU matches with the art packs: Killua 58 %, no errors (ADR 0011 log run 10-11).

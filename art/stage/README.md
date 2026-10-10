@@ -53,8 +53,13 @@ art/stage/
   final/<slot>.png              the approved image, exact size (Codex lead only)
 ```
 
-The game never reads `art/`. The packer copies `final/*.png` to `public/stage/<slot>.png` and writes
-`public/stage/manifest.json` (slot -> file, size). `raw/_fit/` is created on first use (the fit script makes it).
+The game never reads `art/`. `npm run sprites stage` ships the **approved** slots only (`approvedVersion` in the
+manifest's `worldArt.stage` batches): it takes `final/<slot>.png`, else the approved version's
+`review/<slot>_palette_vNN.png` or `raw/_fit/<slot>_vNN.png`, checks the exact size, keys cutouts to alpha 0/255 and
+writes `public/stage/<slot>.png` + `public/stage/manifest.json` (`{ "slots": { "<slot>": { "file", "size", "kind",
+"version" } } }`). `node tools/pack-sprites.mjs stage --candidates` packs the latest candidate of every slot into the
+git-ignored `public/preview/stage/` instead; open the game with `?art=custom` to see them in the arena.
+`raw/_fit/` is created on first use (the fit script makes it).
 
 ## How a slot flows
 
@@ -91,13 +96,13 @@ One slot per batch; the batch id is `stage-<slot>` (for example `stage-grass`).
 1. Adds one `art/REVIEW.md` row per finished batch (links to the fit and its 2 x 2 preview).
 2. **Never put an unapproved candidate in `final/`** (final = approved only; the packer copies it to
    `public/stage/`, where it could be committed). Review candidates from `raw/_fit/` (fit + 2 x 2 preview).
-   An in-game preview of an unapproved fit needs an engine debug override (proposed:
-   `?debug&stage=<slot>:<path>`); until Claude ships it, ask for it with a `docs/TASKS.md` row and review
-   the images only.
-3. When the user approves: copy `raw/_fit/<slot>_vNN.png` to `final/<slot>.png`, run `npm run sprites stage`,
-   update REVIEW / TRACKER / manifest, and commit with explicit paths only (`art/stage/...`,
+   To see unapproved fits in the arena: `node tools/pack-sprites.mjs stage --candidates`, then open the game
+   with `?art=custom` (local only; `public/preview/` is never committed or deployed).
+3. When the user approves: copy `raw/_fit/<slot>_vNN.png` to `final/<slot>.png`, set `approvedVersion` in the
+   manifest (the packer ships approved slots only), run `npm run sprites stage`,
+   update REVIEW / TRACKER, and commit with explicit paths only (`art/stage/...`,
    `public/stage/...`; never `git add -A`; retry on `index.lock`).
-4. On a rejection: move the rejected raw, its fit and its preview to `raw/_rejected/` (the queue README's
+4. On a rejection: move the rejected raw, its fit, its preview and its `review/<slot>_palette_vNN.png` to `raw/_rejected/` (the queue README's
    [redo steps](../queue/README.md#rejections-and-redo)), then
    `npm run queue -- reopen stage-<slot> --note "<what to change>"`. The redo worker makes the next version
    (if a rejected file is still in `raw/`, it moves it first, per queue worker-loop step 3).
@@ -140,7 +145,8 @@ Most slots repeat many times (the grass tile 2,500 times), so any seam turns int
 The engine loads `public/stage/manifest.json` and replaces each listed slot with its image. A slot that is
 not listed keeps its procedural painter silently (most slots start that way). A listed file that is missing
 or unreadable also falls back to the painter, with one `[stage]` console line; the arena never breaks because
-of art. Delete a final (and re-pack) to go back to the procedural version of that slot.
+of art. To go back to the procedural version of a slot, clear its `approvedVersion` in the manifest (and delete
+`final/<slot>.png`), then re-pack: the packer removes `public/stage/<slot>.png`.
 
 ## Reference fit script
 

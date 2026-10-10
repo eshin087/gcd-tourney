@@ -121,7 +121,7 @@ and [SPEC.md](SPEC.md). Both use the versioned names of ADR 0007.
 ## Production plan
 
 **Phase 0: tools (Claude).** The claim queue (`tools/queue.mjs`, `npm run queue`), the packer's world
-modes (`npm run sprites crowd|stage|npc`; `crowd` exists since 2026-10-10 and packs approved spectators only) and the engine
+modes (`npm run sprites crowd|stage|npc|ui`, all since 2026-10-10: approved art only, `--candidates` for a local preview) and the engine
 loaders (crowd atlas, stage overrides, NPC sheets, UI images). Claude builds these in parallel with
 production; art never waits for them, because the raw files are the source and can be packed later.
 If `npm run queue` is not wired yet, `node tools/queue.mjs <command>` does the same. If a packer mode is

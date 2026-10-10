@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { buildArena, loadCrowdAtlas } from '../world/arena.js';
+import { loadStageArt, loadNpcArt, loadUiArt } from '../world/worldArt.js';
 import { loadArtIndex } from '../core/artIndex.js';
 import { buildTrainingRoom } from '../world/trainingRoom.js';
 import { buildVoidStage } from '../world/voidStage.js';
@@ -95,6 +96,11 @@ export class Game {
       this.arena.setCrowdAtlas(crowd);
       console.info(`[crowd] using custom crowd atlas (${crowd.entries.length} spectators, ${this.arena.seats} seats)`);
     }
+    // stage slots, NPCs and title art (ADR 0012): approved packs only, ?art=custom shows local candidates
+    const [stage, npcs, ui] = await Promise.all([loadStageArt(), loadNpcArt(), loadUiArt()]);
+    if (stage) console.info(`[stage] custom slots${stage.preview ? ' (candidates)' : ''}: ${this.arena.applyStageArt(stage.slots).join(', ')}`);
+    if (npcs.size) console.info(`[npc] placed ${this.arena.setNpcArt(npcs).join(', ')}${[...npcs.values()].some((n) => n.preview) ? ' (candidates)' : ''}`);
+    this.uiArt = ui;
     this.rosterAssets = [];
     for (const c of ROSTER) this.rosterAssets.push(await loadFighterAsset(c, this.renderer.renderer));
     // hi-res art packs get the sharper render mode (override with ?res=pixel or ?res=hd)
@@ -184,6 +190,7 @@ export class Game {
   }
 
   onSuperStart(f, S) {
+    this.arena.npcCue('super');
     this.superFlashFor(f, S.flash, 0.78, true, S.name);
     this.fx.overlay.flash(S.color || f.def.color, 0.45);
     this.excite = 1;
@@ -196,6 +203,7 @@ export class Game {
 
   // Domain Expansion: Unlimited Void: the void replaces the stage and the opponent is frozen.
   startDomain(f, S) {
+    this.arena.npcCue('super');
     const o = f.opp;
     this.domain = { owner: f, t: S.len };
     this.setStage('void');
@@ -317,6 +325,7 @@ export class Game {
   }
 
   beginIntro() {
+    this.arena.npcCue('intro');
     this.setState('intro');
     this.inputLive = false;
     this.cam.set('intro');
@@ -602,6 +611,7 @@ export class Game {
     const act = (f) => f.state === 'attack' && f.move?.special && f.t >= f.move.startup && f.t < f.move.startup + f.move.active;
     if (!act(a) || !act(b)) return;
     if (Math.hypot(a.pos.x - b.pos.x, a.pos.z - b.pos.z) > 1.6) return;
+    this.arena.npcCue('clash');
     const mid = v3.set((a.pos.x + b.pos.x) / 2, Math.max(a.pos.y, b.pos.y) + 0.9, (a.pos.z + b.pos.z) / 2);
     this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xbfe0ff));
     this.fx.debris(mid.x, mid.z, 12, 1.2);
@@ -651,6 +661,7 @@ export class Game {
   }
 
   fireBeam(f) {
+    this.arena.npcCue('clash');
     const b = new Beam(this, f);
     this.beams.push(b);
     if (this.cam.mode === 'focus') this.cam.set('fight');
@@ -671,6 +682,7 @@ export class Game {
   }
 
   startClash(A, B) {
+    this.arena.npcCue('clash');
     const span = A.origin.distanceTo(B.origin);
     const c = { a: A, b: B, t: THREE.MathUtils.clamp(A.len / (A.len + B.len), 0.3, 0.7), timer: 0, point: new THREE.Vector3(), span };
     this.clash = c;
@@ -878,6 +890,7 @@ export class Game {
   }
 
   onUltimateStart(f, counter) {
+    this.arena.npcCue('ultimate');
     this.cam.set('focus', f);
     this.superFlashFor(f, ULTIMATE.flash, 0.72, true);
     this.fx.overlay.flash(f.def.color, 0.4);
@@ -886,6 +899,7 @@ export class Game {
   }
 
   triggerKO(loser, winner) {
+    this.arena.npcCue('ko');
     this.koTriggered = true;
     this.inputLive = false;
     this.roundWinner = winner;
@@ -904,6 +918,7 @@ export class Game {
   }
 
   onKOCrash(f, speed) {
+    this.arena.npcCue('crash');
     const y = f.pos.y + 0.8;
     this.fx.explosion(f.pos.x, y, f.pos.z, new THREE.Color(0xfff0d0));
     this.fx.debris(f.pos.x, f.pos.z, 16, 1.4);
@@ -965,6 +980,7 @@ export class Game {
           audio.play('gong');
           audio.play('cheer');
           this.excite = 0.8;
+          this.arena.npcCue('roundStart');
           this.inputLive = true;
           for (const p of this.pads) p.clear();
           this.setState('fight');
@@ -1013,6 +1029,7 @@ export class Game {
   }
 
   roundOver(w) {
+    this.arena.npcCue('roundEnd');
     w.wins++;
     this.setState('roundEnd');
     this.timeScale = 1;

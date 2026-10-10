@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 // GCD Tourney sprite packer: art/ (ChatGPT output) -> public/ (what the game loads).
 //
-//   npm run sprites                 pack every character + the VFX atlas
+//   npm run sprites                 pack every character + every world-art kind (vfx, crowd, stage, npc, ui)
 //   npm run sprites naruto          pack one character (several ids allowed)
 //   npm run sprites vfx             pack only the VFX atlas (approved effects only)
 //   npm run sprites crowd           pack only the crowd atlas (approved spectators only)
-//   npm run sprites -- --candidates also pack unapproved effects/spectators into public/preview/ (?art=custom)
+//   npm run sprites stage npc ui    pack the approved stage slots, NPC sheets and shared UI images
+//   npm run sprites -- --candidates world art: pack every latest candidate into public/preview/ instead of the
+//                                   shipped folders (git-ignored; the game shows it with ?art=custom)
 //   npm run sprites -- --dry-run    report only, write nothing
 //
 // See tools/README.md for every option, art/SPEC.md for the sprite spec and
@@ -120,12 +122,12 @@ const HELP = `GCD Tourney sprite packer  (art/ -> public/)
 usage: node tools/pack-sprites.mjs [targets...] [options]
        npm run sprites [targets...] [-- options]
 
-targets   character ids (folder names under art/characters/), "vfx", "crowd", or "all"
-          (default: every character + vfx + crowd)
+targets   character ids (folder names under art/characters/), "vfx", "crowd", "stage", "npc", "ui", or "all"
+          (default: every character + every world-art kind)
 
 options
   --root <dir>      art folder to read (default: ./art). Aliases: --src, --art
-  --out <dir>       public folder to write (default: ./public) -> <out>/characters/<id>/, <out>/vfx/, <out>/crowd/
+  --out <dir>       public folder to write (default: ./public) -> <out>/characters/<id>/, <out>/vfx|crowd|stage|npc|ui/
   --manifest <file> manifest to read (default: <root>/manifest.json; falls back to src/art/animGuide.js)
   --guide <file>    animation guide module (default: src/art/animGuide.js)
   --dry-run         analyse and report, write nothing
@@ -135,10 +137,10 @@ options
   --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
                     raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
                     Also raises "version" to the highest raw/<anim>_vNN.png found ("approvedVersion" is never touched).
-  --candidates      world art (vfx, crowd) is approval-gated: by default only effects/spectators with an
-                    "approvedVersion" in the manifest are packed, and a stale atlas is removed when none
-                    are approved. --candidates packs every candidate into <out>/preview/vfx|crowd/
-                    instead (git-ignored, local review with ?art=custom); public/vfx|crowd stay untouched.
+  --candidates      world art (vfx, crowd, stage, npc, ui) is approval-gated: by default only items with an
+                    "approvedVersion" in the manifest are packed, and stale outputs are removed when their
+                    approval is gone. --candidates packs every latest candidate into <out>/preview/<kind>/
+                    instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
   -h, --help        this help
@@ -1045,14 +1047,14 @@ function scanRaw(rawDir, knownNames, warn, label) {
   return idx;
 }
 
-// The raw source of one animation, in order: the highest raw/<anim>_vNN.png, else raw/<anim>.png, else the
-// raw/<anim>_NN.png singles. Sidecars: raw/<anim>.json applies to every source of the animation; a versioned
-// strip's own raw/<anim>_vNN.json is merged on top (its keys win).
-function pickRaw(entry, name) {
+// The raw source of one animation, in order: the highest raw/<anim>_vNN.png (or version `want` when it exists, e.g.
+// the approved one), else raw/<anim>.png, else the raw/<anim>_NN.png singles. Sidecars: raw/<anim>.json applies to
+// every source of the animation; a versioned strip's own raw/<anim>_vNN.json is merged on top (its keys win).
+function pickRaw(entry, name, want = null) {
   if (!entry) return null;
   const sidecars = entry.sidecar ? [entry.sidecar] : [];
   if (entry.versions.length) {
-    const top = entry.versions.reduce((a, b) => (b.n > a.n ? b : a));
+    const top = entry.versions.find((v) => v.n === want) || entry.versions.reduce((a, b) => (b.n > a.n ? b : a));
     const own = entry.versionSidecars.get(top.n);
     const ignored = [];
     if (entry.strip) ignored.push(`raw/${path.basename(entry.strip)}`);
@@ -1811,6 +1813,8 @@ function packVfx(env) {
   const outVfx = worldOut(env, 'vfx');
   const effects = { ...VFX_EFFECTS };
   for (const [name, e] of Object.entries(env.manifest.vfx)) effects[name] = { ...(VFX_EFFECTS[name] || { frames: e.frames || 4, ms: 50, tinted: false, fill: 0.8 }), ...e };
+  // an approval recorded on a worldArt.vfx batch (vfx-<effect>, vfx-<effect>-rN) counts like vfx.effects (highest wins)
+  for (const [name, v] of worldApprovals(env.manifestRaw, 'vfx')) if (effects[name] && v > (effects[name].approvedVersion || 0)) effects[name].approvedVersion = v;
   if (!isDir(vfxDir)) { R.missing = Object.keys(effects); removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
   const names = Object.keys(effects);
   const rawIdx = scanRaw(path.join(vfxDir, 'raw'), names, warn, 'vfx/raw');
@@ -1822,9 +1826,11 @@ function packVfx(env) {
     const e = effects[name];
     try {
       const framesDir = path.join(framesRoot, name);
-      const raw = pickRaw(rawIdx.get(name), name);
-      if (raw?.version != null) R.versions[name] = raw.version;
+      const latest = pickRaw(rawIdx.get(name), name);
+      if (latest?.version != null) R.versions[name] = latest.version;
       if (!env.candidates && !e.approvedVersion) { R.unapproved.push(name); continue; }
+      // ship the approved version even when a newer candidate is waiting for review
+      const raw = env.candidates ? latest : pickRaw(rawIdx.get(name), name, e.approvedVersion);
       const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: null, artDir: env.artDir }, warn, name);
       if (!src) { R.missing.push(name); continue; }
       if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
@@ -1845,6 +1851,7 @@ function packVfx(env) {
       }
       if (raw?.ignored.length) notes.push(`ignored ${raw.ignored.join(' and ')} (a _vNN version exists)`);
       if (!items.length) { warn(`${name}: no pixels found in ${sourceLabel}`); R.missing.push(name); R.failed.push(name); continue; }
+      if (!env.candidates && latest?.version > (version ?? 0)) notes.push(`newer candidate ${vv(latest.version)} not shipped (approve it to ship it)`);
       if (!env.candidates && version != null && version !== e.approvedVersion) {
         warn(`${name}: the source is ${vv(version)} but ${vv(e.approvedVersion)} is approved - not packed (approve ${vv(version)} or move it to raw/_rejected/)`);
         R.unapproved.push(name);
@@ -2015,6 +2022,8 @@ function packCrowd(env) {
     let classPx = CROWD_HEIGHT[sp.heightClass];
     if (!classPx) { warn(`crowd: ${sp.id} has heightClass ${JSON.stringify(sp.heightClass)} - packed as medium`); classPx = CROWD_HEIGHT.medium; }
     const notes = [];
+    const newest = Math.max(0, ...(raws.get(sp.id)?.keys() || []));
+    if (newest > want) notes.push(`newer candidate ${vv(newest)} not shipped (approve it to ship it)`);
     try {
       const r = crowdCells(file, classPx, env, notes);
       packed.push({ ...sp, version: want, ...r, notes });
@@ -2039,6 +2048,302 @@ function packCrowd(env) {
   R.atlas = `${atlas.w}x${atlas.h}`;
   writeFile(env, path.join(outCrowd, 'atlas.png'), encodePng(atlas), R);
   writeFile(env, path.join(outCrowd, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
+  return R;
+}
+
+// ============================================================== stage, NPC and UI packing (ADR 0008, ADR 0012)
+// Approved version per item of a world-art kind: manifest worldArt.<kind>.batches.<batch>.items.<item>.approvedVersion
+// (highest wins when a redo batch approves a later one). `key(batchId, item)` names the item.
+function worldApprovals(rawManifest, kind, key = (b, item) => item) {
+  const m = new Map();
+  for (const [bid, b] of Object.entries(rawManifest?.worldArt?.[kind]?.batches || {})) {
+    for (const [item, it] of Object.entries(b?.items || {})) {
+      const v = it?.approvedVersion;
+      const k = key(bid, item);
+      if (Number.isInteger(v) && v > 0 && v > (m.get(k) || 0)) m.set(k, v);
+    }
+  }
+  return m;
+}
+
+// Highest version of `<prefix>_vNN.png` (or `<prefix><infix>_vNN.png`) in a folder; { version, file } or null.
+function latestVersion(dir, re) {
+  let best = null;
+  for (const f of listPngs(dir)) {
+    const m = re.exec(f);
+    if (m && (!best || Number(m[1]) > best.version)) best = { version: Number(m[1]), file: path.join(dir, f) };
+  }
+  return best;
+}
+const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// Opaque texture: alpha forced to 255. Cutout / sprite: magenta removed if the image still has it, alpha 0 or 255.
+function cleanWorldImage(img, cutout, env) {
+  const notes = [];
+  if (!cutout) {
+    let soft = 0;
+    for (let i = 3; i < img.data.length; i += 4) if (img.data[i] !== 255) { soft++; img.data[i] = 255; }
+    if (soft) notes.push(`${soft} transparent px made opaque (texture slot)`);
+    return notes;
+  }
+  if (!hasTransparency(img)) {
+    const bg = removeBackground(img, { tol: env.tol, mode: 'char' });
+    if (bg.removed) notes.push('magenta background removed');
+  }
+  // fit scripts key the background but can leave a 1 px magenta-blend fringe on the edge (2 passes)
+  const { w, data: d } = img;
+  let fringe = 0;
+  for (let pass = 0; pass < 2; pass++) {
+    const kill = [];
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 128 || !isMagentaHue(d[i], d[i + 1], d[i + 2])) continue;
+      const p = i >> 2, x = p % w;
+      const clear = (q) => q < 0 || q >= d.length || d[q + 3] < 128;
+      if ((x > 0 && clear(i - 4)) || (x < w - 1 && clear(i + 4)) || clear(i - w * 4) || clear(i + w * 4)) kill.push(i);
+    }
+    for (const i of kill) d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0;
+    fringe += kill.length;
+    if (!kill.length) break;
+  }
+  if (fringe) notes.push(`${fringe} magenta fringe px removed`);
+  let soft = 0;
+  for (let i = 3; i < img.data.length; i += 4) {
+    const a = img.data[i];
+    if (a !== 0 && a !== 255) soft++;
+    img.data[i] = a >= 128 ? 255 : 0;
+    if (!img.data[i]) img.data[i - 3] = img.data[i - 2] = img.data[i - 1] = 0;
+  }
+  if (soft) notes.push(`${soft} soft-alpha px snapped to 0/255`);
+  return notes;
+}
+
+// The 30 stage slots (art/stage/ASSETS.md "All slots"): exact final size and kind. The engine maps each image on
+// the painter's geometry and repeat counts, so the size only sets the detail, never the world coverage.
+const STAGE_SLOTS = {
+  ringTop: [1152, 1152, 'texture'], ringSide: [256, 40, 'texture'], grass: [256, 256, 'texture'], steps: [64, 64, 'texture'],
+  stoneBase: [128, 64, 'texture'], brick: [128, 64, 'texture'], path: [128, 128, 'texture'], templeFacade: [1536, 384, 'texture'],
+  roof: [128, 80, 'texture'], bannerBu: [64, 192, 'cutout'], bannerDo: [64, 192, 'cutout'], bannerSai: [64, 192, 'cutout'],
+  bannerTo: [64, 192, 'cutout'], plaster: [128, 128, 'texture'], sky: [16, 512, 'texture'], cloudA: [256, 96, 'sprite'],
+  cloudB: [256, 96, 'sprite'], cloudC: [256, 96, 'sprite'], gong: [128, 128, 'texture'], parasol: [256, 96, 'cutout'],
+  woodDark: [64, 128, 'texture'], treeRoundA: [192, 256, 'sprite'], treeRoundB: [192, 256, 'sprite'], treePine: [192, 256, 'sprite'],
+  treePalm: [192, 256, 'sprite'], sign: [288, 72, 'texture'], lanternBu: [128, 64, 'texture'], lanternSai: [128, 64, 'texture'],
+  woodPillar: [64, 128, 'texture'], wood: [64, 128, 'texture'],
+};
+
+// Source of a stage slot. Approved: final/<slot>.png (the lead's approved copy), else the approved version's
+// palette-cleaned or fitted candidate. Candidates: the highest version of review/<slot>_palette_vNN.png or
+// raw/_fit/<slot>_vNN.png (palette-cleaned wins on a tie); a slot with no candidate previews its approved image.
+function stageSource(dir, slot, version, candidates) {
+  const pal = (v) => path.join(dir, 'review', `${slot}_palette_v${String(v).padStart(2, '0')}.png`);
+  const fit = (v) => path.join(dir, 'raw', '_fit', `${slot}_v${String(v).padStart(2, '0')}.png`);
+  if (!candidates) {
+    const fin = path.join(dir, 'final', `${slot}.png`);
+    return [fin, pal(version), fit(version)].find((f) => fs.existsSync(f)) || null;
+  }
+  return [pal(version), fit(version)].find((f) => fs.existsSync(f)) || null;
+}
+
+function packStage(env) {
+  const R = { packed: [], missing: [], failed: [], unapproved: 0, removed: [], preview: !!env.candidates, warnings: [], wrote: [] };
+  const warn = (m) => R.warnings.push(m);
+  const dir = path.join(env.artDir, 'stage');
+  const out = worldOut(env, 'stage');
+  const approved = worldApprovals(env.manifestRaw, 'stage');
+  for (const s of approved.keys()) if (!STAGE_SLOTS[s]) warn(`stage: "${s}" is approved but is not a stage slot - ignored`);
+  const slots = {};
+  for (const [slot, [w, h, kind]] of Object.entries(STAGE_SLOTS)) {
+    let version = approved.get(slot) || null, candidate = false;
+    const re = (inf) => new RegExp(`^${escRe(slot)}${inf}_v(\\d+)\\.png$`, 'i');
+    const latest = Math.max(latestVersion(path.join(dir, 'review'), re('_palette'))?.version || 0, latestVersion(path.join(dir, 'raw', '_fit'), re(''))?.version || 0);
+    if (env.candidates && latest) { version = latest; candidate = true; }
+    if (!version) { if (!env.candidates) R.unapproved++; continue; }
+    const file = stageSource(dir, slot, version, candidate);
+    if (!file) { warn(`stage: ${slot} ${vv(version)} is ${env.candidates ? 'the latest' : 'approved'} but no final/, review/ or raw/_fit/ file exists`); R.missing.push(slot); continue; }
+    try {
+      const img = readPng(file);
+      if (img.w !== w || img.h !== h) { warn(`stage: ${rel(env.artDir, file)} is ${img.w}x${img.h}, the ${slot} slot needs exactly ${w}x${h} - skipped`); R.failed.push(slot); continue; }
+      const notes = cleanWorldImage(img, kind !== 'texture', env);
+      if (!candidate && latest > version) notes.push(`newer candidate ${vv(latest)} not shipped (approve it to ship it)`);
+      const colors = countColors([img]);
+      writeFile(env, path.join(out, `${slot}.png`), encodePng(img), R);
+      slots[slot] = { file: `${slot}.png`, size: [w, h], kind, version };
+      R.packed.push({ slot, version, from: rel(env.artDir, file), colors, notes });
+    } catch (e) {
+      warn(`stage: ${slot}: ${e.message} - skipped`);
+      R.failed.push(slot);
+    }
+  }
+  // public/ only holds what this run packed: an image whose approval was withdrawn stops shipping
+  removeOutputs(env, out, Object.keys(STAGE_SLOTS).filter((s) => !slots[s]).map((s) => `${s}.png`), R);
+  if (!R.packed.length) removeOutputs(env, out, ['manifest.json'], R);
+  else writeFile(env, path.join(out, 'manifest.json'), Buffer.from(stringifyCompact({ source: env.candidates ? 'candidates' : 'approved', packer: PACKER_VERSION, slots }) + '\n'), R);
+  return R;
+}
+
+// NPC cells (art/npc/README.md "NPC spec").
+const NPC = Object.freeze({ cell: 128, columns: 8, pivot: [64, 124], ppu: 80, margin: 4, maxColors: 32, frames: 2 });
+
+// The animation table of art/npc/<id>/ANIMATIONS.md (anim | what | frames | loop | ms per frame | height ...) is the
+// one source for an NPC's animations, timing and target heights; idle first.
+function npcSpecs(npcDir, warn, id) {
+  const file = path.join(npcDir, 'ANIMATIONS.md');
+  if (!fs.existsSync(file)) { warn(`npc ${id}: no ANIMATIONS.md - skipped`); return null; }
+  const specs = [];
+  let inTable = false;
+  for (const line of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
+    if (/^\|\s*anim\s*\|/i.test(line)) { inTable = true; continue; }
+    if (!inTable) continue;
+    if (!line.startsWith('|')) { if (specs.length) break; continue; }
+    const c = line.split('|').slice(1, -1).map((s) => s.trim());
+    const name = (c[0].match(/`([A-Za-z0-9]+)`/) || [])[1];
+    if (!name) continue;
+    if (c.length < 6) { warn(`npc ${id}: the ANIMATIONS.md row for ${name} has ${c.length} columns (needs anim, what, frames, loop, ms, height) - skipped`); continue; }
+    const ms = (c[4].match(/\d+/g) || []).map(Number);
+    specs.push({ name, loop: /^yes/i.test(c[3]), ms: ms.length ? ms : [500, 500], height: Number((c[5].match(/\d+/) || [])[0]) || null });
+  }
+  if (!specs.find((s) => s.name === 'idle')) { warn(`npc ${id}: ANIMATIONS.md has no idle row in its animation table - skipped`); return null; }
+  return specs.sort((a, b) => (a.name === 'idle' ? -1 : b.name === 'idle' ? 1 : 0));
+}
+
+// One strip -> its trimmed poses (magenta, specks and stray marks removed).
+function npcPoses(file, env, notes) {
+  const img = readPng(file);
+  const bg = removeBackground(img, { tol: env.tol, mode: 'char' });
+  if (!bg.magentaBg && !bg.removed && !hasTransparency(img)) throw new Error('no removable background (flat magenta #FF00FF expected)');
+  const sp = removeSpecks(img, { frac: 0.0015, min: 4 });
+  if (sp.blobs > 3) notes.push(`removed ${sp.blobs} specks`);
+  let { rects } = splitStrip(img, NPC.frames, { mode: 'char' });
+  if (rects.length !== NPC.frames) {
+    const n = rects.length;
+    ({ rects } = splitStrip(img, NPC.frames, { split: 'even', mode: 'char' }));
+    notes.push(`${n} pose(s) found, split into even halves`);
+  }
+  if (rects.length !== NPC.frames) throw new Error(`${rects.length} pose(s) found, expected ${NPC.frames}`);
+  return rects.map((r) => {
+    const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+    dropStrays(piece);
+    const b = bbox(piece);
+    if (!b) throw new Error('a pose is empty after background removal');
+    return crop(piece, b.x0, b.y0, b.w, b.h);
+  });
+}
+
+function packNpcs(env) {
+  const R = { packed: [], skipped: [], unapproved: 0, removed: [], preview: !!env.candidates, warnings: [], wrote: [] };
+  const warn = (m) => R.warnings.push(m);
+  const root = path.join(env.artDir, 'npc');
+  const outRoot = worldOut(env, 'npc');
+  // npc-<id> and its redo batches npc-<id>-rN approve the same NPC (highest approved version wins)
+  const approved = worldApprovals(env.manifestRaw, 'npc', (b, item) => `${b.replace(/^npc-/, '').replace(/-r\d+$/, '')}/${item}`);
+  for (const k of approved.keys()) if (!isDir(path.join(root, k.split('/')[0]))) warn(`npc: ${k} is approved but art/npc/${k.split('/')[0]}/ does not exist`);
+  const C = NPC.cell, [PX, PY] = NPC.pivot, M = NPC.margin;
+  for (const id of listDirs(root).filter((n) => !n.startsWith('_') && !n.startsWith('.'))) {
+    const dir = path.join(root, id), out = path.join(outRoot, id);
+    const drop = (why) => { if (why) R.skipped.push(`${id}: ${why}`); removeOutputs(env, out, ['sheet.png', 'anims.json'], R); };
+    const specs = npcSpecs(dir, warn, id);
+    if (!specs) { drop(null); continue; }
+    const anims = [];
+    for (const s of specs) {
+      const re = new RegExp(`^${escRe(s.name)}_v(\\d+)\\.png$`, 'i');
+      const newest = latestVersion(path.join(dir, 'raw'), re)?.version;
+      const version = env.candidates ? newest : approved.get(`${id}/${s.name}`);
+      if (!version) { if (!env.candidates) R.unapproved++; continue; }
+      const file = path.join(dir, 'raw', `${s.name}_${vv(version)}.png`);
+      if (!fs.existsSync(file)) { warn(`npc ${id}: ${s.name} ${vv(version)} is ${env.candidates ? 'the latest' : 'approved'} but raw/${s.name}_${vv(version)}.png is missing`); continue; }
+      const notes = [];
+      if (newest > version) notes.push(`newer candidate ${vv(newest)} not shipped (approve it to ship it)`);
+      try {
+        anims.push({ ...s, version, poses: npcPoses(file, env, notes), notes });
+      } catch (e) {
+        warn(`npc ${id}: ${s.name} ${vv(version)}: ${e.message} - skipped`);
+      }
+    }
+    if (!anims.find((a) => a.name === 'idle')) { drop(anims.length ? 'no usable idle (it sets the scale) - not packed' : null); continue; }
+    // Each strip is scaled to its own target height from ANIMATIONS.md (the trimmed height of its tallest frame):
+    // generated strips drift in scale from one image to the next, and the per-animation heights already encode
+    // the poses (a crouch is shorter, a raised fist taller), so the head stays the same size across animations.
+    // An animation without a height row takes idle's scale. Feet always land on the pivot line.
+    const tallest = (a) => Math.max(...a.poses.map((p) => p.h));
+    const npcNotes = [];
+    const fitted = (a, sc) => {
+      const fit = Math.min(sc, ...a.poses.map((p) => (PY - M + 1) / p.h), ...a.poses.map((p) => (C - 2 * M) / p.w));
+      if (fit < sc - 1e-9) { a.notes.push(`shrunk to fit the cell margin (${Math.round(tallest(a) * fit)} px, target ${a.height ?? Math.round(tallest(a) * sc)})`); return fit; }
+      return sc;
+    };
+    anims[0].scale = fitted(anims[0], (anims[0].height || tallest(anims[0])) / tallest(anims[0]));
+    for (const a of anims.slice(1)) a.scale = fitted(a, a.height ? a.height / tallest(a) : anims[0].scale);
+    const s = anims[0].scale;
+    const cells = [];
+    const meta = { frameWidth: C, frameHeight: C, columns: NPC.columns, pivot: [PX, PY], pixelsPerUnit: NPC.ppu, facing: 'viewer-right', source: env.candidates ? 'candidates' : 'art-pack', npc: id, packer: PACKER_VERSION, complete: true, animations: {} };
+    for (const a of anims) {
+      const frames = [];
+      for (const p of a.poses) {
+        const small = resample(p, a.scale, { coverage: 0.5, alphaMin: 128 });
+        for (let i = 3; i < small.data.length; i += 4) small.data[i] = small.data[i] >= 128 ? 255 : 0;
+        const b = bbox(small);
+        const t = b ? crop(small, b.x0, b.y0, b.w, b.h) : small;
+        const cell = newImage(C, C);
+        const dx = Math.max(M, Math.min(C - M - t.w, Math.round(PX - (footAnchor(t) + 0.5))));
+        if (blit(cell, t, dx, PY - (t.h - 1))) a.notes.push('clipped');
+        frames.push(cells.length);
+        cells.push(cell);
+      }
+      meta.animations[a.name] = { frames, durations: frames.map((_, k) => a.ms[k] ?? a.ms[a.ms.length - 1]), loop: a.loop, version: a.version };
+    }
+    const colors = quantizeFrames(cells, NPC.maxColors);
+    const sheet = newImage(NPC.columns * C, Math.ceil(cells.length / NPC.columns) * C);
+    cells.forEach((c, k) => blit(sheet, c, (k % NPC.columns) * C, Math.floor(k / NPC.columns) * C));
+    writeFile(env, path.join(out, 'sheet.png'), encodePng(sheet), R);
+    writeFile(env, path.join(out, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
+    const missing = specs.filter((sp) => !meta.animations[sp.name]).map((sp) => sp.name);
+    R.packed.push({ id, anims: anims.map((a) => `${a.name} ${vv(a.version)}`), missing, colors, scale: +s.toFixed(4), notes: [...npcNotes, ...new Set(anims.flatMap((a) => a.notes.map((n) => `${a.name}: ${n}`)))] });
+  }
+  return R;
+}
+
+// Shared UI (art/ui/README.md): the logo keeps its size (at most 640 x 240) and transparency, the title art is
+// exactly 640 x 360 and opaque. Manifest approval: worldArt.ui (ui-<asset> batches) or sharedUi.<key>.
+const UI_ASSETS = { logo: { key: 'logo', size: null, max: [640, 240], cutout: true }, title_art: { key: 'titleArt', size: [640, 360], max: [640, 360], cutout: false } };
+
+function packSharedUi(env) {
+  const R = { packed: [], missing: [], failed: [], unapproved: 0, removed: [], preview: !!env.candidates, warnings: [], wrote: [] };
+  const warn = (m) => R.warnings.push(m);
+  const dir = path.join(env.artDir, 'ui');
+  const out = worldOut(env, 'ui');
+  const approved = worldApprovals(env.manifestRaw, 'ui');
+  const assets = {};
+  for (const [name, A] of Object.entries(UI_ASSETS)) {
+    const shared = env.manifestRaw?.sharedUi?.[A.key]?.approvedVersion;
+    const ok = (v) => Number.isInteger(v) && v > 0;
+    let version = Math.max(approved.get(name) || 0, ok(shared) ? shared : 0) || null, candidate = false;
+    const re = (inf) => new RegExp(`^${escRe(name)}${inf}_v(\\d+)\\.png$`, 'i');
+    // the latest review candidate; with --candidates an asset without one previews its approved image
+    const latest = Math.max(latestVersion(path.join(dir, 'review'), re('_palette'))?.version || 0, latestVersion(path.join(dir, 'review'), re('_fit'))?.version || 0);
+    if (env.candidates && latest) { version = latest; candidate = true; }
+    if (!version) { if (!env.candidates) R.unapproved++; continue; }
+    const pal = path.join(dir, 'review', `${name}_palette_${vv(version)}.png`), fit = path.join(dir, 'review', `${name}_fit_${vv(version)}.png`);
+    const file = [...(candidate ? [] : [path.join(dir, 'final', `${name}.png`)]), pal, fit].find((f) => fs.existsSync(f));
+    if (!file) { warn(`ui: ${name} ${vv(version)} is ${env.candidates ? 'the latest' : 'approved'} but no final/ or review/ file exists`); R.missing.push(name); continue; }
+    try {
+      const img = readPng(file);
+      if (A.size ? img.w !== A.size[0] || img.h !== A.size[1] : img.w > A.max[0] || img.h > A.max[1]) {
+        warn(`ui: ${rel(env.artDir, file)} is ${img.w}x${img.h}; ${name} needs ${A.size ? `exactly ${A.size.join('x')}` : `at most ${A.max.join('x')}`} - skipped`);
+        R.failed.push(name);
+        continue;
+      }
+      const notes = cleanWorldImage(img, A.cutout, env);
+      if (!candidate && latest > version) notes.push(`newer candidate ${vv(latest)} not shipped (approve it to ship it)`);
+      writeFile(env, path.join(out, `${name}.png`), encodePng(img), R);
+      assets[name] = { file: `${name}.png`, size: [img.w, img.h], version };
+      R.packed.push({ asset: name, version, from: rel(env.artDir, file), colors: countColors([img]), notes });
+    } catch (e) {
+      warn(`ui: ${name}: ${e.message} - skipped`);
+      R.failed.push(name);
+    }
+  }
+  removeOutputs(env, out, Object.keys(UI_ASSETS).filter((n) => !assets[n]).map((n) => `${n}.png`), R);
+  if (!R.packed.length) removeOutputs(env, out, ['manifest.json'], R);
+  else writeFile(env, path.join(out, 'manifest.json'), Buffer.from(stringifyCompact({ source: env.candidates ? 'candidates' : 'approved', packer: PACKER_VERSION, assets }) + '\n'), R);
   return R;
 }
 
@@ -2182,11 +2487,28 @@ function printReport(rep, env) {
     for (const f of c.wrote) L(`  wrote ${f}`);
     for (const f of c.removed) L(`  ${env.dryRun ? 'would remove' : 'removed'} ${f} (no approved spectators left to ship)`);
   }
+  const worldSection = (title, r, what, rows) => {
+    if (!r) return;
+    L('');
+    L(`== ${title} ${'='.repeat(Math.max(3, 60 - title.length))}`);
+    if (r.preview) L(`  candidates: the latest version of every ${what} -> preview/ (the game shows it with ?art=custom)`);
+    else if (r.unapproved) L(`  ${r.unapproved} ${what}(s) not approved yet (not shipped; preview with --candidates)`);
+    if (!r.packed.length) L('  nothing packed - the game keeps its fallback art');
+    for (const row of r.packed) L(`    ${rows(row)}`);
+    for (const x of r.skipped || []) L(`  - ${x}`);
+    for (const w of r.warnings) L(`  ! ${w}`);
+    for (const f of r.wrote) L(`  wrote ${f}`);
+    for (const f of r.removed) L(`  ${env.dryRun ? 'would remove' : 'removed'} ${f} (not approved / no source any more)`);
+  };
+  worldSection('stage', rep.stage, 'stage slot', (p) => `${p.slot.padEnd(13)} ${vv(p.version)} <- ${p.from} (${p.colors} colors)${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+  worldSection('npc', rep.npc, 'NPC animation', (p) => `${p.id.padEnd(10)} ${p.anims.join(', ')}${p.missing.length ? ` (missing: ${p.missing.join(', ')})` : ''}, ${p.colors} colors, x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+  worldSection('ui', rep.ui, 'UI image', (p) => `${p.asset.padEnd(10)} ${vv(p.version)} <- ${p.from} (${p.colors} colors)${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
   if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status/version value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
   L('');
   const nw = rep.totalWarnings;
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
-  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}, ${nw} warning(s).`);
+  const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
+  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
 
 // ============================================================== main
@@ -2202,7 +2524,7 @@ async function main() {
   const outDir = path.resolve(opts.out || path.join(PROJECT_ROOT, 'public'));
   const manifestPath = path.resolve(opts.manifest || path.join(artDir, 'manifest.json'));
   const guidePath = path.resolve(opts.guide || path.join(PROJECT_ROOT, 'src', 'art', 'animGuide.js'));
-  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null };
+  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null, stage: null, npc: null, ui: null };
 
   const { guide, source: guideSource } = await loadGuide(guidePath);
   rep.guideSource = guideSource;
@@ -2216,12 +2538,13 @@ async function main() {
 
   const folderIds = listDirs(path.join(artDir, 'characters')).filter((n) => !n.startsWith('_') && !n.startsWith('.'));
   const allIds = [...folderIds, ...Object.keys(manifest.characters).filter((n) => !n.startsWith('_') && !folderIds.includes(n))];
-  let ids = [], doVfx = false, doCrowd = false;
+  let ids = [], doVfx = false;
+  const world = new Set();
   const targets = opts.targets.length ? opts.targets : ['all'];
   for (const t of targets) {
-    if (t === 'all') { ids.push(...allIds); doVfx = doCrowd = true; }
+    if (t === 'all') { ids.push(...allIds); doVfx = true; ['crowd', 'stage', 'npc', 'ui'].forEach((k) => world.add(k)); }
     else if (t === 'vfx') doVfx = true;
-    else if (t === 'crowd') doCrowd = true;
+    else if (['crowd', 'stage', 'npc', 'ui'].includes(t)) world.add(t);
     else if (allIds.includes(t)) ids.push(t);
     else {
       console.error(`error: unknown character "${t}". Known: ${allIds.join(', ') || '(none - create art/characters/<id>/ from _template)'}`);
@@ -2231,8 +2554,19 @@ async function main() {
   ids = [...new Set(ids)];
 
   for (const id of ids) rep.characters.push(packCharacter(id, env));
-  if (doVfx) rep.vfx = packVfx(env);
-  if (doCrowd) rep.crowd = packCrowd(env);
+  // World art ships by approval. Without a readable manifest the approvals are unknown: a half-edited or
+  // conflicted manifest must not un-ship approved art, so every world-art output is left as it is.
+  const untouched = (kind) => ({
+    packed: [], missing: [], failed: [], skipped: [], removed: [], wrote: [], writeback: [], preview: false, frames: 0, spectators: 0,
+    unapproved: kind === 'vfx' ? [] : 0,
+    warnings: [`${rel(cwd, manifestPath)} is missing or not valid JSON: approvals unknown, ${kind} output left untouched (fix the manifest and re-run)`],
+  });
+  const worldPack = (kind, fn) => (mj.data ? fn(env) : untouched(kind));
+  if (doVfx) rep.vfx = worldPack('vfx', packVfx);
+  if (world.has('crowd')) rep.crowd = worldPack('crowd', packCrowd);
+  if (world.has('stage')) rep.stage = worldPack('stage', packStage);
+  if (world.has('npc')) rep.npc = worldPack('npc', packNpcs);
+  if (world.has('ui')) rep.ui = worldPack('ui', packSharedUi);
   if (opts.updateManifest) {
     if (!mj.data) rep.warnings.push('--update-manifest: no readable manifest.json - nothing updated');
     else {
@@ -2241,7 +2575,7 @@ async function main() {
       if (n && !opts.dryRun) fs.writeFileSync(manifestPath, stringifyCompact(mj.data) + '\n');
     }
   }
-  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + (rep.vfx?.warnings.length || 0) + (rep.crowd?.warnings.length || 0);
+  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + ['vfx', 'crowd', 'stage', 'npc', 'ui'].reduce((s, k) => s + (rep[k]?.warnings.length || 0), 0);
 
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);

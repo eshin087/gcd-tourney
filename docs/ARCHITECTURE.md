@@ -200,8 +200,9 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 
 ## World art: approval gate and candidate preview
 
-- The packer ships world art (effects, crowd) only after the user approved it. `npm run sprites -- --candidates`
-  packs every candidate into `public/preview/vfx|crowd/` instead; that folder is git-ignored, so it never
+- The packer ships world art (effects, crowd, stage, NPCs, title art) only after the user approved it, at the approved
+  version. `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` packs every latest candidate into
+  `public/preview/<kind>/` instead of the shipped folders; that folder is git-ignored, so it never
   deploys. `?art=custom` makes the loaders prefer it (`fetchAtlasJson` in `src/core/artIndex.js`), which is how
   unapproved effects and spectators are reviewed in a real match.
 - **Crowd:** `npm run sprites crowd` turns each approved spectator (`worldArt.crowd.batches.*.items` in the
@@ -209,6 +210,16 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   `public/crowd/atlas.png` + `atlas.json` (ADR 0008 layout: 21 spectators per 64-cell row, ppu 50, pivot
   [32, 94]); idle is scaled to the roster's height class. `loadCrowdAtlas()` in `src/world/arena.js` swaps it
   into the instanced crowd; without it the code-painted crowd stays.
+- **Stage slots:** `buildArena` registers every painted texture under its slot name (`slotTex`, art/stage/ASSETS.md;
+  `repeatTex` clones join their base's slot). `loadStageArt()` (`src/world/worldArt.js`) reads
+  `public/stage/manifest.json` and `arena.applyStageArt()` swaps the image of every texture of a listed slot (dispose,
+  new image, nearest filtering), so geometry and repeat counts, and therefore world coverage, never change.
+- **NPCs:** `loadNpcArt()` reads `public/npc/<id>/anims.json` + `sheet.png` for each entry of `NPCS` (placement,
+  mirroring); `arena.setNpcArt()` places one `NpcSprite` billboard per sheet (unlit, dimmed with the crowd; the announcer
+  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind)` on intro, round start, supers, ultimates,
+  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
+- **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
+  logo and the key art behind it.
 - `Effects.spawn(name, x, y, z, opts)` creates a camera-facing quad with a tint `color` (white art is
   tinted at runtime), `glow` (HDR boost into bloom), optional velocity, gravity, spin, follow and loop.
   `Effects.keep(id, ...)` updates a persistent effect (auras, hand orbs, clash glow).

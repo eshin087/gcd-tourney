@@ -26,7 +26,7 @@ forward × 128, cell y = 240 − up × 128.
 | J in air ×3 · K in air | air combo | `airLight1..3`, `airHeavy` | `MOVES.airLight1..3`, `airHeavy` | air palm jab, air front kick, air spinning heel kick (wall bounce), two-handed hammer (ground bounce) |
 | L tap · ○/B tap | **LAPSE: BLUE** (1 bar) | `special` | `SPECIAL_MOVES.blue` (kind `pull`) | two-finger point; a blue gravity vortex opens in front of him, drags the opponent in, pops them up |
 | toward + L · → + ○ | **REVERSAL: RED** (1 bar) | `specialForward` (fallback `special`) | `SPECIAL_MOVES.red` (kind `shot`, projectile `red`) | finger flick, recoil; a red orb blasts the opponent into the wall |
-| up + L · ↑ + ○ | **BLINK** (½ bar) | today `vanish` (hidden) → `jumpFall`; briefed as `specialUp` (§3) | `SPECIAL_MOVES.blink` (kind `teleport`, to `above`) | vanishes and reappears above the opponent |
+| up + L · ↑ + ○ | **BLINK** (½ bar) | `specialUp` f0-1 wind-up, hidden, f4-5 on reappearing (ENG-032) | `SPECIAL_MOVES.blink` (kind `teleport`, to `above`) | vanishes and reappears above the opponent |
 | down or away + L · ↓/← + ○ | **INFINITY** (½ bar) | `specialDown` (fallback `charge`) | `SPECIAL_MOVES.infinity` (kind `counter`) | calm raised open palm; melee attackers freeze, projectiles stop |
 | L in air · ○/B in air | **REVERSAL: RED** (air, 1 bar) | `throw` | `SPECIAL_MOVES.redAir` (kind `shot`) | air finger flick, recoil |
 | K+L · △+○ | **HOLLOW PURPLE** (3 bars) | `beamCharge` → `beamFire` | `ULTIMATE`, `def.beam` (width 1.85) | super flash with the Six-Eyes cut-in, hands apart (blue and red), palm thrust, a wide purple beam |
@@ -116,9 +116,9 @@ force that hurls the opponent away.
 | | |
 |---|---|
 | Data | `SPECIAL_MOVES.blink`: kind `teleport`, hide 6 frames, to `above` (offset 0.9 beside the opponent, 2.3 up), no ghosts, no follow-up move, color `#9fd8ff`. |
-| Engine today | `kit.js` `START.teleport` enters **`vanish`** and hides the sprite **from the first frame** (smoke + `lines` poof, a ghost in `#9fd8ff`), then after 6 frames he reappears above the opponent in `jumpFall`. So with the current engine **no Blink frame is visible**: the poof, then `jumpFall`. |
+| Engine today | Wired (ENG-032, 2026-10-09; puff timing 2026-10-10): `blink` has `anim: 'specialUp'`, `startup` 6 and `recovery` 6. He plays f0-1 visibly, then the smoke + `lines` poof, the `#9fd8ff` ghost and the sound fire **as he disappears**, he stays hidden 6 frames, and reappears above the opponent on f4-5. |
 | Brief (user design) | `specialUp` = a teleport pose that reuses the `vanish` timing: f0–f1 a one-hand sign at the chin and a crouch (startup), f2–f3 the sliced blur (active), f4–f5 reappearing in mid-air looking down (recovery). |
-| Needed from Claude to use it | give `blink` an `anim: 'specialUp'`, let the teleport kind play `m.anim || 'vanish'`, show f0–f1 before hiding and f4–f5 after reappearing (then `jumpFall`). Until then the strip is optional polish; generate it last among A39–A42. |
+| Needed from Claude to use it | done (see the row above). |
 
 ### INFINITY (`specialDown`): counter, ½ ki bar
 

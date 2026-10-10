@@ -11,8 +11,8 @@
   QA numbers for the lead and Claude; the prompts describe the same poses in words.
 - **R / L** are the monk's own right / left. He mostly faces the viewer, so **R (prayer beads) is on the
   image's left** and **L (fan) is on the image's right**, the side the ring is on.
-- **height** = trimmed height of the tallest frame in px (a check; the proposed packer rule scales the NPC once, from
-  `idle`).
+- **height** = trimmed height of the tallest frame in px. The packer scales each strip so its tallest frame equals this value
+  (generated strips drift in scale between images); a row without a height takes idle's scale.
 
 ## Rules for every strip
 

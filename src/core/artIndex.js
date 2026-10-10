@@ -28,17 +28,18 @@ export async function fetchArtJson(path) {
   return res.json();
 }
 
-// ?art=custom also shows world art that is not approved yet: `npm run sprites -- --candidates` packs it into
-// public/preview/ (git-ignored, so never deployed). Without the flag only approved art (public/vfx, /crowd) loads.
+// ?art=custom also shows world art that is not approved yet: `node tools/pack-sprites.mjs vfx crowd stage npc ui
+// --candidates` packs it into public/preview/ instead of the shipped folders (git-ignored, so never deployed).
+// Without the flag only approved art (public/vfx, crowd, stage, npc, ui) loads.
 const PREVIEW = typeof location !== 'undefined' && new URLSearchParams(location.search).get('art') === 'custom';
 
-// Like fetchArtJson for an atlas folder ('/vfx', '/crowd'), preferring the candidate preview under ?art=custom.
-// Returns { data, dir } (dir = the folder its png lives in) or null.
-export async function fetchAtlasJson(dir) {
+// Like fetchArtJson for a world-art folder ('/vfx', '/crowd', '/stage', '/npc/<id>', '/ui'), preferring the
+// candidate preview under ?art=custom. Returns { data, dir } (dir = the folder its images live in) or null.
+export async function fetchAtlasJson(dir, file = 'atlas.json') {
   if (PREVIEW) {
-    const data = await fetchArtJson(`/preview${dir}/atlas.json`);
+    const data = await fetchArtJson(`/preview${dir}/${file}`);
     if (data) return { data, dir: `/preview${dir}` };
   }
-  const data = await fetchArtJson(`${dir}/atlas.json`);
+  const data = await fetchArtJson(`${dir}/${file}`);
   return data ? { data, dir } : null;
 }

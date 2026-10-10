@@ -13,8 +13,8 @@
 - **R / L** are the announcer's own right / left. He mostly faces the viewer, so **R (microphone hand)
   is on the image's left** and **L (gesture / pointing hand) is on the image's right**, the side the
   fight is on.
-- **height** = trimmed height of the tallest frame in px. The proposed packer rule scales the whole NPC once (from
-  `idle`), so these are checks, not per-strip scale targets.
+- **height** = trimmed height of the tallest frame in px. The packer scales each strip so its tallest frame equals this value
+  (generated strips drift in scale between images); a row without a height takes idle's scale.
 
 ## Rules for every strip
 

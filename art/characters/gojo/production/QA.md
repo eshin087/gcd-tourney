@@ -60,3 +60,10 @@ World units from sprite pivot to the furthest active hitbox edge, before lunge/p
 Gojo needs no lunge/stat adjustment for the tested one-unit mirror spacing. Killua measurements do not establish its combat results. Packer regression: 160 passed. Teleport regression verifies legacy Rhythm Echo timing/follow-up and Blink startup/hide/recovery with exactly one relocation.
 
 Final post-approval browser run: PASS, no page/console errors. Both fighters loaded complete custom Gojo art without preview flags; all nine normals hit; six special/super paths completed; Blink showed visible startup frames 0/1, a hidden interval, visible recovery frames 4/5 and a normal exit. Gallery loaded all 42 cards, scrub/filter worked, and mobile had no horizontal overflow. The initial 25-step Blink assertion ended during effect hit-stop; extending observation to 80 rendered steps captured the complete sequence.
+
+## Integration check (Claude, 2026-10-10)
+
+- Hand anchors for throw f1 and beamFire f0-2 (Reversal: Red and Hollow Purple start at the drawn hand), ADR 0012.
+- Blink: the smoke puff, speed lines and sound now fire when he disappears (after the specialUp wind-up), not at the
+  button press.
+- 144 CPU matches with the art packs: Gojo 56 %, no errors (ADR 0011 log run 10-11).

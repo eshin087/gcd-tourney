@@ -31,11 +31,12 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` (+ VFX) |
+| `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |
 | `npm run sprites crowd` | pack only the crowd atlas into `public/crowd/` (approved spectators only) |
-| `node tools/pack-sprites.mjs vfx crowd --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
+| `npm run sprites stage npc ui` | pack the approved stage slots, NPC sheets and title art into `public/stage|npc|ui/` |
+| `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
@@ -62,7 +63,8 @@ src/characters/  one file per fighter (look, colors, stats, special/projectile, 
 src/art/       animGuide.js (canonical animation list + poses), vfxPainter.js (procedural VFX atlas),
                pixel.js, textures.js, crowdPainter.js (procedural pixel art)
 src/art/rig/   3D chibi rig, toon shader, pose/keyframe system, shared anim library, sprite baker
-src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky), voidStage.js (domain stage), trainingRoom.js (holographic practice stage)
+src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky; stage slot registry), worldArt.js (stage/NPC/title art loaders,
+               NPC placement + event cues), voidStage.js (domain stage), trainingRoom.js (holographic practice stage)
 src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
                controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints)
 tools/         pack-sprites.mjs (art/ -> public/ packer, Node + pngjs)
@@ -79,7 +81,7 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    means updating `animGuide.js`, `FALLBACK` in `src/game/sprites.js`, `src/art/rig/anims.js` (placeholder),
    `art/manifest.json`, `art/SPEC.md`, `ASSETS.md` and the art template, all in the same change.
 3. **Generated files are outputs.** Never hand-edit `public/characters/<id>/sheet.png`, `anims.json` or
-   `public/vfx/atlas.*` or `public/crowd/atlas.*`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
+   `public/vfx|crowd|stage|npc|ui/**`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
    Generated images are inputs with a `_vNN` version (ADR 0007): never overwrite, reuse or delete one.
 4. **Character data lives in `src/characters/<id>.js`**. Shared systems should not special-case a character
    id (`if (def.id === 'naruto')`). Add a data field instead.
