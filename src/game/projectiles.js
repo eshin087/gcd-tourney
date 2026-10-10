@@ -307,7 +307,7 @@ export class Orb {
     const s = this.r * 1.35 * this.grow * (1 + 0.05 * Math.sin(this.t * 0.7));
     fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: s, color: S.orb, order: 8, glow: 1.1 });
     fx.keep(this.id + 'c', 'orb', p.x, p.y, p.z, { scale: s * 0.5, color: 0xf2e2ff, order: 9, glow: 1.6 });
-    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: s * 1.9, color: S.glow, opacity: 0.55, order: 3, glow: 1 });
+    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: s * 1.25, color: S.glow, opacity: 0.32, order: 3, glow: 0.8 }); // larger reads as a flat square
     if (this.t % 5 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: s * 1.1, color: S.orb, glow: 0.8, life: 0.2, fade: true, order: 7 });
     if (this.t % 3 === 0) fx.spawn('lightning', p.x + (Math.random() - 0.5) * this.r, p.y + (Math.random() - 0.5) * this.r, p.z, { scale: 0.7, random: true, life: 0.08, color: 0xe0c0ff, rot: Math.random() * 6.28, order: 9, glow: 1.6 });
   }

@@ -722,6 +722,9 @@ const UPDATE = {
     if (k.phase === 'flash') {
       k.phase = 'roar';
       k.t0 = 0;
+      // the pounce commits to where they stand as the roar starts (a little steering only): leaving the lane
+      // during the roar dodges it, like a beam
+      k.dir = dirTo(f, o);
       const p = f.pos;
       g.fx.spawn('ring', p.x, p.y + 0.8, p.z, { scale: 3.2, color: C.chakra, glow: 1, order: 8, depthTest: false });
       g.fx.explosion(p.x, p.y + 0.6, p.z, new THREE.Color(C.chakra));
@@ -737,13 +740,16 @@ const UPDATE = {
       return;
     }
     if (k.phase === 'lunge') {
-      const d = dirTo(f, o);
+      const want = dirTo(f, o), d = k.dir;
+      d.x += (want.x - d.x) * (S.steer ?? 0.03);
+      d.y += (want.y - d.y) * (S.steer ?? 0.03);
+      d.normalize();
       f.vel.set(d.x * S.speed, 0, d.y * S.speed);
-      f.faceOpponent();
+      f.face.set(d.x, d.y);
       loop(f, S.strikePose ?? 'beamFire');
       if (k.t0 % 3 === 0) f.actor.ghost(C.chakra, 0.3, 0.55);
       const catchable = !o.ko && !o.hidden && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup';
-      if (catchable && f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3)) {
+      if (catchable && f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.0)) {
         k.phase = 'maul';
         k.t0 = 0;
         k.i = 0;

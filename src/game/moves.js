@@ -194,7 +194,7 @@ export const SUPERS = {
   // vanish, you can't block it. One hit (`dmg`, unscaled), then it keeps going and carves a trench.
   hollowPurple: {
     kind: 'orb', cost: 300, flash: 46, merge: 26, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
-    pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xb46cff, glow: 0x7a2cff,
+    pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xa24cff, glow: 0x7a2cff,
     name: 'HOLLOW TECHNIQUE: PURPLE', color: '#b46cff',
   },
   // Four-Tails (Naruto, early Shippuden): the cloak boils into the four-tailed shroud (`roar`), he pounces on all
@@ -202,9 +202,9 @@ export const SUPERS = {
   // blasts them away. A whiff leaves him open for `whiff` frames. Until Codex redraws beamCharge / beamFire as the
   // shroud form (KIT.md), the transformation uses specialDown and the pounce uses dash, both tinted by `shroud`.
   fourTails: {
-    kind: 'rampage', cost: 300, flash: 46, roar: 16, dash: 26, speed: 20, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
+    kind: 'rampage', cost: 300, flash: 46, roar: 16, dash: 26, speed: 20, steer: 0.03, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
     minScale: 0.9, launch: [20, 11], whiff: 34, pose: 'specialDown', strikePose: 'dash', maulPose: 'heavy',
-    shroud: { tint: [0.68, 0.16, 0.12], chakra: 0xb0140c, core: 0x1a0204 }, name: 'FOUR-TAILS', color: '#d0281c',
+    shroud: { tint: [0.5, 0.09, 0.08], chakra: 0xb0140c, core: 0x1a0204 }, name: 'FOUR-TAILS', color: '#d0281c',
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:
   // a lightning blink behind the attacker (projectiles too) and the `follow` strike, up to `counters` times. Supers,
