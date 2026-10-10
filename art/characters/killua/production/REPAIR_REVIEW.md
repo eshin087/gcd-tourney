@@ -4,7 +4,7 @@
 
 - Identity: the approved silver hair, blue eyes, purple/navy outfit and child build remain. Normal fingertips return on heavy f7 through exact approved idle reuse.
 - Pose and scale: heavy f4 no longer clips; its highest claw pixel is y32. Heavy f7 is byte-identical to approved idle f0. Charge feet stay on y240, with footprint endpoints within ±1px of the common median reference; pairwise extremes differ up to2px. Shoulders, fingers and tufts visibly twitch.
-- Technical: 42 animations,175 frames,48 colors,4096×2816 atlas;256px cells,pivot[128,240],ppu128. No new pack warnings. Previous KO left1px margin warning remains. Art is **unapproved**; user review still controls promotion.
+- Technical: 42 animations,175 frames,48 colors,4096×2816 atlas;256px cells,pivot[128,240],ppu128. No new pack warnings. Raw sources fail the hard-pixel palette gate: heavy v03 has 30,997 and charge v07 has 157,775 non-magenta RGB colors. Packed 48-color compliance does not establish raw pixel-art compliance. Previous KO left1px margin warning remains. Art is **unapproved**; user review still controls promotion.
 
 ## Corrected issues
 
@@ -26,6 +26,6 @@ Declared standing skeleton182px. Bent attack/charge poses do not supply a direct
 - repair-contact.png and repair-metrics.json: all touched frames, bounds and exact recovery equality.
 - ../../../scale/lineup-killua-heavy_v03.png and .json: mandatory cast review.
 - /killua-heavy-charge-review/: committed public candidate gallery, playback and full lineup. It carries actual assets because deployments exclude art/.
-- Browser and build results are recorded in browser-repair.json and repair-build.txt when executed. A complete atlas alone is not an observed browser load.
+- Browser and build results are recorded in browser-repair.json and repair-build.txt. Hosted CUA observed the custom sheet in the lab, stepped all eight heavy and four charge frames, ran launcher and held-charge moves, and completed the scripted light-chain / launcher / air-chase scenario (7 hits, 192 damage), with no captured console errors. This is a playback/transition smoke test, not exact contact-timing validation.
 
 Generation used the built-in image tool and the full KIT.md heavy/charge briefs with approved references. This correction round targeted the overhead reach/open claw, the recovery idle mismatch, and locked charge lower bodies. Historical staging reports remain historical and are not the latest verdict.
