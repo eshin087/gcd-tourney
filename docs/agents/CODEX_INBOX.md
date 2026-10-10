@@ -15,6 +15,32 @@ How it works:
 
 ---
 
+## One chat for everything (2026-10-10)
+
+The user has a single Codex chat now. In it, do every thread's open items below yourself, one character at a time,
+in this order (each item's brief has the details):
+
+1. **Naruto:** ART-NAR-4T, the Four-Tails frames (required), then ART-HEAVY-01 + ART-CHARGE-01 (the new heavy and
+   charge). Art PRs `art/naruto-four-tails`, then `art/naruto-heavy-charge`.
+2. **Sasuke:** ART-HEAVY-01 + ART-CHARGE-01 (`art/sasuke-heavy-charge`), then the size-pop follow-ups
+   (`fix/sasuke-size-pops`).
+3. **Killua:** ART-HEAVY-01 + ART-CHARGE-01 (`art/killua-heavy-charge`), then the optional ART-KIL-WW.
+4. **Gojo:** ART-GOJ-BUILD in `art/gojo-build`: the model sheet v05 and its lineup only, then **stop**. Nothing else
+   of his starts before the user approves that sheet (after it: idle v04 and its lineup, and stop again).
+
+How to run it:
+
+- Start each batch with `npm run pr -- start <branch> --full` and work only in that worktree; never commit art to main.
+- Version every image (`_vNN`, never overwrite), pack, QA, add the REVIEW.md rows and the cast lineup its brief asks
+  for, tick the inbox item, then `npm run pr -- open` and `npm run pr -- preview`.
+- Don't wait for approval after each image: finish a character's batch and move straight on to the next character.
+  The user approves the REVIEW rows when they have time; Claude merges each PR after its approvals.
+- Stop at Gojo's model sheet (above), or when everything is waiting for the user. Then update "Your next actions" in
+  docs/NOW.md (what to approve, per character, with the preview links), run `npm run status -- --write`, commit
+  docs/NOW.md and this file on main (explicit paths), and reply with that same list.
+- Settled design calls (user, 2026-10-10): Gojo's heavy keeps his left hand in his trouser pocket the whole move;
+  Sasuke's heavy is the Lion's Barrage opening kick (clearly apart from his `specialUp`).
+
 ## Every thread
 
 - [x] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** Done by Claude
