@@ -240,6 +240,12 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
   Guard or Jump cancels it. Heavy during charge with 3 bars fires the ultimate.
+- The power-up builds over its first 45 frames (`Effects.chargeTick`, ENG-059): the aura grows, ki streams in to
+  the chest from a ring around them, pebbles lift off the floor, a dust ring rolls out from the feet (faster as it
+  builds) and the floor cracks after 40 frames, with focus lines, a ground rumble, a one-pixel tremble on the
+  sprite and a hum that climbs (`audio.tune`). Each new bar fires `Game.onChargeBar`: a shockwave ring, a burst, a
+  flash and a camera punch, and "MAX POWER!" with a louder chime on the last one. At full ki the body crackles; a
+  fighter's `charge.sparks: 'lightning'` (Killua) crackles from the start.
 
 ### Ultimate, super flash and ultimate clash
 - The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's

@@ -182,6 +182,16 @@ export class AudioEngine {
         this.noise({ dur: 0.18, gain: 0.5 * v, type: 'lowpass', f0: 700, f1: 120 });
         this.tone({ type: 'sine', f0: 110, f1: 40, dur: 0.22, gain: 0.6 * v });
         break;
+      case 'powerUp': // the first moment of a charge: air rushing in
+        this.noise({ dur: 0.45, gain: 0.22 * v, f0: 300, f1: 2400, Q: 1.4, attack: 0.05 });
+        this.tone({ type: 'sawtooth', f0: 70, f1: 140, dur: 0.4, gain: 0.08 * v, curve: 'lin' });
+        break;
+      case 'kiMax': // the last bar fills
+        this.tone({ type: 'triangle', f0: 880, dur: 0.18, gain: 0.16 * v });
+        this.tone({ type: 'triangle', f0: 1320, dur: 0.22, gain: 0.14 * v, when: 0.06 });
+        this.tone({ type: 'triangle', f0: 1760, dur: 0.4, gain: 0.12 * v, when: 0.12 });
+        this.noise({ dur: 0.3, gain: 0.12 * v, type: 'highpass', f0: 3000, f1: 6000 });
+        break;
       case 'kiFull':
         this.tone({ type: 'triangle', f0: 880, dur: 0.15, gain: 0.15 * v });
         this.tone({ type: 'triangle', f0: 1320, dur: 0.25, gain: 0.12 * v, when: 0.07 });
@@ -295,6 +305,7 @@ export class AudioEngine {
       o.connect(g).connect(target);
     };
 
+    let tune = null;
     if (kind === 'charge') {
       const n = src(), f = filt('bandpass', 500, 0.8), g = gain(0.22);
       n.connect(f).connect(g).connect(out);
@@ -302,6 +313,12 @@ export class AudioEngine {
       const o = osc('sawtooth', 62), og = gain(0.06);
       o.connect(filt('lowpass', 400)).connect(og).connect(out);
       lfo(5, 6, o.frequency);
+      // tune(k), k 0..1: the hum rises in pitch and volume as the charge builds
+      tune = (k) => {
+        f.frequency.setTargetAtTime(500 + 650 * k, this.t, 0.05);
+        g.gain.setTargetAtTime(0.22 + 0.12 * k, this.t, 0.05);
+        o.frequency.setTargetAtTime(62 + 40 * k, this.t, 0.05);
+      };
     } else if (kind === 'rasengan') {
       const n = src(), f = filt('bandpass', 1800, 3), g = gain(0.3);
       n.connect(f).connect(g).connect(out);
@@ -342,7 +359,12 @@ export class AudioEngine {
       o.connect(filt('lowpass', 300)).connect(og).connect(out);
       lfo(6, 8, o.frequency);
     }
-    this.loops.set(id, { out, nodes });
+    this.loops.set(id, { out, nodes, tune });
+  }
+
+  // adjust a running loop that supports it (the charge hum); a no-op otherwise
+  tune(id, k) {
+    this.loops.get(id)?.tune?.(k);
   }
 
   stopLoop(id) {

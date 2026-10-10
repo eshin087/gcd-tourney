@@ -802,11 +802,10 @@ export class Fighter {
         this.vel.x *= 0.7; this.vel.z *= 0.7;
         const before = this.ki;
         this.ki = Math.min(MAX_KI, this.ki + 1.45);
-        if (Math.floor(before / KI_BAR) < Math.floor(this.ki / KI_BAR)) {
-          audio.play('kiFull');
-          this.game.fx.burstAt(this, this.def.color, 1.2);
-        }
+        if (this.t === 1) audio.play('powerUp');
+        if (Math.floor(before / KI_BAR) < Math.floor(this.ki / KI_BAR)) this.game.onChargeBar(this);
         audio.loop('charge' + this.index, 'charge');
+        audio.tune('charge' + this.index, Math.min(1, this.t / 45)); // the hum climbs as the aura builds
         if (this.wantsUltimate() || (p.b.heavy.pressed && this.ki >= ULTIMATE.cost)) {
           audio.stopLoop('charge' + this.index);
           p.consume('heavy'); p.consume('special');
@@ -1353,6 +1352,11 @@ export class Fighter {
     let z = this.prev.z + (this.pos.z - this.prev.z) * a;
     if (this.shaking && this.hitstop > 0) {
       const s = Math.sin(time * 95) * 0.05 * Math.min(1, this.hitstop / 4);
+      x += camRight.x * s;
+      z += camRight.z * s;
+    } else if (this.state === 'charge') {
+      // trembling with the power: a pixel or so, more as it builds
+      const s = Math.sin(time * 70) * 0.012 * Math.min(1, this.t / 30);
       x += camRight.x * s;
       z += camRight.z * s;
     }

@@ -136,6 +136,7 @@ export default {
   color: '#8fd4ff',
   aura: [0.55, 0.82, 1.0],
   auraCore: [0.92, 0.97, 1.0],
+  charge: { sparks: 'lightning' }, // powering up crackles with Godspeed electricity (effects.chargeTick)
   beam: { core: '#ffffff', mid: '#9fdcff', edge: '#4a8cff', name: 'LIGHTNING PALM' },
   specialName: 'NARUKAMI',
   projectileName: 'NARUKAMI',

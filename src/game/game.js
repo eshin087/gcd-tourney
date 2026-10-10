@@ -20,7 +20,7 @@ import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
 import { loadFighterAsset } from './sprites.js';
 import { BoxViewer } from './boxViewer.js';
-import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT } from './constants.js';
+import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
 
 const v3 = new THREE.Vector3();
 
@@ -227,6 +227,19 @@ export class Game {
 
   // ------------------------------------------------------------ kits (ADR 0009)
   // named kit moves: callout + a short flash
+  // a new ki bar while powering up: a shockwave from the feet and a flash; the last bar is louder
+  onChargeBar(f) {
+    const full = f.ki >= MAX_KI;
+    this.fx.burstAt(f, f.mode?.auraColor ?? f.def.color, full ? 1.6 : 1.25);
+    this.fx.spawn('ring', f.pos.x, 0.05, f.pos.z, { scale: full ? 3.2 : 2.4, color: 0xffffff, opacity: 0.85, glow: 0.5, life: 0.3, fade: true });
+    this.fx.dust(f.pos, full ? 1.4 : 1);
+    this.fx.overlay.flash(f.def.color, full ? 0.3 : 0.16);
+    this.cam.zoomPunch(full ? 0.5 : 0.3);
+    this.cam.shake(full ? 0.35 : 0.2);
+    audio.play(full ? 'kiMax' : 'kiFull');
+    if (full) this.hud.callout(f.index, 'MAX POWER!', f.def.color);
+  }
+
   onKitMove(f, m) {
     if (!m.name) return;
     this.hud.callout(f.index, m.name, m.color || f.def.color);
@@ -592,8 +605,12 @@ export class Game {
   fxTicks() {
     let lines = 0;
     for (const f of this.fighters) {
-      if (f.state === 'charge') this.fx.auraTick(f, 1, this.cam.right);
-      else if (f.state === 'beamCharge') {
+      if (f.state === 'charge') {
+        this.fx.chargeTick(f, f.t, this.cam.right);
+        lines = Math.max(lines, 0.3 + 0.3 * Math.min(1, f.t / 45));
+        this.linesFocus = f;
+        if (f.t % 4 === 0) this.cam.shake(0.04 + 0.06 * Math.min(1, f.t / 45)); // the ground rumbles
+      } else if (f.state === 'beamCharge') {
         this.fx.auraTick(f, 1.8, this.cam.right);
         lines = 1;
         this.linesFocus = f;
