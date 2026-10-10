@@ -148,7 +148,15 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
   folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
   When it's done, `npm run pr -- open` there, and `npm run pr -- merge <branch>` from the main folder (never the
   GitHub merge button). Commits straight to `main` are allowed only for docs-only edits, bookkeeping and art
-  approvals for a character that already ships. A new character's whole art production happens on its branch.
+  approvals for a character that already ships. A new character's art goes in batch PRs (`art/<id>-refs`,
+  `art/<id>-core`, `art/<id>-full`), each started from `main` after the previous one merged
+  ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)). Your app's own worktree is fine
+  if it is on a named branch and you open the PR with `npm run pr -- open` from it. Base PRs on `main`, never on
+  another PR's branch unless you say so in the PR body.
+- **The main folder is merge-only.** Never leave uncommitted work there (git can't merge over it); docs-only and
+  bookkeeping commits there go in right away. `docs/NOW.md` and `docs/agents/CODEX_INBOX.md` are edited only on
+  `main`, never in a branch. Read the moveset from `art/characters/<id>/KIT.md`; ask Claude to change a move there
+  rather than drawing a different one.
 - **Shared code files: claim before you edit.** Claude and Codex work in the same folder at the same time. Before
   editing anything outside `art/` and `public/` (e.g. `tools/`, `src/`, `vite.config.js`, `package.json`), put the
   file paths in your task row in docs/TASKS.md (`files: tools/pack-sprites.mjs`) and check that no in-progress row
@@ -195,7 +203,7 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
 7. **Keep the user's "now" page current.** The user works from a phone and switches between Claude and
    Codex. Before you stop and hand back, edit "Your next actions" in [docs/NOW.md](docs/NOW.md) (what the
    user must do next: approvals, prompts to paste, decisions; remove what's done), then run
-   `npm run status -- --write` and commit `docs/NOW.md` with your other files. When the user says
+   `npm run status -- --write` and commit `docs/NOW.md` on `main` (a docs-only commit in the main folder; never in a branch). When the user says
    **"status"**, run `npm run status` and answer with the "Your next actions" list plus anything waiting for
    review, in under 10 lines.
 

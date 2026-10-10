@@ -14,7 +14,7 @@ feedback. The user can still generate an image by hand in ChatGPT; Codex files i
 | [Prompt W1](#prompt-w1-world-art-lead-crowd-stage-npcs-ui-vfx) | **now, in parallel**: world-art lead (crowd, stage, NPCs, UI, VFX) running the claim queue |
 | [Prompt W2](#prompt-w2-world-art-worker-paste-into-each-extra-codex-agent) | one per extra Codex agent: claim, generate, done, repeat |
 | [Prompt 1](#prompt-1-art-producer-use-this-most-of-the-time) | every later art session (generate, file, pack, QA, review loop) |
-| [Prompt 2](#prompt-2-add-a-new-character-end-to-end) | adding a new fighter |
+| [Prompt 2](#prompt-2-a-new-characters-art-after-claudes-data-pr) | a new fighter's art, after Claude merged its data PR |
 | [Prompt 3](#prompt-3-killua-and-gojo-kickoff-two-threads-in-parallel) | **now**: start the Killua and Gojo art (one thread each, S1 model sheets first) |
 | [One-liners](#one-liners) | resuming a session, or filing an image you made by hand |
 
@@ -483,43 +483,35 @@ RULES
 
 ---
 
-## Prompt 2: add a new character end-to-end
+## Prompt 2: a new character's art (after Claude's data PR)
 
-Replace `<Name>` and `<id>` before pasting.
+Use this once Claude has merged the character's data PR (`feature/char-<id>`): the fighter is playable on the
+baked placeholder and `art/characters/<id>/KIT.md` holds the moveset. Replace `<Name>` and `<id>` before pasting.
 
 ```text
-We're adding a new fighter to GCD Tourney: <Name> (id: <id>). Read AGENTS.md, docs/ADDING_A_CHARACTER.md,
-docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first, then do the
-following and stop for my review after each numbered step.
+We're making the art for a new fighter in GCD Tourney: <Name> (id: <id>). Claude has merged the data PR, so the
+moveset is in art/characters/<id>/KIT.md. Read AGENTS.md, docs/ADDING_A_CHARACTER.md (the PR table in step 0),
+art/CHARACTER_SCALE.md, docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first.
 
-0. Branch (ADR 0013): from the main folder run npm run pr -- start feature/char-<id> --full, then do ALL of
-   the work below inside .worktrees/feature-char-<id> and commit there, never on main. When the
-   character is playable, run npm run pr -- open there and tell me the PR link; Claude or I merge it with
-   npm run pr -- merge feature/char-<id>.
-1. Plan: add the CHAR-<id>-* and ART-<id>-* tasks to docs/TASKS.md (see ADDING_A_CHARACTER.md step 0).
-   Propose a one-paragraph concept (design era / outfit, archetype, silhouette, signature special,
-   projectile, ultimate name, signature color) for me to approve.
-2. Briefs: copy art/characters/_template/ to art/characters/<id>/ and fill CHARACTER.md (visual traits of the
-   chosen era from the source material, a hex palette of at most 48 colors, proportions per art/SPEC.md:
-   about 6.5 heads, not chibi, an identity checklist, do's and don'ts, what makes them instantly
-   recognizable), ANIMATIONS.md (every animation from src/art/animGuide.js with this character's own pose
-   descriptions), MOVES_AND_VFX.md and PROMPTS.md (S1 model sheet, S2 expression sheet, then one prompt per
-   animation strip in art/manifest.json step order, then UI; an index table with a step column and the
-   versioned save name of each asset). Prompts describe visual traits and say "anime fan-art sprite", and
-   include fallback wording. Add the character to art/manifest.json (status "todo") and art/TRACKER.md.
-3. Data draft: create src/characters/<id>.js by copying src/characters/naruto.js and changing id, name,
-   subtitle, look, color, aura, auraCore, beam, specialName, projectileName, stats. Reuse an existing special
-   and projectile ('rasengan' | 'chidori', 'shuriken' | 'fireball') unless a task says otherwise, and register
-   it in src/characters/index.js. Leave the 3D placeholder model (palette, outfit, hair, stance, extraAnims)
-   as a rough recolor and add a task for Claude to restyle it. The placeholder stays chibi (112 px cells);
-   that's expected. New special or projectile behavior is a Claude task.
-4. Verify: npx vite --port 5210 in the worktree, open http://127.0.0.1:5210/?fight=<id>,naruto&mode=solo&debug, and confirm the
-   console shows "[sprites] baked <id> from 3D" with no errors. Then run npm run build.
-5. Then switch to the art-producer workflow (docs/agents/CODEX_PROMPT.md, Prompt 1) for <id>, starting with
-   the S1 model sheet (reference/model_sheet_v01.png, a REVIEW.md row, stop for my "approve vNN").
+0. Branch (ADR 0013): from the main folder run npm run pr -- start art/<id>-refs --full and do ALL of the work
+   below inside .worktrees/art-<id>-refs, committing there after each approved step; never on main, never
+   uncommitted in the main folder. docs/NOW.md and docs/agents/CODEX_INBOX.md are edited on main only.
+1. Briefs: copy the rest of art/characters/_template/ (keep KIT.md as Claude wrote it) and fill CHARACTER.md
+   (visual traits of the era in KIT.md, a hex palette of at most 48 colors, proportions per art/SPEC.md and the
+   height in KIT.md, an identity checklist, do's and don'ts), ANIMATIONS.md (every animation from
+   src/art/animGuide.js, with KIT.md §2 for the kit poses and beamCharge/beamFire), MOVES_AND_VFX.md and
+   PROMPTS.md (S1 model sheet, S2 expression sheet, then one prompt per strip in art/manifest.json step order,
+   then UI). Add the character to art/manifest.json (status "todo") and art/TRACKER.md. Stop for my review.
+2. References: S1 model sheet, S2 expressions, idle; one saved _vNN version per round, a REVIEW.md row each,
+   stop for my "approve vNN". When all three are approved, run npm run pr -- open in the worktree and tell me
+   the PR link; Claude merges it.
+3. Then continue with Prompt 1 for <id>: the CORE animations in an art/<id>-core PR (started from main after the
+   refs PR merged), then optional + kit animations and UI in art/<id>-full. Calibrate every stitched part to the
+   same skull-to-chin length, and before each hand-back check a scratch repack is byte-identical to
+   public/characters/<id>/ (ADDING_A_CHARACTER.md step 6).
 
-Log every change in CHANGELOG.md (Unreleased) and keep docs/TASKS.md current. Use conventional commits:
-feat(char:<id>): ..., docs(art): ..., art(<id>): ...
+Log every change in CHANGELOG.md (Unreleased) and keep docs/TASKS.md current (your rows only). Conventional
+commits: docs(art): ..., art(<id>): ...
 ```
 
 ---

@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Fixed: the IMPOSSIBLE CPU never air dodged (its airborne step skipped the threat layer), its light4 wall route almost always turned into the launcher, its spot dodges started too late to beat the hit, and a charge it gave up on early could fire a special by accident (ADR 0016).
 - Fixed: a thrown fighter could end a frame just past the ring barrier.
 - Fixed: a dev server started inside a PR worktree ignored edits to its own files (the vite watch ignore matched every `.worktrees/` path; it now ignores only the checkout's own `.worktrees/` folder).
+- Docs: one PR plan for new characters (Claude's data PR, then Codex's refs/core/full art PRs), `KIT.md` as the moveset brief both AIs read (template added), not every ultimate a beam, the merge-only main folder, `NOW.md`/inbox edited on main only, and `merge=union` for CHANGELOG.md and art/REVIEW.md (DOC-008).
 
 - PR worktrees now live in `.worktrees/` inside the project instead of a sibling `gcdTourney-worktrees` folder (git-ignored, not watched by the dev server; ADR 0013 amended, OPS-003).
 
