@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/guard_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/guard_v01.png"
+  ],
+  "sourceHash": "16ee66a162521b64fbc36ea970457144fc392fdb",
+  "bodyHeight": 198,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "guard_00.png": "adc6cc431fd193797564d086025efed937c91d84",
+    "guard_01.png": "85e71d5b8de76f3d8bb69cf959865be371629f9c"
+  }
+}

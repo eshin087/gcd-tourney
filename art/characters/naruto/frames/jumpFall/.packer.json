@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/jumpFall_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/jumpFall_v01.png"
+  ],
+  "sourceHash": "0c600636b0d82d12579d6bcb846e281fbf674bae",
+  "bodyHeight": 209,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "jumpFall_00.png": "c7c090418c077edb51e54cdd09d751c7e79cb468",
+    "jumpFall_01.png": "afff6c771e3c866b5b5c9a395d2777a062689296"
+  }
+}

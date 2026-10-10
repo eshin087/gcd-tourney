@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/specialDown_v02.png",
+  "version": 2,
+  "source": [
+    "characters/naruto/raw/specialDown_v02.png"
+  ],
+  "sourceHash": "4aa36a74f136ef86035e58009436c450c11049d3",
+  "bodyHeight": 204,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "specialDown_00.png": "a747b603af0b7eec730eed6cbe9ae9f2363c9923",
+    "specialDown_01.png": "968466d70e17486ee6da877ea41c6cffa16a440b",
+    "specialDown_02.png": "99200bc0436f94f90325aeddb03d55db5046afd3",
+    "specialDown_03.png": "f08337626bcbd027733eec1c9973ae4f1e42da68"
+  }
+}

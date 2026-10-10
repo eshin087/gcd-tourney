@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/land_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/land_v01.png"
+  ],
+  "sourceHash": "04b9b155b103b16d1c3c6a0e802a728af8fb7e5a",
+  "bodyHeight": 174,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "land_00.png": "28aa18f4dbe190b33faf5e5b901e8226ac956c6c",
+    "land_01.png": "de03f4640fb86c84254c58a50ecb297fe6620097"
+  }
+}

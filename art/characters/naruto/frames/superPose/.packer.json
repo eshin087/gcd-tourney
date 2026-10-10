@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superPose_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/superPose_v01.png"
+  ],
+  "sourceHash": "c62075c459bfbe669fab50ebc22cc788e7586a79",
+  "bodyHeight": 208,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superPose_00.png": "878a6db0fd097d06f1cc1ce744b339b6aeb9c841",
+    "superPose_01.png": "5373d7fe141ddfd2e9124dccf51c9c8886cc9b19",
+    "superPose_02.png": "4106c4f0d5b1d50b26d89e27ab3fbaa85d73b488",
+    "superPose_03.png": "d7c45e6dd828eeeca3b1056b2996ae680a21bb7b"
+  }
+}

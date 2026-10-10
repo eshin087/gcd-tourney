@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/charge_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/charge_v01.png"
+  ],
+  "sourceHash": "7f89808697d0b7869796070ea07bd36a6ccd48eb",
+  "bodyHeight": 198,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "charge_00.png": "1d972054899fe3d4ef66a20b127df70e421f5ed1",
+    "charge_01.png": "c63beeb178a1b851999aeee83302781d7317e46d",
+    "charge_02.png": "4cd04f71141fe96990a2dfd9ba6c80ff3c0c6cce",
+    "charge_03.png": "5ed4fd039529196c5638779398234da0823e022f"
+  }
+}

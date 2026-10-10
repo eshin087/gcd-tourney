@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+const p='art/characters/naruto/production/final-review.html';
+let h=fs.readFileSync(p,'utf8').replaceAll('Killua','Naruto').replaceAll('killua','naruto');
+h=h.replace('<title>','<base href="/art-review/naruto/final/"><title>');
+h=h.replace('APPROVED · 2026-10-09','FINAL BATCH · READY FOR REVIEW');
+h=h.replace('42 animations · 175 frames · expressions · portrait, cut-in and selection art.<br>Model v01 is approved. The full batch below is approved.','42 animations · 175 frames · portrait, cut-in and selection art.<br>Short-hair model, expressions, idle and run are already approved. Review all remaining work here, then approve once in chat.');
+h=h.replace('Frame separation and running alignment were corrected during QA.','Frame separation, dash placement, knockout pose and two attack boxes were corrected during QA.');
+h=h.replace('Attack reach still needs Claude’s gameplay check (ENG-035). Visual contact-zone deviations are recorded in QA.md.','Some attack hands and feet fall outside the exact target rectangles, including the Rasengan palm height. Review notes list these visual deviations.');
+h=h.replaceAll('ui-preview/characters/naruto/','').replaceAll('../reference/expressions_v01.png','expressions.png').replaceAll('../reference/model_sheet.png','model_sheet.png');
+h=h.replace('Expressions v01','Approved expressions v02').replace('Approved model sheet v01','Approved short-hair model sheet v02');
+h=h.replace('http://127.0.0.1:5188/?fight=naruto,naruto&mode=solo&art=custom&debug','/?fight=naruto,naruto&mode=solo&art=custom').replace('Play the local mirror match','Play Naruto mirror match');
+h=h.replace('Complete batch approved by the user on 2026-10-09. Historical QA notes are retained above.','One final decision: reply “approve Naruto final batch” in chat, or list the animations you want changed. New artwork remains provisional until that decision.');
+h=h.replaceAll('../../../../public/characters/naruto/','');
+h=h.replace("'../'+l.file","l.file");
+h=h.replace("String(l.version).padStart(2,'0')","String(l.version).padStart(2,'0')+(l.approved?' · approved':' · candidate')");
+h=h.replace('.ui img{','.ui figure{margin:0;max-width:100%}.ui img{height:auto;').replace('.layout{display:grid;','.layout>*{min-width:0}.layout{display:grid;');
+h=h.replace('<img src="portrait.png"','<img alt="Naruto HUD portrait" src="portrait.png"').replace('<img src="cutin.png"','<img alt="Naruto super cut-in" src="cutin.png"').replace('<img src="select.png"','<img alt="Naruto selection art" src="select.png"');
+fs.writeFileSync(p,h);

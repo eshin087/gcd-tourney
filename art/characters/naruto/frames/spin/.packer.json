@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/spin_v02.png",
+  "version": 2,
+  "source": [
+    "characters/naruto/raw/spin_v02.png"
+  ],
+  "sourceHash": "eaaa3459965481a36685fc4afee30b0d7d693332",
+  "bodyHeight": 160,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "spin_00.png": "ffd1c7a4b74b1b004fc8e8a3d00a134d538c917c",
+    "spin_01.png": "2c9b4d08036c85266586bbe19801e08b8d90895b",
+    "spin_02.png": "7c31c719497f86606a9f5f88e0de18e4854fb7fc",
+    "spin_03.png": "fe799fe36c2bc8aaecbcb7ef5d09da13f4e60ff3"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/specialUp_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/specialUp_v01.png"
+  ],
+  "sourceHash": "0591fb61d157e02f9b69bdd0473c1c53fbcae7e2",
+  "bodyHeight": 214,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "specialUp_00.png": "6bb69655770545825c7fe5245e067da77c76f802",
+    "specialUp_01.png": "3d0c73d25c0c1082632d7ac3bde71a0ff123dbad",
+    "specialUp_02.png": "6dc6d5377a708d9f57da8ad113038a197a3be48d",
+    "specialUp_03.png": "a11ecfa8822ac2f308aee0f5895319cd758c5d92",
+    "specialUp_04.png": "a19f45c04129bfa63c4591b1b66ce75f705058de",
+    "specialUp_05.png": "a82eebd42a4deaa8fdc226537f90a9e1841e49c1"
+  }
+}

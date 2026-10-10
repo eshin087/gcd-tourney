@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/backDash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/backDash_v01.png"
+  ],
+  "sourceHash": "51e0f0b5671c2d54eea6922da5567bb7003edb69",
+  "bodyHeight": 207,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "backDash_00.png": "1e4523f15d06462464e5e15d7043be9f685a0213",
+    "backDash_01.png": "f0d4b62b9ba5e9734013fe15b881abc3599d335d",
+    "backDash_02.png": "5d025ba2d39aaa9638610f582faad1437a44ace1"
+  }
+}

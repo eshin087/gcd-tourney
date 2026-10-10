@@ -1,0 +1,5 @@
+{
+  "_comment": "256px frame-local boxes over the visible striking hands, replacing full-body fallback detections. Visual target-zone deviations are recorded in production/QA.md.",
+  "heavy": { "3": { "hit": [[145,55,24,34]] } },
+  "airHeavy": { "3": { "hit": [[194,163,30,33]] } }
+}

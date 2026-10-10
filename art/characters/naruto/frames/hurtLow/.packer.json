@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hurtLow_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/hurtLow_v01.png"
+  ],
+  "sourceHash": "bc7aeee95d4061e34e0ca39d5d56c51094b23e35",
+  "bodyHeight": 183,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "hurtLow_00.png": "67afd53244ec6a619fa485634c7be695a6a9c7c6",
+    "hurtLow_01.png": "a8c453f04e5a22505fcce8588139dee704cf991b",
+    "hurtLow_02.png": "ddf37ce2b233cae2083d64cb4233458ca1500db6"
+  }
+}

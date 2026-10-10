@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airHeavy_v02.png",
+  "version": 2,
+  "source": [
+    "characters/naruto/raw/airHeavy_v02.png"
+  ],
+  "sourceHash": "44eedbc177c5ed480421d39be38884099f015e32",
+  "bodyHeight": 198,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airHeavy_00.png": "f2ee27b76592b0afb09f13fbe2c3ab0a7d2ad8e4",
+    "airHeavy_01.png": "85c814158c2234a7453f20cab3256227fd6f3e80",
+    "airHeavy_02.png": "23aa71b6eb95a75f2870b70f2d76359320f4e53e",
+    "airHeavy_03.png": "10ac4ab0b55d104193b576eba3371ad90f69c6de",
+    "airHeavy_04.png": "43a662328d3f93db37c0e1f74204e28564cbe4a5",
+    "airHeavy_05.png": "e8f87d7b3253e9671b8a1e438865ffd95f8b3b4f"
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "light1": {
+    "version": 2,
+    "file": "raw/light1_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "light2": {
+    "version": 1,
+    "file": "raw/light2_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.85; part baseline offsets 0/51. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "light3": {
+    "version": 1,
+    "file": "raw/light3_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.89; part baseline offsets 0/17. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "light4": {
+    "version": 1,
+    "file": "raw/light4_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.71; part baseline offsets 0/153. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "heavy": {
+    "version": 1,
+    "file": "raw/heavy_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.76; part baseline offsets 0/106. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "airLight1": {
+    "version": 2,
+    "file": "raw/airLight1_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "airHeavy": {
+    "version": 2,
+    "file": "raw/airHeavy_v02.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.8; part baseline offsets 0/118. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "guard": {
+    "version": 1,
+    "file": "raw/guard_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "hurtHigh": {
+    "version": 1,
+    "file": "raw/hurtHigh_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "launched": {
+    "version": 1,
+    "file": "raw/launched_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "down": {
+    "version": 1,
+    "file": "raw/down_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "getup": {
+    "version": 2,
+    "file": "raw/getup_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "charge": {
+    "version": 1,
+    "file": "raw/charge_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "beamCharge": {
+    "version": 1,
+    "file": "raw/beamCharge_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "beamFire": {
+    "version": 2,
+    "file": "raw/beamFire_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "special": {
+    "version": 1,
+    "file": "raw/special_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1.4; part baseline offsets 197/0. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "dash": {
+    "version": 1,
+    "file": "raw/dash_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "jumpUp": {
+    "version": 1,
+    "file": "raw/jumpUp_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "jumpFall": {
+    "version": 1,
+    "file": "raw/jumpFall_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "land": {
+    "version": 1,
+    "file": "raw/land_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "win": {
+    "version": 1,
+    "file": "raw/win_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "backDash": {
+    "version": 1,
+    "file": "raw/backDash_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "superDash": {
+    "version": 1,
+    "file": "raw/superDash_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "jumpSquat": {
+    "version": 1,
+    "file": "raw/jumpSquat_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "airLight2": {
+    "version": 2,
+    "file": "raw/airLight2_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "airLight3": {
+    "version": 1,
+    "file": "raw/airLight3_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.7; part baseline offsets 0/131. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "block": {
+    "version": 1,
+    "file": "raw/block_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "hurtLow": {
+    "version": 1,
+    "file": "raw/hurtLow_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "spin": {
+    "version": 2,
+    "file": "raw/spin_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "airRecover": {
+    "version": 1,
+    "file": "raw/airRecover_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "throw": {
+    "version": 2,
+    "file": "raw/throw_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "vanish": {
+    "version": 1,
+    "file": "raw/vanish_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "stagger": {
+    "version": 1,
+    "file": "raw/stagger_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "ko": {
+    "version": 3,
+    "file": "raw/ko_v03.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "intro": {
+    "version": 1,
+    "file": "raw/intro_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "taunt": {
+    "version": 1,
+    "file": "raw/taunt_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "specialUp": {
+    "version": 1,
+    "file": "raw/specialUp_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.7; part baseline offsets 0/306. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "specialDown": {
+    "version": 2,
+    "file": "raw/specialDown_v02.png",
+    "status": "packed",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending."
+  },
+  "superPose": {
+    "version": 1,
+    "file": "raw/superPose_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "ui_portrait": {
+    "version": 1,
+    "file": "raw/ui_portrait_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "ui_cutin": {
+    "version": 2,
+    "file": "raw/ui_cutin_v02.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "ui_select": {
+    "version": 1,
+    "file": "raw/ui_select_v01.png",
+    "notes": "Generated candidate; final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  },
+  "specialForward": {
+    "version": 2,
+    "file": "raw/specialForward_v02.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 0.78; part baseline offsets 0/21. Final review pending. Final technical QA: exact frame count, no cell clipping, 48-color atlas. Visual caveats in QA.md; final approval pending.",
+    "status": "packed"
+  }
+}

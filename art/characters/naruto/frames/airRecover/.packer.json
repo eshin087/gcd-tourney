@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airRecover_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/airRecover_v01.png"
+  ],
+  "sourceHash": "9a2378c01b20c7b9b9c7561d6f7d662e11e862b2",
+  "bodyHeight": 180,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airRecover_00.png": "e3e8194738e4469261427918e223f9dc4b1ff8ca",
+    "airRecover_01.png": "2bb46fed2b6fec475cf270e8966b333a89195044",
+    "airRecover_02.png": "865bd6ad81d29f41c7b15f87d034fdd5a18e97cf"
+  }
+}

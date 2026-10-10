@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/beamCharge_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/beamCharge_v01.png"
+  ],
+  "sourceHash": "fe8d8bcbc9bc67891b381b77476f34f14cdcd3f5",
+  "bodyHeight": 198,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "beamCharge_00.png": "e91d494de827f1dc4d5de731190cb7e85e6c3895",
+    "beamCharge_01.png": "eaae938795a1378160330cc482a39882e1cead60",
+    "beamCharge_02.png": "02bd3058b9bb594ea263feed9ecf9b51110c101a"
+  }
+}

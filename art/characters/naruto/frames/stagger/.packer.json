@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/stagger_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/stagger_v01.png"
+  ],
+  "sourceHash": "a150da16803a4535ca826b19a490aa4a2980986c",
+  "bodyHeight": 207,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "stagger_00.png": "15a9ffd47c931ab92706c3c516c3706ad06794f6",
+    "stagger_01.png": "eb49bc306e110460883d9d364c334c432f94b464",
+    "stagger_02.png": "8a19fd4385604dccd0fadd851cd5f7e7fbd3cc69",
+    "stagger_03.png": "1d38cca0476ec239139b23d813c3d4e97b4fb3cf"
+  }
+}

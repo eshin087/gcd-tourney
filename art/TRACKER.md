@@ -35,7 +35,7 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
 | character | reference (2) | core anims (23) | optional anims | UI (3) | sheet complete |
 |---|---|---|---|---|---|
-| naruto | 2/2 approved | 2/23 approved | 0/19 | 0/3 | no |
+| naruto | 2/2 approved | 23/23 packed (2 approved) | 19/19 packed | 3/3 packed previews | yes; final review pending |
 | sasuke | 2/2 approved | 2/23 approved | 0/15 | 0/3 | no |
 | killua | 0/2 | 0/23 | 0/19 | 0/3 | no |
 | gojo | 0/2 | 0/23 | 0/19 | 0/3 | no |
@@ -55,49 +55,49 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
 | 4 | run | 8 | - | **yes** | 204 | approved | v03 | v03 | User approved the short-hair run v03; same gait/placement/timing, 48 colors, zero pack warnings. Hair propagation complete. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | todo | - | - | |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | todo | - | - | |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | todo | - | - | |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | todo | - | - | |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | todo | - | - | |
-| 6 | guard | 2 | - | **yes** | 198 | todo | - | - | |
-| 6 | hurtHigh | 3 | - | **yes** | 195 | todo | - | - | |
-| 6 | launched | 2 | - | **yes** | 136 | todo | - | - | |
-| 6 | down | 2 | - | **yes** | 96 | todo | - | - | |
-| 6 | getup | 5 | - | **yes** | 204 | todo | - | - | |
-| 7 | charge | 4 | - | **yes** | 198 | todo | - | - | |
-| 7 | beamCharge | 3 | - | **yes** | 198 | todo | - | - | |
-| 7 | beamFire | 3 | - | **yes** | 198 | todo | - | - | |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | todo | - | - | |
-| 8 | dash | 2 | - | **yes** | 160 | todo | - | - | |
-| 8 | jumpUp | 2 | - | **yes** | 198 | todo | - | - | |
-| 8 | jumpFall | 2 | - | **yes** | 209 | todo | - | - | |
-| 8 | land | 2 | - | **yes** | 174 | todo | - | - | |
-| 8 | win | 4 | - | **yes** | 212 | todo | - | - | |
-| 9 | backDash | 3 | - | no | 207 | todo | - | - | |
-| 9 | superDash | 2 | - | no | 120 | todo | - | - | |
-| 9 | jumpSquat | 1 | - | no | 162 | todo | - | - | |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | todo | - | - | |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | todo | - | - | |
-| 9 | block | 2 | - | no | 204 | todo | - | - | |
-| 9 | hurtLow | 3 | - | no | 183 | todo | - | - | |
-| 9 | spin | 4 | - | no | 160 | todo | - | - | |
-| 9 | airRecover | 3 | - | no | 180 | todo | - | - | |
-| 9 | throw | 4 | 1/1/2 | no | 201 | todo | - | - | |
-| 9 | vanish | 2 | - | no | 221 | todo | - | - | |
-| 9 | stagger | 4 | - | no | 207 | todo | - | - | |
-| 9 | ko | 1 | - | no | 64 | todo | - | - | |
-| 9 | intro | 4 | - | no | 210 | todo | - | - | |
-| 9 | taunt | 2 | - | no | 212 | todo | - | - | |
-| 9 | specialForward | 7 | 2/2/3 | no | 204 | todo | - | - | kit (ADR 0009/0011): Rasenshuriken held in the hand; palm EMPTY |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | todo | - | - | kit: Uzumaki Barrage rise; f5 = airHeavy f0 |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | todo | - | - | kit: Nine-Tails cloak activation; red slit eyes in this strip only; no hit box |
-| 9 | superPose | 4 | - | no | 208 | todo | - | - | kit: Shadow Clone seal for the Shadow Clone Barrage super flash |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
-| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | packed | v02 | - | final review pending; see REVIEW.md |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | packed | v01 | - | final review pending; see REVIEW.md |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | packed | v01 | - | final review pending; see REVIEW.md |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | packed | v01 | - | final review pending; see REVIEW.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | packed | v01 | - | final review pending; see REVIEW.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | packed | v02 | - | final review pending; see REVIEW.md |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | packed | v02 | - | final review pending; see REVIEW.md |
+| 6 | guard | 2 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
+| 6 | hurtHigh | 3 | - | **yes** | 195 | packed | v01 | - | final review pending; see REVIEW.md |
+| 6 | launched | 2 | - | **yes** | 136 | packed | v01 | - | final review pending; see REVIEW.md |
+| 6 | down | 2 | - | **yes** | 96 | packed | v01 | - | final review pending; see REVIEW.md |
+| 6 | getup | 5 | - | **yes** | 204 | packed | v02 | - | final review pending; see REVIEW.md |
+| 7 | charge | 4 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
+| 7 | beamCharge | 3 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
+| 7 | beamFire | 3 | - | **yes** | 198 | packed | v02 | - | final review pending; see REVIEW.md |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | packed | v01 | - | final review pending; see REVIEW.md |
+| 8 | dash | 2 | - | **yes** | 160 | packed | v01 | - | final review pending; see REVIEW.md |
+| 8 | jumpUp | 2 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
+| 8 | jumpFall | 2 | - | **yes** | 209 | packed | v01 | - | final review pending; see REVIEW.md |
+| 8 | land | 2 | - | **yes** | 174 | packed | v01 | - | final review pending; see REVIEW.md |
+| 8 | win | 4 | - | **yes** | 212 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | backDash | 3 | - | no | 207 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | superDash | 2 | - | no | 120 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | jumpSquat | 1 | - | no | 162 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | packed | v02 | - | final review pending; see REVIEW.md |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | block | 2 | - | no | 204 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | hurtLow | 3 | - | no | 183 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | spin | 4 | - | no | 160 | packed | v02 | - | final review pending; see REVIEW.md |
+| 9 | airRecover | 3 | - | no | 180 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | throw | 4 | 1/1/2 | no | 201 | packed | v02 | - | final review pending; see REVIEW.md |
+| 9 | vanish | 2 | - | no | 221 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | stagger | 4 | - | no | 207 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | ko | 1 | - | no | 64 | packed | v03 | - | final review pending; see REVIEW.md |
+| 9 | intro | 4 | - | no | 210 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | taunt | 2 | - | no | 212 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | specialForward | 7 | 2/2/3 | no | 204 | packed | v02 | - | final review pending; see REVIEW.md |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | packed | v01 | - | final review pending; see REVIEW.md |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | packed | v02 | - | final review pending; see REVIEW.md |
+| 9 | superPose | 4 | - | no | 208 | packed | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | packed | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | packed | v02 | - | final review pending; see REVIEW.md |
+| 11 | ui/select.png (384x384) | - | - | no | - | packed | v01 | - | final review pending; see REVIEW.md |
 
 ## sasuke
 

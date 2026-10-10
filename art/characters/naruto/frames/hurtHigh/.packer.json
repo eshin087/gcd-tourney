@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hurtHigh_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/hurtHigh_v01.png"
+  ],
+  "sourceHash": "ad4a5a5500e2a98185464a9d66301076cb738b52",
+  "bodyHeight": 195,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "hurtHigh_00.png": "2dc4fe9a8ba3fb4495114a21970a60cd08edc63c",
+    "hurtHigh_01.png": "935b94e6fae38c649f6274c11e392a8853a635b9",
+    "hurtHigh_02.png": "66bfe13ab512da0a3078518e816790a88cd07d14"
+  }
+}

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto complete candidate batch for one final review: 40 new animations and three UI images, completing 42 animations / 175 frames. Corrected pose separation, dash placement, knockout and cut-in; 48-color atlas, frame-local hand boxes, and phone-friendly playback review (ART-NAR-FINAL).
+
 
 
 - Approved the complete Gojo art batch (47 assets), promoted canonical references/UI, archived superseded versions, and connected Blink startup/reappearance animation. Canonical strict pack and 160 packer regressions pass; approved-sheet reach measurements and teleport regression recorded.

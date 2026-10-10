@@ -1,0 +1,38 @@
+{
+  "custom": [
+    "[sprites] using custom sheet for naruto (42 animations)"
+  ],
+  "animationsExercised": 42,
+  "errors": [],
+  "httpErrors": [],
+  "mobile": {
+    "width": 390,
+    "documentWidth": 390,
+    "images": [
+      {
+        "src": "portrait.png",
+        "ok": true
+      },
+      {
+        "src": "cutin.png",
+        "ok": true
+      },
+      {
+        "src": "select.png",
+        "ok": true
+      },
+      {
+        "src": "expressions.png",
+        "ok": true
+      },
+      {
+        "src": "model_sheet.png",
+        "ok": true
+      },
+      {
+        "src": "game-preview.png",
+        "ok": true
+      }
+    ]
+  }
+}

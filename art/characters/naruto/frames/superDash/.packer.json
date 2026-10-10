@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superDash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/superDash_v01.png"
+  ],
+  "sourceHash": "4dac5f2daef040a4de8887bb6151a57eef141716",
+  "bodyHeight": 120,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superDash_00.png": "7115c910831092de6e91d258fe2c4c0d1516359e",
+    "superDash_01.png": "da5f1c21f512fa897cdba38b482d57bad19d34f7"
+  }
+}

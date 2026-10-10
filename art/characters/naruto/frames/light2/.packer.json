@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/light2_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/light2_v01.png"
+  ],
+  "sourceHash": "31d5dffd4987bec0832d27821526595985af8f9f",
+  "bodyHeight": 204,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "light2_00.png": "4ac472b923ab6265a972a695e9e0c2db550ec4f6",
+    "light2_01.png": "93b5a6286e3d158544c1cec9cf43b5b534e225c3",
+    "light2_02.png": "fc08df495abea85cf3d505572ce2c8823d1c6ed8",
+    "light2_03.png": "ffa4713e4daaf781974ae79d52a9c9e6f43f678a",
+    "light2_04.png": "c4f5701e2af8cf2c7eaebad878a3f1af5eaddc9f",
+    "light2_05.png": "f13857f019e06292a20b62c5f0895a4c3b52be9c",
+    "light2_06.png": "2efbb993446b18135ab299d61bcb53b5e8e4c696"
+  }
+}

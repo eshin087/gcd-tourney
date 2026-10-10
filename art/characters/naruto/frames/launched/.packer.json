@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/launched_v01.png",
+  "version": 1,
+  "source": [
+    "characters/naruto/raw/launched_v01.png",
+    "characters/naruto/raw/launched_v01.json"
+  ],
+  "sourceHash": "33cf6aef26ee5c9f337951c24ab9b82bb87bfdb1",
+  "bodyHeight": 136,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "launched_00.png": "4f66691e5a261b1d7c53d352ab6d73da64c46841",
+    "launched_01.png": "69f08b3ea2182f7f37dcb5b5ee3c85339f3d7aa6"
+  }
+}
