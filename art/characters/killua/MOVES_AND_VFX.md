@@ -135,6 +135,9 @@ then on he moves in jagged lightning blinks with little arcs crawling over his l
 
 ### LIGHTNING PALM (`beamCharge` → `beamFire`): ultimate, 3 bars
 
+> **Superseded by ADR 0017:** the ultimate is now **Godspeed: Whirlwind** (a reflex mode) and the SUPER below is
+> renamed **Godspeed: Speed of Lightning**; see [KIT.md](KIT.md). These sections are kept as the record.
+
 | | |
 |---|---|
 | Sequence | super flash (42 f world freeze, dimmed screen) with the **cut-in** (`ui/cutin.png`, assassin eyes) → `beamCharge` for 46 f (14 f when countering an enemy beam) → `beamFire` while the beam lasts (84 f) |

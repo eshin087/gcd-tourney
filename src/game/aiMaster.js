@@ -606,6 +606,7 @@ export class MasterBrain {
       if (Sp?.kind === 'flurry' && c.dist < (Sp.range ?? 6)) take('super', (Sp.hits * Sp.hitDmg + Sp.finalDmg) * scale(Sp.minScale), null);
       const U = SUPERS[K.ultimate];
       if (U?.kind === 'ignite') take('ultimate', U.dmg * scale(1) + (U.burn.len / U.burn.every) * U.burn.dmg, null);
+      if (U?.kind === 'rampage' && c.dist < (U.range ?? 8) - 0.6 && Math.abs(c.sd) < 1) take('ultimate', (U.slams * U.slamDmg + U.finalDmg) * scale(U.minScale ?? 0.9), null);
     }
     const sp = specialFor(f.def, 'neutral');
     const left = o.state === 'hitstun' ? o.stun - o.t : 0;
@@ -625,6 +626,11 @@ export class MasterBrain {
       if (!S) return false;
       if (S.kind === 'flurry') return c.dist < (S.range ?? 6) - 0.6;
       if (S.kind === 'domain' || S.kind === 'ignite') return true;
+      // ADR 0017: Hollow Purple wants room and their lane, the Four-Tails pounce its reach and their lane,
+      // Whirlwind them close enough to swing at it
+      if (S.kind === 'orb') return !inCombo && (anyRange || (c.dist > 2.6 && Math.abs(c.sd) < 1));
+      if (S.kind === 'rampage') return c.dist < (S.range ?? 8) - 0.6 && (anyRange || Math.abs(c.sd) < 1);
+      if (S.kind === 'reflex') return !inCombo && (anyRange || c.dist < 4.5);
       return !inCombo && S.kind === 'skyStrike';
     };
     const w = { hold: inCombo ? 1.2 : 1 };
@@ -756,6 +762,13 @@ export class MasterBrain {
       const perp = Math.hypot(ax - b.dir.x * along, az - b.dir.z * along);
       if (along > -0.5 && perp < b.width * 0.5 + 0.9) add({ key: 'bf' + this.oppSerial, kind: 'beam', frames: Math.max(0, (along - b.len) / ULTIMATE.speed * 60), len: 30 });
     }
+    for (const ob of game.orbs) {
+      if (ob.owner !== o || ob.dead || ob.clash || ob.hit) continue;
+      const ax = f.pos.x - ob.pos.x, az = f.pos.z - ob.pos.z;
+      const along = ax * ob.dir.x + az * ob.dir.z;
+      const perp = Math.hypot(ax - ob.dir.x * along, az - ob.dir.z * along);
+      if (along > -ob.r && perp < ob.r + 0.9) add({ key: 'ob' + this.oppSerial, kind: 'beam', frames: Math.max(0, (along - ob.r) / ob.S.speed * 60), len: 20 });
+    }
     if (o.state === 'kit' && o.kitState) add(this.kitThreat(game, c, o.kitState));
     return best;
   }
@@ -765,6 +778,14 @@ export class MasterBrain {
     switch (k.kind) {
       case 'flurry':
         if (k.phase === 'dash' || k.phase === 'flash') return { key: 'fl' + this.oppSerial, kind: 'grab', frames: Math.max(0, (c.dist - 1.4) / 24 * 60), len: 4, unblockable: true, big: true };
+        return null;
+      case 'orb':
+        if (k.phase === 'merge' || k.phase === 'flash') return { key: 'om' + this.oppSerial, kind: 'beam', frames: Math.max(0, m.merge - (k.t0 || 0)) + Math.max(0, c.dist - m.radius) / m.speed * 60, len: 30, charging: true };
+        return null;
+      case 'rampage':
+        if (k.phase === 'flash' || k.phase === 'roar' || k.phase === 'lunge') {
+          return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, m.roar - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true };
+        }
         return null;
       case 'ignite':
         if (k.phase === 'gaze' || k.phase === 'flash') return { key: 'ig' + this.oppSerial, kind: 'grab', frames: Math.max(0, m.delay - (k.t0 || 0)), len: 2, unblockable: true, big: true, rangeless: true };
@@ -1003,6 +1024,12 @@ export class MasterBrain {
       return this.followUp(game, c);
     }
     if (o.state === 'kit' && o.counterT > 0) { this.backOff(c); return true; } // never swing into a counter stance
+    if (o.reflex) {
+      // Whirlwind answers every strike and shot (ADR 0017): walk in and throw it, or wait it out
+      if (c.dist < 2.6) { if (this.inThrowRange(c)) this.throwNow(); else this.approach(c, 0.7); return true; }
+      this.backOff(c);
+      return true;
+    }
     if (o.state === 'beamFire') return this.punishBeam(game, c);
     const w = this.opening(o);
     if (!w || w.to <= 0) return false;
@@ -1075,8 +1102,10 @@ export class MasterBrain {
     if (!kills && !show) return false;
     if (S?.kind === 'flurry' && c.dist < 5.4) { this.tap('super'); return true; }
     if (S?.kind === 'domain' && c.dist < 8) { this.tap('super'); return true; }
-    if (SUPERS[K.ultimate]?.kind === 'ignite') { this.tap('heavy'); this.tap('special'); return true; }
-    if (!K.ultimate && w.to > 40 && c.dist > 2.5 && Math.abs(c.sd) < 1) { this.tap('heavy'); this.tap('special'); return true; } // beam
+    const U = SUPERS[K.ultimate];
+    if (U?.kind === 'ignite') { this.tap('heavy'); this.tap('special'); return true; }
+    if (U?.kind === 'rampage' && c.dist < (U.range ?? 8) - 0.6 && Math.abs(c.sd) < 1 && w.to > (U.roar ?? 16) + 8) { this.tap('heavy'); this.tap('special'); return true; }
+    if ((!U || U.kind === 'orb') && w.to > 40 && c.dist > 2.5 && Math.abs(c.sd) < 1) { this.tap('heavy'); this.tap('special'); return true; } // beam / Hollow Purple
     return false;
   }
 
@@ -1551,6 +1580,14 @@ export class MasterBrain {
         // Amaterasu needs only sight, the Domain takes the whole stage)
         const S = SUPERS[p.tool === 'super' ? kitOf(f.def).super : kitOf(f.def).ultimate];
         if (S?.kind === 'flurry' && (c.dist > (S.range ?? 6) - 1 || Math.abs(c.sd) > 0.8) && p.t < 30) { this.approach(c, 2.5); return; }
+        // the pounce: inside its reach, in their lane; Whirlwind: close enough that they'll swing; the orb: room
+        if (S?.kind === 'rampage' && (c.dist > (S.range ?? 8) - 1 || Math.abs(c.sd) > 0.5) && p.t < 30) { this.approach(c, 3.5); return; }
+        if (S?.kind === 'reflex' && c.dist > 4 && p.t < 30) { this.approach(c, 2.5); return; }
+        if (S?.kind === 'orb' && (Math.abs(c.sx) < 2.8 || Math.abs(c.sd) > 0.6) && p.t < 40) {
+          if (Math.abs(c.sx) < 2.8) this.mx = -c.toward;
+          if (Math.abs(c.sd) > 0.6) this.my = Math.sign(c.sd);
+          return;
+        }
         p.fired = true;
         p.firedAt = p.t;
         this.fireBig(p.tool);

@@ -126,6 +126,9 @@ a **light** hit spark on contact. The throwing arm itself never hits (`hit: []`,
 
 ### RASEN CANNON (ultimate, 3 bars)
 
+> **Superseded by ADR 0017:** the ultimate is now **Four-Tails** (a rampage, not a beam). The brief for its frames is
+> [KIT.md §5](KIT.md#5-four-tails-ultimate-adr-0017-redraw-beamcharge--beamfire-as-the-shroud-form); this section is kept as the record.
+
 | beat | engine | Naruto art |
 |---|---|---|
 | super flash | time freezes for 42 frames, the stage darkens, speed lines focus on him, and the HUD slides in his **cut-in** (`ui/cutin.png`: eyes strip) with "RASEN CANNON" | `ui/cutin.png` (UI art) |

@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **New ultimates, one shape each** (ADR 0017): Gojo's **Hollow Purple** is now a huge orb that rolls across the stage, erases projectiles and carves a trench (260); Naruto's **Four-Tails** roars in the four-tailed shroud and pounces on all fours, mauling what it catches (~255; side-step during the roar to dodge); Killua's **Godspeed: Whirlwind** auto-counters up to 4 strikes or shots in 5 s, and his flurry SUPER is renamed **Godspeed: Speed of Lightning**. No current fighter uses the shared beam (Goku's Kamehameha will). Both CPUs use and answer them. Art briefs for Codex in each KIT.md (ENG-053).
 - **Test lab** (`/lab.html`, ADR 0018): every move of either fighter in one tap with frame data, all 42 animations frame by frame with hit and hurt boxes, one-tap scenarios for the shared mechanics (clashes, throws, parry, dodges, wavedash, air combos, bounces, vanish, super dash, counters, Whirlwind, Hollow Purple), slow motion, frame step, and record/replay on the dummy. Works on PR preview links (ENG-055).
 
 - Tools: `npm run pr -- preview` deploys a PR's branch to a Vercel preview link and posts it on the PR, so it can be tried on a phone before it merges; `npm run deploy` (production) now runs only on `main` (ADR 0018, TOOL-022).

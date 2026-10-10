@@ -134,6 +134,7 @@ export default {
   kit: {
     specials: { neutral: 'blue', forward: 'red', up: 'blink', down: 'infinity', air: 'redAir' },
     super: 'unlimitedVoid',
+    ultimate: 'hollowPurple', // an orb, not a beam (ADR 0017)
     passive: 'infinity',
   },
   stats: { speed: 6.0, power: 1.0, defense: 1.0 }, // stat index 0.97; Infinity is his edge (ADR 0011)

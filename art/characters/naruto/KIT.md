@@ -396,3 +396,54 @@ drawn**. The packed palette stays at 48 colors or fewer.
   chest, both hands visible, not covering the face.
 - He is braced wide and shouting, clearly different from the calm `intro` seal.
 - The feet are identical in all 4 frames; only the hair, tails, jacket hem and pant legs move.
+
+## 5. Four-Tails (ultimate, ADR 0017): redraw `beamCharge` / `beamFire` as the shroud form
+
+The Rasen Cannon beam is gone: Naruto's ultimate is now the **Four-Tails** rampage from the Tenchi Bridge arc of
+Naruto Shippuden (the fight with Orochimaru), where the Nine-Tails cloak darkens into the four-tailed shroud and he
+roars, pounces on all fours and mauls. `beamCharge` becomes the roar and `beamFire` the pounce and the claw slams.
+Until these frames exist, the engine shows `specialDown` (roar) and `dash` (pounce) with a dark red tint, so this
+redraw is **required** for the anime look. Use the anime scene as the visual reference (local pictures in
+`reference/source/` if collected; never upload them) and match it exactly.
+
+Gameplay facts the poses must fit (`SUPERS.fourTails` in `src/game/moves.js`): a 46-frame flash, a 16-frame roar,
+a pounce at 20 units/s for up to 8 units, then 3 claw slams and a point-blank chakra roar.
+
+### The shroud form (both animations)
+
+- Naruto's whole body is inside the shroud: **no skin, hair, headband or clothes are visible**. The body reads as a
+  solid near-black crimson silhouette (core `#1a0204`, body `#4a0606`, midtones `#7a0c0c`) with a **bubbling
+  blood-red rim** (`#c8281e`, highlights `#ff4a2a`) along the outline, where chakra boils off like thick liquid.
+- Head: rounded and fox-like, with **two pointed fox ears**, **round blank white eyes** (`#ffffff`, no pupils, no
+  irises) and a **wide jagged white mouth**, open in the roar.
+- **Four chakra tails** from the lower back: thick at the base, tapering, each about as long as his body, with the
+  same red rim. They change shape every frame.
+- Clawed hands and feet with blunt claw tips; a beast's posture on all fours.
+- **Scale:** calibrate the skull (the head without the ears) to his standard skull-to-chin length with a versioned
+  sidecar ([art/CHARACTER_SCALE.md](../../CHARACTER_SCALE.md)), not to the frame height: a crouched beast with
+  raised tails is shorter and wider than his standing body. His limbs keep their lengths.
+- Hard pixels, flat magenta background, within his 48-color sheet palette (these colors join it). **Nothing outside
+  the body outline:** no glow, smoke, flames or energy; the engine adds the chakra bubbles and tail flames.
+
+### `beamCharge`: the roar (3 frames, loops; flash and roar)
+
+| f | pose |
+|---|---|
+| f0 | Crouched low on all fours facing screen-right, front claws planted, head thrown back and mouth wide open in a roar, the four tails raised and fanned out behind him. |
+| f1 | Same, trembling 1 to 2 px; the tails sway to a second shape; the rim bubbles change. |
+| f2 | Same, trembling back; a third tail shape. Loops to f0. |
+
+### `beamFire`: the pounce and the claw slams (3 frames, loops)
+
+| f | pose |
+|---|---|
+| f0 | Launching: body stretched long and low toward screen-right, front claws reaching forward at chest height, back legs pushing off, tails streaming straight back. |
+| f1 | Mid-air: claws forward, mouth open, tails trailing. |
+| f2 | Striking: one claw slamming down in front of him at his own hip height (the engine also uses this frame for each slam). |
+
+### Then, in the same art PR (a small data change, AGENTS.md allows it)
+
+In `src/game/moves.js` `SUPERS.fourTails`, switch to the drawn frames: `pose: 'beamCharge'`, `strikePose: 'beamFire'`,
+`maulPose: 'beamFire'`, `maulPhase: 2` (f2) and `shroud.tint: [1, 1, 1]` (the drawn shroud replaces the tint).
+Check it in game (`?fight=naruto,killua&mode=solo&debug`, three bars, Heavy + Special) and in the test lab once it
+exists: the roar, the pounce and the slams must show the shroud form throughout, with his feet on the floor line.

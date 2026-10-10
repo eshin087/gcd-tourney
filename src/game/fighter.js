@@ -78,6 +78,8 @@ export class Fighter {
     this.counterT = 0; // counter-stance frames left
     this.kitState = null; // data of the running kit move (state 'kit')
     this.burn = null; // damage over time (Amaterasu), see kit.tickBurn
+    this.reflex = null; // Whirlwind: auto-counters left and frames (ADR 0017), see kit.tickReflex
+    kit.endShroud(this); // the Four-Tails tint never outlives a round
     this.dashDir = new THREE.Vector2(1, 0);
     // defensive options (ADR 0014)
     this.clock = 0; // frames since the round started (dodge staleness)
@@ -573,6 +575,8 @@ export class Fighter {
     if (this.airStun > 0) this.airStun--;
     kit.tickMode(this);
     kit.tickBurn(this);
+    kit.tickReflex(this);
+    kit.tickShroud(this);
     if (this.counterT > 0 && this.state !== 'kit') this.counterT = 0;
     if (this.heldT > 0) {
       this.heldT--;
@@ -1229,6 +1233,7 @@ export class Fighter {
   takeHit(att, m, dir) {
     if (this.ko) return 'miss';
     if (this.counterT > 0 && this.state === 'kit' && !m.beam && !m.unblockable) return kit.counterHit(this, att, m);
+    if (this.reflex && kit.reflexReady(this, m)) return kit.reflexCounter(this, att, m); // Whirlwind (ADR 0017)
     this.sinceHit = 0; // blocked or not (training health refill waits for a calm spell)
     if (m.projectileHit && this.state === 'superDash') return 'miss'; // super dash plows through projectiles
     const tx = att.pos.x - this.pos.x, tz = att.pos.z - this.pos.z;

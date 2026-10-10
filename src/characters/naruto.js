@@ -151,6 +151,7 @@ export default {
   kit: {
     specials: { neutral: 'rasengan', forward: 'rasenshuriken', up: 'uzumakiBarrage', down: 'nineTails', back: 'substitution', air: 'shurikenAir', airDown: 'uzumakiBarrageAir' },
     super: 'shadowCloneBarrage',
+    ultimate: 'fourTails', // ADR 0017: the cast keeps one beam at most (Goku's Kamehameha)
   },
   stats: { speed: 5.9, power: 1.0, defense: 1.0 }, // stat index 0.95 (ADR 0011)
   model,

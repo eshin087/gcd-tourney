@@ -254,6 +254,75 @@ export class Projectile {
   }
 }
 
+// Hollow Purple (Gojo, ADR 0017): the imaginary mass rolls forward on its own, erases the opponent's projectiles
+// (Game.projectileCollisions) and carves a trench. One unblockable hit, then it keeps going; you leave its lane or
+// vanish. `S` is the SUPERS entry (speed, radius, life, dmg, launch, colors).
+export class Orb {
+  constructor(game, owner, S, at, ultimate = true) {
+    this.game = game;
+    this.owner = owner;
+    this.S = S;
+    this.ultimate = ultimate;
+    this.id = 'orb' + owner.index;
+    this.pos = at.clone();
+    const o = owner.opp;
+    this.dir = new THREE.Vector3(o.pos.x - at.x, 0, o.pos.z - at.z);
+    if (this.dir.lengthSq() < 1e-4) this.dir.set(owner.face.x, 0, owner.face.y);
+    this.dir.normalize();
+    this.r = S.radius;
+    this.t = 0;
+    this.grow = 0.2;
+    this.dead = false;
+    this.hit = false;
+    this.clash = null;
+    audio.loop('orb' + owner.index, 'beam');
+  }
+
+  update() {
+    if (this.dead) return;
+    this.t++;
+    const g = this.game, fx = g.fx, S = this.S, p = this.pos;
+    this.grow = Math.min(1, this.grow + 0.1);
+    if (!this.clash) {
+      p.addScaledVector(this.dir, S.speed * DT);
+      if (this.t % 5 === 0) {
+        fx.crater(p);
+        fx.debris(p.x, p.z, 3, 0.7);
+      }
+      const o = this.owner.opp;
+      if (!this.hit && !o.ko && o.invuln <= 0 && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
+        const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
+        if (Math.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35) {
+          this.hit = true;
+          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));
+          fx.overlay.impactFrame(4);
+          g.cam.shake(1.1);
+          audio.play('explosion', 1.3);
+          g.excite = 1;
+        }
+      }
+      if (this.t > S.life * 60 || Math.abs(p.x) > ARENA_LIMIT + 3 || Math.abs(p.z) > ARENA_LIMIT + 3) { this.kill(); return; }
+    }
+    const s = this.r * 1.35 * this.grow * (1 + 0.05 * Math.sin(this.t * 0.7));
+    fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: s, color: S.orb, order: 8, glow: 1.1 });
+    fx.keep(this.id + 'c', 'orb', p.x, p.y, p.z, { scale: s * 0.5, color: 0xf2e2ff, order: 9, glow: 1.6 });
+    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: s * 1.25, color: S.glow, opacity: 0.32, order: 3, glow: 0.8 }); // larger reads as a flat square
+    if (this.t % 5 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: s * 1.1, color: S.orb, glow: 0.8, life: 0.2, fade: true, order: 7 });
+    if (this.t % 3 === 0) fx.spawn('lightning', p.x + (Math.random() - 0.5) * this.r, p.y + (Math.random() - 0.5) * this.r, p.z, { scale: 0.7, random: true, life: 0.08, color: 0xe0c0ff, rot: Math.random() * 6.28, order: 9, glow: 1.6 });
+  }
+
+  kill() {
+    if (this.dead) return;
+    this.dead = true;
+    const fx = this.game.fx;
+    fx.drop(this.id);
+    fx.drop(this.id + 'c');
+    fx.drop(this.id + 'g');
+    audio.stopLoop('orb' + this.owner.index);
+  }
+}
+
 // Aim from the thrower's hand toward the opponent's chest, fanned out for volleys.
 export function spawnProjectiles(game, owner, type = owner.def.projectile) {
   const P = PROJECTILES[type];
