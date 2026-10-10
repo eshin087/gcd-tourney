@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-GOJ-BUILD): preserve model v05 history and add unapproved v06 with corrected neutral poses/profile, exact half-scale lineup and preview gallery; record remaining source-scale/palette failures after three attempts. Approved references and runtime art unchanged.
+
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
 
 - Docs (OPS-004): record tightened local MXC read allowlist, positive/negative access probes, and unresolved drive-root traversal failure in Node/Vite; unattended-build setup remains blocked.

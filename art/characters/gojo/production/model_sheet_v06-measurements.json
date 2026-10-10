@@ -1,0 +1,54 @@
+{
+  "source": "model_sheet_v06.png",
+  "width": 1536,
+  "height": 1024,
+  "rgbColors": 84170,
+  "measurements": [
+    {
+      "view": 1,
+      "left": 95,
+      "right": 306,
+      "top": 226,
+      "bottom": 744,
+      "totalHeight": 519,
+      "width": 212
+    },
+    {
+      "view": 2,
+      "left": 395,
+      "right": 593,
+      "top": 225,
+      "bottom": 745,
+      "totalHeight": 521,
+      "width": 199
+    },
+    {
+      "view": 3,
+      "left": 711,
+      "right": 812,
+      "top": 226,
+      "bottom": 745,
+      "totalHeight": 520,
+      "width": 102
+    },
+    {
+      "view": 4,
+      "left": 926,
+      "right": 1117,
+      "top": 225,
+      "bottom": 744,
+      "totalHeight": 520,
+      "width": 192
+    },
+    {
+      "view": 5,
+      "left": 1208,
+      "right": 1435,
+      "top": 228,
+      "bottom": 745,
+      "totalHeight": 518,
+      "width": 228
+    }
+  ],
+  "note": "Opaque bounds include hair. They are not skull or anatomical scale measurements."
+}

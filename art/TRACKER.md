@@ -237,7 +237,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v04 | v03 | Model v04 rejected: enlarged head. Original approved model v03 retained. |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v03 | v06 needs review: neutral poses/profile improved; source scale and raw palette still fail after 3 attempts. Approved v03 retained; no idle redraw. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
 | 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |
