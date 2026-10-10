@@ -30,7 +30,9 @@ const positional = rest.find((a, i) => !a.startsWith('--') && rest[i - 1] !== '-
 
 const git = (args, cwd = ROOT, inherit = false) =>
   execFileSync('git', args, { cwd, stdio: inherit ? 'inherit' : ['ignore', 'pipe', 'inherit'] })?.toString().trim();
-const sh = (file, args, cwd = ROOT) => execFileSync(file, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' });
+// Only npm needs a shell on Windows (npm.cmd); node and gh run directly so paths with spaces stay intact.
+const sh = (file, args, cwd = ROOT) => execFileSync(file === 'node' ? process.execPath : file, args,
+  { cwd, stdio: 'inherit', shell: file === 'npm' && process.platform === 'win32' });
 const die = (msg) => { console.error(`[pr] ${msg}`); process.exit(1); };
 const worktreeDir = (branch) => path.resolve(ROOT, '..', 'gcdTourney-worktrees', branch.replace(/\//g, '-'));
 const currentBranch = (cwd = ROOT) => git(['rev-parse', '--abbrev-ref', 'HEAD'], cwd);
