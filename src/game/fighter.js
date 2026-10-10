@@ -38,6 +38,7 @@ export class Fighter {
   }
 
   reset(x, z) {
+    this.blockAt = -99;
     this.pos.set(x, 0, z);
     this.prev.copy(this.pos);
     this.vel.set(0, 0, 0);
@@ -138,6 +139,29 @@ export class Fighter {
 
   distTo(o = this.opp) {
     return Math.hypot(o.pos.x - this.pos.x, o.pos.z - this.pos.z);
+  }
+
+  // Hold back to block (ENG-057): the stick held away from the opponent on screen. Only a person's pad gets it (no
+  // brain, or a lab script/replay that sets `autoBlock`): a CPU blocks at its level's own rate.
+  holdingBack() {
+    const b = this.game.brains[this.index];
+    if (b && !b.autoBlock) return false;
+    return this.pad.mx * kit.towardSide(this) < -0.5;
+  }
+
+  // Something of theirs could hit us soon, so holding back raises the guard instead of running away: an attack or
+  // kit move close by, a beam charging or out, a shot or orb near, or the next hit of a string we just blocked.
+  underPressure() {
+    const o = this.opp, g = this.game;
+    if (this.clock - (this.blockAt ?? -99) < 14) return true;
+    if (o.state === 'beamCharge' || g.beams.some((bm) => bm.owner === o && !bm.dead)) return true;
+    if (['attack', 'kit', 'superDash', 'vanish'].includes(o.state) && this.distTo() < 4.5) return true;
+    const near = (p, r) => Math.hypot(p.x - this.pos.x, p.z - this.pos.z) < r;
+    return g.projectiles.some((pr) => pr.owner === o && !pr.dead && near(pr.pos, 4.5)) || g.orbs.some((ob) => ob.owner === o && !ob.dead && near(ob.pos, 5.5));
+  }
+
+  autoGuard() {
+    return this.holdingBack() && this.underPressure();
   }
 
   inputDir() {
@@ -603,13 +627,13 @@ export class Fighter {
         if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
         if (p.dashDir) { this.startDash(p.dashDir); break; }
         if (p.buffered('jump', 4)) { p.consume('jump'); this.setState('jumpSquat'); break; }
-        if (!p.b.guard.down) this.setState('idle');
+        if (!p.b.guard.down && !this.autoGuard()) this.setState('idle');
         freeAnim();
         break;
       case 'block':
         this.vel.x *= 0.85; this.vel.z *= 0.85;
         if (this.wantsVanish()) { this.startVanish(); break; } // guard-cancel vanish
-        if (this.t >= this.stun) this.setState(p.b.guard.down ? 'guard' : 'idle');
+        if (this.t >= this.stun) this.setState(p.b.guard.down || this.autoGuard() ? 'guard' : 'idle');
         freeAnim();
         break;
       case 'dash': {
@@ -854,6 +878,7 @@ export class Fighter {
 
   updateNeutral() {
     if (this.tryActions()) return;
+    if (this.autoGuard()) { this.setState('guard'); return; } // turn and guard instead of running away
     const d = this.inputDir();
     if (d.lengthSq() > 0.04) {
       const sp = this.speedStat;
@@ -1237,17 +1262,21 @@ export class Fighter {
     if (this.reflex && kit.reflexReady(this, m)) return kit.reflexCounter(this, att, m); // Whirlwind (ADR 0017)
     this.sinceHit = 0; // blocked or not (training health refill waits for a calm spell)
     if (m.projectileHit && this.state === 'superDash') return 'miss'; // super dash plows through projectiles
+    // hold back to block: standing or running on the ground with the stick away from them, you turn and block
+    const backBlock = !m.unblockable && (this.state === 'idle' || this.state === 'run') && !this.air && this.holdingBack();
+    if (backBlock) this.faceOpponent();
     const tx = att.pos.x - this.pos.x, tz = att.pos.z - this.pos.z;
     const tl = Math.hypot(tx, tz) || 1;
     const facingAtt = (this.face.x * tx + this.face.y * tz) / tl > 0.05;
     const hs = m.hitstop ?? 6;
-    const blocking = (this.state === 'guard' || this.state === 'block') && facingAtt && !m.unblockable;
+    const blocking = (this.state === 'guard' || this.state === 'block' || backBlock) && facingAtt && !m.unblockable;
     if (blocking && !m.beam && this.pad.frame - this.parryAt <= DEFENSE.parry.window) return this.parry(att, m);
     if (blocking) {
       const chip = kit.noChip(this) ? 0 : Math.round(m.dmg * (m.beam ? 0.3 : 0.1));
       this.hp = Math.max(1, this.hp - chip);
       this.stun = Math.round((m.hitstun ?? 26) * 0.6 + (m.big ? 8 : 0));
       this.setState('block');
+      this.blockAt = this.clock;
       const pw = (m.push ?? 4) * 0.9 + (m.launch ? 4 : 0);
       this.vel.x = dir.x * pw;
       this.vel.z = dir.y * pw;

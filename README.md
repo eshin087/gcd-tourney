@@ -97,6 +97,9 @@ custom keys.
 - **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
 - **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
 - **Air recover**: press any button while launched (hitstun decay makes long combos escapable).
+- **Hold back to block**: hold the stick away from the opponent and you block their attacks on the ground, no
+  button needed (it's always on). With nothing coming you still run away; when they attack nearby or a shot or
+  beam of theirs is out, you turn and raise your guard. Throws still beat it, like a held Guard.
 - **Parry**: tap Guard just before a hit lands (6-frame window). No damage, and a melee attacker staggers, so
   punish. Mashing Guard doesn't work: each press locks parries out for 24 frames, but a parry re-arms at once.
 - **Spot dodge**: hold Guard and push ↓. Briefly intangible, then a short recovery (gets slower if you spam it).
