@@ -213,3 +213,5 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 |---|---|---|---|---|
 | M0 | Playable demo: arena, 2 fighters, VS CPU / 2P, rounds, synth audio, Sprite Lab | Claude | done | v0.1.0 |
 | M1 | 3D-baked placeholder sprites + DBFZ combat feel | Claude | done | v0.2.0 |
+
+| ART-SAS-REDRAW-20261010 | Sasuke heavy and charge correction with phone review | Codex | review | files: art/characters/sasuke/, art/scale/lineup-sasuke-heavy*, public/art-review/sasuke-heavy-charge/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated art/sasuke-heavy-charge; approvals unchanged. |
