@@ -771,7 +771,7 @@ const UPDATE = {
       if (k.t0 % S.every !== 1) return;
       const d = dirTo(f, o), p = o.pos;
       if (k.i < S.slams) {
-        f.actor.setPhase(S.maulPose ?? 'heavy', 1, 0.5);
+        f.actor.setPhase(S.maulPose ?? 'heavy', S.maulPhase ?? 1, 0.5); // the claw-strike frame
         o.heldT = Math.max(o.heldT, 30);
         o.takeHit(f, { dmg: S.slamDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 5, unblockable: true, spark: 'smash', shake: 0.6 }, d);
         o.vel.set(0, 0, 0);

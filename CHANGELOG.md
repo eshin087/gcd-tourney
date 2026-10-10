@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **New ultimates, one shape each** (ADR 0017): Gojo's **Hollow Purple** is now a huge orb that rolls across the stage, erases projectiles and carves a trench (260); Naruto's **Four-Tails** roars in the four-tailed shroud and pounces on all fours, mauling what it catches (~255; side-step during the roar to dodge); Killua's **Godspeed: Whirlwind** auto-counters up to 4 strikes or shots in 5 s, and his flurry SUPER is renamed **Godspeed: Speed of Lightning**. No current fighter uses the shared beam (Goku's Kamehameha will). Both CPUs use and answer them. Art briefs for Codex in each KIT.md (ENG-050).
+
 - **CPU vs CPU is a showcase now** (ADR 0016, ENG-049): the IMPOSSIBLE `showman` style plays short combos that end in a special, shot, teleport, vanish kick or super instead of long air juggles, fights at mid range with its whole kit (shots, kit tools, air specials, modes, Domain / Kirin / Amaterasu / flurry supers and beams, charging at a distance), and answers attacks with a rotating mix of parries, spot dodges, air dodges, counters, vanishes, super dashes through shots and beam clashes. Rounds last 35-70 s instead of 20-35 s; neutral went from 13 % to about 30 % of fight time.
 - Every CPU level shows more of its kit: a shared `Showcase` (src/game/aiShow.js) weights each CPU's options toward tools the player hasn't seen this match, scaled by level, and Easy / Normal / Hard now parry, spot dodge, air dodge and wavedash at their level's rate (ADR 0016).
 - "DODGE!" / "AIR DODGE!" callouts when a spot dodge or air dodge makes an attack, a shot, a beam or a super pass through (ADR 0016).

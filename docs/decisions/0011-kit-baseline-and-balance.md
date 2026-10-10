@@ -27,7 +27,7 @@ Hebi-era Sasuke), a balance pass across the cast, and a baseline that every futu
 | `air` | Special in the air | air special (usually a projectile) | 50-100 | 50-90 |
 | `airDown` | ↓ + Special in the air | optional; usually the air version of `up` | as `up` | slam 90-100 |
 | `super` | SUPER | second super | 300 | 220-300 effective (after `minScale`), or equal control (a domain ≤ 150 f) |
-| ultimate | Heavy + Special | the shared beam, or a `kit.ultimate` (a `SUPERS` entry) | 300 | beam ~250 effective and can be dodged or clashed · non-beam: unavoidable ≤ 230, dodgeable ≤ 300 |
+| ultimate | Heavy + Special | a `kit.ultimate` (a `SUPERS` entry of its own kind), or the shared beam; at most one beam in the cast ([ADR 0017](0017-ultimate-variety-and-rhythm-clashes.md)) | 300 | beam ~250 effective and can be dodged or clashed · non-beam: unavoidable ≤ 230, dodgeable ≤ 300 |
 | `passive` | always on | optional | must cost something (Infinity: 15 ki per volley stopped) | - |
 
 - Every slot is filled with a `SPECIAL_MOVES` / `SUPERS` entry of an existing **kind** whenever one fits. A new kind
@@ -48,8 +48,8 @@ Hebi-era Sasuke), a balance pass across the cast, and a baseline that every futu
 | down | Nine-Tails Cloak (mode: ×1.12 speed, ×1.1 dmg, ×1.12 def) | Sharingan (counter → strike) | Godspeed (mode: ×1.35 speed, ×1.12 dmg, blink dash) | Infinity (counter → freeze, 48 f) |
 | back | Substitution (counter → behind + kick, ½) | = down | = down | = down |
 | air / air↓ | shuriken / Barrage dive | fireball / Lion's dive | Narukami / Thunderbolt dive | Red / = air |
-| SUPER | Shadow Clone Barrage (flurry, 7×22 + 130) | **Kirin** (skyStrike: 280, dodgeable) | Godspeed: Whirlwind (flurry, 8×22 + 130) | Unlimited Void (domain, 150 f) |
-| ultimate | Rasen Cannon (beam) | **Amaterasu** (ignite: 80 + 10×14 burn, unavoidable) | Lightning Palm (beam) | Hollow Purple (beam) |
+| SUPER | Shadow Clone Barrage (flurry, 7×22 + 130) | **Kirin** (skyStrike: 280, dodgeable) | Godspeed: Speed of Lightning (flurry, 8×22 + 130; named Whirlwind before ADR 0017) | Unlimited Void (domain, 150 f) |
+| ultimate | **Four-Tails** (rampage: 3×45 + 120; was the Rasen Cannon beam) | **Amaterasu** (ignite: 80 + 10×14 burn, unavoidable) | **Godspeed: Whirlwind** (reflex: up to 4 counters of 70 in 300 f; was the Lightning Palm beam) | **Hollow Purple** (orb: 260, one hit; was a beam) |
 | passive | - | - | - | Infinity (15 ki per volley stopped) |
 | stats (index) | 5.9 / 1.0 / 1.0 (0.95) | 6.2 / 1.0 / 1.0 (1.00) | 6.8 / 0.97 / 0.95 (1.01) | 6.0 / 1.0 / 1.0 (0.97) |
 

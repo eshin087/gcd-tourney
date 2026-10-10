@@ -203,7 +203,7 @@ export const SUPERS = {
   // shroud form (KIT.md), the transformation uses specialDown and the pounce uses dash, both tinted by `shroud`.
   fourTails: {
     kind: 'rampage', cost: 300, flash: 46, roar: 16, dash: 26, speed: 20, steer: 0.03, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
-    minScale: 0.9, launch: [20, 11], whiff: 34, pose: 'specialDown', strikePose: 'dash', maulPose: 'heavy',
+    minScale: 0.9, launch: [20, 11], whiff: 34, pose: 'specialDown', strikePose: 'dash', maulPose: 'heavy', maulPhase: 1,
     shroud: { tint: [0.5, 0.09, 0.08], chakra: 0xb0140c, core: 0x1a0204 }, name: 'FOUR-TAILS', color: '#d0281c',
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:

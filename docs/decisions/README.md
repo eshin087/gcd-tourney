@@ -42,6 +42,7 @@ when a decision should be revisited.
 | [0014](0014-defensive-options-and-impossible-cpu.md) | Defensive options (parry, spot dodge, air dodge, wavedash), the IMPOSSIBLE CPU brain, air-juggle tracking | Proposed |
 | [0015](0015-throws-and-cancelled-special-startup.md) | Throw and throw break; faster startup for specials cancelled out of a hit | Accepted |
 | [0016](0016-showcase-cpu.md) | Showcase CPU: every CPU shows its kit (shared `Showcase` weights), CPU vs CPU plays short combos and mid-range kit for the viewer | Accepted |
+| [0017](0017-ultimate-variety-and-rhythm-clashes.md) | Every ultimate its own shape (orb, rampage, reflex; one beam at most), ultimate clashes as a rhythm duel | Accepted |
 
 ## Template
 

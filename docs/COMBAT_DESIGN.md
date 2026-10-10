@@ -34,8 +34,8 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 
 | Character | speed | power | defense | special | projectile | ultimate |
 |---|---|---|---|---|---|---|
-| Naruto | 5.9 | 1.0 | 1.0 | Rasengan | Shuriken ×3 | Rasen Cannon |
-| Sasuke | 6.2 | 1.05 | 0.95 | Chidori | Fireball | Lightning Lance |
+| Naruto | 5.9 | 1.0 | 1.0 | Rasengan | Shuriken ×3 | Four-Tails |
+| Sasuke | 6.2 | 1.05 | 0.95 | Chidori | Fireball | Amaterasu |
 
 ## Controls (default bindings, rebindable)
 
@@ -186,7 +186,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Second supers (SUPER button)
 - 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
   through the flash and 12 frames past it.
-- **Flurry** (`whirlwind`, Killua; `shadowCloneBarrage`, Naruto): a 34-frame flash, then a 14-frame dash
+- **Flurry** (`speedOfLightning`, Killua's Godspeed: Speed of Lightning; `shadowCloneBarrage`, Naruto): a 34-frame flash, then a 14-frame dash
   (range 6.5). On contact the opponent is `held` and the fighter teleports around them (8 × 22 for Killua,
   7 × 22 with clone smoke for Naruto), then a 130 slam from above with a ground bounce (lightning, or a Giant
   Rasengan). It whiffs if the dash misses.
@@ -199,8 +199,22 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - Super hits carry `minScale` (0.8 for the flurries): combo scaling never takes them below 80 %.
 - A fighter without a second super fires their ultimate from SUPER.
 
-### Non-beam ultimates (`kit.ultimate`)
-- Heavy + Special normally fires the shared beam. A kit can name a `SUPERS` entry instead.
+### Non-beam ultimates (`kit.ultimate`, ADR 0017)
+- Heavy + Special fires the shared beam only for a fighter without a `kit.ultimate`; the cast keeps one beam at most
+  (Goku's Kamehameha). Every other ultimate is a `SUPERS` entry of its own kind, started with `kitState.ultimate`.
+- **Hollow Purple** (Gojo, kind `orb`): a 46-frame flash, then Red (near hand) and Blue (far hand) drift together
+  for 26 frames and fuse 0.9 ahead of him; the orb (radius 1.45) rolls forward at 15 units/s for up to 2.4 s,
+  erases the opponent's projectiles and vortices, carves a trench, and hits once for 260 (unblockable, unscaled,
+  wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing.
+- **Four-Tails** (Naruto, kind `rampage`): a 46-frame flash in the four-tailed shroud, a 16-frame roar, then a pounce
+  at 20 units/s for up to 8 units (26 frames), committed to the line chosen as the roar starts (3 % steering per
+  frame). A catch holds them for 3 claw slams of 45 every 13 frames and a 120 chakra roar into the barrier (minScale
+  0.9, ~255 in all); a whiff leaves him open for 34 frames. Until Codex draws the shroud form, the roar uses
+  `specialDown`, the pounce `dash` and the slams `heavy`, with the shroud as a dark red tint.
+- **Godspeed: Whirlwind** (Killua, kind `reflex`): a 40-frame flash, then for 300 frames his body answers up to 4
+  blockable strikes or shots by itself (`Fighter.takeHit` → `kit.reflexCounter`): the hit misses, a melee attacker
+  is held for 12 frames, he blinks behind the attacker (the thrower, for a shot) and lands the Rhythm Echo strike
+  (70). Unblockable hits (supers, ultimates), beams and throws go through it; not while he's stunned or held.
 - **Amaterasu** (Sasuke, kind `ignite`): a 46-frame flash, then the Mangekyō gaze ignites black flames on
   the opponent wherever they are (no range limit, can't be blocked, misses only if they're invulnerable or
   hidden): 80 on ignition, then a **burn** status, 14 every 20 frames for 200 frames. Burn ticks never stun
@@ -226,6 +240,9 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   Guard or Jump cancels it. Heavy during charge with 3 bars fires the ultimate.
 
 ### Ultimate, super flash and beam clash
+- The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's
+  Kamehameha next). ADR 0017 part 2 replaces the beam clash's mashing with a rhythm duel for every clashable
+  ultimate (beam, orb, rampage).
 - **Heavy + Special** (5-frame buffer), 3 bars. 46-frame windup (14 if countering a beam), invulnerable through
   the windup. A 42-frame super flash with a cut-in strip (`cutin.png` or the baked eye strip), stage dim
   72%, focus camera.
