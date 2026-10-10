@@ -40,6 +40,23 @@ How it works:
 
 ## Naruto thread
 
+- [ ] **(2026-10-10) ART-NAR-4T: the Four-Tails frames (required, ADR 0017).** PR #14 is merged: Naruto's ultimate
+  is now the Four-Tails rampage (no more Rasen Cannon beam). Redraw `beamCharge` (the roar, 3 frames) and `beamFire`
+  (the pounce and the claw slams, 3 frames) as the four-tailed shroud form, exactly as
+  [art/characters/naruto/KIT.md](../../art/characters/naruto/KIT.md) §5 describes: near-black crimson body with a
+  bubbling red rim, fox ears, blank white eyes, the wide white mouth, four tails, no skin or clothes visible, the
+  skull calibrated with a sidecar (not the frame height), nothing outside the outline. Match the anime scene (the
+  Tenchi Bridge fight with Orochimaru).
+  1. `npm run pr -- start art/naruto-four-tails --full`; work only in that worktree.
+  2. Generate `_vNN` candidates, pack (`npm run sprites naruto`), QA, add the REVIEW.md rows, update TRACKER and the
+     manifest as usual, and stop for the user's `approve vNN`.
+  3. In the same PR, the small data change in KIT.md §5 ("Then, in the same art PR"): `SUPERS.fourTails` in
+     `src/game/moves.js` gets `pose: 'beamCharge'`, `strikePose: 'beamFire'`, `maulPose: 'beamFire'`, `maulPhase: 2`,
+     `shroud.tint: [1, 1, 1]`.
+  4. Check it in the test lab: `/lab.html?p1=naruto&p2=killua` → MOVES → the Ultimate row (roar, pounce, slams in the
+     shroud form, feet on the floor line), and `/lab.html?p1=naruto&p2=gojo` → SCENARIOS → Ultimate clash (in a clash
+     he holds the `maulPose` frame). Then `npm run pr -- open`.
+
 - [x] **(2026-10-10) ART-SCALE-01 part 2 (Naruto and Killua threads): finish the scale correction on its branch.**
   Done by Codex in draft PR [#9](https://github.com/eshin087/gcd-tourney/pull/9) (branch
   `codex/fighter-scale-corrections`, stacked on #8); waits for the user's final review, then Claude merges #8 + #9.
@@ -82,6 +99,12 @@ How it works:
 
 ## Killua thread
 
+- [ ] **(2026-10-10) ART-KIL-WW, optional (ADR 0017):** after the Naruto thread's ART-NAR-4T. Killua's ultimate is now
+  Godspeed: Whirlwind (reflex mode), and his flurry SUPER is renamed Speed of Lightning. No redraw is required. For
+  the anime look, generate the next `_vNN` of `beamCharge` as the Whirlwind ready stance, exactly as
+  [art/characters/killua/KIT.md](../../art/characters/killua/KIT.md) describes (low and relaxed, hands open, hair
+  bristling, no lightning in the sprite). Keep `beamFire` as it is. Art PR: `npm run pr -- start art/killua-whirlwind --full`.
+
 - [x] **(2026-10-10) ART-SCALE-01 part 2:** done in PR #9 (merged); same item as the Naruto thread: finish Killua's
   calibrated candidates in `.worktrees/art-scale-naruto-killua`, draft PR #8.
 
@@ -105,6 +128,14 @@ hard to hit; Claude fixed that in the engine (minimum hurtbox width), so **no ar
 Killua response (2026-10-09): cleaned frame specks; final strict report has none. light1 2/3 and airHeavy 2/3 now have hand-local overrides. specialForward 2/3 regenerated and reassembled in v02, restoring full limbs. Four fallback detections remain before overrides; visual contact-zone deviations documented in production/QA.md. Final atlas: 42 animations, 175 frames, 48 colors, zero warnings. User approved final batch 2026-10-09; approval bookkeeping is complete. Latest user instruction: finish safely within the writable project folder, without permission prompts; defer protected Git writes.
 
 ## Gojo thread
+
+- [ ] **(2026-10-10) ART-GOJ-HP, optional (ADR 0017):** after the Naruto thread's ART-NAR-4T. Hollow Purple is now a
+  rolling orb, not a beam, and the approved `beamCharge` / `beamFire` already fit it. For the anime look, compare
+  `beamFire` with the release in Jujutsu Kaisen season 2 (the Hidden Inventory arc, the fight with Toji) and, if the
+  gesture differs, generate the next `_vNN` with that gesture, as
+  [art/characters/gojo/KIT.md](../../art/characters/gojo/KIT.md) describes (the hand at the fusion point, about
+  (243, 115) in the cell; no orb or glow in the sprite). Art PR: `npm run pr -- start art/gojo-purple --full`. The
+  dedicated `hollowPurple` VFX strip waits for Claude's atlas entry (VFX-HP); don't generate it yet.
 
 Direct user direction supersedes the earlier recommendation for model v02: v02 was rejected; the supplied model v03 proportions govern the entire set.
 

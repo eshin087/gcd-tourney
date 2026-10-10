@@ -25,6 +25,7 @@ cinematic camera.
 - Art pipeline: the `art/` briefs, manifest and tracker, plus `npm run sprites` (packer).
 
 **Exit:** all M2 tasks done, the TESTING.md checklists pass, soak is clean, the user signs off on the feel.
+The user signed off on 2026-10-10 (USR-001); DOC-001 (docs fact check) is the last open item.
 
 ## ⏳ M3: Hi-res Naruto & Sasuke (v0.4.0)
 - Art spec v2 ([ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md)): Shippuden designs at about 6.5
