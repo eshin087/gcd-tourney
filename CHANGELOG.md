@@ -151,6 +151,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- The crowd no longer flickers between poses when the fight gets exciting: excitement used to multiply each
+  spectator's animation rate against the absolute clock, so every change in hype scrambled their phase (~42 pose
+  switches per second per spectator). Now each keeps a steady tempo, hype eases in and out and speeds up a shared
+  crowd clock instead (~2 switches per second, a calm sway that builds into a bouncing cheer).
 - Character select fits a landscape phone: the full kit move list was cut off below 480 px of height.
 - Docs: spec v2 sheets are 4096 × 2816 (42 animations / 175 frames), not 4096 × 2560.
 - Minimum hurtbox width (0.56 units) so a slim art pack can't make a fighter hard to hit (Killua's art: 75 % → 42 % CPU wins).
