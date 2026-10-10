@@ -66,8 +66,8 @@ cinematic camera.
 - Assists or tag teams (3v3, DBFZ-style) as an **ADR-gated** design decision.
 
 ## 💭 M7: Online (exploratory, v0.8.x)
-- Prerequisite: a **deterministic simulation**. Seeded RNG instead of `Math.random()` in the sim (clash
-  wobble, AI), and a fixed input→state pipeline with no render-time state changes.
+- Prerequisite: a **deterministic simulation**. Seeded RNG instead of `Math.random()` in the sim (AI, the CPU's
+  clash timing), and a fixed input→state pipeline with no render-time state changes.
 - Rollback netcode over WebRTC data channels (a GGPO-style design), with a lobby via a tiny signaling server.
 - This needs an ADR and a spike first. Not promised.
 

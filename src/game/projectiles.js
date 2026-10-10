@@ -93,7 +93,8 @@ export class Beam {
       tmpA.set(o.pos.x, o.pos.y + 0.8, o.pos.z).sub(this.origin);
       const along = tmpA.dot(this.dir);
       const perp = tmpA.addScaledVector(this.dir, -along).length();
-      const touching = along > 0 && along < this.len + 0.3 && perp < this.width * 0.5 + 0.45 && !o.ko;
+      // `spent`: a beam that won a clash already dealt its damage (Game.overwhelm); the rest is the show
+      const touching = !this.spent && along > 0 && along < this.len + 0.3 && perp < this.width * 0.5 + 0.45 && !o.ko;
       if (touching && o.evading) this.game.onEvade(o);
       if (touching && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup') {
         this.hitting = true;

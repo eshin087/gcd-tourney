@@ -7,7 +7,8 @@
 // of the time, and it has habits a player can learn. CPU vs CPU runs the louder 'showman' style so a
 // spectated fight keeps moving and the big moves come out.
 import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW } from './moves.js';
-import { specialFor, kitOf } from './kit.js';
+import { specialFor, kitOf, clashable, mergeOf, roarOf } from './kit.js';
+import { BeatPlan } from './clash.js';
 import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
 
@@ -29,9 +30,10 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // cap     combo hits after which it cashes out with an ender instead of extending (0 = never: max damage)
 // hoard   how often a round is spent saving meter for a three-bar finish
 // block   weight of a plain block among its answers to a threat it saw (the others: parry, dodges, counters...)
+// beat    its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
 export const STYLES = {
-  impossible: { react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, mash: 13, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1 },
-  showman: { react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
+  impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1 },
+  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
 };
 
 // forward distance a lunging ground move still covers from frame t (its speed fades out over startup+active)
@@ -69,7 +71,7 @@ export class MasterBrain {
     this.resp = null; // defensive answer to the current threat
     this.spSlot = null; // stick held for a special input
     this.spT = 0;
-    this.mashAcc = 0;
+    this.beat = null; // its plan for the current clash
     this.oppMove = null; // to give every opponent move a serial (threat identity)
     this.oppSerial = 0;
     this.wake = 0;
@@ -153,7 +155,7 @@ export class MasterBrain {
     // freely, it would almost never reach three bars (after that it spends freely, and pickBig still prefers
     // the three-bar move the viewer hasn't seen when the bars come round again)
     this.saving = this.hoarding || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
-    if (game.clash) this.mashClash();
+    if (game.clash) this.playClash(game);
     else if (game.inputLive && !f.ko && !o.ko) this.think(game);
     if (this.chargeFrom != null) {
       if (f.state === 'charge' || !f.spPending || f.pad.frame - this.chargeFrom > 16) this.chargeFrom = null;
@@ -753,7 +755,7 @@ export class MasterBrain {
       if (Math.hypot(v.pos.x - f.pos.x, v.pos.z - f.pos.z) < (v.m.radius ?? 2.2) + 0.6) add({ key: 'vx' + this.oppSerial, kind: 'proj', frames: 2, len: 8, vortex: true });
     }
     if (o.state === 'beamCharge' && o.t >= S.react) {
-      add({ key: 'b' + this.oppSerial, kind: 'beam', frames: o.windup - o.t + (c.dist / ULTIMATE.speed) * 60, len: ULTIMATE.duration, charging: true });
+      add({ key: 'b' + this.oppSerial, kind: 'beam', frames: o.windup - o.t + (c.dist / ULTIMATE.speed) * 60, len: ULTIMATE.duration, charging: true, clash: true });
     }
     for (const b of game.beams) {
       if (b.owner !== o || b.dead || b.clash) continue;
@@ -780,11 +782,11 @@ export class MasterBrain {
         if (k.phase === 'dash' || k.phase === 'flash') return { key: 'fl' + this.oppSerial, kind: 'grab', frames: Math.max(0, (c.dist - 1.4) / 24 * 60), len: 4, unblockable: true, big: true };
         return null;
       case 'orb':
-        if (k.phase === 'merge' || k.phase === 'flash') return { key: 'om' + this.oppSerial, kind: 'beam', frames: Math.max(0, m.merge - (k.t0 || 0)) + Math.max(0, c.dist - m.radius) / m.speed * 60, len: 30, charging: true };
+        if (k.phase === 'merge' || k.phase === 'flash') return { key: 'om' + this.oppSerial, kind: 'beam', frames: Math.max(0, mergeOf(k) - (k.t0 || 0)) + Math.max(0, c.dist - m.radius) / m.speed * 60, len: 30, charging: true, clash: !!k.ultimate };
         return null;
       case 'rampage':
         if (k.phase === 'flash' || k.phase === 'roar' || k.phase === 'lunge') {
-          return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, m.roar - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true };
+          return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, roarOf(k) - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true, clash: !!k.ultimate && k.phase !== 'lunge' };
         }
         return null;
       case 'ignite':
@@ -832,9 +834,10 @@ export class MasterBrain {
     // a spot dodge is intangible 3-4 frames after the press (Guard, neutral, ↓, dodge frame 2): too late below that
     const dodgeLead = f.state === 'guard' ? 4 : 5;
     const canDodge = th.frames >= dodgeLead;
+    // their beam, orb or pounce on its way and an ultimate of ours that can meet it: answer it (a rhythm clash,
+    // ADR 0017). Amaterasu or Whirlwind can't touch it, so those don't offer.
+    if (th.clash && ki >= ULTIMATE.cost && clashable(f.def)) offer('counterBeam', 1 + S.flair * 2, { type: 'counterBeam' }, kitOf(f.def).ultimate ? null : 'beam');
     if (th.kind === 'beam') {
-      // counter-beam only with a beam of our own (a kit ultimate like Amaterasu can't touch a charging beam)
-      if (th.charging && ki >= ULTIMATE.cost && o.state === 'beamCharge' && !kitOf(f.def).ultimate) offer('counterBeam', 1 + S.flair * 2, { type: 'counterBeam' }, 'beam');
       if (ki >= VANISH.cost) offer('vanish', 0.6 + S.flair * 0.6, { type: 'vanish', at: 10 }, 'vanish');
       if (r !== 'air') offer('sidestep', 0.7, { type: 'sidestep', at: 30 });
       return decide();
@@ -1596,14 +1599,11 @@ export class MasterBrain {
     }
   }
 
-  // ------------------------------------------------------------------ beam clash
-  mashClash() {
-    this.mashAcc += (this.S.mash * (0.85 + Math.random() * 0.3)) / 60;
-    if (this.mashAcc >= 1) {
-      this.mashAcc -= 1;
-      this.mashAlt = !this.mashAlt;
-      this.tap(this.mashAlt ? 'light' : 'heavy', 1);
-    }
+  // ------------------------------------------------------------------ clashes (ADR 0017)
+  // play the chart: every press planned once at its style's timing, alternating Light and Heavy
+  playClash(game) {
+    if (this.beat?.clash !== game.clash) this.beat = new BeatPlan(game.clash, this.S.beat);
+    for (const p of this.beat.due(game.clash.timer + 1)) this.tap(this.beat.button(), p.len);
   }
 }
 

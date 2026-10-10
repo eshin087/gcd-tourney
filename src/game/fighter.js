@@ -211,7 +211,8 @@ export class Fighter {
   startUltimate() {
     if (kit.startKitUltimate(this)) return; // a non-beam ultimate (Amaterasu)
     const o = this.opp;
-    const counter = o.state === 'beamCharge' || o.state === 'beamFire';
+    const counter = kit.ultimateLive(o); // into their beam, orb or pounce: a quick counter-beam that can meet it
+    this.ultAt = this.game.frameNo;
     this.ki -= ULTIMATE.cost;
     this.spPending = false;
     this.state = 'beamCharge';

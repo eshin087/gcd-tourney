@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { ULTIMATE, VANISH, SUPERS } from './moves.js';
-import { specialFor, kitOf, towardSide } from './kit.js';
+import { specialFor, kitOf, towardSide, clashable } from './kit.js';
+import { BeatPlan } from './clash.js';
 
 // Where each ultimate kind makes sense (ADR 0017): the beam and Hollow Purple want room, the Four-Tails pounce
 // has a reach and wants their lane, Whirlwind wants them close enough to swing at it, the rest fire anywhere.
@@ -25,10 +26,11 @@ export function makeBrain(fighter, level = 'normal', spectate = false) {
 // show: how strongly it reaches for kit tools the player hasn't seen yet (Showcase, aiShow.js, ADR 0016);
 // parry / spot / airDodge / wavedash: chances to use those techniques where they fit, and `slop` = frames its
 // parry timing can be off by (a wide error at Easy, so most of its parries fail and it gets hit)
+// beat: its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
 const LEVELS = {
-  easy: { react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, mash: 6, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
-  normal: { react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, mash: 8.5, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
-  hard: { react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, mash: 10.5, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
+  easy: { beat: { sd: 6.5, miss: 0.16 }, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
+  normal: { beat: { sd: 4.5, miss: 0.08 }, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
+  hard: { beat: { sd: 3, miss: 0.04 }, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
 };
 
 // The CPU presses virtual buttons on its own Pad, exactly like a player would.
@@ -42,7 +44,7 @@ export class CpuBrain {
     this.planT = 0;
     this.wait = 30;
     this.hold = {};
-    this.mashAcc = 0;
+    this.beat = null; // its plan for the current clash
     this.lastOppState = '';
     this.strafe = Math.random() < 0.5 ? 1 : -1;
     this.route = 'launch';
@@ -80,11 +82,9 @@ export class CpuBrain {
     };
 
     if (game.clash) {
-      this.mashAcc += (L.mash * (0.75 + R() * 0.5)) / 60;
-      if (this.mashAcc >= 1) {
-        this.mashAcc -= 1;
-        this.press(R() < 0.5 ? 'light' : 'heavy', 1);
-      }
+      // a clash: play the chart (each press planned once, at its level's timing)
+      if (this.beat?.clash !== game.clash) this.beat = new BeatPlan(game.clash, L.beat);
+      for (const p of this.beat.due(game.clash.timer + 1)) this.press(this.beat.button(), p.len);
     } else if (game.inputLive && !f.ko && !o.ko && !game.freeze) {
       this.planT++;
       this.wait--;
@@ -123,7 +123,9 @@ export class CpuBrain {
         && R() < 0.35 + L.dodge * 0.6) this.dodge();
       const ou = o.state === 'kit' && o.kitState?.ultimate ? o.kitState : null;
       if (ou && ou.t0 === L.react && ((ou.kind === 'orb' && ou.phase === 'merge') || (ou.kind === 'rampage' && ou.phase === 'roar'))) {
-        if (R() < L.dodge + 0.25) this.setPlan('dodgeBeam', 24);
+        // answer it with an ultimate that can meet it (a rhythm clash), or get out of its way
+        if (f.ki >= ULTIMATE.cost && clashable(f.def) && R() < 0.35 + L.combo * 0.3) this.setPlan('ultimate', 5);
+        else if (R() < L.dodge + 0.25) this.setPlan('dodgeBeam', 24);
         else this.setPlan('retreat', 30);
       }
       if (o.state === 'beamCharge' && o.t === Math.max(1, o.windup - L.react)) {
@@ -472,7 +474,7 @@ export class DummyBrain {
   }
 
   update(game) {
-    if (this.mode === 'cpu') return this.cpu.update(game);
+    if (this.mode === 'cpu' || game.clash) return this.cpu.update(game); // any dummy plays a clash at Normal timing
     const f = this.f, pad = f.pad;
     pad.tick();
     this.t++;

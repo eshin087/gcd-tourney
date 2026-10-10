@@ -191,9 +191,10 @@ export const SUPERS = {
   // ---- ultimates with their own shape (ADR 0017): one beam in the cast at most, every other finisher different
   // Hollow Purple (Gojo): Red from the near hand and Blue from the far hand meet in front of him (`merge` frames) and
   // the imaginary mass rolls forward, erasing every projectile in its path. Huge and slow-ish: you leave its lane or
-  // vanish, you can't block it. One hit (`dmg`, unscaled), then it keeps going and carves a trench.
+  // vanish, you can't block it. One hit (`dmg`, unscaled), then it keeps going and carves a trench. Fired into the
+  // opponent's running ultimate it merges in `answerMerge` frames instead, so the two meet (a rhythm clash).
   hollowPurple: {
-    kind: 'orb', cost: 300, flash: 46, merge: 26, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
+    kind: 'orb', cost: 300, flash: 46, merge: 26, answerMerge: 8, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
     pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xa24cff, glow: 0x7a2cff,
     name: 'HOLLOW TECHNIQUE: PURPLE', color: '#b46cff',
   },
@@ -201,8 +202,9 @@ export const SUPERS = {
   // fours (`speed`, up to `range`), and a catch becomes a mauling: `slams` claw slams, then a chakra roar that
   // blasts them away. A whiff leaves him open for `whiff` frames. Until Codex redraws beamCharge / beamFire as the
   // shroud form (KIT.md), the transformation uses specialDown and the pounce uses dash, both tinted by `shroud`.
+  // Answering the opponent's ultimate, the roar is `answerRoar` frames; in a clash he holds the maul claw frame.
   fourTails: {
-    kind: 'rampage', cost: 300, flash: 46, roar: 16, dash: 26, speed: 20, steer: 0.03, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
+    kind: 'rampage', cost: 300, flash: 46, roar: 16, answerRoar: 6, dash: 26, speed: 20, steer: 0.03, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
     minScale: 0.9, launch: [20, 11], whiff: 34, pose: 'specialDown', strikePose: 'dash', maulPose: 'heavy', maulPhase: 1,
     shroud: { tint: [0.5, 0.09, 0.08], chakra: 0xb0140c, core: 0x1a0204 }, name: 'FOUR-TAILS', color: '#d0281c',
   },
@@ -218,6 +220,30 @@ export const SUPERS = {
 // Passive abilities (kit.passive). Infinity stops projectiles but each stop costs Gojo ki.
 export const PASSIVES = {
   infinity: { kiCost: 15 },
+};
+
+// Ultimate clashes (ADR 0017): a rhythm duel on one shared note chart (src/game/clash.js). Frames at 60 fps.
+//  intro      CLASH! and a count-in before the first note;  lead: frames an approach ring shows before its note
+//  windows    |press - note| in frames per grade (perfect ±3 ≈ 50 ms); points per grade, stray = a press with no note
+//  phases     notes and the gap between them per phase, faster each time; doubles = notes that come as two taps
+//  hold       the FINAL PUSH: `gap` after the last phase, held for `len`
+//  push       struggle point per point of score lead (0.5 = even);  drawMargin: a final lead under this is a draw
+//             (a blowout ends early: the trailing player can't make up the lead before the FINAL PUSH)
+//  winDmg / drawDmg  what the clash is worth (the winner's ultimate lands; a draw blows both back)
+//  answerFlash  an ultimate fired while the opponent's is running starts with this short a flash (its windup is
+//             shorter too: counterWindup, answerMerge, answerRoar), so the two can meet
+//  rush       a pounce in a clash: the struggle point sits `reach` ahead of the rusher, who can be shoved `shove` back
+//  special    the one-beat clash between two rush specials: its note (`lead` after `intro`), the cooldown between
+//             special clashes, and the hit the loser takes (a tie keeps the old double hit)
+export const CLASH = {
+  intro: 40, lead: 40, outro: 24,
+  windows: { perfect: 3, great: 6, good: 9 },
+  points: { perfect: 3, great: 2, good: 1, miss: 0, stray: -1 },
+  phases: [{ notes: 4, every: 30 }, { notes: 7, every: 20, doubles: 2 }, { notes: 6, every: 15, doubles: 1 }],
+  doubleGap: 8, hold: { gap: 30, len: 40 },
+  push: 0.018, drawMargin: 2, winDmg: 250, drawDmg: 90, answerFlash: 20,
+  rush: { reach: 0.8, shove: 2.2 },
+  special: { intro: 12, lead: 34, cooldown: 480, dmg: 60 },
 };
 
 // Ultimate beam (full 3 bars)

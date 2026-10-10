@@ -227,6 +227,17 @@ export class AudioEngine {
         this.noise({ dur: 1.8, gain: 0.22 * v, f0: 900, f1: 1400, Q: 0.7, attack: 0.15, dest: this.sfx });
         this.noise({ dur: 1.5, gain: 0.12 * v, f0: 2400, f1: 2000, Q: 1.5, attack: 0.1, dest: this.sfx });
         break;
+      case 'beat': // a rhythm clash's metronome: every note ticks (ADR 0017)
+        this.tone({ type: 'triangle', f0: 1320, f1: 990, dur: 0.06, gain: 0.22 * v });
+        this.noise({ dur: 0.025, gain: 0.12 * v, type: 'highpass', f0: 5000 });
+        break;
+      case 'beatHit': // a player's own good press
+        this.tone({ type: 'sine', f0: 1760, dur: 0.16, gain: 0.14 * v });
+        this.tone({ type: 'sine', f0: 2637, dur: 0.12, gain: 0.07 * v, when: 0.02 });
+        break;
+      case 'beatMiss':
+        this.tone({ type: 'square', f0: 150, f1: 90, dur: 0.1, gain: 0.07 * v });
+        break;
       case 'ui':
         this.tone({ type: 'square', f0: 660, dur: 0.05, gain: 0.06 * v });
         break;
@@ -321,7 +332,7 @@ export class AudioEngine {
       o1.connect(lp); o2.connect(lp);
       lp.connect(og).connect(out);
     } else if (kind === 'clash') {
-      const n = src(), f = filt('lowpass', 900, 0.8), g = gain(0.7);
+      const n = src(), f = filt('lowpass', 900, 0.8), g = gain(0.45); // under the metronome
       n.connect(f).connect(g).connect(out);
       lfo(13, 400, f.frequency);
       const n2 = src(), f2 = filt('highpass', 3000), g2 = gain(0.1);
