@@ -154,8 +154,12 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    `airLight2` and `airHeavy` should connect in at least 90 % of attempts.
 4. **Defense check**: script P1 to throw Heavy / Rasengan at the CPU from 1.1 / 3.0 units. Expect a mix of
    parry, spot dodge and block, no clean hits, and a punish after parries and blocked Heavies.
-5. **CPU vs CPU**: the soak below with `mode=cpu` (both IMPOSSIBLE, showman). Rounds should end by KO in about
-   15-40 s, with wavedashes, parries, vanishes and supers showing up, and no stuck states.
+5. **CPU vs CPU**: the soak below with `mode=cpu` (both IMPOSSIBLE, showman, ADR 0016). Rounds should end by KO
+   in about 35-70 s, with combos of 3-7 hits ending in a special or vanish, and no stuck states. Over a match
+   each fighter should show most of its kit and at least one three-bar move, plus parries, spot dodges, air
+   dodges ("DODGE!" / "AIR DODGE!" callouts), wavedashes and charging. After a match,
+   `game.brains.map((b) => b.show.unseen())` lists what each CPU never used; expect 0-4 tools each (fewer
+   for the winner, since the loser has less time).
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
    Light + Heavy within 12 frames of the grab breaks it ("BREAK!", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /

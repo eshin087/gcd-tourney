@@ -566,7 +566,9 @@ export class Game {
   // hurtbox. Sheets without boxes fall back to the move's reach numbers.
   checkMelee(att, m) {
     const def = att.opp;
-    if (!def.hittable) return;
+    // a dodge's intangibility still runs the overlap test, so a hit it lets pass gets its callout
+    const evading = !def.hittable && def.evading;
+    if (!def.hittable && !evading) return;
     const R = this.cam.right, F = this.cam.fwd;
     const rx = def.pos.x - att.pos.x, rz = def.pos.z - att.pos.z;
     const sx = rx * R.x + rz * R.z, sd = rx * F.x + rz * F.z, sy = def.pos.y - att.pos.y;
@@ -589,6 +591,7 @@ export class Game {
       if (along > -0.25 && along < m.reach + 0.25 && Math.abs(sy) < (m.yTol ?? 1.25)) pt = { x: sx * 0.75, y: sy + 0.85 };
     }
     if (!pt) return;
+    if (evading) { this.onEvade(def); return; }
     att.hitDone = true;
     // applied after both fighters moved this frame, so two attacks meeting on the same frame trade
     // (P1 updates first; applying at once made P1 win every exchange)
@@ -934,6 +937,15 @@ export class Game {
     audio.play('block', 1.4);
     audio.play('flash', 0.6);
     this.excite = Math.min(1, this.excite + 0.5);
+  }
+
+  // A spot dodge or air dodge made an attack, shot, beam or super pass through (ADR 0016): one callout per
+  // dodge, so the viewer sees why nothing landed.
+  onEvade(f) {
+    if (f.dodgeCalled) return;
+    f.dodgeCalled = true;
+    this.hud.callout(f.index, f.state === 'airDodge' ? 'AIR DODGE!' : 'DODGE!', '#bfe8ff');
+    this.excite = Math.min(1, this.excite + 0.3);
   }
 
   onGroundBounce(f) {

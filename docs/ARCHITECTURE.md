@@ -36,7 +36,9 @@ src/game/
   kit.js                    fighter kits (ADR 0009/0011): stick -> special slot, special kinds (rush/shot/teleport/
                             pull/dive/counter/mode), supers and non-beam ultimates (flurry/domain/skyStrike/ignite),
                             passives, modes, burn; state 'kit'
-  ai.js                     CpuBrain (Easy/Normal/Hard) and DummyBrain (training): press buttons on a Pad
+  ai.js                     CpuBrain (Easy/Normal/Hard), DummyBrain (training), makeBrain: press buttons on a Pad
+  aiMaster.js               MasterBrain (IMPOSSIBLE; `showman` style for CPU vs CPU), ADR 0014/0016
+  aiShow.js                 Showcase (ADR 0016): which tools a CPU has shown this match -> option weights
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (ultimate) with HDR shader
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
@@ -265,7 +267,7 @@ click-to-rebind. Bindings persist in localStorage.
 | a fighter | `src/characters/<id>.js` + `index.js`; art in `art/characters/<id>/` ([ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md)) |
 | a move or tuning change | `src/game/moves.js` (data), with state logic in `fighter.js` only if it's a new mechanic |
 | a signature special | a `SPECIAL_MOVES` entry of an existing kind + the fighter's `kit` slot ([ADR 0009](decisions/0009-move-system-v2.md)); rush specials also use `SPECIALS` + `Effects.handTick` + a loop sound |
-| a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight |
+| a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight + where `MasterBrain` uses it (`kitOptions`, `pickBig`, `comboSpecial`); `aiShow.js` `toolsOf` lists it automatically |
 | a projectile type | `PROJECTILES` in `moves.js` (sprite = a VFX atlas name) |
 | a VFX effect | `VFX_ANIMS` + painter in `vfxPainter.js`; custom art via `art/vfx/` |
 | a sound | a case in `AudioEngine.play()` / `loop()` |

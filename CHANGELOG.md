@@ -11,6 +11,13 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **CPU vs CPU is a showcase now** (ADR 0016, ENG-049): the IMPOSSIBLE `showman` style plays short combos that end in a special, shot, teleport, vanish kick or super instead of long air juggles, fights at mid range with its whole kit (shots, kit tools, air specials, modes, Domain / Kirin / Amaterasu / flurry supers and beams, charging at a distance), and answers attacks with a rotating mix of parries, spot dodges, air dodges, counters, vanishes, super dashes through shots and beam clashes. Rounds last 35-70 s instead of 20-35 s; neutral went from 13 % to about 30 % of fight time.
+- Every CPU level shows more of its kit: a shared `Showcase` (src/game/aiShow.js) weights each CPU's options toward tools the player hasn't seen this match, scaled by level, and Easy / Normal / Hard now parry, spot dodge, air dodge and wavedash at their level's rate (ADR 0016).
+- "DODGE!" / "AIR DODGE!" callouts when a spot dodge or air dodge makes an attack, a shot, a beam or a super pass through (ADR 0016).
+- Fixed: the IMPOSSIBLE CPU never air dodged (its airborne step skipped the threat layer), its light4 wall route almost always turned into the launcher, its spot dodges started too late to beat the hit, and a charge it gave up on early could fire a special by accident (ADR 0016).
+- Fixed: a thrown fighter could end a frame just past the ring barrier.
+- Fixed: a dev server started inside a PR worktree ignored edits to its own files (the vite watch ignore matched every `.worktrees/` path; it now ignores only the checkout's own `.worktrees/` folder).
+
 - PR worktrees now live in `.worktrees/` inside the project instead of a sibling `gcdTourney-worktrees` folder (git-ignored, not watched by the dev server; ADR 0013 amended, OPS-003).
 
 - Art: recorded the user's approval of the final fighter batch (19 Naruto, 14 Killua, 43 Sasuke images; REVIEW, manifest, TRACKER) and installed Sasuke's portrait, cut-in and select images, so he no longer uses the placeholder pictures (ART-SCALE-01, ART-SAS-11).
