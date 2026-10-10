@@ -17,6 +17,11 @@ How it works:
 
 ## One chat for everything (2026-10-10)
 
+**Read-hardening update (OPS-004):** local profile now uses MXC with minimal tool reads and project/temp
+writes; unrelated reads/writes are denied. Git file writes, localhost and GitHub probes pass. Node/Vite
+still fail on drive-root metadata/ancestor reads. No broad-read fallback is enabled; do not claim the
+unattended-build setup is finished. Prior permission notes below describe earlier probes.
+
 **Permission update (2026-10-10, OPS-004):** the user authorized project/Git writes, testing/network
 access and no routine command approvals. The local `gcd-tourney` profile passed Git-write, localhost
 and GitHub probes after a scoped Windows ACL repair. Fresh sessions must load the profile; old sessions

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Docs (OPS-004): record tightened local MXC read allowlist, positive/negative access probes, and unresolved drive-root traversal failure in Node/Vite; unattended-build setup remains blocked.
+
 - Docs (OPS-004): authorize autonomous project work with separate task worktrees and one sequential integration coordinator; document the local Codex permission profile and Windows Git ACL repair, preserving artwork approval gates.
 
 - Docs: art briefs for Codex: Gojo's broader adult build and full 42-animation redraw (art/characters/gojo/BUILD_REDRAW.md, ART-GOJ-BUILD), and new `heavy` launchers and `charge` power-ups for Naruto (a bursting uppercut), Sasuke (the Lion's Barrage opening kick) and Killua (a spiraling rising claw rake), in each KIT.md (ART-HEAVY-01, ART-CHARGE-01); inbox items per thread.

@@ -12,10 +12,15 @@ and Codex only coordinated ([ADR 0006](decisions/0006-ai-art-pipeline.md)).
 
 The user authorized project and Git writes, testing/network access, and no routine command approval
 prompts. A machine-local, Git-ignored `.codex/config.toml` selects the `gcd-tourney` permission profile
-with `approval_policy = 'never'`. It grants project writes and temporary-directory writes, retains
-read-only access outside those areas, and enables command network access. Network destinations are
+with `approval_policy = 'never'`. It grants project and temporary-directory writes, allows minimal
+runtime tool reads, restricts unlisted paths, and enables command network access. Network destinations are
 not restricted by an allowlist. `.codex` and `.agents` remain read-only to sandboxed commands.
 The profile does not change other projects' defaults or Claude Code's execution permissions.
+Read hardening uses `features.prefer_mxc = true`: the legacy elevated sandbox refuses profiles without
+effective root read access. Broad root/home/Desktop read grants were removed. Probes under the tightened
+profile confirmed denial of the global Codex config, Documents, an unrelated project, and outside-project
+writes; Git file writes, localhost binding and GitHub HTTP 200 passed. These are command-sandbox tests,
+not evidence that browser/connector tools or an existing chat inherited the profile.
 
 Windows had explicit sandbox write-deny ACL entries on this project's `.git`. Their original ACL was
 saved locally under `.codex/git-acl-before-project-access.xml` before the scoped removal. The profile
@@ -24,12 +29,16 @@ previous permission policy; use a fresh project session and verify its effective
 using the old policy may reapply Git protection. Do not silently switch to machine-wide Full access.
 
 Verification also confirmed real worktree creation/removal and denial of a write outside the project.
-The full sandboxed Vite build is still blocked: it cannot list the home directory while resolving
-ancestor paths. A read/traverse-only ACL repair was attempted (backup saved locally under
+The full sandboxed Vite build is still blocked. With restricted reads, Node fails with `EPERM, lstat C:\`;
+preserving symlinks gets past Node startup but esbuild cannot read drive ancestors. Vite's runner config
+loader also fails at drive-root metadata access. A temporary project-only drive alias was rejected by
+MXC (permission path cannot be represented losslessly), and was removed. No broad-read fallback remains.
+Earlier, a read/traverse-only ACL repair was attempted (backup saved locally under
 `.codex/home-directory-acl-before-traverse.xml`), but Set-Acl lacked the required privilege and the
 icacls attempt was interrupted after no progress. No successful parent ACL change is confirmed.
 The production build passes outside the sandbox. Do not describe unattended testing as fully ready
 until a build passes inside the selected profile and a fresh desktop session loads that profile.
+The saved profile currently fails closed for incompatible build commands; this task is not complete.
 
 - Each parallel task owns one real worktree, branch and server port; claim overlapping files first.
 - Agree on one integration coordinator across Claude and Codex. Only that coordinator mutates main,

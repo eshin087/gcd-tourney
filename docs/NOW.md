@@ -12,8 +12,8 @@ heavy: the Lion's Barrage kick)._
 
 ## Your next actions
 
-- **Codex permissions:** project profile installed; Git-write, localhost and GitHub probes passed after a scoped Windows ACL repair. Start a fresh project chat to load the settings; existing chats can retain the old policy. Separate task worktrees and one sequential integration coordinator are now the shared agent instructions. Artwork approval gates remain.
-- **Remaining setup blocker:** the sandboxed Vite build cannot list the home directory for ancestor resolution. Git worktrees work and outside-project writes are blocked, but unattended testing is not fully verified. The production build passes with escalation; parent-directory read/traverse repair needs host-level follow-up.
+- **Codex permissions:** tightened to project/temp writes and minimal runtime reads using MXC. Unrelated project, Documents, global Codex config reads and outside writes were denied in probes; Git file writes, localhost and GitHub passed. Existing chats may retain their old policy. Artwork gates remain.
+- **Remaining setup blocker:** strict-profile Node/Vite builds cannot inspect drive-root metadata/ancestor directories. No broad-read fallback is enabled. Unattended builds and fresh-chat activation are not verified; OPS-004 remains blocked. See docs/AI_COLLABORATION.md for exact failures.
 
 **One prompt for your Codex chat** (it works through every character, then stops for your approvals):
 
