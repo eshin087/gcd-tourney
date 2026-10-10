@@ -22,4 +22,4 @@ dist/assets/artReview-Bs6duCSR.js                 7.15 kB │ gzip:   2.92 kB
 dist/assets/sprites-rSkzWMro.js                  14.83 kB │ gzip:   6.26 kB
 dist/assets/main-CKcAy2f3.js                    248.89 kB │ gzip:  81.00 kB
 dist/assets/index-W73IRgan.js                   756.15 kB │ gzip: 198.89 kB
-✓ built in 1.72s
+✓ built in 1.76s

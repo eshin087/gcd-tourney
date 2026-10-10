@@ -1,0 +1,905 @@
+{
+  "art": "art",
+  "artExists": true,
+  "out": "public",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "sasuke",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "frames/idle/",
+          "from": "raw/idle_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "run",
+          "frames": 8,
+          "expected": 8,
+          "source": "frames/run/",
+          "from": "raw/run_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "dash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/dash_v01.png",
+          "from": "raw/dash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.287,
+          "frameScales": [
+            0.28674,
+            0.28674
+          ],
+          "notes": []
+        },
+        {
+          "anim": "backDash",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/backDash_v01.png",
+          "from": "raw/backDash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.277,
+          "frameScales": [
+            0.27711,
+            0.27711,
+            0.27711
+          ],
+          "notes": []
+        },
+        {
+          "anim": "superDash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/superDash_v01.png",
+          "from": "raw/superDash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.29896,
+            0.29896
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "jumpSquat",
+          "frames": 1,
+          "expected": 1,
+          "source": "raw/jumpSquat_v01.png",
+          "from": "raw/jumpSquat_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.146,
+          "frameScales": [
+            0.14647
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpUp",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpUp_v01.png",
+          "from": "raw/jumpUp_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.222,
+          "frameScales": [
+            0.22247,
+            0.22247
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpFall",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpFall_v01.png",
+          "from": "raw/jumpFall_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.243,
+          "frameScales": [
+            0.24302,
+            0.24302
+          ],
+          "notes": []
+        },
+        {
+          "anim": "land",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/land_v01.png",
+          "from": "raw/land_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.214,
+          "frameScales": [
+            0.21429,
+            0.21429
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light1",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light1_v01.png",
+          "from": "raw/light1_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.31,
+            0.31,
+            0.31,
+            0.31,
+            0.25833,
+            0.25833,
+            0.25833
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v01.png",
+          "from": "raw/light2_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.31,
+            0.31,
+            0.31,
+            0.31,
+            0.25833,
+            0.25833,
+            0.25833
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "light3",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light3_v01.png",
+          "from": "raw/light3_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.30211,
+            0.30211,
+            0.30211,
+            0.30211,
+            0.23621,
+            0.23621,
+            0.23621
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v01.png",
+          "from": "raw/light4_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.37306,
+            0.38086,
+            0.37579,
+            0.37347,
+            0.37347,
+            0.24934,
+            0.24948,
+            0.24948
+          ],
+          "notes": [
+            "removed 7 specks",
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "heavy",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/heavy_v02.png",
+          "from": "raw/heavy_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.37247,
+            0.37247,
+            0.37247,
+            0.37247,
+            0.37247,
+            0.23524,
+            0.23524,
+            0.23524
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v01.png",
+          "from": "raw/airLight1_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.299,
+          "frameScales": [
+            0.29909,
+            0.29909,
+            0.29909,
+            0.29909,
+            0.29909
+          ],
+          "notes": [
+            "split 1 touching pose group(s)"
+          ]
+        },
+        {
+          "anim": "airLight2",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight2_v02.png",
+          "from": "raw/airLight2_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.394,
+          "frameScales": [
+            0.39429,
+            0.39429,
+            0.39429,
+            0.39429,
+            0.39429
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airLight3",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airLight3_v01.png",
+          "from": "raw/airLight3_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.40501,
+            0.40501,
+            0.40501,
+            0.40501,
+            0.23742,
+            0.23742
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v02.png",
+          "from": "raw/airHeavy_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.34625,
+            0.34625,
+            0.34625,
+            0.34625,
+            0.21929,
+            0.21929
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v01.png",
+          "from": "raw/guard_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.216,
+          "frameScales": [
+            0.21569,
+            0.21569
+          ],
+          "notes": []
+        },
+        {
+          "anim": "block",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/block_v01.png",
+          "from": "raw/block_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.227,
+          "frameScales": [
+            0.22717,
+            0.22717
+          ],
+          "notes": []
+        },
+        {
+          "anim": "hurtHigh",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtHigh_v02.png",
+          "from": "raw/hurtHigh_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.262,
+          "frameScales": [
+            0.2621,
+            0.2621,
+            0.2621
+          ],
+          "notes": []
+        },
+        {
+          "anim": "hurtLow",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtLow_v01.png",
+          "from": "raw/hurtLow_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.216,
+          "frameScales": [
+            0.21555,
+            0.21555,
+            0.21555
+          ],
+          "notes": []
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v01.png",
+          "from": "raw/launched_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.28152,
+            0.28152
+          ],
+          "notes": [
+            "poses touch: split into 2",
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "spin",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/spin_v01.png",
+          "from": "raw/spin_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.281,
+          "frameScales": [
+            0.2807,
+            0.2807,
+            0.2807,
+            0.2807
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airRecover",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/airRecover_v01.png",
+          "from": "raw/airRecover_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.262,
+          "frameScales": [
+            0.26163,
+            0.26163,
+            0.26163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v01.png",
+          "from": "raw/down_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.30444,
+            0.30444
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v01.png",
+          "from": "raw/getup_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.386,
+          "frameScales": [
+            0.38563,
+            0.38563,
+            0.38563,
+            0.38563,
+            0.38563
+          ],
+          "notes": [
+            "split 1 touching pose group(s)",
+            "dropped 1 stray mark(s) far from the body"
+          ]
+        },
+        {
+          "anim": "charge",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/charge_v02.png",
+          "from": "raw/charge_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.306,
+          "frameScales": [
+            0.30603,
+            0.30603,
+            0.30603,
+            0.30603
+          ],
+          "notes": []
+        },
+        {
+          "anim": "throw",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/throw_v01.png",
+          "from": "raw/throw_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.262,
+          "frameScales": [
+            0.2624,
+            0.2624,
+            0.2624,
+            0.2624
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamCharge",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamCharge_v01.png",
+          "from": "raw/beamCharge_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.249,
+          "frameScales": [
+            0.24919,
+            0.24919,
+            0.24919
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamFire",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamFire_v01.png",
+          "from": "raw/beamFire_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.302,
+          "frameScales": [
+            0.30229,
+            0.30229,
+            0.30229
+          ],
+          "notes": [
+            "poses touch: split into 3"
+          ]
+        },
+        {
+          "anim": "vanish",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/vanish_v01.png",
+          "from": "raw/vanish_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.234,
+          "frameScales": [
+            0.23362,
+            0.23362
+          ],
+          "notes": []
+        },
+        {
+          "anim": "stagger",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/stagger_v01.png",
+          "from": "raw/stagger_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.241,
+          "frameScales": [
+            0.24126,
+            0.24126,
+            0.24126,
+            0.24126
+          ],
+          "notes": []
+        },
+        {
+          "anim": "ko",
+          "frames": 1,
+          "expected": 1,
+          "source": "raw/ko_v02.png",
+          "from": "raw/ko_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.17177
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "special",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/special_v02.png",
+          "from": "raw/special_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.26853,
+            0.26853,
+            0.26853,
+            0.5035,
+            0.5035,
+            0.5035,
+            0.5035,
+            0.5035
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "intro",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/intro_v01.png",
+          "from": "raw/intro_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.243,
+          "frameScales": [
+            0.24306,
+            0.24306,
+            0.24306,
+            0.24306
+          ],
+          "notes": []
+        },
+        {
+          "anim": "taunt",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/taunt_v01.png",
+          "from": "raw/taunt_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.22,
+          "frameScales": [
+            0.21992,
+            0.21992
+          ],
+          "notes": []
+        },
+        {
+          "anim": "win",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/win_v01.png",
+          "from": "raw/win_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.237,
+          "frameScales": [
+            0.2374,
+            0.2374,
+            0.2374,
+            0.2374
+          ],
+          "notes": []
+        },
+        {
+          "anim": "specialForward",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/specialForward_v02.png",
+          "from": "raw/specialForward_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.38558,
+            0.38558,
+            0.38558,
+            0.38558,
+            0.2612,
+            0.2612,
+            0.2612
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "specialUp",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/specialUp_v01.png",
+          "from": "raw/specialUp_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            0.32628,
+            0.32628,
+            0.32628,
+            0.32628,
+            0.24208,
+            0.24208
+          ],
+          "notes": [
+            "anatomical scale: skull-to-chin 31px; bounds are pose-dependent"
+          ]
+        },
+        {
+          "anim": "specialDown",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/specialDown_v01.png",
+          "from": "raw/specialDown_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.273,
+          "frameScales": [
+            0.27273,
+            0.27273,
+            0.27273,
+            0.27273
+          ],
+          "notes": []
+        },
+        {
+          "anim": "superPose",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/superPose_v01.png",
+          "from": "raw/superPose_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.235,
+          "frameScales": [
+            0.23503,
+            0.23503,
+            0.23503,
+            0.23503
+          ],
+          "notes": [
+            "removed 4 specks"
+          ]
+        }
+      ],
+      "missing": [],
+      "missingCore": [],
+      "failed": [],
+      "versions": {
+        "idle": 1,
+        "run": 2,
+        "dash": 1,
+        "backDash": 1,
+        "superDash": 1,
+        "jumpSquat": 1,
+        "jumpUp": 1,
+        "jumpFall": 1,
+        "land": 1,
+        "light1": 1,
+        "light2": 1,
+        "light3": 1,
+        "light4": 1,
+        "heavy": 2,
+        "airLight1": 1,
+        "airLight2": 2,
+        "airLight3": 1,
+        "airHeavy": 2,
+        "guard": 1,
+        "block": 1,
+        "hurtHigh": 2,
+        "hurtLow": 1,
+        "launched": 1,
+        "spin": 1,
+        "airRecover": 1,
+        "down": 1,
+        "getup": 1,
+        "charge": 2,
+        "throw": 1,
+        "beamCharge": 1,
+        "beamFire": 1,
+        "vanish": 1,
+        "stagger": 1,
+        "ko": 2,
+        "special": 2,
+        "intro": 1,
+        "taunt": 1,
+        "win": 1,
+        "specialForward": 2,
+        "specialUp": 1,
+        "specialDown": 1,
+        "superPose": 1
+      },
+      "complete": true,
+      "frames": 175,
+      "sheet": "4096x2816",
+      "colors": 48,
+      "warnings": [
+        "ko: 1 frame(s) clipped by the 256x256 cell (#0 left 11px) - pose too wide/tall for the pivot; repose or reposition while preserving anatomical scale",
+        "specialUp: 2 frame(s) reach into the 4px cell margin (#2 below floor 3px, #3 top 3px/below floor 1px) - keep every pixel inside x 4..251, y >= 4; repose or reposition while preserving anatomical scale"
+      ],
+      "notes": [
+        "palette snapped to 48 colors",
+        "2 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [
+        "public/characters/sasuke/sheet.png",
+        "public/characters/sasuke/anims.json"
+      ],
+      "writeback": [],
+      "ui": [],
+      "uiItems": []
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 2
+}

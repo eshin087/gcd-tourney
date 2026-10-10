@@ -11,6 +11,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Title screen: new Naruto-vs-Killua key art (`title_art` v02, approved by the user) replaces Naruto vs Sasuke; static painted audience (ART-UI-02).
+- **Stage, NPC and title-art support:** packer modes `npm run sprites stage|npc|ui` and the engine side: the arena
+
 - Completed the isolated fighter-scale candidate pass: 19 Naruto and 14 Killua corrections, full 42-animation Sasuke kit plus three UI candidates, original Gojo proportions restored, source-hashed QA and Claude handoff. 207 packer tests/build/browser checks pass; final visual approval and two documented non-clipping KO margin exceptions remain.
 
 - Art: reject enlarged Gojo head candidates after user feedback; restore approved proportions and document their precedence over nominal 31px guidance.

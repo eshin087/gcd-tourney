@@ -1108,17 +1108,31 @@
     }
   },
   "sharedUi": {
-    "logo": {"file":"art/ui/final/logo.png","candidates":"art/ui/raw/logo_vNN.png","size":[480,180],"step":11,"status":"approved","version":1,"approvedVersion":1},
-    "titleArt": {
-      "file": "art/ui/final/title_art.png",
-      "candidates": "art/ui/raw/title_art_vNN.png",
-      "size": [640,360],
-      "step": 11,
-      "status": "approved",
-      "version": 1,
-      "approvedVersion": 1
-    }
+  "logo": {
+    "file": "art/ui/final/logo.png",
+    "candidates": "art/ui/raw/logo_vNN.png",
+    "size": [
+      480,
+      180
+    ],
+    "step": 11,
+    "status": "approved",
+    "version": 1,
+    "approvedVersion": 1
   },
+  "titleArt": {
+    "file": "art/ui/final/title_art.png",
+    "candidates": "art/ui/raw/title_art_vNN.png",
+    "size": [
+      640,
+      360
+    ],
+    "step": 11,
+    "status": "approved",
+    "version": 2,
+    "approvedVersion": 2
+  }
+},
   "worldArt": {
     "crowd": {
       "batches": {

@@ -443,7 +443,7 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | npc | npc-monk-b | 3 | approved | v01 | v01 | [Files/QA](queue/reviews/npc-monk-b.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | npc | npc-vendor | 2 | approved | v02 | v02 | [Files/QA](queue/reviews/npc-vendor.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | ui | ui-logo | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/ui-logo.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| ui | ui-title_art | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/ui-title_art.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+| ui | ui-title_art | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/ui-title_art.md); Naruto vs Killua title art approved with its painted audience. |
 | vfx | vfx-spark | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/vfx-spark.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | vfx | vfx-burst | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/vfx-burst.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | vfx | vfx-ring | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/vfx-ring.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |

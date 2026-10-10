@@ -1,0 +1,30 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/heavy_v03.png",
+  "version": 3,
+  "source": [
+    "characters/naruto/raw/heavy_v03.png",
+    "characters/naruto/raw/heavy_v03.json"
+  ],
+  "sourceHash": "dd89eefd4624e9cd5df6821f69b4153da97df776",
+  "bodyHeight": 218,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "heavy_00.png": "6d0330bf39b23c9821bbf9dea291998a57edd238",
+    "heavy_01.png": "e9b3ed633a91ac00544bdad5ac32705fdcfd235d",
+    "heavy_02.png": "f81776ee939fae7ea7f0c472b223fd8b87a581b7",
+    "heavy_03.png": "f6da6b45f8cceae7e81e2a4a7e04df8eccf6c6a3",
+    "heavy_04.png": "2bd31c85f778970f914ddd327489a2aa1de5673e",
+    "heavy_05.png": "2d6d41d76774c8cdabe151262deeb291bcaece84",
+    "heavy_06.png": "df0ca990e3027c59fdf58d0c48e864f724cbf9ac",
+    "heavy_07.png": "c38fbfecec0c1e5c25ac3df19d980e27b34123d2"
+  }
+}

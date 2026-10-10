@@ -14,4 +14,4 @@ Packer changes have 206 passing regression checks; the full build and local brow
 
 ## PR integration order
 
-Claude opened #7 (Sasuke and scale tooling) and #8 (earlier Naruto/Killua candidates). This final correction PR is stacked after #8; merge those prerequisite PRs first, then this correction. No original Gojo enlargement should be reintroduced.
+Claude opened #7 (Sasuke and scale tooling) and #8 (earlier Naruto/Killua candidates). This final correction PR is stacked after #8; review this final correction first, then integrate #8 and this correction together; do not deploy unfinished #8 alone. No original Gojo enlargement should be reintroduced.
