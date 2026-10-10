@@ -644,19 +644,15 @@ point. **Do not draw any lightning in the sprite.**
 
 <a id="beamcharge"></a>
 
-### beamCharge: LIGHTNING PALM charge · 3 frames, loop · assassin eyes
+### beamCharge: WHIRLWIND ready stance · 3 frames, loop · assassin eyes
 
-Deep wide stance (L foot forward, knees bent low), torso **twisted back** away from screen-right.
-**Both hands drawn back to his R hip, palms facing each other about a fist-width apart** (as if holding
-a ball between them), fingers spread and hooked, claws out; elbows back. Head turned toward the
-opponent at screen-right, **assassin eyes**, teeth gritted. Tufts bristling up and back, the shirt and
-sleeves fluttering. Hands at about x 86 to 106, y 140 to 162. No lightning in the sprite. (A proposed
-engine follow-up would draw crackling lightning between the palms at about (96, 151); see
-MOVES_AND_VFX.md §4.)
+Low and relaxed on the balls of his feet, arms loose and slightly away from the body, hands open with relaxed short claws. White hair bristles upward; cold assassin eyes fixed forward. Same anatomical scale and feet baseline as idle; no lightning in the sprite.
 
-- **f0**: as described.
-- **f1**: tremble 1 px forward, tuft flicker variant.
-- **f2**: tremble 1 px back, fingers flex 1 px. Loops.
+- **f0:** settle low into loose ready stance.
+- **f1:** small finger flex and tuft bristle; relaxed shoulders.
+- **f2:** holds ready, flowing back into f0.
+
+The previous approved Lightning Palm charge remains approved until the candidate is accepted. `beamFire` is unchanged and retained in the animation contract.
 
 <a id="beamfire"></a>
 
