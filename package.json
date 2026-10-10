@@ -14,6 +14,7 @@
     "test:sprites": "node tools/test-pack-sprites.mjs",
     "queue": "node tools/queue.mjs",
     "status": "node tools/status.mjs",
+    "lineup": "node tools/lineup.mjs",
     "publish:github": "node tools/publish.mjs",
     "pr": "node tools/pr.mjs",
     "deploy": "node tools/deploy.mjs"

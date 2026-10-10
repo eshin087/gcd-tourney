@@ -1,0 +1,59 @@
+{
+  "rows": [
+    "idle",
+    "run",
+    "heavy"
+  ],
+  "fighters": [
+    "gojo",
+    "killua",
+    "naruto",
+    "sasuke"
+  ],
+  "measured": {
+    "gojo": {
+      "standingPx": 221,
+      "shoulderPx": 52,
+      "ratio": 0.235,
+      "build": "athletic",
+      "band": [
+        0.37,
+        0.48
+      ],
+      "outOfBand": true
+    },
+    "killua": {
+      "standingPx": 186,
+      "shoulderPx": 64,
+      "ratio": 0.344,
+      "build": "child",
+      "band": [
+        0.3,
+        0.4
+      ],
+      "outOfBand": false
+    },
+    "naruto": {
+      "standingPx": 203,
+      "shoulderPx": 77,
+      "ratio": 0.379,
+      "build": "teen",
+      "band": [
+        0.35,
+        0.46
+      ],
+      "outOfBand": false
+    },
+    "sasuke": {
+      "standingPx": 202,
+      "shoulderPx": 87,
+      "ratio": 0.431,
+      "build": "teen",
+      "band": [
+        0.35,
+        0.46
+      ],
+      "outOfBand": false
+    }
+  }
+}
