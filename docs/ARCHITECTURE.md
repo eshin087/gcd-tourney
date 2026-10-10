@@ -28,8 +28,10 @@ src/core/
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
                             (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
-                            special clash, projectile/beam collisions, beam clash, event hooks
+                            projectile/beam/orb collisions, special and ultimate clashes (clash bodies, the
+                            struggle line, endings), event hooks
                             (onHit/onBlock/onVanish/...), super flash, KO, render orchestration
+  clash.js                  rhythm clash (ADR 0017): seeded note chart, Judge (grades, strays, holds), CPU press plan
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
                             launched/down/getup/charge/beamCharge/beamFire/clash/...), cancels, physics, takeHit
   moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE,
@@ -60,7 +62,7 @@ src/world/arena.js          tournament grounds: ring, temple, stands + instanced
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
-  hud.js                    health/ki bars, timer, combo counter, callouts, announcements, super cut-in, clash meter
+  hud.js                    health/ki bars, timer, combo counter, callouts, announcements, super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
@@ -103,9 +105,10 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 5. fighters[i].update()         state machine; attacks call game.checkMelee() on active frames;
                                 lane auto-step; physics (gravity, ring barrier, wall/ground bounce, KO physics)
 6. separate()                   push overlapping fighters apart
-7. checkSpecialClash()          two signature rushes meeting -> both blown back
+7. checkSpecialClash()          two signature rushes meeting -> a one-beat clash (the world holds still) or a trade
+   checkUltimateClash()         two ultimates' bodies meeting head-on -> the rhythm clash
 8. projectiles update + projectileCollisions()   projectile vs fighter, projectile vs projectile, beam eats projectiles
-9. beams update, checkBeamClash(), updateClash()  ultimate beams, beam clash mash-off
+9. updateClash(), beams + orbs update, checkUltimateClash()   judge both pads against the chart, move the bodies
 10. fxTicks()                   aura / signature-hand effects, speed-line focus
 11. round timer                 99 s countdown (not in training)
 ```

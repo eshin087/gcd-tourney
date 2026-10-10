@@ -180,8 +180,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   hand (hand VFX via `Effects.handTick`), active rushes forward at `rush` speed, and on hit the move skips to
   recovery.
 - Starting a special triggers a 12-frame **super flash** (time freeze, 45% stage dim, callout).
-- Two specials whose active frames meet within 1.6 units cause a **special clash**: an explosion, and both
-  fighters take 60 dmg and get blown apart.
+- Two specials whose active frames meet within 1.6 units cause a **special clash** (ADR 0017): the world holds
+  still and one ring closes on the target (46 f). The closer press (better grade, then fewer frames off) wins: the
+  loser takes 60 and is blown back, the winner's special goes through. Both missing, or a dead heat, is the old
+  trade (both take 60). For 480 frames after one, specials simply trade.
 
 ### Second supers (SUPER button)
 - 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
@@ -239,18 +241,31 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
   Guard or Jump cancels it. Heavy during charge with 3 bars fires the ultimate.
 
-### Ultimate, super flash and beam clash
+### Ultimate, super flash and ultimate clash
 - The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's
-  Kamehameha next). ADR 0017 part 2 replaces the beam clash's mashing with a rhythm duel for every clashable
-  ultimate (beam, orb, rampage).
-- **Heavy + Special** (5-frame buffer), 3 bars. 46-frame windup (14 if countering a beam), invulnerable through
-  the windup. A 42-frame super flash with a cut-in strip (`cutin.png` or the baked eye strip), stage dim
+  Kamehameha next).
+- **Heavy + Special** (5-frame buffer), 3 bars. 46-frame windup (14 when answering, see below), invulnerable
+  through the windup. A 42-frame super flash with a cut-in strip (`cutin.png` or the baked eye strip), stage dim
   72%, focus camera.
 - The beam travels at 34 u/s up to 26 units long, ticks 12 dmg every 5 frames, and adds 130 on the final hit.
-- **Beam clash**: if both beams are live and roughly opposed (dot < -0.4) and their lengths meet, a clash
-  starts. Both fighters become invulnerable and mash Light, Heavy and Special. The balance point moves with
-  the mash-rate difference (plus wobble). At 96% one side wins (280 dmg + wall bounce to the loser). After 9 s
-  it's a draw explosion (90 dmg each).
+- **Answering an ultimate:** firing yours into the opponent's running beam, Hollow Purple or Four-Tails (started on
+  an earlier frame) gives a 20-frame flash ("COUNTER!") and a short windup: the beam's 14 frames, Purple merges in
+  8 (`answerMerge`), the Four-Tails roar is 6 (`answerRoar`). Then the two can meet.
+- **Ultimate clash** (a rhythm duel, ADR 0017, `src/game/clash.js`): two clashable ultimates (beam, orb, rampage)
+  that meet head-on lock where they met. A beam still charging or a Purple still merging can be met too; it goes
+  off on the spot. Both fighters are invulnerable; the round timer stops.
+  - Both players play the same chart (seeded by the two ultimates): approach rings close on a target; press
+    Light, Heavy or Special as each ring closes. 20 notes in three faster phases (doubles: two quick taps), then
+    the **FINAL PUSH**: press and hold until the target fills. 7.7 s.
+  - Grades by frames off the note: Perfect ≤ 3 (3 points), Great ≤ 6 (2), Good ≤ 9 (1), Miss (0). A press with no
+    note near it is **OFF BEAT** (-1, at most once per 4 frames), so mashing loses. A hold let go early is graded
+    by how early.
+  - The struggle point follows the score lead (`0.5 + lead × 0.018`, capped at ±0.45); the loser's beam is pushed
+    back to a stub, an orb into its owner's hands, and then the owner slides back (up to 2.2 units).
+  - The end: the chart ends (or, in a blowout, the trailing player can no longer catch up before the FINAL PUSH).
+    A lead of 2+ wins: the winner's ultimate goes through (the beam runs on, the orb rolls over them, Naruto roars
+    it out) and the loser takes 250 (unscaled, unblockable, wall bounce, "OVERWHELMED!"). Under 2 is a **draw**:
+    both blown back for 90.
 
 ### Ki economy
 
@@ -363,7 +378,7 @@ distance-to-line test.
 ## CPU AI
 
 `CpuBrain` (`src/game/ai.js`) presses buttons on its Pad. Levels are Easy, Normal and Hard
-(reaction frames, guard and aggression rates, combo completion, mash speed, special/vanish/tech
+(reaction frames, guard and aggression rates, combo completion, clash timing (`beat`), special/vanish/tech
 probabilities). It lines up in the depth lane, then executes the bread-and-butter route by watching its
 own hit confirms. `DummyBrain` drives the training dummy (stand, guard, hop, fight back).
 

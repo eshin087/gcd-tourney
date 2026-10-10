@@ -403,19 +403,20 @@ export function matchHint(mode, layout) {
   return `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} move · ${k(m, 'light')} light · ${k(m, 'heavy')} launcher · ${k(m, 'special')} special (hold: charge) · ${k(m, 'heavy')}+${k(m, 'special')} ultimate · ${k(m, 'super')} super · ${k(m, 'guard')}+${k(m, 'special')} vanish · ${k(m, 'jump')} jump · ${k(m, 'dash')} super dash · <kbd>Esc</kbd> pause`;
 }
 
-// Beam-clash mash prompt, from the live bindings (training and VS CPU use the solo map).
+// Clash prompt (a rhythm clash, ADR 0017: any attack button on the beat), from the live bindings (training and
+// VS CPU use the solo map).
 export function clashHint(mode, layout) {
-  if (mode === 'cpu') return 'BEAM CLASH!'; // both sides mash on their own
-  if (layout === 'touch' && mode !== 'versus') return 'MASH <kbd>LIGHT</kbd><kbd>HEAVY</kbd><kbd>SPECIAL</kbd>!';
+  if (mode === 'cpu') return 'ULTIMATE CLASH!'; // both sides play on their own
+  if (layout === 'touch' && mode !== 'versus') return 'TAP <kbd>LIGHT</kbd><kbd>HEAVY</kbd><kbd>SPECIAL</kbd> ON THE BEAT!';
   const keys = (m) => ['light', 'heavy', 'special'].map((a) => `<kbd>${keyLabel(m[a]?.[0])}</kbd>`).join('');
-  if (mode === 'versus') return `MASH! P1 ${keys(KEYMAPS.p1)} · P2 ${keys(KEYMAPS.p2)}`;
+  if (mode === 'versus') return `ON THE BEAT! P1 ${keys(KEYMAPS.p1)} · P2 ${keys(KEYMAPS.p2)}`;
   if (layout !== 'keyboard' && PAD_NAMES[layout]) {
     const n = PAD_NAMES[layout], face = FACE[layout];
     const b = (a) => {
       const i = PAD_BUTTONS[a]?.[0];
       return `<kbd style="${i <= 3 ? `color:${face[i]}` : ''}">${n[i] ?? '—'}</kbd>`;
     };
-    return `MASH ${b('light')}${b('heavy')}${b('special')}!`;
+    return `${b('light')}${b('heavy')}${b('special')} ON THE BEAT!`;
   }
-  return `MASH ${keys(KEYMAPS.solo)}!`;
+  return `${keys(KEYMAPS.solo)} ON THE BEAT!`;
 }

@@ -1,6 +1,7 @@
 import { MAX_HP, MAX_KI, KI_BAR } from '../game/constants.js';
 import { InputHistory } from './controls.js';
 
+const JUDGE_WORDS = { perfect: 'PERFECT', great: 'GREAT', good: 'GOOD', miss: 'MISS', stray: 'OFF BEAT' };
 const h = (tag, cls, html = '') => {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -85,9 +86,16 @@ export class Hud {
     this.announceEl = h('div', 'announce');
     this.root.parentNode.append(this.announceEl);
     this.clashEl = h('div', 'clash hidden', `
+      <div class="beat"><div class="beat-target"></div><div class="beat-rings"></div><div class="beat-call"></div>
+        <div class="beat-judge j1"></div><div class="beat-judge j2"></div></div>
       <div class="clash-bar"><div class="clash-a"></div><div class="clash-b"></div><div class="clash-mark"></div></div>
-      <div class="mash">MASH ATTACK!</div>`);
+      <div class="clash-hint"></div>`);
     this.root.append(this.clashEl);
+    this.beatTarget = this.clashEl.querySelector('.beat-target');
+    this.beatRingsEl = this.clashEl.querySelector('.beat-rings');
+    this.beatCall = this.clashEl.querySelector('.beat-call');
+    this.beatJudges = [...this.clashEl.querySelectorAll('.beat-judge')];
+    this.beatRings = [];
     this.cards = h('div', 'namecards hidden');
     this.root.parentNode.append(this.cards);
     this.hint = h('div', 'hint');
@@ -239,6 +247,56 @@ export class Hud {
     this.clashEl.querySelector('.clash-a').style.width = t * 100 + '%';
     this.clashEl.querySelector('.clash-b').style.width = (1 - t) * 100 + '%';
     this.clashEl.querySelector('.clash-mark').style.left = t * 100 + '%';
-    if (hint) this.clashEl.querySelector('.mash').innerHTML = hint;
+    if (hint) this.clashEl.querySelector('.clash-hint').innerHTML = hint;
+  }
+
+  // Rhythm clash (ADR 0017): approach rings close on one target, each player's grade pops on their side, and the
+  // FINAL PUSH hold fills the target. `c` is Game.clash (chart, timer, judges); a lite clash has no struggle bar.
+  clashStart(c, colors, hint) {
+    this.clashEl.classList.toggle('lite', !!c.lite);
+    this.beatRingsEl.textContent = '';
+    this.beatRings = c.chart.notes.map((n) => {
+      const r = h('div', 'beat-ring' + (n.kind === 'hold' ? ' hold' : n.double ? ' double' : ''));
+      this.beatRingsEl.append(r);
+      return r;
+    });
+    this.beatJudges.forEach((e, i) => { e.className = `beat-judge j${i + 1}`; e.textContent = ''; });
+    this.clash(true, 0.5, colors, hint);
+    this.clashBeat(c);
+  }
+
+  clashBeat(c) {
+    const now = c.timer, lead = c.chart.lead;
+    let hold = null, tick = false;
+    c.chart.notes.forEach((n, i) => {
+      const r = this.beatRings[i], dt = n.t - now, end = n.end ?? n.t;
+      if (dt === 0) tick = true;
+      if (n.kind === 'hold' && dt <= lead) hold = n;
+      if (dt > lead || now > end + 6) {
+        if (r.on) { r.on = false; r.style.opacity = '0'; }
+        return;
+      }
+      r.on = true;
+      const s = dt > 0 ? 1 + (2.4 * dt) / lead : 1;
+      r.style.opacity = (dt > 0 ? Math.min(1, (lead - dt) / 8) : Math.max(0, 1 - (now - end) / 6)).toFixed(2);
+      r.style.transform = `translate(-50%, -50%) scale(${s.toFixed(3)})`;
+    });
+    if (tick) {
+      // the target thumps on every note: the beat you can see
+      this.beatTarget.classList.remove('go');
+      void this.beatTarget.offsetWidth;
+      this.beatTarget.classList.add('go');
+    }
+    const p = hold && now >= hold.t ? Math.min(1, (now - hold.t) / (hold.end - hold.t)) : 0;
+    this.beatTarget.style.setProperty('--p', p.toFixed(3));
+    this.beatCall.textContent = !hold || now > hold.end ? '' : now < hold.t ? 'FINAL PUSH!' : 'HOLD!';
+  }
+
+  clashJudge(i, g) {
+    const e = this.beatJudges[i];
+    e.textContent = JUDGE_WORDS[g] ?? '';
+    e.className = `beat-judge j${i + 1} ${g}`;
+    void e.offsetWidth; // restart the pop
+    e.classList.add('go');
   }
 }

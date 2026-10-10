@@ -64,7 +64,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   data; ▶ resets the distance for that move and plays it against the dummy. Swap fighters with ⇄.
 - **ANIMATIONS**: all 42 animations frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
-- **SCENARIOS**: both fighters scripted: ultimate clash, special clash, throw and break, parry, spot dodge, air dodge,
+- **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
+  Normal timing; you press), throw and break, parry, spot dodge, air dodge,
   wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
@@ -94,7 +95,11 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       are no hits across a visible depth gap.
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
-- [ ] Ultimate (3 bars): cut-in, beam. Counter-beam during theirs → clash → mash → winner or draw.
+- [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:
+      **Ultimate clash**, **Answer an ultimate**) → CLASH!: rings close on the target, each player's grade pops on
+      their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).
+      Pressing every frame scores OFF BEAT and loses. Lab **Special clash** (Naruto vs Sasuke): one ring, the closer
+      press wins.
 - [ ] Kits (ADR 0009), with Killua and Gojo: Special, Special + → / ↑ / ↓ and air Special (+↓) each give the
       move in the README Fighters table. SUPER fires Whirlwind / Unlimited Void (the void stage replaces the
       arena, then comes back), and Naruto's SUPER fires his beam. Godspeed shows the mode bar and blink dashes.
@@ -264,7 +269,7 @@ window.rrStep = (budget) => {
 
 | Metric | Budget | How to check |
 |---|---|---|
-| Frame rate | **60 fps at 1080p** during the heaviest moments (beam clash + auras + debris) on a mid-range laptop GPU | DevTools Performance or an FPS meter. Watch the clash and KO crash. |
+| Frame rate | **60 fps at 1080p** during the heaviest moments (ultimate clash + auras + debris) on a mid-range laptop GPU | DevTools Performance or an FPS meter. Watch the clash and KO crash. |
 | Fixed-step catch-up | the accumulator should rarely hit the 6-step cap | add a temporary counter in debug, then remove it |
 | Placeholder bake | **< 1 s per character** | console: `[sprites] baked <id> from 3D in N ms` |
 | Custom sheet size | ≤ 4096 × 4096 px (spec v2: 16 columns × 256 px = 4096 px wide; 42 animations = 175 frames = 11 rows = 2816 px tall). A GPU with a 2048 texture limit gets a downscaled sheet and a three.js warning. | packer report |

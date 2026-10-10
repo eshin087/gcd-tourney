@@ -9,7 +9,9 @@ import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
-import { ULTIMATE, DEFENSE, THROW } from './moves.js';
+import { ULTIMATE, DEFENSE, THROW, CLASH } from './moves.js';
+import { makeChart, beatChart, seedOf, Judge } from './clash.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage } from './kit.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import { Hud } from '../ui/hud.js';
@@ -21,6 +23,32 @@ import { BoxViewer } from './boxViewer.js';
 import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT } from './constants.js';
 
 const v3 = new THREE.Vector3();
+
+// closest distance between segments p1-q1 and p2-q2 (Ericson, Real-Time Collision Detection 5.1.9), for clash bodies
+const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vector3(), sdc = new THREE.Vector3();
+const clamp01 = (x) => Math.min(1, Math.max(0, x));
+const clashTmp = new THREE.Vector3();
+const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
+const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
+function segDist(p1, q1, p2, q2) {
+  const d1 = sd1.subVectors(q1, p1), d2 = sd2.subVectors(q2, p2), r = sdr.subVectors(p1, p2);
+  const a = d1.dot(d1), e = d2.dot(d2), f = d2.dot(r);
+  let s = 0, t = 0;
+  if (a > 1e-8 || e > 1e-8) {
+    if (a <= 1e-8) t = clamp01(f / e);
+    else {
+      const c = d1.dot(r);
+      if (e <= 1e-8) s = clamp01(-c / a);
+      else {
+        const b = d1.dot(d2), den = a * e - b * b;
+        s = den > 1e-8 ? clamp01((b * f - c * e) / den) : 0;
+        t = (b * s + f) / e;
+        if (t < 0) { t = 0; s = clamp01(-c / a); } else if (t > 1) { t = 1; s = clamp01((b - c) / a); }
+      }
+    }
+  }
+  return sdc.copy(p1).addScaledVector(d1, s).sub(r.copy(p2).addScaledVector(d2, t)).length();
+}
 const LANE = 0.6; // max depth offset (world units) for a melee hit to connect
 // states a throw can grab (ADR 0015): not hit or block stun, not airborne, not mid-dodge; an attack only
 // during its startup and a kit move only while it stands still (counter stance, mode power-up, Blue cast)
@@ -66,6 +94,8 @@ export class Game {
     this.orbs = []; // Hollow Purple (ADR 0017)
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
     this.clash = null;
+    this.spClashCool = 0; // frames until two specials may clash again (a rush-off can't stall the round)
+    this.frameNo = 0; // fixed frames run (which of two ultimates came first, ADR 0017)
     this.pads = [new Pad(), new Pad()];
     this.brains = [null, null];
     this.state = 'boot';
@@ -204,9 +234,11 @@ export class Game {
     this.cam.zoomPunch(0.25);
   }
 
-  onSuperStart(f, S) {
+  // `answer`: fired into the opponent's running ultimate, so a short flash (they can meet, ADR 0017)
+  onSuperStart(f, S, answer = false) {
     this.arena.npcCue('super');
-    this.superFlashFor(f, S.flash, 0.78, true, S.name);
+    this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name);
+    if (answer) this.hud.announce('COUNTER!', 'clash', 700);
     this.fx.overlay.flash(S.color || f.def.color, 0.45);
     this.excite = 1;
   }
@@ -284,6 +316,7 @@ export class Game {
     this.beams = [];
     this.orbs = [];
     this.clash = null;
+    this.spClashCool = 0;
     audio.stopAllLoops();
     this.fx.clearAll();
     this.hud.clash(false);
@@ -314,6 +347,7 @@ export class Game {
     this.pendingMelee = [];
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
+    this.spClashCool = 0;
     this.hud.clash(false);
     audio.stopAllLoops();
     this.fx.clearAll();
@@ -472,6 +506,7 @@ export class Game {
   }
 
   fixedUpdate() {
+    this.frameNo++;
     this.input.poll();
     if (this.training) this.hud.history?.tick(this.pads[0], deviceLayout(this.input));
     for (let i = 0; i < 2; i++) if (this.brains[i]) this.brains[i].update(this);
@@ -481,6 +516,13 @@ export class Game {
         this.superFlash = null;
         this.dimTarget = 0;
       }
+    }
+    if (this.clash?.lite) {
+      // a special clash: the world holds still for its one beat (updateClash ends it)
+      for (const f of this.fighters) f.prev.copy(f.pos);
+      this.updateClash();
+      this.fxTicks();
+      return;
     }
     if (this.freeze > 0) {
       // super flash: the world holds its breath (inputs still buffer)
@@ -492,18 +534,20 @@ export class Game {
     for (const f of this.fighters) f.update();
     this.resolveMelee();
     this.separate();
+    if (this.spClashCool > 0) this.spClashCool--;
     this.checkSpecialClash();
+    this.checkUltimateClash(); // where the fighters stand now, before an orb's own hit test can land first
     for (const p of this.projectiles) p.update();
     this.projectileCollisions();
     this.projectiles = this.projectiles.filter((p) => !p.dead);
     for (const v of this.vortices) v.update();
     this.vortices = this.vortices.filter((v) => !v.dead);
     if (this.domain && --this.domain.t <= 0) this.endDomain();
+    if (this.clash && !this.clash.lite) this.updateClash(); // places the bodies before they draw
     for (const b of this.beams) b.update();
     for (const ob of this.orbs) ob.update();
     this.orbs = this.orbs.filter((ob) => !ob.dead);
-    this.checkBeamClash();
-    if (this.clash) this.updateClash();
+    this.checkUltimateClash();
     this.beams = this.beams.filter((b) => !b.dead);
     this.fxTicks();
     if (this.training) {
@@ -631,11 +675,20 @@ export class Game {
     }
   }
 
+  // Two rush specials meeting head-on (Rasengan into Chidori): one beat decides it (ADR 0017). Right after another
+  // special clash they simply trade.
   checkSpecialClash() {
     const [a, b] = this.fighters;
     const act = (f) => f.state === 'attack' && f.move?.special && f.t >= f.move.startup && f.t < f.move.startup + f.move.active;
-    if (!act(a) || !act(b)) return;
+    if (this.clash || !act(a) || !act(b)) return;
     if (Math.hypot(a.pos.x - b.pos.x, a.pos.z - b.pos.z) > 1.6) return;
+    if (this.spClashCool > 0) this.specialTrade();
+    else this.startClash(this.fighterBody(a), this.fighterBody(b), true);
+  }
+
+  // both specials go off at once: each fighter takes the other's blast
+  specialTrade() {
+    const [a, b] = this.fighters;
     this.arena.npcCue('clash');
     const mid = v3.set((a.pos.x + b.pos.x) / 2, Math.max(a.pos.y, b.pos.y) + 0.9, (a.pos.z + b.pos.z) / 2);
     this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xbfe0ff));
@@ -650,7 +703,7 @@ export class Game {
     for (const f of [a, b]) {
       const o = f.opp;
       const d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: 60, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
     }
   }
 
@@ -721,72 +774,254 @@ export class Game {
     return b;
   }
 
-  checkBeamClash() {
-    if (this.clash) return;
-    const A = this.beams.find((b) => b.owner.index === 0 && !b.dead && b.fade >= 1);
-    const B = this.beams.find((b) => b.owner.index === 1 && !b.dead && b.fade >= 1);
-    if (!A || !B) return;
-    if (A.dir.dot(B.dir) > -0.4) return;
-    const span = A.origin.distanceTo(B.origin);
-    if (A.len + B.len >= span - 0.4) this.startClash(A, B);
+  // ------------------------------------------------------------ ultimate clashes (ADR 0017)
+  // What a fighter's running ultimate puts on the field, for clash detection: a capsule from `back` to `front`
+  // (radius `r`) heading along `dir`. Only ultimates clash: the shared beam, Hollow Purple's orb and the Four-Tails
+  // pounce (from the roar on). A beam still charging or a Purple still merging counts too (`charging`: it goes
+  // off the moment they clash), so a rush can't slip through it. `id` names the ultimate: a pairing always plays
+  // the same chart.
+  ultimateBody(f) {
+    if (!f || f.ko || f.hidden) return null;
+    const id = kitOf(f.def).ultimate ?? 'beam:' + f.def.id;
+    const toward = (at) => new THREE.Vector3(f.opp.pos.x - at.x, 0, f.opp.pos.z - at.z).normalize();
+    const bm = this.beams.find((b) => b.owner === f && !b.dead && !b.spent && b.fade >= 1 && b.t < ULTIMATE.duration);
+    if (bm) return { kind: 'beam', id, f, obj: bm, dir: bm.dir, back: bm.origin.clone(), front: bm.head.clone(), tip: bm.head.clone(), r: bm.width * 0.5, color: f.def.beam.mid };
+    if (f.state === 'beamCharge') {
+      const at = new THREE.Vector3(f.pos.x + f.face.x * 0.8, f.pos.y + 0.92, f.pos.z + f.face.y * 0.8);
+      return { kind: 'beam', id, f, charging: true, dir: toward(at), back: at, front: at.clone(), tip: at.clone(), r: 0.6, color: f.def.beam.mid };
+    }
+    const ob = this.orbs.find((o) => o.owner === f && o.ultimate && !o.dead && !o.hit);
+    if (ob) return { kind: 'orb', id, f, obj: ob, S: ob.S, dir: ob.dir, back: ob.pos.clone(), front: ob.pos.clone(), tip: ob.pos.clone().addScaledVector(ob.dir, ob.r), r: ob.r, color: ob.S.orb };
+    const fo = formingOrb(f);
+    if (fo) {
+      const dir = toward(fo.at), r = fo.S.radius * 0.7;
+      return { kind: 'orb', id, f, charging: true, S: fo.S, dir, back: fo.at, front: fo.at.clone(), tip: fo.at.clone().addScaledVector(dir, r), r, color: fo.S.orb };
+    }
+    const rb = rushBody(f);
+    if (rb) {
+      const dir = new THREE.Vector3(rb.dir.x, 0, rb.dir.y).normalize();
+      const back = new THREE.Vector3(f.pos.x, f.pos.y + 0.7, f.pos.z);
+      const front = back.clone().addScaledVector(dir, CLASH.rush.reach);
+      return { kind: 'rush', id, f, S: rb.S, k: rb.k, dir, back, front, tip: front.clone(), r: 0.5, color: rb.S.shroud?.chakra ?? rb.S.color };
+    }
+    return null;
   }
 
-  startClash(A, B) {
+  // one side of a special clash: the fighter itself, held mid-rush
+  fighterBody(f) {
+    const at = new THREE.Vector3(f.pos.x, f.pos.y + 0.9, f.pos.z);
+    return { kind: 'fighter', f, origin: at, color: f.move?.color ?? f.def.color };
+  }
+
+  checkUltimateClash() {
+    if (this.clash || this.fighters.length < 2) return;
+    const A = this.ultimateBody(this.fighters[0]), B = this.ultimateBody(this.fighters[1]);
+    if (!A || !B || A.dir.dot(B.dir) > -0.4) return;
+    // head on: each one's back is still ahead of the other's along its heading (not two that already passed)
+    if (v3.subVectors(B.back, A.back).dot(A.dir) <= 0 || v3.subVectors(A.back, B.back).dot(B.dir) <= 0) return;
+    if (segDist(A.back, A.front, B.back, B.front) > A.r + B.r) return;
+    this.startClash(A, B);
+  }
+
+  // The two lock where they met and both players play the same note chart (clash.js): the score lead pushes the
+  // struggle point toward the trailing side, and the chart's end (or a lead that can't be caught any more) decides
+  // it. `lite`: the one-beat special clash, with the world held still.
+  startClash(A, B, lite = false) {
     this.arena.npcCue('clash');
-    const span = A.origin.distanceTo(B.origin);
-    const c = { a: A, b: B, t: THREE.MathUtils.clamp(A.len / (A.len + B.len), 0.3, 0.7), timer: 0, point: new THREE.Vector3(), span };
+    const chart = lite ? beatChart() : makeChart(seedOf(A.id, B.id));
+    const c = { a: A, b: B, chart, judges: [new Judge(chart), new Judge(chart)], lite, timer: 0, t: 0.5, kick: 0, point: new THREE.Vector3() };
+    c.ca = new THREE.Color(A.color);
+    c.cb = new THREE.Color(B.color);
+    c.mix = c.ca.clone().lerp(c.cb, 0.5);
     this.clash = c;
-    A.clash = B.clash = c;
-    A.dir.copy(B.origin).sub(A.origin).normalize();
-    B.dir.copy(A.dir).negate();
-    for (const f of this.fighters) {
-      f.setState('clash', 'beamFire');
-      f.invuln = 99999;
-      f.pad.clear();
+    if (lite) c.point.addVectors(A.origin, B.origin).multiplyScalar(0.5);
+    else {
+      for (const s of [A, B]) if (s.charging) this.materialize(s);
+      this.clashLine(c);
+      for (const s of [A, B]) {
+        const f = s.f;
+        if (s.obj) s.obj.clash = c;
+        f.setState('clash', s.kind === 'beam' ? 'beamFire' : s.kind === 'orb' ? (s.S.strikePose ?? 'beamFire') : (s.S.strikePose ?? 'dash'));
+        f.invuln = 99999;
+        f.vel.set(0, 0, 0);
+        f.faceOpponent();
+      }
+      this.placeClash(c);
+      audio.loop('clash', 'clash');
     }
-    this.cam.set('clash', c);
-    const [fa, fb] = this.fighters;
+    for (const f of this.fighters) f.pad.clear();
+    // the one-beat clash keeps the fight camera: up close, the two specials' light would hide both fighters
+    if (lite) this.cam.zoomPunch(0.6);
+    else this.cam.set('clash', c);
     const hint = clashHint(this.cfg.mode, deviceLayout(this.input));
-    this.hud.clash(true, c.t, [fa.def.beam.mid, fb.def.beam.mid], hint);
+    this.hud.clashStart(c, ['#' + c.ca.getHexString(), '#' + c.cb.getHexString()], hint);
     this.hud.announce('CLASH!', 'clash', 900);
-    audio.loop('clash', 'clash');
-    audio.play('explosion', 0.6);
-    this.fx.overlay.flash('#ffffff', 0.6);
+    audio.play('explosion', lite ? 0.4 : 0.6);
+    this.fx.overlay.flash('#ffffff', lite ? 0.4 : 0.6);
     this.excite = 1;
     audio.play('cheer');
   }
 
+  // a clash caught this one still charging: the beam goes off / the Purple forms right now
+  materialize(s) {
+    const f = s.f;
+    if (s.kind === 'beam') {
+      f.setState('beamFire');
+      f.beam = s.obj = this.fireBeam(f);
+      s.back = s.obj.origin.clone();
+      s.front = s.obj.head.clone();
+      s.tip = s.front.clone();
+    } else {
+      s.obj = releaseOrb(f);
+      s.back = s.obj.pos.clone();
+      s.front = s.obj.pos.clone();
+      s.tip = s.obj.pos.clone().addScaledVector(s.obj.dir, s.obj.r);
+    }
+    s.dir = s.obj.dir;
+    s.charging = false;
+  }
+
+  // The line the struggle runs on, anchor to anchor: where they met, and how far the point may travel toward each
+  // side. A beam is pushed back to a stub in the hands and an orb into its owner's hands, and then the owner gives
+  // ground; a rusher gets shoved back the same way (CLASH.rush.shove), never through the ring barrier.
+  clashLine(c) {
+    const R = CLASH.rush, A = c.a, B = c.b, mins = [];
+    for (const s of [A, B]) {
+      const f = s.f;
+      s.base = f.pos.clone();
+      if (s.kind === 'beam') { s.anchor = s.obj.origin.clone(); mins.push(BEAM_STUB - R.shove); }
+      else if (s.kind === 'orb') { s.anchor = new THREE.Vector3(f.pos.x, f.pos.y + 0.98, f.pos.z); mins.push(ORB_HANDS + s.obj.r * 0.6 - R.shove); }
+      else { s.anchor = s.back.clone(); mins.push(R.reach - R.shove); }
+      s.origin = s.kind === 'beam' ? s.obj.origin : s.anchor.clone(); // the clash camera frames origin to origin
+    }
+    const axis = new THREE.Vector3().subVectors(B.anchor, A.anchor);
+    const span = axis.length();
+    if (span < 0.5) axis.copy(A.dir);
+    else axis.divideScalar(span);
+    let lo = mins[0], hi = span - mins[1];
+    if (lo > hi) lo = hi = (lo + hi) / 2;
+    // they meet between their leading edges (the beam's head, the orb's surface, the claws)
+    const at = THREE.MathUtils.clamp(v3.addVectors(A.tip, B.tip).multiplyScalar(0.5).sub(A.anchor).dot(axis), lo, hi);
+    const C = A.anchor.clone().addScaledVector(axis, at);
+    c.line = { axis, C, room: [Math.max(0.25, at - lo), Math.max(0.25, hi - at)] };
+    // shoved all the way back, they still stand inside the ring barrier
+    [A, B].forEach((s, i) => {
+      const room = c.line.room, sg = i === 0 ? -1 : 1;
+      while (room[i] > 0.25) {
+        const stand = this.clashStance(c, s, v3.copy(C).addScaledVector(axis, sg * room[i]));
+        if (Math.abs(stand.x) <= ARENA_LIMIT && Math.abs(stand.z) <= ARENA_LIMIT) break;
+        room[i] -= 0.1;
+      }
+    });
+  }
+
+  // where a body's owner stands for struggle point P: a rusher stays `reach` behind the point; a beam's or an orb's
+  // owner holds their ground until the beam is down to its stub / the orb is pressed into the hands, then gives it
+  clashStance(c, s, P) {
+    const sg = s === c.a ? 1 : -1, ax = c.line.axis, fl = Math.hypot(ax.x, ax.z) || 1;
+    const dx = (ax.x / fl) * sg, dz = (ax.z / fl) * sg, out = clashTmp.copy(s.base);
+    if (s.kind === 'rush') { out.x = P.x - dx * CLASH.rush.reach; out.z = P.z - dz * CLASH.rush.reach; return out; }
+    const hold = s.kind === 'beam' ? BEAM_STUB : ORB_HANDS + 0.6 * s.obj.r, from = s.kind === 'beam' ? s.anchor : s.base;
+    const give = Math.min(0, (P.x - from.x) * dx + (P.z - from.z) * dz - hold);
+    out.x += dx * give;
+    out.z += dz * give;
+    return out;
+  }
+
+  // Bodies on the line for the struggle point: c.t 0.5 = where they met, 0 / 1 = all the way back to A's / B's side.
+  placeClash(c) {
+    const { axis, C, room } = c.line;
+    const u = c.t * 2 - 1;
+    const P = c.point.copy(C).addScaledVector(axis, u >= 0 ? u * room[1] : u * room[0]);
+    for (const s of [c.a, c.b]) {
+      const sg = s === c.a ? 1 : -1, f = s.f;
+      const dx = axis.x * sg, dy = axis.y * sg, dz = axis.z * sg;
+      const at = this.clashStance(c, s, P);
+      const gx = at.x - f.pos.x, gz = at.z - f.pos.z;
+      f.pos.x = at.x;
+      f.pos.z = at.z;
+      if (s.kind === 'beam') {
+        const bm = s.obj;
+        bm.origin.x += gx; // the hands slide back with the body
+        bm.origin.z += gz;
+        bm.dir.set(dx, dy, dz);
+        bm.len = Math.max(0.4, (P.x - bm.origin.x) * dx + (P.y - bm.origin.y) * dy + (P.z - bm.origin.z) * dz);
+      } else if (s.kind === 'orb') s.obj.pos.set(P.x - dx * s.obj.r, P.y - dy * s.obj.r, P.z - dz * s.obj.r);
+      else {
+        s.origin.set(f.pos.x, f.pos.y + 0.7, f.pos.z);
+        f.actor.setPhase(s.S.maulPose ?? 'heavy', s.S.maulPhase ?? 1, 0.5); // claws dug into it
+        clashFx(f, s.S, c.timer);
+      }
+    }
+  }
+
   updateClash() {
-    const c = this.clash;
-    c.timer++;
-    const ra = this.fighters[0].pad.mashRate(), rb = this.fighters[1].pad.mashRate();
-    c.t += (ra - rb) * 0.00105 + Math.sin(c.timer * 0.11) * 0.0011 + (Math.random() - 0.5) * 0.0016;
-    c.t = THREE.MathUtils.clamp(c.t, 0, 1);
-    const span = c.a.origin.distanceTo(c.b.origin);
-    c.a.len = span * c.t;
-    c.b.len = span * (1 - c.t);
-    c.point.copy(c.a.origin).addScaledVector(c.a.dir, c.a.len);
-    const p = c.point;
-    const pulse = 1 + Math.sin(c.timer * 0.6) * 0.12;
-    const ca = new THREE.Color(this.fighters[0].def.beam.mid), cb = new THREE.Color(this.fighters[1].def.beam.mid);
-    const mixc = ca.clone().lerp(cb, 0.5);
-    this.fx.keep('clashGlow', 'glow', p.x, p.y, p.z, { scale: 1.35 * pulse, color: mixc, opacity: 1, order: 7, depthTest: false, glow: 1.2 });
+    const c = this.clash, now = ++c.timer;
+    for (let i = 0; i < 2; i++) {
+      const b = this.fighters[i].pad.b;
+      const pressed = b.light.pressed || b.heavy.pressed || b.special.pressed;
+      const down = b.light.down || b.heavy.down || b.special.down;
+      for (const r of c.judges[i].frame(now, pressed, down)) this.onBeat(c, i, r);
+    }
+    for (const n of c.chart.notes) if (n.t === now) audio.play('beat', n.kind === 'hold' ? 1.4 : 1);
+    c.kick *= 0.85;
+    this.clashSparks(c);
+    this.hud.clashBeat(c);
+    this.excite = 1;
+    const [JA, JB] = c.judges;
+    if (c.lite) {
+      if (now >= c.chart.end + CLASH.windows.good + 8) this.endClash(this.beatWinner(JA, JB));
+      return;
+    }
+    const lead = JA.score - JB.score;
+    const target = 0.5 + THREE.MathUtils.clamp(lead * CLASH.push, -0.45, 0.45);
+    c.t = THREE.MathUtils.clamp(c.t + (target - c.t) * 0.12 + Math.sin(now * 0.11) * 0.0015, 0.02, 0.98);
+    this.placeClash(c);
+    this.hud.clash(true, c.t);
+    // over when the chart is, or (a blowout) once the trailing player can't catch up any more; once the FINAL PUSH
+    // ring is up it always plays out
+    const push = c.chart.notes[c.chart.notes.length - 1];
+    const decided = now < push.t - c.chart.lead && Math.abs(lead) - (lead > 0 ? JB : JA).maxLeft() >= CLASH.drawMargin;
+    if (decided || now >= c.chart.end + CLASH.outro) this.endClash(lead >= CLASH.drawMargin ? 0 : lead <= -CLASH.drawMargin ? 1 : -1);
+  }
+
+  // a graded press: its word on the player's side, and a Great or Perfect flares the struggle point in their color
+  onBeat(c, i, r) {
+    this.hud.clashJudge(i, r.g);
+    const hit = r.g === 'perfect' || r.g === 'great' || r.g === 'good';
+    if (r.g === 'perfect' || r.g === 'great') {
+      c.kick = 1;
+      const p = c.point;
+      this.fx.spawn('ring', p.x, p.y, p.z, { scale: (r.g === 'perfect' ? 2.2 : 1.6) * (c.lite ? 0.55 : 1), color: i === 0 ? c.ca : c.cb, order: 6, depthTest: false, glow: 1.2 });
+    }
+    if (this.brains[i]) return; // only a player's own grades make a sound
+    if (hit) audio.play('beatHit', r.g === 'perfect' ? 1 : r.g === 'great' ? 0.7 : 0.45);
+    else audio.play('beatMiss', 0.7);
+  }
+
+  // the special clash's one beat: the better grade wins, then the closer press; both off (or a dead heat) trades
+  beatWinner(JA, JB) {
+    const key = (J) => (J.score <= 0 ? -99 : J.score * 100 - Math.abs(J.res[0]?.off ?? 99));
+    const ka = key(JA), kb = key(JB);
+    return ka === kb ? -1 : ka > kb ? 0 : 1;
+  }
+
+  clashSparks(c) {
+    const p = c.point, now = c.timer, k = c.lite ? 0.55 : 1; // the special clash sits between two lit specials
+    const pulse = (1 + Math.sin(now * 0.6) * 0.12 + c.kick * 0.15) * k;
+    this.fx.keep('clashGlow', 'glow', p.x, p.y, p.z, { scale: 1.35 * pulse, color: c.mix, opacity: 1, order: 7, depthTest: false, glow: 1.2 });
     this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: 0.75 * pulse, color: 0xffffff, opacity: 1, order: 8, depthTest: false, glow: 2 });
-    const lt = this.fx.keep('clashBolt', 'lightning', p.x, p.y, p.z, { scale: 1.3, color: 0xffffff, order: 9, depthTest: false, glow: 2 });
+    const lt = this.fx.keep('clashBolt', 'lightning', p.x, p.y, p.z, { scale: 1.3 * k, color: 0xffffff, order: 9, depthTest: false, glow: 2 });
     lt.random = true;
     lt.rot = Math.random() * 6.28;
-    if (c.timer % 10 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.5, color: mixc, order: 6, depthTest: false, glow: 1 });
-    if (c.timer % 3 === 0) {
+    if (now % 10 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.5 * k, color: c.mix, order: 6, depthTest: false, glow: 1 });
+    if (now % 3 === 0) {
       const a = Math.random() * Math.PI * 2;
-      this.fx.spawn('star', p.x, p.y, p.z, { scale: 0.3, frame: 2, vel: [Math.cos(a) * 5, Math.sin(a) * 4 + 2, (Math.random() - 0.5) * 5], grav: 8, life: 0.4, color: Math.random() < 0.5 ? ca : cb, depthTest: false, order: 9, glow: 1.5 });
+      this.fx.spawn('star', p.x, p.y, p.z, { scale: 0.3, frame: 2, vel: [Math.cos(a) * 5, Math.sin(a) * 4 + 2, (Math.random() - 0.5) * 5], grav: 8, life: 0.4, color: Math.random() < 0.5 ? c.ca : c.cb, depthTest: false, order: 9, glow: 1.5 });
     }
-    if (c.timer % 14 === 0) this.fx.smoke(p.x + (Math.random() - 0.5) * 2, 0.2, p.z + (Math.random() - 0.5) * 2, 1);
-    if (c.timer % 20 === 0) this.fx.debris(p.x, p.z, 3, 0.7);
-    this.hud.clash(true, c.t);
-    this.excite = 1;
-    if (c.t >= 0.96) this.endClash(0);
-    else if (c.t <= 0.04) this.endClash(1);
-    else if (c.timer > 60 * 9) this.endClash(-1);
+    if (c.lite) return;
+    if (now % 14 === 0) this.fx.smoke(p.x + (Math.random() - 0.5) * 2, 0.2, p.z + (Math.random() - 0.5) * 2, 1);
+    if (now % 20 === 0) this.fx.debris(p.x, p.z, 3, 0.7);
   }
 
   endClash(winner) {
@@ -800,38 +1035,75 @@ export class Game {
     this.cam.set('fight');
     this.cam.shake(1);
     this.slowmo(0.3, 0.8);
-    for (const f of this.fighters) f.invuln = 0;
+    for (const f of this.fighters) { f.invuln = 0; f.pad.clear(); } // the beat's presses must not fire moves after it
+    if (c.lite) { this.endSpecialClash(winner); return; }
+    const ax = c.line.axis;
     if (winner < 0) {
+      // even: both ultimates blow up between them
       this.fx.explosion(P.x, P.y, P.z, new THREE.Color(0xffffff));
       this.fx.debris(P.x, P.z, 14, 1.3);
       audio.play('explosion', 1.3);
-      c.a.kill();
-      c.b.kill();
-      for (const f of this.fighters) {
-        const o = f.opp;
-        const d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-        f.state = 'hitstun';
-        f.takeHit(o, { dmg: 90, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash' }, d);
-      }
+      this.hud.announce('DRAW!', 'clash', 900);
+      [c.a, c.b].forEach((s, i) => {
+        s.obj?.kill();
+        const sg = i === 0 ? -1 : 1;
+        s.f.takeHit(s.f.opp, { dmg: CLASH.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+      });
       return;
     }
-    const W = this.fighters[winner], L = W.opp;
-    const wb = winner === 0 ? c.a : c.b, lb = winner === 0 ? c.b : c.a;
-    lb.kill();
-    wb.clash = null;
-    wb.len = c.span;
-    wb.t = ULTIMATE.duration - 30;
-    wb.finished = true;
-    W.setState('beamFire');
-    L.state = 'hitstun';
-    const d = new THREE.Vector2(wb.dir.x, wb.dir.z).normalize();
-    L.takeHit(W, { dmg: 280, launch: [18, 10], hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, d);
-    this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, new THREE.Color(W.def.beam.mid));
+    const WS = winner === 0 ? c.a : c.b, LS = winner === 0 ? c.b : c.a;
+    const W = WS.f, L = LS.f, sg = winner === 0 ? 1 : -1;
+    LS.obj?.kill();
+    this.overwhelm(WS, L);
+    L.takeHit(W, { dmg: CLASH.winDmg, minScale: 1, launch: [18, 10], hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+    this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
     this.fx.crater(L.pos);
     this.fx.debris(L.pos.x, L.pos.z, 12, 1.2);
     audio.play('explosion', 1.4);
     audio.play('cheer');
     this.hud.callout(W.index, 'OVERWHELMED!', W.def.color, true);
+  }
+
+  // the winning ultimate goes on through: the beam runs its last stretch, the orb rolls over them, the beast roars on
+  overwhelm(WS, L) {
+    const W = WS.f;
+    if (WS.kind === 'beam') {
+      const bm = WS.obj;
+      bm.clash = null;
+      bm.spent = true; // the clash dealt the damage; the rest of the beam is the show
+      bm.len = bm.origin.distanceTo(v3.set(L.pos.x, L.pos.y + 0.85, L.pos.z)) + 0.5;
+      bm.t = ULTIMATE.duration - 30;
+      bm.finished = true;
+      W.setState('beamFire');
+    } else if (WS.kind === 'orb') {
+      const ob = WS.obj;
+      ob.clash = null;
+      ob.hit = true;
+      ob.dir.set(L.pos.x - ob.pos.x, 0, L.pos.z - ob.pos.z);
+      if (ob.dir.lengthSq() < 1e-4) ob.dir.set(W.face.x, 0, W.face.y);
+      ob.dir.normalize();
+      ob.t = Math.min(ob.t, ob.S.life * 60 - 45);
+      if (W.pos.y > 0.05) { W.air = true; W.setState('air', 'jumpFall'); }
+      else { W.landLag = 18; W.setState('land'); }
+    } else resumeRampage(W, WS.S, WS.k);
+  }
+
+  endSpecialClash(winner) {
+    this.spClashCool = CLASH.special.cooldown;
+    if (winner < 0) { this.specialTrade(); return; }
+    const W = this.fighters[winner], L = W.opp;
+    // the winner's special goes through; it doesn't land a second time on the way out
+    W.hitDone = true;
+    if (W.state === 'attack' && W.move) W.t = Math.max(W.t, W.move.startup + W.move.active);
+    W.vel.multiplyScalar(0.1);
+    const d = new THREE.Vector2(L.pos.x - W.pos.x, L.pos.z - W.pos.z).normalize();
+    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+    const col = new THREE.Color(W.move?.color ?? W.def.color);
+    this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, col);
+    this.fx.debris(L.pos.x, L.pos.z, 10, 1.1);
+    audio.play('explosion', 1.1);
+    audio.play('cheer');
+    this.hud.callout(W.index, 'OVERPOWERED!', W.def.color, true);
   }
 
   // ------------------------------------------------------------ event hooks
@@ -1033,7 +1305,7 @@ export class Game {
   onUltimateStart(f, counter) {
     this.arena.npcCue('ultimate');
     this.cam.set('focus', f);
-    this.superFlashFor(f, ULTIMATE.flash, 0.72, true);
+    this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true);
     this.fx.overlay.flash(f.def.color, 0.4);
     this.excite = 1;
     if (counter) this.hud.announce('COUNTER!', 'clash', 700);

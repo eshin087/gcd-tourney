@@ -3,7 +3,7 @@
 A browser demo of an **HD-2D pixel anime arena fighter** with a Dragon Ball FighterZ-style
 feel, modeled on Studio Genki's MythicTale tournament clip. It's a real 3D tournament
 ground (tiled ring, mowed grass, temple, cheering crowd, gate) with pixel-art fighters
-standing inside it, a cinematic camera, auras, super flashes and beam clashes.
+standing inside it, a cinematic camera, auras, super flashes and rhythm-duel ultimate clashes.
 
 Four fighters are playable: Naruto (early Shippuden), Sasuke (Hebi era), Killua (Godspeed era) and Gojo.
 Every fighter has the same baseline kit: directional specials, a second super and an ultimate (see
@@ -90,8 +90,11 @@ custom keys.
 - **Specials** (½-1 bar): tap Special for the neutral special. Hold a direction while you press it
   (→ toward the opponent, ↑, ↓) for the fighter's other specials. In the air: Special (+↓ for some
   fighters). The direction you hold when you *press* Special counts, so a quick tap works.
-- **Ultimate** (3 bars, Heavy + Special): super flash with a cut-in, then a beam. Fire back during
-  their beam to start a **beam clash** and mash.
+- **Ultimate** (3 bars, Heavy + Special): super flash with a cut-in, then the fighter's finisher (see Fighters).
+  Fire yours into theirs (a beam, Hollow Purple or the Four-Tails pounce) and they **clash**: press Light, Heavy
+  or Special as each ring closes on the target, then hold the last one (FINAL PUSH). Better timing pushes harder,
+  presses off the beat push you back, and the winner's ultimate lands.
+- **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
 - **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
 - **Air recover**: press any button while launched (hitstun decay makes long combos escapable).
 - **Parry**: tap Guard just before a hit lands (6-frame window). No damage, and a melee attacker staggers, so

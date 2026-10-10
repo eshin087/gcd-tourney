@@ -8,7 +8,7 @@ Project instructions for Claude Code. Read this first in every session. Codex an
 GCD Tourney is a browser **HD-2D pixel-art anime arena fighter** with a Dragon Ball FighterZ-style
 feel. It's built with Three.js and Vite and has no other runtime dependencies. A real 3D tournament ground
 (ring, temple, crowd, gate) hosts camera-facing pixel sprites. The camera is cinematic, and the
-game has auras, super flashes and beam clashes. Four fighters exist today (Naruto, Sasuke, Killua, Gojo). Many
+game has auras, super flashes and ultimate clashes (a rhythm duel). Four fighters exist today (Naruto, Sasuke, Killua, Gojo). Many
 more will follow, so everything should stay data-driven and template-based.
 
 The fighter art in the game today is **3D-baked placeholder art**: chibi models built in code and
@@ -59,7 +59,8 @@ lab.html, src/lab/   Test lab (ADR 0018): one-tap moves and scenarios, animation
 src/core/      renderer.js (low-res render + nearest upscale, bloom, grade), input.js (keyboard/gamepad/touch -> Pad),
                touch.js (on-screen joystick + buttons for phones), artIndex.js (prod list of packed art),
                audio.js (WebAudio synth: sfx, loops, music, crowd; no audio files)
-src/game/      game.js (loop, match flow, melee/clash/KO hooks), fighter.js (state machine + physics + takeHit),
+src/game/      game.js (loop, match flow, melee/clash/KO hooks), clash.js (rhythm clash: chart, judge, CPU timing),
+               fighter.js (state machine + physics + takeHit),
                moves.js (ALL move/frame data), kit.js (fighter kits: directional specials, special kinds, SUPER,
                passives; ADR 0009), ai.js (CpuBrain drives a Pad), projectiles.js (projectiles, vortex, beams),
                effects.js (VFX sprites, aura, overlay), camera.js (CameraDirector modes), boxViewer.js (hit/hurt box overlay), sprites.js (SheetAsset,
@@ -230,5 +231,5 @@ A change is done when:
   override with `?res=pixel` or `?res=hd`.
 - Spec v2 custom sheets are 4096 × 2816 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
   2048 texture limit gets a downscaled sheet and a three.js warning (ADR 0007).
-- Simulation randomness uses `Math.random()` (clash wobble, AI, FX). That's fine for now. Online play
+- Simulation randomness uses `Math.random()` (AI, the CPU's clash timing, FX; clash charts are seeded). That's fine for now. Online play
   will need a seeded RNG for the sim (see docs/ROADMAP.md).

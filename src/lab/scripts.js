@@ -3,7 +3,7 @@
 // data (kits, MOVES, SPECIAL_MOVES, SUPERS), so a new fighter or a new move shows up here without lab changes.
 import { ACTIONS } from '../core/input.js';
 import { MOVES, SPECIAL_MOVES, SUPERS, ULTIMATE, THROW, DEFENSE, VANISH, SUPER_DASH } from '../game/moves.js';
-import { kitOf, specialFor, towardSide } from '../game/kit.js';
+import { kitOf, specialFor, towardSide, clashable } from '../game/kit.js';
 
 // A step holds buttons (and a stick) from frame `t` for `len` frames. Sticks: 'toward' / 'away' the opponent,
 // 'up' / 'down', or [mx, my] in screen space.
@@ -143,18 +143,23 @@ export function moveList(def) {
 }
 
 const kindOf = (def) => SUPERS[kitOf(def).ultimate]?.kind ?? 'beam';
-const CLASHABLE = new Set(['beam', 'orb', 'rampage']);
+const CLASH_NOTE = 'needs two ultimates that clash (beam, orb or pounce), e.g. Gojo vs Naruto';
 
 // Shared mechanics, each with both fighters scripted. `setup` = { gap (units apart), kiA, kiB, nearWall },
 // `a` / `b` = the timelines for P1 / the dummy. `needs(defs)` returns a note when this pairing can't show it.
 export const SCENARIOS = [
   {
-    id: 'ultClash', name: 'Ultimate clash', info: 'Both fire their ultimate on the same frame.',
-    needs: ([a, b]) => (CLASHABLE.has(kindOf(a)) && CLASHABLE.has(kindOf(b)) ? null : 'needs two clashable ultimates (beam, orb or rampage), e.g. Gojo vs Naruto'),
+    id: 'ultClash', name: 'Ultimate clash', info: 'Both fire their ultimate on the same frame, then the rhythm clash: press Light, Heavy or Special as each ring closes on the target and hold the last one. The dummy plays at Normal.',
+    needs: ([a, b]) => (clashable(a) && clashable(b) ? null : CLASH_NOTE),
     setup: { gap: 6, kiA: 300, kiB: 300 }, a: [tap(0, ['heavy', 'special'])], b: [tap(0, ['heavy', 'special'])],
   },
   {
-    id: 'spClash', name: 'Special clash (rush vs rush)', info: 'Both rush specials meet head-on.',
+    id: 'ultAnswer', name: 'Answer an ultimate', info: 'The dummy fires its ultimate; yours goes off into it (a short flash and windup), so the two meet in a clash.',
+    needs: ([a, b]) => (clashable(a) && clashable(b) ? null : CLASH_NOTE),
+    setup: { gap: 6, kiA: 300, kiB: 300 }, a: [tap(56, ['heavy', 'special'])], b: [tap(0, ['heavy', 'special'])],
+  },
+  {
+    id: 'spClash', name: 'Special clash (rush vs rush)', info: 'Both rush specials meet head-on: one ring, press as it closes. The closer press wins.',
     needs: (defs) => (defs.every((d) => specialFor(d, 'neutral')?.kind === 'rush') ? null : 'needs two rush specials, e.g. Naruto vs Sasuke'),
     setup: { gap: 3.2, kiA: 100, kiB: 100 }, a: [tap(0, 'special')], b: [tap(0, 'special')],
   },

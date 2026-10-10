@@ -1,6 +1,6 @@
 # 0017. Every ultimate its own shape; ultimate clashes are a rhythm duel
 
-- Status: Accepted (part 1, ultimate kinds: implemented; part 2, rhythm clash: in progress)
+- Status: Accepted (part 1, ultimate kinds: implemented; part 2, rhythm clash: implemented)
 - Date: 2026-10-10
 - Deciders: User, Claude
 - Builds on: [0011](0011-kit-baseline-and-balance.md) (kit baseline: amends its ultimate row and the cast table),
@@ -53,6 +53,31 @@ isn't a beam redraws `beamCharge` / `beamFire` as the poses of that ultimate.
   single timing press of about a second; the closer press wins and the loser takes the 60 both take today (a tie
   keeps today's double hit). At most one per 8 seconds, so neutral keeps its pace.
 
+### 3. How part 2 plays (as built)
+
+- **The chart** (`makeChart`, `CLASH` in `moves.js`): 40 frames of count-in, then 4 notes 30 f apart, 7 notes 20 f
+  apart with 2 doubles, 6 notes 15 f apart with 1 double (a later phase may rest one beat), and the FINAL PUSH: a
+  40-frame hold 30 f after the last tap. 20 notes, 7.7 s. Rings show 40 f before their note. A press goes to the
+  earliest open note whose window holds it, so a late tap can't steal the double after it. Max score 63.
+- **The struggle point** sits at `0.5 + clamp(lead × 0.018, ±0.45)` (eased), drawn on the old clash bar. A blowout
+  ends early once the trailing player can't make up the lead before the FINAL PUSH; once the FINAL PUSH ring is up,
+  the chart always plays out.
+- **Bodies:** a beam (its segment), an orb (its sphere), the Four-Tails pounce (from the roar on, the claws 0.8 ahead
+  of him). A beam still charging and a Purple still merging count too: if something meets them, the beam goes off /
+  the Purple forms on the spot, so a pounce can't slip through an invulnerable caster. Two bodies clash when they
+  head at each other (dot < -0.4), neither has passed the other, and they touch. On the line, a beam is pushed back to
+  a stub, an orb into its owner's hands, and then the owner gives ground (up to 2.2 units); a rusher is always 0.8
+  behind the point.
+- **Answers:** an ultimate fired into the opponent's running clashable ultimate gets a 20-frame flash and a short
+  windup (beam `counterWindup` 14, Purple `answerMerge` 8, Four-Tails `answerRoar` 6). Two fired on the same frame
+  are a plain race, not an answer.
+- **The CPU** plans its presses once per clash (`cpuPlan`): gaussian error per press and a skip rate by level. Over a
+  simulated chart: Easy ~35 points, Normal ~46, Hard ~55, Showman ~59, Impossible ~62. Hard beats Normal ~89% of the
+  time; a player pressing every 3 frames ends near -50. Both CPUs answer a clashable ultimate when they have the
+  bars; training dummies play clashes at Normal timing.
+- **The special clash** holds the world still for its one beat (46 f), keeps the fight camera (the two specials'
+  light would hide both fighters up close), and has a 480-frame cooldown during which specials simply trade.
+
 ## Alternatives considered
 
 - **Keep the shared beam for everyone.** Rejected by the user: every finisher looked the same.
@@ -73,6 +98,10 @@ isn't a beam redraws `beamCharge` / `beamFire` as the poses of that ultimate.
   how to dodge an orb or pounce and to stop swinging into Whirlwind.
 - Codex redraws `beamCharge` / `beamFire` for Naruto (the Four-Tails form; required for the anime look) and
   optionally for Killua and Gojo; briefs in each `KIT.md`. A dedicated Hollow Purple VFX effect is optional.
-- Part 2 (the rhythm clash, the one-beat special clash, the faster answer) lands in its own PR and replaces the mash
-  in `Game.updateClash`, `CpuBrain` and `MasterBrain.mashClash`.
+- Part 2: `src/game/clash.js` (the chart, the `Judge`, the CPU plan), clash bodies and the struggle line in
+  `Game` (`ultimateBody`, `checkUltimateClash`, `startClash` / `updateClash` / `endClash`), the rhythm track in
+  `Hud` (`clashStart`, `clashBeat`, `clashJudge`), metronome and grade sounds, and the CPUs' `beat` timing. The mash
+  is gone (`Pad.mashRate`, the `mash` rates of `LEVELS` / `STYLES`).
+- CPU-vs-CPU clashes are rare (both sides need three bars at the same moment); a showcase CPU that saves its bars to
+  answer is a follow-up (TASKS ENG-056).
 - Re-run the balance round-robin after both parts (ADR 0011 balance log).

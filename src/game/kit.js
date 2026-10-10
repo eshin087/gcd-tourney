@@ -4,7 +4,7 @@
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
-import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES } from './moves.js';
+import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH } from './moves.js';
 import { ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 
@@ -102,15 +102,84 @@ export function startKitUltimate(f) {
 export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   const S = id && SUPERS[id];
   if (!S) { f.startUltimate(); return; }
+  // fired into the opponent's running ultimate, it answers it: a short flash and windup, so the two can meet
+  const answer = ultimate && CLASH_KINDS.has(S.kind) && ultimateLive(f.opp);
   f.ki -= S.cost;
   f.spPending = false;
   f.endMoveFx();
-  enter(f, { kind: S.kind, m: S, phase: 'flash', ultimate }, S.pose ?? 'superPose');
+  enter(f, { kind: S.kind, m: S, phase: 'flash', ultimate, answer, at: f.game.frameNo }, S.pose ?? 'superPose');
   if (S.shroud) shroudFx(f, S, 0); // the shroud is already up during the flash
-  f.invuln = S.flash + 12;
+  f.invuln = (answer ? CLASH.answerFlash : S.flash) + 12;
   f.vel.set(0, 0, 0);
   f.faceOpponent();
-  f.game.onSuperStart(f, S);
+  f.game.onSuperStart(f, S, answer);
+}
+
+// ------------------------------------------------------------------ clashes (ADR 0017)
+// Kit ultimates with a body the other side can meet; the shared beam always clashes. Ignite and reflex ultimates
+// have nothing to push against.
+const CLASH_KINDS = new Set(['orb', 'rampage']);
+
+export function clashable(def) {
+  const id = kitOf(def).ultimate;
+  return !id || !SUPERS[id] || CLASH_KINDS.has(SUPERS[id].kind);
+}
+
+// A clashable ultimate of theirs is on its way (charging, winding up, or out on the field): an ultimate fired now
+// answers it (Fighter.startUltimate, startSuper). Two fired on the same frame are a plain race, not an answer.
+export function ultimateLive(f) {
+  if (!f || f.ko) return false;
+  const now = f.game.frameNo;
+  if ((f.state === 'beamCharge' || f.state === 'beamFire') && (f.ultAt ?? -1) < now) return true;
+  const k = f.kitState;
+  if (f.state === 'kit' && k?.ultimate && CLASH_KINDS.has(k.kind) && (k.at ?? -1) < now && !['maul', 'whiff', 'recover'].includes(k.phase)) return true;
+  return f.game.orbs.some((ob) => ob.owner === f && ob.ultimate && !ob.dead && !ob.hit);
+}
+
+// windup frames before the body is out: Hollow Purple's merge, the Four-Tails roar (shorter when answering)
+export const mergeOf = (k) => (k.answer ? k.m.answerMerge ?? k.m.merge : k.m.merge);
+export const roarOf = (k) => (k.answer ? k.m.answerRoar ?? k.m.roar : k.m.roar);
+
+// The Four-Tails pounce as a clash body (Game.ultimateBody), from the roar on: { S, k, dir } (dir: a 2D heading).
+export function rushBody(f) {
+  const k = f.kitState;
+  if (f.state !== 'kit' || !k?.ultimate || k.kind !== 'rampage' || !k.dir || (k.phase !== 'roar' && k.phase !== 'lunge')) return null;
+  return { S: k.m, k, dir: k.dir };
+}
+
+// Hollow Purple still merging in Gojo's hands is already a clash body (Game.ultimateBody): { S, k, at }
+export function formingOrb(f) {
+  const k = f.kitState;
+  if (f.state !== 'kit' || !k?.ultimate || k.kind !== 'orb' || k.phase !== 'merge') return null;
+  return { S: k.m, k, at: new THREE.Vector3(f.pos.x + f.face.x * 0.9, f.pos.y + 0.98, f.pos.z + f.face.y * 0.9) };
+}
+
+// a clash caught it mid-merge: it forms right now (Game.startClash)
+export function releaseOrb(f) {
+  const fo = formingOrb(f);
+  return fo && formOrb(f, fo.k, fo.S);
+}
+
+// Red and Blue become Purple 0.9 ahead of him, and it rolls out
+function formOrb(f, k, S) {
+  const g = f.game, id = 'purple' + f.index;
+  g.fx.drop(id + 'r');
+  g.fx.drop(id + 'b');
+  g.fx.drop(id + 'g');
+  const ob = g.spawnOrb(f, S, new THREE.Vector3(f.pos.x + f.face.x * 0.9, f.pos.y + 0.98, f.pos.z + f.face.y * 0.9), k.ultimate);
+  k.phase = 'fire';
+  k.t0 = 0;
+  return ob;
+}
+
+// the shroud keeps boiling while the clash holds him in place
+export function clashFx(f, S, t) {
+  if (S?.shroud) shroudFx(f, S, t);
+}
+
+// a won clash: the pounce went through, so the beast roars it out (the recover phase, still in the shroud)
+export function resumeRampage(f, S, k) {
+  enter(f, { ...k, phase: 'recover', t0: 0 }, S.pose ?? 'beamCharge');
 }
 
 // ------------------------------------------------------------------ passives and modes
@@ -693,7 +762,7 @@ const UPDATE = {
       loop(f, S.pose ?? 'beamCharge');
       // the drawn hands hold the two orbs (Gojo's beamCharge: near hand 0.58 behind, far hand 0.59 ahead,
       // 1.06 up); they meet 0.9 ahead of him
-      const a = Math.min(1, k.t0 / S.merge), e = a * a * (3 - 2 * a);
+      const a = Math.min(1, k.t0 / mergeOf(k)), e = a * a * (3 - 2 * a);
       const at = (fwd) => ({ x: f.pos.x + f.face.x * fwd, y: f.pos.y + 1.06 - 0.08 * e, z: f.pos.z + f.face.y * fwd });
       const r = at(-0.58 + 1.48 * e), b = at(0.59 + 0.31 * e);
       const s = 0.42 + 0.25 * e + 0.04 * Math.sin(k.t0 * 0.9);
@@ -702,14 +771,7 @@ const UPDATE = {
       g.fx.keep(id + 'g', 'glow', (r.x + b.x) / 2, r.y, (r.z + b.z) / 2, { scale: 0.6 + 1.6 * e, color: S.glow, opacity: 0.35 + 0.4 * e, order: 3, glow: 1 });
       if (k.t0 % 4 === 0) g.fx.spawn('lightning', (r.x + b.x) / 2, r.y, (r.z + b.z) / 2, { scale: 0.4 + 0.5 * e, random: true, life: 0.08, color: 0xe0c0ff, rot: Math.random() * 6.28, order: 9, glow: 1.6 });
       if (k.t0 === 1) audio.play('beamCharge', 0.8);
-      if (a >= 1) {
-        g.fx.drop(id + 'r');
-        g.fx.drop(id + 'b');
-        g.fx.drop(id + 'g');
-        g.spawnOrb(f, S, new THREE.Vector3(f.pos.x + f.face.x * 0.9, f.pos.y + 0.98, f.pos.z + f.face.y * 0.9), k.ultimate);
-        k.phase = 'fire';
-        k.t0 = 0;
-      }
+      if (a >= 1) formOrb(f, k, S);
       return;
     }
     loop(f, S.strikePose ?? 'beamFire');
@@ -736,7 +798,7 @@ const UPDATE = {
     shroudFx(f, S, k.t0);
     if (k.phase === 'roar') {
       loop(f, S.pose ?? 'beamCharge');
-      if (k.t0 >= S.roar) { k.phase = 'lunge'; k.t0 = 0; k.from = f.pos.clone(); audio.play('superDash'); }
+      if (k.t0 >= roarOf(k)) { k.phase = 'lunge'; k.t0 = 0; k.from = f.pos.clone(); audio.play('superDash'); }
       return;
     }
     if (k.phase === 'lunge') {
@@ -748,8 +810,13 @@ const UPDATE = {
       f.face.set(d.x, d.y);
       loop(f, S.strikePose ?? 'beamFire');
       if (k.t0 % 3 === 0) f.actor.ghost(C.chakra, 0.3, 0.55);
+      const reach = f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.0);
+      // a dodge holding him off is only called out once the pounce really missed (the bodies still collide, so he
+      // can wait it out in front of them and catch them as the dodge ends)
+      if (reach && o.evading) k.slip = true;
+      else if (!reach && k.slip) { k.slip = false; g.onEvade(o); }
       const catchable = !o.ko && !o.hidden && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup';
-      if (catchable && f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.0)) {
+      if (catchable && reach) {
         k.phase = 'maul';
         k.t0 = 0;
         k.i = 0;
@@ -763,7 +830,12 @@ const UPDATE = {
         g.cam.shake(0.6);
         return;
       }
-      if (k.t0 > S.dash || Math.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) { k.phase = 'whiff'; k.t0 = 0; f.vel.set(0, 0, 0); }
+      if (k.t0 > S.dash || Math.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) {
+        if (k.slip) g.onEvade(o);
+        k.phase = 'whiff';
+        k.t0 = 0;
+        f.vel.set(0, 0, 0);
+      }
       return;
     }
     if (k.phase === 'maul') {

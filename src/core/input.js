@@ -99,7 +99,6 @@ export class Pad {
     this.dirPress = { l: -99, r: -99, u: -99, d: -99 }; // frame each stick direction was last pushed (spot dodge)
     this.prevDir = { l: false, r: false, u: false, d: false };
     this.dashDir = null; // set on the frame a double-tap happens
-    this.mash = []; // frames of attack presses (for beam clashes)
     this.frame = 0;
   }
 
@@ -107,10 +106,7 @@ export class Pad {
     const b = this.b[name];
     b.pressed = isDown && !b.down;
     b.released = !isDown && b.down;
-    if (b.pressed) {
-      b.lastPress = this.frame;
-      if (name === 'light' || name === 'heavy' || name === 'special') this.mash.push(this.frame);
-    }
+    if (b.pressed) b.lastPress = this.frame;
     b.down = isDown;
     b.held = isDown ? b.held + 1 : 0;
   }
@@ -149,11 +145,6 @@ export class Pad {
     return this.frame - this.dirPress[k] <= win;
   }
 
-  mashRate() {
-    while (this.mash.length && this.frame - this.mash[0] > 45) this.mash.shift();
-    return this.mash.length / 0.75; // presses per second
-  }
-
   tick() {
     this.frame++;
   }
@@ -162,7 +153,6 @@ export class Pad {
     for (const a of ACTIONS) Object.assign(this.b[a], makeBtn());
     for (const k of Object.keys(this.dirPress)) this.dirPress[k] = -99;
     this.mx = this.my = 0;
-    this.mash.length = 0;
   }
 }
 

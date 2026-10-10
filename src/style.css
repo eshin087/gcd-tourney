@@ -106,8 +106,27 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 .clash-a { background: linear-gradient(180deg, #fff, var(--ca) 40%, color-mix(in srgb, var(--ca) 70%, #000)); }
 .clash-b { background: linear-gradient(180deg, #fff, var(--cb) 40%, color-mix(in srgb, var(--cb) 70%, #000)); }
 .clash-mark { position: absolute; top: calc(var(--u) * -1.4); bottom: calc(var(--u) * -1.4); width: calc(var(--u) * 1); margin-left: calc(var(--u) * -0.5); background: #fff; box-shadow: 0 0 12px #fff, 0 0 30px #fff; }
-.mash { font-size: calc(var(--u) * 5.5); color: #fff; -webkit-text-stroke: calc(var(--u) * 0.35) var(--ink); paint-order: stroke fill; text-shadow: 0 calc(var(--u) * 0.5) 0 var(--ink); animation: mash 0.18s infinite alternate; }
-@keyframes mash { to { transform: scale(1.08); color: var(--gold); } }
+.clash-hint { font-size: calc(var(--u) * 3.4); color: #fff; -webkit-text-stroke: calc(var(--u) * 0.3) var(--ink); paint-order: stroke fill; text-shadow: 0 calc(var(--u) * 0.4) 0 var(--ink); white-space: nowrap; }
+.clash.lite .clash-bar { display: none; }
+/* rhythm clash (ADR 0017): rings close on the target; P1's grades pop left of it, P2's right */
+.beat { position: relative; width: calc(var(--u) * 18); height: calc(var(--u) * 18); }
+.beat-target, .beat-ring { position: absolute; left: 50%; top: 50%; width: calc(var(--u) * 10); height: calc(var(--u) * 10); border-radius: 50%; transform: translate(-50%, -50%); box-sizing: border-box; }
+.beat-target { --p: 0; border: calc(var(--u) * 0.7) solid #fff; outline: calc(var(--u) * 0.35) solid var(--ink); background: conic-gradient(var(--gold) calc(var(--p) * 360deg), rgba(22, 15, 34, 0.6) 0); box-shadow: 0 0 calc(var(--u) * 2) rgba(255, 255, 255, 0.45); }
+.beat-target.go { animation: beatGo 0.16s ease-out; }
+@keyframes beatGo { from { transform: translate(-50%, -50%) scale(1.14); box-shadow: 0 0 calc(var(--u) * 4) #fff; } }
+.beat-ring { opacity: 0; border: calc(var(--u) * 0.6) solid #fff; box-shadow: 0 0 calc(var(--u) * 0.8) #fff; pointer-events: none; will-change: transform, opacity; }
+.beat-ring.double { border-color: #7ff0ff; box-shadow: 0 0 calc(var(--u) * 0.8) #7ff0ff; }
+.beat-ring.hold { border-width: calc(var(--u) * 1.1); border-color: var(--gold); box-shadow: 0 0 calc(var(--u) * 1.4) var(--gold); }
+.beat-call { position: absolute; left: 50%; bottom: calc(100% + var(--u) * 0.4); transform: translateX(-50%); white-space: nowrap; font-size: calc(var(--u) * 3.6); color: var(--gold); -webkit-text-stroke: calc(var(--u) * 0.3) var(--ink); paint-order: stroke fill; }
+.beat-judge { position: absolute; top: 50%; white-space: nowrap; font-size: calc(var(--u) * 3.8); color: #fff; -webkit-text-stroke: calc(var(--u) * 0.3) var(--ink); paint-order: stroke fill; text-shadow: 0 calc(var(--u) * 0.4) 0 var(--ink); opacity: 0; transform: translateY(-50%); }
+.beat-judge.j1 { right: calc(100% + var(--u) * 1.5); }
+.beat-judge.j2 { left: calc(100% + var(--u) * 1.5); }
+.beat-judge.go { animation: judge 0.5s ease-out forwards; }
+.beat-judge.perfect { color: var(--gold); }
+.beat-judge.great { color: #7ff0ff; }
+.beat-judge.miss { color: #a29cb2; }
+.beat-judge.stray { color: #ff6a5a; font-size: calc(var(--u) * 2.8); }
+@keyframes judge { 0% { opacity: 1; transform: translateY(-50%) scale(1.35); } 70% { opacity: 1; transform: translateY(-65%) scale(1); } 100% { opacity: 0; transform: translateY(-80%) scale(1); } }
 
 .hint { position: absolute; left: 50%; bottom: calc(var(--u) * 1.6); transform: translateX(-50%); white-space: nowrap; font-family: system-ui, sans-serif; font-size: calc(var(--u) * 1.45); color: rgba(255,255,255,0.9); background: rgba(16,10,28,0.55); padding: calc(var(--u) * 0.6) calc(var(--u) * 1.6); border-radius: 999px; }
 

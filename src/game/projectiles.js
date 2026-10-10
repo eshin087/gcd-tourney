@@ -93,7 +93,8 @@ export class Beam {
       tmpA.set(o.pos.x, o.pos.y + 0.8, o.pos.z).sub(this.origin);
       const along = tmpA.dot(this.dir);
       const perp = tmpA.addScaledVector(this.dir, -along).length();
-      const touching = along > 0 && along < this.len + 0.3 && perp < this.width * 0.5 + 0.45 && !o.ko;
+      // `spent`: a beam that won a clash already dealt its damage (Game.overwhelm); the rest is the show
+      const touching = !this.spent && along > 0 && along < this.len + 0.3 && perp < this.width * 0.5 + 0.45 && !o.ko;
       if (touching && o.evading) this.game.onEvade(o);
       if (touching && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup') {
         this.hitting = true;
@@ -290,9 +291,14 @@ export class Orb {
         fx.debris(p.x, p.z, 3, 0.7);
       }
       const o = this.owner.opp;
-      if (!this.hit && !o.ko && o.invuln <= 0 && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
+      if (!this.hit && !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
         const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
-        if (Math.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35) {
+        const touching = Math.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35;
+        // a dodge carrying them through it only counts once it has rolled past without a hit: it is too wide and slow
+        // for a spot dodge alone, so a callout on contact would come right before the hit
+        if (touching && o.evading) this.slip = true;
+        else if (!touching && this.slip) { this.slip = false; g.onEvade(o); }
+        else if (touching && o.invuln <= 0) {
           this.hit = true;
           o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));
