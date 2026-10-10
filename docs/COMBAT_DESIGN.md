@@ -358,6 +358,18 @@ than legacy fighters. At 3 bars they split between the second super (if its `ran
 ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
 the CPU dashes out of a Kirin mark.
 
+Easy, Normal and Hard also use the defensive options at their level's rate (`parry` with a timing error of
+`slop` frames, `spot`, `airDodge`, `wavedash` in `LEVELS`): a timed Guard press against attacks and
+projectiles, Guard + ↓ against big swings, an air dodge when something reaches them in the air, and wavedashes
+in and out in neutral.
+
+**Showcase** (ADR 0016, `src/game/aiShow.js`): every CPU keeps a match-long count of the tools it has used
+(kit specials, the second super, the ultimate or beam, vanish, super dash, wavedash, parry, spot dodge, air
+dodge, throw, charge) and weights its options by `bias(tool)`: up to `1 + 3·push` for a tool the viewer
+hasn't seen. It only reweights options the brain already judged sensible, so the fight stays real. `push`:
+Easy 0.3, Normal 0.5, Hard 0.7, IMPOSSIBLE 0.35, showman 1. The CPUs end strings with the special the player
+hasn't seen, pick the super or ultimate by the same weights, and spend more of their ki on the kit.
+
 **IMPOSSIBLE** (ADR 0014) is a separate brain, `MasterBrain` in `src/game/aiMaster.js`, chosen by
 `makeBrain(fighter, level, spectate)` in `ai.js`. It still only presses buttons, and it reads what the screen
 shows (states, frames, positions), never the opponent's Pad. Each frame, in order: recover (tech at the first
@@ -369,9 +381,16 @@ dash through projectiles, counter, vanish, counter-beam, depth sidestep or air d
 opponent's remaining recovery against jab, dash-in light, shots, teleports or a lethal super), wake-up meaties
 and anti-airs, then neutral plans (approach by walk / dash / wavedash / super dash, pressure, guard with parry
 fishing, bait, wavedash footsies, jump-ins with an air-dodge mix-up, zoning, charging, modes, beams).
-`STYLES` hold the fairness knobs: `impossible` (vs a player: sees an attack after 7 f, parries about half the
-time) and `showman` (CPU vs CPU: riskier, saves meter some rounds for a beam or super, more wavedashes).
-CPU vs CPU defaults to IMPOSSIBLE.
+Its answer to a threat is a weighted pick among the ones that work against it (parry, spot dodge, air dodge,
+counter, vanish, super dash through a shot, sidestep, counter-beam, block), weighted by the style and the
+Showcase. `STYLES` hold the fairness knobs: `impossible` (vs a player: sees an attack after 7 f, parries about
+half the time, max-damage routes) and `showman` (CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
+
+The **showman** plays for the viewer: short combos that end in a special, shot, teleport or vanish kick (the
+launcher route stops extending at `cap` = 5 hits), mid-range neutral with the kit (zoning, kit tools, air
+specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset to mid range) rather than
+jab pressure, a plain block as its least likely answer, and free ki spending except that it saves up (and
+powers up) for its first three-bar move of the match.
 
 ## Bread-and-butter route (reference)
 

@@ -94,6 +94,7 @@ export class Beam {
       const along = tmpA.dot(this.dir);
       const perp = tmpA.addScaledVector(this.dir, -along).length();
       const touching = along > 0 && along < this.len + 0.3 && perp < this.width * 0.5 + 0.45 && !o.ko;
+      if (touching && o.evading) this.game.onEvade(o);
       if (touching && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup') {
         this.hitting = true;
         this.len = Math.min(this.len, along + 0.5);
@@ -202,7 +203,10 @@ export class Projectile {
       return;
     }
     const o = this.owner.opp;
-    if (o.invuln > 0 || o.ko || o.state === 'down') return;
+    if (o.invuln > 0 || o.ko || o.state === 'down') {
+      if (o.evading && Math.hypot(this.pos.x - o.pos.x, this.pos.y - o.pos.y - 0.8, this.pos.z - o.pos.z) < this.P.radius + 0.7) this.game.onEvade(o);
+      return;
+    }
     // distance to the victim's body capsule
     const by = THREE.MathUtils.clamp(this.pos.y, o.pos.y + 0.25, o.pos.y + 1.4);
     const d = Math.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);

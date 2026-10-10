@@ -29,6 +29,7 @@ export class Fighter {
     this.side = index === 0 ? 1 : -1; // facing screen-right (+1) or screen-left (-1)
     this.pad = NEUTRAL_PAD;
     this.wins = 0;
+    this.parries = 0; // this match (the CPU showcase, aiShow.js, notices them here)
     this.reset(0, 0);
   }
 
@@ -164,6 +165,11 @@ export class Fighter {
     return !['idle', 'run', 'guard', 'air'].includes(this.state);
   }
 
+  // intangible because of a spot dodge or air dodge (Game.onEvade calls out what passes through)
+  get evading() {
+    return (this.state === 'dodge' || this.state === 'airDodge') && this.invuln > 0 && !this.ko;
+  }
+
   get hittable() {
     return !this.ko && this.invuln <= 0 && this.state !== 'down' && this.state !== 'getup' && !this.hidden;
   }
@@ -287,6 +293,7 @@ export class Fighter {
     // dodging again and again gets slower (Smash-style staleness), so it stays a read, not a panic button
     this.dodgeStale = this.clock - this.lastDodge < S.staleWindow ? Math.min(S.staleMax, this.dodgeStale + 1) : 0;
     this.lastDodge = this.clock;
+    this.dodgeCalled = false;
     this.spPending = false;
     this.carry.set(0, 0);
     this.vel.x *= 0.3; this.vel.z *= 0.3;
@@ -300,6 +307,7 @@ export class Fighter {
     const D = DEFENSE.airDodge;
     const d = this.inputDir();
     this.airDodged = true;
+    this.dodgeCalled = false;
     this.chase = 0;
     this.spPending = false;
     this.endMoveFx();
@@ -342,6 +350,7 @@ export class Fighter {
   // attacker is knocked off balance. Returns 'parry' to takeHit's caller.
   parry(att, m) {
     const P = DEFENSE.parry;
+    this.parries++;
     this.parryAt = -99; // one press parries one hit...
     this.parryTry = -99; // ...and the next press is a fresh attempt, so a string can be parried hit by hit
     this.sinceHit = 0;
@@ -402,8 +411,9 @@ export class Fighter {
       this.actor.setPhase('light1', 1, 0.6);
       const v = s.victim;
       if (v && v.grab?.by === this) {
-        v.pos.x += (this.pos.x + this.face.x * 0.8 - v.pos.x) * 0.5;
-        v.pos.z += (this.pos.z + this.face.y * 0.8 - v.pos.z) * 0.5;
+        // clamped here: a victim that already updated this frame would otherwise end it past the barrier
+        v.pos.x = THREE.MathUtils.clamp(v.pos.x + (this.pos.x + this.face.x * 0.8 - v.pos.x) * 0.5, -ARENA_LIMIT, ARENA_LIMIT);
+        v.pos.z = THREE.MathUtils.clamp(v.pos.z + (this.pos.z + this.face.y * 0.8 - v.pos.z) * 0.5, -ARENA_LIMIT, ARENA_LIMIT);
       }
       if (k >= T.hold) { s.phase = 'toss'; s.t0 = this.t; this.game.throwHit(this, v); }
       return;

@@ -9,6 +9,7 @@
 import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW } from './moves.js';
 import { specialFor, kitOf } from './kit.js';
 import { ARENA_LIMIT } from './constants.js';
+import { Showcase, specialId, pickW } from './aiShow.js';
 
 const BUTTONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -24,9 +25,13 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // aggro   how much it wants to be in your face; flair: how often it spends on the loud option (vanish,
 //         supers as enders, counter-beams); tech: chance to air tech at the first legal frame
 // throw   how keen it is to throw a guarding opponent; throwBreak: chance to break a throw inside the window
+// show    how strongly it reaches for tools the viewer hasn't seen yet (Showcase, aiShow.js, ADR 0016)
+// cap     combo hits after which it cashes out with an ender instead of extending (0 = never: max damage)
+// hoard   how often a round is spent saving meter for a three-bar finish
+// block   weight of a plain block among its answers to a threat it saw (the others: parry, dodges, counters...)
 export const STYLES = {
-  impossible: { react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, mash: 13, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55 },
-  showman: { react: 8, parry: 0.4, dodge: 0.4, aggro: 0.78, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.75, antiAir: 0.6, throw: 0.45, throwBreak: 0.45 },
+  impossible: { react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, mash: 13, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1 },
+  showman: { react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
 };
 
 // forward distance a lunging ground move still covers from frame t (its speed fades out over startup+active)
@@ -73,6 +78,7 @@ export class MasterBrain {
     // habits of the opponent, slowly forgotten: what it does after blocking, how often it jumps in, parries
     this.mem = { parries: 0, contacts: 0, jumps: 0, mashAfterBlock: 0, blockAfterBlock: 0 };
     this.lastOppState = '';
+    this.show = new Showcase(fighter, this.S.show);
   }
 
   // ------------------------------------------------------------------ pad output
@@ -111,6 +117,13 @@ export class MasterBrain {
     this.my = slot === 'up' ? 1 : slot === 'down' || slot === 'airDown' ? -1 : 0;
   }
 
+  // Hold Special to charge ki. The hold has to reach the charge state (12 frames): let go sooner and the press
+  // fires a special, so update() keeps a started hold going until then.
+  holdCharge() {
+    this.keep.add('special');
+    if (this.chargeFrom == null) this.chargeFrom = this.f.pad.frame;
+  }
+
   special(slot, frames = 2) {
     if (this.hold.special > 0) return;
     this.spSlot = slot;
@@ -125,16 +138,27 @@ export class MasterBrain {
     f.pad.tick();
     this.mx = 0;
     this.my = 0;
+    this.show.watch();
     if (game.state === 'roundIntro' && !this.roundSet) {
       // per-round temperament: whether it saves up for the big three-bar finish this round
       this.roundSet = true;
-      this.saving = Math.random() < this.S.flair * 0.55;
+      this.hoarding = Math.random() < this.S.flair * 0.55 * this.S.hoard;
+      this.bigUsed = this.bigCount();
       this.plan = null;
       this.resp = null;
       this.route = {};
     } else if (game.state === 'fight') this.roundSet = false;
+    if (this.hoarding && this.bigCount() > this.bigUsed) this.hoarding = false; // it spent them: back to normal
+    // the showman also holds its bars until it has fired its first three-bar move of the match: spending
+    // freely, it would almost never reach three bars (after that it spends freely, and pickBig still prefers
+    // the three-bar move the viewer hasn't seen when the bars come round again)
+    this.saving = this.hoarding || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
     if (game.clash) this.mashClash();
     else if (game.inputLive && !f.ko && !o.ko) this.think(game);
+    if (this.chargeFrom != null) {
+      if (f.state === 'charge' || !f.spPending || f.pad.frame - this.chargeFrom > 16) this.chargeFrom = null;
+      else if (f.state === 'idle' || f.state === 'run' || f.state === 'land') this.keep.add('special');
+    }
     this.flush();
   }
 
@@ -157,6 +181,7 @@ export class MasterBrain {
       if (!open && this.clock < (this.resp.until ?? 0) && (f.state === 'guard' || f.state === 'block')) { this.keep.add('guard'); return; }
       this.resp = null;
     }
+    if (f.state === 'air') return; // airborne with nothing to answer: airStep already steered
     if (f.state === 'block') { this.blockStun(game, c); return; }
     if (this.tickThrow && this.tick(game, c)) return;
     if (this.punish(game, c)) return;
@@ -270,8 +295,10 @@ export class MasterBrain {
           if (this.breakRoll && f.grab.t + 1 >= this.breakAt) { this.tap('light', 2); this.tap('heavy', 2); }
         }
         return true;
-      case 'getup':
       case 'airRecover':
+        this.teched = true;
+        return true;
+      case 'getup':
       case 'vanish':
       case 'beamCharge':
       case 'beamFire':
@@ -322,6 +349,8 @@ export class MasterBrain {
     const f = this.f, o = f.opp;
     const juggle = o.state === 'launched' && !o.ko && o.hittable;
     const d3 = Math.hypot(c.sx, c.dy);
+    const R = Math.random, showy = this.S.show >= 0.5;
+    if (juggle && f.moveHit && this.capped()) return true; // the showman's combo is over: drop down, play neutral
     if (f.chase > 0 || (juggle && f.moveHit)) {
       // after a launcher chase or a super dash contact: first air hit when the victim is in reach
       if (!f.airAttack && juggle && d3 < 1.5 && Math.abs(c.sd) < 0.7) {
@@ -339,12 +368,38 @@ export class MasterBrain {
       this.tap(o.state === 'launched' || Math.random() < 0.6 ? 'light' : 'heavy');
       return true;
     }
+    // falling onto a grounded opponent from above (a Blink, a high jump-in): the spike reaches down
+    if (!f.airAttack && o.hittable && !o.air && Math.abs(c.sx) < 1.3 && Math.abs(c.sd) < 0.6 && c.dy < -0.6 && c.dy > -2.6 && f.vel.y <= 1) {
+      this.tap('heavy');
+      return true;
+    }
     if (this.plan?.name === 'jumpin') {
       this.mx = c.toward;
       // jump-in mix-up: air dodge on the way down, through a launcher, and waveland beside them
-      if (!f.airDodged && f.vel.y < 0 && f.pos.y < 1.7 && Math.abs(c.sx) < 2.6 && Math.random() < this.S.flair * 0.06) this.tap('guard', 2);
+      const k = showy ? Math.sqrt(this.show.bias('airDodge')) : 1;
+      if (!f.airDodged && f.vel.y < 0 && f.pos.y < 1.7 && Math.abs(c.sx) < 2.6 && R() < this.S.flair * 0.06 * k) this.tap('guard', 2);
     }
-    return true;
+    // planned air special: a shot near the top of the jump, a dive once it's over them
+    const p = this.plan;
+    if (p?.name === 'airShot' && !p.fired && !f.airAttack) {
+      const m = specialFor(f.def, p.slot);
+      if (!m || f.ki < (m.cost ?? 0)) p.fired = true;
+      else if (m.kind === 'dive' ? Math.abs(c.sx) < 2.4 || f.vel.y < 0 : f.vel.y < 3) {
+        p.fired = true;
+        this.special(p.slot, 2);
+        return true;
+      }
+      if (m?.kind === 'dive') this.mx = c.toward;
+    }
+    // showman, just teched out of a juggle with them close: air dodge away (sometimes through them)
+    if (this.teched) {
+      this.teched = false;
+      if (showy && !f.airDodged && c.dist < 3.5 && R() < 0.2 * this.show.bias('airDodge')) {
+        this.mx = R() < 0.3 ? c.toward : -c.toward;
+        this.tap('guard', 2);
+      }
+    }
+    return false; // nothing of ours running: let the threat layer answer what's coming (air dodge)
   }
 
   comboStep(game, c) {
@@ -378,25 +433,52 @@ export class MasterBrain {
         return;
       case 'airLight2':
         return this.branchAir(game, c, m, t);
+      case 'light4':
+        // showman: the wall bounce is the moment for a special the viewer hasn't seen (shot, teleport, rush)
+        if (this.S.show >= 0.5 && this.afterBounce(c)) return;
+      // falls through
       default:
         // launchers, spikes, wall bounces, vanish kicks, rush specials: chase with the super dash,
-        // or vanish behind them when the dash is spent
-        if (t >= B) this.extend(game, c);
+        // or vanish behind them when the dash is spent; the showman cashes out instead once the combo is
+        // long enough, or right after the ender of a short route (only the launcher route chases)
+        if (t >= B) {
+          if (this.capped() || (this.S.show >= 0.5 && this.route.ground !== 'launch')) this.cashOut(game, c, m);
+          else this.extend(game, c);
+        }
     }
   }
 
-  // light3 on hit: a kit special (ender or extender), or the launcher route
+  // The showman's combo has done its job at `cap` hits (or its short route has ended): from there it ends
+  // with something flashy instead of looping super dash -> air string, because a long juggle is the part of
+  // a fight with nothing new to see, and rounds need room for neutral (ADR 0016).
+  capped() {
+    return (this.S.cap > 0 && this.f.opp.combo >= this.S.cap) || !!this.route.over;
+  }
+
+  // light3 on hit: a kit special (ender or extender), the launcher route, or light4 into the wall. IMPOSSIBLE
+  // takes the special when it lands in time, else the launcher; the showman picks once per combo, weighted
+  // toward the specials the viewer hasn't seen (and away from the launcher once the combo is long).
   branchGround(game, c, m, t) {
-    const f = this.f, o = f.opp;
+    const f = this.f, o = f.opp, R = this.route;
     const sp = o.state === 'hitstun' ? this.comboSpecial(c, o.stun - o.t) : null;
-    if (sp && this.spend(sp.m.cost, sp.value)) {
+    if (this.S.show >= 0.5 && !R.ground) {
+      // short routes first: an air juggle is the longest stretch of a fight with nothing new in it, so the
+      // launcher route is the exception (it still shows the air game and the super dash chase)
+      R.ground = pickW({
+        special: sp ? 2 * this.show.bias(specialId(sp.m)) : 0,
+        launch: this.capped() ? 0.1 : 0.55 * Math.sqrt(this.show.bias('superDash')),
+        wall: c.oppRoom < 1.2 ? 2 : 1.1,
+      }) || 'wall';
+    }
+    if (sp && (!R.ground || R.ground === 'special') && this.spend(sp.m.cost, sp.value)) {
       this.special(sp.slot, 2);
-      this.route.special = sp.slot;
+      R.special = sp.slot;
       return;
     }
+    if (R.ground === 'special') R.ground = 'wall'; // no special after all (no ki, or saving it): the short route
     // launcher (more hits, a ground-bounce loop) unless they're right on the wall, where light4 bounces
-    if (c.oppRoom < 1.2 && !this.route.l4) {
-      this.route.l4 = true;
+    if (R.ground === 'wall' || (!R.ground && c.oppRoom < 1.2) || R.l4) {
+      R.l4 = true;
       if (t >= m.cancel - 1) this.tap('light');
       return;
     }
@@ -404,12 +486,45 @@ export class MasterBrain {
   }
 
   // airLight2 on hit: spike for a ground bounce while the super dash is still there to follow it,
-  // otherwise airLight3 (wall bounce) when the barrier is close behind them, else spike anyway
+  // otherwise airLight3 (wall bounce) when the barrier is close behind them, else spike anyway. Past the
+  // showman's cap: a vanish kick it hasn't shown, else either ender at random.
   branchAir(game, c, m, t) {
-    const f = this.f, o = f.opp;
+    const f = this.f, o = f.opp, R = this.route;
+    if (this.capped()) {
+      if (R.air == null) R.air = pickW({ vanish: f.ki >= VANISH.cost && !R.vanished ? 0.6 * this.show.bias('vanish') : 0, spike: 1, wall: c.oppRoom < 3 ? 1.5 : 0.7 });
+      if (R.air === 'vanish' && f.ki >= VANISH.cost) { R.vanished = true; this.keep.add('guard'); this.tap('special', 2); return; }
+      if (R.air === 'wall') { if (t >= m.cancel - 1) this.tap('light'); return; }
+      this.tap('heavy');
+      return;
+    }
     const spike = f.airDashes === 0 || c.oppRoom > 4 || o.pos.y > 2.2;
     if (spike) this.tap('heavy');
     else if (t >= m.cancel - 1) this.tap('light');
+  }
+
+  // light4 wall bounce (showman): cancel into a special that still catches them in flight, once per combo.
+  afterBounce(c) {
+    const f = this.f, o = f.opp, R = this.route;
+    if (R.special || R.bounceDone || o.state !== 'launched' || o.ko) return false;
+    R.bounceDone = true;
+    const sp = this.comboSpecial(c, 30, true);
+    if (!sp || !this.spend(sp.m.cost, sp.value) || Math.random() > 0.35 + 0.5 * this.S.show * (this.show.fresh(specialId(sp.m)) ? 1 : 0.4)) return false;
+    this.special(sp.slot, 2);
+    R.special = sp.slot;
+    return true;
+  }
+
+  // Past the cap: one last flashy hit if a fresh one fits (a vanish kick behind them), then let them fall.
+  cashOut(game, c, m) {
+    const f = this.f, o = f.opp, R = this.route;
+    if (R.cashed || o.state !== 'launched' || o.ko) return;
+    R.cashed = true;
+    R.over = true;
+    if (!R.vanished && f.ki >= VANISH.cost && Math.random() < 0.25 * this.show.bias('vanish') && this.spend(VANISH.cost, 90)) {
+      R.vanished = true;
+      this.keep.add('guard');
+      this.tap('special', 2);
+    }
   }
 
   extend(game, c) {
@@ -456,6 +571,16 @@ export class MasterBrain {
   finisher(game, c, m, t) {
     const f = this.f, o = f.opp, K = kitOf(f.def), S = this.S;
     if (f.ki < 100) return false;
+    // showman: a three-bar ender, decided once per combo, likelier while the viewer hasn't seen it
+    if (S.show >= 0.5 && f.ki >= 300 && o.combo >= 3) {
+      if (this.route.big === undefined) this.route.big = this.pickBig(c, true);
+      if (this.route.big) {
+        this.fireBig(this.route.big);
+        this.route.finisher = this.route.big;
+        this.route.big = null;
+        return true;
+      }
+    }
     const est = this.finishDamage(c);
     if (!est) return false;
     const kills = o.hp <= est.dmg * 0.9;
@@ -490,6 +615,37 @@ export class MasterBrain {
     return best;
   }
 
+  // Showman: which three-bar move to spend now ('super' / 'ultimate' / 'beam'), or null to hold the bars.
+  // In a combo only the ones that connect on a reeling victim (flurry in range, Domain, Amaterasu); in neutral
+  // and punishes also Kirin and the beam (they need the opponent stuck or far away).
+  pickBig(c, inCombo, anyRange = false) {
+    const f = this.f, K = kitOf(f.def), sh = this.show;
+    if (f.ki < 300) return null;
+    const ok = (S) => {
+      if (!S) return false;
+      if (S.kind === 'flurry') return c.dist < (S.range ?? 6) - 0.6;
+      if (S.kind === 'domain' || S.kind === 'ignite') return true;
+      return !inCombo && S.kind === 'skyStrike';
+    };
+    const w = { hold: inCombo ? 1.2 : 1 };
+    if (ok(SUPERS[K.super])) w.super = sh.bias('super');
+    if (ok(SUPERS[K.ultimate])) w.ultimate = sh.bias('ultimate');
+    // the beam wants range and their lane (the beam plan backs off and lines up first: `anyRange`)
+    if (!inCombo && !K.ultimate && (anyRange || (c.dist > 2.6 && Math.abs(c.sd) < 1))) w.beam = sh.bias('beam');
+    const pick = pickW(w);
+    return pick === 'hold' ? null : pick;
+  }
+
+  fireBig(id) {
+    if (id === 'super') this.tap('super');
+    else { this.tap('heavy', 3); this.tap('special', 3); } // ultimate: the kit's or the beam
+  }
+
+  bigCount() {
+    const u = this.show.used;
+    return (u.super || 0) + (u.ultimate || 0) + (u.beam || 0);
+  }
+
   // Frames from pressing a special to its first hit landing, or null for kinds that don't hit directly.
   // `cancel`: cancelled out of a normal that hit (a rush then starts at `cancelStartup`, ADR 0015).
   specialHitTime(m, c, cancel = false) {
@@ -505,14 +661,16 @@ export class MasterBrain {
   // Best special to cancel a hit into, by kind: rush and wall-bounce shots end big, long-stun shots and
   // teleports extend. Only ones that land before the victim's stun runs out (`left` frames): after
   // light3, a 24-frame Rasengan doesn't, and a blocked "ender" is a free punish. `value` is a rough damage
-  // worth of spending the ki.
-  comboSpecial(c, left = 99) {
+  // worth of spending the ki; the pick also leans toward specials the viewer hasn't seen (Showcase).
+  // `flying`: the victim was knocked away (light4), so a rush only catches them off the wall.
+  comboSpecial(c, left = 99, flying = false) {
     const f = this.f, seen = new Set();
     let best = null;
     for (const slot of SLOTS) {
       const m = specialFor(f.def, slot);
       if (!m || seen.has(m) || f.ki < (m.cost ?? 0)) continue;
       seen.add(m);
+      if (flying && m.kind === 'rush' && c.oppRoom > 2.2) continue;
       const hitIn = this.specialHitTime(m, c, true);
       if (hitIn == null || hitIn > left - 1) continue;
       let v = 0;
@@ -521,7 +679,8 @@ export class MasterBrain {
         const P = m.proj && PROJ_INFO[m.proj];
         if (P) v = P.wallBounce ? P.dmg * 1.3 : P.hitstun >= 30 ? P.dmg * 1.2 : 0;
       } else if (m.kind === 'teleport' && m.follow) v = (MOVES[m.follow]?.dmg ?? 0) * 1.3;
-      if (v > 0 && (!best || v > best.value)) best = { slot, m, value: v };
+      const score = v * this.show.bias(specialId(m));
+      if (v > 0 && (!best || score > best.score)) best = { slot, m, value: v, score };
     }
     return best;
   }
@@ -533,8 +692,9 @@ export class MasterBrain {
     const left = f.ki - cost;
     if (left < 0) return false;
     if (f.game.timeLeft < 15) return true;
-    // some rounds it saves up for a three-bar finish (supers, ultimates, beam clashes)
-    if (this.saving && f.ki < 300 && cost < 300) return value > 200 && Math.random() < 0.3;
+    // some rounds it saves up for a three-bar finish (supers, ultimates, beam clashes): nothing smaller may
+    // take it back under three bars
+    if (this.saving && cost < 300 && left < 300) return value > 200 && Math.random() < 0.3;
     if (left >= 100) return true;
     return Math.random() < (value > 100 ? 0.75 : 0.45) * (0.6 + S.flair * 0.5);
   }
@@ -577,7 +737,9 @@ export class MasterBrain {
       const miss = Math.hypot(rx - p.vel.x * tc, (ry - p.vel.y * tc) * 0.7, rz - p.vel.z * tc);
       if (miss < p.P.radius + 0.8) {
         p._aid = p._aid || ++projIds;
-        add({ key: 'p' + p._aid, kind: 'proj', frames: tc * 60, len: 3, p, big: !!p.P.big });
+        // it touches the body before its closest approach: a big shot (fireball) by 5-7 frames
+        const touch = Math.max(0, tc - (p.P.radius + 0.45) / Math.sqrt(v2));
+        add({ key: 'p' + p._aid, kind: 'proj', frames: touch * 60, len: 3, p, big: !!p.P.big });
       }
     }
     for (const v of game.vortices) {
@@ -618,7 +780,8 @@ export class MasterBrain {
         if (k.phase === 'rise' && (c.dist > 2.2 || !f.air)) return null;
         const fall = k.phase === 'slam' ? (o.pos.y / -m.slamV) * 60 : k.phase === 'hang' ? m.hang - k.t0 + (o.pos.y / -m.slamV) * 60 : 2;
         if (c.dist > (m.area ?? 1.6) + 2.5) return null;
-        return { key: 'dv' + this.oppSerial + k.phase, kind: 'melee', frames: Math.max(0, fall), len: 2, m: hit, big: true };
+        // one threat from the hover to the slam (a new key at the slam would re-pick the answer too late)
+        return { key: 'dv' + this.oppSerial + (k.phase === 'rise' ? 'r' : 's'), kind: 'melee', frames: Math.max(0, fall), len: 2, m: hit, big: true, dive: k.phase !== 'rise' };
       }
       case 'teleport':
         if (m.follow && !k.arrived) return { key: 'tp' + this.oppSerial, kind: 'melee', frames: Math.max(0, (m.startup ?? 0) + m.hide - o.t) + 3, len: 4, m: MOVES[m.follow], big: true, behind: true };
@@ -627,41 +790,68 @@ export class MasterBrain {
     return null;
   }
 
-  // Pick the answer once per threat. Order of preference: the loud answers the style can afford,
-  // a parry when the read is clean, a dodge against big swings, otherwise block.
+  // Pick the answer once per threat, at random among the ones that work against it, weighted by the style
+  // (parry when the read is clean, dodges against big swings, counters and vanish for the loud styles, a plain
+  // block) and by the Showcase: an answer the viewer hasn't seen yet weighs more (ADR 0016).
   chooseDefense(game, c, th) {
-    const f = this.f, o = f.opp, S = this.S, R = Math.random;
+    const f = this.f, o = f.opp, S = this.S, sh = this.show;
     const r = c.ready;
     const d = { key: th.key, type: 'none' };
     if (!r) return d;
     const ki = f.ki;
     const now = f.pad.frame;
     const lockFree = (lead) => now + lead - f.parryTry >= PARRY.lockout;
+    const w = {}, ans = {};
+    const offer = (key, weight, resp, tool) => {
+      if (!(weight > 0)) return;
+      w[key] = weight * (tool ? sh.bias(tool) : 1);
+      ans[key] = { ...d, ...resp };
+    };
+    const decide = () => ans[pickW(w)] ?? d;
+    // a spot dodge is intangible 3-4 frames after the press (Guard, neutral, ↓, dodge frame 2): too late below that
+    const dodgeLead = f.state === 'guard' ? 4 : 5;
+    const canDodge = th.frames >= dodgeLead;
     if (th.kind === 'beam') {
-      if (th.charging && ki >= ULTIMATE.cost && o.state === 'beamCharge' && R() < 0.4 + S.flair * 0.5) return { ...d, type: 'counterBeam' };
-      if (ki >= VANISH.cost && R() < 0.5 + S.flair * 0.3) return { ...d, type: 'vanish', at: 10 };
-      return { ...d, type: r === 'air' ? 'none' : 'sidestep', at: 30 };
+      // counter-beam only with a beam of our own (a kit ultimate like Amaterasu can't touch a charging beam)
+      if (th.charging && ki >= ULTIMATE.cost && o.state === 'beamCharge' && !kitOf(f.def).ultimate) offer('counterBeam', 1 + S.flair * 2, { type: 'counterBeam' }, 'beam');
+      if (ki >= VANISH.cost) offer('vanish', 0.6 + S.flair * 0.6, { type: 'vanish', at: 10 }, 'vanish');
+      if (r !== 'air') offer('sidestep', 0.7, { type: 'sidestep', at: 30 });
+      return decide();
     }
     if (th.unblockable) {
       if (th.kind === 'zone') return { ...d, type: 'dashOut' };
-      if (ki >= VANISH.cost && R() < 0.75) return { ...d, type: 'vanish', at: th.rangeless ? 6 : 4 };
-      if (r === 'ground' && th.rangeless) return { ...d, type: 'dodge', at: 6 };
-      return { ...d, type: r === 'air' ? 'airdodge' : 'sidestep', at: 5 };
+      if (ki >= VANISH.cost) offer('vanish', 3, { type: 'vanish', at: th.rangeless ? 6 : 4 }, 'vanish');
+      // a spot dodge's intangibility lets a flurry dash or Amaterasu pass through
+      if (r === 'ground' && canDodge) offer('dodge', th.rangeless ? 1 : 0.4 + 0.4 * S.show, { type: 'dodge', at: 7 }, 'spotDodge');
+      if (r === 'air') { if (!f.airDodged) offer('airdodge', 1, { type: 'airdodge', at: 5 }, 'airDodge'); } else offer('sidestep', 1, { type: 'sidestep', at: 5 });
+      return decide();
     }
-    if (r === 'air') return R() < S.dodge + 0.25 ? { ...d, type: 'airdodge', at: 3 } : d;
+    if (r === 'air') {
+      if (!f.airDodged) offer('airdodge', S.dodge + 0.25, { type: 'airdodge', at: 3 }, 'airDodge');
+      offer('none', 0.75 - S.dodge, {});
+      return decide();
+    }
     if (r === 'dash') return d;
     const big = th.big || th.p?.P?.big;
-    // a projectile we can plow through with the super dash and hit its thrower
-    if (th.kind === 'proj' && !th.vortex && r === 'ground' && f.airDashes === 0 && c.dist < 7 && R() < 0.25 + S.flair * 0.25) return { ...d, type: 'superDash', at: 12 };
-    if (lockFree(Math.max(0, th.frames - 2)) && R() < S.parry * (big ? 1.2 : 1)) return { ...d, type: 'parry' };
-    // dodge only what leaves something to punish: its active + recovery outlasts our dodge (a hop launcher
+    if (th.kind === 'proj' && !th.vortex) {
+      // plow through it with the super dash and hit its thrower, or spot dodge it as it arrives
+      if (r === 'ground' && f.airDashes === 0 && c.dist < 7) offer('superDash', 0.25 + S.flair * 0.25, { type: 'superDash', at: 12 }, 'superDash');
+      if (r === 'ground' && canDodge) offer('dodge', S.dodge * 0.6 * S.show, { type: 'dodge', at: 8 }, 'spotDodge');
+    }
+    if (lockFree(Math.max(0, th.frames - 2))) offer('parry', S.parry * 2 * (big ? 1.2 : 1), { type: 'parry' }, 'parry');
+    // dodge what leaves something to punish: its active + recovery outlasts our dodge (a hop launcher
     // lands and recovers first, so that one gets parried or blocked)
-    const punishable = th.m && !th.m.hop && (th.m.active ?? 0) + (th.m.recovery ?? 0) >= SPOT.len;
-    if (th.kind === 'melee' && big && punishable && r === 'ground' && R() < S.dodge * 1.4) return { ...d, type: 'dodge', at: f.state === 'guard' ? 4 : 5 };
+    // (the showman also dodges the rest now and then: even trade, but the viewer sees the dodge)
+    const punishable = th.dive || (th.m && !th.m.hop && (th.m.active ?? 0) + (th.m.recovery ?? 0) >= SPOT.len);
+    if (th.kind === 'melee' && r === 'ground' && canDodge && (punishable || S.show >= 0.5)) {
+      offer('dodge', punishable ? S.dodge * (big ? 1.4 : 0.5 * S.show) : S.dodge * 0.35, { type: 'dodge', at: f.state === 'guard' ? 6 : 7 }, 'spotDodge');
+    }
     const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
-    if (th.kind === 'melee' && cSlot && r === 'ground' && ki >= specialFor(f.def, cSlot).cost + 50 && R() < S.flair * 0.3) return { ...d, type: 'counter', slot: cSlot };
-    if (th.kind === 'melee' && big && ki >= VANISH.cost * 2 && R() < S.flair * 0.25) return { ...d, type: 'vanish', at: 4 };
-    return { ...d, type: 'block' };
+    const cm = cSlot && specialFor(f.def, cSlot);
+    if (th.kind === 'melee' && cm && r === 'ground' && ki >= cm.cost + (S.show >= 0.5 ? 0 : 50)) offer('counter', S.flair * 0.45, { type: 'counter', slot: cSlot }, specialId(cm));
+    if (th.kind === 'melee' && big && ki >= VANISH.cost * (S.show >= 0.5 ? 1 : 2)) offer('vanish', S.flair * 0.3, { type: 'vanish', at: 4 }, 'vanish');
+    offer('block', S.block, { type: 'block' });
+    return decide();
   }
 
   execDefense(game, c, th, d) {
@@ -686,7 +876,8 @@ export class MasterBrain {
       }
       case 'dodge':
         if (!d.go && fr <= d.at) d.go = true;
-        if (!d.go) return false;
+        // wait for it in place: a dash or an attack started now couldn't guard into the dodge in time
+        if (!d.go) return fr <= d.at + 20 && f.state !== 'block';
         if (f.state === 'dodge') return true;
         this.keep.add('guard');
         if (f.state === 'guard') this.my = d.pushed ? -1 : 0, d.pushed = true; // neutral one frame, then the ↓ edge
@@ -806,8 +997,11 @@ export class MasterBrain {
   punish(game, c) {
     const f = this.f, o = f.opp, r = c.ready;
     if (r !== 'ground' && r !== 'dash') return false;
-    // keep a combo going after a shot or a super dash contact
-    if ((o.state === 'hitstun' || o.state === 'launched') && o.combo > 0 && !o.ko && o.hittable) return this.followUp(game, c);
+    // keep a combo going after a shot or a super dash contact (past the showman's cap: let them drop)
+    if ((o.state === 'hitstun' || o.state === 'launched') && o.combo > 0 && !o.ko && o.hittable) {
+      if (this.capped()) { this.approach(c, 1.8); return true; }
+      return this.followUp(game, c);
+    }
     if (o.state === 'kit' && o.counterT > 0) { this.backOff(c); return true; } // never swing into a counter stance
     if (o.state === 'beamFire') return this.punishBeam(game, c);
     const w = this.opening(o);
@@ -815,6 +1009,8 @@ export class MasterBrain {
     // lethal from anywhere: a super flash freezes the world, so its travel fits any opening
     if (f.ki >= 300 && this.superPunish(game, c, w)) return true;
     const sx = Math.abs(c.sx), lane = Math.abs(c.sd) < 0.9;
+    // showman: punish with a special the viewer hasn't seen when it fits the opening (decided once per opening)
+    if (this.S.show >= 0.5 && this.specialPunish(c, w)) return true;
     const timeToLight = (sx > LIGHT_REACH ? (sx - LIGHT_REACH) / 9 * 60 : 0) + MOVES.light1.startup;
     if (lane && sx < LIGHT_REACH + 0.05 && w.to >= MOVES.light1.startup + 1 && w.from <= MOVES.light1.startup) {
       if (w.to >= MOVES.heavy.startup + 2 && sx < 1.3 && Math.random() < 0.35) this.tap('heavy');
@@ -863,6 +1059,18 @@ export class MasterBrain {
     const S = SUPERS[K.super];
     const est = this.finishDamage(c);
     const kills = est && o.hp <= est.dmg * 0.9;
+    if (!kills && this.S.show >= 0.5) {
+      // showman: spend the bars on an opening, once per opening, on the move the viewer hasn't seen
+      if (this.bigRoll?.key !== this.oppSerial) this.bigRoll = { key: this.oppSerial, pick: this.pickBig(c, false) };
+      const big = this.bigRoll.pick;
+      if (!big) return false;
+      const Sx = big === 'super' ? S : big === 'ultimate' ? SUPERS[K.ultimate] : null;
+      if (Sx?.kind === 'skyStrike' && w.to < Sx.delay + 6) return false; // Kirin lands its delay later
+      if (big === 'beam' && w.to < 40) return false;
+      this.bigRoll.pick = null;
+      this.fireBig(big);
+      return true;
+    }
     const show = Math.random() < this.S.flair * 0.12;
     if (!kills && !show) return false;
     if (S?.kind === 'flurry' && c.dist < 5.4) { this.tap('super'); return true; }
@@ -870,6 +1078,29 @@ export class MasterBrain {
     if (SUPERS[K.ultimate]?.kind === 'ignite') { this.tap('heavy'); this.tap('special'); return true; }
     if (!K.ultimate && w.to > 40 && c.dist > 2.5 && Math.abs(c.sd) < 1) { this.tap('heavy'); this.tap('special'); return true; } // beam
     return false;
+  }
+
+  // Showman: a rush, shot, teleport or dive that reaches them before the opening closes, weighted toward the
+  // ones the viewer hasn't seen; decided once per opening (otherwise the jab / dash-in punish runs).
+  specialPunish(c, w) {
+    const f = this.f;
+    if (this.spRoll?.key === this.oppSerial) return false;
+    this.spRoll = { key: this.oppSerial };
+    const seen = new Set(), opts = {};
+    for (const slot of SLOTS) {
+      const m = specialFor(f.def, slot);
+      if (!m || seen.has(m) || f.ki < (m.cost ?? 0)) continue;
+      seen.add(m);
+      let t = this.specialHitTime(m, c);
+      if (m.kind === 'rush' && Math.abs(c.sd) > 0.6) t = null;
+      if (m.kind === 'dive' && m.rise > 0 && c.dist < 5.5) t = m.rise + m.hang + 8;
+      if (t != null && t + 2 < w.to) opts[slot] = this.show.bias(specialId(m));
+    }
+    const pick = Math.random() < 0.6 ? pickW(opts) : null;
+    if (!pick || !this.spend(specialFor(f.def, pick).cost ?? 0, 120)) return false;
+    this.special(pick, 2);
+    this.route = {};
+    return true;
   }
 
   // Shots and teleports against openings out of melee range.
@@ -938,7 +1169,15 @@ export class MasterBrain {
     if (o.state === 'down' || o.state === 'getup' || (o.invuln > 0 && o.state === 'idle')) {
       if (this.okiPlan == null) {
         const r = Math.random();
-        this.okiPlan = r < S.throw * 0.4 ? 'throw' : r < 0.6 + S.aggro * 0.3 ? 'meaty' : Math.random() < 0.5 ? 'bait' : 'charge';
+        // the showman often gives them room instead, so the next exchange starts at mid range with the kit
+        if (S.show >= 0.5) this.okiPlan = pickW({ reset: 1.3, meaty: 0.6, throw: S.throw * 0.6, bait: 0.3 });
+        else this.okiPlan = r < S.throw * 0.4 ? 'throw' : r < 0.6 + S.aggro * 0.3 ? 'meaty' : Math.random() < 0.5 ? 'bait' : 'charge';
+      }
+      if (this.okiPlan === 'reset') {
+        if (Math.abs(c.sx) < 2.6 && !this.resetWd && Math.random() < S.wavedash) { this.resetWd = true; this.wavedash(-c.toward, 0); return true; }
+        const there = this.approach(c, 3.8);
+        if (there && f.ki < 300 && (o.state === 'down' || o.state === 'getup')) this.holdCharge(); // power up while they rise
+        return true;
       }
       if (this.okiPlan === 'throw') {
         // stand on top of them and throw the moment the invincibility runs out (beats blocking on wake-up)
@@ -946,13 +1185,14 @@ export class MasterBrain {
         if (there && o.state !== 'down' && o.state !== 'getup' && o.invuln <= 1 && this.inThrowRange(c)) this.throwNow();
         return true;
       }
-      if (this.okiPlan === 'charge' && c.dist > 3.5 && f.ki < 300) { this.keep.add('special'); return true; }
+      if (this.okiPlan === 'charge' && c.dist > 3.5 && f.ki < 300) { this.holdCharge(); return true; }
       if (this.okiPlan === 'bait') { this.approach(c, 2.2); if (o.state === 'getup' && o.t > 14) this.keep.add('guard'); return true; }
       const there = this.approach(c, 0.95);
       if (there && o.state !== 'down' && o.invuln > 0 && o.invuln <= MOVES.light1.startup + 1) this.tap('light');
       return true;
     }
     this.okiPlan = null;
+    this.resetWd = false;
     // a guard held this long, right in front of us: throw it
     if (o.state === 'guard' && o.t > 20 && this.inThrowRange(c) && Math.random() < S.throw * 0.25) { this.throwNow(); return true; }
     // anti-air: an opponent dropping in on us
@@ -966,7 +1206,8 @@ export class MasterBrain {
       const px = (ox - f.pos.x) * c.R.x + (oz - f.pos.z) * c.R.z;
       if (Math.abs(px) < 1.5 && py < 1.9 && py > -0.2) {
         const dive = specialFor(f.def, 'up');
-        if (dive?.kind === 'dive' && dive.riseHit && f.ki >= dive.cost + 100 && Math.random() < S.flair * 0.4) this.special('up', 2);
+        const showy = S.show >= 0.5;
+        if (dive?.kind === 'dive' && dive.riseHit && f.ki >= dive.cost + (showy ? 0 : 100) && Math.random() < S.flair * 0.4 * (showy ? this.show.bias(specialId(dive)) : 1)) this.special('up', 2);
         else this.tap('heavy');
         this.aaRoll = null;
         return true;
@@ -981,56 +1222,131 @@ export class MasterBrain {
   // ------------------------------------------------------------------ neutral
   neutral(game, c) {
     const f = this.f;
+    if (this.route.over) this.route = {}; // the showman's finished combo: the next hit starts a fresh one
     if (!this.plan || this.plan.t >= this.plan.len || this.plan.done) this.plan = this.choosePlan(game, c);
     this.plan.t++;
     this.runPlan(game, c, this.plan);
   }
 
   choosePlan(game, c) {
-    const f = this.f, o = f.opp, S = this.S, R = Math.random;
+    const f = this.f, o = f.opp, S = this.S, R = Math.random, sh = this.show;
     const dist = c.dist, ki = f.ki;
     const lead = (f.hp - o.hp) / 1000;
     const w = {};
-    const hasShot = this.shotSlot() != null;
+    const shotSl = this.shotSlot(), hasShot = shotSl != null;
     const modeSlot = SLOTS.find((sl) => specialFor(f.def, sl)?.kind === 'mode');
-    const modeReady = modeSlot && !f.mode && ki >= specialFor(f.def, modeSlot).cost + 50 && !this.saving;
-    const spare = !this.saving || ki >= 300; // saving up: no ki on pokes
+    const showy = S.show >= 0.5;
+    // the showman turns a mode on whenever it can afford it; IMPOSSIBLE keeps a bar for defense
+    const modeReady = modeSlot && !f.mode && ki >= specialFor(f.def, modeSlot).cost + (showy ? 0 : 50) && !this.saving;
+    const spare = !this.saving; // saving up: no ki on pokes (at three bars the bars go to the big move)
+    // Showcase weights (1 = seen plenty, up to 4 = never shown): tools the viewer hasn't seen get picked more
+    const shotB = hasShot ? sh.bias(specialId(specialFor(f.def, shotSl))) : 1;
+    const modeB = modeSlot ? sh.bias(specialId(specialFor(f.def, modeSlot))) : 1;
+    const kitOpts = this.kitOptions(c);
+    const kitB = kitOpts.length ? Math.max(...kitOpts.map((k) => k.w)) : 0;
+    const airSp = spare ? this.airSpecial(c) : null;
+    // the showman plays more of its neutral at mid range with its kit (shots, air specials, kit tools) and less
+    // of it running in for a jab, so there are spells to dodge and parry, and rounds have room for them
+    const kitty = showy ? 1.7 : 1;
     if (dist > 5.5) {
       w.approach = 1.6 + S.aggro * 2;
-      w.zone = hasShot && ki >= 100 && spare ? 1.2 : 0;
-      w.charge = ki < 300 ? 1.4 - S.aggro * 0.6 + (this.saving ? 0.8 : 0) : 0;
-      w.mode = modeReady ? 2.5 : 0;
+      w.zone = hasShot && ki >= 100 && spare ? 1.2 * kitty * shotB : 0;
+      w.charge = ki < 300 ? 1.4 - S.aggro * 0.6 + (this.saving ? 0.8 : 0) + (showy && ki < 200 ? 1.5 : 0) : 0;
+      w.mode = modeReady ? 2.5 * modeB : 0;
+      w.airShot = airSp?.m.kind === 'shot' ? 0.5 * kitty * airSp.b : 0;
     } else if (dist > 2.4) {
-      w.approach = 1.4 + S.aggro * 2;
-      w.space = 1.3 - S.aggro * 0.5;
-      w.jumpin = 0.5 + S.aggro * 0.5 - Math.min(0.6, this.mem.jumps * 0.02);
-      w.zone = hasShot && ki >= 100 && spare ? 0.6 : 0;
-      w.kit = ki >= 150 && spare ? 0.4 + S.flair * 0.6 : 0;
-      w.mode = modeReady && dist > 4 ? 1 : 0;
+      w.approach = (1.4 + S.aggro * 2) * (showy ? 0.5 : 1);
+      // the showman powers up at a safe distance to afford its kit (a real habit: it can be punished)
+      w.charge = showy && (ki < 150 || (this.saving && ki < 300)) && dist > 4.6 ? 1.5 : 0;
+      w.space = (1.3 - S.aggro * 0.5) * (showy ? Math.sqrt(sh.bias('wavedash')) : 1);
+      w.jumpin = (0.5 + S.aggro * 0.5 - Math.min(0.6, this.mem.jumps * 0.02)) * (showy ? Math.sqrt(sh.bias('airDodge')) : 1);
+      w.zone = hasShot && ki >= 100 && spare ? 0.6 * kitty * shotB : 0;
+      w.kit = ki >= 100 && spare ? (0.4 + S.flair * 0.6) * kitB : 0;
+      w.mode = modeReady && dist > 4 ? modeB : 0;
+      w.airShot = airSp ? 0.4 * kitty * airSp.b : 0;
+    } else if (showy) {
+      w.pressure = (0.8 + S.aggro * 1.4) * Math.sqrt(sh.bias('throw'));
+      w.guard = 0.8;
+      w.bait = 0.9 + this.mem.mashAfterBlock * 0.05;
+      w.space = 1.6 * Math.sqrt(sh.bias('wavedash'));
     } else {
       w.pressure = 1.8 + S.aggro * 3;
       w.guard = 1.4 - S.aggro;
       w.bait = 0.6 + this.mem.mashAfterBlock * 0.05;
       w.space = 0.4;
     }
-    // three bars at range: the ultimate from afar (an opponent with three bars can fire back: CLASH)
-    if (ki >= ULTIMATE.cost && (dist > 3.5 || this.saving)) w.beam = S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0);
+    // three bars: the beam from afar (an opponent with three bars can fire back: CLASH), or a kit super
+    const K = kitOf(f.def);
+    let big = null;
+    if (ki >= 300 && showy) {
+      // one pick among the super, the ultimate and the beam, so neither crowds out the other
+      big = this.pickBig(c, false, true);
+      const want = S.flair * 1.5 * (big ? sh.bias(big) : 0) + (big && this.saving ? 2 : 0);
+      if (big === 'beam') w.beam = want * (o.ki >= ULTIMATE.cost ? 1.5 : 1);
+      else if (big) w.big = want;
+    } else if (ki >= 300 && SUPERS[K.ultimate] && (dist > 3.5 || this.saving)) {
+      // IMPOSSIBLE: a kit ultimate (Amaterasu) from range, where another fighter would fire the beam
+      big = 'ultimate';
+      w.big = S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0);
+    } else if (ki >= ULTIMATE.cost && !K.ultimate && (dist > 3.5 || this.saving)) {
+      w.beam = (S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0)) * sh.bias('beam');
+    }
+    // showman, short on ki while the viewer still hasn't seen some of its kit (or saving for its first
+    // three-bar move): back off and power up
+    if (showy && dist < 5.5 && this.saving && ki < 300) w.powerUp = 2;
+    else if (showy && ki < 200 && dist < 5.5 && sh.unseen().some((id) => id.startsWith('sp:') || id === 'super' || id === 'ultimate' || id === 'beam')) w.powerUp = 1.1;
     if (lead > 0.25 && game.timeLeft < 30) { w.space = (w.space ?? 0) + 1.5; w.guard = (w.guard ?? 0) + 1; }
     if (lead < -0.3) { w.pressure = (w.pressure ?? 0) * 1.3; w.approach = (w.approach ?? 0) * 1.3; }
-    let total = 0;
-    for (const k in w) total += Math.max(0, w[k]);
-    let pick = R() * total, name = 'approach';
-    for (const k in w) if ((pick -= Math.max(0, w[k])) <= 0) { name = k; break; }
-    const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90 }[name];
+    const name = pickW(w) || 'approach';
+    const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90, airShot: 50, big: 40, powerUp: 150 }[name];
     const p = { name, t: 0, len, done: false };
     if (name === 'approach') {
       const m = R();
-      p.how = dist > 5 && f.airDashes === 0 && m < 0.25 ? 'superDash' : m < 0.25 + S.wavedash * 0.5 ? 'wavedash' : m < 0.75 ? 'dash' : 'walk';
+      const wd = S.wavedash * 0.5 * (showy ? Math.sqrt(sh.bias('wavedash')) : 1);
+      p.how = dist > 5 && f.airDashes === 0 && m < 0.25 * (showy ? Math.sqrt(sh.bias('superDash')) : 1) ? 'superDash' : m < 0.25 + wd ? 'wavedash' : m < 0.75 ? 'dash' : 'walk';
     }
-    if (name === 'charge') p.kiGoal = Math.min(300, f.ki + 100 + R() * 100);
-    if (name === 'space') p.gap = 2.6 + R() * 0.8;
+    if (name === 'charge' || name === 'powerUp') p.kiGoal = Math.min(300, f.ki + 100 + R() * 100);
+    if (name === 'space') p.gap = showy ? 3 + R() * 1.4 : 2.6 + R() * 0.8;
     if (name === 'mode') p.slot = modeSlot;
+    if (name === 'airShot') p.slot = airSp.slot;
+    if (name === 'big') p.tool = big;
     return p;
+  }
+
+  // Ground kit specials that make sense at this distance: { slot, w } with w = the Showcase weight.
+  kitOptions(c) {
+    const f = this.f, seen = new Set(), opts = [];
+    const extra = this.S.show >= 0.5 ? 0 : 50; // IMPOSSIBLE keeps half a bar spare
+    for (const sl of SLOTS) {
+      const m = specialFor(f.def, sl);
+      if (!m || seen.has(m) || f.ki < (m.cost ?? 0) + extra) continue;
+      seen.add(m);
+      let ok = false;
+      if (m.kind === 'pull') ok = c.dist > 1.4 && c.dist < 4.5;
+      if (m.kind === 'teleport' && m.follow) ok = c.dist > 2.5;
+      // a plain teleport (Blink) puts it over their head: airStep drops the spike from there
+      if (m.kind === 'teleport' && !m.follow) ok = c.dist > 3 && this.S.show >= 0.5;
+      if (m.kind === 'rush') ok = c.dist > 2 && c.dist < 5.5 && Math.abs(c.sd) < 0.6;
+      // a rising dive leaps at them from mid range (the slam is blockable: a read, like in DBFZ)
+      if (m.kind === 'dive' && m.rise > 0) ok = c.dist > 2.2 && c.dist < 6 && this.S.show >= 0.5;
+      if (ok) opts.push({ slot: sl, w: this.show.bias(specialId(m)) });
+    }
+    return opts;
+  }
+
+  // The air special for a jump-in plan: { slot, m, b } (shots from range, a dive when they're close enough).
+  airSpecial(c) {
+    const f = this.f;
+    let best = null;
+    for (const sl of ['air', 'airDown']) {
+      const m = specialFor(f.def, sl);
+      if (!m || f.ki < (m.cost ?? 0)) continue;
+      if (m.kind === 'dive' && (c.dist > 5 || c.dist < 1.5)) continue;
+      if (m.kind === 'shot' && Math.abs(c.sd) > 0.8) continue;
+      const b = this.show.bias(specialId(m));
+      if (!best || b > best.b) best = { slot: sl, m, b };
+    }
+    return best;
   }
 
   shotSlot() {
@@ -1069,7 +1385,7 @@ export class MasterBrain {
         const close = Math.abs(c.sx) < LIGHT_REACH && Math.abs(c.sd) < 0.5;
         if (close) { this.tap('light'); this.route = {}; p.done = true; return; }
         if (p.how === 'superDash' && !p.used) { p.used = true; this.tap('dash'); return; }
-        if (p.how === 'wavedash' && f.state !== 'jumpSquat' && (p.t % 14 === 1) && Math.abs(c.sx) > 2.2) {
+        if (p.how === 'wavedash' && f.state !== 'jumpSquat' && (p.t % 14 === 1) && Math.abs(c.sx) > 2.2 && (p.wds = (p.wds ?? 0) + 1) <= 2) {
           this.wavedash(c.toward, Math.abs(c.sd) > 0.3 ? Math.sign(c.sd) * 0.6 : 0);
           return;
         }
@@ -1111,6 +1427,12 @@ export class MasterBrain {
           if (R() < 0.5) this.my = -1;
           else { this.keep.delete('guard'); this.tap('light'); this.route = {}; }
         }
+        // showman: read their approach and spot dodge before anything starts (a jab or throw whiffs into it,
+        // a delayed attack catches the recovery); a reaction would come too late for a 5-12 frame normal
+        else if (S.show >= 0.5 && !p.read && c.dist < 1.7 && (o.state === 'run' || o.state === 'dash') && f.state === 'guard' && R() < 0.04 * this.show.bias('spotDodge')) {
+          p.read = true;
+          this.my = -1;
+        }
         if (c.dist > 3.5) p.done = true;
         return;
       case 'bait': {
@@ -1127,7 +1449,7 @@ export class MasterBrain {
       case 'space': {
         // footsies at the edge of their reach, with little wavedash steps in and out
         const want = Math.abs(c.sx) - p.gap;
-        if (Math.abs(want) > 0.6 && p.t % 20 === 5 && R() < S.wavedash) {
+        if (Math.abs(want) > 0.6 && p.t % 20 === 5 && R() < S.wavedash && !p.wd && (p.wd = true)) {
           this.wavedash(c.toward * Math.sign(want), Math.abs(c.sd) > 0.3 ? Math.sign(c.sd) * 0.5 : 0);
           return;
         }
@@ -1157,8 +1479,26 @@ export class MasterBrain {
       }
       case 'charge':
         if (c.dist < 4.5 || f.ki >= p.kiGoal) { p.done = true; return; }
-        this.keep.add('special');
+        this.holdCharge();
         return;
+      case 'powerUp': {
+        // make room first (a wavedash or back dash out), then charge; the charge stops by itself when they come
+        if (f.ki >= p.kiGoal || (p.charged && c.dist < 4.5)) { p.done = true; return; }
+        if (c.dist < 5 && !p.charged) {
+          if (!p.moved) {
+            p.moved = true;
+            if (R() < S.wavedash) this.wavedash(-c.toward, 0);
+            else { this.mx = -c.toward; this.tap('dash', 2); }
+            return;
+          }
+          this.mx = -c.toward;
+          if (c.myRoom < 1.2 || p.t > 60) p.charged = true; // cornered or slow: charge from here anyway
+          return;
+        }
+        p.charged = true;
+        this.holdCharge();
+        return;
+      }
       case 'mode':
         if (!p.fired && p.slot) { p.fired = true; this.special(p.slot, 2); }
         p.done = p.t > 4;
@@ -1182,17 +1522,38 @@ export class MasterBrain {
         return;
       }
       case 'kit': {
-        // mid-range kit tools: pull them in, teleport behind, or a rush from the edge of its range
-        const opts = [];
-        for (const sl of SLOTS) {
-          const m = specialFor(f.def, sl);
-          if (!m || f.ki < (m.cost ?? 0) + 50) continue;
-          if (m.kind === 'pull' && c.dist > 1.4 && c.dist < 4.5) opts.push(sl);
-          if (m.kind === 'teleport' && m.follow && c.dist > 2.5) opts.push(sl);
-          if (m.kind === 'rush' && c.dist > 2 && c.dist < 5.5 && Math.abs(c.sd) < 0.6) opts.push(sl);
+        // mid-range kit tools: pull them in, teleport behind, a rush from the edge of its range, a dive leap;
+        // the one the viewer hasn't seen is likelier
+        const opts = this.kitOptions(c);
+        if (opts.length && !p.fired) {
+          p.fired = true;
+          const w = {};
+          for (const k of opts) w[k.slot] = k.w;
+          this.special(pickW(w), 2);
         }
-        if (opts.length && !p.fired) { p.fired = true; this.special(opts[Math.floor(R() * opts.length)], 2); }
         p.done = true;
+        return;
+      }
+      case 'airShot': {
+        // jump (backward when they're close), the air special comes out near the top (airStep)
+        if (p.jumped) { p.done = f.state !== 'jumpSquat' && !f.air; return; }
+        if (Math.abs(c.sd) > 0.5 && p.t < 20) { this.my = Math.sign(c.sd); return; }
+        p.jumped = true;
+        const dive = specialFor(f.def, p.slot)?.kind === 'dive';
+        this.mx = dive ? c.toward : c.dist < 3.5 ? -c.toward : 0;
+        this.tap('jump', 2);
+        return;
+      }
+      case 'big': {
+        if (p.fired) { p.done = p.t > p.firedAt + 4; return; }
+        if (f.ki < 300 || !p.tool) { p.done = true; return; }
+        // a flurry needs them in its dash range; the rest work from anywhere (Kirin marks their spot,
+        // Amaterasu needs only sight, the Domain takes the whole stage)
+        const S = SUPERS[p.tool === 'super' ? kitOf(f.def).super : kitOf(f.def).ultimate];
+        if (S?.kind === 'flurry' && (c.dist > (S.range ?? 6) - 1 || Math.abs(c.sd) > 0.8) && p.t < 30) { this.approach(c, 2.5); return; }
+        p.fired = true;
+        p.firedAt = p.t;
+        this.fireBig(p.tool);
         return;
       }
     }

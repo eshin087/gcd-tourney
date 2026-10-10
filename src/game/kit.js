@@ -457,7 +457,9 @@ const UPDATE = {
       f.vel.set(d.x * 24, 0, d.y * 24);
       f.actor.setPhase('dash', 1, 0.5);
       if (k.t0 % 2 === 0) f.actor.ghost(S.color, 0.3, 0.6);
-      const hit = f.distTo() < 1.4 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3) && !o.ko && !o.hidden && o.invuln <= 0;
+      const reach = f.distTo() < 1.4 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3);
+      if (reach && o.evading) g.onEvade(o);
+      const hit = reach && !o.ko && !o.hidden && o.invuln <= 0;
       if (hit) {
         k.phase = 'hits';
         k.t0 = 0;
@@ -538,7 +540,10 @@ const UPDATE = {
         g.hud.callout(f.index, S.callout ?? S.name, S.color);
         g.fx.overlay.flash('#000000', 0.5);
         audio.play('fireball', 1.2);
-      } else g.hud.callout(f.index, 'MISS', S.color);
+      } else {
+        g.hud.callout(f.index, 'MISS', S.color);
+        if (o.evading) g.onEvade(o);
+      }
     }
     if (k.t0 >= S.delay + S.recovery) finish(f);
   },

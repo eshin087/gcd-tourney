@@ -1,0 +1,105 @@
+// Showcase (ADR 0016): the part of a CPU that wants to *show* its kit. It keeps a match-long record of
+// which tools this fighter has used (every kit special, the second super, the ultimate, and the system
+// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge) and turns it into
+// weights, so a brain's planners prefer what the viewer hasn't seen yet. It only watches its own fighter's
+// state (what the screen shows) and never presses a button: each brain still decides whether a tool is a
+// real option right now, so the fight stays real while the variety goes up.
+import { SUPERS } from './moves.js';
+import { kitOf, specialFor } from './kit.js';
+
+const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
+const AIR_SLOTS = ['air', 'airDown'];
+export const TECH = ['vanish', 'superDash', 'wavedash', 'parry', 'spotDodge', 'airDodge', 'throw', 'charge'];
+const ENTER = { dodge: 'spotDodge', airDodge: 'airDodge', wavedash: 'wavedash', vanish: 'vanish', superDash: 'superDash', throw: 'throw', charge: 'charge', beamCharge: 'beam' };
+
+// Weighted pick from { key: weight }; null when every weight is 0.
+export function pickW(w) {
+  let total = 0;
+  for (const k in w) total += Math.max(0, w[k] || 0);
+  if (total <= 0) return null;
+  let r = Math.random() * total;
+  for (const k in w) if ((r -= Math.max(0, w[k] || 0)) <= 0) return k;
+  return null;
+}
+
+// A special's tool id: its name (a ground move and its air version share one), else its projectile.
+export const specialId = (m) => 'sp:' + (m.name ?? m.proj ?? m.kind);
+
+// The tools a fighter has: { id: { kind, m, ground, air } } where ground / air are the special slots that fire
+// it (the same move on two slots, like a dive on ↑ and air ↓, is one tool).
+export function toolsOf(def) {
+  const tools = {};
+  const add = (slot, air) => {
+    const m = specialFor(def, slot);
+    if (!m) return;
+    const id = specialId(m);
+    const t = tools[id] || (tools[id] = { kind: m.kind, m, ground: null, air: null });
+    if (air && !t.air) t.air = slot;
+    if (!air && !t.ground) t.ground = slot;
+  };
+  for (const s of SLOTS) add(s, false);
+  for (const s of AIR_SLOTS) add(s, true);
+  const K = kitOf(def);
+  if (SUPERS[K.super]) tools.super = { kind: SUPERS[K.super].kind, m: SUPERS[K.super] };
+  if (SUPERS[K.ultimate]) tools.ultimate = { kind: SUPERS[K.ultimate].kind, m: SUPERS[K.ultimate] };
+  else tools.beam = { kind: 'beam' }; // Heavy + Special fires the shared beam (and SUPER does too without a second super)
+  for (const id of TECH) tools[id] = { kind: 'tech' };
+  return tools;
+}
+
+export class Showcase {
+  // push 0..1: how hard unused tools are preferred (0 = no effect, the brain's own weights only)
+  constructor(fighter, push = 0) {
+    this.f = fighter;
+    this.push = push;
+    this.tools = toolsOf(fighter.def);
+    this.used = {}; // tool id -> times used this match
+    this.lastState = '';
+    this.lastMove = null;
+    this.parries = fighter.parries ?? 0;
+  }
+
+  note(id) {
+    if (id && this.tools[id]) this.used[id] = (this.used[id] || 0) + 1;
+  }
+
+  // Once per frame, before the brain thinks: notice what our fighter just started.
+  watch() {
+    const f = this.f, s = f.state;
+    if (s !== this.lastState) {
+      if (ENTER[s]) this.note(ENTER[s]);
+      if (s === 'kit' && f.kitState) {
+        const k = f.kitState, K = kitOf(f.def);
+        if (k.m === SUPERS[K.super]) this.note('super');
+        else if (k.m === SUPERS[K.ultimate]) this.note('ultimate');
+        else if (k.m) this.note(specialId(k.m));
+      }
+    }
+    // rush specials and shots run as attacks (their data is a copy, so match by name)
+    if (s === 'attack' && f.move !== this.lastMove && (f.moveName === 'special' || f.moveName === 'shot' || f.moveName === 'throw')) {
+      this.note(specialId(f.move));
+    }
+    if ((f.parries ?? 0) !== this.parries) {
+      this.parries = f.parries;
+      this.note('parry');
+    }
+    this.lastState = s;
+    this.lastMove = s === 'attack' ? f.move : null;
+  }
+
+  // Weight multiplier for a tool: 1 + 3·push for one the viewer hasn't seen, falling toward 1 with each use.
+  bias(id) {
+    if (!this.push) return 1;
+    const n = this.used[id] || 0;
+    return 1 + (this.push * 3) / (1 + n * 2);
+  }
+
+  fresh(id) {
+    return !(this.used[id] > 0);
+  }
+
+  // Tools not shown yet, for the soak report (docs/TESTING.md) and debugging.
+  unseen() {
+    return Object.keys(this.tools).filter((id) => !this.used[id]);
+  }
+}
