@@ -1,0 +1,55 @@
+{
+  "url": "https://gcd-tourney.vercel.app/art-review/naruto/final/index.html",
+  "commit": "a416f9a",
+  "checks": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 6739,
+      "match": true
+    },
+    {
+      "file": "anims.json",
+      "status": 200,
+      "bytes": 13025,
+      "match": true
+    },
+    {
+      "file": "sheet.png",
+      "status": 200,
+      "bytes": 2908677,
+      "match": true
+    },
+    {
+      "file": "portrait.png",
+      "status": 200,
+      "bytes": 11071,
+      "match": true
+    },
+    {
+      "file": "cutin.png",
+      "status": 200,
+      "bytes": 86983,
+      "match": true
+    },
+    {
+      "file": "select.png",
+      "status": 200,
+      "bytes": 106379,
+      "match": true
+    },
+    {
+      "file": "QA.md",
+      "status": 200,
+      "bytes": 4602,
+      "match": true
+    }
+  ],
+  "mobile": {
+    "choices": 42,
+    "width": 390,
+    "documentWidth": 390,
+    "images": true
+  },
+  "errors": []
+}

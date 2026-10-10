@@ -14,7 +14,7 @@ _Last updated by Claude, 2026-10-09: Codex work now goes through one inbox file 
 Read docs/agents/CODEX_INBOX.md and do the section for your thread.
 ```
 
-1. **Naruto: final batch review.** All 42 animations (175 frames) and 3 UI images are prepared. Review https://gcd-tourney.vercel.app/art-review/naruto/final/ once published, then reply `approve Naruto final batch` or list changes. Approved short-hair references, idle and run remain approved. See production/QA.md for visual limitations.
+1. **Naruto: one final approval.** The complete set is live: https://gcd-tourney.vercel.app/art-review/naruto/final/index.html — 42 animations / 175 frames and 3 UI images. Browser, mobile layout, strict pack and build checks passed. Review the pose/reach caveats, then reply `approve Naruto final batch` or list changes.
 2. **Gojo: complete batch approved.** All 42 animations / 175 frames, model v03, expressions v02 and 3 UI assets are promoted. Blink animation integration implemented. See art/characters/gojo/production/QA.md.
    reply in the Gojo thread: `approve gojo model_sheet v02`. Then review his expressions v01.
 3. **Review the other art waiting for you** (list below, generated): reply in the Codex thread that owns it,
