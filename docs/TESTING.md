@@ -14,7 +14,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | URL | Use |
 |---|---|
 | `/` | normal boot: title, mode select, char select |
-| `/?fight=naruto,sasuke&mode=solo&level=hard` | skip menus into a VS CPU match (`level` = easy, normal or hard) |
+| `/?fight=naruto,sasuke&mode=solo&level=hard` | skip menus into a VS CPU match (`level` = easy, normal, hard or impossible) |
+| `/?fight=naruto,sasuke&mode=cpu` | spectate CPU vs CPU (defaults to `level=impossible`, showman style) |
 | `/?fight=naruto,sasuke&mode=versus` | skip into a 2P match |
 | `&debug` | expose console helpers (below) |
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
@@ -138,6 +139,23 @@ Run this for every new or re-packed character (`?fight=<id>,<other>&art=custom&d
 - [ ] The special's hand effect lines up with the drawn hand. The projectile leaves from the hand.
 - [ ] The portrait (HUD), cut-in (ultimate) and select art show correctly.
 - [ ] A mirror match (same character on both sides) is tinted and readable.
+
+## IMPOSSIBLE CPU and defensive options (ADR 0014)
+
+Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open `/?fight=naruto,sasuke&debug`.
+
+1. **Mechanics by hand** (`freezeCpu()` first): Guard + tap S → `dodge` with 13 invulnerable frames; Space then
+   Shift + D → `wavedash` slide (~1.6 units); jump, wait, Shift → `airDodge`; with P2 scripted to Heavy, press
+   Guard 2-5 frames before its frame 12 → "PARRY!" and P2 `held`; 10 frames early → a normal block.
+2. **Honest-dummy combo lab**: replace P2's brain with one that stands until hit, then holds Guard for 45 frames and
+   presses Jump every other frame while launched or down (so only true combos count). Log P1's moves while
+   `b.combo > 0`. Expect meterless routes around 230-295 and no route ending in a blocked special.
+3. **Air-string link check**: P1 IMPOSSIBLE vs a frozen P2, 3 launcher routes per pairing, all 16 pairings:
+   `airLight2` and `airHeavy` should connect in at least 90 % of attempts.
+4. **Defense check**: script P1 to throw Heavy / Rasengan at the CPU from 1.1 / 3.0 units. Expect a mix of
+   parry, spot dodge and block, no clean hits, and a punish after parries and blocked Heavies.
+5. **CPU vs CPU**: the soak below with `mode=cpu` (both IMPOSSIBLE, showman). Rounds should end by KO in about
+   15-40 s, with wavedashes, parries, vanishes and supers showing up, and no stuck states.
 
 ## Soak (CPU vs CPU)
 

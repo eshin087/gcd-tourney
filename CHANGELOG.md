@@ -27,6 +27,19 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
+- **IMPOSSIBLE CPU level** (VS CPU and CPU vs CPU, `?level=impossible`): a frame-data brain (`src/game/aiMaster.js`)
+  that times parries, spot dodges and air dodges against what it sees coming, punishes whiffs and blocked big moves,
+  runs each kit's max-damage routes with a lethal check (supers, Amaterasu, vanish and super dash extensions),
+  wavedashes for spacing, times meaty attacks on wake-up and anti-airs. It only presses buttons and reacts after 7
+  frames, so jabs and mix-ups stay guesses. CPU vs CPU now defaults to it in a louder "showman" style (ENG-043,
+  ADR 0014).
+- **Parry, spot dodge, air dodge and wavedash** on the Guard button: tap Guard ≤ 6 frames before a hit to parry
+  (attacker staggers; 24-frame lockout per press, re-armed by a parry), Guard + ↓ to spot dodge, Guard in the
+  air to air dodge (+ direction), and Jump → Guard + direction to wavedash, with the slide's momentum carried into
+  the next move (ENG-042, ADR 0014).
+- **CPU vs CPU** spectator mode works end to end: SELECT MODE → CPU VS CPU or `?mode=cpu` arms both sides, the
+  pad bindings stay off, the hint bar shows only how to pause, and touch screens keep just the pause button
+  (ENG-041).
 - **All world art is in the game** (the user approved every existing world-art image on 2026-10-10): hand-drawn
   hit effects replace the procedural ones (15 effects), 576 anime spectators fill the stands (including the
   Killua and Gojo cameos, kept at the user's request), the tournament grounds use the 30 painted stage textures,
@@ -120,6 +133,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- CPU level picker has a fourth step, IMPOSSIBLE; CPU vs CPU starts on it. Hard's guard reaction now lands
+  inside the parry window against raw launchers, so Hard parries some of them (ADR 0014).
 - World art is approval-gated: `npm run sprites` ships only world-art items with an `approvedVersion`, at that
   version; candidates wait in `art/` and can be previewed locally with `--candidates` + `?art=custom`. An unreadable
   manifest never un-ships art (ADR 0012).
@@ -151,6 +166,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Air combos no longer drop on the art packs: a launched pose leans back, so `airLight2` whiffed on Naruto and the
+  `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and
+  during the next move's startup, and the spike's box pad is wider; the air string connects ~97 % across all 16
+  pairings (ADR 0014).
 - Character select fits a landscape phone: the full kit move list was cut off below 480 px of height.
 - Docs: spec v2 sheets are 4096 × 2816 (42 animations / 175 frames), not 4096 × 2560.
 - Minimum hurtbox width (0.56 units) so a slim art pack can't make a fighter hard to hit (Killua's art: 75 % → 42 % CPU wins).

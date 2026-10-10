@@ -157,6 +157,11 @@ export class TouchControls {
     if (!v) this.reset();
   }
 
+  // Spectating (CPU vs CPU): only the pause button stays; the stick and buttons would drive nobody.
+  setSpectate(v) {
+    this.root.classList.toggle('spectate', v);
+  }
+
   // dim ULT / VANISH when there isn't enough ki (per rendered frame)
   setKi(ki) {
     this.btns.ult.classList.toggle('off', ki < 300);

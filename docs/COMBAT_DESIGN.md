@@ -51,6 +51,10 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Ultimate | Heavy + Special | △ + ○ |
 | Vanish | Guard + Special | L1 + ○ |
 | Super (second super) | H or B | L2 / LT |
+| Parry | tap Guard just before a hit lands | tap L1 |
+| Spot dodge | Guard + push ↓ | L1 + stick ↓ |
+| Air dodge (+direction) | Guard in the air | L1 in the air |
+| Wavedash | Jump, then Guard + direction right away | ✕ then L1 + stick |
 
 Adding SUPER took L2/LT from guard. Bindings moved to a new localStorage key (`gcd.bindings.v2`), so saved
 custom bindings reset once.
@@ -73,7 +77,7 @@ phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is befo
 | airLight1 | Light (air) | 4 | 4 | 9 | 17 | 24 | 1.4 / 1.0 | 7 | air pop 6.2 | chains to airLight2 from f7 |
 | airLight2 | Light (chain) | 4 | 4 | 10 | 18 | 26 | 1.45 / 1.0 | 7 | air pop 6.4 | chains to airLight3 from f8 |
 | airLight3 | Light (chain) | 6 | 4 | 14 | 24 | 40 | 1.55 / 1.05 | 11 | launch [12, 4.5] | knock-away, **wall bounce** |
-| airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce**, yTol 2.4 |
+| airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce**, yTol 2.4, `boxPad` [0.5, 0.45] |
 | throw | Special (air) | 8 | 3 | 14 | 25 | (projectile) | | | | costs 50 ki; spawns the projectile at f8 |
 | vanishKick | after Vanish | 2 | 5 | 20 | 27 | 75 | 1.7 / 1.15 | 16 | launch [17, 6.5] | uses the `light4` anim, wall bounce |
 | super dash | Dash (neutral) | | contact | | ≤ 42 | 38 | contact < 1.0 | 9 | stun 26, air pop 7 | homing at 18 u/s, projectile-invulnerable |
@@ -101,6 +105,8 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
   `cancel` frame, with a 10-frame input buffer.
 - On hit, a light can cancel into **heavy** (the launcher), so `Light ×3 → Heavy` is the core route.
 - On hit, a ground normal can cancel into the **signature special** if Special was pressed and there's 1 bar.
+  Known gap (ADR 0014): after light3 (22 f stun) the rush specials (Rasengan 24, Chidori 28, Rasenshuriken 30 f
+  startup) land after the stun ends, so a defender holding Guard blocks them. Shots, Rhythm Echo and Red do combo.
 
 ### Launcher and chase
 - `heavy` hops and launches the victim upward ([2.4, 15.5]).
@@ -111,6 +117,9 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
 - In the air: airLight1 → airLight2 → airLight3 (knock-away, wall bounce), or cancel any air light into
   **airHeavy** on hit.
 - Air attacks hover. Gravity is 0.35× and upward speed is damped, so the attacker stays level with the victim.
+- **Juggle tracking** (ADR 0014): while riding a connected air hit, and during the next air move's startup, the
+  attacker closes to `JUGGLE_GAP` (0.76, just outside `Game.separate`'s 0.72). A launched pose leans back, so its
+  hurtbox starts behind the victim's feet; without this the air string dropped on the art packs.
 
 ### Spike and ground bounce
 - `airHeavy` spikes downward ([3, -22]). A spiked victim that hits the floor **ground-bounces** back up
@@ -253,6 +262,19 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - Hold Guard while **facing the attacker** (block is directional). Chip damage is 10% (30% for beams) and
   never kills. Block stun is `hitstun × 0.6 (+8 for big moves)`, pushback applies, and the attacker shares 70%
   of the hitstop. Unblockable: beam-clash results, special clashes.
+- There is no throw or guard break yet, so a defender who holds Guard can only be hit by unblockable supers
+  (open question, ADR 0014).
+
+### Defensive options: parry, spot dodge, air dodge, wavedash (ADR 0014)
+All free, all on Guard, numbers in `DEFENSE` (`src/game/moves.js`). They reuse existing poses (no new animation
+names yet) with ghosts and a blue intangibility shimmer.
+
+| Option | Input | Frames and rules |
+|---|---|---|
+| Parry | Guard pressed ≤ 6 f before a blockable hit lands (from idle, run, guard or block stun) | no damage, chip or block stun, the defender acts at once, +12 ki, "PARRY!" and a 7 f world freeze. A melee attacker is staggered (`held`) 16 f, 24 f after a big move or special; a projectile is swatted away. Not against beams, unblockables or a kit counter stance. **Lockout**: every Guard press starts 24 f in which a new press is only a block, so mashing Guard never parries; a successful parry re-arms at once, so a string can be parried hit by hit. |
+| Spot dodge | in Guard, push ↓ (an edge within 3 f; holding ↓ from before doesn't count) | 24 f, intangible on frames 2-14, then 9 f of recovery. Staleness: each dodge within 150 f of the last adds 4 recovery frames, up to 3 times. |
+| Air dodge | Guard in the air, once per airtime (landing or getting hit gives it back; works after an air attack) | 30 f, intangible on frames 2-17, no gravity while intangible. With a direction: burst at 12.5 u/s that way, angled down 6.5 u/s (24 u/s below 0.95 units, so a dodge right after takeoff meets the floor); neutral: hover. Landing in a neutral dodge costs 10 f of lag. Special within 3 f turns it into a vanish. |
+| Wavedash | a directional air dodge that meets the floor, or Guard pressed with Jump (from 2 f before the jump squat) | slide on the floor (friction 0.875 per frame, ~1.6 units), facing the opponent, invulnerability ends on landing. Acts from frame 5 of 16; an attack, guard, special or charge started from the slide keeps its momentum (`carry`). Jump + Guard with no direction lands on the spot with 10 f of lag. |
 
 ### Knockdown and wake-up
 - A launched victim that lands goes `down` (invulnerable). Get up automatically after 40 frames, or press any
@@ -318,6 +340,21 @@ always punishes a `held` or popped-up opponent with a combo. Fighters with a kit
 than legacy fighters. At 3 bars they split between the second super (if its `range` allows) and the
 ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
 the CPU dashes out of a Kirin mark.
+
+**IMPOSSIBLE** (ADR 0014) is a separate brain, `MasterBrain` in `src/game/aiMaster.js`, chosen by
+`makeBrain(fighter, level, spectate)` in `ai.js`. It still only presses buttons, and it reads what the screen
+shows (states, frames, positions), never the opponent's Pad. Each frame, in order: recover (tech at the first
+legal frame, varied wake-up), its own move (hit-confirmed routes: specials only when they land before the
+victim's stun runs out, spike while the super dash can follow the bounce, super dash and vanish extensions, a
+lethal check that spends supers and ultimates), threats (when and whether the opponent's move can reach it,
+seen after `react` frames, answered once with a timed parry, a spot dodge that leaves a punish, block, super
+dash through projectiles, counter, vanish, counter-beam, depth sidestep or air dodge), punishes (the
+opponent's remaining recovery against jab, dash-in light, shots, teleports or a lethal super), wake-up meaties
+and anti-airs, then neutral plans (approach by walk / dash / wavedash / super dash, pressure, guard with parry
+fishing, bait, wavedash footsies, jump-ins with an air-dodge mix-up, zoning, charging, modes, beams).
+`STYLES` hold the fairness knobs: `impossible` (vs a player: sees an attack after 7 f, parries about half the
+time) and `showman` (CPU vs CPU: riskier, saves meter some rounds for a beam or super, more wavedashes).
+CPU vs CPU defaults to IMPOSSIBLE.
 
 ## Bread-and-butter route (reference)
 

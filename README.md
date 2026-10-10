@@ -39,8 +39,13 @@ Then open http://127.0.0.1:5188
 
 ## Modes
 
-- **VS CPU**: pick your fighter and the CPU's (Easy / Normal / Hard)
+- **VS CPU**: pick your fighter and the CPU's (Easy / Normal / Hard / **Impossible**). Impossible reads frame
+  data: it parries and dodges what it sees coming, punishes whiffs, runs max-damage routes and wavedashes around
+  you. It only reacts to what's on screen, so fast jabs and mix-ups are guesses for it too.
 - **2 Players**: shared keyboard, or two gamepads
+- **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
+  (in its louder showman style), so you see what the engine can do; Esc / Start pauses and the results screen
+  offers a rematch
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time
@@ -82,6 +87,12 @@ custom keys.
   their beam to start a **beam clash** and mash.
 - **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
 - **Air recover**: press any button while launched (hitstun decay makes long combos escapable).
+- **Parry**: tap Guard just before a hit lands (6-frame window). No damage, and a melee attacker staggers, so
+  punish. Mashing Guard doesn't work: each press locks parries out for 24 frames, but a parry re-arms at once.
+- **Spot dodge**: hold Guard and push ↓. Briefly intangible, then a short recovery (gets slower if you spam it).
+- **Air dodge**: Guard in the air, once per jump, with a direction to dodge that way.
+- **Wavedash**: Jump, then right away Guard + a direction: you air dodge into the floor and slide. Attack out of
+  the slide and the momentum carries into it.
 - KO with a big hit sends the loser flying out of the ring into the stands.
 - Esc / P / Start: pause. M (or the small speaker toggle in the top corner): mute.
 - A gamepad only takes control after you press one of its buttons, so an idle controller with a
@@ -155,7 +166,8 @@ docs/          architecture, combat design, workflows, ADRs, task board
 
 ## Dev shortcuts
 
-- `/?fight=naruto,sasuke&mode=solo&level=hard` skips the menus and starts a match.
+- `/?fight=naruto,sasuke&mode=solo&level=hard` skips the menus and starts a match (`level` = easy, normal, hard
+  or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
 - `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
 - `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
   `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,

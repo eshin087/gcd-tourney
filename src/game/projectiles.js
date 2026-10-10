@@ -233,10 +233,10 @@ export class Projectile {
       } else if (this.P.trail === 'bolt') {
         fx.spawn('lightning', this.pos.x, this.pos.y, this.pos.z, { scale: 1.3, random: true, life: 0.18, color: 0xffffff, order: 9, glow: 2 });
         fx.hitSpark(this.pos.x, this.pos.y, this.pos.z, true, 0xbfe6ff);
-        audio.play(r === 'block' ? 'block' : 'hitHeavy', 0.8);
+        audio.play(r === 'hit' ? 'hitHeavy' : 'block', 0.8);
       } else {
         fx.hitSpark(this.pos.x, this.pos.y, this.pos.z, false);
-        audio.play(r === 'block' ? 'block' : 'hit', 0.8);
+        audio.play(r === 'hit' ? 'hit' : 'block', 0.8);
       }
       this.kill();
     }
