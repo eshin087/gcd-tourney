@@ -55,6 +55,7 @@ Full write-up: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 ```
 index.html, src/main.js     game entry: renderer + input + Game, rAF loop, ?fight= / ?debug helpers
 sprites.html, src/spriteLab.js   Sprite Lab: preview baked anims, copy ChatGPT prompts, import strips
+lab.html, src/lab/   Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools
 src/core/      renderer.js (low-res render + nearest upscale, bloom, grade), input.js (keyboard/gamepad/touch -> Pad),
                touch.js (on-screen joystick + buttons for phones), artIndex.js (prod list of packed art),
                audio.js (WebAudio synth: sfx, loops, music, crowd; no audio files)
@@ -148,6 +149,8 @@ Full checklist: [docs/TESTING.md](docs/TESTING.md).
    leaving the ring outside a KO.
 5. `npm run build` must pass.
 6. When something visual changed, take a screenshot (`snap()` first) and look at it. Don't guess.
+7. For moves and shared mechanics, the test lab (`/lab.html`) plays them in one tap; add a scenario to
+   `src/lab/scripts.js` when you add a mechanic.
 
 ## Definition of done
 

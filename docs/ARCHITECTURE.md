@@ -5,7 +5,8 @@ and audio plug in. Keep this file true. If you change a flow described here, upd
 change.
 
 - Stack: **Three.js 0.170 + Vite 6**, plain JavaScript ES modules, no other runtime dependencies.
-- Two HTML entries: `index.html` (the game, `src/main.js`) and `sprites.html` (Sprite Lab, `src/spriteLab.js`).
+- HTML entries: `index.html` (the game, `src/main.js`), `sprites.html` (Sprite Lab, `src/spriteLab.js`), `art-review.html`, and
+  `lab.html` (the test lab, `src/lab/`: the training room plus scripted moves and scenarios on the fighters' pads, ADR 0018).
 - Dev tooling: `tools/pack-sprites.mjs` (Node + `pngjs`) packs `art/` into `public/`. It reads the art spec
   (cell, pivot, PPU) from the `spec` block in `art/manifest.json` and packs the highest `_vNN` version of
   each raw image.
