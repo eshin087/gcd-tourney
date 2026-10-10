@@ -903,4 +903,3 @@ QA: feet identical and the body still in all 4 frames; the tallest frame is 208 
 Mangekyō reads on the packed frames (see §5).
 
 ---
-
