@@ -105,6 +105,8 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
   (`~/.codex/worktrees/...`) as long as it is on a named branch (`art/...` or `codex/...`) and opens the PR with
   `npm run pr -- open` from there. A new character's PR plan is in
   [ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md#0-plan-user--claude).
+- **Preview before merge** ([ADR 0018](decisions/0018-preview-deploys-and-test-lab.md)): after `npm run pr -- open`, run
+  `npm run pr -- preview` and give the user the preview link; they try it on their phone and say "merge".
 - **One owner per branch.** Claude and Codex never commit to the same branch.
 - **Base every PR on `main`.** Stack one PR on another only when it truly depends on it, and say so in the PR body
   ("stacked on #N, merge #N first").
