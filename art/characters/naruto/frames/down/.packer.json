@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/down_v01.png",
-  "version": 1,
+  "sourceFile": "raw/down_v02.png",
+  "version": 2,
   "source": [
-    "characters/naruto/raw/down_v01.png"
+    "characters/naruto/raw/down_v02.png",
+    "characters/naruto/raw/down_v02.json"
   ],
-  "sourceHash": "ff9702159397547cd3c68416c01aa114fd5f3a77",
+  "sourceHash": "4eaee3da3143768b5a980bd3c41eb90a3d51b3b3",
   "bodyHeight": 96,
   "cell": {
     "frameWidth": 256,
@@ -17,7 +18,7 @@
     ]
   },
   "files": {
-    "down_00.png": "abce84d2291550e9bebbc47cf5294adc22ab0468",
-    "down_01.png": "ffadde93020a93db4f85f0bdee0b6dbeb310bd3c"
+    "down_00.png": "44df7f11bdf382591014b2af4baa4f71584c1fdf",
+    "down_01.png": "1f8767375475e1427b13ad30ebc49ceff4cef919"
   }
 }

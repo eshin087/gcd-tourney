@@ -900,6 +900,9 @@ function main() {
     fs.writeFileSync(raw, JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 31, sourceHeadPx: [0] } }));
     const invalid = pack([...base, 'anchor']);
     check(anyWarn(invalid.json.characters[0].warnings, /anatomy requires/), 'anatomy: invalid or incomplete measurements warn instead of silently claiming calibration');
+    fs.writeFileSync(raw, JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 20, sourceHeadPx: [62, 80] } }));
+    const compact = pack([...base, 'anchor']);
+    check(compact.code === 0 && !anyWarn(compact.json.characters[0].warnings, /anatomy requires/), 'anatomy: approved compact heads are valid without forcing a universal 31px target');
   }
 
   // run 5: missing art root, dry run

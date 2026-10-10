@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/hurtHigh_v01.png",
-  "version": 1,
+  "sourceFile": "raw/hurtHigh_v02.png",
+  "version": 2,
   "source": [
-    "characters/killua/raw/hurtHigh_v01.png"
+    "characters/killua/raw/hurtHigh_v02.png",
+    "characters/killua/raw/hurtHigh_v02.json"
   ],
-  "sourceHash": "a3ec306f62aa7cc6e1f1b8bc5394908bc69bb280",
+  "sourceHash": "1813c35d869e11f1a5a25241af3555528fbbff6d",
   "bodyHeight": 177,
   "cell": {
     "frameWidth": 256,
@@ -17,8 +18,8 @@
     ]
   },
   "files": {
-    "hurtHigh_00.png": "021dd42377762e6258db5702ee8a3ddc6b51fd90",
-    "hurtHigh_01.png": "88f8d56dfbbf6e2c3711d9e4c7582f71fd43335f",
-    "hurtHigh_02.png": "9e18bc79e1026476b144701ff7ebb6da26c1a665"
+    "hurtHigh_00.png": "680862db93af53b9d33aa489fe772fae139bf4b2",
+    "hurtHigh_01.png": "2ecef98771a9b9ed46c82c5a888f4675a9bf2ec0",
+    "hurtHigh_02.png": "719c318142d26f7710c155ba5d0f52dc3cdbb09c"
   }
 }

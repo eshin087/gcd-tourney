@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/getup_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/getup_v01.png"
+  ],
+  "sourceHash": "c8e69dfe54990dd89059100411c232cdff8b078c",
+  "bodyHeight": 204,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "getup_00.png": "3ffe3e879f8d06c75dd3495e846fb35072049df6",
+    "getup_01.png": "f09d3a065376bc90577a1fd70f752426c74479ce",
+    "getup_02.png": "15864c8c034883e7b21ebcfe3fdd8d218666f0b1",
+    "getup_03.png": "a2b8fccb8078175f09e8d9e0ec6346446a635deb",
+    "getup_04.png": "358bf90fc7830452a7a48b2688a91d4c8e5686e2"
+  }
+}

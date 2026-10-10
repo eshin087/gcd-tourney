@@ -1,0 +1,298 @@
+{
+  "naruto": [
+    {
+      "file": "art/scale/all-frames/naruto-1.png",
+      "rows": [
+        "idle",
+        "run",
+        "dash",
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "jumpUp"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/naruto-2.png",
+      "rows": [
+        "jumpFall",
+        "land",
+        "light1",
+        "light2",
+        "light3",
+        "light4",
+        "heavy"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/naruto-3.png",
+      "rows": [
+        "airLight1",
+        "airLight2",
+        "airLight3",
+        "airHeavy",
+        "guard",
+        "block",
+        "hurtHigh"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/naruto-4.png",
+      "rows": [
+        "hurtLow",
+        "launched",
+        "spin",
+        "airRecover",
+        "down",
+        "getup",
+        "charge"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/naruto-5.png",
+      "rows": [
+        "throw",
+        "beamCharge",
+        "beamFire",
+        "vanish",
+        "stagger",
+        "ko",
+        "special"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/naruto-6.png",
+      "rows": [
+        "intro",
+        "taunt",
+        "win",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose"
+      ]
+    }
+  ],
+  "sasuke": [
+    {
+      "file": "art/scale/all-frames/sasuke-1.png",
+      "rows": [
+        "idle",
+        "run",
+        "dash",
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "jumpUp"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/sasuke-2.png",
+      "rows": [
+        "jumpFall",
+        "land",
+        "light1",
+        "light2",
+        "light3",
+        "light4",
+        "heavy"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/sasuke-3.png",
+      "rows": [
+        "airLight1",
+        "airLight2",
+        "airLight3",
+        "airHeavy",
+        "guard",
+        "block",
+        "hurtHigh"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/sasuke-4.png",
+      "rows": [
+        "hurtLow",
+        "launched",
+        "spin",
+        "airRecover",
+        "down",
+        "getup",
+        "charge"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/sasuke-5.png",
+      "rows": [
+        "throw",
+        "beamCharge",
+        "beamFire",
+        "vanish",
+        "stagger",
+        "ko",
+        "special"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/sasuke-6.png",
+      "rows": [
+        "intro",
+        "taunt",
+        "win",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose"
+      ]
+    }
+  ],
+  "killua": [
+    {
+      "file": "art/scale/all-frames/killua-1.png",
+      "rows": [
+        "idle",
+        "run",
+        "dash",
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "jumpUp"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/killua-2.png",
+      "rows": [
+        "jumpFall",
+        "land",
+        "light1",
+        "light2",
+        "light3",
+        "light4",
+        "heavy"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/killua-3.png",
+      "rows": [
+        "airLight1",
+        "airLight2",
+        "airLight3",
+        "airHeavy",
+        "guard",
+        "block",
+        "hurtHigh"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/killua-4.png",
+      "rows": [
+        "hurtLow",
+        "launched",
+        "spin",
+        "airRecover",
+        "down",
+        "getup",
+        "charge"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/killua-5.png",
+      "rows": [
+        "throw",
+        "beamCharge",
+        "beamFire",
+        "vanish",
+        "stagger",
+        "ko",
+        "special"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/killua-6.png",
+      "rows": [
+        "intro",
+        "taunt",
+        "win",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose"
+      ]
+    }
+  ],
+  "gojo": [
+    {
+      "file": "art/scale/all-frames/gojo-1.png",
+      "rows": [
+        "idle",
+        "run",
+        "dash",
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "jumpUp"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/gojo-2.png",
+      "rows": [
+        "jumpFall",
+        "land",
+        "light1",
+        "light2",
+        "light3",
+        "light4",
+        "heavy"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/gojo-3.png",
+      "rows": [
+        "airLight1",
+        "airLight2",
+        "airLight3",
+        "airHeavy",
+        "guard",
+        "block",
+        "hurtHigh"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/gojo-4.png",
+      "rows": [
+        "hurtLow",
+        "launched",
+        "spin",
+        "airRecover",
+        "down",
+        "getup",
+        "charge"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/gojo-5.png",
+      "rows": [
+        "throw",
+        "beamCharge",
+        "beamFire",
+        "vanish",
+        "stagger",
+        "ko",
+        "special"
+      ]
+    },
+    {
+      "file": "art/scale/all-frames/gojo-6.png",
+      "rows": [
+        "intro",
+        "taunt",
+        "win",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose"
+      ]
+    }
+  ]
+}

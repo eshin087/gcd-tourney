@@ -50,3 +50,7 @@ Recommendation: review the complete batch in motion, especially aerial transitio
   unchanged (the sheet re-packed byte-identical; only box data changed).
 - Reach: all kit moves connect in training; 144 CPU matches with the art packs ran without errors (ADR 0011 log run
   10-11).
+
+## 2026-10-10 scale candidate pass
+
+See [final cross-cast QA](../../../scale/FINAL_QA.md) for selected versions, source hashes, all-frame inspection, browser checks, contact anchors, measurement uncertainty and final approval scope. Earlier records below/above describe previous versions.

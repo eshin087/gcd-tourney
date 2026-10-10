@@ -1,0 +1,30 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/light4_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/light4_v01.png",
+    "characters/sasuke/raw/light4_v01.json"
+  ],
+  "sourceHash": "e90f968cd988562c99294451acce5bdabc4295b2",
+  "bodyHeight": 207,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "light4_00.png": "cb2b726b3f5287af86020a540274377b3ea2a2d5",
+    "light4_01.png": "bf9341e1ea994210f1c8ae357aa8170ebd493e2a",
+    "light4_02.png": "8667c12afbe9443885707e82b948849ce3d8a8d4",
+    "light4_03.png": "87c164456cbcb7ed0b89866d23e793346a999fa3",
+    "light4_04.png": "0ee354417c03cf11a64994576520bc87f315fd90",
+    "light4_05.png": "bb905ecb476255d54ae90d177de2c062fb528895",
+    "light4_06.png": "0d3acd680ed98b1b8322daa3ae0a4a9836b354cd",
+    "light4_07.png": "00179cc57d739b667ca35295ac16525e89bb1655"
+  }
+}

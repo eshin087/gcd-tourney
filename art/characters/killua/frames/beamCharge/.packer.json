@@ -1,12 +1,12 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/beamCharge_v01.png",
-  "version": 1,
+  "sourceFile": "raw/beamCharge_v03.png",
+  "version": 3,
   "source": [
-    "characters/killua/raw/beamCharge_v01.png"
+    "characters/killua/raw/beamCharge_v03.png"
   ],
-  "sourceHash": "cea4e90de6273466747768df31e2208909752947",
+  "sourceHash": "d5428c96da4806c4b934addbfb67fa716900121b",
   "bodyHeight": 180,
   "cell": {
     "frameWidth": 256,
@@ -17,8 +17,8 @@
     ]
   },
   "files": {
-    "beamCharge_00.png": "471d30f54a153233e185e567e5cde55fe5827c10",
-    "beamCharge_01.png": "78f2cc656ad39844144d08e40b4bdca0bf67b54c",
-    "beamCharge_02.png": "c9a5b81018936b0574c8e059c81f88bae26f8391"
+    "beamCharge_00.png": "4468b2d1a365b9b2a22372152667548eb97beb95",
+    "beamCharge_01.png": "ce9296385a11ee4c347d8106042c3d59bbbe6245",
+    "beamCharge_02.png": "e3ebae92467b277269ae0f9b0eca656a947156a3"
   }
 }

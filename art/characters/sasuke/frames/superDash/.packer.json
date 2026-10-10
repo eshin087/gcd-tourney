@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superDash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/superDash_v01.png",
+    "characters/sasuke/raw/superDash_v01.json"
+  ],
+  "sourceHash": "e20b8629cd1679944cff0792c1a9d9d9b7ff9a93",
+  "bodyHeight": 120,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superDash_00.png": "57f36b64dcd549ce11dbcab9ad75c9f44806464e",
+    "superDash_01.png": "d49b32a46bf98eaba54ca9dd94e9c8d293e7dfc2"
+  }
+}

@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/ko_v01.png",
-  "version": 1,
+  "sourceFile": "raw/ko_v02.png",
+  "version": 2,
   "source": [
-    "characters/killua/raw/ko_v01.png"
+    "characters/killua/raw/ko_v02.png",
+    "characters/killua/raw/ko_v02.json"
   ],
-  "sourceHash": "90f5d75749361a3b826a1e262a42e678ce8dd5cb",
+  "sourceHash": "2ee6b03754368759f10f5d8266fe79568272e2dc",
   "bodyHeight": 58,
   "cell": {
     "frameWidth": 256,
@@ -17,6 +18,6 @@
     ]
   },
   "files": {
-    "ko_00.png": "273e28da6708c205934ea382b17f64096310cfdc"
+    "ko_00.png": "bc3815125e34cc722345af084968ebece0b2bd3d"
   }
 }

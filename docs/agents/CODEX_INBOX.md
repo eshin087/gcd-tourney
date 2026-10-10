@@ -63,7 +63,7 @@ How it works:
   2. specialUp #2 and #3 reach into the 4 px top margin (packer warning).
   3. After the user approves them, create the fixed-name UI copies (portrait, cut-in, select) so they pack.
 
-- [ ] **(2026-10-09) Kirin poses now, kit animations later (ADR 0011).** His ULTIMATE is Amaterasu (no beam)
+- [x] **(2026-10-09) Kirin poses now, kit animations later (ADR 0011).** Done 2026-10-10: kit briefs merged and all 42 animations generated/packed; final visual approval pending. His ULTIMATE is Amaterasu (no beam)
   and his SUPER is Kirin. Read ADR 0011 and `art/characters/sasuke/KIT.md`, then:
   1. Do the KIT.md §4 swap now: replace his beamCharge (A16) and beamFire (A17) entries in ANIMATIONS.md and
      PROMPTS.md with the Kirin versions from §4, and set beamCharge bodyHeight 230 in his manifest block (after

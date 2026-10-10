@@ -1270,9 +1270,9 @@ function anatomicalScalesFor(side, count, warn, label) {
   if (!Object.hasOwn(side, 'anatomy')) return null;
   const a = side.anatomy;
   if (!a || a.measurement !== 'skull-to-chin' || !Number.isFinite(a.targetHeadPx) ||
-      a.targetHeadPx < 24 || a.targetHeadPx > 36 || !Array.isArray(a.sourceHeadPx) ||
+      a.targetHeadPx < 8 || a.targetHeadPx > 64 || !Array.isArray(a.sourceHeadPx) ||
       a.sourceHeadPx.length !== count || !a.sourceHeadPx.every((n) => Number.isFinite(n) && n >= 8 && n <= 2048)) {
-    warn(label + ': anatomy requires measurement skull-to-chin, targetHeadPx 24..36, and ' + count + ' sourceHeadPx measurements (8..2048) - ignored');
+    warn(label + ': anatomy requires measurement skull-to-chin, targetHeadPx 8..64, and ' + count + ' sourceHeadPx measurements (8..2048) - ignored');
     return null;
   }
   return a.sourceHeadPx.map((n) => a.targetHeadPx / n);

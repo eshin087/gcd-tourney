@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hurtHigh_v02.png",
+  "version": 2,
+  "source": [
+    "characters/sasuke/raw/hurtHigh_v02.png"
+  ],
+  "sourceHash": "de757a2fc688199e9c13991c2490dbd49f361075",
+  "bodyHeight": 195,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "hurtHigh_00.png": "1865fe1b4a9c1b9e073e1df6ce80f6cc2a5c9df9",
+    "hurtHigh_01.png": "b8fadc562e5e23bf2191227f099a292da390afcd",
+    "hurtHigh_02.png": "1dffc603868bda093168a064feb31b7e151e07b2"
+  }
+}

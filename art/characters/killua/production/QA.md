@@ -54,3 +54,7 @@ Commit status: not committed or staged. User requested work stay inside the writ
 - light4 f3 and airLight3 f2 hit boxes now cover the kicking foot and the leading arc, not the smear trail behind the
   leg (it reached knee height).
 - 144 CPU matches with the art packs: Killua 58 %, no errors (ADR 0011 log run 10-11).
+
+## 2026-10-10 scale candidate pass
+
+See [final cross-cast QA](../../../scale/FINAL_QA.md) for selected versions, source hashes, all-frame inspection, browser checks, contact anchors, measurement uncertainty and final approval scope. Earlier records below/above describe previous versions.

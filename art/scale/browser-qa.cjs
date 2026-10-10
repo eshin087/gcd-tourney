@@ -5,7 +5,7 @@ const fs = require('node:fs');
   try {
     const page = await browser.newPage({viewport:{width:1280,height:850}}), errors=[];
     page.on('pageerror',e=>errors.push(e.message));
-    await page.goto('http://127.0.0.1:5188/art/scale/review.html');
+    await page.goto('http://127.0.0.1:5202/art/scale/review.html');
     await page.waitForFunction(()=>document.querySelectorAll('canvas').length===4 && document.querySelectorAll('#move option').length===42);
     await page.click('#play'); await page.uncheck('#alternate');
     for(const name of ['idle','run','light1','light2','light3','light4','heavy','guard','beamCharge']) {

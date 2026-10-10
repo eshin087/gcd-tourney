@@ -80,11 +80,11 @@
       },
       "animations": {
         "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 3, "approvedVersion": 3 },
-        "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 4, "approvedVersion": 3 },
+        "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 2, "approvedVersion": 1 },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "superDash": { "frames": 2, "loop": true, "bodyHeight": 120, "ms": [50, 50], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "jumpSquat": { "frames": 1, "loop": false, "bodyHeight": 162, "ms": [70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "jumpSquat": { "frames": 1, "loop": false, "bodyHeight": 162, "ms": [70], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
         "jumpUp": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [80, 80], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "jumpFall": { "frames": 2, "loop": true, "bodyHeight": 209, "ms": [80, 80], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "land": { "frames": 2, "loop": false, "bodyHeight": 174, "ms": [50, 70], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -92,35 +92,35 @@
         "light2": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [35, 30, 40, 50, 60, 50, 30], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
         "light3": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 215, "ms": [40, 35, 45, 60, 60, 60, 30], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
         "light4": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 207, "ms": [50, 45, 35, 40, 70, 70, 70, 40], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "heavy": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 218, "ms": [40, 35, 30, 50, 70, 70, 60, 30], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "airLight1": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 198, "ms": [45, 35, 50, 50, 30], "required": true, "step": 5, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "guard": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [300, 300], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "block": { "frames": 2, "loop": false, "bodyHeight": 204, "ms": [60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "heavy": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 218, "ms": [40, 35, 30, 50, 70, 70, 60, 30], "required": true, "step": 5, "status": "approved", "version": 3, "approvedVersion": 1 },
+        "airLight1": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 198, "ms": [45, 35, 50, 50, 30], "required": true, "step": 5, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
+        "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "guard": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [300, 300], "required": true, "step": 6, "status": "approved", "version": 3, "approvedVersion": 1 },
+        "block": { "frames": 2, "loop": false, "bodyHeight": 204, "ms": [60, 80], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 1 },
         "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 195, "ms": [70, 90, 100], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
         "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "launched": { "frames": 2, "loop": true, "bodyHeight": 136, "ms": [70, 70], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "launched": { "frames": 2, "loop": true, "bodyHeight": 136, "ms": [70, 70], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 1 },
         "spin": { "frames": 4, "loop": true, "bodyHeight": 160, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "airRecover": { "frames": 3, "loop": false, "bodyHeight": 180, "ms": [50, 50, 60], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "airRecover": { "frames": 3, "loop": false, "bodyHeight": 180, "ms": [50, 50, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
+        "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 1 },
         "getup": { "frames": 5, "loop": false, "bodyHeight": 204, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 2 },
         "charge": { "frames": 4, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 1, "approvedVersion": 1 },
         "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 201, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "beamFire": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 3, "approvedVersion": 1 },
+        "beamFire": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 4, "approvedVersion": 2 },
         "vanish": { "frames": 2, "loop": false, "bodyHeight": 221, "ms": [50, 50], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "stagger": { "frames": 4, "loop": true, "bodyHeight": 207, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "ko": { "frames": 1, "loop": false, "bodyHeight": 64, "ms": [500], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 3 },
-        "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 204, "ms": [120, 120, 120, 120, 120, 160, 110, 70], "required": true, "step": 7, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "ko": { "frames": 1, "loop": false, "bodyHeight": 64, "ms": [500], "required": false, "step": 9, "status": "approved", "version": 5, "approvedVersion": 3 },
+        "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 204, "ms": [120, 120, 120, 120, 120, 160, 110, 70], "required": true, "step": 7, "status": "approved", "version": 3, "approvedVersion": 1 },
         "intro": { "frames": 4, "loop": true, "bodyHeight": 210, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "taunt": { "frames": 2, "loop": true, "bodyHeight": 212, "ms": [250, 250], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "win": { "frames": 4, "loop": true, "bodyHeight": 212, "ms": [110, 90, 260, 180], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "win": { "frames": 4, "loop": true, "bodyHeight": 212, "ms": [110, 90, 260, 180], "required": true, "step": 8, "status": "approved", "version": 3, "approvedVersion": 1 },
         "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [60, 60, 70, 90, 80, 80, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 220, 90], "required": false, "hitbox": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 }
+        "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 1 }
       },
       "ui": {
         "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -145,757 +145,45 @@
         "expressions": { "file": "art/characters/sasuke/reference/expressions.png", "candidates": "art/characters/sasuke/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
       "animations": {
-        "idle": {
-          "frames": 8,
-          "loop": true,
-          "bodyHeight": 204,
-          "ms": [
-            150,
-            150,
-            150,
-            150,
-            150,
-            150,
-            150,
-            150
-          ],
-          "required": true,
-          "step": 3,
-          "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
-        },
-        "run": {
-          "frames": 8,
-          "loop": true,
-          "bodyHeight": 204,
-          "ms": [
-            60,
-            60,
-            60,
-            60,
-            60,
-            60,
-            60,
-            60
-          ],
-          "required": true,
-          "step": 4,
-          "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
-        },
-        "dash": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 160,
-          "ms": [
-            60,
-            60
-          ],
-          "required": true,
-          "step": 8,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "backDash": {
-          "frames": 3,
-          "loop": false,
-          "bodyHeight": 207,
-          "ms": [
-            60,
-            60,
-            80
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "superDash": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 120,
-          "ms": [
-            50,
-            50
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "jumpSquat": {
-          "frames": 1,
-          "loop": false,
-          "bodyHeight": 162,
-          "ms": [
-            70
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "jumpUp": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 198,
-          "ms": [
-            80,
-            80
-          ],
-          "required": true,
-          "step": 8,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "jumpFall": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 209,
-          "ms": [
-            80,
-            80
-          ],
-          "required": true,
-          "step": 8,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "land": {
-          "frames": 2,
-          "loop": false,
-          "bodyHeight": 174,
-          "ms": [
-            50,
-            70
-          ],
-          "required": true,
-          "step": 8,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "light1": {
-          "frames": 7,
-          "loop": false,
-          "phases": [
-            2,
-            2,
-            3
-          ],
-          "bodyHeight": 204,
-          "ms": [
-            30,
-            30,
-            40,
-            50,
-            50,
-            50,
-            30
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "light2": {
-          "frames": 7,
-          "loop": false,
-          "phases": [
-            2,
-            2,
-            3
-          ],
-          "bodyHeight": 204,
-          "ms": [
-            35,
-            30,
-            40,
-            50,
-            60,
-            50,
-            30
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "light3": {
-          "frames": 7,
-          "loop": false,
-          "phases": [
-            2,
-            2,
-            3
-          ],
-          "bodyHeight": 215,
-          "ms": [
-            40,
-            35,
-            45,
-            60,
-            60,
-            60,
-            30
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "light4": {
-          "frames": 8,
-          "loop": false,
-          "phases": [
-            3,
-            2,
-            3
-          ],
-          "bodyHeight": 207,
-          "ms": [
-            50,
-            45,
-            35,
-            40,
-            70,
-            70,
-            70,
-            40
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "heavy": {
-          "frames": 8,
-          "loop": false,
-          "phases": [
-            3,
-            2,
-            3
-          ],
-          "bodyHeight": 218,
-          "ms": [
-            40,
-            35,
-            30,
-            50,
-            70,
-            70,
-            60,
-            30
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "airLight1": {
-          "frames": 5,
-          "loop": false,
-          "phases": [
-            1,
-            2,
-            2
-          ],
-          "bodyHeight": 198,
-          "ms": [
-            45,
-            35,
-            50,
-            50,
-            30
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "airLight2": {
-          "frames": 5,
-          "loop": false,
-          "phases": [
-            1,
-            2,
-            2
-          ],
-          "bodyHeight": 207,
-          "ms": [
-            45,
-            40,
-            50,
-            50,
-            30
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "airLight3": {
-          "frames": 6,
-          "loop": false,
-          "phases": [
-            2,
-            2,
-            2
-          ],
-          "bodyHeight": 201,
-          "ms": [
-            50,
-            40,
-            50,
-            70,
-            60,
-            30
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "airHeavy": {
-          "frames": 6,
-          "loop": false,
-          "phases": [
-            2,
-            2,
-            2
-          ],
-          "bodyHeight": 198,
-          "ms": [
-            50,
-            45,
-            45,
-            70,
-            70,
-            40
-          ],
-          "required": true,
-          "step": 5,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "guard": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 198,
-          "ms": [
-            300,
-            300
-          ],
-          "required": true,
-          "step": 6,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "block": {
-          "frames": 2,
-          "loop": false,
-          "bodyHeight": 204,
-          "ms": [
-            60,
-            80
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "hurtHigh": {
-          "frames": 3,
-          "loop": false,
-          "bodyHeight": 195,
-          "ms": [
-            70,
-            90,
-            100
-          ],
-          "required": true,
-          "step": 6,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "hurtLow": {
-          "frames": 3,
-          "loop": false,
-          "bodyHeight": 183,
-          "ms": [
-            70,
-            90,
-            100
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "launched": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 136,
-          "ms": [
-            70,
-            70
-          ],
-          "required": true,
-          "step": 6,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "spin": {
-          "frames": 4,
-          "loop": true,
-          "bodyHeight": 160,
-          "ms": [
-            60,
-            60,
-            60,
-            60
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "airRecover": {
-          "frames": 3,
-          "loop": false,
-          "bodyHeight": 180,
-          "ms": [
-            50,
-            50,
-            60
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "down": {
-          "frames": 2,
-          "loop": false,
-          "bodyHeight": 96,
-          "ms": [
-            80,
-            420
-          ],
-          "required": true,
-          "step": 6,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "getup": {
-          "frames": 5,
-          "loop": false,
-          "bodyHeight": 204,
-          "ms": [
-            70,
-            60,
-            60,
-            80,
-            70
-          ],
-          "required": true,
-          "step": 6,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "charge": {
-          "frames": 4,
-          "loop": true,
-          "bodyHeight": 198,
-          "ms": [
-            50,
-            50,
-            50,
-            50
-          ],
-          "required": true,
-          "step": 7,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "throw": {
-          "frames": 4,
-          "loop": false,
-          "phases": [
-            1,
-            1,
-            2
-          ],
-          "bodyHeight": 201,
-          "ms": [
-            50,
-            60,
-            70,
-            50
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "beamCharge": {
-          "frames": 3,
-          "loop": true,
-          "bodyHeight": 230,
-          "ms": [
-            50,
-            50,
-            50
-          ],
-          "required": true,
-          "step": 7,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "beamFire": {
-          "frames": 3,
-          "loop": true,
-          "bodyHeight": 198,
-          "ms": [
-            50,
-            50,
-            50
-          ],
-          "required": true,
-          "step": 7,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "vanish": {
-          "frames": 2,
-          "loop": false,
-          "bodyHeight": 221,
-          "ms": [
-            50,
-            50
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "stagger": {
-          "frames": 4,
-          "loop": true,
-          "bodyHeight": 207,
-          "ms": [
-            150,
-            150,
-            150,
-            150
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "ko": {
-          "frames": 1,
-          "loop": false,
-          "bodyHeight": 64,
-          "ms": [
-            500
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "special": {
-          "frames": 8,
-          "loop": false,
-          "phases": [
-            3,
-            3,
-            2
-          ],
-          "bodyHeight": 204,
-          "ms": [
-            120,
-            120,
-            120,
-            100,
-            100,
-            160,
-            120,
-            80
-          ],
-          "required": true,
-          "step": 7,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "intro": {
-          "frames": 4,
-          "loop": true,
-          "bodyHeight": 210,
-          "ms": [
-            200,
-            200,
-            200,
-            200
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "taunt": {
-          "frames": 2,
-          "loop": true,
-          "bodyHeight": 212,
-          "ms": [
-            300,
-            300
-          ],
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "win": {
-          "frames": 4,
-          "loop": true,
-          "bodyHeight": 212,
-          "ms": [
-            250,
-            250,
-            250,
-            250
-          ],
-          "required": true,
-          "step": 8,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "specialForward": {
-          "frames": 7,
-          "phases": [
-            2,
-            2,
-            3
-          ],
-          "bodyHeight": 204,
-          "ms": [
-            50,
-            50,
-            50,
-            80,
-            70,
-            60,
-            50
-          ],
-          "loop": false,
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 2,
-          "approvedVersion": null
-        },
-        "specialUp": {
-          "frames": 6,
-          "phases": [
-            2,
-            2,
-            2
-          ],
-          "bodyHeight": 214,
-          "ms": [
-            50,
-            50,
-            60,
-            60,
-            70,
-            70
-          ],
-          "loop": false,
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "specialDown": {
-          "frames": 4,
-          "phases": [
-            2,
-            1,
-            1
-          ],
-          "bodyHeight": 204,
-          "ms": [
-            80,
-            80,
-            200,
-            90
-          ],
-          "hitbox": false,
-          "loop": false,
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        },
-        "superPose": {
-          "frames": 4,
-          "bodyHeight": 208,
-          "ms": [
-            140,
-            140,
-            140,
-            140
-          ],
-          "loop": true,
-          "required": false,
-          "step": 9,
-          "status": "raw",
-          "version": 1,
-          "approvedVersion": null
-        }
-      },
+        "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "packed", "version": 1, "approvedVersion": null },
+        "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "superDash": { "frames": 2, "loop": true, "bodyHeight": 120, "ms": [50, 50], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "jumpSquat": { "frames": 1, "loop": false, "bodyHeight": 162, "ms": [70], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "jumpUp": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [80, 80], "required": true, "step": 8, "status": "packed", "version": 1, "approvedVersion": null },
+        "jumpFall": { "frames": 2, "loop": true, "bodyHeight": 209, "ms": [80, 80], "required": true, "step": 8, "status": "packed", "version": 1, "approvedVersion": null },
+        "land": { "frames": 2, "loop": false, "bodyHeight": 174, "ms": [50, 70], "required": true, "step": 8, "status": "packed", "version": 1, "approvedVersion": null },
+        "light1": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [30, 30, 40, 50, 50, 50, 30], "required": true, "step": 5, "status": "packed", "version": 1, "approvedVersion": null },
+        "light2": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [35, 30, 40, 50, 60, 50, 30], "required": true, "step": 5, "status": "packed", "version": 1, "approvedVersion": null },
+        "light3": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 215, "ms": [40, 35, 45, 60, 60, 60, 30], "required": true, "step": 5, "status": "packed", "version": 1, "approvedVersion": null },
+        "light4": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 207, "ms": [50, 45, 35, 40, 70, 70, 70, 40], "required": true, "step": 5, "status": "packed", "version": 1, "approvedVersion": null },
+        "heavy": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 218, "ms": [40, 35, 30, 50, 70, 70, 60, 30], "required": true, "step": 5, "status": "packed", "version": 2, "approvedVersion": null },
+        "airLight1": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 198, "ms": [45, 35, 50, 50, 30], "required": true, "step": 5, "status": "packed", "version": 1, "approvedVersion": null },
+        "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "packed", "version": 2, "approvedVersion": null },
+        "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "status": "packed", "version": 2, "approvedVersion": null },
+        "guard": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [300, 300], "required": true, "step": 6, "status": "packed", "version": 1, "approvedVersion": null },
+        "block": { "frames": 2, "loop": false, "bodyHeight": 204, "ms": [60, 80], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 195, "ms": [70, 90, 100], "required": true, "step": 6, "status": "packed", "version": 2, "approvedVersion": null },
+        "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "launched": { "frames": 2, "loop": true, "bodyHeight": 136, "ms": [70, 70], "required": true, "step": 6, "status": "packed", "version": 1, "approvedVersion": null },
+        "spin": { "frames": 4, "loop": true, "bodyHeight": 160, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "airRecover": { "frames": 3, "loop": false, "bodyHeight": 180, "ms": [50, 50, 60], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "packed", "version": 1, "approvedVersion": null },
+        "getup": { "frames": 5, "loop": false, "bodyHeight": 204, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "packed", "version": 1, "approvedVersion": null },
+        "charge": { "frames": 4, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "packed", "version": 2, "approvedVersion": null },
+        "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 201, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 230, "ms": [50, 50, 50], "required": true, "step": 7, "status": "packed", "version": 1, "approvedVersion": null },
+        "beamFire": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "packed", "version": 1, "approvedVersion": null },
+        "vanish": { "frames": 2, "loop": false, "bodyHeight": 221, "ms": [50, 50], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "stagger": { "frames": 4, "loop": true, "bodyHeight": 207, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "ko": { "frames": 1, "loop": false, "bodyHeight": 64, "ms": [500], "required": false, "step": 9, "status": "packed", "version": 2, "approvedVersion": null },
+        "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 204, "ms": [120, 120, 120, 100, 100, 160, 120, 80], "required": true, "step": 7, "status": "packed", "version": 2, "approvedVersion": null },
+        "intro": { "frames": 4, "loop": true, "bodyHeight": 210, "ms": [200, 200, 200, 200], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "taunt": { "frames": 2, "loop": true, "bodyHeight": 212, "ms": [300, 300], "required": false, "step": 9, "status": "packed", "version": 1, "approvedVersion": null },
+        "win": { "frames": 4, "loop": true, "bodyHeight": 212, "ms": [250, 250, 250, 250], "required": true, "step": 8, "status": "packed", "version": 1, "approvedVersion": null }
+      ,"specialForward":{"frames":7,"phases":[2,2,3],"bodyHeight":204,"ms":[50,50,50,80,70,60,50],"loop":false,"required":false,"step":9,"status":"packed","version":2,"approvedVersion":null},"specialUp":{"frames":6,"phases":[2,2,2],"bodyHeight":214,"ms":[50,50,60,60,70,70],"loop":false,"required":false,"step":9,"status":"packed","version":2,"approvedVersion":null},"specialDown":{"frames":4,"phases":[2,1,1],"bodyHeight":204,"ms":[80,80,200,90],"hitbox":false,"loop":false,"required":false,"step":9,"status":"packed","version":1,"approvedVersion":null},"superPose":{"frames":4,"bodyHeight":208,"ms":[140,140,140,140],"loop":true,"required":false,"step":9,"status":"packed","version":1,"approvedVersion":null}},
       "ui": {
         "portrait": { "file": "art/characters/sasuke/ui/portrait.png", "candidates": "art/characters/sasuke/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "raw", "version": 1, "approvedVersion": null },
         "cutin": { "file": "art/characters/sasuke/ui/cutin.png", "candidates": "art/characters/sasuke/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "raw", "version": 1, "approvedVersion": null },
@@ -921,11 +209,11 @@
       },
       "animations": {
         "idle": { "frames": 8, "loop": true, "bodyHeight": 186, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 186, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "dash": { "frames": 2, "loop": true, "bodyHeight": 146, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 186, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "dash": { "frames": 2, "loop": true, "bodyHeight": 146, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 2, "approvedVersion": 1 },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 188, "ms": [60, 60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "superDash": { "frames": 2, "loop": true, "bodyHeight": 109, "ms": [50, 50], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "jumpSquat": { "frames": 1, "loop": false, "bodyHeight": 147, "ms": [70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "superDash": { "frames": 2, "loop": true, "bodyHeight": 109, "ms": [50, 50], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
+        "jumpSquat": { "frames": 1, "loop": false, "bodyHeight": 147, "ms": [70], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
         "jumpUp": { "frames": 2, "loop": true, "bodyHeight": 180, "ms": [80, 80], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "jumpFall": { "frames": 2, "loop": true, "bodyHeight": 190, "ms": [80, 80], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "land": { "frames": 2, "loop": false, "bodyHeight": 158, "ms": [50, 70], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -938,30 +226,30 @@
         "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 188, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 183, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 180, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "guard": { "frames": 2, "loop": true, "bodyHeight": 180, "ms": [300, 300], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "block": { "frames": 2, "loop": false, "bodyHeight": 186, "ms": [60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 177, "ms": [70, 90, 100], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 167, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "guard": { "frames": 2, "loop": true, "bodyHeight": 180, "ms": [300, 300], "required": true, "step": 6, "status": "approved", "version": 3, "approvedVersion": 1 },
+        "block": { "frames": 2, "loop": false, "bodyHeight": 186, "ms": [60, 80], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 1 },
+        "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 177, "ms": [70, 90, 100], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 1 },
+        "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 167, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
         "launched": { "frames": 2, "loop": true, "bodyHeight": 124, "ms": [70, 70], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
         "spin": { "frames": 4, "loop": true, "bodyHeight": 146, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "airRecover": { "frames": 3, "loop": false, "bodyHeight": 164, "ms": [50, 50, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "down": { "frames": 2, "loop": false, "bodyHeight": 87, "ms": [80, 420], "required": true, "step": 6, "status": "approved", "version": 1, "approvedVersion": 1 },
         "getup": { "frames": 5, "loop": false, "bodyHeight": 186, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "charge": { "frames": 4, "loop": true, "bodyHeight": 180, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "charge": { "frames": 4, "loop": true, "bodyHeight": 180, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 3, "approvedVersion": 1 },
         "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 183, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 180, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "beamFire": { "frames": 3, "loop": true, "bodyHeight": 180, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 180, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 3, "approvedVersion": 1 },
+        "beamFire": { "frames": 3, "loop": true, "bodyHeight": 180, "ms": [50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 4, "approvedVersion": 2 },
         "vanish": { "frames": 2, "loop": false, "bodyHeight": 201, "ms": [50, 50], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "stagger": { "frames": 4, "loop": true, "bodyHeight": 188, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "ko": { "frames": 1, "loop": false, "bodyHeight": 58, "ms": [500], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "ko": { "frames": 1, "loop": false, "bodyHeight": 58, "ms": [500], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 1 },
         "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 186, "ms": [80, 80, 80, 40, 40, 60, 130, 90], "required": true, "step": 7, "status": "approved", "version": 2, "approvedVersion": 2 },
         "intro": { "frames": 4, "loop": true, "bodyHeight": 191, "ms": [180, 180, 180, 180], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "taunt": { "frames": 2, "loop": true, "bodyHeight": 193, "ms": [220, 220], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "win": { "frames": 4, "loop": true, "bodyHeight": 193, "ms": [220, 220, 220, 220], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 186, "ms": [40, 40, 50, 60, 60, 50, 40], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 186, "ms": [40, 40, 50, 60, 60, 50, 40], "required": false, "step": 9, "status": "approved", "version": 4, "approvedVersion": 2 },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 188, "ms": [90, 90, 120, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "superPose": { "frames": 4, "loop": true, "bodyHeight": 191, "ms": [120, 120, 120, 120], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 }
+        "superPose": { "frames": 4, "loop": true, "bodyHeight": 191, "ms": [120, 120, 120, 120], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 1 }
       },
       "ui": {
         "portrait": { "file": "art/characters/killua/ui/portrait.png", "candidates": "art/characters/killua/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -1820,17 +1108,31 @@
     }
   },
   "sharedUi": {
-    "logo": {"file":"art/ui/final/logo.png","candidates":"art/ui/raw/logo_vNN.png","size":[480,180],"step":11,"status":"approved","version":1,"approvedVersion":1},
-    "titleArt": {
-      "file": "art/ui/final/title_art.png",
-      "candidates": "art/ui/raw/title_art_vNN.png",
-      "size": [640,360],
-      "step": 11,
-      "status": "approved",
-      "version": 2,
-      "approvedVersion": 2
-    }
+  "logo": {
+    "file": "art/ui/final/logo.png",
+    "candidates": "art/ui/raw/logo_vNN.png",
+    "size": [
+      480,
+      180
+    ],
+    "step": 11,
+    "status": "approved",
+    "version": 1,
+    "approvedVersion": 1
   },
+  "titleArt": {
+    "file": "art/ui/final/title_art.png",
+    "candidates": "art/ui/raw/title_art_vNN.png",
+    "size": [
+      640,
+      360
+    ],
+    "step": 11,
+    "status": "approved",
+    "version": 2,
+    "approvedVersion": 2
+  }
+},
   "worldArt": {
     "crowd": {
       "batches": {
@@ -3275,7 +2577,7 @@
           "status": "approved",
           "reviewStatus": "approved",
           "items": {
-            "title_art": {"status":"approved","version":2,"approvedVersion":2}
+            "title_art": {"status":"approved","version":1,"approvedVersion":1}
           }
         }
       }

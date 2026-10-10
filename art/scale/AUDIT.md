@@ -1,3 +1,7 @@
+# Fighter scale audit — candidate pass complete
+
+Current result: [FINAL_QA.md](FINAL_QA.md). Historical checkpoints below are retained as the investigation record; final visual approval and the documented measurement limits remain explicit.
+
 # Fighter scale audit — in progress
 
 User direction: preserve the cast's height differences, match anatomical scale, and remove animation-to-animation growth/shrinkage. ART-SCALE-01 owns this work.

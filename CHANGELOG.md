@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Fighter scale corrections are in the game** (final batch approved by the user, PRs #8 + #9): 19 Naruto and 14 Killua animations re-sized so heads stay one size across every animation (Gojo keeps his original approved proportions, Killua stays shorter and Gojo taller), and Sasuke's final 42-animation pass with pose-fit repairs and Chidori/Kirin anchors; the packer accepts approved compact head targets (ART-SCALE-01).
+
 - Every new feature or character now lands through a pull request built in its own git worktree: `npm run pr -- start|open|merge` (tools/pr.mjs), one `--no-ff` merge commit per feature so it reverts cleanly (ADR 0013, OPS-002).
 
 - **Sasuke's hi-res art is in the game**: Codex's complete set of 42 animations / 175 frames replaces his placeholder in fights, packed at the shared anatomical scale. Every image still waits for the user's review in art/REVIEW.md, and his portrait, cut-in and select candidates are packed only once approved (ART-SCALE-01, ART-SAS-11).

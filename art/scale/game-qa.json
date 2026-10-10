@@ -1,0 +1,558 @@
+{
+  "at": "2026-10-10T07:35:45.698Z",
+  "results": [
+    {
+      "pair": "naruto,sasuke",
+      "logs": [
+        "[sprites] using custom sheet for naruto (42 animations)",
+        "[sprites] using custom sheet for sasuke (42 animations)",
+        "[sprites] using custom sheet for killua (42 animations)",
+        "[sprites] using custom sheet for gojo (42 animations)"
+      ],
+      "errors": [],
+      "state": {
+        "initial": [
+          {
+            "id": "naruto",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "id": "sasuke",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              -1,
+              1,
+              1
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "key": "KeyD",
+            "state": {
+              "state": "fight",
+              "t": 0.17,
+              "f": [
+                "run hp1000 ki101 combo0 pos(-2.8,0.0,0.3)",
+                "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 1.47,
+              "f": [
+                "attack/light1 hp1000 ki109 combo0 pos(-2.4,0.0,0.2)",
+                "idle hp1000 ki109 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyK",
+            "state": {
+              "state": "fight",
+              "t": 2.77,
+              "f": [
+                "attack/heavy hp1000 ki117 combo0 pos(-1.9,0.0,0.2)",
+                "idle hp1000 ki117 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "Space",
+            "state": {
+              "state": "fight",
+              "t": 4.07,
+              "f": [
+                "air/heavy hp1000 ki124 combo0 pos(-1.6,0.8,0.1)",
+                "idle hp1000 ki124 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 5.37,
+              "f": [
+                "attack/light1 hp1000 ki132 combo0 pos(-1.4,0.0,0.1)",
+                "idle hp1000 ki132 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          }
+        ]
+      },
+      "animationsPlayed": 84
+    },
+    {
+      "pair": "killua,gojo",
+      "logs": [
+        "[sprites] using custom sheet for naruto (42 animations)",
+        "[sprites] using custom sheet for sasuke (42 animations)",
+        "[sprites] using custom sheet for killua (42 animations)",
+        "[sprites] using custom sheet for gojo (42 animations)"
+      ],
+      "errors": [],
+      "state": {
+        "initial": [
+          {
+            "id": "killua",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "id": "gojo",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              -1,
+              1,
+              1
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "key": "KeyD",
+            "state": {
+              "state": "fight",
+              "t": 0.17,
+              "f": [
+                "run hp1000 ki101 combo0 pos(-2.7,0.0,0.3)",
+                "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 1.47,
+              "f": [
+                "attack/light1 hp1000 ki109 combo0 pos(-2.3,0.0,0.2)",
+                "idle hp1000 ki109 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyK",
+            "state": {
+              "state": "fight",
+              "t": 2.77,
+              "f": [
+                "attack/heavy hp1000 ki117 combo0 pos(-1.8,0.0,0.1)",
+                "idle hp1000 ki117 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "Space",
+            "state": {
+              "state": "fight",
+              "t": 4.07,
+              "f": [
+                "air/heavy hp1000 ki124 combo0 pos(-1.5,0.8,0.1)",
+                "idle hp1000 ki124 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 5.37,
+              "f": [
+                "attack/light1 hp1000 ki132 combo0 pos(-1.3,0.0,0.1)",
+                "idle hp1000 ki132 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          }
+        ]
+      },
+      "animationsPlayed": 84
+    },
+    {
+      "pair": "sasuke,sasuke",
+      "logs": [
+        "[sprites] using custom sheet for naruto (42 animations)",
+        "[sprites] using custom sheet for sasuke (42 animations)",
+        "[sprites] using custom sheet for killua (42 animations)",
+        "[sprites] using custom sheet for gojo (42 animations)"
+      ],
+      "errors": [],
+      "state": {
+        "initial": [
+          {
+            "id": "sasuke",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "id": "sasuke",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              -1,
+              1,
+              1
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "key": "KeyD",
+            "state": {
+              "state": "fight",
+              "t": 0.17,
+              "f": [
+                "run hp1000 ki101 combo0 pos(-2.7,0.0,0.3)",
+                "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 1.47,
+              "f": [
+                "attack/light1 hp1000 ki109 combo0 pos(-2.4,0.0,0.2)",
+                "idle hp1000 ki109 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyK",
+            "state": {
+              "state": "fight",
+              "t": 2.77,
+              "f": [
+                "attack/heavy hp1000 ki117 combo0 pos(-1.8,0.0,0.2)",
+                "idle hp1000 ki117 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "Space",
+            "state": {
+              "state": "fight",
+              "t": 4.07,
+              "f": [
+                "air/heavy hp1000 ki124 combo0 pos(-1.6,0.8,0.1)",
+                "idle hp1000 ki124 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 5.37,
+              "f": [
+                "attack/light1 hp1000 ki132 combo0 pos(-1.3,0.0,0.1)",
+                "idle hp1000 ki132 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          }
+        ]
+      },
+      "animationsPlayed": 84
+    },
+    {
+      "pair": "naruto,naruto",
+      "logs": [
+        "[sprites] using custom sheet for naruto (42 animations)",
+        "[sprites] using custom sheet for sasuke (42 animations)",
+        "[sprites] using custom sheet for killua (42 animations)",
+        "[sprites] using custom sheet for gojo (42 animations)"
+      ],
+      "errors": [],
+      "state": {
+        "initial": [
+          {
+            "id": "naruto",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "id": "naruto",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              -1,
+              1,
+              1
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "key": "KeyD",
+            "state": {
+              "state": "fight",
+              "t": 0.17,
+              "f": [
+                "run hp1000 ki101 combo0 pos(-2.8,0.0,0.3)",
+                "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 1.47,
+              "f": [
+                "attack/light1 hp1000 ki109 combo0 pos(-2.4,0.0,0.2)",
+                "idle hp1000 ki109 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyK",
+            "state": {
+              "state": "fight",
+              "t": 2.77,
+              "f": [
+                "attack/heavy hp1000 ki117 combo0 pos(-1.9,0.0,0.2)",
+                "idle hp1000 ki117 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "Space",
+            "state": {
+              "state": "fight",
+              "t": 4.07,
+              "f": [
+                "air/heavy hp1000 ki124 combo0 pos(-1.6,0.8,0.1)",
+                "idle hp1000 ki124 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 5.37,
+              "f": [
+                "attack/light1 hp1000 ki132 combo0 pos(-1.4,0.0,0.1)",
+                "idle hp1000 ki132 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          }
+        ]
+      },
+      "animationsPlayed": 84
+    },
+    {
+      "pair": "killua,killua",
+      "logs": [
+        "[sprites] using custom sheet for naruto (42 animations)",
+        "[sprites] using custom sheet for sasuke (42 animations)",
+        "[sprites] using custom sheet for killua (42 animations)",
+        "[sprites] using custom sheet for gojo (42 animations)"
+      ],
+      "errors": [],
+      "state": {
+        "initial": [
+          {
+            "id": "killua",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "id": "killua",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              -1,
+              1,
+              1
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "key": "KeyD",
+            "state": {
+              "state": "fight",
+              "t": 0.17,
+              "f": [
+                "run hp1000 ki101 combo0 pos(-2.7,0.0,0.3)",
+                "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 1.47,
+              "f": [
+                "attack/light1 hp1000 ki109 combo0 pos(-2.3,0.0,0.2)",
+                "idle hp1000 ki109 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyK",
+            "state": {
+              "state": "fight",
+              "t": 2.77,
+              "f": [
+                "attack/heavy hp1000 ki117 combo0 pos(-1.8,0.0,0.1)",
+                "idle hp1000 ki117 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "Space",
+            "state": {
+              "state": "fight",
+              "t": 4.07,
+              "f": [
+                "air/heavy hp1000 ki124 combo0 pos(-1.5,0.8,0.1)",
+                "idle hp1000 ki124 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 5.37,
+              "f": [
+                "attack/light1 hp1000 ki132 combo0 pos(-1.3,0.0,0.1)",
+                "idle hp1000 ki132 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          }
+        ]
+      },
+      "animationsPlayed": 84
+    },
+    {
+      "pair": "gojo,gojo",
+      "logs": [
+        "[sprites] using custom sheet for naruto (42 animations)",
+        "[sprites] using custom sheet for sasuke (42 animations)",
+        "[sprites] using custom sheet for killua (42 animations)",
+        "[sprites] using custom sheet for gojo (42 animations)"
+      ],
+      "errors": [],
+      "state": {
+        "initial": [
+          {
+            "id": "gojo",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "id": "gojo",
+            "source": "custom",
+            "ppu": 128,
+            "scale": [
+              -1,
+              1,
+              1
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "key": "KeyD",
+            "state": {
+              "state": "fight",
+              "t": 0.17,
+              "f": [
+                "run hp1000 ki101 combo0 pos(-2.8,0.0,0.3)",
+                "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 1.47,
+              "f": [
+                "attack/light1 hp1000 ki109 combo0 pos(-2.4,0.0,0.2)",
+                "idle hp1000 ki109 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyK",
+            "state": {
+              "state": "fight",
+              "t": 2.77,
+              "f": [
+                "attack/heavy hp1000 ki117 combo0 pos(-1.9,0.0,0.2)",
+                "idle hp1000 ki117 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "Space",
+            "state": {
+              "state": "fight",
+              "t": 4.07,
+              "f": [
+                "air/heavy hp1000 ki124 combo0 pos(-1.6,0.8,0.1)",
+                "idle hp1000 ki124 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          },
+          {
+            "key": "KeyJ",
+            "state": {
+              "state": "fight",
+              "t": 5.37,
+              "f": [
+                "attack/light1 hp1000 ki132 combo0 pos(-1.4,0.0,0.1)",
+                "idle hp1000 ki132 combo0 pos(3.4,0.0,-0.3)"
+              ]
+            }
+          }
+        ]
+      },
+      "animationsPlayed": 84
+    }
+  ],
+  "scope": "Desktop Edge input transitions and all actor animation playback; visual approval and balance soak remain separate."
+}

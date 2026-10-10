@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/jumpSquat_v01.png",
-  "version": 1,
+  "sourceFile": "raw/jumpSquat_v02.png",
+  "version": 2,
   "source": [
-    "characters/naruto/raw/jumpSquat_v01.png"
+    "characters/naruto/raw/jumpSquat_v02.png",
+    "characters/naruto/raw/jumpSquat_v02.json"
   ],
-  "sourceHash": "822b51209bea8a2ba160e10b2cfe47f702629761",
+  "sourceHash": "08a994d4c23de677edcf776361eb8f0429519cff",
   "bodyHeight": 162,
   "cell": {
     "frameWidth": 256,
@@ -17,6 +18,6 @@
     ]
   },
   "files": {
-    "jumpSquat_00.png": "05f865329910eecaeb1b138854be37edd43cddc3"
+    "jumpSquat_00.png": "74109c5a25122630f8d7710d5b0913ec3eae4d13"
   }
 }
