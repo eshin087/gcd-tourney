@@ -1,0 +1,174 @@
+{
+  "metrics": [
+    {
+      "name": "idle/idle_00.png",
+      "bounds": [
+        86,
+        59,
+        172,
+        240
+      ],
+      "footBand": [
+        86,
+        172
+      ]
+    },
+    {
+      "name": "heavy/heavy_00.png",
+      "bounds": [
+        74,
+        77,
+        178,
+        240
+      ],
+      "footBand": [
+        85,
+        164
+      ]
+    },
+    {
+      "name": "heavy/heavy_01.png",
+      "bounds": [
+        85,
+        113,
+        192,
+        240
+      ],
+      "footBand": [
+        88,
+        165
+      ]
+    },
+    {
+      "name": "heavy/heavy_02.png",
+      "bounds": [
+        87,
+        58,
+        192,
+        240
+      ],
+      "footBand": [
+        90,
+        173
+      ]
+    },
+    {
+      "name": "heavy/heavy_03.png",
+      "bounds": [
+        112,
+        46,
+        205,
+        240
+      ],
+      "footBand": [
+        124,
+        143
+      ]
+    },
+    {
+      "name": "heavy/heavy_04.png",
+      "bounds": [
+        103,
+        32,
+        189,
+        240
+      ],
+      "footBand": [
+        126,
+        145
+      ]
+    },
+    {
+      "name": "heavy/heavy_05.png",
+      "bounds": [
+        71,
+        93,
+        170,
+        240
+      ],
+      "footBand": [
+        118,
+        146
+      ]
+    },
+    {
+      "name": "heavy/heavy_06.png",
+      "bounds": [
+        77,
+        98,
+        187,
+        240
+      ],
+      "footBand": [
+        90,
+        171
+      ]
+    },
+    {
+      "name": "heavy/heavy_07.png",
+      "bounds": [
+        86,
+        59,
+        172,
+        240
+      ],
+      "footBand": [
+        86,
+        172
+      ]
+    },
+    {
+      "name": "charge/charge_00.png",
+      "bounds": [
+        81,
+        82,
+        190,
+        240
+      ],
+      "footBand": [
+        82,
+        178
+      ]
+    },
+    {
+      "name": "charge/charge_01.png",
+      "bounds": [
+        83,
+        82,
+        188,
+        240
+      ],
+      "footBand": [
+        83,
+        177
+      ]
+    },
+    {
+      "name": "charge/charge_02.png",
+      "bounds": [
+        83,
+        82,
+        185,
+        240
+      ],
+      "footBand": [
+        83,
+        176
+      ]
+    },
+    {
+      "name": "charge/charge_03.png",
+      "bounds": [
+        82,
+        82,
+        188,
+        240
+      ],
+      "footBand": [
+        82,
+        178
+      ]
+    }
+  ],
+  "heavyRecoveryEqualsIdle": true
+}

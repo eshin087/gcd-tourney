@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/charge_v03.png",
-  "version": 3,
+  "sourceFile": "raw/charge_v07.png",
+  "version": 7,
   "source": [
-    "characters/killua/raw/charge_v03.png"
+    "characters/killua/raw/charge_v07.png",
+    "characters/killua/raw/charge_v07.json"
   ],
-  "sourceHash": "a34d89d052602d7421731bda6b91283a2fecc4d1",
+  "sourceHash": "adefc14153ff8a74893e016e0bee8c4981d1fc73",
   "bodyHeight": 180,
   "cell": {
     "frameWidth": 256,
@@ -17,9 +18,9 @@
     ]
   },
   "files": {
-    "charge_00.png": "d8b391b12580eeb6a826c6a946de9462849ddda1",
-    "charge_01.png": "a5edcfe24753bbd9f406802862e58eca6320c578",
-    "charge_02.png": "6090d36f7fdae6d827b67f46f58c2b88a86f5321",
-    "charge_03.png": "bdc8b4082a29702f7f945776cb443f43f8b931b1"
+    "charge_00.png": "5ab31adb0736d14cc8bbb21b89321e8a69a6c44c",
+    "charge_01.png": "9e6270b1ce50b4663803a6d61b29ec8033221716",
+    "charge_02.png": "d84fd0d54ee0875f581a5d69364eaea8aa0204d6",
+    "charge_03.png": "8957906d273bfc3274b4870dd6a488f7074e394a"
   }
 }
