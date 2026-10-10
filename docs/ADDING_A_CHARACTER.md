@@ -12,7 +12,7 @@ A new character touches four places:
 |---|---|
 | `src/characters/<id>.js` | gameplay data, colors, stats, special/projectile/beam, 3D placeholder model, stance, extra anims |
 | `src/characters/index.js` | registration in `ROSTER` |
-| `art/characters/<id>/` | briefs and image prompts, versioned reference sheets and raw images, cleaned frames, UI art, hitbox overrides |
+| `art/characters/<id>/` | briefs (KIT.md: the moveset brief both AIs read) and image prompts, versioned reference sheets and raw images, cleaned frames, UI art, hitbox overrides |
 | `public/characters/<id>/` | packer output (never edit by hand) |
 
 Shared code (`src/game/moves.js`, `effects.js`, `audio.js`) changes only when the character brings a **new**
@@ -28,7 +28,20 @@ special, projectile or effect type.
   zoner, bruiser).
 - Add tasks to [TASKS.md](TASKS.md): `CHAR-<id>-data`, `CHAR-<id>-briefs`, `ART-<id>-ref`, `ART-<id>-core`,
   `ART-<id>-optional`, `ART-<id>-ui`, `CHAR-<id>-balance`.
-- Create a branch: `feature/char-<id>`.
+- **Pull requests** ([ADR 0013](decisions/0013-pull-requests-in-worktrees.md)). A character arrives in a few PRs, so
+  each one can be reverted on its own and Claude and Codex never commit to the same branch:
+
+  | PR | owner | branch (`npm run pr -- start <branch>`) | contains | merge when |
+  |---|---|---|---|---|
+  | 1. data | Claude | `feature/char-<id>` | steps 1-3: `src/characters/<id>.js`, roster, kit entries (+ an ADR for a new kind), placeholder model, `art/characters/<id>/KIT.md` (moveset + the poses each move needs) | playable on the baked placeholder (L0): soak and build pass |
+  | 2. refs | Codex | `art/<id>-refs` (`--full`) | step 4 briefs + manifest/tracker entries, model sheet, expressions, idle | the user approved those images |
+  | 3. core | Codex | `art/<id>-core` (`--full`) | the CORE animations: the custom sheet goes live (L1) | approved |
+  | 4. full | Codex | `art/<id>-full` (`--full`) | optional + kit animations, UI images (L2) | approved |
+  | later | either | `fix/<id>-<what>` | redraws, balance | |
+
+  Start each art PR from `main` after the previous one merged (no stacking). Two characters can run in parallel:
+  one Codex thread per character, each in its own worktree on its own branch. Claude merges every PR with
+  `npm run pr -- merge <branch>` and deploys.
 
 ## 1. Data file (Claude or Codex)
 
@@ -86,7 +99,15 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
   startup and active. A new `sfxLoop` kind needs a case in `AudioEngine.loop` (`src/core/audio.js`).
 - A new projectile is a `PROJECTILES` entry. `sprite` must be a VFX atlas effect name (add one in
   `vfxPainter.js` + the art/vfx briefs if needed).
-- The ultimate beam is shared. Only the colors and name come from `beam`.
+- **Not every ultimate is a beam.** The shared beam (colors and name from `beam`) is one ultimate kind among
+  several: a `kit.ultimate` names a `SUPERS` entry instead (`ignite`, `skyStrike`, `domain`, `flurry`, ...). Look
+  at the cast table in ADR 0011 §2 first and pick a shape the cast doesn't already overuse: the user wants
+  varied finishers and cool moments, with clashes only where both moves make sense together. Whatever the kind,
+  its poses are `beamCharge` / `beamFire` (the names are a contract), so KIT.md says what they show.
+- **KIT.md is the moveset's single source.** Claude writes `art/characters/<id>/KIT.md` (from
+  `art/characters/_template/KIT.md`) in the data PR: every slot, its kind and numbers, the animation it uses and
+  what each pose must show. Codex builds ANIMATIONS.md and PROMPTS.md from it. A later move change edits KIT.md in
+  the same PR as the data.
 - **The kit baseline is mandatory** ([ADR 0011](decisions/0011-kit-baseline-and-balance.md)): neutral, →, ↑, ↓
   and air specials, a second super and an ultimate (the shared beam or a `kit.ultimate`), each inside the
   slot's cost and damage budget, and stats with a stat index `(speed / 6.2) × power × defense` of 0.93-1.02.
@@ -155,6 +176,17 @@ status to `raw` (when it was `todo`; a status never goes down) with the newest `
 stops for the user's `approve vNN` (which sets `approvedVersion`) or feedback (the version is rejected and
 the next one generated).
 
+Lessons from the first four fighters:
+
+- **One scale per strip.** A strip stitched from parts (`raw/_parts/<anim>_vNN_A.png` / `_B.png`) must calibrate
+  every part to the same skull-to-chin length ([art/CHARACTER_SCALE.md](../art/CHARACTER_SCALE.md)). A part packed
+  at its own scale makes the fighter grow or shrink in the middle of a move (Sasuke's light2, light3 and special,
+  2026-10-10).
+- **Commit after every approved step, in your branch.** Never leave work uncommitted in the main folder: on
+  2026-10-10 a whole session of uncommitted art had to be split into PRs by hand before anything else could merge.
+- **UI images ship only after approval:** the approved `raw/ui_<name>_vNN.png` is copied to `ui/<name>.png` and
+  packed; until then the game shows the placeholder portrait and cut-in.
+
 ## 6. Pack and review (Codex)
 
 ```bash
@@ -167,6 +199,10 @@ npm run sprites <id>
 - Fix hit/hurt boxes with `art/characters/<id>/hitboxes.json` (frame-local px in the 256 cell, per animation
   and frame number). Strikes on active frames must cover the fist, foot or palm, nothing more.
 - Set the status to `packed` in the manifest and tracker.
+- Before handing back, check the packed files match their inputs: repack into a scratch folder
+  (`node tools/pack-sprites.mjs <id> --out <tmp> --no-writeback --quantize 48`) and compare `sheet.png` and
+  `anims.json` with `public/characters/<id>/` byte for byte. A difference means `public/` is stale or an input
+  changed after packing.
 
 ## 7. Test in game (Claude or Codex, then the user)
 
@@ -189,8 +225,9 @@ npm run sprites <id>
 
 - Update README.md (roster mention if needed), CHANGELOG.md (**Added**: "<Name> fighter"), TASKS.md and the
   tracker.
-- Commit with `feat(char:<id>): add <Name>` for data/code and `art(<id>): ...` for art batches. Open a PR or
-  self-review against the checklist in [CONTRIBUTING.md](CONTRIBUTING.md).
+- Commit with `feat(char:<id>): add <Name>` for data/code and `art(<id>): ...` for art batches, in the PR's
+  worktree. `npm run pr -- open` there; Claude reviews against the checklist in [CONTRIBUTING.md](CONTRIBUTING.md)
+  and merges with `npm run pr -- merge <branch>` (never the GitHub button), then deploys.
 
 ## Character readiness levels
 

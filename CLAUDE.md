@@ -85,7 +85,9 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    shared main checkout, never use the GitHub merge button or `gh pr merge`. Only docs-only edits, bookkeeping and art
    approvals for a character that already ships may commit straight to `main`. Revert a feature with
    `git revert -m 1 <merge>` in a `fix/revert-<name>` PR. Each worktree runs its own dev server port
-   (`npx vite --port 52xx`).
+   (`npx vite --port 52xx`). The main folder is merge-only, and `docs/NOW.md` / `docs/agents/CODEX_INBOX.md` are
+   edited on `main` only ([AI_COLLABORATION.md](docs/AI_COLLABORATION.md#branches-worktrees-and-shared-files)).
+   A new character is a Claude data PR, then Codex art PRs ([ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)).
 1. **Gameplay timing lives in `src/game/moves.js`**, never in art. Animation frames are stretched over a
    move's startup, active and recovery phases (`phases` in anims.json).
 2. **Animation names are a contract.** The canonical list is `src/art/animGuide.js`. Adding or renaming one

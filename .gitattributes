@@ -1,4 +1,8 @@
 # one line ending for every agent and editor (Claude, Codex, Windows tools)
 * text=auto eol=lf
 *.png binary
+# append-style logs: two branches adding lines at the top merge without a conflict (ADR 0013).
+# After such a merge, check that no line appears twice (a row edited on both sides is kept in both versions).
+CHANGELOG.md merge=union
+art/REVIEW.md merge=union
 *.jpg binary
