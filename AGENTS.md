@@ -4,6 +4,18 @@ Instructions for Codex and any other coding agent working in this repository. Cl
 [CLAUDE.md](CLAUDE.md), which has the same rules plus engine detail. When the two disagree, fix
 the docs. Don't pick one silently.
 
+## Autonomous work (user authorization, 2026-10-10)
+
+For authorized tasks, proceed with implementation, art batches, tests, commits and PRs without routine
+confirmation. Use one real worktree and branch per parallel task, with a distinct local server port.
+One designated coordinator owns integration and main-only bookkeeping; workers never merge or publish
+main. The coordinator integrates one branch at a time through `npm run pr -- merge`, resolves technical
+conflicts in the task worktree and reruns relevant checks before merging. All active agents, including
+Claude, must agree on that coordinator before integration starts. This is a process rule, not an automated lock.
+Existing image/design approval gates still apply; permission to execute commands does not approve art.
+These rules supersede older requirements to ask again for routine technical actions or have the user
+perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
+
 ## The project in one paragraph
 
 GCD Tourney is a browser HD-2D pixel-art anime arena fighter (Three.js + Vite, plain JavaScript ES modules)

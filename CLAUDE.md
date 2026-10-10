@@ -3,6 +3,18 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
+## Autonomous work (user authorization, 2026-10-10)
+
+For authorized tasks, proceed with implementation, art batches, tests, commits and PRs without routine
+confirmation. Use one real worktree and branch per parallel task, with a distinct local server port.
+One designated coordinator owns integration and main-only bookkeeping; workers never merge or publish
+main. The coordinator integrates one branch at a time through `npm run pr -- merge`, resolves technical
+conflicts in the task worktree and reruns relevant checks before merging. All active agents, including
+Codex, must agree on that coordinator before integration starts. This is a process rule, not an automated lock.
+Existing image/design approval gates still apply; permission to execute commands does not approve art.
+These rules supersede older requirements to ask again for routine technical actions or have the user
+perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
+
 ## What this project is
 
 GCD Tourney is a browser **HD-2D pixel-art anime arena fighter** with a Dragon Ball FighterZ-style

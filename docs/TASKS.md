@@ -22,6 +22,7 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
+| OPS-004 | Project-scoped autonomous agents and sequential integration | Codex | blocked | Profile installed; Git writes/worktree creation, localhost, GitHub and outside-write denial verified. Scoped build blocked by home-directory read ACL; Set-Acl lacks privilege and icacls attempt interrupted after no progress. Elevated production build passes. Fresh-session activation and sandbox build remain pending. |
 | ENG-001 | Training room in the controls menu: the character mirrors the player's input in real time | Claude | done | `Game.startTraining`, `DummyBrain`; dummy modes, health refill, no timer |
 | ENG-002 | Controller layout diagrams: keyboard / PlayStation / Xbox, player toggle, auto-detect device | Claude | done | `src/ui/controls.js`, `padKind()` in input.js |
 | ENG-003 | Rebind keys and gamepad buttons; persist; reset to defaults | Claude | done | localStorage key `gcd.bindings.v1` |

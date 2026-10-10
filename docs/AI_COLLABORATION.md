@@ -8,6 +8,39 @@ Since [ADR 0007](decisions/0007-art-spec-v2-shippuden-256.md) **Codex generates 
 its built-in image generator and the user reviews them. Before that, the user ran every prompt in ChatGPT
 and Codex only coordinated ([ADR 0006](decisions/0006-ai-art-pipeline.md)).
 
+## Project-scoped autonomy (2026-10-10)
+
+The user authorized project and Git writes, testing/network access, and no routine command approval
+prompts. A machine-local, Git-ignored `.codex/config.toml` selects the `gcd-tourney` permission profile
+with `approval_policy = 'never'`. It grants project writes and temporary-directory writes, retains
+read-only access outside those areas, and enables command network access. Network destinations are
+not restricted by an allowlist. `.codex` and `.agents` remain read-only to sandboxed commands.
+The profile does not change other projects' defaults or Claude Code's execution permissions.
+
+Windows had explicit sandbox write-deny ACL entries on this project's `.git`. Their original ACL was
+saved locally under `.codex/git-acl-before-project-access.xml` before the scoped removal. The profile
+passed a Git write probe, localhost listener and GitHub HTTP check. Existing chats may retain their
+previous permission policy; use a fresh project session and verify its effective permissions. A session
+using the old policy may reapply Git protection. Do not silently switch to machine-wide Full access.
+
+Verification also confirmed real worktree creation/removal and denial of a write outside the project.
+The full sandboxed Vite build is still blocked: it cannot list the home directory while resolving
+ancestor paths. A read/traverse-only ACL repair was attempted (backup saved locally under
+`.codex/home-directory-acl-before-traverse.xml`), but Set-Acl lacked the required privilege and the
+icacls attempt was interrupted after no progress. No successful parent ACL change is confirmed.
+The production build passes outside the sandbox. Do not describe unattended testing as fully ready
+until a build passes inside the selected profile and a fresh desktop session loads that profile.
+
+- Each parallel task owns one real worktree, branch and server port; claim overlapping files first.
+- Agree on one integration coordinator across Claude and Codex. Only that coordinator mutates main,
+  updates main-only NOW/inbox, or merges/publishes it. Integrations run sequentially, never concurrently.
+- Workers hand off their branch, checks and pending art decisions. The coordinator resolves technical
+  conflicts in the branch, reruns checks against current main, then uses the existing PR merge script.
+- Routine technical work and eligible merges need no new user confirmation. Art/design gates remain.
+- There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
+- Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
+  candidates and review history; transfer selected changes into real worktrees before Git operations.
+
 ## Roles
 
 | Who | Owns | Doesn't do |

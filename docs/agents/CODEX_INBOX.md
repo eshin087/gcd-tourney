@@ -17,6 +17,14 @@ How it works:
 
 ## One chat for everything (2026-10-10)
 
+**Permission update (2026-10-10, OPS-004):** the user authorized project/Git writes, testing/network
+access and no routine command approvals. The local `gcd-tourney` profile passed Git-write, localhost
+and GitHub probes after a scoped Windows ACL repair. Fresh sessions must load the profile; old sessions
+can retain or reapply the old restrictions. Use real task worktrees and one integration coordinator,
+as described in AGENTS.md. Preserve the staging batches below; they are still not real worktrees.
+**Remaining blocker:** scoped Vite build cannot list the home directory; parent read/traverse ACL
+repair did not complete. Production build passed with escalation. Do not claim full unattended QA yet.
+
 The user has a single Codex chat now. In it, do every thread's open items below yourself, one character at a time,
 in this order (each item's brief has the details):
 
