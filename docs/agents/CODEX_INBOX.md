@@ -17,6 +17,14 @@ How it works:
 
 ## Every thread
 
+- [ ] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** The user reviewed
+  PR #9 and approved it in chat with Claude on 2026-10-10; Claude merged #8 + #9 into main. On `main` (approval
+  bookkeeping for shipped characters may commit straight to main, explicit paths only): mark the 19 Naruto,
+  14 Killua and 43 Sasuke `needs review` rows `approved` in art/REVIEW.md, set `approvedVersion` in
+  art/manifest.json, update art/TRACKER.md, create Sasuke's fixed-name UI copies (portrait, cut-in, select) and
+  pack them (`npm run sprites sasuke`), check the repack of the fighter sheets stays byte-identical, then
+  `npm run status -- --write` and commit `art(scale): record user approval of the final fighter batch`.
+
 - [ ] **(2026-10-10) Every new feature or character lands through a pull request** ([ADR 0013](../decisions/0013-pull-requests-in-worktrees.md),
   AGENTS.md "Safe boundaries"). Start with `npm run pr -- start <prefix>/<name>` (`--full` for art) and work and
   commit only inside that worktree; `npm run pr -- open` there; Claude or the user merges with
@@ -54,14 +62,10 @@ How it works:
 
 ## Sasuke thread
 
-- [ ] **(2026-10-10) Sasuke's set is in the game** (merged in PR [#7](https://github.com/eshin087/gcd-tourney/pull/7)):
-  42 animations / 175 frames, rows still `needs review` until the user approves after playing. Follow-ups from
-  Claude's frame audit, as new `_vNN` candidates in a `fix/sasuke-<name>` PR (`npm run pr -- start ... --full`):
-  1. Size pops inside light2 (#0-#3 at 215 px vs #4-#6 at 195 px), light3 (#0-#3 vs #4-#6) and special (#0 vs
-     the rest): the two stitched parts were packed at different scales; calibrate both parts to the same
-     skull-to-chin length.
-  2. specialUp #2 and #3 reach into the 4 px top margin (packer warning).
-  3. After the user approves them, create the fixed-name UI copies (portrait, cut-in, select) so they pack.
+- [ ] **(2026-10-10) Sasuke follow-ups** (his final set merged with PR #9). Claude's frame audit, as new `_vNN`
+  candidates in a `fix/sasuke-<name>` PR (`npm run pr -- start fix/sasuke-<name> --full`): size pops inside light2
+  (#0-#3 at 215 px vs #4-#6 at 195 px), light3 (#0-#3 at 210 vs #4-#6 at 188) and special (#0 at 211 vs the rest
+  at ~180). The two stitched parts were packed at different scales; calibrate both to the same skull-to-chin length.
 
 - [x] **(2026-10-09) Kirin poses now, kit animations later (ADR 0011).** Done 2026-10-10: kit briefs merged and all 42 animations generated/packed; final visual approval pending. His ULTIMATE is Amaterasu (no beam)
   and his SUPER is Kirin. Read ADR 0011 and `art/characters/sasuke/KIT.md`, then:
@@ -77,7 +81,7 @@ How it works:
 
 ## Killua thread
 
-- [ ] **(2026-10-10) ART-SCALE-01 part 2:** same item as the Naruto thread (top of its section): finish Killua's
+- [x] **(2026-10-10) ART-SCALE-01 part 2:** done in PR #9 (merged); same item as the Naruto thread: finish Killua's
   calibrated candidates in `../gcdTourney-worktrees/art-scale-naruto-killua`, draft PR #8.
 
 Claude's QA of the full set (2026-10-09): all 42 animations + UI pack into a **complete** sheet (175 frames,
