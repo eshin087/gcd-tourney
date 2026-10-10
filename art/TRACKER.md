@@ -35,7 +35,7 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
 | character | reference (2) | core anims (23) | optional anims | UI (3) | sheet complete |
 |---|---|---|---|---|---|
-| naruto | 2/2 approved | 23/23 packed (2 approved) | 19/19 packed | 3/3 packed previews | yes; final review pending |
+| naruto | 2/2 approved | 23/23 approved | 19/19 approved | 3/3 approved | yes; final batch approved |
 | sasuke | 2/2 approved | 2/23 approved | 0/15 | 0/3 | no |
 | killua | 0/2 | 0/23 | 0/19 | 0/3 | no |
 | gojo | 0/2 | 0/23 | 0/19 | 0/3 | no |
@@ -55,49 +55,49 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
 | 4 | run | 8 | - | **yes** | 204 | approved | v03 | v03 | User approved the short-hair run v03; same gait/placement/timing, 48 colors, zero pack warnings. Hair propagation complete. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | packed | v02 | - | final review pending; see REVIEW.md |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | packed | v01 | - | final review pending; see REVIEW.md |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | packed | v01 | - | final review pending; see REVIEW.md |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | packed | v01 | - | final review pending; see REVIEW.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | packed | v01 | - | final review pending; see REVIEW.md |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | packed | v02 | - | final review pending; see REVIEW.md |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | packed | v02 | - | final review pending; see REVIEW.md |
-| 6 | guard | 2 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
-| 6 | hurtHigh | 3 | - | **yes** | 195 | packed | v01 | - | final review pending; see REVIEW.md |
-| 6 | launched | 2 | - | **yes** | 136 | packed | v01 | - | final review pending; see REVIEW.md |
-| 6 | down | 2 | - | **yes** | 96 | packed | v01 | - | final review pending; see REVIEW.md |
-| 6 | getup | 5 | - | **yes** | 204 | packed | v02 | - | final review pending; see REVIEW.md |
-| 7 | charge | 4 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
-| 7 | beamCharge | 3 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
-| 7 | beamFire | 3 | - | **yes** | 198 | packed | v02 | - | final review pending; see REVIEW.md |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | packed | v01 | - | final review pending; see REVIEW.md |
-| 8 | dash | 2 | - | **yes** | 160 | packed | v01 | - | final review pending; see REVIEW.md |
-| 8 | jumpUp | 2 | - | **yes** | 198 | packed | v01 | - | final review pending; see REVIEW.md |
-| 8 | jumpFall | 2 | - | **yes** | 209 | packed | v01 | - | final review pending; see REVIEW.md |
-| 8 | land | 2 | - | **yes** | 174 | packed | v01 | - | final review pending; see REVIEW.md |
-| 8 | win | 4 | - | **yes** | 212 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | backDash | 3 | - | no | 207 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | superDash | 2 | - | no | 120 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | jumpSquat | 1 | - | no | 162 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | packed | v02 | - | final review pending; see REVIEW.md |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | block | 2 | - | no | 204 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | hurtLow | 3 | - | no | 183 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | spin | 4 | - | no | 160 | packed | v02 | - | final review pending; see REVIEW.md |
-| 9 | airRecover | 3 | - | no | 180 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | throw | 4 | 1/1/2 | no | 201 | packed | v02 | - | final review pending; see REVIEW.md |
-| 9 | vanish | 2 | - | no | 221 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | stagger | 4 | - | no | 207 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | ko | 1 | - | no | 64 | packed | v03 | - | final review pending; see REVIEW.md |
-| 9 | intro | 4 | - | no | 210 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | taunt | 2 | - | no | 212 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | specialForward | 7 | 2/2/3 | no | 204 | packed | v02 | - | final review pending; see REVIEW.md |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | packed | v01 | - | final review pending; see REVIEW.md |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | packed | v02 | - | final review pending; see REVIEW.md |
-| 9 | superPose | 4 | - | no | 208 | packed | v01 | - | final review pending; see REVIEW.md |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | packed | v01 | - | final review pending; see REVIEW.md |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | packed | v02 | - | final review pending; see REVIEW.md |
-| 11 | ui/select.png (384x384) | - | - | no | - | packed | v01 | - | final review pending; see REVIEW.md |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 6 | guard | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 7 | beamFire | 3 | - | **yes** | 198 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 8 | dash | 2 | - | **yes** | 160 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 8 | land | 2 | - | **yes** | 174 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 8 | win | 4 | - | **yes** | 212 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | backDash | 3 | - | no | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | superDash | 2 | - | no | 120 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | jumpSquat | 1 | - | no | 162 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | block | 2 | - | no | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | hurtLow | 3 | - | no | 183 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | spin | 4 | - | no | 160 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | throw | 4 | 1/1/2 | no | 201 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | ko | 1 | - | no | 64 | approved | v03 | v03 | Final batch approved; see production/QA.md |
+| 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | taunt | 2 | - | no | 212 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | Final batch approved; see production/QA.md |
 
 ## sasuke
 
