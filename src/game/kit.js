@@ -242,7 +242,8 @@ function inLane(f, o, tol = 1.0) {
 const START = {
   rush(f, m) {
     if (m.selfDmg) f.hp = Math.max(1, f.hp - m.selfDmg); // pre-Sage Rasenshuriken tears his own arm
-    f.startMove('special', m);
+    // cancelled out of a normal that hit: the faster startup, so light x3 -> special combos (ADR 0015)
+    f.startMove('special', f.cancelSpecial && m.cancelStartup ? { ...m, startup: m.cancelStartup } : m);
   },
 
   shot(f, m) {

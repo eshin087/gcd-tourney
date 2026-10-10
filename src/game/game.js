@@ -7,9 +7,9 @@ import { buildVoidStage } from '../world/voidStage.js';
 import { Effects } from './effects.js';
 import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
-import { CpuBrain, DummyBrain } from './ai.js';
+import { makeBrain, DummyBrain } from './ai.js';
 import { Beam, Vortex, spawnProjectiles } from './projectiles.js';
-import { ULTIMATE } from './moves.js';
+import { ULTIMATE, DEFENSE, THROW } from './moves.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import { Hud } from '../ui/hud.js';
@@ -22,6 +22,10 @@ import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT } from './constant
 
 const v3 = new THREE.Vector3();
 const LANE = 0.6; // max depth offset (world units) for a melee hit to connect
+// states a throw can grab (ADR 0015): not hit or block stun, not airborne, not mid-dodge; an attack only
+// during its startup and a kit move only while it stands still (counter stance, mode power-up, Blue cast)
+const THROWABLE = new Set(['idle', 'run', 'guard', 'land', 'wavedash', 'charge', 'dash', 'jumpSquat', 'held']);
+const THROWABLE_KIT = new Set(['counter', 'mode', 'pull']);
 const DEFAULT_HURT = [{ x0: -0.3, x1: 0.3, y0: 0, y1: 1.45 }];
 // Hit boxes are grown a little before the overlap test (world units, [x, y]): a fist
 // that visibly brushes the body should count. Air normals get DBFZ-style tall boxes
@@ -129,8 +133,13 @@ export class Game {
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18); // mirror match tint
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; f.wins = 0; });
-    this.brains = cfg.mode === 'solo' ? [null, new CpuBrain(this.fighters[1], cfg.level || 'normal')] : [null, null];
-    this.input.bind(this.pads, cfg.mode === 'solo' ? 'solo' : 'versus');
+    // 'solo': P1 human vs CPU. 'cpu': spectate two CPUs at the same level (defaults to impossible, the
+    // point being to watch what the strongest bots can do). 'versus': two humans.
+    const level = cfg.level || (cfg.mode === 'cpu' ? 'impossible' : 'normal');
+    this.brains = cfg.mode === 'solo' ? [null, makeBrain(this.fighters[1], level)]
+      : cfg.mode === 'cpu' ? this.fighters.map((f) => makeBrain(f, level, true))
+      : [null, null];
+    this.input.bind(this.pads, cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
     this.hud.setup(this.fighters, assets, matchHint(cfg.mode, deviceLayout(this.input)));
     this.round = 1;
     this.resetRound();
@@ -171,6 +180,11 @@ export class Game {
     audio.startMusic('battle');
     audio.setCrowd(0);
     this.menus.trainingPanel();
+  }
+
+  // CPU vs CPU spectator match: both pads are driven by brains, nobody is playing.
+  get watching() {
+    return this.cfg?.mode === 'cpu' && !this.training;
   }
 
   // 'arena' (tournament grounds) or 'training' (holographic practice room)
@@ -437,7 +451,7 @@ export class Game {
     this.cam.set('orbit');
     audio.startMusic('menu');
     audio.setCrowd(0.05);
-    this.menus.modeSelect(2);
+    this.menus.modeSelect(this.menus.modeIndex('training'));
   }
 
   quitToTitle() {
@@ -593,9 +607,9 @@ export class Game {
       const attacking = att.state === 'attack' && att.move === m; // false if the other hit landed first
       att.moveHit = true;
       att.hitPoint = at;
-      def.takeHit(att, m, dir);
+      const r = def.takeHit(att, m, dir);
       att.hitPoint = null;
-      if (!attacking) continue;
+      if (!attacking || r === 'parry') continue; // a parried attacker is already staggered
       if (m.rush) {
         att.vel.multiplyScalar(0.1);
         att.t = m.startup + m.active;
@@ -838,6 +852,88 @@ export class Game {
     this.fx.blockSpark(x, def.pos.y + 0.85, z);
     audio.play('block');
     this.cam.shake(0.08);
+  }
+
+  // ------------------------------------------------------------ throws (ADR 0015)
+  // Called on the throw's active frames: grab a grounded, throwable opponent in reach. Two throws meeting
+  // break each other. Returns true when the throw is resolved (grabbed or broken).
+  tryGrab(att) {
+    const def = att.opp, T = THROW;
+    if (def.ko || def.hidden || def.invuln > 0 || def.air || def.pos.y > 0.05 || att.air) return false;
+    const R = this.cam.right, F = this.cam.fwd;
+    const rx = def.pos.x - att.pos.x, rz = def.pos.z - att.pos.z;
+    if (Math.abs(rx * R.x + rz * R.z) > T.range || Math.abs(rx * F.x + rz * F.z) > T.lane) return false;
+    if (def.state === 'throw' && def.throwSt?.phase === 'reach') { this.breakThrow(att, def); return true; }
+    const open = THROWABLE.has(def.state) || (def.state === 'attack' && def.move && def.t < def.move.startup && !def.move.air)
+      || (def.state === 'kit' && THROWABLE_KIT.has(def.kitState?.kind));
+    if (!open) return false;
+    def.endMoveFx();
+    def.move = null;
+    def.counterT = 0;
+    def.carry.set(0, 0);
+    def.vel.set(0, 0, 0);
+    def.heldT = T.hold + 6;
+    def.grab = { by: att, t: 0 };
+    def.setState('held', 'hurtHigh');
+    att.throwSt.phase = 'hold';
+    att.throwSt.t0 = att.t;
+    att.throwSt.victim = def;
+    const x = (att.pos.x + def.pos.x) / 2, z = (att.pos.z + def.pos.z) / 2;
+    this.fx.spawn('ring', x, def.pos.y + 0.9, z, { scale: 1.1, color: 0xffe2a0, glow: 1, depthTest: false, order: 9 });
+    this.freeze = Math.max(this.freeze, 3);
+    this.cam.zoomPunch(0.3);
+    audio.play('block', 0.8);
+    return true;
+  }
+
+  // Throw break: Light + Heavy within the window (or two throws at once). No damage; both get pushed apart.
+  breakThrow(att, def) {
+    const T = THROW;
+    const dx = def.pos.x - att.pos.x, dz = def.pos.z - att.pos.z, l = Math.hypot(dx, dz) || 1;
+    for (const [f, s] of [[att, -1], [def, 1]]) {
+      if (f.state === 'throw') f.releaseGrab();
+      f.grab = null;
+      f.heldT = 0;
+      f.landLag = T.breakLag;
+      f.setState('land');
+      f.vel.set((dx / l) * T.push * s, 0, (dz / l) * T.push * s);
+    }
+    const x = (att.pos.x + def.pos.x) / 2, z = (att.pos.z + def.pos.z) / 2, y = def.pos.y + 0.9;
+    this.fx.blockSpark(x, y, z);
+    this.fx.spawn('ring', x, y, z, { scale: 1.4, color: 0xffffff, glow: 1.2, depthTest: false, order: 9 });
+    this.hud.callout(def.index, 'BREAK!', '#ffe2a0');
+    this.freeze = Math.max(this.freeze, 4);
+    this.cam.shake(0.2);
+    audio.play('block', 1.2);
+  }
+
+  // The toss: an unblockable hit that wall-bounces them (super dash or vanish can follow).
+  throwHit(att, def) {
+    if (!def || def.grab?.by !== att || def.ko) return;
+    def.grab = null;
+    def.heldT = 0;
+    def.setState('idle', null); // a fresh hit, not part of a combo
+    this.hud.callout(att.index, 'THROW!', att.def.color);
+    def.takeHit(att, THROW.hit, att.face.clone());
+  }
+
+  // Parry (ADR 0014): a bright clang, a short world freeze to sell it, and the callout.
+  onParry(def, att, m) {
+    const near = m.projectileHit || att === def;
+    const x = near ? def.pos.x + def.face.x * 0.45 : (att.pos.x + def.pos.x) / 2;
+    const z = near ? def.pos.z + def.face.y * 0.45 : (att.pos.z + def.pos.z) / 2;
+    const y = def.pos.y + 0.9;
+    this.fx.blockSpark(x, y, z);
+    this.fx.hitSpark(x, y, z, true, 0xbff4ff);
+    this.fx.spawn('ring', x, y, z, { scale: 1.5, color: 0x9ff0ff, glow: 1.4, depthTest: false, order: 9 });
+    this.fx.overlay.flash('#cff6ff', 0.3);
+    this.hud.callout(def.index, 'PARRY!', '#9ff0ff', true);
+    this.freeze = Math.max(this.freeze, DEFENSE.parry.freeze);
+    this.cam.zoomPunch(0.5);
+    this.cam.shake(0.22);
+    audio.play('block', 1.4);
+    audio.play('flash', 0.6);
+    this.excite = Math.min(1, this.excite + 0.5);
   }
 
   onGroundBounce(f) {
@@ -1083,14 +1179,15 @@ export class Game {
     if (this.fighters.length === 2) this.hud.update(this.fighters, this.timeLeft, dt);
     this.menus.tick?.(dt);
     if (this.touch) {
-      // on-screen controls only while there is something to control
+      // on-screen controls only while there is something to control (CPU vs CPU keeps just the pause button)
       const live = this.input.lastDevice === 'touch' && this.fighters.length === 2 && !this.paused &&
         (this.state === 'fight' || this.state === 'roundIntro' || this.state === 'training');
       this.touch.setVisible(live);
+      this.touch.setSpectate(this.watching);
       if (live) this.touch.setKi(this.fighters[0].ki);
     }
     // keep the fight centered in the space the training panel / touch buttons leave free
-    const touchUi = !!this.touch?.visible;
+    const touchUi = !!this.touch?.visible && !this.watching;
     const cover = Math.max(this.training && !this.paused ? this.menus.panelCover() : 0, touchUi ? 0.16 : 0);
     const k = Math.min(1, dt * 8);
     this.viewCover += (cover - this.viewCover) * k;

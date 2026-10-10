@@ -4,6 +4,7 @@ import { ControlsPanel } from './controls.js';
 import { IS_TOUCH_DEVICE } from '../core/touch.js';
 import { kitOf } from '../game/kit.js';
 import { SPECIAL_MOVES, SUPERS } from '../game/moves.js';
+import { CPU_LEVELS } from '../game/ai.js';
 
 const el = (tag, cls, html = '') => {
   const e = document.createElement(tag);
@@ -44,6 +45,11 @@ export const MOVES_HTML = `
       <tr><td>Ultimate beam</td><td>Heavy + Special <small>(3 bars)</small> · fire back to CLASH, then mash</td></tr>
       <tr><td>Second super</td><td>SUPER <small>(3 bars)</small>: Godspeed Whirlwind, Unlimited Void… (the beam if the fighter has none)</td></tr>
       <tr><td>Air recover</td><td>any button while launched</td></tr>
+      <tr><td>Parry</td><td>tap Guard just before a hit lands: no damage, they stagger <small>(mashing Guard won't parry)</small></td></tr>
+      <tr><td>Spot dodge</td><td>Guard + push ↓</td></tr>
+      <tr><td>Air dodge</td><td>Guard in the air <small>(+ direction, once per jump)</small></td></tr>
+      <tr><td>Wavedash</td><td>Jump, then at once Guard + direction: slide, attack out of it</td></tr>
+      <tr><td>Throw</td><td>Light + Heavy up close: beats Guard and parry · grabbed? Light + Heavy to break</td></tr>
     </table>
   </div>`;
 
@@ -192,7 +198,7 @@ export class Menus {
     const { box, ctrl } = this.list([
       { label: 'VS CPU', sub: 'fight the computer', action: () => this.charSelect('solo') },
       { label: '2 PLAYERS', sub: 'same keyboard or two gamepads', action: () => this.charSelect('versus') },
-      { label: 'CPU VS CPU', sub: 'sit back and watch two hard CPUs fight', action: () => this.charSelect('cpu') },
+      { label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out', action: () => this.charSelect('cpu') },
       { label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind', action: () => this.game.startTraining() },
       { label: 'SPRITE LAB', sub: 'preview & export sprite sheets', action: () => window.open('/sprites.html', '_blank') },
     ], { index, back: () => this.title() });
@@ -333,8 +339,8 @@ export class Menus {
     let step = 0; // 0 = P1 picking, 1 = P2/CPU picking, 2 = difficulty
     const picks = [null, null];
     const cpuLevel = mode === 'solo' || mode === 'cpu'; // modes with a difficulty step
-    let level = mode === 'cpu' ? 2 : 1; // spectating defaults to HARD: the point is to watch the best bots
-    const levels = ['EASY', 'NORMAL', 'HARD'];
+    const levels = CPU_LEVELS.map((l) => l.toUpperCase());
+    let level = mode === 'cpu' ? levels.length - 1 : 1; // spectating defaults to IMPOSSIBLE: the point is to watch the best bots
     const tags = { solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'], training: ['P1', 'DUMMY'] }[mode] || ['P1', 'P2'];
     const who = { solo: ['P1', 'Pick the CPU opponent'], cpu: ['Pick CPU 1', 'Pick CPU 2'], training: ['P1', 'Pick the training dummy'] }[mode] || ['P1', 'P2'];
     const go = mode === 'cpu' ? 'WATCH' : 'FIGHT';
@@ -449,7 +455,7 @@ export class Menus {
     };
 
     const move = (d) => {
-      if (step === 2) { level = (level + (d > 0 ? 1 : 2)) % 3; audio.play('ui'); render(); return; }
+      if (step === 2) { level = (level + (d > 0 ? 1 : levels.length - 1)) % levels.length; audio.play('ui'); render(); return; }
       cursor = (cursor + d + slots) % slots;
       audio.play('ui');
       render();

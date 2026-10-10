@@ -380,6 +380,11 @@ export class InputHistory {
 
 // Bottom-of-screen hint for matches, built from the live bindings + active device.
 export function matchHint(mode, layout) {
+  if (mode === 'cpu') {
+    // spectating: nobody is playing, so only the way out matters
+    const pause = layout === 'touch' ? '<kbd>❙❙</kbd>' : layout !== 'keyboard' && PAD_NAMES[layout] ? `<kbd>${PAD_NAMES[layout][9]}</kbd>` : '<kbd>Esc</kbd>';
+    return `CPU vs CPU · ${pause} pause`;
+  }
   if (layout === 'touch') return ''; // the on-screen buttons are labelled
   const k = (map, a) => `<kbd>${keyLabel(map[a]?.[0])}</kbd>`;
   if (layout !== 'keyboard' && PAD_NAMES[layout]) {
@@ -400,6 +405,7 @@ export function matchHint(mode, layout) {
 
 // Beam-clash mash prompt, from the live bindings (training and VS CPU use the solo map).
 export function clashHint(mode, layout) {
+  if (mode === 'cpu') return 'BEAM CLASH!'; // both sides mash on their own
   if (layout === 'touch' && mode !== 'versus') return 'MASH <kbd>LIGHT</kbd><kbd>HEAVY</kbd><kbd>SPECIAL</kbd>!';
   const keys = (m) => ['light', 'heavy', 'special'].map((a) => `<kbd>${keyLabel(m[a]?.[0])}</kbd>`).join('');
   if (mode === 'versus') return `MASH! P1 ${keys(KEYMAPS.p1)} · P2 ${keys(KEYMAPS.p2)}`;

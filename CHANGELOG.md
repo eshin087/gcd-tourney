@@ -11,14 +11,17 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Title screen: new Naruto-vs-Killua key art (`title_art` v02, approved by the user) replaces Naruto vs Sasuke; static painted audience (ART-UI-02).
-- **Stage, NPC and title-art support:** packer modes `npm run sprites stage|npc|ui` and the engine side: the arena
+- **Fighter scale corrections are in the game** (final batch approved by the user, PRs #8 + #9): 19 Naruto and 14 Killua animations re-sized so heads stay one size across every animation (Gojo keeps his original approved proportions, Killua stays shorter and Gojo taller), and Sasuke's final 42-animation pass with pose-fit repairs and Chidori/Kirin anchors; the packer accepts approved compact head targets (ART-SCALE-01).
 
-- Completed the isolated fighter-scale candidate pass: 19 Naruto and 14 Killua corrections, full 42-animation Sasuke kit plus three UI candidates, original Gojo proportions restored, source-hashed QA and Claude handoff. 207 packer tests/build/browser checks pass; final visual approval and two documented non-clipping KO margin exceptions remain.
+- Every new feature or character now lands through a pull request built in its own git worktree: `npm run pr -- start|open|merge` (tools/pr.mjs), one `--no-ff` merge commit per feature so it reverts cleanly (ADR 0013, OPS-002).
+
+- **Sasuke's hi-res art is in the game**: Codex's complete set of 42 animations / 175 frames replaces his placeholder in fights, packed at the shared anatomical scale. Every image still waits for the user's review in art/REVIEW.md, and his portrait, cut-in and select candidates are packed only once approved (ART-SCALE-01, ART-SAS-11).
 
 - Art: reject enlarged Gojo head candidates after user feedback; restore approved proportions and document their precedence over nominal 31px guidance.
 
-- Fighter-scale audit and Sasuke completion in progress (ART-SCALE-01): explicit skull-to-chin calibration support, cache regression coverage, and a shared anatomical production gate; existing visual corrections remain pending.
+- Packer: measured skull-to-chin calibration from versioned sidecars, so a raised fist or a crouch no longer changes a fighter's scale; calibrated cached frames keep their scale; shared anatomical gate in art/CHARACTER_SCALE.md (ART-SCALE-01). Naruto's and Killua's corrections continue on a branch.
+
+- Title screen: new Naruto-vs-Killua key art (`title_art` v02, approved by the user) replaces Naruto vs Sasuke; static painted audience (ART-UI-02).
 
 - Naruto final batch approved by the user: all 42 animations and three UI assets; promoted UI sources, preserved pose/reach QA notes, and handed gameplay integration to Claude.
 
@@ -36,6 +39,23 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
+- **IMPOSSIBLE CPU level** (VS CPU and CPU vs CPU, `?level=impossible`): a frame-data brain (`src/game/aiMaster.js`)
+  that times parries, spot dodges and air dodges against what it sees coming, punishes whiffs and blocked big moves,
+  runs each kit's max-damage routes with a lethal check (supers, Amaterasu, vanish and super dash extensions),
+  wavedashes for spacing, times meaty attacks on wake-up and anti-airs. It only presses buttons and reacts after 7
+  frames, so jabs and mix-ups stay guesses. CPU vs CPU now defaults to it in a louder "showman" style (ENG-043,
+  ADR 0014).
+- **Parry, spot dodge, air dodge and wavedash** on the Guard button: tap Guard ≤ 6 frames before a hit to parry
+  (attacker staggers; 24-frame lockout per press, re-armed by a parry), Guard + ↓ to spot dodge, Guard in the
+  air to air dodge (+ direction), and Jump → Guard + direction to wavedash, with the slide's momentum carried into
+  the next move (ENG-042, ADR 0014).
+- **Throw and throw break** (ADR 0015): Light + Heavy up close grabs a grounded opponent who isn't in hit or block
+  stun (so it beats a held Guard, parries and counter stances) and tosses them into the wall for 80; Light + Heavy
+  within 12 frames of being grabbed breaks it. Strikes, jumps and spot dodges beat it; a whiff is a 34-frame
+  punish. The IMPOSSIBLE CPU tick-throws, throws turtles and breaks throws; Easy to Hard break some (ENG-044).
+- **CPU vs CPU** spectator mode works end to end: SELECT MODE → CPU VS CPU or `?mode=cpu` arms both sides, the
+  pad bindings stay off, the hint bar shows only how to pause, and touch screens keep just the pause button
+  (ENG-041).
 - **All world art is in the game** (the user approved every existing world-art image on 2026-10-10): hand-drawn
   hit effects replace the procedural ones (15 effects), 576 anime spectators fill the stands (including the
   Killua and Gojo cameos, kept at the user's request), the tournament grounds use the 30 painted stage textures,
@@ -129,6 +149,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- Rush specials cancelled out of a normal that hit start faster (`cancelStartup`: Rasengan 14, Chidori 16,
+  Rasenshuriken 18; raw stays 24 / 28 / 30), so light ×3 → special is a true combo again (ENG-045, ADR 0015).
+- CPU level picker has a fourth step, IMPOSSIBLE; CPU vs CPU starts on it. Hard's guard reaction now lands
+  inside the parry window against raw launchers, so Hard parries some of them (ADR 0014).
 - World art is approval-gated: `npm run sprites` ships only world-art items with an `approvedVersion`, at that
   version; candidates wait in `art/` and can be previewed locally with `--candidates` + `?art=custom`. An unreadable
   manifest never un-ships art (ADR 0012).
@@ -160,6 +184,14 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Air combos no longer drop on the art packs: a launched pose leans back, so `airLight2` whiffed on Naruto and the
+  `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and
+  during the next move's startup, and the spike's box pad is wider; the air string connects ~97 % across all 16
+  pairings (ADR 0014).
+- The crowd no longer flickers between poses when the fight gets exciting: excitement used to multiply each
+  spectator's animation rate against the absolute clock, so every change in hype scrambled their phase (~42 pose
+  switches per second per spectator). Now each keeps a steady tempo, hype eases in and out and speeds up a shared
+  crowd clock instead (~2 switches per second, a calm sway that builds into a bouncing cheer).
 - Character select fits a landscape phone: the full kit move list was cut off below 480 px of height.
 - Docs: spec v2 sheets are 4096 × 2816 (42 animations / 175 frames), not 4096 × 2560.
 - Minimum hurtbox width (0.56 units) so a slim art pack can't make a fighter hard to hit (Killua's art: 75 % → 42 % CPU wins).
