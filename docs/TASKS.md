@@ -125,7 +125,7 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | ART-VFX-04 | Projectile/signature set: shuriken, fire, orb (Rasengan) | Codex | todo | full color |
 | ART-VFX-05 | Pack (`npm run sprites vfx`), in-game QA, REVIEW.md rows, update TRACKER | Codex | todo | missing effects fall back to procedural |
 | ART-UI-01 | Title logo "GCD TOURNEY" (+ 天下一武闘祭 subtitle) | Codex | todo | `art/ui/PROMPTS.md`; versioned `_vNN`, user approves |
-| ART-UI-02 | Title / menu background art | Codex | todo | versioned `_vNN`, user approves |
+| ART-UI-02 | Title / menu background art | Codex | done | 2026-10-10: user-approved Naruto-vs-Killua `title_art` v02 shipped (static painted audience; the crowd-sprite overlay experiment was dropped); 128-color fit in public/ui, zero warnings. PR art/title-art-v02 |
 | ENG-013 | Use custom logo and title art in menus when present | Claude | todo | after ART-UI-01/02 |
 
 
