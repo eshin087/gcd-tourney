@@ -35,3 +35,12 @@ generating it.
 ## SUPER and the rest
 
 Unchanged: Domain Expansion: Unlimited Void on SUPER; Lapse: Blue, Reversal: Red, Blink and Infinity as in ADR 0011.
+
+## Build correction and full redraw (2026-10-10)
+
+The user's decision: Gojo reads too thin and too small next to the cast. His head (size, face, blindfold, hair) and
+his 215 px standing skeleton stay; his build becomes an athletic adult's, and all 42 animations are redrawn to it in
+one art branch, with a new `heavy` (a one-handed rising elbow into an open-palm uppercut) and `charge`. The whole
+brief (measurements, targets, the model sheet prompt, the redraw order, the new A07 / A15 blocks, the acceptance
+checks): [BUILD_REDRAW.md](BUILD_REDRAW.md). Its section 7 replaces the optional `beamFire` note above: redraw the
+release gesture there if the anime's differs (route B for that strip).

@@ -40,6 +40,13 @@ How it works:
 
 ## Naruto thread
 
+- [ ] **(2026-10-10) ART-HEAVY-01 + ART-CHARGE-01 (Naruto): a new `heavy` and `charge`.** The user's review: the
+  heavy looks unnatural (an arm raised on the spot) and the power-up barely moves. Redraw `heavy` as **v04** (a bursting uppercut, after his Chunin Exam uppercut on Neji) and
+  `charge` as **v02** (a straining power-up), exactly as [art/characters/naruto/KIT.md](../../art/characters/naruto/KIT.md#6-redraws-2026-10-10-heavy-and-charge) describes (the frame tables, the new A07 /
+  A15 blocks with the SCALE LOCK line, the QA list and the merge steps at its end). Do it **after ART-NAR-4T below** (the Four-Tails frames come first). Delete the `heavy` 3/4 overrides in `hitboxes.json` before packing.
+  Art PR: `npm run pr -- start art/naruto-heavy-charge --full`; `_vNN` candidates, an anatomy sidecar per strip, REVIEW rows,
+  then stop for the user's `approve vNN`. Attach the cast lineup to the heavy's REVIEW row: `npm run lineup -- naruto sasuke killua gojo --out art/scale/lineup-<id>-heavy_vNN.png` after packing (art/CHARACTER_SCALE.md "Lineup review").
+
 - [ ] **(2026-10-10) ART-NAR-4T: the Four-Tails frames (required, ADR 0017).** PR #14 is merged: Naruto's ultimate
   is now the Four-Tails rampage (no more Rasen Cannon beam). Redraw `beamCharge` (the roar, 3 frames) and `beamFire`
   (the pounce and the claw slams, 3 frames) as the four-tailed shroud form, exactly as
@@ -80,6 +87,13 @@ How it works:
 
 ## Sasuke thread
 
+- [ ] **(2026-10-10) ART-HEAVY-01 + ART-CHARGE-01 (Sasuke): a new `heavy` and `charge`.** The user's review: the
+  heavy looks unnatural (an arm raised on the spot) and the power-up barely moves. Redraw `heavy` as **v03** (the Lion's Barrage opening kick: a low hand-touch crouch, the rising front kick, a back-arched follow-through, clearly apart from his `specialUp`) and
+  `charge` as **v03** (cold intensity, Sharingan on), exactly as [art/characters/sasuke/KIT.md](../../art/characters/sasuke/KIT.md#6-redraws-2026-10-10-heavy-and-charge) describes (the frame tables, the new A07 /
+  A15 blocks with the SCALE LOCK line, the QA list and the merge steps at its end). Independent of the size-pop follow-ups below (their own `fix/` PR).
+  Art PR: `npm run pr -- start art/sasuke-heavy-charge --full`; `_vNN` candidates, an anatomy sidecar per strip, REVIEW rows,
+  then stop for the user's `approve vNN`. Attach the cast lineup to the heavy's REVIEW row: `npm run lineup -- naruto sasuke killua gojo --out art/scale/lineup-<id>-heavy_vNN.png` after packing (art/CHARACTER_SCALE.md "Lineup review").
+
 - [ ] **(2026-10-10) Sasuke follow-ups** (his final set merged with PR #9). Claude's frame audit, as new `_vNN`
   candidates in a `fix/sasuke-<name>` PR (`npm run pr -- start fix/sasuke-<name> --full`): size pops inside light2
   (#0-#3 at 215 px vs #4-#6 at 195 px), light3 (#0-#3 at 210 vs #4-#6 at 188) and special (#0 at 211 vs the rest
@@ -98,6 +112,13 @@ How it works:
   4. Continue Prompt 1 as usual. A39-A42 are step 9, after the core animations.
 
 ## Killua thread
+
+- [ ] **(2026-10-10) ART-HEAVY-01 + ART-CHARGE-01 (Killua): a new `heavy` and `charge`.** The user's review: the
+  heavy looks unnatural (an arm raised on the spot) and the power-up barely moves. Redraw `heavy` as **v02** (an assassin's spiraling rising claw rake that ends in a skip; the claw schedule stays) and
+  `charge` as **v04** (crouched, twitching with power), exactly as [art/characters/killua/KIT.md](../../art/characters/killua/KIT.md#redraws-2026-10-10-heavy-and-charge) describes (the frame tables, the new A07 /
+  A15 blocks with the SCALE LOCK line, the QA list and the merge steps at its end). Before the optional ART-KIL-WW below. His strips need an anatomy sidecar (the current heavy packs about 9 % small).
+  Art PR: `npm run pr -- start art/killua-heavy-charge --full`; `_vNN` candidates, an anatomy sidecar per strip, REVIEW rows,
+  then stop for the user's `approve vNN`. Attach the cast lineup to the heavy's REVIEW row: `npm run lineup -- naruto sasuke killua gojo --out art/scale/lineup-<id>-heavy_vNN.png` after packing (art/CHARACTER_SCALE.md "Lineup review").
 
 - [ ] **(2026-10-10) ART-KIL-WW, optional (ADR 0017):** after the Naruto thread's ART-NAR-4T. Killua's ultimate is now
   Godspeed: Whirlwind (reflex mode), and his flurry SUPER is renamed Speed of Lightning. No redraw is required. For
@@ -129,13 +150,26 @@ Killua response (2026-10-09): cleaned frame specks; final strict report has none
 
 ## Gojo thread
 
-- [ ] **(2026-10-10) ART-GOJ-HP, optional (ADR 0017):** after the Naruto thread's ART-NAR-4T. Hollow Purple is now a
-  rolling orb, not a beam, and the approved `beamCharge` / `beamFire` already fit it. For the anime look, compare
-  `beamFire` with the release in Jujutsu Kaisen season 2 (the Hidden Inventory arc, the fight with Toji) and, if the
-  gesture differs, generate the next `_vNN` with that gesture, as
-  [art/characters/gojo/KIT.md](../../art/characters/gojo/KIT.md) describes (the hand at the fusion point, about
-  (243, 115) in the cell; no orb or glow in the sprite). Art PR: `npm run pr -- start art/gojo-purple --full`. The
-  dedicated `hollowPurple` VFX strip waits for Claude's atlas entry (VFX-HP); don't generate it yet.
+- [ ] **(2026-10-10) ART-GOJ-BUILD (required): Gojo's broader adult build, all 42 animations.** The user's decision: Gojo
+  reads too thin and too small (his idle has a 13-year-old's shoulders: deltoid ratio 0.23, the same as Killua's; the
+  cast lineup flags him). Keep his head (size, face, blindfold, white hair) and his 215 px standing skeleton; make
+  him an athletic adult (shoulders about 78-86 px on the packed idle), with a new `heavy` and `charge`. Everything is
+  in [art/characters/gojo/BUILD_REDRAW.md](../../art/characters/gojo/BUILD_REDRAW.md): the measurements and targets,
+  the model sheet v05 prompt, the new lines for every Gojo prompt (drop "slender"; the build lock), the redraw order
+  and the two routes (edit the approved strip, or a fresh generation for `heavy` and `charge`), the new A07 / A15
+  blocks, the acceptance checks and the doc merges (its section 10).
+  1. One art branch for all of it: `npm run pr -- start art/gojo-build --full` (main keeps today's Gojo until the
+     whole set passes; a half-redrawn Gojo would mix builds).
+  2. First the model sheet v05 with its lineup (`npm run lineup -- --rows idle:0 --candidate <view 5 cropped to one
+     figure>.png --scale 0.5 --name gojo-model_sheet_v05 --out art/scale/lineup-gojo-model_sheet_v05.png`), then stop
+     for the user's approval. Then idle v04 with its lineup and approval, then run and the rest in the section 6 order.
+  3. `npm run pr -- preview` once the core set is packed so the user can see him in game on the phone; merge when all
+     42 strips and the portrait and select images pass.
+- [x] **(2026-10-10) ART-GOJ-HP:** superseded 2026-10-10 by ART-GOJ-BUILD above: if the release in Jujutsu Kaisen
+  season 2 (the Hidden Inventory arc, the fight with Toji) differs from the open-palm thrust, give `beamFire` that
+  gesture in its ART-GOJ-BUILD step (route B; the hand at the fusion point, about (243, 115) in the cell; no orb or
+  glow in the sprite). The dedicated `hollowPurple` VFX strip still waits for Claude's atlas entry (VFX-HP); don't
+  generate it yet.
 
 Direct user direction supersedes the earlier recommendation for model v02: v02 was rejected; the supplied model v03 proportions govern the entire set.
 

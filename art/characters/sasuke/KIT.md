@@ -612,3 +612,261 @@ packing, facing right, the Hebi outfit, flat magenta, at most 48 colors, inside 
 - [ ] The pointing fingertips are the right-most pixels of every frame, in about x 212-234, y 108-130.
 - [ ] Same character scale as the approved `beamCharge` (head within 3 px).
 - [ ] No lightning, dragon or beam drawn.
+
+## 6. Redraws (2026-10-10): heavy and charge
+
+The user's review of the packed sheet: "most heavy animations look unnatural". Sasuke's launcher is a fist raised
+on the spot (the same uppercut idea as Naruto's), and his power-up is one pose that jitters. Both strips are redrawn
+as the next versions: **`heavy` v03** (A07) and **`charge` v03** (A15). The animation names, frame counts, phases,
+`bodyHeight` (218 / 198) and `ms` stay as they are in `art/manifest.json`; only the poses change. Everything in
+[CHARACTER.md](CHARACTER.md), [ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md),
+[art/SPEC.md](../../SPEC.md) and [art/CHARACTER_SCALE.md](../../CHARACTER_SCALE.md) still applies: the Hebi-era
+outfit, no forehead protector, 6.5 heads, the 200 px standing skeleton, the sword sheathed at the back of the belt in
+every frame, facing right. The approved `heavy` v02 and `charge` v02 stay approved until the user approves the new
+versions.
+
+**The heavy becomes a kick.** Anime reference: the opening of his Lion's Barrage in the Chunin Exam preliminaries
+against Yoroi, where Sasuke drops under the opponent, touches the floor and kicks him straight up from below by the
+chin. Our kit already has the follow-up as `specialUp` (the rise into the air and the slam); the heavy is the
+grounded opening kick that pops the opponent up. It stays clearly different from `specialUp`: it starts from a low,
+hand-touch crouch, the supporting leg drives from the floor, and the follow-through is a back-arched high kick, where
+`specialUp` f2 rises straight up like a rocket with the torso upright. Local pictures in `reference/source/` are for
+comparison only: never upload them to the generator.
+
+### What is wrong now
+
+`heavy` v02 (packed frames, final-cell px):
+
+| f | now | problem |
+|---|---|---|
+| f0 | the idle stance with the lead knife-hand forward, knees a little deeper | no step, no coil, nothing loaded |
+| f1 | a deep squat with the lead hand forward | a good squash, but the strike isn't loaded |
+| f2 | stands up straight, R fist at the belt | reads larger than idle by eye (222 px tall; head and torso about 5 % big) |
+| f3 | R fist straight up beside his head (about x 161, y 26) | not in front of his face at chin height; the hair spikes are the highest pixel, so the packer's rising-strike rule put the hit box on his hair [86, 10, 50, 28]; the legs are planted as in idle |
+| f4 | a small hop with the near knee raised, the fist above the shoulder | the forward-strike rule boxed the whole front of his body, fist to knee [151, 55, 36, 155]: a hit lands from his knee |
+| f5 | a standing stance | no airborne recovery: the engine's hop is not in the pose |
+| f6 | a deep landing squat, a hand at the knee | fine as a landing, but it comes after a grounded f5 |
+| f7 | the idle-like stance | fine |
+
+`charge` v02: the pose idea is right (a wide stance, fists clenched at the hips, the Sharingan, rope ends blowing up),
+but the four frames are one pose shifted 1 to 3 px with new rope-end shapes. The legs are nearly straight, the
+shoulders, arms, chest and head never move, and the waist cloth and the open shirt barely react. It reads as a still
+image with flickering ropes.
+
+### Gameplay facts the frames must fit
+
+From `MOVES.heavy` in `src/game/moves.js` and the attack, hop and landing code in `src/game/fighter.js`:
+
+| fact | value | what it means for the art |
+|---|---|---|
+| frames, phases | 8 frames, `[3, 2, 3]`: f0-f2 startup, f3-f4 active, f5-f7 recovery | only f3 and f4 get a hit box |
+| startup | 12 game frames (about 4 per frame, 67 ms each) | three clear keys: drop, coil, spring |
+| active | 5 game frames (f3 about 3, f4 about 2); on a hit, 12 frames of hitstop freeze the active frame | f3 and f4 are the poses players see frozen: make them clean and readable |
+| recovery | 22 game frames, but the hop lands about 3 game frames into f6 and the engine then plays `land` (8 frames of land lag) | f5 (the top of the hop) is the longest recovery frame; f6 is a pre-landing frame that hands over to `land` f0; f7 mostly shows in previews and the Sprite Lab |
+| lunge | 5.5 units/s forward, falling to 0 by the end of the active phase; it stops on contact | about 0.8 units (about 100 px) of travel on a whiff: draw the drop-step and the spring, in place; feet never slide across the cell |
+| hop | 5 units/s up on the first active frame: airborne from f3 to early f6, highest (about 0.34 units, about 43 px) during f5 | f3 up on the ball of the support foot, f4-f5 airborne with the lowest point (the toes) under the hips, f6 reaching for the floor. The engine does the lift: **no negative `frameOffsets` dy** |
+| launch | `[2.4, 15.5]`, nearly straight up; `launcher: true` (a jump or dash after the hit chases the victim) | the foot travels UP under the opponent's chin (f3) and on overhead (f4), in front of his body |
+| striking limb | the R (near) foot. SPEC's contact-zone row names the rear fist for `heavy`; the zones stay the same for his foot (Claude notes the per-character limb) | the foot (ball and toes) is the forward-most pixel on f3 and the highest pixel of the strip on f4 |
+| hit test | the packed box of f3 / f4, grown by `boxPad` [0.14, 0.3] world units (about 18 × 38 px), same lane | nothing else may reach as far forward (f3) or as high (f4): not his hair, bangs, rope ends, waist cloth, sword or arms |
+| contact zones (SPEC) | f3 x 180-208, y 58-86; f4 x 160-188, y 22-46 | the hop lifts the sprite about 11 to 28 px while f3 shows, so aim the f3 foot low in its zone (y about 78-86): in game it meets a standing opponent's chin |
+| effects | the engine draws the hit spark, dust and sound | no lightning, swoosh or speed lines in the sprite |
+
+`charge` (`state 'charge'`): a 4-frame loop played free-running at the manifest `ms` (50 each, a 200 ms cycle) for as
+long as Special is held. He stands still and gains ki; releasing Special (or pressing Guard or Jump) returns to idle, Heavy with 3
+bars starts the ultimate. The engine draws the blue aura flames rising from his feet, light streaks, small floor
+pebbles flying up and a glow behind him, and pulses his sprite with the character color. So the loop is a fast
+**power pulse**, not a slow breath, and the sprite draws no aura, lightning, glow or debris. Sharingan on (CHARACTER.md
+§5).
+
+<a id="heavy-v03"></a>
+
+### `heavy`: LION'S BARRAGE OPENER, rising front kick launcher with the R leg
+
+8 frames · phases 3/2/3 (startup f0-f2, active f3-f4, recovery f5-f7) · plays once · **CORE** · bodyHeight 218 ·
+ms 40/35/30/50/70/70/60/30 · prompt A07 (2 images: f0-f4 + f5-f7) · dark eyes (no Sharingan) · next version **v03**
+
+He drops under the opponent's guard, touches the floor beside his lead foot, springs and snaps the R leg straight up
+under the chin, and the follow-through carries the leg on overhead as he leaves the floor: cold, exact, one clean
+line. Kicks follow CHARACTER.md §1: pointed toes, a straight supporting leg.
+
+- **Strike target:** f3: the ball and toes of the R foot in **x 180-208, y 58-86**, aim about x 194, y 82, rising
+  in front of him at about 45° above horizontal. f4: the R toes in **x 160-188, y 22-46**, the leg close to
+  vertical in front of his face; the toes are the highest pixel of the strip, about a head above his hair top
+  (his torso leans back), and no higher than about y 24.
+- **Forward-most and highest:** on f3 and f4 the bangs, back spikes, rope ends and bow, the waist-cloth panels, the
+  sword grip and both arms stay behind about x 172 and below the foot. The kicking leg comes out between the panels
+  of the waist cloth (CHARACTER.md §6); the cloth never covers or passes the foot.
+- **Smear:** allowed on f3 only: one solid crescent in pants navy and sandal black below the R leg along its upward
+  arc, attached to the leg and never past the foot. No separate streak, no lightning.
+- **Hair and cloth:** the bangs and rope ends swing down on f0, pool on f1, are dragged down on f3-f4 (rising),
+  float on f5 and lift on f6 (falling). The waist cloth pools over the knees on f1, parts around the kicking leg on
+  f3-f4 and flares on f6.
+- **Centering:** on f1 the fingertips touch the floor within about 20 px of the L foot, so the packer's foot
+  centering (the mean x of the bottom 20 % of rows) does not shift him; on f4-f5 the lowest point (the L toes) sits
+  under the hips.
+- **Scale:** pack with an anatomy sidecar (`raw/heavy_v03.json`, skull-to-chin per frame). The tallest frame is f4
+  (about 214 px from the support toes to the kicking toes); if the strip is ever packed by bounds instead, set its
+  `bodyHeight` to the measured f4 height so the head still matches idle.
+
+| f | file | phase | pose | face | notes |
+|---|---|---|---|---|---|
+| f0 | `heavy_00` | startup | DROP UNDER THE GUARD: the L foot slides forward and he drops low (knees bent about 70°), torso pitched forward about 35°; the L hand reaching down toward the floor beside the L foot, fingers open; the R arm back along his side; head low, eyes up on the target. | cold | Bangs and rope ends swing forward and down · QA: hips over the midpoint between the feet |
+| f1 | `heavy_01` | startup | COIL (the lowest frame): the L knee deeply bent; the R knee drawn forward under his chest with the R foot on its toes beside the L foot (the kicking leg loaded); the L fingertips touching the floor next to the L foot; torso low over the thighs; head up, eyeing the opponent's chin. | focused, eyes narrowed | Waist cloth pooled over the knees; the sword stays across the small of his back · QA: the shortest frame (about 145-155 px); fingertips within about 20 px of the L foot |
+| f2 | `heavy_02` | startup | SPRING: the L leg drives straight, the L hand leaves the floor, the R knee drives up in front of his chest (thigh about horizontal, shin folded), both arms swinging down and back. | angry, teeth showing | Bangs dragged down · QA: R knee about x 160, y 122 |
+| f3 | `heavy_03` | **active** | KICK: the R leg snaps up and forward almost straight, the ball and toes of the R foot driving UP under the opponent's chin in front of him; the supporting L leg straight, up on the ball of the foot; torso leaning back about 25°; both arms swept down and back behind his hips for balance. | shout | **Smear** (above) · QA: foot x 194 ±8, y 82 ±6; the foot is the right-most pixel |
+| f4 | `heavy_04` | **active** | HIGH FOLLOW-THROUGH: the R leg carries on up, close to vertical in front of his face, toes pointed and leading; he leaves the floor: the L leg hangs straight under the hips with the toes pointed (the lowest point); torso arched back about 30° (clearly more than `specialUp` f2), arms swept down and back; head tilted back, eyes up. | shout | Bangs and rope ends dragged down, waist cloth parted around the leg · QA: toes x 160-188, y 22-46, the highest pixel of the strip; no hair spike above them (v02's box landed on the hair) |
+| f5 | `heavy_05` | recovery | APEX, airborne (the frame held longest): the R leg folding down (knee bent, the foot in front at about his waist height), the L knee tucking up, the torso coming upright, both hands coming back toward the guard; eyes up on the launched opponent. | angry | Bangs and cloth float · QA: the lowest point under the hips |
+| f6 | `heavy_06` | recovery | DROP: both feet reaching down toes first, knees bending to land; the L knife-hand forward, the R fist at the chest. | focused | Bangs and rope ends lift (falling) · QA: close to `land` f0, which the engine plays right after touchdown |
+| f7 | `heavy_07` | recovery | Idle stance (matches idle f0). | cold | QA: within 1-2 px of idle f0 |
+
+<a id="charge-v03"></a>
+
+### `charge`: powering up (loop) · Sharingan
+
+4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · 👁 Sharingan · next version **v03**
+
+Cold intensity, not Naruto's open roar: a low, braced stance, the fists clenched hard and drawn down, the head level
+and the Sharingan locked on the opponent while the power tears at his clothes. Loop rules: the **feet are identical
+in all four frames** (soles on y 240); the shoulders rise 2 to 3 px on f1-f2 and settle on f3; the fists tremble at
+most 1 to 2 px; the **head moves at most 2 px and stays level** (eyes on the opponent); the bangs, back spikes, rope
+ends and bow loops, waist cloth, open lapels and sleeves change shape by 2 to 5 px in every frame, always blown
+upward. f3 flows back into f0 without a pop. No aura or lightning in the sprite.
+
+| f | file | phase | pose | face | notes |
+|---|---|---|---|---|---|
+| f0 | `charge_00` | loop | BRACE: feet planted wide (well wider than the shoulders, L foot forward), knees bent about 40°, torso leaning slightly forward; both arms drawn down and slightly back beside the hips, fists clenched hard, elbows bent and flared a little; shoulders squared; head level, eyes on the opponent. | angry, teeth bared · Sharingan | Bangs, back spikes, rope ends and bow loops lifted; waist-cloth hem lifting |
+| f1 | `charge_01` | loop | SURGE: shoulders rise about 2 px and square back, chest lifts, fists push down 1 px, elbows flare out 1 to 2 px. | shout (short, controlled) · Sharingan | Rope ends flung up, waist-cloth panels billowing up, lapels and sleeves flaring |
+| f2 | `charge_02` | loop | PEAK: as f1, the whole body trembling 1 px to the right, the fists shaking. | shout · Sharingan | Everything at its highest (third shape) |
+| f3 | `charge_03` | loop | SETTLE: shoulders down 1 to 2 px, the mouth closing to bared teeth; flows into f0. | angry, teeth bared · Sharingan | Rope ends and cloth drop 2 px into a fourth shape |
+
+### Prompts (replace A07 and A15 in PROMPTS.md)
+
+The blocks keep the structure, layout, size, palette and background lines of the current A07 / A15 and add the
+**SCALE LOCK** line required by [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md) ("Prompt paragraph"); its sentence
+about another fighter is left out on purpose, because naming him in a Sasuke prompt can leak his features.
+
+#### A07 · `heavy`: LION'S BARRAGE OPENER, rising front kick launcher with the R leg (CORE)
+
+8 frames, phases 3/2/3. **Two images** (poses 1-5, then 6-8). **Save as: `raw/_parts/heavy_vNN_A.png` and `raw/_parts/heavy_vNN_B.png`** (same NN = the next free version; today 03); Codex stitches them into `raw/heavy_vNN.png`. Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`; for part B also part A and the approved `land` strip (`raw/land_v01.png`). Details and QA: [ANIMATIONS.md](ANIMATIONS.md#heavy). If the generator refuses, replace "Lion's Barrage" per CHARACTER.md §9 ("a rising anti-air kick").
+
+Part A (save as `raw/_parts/heavy_vNN_A.png`):
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "heavy", a rising front-kick launcher with the right (near) leg, the opening kick of his Lion's Barrage: he drops low under the opponent's guard, touches the floor with his left fingertips, springs, and snaps his right leg straight up under the opponent's chin and on overhead, so the kick launches the opponent straight up. 8 frames in total, numbered 1 to 8 from left to right; this image is PART A of 2 and shows only poses 1 to 5. Poses 4 and 5 are the HIT frames. Pose 4: the ball and toes of the right foot drive UP under the chin of an opponent standing on the right, in front of his body; the foot is the right-most part of the character. Pose 5: the right leg has carried on up, close to vertical in front of his face, toes leading; the toes are the highest point of the whole strip, higher than his hair. His bangs, back spikes, rope ends, the waist cloth, the sword and both arms stay behind and below the kicking foot. Dark eyes in every pose (no red eyes).
+1. Drop under the guard: the left foot slides forward and he drops low, knees bent deep, torso pitched forward about 35 degrees; the left hand reaching down toward the floor beside the left foot, fingers open; the right arm back along his side; head low, eyes up on the opponent. Face: cold. Bangs and rope ends swing forward and down.
+2. Coil, the lowest pose: the left knee deeply bent; the right knee drawn forward under his chest with the right foot on its toes beside the left foot, the kicking leg loaded; the left fingertips touching the floor right next to the left foot; torso low over the thighs; head up, eyeing the opponent's chin. Face: focused, eyes narrowed. The waist-cloth hem pooled over the knees.
+3. Spring: the left leg drives straight, the left hand leaves the floor, the right knee drives up in front of his chest with the thigh about horizontal and the shin folded; both arms swinging down and back. Face: angry, teeth showing. Bangs dragged down.
+4. IMPACT: the right leg snaps up and forward almost straight, rising at about 45 degrees, the ball and toes of the right foot driving up under the opponent's chin; the supporting left leg straight, up on the ball of the foot; torso leaning back about 25 degrees; both arms swept down and back behind his hips for balance. The kicking leg comes out between the panels of the waist cloth. Face: shout. SMEAR: one solid crescent in the pants navy and sandal black below the right leg along its upward arc, attached to the leg and never past the foot (hard pixels, no blur).
+5. High follow-through: the right leg carries on up close to vertical in front of his face, toes pointed and leading; he leaves the floor: the left leg hangs straight under his hips with the toes pointed, the lowest point of the pose; torso arched back about 30 degrees, arms swept down and back; head tilted back, eyes up. Face: shout. Bangs and rope ends dragged down, the waist cloth parted around the kicking leg.
+MOTION: A clean, exact launcher: one low drop, then a single straight-legged kick that rises in front of his body with the toes pointed and the supporting leg straight, and he leaves the floor at the top. The sword stays sheathed across the small of his back. Draw everything in place: the game moves him forward and adds the hop.
+
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
+SCALE LOCK: preserve the approved character's skull-to-chin length, excluding hair; never enlarge or shrink the head to reach a number. Standing skeleton height is 200 px. Draw the source art at a declared common multiplier of 2x (skull 2 x the approved skull length, standing skeleton 2 x 200 px). Keep head size, torso width, upper-arm/forearm lengths and thigh/shin lengths constant in every pose and every part. Crouching, curling, jumping, raising a hand and leaning change pose bounds, not camera distance. Do not scale a pose to fill its slot. Leave empty background where needed. Use the same reference camera and perspective throughout.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+Part B (attach part A and the approved `land` strip too; save as `raw/_parts/heavy_vNN_B.png`, same NN):
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose. Also attached: the approved "land" strip, for continuity: pose 7 must flow into its first pose.
+
+ANIMATION: "heavy", a rising front-kick launcher with the right (near) leg, the opening kick of his Lion's Barrage. 8 frames in total, numbered 1 to 8 from left to right; this image is PART B of 2 and shows only poses 6 to 8 (the attached part A shows poses 1 to 5). Dark eyes in every pose (no red eyes).
+6. Top of the jump, the pose held longest: still in the air, the right leg folding down with the knee bent and the foot in front at about his waist height, the left knee tucking up, the torso coming upright, both hands coming back toward his guard; eyes up on the opponent he launched. Face: angry. Bangs and the waist cloth floating.
+7. Dropping to land: both feet reaching down toes first, the knees bending; the left hand forward as an open knife-hand, the right fist at the chest. Face: focused. Bangs and rope ends lifted by the fall.
+8. Back in his fighting stance, the same as idle frame 1. Face: cold.
+MOTION: A clean, exact launcher: one low drop, then a single straight-legged kick that rises in front of his body with the toes pointed and the supporting leg straight, and he leaves the floor at the top. The sword stays sheathed across the small of his back. Draw everything in place: the game moves him forward and adds the hop.
+
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
+SCALE LOCK: preserve the approved character's skull-to-chin length, excluding hair; never enlarge or shrink the head to reach a number. Standing skeleton height is 200 px. Draw the source art at a declared common multiplier of 2x (skull 2 x the approved skull length, standing skeleton 2 x 200 px). Keep head size, torso width, upper-arm/forearm lengths and thigh/shin lengths constant in every pose and every part. Crouching, curling, jumping, raising a hand and leaning change pose bounds, not camera distance. Do not scale a pose to fill its slot. Leave empty background where needed. Use the same reference camera and perspective throughout.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+#### A15 · `charge`: powering up (loop) (CORE)
+
+4 frames, loops, Sharingan on. **Save as: `raw/charge_vNN.png`** (next free version; today 03). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#charge).
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "charge", powering up with cold intensity: braced low, fists clenched hard and drawn down, head level and the red eyes locked on the opponent while the power tears at his hair and clothes. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it.
+1. Brace: feet planted wide, well wider than the shoulders, left foot forward; knees bent about 40 degrees; torso leaning slightly forward; both arms drawn down and slightly back beside the hips, fists clenched hard, elbows bent and flared a little; shoulders squared; head level, staring at the opponent on the right. Face: angry, teeth bared. Bangs, back spikes, rope ends and bow loops lifted by a rising wind; the waist-cloth hem lifting.
+2. Surge: the shoulders rise slightly and square back, the chest lifts, the fists push down, the elbows flare out a little more; a short, controlled shout. Face: shout. Rope ends flung up, the waist-cloth panels billowing up, the open lapels and sleeves flaring.
+3. Peak: the same as pose 2 with the whole body trembling (shifted very slightly to the right) and the fists shaking. Face: shout. Bangs, rope ends, waist cloth and sleeves at their highest, in a third shape.
+4. Settle: the shoulders drop back slightly, the mouth closing to bared teeth; the rope ends and the cloth drop a little into a fourth shape; it flows straight back into pose 1. Face: angry, teeth bared.
+MOTION: A trembling power-up loop. The feet stay planted in exactly the same place in all 4 poses; the shoulders rise in poses 2 and 3 and settle in pose 4; the head stays level and moves only slightly. The bangs, rope ends, waist cloth, lapels and sleeves are blown UPWARD and change shape in every pose. NO aura, no lightning, no glow, no effects: the game adds them.
+
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
+SCALE LOCK: preserve the approved character's skull-to-chin length, excluding hair; never enlarge or shrink the head to reach a number. Standing skeleton height is 200 px. Draw the source art at a declared common multiplier of 2x (skull 2 x the approved skull length, standing skeleton 2 x 200 px). Keep head size, torso width, upper-arm/forearm lengths and thigh/shin lengths constant in every pose and every part. Crouching, curling, jumping, raising a hand and leaning change pose bounds, not camera distance. Do not scale a pose to fill its slot. Leave empty background where needed. Use the same reference camera and perspective throughout.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+### QA after `npm run sprites sasuke`
+
+**`heavy` v03**
+
+- The report packs `raw/heavy_v03.png` with no clipped or upscaled frames. The sidecar `raw/heavy_v03.json` carries
+  the `anatomy` skull-to-chin values per frame; both parts at one scale (v02 needed two very different source
+  scales for its parts).
+- Head size: every frame within 2 px of idle (CHARACTER_SCALE.md gate); f7 within 1-2 px of idle f0.
+- Hit boxes: f3's box sits on the R foot inside x 180-208, y 58-86 (foot center about y 78-86); f4's box sits on the
+  R foot inside x 160-188, y 22-46 and its top is the highest pixel of the strip. No box on hair, bangs, rope ends,
+  the waist cloth, the sword, the support knee or the arms (v02 boxed his hair on f3 and his whole front on f4). Add
+  `hitboxes.json` overrides for `heavy` 3 / 4 only if the automatic boxes miss the foot.
+- Feet: f0 both soles on y 240, the L foot plants once and stays; f1 the fingertips touch the floor within about
+  20 px of the L foot and the frame does not shift sideways against f0 (check the centering); f3 the support foot on
+  its ball; f4-f5 the L toes under the hips; f6 reaches down toes first. No negative `frameOffsets` dy.
+- The sword stays sheathed at the small of his back in all 8 frames; no lightning or swoosh drawn; the only smear is
+  the crescent under the leg on f3.
+- In game (`?fight=sasuke,naruto&mode=solo&art=custom&debug`, `freezeCpu()`): Heavy after light1 x3 and as a poke at
+  normal spacing. The foot visibly meets the opponent's chin on f3, the opponent pops straight up, a jump right after
+  the hit chases them, and the landing hands to `land` without a pop. Compare with `specialUp` side by side in the
+  Sprite Lab: the heavy must read as a grounded kick with a back-arched follow-through, the specialUp as a straight
+  rise.
+
+**`charge` v03**
+
+- 4 frames packed from `raw/charge_v03.png`; the head within 2 px of idle; the Sharingan readable in all 4 frames.
+- The feet are identical in all four frames (within 1 px) on y 240; the loop f3 → f0 has no pop.
+- Visible motion: the shoulders sit 2-3 px higher on f1-f2 than on f0 and f3; the rope ends, waist cloth and bangs
+  differ by 2 to 5 px in every frame; the head stays level within 2 px.
+- No aura, lightning or glow in the sprite. In game, hold Special: the aura surrounds a braced, pulsing body. If the
+  50 ms loop reads frantic, tell Claude (the manifest `ms` can go to 60-70; a data change, not a redraw).
+
+### Merge (Codex)
+
+1. **ANIMATIONS.md:** replace the `heavy` and `charge` entries with the two subsections above, in that file's bullet
+   format (one bullet per frame: phase, body and legs, hands, face, hair / cloth; keep the `<a id="heavy">` and
+   `<a id="charge">` anchors). In the Summary table, the `heavy` "tallest frame" cell becomes "f4 (kicking toes,
+   about a head above the hair)".
+2. **PROMPTS.md:** replace the A07 and A15 blocks with the blocks above and the Index title of A07.
+3. **CHARACTER.md:** in §3's zone table, `heavy` f3 / f4 become "R foot" instead of "fist" (same coordinates); add
+   "Lion's Barrage opener = a rising anti-air kick" to §9 if it is not there yet.
+4. **manifest / TRACKER / REVIEW:** per AGENTS.md (new versions, REVIEW rows with the QA results). No manifest
+   numbers change (frames, phases, `bodyHeight` 218 / 198, `ms`).
