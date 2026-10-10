@@ -1,5 +1,11 @@
 # Gojo: image prompts (generation order)
 
+> **User correction, 2026-10-09:** model v02 is rejected for its enlarged head. Use the supplied
+> `reference/model_sheet_v03.png` as the proportion reference: compact head, narrow adult face,
+> long legs and slender body. This visual reference overrides numeric head-ratio instructions in
+> every prompt below. Do not enlarge the head. Provisional references are authorized; continue
+> production and testing without per-step approval stops, retaining versioned files and final review.
+
 > Copy-paste prompts for the image generator (Codex's built-in generator, or ChatGPT run by the user),
 > in the order to run them, for **art spec v2**
 > ([ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md): 256×256 cells) and the move

@@ -1,0 +1,188 @@
+{
+  "complete": false,
+  "animations": {
+    "idle": [
+      {
+        "index": 0,
+        "bounds": [
+          92,
+          20,
+          171,
+          240
+        ],
+        "height": 221,
+        "footCenter": 130.78
+      },
+      {
+        "index": 1,
+        "bounds": [
+          91,
+          20,
+          171,
+          240
+        ],
+        "height": 221,
+        "footCenter": 130.46
+      },
+      {
+        "index": 2,
+        "bounds": [
+          92,
+          20,
+          171,
+          240
+        ],
+        "height": 221,
+        "footCenter": 130.78
+      },
+      {
+        "index": 3,
+        "bounds": [
+          92,
+          20,
+          171,
+          240
+        ],
+        "height": 221,
+        "footCenter": 130.82
+      },
+      {
+        "index": 4,
+        "bounds": [
+          92,
+          21,
+          171,
+          240
+        ],
+        "height": 220,
+        "footCenter": 130.71
+      },
+      {
+        "index": 5,
+        "bounds": [
+          92,
+          22,
+          171,
+          240
+        ],
+        "height": 219,
+        "footCenter": 130.92
+      },
+      {
+        "index": 6,
+        "bounds": [
+          92,
+          22,
+          171,
+          240
+        ],
+        "height": 219,
+        "footCenter": 130.85
+      },
+      {
+        "index": 7,
+        "bounds": [
+          92,
+          22,
+          171,
+          240
+        ],
+        "height": 219,
+        "footCenter": 130.82
+      }
+    ],
+    "run": [
+      {
+        "index": 8,
+        "bounds": [
+          68,
+          19,
+          194,
+          240
+        ],
+        "height": 222,
+        "footCenter": 167.87
+      },
+      {
+        "index": 9,
+        "bounds": [
+          76,
+          34,
+          186,
+          240
+        ],
+        "height": 207,
+        "footCenter": 153.76
+      },
+      {
+        "index": 10,
+        "bounds": [
+          85,
+          20,
+          188,
+          240
+        ],
+        "height": 221,
+        "footCenter": 114.66
+      },
+      {
+        "index": 11,
+        "bounds": [
+          46,
+          14,
+          190,
+          227
+        ],
+        "height": 214,
+        "footCenter": null
+      },
+      {
+        "index": 12,
+        "bounds": [
+          62,
+          20,
+          197,
+          240
+        ],
+        "height": 221,
+        "footCenter": 176.58
+      },
+      {
+        "index": 13,
+        "bounds": [
+          72,
+          35,
+          174,
+          240
+        ],
+        "height": 206,
+        "footCenter": 151.59
+      },
+      {
+        "index": 14,
+        "bounds": [
+          87,
+          21,
+          174,
+          240
+        ],
+        "height": 220,
+        "footCenter": 108.15
+      },
+      {
+        "index": 15,
+        "bounds": [
+          44,
+          16,
+          184,
+          227
+        ],
+        "height": 212,
+        "footCenter": null
+      }
+    ]
+  },
+  "colors": 48,
+  "softAlpha": 0,
+  "magenta": 0
+}

@@ -1,0 +1,260 @@
+{
+  "model": "model_sheet_v03.png",
+  "expressions": "expressions_v02.png",
+  "animations": {
+    "idle": {
+      "version": 2,
+      "file": "idle_v02.png",
+      "frames": 8
+    },
+    "run": {
+      "version": 3,
+      "file": "run_v03.png",
+      "frames": 8
+    },
+    "dash": {
+      "version": 1,
+      "file": "dash_v01.png",
+      "frames": 2
+    },
+    "backDash": {
+      "version": 1,
+      "file": "backDash_v01.png",
+      "frames": 3
+    },
+    "superDash": {
+      "version": 1,
+      "file": "superDash_v01.png",
+      "frames": 2
+    },
+    "jumpSquat": {
+      "version": 1,
+      "file": "jumpSquat_v01.png",
+      "frames": 1
+    },
+    "jumpUp": {
+      "version": 1,
+      "file": "jumpUp_v01.png",
+      "frames": 2
+    },
+    "jumpFall": {
+      "version": 1,
+      "file": "jumpFall_v01.png",
+      "frames": 2
+    },
+    "land": {
+      "version": 1,
+      "file": "land_v01.png",
+      "frames": 2
+    },
+    "light1": {
+      "version": 1,
+      "file": "light1_v01.png",
+      "frames": 7
+    },
+    "light2": {
+      "version": 1,
+      "file": "light2_v01.png",
+      "frames": 7
+    },
+    "light3": {
+      "version": 1,
+      "file": "light3_v01.png",
+      "frames": 7
+    },
+    "light4": {
+      "version": 2,
+      "file": "light4_v02.png",
+      "frames": 8
+    },
+    "heavy": {
+      "version": 1,
+      "file": "heavy_v01.png",
+      "frames": 8
+    },
+    "airLight1": {
+      "version": 1,
+      "file": "airLight1_v01.png",
+      "frames": 5
+    },
+    "airLight2": {
+      "version": 1,
+      "file": "airLight2_v01.png",
+      "frames": 5
+    },
+    "airLight3": {
+      "version": 1,
+      "file": "airLight3_v01.png",
+      "frames": 6
+    },
+    "airHeavy": {
+      "version": 2,
+      "file": "airHeavy_v02.png",
+      "frames": 6
+    },
+    "guard": {
+      "version": 1,
+      "file": "guard_v01.png",
+      "frames": 2
+    },
+    "block": {
+      "version": 1,
+      "file": "block_v01.png",
+      "frames": 2
+    },
+    "hurtHigh": {
+      "version": 1,
+      "file": "hurtHigh_v01.png",
+      "frames": 3
+    },
+    "hurtLow": {
+      "version": 1,
+      "file": "hurtLow_v01.png",
+      "frames": 3
+    },
+    "launched": {
+      "version": 1,
+      "file": "launched_v01.png",
+      "frames": 2
+    },
+    "spin": {
+      "version": 1,
+      "file": "spin_v01.png",
+      "frames": 4
+    },
+    "airRecover": {
+      "version": 1,
+      "file": "airRecover_v01.png",
+      "frames": 3
+    },
+    "down": {
+      "version": 1,
+      "file": "down_v01.png",
+      "frames": 2
+    },
+    "getup": {
+      "version": 1,
+      "file": "getup_v01.png",
+      "frames": 5
+    },
+    "charge": {
+      "version": 1,
+      "file": "charge_v01.png",
+      "frames": 4
+    },
+    "throw": {
+      "version": 1,
+      "file": "throw_v01.png",
+      "frames": 4
+    },
+    "beamCharge": {
+      "version": 1,
+      "file": "beamCharge_v01.png",
+      "frames": 3
+    },
+    "beamFire": {
+      "version": 2,
+      "file": "beamFire_v02.png",
+      "frames": 3
+    },
+    "vanish": {
+      "version": 1,
+      "file": "vanish_v01.png",
+      "frames": 2
+    },
+    "stagger": {
+      "version": 1,
+      "file": "stagger_v01.png",
+      "frames": 4
+    },
+    "ko": {
+      "version": 2,
+      "file": "ko_v02.png",
+      "frames": 1
+    },
+    "special": {
+      "version": 1,
+      "file": "special_v01.png",
+      "frames": 8
+    },
+    "intro": {
+      "version": 1,
+      "file": "intro_v01.png",
+      "frames": 4
+    },
+    "taunt": {
+      "version": 1,
+      "file": "taunt_v01.png",
+      "frames": 2
+    },
+    "win": {
+      "version": 1,
+      "file": "win_v01.png",
+      "frames": 4
+    },
+    "specialForward": {
+      "version": 1,
+      "file": "specialForward_v01.png",
+      "frames": 7
+    },
+    "specialUp": {
+      "version": 1,
+      "file": "specialUp_v01.png",
+      "frames": 6
+    },
+    "specialDown": {
+      "version": 1,
+      "file": "specialDown_v01.png",
+      "frames": 4
+    },
+    "superPose": {
+      "version": 1,
+      "file": "superPose_v01.png",
+      "frames": 4
+    }
+  },
+  "ui": {
+    "portrait": {
+      "file": "art/characters/gojo/ui/portrait.png",
+      "candidates": "art/characters/gojo/raw/ui_portrait_vNN.png",
+      "size": [
+        96,
+        96
+      ],
+      "step": 11,
+      "status": "approved",
+      "version": 1,
+      "approvedVersion": 1
+    },
+    "cutin": {
+      "file": "art/characters/gojo/ui/cutin.png",
+      "candidates": "art/characters/gojo/raw/ui_cutin_vNN.png",
+      "size": [
+        480,
+        128
+      ],
+      "step": 11,
+      "status": "approved",
+      "version": 1,
+      "approvedVersion": 1
+    },
+    "select": {
+      "file": "art/characters/gojo/ui/select.png",
+      "candidates": "art/characters/gojo/raw/ui_select_vNN.png",
+      "size": [
+        384,
+        384
+      ],
+      "step": 11,
+      "status": "approved",
+      "version": 1,
+      "approvedVersion": 1
+    }
+  },
+  "reviewStatus": "approved",
+  "browser": "PASS: nine normal hits, six special/super paths, Blink frame/visibility timing, gallery and mobile, no errors",
+  "build": "PASS: sandbox-compatible Vite build",
+  "engineHandoffs": [],
+  "approvedDate": "2026-10-09",
+  "blink": "PASS: visible startup 0/1, hidden interval, visible recovery 4/5, normal exit"
+}

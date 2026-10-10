@@ -1,0 +1,23 @@
+{
+  "units": "world units from sprite pivot; maximum drawn hitbox right edge, before lunge/padding",
+  "rows": [
+    {
+      "fighter": "gojo",
+      "source": "art-pack",
+      "idleHurtTop": 1.6484375,
+      "light1": 0.6484375,
+      "light3": 0.7578125,
+      "light4": 0.921875,
+      "airHeavy": 0.53125
+    },
+    {
+      "fighter": "killua",
+      "source": "art-pack",
+      "idleHurtTop": 1.359375,
+      "light1": 0.640625,
+      "light3": 0.828125,
+      "light4": 0.734375,
+      "airHeavy": 0.3984375
+    }
+  ]
+}

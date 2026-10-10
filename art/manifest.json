@@ -268,60 +268,807 @@
           "candidates": "art/characters/gojo/reference/model_sheet_vNN.png",
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
-          "status": "todo",
-          "version": 0,
-          "approvedVersion": null
+          "status": "approved",
+          "version": 3,
+          "approvedVersion": 3
         },
-        "expressions": { "file": "art/characters/gojo/reference/expressions.png", "candidates": "art/characters/gojo/reference/expressions_vNN.png", "step": 2, "status": "todo", "version": 0, "approvedVersion": null }
+        "expressions": {
+          "file": "art/characters/gojo/reference/expressions.png",
+          "candidates": "art/characters/gojo/reference/expressions_vNN.png",
+          "step": 2,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2
+        }
       },
       "animations": {
-        "idle": { "frames": 8, "loop": true, "bodyHeight": 222, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "todo", "version": 0, "approvedVersion": null },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 222, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "todo", "version": 0, "approvedVersion": null },
-        "dash": { "frames": 2, "loop": true, "bodyHeight": 174, "ms": [60, 60], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
-        "backDash": { "frames": 3, "loop": false, "bodyHeight": 225, "ms": [60, 60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "superDash": { "frames": 2, "loop": true, "bodyHeight": 140, "ms": [50, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "jumpSquat": { "frames": 1, "loop": false, "bodyHeight": 176, "ms": [70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "jumpUp": { "frames": 2, "loop": true, "bodyHeight": 215, "ms": [80, 80], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
-        "jumpFall": { "frames": 2, "loop": true, "bodyHeight": 227, "ms": [80, 80], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
-        "land": { "frames": 2, "loop": false, "bodyHeight": 189, "ms": [50, 70], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
-        "light1": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 222, "ms": [30, 30, 40, 50, 50, 50, 30], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "light2": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 222, "ms": [35, 30, 40, 50, 60, 50, 30], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "light3": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 228, "ms": [40, 35, 45, 60, 60, 60, 30], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "light4": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 225, "ms": [50, 45, 35, 40, 70, 70, 70, 40], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "heavy": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 228, "ms": [40, 35, 30, 50, 70, 70, 60, 30], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "airLight1": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 215, "ms": [45, 35, 50, 50, 30], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 225, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 219, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 215, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "status": "todo", "version": 0, "approvedVersion": null },
-        "guard": { "frames": 2, "loop": true, "bodyHeight": 215, "ms": [300, 300], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
-        "block": { "frames": 2, "loop": false, "bodyHeight": 222, "ms": [60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 212, "ms": [70, 90, 100], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
-        "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 199, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "launched": { "frames": 2, "loop": true, "bodyHeight": 148, "ms": [70, 70], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
-        "spin": { "frames": 4, "loop": true, "bodyHeight": 174, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "airRecover": { "frames": 3, "loop": false, "bodyHeight": 196, "ms": [50, 50, 60], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "down": { "frames": 2, "loop": false, "bodyHeight": 104, "ms": [80, 420], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
-        "getup": { "frames": 5, "loop": false, "bodyHeight": 222, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
-        "charge": { "frames": 4, "loop": true, "bodyHeight": 215, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
-        "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 219, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 215, "ms": [50, 50, 50], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
-        "beamFire": { "frames": 3, "loop": true, "bodyHeight": 215, "ms": [50, 50, 50], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
-        "vanish": { "frames": 2, "loop": false, "bodyHeight": 232, "ms": [50, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "stagger": { "frames": 4, "loop": true, "bodyHeight": 225, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "ko": { "frames": 1, "loop": false, "bodyHeight": 70, "ms": [500], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 222, "ms": [120, 120, 120, 120, 120, 160, 110, 70], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
-        "intro": { "frames": 4, "loop": true, "bodyHeight": 228, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "taunt": { "frames": 2, "loop": true, "bodyHeight": 228, "ms": [250, 250], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "win": { "frames": 4, "loop": true, "bodyHeight": 230, "ms": [200, 200, 200, 200], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
-        "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 222, "ms": [50, 50, 60, 90, 80, 70, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 232, "ms": [50, 50, 40, 40, 60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 222, "ms": [60, 60, 300, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "superPose": { "frames": 4, "loop": true, "bodyHeight": 230, "ms": [160, 160, 160, 160], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+        "idle": {
+          "frames": 8,
+          "loop": true,
+          "bodyHeight": 222,
+          "ms": [
+            150,
+            150,
+            150,
+            150,
+            150,
+            150,
+            150,
+            150
+          ],
+          "required": true,
+          "step": 3,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2
+        },
+        "run": {
+          "frames": 8,
+          "loop": true,
+          "bodyHeight": 222,
+          "ms": [
+            60,
+            60,
+            60,
+            60,
+            60,
+            60,
+            60,
+            60
+          ],
+          "required": true,
+          "step": 4,
+          "status": "approved",
+          "version": 3,
+          "approvedVersion": 3
+        },
+        "dash": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 174,
+          "ms": [
+            60,
+            60
+          ],
+          "required": true,
+          "step": 8,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "backDash": {
+          "frames": 3,
+          "loop": false,
+          "bodyHeight": 225,
+          "ms": [
+            60,
+            60,
+            80
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "superDash": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 140,
+          "ms": [
+            50,
+            50
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "jumpSquat": {
+          "frames": 1,
+          "loop": false,
+          "bodyHeight": 176,
+          "ms": [
+            70
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "jumpUp": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 215,
+          "ms": [
+            80,
+            80
+          ],
+          "required": true,
+          "step": 8,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "jumpFall": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 227,
+          "ms": [
+            80,
+            80
+          ],
+          "required": true,
+          "step": 8,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "land": {
+          "frames": 2,
+          "loop": false,
+          "bodyHeight": 189,
+          "ms": [
+            50,
+            70
+          ],
+          "required": true,
+          "step": 8,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "light1": {
+          "frames": 7,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            3
+          ],
+          "bodyHeight": 222,
+          "ms": [
+            30,
+            30,
+            40,
+            50,
+            50,
+            50,
+            30
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "light2": {
+          "frames": 7,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            3
+          ],
+          "bodyHeight": 222,
+          "ms": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "light3": {
+          "frames": 7,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            3
+          ],
+          "bodyHeight": 228,
+          "ms": [
+            40,
+            35,
+            45,
+            60,
+            60,
+            60,
+            30
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "light4": {
+          "frames": 8,
+          "loop": false,
+          "phases": [
+            3,
+            2,
+            3
+          ],
+          "bodyHeight": 225,
+          "ms": [
+            50,
+            45,
+            35,
+            40,
+            70,
+            70,
+            70,
+            40
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2
+        },
+        "heavy": {
+          "frames": 8,
+          "loop": false,
+          "phases": [
+            3,
+            2,
+            3
+          ],
+          "bodyHeight": 228,
+          "ms": [
+            40,
+            35,
+            30,
+            50,
+            70,
+            70,
+            60,
+            30
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "airLight1": {
+          "frames": 5,
+          "loop": false,
+          "phases": [
+            1,
+            2,
+            2
+          ],
+          "bodyHeight": 215,
+          "ms": [
+            45,
+            35,
+            50,
+            50,
+            30
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "airLight2": {
+          "frames": 5,
+          "loop": false,
+          "phases": [
+            1,
+            2,
+            2
+          ],
+          "bodyHeight": 225,
+          "ms": [
+            45,
+            40,
+            50,
+            50,
+            30
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "airLight3": {
+          "frames": 6,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            2
+          ],
+          "bodyHeight": 219,
+          "ms": [
+            50,
+            40,
+            50,
+            70,
+            60,
+            30
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "airHeavy": {
+          "frames": 6,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            2
+          ],
+          "bodyHeight": 215,
+          "ms": [
+            50,
+            45,
+            45,
+            70,
+            70,
+            40
+          ],
+          "required": true,
+          "step": 5,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2
+        },
+        "guard": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 215,
+          "ms": [
+            300,
+            300
+          ],
+          "required": true,
+          "step": 6,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "block": {
+          "frames": 2,
+          "loop": false,
+          "bodyHeight": 222,
+          "ms": [
+            60,
+            80
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "hurtHigh": {
+          "frames": 3,
+          "loop": false,
+          "bodyHeight": 212,
+          "ms": [
+            70,
+            90,
+            100
+          ],
+          "required": true,
+          "step": 6,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "hurtLow": {
+          "frames": 3,
+          "loop": false,
+          "bodyHeight": 199,
+          "ms": [
+            70,
+            90,
+            100
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "launched": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 148,
+          "ms": [
+            70,
+            70
+          ],
+          "required": true,
+          "step": 6,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "spin": {
+          "frames": 4,
+          "loop": true,
+          "bodyHeight": 174,
+          "ms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "airRecover": {
+          "frames": 3,
+          "loop": false,
+          "bodyHeight": 196,
+          "ms": [
+            50,
+            50,
+            60
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "down": {
+          "frames": 2,
+          "loop": false,
+          "bodyHeight": 104,
+          "ms": [
+            80,
+            420
+          ],
+          "required": true,
+          "step": 6,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "getup": {
+          "frames": 5,
+          "loop": false,
+          "bodyHeight": 222,
+          "ms": [
+            70,
+            60,
+            60,
+            80,
+            70
+          ],
+          "required": true,
+          "step": 6,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "charge": {
+          "frames": 4,
+          "loop": true,
+          "bodyHeight": 215,
+          "ms": [
+            50,
+            50,
+            50,
+            50
+          ],
+          "required": true,
+          "step": 7,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "throw": {
+          "frames": 4,
+          "loop": false,
+          "phases": [
+            1,
+            1,
+            2
+          ],
+          "bodyHeight": 219,
+          "ms": [
+            50,
+            60,
+            70,
+            50
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "beamCharge": {
+          "frames": 3,
+          "loop": true,
+          "bodyHeight": 215,
+          "ms": [
+            50,
+            50,
+            50
+          ],
+          "required": true,
+          "step": 7,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "beamFire": {
+          "frames": 3,
+          "loop": true,
+          "bodyHeight": 215,
+          "ms": [
+            50,
+            50,
+            50
+          ],
+          "required": true,
+          "step": 7,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2
+        },
+        "vanish": {
+          "frames": 2,
+          "loop": false,
+          "bodyHeight": 232,
+          "ms": [
+            50,
+            50
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "stagger": {
+          "frames": 4,
+          "loop": true,
+          "bodyHeight": 225,
+          "ms": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "ko": {
+          "frames": 1,
+          "loop": false,
+          "bodyHeight": 70,
+          "ms": [
+            500
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2
+        },
+        "special": {
+          "frames": 8,
+          "loop": false,
+          "phases": [
+            3,
+            3,
+            2
+          ],
+          "bodyHeight": 222,
+          "ms": [
+            120,
+            120,
+            120,
+            120,
+            120,
+            160,
+            110,
+            70
+          ],
+          "required": true,
+          "step": 7,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "intro": {
+          "frames": 4,
+          "loop": true,
+          "bodyHeight": 228,
+          "ms": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "taunt": {
+          "frames": 2,
+          "loop": true,
+          "bodyHeight": 228,
+          "ms": [
+            250,
+            250
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "win": {
+          "frames": 4,
+          "loop": true,
+          "bodyHeight": 230,
+          "ms": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "required": true,
+          "step": 8,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "specialForward": {
+          "frames": 7,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            3
+          ],
+          "bodyHeight": 222,
+          "ms": [
+            50,
+            50,
+            60,
+            90,
+            80,
+            70,
+            50
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "specialUp": {
+          "frames": 6,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            2
+          ],
+          "bodyHeight": 232,
+          "ms": [
+            50,
+            50,
+            40,
+            40,
+            60,
+            80
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "specialDown": {
+          "frames": 4,
+          "loop": false,
+          "phases": [
+            2,
+            1,
+            1
+          ],
+          "bodyHeight": 222,
+          "ms": [
+            60,
+            60,
+            300,
+            80
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "superPose": {
+          "frames": 4,
+          "loop": true,
+          "bodyHeight": 230,
+          "ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        }
       },
       "ui": {
-        "portrait": { "file": "art/characters/gojo/ui/portrait.png", "candidates": "art/characters/gojo/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
-        "cutin": { "file": "art/characters/gojo/ui/cutin.png", "candidates": "art/characters/gojo/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
-        "select": { "file": "art/characters/gojo/ui/select.png", "candidates": "art/characters/gojo/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "todo", "version": 0, "approvedVersion": null }
+        "portrait": {
+          "file": "art/characters/gojo/ui/portrait.png",
+          "candidates": "art/characters/gojo/raw/ui_portrait_vNN.png",
+          "size": [
+            96,
+            96
+          ],
+          "step": 11,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "cutin": {
+          "file": "art/characters/gojo/ui/cutin.png",
+          "candidates": "art/characters/gojo/raw/ui_cutin_vNN.png",
+          "size": [
+            480,
+            128
+          ],
+          "step": 11,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        },
+        "select": {
+          "file": "art/characters/gojo/ui/select.png",
+          "candidates": "art/characters/gojo/raw/ui_select_vNN.png",
+          "size": [
+            384,
+            384
+          ],
+          "step": 11,
+          "status": "approved",
+          "version": 1,
+          "approvedVersion": 1
+        }
       }
     }
   },

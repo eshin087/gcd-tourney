@@ -1,5 +1,14 @@
 # Gojo (Jujutsu Kaisen, blindfold): character design brief
 
+## User direction — 2026-10-09
+
+The user rejected model v02 because its head was too large and selected the proportions in
+`reference/model_sheet_v03.png` (their supplied image). Match that smaller head, narrow adult face,
+long legs and slender silhouette. This visual direction overrides the approximate head-ratio wording
+below; do not enlarge the head to satisfy a numeric ratio. Keep the manifest's game-cell dimensions,
+bodyHeight values and pivot. Use this version provisionally throughout production without intermediate
+approval stops; retain final review status and version history.
+
 > Read this first, then [ANIMATIONS.md](ANIMATIONS.md) (frame-by-frame poses),
 > [MOVES_AND_VFX.md](MOVES_AND_VFX.md) (how each move looks in the engine) and
 > [PROMPTS.md](PROMPTS.md) (copy-paste image prompts in generation order).

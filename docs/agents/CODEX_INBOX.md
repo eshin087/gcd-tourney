@@ -69,14 +69,11 @@ hard to hit; Claude fixed that in the engine (minimum hurtbox width), so **no ar
 
 ## Gojo thread
 
-Claude's QA (2026-10-09): `model_sheet_v02` fixes v01's proportions (about 7 heads, true side profile,
-blindfold, zipped collar); Claude recommends the user approve it. idle v01 and run v02 pack cleanly and look
-right in the sheet.
+Direct user direction supersedes the earlier recommendation for model v02: v02 was rejected; the supplied model v03 proportions govern the entire set.
 
-- [ ] **(2026-10-09) Two run frames have stray specks near the feet** (frames 2 and 6 of run v02). Clean them in
-  `frames/run/` after the run is approved, re-pack.
-- [ ] **(2026-10-09) Order:** don't generate past idle/run until the user decides on model_sheet_v02 and
-  expressions v01 (they anchor everything after).
+- [x] Run v02 stray-foot report: superseded by regenerated run v03; its packed contact sheet was inspected.
+- [x] Production order: generated all 42 animations and 3 UI candidates without intermediate review stops. Model v03, expressions v02 and idle v02 were provisional references authorized by the user.
+- [x] Final bulk review: user approved all 47 latest assets. Fixed references/UI promoted; superseded versions archived. Blink integration implemented; final QA in production/QA.md.
 
 ## World-art lead
 

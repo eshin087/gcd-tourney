@@ -252,12 +252,12 @@ const START = {
 
   teleport(f, m) {
     const g = f.game;
-    enter(f, { kind: 'teleport', m, from: f.pos.clone() }, 'vanish');
+    enter(f, { kind: 'teleport', m, from: f.pos.clone() }, m.anim ?? 'vanish');
     f.actor.ghost(m.color || f.def.color, 0.35, 0.6);
-    f.hidden = true;
-    f.invuln = m.hide + 8;
+    f.hidden = !m.startup;
+    f.invuln = (m.startup ?? 0) + m.hide + 8;
     f.vel.set(0, 0, 0);
-    f.actor.setVisible(false);
+    f.actor.setVisible(!f.hidden);
     g.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 0.9);
     g.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.1, glow: 0.6, depthTest: false, order: 8 });
     g.onKitMove(f, m);
@@ -307,22 +307,39 @@ export function update(f) {
 
 const UPDATE = {
   teleport(f, k, m, t) {
-    if (t < m.hide) return;
-    const g = f.game, o = f.opp;
-    const pos = besideOpponent(f, -o.side, m.off);
-    const y = m.to === 'above' ? o.pos.y + m.height : o.pos.y;
-    // afterimages along the path (Rhythm Echo)
-    for (let i = 1; i <= (m.ghosts || 0); i++) {
-      const a = i / (m.ghosts + 1);
-      f.actor.place(k.from.x + (pos.x - k.from.x) * a, k.from.y + (y - k.from.y) * a, k.from.z + (pos.z - k.from.z) * a);
-      f.actor.ghost(m.color || f.def.color, 0.45, 0.5);
+    const startup = m.startup ?? 0, recovery = m.recovery ?? 0;
+    if (t < startup) {
+      f.actor.setPhase(m.anim, 0, t / startup);
+      return;
     }
-    f.teleport(pos.x, y, pos.z);
-    f.actor.place(pos.x, y, pos.z);
-    f.hidden = false;
-    f.actor.setVisible(true);
-    f.faceOpponent();
-    g.onVanish(f, 'in');
+    if (t < startup + m.hide) {
+      f.hidden = true;
+      f.actor.setVisible(false);
+      return;
+    }
+    if (!k.arrived) {
+      const g = f.game, o = f.opp;
+      const pos = besideOpponent(f, -o.side, m.off);
+      const y = m.to === 'above' ? o.pos.y + m.height : o.pos.y;
+      // afterimages along the path (Rhythm Echo)
+      for (let i = 1; i <= (m.ghosts || 0); i++) {
+        const a = i / (m.ghosts + 1);
+        f.actor.place(k.from.x + (pos.x - k.from.x) * a, k.from.y + (y - k.from.y) * a, k.from.z + (pos.z - k.from.z) * a);
+        f.actor.ghost(m.color || f.def.color, 0.45, 0.5);
+      }
+      f.teleport(pos.x, y, pos.z);
+      f.actor.place(pos.x, y, pos.z);
+      f.hidden = false;
+      f.actor.setVisible(true);
+      f.faceOpponent();
+      g.onVanish(f, 'in');
+      k.arrived = true;
+    }
+    if (t < startup + m.hide + recovery) {
+      f.actor.setPhase(m.anim, 2, (t - startup - m.hide) / recovery);
+      return;
+    }
+    const y = f.pos.y;
     f.kitState = null;
     if (m.follow) {
       f.air = y > 0.05;

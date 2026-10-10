@@ -1,0 +1,678 @@
+{
+  "art": "art",
+  "artExists": true,
+  "out": "public",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "gojo",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v02.png",
+          "from": "raw/idle_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.256,
+          "notes": [
+            "removed 15 specks"
+          ]
+        },
+        {
+          "anim": "run",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/run_v03.png",
+          "from": "raw/run_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.343,
+          "notes": [
+            "removed 20 specks",
+            "split 1 touching pose group(s)"
+          ]
+        },
+        {
+          "anim": "dash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/dash_v01.png",
+          "from": "raw/dash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.233,
+          "notes": []
+        },
+        {
+          "anim": "backDash",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/backDash_v01.png",
+          "from": "raw/backDash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.268,
+          "notes": []
+        },
+        {
+          "anim": "superDash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/superDash_v01.png",
+          "from": "raw/superDash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.239,
+          "notes": [
+            "removed 7 specks"
+          ]
+        },
+        {
+          "anim": "jumpSquat",
+          "frames": 1,
+          "expected": 1,
+          "source": "raw/jumpSquat_v01.png",
+          "from": "raw/jumpSquat_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.166,
+          "notes": []
+        },
+        {
+          "anim": "jumpUp",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpUp_v01.png",
+          "from": "raw/jumpUp_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.242,
+          "notes": []
+        },
+        {
+          "anim": "jumpFall",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpFall_v01.png",
+          "from": "raw/jumpFall_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.249,
+          "notes": [
+            "removed 4 specks"
+          ]
+        },
+        {
+          "anim": "land",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/land_v01.png",
+          "from": "raw/land_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.209,
+          "notes": []
+        },
+        {
+          "anim": "light1",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light1_v01.png",
+          "from": "raw/light1_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.269,
+          "notes": [
+            "removed 12 specks",
+            "split 1 touching pose group(s)"
+          ]
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v01.png",
+          "from": "raw/light2_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.281,
+          "notes": [
+            "removed 13 specks"
+          ]
+        },
+        {
+          "anim": "light3",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light3_v01.png",
+          "from": "raw/light3_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.299,
+          "notes": [
+            "removed 20 specks"
+          ]
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v02.png",
+          "from": "raw/light4_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.511,
+          "notes": [
+            "removed 45 specks"
+          ]
+        },
+        {
+          "anim": "heavy",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/heavy_v01.png",
+          "from": "raw/heavy_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.295,
+          "notes": [
+            "removed 13 specks",
+            "split 1 touching pose group(s)"
+          ]
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v01.png",
+          "from": "raw/airLight1_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.303,
+          "notes": [
+            "removed 19 specks",
+            "split 1 touching pose group(s)"
+          ]
+        },
+        {
+          "anim": "airLight2",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight2_v01.png",
+          "from": "raw/airLight2_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.338,
+          "notes": [
+            "removed 22 specks"
+          ]
+        },
+        {
+          "anim": "airLight3",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airLight3_v01.png",
+          "from": "raw/airLight3_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.394,
+          "notes": [
+            "removed 11 specks"
+          ]
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v02.png",
+          "from": "raw/airHeavy_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.264,
+          "notes": [
+            "removed 13 specks"
+          ]
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v01.png",
+          "from": "raw/guard_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.229,
+          "notes": []
+        },
+        {
+          "anim": "block",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/block_v01.png",
+          "from": "raw/block_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.24,
+          "notes": []
+        },
+        {
+          "anim": "hurtHigh",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtHigh_v01.png",
+          "from": "raw/hurtHigh_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.255,
+          "notes": [
+            "removed 16 specks"
+          ]
+        },
+        {
+          "anim": "hurtLow",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtLow_v01.png",
+          "from": "raw/hurtLow_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.219,
+          "notes": []
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v01.png",
+          "from": "raw/launched_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.218,
+          "notes": [
+            "removed 5 specks",
+            "poses touch: split into 2"
+          ]
+        },
+        {
+          "anim": "spin",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/spin_v01.png",
+          "from": "raw/spin_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.348,
+          "notes": [
+            "removed 11 specks"
+          ]
+        },
+        {
+          "anim": "airRecover",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/airRecover_v01.png",
+          "from": "raw/airRecover_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.267,
+          "notes": []
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v01.png",
+          "from": "raw/down_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.295,
+          "notes": [
+            "removed 9 specks"
+          ]
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v01.png",
+          "from": "raw/getup_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.359,
+          "notes": [
+            "removed 22 specks",
+            "split 1 touching pose group(s)"
+          ]
+        },
+        {
+          "anim": "charge",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/charge_v01.png",
+          "from": "raw/charge_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.322,
+          "notes": [
+            "removed 9 specks"
+          ]
+        },
+        {
+          "anim": "throw",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/throw_v01.png",
+          "from": "raw/throw_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.267,
+          "notes": [
+            "removed 14 specks"
+          ]
+        },
+        {
+          "anim": "beamCharge",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamCharge_v01.png",
+          "from": "raw/beamCharge_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.271,
+          "notes": [
+            "removed 17 specks"
+          ]
+        },
+        {
+          "anim": "beamFire",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamFire_v02.png",
+          "from": "raw/beamFire_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.464,
+          "notes": [
+            "removed 10 specks"
+          ]
+        },
+        {
+          "anim": "vanish",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/vanish_v01.png",
+          "from": "raw/vanish_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.267,
+          "notes": []
+        },
+        {
+          "anim": "stagger",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/stagger_v01.png",
+          "from": "raw/stagger_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.26,
+          "notes": [
+            "removed 5 specks"
+          ]
+        },
+        {
+          "anim": "ko",
+          "frames": 1,
+          "expected": 1,
+          "source": "raw/ko_v02.png",
+          "from": "raw/ko_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.134,
+          "notes": []
+        },
+        {
+          "anim": "special",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/special_v01.png",
+          "from": "raw/special_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.256,
+          "notes": [
+            "removed 23 specks"
+          ]
+        },
+        {
+          "anim": "intro",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/intro_v01.png",
+          "from": "raw/intro_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.263,
+          "notes": [
+            "removed 4 specks"
+          ]
+        },
+        {
+          "anim": "taunt",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/taunt_v01.png",
+          "from": "raw/taunt_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.242,
+          "notes": []
+        },
+        {
+          "anim": "win",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/win_v01.png",
+          "from": "raw/win_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.265,
+          "notes": [
+            "removed 12 specks"
+          ]
+        },
+        {
+          "anim": "specialForward",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/specialForward_v01.png",
+          "from": "raw/specialForward_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.271,
+          "notes": [
+            "removed 13 specks"
+          ]
+        },
+        {
+          "anim": "specialUp",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/specialUp_v01.png",
+          "from": "raw/specialUp_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.269,
+          "notes": [
+            "removed 20 specks"
+          ]
+        },
+        {
+          "anim": "specialDown",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/specialDown_v01.png",
+          "from": "raw/specialDown_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.262,
+          "notes": [
+            "removed 10 specks"
+          ]
+        },
+        {
+          "anim": "superPose",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/superPose_v01.png",
+          "from": "raw/superPose_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.252,
+          "notes": [
+            "removed 23 specks"
+          ]
+        }
+      ],
+      "missing": [],
+      "missingCore": [],
+      "failed": [],
+      "versions": {
+        "idle": 2,
+        "run": 3,
+        "dash": 1,
+        "backDash": 1,
+        "superDash": 1,
+        "jumpSquat": 1,
+        "jumpUp": 1,
+        "jumpFall": 1,
+        "land": 1,
+        "light1": 1,
+        "light2": 1,
+        "light3": 1,
+        "light4": 2,
+        "heavy": 1,
+        "airLight1": 1,
+        "airLight2": 1,
+        "airLight3": 1,
+        "airHeavy": 2,
+        "guard": 1,
+        "block": 1,
+        "hurtHigh": 1,
+        "hurtLow": 1,
+        "launched": 1,
+        "spin": 1,
+        "airRecover": 1,
+        "down": 1,
+        "getup": 1,
+        "charge": 1,
+        "throw": 1,
+        "beamCharge": 1,
+        "beamFire": 2,
+        "vanish": 1,
+        "stagger": 1,
+        "ko": 2,
+        "special": 1,
+        "intro": 1,
+        "taunt": 1,
+        "win": 1,
+        "specialForward": 1,
+        "specialUp": 1,
+        "specialDown": 1,
+        "superPose": 1
+      },
+      "complete": true,
+      "frames": 175,
+      "sheet": "4096x2816",
+      "colors": 48,
+      "warnings": [],
+      "notes": [
+        "palette snapped to 48 colors",
+        "15 hitbox override(s) from hitboxes.json",
+        "3 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [
+        "public/characters/gojo/portrait.png",
+        "public/characters/gojo/cutin.png",
+        "public/characters/gojo/select.png",
+        "public/characters/gojo/sheet.png",
+        "public/characters/gojo/anims.json"
+      ],
+      "writeback": [],
+      "ui": [
+        "portrait (fitted to 96x96)",
+        "cutin (fitted to 480x128)",
+        "select (fitted to 384x384)"
+      ],
+      "uiItems": [
+        "portrait",
+        "cutin",
+        "select"
+      ]
+    }
+  ],
+  "vfx": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 0
+}

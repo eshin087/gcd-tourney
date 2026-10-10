@@ -221,7 +221,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
 Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
-white hair swept up; ~7 heads.
+white hair swept up. User-selected model v03 overrides the numeric head ratio: compact head, slim torso and long legs.
 
 Body scale: **taller than the cast** (standing body 215 px, `standingBodyPx: 215`,
 [ADR 0010](../docs/decisions/0010-per-character-body-scale.md)): every `bodyHeight` is the shared
@@ -232,53 +232,53 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | blindfold on in every view (eyes only in S2 expression 8, superPose and the cut-in) |
-| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | |
-| 3 | idle | 8 | - | **yes** | 222 | todo | - | - |  |
-| 4 | run | 8 | - | **yes** | 222 | todo | - | - |  |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | todo | - | - |  |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | todo | - | - |  |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | todo | - | - |  |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | todo | - | - |  |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | todo | - | - |  |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | todo | - | - |  |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | todo | - | - |  |
-| 6 | guard | 2 | - | **yes** | 215 | todo | - | - |  |
-| 6 | hurtHigh | 3 | - | **yes** | 212 | todo | - | - |  |
-| 6 | launched | 2 | - | **yes** | 148 | todo | - | - |  |
-| 6 | down | 2 | - | **yes** | 104 | todo | - | - |  |
-| 6 | getup | 5 | - | **yes** | 222 | todo | - | - |  |
-| 7 | charge | 4 | - | **yes** | 215 | todo | - | - |  |
-| 7 | beamCharge | 3 | - | **yes** | 215 | todo | - | - |  |
-| 7 | beamFire | 3 | - | **yes** | 215 | todo | - | - |  |
-| 7 | special | 8 | 3/3/2 | **yes** | 222 | todo | - | - |  |
-| 8 | dash | 2 | - | **yes** | 174 | todo | - | - |  |
-| 8 | jumpUp | 2 | - | **yes** | 215 | todo | - | - |  |
-| 8 | jumpFall | 2 | - | **yes** | 227 | todo | - | - |  |
-| 8 | land | 2 | - | **yes** | 189 | todo | - | - |  |
-| 8 | win | 4 | - | **yes** | 230 | todo | - | - |  |
-| 9 | backDash | 3 | - | no | 225 | todo | - | - |  |
-| 9 | superDash | 2 | - | no | 140 | todo | - | - |  |
-| 9 | jumpSquat | 1 | - | no | 176 | todo | - | - |  |
-| 9 | airLight2 | 5 | 1/2/2 | no | 225 | todo | - | - |  |
-| 9 | airLight3 | 6 | 2/2/2 | no | 219 | todo | - | - |  |
-| 9 | block | 2 | - | no | 222 | todo | - | - |  |
-| 9 | hurtLow | 3 | - | no | 199 | todo | - | - |  |
-| 9 | spin | 4 | - | no | 174 | todo | - | - |  |
-| 9 | airRecover | 3 | - | no | 196 | todo | - | - |  |
-| 9 | throw | 4 | 1/1/2 | no | 219 | todo | - | - |  |
-| 9 | vanish | 2 | - | no | 232 | todo | - | - |  |
-| 9 | stagger | 4 | - | no | 225 | todo | - | - |  |
-| 9 | ko | 1 | - | no | 70 | todo | - | - |  |
-| 9 | intro | 4 | - | no | 228 | todo | - | - |  |
-| 9 | taunt | 2 | - | no | 228 | todo | - | - |  |
-| 9 | specialForward | 7 | 2/2/3 | no | 222 | todo | - | - | kit animation (ADR 0009) |
-| 9 | specialUp | 6 | 2/2/2 | no | 232 | todo | - | - | kit animation (ADR 0009) |
-| 9 | specialDown | 4 | 2/1/1 | no | 222 | todo | - | - | kit animation (ADR 0009) |
-| 9 | superPose | 4 | - | no | 230 | todo | - | - | kit animation (ADR 0009) |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
-| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 3 | idle | 8 | - | **yes** | 222 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 4 | run | 8 | - | **yes** | 222 | approved | v03 | v03 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | guard | 2 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | launched | 2 | - | **yes** | 148 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | getup | 5 | - | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | charge | 4 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | beamCharge | 3 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | beamFire | 3 | - | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | dash | 2 | - | **yes** | 174 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | land | 2 | - | **yes** | 189 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | win | 4 | - | **yes** | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | backDash | 3 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | superDash | 2 | - | no | 140 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | jumpSquat | 1 | - | no | 176 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | block | 2 | - | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | hurtLow | 3 | - | no | 199 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | spin | 4 | - | no | 174 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | airRecover | 3 | - | no | 196 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | vanish | 2 | - | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | stagger | 4 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | ko | 1 | - | no | 70 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | intro | 4 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | taunt | 2 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | specialForward | 7 | 2/2/3 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | specialUp | 6 | 2/2/2 | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | specialDown | 4 | 2/1/1 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | superPose | 4 | - | no | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 
 ## VFX atlas (step 10)
 

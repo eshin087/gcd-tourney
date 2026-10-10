@@ -1,0 +1,41 @@
+{
+  "http": 200,
+  "state": {
+    "gameState": "fight",
+    "animation": "idle",
+    "x": -3.4
+  },
+  "movement": {
+    "animation": "run",
+    "frame": 5,
+    "x": -1.5671019830093202
+  },
+  "preview": {
+    "referenceImagesLoaded": true,
+    "frameScrub": "4",
+    "paused": "Play"
+  },
+  "logs": [
+    "[vite] connecting...",
+    "[.WebGL-0x517c001fba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[vite] connected.",
+    "[vfx] custom effects: spark, burst, ring, dust, smoke, shuriken, fire, flame, lightning, orb, glow, streak, star, crater, lines",
+    "[sprites] using custom sheet for naruto (3 animations, incomplete preview)",
+    "[sprites] using custom sheet for sasuke (2 animations, incomplete preview)",
+    "[sprites] using custom sheet for killua (42 animations)",
+    "[sprites] using custom sheet for gojo (2 animations, incomplete preview)",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "[.WebGL-0x517c001fba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x517c001fba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x517c001fba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+    "[vite] connecting...",
+    "[vite] connected."
+  ],
+  "errors": []
+}
