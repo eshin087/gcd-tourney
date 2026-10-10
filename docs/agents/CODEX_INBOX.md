@@ -44,7 +44,7 @@ How it works:
   Done by Codex in draft PR [#9](https://github.com/eshin087/gcd-tourney/pull/9) (branch
   `codex/fighter-scale-corrections`, stacked on #8); waits for the user's final review, then Claude merges #8 + #9.
   Your calibrated Naruto/Killua candidates are on the draft PR [#8](https://github.com/eshin087/gcd-tourney/pull/8),
-  branch `art/scale-naruto-killua`, worktree `../gcdTourney-worktrees/art-scale-naruto-killua` (full checkout,
+  branch `art/scale-naruto-killua`, worktree `.worktrees/art-scale-naruto-killua` (full checkout,
   `npm ci` done). Work only there, never in the main folder. Claude's QA: the resized run/dash/crouch heads look
   right next to idle, but a repack from the branch's inputs differs from its packed sheets and clips Naruto heavy
   (#3-#5, top up to 30 px), win (#1, #2), launched (#0, left) and ko (#0, left). Fix placement or repose while
@@ -83,7 +83,7 @@ How it works:
 ## Killua thread
 
 - [x] **(2026-10-10) ART-SCALE-01 part 2:** done in PR #9 (merged); same item as the Naruto thread: finish Killua's
-  calibrated candidates in `../gcdTourney-worktrees/art-scale-naruto-killua`, draft PR #8.
+  calibrated candidates in `.worktrees/art-scale-naruto-killua`, draft PR #8.
 
 Claude's QA of the full set (2026-10-09): all 42 animations + UI pack into a **complete** sheet (175 frames,
 48 colors), the game loads it (`[sprites] using custom sheet for killua`), the design is consistent across

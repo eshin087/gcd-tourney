@@ -19,7 +19,7 @@ break that.
   pull request. Exceptions that may still commit straight to `main`: docs-only edits, bookkeeping, and art
   approvals for a character that already ships (Codex's per-approval commits).
 - Each PR is built in its own git worktree on its own branch: `npm run pr -- start <prefix>/<name>` creates
-  `../gcdTourney-worktrees/<prefix>-<name>` off `main` (sparse: no raw image generations unless `--full`) and
+  `.worktrees/<prefix>-<name>` off `main` (sparse: no raw image generations unless `--full`) and
   installs dependencies. Nobody runs `git checkout`/`switch`/`stash` in the shared main checkout.
 - `npm run pr -- open` (in the worktree) publishes the branch slim and opens the GitHub PR (or updates it).
 - `npm run pr -- merge <branch>` (in the main checkout) checks the branch merges cleanly, merges it with
@@ -27,6 +27,10 @@ break that.
   worktree. Conflicts are resolved in the feature worktree (`git merge main`), never on `main`.
 - Revert a feature with `git revert -m 1 <merge commit>`, itself done as a PR (`fix/revert-<name>`).
 - Merge after the Definition of Done passes, unless the user asked to review first. Deploy after merging.
+
+Amended 2026-10-10: worktrees moved from the sibling folder `../gcdTourney-worktrees/` into `.worktrees/` inside the
+project (user request: one folder). `.gitignore` and `vite.config.js` (`server.watch.ignored`) keep git and the dev
+server out of it.
 
 ## Alternatives considered
 - **Branches in the shared checkout.** A checkout switches files under every other agent. Rejected.

@@ -145,7 +145,7 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
   Run `npm run pr -- start feature/<name>` (add `--full` for art work, e.g. `feature/char-<id>`) from the main
-  folder, then work, pack and commit **only inside the new worktree** (`../gcdTourney-worktrees/<prefix>-<name>`).
+  folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
   When it's done, `npm run pr -- open` there, and `npm run pr -- merge <branch>` from the main folder (never the
   GitHub merge button). Commits straight to `main` are allowed only for docs-only edits, bookkeeping and art
   approvals for a character that already ships. A new character's whole art production happens on its branch.

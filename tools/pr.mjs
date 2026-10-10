@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Feature branches as pull requests, without touching the shared working copy (ADR 0013).
 //
-//   npm run pr -- start <branch> [--full]   new worktree + branch off main in ../gcdTourney-worktrees/<branch>
+//   npm run pr -- start <branch> [--full]   new worktree + branch off main in .worktrees/<branch>
 //   npm run pr -- open [--title "..."]      (inside the worktree) publish the branch slim + open the GitHub PR
 //   npm run pr -- merge <branch>            (in the main checkout) merge --no-ff, publish main, remove the worktree
 //
@@ -36,7 +36,8 @@ const git = (args, cwd = ROOT, inherit = false) =>
 const sh = (file, args, cwd = ROOT) => execFileSync(file === 'node' ? process.execPath : file, args,
   { cwd, stdio: 'inherit', shell: file === 'npm' && process.platform === 'win32' });
 const die = (msg) => { console.error(`[pr] ${msg}`); process.exit(1); };
-const worktreeDir = (branch) => path.resolve(ROOT, '..', 'gcdTourney-worktrees', branch.replace(/\//g, '-'));
+// Inside the project so it is one folder; .gitignore and vite.config.js keep git and the dev server out of it.
+const worktreeDir = (branch) => path.join(ROOT, '.worktrees', branch.replace(/\//g, '-'));
 const currentBranch = (cwd = ROOT) => git(['rev-parse', '--abbrev-ref', 'HEAD'], cwd);
 
 function start() {
