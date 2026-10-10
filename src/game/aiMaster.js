@@ -31,7 +31,7 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // block   weight of a plain block among its answers to a threat it saw (the others: parry, dodges, counters...)
 export const STYLES = {
   impossible: { react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, mash: 13, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1 },
-  showman: { react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.5, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
+  showman: { react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
 };
 
 // forward distance a lunging ground move still covers from frame t (its speed fades out over startup+active)
@@ -149,9 +149,10 @@ export class MasterBrain {
       this.route = {};
     } else if (game.state === 'fight') this.roundSet = false;
     if (this.hoarding && this.bigCount() > this.bigUsed) this.hoarding = false; // it spent them: back to normal
-    // the showman also holds its last bars while the viewer hasn't seen one of its three-bar moves: spending
-    // freely, it would almost never reach three bars
-    this.saving = this.hoarding || (this.S.show >= 0.5 && f.ki >= 100 && this.bigUnseen());
+    // the showman also holds its bars until it has fired its first three-bar move of the match: spending
+    // freely, it would almost never reach three bars (after that it spends freely, and pickBig still prefers
+    // the three-bar move the viewer hasn't seen when the bars come round again)
+    this.saving = this.hoarding || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
     if (game.clash) this.mashClash();
     else if (game.inputLive && !f.ko && !o.ko) this.think(game);
     if (this.chargeFrom != null) {
@@ -365,6 +366,11 @@ export class MasterBrain {
     // an opponent we can reach in the air with an attack
     if (!f.airAttack && o.hittable && d3 < 1.5 && Math.abs(c.sd) < 0.6 && (o.air || c.dy > -0.6)) {
       this.tap(o.state === 'launched' || Math.random() < 0.6 ? 'light' : 'heavy');
+      return true;
+    }
+    // falling onto a grounded opponent from above (a Blink, a high jump-in): the spike reaches down
+    if (!f.airAttack && o.hittable && !o.air && Math.abs(c.sx) < 1.3 && Math.abs(c.sd) < 0.6 && c.dy < -0.6 && c.dy > -2.6 && f.vel.y <= 1) {
+      this.tap('heavy');
       return true;
     }
     if (this.plan?.name === 'jumpin') {
@@ -612,7 +618,7 @@ export class MasterBrain {
   // Showman: which three-bar move to spend now ('super' / 'ultimate' / 'beam'), or null to hold the bars.
   // In a combo only the ones that connect on a reeling victim (flurry in range, Domain, Amaterasu); in neutral
   // and punishes also Kirin and the beam (they need the opponent stuck or far away).
-  pickBig(c, inCombo) {
+  pickBig(c, inCombo, anyRange = false) {
     const f = this.f, K = kitOf(f.def), sh = this.show;
     if (f.ki < 300) return null;
     const ok = (S) => {
@@ -624,7 +630,8 @@ export class MasterBrain {
     const w = { hold: inCombo ? 1.2 : 1 };
     if (ok(SUPERS[K.super])) w.super = sh.bias('super');
     if (ok(SUPERS[K.ultimate])) w.ultimate = sh.bias('ultimate');
-    if (!inCombo && !K.ultimate && c.dist > 2.6 && Math.abs(c.sd) < 1) w.beam = sh.bias('beam');
+    // the beam wants range and their lane (the beam plan backs off and lines up first: `anyRange`)
+    if (!inCombo && !K.ultimate && (anyRange || (c.dist > 2.6 && Math.abs(c.sd) < 1))) w.beam = sh.bias('beam');
     const pick = pickW(w);
     return pick === 'hold' ? null : pick;
   }
@@ -632,10 +639,6 @@ export class MasterBrain {
   fireBig(id) {
     if (id === 'super') this.tap('super');
     else { this.tap('heavy', 3); this.tap('special', 3); } // ultimate: the kit's or the beam
-  }
-
-  bigUnseen() {
-    return ['super', 'ultimate', 'beam'].some((id) => this.show.tools[id] && this.show.fresh(id));
   }
 
   bigCount() {
@@ -734,7 +737,9 @@ export class MasterBrain {
       const miss = Math.hypot(rx - p.vel.x * tc, (ry - p.vel.y * tc) * 0.7, rz - p.vel.z * tc);
       if (miss < p.P.radius + 0.8) {
         p._aid = p._aid || ++projIds;
-        add({ key: 'p' + p._aid, kind: 'proj', frames: tc * 60, len: 3, p, big: !!p.P.big });
+        // it touches the body before its closest approach: a big shot (fireball) by 5-7 frames
+        const touch = Math.max(0, tc - (p.P.radius + 0.45) / Math.sqrt(v2));
+        add({ key: 'p' + p._aid, kind: 'proj', frames: touch * 60, len: 3, p, big: !!p.P.big });
       }
     }
     for (const v of game.vortices) {
@@ -775,7 +780,8 @@ export class MasterBrain {
         if (k.phase === 'rise' && (c.dist > 2.2 || !f.air)) return null;
         const fall = k.phase === 'slam' ? (o.pos.y / -m.slamV) * 60 : k.phase === 'hang' ? m.hang - k.t0 + (o.pos.y / -m.slamV) * 60 : 2;
         if (c.dist > (m.area ?? 1.6) + 2.5) return null;
-        return { key: 'dv' + this.oppSerial + k.phase, kind: 'melee', frames: Math.max(0, fall), len: 2, m: hit, big: true, dive: k.phase !== 'rise' };
+        // one threat from the hover to the slam (a new key at the slam would re-pick the answer too late)
+        return { key: 'dv' + this.oppSerial + (k.phase === 'rise' ? 'r' : 's'), kind: 'melee', frames: Math.max(0, fall), len: 2, m: hit, big: true, dive: k.phase !== 'rise' };
       }
       case 'teleport':
         if (m.follow && !k.arrived) return { key: 'tp' + this.oppSerial, kind: 'melee', frames: Math.max(0, (m.startup ?? 0) + m.hide - o.t) + 3, len: 4, m: MOVES[m.follow], big: true, behind: true };
@@ -802,6 +808,9 @@ export class MasterBrain {
       ans[key] = { ...d, ...resp };
     };
     const decide = () => ans[pickW(w)] ?? d;
+    // a spot dodge is intangible 3-4 frames after the press (Guard, neutral, ↓, dodge frame 2): too late below that
+    const dodgeLead = f.state === 'guard' ? 4 : 5;
+    const canDodge = th.frames >= dodgeLead;
     if (th.kind === 'beam') {
       // counter-beam only with a beam of our own (a kit ultimate like Amaterasu can't touch a charging beam)
       if (th.charging && ki >= ULTIMATE.cost && o.state === 'beamCharge' && !kitOf(f.def).ultimate) offer('counterBeam', 1 + S.flair * 2, { type: 'counterBeam' }, 'beam');
@@ -813,7 +822,7 @@ export class MasterBrain {
       if (th.kind === 'zone') return { ...d, type: 'dashOut' };
       if (ki >= VANISH.cost) offer('vanish', 3, { type: 'vanish', at: th.rangeless ? 6 : 4 }, 'vanish');
       // a spot dodge's intangibility lets a flurry dash or Amaterasu pass through
-      if (r === 'ground') offer('dodge', th.rangeless ? 1 : 0.4 + 0.4 * S.show, { type: 'dodge', at: 7 }, 'spotDodge');
+      if (r === 'ground' && canDodge) offer('dodge', th.rangeless ? 1 : 0.4 + 0.4 * S.show, { type: 'dodge', at: 7 }, 'spotDodge');
       if (r === 'air') { if (!f.airDodged) offer('airdodge', 1, { type: 'airdodge', at: 5 }, 'airDodge'); } else offer('sidestep', 1, { type: 'sidestep', at: 5 });
       return decide();
     }
@@ -827,14 +836,14 @@ export class MasterBrain {
     if (th.kind === 'proj' && !th.vortex) {
       // plow through it with the super dash and hit its thrower, or spot dodge it as it arrives
       if (r === 'ground' && f.airDashes === 0 && c.dist < 7) offer('superDash', 0.25 + S.flair * 0.25, { type: 'superDash', at: 12 }, 'superDash');
-      if (r === 'ground') offer('dodge', S.dodge * 0.6 * S.show, { type: 'dodge', at: 8 }, 'spotDodge');
+      if (r === 'ground' && canDodge) offer('dodge', S.dodge * 0.6 * S.show, { type: 'dodge', at: 8 }, 'spotDodge');
     }
     if (lockFree(Math.max(0, th.frames - 2))) offer('parry', S.parry * 2 * (big ? 1.2 : 1), { type: 'parry' }, 'parry');
     // dodge what leaves something to punish: its active + recovery outlasts our dodge (a hop launcher
     // lands and recovers first, so that one gets parried or blocked)
     // (the showman also dodges the rest now and then: even trade, but the viewer sees the dodge)
     const punishable = th.dive || (th.m && !th.m.hop && (th.m.active ?? 0) + (th.m.recovery ?? 0) >= SPOT.len);
-    if (th.kind === 'melee' && r === 'ground' && (punishable || S.show >= 0.5)) {
+    if (th.kind === 'melee' && r === 'ground' && canDodge && (punishable || S.show >= 0.5)) {
       offer('dodge', punishable ? S.dodge * (big ? 1.4 : 0.5 * S.show) : S.dodge * 0.35, { type: 'dodge', at: f.state === 'guard' ? 6 : 7 }, 'spotDodge');
     }
     const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
@@ -1268,18 +1277,24 @@ export class MasterBrain {
     }
     // three bars: the beam from afar (an opponent with three bars can fire back: CLASH), or a kit super
     const K = kitOf(f.def);
-    if (ki >= ULTIMATE.cost && !K.ultimate && (dist > 3.5 || this.saving)) w.beam = (S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0)) * sh.bias('beam');
     let big = null;
     if (ki >= 300 && showy) {
-      big = this.pickBig(c, false);
-      if (big && big !== 'beam') w.big = S.flair * 1.5 * sh.bias(big) + (this.saving ? 2 : 0);
+      // one pick among the super, the ultimate and the beam, so neither crowds out the other
+      big = this.pickBig(c, false, true);
+      const want = S.flair * 1.5 * (big ? sh.bias(big) : 0) + (big && this.saving ? 2 : 0);
+      if (big === 'beam') w.beam = want * (o.ki >= ULTIMATE.cost ? 1.5 : 1);
+      else if (big) w.big = want;
     } else if (ki >= 300 && SUPERS[K.ultimate] && (dist > 3.5 || this.saving)) {
       // IMPOSSIBLE: a kit ultimate (Amaterasu) from range, where another fighter would fire the beam
       big = 'ultimate';
       w.big = S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0);
+    } else if (ki >= ULTIMATE.cost && !K.ultimate && (dist > 3.5 || this.saving)) {
+      w.beam = (S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0)) * sh.bias('beam');
     }
-    // showman, short on ki while the viewer still hasn't seen some of its kit: back off and power up
-    if (showy && ki < 200 && dist < 5.5 && sh.unseen().some((id) => id.startsWith('sp:') || id === 'super' || id === 'ultimate' || id === 'beam')) w.powerUp = 1.1;
+    // showman, short on ki while the viewer still hasn't seen some of its kit (or saving for its first
+    // three-bar move): back off and power up
+    if (showy && dist < 5.5 && this.saving && ki < 300) w.powerUp = 2;
+    else if (showy && ki < 200 && dist < 5.5 && sh.unseen().some((id) => id.startsWith('sp:') || id === 'super' || id === 'ultimate' || id === 'beam')) w.powerUp = 1.1;
     if (lead > 0.25 && game.timeLeft < 30) { w.space = (w.space ?? 0) + 1.5; w.guard = (w.guard ?? 0) + 1; }
     if (lead < -0.3) { w.pressure = (w.pressure ?? 0) * 1.3; w.approach = (w.approach ?? 0) * 1.3; }
     const name = pickW(w) || 'approach';
@@ -1309,6 +1324,8 @@ export class MasterBrain {
       let ok = false;
       if (m.kind === 'pull') ok = c.dist > 1.4 && c.dist < 4.5;
       if (m.kind === 'teleport' && m.follow) ok = c.dist > 2.5;
+      // a plain teleport (Blink) puts it over their head: airStep drops the spike from there
+      if (m.kind === 'teleport' && !m.follow) ok = c.dist > 3 && this.S.show >= 0.5;
       if (m.kind === 'rush') ok = c.dist > 2 && c.dist < 5.5 && Math.abs(c.sd) < 0.6;
       // a rising dive leaps at them from mid range (the slam is blockable: a read, like in DBFZ)
       if (m.kind === 'dive' && m.rise > 0) ok = c.dist > 2.2 && c.dist < 6 && this.S.show >= 0.5;
@@ -1409,6 +1426,12 @@ export class MasterBrain {
         if ((this.mem.throws ?? 0) > 1.5 && c.dist < 1.2 && (o.state === 'idle' || o.state === 'run') && f.state === 'guard' && R() < 0.05) {
           if (R() < 0.5) this.my = -1;
           else { this.keep.delete('guard'); this.tap('light'); this.route = {}; }
+        }
+        // showman: read their approach and spot dodge before anything starts (a jab or throw whiffs into it,
+        // a delayed attack catches the recovery); a reaction would come too late for a 5-12 frame normal
+        else if (S.show >= 0.5 && !p.read && c.dist < 1.7 && (o.state === 'run' || o.state === 'dash') && f.state === 'guard' && R() < 0.04 * this.show.bias('spotDodge')) {
+          p.read = true;
+          this.my = -1;
         }
         if (c.dist > 3.5) p.done = true;
         return;

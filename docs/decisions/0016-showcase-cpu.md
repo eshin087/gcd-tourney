@@ -49,9 +49,10 @@ judged real for the situation. `push` is per level: Easy 0.3, Normal 0.5, Hard 0
 - **Neutral at mid range with the kit.** More zoning, kit tools (pull, teleport, rush, dive leaps), air specials,
   modes and three-bar moves; less jab pressure; a wake-up "reset" that backs off to mid range instead of always
   pressing a meaty jab; a "power up" plan that backs off and charges ki while unseen tools need it.
-- **Ki.** It spends freely, except that while one of its three-bar moves hasn't been seen this match it holds
-  its last bars (nothing smaller may take it back under three bars) until it fires one. Spending freely under
-  normal ki rules it would almost never reach three bars.
+- **Ki.** It spends freely, except that until it has fired its first three-bar move of the match it holds its
+  bars from one bar up (nothing smaller may take it back under three bars) and powers up to get there.
+  Spending freely under normal ki rules it would almost never reach three bars; holding out for every
+  three-bar move (some fighters have two) starved the rest of the kit.
 - **Defense as a weighted pick.** Each seen threat gets one answer, drawn from the ones that work against it
   (parry, spot dodge, air dodge, counter, vanish, super dash through a shot, sidestep, counter-beam, block),
   weighted by the style and the Showcase. A plain block weighs little for the showman.
@@ -79,8 +80,12 @@ throw and counters already had one.
 - The light4 wall route only pressed Light on its first confirmed frame, so it almost always became the
   launcher route. The route now sticks.
 - Spot dodges were triggered 4-5 frames before the hit, but need 3-4 frames (guard, neutral, ↓, dodge frame 2)
-  to become intangible: they now start 2 frames earlier, and the brain waits in place instead of starting a
-  dash it can't guard out of.
+  to become intangible: they now start 2 frames earlier, are only picked when that much time is left, and the
+  brain waits in place instead of starting a dash it can't guard out of. A dive's hover and slam are now one
+  threat (a new one at the slam re-picked the answer 2 frames before impact), and a projectile's arrival is
+  measured to when it touches the body, not to its closest approach (a fireball touches 5-7 frames earlier).
+  Against a 5-12 frame normal a reaction is too late anyway: the showman also spot dodges on a read, when the
+  opponent runs or dashes into range while it guards.
 - A charge hold released before the 12-frame charge threshold fires a special: the brain now holds until the
   charge state starts.
 - A thrown victim could end a frame past the ring barrier (the throw hold moved it after its own clamp).
@@ -96,10 +101,14 @@ throw and counters already had one.
 
 ## Consequences
 
-- Measured on 4 matchups after the change (showman): rounds 35-70 s, combos 3-7 hits (100-230 damage), neutral
-  about 30 % of fight time (was 13 %), combos about 40-45 % (was 68 %), every fighter fired at least one
-  three-bar move per match, and most fighters showed all or all but 2-4 of their tools per match. A fighter that
-  loses fast shows less: the fight stays real.
+- Measured on a 5-match soak after the change (showman): rounds 35-66 s (were 20-35), combos 3-7 hits
+  (100-230 damage), neutral 26-34 % of fight time (was 13 %), combos about 40-45 % (was 68 %), every fighter
+  fired at least one three-bar move per match, and each fighter left 0-5 of its ~16 tools unused per match
+  (one Naruto showed everything). Over 10 fighter-matches: 9 parries, 12 spot dodges, 42 air dodges, 19
+  vanishes, 12 throws, 15 three-bar moves. A fighter that loses fast shows less: the fight stays real.
+- Difficulty ladder (CPU vs CPU, the higher level's wins): IMPOSSIBLE > Hard 8/8 (7/8 before), Hard > Easy
+  13/16, Hard > Normal 4/8 (3/8 before), Normal > Easy 9/16 (6/8 before). CPU-vs-CPU win rates are a weak
+  proxy for difficulty against people; the Easy/Normal additions are rare and mostly mistimed (`slop`).
 - New tools (a special kind, a super kind, a technique) should be registered in `toolsOf` / `TECH` and, if the
   brains need to know when they fit, given a weight in `kitOptions`, `pickBig`, `chooseDefense` or `pickSpecial`.
 - The Showcase only reads state, so a future replay or online mode is unaffected; the brains still use

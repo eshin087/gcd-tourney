@@ -389,8 +389,8 @@ half the time, max-damage routes) and `showman` (CPU vs CPU, ADR 0016). CPU vs C
 The **showman** plays for the viewer: short combos that end in a special, shot, teleport or vanish kick (the
 launcher route stops extending at `cap` = 5 hits), mid-range neutral with the kit (zoning, kit tools, air
 specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset to mid range) rather than
-jab pressure, a plain block as its least likely answer, and free ki spending except that it holds three bars
-until each of its three-bar moves has been seen once.
+jab pressure, a plain block as its least likely answer, and free ki spending except that it saves up (and
+powers up) for its first three-bar move of the match.
 
 ## Bread-and-butter route (reference)
 
