@@ -43,6 +43,7 @@ when a decision should be revisited.
 | [0015](0015-throws-and-cancelled-special-startup.md) | Throw and throw break; faster startup for specials cancelled out of a hit | Accepted |
 | [0016](0016-showcase-cpu.md) | Showcase CPU: every CPU shows its kit (shared `Showcase` weights), CPU vs CPU plays short combos and mid-range kit for the viewer | Accepted |
 | [0017](0017-ultimate-variety-and-rhythm-clashes.md) | Every ultimate its own shape (orb, rampage, reflex; one beam at most), ultimate clashes as a rhythm duel | Accepted |
+| [0018](0018-preview-deploys-and-test-lab.md) | A Vercel preview link per PR (`npm run pr -- preview`) and a test lab page | Accepted |
 
 ## Template
 
