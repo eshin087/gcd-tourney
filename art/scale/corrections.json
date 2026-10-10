@@ -1,0 +1,552 @@
+{
+  "naruto": {
+    "run": {
+      "version": 4,
+      "previousVersion": 3,
+      "packedHeadEstimate": [
+        35,
+        35,
+        34,
+        34,
+        35,
+        35,
+        35,
+        34
+      ],
+      "sourceScale": 0.452,
+      "file": "raw/run_v04.png",
+      "status": "raw",
+      "approvedVersion": 3
+    },
+    "dash": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        39,
+        39
+      ],
+      "sourceScale": 0.332,
+      "file": "raw/dash_v02.png",
+      "status": "raw",
+      "approvedVersion": 1
+    },
+    "jumpSquat": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        38
+      ],
+      "sourceScale": 0.211,
+      "file": "raw/jumpSquat_v02.png",
+      "status": "raw",
+      "approvedVersion": 1
+    },
+    "heavy": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/heavy_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25
+      ],
+      "sourceScale": 0.311
+    },
+    "airLight1": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/airLight1_v03.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        28,
+        28,
+        28,
+        28,
+        28
+      ],
+      "sourceScale": 0.328
+    },
+    "airLight3": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/airLight3_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        34,
+        34,
+        34,
+        34,
+        34,
+        34
+      ],
+      "sourceScale": 0.367
+    },
+    "airHeavy": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/airHeavy_v03.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        27,
+        27,
+        30,
+        30,
+        30,
+        30
+      ],
+      "sourceScale": 0.3
+    },
+    "guard": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/guard_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        36,
+        36
+      ],
+      "sourceScale": 0.232
+    },
+    "block": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/block_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        34,
+        34
+      ],
+      "sourceScale": 0.256
+    },
+    "launched": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/launched_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        25,
+        25
+      ],
+      "sourceScale": 0.214
+    },
+    "airRecover": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/airRecover_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        28,
+        28,
+        28
+      ],
+      "sourceScale": 0.25
+    },
+    "down": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/down_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        28,
+        28
+      ],
+      "sourceScale": 0.262
+    },
+    "ko": {
+      "version": 4,
+      "previousVersion": 3,
+      "approvedVersion": 3,
+      "file": "raw/ko_v04.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        22
+      ],
+      "sourceScale": 0.108
+    },
+    "special": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/special_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        39,
+        39,
+        39,
+        39,
+        39,
+        39,
+        39,
+        39
+      ],
+      "sourceScale": 0.31
+    },
+    "win": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/win_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        25,
+        25,
+        25,
+        25
+      ],
+      "sourceScale": 0.254
+    },
+    "beamCharge": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/beamCharge_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        35,
+        35,
+        35
+      ],
+      "sourceScale": 0.285
+    },
+    "beamFire": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/beamFire_v03.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        35,
+        35,
+        35
+      ],
+      "sourceScale": 0.327
+    },
+    "superPose": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/superPose_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        35,
+        35,
+        35,
+        35
+      ],
+      "sourceScale": 0.331
+    }
+  },
+  "killua": {
+    "run": {
+      "version": 3,
+      "previousVersion": 2,
+      "packedHeadEstimate": [
+        36,
+        36,
+        36,
+        37,
+        36,
+        37,
+        36,
+        36
+      ],
+      "sourceScale": 0.361,
+      "file": "raw/run_v03.png",
+      "status": "raw",
+      "approvedVersion": 2
+    },
+    "dash": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        38,
+        39
+      ],
+      "sourceScale": 0.273,
+      "file": "raw/dash_v02.png",
+      "status": "raw",
+      "approvedVersion": 1
+    },
+    "jumpSquat": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        38
+      ],
+      "sourceScale": 0.163,
+      "file": "raw/jumpSquat_v02.png",
+      "status": "raw",
+      "approvedVersion": 1
+    },
+    "guard": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/guard_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        40,
+        40
+      ],
+      "sourceScale": 0.211
+    },
+    "block": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/block_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        40,
+        40
+      ],
+      "sourceScale": 0.218
+    },
+    "hurtHigh": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/hurtHigh_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        36,
+        36,
+        36
+      ],
+      "sourceScale": 0.223
+    },
+    "hurtLow": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/hurtLow_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        36,
+        36,
+        36
+      ],
+      "sourceScale": 0.21
+    },
+    "charge": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/charge_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "sourceScale": 0.288
+    },
+    "beamCharge": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/beamCharge_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        38,
+        38,
+        38
+      ],
+      "sourceScale": 0.236
+    },
+    "beamFire": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/beamFire_v03.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        45,
+        45,
+        45
+      ],
+      "sourceScale": 0.298
+    },
+    "ko": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/ko_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        21
+      ],
+      "sourceScale": 0.105
+    },
+    "specialForward": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/specialForward_v03.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        40,
+        40,
+        40,
+        40,
+        38,
+        38,
+        38
+      ],
+      "sourceScale": 0.522
+    },
+    "superPose": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/superPose_v02.png",
+      "status": "raw",
+      "notes": "Provisional visual estimates from full-frame and head-crop review. Crown hidden by hair; anatomy and motion acceptance remains pending. No automatic segmentation used as a measurement.",
+      "packedHeadEstimate": [
+        39,
+        39,
+        39,
+        39
+      ],
+      "sourceScale": 0.238
+    }
+  },
+  "gojo": {
+    "guard": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/guard_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "charge": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/charge_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "dash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/dash_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "backDash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/backDash_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "superDash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/superDash_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "jumpSquat": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/jumpSquat_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "jumpUp": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/jumpUp_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "jumpFall": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/jumpFall_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "land": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/land_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "run": {
+      "version": 4,
+      "previousVersion": 3,
+      "approvedVersion": 3,
+      "file": "raw/_rejected/run_v04.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "light1": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/light1_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    },
+    "light2": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/light2_v02.png",
+      "status": "rejected",
+      "notes": "User rejected enlarged heads; restore original approved Gojo head size and proportions."
+    }
+  }
+}

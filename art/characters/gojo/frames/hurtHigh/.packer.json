@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hurtHigh_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/hurtHigh_v01.png"
+  ],
+  "sourceHash": "d59cbe2c48ad4fae6edb34ed3b4aeed12c81892c",
+  "bodyHeight": 212,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "hurtHigh_00.png": "4e263ebdaed6fe87c0b1833c1656cf2c482cd508",
+    "hurtHigh_01.png": "223e0e5edc1a2f54d93ba400cbeb4a4dc59af152",
+    "hurtHigh_02.png": "3eaed8205bb7978eac9d89a99c64d00b72953884"
+  }
+}

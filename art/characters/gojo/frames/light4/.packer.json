@@ -1,0 +1,29 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/light4_v02.png",
+  "version": 2,
+  "source": [
+    "characters/gojo/raw/light4_v02.png"
+  ],
+  "sourceHash": "a8f847268f575aab57229202173986c6ea52937b",
+  "bodyHeight": 225,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "light4_00.png": "1a46c3b33d48b7f98380d97a69039de80f9d4293",
+    "light4_01.png": "cb9d15adbb278cfecf1813f04f8a79dca4f5173f",
+    "light4_02.png": "a1a0f61a454e499650f1b5540f181e06d7270297",
+    "light4_03.png": "e8d81969b73d6c36ca43e67c6dc62c8297cb2f1a",
+    "light4_04.png": "a653bb8a8bb98b10f110e6c584f409c1fc074ef2",
+    "light4_05.png": "843c6f4a03ca0a8953624d6c448d197048f6f38d",
+    "light4_06.png": "16c1bbcbe6baeb20a836f0daf3f5dd56125d85eb",
+    "light4_07.png": "7dcf2f94fb3167ffd085b67334f6f7adeb85a299"
+  }
+}

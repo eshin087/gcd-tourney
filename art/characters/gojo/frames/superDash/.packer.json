@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superDash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/superDash_v01.png",
+    "characters/gojo/raw/superDash_v01.json"
+  ],
+  "sourceHash": "49df062500b663e5a1e27aea668122e78b8d1cb6",
+  "bodyHeight": 140,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superDash_00.png": "f9dc3a994e827dc9f1046fb9e6e68606f2b0b0e6",
+    "superDash_01.png": "638c69bc81d293800fd8e967ebbc1129013516b7"
+  }
+}

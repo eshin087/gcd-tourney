@@ -76,6 +76,8 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 [art/REVIEW.md](../art/REVIEW.md); the user answers `approve vNN` or gives feedback. Start a session with
 **Prompt 0** in [agents/CODEX_PROMPT.md](agents/CODEX_PROMPT.md).
 
+| ART-SCALE-01 | Audit and correct fighter anatomical scale; finish Sasuke with shared scale gate | Codex | in-progress | User asked for consistent head/body scale across every animation, Gojo taller and Killua shorter, Gojo at his original approved head size (enlarged Gojo candidates rejected). 2026-10-10 part 1 shipped (PR art/sasuke-and-scale-gate): packer skull-to-chin calibration (versioned sidecars, 206 regression checks), art/CHARACTER_SCALE.md gate, Sasuke complete candidate set (42 anims / 175 frames, live in game, still `needs review`; portrait/cut-in/select candidates packed after approval), Gojo restored to his approved strips. Part 2 is work in progress on branch `art/scale-naruto-killua` (draft PR, not live): Naruto/Killua calibrated candidates; repacking them still clips Naruto heavy (top 30 px), win, launched and ko. Continue there (ADR 0013), not on main. Sasuke follow-ups: size pops inside light2/light3/special (two stitched parts at different scales), specialUp #2/#3 reach the 4 px top margin. files: art/characters/naruto/, art/characters/killua/, public/characters/naruto/, public/characters/killua/, art/scale/, tools/pack-sprites.mjs |
+
 ### Naruto art (steps = `art/manifest.json` generation order; a custom sheet goes live when all CORE anims are packed)
 
 | ID | Title | Owner | Status | Notes |

@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airHeavy_v02.png",
+  "version": 2,
+  "source": [
+    "characters/gojo/raw/airHeavy_v02.png"
+  ],
+  "sourceHash": "9da5959ae1461fcec90f7caefd6a1c2fb1dbfda9",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airHeavy_00.png": "80f7a912889b6a27193c6b59192d1d5075612300",
+    "airHeavy_01.png": "db0a437275e8f31c3003a7a29a4b91701aa0a58e",
+    "airHeavy_02.png": "b448735247efd64a2310761d7b8eda47c3a0873f",
+    "airHeavy_03.png": "3bf6a5a006d762e98446f6c03b105a8f4e4f29d6",
+    "airHeavy_04.png": "7acb9bcb967eeaf36fdc5d23360d42be33c6acb4",
+    "airHeavy_05.png": "852c1dcdcc1a2043fe8bde5672624a51c8861ee3"
+  }
+}

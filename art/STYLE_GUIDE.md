@@ -1,5 +1,7 @@
 # Style guide
 
+Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md). Technical packing success does not establish anatomical consistency.
+
 How GCD Tourney should **look and move**. Numbers (sizes, pivot, heights, contact zones) live in
 [SPEC.md](SPEC.md) (hi-res sprite spec v2, [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md)).
 This file is about taste and craft. Read it before writing or running any prompt.

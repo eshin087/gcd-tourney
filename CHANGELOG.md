@@ -11,6 +11,12 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Sasuke's hi-res art is in the game**: Codex's complete set of 42 animations / 175 frames replaces his placeholder in fights, packed at the shared anatomical scale. Every image still waits for the user's review in art/REVIEW.md, and his portrait, cut-in and select candidates are packed only once approved (ART-SCALE-01, ART-SAS-11).
+
+- Art: reject enlarged Gojo head candidates after user feedback; restore approved proportions and document their precedence over nominal 31px guidance.
+
+- Packer: measured skull-to-chin calibration from versioned sidecars, so a raised fist or a crouch no longer changes a fighter's scale; calibrated cached frames keep their scale; shared anatomical gate in art/CHARACTER_SCALE.md (ART-SCALE-01). Naruto's and Killua's corrections continue on a branch.
+
 - Title screen: new Naruto-vs-Killua key art (`title_art` v02, approved by the user) replaces Naruto vs Sasuke; static painted audience (ART-UI-02).
 
 - Naruto final batch approved by the user: all 42 animations and three UI assets; promoted UI sources, preserved pose/reach QA notes, and handed gameplay integration to Claude.

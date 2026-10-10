@@ -1,5 +1,7 @@
 # Adding a character
 
+Before generating: complete the [shared fighter scale gate](../art/CHARACTER_SCALE.md), including measured skull/limb landmarks and cross-cast comparison.
+
 This is the end-to-end recipe for a new fighter, from data file to approved hi-res art. It's written so
 any of Claude, Codex or the user can pick up any step. Owners per step are suggestions. The task board
 ([TASKS.md](TASKS.md)) is the source of truth.
