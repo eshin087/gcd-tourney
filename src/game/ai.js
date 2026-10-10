@@ -1,6 +1,16 @@
 import * as THREE from 'three';
 import { ULTIMATE, VANISH, SUPERS } from './moves.js';
 import { specialFor, kitOf, towardSide } from './kit.js';
+import { MasterBrain } from './aiMaster.js';
+
+export const CPU_LEVELS = ['easy', 'normal', 'hard', 'impossible'];
+
+// One brain per CPU side. IMPOSSIBLE is its own frame-data brain (aiMaster.js, ADR 0014); in CPU vs CPU it
+// plays the louder 'showman' style so a spectated fight keeps moving.
+export function makeBrain(fighter, level = 'normal', spectate = false) {
+  if (level === 'impossible') return new MasterBrain(fighter, spectate ? 'showman' : 'impossible');
+  return new CpuBrain(fighter, level);
+}
 
 const LEVELS = {
   easy: { react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, mash: 6, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2 },

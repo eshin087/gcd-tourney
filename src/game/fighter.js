@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -8,9 +8,12 @@ import * as kit from './kit.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
-const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit']);
+const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit', 'dodge', 'airDodge', 'wavedash']);
 const FRAME_MS = 1000 / 60;
 const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
+// out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
+const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge']);
+const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
 
 export class Fighter {
   constructor(game, def, asset, index) {
@@ -75,6 +78,16 @@ export class Fighter {
     this.kitState = null; // data of the running kit move (state 'kit')
     this.burn = null; // damage over time (Amaterasu), see kit.tickBurn
     this.dashDir = new THREE.Vector2(1, 0);
+    // defensive options (ADR 0014)
+    this.clock = 0; // frames since the round started (dodge staleness)
+    this.parryAt = -99; // pad frame of the live parry attempt
+    this.parryTry = -99; // pad frame of the last Guard press (parry lockout)
+    this.airDodged = false; // one air dodge per airtime
+    this.dodgeDir = null; // direction of the running air dodge (null = neutral)
+    this.dodgeStale = 0;
+    this.lastDodge = -999;
+    this.carry = this.carry || new THREE.Vector2(); // wavedash momentum carried into the next move
+    this.carry.set(0, 0);
     this.endMoveFx();
     this.actor.setVisible(true);
     this.actor.play('idle', true);
@@ -258,6 +271,95 @@ export class Fighter {
     this.game.onVanish(this, 'out');
   }
 
+  // ---- defensive options (ADR 0014, numbers in DEFENSE)
+  // Spot dodge: Guard + ↓. The stick has to be pushed (an edge) close to the guard, so walking toward the
+  // camera and then blocking never dodges by accident.
+  wantsSpotDodge() {
+    const p = this.pad;
+    return p.b.guard.down && p.my < -0.5 && p.dirPressed('d', 3);
+  }
+
+  startSpotDodge() {
+    const S = DEFENSE.spotDodge;
+    // dodging again and again gets slower (Smash-style staleness), so it stays a read, not a panic button
+    this.dodgeStale = this.clock - this.lastDodge < S.staleWindow ? Math.min(S.staleMax, this.dodgeStale + 1) : 0;
+    this.lastDodge = this.clock;
+    this.spPending = false;
+    this.carry.set(0, 0);
+    this.vel.x *= 0.3; this.vel.z *= 0.3;
+    this.setState('dodge', 'vanish');
+    audio.play('whoosh', 0.7);
+  }
+
+  // Air dodge: Guard in the air. A direction bursts that way, angled down; right after takeoff that meets
+  // the floor, and the landing turns into a wavedash.
+  startAirDodge() {
+    const D = DEFENSE.airDodge;
+    const d = this.inputDir();
+    this.airDodged = true;
+    this.chase = 0;
+    this.spPending = false;
+    this.endMoveFx();
+    this.move = null;
+    if (d.lengthSq() > 0.04) {
+      d.normalize();
+      this.dodgeDir = d;
+      this.vel.set(d.x * D.speed, -(this.pos.y < D.lowY ? D.lowDrop : D.drop), d.y * D.speed);
+    } else {
+      this.dodgeDir = null;
+      this.vel.set(this.vel.x * 0.15, 0, this.vel.z * 0.15);
+    }
+    this.setState('airDodge', this.dodgeDir ? 'airRecover' : 'jumpFall');
+    this.actor.ghost(this.def.color, 0.25, 0.5);
+    audio.play('dash', 0.55);
+  }
+
+  // Wavedash: slide along the floor. `d` is given when it comes straight out of the jump squat (Jump +
+  // Guard), otherwise the air dodge's own speed carries over.
+  startWavedash(d = null) {
+    const W = DEFENSE.wavedash;
+    if (d) {
+      this.vel.x = d.x * W.speed;
+      this.vel.z = d.y * W.speed;
+    }
+    this.vel.y = 0;
+    this.pos.y = 0;
+    this.air = false;
+    this.invuln = 0; // the floor ends the dodge: a wavedash is movement, not a dodge
+    this.airAttack = false;
+    this.dodgeDir = null;
+    this.setState('wavedash', 'land');
+    this.faceOpponent();
+    this.actor.ghost(this.def.color, 0.22, 0.45);
+    this.game.fx.dust(this.pos, 0.9);
+    audio.play('dash', 0.45);
+  }
+
+  // A blockable hit met a fresh Guard press: nothing gets through, the defender acts at once and a melee
+  // attacker is knocked off balance. Returns 'parry' to takeHit's caller.
+  parry(att, m) {
+    const P = DEFENSE.parry;
+    this.parryAt = -99; // one press parries one hit...
+    this.parryTry = -99; // ...and the next press is a fresh attempt, so a string can be parried hit by hit
+    this.sinceHit = 0;
+    this.stun = 0;
+    this.carry.set(0, 0);
+    this.vel.x *= 0.2; this.vel.z *= 0.2;
+    this.ki = Math.min(MAX_KI, this.ki + P.ki);
+    this.flash = 0.9;
+    this.setState('guard');
+    if (!m.projectileHit && att !== this && !att.ko) {
+      att.endMoveFx();
+      att.move = null;
+      att.vel.set(0, Math.min(0, att.vel.y), 0);
+      att.carry.set(0, 0);
+      att.heldT = m.big || m.special ? P.bigStagger : P.stagger;
+      att.setState('held', 'stagger');
+    }
+    this.game.onParry(this, att, m);
+    return 'parry';
+  }
+
   // After a launcher connects: jump after the victim.
   startChase() {
     const o = this.opp;
@@ -341,6 +443,8 @@ export class Fighter {
     if (this.wantsVanish()) { this.startVanish(); return true; }
     if (kit.wantsSuper(this)) { kit.startSuper(this); return true; }
     if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return true; }
+    // air dodge works after an air attack too (it's the way out, not another attack)
+    if (!this.airDodged && p.buffered('guard', 3)) { p.consume('guard'); this.startAirDodge(); return true; }
     if (this.airAttack) {
       if ((b.dash.pressed || p.dashDir) && this.startSuperDash()) return true;
       return false;
@@ -358,7 +462,14 @@ export class Fighter {
     const p = this.game.inputLive ? this.pad : NEUTRAL_PAD;
     const real = this.pad;
     this.pad = p;
+    this.clock++;
     if (p.b.special.pressed) { this.spPress = p.frame; this.spPending = true; this.spMx = p.mx; this.spMy = p.my; }
+    // every Guard press is a parry attempt unless another press came less than `lockout` frames ago
+    // (read even during hitstop, so a press in block stun can parry the next hit of a string)
+    if (p.b.guard.pressed) {
+      if (p.frame - this.parryTry >= DEFENSE.parry.lockout) this.parryAt = p.frame;
+      this.parryTry = p.frame;
+    }
 
     if (this.hitstop > 0) {
       this.hitstop--;
@@ -392,6 +503,7 @@ export class Fighter {
         this.vel.x *= 0.6; this.vel.z *= 0.6;
         this.faceOpponent();
         if (this.wantsVanish()) { this.startVanish(); break; }
+        if (this.wantsSpotDodge()) { this.startSpotDodge(); break; }
         if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
         if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
         if (p.dashDir) { this.startDash(p.dashDir); break; }
@@ -429,6 +541,45 @@ export class Fighter {
         this.updateSuperDash();
         freeAnim();
         break;
+      case 'dodge': {
+        const S = DEFENSE.spotDodge;
+        this.vel.x *= 0.6; this.vel.z *= 0.6;
+        this.faceOpponent();
+        if (this.t === S.from) this.invuln = Math.max(this.invuln, S.to - S.from);
+        if (this.t >= S.from && this.t < S.to && this.t % 3 === 0) this.actor.ghost('#bfe8ff', 0.18, 0.4);
+        if (this.t >= S.len + this.dodgeStale * S.stale) this.setState(p.b.guard.down ? 'guard' : 'idle');
+        freeAnim();
+        break;
+      }
+      case 'airDodge': {
+        const D = DEFENSE.airDodge;
+        // Guard a frame before Special still means vanish
+        if (this.t <= 3 && this.wantsVanish()) { this.startVanish(); break; }
+        if (this.t === D.from) this.invuln = Math.max(this.invuln, D.to - D.from);
+        const k = this.dodgeDir ? 0.9 : 0.8;
+        this.vel.x *= k; this.vel.z *= k;
+        if (this.t < D.to && this.t % 3 === 0) this.actor.ghost('#bfe8ff', 0.2, 0.45);
+        this.faceOpponent();
+        if (this.t >= D.len) { this.dodgeDir = null; this.setState('air', 'jumpFall'); }
+        freeAnim();
+        break;
+      }
+      case 'wavedash': {
+        const W = DEFENSE.wavedash;
+        this.vel.x *= W.friction; this.vel.z *= W.friction;
+        this.faceOpponent();
+        if (this.t % 3 === 0 && Math.hypot(this.vel.x, this.vel.z) > 2) this.game.fx.dust(this.pos, 0.4);
+        if (this.t >= W.act) {
+          const vx = this.vel.x, vz = this.vel.z;
+          if (this.tryActions()) {
+            if (CARRY_STATES.has(this.state)) this.carry.set(vx, vz);
+            break;
+          }
+        }
+        if (this.t >= W.len) this.setState('idle');
+        freeAnim();
+        break;
+      }
       case 'kit':
         kit.update(this);
         break;
@@ -465,6 +616,14 @@ export class Fighter {
         this.vel.x *= 0.7; this.vel.z *= 0.7;
         if (this.t >= 4) {
           const d = this.inputDir();
+          // Guard pressed with the jump (from 2 frames before the squat): air dodge on the first airborne
+          // frame, i.e. a wavedash without leaving the floor. No direction = land on the spot (Melee rules).
+          if (p.buffered('guard', this.t + 2)) {
+            p.consume('guard');
+            if (d.lengthSq() > 0.04) this.startWavedash(d.normalize());
+            else { this.landLag = DEFENSE.airDodge.land; this.setState('land'); }
+            break;
+          }
           const sp = this.speedStat;
           this.vel.set(d.x * sp, 13.6, d.y * sp);
           this.air = true;
@@ -691,15 +850,28 @@ export class Fighter {
         this.vel.x *= 0.7; this.vel.z *= 0.7;
       }
     } else if ((m.air || m.hover) && this.moveHit && this.opp.state === 'launched' && !this.opp.ko) {
-      // DBFZ air juggle: after connecting, ride along with the victim's pop and push so
-      // the next chained hit is still in range
+      // DBFZ air juggle: after connecting, ride along with the victim's pop and push, and close in to
+      // the closest spacing (separate() keeps 0.72) so the next chained hit is still in range: a launched
+      // pose leans back, so its hurtbox starts behind the victim's feet
       const o = this.opp;
       this.vel.set(o.vel.x, o.vel.y, o.vel.z);
       this.pos.y += (o.pos.y - 0.1 - this.pos.y) * 0.25;
+      const dx = o.pos.x - this.pos.x, dz = o.pos.z - this.pos.z, d = Math.hypot(dx, dz);
+      if (d > JUGGLE_GAP) {
+        const k = ((d - JUGGLE_GAP) * 0.3) / d;
+        this.pos.x += dx * k;
+        this.pos.z += dz * k;
+      }
     } else if (m.air || m.hover) {
-      // drift slightly toward the opponent while attacking in the air
-      const dd = this.distTo();
-      const k = dd > 1.1 ? 2.2 : 0;
+      // drift slightly toward the opponent while attacking in the air; a juggled one is tracked to the
+      // juggle spacing during the startup too, or the push opens the gap again before the next hit lands
+      const o = this.opp, dd = this.distTo();
+      if (o.state === 'launched' && !o.ko && dd > JUGGLE_GAP && dd < 2.2) {
+        const k = ((dd - JUGGLE_GAP) * 0.2) / dd;
+        this.pos.x += (o.pos.x - this.pos.x) * k;
+        this.pos.z += (o.pos.z - this.pos.z) * k;
+      }
+      const k = dd > JUGGLE_GAP + 0.15 ? 2.2 : 0;
       this.vel.x += (this.face.x * k - this.vel.x) * 0.2;
       this.vel.z += (this.face.y * k - this.vel.z) * 0.2;
       if (this.vel.y < -2.5) this.vel.y = -2.5;
@@ -780,6 +952,16 @@ export class Fighter {
         this.setState('land');
         this.landLag = 4;
         break;
+      case 'airDodge':
+        // a directional dodge into the floor slides (wavedash); a neutral one just lands, with lag
+        if (this.dodgeDir) this.startWavedash();
+        else {
+          this.invuln = 0;
+          this.landLag = DEFENSE.airDodge.land;
+          this.setState('land');
+          this.game.fx.dust(this.pos, 0.6);
+        }
+        break;
       case 'attack': {
         const m = this.move;
         if (m && (m.air || m.hop || m.hover)) {
@@ -839,6 +1021,8 @@ export class Fighter {
       case 'beamFire':
       case 'clash':
         return 0;
+      case 'airDodge':
+        return this.t < DEFENSE.airDodge.to ? 0 : 1; // the dodge holds its line (a directional one keeps its drop)
       case 'attack':
         return this.move?.hover ? 0 : this.move?.air ? 0.35 : 1;
       case 'launched':
@@ -854,6 +1038,13 @@ export class Fighter {
     if (this.state === 'beamFire' || this.state === 'clash' || this.state === 'vanish') return;
     if (this.ko) return this.koPhysics();
     this.pos.addScaledVector(this.vel, DT);
+    if (this.carry.x || this.carry.y) {
+      // wavedash momentum riding under the next move, fading at the slide's friction
+      this.pos.x += this.carry.x * DT;
+      this.pos.z += this.carry.y * DT;
+      this.carry.multiplyScalar(DEFENSE.wavedash.friction);
+      if (this.carry.lengthSq() < 0.04) this.carry.set(0, 0);
+    }
     if (this.air || this.pos.y > 0) this.vel.y -= GRAVITY * this.gravityScale() * DT;
     if (this.pos.y <= 0) {
       this.pos.y = 0;
@@ -862,6 +1053,7 @@ export class Fighter {
         this.onLand();
       }
       if (!this.air && this.state !== 'superDash') this.airDashes = 0;
+      if (!this.air) this.airDodged = false;
       if (!this.air) this.vel.y = Math.max(0, this.vel.y);
     } else this.air = true;
     // ring barrier (wall bounce for smash hits)
@@ -936,6 +1128,7 @@ export class Fighter {
     const facingAtt = (this.face.x * tx + this.face.y * tz) / tl > 0.05;
     const hs = m.hitstop ?? 6;
     const blocking = (this.state === 'guard' || this.state === 'block') && facingAtt && !m.unblockable;
+    if (blocking && !m.beam && this.pad.frame - this.parryAt <= DEFENSE.parry.window) return this.parry(att, m);
     if (blocking) {
       const chip = kit.noChip(this) ? 0 : Math.round(m.dmg * (m.beam ? 0.3 : 0.1));
       this.hp = Math.max(1, this.hp - chip);
@@ -953,6 +1146,9 @@ export class Fighter {
     }
     const wasStunned = this.state === 'hitstun' || this.state === 'launched';
     this.combo = wasStunned ? this.combo + 1 : 1;
+    this.carry.set(0, 0);
+    this.airDodged = false; // getting hit gives the air dodge back (for after the tech)
+    this.dodgeDir = null;
     if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; }
     const scale = Math.max(m.minScale ?? 0.4, 1 - (this.combo - 1) * 0.065); // supers keep a higher floor
     const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
@@ -1056,6 +1252,11 @@ export class Fighter {
       flash = Math.max(flash, 0.12 + 0.1 * Math.sin(time * 30));
     } else u.flashColor.value.set(0xffffff);
     if (this.invuln > 0 && this.state === 'getup' && (this.t >> 2) % 2) flash = Math.max(flash, 0.25);
+    if (this.invuln > 0 && (this.state === 'dodge' || this.state === 'airDodge')) {
+      // intangible shimmer, so a dodge reads at a glance
+      u.flashColor.value.set(0xbfe8ff);
+      flash = Math.max(flash, 0.28 + 0.14 * Math.sin(time * 42));
+    }
     if (this.game.superFlash?.who === this) flash = Math.max(flash, this.game.superFlash.t < 6 ? 1 : 0);
     u.flash.value = flash;
   }
