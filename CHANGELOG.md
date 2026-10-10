@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Every new feature or character now lands through a pull request built in its own git worktree: `npm run pr -- start|open|merge` (tools/pr.mjs), one `--no-ff` merge commit per feature so it reverts cleanly (ADR 0013, OPS-002).
+
 - **Sasuke's hi-res art is in the game**: Codex's complete set of 42 animations / 175 frames replaces his placeholder in fights, packed at the shared anatomical scale. Every image still waits for the user's review in art/REVIEW.md, and his portrait, cut-in and select candidates are packed only once approved (ART-SCALE-01, ART-SAS-11).
 
 - Art: reject enlarged Gojo head candidates after user feedback; restore approved proportions and document their precedence over nominal 31px guidance.

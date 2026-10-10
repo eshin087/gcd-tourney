@@ -18,6 +18,11 @@ feedback. The user can still generate an image by hand in ChatGPT; Codex files i
 | [Prompt 3](#prompt-3-killua-and-gojo-kickoff-two-threads-in-parallel) | **now**: start the Killua and Gojo art (one thread each, S1 model sheets first) |
 | [One-liners](#one-liners) | resuming a session, or filing an image you made by hand |
 
+**Branches (ADR 0013):** every new feature or character is a pull request. A new character's work runs in its
+own worktree: `npm run pr -- start feature/char-<id> --full` from the main folder, then every Codex thread for that
+character works and commits inside `../gcdTourney-worktrees/feature-char-<id>`. Art approvals for a character that
+already ships still commit on `main`. Never `git checkout`, `switch` or `stash` in the main folder.
+
 ---
 
 ## Prompt 0: spec v2 restart (use this now)
@@ -100,8 +105,8 @@ AFTER MY ANSWER (each character on its own; one can move on while the other is s
     (reason: superseded by vNN) and its file moves to _rejected/. Update docs/TASKS.md (ART-NAR-01 +
     USR-002 or ART-SAS-01 + USR-003) and add one line to CHANGELOG.md under "## [Unreleased]". Commit with
     a conventional commit, e.g. "art(naruto): approve spec v2 model sheet v02":
-    - commit on the current branch (main; other Codex agents and Claude work in the same folder at the
-      same time); never git checkout, switch or stash in the shared working copy
+    - commit on the current branch (main for a character that already ships, its feature/char-<id> worktree for
+      a new one; other agents work in the same folder at the same time); never git checkout, switch or stash
     - stage explicit paths only: this character's new or moved files (reference/*_vNN.png, the fixed-name
       copies, raw/<anim>_vNN.png, raw/_parts/, the _rejected/ moves, frames/<anim>/,
       public/characters/<id>/) plus art/REVIEW.md, art/TRACKER.md, art/manifest.json, docs/TASKS.md and
@@ -314,8 +319,8 @@ WHEN I DECIDE
     version with the feedback (step 7) and continue from step 8.
 15. After each approval: update docs/TASKS.md, add one line to CHANGELOG.md under "## [Unreleased]", and commit
     with a conventional commit, e.g. "art(naruto): approve idle v03":
-    - commit on the current branch (main; other Codex agents and Claude work in the same folder at the
-      same time); never git checkout, switch or stash in the shared working copy
+    - commit on the current branch (main for a character that already ships, its feature/char-<id> worktree for
+      a new one; other agents work in the same folder at the same time); never git checkout, switch or stash
     - stage explicit paths only: <id>'s new or moved files (reference/*_vNN.png, the fixed-name copies,
       raw/<anim>_vNN.png, raw/_parts/, the _rejected/ moves, frames/<anim>/, public/characters/<id>/) plus
       art/REVIEW.md, art/TRACKER.md, art/manifest.json, docs/TASKS.md and CHANGELOG.md. Never git add -A,
@@ -487,6 +492,10 @@ We're adding a new fighter to GCD Tourney: <Name> (id: <id>). Read AGENTS.md, do
 docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first, then do the
 following and stop for my review after each numbered step.
 
+0. Branch (ADR 0013): from the main folder run npm run pr -- start feature/char-<id> --full, then do ALL of
+   the work below inside ../gcdTourney-worktrees/feature-char-<id> and commit there, never on main. When the
+   character is playable, run npm run pr -- open there and tell me the PR link; Claude or I merge it with
+   npm run pr -- merge feature/char-<id>.
 1. Plan: add the CHAR-<id>-* and ART-<id>-* tasks to docs/TASKS.md (see ADDING_A_CHARACTER.md step 0).
    Propose a one-paragraph concept (design era / outfit, archetype, silhouette, signature special,
    projectile, ultimate name, signature color) for me to approve.
@@ -504,7 +513,7 @@ following and stop for my review after each numbered step.
    it in src/characters/index.js. Leave the 3D placeholder model (palette, outfit, hair, stance, extraAnims)
    as a rough recolor and add a task for Claude to restyle it. The placeholder stays chibi (112 px cells);
    that's expected. New special or projectile behavior is a Claude task.
-4. Verify: npm run dev, open http://127.0.0.1:5188/?fight=<id>,naruto&mode=solo&debug, and confirm the
+4. Verify: npx vite --port 5210 in the worktree, open http://127.0.0.1:5210/?fight=<id>,naruto&mode=solo&debug, and confirm the
    console shows "[sprites] baked <id> from 3D" with no errors. Then run npm run build.
 5. Then switch to the art-producer workflow (docs/agents/CODEX_PROMPT.md, Prompt 1) for <id>, starting with
    the S1 model sheet (reference/model_sheet_v01.png, a REVIEW.md row, stop for my "approve vNN").
