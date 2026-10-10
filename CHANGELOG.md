@@ -37,6 +37,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   (attacker staggers; 24-frame lockout per press, re-armed by a parry), Guard + ↓ to spot dodge, Guard in the
   air to air dodge (+ direction), and Jump → Guard + direction to wavedash, with the slide's momentum carried into
   the next move (ENG-042, ADR 0014).
+- **Throw and throw break** (ADR 0015): Light + Heavy up close grabs a grounded opponent who isn't in hit or block
+  stun (so it beats a held Guard, parries and counter stances) and tosses them into the wall for 80; Light + Heavy
+  within 12 frames of being grabbed breaks it. Strikes, jumps and spot dodges beat it; a whiff is a 34-frame
+  punish. The IMPOSSIBLE CPU tick-throws, throws turtles and breaks throws; Easy to Hard break some (ENG-044).
 - **CPU vs CPU** spectator mode works end to end: SELECT MODE → CPU VS CPU or `?mode=cpu` arms both sides, the
   pad bindings stay off, the hint bar shows only how to pause, and touch screens keep just the pause button
   (ENG-041).
@@ -133,6 +137,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- Rush specials cancelled out of a normal that hit start faster (`cancelStartup`: Rasengan 14, Chidori 16,
+  Rasenshuriken 18; raw stays 24 / 28 / 30), so light ×3 → special is a true combo again (ENG-045, ADR 0015).
 - CPU level picker has a fourth step, IMPOSSIBLE; CPU vs CPU starts on it. Hard's guard reaction now lands
   inside the parry window against raw launchers, so Hard parries some of them (ADR 0014).
 - World art is approval-gated: `npm run sprites` ships only world-art items with an `approvedVersion`, at that

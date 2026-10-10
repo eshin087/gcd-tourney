@@ -6,7 +6,7 @@
 // attack after `react` frames (a 5-frame jab is a guess, like for a human), it goes for a parry only part
 // of the time, and it has habits a player can learn. CPU vs CPU runs the louder 'showman' style so a
 // spectated fight keeps moving and the big moves come out.
-import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES } from './moves.js';
+import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW } from './moves.js';
 import { specialFor, kitOf } from './kit.js';
 import { ARENA_LIMIT } from './constants.js';
 
@@ -15,6 +15,7 @@ const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
 const PARRY = DEFENSE.parry, SPOT = DEFENSE.spotDodge, WD = DEFENSE.wavedash;
 // screen distance a light1 reliably connects from (hit boxes come from the art: ~1.25 on the packs)
 const LIGHT_REACH = 1.25;
+const THROWABLE_NOW = new Set(['guard', 'idle', 'run', 'land', 'charge', 'wavedash']); // states worth throwing at
 const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 
 // react   frames before it knows an attack started (humans: ~15; its fastest answer to a 5-frame jab is a guess)
@@ -22,9 +23,10 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // dodge   chance to spot dodge / air dodge a big move instead of blocking it
 // aggro   how much it wants to be in your face; flair: how often it spends on the loud option (vanish,
 //         supers as enders, counter-beams); tech: chance to air tech at the first legal frame
+// throw   how keen it is to throw a guarding opponent; throwBreak: chance to break a throw inside the window
 export const STYLES = {
-  impossible: { react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, mash: 13, tech: 0.85, wavedash: 0.55, antiAir: 0.75 },
-  showman: { react: 8, parry: 0.4, dodge: 0.4, aggro: 0.78, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.75, antiAir: 0.6 },
+  impossible: { react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, mash: 13, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55 },
+  showman: { react: 8, parry: 0.4, dodge: 0.4, aggro: 0.78, flair: 0.9, mash: 12, tech: 0.7, wavedash: 0.75, antiAir: 0.6, throw: 0.45, throwBreak: 0.45 },
 };
 
 // forward distance a lunging ground move still covers from frame t (its speed fades out over startup+active)
@@ -156,6 +158,7 @@ export class MasterBrain {
       this.resp = null;
     }
     if (f.state === 'block') { this.blockStun(game, c); return; }
+    if (this.tickThrow && this.tick(game, c)) return;
     if (this.punish(game, c)) return;
     if (this.situational(game, c)) return;
     this.neutral(game, c);
@@ -200,6 +203,7 @@ export class MasterBrain {
     }
     if (o.state !== this.lastOppState) {
       if (o.state === 'jumpSquat') m.jumps = m.jumps * 0.9 + 1;
+      if (o.state === 'throw') m.throws = (m.throws || 0) * 0.9 + 1;
       if (this.lastOppState === 'block') {
         // what it does when its block stun ends
         if (o.state === 'attack' || o.state === 'jumpSquat' || o.state === 'dash') m.mashAfterBlock = m.mashAfterBlock * 0.85 + 1;
@@ -243,6 +247,7 @@ export class MasterBrain {
     const f = this.f, S = this.S;
     if (f.state !== 'launched') this.techRoll = null;
     if (f.state !== 'down') this.wake = 0;
+    if (!f.grab) this.breakRoll = null;
     switch (f.state) {
       case 'launched':
         if (this.techRoll === null) this.techRoll = Math.random() < S.tech;
@@ -259,6 +264,12 @@ export class MasterBrain {
         if (f.t >= f.stun - 2 && c.dist < 2.5) this.keep.add('guard');
         return true;
       case 'held':
+        if (f.grab) {
+          // grabbed: break it on reaction (decided once per grab), Light + Heavy inside the window
+          if (this.breakRoll == null) { this.breakRoll = Math.random() < S.throwBreak; this.breakAt = 5 + Math.floor(Math.random() * 6); }
+          if (this.breakRoll && f.grab.t + 1 >= this.breakAt) { this.tap('light', 2); this.tap('heavy', 2); }
+        }
+        return true;
       case 'getup':
       case 'airRecover':
       case 'vanish':
@@ -427,7 +438,9 @@ export class MasterBrain {
       this.route.blockDecided = true;
       // continue the string, or stop to frame-trap / bait a parry-happy or mashing player
       const parryish = this.parryHabit;
-      this.route.blockPlan = R() < 0.5 - parryish * 0.4 ? 'string' : R() < 0.5 ? 'stop' : 'vanish';
+      const r = R();
+      this.route.blockPlan = r < 0.4 - parryish * 0.3 ? 'string' : r < 0.4 + this.S.throw * 0.5 ? 'tick' : R() < 0.5 ? 'stop' : 'vanish';
+      if (this.route.blockPlan === 'tick') this.tickThrow = true; // throw them once our move recovers
     }
     const plan = this.route.blockPlan;
     if (plan === 'string' && m.next && n !== 'light3' && t >= m.cancel - 1) this.tap('light');
@@ -471,15 +484,16 @@ export class MasterBrain {
     }
     const sp = specialFor(f.def, 'neutral');
     const left = o.state === 'hitstun' ? o.stun - o.t : 0;
-    if (sp?.kind === 'rush' && f.ki >= sp.cost && !f.move?.air && f.state === 'attack' && this.specialHitTime(sp, c) <= left - 1) {
+    if (sp?.kind === 'rush' && f.ki >= sp.cost && !f.move?.air && f.state === 'attack' && this.specialHitTime(sp, c, true) <= left - 1) {
       take('special', sp.dmg * scale(sp.minScale ?? 0.4), 'neutral');
     }
     return best;
   }
 
   // Frames from pressing a special to its first hit landing, or null for kinds that don't hit directly.
-  specialHitTime(m, c) {
-    if (m.kind === 'rush') return m.startup + Math.max(0, Math.abs(c.sx) - (m.reach ?? 1.3)) / m.rush * 60 + 1;
+  // `cancel`: cancelled out of a normal that hit (a rush then starts at `cancelStartup`, ADR 0015).
+  specialHitTime(m, c, cancel = false) {
+    if (m.kind === 'rush') return (cancel && m.cancelStartup ? m.cancelStartup : m.startup) + Math.max(0, Math.abs(c.sx) - (m.reach ?? 1.3)) / m.rush * 60 + 1;
     if (m.kind === 'shot') {
       const P = PROJ_INFO[m.proj];
       return P && c.dist < P.range ? m.startup + Math.max(0, c.dist - 0.8) / P.speed * 60 + 1 : null;
@@ -499,7 +513,7 @@ export class MasterBrain {
       const m = specialFor(f.def, slot);
       if (!m || seen.has(m) || f.ki < (m.cost ?? 0)) continue;
       seen.add(m);
-      const hitIn = this.specialHitTime(m, c);
+      const hitIn = this.specialHitTime(m, c, true);
       if (hitIn == null || hitIn > left - 1) continue;
       let v = 0;
       if (m.kind === 'rush') v = m.dmg * (m.vortex ? 1.2 : 1) - (m.selfDmg ?? 0);
@@ -766,6 +780,11 @@ export class MasterBrain {
       }
       case 'charge':
         return { from: 0, to: 9 };
+      case 'throw': {
+        const s = o.throwSt;
+        if (!s || (s.phase !== 'whiff' && s.phase !== 'broken')) return null;
+        return { from: 0, to: (s.phase === 'whiff' ? THROW.whiff : THROW.breakLag) - (o.t - s.t0) + lag };
+      }
       case 'jumpSquat':
         return null;
       case 'kit': {
@@ -888,13 +907,45 @@ export class MasterBrain {
     this.mx = -c.toward;
   }
 
+  // ------------------------------------------------------------------ throws (ADR 0015)
+  inThrowRange(c) {
+    const o = this.f.opp;
+    return Math.abs(c.sx) < THROW.range - 0.08 && Math.abs(c.sd) < THROW.lane - 0.1 && !o.air && o.pos.y < 0.05;
+  }
+
+  throwNow() {
+    this.tap('light', 2);
+    this.tap('heavy', 2);
+    this.route = {};
+  }
+
+  // After a blocked string: walk the last step in and throw while they still sit in Guard.
+  tick(game, c) {
+    const f = this.f, o = f.opp;
+    if (c.ready !== 'ground' || !['guard', 'idle', 'block'].includes(o.state) || c.dist > 1.8) { this.tickThrow = false; return false; }
+    this.tickT = (this.tickT ?? 0) + 1;
+    if (this.tickT > 20) { this.tickThrow = false; this.tickT = 0; return false; }
+    if (o.state !== 'block' && this.inThrowRange(c)) { this.throwNow(); this.tickThrow = false; this.tickT = 0; return true; }
+    this.approach(c, 0.7);
+    return true;
+  }
+
   // ------------------------------------------------------------------ okizeme, anti-air
   situational(game, c) {
     const f = this.f, o = f.opp, S = this.S, r = c.ready;
     if (r !== 'ground') return false;
     // wake-up: stand next to them and time a meaty light so its active frames meet the end of the invincibility
     if (o.state === 'down' || o.state === 'getup' || (o.invuln > 0 && o.state === 'idle')) {
-      if (this.okiPlan == null) this.okiPlan = Math.random() < 0.6 + S.aggro * 0.3 ? 'meaty' : Math.random() < 0.5 ? 'bait' : 'charge';
+      if (this.okiPlan == null) {
+        const r = Math.random();
+        this.okiPlan = r < S.throw * 0.4 ? 'throw' : r < 0.6 + S.aggro * 0.3 ? 'meaty' : Math.random() < 0.5 ? 'bait' : 'charge';
+      }
+      if (this.okiPlan === 'throw') {
+        // stand on top of them and throw the moment the invincibility runs out (beats blocking on wake-up)
+        const there = this.approach(c, 0.7);
+        if (there && o.state !== 'down' && o.state !== 'getup' && o.invuln <= 1 && this.inThrowRange(c)) this.throwNow();
+        return true;
+      }
       if (this.okiPlan === 'charge' && c.dist > 3.5 && f.ki < 300) { this.keep.add('special'); return true; }
       if (this.okiPlan === 'bait') { this.approach(c, 2.2); if (o.state === 'getup' && o.t > 14) this.keep.add('guard'); return true; }
       const there = this.approach(c, 0.95);
@@ -902,6 +953,8 @@ export class MasterBrain {
       return true;
     }
     this.okiPlan = null;
+    // a guard held this long, right in front of us: throw it
+    if (o.state === 'guard' && o.t > 20 && this.inThrowRange(c) && Math.random() < S.throw * 0.25) { this.throwNow(); return true; }
     // anti-air: an opponent dropping in on us
     if (o.air && (o.state === 'air' || (o.state === 'attack' && o.move?.air)) && c.dy > 0.3 && Math.abs(c.sx) < 3.2 && Math.abs(c.sd) < 1.2) {
       if (this.aaRoll == null) this.aaRoll = Math.random() < S.antiAir;
@@ -1031,14 +1084,21 @@ export class MasterBrain {
         return;
       }
       case 'pressure': {
-        this.approach(c, 0.95);
-        if (Math.abs(c.sx) < LIGHT_REACH && Math.abs(c.sd) < 0.5) {
-          // jab, or a delayed jab to catch a parry attempt, or the launcher straight away
-          if (p.t > (this.parryHabit > 0.25 ? 8 : 2)) {
-            this.tap(R() < 0.15 ? 'heavy' : 'light');
-            this.route = {};
-            p.done = true;
-          }
+        // pick the poke first: a throw when they sit in Guard (more often against someone who blocks a lot),
+        // else a jab (delayed against parry-happy players) or the launcher; then walk to its spacing
+        if (!p.act) {
+          const guardy = (o.state === 'guard' ? 1 : 0.25) + Math.min(1, this.mem.blockAfterBlock * 0.1);
+          p.act = R() < S.throw * guardy ? 'throw' : R() < 0.15 ? 'heavy' : 'light';
+        }
+        this.approach(c, p.act === 'throw' ? 0.75 : 0.95);
+        const inRange = p.act === 'throw' ? this.inThrowRange(c) : Math.abs(c.sx) < LIGHT_REACH && Math.abs(c.sd) < 0.5;
+        if (inRange && p.t > (this.parryHabit > 0.25 ? 8 : 2)) {
+          // only grab what can be grabbed right now (a throw into block stun or a jump whiffs for 34 frames)
+          if (p.act === 'throw' && !THROWABLE_NOW.has(o.state)) p.act = 'light';
+          if (p.act === 'throw') this.throwNow();
+          else this.tap(p.act);
+          this.route = {};
+          p.done = true;
         }
         return;
       }
@@ -1046,6 +1106,11 @@ export class MasterBrain {
         this.keep.add('guard');
         // fish for a parry every so often while they're in range (the lockout keeps it honest)
         if (c.dist < 2.2 && f.pad.frame - f.parryTry > PARRY.lockout + 4 && R() < 0.06) this.tap('guard', 3);
+        // they like to throw: when they walk right up, spot dodge it (beats throws) or jab first
+        if ((this.mem.throws ?? 0) > 1.5 && c.dist < 1.2 && (o.state === 'idle' || o.state === 'run') && f.state === 'guard' && R() < 0.05) {
+          if (R() < 0.5) this.my = -1;
+          else { this.keep.delete('guard'); this.tap('light'); this.route = {}; }
+        }
         if (c.dist > 3.5) p.done = true;
         return;
       case 'bait': {

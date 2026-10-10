@@ -46,6 +46,16 @@ export const VANISH = { cost: 100, hideFrames: 9 };
 //             Landing in a neutral dodge costs `land` frames.
 //  wavedash   a directional air dodge that meets the floor slides along it (or Guard pressed with the jump):
 //             friction per frame, actions from frame `act`, the slide's momentum carries into the next move.
+// Throw (ADR 0015): Light + Heavy close up. It grabs a grounded opponent who is not in hit or block stun,
+// airborne or invincible, so it beats a held Guard, parry attempts, counter stances and slow startups, and
+// loses to anything already active, to a spot dodge and to jumping. The victim breaks it with Light + Heavy
+// within `techWindow` frames of the grab. range/lane: screen and depth reach; whiff: recovery when it misses;
+// hold: frames the victim is pinned before the toss; breakLag: recovery for both after a break.
+export const THROW = {
+  startup: 5, active: 3, whiff: 26, range: 1.05, lane: 0.6, hold: 18, techWindow: 12, breakLag: 10, recovery: 14, push: 7,
+  hit: { dmg: 80, minScale: 0.8, launch: [12, 8.5], wallBounce: true, hitstop: 10, unblockable: true, big: true, spark: 'smash', shake: 0.6 },
+};
+
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
   spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
@@ -53,15 +63,16 @@ export const DEFENSE = {
   wavedash: { len: 16, act: 5, friction: 0.875, speed: 12.5 },
 };
 
-// Signature rush specials (1 ki bar)
+// Signature rush specials (1 ki bar). `cancelStartup`: the startup when it's cancelled out of a normal that hit
+// (ADR 0015): fast enough to combo after light x3, while a raw one stays slow and punishable.
 export const SPECIALS = {
   rasengan: {
-    anim: 'special', startup: 24, active: 22, recovery: 20, dmg: 140, reach: 1.3, width: 1.05,
+    anim: 'special', startup: 24, cancelStartup: 14, active: 22, recovery: 20, dmg: 140, reach: 1.3, width: 1.05,
     launch: [16, 9], hitstop: 18, rush: 14, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
     fx: 'rasengan', sfxLoop: 'rasengan', color: '#6ab4ff', name: 'RASENGAN', spark: 'smash',
   },
   chidori: {
-    anim: 'special', startup: 28, active: 18, recovery: 20, dmg: 152, reach: 1.3, width: 1.05,
+    anim: 'special', startup: 28, cancelStartup: 16, active: 18, recovery: 20, dmg: 152, reach: 1.3, width: 1.05,
     launch: [14, 11], hitstop: 20, rush: 18, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
     fx: 'chidori', sfxLoop: 'chidori', color: '#9ad8ff', name: 'CHIDORI', spark: 'smash',
   },
@@ -91,7 +102,7 @@ export const SPECIAL_MOVES = {
   // Rasenshuriken, handheld (he can't throw it yet): slower than the Rasengan, grinds the victim in a
   // wind vortex, and tears his own arm (selfDmg)
   rasenshuriken: {
-    kind: 'rush', anim: 'specialForward', startup: 30, active: 20, recovery: 24, dmg: 40, reach: 1.35, width: 1.1,
+    kind: 'rush', anim: 'specialForward', startup: 30, cancelStartup: 18, active: 20, recovery: 24, dmg: 40, reach: 1.35, width: 1.1,
     hitstun: 60, push: 0, hitstop: 12, rush: 13, cost: 100, special: true, big: true, shake: 0.6, selfDmg: 25,
     fx: 'rasenshuriken', sfxLoop: 'rasengan', color: '#cfeaff', name: 'RASENSHURIKEN', spark: 'smash',
     vortex: {

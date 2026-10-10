@@ -69,6 +69,7 @@ These are the default bindings. You can rebind them in the controls menu.
 | **Ultimate beam** | **K + L** | **G + H** | **. + /** | **△ + ○** |
 | **Vanish** | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
 | **Super** (2nd super, 3 bars) | **H** or **B** | **T** | **'** | **L2 / LT** |
+| **Throw** (close) / break a throw | **J + K** | **F + G** | **, + .** | **□ + △** |
 
 Adding the SUPER button reset saved key bindings once (new storage key). Rebind again if you had
 custom keys.
@@ -93,6 +94,9 @@ custom keys.
 - **Air dodge**: Guard in the air, once per jump, with a direction to dodge that way.
 - **Wavedash**: Jump, then right away Guard + a direction: you air dodge into the floor and slide. Attack out of
   the slide and the momentum carries into it.
+- **Throw**: Light + Heavy up close grabs someone who's blocking (or parrying, or in a counter stance) and
+  tosses them into the wall. Whiff it and you're wide open. If you get grabbed, press Light + Heavy quickly to
+  **break** it. Jabs, jumps and spot dodges beat throws.
 - KO with a big hit sends the loser flying out of the ring into the stands.
 - Esc / P / Start: pause. M (or the small speaker toggle in the top corner): mute.
 - A gamepad only takes control after you press one of its buttons, so an idle controller with a

@@ -49,6 +49,7 @@ export const MOVES_HTML = `
       <tr><td>Spot dodge</td><td>Guard + push ↓</td></tr>
       <tr><td>Air dodge</td><td>Guard in the air <small>(+ direction, once per jump)</small></td></tr>
       <tr><td>Wavedash</td><td>Jump, then at once Guard + direction: slide, attack out of it</td></tr>
+      <tr><td>Throw</td><td>Light + Heavy up close: beats Guard and parry · grabbed? Light + Heavy to break</td></tr>
     </table>
   </div>`;
 
