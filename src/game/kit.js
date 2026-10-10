@@ -1,6 +1,6 @@
 // Fighter kits (ADR 0009, baseline ADR 0011): which special each input slot fires, and the shared
 // behaviour of every special kind (shot, teleport, pull, dive, counter, mode), the second supers and
-// non-beam ultimates (flurry, domain, ignite, skyStrike; orb, rampage, reflex: ADR 0016), status effects
+// non-beam ultimates (flurry, domain, ignite, skyStrike; orb, rampage, reflex: ADR 0017), status effects
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
@@ -98,7 +98,7 @@ export function startKitUltimate(f) {
 }
 
 // SUPER button: the fighter's second super, or their ultimate when they have none. `ultimate` marks the
-// Heavy + Special finisher (only ultimates clash, ADR 0016).
+// Heavy + Special finisher (only ultimates clash, ADR 0017).
 export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   const S = id && SUPERS[id];
   if (!S) { f.startUltimate(); return; }
@@ -542,7 +542,9 @@ const UPDATE = {
       f.vel.set(d.x * 24, 0, d.y * 24);
       f.actor.setPhase('dash', 1, 0.5);
       if (k.t0 % 2 === 0) f.actor.ghost(S.color, 0.3, 0.6);
-      const hit = f.distTo() < 1.4 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3) && !o.ko && !o.hidden && o.invuln <= 0;
+      const reach = f.distTo() < 1.4 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3);
+      if (reach && o.evading) g.onEvade(o);
+      const hit = reach && !o.ko && !o.hidden && o.invuln <= 0;
       if (hit) {
         k.phase = 'hits';
         k.t0 = 0;
@@ -623,7 +625,10 @@ const UPDATE = {
         g.hud.callout(f.index, S.callout ?? S.name, S.color);
         g.fx.overlay.flash('#000000', 0.5);
         audio.play('fireball', 1.2);
-      } else g.hud.callout(f.index, 'MISS', S.color);
+      } else {
+        g.hud.callout(f.index, 'MISS', S.color);
+        if (o.evading) g.onEvade(o);
+      }
     }
     if (k.t0 >= S.delay + S.recovery) finish(f);
   },

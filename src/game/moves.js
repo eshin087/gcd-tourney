@@ -188,7 +188,7 @@ export const SUPERS = {
   kirin: { kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'beamCharge', strikePose: 'beamFire', name: 'KIRIN', color: '#9fd8ff' },
   amaterasu: { kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14 }, name: 'AMATERASU', callout: 'AMATERASU', color: '#c040ff' },
 
-  // ---- ultimates with their own shape (ADR 0016): one beam in the cast at most, every other finisher different
+  // ---- ultimates with their own shape (ADR 0017): one beam in the cast at most, every other finisher different
   // Hollow Purple (Gojo): Red from the near hand and Blue from the far hand meet in front of him (`merge` frames) and
   // the imaginary mass rolls forward, erasing every projectile in its path. Huge and slow-ish: you leave its lane or
   // vanish, you can't block it. One hit (`dmg`, unscaled), then it keeps going and carves a trench.

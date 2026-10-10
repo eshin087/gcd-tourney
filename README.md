@@ -41,11 +41,14 @@ Then open http://127.0.0.1:5188
 
 - **VS CPU**: pick your fighter and the CPU's (Easy / Normal / Hard / **Impossible**). Impossible reads frame
   data: it parries and dodges what it sees coming, punishes whiffs, runs max-damage routes and wavedashes around
-  you. It only reacts to what's on screen, so fast jabs and mix-ups are guesses for it too.
+  you. It only reacts to what's on screen, so fast jabs and mix-ups are guesses for it too. Every level uses its
+  whole kit over a match (specials, modes, supers, ultimates) and, from Normal up, parries, spot dodges, air
+  dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
 - **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
-  (in its louder showman style), so you see what the engine can do; Esc / Start pauses and the results screen
-  offers a rematch
+  in its showman style: short flashy combos, every special and super in the kit, spells dodged and parried
+  ("DODGE!" / "PARRY!"), wavedashes and power-ups, so you see what the engine can do; Esc / Start pauses and
+  the results screen offers a rematch
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time

@@ -143,7 +143,7 @@ export default {
   kit: {
     specials: { neutral: 'narukami', forward: 'rhythmEcho', up: 'thunderbolt', down: 'godspeed', air: 'narukamiAir', airDown: 'thunderboltAir' },
     super: 'speedOfLightning',
-    ultimate: 'whirlwind', // Godspeed's reflex mode (ADR 0016)
+    ultimate: 'whirlwind', // Godspeed's reflex mode (ADR 0017)
   },
   stats: { speed: 6.8, power: 0.97, defense: 0.95 }, // stat index 1.01 (ADR 0011)
   model,

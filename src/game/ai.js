@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { ULTIMATE, VANISH, SUPERS } from './moves.js';
 import { specialFor, kitOf, towardSide } from './kit.js';
 
-// Where each ultimate kind makes sense (ADR 0016): the beam and Hollow Purple want room, the Four-Tails pounce
+// Where each ultimate kind makes sense (ADR 0017): the beam and Hollow Purple want room, the Four-Tails pounce
 // has a reach and wants their lane, Whirlwind wants them close enough to swing at it, the rest fire anywhere.
 function ultimateFits(U, dist, sd) {
   if (!U || U.kind === 'orb') return dist > 2.6;
@@ -11,6 +11,7 @@ function ultimateFits(U, dist, sd) {
   return true;
 }
 import { MasterBrain } from './aiMaster.js';
+import { Showcase, specialId, pickW } from './aiShow.js';
 
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'impossible'];
 
@@ -21,10 +22,13 @@ export function makeBrain(fighter, level = 'normal', spectate = false) {
   return new CpuBrain(fighter, level);
 }
 
+// show: how strongly it reaches for kit tools the player hasn't seen yet (Showcase, aiShow.js, ADR 0016);
+// parry / spot / airDodge / wavedash: chances to use those techniques where they fit, and `slop` = frames its
+// parry timing can be off by (a wide error at Easy, so most of its parries fail and it gets hit)
 const LEVELS = {
-  easy: { react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, mash: 6, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2 },
-  normal: { react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, mash: 8.5, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, vanish: 0.18, dash: 0.35 },
-  hard: { react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, mash: 10.5, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, vanish: 0.35, dash: 0.5 },
+  easy: { react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, mash: 6, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
+  normal: { react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, mash: 8.5, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
+  hard: { react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, mash: 10.5, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
 };
 
 // The CPU presses virtual buttons on its own Pad, exactly like a player would.
@@ -42,6 +46,7 @@ export class CpuBrain {
     this.lastOppState = '';
     this.strafe = Math.random() < 0.5 ? 1 : -1;
     this.route = 'launch';
+    this.show = new Showcase(fighter, this.L.show);
   }
 
   // only from a released state, so every press is a fresh edge
@@ -52,6 +57,7 @@ export class CpuBrain {
   update(game) {
     const f = this.f, o = f.opp, pad = f.pad, L = this.L;
     pad.tick();
+    this.show.watch();
     let mx = 0, my = 0;
     const R = Math.random;
     const dx = o.pos.x - f.pos.x, dz = o.pos.z - f.pos.z;
@@ -96,10 +102,16 @@ export class CpuBrain {
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;
       if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.planT + L.react;
       if (oppAttacking && this.reactAt === this.planT && dist < 3.4 && !f.busy) {
-        // a counter may sit on ↓ or ← (Naruto's Substitution)
+        // a counter may sit on ↓ or ← (Naruto's Substitution); the techniques the player hasn't seen this match
+        // are a bit likelier (Showcase), each at its level's rate
+        const sh = this.show, big = o.move.big || o.move.special, left = o.move.startup - o.t;
         const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
         const counter = cSlot && specialFor(f.def, cSlot);
-        if (counter && f.ki >= counter.cost && R() < L.guard * 0.35) this.useSpecial(cSlot);
+        this.tgtProj = null;
+        if (counter && f.ki >= counter.cost && R() < L.guard * 0.35 * sh.bias(specialId(counter))) this.useSpecial(cSlot);
+        else if (f.state === 'air' && !f.airDodged && R() < L.airDodge * sh.bias('airDodge')) this.airDodge(toOpp);
+        else if (f.state !== 'air' && left > 2 && R() < L.parry * sh.bias('parry')) this.setPlan('parry', left + 14);
+        else if (f.state !== 'air' && left > 4 && R() < L.spot * (big ? 1 : 0.4) * sh.bias('spotDodge')) this.setPlan('spotDodge', left + 18);
         else if (R() < L.guard) this.setPlan('guard', 14 + (o.move?.special ? 20 : 0));
         else if (R() < L.dodge * 0.3) this.dodge();
       }
@@ -124,7 +136,12 @@ export class CpuBrain {
         const pd = Math.hypot(p.pos.x - f.pos.x, p.pos.z - f.pos.z);
         if (pd < 6) {
           p.seen = true;
-          if (R() < L.guard) this.setPlan('guard', 30);
+          const sh = this.show;
+          this.tgtProj = p;
+          if (f.state === 'air' && !f.airDodged && R() < L.airDodge * sh.bias('airDodge')) this.airDodge(toOpp);
+          else if (!f.busy && f.state !== 'air' && R() < L.parry * sh.bias('parry')) this.setPlan('parry', 40);
+          else if (!f.busy && f.state !== 'air' && R() < L.spot * 0.6 * sh.bias('spotDodge')) this.setPlan('spotDodge', 40);
+          else if (R() < L.guard) this.setPlan('guard', 30);
           else if (R() < L.dodge) this.dodge();
         }
       }
@@ -216,6 +233,38 @@ export class CpuBrain {
           this.hold.guard = 2;
           if (this.planT > this.planLen) this.setPlan('idle', 6);
           break;
+        case 'parry': {
+          // let go of Guard, then press it as the hit is about to land (a fresh press is a parry attempt),
+          // `slop` frames early or late at random; keep holding after it, so a missed parry still blocks
+          const left = this.threatIn(o);
+          if (this.planT === 1) this.parryT = 2 + Math.round((R() * 2 - 1) * L.slop);
+          if (left <= this.parryT) this.hold.guard = 3;
+          if (left < -4 || this.planT > this.planLen) { this.tgtProj = null; this.setPlan('guard', 10); }
+          break;
+        }
+        case 'spotDodge': {
+          // Guard, a neutral frame, then ↓: intangible from the dodge's 2nd frame
+          const left = this.threatIn(o);
+          if (this.planT === 1) this.dodgeGo = 0;
+          if (!this.dodgeGo && left <= 8) this.dodgeGo = this.planT;
+          if (this.dodgeGo) {
+            this.hold.guard = 2;
+            if (this.planT - this.dodgeGo >= 2) my = -1;
+          }
+          if (f.state === 'dodge' || this.planT > this.planLen) { this.tgtProj = null; this.setPlan('idle', f.state === 'dodge' ? 24 : 6); }
+          break;
+        }
+        case 'airDodge':
+          moveWorld(this.wd[0], this.wd[1]);
+          if (this.planT === 1) this.press('guard', 2);
+          if (this.planT > 3) this.setPlan('idle', 10);
+          break;
+        case 'wavedash':
+          // jump with Guard pressed in the squat and the stick held: a slide along the floor
+          moveWorld(this.wd[0], this.wd[1]);
+          if (this.planT === 1) { this.press('jump', 1); this.press('guard', 3); }
+          if (this.planT > 8) this.setPlan(this.wdNext ?? 'idle', 30);
+          break;
         case 'dodgeBeam': {
           moveWorld(toOpp.y * this.strafe, -toOpp.x * this.strafe);
           if (o.state === 'beamCharge' && o.t >= o.windup - 6) this.press('dash', 2);
@@ -228,6 +277,12 @@ export class CpuBrain {
       }
     }
 
+    if (this.stick?.t > 0) {
+      this.stick.t--;
+      const d = this.stick.slot;
+      mx = d === 'forward' ? towardSide(f) : d === 'back' ? -towardSide(f) : 0;
+      my = 0;
+    }
     pad.setMove(mx, my);
     pad.dashDir = null; // laneGo flicks the stick on/off: never let that read as a double-tap dash
     for (const name of ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super']) {
@@ -252,7 +307,11 @@ export class CpuBrain {
     if (n === 'light1' || n === 'light2') return this.press('light');
     if (n === 'light3') {
       if (this.route === 'launch') return this.press('heavy');
-      if (this.route === 'special' && f.ki >= (specialFor(f.def, 'neutral')?.cost ?? 100)) return this.press('special', 2);
+      const slot = this.route === 'special' ? this.comboSlot(f) : null;
+      if (slot) {
+        this.stick = { slot, t: 4 }; // the stick picks the special (held through the cancel)
+        return this.press('special', 2);
+      }
       return this.press('light');
     }
     if (n === 'light4' && t >= B && f.ki >= VANISH.cost && R() < L.vanish) { this.hold.guard = 3; this.press('special', 2); return; }
@@ -261,6 +320,18 @@ export class CpuBrain {
     if (n === 'airLight1') return this.press('light');
     if (n === 'airLight2') return this.press(R() < 0.6 ? 'heavy' : 'light');
     if (n === 'airLight3' && t >= B && R() < L.dash) return this.press('dash', 2);
+  }
+
+  // The special to end a ground string with: a rush, a shot or a teleport strike, the unseen ones likelier.
+  comboSlot(f) {
+    const w = {}, seen = new Set();
+    for (const slot of ['neutral', 'forward', 'back']) {
+      const m = specialFor(f.def, slot);
+      if (!m || seen.has(m) || f.ki < (m.cost ?? 0)) continue;
+      seen.add(m);
+      if (m.kind === 'rush' || m.kind === 'shot' || (m.kind === 'teleport' && m.follow)) w[slot] = this.show.bias(specialId(m));
+    }
+    return pickW(w);
   }
 
   // Pick a special slot that suits the situation (ADR 0009 kinds), weighted at random.
@@ -280,7 +351,7 @@ export class CpuBrain {
         case 'counter': w = 0.2; break;
         case 'mode': w = f.mode ? 0 : 2.5; break;
       }
-      opts.push([slot, w]);
+      opts.push([slot, w * this.show.bias(specialId(m))]);
     }
     const total = opts.reduce((a, [, w]) => a + w, 0);
     let r = Math.random() * total;
@@ -297,6 +368,30 @@ export class CpuBrain {
     this.strafe = Math.random() < 0.5 ? 1 : -1;
     this.setPlan('strafe', 18);
     this.press('dash', 2);
+  }
+
+  // air dodge away from (dir = world direction to the opponent, flipped) whatever is coming
+  airDodge(toOpp) {
+    this.wd = [-toOpp.x, -toOpp.y];
+    this.setPlan('airDodge', 4);
+  }
+
+  // wavedash along world direction (x, z), then carry on with plan `next`
+  wavedash(x, z, next = 'idle') {
+    this.wd = [x, z];
+    this.wdNext = next;
+    this.setPlan('wavedash', 10);
+  }
+
+  // frames until the threat we're answering lands: a projectile's flight, or the opponent's attack startup
+  threatIn(o) {
+    const p = this.tgtProj, f = this.f;
+    if (p) {
+      if (p.dead) return -99;
+      const d = Math.hypot(p.pos.x - f.pos.x, p.pos.z - f.pos.z) - (p.P.radius + 0.4);
+      return (d / (Math.hypot(p.vel.x, p.vel.z) || 1)) * 60;
+    }
+    return o.state === 'attack' && o.move ? o.move.startup - o.t + o.hitstop : -99;
   }
 
   setPlan(p, len = 40) {
@@ -321,12 +416,17 @@ export class CpuBrain {
       return;
     }
     // 3 bars: split evenly between the second super and the ultimate (a beam wants some distance)
-    const K = kitOf(f.def), S = SUPERS[K.super], U = SUPERS[K.ultimate];
+    const K = kitOf(f.def), S = SUPERS[K.super], U = SUPERS[K.ultimate], sh = this.show;
     if (ult) {
-      const r = R();
-      if (S && r < 0.45 && (!S.range || dist < S.range)) return this.setPlan('super', 5);
-      if (ultimateFits(U, dist, Math.abs(f.laneOffsets().sd)) && r < 0.45 + (0.35 + 0.2 * L.aggro)) return this.setPlan('ultimate', 5);
+      // the one the player hasn't seen yet is likelier (Showcase)
+      const pick = pickW({
+        super: S && (!S.range || dist < S.range) ? 0.45 * sh.bias('super') : 0,
+        ultimate: ultimateFits(U, dist, Math.abs(f.laneOffsets().sd)) ? (0.35 + 0.2 * L.aggro) * sh.bias(U ? 'ultimate' : 'beam') : 0,
+        wait: 0.2 + 0.25 * (1 - L.aggro),
+      });
+      if (pick === 'super' || pick === 'ultimate') return this.setPlan(pick, 5);
     }
+    const kitty = 1 + 0.6 * L.show; // levels with more showcase push spend more of their ki on the kit
     if (dist < 1.7) {
       if (R() < L.aggro) return this.setPlan('combo', 70);
       if (R() < 0.3) return this.setPlan('heavy', 5);
@@ -334,7 +434,13 @@ export class CpuBrain {
     }
     if (dist < 5) {
       const r = R();
-      if (f.ki >= 100 && !saving && r < L.special * (kitted ? 1 : 0.6)) return this.setPlan('special', 30);
+      if (f.ki >= 100 && !saving && r < L.special * (kitted ? kitty : 0.6)) return this.setPlan('special', 30);
+      // a wavedash in or out now and then (the plan after it carries on from wherever the slide ends)
+      if (dist > 2.2 && R() < L.wavedash * Math.sqrt(sh.bias('wavedash'))) {
+        const away = R() < 0.35;
+        const d = new THREE.Vector2(o.pos.x - f.pos.x, o.pos.z - f.pos.z).normalize().multiplyScalar(away ? -1 : 1);
+        return this.wavedash(d.x, d.y, away ? 'strafe' : 'approach');
+      }
       if (saving && r < 0.35) return this.setPlan('retreat', 30);
       if (r < 0.22) return this.setPlan('dashIn', 4);
       if (r < 0.36) return this.setPlan('jumpAttack', 50);
@@ -344,7 +450,7 @@ export class CpuBrain {
     const r = R();
     if (!ult && r < L.charge * (saving ? 0.95 : 0.45)) return this.setPlan('charge', 60 + R() * 80);
     if (r < L.dash * 0.6) return this.setPlan('superDash', 45);
-    if (kitted && f.ki >= 100 && !saving && r < 0.3 + L.special * 0.5) return this.setPlan('special', 40);
+    if (kitted && f.ki >= 100 && !saving && r < (0.3 + L.special * 0.5) * kitty) return this.setPlan('special', 40);
     if (f.ki >= 50 && !saving && r < 0.6) return this.setPlan('projectile', 45);
     if (f.ki >= 100 && !saving && r < 0.6 + L.special * 0.3) return this.setPlan('special', 40);
     if (r < 0.7) return this.setPlan('dashIn', 4);
