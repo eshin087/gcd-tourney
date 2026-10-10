@@ -31,7 +31,9 @@ How it works:
 
 ## Naruto thread
 
-- [ ] **(2026-10-10) ART-SCALE-01 part 2 (Naruto and Killua threads): finish the scale correction on its branch.**
+- [x] **(2026-10-10) ART-SCALE-01 part 2 (Naruto and Killua threads): finish the scale correction on its branch.**
+  Done by Codex in draft PR [#9](https://github.com/eshin087/gcd-tourney/pull/9) (branch
+  `codex/fighter-scale-corrections`, stacked on #8); waits for the user's final review, then Claude merges #8 + #9.
   Your calibrated Naruto/Killua candidates are on the draft PR [#8](https://github.com/eshin087/gcd-tourney/pull/8),
   branch `art/scale-naruto-killua`, worktree `../gcdTourney-worktrees/art-scale-naruto-killua` (full checkout,
   `npm ci` done). Work only there, never in the main folder. Claude's QA: the resized run/dash/crouch heads look
