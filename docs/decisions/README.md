@@ -39,6 +39,8 @@ when a decision should be revisited.
 | [0011](0011-kit-baseline-and-balance.md) | Kit baseline: every fighter fills the same slots within the same budgets; balance log | Accepted |
 | [0012](0012-art-integration-gates-and-hand-anchors.md) | Art integration: approval-gated world art (VFX, crowd, stage, NPC, UI), local candidate preview, per-frame hand anchors | Accepted |
 | [0013](0013-pull-requests-in-worktrees.md) | Every feature and character lands through a PR, built in its own worktree (`npm run pr`) | Accepted |
+| [0014](0014-defensive-options-and-impossible-cpu.md) | Defensive options (parry, spot dodge, air dodge, wavedash), the IMPOSSIBLE CPU brain, air-juggle tracking | Proposed |
+| [0015](0015-throws-and-cancelled-special-startup.md) | Throw and throw break; faster startup for specials cancelled out of a hit | Accepted |
 
 ## Template
 

@@ -1,0 +1,260 @@
+{
+  "light1": {
+    "version": 1,
+    "file": "raw/light1_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 86/0. Final review pending.",
+    "status": "raw"
+  },
+  "light2": {
+    "version": 1,
+    "file": "raw/light2_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 57/0. Final review pending.",
+    "status": "raw"
+  },
+  "guard": {
+    "version": 1,
+    "file": "raw/guard_v01.png",
+    "notes": "Two guard poses; anatomical calibration and final motion review pending.",
+    "status": "raw"
+  },
+  "light3": {
+    "version": 1,
+    "file": "raw/light3_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 70/0. Final review pending.",
+    "status": "raw"
+  },
+  "light4": {
+    "version": 1,
+    "file": "raw/light4_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 108/0. Final review pending.",
+    "status": "raw"
+  },
+  "heavy": {
+    "version": 2,
+    "file": "raw/heavy_v02.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 58/0. Final review pending.",
+    "status": "raw"
+  },
+  "hurtHigh": {
+    "version": 2,
+    "file": "raw/hurtHigh_v02.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "launched": {
+    "version": 1,
+    "file": "raw/launched_v01.png",
+    "notes": "Two airborne reaction poses; scale and pivot QA pending.",
+    "status": "raw"
+  },
+  "airLight1": {
+    "version": 1,
+    "file": "raw/airLight1_v01.png",
+    "notes": "Generated from current kit; scale, anchors and motion QA pending.",
+    "status": "raw"
+  },
+  "down": {
+    "version": 1,
+    "file": "raw/down_v01.png",
+    "notes": "Generated from current kit; scale, anchors and motion QA pending.",
+    "status": "raw"
+  },
+  "getup": {
+    "version": 1,
+    "file": "raw/getup_v01.png",
+    "notes": "Generated from current kit; scale, anchors and motion QA pending.",
+    "status": "raw"
+  },
+  "charge": {
+    "version": 2,
+    "file": "raw/charge_v02.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "beamCharge": {
+    "version": 1,
+    "file": "raw/beamCharge_v01.png",
+    "notes": "Generated from current kit; scale, anchors and motion QA pending.",
+    "status": "raw"
+  },
+  "beamFire": {
+    "version": 1,
+    "file": "raw/beamFire_v01.png",
+    "notes": "Generated from current kit; scale, anchors and motion QA pending.",
+    "status": "raw"
+  },
+  "dash": {
+    "version": 1,
+    "file": "raw/dash_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "jumpUp": {
+    "version": 1,
+    "file": "raw/jumpUp_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "jumpFall": {
+    "version": 1,
+    "file": "raw/jumpFall_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "land": {
+    "version": 1,
+    "file": "raw/land_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "win": {
+    "version": 1,
+    "file": "raw/win_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "backDash": {
+    "version": 1,
+    "file": "raw/backDash_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "superDash": {
+    "version": 1,
+    "file": "raw/superDash_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "jumpSquat": {
+    "version": 1,
+    "file": "raw/jumpSquat_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "block": {
+    "version": 1,
+    "file": "raw/block_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "hurtLow": {
+    "version": 1,
+    "file": "raw/hurtLow_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "spin": {
+    "version": 1,
+    "file": "raw/spin_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "airRecover": {
+    "version": 1,
+    "file": "raw/airRecover_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "throw": {
+    "version": 1,
+    "file": "raw/throw_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "vanish": {
+    "version": 1,
+    "file": "raw/vanish_v01.png",
+    "notes": "Two poses with deliberate solid-slice afterimage; scale QA pending.",
+    "status": "raw"
+  },
+  "stagger": {
+    "version": 1,
+    "file": "raw/stagger_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "ko": {
+    "version": 2,
+    "file": "raw/ko_v02.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "intro": {
+    "version": 1,
+    "file": "raw/intro_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "taunt": {
+    "version": 1,
+    "file": "raw/taunt_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "specialDown": {
+    "version": 1,
+    "file": "raw/specialDown_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "superPose": {
+    "version": 1,
+    "file": "raw/superPose_v01.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "airLight2": {
+    "version": 2,
+    "file": "raw/airLight2_v02.png",
+    "notes": "Original generation retained in raw/_parts; disconnected poses separated for packing. Anatomical and motion QA pending.",
+    "status": "raw"
+  },
+  "airHeavy": {
+    "version": 2,
+    "file": "raw/airHeavy_v02.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 75/0. Final review pending.",
+    "status": "raw"
+  },
+  "airLight3": {
+    "version": 1,
+    "file": "raw/airLight3_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 188/0. Final review pending.",
+    "status": "raw"
+  },
+  "specialUp": {
+    "version": 1,
+    "file": "raw/specialUp_v01.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 33/0. Final review pending.",
+    "status": "raw"
+  },
+  "ui_portrait": {
+    "version": 1,
+    "file": "raw/ui_portrait_v01.png",
+    "notes": "Generated UI candidate; final approval pending.",
+    "status": "raw"
+  },
+  "ui_cutin": {
+    "version": 1,
+    "file": "raw/ui_cutin_v01.png",
+    "notes": "Generated UI candidate; final approval pending.",
+    "status": "raw"
+  },
+  "ui_select": {
+    "version": 1,
+    "file": "raw/ui_select_v01.png",
+    "notes": "Generated UI candidate; final approval pending.",
+    "status": "raw"
+  },
+  "special": {
+    "version": 2,
+    "file": "raw/special_v02.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 0/231. Final review pending.",
+    "status": "raw"
+  },
+  "specialForward": {
+    "version": 2,
+    "file": "raw/specialForward_v02.png",
+    "notes": "Two source parts stitched then connected poses isolated into 80 px gaps; B nearest-neighbor scale 1; part baseline offsets 154/0. Final review pending.",
+    "status": "raw"
+  }
+}

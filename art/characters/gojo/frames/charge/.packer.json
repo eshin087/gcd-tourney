@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/charge_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/charge_v01.png"
+  ],
+  "sourceHash": "f38bc040d8aaad44c04cfc4b9015dd0b0fefa1b2",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "charge_00.png": "26fc6e9a0ad49e442a4f273b6e42c5c796776b35",
+    "charge_01.png": "39c4c31e6c6744a0e69499754bb87ddf67193977",
+    "charge_02.png": "745a5c083beb034a5d56eb773778fed77b57bafc",
+    "charge_03.png": "ae66eae2448df0b37fb701d981a3de15e647b07b"
+  }
+}

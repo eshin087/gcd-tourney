@@ -147,7 +147,9 @@ function makeCrowd(positions, atlas) {
         vec3 right = vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
         vec3 up = vec3(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
         vec3 back = vec3(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2]);
-        float rate = 3.0 + aPhase * 4.0 + uExcite * 6.0;
+        // each spectator keeps their own steady tempo (0.3-0.55 cycles/s calm); excitement speeds up the shared
+        // clock (uTime, advanced on the CPU), never the multiplier, so phases never jump when the mood changes
+        float rate = 2.0 + aPhase * 1.5;
         float s = sin(uTime * rate + aPhase * 40.0);
         float cheer = step(0.75 - uExcite * 0.9, s);
         // most of the stand gasps on big moments; a few keep cheering
@@ -484,7 +486,7 @@ export function buildArena(scene) {
   const baseHemi = hemi.intensity, baseSun = sun.intensity;
   const hemiSky = hemi.color.clone();
   const dimSky = new THREE.Color('#3a2a6a');
-  let prevExcite = 0, shockT = 0, lastT = null;
+  let prevExcite = 0, shockT = 0, lastT = null, crowdClock = 0, mood = 0;
   const npcs = [];
   return {
     group: world,
@@ -494,13 +496,17 @@ export function buildArena(scene) {
     gong: disc,
     update(time, excite) {
       const u = crowd.mesh.material.uniforms;
-      u.uTime.value = time;
-      u.uExcite.value = excite;
       // a sudden jump in excitement (KO, super, clash) makes the stand gasp, then it fades
       if (excite - prevExcite > 0.3) shockT = 1.4;
       prevExcite = excite;
       const dt = Math.min(0.1, Math.max(0, time - (lastT ?? time)));
       lastT = time;
+      // the stand warms up over ~0.3 s and calms over ~1.5 s instead of snapping with every hit, and the hype
+      // speeds up the crowd's clock (up to ~2.6x) rather than each spectator's rate
+      mood += (excite - mood) * Math.min(1, dt * (excite > mood ? 3 : 0.7));
+      crowdClock += dt * (1 + mood * 1.6);
+      u.uTime.value = crowdClock;
+      u.uExcite.value = mood;
       shockT = Math.max(0, shockT - dt);
       u.uShock.value = Math.min(1, shockT / 0.6);
       for (const n of npcs) n.update(dt);

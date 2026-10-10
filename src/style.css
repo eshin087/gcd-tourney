@@ -300,6 +300,7 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 #touch.size-s { --b: min(13vh, 56px); }
 #touch.size-l { --b: min(19vh, 82px); }
 #touch.show { display: block; }
+#touch.spectate .t-zone, #touch.spectate .t-stick, #touch.spectate .t-buttons { display: none; } /* CPU vs CPU: pause only */
 .t-zone { position: absolute; left: 0; top: 18%; bottom: 0; width: 46%; pointer-events: auto; }
 .t-stick { position: fixed; width: calc(var(--b) * 1.9); height: calc(var(--b) * 1.9); margin: calc(var(--b) * -0.95) 0 0 calc(var(--b) * -0.95); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.35); background: radial-gradient(circle, rgba(255, 255, 255, 0.08), rgba(10, 8, 24, 0.25)); opacity: 0; transition: opacity 0.1s; pointer-events: none; }
 .t-stick.on { opacity: 1; }

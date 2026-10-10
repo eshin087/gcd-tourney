@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/vanish_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/vanish_v01.png"
+  ],
+  "sourceHash": "d91d7db489059cb3c570199ffe6de2e08a636370",
+  "bodyHeight": 232,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "vanish_00.png": "c7417c6d62ecb54bd56c8c86cccf7e5e6cb1146e",
+    "vanish_01.png": "5473e1ff5bd5ecf42eb89208b52519c3d9c6190f"
+  }
+}

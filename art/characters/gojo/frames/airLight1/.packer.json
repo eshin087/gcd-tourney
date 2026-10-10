@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airLight1_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/airLight1_v01.png"
+  ],
+  "sourceHash": "16c080a7dfb4d9e77738920edeb186bb4a53f8bf",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airLight1_00.png": "25799741358c67278e485d44b94ceb3fdae74fbb",
+    "airLight1_01.png": "574fb1d6871d92fa5c19fabceb7595ff77749d45",
+    "airLight1_02.png": "8ab87fc7156cadfb0362dde28d5b37d1845efc87",
+    "airLight1_03.png": "ea3229764cca755ea244c913eef8f82ea75b5419",
+    "airLight1_04.png": "62e99a8c0abd218cae0c6e3c9b8fee7b1285007c"
+  }
+}

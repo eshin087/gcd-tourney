@@ -1,0 +1,266 @@
+{
+  "superDash": {
+    "source": "art/characters/sasuke/raw/superDash_v01.png",
+    "sha256": "7be49531db791eb558fef4ba8631cce4f4e90bf541bc45a39bfb32b11b09769b",
+    "packedHeadEstimate": [
+      23,
+      23
+    ],
+    "previousFrameScales": [
+      0.22181,
+      0.22181
+    ],
+    "sourceHeadPx": [
+      103.692,
+      103.692
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "heavy": {
+    "source": "art/characters/sasuke/raw/heavy_v02.png",
+    "sha256": "84c1b3e1d6ff72148297804b19c605d89247196ea92b93d7adfa05f4b4b9c927",
+    "packedHeadEstimate": [
+      24,
+      24,
+      24,
+      24,
+      24,
+      38,
+      38,
+      38
+    ],
+    "previousFrameScales": [
+      0.28836,
+      0.28836,
+      0.28836,
+      0.28836,
+      0.28836,
+      0.28836,
+      0.28836,
+      0.28836
+    ],
+    "sourceHeadPx": [
+      83.229,
+      83.229,
+      83.229,
+      83.229,
+      83.229,
+      131.78,
+      131.78,
+      131.78
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "airLight3": {
+    "source": "art/characters/sasuke/raw/airLight3_v01.png",
+    "sha256": "7a052f0273dc1472016a34ca9cad34edde66f99863881b37857a59809af55107",
+    "packedHeadEstimate": [
+      17,
+      17,
+      17,
+      17,
+      29,
+      29
+    ],
+    "previousFrameScales": [
+      0.2221,
+      0.2221,
+      0.2221,
+      0.2221,
+      0.2221,
+      0.2221
+    ],
+    "sourceHeadPx": [
+      76.542,
+      76.542,
+      76.542,
+      76.542,
+      130.572,
+      130.572
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "airHeavy": {
+    "source": "art/characters/sasuke/raw/airHeavy_v01.png",
+    "sha256": "9f3feee5b4f6cab0634a98e4400c2d37374b063a61bf0703c891c045945a7fa4",
+    "packedHeadEstimate": [
+      19,
+      19,
+      19,
+      19,
+      30,
+      30
+    ],
+    "previousFrameScales": [
+      0.21222,
+      0.21222,
+      0.21222,
+      0.21222,
+      0.21222,
+      0.21222
+    ],
+    "sourceHeadPx": [
+      89.53,
+      89.53,
+      89.53,
+      89.53,
+      141.363,
+      141.363
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "launched": {
+    "source": "art/characters/sasuke/raw/launched_v01.png",
+    "sha256": "33d2c145a9d37ea9fd110c6bf651165aef947d02a430505f59eccaf5acf36031",
+    "packedHeadEstimate": [
+      24,
+      24
+    ],
+    "previousFrameScales": [
+      0.21795,
+      0.21795
+    ],
+    "sourceHeadPx": [
+      110.117,
+      110.117
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "down": {
+    "source": "art/characters/sasuke/raw/down_v01.png",
+    "sha256": "629b86cd3468c35b92932de2d63145237fe06f70f76222b41097cfd4f5c7c303",
+    "packedHeadEstimate": [
+      25,
+      25
+    ],
+    "previousFrameScales": [
+      0.24552,
+      0.24552
+    ],
+    "sourceHeadPx": [
+      101.825,
+      101.825
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "ko": {
+    "source": "art/characters/sasuke/raw/ko_v01.png",
+    "sha256": "2304029f2fe088d6032ccdb07f8c6fd177bbe51a0bc041a02efac1495162827f",
+    "packedHeadEstimate": [
+      22
+    ],
+    "previousFrameScales": [
+      0.1219
+    ],
+    "sourceHeadPx": [
+      180.476
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "special": {
+    "source": "art/characters/sasuke/raw/special_v02.png",
+    "sha256": "1175949b24bf178da02356438604842901d2599cb8fdb61cbfc317d33d4bb15c",
+    "packedHeadEstimate": [
+      30,
+      30,
+      30,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "previousFrameScales": [
+      0.25987,
+      0.25987,
+      0.25987,
+      0.25987,
+      0.25987,
+      0.25987,
+      0.25987,
+      0.25987
+    ],
+    "sourceHeadPx": [
+      115.442,
+      115.442,
+      115.442,
+      61.569,
+      61.569,
+      61.569,
+      61.569,
+      61.569
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "specialForward": {
+    "source": "art/characters/sasuke/raw/specialForward_v02.png",
+    "sha256": "75c0b8d96fcee53739d8110829c82013c925ada86f601d04173be5beaa4e3d7f",
+    "packedHeadEstimate": [
+      21,
+      21,
+      21,
+      21,
+      31,
+      31,
+      31
+    ],
+    "previousFrameScales": [
+      0.2612,
+      0.2612,
+      0.2612,
+      0.2612,
+      0.2612,
+      0.2612,
+      0.2612
+    ],
+    "sourceHeadPx": [
+      80.398,
+      80.398,
+      80.398,
+      80.398,
+      118.683,
+      118.683,
+      118.683
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  },
+  "specialUp": {
+    "source": "art/characters/sasuke/raw/specialUp_v01.png",
+    "sha256": "173fd1d0c39d374a7c09fd12ef04280fa5280c0553b7b07eb41d8f48b84e3657",
+    "packedHeadEstimate": [
+      23,
+      23,
+      23,
+      23,
+      31,
+      31
+    ],
+    "previousFrameScales": [
+      0.24208,
+      0.24208,
+      0.24208,
+      0.24208,
+      0.24208,
+      0.24208
+    ],
+    "sourceHeadPx": [
+      95.01,
+      95.01,
+      95.01,
+      95.01,
+      128.057,
+      128.057
+    ],
+    "certainty": "visual estimate; not certified",
+    "evidence": "sasuke-heads-1..4.png and native full-body comparison"
+  }
+}

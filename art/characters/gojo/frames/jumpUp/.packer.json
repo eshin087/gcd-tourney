@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/jumpUp_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/jumpUp_v01.png"
+  ],
+  "sourceHash": "a1eefc481860987c67f22dd9e01d85e0e2a2f66b",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "jumpUp_00.png": "9369d5a2d615b8c3c64861c52e881f0bf6a9c3dd",
+    "jumpUp_01.png": "be8e44061223da3f946f1118960a363cba92e0d4"
+  }
+}

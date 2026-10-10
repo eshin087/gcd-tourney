@@ -96,6 +96,7 @@ export class Pad {
     this.my = 0; // screen-up (away from camera)
     this.b = Object.fromEntries(ACTIONS.map((a) => [a, makeBtn()]));
     this.dirTaps = { l: -99, r: -99, u: -99, d: -99 };
+    this.dirPress = { l: -99, r: -99, u: -99, d: -99 }; // frame each stick direction was last pushed (spot dodge)
     this.prevDir = { l: false, r: false, u: false, d: false };
     this.dashDir = null; // set on the frame a double-tap happens
     this.mash = []; // frames of attack presses (for beam clashes)
@@ -124,6 +125,7 @@ export class Pad {
     const dirs = { l: x < -0.5, r: x > 0.5, u: y > 0.5, d: y < -0.5 };
     for (const k of Object.keys(dirs)) {
       if (dirs[k] && !this.prevDir[k]) {
+        this.dirPress[k] = this.frame;
         if (this.frame - this.dirTaps[k] < 14) {
           this.dashDir = { l: [-1, 0], r: [1, 0], u: [0, 1], d: [0, -1] }[k];
           this.dirTaps[k] = -99;
@@ -142,6 +144,11 @@ export class Pad {
     this.b[name].lastPress = -9999;
   }
 
+  // Was the stick pushed toward 'l' | 'r' | 'u' | 'd' within the last `win` frames (an edge, not a hold)?
+  dirPressed(k, win = 3) {
+    return this.frame - this.dirPress[k] <= win;
+  }
+
   mashRate() {
     while (this.mash.length && this.frame - this.mash[0] > 45) this.mash.shift();
     return this.mash.length / 0.75; // presses per second
@@ -153,6 +160,7 @@ export class Pad {
 
   clear() {
     for (const a of ACTIONS) Object.assign(this.b[a], makeBtn());
+    for (const k of Object.keys(this.dirPress)) this.dirPress[k] = -99;
     this.mx = this.my = 0;
     this.mash.length = 0;
   }
@@ -233,10 +241,12 @@ export class InputManager {
     }
   }
 
-  // mode: 'solo' (P1 human, P2 cpu) or 'versus'
+  // mode: 'solo' (P1 human, P2 cpu), 'versus' (two humans) or 'cpu' (spectating: nobody drives a pad,
+  // menu events such as pause still work)
   bind(pads, mode) {
     this.bindings = mode === 'versus'
       ? [{ pad: pads[0], keymap: KEYMAPS.p1, gp: 0 }, { pad: pads[1], keymap: KEYMAPS.p2, gp: 1 }]
+      : mode === 'cpu' ? []
       : [{ pad: pads[0], keymap: KEYMAPS.solo, gp: 0 }];
   }
 

@@ -1264,6 +1264,20 @@ function frameOffsetsFor(side, count, spec, warn, label) {
   return offsets;
 }
 
+// Anatomical calibration measures skull-to-chin in each raw pose, along the head axis.
+// Hair, raised hands and crouching change bounds without changing the person's scale.
+function anatomicalScalesFor(side, count, warn, label) {
+  if (!Object.hasOwn(side, 'anatomy')) return null;
+  const a = side.anatomy;
+  if (!a || a.measurement !== 'skull-to-chin' || !Number.isFinite(a.targetHeadPx) ||
+      a.targetHeadPx < 24 || a.targetHeadPx > 36 || !Array.isArray(a.sourceHeadPx) ||
+      a.sourceHeadPx.length !== count || !a.sourceHeadPx.every((n) => Number.isFinite(n) && n >= 8 && n <= 2048)) {
+    warn(label + ': anatomy requires measurement skull-to-chin, targetHeadPx 24..36, and ' + count + ' sourceHeadPx measurements (8..2048) - ignored');
+    return null;
+  }
+  return a.sourceHeadPx.map((n) => a.targetHeadPx / n);
+}
+
 // Feet center on the pivot x, lowest row on the pivot y (the floor line) before any per-frame correction.
 // clip = pixels lost outside the cell; margin = pixels inside its safe margin (including below the floor).
 function placeCharFrame(sprite, spec, offset = [0, 0]) {
@@ -1614,21 +1628,33 @@ function packCharacter(id, env) {
         if (maxH !== bodyHeight && src.kind === 'frames' && !src.packerMade) notes.push(`kept native size (${maxH}px vs ${bodyHeight}px)`);
         scale = 1;
       }
+      const anatomyScales = anatomicalScalesFor(side, sprites.length, warn, alabel);
+      if (anatomyScales) {
+        // Cached or hand-edited cells already have their final anatomy. Never normalize them
+        // to bodyHeight again; source/sidecar hash invalidation handles fresh raw imports.
+        scale = 1;
+        notes.push('anatomical scale: skull-to-chin ' + side.anatomy.targetHeadPx + 'px; bounds are pose-dependent');
+        if (src.kind !== 'frames' && anatomyScales.some((n) => n > 1)) warn(alabel + ': anatomical calibration upscales raw art - generate larger source poses');
+      }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
       const frameOffsets = frameOffsetsFor(side, sprites.length, spec, warn, alabel);
       const cells = [];
+      const frameScales = [];
       const clipped = [], tight = [];
       sprites.forEach((s, k) => {
-        const small = resample(s, scale, { coverage: 0.5, alphaMin: 128 });
+        const poseScale = anatomyScales && src.kind !== 'frames' ? anatomyScales[k] : scale;
+        frameScales.push(+poseScale.toFixed(5));
+        const small = resample(s, poseScale, { coverage: 0.5, alphaMin: 128 });
         const { cell, lost, clip, margin } = placeCharFrame(small, spec, frameOffsets?.[k]);
         if (lost) clipped.push(`#${k} ${clip.join('/')}`);
         else if (margin.length) tight.push(`#${k} ${margin.join('/')}`);
         cells.push(cell);
       });
-      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; lower bodyHeight or redraw`);
-      if (tight.length) warn(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; lower bodyHeight or redraw tighter`);
+      const fitAdvice = anatomyScales ? 'repose or reposition while preserving anatomical scale' : 'lower bodyHeight or redraw';
+      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; ${fitAdvice}`);
+      if (tight.length) warn(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; ${fitAdvice}`);
       if (cells.length !== def.frames) warn(`${alabel}: ${cells.length} frame(s), manifest expects ${def.frames}${def.phases ? ` (phases rescaled to ${rescalePhases(def.phases, cells.length).join('/')})` : ''}`);
-      anims.push({ def, cells, scale, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade });
+      anims.push({ def, cells, scale, frameScales, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade });
     } catch (e) {
       warn(`${alabel}: failed - ${e.message}`);
       R.missing.push(def.name);
@@ -1737,7 +1763,7 @@ function packCharacter(id, env) {
   for (const a of anims) {
     R.packed.push({
       anim: a.def.name, frames: a.cells.length, expected: a.def.frames, source: a.sourceLabel, from: a.origin, version: a.version,
-      edited: a.edited, handMade: a.handMade, scale: +a.scale.toFixed(3), notes: a.notes,
+      edited: a.edited, handMade: a.handMade, scale: +a.scale.toFixed(3), frameScales: a.frameScales, notes: a.notes,
     });
     if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight, cell: cellKey });
   }

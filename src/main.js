@@ -87,11 +87,13 @@ ready.then(() => {
   requestAnimationFrame(loop);
 });
 
-// URL shortcuts for quick testing: ?fight=naruto,sasuke&mode=solo&level=hard
+// URL shortcuts for quick testing: ?fight=naruto,sasuke&mode=solo|versus|cpu&level=easy|normal|hard|impossible
+// (mode=cpu spectates two CPUs; its level defaults to impossible)
 const qs = new URLSearchParams(location.search);
 if (qs.get('fight')) {
   const [p1, p2] = qs.get('fight').split(',');
-  ready.then(() => game.startMatch({ mode: qs.get('mode') || 'solo', p1, p2: p2 || p1, level: qs.get('level') || 'normal' }));
+  const mode = qs.get('mode') || 'solo';
+  ready.then(() => game.startMatch({ mode, p1, p2: p2 || p1, level: qs.get('level') || (mode === 'cpu' ? 'impossible' : 'normal') }));
 }
 
 // ?debug exposes deterministic stepping helpers for automated testing in the console

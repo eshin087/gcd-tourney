@@ -115,45 +115,50 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | todo | - | - | |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | todo | - | - | |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | todo | - | - | |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | todo | - | - | |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | todo | - | - | |
-| 6 | guard | 2 | - | **yes** | 198 | todo | - | - | |
-| 6 | hurtHigh | 3 | - | **yes** | 195 | todo | - | - | |
-| 6 | launched | 2 | - | **yes** | 136 | todo | - | - | |
-| 6 | down | 2 | - | **yes** | 96 | todo | - | - | |
-| 6 | getup | 5 | - | **yes** | 204 | todo | - | - | |
-| 7 | charge | 4 | - | **yes** | 198 | todo | - | - | |
-| 7 | beamCharge | 3 | - | **yes** | 198 | todo | - | - | |
-| 7 | beamFire | 3 | - | **yes** | 198 | todo | - | - | |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | todo | - | - | |
-| 8 | dash | 2 | - | **yes** | 160 | todo | - | - | |
-| 8 | jumpUp | 2 | - | **yes** | 198 | todo | - | - | |
-| 8 | jumpFall | 2 | - | **yes** | 209 | todo | - | - | |
-| 8 | land | 2 | - | **yes** | 174 | todo | - | - | |
-| 8 | win | 4 | - | **yes** | 212 | todo | - | - | |
-| 9 | backDash | 3 | - | no | 207 | todo | - | - | |
-| 9 | superDash | 2 | - | no | 120 | todo | - | - | |
-| 9 | jumpSquat | 1 | - | no | 162 | todo | - | - | |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | todo | - | - | |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | todo | - | - | |
-| 9 | block | 2 | - | no | 204 | todo | - | - | |
-| 9 | hurtLow | 3 | - | no | 183 | todo | - | - | |
-| 9 | spin | 4 | - | no | 160 | todo | - | - | |
-| 9 | airRecover | 3 | - | no | 180 | todo | - | - | |
-| 9 | throw | 4 | 1/1/2 | no | 201 | todo | - | - | |
-| 9 | vanish | 2 | - | no | 221 | todo | - | - | |
-| 9 | stagger | 4 | - | no | 207 | todo | - | - | |
-| 9 | ko | 1 | - | no | 64 | todo | - | - | |
-| 9 | intro | 4 | - | no | 210 | todo | - | - | |
-| 9 | taunt | 2 | - | no | 212 | todo | - | - | |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
-| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | raw | v01 | - | final review pending; see REVIEW.md |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | raw | v01 | - | final review pending; see REVIEW.md |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | raw | v01 | - | final review pending; see REVIEW.md |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | raw | v01 | - | final review pending; see REVIEW.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | raw | v02 | - | final review pending; see REVIEW.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | raw | v01 | - | final review pending; see REVIEW.md |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | raw | v02 | - | final review pending; see REVIEW.md |
+| 6 | guard | 2 | - | **yes** | 198 | raw | v01 | - | final review pending; see REVIEW.md |
+| 6 | hurtHigh | 3 | - | **yes** | 195 | raw | v02 | - | final review pending; see REVIEW.md |
+| 6 | launched | 2 | - | **yes** | 136 | raw | v01 | - | final review pending; see REVIEW.md |
+| 6 | down | 2 | - | **yes** | 96 | raw | v01 | - | final review pending; see REVIEW.md |
+| 6 | getup | 5 | - | **yes** | 204 | raw | v01 | - | final review pending; see REVIEW.md |
+| 7 | charge | 4 | - | **yes** | 198 | raw | v02 | - | final review pending; see REVIEW.md |
+| 7 | beamCharge | 3 | - | **yes** | 198 | raw | v01 | - | final review pending; see REVIEW.md |
+| 7 | beamFire | 3 | - | **yes** | 198 | raw | v01 | - | final review pending; see REVIEW.md |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | raw | v02 | - | final review pending; see REVIEW.md |
+| 8 | dash | 2 | - | **yes** | 160 | raw | v01 | - | final review pending; see REVIEW.md |
+| 8 | jumpUp | 2 | - | **yes** | 198 | raw | v01 | - | final review pending; see REVIEW.md |
+| 8 | jumpFall | 2 | - | **yes** | 209 | raw | v01 | - | final review pending; see REVIEW.md |
+| 8 | land | 2 | - | **yes** | 174 | raw | v01 | - | final review pending; see REVIEW.md |
+| 8 | win | 4 | - | **yes** | 212 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | backDash | 3 | - | no | 207 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | superDash | 2 | - | no | 120 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | jumpSquat | 1 | - | no | 162 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | raw | v02 | - | final review pending; see REVIEW.md |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | block | 2 | - | no | 204 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | hurtLow | 3 | - | no | 183 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | spin | 4 | - | no | 160 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | airRecover | 3 | - | no | 180 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | throw | 4 | 1/1/2 | no | 201 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | vanish | 2 | - | no | 221 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | stagger | 4 | - | no | 207 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | ko | 1 | - | no | 64 | raw | v02 | - | final review pending; see REVIEW.md |
+| 9 | intro | 4 | - | no | 210 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | taunt | 2 | - | no | 212 | raw | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | raw | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | raw | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/select.png (384x384) | - | - | no | - | raw | v01 | - | final review pending; see REVIEW.md |
+
+| 9 | specialForward | 7 | 2/2/3 | no | 204 | raw | v02 | - | final review pending; see REVIEW.md |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | raw | v01 | - | final review pending; see REVIEW.md |
+| 9 | superPose | 4 | - | no | 208 | raw | v01 | - | final review pending; see REVIEW.md |
 
 ## killua
 
@@ -232,34 +237,34 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v04 | v03 | Model v04 rejected: enlarged head. Original approved model v03 retained. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 3 | idle | 8 | - | **yes** | 222 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 4 | run | 8 | - | **yes** | 222 | approved | v03 | v03 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
+| 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | guard | 2 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | guard | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | launched | 2 | - | **yes** | 148 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | getup | 5 | - | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | charge | 4 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | charge | 4 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 7 | beamCharge | 3 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 7 | beamFire | 3 | - | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | dash | 2 | - | **yes** | 174 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | land | 2 | - | **yes** | 189 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | dash | 2 | - | **yes** | 174 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | land | 2 | - | **yes** | 189 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 8 | win | 4 | - | **yes** | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | backDash | 3 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | superDash | 2 | - | no | 140 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | jumpSquat | 1 | - | no | 176 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | backDash | 3 | - | no | 225 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | superDash | 2 | - | no | 140 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | jumpSquat | 1 | - | no | 176 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | block | 2 | - | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
@@ -313,7 +318,7 @@ cleaned into `art/ui/final/`.
 | asset | size | status | version | approved | notes |
 |---|---|---|---|---|---|
 | ui/final/logo.png ("GCD TOURNEY" + 天下一武闘祭) | ~480x180 | approved | v01 | v01 | Fitted candidate in ui/review; final approval and engine hooks pending. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| ui/final/title_art.png (title key art) | 640x360 | approved | v01 | v01 | Fitted candidate in ui/review; final approval and engine hooks pending. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+| ui/final/title_art.png (title key art) | 640x360 | approved | v02 | v02 | Naruto vs Killua v02 approved; title screen uses its static painted audience, per user preference. |
 
 ## World art (ADR 0008)
 
@@ -438,7 +443,7 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | npc | npc-monk-b | 3 | approved | v01 | v01 | [Files/QA](queue/reviews/npc-monk-b.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | npc | npc-vendor | 2 | approved | v02 | v02 | [Files/QA](queue/reviews/npc-vendor.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | ui | ui-logo | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/ui-logo.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| ui | ui-title_art | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/ui-title_art.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+| ui | ui-title_art | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/ui-title_art.md); Naruto vs Killua title art approved with its painted audience. |
 | vfx | vfx-spark | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/vfx-spark.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | vfx | vfx-burst | 1 | approved | v01 | v01 | [Files/QA](queue/reviews/vfx-burst.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | vfx | vfx-ring | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/vfx-ring.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |

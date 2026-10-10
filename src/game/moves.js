@@ -21,7 +21,7 @@ export const MOVES = {
   airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light' },
   airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light' },
   airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true },
-  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7 },
+  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45] },
   throw: { anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, cost: 50 },
   // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport
   echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy' },
@@ -34,15 +34,45 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 // Vanish: teleport behind the opponent (1 ki bar), then vanishKick
 export const VANISH = { cost: 100, hideFrames: 9 };
 
-// Signature rush specials (1 ki bar)
+// Defensive options (ADR 0014), all free. Frames at 60 fps.
+//  parry      Guard pressed at most `window` frames before a blockable hit lands: no damage or block stun,
+//             a melee attacker is staggered (`stagger`, `bigStagger` for big moves and specials), a
+//             projectile is swatted away. One attempt per `lockout` frames, counted from every Guard press,
+//             so mashing Guard only blocks; a parry re-arms at once, so a string can be parried hit by hit.
+//  spotDodge  Guard + ↓ (pressed): intangible on frames [from, to), then recovery. Each dodge within
+//             `staleWindow` frames of the last adds `stale` recovery frames (up to `staleMax` times).
+//  airDodge   Guard in the air, once per airtime. With a direction it bursts that way at `speed`, angled
+//             down (`drop`; `lowDrop` when below `lowY`, so a dodge right after takeoff meets the floor).
+//             Landing in a neutral dodge costs `land` frames.
+//  wavedash   a directional air dodge that meets the floor slides along it (or Guard pressed with the jump):
+//             friction per frame, actions from frame `act`, the slide's momentum carries into the next move.
+// Throw (ADR 0015): Light + Heavy close up. It grabs a grounded opponent who is not in hit or block stun,
+// airborne or invincible, so it beats a held Guard, parry attempts, counter stances and slow startups, and
+// loses to anything already active, to a spot dodge and to jumping. The victim breaks it with Light + Heavy
+// within `techWindow` frames of the grab. range/lane: screen and depth reach; whiff: recovery when it misses;
+// hold: frames the victim is pinned before the toss; breakLag: recovery for both after a break.
+export const THROW = {
+  startup: 5, active: 3, whiff: 26, range: 1.05, lane: 0.6, hold: 18, techWindow: 12, breakLag: 10, recovery: 14, push: 7,
+  hit: { dmg: 80, minScale: 0.8, launch: [12, 8.5], wallBounce: true, hitstop: 10, unblockable: true, big: true, spark: 'smash', shake: 0.6 },
+};
+
+export const DEFENSE = {
+  parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
+  spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
+  airDodge: { len: 30, from: 2, to: 18, speed: 12.5, drop: 6.5, lowDrop: 24, lowY: 0.95, land: 10 },
+  wavedash: { len: 16, act: 5, friction: 0.875, speed: 12.5 },
+};
+
+// Signature rush specials (1 ki bar). `cancelStartup`: the startup when it's cancelled out of a normal that hit
+// (ADR 0015): fast enough to combo after light x3, while a raw one stays slow and punishable.
 export const SPECIALS = {
   rasengan: {
-    anim: 'special', startup: 24, active: 22, recovery: 20, dmg: 140, reach: 1.3, width: 1.05,
+    anim: 'special', startup: 24, cancelStartup: 14, active: 22, recovery: 20, dmg: 140, reach: 1.3, width: 1.05,
     launch: [16, 9], hitstop: 18, rush: 14, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
     fx: 'rasengan', sfxLoop: 'rasengan', color: '#6ab4ff', name: 'RASENGAN', spark: 'smash',
   },
   chidori: {
-    anim: 'special', startup: 28, active: 18, recovery: 20, dmg: 152, reach: 1.3, width: 1.05,
+    anim: 'special', startup: 28, cancelStartup: 16, active: 18, recovery: 20, dmg: 152, reach: 1.3, width: 1.05,
     launch: [14, 11], hitstop: 20, rush: 18, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
     fx: 'chidori', sfxLoop: 'chidori', color: '#9ad8ff', name: 'CHIDORI', spark: 'smash',
   },
@@ -72,7 +102,7 @@ export const SPECIAL_MOVES = {
   // Rasenshuriken, handheld (he can't throw it yet): slower than the Rasengan, grinds the victim in a
   // wind vortex, and tears his own arm (selfDmg)
   rasenshuriken: {
-    kind: 'rush', anim: 'specialForward', startup: 30, active: 20, recovery: 24, dmg: 40, reach: 1.35, width: 1.1,
+    kind: 'rush', anim: 'specialForward', startup: 30, cancelStartup: 18, active: 20, recovery: 24, dmg: 40, reach: 1.35, width: 1.1,
     hitstun: 60, push: 0, hitstop: 12, rush: 13, cost: 100, special: true, big: true, shake: 0.6, selfDmg: 25,
     fx: 'rasenshuriken', sfxLoop: 'rasengan', color: '#cfeaff', name: 'RASENSHURIKEN', spark: 'smash',
     vortex: {
