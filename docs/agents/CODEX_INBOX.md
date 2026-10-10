@@ -17,6 +17,12 @@ How it works:
 
 ## Every thread
 
+- [ ] **(2026-10-10) Every new feature or character lands through a pull request** ([ADR 0013](../decisions/0013-pull-requests-in-worktrees.md),
+  AGENTS.md "Safe boundaries"). Start with `npm run pr -- start <prefix>/<name>` (`--full` for art) and work and
+  commit only inside that worktree; `npm run pr -- open` there; Claude or the user merges with
+  `npm run pr -- merge <branch>`. Never leave uncommitted work in the main folder: on 2026-10-10 Claude had to
+  split a whole session of uncommitted art into PRs #6-#8 before anything could merge. Art approvals for a
+  character that already ships may still commit straight to `main`.
 - [ ] **(2026-10-09) Keep docs/NOW.md current.** Read rule 6 under "Roles and handoff protocol" in
   [AGENTS.md](../../AGENTS.md). Before you stop and hand back: update "Your next actions" in docs/NOW.md
   (remove what's done, add what the user must do next), run `npm run status -- --write`, and commit
@@ -24,6 +30,15 @@ How it works:
   lines.
 
 ## Naruto thread
+
+- [ ] **(2026-10-10) ART-SCALE-01 part 2 (Naruto and Killua threads): finish the scale correction on its branch.**
+  Your calibrated Naruto/Killua candidates are on the draft PR [#8](https://github.com/eshin087/gcd-tourney/pull/8),
+  branch `art/scale-naruto-killua`, worktree `../gcdTourney-worktrees/art-scale-naruto-killua` (full checkout,
+  `npm ci` done). Work only there, never in the main folder. Claude's QA: the resized run/dash/crouch heads look
+  right next to idle, but a repack from the branch's inputs differs from its packed sheets and clips Naruto heavy
+  (#3-#5, top up to 30 px), win (#1, #2), launched (#0, left) and ko (#0, left). Fix placement or repose while
+  keeping anatomical scale, repack strict (`--quantize 48`), make sure a scratch repack is byte-identical to
+  `public/`, then `npm run pr -- open` in the worktree and ask the user for one final review. Claude merges #8.
 
 - [x] **(2026-10-09) Merge the kit animations (ADR 0011).** Done 2026-10-09: A39–A42, frame briefs, palette exception and tracking rows merged; user now requests one final Naruto set review. Read
   [docs/decisions/0011-kit-baseline-and-balance.md](../decisions/0011-kit-baseline-and-balance.md) and
@@ -36,6 +51,15 @@ How it works:
   3. Then continue Prompt 1 as usual. A39-A42 are step 9: generate them after the core animations.
 
 ## Sasuke thread
+
+- [ ] **(2026-10-10) Sasuke's set is in the game** (merged in PR [#7](https://github.com/eshin087/gcd-tourney/pull/7)):
+  42 animations / 175 frames, rows still `needs review` until the user approves after playing. Follow-ups from
+  Claude's frame audit, as new `_vNN` candidates in a `fix/sasuke-<name>` PR (`npm run pr -- start ... --full`):
+  1. Size pops inside light2 (#0-#3 at 215 px vs #4-#6 at 195 px), light3 (#0-#3 vs #4-#6) and special (#0 vs
+     the rest): the two stitched parts were packed at different scales; calibrate both parts to the same
+     skull-to-chin length.
+  2. specialUp #2 and #3 reach into the 4 px top margin (packer warning).
+  3. After the user approves them, create the fixed-name UI copies (portrait, cut-in, select) so they pack.
 
 - [ ] **(2026-10-09) Kirin poses now, kit animations later (ADR 0011).** His ULTIMATE is Amaterasu (no beam)
   and his SUPER is Kirin. Read ADR 0011 and `art/characters/sasuke/KIT.md`, then:
@@ -50,6 +74,9 @@ How it works:
   4. Continue Prompt 1 as usual. A39-A42 are step 9, after the core animations.
 
 ## Killua thread
+
+- [ ] **(2026-10-10) ART-SCALE-01 part 2:** same item as the Naruto thread (top of its section): finish Killua's
+  calibrated candidates in `../gcdTourney-worktrees/art-scale-naruto-killua`, draft PR #8.
 
 Claude's QA of the full set (2026-10-09): all 42 animations + UI pack into a **complete** sheet (175 frames,
 48 colors), the game loads it (`[sprites] using custom sheet for killua`), the design is consistent across
