@@ -30,8 +30,12 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // cap     combo hits after which it cashes out with an ender instead of extending (0 = never: max damage)
 // hoard   how often a round is spent saving meter for a three-bar finish
 // block   weight of a plain block among its answers to a threat it saw (the others: parry, dodges, counters...)
+// drop    chance that a combo is dropped after its first couple of hits (a missed link, like a person's)
 // beat    its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
 export const STYLES = {
+  // INSANE, between HARD and IMPOSSIBLE: the same reads at a person's reaction time (12 f), fewer parries, dodges,
+  // techs and throw breaks, and some dropped combos
+  insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, cap: 0, hoard: 0.6, block: 1, drop: 0.15 },
   impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1 },
   showman: { beat: { sd: 2.2, miss: 0.02 }, react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
 };
@@ -423,7 +427,9 @@ export class MasterBrain {
     if (!this.route.counted) {
       this.route.counted = true;
       this.noteContact(false);
+      if (this.S.drop && Math.random() < this.S.drop) this.route.dropAt = 2 + Math.floor(Math.random() * 2);
     }
+    if (this.route.dropAt && o.combo >= this.route.dropAt) return; // missed the link: the combo ends here
     if (!m.special && this.finisher(game, c, m, t)) return;
     switch (n) {
       case 'light1':

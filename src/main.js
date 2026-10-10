@@ -87,7 +87,7 @@ ready.then(() => {
   requestAnimationFrame(loop);
 });
 
-// URL shortcuts for quick testing: ?fight=naruto,sasuke&mode=solo|versus|cpu&level=easy|normal|hard|impossible
+// URL shortcuts for quick testing: ?fight=naruto,sasuke&mode=solo|versus|cpu&level=easy|normal|hard|insane|impossible
 // (mode=cpu spectates two CPUs; its level defaults to impossible)
 const qs = new URLSearchParams(location.search);
 if (qs.get('fight')) {

@@ -14,7 +14,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | URL | Use |
 |---|---|
 | `/` | normal boot: title, mode select, char select |
-| `/?fight=naruto,sasuke&mode=solo&level=hard` | skip menus into a VS CPU match (`level` = easy, normal, hard or impossible) |
+| `/?fight=naruto,sasuke&mode=solo&level=hard` | skip menus into a VS CPU match (`level` = easy, normal, hard, insane or impossible) |
 | `/?fight=naruto,sasuke&mode=cpu` | spectate CPU vs CPU (defaults to `level=impossible`, showman style) |
 | `/?fight=naruto,sasuke&mode=versus` | skip into a 2P match |
 | `&debug` | expose console helpers (below) |
