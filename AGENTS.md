@@ -16,6 +16,11 @@ Existing image/design approval gates still apply; permission to execute commands
 These rules supersede older requirements to ask again for routine technical actions or have the user
 perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
 
+For this machine's restricted Windows profile, build and serve with the local `.codex/vite.mjs`
+adapter documented in docs/AI_COLLABORATION.md. It passed the production build without broadening reads;
+the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a
+separate documented limitation; do not mistake a Git file-write probe for a passing worktree workflow.
+
 ## The project in one paragraph
 
 GCD Tourney is a browser HD-2D pixel-art anime arena fighter (Three.js + Vite, plain JavaScript ES modules)

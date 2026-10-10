@@ -28,17 +28,40 @@ passed a Git write probe, localhost listener and GitHub HTTP check. Existing cha
 previous permission policy; use a fresh project session and verify its effective permissions. A session
 using the old policy may reapply Git protection. Do not silently switch to machine-wide Full access.
 
-Verification also confirmed real worktree creation/removal and denial of a write outside the project.
-The full sandboxed Vite build is still blocked. With restricted reads, Node fails with `EPERM, lstat C:\`;
-preserving symlinks gets past Node startup but esbuild cannot read drive ancestors. Vite's runner config
-loader also fails at drive-root metadata access. A temporary project-only drive alias was rejected by
-MXC (permission path cannot be represented losslessly), and was removed. No broad-read fallback remains.
-Earlier, a read/traverse-only ACL repair was attempted (backup saved locally under
-`.codex/home-directory-acl-before-traverse.xml`), but Set-Acl lacked the required privilege and the
-icacls attempt was interrupted after no progress. No successful parent ACL change is confirmed.
-The production build passes outside the sandbox. Do not describe unattended testing as fully ready
-until a build passes inside the selected profile and a fresh desktop session loads that profile.
-The saved profile currently fails closed for incompatible build commands; this task is not complete.
+### Verified build and local server in the restricted profile
+
+The machine-local `.codex/vite.mjs` adapter fixes the build without adding filesystem permissions.
+It loads the checkout's existing config directly, supplies the config's usual directory binding,
+preserves symlinks, and supplies an empty tsconfig for this plain-JavaScript project to avoid ancestor
+discovery. Build mode also runs `tools/art-index.mjs`, matching the normal prebuild step. Dev mode
+serves native ESM dependencies directly instead of running the dependency prebundler.
+
+From the checkout being tested, use:
+
+```powershell
+node --preserve-symlinks --preserve-symlinks-main .codex/vite.mjs build
+node --preserve-symlinks --preserve-symlinks-main .codex/vite.mjs dev
+```
+
+In a task worktree, use the absolute path to the main checkout's `.codex/vite.mjs` and keep the working
+directory at the task checkout. The adapter uses the current directory, not the directory of the script.
+Set `PORT` for parallel dev servers. Keep the server command running; MXC ends child processes with it.
+These local files are intentionally Git-ignored and must be provisioned on another machine separately.
+The ordinary `npm run build` remains unchanged and is not the working strict-profile invocation.
+
+Verified under `codex sandbox -P gcd-tourney --include-managed-config`: prebuild indexed 193 files,
+production build transformed 68 modules and emitted all four HTML entrypoints. `verify` mode fetched
+the root, lab, main JS and Three.js module with HTTP 200. Negative probes still denied Documents,
+global Codex config, another project, outside writes and `.codex` writes. GitHub returned HTTP 200.
+This is build/HTTP verification, not a visual gameplay test or proof of this chat's active policy.
+
+### Remaining integration limitation
+
+Real worktree creation passed under the earlier broader-read profile, not the tightened profile.
+A two-worker fixture test in the tightened profile failed at `git init`: unable to get current working
+directory (Permission denied). The fixture was removed. Git file-write probes do not establish Git CLI
+compatibility. OPS-004 remains blocked for Git CLI integration; the build/server fix is verified.
+No broad-read fallback is enabled. Previous alias and ancestor-rule experiments were removed/restored.
 
 - Each parallel task owns one real worktree, branch and server port; claim overlapping files first.
 - Agree on one integration coordinator across Claude and Codex. Only that coordinator mutates main,

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
+
 - Docs (OPS-004): record tightened local MXC read allowlist, positive/negative access probes, and unresolved drive-root traversal failure in Node/Vite; unattended-build setup remains blocked.
 
 - Docs (OPS-004): authorize autonomous project work with separate task worktrees and one sequential integration coordinator; document the local Codex permission profile and Windows Git ACL repair, preserving artwork approval gates.

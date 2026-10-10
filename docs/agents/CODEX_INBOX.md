@@ -17,6 +17,11 @@ How it works:
 
 ## One chat for everything (2026-10-10)
 
+**Build fix (OPS-005):** `.codex/vite.mjs` now builds and serves the game inside the tight profile;
+production build and root/lab/main-JS/Three.js HTTP checks pass without extra reads. Use commands in
+docs/AI_COLLABORATION.md. Actual Git CLI fixture fails at working-directory resolution, so OPS-004
+remains blocked for integration. Earlier Git file-write probes did not verify the complete Git workflow.
+
 **Read-hardening update (OPS-004):** local profile now uses MXC with minimal tool reads and project/temp
 writes; unrelated reads/writes are denied. Git file writes, localhost and GitHub probes pass. Node/Vite
 still fail on drive-root metadata/ancestor reads. No broad-read fallback is enabled; do not claim the
