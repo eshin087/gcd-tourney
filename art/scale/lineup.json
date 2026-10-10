@@ -1,59 +1,68 @@
 {
   "rows": [
-    "idle",
-    "run",
-    "heavy"
+    "idle:0",
+    "run:3",
+    "heavy:3"
   ],
   "fighters": [
-    "gojo",
-    "killua",
     "naruto",
-    "sasuke"
+    "sasuke",
+    "killua",
+    "gojo"
   ],
+  "candidate": null,
   "measured": {
-    "gojo": {
-      "standingPx": 221,
-      "shoulderPx": 52,
-      "ratio": 0.235,
-      "build": "athletic",
-      "band": [
-        0.37,
-        0.48
-      ],
-      "outOfBand": true
-    },
-    "killua": {
-      "standingPx": 186,
-      "shoulderPx": 64,
-      "ratio": 0.344,
-      "build": "child",
-      "band": [
-        0.3,
-        0.4
-      ],
-      "outOfBand": false
-    },
     "naruto": {
-      "standingPx": 203,
-      "shoulderPx": 77,
-      "ratio": 0.379,
-      "build": "teen",
-      "band": [
-        0.35,
-        0.46
-      ],
-      "outOfBand": false
+      "standingPx": 200,
+      "idleHeightPx": 203,
+      "bandPx": 77,
+      "maxWidthPx": 103,
+      "sbr": 0.385,
+      "mwr": 0.507,
+      "dr": 0.31,
+      "build": "athletic-teen",
+      "idleHands": "guard",
+      "flags": []
     },
     "sasuke": {
-      "standingPx": 202,
-      "shoulderPx": 87,
-      "ratio": 0.431,
-      "build": "teen",
-      "band": [
-        0.35,
-        0.46
-      ],
-      "outOfBand": false
+      "standingPx": 200,
+      "idleHeightPx": 202,
+      "bandPx": 87,
+      "maxWidthPx": 103,
+      "sbr": 0.435,
+      "mwr": 0.51,
+      "dr": 0.3,
+      "build": "athletic-teen",
+      "idleHands": "guard",
+      "flags": []
+    },
+    "killua": {
+      "standingPx": 182,
+      "idleHeightPx": 186,
+      "bandPx": 64,
+      "maxWidthPx": 86,
+      "sbr": 0.352,
+      "mwr": 0.462,
+      "dr": 0.231,
+      "build": "child",
+      "idleHands": "guard",
+      "flags": []
+    },
+    "gojo": {
+      "standingPx": 215,
+      "idleHeightPx": 221,
+      "bandPx": 52,
+      "maxWidthPx": 80,
+      "sbr": 0.242,
+      "mwr": 0.362,
+      "dr": 0.233,
+      "build": "athletic-adult",
+      "idleHands": "down",
+      "flags": [
+        "SBR",
+        "MWR",
+        "DR"
+      ]
     }
   }
 }

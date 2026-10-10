@@ -80,6 +80,12 @@ Placeholder bakes use the same props as the briefs. Measured from the sheets in 
 - Every future fighter that isn't ~200 px needs a `standingBodyPx`, a scaled `bodyHeight` table and a
   row in the reach table above.
 
+## User decision 2026-10-10: Gojo's build
+
+Gojo's height (215 px skeleton) and head stay; his build is broadened to an athletic adult's (his packed idle had a
+child's shoulder ratio), and every future fighter declares a build class next to its height (canon height to
+`standingBodyPx`, shoulder-width bands, a mandatory cast lineup: art/CHARACTER_SCALE.md, `npm run lineup`).
+
 ## User clarification during ART-SCALE-01
 
 The user reaffirmed the original approved Gojo head scale and size. Preserve model_sheet v03 and idle v02 proportions. Clause 2 is nominal guidance, with this explicit visual exception: never enlarge Gojo to meet 31px. Retain the declared body-height differences and shared pixelsPerUnit. Review the other fighters against the original Gojo reference and correct animation-to-animation drift without changing his preferred design. See art/CHARACTER_SCALE.md.

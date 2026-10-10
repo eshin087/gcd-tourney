@@ -1,43 +1,16 @@
 {
-  "_doc": "Declared build class per fighter, for `npm run lineup` (art/CHARACTER_SCALE.md, Build classes). bands = shoulder px / standing px measured on the packed idle (a proxy: hands-in-pockets or wide guards move it; a flag means look, not fail).",
-  "bands": {
-    "child": [
-      0.3,
-      0.4
-    ],
-    "teen": [
-      0.35,
-      0.46
-    ],
-    "athletic": [
-      0.37,
-      0.48
-    ],
-    "broad": [
-      0.46,
-      0.62
-    ]
+  "_doc": "Build classes and each fighter's declared build, for `npm run lineup` (art/CHARACTER_SCALE.md, Build classes). sbr = shoulder band / standingPx, by the idle's hand style (guard = hands up in front of the chest; down = hands down or in the pockets); dr = deltoid-to-deltoid width by eye / standingPx (the gate measure, recorded in deltoidPx); mwrMin = the idle's max width / its height with hair. Fighters are listed in roster order.",
+  "classes": {
+    "child": { "dr": [0.21, 0.26], "sbr": { "guard": [0.30, 0.38], "down": [0.22, 0.28] }, "mwrMin": 0.40 },
+    "slim": { "dr": [0.26, 0.29], "sbr": { "guard": [0.34, 0.41], "down": [0.27, 0.31] }, "mwrMin": 0.42 },
+    "athletic-teen": { "dr": [0.29, 0.33], "sbr": { "guard": [0.37, 0.45], "down": [0.30, 0.35] }, "mwrMin": 0.42 },
+    "athletic-adult": { "dr": [0.34, 0.39], "sbr": { "guard": [0.42, 0.50], "down": [0.35, 0.41] }, "mwrMin": 0.42 },
+    "broad": { "dr": [0.39, 0.46], "sbr": { "guard": [0.47, 0.55], "down": [0.41, 0.48] }, "mwrMin": 0.42 }
   },
   "fighters": {
-    "naruto": {
-      "build": "teen",
-      "canonCm": 166,
-      "standingPx": 200
-    },
-    "sasuke": {
-      "build": "teen",
-      "canonCm": 168,
-      "standingPx": 200
-    },
-    "killua": {
-      "build": "child",
-      "canonCm": 158,
-      "standingPx": 182
-    },
-    "gojo": {
-      "build": "athletic",
-      "canonCm": 190,
-      "standingPx": 215
-    }
+    "naruto": { "build": "athletic-teen", "idleHands": "guard", "canonCm": 166, "standingPx": 200, "deltoidPx": 62 },
+    "sasuke": { "build": "athletic-teen", "idleHands": "guard", "canonCm": 168, "standingPx": 200, "deltoidPx": 60 },
+    "killua": { "build": "child", "idleHands": "guard", "canonCm": 158, "standingPx": 182, "deltoidPx": 42 },
+    "gojo": { "build": "athletic-adult", "idleHands": "down", "canonCm": 190, "standingPx": 215, "deltoidPx": 50, "_note": "deltoidPx is idle v02 (fails); target 78 (ART-GOJ-BUILD)" }
   }
 }

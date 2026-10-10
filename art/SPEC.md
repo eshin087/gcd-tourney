@@ -229,7 +229,9 @@ cell, facing right. Active-frame numbers are the same as in v1.
 | `beamFire` | both palms (beam origin) | all (loop) | beam origin | x 222-238, y 112-132 |
 | `special` | technique hand | 03, 04, 05 | LOW (stomach) | x 194-222, y 128-158 |
 
-Notes: the `heavy` F04 zone (y 22-46) is where the overhead fist can reach at bodyHeight 218 (the top of
+Notes: the `heavy` row names the fist, but the striking limb is the fighter's own launcher (Sasuke's rising foot,
+Killua's claw, Gojo's elbow then palm heel, KIT.md); the F03 / F04 zones are the same for every limb. The `heavy` F04
+zone (y 22-46) is where the overhead fist can reach at bodyHeight 218 (the top of
 the tallest frame sits at about y 22); ADR 0007 originally listed y 8-32. **Chidori-type specials** (the
 hand trails low behind at the lightning anchor (64, 199) during startup and the run): frames 03-04 hit
 with the leading shoulder/head (a `hitboxes.json` override); only 05, the thrust, uses the hand zone
