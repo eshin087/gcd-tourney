@@ -21,13 +21,15 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
 
   ```
   npm run pr -- start feature/<name>        # from the main folder; --full for art (raw generations)
-  # work, test (npx vite --port 52xx), commit in ../gcdTourney-worktrees/feature-<name>
+  # work, test (npx vite --port 52xx), commit in .worktrees/feature-<name>
   npm run pr -- open                        # from the worktree: slim publish + gh pr create (re-run to update)
   git merge main                            # in the worktree, only if merge reports conflicts
   npm run pr -- merge feature/<name>        # from the main folder: --no-ff merge, publish main, remove worktree
   npm run deploy
   ```
 
+  Worktrees live in `.worktrees/` inside the project (git-ignored, not watched by the dev server). Never run
+  `git clean -x` in the main folder: it deletes ignored files, including every worktree's uncommitted work.
   Never merge on GitHub (button or `gh pr merge`): GitHub holds a slim rewrite of local `main`, and a merge made
   there breaks the next fast-forward publish. Publishing local `main` marks the PR merged.
 - **Reverting:** each feature is one merge commit. Undo it with `git revert -m 1 <merge>` on a

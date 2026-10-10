@@ -20,7 +20,7 @@ feedback. The user can still generate an image by hand in ChatGPT; Codex files i
 
 **Branches (ADR 0013):** every new feature or character is a pull request. A new character's work runs in its
 own worktree: `npm run pr -- start feature/char-<id> --full` from the main folder, then every Codex thread for that
-character works and commits inside `../gcdTourney-worktrees/feature-char-<id>`. Art approvals for a character that
+character works and commits inside `.worktrees/feature-char-<id>`. Art approvals for a character that
 already ships still commit on `main`. Never `git checkout`, `switch` or `stash` in the main folder.
 
 ---
@@ -493,7 +493,7 @@ docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md 
 following and stop for my review after each numbered step.
 
 0. Branch (ADR 0013): from the main folder run npm run pr -- start feature/char-<id> --full, then do ALL of
-   the work below inside ../gcdTourney-worktrees/feature-char-<id> and commit there, never on main. When the
+   the work below inside .worktrees/feature-char-<id> and commit there, never on main. When the
    character is playable, run npm run pr -- open there and tell me the PR link; Claude or I merge it with
    npm run pr -- merge feature/char-<id>.
 1. Plan: add the CHAR-<id>-* and ART-<id>-* tasks to docs/TASKS.md (see ADDING_A_CHARACTER.md step 0).
