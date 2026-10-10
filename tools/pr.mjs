@@ -3,6 +3,7 @@
 //
 //   npm run pr -- start <branch> [--full]   new worktree + branch off main in .worktrees/<branch>
 //   npm run pr -- open [--title "..."]      (inside the worktree) publish the branch slim + open the GitHub PR
+//   npm run pr -- preview                   (inside the worktree) deploy the branch to a Vercel preview, link it in the PR
 //   npm run pr -- merge <branch>            (in the main checkout) merge --no-ff, publish main, remove the worktree
 //
 // Why worktrees: Claude sessions and Codex share the main checkout, so `git checkout` there would yank files
@@ -72,6 +73,23 @@ function open() {
   sh('gh', ['pr', 'create', '--repo', REPO, '--base', 'main', '--head', branch, '--title', title, '--body', body], cwd);
 }
 
+// A Vercel preview of the branch's committed work (tools/deploy.mjs --preview), linked in a PR comment, so the
+// user can try it on a phone before saying merge (ADR 0018). The live site is untouched.
+function preview() {
+  const branch = currentBranch(process.cwd());
+  if (branch === 'main') die('run this inside a PR worktree; main deploys with `npm run deploy`');
+  const cwd = git(['rev-parse', '--show-toplevel'], process.cwd());
+  const out = execFileSync(process.execPath, [path.join(cwd, 'tools', 'deploy.mjs'), '--preview'], { cwd, stdio: ['ignore', 'pipe', 'inherit'] }).toString();
+  process.stdout.write(out);
+  const url = (out.match(/PREVIEW_URL=(\S+)/) || [])[1];
+  if (!url) die('no preview URL in the deploy output');
+  const pr = execFileSync('gh', ['pr', 'list', '--repo', REPO, '--head', branch, '--json', 'number', '--jq', '.[0].number']).toString().trim();
+  if (!pr) { console.log(`[pr] preview: ${url} (no PR for ${branch} yet: run \`npm run pr -- open\`)`); return; }
+  const head = git(['rev-parse', '--short', 'HEAD'], cwd);
+  execFileSync('gh', ['pr', 'comment', pr, '--repo', REPO, '--body', `Preview of ${head}: ${url}\n\nThe test lab is at ${url}/lab.html once it ships.`], { stdio: 'inherit' });
+  console.log(`[pr] preview linked on #${pr}: ${url}`);
+}
+
 function merge() {
   const branch = positional;
   if (!branch) die('usage: pr merge <branch>');
@@ -97,4 +115,4 @@ function merge() {
   console.log(`[pr] merged ${branch}. Revert later with: git revert -m 1 ${git(['rev-parse', '--short', 'HEAD'])}`);
 }
 
-({ start, open, merge }[cmd] || (() => die('usage: pr start|open|merge (see tools/pr.mjs)')))();
+({ start, open, preview, merge }[cmd] || (() => die('usage: pr start|open|preview|merge (see tools/pr.mjs)')))();

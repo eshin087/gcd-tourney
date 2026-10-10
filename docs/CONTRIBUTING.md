@@ -23,6 +23,7 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
   npm run pr -- start feature/<name>        # from the main folder; --full for art (raw generations)
   # work, test (npx vite --port 52xx), commit in .worktrees/feature-<name>
   npm run pr -- open                        # from the worktree: slim publish + gh pr create (re-run to update)
+  npm run pr -- preview                     # from the worktree: a Vercel preview of the branch, linked on the PR (ADR 0018)
   git merge main                            # in the worktree, only if merge reports conflicts
   npm run pr -- merge feature/<name>        # from the main folder: --no-ff merge, publish main, remove worktree
   npm run deploy
