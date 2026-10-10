@@ -39,9 +39,11 @@ Then open http://127.0.0.1:5188
 
 ## Modes
 
-- **VS CPU**: pick your fighter and the CPU's (Easy / Normal / Hard / **Impossible**). Impossible reads frame
+- **VS CPU**: pick your fighter and the CPU's (Easy / Normal / Hard / **Insane** / **Impossible**). Impossible reads frame
   data: it parries and dodges what it sees coming, punishes whiffs, runs max-damage routes and wavedashes around
-  you. It only reacts to what's on screen, so fast jabs and mix-ups are guesses for it too. Every level uses its
+  you. It only reacts to what's on screen, so fast jabs and mix-ups are guesses for it too. Insane is the same
+  brain at a person's reaction speed: it sees your attacks later, parries and dodges less, and sometimes drops a
+  combo, so it sits between Hard and Impossible. Every level uses its
   whole kit over a match (specials, modes, supers, ultimates) and, from Normal up, parries, spot dodges, air
   dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
@@ -180,7 +182,7 @@ docs/          architecture, combat design, workflows, ADRs, task board
 ## Dev shortcuts
 
 - `/?fight=naruto,sasuke&mode=solo&level=hard` skips the menus and starts a match (`level` = easy, normal, hard
-  or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
+  insane or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
 - `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
 - `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
   `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,

@@ -416,7 +416,9 @@ fishing, bait, wavedash footsies, jump-ins with an air-dodge mix-up, zoning, cha
 Its answer to a threat is a weighted pick among the ones that work against it (parry, spot dodge, air dodge,
 counter, vanish, super dash through a shot, sidestep, counter-beam, block), weighted by the style and the
 Showcase. `STYLES` hold the fairness knobs: `impossible` (vs a player: sees an attack after 7 f, parries about
-half the time, max-damage routes) and `showman` (CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
+half the time, max-damage routes), `insane` (the INSANE level between HARD and IMPOSSIBLE: sees an attack after
+12 f, parries 28%, dodges and techs less, and drops 15% of its combos after 2-3 hits via `drop`) and `showman`
+(CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
 
 The **showman** plays for the viewer: short combos that end in a special, shot, teleport or vanish kick (the
 launcher route stops extending at `cap` = 5 hits), mid-range neutral with the kit (zoning, kit tools, air

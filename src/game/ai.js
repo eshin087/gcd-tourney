@@ -14,12 +14,13 @@ function ultimateFits(U, dist, sd) {
 import { MasterBrain } from './aiMaster.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
 
-export const CPU_LEVELS = ['easy', 'normal', 'hard', 'impossible'];
+export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
 
 // One brain per CPU side. IMPOSSIBLE is its own frame-data brain (aiMaster.js, ADR 0014); in CPU vs CPU it
 // plays the louder 'showman' style so a spectated fight keeps moving.
 export function makeBrain(fighter, level = 'normal', spectate = false) {
-  if (level === 'impossible') return new MasterBrain(fighter, spectate ? 'showman' : 'impossible');
+  // INSANE is the same frame-data brain with human reactions and the odd dropped combo (STYLES.insane)
+  if (level === 'impossible' || level === 'insane') return new MasterBrain(fighter, spectate ? 'showman' : level);
   return new CpuBrain(fighter, level);
 }
 
