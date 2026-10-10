@@ -27,7 +27,7 @@ art/ui/
 | asset | final file | size | background | status |
 |---|---|---|---|---|
 | logo: "GCD TOURNEY" + subtitle 天下一武闘祭 | `final/logo.png` | about 480 x 180 (exact size flexible; keep it crisp at 1x) | transparent | todo |
-| title-screen key art | `final/title_art.png` | 640 x 360 (16:9, the game's internal resolution; shown at integer scale) | opaque | todo |
+| title-screen key art | `final/title_art.png` | 640 x 360 (16:9, the game's internal resolution; shown at integer scale) | opaque | v02 approved |
 | title background only (optional) | `final/title_bg.png` | 640 x 360 | opaque | optional, for a layered/animated title later |
 
 ### Logo
@@ -62,9 +62,11 @@ Alternatively, keep the subtitle as the styled HTML text the title screen alread
 
 ### Title key art
 
-- The two starter fighters face off in the tournament ring: Naruto on the left facing right,
-  Sasuke on the right facing left, in fighting stances, auras flaring (orange vs blue). Both in their
-  **Shippuden** designs at about 6.5 heads tall (spec v2), serious expressions; not chibi.
+- Two fighters from different series face off in the tournament ring: short-haired Shippuden Naruto
+  on the left facing right, Killua on the right facing left, in fighting stances with orange chakra
+  and blue-white lightning. Naruto has short compact blond spikes with no cheek-length locks;
+  Killua is a visibly shorter, slim boy in a purple top, navy shorts and high-top sneakers. Both
+  keep their approved serious anime proportions; not chibi.
 - Setting (matches the in-game arena): a tiled stone tournament ring, mowed grass around it,
   a temple behind, packed cheering crowd stands, a big gate, trees, warm late-afternoon sky.
 - Composition: keep the **top 35 % free** (sky) for the logo; fighters in the lower two thirds;
@@ -72,7 +74,9 @@ Alternatively, keep the subtitle as the styled HTML text the title screen alread
 - HD-2D diorama look in crisp pixel art: light, bloom and glows drawn as hard-edged stepped
   shapes, no photographic blur.
 - The fighters must match their approved model sheets (attach both `reference/model_sheet.png`
-  files). This is the only image that shows both characters together; sprite images never do.
+  files). The title screen uses the static painted audience in this image, per the user's
+  preference. This is the only image that shows two fighters together; sprite images
+  never do.
 
 ## Cleaning and sizes
 

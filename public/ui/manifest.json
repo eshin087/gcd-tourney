@@ -3,6 +3,6 @@
   "packer": 2,
   "assets": {
     "logo": { "file": "logo.png", "size": [480, 180], "version": 1 },
-    "title_art": { "file": "title_art.png", "size": [640, 360], "version": 1 }
+    "title_art": { "file": "title_art.png", "size": [640, 360], "version": 2 }
   }
 }

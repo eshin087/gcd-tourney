@@ -1115,8 +1115,8 @@
       "size": [640,360],
       "step": 11,
       "status": "approved",
-      "version": 1,
-      "approvedVersion": 1
+      "version": 2,
+      "approvedVersion": 2
     }
   },
   "worldArt": {
@@ -2563,7 +2563,7 @@
           "status": "approved",
           "reviewStatus": "approved",
           "items": {
-            "title_art": {"status":"approved","version":1,"approvedVersion":1}
+            "title_art": {"status":"approved","version":2,"approvedVersion":2}
           }
         }
       }

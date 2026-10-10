@@ -41,21 +41,22 @@ Background: flat solid magenta #FF00FF everywhere. No characters, no scenery, no
 ## Title-screen key art
 
 Save as: `raw/title_art_vNN.png` -> approved one cleaned into `final/title_art.png` (640x360).
-Attach: both fighters' approved spec v2 `reference/model_sheet.png` files (naruto and sasuke). Do it
-only after both are approved. This is the only prompt that puts both characters in one image.
+Attach: the approved spec v2 `reference/model_sheet.png` files for Naruto and Killua. When revising
+the current composition, also attach `raw/title_art_v01.png` as the scene reference. This is the
+only prompt that puts two fighters in one image; the crowd stays painted into the static title art.
 
 ```text
 Hi-res pixel art key art for the title screen of an anime arena fighting game, 16:9 wide image, HD-2D diorama look.
 Scene: a large square tournament ring of pale tiled stone, seen from slightly above and in front, surrounded by short mowed grass. Behind it, a traditional Japanese temple with curved roofs, a big wooden gate, green trees, and packed stands of cheering spectators in many colors. Warm late-afternoon light, golden sky with a few clouds.
-On the ring, the two fighters from the attached model sheets face off in fighting stances, matching their designs, proportions and colors exactly. Both are drawn with realistic anime proportions, about 6.5 heads tall, athletic teenage builds, serious and intense expressions; not chibi, not super-deformed:
-on the LEFT, facing right: a lean, athletic young ninja of about 16 with a confident, determined air; thick spiky golden-blond hair with spiky bangs, bright blue eyes, three thin whisker-like marks on each cheek; a long black cloth forehead band with a polished steel plate engraved with a leaf-swirl symbol; a black-and-orange zip-up track jacket (black shoulders, upper chest, upper sleeves and high collar, orange body and lower sleeves, a red spiral emblem on the back); orange pants; a small holster on his right thigh; black open-toed ninja sandals; with a flaring orange aura;
-on the RIGHT, facing left: a lean, pale young ninja of about 16 with a cold, calm, precise air; black hair with a dark-blue sheen, spiky and swept back at the back of his head, with long bangs framing both sides of his face down past the jaw; sharp, narrow dark eyes; no forehead band; a white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, with a small red-and-white round paper-fan emblem on the back of the collar; a thick purple rope belt tied in a big bow at the back; a dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants; dark navy arm guards on his forearms; black open-toed ninja sandals; a straight sword in a black sheath tucked horizontally through the rope belt at the small of his back; with crackling blue lightning in one hand and a blue aura.
+On the ring, the two fighters from the attached model sheets face off in fighting stances, matching their designs, proportions and colors exactly. Both have serious anime proportions and intense expressions, never chibi: the older ninja is about 6.5 heads tall, while the younger assassin is about 6 heads tall and visibly shorter.
+on the LEFT, facing right: a lean athletic young ninja of about 16 with bright blue eyes and three thin whisker-like marks on each cheek; short compact golden-blond triangular spikes, bangs ending above or at the forehead plate, temple tufts ending near the upper ears, no cheek- or jaw-length golden locks; a black cloth forehead band with two long BLACK cloth tails and a polished steel leaf-swirl plate; a black-and-orange zip-up track jacket with a high black collar, orange pants, a small right-thigh holster, black open-toed ninja sandals; with a flaring orange aura;
+on the RIGHT, facing left: a slim, wiry, pale boy of about 13, visibly shorter and narrower than the left fighter, with sharp blue catlike eyes and fluffy spiky silver-white hair; a loose lavender-purple long-sleeved shirt with a dark-navy rolled collar over a white undershirt visible at the cuffs and hem; baggy dark-navy shorts ending above the knees, bare shins, purple high-top sneakers with white soles and laces; low relaxed assassin stance with hard-edged blue-white lightning around his hands. No white open-collar shirt, rope belt, sword or sandals.
 Composition: the fighters stand in the lower two thirds; keep the top third of the image as open sky with no important details (a logo goes there). Dramatic but readable.
 Crisp hard pixel art: dark outlines on the characters, 3-4 tone cel shading, light glows and auras drawn as hard-edged stepped shapes, no anti-aliasing, no photographic blur, no text, no logo, no frame.
 ```
 
 The two fighter descriptions follow the `## One-paragraph look` sections of
-`art/characters/naruto/CHARACTER.md` and `art/characters/sasuke/CHARACTER.md` (spec v2, Shippuden).
+`art/characters/naruto/CHARACTER.md` and `art/characters/killua/CHARACTER.md` (spec v2).
 Before running this prompt, check them against those sections and paste the current text if a brief
 changed; when the roster changes, paste the new characters' `## One-paragraph look` text in their
 place.
