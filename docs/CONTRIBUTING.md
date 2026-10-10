@@ -16,11 +16,26 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
 | `docs/` | docs-only changes | `docs/combat-frame-data` |
 | `chore/` | tooling, deps, cleanup | `chore/packer-palette-report` |
 
-- Parallel Codex art threads (one per character) share one working copy, so they share **one** art branch
-  that the user creates before the session (e.g. `art/spec-v2-restart`). Threads never `git checkout`,
-  `switch` or `stash`, and each commit stages explicit paths only (never `git add -A`, `git add .` or
-  `git commit -a`). See AGENTS.md step 10.
-- Merge to `main` with a fast-forward or squash once the review checklist passes. Delete the branch after.
+- **Every new feature or character is a pull request** built in its own worktree ([ADR 0013](decisions/0013-pull-requests-in-worktrees.md)).
+  The main checkout is shared by Claude sessions and Codex threads, so nobody switches branches there:
+
+  ```
+  npm run pr -- start feature/<name>        # from the main folder; --full for art (raw generations)
+  # work, test (npx vite --port 52xx), commit in ../gcdTourney-worktrees/feature-<name>
+  npm run pr -- open                        # from the worktree: slim publish + gh pr create (re-run to update)
+  git merge main                            # in the worktree, only if merge reports conflicts
+  npm run pr -- merge feature/<name>        # from the main folder: --no-ff merge, publish main, remove worktree
+  npm run deploy
+  ```
+
+  Never merge on GitHub (button or `gh pr merge`): GitHub holds a slim rewrite of local `main`, and a merge made
+  there breaks the next fast-forward publish. Publishing local `main` marks the PR merged.
+- **Reverting:** each feature is one merge commit. Undo it with `git revert -m 1 <merge>` on a
+  `fix/revert-<name>` branch, through the same PR flow.
+- Straight-to-`main` commits are only for docs-only edits, bookkeeping and art approvals for a character that
+  already ships. A new character's art production (Codex threads) commits on its `feature/char-<id>` branch.
+- Commits stage explicit paths only (never `git add -A`, `git add .` or `git commit -a`). See AGENTS.md step 10.
+- Merge only after the review checklist passes (unless the user asked to review the PR first).
 - Don't rewrite `main` history.
 
 ## Commits: Conventional Commits
@@ -126,7 +141,7 @@ exists for architectural decisions, and the commit is conventional.
 
 ## Hosting and the GitHub mirror
 
-- **GitHub** (private): https://github.com/eshin087/gcd-tourney. `npm run publish:github` pushes `main`
+- **GitHub** (private): https://github.com/eshin087/gcd-tourney. PRs come from `npm run pr` (above). `npm run publish:github` pushes `main`
   without raw image generations (`art/**/raw/`, `_rejected/`, `_old/`, contact sheets), which stay only in
   the local repository (~1 GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
   `python -m pip install git-filter-repo`.

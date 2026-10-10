@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Every new feature or character now lands through a pull request built in its own git worktree: `npm run pr -- start|open|merge` (tools/pr.mjs), one `--no-ff` merge commit per feature so it reverts cleanly (ADR 0013, OPS-002).
+
 - Naruto final batch approved by the user: all 42 animations and three UI assets; promoted UI sources, preserved pose/reach QA notes, and handed gameplay integration to Claude.
 
 - Naruto complete candidate batch for one final review: 40 new animations and three UI images, completing 42 animations / 175 frames. Corrected pose separation, dash placement, knockout and cut-in; 48-color atlas, frame-local hand boxes, and phone-friendly playback review (ART-NAR-FINAL).

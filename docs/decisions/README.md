@@ -38,6 +38,7 @@ when a decision should be revisited.
 | [0010](0010-per-character-body-scale.md) | Per-character body scale (shorter Killua, taller Gojo); amends 0007 | Accepted |
 | [0011](0011-kit-baseline-and-balance.md) | Kit baseline: every fighter fills the same slots within the same budgets; balance log | Accepted |
 | [0012](0012-art-integration-gates-and-hand-anchors.md) | Art integration: approval-gated world art (VFX, crowd, stage, NPC, UI), local candidate preview, per-frame hand anchors | Accepted |
+| [0013](0013-pull-requests-in-worktrees.md) | Every feature and character lands through a PR, built in its own worktree (`npm run pr`) | Accepted |
 
 ## Template
 

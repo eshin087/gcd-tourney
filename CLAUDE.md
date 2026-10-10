@@ -39,6 +39,9 @@ documentation that stays true.
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app |
+| `npm run pr -- start feature/<name>` | new worktree + branch off main in `../gcdTourney-worktrees/` (sparse; `--full` for art). **Every feature/character starts here** (ADR 0013) |
+| `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
+| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
@@ -75,6 +78,14 @@ docs/          SDLC docs, ADRs, task board, agent prompts
 
 ## Hard rules
 
+0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
+   Start with `npm run pr -- start feature/<name>` (or `fix/`, `chore/`, `art/`), work and commit in that worktree,
+   `npm run pr -- open`, then `npm run pr -- merge <branch>` once the Definition of Done passes (unless the user asked to
+   review first), then deploy. Never commit features straight to `main`, never `git checkout`/`switch`/`stash` in the
+   shared main checkout, never use the GitHub merge button or `gh pr merge`. Only docs-only edits, bookkeeping and art
+   approvals for a character that already ships may commit straight to `main`. Revert a feature with
+   `git revert -m 1 <merge>` in a `fix/revert-<name>` PR. Each worktree runs its own dev server port
+   (`npx vite --port 52xx`).
 1. **Gameplay timing lives in `src/game/moves.js`**, never in art. Animation frames are stretched over a
    move's startup, active and recovery phases (`phases` in anims.json).
 2. **Animation names are a contract.** The canonical list is `src/art/animGuide.js`. Adding or renaming one
@@ -149,6 +160,7 @@ A change is done when:
 - [ ] `docs/TASKS.md` status is updated (and `art/TRACKER.md` + `art/manifest.json` for art-facing work).
 - [ ] An ADR exists for any architecture-level decision (new dependency, new pipeline, new core system).
 - [ ] The commit message is a conventional commit (`feat(combat): ...`). See docs/CONTRIBUTING.md.
+- [ ] Features and characters: on their own branch with a PR (`npm run pr -- open`), merged with `npm run pr -- merge`.
 
 ## Where docs live
 

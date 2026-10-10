@@ -34,6 +34,7 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 | TOOL-001 | `tools/pack-sprites.mjs` + `npm run sprites [id\|vfx]`: clean, scale, align, auto boxes, overrides, report | Claude | done | ADR 0006 |
 | DOC-001 | SDLC docs: CLAUDE.md, AGENTS.md, docs/*, ADRs 0001-0006, CHANGELOG, Codex prompts | Claude | review | check the facts against code after the M2 engine tasks land |
 | DOC-002 | Art briefs: art/README, SPEC, STYLE_GUIDE, PIPELINE, TRACKER, manifest, `_template`, Naruto/Sasuke/VFX/UI | Claude | done | |
+| OPS-002 | PR-only workflow for features and characters: `tools/pr.mjs` (worktree start / slim publish + PR / no-ff merge), ADR 0013, CLAUDE/AGENTS/CONTRIBUTING/AI_COLLABORATION/Codex prompts | Claude | done | 2026-10-10; files: tools/pr.mjs, package.json, CLAUDE.md, AGENTS.md, docs/CONTRIBUTING.md, docs/AI_COLLABORATION.md, docs/agents/CODEX_PROMPT.md, docs/decisions/ |
 | OPS-001 | Initialize the local git repo, first commit, verify `.gitignore` (node_modules, dist) | Claude | done | conventional commits from here on |
 | USR-001 | Play-test M2 (training room, layouts, rebinding, mute, hit accuracy) and sign off | User | todo | after the ENG tasks reach `review` |
 

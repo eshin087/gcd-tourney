@@ -52,7 +52,9 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 
 1. **Claim.** Before starting, find or create the task in docs/TASKS.md and set `owner` and
    `status: in-progress`. If someone else holds it, don't start. Add a note or ask the user.
-2. **Work small.** One task per branch or commit series. Don't mix engine changes with art filing.
+2. **Work small, on a branch.** Every new feature or character gets its own worktree, branch and PR
+   (`npm run pr -- start|open|merge`, [ADR 0013](decisions/0013-pull-requests-in-worktrees.md)). Don't mix
+   engine changes with art filing.
 3. **Log.** Add a CHANGELOG line under Unreleased. Update REVIEW, the tracker and the manifest for art.
 4. **Hand back.** Set the status to `review` with a one-line note: what changed, how to verify, and any
    follow-up tasks you created (with owners).
@@ -72,7 +74,7 @@ Codex generates (up to 3 attempts), then saves ONLY the single best attempt
 user: "approve vNN"  -> row approved, manifest approvedVersion = NN, fixed-name copy
                         (reference/model_sheet.png, expressions.png, idle_approved.png, ui/<name>.png);
                         any other "needs review" row of the asset -> rejected (superseded by vNN),
-                        file to _rejected/; commit (explicit paths only, current branch)
+                        file to _rejected/; commit (explicit paths only; new character: its feature/char-<id> worktree)
 user: feedback       -> row rejected (reason), the file moves to the _rejected/ folder next to it
                         (raw/_rejected/, reference/_rejected/, ...), Codex generates the next version
 ```
@@ -80,7 +82,7 @@ user: feedback       -> row rejected (reason), the file moves to the _rejected/ 
 Naruto and Sasuke run in parallel (separate Codex threads, Prompt 1 with `<id>` filled in): each character
 has its own loop, and one can move on while the other waits for review. Never put two characters in one
 image (only exception: the shared title key art in art/ui/PROMPTS.md). The threads share one working copy
-and one art branch: no `git checkout`/`switch`/`stash`, and each commit stages explicit paths only (never
+(or one `feature/char-<id>` worktree per new character): no `git checkout`/`switch`/`stash`, and each commit stages explicit paths only (never
 `git add -A`, `git add .` or `git commit -a`). Each thread re-reads
 art/REVIEW.md right before editing it and only touches its own character's rows.
 
