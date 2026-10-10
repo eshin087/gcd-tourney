@@ -52,4 +52,3 @@ if(start<0)throw Error('Sasuke tracker section not found');fs.writeFileSync('art
 let tasks=fs.readFileSync('docs/TASKS.md','utf8');tasks=tasks.replace(/(\| ART-SAS-(?:REDRAW|SIZE)-20261010[^\n]*?)\| in-progress \|/g,'$1| review |');fs.writeFileSync('docs/TASKS.md',tasks);
 const change='CHANGELOG.md';fs.writeFileSync(change,fs.readFileSync(change,'utf8').replace('## [Unreleased]',`## [Unreleased]\n\n- Sasuke ${batch}: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.`));
 console.log(JSON.stringify({out,metrics}));
-
