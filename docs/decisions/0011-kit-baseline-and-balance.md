@@ -106,7 +106,12 @@ whose neutral special is a rush (it ends its combos with it), so trust hands-on 
 | 8 | 72 | 67 % | 56 % | 42 % | 36 % | 40 % | Rasenshuriken 12/tick + 76; Naruto speed 5.9; Killua defense 0.95 |
 | 9 | 72 | 64 % | 42 % | 44 % | 50 % | 46 % | Rasengan 150 → 140, Chidori 165 → 152; Blue pop 40, recovery 23 |
 | check | 24 (Naruto vs Gojo) | 58 % | - | - | 42 % | - | Infinity charges once per volley (Naruto's 3-shuriken throws drained 45 ki each; Naruto had won 29 of 36 vs Gojo across runs 6-9) |
+| 10-11 | 144 | 53 % | **33 %** | 58 % | 56 % | 47 % | first run with art: Naruto, Killua and Gojo on their approved art packs (art hurt/hit boxes, hand anchors); Sasuke still the baked placeholder |
 
-Current read (2026-10-09): every fighter is within about 40-60 % in CPU play, and no errors, ring-outs, NaN
-positions or stuck states showed up in about 500 matches. Naruto leads in CPU play (about 60 %). Re-run after the
-real art lands (hurtboxes change) and after any kit change (ENG-037).
+Current read (2026-10-10): with three fighters on real art, Naruto, Killua and Gojo sit at 53-58 % and Sasuke drops
+to 33 % (runs 10-11 alone: 36 % and 31 %). The likely cause is mixing art sources, not his kit: his placeholder's
+standing hurtbox is 0.68 units wide, the art packs' are 0.41-0.52 (widened to the 0.56 minimum), so he is about
+20 % easier to hit, at similar reach. No tuning yet, because his art (ART-SAS) replaces the placeholder; if it
+stays a while, narrow the placeholder hurtbox instead of buffing his kit (ENG-038). No errors, ring-outs outside a
+KO, NaN positions or stuck states in about 650 matches. Re-run when Sasuke's art lands and after any kit change
+(ENG-037).

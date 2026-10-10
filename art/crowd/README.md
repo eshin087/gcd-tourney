@@ -13,10 +13,12 @@ and the user reviews whole batches on contact sheets.
 this folder disagrees with it, the ADR wins. Look and taste: [STYLE.md](STYLE.md). Paste-ready
 prompts: [PROMPTS.md](PROMPTS.md). Fighter-wide craft rules: [art/STYLE_GUIDE.md](../STYLE_GUIDE.md).
 
-> **Tooling status (2026-10-08).** The queue tool (`npm run queue`), the packer's crowd mode
-> (`npm run sprites crowd`) and the engine's atlas loader are being built by Claude in parallel
-> (ADR 0008). The commands below are their agreed contract. Until a command exists, the Codex lead
-> does that step by hand (assigns batches, reviews raws directly) and nothing else changes.
+> **Tooling status (2026-10-10).** The queue tool (`npm run queue`), the packer's crowd mode
+> (`npm run sprites crowd`) and the engine's atlas loader exist. The crowd mode packs **approved**
+> spectators only (`approvedVersion` in `worldArt.crowd.batches` of `art/manifest.json`) into
+> `public/crowd/`; `node tools/pack-sprites.mjs crowd --candidates` packs every latest version into the
+> git-ignored `public/preview/crowd/` for review in a match with `?art=custom`. Per-batch contact sheets and
+> `frames/` write-back are not built yet (TOOL-011): until then the lead reviews raws directly.
 
 ## Folder layout
 
@@ -229,8 +231,9 @@ Keep moving. A spectator is 64 x 96 pixels in the end: good-and-consistent beats
 
 The user reviews **batches, not single images**:
 
-1. The lead runs `npm run sprites crowd`, which packs the atlas and writes one contact sheet per batch
-   to `art/crowd/contact/<batch>.png` (each spectator's three cleaned cells next to its id).
+1. The lead shows the batch's raws (the phone gallery, or the candidate atlas in a match with
+   `?art=custom` after `node tools/pack-sprites.mjs crowd --candidates`). Per-batch contact sheets in
+   `art/crowd/contact/<batch>.png` come with TOOL-011.
 2. The lead adds **one `art/REVIEW.md` row per batch** (`needs review`) linking the contact sheet,
    with the ids that workers flagged.
 3. The user answers in chat or in REVIEW.md: `approve crowd-dragon-ball-01`, or
@@ -248,12 +251,12 @@ must not be thinly disguised copies of real characters.
 
 ## How the engine uses it
 
-- The packer turns every spectator's highest raw version into three 64 x 96 cells (idle scaled to
-  its height class, feet on the pivot, magenta removed) and writes **`public/crowd/atlas.png` +
+- The packer turns every **approved** spectator's approved raw version into three 64 x 96 cells (idle
+  scaled to its height class, feet on the pivot, magenta removed) and writes **`public/crowd/atlas.png` +
   `atlas.json`**: 64 cells per row (4096 px wide), each spectator = 3 consecutive cells in one row
   (21 spectators per row; 500 spectators = 24 rows = 2304 px tall, the current 576 = 28 rows = 2688 px).
   `atlas.json` = `{ "cell": [64, 96], "cols": 64, "ppu": 50, "pivot": [32, 94], "frames": ["idle",
-  "cheer", "shocked"], "spectators": [{ "id", "cell", "heightClass", "kind", "tags" }] }`.
+  "cheer", "shocked"], "spectators": [{ "id", "cell", "heightClass", "kind", "tags", "version" }] }`.
 - In a match, the crowd is one instanced set of camera-facing billboards. Every seat gets a
   **unique spectator**, reshuffled each match; the seat count goes up to about 400, so each match
   shows a different slice of the 500+.

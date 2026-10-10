@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
-import { fetchArtJson } from '../core/artIndex.js';
+import { fetchAtlasJson } from '../core/artIndex.js';
 import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 
 const VERT = /* glsl */ `
@@ -83,17 +83,19 @@ export class Effects {
     this.camFwd = new THREE.Vector3(0, 0, -1);
   }
 
-  // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`).
-  // Effects missing from the custom atlas keep their procedural frames (upscaled).
+  // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
+  // ?art=custom prefers the unapproved candidates in public/preview/vfx/). Effects missing from the custom atlas
+  // keep their procedural frames (upscaled).
   async loadCustom() {
     try {
-      const cm = await fetchArtJson('/vfx/atlas.json');
-      if (!cm) return false;
+      const found = await fetchAtlasJson('/vfx');
+      if (!found) return false;
+      const { data: cm, dir } = found;
       if (!cm.anims) {
         console.warn('[vfx] atlas.json has no "anims", keeping procedural effects');
         return false;
       }
-      const img = await loadImage(`/vfx/atlas.png?v=${Date.now()}`);
+      const img = await loadImage(`${dir}/atlas.png?v=${Date.now()}`);
       if (!img) {
         console.warn('[vfx] atlas.json found but atlas.png is missing or unreadable, keeping procedural effects');
         return false;
@@ -127,7 +129,7 @@ export class Effects {
       this.H = cv.height;
       this.tex.image = cv;
       this.tex.needsUpdate = true;
-      console.info(`[vfx] custom effects: ${custom.join(', ') || 'none'}`);
+      console.info(`[vfx] custom effects${dir === '/vfx' ? '' : ' (candidates)'}: ${custom.join(', ') || 'none'}`);
       return true;
     } catch (e) {
       console.warn('[vfx] custom atlas failed, keeping procedural effects', e);
@@ -500,17 +502,18 @@ export class Effects {
   handTick(f, kind, phase, prog) {
     const fx = f.face.x, fz = f.face.y;
     const P = f.renderPos || f.pos;
+    // an art pack's drawn palm (anims.json `hand` / hit box) wins over the placeholder's tuned offsets
+    const H = f.actor?.hand?.();
+    const at = (fwd, up) => (H ? { x: P.x + fx * H.x, y: P.y + H.y, z: P.z + fz * H.x } : { x: P.x + fx * fwd, y: P.y + up, z: P.z + fz * fwd });
     if (kind === 'rasengan') {
       const s = phase === 0 ? 0.25 + prog * 0.45 : 0.72;
-      const p = { x: P.x + fx * 0.6, y: P.y + 0.72, z: P.z + fz * 0.6 };
+      const p = at(0.6, 0.72);
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.7 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('star', p.x, p.y, p.z, { scale: 0.2, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     } else if (kind === 'rasenshuriken') {
       // a big wind orb ringed by spinning blades, held high in startup and thrust forward in active
-      const p = phase === 0
-        ? { x: P.x + fx * 0.25, y: P.y + 1.55, z: P.z + fz * 0.25 }
-        : { x: P.x + fx * 0.7, y: P.y + 0.8, z: P.z + fz * 0.7 };
+      const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
       const s = phase === 0 ? 0.3 + prog * 0.6 : 0.9;
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, color: 0xe8f6ff, order: 9, glow: 0.8 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
@@ -520,10 +523,7 @@ export class Effects {
         this.spawn('streak', p.x + Math.cos(a) * s * 0.9, p.y + Math.sin(a) * s * 0.5, p.z, { scale: 0.35, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
       }
     } else if (kind === 'chidori') {
-      const back = 0.5;
-      const p = phase === 2
-        ? { x: P.x + fx * 0.7, y: P.y + 0.78, z: P.z + fz * 0.7 }
-        : { x: P.x - fx * back, y: P.y + 0.32, z: P.z - fz * back };
+      const p = phase === 2 ? at(0.7, 0.78) : at(-0.5, 0.32);
       const s = phase === 0 ? 0.4 + prog * 0.5 : 0.9;
       const it = this.keep('hand' + f.index, 'lightning', p.x, p.y, p.z, { scale: s, color: 0xd8f0ff, order: 9, glow: 1.0 });
       it.random = true;

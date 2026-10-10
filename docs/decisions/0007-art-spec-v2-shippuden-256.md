@@ -149,7 +149,7 @@ diagonally, not fully horizontal.
   block from the manifest; v2 defaults), the briefs, prompts, template, pipeline and agent docs all move to v2
   in one change.
 - The engine needs no code change: `SheetAsset` / `SpriteActor` read frame size, pivot and ppu from
-  `anims.json`; ppu 128 triggers the HD render mode automatically. Sheets are 4096 x 2560: fine on desktop
+  `anims.json`; ppu 128 triggers the HD render mode automatically. Sheets are 4096 x 2560 (4096 x 2816 since the ADR 0011 kit animations: 175 frames, 11 rows): fine on desktop
   GPUs; a GPU with a 2048 texture limit would get a downscaled sheet (three.js warns). Revisit with a
   per-animation atlas if mobile ever matters.
 - The in-game 3D-baked placeholder stays chibi (112 px, ppu 44) until the art packs land; restyling it is a

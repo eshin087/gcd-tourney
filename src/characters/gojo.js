@@ -143,4 +143,5 @@ export default {
   runLean: 30,
   portraitFace: 'smirk',
   cutinEyes: 'six', // the cut-in shows the eyes under the blindfold
+  selectFacing: 'right', // which way art/characters/gojo/ui/select faces (char select mirrors it per side)
 };

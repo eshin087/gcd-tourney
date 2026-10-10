@@ -86,5 +86,5 @@ cinematic camera.
   hit reaction).
 - Asset size: consider Git LFS for `art/**/raw/*.png` and `art/**/reference/*.png` when a remote is added
   (versioned `_vNN` images are never deleted, so they add up).
-- Texture size: spec v2 sheets are 4096 × 2560. If mobile ever matters, split them into per-animation atlases
+- Texture size: spec v2 sheets are 4096 × 2816. If mobile ever matters, split them into per-animation atlases
   (ADR 0007 consequences).

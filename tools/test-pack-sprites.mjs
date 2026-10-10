@@ -184,7 +184,7 @@ function makeFixtures() {
   for (const n of ['ui_portrait.png', 'ui_portrait_v02.png', 'fx_chidoriBall.png', 'light1_fix01.png', path.join('_proposed', 'cloneAssist.png')]) savePng(raw(n), strip([{}], { seed: 21 }));
   fs.writeFileSync(path.join(T, 'hitboxes.json'), JSON.stringify({
     _comment: 'test overrides',
-    light1: { 3: { hit: [[180, 80, 45, 30]] } },
+    light1: { 3: { hit: [[180, 80, 45, 30]], hand: [214.4, 95] }, 4: { hand: 'oops' } },
     idle: { 9: { hit: [[1, 1, 1, 1]] } },
   }, null, 2));
 
@@ -342,6 +342,32 @@ function makeFixtures() {
     }
   }
 
+  // crowd (ADR 0008): one raw per spectator, 3 poses (idle, cheer, shocked) on a 1536 x 1024 magenta canvas
+  const C = path.join(ART, 'crowd');
+  {
+    const crowdRaw = (poses, seed) => {
+      const rand = mulberry(seed);
+      const img = image(1536, 1024, [252, 3, 252], rand);
+      poses.forEach((p, k) => drawFigure(img, 256 + k * 512, 900, p, rand));
+      fringe(img, rand);
+      return img;
+    };
+    fs.mkdirSync(path.join(C, 'roster'), { recursive: true });
+    fs.writeFileSync(path.join(C, 'roster', 'testers.json'), JSON.stringify({ group: 'testers', kind: 'original', spectators: [
+      { id: 'c-001', label: 'medium adult', heightClass: 'medium', tags: ['adult'] },
+      { id: 'c-002', label: 'not approved', heightClass: 'tall', tags: [] },
+      { id: 'c-003', label: 'kid, redone', heightClass: 'tiny', tags: ['kid'] },
+      { id: 'c-004', label: 'approved, raw missing', heightClass: 'short', tags: [] },
+      { id: 'c-006', label: 'huge, arm far up', heightClass: 'huge', tags: [] },
+    ] }));
+    savePng(path.join(C, 'raw', 'c-001_v01.png'), crowdRaw([{}, { up: 20 }, { bob: -2 }], 60));
+    savePng(path.join(C, 'raw', 'c-002_v01.png'), crowdRaw([{}, { up: 10 }, {}], 61));
+    savePng(path.join(C, 'raw', 'c-003_v01.png'), crowdRaw([{}, {}], 62)); // only 2 poses: must not be the one packed
+    savePng(path.join(C, 'raw', 'c-003_v02.png'), crowdRaw([{}, { up: 12 }, { bob: -3 }], 63));
+    savePng(path.join(C, 'raw', 'c-006_v01.png'), crowdRaw([{}, { up: 70 }, {}], 64));
+    savePng(path.join(C, 'raw', '_rejected', 'c-002_v02.png'), crowdRaw([{}, {}, {}], 65));
+  }
+
   fs.writeFileSync(path.join(ART, 'manifest.json'), JSON.stringify({
     version: 1,
     spec: SPEC,
@@ -351,7 +377,13 @@ function makeFixtures() {
       testy: { name: 'Testy', animations: { idle: { frames: 8, loop: true, bodyHeight: 204, status: 'todo' }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'approved' }, land: { frames: 2, status: 'todo' } }, ui: { portrait: { status: 'todo' } } },
       vers: { name: 'Vers', animations: { idle: { frames: 8, loop: true, status: 'todo', version: 0, approvedVersion: 2 } } },
     },
-    vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: null }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo' } } },
+    // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
+    vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
+      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 } } },
+    worldArt: { crowd: { batches: {
+      'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
+      'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
+    } } },
   }, null, 2));
 }
 
@@ -451,6 +483,8 @@ function main() {
     const b = bb(cell(sheet, f));
     check(hit[0] >= idleMaxX - v2px(8) && hit[0] + hit[2] >= b.x1 && hit[2] >= v2px(20) && hit[2] < v2px(60) && hit[3] < v2px(30), `light1 #2 hitbox ${JSON.stringify(hit)} covers forearm + fist + smear (idle maxX ${idleMaxX}, frame maxX ${b.x1})`);
     check(JSON.stringify(meta.boxes[meta.animations.light1.frames[3]].hit) === '[[180,80,45,30]]', 'hitboxes.json override applied to light1 #3');
+    check(JSON.stringify(meta.boxes[meta.animations.light1.frames[3]].hand) === '[214,95]', 'hitboxes.json hand anchor written (rounded) for light1 #3');
+    check(!meta.boxes[meta.animations.light1.frames[4]]?.hand, 'invalid hand anchor ignored');
     const hurt = meta.boxes[f].hurt[0];
     check(!overlap(hurt, [b.x1 - 2, hit[1], 2, hit[3]]) || hurt[0] + hurt[2] < b.x1, 'light1 #2 hurtbox does not reach the fist tip');
   }
@@ -855,6 +889,71 @@ function main() {
   check(r11.code === 0 && anyWarn(w11, /spec\.frameWidth is "wide"/) && anyWarn(w11, /spec\.pivot is \[300,240\]/) && anyWarn(w11, /spec\.warnColors is -1/) && anyWarn(w11, /spec\.cellMargin is "x"/) && anyWarn(w11, /versionSuffix/),
     'run 11: malformed spec values warned');
   check(r11.json?.spec.frameWidth === 256 && r11.json.spec.pivot.join() === '128,240' && r11.json.spec.warnColors === 64 && r11.json.spec.cellMargin === 4, 'run 11: malformed values fall back to the spec v2 defaults');
+
+  // run 12: crowd (ADR 0008) - approved spectators only, idle at the class height, feet on the pivot
+  fs.copyFileSync(path.join(FIX, 'manifest.bak'), path.join(ART, 'manifest.json')); // runs 6-7 moved/corrupted it
+  const out12 = path.join(FIX, 'out12');
+  const r12 = pack(['--root', ART, '--out', out12, '--json', 'crowd']);
+  const cr = r12.json?.crowd;
+  check(r12.code === 0 && cr && r12.json.characters.length === 0 && !r12.json.vfx, `run 12: "crowd" target packs only the crowd (exit ${r12.code}) ${r12.err}`);
+  if (cr) {
+    const cm = JSON.parse(fs.readFileSync(path.join(out12, 'crowd', 'atlas.json'), 'utf8'));
+    const ca = loadPng(path.join(out12, 'crowd', 'atlas.png'));
+    check(cm.cell.join() === '64,96' && cm.cols === 64 && cm.ppu === 50 && cm.pivot.join() === '32,94' && cm.frames.join() === 'idle,cheer,shocked' && ca.w === 4096 && ca.h === 96,
+      `run 12: atlas shape (${cm.cell} cols ${cm.cols} ppu ${cm.ppu} pivot ${cm.pivot}, ${ca.w}x${ca.h})`);
+    const ids = cm.spectators.map((p) => `${p.id}@${p.cell}v${p.version}`).join();
+    check(ids === 'c-001@0v1,c-003@3v2,c-006@6v1', `run 12: approved spectators in roster order, 3 cells each, the redo batch's version wins (${ids})`);
+    check(cm.spectators[0].heightClass === 'medium' && cm.spectators[0].kind === 'original' && cm.spectators[0].tags.join() === 'adult', 'run 12: heightClass, kind and tags copied from the roster');
+    check(cr.unapproved === 1 && anyWarn(cr.warnings, /c-004 v01 is approved but raw\/c-004_v01\.png is missing/) && anyWarn(cr.warnings, /c-005 is approved in the manifest but not in any roster/),
+      'run 12: unapproved spectator skipped silently; missing raw and roster-less approval warned');
+    // one 64 x 96 cell of the first atlas row
+    const crowdCell = (i) => {
+      const c = { w: 64, h: 96, data: new Uint8Array(64 * 96 * 4) };
+      for (let y = 0; y < 96; y++) for (let x = 0; x < 64; x++) {
+        const si = (y * ca.w + i * 64 + x) * 4, di = (y * 64 + x) * 4;
+        for (let k = 0; k < 4; k++) c.data[di + k] = ca.data[si + k];
+      }
+      return c;
+    };
+    const boxes = [0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => bb(crowdCell(i)));
+    check(boxes.every((b) => b && b.y1 === 94), `run 12: every pose stands on y 94 (${boxes.map((b) => b?.y1)})`);
+    check(boxes[0].h === 70 && boxes[3].h === 44, `run 12: idle scaled to its class (medium ${boxes[0].h}/70, tiny ${boxes[3].h}/44)`);
+    check(boxes[1].h > boxes[0].h && boxes[1].y0 >= 2, `run 12: cheer keeps the shared scale, raised arm taller than idle (${boxes[1].h})`);
+    check([0, 1, 2].every((i) => Math.abs(footX(crowdCell(i), boxes[i]) - 32) <= 1.5), 'run 12: centered on the feet (x 32)');
+    const huge = cr.packed.find((p) => p.id === 'c-006');
+    check(huge?.notes.some((n) => /shrunk to fit the cell/.test(n)) && boxes[7].y0 >= 2 && boxes[6].h < 84, `run 12: a cheer that would leave the cell shrinks the whole spectator (idle ${boxes[6].h}, cheer top ${boxes[7].y0})`);
+    check(!cr.packed.find((p) => p.id === 'c-003').notes.some((n) => /pose/.test(n)), 'run 12: the 2-pose v01 is not used when v02 is approved');
+    const cols = new Set();
+    for (let i = 0; i < 3; i++) { const c = crowdCell(i); for (let q = 0; q < c.data.length; q += 4) if (c.data[q + 3]) cols.add((c.data[q] << 16) | (c.data[q + 1] << 8) | c.data[q + 2]); }
+    let alphaOk = true;
+    for (let q = 3; q < ca.data.length; q += 4) if (ca.data[q] !== 0 && ca.data[q] !== 255) alphaOk = false;
+    check(cols.size <= 24 && alphaOk, `run 12: <= 24 colors per spectator (${cols.size}), binary alpha`);
+  }
+
+  // run 13: --candidates packs every latest version into preview/ and leaves the shipped atlases alone
+  const shipped = fs.readFileSync(path.join(out12, 'crowd', 'atlas.png'));
+  const r13 = pack(['--root', ART, '--out', out12, '--json', '--candidates', 'crowd', 'vfx']);
+  const pm = r13.code === 0 && JSON.parse(fs.readFileSync(path.join(out12, 'preview', 'crowd', 'atlas.json'), 'utf8'));
+  const pids = pm && pm.spectators.map((p) => `${p.id}v${p.version}`).join();
+  check(pids === 'c-001v1,c-002v1,c-003v2,c-006v1' && pm.source === 'candidates', `run 13: candidates = the highest version of every roster spectator (${pids})`);
+  check(fs.existsSync(path.join(out12, 'preview', 'vfx', 'atlas.json')) && !fs.existsSync(path.join(out12, 'vfx')), 'run 13: candidate effects go to preview/vfx only');
+  check(Buffer.compare(shipped, fs.readFileSync(path.join(out12, 'crowd', 'atlas.png'))) === 0, 'run 13: the shipped crowd atlas is untouched');
+
+  // run 14: nothing approved any more -> the shipped atlases are removed; a newer unapproved source is not packed
+  const m14 = path.join(FIX, 'manifest-unapproved.json');
+  const man14 = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
+  for (const e of Object.values(man14.vfx.effects)) delete e.approvedVersion;
+  man14.vfx.effects.spark.approvedVersion = 1;
+  delete man14.worldArt;
+  fs.writeFileSync(m14, JSON.stringify(man14));
+  const r14dry = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', '--dry-run', 'vfx', 'crowd']);
+  check(r14dry.json?.vfx.removed.length === 2 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), 'run 14: --dry-run only reports the stale atlas');
+  const r14 = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', 'vfx', 'crowd']);
+  const v14 = r14.json?.vfx;
+  check(v14 && v14.packed.length === 0 && v14.unapproved.includes('flame') && v14.unapproved.includes('spark') && anyWarn(v14.warnings, /spark: the source is v02 but v01 is approved/),
+    `run 14: unapproved effects and a newer unapproved spark version are not packed (${v14?.unapproved})`);
+  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
+    'run 14: stale vfx and crowd atlases removed (the game falls back to procedural art)');
 
   return finish();
 }

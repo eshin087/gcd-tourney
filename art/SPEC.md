@@ -241,12 +241,13 @@ strike that stops short of its contact zone simply misses at normal spacing. Cla
 
 ## Effect anchor points
 
-The engine draws signature-move energy, beams and projectiles at fixed offsets from the fighter
-(read from `src/game/effects.js` and `src/game/projectiles.js` when this spec was written). The
-offsets in world units did not change in v2; only their pixel position moved:
-**px = (128 + forward x 128, 240 - up x 128)**. Draw the hands **at these points** so the VFX sits in
-the hand. If the art needs different points, write the measured coordinates in the character's
-`MOVES_AND_VFX.md` and Claude moves the offsets.
+**Art packs set their own anchor points (since 2026-10-10).** For a packed sheet the engine puts
+hand effects (Rasengan / Chidori / Rasenshuriken orbs), projectile spawns and the beam origin at the
+frame's **hand point**: the frame's `hand` from `hitboxes.json` (below), else the frame's hit box (60 %
+across, mid height), else the nearest frame of the same animation that has one. Measure the drawn palm
+on frames without a hit box (special startup, `throw` release, `beamFire`) and record it as `hand`.
+Only when an animation has no hand point at all does the engine use the fixed offsets below (the
+baked placeholder always uses them). Convert: **px = (128 + forward x 128, 240 - up x 128)**.
 
 | what | engine offset (world units from the feet) | cell px (x, y) |
 |---|---|---|
@@ -334,7 +335,8 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
 
   Keys: animation name, then **frame number within the animation, 0-based** (the same `NN` as
   `frames/<anim>/<anim>_NN.png`). Values: `hit` and/or `hurt` lists of `[x, y, w, h]` in final
-  256-cell px. `"hit": []` turns a frame's hit off. A template lives in
+  256-cell px, and optionally `hand: [x, y]`, the palm / fingertip point effects anchor to (see
+  "Effect anchor points"), e.g. `"special": { "0": { "hand": [168, 116] } }`. `"hit": []` turns a frame's hit off. A template lives in
   `art/characters/_template/hitboxes.example.json`.
 
 ## Fallbacks
@@ -471,7 +473,8 @@ The sheet packer reads `raw/<anim>_vNN.png` (highest version), else `raw/<anim>.
 ```bash
 npm run sprites            # every character
 npm run sprites naruto     # one character
-npm run sprites vfx        # the VFX atlas
+npm run sprites vfx        # the VFX atlas (approved effects only)
+npm run sprites crowd      # the crowd atlas (approved spectators only)
 npm run test:sprites       # packer regression test (after any change to tools/)
 npm run sprites naruto -- --update-manifest   # also raise status / version in manifest.json
 ```
@@ -513,10 +516,11 @@ Implemented by the lead engineer (Claude) in `src/`; documented here so art and 
   the procedural placeholder (which stays chibi until a separate restyle task).
 - It reads frame size, pivot and ppu from `anims.json` (`SheetAsset` / `SpriteActor`), so v2 needs no
   engine change. ppu 128 switches the sharper HD render mode on automatically.
-- Sheets are 4096 x 2560: fine on desktop GPUs; a GPU with a 2048 px texture limit gets a downscaled
+- Sheets are 4096 x 2816: fine on desktop GPUs; a GPU with a 2048 px texture limit gets a downscaled
   sheet (three.js warns).
 - It uses `boxes` for hit detection.
 - It loads `portrait.png` / `cutin.png` when present.
-- It loads `public/vfx/atlas.png` + `atlas.json` when present (missing effects stay procedural).
+- It loads `public/vfx/atlas.png` + `atlas.json` when present (approved effects only; missing effects stay
+  procedural). `?art=custom` prefers the unapproved candidates in `public/preview/` (local only).
 - Combat uses 2.5D lanes: attacks fire along the screen horizontal and auto-step to line up
   depth; a hit needs hitbox/hurtbox overlap **and** the same lane.

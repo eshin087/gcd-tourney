@@ -47,6 +47,7 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 | `stats` | `{ speed, power, defense }`. Start at `{ 6.0, 1.0, 1.0 }` and tune in step 8. |
 | `model`, `stance`, `extraAnims`, `runLean`, `runArms` | 3D placeholder (step 2) |
 | `portraitFace`, `cutinEyes` | placeholder portrait expression; baked cut-in eyes (`true`/`'red'` Sharingan, `'six'` Six Eyes; `cutinRedEyes` still works) |
+| `selectFacing` | `'left'` or `'right'` (default): which way the character-select illustration (`ui/select.png`) faces; char select mirrors it so both sides face the middle |
 
 Register it in `src/characters/index.js` (`import` + add it to `ROSTER`). Keep the existing order. New
 characters go at the end.

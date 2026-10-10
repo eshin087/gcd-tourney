@@ -14,7 +14,8 @@ workflow. VFX cells did not change in spec v2 (128 x 128, ppu 56); only the file
    (section 3) in the same thread.
 5. Save the image under the "Save as" name with the **next free version** in place of `NN`
    (`spark_v01.png`, `spark_v02.png`, ...; never overwrite or reuse a number), add a `needs review`
-   row to `art/REVIEW.md`, then run `npm run sprites vfx` (it packs the highest version).
+   row to `art/REVIEW.md`, then run `node tools/pack-sprites.mjs vfx --candidates` (it packs the highest
+   version into `public/preview/vfx/` for a `?art=custom` check; `npm run sprites vfx` ships approved effects only).
 
 Tips:
 

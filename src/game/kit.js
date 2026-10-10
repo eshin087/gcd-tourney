@@ -251,17 +251,14 @@ const START = {
   },
 
   teleport(f, m) {
-    const g = f.game;
     enter(f, { kind: 'teleport', m, from: f.pos.clone() }, m.anim ?? 'vanish');
-    f.actor.ghost(m.color || f.def.color, 0.35, 0.6);
     f.hidden = !m.startup;
     f.invuln = (m.startup ?? 0) + m.hide + 8;
     f.vel.set(0, 0, 0);
     f.actor.setVisible(!f.hidden);
-    g.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 0.9);
-    g.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.1, glow: 0.6, depthTest: false, order: 8 });
-    g.onKitMove(f, m);
-    audio.play('vanish');
+    // with a wind-up pose (Blink) the puff waits for the moment the fighter actually disappears
+    if (f.hidden) vanishFx(f, m);
+    f.game.onKitMove(f, m);
   },
 
   pull(f, m) {
@@ -298,6 +295,15 @@ const START = {
   },
 };
 
+// afterimage, smoke puff, speed lines and sound where a teleporting fighter disappears
+function vanishFx(f, m) {
+  const g = f.game;
+  f.actor.ghost(m.color || f.def.color, 0.35, 0.6);
+  g.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 0.9);
+  g.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.1, glow: 0.6, depthTest: false, order: 8 });
+  audio.play('vanish');
+}
+
 // ------------------------------------------------------------------ kinds: per frame
 export function update(f) {
   const k = f.kitState;
@@ -309,10 +315,11 @@ const UPDATE = {
   teleport(f, k, m, t) {
     const startup = m.startup ?? 0, recovery = m.recovery ?? 0;
     if (t < startup) {
-      f.actor.setPhase(m.anim, 0, t / startup);
+      f.actor.setPhase(m.anim ?? 'vanish', 0, t / startup);
       return;
     }
     if (t < startup + m.hide) {
+      if (!f.hidden) vanishFx(f, m);
       f.hidden = true;
       f.actor.setVisible(false);
       return;

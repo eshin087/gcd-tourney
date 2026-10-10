@@ -223,7 +223,7 @@ window.rrStep = (budget) => {
 | Frame rate | **60 fps at 1080p** during the heaviest moments (beam clash + auras + debris) on a mid-range laptop GPU | DevTools Performance or an FPS meter. Watch the clash and KO crash. |
 | Fixed-step catch-up | the accumulator should rarely hit the 6-step cap | add a temporary counter in debug, then remove it |
 | Placeholder bake | **< 1 s per character** | console: `[sprites] baked <id> from 3D in N ms` |
-| Custom sheet size | ≤ 4096 × 4096 px (spec v2: 16 columns × 256 px = 4096 px wide; 154 frames = 10 rows = 2560 px tall). A GPU with a 2048 texture limit gets a downscaled sheet and a three.js warning. | packer report |
+| Custom sheet size | ≤ 4096 × 4096 px (spec v2: 16 columns × 256 px = 4096 px wide; 42 animations = 175 frames = 11 rows = 2816 px tall). A GPU with a 2048 texture limit gets a downscaled sheet and a three.js warning. | packer report |
 | VFX atlas | ≤ 2048 × 2048 px | packer report |
 | Live effects | no unbounded growth in `game.fx.items`, ghosts or decals over a soak | check the array lengths before and after a soak |
 | Boot | menu interactive in < 3 s with 2 characters on a warm cache | stopwatch or Performance panel |

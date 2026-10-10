@@ -3,7 +3,9 @@
 //
 //   npm run sprites                 pack every character + the VFX atlas
 //   npm run sprites naruto          pack one character (several ids allowed)
-//   npm run sprites vfx             pack only the VFX atlas
+//   npm run sprites vfx             pack only the VFX atlas (approved effects only)
+//   npm run sprites crowd           pack only the crowd atlas (approved spectators only)
+//   npm run sprites -- --candidates also pack unapproved effects/spectators into public/preview/ (?art=custom)
 //   npm run sprites -- --dry-run    report only, write nothing
 //
 // See tools/README.md for every option, art/SPEC.md for the sprite spec and
@@ -118,11 +120,12 @@ const HELP = `GCD Tourney sprite packer  (art/ -> public/)
 usage: node tools/pack-sprites.mjs [targets...] [options]
        npm run sprites [targets...] [-- options]
 
-targets   character ids (folder names under art/characters/), "vfx", or "all" (default: every character + vfx)
+targets   character ids (folder names under art/characters/), "vfx", "crowd", or "all"
+          (default: every character + vfx + crowd)
 
 options
   --root <dir>      art folder to read (default: ./art). Aliases: --src, --art
-  --out <dir>       public folder to write (default: ./public) -> <out>/characters/<id>/, <out>/vfx/
+  --out <dir>       public folder to write (default: ./public) -> <out>/characters/<id>/, <out>/vfx/, <out>/crowd/
   --manifest <file> manifest to read (default: <root>/manifest.json; falls back to src/art/animGuide.js)
   --guide <file>    animation guide module (default: src/art/animGuide.js)
   --dry-run         analyse and report, write nothing
@@ -132,13 +135,17 @@ options
   --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
                     raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
                     Also raises "version" to the highest raw/<anim>_vNN.png found ("approvedVersion" is never touched).
+  --candidates      world art (vfx, crowd) is approval-gated: by default only effects/spectators with an
+                    "approvedVersion" in the manifest are packed, and a stale atlas is removed when none
+                    are approved. --candidates packs every candidate into <out>/preview/vfx|crowd/
+                    instead (git-ignored, local review with ?art=custom); public/vfx|crowd stay untouched.
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
   -h, --help        this help
 `;
 
 function parseArgs(argv) {
-  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, help: false };
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const eq = a.indexOf('=');
@@ -162,6 +169,7 @@ function parseArgs(argv) {
       case '--no-writeback': o.writeback = false; break;
       case '--json': o.json = true; break;
       case '--update-manifest': o.updateManifest = true; break;
+      case '--candidates': o.candidates = true; break;
       case '--strict': o.strict = true; break;
       case '--quantize': o.quantize = Math.round(num()); break;
       case '--tolerance': case '--tol': o.tol = num(); break;
@@ -919,6 +927,7 @@ function normalizeManifest(raw) {
     for (const k of ['lumaAlpha', 'baseX']) if (typeof v[k] === 'boolean') e[k] = v[k];
     if (v.anchor === 'bottom' || v.bottomAnchored === true) e.anchor = 'bottom';
     else if (v.anchor === 'center') e.anchor = 'center';
+    if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) e.approvedVersion = v.approvedVersion;
     m.vfx[name] = e;
   }
   // the VFX cell is still a packer constant (the effects' fill sizes are tuned to it): flag drift
@@ -1433,6 +1442,14 @@ function applyOverrides(file, packed, boxes, warn, label) {
           else if (kind === 'hit') boxes[key].hit = [];
           else delete boxes[key][kind];
         }
+        // hand: the palm/fingertip point the engine anchors hand effects, shots and beams to
+        // ([x, y] in the 256 cell; the engine falls back to the hit box, then fixed offsets)
+        if ('hand' in (ov || {})) {
+          const h = ov.hand;
+          if (Array.isArray(h) && h.length === 2 && h.every((v) => Number.isFinite(v))) boxes[key].hand = h.map((v) => Math.round(v));
+          else if (h === null) delete boxes[key].hand;
+          else warn(`hitboxes.json: ${anim}[${k}].hand must be [x, y]`);
+        }
         n++;
       }
     }
@@ -1768,14 +1785,33 @@ function packUi(id, charDir, env, R) {
   }
 }
 
+// ============================================================== world art approval gate
+// World art (effects, spectators) ships only once the user approved it (ADR 0007/0008: "approvedVersion" in the
+// manifest). Candidates are packed with --candidates into <out>/preview/ (git-ignored; the game shows them with
+// ?art=custom), so the shipped public/vfx|crowd never holds unapproved art.
+const worldOut = (env, kind) => path.join(env.candidates ? path.join(env.outDir, 'preview') : env.outDir, kind);
+
+// An output whose inputs are no longer approved (or gone) is removed: public/ is packer output only (CLAUDE.md rule 3).
+function removeOutputs(env, dir, names, R) {
+  for (const n of names) {
+    const f = path.join(dir, n);
+    if (!fs.existsSync(f)) continue;
+    if (!env.dryRun) fs.unlinkSync(f);
+    R.removed.push(rel(env.cwd, f));
+  }
+}
+
+const vv = (n) => `v${String(n).padStart(2, '0')}`;
+
 // ============================================================== VFX packing
 function packVfx(env) {
-  const R = { packed: [], missing: [], failed: [], versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
+  const R = { packed: [], missing: [], failed: [], unapproved: [], removed: [], preview: !!env.candidates, versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
   const warn = (m) => R.warnings.push(m);
   const vfxDir = path.join(env.artDir, 'vfx');
+  const outVfx = worldOut(env, 'vfx');
   const effects = { ...VFX_EFFECTS };
   for (const [name, e] of Object.entries(env.manifest.vfx)) effects[name] = { ...(VFX_EFFECTS[name] || { frames: e.frames || 4, ms: 50, tinted: false, fill: 0.8 }), ...e };
-  if (!isDir(vfxDir)) { R.missing = Object.keys(effects); return R; }
+  if (!isDir(vfxDir)) { R.missing = Object.keys(effects); removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
   const names = Object.keys(effects);
   const rawIdx = scanRaw(path.join(vfxDir, 'raw'), names, warn, 'vfx/raw');
   const framesRoot = path.join(vfxDir, 'frames');
@@ -1788,6 +1824,7 @@ function packVfx(env) {
       const framesDir = path.join(framesRoot, name);
       const raw = pickRaw(rawIdx.get(name), name);
       if (raw?.version != null) R.versions[name] = raw.version;
+      if (!env.candidates && !e.approvedVersion) { R.unapproved.push(name); continue; }
       const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: null, artDir: env.artDir }, warn, name);
       if (!src) { R.missing.push(name); continue; }
       if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
@@ -1808,6 +1845,11 @@ function packVfx(env) {
       }
       if (raw?.ignored.length) notes.push(`ignored ${raw.ignored.join(' and ')} (a _vNN version exists)`);
       if (!items.length) { warn(`${name}: no pixels found in ${sourceLabel}`); R.missing.push(name); R.failed.push(name); continue; }
+      if (!env.candidates && version != null && version !== e.approvedVersion) {
+        warn(`${name}: the source is ${vv(version)} but ${vv(e.approvedVersion)} is approved - not packed (approve ${vv(version)} or move it to raw/_rejected/)`);
+        R.unapproved.push(name);
+        continue;
+      }
       const loose = items.filter((it) => !it.final).map((it) => it.img);
       const target = Math.round(VFX.cell * (e.fill || 0.8));
       const maxDim = loose.length ? Math.max(...loose.map((s) => Math.max(s.w, s.h))) : 0;
@@ -1843,7 +1885,7 @@ function packVfx(env) {
       R.failed.push(name);
     }
   }
-  if (!packed.length) return R;
+  if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
 
   const cols = Math.max(...packed.map((p) => p.cells.length));
   const atlas = newImage(cols * VFX.cell, packed.length * VFX.cell);
@@ -1855,9 +1897,148 @@ function packVfx(env) {
     R.frames += p.cells.length;
   });
   R.atlas = `${atlas.w}x${atlas.h}`;
-  writeFile(env, path.join(env.outDir, 'vfx', 'atlas.png'), encodePng(atlas), R);
-  writeFile(env, path.join(env.outDir, 'vfx', 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
+  writeFile(env, path.join(outVfx, 'atlas.png'), encodePng(atlas), R);
+  writeFile(env, path.join(outVfx, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, {});
+  return R;
+}
+
+// ============================================================== crowd packing (ADR 0008)
+// art/crowd/raw/<id>_vNN.png (3 poses on magenta) -> public/crowd/atlas.{png,json}: each spectator = 3 consecutive
+// 64 x 96 cells (idle, cheer, shocked) in one row, idle scaled to its height class, feet on the pivot.
+const CROWD = Object.freeze({ cell: [64, 96], cols: 64, ppu: 50, pivot: [32, 94], top: 2, frames: ['idle', 'cheer', 'shocked'], maxColors: 24 });
+const CROWD_HEIGHT = { tiny: 44, short: 58, medium: 70, tall: 78, huge: 84 };
+const CROWD_PER_ROW = Math.floor(CROWD.cols / CROWD.frames.length); // 21: a spectator's cells never wrap a row
+
+// Every roster entry (art/crowd/roster/*.json, file order): who may appear and at which height class.
+function crowdRoster(crowdDir, warn) {
+  const out = [], seen = new Set();
+  const dir = path.join(crowdDir, 'roster');
+  if (!isDir(dir)) return out;
+  for (const f of fs.readdirSync(dir).filter((n) => n.toLowerCase().endsWith('.json')).sort()) {
+    const j = readJson(path.join(dir, f));
+    if (!j.data) { warn(`crowd/roster/${f}: ${j.error || 'unreadable'} - skipped`); continue; }
+    for (const sp of j.data.spectators || []) {
+      if (!sp?.id) continue;
+      if (seen.has(sp.id)) { warn(`crowd: ${sp.id} is listed twice (roster/${f}) - the first entry is used`); continue; }
+      seen.add(sp.id);
+      out.push({ id: sp.id, group: j.data.group || f.replace(/\.json$/i, ''), kind: sp.kind || j.data.kind || 'original', heightClass: sp.heightClass, tags: Array.isArray(sp.tags) ? sp.tags : [] });
+    }
+  }
+  return out;
+}
+
+// Approved version per spectator (manifest worldArt.crowd.batches.*.items): a redo batch may approve a later one.
+function crowdApprovals(rawManifest) {
+  const m = new Map();
+  for (const b of Object.values(rawManifest?.worldArt?.crowd?.batches || {})) {
+    for (const [id, it] of Object.entries(b?.items || {})) {
+      const v = it?.approvedVersion;
+      if (Number.isInteger(v) && v > 0 && v > (m.get(id) || 0)) m.set(id, v);
+    }
+  }
+  return m;
+}
+
+// One raw -> the 3 cells. The idle frame sets the scale (its height = the class height); the other two share it,
+// shrunk only if a pose would leave the cell (arms above y 2, wider than 64). Each pose stands on the pivot line,
+// centered on its feet.
+function crowdCells(file, classPx, env, notes) {
+  const [CW, CH] = CROWD.cell;
+  const img = readPng(file);
+  const bg = removeBackground(img, { tol: env.tol, mode: 'char' });
+  if (!bg.magentaBg && !bg.removed && !hasTransparency(img)) throw new Error('no removable background (flat magenta #FF00FF expected)');
+  if (bg.foreign) notes.push(`background ${bg.foreign} is not magenta`);
+  const sp = removeSpecks(img, { frac: 0.0015, min: 4 });
+  if (sp.blobs > 3) notes.push(`removed ${sp.blobs} specks`);
+  let { rects } = splitStrip(img, 3, { mode: 'char' });
+  if (rects.length !== 3) {
+    const n = rects.length;
+    ({ rects } = splitStrip(img, 3, { split: 'even', mode: 'char' }));
+    notes.push(`${n} pose(s) found, split into even thirds`);
+  }
+  if (rects.length !== 3) throw new Error(`${rects.length} pose(s) found, expected 3 (idle, cheer, shocked)`);
+  const poses = rects.map((r) => {
+    const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+    dropStrays(piece);
+    const b = bbox(piece);
+    if (!b) throw new Error('a pose is empty after background removal');
+    return crop(piece, b.x0, b.y0, b.w, b.h);
+  });
+  const room = CROWD.pivot[1] - CROWD.top + 1;
+  let s = classPx / poses[0].h;
+  const fit = Math.min(s, ...poses.map((p) => room / p.h), ...poses.map((p) => CW / p.w));
+  if (fit < s - 1e-9) { notes.push(`shrunk to fit the cell (idle ${Math.round(poses[0].h * fit)} px, class ${classPx})`); s = fit; }
+  const cells = poses.map((p) => {
+    const small = resample(p, s, { coverage: 0.5, alphaMin: 128 });
+    for (let i = 3; i < small.data.length; i += 4) small.data[i] = small.data[i] >= 128 ? 255 : 0;
+    const b = bbox(small);
+    const t = b ? crop(small, b.x0, b.y0, b.w, b.h) : small;
+    const cell = newImage(CW, CH);
+    const dx = Math.max(0, Math.min(CW - t.w, Math.round(CROWD.pivot[0] - (footAnchor(t) + 0.5))));
+    const dy = CROWD.pivot[1] - (t.h - 1);
+    if (blit(cell, t, dx, dy)) notes.push('clipped');
+    return cell;
+  });
+  const colors = quantizeFrames(cells, CROWD.maxColors);
+  return { cells, colors, scale: s };
+}
+
+function packCrowd(env) {
+  const R = { packed: [], missing: [], failed: [], unapproved: 0, removed: [], preview: !!env.candidates, spectators: 0, atlas: null, warnings: [], notes: [], wrote: [] };
+  const warn = (m) => R.warnings.push(m);
+  const crowdDir = path.join(env.artDir, 'crowd');
+  const outCrowd = worldOut(env, 'crowd');
+  const roster = crowdRoster(crowdDir, warn);
+  const approved = crowdApprovals(env.manifestRaw);
+  const rosterIds = new Set(roster.map((r) => r.id));
+  for (const id of approved.keys()) if (!rosterIds.has(id)) warn(`crowd: ${id} is approved in the manifest but not in any roster - skipped (no height class)`);
+
+  // raw/<id>_vNN.png per id (raw/_rejected/ is not scanned)
+  const raws = new Map();
+  const rawDir = path.join(crowdDir, 'raw');
+  if (isDir(rawDir)) {
+    for (const f of fs.readdirSync(rawDir)) {
+      const m = VERSION_RE.exec(f);
+      if (!m) continue;
+      if (!raws.has(m[1])) raws.set(m[1], new Map());
+      raws.get(m[1]).set(Number(m[2]), path.join(rawDir, f));
+    }
+  }
+
+  const packed = [];
+  for (const sp of roster) {
+    const want = env.candidates ? Math.max(0, ...(raws.get(sp.id)?.keys() || [])) || null : approved.get(sp.id) || null;
+    if (!want) { if (!env.candidates) R.unapproved++; continue; }
+    const file = raws.get(sp.id)?.get(want);
+    if (!file) { warn(`crowd: ${sp.id} ${vv(want)} is ${env.candidates ? 'the latest' : 'approved'} but raw/${sp.id}_${vv(want)}.png is missing`); R.missing.push(sp.id); continue; }
+    let classPx = CROWD_HEIGHT[sp.heightClass];
+    if (!classPx) { warn(`crowd: ${sp.id} has heightClass ${JSON.stringify(sp.heightClass)} - packed as medium`); classPx = CROWD_HEIGHT.medium; }
+    const notes = [];
+    try {
+      const r = crowdCells(file, classPx, env, notes);
+      packed.push({ ...sp, version: want, ...r, notes });
+    } catch (e) {
+      warn(`crowd: ${sp.id} ${vv(want)}: ${e.message} - skipped`);
+      R.failed.push(sp.id);
+    }
+  }
+  if (!packed.length) { removeOutputs(env, outCrowd, ['atlas.png', 'atlas.json'], R); return R; }
+
+  const [CW, CH] = CROWD.cell;
+  const rows = Math.ceil(packed.length / CROWD_PER_ROW);
+  const atlas = newImage(CROWD.cols * CW, rows * CH);
+  const meta = { cell: [CW, CH], cols: CROWD.cols, ppu: CROWD.ppu, pivot: [...CROWD.pivot], frames: [...CROWD.frames], source: env.candidates ? 'candidates' : 'approved', packer: PACKER_VERSION, spectators: [] };
+  packed.forEach((p, k) => {
+    const row = Math.floor(k / CROWD_PER_ROW), col = (k % CROWD_PER_ROW) * CROWD.frames.length;
+    p.cells.forEach((c, f) => blit(atlas, c, (col + f) * CW, row * CH));
+    meta.spectators.push({ id: p.id, cell: row * CROWD.cols + col, heightClass: p.heightClass, kind: p.kind, tags: p.tags, version: p.version });
+    R.packed.push({ id: p.id, group: p.group, version: p.version, colors: p.colors, scale: +p.scale.toFixed(4), notes: [...new Set(p.notes)] });
+  });
+  R.spectators = packed.length;
+  R.atlas = `${atlas.w}x${atlas.h}`;
+  writeFile(env, path.join(outCrowd, 'atlas.png'), encodePng(atlas), R);
+  writeFile(env, path.join(outCrowd, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   return R;
 }
 
@@ -1970,7 +2151,9 @@ function printReport(rep, env) {
     const v = rep.vfx;
     L('');
     L(`== vfx ${'='.repeat(57)}`);
-    if (!v.packed.length) L('  nothing packed yet (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/) - the game keeps its procedural effects');
+    if (v.preview) L('  candidates: every effect, approved or not -> preview/vfx/ (the game shows it with ?art=custom)');
+    else if (v.unapproved.length) L(`  not approved yet (${v.unapproved.length}, procedural in game; preview with --candidates): ${v.unapproved.join(', ')}`);
+    if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
     else {
       L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas} (missing ones stay procedural)`);
       for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${(String(p.frames).padStart(2) + (p.frames !== p.expected ? '/' + p.expected : '')).padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -1978,11 +2161,32 @@ function printReport(rep, env) {
     if (v.missing.length && v.packed.length) L(`  missing (procedural fallback): ${v.missing.join(', ')}`);
     for (const w of v.warnings) L(`  ! ${w}`);
     for (const f of v.wrote) L(`  wrote ${f}`);
+    for (const f of v.removed) L(`  ${env.dryRun ? 'would remove' : 'removed'} ${f} (no approved effects left to ship)`);
+  }
+  if (rep.crowd) {
+    const c = rep.crowd;
+    L('');
+    L(`== crowd ${'='.repeat(55)}`);
+    if (c.preview) L('  candidates: the latest version of every spectator -> preview/crowd/ (the game shows it with ?art=custom)');
+    else if (c.unapproved) L(`  ${c.unapproved} roster spectator(s) not approved yet (not shipped; preview with --candidates)`);
+    if (!c.packed.length) L('  nothing packed - the game keeps its procedural crowd');
+    else {
+      const colors = c.packed.map((p) => p.colors);
+      L(`  packed ${c.spectators} spectators (${c.spectators * CROWD.frames.length} cells) -> atlas ${c.atlas}, ${Math.min(...colors)}-${Math.max(...colors)} colors each`);
+      const groups = new Map();
+      for (const p of c.packed) groups.set(p.group, (groups.get(p.group) || 0) + 1);
+      L(`    ${[...groups].map(([g, n]) => `${g} ${n}`).join(', ')}`);
+      for (const p of c.packed) if (p.notes.length) L(`    ${p.id} ${vv(p.version)}: ${p.notes.join('; ')}`);
+    }
+    for (const w of c.warnings) L(`  ! ${w}`);
+    for (const f of c.wrote) L(`  wrote ${f}`);
+    for (const f of c.removed) L(`  ${env.dryRun ? 'would remove' : 'removed'} ${f} (no approved spectators left to ship)`);
   }
   if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status/version value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
   L('');
   const nw = rep.totalWarnings;
-  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${nw} warning(s).`);
+  const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
+  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}, ${nw} warning(s).`);
 }
 
 // ============================================================== main
@@ -1998,7 +2202,7 @@ async function main() {
   const outDir = path.resolve(opts.out || path.join(PROJECT_ROOT, 'public'));
   const manifestPath = path.resolve(opts.manifest || path.join(artDir, 'manifest.json'));
   const guidePath = path.resolve(opts.guide || path.join(PROJECT_ROOT, 'src', 'art', 'animGuide.js'));
-  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null };
+  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null };
 
   const { guide, source: guideSource } = await loadGuide(guidePath);
   rep.guideSource = guideSource;
@@ -2008,15 +2212,16 @@ async function main() {
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
-  const env = { cwd, artDir, outDir, guide, manifest, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol };
+  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
 
   const folderIds = listDirs(path.join(artDir, 'characters')).filter((n) => !n.startsWith('_') && !n.startsWith('.'));
   const allIds = [...folderIds, ...Object.keys(manifest.characters).filter((n) => !n.startsWith('_') && !folderIds.includes(n))];
-  let ids = [], doVfx = false;
+  let ids = [], doVfx = false, doCrowd = false;
   const targets = opts.targets.length ? opts.targets : ['all'];
   for (const t of targets) {
-    if (t === 'all') { ids.push(...allIds); doVfx = true; }
+    if (t === 'all') { ids.push(...allIds); doVfx = doCrowd = true; }
     else if (t === 'vfx') doVfx = true;
+    else if (t === 'crowd') doCrowd = true;
     else if (allIds.includes(t)) ids.push(t);
     else {
       console.error(`error: unknown character "${t}". Known: ${allIds.join(', ') || '(none - create art/characters/<id>/ from _template)'}`);
@@ -2027,6 +2232,7 @@ async function main() {
 
   for (const id of ids) rep.characters.push(packCharacter(id, env));
   if (doVfx) rep.vfx = packVfx(env);
+  if (doCrowd) rep.crowd = packCrowd(env);
   if (opts.updateManifest) {
     if (!mj.data) rep.warnings.push('--update-manifest: no readable manifest.json - nothing updated');
     else {
@@ -2035,7 +2241,7 @@ async function main() {
       if (n && !opts.dryRun) fs.writeFileSync(manifestPath, stringifyCompact(mj.data) + '\n');
     }
   }
-  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + (rep.vfx?.warnings.length || 0);
+  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + (rep.vfx?.warnings.length || 0) + (rep.crowd?.warnings.length || 0);
 
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);

@@ -155,7 +155,7 @@ src/characters/<id>.js ─> rig/anims.js + extraAnims ─> rig/baker.js ──> 
                        └────────────────────────────────────────────────────────────────┘
                        ┌────────────────────────────── custom hi-res art (spec v2) ─────┐
 generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprites ─> public/characters/<id>/sheet.png
-(Codex; reviewed in    (highest version wins; _rejected/ ignored;         (256 px cells, PPU 128, 4096 × 2560)
+(Codex; reviewed in    (highest version wins; _rejected/ ignored;         (256 px cells, PPU 128, 4096 × 2816)
  art/REVIEW.md)         + frames/, hitboxes.json)                         + anims.json (animations, phases, boxes, complete)
                                                                           + portrait.png, cutin.png, select.png
                        └────────────────────────────────────────────────────────────────┘
@@ -177,6 +177,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
 - The engine reads frame size, pivot and PPU from `anims.json`, so a spec change needs no engine code.
+- **Hand anchors** (art packs only): `SheetAsset.hand(anim, frame)` / `SpriteActor.hand()` give the drawn
+  palm or fingertip of the current frame (from `hand: [x, y]` in `hitboxes.json`, else the frame's hit box,
+  else the nearest frame of the animation that has one). Hand effects (Rasengan, Rasenshuriken, Chidori),
+  projectile spawns and beam origins start there; the baked placeholder keeps the fixed offsets.
 - When any loaded sheet has `pixelsPerUnit` >= 70 (spec v2: 128), `Game.init` switches the renderer to its
   `hd` detail (buffer ~600+ px tall instead of ~340), so the extra detail isn't thrown away by the low-res
   buffer. `?res=pixel` / `?res=hd` override it.
@@ -190,7 +194,21 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   Effect names are fixed: `spark burst ring dust smoke shuriken fire flame lightning orb glow streak star
   crater lines`.
 - Custom VFX art: `npm run sprites vfx` writes `public/vfx/atlas.png` + `atlas.json` (128 px cells, `ppu` 56,
-  the same world size). The game loads it when present, and missing effects fall back to procedural ones.
+  the same world size) from the **approved** effects only (`approvedVersion` in `art/manifest.json`), and removes
+  a stale atlas when none are approved. The game loads it when present, and missing effects fall back to
+  procedural ones.
+
+## World art: approval gate and candidate preview
+
+- The packer ships world art (effects, crowd) only after the user approved it. `npm run sprites -- --candidates`
+  packs every candidate into `public/preview/vfx|crowd/` instead; that folder is git-ignored, so it never
+  deploys. `?art=custom` makes the loaders prefer it (`fetchAtlasJson` in `src/core/artIndex.js`), which is how
+  unapproved effects and spectators are reviewed in a real match.
+- **Crowd:** `npm run sprites crowd` turns each approved spectator (`worldArt.crowd.batches.*.items` in the
+  manifest, highest approved version) into three 64 x 96 cells (idle, cheer, shocked) of
+  `public/crowd/atlas.png` + `atlas.json` (ADR 0008 layout: 21 spectators per 64-cell row, ppu 50, pivot
+  [32, 94]); idle is scaled to the roster's height class. `loadCrowdAtlas()` in `src/world/arena.js` swaps it
+  into the instanced crowd; without it the code-painted crowd stays.
 - `Effects.spawn(name, x, y, z, opts)` creates a camera-facing quad with a tint `color` (white art is
   tinted at runtime), `glow` (HDR boost into bloom), optional velocity, gravity, spin, follow and loop.
   `Effects.keep(id, ...)` updates a persistent effect (auras, hand orbs, clash glow).

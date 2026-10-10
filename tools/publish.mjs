@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Push a slim copy of main to the private GitHub repo (no raw image generations).
 //
-//   npm run publish:github
+//   npm run publish:github                    (local main -> GitHub main)
+//   npm run publish:github -- --branch <name> (a local branch -> the same GitHub branch, e.g. for a PR)
 //
 // The local repository keeps everything (raw ChatGPT/Codex images are ~1 GB and growing). GitHub
 // gets the same history minus art/**/raw/, _rejected/, _old/ and contact sheets, rewritten with
@@ -17,7 +18,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REMOTE = process.env.GCD_PUBLISH_REMOTE || 'https://github.com/eshin087/gcd-tourney.git';
-const BRANCH = 'main';
+const bi = process.argv.indexOf('--branch');
+const BRANCH = bi > 0 && process.argv[bi + 1] ? process.argv[bi + 1] : 'main';
 const EXCLUDE = ['art/*/raw/*', 'art/*/_rejected/*', 'art/*/_old/*', 'art/*/contact/*'];
 
 const run = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: ['ignore', 'pipe', 'inherit'] }).toString().trim();

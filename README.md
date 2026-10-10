@@ -132,7 +132,7 @@ Design notes: [ADR 0009](docs/decisions/0009-move-system-v2.md) and [docs/COMBAT
   opponent's depth lane, and a hit only lands where the fist or foot on the current sprite frame overlaps the
   body ([ADR 0005](docs/decisions/0005-25d-lanes-frame-hitboxes.md)).
 - **Custom art**: `public/characters/<id>/sheet.png` + `anims.json` (spec v2: 256 px hi-res cells, pivot
-  `[128,240]`, 128 px per world unit, a 4096 × 2560 sheet; written by `npm run sprites`) replace the baked
+  `[128,240]`, 128 px per world unit, a 4096 × 2816 sheet; written by `npm run sprites`) replace the baked
   placeholder when present. Missing animations fall back per animation, and missing files fall back to the
   bake. Hi-res sheets switch the renderer to a sharper `hd` detail mode automatically.
 

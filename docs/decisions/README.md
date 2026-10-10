@@ -37,6 +37,7 @@ when a decision should be revisited.
 | [0009](0009-move-system-v2.md) | Move system v2: command specials, special kinds, SUPER button, passives and modes | Accepted |
 | [0010](0010-per-character-body-scale.md) | Per-character body scale (shorter Killua, taller Gojo); amends 0007 | Accepted |
 | [0011](0011-kit-baseline-and-balance.md) | Kit baseline: every fighter fills the same slots within the same budgets; balance log | Accepted |
+| [0012](0012-art-integration-gates-and-hand-anchors.md) | Art integration: approval-gated world art (VFX, crowd), local candidate preview, per-frame hand anchors | Accepted |
 
 ## Template
 

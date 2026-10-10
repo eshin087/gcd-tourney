@@ -27,3 +27,18 @@ export async function fetchArtJson(path) {
   if (!res.ok || !(res.headers.get('content-type') || '').includes('json')) return null;
   return res.json();
 }
+
+// ?art=custom also shows world art that is not approved yet: `npm run sprites -- --candidates` packs it into
+// public/preview/ (git-ignored, so never deployed). Without the flag only approved art (public/vfx, /crowd) loads.
+const PREVIEW = typeof location !== 'undefined' && new URLSearchParams(location.search).get('art') === 'custom';
+
+// Like fetchArtJson for an atlas folder ('/vfx', '/crowd'), preferring the candidate preview under ?art=custom.
+// Returns { data, dir } (dir = the folder its png lives in) or null.
+export async function fetchAtlasJson(dir) {
+  if (PREVIEW) {
+    const data = await fetchArtJson(`/preview${dir}/atlas.json`);
+    if (data) return { data, dir: `/preview${dir}` };
+  }
+  const data = await fetchArtJson(`${dir}/atlas.json`);
+  return data ? { data, dir } : null;
+}

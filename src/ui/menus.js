@@ -334,11 +334,14 @@ export class Menus {
       const cv = document.createElement('canvas');
       cv.width = assets[0].meta.frameWidth; cv.height = assets[0].meta.frameHeight;
       cv.className = 'cs-sprite';
+      // the hand-made select illustration (select.png) when a fighter has one; the animated sprite otherwise
+      const art = el('img', 'cs-art hidden');
+      art.alt = '';
       const name = el('div', 'cs-name');
       const sub = el('div', 'cs-sub');
       const moves = el('div', 'cs-moves');
-      s.append(tag, cv, name, sub, moves);
-      return { s, cv, name, sub, moves, preview: null };
+      s.append(tag, cv, art, name, sub, moves);
+      return { s, cv, art, name, sub, moves, preview: null };
     });
     const grid = el('div', 'cs-grid');
     const cells = [];
@@ -368,7 +371,9 @@ export class Menus {
         S.sub.textContent = idx == null ? '' : 'Your next legend goes here';
         S.moves.innerHTML = '';
         S.preview = null;
-        S.cv.getContext('2d').clearRect(0, 0, 64, 64);
+        S.art.classList.add('hidden');
+        S.cv.classList.remove('hidden');
+        S.cv.getContext('2d').clearRect(0, 0, S.cv.width, S.cv.height);
         this.previews = sides.map((x) => x.preview).filter(Boolean);
         return;
       }
@@ -377,7 +382,19 @@ export class Menus {
       S.name.style.color = c.color;
       S.sub.textContent = c.subtitle;
       S.moves.innerHTML = kitMovesHtml(c);
-      S.preview = new SpritePreview(S.cv, assets[idx], anim, i === 1);
+      const sel = assets[idx].select;
+      if (sel) {
+        // mirror the illustration when it faces away from the middle (P1 looks right, P2 left)
+        S.art.src = sel.src;
+        S.art.classList.toggle('flip', (c.selectFacing || 'right') !== (i === 0 ? 'right' : 'left'));
+        S.art.classList.remove('hidden');
+        S.cv.classList.add('hidden');
+        S.preview = null;
+      } else {
+        S.art.classList.add('hidden');
+        S.cv.classList.remove('hidden');
+        S.preview = new SpritePreview(S.cv, assets[idx], anim, i === 1);
+      }
       this.previews = sides.map((x) => x.preview).filter(Boolean);
     };
 

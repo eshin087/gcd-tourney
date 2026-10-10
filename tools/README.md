@@ -20,9 +20,11 @@ proportions, pivot `[128, 240]`, ppu 128. Where the numbers come from:
 ### Run it
 
 ```bash
-npm run sprites                 # every character in art/characters/ + the VFX atlas
+npm run sprites                 # every character in art/characters/ + the VFX atlas + the crowd atlas
 npm run sprites naruto          # one character (several ids allowed: npm run sprites naruto sasuke)
-npm run sprites vfx             # only the VFX atlas
+npm run sprites vfx             # only the VFX atlas (approved effects only)
+npm run sprites crowd           # only the crowd atlas (approved spectators only)
+node tools/pack-sprites.mjs vfx crowd --candidates   # every candidate -> public/preview/ (local, ?art=custom)
 npm run test:sprites            # packer regression test (never touches art/ or public/)
 ```
 
@@ -43,6 +45,7 @@ node tools/pack-sprites.mjs --dry-run naruto
 | `--tolerance <n>` | background color tolerance, RGB distance (default 72). Raise it if a pink halo remains, lower it if the character loses pink/purple pixels. |
 | `--no-writeback` | do not write cleaned frames back to `art/.../frames/<anim>/` |
 | `--strict` | exit code 2 when there are warnings (CI) |
+| `--candidates` | world art (VFX, crowd) is **approval-gated**: by default only effects / spectators with an `approvedVersion` in the manifest are packed, a newer unapproved source is warned and skipped, and a stale atlas is removed when nothing approved is left. `--candidates` packs every candidate (latest version) into `<out>/preview/vfx/` and `<out>/preview/crowd/` instead, leaving the shipped atlases alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
 | `--root <dir>` (`--src`, `--art`) | art folder to read (default `./art`). Used by tests. |
 | `--out <dir>` | public folder to write (default `./public`). Used by tests, so they never overwrite real characters. |
 | `--manifest <file>` | manifest to read (default `<root>/manifest.json`) |
@@ -174,7 +177,7 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
 ### What it writes
 
 `public/characters/<id>/sheet.png` (16 columns of 256x256 cells, animations in manifest order; a full
-154-frame character is 4096 x 2560) and `public/characters/<id>/anims.json`:
+175-frame character (42 animations) is 4096 x 2816) and `public/characters/<id>/anims.json`:
 
 ```json
 {
@@ -206,7 +209,8 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
   An image that is empty after background removal is warned and not written (the game keeps its fallback).
   The packer reads only `ui/<name>.png`; the reviewed candidate `raw/ui_<name>_vNN.png` is fitted and saved there by hand.
 - VFX: `public/vfx/atlas.png` + `atlas.json` = `{ "cell":128, "cols":<max frames>, "rows":<packed effects>, "ppu":56,
-  "anims": { "<name>": { "row", "n", "ms" } } }`, only for effects that have art (the rest stay procedural).
+  "anims": { "<name>": { "row", "n", "ms" } } }`, only for **approved** effects that have art (the rest stay procedural;
+  `--candidates` writes every effect to `public/preview/vfx/`).
   Each strip is scaled with one factor so its largest frame = `fill` x 128 px (`VFX_EFFECTS` in the packer: the
   same world size as the procedural effect), so only the relative sizes between frames come from the art.
   Frames keep their position inside the strip row: the row's common center line lands on y=64 (center effects)
@@ -257,6 +261,16 @@ tolerance. `drop`: indices of bad poses to discard (after splitting; out-of-rang
 version is the one packed, and its keys win over `raw/<anim>.json`. Put image-specific keys (`frames`, `split`,
 `drop`) in the versioned sidecar, so they do not carry over to the next candidate.
 
+- Crowd (ADR 0008): `public/crowd/atlas.png` + `atlas.json` = `{ "cell": [64, 96], "cols": 64, "ppu": 50, "pivot": [32, 94],
+  "frames": ["idle", "cheer", "shocked"], "source": "approved", "spectators": [{ "id", "cell", "heightClass", "kind", "tags",
+  "version" }] }`. Input: every roster spectator (`art/crowd/roster/*.json`, roster order) whose highest
+  `approvedVersion` in `worldArt.crowd.batches.*.items` has a raw `art/crowd/raw/<id>_vNN.png`. Per raw: magenta
+  removed (fringe included), specks dropped, the 3 poses split (even thirds when the split disagrees), each trimmed;
+  one scale per spectator so idle = its height class (`tiny` 44, `short` 58, `medium` 70, `tall` 78, `huge` 84 px),
+  shrunk for the whole spectator only if a pose would rise above y 2 or exceed 64 px; each pose stands on y 94,
+  centered on its feet; <= 24 colors per spectator (median cut), binary alpha. 21 spectators per row (`cell` = the
+  idle cell index). Not written yet: `art/crowd/frames/` write-back and per-batch contact sheets (TOOL-011).
+
 ### `hitboxes.json` (optional, per character)
 
 ```json
@@ -270,6 +284,9 @@ version is the one packed, and its keys win over `raw/<anim>.json`. Put image-sp
 
 `"*"` applies to every frame of the animation (specific frame numbers still win). An empty `hit` list means **this frame cannot hit** (it is written to `anims.json` as `"hit": []`).
 A frame with no `hit` key at all falls back to the move's `reach` in `src/game/moves.js`. An empty `hurt` list removes the override, so the frame uses the default body box.
+`"hand": [x, y]` marks the drawn palm or fingertip (256-cell px, rounded) for hand effects, projectile spawns and beam
+origins (`null` removes it); frames without one use their hit box, then the nearest frame of the animation (art/SPEC.md
+"Effect anchor points").
 Keys starting with `_` are ignored. Out-of-range frames and malformed boxes are warned, not fatal.
 Contact zones per attack (where a hit box should sit) are in `art/SPEC.md`.
 

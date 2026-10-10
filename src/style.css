@@ -150,6 +150,9 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
 .cs-side.s2 .cs-tag { align-self: flex-end; background: #3a7cff; }
 .cs-sprite { width: calc(var(--u) * 30); height: calc(var(--u) * 30); image-rendering: pixelated; }
 .cs-sprite.big { width: calc(var(--u) * 40); height: calc(var(--u) * 40); }
+.cs-art { width: calc(var(--u) * 30); height: calc(var(--u) * 30); object-fit: contain; image-rendering: auto; filter: drop-shadow(0 calc(var(--u) * 0.6) 0 var(--ink)); }
+.cs-art.flip { transform: scaleX(-1); }
+.cs-art.hidden, .cs-sprite.hidden { display: none; }
 .cs-name { font-size: calc(var(--u) * 6); line-height: 1; -webkit-text-stroke: calc(var(--u) * 0.35) var(--ink); paint-order: stroke fill; text-shadow: 0 calc(var(--u) * 0.6) 0 var(--ink); }
 .cs-sub { font-family: 'Press Start 2P', monospace; font-size: calc(var(--u) * 1.2); color: rgba(255,255,255,0.75); margin: calc(var(--u) * 0.8) 0 calc(var(--u) * 1.4); text-align: center; }
 .cs-moves { font-family: system-ui, sans-serif; font-size: calc(var(--u) * 1.6); color: rgba(255,255,255,0.8); text-align: center; line-height: 1.6; }
@@ -338,6 +341,17 @@ kbd { font-family: 'Press Start 2P', monospace; font-size: 0.72em; background: r
   .screen-title { margin-bottom: calc(var(--u) * 1.5); }
   .list .item small { display: none; }
   .tr-panel { top: calc(var(--u) * 14); min-width: 260px; }
+  /* char select: a full kit move list (9 rows) must fit under the fighter on a 360-375 px tall phone */
+  .cs-sprite:not(.big), .cs-art { width: calc(var(--u) * 20); height: calc(var(--u) * 20); }
+  .cs-moves { line-height: 1.35; }
+  .cs-side { padding: calc(var(--u) * 1.2); }
+  .cs-sub { margin: calc(var(--u) * 0.4) 0 calc(var(--u) * 0.8); }
+  .char-screen .screen-title { font-size: calc(var(--u) * 6); margin-bottom: calc(var(--u) * 0.5); }
+}
+/* landscape phone with the browser bar showing (~320-400 px): the subtitle goes, the fighter shrinks */
+@media (max-height: 400px) {
+  .char-screen .cs-sub { display: none; }
+  .cs-sprite:not(.big), .cs-art { width: calc(var(--u) * 14); height: calc(var(--u) * 14); }
 }
 .touch-row { justify-content: flex-start; }
 .touch-row .ctl-key { flex: none; min-width: 92px; text-align: left; }

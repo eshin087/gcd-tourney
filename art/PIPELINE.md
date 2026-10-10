@@ -371,8 +371,10 @@ docs(art): clarify contact zones for air attacks
 
 - **VFX**: same loop with `art/vfx/` (briefs in `art/vfx/EFFECTS.md`, prompts in
   `art/vfx/PROMPTS.md`): candidates `art/vfx/raw/<effect>_vNN.png`, queued in REVIEW.md (character
-  column `vfx`), packed with `npm run sprites vfx` into `public/vfx/atlas.png` + `atlas.json` (highest
-  version wins). VFX cells stay 128 x 128 at ppu 56. Tinted effects are white/grey only.
+  column `vfx`), packed with `npm run sprites vfx` into `public/vfx/atlas.png` + `atlas.json` (approved
+  effects only, at their approved version; `--candidates` packs the latest of every effect into the git-ignored
+  `public/preview/vfx/` for a `?art=custom` check). VFX cells stay 128 x 128 at ppu 56. Tinted effects are
+  white/grey only. The crowd works the same way (`npm run sprites crowd`, approved spectators only).
 - **Per-character UI**: candidates `raw/ui_<name>_vNN.png`; the approved one is copied to
   `ui/<name>.png`. The packer removes the magenta and fits it to the exact size (nearest-neighbor or
   mode sampling, never smooth resampling) when it writes `public/characters/<id>/`.

@@ -38,7 +38,10 @@ export class Beam {
     this.game = game;
     this.owner = owner;
     const o = owner.opp;
-    this.origin = new THREE.Vector3(owner.pos.x + owner.face.x * 0.8, owner.pos.y + 0.92, owner.pos.z + owner.face.y * 0.8);
+    // from the drawn palms of the beamFire pose when the art pack marks them
+    const H = owner.actor?.hand?.('beamFire');
+    const fwd = H ? H.x : 0.8, up = H ? H.y : 0.92;
+    this.origin = new THREE.Vector3(owner.pos.x + owner.face.x * fwd, owner.pos.y + up, owner.pos.z + owner.face.y * fwd);
     const target = new THREE.Vector3(o.pos.x, o.pos.y + 0.85, o.pos.z);
     this.dir = target.sub(this.origin);
     if (this.dir.lengthSq() < 0.01) this.dir.set(owner.face.x, 0, owner.face.y);
@@ -167,7 +170,10 @@ export class Projectile {
     this.owner = owner;
     this.P = P;
     this.type = type;
-    this.pos = new THREE.Vector3(owner.pos.x + owner.face.x * 0.5, owner.pos.y + 0.9, owner.pos.z + owner.face.y * 0.5);
+    // leaves from the drawn hand when the art pack marks it (anims.json `hand` / hit box)
+    const H = owner.actor?.hand?.();
+    const fwd = H ? H.x : 0.5, up = H ? H.y : 0.9;
+    this.pos = new THREE.Vector3(owner.pos.x + owner.face.x * fwd, owner.pos.y + up, owner.pos.z + owner.face.y * fwd);
     this.vel = dir.clone().multiplyScalar(P.speed);
     this.life = P.life;
     this.dead = false;

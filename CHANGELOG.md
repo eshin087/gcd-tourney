@@ -27,6 +27,15 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
+- **Approved crowd in the stands:** `npm run sprites crowd` packs the 121 approved spectators (14 batches) into
+  `public/crowd/atlas.*` (idle at the height class, feet on the pivot, ≤ 24 colors); the arena uses it instead of
+  the code-painted crowd (TOOL-011 crowd mode, ADR 0012).
+- Per-frame **hand anchors** (`hand: [x, y]` in `hitboxes.json`): Rasengan, Rasenshuriken, Chidori, thrown
+  projectiles and beams start at the drawn hand of Naruto's, Killua's and Gojo's art (ENG-011, ADR 0012).
+- Character select shows each fighter's approved select illustration, mirrored per side from the new
+  `selectFacing` character field.
+- `--candidates` packer option + `?art=custom`: unapproved effects and spectators are packed into the git-ignored
+  `public/preview/` and shown in a real match for review, never deployed (ADR 0012).
 - Merged Naruto A39–A42 kit animation briefs, manifest/tracker rows and specialDown-only face/palette exceptions (ADR 0011).
 - `docs/agents/CODEX_INBOX.md`: one file where Claude leaves work for each Codex thread; the user pastes one line
   ("Read docs/agents/CODEX_INBOX.md and do the section for your thread"). AGENTS.md rule 6. `npm run status` groups the
@@ -102,6 +111,11 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- World art is approval-gated: `npm run sprites vfx|crowd` ships only items with an `approvedVersion`; the 15
+  unapproved VFX candidates no longer ship (the game uses its procedural effects until the user approves them;
+  the sources stay in `art/vfx/`) (ADR 0012).
+- Gojo's Blink puff, speed lines and sound now fire when he disappears, after the wind-up pose (ENG-032 follow-up).
+- Killua light4 / airLight3 active boxes cover the kicking foot and the leading arc, not the trail behind the leg.
 - Approved Naruto run v03, completing the short-hair revision; switched subsequent Naruto production to one final set review at the user's request (ART-NAR-12).
 - Balance pass from CPU round-robins: Gojo power/defense 1.0 and Infinity costs 15 ki per stopped projectile;
   Killua sturdier; Rasengan 150 → 140, Chidori 165 → 152; Lapse: Blue a little less safe (see ADR 0011 log).
@@ -128,6 +142,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Character select fits a landscape phone: the full kit move list was cut off below 480 px of height.
+- Docs: spec v2 sheets are 4096 × 2816 (42 animations / 175 frames), not 4096 × 2560.
 - Minimum hurtbox width (0.56 units) so a slim art pack can't make a fighter hard to hit (Killua's art: 75 % → 42 % CPU wins).
 - Melee hits on the same frame now trade: P1 used to update first and win every exchange (P1 won 81 % of CPU
   matches; 40-51 % after the fix).

@@ -157,4 +157,5 @@ export default {
   stance,
   extraAnims,
   portraitFace: 'angry',
+  selectFacing: 'left', // which way art/characters/naruto/ui/select faces (char select mirrors it per side)
 };

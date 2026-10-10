@@ -70,6 +70,40 @@ export class SheetAsset {
     });
   }
 
+  // Hand anchor (palm / fingertips) for hand effects, shots and beams, in local world units: x along the
+  // facing, y up from the feet. Art packs only: the baked placeholder keeps the engine's tuned fixed
+  // offsets. Order: the frame's `hand` (hitboxes.json), its hit box, then the nearest frame of the same
+  // animation that has one; null when the animation has none (callers fall back to fixed offsets).
+  hand(anim, frame) {
+    if (this.meta.source !== 'art-pack' || !anim?.frames) return null;
+    const own = this.frameHand(frame);
+    if (own) return own;
+    const fr = anim.frames, i = Math.max(0, fr.indexOf(frame));
+    for (let d = 1; d < fr.length; d++) {
+      for (const j of [i + d, i - d]) {
+        if (j < 0 || j >= fr.length) continue;
+        const h = this.frameHand(fr[j]);
+        if (h) return h;
+      }
+    }
+    return null;
+  }
+
+  frameHand(frame) {
+    this._hands = this._hands || new Map();
+    if (this._hands.has(frame)) return this._hands.get(frame);
+    const b = this.meta.boxes?.[frame];
+    let p = b?.hand;
+    if (!p && b?.hit?.length) {
+      const [x, y, w, h] = b.hit[0];
+      p = [x + w * 0.6, y + h / 2];
+    }
+    const ppu = this.meta.pixelsPerUnit, [px, py] = this.meta.pivot;
+    const out = p ? { x: (p[0] - px) / ppu, y: (py - p[1]) / ppu } : null;
+    this._hands.set(frame, out);
+    return out;
+  }
+
   uv(frame, out) {
     const { frameWidth: fw, frameHeight: fh } = this.meta;
     const c = frame % this.cols, r = Math.floor(frame / this.cols);
@@ -83,7 +117,8 @@ export class SheetAsset {
 // complete; otherwise the character is baked from the procedural 3D rig.
 export async function loadFighterAsset(def, renderer = null) {
   const base = `/characters/${def.id}/`;
-  const ui = () => (ART_MODE === 'procedural' ? [null, null] : Promise.all([loadImage(base + 'portrait.png'), loadImage(base + 'cutin.png')]));
+  // hand-made UI art (portrait 96, cut-in 480x128, select 384) loads on its own: it can ship before the body sprites
+  const ui = () => (ART_MODE === 'procedural' ? [null, null, null] : Promise.all(['portrait', 'cutin', 'select'].map((n) => loadImage(`${base}${n}.png`))));
   if (ART_MODE !== 'procedural') {
     try {
       const meta = await fetchArtJson(base + 'anims.json');
@@ -94,7 +129,7 @@ export async function loadFighterAsset(def, renderer = null) {
           const img = await loadImage(`${base}sheet.png?v=${Date.now()}`);
           if (img) {
             const asset = new SheetAsset(img, meta, 'custom');
-            [asset.portrait, asset.cutin] = await ui();
+            [asset.portrait, asset.cutin, asset.select] = await ui();
             console.info(`[sprites] using custom sheet for ${def.id} (${Object.keys(meta.animations).length} animations${meta.complete ? '' : ', incomplete preview'})`);
             return asset;
           }
@@ -112,9 +147,10 @@ export async function loadFighterAsset(def, renderer = null) {
   console.info(`[sprites] baked ${def.id} from 3D in ${(performance.now() - t0).toFixed(0)} ms`);
   const asset = new SheetAsset(canvas, meta, 'procedural');
   // hand-made UI images may arrive before the body sprites
-  const [p, c] = await ui();
+  const [p, c, sel] = await ui();
   asset.portrait = p || portrait;
   asset.cutin = c || cutin;
+  asset.select = sel;
   return asset;
 }
 
@@ -226,6 +262,13 @@ export class SpriteActor {
     this.mat.uniforms.uvRect.value.copy(uv);
     this.shadowTex.offset.set(uv.x, uv.y);
     this.shadowTex.repeat.set(uv.z - uv.x, uv.w - uv.y);
+  }
+
+  // Hand anchor of the frame on screen (or of `name`'s frames); see SheetAsset.hand.
+  hand(name = null) {
+    if (!name) return this.asset.hand(this.anim, this.frame);
+    const a = this.asset.anim(name);
+    return this.asset.hand(a, a?.frames?.[0]);
   }
 
   // Free-running playback (loops / one-shots).

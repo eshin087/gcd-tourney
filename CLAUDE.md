@@ -33,7 +33,9 @@ documentation that stays true.
 | `npm run preview` | serve the built `dist/` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` (+ VFX) |
 | `npm run sprites naruto` | pack one character |
-| `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` |
+| `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |
+| `npm run sprites crowd` | pack only the crowd atlas into `public/crowd/` (approved spectators only) |
+| `node tools/pack-sprites.mjs vfx crowd --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
@@ -77,7 +79,7 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    means updating `animGuide.js`, `FALLBACK` in `src/game/sprites.js`, `src/art/rig/anims.js` (placeholder),
    `art/manifest.json`, `art/SPEC.md`, `ASSETS.md` and the art template, all in the same change.
 3. **Generated files are outputs.** Never hand-edit `public/characters/<id>/sheet.png`, `anims.json` or
-   `public/vfx/atlas.*`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
+   `public/vfx/atlas.*` or `public/crowd/atlas.*`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
    Generated images are inputs with a `_vNN` version (ADR 0007): never overwrite, reuse or delete one.
 4. **Character data lives in `src/characters/<id>.js`**. Shared systems should not special-case a character
    id (`if (def.id === 'naruto')`). Add a data field instead.
@@ -206,7 +208,7 @@ A change is done when:
   sprites shows up as shimmering, so keep sprite placement and scales pixel-consistent. Hi-res packs
   (`pixelsPerUnit` >= 70; spec v2 is 128) switch it to the `hd` detail (scale = floor(height / 600));
   override with `?res=pixel` or `?res=hd`.
-- Spec v2 custom sheets are 4096 × 2560 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
+- Spec v2 custom sheets are 4096 × 2816 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
   2048 texture limit gets a downscaled sheet and a three.js warning (ADR 0007).
 - Simulation randomness uses `Math.random()` (clash wobble, AI, FX). That's fine for now. Online play
   will need a seeded RNG for the sim (see docs/ROADMAP.md).

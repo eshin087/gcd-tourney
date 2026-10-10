@@ -57,7 +57,9 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    - VFX: `art/vfx/raw/<effect>_vNN.png`; UI: `art/characters/<id>/raw/ui_<name>_vNN.png` (`portrait`,
      `cutin`, `select`); shared UI: `art/ui/raw/<asset>_vNN.png`
    - images the user made by hand in ChatGPT get the same names and the same review
-6. **Pack**: `npm run sprites <id>` (or `npm run sprites vfx`). Read the report: which file it used per
+6. **Pack**: `npm run sprites <id>` (or `node tools/pack-sprites.mjs vfx crowd --candidates` for world art
+   waiting for review: it writes the git-ignored `public/preview/`, seen with `?art=custom`; `npm run sprites vfx`
+   / `crowd` ship approved art only). Read the report: which file it used per
    animation, packed anims, missing CORE anims, frame-count mismatches, clipped frames, palette warnings.
 7. **QA** the output in `art/characters/<id>/frames/<anim>/` and in the game
    (`npm run dev`, then `http://127.0.0.1:5188/?fight=<id>,<id>&mode=solo&art=custom&debug`). The Sprite
@@ -118,7 +120,7 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
   `art/characters/<id>/hitboxes.json` overrides (frame-local px in the final 256×256 cell, keyed by
   animation, then the 0-based frame number = the `NN` in `<anim>_NN.png`). Never hand-edit
   `public/characters/<id>/anims.json`.
-- Never hand-edit `public/characters/**` or `public/vfx/**`. They are packer outputs.
+- Never hand-edit `public/characters/**`, `public/vfx/**` or `public/crowd/**`. They are packer outputs.
 - Prompts describe **visual traits** (hair, outfit, colors, silhouette) and say "anime fan-art sprite".
   Don't depend on character or artist names. If the image generator refuses, use the fallback wording in
   the PROMPTS file.

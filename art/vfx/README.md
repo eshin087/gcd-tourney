@@ -2,9 +2,11 @@
 
 This folder holds the bitmap art for every **visual effect** in GCD Tourney. Today the game draws
 all effects procedurally (`src/art/vfxPainter.js`, baked at startup into a 64 px-cell atlas). When
-custom art exists here, `npm run sprites vfx` packs it into `public/vfx/atlas.png` +
-`public/vfx/atlas.json` and the game uses it instead. **Any effect without art keeps its
-procedural fallback**, so effects can be replaced one at a time.
+custom art exists here **and the user approved it** (`approvedVersion` in `art/manifest.json`),
+`npm run sprites vfx` packs it into `public/vfx/atlas.png` + `public/vfx/atlas.json` and the game uses it
+instead. **Any effect without approved art keeps its procedural fallback**, so effects can be replaced one
+at a time. To see candidates in a match before approval: `node tools/pack-sprites.mjs vfx --candidates`
+(writes the git-ignored `public/preview/vfx/`), then open the game with `?art=custom`.
 
 Spec v2 ([ADR 0007](../../docs/decisions/0007-art-spec-v2-shippuden-256.md)) changed the character
 cells (256 px) but **not the VFX cells**: they stay 128 x 128 at ppu 56. What v2 adds here is the
@@ -102,7 +104,8 @@ Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
    1 + the highest number used for that effect, including `raw/_rejected/` and REVIEW.md). Add a
    `needs review` row to `../REVIEW.md` (character column `vfx`), set `version` in the manifest and
    status `raw`.
-6. Run `npm run sprites vfx`. The packer takes the highest `_vNN` per effect (and prints which file),
+6. Run `node tools/pack-sprites.mjs vfx --candidates` to preview (`?art=custom`); after the user approves
+   (manifest `approvedVersion`), `npm run sprites vfx` ships it. The packer takes the highest `_vNN` per effect (and prints which file),
    removes the magenta, splits the strip into frames, fits them into 128 px cells, writes cleaned
    frames to `frames/<effect>/` and builds `public/vfx/atlas.*`. Read the report for warnings (frame
    count mismatch, clipped frames). Set status `packed`.

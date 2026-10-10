@@ -151,4 +151,5 @@ export default {
   runLean: 44,
   runArms: { aN: { sw: -110, ab: 24, el: 10 }, aF: { sw: -104, ab: 18, el: 10 } },
   portraitFace: 'angry',
+  selectFacing: 'right', // which way art/characters/killua/ui/select faces (char select mirrors it per side)
 };

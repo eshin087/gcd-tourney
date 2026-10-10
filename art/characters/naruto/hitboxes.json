@@ -1,5 +1,28 @@
 {
   "_comment": "256px frame-local boxes over the visible striking hands, replacing full-body fallback detections. Visual target-zone deviations are recorded in production/QA.md.",
-  "heavy": { "3": { "hit": [[145,55,24,34]] } },
-  "airHeavy": { "3": { "hit": [[194,163,30,33]] } }
+  "heavy": {
+    "3": {"hit": [[145, 55, 24, 34]]}
+  },
+  "airHeavy": {
+    "3": {"hit": [[194, 163, 30, 33]]}
+  },
+  "_hands": "hand: palm/fingertip point (256 cell) for hand effects, shots and beams; measured by Claude 2026-10-10 from the packed frames (Rasengan forms between the cupped hands, Rasenshuriken sits on the raised palm)",
+  "special": {
+    "0": {"hand": [168, 116]},
+    "1": {"hand": [174, 124]},
+    "2": {"hand": [164, 111]}
+  },
+  "specialForward": {
+    "0": {"hand": [158, 40]},
+    "1": {"hand": [164, 46]}
+  },
+  "throw": {
+    "1": {"hand": [232, 92]},
+    "2": {"hand": [225, 128]}
+  },
+  "beamFire": {
+    "0": {"hand": [205, 90]},
+    "1": {"hand": [192, 90]},
+    "2": {"hand": [205, 90]}
+  }
 }
