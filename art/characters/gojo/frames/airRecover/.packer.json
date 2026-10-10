@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airRecover_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/airRecover_v01.png"
+  ],
+  "sourceHash": "e5841f588401f8ec33d3a94c60acc117528bbc7f",
+  "bodyHeight": 196,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airRecover_00.png": "94809a92679400865972a4404501bebf7666f553",
+    "airRecover_01.png": "b687a223acb53dd1f833c4c4e33b28900432c6a3",
+    "airRecover_02.png": "e92da7fe576a15511fe42c290e6fc9cb154d5d36"
+  }
+}

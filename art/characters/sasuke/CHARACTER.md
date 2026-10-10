@@ -1,5 +1,7 @@
 # Sasuke (Shippuden / Hebi era): character design brief
 
+> **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
+
 > Read this first, then [ANIMATIONS.md](ANIMATIONS.md) (frame-by-frame poses),
 > [MOVES_AND_VFX.md](MOVES_AND_VFX.md) (how each move looks in the engine) and
 > [PROMPTS.md](PROMPTS.md) (copy-paste image prompts in generation order).
@@ -15,7 +17,8 @@
 | HUD name / subtitle | `SASUKE` / "Last of the Clan" |
 | Signature rush (1 bar) | **CHIDORI**: lightning in the hand held low behind him, a low sprint, a spear-hand thrust (`special`) |
 | Air projectile (½ bar) | **FIREBALL**: Great Fireball Technique, a big fireball breathed from the mouth (`throw`) |
-| Ultimate (3 bars) | **LIGHTNING LANCE**: a blue lightning beam thrust from a spear-hand (`beamCharge` → `beamFire`) |
+| Ultimate (3 bars) | **AMATERASU**: Mangekyo glare (`superPose`); engine draws black flames |
+| SUPER (3 bars) | **KIRIN**: call storm and command lightning (`beamCharge` -> `beamFire`) |
 | Sword | the Kusanagi-style straight sword is part of the design only. It stays **sheathed at the back of the belt in every animation**; the moveset never swings it (Chidori is hand-based). |
 | Character color | `#4a7bff` (HUD, afterimages, vanish ring, super-dash bursts) |
 | Aura | outer `#408cff` (`aura [0.25, 0.55, 1.0]`), core `#ccebff` (`auraCore [0.8, 0.92, 1.0]`) |
@@ -99,7 +102,7 @@ If a frame is missing any of these, it is off-model. Check them in every strip.
 
 Off-model in any frame: a forehead protector, the Part 1 outfit (navy short-sleeved shirt, white
 shorts, leg wraps), the dark cloak or the grey Taka-era shirt, a drawn sword, curse-mark patterns,
-a pinwheel-shaped Mangekyo eye, chibi proportions (a big head, short legs).
+a pinwheel-shaped Mangekyo eye outside `superPose`, chibi proportions (a big head, short legs).
 
 ## 3. Proportions and landmarks (final 256×256 cell)
 
@@ -115,10 +118,11 @@ above). Full rules: [SPEC.md](../../SPEC.md).
 - In the **idle stance** (knees bent about 20°, slight forward lean) the top of the skull sits at
   about y 52 and the hair top at about y 36, so the trimmed height including hair is about **204 px**,
   the idle `bodyHeight`.
-- **Same body scale and the same `bodyHeight` table as Naruto** (ADR 0007). Sasuke has no per-character
-  offsets in v2. If the approved idle still reads more than 3 px bigger or smaller in head size than
-  Naruto's in the Sprite Lab (his hair adds a little less height), Codex sets per-character
-  `bodyHeight` overrides in `art/manifest.json` and logs them in `art/TRACKER.md`. Don't redraw for it.
+- **Same anatomical scale as Naruto:** 200px neutral skeleton and about 31px skull-to-chin,
+  excluding hair. Follow [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md): measure source landmarks,
+  calibrate uniform source scale, and inspect bone lengths through transitions. `bodyHeight` is a
+  pose envelope and fallback, not a substitute for measurements. Redraw a disproportionate or
+  oversized pose when uniform scale cannot preserve both anatomy and cell bounds.
 - Keep every opaque pixel inside **x 4..251, y 4..240** (the cell margin).
 
 Idle stance landmarks, in final cell pixels (x from the left, y from the top; soles on y 240, body
@@ -151,7 +155,7 @@ Strike heights on a same-size opponent (ADR 0007) and the contact zones of his a
 | MID (chest) | 92 to 124 | `airLight1` fist (206-230, 100-120), `airLight3` heel (222-248, 105-150) |
 | LOW (stomach) | 122 to 152 | `light3` sole (222-246, 122-148), `airLight2` foot (220-246, 130-155), Chidori thrust hand (194-222, 128-158) |
 | down-forward | | `airHeavy` clasped fists (180-218, 160-206) |
-| jutsu origins | | Fireball: mouth at ~(192, 125); beam: spear-hand tip in (222-238, 112-132), origin (230, 122); Chidori lightning: low behind (64, 199), forward (218, 140) |
+| jutsu origins | | Fireball: mouth at ~(192, 125); Kirin strike: pointing fingertips near (230, 122); Kirin call: measure raised palm after packing; Chidori lightning: low behind (64, 199), forward (218, 140). These are planning targets; measured anchors win. |
 
 **Forward-most rule.** On active frames the striking fist, foot or hand is the right-most part of the
 silhouette. Bangs, rope ends, the waist cloth and the sword stay behind it (and behind about x 172 to
@@ -336,7 +340,12 @@ Replacement terms:
 | Sharingan | "glowing red eyes with three small black comma marks around the pupil" |
 | Chidori | "a crackling ball of blue-white lightning in his open hand" (the move: "lightning-hand rush") |
 | Great Fireball Technique | "breathing a large ball of fire from his mouth" |
-| Lightning Lance | "a blue lightning beam thrust from a spear-hand" |
+| Kirin | "a raised-arm storm call followed by a downward pointing command" (no lightning drawn) |
+| Chidori Sharp Spear | "an empty left lead-hand spear thrust" |
+| Lion's Barrage | "a rising anti-air kick" |
+| Sharingan Counter | "a calm reading stance with red eyes" |
+| Amaterasu | "a cold still eye-technique stare" (no flames drawn) |
+| Mangekyo Sharingan | "red eyes with a bold black three-bladed pinwheel around the pupil" |
 | Uchiha crest | "a small red-and-white round paper-fan emblem" |
 | Kusanagi | "a straight sword in a black sheath" |
 | Naruto Shippuden / Hebi outfit | "his older teenage outfit" (and keep the full trait list) |
@@ -359,3 +368,13 @@ Replacement terms:
 Review queue: [art/REVIEW.md](../../REVIEW.md). Status of every asset: [art/TRACKER.md](../../TRACKER.md)
 (human) and [art/manifest.json](../../manifest.json) (machine, with `version` and `approvedVersion`).
 Build: `npm run sprites sasuke`.
+
+
+## Current kit constraints (ADR 0011)
+
+- Chidori uses the right hand, except Chidori Sharp Spear (`specialForward`), which uses the left lead hand.
+- Three-tomoe Sharingan: specialForward f1-f4, specialDown f1-f3, beamCharge and beamFire throughout.
+- Mangekyo only in superPose, all four frames. No blood. Normal attacks keep dark eyes.
+- Super cut-in retains three-tomoe Sharingan for the shared Kirin/Amaterasu UI.
+- Sword always sheathed. All lightning, dragon, flames and energy are engine VFX.
+- Terminology fallback: Sharp Spear = empty lead-hand spear thrust; Lion's Barrage = rising kick; Sharingan counter = red-eye reading stance; Amaterasu = Mangekyo glare without drawn flames; Kirin = raised-arm lightning command without drawn lightning.

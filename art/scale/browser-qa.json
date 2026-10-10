@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-10T07:31:54.642Z",
+  "page": "local candidate comparison",
+  "animationsExercised": 42,
+  "errors": [],
+  "mobile": {
+    "width": 390,
+    "documentWidth": 390,
+    "canvases": 4
+  },
+  "scope": "Comparison UI smoke only; does not certify anatomy or final gameplay."
+}

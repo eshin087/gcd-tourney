@@ -1,0 +1,117 @@
+{
+  "_comment": "Final 256px-cell anchors and hand-local Chidori contacts inspected on the calibrated candidate sheet. Generated atlas metadata is never edited directly.",
+  "special": {
+    "0": {
+      "hand": [
+        73,
+        163
+      ]
+    },
+    "1": {
+      "hand": [
+        97,
+        180
+      ]
+    },
+    "2": {
+      "hand": [
+        97,
+        180
+      ]
+    },
+    "3": {
+      "hand": [
+        97,
+        174
+      ],
+      "hit": [
+        [
+          84,
+          161,
+          30,
+          28
+        ]
+      ]
+    },
+    "4": {
+      "hand": [
+        97,
+        174
+      ],
+      "hit": [
+        [
+          84,
+          161,
+          30,
+          28
+        ]
+      ]
+    },
+    "5": {
+      "hand": [
+        227,
+        119
+      ],
+      "hit": [
+        [
+          216,
+          105,
+          31,
+          26
+        ]
+      ]
+    },
+    "6": {
+      "hand": [
+        224,
+        123
+      ]
+    },
+    "7": {
+      "hand": [
+        178,
+        129
+      ]
+    }
+  },
+  "beamCharge": {
+    "0": {
+      "hand": [
+        170,
+        24
+      ]
+    },
+    "1": {
+      "hand": [
+        168,
+        32
+      ]
+    },
+    "2": {
+      "hand": [
+        169,
+        26
+      ]
+    }
+  },
+  "beamFire": {
+    "0": {
+      "hand": [
+        190,
+        99
+      ]
+    },
+    "1": {
+      "hand": [
+        186,
+        99
+      ]
+    },
+    "2": {
+      "hand": [
+        189,
+        100
+      ]
+    }
+  }
+}

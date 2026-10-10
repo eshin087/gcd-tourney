@@ -1,5 +1,7 @@
 # Art pipeline
 
+Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md). Technical packing success does not establish anatomical consistency.
+
 From a generated image to a fighter in the game, step by step. Sizes and formats:
 [SPEC.md](SPEC.md) (hi-res sprite spec v2, [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md)).
 Look and posing: [STYLE_GUIDE.md](STYLE_GUIDE.md). Review queue: [REVIEW.md](REVIEW.md). Status:

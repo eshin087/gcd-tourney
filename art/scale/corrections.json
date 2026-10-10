@@ -1,0 +1,466 @@
+{
+  "naruto": {
+    "run": {
+      "version": 4,
+      "previousVersion": 3,
+      "packedHeadEstimate": [
+        35,
+        35,
+        34,
+        34,
+        35,
+        35,
+        35,
+        34
+      ],
+      "sourceScale": 0.452,
+      "file": "raw/run_v04.png",
+      "status": "packed",
+      "approvedVersion": 3,
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "dash": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        39,
+        39
+      ],
+      "sourceScale": 0.332,
+      "file": "raw/dash_v02.png",
+      "status": "packed",
+      "approvedVersion": 1,
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "jumpSquat": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        38
+      ],
+      "sourceScale": 0.211,
+      "file": "raw/jumpSquat_v02.png",
+      "status": "packed",
+      "approvedVersion": 1,
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "heavy": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/heavy_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "airLight1": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/airLight1_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        28,
+        28,
+        28,
+        28,
+        28
+      ],
+      "sourceScale": 0.328
+    },
+    "airLight3": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/airLight3_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        34,
+        34,
+        34,
+        34,
+        34,
+        34
+      ],
+      "sourceScale": 0.367
+    },
+    "airHeavy": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/airHeavy_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        27,
+        27,
+        30,
+        30,
+        30,
+        30
+      ],
+      "sourceScale": 0.3
+    },
+    "guard": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/guard_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "block": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/block_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "launched": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/launched_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        25,
+        25
+      ],
+      "sourceScale": 0.214
+    },
+    "airRecover": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/airRecover_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        28,
+        28,
+        28
+      ],
+      "sourceScale": 0.25
+    },
+    "down": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/down_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        28,
+        28
+      ],
+      "sourceScale": 0.262
+    },
+    "ko": {
+      "version": 5,
+      "previousVersion": 4,
+      "approvedVersion": 3,
+      "file": "raw/ko_v05.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "special": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/special_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "win": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/win_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "beamCharge": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/beamCharge_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "beamFire": {
+      "version": 4,
+      "previousVersion": 3,
+      "approvedVersion": 2,
+      "file": "raw/beamFire_v04.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "superPose": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/superPose_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "airLight2": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 2,
+      "file": "raw/airLight2_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    }
+  },
+  "killua": {
+    "run": {
+      "version": 3,
+      "previousVersion": 2,
+      "packedHeadEstimate": [
+        36,
+        36,
+        36,
+        37,
+        36,
+        37,
+        36,
+        36
+      ],
+      "sourceScale": 0.361,
+      "file": "raw/run_v03.png",
+      "status": "packed",
+      "approvedVersion": 2,
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "dash": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        38,
+        39
+      ],
+      "sourceScale": 0.273,
+      "file": "raw/dash_v02.png",
+      "status": "packed",
+      "approvedVersion": 1,
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "jumpSquat": {
+      "version": 2,
+      "previousVersion": 1,
+      "packedHeadEstimate": [
+        38
+      ],
+      "sourceScale": 0.163,
+      "file": "raw/jumpSquat_v02.png",
+      "status": "packed",
+      "approvedVersion": 1,
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "guard": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/guard_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "block": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/block_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "hurtHigh": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/hurtHigh_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        36,
+        36,
+        36
+      ],
+      "sourceScale": 0.223
+    },
+    "hurtLow": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/hurtLow_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        36,
+        36,
+        36
+      ],
+      "sourceScale": 0.21
+    },
+    "charge": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/charge_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "beamCharge": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/beamCharge_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "beamFire": {
+      "version": 4,
+      "previousVersion": 3,
+      "approvedVersion": 2,
+      "file": "raw/beamFire_v04.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "ko": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/ko_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained.",
+      "packedHeadEstimate": [
+        21
+      ],
+      "sourceScale": 0.105
+    },
+    "specialForward": {
+      "version": 4,
+      "previousVersion": 3,
+      "approvedVersion": 2,
+      "file": "raw/specialForward_v04.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "superPose": {
+      "version": 3,
+      "previousVersion": 2,
+      "approvedVersion": 1,
+      "file": "raw/superPose_v03.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    },
+    "superDash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/superDash_v02.png",
+      "status": "packed",
+      "notes": "Final candidate: see art/scale/FINAL_QA.md. Visual approval remains pending; original source and prior approvals retained."
+    }
+  },
+  "gojo": {
+    "guard": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/guard_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "charge": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/charge_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "dash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/dash_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "backDash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/backDash_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "superDash": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/superDash_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "jumpSquat": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/jumpSquat_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "jumpUp": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/jumpUp_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "jumpFall": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/jumpFall_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "land": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/land_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "run": {
+      "version": 4,
+      "previousVersion": 3,
+      "approvedVersion": 3,
+      "file": "raw/_rejected/run_v04.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "light1": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/light1_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    },
+    "light2": {
+      "version": 2,
+      "previousVersion": 1,
+      "approvedVersion": 1,
+      "file": "raw/_rejected/light2_v02.png",
+      "status": "rejected",
+      "notes": "User prefers original Gojo head size; enlarged candidate rejected and approved source restored."
+    }
+  }
+}

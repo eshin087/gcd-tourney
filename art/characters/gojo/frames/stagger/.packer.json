@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/stagger_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/stagger_v01.png"
+  ],
+  "sourceHash": "3e5e6005fea987cf38b7ec40aaa9656a3b5b3ba7",
+  "bodyHeight": 225,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "stagger_00.png": "5f1cdbfc04f9953356c97e026ca4aeda9594cf83",
+    "stagger_01.png": "c7daf5fc99649749fe65ff890d07575a0afb23d7",
+    "stagger_02.png": "9ec5c25cb6f208bbc43140d142839144390fa0d0",
+    "stagger_03.png": "2c8a2d2e0ed7f560de65adb32e3cd7f0bcc87ab6"
+  }
+}

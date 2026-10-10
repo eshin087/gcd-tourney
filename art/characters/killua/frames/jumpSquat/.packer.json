@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/jumpSquat_v01.png",
-  "version": 1,
+  "sourceFile": "raw/jumpSquat_v02.png",
+  "version": 2,
   "source": [
-    "characters/killua/raw/jumpSquat_v01.png"
+    "characters/killua/raw/jumpSquat_v02.png",
+    "characters/killua/raw/jumpSquat_v02.json"
   ],
-  "sourceHash": "4e9c4fcc1793040f1cc04cb8ceca9fff5286e2aa",
+  "sourceHash": "62c69875ff0debb3146f48da5fbbc7d752aec59c",
   "bodyHeight": 147,
   "cell": {
     "frameWidth": 256,
@@ -17,6 +18,6 @@
     ]
   },
   "files": {
-    "jumpSquat_00.png": "c8ed6c0338aadd2be7c94e04ebab2c59aac7dd45"
+    "jumpSquat_00.png": "98818a43c07857384dff34a9b6bacc53676d5222"
   }
 }

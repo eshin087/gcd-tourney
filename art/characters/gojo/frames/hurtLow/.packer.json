@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hurtLow_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/hurtLow_v01.png"
+  ],
+  "sourceHash": "69baad5fc87bff973e7f83ab2b0cba678069f062",
+  "bodyHeight": 199,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "hurtLow_00.png": "0699353518184784a579f2d660c5f0a10d01f481",
+    "hurtLow_01.png": "ddeb28ec0227374e47473b18c4ecca72988125e4",
+    "hurtLow_02.png": "bf401c12a706706c4927b11e66682a6fe407c13a"
+  }
+}

@@ -67,3 +67,7 @@ Final post-approval browser run: PASS, no page/console errors. Both fighters loa
 - Blink: the smoke puff, speed lines and sound now fire when he disappears (after the specialUp wind-up), not at the
   button press.
 - 144 CPU matches with the art packs: Gojo 56 %, no errors (ADR 0011 log run 10-11).
+
+## 2026-10-10 scale candidate pass
+
+See [final cross-cast QA](../../../scale/FINAL_QA.md) for selected versions, source hashes, all-frame inspection, browser checks, contact anchors, measurement uncertainty and final approval scope. Earlier records below/above describe previous versions.

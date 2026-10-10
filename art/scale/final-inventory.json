@@ -1,0 +1,1878 @@
+{
+  "at": "2026-10-10T07:38:35.721Z",
+  "approval": "pending final visual review",
+  "characters": {
+    "naruto": {
+      "animations": 42,
+      "frames": 175,
+      "warnings": [
+        "ko: 1 frame(s) reach into the 4px cell margin (#0 left 4px/right 2px) - keep every pixel inside x 4..251, y >= 4; repose or reposition while preserving anatomical scale"
+      ],
+      "atlasSha256": "33a19ba31de995201a8eb597153fafa6cc46a84182275daf47cc9606c7c620b6",
+      "metadataSha256": "689aa51b91a29b5b2713efc39697a727dde5b5e8f3cb92991aa0034744f8969b",
+      "sources": [
+        {
+          "animation": "idle",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/naruto/raw/idle_v02.png",
+          "sourceSha256": "5963893a6472e6841f8ccffa2cf9c0592e901267b9629c93288994251d9d0e06",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "run",
+          "version": 4,
+          "frames": 8,
+          "source": "art/characters/naruto/raw/run_v04.png",
+          "sourceSha256": "d7f8fef00727959bd69ccd04c38ee930b44b4588b29a3a67c77c6655554e2b6b",
+          "sidecarSha256": "c80771a7ab202351e8943dfa055b5b46e6ba23158405c3da9ebd3fd44cc0091c",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              77.434,
+              77.434,
+              75.221,
+              75.221,
+              77.434,
+              77.434,
+              77.434,
+              75.221
+            ]
+          }
+        },
+        {
+          "animation": "dash",
+          "version": 2,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/dash_v02.png",
+          "sourceSha256": "870f34d697fa700bee49a362797758be5e17c0851ae6974f8f1d440bfc3a040a",
+          "sidecarSha256": "db9676d42b0083556f0e702b5d73de99c9291fa01a040eb0758ccf0a11f1d453",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              117.47,
+              117.47
+            ]
+          }
+        },
+        {
+          "animation": "backDash",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/naruto/raw/backDash_v01.png",
+          "sourceSha256": "fb3933361be29f18fbfaac62b18b9c7fa0ac44b8a478834de32ef32fabbf7aa8",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superDash",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/superDash_v01.png",
+          "sourceSha256": "e867ad808a85f838ff17e50b87a1854adccd7a6c7eb0f6edc25da12df5688e11",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpSquat",
+          "version": 2,
+          "frames": 1,
+          "source": "art/characters/naruto/raw/jumpSquat_v02.png",
+          "sourceSha256": "90cb88a7654162b65bb0ba2dc8fb845d5879905ea0ab414a8adb9a80179dc038",
+          "sidecarSha256": "c969ab4cc681de160b96913c38306d7f309549db44098e7e131b99142b6b5f06",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              180.095
+            ]
+          }
+        },
+        {
+          "animation": "jumpUp",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/jumpUp_v01.png",
+          "sourceSha256": "8a2476df79ee6adc4cbfbb53e32477dfb31b2c7048752555988d18723009bbff",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpFall",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/jumpFall_v01.png",
+          "sourceSha256": "3c235bc7e8fdbc965944fc7022b446e4b327feea08a7eda722712e830e6cfdb9",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "land",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/land_v01.png",
+          "sourceSha256": "2991b86702ea9067985aca6d4fc20cf71bf327fc010c7748a1cd5746c4969c31",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light1",
+          "version": 2,
+          "frames": 7,
+          "source": "art/characters/naruto/raw/light1_v02.png",
+          "sourceSha256": "b188e71c769be3096a44f2c0cdc7d0c2cac1d74798f686bb1d1d82d60649de2a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light2",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/naruto/raw/light2_v01.png",
+          "sourceSha256": "dc520f61b52b1b071706d91d75b6b4d872737cbf5d011f8395f3325e54fb1e14",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light3",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/naruto/raw/light3_v01.png",
+          "sourceSha256": "44c5d7a4066274823e6cb56e6132c9001ab3f7438fe73ad831a2f4e9c231b83a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light4",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/naruto/raw/light4_v01.png",
+          "sourceSha256": "62385acec3a9c888327b82cd7e5df17017ac34ed4de124653f534e78d0666751",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "heavy",
+          "version": 3,
+          "frames": 8,
+          "source": "art/characters/naruto/raw/heavy_v03.png",
+          "sourceSha256": "cf998ce0fbdf54e0a5c133ed5ca387a9756d7afeb280e0dbdb70a12114700ebe",
+          "sidecarSha256": "9a7ed3385cfd474201f25aca497356391a1caee9275dbfecd27a90faf5b51f3d",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              80.386,
+              80.386,
+              80.386,
+              80.386,
+              80.386,
+              80.386,
+              80.386,
+              80.386
+            ]
+          }
+        },
+        {
+          "animation": "airLight1",
+          "version": 3,
+          "frames": 5,
+          "source": "art/characters/naruto/raw/airLight1_v03.png",
+          "sourceSha256": "2c219fff27e1cf2dd9e47ceba6e3bb6be42f37ff2f75e1c8d40177ee78824927",
+          "sidecarSha256": "d803901e0bb2ee5c487132ca00f450aba1bf40eb3bbe395114b6986496ce3068",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              85.366,
+              85.366,
+              85.366,
+              85.366,
+              85.366
+            ]
+          }
+        },
+        {
+          "animation": "airLight2",
+          "version": 3,
+          "frames": 5,
+          "source": "art/characters/naruto/raw/airLight2_v03.png",
+          "sourceSha256": "663a96c519d70b4e3ef6458a282ee6e761c956e27ec0c4ca205adeab73121a80",
+          "sidecarSha256": "581bfd59a79cdf33be1e8e90928ae208739a0b85aa4d9afb0975a9c17070c633",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              84.239,
+              70.652,
+              70.652,
+              84.239,
+              84.239
+            ]
+          }
+        },
+        {
+          "animation": "airLight3",
+          "version": 2,
+          "frames": 6,
+          "source": "art/characters/naruto/raw/airLight3_v02.png",
+          "sourceSha256": "0a4467c6dfdc6e48d65589b9a52ab427090f3507d264359ddc30bd58db5ea89a",
+          "sidecarSha256": "dd2f633a4b1eec7a934bc4bcba311628cf431a680da0ddcc8311cf2952ab5b40",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              92.643,
+              92.643,
+              92.643,
+              92.643,
+              92.643,
+              92.643
+            ]
+          }
+        },
+        {
+          "animation": "airHeavy",
+          "version": 3,
+          "frames": 6,
+          "source": "art/characters/naruto/raw/airHeavy_v03.png",
+          "sourceSha256": "48e168a1b2c948c4e8df633166c09ead6cc72b4f481a6bee207a5daa34a1f199",
+          "sidecarSha256": "079f246065a09f998ccb85009e8abe48bbdfc23af3971a4877dc7498b8440a6a",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              90,
+              90,
+              100,
+              100,
+              100,
+              100
+            ]
+          }
+        },
+        {
+          "animation": "guard",
+          "version": 3,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/guard_v03.png",
+          "sourceSha256": "aeb5979802a22e9797ec8063b5fccf35f40074e0fe45552164966f2211005272",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "block",
+          "version": 3,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/block_v03.png",
+          "sourceSha256": "d0985d70d60e6ad3c6227d942e797b2f73a97f36dfb2bae8bc13b7abda354d0c",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtHigh",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/naruto/raw/hurtHigh_v01.png",
+          "sourceSha256": "1d4d8367746edac4c173b805d9c9bd4275ad2d879603a8a31b40c3c47cbac037",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtLow",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/naruto/raw/hurtLow_v01.png",
+          "sourceSha256": "f40adfca339c24c82c12a6c37190464917318d2253a87355ee15196b21636699",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "launched",
+          "version": 2,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/launched_v02.png",
+          "sourceSha256": "bce115891068dce88dbe551f0fc0e55d32a9e6ce676e42189a88d24118ac1edf",
+          "sidecarSha256": "060f52dcd16e06380f08bae84934b9a0fdbc8688b5375c413361ecec6610a6f5",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              116.822,
+              116.822
+            ]
+          }
+        },
+        {
+          "animation": "spin",
+          "version": 2,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/spin_v02.png",
+          "sourceSha256": "c8453c2dfe3df8bf78775273016cb39da66131c302d7ae065f8b4f4d4e46d22b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airRecover",
+          "version": 2,
+          "frames": 3,
+          "source": "art/characters/naruto/raw/airRecover_v02.png",
+          "sourceSha256": "34ec53e0f84b4abfee9c0f4814beb24598ee098a08509fa8280ed7d028fccf57",
+          "sidecarSha256": "516871cfd5d92e26b97a5be7ba8197c3fffb8675613cd06a108d4aa0eb8d51b4",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              112,
+              112,
+              112
+            ]
+          }
+        },
+        {
+          "animation": "down",
+          "version": 2,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/down_v02.png",
+          "sourceSha256": "10f58214e5fe31133408ea58e5587a08b7eefd6d97e48da80bc8f4fe1aca67e6",
+          "sidecarSha256": "7b51c0738d4dd08dfea5fc9a6b0421e39eac6c23488796e2346f9fabed14ce6f",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              106.87,
+              106.87
+            ]
+          }
+        },
+        {
+          "animation": "getup",
+          "version": 2,
+          "frames": 5,
+          "source": "art/characters/naruto/raw/getup_v02.png",
+          "sourceSha256": "5fbd94e31220bc6957cb8af083dc7afc38863739cc61ebdb16473e4e2d56f181",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "charge",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/charge_v01.png",
+          "sourceSha256": "92485f21ff47a676c4d6fb8f20b4ad58561e18e5c3a0e8dd2c379f58264cd7fa",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "throw",
+          "version": 2,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/throw_v02.png",
+          "sourceSha256": "0081affbb80c25b8d46f1b23191962bfbeb3c7f08395bb284fa4ff383dd28a99",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamCharge",
+          "version": 3,
+          "frames": 3,
+          "source": "art/characters/naruto/raw/beamCharge_v03.png",
+          "sourceSha256": "71be37037d92a8f7e6f4cbfe95cd484f834c2477ed3bdb4e42775a321a55df85",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamFire",
+          "version": 4,
+          "frames": 3,
+          "source": "art/characters/naruto/raw/beamFire_v04.png",
+          "sourceSha256": "ade5763ae9734c9e6f33f60f9bd31a3891f281ec1ff02dbc3efcd3db8bfcf6c4",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "vanish",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/vanish_v01.png",
+          "sourceSha256": "1bfbfd9d7758a05c79f833eea78bb437453ad910d1c020d21c35f01b7a1e0492",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "stagger",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/stagger_v01.png",
+          "sourceSha256": "b96f758fddbd1a0bb1cd37424b5bde6bcf5700ff2e7817f10aca50eaf4ac6d1d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "ko",
+          "version": 5,
+          "frames": 1,
+          "source": "art/characters/naruto/raw/ko_v05.png",
+          "sourceSha256": "a6960d16dd08366bdfb66708e55c272e0e0b40ca964da1b5b78ceb8b8c01e024",
+          "sidecarSha256": "86aabaa147cd47fe8da33f79d4b37cf11db7f8333050394af23be361e369abd7",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              203.704
+            ]
+          }
+        },
+        {
+          "animation": "special",
+          "version": 3,
+          "frames": 8,
+          "source": "art/characters/naruto/raw/special_v03.png",
+          "sourceSha256": "5eed30a5264bea9d80de38c74123590c228c0386a6181446af3e6ba4febe6ad2",
+          "sidecarSha256": "ab138f4f97d40b398a2ac6a6fe3bd74463afc219a8f63da215ac5294a7a95a3d",
+          "calibration": null
+        },
+        {
+          "animation": "intro",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/intro_v01.png",
+          "sourceSha256": "5adf0980b368fb1d9e71f0f0777825662c2bac23c32ece54af415b79ce6aeda6",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "taunt",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/naruto/raw/taunt_v01.png",
+          "sourceSha256": "be3835f0cf5f2bbbe1e90921fab533f6ae5c724ef63b2da30c9431237d9ba7f8",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "win",
+          "version": 3,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/win_v03.png",
+          "sourceSha256": "4b7797d9996a03d6e26749e3de2070fcaff90440205ec1b3c4b96b5b1752be8d",
+          "sidecarSha256": "e7ff763c7b84cb51f73ee13664d4b68f084fb79c453b19993066e7d77dbf9612",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              98.425,
+              98.425,
+              98.425,
+              98.425
+            ]
+          }
+        },
+        {
+          "animation": "specialForward",
+          "version": 2,
+          "frames": 7,
+          "source": "art/characters/naruto/raw/specialForward_v02.png",
+          "sourceSha256": "f976ceabd83c3ea5474de143ffb6d8b6de4d9a390228259e6423599be790f7dc",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialUp",
+          "version": 1,
+          "frames": 6,
+          "source": "art/characters/naruto/raw/specialUp_v01.png",
+          "sourceSha256": "475ce0c5626505096bfaf933dc548499f0d3fe681c909577c18dc11fffa6be53",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialDown",
+          "version": 2,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/specialDown_v02.png",
+          "sourceSha256": "e43c3fb1e55c7c86202dbd96a3b896f335e6b1883cbbe9db11a2bcc0db72bca3",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superPose",
+          "version": 3,
+          "frames": 4,
+          "source": "art/characters/naruto/raw/superPose_v03.png",
+          "sourceSha256": "87c68c3c1ab169a1cbad62a4849f4ddf9e1b76da36cd7278a99e55e2597d7002",
+          "sidecarSha256": null,
+          "calibration": null
+        }
+      ]
+    },
+    "sasuke": {
+      "animations": 42,
+      "frames": 175,
+      "warnings": [],
+      "atlasSha256": "d22bcc609b87cc84f650a8f99e6d50778d3abc2c6aaf3fb51bf84fc5b0cbeb19",
+      "metadataSha256": "6806aa0bf30c198c97dfb9b82bb52ce96aa0ee5901d41b3112cf00b683f0a6f6",
+      "sources": [
+        {
+          "animation": "idle",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/sasuke/raw/idle_v01.png",
+          "sourceSha256": "9a58a14fdce2c2c2660efb91c323d74127804febd0231483cb65d07dda793f93",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "run",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/sasuke/raw/run_v02.png",
+          "sourceSha256": "45221bfc53dc0c2588e361c15f5657084add99b4eb890ca18a844907e01f45cf",
+          "sidecarSha256": "2f3c4104660f437f082a33620ea91b96bb7805d03aa0f7dddebea6736d07ee89",
+          "calibration": null
+        },
+        {
+          "animation": "dash",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/dash_v01.png",
+          "sourceSha256": "4e054372c3afa13c6e2b92d6dfdfd374f3700db9c6e68c563905ba22a257f21e",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "backDash",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/sasuke/raw/backDash_v01.png",
+          "sourceSha256": "8099ee53549f05bd9bdbf082b86b56709c11911a0779b3d0834d25b0b2504506",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superDash",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/superDash_v01.png",
+          "sourceSha256": "7be49531db791eb558fef4ba8631cce4f4e90bf541bc45a39bfb32b11b09769b",
+          "sidecarSha256": "66c2835127b391410f9f5a10741f61b2f79278b8ae9492c560cb80fed172bf05",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              103.692,
+              103.692
+            ]
+          }
+        },
+        {
+          "animation": "jumpSquat",
+          "version": 1,
+          "frames": 1,
+          "source": "art/characters/sasuke/raw/jumpSquat_v01.png",
+          "sourceSha256": "ae17a58ba02c3972e5be5b5331981c0d2445733860a3ee99c928e8584e12e70b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpUp",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/jumpUp_v01.png",
+          "sourceSha256": "92141c0c64d522e2637bb08f1e95a434b89694e390daf64b645ce5828d5ad90a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpFall",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/jumpFall_v01.png",
+          "sourceSha256": "94aceec627e890c0bdd0c4da7d016493626b8025028e1163819661e2d1815848",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "land",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/land_v01.png",
+          "sourceSha256": "88c186fd97e1c4f41d08399fc4d77a58877db1523ad2a2418cf0793960775ef5",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light1",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/sasuke/raw/light1_v01.png",
+          "sourceSha256": "688c51e167f634b9ed6cfd2a4e96270208c5752752882ace6b41e76739e177f3",
+          "sidecarSha256": "abcf3cfdaf48e362a0b500922b6711d7967f9ea41465ce74bf7965692d8b6c7d",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              100,
+              100,
+              100,
+              100,
+              120,
+              120,
+              120
+            ]
+          }
+        },
+        {
+          "animation": "light2",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/sasuke/raw/light2_v01.png",
+          "sourceSha256": "c184ac95b1a7c15b0c14567a3d93c821695b44226ff7241a98007cfd04d411f8",
+          "sidecarSha256": "abcf3cfdaf48e362a0b500922b6711d7967f9ea41465ce74bf7965692d8b6c7d",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              100,
+              100,
+              100,
+              100,
+              120,
+              120,
+              120
+            ]
+          }
+        },
+        {
+          "animation": "light3",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/sasuke/raw/light3_v01.png",
+          "sourceSha256": "2baf0d1669f84900f834e55822972f8574d5d63cbe1b56961dc9da0ce69c1b8c",
+          "sidecarSha256": "0d497f7088aa100037592ee8268172288887d547e855481357f3c54e5b63a9bc",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              102.611,
+              102.611,
+              102.611,
+              102.611,
+              131.24,
+              131.24,
+              131.24
+            ]
+          }
+        },
+        {
+          "animation": "light4",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/sasuke/raw/light4_v01.png",
+          "sourceSha256": "17b6f5ce215fe62e639f0d008080a2563bd18ae5089872b524f4eabeea30ed77",
+          "sidecarSha256": "0a98a5c760ccb9317d106dba14d17234debc4ff9b7261213b1879f598c9f62dc",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              83.096,
+              81.394,
+              82.492,
+              83.006,
+              83.006,
+              124.326,
+              124.258,
+              124.258
+            ]
+          }
+        },
+        {
+          "animation": "heavy",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/sasuke/raw/heavy_v02.png",
+          "sourceSha256": "84c1b3e1d6ff72148297804b19c605d89247196ea92b93d7adfa05f4b4b9c927",
+          "sidecarSha256": "a0b91565a3a0538085be0cbb3c1a755cc2af234858bdda6b4f43d59d4631d82c",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              83.229,
+              83.229,
+              83.229,
+              83.229,
+              83.229,
+              131.78,
+              131.78,
+              131.78
+            ]
+          }
+        },
+        {
+          "animation": "airLight1",
+          "version": 1,
+          "frames": 5,
+          "source": "art/characters/sasuke/raw/airLight1_v01.png",
+          "sourceSha256": "60687d8a3677378f2d346ac480763366d9d40b81d38be7230410806160e61038",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight2",
+          "version": 2,
+          "frames": 5,
+          "source": "art/characters/sasuke/raw/airLight2_v02.png",
+          "sourceSha256": "220d8f25e4c934adc7f77ae3bcef0d5ecd061c310871442e1ed3d1b481521dea",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight3",
+          "version": 1,
+          "frames": 6,
+          "source": "art/characters/sasuke/raw/airLight3_v01.png",
+          "sourceSha256": "7a052f0273dc1472016a34ca9cad34edde66f99863881b37857a59809af55107",
+          "sidecarSha256": "6065823f2dcbfc41c4f7cfd57f34a6b7c26305c16e3dbdda67c0ab407eb7d47d",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              76.542,
+              76.542,
+              76.542,
+              76.542,
+              130.572,
+              130.572
+            ]
+          }
+        },
+        {
+          "animation": "airHeavy",
+          "version": 2,
+          "frames": 6,
+          "source": "art/characters/sasuke/raw/airHeavy_v02.png",
+          "sourceSha256": "d0f4ffd22c94c30f473d654767d7e664d6af0c1b536e6899e0de2a63ac77a48c",
+          "sidecarSha256": "b42571e48f3b24da8a84e57fca89fc061890281ae3ed63da6b957f8e58001038",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              89.53,
+              89.53,
+              89.53,
+              89.53,
+              141.363,
+              141.363
+            ]
+          }
+        },
+        {
+          "animation": "guard",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/guard_v01.png",
+          "sourceSha256": "70de85daff0dc48b13b4565ac1fbd647cdffbb010e2eb0e7b84640f6933b632d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "block",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/block_v01.png",
+          "sourceSha256": "c101e9c6ed9963877c21f4176ce5cf5934018b675d3cf81704b1fd28661ed6d1",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtHigh",
+          "version": 2,
+          "frames": 3,
+          "source": "art/characters/sasuke/raw/hurtHigh_v02.png",
+          "sourceSha256": "5efebbaa9e512ca55d6115ac114f3e72441be59b3238c1594268849430a3c872",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtLow",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/sasuke/raw/hurtLow_v01.png",
+          "sourceSha256": "e1ca07f3f2bbbc69d14befd1edca143c70d3d51490017ae5f2878b1e91f6a4d2",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "launched",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/launched_v01.png",
+          "sourceSha256": "33d2c145a9d37ea9fd110c6bf651165aef947d02a430505f59eccaf5acf36031",
+          "sidecarSha256": "6eb6397a9eb47d4f9567c223ed836fdd7cc7e2e5c2ff3a18f7755cd63d813488",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              110.117,
+              110.117
+            ]
+          }
+        },
+        {
+          "animation": "spin",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/spin_v01.png",
+          "sourceSha256": "455850703ba00e9376b7831a4ba01b7ac10e460fb0ac357b3123f55c7571ddbf",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airRecover",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/sasuke/raw/airRecover_v01.png",
+          "sourceSha256": "adeb6c8fdfc6d85a6e843f63b9a1b3a568af0224e763f69c7142a433575ac9b1",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "down",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/down_v01.png",
+          "sourceSha256": "629b86cd3468c35b92932de2d63145237fe06f70f76222b41097cfd4f5c7c303",
+          "sidecarSha256": "27dc39a3b97522ccda95071426dd406eb6821035a446d83c5023197e6eb29176",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              101.825,
+              101.825
+            ]
+          }
+        },
+        {
+          "animation": "getup",
+          "version": 1,
+          "frames": 5,
+          "source": "art/characters/sasuke/raw/getup_v01.png",
+          "sourceSha256": "d7f0c5d2c7ba0e866a1f85c6eaba78e658f89eafafcd0834a3430e7f2fd13a31",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "charge",
+          "version": 2,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/charge_v02.png",
+          "sourceSha256": "4b8357326236ee6e6fdac34df5faa65e9856d10805f41adb5feeed1066dcc5bd",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "throw",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/throw_v01.png",
+          "sourceSha256": "fa6aefde0a470deb2c34e87a9870a871f63f8b462348326d1a5ba237449a3b39",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamCharge",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/sasuke/raw/beamCharge_v01.png",
+          "sourceSha256": "320476fcd406fe442d4669ac7517cef190985c23bb6cfcdaa50f6b3d8e264570",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamFire",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/sasuke/raw/beamFire_v01.png",
+          "sourceSha256": "7c765b3ebb79bba9ccd93f1dcf736024468a77f73a54fa95399da600d127042f",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "vanish",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/vanish_v01.png",
+          "sourceSha256": "3b79c74bb01f93b9c283f446a6ca9ea98453fcf7f59e84c55a9c29386e6ef00a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "stagger",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/stagger_v01.png",
+          "sourceSha256": "6b19048d34fe07ae17516d8af4109cdb9d5a2904d18d43f2d5942f44b228dfb4",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "ko",
+          "version": 2,
+          "frames": 1,
+          "source": "art/characters/sasuke/raw/ko_v02.png",
+          "sourceSha256": "d408f9514a9884f39477ff93acb674aa298822f13d580cdfe4ffdd117abe599a",
+          "sidecarSha256": "7aa4b7ca52e2e9958687bf62dfe9b8231e1477c1a2db69a5694e773b7b0688b7",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              180.476
+            ]
+          }
+        },
+        {
+          "animation": "special",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/sasuke/raw/special_v02.png",
+          "sourceSha256": "1175949b24bf178da02356438604842901d2599cb8fdb61cbfc317d33d4bb15c",
+          "sidecarSha256": "2793228609b11cdcc1d02881b478783799793ab5cc528fa05a6018cd7c433cc5",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              115.442,
+              115.442,
+              115.442,
+              61.569,
+              61.569,
+              61.569,
+              61.569,
+              61.569
+            ]
+          }
+        },
+        {
+          "animation": "intro",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/intro_v01.png",
+          "sourceSha256": "01cdc83ecba0d5d6f01fdd520f6089a18a1589c9b62d33bb4569ea59acf42d08",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "taunt",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/sasuke/raw/taunt_v01.png",
+          "sourceSha256": "d76c1df53e4a1e178156732426aef4fad064672a309a43840bf7c338ef5cc2e5",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "win",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/win_v01.png",
+          "sourceSha256": "17d21d9619b9ecfb4a0702bb84ab00bf7d17a413e65b25ceafea165becf39adc",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialForward",
+          "version": 2,
+          "frames": 7,
+          "source": "art/characters/sasuke/raw/specialForward_v02.png",
+          "sourceSha256": "75c0b8d96fcee53739d8110829c82013c925ada86f601d04173be5beaa4e3d7f",
+          "sidecarSha256": "8cc5f404809fcf5df652ae43037e906b1aea3b035abede83e84f74039b192365",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              80.398,
+              80.398,
+              80.398,
+              80.398,
+              118.683,
+              118.683,
+              118.683
+            ]
+          }
+        },
+        {
+          "animation": "specialUp",
+          "version": 2,
+          "frames": 6,
+          "source": "art/characters/sasuke/raw/specialUp_v02.png",
+          "sourceSha256": "72318f8ef6c1310e3fec8779cc45fc5b8692ef6b44d161657979c135f3d24dea",
+          "sidecarSha256": "c9004f04fac3335cb4ca1b2d06b115b05523a8e171411bc36b4a0bea4e84362b",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              95.01,
+              95.01,
+              95.01,
+              95.01,
+              128.057,
+              128.057
+            ]
+          }
+        },
+        {
+          "animation": "specialDown",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/specialDown_v01.png",
+          "sourceSha256": "5d6aced4d4ffb82eeaa239f828f5d903048148629f74f760db042b33d7c59c2b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superPose",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/sasuke/raw/superPose_v01.png",
+          "sourceSha256": "5673db2252a544b6336fc2e469b9b37454e4ad15c4db61407affe673db0e906d",
+          "sidecarSha256": null,
+          "calibration": null
+        }
+      ]
+    },
+    "killua": {
+      "animations": 42,
+      "frames": 175,
+      "warnings": [
+        "ko: 1 frame(s) reach into the 4px cell margin (#0 left 1px) - keep every pixel inside x 4..251, y >= 4; repose or reposition while preserving anatomical scale"
+      ],
+      "atlasSha256": "b1aabf12d84b6ca862bed6ba35c42bebe1b027ff70f4dfcd8fa67e1f0e98a8c9",
+      "metadataSha256": "5b68d97628ac67c2d8e680a77ebd2eddd5371f743211c7c00fce5be9a962b8b5",
+      "sources": [
+        {
+          "animation": "idle",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/killua/raw/idle_v01.png",
+          "sourceSha256": "ca8b9dcf23e6ec2564d8fca4efeda15797da1b0851da4073c887a45b18cdb547",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "run",
+          "version": 3,
+          "frames": 8,
+          "source": "art/characters/killua/raw/run_v03.png",
+          "sourceSha256": "209877c34066148fa2102e443f33d3669756026d6f6a18f7f9c53a309b1c9897",
+          "sidecarSha256": "e3b68cd2166826d3abc1c7a2fcf182e53e98bcc75d67504db7e3bf76c2da0714",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              99.723,
+              99.723,
+              99.723,
+              102.493,
+              99.723,
+              102.493,
+              99.723,
+              99.723
+            ]
+          }
+        },
+        {
+          "animation": "dash",
+          "version": 2,
+          "frames": 2,
+          "source": "art/characters/killua/raw/dash_v02.png",
+          "sourceSha256": "5afe3e6ff28322eda150e47f9db206a0499e39045773efc2376682e93c1dace9",
+          "sidecarSha256": "fbe7ca0bd68238ad29f0fa8e35d6798fc42287c5aea7f2ef60d00c0c1a22d088",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              139.194,
+              142.857
+            ]
+          }
+        },
+        {
+          "animation": "backDash",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/killua/raw/backDash_v01.png",
+          "sourceSha256": "88346d462c8f03c6cbd423c7ea30d358f9a0346bd0918a168e328af5c4ec6c4c",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superDash",
+          "version": 2,
+          "frames": 2,
+          "source": "art/characters/killua/raw/superDash_v02.png",
+          "sourceSha256": "746a0920b278e32846130e58764e11fdd3aeac635621cd051587fd26f8cda188",
+          "sidecarSha256": "511a25dda69c390c80dcf9501828793ca63f9ca67d00a1399b22b3f853b4e10c",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              127.551,
+              127.551
+            ]
+          }
+        },
+        {
+          "animation": "jumpSquat",
+          "version": 2,
+          "frames": 1,
+          "source": "art/characters/killua/raw/jumpSquat_v02.png",
+          "sourceSha256": "648b1d2a5b21d2c3237c3e092dc22f5ac88cf1bc18fe7c2a36f2544d658d4c8d",
+          "sidecarSha256": "4605fd1ca5d624ed934099755ebe85a2f024e7109b3d5b846a742b7a2008c213",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              233.129
+            ]
+          }
+        },
+        {
+          "animation": "jumpUp",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/jumpUp_v01.png",
+          "sourceSha256": "e10e4268a549de0c466d6d71af07f766abd6679fc76217dd32307bb4133cebb2",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpFall",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/jumpFall_v01.png",
+          "sourceSha256": "d4f6615c62e348dcf74eedfc8b7c522999c337d8eaa618bdd3c1fe21f0b2d7ab",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "land",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/land_v01.png",
+          "sourceSha256": "1b3c3b413e66153975dca4f5f2df65a4de4fb5d9582ed2cdf4ed0991f3381a3c",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light1",
+          "version": 2,
+          "frames": 7,
+          "source": "art/characters/killua/raw/light1_v02.png",
+          "sourceSha256": "2d330024add4e8e7d1a8c6f6829b7215348814acafeddf9f8427f112f88ecc4e",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light2",
+          "version": 2,
+          "frames": 7,
+          "source": "art/characters/killua/raw/light2_v02.png",
+          "sourceSha256": "50f4103f7b8694e7837b409e922d12dd88169da34c94a10b4c3125cde1555e9b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light3",
+          "version": 2,
+          "frames": 7,
+          "source": "art/characters/killua/raw/light3_v02.png",
+          "sourceSha256": "52ab8b641a5ccdae008028d258d127449a3a9b9eda26964dc3aaedf522d5a797",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light4",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/killua/raw/light4_v02.png",
+          "sourceSha256": "0ab6af6a0d1b08aa70611e75584821bbfce5d9fe7bb1b0b816b95438fd6d7091",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "heavy",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/killua/raw/heavy_v01.png",
+          "sourceSha256": "203f535bd78c7b6126ad7f2d25288e832d2e8c63fd21063cd2e58b2b81482249",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight1",
+          "version": 2,
+          "frames": 5,
+          "source": "art/characters/killua/raw/airLight1_v02.png",
+          "sourceSha256": "b3303ad6084305db6d62e6184561e3a565c93804ccd344de68573da545a1c34a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight2",
+          "version": 2,
+          "frames": 5,
+          "source": "art/characters/killua/raw/airLight2_v02.png",
+          "sourceSha256": "f77428a2c82103d48865c1828fcb6063589e17c2d958a8af627fc470f04cf8f6",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight3",
+          "version": 2,
+          "frames": 6,
+          "source": "art/characters/killua/raw/airLight3_v02.png",
+          "sourceSha256": "2be845902d07a2610b5ea3e06c63ab9629d54af44fa08d64c4526148e2dbebcf",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airHeavy",
+          "version": 1,
+          "frames": 6,
+          "source": "art/characters/killua/raw/airHeavy_v01.png",
+          "sourceSha256": "7673aff2919b8152b97cca12470cefefcc29252b3198edb82ecc6419534962f8",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "guard",
+          "version": 3,
+          "frames": 2,
+          "source": "art/characters/killua/raw/guard_v03.png",
+          "sourceSha256": "8f7f4625c40e1e2d1f0ae70b789e2fc2bbaef2a50cc52a7fb7217ec743803405",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "block",
+          "version": 3,
+          "frames": 2,
+          "source": "art/characters/killua/raw/block_v03.png",
+          "sourceSha256": "333dac6923117dca36ff2aa0aca997e297a6bcd0516592f140b4c9a20c487d0d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtHigh",
+          "version": 2,
+          "frames": 3,
+          "source": "art/characters/killua/raw/hurtHigh_v02.png",
+          "sourceSha256": "58a39957af8848456909f74c6076ccb8e5b1ad5c66830462f5de761190879c08",
+          "sidecarSha256": "896d3e9c2c74aa806332dc44a03ae098236a072e4dba9ac50bf463d221482c91",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              161.435,
+              161.435,
+              161.435
+            ]
+          }
+        },
+        {
+          "animation": "hurtLow",
+          "version": 2,
+          "frames": 3,
+          "source": "art/characters/killua/raw/hurtLow_v02.png",
+          "sourceSha256": "6f628d16190a4f61b68acd64da6faf6e88cd9fdb5fe83258a2a7452cf372f94d",
+          "sidecarSha256": "06f373e291f993d103bc2c99b86b139e7e361a65862ab5e5bf000abb987587d9",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              171.429,
+              171.429,
+              171.429
+            ]
+          }
+        },
+        {
+          "animation": "launched",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/launched_v01.png",
+          "sourceSha256": "306b33703665efe233cc7a3d8e0ceb989f70d7b3f2612686c14aef80636660f8",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "spin",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/killua/raw/spin_v01.png",
+          "sourceSha256": "1309fdc72cf8eaae1bdc7072391ada15b43aa059c1ffaa9516fe1b9090e2961a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airRecover",
+          "version": 2,
+          "frames": 3,
+          "source": "art/characters/killua/raw/airRecover_v02.png",
+          "sourceSha256": "d1fb496a609cb53c2dba843f2c35f7c4bbf6b7d54d3ec7e5578471a60e5a121b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "down",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/down_v01.png",
+          "sourceSha256": "f6284b4e7eb768e240b1422f328783689025f373e9b11e78e1e8c5921ca7b830",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "getup",
+          "version": 2,
+          "frames": 5,
+          "source": "art/characters/killua/raw/getup_v02.png",
+          "sourceSha256": "835ea8fb6029933867ca29bc8b9fde22ecb7d508c86e9613158f26bb7bd9e124",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "charge",
+          "version": 3,
+          "frames": 4,
+          "source": "art/characters/killua/raw/charge_v03.png",
+          "sourceSha256": "e488f820b7affee29be0f766f1da47bac08a785bda41588e5eb8a439885fe676",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "throw",
+          "version": 2,
+          "frames": 4,
+          "source": "art/characters/killua/raw/throw_v02.png",
+          "sourceSha256": "c4a55c7b72cc7a4ac878def8d637a94e1614c12158dad6388bb38f4675b9f870",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamCharge",
+          "version": 3,
+          "frames": 3,
+          "source": "art/characters/killua/raw/beamCharge_v03.png",
+          "sourceSha256": "f4efa815881d9a9ff807c8bab096e339007b1601aeb082606038aefa73712f99",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamFire",
+          "version": 4,
+          "frames": 3,
+          "source": "art/characters/killua/raw/beamFire_v04.png",
+          "sourceSha256": "f4436ca63cc32a2915115b8c4dcd2e38a38177781fa5943b34886dad7ee6cd35",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "vanish",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/vanish_v01.png",
+          "sourceSha256": "822fd5cc548cdcb61893212ecf054f27163bef1e3add151d4af4b99f74f93daf",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "stagger",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/killua/raw/stagger_v01.png",
+          "sourceSha256": "a78925894748c3b4b64337e43f5b161b71baec5f3e7272912fcaad8cdf4c912a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "ko",
+          "version": 2,
+          "frames": 1,
+          "source": "art/characters/killua/raw/ko_v02.png",
+          "sourceSha256": "285f2d93c6da6cfee598de13c05eaa7bbeaadf3e312195bc9c0f37560cb61dda",
+          "sidecarSha256": "2d2e75b79ec3752f27927c5da28fc4aec1b5819716cbad1d4c344ea682d12bd5",
+          "calibration": {
+            "measurement": "skull-to-chin",
+            "targetHeadPx": 31,
+            "sourceHeadPx": [
+              200
+            ]
+          }
+        },
+        {
+          "animation": "special",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/killua/raw/special_v02.png",
+          "sourceSha256": "29c7658892f210f44661103194f0db86082d8c3bfa4f8891c8b27421f8da9a04",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "intro",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/killua/raw/intro_v01.png",
+          "sourceSha256": "551ebbb53b9d75ce20e555d6a04b82cf1ad983549b51562cddeee2e08b4cc251",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "taunt",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/killua/raw/taunt_v01.png",
+          "sourceSha256": "56d58cb174c0f8160d1fc0ac71122f6f2d0d285b0035631e841940565faaacf9",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "win",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/killua/raw/win_v01.png",
+          "sourceSha256": "b80cc1de00b31cdd1504876c27c1374eb6d3a6a8aa4b73253d4b3e96eafedfd4",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialForward",
+          "version": 4,
+          "frames": 7,
+          "source": "art/characters/killua/raw/specialForward_v04.png",
+          "sourceSha256": "e4aab5e42fbe7b87bc4911f5158911e50d15d66a8f41e9f04c75019045ddc11d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialUp",
+          "version": 2,
+          "frames": 6,
+          "source": "art/characters/killua/raw/specialUp_v02.png",
+          "sourceSha256": "0e9a25cb91d2879df51b0bdc92e42aa84467a911adaa03e3fe5f823ed687bbd3",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialDown",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/killua/raw/specialDown_v01.png",
+          "sourceSha256": "fe26c5eba826f1a16369d55527790d7e836cefe155512e277201cb6de38522e5",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superPose",
+          "version": 3,
+          "frames": 4,
+          "source": "art/characters/killua/raw/superPose_v03.png",
+          "sourceSha256": "23cc81d14fc02870a46b4c48fe8029c79e7c798821faf45f774b9ac6f1336f93",
+          "sidecarSha256": null,
+          "calibration": null
+        }
+      ]
+    },
+    "gojo": {
+      "animations": 42,
+      "frames": 175,
+      "warnings": [],
+      "atlasSha256": "fe1d9baaae3455637b35286a46c4d44ad94a8fb52b3575cb58e3434a472e55f2",
+      "metadataSha256": "9a16607196fa3a26961ef4e2dd835965992a3ea7e2e568b2e4d6f8a2d6431493",
+      "sources": [
+        {
+          "animation": "idle",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/gojo/raw/idle_v02.png",
+          "sourceSha256": "5545eae8240c7378f7ae06ac0d8bcbe185bb0207ad159fd0d388b9049ce1c44c",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "run",
+          "version": 3,
+          "frames": 8,
+          "source": "art/characters/gojo/raw/run_v03.png",
+          "sourceSha256": "505d85ad08d0b4250e27af73101d6c97c541cf9cb6f5effbbcb69b1dac5e949a",
+          "sidecarSha256": "1af7778bd9d7de49b19d77c44cae3a40209aea98e77dbe1babea07e7ae63dad2",
+          "calibration": null
+        },
+        {
+          "animation": "dash",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/dash_v01.png",
+          "sourceSha256": "edc2fcd585262e49207a9e92893b373fe5831d669cc620a739e095e99e20db3b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "backDash",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/gojo/raw/backDash_v01.png",
+          "sourceSha256": "4656b74adedb84d48457fc660b01f10c2980bce9efb04b82742e6cb6374a3aed",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superDash",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/superDash_v01.png",
+          "sourceSha256": "4abbd1e40f0d6812ad3b1445c3b5ce6e92fe3b4528eb1a3aefa131f1bfb8a70d",
+          "sidecarSha256": "11c60f32c95e733b685022cbb9c6a32021d5dfd6ddba98ba9710c23dcb7fbccc",
+          "calibration": null
+        },
+        {
+          "animation": "jumpSquat",
+          "version": 1,
+          "frames": 1,
+          "source": "art/characters/gojo/raw/jumpSquat_v01.png",
+          "sourceSha256": "7ba60f61e9d1388bcab6a8fc72d235bcf43148dc905982ddfcf3dff81a3791e4",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpUp",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/jumpUp_v01.png",
+          "sourceSha256": "2fb8fa3ef50ef32c91d033722a6c4b81445c5c1a004ca185465f7218c2ba753d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "jumpFall",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/jumpFall_v01.png",
+          "sourceSha256": "fa8be666c4f3e0e92cbf3042484501857f09f0b1f214fc1beebbb1209323a319",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "land",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/land_v01.png",
+          "sourceSha256": "bdcce080d7c44e91b45367b4f0b4f93bb5514c7a699941b83871531ccfedfd63",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light1",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/gojo/raw/light1_v01.png",
+          "sourceSha256": "9cd5e481cad96c2d64933f9cc5b3c3365be17e395c94f9db7b0207e320b9653d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light2",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/gojo/raw/light2_v01.png",
+          "sourceSha256": "b8088a6410277f331f7974ab2079688caab6d2b6a5226ebeb9cc80a257d02980",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light3",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/gojo/raw/light3_v01.png",
+          "sourceSha256": "225b30af95a923170ebfd965f6747259aa2521fb5b0f588bf8f842d67459efe9",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "light4",
+          "version": 2,
+          "frames": 8,
+          "source": "art/characters/gojo/raw/light4_v02.png",
+          "sourceSha256": "a31a444922354a83738acea52c45c22ca81f6f1bf503da5a59f20d1069732140",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "heavy",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/gojo/raw/heavy_v01.png",
+          "sourceSha256": "04bbce3d1d92334f55c926988d08c23eb5a450aeb578dae25e3ce82cf3b6d990",
+          "sidecarSha256": "91948d9379b16c970f3cc959f07f7dcf25f41ad6bf89389a958345defa265d8b",
+          "calibration": null
+        },
+        {
+          "animation": "airLight1",
+          "version": 1,
+          "frames": 5,
+          "source": "art/characters/gojo/raw/airLight1_v01.png",
+          "sourceSha256": "627cbd2055246b8e7412030b17fb044c2f291874015f1aae2d93be12aef644d3",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight2",
+          "version": 1,
+          "frames": 5,
+          "source": "art/characters/gojo/raw/airLight2_v01.png",
+          "sourceSha256": "10f5ad1361e14fdfc9ad7bcfcae6d4a06a45d78e6abc67faaa4521dbe48f6836",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airLight3",
+          "version": 1,
+          "frames": 6,
+          "source": "art/characters/gojo/raw/airLight3_v01.png",
+          "sourceSha256": "e5677a8c83a69fcf44d5330b445749c4624a3171f4dd3191ff41d13d7089d4b8",
+          "sidecarSha256": "a15d9c4da74aae881f96b55af0e093af45f75e41e8100704b9ea21b7cc0b6785",
+          "calibration": null
+        },
+        {
+          "animation": "airHeavy",
+          "version": 2,
+          "frames": 6,
+          "source": "art/characters/gojo/raw/airHeavy_v02.png",
+          "sourceSha256": "89461c72e1b0a5f5c29333e68c7ae5f47b4f4d53bf53acad34e75894f7c7046b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "guard",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/guard_v01.png",
+          "sourceSha256": "353d6ac3b3b40a8cd338a932e69dd390c1479123c45bfae63f09a8aca4074169",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "block",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/block_v01.png",
+          "sourceSha256": "1704432df70720bbec4b609174744e65c82b7101c196a8453ceb7c9e29741ff6",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtHigh",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/gojo/raw/hurtHigh_v01.png",
+          "sourceSha256": "9c1807759a00cb42d271b90bdf932b87befc4006fe46117179261f4f0e1a879a",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "hurtLow",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/gojo/raw/hurtLow_v01.png",
+          "sourceSha256": "d103e228178eb12cb45531f5d5d280bb12a370c20c18c6661694548334072af3",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "launched",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/launched_v01.png",
+          "sourceSha256": "1bbf23f1ec06b9aa1c8a41ce7b80e9d3b4308b1837e81f700fad7ff9221e8905",
+          "sidecarSha256": "31be26258fcce06612e950ae1c6ee6a494fb0898abd97e7109603d732309008f",
+          "calibration": null
+        },
+        {
+          "animation": "spin",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/spin_v01.png",
+          "sourceSha256": "daf3367547092093fbb735919964c271514adbad760e8c3db18d28cafa956de3",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "airRecover",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/gojo/raw/airRecover_v01.png",
+          "sourceSha256": "61800c947d21fb86389e6f61c39347940b2ac878287452063a67eb88f27d6d76",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "down",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/down_v01.png",
+          "sourceSha256": "c8f535b01f58ca4f9db09adb53d6e0eb8a6c0b8931fad0df5b581c4a76da0f0e",
+          "sidecarSha256": "b847c3e51e0b7a4976d95af3f901c3647005546735557cc616b769bf95305d66",
+          "calibration": null
+        },
+        {
+          "animation": "getup",
+          "version": 1,
+          "frames": 5,
+          "source": "art/characters/gojo/raw/getup_v01.png",
+          "sourceSha256": "b8e1a98236709d388b2ce63226197ba2e182ff7ba36d42a5a1e88ebb02f9c69e",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "charge",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/charge_v01.png",
+          "sourceSha256": "782a8b28031031b823c912476d9c0f5685a3232ef954e3af68452c23ee5b7f9d",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "throw",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/throw_v01.png",
+          "sourceSha256": "50be4efc242ad5b39cd4ba3b83e429f0987b7b29ebd998b416e180a772e16f66",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamCharge",
+          "version": 1,
+          "frames": 3,
+          "source": "art/characters/gojo/raw/beamCharge_v01.png",
+          "sourceSha256": "554b883bec8c06daadb67ee4ab345585cbe9d30e526a4f1d1dcabe98e15d0891",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "beamFire",
+          "version": 2,
+          "frames": 3,
+          "source": "art/characters/gojo/raw/beamFire_v02.png",
+          "sourceSha256": "ff6e68f6d141322469b8cbd57d4b6b584d5867a7e7cfaeff161afcc20f144166",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "vanish",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/vanish_v01.png",
+          "sourceSha256": "2206d37410f941b1ff5af5ddc6787be5968a94affca0b1a9ceada7a5436de25b",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "stagger",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/stagger_v01.png",
+          "sourceSha256": "f7573fda98b43d2fea5a8b4c215bc1f8699ed71d4c6775d36602c4082bfdd0f7",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "ko",
+          "version": 2,
+          "frames": 1,
+          "source": "art/characters/gojo/raw/ko_v02.png",
+          "sourceSha256": "ab806ea53a9bbe52d7990f1837d1787f82d749468e7d55a16cee78251bb81760",
+          "sidecarSha256": "7e9ffd8540b449121f222d37aa16e309b6f83917955ea512acea9316ade02156",
+          "calibration": null
+        },
+        {
+          "animation": "special",
+          "version": 1,
+          "frames": 8,
+          "source": "art/characters/gojo/raw/special_v01.png",
+          "sourceSha256": "4035ce1f469f137616c2ce0411b733d116beb684641ecfce2c75a1be5b092688",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "intro",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/intro_v01.png",
+          "sourceSha256": "315166ee788289f38d38db3bdde13fbca4f55ebc6c3429d950aafb72da468ff2",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "taunt",
+          "version": 1,
+          "frames": 2,
+          "source": "art/characters/gojo/raw/taunt_v01.png",
+          "sourceSha256": "0ca9eb03e24a7f457680aca01bc4ded0f0915cd6b3e58b6e3f1724cbbbce03bf",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "win",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/win_v01.png",
+          "sourceSha256": "af3af879389328e13791d483e2e51e528bf297c6418fc2016dcc0153fe5cabbb",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialForward",
+          "version": 1,
+          "frames": 7,
+          "source": "art/characters/gojo/raw/specialForward_v01.png",
+          "sourceSha256": "aa959911e4deb4ac5860ead0bfa69f1a58c3575ebea1eff89d46025568e72b88",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialUp",
+          "version": 1,
+          "frames": 6,
+          "source": "art/characters/gojo/raw/specialUp_v01.png",
+          "sourceSha256": "a9226ba130fba5fb0dd263832c9192e66c9fd10bc1a0cf127ba1606f4c961720",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "specialDown",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/specialDown_v01.png",
+          "sourceSha256": "def57205120525c279283fe3f9f32cd0496cc598d9619d5df29b7e18a051f3b6",
+          "sidecarSha256": null,
+          "calibration": null
+        },
+        {
+          "animation": "superPose",
+          "version": 1,
+          "frames": 4,
+          "source": "art/characters/gojo/raw/superPose_v01.png",
+          "sourceSha256": "a7ae8256bf9a11edeb2dc3c281d56c502d8a5fc1d3c9dfb6514f884ed93ec385",
+          "sidecarSha256": null,
+          "calibration": null
+        }
+      ]
+    }
+  }
+}

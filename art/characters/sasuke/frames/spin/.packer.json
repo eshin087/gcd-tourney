@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/spin_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/spin_v01.png"
+  ],
+  "sourceHash": "bc5fe048d248cb65f30d2a3a37dbe33b5086a556",
+  "bodyHeight": 160,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "spin_00.png": "889911269fe96c2f98ca4aab04320ab64588b773",
+    "spin_01.png": "0aad2471640b46faeff0ac19e9ed03946cae6a1f",
+    "spin_02.png": "7a595fa5c5ea0d9286e615e09a10a9aff74ea4e5",
+    "spin_03.png": "ac296a3e9a28eb30f1d2af245fde9d5f65224113"
+  }
+}

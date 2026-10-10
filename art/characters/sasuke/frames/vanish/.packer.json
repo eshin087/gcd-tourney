@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/vanish_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/vanish_v01.png"
+  ],
+  "sourceHash": "d80a3ef580a510b78737045c6f16a02eb50d6c60",
+  "bodyHeight": 221,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "vanish_00.png": "501f657d0973e1c2f7885066747d297653db44f6",
+    "vanish_01.png": "f64ea2dcde73661d13559f2bff608d1ee2126de9"
+  }
+}

@@ -11,6 +11,12 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Completed the isolated fighter-scale candidate pass: 19 Naruto and 14 Killua corrections, full 42-animation Sasuke kit plus three UI candidates, original Gojo proportions restored, source-hashed QA and Claude handoff. 207 packer tests/build/browser checks pass; final visual approval and two documented non-clipping KO margin exceptions remain.
+
+- Art: reject enlarged Gojo head candidates after user feedback; restore approved proportions and document their precedence over nominal 31px guidance.
+
+- Fighter-scale audit and Sasuke completion in progress (ART-SCALE-01): explicit skull-to-chin calibration support, cache regression coverage, and a shared anatomical production gate; existing visual corrections remain pending.
+
 - Naruto final batch approved by the user: all 42 animations and three UI assets; promoted UI sources, preserved pose/reach QA notes, and handed gameplay integration to Claude.
 
 - Naruto complete candidate batch for one final review: 40 new animations and three UI images, completing 42 animations / 175 frames. Corrected pose separation, dash placement, knockout and cut-in; 48-color atlas, frame-local hand boxes, and phone-friendly playback review (ART-NAR-FINAL).

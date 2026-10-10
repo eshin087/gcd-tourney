@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superPose_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/superPose_v01.png"
+  ],
+  "sourceHash": "80d84b2d3c041417e6c2b5ae4a3f0c729b6a045a",
+  "bodyHeight": 208,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superPose_00.png": "957547ab26bf673976ab92bb09bedd35a9f3ba59",
+    "superPose_01.png": "4b3df19e6c626464c89328a55971881d9063580c",
+    "superPose_02.png": "b4c2c65bdce2ee1c9e1f08b0a0b51ff58a3b7bba",
+    "superPose_03.png": "bb1aaa268b35e17746187be3c6fef637bb2c83c3"
+  }
+}

@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/ko_v03.png",
-  "version": 3,
+  "sourceFile": "raw/ko_v05.png",
+  "version": 5,
   "source": [
-    "characters/naruto/raw/ko_v03.png"
+    "characters/naruto/raw/ko_v05.png",
+    "characters/naruto/raw/ko_v05.json"
   ],
-  "sourceHash": "3e1fc470e0f08ecbc93d17195ffbd72aef149392",
+  "sourceHash": "849ec45a616b121339fd578063f67772e7bc54fe",
   "bodyHeight": 64,
   "cell": {
     "frameWidth": 256,
@@ -17,6 +18,6 @@
     ]
   },
   "files": {
-    "ko_00.png": "7e09920149b50ae54f0746142863c85eb27ae52c"
+    "ko_00.png": "a6cf7e431d436d3c0146b2d9324573307cf0cc26"
   }
 }

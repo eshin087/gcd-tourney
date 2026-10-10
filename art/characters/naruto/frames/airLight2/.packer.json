@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/airLight2_v02.png",
-  "version": 2,
+  "sourceFile": "raw/airLight2_v03.png",
+  "version": 3,
   "source": [
-    "characters/naruto/raw/airLight2_v02.png"
+    "characters/naruto/raw/airLight2_v03.png",
+    "characters/naruto/raw/airLight2_v03.json"
   ],
-  "sourceHash": "60c52f2eaa62f8907f6af58d6bcef3fb8e3f7fa3",
+  "sourceHash": "647db85063b00d7bb0f9bf444bdf17fdfcc025c0",
   "bodyHeight": 207,
   "cell": {
     "frameWidth": 256,
@@ -18,8 +19,8 @@
   },
   "files": {
     "airLight2_00.png": "7c3c90cc21a46fcc2cbb2a9ed1a38173720b09d7",
-    "airLight2_01.png": "84473514d58f3e34ae4c9e07e1738182e2ef187f",
-    "airLight2_02.png": "8f391beb96b5a8c05f1050d5d3b5c00a2d2f51e7",
+    "airLight2_01.png": "5190c537f76cce5bb01a1114cf7ab2f71ebd9eef",
+    "airLight2_02.png": "ba89f71e976df0cbd7d86bb4d82dcb11ebdd57d5",
     "airLight2_03.png": "56972cbb0fe713ff60ba39aec59c749688f065ae",
     "airLight2_04.png": "8a6b3c53121b2a1ed91910f33fc79cc89c84a026"
   }

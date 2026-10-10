@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/backDash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/backDash_v01.png"
+  ],
+  "sourceHash": "c05c0fdd74be54a7a95c437ef29357e9e4fb661f",
+  "bodyHeight": 225,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "backDash_00.png": "d2400d594181a07477765ad425c469d6afc9cb76",
+    "backDash_01.png": "20a86cacb891a6fa5bf8e134cfc452ea76069638",
+    "backDash_02.png": "0e8b718db9d26274f7914a8b39c73a9b5cf5796c"
+  }
+}

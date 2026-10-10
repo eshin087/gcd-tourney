@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airRecover_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/airRecover_v01.png"
+  ],
+  "sourceHash": "fb518e16c64ed095a10498f96525f85d4b6aa2f0",
+  "bodyHeight": 180,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airRecover_00.png": "02f5e260d70ff6fe1206f9335ac8156cceaac5ec",
+    "airRecover_01.png": "b1c214ad0a007d2007dca1c71b19489c4f1245aa",
+    "airRecover_02.png": "fe3856e2b608525729bc9e8151d7c3f155693e92"
+  }
+}

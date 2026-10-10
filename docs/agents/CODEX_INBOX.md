@@ -17,7 +17,7 @@ How it works:
 
 ## Every thread
 
-- [ ] **(2026-10-09) Keep docs/NOW.md current.** Read rule 6 under "Roles and handoff protocol" in
+- [x] **(2026-10-09) Keep docs/NOW.md current.** Updated for isolated ART-SCALE-01 handoff 2026-10-10. Read rule 6 under "Roles and handoff protocol" in
   [AGENTS.md](../../AGENTS.md). Before you stop and hand back: update "Your next actions" in docs/NOW.md
   (remove what's done, add what the user must do next), run `npm run status -- --write`, and commit
   docs/NOW.md with your files. When the user types **status**, run `npm run status` and answer in under 10
@@ -37,7 +37,7 @@ How it works:
 
 ## Sasuke thread
 
-- [ ] **(2026-10-09) Kirin poses now, kit animations later (ADR 0011).** His ULTIMATE is Amaterasu (no beam)
+- [x] **(2026-10-09) Kirin poses now, kit animations later (ADR 0011).** Done 2026-10-10: kit briefs merged and all 42 animations generated/packed; final visual approval pending. His ULTIMATE is Amaterasu (no beam)
   and his SUPER is Kirin. Read ADR 0011 and `art/characters/sasuke/KIT.md`, then:
   1. Do the KIT.md §4 swap now: replace his beamCharge (A16) and beamFire (A17) entries in ANIMATIONS.md and
      PROMPTS.md with the Kirin versions from §4, and set beamCharge bodyHeight 230 in his manifest block (after

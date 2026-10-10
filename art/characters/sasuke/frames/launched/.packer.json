@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/launched_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/launched_v01.png",
+    "characters/sasuke/raw/launched_v01.json"
+  ],
+  "sourceHash": "ce83430cf4949348d616a90f0e2ec02e45161a24",
+  "bodyHeight": 136,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "launched_00.png": "6a89803e273824a2209ea215e16c989df1f59f18",
+    "launched_01.png": "9958b901d73b68aafa489a6dc4ee2e731d3f8b65"
+  }
+}

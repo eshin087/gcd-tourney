@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airLight3_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/airLight3_v01.png",
+    "characters/sasuke/raw/airLight3_v01.json"
+  ],
+  "sourceHash": "cb0c4045d160ef13965e77462e3ddb7e169a65f9",
+  "bodyHeight": 201,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airLight3_00.png": "b91d3115dbc6ce9e8e30fa0b4e462c74bff21286",
+    "airLight3_01.png": "4886c8381016ed1add067a60fe6ac179357a6e3f",
+    "airLight3_02.png": "d3daad94b8c53352efec42e390c3a044d1d53344",
+    "airLight3_03.png": "7df3a5fd2d77a71bfb6331f3e3d89ce754b42eb3",
+    "airLight3_04.png": "f2b8d38a902cfa0ad33c8b062f22b3437f474382",
+    "airLight3_05.png": "4cba767fc50b046129efcf01d84dc4ef2728a270"
+  }
+}

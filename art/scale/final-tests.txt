@@ -1,0 +1,6 @@
+
+> gcd-tourney@0.1.0 test:sprites
+> node tools/test-pack-sprites.mjs
+
+pack-sprites regression test
+OK: 207 passed, 0 failed

@@ -54,47 +54,47 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
-| 4 | run | 8 | - | **yes** | 204 | approved | v03 | v03 | User approved the short-hair run v03; same gait/placement/timing, 48 colors, zero pack warnings. Hair propagation complete. |
+| 4 | run | 8 | - | **yes** | 204 | approved | v04 | v03 | final scale review; see art/scale/FINAL_QA.md |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 6 | guard | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v03 | v02 | final scale review; see art/scale/FINAL_QA.md |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v03 | v02 | final scale review; see art/scale/FINAL_QA.md |
+| 6 | guard | 2 | - | **yes** | 198 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 6 | down | 2 | - | **yes** | 96 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 7 | beamFire | 3 | - | **yes** | 198 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 8 | dash | 2 | - | **yes** | 160 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 7 | beamFire | 3 | - | **yes** | 198 | approved | v04 | v02 | final scale review; see art/scale/FINAL_QA.md |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 8 | dash | 2 | - | **yes** | 160 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 8 | land | 2 | - | **yes** | 174 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 8 | win | 4 | - | **yes** | 212 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 8 | win | 4 | - | **yes** | 212 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | backDash | 3 | - | no | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | superDash | 2 | - | no | 120 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 9 | jumpSquat | 1 | - | no | 162 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 9 | block | 2 | - | no | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | jumpSquat | 1 | - | no | 162 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v03 | v02 | final scale review; see art/scale/FINAL_QA.md |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 9 | block | 2 | - | no | 204 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | hurtLow | 3 | - | no | 183 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | spin | 4 | - | no | 160 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | airRecover | 3 | - | no | 180 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 9 | ko | 1 | - | no | 64 | approved | v03 | v03 | Final batch approved; see production/QA.md |
+| 9 | ko | 1 | - | no | 64 | approved | v05 | v03 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | taunt | 2 | - | no | 212 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | superPose | 4 | - | no | 208 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | Final batch approved; see production/QA.md |
@@ -115,45 +115,50 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | todo | - | - | |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | todo | - | - | |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | todo | - | - | |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | todo | - | - | |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | todo | - | - | |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | todo | - | - | |
-| 6 | guard | 2 | - | **yes** | 198 | todo | - | - | |
-| 6 | hurtHigh | 3 | - | **yes** | 195 | todo | - | - | |
-| 6 | launched | 2 | - | **yes** | 136 | todo | - | - | |
-| 6 | down | 2 | - | **yes** | 96 | todo | - | - | |
-| 6 | getup | 5 | - | **yes** | 204 | todo | - | - | |
-| 7 | charge | 4 | - | **yes** | 198 | todo | - | - | |
-| 7 | beamCharge | 3 | - | **yes** | 198 | todo | - | - | |
-| 7 | beamFire | 3 | - | **yes** | 198 | todo | - | - | |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | todo | - | - | |
-| 8 | dash | 2 | - | **yes** | 160 | todo | - | - | |
-| 8 | jumpUp | 2 | - | **yes** | 198 | todo | - | - | |
-| 8 | jumpFall | 2 | - | **yes** | 209 | todo | - | - | |
-| 8 | land | 2 | - | **yes** | 174 | todo | - | - | |
-| 8 | win | 4 | - | **yes** | 212 | todo | - | - | |
-| 9 | backDash | 3 | - | no | 207 | todo | - | - | |
-| 9 | superDash | 2 | - | no | 120 | todo | - | - | |
-| 9 | jumpSquat | 1 | - | no | 162 | todo | - | - | |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | todo | - | - | |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | todo | - | - | |
-| 9 | block | 2 | - | no | 204 | todo | - | - | |
-| 9 | hurtLow | 3 | - | no | 183 | todo | - | - | |
-| 9 | spin | 4 | - | no | 160 | todo | - | - | |
-| 9 | airRecover | 3 | - | no | 180 | todo | - | - | |
-| 9 | throw | 4 | 1/1/2 | no | 201 | todo | - | - | |
-| 9 | vanish | 2 | - | no | 221 | todo | - | - | |
-| 9 | stagger | 4 | - | no | 207 | todo | - | - | |
-| 9 | ko | 1 | - | no | 64 | todo | - | - | |
-| 9 | intro | 4 | - | no | 210 | todo | - | - | |
-| 9 | taunt | 2 | - | no | 212 | todo | - | - | |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
-| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 207 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 6 | guard | 2 | - | **yes** | 198 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 6 | hurtHigh | 3 | - | **yes** | 195 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 6 | launched | 2 | - | **yes** | 136 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 6 | down | 2 | - | **yes** | 96 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 6 | getup | 5 | - | **yes** | 204 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 7 | charge | 4 | - | **yes** | 198 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 7 | beamCharge | 3 | - | **yes** | 198 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 7 | beamFire | 3 | - | **yes** | 198 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 8 | dash | 2 | - | **yes** | 160 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 8 | jumpUp | 2 | - | **yes** | 198 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 8 | jumpFall | 2 | - | **yes** | 209 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 8 | land | 2 | - | **yes** | 174 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 8 | win | 4 | - | **yes** | 212 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | backDash | 3 | - | no | 207 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | superDash | 2 | - | no | 120 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | jumpSquat | 1 | - | no | 162 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | block | 2 | - | no | 204 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | hurtLow | 3 | - | no | 183 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | spin | 4 | - | no | 160 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | airRecover | 3 | - | no | 180 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | throw | 4 | 1/1/2 | no | 201 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | vanish | 2 | - | no | 221 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | stagger | 4 | - | no | 207 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | ko | 1 | - | no | 64 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | intro | 4 | - | no | 210 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | taunt | 2 | - | no | 212 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | raw | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | raw | v01 | - | final review pending; see REVIEW.md |
+| 11 | ui/select.png (384x384) | - | - | no | - | raw | v01 | - | final review pending; see REVIEW.md |
+
+| 9 | specialForward | 7 | 2/2/3 | no | 204 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | packed | v02 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
+| 9 | superPose | 4 | - | no | 208 | packed | v01 | - | final scale review; see art/scale/FINAL_QA.md |
 
 ## killua
 
@@ -172,7 +177,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 | 3 | idle | 8 | - | **yes** | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 4 | run | 8 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 4 | run | 8 | - | **yes** | 186 | approved | v03 | v02 | final scale review; see art/scale/FINAL_QA.md |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
@@ -180,39 +185,39 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | guard | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | beamFire | 3 | - | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 7 | charge | 4 | - | **yes** | 180 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v02 | final scale review; see art/scale/FINAL_QA.md |
 | 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | dash | 2 | - | **yes** | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | dash | 2 | - | **yes** | 146 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 8 | jumpUp | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 8 | jumpFall | 2 | - | **yes** | 190 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 8 | land | 2 | - | **yes** | 158 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 8 | win | 4 | - | **yes** | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | backDash | 3 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superDash | 2 | - | no | 109 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | jumpSquat | 1 | - | no | 147 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | superDash | 2 | - | no | 109 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 9 | jumpSquat | 1 | - | no | 147 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | airLight2 | 5 | 1/2/2 | no | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | block | 2 | - | no | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | hurtLow | 3 | - | no | 167 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | block | 2 | - | no | 186 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
+| 9 | hurtLow | 3 | - | no | 167 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | spin | 4 | - | no | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | airRecover | 3 | - | no | 164 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | throw | 4 | 1/1/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | vanish | 2 | - | no | 201 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | stagger | 4 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | ko | 1 | - | no | 58 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | ko | 1 | - | no | 58 | approved | v02 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | intro | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | taunt | 2 | - | no | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v04 | v02 | final scale review; see art/scale/FINAL_QA.md |
 | 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superPose | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | superPose | 4 | - | no | 191 | approved | v03 | v01 | final scale review; see art/scale/FINAL_QA.md |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
@@ -232,34 +237,34 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v04 | v03 | Model v04 rejected: enlarged head. Original approved model v03 retained. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 3 | idle | 8 | - | **yes** | 222 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 4 | run | 8 | - | **yes** | 222 | approved | v03 | v03 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
+| 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | guard | 2 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | guard | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | launched | 2 | - | **yes** | 148 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | getup | 5 | - | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | charge | 4 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | charge | 4 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 7 | beamCharge | 3 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 7 | beamFire | 3 | - | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | dash | 2 | - | **yes** | 174 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | land | 2 | - | **yes** | 189 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | dash | 2 | - | **yes** | 174 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | land | 2 | - | **yes** | 189 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 8 | win | 4 | - | **yes** | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | backDash | 3 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | superDash | 2 | - | no | 140 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | jumpSquat | 1 | - | no | 176 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | backDash | 3 | - | no | 225 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | superDash | 2 | - | no | 140 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | jumpSquat | 1 | - | no | 176 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | block | 2 | - | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
@@ -477,6 +482,5 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`characters.<id>`, copied from `animationDefaults`, every asset with `version: 0` and
 `approvedVersion: null`). See [PIPELINE.md](PIPELINE.md#adding-a-new-character). The four kit animations
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
-fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke
-don't, so their sections leave them out. A fighter whose body is genuinely taller or shorter sets
+fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
