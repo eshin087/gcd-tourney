@@ -149,7 +149,7 @@ const CLASH_NOTE = 'needs two ultimates that clash (beam, orb or pounce), e.g. G
 // `a` / `b` = the timelines for P1 / the dummy. `needs(defs)` returns a note when this pairing can't show it.
 export const SCENARIOS = [
   {
-    id: 'ultClash', name: 'Ultimate clash', info: 'Both fire their ultimate on the same frame, then the rhythm clash: press Light, Heavy or Special as each ring closes on the target and hold the last one. The dummy plays at Normal.',
+    id: 'ultClash', name: 'Ultimate clash', info: 'Both fire their ultimate on the same frame, then the rhythm clash: press Light, Heavy or Special as each ring closes on the target and hold the last one. The dummy plays at the CLASH level picked in Tools (Normal by default).',
     needs: ([a, b]) => (clashable(a) && clashable(b) ? null : CLASH_NOTE),
     setup: { gap: 6, kiA: 300, kiB: 300 }, a: [tap(0, ['heavy', 'special'])], b: [tap(0, ['heavy', 'special'])],
   },

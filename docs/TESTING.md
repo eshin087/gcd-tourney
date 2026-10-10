@@ -181,7 +181,8 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    each fighter should show most of its kit and at least one three-bar move, plus parries, spot dodges, air
    dodges ("DODGE!" / "AIR DODGE!" callouts), wavedashes and charging. After a match,
    `game.brains.map((b) => b.show.unseen())` lists what each CPU never used; expect 0-4 tools each (fewer
-   for the winner, since the loser has less time).
+   for the winner, since the loser has less time). With Naruto and / or Gojo on both sides (ultimates that clash),
+   most matches should show at least one rhythm clash (ENG-056); `clash` in `unseen()` means none happened.
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
    Light + Heavy within 12 frames of the grab breaks it ("BREAK!", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /

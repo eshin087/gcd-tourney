@@ -144,6 +144,7 @@ export class MasterBrain {
     if (game.state === 'roundIntro' && !this.roundSet) {
       // per-round temperament: whether it saves up for the big three-bar finish this round
       this.roundSet = true;
+      this.roundNo = (this.roundNo ?? 0) + 1;
       this.hoarding = Math.random() < this.S.flair * 0.55 * this.S.hoard;
       this.bigUsed = this.bigCount();
       this.plan = null;
@@ -154,7 +155,12 @@ export class MasterBrain {
     // the showman also holds its bars until it has fired its first three-bar move of the match: spending
     // freely, it would almost never reach three bars (after that it spends freely, and pickBig still prefers
     // the three-bar move the viewer hasn't seen when the bars come round again)
-    this.saving = this.hoarding || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
+    this.waitClash = this.clashWait(game);
+    if (this.waitClash && f.ki >= 300 && o.ki < 300) {
+      this.clashFull = (this.clashFull || 0) + 1;
+      if (this.clashFull > 600) this.clashGaveUp = this.roundNo; // 10 s at three bars and they never got there
+    } else this.clashFull = 0;
+    this.saving = this.hoarding || this.waitClash || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
     if (game.clash) this.playClash(game);
     else if (game.inputLive && !f.ko && !o.ko) this.think(game);
     if (this.chargeFrom != null) {
@@ -574,7 +580,7 @@ export class MasterBrain {
     const f = this.f, o = f.opp, K = kitOf(f.def), S = this.S;
     if (f.ki < 100) return false;
     // showman: a three-bar ender, decided once per combo, likelier while the viewer hasn't seen it
-    if (S.show >= 0.5 && f.ki >= 300 && o.combo >= 3) {
+    if (S.show >= 0.5 && f.ki >= 300 && o.combo >= 3 && !this.waitClash) {
       if (this.route.big === undefined) this.route.big = this.pickBig(c, true);
       if (this.route.big) {
         this.fireBig(this.route.big);
@@ -652,6 +658,18 @@ export class MasterBrain {
   bigCount() {
     const u = this.show.used;
     return (u.super || 0) + (u.ultimate || 0) + (u.beam || 0);
+  }
+
+  // Showman (ENG-056): an ultimate clash needs both fighters at three bars at once, which free spending almost
+  // never lines up. When both ultimates can meet and the viewer hasn't seen a clash yet this match, it reserves its
+  // three bars for one: it fires its ultimate only once the opponent has three too (it can only read their meter,
+  // like a player: the challenge, which they can answer), and otherwise answers theirs. One per match, so the next
+  // bars can go to the second super; it gives up for the round after 10 s at three bars, or with the clock low.
+  clashWait(game) {
+    const f = this.f, sh = this.show;
+    if (this.S.show < 0.5 || !sh.tools.clash || sh.used.clash) return false;
+    if (game.timeLeft < 20 || this.clashGaveUp === this.roundNo) return false;
+    return f.ki >= 100;
   }
 
   // Frames from pressing a special to its first hit landing, or null for kinds that don't hit directly.
@@ -837,7 +855,11 @@ export class MasterBrain {
     const canDodge = th.frames >= dodgeLead;
     // their beam, orb or pounce on its way and an ultimate of ours that can meet it: answer it (a rhythm clash,
     // ADR 0017). Amaterasu or Whirlwind can't touch it, so those don't offer.
-    if (th.clash && ki >= ULTIMATE.cost && clashable(f.def)) offer('counterBeam', 1 + S.flair * 2, { type: 'counterBeam' }, kitOf(f.def).ultimate ? null : 'beam');
+    if (th.clash && ki >= ULTIMATE.cost && clashable(f.def)) {
+      // the showman takes it most of the time while the viewer hasn't seen a clash (Showcase 'clash')
+      const k = S.show >= 0.5 && sh.tools.clash ? sh.bias('clash') : 1;
+      offer('counterBeam', (1 + S.flair * 2) * k, { type: 'counterBeam' }, kitOf(f.def).ultimate ? null : 'beam');
+    }
     if (th.kind === 'beam') {
       if (ki >= VANISH.cost) offer('vanish', 0.6 + S.flair * 0.6, { type: 'vanish', at: 10 }, 'vanish');
       if (r !== 'air') offer('sidestep', 0.7, { type: 'sidestep', at: 30 });
@@ -1091,6 +1113,7 @@ export class MasterBrain {
     const est = this.finishDamage(c);
     const kills = est && o.hp <= est.dmg * 0.9;
     if (!kills && this.S.show >= 0.5) {
+      if (this.waitClash) return false; // the bars are kept for the clash
       // showman: spend the bars on an opening, once per opening, on the move the viewer hasn't seen
       if (this.bigRoll?.key !== this.oppSerial) this.bigRoll = { key: this.oppSerial, pick: this.pickBig(c, false) };
       const big = this.bigRoll.pick;
@@ -1311,7 +1334,14 @@ export class MasterBrain {
     // three bars: the beam from afar (an opponent with three bars can fire back: CLASH), or a kit super
     const K = kitOf(f.def);
     let big = null;
-    if (ki >= 300 && showy) {
+    if (ki >= 300 && showy && this.waitClash) {
+      // waiting for a clash: only the ultimate that can meet theirs, and only once they have three bars too
+      if (o.ki >= ULTIMATE.cost) {
+        big = K.ultimate ? 'ultimate' : 'beam';
+        if (big === 'beam') w.beam = 3 * sh.bias('clash');
+        else w.big = 3 * sh.bias('clash');
+      }
+    } else if (ki >= 300 && showy) {
       // one pick among the super, the ultimate and the beam, so neither crowds out the other
       big = this.pickBig(c, false, true);
       const want = S.flair * 1.5 * (big ? sh.bias(big) : 0) + (big && this.saving ? 2 : 0);

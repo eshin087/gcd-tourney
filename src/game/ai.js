@@ -460,11 +460,13 @@ export class CpuBrain {
   }
 }
 
-// Training dummy: stand still, hold guard, hop, or fight back like the CPU.
+// Training dummy: stand still, hold guard, hop, or fight back like the CPU. Whatever its mode, it plays a rhythm
+// clash with the timing of `clashLevel` (any CPU level; the lab picks it, Normal by default).
 export class DummyBrain {
-  constructor(fighter, mode = 'stand') {
+  constructor(fighter, mode = 'stand', clashLevel = 'normal') {
     this.f = fighter;
     this.cpu = new CpuBrain(fighter, 'normal');
+    this.clashBrain = clashLevel === 'normal' ? this.cpu : makeBrain(fighter, clashLevel);
     this.t = 0;
     this.setMode(mode);
   }
@@ -474,7 +476,8 @@ export class DummyBrain {
   }
 
   update(game) {
-    if (this.mode === 'cpu' || game.clash) return this.cpu.update(game); // any dummy plays a clash at Normal timing
+    if (game.clash) return this.clashBrain.update(game);
+    if (this.mode === 'cpu') return this.cpu.update(game);
     const f = this.f, pad = f.pad;
     pad.tick();
     this.t++;
