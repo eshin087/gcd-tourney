@@ -1,0 +1,30 @@
+{
+  "r": {
+    "width": 390,
+    "scrollWidth": 390,
+    "images": [
+      1254,
+      1536,
+      1254
+    ]
+  },
+  "transitions": [
+    {
+      "state": "fight",
+      "t": 0.17,
+      "f": [
+        "air hp1000 ki101 combo0 pos(-3.4,0.8,0.3)",
+        "idle hp1000 ki101 combo0 pos(3.4,0.0,-0.3)"
+      ]
+    },
+    {
+      "state": "fight",
+      "t": 0.3,
+      "f": [
+        "attack/airLight1 hp1000 ki102 combo0 pos(-3.3,1.6,0.2)",
+        "idle hp1000 ki102 combo0 pos(3.4,0.0,-0.3)"
+      ]
+    }
+  ],
+  "scope": "Responsive browser simulation; no physical phone test."
+}

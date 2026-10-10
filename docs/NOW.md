@@ -8,7 +8,7 @@ _Last updated by Codex: isolated fighter-scale candidate pass complete; separate
 
 ## Your next actions
 
-1. **One final fighter-art review:** 19 Naruto corrections, 14 Killua corrections and 43 Sasuke candidates are ready in the isolated scale PR. Original Gojo proportions are retained. Read [final QA](../art/scale/FINAL_QA.md), including the two non-clipping KO margin warnings and measurement limits. Review page: `/art-review/scale/` when serving the branch. No deployment has been made.
+1. **One final fighter-art review:** 19 Naruto corrections, 14 Killua corrections and 43 Sasuke candidates are ready in the isolated scale PR. Original Gojo proportions are retained. Read [final QA](../art/scale/FINAL_QA.md), including the two non-clipping KO margin warnings and measurement limits. Review page: `/art-review/scale/index.html` when serving the branch. No deployment has been made.
 2. **Claude integration:** read [FIGHTER_SCALE_HANDOFF.md](FIGHTER_SCALE_HANDOFF.md) and use the complete sheet/metadata pairs from the separate `codex/fighter-scale-corrections` PR. Current shared gameplay work is independent. Art approval remains pending until the final batch decision.
 3. **IMPOSSIBLE CPU, parry / dodges / wavedash, throws (Claude, 2026-10-10): two PRs are open.**
    [#3](https://github.com/eshin087/gcd-tourney/pull/3) (Impossible CPU, parry, spot dodge, air dodge, wavedash,

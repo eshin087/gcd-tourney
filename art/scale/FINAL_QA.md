@@ -18,7 +18,7 @@ Date: 2026-10-10. Task: ART-SCALE-01. Review status: **one final user visual rev
 - [browser-qa.json](browser-qa.json): all 42 comparison selectors exercised; 390px viewport has no horizontal overflow.
 - [all-frames/index.json](all-frames/index.json): 24 contact pages cover all 700 packed frames. Every page inspected, with corrected rows rechecked.
 - [cast-before.png](cast-before.png) / [cast-final.png](cast-final.png): same pixel density and baseline, idle above run, columns Naruto / Sasuke / Killua / Gojo.
-- [review.html](review.html): local animation comparison and crown/chin measurement tool. Buildable phone-sized copy at `/art-review/scale/`, including Sasuke UI candidates. It becomes remotely accessible only after an authorized deployment.
+- [review.html](review.html): local animation comparison and crown/chin measurement tool. Buildable phone-sized copy at `/art-review/scale/index.html`, including Sasuke UI candidates. It becomes remotely accessible only after an authorized deployment.
 
 ## Contact/effect anchors
 Naruto heavy f4 now covers the raised fist instead of the full forward leg. Existing heavy f3 and airHeavy f3 hand boxes were rechecked. Naruto beamFire palm anchors were refreshed. Sasuke Chidori startup/rush anchors follow the low trailing hand; active f3/f4 boxes replace incorrect head detections, and f5 covers the extended palm. Kirin command-hand anchors were added. Killua beam palms were visually rechecked and retained. Overrides live in character `hitboxes.json`; all public metadata is regenerated.
@@ -34,3 +34,6 @@ Naruto heavy f4 now covers the raised fist instead of the full forward leg. Exis
 ## Final approval scope
 76 current review rows: 19 Naruto + 14 Killua + 43 Sasuke; no new Gojo approval required. One final batch decision can approve these latest candidates. Previous approvedVersion values remain unchanged until that decision.
 
+## PR integration order
+
+Claude opened #7 (Sasuke and scale tooling) and #8 (earlier Naruto/Killua candidates). This final correction PR is stacked after #8; merge those prerequisite PRs first, then this correction. No original Gojo enlargement should be reintroduced.
