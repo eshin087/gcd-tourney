@@ -1,6 +1,8 @@
 # Gojo (Jujutsu Kaisen, blindfold): character design brief
 
-## User direction — 2026-10-09
+> **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
+
+## User direction — 2026-10-09, reaffirmed during ART-SCALE-01
 
 The user rejected model v02 because its head was too large and selected the proportions in
 `reference/model_sheet_v03.png` (their supplied image). Match that smaller head, narrow adult face,
@@ -20,7 +22,7 @@ approval stops; retain final review status and version history.
 >
 > **One deliberate exception (user decision):** Gojo is the tallest fighter. His standing body is
 > about **215 px** in the 256 cell instead of the shared 200 px, so he has his own `bodyHeight` table
-> ([ANIMATIONS.md](ANIMATIONS.md#summary)). His head stays about 31 px like everyone else's: the extra
+> ([ANIMATIONS.md](ANIMATIONS.md#summary)). His head keeps the original approved compact proportions: the extra
 > height is in his legs and torso (about 7 heads instead of 6.5). Claude records this in the manifest
 > and does the reach / lunge check (SPEC.md "Proportions and landmarks").
 
@@ -124,8 +126,8 @@ Art spec v2 (ADR 0007): 256×256 cell, pivot `[128, 240]`, `pixelsPerUnit` 128, 
 (body turned about 35° toward the camera, head turned a bit more so the front of the blindfold and both
 cheeks show, camera about 12° above). Full rules: [SPEC.md](../../SPEC.md).
 
-- About **7 heads tall**: serious adult anime proportions (the official modern TV-anime look). Head
-  (chin to top of skull) about **31 px**, the same head size as Naruto and Sasuke. **Standing upright
+- Preserve the original approved compact head and serious adult anime proportions.
+  Match model v03 and idle v02; do not enlarge the head to force a nominal ratio. **Standing upright
   body (soles to top of skull, legs straight) about 215 px** (shared cast: 200 px). The crotch sits at
   about half the body height (y ~132 when standing straight).
 - Hair adds about **18 px** above the skull (never more than 20), so standing straight his total
@@ -137,9 +139,8 @@ cheeks show, camera about 12° above). Full rules: [SPEC.md](../../SPEC.md).
   about **222 px**, his idle `bodyHeight`.
 - **Per-character `bodyHeight` table:** every animation is about 1.09× the shared v2 value (222 / 204),
   capped where his height would clip; the full table is in [ANIMATIONS.md](ANIMATIONS.md#summary).
-  Claude copies it into his manifest rows. If the approved idle reads more than 3 px off from 31 px
-  in head size in the Sprite Lab, Codex adjusts his `bodyHeight` overrides in `art/manifest.json` and
-  logs them in `art/TRACKER.md`. Don't redraw for it.
+  Claude copies it into his manifest rows. Preserve the approved idle head scale.
+  Do not change bodyHeight or redraw the head merely to approach 31px; inspect animation drift against the approved reference.
 - Keep every opaque pixel inside **x 4..251, y 4..240** (the cell margin). Lying and flying poses are
   long on him (about 224 to 230 px): bend a knee or an elbow rather than stretching every limb.
 

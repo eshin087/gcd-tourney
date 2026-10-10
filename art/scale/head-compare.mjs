@@ -1,0 +1,3 @@
+import fs from'node:fs';import{PNG}from'pngjs';const p=new PNG({width:1920,height:480});for(let i=0;i<p.data.length;i+=4){p.data[i]=35;p.data[i+1]=40;p.data[i+2]=50;p.data[i+3]=255;}
+for(const[c,id]of ['naruto','sasuke','killua','gojo'].entries()){const s=PNG.sync.read(fs.readFileSync(`public/characters/${id}/sheet.png`));for(let y=0;y<120;y++)for(let x=0;x<120;x++){let i=(y*s.width+x+75)*4;for(let dy=0;dy<4;dy++)for(let dx=0;dx<4;dx++){let j=((y*4+dy)*1920+c*480+x*4+dx)*4;if(s.data[i+3])s.data.copy(p.data,j,i,i+4);else if((y%10===0||x%10===0)&&dx===0&&dy===0){p.data[j]=80;p.data[j+1]=85;p.data[j+2]=95;}}}}
+fs.writeFileSync('art/scale/neutral-heads-before.png',PNG.sync.write(p));

@@ -1,0 +1,6 @@
+import fs from'node:fs';import{PNG}from'pngjs';
+const ids=['naruto','gojo','killua'];const proxy=JSON.parse(fs.readFileSync('art/scale/head-proxies.json'));
+for(const id of ids){const meta=JSON.parse(fs.readFileSync(`public/characters/${id}/anims.json`)),s=PNG.sync.read(fs.readFileSync(`public/characters/${id}/sheet.png`));const entries=Object.entries(meta.animations);
+for(let page=0;page<3;page++){const subset=entries.slice(page*14,page*14+14),out=new PNG({width:1536,height:subset.length*144});for(let k=0;k<out.data.length;k+=4){out.data[k]=35;out.data[k+1]=40;out.data[k+2]=50;out.data[k+3]=255;}
+subset.forEach(([name,a],row)=>a.frames.forEach((f,col)=>{const box=proxy[id][name][col].hairBox,cx=(box[0]+box[2])/2,cy=(box[1]+box[3])/2+6;for(let y=0;y<72;y++)for(let x=0;x<96;x++){const xx=Math.round(cx-48+x),yy=Math.round(cy-36+y);if(xx<0||xx>255||yy<0||yy>255)continue;const i=((Math.floor(f/meta.columns)*256+yy)*s.width+f%meta.columns*256+xx)*4;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){let j=((row*144+y*2+dy)*out.width+col*192+x*2+dx)*4;if(s.data[i+3])s.data.copy(out.data,j,i,i+4);}}}));
+fs.writeFileSync(`art/scale/${id}-heads-${page+1}.png`,PNG.sync.write(out));console.log(id,page+1,subset.map(([n])=>n).join(','));}}

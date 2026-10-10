@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/jumpFall_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/jumpFall_v01.png"
+  ],
+  "sourceHash": "b32fd0ec9ca8144377b5fe0ed07aa4a19d662b0e",
+  "bodyHeight": 227,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "jumpFall_00.png": "da528b072a9f827bb5e1e426542b231206206c95",
+    "jumpFall_01.png": "cc6885c9ab3664d91d94359a779220119834d56a"
+  }
+}

@@ -25,7 +25,11 @@ positions moved.
 | J in air ×3 · K in air | air combo | `airLight1..3`, `airHeavy` | `MOVES.airLight1..3`, `airHeavy` | air jab, air front kick, air spin kick (wall bounce), double-fist spike (ground bounce) |
 | L tap · ○/B tap | **CHIDORI** (1 bar) | `special` | `SPECIALS.chidori` | lightning in the hand held low behind, low sprint, spear-hand thrust |
 | L in air · ○/B in air | **FIREBALL** (½ bar) | `throw` | `PROJECTILES.fireball` | Great Fireball breathed from the mouth |
-| K+L · △+○ | **LIGHTNING LANCE** (3 bars) | `beamCharge` → `beamFire` | `ULTIMATE`, `def.beam` | super flash with the red-eye cut-in, then a blue lightning beam from a spear-hand |
+| Heavy + Special | **AMATERASU** (3 bars) | `superPose` | ADR 0011 | Mangekyo glare; engine black flames |
+| SUPER | **KIRIN** (3 bars) | `beamCharge` -> `beamFire` | ADR 0011 | raised arm calls storm, then downward command |
+| Forward + Special | **CHIDORI SHARP SPEAR** | `specialForward` | ADR 0011 | empty left palm gathers lightning, then extends toward the opponent |
+| Up + Special | **LION'S BARRAGE** | `specialUp` -> `airHeavy` -> `land` | ADR 0011 | rising kick, aerial turn, downward slam |
+| Down + Special | **SHARINGAN COUNTER** | `specialDown` | ADR 0011 | calm reading stance with a visible open hand |
 | hold L · hold ○ | ki charge | `charge` | — | aura powering up |
 | Shift+L · L1+○ | vanish (1 bar) | `vanish` → `light4` | `VANISH`, `MOVES.vanishKick` (uses `light4`) | high-speed blur, reappear behind, spinning roundhouse |
 | O / double-tap · R1 | dash / **super dash** | `dash`, `backDash`, `superDash` | `SUPER_DASH` | low dash, back hop, homing flight angled upward |
@@ -108,15 +112,26 @@ formula at the top of this file).
 Look target: a huge roiling ball of orange fire, much bigger than his head, rolling forward with flames
 licking back along its path.
 
-### LIGHTNING LANCE (`beamCharge` → `beamFire`): ultimate, 3 ki bars
+### KIRIN (`beamCharge` → `beamFire`): SUPER, 3 ki bars
 
-| | |
-|---|---|
-| Sequence | super flash (42 f world freeze, dimmed screen) with the **red-eye cut-in** (`ui/cutin.png`, Sharingan) → `beamCharge` for 46 f (14 f when countering an enemy beam) → `beamFire` while the beam lasts (84 f) |
-| Beam | drawn by a shader (no bitmap): core `#f0fbff`, mid `#62b8ff`, edge `#3a54ff`, width 1.25 units, extends at speed 34 up to 26 units, 12 damage every 5 f plus a 130 final hit (launch [17, 10]) |
-| Beam origin | 0.8 units in front, 0.92 units up: **(230, 122)** (ADR 0007). In `beamFire` the spear-hand tip sits at x 222–238, y 112–132. The beam aims at the opponent's chest (y 131–138 on a same-size opponent). |
-| Engine effects | charge: strong aura (`flame` `#408cff`, `streak` `#ccebff`, `glow`) and speed lines aimed at him. Fire: lighter aura. Clash with an enemy beam: white `lightning` bolt + rings and stars mixing both beam colors. Final hit: explosion in `#62b8ff` + floor crater. |
-| Sprite rules | `beamCharge`: R hand low at the R hip (about x 76–92, y 146–164), open, L hand gripping the R wrist (Chidori charge pose). `beamFire`: R spear-hand thrust forward, L hand gripping the R forearm. Sharingan on. No lightning or beam drawn. |
+ADR 0011 replaces Lightning Lance. Use the current poses in ANIMATIONS.md and A16/A17 in
+PROMPTS.md: the right arm calls the storm overhead, then points down and forward at the opponent.
+Sharingan stays on. The engine draws the storm and descending lightning dragon; hands stay empty
+and no lightning, beam or glow is baked into the fighter strip. The source estimate for the raised
+call is `bodyHeight: 230`; anatomical calibration takes precedence when measured (CHARACTER_SCALE.md).
+Record the actual packed raised palm and pointing fingertips in the final QA ledger before Claude
+adjusts effect offsets. Old Lightning Lance timing and hand anchors are not integration instructions.
+
+### Directional specials and AMATERASU
+
+- `specialForward`: Chidori Sharp Spear uses the **left lead hand**, visible by the waist during
+  anticipation, then extended toward screen-right. Sharingan on f1–f4. Measure palm and fingertips.
+- `specialUp`: Lion's Barrage uses a rising kick and aerial turn with dark eyes, followed by the
+  existing `airHeavy` and `land`. Keep leg lengths constant through the tucked and extended poses.
+- `specialDown`: Sharingan Counter is a reading stance, not a strike; Sharingan on f1–f3, no hitbox.
+- `superPose`: Amaterasu is a still, cold **Mangekyo** stare. The engine places black flames on the
+  opponent. No flames or eye glow are painted onto the fighter frames. The shared three-tomoe cut-in
+  remains the current UI brief; a separate Mangekyo cut-in needs the user's design decision.
 
 ### Ki charge (`charge`)
 
@@ -158,17 +173,15 @@ they stay safe until the engine supports them.
 | `sasuke_fireballCore` | 6 · 50, loop | `#fff4c0`, `#ffd04a`, `#ff9a24`, `#f05a14`, `#c42a10`, `#6a1a0a` (dark edge) | a large roiling fireball (fills about 110 px) rolling to the right, flame tongues streaming back to the left, swirling core |
 | `sasuke_fireballBreath` | 4 · 50 | same fire colors | the stream leaving the mouth: a cone of fire widening to the right from a small point at the left edge (x ~8, y 64) |
 | `sasuke_fireballBlast` | 7 · 50 | same fire colors + smoke greys `#c8c4d6`, `#f2f0f6` | explosion: white-yellow flash, expanding fire ring, then rolling smoke |
-| `sasuke_lanceTip` | 4 · 40, loop, tinted | white and light grey only | the beam's spearhead: a sharp arrowhead of jagged lightning pointing right, with forked crackles along its edges |
 | `sasuke_sharinganGlint` | 4 · 40, tinted | white only (engine tints red) | a tiny horizontal eye-gleam streak (anime "eye flash"), 24 px wide, for the instant the Sharingan turns on |
 
 Engine follow-ups to copy into `docs/TASKS.md` (owner: Claude; ENG-014 covers 1 to 4):
 
 1. Read per-character effect sheets (`sasuke_<effect>`, raws in `art/vfx/raw/_proposed/`) and prefer
    them over the shared ones for his moves.
-2. During `beamCharge`, show Chidori lightning at the R hand (about cell **(84, 155)**: 0.34 back,
-   0.66 up), the same way `handTick('chidori')` does for the special.
-3. Optional: a jagged-edge "lightning" style for the beam shader for characters whose beam is
-   lightning.
+2. During `beamCharge`, anchor Kirin's call effect to the measured raised right palm, using the
+   current ADR 0011 engine implementation. The old low-hip Chidori anchor is obsolete for this move.
+3. Lightning Lance and its proposed lance-tip bitmap are retired. Do not produce a beam asset for Sasuke.
 4. Optional: play `sasuke_sharinganGlint` at the eye on the first frame of `special`, `throw` and
    `beamCharge`.
 
@@ -213,3 +226,8 @@ change in v2.
 | `ui/portrait.png` | 96×96, transparent | head and shoulders, 3/4 facing right, cold glare, **dark eyes** (no Sharingan), long bangs framing the face, the tall white collar open at the throat, **no headband** |
 | `ui/cutin.png` | 480×128, opaque | DBFZ super-flash eye strip: both eyes with the **Sharingan** (three tomoe), brows down, black-blue bangs crossing the frame, a few blue lightning glints; the face fills the strip, with a flat dark navy band showing only around the eyes and brows; no speed lines (the HUD adds them) |
 | `ui/select.png` | 384×384, transparent | full body facing right in the Shippuden outfit, low Chidori stance: R hand low behind him crackling with blue-white lightning (drawn into this illustration), L hand gripping the R forearm, Sharingan on, bangs, rope ends and waist cloth blown by the chakra wind, sword sheathed at his back |
+
+
+## ADR 0011 current kit overrides
+
+Kirin uses beamCharge/beamFire; Amaterasu uses superPose. The current kit poses, eye schedule and empty-hand rules are merged into ANIMATIONS.md and PROMPTS.md from KIT.md. Directional specials are Chidori Sharp Spear (specialForward, left hand), Lion's Barrage (specialUp) and Sharingan Counter (specialDown). Record measured effect hand/mouth anchors during final scale QA using SPEC.md and hitboxes.json; no fixed anchor guess substitutes for the drawn pose.

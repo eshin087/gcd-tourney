@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/land_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/land_v01.png"
+  ],
+  "sourceHash": "9cbe9521b162263405dab7f480c52f409e215768",
+  "bodyHeight": 189,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "land_00.png": "918152b32ac156b1f6d41003f415a704553f5be6",
+    "land_01.png": "92e581d573620d55a20e84bdaefd1f843c013db8"
+  }
+}

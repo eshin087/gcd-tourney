@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/jumpSquat_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/jumpSquat_v01.png"
+  ],
+  "sourceHash": "ece807ea2300effcd3bc31dfc3f96c7b70542423",
+  "bodyHeight": 176,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "jumpSquat_00.png": "3ac08ad98dd84cd8ffce24e9af3ac4f6d763aaa7"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superPose_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/superPose_v01.png"
+  ],
+  "sourceHash": "fa0428e98e90199f29860d3eda692077abb02d3c",
+  "bodyHeight": 230,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superPose_00.png": "fd324c3ca09318679575cf7a3f04bb5ca6955b91",
+    "superPose_01.png": "66046b55db3b57f296b72648ad7b835b952d4b7c",
+    "superPose_02.png": "1187c8a528517d886c76bd53106f54bccd482786",
+    "superPose_03.png": "22a2bff88773a166e8767f7dc9adb134423f95c3"
+  }
+}

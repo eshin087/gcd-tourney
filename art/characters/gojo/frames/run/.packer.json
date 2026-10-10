@@ -1,0 +1,30 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/run_v03.png",
+  "version": 3,
+  "source": [
+    "characters/gojo/raw/run_v03.png",
+    "characters/gojo/raw/run_v03.json"
+  ],
+  "sourceHash": "34a12779893600d2fe2112b6ef41952d399409ce",
+  "bodyHeight": 222,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "run_00.png": "ad4de7ee7300dd42d4492f710d16ac7c52e510c1",
+    "run_01.png": "bd1808c255c459be2879f23950511e0ee3bc555c",
+    "run_02.png": "5e6d11c6a741fd842225e917fb2d79c4f9b84724",
+    "run_03.png": "a1e363a9b5f0208b45f5357673c729dc03002ba9",
+    "run_04.png": "34ad85b0309622214e8dfd56211a98f0efea13fe",
+    "run_05.png": "7b0d7ec0bbc73309beab83578d0734c66a2004a4",
+    "run_06.png": "156e9f7f2d91901e83cff4f75d28b69552471ecd",
+    "run_07.png": "fbcc5a526ead8f8e5078129c640dbdfd08311fa1"
+  }
+}

@@ -1,0 +1,2011 @@
+{
+  "idle": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        101,
+        40
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        104,
+        38
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        104,
+        37
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        102,
+        38
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        101,
+        39
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        103,
+        38
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        102,
+        43
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 7,
+      "cropOrigin": [
+        100,
+        38
+      ],
+      "page": 0,
+      "row": 0,
+      "col": 7,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "run": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        124,
+        52
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        123,
+        57
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        123,
+        47
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        124,
+        39
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        124,
+        50
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        123,
+        56
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        123,
+        53
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 7,
+      "cropOrigin": [
+        125,
+        37
+      ],
+      "page": 0,
+      "row": 1,
+      "col": 7,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "dash": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        188,
+        91
+      ],
+      "page": 0,
+      "row": 2,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        166,
+        89
+      ],
+      "page": 0,
+      "row": 2,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "backDash": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        91,
+        35
+      ],
+      "page": 0,
+      "row": 3,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        56,
+        56
+      ],
+      "page": 0,
+      "row": 3,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        99,
+        35
+      ],
+      "page": 0,
+      "row": 3,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "superDash": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        156,
+        118
+      ],
+      "page": 0,
+      "row": 4,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        145,
+        119
+      ],
+      "page": 0,
+      "row": 4,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "jumpSquat": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        122,
+        78
+      ],
+      "page": 0,
+      "row": 5,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "jumpUp": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        131,
+        48
+      ],
+      "page": 0,
+      "row": 6,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        122,
+        56
+      ],
+      "page": 0,
+      "row": 6,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "jumpFall": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        110,
+        34
+      ],
+      "page": 0,
+      "row": 7,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        115,
+        33
+      ],
+      "page": 0,
+      "row": 7,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "land": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        128,
+        104
+      ],
+      "page": 0,
+      "row": 8,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        116,
+        67
+      ],
+      "page": 0,
+      "row": 8,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "light1": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        104,
+        42
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        101,
+        42
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        105,
+        42
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        103,
+        43
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        96,
+        37
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        95,
+        38
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        100,
+        38
+      ],
+      "page": 0,
+      "row": 9,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "light2": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        94,
+        27
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        97,
+        27
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        92,
+        26
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        92,
+        26
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        108,
+        43
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        100,
+        45
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        99,
+        46
+      ],
+      "page": 0,
+      "row": 10,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "light3": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        119,
+        30
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        110,
+        28
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        93,
+        32
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        103,
+        32
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        118,
+        51
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        104,
+        52
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        97,
+        53
+      ],
+      "page": 1,
+      "row": 0,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "light4": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        105,
+        48
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        112,
+        32
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        106,
+        35
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        108,
+        38
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        106,
+        37
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        116,
+        60
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        101,
+        66
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 7,
+      "cropOrigin": [
+        102,
+        65
+      ],
+      "page": 1,
+      "row": 1,
+      "col": 7,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "heavy": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        112,
+        80
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        107,
+        101
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        99,
+        67
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        90,
+        60
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        98,
+        92
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        112,
+        27
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        119,
+        68
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 7,
+      "cropOrigin": [
+        102,
+        26
+      ],
+      "page": 1,
+      "row": 2,
+      "col": 7,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "airLight1": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        131,
+        41
+      ],
+      "page": 1,
+      "row": 3,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        136,
+        43
+      ],
+      "page": 1,
+      "row": 3,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        134,
+        42
+      ],
+      "page": 1,
+      "row": 3,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        132,
+        41
+      ],
+      "page": 1,
+      "row": 3,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        128,
+        41
+      ],
+      "page": 1,
+      "row": 3,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "airLight2": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        117,
+        36
+      ],
+      "page": 1,
+      "row": 4,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        97,
+        46
+      ],
+      "page": 1,
+      "row": 4,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        94,
+        45
+      ],
+      "page": 1,
+      "row": 4,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        111,
+        39
+      ],
+      "page": 1,
+      "row": 4,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        105,
+        33
+      ],
+      "page": 1,
+      "row": 4,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "airLight3": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        59,
+        137
+      ],
+      "page": 1,
+      "row": 5,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        121,
+        106
+      ],
+      "page": 1,
+      "row": 5,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        83,
+        124
+      ],
+      "page": 1,
+      "row": 5,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        101,
+        135
+      ],
+      "page": 1,
+      "row": 5,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        123,
+        51
+      ],
+      "page": 1,
+      "row": 5,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        85,
+        41
+      ],
+      "page": 1,
+      "row": 5,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "airHeavy": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        90,
+        97
+      ],
+      "page": 1,
+      "row": 6,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        92,
+        92
+      ],
+      "page": 1,
+      "row": 6,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        106,
+        103
+      ],
+      "page": 1,
+      "row": 6,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        112,
+        110
+      ],
+      "page": 1,
+      "row": 6,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        103,
+        66
+      ],
+      "page": 1,
+      "row": 6,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        122,
+        55
+      ],
+      "page": 1,
+      "row": 6,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "guard": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        105,
+        44
+      ],
+      "page": 1,
+      "row": 7,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        103,
+        53
+      ],
+      "page": 1,
+      "row": 7,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "block": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        68,
+        38
+      ],
+      "page": 1,
+      "row": 8,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        99,
+        42
+      ],
+      "page": 1,
+      "row": 8,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "hurtHigh": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        55,
+        35
+      ],
+      "page": 1,
+      "row": 9,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        95,
+        51
+      ],
+      "page": 1,
+      "row": 9,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        102,
+        48
+      ],
+      "page": 1,
+      "row": 9,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "hurtLow": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        113,
+        84
+      ],
+      "page": 1,
+      "row": 10,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        115,
+        72
+      ],
+      "page": 1,
+      "row": 10,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        111,
+        58
+      ],
+      "page": 1,
+      "row": 10,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "launched": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        12,
+        115
+      ],
+      "page": 2,
+      "row": 0,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        18,
+        120
+      ],
+      "page": 2,
+      "row": 0,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "spin": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        86,
+        103
+      ],
+      "page": 2,
+      "row": 1,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        102,
+        156
+      ],
+      "page": 2,
+      "row": 1,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        98,
+        152
+      ],
+      "page": 2,
+      "row": 1,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        115,
+        112
+      ],
+      "page": 2,
+      "row": 1,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "airRecover": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        73,
+        115
+      ],
+      "page": 2,
+      "row": 2,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        104,
+        151
+      ],
+      "page": 2,
+      "row": 2,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        100,
+        61
+      ],
+      "page": 2,
+      "row": 2,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "down": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        61,
+        164
+      ],
+      "page": 2,
+      "row": 3,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        63,
+        169
+      ],
+      "page": 2,
+      "row": 3,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "getup": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        77,
+        174
+      ],
+      "page": 2,
+      "row": 4,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        94,
+        182
+      ],
+      "page": 2,
+      "row": 4,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        71,
+        80
+      ],
+      "page": 2,
+      "row": 4,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        109,
+        101
+      ],
+      "page": 2,
+      "row": 4,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        100,
+        38
+      ],
+      "page": 2,
+      "row": 4,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "charge": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        90,
+        31
+      ],
+      "page": 2,
+      "row": 5,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        88,
+        33
+      ],
+      "page": 2,
+      "row": 5,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        89,
+        33
+      ],
+      "page": 2,
+      "row": 5,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        94,
+        36
+      ],
+      "page": 2,
+      "row": 5,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "throw": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        119,
+        39
+      ],
+      "page": 2,
+      "row": 6,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        173,
+        53
+      ],
+      "page": 2,
+      "row": 6,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        156,
+        47
+      ],
+      "page": 2,
+      "row": 6,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        125,
+        37
+      ],
+      "page": 2,
+      "row": 6,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "beamCharge": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        100,
+        34
+      ],
+      "page": 2,
+      "row": 7,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        98,
+        43
+      ],
+      "page": 2,
+      "row": 7,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        102,
+        35
+      ],
+      "page": 2,
+      "row": 7,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "beamFire": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        92,
+        49
+      ],
+      "page": 2,
+      "row": 8,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        77,
+        43
+      ],
+      "page": 2,
+      "row": 8,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        88,
+        48
+      ],
+      "page": 2,
+      "row": 8,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "vanish": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        121,
+        79
+      ],
+      "page": 2,
+      "row": 9,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        104,
+        14
+      ],
+      "page": 2,
+      "row": 9,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "stagger": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        119,
+        44
+      ],
+      "page": 2,
+      "row": 10,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        101,
+        31
+      ],
+      "page": 2,
+      "row": 10,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        119,
+        43
+      ],
+      "page": 2,
+      "row": 10,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        103,
+        30
+      ],
+      "page": 2,
+      "row": 10,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "ko": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        16,
+        172
+      ],
+      "page": 3,
+      "row": 0,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "special": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        105,
+        39
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        115,
+        64
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        131,
+        63
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        121,
+        140
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        120,
+        140
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        124,
+        141
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        117,
+        146
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 7,
+      "cropOrigin": [
+        109,
+        141
+      ],
+      "page": 3,
+      "row": 1,
+      "col": 7,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "intro": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        96,
+        29
+      ],
+      "page": 3,
+      "row": 2,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        93,
+        27
+      ],
+      "page": 3,
+      "row": 2,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        91,
+        31
+      ],
+      "page": 3,
+      "row": 2,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        93,
+        29
+      ],
+      "page": 3,
+      "row": 2,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "taunt": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        102,
+        29
+      ],
+      "page": 3,
+      "row": 3,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        102,
+        29
+      ],
+      "page": 3,
+      "row": 3,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "win": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        101,
+        27
+      ],
+      "page": 3,
+      "row": 4,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        121,
+        34
+      ],
+      "page": 3,
+      "row": 4,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        101,
+        27
+      ],
+      "page": 3,
+      "row": 4,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        121,
+        33
+      ],
+      "page": 3,
+      "row": 4,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "specialForward": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        101,
+        105
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        103,
+        106
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        97,
+        112
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        93,
+        111
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        106,
+        38
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        105,
+        39
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 6,
+      "cropOrigin": [
+        99,
+        38
+      ],
+      "page": 3,
+      "row": 5,
+      "col": 6,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "specialUp": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        125,
+        119
+      ],
+      "page": 3,
+      "row": 6,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        124,
+        93
+      ],
+      "page": 3,
+      "row": 6,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        103,
+        68
+      ],
+      "page": 3,
+      "row": 6,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        103,
+        67
+      ],
+      "page": 3,
+      "row": 6,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 4,
+      "cropOrigin": [
+        127,
+        91
+      ],
+      "page": 3,
+      "row": 6,
+      "col": 4,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 5,
+      "cropOrigin": [
+        108,
+        67
+      ],
+      "page": 3,
+      "row": 6,
+      "col": 5,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "specialDown": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        98,
+        37
+      ],
+      "page": 3,
+      "row": 7,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        97,
+        37
+      ],
+      "page": 3,
+      "row": 7,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        97,
+        37
+      ],
+      "page": 3,
+      "row": 7,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        98,
+        37
+      ],
+      "page": 3,
+      "row": 7,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ],
+  "superPose": [
+    {
+      "frame": 0,
+      "cropOrigin": [
+        101,
+        31
+      ],
+      "page": 3,
+      "row": 8,
+      "col": 0,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 1,
+      "cropOrigin": [
+        100,
+        32
+      ],
+      "page": 3,
+      "row": 8,
+      "col": 1,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 2,
+      "cropOrigin": [
+        102,
+        32
+      ],
+      "page": 3,
+      "row": 8,
+      "col": 2,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    },
+    {
+      "frame": 3,
+      "cropOrigin": [
+        102,
+        31
+      ],
+      "page": 3,
+      "row": 8,
+      "col": 3,
+      "note": "Diagnostic skin crop only; may select a hand or chest. Never an anatomical measurement."
+    }
+  ]
+}
