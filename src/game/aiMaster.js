@@ -481,6 +481,7 @@ export class MasterBrain {
       if (Sp?.kind === 'flurry' && c.dist < (Sp.range ?? 6)) take('super', (Sp.hits * Sp.hitDmg + Sp.finalDmg) * scale(Sp.minScale), null);
       const U = SUPERS[K.ultimate];
       if (U?.kind === 'ignite') take('ultimate', U.dmg * scale(1) + (U.burn.len / U.burn.every) * U.burn.dmg, null);
+      if (U?.kind === 'rampage' && c.dist < (U.range ?? 8) - 0.6 && Math.abs(c.sd) < 1) take('ultimate', (U.slams * U.slamDmg + U.finalDmg) * scale(U.minScale ?? 0.9), null);
     }
     const sp = specialFor(f.def, 'neutral');
     const left = o.state === 'hitstun' ? o.stun - o.t : 0;
@@ -594,6 +595,13 @@ export class MasterBrain {
       const perp = Math.hypot(ax - b.dir.x * along, az - b.dir.z * along);
       if (along > -0.5 && perp < b.width * 0.5 + 0.9) add({ key: 'bf' + this.oppSerial, kind: 'beam', frames: Math.max(0, (along - b.len) / ULTIMATE.speed * 60), len: 30 });
     }
+    for (const ob of game.orbs) {
+      if (ob.owner !== o || ob.dead || ob.clash || ob.hit) continue;
+      const ax = f.pos.x - ob.pos.x, az = f.pos.z - ob.pos.z;
+      const along = ax * ob.dir.x + az * ob.dir.z;
+      const perp = Math.hypot(ax - ob.dir.x * along, az - ob.dir.z * along);
+      if (along > -ob.r && perp < ob.r + 0.9) add({ key: 'ob' + this.oppSerial, kind: 'beam', frames: Math.max(0, (along - ob.r) / ob.S.speed * 60), len: 20 });
+    }
     if (o.state === 'kit' && o.kitState) add(this.kitThreat(game, c, o.kitState));
     return best;
   }
@@ -603,6 +611,14 @@ export class MasterBrain {
     switch (k.kind) {
       case 'flurry':
         if (k.phase === 'dash' || k.phase === 'flash') return { key: 'fl' + this.oppSerial, kind: 'grab', frames: Math.max(0, (c.dist - 1.4) / 24 * 60), len: 4, unblockable: true, big: true };
+        return null;
+      case 'orb':
+        if (k.phase === 'merge' || k.phase === 'flash') return { key: 'om' + this.oppSerial, kind: 'beam', frames: Math.max(0, m.merge - (k.t0 || 0)) + Math.max(0, c.dist - m.radius) / m.speed * 60, len: 30, charging: true };
+        return null;
+      case 'rampage':
+        if (k.phase === 'flash' || k.phase === 'roar' || k.phase === 'lunge') {
+          return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, m.roar - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true };
+        }
         return null;
       case 'ignite':
         if (k.phase === 'gaze' || k.phase === 'flash') return { key: 'ig' + this.oppSerial, kind: 'grab', frames: Math.max(0, m.delay - (k.t0 || 0)), len: 2, unblockable: true, big: true, rangeless: true };
@@ -809,6 +825,12 @@ export class MasterBrain {
     // keep a combo going after a shot or a super dash contact
     if ((o.state === 'hitstun' || o.state === 'launched') && o.combo > 0 && !o.ko && o.hittable) return this.followUp(game, c);
     if (o.state === 'kit' && o.counterT > 0) { this.backOff(c); return true; } // never swing into a counter stance
+    if (o.reflex) {
+      // Whirlwind answers every strike and shot (ADR 0016): walk in and throw it, or wait it out
+      if (c.dist < 2.6) { if (this.inThrowRange(c)) this.throwNow(); else this.approach(c, 0.7); return true; }
+      this.backOff(c);
+      return true;
+    }
     if (o.state === 'beamFire') return this.punishBeam(game, c);
     const w = this.opening(o);
     if (!w || w.to <= 0) return false;
@@ -867,8 +889,10 @@ export class MasterBrain {
     if (!kills && !show) return false;
     if (S?.kind === 'flurry' && c.dist < 5.4) { this.tap('super'); return true; }
     if (S?.kind === 'domain' && c.dist < 8) { this.tap('super'); return true; }
-    if (SUPERS[K.ultimate]?.kind === 'ignite') { this.tap('heavy'); this.tap('special'); return true; }
-    if (!K.ultimate && w.to > 40 && c.dist > 2.5 && Math.abs(c.sd) < 1) { this.tap('heavy'); this.tap('special'); return true; } // beam
+    const U = SUPERS[K.ultimate];
+    if (U?.kind === 'ignite') { this.tap('heavy'); this.tap('special'); return true; }
+    if (U?.kind === 'rampage' && c.dist < (U.range ?? 8) - 0.6 && Math.abs(c.sd) < 1 && w.to > (U.roar ?? 16) + 8) { this.tap('heavy'); this.tap('special'); return true; }
+    if ((!U || U.kind === 'orb') && w.to > 40 && c.dist > 2.5 && Math.abs(c.sd) < 1) { this.tap('heavy'); this.tap('special'); return true; } // beam / Hollow Purple
     return false;
   }
 
@@ -1013,15 +1037,19 @@ export class MasterBrain {
       w.bait = 0.6 + this.mem.mashAfterBlock * 0.05;
       w.space = 0.4;
     }
-    // three bars at range: the ultimate from afar (an opponent with three bars can fire back: CLASH)
-    if (ki >= ULTIMATE.cost && (dist > 3.5 || this.saving)) w.beam = S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0);
+    // three bars at range: the beam or Hollow Purple from afar (an opponent with three bars can fire back: CLASH);
+    // the Four-Tails pounce from mid range; Whirlwind when they're about to swing (ADR 0016)
+    const U = SUPERS[kitOf(f.def).ultimate];
+    if (ki >= ULTIMATE.cost && (!U || U.kind === 'orb') && (dist > 3.5 || this.saving)) w.beam = S.flair * (o.ki >= ULTIMATE.cost ? 2.5 : 1.2) + (this.saving ? 2.5 : 0);
+    if (ki >= ULTIMATE.cost && U?.kind === 'rampage' && dist > 2.2 && dist < (U.range ?? 8) - 0.8) w.ult = S.flair * 1.6 + (this.saving ? 2.5 : 0);
+    if (ki >= ULTIMATE.cost && U?.kind === 'reflex' && dist < 4.5) w.ult = S.flair * 1.2 + (this.saving ? 2 : 0);
     if (lead > 0.25 && game.timeLeft < 30) { w.space = (w.space ?? 0) + 1.5; w.guard = (w.guard ?? 0) + 1; }
     if (lead < -0.3) { w.pressure = (w.pressure ?? 0) * 1.3; w.approach = (w.approach ?? 0) * 1.3; }
     let total = 0;
     for (const k in w) total += Math.max(0, w[k]);
     let pick = R() * total, name = 'approach';
     for (const k in w) if ((pick -= Math.max(0, w[k])) <= 0) { name = k; break; }
-    const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90 }[name];
+    const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90, ult: 40 }[name];
     const p = { name, t: 0, len, done: false };
     if (name === 'approach') {
       const m = R();
@@ -1177,6 +1205,16 @@ export class MasterBrain {
         if (Math.abs(c.sd) > 0.4 && p.t < 70) { this.my = Math.sign(c.sd); return; }
         p.fired = true;
         p.firedAt = p.t;
+        this.tap('heavy', 3);
+        this.tap('special', 3);
+        return;
+      }
+      case 'ult': {
+        // a non-beam ultimate: line up in depth for the pounce, then Heavy + Special
+        if (p.fired || f.ki < ULTIMATE.cost) { p.done = true; return; }
+        const U = SUPERS[kitOf(f.def).ultimate];
+        if (U?.kind === 'rampage' && Math.abs(c.sd) > 0.5 && p.t < 30) { this.my = Math.sign(c.sd); return; }
+        p.fired = true;
         this.tap('heavy', 3);
         this.tap('special', 3);
         return;

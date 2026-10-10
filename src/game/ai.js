@@ -1,6 +1,15 @@
 import * as THREE from 'three';
 import { ULTIMATE, VANISH, SUPERS } from './moves.js';
 import { specialFor, kitOf, towardSide } from './kit.js';
+
+// Where each ultimate kind makes sense (ADR 0016): the beam and Hollow Purple want room, the Four-Tails pounce
+// has a reach and wants their lane, Whirlwind wants them close enough to swing at it, the rest fire anywhere.
+function ultimateFits(U, dist, sd) {
+  if (!U || U.kind === 'orb') return dist > 2.6;
+  if (U.kind === 'rampage') return dist < (U.range ?? 8) - 0.6 && sd < 1;
+  if (U.kind === 'reflex') return dist < 4;
+  return true;
+}
 import { MasterBrain } from './aiMaster.js';
 
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'impossible'];
@@ -100,6 +109,11 @@ export class CpuBrain {
       const ks = o.state === 'kit' && o.kitState;
       if (ks && ks.kind === 'skyStrike' && ks.phase === 'mark' && ks.t0 === L.react && Math.hypot(f.pos.x - ks.at.x, f.pos.z - ks.at.z) < ks.m.radius + 0.5
         && R() < 0.35 + L.dodge * 0.6) this.dodge();
+      const ou = o.state === 'kit' && o.kitState?.ultimate ? o.kitState : null;
+      if (ou && ou.t0 === L.react && ((ou.kind === 'orb' && ou.phase === 'merge') || (ou.kind === 'rampage' && ou.phase === 'roar'))) {
+        if (R() < L.dodge + 0.25) this.setPlan('dodgeBeam', 24);
+        else this.setPlan('retreat', 30);
+      }
       if (o.state === 'beamCharge' && o.t === Math.max(1, o.windup - L.react)) {
         if (f.ki >= ULTIMATE.cost && R() < 0.5 + L.combo * 0.3) this.setPlan('ultimate', 5);
         else if (R() < L.dodge + 0.25) this.setPlan('dodgeBeam', 20);
@@ -205,6 +219,7 @@ export class CpuBrain {
         case 'dodgeBeam': {
           moveWorld(toOpp.y * this.strafe, -toOpp.x * this.strafe);
           if (o.state === 'beamCharge' && o.t >= o.windup - 6) this.press('dash', 2);
+          else if (o.state === 'kit' && o.kitState?.ultimate && this.planT === 3) this.press('dash', 2);
           if (this.planT > this.planLen) this.setPlan('idle', 10);
           break;
         }
@@ -293,6 +308,11 @@ export class CpuBrain {
 
   choose(dist, f, o) {
     const L = this.L, R = Math.random;
+    // Whirlwind answers every strike: back off and let it run out (the Hard CPU usually does)
+    if (o.reflex && dist < 3.4 && R() < L.guard) {
+      this.setPlan('retreat', 30 + R() * 30);
+      return;
+    }
     const ult = f.ki >= ULTIMATE.cost;
     const saving = f.ki >= 180 && !ult;
     const kitted = !!f.def.kit; // fighters with a full kit show it off more often
@@ -305,7 +325,7 @@ export class CpuBrain {
     if (ult) {
       const r = R();
       if (S && r < 0.45 && (!S.range || dist < S.range)) return this.setPlan('super', 5);
-      if ((U || dist > 2.6) && r < 0.45 + (0.35 + 0.2 * L.aggro)) return this.setPlan('ultimate', 5);
+      if (ultimateFits(U, dist, Math.abs(f.laneOffsets().sd)) && r < 0.45 + (0.35 + 0.2 * L.aggro)) return this.setPlan('ultimate', 5);
     }
     if (dist < 1.7) {
       if (R() < L.aggro) return this.setPlan('combo', 70);

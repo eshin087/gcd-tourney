@@ -1,7 +1,7 @@
 // Fighter kits (ADR 0009, baseline ADR 0011): which special each input slot fires, and the shared
-// behaviour of every special kind (shot, teleport, pull, dive, counter, mode), the second supers
-// (flurry, domain, ignite), status effects (burn),
-// timed modes and passives. Character files only hold data; a new *kind* is the only thing that
+// behaviour of every special kind (shot, teleport, pull, dive, counter, mode), the second supers and
+// non-beam ultimates (flurry, domain, ignite, skyStrike; orb, rampage, reflex: ADR 0016), status effects
+// (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
 import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES } from './moves.js';
@@ -9,6 +9,13 @@ import { ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 
 const tmp = new THREE.Vector2();
+const FRAME_MS = 1000 / 60;
+
+// keep a looping pose running (the flash poses: beamCharge, beamFire, ...)
+function loop(f, anim) {
+  f.actor.play(anim);
+  f.actor.update(FRAME_MS);
+}
 
 // Element-flavoured bursts, so one kind serves every fighter: 'lightning' (Killua), 'chakra' (red
 // flame licks: Nine-Tails), 'smoke' (shadow clones, substitution), 'black' (Amaterasu), 'ring'.
@@ -86,18 +93,20 @@ export function wantsSuper(f) {
 export function startKitUltimate(f) {
   const id = kitOf(f.def).ultimate;
   if (!id || !SUPERS[id]) return false;
-  startSuper(f, id);
+  startSuper(f, id, true);
   return true;
 }
 
-// SUPER button: the fighter's second super, or their ultimate when they have none.
-export function startSuper(f, id = kitOf(f.def).super) {
+// SUPER button: the fighter's second super, or their ultimate when they have none. `ultimate` marks the
+// Heavy + Special finisher (only ultimates clash, ADR 0016).
+export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   const S = id && SUPERS[id];
   if (!S) { f.startUltimate(); return; }
   f.ki -= S.cost;
   f.spPending = false;
   f.endMoveFx();
-  enter(f, { kind: S.kind, m: S, phase: 'flash' }, S.pose ?? 'superPose');
+  enter(f, { kind: S.kind, m: S, phase: 'flash', ultimate }, S.pose ?? 'superPose');
+  if (S.shroud) shroudFx(f, S, 0); // the shroud is already up during the flash
   f.invuln = S.flash + 12;
   f.vel.set(0, 0, 0);
   f.faceOpponent();
@@ -187,6 +196,82 @@ export function blinkDash(f, d) {
   g.fx.spawn('lightning', x, f.pos.y + 0.8, z, { scale: 0.9, random: true, life: 0.12, color: 0xd8f0ff, order: 9, glow: 2 });
   f.invuln = Math.max(f.invuln, 6);
   audio.play('vanishIn', 0.7);
+}
+
+// ------------------------------------------------------------------ Whirlwind (reflex) and the shroud
+// Whirlwind upkeep: the timer and the crackle that says "don't swing at him".
+export function tickReflex(f) {
+  const R = f.reflex;
+  if (!R) return;
+  if (f.ko || --R.t <= 0 || R.left <= 0) { f.reflex = null; return; }
+  const g = f.game, p = f.pos;
+  if (R.t % 2 === 0) {
+    const a = Math.random() * Math.PI * 2;
+    g.fx.spawn('lightning', p.x + Math.cos(a) * 0.4, p.y + 0.2 + Math.random() * 1.3, p.z + Math.sin(a) * 0.25, { scale: 0.38, random: true, life: 0.08, color: 0xe8f6ff, rot: a, order: 9, glow: 1.8 });
+  }
+  if (R.t % 9 === 0) f.actor.ghost(R.m.color, 0.25, 0.4);
+}
+
+// Whirlwind answers blockable strikes and shots; supers, ultimates (unblockable), beams and throws get through.
+export function reflexReady(f, m) {
+  return f.reflex?.left > 0 && !m.beam && !m.unblockable && !f.hidden
+    && !['hitstun', 'launched', 'down', 'getup', 'held', 'throw', 'clash'].includes(f.state);
+}
+
+// The body moves before the mind: the hit misses, a lightning blink puts him behind the attacker (the thrower,
+// for a shot) and the follow strike lands. A melee attacker is frozen long enough for it to connect.
+export function reflexCounter(f, att, m) {
+  const R = f.reflex, S = R.m, g = f.game, p = f.pos;
+  R.left--;
+  if (!m.projectileHit && att !== f) {
+    att.endMoveFx();
+    att.move = null;
+    att.vel.set(0, 0, 0);
+    att.heldT = 12;
+    att.setState('held', 'stagger');
+  }
+  burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.4);
+  g.hud.callout(f.index, S.callout ?? S.name, S.color);
+  g.fx.overlay.flash(S.color, 0.3);
+  g.freeze = Math.max(g.freeze, 4);
+  audio.play('vanish', 1.1);
+  f.endMoveFx();
+  f.move = null;
+  START.teleport(f, { kind: 'teleport', hide: S.hide ?? 4, to: 'behind', off: 0.85, ghosts: 2, follow: S.follow, color: S.color });
+  return 'miss';
+}
+
+// The four-tailed shroud (Four-Tails): the body goes blood-red and black, chakra boils off it and four tails
+// lash behind him. The drawn shroud frames come from Codex (KIT.md); the tint carries it until then.
+function shroudFx(f, S, t) {
+  const g = f.game, p = f.pos, C = S.shroud;
+  if (!f.shroud) {
+    f.shroud = f.actor.mat.uniforms.tint.value.clone(); // the tint to go back to (mirror matches tint P2)
+    f.actor.mat.uniforms.tint.value.setRGB(C.tint[0], C.tint[1], C.tint[2]);
+  }
+  if (t % 2 === 0) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 0.7, p.y + 0.35 + Math.random() * 0.8, p.z, C.chakra, 0.65 + Math.random() * 0.4);
+  if (t % 2 === 1) {
+    for (let i = 0; i < 4; i++) {
+      // four tails fanned out behind the hips, swaying
+      const sway = Math.sin(t * 0.22 + i * 1.7);
+      const back = 0.45 + 0.12 * i;
+      g.fx.spawn('flame', p.x - f.face.x * back, p.y + 0.55 + 0.12 * i, p.z - f.face.y * back + (i - 1.5) * 0.12, {
+        scale: 0.32, color: i % 2 ? C.chakra : C.core, vel: [-f.face.x * 2.6, 1.4 + sway * 0.9, -f.face.y * 2.6 + sway * 0.6],
+        life: 0.22, opacity: 0.9, order: 7, glow: 0.4,
+      });
+    }
+  }
+}
+
+export function endShroud(f) {
+  if (!f.shroud) return;
+  f.actor.mat.uniforms.tint.value.copy(f.shroud);
+  f.shroud = null;
+}
+
+// the shroud lasts as long as the rampage (or its clash), whichever way it ends
+export function tickShroud(f) {
+  if (f.shroud && !((f.state === 'kit' && f.kitState?.kind === 'rampage') || f.state === 'clash')) endShroud(f);
 }
 
 // ------------------------------------------------------------------ helpers
@@ -592,6 +677,139 @@ const UPDATE = {
     f.actor.setPhase('superPose', 1, 0.5);
     if (k.t0 >= 12) finish(f);
   },
+
+  // ---- Hollow Purple (Gojo): Red (near hand) and Blue (far hand) drift together in front of him and fuse;
+  // the orb then rolls on by itself (Orb in projectiles.js) while he recovers
+  orb(f, k, S) {
+    const g = f.game, id = 'purple' + f.index;
+    if (k.phase === 'flash') { k.phase = 'merge'; k.t0 = 0; }
+    k.t0++;
+    if (k.phase === 'merge') {
+      loop(f, S.pose ?? 'beamCharge');
+      // the drawn hands hold the two orbs (Gojo's beamCharge: near hand 0.58 behind, far hand 0.59 ahead,
+      // 1.06 up); they meet 0.9 ahead of him
+      const a = Math.min(1, k.t0 / S.merge), e = a * a * (3 - 2 * a);
+      const at = (fwd) => ({ x: f.pos.x + f.face.x * fwd, y: f.pos.y + 1.06 - 0.08 * e, z: f.pos.z + f.face.y * fwd });
+      const r = at(-0.58 + 1.48 * e), b = at(0.59 + 0.31 * e);
+      const s = 0.42 + 0.25 * e + 0.04 * Math.sin(k.t0 * 0.9);
+      g.fx.keep(id + 'r', 'orb', r.x, r.y, r.z, { scale: s, color: S.red, order: 8, glow: 1.3 });
+      g.fx.keep(id + 'b', 'orb', b.x, b.y, b.z, { scale: s, color: S.blue, order: 8, glow: 1.3 });
+      g.fx.keep(id + 'g', 'glow', (r.x + b.x) / 2, r.y, (r.z + b.z) / 2, { scale: 0.6 + 1.6 * e, color: S.glow, opacity: 0.35 + 0.4 * e, order: 3, glow: 1 });
+      if (k.t0 % 4 === 0) g.fx.spawn('lightning', (r.x + b.x) / 2, r.y, (r.z + b.z) / 2, { scale: 0.4 + 0.5 * e, random: true, life: 0.08, color: 0xe0c0ff, rot: Math.random() * 6.28, order: 9, glow: 1.6 });
+      if (k.t0 === 1) audio.play('beamCharge', 0.8);
+      if (a >= 1) {
+        g.fx.drop(id + 'r');
+        g.fx.drop(id + 'b');
+        g.fx.drop(id + 'g');
+        g.spawnOrb(f, S, new THREE.Vector3(f.pos.x + f.face.x * 0.9, f.pos.y + 0.98, f.pos.z + f.face.y * 0.9), k.ultimate);
+        k.phase = 'fire';
+        k.t0 = 0;
+      }
+      return;
+    }
+    loop(f, S.strikePose ?? 'beamFire');
+    if (k.t0 >= S.recovery) finish(f);
+  },
+
+  // ---- Four-Tails (Naruto): a roar inside the shroud, a pounce on all fours, and a mauling for what it catches
+  rampage(f, k, S) {
+    const g = f.game, o = f.opp, C = S.shroud;
+    if (k.phase === 'flash') {
+      k.phase = 'roar';
+      k.t0 = 0;
+      const p = f.pos;
+      g.fx.spawn('ring', p.x, p.y + 0.8, p.z, { scale: 3.2, color: C.chakra, glow: 1, order: 8, depthTest: false });
+      g.fx.explosion(p.x, p.y + 0.6, p.z, new THREE.Color(C.chakra));
+      g.fx.debris(p.x, p.z, 10, 1.1);
+      g.cam.shake(0.9);
+      audio.play('smash', 0.9);
+    }
+    k.t0++;
+    shroudFx(f, S, k.t0);
+    if (k.phase === 'roar') {
+      loop(f, S.pose ?? 'beamCharge');
+      if (k.t0 >= S.roar) { k.phase = 'lunge'; k.t0 = 0; k.from = f.pos.clone(); audio.play('superDash'); }
+      return;
+    }
+    if (k.phase === 'lunge') {
+      const d = dirTo(f, o);
+      f.vel.set(d.x * S.speed, 0, d.y * S.speed);
+      f.faceOpponent();
+      loop(f, S.strikePose ?? 'beamFire');
+      if (k.t0 % 3 === 0) f.actor.ghost(C.chakra, 0.3, 0.55);
+      const catchable = !o.ko && !o.hidden && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup';
+      if (catchable && f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3)) {
+        k.phase = 'maul';
+        k.t0 = 0;
+        k.i = 0;
+        o.endMoveFx();
+        o.move = null;
+        o.heldT = S.slams * S.every + 40;
+        o.vel.set(0, 0, 0);
+        o.setState('held', 'hurtHigh');
+        f.vel.set(0, 0, 0);
+        g.freeze = Math.max(g.freeze, 5);
+        g.cam.shake(0.6);
+        return;
+      }
+      if (k.t0 > S.dash || Math.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) { k.phase = 'whiff'; k.t0 = 0; f.vel.set(0, 0, 0); }
+      return;
+    }
+    if (k.phase === 'maul') {
+      f.vel.set(0, 0, 0);
+      if (k.t0 % S.every !== 1) return;
+      const d = dirTo(f, o), p = o.pos;
+      if (k.i < S.slams) {
+        f.actor.setPhase(S.maulPose ?? 'heavy', 1, 0.5);
+        o.heldT = Math.max(o.heldT, 30);
+        o.takeHit(f, { dmg: S.slamDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 5, unblockable: true, spark: 'smash', shake: 0.6 }, d);
+        o.vel.set(0, 0, 0);
+        burst(g, 'chakra', p.x, p.y + 0.4, p.z, C.chakra, 1.6);
+        g.fx.crater(p);
+        g.fx.debris(p.x, p.z, 6, 0.9);
+        g.cam.shake(0.55);
+        k.i++;
+        return;
+      }
+      // the chakra roar, point blank: it blasts them into the barrier
+      o.heldT = 0;
+      f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
+      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, d);
+      g.fx.spawn('ring', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 3.6, color: C.chakra, glow: 1.2, order: 8, depthTest: false });
+      g.fx.explosion(p.x, p.y + 0.9, p.z, new THREE.Color(C.chakra));
+      g.fx.overlay.impactFrame(4);
+      g.fx.overlay.flash('#ff2010', 0.5);
+      g.cam.shake(1.2);
+      audio.play('explosion', 1.3);
+      g.excite = 1;
+      k.phase = 'recover';
+      k.t0 = 0;
+      return;
+    }
+    // whiff / recover: still in the shroud, and wide open after a whiff
+    f.vel.x *= 0.7;
+    f.vel.z *= 0.7;
+    loop(f, S.pose ?? 'beamCharge');
+    if (k.t0 >= (k.phase === 'whiff' ? S.whiff : 18)) finish(f);
+  },
+
+  // ---- Whirlwind (Killua): Godspeed switches to reflex; the counters themselves happen in reflexCounter
+  reflex(f, k, S) {
+    const g = f.game;
+    if (k.phase === 'flash') {
+      k.phase = 'set';
+      k.t0 = 0;
+      f.reflex = { t: S.len, left: S.counters, m: S };
+      const p = f.pos;
+      burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.8);
+      g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 2.2, color: S.color, glow: 1.2, order: 8, depthTest: false });
+      g.fx.overlay.flash(S.color, 0.35);
+      audio.play('kiFull');
+    }
+    k.t0++;
+    loop(f, S.pose ?? 'beamCharge');
+    if (k.t0 >= S.recovery) finish(f);
+  },
 };
 
 // ------------------------------------------------------------------ landing / gravity
@@ -613,6 +831,7 @@ export function onLand(f) {
   }
   if (k.kind === 'flurry') return; // keeps its own recovery
   if (k.kind === 'teleport') return;
+  if (k.kind === 'rampage' || k.kind === 'orb' || k.kind === 'reflex') return; // their phases run to the end
   finish(f);
 }
 
@@ -621,5 +840,7 @@ export function gravityScale(f) {
   if (!k) return 1;
   if (k.kind === 'dive' || k.kind === 'teleport') return 0;
   if (k.kind === 'flurry') return k.phase === 'land' ? 1 : 0;
+  if (k.kind === 'orb' || k.kind === 'reflex') return 0; // cast where they stand, in the air too
+  if (k.kind === 'rampage') return k.phase === 'whiff' || k.phase === 'recover' ? 1 : 0;
   return 1;
 }

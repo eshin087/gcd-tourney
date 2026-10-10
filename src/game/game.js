@@ -8,7 +8,7 @@ import { Effects } from './effects.js';
 import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
-import { Beam, Vortex, spawnProjectiles } from './projectiles.js';
+import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW } from './moves.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -63,6 +63,7 @@ export class Game {
     this.fighters = [];
     this.projectiles = [];
     this.beams = [];
+    this.orbs = []; // Hollow Purple (ADR 0016)
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
     this.clash = null;
     this.pads = [new Pad(), new Pad()];
@@ -233,6 +234,7 @@ export class Game {
       if (!['hitstun', 'launched', 'down', 'getup'].includes(o.state)) o.setState('held', 'stagger');
     }
     for (const b of this.beams) if (b.owner === o) b.kill();
+    for (const ob of this.orbs) if (ob.owner === o) ob.kill();
     this.hud.announce('UNLIMITED VOID', 'clash', 1500);
     this.fx.overlay.flash('#ffffff', 0.9);
     this.fx.overlay.impactFrame(4);
@@ -277,8 +279,10 @@ export class Game {
     this.fighters = [];
     for (const p of this.projectiles) p.kill();
     for (const b of this.beams) b.kill();
+    for (const ob of this.orbs) ob.kill();
     this.projectiles = [];
     this.beams = [];
+    this.orbs = [];
     this.clash = null;
     audio.stopAllLoops();
     this.fx.clearAll();
@@ -301,9 +305,11 @@ export class Game {
     this.faceEachOther();
     for (const p of this.projectiles) p.kill();
     for (const bm of this.beams) bm.kill();
+    for (const ob of this.orbs) ob.kill();
     for (const v of this.vortices) v.kill();
     this.projectiles = [];
     this.beams = [];
+    this.orbs = [];
     this.vortices = [];
     this.pendingMelee = [];
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
@@ -494,6 +500,8 @@ export class Game {
     this.vortices = this.vortices.filter((v) => !v.dead);
     if (this.domain && --this.domain.t <= 0) this.endDomain();
     for (const b of this.beams) b.update();
+    for (const ob of this.orbs) ob.update();
+    this.orbs = this.orbs.filter((ob) => !ob.dead);
     this.checkBeamClash();
     if (this.clash) this.updateClash();
     this.beams = this.beams.filter((b) => !b.dead);
@@ -668,6 +676,31 @@ export class Game {
         }
       }
     }
+    // Hollow Purple erases whatever the opponent throws into it, and a Lapse: Blue in its way
+    for (const ob of this.orbs) {
+      if (ob.dead) continue;
+      for (const p of ps) {
+        if (p.dead || p.owner === ob.owner) continue;
+        if (p.pos.distanceTo(ob.pos) < ob.r + p.P.radius) {
+          this.fx.hit(p.pos.x, p.pos.y, p.pos.z, 'light');
+          p.kill();
+        }
+      }
+      for (const v of this.vortices) if (!v.dead && v.owner !== ob.owner && v.pos.distanceTo(ob.pos) < ob.r + 1) v.kill();
+    }
+  }
+
+  // Hollow Purple: leaves the meeting point of Red and Blue (kit.js 'orb'); one per fighter
+  spawnOrb(f, S, at, ultimate = true) {
+    this.arena.npcCue('clash');
+    for (const ob of this.orbs) if (ob.owner === f) ob.kill();
+    const ob = new Orb(this, f, S, at, ultimate);
+    this.orbs.push(ob);
+    this.cam.shake(0.6);
+    this.fx.overlay.flash('#c890ff', 0.4);
+    audio.play('explosion', 0.8);
+    this.excite = 1;
+    return ob;
   }
 
   spawnProjectile(f) {
@@ -1011,6 +1044,7 @@ export class Game {
     this.fx.overlay.impactFrame(5);
     this.fx.debris(loser.pos.x, loser.pos.z, 12, 1.2);
     for (const b of this.beams) if (b.owner === loser) b.kill();
+    for (const ob of this.orbs) if (ob.owner === loser) ob.kill();
   }
 
   onKOCrash(f, speed) {
