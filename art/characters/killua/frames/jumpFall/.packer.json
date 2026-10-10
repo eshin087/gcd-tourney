@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/jumpFall_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/jumpFall_v01.png"
+  ],
+  "sourceHash": "1d79ec5c4b7981cfae514a093da23f2db9822a51",
+  "bodyHeight": 190,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "jumpFall_00.png": "ac886013c8c87b8802d57744f18dc7c5b452c931",
+    "jumpFall_01.png": "97323d98eabdc189f8b8899124a42a9d82203411"
+  }
+}

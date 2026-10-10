@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/vanish_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/vanish_v01.png"
+  ],
+  "sourceHash": "de8be6463be2e91e644280f1c941d01b62bd41ac",
+  "bodyHeight": 201,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "vanish_00.png": "b58d31a18879a6a63f7f0d663676ba0c1ff7f083",
+    "vanish_01.png": "b41104c90ded88ae6c4211e6e34fc0af81fb59f7"
+  }
+}

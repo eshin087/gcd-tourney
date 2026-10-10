@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superDash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/superDash_v01.png",
+    "characters/killua/raw/superDash_v01.json"
+  ],
+  "sourceHash": "73bd9acf99c91bb7219ebde359dfcbe7f2f2d775",
+  "bodyHeight": 109,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "superDash_00.png": "59230758694f71139ee1ff3292fef1cdab01e7cd",
+    "superDash_01.png": "57e4e20a06238c92b3891e7923496e209118605b"
+  }
+}

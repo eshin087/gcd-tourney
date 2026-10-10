@@ -1,0 +1,29 @@
+{
+  "animations": 42,
+  "frames": 175,
+  "palette": 48,
+  "alpha": [
+    0,
+    255
+  ],
+  "width": 4096,
+  "height": 2816,
+  "packerWarnings": 0,
+  "ui": {
+    "portrait": {
+      "width": 96,
+      "height": 96,
+      "nonOpaquePixels": 3650
+    },
+    "cutin": {
+      "width": 480,
+      "height": 128,
+      "nonOpaquePixels": 0
+    },
+    "select": {
+      "width": 384,
+      "height": 384,
+      "nonOpaquePixels": 84544
+    }
+  }
+}

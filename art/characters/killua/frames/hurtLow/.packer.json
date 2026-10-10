@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hurtLow_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/hurtLow_v01.png"
+  ],
+  "sourceHash": "6903335814e92627fa961d6d383d417528b9e744",
+  "bodyHeight": 167,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "hurtLow_00.png": "f99b0f6cb6dfdc00f9b551ea9f6ed3adf62d0c8a",
+    "hurtLow_01.png": "6b0172b35f1fb34c697f60d91ae627a91a7822d1",
+    "hurtLow_02.png": "875200322690b2c964dbd8328a8d6760b27159c2"
+  }
+}

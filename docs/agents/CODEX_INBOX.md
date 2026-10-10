@@ -56,16 +56,18 @@ Claude's QA of the full set (2026-10-09): all 42 animations + UI pack into a **c
 every frame, and 24 CPU matches ran with no errors, stuck states or ring-outs. A narrow hurtbox made him too
 hard to hit; Claude fixed that in the engine (minimum hurtbox width), so **no art change is needed for it**.
 
-- [ ] **(2026-10-09) Commit the Killua set.** Most of it is still uncommitted (raw/, frames/, public/characters/killua/).
+- [ ] **(2026-10-09) Commit the Killua set.** DEFERRED: user requested project-folder-only work without permission prompts. Art approval is complete; .git is protected by the environment. A scoped patch is saved in art/characters/killua/production/staging/approval.patch; nothing is staged. Most of it is still uncommitted (raw/, frames/, public/characters/killua/).
   Commit it with REVIEW/TRACKER/manifest updates (explicit paths) so it can be deployed for the user's review.
-- [ ] **(2026-10-09) Clean stray pixels** the packer reports, in `frames/<anim>/` (edit the cleaned frames, keep
+- [x] **(2026-10-09) Clean stray pixels** the packer reports, in `frames/<anim>/` (edit the cleaned frames, keep
   the source raw): run (1), light2 (4), heavy (3), airLight1 (6), spin (2), throw (1), specialForward (2),
   specialUp (2). Re-pack and check the report says none.
-- [ ] **(2026-10-09) Short or unclear strikes.** The packer found 7 active frames with no clear striking limb
+- [x] **(2026-10-09) Short or unclear strikes.** The packer found 7 active frames with no clear striking limb
   (it fell back to "front 28% of the body"). Measured reach (world units, the cast is 0.65-0.80): light1 0.59,
   airHeavy 0.45 and **specialForward 0.34** (the Rhythm Echo strike; it can whiff). For each, either add a
   `hitboxes.json` override on the active frames covering the striking hand/foot as drawn, or redraw the active
   frame with the limb reaching the art/SPEC.md contact zone. Report which frames you changed.
+
+Killua response (2026-10-09): cleaned frame specks; final strict report has none. light1 2/3 and airHeavy 2/3 now have hand-local overrides. specialForward 2/3 regenerated and reassembled in v02, restoring full limbs. Four fallback detections remain before overrides; visual contact-zone deviations documented in production/QA.md. Final atlas: 42 animations, 175 frames, 48 colors, zero warnings. User approved final batch 2026-10-09; approval bookkeeping is complete. Latest user instruction: finish safely within the writable project folder, without permission prompts; defer protected Git writes.
 
 ## Gojo thread
 

@@ -1,0 +1,29 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/heavy_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/heavy_v01.png"
+  ],
+  "sourceHash": "3c8ea26e7d20720b807ab09bb870d500aee02b4a",
+  "bodyHeight": 206,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "heavy_00.png": "61107ec53faecc48da6a05a9a1a198de1b0c2546",
+    "heavy_01.png": "0239d914ab0363bc6013e20cbec9988e0f820d51",
+    "heavy_02.png": "0e95fb98467838e6cfadf39195a2bc53c7b96f9d",
+    "heavy_03.png": "19e8cccfe5f1809f40007368d9e2747519dfad91",
+    "heavy_04.png": "d4bee1a699728c175dab7d88a25332440db65e40",
+    "heavy_05.png": "a81580fdd1c4705578b5cfb6f062be8a961be51a",
+    "heavy_06.png": "b4ee23d1873b0cba236a08ce88f815a372457cbd",
+    "heavy_07.png": "1f5d612684b80f9161dbd52a0990165fb8fb28b6"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/charge_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/charge_v01.png"
+  ],
+  "sourceHash": "2382275e8728ddd6b49d42ae0b6236d9e87b1364",
+  "bodyHeight": 180,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "charge_00.png": "ca8cb64ced35c5ef223656bd040e9f503893b769",
+    "charge_01.png": "e1212a9a230187f97360a121268818f8243c1abe",
+    "charge_02.png": "e5f717f28dec4e8b3878969e34442189950e9ef4",
+    "charge_03.png": "b32b436a953158b3e2aaa4a92f982c8009f0810a"
+  }
+}

@@ -16,10 +16,9 @@ Read docs/agents/CODEX_INBOX.md and do the section for your thread.
 
 1. **Naruto: final batch approved.** All 42 animations / 175 frames and 3 UI images approved and promoted locally. Claude can integrate the completed fighter/world art, check gameplay reach and effect anchors (Naruto production/QA.md), reconcile other threads, and publish the tested result. No further Naruto image approval needed.
 2. **Gojo: complete batch approved.** All 42 animations / 175 frames, model v03, expressions v02 and 3 UI assets are promoted. Blink animation integration implemented. See art/characters/gojo/production/QA.md.
-   reply in the Gojo thread: `approve gojo model_sheet v02`. Then review his expressions v01.
 3. **Review the other art waiting for you** (list below, generated): reply in the Codex thread that owns it,
    `approve <id> vNN` or your feedback. Phone gallery: https://gcd-tourney.vercel.app/art-review.html
-4. **Killua:** Codex is producing the complete set for one final review; no intermediate decisions needed. Model v01 approved; expression/idle candidates are provisional production references. Claude QA'd the set: it works in game (see the Killua section of the inbox).
+4. **Killua: final batch approved.** Expressions, 42 animations (175 frames), and all 3 UI assets are approved and installed locally. No art approval remains. Claude can proceed with ENG-035 gameplay reach checks. Git commit/deployment are deferred; user requested project-folder-only work without permission prompts.
 5. **Play the new kits** on https://gcd-tourney.vercel.app (moves in the README "Fighters" table).
 
 ## Generated status

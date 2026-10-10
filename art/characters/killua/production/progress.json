@@ -1,0 +1,370 @@
+{
+  "expressions": {
+    "version": 1,
+    "file": "reference/expressions_v01.png",
+    "notes": "Eight expressions in correct 4x2 order; right-facing identity matches model; assassin eyes dark without catchlights. Heads enlarged relative to nominal 4x; raw near-magenta/palette variation remains. Provisional face reference authorized by user; Approved in final batch 2026-10-09.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "idle": {
+    "version": 1,
+    "file": "raw/idle_v01.png",
+    "notes": "Two source parts stitched unchanged with 24 px gap; part baseline offsets 0/1. Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "run": {
+    "version": 2,
+    "file": "raw/run_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats. run_v02.json aligns torso and lifts passing poses; bodyHeight unchanged.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "light1": {
+    "version": 2,
+    "file": "raw/light1_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "light2": {
+    "version": 2,
+    "file": "raw/light2_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "light3": {
+    "version": 2,
+    "file": "raw/light3_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "light4": {
+    "version": 2,
+    "file": "raw/light4_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "heavy": {
+    "version": 1,
+    "file": "raw/heavy_v01.png",
+    "notes": "Two source parts stitched with 24 px gap; B nearest-neighbor scale 0.72; part baseline offsets 0/210. Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "airLight1": {
+    "version": 2,
+    "file": "raw/airLight1_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "airHeavy": {
+    "version": 1,
+    "file": "raw/airHeavy_v01.png",
+    "notes": "Two source parts stitched with 24 px gap; B nearest-neighbor scale 0.8; part baseline offsets 0/118. Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "guard": {
+    "version": 1,
+    "file": "raw/guard_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "hurtHigh": {
+    "version": 1,
+    "file": "raw/hurtHigh_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "launched": {
+    "version": 1,
+    "file": "raw/launched_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "down": {
+    "version": 1,
+    "file": "raw/down_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "getup": {
+    "version": 2,
+    "file": "raw/getup_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "charge": {
+    "version": 1,
+    "file": "raw/charge_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "beamCharge": {
+    "version": 1,
+    "file": "raw/beamCharge_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "beamFire": {
+    "version": 2,
+    "file": "raw/beamFire_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "special": {
+    "version": 2,
+    "file": "raw/special_v02.png",
+    "notes": "Two source parts stitched with 24 px gap; B nearest-neighbor scale 0.77; part baseline offsets 0/112. Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "dash": {
+    "version": 1,
+    "file": "raw/dash_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "jumpUp": {
+    "version": 1,
+    "file": "raw/jumpUp_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "jumpFall": {
+    "version": 1,
+    "file": "raw/jumpFall_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "land": {
+    "version": 1,
+    "file": "raw/land_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "win": {
+    "version": 1,
+    "file": "raw/win_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "backDash": {
+    "version": 1,
+    "file": "raw/backDash_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "superDash": {
+    "version": 1,
+    "file": "raw/superDash_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "jumpSquat": {
+    "version": 1,
+    "file": "raw/jumpSquat_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "airLight2": {
+    "version": 2,
+    "file": "raw/airLight2_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "airLight3": {
+    "version": 2,
+    "file": "raw/airLight3_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "block": {
+    "version": 1,
+    "file": "raw/block_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "hurtLow": {
+    "version": 1,
+    "file": "raw/hurtLow_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "spin": {
+    "version": 1,
+    "file": "raw/spin_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "airRecover": {
+    "version": 2,
+    "file": "raw/airRecover_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "throw": {
+    "version": 2,
+    "file": "raw/throw_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "vanish": {
+    "version": 1,
+    "file": "raw/vanish_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "stagger": {
+    "version": 1,
+    "file": "raw/stagger_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "ko": {
+    "version": 1,
+    "file": "raw/ko_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "intro": {
+    "version": 1,
+    "file": "raw/intro_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "taunt": {
+    "version": 1,
+    "file": "raw/taunt_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "specialForward": {
+    "version": 2,
+    "file": "raw/specialForward_v02.png",
+    "notes": "Two source parts stitched with 24 px gap; B nearest-neighbor scale 0.465; part baseline offsets 0/162. Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "specialUp": {
+    "version": 2,
+    "file": "raw/specialUp_v02.png",
+    "status": "approved",
+    "notes": "Source v01 poses separated into clear slots without redrawing, preserving source pixels and vertical positions; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "specialDown": {
+    "version": 1,
+    "file": "raw/specialDown_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "superPose": {
+    "version": 1,
+    "file": "raw/superPose_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Final atlas QA: expected frame count, no clipping/margin warnings, 48-color palette. See production/QA.md for visual caveats.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "ui_portrait": {
+    "version": 1,
+    "file": "raw/ui_portrait_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Fitted preview in production/ui-preview; fixed-name approval copy promoted.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  },
+  "ui_cutin": {
+    "version": 2,
+    "file": "raw/ui_cutin_v02.png",
+    "notes": "Opaque dark navy banner; darker assassin irises without catchlights; Approved in final batch 2026-10-09. Fitted preview in production/ui-preview; fixed-name approval copy promoted.",
+    "status": "approved",
+    "approvedVersion": 2,
+    "approvedDate": "2026-10-09"
+  },
+  "ui_select": {
+    "version": 1,
+    "file": "raw/ui_select_v01.png",
+    "notes": "Generated candidate; Approved in final batch 2026-10-09. Fitted preview in production/ui-preview; fixed-name approval copy promoted.",
+    "status": "approved",
+    "approvedVersion": 1,
+    "approvedDate": "2026-10-09"
+  }
+}

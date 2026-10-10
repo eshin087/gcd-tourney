@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/win_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/win_v01.png"
+  ],
+  "sourceHash": "35dbebf14c60c8b851df58eb8867d9854aa70095",
+  "bodyHeight": 193,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "win_00.png": "fdfdfa0991d851ce07aca1bdab17d0c20cc9fd74",
+    "win_01.png": "ef5137615835dd897e2510f44d6e411a1dccb576",
+    "win_02.png": "59c55e0939a68822f52319fd3a8cb0126757e994",
+    "win_03.png": "1943437bb10c0e4ab18d8012c5d6f7423e3d2e3a"
+  }
+}

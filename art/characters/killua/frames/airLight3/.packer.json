@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/airLight3_v02.png",
+  "version": 2,
+  "source": [
+    "characters/killua/raw/airLight3_v02.png"
+  ],
+  "sourceHash": "cd32171b6c97759a1ea63bb96ffe428750b05eed",
+  "bodyHeight": 183,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "airLight3_00.png": "9c2b63306353a59408ce2f9f6dcb13fcf6323df5",
+    "airLight3_01.png": "4b6bb91d217aca5b5ea9bac255a0405cacc6d8f0",
+    "airLight3_02.png": "7baf7b32ef97f5d8b76f8ce6045ad6a142afe714",
+    "airLight3_03.png": "356db16ee787fafe846d82e0b76609a11292990e",
+    "airLight3_04.png": "e5a8b9fb272dbb4ab4830512a1841b2bc54ca483",
+    "airLight3_05.png": "c7bfeb183049ebd912b5e9121c019436a0085390"
+  }
+}

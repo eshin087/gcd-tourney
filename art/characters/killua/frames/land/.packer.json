@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/land_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/land_v01.png"
+  ],
+  "sourceHash": "f11e97a115aefd69e7c99e5c37e8946d2346cd28",
+  "bodyHeight": 158,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "land_00.png": "a4a651703c5db6d8a16a6b775752f75d3270769b",
+    "land_01.png": "35ee1091df6a66b9899bd04b33e6bce740becc45"
+  }
+}

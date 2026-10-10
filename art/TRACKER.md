@@ -169,53 +169,53 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | todo | - | - | true side profile + claw-hand close-ups |
-| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | todo | - | - | |
-| 3 | idle | 8 | - | **yes** | 186 | todo | - | - |  |
-| 4 | run | 8 | - | **yes** | 186 | todo | - | - |  |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | todo | - | - |  |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | todo | - | - |  |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | todo | - | - |  |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | todo | - | - |  |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | todo | - | - |  |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | todo | - | - |  |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | todo | - | - |  |
-| 6 | guard | 2 | - | **yes** | 180 | todo | - | - |  |
-| 6 | hurtHigh | 3 | - | **yes** | 177 | todo | - | - |  |
-| 6 | launched | 2 | - | **yes** | 124 | todo | - | - |  |
-| 6 | down | 2 | - | **yes** | 87 | todo | - | - |  |
-| 6 | getup | 5 | - | **yes** | 186 | todo | - | - |  |
-| 7 | charge | 4 | - | **yes** | 180 | todo | - | - |  |
-| 7 | beamCharge | 3 | - | **yes** | 180 | todo | - | - |  |
-| 7 | beamFire | 3 | - | **yes** | 180 | todo | - | - |  |
-| 7 | special | 8 | 3/3/2 | **yes** | 186 | todo | - | - |  |
-| 8 | dash | 2 | - | **yes** | 146 | todo | - | - |  |
-| 8 | jumpUp | 2 | - | **yes** | 180 | todo | - | - |  |
-| 8 | jumpFall | 2 | - | **yes** | 190 | todo | - | - |  |
-| 8 | land | 2 | - | **yes** | 158 | todo | - | - |  |
-| 8 | win | 4 | - | **yes** | 193 | todo | - | - |  |
-| 9 | backDash | 3 | - | no | 188 | todo | - | - |  |
-| 9 | superDash | 2 | - | no | 109 | todo | - | - |  |
-| 9 | jumpSquat | 1 | - | no | 147 | todo | - | - |  |
-| 9 | airLight2 | 5 | 1/2/2 | no | 188 | todo | - | - |  |
-| 9 | airLight3 | 6 | 2/2/2 | no | 183 | todo | - | - |  |
-| 9 | block | 2 | - | no | 186 | todo | - | - |  |
-| 9 | hurtLow | 3 | - | no | 167 | todo | - | - |  |
-| 9 | spin | 4 | - | no | 146 | todo | - | - |  |
-| 9 | airRecover | 3 | - | no | 164 | todo | - | - |  |
-| 9 | throw | 4 | 1/1/2 | no | 183 | todo | - | - |  |
-| 9 | vanish | 2 | - | no | 201 | todo | - | - |  |
-| 9 | stagger | 4 | - | no | 188 | todo | - | - |  |
-| 9 | ko | 1 | - | no | 58 | todo | - | - |  |
-| 9 | intro | 4 | - | no | 191 | todo | - | - |  |
-| 9 | taunt | 2 | - | no | 193 | todo | - | - |  |
-| 9 | specialForward | 7 | 2/2/3 | no | 186 | todo | - | - | kit animation (ADR 0009) |
-| 9 | specialUp | 6 | 2/2/2 | no | 198 | todo | - | - | kit animation (ADR 0009) |
-| 9 | specialDown | 4 | 2/1/1 | no | 188 | todo | - | - | kit animation (ADR 0009) |
-| 9 | superPose | 4 | - | no | 191 | todo | - | - | kit animation (ADR 0009) |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | todo | - | - | candidates raw/ui_portrait_vNN.png |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | todo | - | - | candidates raw/ui_cutin_vNN.png |
-| 11 | ui/select.png (384x384) | - | - | no | - | todo | - | - | candidates raw/ui_select_vNN.png |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
+| 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
+| 3 | idle | 8 | - | **yes** | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 4 | run | 8 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | guard | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 7 | charge | 4 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 7 | beamFire | 3 | - | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | dash | 2 | - | **yes** | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | jumpUp | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | jumpFall | 2 | - | **yes** | 190 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | land | 2 | - | **yes** | 158 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | win | 4 | - | **yes** | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | backDash | 3 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | superDash | 2 | - | no | 109 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | jumpSquat | 1 | - | no | 147 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | airLight2 | 5 | 1/2/2 | no | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | block | 2 | - | no | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | hurtLow | 3 | - | no | 167 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | spin | 4 | - | no | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | airRecover | 3 | - | no | 164 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | throw | 4 | 1/1/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | vanish | 2 | - | no | 201 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | stagger | 4 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | ko | 1 | - | no | 58 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | intro | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | taunt | 2 | - | no | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | superPose | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | User approved final batch 2026-10-09; fixed reference/UI promoted |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 
 ## gojo
 

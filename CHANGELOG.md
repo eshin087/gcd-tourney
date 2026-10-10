@@ -15,20 +15,25 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Naruto complete candidate batch for one final review: 40 new animations and three UI images, completing 42 animations / 175 frames. Corrected pose separation, dash placement, knockout and cut-in; 48-color atlas, frame-local hand boxes, and phone-friendly playback review (ART-NAR-FINAL).
 
-
-
 - Approved the complete Gojo art batch (47 assets), promoted canonical references/UI, archived superseded versions, and connected Blink startup/reappearance animation. Canonical strict pack and 160 packer regressions pass; approved-sheet reach measurements and teleport regression recorded.
+
 - Gojo complete candidate set: 42 animations / 175 frames and three UI images from user-selected model v03; corrected merged strips and placement, added limb-specific hitbox overrides, strict 48-color pack and one full-set review gallery (ART-GOJ-01).
+
+
+- Approved Killua final art batch: expressions, 42 animations / 175 frames and all three UI assets; promoted fixed references/UI and archived 16 superseded candidates. Documented visual caveats retained (ART-KIL-01).
+
 - Gojo: user-selected smaller-head proportions filed as model v03; rejected v02 preserved. Production continues without intermediate approval requests; local browser QA verified under normal sandbox permissions.
-- Gojo batch 1 candidates: revised model v02, expressions v01, idle v01 and run v02. User authorized provisional references and bulk reviews; packed movement has 48 colors and corrected run placement (ART-GOJ-01).
-- Gojo S1 model-sheet v01 candidate queued for review with measured scale, palette and background deviations (ART-GOJ-01).
+
+- Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
 - Merged Naruto A39–A42 kit animation briefs, manifest/tracker rows and specialDown-only face/palette exceptions (ADR 0011).
 - `docs/agents/CODEX_INBOX.md`: one file where Claude leaves work for each Codex thread; the user pastes one line
   ("Read docs/agents/CODEX_INBOX.md and do the section for your thread"). AGENTS.md rule 6. `npm run status` groups the
   review queue per character.
+- Gojo batch 1 candidates: revised model v02, expressions v01, idle v01 and run v02. User authorized provisional references and bulk reviews; packed movement has 48 colors and corrected run placement (ART-GOJ-01).
 - Approved Naruto short-hair idle v02 and queued run v03 with matching hair, preserved gait/placement, 48-color packing and phone review exports (ART-NAR-12).
+- Killua S1 model-sheet v01 approved with documented QA deviations; fixed model reference saved for S2 expressions (ART-KIL-01).
 - Full kits for Naruto (Rasenshuriken handheld, Uzumaki Barrage, Nine-Tails Cloak, Substitution, Shadow Clone
   Barrage) and Sasuke (Chidori Sharp Spear, Lion's Barrage, Sharingan counter, Kirin super, **Amaterasu ultimate**),
   so every fighter fills the same kit slots (ADR 0011: slot and damage budgets, stat index, balance log).
@@ -40,6 +45,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - `docs/NOW.md` + `npm run status`: one page with the user's next actions, art waiting for review, per-fighter
   progress and what Claude and Codex are doing; both AIs keep it current (AGENTS.md rule 6).
 - Balance round-robin recipe (docs/TESTING.md).
+- Gojo S1 model-sheet v01 candidate queued for review with measured scale, palette and background deviations (ART-GOJ-01).
 - Codex Prompt 3 (3a Killua, 3b Gojo) in `docs/agents/CODEX_PROMPT.md` to start both fighters' art from the S1 model sheets; Prompt 1 now uses each character's body scale (ADR 0010).
 - Two new fighters: **Killua** (Godspeed era: Narukami, Rhythm Echo, Thunderbolt, Godspeed mode, Godspeed:
   Whirlwind super, Lightning Palm) and **Gojo** (Lapse: Blue, Reversal: Red, Blink, Infinity counter + passive,
@@ -97,11 +103,11 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ### Changed
 - Approved Naruto run v03, completing the short-hair revision; switched subsequent Naruto production to one final set review at the user's request (ART-NAR-12).
-- Approved Naruto expressions v02 and queued idle v02 with the shorter haircut across eight frames; existing idle/run approvals remain recorded (ART-NAR-12).
 - Balance pass from CPU round-robins: Gojo power/defense 1.0 and Infinity costs 15 ki per stopped projectile;
   Killua sturdier; Rasengan 150 → 140, Chidori 165 → 152; Lapse: Blue a little less safe (see ADR 0011 log).
 - Directional specials count toward the opponent, not the current facing (holding back no longer fired the
   forward special). The CPU splits 3 bars between super and ultimate and uses counters on ↓ or ←.
+- Approved Naruto expressions v02 and queued idle v02 with the shorter haircut across eight frames; existing idle/run approvals remain recorded (ART-NAR-12).
 - Saved key bindings move to `gcd.bindings.v2` (resets custom bindings once). Gamepad L2/LT is SUPER now
   (guard stays on L1/LB).
 - The CPU uses specials more often with fighters that have a kit, answers attacks with a counter, and punishes
@@ -123,9 +129,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ### Fixed
 - Minimum hurtbox width (0.56 units) so a slim art pack can't make a fighter hard to hit (Killua's art: 75 % → 42 % CPU wins).
-- Mobile art review now displays newer packed idle candidates while retaining the approved idle reference separately (TOOL-017).
 - Melee hits on the same frame now trade: P1 used to update first and win every exchange (P1 won 81 % of CPU
   matches; 40-51 % after the fix).
+- Mobile art review now displays newer packed idle candidates while retaining the approved idle reference separately (TOOL-017).
 - Body separation could push a fighter pinned at the ring barrier out of the ring (seen in CPU soaks).
 - Ground moves without a lunge kept sliding on the walk speed.
 - Spec v2 doc review: Codex prompts no longer upload `reference/source/` pictures, save one version per

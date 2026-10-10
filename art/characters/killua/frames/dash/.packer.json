@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dash_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/dash_v01.png"
+  ],
+  "sourceHash": "bbdf95ff87a7518268826872949fc5dc364022e5",
+  "bodyHeight": 146,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "dash_00.png": "a6dfcd08cf031195e6341e137acc90338ec4fc50",
+    "dash_01.png": "357ee84d5cad0f35219022eed21691b584386b04"
+  }
+}

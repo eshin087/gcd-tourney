@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/stagger_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/stagger_v01.png"
+  ],
+  "sourceHash": "308c31255e20e85ca1dec3aa8114fab10f884ab5",
+  "bodyHeight": 188,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "stagger_00.png": "ecac55e9dd18c4453b427a429ac64ac860ce55b6",
+    "stagger_01.png": "20fe693a2ddeeea86e555bd11e77dd6b84f4202b",
+    "stagger_02.png": "c5190bfcd34f7909e32f1071f24e53b7bce47a66",
+    "stagger_03.png": "017f955869e4916fcd80c27087bed2cd0c09e0e1"
+  }
+}
