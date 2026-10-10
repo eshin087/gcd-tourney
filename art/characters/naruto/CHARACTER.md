@@ -1,5 +1,7 @@
 # Naruto (Shippuden): character design brief
 
+> **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
+
 > Read this first, then [ANIMATIONS.md](ANIMATIONS.md) (frame-by-frame poses),
 > [MOVES_AND_VFX.md](MOVES_AND_VFX.md) (how each move looks in the engine) and
 > [PROMPTS.md](PROMPTS.md) (copy-paste image prompts in generation order).

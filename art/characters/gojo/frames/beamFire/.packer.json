@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/beamFire_v02.png",
+  "version": 2,
+  "source": [
+    "characters/gojo/raw/beamFire_v02.png"
+  ],
+  "sourceHash": "6e6309d3109d2e7889b1e1d724d084e67158655b",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "beamFire_00.png": "fa9e21c182e542f88e92bdbf5e3b4a918ecb3813",
+    "beamFire_01.png": "3d3b4d9ebfa1b0b5842b04f6a50e9c3ae6f0712f",
+    "beamFire_02.png": "845abee698d17fc1244ce087c32b4f397afbf995"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/beamCharge_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/beamCharge_v01.png"
+  ],
+  "sourceHash": "820e95acbf33ef4a46c55114e170a8577999bf7e",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "beamCharge_00.png": "0f708a6bda6cb82d33ebcce527f725446999bef6",
+    "beamCharge_01.png": "0f2aaec6c4e4b62129ef620073db87e2fe13dde1",
+    "beamCharge_02.png": "d118a2e746c970c1bb9d0cbd3e8b10852e616de5"
+  }
+}

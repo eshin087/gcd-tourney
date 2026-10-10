@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/down_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/down_v01.png",
+    "characters/gojo/raw/down_v01.json"
+  ],
+  "sourceHash": "fe5435d089e55333dc664aadfef6bdd59d790974",
+  "bodyHeight": 104,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "down_00.png": "bc1e2a4bbbe4862e77043033b4c37a18d4750ff3",
+    "down_01.png": "f6d13768b2688879956ffa52a2956d726260319c"
+  }
+}

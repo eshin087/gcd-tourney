@@ -92,7 +92,7 @@ the custom sheet. **👁** = Sharingan on.
 | [getup](#getup) | 5 | | | 204 | 70 60 60 80 70 | ✓ | | A14 | f4 (stance) |
 | [charge](#charge) | 4 | | ✓ | 198 | 50 each | ✓ | 👁 | A15 | any |
 | [throw](#throw) (Fireball) | 4 | 1/1/2 | | 201 | 50 60 70 50 | | 👁 | A33 | f0 (upright inhale) |
-| [beamCharge](#beamcharge) | 3 | | ✓ | 198 | 50 each | ✓ | 👁 | A16 | any |
+| [beamCharge](#beamcharge) | 3 | | ✓ | 230 | 50 each | ✓ | 👁 | A16 | any |
 | [beamFire](#beamfire) | 3 | | ✓ | 198 | 50 each | ✓ | 👁 | A17 | any |
 | [vanish](#vanish) | 2 | | | 221 | 50 each | | | A34 | f1 (stretched) |
 | [stagger](#stagger) | 4 | | ✓ | 207 | 150 each | | | A35 | f1/f3 (upright) |
@@ -102,7 +102,12 @@ the custom sheet. **👁** = Sharingan on.
 | [taunt](#taunt) | 2 | | ✓ | 212 | 300 each | | 👁 | A38 | any (upright) |
 | [win](#win) | 4 | | ✓ | 212 | 250 each | ✓ | | A23 | any (upright; hand at head height, not above the hair) |
 
-38 animations, 154 frames (10 rows of the 16-column, 4096 px wide sheet). The 23 core animations are
+| [specialForward](#specialforward) | 7 | 2/2/3 | | 204 | 50 50 50 80 70 60 50 | | f1-f4 | A39 | stance; calibrated skull size governs |
+| [specialUp](#specialup) | 6 | 2/2/2 | | 214 | 50 50 60 60 70 70 | | | A40 | rising kick |
+| [specialDown](#specialdown) | 4 | 2/1/1 | | 204 | 80 80 200 90 | | f1-f3 | A41 | reading stance |
+| [superPose](#superpose) | 4 | | yes | 208 | 140 each | | Mangekyo | A42 | upright |
+
+42 animations, 175 frames (11 rows of the 16-column, 4096 px wide sheet). The 23 core animations are
 108 frames.
 
 ---
@@ -585,37 +590,49 @@ left edge). The fireball is large and covers his face. **Do not draw any fire in
 
 <a id="beamcharge"></a>
 
-### beamCharge: LIGHTNING LANCE charge · 3 frames, loop · 👁 Sharingan
+### beamCharge: KIRIN, calling the storm · 3 frames, loop · 👁 Sharingan
 
-Chidori-style charge. Deep front stance (L foot forward, knees bent), torso **twisted back** away from
-screen-right. **R hand held low and back at the R hip** (about x 76 to 92, y 146 to 164): open, palm
-down, fingers spread. **L hand grips the R wrist.** Head turned toward the opponent at screen-right.
-Sharingan on, teeth gritted. Bangs, rope ends and the waist cloth blown up and back, the open shirt
-fluttering. No lightning in the sprite. (A proposed engine follow-up would draw Chidori lightning at
-this hand, about (84, 155); see MOVES_AND_VFX.md §4.)
+Wide, low stance (feet well apart, L foot forward, knees bent), torso upright. **R (near) arm raised
+straight up toward the sky beside his head** (not in front of the face; the elbow may be very slightly
+soft), hand open, palm up, fingers spread: the **fingertips about one head above the top of his hair**
+(hand at about x 104 to 132, y 8 to 30, the top of the frame). L arm low at his side, hand open. Head
+tilted up toward the raised hand. Sharingan on. Face: cold focus, mouth a flat line. Bangs, rope ends,
+the waist cloth and the open shirt **whipped hard toward screen-left by a storm wind**. No lightning,
+clouds or storm in the sprite. Codex measures the raised palm center on the packed frames and writes it
+in MOVES_AND_VFX.md (Claude anchors the storm and lightning there).
 
 - **f0**: as described.
-- **f1**: tremble 1 px forward, bangs and rope ends flicker variant.
-- **f2**: tremble 1 px back, R fingers flex 1 px. Loops.
+- **f1**: whole body 1 px lower, bangs, rope ends and cloth in a new whipping shape.
+- **f2**: back up, the raised fingers flex 1 px, another hair and cloth shape. Loops.
+
+QA: `bodyHeight` 230 (not 198, see §1); the head matches idle within 3 px after packing; feet identical
+in all 3 frames.
 
 <a id="beamfire"></a>
 
-### beamFire: LIGHTNING LANCE fire · 3 frames, loop · 👁 Sharingan
+### beamFire: KIRIN, bringing the lightning down · 3 frames, loop · 👁 Sharingan
 
-The engine starts the beam 0.8 units forward and 0.92 up: **(230, 122)** (ADR 0007), so the **spear-hand
-tip must reach x 222 to 238 at y 112 to 132**.
-
-Deep lunge toward screen-right: L leg forward and bent, R leg straight back, torso leaning forward
-about 14°. **R arm thrust straight forward at chest height as a spear-hand** (fingers straight and
-together, palm facing down). **L hand grips the R forearm just behind the wrist** to brace. Head behind
-the R shoulder, Sharingan on, mouth open shouting. Bangs, rope ends, waist cloth and sleeves blown
-**back** (screen-left) by the recoil. No beam in the sprite.
+The raised arm has swung **down and forward toward the opponent, pointing at the target** while the
+dragon falls. Wide, low stance (L foot forward, knees bent), torso leaning slightly forward. **R arm
+fully extended toward screen-right, slightly below shoulder height**, hand open, fingers straight and
+together, pointing at the opponent: **fingertips in about x 212 to 234, y 108 to 130**, the right-most
+point of every frame (the old beam origin (230, 122) sits at the fingertips, in case the engine keeps a
+hand flash there). L arm pulled back low at his side. Head behind the R shoulder, glaring along the arm.
+Sharingan on. Face: cold, mouth a flat line. Bangs, rope ends, waist cloth and sleeves **whipped back
+toward screen-left** by the blast wind. No lightning, dragon or energy in the sprite.
 
 - **f0**: as described.
-- **f1**: recoil, whole body 1 to 2 px back, bangs and rope ends flicker variant.
-- **f2**: pushing forward again, 1 px forward. Loops.
+- **f1**: recoil, whole body 1 to 2 px back, bangs and rope ends in a new whipping shape.
+- **f2**: pushing 1 px forward again. Loops.
 
-<a id="vanish"></a>
+QA: `bodyHeight` 198; same scale as `beamCharge` (head within 3 px); feet identical in all 3 frames.
+
+**Index rows** (titles change; step 7, CORE, unchanged file names):
+
+| step | id | asset | frames | images | CORE | save as (versioned; NN = next free version) |
+|---|---|---|---|---|---|---|
+| 7 | A16 | `beamCharge`: KIRIN, calling the storm (loop) | 3 | 1 | **CORE** | `raw/beamCharge_vNN.png` |
+| 7 | A17 | `beamFire`: KIRIN, bringing the lightning down (loop) | 3 | 1 | **CORE** | `raw/beamFire_vNN.png` |
 
 ### vanish: teleport · 2 frames
 
@@ -713,3 +730,160 @@ L hand relaxed at his side. Standing upright.
 - **f1**: bangs, rope ends and cloth hem flutter in the breeze.
 - **f2**: two fingers flick forward 3 px (the salute).
 - **f3**: settle, flutter variant.
+
+
+## Move-system-v2 animations (ADR 0011)
+
+### specialForward: CHIDORI SHARP SPEAR · 7 frames · phases 2/2/3 · 👁 Sharingan f1-f4 [fallback `special`]
+
+→ + Special. A fast, short-range lightning spear (Chidori Eiso): lightning gathers in his open hand,
+then he thrusts it forward as a long, straight spear-hand. The engine draws the crackling lightning in
+the hand during the startup and the lightning spear from the fingertips on the thrust. **Draw the hand
+open and empty.** Timing lives in `src/game/moves.js` (ENG-036); the frames stretch over its phases.
+
+**Hand: L (lead, far) in this move only.** Every other Chidori-type frame uses the R (near) hand
+(CHARACTER.md §4). This is a lead-hand thrust on the same line as `light1`, so the reach comes from the
+lead shoulder. Keep the L hand **fully visible in front of his waist** on f0-f1 (not hidden behind the
+hip): the lightning needs a hand to sit in.
+
+Effect anchors (proposed; Codex measures the packed frames, writes the real points in
+MOVES_AND_VFX.md and tells Claude, who sets the engine offsets):
+
+| frames | what the engine draws | cell px (x, y) | world units from the feet |
+|---|---|---|---|
+| f0-f1 | crackling lightning in the open L palm | about (146, 156) | 0.14 forward, 0.66 up |
+| f2-f3 | the lightning spear, from the fingertips toward screen-right | about (220, 140) | 0.72 forward, 0.78 up (next to the Chidori impact anchor (218, 140)) |
+
+- **f0 · S**: anticipation from the stance. Weight starts shifting forward onto the L (front) foot, knees
+  starting to bend. The **L hand pulls back** from the knife-hand guard, down to his L hip: palm open,
+  fingers slightly spread, elbow bent back. R fist guards the chest. L shoulder turns slightly away.
+  Dark eyes. Face: cold. (Height no taller than idle.)
+- **f1 · S**: coiled. Weight forward, knees bent deeper, shoulders coiled, head forward. **L hand low
+  beside the L hip, a little in front of it** (about x 138 to 154, y 146 to 166): palm open and turned
+  forward and down, fingers spread and tense, the whole hand visible against the waist cloth. Sharingan
+  flares on. Face: focused. Bangs and rope ends lift slightly.
+- **f2 · A · smear**: thrust. Hips and the L shoulder drive forward into a deep lunge: L leg forward and
+  bent, R leg straight back (rear heel at about x 60 to 70). **L arm fully extended horizontally**
+  toward screen-right as a spear-hand: fingers straight and pressed together, palm down, wrist straight.
+  In the lunge his shoulders drop to about y 112 to 120, so the arm runs level to very slightly
+  downward: **fingertips in x 210 to 234, y 128 to 152**, around the (220, 140) anchor (the opponent's
+  lower chest and stomach). R fist pulled back to the R hip. Chin tucked behind the L shoulder. Solid
+  tapered smear from the hip to the fingertips in sleeve white, arm-guard navy and skin. Face: angry,
+  teeth just showing. Sharingan.
+- **f3 · A**: hold without the smear, fingertips 1 to 2 px further. Bangs, rope ends and the waist cloth
+  whip forward from the sudden stop. Sharingan.
+- **f4 · R**: pulling back. L elbow bends, the hand retracts to about x 190, the body rises out of the
+  lunge, weight shifting back. Sharingan (last red frame). Face: cold.
+- **f5 · R**: L hand back near the guard, opening into the knife-hand, L foot sliding back. Dark eyes.
+  Face: cold.
+- **f6 · R**: idle stance (matches idle f0), dark eyes, the tallest frame (204).
+
+QA: on f2-f3 the fingertips are the right-most pixels (no bangs, rope ends, cloth or sword grip past
+them) and sit in the zone above; the lunge stays inside x 4..251.
+
+<a id="specialup"></a>
+
+### specialUp: LION'S BARRAGE rise · 6 frames · phases 2/2/2 [fallback `special`]
+
+↑ + Special, an anti-air. A rising kick carries him straight up, he turns over at the top, then slams
+down. This strip covers the takeoff, the rising kick and the turn at the top; **the slam reuses
+[airHeavy](#airheavy)** (his double-fist hammer spike) and **the landing reuses [land](#land)**. In the
+anime the barrage ends with a heel drop; here the finisher is his existing `airHeavy`, so **f5 is
+airHeavy's f0 pose** (clasped fists overhead), not a heel drop.
+
+Engine (the `dive` kind as `src/game/kit.js` runs it today): f0-f1 play over the first 40 % of the
+rise, f2-f3 over the rest, then the hang shows `airHeavy` f0 and the slam its active frame. f4-f5 only
+play if the engine runs the recovery phase (ENG-036 decides); draw them anyway, so the strip flows into
+`airHeavy` f0 in previews and in game. The rise's anti-air hit is checked by distance there, not by the
+packed box, so draw the kick for readability. Dark eyes in every frame (no Sharingan).
+
+- **f0 · S**: crouch. Knees deeply bent, torso leaning forward, both arms swung down and back, head up
+  looking up and forward at the target. Back spikes squashed 1 to 2 px, waist-cloth hem pooled over the
+  knees. Face: focused.
+- **f1 · S**: spring. Legs extending explosively, heels off, toes last on the floor. Torso **still
+  leaning forward** about 25° and the knees not yet straight; both arms swing forward to chest height
+  (hands no higher than the chin). This frame stays lower than f2. Face: focused.
+- **f2 · A · smear**: rising kick. Airborne, rising straight up. **The R (near) leg kicks straight up**
+  in front of his body, knee locked, the ball of the foot leading upward: **foot in about x 164 to 200,
+  y 26 to 60**, in front of his face at about the height of his hair top (no more than about 10 px above
+  it). Torso upright, leaning back about 10°. **L leg hangs below with the knee slightly bent and the
+  toes pointed** (the lowest point, under the hips). Both arms swept down and back along his sides. The
+  kicking leg comes out between the panels of the waist cloth; bangs, rope ends and the hem are dragged
+  downward by the rise. Solid crescent smear from the hip up to the foot. Face: angry, teeth showing.
+  The tallest frame (214).
+- **f3 · A**: the same kick without the smear, foot 1 to 2 px higher, cloth still dragged down.
+- **f4 · R**: turning over at the apex. The kicking leg folds, both knees tuck toward the chest, the body
+  tips forward over the top of the jump (torso pitched about 30° forward, head looking down at the target
+  below-right), both arms swinging up past the shoulders with the hands coming together. Face: focused.
+- **f5 · R**: apex hang = **airHeavy f0**: both hands clasped together (fingers interlocked) raised
+  overhead, torso arching back, knees tucked. Face: shout. Flows straight into the slam.
+
+QA: f5 matches airHeavy f0 (same clasped hands, arch and tuck; the head within 3 px of airHeavy's after
+packing); nothing on f1, f4 or f5 rises above the f2 foot; in the airborne frames the lowest point
+stays near the middle of the shape (Conventions, Centering).
+
+<a id="specialdown"></a>
+
+### specialDown: SHARINGAN COUNTER stance · 4 frames · phases 2/1/1 · 👁 Sharingan f1-f3 [fallback `charge`]
+
+↓ + Special. A calm, perfectly still stance in which the Sharingan reads the opponent's attack; the
+engine handles the counter itself (flash, freeze, any follow-up). **No hit box**: the stance never
+strikes (manifest `"hitbox": false`). If it uses the `counter` kind as Gojo's Infinity does, f0-f1
+play over the first 3 game frames, **f2 holds for the whole counter window** and f3 plays over the
+recovery, so f2 is the frame players see.
+
+**Feet identical in all 4 frames** (same planted stance as idle: L foot forward, R foot back).
+
+- **f0 · S**: settling out of the stance. Knees bend a little more, torso coming upright, weight
+  centered. R hand starts rising, open; L hand starts dropping. Eyes still dark, narrowing. Face: cold.
+- **f1 · S**: the calm guard. **R (near) hand raised open in front of his face**, palm toward the
+  opponent (screen-right), fingers straight up and together, held a little forward of the face (about
+  x 160 to 180) with the fingertips just below eye height, so **both eyes stay visible**. L hand low in
+  front of his stomach, open and ready. Chin down. **The eyes snap to the 3-tomoe Sharingan.** Face:
+  cold, intense stare.
+- **f2 · A**: the reading stance (held longest). The same pose, perfectly still and balanced: the
+  Sharingan glaring at the opponent, the **L hand low and ready** (open, fingers loose, in front of the
+  belt). Bangs, rope ends and the waist cloth completely at rest. Face: cold, unblinking. The tallest
+  frame (204).
+- **f3 · R**: back toward the stance. R hand lowering to the chest, L hand rising back toward the
+  forward knife-hand guard. Sharingan still on. Face: cold.
+
+QA: nothing reaches past the idle front edge (about x 182), the R hand never covers the eyes, and no
+glow or light is drawn around the eyes.
+
+<a id="superpose"></a>
+
+### superPose: AMATERASU · 4 frames, loop · Mangekyō Sharingan [fallback `taunt`]
+
+His **ultimate** (Heavy + Special, 3 bars). The engine holds this pose during the super flash, then
+ignites black flames on the opponent. Without it the flash shows the "come at me" taunt, so generate
+it. **The only animation with the Mangekyō Sharingan** (the one exception to CHARACTER.md §2, which
+calls a pinwheel-shaped eye off-model). **PG: no blood from the eye**, no tears, no red streaks on the
+face. No black flames, fire or glow in the sprite.
+
+**Mangekyō (his own pattern):** both eyes. Red iris `#d81e28` with the thin dark-red rim `#7c0c16`, and
+instead of the three small tomoe a **bold black (`#141018`) three-bladed pinwheel** around the pupil:
+three curved, pointed blades, like a three-pointed throwing star, whose tips touch the rim of the iris.
+At sprite scale (each eye about 4 to 5 px tall): a 2 × 2 px black center with three 1 px black points
+reaching the red rim, so the eye reads as **red with a large black three-pointed star**, clearly darker
+than the 3-tomoe Sharingan (red with a 1 px pupil). **No new colors are needed**: all three hexes are
+already in his 34-color palette. If the pattern still cannot read with them, Codex may add at most 2
+colors (listed in CHARACTER.md §7 first, total at or below 48) and tells Claude.
+
+Base pose: standing tall and still, legs nearly straight with soft knees, feet shoulder-width, weight on
+the R leg, body turned a bit more toward the camera (about 45°), head turned to the opponent at
+screen-right so both eyes show, chin slightly down. **L hand raised to his left eye**: palm toward the
+face, fingers spread, the fingertips resting along the brow and temple just above and beside the left
+eye, framing it; **the left eye stays fully visible** under and between the fingers. R arm hangs relaxed
+at his side. A cold, merciless glare, mouth a flat line. The raised hand stays below the top of his
+hair.
+
+- **f0**: as described.
+- **f1**: bangs and rope ends sway 1 px.
+- **f2**: the L fingers tense 1 px, rope ends and the cloth hem in a new flutter shape.
+- **f3**: settle back toward f0, another small hair and cloth variation. Loops.
+
+QA: feet identical and the body still in all 4 frames; the tallest frame is 208 (upright); the
+Mangekyō reads on the packed frames (see §5).
+
+---

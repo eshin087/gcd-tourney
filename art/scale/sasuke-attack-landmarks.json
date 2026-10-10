@@ -1,0 +1,330 @@
+{
+  "light3": [
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_A.png",
+      "sha256": "3d4ba1d3fb3b67c644817c4db170de8e456655c9131c1b1cd76634e3631abcfe",
+      "crown": [
+        188,
+        192
+      ],
+      "chin": [
+        211,
+        292
+      ],
+      "sourceHeadPx": 102.611,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_A.png",
+      "sha256": "3d4ba1d3fb3b67c644817c4db170de8e456655c9131c1b1cd76634e3631abcfe",
+      "crown": [
+        496,
+        192
+      ],
+      "chin": [
+        519,
+        292
+      ],
+      "sourceHeadPx": 102.611,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_A.png",
+      "sha256": "3d4ba1d3fb3b67c644817c4db170de8e456655c9131c1b1cd76634e3631abcfe",
+      "crown": [
+        788,
+        192
+      ],
+      "chin": [
+        811,
+        292
+      ],
+      "sourceHeadPx": 102.611,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_A.png",
+      "sha256": "3d4ba1d3fb3b67c644817c4db170de8e456655c9131c1b1cd76634e3631abcfe",
+      "crown": [
+        1252,
+        192
+      ],
+      "chin": [
+        1275,
+        292
+      ],
+      "sourceHeadPx": 102.611,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_B.png",
+      "sha256": "fa08b0a388b02b6e9ff8b2de8cc388341fca81257f2d30b386c497b34a4d87bc",
+      "crown": [
+        247,
+        172
+      ],
+      "chin": [
+        265,
+        302
+      ],
+      "sourceHeadPx": 131.24,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_B.png",
+      "sha256": "fa08b0a388b02b6e9ff8b2de8cc388341fca81257f2d30b386c497b34a4d87bc",
+      "crown": [
+        755,
+        172
+      ],
+      "chin": [
+        773,
+        302
+      ],
+      "sourceHeadPx": 131.24,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light3_v01_B.png",
+      "sha256": "fa08b0a388b02b6e9ff8b2de8cc388341fca81257f2d30b386c497b34a4d87bc",
+      "crown": [
+        1258,
+        172
+      ],
+      "chin": [
+        1276,
+        302
+      ],
+      "sourceHeadPx": 131.24,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    }
+  ],
+  "light4": [
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_A.png",
+      "sha256": "c97a3b6b4e5bdd68f70bb6c1e24dd2c2e441c2514bd2f9ff8332b7ae62cb1a29",
+      "crown": [
+        187,
+        283
+      ],
+      "chin": [
+        191,
+        366
+      ],
+      "sourceHeadPx": 83.096,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_A.png",
+      "sha256": "c97a3b6b4e5bdd68f70bb6c1e24dd2c2e441c2514bd2f9ff8332b7ae62cb1a29",
+      "crown": [
+        461,
+        245
+      ],
+      "chin": [
+        469,
+        326
+      ],
+      "sourceHeadPx": 81.394,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_A.png",
+      "sha256": "c97a3b6b4e5bdd68f70bb6c1e24dd2c2e441c2514bd2f9ff8332b7ae62cb1a29",
+      "crown": [
+        699,
+        245
+      ],
+      "chin": [
+        708,
+        327
+      ],
+      "sourceHeadPx": 82.492,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_A.png",
+      "sha256": "c97a3b6b4e5bdd68f70bb6c1e24dd2c2e441c2514bd2f9ff8332b7ae62cb1a29",
+      "crown": [
+        980,
+        268
+      ],
+      "chin": [
+        981,
+        351
+      ],
+      "sourceHeadPx": 83.006,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_A.png",
+      "sha256": "c97a3b6b4e5bdd68f70bb6c1e24dd2c2e441c2514bd2f9ff8332b7ae62cb1a29",
+      "crown": [
+        1346,
+        264
+      ],
+      "chin": [
+        1347,
+        347
+      ],
+      "sourceHeadPx": 83.006,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_B.png",
+      "sha256": "71cf8f090c598f1421b58469d80c9b78efd32ce3f708919260c0d7f5e5035d92",
+      "crown": [
+        297,
+        206
+      ],
+      "chin": [
+        306,
+        330
+      ],
+      "sourceHeadPx": 124.326,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_B.png",
+      "sha256": "71cf8f090c598f1421b58469d80c9b78efd32ce3f708919260c0d7f5e5035d92",
+      "crown": [
+        785,
+        241
+      ],
+      "chin": [
+        793,
+        365
+      ],
+      "sourceHeadPx": 124.258,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/light4_v01_B.png",
+      "sha256": "71cf8f090c598f1421b58469d80c9b78efd32ce3f708919260c0d7f5e5035d92",
+      "crown": [
+        1282,
+        242
+      ],
+      "chin": [
+        1290,
+        366
+      ],
+      "sourceHeadPx": 124.258,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    }
+  ],
+  "heavy": [
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_A.png",
+      "sha256": "3b7fdfdfb9f22bc1d0b786416d3998df00809838cc8d7f959ca482d06949a4b1",
+      "crown": [
+        218,
+        335
+      ],
+      "chin": [
+        226,
+        420
+      ],
+      "sourceHeadPx": 85.376,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_A.png",
+      "sha256": "3b7fdfdfb9f22bc1d0b786416d3998df00809838cc8d7f959ca482d06949a4b1",
+      "crown": [
+        530,
+        405
+      ],
+      "chin": [
+        539,
+        490
+      ],
+      "sourceHeadPx": 85.475,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_A.png",
+      "sha256": "3b7fdfdfb9f22bc1d0b786416d3998df00809838cc8d7f959ca482d06949a4b1",
+      "crown": [
+        801,
+        302
+      ],
+      "chin": [
+        808,
+        387
+      ],
+      "sourceHeadPx": 85.288,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_A.png",
+      "sha256": "3b7fdfdfb9f22bc1d0b786416d3998df00809838cc8d7f959ca482d06949a4b1",
+      "crown": [
+        1065,
+        214
+      ],
+      "chin": [
+        1074,
+        300
+      ],
+      "sourceHeadPx": 86.47,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_A.png",
+      "sha256": "3b7fdfdfb9f22bc1d0b786416d3998df00809838cc8d7f959ca482d06949a4b1",
+      "crown": [
+        1370,
+        159
+      ],
+      "chin": [
+        1377,
+        245
+      ],
+      "sourceHeadPx": 86.284,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_B.png",
+      "sha256": "c060616875c1ece8c9f84533a4977eca728464c4b425979de6d9e2dac5b8e0ac",
+      "crown": [
+        323,
+        200
+      ],
+      "chin": [
+        334,
+        319
+      ],
+      "sourceHeadPx": 119.507,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_B.png",
+      "sha256": "c060616875c1ece8c9f84533a4977eca728464c4b425979de6d9e2dac5b8e0ac",
+      "crown": [
+        857,
+        345
+      ],
+      "chin": [
+        877,
+        462
+      ],
+      "sourceHeadPx": 118.697,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    },
+    {
+      "source": "art/characters/sasuke/raw/_parts/heavy_v01_B.png",
+      "sha256": "c060616875c1ece8c9f84533a4977eca728464c4b425979de6d9e2dac5b8e0ac",
+      "crown": [
+        1330,
+        200
+      ],
+      "chin": [
+        1341,
+        319
+      ],
+      "sourceHeadPx": 119.507,
+      "certainty": "estimated crown beneath hair; final packed verification pending"
+    }
+  ]
+}

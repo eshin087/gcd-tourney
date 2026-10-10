@@ -1,0 +1,29 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/idle_v02.png",
+  "version": 2,
+  "source": [
+    "characters/gojo/raw/idle_v02.png"
+  ],
+  "sourceHash": "bdb4ef6eaa4394e3b3b6da9bc5dee74168107d88",
+  "bodyHeight": 222,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "idle_00.png": "8fed611de7bea016b06eb53cbe9dba52aac8148c",
+    "idle_01.png": "3e6f70f354b2e289c5cd95df8846caa7ae92beea",
+    "idle_02.png": "44ecec0279dd4a74493924e700b813958d162919",
+    "idle_03.png": "3c538fda2d7e1736bfdb312006cbc30f728755a7",
+    "idle_04.png": "ec30dac822941c23e1a68567afa7671e139b3a83",
+    "idle_05.png": "a949821338748ac35c591b3d8ce06072fded2b26",
+    "idle_06.png": "60e24c2665d57d7ced2fbc69e0ad3142a5d1b0b8",
+    "idle_07.png": "f600cee1a907a31925aaec8765020e4c78f9d05a"
+  }
+}

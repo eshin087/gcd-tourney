@@ -1,5 +1,7 @@
 # art/: start here
 
+Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md). Technical packing success does not establish anatomical consistency.
+
 Everything needed to turn GCD Tourney's placeholder fighters into **hi-res pixel-art anime
 fighters**: the briefs the image generator draws from, the versioned images it produces, the review
 queue, the cleaned frames, and the status of every asset. Humans, Codex and ChatGPT all read this

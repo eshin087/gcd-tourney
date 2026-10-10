@@ -11,6 +11,14 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Sasuke's hi-res art is in the game**: Codex's complete set of 42 animations / 175 frames replaces his placeholder in fights, packed at the shared anatomical scale. Every image still waits for the user's review in art/REVIEW.md, and his portrait, cut-in and select candidates are packed only once approved (ART-SCALE-01, ART-SAS-11).
+
+- Art: reject enlarged Gojo head candidates after user feedback; restore approved proportions and document their precedence over nominal 31px guidance.
+
+- Packer: measured skull-to-chin calibration from versioned sidecars, so a raised fist or a crouch no longer changes a fighter's scale; calibrated cached frames keep their scale; shared anatomical gate in art/CHARACTER_SCALE.md (ART-SCALE-01). Naruto's and Killua's corrections continue on a branch.
+
+- Title screen: new Naruto-vs-Killua key art (`title_art` v02, approved by the user) replaces Naruto vs Sasuke; static painted audience (ART-UI-02).
+
 - Naruto final batch approved by the user: all 42 animations and three UI assets; promoted UI sources, preserved pose/reach QA notes, and handed gameplay integration to Claude.
 
 - Naruto complete candidate batch for one final review: 40 new animations and three UI images, completing 42 animations / 175 frames. Corrected pose separation, dash placement, knockout and cut-in; 48-color atlas, frame-local hand boxes, and phone-friendly playback review (ART-NAR-FINAL).
@@ -170,6 +178,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and
   during the next move's startup, and the spike's box pad is wider; the air string connects ~97 % across all 16
   pairings (ADR 0014).
+- The crowd no longer flickers between poses when the fight gets exciting: excitement used to multiply each
+  spectator's animation rate against the absolute clock, so every change in hype scrambled their phase (~42 pose
+  switches per second per spectator). Now each keeps a steady tempo, hype eases in and out and speeds up a shared
+  crowd clock instead (~2 switches per second, a calm sway that builds into a bouncing cheer).
 - Character select fits a landscape phone: the full kit move list was cut off below 480 px of height.
 - Docs: spec v2 sheets are 4096 × 2816 (42 animations / 175 frames), not 4096 × 2560.
 - Minimum hurtbox width (0.56 units) so a slim art pack can't make a fighter hard to hit (Killua's art: 75 % → 42 % CPU wins).

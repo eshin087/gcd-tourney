@@ -883,6 +883,25 @@ function main() {
       'frameOffsets: malformed sidecar warns, is ignored, and falls back to legacy placement');
   }
 
+  // Anatomical size is independent of a pose's outer bounds, and cached packs must not
+  // grow the normalized cells back to the legacy bodyHeight on the next invocation.
+  {
+    const raw = path.join(ART, 'characters', 'anchor', 'raw', 'run_v01.json');
+    fs.writeFileSync(raw, JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 31, sourceHeadPx: [62, 80] } }));
+    const first = pack([...base, 'anchor']);
+    const file = path.join(OUT, 'characters', 'anchor', 'sheet.png');
+    const bytes = fs.readFileSync(file);
+    check(first.code === 0 && first.json.characters[0].packed.find((p) => p.anim === 'run').notes.some((n) => n.includes('anatomical scale')), 'anatomy: explicit source head lengths select anatomical normalization');
+    const again = pack([...base, 'anchor']);
+    check(again.code === 0 && Buffer.compare(bytes, fs.readFileSync(file)) === 0, 'anatomy: cached pack is byte-identical instead of renormalizing to pose height');
+    fs.writeFileSync(raw, JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 31, sourceHeadPx: [80, 100] } }));
+    const changed = pack([...base, 'anchor']);
+    check(changed.code === 0 && changed.json.characters[0].packed.find((p) => p.anim === 'run').source === 'raw/run_v01.png' && Buffer.compare(bytes, fs.readFileSync(file)) !== 0, 'anatomy: changed measurements reimport original art');
+    fs.writeFileSync(raw, JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 31, sourceHeadPx: [0] } }));
+    const invalid = pack([...base, 'anchor']);
+    check(anyWarn(invalid.json.characters[0].warnings, /anatomy requires/), 'anatomy: invalid or incomplete measurements warn instead of silently claiming calibration');
+  }
+
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
   const r5 = pack(['--src', path.join(FIX, 'does-not-exist'), '--out', ghostOut]);

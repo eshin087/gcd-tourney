@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fighter scale review</title>
+<style>
+  body { margin: 20px; background: #161c27; color: #eef3ff; font: 16px system-ui; }
+  h1 { font-size: 24px; } p { max-width: 850px; }
+  label, button, select, input { margin: 5px; font: inherit; }
+  button, select { padding: 9px; } .cast { display: flex; flex-wrap: wrap; gap: 12px; }
+  figure { margin: 0; } canvas { background: #242c3c; image-rendering: pixelated; width: 256px; height: 256px; touch-action: none; }
+  figcaption { text-align: center; padding: 8px; } pre { white-space: pre-wrap; }
+</style>
+<h1>Fighter scale review — working candidates</h1>
+<p>All four fighters use the same pixel scale, camera and floor. Gojo stays taller and Killua shorter.
+  Alternate each move with idle to check for head or body size jumps. These are local candidates; approval is pending.</p>
+<label>Move <select id="move"></select></label>
+<label><input type="checkbox" id="alternate" checked> Alternate with idle</label>
+<button id="play">Pause</button><button id="step">Next frame</button>
+<label>Zoom <select id="zoom"><option>1</option><option>2</option><option>3</option></select></label>
+<p id="state"></p><div class="cast" id="cast"></div>
+<p>Measurement: pause, then click skull crown and chin on a fighter. Hair is excluded. Obscured landmarks are estimates.
+  A 31px reference bar is shown on the left; grid spacing is 16px. This tool records measurements, not automatic approval.</p>
+<button id="clear">Clear measurements</button><button id="save">Download measurements</button><pre id="measurements"></pre>
+<script type="module">
+const ids = ['naruto', 'sasuke', 'killua', 'gojo'];
+const el = id => document.getElementById(id);
+const cast = await Promise.all(ids.map(async id => {
+  const meta = await fetch(`/characters/${id}/anims.json`).then(r => r.json());
+  const image = new Image(); image.src = `/characters/${id}/sheet.png`; await image.decode();
+  const figure = document.createElement('figure'), canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 256; figure.append(canvas);
+  const caption = document.createElement('figcaption'); caption.textContent = id; figure.append(caption);
+  return { id, meta, image, canvas, figure, ctx: canvas.getContext('2d') };
+}));
+for (const c of cast) el('cast').append(c.figure);
+const names = [...new Set(cast.flatMap(c => Object.keys(c.meta.animations)))];
+for (const name of names) { const option = document.createElement('option'); option.value = option.textContent = name; el('move').append(option); }
+let tick = 0, playing = true, last = 0, records = [], pending = null;
+function current(c) {
+  const name = el('alternate').checked && tick % 24 < 8 ? 'idle' : el('move').value;
+  const a = c.meta.animations[name];
+  return { name, a, local: a ? (el('alternate').checked ? Math.max(0, tick % 24 - 8) : tick) % a.frames.length : 0 };
+}
+function draw() {
+  el('state').textContent = `${playing ? 'Playing' : 'Paused'} · preview tick ${tick}`;
+  for (const c of cast) {
+    const { ctx, meta, image } = c, { name, a, local } = current(c);
+    ctx.clearRect(0, 0, 256, 256); ctx.imageSmoothingEnabled = false;
+    ctx.strokeStyle = '#343d50'; ctx.lineWidth = 1;
+    for (let n = 0; n < 256; n += 16) { ctx.beginPath(); ctx.moveTo(n+.5,0); ctx.lineTo(n+.5,256); ctx.moveTo(0,n+.5); ctx.lineTo(256,n+.5); ctx.stroke(); }
+    ctx.strokeStyle = '#93a6bf'; ctx.beginPath(); ctx.moveTo(0,240.5); ctx.lineTo(256,240.5); ctx.stroke();
+    if (a) { const f=a.frames[local]; ctx.drawImage(image, f%meta.columns*256, Math.floor(f/meta.columns)*256,256,256,0,0,256,256); }
+    ctx.fillStyle = '#72e7da'; ctx.fillRect(8,40,2,31); ctx.fillRect(5,40,8,1); ctx.fillRect(5,70,8,1);
+    ctx.fillStyle = '#fff'; ctx.font = '12px system-ui'; ctx.fillText(a ? `${name} · ${local}` : `${name} · missing`,8,15);
+    if (pending?.id === c.id) { ctx.fillStyle='#ffd266';ctx.fillRect(pending.x-2,pending.y-2,5,5); }
+  }
+}
+for (const c of cast) c.canvas.addEventListener('pointerdown', e => {
+  if (playing) return;
+  const rect = c.canvas.getBoundingClientRect(), x = Math.round((e.clientX-rect.left)*256/rect.width), y = Math.round((e.clientY-rect.top)*256/rect.height), state = current(c);
+  if (!state.a) return;
+  if (!pending || pending.id !== c.id || pending.name !== state.name || pending.frame !== state.local) pending={id:c.id,name:state.name,frame:state.local,x,y};
+  else { records.push({fighter:c.id,animation:state.name,frame:state.local,crown:[pending.x,pending.y],chin:[x,y],axisPx:+Math.hypot(x-pending.x,y-pending.y).toFixed(2),certainty:'visual estimate; verify occlusion',recordedAt:new Date().toISOString()});pending=null; }
+  el('measurements').textContent=JSON.stringify(records,null,2); draw();
+});
+el('play').onclick=()=>{playing=!playing;el('play').textContent=playing?'Pause':'Play';pending=null;draw();};
+el('step').onclick=()=>{playing=false;el('play').textContent='Play';tick++;pending=null;draw();};
+el('move').onchange=()=>{tick=0;pending=null;draw();};el('alternate').onchange=()=>{tick=0;draw();};
+el('zoom').onchange=()=>cast.forEach(c=>{c.canvas.style.width=c.canvas.style.height=256*Number(el('zoom').value)+'px';});
+el('clear').onclick=()=>{records=[];pending=null;el('measurements').textContent='';draw();};
+el('save').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(records,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='fighter-landmarks.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+function loop(now){if(playing && now-last>120){tick++;last=now;draw();}requestAnimationFrame(loop);}draw();requestAnimationFrame(loop);
+</script>
+</html>

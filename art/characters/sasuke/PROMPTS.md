@@ -1,5 +1,7 @@
 # Sasuke: image prompts (generation order)
 
+> **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
+
 > Copy-paste prompts for the image generator (Codex's built-in generator, or ChatGPT run by the user),
 > in the order to run them, for **art spec v2**
 > ([ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md): Shippuden Hebi-era design,
@@ -102,8 +104,8 @@ version (`v01` first).
 | 6 | A13 | `down`: slammed down, then lying on the back | 2 | 1 | **CORE** | `raw/down_vNN.png` |
 | 6 | A14 | `getup`: kip-up | 5 | 1 | **CORE** | `raw/getup_vNN.png` |
 | 7 | A15 | `charge`: powering up (loop) | 4 | 1 | **CORE** | `raw/charge_vNN.png` |
-| 7 | A16 | `beamCharge`: charging the LIGHTNING LANCE (loop) | 3 | 1 | **CORE** | `raw/beamCharge_vNN.png` |
-| 7 | A17 | `beamFire`: firing the LIGHTNING LANCE (loop) | 3 | 1 | **CORE** | `raw/beamFire_vNN.png` |
+| 7 | A16 | `beamCharge`: calling KIRIN (loop) | 3 | 1 | **CORE** | `raw/beamCharge_vNN.png` |
+| 7 | A17 | `beamFire`: KIRIN lightning command (loop) | 3 | 1 | **CORE** | `raw/beamFire_vNN.png` |
 | 7 | A18 | `special`: CHIDORI rush | 8 | 2 | **CORE** | `raw/_parts/special_vNN_A.png` + `raw/_parts/special_vNN_B.png` → `raw/special_vNN.png` |
 | 8 | A19 | `dash`: low forward dash (loop) | 2 | 1 | **CORE** | `raw/dash_vNN.png` |
 | 8 | A20 | `jumpUp`: rising (loop) | 2 | 1 | **CORE** | `raw/jumpUp_vNN.png` |
@@ -125,6 +127,10 @@ version (`v01` first).
 | 9 | A36 | `ko`: knocked out | 1 | 1 |  | `raw/ko_vNN.png` |
 | 9 | A37 | `intro`: arms-crossed cold stare (loop) | 4 | 1 |  | `raw/intro_vNN.png` |
 | 9 | A38 | `taunt`: "come at me" beckon (loop) | 2 | 1 |  | `raw/taunt_vNN.png` |
+| 9 | A39 | `specialForward`: Chidori Sharp Spear | 7 | 2 | | `raw/specialForward_vNN.png` |
+| 9 | A40 | `specialUp`: Lion's Barrage | 6 | 2 | | `raw/specialUp_vNN.png` |
+| 9 | A41 | `specialDown`: Sharingan Counter | 4 | 1 | | `raw/specialDown_vNN.png` |
+| 9 | A42 | `superPose`: Amaterasu | 4 | 1 | | `raw/superPose_vNN.png` |
 | 11 | U1 | portrait 96×96 | | 1 | | `raw/ui_portrait_vNN.png` → approved copy `ui/portrait.png` |
 | 11 | U2 | super cut-in eye strip 480×128 | | 1 | | `raw/ui_cutin_vNN.png` → approved copy `ui/cutin.png` |
 | 11 | U3 | character select art 384×384 | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
@@ -228,7 +234,7 @@ ANIMATION: "idle", fighting stance (breathing loop). 8 frames in total, numbered
 4. Hold the top; the rope-bow ends drift slightly down-left. Face: cold.
 MOTION: A very small breathing bob done with the knees and chest only. The FEET ARE IDENTICAL in all 8 frames (they never slide). Bangs and rope-bow ends lag the body by one frame; the waist cloth barely moves.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -252,7 +258,7 @@ ANIMATION: "idle", fighting stance (breathing loop). 8 frames in total, numbered
 8. Rising back toward frame 1 (flows straight into frame 1); the rope ends drift back. Face: cold.
 MOTION: A very small breathing bob done with the knees and chest only. The FEET ARE IDENTICAL in all 8 frames (they never slide). Bangs and rope-bow ends lag the body by one frame; the waist cloth barely moves.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -282,7 +288,7 @@ ANIMATION: "run", ninja run. 8 frames in total, numbered 1 to 8 from left to rig
 4. Flight: both feet off the ground; right knee forward and up, left leg extended straight back with pointed toes; body at its highest; longest stride.
 MOTION: Torso pitched about 40 degrees forward for the whole cycle, head up looking ahead. BOTH arms trail straight back behind him, slightly raised, hands open and flat with fingers together; they bob slightly opposite to the body. Bangs and rope-bow ends stream back to the left; the waist cloth streams back and parts around the legs. The sword stays level behind his hips and does not bounce. Long legs, long realistic stride.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -306,7 +312,7 @@ ANIMATION: "run", ninja run. 8 frames in total, numbered 1 to 8 from left to rig
 8. Flight (mirror of frame 4): left knee forward and up, right leg extended back. Flows back into frame 1.
 MOTION: Torso pitched about 40 degrees forward for the whole cycle, head up looking ahead. BOTH arms trail straight back behind him, slightly raised, hands open and flat with fingers together; they bob slightly opposite to the body. Bangs and rope-bow ends stream back to the left; the waist cloth streams back and parts around the legs. The sword stays level behind his hips and does not bounce. Long legs, long realistic stride.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -336,7 +342,7 @@ ANIMATION: "light1", jab with the left (lead) fist. 7 frames in total, numbered 
 4. Same full extension without the smear, the fist a touch further; bangs flick forward, the white sleeve ripples. Face: angry.
 MOTION: One-frame anticipation, hard snap, clean recovery: no wasted motion. Bangs jolt forward on frame 3 and settle on frame 5; rope ends whip slightly.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -359,7 +365,7 @@ ANIMATION: "light1", jab with the left (lead) fist. 7 frames in total, numbered 
 7. Back in the fighting stance (same as idle frame 1). Face: cold.
 MOTION: One-frame anticipation, hard snap, clean recovery: no wasted motion. Bangs jolt forward on frame 3 and settle on frame 5; rope ends whip slightly.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -387,7 +393,7 @@ ANIMATION: "light2", rear straight with the right (near) fist. 7 frames in total
 4. Same full extension without the smear, the fist a touch further. Face: angry.
 MOTION: The power comes from the hip rotation; the long arm snaps fully straight. Bangs and rope ends flick forward on frame 3.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -410,7 +416,7 @@ ANIMATION: "light2", rear straight with the right (near) fist. 7 frames in total
 7. Fighting stance (same as idle frame 1). Face: cold.
 MOTION: The power comes from the hip rotation; the long arm snaps fully straight. Bangs and rope ends flick forward on frame 3.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -438,7 +444,7 @@ ANIMATION: "light3", front kick to the stomach with the right (near) leg. 7 fram
 4. Same extension without the smear, the foot a touch further. Face: angry.
 MOTION: A straight supporting leg, precise and clean. The waist-cloth panels swing with the kick but never cover or pass the kicking foot.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -461,7 +467,7 @@ ANIMATION: "light3", front kick to the stomach with the right (near) leg. 7 fram
 7. Fighting stance. Face: cold.
 MOTION: A straight supporting leg, precise and clean. The waist-cloth panels swing with the kick but never cover or pass the kicking foot.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -490,7 +496,7 @@ ANIMATION: "light4", spinning roundhouse finisher with the right leg. 8 frames i
 5. Same extension without the smear; bangs, rope ends and waist cloth whipping forward. Face: shout.
 MOTION: The sword stays tucked in the belt across his back and turns with his hips; its ends stay close to his body and never point at the target. Only the kicking foot reaches far right on frames 4 and 5.
 
-LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -513,7 +519,7 @@ ANIMATION: "light4", spinning roundhouse finisher with the right leg. 8 frames i
 8. Fighting stance. Face: cold.
 MOTION: The sword stays tucked in the belt across his back and turns with his hips; its ends stay close to his body and never point at the target. Only the kicking foot reaches far right on frames 4 and 5.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -542,7 +548,7 @@ ANIMATION: "heavy", rising uppercut launcher with the right fist. 8 frames in to
 5. Airborne peak: knees bent and feet hanging with pointed toes; right arm up and forward (about 70 degrees), the fist a little above the top of his hair and no higher; bangs and rope ends pulled down, waist cloth lifted. Face: shout.
 MOTION: The fist travels up and forward IN FRONT of his body (it hits a chin on the right), not straight up beside his own head.
 
-LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -565,7 +571,7 @@ ANIMATION: "heavy", rising uppercut launcher with the right fist. 8 frames in to
 8. Fighting stance. Face: cold.
 MOTION: The fist travels up and forward IN FRONT of his body (it hits a chin on the right), not straight up beside his own head.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -593,7 +599,7 @@ AIR POSE (first and last frame of every air attack): torso upright leaning sligh
 5. Air pose. Face: cold.
 MOTION: All poses are in mid-air. Bangs and the waist-cloth hem lifted slightly by the air.
 
-LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -621,7 +627,7 @@ ANIMATION: "airHeavy", double-fist hammer spike. 6 frames in total, numbered 1 t
 4. Same smash pose without the smear, fists slightly lower; bangs whipping down. Face: angry.
 MOTION: All poses are in mid-air. The feet stay the lowest point in every frame (the fists never go below them).
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -643,7 +649,7 @@ ANIMATION: "airHeavy", double-fist hammer spike. 6 frames in total, numbered 1 t
 6. Air pose: torso upright, arms in guard, left knee forward and up, right leg hanging with pointed toes. Face: cold.
 MOTION: All poses are in mid-air. The feet stay the lowest point in every frame (the fists never go below them).
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -669,7 +675,7 @@ ANIMATION: "guard", cross-arm block. 2 frames, left to right. It loops: the last
 2. Identical but the body slightly lower (breathing); bangs and rope ends slightly shifted. Face: focused glare.
 MOTION: Almost still: a tiny breathing bob only. Feet identical in both frames.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -694,7 +700,7 @@ ANIMATION: "hurtHigh", hit in the face. 3 frames, left to right.
 3. Mostly recovered, still wincing, arms returning toward guard. Face: pain, teeth gritted.
 MOTION: Frame 1 is the peak of the reaction; it eases back over frames 2 and 3.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -718,7 +724,7 @@ ANIMATION: "launched", knocked flying backward. 2 frames, left to right. It loop
 2. Arms and legs in slightly different flailing positions. Face: same.
 MOTION: A diagonal, arched body, not fully horizontal. Keep each pose about one and a half times as wide as it is tall.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: he lies or tumbles in the side plane: seen from the side with his chest turned slightly toward the viewer, camera slightly above. His head is on the LEFT and his feet on the RIGHT (his front faces up and to the right). His right arm and right leg are nearest the viewer.
@@ -742,7 +748,7 @@ ANIMATION: "down", slammed down, then lying on the back. 2 frames, left to right
 2. Lying flat on his back, head on the LEFT and feet on the RIGHT, arms out at his sides, legs straight. Face: eyes closed, grimacing. Waist cloth splayed, the sword grip visible beside his hip.
 MOTION: Lowest body points on one shared baseline (the ground line).
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: he lies or tumbles in the side plane: seen from the side with his chest turned slightly toward the viewer, camera slightly above. His head is on the LEFT and his feet on the RIGHT (his front faces up and to the right). His right arm and right leg are nearest the viewer.
@@ -769,7 +775,7 @@ ANIMATION: "getup", kip-up. 5 frames, left to right.
 5. His fighting stance (left foot forward, same as idle frame 1). Face: cold, angry glare.
 MOTION: He faces right from frame 4 on. Bangs, rope ends and waist cloth follow the flip.
 
-LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -798,7 +804,7 @@ EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dar
 4. Same, shifted slightly right; another hair and cloth flicker shape.
 MOTION: A trembling loop. NO aura or effects: the game adds them.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -807,9 +813,9 @@ PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a28
 BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
 ```
 
-### A16 · `beamCharge`: charging the LIGHTNING LANCE (loop) (CORE)
+### A16 · `beamCharge`: KIRIN, calling the storm (loop) (CORE)
 
-3 frames, loops, Sharingan on. **Save as: `raw/beamCharge_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#beamcharge).
+3 frames, loops, Sharingan on. **Save as: `raw/beamCharge_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#beamcharge). Taller than the other strips: set `bodyHeight` 230 in the manifest before packing (KIT.md §1). Draw **no lightning, clouds or storm**: the engine draws them. If refused, replace "Kirin" per CHARACTER.md §9.
 
 ```text
 Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
@@ -817,14 +823,14 @@ CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 
 PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
 Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
 
-ANIMATION: "beamCharge", charging the LIGHTNING LANCE. 3 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+ANIMATION: "beamCharge", KIRIN: he raises one arm to the sky to call down a storm. 3 frames, left to right. It loops: the last frame must flow smoothly back into the first.
 EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it.
-1. Deep front stance with the left foot forward and knees bent, torso twisted back away from the right; RIGHT HAND held low and back at his right hip, open, palm down, fingers spread; LEFT HAND gripping his right wrist; head turned toward the opponent on the right. Face: teeth gritted. Bangs, rope ends and waist cloth blown up and back, the open shirt fluttering.
-2. Trembling slightly forward; bangs and rope ends in a new flicker shape.
-3. Trembling slightly back; the right fingers flexing.
-MOTION: Draw NO lightning in the hand: the game adds it.
+1. Wide, low stance: feet well apart, left foot forward, knees bent, torso upright. The RIGHT ARM RAISED STRAIGHT UP toward the sky beside his head (not in front of his face), the hand open with the palm up and the fingers spread, the fingertips about one head above the top of his hair; the left arm low at his side, hand open. Head tilted up toward the raised hand. Face: cold focus, mouth a flat line. Bangs, rope ends, the waist cloth and the open shirt whipped hard to the left by a storm wind.
+2. Same pose, the whole body very slightly lower; bangs, rope ends and cloth in a new whipping shape.
+3. Same pose, back up, the raised fingers flexing slightly; another hair and cloth shape.
+MOTION: A tense, still loop: only the hair, cloth and fingers move. Feet identical in all frames. Draw NO lightning, clouds or energy: the game adds the storm.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -833,9 +839,9 @@ PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a28
 BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
 ```
 
-### A17 · `beamFire`: firing the LIGHTNING LANCE (loop) (CORE)
+### A17 · `beamFire`: KIRIN, bringing the lightning down (loop) (CORE)
 
-3 frames, loops, Sharingan on. **Save as: `raw/beamFire_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`, the approved `beamCharge` strip (`raw/beamCharge_vNN.png` with NN = its `approvedVersion`). Details and QA: [ANIMATIONS.md](ANIMATIONS.md#beamfire).
+3 frames, loops, Sharingan on. **Save as: `raw/beamFire_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`, the approved `beamCharge` strip (`raw/beamCharge_vNN.png` with NN = its `approvedVersion`). Details and QA: [ANIMATIONS.md](ANIMATIONS.md#beamfire). Draw **no lightning dragon or energy**: the engine draws it. If refused, replace "Kirin" per CHARACTER.md §9.
 
 ```text
 Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
@@ -843,14 +849,14 @@ CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 
 PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
 Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
 
-ANIMATION: "beamFire", firing the LIGHTNING LANCE. 3 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+ANIMATION: "beamFire", KIRIN: he brings the raised arm down to point at the opponent while the lightning falls. 3 frames, left to right. It loops: the last frame must flow smoothly back into the first.
 EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it.
-1. Deep lunge to the right: left leg forward and bent, right leg straight back, torso leaning forward. RIGHT ARM THRUST STRAIGHT FORWARD to the right at chest height as a spear-hand (fingers straight and together, palm down); LEFT HAND gripping the right forearm just behind the wrist to brace it; head behind the right shoulder. Face: shouting. Bangs, rope ends, waist cloth and sleeves blown back to the left by the recoil.
-2. Recoil: the whole body pushed slightly back; bangs and rope ends in a new flicker shape.
+1. Wide, low stance: left foot forward, knees bent, torso leaning slightly forward. The RIGHT ARM SWUNG DOWN AND FORWARD and fully extended toward the opponent on the right, slightly below shoulder height, the hand open with the fingers straight and together, pointing at the target; the left arm pulled back low at his side. Head behind the right shoulder, glaring along the arm. Face: cold, mouth a flat line. Bangs, rope ends, waist cloth and sleeves whipped back to the left by the blast wind.
+2. Recoil: the whole body pushed slightly back; bangs and rope ends in a new whipping shape.
 3. Pushing slightly forward again.
-MOTION: The spear-hand fingertips are the right-most point of every frame. Draw NO beam or lightning: the game draws the beam.
+MOTION: The pointing fingertips are the right-most point of every frame. Draw NO lightning, dragon or energy: the game draws the lightning dragon.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -858,6 +864,8 @@ STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradient
 PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
 BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
 ```
+
+---
 
 ### A18 · `special`: CHIDORI rush (CORE)
 
@@ -878,7 +886,7 @@ EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dar
 3. Same crouch with more tension: shoulders hunched, right fingers clawed, eyes locked on the target. Face: teeth gritted.
 MOTION: Draw NO lightning anywhere: the right hand is open and empty in every frame (the game adds the lightning). The sword stays sheathed at his back.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -904,7 +912,7 @@ EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dar
 8. Recovering: arm still forward but bending, weight shifting back, torso rising. Face: mouth closed, cold.
 MOTION: Draw NO lightning anywhere: the right hand is open and empty in every frame (the game adds the lightning). The sword stays sheathed at his back.
 
-LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -930,7 +938,7 @@ ANIMATION: "dash", low forward dash. 2 frames, left to right. It loops: the last
 2. Stride slightly wider; bangs, rope ends and cloth hem in a different flutter shape.
 MOTION: Both frames low and long; the head stays at the same height.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -954,7 +962,7 @@ ANIMATION: "jumpUp", rising. 2 frames, left to right. It loops: the last frame m
 2. Knees and the right arm slightly lower; bangs and rope ends fluttering differently.
 MOTION: Both poses in mid-air.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -978,7 +986,7 @@ ANIMATION: "jumpFall", falling. 2 frames, left to right. It loops: the last fram
 2. Arms slightly higher; bangs, rope ends and cloth hem fluttering differently.
 MOTION: Both poses in mid-air.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1002,7 +1010,7 @@ ANIMATION: "land", landing. 2 frames, left to right.
 2. Rising halfway back into his fighting stance (left foot forward), arms returning to guard, bangs and rope ends settling. Face: cold.
 MOTION: Feet on one baseline in both frames.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1028,7 +1036,7 @@ ANIMATION: "win", back-turned salute. 4 frames, left to right. It loops: the las
 4. Settling, another flutter shape.
 MOTION: Feet identical in all frames.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: 3/4 BACK view: his back faces the viewer and his body points into the picture toward the upper right; his head turns back over his right shoulder toward the viewer. His right arm is nearest the viewer.
@@ -1055,7 +1063,7 @@ ANIMATION: "backDash", quick hop backward. 3 frames, left to right.
 3. Landing on the ball of the back (right) foot with the legs nearly straight, knees starting to absorb, arms returning to his stance; bangs swinging back.
 MOTION: He faces right in every frame.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1079,7 +1087,7 @@ ANIMATION: "superDash", homing super dash. 2 frames, left to right. It loops: th
 2. Knees bent slightly more and slightly apart; waist cloth and rope ends fluttering differently.
 MOTION: Not stretched fully horizontal: each pose is about twice as wide as it is tall. No speed lines.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1129,7 +1137,7 @@ ANIMATION: "airLight2", mid-air front kick with the right leg. 5 frames, left to
 5. Air pose: torso upright, arms in guard, left knee forward and up, right leg hanging with pointed toes. Face: cold.
 MOTION: All poses in mid-air. The waist cloth never covers the kicking foot.
 
-LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1157,7 +1165,7 @@ ANIMATION: "airLight3", mid-air spinning kick with the left leg. 6 frames in tot
 4. Same kick without the smear. Face: shout.
 MOTION: All poses in mid-air. The sword turns with his back and never points at the target.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1179,7 +1187,7 @@ ANIMATION: "airLight3", mid-air spinning kick with the left leg. 6 frames in tot
 6. Air pose: torso upright, arms in guard, left knee forward and up, right leg hanging with pointed toes. Face: cold.
 MOTION: All poses in mid-air. The sword turns with his back and never points at the target.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1203,7 +1211,7 @@ ANIMATION: "block", pushed back while blocking. 2 frames, left to right.
 2. Settling back into his steady crossed-arm guard (forearms crossed in front of his face, chin tucked, glaring over the arms), knees a little straighter than in the guard. Face: focused glare.
 MOTION: Feet on one baseline.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1228,7 +1236,7 @@ ANIMATION: "hurtLow", hit in the stomach. 3 frames, left to right.
 3. Rising, wincing, one hand still on his stomach. Face: pain, teeth gritted.
 MOTION: Feet on one baseline.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1254,7 +1262,7 @@ ANIMATION: "spin", tumbling backward. 4 frames, left to right. It loops: the las
 4. Rotated 300 degrees: head at the right, coming back upright.
 MOTION: One full backward rotation, turning COUNTER-CLOCKWISE on screen. Bangs, rope ends and waist cloth trail opposite to the rotation; the sword turns with his back.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: seen from the side with his chest turned slightly toward the viewer, camera slightly above; he rotates in the picture plane, starting from a pose that faces right. His right arm and right leg are nearest the viewer.
@@ -1279,7 +1287,7 @@ ANIMATION: "airRecover", mid-air backflip recovery. 3 frames, left to right.
 3. Almost upright, unfolding: legs extending down, arms out, facing right. Face: cold glare.
 MOTION: A backflip rotating COUNTER-CLOCKWISE on screen, all in mid-air.
 
-LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1307,7 +1315,7 @@ AIR POSE (frames 1 and 4): torso upright, left knee bent forward and up, right l
 4. Air pose, hands lowering, mouth closed.
 MOTION: All poses in mid-air. NO fire anywhere: the game draws the fireball in front of his mouth.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1331,7 +1339,7 @@ ANIMATION: "vanish", high-speed teleport. 2 frames, left to right.
 2. Body stretched a little taller and thinner, up on his toes, arms tight to his sides, bangs, rope ends and cloth streaming upward, and the lower half of his body broken into 3 or 4 solid horizontal slices shifted sideways by small amounts (an anime high-speed afterimage), drawn with solid shapes in his own colors.
 MOTION: No transparency, no blur: the slices are solid.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1357,7 +1365,7 @@ ANIMATION: "stagger", dizzy stagger. 4 frames, left to right. It loops: the last
 4. Centered.
 MOTION: No stars or swirls (the game adds effects if needed). Feet on one baseline.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1406,7 +1414,7 @@ ANIMATION: "intro", arms-crossed cold stare. 4 frames, left to right. It loops: 
 4. Settling back toward frame 1.
 MOTION: Feet identical in all frames.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1431,7 +1439,167 @@ EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dar
 2. The left fingers curl in (beckoning); rope ends flicking.
 MOTION: Feet identical in both frames.
 
-LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Make the character as large as the slots allow.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+---
+
+### A39 · `specialForward`: CHIDORI SHARP SPEAR, spear-hand thrust (opt v2, fallback `special`)
+
+7 frames, phases 2/2/3, Sharingan in poses 2-5. **Two images** (poses 1-4, then 5-7). **Save as: `raw/_parts/specialForward_vNN_A.png` and `raw/_parts/specialForward_vNN_B.png`** (same NN = the next free version); Codex stitches them into `raw/specialForward_vNN.png`. Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`, the approved `light1` strip (`raw/light1_vNN.png` with NN = its `approvedVersion`; same lead-hand line); for part B also part A. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#specialforward). This move uses the **left** hand, open and empty in every frame: the engine draws the lightning in it and the spear from the fingertips. If refused, replace "Chidori Sharp Spear" and "Sharingan" per CHARACTER.md §9.
+
+Part A (save as `raw/_parts/specialForward_vNN_A.png`):
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "specialForward", CHIDORI SHARP SPEAR, a fast, short-range spear-hand thrust with the LEFT hand. 7 frames in total, numbered 1 to 7 from left to right; this image is PART A of 2 and shows only poses 1 to 4. Poses 3 and 4 are the HIT frames: the striking limb (fist, foot or hand) is fully extended toward the right and is the right-most part of the character; head, hair, rope ends, waist cloth and sword stay behind it.
+EYES: the Sharingan in poses 2 to 5 (glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it); normal dark eyes (#2c2c40) in poses 1, 6 and 7.
+1. From his fighting stance, the weight starts shifting forward onto the left (front) foot, knees starting to bend; the LEFT hand pulls back from the guard and down to his left hip, palm open, fingers slightly spread, the elbow bent back; the right fist guards his chest; the left shoulder turns slightly away. Face: cold.
+2. Weight forward, knees bent deeper, shoulders coiled, head forward: the LEFT hand held low beside his left hip and a little in front of it, palm open and turned forward and down, fingers spread and tense, the whole hand clearly visible in front of the waist cloth. The eyes flare red. Face: focused.
+3. IMPACT: hips and left shoulder drive forward into a deep lunge, left leg forward and bent, right leg straight back; the LEFT ARM FULLY EXTENDED horizontally to the right at the height of his own lowered chest, a spear-hand with the fingers straight and pressed together, palm down, wrist straight; the right fist pulled back to his right hip; chin tucked behind the left shoulder. SMEAR: a solid tapered streak from the hip to the fingertips in the sleeve, arm-guard and skin colors (no blur). Face: angry, teeth just showing.
+4. Same extension without the smear, the fingertips slightly further; bangs, rope ends and waist cloth whipping forward from the sudden stop. Face: angry.
+MOTION: Draw NO lightning anywhere: the left hand is open and empty in every frame (the game adds the lightning in the hand and the lightning spear from the fingertips). The sword stays sheathed at his back. The lunge stays inside its slot.
+
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+Part B (attach part A too; save as `raw/_parts/specialForward_vNN_B.png`, same NN):
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "specialForward", CHIDORI SHARP SPEAR, a fast, short-range spear-hand thrust with the LEFT hand. 7 frames in total, numbered 1 to 7 from left to right; this image is PART B of 2 and shows only poses 5 to 7 (the attached part A shows poses 1 to 4).
+EYES: the Sharingan in poses 2 to 5 (glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it); normal dark eyes (#2c2c40) in poses 1, 6 and 7.
+5. Pulling the arm back: the left elbow bends, the hand retracting toward his chest, the body rising out of the lunge, weight shifting back. Sharingan. Face: cold.
+6. The left hand back near the guard, opening into the knife-hand; the left foot slides back; normal dark eyes. Face: cold.
+7. Fighting stance (same as idle frame 1), normal dark eyes. Face: cold.
+MOTION: Draw NO lightning anywhere: the left hand is open and empty in every frame (the game adds the lightning). The sword stays sheathed at his back.
+
+LAYOUT: one single horizontal row of exactly 3 poses on a 1536x1024 landscape canvas. Split the width into 3 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+### A40 · `specialUp`: LION'S BARRAGE rising kick (opt v2, fallback `special`)
+
+6 frames, phases 2/2/2. **Two images** (poses 1-4, then 5-6). **Save as: `raw/_parts/specialUp_vNN_A.png` and `raw/_parts/specialUp_vNN_B.png`** (same NN = the next free version); Codex stitches them into `raw/specialUp_vNN.png`. Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`, the approved `airHeavy` strip (`raw/airHeavy_vNN.png` with NN = its `approvedVersion`); for part B also part A. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#specialup). The slam is his `airHeavy` strip, so pose 6 must match `airHeavy` pose 1. Normal dark eyes (no Sharingan). If refused, replace "Lion's Barrage" per CHARACTER.md §9.
+
+Part A (save as `raw/_parts/specialUp_vNN_A.png`):
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "specialUp", LION'S BARRAGE rise: a rising anti-air kick that carries him straight up (it ends in his double-fist hammer slam). 6 frames in total, numbered 1 to 6 from left to right; this image is PART A of 2 and shows only poses 1 to 4.
+Poses 3 and 4 are HIT frames (an anti-air kick on the way up): the right foot kicks straight up in front of his face and is the highest point of the character; head, hair, rope ends and waist cloth stay below and behind it.
+1. Crouch: knees deeply bent, torso leaning forward, both arms swung down and back, head up looking up and forward at the target. Back hair spikes squashed slightly, the waist-cloth hem pooled over the knees. Face: focused.
+2. Spring: legs extending explosively, heels off, toes last on the ground, the torso still leaning forward and the knees not yet straight; both arms swinging forward to chest height (the hands no higher than his chin). Face: focused.
+3. IMPACT: rising straight up through the air; the RIGHT LEG KICKS STRAIGHT UP in front of his body, knee locked, the ball of the foot leading, the foot in front of his face at about the height of the top of his hair (no more than a few pixels above it); torso upright, leaning back slightly; the left leg hangs below with the knee slightly bent and the toes pointed (the lowest point); both arms swept down and back along his sides. The kicking leg comes out between the panels of the waist cloth. SMEAR: a solid crescent from the hip up to the foot (no blur). Face: angry, teeth showing. Bangs, rope ends and the cloth hem dragged downward by the rise.
+4. Same rising kick without the smear, the foot slightly higher. Face: angry.
+MOTION: All poses after pose 2 are in mid-air. Normal dark eyes in every pose. Draw NO lightning, dust or speed lines: the game adds the effects. Nothing in poses 5 and 6 rises above the kicking foot of pose 3.
+
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+Part B (attach part A too; save as `raw/_parts/specialUp_vNN_B.png`, same NN):
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "specialUp", LION'S BARRAGE rise: a rising anti-air kick that carries him straight up (it ends in his double-fist hammer slam). 6 frames in total, numbered 1 to 6 from left to right; this image is PART B of 2 and shows only poses 5 to 6 (the attached part A shows poses 1 to 4).
+5. Turning over at the top of the jump: the kicking leg folds, both knees tuck toward his chest, the body tips forward over the top (torso pitched about 30 degrees forward, head looking down at the target below on the right), both arms swinging up past his shoulders with the hands coming together. Face: focused.
+6. Apex hang: both hands clasped together (fingers interlocked) raised overhead, torso arching back, knees tucked; this pose leads straight into his double-fist hammer slam (match the first pose of the attached airHeavy strip exactly). Face: shout.
+MOTION: All poses are in mid-air. Normal dark eyes in every pose. Draw NO lightning, dust or speed lines. Nothing in poses 5 and 6 rises above the kicking foot of pose 3 in part A.
+
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline. The attached part A sets the scale: use exactly the same head size, baseline and design as part A.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+### A41 · `specialDown`: SHARINGAN COUNTER stance (opt v2, fallback `charge`)
+
+4 frames, phases 2/1/1, Sharingan in poses 2-4. **Save as: `raw/specialDown_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#specialdown). A still stance with no hit box; pose 3 is the frame players see longest. Draw **no glow or flash**: the engine adds the counter effect. If refused, replace "Sharingan" per CHARACTER.md §9.
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "specialDown", SHARINGAN COUNTER: a calm, perfectly still reading stance that waits for the opponent's attack. 4 frames, left to right. No strike in any pose.
+EYES: the Sharingan in poses 2 to 4 (glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it); normal dark eyes (#2c2c40) in pose 1.
+1. Settling out of his fighting stance: knees bending a little more, torso coming upright, weight centered; the right hand starts rising, open; the left hand starts dropping. Eyes dark and narrowing. Face: cold.
+2. The calm guard: the RIGHT hand raised open in front of his face, palm toward the opponent on the right, fingers straight up and together, held a little forward of the face with the fingertips just below eye height so both eyes stay visible; the LEFT hand low in front of his stomach, open and ready; chin down. The eyes snap to the Sharingan. Face: cold, intense stare.
+3. HELD READING STANCE: the same pose, perfectly still and balanced, the Sharingan glaring at the opponent on the right; the left hand low and ready, fingers loose. Bangs, rope ends and waist cloth completely at rest. Face: cold, unblinking.
+4. Relaxing back toward his fighting stance: the right hand lowering to his chest, the left hand rising back toward the forward knife-hand guard; Sharingan still on. Face: cold.
+MOTION: Feet identical in all 4 frames. A still, controlled stance: no strike, nothing reaches forward. Draw NO glow, aura or lightning around him or his eyes: the game adds the counter flash.
+
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
+SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+STYLE: crisp hard-edged hi-res pixel art. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow, no painterly texture. 1-pixel dark outline (#141018) around the silhouette, darker same-color lines inside. 4 to 5 tone cel shading with clear anatomy and cloth-fold planes (cheekbones, jaw, collarbones and the open chest, knuckles, shirt, sleeve and waist-cloth folds, rope twists), key light from the upper right (the character's front). Smear frames are solid shapes, never motion blur.
+PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a283 #c4866a #9c6450; hair #6a78a8 #4a5684 #2e3556 #1e2032 #0e0f18; eyes #2c2c40; Sharingan and crest red #d81e28 #7c0c16; mouth #5a1a22; white shirt #ffffff #f4f2f8 #e2dfec #bdb7d0 #928ca8; purple rope belt #c4a2ec #9a72d2 #6a46a6 #432a72; navy waist cloth, pants and arm guards #4a64ac #2e4282 #1a2650 #10173a; black sandals and sword sheath #4a4c62 #2e3044 #1e1f2e; steel sword fittings #e4eaf4 #b8c2d2 #76829a.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no lightning, no fire, no aura, no energy effects, no extra characters.
+```
+
+### A42 · `superPose`: AMATERASU, Mangekyō Sharingan glare (loop) (opt v2, fallback `taunt`)
+
+4 frames, loops, **Mangekyō Sharingan** (the only strip with it). **Save as: `raw/superPose_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#superpose). His ultimate's pose (Heavy + Special): without it the super flash shows the taunt, so generate it. **No blood** from the eye (PG) and **no black flames**: the engine ignites them on the opponent. If refused, replace "Amaterasu" and "Mangekyō Sharingan" per CHARACTER.md §9.
+
+```text
+Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
+CHARACTER: Sasuke Uchiha from Naruto Shippuden in his Hebi-era outfit, about 16 years old, drawn as an anime fan-art sprite: a lean, pale young man with a cold, calm, precise air. Black hair with a dark-blue sheen: spiky and swept back at the back of his head, long bangs framing both sides of his face down past the jaw, a few strands falling between his sharp, narrow dark eyes. NO forehead protector. A white long-sleeved shirt with a tall stand-up collar, worn open in a deep V to mid-chest, a small red-and-white round fan crest on the back of the collar. A thick purple rope belt wrapped around his waist and tied in a big bow at the back. A dark navy cloth wrapped around his waist and hanging to his knees over dark navy pants. Dark navy arm guards on his forearms (the white sleeves end under them). Black open-toed ninja sandals. A straight sword in a black sheath tucked horizontally through the rope belt at the small of his back, its dark grip past his right hip; the sword always stays sheathed.
+PROPORTIONS: about 6.5 heads tall, anime-accurate Shippuden-era proportions, lean athletic teenage build, long legs (the crotch at about half his height), small head, defined but narrow shoulders, long neck under the collar; serious, cold tone. Not chibi, not super-deformed, no big head, no oversized hands or feet, not western-realistic.
+Match the attached model sheet and approved idle strip exactly: same face, hair, outfit, rope bow, sword, colors, proportions and character scale in every pose.
+
+ANIMATION: "superPose", AMATERASU: a cold, perfectly still eye-technique stare at the opponent (shown during the super flash). 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+EYES: the MANGEKYŌ SHARINGAN in both eyes in every frame (the only animation with this eye; it overrides the eyes of the attached sheets): glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16) and, instead of the three small comma marks, one bold black (#141018) three-bladed pinwheel around the pupil: three curved, pointed black blades, like a three-pointed throwing star, whose tips reach the rim of the iris. Even at small size each eye must read as red with a large black three-pointed star in the middle, clearly darker than the normal Sharingan. No blood, no tears, no red streaks on the face.
+1. Standing tall and still: legs nearly straight with soft knees, feet shoulder-width apart, weight on the right leg, body turned a bit more toward the viewer, head turned toward the opponent on the right so both eyes show, chin slightly down. The LEFT hand raised to his left eye: palm toward his face, fingers spread, the fingertips resting along his brow and temple just above and beside the left eye, framing it; the left eye stays fully visible under and between the fingers. The right arm hangs relaxed at his side. A cold, merciless glare, mouth a flat line. A light wind moves the bangs, rope ends and cloth hem.
+2. Same pose; bangs and rope ends sway slightly.
+3. Same pose; the left fingers tense slightly; the rope ends and cloth hem in a new flutter shape.
+4. Settling back toward frame 1, another small hair and cloth variation.
+MOTION: A menacing still pose: the body does not move, only the hair, cloth and fingers. Feet identical in all frames. The raised hand stays below the top of his hair. Draw NO black flames, fire, aura or glow: the game adds them.
+
+LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where the standing body is about 200 px tall (soles to the top of the skull; the head is about 31 px): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
@@ -1470,7 +1638,7 @@ BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on t
 
 ### U2 · Super cut-in eye strip (480×128)
 
-The DBFZ-style super-flash strip before the Lightning Lance. **Save as: `raw/ui_cutin_vNN.png`** →
+The DBFZ-style super-flash strip before his supers (Kirin and Amaterasu). **Save as: `raw/ui_cutin_vNN.png`** →
 approved copy `ui/cutin.png`. The packer removes the magenta above and below the band and fits the
 band to 480×128. The face fills the strip edge to edge.
 
