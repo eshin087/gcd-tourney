@@ -786,7 +786,8 @@ export class MasterBrain {
         return null;
       case 'rampage':
         if (k.phase === 'flash' || k.phase === 'roar' || k.phase === 'lunge') {
-          return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, roarOf(k) - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true, clash: !!k.ultimate && k.phase !== 'lunge' };
+          // noDodge: the bodies still collide during a spot dodge, so he waits it out in front of you and grabs you
+          return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, roarOf(k) - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true, noDodge: true, clash: !!k.ultimate && k.phase !== 'lunge' };
         }
         return null;
       case 'ignite':
@@ -846,7 +847,7 @@ export class MasterBrain {
       if (th.kind === 'zone') return { ...d, type: 'dashOut' };
       if (ki >= VANISH.cost) offer('vanish', 3, { type: 'vanish', at: th.rangeless ? 6 : 4 }, 'vanish');
       // a spot dodge's intangibility lets a flurry dash or Amaterasu pass through
-      if (r === 'ground' && canDodge) offer('dodge', th.rangeless ? 1 : 0.4 + 0.4 * S.show, { type: 'dodge', at: 7 }, 'spotDodge');
+      if (r === 'ground' && canDodge && !th.noDodge) offer('dodge', th.rangeless ? 1 : 0.4 + 0.4 * S.show, { type: 'dodge', at: 7 }, 'spotDodge');
       if (r === 'air') { if (!f.airDodged) offer('airdodge', 1, { type: 'airdodge', at: 5 }, 'airDodge'); } else offer('sidestep', 1, { type: 'sidestep', at: 5 });
       return decide();
     }

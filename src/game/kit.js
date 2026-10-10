@@ -810,8 +810,13 @@ const UPDATE = {
       f.face.set(d.x, d.y);
       loop(f, S.strikePose ?? 'beamFire');
       if (k.t0 % 3 === 0) f.actor.ghost(C.chakra, 0.3, 0.55);
+      const reach = f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.0);
+      // a dodge holding him off is only called out once the pounce really missed (the bodies still collide, so he
+      // can wait it out in front of them and catch them as the dodge ends)
+      if (reach && o.evading) k.slip = true;
+      else if (!reach && k.slip) { k.slip = false; g.onEvade(o); }
       const catchable = !o.ko && !o.hidden && o.invuln <= 0 && o.state !== 'down' && o.state !== 'getup';
-      if (catchable && f.distTo() < 1.35 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.0)) {
+      if (catchable && reach) {
         k.phase = 'maul';
         k.t0 = 0;
         k.i = 0;
@@ -825,7 +830,12 @@ const UPDATE = {
         g.cam.shake(0.6);
         return;
       }
-      if (k.t0 > S.dash || Math.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) { k.phase = 'whiff'; k.t0 = 0; f.vel.set(0, 0, 0); }
+      if (k.t0 > S.dash || Math.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) {
+        if (k.slip) g.onEvade(o);
+        k.phase = 'whiff';
+        k.t0 = 0;
+        f.vel.set(0, 0, 0);
+      }
       return;
     }
     if (k.phase === 'maul') {
