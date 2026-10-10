@@ -1,5 +1,5 @@
 {
-  "_readme": "Machine-readable art tracker for GCD Tourney. Spec: art/SPEC.md (hi-res sprite spec v2, ADR 0007). Human view: art/TRACKER.md; review queue: art/REVIEW.md (keep all three in sync). Top-level version = manifest format (2 = spec v2 with per-asset version fields). The packer reads spec, animationDefaults, characters and vfx. status: todo | raw | packed | approved. version = latest candidate number NN of the asset (file suffix _vNN; 0 = nothing generated yet); approvedVersion = the NN the user approved (null until then). Versions are never reused; rejected candidates move to a _rejected/ folder. Strips: raw/<anim>_vNN.png (the packer uses the highest). References: candidates reference/<name>_vNN.png, the approved one is copied to file (the approved idle strip is also copied to reference/idle_approved.png). UI: candidates raw/ui_<name>_vNN.png, the approved one is copied to file. step = generation order (art/PIPELINE.md). ms = default per-frame durations written to anims.json. animationDefaults = copy-me block for a new character.",
+  "_readme": "Machine-readable art tracker for GCD Tourney. Spec: art/SPEC.md (hi-res sprite spec v2, ADR 0007). Human view: art/TRACKER.md; review queue: art/REVIEW.md (keep all three in sync). Top-level version = manifest format (2 = spec v2 with per-asset version fields). The packer reads spec, animationDefaults, characters and vfx, plus the approvedVersion fields of vfx.effects, worldArt.* batches and sharedUi: world art ships approved items only (ADR 0012). status: todo | raw | packed | approved. version = latest candidate number NN of the asset (file suffix _vNN; 0 = nothing generated yet); approvedVersion = the NN the user approved (null until then). Versions are never reused; rejected candidates move to a _rejected/ folder. Strips: raw/<anim>_vNN.png (the packer uses the highest). References: candidates reference/<name>_vNN.png, the approved one is copied to file (the approved idle strip is also copied to reference/idle_approved.png). UI: candidates raw/ui_<name>_vNN.png, the approved one is copied to file. step = generation order (art/PIPELINE.md). ms = default per-frame durations written to anims.json. animationDefaults = copy-me block for a new character.",
   "version": 2,
   "spec": { "name": "hi-res sprite spec v2", "adr": "docs/decisions/0007-art-spec-v2-shippuden-256.md", "frameWidth": 256, "frameHeight": 256, "columns": 16, "pivot": [128, 240], "pixelsPerUnit": 128, "facing": "right", "maxColors": 48, "warnColors": 64, "rawBackground": "#FF00FF", "standingBodyPx": 200, "cellMargin": 4, "versionSuffix": "_vNN" },
   "statusValues": ["todo", "raw", "packed", "approved"],
@@ -1090,33 +1090,33 @@
       }
     },
     "effects": {
-      "spark": {"frames":5,"ms":30,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "burst": {"frames":5,"ms":35,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "ring": {"frames":6,"ms":35,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":2,"approvedVersion":null},
-      "dust": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "smoke": {"frames":7,"ms":55,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "shuriken": {"frames":4,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "fire": {"frames":4,"ms":60,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "flame": {"frames":7,"ms":55,"colorRule":"tinted","anchor":"bottom","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "lightning": {"frames":6,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "orb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "glow": {"frames":2,"ms":60,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "streak": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"bottom","step":10,"status":"packed","version":2,"approvedVersion":null},
-      "star": {"frames":5,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "crater": {"frames":3,"ms":1000,"colorRule":"fullColor","anchor":"decal","step":10,"status":"packed","version":1,"approvedVersion":null},
-      "lines": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null}
+      "spark": {"frames":5,"ms":30,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "burst": {"frames":5,"ms":35,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "ring": {"frames":6,"ms":35,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":2,"approvedVersion":2},
+      "dust": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "smoke": {"frames":7,"ms":55,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "shuriken": {"frames":4,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "fire": {"frames":4,"ms":60,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "flame": {"frames":7,"ms":55,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "lightning": {"frames":6,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "orb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "glow": {"frames":2,"ms":60,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streak": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":2,"approvedVersion":2},
+      "star": {"frames":5,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "crater": {"frames":3,"ms":1000,"colorRule":"fullColor","anchor":"decal","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "lines": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1}
     }
   },
   "sharedUi": {
-    "logo": {"file":"art/ui/final/logo.png","candidates":"art/ui/raw/logo_vNN.png","size":[480,180],"step":11,"status":"raw","version":1,"approvedVersion":null},
+    "logo": {"file":"art/ui/final/logo.png","candidates":"art/ui/raw/logo_vNN.png","size":[480,180],"step":11,"status":"approved","version":1,"approvedVersion":1},
     "titleArt": {
       "file": "art/ui/final/title_art.png",
       "candidates": "art/ui/raw/title_art_vNN.png",
       "size": [640,360],
       "step": 11,
-      "status": "raw",
+      "status": "approved",
       "version": 1,
-      "approvedVersion": null
+      "approvedVersion": 1
     }
   },
   "worldArt": {
@@ -1389,891 +1389,891 @@
           }
         },
         "crowd-dragon-ball-03": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "db-021": {"status":"raw","version":1,"approvedVersion":null},
-            "db-022": {"status":"raw","version":1,"approvedVersion":null},
-            "db-023": {"status":"raw","version":1,"approvedVersion":null},
-            "db-024": {"status":"raw","version":1,"approvedVersion":null},
-            "db-025": {"status":"raw","version":1,"approvedVersion":null},
-            "db-026": {"status":"raw","version":1,"approvedVersion":null},
-            "db-027": {"status":"raw","version":1,"approvedVersion":null},
-            "db-028": {"status":"raw","version":1,"approvedVersion":null},
-            "db-029": {"status":"raw","version":3,"approvedVersion":null},
-            "db-030": {"status":"raw","version":1,"approvedVersion":null}
+            "db-021": {"status":"approved","version":1,"approvedVersion":1},
+            "db-022": {"status":"approved","version":1,"approvedVersion":1},
+            "db-023": {"status":"approved","version":1,"approvedVersion":1},
+            "db-024": {"status":"approved","version":1,"approvedVersion":1},
+            "db-025": {"status":"approved","version":1,"approvedVersion":1},
+            "db-026": {"status":"approved","version":1,"approvedVersion":1},
+            "db-027": {"status":"approved","version":1,"approvedVersion":1},
+            "db-028": {"status":"approved","version":1,"approvedVersion":1},
+            "db-029": {"status":"approved","version":3,"approvedVersion":3},
+            "db-030": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-dragon-ball-04": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "db-031": {"status":"raw","version":1,"approvedVersion":null},
-            "db-032": {"status":"raw","version":1,"approvedVersion":null},
-            "db-033": {"status":"raw","version":2,"approvedVersion":null},
-            "db-034": {"status":"raw","version":2,"approvedVersion":null},
-            "db-035": {"status":"raw","version":2,"approvedVersion":null},
-            "db-036": {"status":"raw","version":1,"approvedVersion":null},
-            "db-037": {"status":"raw","version":1,"approvedVersion":null},
-            "db-038": {"status":"raw","version":2,"approvedVersion":null},
-            "db-039": {"status":"raw","version":1,"approvedVersion":null},
-            "db-040": {"status":"raw","version":1,"approvedVersion":null}
+            "db-031": {"status":"approved","version":1,"approvedVersion":1},
+            "db-032": {"status":"approved","version":1,"approvedVersion":1},
+            "db-033": {"status":"approved","version":2,"approvedVersion":2},
+            "db-034": {"status":"approved","version":2,"approvedVersion":2},
+            "db-035": {"status":"approved","version":2,"approvedVersion":2},
+            "db-036": {"status":"approved","version":1,"approvedVersion":1},
+            "db-037": {"status":"approved","version":1,"approvedVersion":1},
+            "db-038": {"status":"approved","version":2,"approvedVersion":2},
+            "db-039": {"status":"approved","version":1,"approvedVersion":1},
+            "db-040": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-elders-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-el-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-010": {"status":"raw","version":2,"approvedVersion":null}
+            "org-el-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-elders-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-el-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-el-015": {"status":"raw","version":1,"approvedVersion":null}
+            "org-el-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-el-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-evangelion-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "eva-001": {"status":"raw","version":1,"approvedVersion":null},
-            "eva-002": {"status":"raw","version":1,"approvedVersion":null},
-            "eva-003": {"status":"raw","version":1,"approvedVersion":null},
-            "eva-004": {"status":"raw","version":1,"approvedVersion":null},
-            "eva-005": {"status":"raw","version":1,"approvedVersion":null},
-            "eva-006": {"status":"raw","version":1,"approvedVersion":null}
+            "eva-001": {"status":"approved","version":1,"approvedVersion":1},
+            "eva-002": {"status":"approved","version":1,"approvedVersion":1},
+            "eva-003": {"status":"approved","version":1,"approvedVersion":1},
+            "eva-004": {"status":"approved","version":1,"approvedVersion":1},
+            "eva-005": {"status":"approved","version":1,"approvedVersion":1},
+            "eva-006": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-families-kids-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-fk-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-010": {"status":"raw","version":2,"approvedVersion":null}
+            "org-fk-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-families-kids-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-fk-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-015": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-016": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-017": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-018": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-019": {"status":"raw","version":1,"approvedVersion":null},
-            "org-fk-020": {"status":"raw","version":1,"approvedVersion":null}
+            "org-fk-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-015": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-016": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-017": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-018": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-019": {"status":"approved","version":1,"approvedVersion":1},
+            "org-fk-020": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-farmers-villagers-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-farm-001": {"status":"raw","version":2,"approvedVersion":null},
-            "org-farm-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-008": {"status":"raw","version":2,"approvedVersion":null},
-            "org-farm-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-farm-001": {"status":"approved","version":2,"approvedVersion":2},
+            "org-farm-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-008": {"status":"approved","version":2,"approvedVersion":2},
+            "org-farm-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-farmers-villagers-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-farm-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-farm-013": {"status":"raw","version":1,"approvedVersion":null}
+            "org-farm-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-farm-013": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-fist-of-the-north-star-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "fotns-001": {"status":"raw","version":1,"approvedVersion":null},
-            "fotns-002": {"status":"raw","version":2,"approvedVersion":null},
-            "fotns-003": {"status":"raw","version":1,"approvedVersion":null},
-            "fotns-004": {"status":"raw","version":1,"approvedVersion":null},
-            "fotns-005": {"status":"raw","version":2,"approvedVersion":null},
-            "fotns-006": {"status":"raw","version":1,"approvedVersion":null},
-            "fotns-007": {"status":"raw","version":1,"approvedVersion":null},
-            "fotns-008": {"status":"raw","version":2,"approvedVersion":null}
+            "fotns-001": {"status":"approved","version":1,"approvedVersion":1},
+            "fotns-002": {"status":"approved","version":2,"approvedVersion":2},
+            "fotns-003": {"status":"approved","version":1,"approvedVersion":1},
+            "fotns-004": {"status":"approved","version":1,"approvedVersion":1},
+            "fotns-005": {"status":"approved","version":2,"approvedVersion":2},
+            "fotns-006": {"status":"approved","version":1,"approvedVersion":1},
+            "fotns-007": {"status":"approved","version":1,"approvedVersion":1},
+            "fotns-008": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-fullmetal-alchemist-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "fma-001": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-002": {"status":"raw","version":2,"approvedVersion":null},
-            "fma-003": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-004": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-005": {"status":"raw","version":2,"approvedVersion":null},
-            "fma-006": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-007": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-008": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-009": {"status":"raw","version":1,"approvedVersion":null},
-            "fma-010": {"status":"raw","version":1,"approvedVersion":null}
+            "fma-001": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-002": {"status":"approved","version":2,"approvedVersion":2},
+            "fma-003": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-004": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-005": {"status":"approved","version":2,"approvedVersion":2},
+            "fma-006": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-007": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-008": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-009": {"status":"approved","version":1,"approvedVersion":1},
+            "fma-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-gintama-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "gin-001": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-002": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-003": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-004": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-005": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-006": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-007": {"status":"raw","version":1,"approvedVersion":null},
-            "gin-008": {"status":"raw","version":1,"approvedVersion":null}
+            "gin-001": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-002": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-003": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-004": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-005": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-006": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-007": {"status":"approved","version":1,"approvedVersion":1},
+            "gin-008": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-hajime-no-ippo-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ippo-001": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-002": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-003": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-004": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-005": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-006": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-007": {"status":"raw","version":1,"approvedVersion":null},
-            "ippo-008": {"status":"raw","version":1,"approvedVersion":null}
+            "ippo-001": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-002": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-003": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-004": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-005": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-006": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-007": {"status":"approved","version":1,"approvedVersion":1},
+            "ippo-008": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-hunter-x-hunter-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "hxh-001": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-002": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-003": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-004": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-005": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-006": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-007": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-008": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-009": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-010": {"status":"raw","version":1,"approvedVersion":null}
+            "hxh-001": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-002": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-003": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-004": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-005": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-006": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-007": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-008": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-009": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-hunter-x-hunter-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "hxh-011": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-012": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-013": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-014": {"status":"raw","version":1,"approvedVersion":null},
-            "hxh-015": {"status":"raw","version":1,"approvedVersion":null}
+            "hxh-011": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-012": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-013": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-014": {"status":"approved","version":1,"approvedVersion":1},
+            "hxh-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-idol-fans-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-idol-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-idol-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-idol-fans-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-idol-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-idol-013": {"status":"raw","version":1,"approvedVersion":null}
+            "org-idol-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-idol-013": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-jojo-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "jojo-001": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-002": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-003": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-004": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-005": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-006": {"status":"raw","version":2,"approvedVersion":null},
-            "jojo-007": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-008": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-009": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-010": {"status":"raw","version":1,"approvedVersion":null}
+            "jojo-001": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-002": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-003": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-004": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-005": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-006": {"status":"approved","version":2,"approvedVersion":2},
+            "jojo-007": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-008": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-009": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-jojo-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "jojo-011": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-012": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-013": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-014": {"status":"raw","version":1,"approvedVersion":null},
-            "jojo-015": {"status":"raw","version":1,"approvedVersion":null}
+            "jojo-011": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-012": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-013": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-014": {"status":"approved","version":1,"approvedVersion":1},
+            "jojo-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-jujutsu-kaisen-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "jjk-001": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-002": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-003": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-004": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-005": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-006": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-007": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-008": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-009": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-010": {"status":"raw","version":1,"approvedVersion":null}
+            "jjk-001": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-002": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-003": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-004": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-005": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-006": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-007": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-008": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-009": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-jujutsu-kaisen-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "jjk-011": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-012": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-013": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-014": {"status":"raw","version":1,"approvedVersion":null},
-            "jjk-015": {"status":"raw","version":1,"approvedVersion":null}
+            "jjk-011": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-012": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-013": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-014": {"status":"approved","version":1,"approvedVersion":1},
+            "jjk-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-kengan-ashura-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "kengan-001": {"status":"raw","version":1,"approvedVersion":null},
-            "kengan-002": {"status":"raw","version":1,"approvedVersion":null},
-            "kengan-003": {"status":"raw","version":1,"approvedVersion":null},
-            "kengan-004": {"status":"raw","version":1,"approvedVersion":null},
-            "kengan-005": {"status":"raw","version":1,"approvedVersion":null},
-            "kengan-006": {"status":"raw","version":1,"approvedVersion":null}
+            "kengan-001": {"status":"approved","version":1,"approvedVersion":1},
+            "kengan-002": {"status":"approved","version":1,"approvedVersion":1},
+            "kengan-003": {"status":"approved","version":1,"approvedVersion":1},
+            "kengan-004": {"status":"approved","version":1,"approvedVersion":1},
+            "kengan-005": {"status":"approved","version":1,"approvedVersion":1},
+            "kengan-006": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-kenichi-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ken-001": {"status":"raw","version":1,"approvedVersion":null},
-            "ken-002": {"status":"raw","version":1,"approvedVersion":null},
-            "ken-003": {"status":"raw","version":1,"approvedVersion":null},
-            "ken-004": {"status":"raw","version":1,"approvedVersion":null},
-            "ken-005": {"status":"raw","version":1,"approvedVersion":null},
-            "ken-006": {"status":"raw","version":1,"approvedVersion":null}
+            "ken-001": {"status":"approved","version":1,"approvedVersion":1},
+            "ken-002": {"status":"approved","version":1,"approvedVersion":1},
+            "ken-003": {"status":"approved","version":1,"approvedVersion":1},
+            "ken-004": {"status":"approved","version":1,"approvedVersion":1},
+            "ken-005": {"status":"approved","version":1,"approvedVersion":1},
+            "ken-006": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-martial-artists-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-ma-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-ma-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-martial-artists-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-ma-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-015": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-016": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-017": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-018": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-019": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ma-020": {"status":"raw","version":1,"approvedVersion":null}
+            "org-ma-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-015": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-016": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-017": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-018": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-019": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ma-020": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-mob-psycho-100-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "mob-001": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-002": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-003": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-004": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-005": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-006": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-007": {"status":"raw","version":1,"approvedVersion":null},
-            "mob-008": {"status":"raw","version":1,"approvedVersion":null}
+            "mob-001": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-002": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-003": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-004": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-005": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-006": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-007": {"status":"approved","version":1,"approvedVersion":1},
+            "mob-008": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-monks-priests-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-mp-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-mp-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-mp-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-mp-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-my-hero-academia-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "mha-001": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-002": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-003": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-004": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-005": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-006": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-007": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-008": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-009": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-010": {"status":"raw","version":1,"approvedVersion":null}
+            "mha-001": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-002": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-003": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-004": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-005": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-006": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-007": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-008": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-009": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-my-hero-academia-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "mha-011": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-012": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-013": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-014": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-015": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-016": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-017": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-018": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-019": {"status":"raw","version":1,"approvedVersion":null},
-            "mha-020": {"status":"raw","version":1,"approvedVersion":null}
+            "mha-011": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-012": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-013": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-014": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-015": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-016": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-017": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-018": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-019": {"status":"approved","version":1,"approvedVersion":1},
+            "mha-020": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-naruto-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "nar-001": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-002": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-003": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-004": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-005": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-006": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-007": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-008": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-009": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-010": {"status":"raw","version":1,"approvedVersion":null}
+            "nar-001": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-002": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-003": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-004": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-005": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-006": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-007": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-008": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-009": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-naruto-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "nar-011": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-012": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-013": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-014": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-015": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-016": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-017": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-018": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-019": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-020": {"status":"raw","version":1,"approvedVersion":null}
+            "nar-011": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-012": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-013": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-014": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-015": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-016": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-017": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-018": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-019": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-020": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-naruto-03": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "nar-021": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-022": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-023": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-024": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-025": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-026": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-027": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-028": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-029": {"status":"raw","version":1,"approvedVersion":null},
-            "nar-030": {"status":"raw","version":1,"approvedVersion":null}
+            "nar-021": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-022": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-023": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-024": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-025": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-026": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-027": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-028": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-029": {"status":"approved","version":1,"approvedVersion":1},
+            "nar-030": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-ninja-samurai-cosplayers-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-cosp-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-010": {"status":"raw","version":2,"approvedVersion":null}
+            "org-cosp-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-ninja-samurai-cosplayers-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-cosp-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-cosp-013": {"status":"raw","version":1,"approvedVersion":null}
+            "org-cosp-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-cosp-013": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-one-piece-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "op-001": {"status":"raw","version":1,"approvedVersion":null},
-            "op-002": {"status":"raw","version":1,"approvedVersion":null},
-            "op-003": {"status":"raw","version":1,"approvedVersion":null},
-            "op-004": {"status":"raw","version":1,"approvedVersion":null},
-            "op-005": {"status":"raw","version":1,"approvedVersion":null},
-            "op-006": {"status":"raw","version":1,"approvedVersion":null},
-            "op-007": {"status":"raw","version":1,"approvedVersion":null},
-            "op-008": {"status":"raw","version":1,"approvedVersion":null},
-            "op-009": {"status":"raw","version":1,"approvedVersion":null},
-            "op-010": {"status":"raw","version":1,"approvedVersion":null}
+            "op-001": {"status":"approved","version":1,"approvedVersion":1},
+            "op-002": {"status":"approved","version":1,"approvedVersion":1},
+            "op-003": {"status":"approved","version":1,"approvedVersion":1},
+            "op-004": {"status":"approved","version":1,"approvedVersion":1},
+            "op-005": {"status":"approved","version":1,"approvedVersion":1},
+            "op-006": {"status":"approved","version":1,"approvedVersion":1},
+            "op-007": {"status":"approved","version":1,"approvedVersion":1},
+            "op-008": {"status":"approved","version":1,"approvedVersion":1},
+            "op-009": {"status":"approved","version":1,"approvedVersion":1},
+            "op-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-one-piece-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "op-011": {"status":"raw","version":1,"approvedVersion":null},
-            "op-012": {"status":"raw","version":1,"approvedVersion":null},
-            "op-013": {"status":"raw","version":1,"approvedVersion":null},
-            "op-014": {"status":"raw","version":1,"approvedVersion":null},
-            "op-015": {"status":"raw","version":1,"approvedVersion":null},
-            "op-016": {"status":"raw","version":1,"approvedVersion":null},
-            "op-017": {"status":"raw","version":1,"approvedVersion":null},
-            "op-018": {"status":"raw","version":1,"approvedVersion":null},
-            "op-019": {"status":"raw","version":1,"approvedVersion":null},
-            "op-020": {"status":"raw","version":1,"approvedVersion":null}
+            "op-011": {"status":"approved","version":1,"approvedVersion":1},
+            "op-012": {"status":"approved","version":1,"approvedVersion":1},
+            "op-013": {"status":"approved","version":1,"approvedVersion":1},
+            "op-014": {"status":"approved","version":1,"approvedVersion":1},
+            "op-015": {"status":"approved","version":1,"approvedVersion":1},
+            "op-016": {"status":"approved","version":1,"approvedVersion":1},
+            "op-017": {"status":"approved","version":1,"approvedVersion":1},
+            "op-018": {"status":"approved","version":1,"approvedVersion":1},
+            "op-019": {"status":"approved","version":1,"approvedVersion":1},
+            "op-020": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-one-piece-03": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "op-021": {"status":"raw","version":1,"approvedVersion":null},
-            "op-022": {"status":"raw","version":1,"approvedVersion":null},
-            "op-023": {"status":"raw","version":1,"approvedVersion":null},
-            "op-024": {"status":"raw","version":1,"approvedVersion":null},
-            "op-025": {"status":"raw","version":1,"approvedVersion":null},
-            "op-026": {"status":"raw","version":1,"approvedVersion":null},
-            "op-027": {"status":"raw","version":1,"approvedVersion":null},
-            "op-028": {"status":"raw","version":1,"approvedVersion":null},
-            "op-029": {"status":"raw","version":1,"approvedVersion":null},
-            "op-030": {"status":"raw","version":1,"approvedVersion":null}
+            "op-021": {"status":"approved","version":1,"approvedVersion":1},
+            "op-022": {"status":"approved","version":1,"approvedVersion":1},
+            "op-023": {"status":"approved","version":1,"approvedVersion":1},
+            "op-024": {"status":"approved","version":1,"approvedVersion":1},
+            "op-025": {"status":"approved","version":1,"approvedVersion":1},
+            "op-026": {"status":"approved","version":1,"approvedVersion":1},
+            "op-027": {"status":"approved","version":1,"approvedVersion":1},
+            "op-028": {"status":"approved","version":1,"approvedVersion":1},
+            "op-029": {"status":"approved","version":1,"approvedVersion":1},
+            "op-030": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-one-punch-man-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "opm-001": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-002": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-003": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-004": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-005": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-006": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-007": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-008": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-009": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-010": {"status":"raw","version":1,"approvedVersion":null}
+            "opm-001": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-002": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-003": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-004": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-005": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-006": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-007": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-008": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-009": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-one-punch-man-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "opm-011": {"status":"raw","version":1,"approvedVersion":null},
-            "opm-012": {"status":"raw","version":1,"approvedVersion":null}
+            "opm-011": {"status":"approved","version":1,"approvedVersion":1},
+            "opm-012": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-punks-delinquents-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-punk-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-punk-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-punks-delinquents-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-punk-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-punk-015": {"status":"raw","version":1,"approvedVersion":null}
+            "org-punk-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-punk-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-ranma-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ranma-001": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-002": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-003": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-004": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-005": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-006": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-007": {"status":"raw","version":1,"approvedVersion":null},
-            "ranma-008": {"status":"raw","version":1,"approvedVersion":null}
+            "ranma-001": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-002": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-003": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-004": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-005": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-006": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-007": {"status":"approved","version":1,"approvedVersion":1},
+            "ranma-008": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-rich-patrons-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-rich-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-rich-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-rich-patrons-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-rich-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-rich-014": {"status":"raw","version":1,"approvedVersion":null}
+            "org-rich-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-rich-014": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-robots-aliens-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-ra-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-ra-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-ra-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-ra-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-sailor-moon-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "sm-001": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-002": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-003": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-004": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-005": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-006": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-007": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-008": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-009": {"status":"raw","version":1,"approvedVersion":null},
-            "sm-010": {"status":"raw","version":2,"approvedVersion":null}
+            "sm-001": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-002": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-003": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-004": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-005": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-006": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-007": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-008": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-009": {"status":"approved","version":1,"approvedVersion":1},
+            "sm-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-saint-seiya-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "seiya-001": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-002": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-003": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-004": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-005": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-006": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-007": {"status":"raw","version":1,"approvedVersion":null},
-            "seiya-008": {"status":"raw","version":1,"approvedVersion":null}
+            "seiya-001": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-002": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-003": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-004": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-005": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-006": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-007": {"status":"approved","version":1,"approvedVersion":1},
+            "seiya-008": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-slam-dunk-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "sd-001": {"status":"raw","version":1,"approvedVersion":null},
-            "sd-002": {"status":"raw","version":1,"approvedVersion":null},
-            "sd-003": {"status":"raw","version":1,"approvedVersion":null},
-            "sd-004": {"status":"raw","version":1,"approvedVersion":null},
-            "sd-005": {"status":"raw","version":1,"approvedVersion":null},
-            "sd-006": {"status":"raw","version":1,"approvedVersion":null}
+            "sd-001": {"status":"approved","version":1,"approvedVersion":1},
+            "sd-002": {"status":"approved","version":1,"approvedVersion":1},
+            "sd-003": {"status":"approved","version":1,"approvedVersion":1},
+            "sd-004": {"status":"approved","version":1,"approvedVersion":1},
+            "sd-005": {"status":"approved","version":1,"approvedVersion":1},
+            "sd-006": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-spy-x-family-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "sxf-001": {"status":"raw","version":1,"approvedVersion":null},
-            "sxf-002": {"status":"raw","version":1,"approvedVersion":null},
-            "sxf-003": {"status":"raw","version":1,"approvedVersion":null},
-            "sxf-004": {"status":"raw","version":1,"approvedVersion":null},
-            "sxf-005": {"status":"raw","version":1,"approvedVersion":null},
-            "sxf-006": {"status":"raw","version":1,"approvedVersion":null}
+            "sxf-001": {"status":"approved","version":1,"approvedVersion":1},
+            "sxf-002": {"status":"approved","version":1,"approvedVersion":1},
+            "sxf-003": {"status":"approved","version":1,"approvedVersion":1},
+            "sxf-004": {"status":"approved","version":1,"approvedVersion":1},
+            "sxf-005": {"status":"approved","version":1,"approvedVersion":1},
+            "sxf-006": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-students-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-stud-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-stud-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-students-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-stud-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-stud-015": {"status":"raw","version":1,"approvedVersion":null}
+            "org-stud-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-stud-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-travelers-tourists-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-trvl-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-trvl-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-travelers-tourists-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-trvl-011": {"status":"raw","version":2,"approvedVersion":null},
-            "org-trvl-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-trvl-015": {"status":"raw","version":1,"approvedVersion":null}
+            "org-trvl-011": {"status":"approved","version":2,"approvedVersion":2},
+            "org-trvl-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-trvl-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-vendors-workers-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-vw-001": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-002": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-003": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-004": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-005": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-006": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-007": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-008": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-009": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-010": {"status":"raw","version":1,"approvedVersion":null}
+            "org-vw-001": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-002": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-003": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-004": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-005": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-006": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-007": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-008": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-009": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-vendors-workers-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-vw-011": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-012": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-013": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-014": {"status":"raw","version":1,"approvedVersion":null},
-            "org-vw-015": {"status":"raw","version":1,"approvedVersion":null}
+            "org-vw-011": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-012": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-013": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-014": {"status":"approved","version":1,"approvedVersion":1},
+            "org-vw-015": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-yu-yu-hakusho-01": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "yyh-001": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-002": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-003": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-004": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-005": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-006": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-007": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-008": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-009": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-010": {"status":"raw","version":1,"approvedVersion":null}
+            "yyh-001": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-002": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-003": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-004": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-005": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-006": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-007": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-008": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-009": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-010": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-yu-yu-hakusho-02": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "yyh-011": {"status":"raw","version":1,"approvedVersion":null},
-            "yyh-012": {"status":"raw","version":1,"approvedVersion":null}
+            "yyh-011": {"status":"approved","version":1,"approvedVersion":1},
+            "yyh-012": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "crowd-farmers-villagers-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-farm-001": {"status":"raw","version":2,"approvedVersion":null},
-            "org-farm-008": {"status":"raw","version":2,"approvedVersion":null}
+            "org-farm-001": {"status":"approved","version":2,"approvedVersion":2},
+            "org-farm-008": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-fist-of-the-north-star-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "fotns-002": {"status":"raw","version":2,"approvedVersion":null},
-            "fotns-005": {"status":"raw","version":2,"approvedVersion":null},
-            "fotns-008": {"status":"raw","version":2,"approvedVersion":null}
+            "fotns-002": {"status":"approved","version":2,"approvedVersion":2},
+            "fotns-005": {"status":"approved","version":2,"approvedVersion":2},
+            "fotns-008": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-dragon-ball-03-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "db-029": {"status":"raw","version":3,"approvedVersion":null}
+            "db-029": {"status":"approved","version":3,"approvedVersion":3}
           }
         },
         "crowd-dragon-ball-04-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "db-033": {"status":"raw","version":2,"approvedVersion":null},
-            "db-034": {"status":"raw","version":2,"approvedVersion":null},
-            "db-035": {"status":"raw","version":2,"approvedVersion":null},
-            "db-038": {"status":"raw","version":2,"approvedVersion":null}
+            "db-033": {"status":"approved","version":2,"approvedVersion":2},
+            "db-034": {"status":"approved","version":2,"approvedVersion":2},
+            "db-035": {"status":"approved","version":2,"approvedVersion":2},
+            "db-038": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-elders-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-el-010": {"status":"raw","version":2,"approvedVersion":null}
+            "org-el-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-families-kids-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-fk-010": {"status":"raw","version":2,"approvedVersion":null}
+            "org-fk-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-dragon-ball-03-r2": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "db-029": {"status":"raw","version":3,"approvedVersion":null}
+            "db-029": {"status":"approved","version":3,"approvedVersion":3}
           }
         },
         "crowd-fullmetal-alchemist-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "fma-002": {"status":"raw","version":2,"approvedVersion":null},
-            "fma-005": {"status":"raw","version":2,"approvedVersion":null}
+            "fma-002": {"status":"approved","version":2,"approvedVersion":2},
+            "fma-005": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-jojo-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "jojo-006": {"status":"raw","version":2,"approvedVersion":null}
+            "jojo-006": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-ninja-samurai-cosplayers-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-cosp-010": {"status":"raw","version":2,"approvedVersion":null}
+            "org-cosp-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-sailor-moon-01-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "sm-010": {"status":"raw","version":2,"approvedVersion":null}
+            "sm-010": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "crowd-travelers-tourists-02-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "org-trvl-011": {"status":"raw","version":2,"approvedVersion":null}
+            "org-trvl-011": {"status":"approved","version":2,"approvedVersion":2}
           }
         }
       }
@@ -2281,213 +2281,213 @@
     "stage": {
       "batches": {
         "stage-ringTop": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ringTop": {"status":"raw","version":1,"approvedVersion":null}
+            "ringTop": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-ringSide": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ringSide": {"status":"raw","version":1,"approvedVersion":null}
+            "ringSide": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-grass": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "grass": {"status":"raw","version":1,"approvedVersion":null}
+            "grass": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-steps": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "steps": {"status":"raw","version":1,"approvedVersion":null}
+            "steps": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-stoneBase": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "stoneBase": {"status":"raw","version":1,"approvedVersion":null}
+            "stoneBase": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-brick": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "brick": {"status":"raw","version":1,"approvedVersion":null}
+            "brick": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-path": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "path": {"status":"raw","version":1,"approvedVersion":null}
+            "path": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-templeFacade": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "templeFacade": {"status":"raw","version":1,"approvedVersion":null}
+            "templeFacade": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-roof": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "roof": {"status":"raw","version":1,"approvedVersion":null}
+            "roof": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-bannerBu": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "bannerBu": {"status":"raw","version":1,"approvedVersion":null}
+            "bannerBu": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-bannerDo": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "bannerDo": {"status":"raw","version":1,"approvedVersion":null}
+            "bannerDo": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-bannerSai": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "bannerSai": {"status":"raw","version":1,"approvedVersion":null}
+            "bannerSai": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-bannerTo": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "bannerTo": {"status":"raw","version":1,"approvedVersion":null}
+            "bannerTo": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-plaster": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "plaster": {"status":"raw","version":1,"approvedVersion":null}
+            "plaster": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-sky": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "sky": {"status":"raw","version":1,"approvedVersion":null}
+            "sky": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-cloudA": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "cloudA": {"status":"raw","version":1,"approvedVersion":null}
+            "cloudA": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-cloudB": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "cloudB": {"status":"raw","version":1,"approvedVersion":null}
+            "cloudB": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-cloudC": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "cloudC": {"status":"raw","version":1,"approvedVersion":null}
+            "cloudC": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-gong": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "gong": {"status":"raw","version":1,"approvedVersion":null}
+            "gong": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-parasol": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "parasol": {"status":"raw","version":1,"approvedVersion":null}
+            "parasol": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-woodDark": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "woodDark": {"status":"raw","version":1,"approvedVersion":null}
+            "woodDark": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-treeRoundA": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "treeRoundA": {"status":"raw","version":1,"approvedVersion":null}
+            "treeRoundA": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-treeRoundB": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "treeRoundB": {"status":"raw","version":1,"approvedVersion":null}
+            "treeRoundB": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-treePine": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "treePine": {"status":"raw","version":1,"approvedVersion":null}
+            "treePine": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-treePalm": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "treePalm": {"status":"raw","version":1,"approvedVersion":null}
+            "treePalm": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-sign": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "sign": {"status":"raw","version":1,"approvedVersion":null}
+            "sign": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-lanternBu": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "lanternBu": {"status":"raw","version":1,"approvedVersion":null}
+            "lanternBu": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-lanternSai": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "lanternSai": {"status":"raw","version":1,"approvedVersion":null}
+            "lanternSai": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-woodPillar": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "woodPillar": {"status":"raw","version":1,"approvedVersion":null}
+            "woodPillar": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "stage-wood": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "wood": {"status":"raw","version":1,"approvedVersion":null}
+            "wood": {"status":"approved","version":1,"approvedVersion":1}
           }
         }
       }
@@ -2495,57 +2495,57 @@
     "npc": {
       "batches": {
         "npc-announcer": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "model_sheet": {"status":"raw","version":1,"approvedVersion":null},
-            "idle": {"status":"raw","version":1,"approvedVersion":null},
-            "point": {"status":"raw","version":1,"approvedVersion":null},
-            "shout": {"status":"raw","version":1,"approvedVersion":null},
-            "cower": {"status":"raw","version":1,"approvedVersion":null}
+            "model_sheet": {"status":"approved","version":1,"approvedVersion":1},
+            "idle": {"status":"approved","version":1,"approvedVersion":1},
+            "point": {"status":"approved","version":1,"approvedVersion":1},
+            "shout": {"status":"approved","version":1,"approvedVersion":1},
+            "cower": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "npc-monk-a": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "model_sheet": {"status":"raw","version":2,"approvedVersion":null},
-            "idle": {"status":"raw","version":2,"approvedVersion":null},
-            "signal": {"status":"raw","version":2,"approvedVersion":null}
+            "model_sheet": {"status":"approved","version":2,"approvedVersion":2},
+            "idle": {"status":"approved","version":2,"approvedVersion":2},
+            "signal": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "npc-monk-b": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "model_sheet": {"status":"raw","version":1,"approvedVersion":null},
-            "idle": {"status":"raw","version":1,"approvedVersion":null},
-            "signal": {"status":"raw","version":1,"approvedVersion":null}
+            "model_sheet": {"status":"approved","version":1,"approvedVersion":1},
+            "idle": {"status":"approved","version":1,"approvedVersion":1},
+            "signal": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "npc-vendor": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "model_sheet": {"status":"raw","version":2,"approvedVersion":null},
-            "idle": {"status":"raw","version":2,"approvedVersion":null}
+            "model_sheet": {"status":"approved","version":2,"approvedVersion":2},
+            "idle": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "npc-monk-a-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "model_sheet": {"status":"raw","version":2,"approvedVersion":null},
-            "idle": {"status":"raw","version":2,"approvedVersion":null},
-            "signal": {"status":"raw","version":2,"approvedVersion":null}
+            "model_sheet": {"status":"approved","version":2,"approvedVersion":2},
+            "idle": {"status":"approved","version":2,"approvedVersion":2},
+            "signal": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "npc-vendor-r1": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "model_sheet": {"status":"raw","version":2,"approvedVersion":null},
-            "idle": {"status":"raw","version":2,"approvedVersion":null}
+            "model_sheet": {"status":"approved","version":2,"approvedVersion":2},
+            "idle": {"status":"approved","version":2,"approvedVersion":2}
           }
         }
       }
@@ -2553,17 +2553,17 @@
     "ui": {
       "batches": {
         "ui-logo": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "logo": {"status":"raw","version":1,"approvedVersion":null}
+            "logo": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "ui-title_art": {
-          "status": "raw",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "title_art": {"status":"raw","version":1,"approvedVersion":null}
+            "title_art": {"status":"approved","version":1,"approvedVersion":1}
           }
         }
       }
@@ -2571,122 +2571,122 @@
     "vfx": {
       "batches": {
         "vfx-spark": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "spark": {"status":"packed","version":1,"approvedVersion":null}
+            "spark": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-burst": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "burst": {"status":"packed","version":1,"approvedVersion":null}
+            "burst": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-ring": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ring": {"status":"packed","version":2,"approvedVersion":null}
+            "ring": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "vfx-dust": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "dust": {"status":"packed","version":1,"approvedVersion":null}
+            "dust": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-smoke": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "smoke": {"status":"packed","version":1,"approvedVersion":null}
+            "smoke": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-shuriken": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "shuriken": {"status":"packed","version":1,"approvedVersion":null}
+            "shuriken": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-fire": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "fire": {"status":"packed","version":1,"approvedVersion":null}
+            "fire": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-flame": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "flame": {"status":"packed","version":1,"approvedVersion":null}
+            "flame": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-lightning": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "lightning": {"status":"packed","version":1,"approvedVersion":null}
+            "lightning": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-orb": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "orb": {"status":"packed","version":1,"approvedVersion":null}
+            "orb": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-glow": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "glow": {"status":"packed","version":1,"approvedVersion":null}
+            "glow": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-streak": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "streak": {"status":"packed","version":2,"approvedVersion":null}
+            "streak": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "vfx-star": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "star": {"status":"packed","version":1,"approvedVersion":null}
+            "star": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-crater": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "crater": {"status":"packed","version":1,"approvedVersion":null}
+            "crater": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-lines": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "lines": {"status":"packed","version":1,"approvedVersion":null}
+            "lines": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
         "vfx-ring-r1": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "ring": {"status":"packed","version":2,"approvedVersion":null}
+            "ring": {"status":"approved","version":2,"approvedVersion":2}
           }
         },
         "vfx-streak-r1": {
-          "status": "packed",
-          "reviewStatus": "needs review",
+          "status": "approved",
+          "reviewStatus": "approved",
           "items": {
-            "streak": {"status":"packed","version":2,"approvedVersion":null}
+            "streak": {"status":"approved","version":2,"approvedVersion":2}
           }
         }
       }

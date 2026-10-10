@@ -1,5 +1,7 @@
 # World art completion packet
 
+> **Approved 2026-10-10.** The user approved all existing world art in chat with Claude ("all the existing art in the folders are approved"). Claude recorded `approvedVersion` for every current version (manifest, REVIEW.md, TRACKER.md), copied the approved fits to `final/` and the NPC references, packed everything with `npm run sprites vfx crowd stage npc ui` (zero warnings) and shipped it. The "final review pending" states below are historical.
+
 User instruction (2026-10-09): finish all world-art work, then request one final approval. No intermediate approval gates; saved candidates remain unapproved until that decision.
 
 ## Completed

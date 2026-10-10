@@ -1,0 +1,16 @@
+{
+  "frameWidth": 128,
+  "frameHeight": 128,
+  "columns": 8,
+  "pivot": [64, 124],
+  "pixelsPerUnit": 80,
+  "facing": "viewer-right",
+  "source": "art-pack",
+  "npc": "monk-b",
+  "packer": 2,
+  "complete": true,
+  "animations": {
+    "idle": { "frames": [0, 1], "durations": [800, 800], "loop": true, "version": 1 },
+    "signal": { "frames": [2, 3], "durations": [180, 900], "loop": false, "version": 1 }
+  }
+}

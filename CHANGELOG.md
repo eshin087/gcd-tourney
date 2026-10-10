@@ -27,9 +27,18 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
-- **Approved crowd in the stands:** `npm run sprites crowd` packs the 121 approved spectators (14 batches) into
-  `public/crowd/atlas.*` (idle at the height class, feet on the pivot, ≤ 24 colors); the arena uses it instead of
-  the code-painted crowd (TOOL-011 crowd mode, ADR 0012).
+- **All world art is in the game** (the user approved every existing world-art image on 2026-10-10): hand-drawn
+  hit effects replace the procedural ones (15 effects), 576 anime spectators fill the stands (including the
+  Killua and Gojo cameos, kept at the user's request), the tournament grounds use the 30 painted stage textures,
+  the announcer, two monk judges and a snack vendor stand around the ring, and the title screen shows the logo
+  and key art (ART-WORLD-FINAL).
+- **Crowd packer mode:** `npm run sprites crowd` packs the approved spectators into `public/crowd/atlas.*` (idle at
+  the height class, feet on the pivot, ≤ 24 colors); the arena uses it instead of the code-painted crowd (TOOL-011,
+  ADR 0012).
+- **Stage, NPC and title-art support:** packer modes `npm run sprites stage|npc|ui` and the engine side: the arena
+  swaps any of its 30 painted texture slots for a packed image without changing world coverage; NPCs are placed
+  from a data table and react to round starts, supers, ultimates, clashes and KOs; the title screen shows the logo
+  and key art (TOOL-011, ENG-023/024/025, ADR 0012).
 - Per-frame **hand anchors** (`hand: [x, y]` in `hitboxes.json`): Rasengan, Rasenshuriken, Chidori, thrown
   projectiles and beams start at the drawn hand of Naruto's, Killua's and Gojo's art (ENG-011, ADR 0012).
 - Character select shows each fighter's approved select illustration, mirrored per side from the new
@@ -111,9 +120,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
-- World art is approval-gated: `npm run sprites vfx|crowd` ships only items with an `approvedVersion`; the 15
-  unapproved VFX candidates no longer ship (the game uses its procedural effects until the user approves them;
-  the sources stay in `art/vfx/`) (ADR 0012).
+- World art is approval-gated: `npm run sprites` ships only world-art items with an `approvedVersion`, at that
+  version; candidates wait in `art/` and can be previewed locally with `--candidates` + `?art=custom`. An unreadable
+  manifest never un-ships art (ADR 0012).
 - Gojo's Blink puff, speed lines and sound now fire when he disappears, after the wind-up pose (ENG-032 follow-up).
 - Killua light4 / airLight3 active boxes cover the kicking foot and the leading arc, not the trail behind the leg.
 - Approved Naruto run v03, completing the short-hair revision; switched subsequent Naruto production to one final set review at the user's request (ART-NAR-12).

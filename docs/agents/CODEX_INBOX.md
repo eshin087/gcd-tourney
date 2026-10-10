@@ -56,8 +56,9 @@ Claude's QA of the full set (2026-10-09): all 42 animations + UI pack into a **c
 every frame, and 24 CPU matches ran with no errors, stuck states or ring-outs. A narrow hurtbox made him too
 hard to hit; Claude fixed that in the engine (minimum hurtbox width), so **no art change is needed for it**.
 
-- [ ] **(2026-10-09) Commit the Killua set.** DEFERRED: user requested project-folder-only work without permission prompts. Art approval is complete; .git is protected by the environment. A scoped patch is saved in art/characters/killua/production/staging/approval.patch; nothing is staged. Most of it is still uncommitted (raw/, frames/, public/characters/killua/).
-  Commit it with REVIEW/TRACKER/manifest updates (explicit paths) so it can be deployed for the user's review.
+- [x] **(2026-10-09) Commit the Killua set.** Done 2026-10-10 by Claude in 5f17ce9 (explicit paths, with your
+  REVIEW/TRACKER/manifest/TASKS/CHANGELOG/NOW/inbox edits as you left them). Not committed on purpose:
+  `production/staging/` and `production/status-approved.txt`; delete them when you no longer need them.
 - [x] **(2026-10-09) Clean stray pixels** the packer reports, in `frames/<anim>/` (edit the cleaned frames, keep
   the source raw): run (1), light2 (4), heavy (3), airLight1 (6), spin (2), throw (1), specialForward (2),
   specialUp (2). Re-pack and check the report says none.
@@ -79,7 +80,12 @@ Direct user direction supersedes the earlier recommendation for model v02: v02 w
 
 ## World-art lead
 
-- [ ] **(2026-10-09) ART-CRWD-FIX:** Killua (Hunter x Hunter) and Gojo (Jujutsu Kaisen) are fighters now. Replace
-  them in `art/crowd/roster/hunter-x-hunter.json` and `jujutsu-kaisen.json` with other characters from those
-  series, run `npm run queue -- build`, and reopen any batch that already has their images.
+- [x] **(2026-10-10) ART-WORLD-FINAL: done.** The user approved all existing world art in chat with Claude, and
+  Claude recorded it (manifest `approvedVersion`, REVIEW.md, TRACKER.md, `final/` copies, NPC `reference/` copies),
+  packed everything with `npm run sprites vfx crowd stage npc ui` (zero warnings) and shipped it. Nothing is left to
+  approve in world art. From now on, a redo or new item is a new `_vNN` candidate: preview it with
+  `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` + `?art=custom` (never commit `public/preview/`);
+  the approved version keeps shipping until the user approves the new one.
+- [x] **(2026-10-09) ART-CRWD-FIX:** superseded 2026-10-10: the user keeps the Killua and Gojo spectators in the
+  crowd (approved with the rest). Do not replace them.
 - Noted by Claude: TOOL-018 (queue named flags lost through `npm run queue --` on PowerShell) is on Claude's list.

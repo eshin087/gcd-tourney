@@ -1,0 +1,15 @@
+{
+  "frameWidth": 128,
+  "frameHeight": 128,
+  "columns": 8,
+  "pivot": [64, 124],
+  "pixelsPerUnit": 80,
+  "facing": "viewer-right",
+  "source": "art-pack",
+  "npc": "vendor",
+  "packer": 2,
+  "complete": true,
+  "animations": {
+    "idle": { "frames": [0, 1], "durations": [600, 600], "loop": true, "version": 2 }
+  }
+}

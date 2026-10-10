@@ -1,0 +1,18 @@
+{
+  "frameWidth": 128,
+  "frameHeight": 128,
+  "columns": 8,
+  "pivot": [64, 124],
+  "pixelsPerUnit": 80,
+  "facing": "viewer-right",
+  "source": "art-pack",
+  "npc": "announcer",
+  "packer": 2,
+  "complete": true,
+  "animations": {
+    "idle": { "frames": [0, 1], "durations": [520, 520], "loop": true, "version": 1 },
+    "point": { "frames": [2, 3], "durations": [240, 240], "loop": true, "version": 1 },
+    "shout": { "frames": [4, 5], "durations": [140, 140], "loop": true, "version": 1 },
+    "cower": { "frames": [6, 7], "durations": [90, 90], "loop": true, "version": 1 }
+  }
+}
