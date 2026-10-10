@@ -87,6 +87,9 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Run in 8 directions relative to the camera. Fighters face screen-left or screen-right only.
 - [ ] Dash with a direction, double-tap dash, back dash, super dash (neutral). Super dash only once per airtime.
 - [ ] Jump, air drift, land. Guard blocks only when facing the attacker. Chip never kills.
+- [ ] Hold back to block (lab **Hold back to block**): the stick away from the opponent blocks their string with
+      no button; with nothing coming it runs away; a shot or beam coming makes you turn and guard; a CPU holding
+      back does not get it.
 
 **Offense**
 - [ ] Light ×4 auto combo. light4 wall-bounces at the barrier.

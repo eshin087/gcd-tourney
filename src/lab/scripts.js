@@ -16,6 +16,7 @@ const stick = (f, s) => {
 
 export class ScriptBrain {
   constructor(f, steps, done) {
+    this.autoBlock = true; // a script stands in for a player: holding back blocks (Fighter.holdingBack)
     this.f = f;
     this.steps = steps;
     this.t = 0;
@@ -44,6 +45,7 @@ export class ScriptBrain {
 // a recording made by P1 (facing right) does the same thing on the dummy (facing left).
 export class ReplayBrain {
   constructor(f, frames, loop = true) {
+    this.autoBlock = true; // replays a player's recording
     this.f = f;
     this.frames = frames;
     this.i = 0;
@@ -168,6 +170,10 @@ export const SCENARIOS = [
     setup: { gap: 0.9 }, a: [tap(7, ['light', 'heavy'])], b: [tap(0, ['light', 'heavy'])],
   },
   { id: 'throw', name: 'Throw (no break)', info: 'You throw the dummy.', setup: { gap: 0.9 }, a: [tap(0, ['light', 'heavy'])], b: [] },
+  {
+    id: 'holdBack', name: 'Hold back to block', info: 'The dummy runs a light string at you; you only hold the stick away from it (no Guard button).',
+    setup: { gap: 1.3 }, a: [tap(8, [], { stick: 'away', len: 70 })], b: [tap(6, 'light'), tap(16, 'light'), tap(28, 'light')],
+  },
   {
     id: 'parry', name: 'Parry', info: `The dummy jabs; you press Guard just before it lands (window ${DEFENSE.parry.window} f).`,
     setup: { gap: 1.2 }, a: [tap(2, 'guard', { len: 14 })], b: [tap(0, 'light')],

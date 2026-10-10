@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Hold back to block** (ENG-057): holding the stick away from the opponent blocks their attacks on the ground, no Guard button needed. With nothing coming you still run away; when they attack close by or a shot or beam is out you turn and guard. The Guard button still blocks, parries and dodges; throws still beat it; CPU levels keep their own blocking. Lab scenario **Hold back to block**.
 - Docs: the user signed off on M2 (USR-001) and kept the 3-tomoe Sharingan for Sasuke's cut-in (USR-004); the Codex inbox has the Four-Tails art brief (ART-NAR-4T, required) and optional Gojo / Killua ultimate redraws.
 - **Ultimate clashes are a rhythm duel** (ADR 0017 part 2): when two ultimates meet (a beam, Hollow Purple, the Four-Tails pounce; even one still charging), both players play the same note chart: press Light, Heavy or Special as each ring closes on the target, doubles and a FINAL PUSH hold. Perfect / Great / Good push the struggle point, presses off the beat push you back, so mashing loses. The winner's ultimate lands for 250; a lead under 2 is a draw (90 each). Firing your ultimate into theirs answers it with a short flash and windup. Rush specials meeting head-on get a one-beat version (the closer press wins). The CPUs time their presses by level and answer ultimates when they have the bars (ENG-054).
 - Removed: button mashing in clashes (`Pad.mashRate` and the CPUs' mash rates).

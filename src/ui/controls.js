@@ -21,7 +21,7 @@ const TOUCH_ROWS = [
   ['heavy', 'HEAVY', 'Heavy / launcher'],
   ['special', 'SPECIAL', 'Signature rush · hold to charge ki'],
   ['jump', 'JUMP', 'Jump · chase after a launcher'],
-  ['guard', 'GUARD', 'Block'],
+  ['guard', 'GUARD', 'Block (or hold the stick away) · tap to parry'],
   ['dash', 'DASH', 'Dash with the stick · super dash without'],
   ['ult', 'ULT', 'Ultimate (Heavy + Special, 3 bars)'],
   ['vanish', 'VANISH', 'Vanish (Guard + Special, 1 bar)'],

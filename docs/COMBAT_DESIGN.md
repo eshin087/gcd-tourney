@@ -46,7 +46,7 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Heavy | K | △ / Y |
 | Special (tap, + direction) / charge (hold) | L | ○ / B |
 | Jump | Space | ✕ / A |
-| Guard | Shift | L1 / LB |
+| Guard | Shift (or hold back: blocks on the ground) | L1 / LB (or hold the stick back) |
 | Dash (+direction) / super dash (neutral), or double-tap a direction | O | R1 / RB (also R2 / RT) |
 | Ultimate | Heavy + Special | △ + ○ |
 | Vanish | Guard + Special | L1 + ○ |
@@ -293,6 +293,12 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   recovery (16 frames invulnerable, small backward hop). This is why long combos become escapable.
 
 ### Blocking
+- **Hold back to block** (ENG-057, always on): on the ground, the stick held away from the opponent on screen
+  (`Fighter.holdingBack`, |stick x| > 0.5) blocks like Guard. From idle or run a hit that lands turns you and is
+  blocked; and while something threatens (`underPressure`: an attack, kit move, super dash or vanish of theirs within
+  4.5 units, a beam charging or out, a shot within 4.5 or an orb within 5.5, or 14 frames after you blocked) holding
+  back holds the `guard` state instead of running away, so strings stay blocked. With nothing coming it still runs
+  away. Only a person's pad gets it (and the lab's scripts and replays): CPU levels guard at their own rates.
 - Hold Guard while **facing the attacker** (block is directional). Chip damage is 10% (30% for beams) and
   never kills. Block stun is `hitstun × 0.6 (+8 for big moves)`, pushback applies, and the attacker shares 70%
   of the hitstop. Unblockable: beam-clash results, special clashes.
