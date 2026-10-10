@@ -14,7 +14,7 @@ heavy: the Lion's Barrage kick)._
 
 - **Codex permissions:** tightened to project/temp writes and minimal runtime reads using MXC. Unrelated project, Documents, global Codex config reads and outside writes were denied in probes; Git file writes, localhost and GitHub passed. Existing chats may retain their old policy. Artwork gates remain.
 - **Build fixed (OPS-005):** local `.codex/vite.mjs` adapter passes the full production build and local HTTP checks inside the tightened profile, with no extra read access. Agents use the documented adapter rather than the ordinary npm launcher.
-- **Remaining setup blocker:** actual Git CLI fixture fails to resolve its working directory in the tightened profile. OPS-004 remains blocked for Git integration; file-write probes alone were insufficient. Existing chats may still retain their original policy.
+- **Remaining setup blocker:** Git CLI fails working-directory resolution under the narrow profile, including the direct executable and explicit project path. OPS-004 remains blocked: unattended worktrees, commits and sequential merges are not verified. No extra filesystem access was granted.
 
 **One prompt for your Codex chat** (it works through every character, then stops for your approvals):
 

@@ -63,6 +63,15 @@ directory (Permission denied). The fixture was removed. Git file-write probes do
 compatibility. OPS-004 remains blocked for Git CLI integration; the build/server fix is verified.
 No broad-read fallback is enabled. Previous alias and ancestor-rule experiments were removed/restored.
 
+Follow-up Git CLI diagnosis (2026-10-10): Git for Windows 2.49.0.windows.1 runs git --version, but
+git status --short fails before repository access with Unable to read current working directory:
+Permission denied. Calling C:/Program Files/Git/mingw64/bin/git.exe directly fails identically;
+an explicit -C or extended Windows path did not help. The installed Git implementation resolves
+its working directory through Windows path APIs before repository operations. No supported narrow
+permission adjustment has been demonstrated to fix that failure. Do not claim unattended worktree,
+commit or merge verification from the successful metadata file-write probes. This requires a compatible
+sandbox/runtime solution; no broader read access or Git executable modification was installed.
+
 - Each parallel task owns one real worktree, branch and server port; claim overlapping files first.
 - Agree on one integration coordinator across Claude and Codex. Only that coordinator mutates main,
   updates main-only NOW/inbox, or merges/publishes it. Integrations run sequentially, never concurrently.

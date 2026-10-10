@@ -22,7 +22,7 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
-| OPS-004 | Project-scoped autonomous agents and sequential integration | Codex | blocked | Tightened profile build/server now pass via local adapter (OPS-005); unrelated reads/writes denied. Actual Git CLI fixture fails at getcwd, despite Git file-write probe passing. Earlier worktree success was under broader reads. No broad-read fallback. |
+| OPS-004 | Project-scoped autonomous agents and sequential integration | Codex | blocked | Tightened profile build/server now pass via local adapter (OPS-005); unrelated reads/writes denied. Actual Git CLI fixture fails at getcwd, despite Git file-write probe passing; direct executable and explicit project path fail too. Earlier worktree success was under broader reads. No broad-read fallback. |
 | OPS-005 | Build and serve inside the restricted-read Windows profile | Codex | done | Local .codex/vite.mjs: prebuild + production build pass (68 modules, four pages); HTTP root/lab/main JS/Three.js 200; unrelated/private reads and writes still denied. No added read grants. Ordinary npm launcher unchanged; command in docs/AI_COLLABORATION.md. |
 | ENG-001 | Training room in the controls menu: the character mirrors the player's input in real time | Claude | done | `Game.startTraining`, `DummyBrain`; dummy modes, health refill, no timer |
 | ENG-002 | Controller layout diagrams: keyboard / PlayStation / Xbox, player toggle, auto-detect device | Claude | done | `src/ui/controls.js`, `padKind()` in input.js |
