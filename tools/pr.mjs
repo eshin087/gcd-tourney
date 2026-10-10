@@ -18,7 +18,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// The main checkout, wherever this copy of the script lives (it also runs from inside a worktree).
+const ROOT = path.dirname(execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
+  { cwd: path.dirname(fileURLToPath(import.meta.url)) }).toString().trim());
 const REPO = 'eshin087/gcd-tourney';
 const SPARSE = ['/*', '!/art/*/raw/', '!/art/*/*/raw/', '!/art/**/_rejected/', '!/art/**/_old/', '!/art/**/contact/'];
 const PREFIXES = ['feature/', 'fix/', 'art/', 'docs/', 'chore/'];
