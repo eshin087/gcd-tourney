@@ -9,7 +9,7 @@ const worktrees = resolve(__dirname, '.worktrees').replace(/\\/g, '/') + '/**';
 export default defineConfig({
   server: { port: 5188, strictPort: true, host: '127.0.0.1', watch: { ignored: [worktrees] } },
   // only the real pages: the default crawls every .html under the root, worktree copies included
-  optimizeDeps: { entries: ['index.html', 'sprites.html', 'art-review.html'] },
+  optimizeDeps: { entries: ['index.html', 'sprites.html', 'art-review.html', 'lab.html'] },
   build: {
     chunkSizeWarningLimit: 900,
     rollupOptions: {
@@ -17,6 +17,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         sprites: resolve(__dirname, 'sprites.html'),
         artReview: resolve(__dirname, 'art-review.html'),
+        lab: resolve(__dirname, 'lab.html'), // the test lab (ADR 0018): a dev page, not linked from the game
       },
     },
   },

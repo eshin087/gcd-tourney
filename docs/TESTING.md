@@ -21,6 +21,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
+| `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
 ## Debug helpers (`?debug`)
 
@@ -54,6 +55,22 @@ p2.combo                          // about 7 if everything connected
 ```
 
 Timings are approximate. If a step misses, print `step(1)` after each press and adjust the frame counts.
+
+## Test lab (`/lab.html`, ADR 0018)
+
+The fastest way to check a change by hand, locally or on a PR's preview link (`npm run pr -- preview`):
+
+- **MOVES**: every move of YOU (normals, movement, defense, each directional special, SUPER, ultimate) with its frame
+  data; ▶ resets the distance for that move and plays it against the dummy. Swap fighters with ⇄.
+- **ANIMATIONS**: all 42 animations frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
+  frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
+- **SCENARIOS**: both fighters scripted: ultimate clash, special clash, throw and break, parry, spot dodge, air dodge,
+  wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
+  scenario that the current pair can't show says so (for example "needs two rush specials").
+- **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
+  dummy, infinite meter, boxes, reset. ` hides the panel; the keyboard and touch controls still play YOU.
+- Scripts are timelines on the fighter's pad (`src/lab/scripts.js`), built from the kit data, so new fighters and moves
+  appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands.
 
 ## Smoke test (every change)
 

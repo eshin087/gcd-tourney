@@ -53,6 +53,9 @@ Then open http://127.0.0.1:5188
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time
 - **Sprite Lab** (`/sprites.html`): preview every animation, import art strips, export sheets
+- **Test lab** (`/lab.html?p1=naruto&p2=sasuke`): play any move of either fighter in one tap, step through every animation
+  with its hit and hurt boxes, replay shared mechanics (ultimate and special clashes, throws, parries, dodges, wavedash,
+  air combos, bounces, vanish, super dash), slow motion, frame step, record and replay on the dummy
 
 Best of 3 rounds, 99 seconds each. The intro flythrough can be skipped with Enter / Start.
 
