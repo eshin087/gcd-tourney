@@ -205,8 +205,8 @@ export const SUPERS = {
   // Answering the opponent's ultimate, the roar is `answerRoar` frames; in a clash he holds the maul claw frame.
   fourTails: {
     kind: 'rampage', cost: 300, flash: 46, roar: 16, answerRoar: 6, dash: 26, speed: 20, steer: 0.03, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
-    minScale: 0.9, launch: [20, 11], whiff: 34, pose: 'specialDown', strikePose: 'dash', maulPose: 'heavy', maulPhase: 1,
-    shroud: { tint: [0.5, 0.09, 0.08], chakra: 0xb0140c, core: 0x1a0204 }, name: 'FOUR-TAILS', color: '#d0281c',
+    minScale: 0.9, launch: [20, 11], whiff: 34, pose: 'beamCharge', strikePose: 'beamFire', maulPose: 'beamFire', maulPhase: 2,
+    shroud: { tint: [1, 1, 1], chakra: 0xb0140c, core: 0x1a0204 }, name: 'FOUR-TAILS', color: '#d0281c',
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:
   // a lightning blink behind the attacker (projectiles too) and the `follow` strike, up to `counters` times. Supers,
