@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -8,11 +8,11 @@ import * as kit from './kit.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
-const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit', 'dodge', 'airDodge', 'wavedash']);
+const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit', 'dodge', 'airDodge', 'wavedash', 'throw']);
 const FRAME_MS = 1000 / 60;
 const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 // out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
-const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge']);
+const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge', 'throw']);
 const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
 
 export class Fighter {
@@ -88,6 +88,8 @@ export class Fighter {
     this.lastDodge = -999;
     this.carry = this.carry || new THREE.Vector2(); // wavedash momentum carried into the next move
     this.carry.set(0, 0);
+    this.throwSt = null; // running throw (state 'throw'), ADR 0015
+    this.grab = null; // { by, t } while pinned by the opponent's throw
     this.endMoveFx();
     this.actor.setVisible(true);
     this.actor.play('idle', true);
@@ -96,6 +98,7 @@ export class Fighter {
   // --------------------------------------------------------------- helpers
   setState(s, anim = s) {
     if (this.state === 'attack' && s !== 'attack') this.endMoveFx();
+    if (this.state === 'throw' && s !== 'throw') this.releaseGrab();
     if (this.state === 'kit' && s !== 'kit' && this.kitState) {
       // leaving a kit move by any route (round reset, debug tools) never leaves it half-running
       this.kitState = null;
@@ -360,6 +363,77 @@ export class Fighter {
     return 'parry';
   }
 
+  // ---- throw (ADR 0015, numbers in THROW): Light + Heavy close up
+  // Light and Heavy both pressed within 2 frames (buffered, so it also reads a frame after leaving Guard)
+  wantsThrow() {
+    const p = this.pad;
+    return p.buffered('light', 2) && p.buffered('heavy', 2);
+  }
+
+  startThrow() {
+    if (this.state === 'attack') this.endMoveFx();
+    this.move = null;
+    this.spPending = false;
+    this.vel.x *= 0.3; this.vel.z *= 0.3;
+    this.faceOpponent();
+    this.setState('throw', null);
+    this.throwSt = { phase: 'reach', t0: 0, victim: null };
+    this.actor.setPhase('light1', 0, 0);
+    audio.play('whoosh', 0.6);
+  }
+
+  // reach (startup + active: Game.tryGrab) -> hold (victim pinned, can break) -> toss (the hit) -> recovery;
+  // a miss ends in the long whiff recovery, a break in the short one
+  updateThrow(p) {
+    const T = THROW, s = this.throwSt, o = this.opp;
+    if (!s) { this.setState('idle'); return; }
+    this.vel.x *= 0.7; this.vel.z *= 0.7;
+    const k = this.t - s.t0;
+    if (s.phase === 'reach') {
+      const live = this.t >= T.startup;
+      this.actor.setPhase('light1', live ? 1 : 0, Math.min(0.999, live ? (this.t - T.startup) / T.active : this.t / T.startup));
+      if (this.t < T.startup - 1) this.faceOpponent();
+      if (live && this.t < T.startup + T.active && this.game.tryGrab(this)) return;
+      if (this.t >= T.startup + T.active) { s.phase = 'whiff'; s.t0 = this.t; }
+      return;
+    }
+    if (s.phase === 'hold') {
+      // the victim hangs off the grab in front; Game.breakThrow ends this early
+      this.actor.setPhase('light1', 1, 0.6);
+      const v = s.victim;
+      if (v && v.grab?.by === this) {
+        v.pos.x += (this.pos.x + this.face.x * 0.8 - v.pos.x) * 0.5;
+        v.pos.z += (this.pos.z + this.face.y * 0.8 - v.pos.z) * 0.5;
+      }
+      if (k >= T.hold) { s.phase = 'toss'; s.t0 = this.t; this.game.throwHit(this, v); }
+      return;
+    }
+    if (s.phase === 'toss') {
+      this.actor.setPhase('light4', k < 4 ? 1 : 2, Math.min(0.999, k < 4 ? k / 4 : (k - 4) / T.recovery));
+      // the toss wall-bounces them: chase with the super dash, or vanish behind them
+      if (k >= 6 && o.state === 'launched' && !o.ko) {
+        if ((p.buffered('dash', 8) || p.dashDir) && this.airDashes === 0) { p.consume('dash'); this.throwSt = null; this.startSuperDash(); return; }
+        if (this.wantsVanish()) { this.throwSt = null; this.startVanish(); return; }
+      }
+      if (k >= 4 + T.recovery) { this.throwSt = null; this.setState('idle'); }
+      return;
+    }
+    // 'whiff' or 'broken'
+    const len = s.phase === 'whiff' ? T.whiff : T.breakLag;
+    this.actor.setPhase('light1', 2, Math.min(0.999, k / len));
+    if (k >= len) { this.throwSt = null; this.setState('idle'); }
+  }
+
+  // Let go of a pinned victim (the throw ended early: we got hit, the round reset).
+  releaseGrab() {
+    const v = this.throwSt?.victim;
+    if (v && v.grab?.by === this) {
+      v.grab = null;
+      v.heldT = 0;
+    }
+    this.throwSt = null;
+  }
+
   // After a launcher connects: jump after the victim.
   startChase() {
     const o = this.opp;
@@ -410,6 +484,11 @@ export class Fighter {
     if (this.spPending && b.special.down && !b.guard.down && p.frame - this.spPress >= 12) {
       this.spPending = false;
       this.setState('charge');
+      return true;
+    }
+    if (this.wantsThrow()) {
+      p.consume('light'); p.consume('heavy');
+      this.startThrow();
       return true;
     }
     if (p.buffered('heavy', 6) && !b.special.down) {
@@ -504,6 +583,7 @@ export class Fighter {
         this.faceOpponent();
         if (this.wantsVanish()) { this.startVanish(); break; }
         if (this.wantsSpotDodge()) { this.startSpotDodge(); break; }
+        if (this.wantsThrow()) { p.consume('light'); p.consume('heavy'); this.startThrow(); break; } // throw straight out of Guard
         if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
         if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
         if (p.dashDir) { this.startDash(p.dashDir); break; }
@@ -526,6 +606,7 @@ export class Fighter {
         if (this.t >= 4) {
           if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
           if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
+          if (this.wantsThrow()) { p.consume('light'); p.consume('heavy'); this.startThrow(); break; }
           if (p.buffered('heavy', 6)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); break; }
           if (p.buffered('light', 6)) { p.consume('light'); this.startMove('light1', { ...MOVES.light1, lunge: 9 }); break; }
           if (p.buffered('jump', 5)) { p.consume('jump'); this.setState('jumpSquat'); break; }
@@ -564,6 +645,9 @@ export class Fighter {
         freeAnim();
         break;
       }
+      case 'throw':
+        this.updateThrow(p);
+        break;
       case 'wavedash': {
         const W = DEFENSE.wavedash;
         this.vel.x *= W.friction; this.vel.z *= W.friction;
@@ -585,6 +669,11 @@ export class Fighter {
         break;
       case 'held':
         this.vel.x *= 0.8; this.vel.z *= 0.8;
+        if (this.grab) {
+          // pinned by a throw: Light + Heavy within the window breaks it
+          this.grab.t++;
+          if (this.grab.t <= THROW.techWindow && this.wantsThrow()) { p.consume('light'); p.consume('heavy'); this.game.breakThrow(this.grab.by, this); break; }
+        }
         if (this.heldT <= 0) {
           if (this.air) this.setState('air', 'jumpFall');
           else this.setState('idle');
@@ -815,6 +904,12 @@ export class Fighter {
 
   updateAttack() {
     const p = this.pad, m = this.move, t = this.t;
+    if (t <= 2 && !this.moveHit && !this.air && ((this.moveName === 'light1' && p.b.heavy.pressed) || (this.moveName === 'heavy' && p.b.light.pressed))) {
+      // Light and Heavy a frame or two apart still read as a throw
+      p.consume('light'); p.consume('heavy');
+      this.startThrow();
+      return;
+    }
     const A = m.startup, B = m.startup + m.active, C = B + m.recovery;
     const phase = t < A ? 0 : t < B ? 1 : 2;
     const prog = phase === 0 ? t / A : phase === 1 ? (t - A) / m.active : (t - B) / m.recovery;
@@ -909,7 +1004,10 @@ export class Fighter {
       if (m.air && m.next && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
       if (!m.special && !m.air && this.spPending) {
         this.spPending = false;
-        if (this.doSpecial()) return;
+        this.cancelSpecial = true; // kit.js START.rush reads it for the faster cancelled startup
+        const ok = this.doSpecial();
+        this.cancelSpecial = false;
+        if (ok) return;
       }
       if ((m.wallBounce || m.launch) && t >= B && (p.buffered('dash', 8) || p.dashDir) && this.airDashes === 0) {
         p.consume('dash');
@@ -1149,6 +1247,7 @@ export class Fighter {
     this.carry.set(0, 0);
     this.airDodged = false; // getting hit gives the air dodge back (for after the tech)
     this.dodgeDir = null;
+    if (this.grab) { this.grab = null; this.heldT = 0; } // knocked out of a throw's grip
     if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; }
     const scale = Math.max(m.minScale ?? 0.4, 1 - (this.combo - 1) * 0.065); // supers keep a higher floor
     const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));

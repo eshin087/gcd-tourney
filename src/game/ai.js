@@ -76,6 +76,8 @@ export class CpuBrain {
 
       // --- air tech when juggled
       if (f.state === 'launched' && f.airStun <= 0 && f.pos.y > 0.4 && R() < L.tech) this.press('jump', 1);
+      // --- throw break (ADR 0015): Light + Heavy once, at its reaction time, if the guard roll says so
+      if (f.state === 'held' && f.grab && f.grab.t === Math.min(10, Math.max(4, L.react - 3)) && R() < L.guard * 0.6) { this.press('light'); this.press('heavy'); }
 
       // --- combo execution: react to our own hits
       if (f.state === 'attack' && f.move) this.comboStep(f, o, R);

@@ -55,6 +55,7 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Spot dodge | Guard + push ↓ | L1 + stick ↓ |
 | Air dodge (+direction) | Guard in the air | L1 in the air |
 | Wavedash | Jump, then Guard + direction right away | ✕ then L1 + stick |
+| Throw (close) / throw break (when grabbed) | Light + Heavy | □ + △ |
 
 Adding SUPER took L2/LT from guard. Bindings moved to a new localStorage key (`gcd.bindings.v2`), so saved
 custom bindings reset once.
@@ -81,8 +82,9 @@ phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is befo
 | throw | Special (air) | 8 | 3 | 14 | 25 | (projectile) | | | | costs 50 ki; spawns the projectile at f8 |
 | vanishKick | after Vanish | 2 | 5 | 20 | 27 | 75 | 1.7 / 1.15 | 16 | launch [17, 6.5] | uses the `light4` anim, wall bounce |
 | super dash | Dash (neutral) | | contact | | ≤ 42 | 38 | contact < 1.0 | 9 | stun 26, air pop 7 | homing at 18 u/s, projectile-invulnerable |
-| Rasengan | tap Special | 24 | 22 | 20 | 66 | 150 | 1.3 / 1.05 | 18 | launch [16, 9] | rush 14 u/s, 1 bar, wall bounce |
-| Chidori | tap Special | 28 | 18 | 20 | 66 | 165 | 1.3 / 1.05 | 20 | launch [14, 11] | rush 18 u/s, 1 bar, wall bounce |
+| Rasengan | tap Special | 24 (14 cancelled) | 22 | 20 | 66 | 150 | 1.3 / 1.05 | 18 | launch [16, 9] | rush 14 u/s, 1 bar, wall bounce |
+| Chidori | tap Special | 28 (16 cancelled) | 18 | 20 | 66 | 165 | 1.3 / 1.05 | 20 | launch [14, 11] | rush 18 u/s, 1 bar, wall bounce |
+| Throw | Light + Heavy (close) | 5 | 3 | 26 (whiff) | 34 | 80 | 1.05 / 0.6 lane | 10 | launch [12, 8.5] | grab, 18 f hold (breakable in 12), unblockable toss, wall bounce |
 | Ultimate beam | Heavy + Special | windup 46 (counter 14) | 84 | | | 12 per 5 f + 130 final | width 1.25, ≤ 26 long | | launch [17, 10] | 3 bars, invulnerable through windup |
 
 Projectiles (`PROJECTILES`):
@@ -105,8 +107,8 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
   `cancel` frame, with a 10-frame input buffer.
 - On hit, a light can cancel into **heavy** (the launcher), so `Light ×3 → Heavy` is the core route.
 - On hit, a ground normal can cancel into the **signature special** if Special was pressed and there's 1 bar.
-  Known gap (ADR 0014): after light3 (22 f stun) the rush specials (Rasengan 24, Chidori 28, Rasenshuriken 30 f
-  startup) land after the stun ends, so a defender holding Guard blocks them. Shots, Rhythm Echo and Red do combo.
+  A rush special cancelled this way starts at its `cancelStartup` (Rasengan 14, Chidori 16, Rasenshuriken 18;
+  raw 24 / 28 / 30), so light ×3 → special is a true combo while a raw one stays slow (ADR 0015).
 
 ### Launcher and chase
 - `heavy` hops and launches the victim upward ([2.4, 15.5]).
@@ -262,8 +264,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - Hold Guard while **facing the attacker** (block is directional). Chip damage is 10% (30% for beams) and
   never kills. Block stun is `hitstun × 0.6 (+8 for big moves)`, pushback applies, and the attacker shares 70%
   of the hitstop. Unblockable: beam-clash results, special clashes.
-- There is no throw or guard break yet, so a defender who holds Guard can only be hit by unblockable supers
-  (open question, ADR 0014).
+- A held Guard loses to the **throw** (below), to cross-ups it fails to turn for in time, and to unblockable supers.
 
 ### Defensive options: parry, spot dodge, air dodge, wavedash (ADR 0014)
 All free, all on Guard, numbers in `DEFENSE` (`src/game/moves.js`). They reuse existing poses (no new animation
@@ -275,6 +276,22 @@ names yet) with ghosts and a blue intangibility shimmer.
 | Spot dodge | in Guard, push ↓ (an edge within 3 f; holding ↓ from before doesn't count) | 24 f, intangible on frames 2-14, then 9 f of recovery. Staleness: each dodge within 150 f of the last adds 4 recovery frames, up to 3 times. |
 | Air dodge | Guard in the air, once per airtime (landing or getting hit gives it back; works after an air attack) | 30 f, intangible on frames 2-17, no gravity while intangible. With a direction: burst at 12.5 u/s that way, angled down 6.5 u/s (24 u/s below 0.95 units, so a dodge right after takeoff meets the floor); neutral: hover. Landing in a neutral dodge costs 10 f of lag. Special within 3 f turns it into a vanish. |
 | Wavedash | a directional air dodge that meets the floor, or Guard pressed with Jump (from 2 f before the jump squat) | slide on the floor (friction 0.875 per frame, ~1.6 units), facing the opponent, invulnerability ends on landing. Acts from frame 5 of 16; an attack, guard, special or charge started from the slide keeps its momentum (`carry`). Jump + Guard with no direction lands on the spot with 10 f of lag. |
+
+### Throw and throw break (ADR 0015)
+Numbers in `THROW` (`src/game/moves.js`), logic in `Fighter.updateThrow` and `Game.tryGrab` / `breakThrow` /
+`throwHit`.
+
+| | |
+|---|---|
+| Input | Light + Heavy within 2 frames (buffered). From neutral, a dash, a wavedash slide or straight out of Guard; ground only. |
+| Frames | startup 5, active 3, whiff recovery 26 |
+| Reach | 1.05 along the screen, 0.6 in depth |
+| Grabs | grounded `idle`, `run`, `guard`, `land`, `wavedash`, `charge`, `dash`, `jumpSquat`, `held`; an attack in its startup; a counter stance, mode power-up or Blue cast. Not hit or block stun, airborne, invincible or hidden. |
+| Break | the victim is pinned 18 f; Light + Heavy within the first 12 f breaks it (no damage, both pushed apart, 10 f recovery). Two throws at once break each other. |
+| Toss | 80 dmg (`minScale` 0.8), launch [12, 8.5], wall bounce, unblockable; super dash or vanish can follow from frame 6 |
+
+Strike beats throw, throw beats guard / parry / counter stances, guard and parry beat strikes, and spot dodge,
+jumping or a break beat throws.
 
 ### Knockdown and wake-up
 - A launched victim that lands goes `down` (invulnerable). Get up automatically after 40 frames, or press any

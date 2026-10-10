@@ -156,6 +156,11 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    parry, spot dodge and block, no clean hits, and a punish after parries and blocked Heavies.
 5. **CPU vs CPU**: the soak below with `mode=cpu` (both IMPOSSIBLE, showman). Rounds should end by KO in about
    15-40 s, with wavedashes, parries, vanishes and supers showing up, and no stuck states.
+6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
+   Light + Heavy within 12 frames of the grab breaks it ("BREAK!", no damage); from 1.8 units it whiffs for ~32
+   frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /
+   → Rasenshuriken) against a dummy that guards whenever it can: never blocked. Guard-only dummy vs IMPOSSIBLE:
+   throws land within 50 s.
 
 ## Soak (CPU vs CPU)
 
