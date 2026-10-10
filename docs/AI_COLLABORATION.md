@@ -98,7 +98,29 @@ any    ──(redo needed)──> a new higher version (version > approvedVersio
 
 Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 
-## Review gates
+## Branches, worktrees and shared files
+
+- **Every feature or character is a PR from its own worktree** ([ADR 0013](decisions/0013-pull-requests-in-worktrees.md)).
+  `npm run pr -- start <branch>` makes `.worktrees/<branch>`. Codex may use its app's own worktree instead
+  (`~/.codex/worktrees/...`) as long as it is on a named branch (`art/...` or `codex/...`) and opens the PR with
+  `npm run pr -- open` from there. A new character's PR plan is in
+  [ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md#0-plan-user--claude).
+- **One owner per branch.** Claude and Codex never commit to the same branch.
+- **Base every PR on `main`.** Stack one PR on another only when it truly depends on it, and say so in the PR body
+  ("stacked on #N, merge #N first").
+- **The main folder is merge-only.** No edits there except docs-only or bookkeeping commits, committed right away.
+  Never leave uncommitted work in it: git can't merge over it.
+- **Conflicts are resolved in the branch** (`git merge main` in its worktree), never on `main`.
+- **Shared bookkeeping files:**
+
+  | file | rule |
+  |---|---|
+  | `docs/NOW.md` | edit and commit it **on `main` only**, after merges (`npm run status -- --write`); a branch never touches it, because its generated block always conflicts |
+  | `docs/agents/CODEX_INBOX.md` | Claude adds items on `main`; Codex ticks them on `main` (docs-only commits) |
+  | `CHANGELOG.md`, `art/REVIEW.md` | add lines in your branch; `.gitattributes` merges them with `merge=union`, so two branches adding lines at the top don't conflict. After a merge, check no line appears twice |
+  | `docs/TASKS.md` | edit only your own rows |
+  | `art/manifest.json`, `art/TRACKER.md` | edit only your character's block |
+
 
 | Change type | Gate before `done` |
 |---|---|

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Docs: one PR plan for new characters (Claude's data PR, then Codex's refs/core/full art PRs), `KIT.md` as the moveset brief both AIs read (template added), not every ultimate a beam, the merge-only main folder, `NOW.md`/inbox edited on main only, and `merge=union` for CHANGELOG.md and art/REVIEW.md (DOC-008).
+
 - PR worktrees now live in `.worktrees/` inside the project instead of a sibling `gcdTourney-worktrees` folder (git-ignored, not watched by the dev server; ADR 0013 amended, OPS-003).
 
 - Art: recorded the user's approval of the final fighter batch (19 Naruto, 14 Killua, 43 Sasuke images; REVIEW, manifest, TRACKER) and installed Sasuke's portrait, cut-in and select images, so he no longer uses the placeholder pictures (ART-SCALE-01, ART-SAS-11).
