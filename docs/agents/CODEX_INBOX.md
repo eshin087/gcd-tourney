@@ -17,7 +17,8 @@ How it works:
 
 ## Every thread
 
-- [ ] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** The user reviewed
+- [x] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** Done by Claude
+  2026-10-10 (PR art/approve-fighter-batch): 76 rows approved, Sasuke UI installed. Nothing left for Codex here. The user reviewed
   PR #9 and approved it in chat with Claude on 2026-10-10; Claude merged #8 + #9 into main. On `main` (approval
   bookkeeping for shipped characters may commit straight to main, explicit paths only): mark the 19 Naruto,
   14 Killua and 43 Sasuke `needs review` rows `approved` in art/REVIEW.md, set `approvedVersion` in
