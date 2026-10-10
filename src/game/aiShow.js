@@ -1,11 +1,12 @@
 // Showcase (ADR 0016): the part of a CPU that wants to *show* its kit. It keeps a match-long record of
 // which tools this fighter has used (every kit special, the second super, the ultimate, and the system
-// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge) and turns it into
+// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge; and an ultimate clash when
+// both fighters' ultimates can meet, ADR 0017) and turns it into
 // weights, so a brain's planners prefer what the viewer hasn't seen yet. It only watches its own fighter's
 // state (what the screen shows) and never presses a button: each brain still decides whether a tool is a
 // real option right now, so the fight stays real while the variety goes up.
 import { SUPERS } from './moves.js';
-import { kitOf, specialFor } from './kit.js';
+import { kitOf, specialFor, clashable } from './kit.js';
 
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
 const AIR_SLOTS = ['air', 'airDown'];
@@ -53,6 +54,9 @@ export class Showcase {
     this.f = fighter;
     this.push = push;
     this.tools = toolsOf(fighter.def);
+    // a rhythm clash is a tool only when both ultimates can meet (Hollow Purple, Four-Tails, a beam)
+    const o = fighter.opp;
+    if (o && clashable(fighter.def) && clashable(o.def)) this.tools.clash = { kind: 'tech' };
     this.used = {}; // tool id -> times used this match
     this.lastState = '';
     this.lastMove = null;
@@ -78,6 +82,12 @@ export class Showcase {
     // rush specials and shots run as attacks (their data is a copy, so match by name)
     if (s === 'attack' && f.move !== this.lastMove && (f.moveName === 'special' || f.moveName === 'shot' || f.moveName === 'throw')) {
       this.note(specialId(f.move));
+    }
+    // an ultimate clash this fighter is in (not the one-beat special clash)
+    const cl = f.game?.clash;
+    if (cl && !cl.lite && cl !== this.lastClash && (cl.a?.f === f || cl.b?.f === f)) {
+      this.lastClash = cl;
+      this.note('clash');
     }
     if ((f.parries ?? 0) !== this.parries) {
       this.parries = f.parries;

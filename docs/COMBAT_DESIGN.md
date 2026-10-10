@@ -422,7 +422,10 @@ The **showman** plays for the viewer: short combos that end in a special, shot, 
 launcher route stops extending at `cap` = 5 hits), mid-range neutral with the kit (zoning, kit tools, air
 specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset to mid range) rather than
 jab pressure, a plain block as its least likely answer, and free ki spending except that it saves up (and
-powers up) for its first three-bar move of the match.
+powers up) for its first three-bar move of the match. When both fighters' ultimates can clash (Hollow Purple,
+Four-Tails, a beam), that first three-bar moment is reserved for a **clash** (ENG-056, once per match): it keeps
+three bars, fires its ultimate only once the opponent has three too, and otherwise answers theirs; it gives up for
+the round after 10 s at three bars or with under 20 s on the clock. The training dummy plays any clash at the CLASH level picked in the lab.
 
 ## Bread-and-butter route (reference)
 

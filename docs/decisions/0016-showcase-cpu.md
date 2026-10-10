@@ -114,3 +114,22 @@ throw and counters already had one.
 - The Showcase only reads state, so a future replay or online mode is unaffected; the brains still use
   `Math.random()` (ROADMAP: seeded RNG for online).
 - Revisit the showman's numbers (`cap`, plan weights) after balance changes to damage or ki gain (ADR 0011).
+
+## Amendment (2026-10-10, ENG-056): a reserved clash
+
+After ADR 0017 replaced mashing with rhythm clashes, CPU vs CPU still almost never showed one (0 in 14 matches):
+an ultimate is only answered when the defender has three bars at that moment, and free spending rarely leaves both
+fighters there at once. The user approved a fix in the showman:
+
+- `Showcase` has a `clash` tool, present only when both fighters' ultimates can meet (`clashable`: Hollow Purple,
+  Four-Tails, a beam); it counts the ultimate clashes this fighter has been in (not the one-beat special clash).
+- `MasterBrain.clashWait`: while no clash has been seen this match, the showman reserves its three bars for one
+  (from one bar up, like the first-three-bar-move rule). It fires its ultimate only once the opponent has three bars
+  too (it reads their meter, as a player can), so they can answer it, and its answer to their clashable ultimate
+  weighs `bias('clash')` more. No in-combo or punish super while it waits. It gives up for the round after 10 s at
+  three bars without the opponent getting there, or with under 20 s left. Once per match, so the next three bars can
+  go to the second super.
+- The lab's Tools tab has a CLASH row: the training dummy plays any clash at the timing of the picked CPU level
+  (`DummyBrain` `clashLevel`, Normal by default).
+
+Measured (showman, Naruto / Gojo pairings, both sides able to clash): see CHANGELOG / docs/TASKS.md ENG-056.

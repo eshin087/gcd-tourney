@@ -11,7 +11,7 @@ import { TouchControls, IS_TOUCH_DEVICE } from '../core/touch.js';
 import { ROSTER } from '../characters/index.js';
 import { ANIM_GUIDE } from '../art/animGuide.js';
 import { ARENA_LIMIT } from '../game/constants.js';
-import { DummyBrain } from '../game/ai.js';
+import { DummyBrain, CPU_LEVELS } from '../game/ai.js';
 import { ScriptBrain, ReplayBrain, recordFrame, moveList, SCENARIOS } from './scripts.js';
 import './lab.css';
 
@@ -32,7 +32,7 @@ const ids = ROSTER.map((c) => c.id);
 const L = {
   p1: ids.includes(qs.get('p1')) ? qs.get('p1') : ids[0],
   p2: ids.includes(qs.get('p2')) ? qs.get('p2') : ids[1],
-  speed: 1, paused: false, step: 0, dummy: 'stand', infiniteKi: true, tab: 'moves',
+  speed: 1, paused: false, step: 0, dummy: 'stand', clashLevel: 'normal', infiniteKi: true, tab: 'moves',
   running: null, viewer: null, rec: [], recording: false, replay: false, note: '',
 };
 
@@ -52,7 +52,7 @@ const button = (label, onclick, cls = '') => {
 const fighters = () => game.fighters;
 const dummyBrain = () => {
   const f = fighters()[1];
-  return L.replay && L.rec.length ? new ReplayBrain(f, L.rec, true) : new DummyBrain(f, L.dummy);
+  return L.replay && L.rec.length ? new ReplayBrain(f, L.rec, true) : new DummyBrain(f, L.dummy, L.clashLevel);
 };
 
 function start() {
@@ -293,12 +293,18 @@ function toolsTab() {
     game.brains[1] = dummyBrain();
     render();
   })));
+  // how well the dummy plays a rhythm clash (its CPU level's timing); a running scenario script keeps its brain
+  row('CLASH', ...CPU_LEVELS.map((id) => chip(id.toUpperCase(), L.clashLevel === id, () => {
+    L.clashLevel = id;
+    if (game.brains[1] instanceof DummyBrain) game.brains[1] = dummyBrain();
+    render();
+  })));
   row('RECORD', chip(L.recording ? '■ stop recording' : '● record YOU', L.recording, toggleRecord),
     chip(L.replay ? 'replaying on dummy' : `replay on dummy (${(L.rec.length / 60).toFixed(1)} s)`, L.replay, toggleReplay));
   row('METER', chip(L.infiniteKi ? 'infinite (both)' : 'normal', L.infiniteKi, () => { L.infiniteKi = !L.infiniteKi; game.trainingCfg.infiniteKi = L.infiniteKi; render(); }));
   row('BOXES', chip(game.showBoxes ? 'ON' : 'OFF', game.showBoxes, () => { game.showBoxes = !game.showBoxes; render(); }));
   row('RESET', button('positions', () => { stopScripts(); place(3.2); }), button('refill HP', () => { for (const f of fighters()) f.hp = 1000; }));
-  box.append(el('p', 'lab-help', 'Record: play a few seconds yourself, stop, then the dummy repeats it in a loop (mirrored toward you). Pause and step to read frame data; the readout below shows both fighters every frame.'));
+  box.append(el('p', 'lab-help', 'Record: play a few seconds yourself, stop, then the dummy repeats it in a loop (mirrored toward you). Clash: how well the dummy plays a rhythm clash, from EASY (late presses, skipped notes) up. Pause and step to read frame data; the readout below shows both fighters every frame.'));
   return box;
 }
 
