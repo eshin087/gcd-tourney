@@ -45,7 +45,8 @@ function box(w, h, d, mat, x, y, z, opts = {}) {
 // Crowd atlas descriptor (procedural or packed art, ADR 0008):
 //   texture, grid [cols, rows] in cells, frames (2: idle/cheer, 3: + shocked), step [dx, dy] from one
 //   frame's cell to the next, size [w, h] world units per cell, lift (world units: feet above the cell
-//   bottom, negative = sink), entries [[col, row], ...] = each spectator's idle cell.
+//   bottom, negative = sink), entries [[col, row], ...] = each spectator's idle cell, cellPx [w, h] = one cell in
+//   texture pixels.
 function proceduralCrowdAtlas() {
   const a = bakeCrowd(28, 9);
   return {
@@ -56,6 +57,7 @@ function proceduralCrowdAtlas() {
     size: [CROWD_W / PPU, CROWD_H / PPU],
     lift: 0,
     entries: Array.from({ length: a.count }, (_, v) => [v, 0]),
+    cellPx: [CROWD_W, CROWD_H],
     source: 'procedural',
   };
 }
@@ -98,6 +100,7 @@ export async function loadCrowdAtlas() {
       size: [cw / ppu, ch / ppu],
       lift: -(ch - 1 - pivotY) / ppu,
       entries,
+      cellPx: [cw, ch],
       source: 'custom',
     };
   } catch (e) {
@@ -138,10 +141,11 @@ function makeCrowd(positions, atlas) {
       uStep: { value: new THREE.Vector2() },
       uFrames: { value: 2 },
       uLift: { value: 0 },
+      uInset: { value: new THREE.Vector2() },
     },
     vertexShader: /* glsl */ `
       attribute vec3 aPos; attribute vec2 aCell; attribute float aPhase;
-      uniform float uTime, uExcite, uShock, uFrames, uLift; uniform vec2 uSize, uGrid, uStep;
+      uniform float uTime, uExcite, uShock, uFrames, uLift; uniform vec2 uSize, uGrid, uStep, uInset;
       varying vec2 vUv;
       void main() {
         vec3 right = vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
@@ -158,9 +162,17 @@ function makeCrowd(positions, atlas) {
         float hop = shocked > 0.5 ? 0.0 : max(0.0, s) * (0.03 + uExcite * 0.12);
         // tiny depth jitter so overlapping neighbours never z-fight
         vec3 wp = aPos + right * (position.x * uSize.x) + up * (position.y * uSize.y + uLift) + back * (aPhase - 0.5) * 0.06 + vec3(0.0, hop, 0.0);
-        gl_Position = projectionMatrix * viewMatrix * vec4(wp, 1.0);
+        // A spectator card is ~1.3 units wide on a 1.25-deep step: seen at an angle its far edge pokes into the riser
+        // of the tier behind (or the stand wall behind the standing row) and gets cut off. Slide every vertex 0.65
+        // toward the camera along its own view ray: same place on screen, but it now wins the depth test against
+        // what's right behind it, while the wall and the steps in front still hide what they should.
+        vec4 mv = viewMatrix * vec4(wp, 1.0);
+        mv.xyz *= max(0.05, 1.0 - 0.65 / length(mv.xyz));
+        gl_Position = projectionMatrix * mv;
         vec2 cell = aCell + uStep * frame;
-        vUv = vec2((cell.x + uv.x) / uGrid.x, 1.0 - (cell.y + 1.0 - uv.y) / uGrid.y);
+        // sample half a texel inside the cell, so a neighbour's edge pixels never bleed in
+        vec2 uvIn = mix(uInset, 1.0 - uInset, uv);
+        vUv = vec2((cell.x + uvIn.x) / uGrid.x, 1.0 - (cell.y + 1.0 - uvIn.y) / uGrid.y);
       }`,
     fragmentShader: /* glsl */ `
       uniform sampler2D map; uniform float uDim; varying vec2 vUv;
@@ -204,6 +216,7 @@ function makeCrowd(positions, atlas) {
       u.uStep.value.set(A.step[0], A.step[1]);
       u.uFrames.value = A.frames;
       u.uLift.value = A.lift;
+      u.uInset.value.set(0.5 / (A.cellPx?.[0] ?? 64), 0.5 / (A.cellPx?.[1] ?? 96));
       crowd.shuffle();
     },
   };
@@ -397,8 +410,15 @@ export function buildArena(scene) {
       world.add(box(tierStep, h, L, [stoneMat(1, 1), stoneMat(1, 1), lambert(repeatTex(stepsTex, 1, L)), stoneMat(1, 1), stoneMat(1, h), stoneMat(1, h)], xc, h / 2, 0));
       addCrowdRow(xc, zA + 0.5, xc, zB - 0.5, h, 0.82, (x, z) => Math.abs(z) < 0.7 || Math.abs(Math.abs(z) - 8) < 0.6);
     }
-    // aisle stairs
-    for (const az of [-8, 0, 8]) world.add(box(tierStep * TIERS, 0.12, 1.0, lambert(repeatTex(stepsTex, 2, 1)), x0 + s * (0.2 + tierStep * TIERS / 2), wallH + 0.9, az));
+    // aisle stairs: a half step in the back half of every tier, so each 0.7 rise is two steps (one slab at a fixed
+    // height used to float over the low tiers and cut through the high ones)
+    const aisleMat = lambert(repeatTex(stepsTex, 1, 1));
+    for (const az of [-8, 0, 8]) {
+      for (let i = 0; i < TIERS - 1; i++) {
+        const h = wallH - 0.35 + i * tierRise + tierRise / 2;
+        world.add(box(tierStep / 2, h, 1.0, aisleMat, x0 + s * (0.2 + tierStep * (i + 0.75)), h / 2, az));
+      }
+    }
     // standing room: fans packed against the stand wall at ground level
     addCrowdRow(x0 - s * 0.55, zA + 0.8, x0 - s * 0.55, zB - 0.8, 0, 0.9, (x, z) => Math.abs(z) < 1.2);
   }
