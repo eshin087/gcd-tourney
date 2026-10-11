@@ -194,7 +194,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - Two specials whose active frames meet within 1.6 units cause a **special clash** (ADR 0017): the world holds
   still and one ring closes on the target (46 f). The closer press (better grade, then fewer frames off) wins: the
   loser takes 60 and is blown back, the winner's special goes through. Both missing, or a dead heat, is the old
-  trade (both take 60). For 480 frames after one, specials simply trade.
+  trade (both take 60). For 480 frames after one, specials simply trade. (A Rasengan or Chidori driven into an
+  energy *shot* is a beam clash instead, below.)
 
 ### Second supers (SUPER button)
 - 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
@@ -306,6 +307,32 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
     it out) and the loser takes 250 (unscaled, unblockable, wall bounce, "OVERWHELMED!"). Under 2 is a **draw**:
     both blown back for 90.
 
+### Beam clash (ADR 0027)
+Two **energy attacks** that meet head-on become a **BEAM CLASH**: a shorter rhythm struggle between 1-bar specials,
+with each side's attack drawn as a stream from their hands. Numbers in `CLASH.struggle` (`src/game/moves.js`).
+- **Energy**: a shot whose projectile has `clash: 'beam'` (Killua's Narukami, Gojo's Reversal: Red, Sasuke's Chidori
+  Spear and air Great Fireball; ground or air versions) or a rush special with `clash: 'rush'` (Naruto's Rasengan and
+  Rasenshuriken, Sasuke's Chidori), which he drives into the other's stream by hand. Rush against rush stays the
+  one-beat special clash; a physical shot (shuriken) still just cancels a shot. So every pairing has one except the
+  Naruto mirror (two Rasengans).
+- **How it starts** (`Game.checkEnergyClash`, before the shots move each frame and when two shots touch):
+  - two shots in flight (or a shot and a running Rasengan) that touch head-on;
+  - **the answer**: an energy special started while theirs flies at you from up to 5.5 units (`answerRange`) meets it
+    at once (shot startup or Rasengan windup included), so you can answer a shot instead of blocking it.
+  - Both owners must be free to lock (not stunned, blocking, dodging, mid-kit-move or teleport, not KO'd), at least
+    2.2 units apart (`minDist`, closer they just trade), and 900 frames (`cooldown`) after the last beam clash.
+- **The struggle**: BEAM CLASH!, both attack names called out, the clash camera and HUD (rings + struggle bar), the
+  round timer stops, both invulnerable. A shot becomes a stream (`Beam`, the shot's `stream` palette, width 0.95)
+  from its owner's hands, an airborne owner hovers; a Rasengan / Chidori is held on its rush frame with its orb lit.
+  Two streams meet halfway between the hands, a stream meets a Rasengan 1.5 ahead of the fist (`rushReach`).
+- **The chart**: a fresh chart every time (the same for both players): count-in 30 f, 4 notes every 24 f, 5 every
+  18 f with a double, then the FINAL PUSH (30 f); about 4.5 s, 12 graded presses. Same grades as the ultimate clash;
+  the point moves 0.045 per point of lead.
+- **The end**: a lead of 1+ (`drawMargin`) wins: the winner's stream runs through (a Rasengan goes on into its
+  follow-through) and the loser takes **120** (unscaled, unblockable, launch [16, 9], **wall bounce**, a hard
+  knockdown; "OVERWHELMED!"). A dead heat is a **DRAW**: both blown back for 45. A locked owner knocked out of the
+  lock (a burn tick's KO) loses it.
+
 ### Ki economy
 
 | Source | Ki |
@@ -356,8 +383,9 @@ Banners slide in at the screen edge of the fighter who did it, stacked newest on
 PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, THROW BREAK, REVERSAL (the first hit of an attack
 started within 3 f of leaving hit stun, block stun, wake-up, a tech or a stagger), PUNISH! (a fresh combo on a
 fighter in their own recovery: a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag over
-6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam) and WAVEDASH (small, once per 6 s per
-fighter). The table is `TAGS` in `src/ui/hud.js` and the one entry point is `Game.tag(f, id)`; special names and
+6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam), WAVEDASH (small, once per 6 s per
+fighter) and BACKSTEP (ADR 0025: a back dash's 8 invulnerable frames let a swing pass, or carried them just out of
+its reach). The table is `TAGS` in `src/ui/hud.js` and the one entry point is `Game.tag(f, id)`; special names and
 kit callouts keep their own row, so they never wipe a banner out.
 
 ### Blocking
@@ -532,7 +560,7 @@ combo against a victim who has one): stop after hit 3-5, guard, punish the recov
 
 **Showcase** (ADR 0016, `src/game/aiShow.js`): every CPU keeps a match-long count of the tools it has used
 (kit specials, the second super, the ultimate or beam, vanish, super dash, wavedash, parry, spot dodge, air
-dodge, throw, charge) and weights its options by `bias(tool)`: up to `1 + 3·push` for a tool the viewer
+dodge, throw, charge, burst, backstep, vanish war) and weights its options by `bias(tool)`: up to `1 + 3·push` for a tool the viewer
 hasn't seen. It only reweights options the brain already judged sensible, so the fight stays real. `push`:
 Easy 0.3, Normal 0.5, Hard 0.7, IMPOSSIBLE 0.35, showman 1. The CPUs end strings with the special the player
 hasn't seen, pick the super or ultimate by the same weights, and spend more of their ki on the kit.
@@ -562,6 +590,40 @@ powers up) for its first three-bar move of the match. When both fighters' ultima
 Four-Tails, a beam), that first three-bar moment is reserved for a **clash** (ENG-056, once per match): it keeps
 three bars, fires its ultimate only once the opponent has three too, and otherwise answers theirs; it gives up for
 the round after 10 s at three bars or with under 20 s on the clock. The training dummy plays any clash at the CLASH level picked in the lab.
+
+**Beam clashes** (ADR 0027). Against a player, every CPU sometimes answers an incoming energy shot (or a Rasengan /
+Chidori from range) with an energy special of its own: `CpuBrain` at `special × 0.6` (Easy 9 %, Normal 18 %, Hard
+27 %, up to ×3 while the player hasn't seen a beam clash), IMPOSSIBLE / INSANE at a weight of `0.25 × flair` among
+its other answers. It only answers when a clash can start (`kit.canBeamClashNow`: not inside the 900-frame cooldown,
+over 2.2 units apart, the thrower free to lock); otherwise it blocks or dodges the shot like any other. In **CPU vs
+CPU** (any level) a spectator-only **show director** (`src/game/showDirector.js`, created only when
+`Game.watching`) makes sure the viewer sees one every match: at a random moment 15-40 s into round 1 (8-20 s into a
+later round that started without one) it picks a random challenger and cues both brains for 480 frames. The cued
+challenger plays a `challenge` plan (into their lane at a gap their answer reaches, then fires its energy special once
+they are free and have the ki to answer); the cued answerer keeps to mid range and answers (MasterBrain: weight 50;
+CpuBrain: for sure; both read the shot's startup at once, so a 9-frame Chidori Spear can be met). A cue that comes to nothing expires and returns
+6-12 s later; after the match's first beam clash the director is done and further ones happen only by themselves
+(the showman answers at `0.15 × flair`). While the director still has one to cue, the showman keeps the ki for its
+cheapest energy move (`spend()` stops above it), powers up when short, and each clash is played at a jittered
+timing (`sd` ×0.6-1.8) so even showmen rarely draw. The director never presses a button.
+
+**Defense showcase** (ADR 0025). Every CPU times threats to the drawn strike (`reachT`: the first active frame whose
+hit box reaches in front of the body), re-picks an answer it chose while it couldn't act, and tracks a vanish or
+teleport strike from the smoke to the kick; `CpuBrain` reacts on a live-frame clock. Each CPU rolls a hidden
+**defense persona** per match (parrier, dancer, phantom, rock, scrapper; `DEF_PERSONAS` in `aiShow.js`, jittered per
+match and per round) that reweights its answers: fully for the showman and spectated Easy-Hard (their technique rates
+also ×1.5, capped at 0.9), normalized for IMPOSSIBLE, INSANE and Easy-Hard against a person (it changes which
+technique comes out, not how often one does). The showman (`DEF_KNOBS` in `aiMaster.js`, methods in
+`src/game/aiDefense.js`) also: reacts in 6 frames; wavedashes out of a shot's line, backsteps through a swing,
+vanishes back against a vanish (the **vanish war**); guesses at an approach (parry, dodge, backstep, wavedash or jump
+out, a jab to stuff it, a vanish behind them) and at the next hit of a blocked string (parry it on rhythm,
+guard-cancel vanish); reverses at the end of hit stun when the combo has a gap and on wake-up (parry, dodge,
+backstep); escapes after an air tech (air dodge away or through, waveland, vanish, super dash); rotates its answers
+(`rotate` per repeat among its last four, half as many dodges within 150 f of the last); and after a parry picks a
+jab, heavy, throw, vanish or a **rally**: a hit timed to land after their stagger (a raw rush or shot, a vanish that
+reappears as they recover, or a heavy already in sight), which they can parry back. IMPOSSIBLE and INSANE keep the
+sure jab. `game.brains.map((b) => b.show.report())` returns the persona, the answers picked (`defLog`) and carried
+out (`done`), parries, evades and rallies.
 
 ### Combo composer (ADR 0026, `src/game/aiCombo.js`)
 

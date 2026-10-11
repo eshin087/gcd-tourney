@@ -52,14 +52,15 @@ Then open http://127.0.0.1:5188
   in its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
   "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
   ones get a rating), every special and super in the kit, spells dodged and parried, techs, tech rolls and bursts out
-  of combos, wavedashes and power-ups, each called out on a banner (PARRY!, DODGE!, TECH!, BURST!, HANDBALL!...), so
-  you see what the engine can do; Esc / Start pauses and the results screen offers a rematch
+  of combos, wavedashes and power-ups, each called out on a banner (PARRY!, DODGE!, TECH!, BURST!, HANDBALL!,
+  PUNISH!...), and a BEAM CLASH every match (not Naruto vs Naruto: two Rasengans make a special clash), so you see
+  what the engine can do; Esc / Start pauses and the results screen offers a rematch
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time
 - **Sprite Lab** (`/sprites.html`): preview every animation, import art strips, export sheets
 - **Test lab** (`/lab.html?p1=naruto&p2=sasuke`): play any move of either fighter in one tap, step through every animation
-  with its hit and hurt boxes, replay shared mechanics (ultimate and special clashes, throws, parries, dodges, wavedash,
+  with its hit and hurt boxes, replay shared mechanics (ultimate, special and beam clashes, throws, parries, dodges, wavedash,
   air combos, bounces, vanish, super dash), slow motion, frame step, record and replay on the dummy
 
 Best of 3 rounds, 99 seconds each. The intro flythrough can be skipped with Enter / Start.
@@ -83,6 +84,7 @@ These are the default bindings. You can rebind them in the controls menu.
 | **Throw** (close) / break a throw | **J + K** | **F + G** | **, + .** | **□ + △** |
 | **Tech** / **tech roll**: hold Guard while hit | hold **Shift** | hold **L-Shift** | hold **;** | hold **L1 / LB** |
 | **Burst**: Guard + Special while hit (2 bars, once per round) | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
+| **Beam clash**: your energy Special (→ toward them for some fighters) into theirs, or while theirs flies at you | **L** / **→ + L** | **H** / **→ + H** | **/** / **→ + /** | **○** / **→ + ○** |
 
 Adding the SUPER button reset saved key bindings once (new storage key). Rebind again if you had
 custom keys.
@@ -102,6 +104,10 @@ custom keys.
   or Special as each ring closes on the target, then hold the last one (FINAL PUSH). Better timing pushes harder,
   presses off the beat push you back, and the winner's ultimate lands.
 - **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
+- **Beam clash**: fire an energy special (Killua's Narukami, Gojo's → Red, Sasuke's → Chidori Spear or air Fireball)
+  into the opponent's, or drive Naruto's Rasengan into it, or fire yours while theirs flies at you: BEAM CLASH! Both
+  attacks become streams that meet in the middle, and you play a short rhythm chart (about 4.5 s). The winner's
+  stream runs through for 120 and a wall bounce; a dead heat blows both back. CPU vs CPU shows one every match.
 - **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
 - **Tech** (combo escape): **hold Guard while you're being hit**. The moment the attacker leaves a gap you
   flip out in the air (TECH!), or, if you hit the floor, roll back to your feet (TECH ROLL!) instead of lying

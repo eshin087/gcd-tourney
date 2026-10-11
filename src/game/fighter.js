@@ -220,9 +220,10 @@ export class Fighter {
     return !['idle', 'run', 'guard', 'air'].includes(this.state);
   }
 
-  // intangible because of a spot dodge or air dodge (Game.onEvade calls out what passes through)
+  // intangible because of a spot dodge, an air dodge or a back dash's first frames (Game.onEvade calls out what
+  // passes through: DODGE!, AIR DODGE!, BACKSTEP)
   get evading() {
-    return (this.state === 'dodge' || this.state === 'airDodge') && this.invuln > 0 && !this.ko;
+    return (this.state === 'dodge' || this.state === 'airDodge' || (this.state === 'dash' && this.backDash)) && this.invuln > 0 && !this.ko;
   }
 
   get hittable() {
@@ -306,6 +307,7 @@ export class Fighter {
     }
     this.setState('dash', this.backDash ? 'backDash' : 'dash');
     this.invuln = 8;
+    this.dodgeCalled = false; // a back dash that something passes through gets its BACKSTEP callout
     audio.play('dash');
     this.game.fx.dust(this.pos, 0.9);
     this.game.fx.dashBurst(this);

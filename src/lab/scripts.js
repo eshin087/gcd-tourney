@@ -3,7 +3,7 @@
 // data (kits, MOVES, SPECIAL_MOVES, SUPERS), so a new fighter or a new move shows up here without lab changes.
 import { ACTIONS } from '../core/input.js';
 import { MOVES, SPECIAL_MOVES, SUPERS, ULTIMATE, THROW, DEFENSE, VANISH, SUPER_DASH } from '../game/moves.js';
-import { kitOf, specialFor, towardSide, clashable } from '../game/kit.js';
+import { kitOf, specialFor, towardSide, clashable, energyMoves, airEnergyMoves, canBeamClash } from '../game/kit.js';
 
 // A step holds buttons (and a stick) from frame `t` for `len` frames. Sticks: 'toward' / 'away' the opponent,
 // 'up' / 'down', or [mx, my] in screen space.
@@ -150,6 +150,21 @@ export function moveList(def) {
 const kindOf = (def) => SUPERS[kitOf(def).ultimate]?.kind ?? 'beam';
 const CLASH_NOTE = 'needs two ultimates that clash (beam, orb or pounce), e.g. Gojo vs Naruto';
 
+// BEAM CLASH (ADR 0027): the energy move a side fires. A shot when it has one (`rush` prefers the Rasengan / Chidori),
+// never a rush against a side that has no shot to meet it (two rushes are the one-beat special clash).
+const energyOf = (def, other, { air = false, rush = false } = {}) => {
+  const theirShot = [...energyMoves(other), ...airEnergyMoves(other)].some((e) => e.kind === 'shot');
+  const list = (air ? airEnergyMoves(def) : energyMoves(def)).filter((e) => e.kind === 'shot' || theirShot);
+  return list.find((e) => e.kind === (rush ? 'rush' : 'shot')) ?? list[0] ?? null;
+};
+// (none when that side has no energy move: the lab still plays a scenario its `needs` turned down, so it stays still)
+const energyTap = (t, e) => (e ? [tap(t, 'special', { stick: SLOT_STICK[e.slot] })] : []);
+// A named kit shot freezes the world for its 8-frame flash (Game.onKitMove) while the scripts keep counting, and a
+// ground special comes out when the button is let go (3 frames): the frame the dummy's shot is `x` frames into its
+// startup is 11 + x.
+const KIT_FLASH = 8, RELEASE = 3;
+const BEAM_NOTE = 'needs an energy shot on at least one side (Naruto vs Naruto has only Rasengans: a special clash)';
+
 // Shared mechanics, each with both fighters scripted. `setup` = { gap (units apart), kiA, kiB, nearWall },
 // `a` / `b` = the timelines for P1 / the dummy. `needs(defs)` returns a note when this pairing can't show it.
 export const SCENARIOS = [
@@ -167,6 +182,26 @@ export const SCENARIOS = [
     id: 'spClash', name: 'Special clash (rush vs rush)', info: 'Both rush specials meet head-on: one ring, press as it closes. The closer press wins.',
     needs: (defs) => (defs.every((d) => specialFor(d, 'neutral')?.kind === 'rush') ? null : 'needs two rush specials, e.g. Naruto vs Sasuke'),
     setup: { gap: 3.2, kiA: 100, kiB: 100 }, a: [tap(0, 'special')], b: [tap(0, 'special')],
+  },
+  {
+    id: 'beamClash', name: 'Beam clash (energy vs energy)', info: 'Both fire an energy special at once (Narukami, Reversal: Red, Chidori Spear; Naruto drives a Rasengan in): BEAM CLASH!, two streams meet in the middle and the rhythm chart decides it. The winner\'s stream runs through and wall-bounces the loser; a dead heat blows both back.',
+    needs: ([a, b]) => (canBeamClash(a, b) ? null : BEAM_NOTE),
+    setup: { gap: 5, kiA: 100, kiB: 100 },
+    a: ([a, b]) => energyTap(0, energyOf(a, b)), b: ([a, b]) => energyTap(0, energyOf(b, a)),
+  },
+  {
+    id: 'beamAnswer', name: 'Answer an energy shot', info: 'The dummy fires its energy shot at you; you fire yours (a Rasengan / Chidori if you have one) while it flies at you: the two meet in a BEAM CLASH instead of the hit.',
+    needs: ([a, b]) => (energyOf(b, a)?.kind === 'shot' && energyOf(a, b) ? null : 'needs a dummy with an energy shot (Killua, Sasuke, Gojo)'),
+    setup: { gap: 5, kiA: 100, kiB: 100 },
+    a: ([a, b]) => energyTap(KIT_FLASH + (energyOf(b, a)?.m.startup ?? 0), energyOf(a, b, { rush: true })),
+    b: ([a, b]) => energyTap(0, energyOf(b, a)),
+  },
+  {
+    id: 'beamAir', name: 'Beam clash from the air', info: 'You jump and fire your air energy shot down at the dummy; it answers from the ground. Locked in the air, you hover through the clash and fall once it is over.',
+    needs: ([a, b]) => (airEnergyMoves(a).length && energyOf(b, a) ? null : 'your fighter has no air energy shot (Killua, Sasuke, Gojo do)'),
+    setup: { gap: 5, kiA: 100, kiB: 100 },
+    a: ([a]) => (airEnergyMoves(a).length ? [tap(0, 'jump'), tap(14, 'special')] : []),
+    b: ([a, b]) => { const air = airEnergyMoves(a)[0]; return air ? energyTap(14 + KIT_FLASH + air.m.startup - 2 - RELEASE, energyOf(b, a, { rush: true })) : []; },
   },
   {
     id: 'throwBreak', name: 'Throw, then break it', info: `The dummy throws you; you press Light + Heavy within ${THROW.techWindow} frames.`,
@@ -192,6 +227,10 @@ export const SCENARIOS = [
   {
     id: 'wavedash', name: 'Wavedash', info: 'Jump, then Guard with a direction at once: a ground slide.',
     setup: { gap: 5 }, a: [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 10 }], b: [],
+  },
+  {
+    id: 'backstep', name: 'Backstep', info: 'The dummy swings a heavy; you back dash out of it (Dash with the stick away: 8 invulnerable frames), and BACKSTEP calls it out (ADR 0025).',
+    setup: { gap: 1.2 }, a: [tap(6, 'dash', { stick: 'away' })], b: [tap(0, 'heavy')],
   },
   // combo escape (ADR 0022): the dummy's side is scripted, so these don't depend on the DUMMY TECH / BURST options
   {

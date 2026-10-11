@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { ULTIMATE, VANISH, SUPERS } from './moves.js';
-import { specialFor, kitOf, towardSide, clashable } from './kit.js';
+import { ULTIMATE, VANISH, SUPERS, PROJECTILES, CLASH } from './moves.js';
+import { specialFor, kitOf, towardSide, clashable, energyMoves, airEnergyMoves, isEnergy, incomingEnergy, canBeamClashNow } from './kit.js';
 import { BeatPlan } from './clash.js';
 
 // Where each ultimate kind makes sense (ADR 0017): the beam and Hollow Purple want room, the Four-Tails pounce
@@ -12,6 +12,7 @@ function ultimateFits(U, dist, sd) {
   return true;
 }
 import { MasterBrain } from './aiMaster.js';
+import { reachT } from './aiDefense.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
 
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
@@ -22,7 +23,22 @@ export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
 export function makeBrain(fighter, level = 'normal', spectate = false, seed = (Math.random() * 4294967296) >>> 0) {
   // INSANE is the same frame-data brain with human reactions and the odd dropped combo (STYLES.insane)
   if (level === 'impossible' || level === 'insane') return new MasterBrain(fighter, spectate ? 'showman' : level, seed);
-  return new CpuBrain(fighter, level);
+  return new CpuBrain(fighter, level, spectate);
+}
+
+// The level's technique rates reshaped by the defense persona (ADR 0025). Against a person the persona only changes
+// which technique comes out (the sum of the rates stays the level's); spectated, the CPU shows off: ×1.5, capped.
+const TECH_RATES = { parry: 'parry', spot: 'dodge', airDodge: 'airdodge', wavedash: 'wavedash', vanish: 'vanish', dodge: 'dodge' };
+function personaLevel(base, P, spectate) {
+  const L = { ...base };
+  let sum0 = 0, sum1 = 0;
+  for (const k in TECH_RATES) {
+    L[k] = base[k] * P.m[TECH_RATES[k]] * (spectate ? 1.5 : 1);
+    sum0 += base[k];
+    sum1 += L[k];
+  }
+  for (const k in TECH_RATES) L[k] = spectate ? Math.min(0.9, L[k]) : (L[k] * sum0) / sum1;
+  return L;
 }
 
 // show: how strongly it reaches for kit tools the player hasn't seen yet (Showcase, aiShow.js, ADR 0016);
@@ -41,18 +57,20 @@ const LEVELS = {
 // Combos are driven by watching its own fighter's state (cancel windows, hit
 // confirms), so it chains auto-combo -> launcher -> chase -> air combo -> spike.
 export class CpuBrain {
-  constructor(fighter, level = 'normal') {
+  constructor(fighter, level = 'normal', spectate = false) {
     this.f = fighter;
-    this.L = LEVELS[level] || LEVELS.normal;
+    this.L = this.baseL = LEVELS[level] || LEVELS.normal;
+    this.spectate = spectate;
     this.plan = 'idle';
     this.planT = 0;
+    this.clk = 0; // live frames, never reset (setPlan resets planT, which used to lose a pending reaction)
     this.wait = 30;
     this.hold = {};
     this.beat = null; // its plan for the current clash
     this.lastOppState = '';
     this.strafe = Math.random() < 0.5 ? 1 : -1;
     this.route = 'launch';
-    this.show = new Showcase(fighter, this.L.show);
+    this.show = new Showcase(fighter, this.L.show, spectate ? 1 : 0.4);
   }
 
   // only from a released state, so every press is a fresh edge
@@ -61,9 +79,14 @@ export class CpuBrain {
   }
 
   update(game) {
-    const f = this.f, o = f.opp, pad = f.pad, L = this.L;
+    const f = this.f, o = f.opp, pad = f.pad;
     pad.tick();
     this.show.watch();
+    if (this.show.persona && this.persona !== this.show.persona) {
+      this.persona = this.show.persona; // rolled, or nudged for a new round
+      this.L = personaLevel(this.baseL, this.persona, this.spectate);
+    }
+    const L = this.L;
     let mx = 0, my = 0;
     const R = Math.random;
     const dx = o.pos.x - f.pos.x, dz = o.pos.z - f.pos.z;
@@ -79,7 +102,10 @@ export class CpuBrain {
     const laneGo = () => {
       const R = game.cam.right, F = game.cam.fwd;
       const want = Math.abs(sx) - 1.05;
-      const ax = Math.abs(want) > 0.15 ? Math.sign(sx) * Math.sign(want) : 0;
+      // stacked in depth right behind them (sx ~ 0, e.g. both against the barrier): step out toward the ring's
+      // middle, or the depth step and the body push hold them there for good
+      const side = Math.abs(sx) > 0.3 ? Math.sign(sx) : f.pos.x * R.x + f.pos.z * R.z > 0 ? 1 : -1;
+      const ax = Math.abs(want) > 0.15 ? side * Math.sign(want) : 0;
       const ad = Math.abs(sd) > 0.18 ? Math.sign(sd) : 0;
       moveWorld(R.x * ax + F.x * ad, R.z * ax + F.z * ad);
       return Math.abs(want) < 0.45 && Math.abs(sd) < 0.45;
@@ -91,7 +117,10 @@ export class CpuBrain {
       for (const p of this.beat.due(game.clash.timer + 1)) this.press(this.beat.button(), p.len);
     } else if (game.inputLive && !f.ko && !o.ko && !game.freeze) {
       this.planT++;
+      this.clk++;
       this.wait--;
+      // the show director's beam-clash cue (CPU vs CPU only, ADR 0027): 'challenge', 'answer' or null
+      this.cue = this.show.tools.beamClash ? game.director?.cueFor('beamClash', f.index) ?? null : null;
 
       // --- air tech when juggled
       if (f.state === 'launched' && f.airStun <= 0 && f.pos.y > 0.4 && R() < L.tech) this.press('jump', 1);
@@ -114,11 +143,11 @@ export class CpuBrain {
 
       // --- reactions
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;
-      if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.planT + L.react;
-      if (oppAttacking && this.reactAt === this.planT && dist < 3.4 && !f.busy) {
+      if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.clk + L.react;
+      if (oppAttacking && this.reactAt === this.clk && dist < 3.4 && !f.busy) {
         // a counter may sit on ↓ or ← (Naruto's Substitution); the techniques the player hasn't seen this match
         // are a bit likelier (Showcase), each at its level's rate
-        const sh = this.show, big = o.move.big || o.move.special, left = o.move.startup - o.t;
+        const sh = this.show, big = o.move.big || o.move.special, left = reachT(o, o.move) - o.t;
         const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
         const counter = cSlot && specialFor(f.def, cSlot);
         this.tgtProj = null;
@@ -128,6 +157,15 @@ export class CpuBrain {
         else if (f.state !== 'air' && left > 4 && R() < L.spot * (big ? 1 : 0.4) * sh.bias('spotDodge')) this.setPlan('spotDodge', left + 18);
         else if (R() < L.guard) this.setPlan('guard', 14 + (o.move?.special ? 20 : 0));
         else if (R() < L.dodge * 0.3) this.dodge();
+      }
+      // their energy shot or Rasengan / Chidori from further out: sometimes answer it with ours (a BEAM CLASH, ADR 0027)
+      if (oppAttacking && this.reactAt === this.clk && dist > CLASH.struggle.minDist + 0.3 && dist < 7 && (PROJECTILES[o.move.proj]?.clash || o.move.clash === 'rush')) {
+        this.answerEnergy(f, o.move.clash === 'rush');
+      }
+      // cued to answer, it expects their energy and fires into it as soon as it comes (out of a charge, let go first)
+      if (this.cue === 'answer' && this.energyComing(f, o)) {
+        if (f.state === 'charge') { this.hold.special = 0; this.setPlan('idle', 4); }
+        else this.answerEnergy(f, o.state === 'attack' && o.move?.clash === 'rush', true);
       }
       // guard-cancel vanish out of block pressure
       if (f.state === 'block' && f.ki >= VANISH.cost && R() < L.vanish * 0.08) { this.hold.guard = 3; this.press('special', 2); }
@@ -154,7 +192,10 @@ export class CpuBrain {
           p.seen = true;
           const sh = this.show;
           this.tgtProj = p;
-          if (f.state === 'air' && !f.airDodged && R() < L.airDodge * sh.bias('airDodge')) this.airDodge(toOpp);
+          // fire ours into it: a BEAM CLASH (ADR 0027). A special already on its way (an answer to the shot's startup)
+          // keeps going: switching to a guard or dodge now would press Guard + Special, a vanish.
+          if (p.P.clash && (this.plan === 'useSpecial' || this.answerEnergy(f))) this.tgtProj = null;
+          else if (f.state === 'air' && !f.airDodged && R() < L.airDodge * sh.bias('airDodge')) this.airDodge(toOpp);
           else if (!f.busy && f.state !== 'air' && R() < L.parry * sh.bias('parry')) this.setPlan('parry', 40);
           else if (!f.busy && f.state !== 'air' && R() < L.spot * 0.6 * sh.bias('spotDodge')) this.setPlan('spotDodge', 40);
           else if (R() < L.guard) this.setPlan('guard', 30);
@@ -240,6 +281,17 @@ export class CpuBrain {
           this.hold.special = 2;
           if (f.ki >= ULTIMATE.cost - 1 || dist < 2.4 || this.planT > this.planLen) { this.hold.special = 0; this.setPlan('idle', 10); }
           break;
+        case 'challenge': {
+          // BEAM CLASH on the director's cue (ADR 0027): to a gap their answer reaches, then fire once they're free to
+          // answer (standing or running, with the ki for it)
+          const e = this.cueMove, want = e && Math.min(6, Math.max(4, e.range - 1));
+          if (this.cue !== 'challenge' || !e || f.ki < e.cost) { this.setPlan('idle', 10); break; }
+          if (dist > want + 0.5) moveWorld(toOpp.x, toOpp.y);
+          else if (dist < want - 0.5) moveWorld(-toOpp.x, -toOpp.y);
+          else if (!f.busy && (o.state === 'idle' || o.state === 'run') && o.ki >= this.answerKi(o, e.kind === 'rush') && canBeamClashNow(f, 5)) this.useSpecial(e.slot);
+          if (this.plan === 'challenge' && this.planT > this.planLen) this.setPlan('idle', 6);
+          break;
+        }
         case 'ultimate':
           this.press('heavy', 3);
           this.press('special', 3);
@@ -380,6 +432,54 @@ export class CpuBrain {
     this.setPlan('useSpecial', 10);
   }
 
+  // Their energy is coming: at its level's special rate (x0.6, more while the player hasn't seen a beam clash), fire an
+  // energy move of ours into it so the two meet (Game.checkEnergyClash, ADR 0027). A rush only meets a shot. Only when
+  // a clash can still start (canBeamClashNow: no cooldown, not too close, they can be locked): otherwise the answer
+  // can't clash and just eats the hit. `sure`: cued by the show director. Returns true when it went for it.
+  answerEnergy(f, vsRush = false, sure = false) {
+    if ((f.busy && f.state !== 'air') || this.plan === 'useSpecial' || !canBeamClashNow(f, 5)) return false;
+    const list = (f.state === 'air' ? airEnergyMoves(f.def) : energyMoves(f.def)).filter((e) => f.ki >= e.cost && !(vsRush && e.kind === 'rush'));
+    if (!list.length || !this.show.tools.beamClash || (!sure && Math.random() >= this.L.special * 0.6 * this.show.bias('beamClash'))) return false;
+    const e = list[Math.floor(Math.random() * list.length)];
+    if (f.state === 'air') { this.spSlot = 'air'; this.setPlan('useSpecial', 10); } else this.useSpecial(e.slot);
+    return true;
+  }
+
+  // their energy is on its way: an energy special starting or running (a shot until it leaves the hand, a Rasengan
+  // until its run ends), or their energy shot in flight heading at us
+  energyComing(f, o) {
+    const m = o.state === 'attack' ? o.move : null;
+    if (isEnergy(m) && o.t >= 2 && (m.kind === 'shot' ? o.t < m.startup : !o.moveHit && o.t < m.startup + m.active)) return true;
+    return !!incomingEnergy(f);
+  }
+
+  // the ki the opponent needs to answer with its cheapest ground energy special (a rush can only meet a shot)
+  answerKi(o, vsRush) {
+    return Math.min(Infinity, ...energyMoves(o.def).filter((e) => !(vsRush && e.kind === 'rush')).map((e) => e.cost));
+  }
+
+  // BEAM CLASH on the show director's cue (CPU vs CPU, showDirector.js, ADR 0027), at every level: the challenger picks
+  // an energy special the other can answer and plays 'challenge'; the answerer keeps a gap it can answer from (the
+  // answer itself is in update). Short of ki, either powers up first. False: nothing to do, choose as usual.
+  cueChoose(dist, f, o) {
+    const R = Math.random;
+    if (this.cue === 'challenge') {
+      const theirShot = energyMoves(o.def).some((e) => e.kind === 'shot');
+      const list = energyMoves(f.def).filter((e) => e.kind === 'shot' || theirShot);
+      if (!list.length) return false;
+      const can = list.filter((e) => f.ki >= e.cost);
+      if (!can.length) { this.setPlan(dist > 2.6 ? 'charge' : 'retreat', dist > 2.6 ? 60 : 24); return true; }
+      this.cueMove = can[Math.floor(R() * can.length)];
+      this.setPlan('challenge', 90);
+      return true;
+    }
+    const need = this.answerKi(f, false);
+    if (need === Infinity) return false; // no ground energy special to answer with
+    if (f.ki < need) { this.setPlan(dist > 2.6 ? 'charge' : 'retreat', dist > 2.6 ? 60 : 24); return true; }
+    this.setPlan(dist < 3.8 ? 'retreat' : 'strafe', 20 + R() * 20);
+    return true;
+  }
+
   dodge() {
     this.strafe = Math.random() < 0.5 ? 1 : -1;
     this.setPlan('strafe', 18);
@@ -407,7 +507,7 @@ export class CpuBrain {
       const d = Math.hypot(p.pos.x - f.pos.x, p.pos.z - f.pos.z) - (p.P.radius + 0.4);
       return (d / (Math.hypot(p.vel.x, p.vel.z) || 1)) * 60;
     }
-    return o.state === 'attack' && o.move ? o.move.startup - o.t + o.hitstop : -99;
+    return o.state === 'attack' && o.move ? reachT(o, o.move) - o.t + o.hitstop : -99; // to the drawn strike (reachT)
   }
 
   setPlan(p, len = 40) {
@@ -431,6 +531,7 @@ export class CpuBrain {
       this.setPlan(!ult && R() < L.charge + 0.2 ? 'charge' : 'strafe', 40 + R() * 30);
       return;
     }
+    if (this.cue && this.cueChoose(dist, f, o)) return;
     // 3 bars: split evenly between the second super and the ultimate (a beam wants some distance)
     const K = kitOf(f.def), S = SUPERS[K.super], U = SUPERS[K.ultimate], sh = this.show;
     if (ult) {

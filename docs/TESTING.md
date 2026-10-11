@@ -81,12 +81,12 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown). The scale
   check draws the approved idle's head size (white box) around this frame's measured head (gold, orange when the
   packer flagged the strip) and prints both numbers (TOOL-025).
-- **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
-  Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo, wall bounce, ground
-  damage, handball (3 wall bounces) and vanish ping-pong (ADR 0026), vanish, super dash, counter hit (hit flash),
-  counter stance, Whirlwind, Hollow Purple vs a projectile. A scenario that the current pair can't show says so (for
-  example "needs two rush specials").
+- **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash, beam clash, answering an
+  energy shot, beam clash from the air (the dummy plays clashes at Normal timing; you press), throw and break, parry,
+  spot dodge, air dodge, wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo,
+  wall bounce, ground damage, handball (3 wall bounces) and vanish ping-pong (ADR 0026), vanish, super dash, counter
+  hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A scenario that the current pair can't
+  show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
   dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, **CPU YOU** (you play
   as the showman CPU with a combo persona, or AUTO; with DUMMY STAND every route the combo composer plans shows, and
@@ -157,6 +157,18 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).
       Pressing every frame scores OFF BEAT and loses. Lab **Special clash** (Naruto vs Sasuke): one ring, the closer
       press wins.
+- [ ] Beam clash (ADR 0027), lab **Beam clash (energy vs energy)** in every pairing but the Naruto mirror (which says
+      it can't): BEAM CLASH! with both attack names on their sides, two streams in each shot's colors (Narukami blue,
+      Red red, Chidori Spear deep blue, Fireball orange) meeting halfway, or the stream meeting Naruto's Rasengan in
+      front of his fist with the orb lit; the clash camera, rings and bar; the round timer holds. ~4.5 s; the winner's
+      stream runs through, the loser takes 120 and wall-bounces (OVERWHELMED!); a dead heat is DRAW! (45 each).
+      `game.clash.tier === 'struggle'`, `game.struggleCool` 900 after it. **Answer an energy shot**: the dummy's shot
+      becomes a clash instead of a hit (you answer with a Rasengan / Chidori when you have one). **Beam clash from the
+      air** (Killua, Sasuke, Gojo): the airborne owner hovers locked, then lands or falls normally. Negative: shots
+      fired while one side is in hit stun or block, owners under 2.2 apart, a second exchange inside 900 frames, and a
+      shuriken against any shot all cancel as before (no clash); Hollow Purple still erases shots. Regression: lab
+      **Ultimate clash** is still `tier 'ultimate'`, 20 notes, 250 / 90; **Special clash** is still the one-beat
+      `tier 'beat'` (`lite`).
 - [ ] Kits (ADR 0009), with Killua and Gojo: Special, Special + → / ↑ / ↓ and air Special (+↓) each give the
       move in the README Fighters table. SUPER fires Whirlwind / Unlimited Void (the void stage replaces the
       arena, then comes back), and Naruto's SUPER fires his beam. Godspeed shows the mode bar and blink dashes.
@@ -298,9 +310,16 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    stuck states. Over a match
    each fighter should show most of its kit and at least one three-bar move, plus parries, spot dodges, air
    dodges ("DODGE!" / "AIR DODGE!" callouts), wavedashes and charging. After a match,
-   `game.brains.map((b) => b.show.unseen())` lists what each CPU never used; expect 0-4 tools each (fewer
-   for the winner, since the loser has less time). With Naruto and / or Gojo on both sides (ultimates that clash),
+   `game.brains.map((b) => b.show.unseen())` lists what each CPU never used; expect 0-5 tools each (fewer
+   for the winner, since the loser has less time; `vanishWar` needs a vanish to answer).
+   `game.brains.map((b) => b.show.report())` gives each CPU's defense: see the targets in "CPU defense showcase" below. With Naruto and / or Gojo on both sides (ultimates that clash),
    most matches should show at least one rhythm clash (ENG-056); `clash` in `unseen()` means none happened.
+   **Every match shows a BEAM CLASH** (ADR 0027) except the Naruto mirror (`beamClash` in `unseen()` means none
+   happened): log `game.clash?.tier === 'struggle'` starts and `game.director.beam` (`due` in frames, `cues`, `done`)
+   per match. Pass: at least 95 % of matches that can have one do, the first one lands at varied times (the
+   director's due is random), draws are at most ~20 %, and rounds still end by KO. CPU vs CPU can be watched at any
+   level and Easy / Normal / Hard (`CpuBrain`) follow the director's cue too, so repeat it with `&level=easy`,
+   `normal` and `hard`.
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
    Light + Heavy within 12 frames of the grab breaks it ("THROW BREAK", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /
@@ -340,6 +359,32 @@ by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a 
 10. **CPU**: the soak below (`mode=cpu`, and IMPOSSIBLE vs Hard) shows TECH! and TECH ROLL! every match and BURST!
     in most, never more than one burst per fighter per round (`burstUsed` ≤ 1), blue counters now and then, and
     rounds still ending by KO in the usual time.
+
+## CPU defense showcase (ADR 0025)
+
+Run after changes to `aiMaster.js` threats or answers, `aiDefense.js`, `DEF_PERSONAS` or `DEF_KNOBS`. The trials use
+`/?fight=naruto,sasuke&mode=cpu&debug`, frame stepping (`step(n)`), a fresh showman on P1
+(`new (game.brains[0].constructor)(game.fighters[0], 'showman')`) and the lab's `ScriptBrain` on P2
+(`(await import('/src/lab/scripts.js')).ScriptBrain`), 3 units apart, P1 at 200 ki.
+
+1. **Vanish**: P2 presses Guard + Special. Over 40 trials every answer P1 picks works: parry, spot dodge, counter,
+   air dodge, and the vanish war (P1 vanishes too, P2's kick whiffs, P1's lands). Only a P1 caught in its own dash or
+   attack gets hit. Same with Killua's Rhythm Echo (P2 → Special) and P1 Naruto: counter, parry, dodge, block all hold.
+2. **Retry**: P2 (Killua) fires Narukami from 7 units while P1 back-dashes: the answer picked during the dash is
+   `retry`, and P1 parries or dodges once the dash ends.
+3. **Late-drawn strikes**: P2 Sasuke's raw Chidori from 1.1 / 2 / 3 units, or any heavy at 1.1, against a P1 forced
+   to parry: parried every time (`reachT` times it to the frame the strike reaches out).
+4. **Showcase soak**: 24+ CPU vs CPU matches over all pairings and a mirror (the soak below, `mode=cpu`). Per
+   fighter-match: parries 3-6, spot dodges 2-5, visible air dodges or escapes 3-6, defensive wavedashes or backsteps
+   2-5 (`report().done`: `wavedash`, `backstep`, `jumpOut` and the `hitstun:` / `getup:` / `block:` reversals); a
+   counter-vanish (a fighter enters `vanish` while the other is vanishing or in `vanishKick`) in about half the
+   matches; a parry exchange (two parries by alternating sides within 180 frames) in 40 %+; rounds averaging 40-50 s;
+   no single answer above 50 % of a fighter's `defLog` picks in nearly every fighter-match; personas vary.
+5. **Fairness ladder** (CPU vs CPU, not spectating: `game.brains = [makeBrain(f0, a), makeBrain(f1, b)]`, 8 matches
+   each, sides alternating): Hard > Easy, Hard > Normal, Insane > Hard, Impossible > Insane within one win of ADR
+   0025's log. P1 scripted raw Heavy ×20 at 1.1 units: Easy is hit 60 %+, Normal 35 %+; with a persona, Easy-Hard's
+   `L` technique rates sum to the level's (`LEVELS`) when not spectating.
+6. **BACKSTEP**: the lab scenario **Backstep** (the dummy heavies, you back dash at frame 6) shows BACKSTEP on your side.
 
 ## Soak (CPU vs CPU)
 

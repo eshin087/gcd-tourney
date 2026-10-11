@@ -5,6 +5,7 @@
 - Deciders: User, Claude
 - Builds on: [0014](0014-defensive-options-and-impossible-cpu.md) (IMPOSSIBLE CPU, defensive options),
   [0015](0015-throws-and-cancelled-special-startup.md) (throws)
+- Amended by: [0025](0025-cpu-defense-personas.md) (defense personas, reads and parry rallies)
 
 ## Context
 
@@ -133,3 +134,16 @@ fighters there at once. The user approved a fix in the showman:
   (`DummyBrain` `clashLevel`, Normal by default).
 
 Measured (showman, Naruto / Gojo pairings, both sides able to clash): see CHANGELOG / docs/TASKS.md ENG-056.
+
+## Amendment (2026-10-10, ENG-073): the show director
+
+[ADR 0027](0027-beam-clash-energy-struggles.md) adds a `beamClash` tool (energy specials that can meet) and, in
+spectator matches only, a show director (`src/game/showDirector.js`) that cues the two CPUs (showmen, or Easy-Hard
+CpuBrains) once per match to play a beam clash (one challenges, the other answers). It never presses a button; the brains still decide whether the cue
+is possible. `watch()` now notes `clash` only for an ultimate clash and `beamClash` for a beam clash.
+
+## Amendment (2026-10-10, ENG-072): the combo composer
+
+[ADR 0026](0026-combo-composer-and-bounce-budget.md) replaces the showman's short-combo routes and its `cap` with a
+seeded combo composer (`src/game/aiCombo.js`): a per-match combo persona, length tiers with a governor, and only
+links checked against the victim's stun. The "short combos with a flashy ender" section above is history.
