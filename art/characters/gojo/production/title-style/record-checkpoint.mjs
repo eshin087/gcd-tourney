@@ -6,7 +6,7 @@ const untracked = execFileSync('git', ['ls-files', '--others', '--exclude-standa
   .trim().split(/\r?\n/).filter(Boolean).filter((p) => p.endsWith('.png'));
 const groups = new Map();
 for (const path of untracked) {
-  const match = path.match(/(?:^|\/)([A-Za-z][A-Za-z0-9]*)_v(\d{2})(?:_([A-Z]))?\.png$/);
+  const match = path.match(/(?:^|\/)([A-Za-z][A-Za-z0-9_]*)_v(\d{2})(?:_([A-Z]))?\.png$/);
   if (!match) continue;
   const [, asset, num] = match;
   const key = `${asset}:${num}`;
@@ -39,7 +39,18 @@ for (const group of groups.values()) {
   const key = `${asset}:${num}`;
   const paths = group.paths.sort();
   const existing = new RegExp(`^\\|[^\\n]*\\| gojo \\| ${asset} \\|[^\\n]*\\| v${num} \\|`, 'm');
-  if (existing.test(review)) continue;
+  if (existing.test(review)) {
+    review = review.replace(existing, (row) => {
+      const cells = row.split('|');
+      for (const path of paths) {
+        if (!cells[4].includes(path.split('/').at(-1))) {
+          cells[4] += ` / [${path.split('/').at(-1)}](${path.slice(4)})`;
+        }
+      }
+      return cells.join('|');
+    });
+    continue;
+  }
   const rejected = key === 'land:05' || key === 'land:04' || key === 'run:07' || key === 'light1:04';
   const links = paths.map((p) => `[${p.split('/').at(-1)}](${p.slice(4)})`).join(' / ');
   rows.push(`| 2026-10-11 | gojo | ${asset} | ${links} | v${num} | ${rejected ? 'rejected' : 'needs review'} | Title-style candidate from approved pilot; built-in image generation. | ${issues[key] || 'Source filed; full pack, anatomy and motion QA pending. No approval or shipping claim.'} |`);
@@ -57,7 +68,8 @@ let gojo = manifest.slice(start);
 const latest = new Map();
 for (const { asset, num } of groups.values()) latest.set(asset, Math.max(latest.get(asset) || 0, Number(num)));
 for (const [asset, num] of latest) {
-  const startAsset = gojo.indexOf(`        "${asset}": {`);
+  const manifestName = asset.startsWith('ui_') ? asset.slice(3) : asset;
+  const startAsset = gojo.indexOf(`        "${manifestName}": {`);
   if (startAsset < 0) continue;
   const endAsset = gojo.indexOf('\n        },', startAsset);
   if (endAsset < 0) continue;
