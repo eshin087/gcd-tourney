@@ -16,6 +16,15 @@ Existing image/design approval gates still apply; permission to execute commands
 These rules supersede older requirements to ask again for routine technical actions or have the user
 perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
 
+Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
+Prepare the body file in a separate command, then run exactly this argument order:
+`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+(optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
+flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
+It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
+Existing chats may need restarting to load this manually installed project-local rule. Other actions,
+including merges and art approval, retain their existing policies.
+
 For this machine's restricted Windows profile, build and serve with the local `.codex/vite.mjs`
 adapter documented in docs/AI_COLLABORATION.md. It passed the production build without broadening reads;
 the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a

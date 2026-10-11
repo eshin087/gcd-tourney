@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Ops (OPS-006): install local repository-specific PR edit approval rule for future PR numbers; document separate body preparation and repo-first command order. Filesystem write grants unchanged.
+
 - Art review follow-up: restore Sasuke's approved charge v02 per user decision; hand off Killua heavy v05 with stronger forward claw strikes and compact recoil, still unapproved.
 
 - **Combo escape** (ENG-068, ADR 0022): hold Guard while being hit to tech out at the first gap (with a direction) or tech roll on landing (not after hard knockdowns); Guard + Special while hit is a once-per-round **Burst** (2 bars, blockable: burst bait) with a gem by each ki gauge; the combo counter turns **blue** when the combo had an escapable gap (training shows the gap in frames); stacked technique banners for PARRY!, DODGE!, AIR DODGE!, TECH!, TECH ROLL!, BURST!, THROW BREAK, REVERSAL, PUNISH! and WAVEDASH in every match; the CPUs and the training dummy (DUMMY TECH / DUMMY BURST) use all of it; lab scenarios for each.
