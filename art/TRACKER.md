@@ -555,3 +555,5 @@ fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); 
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
 
 Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).
+
+Gojo title-style production (ART-GOJO-TITLE): approved pilot reference; idle v06 and guard v04 candidates pass first native anatomy inspection. Versioned full-strip and part candidates are in the worktree; the review queue records each saved version. The working atlas has unresolved scale and motion checks; none of these new frames or UI is approved for release. The original approved Gojo set remains the shipped set in the summary above.

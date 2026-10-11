@@ -291,7 +291,7 @@
         "idle": {
           "frames": 8,
           "loop": true,
-          "bodyHeight": 222,
+          "bodyHeight": 236,
           "ms": [
             150,
             150,
@@ -305,7 +305,7 @@
           "required": true,
           "step": 3,
           "status": "approved",
-          "version": 3,
+          "version": 6,
           "approvedVersion": 2
         },
         "run": {
@@ -325,7 +325,7 @@
           "required": true,
           "step": 4,
           "status": "approved",
-          "version": 4,
+          "version": 8,
           "approvedVersion": 3
         },
         "dash": {
@@ -339,7 +339,7 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
+          "version": 6,
           "approvedVersion": 1
         },
         "backDash": {
@@ -354,7 +354,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
+          "version": 4,
           "approvedVersion": 1
         },
         "superDash": {
@@ -368,7 +368,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
+          "version": 6,
           "approvedVersion": 1
         },
         "jumpSquat": {
@@ -381,8 +381,9 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 1,
+          "scaleManualQA": { "version": 4, "result": "pass", "by": "Codex", "note": "Low-confidence crouch checked at native packed cell size beside approved neutral and idle f0/f4: hair/head same scale; collar-to-hem torso and both legs compress only through knee and hip flexion; no enlarged shoulders or missing limb. Single pose has no loop. This is manual anatomy evidence, not a numeric probe pass or user art approval.", "evidence": "art/characters/gojo/production/title-style/jumpSquat-compare.png" }
         },
         "jumpUp": {
           "frames": 2,
@@ -395,7 +396,7 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
+          "version": 4,
           "approvedVersion": 1
         },
         "jumpFall": {
@@ -409,7 +410,7 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
+          "version": 4,
           "approvedVersion": 1
         },
         "land": {
@@ -423,7 +424,7 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
+          "version": 6,
           "approvedVersion": 1
         },
         "light1": {
@@ -447,7 +448,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
+          "version": 5,
           "approvedVersion": 1
         },
         "light2": {
@@ -471,7 +472,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
+          "version": 4,
           "approvedVersion": 1
         },
         "light3": {
@@ -495,7 +496,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "light4": {
@@ -520,7 +521,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
+          "version": 5,
           "approvedVersion": 2
         },
         "heavy": {
@@ -545,7 +546,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "airLight1": {
@@ -567,7 +568,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 1,
+          "version": 5,
           "approvedVersion": 1
         },
         "airLight2": {
@@ -589,7 +590,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "airLight3": {
@@ -612,7 +613,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 8,
           "approvedVersion": 1
         },
         "airHeavy": {
@@ -635,13 +636,13 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
+          "version": 7,
           "approvedVersion": 2
         },
         "guard": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 215,
+          "bodyHeight": 218,
           "ms": [
             300,
             300
@@ -649,7 +650,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 2,
+          "version": 4,
           "approvedVersion": 1
         },
         "block": {
@@ -663,7 +664,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "hurtHigh": {
@@ -678,7 +679,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "hurtLow": {
@@ -693,7 +694,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "launched": {
@@ -707,7 +708,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "spin": {
@@ -723,7 +724,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "airRecover": {
@@ -738,7 +739,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "down": {
@@ -752,7 +753,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "getup": {
@@ -769,7 +770,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "charge": {
@@ -785,7 +786,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 2,
+          "version": 7,
           "approvedVersion": 1
         },
         "throw": {
@@ -806,7 +807,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "beamCharge": {
@@ -821,7 +822,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "beamFire": {
@@ -836,7 +837,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 2,
+          "version": 4,
           "approvedVersion": 2
         },
         "vanish": {
@@ -850,7 +851,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "stagger": {
@@ -866,7 +867,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "ko": {
@@ -879,7 +880,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
+          "version": 5,
           "approvedVersion": 2
         },
         "special": {
@@ -904,7 +905,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "intro": {
@@ -920,7 +921,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "taunt": {
@@ -934,7 +935,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         },
         "win": {
@@ -950,7 +951,7 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 1,
+          "version": 7,
           "approvedVersion": 1
         },
         "specialForward": {
@@ -974,7 +975,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 5,
           "approvedVersion": 1
         },
         "specialUp": {
@@ -997,7 +998,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "specialDown": {
@@ -1018,7 +1019,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 3,
           "approvedVersion": 1
         },
         "superPose": {
@@ -1034,7 +1035,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
+          "version": 4,
           "approvedVersion": 1
         }
       },
