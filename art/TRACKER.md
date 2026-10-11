@@ -1,5 +1,7 @@
 # Art tracker
 
+Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
+
 Human-readable status of every art asset (hi-res sprite spec v2,
 [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md)). The machine-readable twin is
 [manifest.json](manifest.json); every generated image also has a row in the review queue

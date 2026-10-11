@@ -1,0 +1,189 @@
+{
+  "note": "Diagnostic reconstruction, not a passing atlas. Columns Naruto/Sasuke/Killua/Gojo; rows candidate f0/f4 then approved neutral. Source sidecars applied unchanged; packer gate remains authoritative.",
+  "fighters": [
+    {
+      "id": "naruto",
+      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-proportions\\art\\characters\\naruto\\raw\\idle_v05.png",
+      "sha256": "c3236abfeec7b7b212aae9498707edfbbb228726f0a935f3d3da0acbb965d717",
+      "version": 5,
+      "targetHeadPx": 25.21402951469189,
+      "frames": [
+        {
+          "frame": 0,
+          "factor": 0.33176354624594595,
+          "bounds": {
+            "x0": 74,
+            "y0": 47,
+            "x1": 184,
+            "y1": 240,
+            "w": 111,
+            "h": 194,
+            "n": 8564
+          },
+          "clip": []
+        },
+        {
+          "frame": 4,
+          "factor": 0.3367123314329273,
+          "bounds": {
+            "x0": 74,
+            "y0": 46,
+            "x1": 184,
+            "y1": 240,
+            "w": 111,
+            "h": 195,
+            "n": 8438
+          },
+          "clip": []
+        }
+      ],
+      "neutralBounds": {
+        "x0": 87,
+        "y0": 39,
+        "x1": 166,
+        "y1": 240,
+        "w": 80,
+        "h": 202,
+        "n": 8022
+      }
+    },
+    {
+      "id": "sasuke",
+      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-sasuke-proportions\\art\\characters\\sasuke\\raw\\idle_v06.png",
+      "sha256": "b233e3df823910d7e7a266ed03f00afc7e252c2261a951056a289a0adac20331",
+      "version": 6,
+      "targetHeadPx": 24.48673197462748,
+      "frames": [
+        {
+          "frame": 0,
+          "factor": 0.2457426550836829,
+          "bounds": {
+            "x0": 88,
+            "y0": 39,
+            "x1": 169,
+            "y1": 240,
+            "w": 82,
+            "h": 202,
+            "n": 8337
+          },
+          "clip": []
+        },
+        {
+          "frame": 4,
+          "factor": 0.24006599975124981,
+          "bounds": {
+            "x0": 88,
+            "y0": 39,
+            "x1": 168,
+            "y1": 240,
+            "w": 81,
+            "h": 202,
+            "n": 8271
+          },
+          "clip": []
+        }
+      ],
+      "neutralBounds": {
+        "x0": 86,
+        "y0": 36,
+        "x1": 167,
+        "y1": 240,
+        "w": 82,
+        "h": 205,
+        "n": 8901
+      }
+    },
+    {
+      "id": "killua",
+      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-scale-fix-killua\\art\\characters\\killua\\raw\\idle_v03.png",
+      "sha256": "dabd85e2a8124db44dfcda275b8e327518a6257e2b3e2d4a8570adf7a603b61b",
+      "version": 3,
+      "targetHeadPx": 24.225774996334824,
+      "frames": [
+        {
+          "frame": 0,
+          "factor": 0.31058685892736954,
+          "bounds": {
+            "x0": 94,
+            "y0": 38,
+            "x1": 165,
+            "y1": 240,
+            "w": 72,
+            "h": 203,
+            "n": 7956
+          },
+          "clip": []
+        },
+        {
+          "frame": 4,
+          "factor": 0.3230103332844643,
+          "bounds": {
+            "x0": 93,
+            "y0": 39,
+            "x1": 165,
+            "y1": 240,
+            "w": 73,
+            "h": 202,
+            "n": 7938
+          },
+          "clip": []
+        }
+      ],
+      "neutralBounds": {
+        "x0": 95,
+        "y0": 41,
+        "x1": 164,
+        "y1": 240,
+        "w": 70,
+        "h": 200,
+        "n": 7465
+      }
+    },
+    {
+      "id": "gojo",
+      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-gojo-full-redraw\\art\\characters\\gojo\\raw\\idle_v04.png",
+      "sha256": "104468594714019e6cacfca8db68341c7b60dc54edf3dd12094745e197484024",
+      "version": 4,
+      "targetHeadPx": 23.2002389724186,
+      "frames": [
+        {
+          "frame": 0,
+          "factor": 0.3627406489303733,
+          "bounds": {
+            "x0": 89,
+            "y0": 8,
+            "x1": 173,
+            "y1": 240,
+            "w": 85,
+            "h": 233,
+            "n": 10207
+          },
+          "clip": []
+        },
+        {
+          "frame": 4,
+          "factor": 0.3462722234689343,
+          "bounds": {
+            "x0": 89,
+            "y0": 12,
+            "x1": 174,
+            "y1": 240,
+            "w": 86,
+            "h": 229,
+            "n": 10027
+          },
+          "clip": []
+        }
+      ],
+      "neutralBounds": {
+        "x0": 93,
+        "y0": 9,
+        "x1": 172,
+        "y1": 240,
+        "w": 80,
+        "h": 232,
+        "n": 10170
+      }
+    }
+  ]
+}
