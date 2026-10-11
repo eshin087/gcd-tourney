@@ -1,5 +1,3 @@
-> Active 2026-10-11 override: [approved cast baseline](../../scale/APPROVED_CAST_BASELINE.md) and [neutral redraw](PROPORTION_REDRAW.md) supersede historical proportions and approval sequencing below. All42 generation authorized; animation candidates remain unapproved.
-
 # Sasuke (Shippuden / Hebi era): character design brief
 
 > **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
