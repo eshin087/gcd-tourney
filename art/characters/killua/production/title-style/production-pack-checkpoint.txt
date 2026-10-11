@@ -48,7 +48,7 @@ GCD Tourney sprite packer v2
     specialUp    6     <- raw/specialUp_v08.png        x0.339  (removed 13 specks; candidate v08 (approved: v02))
     specialDown  4     <- raw/specialDown_v05.png      x0.306  (removed 12 specks; re-imported: replaces frames/ cleaned from raw/specialDown_v01.png; candidate v05 (approved: v01))
     superPose    4     <- raw/superPose_v08.png        x0.304  (removed 13 specks; re-imported: replaces frames/ cleaned from raw/superPose_v03.png; candidate v08 (approved: v03))
-  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 22 drift, 2 uniform, 8 unmeasured, 1 pop, 8 ok  FAILED: run, dash, backDash, superDash, jumpSquat, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, hurtHigh, hurtLow, launched, spin, airRecover, down, getup, throw, beamCharge, beamFire, vanish, ko, special, intro, specialForward, superPose - nothing written
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 22 drift, 2 uniform, 4 manual, 1 pop, 8 ok, 4 unmeasured  FAILED: run, dash, backDash, superDash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, hurtHigh, hurtLow, launched, down, getup, throw, beamCharge, beamFire, ko, special, intro, specialForward, superPose - nothing written
   ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
   - palette snapped to 48 colors
   - 13 hitbox override(s) from hitboxes.json
@@ -59,7 +59,6 @@ GCD Tourney sprite packer v2
   ! scale gate: dash head 0.90 of idle (feet 1.02): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v05, not approved yet]
   ! scale gate: backDash head 0.93 of idle (feet 1.03): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v04, not approved yet]
   ! scale gate: superDash head 0.86 of idle (feet 0.94): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [v06, not approved yet]
-  ! scale gate: jumpSquat: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v05, not approved yet]
   ! scale gate: jumpUp head 0.84 of idle (feet 1.02): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v05, not approved yet]
   ! scale gate: jumpFall head 0.86 of idle (feet 0.98): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v05, not approved yet]
   ! scale gate: land head 0.86 of idle (feet 1.01): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v04, not approved yet]
@@ -76,14 +75,11 @@ GCD Tourney sprite packer v2
   ! scale gate: hurtHigh head 0.84 of idle (feet 0.97): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, not approved yet]
   ! scale gate: hurtLow head 0.88 of idle (feet 0.96): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, not approved yet]
   ! scale gate: launched: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v05, not approved yet]
-  ! scale gate: spin: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v04, not approved yet]
-  ! scale gate: airRecover: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v05, not approved yet]
   ! scale gate: down: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v07, not approved yet]
   ! scale gate: getup: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v07, not approved yet]
   ! scale gate: throw head 0.86 of idle (feet 0.98): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, not approved yet]
   ! scale gate: beamCharge head 0.93 of idle (feet 1.03): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v08, not approved yet]
   ! scale gate: beamFire head 0.88 of idle (feet 1.01): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v08, not approved yet]
-  ! scale gate: vanish: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v04, not approved yet]
   ! scale gate: ko: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v08, not approved yet]
   ! scale gate: special head 0.91 of idle (feet 1.02): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v07, not approved yet]
   ! scale gate: intro head 0.93 of idle (feet 1.04): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v04, not approved yet]
@@ -97,5 +93,5 @@ GCD Tourney sprite packer v2
   wrote public/characters/killua/cutin.png
   wrote public/characters/killua/select.png
 
-SCALE GATE FAILED: killua (run, dash, backDash, superDash, jumpSquat, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, hurtHigh, hurtLow, launched, spin, airRecover, down, getup, throw, beamCharge, beamFire, vanish, ko, special, intro, specialForward, superPose) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
-done: 1/1 character(s) packed, vfx skipped, crowd skipped, 40 warning(s).
+SCALE GATE FAILED: killua (run, dash, backDash, superDash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, hurtHigh, hurtLow, launched, down, getup, throw, beamCharge, beamFire, ko, special, intro, specialForward, superPose) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 36 warning(s).
