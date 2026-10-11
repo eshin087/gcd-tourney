@@ -157,7 +157,8 @@ const energyOf = (def, other, { air = false, rush = false } = {}) => {
   const list = (air ? airEnergyMoves(def) : energyMoves(def)).filter((e) => e.kind === 'shot' || theirShot);
   return list.find((e) => e.kind === (rush ? 'rush' : 'shot')) ?? list[0] ?? null;
 };
-const energyTap = (t, e) => tap(t, 'special', { stick: SLOT_STICK[e.slot] });
+// (none when that side has no energy move: the lab still plays a scenario its `needs` turned down, so it stays still)
+const energyTap = (t, e) => (e ? [tap(t, 'special', { stick: SLOT_STICK[e.slot] })] : []);
 // A named kit shot freezes the world for its 8-frame flash (Game.onKitMove) while the scripts keep counting, and a
 // ground special comes out when the button is let go (3 frames): the frame the dummy's shot is `x` frames into its
 // startup is 11 + x.
@@ -186,21 +187,21 @@ export const SCENARIOS = [
     id: 'beamClash', name: 'Beam clash (energy vs energy)', info: 'Both fire an energy special at once (Narukami, Reversal: Red, Chidori Spear; Naruto drives a Rasengan in): BEAM CLASH!, two streams meet in the middle and the rhythm chart decides it. The winner\'s stream runs through and wall-bounces the loser; a dead heat blows both back.',
     needs: ([a, b]) => (canBeamClash(a, b) ? null : BEAM_NOTE),
     setup: { gap: 5, kiA: 100, kiB: 100 },
-    a: ([a, b]) => [energyTap(0, energyOf(a, b))], b: ([a, b]) => [energyTap(0, energyOf(b, a))],
+    a: ([a, b]) => energyTap(0, energyOf(a, b)), b: ([a, b]) => energyTap(0, energyOf(b, a)),
   },
   {
     id: 'beamAnswer', name: 'Answer an energy shot', info: 'The dummy fires its energy shot at you; you fire yours (a Rasengan / Chidori if you have one) while it flies at you: the two meet in a BEAM CLASH instead of the hit.',
     needs: ([a, b]) => (energyOf(b, a)?.kind === 'shot' && energyOf(a, b) ? null : 'needs a dummy with an energy shot (Killua, Sasuke, Gojo)'),
     setup: { gap: 5, kiA: 100, kiB: 100 },
-    a: ([a, b]) => [energyTap(KIT_FLASH + energyOf(b, a).m.startup, energyOf(a, b, { rush: true }))],
-    b: ([a, b]) => [energyTap(0, energyOf(b, a))],
+    a: ([a, b]) => energyTap(KIT_FLASH + (energyOf(b, a)?.m.startup ?? 0), energyOf(a, b, { rush: true })),
+    b: ([a, b]) => energyTap(0, energyOf(b, a)),
   },
   {
     id: 'beamAir', name: 'Beam clash from the air', info: 'You jump and fire your air energy shot down at the dummy; it answers from the ground. Locked in the air, you hover through the clash and fall once it is over.',
     needs: ([a, b]) => (airEnergyMoves(a).length && energyOf(b, a) ? null : 'your fighter has no air energy shot (Killua, Sasuke, Gojo do)'),
     setup: { gap: 5, kiA: 100, kiB: 100 },
-    a: () => [tap(0, 'jump'), tap(14, 'special')],
-    b: ([a, b]) => [energyTap(14 + KIT_FLASH + airEnergyMoves(a)[0].m.startup - 2 - RELEASE, energyOf(b, a, { rush: true }))],
+    a: ([a]) => (airEnergyMoves(a).length ? [tap(0, 'jump'), tap(14, 'special')] : []),
+    b: ([a, b]) => { const air = airEnergyMoves(a)[0]; return air ? energyTap(14 + KIT_FLASH + air.m.startup - 2 - RELEASE, energyOf(b, a, { rush: true })) : []; },
   },
   {
     id: 'throwBreak', name: 'Throw, then break it', info: `The dummy throws you; you press Light + Heavy within ${THROW.techWindow} frames.`,
