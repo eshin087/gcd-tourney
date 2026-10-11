@@ -27,3 +27,11 @@ No new strips are approved. No merge or production deploy is authorized for this
 Production build passed (79 modules). Local game on port5224 logged custom Gojo sheet with42animations; no console errors. The packed sheet contains37new candidates plus5explicitly labeled historical fallbacks. Browser review page loads all42sections and every packed frame. This is a partial review checkpoint, not a full-batch release.
 
 Direct neutral comparison of idle PartA: inferred skull~67sourcepx versus neutral110; shoulder-to-hip~190–195 versus neutral~310 (expected189 at matching skull scale). Long leg silhouette and narrow adult torso remain consistent by eye. Knee landmarks under trousers carry uncertainty; loop B height caveat remains.
+
+## Final packed-atlas visual review (2026-10-11)
+
+Re-extracted the actual committed atlas cells, rather than the stale frames cache, into contact/packed-*.png. airLight1 v04 now preserves the entire extended palm in both active cells; no neighboring-frame fragment is visible. specialForward v04 preserves the tall narrow torso and long legs across all seven cells, including the leaning pose.
+
+Reviewed all four spin, three airRecover and five getup packed cells. Their rotated hair and hidden joints prevent a reliable upright hair-box comparison. Along each local body axis, the visible head, torso and bent limb segments retain plausible adult proportions; no obvious swollen head or compressed torso comparable to the rejected airLight3 correction is visible. This is qualitative evidence, not a precise landmark pass: trousers obscure knees and the tucked poses occlude hips. Keep those strips flagged for explicit visual review and do not use them as future scale references. No probe exemption was added.
+
+The deployed preview of commit 01aa8b3 loads the gallery and atlas without browser console errors. Five technical holds remain excluded from approval instructions.
