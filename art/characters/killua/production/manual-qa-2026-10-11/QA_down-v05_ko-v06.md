@@ -11,3 +11,10 @@ Still wrong: the **torso**. Colour runs along the body's centre line (purple shi
 idle 40-43 px, ko 56-58 px (+35 %), down f1 50-55 px (+25 %). The scarf (8 px) and the shorts (35-40 px) match,
 so the extra length is the shirt itself. down f1 only looks right overall because its bent knees shorten the legs.
 Fix: shorten the lying torso to the idle's (shoulder to hem about 50 px at the packed scale including the scarf).
+
+## Re-check: down v06 and ko v07 — PASS (2026-10-11, Claude)
+
+Torso fixed: shirt from scarf to hem ~39-42 px (ko) and ~35-40 px (down f1) against 40-43 px standing; shorts,
+thighs, shins and shoes match; head the same size; down f1 x45-230, ko x27-230 (inside the margins).
+[Sheet](qa-killua-down-v06-ko-v07.png), [segments at 2x](qa-killua-down-v06-ko-v07-segments.png). `scaleManualQA`
+recorded for down v06 and ko v07. The user's visual approval is still required.
