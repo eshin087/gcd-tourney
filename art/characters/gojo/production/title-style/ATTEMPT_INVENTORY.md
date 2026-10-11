@@ -18,7 +18,7 @@ The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate
 | light1 | v05 | 2 | head gate passes; full frame QA pending |
 | light2 | v06 | 3 | head pass; 3 rounds used |
 | light3 | v04 | 2 | measured B stitch x0.9467; head gate passes; contact QA pending |
-| light4 | v06 | 2 | head pass; B stitch x0.7965 |
+| light4 | v07 B rejected; assembled v06 | 3 | head pass on v06; B stitch x0.7965; regenerated B remains oversize, rounds exhausted |
 | heavy | v06 A rejected; assembled v05 | 3 | v05 elbow still ambiguous and head 0.93; v06 A crosses face; source rounds exhausted |
 | airLight1 | v06 | 2 | head gate passes; splitter warning from touching source group, native edge QA pending |
 | airLight2 | v04 | 1 | head gate passes; full frame QA pending |
@@ -52,6 +52,6 @@ The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate
 | ui_cutin | v02 | 1 | visual candidate; not approved |
 | ui_select | v02 | 1 | visual candidate; not approved |
 
-The source separation, motion, or part-scale retry cap is reached for run, light2, heavy, getup, airLight3, specialDown and special. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The ten current gate holds are **heavy, airLight3, airHeavy, launched, spin, airRecover, down, getup, vanish, ko**. The full pack writes no atlas. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.
+The source separation, motion, or part-scale retry cap is reached for run, light2, light4, heavy, getup, airLight3, specialDown and special. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The ten current gate holds are **heavy, airLight3, airHeavy, launched, spin, airRecover, down, getup, vanish, ko**. The full pack writes no atlas. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.
 
-Per-part call budget where a corrective half was generated: run A 2/B 3 (v09 B rejected, no assembled v09); heavy A 3/B 1 (v05 B copied from v04, v06 A rejected); getup first two rounds were single strips and final round A 1/B 1; light2 A 3/B 3; airLight3 A 2/B 3 (v10 A copied from v09); special A 2/B 3 (v05 A copied from v04); specialForward A 2/B 2; light3 A 2/B 2. Copied source pixels and measured placement metadata are not extra image-generation calls. These counts exclude historical pre-title-style source versions.
+Per-part call budget where a corrective half was generated: run A 2/B 3 (v09 B rejected, no assembled v09); light4 A 2/B 3 (v07 B rejected, no assembled v07); heavy A 3/B 1 (v05 B copied from v04, v06 A rejected); getup first two rounds were single strips and final round A 1/B 1; light2 A 3/B 3; airLight3 A 2/B 3 (v10 A copied from v09); special A 2/B 3 (v05 A copied from v04); specialForward A 2/B 2; light3 A 2/B 2. Copied source pixels and measured placement metadata are not extra image-generation calls. These counts exclude historical pre-title-style source versions.
