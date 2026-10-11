@@ -19,6 +19,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Docs (OPS-004): authorize autonomous project work with separate task worktrees and one sequential integration coordinator; document the local Codex permission profile and Windows Git ACL repair, preserving artwork approval gates.
 
+- Docs (art handoff): replace the sandbox-only handoff with seven real batch PRs (#25, #29, #28, #27, #30, #26, #24) and verified hosted review previews. Preserve version history and approval gates; identify remaining Naruto charge, Sasuke heavy and Gojo model defects. No art merged or production deployed.
+
 - Docs: art briefs for Codex: Gojo's broader adult build and full 42-animation redraw (art/characters/gojo/BUILD_REDRAW.md, ART-GOJ-BUILD), and new `heavy` launchers and `charge` power-ups for Naruto (a bursting uppercut), Sasuke (the Lion's Barrage opening kick) and Killua (a spiraling rising claw rake), in each KIT.md (ART-HEAVY-01, ART-CHARGE-01); inbox items per thread.
 - Tools: `npm run lineup` draws the cast side by side on one floor line (idle, run, heavy) with each fighter's standing height and shoulder width, and flags a build outside its declared class (`art/scale/builds.json`), so a new fighter who reads too small or too thin is caught in review (TOOL-023). It flags Gojo today (ART-GOJ-BUILD). `--candidate` lines up an unpacked model-sheet figure.
 - Docs: a size and build standard for every fighter (art/CHARACTER_SCALE.md, DOC-009): canon height to standing pixels, build classes with shoulder-width bands, a mandatory cast lineup on the model sheet, idle, run and heavy reviews, and a blocking build gate; Gojo's build is broadened (ADR 0010 note).

@@ -17,6 +17,8 @@ How it works:
 
 ## One chat for everything (2026-10-10)
 
+**Current delivery (Codex, 2026-10-10):** all seven batches now live in real task worktrees with separate open PRs and verified hosted previews. See [NOW](../NOW.md) for the per-character review list. New art remains unapproved; no merge or production deployment. Gojo stopped at model v06. Scoped automatic approval review allowed routine Git/build/network actions without user prompts; this is separate from the OPS-004 restricted Git CLI issue below.
+
 **Build fix (OPS-005):** `.codex/vite.mjs` now builds and serves the game inside the tight profile;
 production build and root/lab/main-JS/Three.js HTTP checks pass without extra reads. Use commands in
 docs/AI_COLLABORATION.md. Actual Git CLI fixture fails at working-directory resolution, so OPS-004
@@ -34,6 +36,8 @@ can retain or reapply the old restrictions. Use real task worktrees and one inte
 as described in AGENTS.md. Preserve the staging batches below; they are still not real worktrees.
 **Remaining blocker:** scoped Vite build cannot list the home directory; parent read/traverse ACL
 repair did not complete. Production build passed with escalation. Do not claim full unattended QA yet.
+
+**Earlier sandbox-only run (superseded by current delivery):** ordinary copies under `.worktrees/sandbox-batches/` remain historical source packets. They are not Git worktrees; do not run Git mutations there. Their image histories and tracking changes were reconciled into the real batch worktrees. The old no-PR/no-preview delivery limitation is resolved by the open PRs above.
 
 The user has a single Codex chat now. In it, do every thread's open items below yourself, one character at a time,
 in this order (each item's brief has the details):
@@ -70,19 +74,21 @@ How to run it:
   pack them (`npm run sprites sasuke`), check the repack of the fighter sheets stays byte-identical, then
   `npm run status -- --write` and commit `art(scale): record user approval of the final fighter batch`.
 
-- [ ] **(2026-10-10) Every new feature or character lands through a pull request** ([ADR 0013](../decisions/0013-pull-requests-in-worktrees.md),
+- [x] **(2026-10-10) Every new feature or character lands through a pull request** ([ADR 0013](../decisions/0013-pull-requests-in-worktrees.md),
   AGENTS.md "Safe boundaries"). Start with `npm run pr -- start <prefix>/<name>` (`--full` for art) and work and
   commit only inside that worktree; `npm run pr -- open` there; Claude or the user merges with
   `npm run pr -- merge <branch>`. Never leave uncommitted work in the main folder: on 2026-10-10 Claude had to
   split a whole session of uncommitted art into PRs #6-#8 before anything could merge. Art approvals for a
   character that already ships may still commit straight to `main`.
-- [ ] **(2026-10-09) Keep docs/NOW.md current.** Read rule 6 under "Roles and handoff protocol" in
+- [x] **(2026-10-09) Keep docs/NOW.md current.** Read rule 6 under "Roles and handoff protocol" in
   [AGENTS.md](../../AGENTS.md). Before you stop and hand back: update "Your next actions" in docs/NOW.md
   (remove what's done, add what the user must do next), run `npm run status -- --write`, and commit
   docs/NOW.md with your files. When the user types **status**, run `npm run status` and answer in under 10
   lines.
 
 ## Naruto thread
+
+2026-10-10 real-worktree delivery (Codex): [beamCharge v05 / beamFire v07](https://gcd-tourney-426nmajqo-eshin087s-projects.vercel.app/art-review/naruto/four-tails/index.html) ([PR #25](https://github.com/eshin087/gcd-tourney/pull/25)); [heavy v07 / charge v04](https://gcd-tourney-8dnzgeqr6-eshin087s-projects.vercel.app/art-review/naruto/heavy-charge/index.html) ([PR #29](https://github.com/eshin087/gcd-tourney/pull/29)). All new art remains unapproved. Four tails per pose and clipping repaired; no new strict-pack warning. Hosted gallery, Ultimate maul and Naruto-Gojo clash checked, custom 42-animation sheet loaded without errors. Raw palette gate still fails (50,246 / 38,299 colors); packed atlas: 48 colors. Heavy contact and exact-idle recovery improved; f3 forearm angle and f5 bent-knee follow-through differ from brief. Charge foot spans 125/120/119/114px and head-loop drift still fail. Hosted heavy launch and charge checked with no errors; correction recommended for charge. Raw palette gate still fails (159,968 / 104,075 colors); packed atlas: 48 colors. See PR bodies for committed preview/browser evidence.
 
 - [ ] **(2026-10-10) ART-HEAVY-01 + ART-CHARGE-01 (Naruto): a new `heavy` and `charge`.** The user's review: the
   heavy looks unnatural (an arm raised on the spot) and the power-up barely moves. Redraw `heavy` as **v04** (a bursting uppercut, after his Chunin Exam uppercut on Neji) and
@@ -91,7 +97,7 @@ How to run it:
   Art PR: `npm run pr -- start art/naruto-heavy-charge --full`; `_vNN` candidates, an anatomy sidecar per strip, REVIEW rows,
   then stop for the user's `approve vNN`. Attach the cast lineup to the heavy's REVIEW row: `npm run lineup -- naruto sasuke killua gojo --out art/scale/lineup-<id>-heavy_vNN.png` after packing (art/CHARACTER_SCALE.md "Lineup review").
 
-- [ ] **(2026-10-10) ART-NAR-4T: the Four-Tails frames (required, ADR 0017).** PR #14 is merged: Naruto's ultimate
+- [x] **(2026-10-10) ART-NAR-4T: the Four-Tails frames (required, ADR 0017).** PR #14 is merged: Naruto's ultimate
   is now the Four-Tails rampage (no more Rasen Cannon beam). Redraw `beamCharge` (the roar, 3 frames) and `beamFire`
   (the pounce and the claw slams, 3 frames) as the four-tailed shroud form, exactly as
   [art/characters/naruto/KIT.md](../../art/characters/naruto/KIT.md) §5 describes: near-black crimson body with a
@@ -131,6 +137,8 @@ How to run it:
 
 ## Sasuke thread
 
+2026-10-10 real-worktree delivery (Codex): [heavy v06 / charge v04](https://gcd-tourney-nxkpmca3a-eshin087s-projects.vercel.app/art-review/sasuke-heavy-charge/) ([PR #28](https://github.com/eshin087/gcd-tourney/pull/28)); [light2 v02 / light3 v02 / special v03](https://gcd-tourney-9y5h05e3v-eshin087s-projects.vercel.app/art-review/sasuke-size-pops/) ([PR #27](https://github.com/eshin087/gcd-tourney/pull/27)). All new art remains unapproved. Heavy active foot contact and exact idle recovery still miss the brief; translating active frames would break supporting feet. Raw source palette/scale gates fail; packed atlas has 48 colors and zero warnings. Hosted gallery/playback and custom 42-animation game verified without errors. Reduced size jumps, traced crown/chin landmarks with ±6px source uncertainty. Hosted gallery/playback and custom 42-animation game verified without errors. Visual review remains. See PR bodies for committed preview/browser evidence.
+
 - [ ] **(2026-10-10) ART-HEAVY-01 + ART-CHARGE-01 (Sasuke): a new `heavy` and `charge`.** The user's review: the
   heavy looks unnatural (an arm raised on the spot) and the power-up barely moves. Redraw `heavy` as **v03** (the Lion's Barrage opening kick: a low hand-touch crouch, the rising front kick, a back-arched follow-through, clearly apart from his `specialUp`) and
   `charge` as **v03** (cold intensity, Sharingan on), exactly as [art/characters/sasuke/KIT.md](../../art/characters/sasuke/KIT.md#6-redraws-2026-10-10-heavy-and-charge) describes (the frame tables, the new A07 /
@@ -157,6 +165,8 @@ How to run it:
 
 ## Killua thread
 
+2026-10-10 real-worktree delivery (Codex): [heavy v03 / charge v07](https://gcd-tourney-l8wt7zz43-eshin087s-projects.vercel.app/killua-heavy-charge-review/) ([PR #30](https://github.com/eshin087/gcd-tourney/pull/30)); [Whirlwind beamCharge v05](https://gcd-tourney-24yhrhrty-eshin087s-projects.vercel.app/killua-whirlwind-review/) ([PR #26](https://github.com/eshin087/gcd-tourney/pull/26)). All new art remains unapproved. Heavy hand clipping and recovery fixed; charge feet y240 throughout with endpoints within ±1px of median (2px extreme-to-extreme). Strict pack has only the pre-existing KO margin warning; preferred claw-contact height and anatomical estimates remain review caveats. Hosted gallery, all frames, launcher, held charge and air combo checked with zero captured errors. Raw source palette still fails (heavy 30,997 / charge 157,775 non-magenta colors); packed atlas: 48 colors. Raised heels corrected; ready for visual review. Two-pixel bottom-foot-span variation and covered-crown estimates are documented. Build, hosted gallery, custom sheet, Ultimate activation and three-frame stepping passed; old KO warning unchanged. See PR bodies for committed preview/browser evidence.
+
 - [ ] **(2026-10-10) ART-HEAVY-01 + ART-CHARGE-01 (Killua): a new `heavy` and `charge`.** The user's review: the
   heavy looks unnatural (an arm raised on the spot) and the power-up barely moves. Redraw `heavy` as **v02** (an assassin's spiraling rising claw rake that ends in a skip; the claw schedule stays) and
   `charge` as **v04** (crouched, twitching with power), exactly as [art/characters/killua/KIT.md](../../art/characters/killua/KIT.md#redraws-2026-10-10-heavy-and-charge) describes (the frame tables, the new A07 /
@@ -164,7 +174,7 @@ How to run it:
   Art PR: `npm run pr -- start art/killua-heavy-charge --full`; `_vNN` candidates, an anatomy sidecar per strip, REVIEW rows,
   then stop for the user's `approve vNN`. Attach the cast lineup to the heavy's REVIEW row: `npm run lineup -- naruto sasuke killua gojo --out art/scale/lineup-<id>-heavy_vNN.png` after packing (art/CHARACTER_SCALE.md "Lineup review").
 
-- [ ] **(2026-10-10) ART-KIL-WW, optional (ADR 0017):** after the Naruto thread's ART-NAR-4T. Killua's ultimate is now
+- [x] **(2026-10-10) ART-KIL-WW, optional (ADR 0017):** after the Naruto thread's ART-NAR-4T. Killua's ultimate is now
   Godspeed: Whirlwind (reflex mode), and his flurry SUPER is renamed Speed of Lightning. No redraw is required. For
   the anime look, generate the next `_vNN` of `beamCharge` as the Whirlwind ready stance, exactly as
   [art/characters/killua/KIT.md](../../art/characters/killua/KIT.md) describes (low and relaxed, hands open, hair
@@ -193,6 +203,8 @@ hard to hit; Claude fixed that in the engine (minimum hurtbox width), so **no ar
 Killua response (2026-10-09): cleaned frame specks; final strict report has none. light1 2/3 and airHeavy 2/3 now have hand-local overrides. specialForward 2/3 regenerated and reassembled in v02, restoring full limbs. Four fallback detections remain before overrides; visual contact-zone deviations documented in production/QA.md. Final atlas: 42 animations, 175 frames, 48 colors, zero warnings. User approved final batch 2026-10-09; approval bookkeeping is complete. Latest user instruction: finish safely within the writable project folder, without permission prompts; defer protected Git writes.
 
 ## Gojo thread
+
+2026-10-10 real-worktree delivery (Codex): [model_sheet v06](https://gcd-tourney-c6vv0ihw0-eshin087s-projects.vercel.app/gojo-model-review/) ([PR #24](https://github.com/eshin087/gcd-tourney/pull/24)). All new art remains unapproved. Neutral poses/profile improved; source-scale, palette and anatomical gates still fail or remain provisional after three attempts. Correction recommended before production approval. Hosted gallery images load; Gojo custom runtime renders without browser errors. See PR bodies for committed preview/browser evidence.
 
 - [ ] **(2026-10-10) ART-GOJ-BUILD (required): Gojo's broader adult build, all 42 animations.** The user's decision: Gojo
   reads too thin and too small (his idle has a 13-year-old's shoulders: deltoid ratio 0.23, the same as Killua's; the
