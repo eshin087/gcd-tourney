@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): additional authorized corrections for nine strips, refreshed already-approved idle reference and guide, full-frame evidence and attempt ledger; five per-strip passes, two capped holds and two Claude manual-QA holds. Runtime atlas unchanged (ART-KIL-SCALE-W1).
+
 - Record user blanket visual approval (2026-10-11) of Killua PR64 latest reviewed checkpoint, with exact versions. Strict pack and manual anatomy holds remain; no atlas or manifest shipped-approval promotion (ART-KIL-SCALE-W1).
 
 - Killua approved-neutral redraw checkpoint:42 actions generated;10 strict scale failures and8 manual anatomy holds remain. Versioned sources, calibrated sidecars, attempt ledger, review gallery and stitch-ROI tooling evidence; no new art approvals or atlas promotion (ART-KIL-SCALE-W1).
