@@ -1,0 +1,52 @@
+{
+  "superDash": {
+    "versions": [
+      3,
+      4,
+      5
+    ],
+    "best": 5,
+    "reason": "Compact torso/limbs too large relative to head despite probe success",
+    "attempts": 3
+  },
+  "airLight3": {
+    "versions": [
+      2,
+      3,
+      4
+    ],
+    "best": 3,
+    "reason": "Head-to-body drift; final head enlargement and auto-fit compress anatomy",
+    "attempts": 3
+  },
+  "airHeavy": {
+    "versions": [
+      3,
+      4,
+      5
+    ],
+    "best": 3,
+    "reason": "Head pop remains f0 .97 versus f2 1.13 after final correction",
+    "attempts": 3
+  },
+  "charge": {
+    "versions": [
+      3,
+      4,
+      5
+    ],
+    "best": 4,
+    "reason": "Head correction overshoot/undershoot; no passing attempt",
+    "attempts": 3
+  },
+  "win": {
+    "versions": [
+      2,
+      3,
+      4
+    ],
+    "best": 2,
+    "reason": "Initial head .934 is closest; corrections overshot then undershot",
+    "attempts": 3
+  }
+}

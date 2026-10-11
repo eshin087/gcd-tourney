@@ -232,11 +232,9 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
 Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
-white hair swept up. User approved the broader model v06 on 2026-10-10. Existing animation art still follows the older model until a separately scoped redraw.
+white hair swept up. The user approved the lean height_neutral v01 on 2026-10-11, superseding the broader model direction. Full redraw candidates are in progress.
 
-Body scale: **taller than the cast** (standing body 215 px, `standingBodyPx: 215`,
-[ADR 0010](../docs/decisions/0010-per-character-body-scale.md)): every `bodyHeight` is the shared
-value x ~1.09, capped at the 236 px cell ceiling. Kit animations (ADR 0009): `special` = Lapse:
+Body scale: **shared physical cast scale**, standing skull-to-sole 220.402270 px, occupied approved neutral 233 px after the common reduction. No individual tall-character cap. See [approved baseline](scale/APPROVED_CAST_BASELINE.md). Kit animations (ADR 0009): `special` = Lapse:
 Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the engine yet, ENG-032),
 `specialDown` = Infinity, `superPose` = Domain Expansion hand sign. 42 animations = 175 frames = an
 11-row sheet.
@@ -245,48 +243,48 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
-| 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | guard | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | launched | 2 | - | **yes** | 148 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 6 | getup | 5 | - | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | charge | 4 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 7 | beamCharge | 3 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | beamFire | 3 | - | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | dash | 2 | - | **yes** | 174 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | land | 2 | - | **yes** | 189 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | win | 4 | - | **yes** | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | backDash | 3 | - | no | 225 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 9 | superDash | 2 | - | no | 140 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 9 | jumpSquat | 1 | - | no | 176 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | block | 2 | - | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | hurtLow | 3 | - | no | 199 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | spin | 4 | - | no | 174 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | airRecover | 3 | - | no | 196 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | vanish | 2 | - | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | stagger | 4 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | ko | 1 | - | no | 70 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | taunt | 2 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | specialForward | 7 | 2/2/3 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | specialUp | 6 | 2/2/2 | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | specialDown | 4 | 2/1/1 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | superPose | 4 | - | no | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 3 | idle | 8 | - | **yes** | 222 | approved | v04 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
+| 4 | run | 8 | - | **yes** | 222 | approved | v06 | v03 | enlarged-head candidate rejected; original approved art active |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v04 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v04 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v05 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | guard | 2 | - | **yes** | 215 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | launched | 2 | - | **yes** | 148 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | down | 2 | - | **yes** | 104 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
+| 6 | getup | 5 | - | **yes** | 222 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | charge | 4 | - | **yes** | 215 | approved | v05 | v01 | enlarged-head candidate rejected; original approved art active |
+| 7 | beamCharge | 3 | - | **yes** | 215 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | beamFire | 3 | - | **yes** | 215 | approved | v03 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 8 | dash | 2 | - | **yes** | 174 | approved | v05 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | land | 2 | - | **yes** | 189 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 8 | win | 4 | - | **yes** | 230 | approved | v04 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | backDash | 3 | - | no | 225 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | superDash | 2 | - | no | 140 | approved | v05 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | jumpSquat | 1 | - | no | 176 | approved | v03 | v01 | enlarged-head candidate rejected; original approved art active |
+| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v04 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | block | 2 | - | no | 222 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | hurtLow | 3 | - | no | 199 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | spin | 4 | - | no | 174 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | airRecover | 3 | - | no | 196 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | vanish | 2 | - | no | 232 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | stagger | 4 | - | no | 225 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | ko | 1 | - | no | 70 | approved | v04 | v02 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
+| 9 | intro | 4 | - | no | 228 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | taunt | 2 | - | no | 228 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | specialForward | 7 | 2/2/3 | no | 222 | approved | v04 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | specialUp | 6 | 2/2/2 | no | 232 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | specialDown | 4 | 2/1/1 | no | 222 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | superPose | 4 | - | no | 230 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
@@ -538,3 +536,9 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+Gojo full redraw2026-10-11: approved neutral v01; idle v04 and first four movement/guard candidates saved, all generatedstrips unapproved. Full42 inventory in characters/gojo/redraw/INVENTORY.json.
+
+## Gojo full redraw — 2026-10-11 checkpoint
+
+42 source animations drawn; 37 new candidates packed. Five technical holds: superDash, airLight3, airHeavy, charge, win; three attempts exhausted. No new strip approvals. See characters/gojo/redraw/INVENTORY.json and TECHNICAL_HOLDS.json. Approved versions remain unchanged.

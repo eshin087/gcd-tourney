@@ -257,3 +257,7 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 | ART-SAS-REDRAW-20261010 | Sasuke heavy and charge correction with phone review | Codex | done | files: art/characters/sasuke/, art/scale/lineup-sasuke-heavy*, public/art-review/sasuke-heavy-charge/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated art/sasuke-heavy-charge; user approval recorded; ready for Claude integration. |
 | ART-SAS-CHARGE-ROLLBACK | Restore approved Sasuke charge after user rejection | Codex | done | PR28: archive v04, keep approved v02 and historical newest4; strict pack, geometry comparison and refreshed preview. Heavy v06 unchanged. User approved latest art; existing QA caveats accepted; integration remains pending. |
 | ART-SAS-SIZE-20261010 | Sasuke size-pop correction with phone review | Codex | done | files: art/characters/sasuke/, art/scale/lineup-sasuke-size*, public/art-review/sasuke-size-pops/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated fix/sasuke-size-pops; user approval recorded; ready for Claude integration. |
+
+**ART-GOJO-FULL-20261011**, Codex, in-progress. All42 redraw against approvedneutral. Own art/characters/gojo, Gojo manifest/review rows, Gojo pack outputs, art/scale/heads-gojo.png and review lineup. Port5224, real worktree art-gojo-full-redraw. Claudeonly integrates.
+
+ART-GOJO-FULL-20261011 checkpoint:42 source animations drawn,37 packed candidates;5 attempt-cap holds. Review page public/art-review/gojo-full-redraw. Not merge-ready; Claude alone integrates.

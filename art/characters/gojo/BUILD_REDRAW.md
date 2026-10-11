@@ -1,3 +1,5 @@
+> Active full redraw: userapproved height_neutral v01 on2026-10-11. [PROPORTION_REDRAW](PROPORTION_REDRAW.md) and [shared baseline](../../scale/APPROVED_CAST_BASELINE.md) supersede historical build/height/head instructions below. KIT motion remains authoritative.
+
 # Gojo: build correction and full redraw (brief for Codex, 2026-10-10)
 
 > Written by Claude for Codex. **User decision (2026-10-10):** Gojo is too thin and looks too small. Keep his head
