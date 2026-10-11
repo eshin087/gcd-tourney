@@ -75,7 +75,9 @@ dust, cracks or flash), one chakra tail for Naruto at MAX.
 - The budget is checkable: `game.fx.items.filter(i => i.tag === 'charge' && i.life > 0).length` stays at or below
   16 (Gojo about 7), and the lab's "Charge to MAX" row plays the whole build from an empty gauge.
 - Eye offsets (`eyes.at`) are measured on spec v2 art (ppu 128) and skipped on the baked placeholder; a redraw
-  that moves a head (Gojo's ART-GOJ-BUILD) needs the offset re-checked in the lab.
+  that moves a head (Gojo's ART-GOJ-BUILD) needs the offset re-checked in the lab. Every spot on or around the
+  body (`body`, `eyes.at`, held effects, bar beats) and its sprite size scale by `SpriteActor.depthK` (ENG-067), the
+  way `Effects.handTick` does, so the power-up stays on the drawn body when the fighters stand at different depths.
 - Five new atlas rows wait for Codex art (art/vfx/EFFECTS.md, PROMPTS.md); until then the procedural stand-ins
   ship.
 - Not covered here (follow-up): the Nine-Tails cloak and Godspeed mode auras and the beamCharge / beamFire auras

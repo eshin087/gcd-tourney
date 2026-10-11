@@ -121,6 +121,10 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       charge sprite's glow ≤ 0.6, `game.fx.overlay.lines` < 0.05 between bar pulses, `overlay.flashA` ≤ 0.1 at
       MAX (0 for Gojo). While charging, `game.superFlashFor(game.fighters[1], 40, 0.5); step(40)` adds no charge
       sprites and no craters. After a release, guard, jump, hit or ultimate, `f.actor.shell.mesh.visible` is false.
+      Tap **Charge to MAX** again mid-charge (a lab row resets the round, clearing every effect): the replay peaks
+      at the same sprite count as the first run (`game.fighters[0].chargeFx.live` holds no handle left from before
+      the reset). With the fighters apart in depth (`teleport(0, 0, ±1.5)`, `f.actor.depthK` ≠ 1) the eye glint
+      stays on the drawn eyes and the chakra tail on the hips; `&depthscale=0` compares.
 - [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:
       **Ultimate clash**, **Answer an ultimate**) → CLASH!: rings close on the target, each player's grade pops on
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).

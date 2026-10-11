@@ -145,8 +145,10 @@ function basis(game) {
 }
 
 // A spawn point for `from`, `d` units behind the body's plane (negative: in front). `flip`: the sprite's facing.
-function place(from, p, body, flip, d = 0) {
-  const [hw, h] = body;
+// `k`: SpriteActor.depthK (ENG-067). The body draws scaled by it about its feet, so every spot on and around it
+// scales the same way or the power-up drifts off the drawn body when the two fighters stand at different depths.
+function place(from, p, body, flip, d = 0, k = 1) {
+  const hw = body[0] * k, h = body[1] * k;
   let side = 0, up = 0;
   switch (from) {
     case 'body': side = rnd(-hw, hw); up = rnd(0.15, 0.85) * h; break;
@@ -157,7 +159,7 @@ function place(from, p, body, flip, d = 0) {
     case 'feet': up = 0.02; break;
     case 'floor': case 'ring': {
       // on (or above) the floor around them: plain world space, depth sorts itself
-      const a = Math.random() * Math.PI * 2, r = from === 'floor' ? rnd(0.3, 0.85) : rnd(1.0, 1.4);
+      const a = Math.random() * Math.PI * 2, r = (from === 'floor' ? rnd(0.3, 0.85) : rnd(1.0, 1.4)) * k;
       return P.set(p.x + Math.cos(a) * r, p.y + (from === 'floor' ? 0.04 : rnd(0.25, 0.85) * h), p.z + Math.sin(a) * r * 0.6);
     }
   }
@@ -168,15 +170,15 @@ const VEL = [0, 0, 0];
 const SH = {}; // the shell's per-frame settings, reused
 function spawnOne(game, f, s, e, b, tag) {
   const fx = game.fx;
-  const p = f.renderPos || f.pos, flip = f.actor.flip;
+  const p = f.renderPos || f.pos, flip = f.actor.flip, dk = f.actor.depthK ?? 1;
   const scale = pick(e.scale, 0.2) * (1 + (e.grow ?? 0) * b);
   const front = e.front && scale <= FRONT_MAX && Math.random() < (e.front === true ? 1 : e.front);
-  const at = place(e.from ?? 'body', p, s.body, flip, front ? -0.15 : 0.3); // R4: anything bigger stays behind
-  at.addScaledVector(U, e.y ?? 0);
+  const at = place(e.from ?? 'body', p, s.body, flip, front ? -0.15 : 0.3, dk); // R4: anything bigger stays behind
+  at.addScaledVector(U, (e.y ?? 0) * dk);
   let vel = null;
   if (e.vel === 'toChest') {
     const k = 4; // reaches the chest in about a quarter second
-    T.copy(p).addScaledVector(U, 0.6 * s.body[1]).sub(at).multiplyScalar(k);
+    T.copy(p).addScaledVector(U, 0.6 * s.body[1] * dk).sub(at).multiplyScalar(k);
     VEL[0] = T.x; VEL[1] = T.y; VEL[2] = T.z;
     vel = VEL;
   } else if (e.vel) {
@@ -186,7 +188,7 @@ function spawnOne(game, f, s, e, b, tag) {
     vel = VEL;
   }
   const it = fx.spawn(e.fx, at.x, at.y, at.z, {
-    bottom: BOTTOM.has(e.fx), scale, color: e.c, opacity: e.opacity, glow: e.glow, vel, grav: e.grav ?? 0,
+    bottom: BOTTOM.has(e.fx), scale: scale * dk, color: e.c, opacity: e.opacity, glow: e.glow, vel, grav: e.grav ?? 0,
     life: e.life, frame: e.frame ?? -1, random: !!e.random, fade: !!e.fade, rot: e.spin ? Math.random() * 6.28 : 0,
     flipX: e.flipX ?? (BOTTOM.has(e.fx) ? Math.random() < 0.5 : false), order: front ? 6 : 1,
   });
@@ -195,12 +197,14 @@ function spawnOne(game, f, s, e, b, tag) {
   return it;
 }
 
-// Drop dead handles in place (no per-frame allocation) and count the live ones per emitter.
+// Drop dead handles in place (no per-frame allocation) and count the live ones per emitter. A mesh out of the
+// scene is dead too, however it left (Effects.clearAll on a round or lab reset): a stale handle would hold its
+// emitter's `max` and the CAP for the rest of the match.
 function prune(S) {
   let n = 0;
   S.counts.fill(0);
   for (const it of S.live) {
-    if (it.life <= 0) continue;
+    if (it.life <= 0 || !it.mesh.parent) continue;
     S.live[n++] = it;
     if (it.emitter >= 0) S.counts[it.emitter] = (S.counts[it.emitter] ?? 0) + 1;
   }
@@ -211,11 +215,11 @@ function glint(game, f, s, S, max) {
   const E = s.eyes;
   if (!E || f.asset?.meta?.source !== 'art-pack') return; // offsets are measured on spec v2 art; skip the placeholder
   if (S.live.length >= CAP) return;
-  const p = f.renderPos || f.pos, flip = f.actor.flip;
-  const [fwd, up] = E.at;
-  P.copy(p).addScaledVector(R, flip * fwd).addScaledVector(U, up).addScaledVector(F, -0.1);
+  const p = f.renderPos || f.pos, flip = f.actor.flip, dk = f.actor.depthK ?? 1;
+  const [fwd, up] = E.at; // on the drawn eyes, which sit depthK higher on a depth-scaled body
+  P.copy(p).addScaledVector(R, flip * fwd * dk).addScaledVector(U, up * dk).addScaledVector(F, -0.1);
   const it = game.fx.spawn('star', P.x, P.y, P.z, {
-    scale: (E.scale ?? 0.12) * (max ? 1.4 : 1), color: E.c, glow: Math.min(GLOW_MAX, E.glow ?? 0.6), life: 0.2, depthTest: false, order: 9,
+    scale: (E.scale ?? 0.12) * (max ? 1.4 : 1) * dk, color: E.c, glow: Math.min(GLOW_MAX, E.glow ?? 0.6), life: 0.2, depthTest: false, order: 9,
   });
   it.tag = 'charge';
   it.emitter = -1;
@@ -248,14 +252,14 @@ export function chargeTick(game, f, t, frozen = false) {
     shell.show(SH);
   }
   // held effects (a chakra tail) follow the body even while frozen
-  const p = f.renderPos || f.pos, flip = f.actor.flip;
+  const p = f.renderPos || f.pos, flip = f.actor.flip, dk = f.actor.depthK ?? 1;
   for (let i = 0; i < s.emit.length; i++) {
     const e = s.emit[i];
     if (!e.hold || !e.max) continue;
     const id = (S.ids[i] ??= `chg${f.index}_${i}`); // per fighter: a mirror match shares the style
     if (level < e.bar) { if (S.keeps.delete(id)) fx.drop(id); continue; }
-    const at = place(e.from ?? 'hips', p, s.body, flip, 0.25).addScaledVector(U, e.y ?? 0);
-    const it = fx.keep(id, e.fx, at.x, at.y, at.z, { bottom: BOTTOM.has(e.fx), scale: pick(e.scale, 0.5), color: e.c, opacity: e.opacity, glow: e.glow, order: 1 });
+    const at = place(e.from ?? 'hips', p, s.body, flip, 0.25, dk).addScaledVector(U, (e.y ?? 0) * dk);
+    const it = fx.keep(id, e.fx, at.x, at.y, at.z, { bottom: BOTTOM.has(e.fx), scale: pick(e.scale, 0.5) * dk, color: e.c, opacity: e.opacity, glow: e.glow, order: 1 });
     it.mesh.scale.x = Math.abs(it.mesh.scale.x) * flip; // drawn curling back for a fighter facing right
     it.rot = Math.sin(game.time * 2.2) * (e.sway ?? 0.08) * flip;
     it.tag = 'chargeKeep';
@@ -284,8 +288,8 @@ export function chargeTick(game, f, t, frozen = false) {
   // the floor
   const G = s.ground;
   if (G.dustEvery && t > 0 && t % G.dustEvery === 0 && S.live.length < CAP) {
-    const at = place('feet', p, s.body, flip, 0.35); // a billboard ring: behind, so its far arc never crosses the body
-    const it = fx.spawn('ring', at.x, at.y, at.z, { scale: 1 + 0.5 * b, color: 0xd8ccb8, opacity: 0.35, life: 0.35, fade: true });
+    const at = place('feet', p, s.body, flip, 0.35, dk); // a billboard ring: behind, so its far arc never crosses the body
+    const it = fx.spawn('ring', at.x, at.y, at.z, { scale: (1 + 0.5 * b) * dk, color: 0xd8ccb8, opacity: 0.35, life: 0.35, fade: true });
     it.tag = 'charge';
     it.emitter = -1;
     S.live.push(it);
@@ -318,16 +322,16 @@ export function chargeBar(game, f, full) {
   const s = chargeStyle(f), B = full ? s.max : s.bar;
   if (!B) return;
   basis(game);
-  const fx = game.fx, p = f.renderPos || f.pos;
-  const chest = C.copy(place('chest', p, s.body, f.actor.flip, 0.3)); // place() reuses one vector
+  const fx = game.fx, p = f.renderPos || f.pos, dk = f.actor.depthK ?? 1;
+  const chest = C.copy(place('chest', p, s.body, f.actor.flip, 0.3, dk)); // place() reuses one vector
   const tag = (it) => { it.tag = 'chargeBar'; return it; };
   if (B.ring) {
-    const at = place('feet', p, s.body, f.actor.flip, 0.35); // behind: its far arc would otherwise cross the chest
-    tag(fx.spawn('ring', at.x, at.y, at.z, { scale: B.ring.scale, color: B.ring.c, opacity: B.ring.opacity, glow: 0.2, life: 0.3, fade: true }));
+    const at = place('feet', p, s.body, f.actor.flip, 0.35, dk); // behind: its far arc would otherwise cross the chest
+    tag(fx.spawn('ring', at.x, at.y, at.z, { scale: B.ring.scale * dk, color: B.ring.c, opacity: B.ring.opacity, glow: 0.2, life: 0.3, fade: true }));
   }
-  if (B.ripple) tag(fx.spawn('ripple', chest.x, chest.y, chest.z, { scale: B.ripple, color: s.pal.core, opacity: 0.35, life: 0.3, fade: true, order: 1 }));
+  if (B.ripple) tag(fx.spawn('ripple', chest.x, chest.y, chest.z, { scale: B.ripple * dk, color: s.pal.core, opacity: 0.35, life: 0.3, fade: true, order: 1 }));
   // drawn behind the body: the fighter stays readable through the beat
-  if (B.burst) tag(fx.spawn('burst', chest.x, chest.y, chest.z, { scale: B.burst.scale, color: s.pal.main, opacity: 0.7, glow: Math.min(0.4, B.burst.glow ?? 0.3), order: 1, rot: Math.random() * 6 }));
+  if (B.burst) tag(fx.spawn('burst', chest.x, chest.y, chest.z, { scale: B.burst.scale * dk, color: s.pal.main, opacity: 0.7, glow: Math.min(0.4, B.burst.glow ?? 0.3), order: 1, rot: Math.random() * 6 }));
   for (const e of B.fx) tag(spawnOne(game, f, s, e, 1, 'chargeBar'));
   if (B.dust) fx.dust(f.pos, B.dust);
   if (full && B.flash) fx.overlay.flash(s.css.dark, B.flash); // R5: dark, faint, MAX only
