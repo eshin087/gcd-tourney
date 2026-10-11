@@ -109,11 +109,11 @@
   },
   "light1": {
     "version": 10,
-    "bodyHeight": 165
+    "bodyHeight": 151
   },
   "light2": {
-    "version": 5,
-    "bodyHeight": 180
+    "version": 6,
+    "bodyHeight": 160
   },
   "light3": {
     "version": 5,
@@ -125,38 +125,38 @@
   },
   "heavy": {
     "version": 11,
-    "bodyHeight": 198
+    "bodyHeight": 214
   },
   "airLight3": {
     "version": 9,
     "bodyHeight": 180
   },
   "airHeavy": {
-    "version": 7,
-    "bodyHeight": 205
+    "version": 8,
+    "bodyHeight": 164
   },
   "specialDown": {
     "version": 5,
     "bodyHeight": 190
   },
   "superPose": {
-    "version": 7,
+    "version": 8,
     "bodyHeight": 186
   },
   "special": {
-    "version": 6,
+    "version": 7,
     "bodyHeight": 170
   },
   "specialForward": {
-    "version": 10,
-    "bodyHeight": 175
+    "version": 12,
+    "bodyHeight": 139
   },
   "specialUp": {
     "version": 8,
     "bodyHeight": 215
   },
   "light4": {
-    "version": 8,
-    "bodyHeight": 180
+    "version": 10,
+    "bodyHeight": 166
   }
 }

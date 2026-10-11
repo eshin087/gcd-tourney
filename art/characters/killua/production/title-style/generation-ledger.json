@@ -170,7 +170,7 @@
     "asset": "run",
     "version": 8,
     "parts": {
-      "A": 1,
+      "A": 3,
       "B": 3
     },
     "prompt": "Anime fan-art sprite. Match attached USER APPROVED title-style reference exactly for identity, head, torso, limb lengths, costume volume, colors and drawing style. Silver-white fluffy spiky hair, sharp youthful blue-eyed face, lavender long-sleeve shirt/navy wide collar, white undershirt cuffs/hem, navy knee shorts, purple high-top sneakers. SCALE LOCK: neutral occupied82x186px and combat148x146px in256cell at128ppu; same anatomy through poses. Do not enlarge crouches or reduce torso/limbs. No generic head ratio.\nANIMATION: \"run\", low silent sprint. 8 frames in total, numbered 1 to 8 from left to right; this image is PART A of 2 and shows only poses 1 to 4. It loops: the last frame must flow smoothly back into the first.\n1. Contact: left foot reaching forward, the ball of the foot touching down well ahead of the hips; right leg extended back, toes pushing off. Face: cold, mouth closed.\n2. Down: weight on the left leg, knee bent deepest, body at its lowest; right heel lifting behind.\n3. Passing: left leg under the hips, right knee swinging forward past it; body rising.\n4. Flight: both feet off the ground; right knee forward and up, left leg extended straight back with pointed toes; body at its highest; longest stride.\nMOTION: Torso pitched about 35 degrees forward for the whole cycle, head up and level. The arms are held LOW and slightly back, elbows a little bent, open loose hands trailing beside his hips; they swing only slightly (no arm pumping, not a ninja run with straight arms). Light, long strides on the balls of the feet. Hair tufts swept back to the left; the loose shirt and its white hem flap back; the shorts flap.\n\n\nLAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.\nVIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks, claw and hand strikes travel horizontally toward the right edge of the image.\nSTYLE: clean hard-edged anime pixel art, restrained cel shading matching approved reference; no gradients, texture, blur or glow. Flat #FF00FF background, no shadows/text/effects. Complete separated figures, same anatomical scale every frame. Make poses small enough to leave generous magenta gaps and outside margins."
@@ -179,8 +179,8 @@
     "asset": "light1",
     "version": 10,
     "parts": {
-      "A": 2,
-      "B": 1
+      "A": 3,
+      "B": 2
     },
     "prompt": "Anime fan-art sprite. Match attached USER APPROVED title-style reference exactly for identity, head, torso, limb lengths, costume volume, colors and drawing style. Silver-white fluffy spiky hair, sharp youthful blue-eyed face, lavender long-sleeve shirt/navy wide collar, white undershirt cuffs/hem, navy knee shorts, purple high-top sneakers. SCALE LOCK: neutral occupied82x186px and combat148x146px in256cell at128ppu; same anatomy through poses. Do not enlarge crouches or reduce torso/limbs. No generic head ratio.\nANIMATION: \"light1\", knife-hand thrust with the left (lead) hand. 7 frames in total, numbered 1 to 7 from left to right; this image is PART A of 2 and shows only poses 1 to 4.\nPoses 3 and 4 are the HIT frames: the striking hand or foot is fully extended toward the right and is the right-most part of the character; head, hair tufts, collar, shirt and its white hem stay behind it.\nCLAWS: in the poses marked (CLAW) his fingers stiffen and hook slightly and his fingernails grow into short, sharp, pale claws (about as long as the last finger joint, silver-white like his hair, never metal, never glowing); in every other pose his fingertips are normal.\n1. Anticipation: the left hand pulls back toward the chest, fingers straightening and pressing together; weight sinks a touch. Face: cold.\n2. The left knife-hand launches, elbow half extended, the nail tips sharpening (CLAW). Face: focused.\n3. IMPACT (CLAW): left arm FULLY EXTENDED straight to the right, raised to the height of his own brows (where a taller opponent's face is), fingers straight and pressed together, the sharp nail tips leading; left shoulder forward with the chin tucked behind it; right hand up near the chin, open; left foot stepped forward. SMEAR: a short solid tapered streak behind the hand in purple-sleeve, white-cuff and skin colors (hard pixels, no blur). Face: focused.\n4. Same full extension without the smear, the hand a touch further (CLAW); hair tufts flick forward, the sleeve ripples. Face: focused.\nMOTION: One-frame anticipation, a hard snap, a quick light recovery: no wasted motion. Hair tufts jolt forward on frame 3 and settle on frame 5.\n\n\nLAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.\nVIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks, claw and hand strikes travel horizontally toward the right edge of the image.\nSTYLE: clean hard-edged anime pixel art, restrained cel shading matching approved reference; no gradients, texture, blur or glow. Flat #FF00FF background, no shadows/text/effects. Complete separated figures, same anatomical scale every frame. Make poses small enough to leave generous magenta gaps and outside margins."
   },
@@ -189,7 +189,7 @@
     "version": 5,
     "parts": {
       "A": 1,
-      "B": 1
+      "B": 2
     },
     "prompt": "Anime fan-art sprite. Match attached USER APPROVED title-style reference exactly for identity, head, torso, limb lengths, costume volume, colors and drawing style. Silver-white fluffy spiky hair, sharp youthful blue-eyed face, lavender long-sleeve shirt/navy wide collar, white undershirt cuffs/hem, navy knee shorts, purple high-top sneakers. SCALE LOCK: neutral occupied82x186px and combat148x146px in256cell at128ppu; same anatomy through poses. Do not enlarge crouches or reduce torso/limbs. No generic head ratio.\nANIMATION: \"light2\", claw swipe with the right (near) hand. 7 frames in total, numbered 1 to 7 from left to right; this image is PART A of 2 and shows only poses 1 to 4.\nPoses 3 and 4 are the HIT frames: the striking hand or foot is fully extended toward the right and is the right-most part of the character; head, hair tufts, collar, shirt and its white hem stay behind it.\nCLAWS: in the poses marked (CLAW) his fingers stiffen and hook slightly and his fingernails grow into short, sharp, pale claws (about as long as the last finger joint, silver-white like his hair, never metal, never glowing); in every other pose his fingertips are normal.\n1. Hips coil: torso twists back toward the viewer; the right hand cocked high beside his right ear with the fingers hooked into a claw (CLAW), elbow back; weight on the right (back) leg. Face: cold.\n2. Hips and shoulders rotate forward, the right claw sweeps forward past his face (CLAW). Face: focused.\n3. IMPACT (CLAW): right arm FULLY EXTENDED to the right at the height of his own eyes, the claw leading (fingers spread and hooked, sharp nails forward), the arm crossing in front of his body (fully visible); torso turned almost to profile, the loose shirt twisting with it; right heel lifted, pivoting on the ball of the foot; left hand pulled back to the chest. SMEAR: a solid crescent behind the claw with four thin solid claw-trail streaks in the pale nail color along the fingertips' path (hard pixels, no blur). Face: focused, teeth just showing.\n4. Same full extension without the smear, the claw a touch further (CLAW). Face: focused.\nMOTION: The power comes from the hip rotation; the thin arm snaps fully straight. Hair tufts flick forward on frame 3.\n\n\nLAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.\nVIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks, claw and hand strikes travel horizontally toward the right edge of the image.\nSTYLE: clean hard-edged anime pixel art, restrained cel shading matching approved reference; no gradients, texture, blur or glow. Flat #FF00FF background, no shadows/text/effects. Complete separated figures, same anatomical scale every frame. Make poses small enough to leave generous magenta gaps and outside margins."
   },
@@ -216,5 +216,55 @@
     "version": 7,
     "attempts": 3,
     "prompt": "Anime fan-art sprite. Match attached USER APPROVED title-style reference exactly for identity, head, torso, limb lengths, costume volume, colors and drawing style. Silver-white fluffy spiky hair, sharp youthful blue-eyed face, lavender long-sleeve shirt/navy wide collar, white undershirt cuffs/hem, navy knee shorts, purple high-top sneakers. SCALE LOCK: neutral occupied82x186px and combat148x146px in256cell at128ppu; same anatomy through poses. Do not enlarge crouches or reduce torso/limbs. No generic head ratio.\nANIMATION: \"getup\", kip-up. 5 frames, left to right.\n1. Lying on his back (head on the LEFT), knees pulled to his chest, palms planted beside his head with the fingers toward the shoulders. Face: eyes open, cold.\n2. Legs kicking up and over toward the upper right, rolling onto his shoulders, hands pushing off. Face: focused.\n3. Springing up into the air, torso tilted back, legs folding under him, arms out. Face: focused.\n4. Landing in a crouch facing right on the balls of his feet, hands coming into the loose guard. Face: focused.\n5. His fighting stance (left foot forward, same as idle frame 1). Face: cold glare.\nMOTION: He faces right from frame 4 on. Hair tufts and the shirt follow the flip.\n\n\nLAYOUT: one single horizontal row of exactly 5 poses on a 1536x1024 landscape canvas. Split the width into 5 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.\nVIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks, claw and hand strikes travel horizontally toward the right edge of the image.\nSTYLE: clean hard-edged anime pixel art, restrained cel shading matching approved reference; no gradients, texture, blur or glow. Flat #FF00FF background, no shadows/text/effects. Complete separated figures, same anatomical scale every frame. Make poses small enough to leave generous magenta gaps and outside margins."
+  },
+  {
+    "asset": "light4",
+    "parts": {
+      "A": 2,
+      "B": 3
+    }
+  },
+  {
+    "asset": "airLight3",
+    "parts": {
+      "A": 1,
+      "B": 1
+    }
+  },
+  {
+    "asset": "airHeavy",
+    "parts": {
+      "A": 2,
+      "B": 1
+    }
+  },
+  {
+    "asset": "special",
+    "parts": {
+      "A": 2,
+      "B": 3
+    }
+  },
+  {
+    "asset": "specialForward",
+    "parts": {
+      "A": 3,
+      "B": 3
+    }
+  },
+  {
+    "asset": "specialUp",
+    "parts": {
+      "A": 1,
+      "B": 1
+    }
+  },
+  {
+    "asset": "specialDown",
+    "attempts": 1
+  },
+  {
+    "asset": "superPose",
+    "attempts": 3
   }
 ]

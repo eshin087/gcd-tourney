@@ -11,6 +11,10 @@ const diagnostic = process.argv.includes('--diagnostic');
 const output = `public/preview/killua-reference-${diagnostic ? 'diagnostic' : 'qa'}`;
 const settings = JSON.parse(fs.readFileSync(`${base}/candidate-settings.json`));
 const manifest = JSON.parse(fs.readFileSync('art/manifest.json'));
+// This generated art-only fixture must not retain a superseded higher version.
+const fixtureRaw = path.resolve(root, 'characters/killua/raw');
+if (!fixtureRaw.startsWith(path.resolve(base) + path.sep)) throw new Error('Fixture escaped QA directory');
+fs.rmSync(fixtureRaw, { recursive: true, force: true });
 fs.mkdirSync(`${root}/characters/killua/raw`, { recursive: true });
 fs.mkdirSync(`${root}/scale`, { recursive: true });
 fs.copyFileSync(`${base}/combat_v01.png`, `${root}/characters/killua/raw/idle_v01.png`);
@@ -32,6 +36,11 @@ process.stdout.write(run.stdout + run.stderr);
 if (run.status !== 0) process.exit(run.status || 1);
 const packed = loadPacked('killua', path.resolve(output));
 const names = Object.keys(settings);
+for (const name of names) {
+  if (packed.meta.scaleAudit.anims[name]?.v !== settings[name].version) {
+    throw new Error(`Diagnostic version mismatch: ${name}`);
+  }
+}
 const composite = newImage((2 + Math.max(...packed.anims.map(a => a.cells.length))) * 256, names.length * 256);
 for (const [row, name] of names.entries()) {
   blit(composite, readPng(`${base}/neutral_v01.png`), 0, row * 256);
