@@ -37,6 +37,32 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 // Vanish: teleport behind the opponent (1 ki bar), then vanishKick
 export const VANISH = { cost: 100, hideFrames: 9 };
 
+// Juggle rules (ADR 0026): read by Fighter.takeHit / physics / onLand and by the CPU combo composer (aiCombo.js), so the
+// planner predicts links with the numbers the engine plays. Frames at 60 fps, speeds in units/s.
+//  cap        hits after which a launched victim techs by itself
+//  decay      hit stun and air stun scale: max(floor, 1 − per·(combo − 1))
+//  launchStun air stun after a launching hit: max(min, base − per·combo) × decay
+//  airStun    air stun after a juggle hit (no launch): max(min, base − per·combo) × decay
+//  gravity    a launched victim's gravity scale: min(max, base + per·combo)
+//  pop        a juggle hit's airPop × max(floor, 1 − per·combo)
+//  scale      damage scaling: max(minScale ?? floor, 1 − per·(combo − 1))
+//  wall       ring-barrier bounce: a launched victim faster than `minSpeed` toward it comes back at `keep` × its speed and
+//             rises at least at `up`; `stun` = its air stun (flat, no decay)
+//  ground     ground bounce: rises at `up`, keeps `keep` of the horizontal speed, air stun `stun`
+//  floor      a hard landing (impact > `impact`) bounces once at `keep` × the impact and `slide` of the horizontal speed
+export const JUGGLE = {
+  cap: 22,
+  decay: { per: 0.045, floor: 0.35 },
+  launchStun: { base: 40, per: 1.6, min: 6 },
+  airStun: { base: 26, per: 1, min: 5 },
+  gravity: { base: 0.6, per: 0.035, max: 1.35 },
+  pop: { per: 0.03, floor: 0.5 },
+  scale: { per: 0.065, floor: 0.4 },
+  wall: { minSpeed: 5, keep: 0.55, up: 7, stun: 32 },
+  ground: { up: 11, keep: 0.35, stun: 30 },
+  floor: { impact: 8, keep: 0.32, slide: 0.5 },
+};
+
 // Hit flash on the victim's sprite (ENG-064, src/game/hitFlash.js). Render only; frames at 60 fps, counted every
 // sim frame including hitstop and freezes. Which tier a hit plays: ko > the move's `hitFlash` field (supers) > special
 // (a big beam) > tick (hitstop <= 3, not big: multi-hits never re-pop) > counter (it interrupts the startup or active

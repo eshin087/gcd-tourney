@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -1299,17 +1299,18 @@ export class Fighter {
         if (roll) this.gapF++;
         if (this.gb && !this.ko) {
           // ground bounce: pop back up for more juggling
+          const G = JUGGLE.ground;
           this.gb = false;
-          this.vel.y = 11;
-          this.vel.x *= 0.35; this.vel.z *= 0.35;
+          this.vel.y = G.up;
+          this.vel.x *= G.keep; this.vel.z *= G.keep;
           this.air = true;
-          this.airStun = 30;
+          this.airStun = G.stun;
           this.bigLaunch = true;
           this.game.onGroundBounce(this);
-        } else if (impact > 8 && !this.bounced) {
+        } else if (impact > JUGGLE.floor.impact && !this.bounced) {
           this.bounced = true;
-          this.vel.y = impact * 0.32;
-          this.vel.x *= 0.5; this.vel.z *= 0.5;
+          this.vel.y = impact * JUGGLE.floor.keep;
+          this.vel.x *= JUGGLE.floor.slide; this.vel.z *= JUGGLE.floor.slide;
           this.air = true;
           audio.play('thud');
           this.game.fx.dust(this.pos, 1.3);
@@ -1350,7 +1351,7 @@ export class Fighter {
       case 'attack':
         return this.move?.hover ? 0 : this.move?.air ? 0.35 : 1;
       case 'launched':
-        return this.ko ? 0.9 : Math.min(1.35, 0.6 + this.combo * 0.035);
+        return this.ko ? 0.9 : Math.min(JUGGLE.gravity.max, JUGGLE.gravity.base + this.combo * JUGGLE.gravity.per);
       case 'air':
         return this.chase > 0 ? 0.3 : 1;
       default:
@@ -1385,11 +1386,12 @@ export class Fighter {
       if (Math.abs(this.pos[k]) > ARENA_LIMIT) {
         const s = Math.sign(this.pos[k]);
         this.pos[k] = s * ARENA_LIMIT;
-        if (this.state === 'launched' && this.wb && Math.abs(this.vel[k]) > 5 && !this.ko) {
+        const W = JUGGLE.wall;
+        if (this.state === 'launched' && this.wb && Math.abs(this.vel[k]) > W.minSpeed && !this.ko) {
           this.wb = false;
-          this.vel[k] = -this.vel[k] * 0.55;
-          this.vel.y = Math.max(this.vel.y, 7);
-          this.airStun = 32;
+          this.vel[k] = -this.vel[k] * W.keep;
+          this.vel.y = Math.max(this.vel.y, W.up);
+          this.airStun = W.stun;
           this.bigLaunch = true;
           this.game.onWallBounce(this, k, s);
         } else if (this.state === 'launched' || this.state === 'down') this.vel[k] *= -0.25;
@@ -1509,7 +1511,8 @@ export class Fighter {
     this.dodgeDir = null;
     if (this.grab) { this.grab = null; this.heldT = 0; } // knocked out of a throw's grip
     if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; }
-    const scale = Math.max(m.minScale ?? 0.4, 1 - (this.combo - 1) * 0.065); // supers keep a higher floor
+    const J = JUGGLE;
+    const scale = Math.max(m.minScale ?? J.scale.floor, 1 - (this.combo - 1) * J.scale.per); // supers keep a higher floor
     const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
     this.hp = Math.max(0, this.hp - dmg);
     this.comboDmg = wasStunned ? this.comboDmg + dmg : dmg;
@@ -1533,7 +1536,7 @@ export class Fighter {
       else this.ko = true;
     }
     // hitstun decay: long combos give the victim less stun, more gravity and an earlier tech
-    const decay = Math.max(0.35, 1 - (this.combo - 1) * 0.045);
+    const decay = Math.max(J.decay.floor, 1 - (this.combo - 1) * J.decay.per);
     if (m.groundBounce) this.gb = true;
     if (m.wallBounce) this.wb = true;
     const inAir = this.air || this.pos.y > 0.05;
@@ -1547,16 +1550,16 @@ export class Fighter {
       this.air = true;
       this.bounced = false;
       this.bigLaunch = Math.abs(L[1]) > 12 || L[0] > 13;
-      this.airStun = Math.round(Math.max(6, 40 - this.combo * 1.6) * decay);
+      this.airStun = Math.round(Math.max(J.launchStun.min, J.launchStun.base - this.combo * J.launchStun.per) * decay);
       this.setState('launched', this.bigLaunch ? 'spin' : 'launched');
     } else if (inAir) {
       // juggle: keep them floating
       const pw = (m.push ?? 2) * 0.7;
-      const pop = (m.airPop ?? 5.5) * Math.max(0.5, 1 - this.combo * 0.03);
+      const pop = (m.airPop ?? 5.5) * Math.max(J.pop.floor, 1 - this.combo * J.pop.per);
       this.vel.set(dir.x * pw, Math.max(this.vel.y * 0.3, pop), dir.y * pw);
       this.air = true;
       this.bigLaunch = false;
-      this.airStun = Math.round(Math.max(5, 26 - this.combo * 1.0) * decay);
+      this.airStun = Math.round(Math.max(J.airStun.min, J.airStun.base - this.combo * J.airStun.per) * decay);
       this.setState('launched', 'launched');
     } else {
       this.stun = Math.round((m.hitstun ?? 20) * decay);
@@ -1571,7 +1574,7 @@ export class Fighter {
       this.airStun = Math.max(this.airStun, m.lock);
       this.stun = Math.max(this.stun, m.lock);
     }
-    if (this.combo >= 22 && this.state === 'launched' && !this.ko) this.forceTech = true; // combo cap
+    if (this.combo >= J.cap && this.state === 'launched' && !this.ko) this.forceTech = true; // combo cap
     this.setSide(-att.side);
     this.hitstop = hs;
     this.shaking = true;
