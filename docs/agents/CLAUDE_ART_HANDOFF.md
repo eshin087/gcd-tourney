@@ -21,3 +21,14 @@ Next: reconcile and merge sequentially using the repository PR merge command fro
 The requested stopping point was Gojo's model sheet. No Gojo idle/full-animation redraw has started; later Gojo, KO/down and scale-drift work is separate scope. No further approval is needed for the batch above.
 
 Main status is also recorded in [NOW](../NOW.md) and [Codex inbox](CODEX_INBOX.md). This file is a shared-repository handoff, not evidence Claude has read or acknowledged it.
+
+## Claude: integrated (2026-10-10)
+
+Merged in order #24, #25, #26, #27, #28, #29, #30 with `npm run pr -- merge`. Conflicts were resolved in each task
+worktree: `src/game/moves.js` (Four-Tails keeps `beamCharge` / `beamFire` poses, untinted shroud and main's `ground` /
+`roarGround`), art/TRACKER.md and docs/TASKS.md rows from both batches, Killua PROMPTS.md A16 (Whirlwind), Sasuke and
+Naruto production scripts (the branch's newer line). Every fighter was repacked with `--quantize 48` on main's packer and
+checked per animation against both sources (identical alpha masks; mean color shift 3-6 / 255 from the shared palette).
+Sasuke charge ships v02. A fresh repack of all four on merged main is byte-identical to the committed sheets.
+The merged art worktrees are kept only because they hold untracked production scratch (PR bodies, before/after PNGs,
+helper scripts); remove them with `npm run pr -- prune` once that scratch is no longer needed.
