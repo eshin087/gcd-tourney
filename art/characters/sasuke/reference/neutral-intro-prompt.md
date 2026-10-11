@@ -1,0 +1,8 @@
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. 
+Exactly 4 fullbody poses horizontalrow. Completely separate xintervals with80pxmagenta verticalcorridors. Preserve neutral's long shins, thighs, torso, narrowhead/hair; softknees no squat. ANIMATION: "intro", arms-crossed cold stare. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+1. Pre-fight attitude: standing upright with straight legs, feet slightly apart, weight on the right leg, body turned a bit more toward the viewer; ARMS FOLDED across his chest (right forearm over the left); chin slightly raised, looking down his nose at the opponent on the right with half-lidded dark eyes. Face: cold, a faint one-sided smirk at most. A light breeze moves the bangs, rope ends and cloth hem.
+2. Breathing, slightly up; bangs and rope ends swaying.
+3. Head tilting slightly (dismissive); rope ends and cloth fluttering further.
+4. Settling back toward frame 1.
+MOTION: Feet identical in all frames.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.

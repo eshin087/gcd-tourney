@@ -1,0 +1,470 @@
+{
+  "date": "2026-10-11",
+  "state": "Latest42 checkpoint versions visually approved2026-10-11; technical holds and shipping promotion pending",
+  "records": [
+    {
+      "name": "airHeavy",
+      "version": 4,
+      "frames": 6,
+      "file": "art/characters/naruto/raw/airHeavy_v04.png",
+      "hold": false,
+      "notes": "A2/B1. A inferred crown268 chin340=72 +/-6, B231->311=80 +/-6. Stitch B .9203. Independent probes A .986/B1.021 pass; full pack pending."
+    },
+    {
+      "name": "airLight1",
+      "version": 4,
+      "frames": 5,
+      "file": "art/characters/naruto/raw/airLight1_v04.png",
+      "hold": false,
+      "notes": "Threeattempts. Inferredskullcrown208 chin281=73 +/-6. Haircorrectedtwice; fourthhalf-retractposecorrected. Sameairbaselegs. Contactzonespending."
+    },
+    {
+      "name": "airRecover",
+      "version": 3,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/airRecover_v03.png",
+      "hold": false,
+      "notes": "Rotatedskullaxisapprox90 +/-10 (f0crown107,337 chin173,391; f1inverted; f2crown1320,261 chin1330,350). Oneattempt, tuck/rotationforeshortened."
+    },
+    {
+      "name": "backDash",
+      "version": 2,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/backDash_v02.png",
+      "hold": false,
+      "notes": "Manual crown350/chin438 f0;246/334 f1;342/430 f2 +/-7sourcepixels. Oneattempt. Canonical backDash lowest point remains baseline; engine movement supplies height. Candidate pose fidelity needs correction: f1 arms too guarded/tails rearward, f2 too close to f0."
+    },
+    {
+      "name": "backDash",
+      "version": 3,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/backDash_v03.png",
+      "hold": false,
+      "notes": "Original round attempt2 of3. Targeted correction to push-off rear leg, backward airborne lean, open balancing arms and forward-flowing ties, distinct descending rear-foot landing. Inferred skull axes: f0 crown(300,289) to chin(315,376), f1 crown(686,260) to chin(728,337), f2 crown(1288,289) to chin(1303,376), about88 +/-8 sourcepx. Same anatomy, no per-pose normalization. Hair gate independent1.017 range.034. Ties cross beside face in f1; attachment stylization remains visual review, not a scale failure."
+    },
+    {
+      "name": "beamCharge",
+      "version": 6,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/beamCharge_v06.png",
+      "hold": false,
+      "notes": "A1; cranial dome inferred at earbase y451, jaw535 +/-8. Four tails eachframe; transformed skull calibration excludes ears, not ordinary hair probe."
+    },
+    {
+      "name": "beamFire",
+      "version": 8,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/beamFire_v08.png",
+      "hold": false,
+      "notes": "A1; skull dome at493/456/504 and chin579/542/590 +/-8, excludes ears; fourtails eachframe. Raw poses cross equal nominalslot boundaries but have clear magenta component separation; verify split."
+    },
+    {
+      "name": "block",
+      "version": 4,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/block_v04.png",
+      "hold": false,
+      "notes": "Skullaxis94 +/-9sourcepx; first tilted down, second matchesguard. Hair-only correction secondattempt; independentprobe1.015 range.029ok."
+    },
+    {
+      "name": "dash",
+      "version": 3,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/dash_v03.png",
+      "hold": false,
+      "notes": "Inferred crown353/chin455, tiltedaxis approximate +/-8; oneattempt."
+    },
+    {
+      "name": "down",
+      "version": 3,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/down_v03.png",
+      "hold": false,
+      "notes": "Second attempt; horizontal inferred skull axis f0 crown139 to chin215=76; f1 crown876 to chin950=74, uncertainty +/-8. Side-on lying lower head/back/hip/heels; ground check required. Position-only correction for foot-derived pivot on lying bodies; no anatomical rescale."
+    },
+    {
+      "name": "getup",
+      "version": 3,
+      "frames": 5,
+      "file": "art/characters/naruto/raw/getup_v03.png",
+      "hold": false,
+      "notes": "One attempt1984x800. Inferred f4 crown268 chin328=60 +/-6; head axes other poses approximate60. All5 intact but f0 hands oversized, f2 airborne gap and f3 near-kneeling silhouette require pose review. Low-confidence rotating heads not automatic proportion proof."
+    },
+    {
+      "name": "getup",
+      "version": 4,
+      "frames": 5,
+      "file": "art/characters/naruto/raw/getup_v04.png",
+      "hold": false,
+      "notes": "Original attempt3 of3, best retained. Targeted edits preserve1984x800 camera and anatomy; f4 inferred crown268 chin328=60 +/-6, other rotated skull axes same60 +/-8. F0 normal-size palm now beside ear with fingertips toward shoulder(screenright), far palm occluded; f3 deep squat both feet planted, knees clear of floor. F1 inversion and f2 airborne backarch preserved. Rotated/occluded hair remains unmeasured, not a scale pass."
+    },
+    {
+      "name": "guard",
+      "version": 4,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/guard_v04.png",
+      "hold": false,
+      "notes": "Manual inferred crown198/chin292 f0 and crown207/chin301 f1, +/-8sourcepx; approvedneutral anatomical target;2attempts."
+    },
+    {
+      "name": "hurtLow",
+      "version": 2,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/hurtLow_v02.png",
+      "hold": false,
+      "notes": "Inferred skullaxes102 +/-10 rotated forward;3attempts hairvolume correction, independenthead1.000range.012ok. Feetproxy1.347 requires visualbodyQA, notautomaticpass."
+    },
+    {
+      "name": "idle",
+      "version": 5,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/idle_v05.png",
+      "hold": false,
+      "notes": "Manual inferred crown-to-chin76 +/-6 sourcepx in PartA; PartB same source anatomy then measured stitch factor0.9853. Neutral crown153 chin277 soles1100. No per-pose bbox fit. Provisional reference, not approved."
+    },
+    {
+      "name": "intro",
+      "version": 2,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/intro_v02.png",
+      "hold": false,
+      "notes": "Third best attempt fixedlargeheadbob andhair12percent. Inferredskullcrown260 chin340=80 +/-6. Four identicalanatomy sealpose; fingersealdetails review."
+    },
+    {
+      "name": "jumpFall",
+      "version": 2,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/jumpFall_v02.png",
+      "hold": false,
+      "notes": "Manual inferred crown205/chin300 bothframes, tilteddown +/-8sourcepixels;1attempt."
+    },
+    {
+      "name": "jumpFall",
+      "version": 3,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/jumpFall_v03.png",
+      "hold": false,
+      "notes": "Manual inferred crown205/chin300 bothframes, tilteddown +/-8sourcepixels;1attempt."
+    },
+    {
+      "name": "jumpSquat",
+      "version": 3,
+      "frames": 1,
+      "file": "art/characters/naruto/raw/jumpSquat_v03.png",
+      "hold": false,
+      "notes": "Inferred crown425 chin521, approximately96 +/-8, slightlytilted;1attempt. Lowpose, no envelopefit."
+    },
+    {
+      "name": "jumpUp",
+      "version": 2,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/jumpUp_v02.png",
+      "hold": false,
+      "notes": "Manual inferred crown218/chin310 f0,205/298 f1, headtiltedup +/-9;2attempts raisedfistcorrection."
+    },
+    {
+      "name": "jumpUp",
+      "version": 3,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/jumpUp_v03.png",
+      "hold": false,
+      "notes": "Manual inferred crown218/chin310 f0,205/298 f1, headtiltedup +/-9;2attempts raisedfistcorrection."
+    },
+    {
+      "name": "ko",
+      "version": 6,
+      "frames": 1,
+      "file": "art/characters/naruto/raw/ko_v06.png",
+      "hold": false,
+      "notes": "Third and best attempt. Side-on skull axis from inferred crown x245 to chin x382, about137 +/-12px. Hair excluded. Retains unresolved far-heel/head ground contact uncertainty; head probe low-confidence lying pose, hair area1.348 versus idle is not a pass. Must inspect ground gate. Packed pivot clipped6px at left; shift7px right preserves scale and floor. Position-only correction for foot-derived pivot on lying bodies; no anatomical rescale."
+    },
+    {
+      "name": "land",
+      "version": 2,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/land_v02.png",
+      "hold": false,
+      "notes": "Inferred skullaxis approx106 +/-9px; f0 headtiltdown crown378 chin481 projected103; f1 crown285 chin394 projected109; oneattempt."
+    },
+    {
+      "name": "land",
+      "version": 3,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/land_v03.png",
+      "hold": false,
+      "notes": "Inferred skullaxis approx106 +/-9px; f0 headtiltdown crown378 chin481 projected103; f1 crown285 chin394 projected109; oneattempt."
+    },
+    {
+      "name": "launched",
+      "version": 3,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/launched_v03.png",
+      "hold": false,
+      "notes": "Rotated skullaxisapprox90 +/-10; crownnear194,351/chin250,421; f1same anatomy. Lowconfidencepose measuredvisually, noexemption. Position-only adjustment preserves anatomical scale to fit cell margins; must recheck."
+    },
+    {
+      "name": "light1",
+      "version": 3,
+      "frames": 7,
+      "file": "art/characters/naruto/raw/light1_v03.png",
+      "hold": false,
+      "notes": "A2/B1 attempts. A inferredcrown234 chin310=76 +/-6; B crown225 chin320=95 +/-7 before measured stitchB.7478. Temporaryactualpackedhair#fdb90d for stitch, restored idle-own#fde81e immediately. Stitch detectedA3butintended4 poses; packsplit mustverify. Contactzonespending."
+    },
+    {
+      "name": "light2",
+      "version": 2,
+      "frames": 7,
+      "file": "art/characters/naruto/raw/light2_v02.png",
+      "hold": false,
+      "notes": "A2/B1 attempts; A crown255/chin327=72 +/-6, B crown205/chin300=95 +/-7. StitchB.6992, afterB/A1.036, hairratiofarfrombone ratio. Mustinspectall7; Aautodetect3 groups. Bf4armretractspastbody tooquickly."
+    },
+    {
+      "name": "light3",
+      "version": 2,
+      "frames": 7,
+      "file": "art/characters/naruto/raw/light3_v02.png",
+      "hold": false,
+      "notes": "A2/B2attempts. A crown207/chin285=78 +/-6; B crown211/chin302=91 +/-7. StitchB.7813 after.99. Bf5wronglegcorrected. Posecontactzonespending."
+    },
+    {
+      "name": "run",
+      "version": 5,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/run_v05.png",
+      "hold": false,
+      "notes": "Manual headcrown306 chin382 approximately76 +/-6sourcepx, slightforwardtilt. A resampled0.9973 by measuredstitch. Provisionalidle v05 reference."
+    },
+    {
+      "name": "specialUp",
+      "version": 2,
+      "frames": 6,
+      "file": "art/characters/naruto/raw/specialUp_v02.png",
+      "hold": false,
+      "notes": "A2/B2. A skullcrown294 chin366=72 +/-6; Btiltedaxis84 +/-8. Final gate pending, strictprobe oncombined may expose interpart variance."
+    },
+    {
+      "name": "specialUp",
+      "version": 3,
+      "frames": 6,
+      "file": "art/characters/naruto/raw/specialUp_v03.png",
+      "hold": false,
+      "notes": "A2/B3. Rawindependent headA.981 B1.038. Same source skullmeasures asv02, hair corrected; finalcombined gate pending."
+    },
+    {
+      "name": "special",
+      "version": 5,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/special_v05.png",
+      "hold": false,
+      "notes": "A3/B2. A crown316 chin402=86 +/-6; B native2172x724 skull approx70 +/-6 (display66*1.06055). v04 auto-stitch palette misread; v05 measured ratio86/70. Final pack pending."
+    },
+    {
+      "name": "spin",
+      "version": 3,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/spin_v03.png",
+      "hold": false,
+      "notes": "Rotating crown-chinaxis approximately80 +/-10; f2 inverted. Oneattempt, feet foreshortened; lowconfidence rotation requiresvisualQA notbboxheight."
+    },
+    {
+      "name": "stagger",
+      "version": 2,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/stagger_v02.png",
+      "hold": false,
+      "notes": "Thirdattempt correctingfirstleftsway/facing andhair8percent. Inferred f1crown256 chin340=84 +/-7, tiltedaxes comparable. Leftsway nowvisible butless8deg headroll."
+    },
+    {
+      "name": "superDash",
+      "version": 2,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/superDash_v02.png",
+      "hold": false,
+      "notes": "Manual inferred crown284/chin378 approximately94 +/-8 withtilt;2attempts, kneeslowest corrected. Position-only adjustment preserves anatomical scale to fit cell margins; must recheck."
+    },
+    {
+      "name": "superPose",
+      "version": 4,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/superPose_v04.png",
+      "hold": false,
+      "notes": "A1. Crown308chin384=76 +/-6 sameidleanatomy. Independenthead1.021 range.038 pass. Fingerpair detailneedsreview."
+    },
+    {
+      "name": "vanish",
+      "version": 2,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/vanish_v02.png",
+      "hold": false,
+      "notes": "One attempt. f0crown350/chin457 f1crown128/chin230 mean105 +/-8; standing skeletonnear790source. Hairprobe1.018 but excludedlowconfidence. Tiptoe reads unevenlift; checkfullframe."
+    },
+    {
+      "name": "win",
+      "version": 4,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/win_v04.png",
+      "hold": false,
+      "notes": "Thirdbestattempt correctedclippedtoe/highfist thenhead15percent. Inferredcrown275 chin351=76 +/-6. Bodyshoulder375 hip565 knee675 ankle765 sole849. No furtherattemptsthisround. Hand andfootrelativebuildQA pending."
+    },
+    {
+      "name": "airLight2",
+      "version": 4,
+      "frames": 5,
+      "file": "art/characters/naruto/raw/_rejected/airLight2_v04.png",
+      "hold": true,
+      "notes": "Threeattempts. Inferredcrown192 chin260=68 +/-6. Removedtranslucentarc; replacedsolidpantsmear. Finalairbaselegidentity correctedbutstrapatraisedhipremainsambiguous. Hairvolumeprobe/posecheckpending."
+    },
+    {
+      "name": "airLight3",
+      "version": 3,
+      "frames": 6,
+      "file": "art/characters/naruto/raw/_rejected/airLight3_v03.png",
+      "hold": true,
+      "notes": "A2/B1 saved before comparison; superseded technically by v04, not user rejection."
+    },
+    {
+      "name": "airLight3",
+      "version": 4,
+      "frames": 6,
+      "file": "art/characters/naruto/raw/_rejected/airLight3_v04.png",
+      "hold": true,
+      "notes": "A2/B2 best of B3attempts. A skullcrown263 chin343=80 +/-8, B234->334=100 +/-9. B2 hair probe .931 drift; technical hold, not approval."
+    },
+    {
+      "name": "charge",
+      "version": 5,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/_rejected/charge_v05.png",
+      "hold": true,
+      "notes": "Third best attempt. Crown about328 chin400 gives72 +/-6px excluding outer hair. Same feet allfour; headbob reduced. First attempt finaltoe clipped, second anatomy head too large; final wholehead15percent reduction."
+    },
+    {
+      "name": "heavy",
+      "version": 8,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/_rejected/heavy_v08.png",
+      "hold": true,
+      "notes": "A3/B1attempts. A crown328/chin392=64 +/-7, tiltedaxis64; B crown426/chin502=76 +/-7 beforeB.7831. CompacthaircorrectionA. No additionalAattemptauthorizedyet. Preserveairbornephaseenginehandlesheight."
+    },
+    {
+      "name": "hurtHigh",
+      "version": 2,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/_rejected/hurtHigh_v02.png",
+      "hold": true,
+      "notes": "Three attempts exhausted; best source retained as technical hold. No automatic exemption."
+    },
+    {
+      "name": "light4",
+      "version": 2,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/_rejected/light4_v02.png",
+      "hold": true,
+      "notes": "A2/B2attempts; A crown213 chin273=60 +/-6 beforestitchA.7983; B crown402 chin466=64 +/-6 aftergeneration65percentcorrection. Af3f4wronglegidentityfixed. StitchdetectA4vs5mustverify."
+    },
+    {
+      "name": "light4",
+      "version": 3,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/_rejected/light4_v03.png",
+      "hold": true,
+      "notes": "A3/B3 exhausted. A60 B64 source skull +/-6, measured B.9375. Hair A range.227 andB1.14; technicalhold."
+    },
+    {
+      "name": "specialDown",
+      "version": 3,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/_rejected/specialDown_v03.png",
+      "hold": true,
+      "notes": "A3 exhausted. Inferredbowedskullaxis82 +/-10; f0(231,385)->(238,467), f2(958,280)->(990,360). Hairprobe1.163 pop .144, topviewhairprojection contributes but actual hairtoo large cannot certify. Hold."
+    },
+    {
+      "name": "specialForward",
+      "version": 3,
+      "frames": 7,
+      "file": "art/characters/naruto/raw/_rejected/specialForward_v03.png",
+      "hold": true,
+      "notes": "A3/B1. A crown318 chin378=60 +/-6, B294chin366=72 +/-6. PartA exhausted andhair1.098 drift. Pose shoulders too upright onlunge; technicalhold."
+    },
+    {
+      "name": "special",
+      "version": 4,
+      "frames": 8,
+      "file": "art/characters/naruto/raw/_rejected/special_v04.png",
+      "hold": true,
+      "notes": "A3/B2. A crown316 chin402=86 +/-6; B native2172x724 skull approx70 +/-6 (display66*1.06055). v04 auto-stitch palette misread; v05 measured ratio86/70. Final pack pending."
+    },
+    {
+      "name": "taunt",
+      "version": 2,
+      "frames": 2,
+      "file": "art/characters/naruto/raw/_rejected/taunt_v02.png",
+      "hold": true,
+      "notes": "Thirdbestattempt reducedfeet20percent, hair8percent increase after wholehead reduction. Inferredskullcrown185 +/-8/chin275 gives90 +/-8. Earlier96 estimate overlappedhair, revised from anatomy not gate. Fingerbob remainswrongdirection andlargerthan2px; poseholdreview."
+    },
+    {
+      "name": "throw",
+      "version": 3,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/_rejected/throw_v03.png",
+      "hold": true,
+      "notes": "Secondattempt hair-only12percent correction and solid smearing. Inferredskull crown229 chin305=76 +/-6 allframes. Native1774x887. Contactzone handalignment pendingpackedQA."
+    },
+    {
+      "name": "throw",
+      "version": 4,
+      "frames": 4,
+      "file": "art/characters/naruto/raw/_rejected/throw_v04.png",
+      "hold": true,
+      "notes": "Thirdattempt layoutonly20percentuniformreduction toseparateframes. Manualinferredcrown267/chin327=60 +/-5. No more attempts permittedthisround. Contactzonealignment pending."
+    }
+  ],
+  "visualApproval": {
+    "date": "2026-10-11",
+    "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+    "versions": {
+      "backDash": 3,
+      "hurtLow": 2,
+      "intro": 2,
+      "jumpFall": 3,
+      "jumpUp": 3,
+      "land": 3,
+      "light2": 2,
+      "light3": 2,
+      "specialUp": 3,
+      "stagger": 2,
+      "superDash": 2,
+      "vanish": 2,
+      "hurtHigh": 2,
+      "light4": 3,
+      "taunt": 2,
+      "airRecover": 3,
+      "dash": 3,
+      "down": 3,
+      "getup": 4,
+      "jumpSquat": 3,
+      "launched": 3,
+      "light1": 3,
+      "spin": 3,
+      "airLight3": 4,
+      "specialDown": 3,
+      "specialForward": 3,
+      "throw": 4,
+      "airHeavy": 4,
+      "airLight1": 4,
+      "block": 4,
+      "guard": 4,
+      "superPose": 4,
+      "win": 4,
+      "airLight2": 4,
+      "special": 5,
+      "idle": 5,
+      "run": 5,
+      "charge": 5,
+      "beamCharge": 6,
+      "ko": 6,
+      "beamFire": 8,
+      "heavy": 8
+    }
+  }
+}

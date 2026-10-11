@@ -1,0 +1,634 @@
+[
+  {
+    "name": "idle",
+    "frames": 8,
+    "step": 3,
+    "version": 4,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A01 · `idle`: relaxed stance, hands in pockets (breathing loop) (CORE)",
+    "savedStrips": [
+      "idle_v04.png"
+    ],
+    "savedParts": [
+      "idle_v04_A.png",
+      "idle_v04_B.png"
+    ],
+    "latestVersion": 4,
+    "reviewVersion": 4
+  },
+  {
+    "name": "run",
+    "frames": 8,
+    "step": 4,
+    "version": 5,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A02 · `run`: easy athletic run (loop) (CORE)",
+    "savedStrips": [
+      "run_v05.png",
+      "run_v06.png"
+    ],
+    "savedParts": [
+      "run_v05_A.png",
+      "run_v05_B.png"
+    ],
+    "latestVersion": 6,
+    "reviewVersion": 6
+  },
+  {
+    "name": "dash",
+    "frames": 2,
+    "step": 8,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A19 · `dash`: hands-in-pockets glide (loop) (CORE)",
+    "savedStrips": [
+      "dash_v05.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 5,
+    "reviewVersion": 5
+  },
+  {
+    "name": "backDash",
+    "frames": 3,
+    "step": 9,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A24 · `backDash`: quick hop backward",
+    "savedStrips": [
+      "backDash_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "superDash",
+    "frames": 2,
+    "step": 9,
+    "version": 3,
+    "status": "technical-hold-attempt-cap",
+    "promptSection": "A25 · `superDash`: homing super dash (loop)",
+    "savedStrips": [],
+    "savedParts": [],
+    "latestVersion": 5,
+    "reviewVersion": null
+  },
+  {
+    "name": "jumpSquat",
+    "frames": 1,
+    "step": 9,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A26 · `jumpSquat`: pre-jump crouch",
+    "savedStrips": [
+      "jumpSquat_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "jumpUp",
+    "frames": 2,
+    "step": 8,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A20 · `jumpUp`: rising (loop) (CORE)",
+    "savedStrips": [
+      "jumpUp_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "jumpFall",
+    "frames": 2,
+    "step": 8,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A21 · `jumpFall`: falling (loop) (CORE)",
+    "savedStrips": [
+      "jumpFall_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "land",
+    "frames": 2,
+    "step": 8,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A22 · `land`: landing (CORE)",
+    "savedStrips": [
+      "land_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "light1",
+    "frames": 7,
+    "step": 5,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A03 · `light1`: palm jab with the L (lead) hand (CORE)",
+    "savedStrips": [
+      "light1_v03.png"
+    ],
+    "savedParts": [
+      "light1_v03_A.png",
+      "light1_v03_B.png"
+    ],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "light2",
+    "frames": 7,
+    "step": 5,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A04 · `light2`: rear palm strike with the R (near) hand (CORE)",
+    "savedStrips": [
+      "light2_v03.png"
+    ],
+    "savedParts": [
+      "light2_v03_A.png",
+      "light2_v03_B.png"
+    ],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "light3",
+    "frames": 7,
+    "step": 5,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A05 · `light3`: push kick to the stomach with the R (near) leg, hands in pockets (CORE)",
+    "savedStrips": [
+      "light3_v02.png"
+    ],
+    "savedParts": [
+      "light3_v02_A.png",
+      "light3_v02_B.png"
+    ],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "light4",
+    "frames": 8,
+    "step": 5,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A06 · `light4`: spinning roundhouse finisher with the R leg (CORE)",
+    "savedStrips": [
+      "light4_v03.png",
+      "light4_v04.png"
+    ],
+    "savedParts": [
+      "light4_v03_A.png",
+      "light4_v03_B.png"
+    ],
+    "latestVersion": 4,
+    "reviewVersion": 4
+  },
+  {
+    "name": "heavy",
+    "frames": 8,
+    "step": 5,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A07 · `heavy`: rising elbow launcher with the R (near) elbow (CORE)",
+    "savedStrips": [
+      "heavy_v02.png",
+      "heavy_v03.png"
+    ],
+    "savedParts": [
+      "heavy_v02_A.png",
+      "heavy_v02_B.png"
+    ],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "airLight1",
+    "frames": 5,
+    "step": 5,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A08 · `airLight1`: mid-air palm jab with the L hand (CORE)",
+    "savedStrips": [
+      "airLight1_v02.png",
+      "airLight1_v03.png",
+      "airLight1_v04.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 4,
+    "reviewVersion": 4
+  },
+  {
+    "name": "airLight2",
+    "frames": 5,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A27 · `airLight2`: mid-air front kick with the R leg",
+    "savedStrips": [
+      "airLight2_v02.png",
+      "airLight2_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "airLight3",
+    "frames": 6,
+    "step": 9,
+    "version": 2,
+    "status": "approved",
+    "promptSection": "A28 · `airLight3`: mid-air spinning heel kick with the L leg",
+    "savedStrips": [],
+    "savedParts": [
+      "airLight3_v02_A.png",
+      "airLight3_v02_B.png"
+    ],
+    "latestVersion": 7,
+    "reviewVersion": 7,
+    "correctionEvidence": "ROUND2.md",
+    "approvedVersion": 7
+  },
+  {
+    "name": "airHeavy",
+    "frames": 6,
+    "step": 5,
+    "version": 3,
+    "status": "approved",
+    "promptSection": "A09 · `airHeavy`: two-handed hammer spike (CORE)",
+    "savedStrips": [],
+    "savedParts": [
+      "airHeavy_v03_A.png",
+      "airHeavy_v03_B.png"
+    ],
+    "latestVersion": 6,
+    "reviewVersion": 6,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md",
+    "approvedVersion": 6
+  },
+  {
+    "name": "guard",
+    "frames": 2,
+    "step": 6,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A10 · `guard`: crossed-wrist high block (loop) (CORE)",
+    "savedStrips": [
+      "guard_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "block",
+    "frames": 2,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A29 · `block`: pushed back while blocking",
+    "savedStrips": [
+      "block_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "hurtHigh",
+    "frames": 3,
+    "step": 6,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A11 · `hurtHigh`: hit in the face (CORE)",
+    "savedStrips": [
+      "hurtHigh_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "hurtLow",
+    "frames": 3,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A30 · `hurtLow`: hit in the stomach",
+    "savedStrips": [
+      "hurtLow_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "launched",
+    "frames": 2,
+    "step": 6,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A12 · `launched`: knocked flying backward (loop) (CORE)",
+    "savedStrips": [
+      "launched_v02.png",
+      "launched_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "spin",
+    "frames": 4,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-manual-QA",
+    "promptSection": "A31 · `spin`: tumbling backward (loop)",
+    "savedStrips": [
+      "spin_v02.png",
+      "spin_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "airRecover",
+    "frames": 3,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A32 · `airRecover`: mid-air backflip recovery",
+    "savedStrips": [
+      "airRecover_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "down",
+    "frames": 2,
+    "step": 6,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A13 · `down`: slammed down, then lying on the back (CORE)",
+    "savedStrips": [
+      "down_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "getup",
+    "frames": 5,
+    "step": 6,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A14 · `getup`: kip-up (CORE)",
+    "savedStrips": [
+      "getup_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "charge",
+    "frames": 4,
+    "step": 7,
+    "version": 3,
+    "status": "approved",
+    "promptSection": "A15 · `charge`: calm power-up (loop) (CORE)",
+    "savedStrips": [],
+    "savedParts": [],
+    "latestVersion": 6,
+    "reviewVersion": 6,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md",
+    "approvedVersion": 6
+  },
+  {
+    "name": "throw",
+    "frames": 4,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A33 · `throw`: REVERSAL: RED in mid-air (finger flick)",
+    "savedStrips": [
+      "throw_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "beamCharge",
+    "frames": 3,
+    "step": 7,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A16 · `beamCharge`: charging the HOLLOW PURPLE (loop) (CORE)",
+    "savedStrips": [
+      "beamCharge_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "beamFire",
+    "frames": 3,
+    "step": 7,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A17 · `beamFire`: firing the HOLLOW PURPLE (loop) (CORE)",
+    "savedStrips": [
+      "beamFire_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "vanish",
+    "frames": 2,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A34 · `vanish`: high-speed teleport",
+    "savedStrips": [
+      "vanish_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "stagger",
+    "frames": 4,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A35 · `stagger`: dizzy stagger (loop)",
+    "savedStrips": [
+      "stagger_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "ko",
+    "frames": 1,
+    "step": 9,
+    "version": 3,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A36 · `ko`: knocked out",
+    "savedStrips": [
+      "ko_v04.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 4,
+    "reviewVersion": 4
+  },
+  {
+    "name": "special",
+    "frames": 8,
+    "step": 7,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A18 · `special`: LAPSE: BLUE (two-finger point) (CORE)",
+    "savedStrips": [
+      "special_v02.png"
+    ],
+    "savedParts": [
+      "special_v02_A.png",
+      "special_v02_B.png"
+    ],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "intro",
+    "frames": 4,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A37 · `intro`: hands-in-pockets shrug (loop)",
+    "savedStrips": [
+      "intro_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "taunt",
+    "frames": 2,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A38 · `taunt`: looming tease (loop)",
+    "savedStrips": [
+      "taunt_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  },
+  {
+    "name": "win",
+    "frames": 4,
+    "step": 8,
+    "version": 2,
+    "status": "approved",
+    "promptSection": "A23 · `win`: peace sign (loop) (CORE)",
+    "savedStrips": [],
+    "savedParts": [],
+    "latestVersion": 6,
+    "reviewVersion": 6,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md",
+    "approvedVersion": 6
+  },
+  {
+    "name": "specialForward",
+    "frames": 7,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A39 · `specialForward`: REVERSAL: RED (finger flick, recoil)",
+    "savedStrips": [
+      "specialForward_v02.png",
+      "specialForward_v03.png",
+      "specialForward_v04.png"
+    ],
+    "savedParts": [
+      "specialForward_v02_A.png",
+      "specialForward_v02_B.png"
+    ],
+    "latestVersion": 4,
+    "reviewVersion": 4
+  },
+  {
+    "name": "specialUp",
+    "frames": 6,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A40 · `specialUp`: BLINK (teleport)",
+    "savedStrips": [
+      "specialUp_v02.png"
+    ],
+    "savedParts": [
+      "specialUp_v02_A.png",
+      "specialUp_v02_B.png"
+    ],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "specialDown",
+    "frames": 4,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A41 · `specialDown`: INFINITY (raised open palm)",
+    "savedStrips": [
+      "specialDown_v02.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 2,
+    "reviewVersion": 2
+  },
+  {
+    "name": "superPose",
+    "frames": 4,
+    "step": 9,
+    "version": 2,
+    "status": "packed-candidate-needs-review",
+    "promptSection": "A42 · `superPose`: DOMAIN EXPANSION: UNLIMITED VOID (eyes revealed, loop)",
+    "savedStrips": [
+      "superPose_v03.png"
+    ],
+    "savedParts": [],
+    "latestVersion": 3,
+    "reviewVersion": 3
+  }
+]

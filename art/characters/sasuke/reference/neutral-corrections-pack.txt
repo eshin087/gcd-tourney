@@ -1,0 +1,81 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== sasuke ======================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v06.png             x1  (re-imported: replaces frames/ cleaned from raw/idle_v01.png; candidate v06 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    run          8     <- raw/run_v03.png              x1  (re-imported: replaces frames/ cleaned from raw/run_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    dash         2     <- raw/dash_v02.png             x1  (re-imported: replaces frames/ cleaned from raw/dash_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    backDash     3     <- raw/backDash_v03.png         x1  (re-imported: replaces frames/ cleaned from raw/backDash_v01.png; candidate v03 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    superDash    2     <- raw/superDash_v03.png        x1  (removed 8 specks; re-imported: replaces frames/ cleaned from raw/superDash_v01.png; candidate v03 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    jumpSquat    1     <- raw/jumpSquat_v02.png        x1  (re-imported: replaces frames/ cleaned from raw/jumpSquat_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    jumpUp       2     <- raw/jumpUp_v02.png           x1  (re-imported: replaces frames/ cleaned from raw/jumpUp_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    jumpFall     2     <- raw/jumpFall_v02.png         x1  (re-imported: replaces frames/ cleaned from raw/jumpFall_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    land         2     <- raw/land_v02.png             x1  (re-imported: replaces frames/ cleaned from raw/land_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    light1       7     <- raw/light1_v04.png           x1  (re-imported: replaces frames/ cleaned from raw/light1_v01.png; candidate v04 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    light2       7     <- raw/light2_v03.png           x1  (re-imported: replaces frames/ cleaned from raw/light2_v01.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    light3       7     <- raw/light3_v03.png           x1  (re-imported: replaces frames/ cleaned from raw/light3_v01.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    light4       8     <- raw/light4_v04.png           x1  (re-imported: replaces frames/ cleaned from raw/light4_v01.png; candidate v04 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    heavy        8     <- raw/heavy_v08.png            x1  (re-imported: replaces frames/ cleaned from raw/heavy_v02.png; candidate v08 (approved: v06); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    airLight1    5     <- raw/airLight1_v02.png        x1  (re-imported: replaces frames/ cleaned from raw/airLight1_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    airLight2    5     <- raw/airLight2_v03.png        x1  (re-imported: replaces frames/ cleaned from raw/airLight2_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    airLight3    6     <- raw/airLight3_v04.png        x1  (re-imported: replaces frames/ cleaned from raw/airLight3_v01.png; candidate v04 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    airHeavy     6     <- raw/airHeavy_v03.png         x1  (re-imported: replaces frames/ cleaned from raw/airHeavy_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    guard        2     <- raw/guard_v02.png            x1  (re-imported: replaces frames/ cleaned from raw/guard_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    block        2     <- raw/block_v02.png            x1  (re-imported: replaces frames/ cleaned from raw/block_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    hurtHigh     3     <- raw/hurtHigh_v04.png         x1  (re-imported: replaces frames/ cleaned from raw/hurtHigh_v02.png; candidate v04 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    hurtLow      3     <- raw/hurtLow_v02.png          x1  (re-imported: replaces frames/ cleaned from raw/hurtLow_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    launched     2     <- raw/launched_v02.png         x1  (re-imported: replaces frames/ cleaned from raw/launched_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    spin         4     <- raw/spin_v02.png             x1  (re-imported: replaces frames/ cleaned from raw/spin_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    airRecover   3     <- raw/airRecover_v02.png       x1  (re-imported: replaces frames/ cleaned from raw/airRecover_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    down         2     <- raw/down_v02.png             x1  (re-imported: replaces frames/ cleaned from raw/down_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    getup        5     <- raw/getup_v02.png            x1  (removed 12 specks; re-imported: replaces frames/ cleaned from raw/getup_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    charge       4     <- raw/charge_v06.png           x1  (re-imported: replaces frames/ cleaned from raw/charge_v02.png; candidate v06 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    throw        4     <- raw/throw_v02.png            x1  (split 1 touching pose group(s); re-imported: replaces frames/ cleaned from raw/throw_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    beamCharge   3     <- raw/beamCharge_v02.png       x1  (re-imported: replaces frames/ cleaned from raw/beamCharge_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    beamFire     3     <- raw/beamFire_v02.png         x1  (re-imported: replaces frames/ cleaned from raw/beamFire_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    vanish       2     <- raw/vanish_v02.png           x1  (re-imported: replaces frames/ cleaned from raw/vanish_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    stagger      4     <- raw/stagger_v03.png          x1  (re-imported: replaces frames/ cleaned from raw/stagger_v01.png; candidate v03 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    ko           1     <- raw/ko_v03.png               x1  (re-imported: replaces frames/ cleaned from raw/ko_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    special      8     <- raw/special_v04.png          x1  (re-imported: replaces frames/ cleaned from raw/special_v02.png; candidate v04 (approved: v03); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    intro        4     <- raw/intro_v02.png            x1  (re-imported: replaces frames/ cleaned from raw/intro_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    taunt        2     <- raw/taunt_v02.png            x1  (re-imported: replaces frames/ cleaned from raw/taunt_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    win          4     <- raw/win_v03.png              x1  (re-imported: replaces frames/ cleaned from raw/win_v01.png; candidate v03 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    specialForward  7     <- raw/specialForward_v03.png   x1  (re-imported: replaces frames/ cleaned from raw/specialForward_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    specialUp    6     <- raw/specialUp_v03.png        x1  (re-imported: replaces frames/ cleaned from raw/specialUp_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    specialDown  4     <- raw/specialDown_v03.png      x1  (re-imported: replaces frames/ cleaned from raw/specialDown_v01.png; candidate v03 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+    superPose    4     <- raw/superPose_v02.png        x1  (re-imported: replaces frames/ cleaned from raw/superPose_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 24.48673197462748px; bounds are pose-dependent)
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 21 ok, 8 unmeasured, 5 drift, 5 pop, 1 exempt, 1 uniform  FAILED: jumpUp, light4, heavy, airLight3, airHeavy, block, charge, beamCharge, special, specialForward, specialUp - nothing written
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
+  - palette snapped to 48 colors
+  - 16 hitbox override(s) from hitboxes.json
+  - 5 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! superDash: 1 frame(s) clipped by the 256x256 cell (#1 right 5px) - pose too wide/tall for the pivot; repose or reposition while preserving anatomical scale
+  ! superDash: 1 frame(s) reach into the 4px cell margin (#0 right 4px) - keep every pixel inside x 4..251, y >= 4; repose or reposition while preserving anatomical scale
+  ! scale: the idle head is 35x34 px, 42x41 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)
+  ! scale gate: jumpUp head 0.69 of idle (feet 7.20): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v02, not approved yet]
+  ! scale: jumpUp: the manifest's scale exemption was written for v01 but the packed strip is v02 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 2
+  ! scale gate: light4 head 0.93 of idle (feet 2.26): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v04, not approved yet]
+  ! scale gate: heavy head 0.92 of idle (feet 3.15): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v08, not approved yet]
+  ! scale gate: airLight3 head 0.94 of idle (feet 5.84): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v04, not approved yet]
+  ! scale gate: airHeavy pops inside the strip: f4 0.51 vs f0 1.09 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v03, not approved yet]
+  ! scale: airHeavy: the manifest's scale exemption was written for v02 but the packed strip is v03 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 3
+  ! scale gate: block pops inside the strip: f0 0.96 vs f1 1.37 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v02, not approved yet]
+  ! scale: block: the manifest's scale exemption was written for v01 but the packed strip is v02 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 2
+  ! scale gate: charge head 0.83 of idle (feet 0.61): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [v06, not approved yet]
+  ! scale gate: beamCharge head 0.61 of idle (feet 2.12): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v02, not approved yet]
+  ! scale: beamCharge: the manifest's scale exemption was written for v01 but the packed strip is v02 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 2
+  ! scale gate: special pops inside the strip: f2 0.96 vs f7 1.12 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, not approved yet]
+  ! scale gate: specialForward pops inside the strip: f6 0.99 vs f2 1.11 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v03, not approved yet]
+  ! scale gate: specialUp pops inside the strip: f4 0.63 vs f5 1.07 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v03, not approved yet]
+  ! scale: specialUp: the manifest's scale exemption was written for v02 but the packed strip is v03 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 3
+  ! scale gate: did not write public/characters/sasuke/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+  wrote public/characters/sasuke/portrait.png
+  wrote public/characters/sasuke/cutin.png
+  wrote public/characters/sasuke/select.png
+
+SCALE GATE FAILED: sasuke (jumpUp, light4, heavy, airLight3, airHeavy, block, charge, beamCharge, special, specialForward, specialUp) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 20 warning(s).
