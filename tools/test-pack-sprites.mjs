@@ -11,6 +11,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
+import { decalTests } from './test-pack-decals.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -1158,6 +1159,8 @@ function main() {
   check(shippedBefore && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'npc/tester/anims.json', 'ui/logo.png', 'ui/manifest.json'].every((f) => !fs.existsSync(path.join(OUT, f))),
     'run 14: stage, NPC and UI outputs whose approval is gone are removed');
 
+  // ground-damage decals (ADR 0024): their own fixtures in tools/.test-fixtures/decals/
+  decalTests({ check, fix: FIX });
   return finish();
 }
 

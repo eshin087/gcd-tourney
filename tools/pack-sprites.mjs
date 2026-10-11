@@ -6,6 +6,7 @@
 //   npm run sprites vfx             pack only the VFX atlas (approved effects only)
 //   npm run sprites crowd           pack only the crowd atlas (approved spectators only)
 //   npm run sprites stage npc ui    pack the approved stage slots, NPC sheets and shared UI images
+//   npm run sprites decals          pack the approved ground-damage decals (tools/pack-decals.mjs, ADR 0024)
 //   npm run sprites -- --candidates world art: pack every latest candidate into public/preview/ instead of the
 //                                   shipped folders (git-ignored; the game shows it with ?art=custom)
 //   npm run sprites -- --dry-run    report only, write nothing
@@ -19,6 +20,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
+import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -137,7 +139,7 @@ const HELP = `GCD Tourney sprite packer  (art/ -> public/)
 usage: node tools/pack-sprites.mjs [targets...] [options]
        npm run sprites [targets...] [-- options]
 
-targets   character ids (folder names under art/characters/), "vfx", "crowd", "stage", "npc", "ui", or "all"
+targets   character ids (folder names under art/characters/), "vfx", "crowd", "stage", "npc", "ui", "decals", or "all"
           (default: every character + every world-art kind)
 
 options
@@ -152,7 +154,7 @@ options
   --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
                     raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
                     Also raises "version" to the highest raw/<anim>_vNN.png found ("approvedVersion" is never touched).
-  --candidates      world art (vfx, crowd, stage, npc, ui) is approval-gated: by default only items with an
+  --candidates      world art (vfx, crowd, stage, npc, ui, decals) is approval-gated: by default only items with an
                     "approvedVersion" in the manifest are packed, and stale outputs are removed when their
                     approval is gone. --candidates packs every latest candidate into <out>/preview/<kind>/
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
@@ -2604,13 +2606,19 @@ function printReport(rep, env) {
   worldSection('stage', rep.stage, 'stage slot', (p) => `${p.slot.padEnd(13)} ${vv(p.version)} <- ${p.from} (${p.colors} colors)${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
   worldSection('npc', rep.npc, 'NPC animation', (p) => `${p.id.padEnd(10)} ${p.anims.join(', ')}${p.missing.length ? ` (missing: ${p.missing.join(', ')})` : ''}, ${p.colors} colors, x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
   worldSection('ui', rep.ui, 'UI image', (p) => `${p.asset.padEnd(10)} ${vv(p.version)} <- ${p.from} (${p.colors} colors)${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+  printDecalReport(rep.decals, { dryRun: env.dryRun, L });
   if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status/version value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
   L('');
   const nw = rep.totalWarnings;
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
-  const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
+  const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image'], ['decals', 'decal']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
   L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
+
+// The decal packer (tools/pack-decals.mjs, ADR 0024) uses this file's helpers: importing them from here would run the CLI.
+const decalHelpers = () => ({ readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, resample, downscaleMode, upscaleNearest, toGreyscale,
+  quantizeFrames, countColors, hasTransparency, chooseSource, readSidecars, staleText, writeFile, writeBack, removeOutputs, worldOut, worldApprovals,
+  stringifyCompact, PACKER_VERSION });
 
 // ============================================================== main
 async function main() {
@@ -2625,7 +2633,7 @@ async function main() {
   const outDir = path.resolve(opts.out || path.join(PROJECT_ROOT, 'public'));
   const manifestPath = path.resolve(opts.manifest || path.join(artDir, 'manifest.json'));
   const guidePath = path.resolve(opts.guide || path.join(PROJECT_ROOT, 'src', 'art', 'animGuide.js'));
-  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null, stage: null, npc: null, ui: null };
+  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null, stage: null, npc: null, ui: null, decals: null };
 
   const { guide, source: guideSource } = await loadGuide(guidePath);
   rep.guideSource = guideSource;
@@ -2643,9 +2651,10 @@ async function main() {
   const world = new Set();
   const targets = opts.targets.length ? opts.targets : ['all'];
   for (const t of targets) {
-    if (t === 'all') { ids.push(...allIds); doVfx = true; ['crowd', 'stage', 'npc', 'ui'].forEach((k) => world.add(k)); }
+    if (t === 'all') { ids.push(...allIds); doVfx = true; ['crowd', 'stage', 'npc', 'ui', 'decals'].forEach((k) => world.add(k)); }
     else if (t === 'vfx') doVfx = true;
-    else if (['crowd', 'stage', 'npc', 'ui'].includes(t)) world.add(t);
+    else if (t === 'decal') world.add('decals');
+    else if (['crowd', 'stage', 'npc', 'ui', 'decals'].includes(t)) world.add(t);
     else if (allIds.includes(t)) ids.push(t);
     else {
       console.error(`error: unknown character "${t}". Known: ${allIds.join(', ') || '(none - create art/characters/<id>/ from _template)'}`);
@@ -2668,15 +2677,16 @@ async function main() {
   if (world.has('stage')) rep.stage = worldPack('stage', packStage);
   if (world.has('npc')) rep.npc = worldPack('npc', packNpcs);
   if (world.has('ui')) rep.ui = worldPack('ui', packSharedUi);
+  if (world.has('decals')) rep.decals = worldPack('decals', (e) => packDecals(e, decalHelpers()));
   if (opts.updateManifest) {
     if (!mj.data) rep.warnings.push('--update-manifest: no readable manifest.json - nothing updated');
     else {
-      const n = updateManifestStatus(mj.data, rep);
+      const n = updateManifestStatus(mj.data, rep) + updateDecalStatus(mj.data, rep.decals, raiseStatus, raiseVersion);
       rep.manifestUpdates = n;
       if (n && !opts.dryRun) fs.writeFileSync(manifestPath, stringifyCompact(mj.data) + '\n');
     }
   }
-  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + ['vfx', 'crowd', 'stage', 'npc', 'ui'].reduce((s, k) => s + (rep[k]?.warnings.length || 0), 0);
+  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + ['vfx', 'crowd', 'stage', 'npc', 'ui', 'decals'].reduce((s, k) => s + (rep[k]?.warnings.length || 0), 0);
 
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);

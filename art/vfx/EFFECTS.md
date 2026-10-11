@@ -49,7 +49,7 @@ line thicknesses come out as specified.
 | glow | 2 | 60 | 120 ms | loop / held | white + alpha steps | center | radius 52 | grows, fades, pulses |
 | streak | 6 | 45 | 270 ms | one-shot | white (tinted) | bottom | 8 wide x 100 tall | rises upward |
 | star | 5 | 40 | 200 ms | one-shot; frame 2 as static particle | white (tinted) | center | radius 26 | scale 0.18-1.2 |
-| crater | 3 | n/a | n/a | one random variant, static | full color, fully opaque | top-down decal | diameter 124 | random rotation on the floor |
+| crater | 3 | n/a | n/a | one random variant, static | full color, fully opaque | top-down decal | diameter 124 | random rotation on the floor; **superseded by the ground decals** (`art/decals/`) |
 | lines | 4 | 40 | 160 ms | one-shot | white (tinted) | center | radius 62 | random rotation, scale 0.7-1.5 |
 | bubble | 6 | 50 | 300 ms | one-shot | white (tinted) | center | diameter 38 | rises, scale 0.1-0.17 |
 | wisp | 7 | 55 | 385 ms | one-shot | white (tinted) | bottom | ~20 wide x 77 tall | rises, random flip, scale 0.22-0.42 |
@@ -320,6 +320,13 @@ line thicknesses come out as specified.
 | 04 | 4 px | 2 px | 4 x 4 |
 
 ## crater: floor crater decal
+
+> **Superseded by the ground decals** ([`../decals/DECALS.md`](../decals/DECALS.md),
+> [ADR 0024](../../docs/decisions/0024-ground-damage-decals.md)): ground damage now comes from its own
+> decal atlas (ppu 64, 256-512 px cells, 31 names picked by force and element: `crack_s` ... `crater`,
+> `crater_big`, `crater_huge`, element scorches). Do not generate new `crater` VFX art; the approved v01
+> stays in the VFX atlas only while the engine still reads it. Its baked side light ("lighter toward one
+> side") is exactly what the decal brief forbids, because decals are rotated at random.
 
 - **In game:** a static decal laid flat on the arena floor after ground bounces, knockdowns, specials,
   ultimate hits and KOs (scale 0.85, randomly rotated, fades out after ~9 s). **One random frame is
