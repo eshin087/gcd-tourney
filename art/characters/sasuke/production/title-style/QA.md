@@ -1,0 +1,26 @@
+# Sasuke title-style production QA — 2026-10-11
+
+User-approved source: `reference/title_style_draft_v01.png`, plus the 256 px neutral and combat cells copied here from the title-style pilot. The neutral occupies 90×209 px, has a 197 px pre-fit body target, and soles at y240. The combat cell occupies 155×180 px. These values govern this batch; the old universal head-count prompt does not.
+
+## Idle v07
+
+- Git history contains idle v01–v06. The two v07 source parts are 4 poses each; `npm run stitch -- sasuke idle v07` measured B factor 1.0296, scaled A by 0.9713, and reported B/A 0.988 after stitching. No factor was chosen by eye.
+- The 48-color packer selected `raw/idle_v07.png` at x0.337 and exited 0. `bodyHeight` is 180 for the crouched idle, to preserve the approved combat scale rather than enlarge the crouch to the 209 px neutral envelope.
+- Actual packed idle frame 0 occupies x46..204, y64..240 = 159×177 px. The approved combat sample occupies x50..204, y61..240 = 155×180 px. Same floor and comparable occupied scale, head/torso/limb build, outfit, face and sheathed sword. [First frame](packed-idle-v07-f0.png) and [all eight frames](packed-idle-v07-loop.png) are extracted from `public/characters/sasuke/sheet.png`; the old `frames/idle/` cache is not the new candidate.
+- Every frame was inspected at native size. Feet stay planted; the loop changes only subtly. v07 is a provisional continuity reference, not `idle_approved.png` and not user-approved.
+
+## Guard v03 → v04
+
+- v03 was rejected on technical QA: the second frame crouched about 20 packed pixels lower and compressed the torso and limbs. The first and second v03 frames are saved in [QA preview](packed-guard-v03-qa.png); the raw image is in `raw/_rejected/`.
+- v04 corrects the pop. Both [packed QA frames](packed-guard-v04-qa.png) have hair top y61, upper head silhouette x100..142 and x101..142 at y50..94, planted feet y240, and close torso/leg shapes. Idle's corresponding upper head region is x95..134, hair top y64. The few-pixel contour differences are within the pilot's approximately ±3 packed-pixel crown uncertainty; there is no visible 38% head enlargement.
+- The automatic guard probe reads 1.38× idle because the crossed navy forearms touch the dark hair mask. That is an invalid skull measurement. A v04-only exemption documents this demonstrated mask problem. It is a **manual anatomy acceptance, not a numeric scale pass**. With that exemption, `node tools/pack-sprites.mjs sasuke --quantize 48` exits 0 and selects guard v04. The older approved Sasuke strips still show scale mismatches against the new idle and are not represented as complete or strict-clean.
+
+## Run v04 → v05
+
+- v04 measured A/B factor 0.9901 but failed the new-strip gate: head pop (f1 1.29×, f7 0.88×) and flight frames 3/7 clipped 22/24 px at the right edge. [Native QA](packed-run-v04-qa.png) shows the defect; this version is a technical reject.
+- v05 redrew both parts. Measured B factor 0.9959, final B/A 1.012. The packer's first import revealed the pose max height was about 438 source pixels; the measured idle-head source factor 0.3523 implied a 154 px run envelope. The gate at 154 px found hair ratio 1.06, just beyond tolerance. A 150 px envelope gives scale 0.342 and a numeric pass with no clipping. It was selected from those measurements and then checked visually, not chosen from the run's bounding box by eye.
+- [All eight packed frames](packed-run-v05.png) were extracted from the actual written atlas. Frame bounds are 125–151 px wide and 142–150 px high; every frame stays inside x4..251 and y4..240. The same face, hair, torso, lean build, long legs, sheath and costume persist. The sequence has left/right contacts, passing strides and flight phases; f7 flows into f0. Current candidate is technically packable but still awaits the full-set visual review.
+
+## Remaining checks
+
+The escalated local Vite adapter served port 5222. The in-app browser showed two Sasuke fighters at the same game depth with the new idle, matched apparent height and grounded feet. The console logged `[sprites] using custom sheet for sasuke (42 animations)` and no errors. The production build passed (80 modules) and the adapter's HTTP self-check returned four 200 responses. Full production, full-character strict scale, contact/hurtbox validation, user image approval, integration and deployment remain open.

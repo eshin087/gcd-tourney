@@ -20,6 +20,8 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 ## Milestone M2: training, input, hit accuracy (v0.3.0)
 
+**ART-SAS-TITLE-20261011**, Codex, in-progress. files: art/characters/sasuke/, art/manifest.json, art/TRACKER.md, art/REVIEW.md, art/scale/heads-sasuke.png, public/characters/sasuke/, docs/TASKS.md, CHANGELOG.md. User approved title-style draft and scaled pilot, authorized all 42 animations plus 3 UI without intermediate image gates. Branch `art/sasuke-title-production`, real sparse worktree. Idle v07 and guard v04 have native pilot-scale QA; guard v03 was technically rejected. Full batch, live equal-depth check, user final review and Claude integration remain open.
+
 Cast proportion review: **ART-CAST-SAMPLES**, Codex, review. User requested a quick sample checkpoint before the full frame audit. Branch `art/cast-scale-samples` compares production-matched sprites, Naruto guard/block/spot-dodge head crops, and approved turnarounds. No art approvals or gameplay changes. Full audit paused for user feedback; Claude owns integration.
 
 Stitch ROI safety: **TOOL-STITCH-ROI**, Claude, todo. files: tools/stitch-parts.mjs. Killua light1 v04 reproduction shows stale packed idle v01; refinement clips the actual head then measures white shirt hem as hair. Add a clipping/ROI validity guard and an explicit current reference path or equivalent safe behavior; preserve source landmark fallback. Exact command, hashes and stage masks in art-scale-fix-killua/art/characters/killua/production/STITCH_TOOLING_HANDOFF.md. Codex made no tool edits or gate exemptions.

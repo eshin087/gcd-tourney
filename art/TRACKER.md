@@ -122,6 +122,8 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 ## sasuke
 
+Title-style redraw in progress: user approved `title_style_draft_v01` and the neutral/combat cells. New idle v07 and guard v04 are provisional candidates for the full 42-animation/3-UI batch; old approved versions remain recorded separately. [Production QA](characters/sasuke/production/title-style/QA.md). The pilot's 90×209 neutral, 155×180 combat and 197 px body target supersede the old universal head ratio for this batch.
+
 Brief: [characters/sasuke/](characters/sasuke/). Shippuden (Hebi-era) design, ~6.5 heads, sword
 sheathed at the back of the belt.
 
@@ -134,8 +136,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved v02 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. New smaller-head v02 needs review; approved fixed reference remains v01. See PROPORTION_REDRAW.md and v02 QA. User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
-| 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
-| 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
+| 3 | idle | 8 | - | **yes** | 180 | approved | v07 | v01 | Title-style v07 candidate, needs final batch review; 48-color candidate pack exits 0, measured stitch, native idle 159×177 against pilot combat 155×180. Old v01 remains the approved version. |
+| 4 | run | 8 | - | **yes** | 150 | approved | v05 | v02 | Title-style v05 candidate needs full-set review; v04 was rejected for head pop and clipped flight poses. v05 measured stitch and new-strip gate pass; all eight actual atlas cells inspected. Old v02 remains approved. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
@@ -143,7 +145,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v06 | v06 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | guard | 2 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | guard | 2 | - | **yes** | 180 | approved | v04 | v01 | Title-style v04 candidate, needs final batch review; v03 rejected for real frame pop. v04 crossed arms confuse the hair probe; version-owned manual exemption is documented in QA, not counted as a numeric pass. Old v01 remains approved. |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
