@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art approval: user approved all current candidates across PRs #24–30; retain Sasuke charge v02, promote Gojo model v06, and hand off sequential integration to Claude. No production deployment in this approval pass.
+
 - Tools: a measured **scale gate** for every packed frame (TOOL-025, TOOL-008, ADR 0021): the packer compares each frame's head (hair included) and feet with the fighter's approved idle, refuses to pack a fighter whose unapproved strip is off (approved ones are listed until ART-SCALE-02 fixes them; `--strict-scale` for all), honours manifest exemptions only for the strip version they name, can refit a wrongly sized raw strip (`auto-head`), and `npm run stitch` joins two-part strips with a measured factor; `npm run scale` writes heads contact sheets, a report, a baseline and head scale guides; `?scaleaudit`, `scaleReport()` and the test lab's head boxes show it in game; brief for Codex in art/scale/SCALE_FIX_BRIEF.md.
 - Fixed: `npm run deploy` no longer piles up `gcd-deploy-*` exports in %TEMP% (hundreds of MB each): it retries cleanup for ~15 s and sweeps leftovers older than an hour at the start of every deploy.
 

@@ -1,32 +1,28 @@
 # NOW: what's happening and what you do next
 
-The one page to check from your phone. The top is the current art handoff; the generated block below describes main only.
-
-_Last updated by Codex, 2026-10-10: seven batches transferred to real worktrees, committed, opened as separate PRs and deployed to review previews. All new art remains unapproved. No art PR was merged and production was not deployed._
+_Updated by Codex, 2026-10-10: the user approved all current art candidates. Approval records are in the seven art PRs. Integration and production deployment remain pending._
 
 ## Your next actions
 
-- **Routine PR updates (OPS-006):** project-local saved rule now covers future PR numbers using the repo-first command in AGENTS.md. Restart existing Codex sessions to load the manually added rule. Filesystem grants unchanged.
+**No further approval is needed for this batch.** Claude, the integration coordinator, can reconcile and merge PRs #24–30 sequentially with the repository merge command, repack combined character batches, verify the integrated game and deploy committed work.
 
-- **Naruto:** review [beamCharge v05 / beamFire v07](https://gcd-tourney-426nmajqo-eshin087s-projects.vercel.app/art-review/naruto/four-tails/index.html) ([PR #25](https://github.com/eshin087/gcd-tourney/pull/25)) and [heavy v07 / charge v04](https://gcd-tourney-8dnzgeqr6-eshin087s-projects.vercel.app/art-review/naruto/heavy-charge/index.html) ([PR #29](https://github.com/eshin087/gcd-tourney/pull/29)). Four-Tails silhouettes/clipping and heavy contact/recovery improved. **Charge still needs correction** for foot-span/head-loop drift; heavy pose caveats are shown in its preview.
-- **Sasuke:** review [heavy v06 / approved charge v02](https://gcd-tourney-dkdnkyhhp-eshin087s-projects.vercel.app/art-review/sasuke-heavy-charge/) ([PR #28](https://github.com/eshin087/gcd-tourney/pull/28)) and [light2 v02 / light3 v02 / special v03](https://gcd-tourney-9y5h05e3v-eshin087s-projects.vercel.app/art-review/sasuke-size-pops/) ([PR #27](https://github.com/eshin087/gcd-tourney/pull/27)). The user rejected the new charge; approved charge v02 is restored and needs no new approval. Heavy and size transitions await visual review. **Heavy still needs correction**: active feet miss the specified contact zones, and whole-frame shifts would break support-foot placement.
-- **Killua:** review [heavy v05 / charge v07](https://gcd-tourney-nr2jucjs8-eshin087s-projects.vercel.app/killua-heavy-charge-review/) ([PR #30](https://github.com/eshin087/gcd-tourney/pull/30)) and [Whirlwind beamCharge v05](https://gcd-tourney-24yhrhrty-eshin087s-projects.vercel.app/killua-whirlwind-review/) ([PR #26](https://github.com/eshin087/gcd-tourney/pull/26)). Heavy v05 replaces the reaching motion with forward bent-elbow claw strikes, stronger torso turn and compact recoil. Still unapproved; the active poses remain similar, anticipation hand stays forward, and the pronounced tuck needs visual review. Whirlwind heels corrected. Charge foot endpoints are within ±1px of their median, with 2px extreme-to-extreme variation; the preferred claw-contact height and anatomy estimates remain review caveats.
-- **Gojo:** give feedback on [model_sheet v06](https://gcd-tourney-c6vv0ihw0-eshin087s-projects.vercel.app/gojo-model-review/) ([PR #24](https://github.com/eshin087/gcd-tourney/pull/24)). **Correction recommended before approval:** the best of three attempts still fails source-scale/raw-palette gates. Approved v03 remains; no idle or later redraw has started.
+- **Naruto approved:** beamCharge v05 / beamFire v07 ([PR #25](https://github.com/eshin087/gcd-tourney/pull/25)); heavy v07 / charge v04 ([PR #29](https://github.com/eshin087/gcd-tourney/pull/29)).
+- **Sasuke approved:** heavy v06 ([PR #28](https://github.com/eshin087/gcd-tourney/pull/28)); light2 v02 / light3 v02 / special v03 ([PR #27](https://github.com/eshin087/gcd-tourney/pull/27)). Keep approved charge v02; the rejected v04 stays archived.
+- **Killua approved:** heavy v05 / charge v07 ([PR #30](https://github.com/eshin087/gcd-tourney/pull/30)); Whirlwind beamCharge v05 ([PR #26](https://github.com/eshin087/gcd-tourney/pull/26)).
+- **Gojo approved:** model_sheet v06 promoted to the fixed reference ([PR #24](https://github.com/eshin087/gcd-tourney/pull/24)). This batch stops at the model sheet. The later idle/full-animation redraw is separate follow-up work.
 
-Each preview contains that batch only. All candidates keep versioned sources, REVIEW rows, manifest/tracker entries, QA and lineups. Builds and runtime checks pass. Raw image palette/hard-pixel gates still fail in the Naruto, Sasuke heavy/charge, Killua heavy/charge and Gojo sources despite 48-color packed atlases. A passing pack does not establish raw-art compliance or that a flagged pose meets its brief. The three-attempt correction rounds are exhausted where defects remain.
+The user's approval accepts the reviewed candidates; it does not erase measured source-scale, raw-palette, pose or motion deviations documented in QA. Approval repacks preserve runtime atlas contents. Existing immutable previews show the same artwork but may retain historical pre-approval labels; current approval status is in PR descriptions and each worktree's REVIEW/manifest/TRACKER.
 
-After your decisions, Claude can reconcile and merge the art PRs sequentially with the repository merge command, repacking each character after combining its batches. Raw versions remain in the local worktrees; GitHub uses the repository's normal slim publication.
+Broader backlog remains separate: planned KO/down and scale-drift corrections depend on Claude's tooling/briefs; Gojo's later animation redraw and Goku/Luffy planning were not part of this completed batch. Main's generated status below does not include unmerged art approvals.
 
-Routine Git/build/preview delivery succeeded through scoped automatic approval review. This does not claim the separate restricted Git CLI compatibility issue (OPS-004) is fixed or change the sandbox policy. The earlier ordinary copies under .worktrees/sandbox-batches are preserved as history, not active worktrees.
-
-The existing live game is at https://gcd-tourney.vercel.app. Goku and Luffy kit planning remains with Claude and the user before their character-data PRs and art briefs.
+Routine PR metadata updates use the repo-first command in AGENTS.md. No sandbox settings changed. The old sandbox staging gallery is historical; the real worktrees retain all source versions.
 
 ## Generated status
 
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-11 01:49 UTC._
+_Generated by `npm run status` at 2026-10-11 02:05 UTC._
 
 ### Waiting for your review (0)
 - nothing
@@ -62,10 +58,10 @@ _Generated by `npm run status` at 2026-10-11 01:49 UTC._
 - DOC-001 (Claude), ENG-056 (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex)
 
 ### Last commits
-- f1c2510 10-10 18:40 Merge branch 'chore/decal-pipeline'
-- f192569 10-10 18:39 chore(merge): merge main into chore/decal-pipeline
-- 39bea15 10-10 18:34 Merge branch 'feature/combo-escape'
-- 428b688 10-10 18:33 chore(merge): merge main into feature/combo-escape
-- 31903a3 10-10 18:26 Merge branch 'feature/canon-powerups'
-- b93a51c 10-10 18:25 chore(merge): merge main into feature/canon-powerups
+- 7a0a34d 10-10 19:04 Merge branch 'chore/scale-gate'
+- 75c2f5b 10-10 19:03 chore(merge): merge main into chore/scale-gate (deploy temp cleanup)
+- d842b4b 10-10 19:03 chore(merge): merge main into chore/scale-gate
+- 200d5f1 10-10 19:01 Merge branch 'fix/deploy-temp-cleanup'
+- c9fa60e 10-10 19:00 fix(tools): sweep stale deploy exports from temp
+- 30caa1d 10-10 18:59 docs(art): record verified Killua v05 playback preview
 <!-- status:end -->

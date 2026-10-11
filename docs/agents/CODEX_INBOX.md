@@ -17,7 +17,7 @@ How it works:
 
 ## One chat for everything (2026-10-10)
 
-**Current delivery (Codex, 2026-10-10):** all seven batches now live in real task worktrees with separate open PRs and verified hosted previews. See [NOW](../NOW.md) for the per-character review list. New art remains unapproved; no merge or production deployment. Gojo stopped at model v06. Scoped automatic approval review allowed routine Git/build/network actions without user prompts; this is separate from the OPS-004 restricted Git CLI issue below.
+**Current delivery (Codex, 2026-10-10):** USER APPROVED ALL current candidates. Naruto beamCharge v05/beamFire v07/heavy v07/charge v04; Sasuke heavy v06/light2 v02/light3 v02/special v03, keeping approved charge v02; Killua heavy v05/charge v07/Whirlwind beamCharge v05; Gojo model_sheet v06. Approval recorded in PRs #24–30; fixed Gojo reference promoted. No further user review needed for this batch. Claude owns sequential integration, combined repacks and deployment. Stop boundary remains Gojo model-only; no new art started. Earlier pending-review statements below are historical and superseded by this approval.
 
 **Build fix (OPS-005):** `.codex/vite.mjs` now builds and serves the game inside the tight profile;
 production build and root/lab/main-JS/Three.js HTTP checks pass without extra reads. Use commands in
