@@ -635,13 +635,15 @@ Tumbling through the air after big launches.
 
 Knockdown. The engine adds dust and sometimes a crater. ADR 0007 pose note: lying flat with the head toward screen-left, about 210 px long.
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f1 (the resting frame, shown on every knockdown), and f1 must flow into `getup` f0.
+
 - **Hair and cloth:** Hair spikes splay against the floor; tails flung up on f0 and lying flat on f1.
-- **QA:** Height about 96 px on f0 (shoulders and legs bounce up), lower on f1; length about 210 px. Head toward screen-left, feet toward screen-right, everything inside x 4-251.
+- **QA:** Height about 96 px on f0 (shoulders and legs bounce up), lower on f1 (about 60-70 px); length about 210 px. Head toward screen-left, feet toward screen-right, everything inside x 4-251. No `float above the floor line` warning for `down`.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
 | f0 | `down_00` | — | Ground impact: lying on his back, head toward screen-left and feet toward screen-right; his back has slammed into the floor and the shoulders and legs bounce up about 15° from flat; arms flung out from the shoulders. | pain: eyes squeezed shut, mouth open |  |
-| f1 | `down_01` | — | Lying flat on the back: arms out to the sides, L knee slightly raised, head turned toward the viewer. | out: eyes closed, dazed |  |
+| f1 | `down_01` | — | Lying flat on the back, seen side-on: head, back, hips and heels on the floor line; arms out along the floor at the sides, L knee only slightly raised, head turned toward the viewer. | out: eyes closed, dazed |  |
 
 <a id="ko"></a>
 
@@ -651,12 +653,14 @@ Knockdown. The engine adds dust and sometimes a crater. ADR 0007 pose note: lyin
 
 Final KO pose (held). ADR 0007 pose note: lying flat, head toward screen-left, about 210 px long.
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f0 (the KO and victory cameras look at it for seconds).
+
 - **Hair and cloth:** Hair splayed on the floor, tails lying flat.
-- **QA:** Height about 64 px, length about 210 px, inside x 4-251. No comedic eyes: he is knocked out cold.
+- **QA:** Height about 64 px (at most 73), length about 210 px, inside x 4-251. No comedic eyes: he is knocked out cold. No `float above the floor line` warning for `ko`.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `ko_00` | — | Lying flat on the back like down f1 but completely limp: arms loose at the sides, legs straight, head tilted toward the viewer. Head toward screen-left. | out: eyes closed, mouth slightly open |  |
+| f0 | `ko_00` | — | Lying flat on the back like down f1 but completely limp, seen side-on: head, back, hips, legs and heels on the floor line; arms loose along the floor at the sides, legs straight, head tilted toward the viewer. Head toward screen-left. | out: eyes closed, mouth slightly open |  |
 
 <a id="getup"></a>
 

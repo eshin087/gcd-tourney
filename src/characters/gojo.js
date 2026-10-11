@@ -127,6 +127,24 @@ export default {
   color: '#7ac8ff',
   aura: [0.45, 0.72, 1.0],
   auraCore: [0.9, 0.96, 1.0],
+  // Powering up (ENG-069, src/game/chargeFx.js): almost nothing shows. A faint Infinity shimmer on his outline,
+  // pebbles that lift and stop dead in mid-air, a faint space ripple now and then, the Six Eyes glint at MAX. No
+  // rumble, dust, cracks or screen flash.
+  charge: {
+    palette: { main: '#8fd0ff', core: '#e8f8ff', pebble: '#8a7560', eye: '#7fe8ff' },
+    bodyTint: 0,
+    shell: { kind: 'shimmer', width: [0.016, 0.026], lift: 0, noise: 0, speed: 0.8, opacity: [0.2, 0.3] },
+    emit: [
+      { fx: 'wisp', from: 'body', every: 18, max: 2, scale: [0.22, 0.3], vel: [0, 0.6, 0], color: 'main', opacity: 0.3 },
+      { fx: 'ripple', from: 'chest', bar: 1, every: 180, max: 1, scale: 0.9, life: 0.5, fade: true, color: 'core', opacity: 0.2 },
+      { fx: 'star', frame: 3, from: 'floor', every: 15, max: 4, scale: [0.18, 0.24], vel: [0, [1.0, 1.4], 0], drag: 0.04, life: 1.8, fade: true, color: 'pebble', opacity: 1 },
+    ],
+    eyes: { at: [0.02, 1.48], color: 'eye', bar: 3 },
+    ground: { dustEvery: 0, crackAt: 0, rumble: 0 },
+    bar: { ring: null, ripple: 1.0, burst: null, dust: 0, flash: 0, lines: 0, shake: 0, punch: 0.12 },
+    max: { ring: null, ripple: 1.6, burst: null, dust: 0, flash: 0, lines: 0, shake: 0, punch: 0.12 },
+    sound: 'calm',
+  },
   beam: { core: '#ffffff', mid: '#b46cff', edge: '#6a2cd8', name: 'HOLLOW PURPLE', width: 1.85 },
   specialName: 'LAPSE: BLUE',
   projectileName: 'REVERSAL: RED',

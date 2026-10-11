@@ -242,12 +242,30 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
   Guard or Jump cancels it. Heavy during charge with 3 bars fires the ultimate.
-- The power-up builds over its first 45 frames (`Effects.chargeTick`, ENG-059): the aura grows, ki streams in to
-  the chest from a ring around them, pebbles lift off the floor, a dust ring rolls out from the feet (faster as it
-  builds) and the floor cracks after 40 frames, with focus lines, a ground rumble, a one-pixel tremble on the
-  sprite and a hum that climbs (`audio.tune`). Each new bar fires `Game.onChargeBar`: a shockwave ring, a burst, a
-  flash and a camera punch, and "MAX POWER!" with a louder chime on the last one. At full ki the body crackles; a
-  fighter's `charge.sparks: 'lightning'` (Killua) crackles from the start.
+- **Each fighter powers up like their anime** (ENG-069, [ADR 0023](decisions/0023-canon-power-up-styles.md)). The
+  look is data, `charge` in `src/characters/<id>.js` over `CHARGE_DEFAULT`, run by `src/game/chargeFx.js`:
+  - a **body shell** (`src/game/auraShell.js`): a band of energy hugging the silhouette of the frame on screen;
+  - a few **emitters** (bubbles, wisps, arcs, pebbles...) and an **eye glint**, unlocked per ki level;
+  - a **bar beat** for each new bar and a **MAX beat** (rings, a burst behind the body, a short focus-line pulse, a
+    camera punch), plus a one-pixel tremble on the sprite and a charge hum per style (`sound`).
+- Level = filled bars + the active mode's `charge.level` (Nine-Tails cloak and Godspeed add 1), 0 to 3 (3 = the MAX
+  look). The first 45 frames only widen the shell.
+
+| Fighter | Shell | On the body / around | Eyes | Floor, beats |
+|---|---|---|---|---|
+| Naruto | `boil`: red Nine-Tails chakra boiling on his outline | chakra bubbles, wisps off the head; one chakra tail at MAX (`naruto_chakraTail`) | red slit eyes from bar 2 | pebbles, dust rings, a crack from bar 2, rumble |
+| Sasuke | `dark`: near-black curse-mark chakra with a violet rim | dark wisps from his back, black tongues from bar 2, Chidori current arcs over the body | Sharingan from bar 1 (bigger at MAX) | a crack at MAX, light rumble |
+| Killua | `electric`: a flickering blue-white outline | small arcs over the body and the floor (his charge strip raises his hair) | none | no crack, slight rumble |
+| Gojo | `shimmer`: a faint Infinity outline | pebbles that lift and stop dead in mid-air, a faint ripple every 3 s | Six Eyes at MAX | nothing: no rumble, dust, crack or flash |
+
+- **Restraint rules** (enforced in code): at most 16 live charge sprites per fighter (Gojo uses about 7), glow at
+  most 0.6, big sprites behind the body and translucent, no focus lines while holding (a bar pulses them up to
+  0.35), a screen flash only at MAX (at most 0.1, in the style's dark color, none for Gojo), a steady body tint of
+  at most 6 %, and rumble at most 0.05 per 4 frames. During a super flash or a special clash the charge only
+  refreshes (no new sprites, no new cracks). A mode's own aura pauses while charging.
+- Ground cracks go through the optional ground-damage hooks (`fx.ground.chargeTick` / `chargeMax`); without them
+  a style lays at most one crater per charge at its `ground.crackAt` level.
+- Each new bar still fires `Game.onChargeBar` ("MAX POWER!" with a louder chime on the last one).
 
 ### Ultimate, super flash and ultimate clash
 - The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's
@@ -376,6 +394,10 @@ jumping or a break beat throws.
 - At 0 HP the victim is launched at least [14, 8.5], or [23, 10] by a big move, special or beam. The ring
   barrier is off: they fly off the ring onto the grass and can crash into the stands' walls (explosion,
   debris). KO slow-mo is 0.22× for 1.4 s, with a KO camera.
+- A KO'd body never comes to rest across the ring edge (ADR 0020): lying within `KO_EDGE` (1 unit, half a lying
+  sprite) of the edge on the ring, or within the lip (`RING_LIP` 0.35) plus `KO_EDGE` of it on the grass, it keeps
+  sliding outward at `KO_SLIDE` (3 units/s) and drops onto the grass clear of the ring (`Fighter.slideOffEdge`).
+- A flurry super or the Four-Tails mauling that knocks the victim out lets go of them: the KO launch plays out.
 
 ## Hit detection: 2.5D lanes and frame boxes
 
@@ -411,12 +433,30 @@ distance-to-line test.
 
 ## Camera and feedback per hit tier
 
-| Tier | Effects |
-|---|---|
-| light | small spark, `hit` sfx, shake 0.14 |
-| heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 |
-| smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s |
-| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer |
+| Tier | Effects | Victim flash (`HIT_FLASH`, default `pop` style) |
+|---|---|---|
+| light | small spark, `hit` sfx, shake 0.14 | 1 white frame, then lift + white rim through hitstop, 6-frame fade |
+| heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 | 2 white frames, warm rim, 7-frame fade |
+| smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s | 3 white frames, gold rim, 8-frame fade |
+| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer | 2 white frames (about a smash's 3 on screen under the 0.3× slow-mo), white rim, 10-frame fade |
+
+The victim flash has its own tiers (`flashTier` in `src/game/hitFlash.js`, first match wins): **ko** (the hit that
+KOs: white for up to 5 frames, about 0.4 s under the KO slow-mo), the move's **`hitFlash`** field (3-bar super
+finals, Hollow Purple and the special-clash outcomes say `'special'`: white through the hitstop, up to 5 frames),
+**special** (a big beam), **tick** (hitstop ≤ 3 and not big: beam, vortex, Lapse: Blue and flurry hits never pop,
+only a pulse of lift and rim), **counter** (the hit lands in the startup or active frames of the victim's own attack,
+a kit move, a throw reach or a beam charge: white for up to 4 frames, orange rim; punishing a whiff or a recovery,
+such as a dive's landing, a stance after it ends or a missed throw, is a normal hit, `kit.inRecovery`), **rush**
+(`special`: the 1-bar rush specials, the table's special row), then smash, heavy, light as in the table. Full white
+longer than a smash's 3 frames is only for counter hits, supers and KOs. From combo hit 6 a normal hit pops 1 frame
+at most. A **parry** gives the parrier 1 white frame and a cyan rim through the freeze; a
+**burn** tick (Amaterasu) gives no pop, just a soft lift and a rim in the burn's color. All of it is render only and
+counts every sim frame (through hitstop and freezes), so it never changes timing. The hitstop shake is a whole-frame
+alternation per tier (0.035 light .. 0.09 special; 0.04 on block), so the sprite never sits between pixels.
+
+Styles for A/B: `pop` (default), `tint` (no rim), `rim` (no pop below counter), `classic` (the old look: solid white
+through the hitstop plus 5 frames) and `off`. Switch them with `?flash=<style>` on the game page or the HIT FLASH and
+FLASH STR chips in the lab's Tools tab; under `?debug`, `window.HIT_FLASH` is the live table.
 
 ## CPU AI
 

@@ -300,7 +300,7 @@ export class Orb {
         else if (!touching && this.slip) { this.slip = false; g.onEvade(o); }
         else if (touching && o.invuln <= 0) {
           this.hit = true;
-          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));
           fx.overlay.impactFrame(4);
           g.cam.shake(1.1);

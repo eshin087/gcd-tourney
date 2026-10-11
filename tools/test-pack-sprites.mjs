@@ -553,6 +553,8 @@ function main() {
   check(anyWarn(W, /land: cannot read/), 'warning: corrupt PNG');
   check(anyWarn(W, /idle frame "9" out of range/), 'warning: override out of range');
   check(!anyWarn(W, /ui_portrait|fx_chidoriBall|light1_fix01|cloneAssist/), 'ui_* (also ui_<name>_vNN), fx_*, <anim>_fixNN and raw/ subfolders skipped silently');
+  check(!anyWarn(W, /float above the floor line/) && meta.animations.down.frames.every((f) => meta.footprint?.[f]?.length === 2) && !meta.footprint?.[meta.animations.idle.frames[0]],
+    'testy: the flat lying down passes the ground check and gets a footprint, idle none');
   check(testy.packed.find((p) => p.anim === 'idle')?.source === 'raw/idle.png' && testy.packed.find((p) => p.anim === 'idle').version === null, 'plain raw/idle.png used when no versioned file exists');
   check(testy.packed.find((p) => p.anim === 'run')?.notes.some((n) => /touching/.test(n)), 'run: touching poses split');
   check(testy.packed.find((p) => p.anim === 'heavy')?.notes.some((n) => /grid of 2 rows/.test(n)), 'heavy: 2-row grid detected');
@@ -903,6 +905,74 @@ function main() {
     fs.writeFileSync(raw, JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 20, sourceHeadPx: [62, 80] } }));
     const compact = pack([...base, 'anchor']);
     check(compact.code === 0 && !anyWarn(compact.json.characters[0].warnings, /anatomy requires/), 'anatomy: approved compact heads are valid without forcing a universal 31px target');
+  }
+
+  // Lying frames (ADR 0020): every frame's lowest pixel sits on the floor line, so the ground check asks whether the
+  // BODY rests on it. A flat body passes, a body with one end on the line and the other up in the air warns; only
+  // down's resting (last) frame is checked; ko, down and getup[0] get a `footprint` (their x span) for the engine's
+  // contact shadow, standing animations none.
+  {
+    const lieRaw = (id, n) => path.join(ART, 'characters', id, 'raw', n);
+    const rnd = mulberry(520);
+    // raw art px, 3x the final size: a body `len` long and `thick` deep whose underside is `sag` px up at both ends and
+    // on the floor in the middle (a body drawn from above: only the hips touch, the head and feet ends hang in the air)
+    const body = (img, x0, floorY, len, thick, sag, c) => {
+      for (let i = 0; i < len; i++) rect(img, x0 + i, floorY - thick - Math.round((Math.abs(2 * i - len) * sag) / len), 1, thick, c, rnd, 0);
+    };
+    const flatKo = image(900, 400, [255, 0, 255], rnd, 0);
+    body(flatKo, 150, 330, 600, 192, 0, COL.orange); // 200 x 64 px once packed
+    savePng(lieRaw('lyer', 'ko_v01.png'), flatKo);
+    const down = image(1600, 500, [255, 0, 255], rnd, 0);
+    body(down, 100, 430, 600, 120, 0, COL.pants); // [0] the bounce: back on the floor, a leg flung up (never checked)
+    rect(down, 520, 430 - 288, 60, 168, COL.pants, rnd, 0);
+    body(down, 900, 430, 600, 120, 0, COL.pants); // [1] at rest, flat
+    savePng(lieRaw('lyer', 'down_v01.png'), down);
+    const getup = image(1800, 800, [255, 0, 255], rnd, 0);
+    body(getup, 60, 700, 330, 210, 0, COL.skin); // [0] lying, knees to the chest
+    for (let k = 1; k < 5; k++) rect(getup, 300 + k * 300, 700 - 612, 120, 612, COL.skin, rnd, 0); // [1-4] up
+    savePng(lieRaw('lyer', 'getup_v01.png'), getup);
+    savePng(lieRaw('lyer', 'idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 521, specks: 0 }));
+    const tiltKo = image(900, 400, [255, 0, 255], rnd, 0);
+    body(tiltKo, 150, 330, 600, 90, 102, COL.orange); // 200 px long, both ends 34 px up
+    savePng(lieRaw('tilty', 'ko_v01.png'), tiltKo);
+    const manifestPath = path.join(ART, 'manifest.json');
+    const lm = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    lm.characters.tilty = { name: 'Tilty', animations: { ko: { frames: 1, status: 'approved', version: 1, approvedVersion: 1 } } };
+    fs.writeFileSync(manifestPath, JSON.stringify(lm, null, 2));
+
+    const lie = pack([...base, 'lyer', 'tilty']);
+    const lyer = lie.json?.characters.find((c) => c.id === 'lyer'), tilty = lie.json?.characters.find((c) => c.id === 'tilty');
+    const lyerOut = path.join(OUT, 'characters', 'lyer');
+    const lmeta = JSON.parse(fs.readFileSync(path.join(lyerOut, 'anims.json'), 'utf8'));
+    const lsheet = loadPng(path.join(lyerOut, 'sheet.png'));
+    const span = (f) => { const b = bb(cell(lsheet, f)); return [b.x0, b.x1]; };
+    const A = lmeta.animations;
+    check(lie.code === 0 && !anyWarn(lyer.warnings, /float above the floor line/), `lying: a flat ko and a flat resting down pass the ground check (${lyer?.warnings.filter((w) => /float/.test(w))})`);
+    check(lyer.ground.ko?.[0]?.ok && lyer.ground.ko[0].contact === 1 && lyer.ground.down?.length === 1 && lyer.ground.down[0].frame === 1 && lyer.ground.getup?.[0]?.frame === 0,
+      'lying: the report measures ko, down[last] and getup[0] only');
+    const lyingFrames = [...A.ko.frames, ...A.down.frames, A.getup.frames[0]];
+    check(lmeta.footprint && Object.keys(lmeta.footprint).length === lyingFrames.length && lyingFrames.every((f) => JSON.stringify(lmeta.footprint[f]) === JSON.stringify(span(f))),
+      `lying: footprint = the cell x span of every ko and down frame and getup[0] (${JSON.stringify(lmeta.footprint)})`);
+    check(Math.abs(lmeta.footprint[A.ko.frames[0]][1] - lmeta.footprint[A.ko.frames[0]][0] + 1 - 200) <= 2, 'lying: the flat ko is about 200 px long');
+    check(![...A.idle.frames, ...A.getup.frames.slice(1)].some((f) => lmeta.footprint[f]), 'lying: standing frames (idle, getup[1+]) get no footprint');
+    const tg = tilty?.ground.ko?.[0];
+    const tiltWarn = tg && `ko: 1 lying frame(s) float above the floor line (#0: ${Math.round(tg.contact * 100)}% of the body within 6px of y 240, worst fifth ${tg.worst}px above it) - draw lying poses side-on`;
+    check(tg && !tg.ok && tg.contact < 0.4 && tg.worst > 12 && tilty.warnings.some((w) => w.startsWith(tiltWarn) && w.endsWith('ADR 0020); v01 is the approved version: queue a side-on redraw'))
+      && !anyWarn(tilty.warnings, /clipped|cell margin/), `lying: a ko with its head and feet ends in the air warns, and names the approved version (${JSON.stringify(tg)} ${tilty?.warnings})`);
+    const lyerSheet = fs.readFileSync(path.join(lyerOut, 'sheet.png')), lyerJson = fs.readFileSync(path.join(lyerOut, 'anims.json'));
+    const again = pack([...base, 'lyer']);
+    check(again.code === 0 && again.json.characters[0].packed.find((p) => p.anim === 'ko')?.source === 'frames/ko/'
+      && Buffer.compare(lyerSheet, fs.readFileSync(path.join(lyerOut, 'sheet.png'))) === 0 && Buffer.compare(lyerJson, fs.readFileSync(path.join(lyerOut, 'anims.json'))) === 0,
+    'lying: a second pack from the cached frames is byte-identical (sheet and footprint)');
+    // anatomy sidecars bypass bodyHeight, so a pose drawn from above can also ship too tall: a flat but 91 px thick ko
+    // (a candidate, not the approved version) warns for its height alone
+    const thickKo = image(700, 400, [255, 0, 255], rnd, 0);
+    body(thickKo, 150, 330, 400, 192, 0, COL.orange);
+    savePng(lieRaw('tilty', 'ko_v02.png'), thickKo);
+    fs.writeFileSync(lieRaw('tilty', 'ko_v02.json'), JSON.stringify({ anatomy: { measurement: 'skull-to-chin', targetHeadPx: 31, sourceHeadPx: [65.4] } }));
+    const tall = pack([...base, 'tilty']);
+    check(tall.code === 0 && anyWarn(tall.json.characters[0].warnings, /^ko: 1 lying frame\(s\) float above the floor line \(#0: 9\dpx tall > 64x1\.15\) - draw lying poses side-on .*ADR 0020\)$/),
+      `lying: a lying frame taller than bodyHeight x1.15 says so (${tall.json?.characters[0].warnings})`);
   }
 
   // run 5: missing art root, dry run

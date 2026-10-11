@@ -37,6 +37,33 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 // Vanish: teleport behind the opponent (1 ki bar), then vanishKick
 export const VANISH = { cost: 100, hideFrames: 9 };
 
+// Hit flash on the victim's sprite (ENG-064, src/game/hitFlash.js). Render only; frames at 60 fps, counted every
+// sim frame including hitstop and freezes. Which tier a hit plays: ko > the move's `hitFlash` field (supers) > special
+// (a big beam) > tick (hitstop <= 3, not big: multi-hits never re-pop) > counter (it interrupts the startup or active
+// frames of the victim's own move) > rush (`special`: the 1-bar rush specials) > smash > heavy (`big` or a heavy
+// spark) > light. Full white for longer than a smash is for counter hits, supers and KOs only.
+//  pop    frames of pure white at contact (the snap); 'hs' = the whole hitstop, capped at popMax
+//  lift   brighten held through the rest of hitstop; keeps the line art (0 none .. 1 near white)
+//  rim    inner-edge glow (a bright outline) in rimColor (null = the attacker's color); fade: ease-out frames
+//  shake  hitstop jitter of the sprite (world units);  blockShake: the same on a blocked hit
+//  comboPop  from this combo count a normal hit pops 1 frame at most
+//  style  'pop' (default) | 'tint' (no rim) | 'rim' (no pop below counter) | 'classic' (the old solid white) | 'off'
+//         (?flash=<style>, lab Tools chips);  strength scales lift + rim
+export const HIT_FLASH = {
+  style: 'pop', strength: 1, rimPx: 2, comboPop: 6, blockShake: 0.04,
+  light: { pop: 1, lift: 0.35, rim: 0.8, rimColor: 0xffffff, fade: 6, shake: 0.035 },
+  heavy: { pop: 2, lift: 0.45, rim: 1, rimColor: 0xfff0c8, fade: 7, shake: 0.05 },
+  smash: { pop: 3, lift: 0.5, rim: 1, rimColor: 0xffe08a, fade: 8, shake: 0.07 },
+  counter: { pop: 'hs', popMax: 4, lift: 0.5, rim: 1, rimColor: 0xffa070, fade: 8, shake: 0.07 },
+  special: { pop: 'hs', popMax: 5, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 10, shake: 0.09 },
+  // 2 frames under the special hit's 0.3x slow-mo last about as long on screen as a smash's 3 under its 0.4x
+  rush: { pop: 2, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 10, shake: 0.09 },
+  ko: { pop: 'hs', popMax: 5, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 12, shake: 0.09 },
+  tick: { pop: 0, lift: 0.3, rim: 0.7, rimColor: 0xffffff, fade: 5, shake: 0.03 },
+  parry: { pop: 1, lift: 0.3, rim: 1, rimColor: 0x9ff0ff, fade: 8, shake: 0 },
+  burn: { pop: 0, lift: 0.25, rim: 0.6, rimColor: null, fade: 6, shake: 0 },
+};
+
 // Defensive options (ADR 0014), all free. Frames at 60 fps.
 //  parry      Guard pressed at most `window` frames before a blockable hit lands: no damage or block stun,
 //             a melee attacker is staggered (`stagger`, `bigStagger` for big moves and specials), a
@@ -153,6 +180,7 @@ export const SPECIAL_MOVES = {
   nineTails: {
     kind: 'mode', anim: 'specialDown', cost: 100, startup: 20, recovery: 8, len: 480, speed: 1.12, damage: 1.1, defense: 1.12,
     fx: 'chakra', auraColor: '#ff5a1a', auraCore: [1.0, 0.8, 0.5], name: 'NINE-TAILS CLOAK', color: '#ff6a2a',
+    charge: { level: 1 }, // powering up in the cloak looks one bar further along (chargeFx.js)
   },
   // Substitution Jutsu: a log takes the hit; he reappears behind them with a kick
   substitution: {
@@ -191,7 +219,7 @@ export const SPECIAL_MOVES = {
     kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, landFx: 'thunder', name: 'THUNDERBOLT', color: '#bfe6ff',
     hit: { dmg: 98, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'smash' },
   },
-  godspeed: { kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff' },
+  godspeed: { kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff', charge: { level: 1 } },
 
   // ---- Gojo
   blue: {

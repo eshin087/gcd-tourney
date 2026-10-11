@@ -1,10 +1,12 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
 import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW } from './moves.js';
-import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP } from './constants.js';
+import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
+import { chargeStyle } from './chargeFx.js';
+import { resetHitFlash, startHitFlash, flashTier, hitFlashUniforms, hitShake } from './hitFlash.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -17,6 +19,11 @@ const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.s
 // ADR 0022: leaving one of these opens the REVERSAL window; starting one of the actions inside it is a reversal
 const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'held']);
 const REVERSAL_STATES = new Set(['attack', 'kit', 'throw', 'vanish', 'superDash', 'beamCharge']);
+// A KO'd body lies up to about 2 units long (254 px / 128 ppu) across the screen. Within half that of the ring edge it
+// would rest with its head or feet hanging over the drop (or sunk in the lip), so it keeps sliding off onto the grass.
+const KO_EDGE = 1.0;
+const KO_SLIDE = 3; // units/s the body slides outward while it is within KO_EDGE of the edge
+const AXES = ['x', 'z'];
 
 export class Fighter {
   constructor(game, def, asset, index) {
@@ -64,7 +71,8 @@ export class Fighter {
     this.ko = false;
     this.koLanded = false;
     this.crashed = false;
-    this.flash = 0;
+    this.flash = 0; // the 'classic' hit flash; the other styles run on hfx (hitFlash.js)
+    resetHitFlash(this);
     this.spPending = false;
     this.spPress = -99;
     this.landLag = 6;
@@ -516,6 +524,7 @@ export class Fighter {
     this.vel.x *= 0.2; this.vel.z *= 0.2;
     this.ki = Math.min(MAX_KI, this.ki + P.ki);
     this.flash = 0.9;
+    startHitFlash(this, 'parry', P.freeze);
     this.setState('guard');
     if (!m.projectileHit && att !== this && !att.ko) {
       att.endMoveFx();
@@ -992,7 +1001,7 @@ export class Fighter {
         this.ki = Math.min(MAX_KI, this.ki + 1.45);
         if (this.t === 1) audio.play('powerUp');
         if (Math.floor(before / KI_BAR) < Math.floor(this.ki / KI_BAR)) this.game.onChargeBar(this);
-        audio.loop('charge' + this.index, 'charge');
+        audio.loop('charge' + this.index, 'charge', chargeStyle(this).sound);
         audio.tune('charge' + this.index, Math.min(1, this.t / 45)); // the hum climbs as the aura builds
         if (this.wantsUltimate() || (p.b.heavy.pressed && this.ki >= ULTIMATE.cost)) {
           audio.stopLoop('charge' + this.index);
@@ -1392,6 +1401,7 @@ export class Fighter {
   // Destructive finish: no ring barrier, drop off the ring onto the grass,
   // crash into the stands' walls.
   koPhysics() {
+    if (this.state === 'down' && !this.air) this.slideOffEdge();
     this.pos.addScaledVector(this.vel, DT);
     const onRing = Math.abs(this.pos.x) <= RING_HALF && Math.abs(this.pos.z) <= RING_HALF;
     const floor = onRing ? 0 : -RING_TOP;
@@ -1430,6 +1440,21 @@ export class Fighter {
       }
       if (!this.air) { this.vel.y = 0; this.vel.x *= 0.9; this.vel.z *= 0.9; }
     } else this.air = true;
+  }
+
+  // A KO'd body never comes to rest across the ring edge (ADR 0020): on the ring within KO_EDGE of the edge, or on the
+  // grass within the lip + KO_EDGE of it, it keeps sliding outward until it lies clear, and drops onto the grass on the way.
+  slideOffEdge() {
+    const lim = RING_HALF + RING_LIP + KO_EDGE;
+    if (Math.abs(this.pos.x) >= lim || Math.abs(this.pos.z) >= lim) return;
+    const onRing = Math.abs(this.pos.x) <= RING_HALF && Math.abs(this.pos.z) <= RING_HALF;
+    for (const k of AXES) {
+      const a = Math.abs(this.pos[k]);
+      // off the ring only the axis it went over matters (beside the ring along the other axis is fine)
+      if (a <= RING_HALF - KO_EDGE || (!onRing && a <= RING_HALF)) continue;
+      const s = Math.sign(this.pos[k]) || 1;
+      if (this.vel[k] * s < KO_SLIDE) this.vel[k] = s * KO_SLIDE;
+    }
   }
 
   // --------------------------------------------------------------- getting hit
@@ -1491,6 +1516,7 @@ export class Fighter {
     att.ki = Math.min(MAX_KI, att.ki + 4 + dmg * 0.07);
     this.ki = Math.min(MAX_KI, this.ki + 2 + dmg * 0.04);
     this.flash = 1;
+    startHitFlash(this, flashTier(this, m), hs);
     if (this.state === 'attack') this.endMoveFx();
     if (this.state === 'charge') audio.stopLoop('charge' + this.index);
     if (this.state === 'beamCharge' || this.state === 'beamFire') this.beam?.kill?.();
@@ -1562,6 +1588,7 @@ export class Fighter {
     if (this.hp - d > 0 || this.game.training) {
       this.hp = Math.max(1, this.hp - d);
       this.flash = Math.max(this.flash, 0.45);
+      startHitFlash(this, 'burn', 0, this.burn?.color ?? att.def.color);
       return;
     }
     this.hp = 1;
@@ -1576,7 +1603,7 @@ export class Fighter {
     const y = this.prev.y + (this.pos.y - this.prev.y) * a;
     let z = this.prev.z + (this.pos.z - this.prev.z) * a;
     if (this.shaking && this.hitstop > 0) {
-      const s = Math.sin(time * 95) * 0.05 * Math.min(1, this.hitstop / 4);
+      const s = hitShake(this, time);
       x += camRight.x * s;
       z += camRight.z * s;
     } else if (this.state === 'charge') {
@@ -1588,10 +1615,16 @@ export class Fighter {
     this.renderPos = this.renderPos || new THREE.Vector3();
     this.renderPos.set(x, y, z);
     this.actor.place(x, y, z);
-    this.actor.sync(camera, this.face.x, this.face.y, camRight);
+    const cam = this.game.cam; // depth-normalized sprite size, keyed on the camera clock (SpriteActor.syncDepth)
+    this.actor.sync(camera, this.face.x, this.face.y, camRight, cam?.spriteRefDepth, cam?.time ?? time);
     const u = this.actor.mat.uniforms;
-    let flash = this.flash > 0.6 ? 1 : this.flash * 0.6;
-    if (this.state === 'charge' || this.state === 'beamCharge') {
+    let flash = hitFlashUniforms(this, u, time);
+    if (this.state === 'charge') {
+      // a steady tint in the power-up's color (ENG-069): the shell and emitters carry the motion, not a flicker
+      const cs = chargeStyle(this);
+      u.flashColor.value.copy(cs.tint);
+      flash = Math.max(flash, cs.bodyTint);
+    } else if (this.state === 'beamCharge') {
       u.flashColor.value.set(this.def.color);
       flash = Math.max(flash, 0.12 + 0.1 * Math.sin(time * 30));
     } else u.flashColor.value.set(0xffffff);

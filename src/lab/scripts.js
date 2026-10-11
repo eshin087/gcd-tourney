@@ -122,6 +122,9 @@ export function moveList(def) {
   add('Movement', 'Wavedash', `slide, act from f${DEFENSE.wavedash.act}`, [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 8 }], 4);
   add('Movement', 'Vanish (Guard + Special)', `${VANISH.cost / 100} bar · teleport behind`, [tap(0, ['guard', 'special'])], 3.5, VANISH.cost);
   add('Movement', 'Charge ki (hold Special)', '', [{ t: 0, btn: ['special'], len: 80 }], 4);
+  // the whole power-up from an empty gauge: bars at charge frames 69, 138 and 207 (MAX); the hold starts it at f12
+  add('Movement', 'Charge to MAX (hold Special)', 'from 0 ki, 230 frames', [{ t: 0, btn: ['special'], len: 242 }], 4);
+  rows[rows.length - 1].kiFrom = 0;
   add('Defense', 'Spot dodge (Guard + ↓)', `intangible f${DEFENSE.spotDodge.from}-${DEFENSE.spotDodge.to}`, [tap(0, 'guard', { stick: 'down' })]);
   add('Defense', 'Air dodge', `intangible f${DEFENSE.airDodge.from}-${DEFENSE.airDodge.to}`, [tap(0, 'jump'), tap(12, 'guard', { stick: 'away' })]);
 
@@ -226,6 +229,10 @@ export const SCENARIOS = [
     setup: { gap: 3.2, kiA: 100 }, a: [tap(0, ['guard', 'special'])], b: [],
   },
   { id: 'superDash', name: 'Super dash', info: 'Dash with no direction: a homing flight that plows through projectiles.', setup: { gap: 7 }, a: [tap(0, 'dash')], b: [] },
+  {
+    id: 'counterHit', name: 'Counter hit (hit flash)', info: 'The dummy starts a heavy; your jab lands in its startup: a counter hit, which keeps a full-white pop. Compare the styles in Tools → HIT FLASH.',
+    setup: { gap: 1.2 }, a: [tap(3, 'light'), tap(15, 'light'), tap(27, 'light')], b: [tap(0, 'heavy')],
+  },
   {
     id: 'counter', name: 'Counter stance', info: 'Your counter special, and the dummy walks into it with a jab.',
     needs: ([a]) => (['down', 'back'].some((s) => specialFor(a, s)?.kind === 'counter') ? null : 'your fighter has no counter special'),
