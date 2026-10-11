@@ -13,7 +13,7 @@
       "mode": "flat",
       "tinted": false,
       "group": "base",
-      "version": 1
+      "version": 2
     },
     "crack": {
       "page": 1,
@@ -65,7 +65,7 @@
       "tinted": false,
       "group": "base",
       "directional": true,
-      "version": 1
+      "version": 2
     },
     "skid": {
       "page": 1,
@@ -76,7 +76,7 @@
       "tinted": false,
       "group": "base",
       "directional": true,
-      "version": 1
+      "version": 2
     },
     "rubble": {
       "page": 1,
@@ -117,7 +117,7 @@
       "mode": "wall",
       "tinted": true,
       "group": "edge",
-      "version": 1
+      "version": 2
     },
     "crater_wall": { "page": 1, "w": 512, "h": 512, "frames": [[0, 0], [512, 0], [1024, 0], [1536, 0]], "mode": "wall", "tinted": false, "group": "edge", "version": 1 },
     "burn_lightning": {
@@ -140,7 +140,7 @@
       "tinted": false,
       "group": "lightning",
       "hotKey": true,
-      "version": 1
+      "version": 2
     },
     "fracture_lightning": { "page": 3, "w": 512, "h": 512, "frames": [[0, 512], [512, 512]], "mode": "flat", "tinted": false, "group": "lightning", "hotKey": true, "version": 1 },
     "burn_fire": {

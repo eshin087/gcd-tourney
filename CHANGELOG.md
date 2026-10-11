@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): add unapproved v02 crack_s, scuff, skid, burn_lightning_big and barrier_crack corrections; preserve source history, fresh-pack 99 variants, document remaining fringe, and bundle an independent review gallery/game harness without tracked public/preview output.
+
 - Art: add unapproved decal style and 19 base/edge/lightning/fire/ki candidates (99 variants), candidate preview gallery and documented fringe/shading limitations.
 - Fixed: the scale gate measured every strip in the fighter-wide `--quantize` palette, so a candidate's new colours moved the unchanged idle's head (Killua 52x35 vs 52x43) and other strips' verdicts. It now measures before quantizing against the idle's own palette (declared hair colours snapped first); `anims.json` records the per-frame numbers and `npm run scale` reports those. Sheets unchanged; scale baseline rewritten once for the method change (ART-KIL-PROBE).
 - Art review: add cast proportion sample gallery with fixed-scale playback, Naruto head comparisons, approved multi-angle models and title-screen reference; no shipped sprite or approval changes (ART-CAST-SAMPLES).
