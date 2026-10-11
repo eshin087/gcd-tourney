@@ -27,7 +27,8 @@ for (const b of [board, previous]) for (let y = 0; y < b.h; y++) for (let x = 0;
 const report = { round: 3, date: '2026-10-10', status: 'needs review', cell, floor, method: 'One uniform measured factor per fighter across all four poses; no per-pose fitting. 320px reference canvas removes the production cap. Occupied heights are not upright body measurements. Weight is judged through similar lean teen builds, not inferred kilograms.', fighters: {} };
 for (const [col, id] of ids.entries()) {
   const cfg = config[id], tag = 'v' + String(cfg.sourceVersion).padStart(2, '0');
-  const source = `art/characters/${id}/reference/proportion_sample_${tag}.png`;
+  let source = `art/characters/${id}/reference/proportion_sample_${tag}.png`;
+  if (!fs.existsSync(source)) source = source.replace('/reference/', '/reference/_rejected/');
   const raw = readPng(source), side = raw.w / 2;
   if (raw.w !== raw.h || !Number.isInteger(side)) throw Error('Invalid source grid: ' + id);
   const cells = [], measurements = [];

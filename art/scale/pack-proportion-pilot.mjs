@@ -27,7 +27,7 @@ grid(lineup); grid(before);
 const report = { date: '2026-10-10', scope: 'Four key poses per fighter; reference samples only, no gameplay animation or approval promotion.', method: 'One factor per fighter: nominal target divided by manually inferred idle crown-to-sole distance. Reused unchanged for all poses; no individual pose height fitting. Hidden crown and bent stance make anatomy estimates provisional.', poses, fighters: {} };
 for (const [col, id] of ids.entries()) {
   const c = cfg[id], tag = 'v' + String(c.version).padStart(2, '0');
-  const file = `art/characters/${id}/reference/${id === 'naruto' ? '_rejected/' : ''}proportion_sample_${tag}.png`;
+  const file = `art/characters/${id}/reference/${id === 'naruto' || id === 'gojo' ? '_rejected/' : ''}proportion_sample_${tag}.png`;
   const raw = readPng(file), cellW = raw.w / 2, cellH = raw.h / 2;
   if (!Number.isInteger(cellW) || !Number.isInteger(cellH)) throw new Error('Uneven source grid: ' + id);
   const factor = c.target / (c.sole - c.crown), cells = [], qa = [];

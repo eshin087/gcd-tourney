@@ -1,4 +1,6 @@
-# Gojo proportion samples v01 / v02
+# Gojo proportion samples v01 / v02 — historical
+
+Superseded by v03 after user-requested canon review. v02 is rejected for excessive upper-body bulk and retained under `_rejected/`. See [latest QA](proportion_sample_v03_QA.md).
 
 Both versions are unapproved four-pose reference candidates generated with the built-in image tool. Pose order is idle, guard, run, light1; canvas 1254x1254, four 627px quadrants. Both immutable source files are retained.
 

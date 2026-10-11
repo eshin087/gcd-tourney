@@ -38,7 +38,7 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
 ## Corrected cast pilot — awaiting review
 
-Latest height/build proposal: cast `proportion_lineup v03`, raw, no approved version. Naruto v02 is leaner with a larger head; Sasuke v01 is the user-preferred unchanged reference. Killua v01 and Gojo v02 use new review factors. [Latest QA](scale/PROPORTION_PILOT_V03.md). Full production still paused.
+Latest height/build proposal: cast `proportion_lineup v04`, raw, no approved version. Naruto v02 is leaner with a larger head; Sasuke v01 is the user-preferred unchanged reference. Killua v01 and Gojo v03 use new review factors; Gojo v03 is slimmer after official-design review. [Latest QA](scale/PROPORTION_PILOT_V03.md). Full production still paused.
 
 Reference samples only; existing production approvals stay unchanged. Full animation redraw waits for user review. [Gallery](../public/art-review/cast-proportion-pilot/index.html) · [QA](scale/PROPORTION_PILOT.md).
 
@@ -47,7 +47,7 @@ Reference samples only; existing production approvals stay unchanged. Full anima
 | Naruto | proportion_sample | v02 (v01 rejected: bulky/small head) | raw | — |
 | Sasuke | proportion_sample | v01 | raw | — |
 | Killua | proportion_sample | v01 | raw | — |
-| Gojo | proportion_sample | v02 (v01 retained) | raw | — |
+| Gojo | proportion_sample | v03 (v02 rejected: excess bulk) | raw | — |
 
 ## Summary
 
