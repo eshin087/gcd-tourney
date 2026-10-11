@@ -1,30 +1,33 @@
 # NOW: what's happening and what you do next
 
-The one page to check from your phone. The top is the current art handoff; the generated block below describes main only.
-
-_Last updated by Codex, 2026-10-10: seven batches transferred to real worktrees, committed, opened as separate PRs and deployed to review previews. All new art remains unapproved. No art PR was merged and production was not deployed._
+_Updated by Claude, 2026-10-10: the approved art batch (PRs #24-30) is merged into main and deployed._
 
 ## Your next actions
 
-- **Naruto:** review [beamCharge v05 / beamFire v07](https://gcd-tourney-426nmajqo-eshin087s-projects.vercel.app/art-review/naruto/four-tails/index.html) ([PR #25](https://github.com/eshin087/gcd-tourney/pull/25)) and [heavy v07 / charge v04](https://gcd-tourney-8dnzgeqr6-eshin087s-projects.vercel.app/art-review/naruto/heavy-charge/index.html) ([PR #29](https://github.com/eshin087/gcd-tourney/pull/29)). Four-Tails silhouettes/clipping and heavy contact/recovery improved. **Charge still needs correction** for foot-span/head-loop drift; heavy pose caveats are shown in its preview.
-- **Sasuke:** review [heavy v06 / charge v04](https://gcd-tourney-nxkpmca3a-eshin087s-projects.vercel.app/art-review/sasuke-heavy-charge/) ([PR #28](https://github.com/eshin087/gcd-tourney/pull/28)) and [light2 v02 / light3 v02 / special v03](https://gcd-tourney-9y5h05e3v-eshin087s-projects.vercel.app/art-review/sasuke-size-pops/) ([PR #27](https://github.com/eshin087/gcd-tourney/pull/27)). Charge and size transitions await visual review. **Heavy still needs correction**: active feet miss the specified contact zones, and whole-frame shifts would break support-foot placement.
-- **Killua:** review [heavy v04 / charge v07](https://gcd-tourney-g359hlwia-eshin087s-projects.vercel.app/killua-heavy-charge-review/) ([PR #30](https://github.com/eshin087/gcd-tourney/pull/30)) and [Whirlwind beamCharge v05](https://gcd-tourney-24yhrhrty-eshin087s-projects.vercel.app/killua-whirlwind-review/) ([PR #26](https://github.com/eshin087/gcd-tourney/pull/26)). Heavy frames 4–6 redrawn after your arm/hand feedback: continuous rising arm, neutral overhead wrist, compact recoil. Heavy v04 remains unapproved; overhead fingers are more extended than hooked. Whirlwind heels corrected. Charge foot endpoints are within ±1px of their median, with 2px extreme-to-extreme variation; the preferred claw-contact height and anatomy estimates remain review caveats.
-- **Gojo:** give feedback on [model_sheet v06](https://gcd-tourney-c6vv0ihw0-eshin087s-projects.vercel.app/gojo-model-review/) ([PR #24](https://github.com/eshin087/gcd-tourney/pull/24)). **Correction recommended before approval:** the best of three attempts still fails source-scale/raw-palette gates. Approved v03 remains; no idle or later redraw has started.
+1. **Try the new art live:** https://gcd-tourney.vercel.app. Naruto's new heavy, power-up and Four-Tails; Sasuke's
+   Lion's Barrage heavy and the fixed light2 / light3 / special; Killua's new heavy, power-up and Whirlwind stance.
+   Sasuke keeps his old power-up (v02).
+2. **Gojo's redraw is on hold** until you ask for it. His approved model sheet v06 is in main; next would be idle v04
+   with its lineup, then all 42 animations (art/characters/gojo/BUILD_REDRAW.md).
+3. **Goku and Luffy:** start a fresh Claude chat and paste:
 
-Each preview contains that batch only. All candidates keep versioned sources, REVIEW rows, manifest/tracker entries, QA and lineups. Builds and runtime checks pass. Raw image palette/hard-pixel gates still fail in the Naruto, Sasuke heavy/charge, Killua heavy/charge and Gojo sources despite 48-color packed atlases. A passing pack does not establish raw-art compliance or that a flagged pose meets its brief. The three-attempt correction rounds are exhausted where defects remain.
+   ```text
+   Read CLAUDE.md and docs/ADDING_A_CHARACTER.md. Add two new fighters, one PR each: Goku (Super Saiyan, Cell saga,
+   with Instant Transmission; his Kamehameha is the cast's one beam ultimate) and Luffy (Enies Lobby arc, Gear Second
+   and Gear Third; his ultimate is not a beam). Plan each kit with me first (KIT.md), then do Claude's data PR and
+   put Codex's art brief in docs/agents/CODEX_INBOX.md.
+   ```
 
-After your decisions, Claude can reconcile and merge the art PRs sequentially with the repository merge command, repacking each character after combining its batches. Raw versions remain in the local worktrees; GitHub uses the repository's normal slim publication.
-
-Routine Git/build/preview delivery succeeded through scoped automatic approval review. This does not claim the separate restricted Git CLI compatibility issue (OPS-004) is fixed or change the sandbox policy. The earlier ordinary copies under .worktrees/sandbox-batches are preserved as history, not active worktrees.
-
-The existing live game is at https://gcd-tourney.vercel.app. Goku and Luffy kit planning remains with Claude and the user before their character-data PRs and art briefs.
+Known caveats you accepted with the approvals (documented in QA; packing warnings, not crashes): source palettes over
+48 colors, some head-scale drift and size pops (Naruto `heavy` f5, `specialUp`; Killua and Sasuke strips), and the
+`ko` / `down` frames floating above the floor (ART-KO-01, ART-SCALE-02 are queued for those).
 
 ## Generated status
 
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-11 00:24 UTC._
+_Generated by `npm run status` at 2026-10-11 02:30 UTC._
 
 ### Waiting for your review (0)
 - nothing
@@ -56,14 +59,14 @@ _Generated by `npm run status` at 2026-10-11 00:24 UTC._
 ### Codex is on
 - OPS-004: Project-scoped autonomous agents and sequential integration [blocked]
 
-### Finished, waiting for a check (19)
-- DOC-001 (Claude), ENG-056 (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex)
+### Finished, waiting for a check (20)
+- DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex)
 
 ### Last commits
-- 4625a63 10-10 17:16 docs(tasks): claim the showcase and polish work (ENG-062..073, TOOL-024..026) and reserve ADRs 0019-0027
-- 98bfca4 10-10 17:02 docs(art): record seven review PRs and preview handoff
-- 803d33a 10-10 16:24 docs(ops): record restricted Git CLI compatibility blocker
-- d9fb04e 10-10 16:18 docs(ops): verify restricted-profile build and local server
-- 8cdd7a3 10-10 16:12 docs(ops): record restricted-read validation and build blocker
-- a4fb010 10-10 16:00 docs(ops): configure project-scoped autonomous workflow
+- 8a46a83 10-10 19:24 Merge branch 'art/killua-heavy-charge'
+- 3be7498 10-10 19:24 chore(merge): merge main into art/killua-heavy-charge
+- b6744e9 10-10 19:22 Merge branch 'art/naruto-heavy-charge'
+- 87c54cb 10-10 19:22 chore(merge): merge main into art/naruto-heavy-charge
+- 519505e 10-10 19:20 Merge branch 'art/sasuke-heavy-charge'
+- 9eb598b 10-10 19:20 docs(tasks): rejoin the Done table after the merge
 <!-- status:end -->

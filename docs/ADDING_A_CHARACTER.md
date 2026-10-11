@@ -164,7 +164,11 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
      (`<asset>_vNN.png`). Describe visual traits and say "anime fan-art sprite". Include the
      **fallback wording** for when a name or style request is refused.
 3. Add the character to `art/manifest.json` (every animation with `frames`, `phases`, `bodyHeight`,
-   `required`, `status: "todo"`) and to `art/TRACKER.md`.
+   `required`, `status: "todo"`) and to `art/TRACKER.md`. Until his strips are approved the packer's scale gate is
+   strict for them (art/CHARACTER_SCALE.md "Scale gate (automatic)"); once every strip passes, set
+   `"scaleGate": "strict"` on the character so it stays that way. If his hair shares body or outline colours, declare
+   `headColors` in his `art/scale/builds.json` row (check the first `npm run scale` heads sheet: the green boxes must
+   sit on the hair).
 
 Don't invent animation names. If the character needs a pose the list doesn't have, raise a task for
 Claude (see CLAUDE.md, hard rule 2).
@@ -204,9 +208,12 @@ the next one generated).
 Lessons from the first four fighters:
 
 - **One scale per strip.** A strip stitched from parts (`raw/_parts/<anim>_vNN_A.png` / `_B.png`) must calibrate
-  every part to the same skull-to-chin length ([art/CHARACTER_SCALE.md](../art/CHARACTER_SCALE.md)). A part packed
+  every part to the same head size ([art/CHARACTER_SCALE.md](../art/CHARACTER_SCALE.md)). A part packed
   at its own scale makes the fighter grow or shrink in the middle of a move (Sasuke's light2, light3 and special,
-  2026-10-10).
+  2026-10-10). Stitch with `npm run stitch` (a measured factor), never a factor picked by eye.
+- **Every strip at the idle's size.** Killua grew and shrank in fights (2026-10-10) because strips were packed
+  12-34 % off his idle: a fist above the head shrinks a whole strip, a redraw with a smaller hair mass shrinks his
+  head. The packer's scale gate now measures every frame; a new strip must pass it (a failure writes nothing).
 - **Commit after every approved step, in your branch.** Never leave work uncommitted in the main folder: on
   2026-10-10 a whole session of uncommitted art had to be split into PRs by hand before anything else could merge.
 - **UI images ship only after approval:** the approved `raw/ui_<name>_vNN.png` is copied to `ui/<name>.png` and
@@ -216,10 +223,14 @@ Lessons from the first four fighters:
 
 ```bash
 npm run sprites <id>
+node tools/pack-sprites.mjs <id> --quantize 48                  # the scale gate: exit 0, no `scale gate:` line
+npm run scale -- <id>                                           # art/scale/heads-<id>.png for the REVIEW row
 ```
 
 - Read the report: the `_vNN` file used per animation, packed anims, missing CORE anims, frame-count
-  mismatches, clipped frames, palette warnings (spec v2 target ≤ 48 colors; the packer warns above 64).
+  mismatches, clipped frames, palette warnings (spec v2 target ≤ 48 colors; the packer warns above 64), and the
+  **scale gate** line: every strip's head (hair included) against the idle. A `scale gate:` failure is fixed before
+  the REVIEW row is filed (auto head fit, re-stitch or redraw; art/CHARACTER_SCALE.md "Scale gate (automatic)").
 - Inspect `art/characters/<id>/frames/<anim>/` (cleaned frames you can touch up by hand and re-pack).
 - Fix hit/hurt boxes with `art/characters/<id>/hitboxes.json` (frame-local px in the 256 cell, per animation
   and frame number). Strikes on active frames must cover the fist, foot or palm, nothing more.

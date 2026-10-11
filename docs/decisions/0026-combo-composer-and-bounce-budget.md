@@ -44,7 +44,7 @@ lab's air combo, wall bounce, vanish, blue combo, tech roll and burst scenarios 
 
 A `wallBounce` / `groundBounce` hit arms the victim only while their combo has bounces of that kind left
 (`wbCount` / `gbCount`, reset by a fresh combo, an air tech, a tech roll or a burst). The hooks get the count:
-`Game.onWallBounce(f, axis, sign, n)`, `onGroundBounce(f, n)`. A wall bounce gives no super dash back. Same-wall
+`Game.onWallBounce(f, axis, sign, n)`, `onGroundBounce(f, impact, n)`. A wall bounce gives no super dash back. Same-wall
 "handball" is now an explicit, limited route.
 
 ### 3. A seeded combo composer (`src/game/aiCombo.js`)
@@ -130,7 +130,7 @@ super" reads as one long combo (Light ×3 into Speed of Lightning: 12 hits).
 - IMPOSSIBLE plays the `optimal` persona: about the same hits per combo as before; damage per combo within about +10 %
   (more where the old brain dropped links the art doesn't allow).
 - New contracts: `JUGGLE`; fighter fields `wbCount`, `gbCount`; `Game.onWallBounce(f, axis, sign, n)`,
-  `onGroundBounce(f, n)`, `Game.trackCombos`, `onComboEnd`, `comboChip`, `comboShare`, `brainSeed`, `seed`,
+  `onGroundBounce(f, impact, n)`, `Game.trackCombos`, `onComboEnd`, `comboChip`, `comboShare`, `brainSeed`, `seed`,
   `comboLog`; `Hud.comboStart` / `comboTag` / `comboEnd`; `makeBrain(fighter, level, spectate, seed)`,
   `new MasterBrain(fighter, style, seed, persona)`; `src/game/rng.js`, `src/game/aiCombo.js`.
 - Follow-ups: a composer-lite for Easy to Hard (CpuBrain); hit box fixes for the links above; revisit the tier

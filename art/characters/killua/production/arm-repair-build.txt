@@ -1,0 +1,22 @@
+art-index: 168 file(s)
+vite v6.4.3 building for production...
+transforming...
+✓ 68 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                   1.64 kB │ gzip:   0.71 kB
+dist/lab.html                                     1.80 kB │ gzip:   0.78 kB
+dist/art-review.html                              4.78 kB │ gzip:   1.73 kB
+dist/sprites.html                                 6.00 kB │ gzip:   2.20 kB
+dist/assets/lab-CtfzRM4_.css                      2.35 kB │ gzip:   0.91 kB
+dist/assets/artReview-D8hbFokA.css                6.29 kB │ gzip:   2.14 kB
+dist/assets/game-DgEObHcH.css                    36.08 kB │ gzip:   7.68 kB
+dist/assets/modulepreload-polyfill-B5Qt9EMX.js    0.71 kB │ gzip:   0.40 kB
+dist/assets/animGuide-CRlZAN64.js                 4.38 kB │ gzip:   1.79 kB
+dist/assets/main-B0Jn2d2t.js                      4.42 kB │ gzip:   1.96 kB
+dist/assets/artReview-Bs6duCSR.js                 7.15 kB │ gzip:   2.92 kB
+dist/assets/sprites-daPzxbVF.js                  10.52 kB │ gzip:   4.57 kB
+dist/assets/lab-DlR9E4cu.js                      19.13 kB │ gzip:   7.73 kB
+dist/assets/game-CXyEIDux.js                    330.26 kB │ gzip: 106.20 kB
+dist/assets/index-66MPsxp0.js                   756.25 kB │ gzip: 198.94 kB
+✓ built in 2.70s

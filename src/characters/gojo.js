@@ -156,6 +156,9 @@ export default {
     passive: 'infinity',
   },
   stats: { speed: 6.0, power: 1.0, defense: 1.0 }, // stat index 0.97; Infinity is his edge (ADR 0011)
+  // floor damage (ground.js, ADR 0024): glass-like cursed fractures; charge false: Infinity keeps the floor still
+  // while he powers up (no cracks)
+  ground: { style: 'cursed', tint: '#b46cff', charge: false },
   model,
   stance,
   extraAnims,

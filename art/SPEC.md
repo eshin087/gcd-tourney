@@ -15,7 +15,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 [Raw generations](#raw-generations) · [Animation list](#animation-list) ·
 [Strikes and contact zones](#strikes-and-contact-zones) · [Effect anchor points](#effect-anchor-points) ·
 [anims.json](#animsjson) · [Hitboxes and hurtboxes](#hitboxes-and-hurtboxes) · [Fallbacks](#fallbacks) ·
-[UI images](#per-character-ui-images) · [VFX atlas](#vfx-atlas) · [Files and naming](#files-and-naming) ·
+[UI images](#per-character-ui-images) · [VFX atlas](#vfx-atlas) · [Ground decals](#ground-decals) · [Files and naming](#files-and-naming) ·
 [Packer](#packer) · [Game-side contract](#game-side-contract)
 
 ## Glossary
@@ -124,7 +124,10 @@ packer cleans the rest:
   no text, no labels, no frame numbers, no borders or grid lines.
 - One animation per image, poses in **one horizontal row**, left to right in play order, with clear
   empty space between poses (poses must not touch or overlap).
-- Every pose at the **same scale** (the packer computes one scale per strip from the tallest frame).
+- Every pose at the **same scale** as the approved idle (the packer computes one scale per strip from the tallest
+  frame, then its scale gate measures every frame's head, hair included, against the idle: see
+  [CHARACTER_SCALE.md "Scale gate (automatic)"](CHARACTER_SCALE.md#scale-gate-automatic)). A raised fist or slash
+  arc above the head makes the tallest frame taller and shrinks the whole person.
 - Landscape images (1536 x 1024) work best. With 6.5-head bodies, a row of more than 4-5 poses gets
   small; generate long strips in two parts and stitch them (see `PIPELINE.md`). Each pose should come
   out clearly taller than its target body height so the packer only downscales (it warns when it has
@@ -322,6 +325,11 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
   23 x 58 px) so a fist that visibly brushes the body counts.
 - `complete`: `true` only when every core animation is present.
 - `source`: `"art-pack"` for packer output.
+- `scaleAudit` (packer output since TOOL-025, dev tools only): the scale gate's measurement. `ref.box` = the idle
+  f0 head box `[x0, y0, x1, y1]` (cell px), `ref.headPx`; per animation `head` (median head scale vs the idle, 1.00 =
+  idle), `feet`, `verdict` (`ref ok uniform drift pop unmeasured exempt`), `v` (the strip's version), `frames` (each
+  frame's head scale) and `boxes` (each frame's head box). `?scaleaudit` logs the flagged strips as they play, the
+  test lab draws the boxes, `scaleReport()` (`?debug`) lists them. The game ignores it otherwise.
 - `footprint` (only when the pack has lying frames): `{ "<sheet frame>": [x0, x1] }`, the opaque x span (inclusive
   cell px) of every `ko` and `down` frame and the first `getup` frame. The engine stretches the contact shadow along
   it ([Lying poses](#lying-poses)).
@@ -438,6 +446,48 @@ Engine names are fixed. Brief: `art/vfx/EFFECTS.md`. VFX cells did not change in
 | `crater` | 3 | static (3 random variants) | full color | decal: center (64, 64), drawn straight top-down | cracked floor decal; 3 variants, one picked at random (not an animation) |
 | `lines` | 4 | 40 | white (tinted) | center | radial manga impact lines |
 
+The `crater` effect is superseded by the ground decals below (the engine draws ground damage with them);
+it stays in the atlas only as long as the engine still reads it. No new `crater` art.
+
+## Ground decals
+
+Cracks, craters, scorches and scars left on the ring, the grass, the ki barrier and the stand walls
+([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)). Custom art replaces the procedural decals
+(`src/art/decalPainter.js`) name by name. Engine names are fixed. Brief: `art/decals/DECALS.md`;
+prompts: `art/decals/PROMPTS.md`; workflow and packing notes: `art/decals/README.md`.
+
+- **Own atlas, not VFX**: `ppu` **64** (the approved ring floor's density): a 256 px cell = 4 world
+  units, a 512 px cell = 8. The engine scales a decal to the size the hit calls for, so the cell is the
+  whole decal, cracks included.
+- **31 names** in 7 style groups (`base`, `edge`, `lightning`, `fire`, `chakra`, `cursed`, `ki`), cells
+  256 x 256, 512 x 512, 256 x 128, 512 x 128 or 512 x 256, 2-8 variants each (143 in all). The table is
+  in `art/decals/README.md` and `DECAL_SPECS` in `tools/pack-decals.mjs` (the manifest restates it in
+  `decals.items`; drift is warned).
+- **Modes**: `flat` decals are drawn **straight top-down** with **radial shading only** (the engine
+  rotates them freely and lights them); `wall` decals (`barrier_crack`, `crater_wall`) are face-on and
+  never rotated. **Directional** decals are drawn with the motion **left to right**.
+- **Colors**: hard pixel art, binary alpha, **<= 24 colors per name**, palettes in `DECALS.md`.
+  **Hot key**: pure **#FFFFFF** marks glowing hot seams in the hot-key names (the engine glows them in the
+  fighter's tint, then cools them); no other pixel is pure white. `barrier_crack` is **white only**
+  (tinted, drawn additive). Never magenta, pink, purple or violet.
+- **Raw**: `art/decals/raw/<name>_vNN.png` on a 1536 x 1024 magenta canvas, the variants in one row, or
+  **parts of one version** `<name>_vNN_A.png`, `_B.png`, `_C.png` (joined in letter order by the packer).
+  Rejected versions move to `art/decals/raw/_rejected/`. Final cells: `art/decals/frames/<name>/<name>_NN.png`.
+- The packer splits each image into its count from `DECALS.md` (extra pieces such as the halves of a
+  broken ring are joined by slot, in order), scales each image so its largest variant fills **97%** of the
+  cell (`erasure_trench` tiles: every variant is stretched to the full width), centers every variant,
+  snaps near-white to the hot key in hot-key names and tones it down elsewhere, converts the tinted name
+  to greyscale, and caps colors at 24 with the hot key kept exact.
+- **Packer output** `public/decals/atlas.json` + one PNG page per page set (base + edge = the floor set,
+  chakra + ki, lightning + fire, cursed: `decals_<set>.png`, or `decals_<set>_1.png`, `_2.png` ... when a
+  set needs several), each <= 2048 x 2048, a name never split across pages. A match loads the floor
+  pages (2) plus one element set per fighter: at most 4, the engine's cap (the report checks it):
+  `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>": { "page", "w", "h", "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "tile"?, "version" } } }`.
+  Only approved names ship; the rest stay procedural. `--candidates` writes `public/preview/decals/`.
+- **Style sheet first**: `art/decals/reference/decal_style_sheet_vNN.png` needs the user's approval; the
+  approved copy `decal_style_sheet.png` is attached to every decal prompt, and the claim queue holds the
+  decal batches back until it exists.
+
 ## Files and naming
 
 **Versioning rule (ADR 0007).** Every generated image gets a two-digit version suffix `_vNN` (`v01`,
@@ -479,6 +529,8 @@ art/characters/<id>/
 art/vfx/raw/<effect>_vNN.png      VFX strip candidates (highest version packed); rejected -> art/vfx/raw/_rejected/
 art/vfx/reference/vfx_style_sheet_vNN.png   VFX style-sheet candidates; approved one copied to vfx_style_sheet.png
 art/vfx/raw/_proposed/<charId>_<effect>_vNN.png   character-specific effect art waiting for engine support
+art/decals/raw/<name>_vNN.png     ground-decal candidates (or parts <name>_vNN_A.png, _B.png ... of one version); rejected -> raw/_rejected/
+art/decals/reference/decal_style_sheet_vNN.png   decal style-sheet candidates; approved one copied to decal_style_sheet.png
 art/ui/raw/<asset>_vNN.png        shared UI candidates (logo, title art); approved one cleaned into art/ui/final/
 art/REVIEW.md                     the review queue: one row per candidate
 ```
@@ -501,6 +553,7 @@ npm run sprites            # every character
 npm run sprites naruto     # one character
 npm run sprites vfx        # the VFX atlas (approved effects only)
 npm run sprites crowd      # the crowd atlas (approved spectators only)
+npm run sprites decals     # the ground-decal atlas and pages (approved decals only)
 npm run test:sprites       # packer regression test (after any change to tools/)
 npm run sprites naruto -- --update-manifest   # also raise status / version in manifest.json
 ```
@@ -533,6 +586,20 @@ automatically when the chosen raw file changes (a new `_vNN` counts as a change)
 `frames/<anim>/` only if you hand-edited it and want to discard the edits (hand-edited frames win over
 a newer raw, with a warning).
 
+**Scale gate** (TOOL-025, [ADR 0021](../docs/decisions/0021-scale-gate-and-depth-normalized-sprites.md),
+[CHARACTER_SCALE.md](CHARACTER_SCALE.md#scale-gate-automatic)): after packing, every strip's head silhouette (hair
+included) and feet are measured against the idle of the same pack. A strip off by more than ±6 %, or with a pop of
+more than 12 points inside it, fails the pack (exit code 1, and nothing is written for that fighter: the last pack
+stays) when it is not approved yet (a candidate version, a new fighter) or with `--strict-scale`; approved strips are
+listed as findings until they are fixed. Exemptions (`scaleExempt`, `scaleExemptFrames`) name the strip version they
+cover (`scaleExemptVersion`). The result goes into
+the report (`scale gate (...)` line, `~` findings, `scale gate:` failures) and into `anims.json` (`scaleAudit`).
+Opt-in **auto head fit**: a raw strip with the sidecar `{ "anatomy": { "measurement": "auto-head" } }` (or
+`--fit-head <id>:<anim>`) whose verdict is `uniform` is rescaled from the raw by 1/head, once (an applied factor is
+kept in the frames marker as `autoHead`; an unfitted request is measured again on every pack), and its `hitboxes.json` boxes follow. Two-part strips are joined with
+`npm run stitch` (a measured factor). `npm run scale` writes `art/scale/heads-<id>.png`, `scale-report.json`,
+`scale-baseline.json` and, with `--guide`, `reference/head_scale_guide.png`.
+
 ## Game-side contract
 
 Implemented by the lead engineer (Claude) in `src/`; documented here so art and code agree:
@@ -548,5 +615,7 @@ Implemented by the lead engineer (Claude) in `src/`; documented here so art and 
 - It loads `portrait.png` / `cutin.png` when present.
 - It loads `public/vfx/atlas.png` + `atlas.json` when present (approved effects only; missing effects stay
   procedural). `?art=custom` prefers the unapproved candidates in `public/preview/` (local only).
+- It loads `public/decals/atlas.json` and the pages it needs when present and merges them per name over the
+  procedural decals (one `[decals]` console line; any error falls back to procedural).
 - Combat uses 2.5D lanes: attacks fire along the screen horizontal and auto-step to line up
   depth; a hit needs hitbox/hurtbox overlap **and** the same lane.

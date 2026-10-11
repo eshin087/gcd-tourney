@@ -76,7 +76,7 @@ the custom sheet. **👁** = Sharingan on.
 | [light2](#light2) | 7 | 2/2/3 | | 204 | 35 30 40 50 60 50 30 | ✓ | | A04 | f6 (stance) |
 | [light3](#light3) | 7 | 2/2/3 | | 215 | 40 35 45 60 60 60 30 | ✓ | | A05 | f2 (on the ball of the L foot) |
 | [light4](#light4) | 8 | 3/2/3 | | 207 | 50 45 35 40 70 70 70 40 | ✓ | | A06 | f3 (on the ball, leg at head height) |
-| [heavy](#heavy) | 8 | 3/2/3 | | 218 | 40 35 30 50 70 70 60 30 | ✓ | | A07 | f4 (fist about 14 px above the hair) |
+| [heavy](#heavy) | 8 | 3/2/3 | | 218 | 40 35 30 50 70 70 60 30 | ✓ | | A07 | f4 (kicking toes, about a head above the hair) |
 | [airLight1](#airlight1) | 5 | 1/2/2 | | 198 | 45 35 50 50 30 | ✓ | | A08 | f0/f4 (air neutral) |
 | [airLight2](#airlight2) | 5 | 1/2/2 | | 207 | 45 40 50 50 30 | | | A27 | f1 (leg extended) |
 | [airLight3](#airlight3) | 6 | 2/2/2 | | 201 | 50 40 50 70 60 30 | | | A28 | f2 (kick at head height) |
@@ -334,30 +334,42 @@ Also used by the **vanish kick** after a teleport.
 
 <a id="heavy"></a>
 
-### heavy: rising uppercut launcher with the R (near) fist · 8 frames · phases 3/2/3
+### `heavy`: LION'S BARRAGE OPENER, rising front kick launcher with the R leg
 
-The engine adds a small hop. The fist path must pass **through the opponent's chin space in front of
-him**, not straight up beside his own head.
+8 frames · phases 3/2/3 (startup f0-f2, active f3-f4, recovery f5-f7) · plays once · **CORE** · bodyHeight 218 ·
+ms 40/35/30/50/70/70/60/30 · prompt A07 (2 images: f0-f4 + f5-f7) · dark eyes (no Sharingan) · candidate version **v06**
 
-- **f0 · S**: crouch starts. Knees bend, torso leans forward about 20°, R fist drops low beside the
-  R hip.
-- **f1 · S**: deepest crouch (squash). R fist low behind the hip, L hand forward guarding. Head down,
-  eyes on the target. Cloth hem pooled over the knees.
-- **f2 · S**: legs explode upward. R fist starts its upward arc in front of the stomach.
-- **f3 · A · smear**: rising, heels off, toes last to leave the floor. R fist driving **up and
-  forward** through chin height in front of him: **fist in x 180 to 208, y 58 to 86** (HIGH), arm about
-  45 to 60° above horizontal. Torso leans back 10 to 15°, L arm pulled down to his side. Solid crescent
-  smear from the low position up to the fist. Face: shout.
-- **f4 · A**: peak, fully airborne, knees bent and feet hanging with pointed toes (so his hair top is
-  about as high as in idle). R arm up and forward (about 70°),
-  **fist overhead at x 160 to 188 with its top at about y 22**, about 14 px above the top of his hair
-  and no higher (the tallest frame, 218). ADR zone for this frame: x 160 to 188, y 22 to 46. Bangs and
-  rope ends pulled down, waist cloth lifted.
-- **f5 · R**: descending, arm coming down, knees bending.
-- **f6 · R**: landing crouch.
-- **f7 · R**: idle stance.
+He drops under the opponent's guard, touches the floor beside his lead foot, springs and snaps the R leg straight up
+under the chin, and the follow-through carries the leg on overhead as he leaves the floor: cold, exact, one clean
+line. Kicks follow CHARACTER.md §1: pointed toes, a straight supporting leg.
 
----
+- **Strike target:** f3: the ball and toes of the R foot in **x 180-208, y 58-86**, aim about x 194, y 82, rising
+  in front of him at about 45° above horizontal. f4: the R toes in **x 160-188, y 22-46**, the leg close to
+  vertical in front of his face; the toes are the highest pixel of the strip, about a head above his hair top
+  (his torso leans back), and no higher than about y 24.
+- **Forward-most and highest:** on f3 and f4 the bangs, back spikes, rope ends and bow, the waist-cloth panels, the
+  sword grip and both arms stay behind about x 172 and below the foot. The kicking leg comes out between the panels
+  of the waist cloth (CHARACTER.md §6); the cloth never covers or passes the foot.
+- **Smear:** allowed on f3 only: one solid crescent in pants navy and sandal black below the R leg along its upward
+  arc, attached to the leg and never past the foot. No separate streak, no lightning.
+- **Hair and cloth:** the bangs and rope ends swing down on f0, pool on f1, are dragged down on f3-f4 (rising),
+  float on f5 and lift on f6 (falling). The waist cloth pools over the knees on f1, parts around the kicking leg on
+  f3-f4 and flares on f6.
+- **Centering:** on f1 the fingertips touch the floor within about 20 px of the L foot, so the packer's foot
+  centering (the mean x of the bottom 20 % of rows) does not shift him; on f4-f5 the lowest point (the L toes) sits
+  under the hips.
+- **Scale:** pack with an anatomy sidecar (`raw/heavy_v06.json`, skull-to-chin per frame). The tallest frame is f4
+  (about 214 px from the support toes to the kicking toes); if the strip is ever packed by bounds instead, set its
+  `bodyHeight` to the measured f4 height so the head still matches idle.
+
+- **f0 (startup):** DROP UNDER THE GUARD: the L foot slides forward and he drops low (knees bent about 70°), torso pitched forward about 35°; the L hand reaching down toward the floor beside the L foot, fingers open; the R arm back along his side; head low, eyes up on the target. Face: cold. Hair / cloth and QA: Bangs and rope ends swing forward and down · QA: hips over the midpoint between the feet
+- **f1 (startup):** COIL (the lowest frame): the L knee deeply bent; the R knee drawn forward under his chest with the R foot on its toes beside the L foot (the kicking leg loaded); the L fingertips touching the floor next to the L foot; torso low over the thighs; head up, eyeing the opponent's chin. Face: focused, eyes narrowed. Hair / cloth and QA: Waist cloth pooled over the knees; the sword stays across the small of his back · QA: the shortest frame (about 145-155 px); fingertips within about 20 px of the L foot
+- **f2 (startup):** SPRING: the L leg drives straight, the L hand leaves the floor, the R knee drives up in front of his chest (thigh about horizontal, shin folded), both arms swinging down and back. Face: angry, teeth showing. Hair / cloth and QA: Bangs dragged down · QA: R knee about x 160, y 122
+- **f3 (active):** KICK: the R leg snaps up and forward almost straight, the ball and toes of the R foot driving UP under the opponent's chin in front of him; the supporting L leg straight, up on the ball of the foot; torso leaning back about 25°; both arms swept down and back behind his hips for balance. Face: shout. Hair / cloth and QA: **Smear** (above) · QA: foot x 194 ±8, y 82 ±6; the foot is the right-most pixel
+- **f4 (active):** HIGH FOLLOW-THROUGH: the R leg carries on up, close to vertical in front of his face, toes pointed and leading; he leaves the floor: the L leg hangs straight under the hips with the toes pointed (the lowest point); torso arched back about 30° (clearly more than `specialUp` f2), arms swept down and back; head tilted back, eyes up. Face: shout. Hair / cloth and QA: Bangs and rope ends dragged down, waist cloth parted around the leg · QA: toes x 160-188, y 22-46, the highest pixel of the strip; no hair spike above them (v02's box landed on the hair)
+- **f5 (recovery):** APEX, airborne (the frame held longest): the R leg folding down (knee bent, the foot in front at about his waist height), the L knee tucking up, the torso coming upright, both hands coming back toward the guard; eyes up on the launched opponent. Face: angry. Hair / cloth and QA: Bangs and cloth float · QA: the lowest point under the hips
+- **f6 (recovery):** DROP: both feet reaching down toes first, knees bending to land; the L knife-hand forward, the R fist at the chest. Face: focused. Hair / cloth and QA: Bangs and rope ends lift (falling) · QA: close to `land` f0, which the engine plays right after touchdown
+- **f7 (recovery):** Idle stance (matches idle f0). Face: cold. Hair / cloth and QA: QA: within 1-2 px of idle f0
 
 ## Air normals
 
@@ -561,17 +573,21 @@ slightly open. Bangs messy, hanging over the eyes.
 
 <a id="charge"></a>
 
-### charge: powering up (hold Special) · 4 frames, loop · 👁 Sharingan
+### `charge`: powering up (loop) · Sharingan
 
-Wide stance (feet well apart, knees bent), arms down and out at his sides with **fists clenched and
-shaking**, elbows slightly bent, torso leaning slightly back, head tilted up, shouting. Sharingan on.
-Bangs, rope ends and the waist cloth **blown upward** by the aura wind, the open shirt and sleeves
-fluttering. The engine draws the aura, flames and light streaks.
+4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · 👁 Sharingan · active approved **v02**; redraw v03/v04 rejected by user
 
-- **f0**: as described, shifted 1 px left.
-- **f1**: shifted 1 px right, bangs and rope ends in a new flicker shape.
-- **f2**: 1 px left, fists 1 px higher.
-- **f3**: 1 px right, hair and cloth flicker variant. Loops.
+Cold intensity, not Naruto's open roar: a low, braced stance, the fists clenched hard and drawn down, the head level
+and the Sharingan locked on the opponent while the power tears at his clothes. Loop rules: the **feet are identical
+in all four frames** (soles on y 240); the shoulders rise 2 to 3 px on f1-f2 and settle on f3; the fists tremble at
+most 1 to 2 px; the **head moves at most 2 px and stays level** (eyes on the opponent); the bangs, back spikes, rope
+ends and bow loops, waist cloth, open lapels and sleeves change shape by 2 to 5 px in every frame, always blown
+upward. f3 flows back into f0 without a pop. No aura or lightning in the sprite.
+
+- **f0 (loop):** BRACE: feet planted wide (well wider than the shoulders, L foot forward), knees bent about 40°, torso leaning slightly forward; both arms drawn down and slightly back beside the hips, fists clenched hard, elbows bent and flared a little; shoulders squared; head level, eyes on the opponent. Face: angry, teeth bared · Sharingan. Hair / cloth and QA: Bangs, back spikes, rope ends and bow loops lifted; waist-cloth hem lifting
+- **f1 (loop):** SURGE: shoulders rise about 2 px and square back, chest lifts, fists push down 1 px, elbows flare out 1 to 2 px. Face: shout (short, controlled) · Sharingan. Hair / cloth and QA: Rope ends flung up, waist-cloth panels billowing up, lapels and sleeves flaring
+- **f2 (loop):** PEAK: as f1, the whole body trembling 1 px to the right, the fists shaking. Face: shout · Sharingan. Hair / cloth and QA: Everything at its highest (third shape)
+- **f3 (loop):** SETTLE: shoulders down 1 to 2 px, the mouth closing to bared teeth; flows into f0. Face: angry, teeth bared · Sharingan. Hair / cloth and QA: Rope ends and cloth drop 2 px into a fourth shape
 
 <a id="throw"></a>
 
