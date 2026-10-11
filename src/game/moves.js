@@ -34,6 +34,30 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 // Vanish: teleport behind the opponent (1 ki bar), then vanishKick
 export const VANISH = { cost: 100, hideFrames: 9 };
 
+// Hit flash on the victim's sprite (ENG-064, src/game/hitFlash.js). Render only; frames at 60 fps, counted every
+// sim frame including hitstop and freezes. Which tier a hit plays: ko > the move's `hitFlash` field > special
+// (`special`, or a big beam) > tick (hitstop <= 3, not big: multi-hits never re-pop) > counter (it interrupts the
+// victim's own move) > smash > heavy (`big` or a heavy spark) > light.
+//  pop    frames of pure white at contact (the snap); 'hs' = the whole hitstop, capped at popMax
+//  lift   brighten held through the rest of hitstop; keeps the line art (0 none .. 1 near white)
+//  rim    inner-edge glow (a bright outline) in rimColor (null = the attacker's color); fade: ease-out frames
+//  shake  hitstop jitter of the sprite (world units);  blockShake: the same on a blocked hit
+//  comboPop  from this combo count a normal hit pops 1 frame at most
+//  style  'pop' (default) | 'tint' (no rim) | 'rim' (no pop below counter) | 'classic' (the old solid white) | 'off'
+//         (?flash=<style>, lab Tools chips);  strength scales lift + rim
+export const HIT_FLASH = {
+  style: 'pop', strength: 1, rimPx: 2, comboPop: 6, blockShake: 0.04,
+  light: { pop: 1, lift: 0.35, rim: 0.8, rimColor: 0xffffff, fade: 6, shake: 0.035 },
+  heavy: { pop: 2, lift: 0.45, rim: 1, rimColor: 0xfff0c8, fade: 7, shake: 0.05 },
+  smash: { pop: 3, lift: 0.5, rim: 1, rimColor: 0xffe08a, fade: 8, shake: 0.07 },
+  counter: { pop: 'hs', popMax: 4, lift: 0.5, rim: 1, rimColor: 0xffa070, fade: 8, shake: 0.07 },
+  special: { pop: 'hs', popMax: 5, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 10, shake: 0.09 },
+  ko: { pop: 'hs', popMax: 5, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 12, shake: 0.09 },
+  tick: { pop: 0, lift: 0.3, rim: 0.7, rimColor: 0xffffff, fade: 5, shake: 0.03 },
+  parry: { pop: 1, lift: 0.3, rim: 1, rimColor: 0x9ff0ff, fade: 8, shake: 0 },
+  burn: { pop: 0, lift: 0.25, rim: 0.6, rimColor: null, fade: 6, shake: 0 },
+};
+
 // Defensive options (ADR 0014), all free. Frames at 60 fps.
 //  parry      Guard pressed at most `window` frames before a blockable hit lands: no damage or block stun,
 //             a melee attacker is staggered (`stagger`, `bigStagger` for big moves and specials), a

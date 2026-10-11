@@ -720,7 +720,7 @@ export class Game {
     for (const f of [a, b]) {
       const o = f.opp;
       const d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
     }
   }
 
@@ -1114,7 +1114,7 @@ export class Game {
     if (W.state === 'attack' && W.move) W.t = Math.max(W.t, W.move.startup + W.move.active);
     W.vel.multiplyScalar(0.1);
     const d = new THREE.Vector2(L.pos.x - W.pos.x, L.pos.z - W.pos.z).normalize();
-    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
     const col = new THREE.Color(W.move?.color ?? W.def.color);
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, col);
     this.fx.debris(L.pos.x, L.pos.z, 10, 1.1);

@@ -206,6 +206,10 @@ export const SCENARIOS = [
   },
   { id: 'superDash', name: 'Super dash', info: 'Dash with no direction: a homing flight that plows through projectiles.', setup: { gap: 7 }, a: [tap(0, 'dash')], b: [] },
   {
+    id: 'counterHit', name: 'Counter hit (hit flash)', info: 'The dummy starts a heavy; your jab lands in its startup: a counter hit, which keeps a full-white pop. Compare the styles in Tools → HIT FLASH.',
+    setup: { gap: 1.2 }, a: [tap(3, 'light'), tap(15, 'light'), tap(27, 'light')], b: [tap(0, 'heavy')],
+  },
+  {
     id: 'counter', name: 'Counter stance', info: 'Your counter special, and the dummy walks into it with a jab.',
     needs: ([a]) => (['down', 'back'].some((s) => specialFor(a, s)?.kind === 'counter') ? null : 'your fighter has no counter special'),
     setup: { gap: 0.9, kiA: 100 },

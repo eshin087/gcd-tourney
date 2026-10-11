@@ -5,6 +5,7 @@ import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP }
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
+import { resetHitFlash, startHitFlash, flashTier, hitFlashUniforms, hitShake } from './hitFlash.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -61,7 +62,8 @@ export class Fighter {
     this.ko = false;
     this.koLanded = false;
     this.crashed = false;
-    this.flash = 0;
+    this.flash = 0; // the 'classic' hit flash; the other styles run on hfx (hitFlash.js)
+    resetHitFlash(this);
     this.spPending = false;
     this.spPress = -99;
     this.landLag = 6;
@@ -386,6 +388,7 @@ export class Fighter {
     this.vel.x *= 0.2; this.vel.z *= 0.2;
     this.ki = Math.min(MAX_KI, this.ki + P.ki);
     this.flash = 0.9;
+    startHitFlash(this, 'parry', P.freeze);
     this.setState('guard');
     if (!m.projectileHit && att !== this && !att.ko) {
       att.endMoveFx();
@@ -1300,6 +1303,7 @@ export class Fighter {
     att.ki = Math.min(MAX_KI, att.ki + 4 + dmg * 0.07);
     this.ki = Math.min(MAX_KI, this.ki + 2 + dmg * 0.04);
     this.flash = 1;
+    startHitFlash(this, flashTier(this, m), hs);
     if (this.state === 'attack') this.endMoveFx();
     if (this.state === 'charge') audio.stopLoop('charge' + this.index);
     if (this.state === 'beamCharge' || this.state === 'beamFire') this.beam?.kill?.();
@@ -1366,6 +1370,7 @@ export class Fighter {
     if (this.hp - d > 0 || this.game.training) {
       this.hp = Math.max(1, this.hp - d);
       this.flash = Math.max(this.flash, 0.45);
+      startHitFlash(this, 'burn', 0, this.burn?.color ?? att.def.color);
       return;
     }
     this.hp = 1;
@@ -1380,7 +1385,7 @@ export class Fighter {
     const y = this.prev.y + (this.pos.y - this.prev.y) * a;
     let z = this.prev.z + (this.pos.z - this.prev.z) * a;
     if (this.shaking && this.hitstop > 0) {
-      const s = Math.sin(time * 95) * 0.05 * Math.min(1, this.hitstop / 4);
+      const s = hitShake(this, time);
       x += camRight.x * s;
       z += camRight.z * s;
     } else if (this.state === 'charge') {
@@ -1394,7 +1399,7 @@ export class Fighter {
     this.actor.place(x, y, z);
     this.actor.sync(camera, this.face.x, this.face.y, camRight);
     const u = this.actor.mat.uniforms;
-    let flash = this.flash > 0.6 ? 1 : this.flash * 0.6;
+    let flash = hitFlashUniforms(this, u, time);
     if (this.state === 'charge' || this.state === 'beamCharge') {
       u.flashColor.value.set(this.def.color);
       flash = Math.max(flash, 0.12 + 0.1 * Math.sin(time * 30));
