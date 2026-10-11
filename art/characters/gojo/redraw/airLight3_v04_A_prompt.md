@@ -1,1 +1,0 @@
-Precise correction to attached anime fan-art sprite strip. Enlarge only the white hair silhouette and head uniformly by 12 percent for ALL THREE figures, anchored at neck, preserve faces and all body pixels. Preserve all three poses, spacing, limbs, clothing, boots, body size and background exactly. No effects, no labels, hard clean pixel-art edges on magenta background.

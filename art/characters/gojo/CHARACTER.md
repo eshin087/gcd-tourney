@@ -1,5 +1,3 @@
-> Active full redraw: userapproved height_neutral v01 on2026-10-11. [PROPORTION_REDRAW](PROPORTION_REDRAW.md) and [shared baseline](../../scale/APPROVED_CAST_BASELINE.md) supersede historical build/height/head instructions below. KIT motion remains authoritative.
-
 # Gojo (Jujutsu Kaisen, blindfold): character design brief
 
 > **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).

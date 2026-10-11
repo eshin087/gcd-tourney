@@ -1,8 +1,0 @@
-Anime fan-art pixel sprite strip, EXACTLY 5 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION getup: ANIMATION: "getup", kip-up from lying on his back to standing. 5 frames, left to right.
-POSES lefttoright:
-1. Lying on his back (head on the LEFT), knees pulled to his chest, palms planted beside his head with the fingers toward the shoulders. Face: mouth flat.
-2. Legs kicking up and over toward the upper right, rolling onto his shoulders, hands pushing off. Face: focused.
-3. Springing up into the air, torso tilted back, legs folding under him, arms out. Face: focused.
-4. Landing in a crouch facing right, hands going toward his pockets. Face: focused.
-5. His relaxed stance with both hands in the pockets (left foot forward, same as idle frame 1). Face: lazy smile.
-SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.
