@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Future-character templates now require measured neutral anatomy and SCALE LOCK values instead of inherited 200px/31px/6.5-head defaults; onboarding links the approved cast contract (ART-CAST-PILOT).
+
 - Record explicit approval of the neutral four-character baseline; authorize full42-animation redraws and document shared proportional scaling for future fighters.
 
 - Art review: add four neutral standing candidates and a common-height lineup; remove child/tall-cap adjustments in this review only. Existing production art and approvals unchanged.

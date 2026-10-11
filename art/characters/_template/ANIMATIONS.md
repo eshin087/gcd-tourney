@@ -15,10 +15,7 @@ drawn in front of the body. "Far" = the side behind the body. Stance is orthodox
 hitbox comes from these frames, so the fist/foot must reach the contact zone), `recovery` frames
 return to stance. `loop` frames must cycle seamlessly.
 
-**Proportions**: about 6.5 heads tall, Shippuden-era anime anatomy (not chibi): standing body about
-200 px, head about 31 px, idle stance about 204 px including hair. Idle landmarks, strike zones and
-contact zones: [SPEC.md](../../SPEC.md#proportions-and-landmarks). **Body height** below = the tallest
-trimmed frame including hair, in the 256 px cell.
+**Proportions**: use the approved neutral and [shared cast baseline](../../scale/APPROVED_CAST_BASELINE.md), with measured skull, torso and limb lengths. A pose changes occupied bounds, not anatomical scale. The historical body-height values below describe pose envelopes; they are not independent rescale targets for new art. Calibrate from anatomical landmarks, then verify contacts, cell margins and floor placement. Claude owns formal spec/contact-zone migration.
 
 **Files**: every generated strip is saved as the next version `raw/<anim>_vNN.png` (poses left to
 right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW.md`; single frames
@@ -151,7 +148,7 @@ Back dash (hop away from the opponent).
 **flying like a missile, angled about 25 degrees upward, knees bent, one fist thrust forward (loop)**  
 2 frames · loops · body height 120 px · optional · step 9 · default ms 50, 50
 
-Homing super dash. A 6.5-head body stretched fully flat would not fit the 256 px cell, so the body flies **angled about 25 degrees upward with the knees bent** (about 230 px wide); the strip is short (bodyHeight 120).
+Homing super dash. A tall body stretched fully flat may not fit the 256 px cell, so the body flies **angled about 25 degrees upward with the knees bent** (about 230 px wide); the strip is short (bodyHeight 120).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
