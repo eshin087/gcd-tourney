@@ -538,3 +538,52 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+## Naruto neutral production checkpoint (2026-10-11)
+
+All42 new sources attempted;32 packed candidates,10 technical holds. No new animation approved. Latest versions and individual gate/hold states: [production QA](characters/naruto/PRODUCTION_QA.md). ApprovedVersion values remain unchanged. Shared production standing target192.562px overrides historical table heights for these candidates.
+
+| Animation | Latest | Packed | Gate | Recommendation |
+|---|---|---|---|---|
+| airHeavy | v04 | v04 | ok | Candidate visual review |
+| airLight1 | v04 | v04 | ok | Candidate visual review |
+| airLight2 | v04 | v03 | old fallback: drift | Hold; correction required |
+| airLight3 | v04 | v02 | old fallback: pop | Hold; correction required |
+| airRecover | v03 | v03 | unmeasured | Manual scale verification required |
+| backDash | v02 | v02 | ok | Pose correction required |
+| beamCharge | v06 | v06 | exempt | Review transformed anatomy separately |
+| beamFire | v08 | v08 | exempt | Review transformed anatomy separately |
+| block | v04 | v04 | ok | Candidate visual review |
+| charge | v05 | v04 | old fallback: drift | Hold; correction required |
+| dash | v03 | v03 | ok | Candidate visual review |
+| down | v03 | v03 | unmeasured | Manual scale verification required |
+| getup | v03 | v03 | unmeasured | Manual scale verification required |
+| guard | v04 | v04 | ok | Candidate visual review |
+| heavy | v08 | v07 | old fallback: pop | Hold; correction required |
+| hurtHigh | v02 | v01 | old fallback: unmeasured | Hold; correction required |
+| hurtLow | v02 | v02 | ok | Candidate visual review |
+| idle | v05 | v05 | ref | Candidate visual review |
+| intro | v02 | v02 | ok | Candidate visual review |
+| jumpFall | v03 | v03 | ok | Candidate visual review |
+| jumpSquat | v03 | v03 | unmeasured | Manual scale verification required |
+| jumpUp | v03 | v03 | ok | Candidate visual review |
+| ko | v06 | v06 | unmeasured | Manual scale verification required |
+| land | v03 | v03 | ok | Candidate visual review |
+| launched | v03 | v03 | unmeasured | Manual scale verification required |
+| light1 | v03 | v03 | ok | Candidate visual review |
+| light2 | v02 | v02 | ok | Candidate visual review |
+| light3 | v02 | v02 | ok | Candidate visual review |
+| light4 | v03 | v01 | old fallback: drift | Hold; correction required |
+| run | v05 | v05 | ok | Candidate visual review |
+| special | v05 | v05 | ok | Candidate visual review |
+| specialDown | v03 | v02 | old fallback: drift | Hold; correction required |
+| specialForward | v03 | v02 | old fallback: drift | Hold; correction required |
+| specialUp | v03 | v03 | ok | Candidate visual review |
+| spin | v03 | v03 | unmeasured | Manual scale verification required |
+| stagger | v02 | v02 | ok | Candidate visual review |
+| superDash | v02 | v02 | ok | Candidate visual review |
+| superPose | v04 | v04 | ok | Candidate visual review |
+| taunt | v02 | v01 | old fallback: unmeasured | Hold; correction required |
+| throw | v04 | v02 | old fallback: ok | Hold; correction required |
+| vanish | v02 | v02 | unmeasured | Manual scale verification required |
+| win | v04 | v04 | ok | Candidate visual review |
