@@ -19,6 +19,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
+import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, FLAGGED, hex } from './scale-probe.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -143,11 +144,17 @@ options
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
+  --strict-scale    scale gate (art/CHARACTER_SCALE.md): every strip whose head is off the idle's is an error
+                    (exit code 1), approved or not. Without it only unapproved strips (candidates, new fighters)
+                    and characters with "scaleGate": "strict" fail; approved strips are listed as findings
+  --fit-head <list> auto head fit for these strips, e.g. killua:airLight1,killua:hurtHigh (same as the sidecar
+                    anatomy { "measurement": "auto-head" }): a raw strip drawn at the wrong size is rescaled so
+                    its head matches the idle's. Only a 'uniform' verdict is fitted
   -h, --help        this help
 `;
 
 function parseArgs(argv) {
-  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false };
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const eq = a.indexOf('=');
@@ -173,6 +180,8 @@ function parseArgs(argv) {
       case '--update-manifest': o.updateManifest = true; break;
       case '--candidates': o.candidates = true; break;
       case '--strict': o.strict = true; break;
+      case '--strict-scale': o.strictScale = true; break;
+      case '--fit-head': o.fitHead.push(...val().split(',').map((s) => s.trim()).filter(Boolean)); break;
       case '--quantize': o.quantize = Math.round(num()); break;
       case '--tolerance': case '--tol': o.tol = num(); break;
       case '-h': case '--help': o.help = true; break;
@@ -183,6 +192,7 @@ function parseArgs(argv) {
   }
   if (o.quantize && (o.quantize < 2 || o.quantize > 256)) throw new UsageError('--quantize must be between 2 and 256');
   if (!(o.tol > 0 && o.tol <= 442)) throw new UsageError('--tolerance must be between 1 and 442 (RGB distance)');
+  for (const f of o.fitHead) if (!/^[^:\s]+:[^:\s]+$/.test(f)) throw new UsageError(`--fit-head takes <id>:<anim>[,<id>:<anim>...] (got "${f}")`);
   return o;
 }
 
@@ -1106,7 +1116,7 @@ function chooseSource(framesDir, raw, ctx, warn, label) {
     const gone = srcPngs.length > 0 && srcPngs.some((s) => !isFile(path.join(ctx.artDir, s)));
     const edited = isEdited();
     if (gone && !edited) return { kind: 'stale', origin };
-    return { kind: 'frames', framePngs, packerMade: true, edited, origin };
+    return { kind: 'frames', framePngs, packerMade: true, edited, origin, autoHead: marker.autoHead ?? null };
   }
   const cellOf = (c) => JSON.stringify(c ?? null);
   const why = [];
@@ -1115,11 +1125,14 @@ function chooseSource(framesDir, raw, ctx, warn, label) {
   }
   if ((marker.bodyHeight ?? null) !== (ctx.bodyHeight ?? null)) why.push(`bodyHeight changed (${marker.bodyHeight ?? 'none'} -> ${ctx.bodyHeight})`);
   if (cellOf(marker.cell) !== cellOf(ctx.cell)) why.push('the spec cell changed');
-  if (!why.length) return { kind: 'frames', framePngs, packerMade: true, origin };
+  // the auto head fit (TOOL-025) is measured at import: asking for it (or dropping it) re-imports once, after that
+  // the marker's autoHead factor says the frames already have their fitted size
+  if ((marker.autoHead != null) !== !!ctx.fitHead) why.push(ctx.fitHead ? 'auto head fit requested' : 'auto head fit removed');
+  if (!why.length) return { kind: 'frames', framePngs, packerMade: true, origin, autoHead: marker.autoHead ?? null };
   const edited = isEdited();
   if (!edited) return { ...fromRaw, replaced: origin.file && origin.file !== raw.label ? origin.file : null };
   warn(`${label}: ${why.join(', ')} but frames/${path.basename(framesDir)}/ has manual edits - using frames/ (delete that folder to re-import from raw/)`);
-  return { kind: 'frames', framePngs, packerMade: true, edited: true, origin };
+  return { kind: 'frames', framePngs, packerMade: true, edited: true, origin, autoHead: marker.autoHead ?? null };
 }
 
 const staleText = (label, dir, src) => `${label}: frames/${dir}/ were cleaned from ${src.origin.file || 'a raw file'}, which is no longer in raw/ (rejected?) - not packed. Delete frames/${dir}/ or add a new raw version`;
@@ -1269,6 +1282,7 @@ function frameOffsetsFor(side, count, spec, warn, label) {
 function anatomicalScalesFor(side, count, warn, label) {
   if (!Object.hasOwn(side, 'anatomy')) return null;
   const a = side.anatomy;
+  if (a?.measurement === 'auto-head') return null; // measured by the scale probe after the gather (TOOL-025)
   if (!a || a.measurement !== 'skull-to-chin' || !Number.isFinite(a.targetHeadPx) ||
       a.targetHeadPx < 8 || a.targetHeadPx > 64 || !Array.isArray(a.sourceHeadPx) ||
       a.sourceHeadPx.length !== count || !a.sourceHeadPx.every((n) => Number.isFinite(n) && n >= 8 && n <= 2048)) {
@@ -1431,7 +1445,7 @@ function hitBox(cell, ref, T) {
 
 function validBox(b) { return Array.isArray(b) && b.length === 4 && b.every((v) => Number.isFinite(v)); }
 
-function applyOverrides(file, packed, boxes, warn, label) {
+function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = null, notes = null) {
   const r = readJson(file);
   if (!r.exists) return 0;
   if (r.error) { warn(`${label}/hitboxes.json is not valid JSON (${r.error}) - ignored`); return 0; }
@@ -1440,6 +1454,10 @@ function applyOverrides(file, packed, boxes, warn, label) {
     if (anim.startsWith('_') || !frames || typeof frames !== 'object') continue;
     const p = packed.find((a) => a.name === anim);
     if (!p) { warn(`hitboxes.json: "${anim}" is not packed - override skipped`); continue; }
+    // the animation's cells were rescaled by an auto head fit since these boxes were measured (see scaleAboutPivot)
+    const fit = fits?.get(anim) ?? 1, measuredAt = Number(frames._scale) > 0 ? Number(frames._scale) : 1;
+    const tf = pivot && Math.abs(fit / measuredAt - 1) > 1e-6 ? { k: fit / measuredAt, px: pivot[0], py: pivot[1] } : null;
+    if (tf) notes?.push(`hitboxes.json ${anim}: boxes and hand anchors scaled x${tf.k.toFixed(3)} about the pivot (auto-head fit x${fit}); re-measure them and set "_scale": ${fit}`);
     const keys = Object.keys(frames).filter((k) => !k.startsWith('_')).sort((a, b) => (a === '*' ? -1 : b === '*' ? 1 : 0));
     for (const k of keys) {
       const ov = frames[k];
@@ -1454,7 +1472,7 @@ function applyOverrides(file, packed, boxes, warn, label) {
           if (!Array.isArray(list) || !list.every(validBox)) { warn(`hitboxes.json: ${anim}[${k}].${kind} must be [[x,y,w,h], ...]`); continue; }
           // an explicit empty `hit` list is kept: the engine reads it as "this frame cannot hit"
           // (a missing list falls back to the move's reach); an empty `hurt` list means "use the default body box"
-          if (list.length) boxes[key][kind] = list.map((bx) => bx.map((v) => Math.round(v)));
+          if (list.length) boxes[key][kind] = list.map((bx) => (tf ? scaleAboutPivot(bx, tf, true) : bx).map((v) => Math.round(v)));
           else if (kind === 'hit') boxes[key].hit = [];
           else delete boxes[key][kind];
         }
@@ -1462,7 +1480,7 @@ function applyOverrides(file, packed, boxes, warn, label) {
         // ([x, y] in the 256 cell; the engine falls back to the hit box, then fixed offsets)
         if ('hand' in (ov || {})) {
           const h = ov.hand;
-          if (Array.isArray(h) && h.length === 2 && h.every((v) => Number.isFinite(v))) boxes[key].hand = h.map((v) => Math.round(v));
+          if (Array.isArray(h) && h.length === 2 && h.every((v) => Number.isFinite(v))) boxes[key].hand = (tf ? scaleAboutPivot(h, tf, false) : h).map((v) => Math.round(v));
           else if (h === null) delete boxes[key].hand;
           else warn(`hitboxes.json: ${anim}[${k}].hand must be [x, y]`);
         }
@@ -1552,6 +1570,106 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
   R.writeback.push(rel(env.cwd, dir));
 }
 
+// ============================================================== scale gate (TOOL-025, ADR 0021, art/CHARACTER_SCALE.md)
+// tools/scale-probe.mjs measures every strip against the idle of this pack (unquantized cells are snapped to one
+// shared palette first, the median cut --quantize ships, so the audit is the same with or without --quantize).
+function auditAnims(id, anims, env) {
+  return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version })), {
+    decl: env.builds?.[id] || {}, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
+  });
+}
+
+// Auto head fit (opt-in per strip): a raw strip whose head AND feet are off the idle's in the same direction ('uniform')
+// was drawn or packed at the wrong size, so it is resampled once more from the raw by 1/head. Drift (the head alone)
+// and pops are never fitted: rescaling cannot fix a drawing. The factor goes into the frames/ marker, so the fit is
+// measured once at import and repeat packs keep the fitted frames byte for byte.
+function fitHeads(id, anims, env, R) {
+  const A = auditAnims(id, anims, env);
+  const spec = env.spec, g = env.gate;
+  for (const a of anims) {
+    if (!a.fit) continue;
+    const s = A.anims?.[a.def.name];
+    a.autoHead = 1;
+    if (!s || s.verdict !== 'uniform') {
+      a.notes.push(`auto-head: ${s ? `verdict ${s.verdict}${s.head != null ? ` (head ${s.head.toFixed(2)})` : ''}` : A.error} - not fitted (only a uniform size error is)`);
+      continue;
+    }
+    let f = 1 / s.head;
+    if (f < g.fitMin || f > g.fitMax) {
+      R.warnings.push(`${a.def.name}: auto-head fit x${f.toFixed(2)} is outside ${g.fitMin}-${g.fitMax} - clamped; redraw the strip at the idle's size`);
+      f = Math.min(g.fitMax, Math.max(g.fitMin, f));
+    }
+    f = Math.round(f * 1e4) / 1e4;
+    const clipped = [], tight = [];
+    a.cells = a.fit.sprites.map((sp, k) => {
+      const { cell, lost, clip, margin } = placeCharFrame(resample(sp, a.fit.scales[k] * f, { coverage: 0.5, alphaMin: 128 }), spec, a.fit.frameOffsets?.[k]);
+      if (lost) clipped.push(`#${k} ${clip.join('/')}`);
+      else if (margin.length) tight.push(`#${k} ${margin.join('/')}`);
+      return cell;
+    });
+    a.frameScales = a.fit.scales.map((v) => +(v * f).toFixed(5));
+    a.scale *= f;
+    a.autoHead = f;
+    a.notes.push(`auto-head fit x${f} (head ${s.head.toFixed(2)}, feet ${s.feet == null ? '-' : s.feet.toFixed(2)} of idle)`);
+    if (a.frameScales.some((v) => v > 1)) R.warnings.push(`${a.def.name}: auto-head fit upscales the raw art (nearest) - generate it bigger`);
+    if (clipped.length) R.warnings.push(`${a.def.name}: auto-head fit clips ${clipped.length} frame(s) (${clipped.join(', ')}) - repose those frames inside the cell`);
+    if (tight.length) R.warnings.push(`${a.def.name}: auto-head fit puts ${tight.length} frame(s) into the ${spec.cellMargin}px cell margin (${tight.join(', ')})`);
+  }
+}
+
+// Every strip against the approved idle. Strict strips fail the pack (exit code 1): unapproved ones in the default
+// 'auto' mode (a candidate version, a new fighter), every strip with --strict-scale or "scaleGate": "strict". Approved
+// strips are findings until they are fixed (ART-SCALE-02), so art that already ships never blocks a pack. A folder
+// without a manifest entry (scratch art, no manifest) is only reported ('warn').
+// Returns the compact audit for anims.json (meta.scaleAudit), or null when nothing could be measured.
+function scaleGate(id, anims, env, R) {
+  const mc = env.manifestRaw?.characters?.[id];
+  const mode = env.scaleStrict ? 'strict' : !mc ? 'warn' : ['strict', 'warn', 'auto'].includes(mc.scaleGate) ? mc.scaleGate : 'auto';
+  const out = { gate: mode, failed: [], findings: [], anims: {} };
+  R.scale = out;
+  const approved = (a) => a.def.approvedVersion != null && (a.version == null || a.version <= a.def.approvedVersion);
+  const isStrict = (a) => a.def.name !== 'idle' && (mode === 'strict' || (mode === 'auto' && !approved(a)));
+  if (!anims.some((a) => a.def.name === 'idle')) { out.error = 'no idle packed yet - nothing to measure against'; R.notes.push(`scale: ${out.error}`); return null; }
+  const A = auditAnims(id, anims, env);
+  if (A.error) {
+    out.error = A.error;
+    const strict = anims.filter(isStrict).map((a) => a.def.name);
+    if (strict.length) { out.failed.push(...strict); R.warnings.push(`scale gate: ${A.error} (strict strips: ${strict.join(', ')})`); }
+    else R.notes.push(`scale: ${A.error}`);
+    return null;
+  }
+  out.ref = { box: A.ref.box, headPx: A.ref.headPx, palette: [...A.palette.head].map(hex), source: A.palette.headSource };
+  const base = env.baseline?.[id];
+  const tol = env.gate.stripTol;
+  if (base?.ref?.headPx && A.ref.headPx.some((v, k) => Math.abs(v / base.ref.headPx[k] - 1) > tol)) {
+    R.warnings.push(`scale: the idle head is ${A.ref.headPx.join('x')} px, ${base.ref.headPx.join('x')} in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)`);
+  }
+  for (const a of anims) {
+    const name = a.def.name, s = A.anims[name], strict = isStrict(a);
+    out.anims[name] = { head: s.head, feet: s.feet, range: s.range, verdict: s.verdict, strict, version: a.version, reason: s.reason, frames: s.frames.map((f) => f.head) };
+    const vv = a.version != null ? `v${String(a.version).padStart(2, '0')}` : 'unversioned';
+    const failing = FLAGGED.has(s.verdict) || (s.verdict === 'unmeasured' && !env.gate.lowConf.includes(name));
+    if (failing && strict) {
+      out.failed.push(name);
+      R.warnings.push(`scale gate: ${verdictText(name, s)} [${vv}, ${mode === 'auto' ? 'not approved yet' : 'strict'}]`);
+    } else if (FLAGGED.has(s.verdict)) out.findings.push(`${verdictText(name, s)} [approved ${vv}]`);
+    // an approved strip whose head moved at the same version: a sidecar, bodyHeight or packer change resized it silently
+    const b = base?.anims?.[name];
+    if (b && a.version != null && b.v === a.version && Number.isFinite(b.head) && s.head != null && Math.abs(s.head - b.head) > env.gate.baselineTol) {
+      R.warnings.push(`scale: ${name} head ${s.head.toFixed(2)} was ${b.head.toFixed(2)} in art/scale/scale-baseline.json at the same version ${vv} - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)`);
+    }
+  }
+  return compactAudit(A, env.gate);
+}
+
+// hitboxes.json boxes and hand anchors were measured on cells of one size: when the auto head fit rescales an
+// animation by f, they are scaled by f about the pivot (the feet). "_scale" in the animation's block records the fit
+// they were measured at (default 1), so re-measured boxes are not scaled twice.
+const scaleAboutPivot = (v, t, isBox) => {
+  const x = t.px + (v[0] - t.px) * t.k, y = t.py + (v[1] - t.py) * t.k;
+  return isBox ? [x, y, v[2] * t.k, v[3] * t.k] : [x, y];
+};
+
 function packCharacter(id, env) {
   const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [] };
   const warn = (m) => R.warnings.push(m);
@@ -1584,6 +1702,7 @@ function packCharacter(id, env) {
       const raw = pickRaw(rawIdx.get(def.name), def.name);
       if (raw?.version != null) R.versions[def.name] = raw.version;
       const side = readSidecars(raw?.sidecars, warn, alabel);
+      const fitHead = side.anatomy?.measurement === 'auto-head' || env.fitHead.has(`${id}:${def.name}`);
       let bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
       let tooTall = null;
       if (!(bodyHeight >= 8 && bodyHeight <= maxBody)) {
@@ -1591,7 +1710,7 @@ function packCharacter(id, env) {
         tooTall = `${alabel}: bodyHeight ${bodyHeight} does not fit the ${spec.frameHeight}px cell (8-${maxBody}px: floor line y ${spec.pivot[1]}, ${spec.cellMargin}px top margin) - using ${fixed}`;
         bodyHeight = fixed;
       }
-      const src = chooseSource(framesDir, raw, { bodyHeight, cell: cellKey, artDir: env.artDir }, warn, alabel);
+      const src = chooseSource(framesDir, raw, { bodyHeight, cell: cellKey, artDir: env.artDir, fitHead }, warn, alabel);
       if (!src) { R.missing.push(def.name); continue; }
       if (src.kind === 'stale') { warn(staleText(alabel, def.name, src)); R.missing.push(def.name); continue; }
       if (tooTall) warn(tooTall); // only for animations that have art: the rest would be noise
@@ -1636,6 +1755,9 @@ function packCharacter(id, env) {
         notes.push('anatomical scale: skull-to-chin ' + side.anatomy.targetHeadPx + 'px; bounds are pose-dependent');
         if (src.kind !== 'frames' && anatomyScales.some((n) => n > 1)) warn(alabel + ': anatomical calibration upscales raw art - generate larger source poses');
       }
+      // frames written by an auto head fit already have their fitted size: never pull them back to bodyHeight
+      const autoHead = src.kind === 'frames' && fitHead ? src.autoHead ?? null : null;
+      if (autoHead != null && autoHead !== 1) { scale = 1; notes.push(`auto-head fit x${autoHead} (from the import)`); }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
       const frameOffsets = frameOffsetsFor(side, sprites.length, spec, warn, alabel);
       const cells = [];
@@ -1654,7 +1776,10 @@ function packCharacter(id, env) {
       if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; ${fitAdvice}`);
       if (tight.length) warn(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; ${fitAdvice}`);
       if (cells.length !== def.frames) warn(`${alabel}: ${cells.length} frame(s), manifest expects ${def.frames}${def.phases ? ` (phases rescaled to ${rescalePhases(def.phases, cells.length).join('/')})` : ''}`);
-      anims.push({ def, cells, scale, frameScales, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade });
+      // fit: what the auto head fit needs to rescale a raw strip after the scale audit (raw sources only)
+      const fit = fitHead && src.kind === 'raw' ? { sprites, scales: frameScales.slice(), frameOffsets } : null;
+      if (fitHead && src.kind !== 'raw' && autoHead == null) notes.push('auto-head fit needs the raw source (frames/ were hand-edited or the raw is gone) - not fitted');
+      anims.push({ def, cells, scale, frameScales, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade, fitHead, autoHead, fit });
     } catch (e) {
       warn(`${alabel}: failed - ${e.message}`);
       R.missing.push(def.name);
@@ -1686,6 +1811,9 @@ function packCharacter(id, env) {
     return R;
   }
 
+  // 1b) auto head fit for the strips that asked for it (sidecar anatomy auto-head or --fit-head)
+  if (anims.some((a) => a.fit)) fitHeads(id, anims, env, R);
+
   // 2) optional palette snap (across the whole character so colors stay consistent)
   const allCells = anims.flatMap((a) => a.cells);
   if (env.quantize) R.notes.push(`palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
@@ -1693,12 +1821,16 @@ function packCharacter(id, env) {
   if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);
   else if (R.colors > spec.maxColors) R.notes.push(`palette has ${R.colors} colors: above the spec target of ${spec.maxColors} (warned above ${spec.warnColors})`);
 
+  // 2b) scale gate: every strip's head (hair included) and feet against the approved idle
+  const scaleAudit = scaleGate(id, anims, env, R);
+
   // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here)
   const meta = {
     frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, columns: spec.columns, pivot: [...spec.pivot], pixelsPerUnit: spec.pixelsPerUnit,
     facing: spec.facing, spec: spec.name, source: 'art-pack', character: id, packer: PACKER_VERSION, complete: R.missingCore.length === 0,
     missingCore: R.missingCore, animations: {}, boxes: {},
   };
+  if (scaleAudit) meta.scaleAudit = scaleAudit; // read by ?scaleaudit and the lab's ghost head box
   let idx = 0;
   const packed = [];
   for (const a of anims) {
@@ -1742,7 +1874,8 @@ function packCharacter(id, env) {
     });
   }
   if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
-  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label);
+  const fits = new Map(anims.filter((a) => a.autoHead != null && a.autoHead !== 1).map((a) => [a.def.name, a.autoHead]));
+  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
   if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
 
@@ -1765,7 +1898,7 @@ function packCharacter(id, env) {
       anim: a.def.name, frames: a.cells.length, expected: a.def.frames, source: a.sourceLabel, from: a.origin, version: a.version,
       edited: a.edited, handMade: a.handMade, scale: +a.scale.toFixed(3), frameScales: a.frameScales, notes: a.notes,
     });
-    if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight, cell: cellKey });
+    if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight, cell: cellKey, ...(a.fitHead ? { autoHead: a.autoHead ?? 1 } : {}) });
   }
   return R;
 }
@@ -2469,6 +2602,12 @@ function printReport(rep, env) {
         L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
       }
     }
+    if (c.scale) {
+      const S = c.scale, n = {};
+      for (const a of Object.values(S.anims)) n[a.verdict] = (n[a.verdict] || 0) + 1;
+      L(`  scale gate (${S.gate}; head with hair vs the idle, art/CHARACTER_SCALE.md): ${S.error || Object.entries(n).map(([k, v]) => `${v} ${k}`).join(', ')}${S.failed.length ? `  FAILED: ${S.failed.join(', ')}` : ''}`);
+      for (const f of S.findings) L(`    ~ ${f}`);
+    }
     if (c.missingCore.length) L(`  missing core (${c.missingCore.length}): ${c.missingCore.join(', ')}`);
     const opt = c.missing.filter((m) => !c.missingCore.includes(m));
     if (opt.length) L(`  missing optional (${opt.length}): ${opt.join(', ')}`);
@@ -2534,6 +2673,8 @@ function printReport(rep, env) {
   const nw = rep.totalWarnings;
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
   const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
+  const gateFailed = rep.characters.filter((c) => c.scale?.failed.length);
+  if (gateFailed.length) L(`SCALE GATE FAILED: ${gateFailed.map((c) => `${c.id} (${c.scale.failed.join(', ')})`).join('; ')} - see art/CHARACTER_SCALE.md "Scale gate (automatic)"`);
   L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
 
@@ -2561,6 +2702,14 @@ async function main() {
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
   const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
+  // scale gate inputs (TOOL-025): thresholds from spec.scaleGate, declared head/feet colours, the committed baseline
+  const gateIssues = [];
+  Object.assign(env, {
+    gate: resolveGate(mj.data?.spec?.scaleGate, gateIssues), scaleStrict: opts.strictScale, fitHead: new Set(opts.fitHead),
+    builds: readJson(path.join(artDir, 'scale', 'builds.json')).data?.fighters || {},
+    baseline: readJson(path.join(artDir, 'scale', 'scale-baseline.json')).data?.fighters || null,
+  });
+  for (const s of gateIssues) rep.warnings.push(`manifest ${s}`);
 
   const folderIds = listDirs(path.join(artDir, 'characters')).filter((n) => !n.startsWith('_') && !n.startsWith('.'));
   const allIds = [...folderIds, ...Object.keys(manifest.characters).filter((n) => !n.startsWith('_') && !folderIds.includes(n))];
@@ -2605,10 +2754,17 @@ async function main() {
 
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);
+  if (rep.characters.some((c) => c.scale?.failed.length)) return 1; // the scale gate failed (art/CHARACTER_SCALE.md)
   return opts.strict && rep.totalWarnings ? 2 : 0;
 }
 
-main().then((code) => { process.exitCode = code; }).catch((e) => {
-  console.error(`pack-sprites failed: ${e.stack || e.message}`);
-  process.exitCode = 1;
-});
+// Imported by tools/stitch-parts.mjs (the same background removal, splitting and resampling), run as the packer otherwise.
+export { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, dropStrays, splitStrip, resample, placeCharFrame, quantizeFrames, readJson };
+
+const samePath = (a, b) => (process.platform === 'win32' ? a.toLowerCase() === b.toLowerCase() : a === b);
+if (process.argv[1] && samePath(path.resolve(process.argv[1]), fileURLToPath(import.meta.url))) {
+  main().then((code) => { process.exitCode = code; }).catch((e) => {
+    console.error(`pack-sprites failed: ${e.stack || e.message}`);
+    process.exitCode = 1;
+  });
+}
