@@ -121,6 +121,10 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
   startup and active. A new `sfxLoop` kind needs a case in `AudioEngine.loop` (`src/core/audio.js`).
 - A new projectile is a `PROJECTILES` entry. `sprite` must be a VFX atlas effect name (add one in
   `vfxPainter.js` + the art/vfx briefs if needed).
+- **Beam clashes** (ADR 0027): an energy shot gets `clash: 'beam'` and a `stream` palette (core / mid / edge, the
+  colors of its stream in a struggle); a rush special driven into a stream by hand gets `clash: 'rush'`. That's all it
+  takes for the new fighter to beam-clash (and for the CPU vs CPU show director to cue one); a physical shot
+  (shuriken) gets neither.
 - **Not every ultimate is a beam.** The shared beam (colors and name from `beam`) is one ultimate kind among
   several: a `kit.ultimate` names a `SUPERS` entry instead (`ignite`, `skyStrike`, `domain`, `flurry`, ...). Look
   at the cast table in ADR 0011 §2 first and pick a shape the cast doesn't already overuse: the user wants

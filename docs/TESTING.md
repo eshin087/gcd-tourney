@@ -78,10 +78,11 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown). The scale
   check draws the approved idle's head size (white box) around this frame's measured head (gold, orange when the
   packer flagged the strip) and prints both numbers (TOOL-025).
-- **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
-  Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo, wall bounce, ground
-  damage, vanish, super dash, counter hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A
+- **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash, beam clash, answering an
+  energy shot, beam clash from the air (the dummy plays clashes at Normal timing; you press), throw and break, parry,
+  spot dodge, air dodge, wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo,
+  wall bounce, ground damage, vanish, super dash, counter hit (hit flash), counter stance, Whirlwind, Hollow Purple vs
+  a projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
   dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, reset. ` hides the panel; the keyboard and touch controls still play YOU.
@@ -143,6 +144,18 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).
       Pressing every frame scores OFF BEAT and loses. Lab **Special clash** (Naruto vs Sasuke): one ring, the closer
       press wins.
+- [ ] Beam clash (ADR 0027), lab **Beam clash (energy vs energy)** in every pairing but the Naruto mirror (which says
+      it can't): BEAM CLASH! with both attack names on their sides, two streams in each shot's colors (Narukami blue,
+      Red red, Chidori Spear deep blue, Fireball orange) meeting halfway, or the stream meeting Naruto's Rasengan in
+      front of his fist with the orb lit; the clash camera, rings and bar; the round timer holds. ~4.5 s; the winner's
+      stream runs through, the loser takes 120 and wall-bounces (OVERWHELMED!); a dead heat is DRAW! (45 each).
+      `game.clash.tier === 'struggle'`, `game.struggleCool` 900 after it. **Answer an energy shot**: the dummy's shot
+      becomes a clash instead of a hit (you answer with a Rasengan / Chidori when you have one). **Beam clash from the
+      air** (Killua, Sasuke, Gojo): the airborne owner hovers locked, then lands or falls normally. Negative: shots
+      fired while one side is in hit stun or block, owners under 2.2 apart, a second exchange inside 900 frames, and a
+      shuriken against any shot all cancel as before (no clash); Hollow Purple still erases shots. Regression: lab
+      **Ultimate clash** is still `tier 'ultimate'`, 20 notes, 250 / 90; **Special clash** is still the one-beat
+      `tier 'beat'` (`lite`).
 - [ ] Kits (ADR 0009), with Killua and Gojo: Special, Special + → / ↑ / ↓ and air Special (+↓) each give the
       move in the README Fighters table. SUPER fires Whirlwind / Unlimited Void (the void stage replaces the
       arena, then comes back), and Naruto's SUPER fires his beam. Godspeed shows the mode bar and blink dashes.
@@ -287,6 +300,12 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    for the winner, since the loser has less time; `vanishWar` needs a vanish to answer).
    `game.brains.map((b) => b.show.report())` gives each CPU's defense: see the targets in "CPU defense showcase" below. With Naruto and / or Gojo on both sides (ultimates that clash),
    most matches should show at least one rhythm clash (ENG-056); `clash` in `unseen()` means none happened.
+   **Every match shows a BEAM CLASH** (ADR 0027) except the Naruto mirror (`beamClash` in `unseen()` means none
+   happened): log `game.clash?.tier === 'struggle'` starts and `game.director.beam` (`due` in frames, `cues`, `done`)
+   per match. Pass: at least 95 % of matches that can have one do, the first one lands at varied times (the
+   director's due is random), draws are at most ~20 %, and rounds still end by KO. CPU vs CPU can be watched at any
+   level and Easy / Normal / Hard (`CpuBrain`) follow the director's cue too, so repeat it with `&level=easy`,
+   `normal` and `hard`.
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
    Light + Heavy within 12 frames of the grab breaks it ("THROW BREAK", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /

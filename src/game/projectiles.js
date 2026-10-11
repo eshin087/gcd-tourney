@@ -33,8 +33,10 @@ const BEAM_FRAG = /* glsl */ `
 const up = new THREE.Vector3(0, 1, 0);
 const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.Vector3();
 
+// opts.palette / opts.width: a BEAM CLASH stream (ADR 0027) in its shot's colors; the ultimate beam uses the
+// fighter's def.beam
 export class Beam {
-  constructor(game, owner) {
+  constructor(game, owner, opts = {}) {
     this.game = game;
     this.owner = owner;
     const o = owner.opp;
@@ -56,8 +58,8 @@ export class Beam {
     this.ticks = 0;
     this.hitting = false;
     this.hasHit = false;
-    this.width = owner.def.beam.width ?? ULTIMATE.width; // Hollow Purple is wider
-    const b = owner.def.beam;
+    const b = (this.pal = opts.palette ?? owner.def.beam);
+    this.width = opts.width ?? b.width ?? ULTIMATE.width; // Hollow Purple is wider
     this.mat = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 }, uLen: { value: 1 }, uWidthPx: { value: 1 }, uFade: { value: 1 },
@@ -104,7 +106,7 @@ export class Beam {
           const r = o.takeHit(this.owner, { dmg: U.tickDmg, hitstun: 16, push: 3.5, hitstop: 0, beam: true, lock: U.tickEvery + 3 }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           if (r === 'hit') this.hasHit = true;
           const h = this.head;
-          this.game.fx.hit(h.x, h.y, h.z, this.ticks % 3 === 0 ? 'heavy' : 'light', new THREE.Color(this.owner.def.beam.mid));
+          this.game.fx.hit(h.x, h.y, h.z, this.ticks % 3 === 0 ? 'heavy' : 'light', new THREE.Color(this.pal.mid));
           this.game.cam.shake(0.18);
         }
       } else this.hitting = false;
@@ -115,7 +117,7 @@ export class Beam {
         if (o2.state === 'hitstun' || o2.state === 'launched') {
           o2.takeHit(this.owner, { dmg: U.finalDmg, launch: U.launch, hitstop: 14, beam: true, big: true, hardKnockdown: true }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           const h = this.head;
-          this.game.fx.explosion(h.x, h.y, h.z, new THREE.Color(this.owner.def.beam.mid));
+          this.game.fx.explosion(h.x, h.y, h.z, new THREE.Color(this.pal.mid));
           audio.play('explosion');
           this.game.cam.shake(0.8);
         }
@@ -153,7 +155,7 @@ export class Beam {
     u.uFade.value = Math.max(0, this.fade);
     // glowing bulbs at the hands and the head
     const fx = this.game.fx;
-    const color = new THREE.Color(this.owner.def.beam.mid);
+    const color = new THREE.Color(this.pal.mid);
     const id = this.owner.index;
     const pulse = 1 + Math.sin(time * 30) * 0.08;
     fx.keep('beamO' + id, 'glow', this.origin.x, this.origin.y, this.origin.z, { scale: 0.7 * pulse * this.fade, color, opacity: 1, order: 7, glow: 0.35 });
@@ -172,6 +174,7 @@ export class Projectile {
     this.owner = owner;
     this.P = P;
     this.type = type;
+    this.name = owner.move?.name ?? owner.def.projectileName ?? type.toUpperCase(); // the BEAM CLASH callout
     // leaves from the drawn hand when the art pack marks it (anims.json `hand` / hit box)
     const H = owner.actor?.hand?.();
     const fwd = H ? H.x : 0.5, up = H ? H.y : 0.9;
