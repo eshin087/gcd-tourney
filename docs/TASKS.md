@@ -281,3 +281,7 @@ TOOL-ROTATED-ANATOMY, Claude, done in TOOL-030 (`scaleManualQA`, verdict `manual
 ART-GOJO-CORRECT-20261011, Codex, review (integration blocked by airLight3). Four inbox corrections airLight3/airHeavy/charge/win; maximum3 additional generations each. Existing worktree/port5224. Claude remains coordinator. Own Gojo art/reference/manifest/review/QA plus generated outputs; no tooling or gate policy edits.
 
 Gojo correction round2026-10-11: airHeavy v06, charge v06, win v06 numeric ok and needs visual review. airLight3 v05 best remains technical hold; v06 rejected by QA. Three additional calls exhausted only for airLight3. Full strict pack exits1; production atlas unchanged. Exact evidence: redraw/CORRECTIONS_2026-10-11.md. Claude-only integration.
+
+2026-10-11 Gojo: user approved charge/airHeavy/win v06. Recorded approval, strict repack required. Fresh authorization: at most three more generation calls for airLight3 only; new pixels need review. Claude retains integration.
+
+2026-10-11 Gojo round2 complete: airLight3 v07 passes full strict pack (1 ref/33 ok/8 existing manual), awaiting fresh visual approval. charge/airHeavy/win v06 approved. Two of three new calls used. All six airLight3 frames inspected. Evidence: redraw/ROUND2.md.

@@ -563,3 +563,7 @@ Gojo visual approval (2026-10-11): user approved the latest selected full-redraw
 Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).
 
 Gojo correction round2026-10-11: airHeavy v06, charge v06, win v06 numeric ok and needs visual review. airLight3 v05 best remains technical hold; v06 rejected by QA. Three additional calls exhausted only for airLight3. Full strict pack exits1; production atlas unchanged. Exact evidence: redraw/CORRECTIONS_2026-10-11.md. Claude-only integration.
+
+2026-10-11 Gojo: user approved charge/airHeavy/win v06. Recorded approval, strict repack required. Fresh authorization: at most three more generation calls for airLight3 only; new pixels need review. Claude retains integration.
+
+2026-10-11 Gojo round2 complete: airLight3 v07 passes full strict pack (1 ref/33 ok/8 existing manual), awaiting fresh visual approval. charge/airHeavy/win v06 approved. Two of three new calls used. All six airLight3 frames inspected. Evidence: redraw/ROUND2.md.

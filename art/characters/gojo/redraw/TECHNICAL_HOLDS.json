@@ -22,7 +22,9 @@
     "best": 5,
     "reason": "v05 head range 0.161; v06 patch overshot and clipped. Additional generation cap exhausted.",
     "additionalCalls": 3,
-    "evidence": "CORRECTIONS_2026-10-11.md"
+    "evidence": "CORRECTIONS_2026-10-11.md",
+    "historical": true,
+    "resolvedBy": "v07 strict pass; new visual approval pending"
   },
   "airHeavy": {
     "versions": [
