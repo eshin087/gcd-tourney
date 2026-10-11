@@ -3,6 +3,7 @@ import { InputManager } from './core/input.js';
 import { audio } from './core/audio.js';
 import { Game } from './game/game.js';
 import { TouchControls, IS_TOUCH_DEVICE } from './core/touch.js';
+import { HIT_FLASH } from './game/moves.js';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
 const input = new InputManager();
@@ -120,6 +121,7 @@ if (qs.has('debug')) {
     return r;
   };
   window.resumeLoop = () => { window.__manualStep = false; };
+  window.HIT_FLASH = HIT_FLASH; // live hit-flash tuning (style, strength, tier numbers): read every frame, ENG-064
   // real-time helpers (rAF loop running): tap keys / chords with real timing
   window.sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   window.tap = async (codes, ms = 50) => {

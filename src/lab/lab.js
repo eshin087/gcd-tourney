@@ -13,6 +13,8 @@ import { ANIM_GUIDE } from '../art/animGuide.js';
 import { ARENA_LIMIT } from '../game/constants.js';
 import { DummyBrain, CPU_LEVELS } from '../game/ai.js';
 import { ScriptBrain, ReplayBrain, recordFrame, moveList, SCENARIOS } from './scripts.js';
+import { HIT_FLASH } from '../game/moves.js';
+import { FLASH_STYLES } from '../game/hitFlash.js';
 import './lab.css';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
@@ -303,6 +305,9 @@ function toolsTab() {
     chip(L.replay ? 'replaying on dummy' : `replay on dummy (${(L.rec.length / 60).toFixed(1)} s)`, L.replay, toggleReplay));
   row('METER', chip(L.infiniteKi ? 'infinite (both)' : 'normal', L.infiniteKi, () => { L.infiniteKi = !L.infiniteKi; game.trainingCfg.infiniteKi = L.infiniteKi; render(); }));
   row('BOXES', chip(game.showBoxes ? 'ON' : 'OFF', game.showBoxes, () => { game.showBoxes = !game.showBoxes; render(); }));
+  // A/B the victim's hit flash live (ENG-064): the table is read every frame, so the next hit shows the change
+  row('HIT FLASH', ...FLASH_STYLES.map((s) => chip(s.toUpperCase(), HIT_FLASH.style === s, () => { HIT_FLASH.style = s; render(); })));
+  row('FLASH STR', ...[0.5, 0.75, 1, 1.25].map((v) => chip(v + '×', HIT_FLASH.strength === v, () => { HIT_FLASH.strength = v; render(); })));
   row('RESET', button('positions', () => { stopScripts(); place(3.2); }), button('refill HP', () => { for (const f of fighters()) f.hp = 1000; }));
   box.append(el('p', 'lab-help', 'Record: play a few seconds yourself, stop, then the dummy repeats it in a loop (mirrored toward you). Clash: how well the dummy plays a rhythm clash, from EASY (late presses, skipped notes) up. Pause and step to read frame data; the readout below shows both fighters every frame.'));
   return box;

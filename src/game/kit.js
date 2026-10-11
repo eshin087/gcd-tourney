@@ -660,7 +660,7 @@ const UPDATE = {
       f.faceOpponent();
       f.actor.setPhase('airHeavy', 1, 0.5);
       o.heldT = 0;
-      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash' }, dirTo(f, o));
+      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special' }, dirTo(f, o));
       if (S.finalFx === 'rasengan') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(0x6ab4ff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
@@ -688,8 +688,8 @@ const UPDATE = {
     f.actor.setPhase('superPose', 1, 0.5);
     if (k.t0 === S.delay) {
       if (!o.ko && !o.hidden && o.invuln <= 0) {
-        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'heavy' }, dirTo(f, o));
-        o.burn = { t: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f };
+        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'heavy', hitFlash: 'special' }, dirTo(f, o));
+        o.burn = { t: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f, color: S.color }; // color: the hit flash rim per tick
         for (let i = 0; i < 10; i++) burst(g, 'black', o.pos.x + (Math.random() - 0.5) * 1.1, o.pos.y + Math.random() * 1.2, o.pos.z, null, 1.6);
         g.hud.callout(f.index, S.callout ?? S.name, S.color);
         g.fx.overlay.flash('#000000', 0.5);
@@ -726,7 +726,7 @@ const UPDATE = {
         if (o.hittable && Math.hypot(dx, dz) < S.radius && o.pos.y < 3) {
           const d = tmp.set(dx, dz);
           if (d.lengthSq() < 1e-4) d.set(f.face.x, f.face.y);
-          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash' }, d.clone().normalize());
+          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special' }, d.clone().normalize());
           g.excite = 1;
         } else g.hud.callout(o.index, 'DODGED!', '#ffffff');
         k.phase = 'recover';
@@ -857,7 +857,7 @@ const UPDATE = {
       // the chakra roar, point blank: it blasts them into the barrier
       o.heldT = 0;
       f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
-      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, d);
+      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d);
       g.fx.spawn('ring', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 3.6, color: C.chakra, glow: 1.2, order: 8, depthTest: false });
       g.fx.explosion(p.x, p.y + 0.9, p.z, new THREE.Color(C.chakra));
       g.fx.overlay.impactFrame(4);
@@ -926,4 +926,28 @@ export function gravityScale(f) {
   if (k.kind === 'orb' || k.kind === 'reflex') return 0; // cast where they stand, in the air too
   if (k.kind === 'rampage') return k.phase === 'whiff' || k.phase === 'recover' ? 1 : 0;
   return 1;
+}
+
+// ------------------------------------------------------------------ recovery
+// Past the kit move's startup and active frames: a hit now punishes a whiff or a recovery instead of interrupting
+// the move, so the hit flash plays it as a normal hit, not a counter hit (hitFlash.js). One test per kind; a kind
+// without one never counts as recovering.
+const RECOVERING = {
+  teleport: (k, m, t) => t >= (m.startup ?? 0) + m.hide, // arrived
+  pull: (k, m, t) => t > m.startup, // the vortex is out
+  dive: (k) => k.phase === 'land',
+  counter: (k, m, t) => t >= m.len, // the stance is over (counterT 0)
+  mode: (k, m, t) => t > m.startup, // the mode is on
+  flurry: (k) => k.phase === 'land',
+  ignite: (k, m) => k.t0 > m.delay, // the flames are lit
+  skyStrike: (k) => k.phase === 'recover',
+  domain: (k) => k.phase === 'cast', // the void is up
+  orb: (k) => k.phase === 'fire', // the orb rolls on by itself
+  rampage: (k) => k.phase === 'whiff' || k.phase === 'recover',
+  reflex: (k) => k.phase === 'set',
+};
+
+export function inRecovery(f) {
+  const k = f.kitState;
+  return f.state === 'kit' && !!k && !!RECOVERING[k.kind]?.(k, k.m, f.t);
 }

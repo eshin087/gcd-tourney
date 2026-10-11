@@ -380,12 +380,30 @@ distance-to-line test.
 
 ## Camera and feedback per hit tier
 
-| Tier | Effects |
-|---|---|
-| light | small spark, `hit` sfx, shake 0.14 |
-| heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 |
-| smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s |
-| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer |
+| Tier | Effects | Victim flash (`HIT_FLASH`, default `pop` style) |
+|---|---|---|
+| light | small spark, `hit` sfx, shake 0.14 | 1 white frame, then lift + white rim through hitstop, 6-frame fade |
+| heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 | 2 white frames, warm rim, 7-frame fade |
+| smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s | 3 white frames, gold rim, 8-frame fade |
+| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer | 2 white frames (about a smash's 3 on screen under the 0.3× slow-mo), white rim, 10-frame fade |
+
+The victim flash has its own tiers (`flashTier` in `src/game/hitFlash.js`, first match wins): **ko** (the hit that
+KOs: white for up to 5 frames, about 0.4 s under the KO slow-mo), the move's **`hitFlash`** field (3-bar super
+finals, Hollow Purple and the special-clash outcomes say `'special'`: white through the hitstop, up to 5 frames),
+**special** (a big beam), **tick** (hitstop ≤ 3 and not big: beam, vortex, Lapse: Blue and flurry hits never pop,
+only a pulse of lift and rim), **counter** (the hit lands in the startup or active frames of the victim's own attack,
+a kit move, a throw reach or a beam charge: white for up to 4 frames, orange rim; punishing a whiff or a recovery,
+such as a dive's landing, a stance after it ends or a missed throw, is a normal hit, `kit.inRecovery`), **rush**
+(`special`: the 1-bar rush specials, the table's special row), then smash, heavy, light as in the table. Full white
+longer than a smash's 3 frames is only for counter hits, supers and KOs. From combo hit 6 a normal hit pops 1 frame
+at most. A **parry** gives the parrier 1 white frame and a cyan rim through the freeze; a
+**burn** tick (Amaterasu) gives no pop, just a soft lift and a rim in the burn's color. All of it is render only and
+counts every sim frame (through hitstop and freezes), so it never changes timing. The hitstop shake is a whole-frame
+alternation per tier (0.035 light .. 0.09 special; 0.04 on block), so the sprite never sits between pixels.
+
+Styles for A/B: `pop` (default), `tint` (no rim), `rim` (no pop below counter), `classic` (the old look: solid white
+through the hitstop plus 5 frames) and `off`. Switch them with `?flash=<style>` on the game page or the HIT FLASH and
+FLASH STR chips in the lab's Tools tab; under `?debug`, `window.HIT_FLASH` is the live table.
 
 ## CPU AI
 

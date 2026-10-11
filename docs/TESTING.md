@@ -21,6 +21,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&debug` | expose console helpers (below) |
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
+| `&flash=pop\|tint\|rim\|classic\|off` | the victim's hit flash style (default `pop`; `classic` = the old solid white), also on `/lab.html`; with `&debug`, `window.HIT_FLASH` tunes it live |
+| `&depthscale=0` | true perspective for fighter sprites (turns off the depth-normalized size, ENG-067); `0.5` = half strength |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 | `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
@@ -69,10 +71,10 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
+  wavedash, air combo, wall bounce, vanish, super dash, counter hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
-  dummy, infinite meter, boxes, reset. ` hides the panel; the keyboard and touch controls still play YOU.
+  dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, reset. ` hides the panel; the keyboard and touch controls still play YOU.
 - Scripts are timelines on the fighter's pad (`src/lab/scripts.js`), built from the kit data, so new fighters and moves
   appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands.
 
@@ -106,6 +108,10 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. Ground bounce happens once.
 - [ ] Every strike visibly **touches the body** when it connects, the spark sits on the contact point, and there
       are no hits across a visible depth gap.
+- [ ] Hit flash (ENG-064): the victim pops white for 1 (light), 2 (heavy) or 3 (smash) frames, then keeps its line
+      art with a bright rim and fades; never solid white through a string, a beam or a vortex. Counter hits (lab
+      **Counter hit**), supers and KOs stay white a little longer; a Rasengan or Chidori pops 2 frames, and punishing a
+      whiff (a missed throw, a dive's landing) is a normal hit. `?flash=classic` (or the lab chip) shows the old look.
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
 - [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:
@@ -157,6 +163,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       placeholder still looks chibi; that's expected until ENG-016.
 - [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
       chunky mode back for comparison.
+- [ ] Depth-normalized size (ENG-067): with `?debug`, `freezeCpu()`, `const [p1, p2] = game.fighters`, put the
+      fighters on a 45° diagonal (`p1.teleport(-1.41, 0, 1.41); p2.teleport(1.41, 0, -1.41); step(150)`) or lined
+      up in depth (`teleport(0, 0, ±1.5)`). Both stand the same height on screen (a screenshot), and
+      `game.fighters.map((f) => f.actor.depthK)` splits around 1 (about 0.95/1.05 on the diagonal, 0.90/1.10 lined
+      up; clamp 0.82..1.22). With `&depthscale=0` the nearer fighter is 11-23% bigger. Fighters level in depth keep
+      depthK 1 (no change from true perspective). A teleport of one fighter changes both sizes together, never one
+      alone. Ghost trails and the `?boxes` outlines match the scaled body, and a held Rasengan or Chidori sits on the
+      drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
+      depthK back to 1 over about half a second (no pop); ko and victory too.
 
 ### Mobile (landscape touch)
 
