@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style superPose v05 clean-cutout four-frame seal loop with isolated strict 48-color scale and loop QA (ART-NAR-TITLE).
+
 - Added: Naruto title-style throw v09 candidate with old v02 hand edits preserved; isolated scale passes, but release hand overshoots the gameplay contact zone and remains held (ART-NAR-TITLE).
 
 - Added: Naruto title-style intro v05 candidate with stable four-frame crossed-finger seal loop and isolated strict 48-color pack result (ART-NAR-TITLE).
