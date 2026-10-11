@@ -54,6 +54,7 @@ export const MOVES_HTML = `
   </div>`;
 
 const DUMMY_MODES = [['stand', 'STAND'], ['guard', 'GUARD'], ['jump', 'JUMP'], ['cpu', 'CPU']];
+const NO_COVER = Object.freeze({ x: 0, y: 0 }); // resultsCover() off the results screen
 
 export class Menus {
   constructor(root, game) {
@@ -520,24 +521,46 @@ export class Menus {
     this.ctrl = ctrl;
   }
 
-  results(winner, asset, onRematch, onChars, onTitle) {
+  // Post-match: the live 3D winner is the hero shot (camera 'results'; Game.render shifts the projection by
+  // resultsCover()), so this screen is only a slim side panel: no second sprite, no full-screen dim.
+  results(winner, onRematch, onChars, onTitle) {
     this.clear();
     this.screen = 'results';
-    this.root.classList.add('panel-screen', 'results');
-    const head = el('div', 'res-head');
-    const cv = document.createElement('canvas');
-    cv.width = asset.meta.frameWidth; cv.height = asset.meta.frameHeight;
-    cv.className = 'cs-sprite big';
-    head.append(cv, el('div', 'res-text', `<div class="res-win">WINNER</div><div class="res-name" style="color:${winner.def.color}">${winner.def.name}</div>`));
-    this.root.append(head);
-    this.previews = [new SpritePreview(cv, asset, 'win')];
+    this._resCover = null;
+    this.root.classList.add('results-screen');
+    const d = winner.def;
+    const tag = ({ solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'] }[this.game.cfg?.mode] || ['P1', 'P2'])[winner.index];
+    const panel = el('div', 'res-panel');
+    panel.append(el('div', 'res-text',
+      `<div class="res-win">WINNER · ${tag}</div><div class="res-name" style="color:${d.color};--len:${d.name.length}">${d.name}</div>` +
+      (d.subtitle ? `<div class="res-sub">${d.subtitle}</div>` : '')));
     const { box, ctrl } = this.list([
       { label: 'REMATCH', action: onRematch },
       { label: 'CHARACTER SELECT', action: onChars },
       { label: 'TITLE', action: onTitle },
-    ]);
-    this.root.append(box);
+    ], { cls: 'res-list' });
+    panel.append(box);
+    this.root.append(panel);
     this.ctrl = ctrl;
+  }
+
+  // Screen fractions the results panel hides: x from the right (side column) or y from the bottom (the bar a
+  // window narrower than 3:4 gets). Layout offsets ignore the slide-in transform, so the shot moves once, not
+  // with the animation. Cached like panelCover: reading layout every frame would force a reflow per frame.
+  resultsCover() {
+    if (this.screen !== 'results') return NO_COVER;
+    const now = performance.now();
+    if (!this._resCover || now - this._resCover.t > 500) {
+      const p = this.root.querySelector('.res-panel');
+      const W = this.root.clientWidth || window.innerWidth, H = this.root.clientHeight || window.innerHeight;
+      const bar = !!p && p.offsetWidth > W * 0.7;
+      this._resCover = {
+        t: now,
+        x: p && !bar ? Math.max(0, Math.min(0.5, 1 - p.offsetLeft / W)) : 0,
+        y: p && bar ? Math.max(0, Math.min(0.5, 1 - p.offsetTop / H)) : 0,
+      };
+    }
+    return this._resCover;
   }
 }
 

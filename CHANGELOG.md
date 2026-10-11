@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the results screen no longer shows a second, smaller winner sprite or covers the winner (ENG-063): the match ends on a cut to the winner alone (the KO'd loser leaves the shot), whole and undimmed beside a slim side panel (a bottom bar in narrow windows) with the WINNER tag, name and subtitle, on a steady swaying hero camera that never mirrors the sprite.
+
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
