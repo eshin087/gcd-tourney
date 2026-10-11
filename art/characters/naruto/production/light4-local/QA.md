@@ -11,3 +11,7 @@ Full strict pack command: node tools/pack-sprites.mjs naruto --quantize48 --stri
 Actual public/characters/naruto atlas and packer-written frames now updated. Review cells use that actual atlas, not warning-only scratch. [Strict log](v07-strict.log), [heads](qa/heads-naruto.png), [lineup](qa/lineup.png), [patch verification](qa/patch-verification.json), [exact prompt](PROMPT.md). Lineup includes older other-character assets in this worktree and is only cast context.
 
 Recommendation: approve naruto light4 v07. New pixels still require that user decision; no merge or production deployment performed.
+
+## Approval2026-10-11
+
+User explicitly approved naruto light4 v07. Manifest approvedVersion7 and REVIEW approval recorded; older pending versions superseded. No new generation. Strict repack/build verification follows in approval-strict.log. Ready for Claude to merge art/naruto-proportions when cast gates clear; no worker merge or production deployment.

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- User approved Naruto light4 v07; superseded pending light4 versions archived. Naruto strict repack passes; PR63 ready for Claude integration when cast gates clear.
+
 - Naruto light4 v07: localized generated f0 hair correction clears full strict scale packing. Other seven poses and all bodies preserved; candidate atlas updated, image approval pending.
 
 - Recorded user approval of Naruto heavy v10, throw v05 and airLight3 v05. Three additional light4 corrections retained v05 (v06 inferior retry archived), still held by the strict scale gate; runtime atlas remains unchanged.
