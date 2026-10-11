@@ -1,3 +1,5 @@
+> Active full redraw: userapproved height_neutral v01 on2026-10-11. [PROPORTION_REDRAW](PROPORTION_REDRAW.md) and [shared baseline](../../scale/APPROVED_CAST_BASELINE.md) supersede historical build/height/head instructions below. KIT motion remains authoritative.
+
 # Gojo: image prompts (generation order)
 
 > ART-GOJ-BUILD, 2026-10-10: BUILD_REDRAW.md section 4 is the active S1 brief. Model v05 is a sandbox candidate with failing QA; do not use it as a reference. The full section 10 prompt/doc migration and idle v04 wait for a passing user-approved model. The old slender-build instructions below describe the still-approved shipping set and must not guide the build redraw.

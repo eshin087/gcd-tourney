@@ -1,0 +1,7 @@
+Anime fan-art pixel sprite strip, EXACTLY 4 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION win: ANIMATION: "win", victory pose with a peace sign. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+POSES lefttoright:
+1. Standing upright, body turned toward the viewer (about 50 degrees). The LEFT HAND IN HIS POCKET. The RIGHT HAND raised beside his face flashing a PEACE SIGN (index and middle fingers up and apart, palm toward the viewer) at cheek height, never above the top of his hair. Head tilted. Face: big grin. Blindfold on.
+2. Hair tips and the jacket hem flutter in a light breeze. Face: big grin.
+3. The peace sign tilts slightly (a playful wiggle). Face: big grin.
+4. Settle back toward frame 1, flutter variant. Face: big grin.
+SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

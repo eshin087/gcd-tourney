@@ -1,0 +1,170 @@
+[
+  { name: 'idle', head: 1, feet: 1, verdict: 'ref', clip: 0 },
+  { name: 'run', head: 1, feet: 0.962, verdict: 'ok', clip: 0 },
+  { name: 'dash', head: 0.997, feet: 1.078, verdict: 'ok', clip: 0 },
+  {
+    name: 'backDash',
+    head: 0.992,
+    feet: 1.009,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'superDash',
+    head: 0.997,
+    feet: 1.133,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'jumpSquat',
+    head: 1.08,
+    feet: 1.004,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  { name: 'jumpUp', head: 1.035, feet: 1.014, verdict: 'ok', clip: 0 },
+  { name: 'jumpFall', head: 1, feet: 0.939, verdict: 'ok', clip: 0 },
+  { name: 'land', head: 0.982, feet: 0.966, verdict: 'ok', clip: 0 },
+  { name: 'light1', head: 0.952, feet: 1.01, verdict: 'ok', clip: 0 },
+  { name: 'light2', head: 0.971, feet: 1.097, verdict: 'ok', clip: 0 },
+  { name: 'light3', head: 0.968, feet: 0.927, verdict: 'ok', clip: 0 },
+  { name: 'light4', head: 1.027, feet: 0.97, verdict: 'ok', clip: 0 },
+  { name: 'heavy', head: 1.029, feet: 1.045, verdict: 'ok', clip: 0 },
+  { name: 'airLight1', head: 1, feet: 0.952, verdict: 'ok', clip: 0 },
+  {
+    name: 'airLight2',
+    head: 1.059,
+    feet: 0.901,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'airLight3',
+    head: 0.971,
+    feet: 1.093,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'airHeavy',
+    head: 1.013,
+    feet: 0.902,
+    verdict: 'pop',
+    clip: 0
+  },
+  { name: 'guard', head: 1.015, feet: 1.018, verdict: 'ok', clip: 0 },
+  { name: 'block', head: 0.97, feet: 0.915, verdict: 'ok', clip: 0 },
+  {
+    name: 'hurtHigh',
+    head: 1.051,
+    feet: 1.045,
+    verdict: 'ok',
+    clip: 0
+  },
+  { name: 'hurtLow', head: 1, feet: 0.819, verdict: 'ok', clip: 0 },
+  {
+    name: 'launched',
+    head: 1.019,
+    feet: 0.954,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  {
+    name: 'spin',
+    head: 1.194,
+    feet: 0.887,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  {
+    name: 'airRecover',
+    head: 0.963,
+    feet: 0.805,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  {
+    name: 'down',
+    head: 1.054,
+    feet: 0.664,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  {
+    name: 'getup',
+    head: 1.001,
+    feet: 0.865,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  {
+    name: 'charge',
+    head: 0.898,
+    feet: 1.109,
+    verdict: 'drift',
+    clip: 0
+  },
+  { name: 'throw', head: 0.98, feet: 0.907, verdict: 'ok', clip: 0 },
+  {
+    name: 'beamCharge',
+    head: 1.059,
+    feet: 1.046,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'beamFire',
+    head: 1.003,
+    feet: 1.019,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'vanish',
+    head: 1.012,
+    feet: 1.015,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  { name: 'stagger', head: 0.974, feet: 0.964, verdict: 'ok', clip: 0 },
+  {
+    name: 'ko',
+    head: 1.006,
+    feet: 0.689,
+    verdict: 'unmeasured',
+    clip: 0
+  },
+  { name: 'special', head: 0.946, feet: 0.943, verdict: 'ok', clip: 0 },
+  { name: 'intro', head: 0.976, feet: 0.959, verdict: 'ok', clip: 0 },
+  { name: 'taunt', head: 1.029, feet: 1.106, verdict: 'ok', clip: 0 },
+  { name: 'win', head: 0.824, feet: 0.993, verdict: 'drift', clip: 0 },
+  {
+    name: 'specialForward',
+    head: 1.093,
+    feet: 0.885,
+    verdict: 'drift',
+    clip: 0
+  },
+  {
+    name: 'specialUp',
+    head: 1.041,
+    feet: 0.93,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'specialDown',
+    head: 0.946,
+    feet: 0.929,
+    verdict: 'ok',
+    clip: 0
+  },
+  {
+    name: 'superPose',
+    head: 0.98,
+    feet: 0.922,
+    verdict: 'ok',
+    clip: 0
+  }
+]

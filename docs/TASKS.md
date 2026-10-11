@@ -291,6 +291,13 @@ Palette follow-up: TOOL-SAS-IDLE-V06-MASK is resolved in art data by measured #2
 ### ART-SAS-NEUTRAL visual approval follow-up — 2026-10-11
 
 User blanket visual approval recorded for exact42 latest checkpoint versions. Technical and manual QA holds remain; shipping approval application deferred. REVIEW rows approved visually, manifest approvedVersion/baseline unchanged. Repack result: see art/characters/sasuke/reference/neutral-approval-pack.txt. Claude alone integrates/production. No further image generation authorized by this approval.
+**ART-GOJO-FULL-20261011**, Codex, in-progress. All42 redraw against approvedneutral. Own art/characters/gojo, Gojo manifest/review rows, Gojo pack outputs, art/scale/heads-gojo.png and review lineup. Port5224, real worktree art-gojo-full-redraw. Claudeonly integrates.
+
+ART-GOJO-FULL-20261011 checkpoint:42 source animations drawn,37 packed candidates;5 attempt-cap holds. Review page public/art-review/gojo-full-redraw. Not merge-ready; Claude alone integrates.
+Gojo checkpoint supplement: spin v03 corrects fuller hair within attempt 2/3; eight low-confidence poses remain explicit manual-QA holds. Five capped redraws remain blocked; no art approved.
+
+
+Gojo visual approval (2026-10-11): user approved the latest selected full-redraw checkpoint; exact 42 versions are in art/characters/gojo/redraw/USER_APPROVAL.json. Five technical failures and eight manual-QA holds remain. Shipping manifest promotion is deferred; no gate baseline change, merge or deployment. Claude owns integration.
 ## Low-confidence gate handoff — 2026-10-11
 
 TOOL-ROTATED-ANATOMY, Claude, done in TOOL-030 (`scaleManualQA`, verdict `manual`). The current scale probe deliberately returns `unmeasured` for lowConf animations before assessing numeric head thresholds (tools/scale-probe.mjs:338). The approved-neutral redraw has eight such Gojo poses: jumpSquat, launched, spin, airRecover, down, getup, vanish and ko. Their visible head may be measured correctly, so a blanket wrong-ROI exemption would be dishonest. Define and validate an axis-aware anatomical/manual evidence acceptance path that preserves the user's strict gate requirement, without silently treating `unmeasured` as `ok` or weakening thresholds. Codex retains per-frame contacts, independent landmarks and uncertainties; these are manual-QA holds, not new art approvals. This is a tooling/spec handoff, not permission for Codex to edit the probe or engine.
@@ -298,3 +305,12 @@ TOOL-ROTATED-ANATOMY, Claude, done in TOOL-030 (`scaleManualQA`, verdict `manual
 ART-SAS-CORRECT-R3 | Codex | review | charge09/special10 approvals applied; SF09 localized attempt rejected, recalibrated SF06 selected. Full strict pack exit0; getup04/SF06 still need user approval. Claude owns merge/production. See THIRD_CORRECTION_ROUND.md.
 
 ART-SAS-FINAL-APPROVAL | Codex | review | User approved SF06/getup04, Claude recorded048f703; final strict pack/build rechecked. All selected Sasuke animation approvals complete. Ready for Claude to merge art/sasuke-proportions when cast integration gates clear.
+ART-GOJO-CORRECT-20261011, Codex, review (integration blocked by airLight3). Four inbox corrections airLight3/airHeavy/charge/win; maximum3 additional generations each. Existing worktree/port5224. Claude remains coordinator. Own Gojo art/reference/manifest/review/QA plus generated outputs; no tooling or gate policy edits.
+
+Gojo correction round2026-10-11: airHeavy v06, charge v06, win v06 numeric ok and needs visual review. airLight3 v05 best remains technical hold; v06 rejected by QA. Three additional calls exhausted only for airLight3. Full strict pack exits1; production atlas unchanged. Exact evidence: redraw/CORRECTIONS_2026-10-11.md. Claude-only integration.
+
+2026-10-11 Gojo: user approved charge/airHeavy/win v06. Recorded approval, strict repack required. Fresh authorization: at most three more generation calls for airLight3 only; new pixels need review. Claude retains integration.
+
+2026-10-11 Gojo round2 complete: airLight3 v07 passes full strict pack (1 ref/33 ok/8 existing manual), awaiting fresh visual approval. charge/airHeavy/win v06 approved. Two of three new calls used. All six airLight3 frames inspected. Evidence: redraw/ROUND2.md.
+
+2026-10-11 user approved Gojo airLight3 v07 (five passing corrections). Approval recorded; v05 superseded and archived. Full strict repack/build before Claude handoff. Claude retains integration and cleanup.
