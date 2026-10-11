@@ -21,6 +21,12 @@ User-approved source: `reference/title_style_draft_v01.png`, plus the 256 px neu
 - v05 redrew both parts. Measured B factor 0.9959, final B/A 1.012. The packer's first import revealed the pose max height was about 438 source pixels; the measured idle-head source factor 0.3523 implied a 154 px run envelope. The gate at 154 px found hair ratio 1.06, just beyond tolerance. A 150 px envelope gives scale 0.342 and a numeric pass with no clipping. It was selected from those measurements and then checked visually, not chosen from the run's bounding box by eye.
 - [All eight packed frames](packed-run-v05.png) were extracted from the actual written atlas. Frame bounds are 125–151 px wide and 142–150 px high; every frame stays inside x4..251 and y4..240. The same face, hair, torso, lean build, long legs, sheath and costume persist. The sequence has left/right contacts, passing strides and flight phases; f7 flows into f0. Current candidate is technically packable but still awaits the full-set visual review.
 
+## Light1 v06
+
+- Seven-frame left-lead jab, four poses in A and three in B. Stitch measured B factor 1.0362, scaled A 0.9651, and reported final B/A 1.036; no guessed size factor.
+- `node tools/pack-sprites.mjs sasuke --quantize 48` selected `raw/light1_v06.png` at x0.355 and exited 0. [All seven actual packed cells](packed-light1-v06.png) were inspected. The active fist is the rightmost element at head level in f2/f3, with a small solid smear in f2; f4–f6 retract to the idle guard. Feet remain grounded and hair, torso and leg proportions read consistently.
+- Visual caveat: f1's punch is already near full extension, so the anticipation-to-impact distinction is modest. User final batch review remains pending.
+
 ## Remaining checks
 
 The escalated local Vite adapter served port 5222. The in-app browser showed two Sasuke fighters at the same game depth with the new idle, matched apparent height and grounded feet. The console logged `[sprites] using custom sheet for sasuke (42 animations)` and no errors. The production build passed (80 modules) and the adapter's HTTP self-check returned four 200 responses. Full production, full-character strict scale, contact/hurtbox validation, user image approval, integration and deployment remain open.

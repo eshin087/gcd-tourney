@@ -158,7 +158,7 @@
         "jumpUp": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [80, 80], "required": true, "step": 8, "scaleExemptFrames": { "0": "the raised fist and sleeve above the head are drawn in hair shades" }, "scaleExemptVersion": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
         "jumpFall": { "frames": 2, "loop": true, "bodyHeight": 209, "ms": [80, 80], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "land": { "frames": 2, "loop": false, "bodyHeight": 174, "ms": [50, 70], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "light1": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [30, 30, 40, 50, 50, 50, 30], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "light1": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 180, "ms": [30, 30, 40, 50, 50, 50, 30], "required": true, "step": 5, "status": "approved", "version": 6, "approvedVersion": 1 },
         "light2": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [35, 30, 40, 50, 60, 50, 30], "required": true, "step": 5, "status": "approved", "version": 2, "approvedVersion": 2 },
         "light3": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 215, "ms": [40, 35, 45, 60, 60, 60, 30], "required": true, "step": 5, "status": "approved", "version": 2, "approvedVersion": 2 },
         "light4": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 207, "ms": [50, 45, 35, 40, 70, 70, 70, 40], "required": true, "step": 5, "status": "approved", "version": 1, "approvedVersion": 1 },
