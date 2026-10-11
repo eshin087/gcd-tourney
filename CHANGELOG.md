@@ -11,11 +11,13 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): add title-style roundhouse v08 and correct light1 v09, light2 v07, light3 v08 recovery endpoints to the approved open-palm stance by measured reuse of generated idle source poses; preserve all prior versions and verify the 48-color atlas.
+
 - art(sasuke): add title-style front kick v07 with measured placement, unclipped active sandals and a recovery pose that rejoins the approved idle height; archive two rejected attempts.
 
-- art(sasuke): correct the lead jab's early extension and open-hand recovery in title-style v07; preserve rejected v06 and inspect all seven packed frames.
+- art(sasuke): correct the lead jab's early extension in title-style v07; preserve rejected v06 and inspect all seven packed frames. The v07 two-fist recovery was later rejected because the approved stance has an open lead palm.
 
-- art(sasuke): add title-style rear straight v06 candidate with measured stitch, strict new-strip scale pass and actual-atlas QA; archive enlarged-head v05 and flag light1 recovery for correction.
+- art(sasuke): add title-style rear straight v06 candidate with measured stitch, strict new-strip scale pass and actual-atlas QA; archive enlarged-head v05. Its closed-fist endpoint was later rejected against the approved open-palm stance.
 
 - art(sasuke): start approved title-style redraw with measured idle v07, corrected guard v04 and lead jab v06 candidates; preserve pilot references and document the guard mask exemption and pending full-batch QA.
 
