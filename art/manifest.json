@@ -1049,7 +1049,7 @@
           ],
           "step": 11,
           "status": "approved",
-          "version": 1,
+          "version": 2,
           "approvedVersion": 1
         },
         "cutin": {
@@ -1061,7 +1061,7 @@
           ],
           "step": 11,
           "status": "approved",
-          "version": 1,
+          "version": 2,
           "approvedVersion": 1
         },
         "select": {
@@ -1073,7 +1073,7 @@
           ],
           "step": 11,
           "status": "approved",
-          "version": 1,
+          "version": 2,
           "approvedVersion": 1
         }
       }
