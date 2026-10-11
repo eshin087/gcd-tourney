@@ -51,7 +51,7 @@ Record era, stature source/confidence and build in CHARACTER.md; create neutral 
 
 ## Coordinator handoff
 
-Formal updates to SPEC/ADRs and any renderer/reach/gameplay decisions remain Claude's. Candidate standingBodyPx values and existing anatomical sidecars suffice for art previews; shipping requires contact/hurtbox validation, especially smaller teens and taller Gojo. Do not tune gameplay to conceal art issues. No new asset is merge-ready without the user's final image decisions.
+Formal updates to SPEC/ADRs and any renderer/reach/gameplay decisions remain Claude's. Candidate standingBodyPx values and existing anatomical sidecars suffice for art previews; shipping requires contact/hurtbox validation, especially smaller teens and taller Gojo. The historical ENG-061 assumption of 30% wider Gojo hurt boxes is superseded; derive geometry from the lean approved frames. Do not tune gameplay to conceal art issues. No new asset is merge-ready without the user's final image decisions.
 
 Baseline artifacts: art/characters/<id>/reference/height_neutral_v01.png and fixed height_neutral.png. Measurement provenance: HEIGHT_STUDY_V01.md and public/art-review/cast-proportion-pilot/height_qa_v01.json. Approved gallery: public/art-review/cast-proportion-pilot/height_lineup_v01.png.
 
