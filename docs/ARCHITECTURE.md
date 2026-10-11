@@ -49,6 +49,8 @@ src/game/
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory; shake, zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
+  hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
+                            rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
@@ -119,7 +121,8 @@ freeze while the rest of the world keeps going. Projectile and beam hits don't f
 ### render (every rAF)
 
 ```
-fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms
+fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms (hit flash
+                            pop/lift/rim from hitFlash.js, charge tint, dodge shimmer, super flash)
 cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch
 fighters.sync again         (uses the camera's new right vector), ghost trails fade
 beams.sync, fx.update       VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
@@ -179,6 +182,11 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
   shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
+- **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
+  then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
+  `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
+  bleeds in from the next cell), then the `flash` mix toward `flashColor` and the ghost `silhouette`. Lift and rim
+  are 0 outside a hit, so those branches are skipped; `src/game/hitFlash.js` drives them per hit tier.
 - World size stays the same across art sources. The chibi placeholder (112 px cells, PPU 44) and spec v2
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
