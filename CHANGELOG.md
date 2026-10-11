@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Capture Killua jab stitch refinement failure: the old packed idle target clips new heads, then the probe selects a shirt hem; preserve per-frame ROI/provenance evidence for Claude without changing tools or waiving final art QA.
+
 - Killua scale-fix evidence: retain 19 asset candidates, side-on KO/down and measured long-strip redraws; block approval/integration on the failing palette-sensitive scale gate. Previous approved runtime sheet retained.
 
 - **Beam clash** (ENG-073, ADR 0027): two energy specials meeting head-on (Narukami, Reversal: Red, Chidori Spear, Great Fireball; Naruto drives a Rasengan / Rasenshuriken into one), or one fired while theirs flies at you, become a BEAM CLASH: both attacks turn into streams in their own colors, a 4.5 s rhythm struggle decides it (winner 120 + wall bounce, draw 45 each); CPU vs CPU shows at least one every match at any level (a spectator-only show director picks the moment), CPUs at every level sometimes answer your shots (only when a clash can start), lab scenarios Beam clash / Answer an energy shot / Beam clash from the air.

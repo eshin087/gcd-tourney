@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "LIGHT1 V04 A",
+    "file": "raw/_parts/light1_v04_A.png",
+    "rect": {
+      "x0": 129,
+      "x1": 455,
+      "y0": 60,
+      "y1": 676
+    },
+    "factor": 1
+  },
+  {
+    "label": "LIGHT1 V04 B",
+    "file": "raw/_parts/light1_v04_B.png",
+    "rect": {
+      "x0": 223,
+      "x1": 581,
+      "y0": 60,
+      "y1": 681
+    },
+    "factor": 1
+  }
+]
