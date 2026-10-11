@@ -106,7 +106,7 @@
         "spin": { "frames": 4, "loop": true, "bodyHeight": 160, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 2 },
         "airRecover": { "frames": 3, "loop": false, "bodyHeight": 180, "ms": [50, 50, 60], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 2 },
         "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "approved", "version": 3, "approvedVersion": 2 },
-        "getup": { "frames": 5, "loop": false, "bodyHeight": 204, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "getup": { "frames": 5, "loop": false, "bodyHeight": 204, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "approved", "version": 4, "approvedVersion": 2 },
         "charge": { "frames": 4, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 5, "approvedVersion": 4 },
         "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 201, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "approved", "version": 4, "approvedVersion": 2 },
         "beamCharge": {"frames":3,"loop":true,"bodyHeight":198,"ms":[50,50,50],"required":true,"step":7,"status":"approved","version": 6,"approvedVersion":5,"scaleExempt":"Four-Tails transformation has no blond hair; human hair probe cannot identify skull. Sidecar independently measures cranial dome to chin excluding fox ears and tails, preserves limb lengths. Anatomical audit required, not hair pass.","scaleExemptVersion":6},

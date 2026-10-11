@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto getup v04 fixes the floor palm direction and two-foot deep landing squat within original3-attempt cap; rotating-head scale remains explicitly unmeasured.
+
 - Naruto backDash v03 corrects push-off, backward-hop balance and landing with original attempt2; pack passes. Added per-part attempt-cap evidence for ten remaining technical holds.
 
 - Naruto: draft neutral-baseline checkpoint for all42 animations;32 packed candidates and10 technical holds, explicit unmeasured scale states, immutable sources, heads audit and browser review gallery. No new animation approved (ART-NAR-PROP,2026-10-11).

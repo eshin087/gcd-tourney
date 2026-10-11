@@ -32,7 +32,7 @@ GCD Tourney sprite packer v2
     spin         4     <- raw/spin_v03.png             x1  (re-imported: replaces frames/ cleaned from raw/spin_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 25.21402951469189px; bounds are pose-dependent)
     airRecover   3     <- raw/airRecover_v03.png       x1  (re-imported: replaces frames/ cleaned from raw/airRecover_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 25.21402951469189px; bounds are pose-dependent)
     down         2     <- raw/down_v03.png             x1  (re-imported: replaces frames/ cleaned from raw/down_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 25.21402951469189px; bounds are pose-dependent)
-    getup        5     <- raw/getup_v03.png            x1  (re-imported: replaces frames/ cleaned from raw/getup_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 25.21402951469189px; bounds are pose-dependent)
+    getup        5     <- raw/getup_v04.png            x1  (re-imported: replaces frames/ cleaned from raw/getup_v02.png; candidate v04 (approved: v02); anatomical scale: skull-to-chin 25.21402951469189px; bounds are pose-dependent)
     charge       4     <- frames/charge/ (raw/charge_v04.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
     throw        4     <- frames/throw/ (raw/throw_v02.png) x1
     beamCharge   3     <- raw/beamCharge_v06.png       x1  (re-imported: replaces frames/ cleaned from raw/beamCharge_v05.png; candidate v06 (approved: v05); anatomical scale: skull-to-chin 25.21402951469189px; bounds are pose-dependent)

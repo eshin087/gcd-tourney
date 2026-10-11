@@ -38,7 +38,7 @@ The stitch tool's packed-palette and refinement ROI can measure clothing after c
 | charge | v05 | v04 | old fallback: drift | Hold; correction required |
 | dash | v03 | v03 | ok | Candidate visual review |
 | down | v03 | v03 | unmeasured | Manual scale verification required |
-| getup | v03 | v03 | unmeasured | Manual scale verification required |
+| getup | v04 | v04 | unmeasured | Manual scale verification required |
 | guard | v04 | v04 | ok | Candidate visual review |
 | heavy | v08 | v07 | old fallback: pop | Hold; correction required |
 | hurtHigh | v02 | v01 | old fallback: unmeasured | Hold; correction required |
@@ -85,3 +85,5 @@ The stitch tool's packed-palette and refinement ROI can measure clothing after c
 | specialDown v03 | 3 | Hair1.163 and range.144, bowed head uncertainty |
 
 Unused attempts on a different passing part do not reset the failed part cap. No further attempts are assumed authorized. backDash has one unused original attempt; no clear further anatomy/pose failure remains after v03.
+
+Getup v04: original attempts2–3 targeted palms beside the head/fingers toward shoulders and a deep two-foot crouch landing. Saved best of3; no additional attempts authorized. Torso/head and other frames preserved. Rotating/occluded head probe remains unmeasured; this correction is pose evidence, not an automatic scale pass. See reference/getup_v04_generation.md.

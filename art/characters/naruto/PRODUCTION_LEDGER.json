@@ -1,6 +1,6 @@
 {
   "date": "2026-10-11",
-  "state": "draft checkpoint; 32 packed candidates, 10 technical holds; no new animation approved",
+  "state": "draft checkpoint;32 packed candidates,10 technical holds;no new animation approved",
   "records": [
     {
       "name": "airHeavy",
@@ -89,6 +89,14 @@
       "file": "art/characters/naruto/raw/getup_v03.png",
       "hold": false,
       "notes": "One attempt1984x800. Inferred f4 crown268 chin328=60 +/-6; head axes other poses approximate60. All5 intact but f0 hands oversized, f2 airborne gap and f3 near-kneeling silhouette require pose review. Low-confidence rotating heads not automatic proportion proof."
+    },
+    {
+      "name": "getup",
+      "version": 4,
+      "frames": 5,
+      "file": "art/characters/naruto/raw/getup_v04.png",
+      "hold": false,
+      "notes": "Original attempt3 of3, best retained. Targeted edits preserve1984x800 camera and anatomy; f4 inferred crown268 chin328=60 +/-6, other rotated skull axes same60 +/-8. F0 normal-size palm now beside ear with fingertips toward shoulder(screenright), far palm occluded; f3 deep squat both feet planted, knees clear of floor. F1 inversion and f2 airborne backarch preserved. Rotated/occluded hair remains unmeasured, not a scale pass."
     },
     {
       "name": "guard",

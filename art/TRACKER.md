@@ -557,7 +557,7 @@ All42 new sources attempted;32 packed candidates,10 technical holds. No new anim
 | charge | v05 | v04 | old fallback: drift | Hold; correction required |
 | dash | v03 | v03 | ok | Candidate visual review |
 | down | v03 | v03 | unmeasured | Manual scale verification required |
-| getup | v03 | v03 | unmeasured | Manual scale verification required |
+| getup | v04 | v04 | unmeasured | Manual scale verification required |
 | guard | v04 | v04 | ok | Candidate visual review |
 | heavy | v08 | v07 | old fallback: pop | Hold; correction required |
 | hurtHigh | v02 | v01 | old fallback: unmeasured | Hold; correction required |
