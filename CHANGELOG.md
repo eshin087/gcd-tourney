@@ -484,3 +484,4 @@ Reconstructed from the codebase when the changelog was introduced.
 [Unreleased]: #unreleased
 [0.2.0]: #020---2026-10-04
 [0.1.0]: #010---2026-10-04
+- User approved the four title-style v01 character references and scaled lineups; full animation production authorized with original down/KO poses preserved in the new style.

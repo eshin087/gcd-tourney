@@ -24,3 +24,6 @@ Read-only audit of main 7005b17: packed idle Killua 202–203 px including hair 
 ## Review gate
 
 Save `reference/title_style_draft_v01.png` per character, retain only the best of at most three attempts, and add individual REVIEW rows. No new fallen sprites. User reviews this pilot before any full set, rollback or runtime change. Claude remains integration and production coordinator.
+
+## Approval and production authorization (2026-10-11)
+User approved all four v01 sheets and the displayed shared-size neutral/combat lineups. This supersedes the draft-only stop above. Full production is authorized with internal idle/guard validation first. Preserve original down/KO poses and redraw their appearance. Subsequent generated strips are not automatically approved. See PRODUCTION_CONTRACT.md.
