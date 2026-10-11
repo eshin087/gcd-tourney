@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style throw v09 candidate with old v02 hand edits preserved; isolated scale passes, but release hand overshoots the gameplay contact zone and remains held (ART-NAR-TITLE).
+
 - Added: Naruto title-style intro v05 candidate with stable four-frame crossed-finger seal loop and isolated strict 48-color pack result (ART-NAR-TITLE).
 
 - Added: Naruto title-style stagger v05 four-frame candidate; isolated scale gate passes, but opposite sway lacks distinction and remains a motion hold (ART-NAR-TITLE).
