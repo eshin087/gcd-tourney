@@ -1,0 +1,37 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/killua/production/title-style/qa-reference-art
+  out:  public/preview/killua-reference-diagnostic
+  anims: animGuide.js + art/characters/killua/production/title-style/qa-reference-art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== killua ======================================================
+  packed 17 anims, 44 frames -> sheet 4096x768, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         1     <- raw/idle_v01.png             x1
+    dash         2     <- raw/dash_v05.png             x0.217  (removed 9 specks)
+    backDash     3     <- raw/backDash_v04.png         x0.252
+    superDash    2     <- raw/superDash_v06.png        x0.226  (removed 26 specks)
+    jumpSquat    1     <- raw/jumpSquat_v05.png        x0.153
+    jumpUp       2     <- raw/jumpUp_v05.png           x0.22  (removed 16 specks)
+    jumpFall     2     <- raw/jumpFall_v05.png         x0.218  (removed 20 specks)
+    land         2     <- raw/land_v04.png             x0.208  (removed 7 specks)
+    airLight1    5     <- raw/airLight1_v06.png        x0.317  (removed 17 specks; split 1 touching pose group(s))
+    airLight2    5     <- raw/airLight2_v07.png        x0.374  (removed 20 specks)
+    hurtHigh     3     <- raw/hurtHigh_v06.png         x0.235  (removed 4 specks)
+    hurtLow      3     <- raw/hurtLow_v06.png          x0.22
+    down         2     <- raw/down_v07.png             x0.263
+    ko           1     <- raw/ko_v08.png               x0.14
+    intro        4     <- raw/intro_v04.png            x0.246  (removed 11 specks)
+    taunt        2     <- raw/taunt_v04.png            x0.222  (removed 7 specks)
+    win          4     <- raw/win_v04.png              x0.256  (removed 5 specks)
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 11 ok, 3 unmeasured, 1 uniform, 1 drift
+    ~ taunt head 1.07 of idle (feet 1.11): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v04]
+    ~ win head 1.09 of idle (feet 1.03): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v04]
+  missing core (14): run, light1, light2, light3, light4, heavy, airHeavy, guard, launched, getup, charge, beamCharge, beamFire, special
+  missing optional (11): airLight3, block, spin, airRecover, throw, vanish, stagger, specialForward, specialUp, specialDown, superPose
+  - palette snapped to 48 colors
+  ! down: 1 lying frame(s) float above the floor line (#1: 19% of the body within 5px of y 240, worst fifth 16px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  ! ko: 1 lying frame(s) float above the floor line (#0: 11% of the body within 5px of y 240, worst fifth 24px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  wrote public/preview/killua-reference-diagnostic/characters/killua/sheet.png
+  wrote public/preview/killua-reference-diagnostic/characters/killua/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 2 warning(s).
