@@ -44,6 +44,15 @@ when a decision should be revisited.
 | [0016](0016-showcase-cpu.md) | Showcase CPU: every CPU shows its kit (shared `Showcase` weights), CPU vs CPU plays short combos and mid-range kit for the viewer | Accepted |
 | [0017](0017-ultimate-variety-and-rhythm-clashes.md) | Every ultimate its own shape (orb, rampage, reflex; one beam at most), ultimate clashes as a rhythm duel | Accepted |
 | [0018](0018-preview-deploys-and-test-lab.md) | A Vercel preview link per PR (`npm run pr -- preview`) and a test lab page | Accepted |
+| [0019](0019-generative-lofi-music.md) | Chill generative lo-fi music: seeded composer + WebAudio performer, moods, ducks, music volume | Proposed (in PR) |
+| [0020](0020-lying-pose-ground-contact.md) | Lying poses touch the floor: packer ground check, per-frame footprint, grounded KO shadow | Proposed (in PR) |
+| [0021](0021-scale-gate-and-depth-normalized-sprites.md) | Measured scale gate for every packed frame; depth-normalized fighter sprites in fight cameras | Proposed (in PR) |
+| [0022](0022-combo-escape-and-true-combos.md) | Combo escape: hold-Guard tech, once-per-round Burst, the blue counter for escapable combos, callout banners | Proposed (in PR) |
+| [0023](0023-canon-power-up-styles.md) | Canon power-ups as per-fighter charge-style data under a VFX budget | Proposed (in PR) |
+| [0024](0024-ground-damage-decals.md) | Ground damage: force tiers, element styles, a separate decal atlas kind | Proposed (in PR) |
+| [0025](0025-cpu-defense-personas.md) | CPU defense personas, reads and exchanges for CPU vs CPU (amends 0016) | Proposed (in PR) |
+| [0026](0026-combo-composer-and-bounce-budget.md) | Seeded CPU combo composer and a per-combo bounce budget (amends 0016) | Proposed (in PR) |
+| [0027](0027-beam-clash-energy-struggles.md) | Beam clashes: energy specials that meet become a struggle; show director for CPU vs CPU | Proposed (in PR) |
 
 ## Template
 
