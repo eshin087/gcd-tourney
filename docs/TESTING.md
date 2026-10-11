@@ -41,6 +41,9 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
 | `music.state()` | the music (ADR 0019): mood, seed, song, section, bar, heat, ducks, volume, scheduler running |
 | `music.next()` / `music.seed(n)` | a new song (or song `n`) from the next bar; `?musicSeed=N` seeds the first one |
+| `soak(n, pairs, level)` | n CPU vs CPU matches back to back (`pairs` like `[['naruto','sasuke'], ...]`, cycled), stepped in chunks so it runs in a hidden tab; returns `soakStatus` (errors, NaN positions, ring-outs outside a KO, a state stuck for 10 s, `finished`) |
+| `comboStats()` | the CPU combos since the page loaded (ADR 0026): hit histogram, 12+ hit combos per match, matches with a handball (2+ wall bounces) or 3 wall bounces, in-combo vanishes per match, distinct routes, repeats of a CPU's previous route, combo-time share, round lengths, how combos ended, link success, personas, edge counts. Raw data: `comboRecs`, `comboLog` (with each decision's options in `steps`), `comboLinks`, `roundRecs` |
+| `?seed=N` | fixes the match seed: the same CPU personas and combo draws (the rest of the sim still uses `Math.random`) |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
 guard, `KeyO` dash.
@@ -71,11 +74,14 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo, wall bounce, vanish,
-  super dash, counter hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A
-  scenario that the current pair can't show says so (for example "needs two rush specials").
+  wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo, wall bounce, handball
+  (3 wall bounces) and vanish ping-pong (ADR 0026), vanish, super dash, counter hit (hit flash), counter stance,
+  Whirlwind, Hollow Purple vs a projectile. A scenario that the current pair can't show says so (for example "needs
+  two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
-  dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, reset. ` hides the panel; the keyboard and touch controls still play YOU.
+  dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, **CPU YOU** (you play
+  as the showman CPU with a combo persona, or AUTO; with DUMMY STAND every route the combo composer plans shows, and
+  the readout names the persona and the route), reset. ` hides the panel; the keyboard and touch controls still play YOU.
 - Scripts are timelines on the fighter's pad (`src/lab/scripts.js`), built from the kit data, so new fighters and moves
   appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands.
 
@@ -106,7 +112,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 
 **Offense**
 - [ ] Light ×4 auto combo. light4 wall-bounces at the barrier.
-- [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. Ground bounce happens once.
+- [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. The victim ground-bounces.
+- [ ] Bounce budget (ADR 0026): at most 3 wall bounces (air stun 32 / 28 / 22) and 2 ground bounces (30 / 24) per
+      combo; a 4th wall-bounce hit just knocks them down. Lab **Handball (3 wall bounces)**: WALL BOUNCE!, WALL BOUNCE
+      ×2!, HANDBALL!, chips WALL ▸ DASH ▸ WALL ▸ VANISH ▸ WALL beside the counter, all four fighters (9 hits; Sasuke 8).
+      **Vanish ping-pong**: two vanishes, VANISH ×2!, a gold (true) counter.
+- [ ] Combo ticker and rating (every match): techniques as chips beside the combo counter (clear of the special-name
+      callout under it); when a combo ends, GREAT (10+), AMAZING (15+), LEGENDARY (20+) or STYLISH! (4+ different
+      techniques) under the count. A super that grabs a reeling victim keeps counting (Killua: Light ×3 → SUPER = 12
+      hits, GREAT).
 - [ ] Every strike visibly **touches the body** when it connects, the spark sits on the contact point, and there
       are no hits across a visible depth gap.
 - [ ] Hit flash (ENG-064): the victim pops white for 1 (light), 2 (heavy) or 3 (smash) frames, then keeps its line
@@ -245,7 +259,8 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
 4. **Defense check**: script P1 to throw Heavy / Rasengan at the CPU from 1.1 / 3.0 units. Expect a mix of
    parry, spot dodge and block, no clean hits, and a punish after parries and blocked Heavies.
 5. **CPU vs CPU**: the soak below with `mode=cpu` (both IMPOSSIBLE, showman, ADR 0016). Rounds should end by KO
-   in about 35-70 s, with combos of 3-7 hits ending in a special or vanish, and no stuck states. Over a match
+   in about 30-60 s, with varied combos from the combo composer (ADR 0026, the targets in the soak section), and no
+   stuck states. Over a match
    each fighter should show most of its kit and at least one three-bar move, plus parries, spot dodges, air
    dodges ("DODGE!" / "AIR DODGE!" callouts), wavedashes and charging. After a match,
    `game.brains.map((b) => b.show.unseen())` lists what each CPU never used; expect 0-4 tools each (fewer
@@ -326,7 +341,29 @@ const soak = setInterval(() => {
    by KO or time, and the frame rate stays smooth.
 4. For long soaks, switch characters (`?fight=sasuke,naruto`, mirror matches) and levels.
 
-If `src/main.js` gains a built-in soak helper later, prefer it and update this section.
+**Built-in (CPU vs CPU, also in a hidden tab):** open `/?fight=naruto,sasuke&mode=cpu&debug`, then
+`soak(10, [['naruto','sasuke'], ['killua','gojo'], ['gojo','naruto'], ['sasuke','killua'], ['naruto','killua'],
+['gojo','sasuke'], ['killua','naruto'], ['sasuke','gojo'], ['naruto','gojo'], ['killua','sasuke']])`. Poll
+`soakStatus` (`errors`, `nan`, `ring`, `stuck` must stay empty / 0; `finished`), then `comboStats()`. A hidden tab
+throttles timers, so keep a console call awaiting (or the pane visible) while it runs.
+
+**Combo composer targets** (ADR 0026, after changes to `aiCombo.js`, `JUGGLE`, hit boxes or MasterBrain), over 10+
+matches with all four fighters:
+
+| `comboStats()` | target | 2026-10-10 (2 × 12 matches) |
+|---|---|---|
+| `links.connected` (planned links that landed) | ≥ 85 % | 98-99 % |
+| `blue` (combos with a gap) | ~0 (the composer only plans true links) | 0-1 % |
+| `endedBy.tech` share | < 15 % | 12-17 % |
+| `handballMatches` (a combo with 2+ wall bounces) | ≥ 50 % of matches | 75 % |
+| `vanishPerMatch` (in-combo vanishes) | ≥ 1 | 4.1-4.3 |
+| `distinctRoutes` / `repeatPrev` | ≥ 80 % / ~0 | 86-90 % / 0 |
+| `comboShare` (fight time in combos) | 35-55 % | 48 % |
+| `rounds.avg` | 30-75 s | 36 s (min 20) |
+| `long12PerMatch` (combos of 12+ hits) | ≥ 1 per match (design goal) | 0.25-0.33: not met. Without meter a true combo tops out near 10-11 hits under the current decay (ADR 0022); 12+ comes from a grind special (Rasenshuriken, Lapse: Blue), a vanish chain or a super carried on |
+
+`comboLog[i].steps` lists each decision of a combo with the edges that were possible and their weights, which is the
+place to start when a route ends early.
 
 ## Balance round-robin (CPU vs CPU)
 

@@ -246,7 +246,9 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 
 ### Held state
 - `held` (Domain, Infinity counter, flurry): the victim can't act or air-tech, drifts down slowly if
-  airborne (gravity x 0.25), and counts down `heldT`. Hits during it combo normally.
+  airborne (gravity x 0.25), and counts down `heldT`. Hits during it combo normally. A super that grabs a victim
+  who is still in a combo (a flurry, the Four-Tails maul) carries that combo on, count and scaling, instead of
+  starting a new one at 1 (ADR 0026); a throw's grip always starts a fresh combo.
 
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
@@ -505,11 +507,10 @@ Easy 0.3, Normal 0.5, Hard 0.7, IMPOSSIBLE 0.35, showman 1. The CPUs end strings
 hasn't seen, pick the super or ultimate by the same weights, and spend more of their ki on the kit.
 
 **IMPOSSIBLE** (ADR 0014) is a separate brain, `MasterBrain` in `src/game/aiMaster.js`, chosen by
-`makeBrain(fighter, level, spectate)` in `ai.js`. It still only presses buttons, and it reads what the screen
+`makeBrain(fighter, level, spectate, seed)` in `ai.js`. It still only presses buttons, and it reads what the screen
 shows (states, frames, positions), never the opponent's Pad. Each frame, in order: recover (tech at the first
-legal frame, varied wake-up), its own move (hit-confirmed routes: specials only when they land before the
-victim's stun runs out, spike while the super dash can follow the bounce, super dash and vanish extensions, a
-lethal check that spends supers and ultimates), threats (when and whether the opponent's move can reach it,
+legal frame, varied wake-up), its own move (its combos are the **combo composer**'s, below, plus a lethal check
+that spends supers and ultimates), threats (when and whether the opponent's move can reach it,
 seen after `react` frames, answered once with a timed parry, a spot dodge that leaves a punish, block, super
 dash through projectiles, counter, vanish, counter-beam, depth sidestep or air dodge), punishes (the
 opponent's remaining recovery against jab, dash-in light, shots, teleports or a lethal super), wake-up meaties
@@ -522,14 +523,45 @@ half the time, max-damage routes), `insane` (the INSANE level between HARD and I
 12 f, parries 28%, dodges and techs less, and drops 15% of its combos after 2-3 hits via `drop`) and `showman`
 (CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
 
-The **showman** plays for the viewer: short combos that end in a special, shot, teleport or vanish kick (the
-launcher route stops extending at `cap` = 5 hits), mid-range neutral with the kit (zoning, kit tools, air
-specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset to mid range) rather than
+The **showman** plays for the viewer: long, varied combos from the combo composer (below), mid-range neutral with
+the kit (zoning, kit tools, air specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset
+to mid range) rather than
 jab pressure, a plain block as its least likely answer, and free ki spending except that it saves up (and
 powers up) for its first three-bar move of the match. When both fighters' ultimates can clash (Hollow Purple,
 Four-Tails, a beam), that first three-bar moment is reserved for a **clash** (ENG-056, once per match): it keeps
 three bars, fires its ultimate only once the opponent has three too, and otherwise answers theirs; it gives up for
 the round after 10 s at three bars or with under 20 s on the clock. The training dummy plays any clash at the CLASH level picked in the lab.
+
+### Combo composer (ADR 0026, `src/game/aiCombo.js`)
+
+MasterBrain's combos come from a `ComboComposer`. At each decision point of a combo it runs (a ground light, the
+launcher or an air light connected; another move connected; free in the air beside the victim; air-locked after an
+air string; the victim bounced off the barrier or the floor; free on the ground while they reel) it picks one
+**edge**: a chain, launch, chase, super dash, vanish (a 2nd and 3rd in one combo are the ping-pong), any kit special
+by its kind, waiting for a bounce that is coming, meeting the victim from the ground (the handball light off the wall,
+a jab, a dash-in light, a heavy relaunch), a three-bar move that carries the combo on, or the end.
+
+- **Only true links.** Each edge's link gap is checked against the victim's stun left with **2+ frames of margin**
+  (a victim holding Guard techs on the first open frame), using `JUGGLE`, a forecast of the victim's flight (barrier
+  and floor bounces, the bounce budget, hitstop) and the art's hit boxes (a strike drawn high misses a crouched body).
+  It learns per match from the links it pressed (success rate, how late they land).
+- **Personas** (one per CPU per match, drawn from the brain's seeded rng and the kit data): rushdown, juggler,
+  vanish artist, wall bouncer, kit showman, with 30 % of a second one blended in. They weight edge tags (wall,
+  handball, vanish, air, relaunch, kit, ...), the length tiers and ki appetite, and nudge the neutral starters.
+  IMPOSSIBLE and INSANE use `optimal`: the highest-priority edge that links, as long as it links.
+- **Length tiers** per combo: short 4-7, medium 8-12, highlight 13-20 hits, with a governor: a highlight is likelier
+  after 20 s of a round without one and with two bars of meter, rarer after one, and both long tiers are rarer while
+  combos fill more than half the fight time. Enders weigh less while the target is far; extenders weigh less once it
+  is reached. Long tiers look one step ahead (the stun window an edge leaves; no dead ends).
+- **Variety**: freshness (an edge used often this match weighs less), a cooldown on routes that repeat a 3-edge
+  opening of either CPU's recent routes, and the Showcase bias. `?seed=N` fixes the match seed (the personas and
+  every draw).
+- **Burst threat** (ADR 0022): against an unused burst with 2 bars, cautious personas draw fewer highlights and cash
+  out sooner, risk-loving ones bait it more.
+
+The viewer sees it all in every match: WALL BOUNCE! / WALL BOUNCE ×2! / HANDBALL!, GROUND BOUNCE!, RELAUNCH! and
+VANISH ×2! banners, a ticker of the combo's techniques beside the counter, and a rating when it ends (GREAT 10+,
+AMAZING 15+, LEGENDARY 20+ hits, STYLISH! with 4+ different techniques).
 
 ## Bread-and-butter route (reference)
 

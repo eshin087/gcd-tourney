@@ -49,10 +49,11 @@ Then open http://127.0.0.1:5188
   dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
 - **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
-  in its showman style: short flashy combos, every special and super in the kit, spells dodged and parried,
-  techs, tech rolls and bursts out of combos, wavedashes and power-ups, each called out on a banner (PARRY!,
-  DODGE!, TECH!, BURST!, PUNISH!...), so you see what the engine can do; Esc / Start pauses and
-  the results screen offers a rematch
+  in its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
+  "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
+  ones get a rating), every special and super in the kit, spells dodged and parried, techs, tech rolls and bursts out
+  of combos, wavedashes and power-ups, each called out on a banner (PARRY!, DODGE!, TECH!, BURST!, HANDBALL!...), so
+  you see what the engine can do; Esc / Start pauses and the results screen offers a rematch
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time
@@ -200,10 +201,12 @@ docs/          architecture, combat design, workflows, ADRs, task board
 
 - `/?fight=naruto,sasuke&mode=solo&level=hard` skips the menus and starts a match (`level` = easy, normal, hard
   insane or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
+  `&seed=N` fixes the match seed (the CPUs' combo styles and choices).
 - `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
 - `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
   `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,
-  `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song). See
+  `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song), `soak(n, pairs)` and
+  `comboStats()` (CPU vs CPU matches back to back and what the CPUs' combos did). See
   [docs/TESTING.md](docs/TESTING.md) for the test checklists and the CPU-vs-CPU soak.
 
 ## Docs
