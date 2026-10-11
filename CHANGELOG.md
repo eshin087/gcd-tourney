@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke second correction round: record approved superDashv04; chargev09 and specialv10 pass scale checks. Strongest specialForwardv06 retained with explicit hold, getupv04 unchanged for Claude manualQA.
+
 - Sasuke post-approval correction candidates and complete frame evidence: refreshed approved idle guide, localized charge/rush edits, corrected getup proportions and superDash clearance; four strict/manual holds remain, no new approvals or production atlas.
 
 - Sasuke: record user blanket visual approval for latest42 reviewed checkpoint versions (2026-10-11); preserve six technical failures and manual continuity holds, defer shipping application to QA/Claude integration.

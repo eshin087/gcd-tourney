@@ -1,5 +1,7 @@
 # Art tracker
 
+Sasuke second correction round: superDashv04 user approval applied. Selected new chargev09 and specialv10 pass; specialForwardv06 remains best with strict pop, v07/v08 rejected immutable. getupv04 unchanged for Claude manualQA. New sources need review; see characters/sasuke/production/SECOND_CORRECTION_ROUND.md.
+
 Sasuke post-approval correction checkpoint: charge v08/getup v04/special v06 (v07 rejected)/specialForward v05/superDash v04 need review. Strict pack retains four holds; all extra generation caps respected. Stronger special alternative v06 retained. See characters/sasuke/production/POST_APPROVAL_QA.md.
 
 Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
