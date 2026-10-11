@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
 import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW } from './moves.js';
-import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP } from './constants.js';
+import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
@@ -14,6 +14,11 @@ const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 // out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
 const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge', 'throw']);
 const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
+// A KO'd body lies up to about 2 units long (254 px / 128 ppu) across the screen. Within half that of the ring edge it
+// would rest with its head or feet hanging over the drop (or sunk in the lip), so it keeps sliding off onto the grass.
+const KO_EDGE = 1.0;
+const KO_SLIDE = 3; // units/s the body slides outward while it is within KO_EDGE of the edge
+const AXES = ['x', 'z'];
 
 export class Fighter {
   constructor(game, def, asset, index) {
@@ -1214,6 +1219,7 @@ export class Fighter {
   // Destructive finish: no ring barrier, drop off the ring onto the grass,
   // crash into the stands' walls.
   koPhysics() {
+    if (this.state === 'down' && !this.air) this.slideOffEdge();
     this.pos.addScaledVector(this.vel, DT);
     const onRing = Math.abs(this.pos.x) <= RING_HALF && Math.abs(this.pos.z) <= RING_HALF;
     const floor = onRing ? 0 : -RING_TOP;
@@ -1252,6 +1258,21 @@ export class Fighter {
       }
       if (!this.air) { this.vel.y = 0; this.vel.x *= 0.9; this.vel.z *= 0.9; }
     } else this.air = true;
+  }
+
+  // A KO'd body never comes to rest across the ring edge (ADR 0020): on the ring within KO_EDGE of the edge, or on the
+  // grass within the lip + KO_EDGE of it, it keeps sliding outward until it lies clear, and drops onto the grass on the way.
+  slideOffEdge() {
+    const lim = RING_HALF + RING_LIP + KO_EDGE;
+    if (Math.abs(this.pos.x) >= lim || Math.abs(this.pos.z) >= lim) return;
+    const onRing = Math.abs(this.pos.x) <= RING_HALF && Math.abs(this.pos.z) <= RING_HALF;
+    for (const k of AXES) {
+      const a = Math.abs(this.pos[k]);
+      // off the ring only the axis it went over matters (beside the ring along the other axis is fine)
+      if (a <= RING_HALF - KO_EDGE || (!onRing && a <= RING_HALF)) continue;
+      const s = Math.sign(this.pos[k]) || 1;
+      if (this.vel[k] * s < KO_SLIDE) this.vel[k] = s * KO_SLIDE;
+    }
   }
 
   // --------------------------------------------------------------- getting hit
