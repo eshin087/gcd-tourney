@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fracture_cursed_big_v02.png",
+  "version": 2,
+  "source": [
+    "decals/raw/fracture_cursed_big_v02.png",
+    "decals/raw/fracture_cursed_big_v02.json"
+  ],
+  "sourceHash": "0777312916f5b529b53c00d7afbc258d6482ffe6",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "fracture_cursed_big_00.png": "ccd20114357cd6fba96a4b67ffa3e4af2f00aebd",
+    "fracture_cursed_big_01.png": "6439a5df95ad187b8270525fa555655733d32cdc"
+  }
+}

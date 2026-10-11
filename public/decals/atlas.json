@@ -2,8 +2,8 @@
   "ppu": 64,
   "source": "approved",
   "packer": 2,
-  "pages": ["decals_base_1.png", "decals_base_2.png", "decals_chakra.png", "decals_lightning.png"],
-  "pageSizes": [[2048, 2048], [2048, 1920], [2048, 1792], [2048, 1280]],
+  "pages": ["decals_base_1.png", "decals_base_2.png", "decals_chakra.png", "decals_lightning.png", "decals_cursed.png"],
+  "pageSizes": [[2048, 2048], [2048, 1920], [2048, 1792], [2048, 1280], [2048, 1280]],
   "decals": {
     "crack_s": {
       "page": 0,
@@ -212,6 +212,55 @@
       "version": 2
     },
     "fracture_chakra": { "page": 2, "w": 512, "h": 512, "frames": [[1024, 512], [1536, 512]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 2 },
+    "erasure": {
+      "page": 4,
+      "w": 256,
+      "h": 256,
+      "frames": [[1536, 512], [1792, 512], [0, 768]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "hotKey": true,
+      "version": 2
+    },
+    "erasure_trench": {
+      "page": 4,
+      "w": 512,
+      "h": 256,
+      "frames": [[1024, 0], [1536, 0], [1024, 256]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "directional": true,
+      "hotKey": true,
+      "tile": true,
+      "version": 2
+    },
+    "crush_implode": { "page": 4, "w": 256, "h": 256, "frames": [[256, 768], [512, 768], [768, 768], [1024, 768]], "mode": "flat", "tinted": false, "group": "cursed", "version": 3 },
+    "gouge_repel": {
+      "page": 4,
+      "w": 512,
+      "h": 256,
+      "frames": [[1536, 256], [0, 512], [512, 512], [1024, 512]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "directional": true,
+      "hotKey": true,
+      "version": 2
+    },
+    "fracture_cursed": {
+      "page": 4,
+      "w": 256,
+      "h": 256,
+      "frames": [[1280, 768], [1536, 768], [1792, 768], [0, 1024]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "hotKey": true,
+      "version": 3
+    },
+    "fracture_cursed_big": { "page": 4, "w": 512, "h": 512, "frames": [[0, 0], [512, 0]], "mode": "flat", "tinted": false, "group": "cursed", "hotKey": true, "version": 2 },
     "scorch_ki": {
       "page": 2,
       "w": 256,

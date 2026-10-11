@@ -1,0 +1,61 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== decals ======================================================
+  packed 31 decals, 143 variants -> 5 page(s): decals_base_1.png 2048x2048, decals_base_2.png 2048x1920 (base+edge), decals_chakra.png 2048x1792 (chakra+ki), decals_lightning.png 2048x1280 (lightning+fire), decals_cursed.png 2048x1280
+  pages per match: floor 2 + one element set per fighter (chakra 1, lightning 1, cursed 1); worst pairing 4 of the engine's 4
+    crack_s              8    <- frames/crack_s/ (raw/crack_s_v02_{A,B,C}.png) x1  (24 colors)
+    crack                8    <- frames/crack/ (raw/crack_v01_{A,B,C}.png) x1  (24 colors)
+    crater               8    <- frames/crater/ (raw/crater_v01_{A,B,C}.png) x1  (24 colors)
+    crater_big           6    <- frames/crater_big/ (raw/crater_big_v01_{A,B,C}.png) x1  (24 colors)
+    crater_huge          4    <- frames/crater_huge/ (raw/crater_huge_v01_{A,B}.png) x1  (24 colors)
+    fracture_ring        4    <- frames/fracture_ring/ (raw/fracture_ring_v01_{A,B}.png) x1  (24 colors)
+    scuff                8    <- frames/scuff/ (raw/scuff_v02_{A,B}.png) x1  (24 colors)
+    skid                 4    <- frames/skid/ (raw/skid_v02_{A,B}.png) x1  (24 colors)
+    rubble               6    <- frames/rubble/ (raw/rubble_v01_{A,B}.png) x1  (24 colors)
+    dirt_crater          4    <- frames/dirt_crater/ (raw/dirt_crater_v01_{A,B}.png) x1  (24 colors)
+    dirt_skid            3    <- frames/dirt_skid/ (raw/dirt_skid_v01_{A,B}.png) x1  (24 colors)
+    barrier_crack        6    <- frames/barrier_crack/ (raw/barrier_crack_v02_{A,B}.png) x1  (24 colors)
+    crater_wall          4    <- frames/crater_wall/ (raw/crater_wall_v01_{A,B}.png) x1  (24 colors)
+    burn_lightning       6    <- frames/burn_lightning/ (raw/burn_lightning_v02_{A,B}.png) x1  (24 colors; 4662 hot px)
+    burn_lightning_big   4    <- frames/burn_lightning_big/ (raw/burn_lightning_big_v02_{A,B}.png) x1  (24 colors; 15371 hot px)
+    fracture_lightning   2    <- frames/fracture_lightning/ (raw/fracture_lightning_v01.png) x1  (24 colors; 4920 hot px)
+    burn_fire            6    <- frames/burn_fire/ (raw/burn_fire_v01_{A,B}.png) x1  (24 colors; 788 hot px)
+    burn_black           4    <- frames/burn_black/ (raw/burn_black_v01_{A,B}.png) x1  (24 colors)
+    scour_spiral         6    <- frames/scour_spiral/ (raw/scour_spiral_v01_{A,B}.png) x1  (24 colors; 1148 hot px)
+    scour_spiral_big     3    <- frames/scour_spiral_big/ (raw/scour_spiral_big_v02_{A,B}.png) x1  (24 colors; 181 hot px)
+    cut_wind             6    <- frames/cut_wind/ (raw/cut_wind_v03_{A,B}.png) x1  (24 colors; 949 hot px)
+    claw                 4    <- frames/claw/ (raw/claw_v02_{A,B}.png) x1  (24 colors; 326 hot px)
+    scorch_chakra        3    <- frames/scorch_chakra/ (raw/scorch_chakra_v02_{A,B}.png) x1  (24 colors; 118 hot px)
+    fracture_chakra      2    <- frames/fracture_chakra/ (raw/fracture_chakra_v02.png) x1  (24 colors; 355 hot px)
+    erasure              3    <- frames/erasure/ (raw/erasure_v02.png) x1  (24 colors; 8806 hot px)
+    erasure_trench       3    <- frames/erasure_trench/ (raw/erasure_trench_v02_{A,B}.png) x1  (23 colors; 14277 hot px)
+    crush_implode        4    <- frames/crush_implode/ (raw/crush_implode_v03_{A,B}.png) x1  (24 colors)
+    gouge_repel          4    <- frames/gouge_repel/ (raw/gouge_repel_v02_{A,B}.png) x1  (24 colors; 464 hot px)
+    fracture_cursed      4    <- frames/fracture_cursed/ (raw/fracture_cursed_v03_{A,B}.png) x1  (24 colors; 757 hot px)
+    fracture_cursed_big  2    <- frames/fracture_cursed_big/ (raw/fracture_cursed_big_v02.png) x1  (24 colors; 192 hot px)
+    scorch_ki            4    <- frames/scorch_ki/ (raw/scorch_ki_v01_{A,B}.png) x1  (24 colors; 2663 hot px)
+  ! crack: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_huge: 0.2% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! scuff: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! skid: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! rubble: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! dirt_crater: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_wall: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_lightning: 0.5% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_lightning_big: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! fracture_lightning: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crush_implode: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! scorch_ki: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  wrote public/decals/decals_base_1.png
+  wrote public/decals/decals_base_2.png
+  wrote public/decals/decals_chakra.png
+  wrote public/decals/decals_lightning.png
+  wrote public/decals/decals_cursed.png
+  wrote public/decals/atlas.json
+
+done: 0/0 character(s) packed, vfx skipped, crowd skipped, 31 decal(s), 13 warning(s).

@@ -366,12 +366,12 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 | claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
 | scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
 | fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
-| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | todo | - | - | |
-| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | todo | - | - | |
-| crush_implode | cursed | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
-| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
-| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | approved | v02 | v02 | |
+| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | |
+| crush_implode | cursed | 256 x 256 | 4 | flat | full color | approved | v03 | v03 | |
+| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | |
+| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | approved | v03 | v03 | |
+| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | |
 | scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
 
 ## World art (ADR 0008)

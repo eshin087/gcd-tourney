@@ -11,6 +11,11 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): record user approval of cursed erasure/trench/repel/big v02 and implode/fracture v03, accepting documented visual deviations; pack approved production atlas without changing reviewed pixels.
+
+- art(decals): revise cursed candidates, preserve rejected history, remove tracked preview outputs and host an isolated candidate gallery; remaining fringe and repel hot-placement failures are explicit, no approval.
+
+- art(decals): six cursed v01 candidates, 20 packed variants, review gallery and documented remaining palette/design caveats; no art approved.
 - art(decals): record user approval of PR52's six latest chakra decal versions / 24 variants and pack approved outputs; preserve source fringe, shape and hot-key caveats as accepted deviations. No redraw or production deployment.
 
 - art(decals): revise chakra shapes and palette candidates in PR52; preserve rejected histories, remove tracked preview outputs, add a self-contained unapproved game review atlas. Four fresh-source fringe failures remain explicitly documented; no approval or production promotion.
