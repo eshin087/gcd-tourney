@@ -308,7 +308,8 @@ export class Effects {
   }
 
   clearAll() {
-    for (const it of this.items) { this.scene.remove(it.mesh); it.mat.dispose(); }
+    // life -1: a handle someone still holds (a charge emitter's live list) reads as dead instead of frozen alive
+    for (const it of this.items) { it.life = -1; this.scene.remove(it.mesh); it.mat.dispose(); }
     this.items.length = 0;
     this.keepers.clear();
     for (const d of this.decals) this.removeDecal(d);
