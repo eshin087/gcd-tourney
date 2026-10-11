@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Documented the reproduced stale-idle/clipped-head stitching failure and new-idle palette-mask lesson; queued tooling correction for Claude (TOOL-STITCH-ROI).
+
 - AGENTS.md and CLAUDE.md now carry the same approved-baseline override, so historical fixed-height/head-count rules cannot silently re-enter future art prompts (ART-CAST-PILOT).
 
 - Added a provenance-recorded cross-cast idle QA snapshot to compare corrected working anchors against approved neutrals (ART-CAST-PILOT); not an animation approval.

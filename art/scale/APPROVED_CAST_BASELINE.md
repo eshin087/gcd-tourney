@@ -64,3 +64,9 @@ Baseline artifacts: art/characters/<id>/reference/height_neutral_v01.png and fix
 - Check cell margins and the floor after anatomy calibration. A small measured position offset can fix pivot-related clipping without changing scale; a pose wider than the cell needs reposing, not a character-specific shrink.
 - Percentage requests to the generator are approximate. Re-measure the result; head-only corrections can overshoot dramatically. The three-attempt limit applies across version numbers, including saved corrections. Exhausted failures stay on technical hold.
 - Source completion, passing pack, visual QA, user approval, and integrated release are separate states. Report each honestly.
+
+### Stitch reference and mask integrity
+
+The Killua light1 correction demonstrated that a stale packed idle can corrupt stitching even when A/B source anatomy matches. The stitch refinement enlarged a trial above the cell, clipped the true head, and then measured a white shirt hem as hair. A numeric ratio from that mask is invalid. Before accepting an automatic stitch factor, verify the reference idle version/hash, every intermediate cell margin, and that the selected head ROI is actually the head. If the working full pack is blocked, the public atlas may still hold an older idle. Use independently measured source skull/torso/limb agreement for a documented stitch, then run the final candidate gate; do not waive that gate. Exact reproduction and masks are in Killua production/STITCH_TOOLING_HANDOFF.md and light1-v04-stitch-roi.png/JSON on its redraw branch. Claude owns the tooling correction.
+
+Sasuke also required actual new-idle hair colors in its art declaration: a palette change caused the probe to select only part of the hair. A measured declaration update restored full A/B masks without a tool change or exemption. Inspect masks before deciding whether a failure is drawing drift.
