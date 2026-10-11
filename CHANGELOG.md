@@ -10,6 +10,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- art(sasuke): add title-style getup v05 with native five-frame manual inverted-head QA; archive two clipped/head-popped throws and two frontal staggers.
 - art(sasuke): add numeric-gated superDash v05 with measured whole-frame placement and archive unproven spin/airRecover sources without production scale exemptions.
 - art(sasuke): add title-style charge v11, beamCharge v05 and beamFire v05 with 48-color native atlas QA; record beamFire's historical contact-zone hold and archive five earlier power-pose candidates.
 - art(sasuke): add title-style block and Sharingan taunt with numeric pack passes, and vanish with versioned manual afterimage QA; archive four oversized or mismatched candidates.
