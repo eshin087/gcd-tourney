@@ -20,6 +20,11 @@ function dampV(cur, target, vel, smooth, dt) {
   cur.z = damp(cur.z, target.z, vel, 'z', smooth, dt);
 }
 
+// Results hero shot (mode 'results'): angle off the fight yaw, sway (rad) and its speed (rad/s), distance and
+// height above the look point (world units), look point above the ring, fov. Distance and fov keep the tallest
+// win pose (about 1.8 u) at roughly two thirds of the screen height with room above the head and below the feet.
+const RESULTS_SHOT = { yaw: -0.55, sway: 0.22, swaySpeed: 0.16, dist: 5.2, up: 0.8, lookY: 0.92, fov: 28 };
+
 // Intro flythrough keyframes: [time, position, lookAt]
 const INTRO = [
   [0.0, [0, 2.4, 47], [0, 3.6, 31]],
@@ -59,6 +64,9 @@ export class CameraDirector {
     this.mode = mode;
     this.modeT = 0;
     this.data = data;
+    // the results shot cuts to a fixed angle off the fight's yaw, well clear of where the victory orbit
+    // ends (about yaw + 0.1), so the cut reads as a cut and not as a jump
+    if (mode === 'results') this.resYaw = this.yaw + RESULTS_SHOT.yaw;
   }
 
   snap() {
@@ -201,6 +209,21 @@ export class CameraDirector {
         tgtLook.copy(center);
         fov = 28;
         smoothP = 0.6;
+        break;
+      }
+      case 'results': {
+        // Post-match hero shot (Menus.results). Game.render shifts the projection so the winner stands whole in
+        // the space the panel leaves free; with a bottom bar (narrow window) the shot pulls back by the covered
+        // height. A bounded sway instead of the victory orbit: the stage behind stays put, and the billboard
+        // never turns past the point where it would mirror.
+        const R = RESULTS_SHOT, p = rp(this.data);
+        const a = this.resYaw + Math.sin(this.modeT * R.swaySpeed) * R.sway;
+        const k = 1 / Math.max(0.5, 1 - (game.viewCoverY || 0));
+        tgtLook.set(p.x, RING_TOP + R.lookY, p.z);
+        tgtPos.set(tgtLook.x + Math.sin(a) * R.dist * k, tgtLook.y + R.up * k, tgtLook.z + Math.cos(a) * R.dist * k);
+        fov = R.fov;
+        smoothP = 0.9;
+        smoothL = 0.4;
         break;
       }
     }

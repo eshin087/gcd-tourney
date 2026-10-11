@@ -81,7 +81,14 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] The page loads, and the console shows only `[sprites] ...` info lines. **No errors.**
 - [ ] Title → mode select → char select → match starts. The intro flythrough can be skipped with Enter.
 - [ ] One full round plays to a KO. Round announcements, the win pose and the results screen work.
+- [ ] Results screen: the match ends on a cut to the winner alone (the loser and its shadow are gone), whole and
+      undimmed, facing screen-right, left of a slim panel (WINNER · P1/CPU/P2 tag, name, subtitle, REMATCH /
+      CHARACTER SELECT / TITLE); no second, smaller winner sprite; the winner never mirrors while the camera
+      sways. A window narrower than 3:4 gets a bottom bar with the winner above it. Rematch, character select
+      and title bring both fighters back with no leftover framing shift.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
+- [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
+      any character select returns to SELECT MODE on that mode.
 - [ ] `npm run build` passes.
 
 ## Feature checklists
@@ -163,6 +170,8 @@ or add `?touch=1` on desktop to force the touch UI (`?touch=0` hides it).
 - [ ] Joystick moves (double flick dashes); every button acts; sliding a finger between buttons switches them;
       ULT fires the ultimate with 3 bars, VANISH with 1; both dim without enough ki.
 - [ ] The fight stays framed left of / above the button cluster. Pause button pauses; BACK resumes.
+- [ ] Results (740 x 360): panel on the right, the whole winner on the left, no touch buttons, no BACK button;
+      tapping REMATCH / CHARACTER SELECT / TITLE works.
 - [ ] Training: the panel starts collapsed; the TOUCH tab lists the controls and changes the button size.
 - [ ] Desktop is unchanged: keyboard hint bar, no touch UI, no rotate screen.
 
