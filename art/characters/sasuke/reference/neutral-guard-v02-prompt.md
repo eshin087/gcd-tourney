@@ -1,6 +1,0 @@
-# Guard v02 prompt
-
-One built-in imagegen attempt. Candidate only.
-
-Make ONE horizontal sprite strip exactly TWO fullbody poses of the attached approved neutral anime fan-art teenage ninja. Reference1 approved neutral controls anatomy; reference2 provisional idle controls visual continuity only, not approved art. Preserve same lean build, compact head/hair, long legs, exact outfit/face/colors, sheathed sword behind waist and purple rope bow at BACK. Guard animation: f0 both navy forearm guards CROSS X before face and upper chest, right forearm in front, closed fists, elbows down, chin tucked, eyes visible above forearms, knees slightly deeper than idle, leftfoot forward; f1 same guard with tiny2px breathing dip, feet IDENTICAL. Right-facing3/4 low12deg camera. 1536x1024, two equal spacious slots, source head crownchin106px and implied neutral skeleton844px matching attached idle, soles903px. Keep same head size and limb lengths in both poses, do not enlarge to fill wide slots. Flat #FF00FF, crisp hard2px pixelart, <=48colors flat shading, no gradients/AA/blur/noise, text, shadow, VFX, grid, cropped extremities. Wholebody must fit with margin, lower torso naturally through knees not through shrinking.
-

@@ -1,6 +1,0 @@
-import fs from 'node:fs';const root='art/characters/sasuke/raw/';
-for(const [a,v,o,n,h]of [["heavy",8,7,5,96],["light4",4,3,5,108],["airLight3",4,3,4,112]]){const path=root+a+'_v'+String(v).padStart(2,'0')+'.json',old=JSON.parse(fs.readFileSync(root+a+'_v'+String(o).padStart(2,'0')+'.json')),now=JSON.parse(fs.readFileSync(path));
-const os=old.stitch?.scaledPart==='A'?old.stitch.scaledBy:1, ns=now.stitch?.scaledPart==='A'?now.stitch.scaledBy:1, bs=now.stitch?.scaledPart==='B'?now.stitch.scaledBy:1;
-const count=now.stitch.poses[1];now.anatomy={measurement:'skull-to-chin',targetHeadPx:24.48673197462748,sourceHeadPx:[...old.anatomy.sourceHeadPx.slice(0,n).map(x=>x/os*ns),...Array(count).fill(h*bs)],note:'A source retained; B final original attempt3 corrects torso/shins. Inferred B skull '+h+' +/-12sourcepx, multiplied measured stitch factor. Head landmarks under hair uncertain. Independent limb-ratio QA and remaining technical holds apply; no approval.'};fs.writeFileSync(path,JSON.stringify(now,null,2));}
-const p='art/characters/sasuke/reference/neutral-attempts.json',a=JSON.parse(fs.readFileSync(p));Object.assign(a.overrides,{light4B:3,airLight3B:3,charge:3});fs.writeFileSync(p,JSON.stringify(a,null,2));
-
