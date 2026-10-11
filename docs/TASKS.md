@@ -1,5 +1,7 @@
 # Task board
 
+ART-SAS-POST-YES | Codex | review | Corrected four authorized strips plus superDash placement; strict pack still blocked on charge/special/specialForward/getup. Claude owns manual QA and integration. Files: art/characters/sasuke/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/art-review/sasuke-post-approval/. See art/characters/sasuke/production/POST_APPROVAL_QA.md.
+
 The single list of work in flight, shared by the user, Claude and Codex. The protocol is in
 [AI_COLLABORATION.md](AI_COLLABORATION.md).
 
