@@ -1,8 +1,0 @@
-Anime fan-art pixel sprite strip, EXACTLY 5 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION airLight1: ANIMATION: "airLight1", mid-air palm jab with the left hand. 5 frames, left to right. Poses 2 and 3 are the HIT frames: the striking palm is fully extended toward the right and is the right-most part of the character; his head, hair, free hand and jacket hem stay behind it.
-POSES lefttoright:
-1. Air pose, the left palm pulled back to the chest, shoulders coiled. Face: focused.
-2. IMPACT: left arm FULLY EXTENDED horizontally to the right at his own lower-chest height, an open palm with the fingers up and the heel of the palm leading; torso leaning forward slightly. SMEAR: a solid tapered streak behind the palm (no blur). Face: focused.
-3. Same extension without the smear. Face: focused.
-4. Palm pulling back. Face: focused.
-5. Air pose. Face: lazy smile.
-SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

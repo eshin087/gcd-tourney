@@ -53,41 +53,42 @@
       "flags": []
     },
     "gojo": {
-      "standingPx": 220.4022702379767,
-      "idleHeightPx": 232,
-      "bandPx": 61,
-      "maxWidthPx": 85,
-      "sbr": 0.277,
-      "mwr": 0.366,
-      "dr": null,
+      "standingPx": 215,
+      "idleHeightPx": 221,
+      "bandPx": 52,
+      "maxWidthPx": 80,
+      "sbr": 0.242,
+      "mwr": 0.362,
+      "dr": 0.233,
       "build": "athletic-adult",
       "idleHands": "down",
       "flags": [
         "SBR",
-        "MWR"
+        "MWR",
+        "DR"
       ]
     }
   },
   "heads": {
     "naruto": {
       "run": {
-        "head": 1.018,
+        "head": 1,
         "verdict": "ok"
       },
       "dash": {
-        "head": 1.015,
+        "head": 0.986,
         "verdict": "ok"
       },
       "backDash": {
-        "head": 1.001,
+        "head": 1,
         "verdict": "ok"
       },
       "superDash": {
-        "head": 0.964,
+        "head": 0.941,
         "verdict": "ok"
       },
       "jumpSquat": {
-        "head": 0.99,
+        "head": 0.992,
         "verdict": "unmeasured"
       },
       "jumpUp": {
@@ -95,40 +96,40 @@
         "verdict": "ok"
       },
       "jumpFall": {
-        "head": 0.883,
-        "verdict": "uniform"
+        "head": 0.876,
+        "verdict": "drift"
       },
       "land": {
-        "head": 1.098,
+        "head": 1.093,
         "verdict": "uniform"
       },
       "light1": {
-        "head": 1.03,
+        "head": 1.021,
         "verdict": "ok"
       },
       "light2": {
-        "head": 1.023,
+        "head": 1.024,
         "verdict": "ok"
       },
       "light3": {
-        "head": 1.022,
+        "head": 1,
         "verdict": "pop"
       },
       "light4": {
-        "head": 0.999,
-        "verdict": "ok"
+        "head": 0.97,
+        "verdict": "pop"
       },
       "heavy": {
-        "head": 1.029,
+        "head": 1.036,
         "verdict": "pop"
       },
       "airLight1": {
-        "head": 1.001,
+        "head": 0.983,
         "verdict": "ok"
       },
       "airLight2": {
-        "head": 0.97,
-        "verdict": "pop"
+        "head": 0.963,
+        "verdict": "ok"
       },
       "airLight3": {
         "head": 0.924,
@@ -139,75 +140,75 @@
         "verdict": "pop"
       },
       "guard": {
-        "head": 0.815,
+        "head": 0.795,
         "verdict": "drift"
       },
       "block": {
-        "head": 0.826,
-        "verdict": "drift"
+        "head": 0.798,
+        "verdict": "uniform"
       },
       "hurtHigh": {
         "head": 0.909,
         "verdict": "drift"
       },
       "hurtLow": {
-        "head": 1.016,
-        "verdict": "ok"
+        "head": 1.009,
+        "verdict": "pop"
       },
       "launched": {
         "head": 0.766,
         "verdict": "unmeasured"
       },
       "spin": {
-        "head": 1.053,
+        "head": 1.038,
         "verdict": "unmeasured"
       },
       "airRecover": {
-        "head": 1.104,
+        "head": 1.094,
         "verdict": "unmeasured"
       },
       "down": {
-        "head": 0.859,
+        "head": 0.849,
         "verdict": "unmeasured"
       },
       "getup": {
-        "head": 0.956,
+        "head": 0.944,
         "verdict": "unmeasured"
       },
       "charge": {
-        "head": 1.017,
-        "verdict": "ok"
+        "head": 0.918,
+        "verdict": "uniform"
       },
       "throw": {
-        "head": 0.944,
-        "verdict": "ok"
+        "head": 0.939,
+        "verdict": "drift"
       },
       "beamCharge": {
-        "head": null,
-        "verdict": "unmeasured"
+        "head": 0.836,
+        "verdict": "uniform"
       },
       "beamFire": {
-        "head": null,
-        "verdict": "unmeasured"
+        "head": 0.848,
+        "verdict": "drift"
       },
       "vanish": {
         "head": 0.825,
         "verdict": "unmeasured"
       },
       "stagger": {
-        "head": 0.92,
-        "verdict": "uniform"
+        "head": 0.909,
+        "verdict": "drift"
       },
       "ko": {
-        "head": 0.909,
+        "head": 0.911,
         "verdict": "unmeasured"
       },
       "special": {
-        "head": 0.824,
-        "verdict": "pop"
+        "head": 0.788,
+        "verdict": "uniform"
       },
       "intro": {
-        "head": 1.031,
+        "head": 1.03,
         "verdict": "ok"
       },
       "taunt": {
@@ -215,33 +216,33 @@
         "verdict": "ok"
       },
       "win": {
-        "head": 1.061,
-        "verdict": "uniform"
+        "head": 0.974,
+        "verdict": "ok"
       },
       "specialForward": {
-        "head": 0.855,
+        "head": 0.824,
         "verdict": "pop"
       },
       "specialUp": {
-        "head": 0.742,
+        "head": 0.712,
         "verdict": "pop"
       },
       "specialDown": {
-        "head": 1.026,
+        "head": 0.986,
         "verdict": "ok"
       },
       "superPose": {
-        "head": 0.774,
+        "head": 0.708,
         "verdict": "drift"
       }
     },
     "sasuke": {
       "run": {
-        "head": 1.111,
-        "verdict": "drift"
+        "head": 1.108,
+        "verdict": "uniform"
       },
       "dash": {
-        "head": 1.153,
+        "head": 1.156,
         "verdict": "uniform"
       },
       "backDash": {
@@ -249,20 +250,20 @@
         "verdict": "ok"
       },
       "superDash": {
-        "head": 1.196,
+        "head": 1.216,
         "verdict": "uniform"
       },
       "jumpSquat": {
-        "head": 1.036,
+        "head": 1.084,
         "verdict": "unmeasured"
       },
       "jumpUp": {
-        "head": 0.898,
+        "head": 0.903,
         "verdict": "drift"
       },
       "jumpFall": {
-        "head": 1.05,
-        "verdict": "ok"
+        "head": 1.062,
+        "verdict": "uniform"
       },
       "land": {
         "head": 1,
@@ -273,157 +274,157 @@
         "verdict": "ok"
       },
       "light2": {
-        "head": 0.993,
+        "head": 1.036,
         "verdict": "pop"
       },
       "light3": {
-        "head": 0.921,
-        "verdict": "pop"
+        "head": 0.964,
+        "verdict": "ok"
       },
       "light4": {
-        "head": 0.889,
-        "verdict": "pop"
+        "head": 0.919,
+        "verdict": "drift"
       },
       "heavy": {
-        "head": 1.012,
+        "head": 1.025,
         "verdict": "pop"
       },
       "airLight1": {
-        "head": 0.881,
+        "head": 0.885,
         "verdict": "drift"
       },
       "airLight2": {
-        "head": 0.916,
+        "head": 0.94,
         "verdict": "uniform"
       },
       "airLight3": {
-        "head": 1.185,
+        "head": 1.182,
         "verdict": "uniform"
       },
       "airHeavy": {
-        "head": 1.132,
+        "head": 1.135,
         "verdict": "pop"
       },
       "guard": {
-        "head": 1.371,
+        "head": 1.358,
         "verdict": "exempt"
       },
       "block": {
-        "head": 1.085,
+        "head": 1.093,
         "verdict": "uniform"
       },
       "hurtHigh": {
-        "head": 0.964,
+        "head": 0.965,
         "verdict": "ok"
       },
       "hurtLow": {
-        "head": 0.942,
+        "head": 0.943,
         "verdict": "ok"
       },
       "launched": {
-        "head": 0.875,
+        "head": 0.901,
         "verdict": "unmeasured"
       },
       "spin": {
-        "head": 1.398,
+        "head": 1.387,
         "verdict": "unmeasured"
       },
       "airRecover": {
-        "head": 0.938,
+        "head": 0.971,
         "verdict": "unmeasured"
       },
       "down": {
-        "head": 1.787,
+        "head": 1.85,
         "verdict": "unmeasured"
       },
       "getup": {
-        "head": 0.964,
+        "head": 0.988,
         "verdict": "unmeasured"
       },
       "charge": {
-        "head": 0.881,
+        "head": 0.906,
         "verdict": "uniform"
       },
       "throw": {
-        "head": 0.875,
-        "verdict": "pop"
+        "head": 0.887,
+        "verdict": "uniform"
       },
       "beamCharge": {
-        "head": 0.498,
+        "head": 0.491,
         "verdict": "exempt"
       },
       "beamFire": {
-        "head": 1.012,
-        "verdict": "ok"
+        "head": 1.061,
+        "verdict": "uniform"
       },
       "vanish": {
-        "head": 1,
+        "head": 1.013,
         "verdict": "unmeasured"
       },
       "stagger": {
-        "head": 0.888,
+        "head": 0.884,
         "verdict": "uniform"
       },
       "ko": {
-        "head": 0.457,
+        "head": 0.452,
         "verdict": "unmeasured"
       },
       "special": {
-        "head": 1.121,
-        "verdict": "pop"
+        "head": 1.126,
+        "verdict": "drift"
       },
       "intro": {
-        "head": 0.905,
+        "head": 0.907,
         "verdict": "uniform"
       },
       "taunt": {
-        "head": 0.966,
+        "head": 0.958,
         "verdict": "ok"
       },
       "win": {
-        "head": 0.91,
+        "head": 0.905,
         "verdict": "drift"
       },
       "specialForward": {
-        "head": 1.037,
+        "head": 1.036,
         "verdict": "ok"
       },
       "specialUp": {
-        "head": 0.955,
+        "head": 0.977,
         "verdict": "ok"
       },
       "specialDown": {
-        "head": 1.009,
+        "head": 1.003,
         "verdict": "ok"
       },
       "superPose": {
-        "head": 0.95,
-        "verdict": "ok"
+        "head": 0.927,
+        "verdict": "uniform"
       }
     },
     "killua": {
       "run": {
-        "head": 0.994,
-        "verdict": "ok"
-      },
-      "dash": {
-        "head": 0.944,
-        "verdict": "ok"
-      },
-      "backDash": {
-        "head": 0.99,
-        "verdict": "ok"
-      },
-      "superDash": {
         "head": 0.999,
         "verdict": "ok"
       },
+      "dash": {
+        "head": 0.949,
+        "verdict": "ok"
+      },
+      "backDash": {
+        "head": 0.998,
+        "verdict": "ok"
+      },
+      "superDash": {
+        "head": 1.006,
+        "verdict": "ok"
+      },
       "jumpSquat": {
-        "head": 0.922,
+        "head": 0.905,
         "verdict": "unmeasured"
       },
       "jumpUp": {
-        "head": 0.859,
+        "head": 0.874,
         "verdict": "drift"
       },
       "jumpFall": {
@@ -431,265 +432,265 @@
         "verdict": "uniform"
       },
       "land": {
-        "head": 1.001,
+        "head": 1.004,
         "verdict": "ok"
       },
       "light1": {
-        "head": 0.99,
+        "head": 0.997,
         "verdict": "ok"
       },
       "light2": {
-        "head": 0.97,
+        "head": 0.991,
         "verdict": "ok"
       },
       "light3": {
-        "head": 0.966,
-        "verdict": "pop"
+        "head": 0.984,
+        "verdict": "ok"
       },
       "light4": {
-        "head": 0.934,
-        "verdict": "pop"
+        "head": 0.96,
+        "verdict": "ok"
       },
       "heavy": {
-        "head": 0.815,
-        "verdict": "pop"
+        "head": 0.876,
+        "verdict": "drift"
       },
       "airLight1": {
-        "head": 0.845,
-        "verdict": "drift"
+        "head": 0.879,
+        "verdict": "uniform"
       },
       "airLight2": {
-        "head": 0.866,
-        "verdict": "drift"
+        "head": 0.869,
+        "verdict": "uniform"
       },
       "airLight3": {
-        "head": 0.803,
-        "verdict": "drift"
+        "head": 0.845,
+        "verdict": "uniform"
       },
       "airHeavy": {
-        "head": 0.85,
+        "head": 0.855,
         "verdict": "uniform"
       },
       "guard": {
-        "head": 0.783,
+        "head": 0.797,
         "verdict": "drift"
       },
       "block": {
-        "head": 0.812,
+        "head": 0.802,
         "verdict": "pop"
       },
       "hurtHigh": {
-        "head": 0.814,
+        "head": 0.829,
         "verdict": "uniform"
       },
       "hurtLow": {
-        "head": 0.838,
+        "head": 0.828,
         "verdict": "uniform"
       },
       "launched": {
-        "head": 0.74,
+        "head": 0.738,
         "verdict": "unmeasured"
       },
       "spin": {
-        "head": 1.023,
+        "head": 1.06,
         "verdict": "unmeasured"
       },
       "airRecover": {
-        "head": 1,
+        "head": 0.991,
         "verdict": "unmeasured"
       },
       "down": {
-        "head": 0.845,
+        "head": 0.835,
         "verdict": "unmeasured"
       },
       "getup": {
-        "head": 0.935,
+        "head": 0.946,
         "verdict": "unmeasured"
       },
       "charge": {
-        "head": 1.155,
-        "verdict": "uniform"
+        "head": 0.782,
+        "verdict": "drift"
       },
       "throw": {
-        "head": 0.892,
-        "verdict": "uniform"
+        "head": 0.904,
+        "verdict": "drift"
       },
       "beamCharge": {
-        "head": 1.01,
-        "verdict": "ok"
+        "head": 0.718,
+        "verdict": "drift"
       },
       "beamFire": {
-        "head": 0.891,
+        "head": 0.886,
         "verdict": "drift"
       },
       "vanish": {
-        "head": 1.031,
+        "head": 1.032,
         "verdict": "unmeasured"
       },
       "stagger": {
-        "head": 0.971,
+        "head": 0.956,
         "verdict": "ok"
       },
       "ko": {
-        "head": 0.825,
+        "head": 0.838,
         "verdict": "unmeasured"
       },
       "special": {
-        "head": 1.019,
+        "head": 1.005,
         "verdict": "ok"
       },
       "intro": {
-        "head": 0.973,
+        "head": 0.968,
         "verdict": "ok"
       },
       "taunt": {
-        "head": 1.043,
+        "head": 1.038,
         "verdict": "ok"
       },
       "win": {
-        "head": 0.98,
+        "head": 0.988,
         "verdict": "ok"
       },
       "specialForward": {
-        "head": 0.789,
+        "head": 0.683,
         "verdict": "pop"
       },
       "specialUp": {
-        "head": 0.758,
+        "head": 0.774,
         "verdict": "uniform"
       },
       "specialDown": {
-        "head": 1.061,
-        "verdict": "pop"
+        "head": 1.055,
+        "verdict": "ok"
       },
       "superPose": {
-        "head": 0.688,
+        "head": 0.664,
         "verdict": "drift"
       }
     },
     "gojo": {
       "run": {
-        "head": 1,
-        "verdict": "ok"
+        "head": 1.082,
+        "verdict": "uniform"
       },
       "dash": {
-        "head": 0.997,
-        "verdict": "ok"
+        "head": 1.101,
+        "verdict": "uniform"
       },
       "backDash": {
-        "head": 0.992,
-        "verdict": "ok"
+        "head": 1.069,
+        "verdict": "drift"
       },
       "superDash": {
-        "head": 1.099,
+        "head": 1.178,
         "verdict": "drift"
       },
       "jumpSquat": {
-        "head": 1.08,
+        "head": 1.246,
         "verdict": "unmeasured"
       },
       "jumpUp": {
-        "head": 1.035,
+        "head": 1.042,
         "verdict": "ok"
       },
       "jumpFall": {
-        "head": 1,
+        "head": 1.016,
         "verdict": "ok"
       },
       "land": {
-        "head": 0.982,
+        "head": 0.973,
         "verdict": "ok"
       },
       "light1": {
-        "head": 0.952,
+        "head": 0.954,
         "verdict": "ok"
       },
       "light2": {
-        "head": 0.971,
+        "head": 0.945,
         "verdict": "ok"
       },
       "light3": {
-        "head": 0.968,
+        "head": 1.046,
         "verdict": "ok"
       },
       "light4": {
-        "head": 1.027,
-        "verdict": "ok"
+        "head": 1.064,
+        "verdict": "uniform"
       },
       "heavy": {
-        "head": 1.029,
-        "verdict": "ok"
+        "head": 1.025,
+        "verdict": "pop"
       },
       "airLight1": {
-        "head": 0.998,
-        "verdict": "ok"
+        "head": 0.918,
+        "verdict": "uniform"
       },
       "airLight2": {
-        "head": 1.059,
-        "verdict": "ok"
-      },
-      "airLight3": {
-        "head": 0.912,
+        "head": 0.919,
         "verdict": "drift"
       },
+      "airLight3": {
+        "head": 1.001,
+        "verdict": "ok"
+      },
       "airHeavy": {
-        "head": 0.869,
+        "head": 0.968,
         "verdict": "pop"
       },
       "guard": {
-        "head": 1.015,
+        "head": 1.021,
         "verdict": "ok"
       },
       "block": {
-        "head": 0.97,
-        "verdict": "ok"
+        "head": 1.144,
+        "verdict": "drift"
       },
       "hurtHigh": {
-        "head": 1.051,
+        "head": 1.023,
         "verdict": "ok"
       },
       "hurtLow": {
-        "head": 1,
-        "verdict": "ok"
+        "head": 1.044,
+        "verdict": "pop"
       },
       "launched": {
-        "head": 1.019,
+        "head": 0.875,
         "verdict": "unmeasured"
       },
       "spin": {
-        "head": 1.01,
+        "head": 1.222,
         "verdict": "unmeasured"
       },
       "airRecover": {
-        "head": 0.963,
+        "head": 1.101,
         "verdict": "unmeasured"
       },
       "down": {
-        "head": 1.054,
+        "head": 1.185,
         "verdict": "unmeasured"
       },
       "getup": {
-        "head": 1.001,
+        "head": 1.006,
         "verdict": "unmeasured"
       },
       "charge": {
-        "head": 0.969,
+        "head": 1.031,
         "verdict": "ok"
       },
       "throw": {
-        "head": 0.98,
-        "verdict": "ok"
+        "head": 0.887,
+        "verdict": "drift"
       },
       "beamCharge": {
-        "head": 1.059,
+        "head": 1.049,
         "verdict": "ok"
       },
       "beamFire": {
-        "head": 1.003,
-        "verdict": "ok"
+        "head": 1.17,
+        "verdict": "uniform"
       },
       "vanish": {
-        "head": 1.012,
+        "head": 1.303,
         "verdict": "unmeasured"
       },
       "stagger": {
@@ -697,39 +698,39 @@
         "verdict": "ok"
       },
       "ko": {
-        "head": 1.006,
+        "head": 0.839,
         "verdict": "unmeasured"
       },
       "special": {
-        "head": 0.946,
+        "head": 0.977,
         "verdict": "ok"
       },
       "intro": {
-        "head": 0.976,
+        "head": 1.032,
         "verdict": "ok"
       },
       "taunt": {
-        "head": 1.029,
+        "head": 1.001,
         "verdict": "ok"
       },
       "win": {
-        "head": 0.912,
-        "verdict": "drift"
+        "head": 1.007,
+        "verdict": "ok"
       },
       "specialForward": {
-        "head": 0.952,
+        "head": 0.984,
         "verdict": "ok"
       },
       "specialUp": {
-        "head": 1.041,
-        "verdict": "ok"
+        "head": 1.12,
+        "verdict": "pop"
       },
       "specialDown": {
-        "head": 0.946,
+        "head": 0.958,
         "verdict": "ok"
       },
       "superPose": {
-        "head": 0.98,
+        "head": 1,
         "verdict": "ok"
       }
     }
