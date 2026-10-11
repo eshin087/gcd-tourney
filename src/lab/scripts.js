@@ -122,6 +122,9 @@ export function moveList(def) {
   add('Movement', 'Wavedash', `slide, act from f${DEFENSE.wavedash.act}`, [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 8 }], 4);
   add('Movement', 'Vanish (Guard + Special)', `${VANISH.cost / 100} bar · teleport behind`, [tap(0, ['guard', 'special'])], 3.5, VANISH.cost);
   add('Movement', 'Charge ki (hold Special)', '', [{ t: 0, btn: ['special'], len: 80 }], 4);
+  // the whole power-up from an empty gauge: bars at charge frames 69, 138 and 207 (MAX); the hold starts it at f12
+  add('Movement', 'Charge to MAX (hold Special)', 'from 0 ki, 230 frames', [{ t: 0, btn: ['special'], len: 242 }], 4);
+  rows[rows.length - 1].kiFrom = 0;
   add('Defense', 'Spot dodge (Guard + ↓)', `intangible f${DEFENSE.spotDodge.from}-${DEFENSE.spotDodge.to}`, [tap(0, 'guard', { stick: 'down' })]);
   add('Defense', 'Air dodge', `intangible f${DEFENSE.airDodge.from}-${DEFENSE.airDodge.to}`, [tap(0, 'jump'), tap(12, 'guard', { stick: 'away' })]);
 

@@ -245,6 +245,8 @@ export function tickMode(f) {
     f.mode = null;
     return;
   }
+  // while powering up the charge style shows the mode instead (its `charge.level` boost, chargeFx.js): no stacking
+  if (f.state === 'charge') return;
   const g = f.game, p = f.pos;
   if (M.fx === 'chakra') {
     if (f.t % 2 === 0) g.fx.auraTick(f, 0.45, g.cam.right);
@@ -587,7 +589,7 @@ const UPDATE = {
     if (t === m.startup) {
       f.mode = {
         id: m.name, t: m.len, len: m.len, speed: m.speed ?? 1, damage: m.damage ?? 1, defense: m.defense ?? 1,
-        blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore,
+        blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore, charge: m.charge,
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);

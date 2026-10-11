@@ -116,8 +116,9 @@ function playMove(row) {
   exitViewer();
   place(row.range);
   const [a] = fighters();
-  a.ki = Math.max(a.ki, row.ki);
+  a.ki = row.kiFrom ?? Math.max(a.ki, row.ki); // kiFrom: a row that needs an exact start (charge to MAX)
   runScripts(row.steps, null, row.name);
+  if (row.kiFrom != null) L.running.ownKi = true; // the infinite meter waits while it plays (it fills from empty)
 }
 
 function playScenario(sc) {
@@ -344,6 +345,8 @@ function loop(now) {
 // one lab frame; exposed as window.lab.tick so a hidden tab (no requestAnimationFrame) can be driven from the console
 function tick(dt) {
   if (game.fighters.length < 2) { game.frame(dt); return; }
+  const meter = L.infiniteKi && !L.running?.ownKi;
+  if (game.trainingCfg) game.trainingCfg.infiniteKi = meter; // the training room refills P1 inside the frame
   if (L.viewer) {
     if (L.viewer.playing) {
       const act = fighters()[0].actor;
@@ -356,7 +359,7 @@ function tick(dt) {
     while (L.step > 0) { L.step--; game.frame(1 / 60); }
     game.render(0);
   } else game.frame(dt * L.speed);
-  if (L.infiniteKi) for (const f of game.fighters) f.ki = Math.max(f.ki, 300);
+  if (meter) for (const f of game.fighters) f.ki = Math.max(f.ki, 300);
   if (L.recording && !L.running) {
     L.rec.push(recordFrame(fighters()[0]));
     if (L.rec.length >= 600) { L.recording = false; render(); }

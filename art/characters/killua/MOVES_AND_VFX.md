@@ -55,7 +55,8 @@ lightning. VFX cells stay 128×128 (ppu 56) in spec v2.
 |---|---|---|---|
 | `lightning` (6 f, tinted) | **Narukami bolt** (`PROJECTILES.bolt`: `sprite: 'lightning'`, scale 0.95, random rotation, `trail: 'bolt'`), Godspeed crackle (engine choice), beam-clash bolt | `#d8f0ff` (bolt) | a dense knot of jagged, forked bolts radiating from the center, 2 to 3 px trunks with 1 px branches; must read when rotated to any angle and when stretched along a fast flight path |
 | `glow` (2 f) | bolt glow, aura glow, smash flash | `#6ab8ff` (bolt), aura colors | soft disc in 3 to 4 hard alpha steps |
-| `flame`, `streak` (tinted) | ki **charge** aura, **Lightning Palm** charge aura, (likely) the Godspeed mode aura | his aura colors (§7) | flame tongues and vertical light streaks, bottom-anchored |
+| `flame`, `streak` (tinted) | **Lightning Palm** wind-up aura | his aura colors (§7) | flame tongues and vertical light streaks, bottom-anchored |
+| `arc`, `star` (tinted) | the **charge** power-up: small electric arcs over his body and the floor (`#eaf8ff`, `#5ab8ff`), spark specks; a `lightning` flash at MAX | per use | briefs in `art/vfx/EFFECTS.md` -> *Power-up effects* |
 | `smoke` (7 f, full color) | vanish, the Rhythm Echo departure | none | grey-white puffs |
 | `spark`, `star`, `lines`, `burst`, `ring` | hit sparks: light = spark + star + lines; heavy adds burst + ring; smash (`light4`, `heavy`, `echoStrike`, Thunderbolt slam, Whirlwind final hit) adds a white glow flash and two bursts | per hit | see `art/vfx/EFFECTS.md` |
 | `dust`, `crater` | dashes, landings, Thunderbolt slam, ground bounce, KO, final beam hit | none | — |
@@ -160,7 +161,9 @@ eight strikes from eight directions, and a last slam.
 
 ### Ki charge (`charge`)
 
-Engine: aura flames and light streaks in his colors, glow, small floor pebbles. Sprite: wide low stance,
+Engine (`charge` in `src/characters/killua.js`, ENG-069): Transmutation, electricity running over his body: a
+flickering blue-white outline (`#5ab8ff` / `#eaf8ff`) and small `arc`s, a short `lightning` flash at MAX; no flames,
+no floor cracks. Sprite: wide low stance,
 fingers spread rigid with the claws out, teeth clenched, hair bristling, normal blue eyes.
 
 ### Super dash, dash, vanish

@@ -114,6 +114,20 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       whiff (a missed throw, a dive's landing) is a normal hit. `?flash=classic` (or the lab chip) shows the old look.
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
+- [ ] Power-ups (ADR 0023; lab **Charge to MAX (hold Special)** builds from an empty gauge in 230 frames): each
+      fighter stays fully readable with no white or orange blob, and shows its canon cues: Naruto a red boiling
+      outline, bubbles, the red eye glint from bar 2 and one chakra tail at MAX; Sasuke a dark violet outline, dark
+      tongues from his back, small white Chidori arcs and the red Sharingan glint; Killua a flickering blue-white
+      outline and arcs; Gojo only a faint shimmer, pebbles hanging in mid-air and the Six Eyes glint at MAX (no
+      flash, rumble or crack). Budget (`?debug`, `freezeCpu()`, `hold('KeyL')`, `step(10)` × 24):
+      `game.fx.items.filter(i => i.tag === 'charge' && i.life > 0).length` ≤ 16 every sample (Gojo ≤ 9), every
+      charge sprite's glow ≤ 0.6, `game.fx.overlay.lines` < 0.05 between bar pulses, `overlay.flashA` ≤ 0.1 at
+      MAX (0 for Gojo). While charging, `game.superFlashFor(game.fighters[1], 40, 0.5); step(40)` adds no charge
+      sprites and no craters. After a release, guard, jump, hit or ultimate, `f.actor.shell.mesh.visible` is false.
+      Tap **Charge to MAX** again mid-charge (a lab row resets the round, clearing every effect): the replay peaks
+      at the same sprite count as the first run (`game.fighters[0].chargeFx.live` holds no handle left from before
+      the reset). With the fighters apart in depth (`teleport(0, 0, ±1.5)`, `f.actor.depthK` ≠ 1) the eye glint
+      stays on the drawn eyes and the chakra tail on the hips; `&depthscale=0` compares.
 - [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:
       **Ultimate clash**, **Answer an ultimate**) → CLASH!: rings close on the target, each player's grade pops on
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).

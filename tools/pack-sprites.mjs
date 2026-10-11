@@ -110,6 +110,12 @@ const VFX_EFFECTS = {
   star: { frames: 5, ms: 40, tinted: true, fill: 0.4 },
   crater: { frames: 3, ms: 1000, tinted: false, fill: 0.97 },
   lines: { frames: 4, ms: 40, tinted: true, fill: 0.95 },
+  // canon power-ups (ENG-069, ADR 0023): drawn white, tinted per fighter at runtime
+  bubble: { frames: 6, ms: 50, tinted: true, fill: 0.3 },
+  wisp: { frames: 7, ms: 55, tinted: true, fill: 0.6, anchor: 'bottom', baseX: true },
+  arc: { frames: 6, ms: 40, tinted: true, fill: 0.45 },
+  ripple: { frames: 5, ms: 50, tinted: true, fill: 0.95 },
+  naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom', baseX: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

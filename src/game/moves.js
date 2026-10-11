@@ -153,6 +153,7 @@ export const SPECIAL_MOVES = {
   nineTails: {
     kind: 'mode', anim: 'specialDown', cost: 100, startup: 20, recovery: 8, len: 480, speed: 1.12, damage: 1.1, defense: 1.12,
     fx: 'chakra', auraColor: '#ff5a1a', auraCore: [1.0, 0.8, 0.5], name: 'NINE-TAILS CLOAK', color: '#ff6a2a',
+    charge: { level: 1 }, // powering up in the cloak looks one bar further along (chargeFx.js)
   },
   // Substitution Jutsu: a log takes the hit; he reappears behind them with a kick
   substitution: {
@@ -191,7 +192,7 @@ export const SPECIAL_MOVES = {
     kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, landFx: 'thunder', name: 'THUNDERBOLT', color: '#bfe6ff',
     hit: { dmg: 98, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'smash' },
   },
-  godspeed: { kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff' },
+  godspeed: { kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff', charge: { level: 1 } },
 
   // ---- Gojo
   blue: {

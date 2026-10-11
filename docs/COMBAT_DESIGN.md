@@ -240,12 +240,30 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
   Guard or Jump cancels it. Heavy during charge with 3 bars fires the ultimate.
-- The power-up builds over its first 45 frames (`Effects.chargeTick`, ENG-059): the aura grows, ki streams in to
-  the chest from a ring around them, pebbles lift off the floor, a dust ring rolls out from the feet (faster as it
-  builds) and the floor cracks after 40 frames, with focus lines, a ground rumble, a one-pixel tremble on the
-  sprite and a hum that climbs (`audio.tune`). Each new bar fires `Game.onChargeBar`: a shockwave ring, a burst, a
-  flash and a camera punch, and "MAX POWER!" with a louder chime on the last one. At full ki the body crackles; a
-  fighter's `charge.sparks: 'lightning'` (Killua) crackles from the start.
+- **Each fighter powers up like their anime** (ENG-069, [ADR 0023](decisions/0023-canon-power-up-styles.md)). The
+  look is data, `charge` in `src/characters/<id>.js` over `CHARGE_DEFAULT`, run by `src/game/chargeFx.js`:
+  - a **body shell** (`src/game/auraShell.js`): a band of energy hugging the silhouette of the frame on screen;
+  - a few **emitters** (bubbles, wisps, arcs, pebbles...) and an **eye glint**, unlocked per ki level;
+  - a **bar beat** for each new bar and a **MAX beat** (rings, a burst behind the body, a short focus-line pulse, a
+    camera punch), plus a one-pixel tremble on the sprite and a charge hum per style (`sound`).
+- Level = filled bars + the active mode's `charge.level` (Nine-Tails cloak and Godspeed add 1), 0 to 3 (3 = the MAX
+  look). The first 45 frames only widen the shell.
+
+| Fighter | Shell | On the body / around | Eyes | Floor, beats |
+|---|---|---|---|---|
+| Naruto | `boil`: red Nine-Tails chakra boiling on his outline | chakra bubbles, wisps off the head; one chakra tail at MAX (`naruto_chakraTail`) | red slit eyes from bar 2 | pebbles, dust rings, a crack from bar 2, rumble |
+| Sasuke | `dark`: near-black curse-mark chakra with a violet rim | dark wisps from his back, black tongues from bar 2, Chidori current arcs over the body | Sharingan from bar 1 (bigger at MAX) | a crack at MAX, light rumble |
+| Killua | `electric`: a flickering blue-white outline | small arcs over the body and the floor (his charge strip raises his hair) | none | no crack, slight rumble |
+| Gojo | `shimmer`: a faint Infinity outline | pebbles that lift and stop dead in mid-air, a faint ripple every 3 s | Six Eyes at MAX | nothing: no rumble, dust, crack or flash |
+
+- **Restraint rules** (enforced in code): at most 16 live charge sprites per fighter (Gojo uses about 7), glow at
+  most 0.6, big sprites behind the body and translucent, no focus lines while holding (a bar pulses them up to
+  0.35), a screen flash only at MAX (at most 0.1, in the style's dark color, none for Gojo), a steady body tint of
+  at most 6 %, and rumble at most 0.05 per 4 frames. During a super flash or a special clash the charge only
+  refreshes (no new sprites, no new cracks). A mode's own aura pauses while charging.
+- Ground cracks go through the optional ground-damage hooks (`fx.ground.chargeTick` / `chargeMax`); without them
+  a style lays at most one crater per charge at its `ground.crackAt` level.
+- Each new bar still fires `Game.onChargeBar` ("MAX POWER!" with a louder chime on the last one).
 
 ### Ultimate, super flash and ultimate clash
 - The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's

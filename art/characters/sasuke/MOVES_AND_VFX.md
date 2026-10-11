@@ -30,7 +30,7 @@ positions moved.
 | Forward + Special | **CHIDORI SHARP SPEAR** | `specialForward` | ADR 0011 | empty left palm gathers lightning, then extends toward the opponent |
 | Up + Special | **LION'S BARRAGE** | `specialUp` -> `airHeavy` -> `land` | ADR 0011 | rising kick, aerial turn, downward slam |
 | Down + Special | **SHARINGAN COUNTER** | `specialDown` | ADR 0011 | calm reading stance with a visible open hand |
-| hold L · hold ○ | ki charge | `charge` | — | aura powering up |
+| hold L · hold ○ | ki charge | `charge` | — | dark curse-mark chakra, Chidori current, Sharingan glint (ADR 0023) |
 | Shift+L · L1+○ | vanish (1 bar) | `vanish` → `light4` | `VANISH`, `MOVES.vanishKick` (uses `light4`) | high-speed blur, reappear behind, spinning roundhouse |
 | O / double-tap · R1 | dash / **super dash** | `dash`, `backDash`, `superDash` | `SUPER_DASH` | low dash, back hop, homing flight angled upward |
 | Shift · L1 | guard | `guard`, `block` | — | X-block with the navy arm guards |
@@ -54,7 +54,8 @@ his lightning and fire. VFX cells stay 128×128 (ppu 56) in spec v2.
 | `fire` (4 f, full color) | **Fireball** body (scaled 1.5×, looping) and its trailing puffs | none (full color) | a round roiling fireball: yellow-white core, orange body, red-orange licks trailing to the **left** (it flies right) |
 | `smoke` (7 f, full color) | fireball explosion (5 puffs), vanish | none | grey-white puffs |
 | `spark`, `star`, `lines`, `burst`, `ring` | hit sparks: light = spark + star + lines; heavy adds burst + ring; smash (light4, heavy, Chidori, Fireball) adds a white glow flash and two bursts | per hit | see `art/vfx/EFFECTS.md` |
-| `flame`, `streak` (tinted) | ki **charge** aura and **Lightning Lance** charge aura (stronger) | flame `#408cff`, streak `#ccebff` | flame tongues and vertical light streaks, bottom-anchored |
+| `flame`, `streak` (tinted) | **Lightning Lance** / Kirin wind-up aura (`#408cff` / `#ccebff`); in the **charge**, black tongues licking up from his back from bar 2 (`flame` tinted `#120a1c`) | per use | flame tongues and vertical light streaks, bottom-anchored |
+| `wisp`, `arc`, `star` (tinted) | the **charge** power-up: dark chakra wisps from his back (`#120a1c`, `#5a3a8e`), Chidori current arcs over his body (`#d8f0ff`), the Sharingan glint on his eyes (`#ff1a2a`) | per use | briefs in `art/vfx/EFFECTS.md` -> *Power-up effects* |
 | `dust`, `crater` | dashes, landings, ground bounce, KO, final beam hit | none | — |
 
 Character-colored engine touches (no art needed): rush afterimages tinted `#9ad8ff` during the Chidori
@@ -135,7 +136,9 @@ adjusts effect offsets. Old Lightning Lance timing and hand anchors are not inte
 
 ### Ki charge (`charge`)
 
-Engine: aura flames and light streaks in his colors, glow, small floor pebbles. Sprite: wide stance,
+Engine (`charge` in `src/characters/sasuke.js`, ENG-069): dark curse-mark chakra, a near-black outline with a
+violet rim around his body, dark `wisp`s rising from his back and black tongues from bar 2, small white Chidori
+`arc`s crawling over his body, and the red Sharingan glint from bar 1 (bigger at MAX). No Susanoo. Sprite: wide stance,
 fists clenched at his sides, head up shouting, Sharingan on, hair, rope ends and waist cloth blown
 upward.
 
