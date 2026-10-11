@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "superDash_v04",
+    "file": "raw/superDash_v04.png",
+    "rect": {
+      "x0": 133,
+      "x1": 984,
+      "y0": 127,
+      "y1": 575
+    },
+    "factor": 0.65
+  },
+  {
+    "label": "jumpSquat_v04",
+    "file": "raw/jumpSquat_v04.png",
+    "rect": {
+      "x0": 279,
+      "x1": 847,
+      "y0": 309,
+      "y1": 1066
+    },
+    "factor": 0.65
+  }
+]

@@ -1,0 +1,119 @@
+[
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 0,
+    "headRatio": 0.984,
+    "sourceSkullPx": 77.984,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 1,
+    "headRatio": 0.984,
+    "sourceSkullPx": 77.984,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 2,
+    "headRatio": 0.965,
+    "sourceSkullPx": 77.984,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 3,
+    "headRatio": 0.965,
+    "sourceSkullPx": 77.984,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 4,
+    "headRatio": 0.994,
+    "sourceSkullPx": 80,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 5,
+    "headRatio": 1.002,
+    "sourceSkullPx": 80,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "light1",
+    "version": 9,
+    "frame": 6,
+    "headRatio": 0.982,
+    "sourceSkullPx": 80,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "airLight3",
+    "version": 8,
+    "frame": 0,
+    "headRatio": 1.079,
+    "sourceSkullPx": 68.215,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "airLight3",
+    "version": 8,
+    "frame": 1,
+    "headRatio": 0.984,
+    "sourceSkullPx": 68.215,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "airLight3",
+    "version": 8,
+    "frame": 2,
+    "headRatio": 1.048,
+    "sourceSkullPx": 68.215,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "airLight3",
+    "version": 8,
+    "frame": 3,
+    "headRatio": 1.055,
+    "sourceSkullPx": 68.215,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "airLight3",
+    "version": 8,
+    "frame": 4,
+    "headRatio": 0.996,
+    "sourceSkullPx": 74,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  },
+  {
+    "asset": "airLight3",
+    "version": 8,
+    "frame": 5,
+    "headRatio": 0.987,
+    "sourceSkullPx": 74,
+    "uncertaintyPx": 12,
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+  }
+]

@@ -11,6 +11,19 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): record explicit user approvals for light1 v09 and airLight3 v08; archive superseded pending versions. No new generation or runtime promotion; down05/ko06 manual QA remains Claude-owned.
+
+- art(killua): record user approval of run07, heavy10, airHeavy06, special05 and specialDown04; begin newly authorized three-call hair corrections for light1 and airLight3. Down/KO manual decisions remain Claude-owned.
+
+- art(killua): additional authorized corrections for nine strips, refreshed already-approved idle reference and guide, full-frame evidence and attempt ledger; five per-strip passes, two capped holds and two Claude manual-QA holds. Runtime atlas unchanged (ART-KIL-SCALE-W1).
+
+- Record user blanket visual approval (2026-10-11) of Killua PR64 latest reviewed checkpoint, with exact versions. Strict pack and manual anatomy holds remain; no atlas or manifest shipped-approval promotion (ART-KIL-SCALE-W1).
+
+- Killua approved-neutral redraw checkpoint:42 actions generated;10 strict scale failures and8 manual anatomy holds remain. Versioned sources, calibrated sidecars, attempt ledger, review gallery and stitch-ROI tooling evidence; no new art approvals or atlas promotion (ART-KIL-SCALE-W1).
+
+- Capture Killua jab stitch refinement failure: the old packed idle target clips new heads, then the probe selects a shirt hem; preserve per-frame ROI/provenance evidence for Claude without changing tools or waiving final art QA.
+
+- Killua scale-fix evidence: retain 19 asset candidates, side-on KO/down and measured long-strip redraws; block approval/integration on the failing palette-sensitive scale gate. Previous approved runtime sheet retained.
 - User approved Naruto light4 v07; superseded pending light4 versions archived. Naruto strict repack passes; PR63 ready for Claude integration when cast gates clear.
 
 - Naruto light4 v07: localized generated f0 hair correction clears full strict scale packing. Other seven poses and all bodies preserved; candidate atlas updated, image approval pending.

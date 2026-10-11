@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "JUMPFALL V04",
+    "file": "raw/jumpFall_v04.png",
+    "rect": {
+      "x0": 411,
+      "x1": 894,
+      "y0": 41,
+      "y1": 677
+    },
+    "factor": 1
+  },
+  {
+    "label": "RUN V05 A",
+    "file": "raw/_parts/run_v05_A.png",
+    "rect": {
+      "x0": 27,
+      "x1": 536,
+      "y0": 79,
+      "y1": 675
+    },
+    "factor": 1
+  }
+]

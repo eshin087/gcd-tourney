@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "GUARD V06",
+    "file": "raw/guard_v06.png",
+    "rect": {
+      "x0": 472,
+      "x1": 844,
+      "y0": 45,
+      "y1": 683
+    },
+    "factor": 1
+  },
+  {
+    "label": "CHARGE V10",
+    "file": "raw/charge_v10.png",
+    "rect": {
+      "x0": 87,
+      "x1": 473,
+      "y0": 132,
+      "y1": 673
+    },
+    "factor": 1
+  }
+]

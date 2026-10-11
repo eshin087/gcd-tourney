@@ -1,0 +1,9 @@
+
+== killua: idle head 43x32 px (auto palette #431a47 #fcfbfb #cdb9e3 #a788c7 #9769c1)
+   1 ref, 31 ok, 6 manual, 1 drift, 1 pop, 2 unmeasured
+   light1          v08  head  +7%  feet  +1%  DRIFT    f: 1.07 1.09 1.08 1.08 0.99 1.00 0.98
+   airLight3       v07  head  +8%  feet  +5%  POP      f: 1.05 1.11 1.13 1.14 1.00 0.99
+   ! airHeavy: the manifest's scale exemption was written for v02 but the packed strip is v06 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 6
+   wrote art\characters\killua\production\redo-yes-all\final-scale\heads-killua.png
+
+[scale] 2 flagged strip(s); wrote art\characters\killua\production\redo-yes-all\final-scale\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

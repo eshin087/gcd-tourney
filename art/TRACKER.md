@@ -207,48 +207,48 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 3 | idle | 8 | - | **yes** | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 4 | run | 8 | - | **yes** | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 180 | approved | v07 | v07 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | dash | 2 | - | **yes** | 146 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 8 | jumpUp | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | jumpFall | 2 | - | **yes** | 190 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | land | 2 | - | **yes** | 158 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | win | 4 | - | **yes** | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | backDash | 3 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superDash | 2 | - | no | 109 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | jumpSquat | 1 | - | no | 147 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | block | 2 | - | no | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | hurtLow | 3 | - | no | 167 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | spin | 4 | - | no | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | airRecover | 3 | - | no | 164 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | throw | 4 | 1/1/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | vanish | 2 | - | no | 201 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | stagger | 4 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | ko | 1 | - | no | 58 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | taunt | 2 | - | no | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superPose | 4 | - | no | 191 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 3 | idle | 8 | - | **yes** | 186 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ref; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 4 | run | 8 | - | **yes** | 186 | approved | v07 | v03 | User approved correction 2026-10-11; strict ok; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v09 | v02 | User approved v09 on2026-10-11; strict per-strip ok. Claude down/KO manual QA still blocks whole pack. |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v04 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v04 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v06 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: pop; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v10 | v05 | User approved correction 2026-10-11; strict ok; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v05 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v06 | v01 | User approved correction 2026-10-11; strict ok; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 6 | guard | 2 | - | **yes** | 180 | approved | v06 | v03 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v05 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 6 | launched | 2 | - | **yes** | 124 | approved | v04 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: unmeasured; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 6 | down | 2 | - | **yes** | 87 | approved | v05 | v01 | New correction needs review; strict unmeasured; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 6 | getup | 5 | - | **yes** | 186 | approved | v05 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: unmeasured; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 7 | charge | 4 | - | **yes** | 180 | approved | v10 | v07 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v07 | v05 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 7 | beamFire | 3 | - | **yes** | 180 | approved | v07 | v04 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v05 | v02 | User approved correction 2026-10-11; strict ok; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 8 | dash | 2 | - | **yes** | 146 | approved | v04 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 8 | jumpUp | 2 | - | **yes** | 180 | approved | v04 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 8 | jumpFall | 2 | - | **yes** | 190 | approved | v04 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 8 | land | 2 | - | **yes** | 158 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 8 | win | 4 | - | **yes** | 193 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | backDash | 3 | - | no | 188 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | superDash | 2 | - | no | 109 | approved | v05 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | jumpSquat | 1 | - | no | 147 | approved | v04 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: unmeasured; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | airLight2 | 5 | 1/2/2 | no | 188 | approved | v06 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v08 | v02 | User approved v08 on2026-10-11; strict per-strip ok. Claude down/KO manual QA still blocks whole pack. |
+| 9 | block | 2 | - | no | 186 | approved | v06 | v03 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | hurtLow | 3 | - | no | 167 | approved | v05 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | spin | 4 | - | no | 146 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: unmeasured; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | airRecover | 3 | - | no | 164 | approved | v04 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: unmeasured; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | throw | 4 | 1/1/2 | no | 183 | approved | v05 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | vanish | 2 | - | no | 201 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: unmeasured; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | stagger | 4 | - | no | 188 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: uniform; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | ko | 1 | - | no | 58 | approved | v06 | v02 | New correction needs review; strict unmeasured; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 9 | intro | 4 | - | no | 191 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | taunt | 2 | - | no | 193 | approved | v03 | v01 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v09 | v04 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v07 | v02 | VISUALLY APPROVED 2026-10-11; technically blocked: pop; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
+| 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v04 | v01 | User approved correction 2026-10-11; strict ok; [ledger](characters/killua/production/redo-yes-all/STATUS.md). Earlier approval preserved. |
+| 9 | superPose | 4 | - | no | 191 | approved | v06 | v03 | VISUALLY APPROVED 2026-10-11; technically blocked: ok; [ledger](characters/killua/production/correction-status.md). Manifest shipped approval unchanged until technical clearance. |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |

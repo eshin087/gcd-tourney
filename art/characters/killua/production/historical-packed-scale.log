@@ -1,0 +1,28 @@
+
+== killua: idle head 51x37 px (auto palette #f9f8fa #d2c9dd #b599db #998bb1)
+   (measured from the sheet: this pack predates the recorded gate numbers; repack with npm run sprites killua for the gate's own)
+   1 ref, 14 ok, 8 unmeasured, 8 drift, 4 uniform, 7 pop
+   jumpUp          v01  head -13%  feet  -2%  DRIFT    f: 0.88 0.86
+   jumpFall        v01  head +11%  feet +18%  UNIFORM  f: 1.10 1.12
+   light4          v02  head  -6%  feet  +4%  POP      f: 0.94 0.93 0.89 0.91 0.93 1.00 1.00 1.03
+   heavy           v05  head -18%  feet  +4%  POP      f: 0.82 0.82 0.89 0.74 0.76 0.82 0.82 0.98
+   airLight1       v02  head -14%  feet  +2%  DRIFT    f: 0.82 0.86 0.86 0.87 0.86
+   airLight2       v02  head -13%  feet  -5%  UNIFORM  f: 0.84 0.86 0.88 0.88 0.87
+   airLight3       v02  head -19%  feet  -4%  DRIFT    f: 0.80 0.79 0.78 0.82 0.86 0.85
+   airHeavy        v01  head -24%  feet -13%  POP      f: 0.62 0.69 1.81 0.86 0.63 0.84
+   guard           v03  head -24%  feet +16%  DRIFT    f: 0.77 0.74
+   block           v03  head -17%  feet +16%  POP      f: 0.90 0.76
+   hurtHigh        v02  head -20%  feet  -6%  DRIFT    f: 0.85 0.80 0.80
+   hurtLow         v02  head -18%  feet -11%  UNIFORM  f: 0.82 0.80 0.82
+   charge          v07  head +16%  feet +16%  UNIFORM  f: 1.17 1.14 1.16 1.16
+   throw           v02  head -12%  feet  +9%  DRIFT    f: 0.88 0.88 0.90 0.88
+   beamFire        v04  head -12%  feet +10%  DRIFT    f: 0.88 0.88 0.90
+   specialForward  v04  head -20%  feet  +6%  POP      f: 0.82 0.82 0.80 0.86 0.67 0.60 0.60
+   specialUp       v02  head -25%  feet -15%  POP      f: 0.74 0.77 1.03 0.75 0.74 0.65
+   specialDown     v01  head  +8%  feet +10%  POP      f: 0.96 1.12 1.07 1.09
+   superPose       v03  head -33%  feet +14%  DRIFT    f: 0.71 0.66 0.69 0.65
+   ! airHeavy: the manifest's scale exemption was written for v02 but the packed strip is v01 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 1
+   ! specialUp: the manifest's scale exemption was written for v03 but the packed strip is v02 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 2
+   wrote art\characters\killua\production\historical-packed\heads-killua.png
+
+[scale] 19 flagged strip(s); wrote art\characters\killua\production\historical-packed\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

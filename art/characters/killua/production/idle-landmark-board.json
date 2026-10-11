@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "IDLE V02 A",
+    "file": "raw/_parts/idle_v02_A.png",
+    "rect": {
+      "x0": 158,
+      "x1": 468,
+      "y0": 30,
+      "y1": 677
+    },
+    "factor": 1
+  },
+  {
+    "label": "IDLE V03 A",
+    "file": "raw/_parts/idle_v03_A.png",
+    "rect": {
+      "x0": 181,
+      "x1": 414,
+      "y0": 56,
+      "y1": 711
+    },
+    "factor": 1
+  }
+]

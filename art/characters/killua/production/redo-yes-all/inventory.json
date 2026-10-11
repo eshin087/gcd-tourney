@@ -1,0 +1,477 @@
+[
+  {
+    "asset": "run",
+    "version": 7,
+    "additionalCalls": 2,
+    "cap": 3,
+    "gate": {
+      "head": 1.059,
+      "feet": 0.992,
+      "range": 0.028,
+      "verdict": "ok",
+      "strict": true,
+      "version": 7,
+      "reason": null,
+      "frames": [
+        1.063,
+        1.059,
+        1.059,
+        1.059,
+        1.035,
+        1.035,
+        1.059,
+        1.045
+      ]
+    },
+    "notes": "Head size corrected. Existing near/far leg depth reversal still ambiguous; preserved approved body/poses, not claimed as new gait repair.",
+    "source": "art/characters/killua/raw/run_v07.png",
+    "sidecar": {
+      "stitch": {
+        "bFactor": 1.0167,
+        "measured": 1.0167,
+        "scaledPart": "A",
+        "scaledBy": 0.9836,
+        "idleScaleA": 0.2883,
+        "idleScaleB": 0.2931,
+        "afterB_vs_A": 1.018,
+        "parts": [
+          "raw/_parts/run_v07_A.png",
+          "raw/_parts/run_v07_B.png"
+        ],
+        "poses": [
+          4,
+          4
+        ],
+        "gapPx": 24,
+        "tool": "tools/stitch-parts.mjs"
+      },
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          78.688,
+          78.688,
+          78.688,
+          78.688,
+          80,
+          80,
+          80,
+          80
+        ]
+      },
+      "measurementUncertaintyPx": 12,
+      "calibrationNotes": "Face axes retained from original parts despite requested complete-head increase; visible change mostly hair. Approximate hidden scalp to chin80±12px; torso170/thigh145/shin125 retained. Gait depth reversal remains a visual concern. Source dimensions 2172x724; apply recorded official stitch factor to anatomical lengths."
+    }
+  },
+  {
+    "asset": "light1",
+    "version": 8,
+    "additionalCalls": 3,
+    "cap": 3,
+    "gate": {
+      "head": 1.074,
+      "feet": 1.013,
+      "range": 0.112,
+      "verdict": "drift",
+      "strict": true,
+      "version": 8,
+      "reason": null,
+      "frames": [
+        1.074,
+        1.094,
+        1.076,
+        1.079,
+        0.994,
+        1.002,
+        0.982
+      ]
+    },
+    "notes": "Capped: final hair-only retry overshot; f0-f3 still oversized. Earlier v06/v07 also failed. No further calls authorized in this round.",
+    "source": "art/characters/killua/raw/light1_v08.png",
+    "sidecar": {
+      "stitch": {
+        "bFactor": 1.1098,
+        "measured": 1.1098,
+        "scaledPart": "A",
+        "scaledBy": 0.9011,
+        "idleScaleA": 0.275,
+        "idleScaleB": 0.3052,
+        "afterB_vs_A": 0.99,
+        "parts": [
+          "raw/_parts/light1_v08_A.png",
+          "raw/_parts/light1_v08_B.png"
+        ],
+        "poses": [
+          4,
+          3
+        ],
+        "gapPx": 24,
+        "tool": "tools/stitch-parts.mjs"
+      },
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          72.088,
+          72.088,
+          72.088,
+          72.088,
+          80,
+          80,
+          80
+        ]
+      },
+      "measurementUncertaintyPx": 12,
+      "calibrationNotes": "Final extra-call hair-only correction. Inferred scalp/chin and all body landmarks unchanged from v07. Source skull approximately80±10; B exact approved-part bytes. Source dimensions 2172x724; apply recorded official stitch factor to anatomical lengths."
+    }
+  },
+  {
+    "asset": "heavy",
+    "version": 10,
+    "additionalCalls": 2,
+    "cap": 3,
+    "gate": {
+      "head": 1.007,
+      "feet": 1.003,
+      "range": 0.119,
+      "verdict": "ok",
+      "strict": true,
+      "version": 10,
+      "reason": null,
+      "frames": [
+        0.94,
+        1.059,
+        1.025,
+        1.012,
+        0.988,
+        0.984,
+        1.003,
+        1.012
+      ]
+    },
+    "notes": "Hair f0/f5 reduced; crouched skull measurement remains ±12 source px. Full 8-frame body continuity inspected.",
+    "source": "art/characters/killua/raw/heavy_v10.png",
+    "sidecar": {
+      "stitch": {
+        "bFactor": 0.9687,
+        "measured": 0.9687,
+        "scaledPart": "B",
+        "scaledBy": 0.9687,
+        "idleScaleA": 0.3644,
+        "idleScaleB": 0.353,
+        "afterB_vs_A": 1,
+        "parts": [
+          "raw/_parts/heavy_v10_A.png",
+          "raw/_parts/heavy_v10_B.png"
+        ],
+        "poses": [
+          5,
+          3
+        ],
+        "gapPx": 24,
+        "tool": "tools/stitch-parts.mjs"
+      },
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          65,
+          64,
+          70,
+          70,
+          70,
+          65.8716,
+          68.7777,
+          71.6838
+        ]
+      },
+      "measurementUncertaintyPx": 12,
+      "calibrationNotes": "Hair-only correction f0 and f5. Inferred original scalp landmarks retained; A f0 crown303,305 to319,368, A f2 1141,259 to1165,325; B f0 454,126 to474,191. Bent neck uncertainty; unchanged long shins and torso. Source dimensions 2172x724; apply recorded official stitch factor to anatomical lengths."
+    }
+  },
+  {
+    "asset": "airLight3",
+    "version": 7,
+    "additionalCalls": 3,
+    "cap": 3,
+    "gate": {
+      "head": 1.077,
+      "feet": 1.051,
+      "range": 0.156,
+      "verdict": "pop",
+      "strict": true,
+      "version": 7,
+      "reason": null,
+      "frames": [
+        1.048,
+        1.106,
+        1.129,
+        1.143,
+        0.996,
+        0.987
+      ]
+    },
+    "notes": "Capped: final A hair retry overshot, f2/f3 large. B is corrected v06 unchanged. Earlier v06 A was undersized. Do not scalar-fit away the part discrepancy.",
+    "source": "art/characters/killua/raw/airLight3_v07.png",
+    "sidecar": {
+      "stitch": {
+        "bFactor": 1.0654,
+        "measured": 1.0654,
+        "scaledPart": "A",
+        "scaledBy": 0.9386,
+        "idleScaleA": 0.3172,
+        "idleScaleB": 0.338,
+        "afterB_vs_A": 0.97,
+        "parts": [
+          "raw/_parts/airLight3_v07_A.png",
+          "raw/_parts/airLight3_v07_B.png"
+        ],
+        "poses": [
+          4,
+          2
+        ],
+        "gapPx": 24,
+        "tool": "tools/stitch-parts.mjs"
+      },
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          65.702,
+          65.702,
+          65.702,
+          65.702,
+          74,
+          74
+        ]
+      },
+      "measurementUncertaintyPx": 12,
+      "calibrationNotes": "Hair-only A retry, all face/limb landmarks retained. Same skull measurements and uncertainty as v06. B exact v06 copy. Source dimensions 2172x724; apply recorded official stitch factor to anatomical lengths."
+    }
+  },
+  {
+    "asset": "airHeavy",
+    "version": 6,
+    "additionalCalls": 2,
+    "cap": 3,
+    "gate": {
+      "head": 0.994,
+      "feet": 1.04,
+      "range": 0.091,
+      "verdict": "ok",
+      "strict": true,
+      "version": 6,
+      "reason": null,
+      "frames": [
+        1,
+        0.952,
+        0.984,
+        0.988,
+        1.012,
+        1.043
+      ]
+    },
+    "notes": "Second call corrected remaining f2 hair; all 6 frames read continuous at one scale.",
+    "source": "art/characters/killua/raw/airHeavy_v06.png",
+    "sidecar": {
+      "stitch": {
+        "bFactor": 0.8274,
+        "measured": 0.8274,
+        "scaledPart": "B",
+        "scaledBy": 0.8274,
+        "idleScaleA": 0.3627,
+        "idleScaleB": 0.3001,
+        "afterB_vs_A": 1.035,
+        "parts": [
+          "raw/_parts/airHeavy_v06_A.png",
+          "raw/_parts/airHeavy_v06_B.png"
+        ],
+        "poses": [
+          4,
+          2
+        ],
+        "gapPx": 24,
+        "tool": "tools/stitch-parts.mjs"
+      },
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          71,
+          75,
+          66,
+          68,
+          59.5728,
+          61.2276
+        ]
+      },
+      "measurementUncertaintyPx": 12,
+      "calibrationNotes": "Only f2 hair tightened further; all skull and body landmarks retained. Same measured source anatomy as v05; B exact approved-part copy. Source dimensions 2172x724; apply recorded official stitch factor to anatomical lengths."
+    }
+  },
+  {
+    "asset": "special",
+    "version": 5,
+    "additionalCalls": 1,
+    "cap": 3,
+    "gate": {
+      "head": 1.003,
+      "feet": 0.997,
+      "range": 0.091,
+      "verdict": "ok",
+      "strict": true,
+      "version": 5,
+      "reason": null,
+      "frames": [
+        0.973,
+        0.95,
+        0.975,
+        0.987,
+        1.019,
+        1.027,
+        1.033,
+        1.041
+      ]
+    },
+    "notes": "Head correction in B, original A unchanged. All eight hand poses and body lengths preserved.",
+    "source": "art/characters/killua/raw/special_v05.png",
+    "sidecar": {
+      "stitch": {
+        "bFactor": 0.8679,
+        "measured": 0.8679,
+        "scaledPart": "B",
+        "scaledBy": 0.8679,
+        "idleScaleA": 0.3201,
+        "idleScaleB": 0.2778,
+        "afterB_vs_A": 1.009,
+        "parts": [
+          "raw/_parts/special_v05_A.png",
+          "raw/_parts/special_v05_B.png"
+        ],
+        "poses": [
+          4,
+          4
+        ],
+        "gapPx": 24,
+        "tool": "tools/stitch-parts.mjs"
+      },
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          80,
+          80,
+          80,
+          80,
+          73.7715,
+          73.7715,
+          73.7715,
+          73.7715
+        ]
+      },
+      "measurementUncertaintyPx": 12,
+      "calibrationNotes": "A exact approved-part copy. B complete-head edit approximately6% larger skull: source scalp-to-chin inferred~85±12 versus A80±12, e.g display2048x683 B f0 crown265,100 to299,174 (~86 native). Same shoulder/hip/knee/ankle coordinates, original slender build; source skull partly hidden by hair. Source dimensions 2172x724; apply recorded official stitch factor to anatomical lengths."
+    }
+  },
+  {
+    "asset": "specialDown",
+    "version": 4,
+    "additionalCalls": 1,
+    "cap": 3,
+    "gate": {
+      "head": 1.008,
+      "feet": 0.983,
+      "range": 0.096,
+      "verdict": "ok",
+      "strict": true,
+      "version": 4,
+      "reason": null,
+      "frames": [
+        0.968,
+        1.048,
+        0.954,
+        1.05
+      ]
+    },
+    "notes": "Hair-only correction f0/f1. All four body poses preserved.",
+    "source": "art/characters/killua/raw/specialDown_v04.png",
+    "sidecar": {
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          78,
+          72,
+          83,
+          77
+        ]
+      },
+      "measurementUncertaintyPx": 15,
+      "calibrationNotes": "Hair-only f0/f1 correction retains original source skull axes. f0 crown304,263 to323,338; f1 852,269 to868,339; f2 1329,111 to1352,191; f3 1960,247 to1980,321. Clothing/limb pixels and other two heads visually unchanged."
+    }
+  },
+  {
+    "asset": "down",
+    "version": 5,
+    "additionalCalls": 1,
+    "cap": 3,
+    "gate": {
+      "head": 0.97,
+      "feet": 0.877,
+      "range": 0.042,
+      "verdict": "unmeasured",
+      "strict": true,
+      "version": 5,
+      "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
+      "frames": [
+        0.949,
+        0.991
+      ]
+    },
+    "notes": "Claude manual QA required for new v05. Side-on f0 impact/f1 rest; shortened near shin ~1.30 skull axes; source landmarks uncertain ±18px. No new floor/margin warning.",
+    "source": "art/characters/killua/raw/down_v05.png",
+    "sidecar": {
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          110,
+          110
+        ]
+      },
+      "measurementUncertaintyPx": 18,
+      "calibrationNotes": "Side elevation. Display2048x683/native2172x724. f0 inferred crown(180,385) to chin(274,427), axis103 display/~109 source; f1 inferred crown(1140,385) to chin(1238,435), axis110 display/~117 source within uncertainty. f1 knee~1690 to ankle1825 gives143 source, shin/skull1.30. Head/back/hip/heel line visually aligned; far leg and hidden hip need Claude manual QA."
+    }
+  },
+  {
+    "asset": "ko",
+    "version": 6,
+    "additionalCalls": 1,
+    "cap": 3,
+    "gate": {
+      "head": 0.925,
+      "feet": 0.818,
+      "range": 0,
+      "verdict": "unmeasured",
+      "strict": true,
+      "version": 6,
+      "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
+      "frames": [
+        0.925
+      ]
+    },
+    "notes": "Claude manual QA required for new v06. Side-on rest; shortened shin ~1.49 skull axes vs prior ~2.3; source landmarks uncertain ±20px. No new floor/margin warning.",
+    "source": "art/characters/killua/raw/ko_v06.png",
+    "sidecar": {
+      "anatomy": {
+        "measurement": "skull-to-chin",
+        "targetHeadPx": 24.225774996334824,
+        "sourceHeadPx": [
+          150
+        ]
+      },
+      "measurementUncertaintyPx": 20,
+      "calibrationNotes": "Side elevation. Display2048x683/native2172x724, inferred crown around(450,400) to chin(590,430), axis143 display/~151 source. Near knee~1260 to ankle1470 gives~223 source, shin/skull1.49 versus prior2.3. Shoulder~665 to hip1030 gives~388 source, torso/skull2.59 with clothing joint uncertainty. Candidate for Claude manual QA, not self-cleared."
+    }
+  }
+]

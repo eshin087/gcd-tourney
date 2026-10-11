@@ -1,0 +1,2191 @@
+{
+ "_doc": "npm run scale (tools/scale-audit.mjs): every packed frame against the approved idle. head = head silhouette with hair, feet = shoe area (1.00 = the idle). Verdicts: art/CHARACTER_SCALE.md \"Scale gate (automatic)\".",
+ "fighters": {
+  "killua": {
+   "palette": {
+    "head": [
+     "#431a47",
+     "#fcfbfb",
+     "#cdb9e3",
+     "#a788c7",
+     "#9769c1"
+    ],
+    "feet": [
+     "#784ca5",
+     "#5a357a",
+     "#fcfbfb",
+     "#cdb9e3",
+     "#968cab"
+    ],
+    "source": "auto"
+   },
+   "ref": {
+    "headPx": [
+     43,
+     32
+    ],
+    "box": [
+     106,
+     39,
+     147,
+     70
+    ],
+    "feetPx": 1861
+   },
+   "counts": {
+    "ref": 1,
+    "ok": 31,
+    "manual": 6,
+    "drift": 1,
+    "pop": 1,
+    "unmeasured": 2
+   },
+   "anims": {
+    "idle": {
+     "v": 3,
+     "head": 1,
+     "feet": 1,
+     "range": 0.032,
+     "verdict": "ref",
+     "frames": [
+      {
+       "head": 0.998,
+       "feet": 1.014,
+       "box": [
+        106,
+        39,
+        147,
+        70
+       ]
+      },
+      {
+       "head": 1.016,
+       "feet": 1.014,
+       "box": [
+        106,
+        38,
+        148,
+        69
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 0.99,
+       "box": [
+        106,
+        39,
+        148,
+        70
+       ]
+      },
+      {
+       "head": 0.999,
+       "feet": 1.008,
+       "box": [
+        106,
+        38,
+        148,
+        65
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.003,
+       "box": [
+        104,
+        40,
+        148,
+        67
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 0.997,
+       "box": [
+        106,
+        40,
+        146,
+        70
+       ]
+      },
+      {
+       "head": 1.006,
+       "feet": 0.984,
+       "box": [
+        107,
+        39,
+        147,
+        71
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 0.991,
+       "box": [
+        107,
+        41,
+        148,
+        67
+       ]
+      }
+     ]
+    },
+    "run": {
+     "v": 7,
+     "head": 1.059,
+     "feet": 0.992,
+     "range": 0.028,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.063,
+       "feet": 1.018,
+       "box": [
+        130,
+        62,
+        174,
+        96
+       ]
+      },
+      {
+       "head": 1.059,
+       "feet": 0.986,
+       "box": [
+        135,
+        62,
+        179,
+        94
+       ]
+      },
+      {
+       "head": 1.059,
+       "feet": 0.961,
+       "box": [
+        179,
+        63,
+        223,
+        94
+       ]
+      },
+      {
+       "head": 1.059,
+       "feet": 0.998,
+       "box": [
+        164,
+        79,
+        208,
+        108
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.017,
+       "box": [
+        111,
+        64,
+        154,
+        95
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 0.977,
+       "box": [
+        133,
+        62,
+        176,
+        93
+       ]
+      },
+      {
+       "head": 1.059,
+       "feet": 0.965,
+       "box": [
+        176,
+        64,
+        220,
+        95
+       ]
+      },
+      {
+       "head": 1.045,
+       "feet": 1.009,
+       "box": [
+        117,
+        65,
+        162,
+        94
+       ]
+      }
+     ]
+    },
+    "dash": {
+     "v": 4,
+     "head": 0.953,
+     "feet": 1.054,
+     "range": 0.024,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.965,
+       "feet": 1.062,
+       "box": [
+        195,
+        98,
+        235,
+        125
+       ]
+      },
+      {
+       "head": 0.941,
+       "feet": 1.046,
+       "box": [
+        157,
+        92,
+        196,
+        119
+       ]
+      }
+     ]
+    },
+    "backDash": {
+     "v": 3,
+     "head": 1.009,
+     "feet": 1.011,
+     "range": 0.031,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.016,
+       "feet": 1.037,
+       "box": [
+        129,
+        62,
+        172,
+        93
+       ]
+      },
+      {
+       "head": 1.009,
+       "feet": 0.936,
+       "box": [
+        72,
+        84,
+        113,
+        116
+       ]
+      },
+      {
+       "head": 0.985,
+       "feet": 1.011,
+       "box": [
+        108,
+        61,
+        149,
+        87
+       ]
+      }
+     ]
+    },
+    "superDash": {
+     "v": 5,
+     "head": 0.981,
+     "feet": 0.968,
+     "range": 0.012,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.987,
+       "feet": 0.978,
+       "box": [
+        167,
+        125,
+        213,
+        152
+       ]
+      },
+      {
+       "head": 0.975,
+       "feet": 0.957,
+       "box": [
+        162,
+        126,
+        205,
+        153
+       ]
+      }
+     ]
+    },
+    "jumpSquat": {
+     "v": 4,
+     "head": 0.96,
+     "feet": 0.888,
+     "range": 0,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA 2026-10-11 (user: \"yes to all\"): every frame compared with the approved idle f0 at one scale on the same floor line (crown/chin guides): head, build and limb lengths read the same size, no size jump between frames or into idle (art/characters/killua/production/manual-qa-2026-10-11/qa-killua-1.png)",
+     "frames": [
+      {
+       "head": 0.96,
+       "feet": 0.888,
+       "box": [
+        134,
+        101,
+        172,
+        132
+       ]
+      }
+     ]
+    },
+    "jumpUp": {
+     "v": 4,
+     "head": 1.037,
+     "feet": 1.038,
+     "range": 0.072,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.001,
+       "feet": 1.027,
+       "box": [
+        115,
+        65,
+        156,
+        98
+       ]
+      },
+      {
+       "head": 1.073,
+       "feet": 1.049,
+       "box": [
+        110,
+        68,
+        154,
+        103
+       ]
+      }
+     ]
+    },
+    "jumpFall": {
+     "v": 4,
+     "head": 1,
+     "feet": 0.962,
+     "range": 0.004,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.998,
+       "feet": 0.954,
+       "box": [
+        117,
+        71,
+        156,
+        104
+       ]
+      },
+      {
+       "head": 1.002,
+       "feet": 0.971,
+       "box": [
+        116,
+        71,
+        156,
+        103
+       ]
+      }
+     ]
+    },
+    "land": {
+     "v": 3,
+     "head": 0.997,
+     "feet": 1.006,
+     "range": 0.019,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.988,
+       "feet": 1.001,
+       "box": [
+        122,
+        106,
+        163,
+        136
+       ]
+      },
+      {
+       "head": 1.007,
+       "feet": 1.011,
+       "box": [
+        112,
+        54,
+        152,
+        86
+       ]
+      }
+     ]
+    },
+    "light1": {
+     "v": 8,
+     "head": 1.074,
+     "feet": 1.013,
+     "range": 0.112,
+     "verdict": "drift",
+     "frames": [
+      {
+       "head": 1.074,
+       "feet": 1.013,
+       "box": [
+        104,
+        51,
+        149,
+        83
+       ]
+      },
+      {
+       "head": 1.094,
+       "feet": 1.028,
+       "box": [
+        104,
+        51,
+        150,
+        82
+       ]
+      },
+      {
+       "head": 1.076,
+       "feet": 1.031,
+       "box": [
+        103,
+        51,
+        149,
+        82
+       ]
+      },
+      {
+       "head": 1.079,
+       "feet": 1.02,
+       "box": [
+        103,
+        51,
+        148,
+        84
+       ]
+      },
+      {
+       "head": 0.994,
+       "feet": 1.002,
+       "box": [
+        107,
+        54,
+        146,
+        86
+       ]
+      },
+      {
+       "head": 1.002,
+       "feet": 1.004,
+       "box": [
+        107,
+        54,
+        146,
+        87
+       ]
+      },
+      {
+       "head": 0.982,
+       "feet": 0.994,
+       "box": [
+        106,
+        54,
+        146,
+        87
+       ]
+      }
+     ]
+    },
+    "light2": {
+     "v": 4,
+     "head": 0.965,
+     "feet": 0.995,
+     "range": 0.086,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.957,
+       "feet": 0.995,
+       "box": [
+        112,
+        57,
+        152,
+        86
+       ]
+      },
+      {
+       "head": 0.952,
+       "feet": 0.979,
+       "box": [
+        108,
+        57,
+        147,
+        86
+       ]
+      },
+      {
+       "head": 0.965,
+       "feet": 0.979,
+       "box": [
+        114,
+        58,
+        154,
+        85
+       ]
+      },
+      {
+       "head": 0.965,
+       "feet": 0.974,
+       "box": [
+        113,
+        57,
+        153,
+        86
+       ]
+      },
+      {
+       "head": 1.016,
+       "feet": 1.03,
+       "box": [
+        115,
+        49,
+        156,
+        80
+       ]
+      },
+      {
+       "head": 1.024,
+       "feet": 1.025,
+       "box": [
+        108,
+        48,
+        149,
+        83
+       ]
+      },
+      {
+       "head": 1.038,
+       "feet": 1.022,
+       "box": [
+        103,
+        48,
+        144,
+        82
+       ]
+      }
+     ]
+    },
+    "light3": {
+     "v": 4,
+     "head": 1.008,
+     "feet": 1.017,
+     "range": 0.039,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.003,
+       "feet": 1.005,
+       "box": [
+        123,
+        33,
+        165,
+        62
+       ]
+      },
+      {
+       "head": 0.998,
+       "feet": 1.007,
+       "box": [
+        112,
+        32,
+        153,
+        64
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 1.017,
+       "box": [
+        117,
+        33,
+        158,
+        62
+       ]
+      },
+      {
+       "head": 1.027,
+       "feet": 1.001,
+       "box": [
+        113,
+        32,
+        155,
+        64
+       ]
+      },
+      {
+       "head": 1.017,
+       "feet": 1.034,
+       "box": [
+        110,
+        37,
+        151,
+        71
+       ]
+      },
+      {
+       "head": 1.008,
+       "feet": 1.055,
+       "box": [
+        109,
+        37,
+        150,
+        68
+       ]
+      },
+      {
+       "head": 1.011,
+       "feet": 1.025,
+       "box": [
+        104,
+        37,
+        145,
+        69
+       ]
+      }
+     ]
+    },
+    "light4": {
+     "v": 6,
+     "head": 0.994,
+     "feet": 1.027,
+     "range": 0.076,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.989,
+       "feet": 1.065,
+       "box": [
+        106,
+        41,
+        147,
+        72
+       ]
+      },
+      {
+       "head": 0.965,
+       "feet": 0.976,
+       "box": [
+        113,
+        37,
+        153,
+        66
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.018,
+       "box": [
+        96,
+        38,
+        139,
+        65
+       ]
+      },
+      {
+       "head": 0.998,
+       "feet": 1.071,
+       "box": [
+        96,
+        37,
+        137,
+        69
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 1.055,
+       "box": [
+        99,
+        38,
+        140,
+        70
+       ]
+      },
+      {
+       "head": 1.041,
+       "feet": 1.001,
+       "box": [
+        103,
+        55,
+        145,
+        88
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.035,
+       "box": [
+        97,
+        54,
+        140,
+        88
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 1.013,
+       "box": [
+        106,
+        53,
+        147,
+        83
+       ]
+      }
+     ]
+    },
+    "heavy": {
+     "v": 10,
+     "head": 1.007,
+     "feet": 1.003,
+     "range": 0.119,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.94,
+       "feet": 1.043,
+       "box": [
+        128,
+        82,
+        169,
+        108
+       ]
+      },
+      {
+       "head": 1.059,
+       "feet": 1.069,
+       "box": [
+        139,
+        104,
+        183,
+        134
+       ]
+      },
+      {
+       "head": 1.025,
+       "feet": 0.999,
+       "box": [
+        123,
+        77,
+        166,
+        105
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 0.959,
+       "box": [
+        142,
+        54,
+        184,
+        88
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 0.942,
+       "box": [
+        116,
+        39,
+        157,
+        73
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.012,
+       "box": [
+        128,
+        64,
+        170,
+        94
+       ]
+      },
+      {
+       "head": 1.003,
+       "feet": 1.006,
+       "box": [
+        130,
+        98,
+        172,
+        127
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 0.983,
+       "box": [
+        113,
+        70,
+        155,
+        100
+       ]
+      }
+     ]
+    },
+    "airLight1": {
+     "v": 5,
+     "head": 0.965,
+     "feet": 1.005,
+     "range": 0.028,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.965,
+       "feet": 0.994,
+       "box": [
+        94,
+        38,
+        134,
+        67
+       ]
+      },
+      {
+       "head": 0.965,
+       "feet": 1.012,
+       "box": [
+        99,
+        38,
+        139,
+        67
+       ]
+      },
+      {
+       "head": 0.961,
+       "feet": 1.006,
+       "box": [
+        101,
+        36,
+        141,
+        65
+       ]
+      },
+      {
+       "head": 0.989,
+       "feet": 1.005,
+       "box": [
+        94,
+        37,
+        134,
+        68
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.004,
+       "box": [
+        94,
+        37,
+        134,
+        67
+       ]
+      }
+     ]
+    },
+    "airLight2": {
+     "v": 6,
+     "head": 0.975,
+     "feet": 0.964,
+     "range": 0.068,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.975,
+       "feet": 0.964,
+       "box": [
+        131,
+        56,
+        171,
+        87
+       ]
+      },
+      {
+       "head": 1.033,
+       "feet": 1.006,
+       "box": [
+        124,
+        46,
+        166,
+        79
+       ]
+      },
+      {
+       "head": 1.03,
+       "feet": 0.996,
+       "box": [
+        120,
+        48,
+        162,
+        82
+       ]
+      },
+      {
+       "head": 0.967,
+       "feet": 0.943,
+       "box": [
+        111,
+        62,
+        150,
+        95
+       ]
+      },
+      {
+       "head": 0.965,
+       "feet": 0.943,
+       "box": [
+        129,
+        61,
+        169,
+        92
+       ]
+      }
+     ]
+    },
+    "airLight3": {
+     "v": 7,
+     "head": 1.077,
+     "feet": 1.051,
+     "range": 0.156,
+     "verdict": "pop",
+     "frames": [
+      {
+       "head": 1.048,
+       "feet": 0.958,
+       "box": [
+        111,
+        30,
+        155,
+        62
+       ]
+      },
+      {
+       "head": 1.106,
+       "feet": 1.039,
+       "box": [
+        104,
+        30,
+        150,
+        65
+       ]
+      },
+      {
+       "head": 1.129,
+       "feet": 1.045,
+       "box": [
+        99,
+        58,
+        146,
+        95
+       ]
+      },
+      {
+       "head": 1.143,
+       "feet": 1.061,
+       "box": [
+        101,
+        57,
+        147,
+        93
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 1.075,
+       "box": [
+        116,
+        48,
+        155,
+        80
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 1.057,
+       "box": [
+        112,
+        39,
+        151,
+        73
+       ]
+      }
+     ]
+    },
+    "airHeavy": {
+     "v": 6,
+     "head": 0.994,
+     "feet": 1.04,
+     "range": 0.091,
+     "verdict": "ok",
+     "staleExempt": {
+      "v": 2,
+      "version": 6
+     },
+     "frames": [
+      {
+       "head": 1,
+       "feet": 1.022,
+       "box": [
+        119,
+        51,
+        158,
+        82
+       ]
+      },
+      {
+       "head": 0.952,
+       "feet": 0.946,
+       "box": [
+        107,
+        58,
+        145,
+        87
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.049,
+       "box": [
+        140,
+        50,
+        181,
+        80
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 1.055,
+       "box": [
+        146,
+        61,
+        187,
+        91
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.04,
+       "box": [
+        117,
+        46,
+        159,
+        75
+       ]
+      },
+      {
+       "head": 1.043,
+       "feet": 1.04,
+       "box": [
+        137,
+        36,
+        179,
+        70
+       ]
+      }
+     ]
+    },
+    "guard": {
+     "v": 6,
+     "head": 0.96,
+     "feet": 0.948,
+     "range": 0.039,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.98,
+       "feet": 0.946,
+       "box": [
+        105,
+        69,
+        144,
+        100
+       ]
+      },
+      {
+       "head": 0.941,
+       "feet": 0.95,
+       "box": [
+        108,
+        79,
+        147,
+        107
+       ]
+      }
+     ]
+    },
+    "block": {
+     "v": 6,
+     "head": 1.021,
+     "feet": 0.983,
+     "range": 0.004,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.023,
+       "feet": 1.003,
+       "box": [
+        72,
+        74,
+        113,
+        108
+       ]
+      },
+      {
+       "head": 1.019,
+       "feet": 0.963,
+       "box": [
+        98,
+        73,
+        139,
+        105
+       ]
+      }
+     ]
+    },
+    "hurtHigh": {
+     "v": 5,
+     "head": 1.035,
+     "feet": 1.022,
+     "range": 0.016,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.019,
+       "feet": 1.022,
+       "box": [
+        67,
+        61,
+        107,
+        101
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.019,
+       "box": [
+        116,
+        68,
+        159,
+        96
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.027,
+       "box": [
+        113,
+        64,
+        156,
+        95
+       ]
+      }
+     ]
+    },
+    "hurtLow": {
+     "v": 5,
+     "head": 1.016,
+     "feet": 0.999,
+     "range": 0.069,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.016,
+       "feet": 1.024,
+       "box": [
+        142,
+        80,
+        183,
+        111
+       ]
+      },
+      {
+       "head": 0.952,
+       "feet": 0.984,
+       "box": [
+        128,
+        60,
+        167,
+        89
+       ]
+      },
+      {
+       "head": 1.021,
+       "feet": 0.999,
+       "box": [
+        114,
+        45,
+        156,
+        78
+       ]
+      }
+     ]
+    },
+    "launched": {
+     "v": 4,
+     "head": 1.112,
+     "feet": 1.049,
+     "range": 0.059,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA 2026-10-11 (user: \"yes to all\"): every frame compared with the approved idle f0 at one scale on the same floor line (crown/chin guides): head, build and limb lengths read the same size, no size jump between frames or into idle (art/characters/killua/production/manual-qa-2026-10-11/qa-killua-1.png)",
+     "frames": [
+      {
+       "head": 1.082,
+       "feet": 1.08,
+       "box": [
+        43,
+        123,
+        88,
+        159
+       ]
+      },
+      {
+       "head": 1.141,
+       "feet": 1.017,
+       "box": [
+        60,
+        125,
+        106,
+        162
+       ]
+      }
+     ]
+    },
+    "spin": {
+     "v": 3,
+     "head": 1.036,
+     "feet": 0.995,
+     "range": 0.128,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA 2026-10-11 (user: \"yes to all\"): every frame compared with the approved idle f0 at one scale on the same floor line (crown/chin guides): head, build and limb lengths read the same size, no size jump between frames or into idle (art/characters/killua/production/manual-qa-2026-10-11/qa-killua-1.png)",
+     "frames": [
+      {
+       "head": 0.993,
+       "feet": 0.998,
+       "box": [
+        53,
+        148,
+        91,
+        184
+       ]
+      },
+      {
+       "head": 1.094,
+       "feet": 1.015,
+       "box": [
+        96,
+        199,
+        132,
+        238
+       ]
+      },
+      {
+       "head": 1.079,
+       "feet": 0.992,
+       "box": [
+        106,
+        206,
+        149,
+        239
+       ]
+      },
+      {
+       "head": 0.966,
+       "feet": 0.926,
+       "box": [
+        163,
+        124,
+        201,
+        157
+       ]
+      }
+     ]
+    },
+    "airRecover": {
+     "v": 4,
+     "head": 1.025,
+     "feet": 1.003,
+     "range": 0.49,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA 2026-10-11 (user: \"yes to all\"): every frame compared with the approved idle f0 at one scale on the same floor line (crown/chin guides): head, build and limb lengths read the same size, no size jump between frames or into idle (art/characters/killua/production/manual-qa-2026-10-11/qa-killua-1.png)",
+     "frames": [
+      {
+       "head": 1.031,
+       "feet": 0.935,
+       "box": [
+        61,
+        152,
+        102,
+        189
+       ]
+      },
+      {
+       "head": 0.541,
+       "feet": 1.003,
+       "box": [
+        159,
+        110,
+        181,
+        139
+       ]
+      },
+      {
+       "head": 1.025,
+       "feet": 1.011,
+       "box": [
+        88,
+        69,
+        129,
+        101
+       ]
+      }
+     ]
+    },
+    "down": {
+     "v": 5,
+     "head": 0.97,
+     "feet": 0.877,
+     "range": 0.042,
+     "verdict": "unmeasured",
+     "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
+     "frames": [
+      {
+       "head": 0.949,
+       "feet": 0.898,
+       "box": [
+        43,
+        204,
+        76,
+        238
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 0.855,
+       "box": [
+        34,
+        205,
+        70,
+        239
+       ]
+      }
+     ]
+    },
+    "getup": {
+     "v": 5,
+     "head": 0.982,
+     "feet": 0.896,
+     "range": 0.512,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA 2026-10-11 (user: \"yes to all\"): every frame compared with the approved idle f0 at one scale on the same floor line (crown/chin guides): head, build and limb lengths read the same size, no size jump between frames or into idle (art/characters/killua/production/manual-qa-2026-10-11/qa-killua-2.png)",
+     "frames": [
+      {
+       "head": 0.985,
+       "feet": 0.867,
+       "box": [
+        35,
+        203,
+        67,
+        239
+       ]
+      },
+      {
+       "head": 0.484,
+       "feet": 0.896,
+       "box": [
+        124,
+        108,
+        144,
+        121
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 0.898,
+       "box": [
+        77,
+        93,
+        112,
+        130
+       ]
+      },
+      {
+       "head": 0.982,
+       "feet": 0.878,
+       "box": [
+        132,
+        113,
+        172,
+        143
+       ]
+      },
+      {
+       "head": 0.981,
+       "feet": 0.948,
+       "box": [
+        110,
+        51,
+        150,
+        82
+       ]
+      }
+     ]
+    },
+    "charge": {
+     "v": 10,
+     "head": 1.035,
+     "feet": 1.031,
+     "range": 0.036,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.035,
+       "feet": 1.03,
+       "box": [
+        127,
+        90,
+        170,
+        121
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.026,
+       "box": [
+        123,
+        86,
+        165,
+        115
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.031,
+       "box": [
+        122,
+        89,
+        165,
+        118
+       ]
+      },
+      {
+       "head": 1.048,
+       "feet": 1.033,
+       "box": [
+        122,
+        89,
+        165,
+        121
+       ]
+      }
+     ]
+    },
+    "throw": {
+     "v": 5,
+     "head": 0.963,
+     "feet": 0.98,
+     "range": 0.044,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.941,
+       "feet": 0.981,
+       "box": [
+        150,
+        52,
+        189,
+        79
+       ]
+      },
+      {
+       "head": 0.965,
+       "feet": 0.979,
+       "box": [
+        146,
+        52,
+        186,
+        81
+       ]
+      },
+      {
+       "head": 0.985,
+       "feet": 0.982,
+       "box": [
+        146,
+        52,
+        188,
+        82
+       ]
+      },
+      {
+       "head": 0.961,
+       "feet": 0.95,
+       "box": [
+        145,
+        52,
+        185,
+        80
+       ]
+      }
+     ]
+    },
+    "beamCharge": {
+     "v": 7,
+     "head": 0.985,
+     "feet": 0.95,
+     "range": 0.037,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.956,
+       "feet": 0.917,
+       "box": [
+        114,
+        74,
+        152,
+        105
+       ]
+      },
+      {
+       "head": 0.985,
+       "feet": 0.95,
+       "box": [
+        114,
+        69,
+        152,
+        101
+       ]
+      },
+      {
+       "head": 0.993,
+       "feet": 0.953,
+       "box": [
+        113,
+        69,
+        153,
+        101
+       ]
+      }
+     ]
+    },
+    "beamFire": {
+     "v": 7,
+     "head": 1.015,
+     "feet": 1.036,
+     "range": 0.092,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.988,
+       "feet": 1.036,
+       "box": [
+        127,
+        79,
+        168,
+        108
+       ]
+      },
+      {
+       "head": 1.08,
+       "feet": 1.095,
+       "box": [
+        86,
+        63,
+        129,
+        99
+       ]
+      },
+      {
+       "head": 1.015,
+       "feet": 1.03,
+       "box": [
+        126,
+        79,
+        167,
+        110
+       ]
+      }
+     ]
+    },
+    "vanish": {
+     "v": 3,
+     "head": 1.007,
+     "feet": 0.998,
+     "range": 0.039,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA 2026-10-11 (user: \"yes to all\"): every frame compared with the approved idle f0 at one scale on the same floor line (crown/chin guides): head, build and limb lengths read the same size, no size jump between frames or into idle (art/characters/killua/production/manual-qa-2026-10-11/qa-killua-2.png)",
+     "frames": [
+      {
+       "head": 1.027,
+       "feet": 1.037,
+       "box": [
+        137,
+        90,
+        180,
+        120
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 0.959,
+       "box": [
+        109,
+        43,
+        150,
+        75
+       ]
+      }
+     ]
+    },
+    "stagger": {
+     "v": 3,
+     "head": 1,
+     "feet": 1.047,
+     "range": 0.06,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.988,
+       "feet": 1.041,
+       "box": [
+        129,
+        39,
+        170,
+        68
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.051,
+       "box": [
+        111,
+        31,
+        153,
+        61
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 1.043,
+       "box": [
+        128,
+        40,
+        169,
+        69
+       ]
+      },
+      {
+       "head": 1.048,
+       "feet": 1.059,
+       "box": [
+        111,
+        30,
+        154,
+        62
+       ]
+      }
+     ]
+    },
+    "ko": {
+     "v": 6,
+     "head": 0.925,
+     "feet": 0.818,
+     "range": 0,
+     "verdict": "unmeasured",
+     "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
+     "frames": [
+      {
+       "head": 0.925,
+       "feet": 0.818,
+       "box": [
+        19,
+        208,
+        53,
+        239
+       ]
+      }
+     ]
+    },
+    "special": {
+     "v": 5,
+     "head": 1.003,
+     "feet": 0.997,
+     "range": 0.091,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.973,
+       "feet": 0.999,
+       "box": [
+        110,
+        54,
+        148,
+        86
+       ]
+      },
+      {
+       "head": 0.95,
+       "feet": 1.004,
+       "box": [
+        104,
+        54,
+        143,
+        83
+       ]
+      },
+      {
+       "head": 0.975,
+       "feet": 0.999,
+       "box": [
+        109,
+        54,
+        148,
+        86
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 1.002,
+       "box": [
+        109,
+        54,
+        148,
+        86
+       ]
+      },
+      {
+       "head": 1.019,
+       "feet": 0.986,
+       "box": [
+        109,
+        62,
+        151,
+        97
+       ]
+      },
+      {
+       "head": 1.027,
+       "feet": 0.982,
+       "box": [
+        107,
+        63,
+        148,
+        96
+       ]
+      },
+      {
+       "head": 1.033,
+       "feet": 0.995,
+       "box": [
+        106,
+        62,
+        148,
+        96
+       ]
+      },
+      {
+       "head": 1.041,
+       "feet": 0.956,
+       "box": [
+        109,
+        62,
+        151,
+        95
+       ]
+      }
+     ]
+    },
+    "intro": {
+     "v": 3,
+     "head": 1.022,
+     "feet": 1.029,
+     "range": 0.075,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.988,
+       "feet": 1.029,
+       "box": [
+        107,
+        41,
+        148,
+        69
+       ]
+      },
+      {
+       "head": 1.063,
+       "feet": 1.036,
+       "box": [
+        105,
+        40,
+        146,
+        75
+       ]
+      },
+      {
+       "head": 1.024,
+       "feet": 1.029,
+       "box": [
+        105,
+        40,
+        147,
+        75
+       ]
+      },
+      {
+       "head": 1.019,
+       "feet": 1.025,
+       "box": [
+        107,
+        41,
+        148,
+        75
+       ]
+      }
+     ]
+    },
+    "taunt": {
+     "v": 3,
+     "head": 1.004,
+     "feet": 0.999,
+     "range": 0.044,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.982,
+       "feet": 0.991,
+       "box": [
+        99,
+        54,
+        139,
+        85
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.006,
+       "box": [
+        100,
+        53,
+        141,
+        86
+       ]
+      }
+     ]
+    },
+    "win": {
+     "v": 3,
+     "head": 1.051,
+     "feet": 0.983,
+     "range": 0.047,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.082,
+       "feet": 0.971,
+       "box": [
+        103,
+        45,
+        148,
+        79
+       ]
+      },
+      {
+       "head": 1.048,
+       "feet": 0.989,
+       "box": [
+        103,
+        44,
+        145,
+        76
+       ]
+      },
+      {
+       "head": 1.055,
+       "feet": 0.99,
+       "box": [
+        102,
+        45,
+        145,
+        78
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 0.977,
+       "box": [
+        103,
+        46,
+        146,
+        80
+       ]
+      }
+     ]
+    },
+    "specialForward": {
+     "v": 9,
+     "head": 1.035,
+     "feet": 1.039,
+     "range": 0.044,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.048,
+       "feet": 1.037,
+       "box": [
+        133,
+        75,
+        176,
+        107
+       ]
+      },
+      {
+       "head": 1.021,
+       "feet": 1.039,
+       "box": [
+        127,
+        75,
+        170,
+        103
+       ]
+      },
+      {
+       "head": 1.047,
+       "feet": 1.066,
+       "box": [
+        127,
+        76,
+        171,
+        106
+       ]
+      },
+      {
+       "head": 1.02,
+       "feet": 1.052,
+       "box": [
+        127,
+        75,
+        171,
+        103
+       ]
+      },
+      {
+       "head": 1.004,
+       "feet": 1.043,
+       "box": [
+        129,
+        72,
+        173,
+        99
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.03,
+       "box": [
+        119,
+        72,
+        162,
+        99
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.029,
+       "box": [
+        116,
+        72,
+        159,
+        100
+       ]
+      }
+     ]
+    },
+    "specialUp": {
+     "v": 7,
+     "head": 0.991,
+     "feet": 1.006,
+     "range": 0.095,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.039,
+       "feet": 1.03,
+       "box": [
+        143,
+        84,
+        189,
+        115
+       ]
+      },
+      {
+       "head": 0.944,
+       "feet": 0.982,
+       "box": [
+        163,
+        51,
+        201,
+        82
+       ]
+      },
+      {
+       "head": 0.878,
+       "feet": 0.928,
+       "box": [
+        157,
+        55,
+        192,
+        83
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.924,
+       "feet": 0.955,
+       "box": [
+        158,
+        50,
+        196,
+        81
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.706,
+       "feet": 0.962,
+       "box": [
+        134,
+        91,
+        163,
+        117
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.874,
+       "feet": 0.98,
+       "box": [
+        136,
+        89,
+        166,
+        116
+       ],
+       "exempt": true
+      }
+     ]
+    },
+    "specialDown": {
+     "v": 4,
+     "head": 1.008,
+     "feet": 0.983,
+     "range": 0.096,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.968,
+       "feet": 0.949,
+       "box": [
+        124,
+        91,
+        161,
+        121
+       ]
+      },
+      {
+       "head": 1.048,
+       "feet": 1.02,
+       "box": [
+        126,
+        81,
+        166,
+        113
+       ]
+      },
+      {
+       "head": 0.954,
+       "feet": 0.954,
+       "box": [
+        97,
+        59,
+        136,
+        93
+       ]
+      },
+      {
+       "head": 1.05,
+       "feet": 1.012,
+       "box": [
+        119,
+        84,
+        163,
+        113
+       ]
+      }
+     ]
+    },
+    "superPose": {
+     "v": 6,
+     "head": 1.035,
+     "feet": 1.043,
+     "range": 0.023,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.035,
+       "feet": 1.04,
+       "box": [
+        110,
+        56,
+        153,
+        85
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.046,
+       "box": [
+        106,
+        56,
+        148,
+        86
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.04,
+       "box": [
+        108,
+        56,
+        151,
+        84
+       ]
+      },
+      {
+       "head": 1.035,
+       "feet": 1.052,
+       "box": [
+        106,
+        56,
+        149,
+        85
+       ]
+      }
+     ]
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,95 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  art/characters/killua/production/diagnostic-public
+  anims: animGuide.js + art/characters/killua/production/diagnostic-manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== killua ======================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, COMPLETE (game will use it)
+    idle         8     <- frames/idle/ (raw/idle_v01.png) x1
+    run          8     <- frames/run/ (raw/run_v03.png) x1  (ignored 1 stray pixel(s) - clean them in frames/run/; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    dash         2     <- frames/dash/ (raw/dash_v02.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    backDash     3     <- frames/backDash/ (raw/backDash_v01.png) x1
+    superDash    2     <- frames/superDash/ (raw/superDash_v02.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    jumpSquat    1     <- frames/jumpSquat/ (raw/jumpSquat_v02.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    jumpUp       2     <- raw/jumpUp_v02.png           x0.232  (re-imported: replaces frames/ cleaned from raw/jumpUp_v01.png; candidate v02 (approved: v01); auto-head: verdict drift (head 0.91) - not fitted (only a uniform size error is))
+    jumpFall     2     <- raw/jumpFall_v02.png         x0.198  (removed 5 specks; re-imported: replaces frames/ cleaned from raw/jumpFall_v01.png; candidate v02 (approved: v01); auto-head fit x0.878 (head 1.14, feet 1.15 of idle))
+    land         2     <- frames/land/ (raw/land_v01.png) x1
+    light1       7     <- frames/light1/ (raw/light1_v02.png) x1
+    light2       7     <- frames/light2/ (raw/light2_v02.png) x1
+    light3       7     <- frames/light3/ (raw/light3_v02.png) x1
+    light4       8     <- frames/light4/ (raw/light4_v02.png) x1
+    heavy        8     <- raw/heavy_v07.png            x0.366  (re-imported: replaces frames/ cleaned from raw/heavy_v05.png; candidate v07 (approved: v05); auto-head fit x0.9294 (head 1.08, feet 1.23 of idle))
+    airLight1    5     <- raw/airLight1_v03.png        x0.295  (removed 7 specks; candidate v03 (approved: v02); auto-head: verdict drift (head 0.83) - not fitted (only a uniform size error is))
+    airLight2    5     <- raw/airLight2_v04.png        x0.347  (removed 10 specks; re-imported: replaces frames/ cleaned from raw/airLight2_v02.png; candidate v04 (approved: v02); auto-head: verdict drift (head 0.93) - not fitted (only a uniform size error is))
+    airLight3    6     <- raw/airLight3_v03.png        x0.341  (removed 20 specks; re-imported: replaces frames/ cleaned from raw/airLight3_v02.png; candidate v03 (approved: v02); auto-head fit x1.227 (head 0.81, feet 0.94 of idle))
+    airHeavy     6     <- raw/airHeavy_v02.png         x0.288  (re-imported: replaces frames/ cleaned from raw/airHeavy_v01.png; candidate v02 (approved: v01); auto-head fit x1.1442 (head 0.87, feet 0.92 of idle))
+    guard        2     <- raw/guard_v04.png            x0.201  (re-imported: replaces frames/ cleaned from raw/guard_v03.png; candidate v04 (approved: v03); auto-head: verdict drift (head 0.93) - not fitted (only a uniform size error is))
+    block        2     <- raw/block_v04.png            x0.243  (re-imported: replaces frames/ cleaned from raw/block_v03.png; candidate v04 (approved: v03); auto-head: verdict pop (head 1.12) - not fitted (only a uniform size error is))
+    hurtHigh     3     <- raw/hurtHigh_v03.png         x0.223  (removed 4 specks; re-imported: replaces frames/ cleaned from raw/hurtHigh_v02.png; candidate v03 (approved: v02); auto-head: verdict ok (head 0.99) - not fitted (only a uniform size error is))
+    hurtLow      3     <- raw/hurtLow_v03.png          x0.21  (re-imported: replaces frames/ cleaned from raw/hurtLow_v02.png; candidate v03 (approved: v02); auto-head: verdict drift (head 0.92) - not fitted (only a uniform size error is))
+    launched     2     <- frames/launched/ (raw/launched_v01.png) x1
+    spin         4     <- frames/spin/ (raw/spin_v01.png) x1
+    airRecover   3     <- frames/airRecover/ (raw/airRecover_v02.png) x1
+    down         2     <- raw/down_v02.png             x1  (removed 4 specks; re-imported: replaces frames/ cleaned from raw/down_v01.png; candidate v02 (approved: v01); anatomical scale: skull-to-chin 30px; bounds are pose-dependent)
+    getup        5     <- frames/getup/ (raw/getup_v02.png) x1
+    charge       4     <- raw/charge_v08.png           x0.25  (re-imported: replaces frames/ cleaned from raw/charge_v07.png; candidate v08 (approved: v07); auto-head fit x0.811 (head 1.23, feet 1.36 of idle))
+    throw        4     <- raw/throw_v03.png            x0.282  (removed 6 specks; split 1 touching pose group(s); candidate v03 (approved: v02); auto-head fit x1.073 (head 0.93, feet 0.95 of idle))
+    beamCharge   3     <- frames/beamCharge/ (raw/beamCharge_v05.png) x1  (anatomical scale: skull-to-chin 30px; bounds are pose-dependent)
+    beamFire     3     <- raw/beamFire_v05.png         x0.294  (removed 4 specks; re-imported: replaces frames/ cleaned from raw/beamFire_v04.png; candidate v05 (approved: v04); auto-head fit x0.8889 (head 1.13, feet 1.23 of idle))
+    vanish       2     <- frames/vanish/ (raw/vanish_v01.png) x1
+    stagger      4     <- frames/stagger/ (raw/stagger_v01.png) x1
+    ko           1     <- raw/ko_v03.png               x1  (re-imported: replaces frames/ cleaned from raw/ko_v02.png; candidate v03 (approved: v02); anatomical scale: skull-to-chin 30px; bounds are pose-dependent)
+    special      8     <- frames/special/ (raw/special_v02.png) x1
+    intro        4     <- frames/intro/ (raw/intro_v01.png) x1
+    taunt        2     <- frames/taunt/ (raw/taunt_v01.png) x1
+    win          4     <- frames/win/ (raw/win_v01.png) x1
+    specialForward  7     <- raw/specialForward_v07.png   x0.292  (re-imported: replaces frames/ cleaned from raw/specialForward_v04.png; candidate v07 (approved: v04); auto-head fit x0.9302 (head 1.07, feet 1.13 of idle))
+    specialUp    6     <- raw/specialUp_v05.png        x0.325  (removed 4 specks; candidate v05 (approved: v02); auto-head: verdict pop (head 0.94) - not fitted (only a uniform size error is))
+    specialDown  4     <- frames/specialDown/ (raw/specialDown_v01.png) x1
+    superPose    4     <- raw/superPose_v04.png        x0.246  (re-imported: replaces frames/ cleaned from raw/superPose_v03.png; candidate v04 (approved: v03); auto-head: verdict ok (head 0.98) - not fitted (only a uniform size error is))
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 19 ok, 8 drift, 8 unmeasured, 6 pop
+    ~ dash head 0.94 of idle (feet 1.11): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v02]
+    ~ jumpUp head 0.91 of idle (feet 1.01): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v02]
+    ~ light1 head 0.93 of idle (feet 1.09): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v02]
+    ~ light2 head 0.93 of idle (feet 1.09): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v02]
+    ~ light3 pops inside the strip: f1 0.89 vs f5 1.03 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ light4 pops inside the strip: f2 0.86 vs f7 1.04 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ heavy pops inside the strip: f7 0.97 vs f2 1.11 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v07]
+    ~ airLight1 head 0.83 of idle (feet 0.98): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v03]
+    ~ airLight2 head 0.93 of idle (feet 1.07): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v04]
+    ~ guard head 0.93 of idle (feet 0.99): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v04]
+    ~ block pops inside the strip: f1 1.05 vs f0 1.19 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]
+    ~ hurtLow head 0.92 of idle (feet 0.97): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v03]
+    ~ specialUp pops inside the strip: f5 0.80 vs f2 1.20 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v05]
+    ~ specialDown pops inside the strip: f0 0.94 vs f2 1.09 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v01]
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
+  - palette snapped to 48 colors
+  - hitboxes.json airHeavy: boxes and hand anchors scaled x1.144 about the pivot (auto-head fit x1.1442); re-measure them and set "_scale": 1.1442
+  - hitboxes.json airLight3: boxes and hand anchors scaled x1.227 about the pivot (auto-head fit x1.227); re-measure them and set "_scale": 1.227
+  - hitboxes.json heavy: boxes and hand anchors scaled x0.929 about the pivot (auto-head fit x0.9294); re-measure them and set "_scale": 0.9294
+  - hitboxes.json throw: boxes and hand anchors scaled x1.073 about the pivot (auto-head fit x1.073); re-measure them and set "_scale": 1.073
+  - hitboxes.json beamFire: boxes and hand anchors scaled x0.889 about the pivot (auto-head fit x0.8889); re-measure them and set "_scale": 0.8889
+  - 13 hitbox override(s) from hitboxes.json
+  - 3 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! specialUp: 1 frame(s) clipped by the 256x256 cell (#2 right 7px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! scale: the idle head is 52x43 px, 52x35 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)
+  ! scale: run head 0.94 was 1.00 in art/scale/scale-baseline.json at the same version v03 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light1 head 0.93 was 1.00 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light2 head 0.93 was 0.99 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light3 head 0.95 was 0.98 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light4 head 0.91 was 0.96 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: launched head 0.79 was 0.74 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: spin head 0.76 was 1.06 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airRecover head 0.90 was 0.99 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: beamCharge head 0.97 was 1.00 in art/scale/scale-baseline.json at the same version v05 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: special head 0.96 was 1.00 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: win head 0.95 was 0.99 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: specialUp: the manifest's scale exemption was written for v03 but the packed strip is v05 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 5
+  wrote art/characters/killua/production/diagnostic-public/characters/killua/portrait.png
+  wrote art/characters/killua/production/diagnostic-public/characters/killua/cutin.png
+  wrote art/characters/killua/production/diagnostic-public/characters/killua/select.png
+  wrote art/characters/killua/production/diagnostic-public/characters/killua/sheet.png
+  wrote art/characters/killua/production/diagnostic-public/characters/killua/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 14 warning(s).

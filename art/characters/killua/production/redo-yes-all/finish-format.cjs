@@ -1,0 +1,3 @@
+const fs=require('fs');let s=fs.readFileSync('art/REVIEW.md','utf8');s=s.replace(/^(\| 2026-10-11 \| killua \|[^\n]+Additional authorized correction;[^\n]+?) Whole-character strict blocked/gm,'$1 | Whole-character strict blocked');fs.writeFileSync('art/REVIEW.md',s);
+const d='art/characters/killua/production/redo-yes-all/';fs.appendFileSync(d+'STATUS.md','\nValidation: `npm.cmd run build` passed (Vite6.4.3,80 modules). Manifest diff changes exactly nine newest-version fields; approvedVersion/status and every calibration/exemption/manual record remain unchanged.\n');
+fs.copyFileSync(d+'STATUS.md','public/reviews/killua-redo/STATUS.md');
