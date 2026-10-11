@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/cut_wind_v03_{A,B}.png",
+  "version": 3,
+  "source": [
+    "decals/raw/cut_wind_v03_A.png",
+    "decals/raw/cut_wind_v03_B.png",
+    "decals/raw/cut_wind_v03.json"
+  ],
+  "sourceHash": "a30e290f1e3b8f4c6d563ac79c0bc3ec36837295",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "cut_wind_00.png": "8dffd2495503bb2dac10b1d47f77cfd9428536dc",
+    "cut_wind_01.png": "36b695aa0bdb3e41286683d069d664305ecb5a11",
+    "cut_wind_02.png": "d5089db06f7d3fece606d5ff0503858f78a7f4d0",
+    "cut_wind_03.png": "58097f44cdd9b0fccc75fabb5d0920b70a0357b2",
+    "cut_wind_04.png": "eef977089b1717aaa911daa7ce166e1c71b296a0",
+    "cut_wind_05.png": "b26136511f017449098f1cc14b5fbc6c125de68f"
+  }
+}

@@ -1,0 +1,20 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== decals ======================================================
+  not approved yet (25, procedural in game; preview with --candidates): crack_s, crack, crater, crater_big, crater_huge, fracture_ring, scuff, skid, rubble, dirt_crater, dirt_skid, barrier_crack, crater_wall, burn_lightning, burn_lightning_big, fracture_lightning, burn_fire, burn_black, erasure, erasure_trench, crush_implode, gouge_repel, fracture_cursed, fracture_cursed_big, scorch_ki
+  packed 6 decals, 24 variants -> 1 page(s): decals_chakra.png 2048x1792
+  pages per match: floor 0 + one element set per fighter (chakra 1); worst pairing 1 of the engine's 4
+    scour_spiral         6    <- frames/scour_spiral/ (raw/scour_spiral_v01_{A,B}.png) x1  (24 colors; 1148 hot px)
+    scour_spiral_big     3    <- frames/scour_spiral_big/ (raw/scour_spiral_big_v02_{A,B}.png) x1  (24 colors; 181 hot px)
+    cut_wind             6    <- frames/cut_wind/ (raw/cut_wind_v03_{A,B}.png) x1  (24 colors; 949 hot px)
+    claw                 4    <- frames/claw/ (raw/claw_v02_{A,B}.png) x1  (24 colors; 326 hot px)
+    scorch_chakra        3    <- frames/scorch_chakra/ (raw/scorch_chakra_v02_{A,B}.png) x1  (24 colors; 118 hot px)
+    fracture_chakra      2    <- frames/fracture_chakra/ (raw/fracture_chakra_v02.png) x1  (24 colors; 355 hot px)
+  wrote public/decals/decals_chakra.png
+  wrote public/decals/atlas.json
+
+done: 0/0 character(s) packed, vfx skipped, crowd skipped, 6 decal(s), 0 warning(s).

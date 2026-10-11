@@ -7,7 +7,7 @@
 //  hitstun    frames a grounded victim is stunned;  push = knockback speed
 //  airPop     upward speed given to an airborne victim (keeps juggles alive)
 //  launch     [horizontal, vertical] speed -> knocks the victim into the air
-//  groundBounce / wallBounce  the victim bounces off the floor / ring barrier once per combo
+//  groundBounce / wallBounce  the victim bounces off the floor / ring barrier (a per-combo budget: JUGGLE.ground / .wall)
 //  launcher   a jump or dash input after it connects chases the victim into the air
 //  next/cancel  chain into the next move from this frame on
 //  spark      'light' | 'heavy' | 'smash' impact effect size
@@ -15,6 +15,7 @@
 //  hardKnockdown  no tech roll on the landing after this hit (ADR 0022); unset, it defaults to true for ground-bounce
 //             spikes (dive slams) and big unblockable hits (super and ultimate finishes, clash results), else false
 //  lock       a multi-hit tick keeps air stun / hit stun at least this long, so one move can't be teched midway
+//  noTech     the timed impact tech can't beat the floor or barrier impact after this hit (super finishes, ADR 0028)
 //  ground     the floor damage style a special, shot or super leaves (GROUND_STYLES in ground.js, ADR 0024)
 export const MOVES = {
   light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
@@ -37,6 +38,34 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 
 // Vanish: teleport behind the opponent (1 ki bar), then vanishKick
 export const VANISH = { cost: 100, hideFrames: 9 };
+
+// Juggle rules (ADR 0026): read by Fighter.takeHit / physics / onLand and by the CPU combo composer (aiCombo.js), so the
+// planner predicts links with the numbers the engine plays. Frames at 60 fps, speeds in units/s.
+//  cap        hits after which a launched victim techs by itself
+//  decay      hit stun and air stun scale: max(floor, 1 − per·(combo − 1))
+//  launchStun air stun after a launching hit: max(min, base − per·combo) × decay
+//  airStun    air stun after a juggle hit (no launch): max(min, base − per·combo) × decay
+//  gravity    a launched victim's gravity scale: min(max, base + per·combo)
+//  pop        a juggle hit's airPop × max(floor, 1 − per·combo)
+//  scale      damage scaling: max(minScale ?? floor, 1 − per·(combo − 1))
+//  wall       ring-barrier bounce: a launched victim faster than `minSpeed` toward it comes back at `keep` × its speed and
+//             rises at least at `up`. Budget: at most `max` per combo (a wallBounce hit arms it only while bounces are
+//             left), the n-th with air stun `stun[n - 1]` (flat, no decay; shorter each time), so the same-wall
+//             "handball" is a real, limited route
+//  ground     ground bounce: rises at `up`, keeps `keep` of the horizontal speed; `max` per combo, air stun `stun[n - 1]`
+//  floor      a hard landing (impact > `impact`) bounces once at `keep` × the impact and `slide` of the horizontal speed
+export const JUGGLE = {
+  cap: 22,
+  decay: { per: 0.045, floor: 0.35 },
+  launchStun: { base: 40, per: 1.6, min: 6 },
+  airStun: { base: 26, per: 1, min: 5 },
+  gravity: { base: 0.6, per: 0.035, max: 1.35 },
+  pop: { per: 0.03, floor: 0.5 },
+  scale: { per: 0.065, floor: 0.4 },
+  wall: { max: 3, minSpeed: 5, keep: 0.55, up: 7, stun: [32, 28, 22] },
+  ground: { max: 2, up: 11, keep: 0.35, stun: [30, 24] },
+  floor: { impact: 8, keep: 0.32, slide: 0.5 },
+};
 
 // Hit flash on the victim's sprite (ENG-064, src/game/hitFlash.js). Render only; frames at 60 fps, counted every
 // sim frame including hitstop and freezes. Which tier a hit plays: ko > the move's `hitFlash` field (supers) > special
@@ -63,6 +92,7 @@ export const HIT_FLASH = {
   tick: { pop: 0, lift: 0.3, rim: 0.7, rimColor: 0xffffff, fade: 5, shake: 0.03 },
   parry: { pop: 1, lift: 0.3, rim: 1, rimColor: 0x9ff0ff, fade: 8, shake: 0 },
   burn: { pop: 0, lift: 0.25, rim: 0.6, rimColor: null, fade: 6, shake: 0 },
+  tech: { pop: 1, lift: 0.4, rim: 1, rimColor: 0xc8f8ff, fade: 10, shake: 0 }, // a timed impact tech (ADR 0028)
 };
 
 // Defensive options (ADR 0014), all free. Frames at 60 fps.
@@ -102,6 +132,19 @@ export const THROW = {
 //             pressed during the combo and under `chord` frames ago (Guard pressed while a charge holds Special
 //             is a tech, not a burst).
 //  reversal   an attack started within `window` frames of leaving stun, block or wake-up that hits: REVERSAL
+//  impactTech timed tech, Smash style (ADR 0028): a FRESH Guard press (an edge: holding Guard alone never does it) at
+//             most `window` frames before a launched victim hits the floor (the first contact of a fall: a ground
+//             bounce, a spike's or throw's hard knockdown, a plain landing) or the ring barrier on a wall bounce techs
+//             the impact: the bounce never happens (no bounce budget used) and the combo ends. A press that doesn't
+//             tech locks the timed tech out for `lockout` frames counted from it, so mashing fails. Frames are the
+//             victim's live frames: a press during hitstop or a world freeze counts as made on the first frame after
+//             it. Never on a KO, while held, or after a `noTech` hit (super finishes).
+//    inPlace  floor, stick neutral: stand up on the spot, `len` frames, invulnerable `invuln`
+//    roll     floor, stick left / right: roll that way at `speed` (`friction` per frame), `len`, invulnerable `invuln`
+//    wall     barrier: cling `stick` frames, then kick off away from it at [along, up], free (falling) `len` frames
+//             after the kick; invulnerable `invuln` from the impact
+//    wallJump barrier with ↑ (or Jump) held at the kick: [along, up] higher, actionable at once; invulnerable `invuln`
+//             from the impact
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
   spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
@@ -116,6 +159,13 @@ export const DEFENSE = {
     hit: { dmg: 10, minScale: 1, launch: [14, 9], hitstun: 14, push: 2, hitstop: 12, big: true, spark: 'smash', shake: 0.7, burst: true },
   },
   reversal: { window: 3 },
+  impactTech: {
+    window: 11, lockout: 40,
+    inPlace: { len: 18, invuln: 14 },
+    roll: { len: 22, invuln: 18, speed: 8, friction: 0.88 },
+    wall: { stick: 6, along: 7, up: 6.5, len: 12, invuln: 22 },
+    wallJump: { along: 5, up: 13, invuln: 14 },
+  },
 };
 
 // Signature rush specials (1 ki bar). `cancelStartup`: the startup when it's cancelled out of a normal that hit

@@ -1,0 +1,22 @@
+{
+  "state": "charge",
+  "ki": 300,
+  "keepers": [
+    {
+      "name": "naruto_chakraTail",
+      "tag": "chargeKeep"
+    }
+  ],
+  "live": [
+    "naruto_chakraTail",
+    "bubble",
+    "wisp",
+    "bubble",
+    "bubble",
+    "bubble",
+    "bubble",
+    "wisp",
+    "bubble",
+    "bubble"
+  ]
+}

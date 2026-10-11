@@ -9,6 +9,7 @@
 // phantom, rock, scrapper) that reweights the defensive answers, so two CPU fights don't defend the same way.
 import { SUPERS } from './moves.js';
 import { kitOf, specialFor, clashable, canBeamClash } from './kit.js';
+import { pickW } from './rng.js'; // also used locally (rollPersona), so imported, then re-exported
 
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
 const AIR_SLOTS = ['air', 'airDown'];
@@ -47,15 +48,8 @@ export function jitterPersona(p) {
 }
 const ENTER = { dodge: 'spotDodge', airDodge: 'airDodge', wavedash: 'wavedash', vanish: 'vanish', superDash: 'superDash', throw: 'throw', charge: 'charge', beamCharge: 'beam', burst: 'burst' };
 
-// Weighted pick from { key: weight }; null when every weight is 0.
-export function pickW(w) {
-  let total = 0;
-  for (const k in w) total += Math.max(0, w[k] || 0);
-  if (total <= 0) return null;
-  let r = Math.random() * total;
-  for (const k in w) if ((r -= Math.max(0, w[k] || 0)) <= 0) return k;
-  return null;
-}
+// Weighted pick from { key: weight } (rng.js; an optional seeded source as the second argument)
+export { pickW };
 
 // A special's tool id: its name (a ground move and its air version share one), else its projectile.
 export const specialId = (m) => 'sp:' + (m.name ?? m.proj ?? m.kind);

@@ -1,4 +1,5 @@
 {
+  "reviewStudies": { "candidateIdleComparison": {"asset":"candidate_idle_comparison","file":"art/scale/candidate-idle-comparison_v01.png","version":1,"status":"raw","note":"Derived QA snapshot, not a passing atlas or approval; exact source hashes and method in adjacent JSON/MD."}, "neutralHeights": {"asset":"height_lineup","file":"public/art-review/cast-proportion-pilot/height_lineup_v01.png","version":1,"approvedVersion":1,"status":"approved","references":[{"id":"naruto","asset":"height_neutral","file":"art/characters/naruto/reference/height_neutral_v01.png","version":1,"approvedVersion":1,"status":"approved"},{"id":"sasuke","asset":"height_neutral","file":"art/characters/sasuke/reference/height_neutral_v01.png","version":1,"approvedVersion":1,"status":"approved"},{"id":"killua","asset":"height_neutral","file":"art/characters/killua/reference/height_neutral_v01.png","version":1,"approvedVersion":1,"status":"approved"},{"id":"gojo","asset":"height_neutral","file":"art/characters/gojo/reference/height_neutral_v01.png","version":1,"approvedVersion":1,"status":"approved"}],"approvedOn":"2026-10-11","approval":"User: ok looks good. i approve and lets move forward remaking all the frames with the latest new baseline."}, "castProportions": { "asset": "proportion_lineup", "file": "public/art-review/cast-proportion-pilot/lineup_v04.png", "version": 4, "approvedVersion": null, "status": "raw", "note": "Review-only height/build proposal; Naruto v02, Sasuke v01 unchanged, Killua v01 rescaled and Gojo v03 slimmed after official-art review. No gameplay promotion." } },
   "_readme": "Machine-readable art tracker for GCD Tourney. Spec: art/SPEC.md (hi-res sprite spec v2, ADR 0007). Human view: art/TRACKER.md; review queue: art/REVIEW.md (keep all three in sync). Top-level version = manifest format (2 = spec v2 with per-asset version fields). The packer reads spec, animationDefaults, characters and vfx, plus the approvedVersion fields of vfx.effects, worldArt.* batches and sharedUi: world art ships approved items only (ADR 0012). status: todo | raw | packed | approved. version = latest candidate number NN of the asset (file suffix _vNN; 0 = nothing generated yet); approvedVersion = the NN the user approved (null until then). Versions are never reused; rejected candidates move to a _rejected/ folder. Strips: raw/<anim>_vNN.png (the packer uses the highest). References: candidates reference/<name>_vNN.png, the approved one is copied to file (the approved idle strip is also copied to reference/idle_approved.png). UI: candidates raw/ui_<name>_vNN.png, the approved one is copied to file. step = generation order (art/PIPELINE.md). ms = default per-frame durations written to anims.json. animationDefaults = copy-me block for a new character.",
   "version": 2,
   "spec": { "name": "hi-res sprite spec v2", "adr": "docs/decisions/0007-art-spec-v2-shippuden-256.md", "frameWidth": 256, "frameHeight": 256, "columns": 16, "pivot": [128, 240], "pixelsPerUnit": 128, "facing": "right", "maxColors": 48, "warnColors": 64, "rawBackground": "#FF00FF", "standingBodyPx": 200, "cellMargin": 4, "versionSuffix": "_vNN" },
@@ -68,14 +69,15 @@
       "displayName": "NARUTO",
       "brief": "art/characters/naruto/CHARACTER.md",
       "reference": {
+        "proportionSample": { "file": "art/characters/naruto/reference/proportion_sample_v02.png", "candidates": "art/characters/naruto/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 2, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/naruto/reference/model_sheet.png",
           "candidates": "art/characters/naruto/reference/model_sheet_vNN.png",
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
+          "version": 3,
+          "approvedVersion": 3
         },
         "expressions": { "file": "art/characters/naruto/reference/expressions.png", "candidates": "art/characters/naruto/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 2, "approvedVersion": 2 }
       },
@@ -134,14 +136,15 @@
       "displayName": "SASUKE",
       "brief": "art/characters/sasuke/CHARACTER.md",
       "reference": {
+        "proportionSample": { "file": "art/characters/sasuke/reference/proportion_sample_v01.png", "candidates": "art/characters/sasuke/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/sasuke/reference/model_sheet.png",
           "candidates": "art/characters/sasuke/reference/model_sheet_vNN.png",
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 2,
+          "approvedVersion": 2
         },
         "expressions": { "file": "art/characters/sasuke/reference/expressions.png", "candidates": "art/characters/sasuke/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
@@ -197,6 +200,7 @@
       "brief": "art/characters/killua/CHARACTER.md",
       "standingBodyPx": 182,
       "reference": {
+        "proportionSample": { "file": "art/characters/killua/reference/proportion_sample_v01.png", "candidates": "art/characters/killua/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/killua/reference/model_sheet.png",
           "candidates": "art/characters/killua/reference/model_sheet_vNN.png",
@@ -264,6 +268,7 @@
       "brief": "art/characters/gojo/CHARACTER.md",
       "standingBodyPx": 215,
       "reference": {
+        "proportionSample": { "file": "art/characters/gojo/reference/proportion_sample_v03.png", "candidates": "art/characters/gojo/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 3, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/gojo/reference/model_sheet.png",
           "candidates": "art/characters/gojo/reference/model_sheet_vNN.png",
@@ -1106,11 +1111,11 @@
       "star": {"frames":5,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
       "crater": {"frames":3,"ms":1000,"colorRule":"fullColor","anchor":"decal","step":10,"status":"approved","version":1,"approvedVersion":1},
       "lines": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
-      "bubble": {"frames":6,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "wisp": {"frames":7,"ms":55,"colorRule":"tinted","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "arc": {"frames":6,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "ripple": {"frames":5,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "naruto_chakraTail": {"frames":6,"ms":60,"colorRule":"tinted","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null},
+      "bubble": {"frames":6,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "wisp": {"frames":7,"ms":55,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "arc": {"frames":6,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "ripple": {"frames":5,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":2,"approvedVersion":2},
+      "naruto_chakraTail": {"frames":6,"ms":60,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1},
       "dustWave": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null}
     }
   },
@@ -1125,43 +1130,43 @@
         "candidates": "art/decals/reference/decal_style_sheet_vNN.png",
         "required": true,
         "step": 12,
-        "status": "todo",
-        "version": 0,
+        "status": "raw",
+        "version": 1,
         "approvedVersion": null
       }
     },
     "items": {
-      "crack_s": {"cell":[256,256],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "crack": {"cell":[256,256],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "crater": {"cell":[256,256],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "crater_big": {"cell":[512,512],"variants":6,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "crater_huge": {"cell":[512,512],"variants":4,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "fracture_ring": {"cell":[512,512],"variants":4,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "scuff": {"cell":[256,128],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "skid": {"cell":[512,128],"variants":4,"group":"base","mode":"flat","colorRule":"fullColor","directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "rubble": {"cell":[256,256],"variants":6,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "dirt_crater": {"cell":[256,256],"variants":4,"group":"edge","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "dirt_skid": {"cell":[512,128],"variants":3,"group":"edge","mode":"flat","colorRule":"fullColor","directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "barrier_crack": {"cell":[256,256],"variants":6,"group":"edge","mode":"wall","colorRule":"tinted","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "crater_wall": {"cell":[512,512],"variants":4,"group":"edge","mode":"wall","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "burn_lightning": {"cell":[256,256],"variants":6,"group":"lightning","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "burn_lightning_big": {"cell":[512,512],"variants":4,"group":"lightning","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "fracture_lightning": {"cell":[512,512],"variants":2,"group":"lightning","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "burn_fire": {"cell":[256,256],"variants":6,"group":"fire","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "burn_black": {"cell":[256,256],"variants":4,"group":"fire","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "scour_spiral": {"cell":[256,256],"variants":6,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "scour_spiral_big": {"cell":[512,512],"variants":3,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "cut_wind": {"cell":[256,256],"variants":6,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "claw": {"cell":[512,256],"variants":4,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "scorch_chakra": {"cell":[512,512],"variants":3,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "fracture_chakra": {"cell":[512,512],"variants":2,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "erasure": {"cell":[256,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "erasure_trench": {"cell":[512,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"tile":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "crush_implode": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
-      "gouge_repel": {"cell":[512,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "fracture_cursed": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "fracture_cursed_big": {"cell":[512,512],"variants":2,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "scorch_ki": {"cell":[256,256],"variants":4,"group":"ki","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null}
+      "crack_s": {"cell":[256,256],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":2,"approvedVersion":2},
+      "crack": {"cell":[256,256],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "crater": {"cell":[256,256],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "crater_big": {"cell":[512,512],"variants":6,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "crater_huge": {"cell":[512,512],"variants":4,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "fracture_ring": {"cell":[512,512],"variants":4,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "scuff": {"cell":[256,128],"variants":8,"group":"base","mode":"flat","colorRule":"fullColor","directional":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "skid": {"cell":[512,128],"variants":4,"group":"base","mode":"flat","colorRule":"fullColor","directional":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "rubble": {"cell":[256,256],"variants":6,"group":"base","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "dirt_crater": {"cell":[256,256],"variants":4,"group":"edge","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "dirt_skid": {"cell":[512,128],"variants":3,"group":"edge","mode":"flat","colorRule":"fullColor","directional":true,"step":12,"status":"approved","version":1,"approvedVersion":1},
+      "barrier_crack": {"cell":[256,256],"variants":6,"group":"edge","mode":"wall","colorRule":"tinted","step":12,"status":"approved","version":2,"approvedVersion":2},
+      "crater_wall": {"cell":[512,512],"variants":4,"group":"edge","mode":"wall","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "burn_lightning": {"cell":[256,256],"variants":6,"group":"lightning","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "burn_lightning_big": {"cell":[512,512],"variants":4,"group":"lightning","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "fracture_lightning": {"cell":[512,512],"variants":2,"group":"lightning","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":1,"approvedVersion":1},
+      "burn_fire": {"cell":[256,256],"variants":6,"group":"fire","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":1,"approvedVersion":1},
+      "burn_black": {"cell":[256,256],"variants":4,"group":"fire","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":1,"approvedVersion":1},
+      "scour_spiral": {"cell":[256,256],"variants":6,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":1,"approvedVersion":1},
+      "scour_spiral_big": {"cell":[512,512],"variants":3,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "cut_wind": {"cell":[256,256],"variants":6,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":3,"approvedVersion":3},
+      "claw": {"cell":[512,256],"variants":4,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "scorch_chakra": {"cell":[512,512],"variants":3,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "fracture_chakra": {"cell":[512,512],"variants":2,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "erasure": {"cell":[256,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "erasure_trench": {"cell":[512,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"tile":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "crush_implode": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":3,"approvedVersion":3},
+      "gouge_repel": {"cell":[512,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "fracture_cursed": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":3,"approvedVersion":3},
+      "fracture_cursed_big": {"cell":[512,512],"variants":2,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "scorch_ki": {"cell":[256,256],"variants":4,"group":"ki","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":1,"approvedVersion":1}
     }
   },
   "sharedUi": {

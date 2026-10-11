@@ -1,5 +1,7 @@
 # Art tracker
 
+Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
+
 Human-readable status of every art asset (hi-res sprite spec v2,
 [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md)). The machine-readable twin is
 [manifest.json](manifest.json); every generated image also has a row in the review queue
@@ -36,6 +38,19 @@ A character's sheet is used by the game automatically once **every core animatio
 with `http://127.0.0.1:5188/?art=custom`. Use the notes column for problems ("F03 fist too
 low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
+## Corrected cast pilot — awaiting review
+
+Latest height/build proposal: cast `proportion_lineup v04`, raw, no approved version. Naruto v02 is leaner with a larger head; Sasuke v01 is the user-preferred unchanged reference. Killua v01 and Gojo v03 use new review factors; Gojo v03 is slimmer after official-design review. [Latest QA](scale/PROPORTION_PILOT_V03.md). Full production still paused.
+
+Reference samples only; existing production approvals stay unchanged. Full animation redraw waits for user review. [Gallery](../public/art-review/cast-proportion-pilot/index.html) · [QA](scale/PROPORTION_PILOT.md).
+
+| Fighter | Asset | Latest | Status | Approved |
+|---|---|---|---|---|
+| Naruto | proportion_sample | v02 (v01 rejected: bulky/small head) | raw | — |
+| Sasuke | proportion_sample | v01 | raw | — |
+| Killua | proportion_sample | v01 | raw | — |
+| Gojo | proportion_sample | v03 (v02 rejected: excess bulk) | raw | — |
+
 ## Summary
 
 | character | reference (2) | core anims (23) | optional anims | UI (3) | sheet complete |
@@ -46,7 +61,7 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 | gojo | 2/2 approved | 23/23 approved | 19/19 approved | 3/3 approved | yes; final batch approved |
 | VFX atlas | 0/1 (style sheet, optional) | 15/20 effects approved (5 power-up effects todo, ENG-069) | - | - | custom atlas (approved 2026-10-10); new effects use procedural stand-ins |
 | shared UI | - | - | - | 2/2 approved | - |
-| ground decals | 0/1 (style sheet, required first) | 0/31 names (143 variants) | - | - | procedural (ADR 0024) |
+| ground decals | 0/1 (style sheet, required first) | 19/31 names (99 approved variants) | - | - | procedural (ADR 0024) |
 
 Naruto and Sasuke can be produced in parallel (separate Codex threads); each thread updates only
 its own section below.
@@ -57,7 +72,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
 | 4 | run | 8 | - | **yes** | 204 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -117,7 +132,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved v02 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. New smaller-head v02 needs review; approved fixed reference remains v01. See PROPORTION_REDRAW.md and v02 QA. User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
@@ -315,11 +330,11 @@ ones.
 | star | 5 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crater | 3 | 1000 (static; 3 random variants) | full color | decal | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | lines | 4 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| bubble | 6 | 50 | white (tinted) | center | todo | - | - | ENG-069 power-ups: Naruto's Nine-Tails chakra boil. Procedural stand-in until approved. |
-| wisp | 7 | 55 | white (tinted) | bottom | todo | - | - | ENG-069: Sasuke's dark chakra, Naruto's head wisps, Gojo's faint cursed energy. Procedural stand-in. |
-| arc | 6 | 40 (random frame) | white (tinted) | center | todo | - | - | ENG-069: Killua's body crackle, Sasuke's Chidori current. Procedural stand-in. |
-| ripple | 5 | 50 | white (tinted) | center | todo | - | - | ENG-069: Gojo's Infinity ripple (drawn very faint). Procedural stand-in. |
-| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | todo | - | - | ENG-069: Naruto's one chakra tail at MAX ki. Procedural stand-in. |
+| bubble | 6 | 50 | white (tinted) | center | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| wisp | 7 | 55 | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| arc | 6 | 40 (random frame) | white (tinted) | center | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
 
 ## Shared UI (step 11)
@@ -341,38 +356,38 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 
 | name | group | cell | variants | mode | color rule | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | todo | - | - | approve first; attach the approved copy to every decal prompt |
-| crack_s | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crack | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crater | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crater_big | base | 512 x 512 | 6 | flat | full color | todo | - | - | |
-| crater_huge | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
-| fracture_ring | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
-| scuff | base | 256 x 128 | 8 | flat, directional | full color | todo | - | - | |
-| skid | base | 512 x 128 | 4 | flat, directional | full color | todo | - | - | |
-| rubble | base | 256 x 256 | 6 | flat | full color | todo | - | - | |
-| dirt_crater | edge | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | todo | - | - | |
-| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | todo | - | - | |
-| crater_wall | edge | 512 x 512 | 4 | wall | full color | todo | - | - | |
-| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | todo | - | - | |
-| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | todo | - | - | |
-| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
-| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | todo | - | - | |
-| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | todo | - | - | |
-| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | todo | - | - | |
-| crush_implode | cursed | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
-| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
-| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
+| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | raw | v01 | - | Provisional unapproved style; user allowed uninterrupted production |
+| crack_s | base | 256 x 256 | 8 | flat | full color | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crack | base | 256 x 256 | 8 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater | base | 256 x 256 | 8 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater_big | base | 512 x 512 | 6 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater_huge | base | 512 x 512 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| fracture_ring | base | 512 x 512 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| scuff | base | 256 x 128 | 8 | flat, directional | full color | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| skid | base | 512 x 128 | 4 | flat, directional | full color | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| rubble | base | 256 x 256 | 6 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| dirt_crater | edge | 256 x 256 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater_wall | edge | 512 x 512 | 4 | wall | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_black | fire | 256 x 256 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | approved | v03 | v03 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | approved | v02 | v02 | |
+| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | |
+| crush_implode | cursed | 256 x 256 | 4 | flat | full color | approved | v03 | v03 | |
+| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | |
+| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | approved | v03 | v03 | |
+| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | |
+| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
 
 ## World art (ADR 0008)
 
@@ -538,3 +553,5 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).

@@ -49,11 +49,12 @@ Then open http://127.0.0.1:5188
   dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
 - **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
-  in its showman style: short flashy combos, every special and super in the kit, spells dodged and parried,
-  techs, tech rolls and bursts out of combos, wavedashes and power-ups, each called out on a banner (PARRY!,
-  DODGE!, TECH!, BURST!, PUNISH!...), and a BEAM CLASH every match (not Naruto vs Naruto: two Rasengans make a
-  special clash), so you see what the engine can do; Esc / Start pauses and
-  the results screen offers a rematch
+  in its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
+  "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
+  ones get a rating), every special and super in the kit, spells dodged and parried, techs, tech rolls and bursts out
+  of combos, wavedashes and power-ups, each called out on a banner (PARRY!, DODGE!, TECH!, BURST!, HANDBALL!,
+  PUNISH!...), and a BEAM CLASH every match (not Naruto vs Naruto: two Rasengans make a special clash), so you see
+  what the engine can do; Esc / Start pauses and the results screen offers a rematch
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
   copies your inputs so you can try the controls in real time
@@ -82,6 +83,7 @@ These are the default bindings. You can rebind them in the controls menu.
 | **Super** (2nd super, 3 bars) | **H** or **B** | **T** | **'** | **L2 / LT** |
 | **Throw** (close) / break a throw | **J + K** | **F + G** | **, + .** | **□ + △** |
 | **Tech** / **tech roll**: hold Guard while hit | hold **Shift** | hold **L-Shift** | hold **;** | hold **L1 / LB** |
+| **Timed tech**: tap Guard just before you hit the floor or the barrier (+ ← / → roll, ↑ wall jump) | tap **Shift** | tap **L-Shift** | tap **;** | tap **L1 / LB** |
 | **Burst**: Guard + Special while hit (2 bars, once per round) | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
 | **Beam clash**: your energy Special (→ toward them for some fighters) into theirs, or while theirs flies at you | **L** / **→ + L** | **H** / **→ + H** | **/** / **→ + /** | **○** / **→ + ○** |
 
@@ -113,6 +115,12 @@ custom keys.
   down. Hold a direction to pick where: away (default), toward them, ↑ rise in place, ↓ drop to the floor.
   Pressing any button while launched still techs too. Spikes, throws and super finishes are hard knockdowns:
   no roll.
+- **Timed tech** (Smash style): **tap Guard just before you hit the floor or the ring barrier** (up to about 11
+  frames early) while you're being comboed. On the floor you get up on the spot (TECH!), or roll with ← / →; on the
+  barrier you cling for a moment and kick off it (WALL TECH!), or hold ↑ for a wall jump you can act out of. It beats
+  ground bounces, wall bounces (the "handball"), spikes, throws and plain landings, and ends the combo. Only a fresh
+  press counts (holding Guard doesn't), and a press that's too early locks the timed tech out for about 40 frames,
+  so mashing fails. Super finishes can't be teched.
 - **Burst** (2 bars, once per round): **Guard + Special while you're being hit**. A shockwave blows the attacker
   away and ends the combo (BURST!). It can be blocked: an attacker who stops and guards gets to punish you. The
   gem next to your ki gauge shows whether you still have it this round.
@@ -206,10 +214,12 @@ docs/          architecture, combat design, workflows, ADRs, task board
 
 - `/?fight=naruto,sasuke&mode=solo&level=hard` skips the menus and starts a match (`level` = easy, normal, hard
   insane or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
+  `&seed=N` fixes the match seed (the CPUs' combo styles and choices).
 - `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
 - `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
   `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,
-  `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song). See
+  `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song), `soak(n, pairs)` and
+  `comboStats()` (CPU vs CPU matches back to back and what the CPUs' combos did). See
   [docs/TESTING.md](docs/TESTING.md) for the test checklists and the CPU-vs-CPU soak.
 
 ## Docs

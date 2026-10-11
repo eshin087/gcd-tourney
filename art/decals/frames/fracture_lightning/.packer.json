@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fracture_lightning_v01.png",
+  "version": 1,
+  "source": [
+    "decals/raw/fracture_lightning_v01.png",
+    "decals/raw/fracture_lightning_v01.json"
+  ],
+  "sourceHash": "bf936b10172485100e4b981a30edf7fe93c8c282",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "fracture_lightning_00.png": "922c8ae1c4098d46da415adb59ab2e9e6e3f9a54",
+    "fracture_lightning_01.png": "a366f0ab1495537a0d308d9a6ad97f81cbbbff2a"
+  }
+}

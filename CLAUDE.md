@@ -3,6 +3,26 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
+## Approved anatomy and cast scale (user decision, 2026-10-11)
+
+For the full cast redraw and future characters, [APPROVED_CAST_BASELINE.md](art/scale/APPROVED_CAST_BASELINE.md)
+is the current anatomy/scale contract. It supersedes conflicting historical instructions below to make
+all fighters 200px tall, give them 31px heads or force a universal 6.5/7-head ratio. Preserve the approved
+era-specific stature ratios at one shared pixels/cm, and each neutral's head, torso, limb lengths and build.
+Hair, clothing and posed bounding boxes are separate measurements; do not resize a crouch or fallen pose
+to standing height. Do not add a child discount, individual tall-character cap or shoulder inflation.
+
+Approve a neutral and cast lineup before full production. Independently compare the working idle to
+that neutral before using it as an animation reference. Head-gate success does not certify torso/limb
+proportions; inspect every frame and loop. An unmeasured/low-confidence probe is not a numeric pass.
+Use the updated character templates and preserve measurement uncertainty, source provenance and attempt
+limits. Reference approval never approves subsequent strips. The user authorized the current four-fighter
+batch without intermediate approval stops; future characters retain their normal reference/idle gates.
+
+Cell size, pivot, pixel density, canonical moves and gameplay remain governed by the existing spec.
+Claude owns formal SPEC/ADR migration, contact/hurtbox validation and integration. For this redraw,
+Claude alone merges or deploys production; Codex workers may publish committed preview deployments.
+
 ## Autonomous work (user authorization, 2026-10-10)
 
 For authorized tasks, proceed with implementation, art batches, tests, commits and PRs without routine
@@ -69,7 +89,7 @@ documentation that stays true.
 | `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse; `--art <id>[,<id>]` adds just that character's or art kind's raw art, `--full` all ~2 GB as a last resort). **Every feature/character starts here** (ADR 0013) |
 | `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
-| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree |
+| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it) |
 | `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
@@ -132,7 +152,7 @@ The docs-only/main exceptions below still apply.
 0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
    Start with `npm run pr -- start feature/<name>` (or `fix/`, `chore/`, `art/`), work and commit in that worktree,
    `npm run pr -- open`, then `npm run pr -- merge <branch>` once the Definition of Done passes (unless the user asked to
-   review first), then deploy. Never commit features straight to `main`, never `git checkout`/`switch`/`stash` in the
+   review first); the merge deploys to production. Never commit features straight to `main`, never `git checkout`/`switch`/`stash` in the
    shared main checkout, never use the GitHub merge button or `gh pr merge`. Only docs-only edits, bookkeeping and art
    approvals for a character that already ships may commit straight to `main`. Revert a feature with
    `git revert -m 1 <merge>` in a `fix/revert-<name>` PR. Each worktree runs its own dev server port

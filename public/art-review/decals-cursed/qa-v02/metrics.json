@@ -1,0 +1,72 @@
+{
+  "erasure": {
+    "version": 2,
+    "variants": 3,
+    "colors": 24,
+    "opaque": 124304,
+    "partialAlpha": 0,
+    "pinkPixels": 0,
+    "hotPixels": 8806,
+    "hotBeyondLeftQuarter": 6436
+  },
+  "erasure_trench": {
+    "version": 2,
+    "variants": 3,
+    "colors": 23,
+    "opaque": 372736,
+    "partialAlpha": 0,
+    "pinkPixels": 0,
+    "hotPixels": 14277,
+    "hotBeyondLeftQuarter": 10776
+  },
+  "crush_implode": {
+    "version": 3,
+    "variants": 4,
+    "colors": 24,
+    "opaque": 92813,
+    "partialAlpha": 0,
+    "pinkPixels": 283,
+    "hotPixels": 0,
+    "hotBeyondLeftQuarter": 0
+  },
+  "gouge_repel": {
+    "version": 2,
+    "variants": 4,
+    "colors": 24,
+    "opaque": 98695,
+    "partialAlpha": 0,
+    "pinkPixels": 0,
+    "hotPixels": 464,
+    "hotBeyondLeftQuarter": 300
+  },
+  "fracture_cursed": {
+    "version": 3,
+    "variants": 4,
+    "colors": 24,
+    "opaque": 100901,
+    "partialAlpha": 0,
+    "pinkPixels": 0,
+    "hotPixels": 757,
+    "hotBeyondLeftQuarter": 563
+  },
+  "fracture_cursed_big": {
+    "version": 2,
+    "variants": 2,
+    "colors": 24,
+    "opaque": 218302,
+    "partialAlpha": 0,
+    "pinkPixels": 0,
+    "hotPixels": 192,
+    "hotBeyondLeftQuarter": 192
+  },
+  "tolerance180SourceLossCheck": {
+    "A": {
+      "additionalChromaEligiblePixels": 11792,
+      "brownPaletteOrderedPixels": 0
+    },
+    "B": {
+      "additionalChromaEligiblePixels": 21387,
+      "brownPaletteOrderedPixels": 0
+    }
+  }
+}

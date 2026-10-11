@@ -25,12 +25,15 @@ import { BoxViewer } from './boxViewer.js';
 import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
 
 const v3 = new THREE.Vector3();
+// one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
+const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0, vanish: 0, start: 0 });
 
 // closest distance between segments p1-q1 and p2-q2 (Ericson, Real-Time Collision Detection 5.1.9), for clash bodies
 const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vector3(), sdc = new THREE.Vector3();
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const clashTmp = new THREE.Vector3();
 const burstCol = new THREE.Color();
+const TECH_SPARK = 0xc8f8ff; // the timed impact tech's white-cyan (ADR 0028)
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
 // BEAM CLASH (ADR 0027): the reused body lists (checkEnergyClash runs a few times a frame); the states a fighter can be
@@ -179,8 +182,12 @@ export class Game {
     // 'solo': P1 human vs CPU. 'cpu': spectate two CPUs at the same level (defaults to impossible, the
     // point being to watch what the strongest bots can do). 'versus': two humans.
     const level = cfg.level || (cfg.mode === 'cpu' ? 'impossible' : 'normal');
-    this.brains = cfg.mode === 'solo' ? [null, makeBrain(this.fighters[1], level)]
-      : cfg.mode === 'cpu' ? this.fighters.map((f) => makeBrain(f, level, true))
+    // the match seed (ADR 0026): the CPUs' combo personas and routes; `?seed=` (cfg.seed) replays a match's draws
+    this.seed = cfg.seed != null ? cfg.seed >>> 0 : (Math.random() * 4294967296) >>> 0;
+    this.comboLog = []; // the CPUs' recent combo routes (aiCombo.js keeps them from repeating each other)
+    this.matchNo = (this.matchNo ?? 0) + 1;
+    this.brains = cfg.mode === 'solo' ? [null, makeBrain(this.fighters[1], level, false, this.brainSeed(1))]
+      : cfg.mode === 'cpu' ? this.fighters.map((f, i) => makeBrain(f, level, true, this.brainSeed(i)))
       : [null, null];
     this.director = this.watching ? new ShowDirector(this) : null; // spectator-only choreography (ADR 0027)
     this.input.bind(this.pads, cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
@@ -232,6 +239,11 @@ export class Game {
     return this.cfg?.mode === 'cpu' && !this.training;
   }
 
+  // one side's share of the match seed (spread by the golden ratio, so the two CPUs never draw alike)
+  brainSeed(i) {
+    return ((this.seed ?? 0) ^ Math.imul(i + 1, 0x9e3779b9)) >>> 0;
+  }
+
   // 'arena' (tournament grounds) or 'training' (holographic practice room)
   setStage(kind) {
     this.arena.group.visible = kind === 'arena';
@@ -252,6 +264,7 @@ export class Game {
 
   onKitMove(f, m) {
     if (!m.name) return;
+    this.comboChip(f, m.name); // a kit special mid-combo (shot, teleport, pull, dive)
     this.hud.callout(f.index, m.name, m.color || f.def.color);
     this.superFlashFor(f, 8, 0.3);
     this.cam.zoomPunch(0.25);
@@ -259,6 +272,7 @@ export class Game {
 
   // `answer`: fired into the opponent's running ultimate, so a short flash (they can meet, ADR 0017)
   onSuperStart(f, S, answer = false) {
+    this.comboChip(f, 'SUPER', 'super'); // a three-bar finisher on the end of a combo
     this.arena.npcCue('super');
     this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name);
     if (answer) this.hud.announce('COUNTER!', 'clash', 700);
@@ -344,6 +358,8 @@ export class Game {
     this.spClashCool = 0;
     this.struggleCool = 0;
     this.director = null;
+    this.combos = null;
+    this.comboF = this.fightF = 0;
     audio.stopAllLoops();
     audio.clearMusicDucks();
     this.fx.clearAll();
@@ -571,6 +587,7 @@ export class Game {
     for (const f of this.fighters) f.update();
     this.resolveMelee();
     this.separate();
+    this.trackCombos();
     if (this.spClashCool > 0) this.spClashCool--;
     if (this.struggleCool > 0) this.struggleCool--;
     this.checkSpecialClash();
@@ -627,6 +644,64 @@ export class Game {
           }
         }
       }
+    }
+  }
+
+  // Combos for the spectator feedback (ADR 0026), in every match: each victim's running combo (hits, damage, the
+  // techniques in it), the HUD's ticker chips, the rating when it ends, and the share of fight time spent in combos
+  // (the CPU combo composer's governor reads it, aiCombo.js).
+  trackCombos() {
+    const T = this.combos || (this.combos = [newCombo(), newCombo()]);
+    let any = false;
+    for (let i = 0; i < 2; i++) {
+      const d = this.fighters[i], C = T[i];
+      const live = d.combo > 0 && !d.ko && (d.state === 'hitstun' || d.state === 'launched' || (d.state === 'held' && !d.grab && C.hits > 0));
+      if (C.hits && (!live || d.combo < C.hits)) {
+        // the KO'ing hit ends the combo the frame it lands (or the next, for a shot): count it in the rating
+        if (d.ko && d.combo > C.hits) { C.hits = d.combo; C.dmg = d.comboDmg; }
+        this.onComboEnd(d.opp, d, C);
+        T[i] = newCombo();
+      }
+      if (!live) continue;
+      any = true;
+      const N = T[i];
+      if (!N.hits) { N.start = this.frameNo; this.hud.comboStart(d.opp.index); }
+      N.hits = d.combo;
+      N.dmg = d.comboDmg;
+    }
+    if (this.state === 'fight' && this.inputLive) {
+      this.fightF = (this.fightF ?? 0) + 1;
+      if (any) this.comboF = (this.comboF ?? 0) + 1;
+    } else if (this.state !== this.trackedState && this.trackedState === 'fight' && this.debugCombos && window.roundRecs) {
+      window.roundRecs.push({ match: this.matchNo ?? 0, round: this.round, dur: +(ROUND_TIME - this.timeLeft).toFixed(1), end: this.state, comboF: this.comboF, fightF: this.fightF });
+    }
+    this.trackedState = this.state;
+  }
+
+  // the share of this match's fight time spent in a combo (0.4 until there's enough to say)
+  comboShare() {
+    return this.fightF > 600 ? this.comboF / this.fightF : 0.4;
+  }
+
+  // a technique in att's running combo: a chip in the combo ticker under their counter (`kind` groups it for STYLISH)
+  comboChip(att, label, kind = label) {
+    const C = this.combos?.[1 - att.index];
+    if (!C || !C.hits) return;
+    C.kinds.add(kind);
+    this.hud.comboTag(att.index, label);
+  }
+
+  // A combo ended: the rating (GREAT 10+, AMAZING 15+, LEGENDARY 20+ hits, STYLISH! with 4+ different techniques)
+  // and a cheer that grows with it.
+  onComboEnd(att, def, C) {
+    const rated = this.hud.comboEnd(att.index, C.hits, C.kinds.size);
+    if (C.hits >= 8) audio.play('cheer', Math.min(1.4, 0.3 + C.hits * 0.05));
+    if (rated) this.excite = 1;
+    if (this.debugCombos && window.comboRecs) {
+      window.comboRecs.push({
+        match: this.matchNo ?? 0, att: att.def.id, hits: C.hits, dmg: C.dmg, kinds: [...C.kinds], wall: C.wall, ground: C.ground,
+        vanish: C.vanish, frames: this.frameNo - C.start, blue: !!def.comboBlue, end: def.ko ? 'ko' : def.state, rated,
+      });
     }
   }
 
@@ -1222,7 +1297,7 @@ export class Game {
       [c.a, c.b].forEach((s, i) => {
         s.obj?.kill();
         const sg = i === 0 ? -1 : 1;
-        s.f.takeHit(s.f.opp, { dmg: C.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+        s.f.takeHit(s.f.opp, { dmg: C.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash', noTech: c.tier !== 'struggle' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
       });
       return;
     }
@@ -1230,7 +1305,7 @@ export class Game {
     const W = WS.f, L = LS.f, sg = winner === 0 ? 1 : -1;
     LS.obj?.kill();
     this.overwhelm(WS, L);
-    L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+    L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash', noTech: c.tier !== 'struggle' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
     this.fx.ground.impact(L.pos, { kind: 'clashWin', force: C.craters?.[0], style: WS.S?.ground ?? W.def.ground?.style, tint: W.def.ground?.tint ?? W.def.color, dir: { x: ax.x * sg, z: ax.z * sg } });
     audio.play('explosion', 1.4);
@@ -1335,6 +1410,12 @@ export class Game {
     // technique callouts (ADR 0022): a fresh combo on their recovery, an attack out of stun or wake-up
     if (def.punishHit) { def.punishHit = false; this.tag(att, 'punish'); }
     if (att.reversal && def.combo === 1) { att.reversal = false; this.tag(att, 'reversal'); }
+    // the combo ticker (ADR 0026): a launcher (RELAUNCH! on someone already in the air), a super dash contact
+    if (m.launcher && def.combo > 1) {
+      const re = def.prev.y > 0.3;
+      if (re) this.tag(att, 'relaunch');
+      this.comboChip(att, re ? 'RELAUNCH' : 'LAUNCH');
+    } else if (m.name === 'superDash') this.comboChip(att, 'DASH');
     if (def.ko && !this.koTriggered) this.triggerKO(def, att);
   }
 
@@ -1482,17 +1563,37 @@ export class Game {
     } else if (k % 2 === 0) this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.9 + k * 0.25, color: col, opacity: 0.6, life: 0.12, fade: true, glow: 0.8, depthTest: false, order: 7 });
   }
 
-  // `impact`: the downward speed it hit the floor at
-  onGroundBounce(f, impact = 20) {
+  // Timed impact tech (ADR 0028): TECH! / WALL TECH!, a small white-cyan spark ring at the contact point (the floor
+  // under them, or the barrier), a bright ting and a crowd pop. The hold-Guard tech keeps its own white TECH!.
+  onImpactTech(f, kind, axis, sign) {
+    const p = f.pos, wall = kind === 'wall';
+    const x = wall && axis === 'x' ? sign * ARENA_LIMIT : p.x, z = wall && axis === 'z' ? sign * ARENA_LIMIT : p.z;
+    const y = wall ? p.y + 0.8 : 0.15;
+    if (wall) this.fx.barrier(p, axis, sign, '#bff8ff');
+    else this.fx.dust(p, 0.6);
+    this.fx.spawn('ring', x, y, z, { scale: 0.45, grow: 2.4, life: 0.24, fade: true, color: TECH_SPARK, glow: 1.5, depthTest: false, order: 9 });
+    this.fx.spawn('star', x, y + (wall ? 0 : 0.35), z, { scale: 0.5, color: 0xeaffff, glow: 1.5, depthTest: false, order: 9 });
+    this.tag(f, wall ? 'wallTech' : 'impactTech');
+    if (wall) this.cam.zoomPunch(0.25);
+    audio.play('tech');
+    audio.play('cheer', 0.55);
+  }
+
+  // `impact`: the downward speed it hit the floor at; n: this combo's ground bounce count (the JUGGLE budget)
+  onGroundBounce(f, impact = 20, n = 1) {
     this.fx.dust(f.pos, 1.6);
     this.fx.ground.land(f, impact, { bounce: true });
     this.fx.ring(f.pos, '#fff3d0', 1.4);
     audio.play('groundBounce');
     this.cam.shake(0.5);
     f.hitstop = Math.max(f.hitstop, 5);
+    if (this.combos?.[f.index]) this.combos[f.index].ground = n;
+    this.tag(f.opp, 'groundBounce');
+    this.comboChip(f.opp, 'BOUNCE', 'ground');
   }
 
-  onWallBounce(f, axis, sign) {
+  // n: this combo's wall bounce count: WALL BOUNCE!, WALL BOUNCE ×2!, then HANDBALL! (the same wall again and again)
+  onWallBounce(f, axis, sign, n = 1) {
     this.fx.barrier(f.pos, axis, sign);
     this.fx.ground.wall(f.pos, axis, sign, Math.abs(f.vel[axis]) / 0.55); // the speed before the bounce (fighter.physics)
     this.fx.hit(f.pos.x, f.pos.y + 0.8, f.pos.z, 'heavy', 0xbfe8ff);
@@ -1500,6 +1601,12 @@ export class Game {
     this.cam.shake(0.5);
     f.hitstop = Math.max(f.hitstop, 7);
     f.shaking = true;
+    if (this.combos?.[f.index]) this.combos[f.index].wall = n;
+    this.tag(f.opp, n >= 3 ? 'handball' : n === 2 ? 'wallBounce2' : 'wallBounce');
+    this.comboChip(f.opp, 'WALL', 'wall');
+    this.cam.zoomPunch(0.35 + 0.15 * n);
+    if (n >= 2) this.slowmo(0.45, 0.14);
+    this.excite = Math.min(1, this.excite + 0.4);
   }
 
   onVanish(f, phase) {
@@ -1514,6 +1621,14 @@ export class Game {
       f.actor.ghost(f.def.color, 0.3, 0.6);
       audio.play('vanishIn');
       this.freeze = Math.max(this.freeze, 5);
+      // a vanish inside a combo (not a kit teleport): the ticker, and VANISH ×2! / ×3! for the ping-pong (ADR 0026)
+      const C = this.combos?.[1 - f.index];
+      if (f.state === 'vanish' && C?.hits) {
+        C.vanish++;
+        this.comboChip(f, 'VANISH');
+        this.cam.zoomPunch(0.4);
+        if (C.vanish >= 2) this.tag(f, C.vanish >= 3 ? 'vanish3' : 'vanish2');
+      }
     }
   }
 
@@ -1527,6 +1642,7 @@ export class Game {
   }
 
   onSpecialStart(f, m) {
+    this.comboChip(f, m.name); // a rush special cancelled into mid-combo
     this.hud.callout(f.index, m.name, m.color);
     this.superFlashFor(f, 12, 0.45);
     this.cam.zoomPunch(0.4);

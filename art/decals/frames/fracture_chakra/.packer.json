@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fracture_chakra_v02.png",
+  "version": 2,
+  "source": [
+    "decals/raw/fracture_chakra_v02.png",
+    "decals/raw/fracture_chakra_v02.json"
+  ],
+  "sourceHash": "332f492b6166e3c11e25aedb9081ad1a7755a6f8",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "fracture_chakra_00.png": "e2dba68e80ca6e46f4d5f85e0c8cc482370a4557",
+    "fracture_chakra_01.png": "9bf970fafdb2ca3442433da66e6295f37cb90f05"
+  }
+}

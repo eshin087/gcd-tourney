@@ -1,0 +1,14 @@
+{
+  "production": "https://gcd-tourney.vercel.app",
+  "commit": "7f2410d",
+  "source": "approved",
+  "names": 31,
+  "allPagesByteIdentical": true,
+  "pages": [
+    "decals_base_1.png",
+    "decals_base_2.png",
+    "decals_chakra.png",
+    "decals_lightning.png",
+    "decals_cursed.png"
+  ]
+}

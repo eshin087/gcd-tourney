@@ -36,22 +36,28 @@ src/game/
                             bodies, the struggle line, endings; startClash tiers 'ultimate' | 'struggle' | 'beat'),
                             event hooks
                             (onHit/onBlock/onVanish/onBurst/...), technique callouts (Game.tag(f, id) -> TAGS,
-                            ADR 0022), super flash, KO, render orchestration
+                            ADR 0022), combo tracking for the ticker / rating (trackCombos, ADR 0026), the match
+                            seed (?seed=), super flash, KO, render orchestration
   clash.js                  rhythm clash (ADR 0017): seeded note chart, Judge (grades, strays, holds), CPU press plan
+  rng.js                    seeded randomness (ADR 0026): mulberry32 rng, seedOf, gauss, pickW (clash charts, CPU combos)
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
                             launched/down/getup/charge/beamCharge/beamFire/clash/techRoll/burst/...), cancels,
                             physics, takeHit; combo escape and true-combo tracking (gapF, comboBlue; ADR 0022)
-  moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE,
-                            SPECIAL_MOVES (kit specials by id), SUPERS (second supers)
+  moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, JUGGLE (decay, air stun, the bounce
+                            budget), SPECIALS, PROJECTILES, ULTIMATE, SPECIAL_MOVES (kit specials by id), SUPERS
   kit.js                    fighter kits (ADR 0009/0011): stick -> special slot, special kinds (rush/shot/teleport/
                             pull/dive/counter/mode), supers and non-beam ultimates (flurry/domain/skyStrike/ignite),
                             passives, modes, burn; state 'kit'
   ai.js                     CpuBrain (Easy/Normal/Hard), DummyBrain (training), makeBrain: press buttons on a Pad
   aiMaster.js               MasterBrain (IMPOSSIBLE; `showman` style for CPU vs CPU), ADR 0014/0016
+  aiCombo.js                ComboComposer (ADR 0026): MasterBrain's combos. Link prediction (JUGGLE, victim flight,
+                            art hit boxes), the edge graph, personas, length tiers + governor, seeded choices
   aiShow.js                 Showcase (ADR 0016): which tools a CPU has shown this match -> option weights;
                             the per-match defense persona (ADR 0025)
   aiDefense.js              MasterBrain's defense showcase (ADR 0025): parry rallies, reversals, string reads,
                             tech escapes; reachT (threats timed to the drawn strike)
+  aiTech.js                 timed impact tech (ADR 0028): impactAhead (live frames to a launched fighter's next floor
+                            or wall impact) and TechTimer (per-level timing for CpuBrain, MasterBrain, the dummy)
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
@@ -83,8 +89,9 @@ src/world/arena.js          tournament grounds: ring, temple, stands + instanced
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
-  hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable), callouts, TAGS
-                            technique banners (ADR 0022), announcements, super cut-in, clash bar and rhythm track
+  hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable) with its ticker
+                            chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,
+                            super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
@@ -128,6 +135,7 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 5. fighters[i].update()         state machine; attacks call game.checkMelee() on active frames;
                                 lane auto-step; physics (gravity, ring barrier, wall/ground bounce, KO physics)
 6. separate()                   push overlapping fighters apart
+   trackCombos()                each victim's running combo (ticker chips, the end-of-combo rating, combo-time share)
 7. checkSpecialClash()          two signature rushes meeting -> a one-beat clash (the world holds still) or a trade
    checkUltimateClash()         two ultimates' bodies meeting head-on -> the rhythm clash
    checkEnergyClash()           two energy attacks meeting head-on, or an energy special answering one -> a beam
@@ -395,7 +403,7 @@ click-to-rebind. Bindings persist in localStorage.
 | a fighter | `src/characters/<id>.js` + `index.js`; art in `art/characters/<id>/` ([ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md)) |
 | a move or tuning change | `src/game/moves.js` (data), with state logic in `fighter.js` only if it's a new mechanic |
 | a signature special | a `SPECIAL_MOVES` entry of an existing kind + the fighter's `kit` slot ([ADR 0009](decisions/0009-move-system-v2.md)); rush specials also use `SPECIALS` + `Effects.handTick` + a loop sound |
-| a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight + where `MasterBrain` uses it (`kitOptions`, `pickBig`, `comboSpecial`); `aiShow.js` `toolsOf` lists it automatically |
+| a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight + where `MasterBrain` uses it (`kitOptions`, `pickBig`) and its link time in the combo composer (`gapKit` / `bigOption` in `aiCombo.js`); `aiShow.js` `toolsOf` lists it automatically |
 | a projectile type | `PROJECTILES` in `moves.js` (sprite = a VFX atlas name) |
 | a VFX effect | `VFX_ANIMS` + painter in `vfxPainter.js`; custom art via `art/vfx/` |
 | a ground damage look | a `ground` field on the move / projectile / super / character; a new look is a `GROUND_STYLES` entry in `ground.js` (+ decal names in `DECALS`, decalPainter.js, and their art) |

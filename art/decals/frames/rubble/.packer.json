@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/rubble_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/rubble_v01_A.png",
+    "decals/raw/rubble_v01_B.png",
+    "decals/raw/rubble_v01.json"
+  ],
+  "sourceHash": "820530d389cc553dd3291df5ca3caaf425f5a694",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "rubble_00.png": "1bdd5e238fd9efdf2e4b47641f166d42cc8080e3",
+    "rubble_01.png": "e7c6cf825a63a76f7ea72be616824396fa955077",
+    "rubble_02.png": "5590e33276894f998165065b51ebd513c26147a3",
+    "rubble_03.png": "ded705cff4f15f1090fd58da8ca2256d199313dd",
+    "rubble_04.png": "edcb57673acf59b9aa38bb914ed2545b40cb5deb",
+    "rubble_05.png": "967e6a79f97870956eecbd223eb4bfd4badc59a0"
+  }
+}

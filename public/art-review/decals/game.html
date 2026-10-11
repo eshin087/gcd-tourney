@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Core decal game review</title>
+<style>body{background:#202732;color:#eee;font:16px system-ui;margin:16px}button,a{padding:12px;margin:4px}a{color:#bce}iframe{width:100%;height:75vh;border:0}pre{white-space:pre-wrap}</style>
+<h1>Core decals — unapproved game review</h1><p>Candidate art is installed only inside this review session. Pink fringe remains. Check each group, rotate, and inspect seams. No approvals are changed.</p><a href="./index.html">Gallery and QA</a>
+<nav id="controls"></nav><button id="rotate">Rotate 90°</button><button id="cool">Advance cooling</button><pre id="status">Load complete, then select a group.</pre>
+<iframe id="game" title="Decal game review" src="/?fight=naruto,gojo&mode=solo&debug"></iframe>
+<script type="module">
+import {showReviewGroup,rotateReview} from './review-candidates.js';
+const groups=['base','edge','lightning','fire','ki'], frame=document.querySelector('#game'),status=document.querySelector('#status');
+for(const group of groups){const b=document.createElement('button');b.textContent='Show '+group;b.onclick=async()=>{try{status.textContent=JSON.stringify(await showReviewGroup(frame,group,groups),null,2)}catch(e){status.textContent=e.message}};document.querySelector('#controls').append(b)}
+document.querySelector('#rotate').onclick=()=>{try{status.textContent=rotateReview(frame)}catch(e){status.textContent=e.message}};
+document.querySelector('#cool').onclick=()=>{try{frame.contentWindow.step(120);status.textContent='Advanced 120 frames; compare hot seams.'}catch(e){status.textContent=e.message}};
+</script></html>

@@ -57,6 +57,7 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Wavedash | Jump, then Guard + direction right away | ✕ then L1 + stick |
 | Throw (close) / throw break (when grabbed) | Light + Heavy | □ + △ |
 | Tech / tech roll (ADR 0022) | hold Guard while hit (+ direction) | hold L1 |
+| Timed tech (ADR 0028) | tap Guard just before hitting the floor / barrier (+ ← / → roll, ↑ wall jump) | tap L1 |
 | Burst (2 bars, once per round) | Guard + Special while hit | L1 + ○ |
 
 Adding SUPER took L2/LT from guard. Bindings moved to a new localStorage key (`gcd.bindings.v2`), so saved
@@ -80,7 +81,7 @@ phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is befo
 | airLight1 | Light (air) | 4 | 4 | 9 | 17 | 24 | 1.4 / 1.0 | 7 | air pop 6.2 | chains to airLight2 from f7 |
 | airLight2 | Light (chain) | 4 | 4 | 10 | 18 | 26 | 1.45 / 1.0 | 7 | air pop 6.4 | chains to airLight3 from f8 |
 | airLight3 | Light (chain) | 6 | 4 | 14 | 24 | 40 | 1.55 / 1.05 | 11 | launch [12, 4.5] | knock-away, **wall bounce** |
-| airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce**, yTol 2.4, `boxPad` [0.5, 0.45] |
+| airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce** (budget: 2 per combo), yTol 2.4, `boxPad` [0.5, 0.45] |
 | throw | Special (air) | 8 | 3 | 14 | 25 | (projectile) | | | | costs 50 ki; spawns the projectile at f8 |
 | vanishKick | after Vanish | 2 | 5 | 20 | 27 | 75 | 1.7 / 1.15 | 16 | launch [17, 6.5] | uses the `light4` anim, wall bounce |
 | super dash | Dash (neutral) | | contact | | ≤ 42 | 38 | contact < 1.0 | 9 | stun 26, air pop 7 | homing at 18 u/s, projectile-invulnerable |
@@ -127,13 +128,22 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
 
 ### Spike and ground bounce
 - `airHeavy` spikes downward ([3, -22]). A spiked victim that hits the floor **ground-bounces** back up
-  (vel.y 11, air stun 30) **once per combo**. A grounded victim of a spike gets popped up instead.
+  (vel.y 11). A grounded victim of a spike gets popped up instead.
 - Hard landings without a pending ground bounce do one small floor bounce (impact > 8 → 32% rebound).
 
 ### Wall bounce (ring ki barrier)
 - `wallBounce` moves (light4, airLight3, vanishKick, specials) mark the victim. When a launched victim hits the
-  barrier at ±8.55 faster than 5 u/s, it bounces back (55% speed, vel.y ≥ 7, air stun 32) **once per combo**,
-  with a barrier flash effect.
+  barrier at ±8.55 faster than 5 u/s, it bounces back (55% speed, vel.y ≥ 7) with a barrier flash effect. A victim
+  bounced back can be met and bounced into the same wall again: the **handball**.
+
+### Bounce budget (ADR 0026)
+All numbers in `JUGGLE` (`src/game/moves.js`). Each combo has at most **3 wall bounces** and **2 ground bounces**; a
+`wallBounce` / `groundBounce` hit only arms the victim while their combo has bounces of that kind left (`wbCount`,
+`gbCount` on the fighter, reset on a fresh combo, an air tech, a tech roll or a burst). Each bounce's air stun is flat
+(no hitstun decay) and shorter every time: wall 32, 28, 22 frames; ground 30, 24. The bounce hooks get the count
+(`Game.onWallBounce(f, axis, sign, n)`, `onGroundBounce(f, impact, n)`), so the n-th bounce gets its own callout (WALL
+BOUNCE!, WALL BOUNCE ×2!, HANDBALL!; GROUND BOUNCE!). A wall bounce gives no super dash back. Before ADR 0026 the docs
+said "once per combo" while the code re-armed on every bounce hit (unlimited).
 
 ### Super dash
 - Dash with **no direction** (or Dash in the air): a homing flight at 18 u/s toward the opponent for up to 42
@@ -238,7 +248,9 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 
 ### Held state
 - `held` (Domain, Infinity counter, flurry): the victim can't act or air-tech, drifts down slowly if
-  airborne (gravity x 0.25), and counts down `heldT`. Hits during it combo normally.
+  airborne (gravity x 0.25), and counts down `heldT`. Hits during it combo normally. A super that grabs a victim
+  who is still in a combo (a flurry, the Four-Tails maul) carries that combo on, count and scaling, instead of
+  starting a new one at 1 (ADR 0026); a throw's grip always starts a fresh combo.
 
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
@@ -335,6 +347,7 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
 
 ### Damage scaling, hitstun decay and the combo cap
 - Combo counter: hits while the victim is in `hitstun` or `launched` add to `combo`.
+- All of these numbers live in `JUGGLE` (`src/game/moves.js`), which the CPU combo composer reads too (ADR 0026).
 - **Damage scaling**: `dmg × max(minScale ?? 0.4, 1 − (combo−1) × 0.065) × power × modeDamage ÷ defense`
   (`modeDamage` is 1.15 in Godspeed).
 - **Hitstun decay**: `decay = max(0.35, 1 − (combo−1) × 0.045)` scales grounded hitstun and air stun.
@@ -346,14 +359,16 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
   (`tick + 3`) keep air stun and hit stun at least that long, so one committed multi-hit move can't be teched
   midway and never turns blue.
 
-### Combo escape: tech, tech roll, Burst (ADR 0022)
-Numbers in `DEFENSE.tech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `Fighter` (`techOpen`, `airRecover`,
-`startTechRoll`, `canBurst` / `startBurst` / `burstWave`).
+### Combo escape: tech, tech roll, timed tech, Burst (ADR 0022, ADR 0028)
+Numbers in `DEFENSE.tech`, `DEFENSE.impactTech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `Fighter`
+(`techOpen`, `airRecover`, `startTechRoll`, `readTechPress` / `tryImpactTech` / `startImpactTech` / `wallKick`,
+`canBurst` / `startBurst` / `burstWave`).
 
 | Option | Input | Rules |
 |---|---|---|
 | Air tech | launched: **hold Guard**, or press any button | on an **open frame** (not KO'd or `held`, air stun over, above 0.35 units); holding Guard techs on the first one. 10 f, 16 f invulnerable. The stick picks the hop, against the opponent's side of the screen: neutral or away [−2.5, 6.5] (back), toward [3, 7], ↑ [0, 7.5] (rise in place), ↓ [0, −9] (drop to the floor, 4 f landing lag). |
 | Tech roll | land from a launch while **holding Guard** | instead of lying `down`: 20 f, invulnerable 18 f, 7.5 u/s in the stick's direction (else away from the attacker), friction 0.88. Not after a **hard knockdown**: `hardKnockdown` on the last hit, by default ground-bounce spikes (air heavy, dive slams) and big unblockable hits (throw toss, super and ultimate finishes, clash results), plus the beam's final hit. Not on a KO. |
+| Timed impact tech (ADR 0028) | a **fresh Guard press** (an edge: holding doesn't count) while in `hitstun` / `launched`, made during the combo, at most **11** live frames before the impact (`DEFENSE.impactTech.window`) | Impacts: the first floor contact of a fall (ground bounce, hard knockdown from a spike or throw, plain landing) and a wall bounce. Live frames skip hitstop and world freezes, so a press during either counts from the first frame after it. A press that doesn't tech locks it out for **40** live frames from that press (presses inside are ignored: mashing fails). Never on a KO, while `held` or grabbed, or after a `noTech` hit (super and ultimate finishes, ultimate clash results). Floor, stick neutral: **tech in place** 18 f, invulnerable 14 f; stick ← / →: **roll** 8 u/s (friction 0.88), 22 f, invulnerable 18 f. Barrier: **WALL TECH** clings 6 f, kicks off away at [7, 6.5], free (falling) 12 f later, invulnerable 22 f; with ↑ or Jump held at the kick, **WALL-JUMP TECH** [5, 13], actionable at once, invulnerable 14 f. Ends the combo; the bounce never happens (no budget spent). Checked before the tech roll. TECH! / WALL TECH! in white-cyan, a small white-cyan ring and spark at the contact point, a ting and a crowd pop. |
 | Burst | **Guard + Special** in `hitstun` or `launched` (the later press within 3 f; Special pressed during the combo and under 6 f ago, so Guard pressed while a hit charge still holds Special is a tech; read during hitstop too; a burst on the frame a hit connects wins) | 200 ki, once per round. Not while `held` or grabbed, not during the opponent's three-bar `kit` move or beam, a clash or Domain. 8 f world freeze and BURST!, then startup 4 f and 6 active frames: an invulnerable shockwave (radius 2.4, 10 dmg, launch [14, 9], hit stun 14, hitstop 12) that ends the combo and lets go of a grinding vortex. **Blockable and parryable.** Recovery 20 f, or 30 f when it was blocked or parried (**burst bait**). The HUD gem by the ki gauge: lit (unused), glowing (enough ki), dark (spent). |
 
 ### True combos and the blue counter (ADR 0022)
@@ -363,12 +378,13 @@ Numbers in `DEFENSE.tech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `F
 - Grounded hit stun can't gap (it returns to idle and the combo restarts), and `held` victims (Domain, flurries,
   mauls, staggers) can't act, so their hits stay true.
 - Reference: the bread-and-butter route below is true. Juggle air stun is 10 f at hit 10, 5 f at 14 and 2 f at 20,
-  so air-chain extensions past about 12 hits turn blue unless they go through a bounce (fixed 30 / 32 f), a vanish
-  or a relaunch.
+  so air-chain extensions past about 12 hits turn blue unless they go through a bounce (flat: wall 32 / 28 / 22 f,
+  ground 30 / 24 f, the bounce budget), a vanish or a relaunch.
 
 ### Technique callouts (ADR 0022)
 Banners slide in at the screen edge of the fighter who did it, stacked newest on top (3 per side), in every match:
-PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, THROW BREAK, REVERSAL (the first hit of an attack
+PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, the timed tech's TECH! / WALL TECH! (white-cyan,
+ADR 0028), THROW BREAK, REVERSAL (the first hit of an attack
 started within 3 f of leaving hit stun, block stun, wake-up, a tech or a stagger), PUNISH! (a fresh combo on a
 fighter in their own recovery: a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag over
 6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam), WAVEDASH (small, once per 6 s per
@@ -544,7 +560,16 @@ per launch (back 0.5, toward 0.2 when close, down 0.2, up 0.1), bursts per combo
 (IMPOSSIBLE 30 %, INSANE 15 %, showman 35 %; ×1.5 under 350 HP or when the attacker has three bars; the showman
 leans toward it until the viewer has seen one), and IMPOSSIBLE and showman **bait** bursts (`bait` 25 % / 30 % per
 combo against a victim who has one): stop after hit 3-5, guard, punish the recovery. The training dummy has
-`DUMMY TECH` (never / hold / random) and `DUMMY BURST` (off / on, at hit 3) rows (`game.dummyOpts`).
+`DUMMY TECH` (never / hold / random / timed) and `DUMMY BURST` (off / on, at hit 3) rows (`game.dummyOpts`).
+
+Timed impact tech (ADR 0028, `src/game/aiTech.js`): `impactAhead` forecasts the live frames to a launched fighter's
+next floor or wall impact; a `TechTimer` is armed per launch with the level's `impactTech` (Easy 5 %, Normal 15 %,
+Hard 35 %, INSANE 55 %, IMPOSSIBLE and showman 65 %) and presses Guard 5 ± `techSd` frames before each impact (5 / 4 /
+3 / 2.5 / 2 / 2 frames: a wide error presses too early and gets locked out), picking in place / roll away / roll
+toward or wall tech / wall jump. Armed, a brain that rolled the hold tech taps Jump at the air gaps instead of holding
+Guard (that press would lock the timed tech out). The combo composer weighs bounce routes by the victim's timed-tech
+rate this match (`techRisk`); a teched bounce ends its route (`groundTech` / `wallTech`). DUMMY TECH `timed` techs
+every impact mid-window with a random option.
 
 **Showcase** (ADR 0016, `src/game/aiShow.js`): every CPU keeps a match-long count of the tools it has used
 (kit specials, the second super, the ultimate or beam, vanish, super dash, wavedash, parry, spot dodge, air
@@ -554,11 +579,10 @@ Easy 0.3, Normal 0.5, Hard 0.7, IMPOSSIBLE 0.35, showman 1. The CPUs end strings
 hasn't seen, pick the super or ultimate by the same weights, and spend more of their ki on the kit.
 
 **IMPOSSIBLE** (ADR 0014) is a separate brain, `MasterBrain` in `src/game/aiMaster.js`, chosen by
-`makeBrain(fighter, level, spectate)` in `ai.js`. It still only presses buttons, and it reads what the screen
+`makeBrain(fighter, level, spectate, seed)` in `ai.js`. It still only presses buttons, and it reads what the screen
 shows (states, frames, positions), never the opponent's Pad. Each frame, in order: recover (tech at the first
-legal frame, varied wake-up), its own move (hit-confirmed routes: specials only when they land before the
-victim's stun runs out, spike while the super dash can follow the bounce, super dash and vanish extensions, a
-lethal check that spends supers and ultimates), threats (when and whether the opponent's move can reach it,
+legal frame, varied wake-up), its own move (its combos are the **combo composer**'s, below, plus a lethal check
+that spends supers and ultimates), threats (when and whether the opponent's move can reach it,
 seen after `react` frames, answered once with a timed parry, a spot dodge that leaves a punish, block, super
 dash through projectiles, counter, vanish, counter-beam, depth sidestep or air dodge), punishes (the
 opponent's remaining recovery against jab, dash-in light, shots, teleports or a lethal super), wake-up meaties
@@ -571,9 +595,9 @@ half the time, max-damage routes), `insane` (the INSANE level between HARD and I
 12 f, parries 28%, dodges and techs less, and drops 15% of its combos after 2-3 hits via `drop`) and `showman`
 (CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
 
-The **showman** plays for the viewer: short combos that end in a special, shot, teleport or vanish kick (the
-launcher route stops extending at `cap` = 5 hits), mid-range neutral with the kit (zoning, kit tools, air
-specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset to mid range) rather than
+The **showman** plays for the viewer: long, varied combos from the combo composer (below), mid-range neutral with
+the kit (zoning, kit tools, air specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset
+to mid range) rather than
 jab pressure, a plain block as its least likely answer, and free ki spending except that it saves up (and
 powers up) for its first three-bar move of the match. When both fighters' ultimates can clash (Hollow Purple,
 Four-Tails, a beam), that first three-bar moment is reserved for a **clash** (ENG-056, once per match): it keeps
@@ -613,6 +637,37 @@ jab, heavy, throw, vanish or a **rally**: a hit timed to land after their stagge
 reappears as they recover, or a heavy already in sight), which they can parry back. IMPOSSIBLE and INSANE keep the
 sure jab. `game.brains.map((b) => b.show.report())` returns the persona, the answers picked (`defLog`) and carried
 out (`done`), parries, evades and rallies.
+
+### Combo composer (ADR 0026, `src/game/aiCombo.js`)
+
+MasterBrain's combos come from a `ComboComposer`. At each decision point of a combo it runs (a ground light, the
+launcher or an air light connected; another move connected; free in the air beside the victim; air-locked after an
+air string; the victim bounced off the barrier or the floor; free on the ground while they reel) it picks one
+**edge**: a chain, launch, chase, super dash, vanish (a 2nd and 3rd in one combo are the ping-pong), any kit special
+by its kind, waiting for a bounce that is coming, meeting the victim from the ground (the handball light off the wall,
+a jab, a dash-in light, a heavy relaunch), a three-bar move that carries the combo on, or the end.
+
+- **Only true links.** Each edge's link gap is checked against the victim's stun left with **2+ frames of margin**
+  (a victim holding Guard techs on the first open frame), using `JUGGLE`, a forecast of the victim's flight (barrier
+  and floor bounces, the bounce budget, hitstop) and the art's hit boxes (a strike drawn high misses a crouched body).
+  It learns per match from the links it pressed (success rate, how late they land).
+- **Personas** (one per CPU per match, drawn from the brain's seeded rng and the kit data): rushdown, juggler,
+  vanish artist, wall bouncer, kit showman, with 30 % of a second one blended in. They weight edge tags (wall,
+  handball, vanish, air, relaunch, kit, ...), the length tiers and ki appetite, and nudge the neutral starters.
+  IMPOSSIBLE and INSANE use `optimal`: the highest-priority edge that links, as long as it links.
+- **Length tiers** per combo: short 4-7, medium 8-12, highlight 13-20 hits, with a governor: a highlight is likelier
+  after 20 s of a round without one and with two bars of meter, rarer after one, and both long tiers are rarer while
+  combos fill more than half the fight time. Enders weigh less while the target is far; extenders weigh less once it
+  is reached. Long tiers look one step ahead (the stun window an edge leaves; no dead ends).
+- **Variety**: freshness (an edge used often this match weighs less), a cooldown on routes that repeat a 3-edge
+  opening of either CPU's recent routes, and the Showcase bias. `?seed=N` fixes the match seed (the personas and
+  every draw).
+- **Burst threat** (ADR 0022): against an unused burst with 2 bars, cautious personas draw fewer highlights and cash
+  out sooner, risk-loving ones bait it more.
+
+The viewer sees it all in every match: WALL BOUNCE! / WALL BOUNCE ×2! / HANDBALL!, GROUND BOUNCE!, RELAUNCH! and
+VANISH ×2! banners, a ticker of the combo's techniques beside the counter, and a rating when it ends (GREAT 10+,
+AMAZING 15+, LEGENDARY 20+ hits, STYLISH! with 4+ different techniques).
 
 ## Bread-and-butter route (reference)
 

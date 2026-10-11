@@ -1,0 +1,165 @@
+{
+  "source": "approved",
+  "names": 25,
+  "variants": 123,
+  "maxPagesPerMatch": 4,
+  "pages": [
+    "decals_base_1.png",
+    "decals_base_2.png",
+    "decals_chakra.png",
+    "decals_lightning.png"
+  ],
+  "reviewedPixelsIdentical": true,
+  "results": [
+    {
+      "name": "crack_s",
+      "version": 2,
+      "variants": 8,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "crack",
+      "version": 1,
+      "variants": 8,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "crater",
+      "version": 1,
+      "variants": 8,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "crater_big",
+      "version": 1,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "crater_huge",
+      "version": 1,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "fracture_ring",
+      "version": 1,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "scuff",
+      "version": 2,
+      "variants": 8,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "skid",
+      "version": 2,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "rubble",
+      "version": 1,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "dirt_crater",
+      "version": 1,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "dirt_skid",
+      "version": 1,
+      "variants": 3,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "barrier_crack",
+      "version": 2,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "crater_wall",
+      "version": 1,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "burn_lightning",
+      "version": 2,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "burn_lightning_big",
+      "version": 2,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "fracture_lightning",
+      "version": 1,
+      "variants": 2,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "burn_fire",
+      "version": 1,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "burn_black",
+      "version": 1,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "scorch_ki",
+      "version": 1,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "scour_spiral",
+      "version": 1,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "scour_spiral_big",
+      "version": 2,
+      "variants": 3,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "cut_wind",
+      "version": 3,
+      "variants": 6,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "claw",
+      "version": 2,
+      "variants": 4,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "scorch_chakra",
+      "version": 2,
+      "variants": 3,
+      "pixelsIdentical": true
+    },
+    {
+      "name": "fracture_chakra",
+      "version": 2,
+      "variants": 2,
+      "pixelsIdentical": true
+    }
+  ]
+}

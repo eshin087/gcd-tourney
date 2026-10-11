@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dirt_skid_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/dirt_skid_v01_A.png",
+    "decals/raw/dirt_skid_v01_B.png",
+    "decals/raw/dirt_skid_v01.json"
+  ],
+  "sourceHash": "8f5d1d4c75ca370995381ff5580804549be0ac51",
+  "cell": {
+    "w": 512,
+    "h": 128,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "dirt_skid_00.png": "db5fba420b8736011a98ead09bba5a1217b06c2e",
+    "dirt_skid_01.png": "04f99cc0ee62c3b3e07487df89d9dea9c0c0c8fb",
+    "dirt_skid_02.png": "baa7e82f3d0043c504847ce59ba4b8409b656174"
+  }
+}
