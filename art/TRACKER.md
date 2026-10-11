@@ -41,6 +41,7 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 | gojo | 2/2 approved | 23/23 approved | 19/19 approved | 3/3 approved | yes; final batch approved |
 | VFX atlas | 0/1 (style sheet, optional) | 15/15 effects approved | - | - | custom atlas (approved 2026-10-10) |
 | shared UI | - | - | - | 2/2 approved | - |
+| ground decals | 0/1 (style sheet, required first) | 0/31 names (143 variants) | - | - | procedural (ADR 0024) |
 
 Naruto and Sasuke can be produced in parallel (separate Codex threads); each thread updates only
 its own section below.
@@ -319,6 +320,48 @@ cleaned into `art/ui/final/`.
 |---|---|---|---|---|---|
 | ui/final/logo.png ("GCD TOURNEY" + 天下一武闘祭) | ~480x180 | approved | v01 | v01 | Fitted candidate in ui/review; final approval and engine hooks pending. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | ui/final/title_art.png (title key art) | 640x360 | approved | v01 | v01 | Fitted candidate in ui/review; final approval and engine hooks pending. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+
+## Ground decals (step 12)
+
+Brief: [decals/DECALS.md](decals/DECALS.md), prompts [decals/PROMPTS.md](decals/PROMPTS.md), workflow [decals/README.md](decals/README.md)
+([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)). Candidates `art/decals/raw/<name>_vNN.png` or the parts
+`<name>_vNN_A.png`, `_B.png` ... of one version; ppu 64. Approved names ship with `npm run sprites decals`; the rest stay
+procedural. The style sheet comes first: the claim queue holds every decal batch until its approved copy exists.
+
+| name | group | cell | variants | mode | color rule | status | version | approved | notes |
+|---|---|---|---|---|---|---|---|---|---|
+| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | todo | - | - | approve first; attach the approved copy to every decal prompt |
+| crack_s | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
+| crack | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
+| crater | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
+| crater_big | base | 512 x 512 | 6 | flat | full color | todo | - | - | |
+| crater_huge | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
+| fracture_ring | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
+| scuff | base | 256 x 128 | 8 | flat, directional | full color | todo | - | - | |
+| skid | base | 512 x 128 | 4 | flat, directional | full color | todo | - | - | |
+| rubble | base | 256 x 256 | 6 | flat | full color | todo | - | - | |
+| dirt_crater | edge | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | todo | - | - | |
+| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | todo | - | - | |
+| crater_wall | edge | 512 x 512 | 4 | wall | full color | todo | - | - | |
+| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | todo | - | - | |
+| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | todo | - | - | |
+| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
+| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | todo | - | - | |
+| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | todo | - | - | |
+| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | todo | - | - | |
+| crush_implode | cursed | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
+| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
+| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
 
 ## World art (ADR 0008)
 

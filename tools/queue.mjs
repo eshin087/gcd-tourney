@@ -2,7 +2,7 @@
 // Claim queue for parallel art production (ADR 0008).
 //
 //   npm run queue -- build                                   regenerate art/queue/batches.json
-//   npm run queue -- claim [--type crowd|stage|npc|ui|vfx] --agent <name>
+//   npm run queue -- claim [--type crowd|stage|npc|ui|vfx|decal] --agent <name>
 //   npm run queue -- done <batch> --agent <name> [--note "..."]
 //   npm run queue -- release <batch> --agent <name>
 //   npm run queue -- reopen <batch> [--items id1,id2] [--note "..."]   (lead only: redo rejected items)
@@ -25,7 +25,7 @@ const EXTRA = path.join(Q, 'extra.json'); // lead-only: re-opened batches (rejec
 const SOURCES = path.join(Q, 'sources.json');
 const STALE_MS = 3 * 60 * 60 * 1000;
 const CROWD_BATCH = 10;
-const TYPE_ORDER = ['crowd', 'stage', 'npc', 'ui', 'vfx'];
+const TYPE_ORDER = ['crowd', 'stage', 'npc', 'ui', 'vfx', 'decal'];
 
 const rel = (p) => path.relative(ROOT, p).split(path.sep).join('/');
 const readJson = (p, fallback) => {
@@ -55,7 +55,8 @@ function args(argv) {
 }
 
 // ---------------------------------------------------------------- versioned files
-const VERSION_RE = /_v(\d{2,})\.png$/i;
+// A decal version can be several images (<name>_vNN_A.png, _B.png ...): a part counts as that version.
+const VERSION_RE = /_v(\d{2,})(?:_[a-z])?\.png$/i;
 
 // Highest existing version of <base>_vNN.png (0 when none). Ignores _rejected/ (it's a subfolder).
 function latestVersion(base) {
@@ -143,6 +144,15 @@ function sourceBatches() {
   for (const fx of s.vfx || []) {
     out.push({ id: `vfx-${fx.id}`, type: 'vfx', items: [fx.id], prompt: 'art/vfx/PROMPTS.md', brief: 'art/vfx/EFFECTS.md', outputs: [`art/vfx/raw/${fx.id}`] });
   }
+  // ground-damage decals (ADR 0024): the style sheet first; every decal batch waits for its approved copy
+  for (const d of s.decal || []) {
+    const ref = typeof d.reference === 'string' ? d.reference : null;
+    out.push({
+      id: `decal-${d.id}`, type: 'decal', items: [ref || d.id], prompt: 'art/decals/PROMPTS.md', brief: 'art/decals/DECALS.md',
+      outputs: [ref ? `art/decals/reference/${ref}` : `art/decals/raw/${d.id}`],
+      ...(ref ? {} : { parts: true }), ...(d.requires ? { requires: d.requires } : {}),
+    });
+  }
   return out;
 }
 
@@ -187,6 +197,7 @@ function describe(batch) {
   lines.push(`prompt: ${batch.prompt}`);
   lines.push('save each image as the next free version (never overwrite):');
   for (const o of batch.outputs) lines.push(`  ${nextFile(o)}`);
+  if (batch.parts) for (const o of batch.outputs) lines.push(`  or, as several images of that one version: ${nextFile(o).replace(/\.png$/, '_A.png')}, _B.png, _C.png ...`);
   lines.push(`when every item is saved: npm run queue -- done ${batch.id} --agent <you>`);
   return lines.join('\n');
 }
@@ -206,8 +217,11 @@ function cmdClaim(o) {
   const types = o.type && o.type !== true ? [o.type] : TYPE_ORDER;
   const batches = allBatches();
   if (!batches.length) return fail('no batches: run `npm run queue -- build` first');
+  // a batch with `requires` (decals: the approved style sheet) waits until that file exists
+  const gated = new Set();
   for (const t of types) {
     for (const b of batches.filter((x) => x.type === t)) {
+      if (b.requires && !fs.existsSync(path.join(ROOT, b.requires))) { gated.add(b.requires); continue; }
       if (tryClaim(b, agent)) {
         console.log(describe(b));
         return;
@@ -215,6 +229,7 @@ function cmdClaim(o) {
     }
   }
   console.log(`nothing left to claim${o.type ? ` for type ${o.type}` : ''}`);
+  for (const r of gated) console.log(`  (some batches wait for ${r}: it appears once the user approves it)`);
 }
 
 function ownClaim(id, agent, verb) {

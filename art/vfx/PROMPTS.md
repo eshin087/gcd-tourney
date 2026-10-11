@@ -275,6 +275,10 @@ Colors: white #FFFFFF arms and core, optional #E6E6E6 on the tapered arm ends. N
 
 ### crater: floor crater decal
 
+> **Superseded**: ground damage is drawn from the decal prompts in
+> [`../decals/PROMPTS.md`](../decals/PROMPTS.md) (`crater`, `crater_big` ... with radial shading only).
+> Do not generate new `crater` VFX art; this prompt is kept as the record of the approved v01.
+
 Save as: `art/vfx/raw/crater_vNN.png`
 
 ```text

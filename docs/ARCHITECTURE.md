@@ -226,6 +226,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
 - **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
   logo and the key art behind it.
+- **Ground decals (packer side, ADR 0024):** `npm run sprites decals` (`tools/pack-decals.mjs`, called by the sprite
+  packer with its image helpers) packs each approved decal name (`decals.items` / `worldArt.decal` in the manifest) into
+  `public/decals/atlas.json` + one PNG page per style group (`decals_<group>[_n].png`, each <= 2048 x 2048): `{ ppu: 64,
+  pages, pageSizes, decals: { <name>: { page, w, h, frames: [[x, y]...], mode, tinted, group, directional?, hotKey?, version } } }`.
+  The names and cells are the engine's contract (`DECAL_SPECS`); pure #FFFFFF texels are the hot key the engine glows.
+  Art: `art/decals/`.
 - `Effects.spawn(name, x, y, z, opts)` creates a camera-facing quad with a tint `color` (white art is
   tinted at runtime), `glow` (HDR boost into bloom), optional velocity, gravity, spin, follow and loop.
   `Effects.keep(id, ...)` updates a persistent effect (auras, hand orbs, clash glow).
