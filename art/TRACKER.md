@@ -117,7 +117,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 9 | superPose | 4 | - | no | 208 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | superPose | 4 | - | no | 165 | approved | v05 | v03 | Title-style v05 clean transparent seal loop passes isolated strict 48-color pack; historic v03 remains approved. |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | New title-style portrait v02 candidate; fixed copy remains old approval. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v02 | New title-style cutin v03 candidate; source aspect narrower than target, side gutters likely. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | New title-style select v02 candidate; top/bottom crop caveat, final review pending. |

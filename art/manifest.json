@@ -123,7 +123,7 @@
         "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [60, 60, 70, 90, 80, 80, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 220, 90], "required": false, "hitbox": false, "step": 9, "scaleExemptFrames": { "0": "the head bows forward: the crown faces the camera and the hair area reads big", "1": "the head bows forward: the crown faces the camera and the hair area reads big" }, "scaleExemptVersion": 2, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 3 }
+        "superPose": { "frames": 4, "loop": true, "bodyHeight": 165, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 5, "approvedVersion": 3 }
       },
       "ui": {
         "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 },
