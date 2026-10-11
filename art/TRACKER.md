@@ -117,7 +117,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v01 | New smaller-head v02 needs review; approved fixed reference remains v01. See PROPORTION_REDRAW.md and v02 QA. User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
