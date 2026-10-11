@@ -10,6 +10,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- art(gojo): clear down and KO cell clipping by measured whole-pose placement, retaining original lying pixels and unresolved floor-contact holds.
+- art(gojo): preserve launched v04 reaction pixels in v06 with measured offsets that clear cell clipping; retain its low-confidence scale hold and diagnostic native contact.
 - art(gojo): retain rejected third light4 recovery half after it repeated the oversize A/B seam; document the exhausted source budget and strict-pack hold.
 - art(gojo): correct five-pose getup segmentation and superDash placement; retain exhausted run and heavy source attempts with explicit QA holds.
 - art(gojo): add anatomy corrections for specialDown, superPose, throw, airLight1 and light3; all five clear the automated head gate while full frame review remains pending.

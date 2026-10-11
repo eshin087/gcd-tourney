@@ -708,7 +708,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 4,
+          "version": 6,
           "approvedVersion": 1
         },
         "spin": {
@@ -753,7 +753,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 4,
+          "version": 5,
           "approvedVersion": 1
         },
         "getup": {
@@ -880,7 +880,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 5,
+          "version": 6,
           "approvedVersion": 2
         },
         "special": {
