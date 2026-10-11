@@ -32,8 +32,9 @@ src/core/
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
                             (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
-                            projectile/beam/orb collisions, special and ultimate clashes (clash bodies, the
-                            struggle line, endings), event hooks
+                            projectile/beam/orb collisions, special, beam (ADR 0027) and ultimate clashes (clash
+                            bodies, the struggle line, endings; startClash tiers 'ultimate' | 'struggle' | 'beat'),
+                            event hooks
                             (onHit/onBlock/onVanish/onBurst/...), technique callouts (Game.tag(f, id) -> TAGS,
                             ADR 0022), super flash, KO, render orchestration
   clash.js                  rhythm clash (ADR 0017): seeded note chart, Judge (grades, strays, holds), CPU press plan
@@ -48,8 +49,10 @@ src/game/
   ai.js                     CpuBrain (Easy/Normal/Hard), DummyBrain (training), makeBrain: press buttons on a Pad
   aiMaster.js               MasterBrain (IMPOSSIBLE; `showman` style for CPU vs CPU), ADR 0014/0016
   aiShow.js                 Showcase (ADR 0016): which tools a CPU has shown this match -> option weights
+  showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
+                            moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
-                            pull) and Beam (ultimate) with HDR shader
+                            pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette) with HDR shader
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames)
   chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
@@ -112,7 +115,8 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 
 ```
 1. input.poll()                 keyboard + gamepads -> Pad (pressed/released edges, buffers, double-tap dash)
-2. brains[i].update(game)       CpuBrain / DummyBrain press buttons on their own Pad (same interface as a human)
+2. director?.update()           CPU vs CPU only: the show director's beam-clash cue (ADR 0027)
+   brains[i].update(game)       CpuBrain / DummyBrain press buttons on their own Pad (same interface as a human)
 3. superFlash timer             a running super flash counts down
 4. freeze > 0 ?                 super-flash time stop: only FX tick, then return (inputs keep buffering)
 5. fighters[i].update()         state machine; attacks call game.checkMelee() on active frames;
@@ -120,8 +124,12 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 6. separate()                   push overlapping fighters apart
 7. checkSpecialClash()          two signature rushes meeting -> a one-beat clash (the world holds still) or a trade
    checkUltimateClash()         two ultimates' bodies meeting head-on -> the rhythm clash
-8. projectiles update + projectileCollisions()   projectile vs fighter, projectile vs projectile, beam eats projectiles
-9. updateClash(), beams + orbs update, checkUltimateClash()   judge both pads against the chart, move the bodies
+   checkEnergyClash()           two energy attacks meeting head-on, or an energy special answering one -> a beam
+                                clash (before the shots move, so one can't hit its answerer first; ADR 0027)
+8. projectiles update + projectileCollisions()   projectile vs fighter, projectile vs projectile (two energy shots
+                                touching -> checkEnergyClash, else they cancel), beam eats projectiles
+9. updateClash(), beams + orbs update, checkUltimateClash(), checkEnergyClash()   judge both pads against the chart,
+                                move the bodies
 10. fxTicks(frozen)             charge styles (chargeFx), aura / signature-hand effects, speed-line focus; during a
                                 freeze or a special clash it runs with frozen = true (charges refresh, spawn nothing)
 11. round timer                 99 s countdown (not in training)

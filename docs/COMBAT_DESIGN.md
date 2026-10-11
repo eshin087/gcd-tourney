@@ -185,7 +185,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - Two specials whose active frames meet within 1.6 units cause a **special clash** (ADR 0017): the world holds
   still and one ring closes on the target (46 f). The closer press (better grade, then fewer frames off) wins: the
   loser takes 60 and is blown back, the winner's special goes through. Both missing, or a dead heat, is the old
-  trade (both take 60). For 480 frames after one, specials simply trade.
+  trade (both take 60). For 480 frames after one, specials simply trade. (A Rasengan or Chidori driven into an
+  energy *shot* is a beam clash instead, below.)
 
 ### Second supers (SUPER button)
 - 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
@@ -292,6 +293,32 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
     A lead of 2+ wins: the winner's ultimate goes through (the beam runs on, the orb rolls over them, Naruto roars
     it out) and the loser takes 250 (unscaled, unblockable, wall bounce, "OVERWHELMED!"). Under 2 is a **draw**:
     both blown back for 90.
+
+### Beam clash (ADR 0027)
+Two **energy attacks** that meet head-on become a **BEAM CLASH**: a shorter rhythm struggle between 1-bar specials,
+with each side's attack drawn as a stream from their hands. Numbers in `CLASH.struggle` (`src/game/moves.js`).
+- **Energy**: a shot whose projectile has `clash: 'beam'` (Killua's Narukami, Gojo's Reversal: Red, Sasuke's Chidori
+  Spear and air Great Fireball; ground or air versions) or a rush special with `clash: 'rush'` (Naruto's Rasengan and
+  Rasenshuriken, Sasuke's Chidori), which he drives into the other's stream by hand. Rush against rush stays the
+  one-beat special clash; a physical shot (shuriken) still just cancels a shot. So every pairing has one except the
+  Naruto mirror (two Rasengans).
+- **How it starts** (`Game.checkEnergyClash`, before the shots move each frame and when two shots touch):
+  - two shots in flight (or a shot and a running Rasengan) that touch head-on;
+  - **the answer**: an energy special started while theirs flies at you from up to 5.5 units (`answerRange`) meets it
+    at once (shot startup or Rasengan windup included), so you can answer a shot instead of blocking it.
+  - Both owners must be free to lock (not stunned, blocking, dodging, mid-kit-move or teleport, not KO'd), at least
+    2.2 units apart (`minDist`, closer they just trade), and 900 frames (`cooldown`) after the last beam clash.
+- **The struggle**: BEAM CLASH!, both attack names called out, the clash camera and HUD (rings + struggle bar), the
+  round timer stops, both invulnerable. A shot becomes a stream (`Beam`, the shot's `stream` palette, width 0.95)
+  from its owner's hands, an airborne owner hovers; a Rasengan / Chidori is held on its rush frame with its orb lit.
+  Two streams meet halfway between the hands, a stream meets a Rasengan 1.5 ahead of the fist (`rushReach`).
+- **The chart**: a fresh chart every time (the same for both players): count-in 30 f, 4 notes every 24 f, 5 every
+  18 f with a double, then the FINAL PUSH (30 f); about 4.5 s, 12 graded presses. Same grades as the ultimate clash;
+  the point moves 0.045 per point of lead.
+- **The end**: a lead of 1+ (`drawMargin`) wins: the winner's stream runs through (a Rasengan goes on into its
+  follow-through) and the loser takes **120** (unscaled, unblockable, launch [16, 9], **wall bounce**, a hard
+  knockdown; "OVERWHELMED!"). A dead heat is a **DRAW**: both blown back for 45. A locked owner knocked out of the
+  lock (a burn tick's KO) loses it.
 
 ### Ki economy
 
@@ -520,6 +547,20 @@ powers up) for its first three-bar move of the match. When both fighters' ultima
 Four-Tails, a beam), that first three-bar moment is reserved for a **clash** (ENG-056, once per match): it keeps
 three bars, fires its ultimate only once the opponent has three too, and otherwise answers theirs; it gives up for
 the round after 10 s at three bars or with under 20 s on the clock. The training dummy plays any clash at the CLASH level picked in the lab.
+
+**Beam clashes** (ADR 0027). Against a player, every CPU sometimes answers an incoming energy shot (or a Rasengan /
+Chidori from range) with an energy special of its own: `CpuBrain` at `special × 0.6` (Easy 9 %, Normal 18 %, Hard
+27 %, up to ×3 while the player hasn't seen a beam clash), IMPOSSIBLE / INSANE at a weight of `0.25 × flair` among
+its other answers. In **CPU vs CPU** a spectator-only **show director** (`src/game/showDirector.js`, created only when
+`Game.watching`) makes sure the viewer sees one every match: at a random moment 15-40 s into round 1 (8-20 s into a
+later round that started without one) it picks a random challenger and cues both brains for 480 frames. The cued
+challenger plays a `challenge` plan (into their lane at a gap their answer reaches, then fires its energy special once
+they are free and have the ki to answer); the cued answerer keeps to mid range and answers (weight 50, and it reads
+the shot's startup at once, so a 9-frame Chidori Spear can be met). A cue that comes to nothing expires and returns
+6-12 s later; after the match's first beam clash the director is done and further ones happen only by themselves
+(the showman answers at `0.15 × flair`). While the director still has one to cue, the showman keeps the ki for its
+cheapest energy move (`spend()` stops above it), powers up when short, and each clash is played at a jittered
+timing (`sd` ×0.6-1.8) so even showmen rarely draw. The director never presses a button.
 
 ## Bread-and-butter route (reference)
 
