@@ -123,25 +123,32 @@ export const SPECIALS = {
   rasengan: {
     anim: 'special', startup: 24, cancelStartup: 14, active: 22, recovery: 20, dmg: 140, reach: 1.3, width: 1.05,
     launch: [16, 9], hitstop: 18, rush: 14, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
-    fx: 'rasengan', sfxLoop: 'rasengan', color: '#6ab4ff', name: 'RASENGAN', spark: 'smash',
+    fx: 'rasengan', sfxLoop: 'rasengan', color: '#6ab4ff', name: 'RASENGAN', spark: 'smash', clash: 'rush',
   },
   chidori: {
     anim: 'special', startup: 28, cancelStartup: 16, active: 18, recovery: 20, dmg: 152, reach: 1.3, width: 1.05,
     launch: [14, 11], hitstop: 20, rush: 18, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
-    fx: 'chidori', sfxLoop: 'chidori', color: '#9ad8ff', name: 'CHIDORI', spark: 'smash',
+    fx: 'chidori', sfxLoop: 'chidori', color: '#9ad8ff', name: 'CHIDORI', spark: 'smash', clash: 'rush',
   },
 };
 
 // Air projectiles (half a ki bar)
+//  clash   'beam': an energy shot. Meeting the opponent's energy head-on it becomes a stream in a BEAM CLASH
+//          (CLASH.struggle, ADR 0027), drawn in its `stream` palette; a physical shot (shuriken) just cancels.
+//          Rush specials with `clash: 'rush'` (Rasengan, Chidori) are driven into the stream by hand.
 export const PROJECTILES = {
   shuriken: { count: 3, spread: 0.2, speed: 22, radius: 0.35, dmg: 22, hitstun: 16, push: 2, airPop: 4, life: 1.2, sprite: 'shuriken', scale: 0.55, sfx: 'shuriken', spark: 'light' },
-  fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'fire', scale: 1.5, sfx: 'fireball', big: true, spark: 'heavy', glowColor: 0xff7a20, trail: 'fire', burst: 'explosion' },
+  fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'fire', scale: 1.5, sfx: 'fireball', big: true, spark: 'heavy', glowColor: 0xff7a20, trail: 'fire', burst: 'explosion',
+    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c' } },
   // Killua's Narukami: a very fast lightning bolt with a long stun
-  bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightning', scale: 0.95, color: 0xd8f0ff, glowColor: 0x6ab8ff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true },
+  bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightning', scale: 0.95, color: 0xd8f0ff, glowColor: 0x6ab8ff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true,
+    clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff' } },
   // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~6 units, but instantly
-  spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true },
+  spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true,
+    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc' } },
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
-  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048 },
+  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048,
+    clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22' } },
 };
 
 // Special moves by id (ADR 0009). A fighter's kit maps input slots to these ids.
@@ -158,7 +165,7 @@ export const SPECIAL_MOVES = {
   rasenshuriken: {
     kind: 'rush', anim: 'specialForward', startup: 30, cancelStartup: 18, active: 20, recovery: 24, dmg: 40, reach: 1.35, width: 1.1,
     hitstun: 60, push: 0, hitstop: 12, rush: 13, cost: 100, special: true, big: true, shake: 0.6, selfDmg: 25,
-    fx: 'rasenshuriken', sfxLoop: 'rasengan', color: '#cfeaff', name: 'RASENSHURIKEN', spark: 'smash',
+    fx: 'rasenshuriken', sfxLoop: 'rasengan', color: '#cfeaff', name: 'RASENSHURIKEN', spark: 'smash', clash: 'rush',
     vortex: {
       len: 40, pull: 12, radius: 2.2, tick: 6, colors: { orb: 0xe8f6ff, glow: 0x8ac8ff, ring: 0xffffff },
       tickHit: { dmg: 12, minScale: 0.8, hitstun: 24, push: 0, airPop: 1, hitstop: 2, spark: 'light' },
@@ -290,6 +297,16 @@ export const PASSIVES = {
 //  rush       a pounce in a clash: the struggle point sits `reach` ahead of the rusher, who can be shoved `shove` back
 //  special    the one-beat clash between two rush specials: its note (`lead` after `intro`), the cooldown between
 //             special clashes, and the hit the loser takes (a tie keeps the old double hit)
+//  launch     the loser's launch when an ultimate clash is won
+//  struggle   BEAM CLASH (ADR 0027): two energy attacks meeting (PROJECTILES `clash`, rush specials driven into a
+//             shot) lock both owners in a shorter rhythm duel with its own numbers (they override the ones above).
+//             A 4.5 s chart, a lead of `drawMargin` wins; the winner's stream runs through for `winDmg` and a
+//             wall-bounce `launch`, a draw blows both back for `drawDmg`. `cooldown`: frames before the next one;
+//             `minDist`: owners closer than this just trade; `catch`: extra contact radius for a shot still in its
+//             startup; `answerRange`: an energy move started while their energy heads at you this close meets it at
+//             once (the answer); `width`: the stream's width (the ultimate beam is ULTIMATE.width); `sparks`: the
+//             struggle point's flare, x the ultimate clash's (two short streams would vanish under the full one);
+//             `rushReach`: how far ahead of a Rasengan / Chidori the streams meet it (in front of the orb, not on the body)
 export const CLASH = {
   intro: 40, lead: 40, outro: 24,
   windows: { perfect: 3, great: 6, good: 9 },
@@ -299,6 +316,12 @@ export const CLASH = {
   push: 0.018, drawMargin: 2, winDmg: 250, drawDmg: 90, answerFlash: 20,
   rush: { reach: 0.8, shove: 2.2 },
   special: { intro: 12, lead: 34, cooldown: 480, dmg: 60 },
+  launch: [18, 10],
+  struggle: {
+    intro: 30, lead: 36, phases: [{ notes: 4, every: 24 }, { notes: 5, every: 18, doubles: 1 }], hold: { gap: 24, len: 30 }, outro: 24,
+    push: 0.045, drawMargin: 1, winDmg: 120, drawDmg: 45, launch: [16, 9], cooldown: 900, minDist: 2.2, catch: 0.4, answerRange: 5.5, width: 0.95,
+    sparks: 0.45, rushReach: 1.5,
+  },
 };
 
 // Ultimate beam (full 3 bars)

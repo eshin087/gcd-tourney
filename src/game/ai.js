@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { ULTIMATE, VANISH, SUPERS } from './moves.js';
-import { specialFor, kitOf, towardSide, clashable } from './kit.js';
+import { ULTIMATE, VANISH, SUPERS, PROJECTILES, CLASH } from './moves.js';
+import { specialFor, kitOf, towardSide, clashable, energyMoves, airEnergyMoves } from './kit.js';
 import { BeatPlan } from './clash.js';
 
 // Where each ultimate kind makes sense (ADR 0017): the beam and Hollow Purple want room, the Four-Tails pounce
@@ -128,6 +128,10 @@ export class CpuBrain {
         else if (R() < L.guard) this.setPlan('guard', 14 + (o.move?.special ? 20 : 0));
         else if (R() < L.dodge * 0.3) this.dodge();
       }
+      // their energy shot or Rasengan / Chidori from further out: sometimes answer it with ours (a BEAM CLASH, ADR 0027)
+      if (oppAttacking && this.reactAt === this.planT && dist > CLASH.struggle.minDist + 0.3 && dist < 7 && (PROJECTILES[o.move.proj]?.clash || o.move.clash === 'rush')) {
+        this.answerEnergy(f, o.move.clash === 'rush');
+      }
       // guard-cancel vanish out of block pressure
       if (f.state === 'block' && f.ki >= VANISH.cost && R() < L.vanish * 0.08) { this.hold.guard = 3; this.press('special', 2); }
       // Kirin marks a spot: dash out of it before the dragon lands
@@ -153,7 +157,8 @@ export class CpuBrain {
           p.seen = true;
           const sh = this.show;
           this.tgtProj = p;
-          if (f.state === 'air' && !f.airDodged && R() < L.airDodge * sh.bias('airDodge')) this.airDodge(toOpp);
+          if (p.P.clash && this.answerEnergy(f)) this.tgtProj = null; // fire ours into it: a BEAM CLASH (ADR 0027)
+          else if (f.state === 'air' && !f.airDodged && R() < L.airDodge * sh.bias('airDodge')) this.airDodge(toOpp);
           else if (!f.busy && f.state !== 'air' && R() < L.parry * sh.bias('parry')) this.setPlan('parry', 40);
           else if (!f.busy && f.state !== 'air' && R() < L.spot * 0.6 * sh.bias('spotDodge')) this.setPlan('spotDodge', 40);
           else if (R() < L.guard) this.setPlan('guard', 30);
@@ -377,6 +382,18 @@ export class CpuBrain {
   useSpecial(slot) {
     this.spSlot = slot;
     this.setPlan('useSpecial', 10);
+  }
+
+  // Their energy is coming: at its level's special rate (x0.6, more while the player hasn't seen a beam clash), fire an
+  // energy move of ours into it so the two meet (Game.checkEnergyClash, ADR 0027). A rush only meets a shot. Returns
+  // true when it went for it.
+  answerEnergy(f, vsRush = false) {
+    if (f.busy && f.state !== 'air') return false;
+    const list = (f.state === 'air' ? airEnergyMoves(f.def) : energyMoves(f.def)).filter((e) => f.ki >= e.cost && !(vsRush && e.kind === 'rush'));
+    if (!list.length || !this.show.tools.beamClash || Math.random() >= this.L.special * 0.6 * this.show.bias('beamClash')) return false;
+    const e = list[Math.floor(Math.random() * list.length)];
+    if (f.state === 'air') { this.spSlot = 'air'; this.setPlan('useSpecial', 10); } else this.useSpecial(e.slot);
+    return true;
   }
 
   dodge() {

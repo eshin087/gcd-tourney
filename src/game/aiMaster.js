@@ -6,8 +6,8 @@
 // attack after `react` frames (a 5-frame jab is a guess, like for a human), it goes for a parry only part
 // of the time, and it has habits a player can learn. CPU vs CPU runs the louder 'showman' style so a
 // spectated fight keeps moving and the big moves come out.
-import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW } from './moves.js';
-import { specialFor, kitOf, clashable, mergeOf, roarOf } from './kit.js';
+import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW, CLASH } from './moves.js';
+import { specialFor, kitOf, clashable, mergeOf, roarOf, energyMoves, airEnergyMoves } from './kit.js';
 import { BeatPlan } from './clash.js';
 import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
@@ -783,6 +783,7 @@ export class MasterBrain {
     const f = this.f, S = this.S;
     const left = f.ki - cost;
     if (left < 0) return false;
+    if (left < this.energyFloor()) return false; // a beam clash to show (or cued): keep one energy move's ki (ADR 0027)
     if (f.game.timeLeft < 15) return true;
     // some rounds it saves up for a three-bar finish (supers, ultimates, beam clashes): nothing smaller may
     // take it back under three bars
@@ -856,6 +857,14 @@ export class MasterBrain {
       if (along > -ob.r && perp < ob.r + 0.9) add({ key: 'ob' + this.oppSerial, kind: 'beam', frames: Math.max(0, (along - ob.r) / ob.S.speed * 60), len: 20 });
     }
     if (o.state === 'kit' && o.kitState) add(this.kitThreat(game, c, o.kitState));
+    // their energy shot still in its startup (ADR 0027): nothing else is coming, so an energy answer can meet it as it
+    // leaves the hand (chooseDefense only offers that this early; the shot in flight is a threat of its own). Cued to
+    // answer it (CPU vs CPU), it is expecting the shot and reads it at once: a 9-frame Chidori Spear outruns `react`.
+    const om = o.state === 'attack' ? o.move : null;
+    const expect = this.beamCue(game) === 'answer' ? 1 : S.react;
+    if (!best && om?.kind === 'shot' && PROJECTILES[om.proj]?.clash && o.t >= expect && o.t < om.startup) {
+      add({ key: 'es' + this.oppSerial, kind: 'proj', energy: true, startup: true, frames: om.startup - o.t + Math.max(0, c.dist - 1) / PROJECTILES[om.proj].speed * 60 + delay, len: 3 });
+    }
     return best;
   }
 
@@ -926,6 +935,18 @@ export class MasterBrain {
       const k = S.show >= 0.5 && sh.tools.clash ? sh.bias('clash') : 1;
       offer('counterBeam', (1 + S.flair * 2) * k, { type: 'counterBeam' }, kitOf(f.def).ultimate ? null : 'beam');
     }
+    // their energy coming (a shot in flight or leaving the hand, a Rasengan / Chidori running) and an energy move of ours
+    // that can meet it: answer it, a BEAM CLASH (ADR 0027). The director's cue all but forces it (it picks when, so every
+    // match has its own moment); otherwise now and then. A short shot waits until theirs is close (`lead`), so the two
+    // meet before ours fizzles.
+    const vsRush = th.m?.clash === 'rush';
+    const em = (th.energy || th.p?.P?.clash || vsRush) && (r === 'ground' || r === 'air') && sh.tools.beamClash ? this.energyAnswer(c, vsRush) : null;
+    if (em) {
+      const cue = this.beamCue(game);
+      const k = cue === 'answer' ? 50 : (S.show >= 0.5 ? 0.15 : 0.25) * S.flair;
+      offer('answerEnergy', k, { type: 'answerEnergy', slot: em.slot, lead: em.kind === 'shot' && em.range < c.dist + 2 ? em.m.startup + 10 : 999 });
+    }
+    if (th.startup) { offer('none', 3, {}); return decide(); } // their shot isn't out yet: its own threat picks the rest
     if (th.kind === 'beam') {
       if (ki >= VANISH.cost) offer('vanish', 0.6 + S.flair * 0.6, { type: 'vanish', at: 10 }, 'vanish');
       if (r !== 'air') offer('sidestep', 0.7, { type: 'sidestep', at: 30 });
@@ -1022,6 +1043,12 @@ export class MasterBrain {
           this.tap('heavy', 3);
           this.tap('special', 3);
         }
+        return true;
+      case 'answerEnergy':
+        // stand ready until it's close enough, then fire ours into it (Game.checkEnergyClash locks the two)
+        if (d.done || fr > d.lead || (c.ready !== 'ground' && c.ready !== 'air')) return true;
+        d.done = true;
+        this.special(d.slot, 2);
         return true;
       case 'superDash':
         if (fr > d.at) return false;
@@ -1426,11 +1453,26 @@ export class MasterBrain {
     // three-bar move): back off and power up
     if (showy && dist < 5.5 && this.saving && ki < 300) w.powerUp = 2;
     else if (showy && ki < 200 && dist < 5.5 && sh.unseen().some((id) => id.startsWith('sp:') || id === 'super' || id === 'ultimate' || id === 'beam')) w.powerUp = 1.1;
+    // BEAM CLASH (ADR 0027), on the director's cue (CPU vs CPU): fire an energy move from where they can answer it, once
+    // they have the ki to; short of ki for it, power up first. Cued to answer, it keeps to mid range (rushing in, the
+    // two would be too close to lock) with the ki for its answer.
+    const cue = showy && sh.tools.beamClash ? this.beamCue(game) : null;
+    if (cue === 'challenge') {
+      const em = this.energyChallenge();
+      if (em && o.ki >= Math.min(...energyMoves(o.def).map((e) => e.cost), 300)) w.challenge = 12;
+      else if (!em) w.powerUp = Math.max(w.powerUp ?? 0, 6);
+    } else if (cue === 'answer') {
+      if (ki < this.energyFloor()) w.powerUp = Math.max(w.powerUp ?? 0, 4);
+      w.space = (w.space ?? 0) + 3;
+      for (const k of ['pressure', 'approach', 'jumpin']) if (w[k]) w[k] *= 0.3;
+    }
     if (lead > 0.25 && game.timeLeft < 30) { w.space = (w.space ?? 0) + 1.5; w.guard = (w.guard ?? 0) + 1; }
     if (lead < -0.3) { w.pressure = (w.pressure ?? 0) * 1.3; w.approach = (w.approach ?? 0) * 1.3; }
     const name = pickW(w) || 'approach';
     const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90, airShot: 50, big: 40, powerUp: 150 }[name];
     const p = { name, t: 0, len, done: false };
+    if (name === 'challenge') { p.len = 80; p.em = this.energyChallenge(); }
+    if (name === 'space' && cue === 'answer') p.gap = 4 + R() * 1.5;
     if (name === 'approach') {
       const m = R();
       const wd = S.wavedash * 0.5 * (showy ? Math.sqrt(sh.bias('wavedash')) : 1);
@@ -1608,6 +1650,19 @@ export class MasterBrain {
         this.special(sl, 2);
         return;
       }
+      case 'challenge': {
+        // BEAM CLASH (ADR 0027): into their lane at a gap their answer reaches (a spear's ~4.6), and fire once they're
+        // free to answer it
+        const em = p.em;
+        if (!em || f.ki < em.cost || p.fired) { p.done = !em || f.ki < em.cost || p.t > p.firedAt + 6; return; }
+        const there = (this.approach(c, Math.min(6, Math.max(3.6, em.range - 1))) || (p.t > 45 && Math.abs(c.sd) < 0.5)) && c.dist > CLASH.struggle.minDist + 1.2;
+        const free = ['idle', 'run', 'guard', 'land', 'wavedash', 'charge'].includes(o.state) && o.ki >= Math.min(...energyMoves(o.def).map((e) => e.cost), 300);
+        if (!there || !free || r !== 'ground') { if (p.t > 70) p.done = true; return; }
+        p.fired = true;
+        p.firedAt = p.t;
+        this.special(em.slot, 2);
+        return;
+      }
       case 'charge':
         if (c.dist < 4.5 || f.ki >= p.kiGoal) { p.done = true; return; }
         this.holdCharge();
@@ -1701,8 +1756,47 @@ export class MasterBrain {
   // ------------------------------------------------------------------ clashes (ADR 0017)
   // play the chart: every press planned once at its style's timing, alternating Light and Heavy
   playClash(game) {
-    if (this.beat?.clash !== game.clash) this.beat = new BeatPlan(game.clash, this.S.beat);
+    if (this.beat?.clash !== game.clash) {
+      // spectating, each clash is played at a slightly different skill (timing error x0.6-1.8): the two showmen
+      // would otherwise score within a point of each other and draw far too often (ADR 0027)
+      const B = this.S.beat;
+      this.beat = new BeatPlan(game.clash, game.watching ? { ...B, sd: B.sd * (0.6 + Math.random() * 1.2) } : B);
+    }
     for (const p of this.beat.due(game.clash.timer + 1)) this.tap(this.beat.button(), p.len);
+  }
+
+  // ------------------------------------------------------------------ beam clashes (ADR 0027)
+  // The director's cue for this fighter (CPU vs CPU only, showDirector.js): 'challenge', 'answer' or null.
+  beamCue(game) {
+    return game.director?.cueFor('beamClash', this.f.index) ?? null;
+  }
+
+  // While the director still has this match's beam clash to cue, the showman keeps the ki for one energy move.
+  energyFloor() {
+    const f = this.f, d = f.game.director?.beam;
+    if (this.S.show < 0.5 || !this.show.tools.beamClash || !d || d.done) return 0;
+    return Math.min(...energyMoves(f.def).map((e) => e.cost), 100);
+  }
+
+  // An affordable energy move to answer their energy with (in the air, an air one): a rush can only meet a shot (two
+  // rushes are the one-beat special clash). The one the viewer hasn't seen is likelier.
+  energyAnswer(c, vsRush) {
+    const f = this.f;
+    return this.pickEnergy((c.ready === 'air' ? airEnergyMoves(f.def) : energyMoves(f.def)).filter((e) => f.ki >= e.cost && !(vsRush && e.kind === 'rush')));
+  }
+
+  // An affordable ground energy move to open a beam clash with: a rush only when they have a shot to answer it.
+  energyChallenge() {
+    const f = this.f, o = f.opp;
+    const theirShot = [...energyMoves(o.def), ...airEnergyMoves(o.def)].some((e) => e.kind === 'shot');
+    return this.pickEnergy(energyMoves(f.def).filter((e) => f.ki >= e.cost && (e.kind === 'shot' || theirShot)));
+  }
+
+  pickEnergy(list) {
+    if (!list.length) return null;
+    const w = {};
+    list.forEach((e, i) => { w[i] = this.show.bias(specialId(e.m)); });
+    return list[pickW(w) ?? 0];
   }
 }
 

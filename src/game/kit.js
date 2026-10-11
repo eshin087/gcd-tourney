@@ -4,7 +4,7 @@
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
-import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH } from './moves.js';
+import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH, PROJECTILES } from './moves.js';
 import { ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 
@@ -180,6 +180,60 @@ export function clashFx(f, S, t) {
 // a won clash: the pounce went through, so the beast roars it out (the recover phase, still in the shroud)
 export function resumeRampage(f, S, k) {
   enter(f, { ...k, phase: 'recover', t0: 0 }, S.pose ?? 'beamCharge');
+}
+
+// ------------------------------------------------------------------ beam clashes (ADR 0027)
+// Energy moves: the specials that can meet the opponent's energy in a BEAM CLASH (Game.checkEnergyClash), a shot
+// whose projectile has `clash: 'beam'` or a rush special with `clash: 'rush'` (driven into the stream by hand).
+// [{ slot, m, cost, kind, range }], range = how far it reaches (a shot's flight, a rush's run plus its reach).
+const ENERGY_SLOTS = ['neutral', 'forward', 'up', 'down', 'back'], AIR_ENERGY_SLOTS = ['air', 'airDown'];
+
+export const isEnergy = (m) => !!m && (m.kind === 'shot' ? PROJECTILES[m.proj]?.clash === 'beam' : m.kind === 'rush' && m.clash === 'rush');
+
+function energyList(def, slots) {
+  const out = [], seen = new Set();
+  for (const slot of slots) {
+    const m = specialFor(def, slot);
+    if (!isEnergy(m) || seen.has(m)) continue;
+    seen.add(m);
+    const P = PROJECTILES[m.proj];
+    const range = m.kind === 'shot' ? P.speed * P.life + 0.8 : (m.rush * m.active) / 60 + (m.reach ?? 1.3);
+    out.push({ slot, m, cost: m.cost ?? 0, kind: m.kind, range });
+  }
+  return out;
+}
+
+export function energyMoves(def) {
+  return (def._energy ??= energyList(def, ENERGY_SLOTS));
+}
+
+export function airEnergyMoves(def) {
+  return (def._airEnergy ??= energyList(def, AIR_ENERGY_SLOTS));
+}
+
+// Two fighters can beam-clash: both have an energy move and at least one of them is a shot (two rush specials
+// meeting are the one-beat special clash instead).
+export function canBeamClash(a, b) {
+  const all = (d) => [...energyMoves(d), ...airEnergyMoves(d)];
+  const A = all(a), B = all(b);
+  return A.length > 0 && B.length > 0 && [...A, ...B].some((e) => e.kind === 'shot');
+}
+
+// The opponent's energy shot in flight that is heading at f inside CLASH.struggle.answerRange, or null: an energy
+// move f starts now meets it (the answer).
+export function incomingEnergy(f) {
+  const g = f.game, R = CLASH.struggle.answerRange;
+  let best = null, bd = R;
+  for (const p of g.projectiles) {
+    if (p.owner === f || p.dead || p.P.clash !== 'beam') continue;
+    const dx = f.pos.x - p.pos.x, dy = f.pos.y + 0.85 - p.pos.y, dz = f.pos.z - p.pos.z, d = Math.hypot(dx, dy, dz);
+    const v = Math.hypot(p.vel.x, p.vel.y, p.vel.z) || 1;
+    const along = (dx * p.vel.x + dy * p.vel.y + dz * p.vel.z) / v;
+    if (d > bd || along < 0.6 * d || Math.sqrt(Math.max(0, d * d - along * along)) > 1.6) continue;
+    best = p;
+    bd = d;
+  }
+  return best;
 }
 
 // ------------------------------------------------------------------ passives and modes
@@ -400,10 +454,12 @@ const START = {
     if (m.selfDmg) f.hp = Math.max(1, f.hp - m.selfDmg); // pre-Sage Rasenshuriken tears his own arm
     // cancelled out of a normal that hit: the faster startup, so light x3 -> special combos (ADR 0015)
     f.startMove('special', f.cancelSpecial && m.cancelStartup ? { ...m, startup: m.cancelStartup } : m);
+    answer(f, m);
   },
 
   shot(f, m) {
     f.startMove(m.air ? 'throw' : 'shot', { ...m, special: false });
+    answer(f, m);
     if (m.name) f.game.onKitMove(f, m);
   },
 
@@ -451,6 +507,13 @@ const START = {
     f.vel.set(0, 0, 0);
   },
 };
+
+// An energy move started while their energy shot heads at us answers it (ADR 0027): Game.checkEnergyClash locks the
+// two together even if the shot drifts out of the answer cone before our move is out. Only for this move.
+function answer(f, m) {
+  f.answering = isEnergy(m) ? incomingEnergy(f) : null;
+  f.answerMove = f.move;
+}
 
 // afterimage, smoke puff, speed lines and sound where a teleporting fighter disappears
 function vanishFx(f, m) {

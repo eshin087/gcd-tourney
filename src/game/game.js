@@ -10,9 +10,10 @@ import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
-import { ULTIMATE, DEFENSE, THROW, CLASH } from './moves.js';
+import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy } from './kit.js';
+import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import { Hud, TAGS } from '../ui/hud.js';
@@ -32,6 +33,10 @@ const clashTmp = new THREE.Vector3();
 const burstCol = new THREE.Color();
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
+// BEAM CLASH (ADR 0027): the states a fighter can be locked into a struggle from (not stunned, not mid-dodge, mid-kit
+// move or teleport), and the reused body lists (checkEnergyClash runs a few times a frame)
+const ENERGY_LOCK = new Set(['attack', 'idle', 'run', 'land', 'guard', 'air', 'dash', 'jumpSquat', 'charge', 'wavedash']);
+const bodiesA = [], bodiesB = [];
 function segDist(p1, q1, p2, q2) {
   const d1 = sd1.subVectors(q1, p1), d2 = sd2.subVectors(q2, p2), r = sdr.subVectors(p1, p2);
   const a = d1.dot(d1), e = d2.dot(d2), f = d2.dot(r);
@@ -97,6 +102,8 @@ export class Game {
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
     this.clash = null;
     this.spClashCool = 0; // frames until two specials may clash again (a rush-off can't stall the round)
+    this.struggleCool = 0; // frames until the next BEAM CLASH (ADR 0027)
+    this.director = null; // CPU vs CPU only: cues one beam clash per match (showDirector.js)
     this.frameNo = 0; // fixed frames run (which of two ultimates came first, ADR 0017)
     this.pads = [new Pad(), new Pad()];
     this.brains = [null, null];
@@ -174,6 +181,7 @@ export class Game {
     this.brains = cfg.mode === 'solo' ? [null, makeBrain(this.fighters[1], level)]
       : cfg.mode === 'cpu' ? this.fighters.map((f) => makeBrain(f, level, true))
       : [null, null];
+    this.director = this.watching ? new ShowDirector(this) : null; // spectator-only choreography (ADR 0027)
     this.input.bind(this.pads, cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
     this.hud.setup(this.fighters, assets, matchHint(cfg.mode, deviceLayout(this.input)));
     this.round = 1;
@@ -331,6 +339,8 @@ export class Game {
     this.orbs = [];
     this.clash = null;
     this.spClashCool = 0;
+    this.struggleCool = 0;
+    this.director = null;
     audio.stopAllLoops();
     audio.clearMusicDucks();
     this.fx.clearAll();
@@ -364,6 +374,7 @@ export class Game {
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
     this.spClashCool = 0;
+    this.struggleCool = 0;
     this.hud.clash(false);
     audio.stopAllLoops();
     audio.clearMusicDucks();
@@ -531,6 +542,7 @@ export class Game {
     this.frameNo++;
     this.input.poll();
     if (this.training) this.hud.history?.tick(this.pads[0], deviceLayout(this.input));
+    this.director?.update();
     for (let i = 0; i < 2; i++) if (this.brains[i]) this.brains[i].update(this);
     if (this.superFlash) {
       this.superFlash.t++;
@@ -557,8 +569,10 @@ export class Game {
     this.resolveMelee();
     this.separate();
     if (this.spClashCool > 0) this.spClashCool--;
+    if (this.struggleCool > 0) this.struggleCool--;
     this.checkSpecialClash();
     this.checkUltimateClash(); // where the fighters stand now, before an orb's own hit test can land first
+    this.checkEnergyClash(); // before the shots move: one can't hit (or be stopped by Infinity) before it meets its answer
     for (const p of this.projectiles) p.update();
     this.projectileCollisions();
     this.projectiles = this.projectiles.filter((p) => !p.dead);
@@ -570,6 +584,7 @@ export class Game {
     for (const ob of this.orbs) ob.update();
     this.orbs = this.orbs.filter((ob) => !ob.dead);
     this.checkUltimateClash();
+    this.checkEnergyClash();
     this.beams = this.beams.filter((b) => !b.dead);
     this.fxTicks();
     if (this.training) {
@@ -625,13 +640,15 @@ export class Game {
         lines = 1;
         this.linesFocus = f;
       } else if (f.state === 'beamFire' || f.state === 'clash') this.fx.auraTick(f, 0.6, this.cam.right);
+      const held = f.state === 'clash' ? this.clashHand(f) : null;
       if (f.state === 'attack' && f.move?.fx) {
         const m = f.move;
         const t = f.t, A = m.startup, B = A + m.active;
         const phase = t < A ? 0 : t < B ? 1 : 2;
         if (phase < 2 || (f.moveHit && t < B + 6)) this.fx.handTick(f, m.fx, phase, t / A);
         else this.fx.dropHand(f);
-      } else this.fx.dropHand(f);
+      } else if (held) this.fx.handTick(f, held, 1, 1); // a Rasengan / Chidori driven into a beam clash stays lit
+      else this.fx.dropHand(f);
     }
     if (this.clash) lines = 0.75;
     if (this.superFlash) { lines = 1; this.linesFocus = this.superFlash.who; }
@@ -712,7 +729,7 @@ export class Game {
     if (this.clash || !act(a) || !act(b)) return;
     if (Math.hypot(a.pos.x - b.pos.x, a.pos.z - b.pos.z) > 1.6) return;
     if (this.spClashCool > 0) this.specialTrade();
-    else this.startClash(this.fighterBody(a), this.fighterBody(b), true);
+    else this.startClash(this.fighterBody(a), this.fighterBody(b), 'beat');
   }
 
   // both specials go off at once: each fighter takes the other's blast
@@ -743,6 +760,7 @@ export class Game {
         const a = ps[i], b = ps[j];
         if (a.dead || b.dead || a.owner === b.owner) continue;
         if (a.pos.distanceTo(b.pos) < a.P.radius + b.P.radius) {
+          if (a.P.clash && b.P.clash && this.checkEnergyClash()) continue; // two energy shots met head-on: BEAM CLASH
           this.fx.hit((a.pos.x + b.pos.x) / 2, (a.pos.y + b.pos.y) / 2, (a.pos.z + b.pos.z) / 2, 'heavy');
           audio.play('block');
           a.kill();
@@ -852,13 +870,119 @@ export class Game {
     this.startClash(A, B);
   }
 
+  // ------------------------------------------------------------ beam clashes (ADR 0027)
+  // Two energy attacks meeting head-on lock both owners in a BEAM CLASH: each side's attack becomes a stream from
+  // their hands (or a Rasengan / Chidori driven into the other's stream) and both play a short rhythm chart
+  // (CLASH.struggle). Energy = a shot whose projectile has `clash` or a rush special with `clash: 'rush'`; two rushes
+  // meeting stay the one-beat special clash. A fighter's energy as clash bodies (like ultimateBody's): `live` = out
+  // and moving (a shot in flight, a rush running), else still starting (a shot's startup, a rush before its run),
+  // which meets a live one heading at its owner from up to answerRange away: the answer.
+  energyBodies(f, out) {
+    out.length = 0;
+    for (const p of this.projectiles) {
+      if (p.owner !== f || p.dead || !p.P.clash) continue;
+      out.push({
+        kind: 'shot', live: true, f, obj: p, id: p.type, name: p.name, dir: p.vel.clone().normalize(), r: p.P.radius,
+        back: p.pos.clone().addScaledVector(p.vel, -DT), front: p.pos.clone().addScaledVector(p.vel, DT), color: p.P.stream?.mid ?? f.def.beam.mid, palette: p.P.stream,
+      });
+    }
+    const m = f.state === 'attack' ? f.move : null;
+    if (!isEnergy(m)) return out;
+    if (m.kind === 'shot') {
+      if (f.t >= m.startup) return out; // out already (in flight, above)
+      const H = f.actor?.hand?.(), fwd = H ? H.x : 0.5;
+      const at = new THREE.Vector3(f.pos.x + f.face.x * fwd, f.pos.y + (H ? H.y : 0.9), f.pos.z + f.face.y * fwd);
+      const P = PROJECTILES[m.proj], o = f.opp;
+      const dir = new THREE.Vector3(o.pos.x - at.x, o.pos.y + 0.85 - at.y, o.pos.z - at.z).normalize();
+      out.push({ kind: 'shot', live: false, charging: true, f, id: m.proj, name: m.name ?? f.def.projectileName, dir, back: at, front: at.clone(), r: 0.6, color: P.stream?.mid ?? f.def.beam.mid, palette: P.stream });
+    } else if (!f.moveHit && f.t < m.startup + m.active) {
+      const dir = new THREE.Vector3(f.face.x, 0, f.face.y);
+      const reach = CLASH.struggle.rushReach, back = new THREE.Vector3(f.pos.x, f.pos.y + 0.7, f.pos.z), front = back.clone().addScaledVector(dir, reach);
+      out.push({
+        kind: 'rush', live: f.t >= m.startup, f, move: m, id: m.name, name: m.name, fx: m.fx, dir, back, front, tip: front.clone(), reach, r: 0.5, color: m.color ?? f.def.color,
+        S: { strikePose: m.anim, maulPose: m.anim, maulPhase: 1 }, // held on its rush frame, the hand effect lit (fxTicks)
+      });
+    }
+    return out;
+  }
+
+  // something of theirs that could start a beam clash this frame (most frames: nothing, so no bodies get built)
+  hasEnergy(f) {
+    if (f.state === 'attack' && isEnergy(f.move)) return true;
+    return this.projectiles.some((p) => p.owner === f && !p.dead && p.P.clash);
+  }
+
+  checkEnergyClash() {
+    if (this.clash || this.struggleCool > 0 || this.fighters.length < 2 || !this.inputLive) return false;
+    if (this.state !== 'fight' && !this.training) return false;
+    const [fa, fb] = this.fighters;
+    if (!this.hasEnergy(fa) || !this.hasEnergy(fb)) return false;
+    for (const f of this.fighters) if (f.ko || f.hidden || !ENERGY_LOCK.has(f.state)) return false;
+    if (Math.hypot(fa.pos.x - fb.pos.x, fa.pos.z - fb.pos.z) < CLASH.struggle.minDist) return false; // too close: they trade
+    const A = this.energyBodies(fa, bodiesA), B = this.energyBodies(fb, bodiesB);
+    for (const a of A) {
+      for (const b of B) {
+        if (!this.energyMeet(a, b)) continue;
+        for (const s of [a, b]) if (s.kind === 'shot') this.materializeStream(s);
+        this.startClash(a, b, 'struggle');
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // head on, neither past the other, and touching; or one still starting while the other heads at its owner (answer)
+  energyMeet(a, b) {
+    if ((a.kind === 'rush' && b.kind === 'rush') || (!a.live && !b.live)) return false;
+    if (a.dir.dot(b.dir) > -0.4) return false;
+    if (v3.subVectors(b.back, a.back).dot(a.dir) <= 0 || v3.subVectors(a.back, b.back).dot(b.dir) <= 0) return false;
+    const d = segDist(a.back, a.front, b.back, b.front);
+    if (a.live && b.live) return d < a.r + b.r;
+    const n = a.live ? b : a, l = a.live ? a : b, f = n.f;
+    if (d < n.r + l.r + CLASH.struggle.catch) return true;
+    if (f.answerMove === f.move && f.answering && f.answering === l.obj) return true; // started as the answer to this shot
+    // the live one heads at the starting one's owner from inside the answer range
+    const dx = f.pos.x - l.front.x, dy = f.pos.y + 0.85 - l.front.y, dz = f.pos.z - l.front.z, dist = Math.hypot(dx, dy, dz);
+    const along = dx * l.dir.x + dy * l.dir.y + dz * l.dir.z;
+    return dist < CLASH.struggle.answerRange && along > 0.6 * dist && dist * dist - along * along < 1.6 * 1.6;
+  }
+
+  // a shot (in flight or still starting) becomes its owner's stream: a Beam from the hands in the shot's colors
+  materializeStream(s) {
+    const f = s.f;
+    s.obj?.kill();
+    f.endMoveFx();
+    f.move = null;
+    f.faceOpponent(); // the stream leaves the hands toward them, whichever way the owner was turned
+    const bm = new Beam(this, f, { palette: s.palette ?? f.def.beam, width: CLASH.struggle.width });
+    this.beams.push(bm);
+    f.beam = s.obj = bm;
+    s.kind = 'beam';
+    s.charging = false;
+    s.dir = bm.dir;
+    s.back = bm.origin.clone();
+    s.front = bm.head.clone();
+    s.tip = s.front.clone();
+  }
+
+  // the hand effect a fighter locked in a beam clash holds (a rush special's Rasengan / Chidori), or null
+  clashHand(f) {
+    const c = this.clash;
+    const s = c && !c.lite ? (c.a.f === f ? c.a : c.b.f === f ? c.b : null) : null;
+    return s?.kind === 'rush' ? s.fx ?? null : null;
+  }
+
   // The two lock where they met and both players play the same note chart (clash.js): the score lead pushes the
   // struggle point toward the trailing side, and the chart's end (or a lead that can't be caught any more) decides
-  // it. `lite`: the one-beat special clash, with the world held still.
-  startClash(A, B, lite = false) {
+  // it. `tier`: 'ultimate' (ADR 0017), 'struggle' (a BEAM CLASH between energy specials, ADR 0027: its own shorter
+  // chart and stakes in CLASH.struggle, a fresh chart each time) or 'beat' (the one-beat special clash, `lite`:
+  // the world held still). `c.C` holds the tier's numbers.
+  startClash(A, B, tier = 'ultimate') {
+    const lite = tier === 'beat', struggle = tier === 'struggle';
+    const C = struggle ? { ...CLASH, ...CLASH.struggle } : CLASH;
     this.arena.npcCue('clash');
-    const chart = lite ? beatChart() : makeChart(seedOf(A.id, B.id));
-    const c = { a: A, b: B, chart, judges: [new Judge(chart), new Judge(chart)], lite, timer: 0, t: 0.5, kick: 0, point: new THREE.Vector3() };
+    const chart = lite ? beatChart() : makeChart(struggle ? seedOf(A.id, B.id, this.frameNo) : seedOf(A.id, B.id), C);
+    const c = { a: A, b: B, chart, judges: [new Judge(chart, C), new Judge(chart, C)], lite, tier, C, timer: 0, t: 0.5, kick: 0, point: new THREE.Vector3() };
     c.ca = new THREE.Color(A.color);
     c.cb = new THREE.Color(B.color);
     c.mix = c.ca.clone().lerp(c.cb, 0.5);
@@ -885,7 +1009,8 @@ export class Game {
     else this.cam.set('clash', c);
     const hint = clashHint(this.cfg.mode, deviceLayout(this.input));
     this.hud.clashStart(c, ['#' + c.ca.getHexString(), '#' + c.cb.getHexString()], hint);
-    this.hud.announce('CLASH!', 'clash', 900);
+    this.hud.announce(struggle ? 'BEAM CLASH!' : 'CLASH!', 'clash', 900);
+    if (struggle) for (const s of [A, B]) if (s.name) this.hud.callout(s.f.index, s.name, '#' + (s === A ? c.ca : c.cb).getHexString());
     audio.play('explosion', lite ? 0.4 : 0.6);
     this.fx.overlay.flash('#ffffff', lite ? 0.4 : 0.6);
     this.excite = 1;
@@ -921,7 +1046,7 @@ export class Game {
       s.base = f.pos.clone();
       if (s.kind === 'beam') { s.anchor = s.obj.origin.clone(); mins.push(BEAM_STUB - R.shove); }
       else if (s.kind === 'orb') { s.anchor = new THREE.Vector3(f.pos.x, f.pos.y + 0.98, f.pos.z); mins.push(ORB_HANDS + s.obj.r * 0.6 - R.shove); }
-      else { s.anchor = s.back.clone(); mins.push(R.reach - R.shove); }
+      else { s.anchor = s.back.clone(); mins.push((s.reach ?? R.reach) - R.shove); }
       s.origin = s.kind === 'beam' ? s.obj.origin : s.anchor.clone(); // the clash camera frames origin to origin
     }
     const axis = new THREE.Vector3().subVectors(B.anchor, A.anchor);
@@ -930,8 +1055,11 @@ export class Game {
     else axis.divideScalar(span);
     let lo = mins[0], hi = span - mins[1];
     if (lo > hi) lo = hi = (lo + hi) / 2;
-    // they meet between their leading edges (the beam's head, the orb's surface, the claws)
-    const at = THREE.MathUtils.clamp(v3.addVectors(A.tip, B.tip).multiplyScalar(0.5).sub(A.anchor).dot(axis), lo, hi);
+    // they meet between their leading edges (the beam's head, the orb's surface, the claws); in a beam clash the two
+    // streams meet halfway between the hands, or at the fist of a rush special driven into one (it stays put)
+    const rush = c.tier === 'struggle' && [A, B].find((s) => s.kind === 'rush');
+    const meet = c.tier !== 'struggle' ? v3.addVectors(A.tip, B.tip).multiplyScalar(0.5) : rush ? v3.copy(rush.tip) : null;
+    const at = THREE.MathUtils.clamp(meet ? meet.sub(A.anchor).dot(axis) : span / 2, lo, hi);
     const C = A.anchor.clone().addScaledVector(axis, at);
     c.line = { axis, C, room: [Math.max(0.25, at - lo), Math.max(0.25, hi - at)] };
     // shoved all the way back, they still stand inside the ring barrier
@@ -950,7 +1078,7 @@ export class Game {
   clashStance(c, s, P) {
     const sg = s === c.a ? 1 : -1, ax = c.line.axis, fl = Math.hypot(ax.x, ax.z) || 1;
     const dx = (ax.x / fl) * sg, dz = (ax.z / fl) * sg, out = clashTmp.copy(s.base);
-    if (s.kind === 'rush') { out.x = P.x - dx * CLASH.rush.reach; out.z = P.z - dz * CLASH.rush.reach; return out; }
+    if (s.kind === 'rush') { const r = s.reach ?? CLASH.rush.reach; out.x = P.x - dx * r; out.z = P.z - dz * r; return out; }
     const hold = s.kind === 'beam' ? BEAM_STUB : ORB_HANDS + 0.6 * s.obj.r, from = s.kind === 'beam' ? s.anchor : s.base;
     const give = Math.min(0, (P.x - from.x) * dx + (P.z - from.z) * dz - hold);
     out.x += dx * give;
@@ -1003,16 +1131,18 @@ export class Game {
       if (now >= c.chart.end + CLASH.windows.good + 8) this.endClash(this.beatWinner(JA, JB));
       return;
     }
-    const lead = JA.score - JB.score;
-    const target = 0.5 + THREE.MathUtils.clamp(lead * CLASH.push, -0.45, 0.45);
+    // a beam clash whose owner was knocked out of the lock (a burn tick's KO) is over: the other side's stream wins
+    if (c.tier === 'struggle' && (c.a.f.state !== 'clash' || c.b.f.state !== 'clash')) { this.endClash(c.a.f.state !== 'clash' ? 1 : 0); return; }
+    const C = c.C, lead = JA.score - JB.score;
+    const target = 0.5 + THREE.MathUtils.clamp(lead * C.push, -0.45, 0.45);
     c.t = THREE.MathUtils.clamp(c.t + (target - c.t) * 0.12 + Math.sin(now * 0.11) * 0.0015, 0.02, 0.98);
     this.placeClash(c);
     this.hud.clash(true, c.t);
     // over when the chart is, or (a blowout) once the trailing player can't catch up any more; once the FINAL PUSH
     // ring is up it always plays out
     const push = c.chart.notes[c.chart.notes.length - 1];
-    const decided = now < push.t - c.chart.lead && Math.abs(lead) - (lead > 0 ? JB : JA).maxLeft() >= CLASH.drawMargin;
-    if (decided || now >= c.chart.end + CLASH.outro) this.endClash(lead >= CLASH.drawMargin ? 0 : lead <= -CLASH.drawMargin ? 1 : -1);
+    const decided = now < push.t - c.chart.lead && Math.abs(lead) - (lead > 0 ? JB : JA).maxLeft() >= C.drawMargin;
+    if (decided || now >= c.chart.end + C.outro) this.endClash(lead >= C.drawMargin ? 0 : lead <= -C.drawMargin ? 1 : -1);
   }
 
   // a graded press: its word on the player's side, and a Great or Perfect flares the struggle point in their color
@@ -1022,7 +1152,7 @@ export class Game {
     if (r.g === 'perfect' || r.g === 'great') {
       c.kick = 1;
       const p = c.point;
-      this.fx.spawn('ring', p.x, p.y, p.z, { scale: (r.g === 'perfect' ? 2.2 : 1.6) * (c.lite ? 0.55 : 1), color: i === 0 ? c.ca : c.cb, order: 6, depthTest: false, glow: 1.2 });
+      this.fx.spawn('ring', p.x, p.y, p.z, { scale: (r.g === 'perfect' ? 2.2 : 1.6) * (c.lite ? 0.55 : c.C.sparks ?? 1), color: i === 0 ? c.ca : c.cb, order: 6, depthTest: false, glow: 1.2 });
     }
     if (this.brains[i]) return; // only a player's own grades make a sound
     if (hit) audio.play('beatHit', r.g === 'perfect' ? 1 : r.g === 'great' ? 0.7 : 0.45);
@@ -1037,7 +1167,7 @@ export class Game {
   }
 
   clashSparks(c) {
-    const p = c.point, now = c.timer, k = c.lite ? 0.55 : 1; // the special clash sits between two lit specials
+    const p = c.point, now = c.timer, k = c.lite ? 0.55 : c.C.sparks ?? 1; // the special clash sits between two lit specials, a beam clash between two short streams
     const pulse = (1 + Math.sin(now * 0.6) * 0.12 + c.kick * 0.15) * k;
     this.fx.keep('clashGlow', 'glow', p.x, p.y, p.z, { scale: 1.35 * pulse, color: c.mix, opacity: 1, order: 7, depthTest: false, glow: 1.2 });
     this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: 0.75 * pulse, color: 0xffffff, opacity: 1, order: 8, depthTest: false, glow: 2 });
@@ -1062,13 +1192,14 @@ export class Game {
     this.hud.clash(false);
     const P = c.point.clone();
     this.fx.overlay.impactFrame(4);
-    this.fx.overlay.flash('#ffffff', 0.9);
+    this.fx.overlay.flash('#ffffff', c.tier === 'struggle' ? 0.5 : 0.9); // a 1-bar beam clash ends a notch quieter
     this.cam.set('fight');
     this.cam.shake(1);
     this.slowmo(0.3, 0.8);
     for (const f of this.fighters) { f.invuln = 0; f.pad.clear(); } // the beat's presses must not fire moves after it
     if (c.lite) { this.endSpecialClash(winner); return; }
-    const ax = c.line.axis;
+    const ax = c.line.axis, C = c.C;
+    if (c.tier === 'struggle') this.struggleCool = C.cooldown;
     if (winner < 0) {
       // even: both ultimates blow up between them
       this.fx.explosion(P.x, P.y, P.z, new THREE.Color(0xffffff));
@@ -1078,7 +1209,7 @@ export class Game {
       [c.a, c.b].forEach((s, i) => {
         s.obj?.kill();
         const sg = i === 0 ? -1 : 1;
-        s.f.takeHit(s.f.opp, { dmg: CLASH.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+        s.f.takeHit(s.f.opp, { dmg: C.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
       });
       return;
     }
@@ -1086,7 +1217,7 @@ export class Game {
     const W = WS.f, L = LS.f, sg = winner === 0 ? 1 : -1;
     LS.obj?.kill();
     this.overwhelm(WS, L);
-    L.takeHit(W, { dmg: CLASH.winDmg, minScale: 1, launch: [18, 10], hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+    L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
     this.fx.crater(L.pos);
     this.fx.debris(L.pos.x, L.pos.z, 12, 1.2);
@@ -1116,6 +1247,13 @@ export class Game {
       ob.t = Math.min(ob.t, ob.S.life * 60 - 45);
       if (W.pos.y > 0.05) { W.air = true; W.setState('air', 'jumpFall'); }
       else { W.landLag = 18; W.setState('land'); }
+    } else if (WS.move) {
+      // a Rasengan / Chidori driven through a beam clash: on into its follow-through, its hit already dealt
+      W.setState('attack', null);
+      W.move = WS.move;
+      W.moveName = 'special';
+      W.t = WS.move.startup + WS.move.active;
+      W.hitDone = W.moveHit = true;
     } else resumeRampage(W, WS.S, WS.k);
   }
 

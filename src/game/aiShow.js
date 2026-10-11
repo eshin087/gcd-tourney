@@ -1,12 +1,12 @@
 // Showcase (ADR 0016): the part of a CPU that wants to *show* its kit. It keeps a match-long record of
 // which tools this fighter has used (every kit special, the second super, the ultimate, and the system
-// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge, burst (ADR 0022); and an ultimate clash when
-// both fighters' ultimates can meet, ADR 0017) and turns it into
+// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge, burst (ADR 0022); an ultimate clash when
+// both fighters' ultimates can meet, ADR 0017; a beam clash when their energy specials can, ADR 0027) and turns it into
 // weights, so a brain's planners prefer what the viewer hasn't seen yet. It only watches its own fighter's
 // state (what the screen shows) and never presses a button: each brain still decides whether a tool is a
 // real option right now, so the fight stays real while the variety goes up.
 import { SUPERS } from './moves.js';
-import { kitOf, specialFor, clashable } from './kit.js';
+import { kitOf, specialFor, clashable, canBeamClash } from './kit.js';
 
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
 const AIR_SLOTS = ['air', 'airDown'];
@@ -57,6 +57,7 @@ export class Showcase {
     // a rhythm clash is a tool only when both ultimates can meet (Hollow Purple, Four-Tails, a beam)
     const o = fighter.opp;
     if (o && clashable(fighter.def) && clashable(o.def)) this.tools.clash = { kind: 'tech' };
+    if (o && canBeamClash(fighter.def, o.def)) this.tools.beamClash = { kind: 'tech' }; // energy specials meeting (ADR 0027)
     this.used = {}; // tool id -> times used this match
     this.lastState = '';
     this.lastMove = null;
@@ -83,11 +84,11 @@ export class Showcase {
     if (s === 'attack' && f.move !== this.lastMove && (f.moveName === 'special' || f.moveName === 'shot' || f.moveName === 'throw')) {
       this.note(specialId(f.move));
     }
-    // an ultimate clash this fighter is in (not the one-beat special clash)
+    // an ultimate clash or a beam clash this fighter is in (not the one-beat special clash)
     const cl = f.game?.clash;
     if (cl && !cl.lite && cl !== this.lastClash && (cl.a?.f === f || cl.b?.f === f)) {
       this.lastClash = cl;
-      this.note('clash');
+      this.note(cl.tier === 'struggle' ? 'beamClash' : 'clash');
     }
     if ((f.parries ?? 0) !== this.parries) {
       this.parries = f.parries;
