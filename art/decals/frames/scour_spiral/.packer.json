@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/scour_spiral_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/scour_spiral_v01_A.png",
+    "decals/raw/scour_spiral_v01_B.png",
+    "decals/raw/scour_spiral_v01.json"
+  ],
+  "sourceHash": "62d5be68b64c90cdb1691a801c313392825fed8f",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "scour_spiral_00.png": "78b0cad5de78f9f8aec47e959170cd2e06dc3eaf",
+    "scour_spiral_01.png": "4979ca4039d993bbedfd4da10252b13810804f88",
+    "scour_spiral_02.png": "7594c174f9e91f95c23a96fe52b8d5dd5c3d8ad9",
+    "scour_spiral_03.png": "3114263054f03eb0fb5ab7a389aa433b8d38b1e8",
+    "scour_spiral_04.png": "433764201fad0cdc0c73fd3c3eb0e79f18ecf2fc",
+    "scour_spiral_05.png": "e52ff364fd1bba367c59b45c644097e710c78c2e"
+  }
+}

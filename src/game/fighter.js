@@ -17,7 +17,7 @@ const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge', 'throw']);
 const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
 // ADR 0022: leaving one of these opens the REVERSAL window; starting one of the actions inside it is a reversal
-const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'held']);
+const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'impactTech', 'held']);
 const REVERSAL_STATES = new Set(['attack', 'kit', 'throw', 'vanish', 'superDash', 'beamCharge']);
 // A KO'd body lies up to about 2 units long (254 px / 128 ppu) across the screen. Within half that of the ring edge it
 // would rest with its head or feet hanging over the drop (or sunk in the lip), so it keeps sliding off onto the grass.
@@ -40,6 +40,7 @@ export class Fighter {
     this.pad = NEUTRAL_PAD;
     this.wins = 0;
     this.parries = 0; // this match (the CPU showcase, aiShow.js, notices them here)
+    this.techStats = { faced: 0, teched: 0 }; // techable impacts this match and the timed techs (the combo composer reads it)
     this.reset(0, 0);
   }
 
@@ -121,6 +122,15 @@ export class Fighter {
     this.reversal = false;
     this.punishHit = false;
     this.tagAt = this.tagAt || {}; // Game.tag cooldowns
+    // timed impact tech (ADR 0028): its window and lockout count live frames (not hitstop, not world freezes)
+    this.liveF = 0;
+    this.itTry = -999; // live frame of the last Guard press that counted as a timed tech attempt
+    this.itSeen = null; // the pad's guard.lastPress already read
+    this.noTech = false; // the last hit was a super finish: its impact can't be teched
+    this.techKind = null; // the running impact tech: 'inPlace' | 'roll' | 'wall' (the cling) | 'wallKick'
+    this.techAxis = null;
+    this.techSign = 0;
+    this.techedAt = -99; // clock of the last timed tech (the combo composer's end reason)
     this.endMoveFx();
     this.actor.setVisible(true);
     this.actor.play('idle', true);
@@ -500,6 +510,99 @@ export class Fighter {
     this.game.tag(this, 'techRoll');
   }
 
+  // ---- timed impact tech (ADR 0028, numbers in DEFENSE.impactTech)
+  // A fresh Guard press while reeling is an attempt. Read from the pad's press stamp, so a press during hitstop or a
+  // world freeze (the fighter doesn't update in one) still counts, as made on the next live frame. A press inside the
+  // lockout of the last attempt is ignored: mashing fails.
+  readTechPress(p) {
+    const lp = p.b.guard.lastPress;
+    if (lp === this.itSeen) return;
+    this.itSeen = lp;
+    if (lp < 0 || lp < this.comboFrom || (this.state !== 'hitstun' && this.state !== 'launched')) return;
+    const at = this.liveF + 1;
+    if (at - this.itTry < DEFENSE.impactTech.lockout) return;
+    this.itTry = at;
+  }
+
+  // The impact itself could be teched: not KO'd, held or grabbed, and the last hit wasn't a super finish.
+  impactTechable() {
+    return !this.ko && !this.noTech && !this.heldT && !this.grab && this.game.inputLive;
+  }
+
+  // A missed attempt still locks the timed tech out (the combo composer's tech risk reads it).
+  impactTechLocked() {
+    const d = this.liveF - this.itTry, I = DEFENSE.impactTech;
+    return d > I.window && d < I.lockout;
+  }
+
+  // At an impact (the first floor contact of a fall, a wall bounce): teched when the last attempt is at most `window`
+  // live frames old. `kind`: 'ground' | 'wall' (axis / sign: the barrier it hit).
+  tryImpactTech(kind, axis = null, sign = 0) {
+    if (!this.impactTechable()) return false;
+    this.techStats.faced++;
+    const d = this.liveF - this.itTry;
+    if (d < 0 || d > DEFENSE.impactTech.window) return false;
+    this.startImpactTech(kind, axis, sign);
+    return true;
+  }
+
+  // The impact is beaten: the combo ends there, the bounce (and its budget) never happens. On the floor the stick picks
+  // tech in place (neutral) or a roll (left / right); on the barrier the fighter clings, then kicks off (update).
+  startImpactTech(kind, axis, sign) {
+    const I = DEFENSE.impactTech;
+    this.itTry = -999; // a success re-arms at once
+    this.endCombo();
+    this.airStun = this.stun = 0;
+    this.bounced = this.bigLaunch = this.hardKD = false;
+    this.techStats.teched++;
+    this.techedAt = this.clock;
+    this.techAxis = axis;
+    this.techSign = sign;
+    this.carry.set(0, 0);
+    if (kind === 'wall') {
+      this.techKind = 'wall';
+      this.vel.set(0, 0, 0);
+      this.invuln = I.wall.invuln;
+      this.setState('impactTech', 'land');
+    } else if (Math.abs(this.pad.mx) > 0.5) {
+      const d = this.inputDir().normalize();
+      this.techKind = 'roll';
+      this.vel.set(d.x * I.roll.speed, 0, d.y * I.roll.speed);
+      this.invuln = I.roll.invuln;
+      this.setState('impactTech', 'airRecover');
+    } else {
+      this.techKind = 'inPlace';
+      this.vel.set(0, 0, 0);
+      this.invuln = I.inPlace.invuln;
+      this.setState('impactTech', 'land');
+    }
+    this.faceOpponent();
+    startHitFlash(this, 'tech', 0);
+    this.game.onImpactTech(this, kind, axis, sign);
+  }
+
+  // The wall tech's kick off the barrier: away from it, or a wall jump (↑ or Jump held) that is free in the air at once.
+  wallKick(p) {
+    const I = DEFENSE.impactTech, jump = p.my > 0.6 || p.b.jump.down;
+    const W = jump ? I.wallJump : I.wall;
+    this.vel.set(0, W.up, 0);
+    this.vel[this.techAxis] = -this.techSign * W.along;
+    this.air = true;
+    this.actor.ghost(this.def.color, 0.25, 0.5);
+    this.game.fx.dust(this.pos, 0.5);
+    audio.play('jump', 0.7);
+    if (jump) {
+      this.invuln = Math.max(0, I.wallJump.invuln - I.wall.stick); // (the cling's frames counted)
+      this.techKind = null;
+      this.airAttack = false;
+      this.airDodged = false;
+      this.setState('air', 'jumpUp');
+    } else {
+      this.techKind = 'wallKick';
+      this.actor.play('airRecover', true);
+    }
+  }
+
   // Stuck in their own recovery (a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag, a
   // burst that missed): a fresh combo started here is a PUNISH.
   inRecovery() {
@@ -735,6 +838,7 @@ export class Fighter {
     }
     // Burst (ADR 0022): read before the hitstop return, so a press on the hit itself is answered at once
     if ((this.state === 'hitstun' || this.state === 'launched') && this.wantsBurst() && this.canBurst()) this.startBurst();
+    if (this.game.inputLive) this.readTechPress(p); // timed impact tech (ADR 0028): a press in hitstop counts too
     const s0 = this.state;
 
     if (this.hitstop > 0) {
@@ -744,6 +848,7 @@ export class Fighter {
       return;
     }
     this.t++;
+    this.liveF++;
     if (this.invuln > 0) this.invuln--;
     if (this.flash > 0) this.flash = Math.max(0, this.flash - 0.1);
     if (this.chase > 0) this.chase--;
@@ -964,6 +1069,29 @@ export class Fighter {
         this.faceOpponent();
         if (this.t % 3 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
         if (this.t >= T.len) this.setState('idle');
+        freeAnim();
+        break;
+      }
+      case 'impactTech': {
+        // timed impact tech (ADR 0028): in place / roll on the floor, or the cling and kick off the barrier
+        const I = DEFENSE.impactTech;
+        switch (this.techKind) {
+          case 'roll':
+            this.vel.x *= I.roll.friction; this.vel.z *= I.roll.friction;
+            if (this.t % 3 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
+            if (this.t >= I.roll.len) this.setState('idle');
+            break;
+          case 'wall':
+            this.vel.set(0, 0, 0);
+            if (this.t >= I.wall.stick) this.wallKick(p);
+            break;
+          case 'wallKick':
+            if (this.t >= I.wall.stick + I.wall.len) { this.airAttack = false; this.setState('air', 'jumpFall'); }
+            break;
+          default:
+            this.vel.x *= 0.6; this.vel.z *= 0.6;
+            if (this.t >= I.inPlace.len) this.setState('idle');
+        }
         freeAnim();
         break;
       }
@@ -1277,6 +1405,9 @@ export class Fighter {
         this.setState('land');
         this.landLag = 4;
         break;
+      case 'impactTech':
+        if (this.techKind === 'wallKick') { this.setState('land'); this.landLag = 4; } // (a cling never meets the floor)
+        break;
       case 'airDodge':
         // a directional dodge into the floor slides (wavedash); a neutral one just lands, with lag
         if (this.dodgeDir) this.startWavedash();
@@ -1300,6 +1431,9 @@ export class Fighter {
       }
       case 'launched': {
         const impact = -this.vel.y;
+        // timed impact tech (ADR 0028): a fresh Guard press just before the first contact of the fall beats the ground
+        // bounce, the hard knockdown and the plain landing alike
+        if (!this.bounced && this.tryImpactTech('ground')) break;
         // tech roll (ADR 0022): the floor is a way out unless the last hit was a hard knockdown; one not taken is a gap
         const roll = !this.ko && !this.gb && !this.hardKD && !this.heldT;
         if (roll && this.game.inputLive && this.pad.b.guard.down) { this.startTechRoll(); break; }
@@ -1358,6 +1492,8 @@ export class Fighter {
         return this.t < DEFENSE.airDodge.to ? 0 : 1; // the dodge holds its line (a directional one keeps its drop)
       case 'burst':
         return this.t < DEFENSE.burst.startup + DEFENSE.burst.active ? 0 : 1; // hangs in the air until the wave is out
+      case 'impactTech':
+        return this.techKind === 'wall' ? 0 : 1; // clinging to the barrier
       case 'attack':
         return this.move?.hover ? 0 : this.move?.air ? 0.35 : 1;
       case 'launched':
@@ -1397,7 +1533,10 @@ export class Fighter {
         const s = Math.sign(this.pos[k]);
         this.pos[k] = s * ARENA_LIMIT;
         const W = JUGGLE.wall;
-        if (this.state === 'launched' && this.wb && Math.abs(this.vel[k]) > W.minSpeed && !this.ko) {
+        const bounce = this.state === 'launched' && this.wb && Math.abs(this.vel[k]) > W.minSpeed && !this.ko;
+        if (bounce && this.tryImpactTech('wall', k, s)) {
+          // WALL TECH (ADR 0028): it clings to the barrier instead of bouncing (and stops on the other axis below)
+        } else if (bounce) {
           this.wb = false;
           this.vel[k] = -this.vel[k] * W.keep;
           this.vel.y = Math.max(this.vel.y, W.up);
@@ -1518,6 +1657,7 @@ export class Fighter {
     }
     this.gapF = 0;
     this.hardKD = !!(m.hardKnockdown ?? (m.groundBounce || (m.unblockable && m.big)));
+    this.noTech = !!m.noTech; // a super finish's impact can't be timed-teched (ADR 0028)
     this.combo = wasStunned ? this.combo + 1 : 1;
     this.carry.set(0, 0);
     this.airDodged = false; // getting hit gives the air dodge back (for after the tech)

@@ -15,6 +15,69 @@ How it works:
 
 ---
 
+## Decal approval and integration update (2026-10-11)
+
+The user approved the three final decal previews and explicitly assigned Codex as coordinator for these merges while Claude was paused. This supersedes the older no-approval/no-merge instructions below for PRs #52-54 only. All latest 31 decal types / 143 variants are approved with the documented visual deviations accepted. Merge order: #53 core, #52 chakra, #54 cursed; combined pack preserves every reviewed pixel and needs at most four pages per match. Regression suite: 308 passed, zero failed; build passes. The initial deployment was blocked by automatic approval review; the user then explicitly authorized production release. Committed main 7f2410d is now deployed at https://gcd-tourney.vercel.app. The three merged decal worktrees were removed; versioned sources and QA remain in main. Character redraw and PR #59 are untouched; #51/#55/#56 were previously closed as superseded. Historical instructions below are not a new task to revive those closed PRs. This temporary Codex integration assignment is complete; Claude may resume coordination. Release evidence: art/decals/production/RELEASE_QA.md.
+
+## Coordinator update (2026-10-10, ART-KIL-PROBE fixed)
+
+From Claude, the integration coordinator. Only Claude merges, deploys production or edits main, docs/NOW.md and this
+file; you may publish preview deployments. **No new image is approved by this update.**
+
+**Integrated:** PR #49 `art/vfx-powerups` (bubble v01, wisp v01, arc v01, ripple v02, naruto_chakraTail v01) is merged
+into main and live; the atlas repacked byte-identical and all five spawn in the game (Naruto, Killua, Gojo charge).
+Its worktree is removed. PR #58 (the probe fix below) is merged and deployed.
+
+**Kept unmerged until corrected and approved by the user:** #51 (Killua scale fixes), #56 (Naruto idle v04: the ~8 %
+head reduction is unproven), #55 (Sasuke idle: v03 shrinks too far and dips, v04's head is too large), #53 (core
+decals: scuff, skid, crack_s, burn_lightning_big fringe), #52 (chakra decals: documented fringe warnings), #54 (cursed
+decals: crush_implode, gouge_repel, fracture_cursed, fracture_cursed_big). Do not mark any of them approved.
+
+- [ ] **ART-KIL-PROBE is fixed in tooling (TOOL-029, PR #58). Resume ART-KIL-SCALE-W1 on it.**
+  - **What was wrong:** the gate measured every strip after the fighter-wide `--quantize 48` median cut, so any strip's
+    new colours moved the shared palette. Reproduced on your branch: the unchanged idle read 52x43 there and 51x37 on
+    main's art, and all 23 strips identical in both art sets measured differently (dash, light1 and light2 flipped to
+    drift). The auto-head pre-fit used a second shared cut, hence the pre-fit / final disagreement.
+  - **What it does now:** it measures the cells **before** `--quantize`, against the **idle's own** palette (declared
+    `headColors` snapped first, then the idle's median cut, nearest colour for every strip). On your branch vs main's
+    art, those 23 strips now measure identically; regression tests fail on the old probe and pass on the new one.
+    `anims.json` records the per-frame numbers (`scaleAudit.method: "idle-palette"`), and `npm run scale` / `npm run
+    lineup` report exactly those. Thresholds, the idle, exemptions and `builds.json` are unchanged; the scale baseline
+    was rewritten once on main for the method change (sheets byte-identical).
+  - **Do:** in `.worktrees/art-scale-fix-killua`, `git merge main` (the branch is 35+ commits behind; keep your
+    versioned sources and REVIEW rows, take main's tools), then run the exact command
+    `node tools/pack-sprites.mjs killua --quantize 48`. Claude's dry run of your branch on the fixed probe: idle head
+    **51x36** (palette #f8f7f7 #e1dbea #a9a3ca #b9a4e0), exit 1, **4 strict failures, not 8**:
+
+    | strip | verdict | head / feet | per-frame head | what it means |
+    |---|---|---|---|---|
+    | airLight1 v03 | drift | 0.845 / 0.955 | 0.845 0.845 0.845 0.835 0.854 | real: the head is ~15 % small on a normal body; auto-head cannot fix drift, redraw (route C) |
+    | airLight3 v03 | drift | 0.803 / 0.935 | 0.789 0.792 0.794 0.812 0.853 0.835 | real: ~20 % small; the route-C redraw it has not had yet |
+    | block v04 | pop | 1.179 / 1.118 | 1.248 1.109 | real: both frames drawn large (f0 +25 %, f1 +11 %, feet too); redraw or re-import at the idle's size |
+    | specialUp v05 | pop | 0.972 / 1.045 | 0.974 0.948 **1.38** 0.97 1.008 0.916 | f2 alone: probably the white slash arc read as hair (your QA). Look at f2's probe box on the heads sheet; only if it sits on the arc, propose a version-scoped `scaleExemptFrames {"2": "<reason>"}` + `scaleExemptVersion: 5` in the PR for the user to see. Otherwise redraw f2 |
+
+    Now **passing** (they failed only because of the palette drift): jumpUp v02 0.965, heavy v07 1.006 (range 0.086),
+    guard v04 0.992, hurtLow v03 0.968; also ok: airLight2 v04 0.949, specialForward v07 1.018, charge v08 1.012,
+    superPose v04 1.031, throw v03 0.99, beamFire v05 1.002, hurtHigh v03 0.942. ko v03 / down v02 stay unmeasured
+    (floor checks pass).
+  - Fix only the four failures, repack until the exact command exits 0, regenerate the heads sheet with `npm run scale --
+    killua` from that pack, update SCALE_QA.md and the REVIEW rows, publish a preview, then stop for the user. Do not
+    change thresholds, the idle, `builds.json` or the baseline, and do not exempt a real size error.
+- [ ] **#55 / #56 (idle redraws):** merge main first. The gate measures every strip against the idle, so with a new idle
+  candidate every strip is re-measured against it; those numbers are now stable from pack to pack. Prove the head change
+  with `npm run lineup` against the approved idle and the heads sheet before asking the user.
+- [ ] **#52-#54 (decals):** fringe corrections as listed above; the decal packer is unchanged. **Also remove the committed
+  candidate packs:** all three branches force-added `public/preview/decals/*` (atlas.json and the page PNGs), which
+  `.gitignore` excludes because `--candidates` regenerates them locally. They make the three PRs conflict with each
+  other (atlas.json, decals_chakra.png). `git rm --cached -r public/preview/decals` in each branch and keep the review
+  gallery under `public/art-review/`. After #53 merges, merge main into #52, then #54, and combine the `decals` manifest
+  entries, TRACKER rows and TASKS rows by hand (keep every item).
+- **Integration order Claude will use** (each only after the gate passes and the user approves it): #51, #56, #55, then
+  #53, #52, #54. #51 / #56 / #55 conflict with main only in generated files (`art/scale/heads-<id>.png`,
+  `scale-report.json`, `public/characters/<id>/anims.json`) plus a docs/TASKS.md row: merge main into the branch and
+  repack (`node tools/pack-sprites.mjs <id> --quantize 48`, then `npm run scale -- <id>`) rather than picking a side.
+  **#57 (cast scale samples) is merged** (2026-10-11); its gallery is live at `/art-review/cast-scale-samples/index.html`.
+
 ## One chat for everything (2026-10-10)
 
 **Current delivery (Codex, 2026-10-10):** USER APPROVED ALL current candidates. Naruto beamCharge v05/beamFire v07/heavy v07/charge v04; Sasuke heavy v06/light2 v02/light3 v02/special v03, keeping approved charge v02; Killua heavy v05/charge v07/Whirlwind beamCharge v05; Gojo model_sheet v06. Approval recorded in PRs #24–30; fixed Gojo reference promoted. No further user review needed for this batch. Claude owns sequential integration, combined repacks and deployment. Stop boundary remains Gojo model-only; no new art started. Earlier pending-review statements below are historical and superseded by this approval.

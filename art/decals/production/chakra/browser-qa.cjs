@@ -1,0 +1,24 @@
+const { chromium } = require('C:/Users/eshin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs = require('fs');
+(async () => {
+  const browser = await chromium.launch({ headless: true, channel: 'msedge' });
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const errors = [], logs = [], failedResponses = [];
+  page.on('response', r => { if (r.status() >= 400) failedResponses.push({url:r.url(),status:r.status()}); });
+  page.on('pageerror', e => errors.push(e.message));
+  page.on('console', m => logs.push(m.text()));
+  await page.goto('http://127.0.0.1:5217/?fight=naruto,sasuke&mode=solo&art=custom&debug');
+  await page.waitForFunction(() => window.game?.state === 'fight');
+  await page.evaluate(() => { freezeCpu(); step(1); });
+  const demo = await page.evaluate(() => groundDemo('chakra'));
+  await page.waitForTimeout(1500);
+  await page.evaluate(() => { groundDemo('chakra'); step(1); });
+  await page.screenshot({ path: 'public/art-review/decals-chakra-cursed/game-qa.png' });
+  const data = await page.evaluate(() => ({ demo: groundDemo('chakra'), stats: game.fx.ground.stats(), active: Object.fromEntries(Object.entries(game.fx.ground.active).map(([n,a]) => [n, { src:a.src, frames:a.frames.length }])) }));
+  await page.goto('http://127.0.0.1:5217/art-review/decals-chakra-cursed/index.html');
+  await page.locator('section').first().waitFor();
+  await page.screenshot({path:'public/art-review/decals-chakra-cursed/gallery-qa.png',fullPage:true});
+  fs.writeFileSync('art/decals/production/chakra/browser-qa.json', JSON.stringify({ demo, errors, logs, failedResponses, data }, null, 2));
+  console.log(JSON.stringify({ errors, data }));
+  await browser.close();
+})();

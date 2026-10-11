@@ -1,0 +1,32 @@
+{
+  "names": 19,
+  "variants": 99,
+  "source": {
+    "approved": "approved",
+    "reviewed": "candidates"
+  },
+  "metadataIdenticalExceptSource": true,
+  "pages": [
+    {
+      "file": "decals_base_1.png",
+      "approvedHash": "12d0f0a1535208bf0c0243c2f9840f798c4e329e3da79e02afcb013db8fb973a",
+      "reviewedHash": "12d0f0a1535208bf0c0243c2f9840f798c4e329e3da79e02afcb013db8fb973a"
+    },
+    {
+      "file": "decals_base_2.png",
+      "approvedHash": "dbc58223c74ecefa960748fd0a6ed20a9937dbdeaa7ea58f8134528e2a6c7ff9",
+      "reviewedHash": "dbc58223c74ecefa960748fd0a6ed20a9937dbdeaa7ea58f8134528e2a6c7ff9"
+    },
+    {
+      "file": "decals_chakra.png",
+      "approvedHash": "1e33c66a50ccf158de87ed1cc88b174d2969cecbf77d267b4493cbd4cc084674",
+      "reviewedHash": "1e33c66a50ccf158de87ed1cc88b174d2969cecbf77d267b4493cbd4cc084674"
+    },
+    {
+      "file": "decals_lightning.png",
+      "approvedHash": "d23ec97141e1ff951a57c17eb4e4cc75a248b314a4ce5740017c97bbf33c81d2",
+      "reviewedHash": "d23ec97141e1ff951a57c17eb4e4cc75a248b314a4ce5740017c97bbf33c81d2"
+    }
+  ],
+  "pixelFilesIdentical": true
+}

@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/bubble_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/bubble_v01.png",
+    "vfx/raw/bubble_v01.json"
+  ],
+  "sourceHash": "098f1682f1c52415fa787f38070d67fca1731ab4",
+  "files": {
+    "bubble_00.png": "35f7d0d220df2d8f31975cd78eacd69dbd4cfd71",
+    "bubble_01.png": "d8b34701a0320eb9ba9fd5b4652aee7d62b953d6",
+    "bubble_02.png": "2d22bd9d628cf4138219bb07be59342f80352b4e",
+    "bubble_03.png": "33057aa6491404026d049b0750ff28328bae5761",
+    "bubble_04.png": "29f8bec5a09a67dca6957a67bb16fbb289b8b820",
+    "bubble_05.png": "ea4f0656348b284fbcc6d32383a9bdea7c0d9ace"
+  }
+}

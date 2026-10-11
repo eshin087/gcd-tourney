@@ -1,0 +1,5 @@
+# Neutral height study v01
+
+Built-in imagegen, one attempt; candidate reference edit, no approval recorded.
+
+Edit reference candidate into ONE neutral standing anatomy calibration image of the SAME anime fan-art sprite character. Input is a four-pose candidate being corrected; preserve its identity, exact head-to-body anatomy, face, costume, colours, hair design, limb lengths and lean build. Show ONE full-body figure only, neutral upright three-quarter view facing right, spine straight, head level, BOTH KNEES STRAIGHT, feet hip-width apart on same baseline, arms hanging relaxed beside body. No fighting crouch, no lean, no perspective shortening, no hands in pockets. Preserve youthful anatomy for white-haired purple-shirt child; preserve lean athletic teenage anatomy for ninjas; preserve tall lean adult for blindfold uniform. Pixel-art game reference with clean hard edges, flat limited colour shading, solid #FF00FF background. Center full figure with generous margin, no cropping, no text, no guides. This is a measurement reference, not an animation. Do not redesign or enlarge head. Exact same head shape and head-to-limb size as input.

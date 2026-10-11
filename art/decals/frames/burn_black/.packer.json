@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/burn_black_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/burn_black_v01_A.png",
+    "decals/raw/burn_black_v01_B.png",
+    "decals/raw/burn_black_v01.json"
+  ],
+  "sourceHash": "dbe8f9b99b2655f694bccf4b28b6ffa17819705b",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "burn_black_00.png": "13ab46993410b4e204942180ddc262d5ea4442c6",
+    "burn_black_01.png": "13acad35b5d74eb548ad4d6cb43d9d018136eafc",
+    "burn_black_02.png": "b67171c35c216fa71e9cf54753d6ce58a818558b",
+    "burn_black_03.png": "bcaac1680a4d3f9bf0eeb098127cddd4945a7397"
+  }
+}

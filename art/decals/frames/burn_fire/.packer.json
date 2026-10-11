@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/burn_fire_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/burn_fire_v01_A.png",
+    "decals/raw/burn_fire_v01_B.png",
+    "decals/raw/burn_fire_v01.json"
+  ],
+  "sourceHash": "b82a070716d5606f608a000d352223cd424f3f1e",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "burn_fire_00.png": "4733d0e59bddd3f478813cb31d46f82f10deacbc",
+    "burn_fire_01.png": "d48e71a6aee1aa5019591188339578c7931718a9",
+    "burn_fire_02.png": "bfb78bf81101407e52745f1f4c7b691e71475848",
+    "burn_fire_03.png": "e4c746237bfbad72d7aeb4cd6b7fad5433642750",
+    "burn_fire_04.png": "11911a9f29a3773e7a53dc349611d3834e26b811",
+    "burn_fire_05.png": "ba2edf5df2b637de8c0fd03019674087246b4cbd"
+  }
+}

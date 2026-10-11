@@ -83,7 +83,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   packer flagged the strip) and prints both numbers (TOOL-025).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash, beam clash, answering an
   energy shot, beam clash from the air (the dummy plays clashes at Normal timing; you press), throw and break, parry,
-  spot dodge, air dodge, wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo,
+  spot dodge, air dodge, wavedash, hold Guard to tech, tech roll, timed tech off a spike, wall tech, wall-jump tech,
+  tech too early (locked out) (ADR 0028), blue combo, burst, burst bait (ADR 0022), air combo,
   wall bounce, ground damage, handball (3 wall bounces) and vanish ping-pong (ADR 0026), vanish, super dash, counter
   hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A scenario that the current pair can't
   show says so (for example "needs two rush specials").
@@ -354,11 +355,53 @@ by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a 
    dash → AIR DODGE!; throw break → THROW BREAK; wavedash twice within 6 s → one WAVEDASH; a fourth banner pushes
    the oldest out; a special name right after a PARRY! leaves the banner alone; in training the left stack clears the
    input history.
-9. **Training dummy**: DUMMY TECH never / hold / random and DUMMY BURST off / on in the panel; the defaults keep the
+9. **Training dummy**: DUMMY TECH never / hold / random / timed and DUMMY BURST off / on in the panel; the defaults keep the
    old dummy (GUARD mode with tech NEVER lets go of Guard for the whole launch: no TECH!, no TECH ROLL!).
 10. **CPU**: the soak below (`mode=cpu`, and IMPOSSIBLE vs Hard) shows TECH! and TECH ROLL! every match and BURST!
     in most, never more than one burst per fighter per round (`burstUsed` ≤ 1), blue counters now and then, and
     rounds still ending by KO in the usual time.
+
+## Timed impact tech (ADR 0028)
+
+Run after changes to `DEFENSE.impactTech`, `Fighter.readTechPress` / `tryImpactTech` / `startImpactTech`, landing or
+barrier physics, the `noTech` flags, `aiTech.js` or the composer's `techRisk`. The lab scenarios **Timed tech off a
+spike**, **Wall tech**, **Wall-jump tech** and **Tech too early (locked out)** show each part. Frame-exact checks by
+hand: `/?fight=naruto,sasuke&mode=solo&level=hard&debug`, step until the fight, then put P2 in a known fall and give
+it a scripted brain that presses Guard on chosen frames:
+
+```js
+const f = game.fighters[1]; let k = 0, at = new Set([16]);           // brain frame(s) that press Guard
+game.brains[1] = { update() { const p = f.pad; p.tick(); p.setMove(0, 0); p.set('guard', at.has(k++)); } };
+f.reset(0, 0); f.setState('launched'); f.pos.set(0, 3, 0); f.vel.set(0, 0, 0); f.air = true; f.airStun = 300;
+f.combo = 3; f.comboFrom = f.pad.frame; f.gb = true; f.hardKD = true; k = 0;
+for (let i = 0; i < 40; i++) step(1);                                  // the floor is 28 live frames away
+f.state;                                                               // 'impactTech' (techKind 'inPlace')
+```
+
+A press on brain frame n is stamped on live frame n + 1, so with the impact on live frame 28:
+
+1. **Window**: a press 11 live frames before the impact (brain frame 16) techs (TECH!, `impactTech`, combo 0, no
+   ground bounce); 0 frames before (27) techs; 12 before (15) doesn't (GROUND BOUNCE!, then `down`); after the
+   impact doesn't.
+2. **Lockout**: presses 12 and 7 frames before (15 and 20): no tech, the second press is ignored (`itTry` keeps the
+   first). Lab: **Tech too early** ends in `down`.
+3. **Hold**: Guard held from before the combo (`comboFrom` after the press): no timed tech; a soft landing still tech
+   rolls (ADR 0022) and a ground bounce still bounces.
+4. **Hitstop and freezes**: P2 at y 0.4 with `hitstop = 10` (the floor 11 live frames away): a press on brain frame 2,
+   inside the hitstop, techs (it counts from the first live frame). The same with `game.freeze = 8` from frame 3 and
+   the press on frame 6.
+5. **Super finishes**: `noTech` on the last hit (flurry final, Amaterasu, Kirin, Four-Tails final, Hollow Purple, the
+   beam's final hit, an ultimate clash result): a press 5 frames before the floor does nothing. DUMMY TECH TIMED never
+   techs them.
+6. **Wall**: P2 at x 5, y 2, `vel (12, 2, 0)`, `wb = true` (the barrier 18 live frames away): a press 5 before techs
+   (WALL TECH!, `impactTech` / `wall`, clings 6 f, kicks off, lands), `wbCount` stays 0 and no WALL BOUNCE!. With
+   `my = 1` held: the wall jump, `air` at once (`airAttack` false, y about 3.4 at the top).
+7. **Floor roll**: stick ← / → (`mx` ±1) at the impact: `roll`, about 1 unit, then `idle`.
+8. **Forecast**: `(await import('/src/game/aiTech.js')).impactAhead(f).k` in those setups is 28 / 18 / 11, the frame the
+   engine hits.
+9. **CPU**: the soak below with `mode=cpu` shows TECH! and WALL TECH! every match; IMPOSSIBLE / showman tech about
+   60-70 % of the techable impacts they meet (`techStats`), Hard about a third, and the composer's `comboLog` records
+   `groundTech` / `wallTech` as end reasons.
 
 ## CPU defense showcase (ADR 0025)
 

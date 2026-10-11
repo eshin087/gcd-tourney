@@ -83,6 +83,7 @@ These are the default bindings. You can rebind them in the controls menu.
 | **Super** (2nd super, 3 bars) | **H** or **B** | **T** | **'** | **L2 / LT** |
 | **Throw** (close) / break a throw | **J + K** | **F + G** | **, + .** | **□ + △** |
 | **Tech** / **tech roll**: hold Guard while hit | hold **Shift** | hold **L-Shift** | hold **;** | hold **L1 / LB** |
+| **Timed tech**: tap Guard just before you hit the floor or the barrier (+ ← / → roll, ↑ wall jump) | tap **Shift** | tap **L-Shift** | tap **;** | tap **L1 / LB** |
 | **Burst**: Guard + Special while hit (2 bars, once per round) | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
 | **Beam clash**: your energy Special (→ toward them for some fighters) into theirs, or while theirs flies at you | **L** / **→ + L** | **H** / **→ + H** | **/** / **→ + /** | **○** / **→ + ○** |
 
@@ -114,6 +115,12 @@ custom keys.
   down. Hold a direction to pick where: away (default), toward them, ↑ rise in place, ↓ drop to the floor.
   Pressing any button while launched still techs too. Spikes, throws and super finishes are hard knockdowns:
   no roll.
+- **Timed tech** (Smash style): **tap Guard just before you hit the floor or the ring barrier** (up to about 11
+  frames early) while you're being comboed. On the floor you get up on the spot (TECH!), or roll with ← / →; on the
+  barrier you cling for a moment and kick off it (WALL TECH!), or hold ↑ for a wall jump you can act out of. It beats
+  ground bounces, wall bounces (the "handball"), spikes, throws and plain landings, and ends the combo. Only a fresh
+  press counts (holding Guard doesn't), and a press that's too early locks the timed tech out for about 40 frames,
+  so mashing fails. Super finishes can't be teched.
 - **Burst** (2 bars, once per round): **Guard + Special while you're being hit**. A shockwave blows the attacker
   away and ends the combo (BURST!). It can be blocked: an attacker who stops and guards gets to punish you. The
   gem next to your ki gauge shows whether you still have it this round.

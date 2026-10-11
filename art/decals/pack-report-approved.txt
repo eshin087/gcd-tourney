@@ -1,0 +1,48 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== decals ======================================================
+  not approved yet (12, procedural in game; preview with --candidates): scour_spiral, scour_spiral_big, cut_wind, claw, scorch_chakra, fracture_chakra, erasure, erasure_trench, crush_implode, gouge_repel, fracture_cursed, fracture_cursed_big
+  packed 19 decals, 99 variants -> 4 page(s): decals_base_1.png 2048x2048, decals_base_2.png 2048x1920 (base+edge), decals_chakra.png 1024x256, decals_lightning.png 2048x1280 (lightning+fire)
+  pages per match: floor 2 + one element set per fighter (chakra 1, lightning 1); worst pairing 4 of the engine's 4
+    crack_s              8    <- frames/crack_s/ (raw/crack_s_v02_{A,B,C}.png) x1  (24 colors)
+    crack                8    <- frames/crack/ (raw/crack_v01_{A,B,C}.png) x1  (24 colors)
+    crater               8    <- frames/crater/ (raw/crater_v01_{A,B,C}.png) x1  (24 colors)
+    crater_big           6    <- frames/crater_big/ (raw/crater_big_v01_{A,B,C}.png) x1  (24 colors)
+    crater_huge          4    <- frames/crater_huge/ (raw/crater_huge_v01_{A,B}.png) x1  (24 colors)
+    fracture_ring        4    <- frames/fracture_ring/ (raw/fracture_ring_v01_{A,B}.png) x1  (24 colors)
+    scuff                8    <- frames/scuff/ (raw/scuff_v02_{A,B}.png) x1  (24 colors)
+    skid                 4    <- frames/skid/ (raw/skid_v02_{A,B}.png) x1  (24 colors)
+    rubble               6    <- frames/rubble/ (raw/rubble_v01_{A,B}.png) x1  (24 colors)
+    dirt_crater          4    <- frames/dirt_crater/ (raw/dirt_crater_v01_{A,B}.png) x1  (24 colors)
+    dirt_skid            3    <- frames/dirt_skid/ (raw/dirt_skid_v01_{A,B}.png) x1  (24 colors)
+    barrier_crack        6    <- frames/barrier_crack/ (raw/barrier_crack_v02_{A,B}.png) x1  (24 colors)
+    crater_wall          4    <- frames/crater_wall/ (raw/crater_wall_v01_{A,B}.png) x1  (24 colors)
+    burn_lightning       6    <- frames/burn_lightning/ (raw/burn_lightning_v02_{A,B}.png) x1  (24 colors; 4662 hot px)
+    burn_lightning_big   4    <- frames/burn_lightning_big/ (raw/burn_lightning_big_v02_{A,B}.png) x1  (24 colors; 15371 hot px)
+    fracture_lightning   2    <- frames/fracture_lightning/ (raw/fracture_lightning_v01.png) x1  (24 colors; 4920 hot px)
+    burn_fire            6    <- frames/burn_fire/ (raw/burn_fire_v01_{A,B}.png) x1  (24 colors; 788 hot px)
+    burn_black           4    <- frames/burn_black/ (raw/burn_black_v01_{A,B}.png) x1  (24 colors)
+    scorch_ki            4    <- frames/scorch_ki/ (raw/scorch_ki_v01_{A,B}.png) x1  (24 colors; 2663 hot px)
+  ! crack: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_huge: 0.2% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! scuff: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! skid: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! rubble: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! dirt_crater: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_wall: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_lightning: 0.5% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_lightning_big: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! fracture_lightning: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! scorch_ki: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  wrote public/decals/decals_base_1.png
+  wrote public/decals/decals_base_2.png
+  wrote public/decals/decals_chakra.png
+  wrote public/decals/decals_lightning.png
+  wrote public/decals/atlas.json
+
+done: 0/0 character(s) packed, vfx skipped, crowd skipped, 19 decal(s), 12 warning(s).

@@ -1,0 +1,31 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/crater_v01_{A,B,C}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/crater_v01_A.png",
+    "decals/raw/crater_v01_B.png",
+    "decals/raw/crater_v01_C.png",
+    "decals/raw/crater_v01.json"
+  ],
+  "sourceHash": "9fddd9b59d6a337a7d81c9b4e0ab5ffd017ad9df",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "crater_00.png": "ad63661ef9ec05eaa61ba135d41253876e854ca7",
+    "crater_01.png": "f8b388424334dc7794ef5b7430dd3e072a01fa18",
+    "crater_02.png": "02cd0335cb52c998bcc91e6ec0b141b1dd8e561c",
+    "crater_03.png": "c8211c7372971730d4d317e2d942e626a8109761",
+    "crater_04.png": "348e7bfb91d150c980d034ff37f9665774e339b7",
+    "crater_05.png": "be62c22f6d910073b37c5d80fb9debbc0ac8c846",
+    "crater_06.png": "0d83e8ce22f6ab0d8ac0ea37dcf4557833e6ce5c",
+    "crater_07.png": "220e27e8a5380dd32396b8b44223f0724f1d75c6"
+  }
+}
