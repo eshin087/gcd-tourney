@@ -194,6 +194,12 @@ export class AudioEngine {
         this.tone({ type: 'sine', f0: 110, f1: 30, dur: 0.4, gain: 0.9 * v });
         for (let k = 0; k < 4; k++) this.noise({ dur: 0.04, gain: 0.15 * v, type: 'bandpass', f0: 2000 + k * 600, when: 0.08 + k * 0.05, Q: 3 });
         break;
+      case 'tech': // a timed impact tech (ADR 0028): a bright two-note ting over a soft tap, apart from a block's clack
+        this.tone({ type: 'sine', f0: 170, f1: 90, dur: 0.07, gain: 0.35 * v });
+        this.noise({ dur: 0.05, gain: 0.18 * v, type: 'highpass', f0: 4200 });
+        this.tone({ type: 'triangle', f0: 1760, dur: 0.07, gain: 0.2 * v });
+        this.tone({ type: 'triangle', f0: 2640, dur: 0.16, gain: 0.17 * v, when: 0.055 });
+        break;
       case 'block':
         this.tone({ type: 'triangle', f0: 1100, f1: 760, dur: 0.07, gain: 0.25 * v });
         this.noise({ dur: 0.05, gain: 0.2 * v, type: 'highpass', f0: 3000 });

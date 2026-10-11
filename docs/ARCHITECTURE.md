@@ -56,6 +56,8 @@ src/game/
                             the per-match defense persona (ADR 0025)
   aiDefense.js              MasterBrain's defense showcase (ADR 0025): parry rallies, reversals, string reads,
                             tech escapes; reachT (threats timed to the drawn strike)
+  aiTech.js                 timed impact tech (ADR 0028): impactAhead (live frames to a launched fighter's next floor
+                            or wall impact) and TechTimer (per-level timing for CpuBrain, MasterBrain, the dummy)
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue

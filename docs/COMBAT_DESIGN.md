@@ -57,6 +57,7 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Wavedash | Jump, then Guard + direction right away | ✕ then L1 + stick |
 | Throw (close) / throw break (when grabbed) | Light + Heavy | □ + △ |
 | Tech / tech roll (ADR 0022) | hold Guard while hit (+ direction) | hold L1 |
+| Timed tech (ADR 0028) | tap Guard just before hitting the floor / barrier (+ ← / → roll, ↑ wall jump) | tap L1 |
 | Burst (2 bars, once per round) | Guard + Special while hit | L1 + ○ |
 
 Adding SUPER took L2/LT from guard. Bindings moved to a new localStorage key (`gcd.bindings.v2`), so saved
@@ -358,14 +359,16 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
   (`tick + 3`) keep air stun and hit stun at least that long, so one committed multi-hit move can't be teched
   midway and never turns blue.
 
-### Combo escape: tech, tech roll, Burst (ADR 0022)
-Numbers in `DEFENSE.tech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `Fighter` (`techOpen`, `airRecover`,
-`startTechRoll`, `canBurst` / `startBurst` / `burstWave`).
+### Combo escape: tech, tech roll, timed tech, Burst (ADR 0022, ADR 0028)
+Numbers in `DEFENSE.tech`, `DEFENSE.impactTech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `Fighter`
+(`techOpen`, `airRecover`, `startTechRoll`, `readTechPress` / `tryImpactTech` / `startImpactTech` / `wallKick`,
+`canBurst` / `startBurst` / `burstWave`).
 
 | Option | Input | Rules |
 |---|---|---|
 | Air tech | launched: **hold Guard**, or press any button | on an **open frame** (not KO'd or `held`, air stun over, above 0.35 units); holding Guard techs on the first one. 10 f, 16 f invulnerable. The stick picks the hop, against the opponent's side of the screen: neutral or away [−2.5, 6.5] (back), toward [3, 7], ↑ [0, 7.5] (rise in place), ↓ [0, −9] (drop to the floor, 4 f landing lag). |
 | Tech roll | land from a launch while **holding Guard** | instead of lying `down`: 20 f, invulnerable 18 f, 7.5 u/s in the stick's direction (else away from the attacker), friction 0.88. Not after a **hard knockdown**: `hardKnockdown` on the last hit, by default ground-bounce spikes (air heavy, dive slams) and big unblockable hits (throw toss, super and ultimate finishes, clash results), plus the beam's final hit. Not on a KO. |
+| Timed impact tech (ADR 0028) | a **fresh Guard press** (an edge: holding doesn't count) while in `hitstun` / `launched`, made during the combo, at most **11** live frames before the impact (`DEFENSE.impactTech.window`) | Impacts: the first floor contact of a fall (ground bounce, hard knockdown from a spike or throw, plain landing) and a wall bounce. Live frames skip hitstop and world freezes, so a press during either counts from the first frame after it. A press that doesn't tech locks it out for **40** live frames from that press (presses inside are ignored: mashing fails). Never on a KO, while `held` or grabbed, or after a `noTech` hit (super and ultimate finishes, ultimate clash results). Floor, stick neutral: **tech in place** 18 f, invulnerable 14 f; stick ← / →: **roll** 8 u/s (friction 0.88), 22 f, invulnerable 18 f. Barrier: **WALL TECH** clings 6 f, kicks off away at [7, 6.5], free (falling) 12 f later, invulnerable 22 f; with ↑ or Jump held at the kick, **WALL-JUMP TECH** [5, 13], actionable at once, invulnerable 14 f. Ends the combo; the bounce never happens (no budget spent). Checked before the tech roll. TECH! / WALL TECH! in white-cyan, a small white-cyan ring and spark at the contact point, a ting and a crowd pop. |
 | Burst | **Guard + Special** in `hitstun` or `launched` (the later press within 3 f; Special pressed during the combo and under 6 f ago, so Guard pressed while a hit charge still holds Special is a tech; read during hitstop too; a burst on the frame a hit connects wins) | 200 ki, once per round. Not while `held` or grabbed, not during the opponent's three-bar `kit` move or beam, a clash or Domain. 8 f world freeze and BURST!, then startup 4 f and 6 active frames: an invulnerable shockwave (radius 2.4, 10 dmg, launch [14, 9], hit stun 14, hitstop 12) that ends the combo and lets go of a grinding vortex. **Blockable and parryable.** Recovery 20 f, or 30 f when it was blocked or parried (**burst bait**). The HUD gem by the ki gauge: lit (unused), glowing (enough ki), dark (spent). |
 
 ### True combos and the blue counter (ADR 0022)
@@ -380,7 +383,8 @@ Numbers in `DEFENSE.tech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `F
 
 ### Technique callouts (ADR 0022)
 Banners slide in at the screen edge of the fighter who did it, stacked newest on top (3 per side), in every match:
-PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, THROW BREAK, REVERSAL (the first hit of an attack
+PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, the timed tech's TECH! / WALL TECH! (white-cyan,
+ADR 0028), THROW BREAK, REVERSAL (the first hit of an attack
 started within 3 f of leaving hit stun, block stun, wake-up, a tech or a stagger), PUNISH! (a fresh combo on a
 fighter in their own recovery: a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag over
 6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam), WAVEDASH (small, once per 6 s per
@@ -556,7 +560,16 @@ per launch (back 0.5, toward 0.2 when close, down 0.2, up 0.1), bursts per combo
 (IMPOSSIBLE 30 %, INSANE 15 %, showman 35 %; ×1.5 under 350 HP or when the attacker has three bars; the showman
 leans toward it until the viewer has seen one), and IMPOSSIBLE and showman **bait** bursts (`bait` 25 % / 30 % per
 combo against a victim who has one): stop after hit 3-5, guard, punish the recovery. The training dummy has
-`DUMMY TECH` (never / hold / random) and `DUMMY BURST` (off / on, at hit 3) rows (`game.dummyOpts`).
+`DUMMY TECH` (never / hold / random / timed) and `DUMMY BURST` (off / on, at hit 3) rows (`game.dummyOpts`).
+
+Timed impact tech (ADR 0028, `src/game/aiTech.js`): `impactAhead` forecasts the live frames to a launched fighter's
+next floor or wall impact; a `TechTimer` is armed per launch with the level's `impactTech` (Easy 5 %, Normal 15 %,
+Hard 35 %, INSANE 55 %, IMPOSSIBLE and showman 65 %) and presses Guard 5 ± `techSd` frames before each impact (5 / 4 /
+3 / 2.5 / 2 / 2 frames: a wide error presses too early and gets locked out), picking in place / roll away / roll
+toward or wall tech / wall jump. Armed, a brain that rolled the hold tech taps Jump at the air gaps instead of holding
+Guard (that press would lock the timed tech out). The combo composer weighs bounce routes by the victim's timed-tech
+rate this match (`techRisk`); a teched bounce ends its route (`groundTech` / `wallTech`). DUMMY TECH `timed` techs
+every impact mid-window with a random option.
 
 **Showcase** (ADR 0016, `src/game/aiShow.js`): every CPU keeps a match-long count of the tools it has used
 (kit specials, the second super, the ultimate or beam, vanish, super dash, wavedash, parry, spot dodge, air
