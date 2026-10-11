@@ -108,6 +108,13 @@ correspondence), so the art itself has to be right, and checked by a machine eve
 - The head and feet numbers are proxies. A raised arm in hair colours, an afterimage or a slash arc can misread; the
   answer is an exemption with a reason plus the heads contact sheet, never a silent pass. Fighters whose hair shares
   body colours need `headColors` (Naruto: the hair yellow; Sasuke: his navy shades).
+- **Amendment 2026-10-10 (ART-KIL-PROBE):** the measurement palette is the approved idle's own, not the fighter-wide
+  `--quantize` median cut. With the shared cut, a candidate's new colours moved the unchanged idle's head (Killua 52x35
+  vs 52x43), flipped approved strips' verdicts and let the auto-head pre-fit and the final verdict disagree. The gate
+  now measures before `--quantize` (declared colours snapped first, then the idle's median cut, nearest colour for every
+  strip), `anims.json` records the per-frame numbers, and `npm run scale` judges those. On main's four fighters the
+  idle heads stay within a pixel and the approved strips' heads move by a median 0.01; the baseline was rewritten once
+  for the method change.
 - Packing takes about a second longer per fighter; `anims.json` grows by about 10 KB (`scaleAudit`), ignored by the
   game outside the dev tools.
 - Every review attaches one more image (the heads sheet). Codex follows the gate in AGENTS.md and
