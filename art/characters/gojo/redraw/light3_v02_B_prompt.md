@@ -1,5 +1,0 @@
-Animefanart pixel sprite PART B continuing firstimage PartA. EXACTLY 3 fullbodyposes ONErow withlargemargins and nooverlap. Identity and lean longlimbed proportions from approvedneutral secondimage. Match rawhead andhair size of PartA, NEVER fit crouchedpose to sameboundingheight asuprightpose. SAME uniformscale allposes. Animationlight3. Draw ONLY remainingposes:
-5. Knee re-chambers, shin folding back.
-6. Right foot sets down behind him.
-7. Back in the relaxed stance (same as idle frame 1). Face: lazy smile.
-Strictly remove all motion/effect elements: solid complete limbs only, no smears, trails, arcs, beams, speedlines or glows. Navyzippedjacket,pants,blackshoes,whitehair,blindfold. Rightfacing3/4camera. Flatmagenta hardedgepixelart <=48colours. ScaleLock productionbody220.402px skull23.20px, sourcearound3x consistentwithPartA. Entirelimbsinsideimage generousspace.

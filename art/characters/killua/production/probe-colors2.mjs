@@ -1,3 +1,0 @@
-import {loadPacked}from '../../../../tools/scale-audit.mjs';import{auditCharacter}from '../../../../tools/scale-probe.mjs';
-const P=loadPacked('killua','art/characters/killua/production/diagnostic-public');for(const colors of [['#faf1e9','#d2c9dd','#b599db'],['#faf1e9','#d2c9dd','#998bb1'],['#ffffff','#f3f3fb','#dedfee','#bec0d6','#9597b4','#b599db']]){const A=auditCharacter(P.anims,{decl:{headColors:colors},maxColors:48});console.log(JSON.stringify({colors,ref:A.ref?.headPx,anims:Object.fromEntries(['guard','jumpUp','block','heavy','airLight1','airLight2','hurtLow','specialUp'].map(n=>[n,A.anims?.[n]?{head:A.anims[n].head,range:A.anims[n].range,verdict:A.anims[n].verdict}:null]))}));}
-

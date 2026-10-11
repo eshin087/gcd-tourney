@@ -1,6 +1,0 @@
-Animefanart pixel sprite PART B continuing firstimage PartA. EXACTLY 4 fullbodyposes ONErow withlargemargins and nooverlap. Identity and lean longlimbed proportions from approvedneutral secondimage. Match rawhead andhair size of PartA, NEVER fit crouchedpose to sameboundingheight asuprightpose. SAME uniformscale allposes. Animationrun. Draw ONLY remainingposes:
-5. Contact (like frame 1 with the legs and arms swapped): right foot reaching forward, left leg back; left arm forward, right arm back. Face: lazy smile.
-6. Down: weight on the right leg, knee bent deepest, body at its lowest.
-7. Passing: left knee swinging forward past the right leg; body rising.
-8. Flight: left knee forward and up, right leg extended back; body at its highest (flows into frame 1).
-Strictly remove all motion/effect elements: solid complete limbs only, no smears, trails, arcs, beams, speedlines or glows. Navyzippedjacket,pants,blackshoes,whitehair,blindfold. Rightfacing3/4camera. Flatmagenta hardedgepixelart <=48colours. ScaleLock productionbody220.402px skull23.20px, sourcearound3x consistentwithPartA. Entirelimbsinsideimage generousspace.

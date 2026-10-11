@@ -1,7 +1,0 @@
-Anime fan-art pixel sprite strip, EXACTLY 4 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION intro: ANIMATION: "intro", pre-fight intro: a hands-in-pockets shrug. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
-POSES lefttoright:
-1. Standing upright and tall, legs nearly straight, weight on the right leg (hip cocked), body turned toward the viewer (about 50 degrees), BOTH HANDS IN HIS POCKETS, chin raised, head tilted, looking down at the opponent on the right. Face: lazy cocky smile.
-2. A loose shrug: shoulders rise slightly. Face: lazy smile.
-3. Shoulders drop, head tilts slightly the other way. Face: lazy smile.
-4. Settle back toward frame 1. Face: lazy smile.
-SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

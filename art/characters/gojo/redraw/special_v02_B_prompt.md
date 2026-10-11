@@ -1,6 +1,0 @@
-Animefanart pixel sprite PART B continuing firstimage PartA. EXACTLY 4 fullbodyposes ONErow withlargemargins and nooverlap. Identity and lean longlimbed proportions from approvedneutral secondimage. Match rawhead andhair size of PartA, NEVER fit crouchedpose to sameboundingheight asuprightpose. SAME uniformscale allposes. Animationspecial. Draw ONLY remainingposes:
-5. Same, the two fingers slightly crooked. Face: focused.
-6. Same, the arm slightly drawn back. Face: focused.
-7. Held pose: the arm still forward, palm up, the two fingers crooked in a slight "come here" curl; hair tips and the jacket hem still pulled slightly forward. Face: lazy smile.
-8. The arm lowering, the right hand on its way back to the pocket. Face: lazy smile.
-Solid complete limbs only, no smears, trails, arcs, beams, speedlines or glows. Navyzippedjacket,pants,blackshoes,whitehair,blindfold. Rightfacing3/4camera. Flatmagenta hardedgepixelart <=48colours. ScaleLock productionbody220.402px skull23.20px, sourcearound3x consistentwithPartA. Entirelimbsinsideimage generousspace.
