@@ -79,6 +79,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Title → mode select → char select → match starts. The intro flythrough can be skipped with Enter.
 - [ ] One full round plays to a KO. Round announcements, the win pose and the results screen work.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
+- [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
+      any character select returns to SELECT MODE on that mode.
 - [ ] `npm run build` passes.
 
 ## Feature checklists
