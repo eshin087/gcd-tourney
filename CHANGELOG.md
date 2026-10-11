@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Killua review: expose all three unapproved UI candidates through a separate fitted diagnostic gallery; approved UI is untouched.
+
 - Killua: refine specialDown hair without changing body scale; document footwear-proxy limitations and peer anatomy QA, refresh all41 non-idle diagnostic candidates. No production approval.
 
 - Killua: added native animation workbench and corrected recovery candidates; documented same-pixel probe sensitivity and intact-source stitching failure. All new art remains unapproved; full production gate blocked.
