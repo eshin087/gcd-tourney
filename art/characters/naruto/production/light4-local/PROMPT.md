@@ -1,3 +1,0 @@
-# Localized light4 f0 fix — call1/3
-
-Edit isolated ONE-pose sprite reference1. It is410x547. Keep EXACT canvas410x547, pose and scale, every body/face/headband pixel unchanged. Only GOLD HAIR CAP needs narrowing: current gold spikes occupy approximately x184..257 and y37..80. Redraw goldhair inside x189..253 and y42..80: trim left and right edges about5pixels each and lower upper spikes5pixels. Keep roots at forehead/headband and same spiky hairstyle. Face/skull/headband stay EXACTLY unchanged. This is a small compact-hair correction, no wholehead/body/camera rescale. Approvedidle reference2 and headguide reference3 provide size context only. One full figure, flat#FF00FF, anime fan-art sprite, hard edges, no shadows/effects/text, do not add other poses.
