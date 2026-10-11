@@ -485,3 +485,5 @@ Reconstructed from the codebase when the changelog was introduced.
 [Unreleased]: #unreleased
 [0.2.0]: #020---2026-10-04
 [0.1.0]: #010---2026-10-04
+
+- Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
