@@ -582,12 +582,14 @@ the round after 10 s at three bars or with under 20 s on the clock. The training
 **Beam clashes** (ADR 0027). Against a player, every CPU sometimes answers an incoming energy shot (or a Rasengan /
 Chidori from range) with an energy special of its own: `CpuBrain` at `special × 0.6` (Easy 9 %, Normal 18 %, Hard
 27 %, up to ×3 while the player hasn't seen a beam clash), IMPOSSIBLE / INSANE at a weight of `0.25 × flair` among
-its other answers. In **CPU vs CPU** a spectator-only **show director** (`src/game/showDirector.js`, created only when
+its other answers. It only answers when a clash can start (`kit.canBeamClashNow`: not inside the 900-frame cooldown,
+over 2.2 units apart, the thrower free to lock); otherwise it blocks or dodges the shot like any other. In **CPU vs
+CPU** (any level) a spectator-only **show director** (`src/game/showDirector.js`, created only when
 `Game.watching`) makes sure the viewer sees one every match: at a random moment 15-40 s into round 1 (8-20 s into a
 later round that started without one) it picks a random challenger and cues both brains for 480 frames. The cued
 challenger plays a `challenge` plan (into their lane at a gap their answer reaches, then fires its energy special once
-they are free and have the ki to answer); the cued answerer keeps to mid range and answers (weight 50, and it reads
-the shot's startup at once, so a 9-frame Chidori Spear can be met). A cue that comes to nothing expires and returns
+they are free and have the ki to answer); the cued answerer keeps to mid range and answers (MasterBrain: weight 50;
+CpuBrain: for sure; both read the shot's startup at once, so a 9-frame Chidori Spear can be met). A cue that comes to nothing expires and returns
 6-12 s later; after the match's first beam clash the director is done and further ones happen only by themselves
 (the showman answers at `0.15 × flair`). While the director still has one to cue, the showman keeps the ki for its
 cheapest energy move (`spend()` stops above it), powers up when short, and each clash is played at a jittered

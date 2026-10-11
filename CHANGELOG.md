@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- **Beam clash** (ENG-073, ADR 0027): two energy specials meeting head-on (Narukami, Reversal: Red, Chidori Spear, Great Fireball; Naruto drives a Rasengan / Rasenshuriken into one), or one fired while theirs flies at you, become a BEAM CLASH: both attacks turn into streams in their own colors, a 4.5 s rhythm struggle decides it (winner 120 + wall bounce, draw 45 each); CPU vs CPU shows at least one every match (a spectator-only show director picks the moment), CPUs at every level sometimes answer your shots, lab scenarios Beam clash / Answer an energy shot / Beam clash from the air.
+- **Beam clash** (ENG-073, ADR 0027): two energy specials meeting head-on (Narukami, Reversal: Red, Chidori Spear, Great Fireball; Naruto drives a Rasengan / Rasenshuriken into one), or one fired while theirs flies at you, become a BEAM CLASH: both attacks turn into streams in their own colors, a 4.5 s rhythm struggle decides it (winner 120 + wall bounce, draw 45 each); CPU vs CPU shows at least one every match at any level (a spectator-only show director picks the moment), CPUs at every level sometimes answer your shots (only when a clash can start), lab scenarios Beam clash / Answer an energy shot / Beam clash from the air.
 - Record user approval of Killua Whirlwind beamCharge v05; archive superseded pending v04 with documented QA caveats accepted. Artwork unchanged; ready for integration.
 
 - Art (ART-KIL-WW): Whirlwind beamCharge v05 raised-heel ready stance, preserved v04 history, anatomy sidecars, cast lineup and hosted review gallery. All art remains unapproved; beamFire sources, frames and metadata unchanged.

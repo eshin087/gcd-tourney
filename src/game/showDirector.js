@@ -1,11 +1,12 @@
 // Show director (ADR 0027): spectator-only choreography for CPU vs CPU. A beam clash needs one fighter to fire an
 // energy move and the other to answer it with theirs, which two independent brains almost never line up, so once
 // per match the director picks a random moment and a random challenger and *cues* both brains: the challenger
-// fires an energy move from a distance the other can answer, the other answers it (MasterBrain 'challenge' plan,
-// 'answerEnergy' defense). It never presses a button or touches the simulation: the brains still play the fight
-// and decide when a cue is possible, and a cue that comes to nothing expires and comes back a little later. Only
-// Game.watching creates one (solo and versus CPUs never get cues). After the match's first BEAM CLASH it is done:
-// any later one comes from the fight itself.
+// fires an energy move from a distance the other can answer, the other answers it (MasterBrain 'challenge' plan and
+// 'answerEnergy' defense; CpuBrain cueChoose at Easy / Normal / Hard, which a spectator can pick too). It never
+// presses a button or touches the simulation: the brains still play the fight and decide when a cue is possible,
+// and a cue that comes to nothing expires and comes back a little later. Only Game.watching creates one (solo and
+// versus CPUs never get cues). After the match's first BEAM CLASH it is done: any later one comes from the fight
+// itself.
 import { energyMoves, airEnergyMoves, canBeamClash } from './kit.js';
 
 // Seconds of fight time (the round timer running): the first cue of round 1 lands at a random moment in `first`,

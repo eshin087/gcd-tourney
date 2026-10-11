@@ -7,7 +7,7 @@
 // of the time, and it has habits a player can learn. CPU vs CPU runs the louder 'showman' style so a
 // spectated fight keeps moving and the big moves come out.
 import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW, CLASH } from './moves.js';
-import { specialFor, kitOf, clashable, mergeOf, roarOf, energyMoves, airEnergyMoves } from './kit.js';
+import { specialFor, kitOf, clashable, mergeOf, roarOf, energyMoves, airEnergyMoves, canBeamClashNow } from './kit.js';
 import { BeatPlan } from './clash.js';
 import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
@@ -940,7 +940,8 @@ export class MasterBrain {
     // match has its own moment); otherwise now and then. A short shot waits until theirs is close (`lead`), so the two
     // meet before ours fizzles.
     const vsRush = th.m?.clash === 'rush';
-    const em = (th.energy || th.p?.P?.clash || vsRush) && (r === 'ground' || r === 'air') && sh.tools.beamClash ? this.energyAnswer(c, vsRush) : null;
+    // (never when a clash can't start: in the cooldown, too close, or they can't be locked, it would just eat the hit)
+    const em = (th.energy || th.p?.P?.clash || vsRush) && (r === 'ground' || r === 'air') && sh.tools.beamClash && canBeamClashNow(f, 3) ? this.energyAnswer(c, vsRush) : null;
     if (em) {
       const cue = this.beamCue(game);
       const k = cue === 'answer' ? 50 : (S.show >= 0.5 ? 0.15 : 0.25) * S.flair;
@@ -1047,6 +1048,8 @@ export class MasterBrain {
       case 'answerEnergy':
         // stand ready until it's close enough, then fire ours into it (Game.checkEnergyClash locks the two)
         if (d.done || fr > d.lead || (c.ready !== 'ground' && c.ready !== 'air')) return true;
+        // a clash can't start any more (they closed in or got hit while it stood ready): block it instead of trading
+        if (!canBeamClashNow(f, 3)) { d.type = c.ready === 'ground' ? 'block' : 'none'; return this.execDefense(game, c, th, d); }
         d.done = true;
         this.special(d.slot, 2);
         return true;

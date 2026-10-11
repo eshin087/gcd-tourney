@@ -12,7 +12,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy, ENERGY_LOCK } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -33,9 +33,8 @@ const clashTmp = new THREE.Vector3();
 const burstCol = new THREE.Color();
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
-// BEAM CLASH (ADR 0027): the states a fighter can be locked into a struggle from (not stunned, not mid-dodge, mid-kit
-// move or teleport), and the reused body lists (checkEnergyClash runs a few times a frame)
-const ENERGY_LOCK = new Set(['attack', 'idle', 'run', 'land', 'guard', 'air', 'dash', 'jumpSquat', 'charge', 'wavedash']);
+// BEAM CLASH (ADR 0027): the reused body lists (checkEnergyClash runs a few times a frame); the states a fighter can be
+// locked into one from are kit.js ENERGY_LOCK, shared with the CPUs' canBeamClashNow
 const bodiesA = [], bodiesB = [];
 function segDist(p1, q1, p2, q2) {
   const d1 = sd1.subVectors(q1, p1), d2 = sd2.subVectors(q2, p2), r = sdr.subVectors(p1, p2);

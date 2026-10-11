@@ -236,6 +236,26 @@ export function incomingEnergy(f) {
   return best;
 }
 
+// The states a fighter can be locked into a beam clash from (not stunned, not mid-dodge, mid-kit move or teleport):
+// Game.checkEnergyClash's lock test, here so the CPUs ask the same question before they fire into incoming energy.
+export const ENERGY_LOCK = new Set(['attack', 'idle', 'run', 'land', 'guard', 'air', 'dash', 'jumpSquat', 'charge', 'wavedash']);
+
+// Whether an energy move f starts within `lead` frames could still lock a beam clash with the opponent: the guards of
+// Game.checkEnergyClash (no clash running, no cooldown, the round live, the opponent free to lock, the two at least
+// `minDist` apart, counting the run of a Rasengan / Chidori of theirs meanwhile). An answer fired when none of that
+// holds can't clash and just eats the hit, so the CPUs check this first.
+export function canBeamClashNow(f, lead = 0) {
+  const g = f.game, o = f.opp;
+  if (!g || !o || g.clash || g.struggleCool > 0 || !g.inputLive || (g.state !== 'fight' && !g.training)) return false;
+  if (o.ko || o.hidden || !ENERGY_LOCK.has(o.state)) return false;
+  let gap = Math.hypot(f.pos.x - o.pos.x, f.pos.z - o.pos.z);
+  const m = o.state === 'attack' ? o.move : null;
+  if (m?.kind === 'rush' && isEnergy(m) && !o.moveHit) {
+    gap -= (Math.max(0, Math.min(o.t + lead, m.startup + m.active) - Math.max(o.t, m.startup)) * m.rush) / 60;
+  }
+  return gap > CLASH.struggle.minDist;
+}
+
 // ------------------------------------------------------------------ passives and modes
 // Infinity: projectiles stop before touching Gojo while he can act and has the ki to pay for it
 // (PASSIVES.infinity.kiCost per stop, paid by the projectile code).

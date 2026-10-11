@@ -86,7 +86,8 @@ without one) and a random challenger among the fighters with an energy move, and
 back 6-12 s later. The director is done once the match's first beam clash starts; after that beam clashes only happen
 by themselves (both firing into each other in neutral, an occasional answer). **It never presses a button or touches
 the simulation**: the brains still decide whether the cue is possible right now (the answerer's ki and state, the
-distance), and a real fight goes on around it.
+distance), and a real fight goes on around it. The spectator menu and `?level=` allow every CPU level, so both brains
+follow the cue (MasterBrain at IMPOSSIBLE / INSANE, CpuBrain at Easy / Normal / Hard) and the promise holds at each.
 
 This amends ADR 0016's principle that the CPUs act alone: in spectator matches only, two brains coordinate one
 moment per match. Solo and versus CPUs never get a cue.
@@ -104,14 +105,26 @@ moment per match. Solo and versus CPUs never get a cue.
   showmen rarely draw).
 - **CpuBrain** (Easy / Normal / Hard): answers an incoming energy shot, or a shot or Rasengan starting further away
   than a melee reaction, at `special × 0.6 × bias('beamClash')` (Easy 9 %, Normal 18 %, Hard 27 %, up to ×3 while
-  the player hasn't seen one).
+  the player hasn't seen one). CPU vs CPU can be spectated at any level, so it follows the director's cue too
+  (`cueChoose`, plan `challenge`): the cued challenger picks an energy special the other can answer, takes a gap of
+  its reach − 1 (4-6 units) and fires once they stand or run with the ki to answer; the cued answerer keeps 3.8+ units
+  and the ki for its cheapest energy special (powering up when short) and answers whatever energy comes, for sure,
+  2 frames into it (out of a charge it lets go first). A special already on its way keeps going when the shot
+  appears (a guard or dodge then would press Guard + Special: a vanish).
+- **Only answers that can lock**: `kit.canBeamClashNow(f, lead)` mirrors `checkEnergyClash`'s guards (no clash
+  running, no cooldown, the round live, the opponent in an `ENERGY_LOCK` state, more than `minDist` apart counting
+  the run of a Rasengan of theirs over the next `lead` frames). Both brains ask it before an answer (MasterBrain when
+  it picks `answerEnergy` and again when it fires, blocking instead once it no longer holds), so inside the 900-frame
+  cooldown or up close a CPU defends against an energy shot instead of starting a Rasengan into the hit.
 - **Showcase**: a `beamClash` tool when `canBeamClash` holds; `watch()` notes `beamClash` for a struggle and `clash`
   only for an ultimate clash, so a beam clash doesn't count as ENG-056's ultimate clash.
 
 ### 5. Lab
 
 Scenarios **Beam clash (energy vs energy)**, **Answer an energy shot** and **Beam clash from the air**, built from
-`energyMoves` (timed around the 8-frame kit flash and the release frame of a ground special).
+`energyMoves` (timed around the 8-frame kit flash and the release frame of a ground special). The lab still plays a
+scenario its `needs` turned down, so a side without the energy move it needs gets an empty timeline (stands still)
+rather than a script error.
 
 ### Measured (2026-10-10, port 5244)
 
@@ -127,6 +140,14 @@ Scenarios **Beam clash (energy vs energy)**, **Answer an energy shot** and **Bea
   ring, no stuck states, no console errors, live effects back to 0-9 between matches. ENG-056 is not starved: 15 / 18
   Naruto / Gojo matches still had their ultimate clash (13 / 15 with the director off). The misses were short
   matches or ones where four cues in a row found the answerer busy.
+- After the review fixes (CpuBrain follows the cue, `canBeamClashNow`), every ordered pairing once at Easy, Normal,
+  Hard and IMPOSSIBLE (64 matches, frame-stepped): **60 / 60 matches that can have one showed a beam clash** (Easy
+  15 / 15, Normal 15 / 15, Hard 15 / 15, IMPOSSIBLE 15 / 15), almost always on the first cue (a few came by
+  themselves before it), the first one between 99 and 60 s on the round clock; 73 struggles, 6 draws (8 %); the
+  Naruto mirrors never cued; no console errors, NaN or fighters outside the ring, every match ended in results.
+  Answers that can't lock: a Hard CpuBrain forced to answer every time and an IMPOSSIBLE brain with its answer weight
+  ×40 never started an answer inside the cooldown or under 2.2 units (53 solo trials against Killua's Narukami),
+  while the same setups outside the cooldown still locked (10 / 10 and 2 / 2 chosen answers).
 
 ## Alternatives considered
 

@@ -137,6 +137,6 @@ Measured (showman, Naruto / Gojo pairings, both sides able to clash): see CHANGE
 ## Amendment (2026-10-10, ENG-073): the show director
 
 [ADR 0027](0027-beam-clash-energy-struggles.md) adds a `beamClash` tool (energy specials that can meet) and, in
-spectator matches only, a show director (`src/game/showDirector.js`) that cues the two showmen once per match to play
-a beam clash (one challenges, the other answers). It never presses a button; the brains still decide whether the cue
+spectator matches only, a show director (`src/game/showDirector.js`) that cues the two CPUs (showmen, or Easy-Hard
+CpuBrains) once per match to play a beam clash (one challenges, the other answers). It never presses a button; the brains still decide whether the cue
 is possible. `watch()` now notes `clash` only for an ultimate clash and `beamClash` for a beam clash.

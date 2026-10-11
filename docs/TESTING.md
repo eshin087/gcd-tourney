@@ -302,7 +302,9 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    **Every match shows a BEAM CLASH** (ADR 0027) except the Naruto mirror (`beamClash` in `unseen()` means none
    happened): log `game.clash?.tier === 'struggle'` starts and `game.director.beam` (`due` in frames, `cues`, `done`)
    per match. Pass: at least 95 % of matches that can have one do, the first one lands at varied times (the
-   director's due is random), draws are at most ~20 %, and rounds still end by KO.
+   director's due is random), draws are at most ~20 %, and rounds still end by KO. CPU vs CPU can be watched at any
+   level and Easy / Normal / Hard (`CpuBrain`) follow the director's cue too, so repeat it with `&level=easy`,
+   `normal` and `hard`.
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
    Light + Heavy within 12 frames of the grab breaks it ("THROW BREAK", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /
