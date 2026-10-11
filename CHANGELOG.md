@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art review only: original-title-style four-character draft, shared-size neutral/combat comparison and documented current Killua/Sasuke silhouette mismatch. Await user approval; production unchanged.
+
 - Changed: the redrawn cast ships (PRs #61 Gojo, #62 Sasuke, #63 Naruto, #64 Killua): every strip at the user-approved version on the approved neutral baseline, the scale gate clean (0 flagged strips) with the documented rescales, version-scoped misread notes and manual QA records. Killua's down and ko temporarily use the previous approved v04 / v05 until their fixed versions pass QA and approval (user decision 2026-10-11).
 
 - art(killua): record explicit user approvals for light1 v09 and airLight3 v08; archive superseded pending versions. No new generation or runtime promotion; down05/ko06 manual QA remains Claude-owned.

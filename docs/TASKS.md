@@ -1,5 +1,7 @@
 # Task board
 
+ART-TITLE-STYLE-PILOT | Codex | review | Four original-title-style v01 sheets and shared-size neutral/combat comparisons ready; build/browser pass. Initial draft only, user approval before more work. files: art/scale/title-style-pilot/, art/characters/*/reference/title_style_draft_v01.png, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/art-review/title-style-pilot/. Port5220. Claude owns runtime rollback/integration.
+
 ART-SAS-CORRECT-R2 | Codex | review | Approved superDashv04 applied. Chargev09/specialv10 pass combined strict check; SFv06 pop and getupv04 manual remain. No tooling overrides. See art/characters/sasuke/production/SECOND_CORRECTION_ROUND.md; PR62.
 
 ART-SAS-POST-YES | Codex | review | Corrected four authorized strips plus superDash placement; strict pack still blocked on charge/special/specialForward/getup. Claude owns manual QA and integration. Files: art/characters/sasuke/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/art-review/sasuke-post-approval/. See art/characters/sasuke/production/POST_APPROVAL_QA.md.

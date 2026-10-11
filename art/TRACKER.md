@@ -1,3 +1,5 @@
+> 2026-10-11 title-style pilot: Naruto, Sasuke, Killua and Gojo title_style_draft v01 need review. Two concept poses each; no animation/atlas changes. User rejects the recent full-redraw direction and prefers original title art. See [brief](scale/title-style-pilot/BRIEF.md).
+
 # Art tracker
 
 > Naruto light4 v07 approved2026-10-11; full strict pack passes (exit0). Localized f0 hair patch,1/3 calls used; bodies/other7poses unchanged. Heavy10/throw5/airLight3_5 remain approved. [QA](characters/naruto/production/light4-local/QA.md).
