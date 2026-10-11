@@ -122,8 +122,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -136,7 +136,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 7 | charge | 4 | - | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
