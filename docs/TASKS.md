@@ -271,3 +271,5 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 ## Low-confidence gate handoff — 2026-10-11
 
 TOOL-ROTATED-ANATOMY, Claude, done in TOOL-030 (`scaleManualQA`, verdict `manual`). The current scale probe deliberately returns `unmeasured` for lowConf animations before assessing numeric head thresholds (tools/scale-probe.mjs:338). The approved-neutral redraw has eight such Gojo poses: jumpSquat, launched, spin, airRecover, down, getup, vanish and ko. Their visible head may be measured correctly, so a blanket wrong-ROI exemption would be dishonest. Define and validate an axis-aware anatomical/manual evidence acceptance path that preserves the user's strict gate requirement, without silently treating `unmeasured` as `ok` or weakening thresholds. Codex retains per-frame contacts, independent landmarks and uncertainties; these are manual-QA holds, not new art approvals. This is a tooling/spec handoff, not permission for Codex to edit the probe or engine.
+
+ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. Own Gojo art and rows; port5224. Claude integrates.
