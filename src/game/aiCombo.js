@@ -6,8 +6,8 @@
 // super dash. Among the edges that work it draws one, weighted by a per-match persona (a style read from the kit
 // data), a length tier per combo, freshness, and a cooldown on routes either CPU used recently. Every draw comes from
 // the brain's seeded rng, so `?seed=` replays them. It presses buttons only through the brain (tap, special, keep).
-import { MOVES, VANISH, SUPER_DASH, JUGGLE, PROJECTILES, DEFENSE } from './moves.js';
-import { specialFor } from './kit.js';
+import { MOVES, VANISH, SUPER_DASH, JUGGLE, PROJECTILES, DEFENSE, SUPERS } from './moves.js';
+import { specialFor, kitOf } from './kit.js';
 import { ARENA_LIMIT, GRAVITY, DT, ROUND_TIME } from './constants.js';
 import { gauss, pickW } from './rng.js';
 import { specialId } from './aiShow.js';
@@ -591,6 +591,14 @@ function buildEdges(def) {
   add({ id: 'relaunchMeet', nodes: ['WALLBACK', 'GBUP', 'RESTART'], tags: ['relaunch'], w: { WALLBACK: 1.2, GBUP: 1.4, RESTART: 1.5 }, opt: 2.6, act: 'meet', meet: { move: 'heavy' }, pre: (x) => gapMeet(x, 'heavy') });
   // stop here: the combo ends (the budget's ender of last resort)
   add({ id: 'end', nodes: NODES, tags: ['ender'], w: 0.15, opt: 0.05, act: 'end', pre: () => true });
+  // the three-bar finish that carries the combo on (a highlight's crown): from a hit of ours, or free on the ground
+  add({
+    id: 'big', nodes: ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'FLY', 'RESTART', 'WALLBACK', 'GBUP'], tags: ['big'], w: 0.35, opt: 0, act: 'big',
+    pre: (x) => {
+      const ready = x.f.state === 'attack' ? inAttack(x) && !x.m.special : groundSide(x) && readyIn(x.f) === 0;
+      return ready && (x.big = bigOption(x)) ? true : null;
+    },
+  });
   // AIRLOCK: let ourselves fall and pick it up from the ground (RESTART)
   add({ id: 'fall', nodes: ['AIRLOCK', 'AFREE'], tags: ['relaunch'], w: { AIRLOCK: 0.5, AFREE: 0.4 }, opt: 0.4, act: 'none', pre: (x) => (x.o.state === 'launched' && x.left > readyIn(x.f) + 14 ? true : null) });
   // the kit: every special by its data, as a cancel on hit or from neutral, and the air specials from the free air
@@ -632,6 +640,23 @@ function buildEdges(def) {
   return E;
 }
 
+// A three-bar move that grabs them out of the combo and carries it on (Fighter.takeHit: a held victim keeps the
+// combo): a flurry in its reach, a Domain, Amaterasu, a Four-Tails pounce in their lane. 'super' / 'ultimate' or null.
+function bigOption(x) {
+  const f = x.f, c = x.c, K = kitOf(f.def);
+  if (f.ki < 300 || x.b.waitClash || x.z.p.optimal) return null; // (IMPOSSIBLE keeps its own lethal check)
+  const fits = (S) => {
+    if (!S) return false;
+    if (S.kind === 'flurry') return c.dist < (S.range ?? 6) - 0.6 && x.o.pos.y < 1.2;
+    if (S.kind === 'domain' || S.kind === 'ignite') return true;
+    if (S.kind === 'rampage') return c.dist < (S.range ?? 8) - 0.6 && Math.abs(c.sd) < 1 && x.o.pos.y < 1.2;
+    return false;
+  };
+  if (fits(SUPERS[K.super])) return 'super';
+  if (fits(SUPERS[K.ultimate])) return 'ultimate';
+  return null;
+}
+
 // a meet from the ground (or after landing): frames to its hit, via intercept()
 function gapMeet(x, move, dash = false) {
   const f = x.f, o = x.o;
@@ -664,6 +689,7 @@ function afterStun(e, x) {
     case 'vanish': s = of(MOVES.vanishKick); break;
     case 'meet': s = of(MOVES[e.meet.move]); break;
     case 'wait': return x.bounceAt != null && PB[x.bounceAt] === 1 ? stunAfter('wall', c, 0, o.wbCount) : stunAfter('bounce', c, 0, o.gbCount);
+    case 'big': return 40; // a held victim: the super's hits all land
     case 'special': {
       const m = e.m;
       if (!m) break;
@@ -700,7 +726,7 @@ const NOT_OURS = new Set(['hitstun', 'launched', 'burst', 'down', 'held']); // o
 const HOLD_NODES = new Set(['FLY', 'AIRLOCK', 'AFREE', 'GBUP', 'WALLBACK', 'RESTART', 'G4', 'LAUNCH', 'A1', 'A2']);
 
 // ------------------------------------------------------------------ the composer
-const ctx = { z: null, b: null, f: null, o: null, c: null, t: 0, m: null, left: 0, combo: 0, node: '', extra: null, wk: 1, optk: 1, handball: false, bounceAt: -1 };
+const ctx = { z: null, b: null, f: null, o: null, c: null, t: 0, m: null, left: 0, combo: 0, node: '', extra: null, wk: 1, optk: 1, handball: false, bounceAt: -1, big: null };
 
 export class ComboComposer {
   // brain: the MasterBrain it presses buttons for; persona from makePersona; rand: the brain's seeded rng
@@ -1116,6 +1142,15 @@ export class ComboComposer {
       case 'hold':
         if (groundSide(x) && Math.abs(x.c.sx) > 1.4) b.mx = x.c.toward;
         return RUN;
+      case 'big': {
+        // the super flash freezes the world and its own hits run the rest: the composer's part is over
+        const id = st.big ?? (st.big = x.big);
+        if (!id || f.ki < 300) return FAIL;
+        if (b.hold.super > 0 || b.hold.heavy > 0) return RUN;
+        b.fireBig(id);
+        this.over = true;
+        return DONE;
+      }
     }
     return FAIL;
   }

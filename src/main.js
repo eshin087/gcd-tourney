@@ -215,7 +215,7 @@ if (qs.has('debug')) {
         try { window.step(120); } catch (e) { S.errors.push(e.stack.split('\n').slice(0, 3).join(' | ')); break; }
         game.fighters.forEach((f, i) => {
           if (![f.pos.x, f.pos.y, f.pos.z, f.vel.x, f.vel.y, f.vel.z].every(Number.isFinite)) S.nan++;
-          if (!f.ko && Math.max(Math.abs(f.pos.x), Math.abs(f.pos.z)) > 8.6) S.ring++;
+          if (!f.ko && Math.max(Math.abs(f.pos.x), Math.abs(f.pos.z)) > 8.6) { S.ring++; S.ringAt = `${f.def.id}:${f.state}/${f.moveName ?? f.kitState?.kind ?? ''} (${f.pos.x.toFixed(2)}, ${f.pos.z.toFixed(2)}) game:${game.state}`; }
           const live = game.state === 'fight' && !['idle', 'run', 'guard'].includes(f.state);
           if (live && f.state === seen[i].s && f.t >= seen[i].t) { seen[i].t = f.t; if (++seen[i].n === 5) S.stuck.push(`${f.def.id}:${f.state}/${f.moveName ?? f.kitState?.kind ?? ''}`); } else seen[i] = { s: f.state, t: f.t, n: 0 };
         });
