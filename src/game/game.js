@@ -642,6 +642,8 @@ export class Game {
       const d = this.fighters[i], C = T[i];
       const live = d.combo > 0 && !d.ko && (d.state === 'hitstun' || d.state === 'launched' || (d.state === 'held' && !d.grab && C.hits > 0));
       if (C.hits && (!live || d.combo < C.hits)) {
+        // the KO'ing hit ends the combo the frame it lands (or the next, for a shot): count it in the rating
+        if (d.ko && d.combo > C.hits) { C.hits = d.combo; C.dmg = d.comboDmg; }
         this.onComboEnd(d.opp, d, C);
         T[i] = newCombo();
       }

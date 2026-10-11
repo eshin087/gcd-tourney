@@ -85,7 +85,8 @@ export function wallAhead(L, c, y0, room, wbCount) {
   return speedAt(L[0], L[1], c, y0, Math.max(0, room - 0.25)) > J.wall.minSpeed + 0.5;
 }
 
-// Scratch for predictFlight (no allocations per frame): the victim's position, air stun left and state per frame.
+// Scratch for predictFlight (no allocations per frame): the victim's position, air stun left and state per frame
+// (bounce: 1 off the barrier, 2 off the floor, 3 the floor skip).
 export const PF = 120;
 const PX = new Float32Array(PF), PY = new Float32Array(PF), PZ = new Float32Array(PF);
 const PS = new Int16Array(PF), PL = new Uint8Array(PF), PB = new Uint8Array(PF);
@@ -119,7 +120,7 @@ export function predictFlight(o, n = PF) {
             stun = J.ground.stun[Math.min(gbN, J.ground.stun.length - 1)]; gbN++; hold = 5; PB[k] = 2;
             if (flight.firstBounce < 0) flight.firstBounce = k;
           } else if (imp > J.floor.impact && !skipped) {
-            skipped = true; vy = imp * J.floor.keep; vx *= J.floor.slide; vz *= J.floor.slide;
+            skipped = true; vy = imp * J.floor.keep; vx *= J.floor.slide; vz *= J.floor.slide; PB[k] = 3;
           } else alive = false;
         }
       }
@@ -480,11 +481,22 @@ function gapAirReach(x, move) {
   return meets(x, move, k, selfY) ? k : null; // they'll still be at our height when it comes out
 }
 
-// a bounce the victim's current flight will make (wall or ground), or null; sets x.bounce to its frame
+// A bounce the victim's current flight will make (wall or ground) before they can get out, or null; sets x.bounceAt
+// to its frame. Waiting is a link like any other: their air stun must outlast the flight to the bounce by MARGIN
+// frames wherever they're high enough to tech (Fighter.techOpen reads last frame's height), and a floor skip on the
+// way is a tech roll unless the last hit was a hard knockdown.
 function bounceComing(x) {
-  if (x.o.state !== 'launched' || (!x.o.wb && !x.o.gb)) return null;
+  const o = x.o;
+  if (o.state !== 'launched' || (!o.wb && !o.gb)) return null;
   const k = flight.firstBounce;
   if (k < 0 || k > 70) return null;
+  const minY = DEFENSE.tech.minY;
+  for (let i = 0; i < k; i++) {
+    if (!PL[i]) return null;
+    const y = Math.max(PY[i], i ? PY[i - 1] : o.pos.y);
+    if (PS[i] < MARGIN && y > minY) return null;
+    if (PB[i] === 3 && !o.hardKD) return null;
+  }
   x.bounceAt = k;
   return PB[k] === 1 ? 'wall' : 'gb';
 }
@@ -596,7 +608,7 @@ function buildEdges(def) {
     id: 'big', nodes: ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'FLY', 'RESTART', 'WALLBACK', 'GBUP'], tags: ['big'], w: 0.35, opt: 0, act: 'big',
     pre: (x) => {
       const ready = x.f.state === 'attack' ? inAttack(x) && !x.m.special : groundSide(x) && readyIn(x.f) === 0;
-      return ready && (x.big = bigOption(x)) ? true : null;
+      return ready && (x.big = bigOption(x)) ? x.bigGap : null;
     },
   });
   // AIRLOCK: let ourselves fall and pick it up from the ground (RESTART)
@@ -641,19 +653,49 @@ function buildEdges(def) {
 }
 
 // A three-bar move that grabs them out of the combo and carries it on (Fighter.takeHit: a held victim keeps the
-// combo): a flurry in its reach, a Domain, Amaterasu, a Four-Tails pounce in their lane. 'super' / 'ultimate' or null.
+// combo): a flurry in its reach, a Domain, Amaterasu, a Four-Tails pounce in their lane. 'super' / 'ultimate' or null,
+// and x.bigGap: frames until it has them, which choose() checks against their stun like any link (its super flash
+// holds the world, so only our press, its delay and its dash count). A dash that arrives after they tech whiffs.
+const BIG_LEAD = 1; // pressed now, the super starts on our next live frame
+const FLURRY_SPEED = 24; // kit.js flurry: the dash's speed (u/s)
 function bigOption(x) {
   const f = x.f, c = x.c, K = kitOf(f.def);
   if (f.ki < 300 || x.b.waitClash || x.z.p.optimal) return null; // (IMPOSSIBLE keeps its own lethal check)
-  const fits = (S) => {
-    if (!S) return false;
-    if (S.kind === 'flurry') return c.dist < (S.range ?? 6) - 0.6 && x.o.pos.y < 1.2;
-    if (S.kind === 'domain' || S.kind === 'ignite') return true;
-    if (S.kind === 'rampage') return c.dist < (S.range ?? 8) - 0.6 && Math.abs(c.sd) < 1 && x.o.pos.y < 1.2;
-    return false;
+  const gapOf = (S) => {
+    if (!S) return null;
+    switch (S.kind) {
+      case 'flurry': return c.dist < (S.range ?? 6) - 0.6 && x.o.pos.y < 1.2 ? bigChase(f, BIG_LEAD, BIG_LEAD, FLURRY_SPEED, S.dash, 1.4, 1) : null;
+      case 'domain': return BIG_LEAD + 1; // the void holds them the frame it opens
+      case 'ignite': return BIG_LEAD + S.delay;
+      // the pounce commits to where they stand as the roar starts, then steers a little
+      case 'rampage': return c.dist < (S.range ?? 8) - 0.6 && Math.abs(c.sd) < 1 && x.o.pos.y < 1.2 ? bigChase(f, BIG_LEAD, BIG_LEAD + S.roar, S.speed, S.dash, 1.35, S.steer ?? 0.03) : null;
+    }
+    return null;
   };
-  if (fits(SUPERS[K.super])) return 'super';
-  if (fits(SUPERS[K.ultimate])) return 'ultimate';
+  const room = x.left - 1 - MARGIN - Math.max(0, f.hitstop - 3);
+  for (const id of ['super', 'ultimate']) {
+    const g = gapOf(SUPERS[id === 'super' ? K.super : K.ultimate]);
+    if (g != null && g <= room) { x.bigGap = g; return id; }
+  }
+  return null;
+}
+
+// Frames until a three-bar dash (kit.js flurry, rampage) started `wait` frames from now catches the predicted victim:
+// `speed` u/s along the floor, aimed at where they are `commit` frames from now and turning toward them by `steer` a
+// frame; contact under `reach` (and 1.4 in height), for at most `len` frames; or null.
+function bigChase(f, commit, wait, speed, len, reach, steer) {
+  const c = Math.min(commit, PF - 1), step = speed / 60;
+  let ax = f.pos.x, az = f.pos.z, hx = PX[c] - ax, hz = PZ[c] - az, h = Math.hypot(hx, hz) || 1;
+  hx /= h; hz /= h;
+  for (let k = wait; k < Math.min(flight.n, wait + len); k++) {
+    const dx = PX[k] - ax, dz = PZ[k] - az, d = Math.hypot(dx, dz);
+    if (d < reach && Math.abs(PY[k] - f.pos.y) < 1.4) return PL[k] ? k + 1 : null;
+    if (d > 1e-4) {
+      hx += (dx / d - hx) * steer; hz += (dz / d - hz) * steer;
+      h = Math.hypot(hx, hz) || 1; hx /= h; hz /= h;
+    }
+    ax += hx * step; az += hz * step;
+  }
   return null;
 }
 
@@ -726,7 +768,7 @@ const NOT_OURS = new Set(['hitstun', 'launched', 'burst', 'down', 'held']); // o
 const HOLD_NODES = new Set(['FLY', 'AIRLOCK', 'AFREE', 'GBUP', 'WALLBACK', 'RESTART', 'G4', 'LAUNCH', 'A1', 'A2']);
 
 // ------------------------------------------------------------------ the composer
-const ctx = { z: null, b: null, f: null, o: null, c: null, t: 0, m: null, left: 0, combo: 0, node: '', extra: null, wk: 1, optk: 1, handball: false, bounceAt: -1, big: null };
+const ctx = { z: null, b: null, f: null, o: null, c: null, t: 0, m: null, left: 0, combo: 0, node: '', extra: null, wk: 1, optk: 1, handball: false, bounceAt: -1, big: null, bigGap: 0 };
 
 export class ComboComposer {
   // brain: the MasterBrain it presses buttons for; persona from makePersona; rand: the brain's seeded rng
@@ -775,14 +817,23 @@ export class ComboComposer {
     return !o.ko && o.burstUsed < B.perRound && o.ki >= B.cost;
   }
 
-  // Every frame (MasterBrain.think): follow the combo's life, the bounces and whether our last link connected.
+  // Every frame (MasterBrain.update, also through a KO and the time-up): follow the combo's life, the bounces and
+  // whether our last link connected.
   watch(game, c) {
     const f = this.f, o = f.opp;
-    if (game.round !== this.round) { this.round = game.round; this.highlights = 0; }
+    if (game.round !== this.round) {
+      if (this.live) this.end(game, 'round'); // (a combo the last round's end left open counts for that round)
+      this.round = game.round;
+      this.highlights = 0;
+    }
+    const timeUp = game.state === 'timeup';
     const inCombo = o.combo > 0 && !o.ko && (o.state === 'hitstun' || o.state === 'launched' || (o.state === 'held' && !o.grab && this.live));
-    if (this.live && (!inCombo || o.combo < this.peak)) this.end(game, inCombo ? 'restart' : this.endReason(o));
+    if (this.live && (!inCombo || o.combo < this.peak || timeUp)) {
+      if (o.ko) this.peak = Math.max(this.peak, o.combo); // the hit that KO'd them is part of it
+      this.end(game, timeUp && !o.ko ? 'time' : inCombo ? 'restart' : this.endReason(o));
+    }
     // (a trade is no combo of ours: we're reeling too; nor is a burst's shockwave, which ends in its own recovery)
-    if (!this.live && inCombo && o.combo <= 3 && !NOT_OURS.has(f.state)) this.begin(game, c);
+    if (!this.live && inCombo && game.inputLive && o.combo <= 3 && !NOT_OURS.has(f.state)) this.begin(game, c);
     if (!this.live) { this.lastState = f.state; return; }
     this.peak = Math.max(this.peak, o.combo);
     // move and airtime serials: a new move of ours is a new decision point

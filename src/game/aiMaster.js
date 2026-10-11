@@ -180,6 +180,7 @@ export class MasterBrain {
     this.saving = this.hoarding || this.waitClash || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
     if (game.clash) this.playClash(game);
     else if (game.inputLive && !f.ko && !o.ko) this.think(game);
+    else this.composer.watch(game, null); // (think watches when live) a KO or the time-up closes our combo now
     if (this.chargeFrom != null) {
       if (f.state === 'charge' || !f.spPending || f.pad.frame - this.chargeFrom > 16) this.chargeFrom = null;
       else if (f.state === 'idle' || f.state === 'run' || f.state === 'land') this.keep.add('special');
