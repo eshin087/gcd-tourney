@@ -19,6 +19,29 @@ How it works:
 
 The user approved the three final decal previews and explicitly assigned Codex as coordinator for these merges while Claude was paused. This supersedes the older no-approval/no-merge instructions below for PRs #52-54 only. All latest 31 decal types / 143 variants are approved with the documented visual deviations accepted. Merge order: #53 core, #52 chakra, #54 cursed; combined pack preserves every reviewed pixel and needs at most four pages per match. Regression suite: 308 passed, zero failed; build passes. The initial deployment was blocked by automatic approval review; the user then explicitly authorized production release. Committed main 7f2410d is now deployed at https://gcd-tourney.vercel.app. The three merged decal worktrees were removed; versioned sources and QA remain in main. Character redraw and PR #59 are untouched; #51/#55/#56 were previously closed as superseded. Historical instructions below are not a new task to revive those closed PRs. This temporary Codex integration assignment is complete; Claude may resume coordination. Release evidence: art/decals/production/RELEASE_QA.md.
 
+## Last fixes before merge (2026-10-11)
+
+Claude's results on the current branches (`node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale`):
+
+- **Gojo:** exit 0. airLight3 v07 awaits the user's visual approval.
+- **Sasuke:** exit 0 (Claude, PR #62). getup v04: manual QA **pass** recorded (`scaleManualQA` v4; f4 shoulders/torso
+  now match, no size jump into idle). specialForward v06: part B (f4-f6) was drawn 9-11 % wider than the idle while
+  part A reads 1.00-1.06; the collar hides the bottom of B's hair, so the stitch's head measure saw the parts as equal.
+  Claude recalibrated B x0.95 by width in the sidecar (`scaleFit`, no pixels) and exempted f6 (collar: w 1.06, h 0.88).
+  Awaiting the user's visual approval: charge v09, special v10, specialForward v06, getup v04.
+- **Naruto:** exit 1, light4 v05 pop. Not a misread: f0 alone has the hair mass ~11 % wider than the idle (head-box
+  width 1.12, height 1.00); f1-f7 are within 0.96-1.06. Without f0 the strip passes (range 0.10). Fix without a new
+  generation: hand-edit **frames/light4/ f0 of v05** (a refused pack writes no frames/, so write them once with a warn-mode manifest copy: `node tools/pack-sprites.mjs naruto --manifest <copy with "scaleGate": "warn"> --out <scratch>`; then trim the hair spikes of light4_00.png to the idle's
+  hair width, about 2-3 px per side at the packed scale), keep v05 as the version, and re-run the strict pack. Hand edits
+  of the current version are kept by the packer; do not touch thresholds or declarations.
+- **Killua:** exit 1, down v05 and ko v06 **fail** manual QA, so no record: length, thighs, shins and cell margins are
+  fixed, but the lying **torso** is 25-35 % longer than the idle's (shirt from scarf to hem 50-58 px vs 40-43 px).
+  Evidence: `art/characters/killua/production/manual-qa-2026-10-11/QA_down-v05_ko-v06.md`. Shorten the torso
+  (redraw or a hand edit of the frames of that version), then ask Claude to re-check. light1 v09 and airLight3 v08 await
+  the user's visual approval.
+
+Then stop for the user's approvals. Claude merges only after every required approval and four strict exits of 0.
+
 ## Redraws after the user's yes to all (2026-10-11)
 
 The user answered "yes to all" (chat with Claude): **more attempts for the real failures** (up to 3 more generations per
