@@ -118,7 +118,6 @@ status was reset to `todo`. Codex generates; every saved image is `<asset>_vNN.p
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
-| ART-NAR-PROP | Seven-head proportion redraw, model approval gate | Codex | review | files: art/characters/naruto/PROPORTION_REDRAW.md, Naruto references/review/tracker/manifest, art/scale/lineup-naruto-model_sheet_v03.*, docs/TASKS.md, CHANGELOG.md; worktree art/naruto-proportions port 5212; model only before approval. |
 | ART-NAR-FINAL | Complete Naruto art set for one final review | Codex | done | 40 new animations and 3 UI candidates complete; full set 42 animations / 175 frames, strict 48-color pack passes. Review /art-review/naruto/final/. Source corrections, sidecars, hitbox overrides and visual caveats in production/QA.md. User approved the final Naruto batch; visual caveats retained in production/QA.md. Gameplay integration remains Claude work. files: art/characters/naruto/, public/art-review/naruto/final/, public/characters/naruto/, Naruto tracker/review/manifest rows, docs/NOW.md, CHANGELOG.md. |
 | ART-NAR-01 | S1 model sheet (spec v2, Shippuden jacket, ~6.5 heads): front, 3/4 right, true side profile, back, fighting stance, palette swatches | Codex | done | User approved v01 on 2026-10-09; fixed model_sheet.png copy saved; QA deviations retained in REVIEW.md; reference only; build passed |
 | USR-002 | Approve the Naruto model sheet (`approve vNN`) before anything else is generated for him | User | done | Approved model-sheet v01 on 2026-10-09; design reference locked for S2 |
