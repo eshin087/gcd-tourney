@@ -10,6 +10,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- art(sasuke): add title-style jump squat, falling loop and landing with actual atlas QA; document the crouch's manual low-confidence scale finding and archive two falling rejects.
 - art(sasuke): add title-style dash v05 and backDash v05, plus jumpUp v05 with a documented manual airborne-tuck scale exemption; archive five failed movement candidates.
 - art(sasuke): add title-style high/low hurt reactions with measured head-fit heights and actual 48-color atlas QA; archive three failed launched candidates without a scale exemption.
 
