@@ -74,8 +74,8 @@
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
+          "version": 3,
+          "approvedVersion": 3
         },
         "expressions": { "file": "art/characters/naruto/reference/expressions.png", "candidates": "art/characters/naruto/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 2, "approvedVersion": 2 }
       },
