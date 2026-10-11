@@ -146,7 +146,7 @@
         "expressions": { "file": "art/characters/sasuke/reference/expressions.png", "candidates": "art/characters/sasuke/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
       "animations": {
-        "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 4, "approvedVersion": 1 },
         "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 2, "approvedVersion": 2 },
         "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },

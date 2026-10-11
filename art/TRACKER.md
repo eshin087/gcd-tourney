@@ -119,7 +119,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved v02 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. New smaller-head v02 needs review; approved fixed reference remains v01. See PROPORTION_REDRAW.md and v02 QA. User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
-| 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
+| 3 | idle | 8 | - | **yes** | 204 | approved | v03 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
@@ -165,6 +165,9 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+
+
+Idle proportion redraw v04 (v03 smaller-head comparison) needs review; fixed approved idle v01 unchanged. See reference/idle_v03_QA.md: correction recommended, no new baseline approval.
 
 ## killua
 
