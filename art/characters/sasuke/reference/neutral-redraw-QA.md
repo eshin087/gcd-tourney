@@ -93,3 +93,7 @@ Exact version/frame probe exceptions are in neutral-probe-exceptions.md; special
 Capped failed images: light4 A/B3, heavy B3, airLight3 B3, charge3, special B3, specialForward B3. Their counterpart A attempts still available where ledger says so; redrawing A alone does not fix a capped bad B. Additional manual holds include getup pink ghost (cap3), specialDown red iris (cap3), runB residual drift uncertainty (cap3). No additional attempts authorized. The precise ledger is neutral-attempts.json. Remaining non-capped images are not automatically approved or anatomically certified.
 
 Build passed79 modules after correction export. Candidate gallery contains diagnostic cells for newest42; game and heads/lineup still show last successful partial atlas. PR62 remains draft, not ready to merge. No engine/tool changes, approved idle replacement, merge, or production deploy.
+
+## Independent lead contact review (latest checkpoint)
+
+In addition to the six strict failures: airHeavy v03 f4/f5 appear to have larger torso/head/limbs than A despite the numerical pass; retain a separate anatomical continuity hold until calibrated comparison proves otherwise. Light1 v05 f4 onward also appears taller/larger, including the head; numerical pass is insufficient. AirLight3 v04 f4/f5 visibly jump in whole-body size, confirming its existing hold. No clearance is implied by the new per-frame skull estimates.
