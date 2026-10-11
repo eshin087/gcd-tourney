@@ -15,6 +15,7 @@
 | `look` | {{one-line trait list (used by the Sprite Lab prompt builder)}} | |
 | `color` | `#{{......}}` | UI accent |
 | `aura` / `auraCore` | `[r, g, b]` / `[r, g, b]` (0-1) | aura flame and core tint |
+| `charge` | `{ palette, shell, emit, eyes, ground, bar, max, sound }` (optional) | how they power up (ADR 0023, docs/ADDING_A_CHARACTER.md): without it a restrained default ki aura |
 | `beam` | `{ core: '#......', mid: '#......', edge: '#......', name: '{{ULTIMATE NAME}}' }` | ultimate beam colors |
 | `special` | `'{{rasengan / chidori / new}}'` | key in `SPECIALS` (moves.js) |
 | `specialName` | `{{SIGNATURE MOVE}}` | shown in the cut-in |
@@ -41,7 +42,7 @@ them. Frame details go in `ANIMATIONS.md`.
 | Projectile (air, half bar) | `throw` | {{e.g. "throws 3 shuriken" / "hand sign then breathes a fireball"}} | hand / mouth | release point |
 | Signature rush (1 bar) | `special` | {{name + description}} | technique hand | LOW (stomach) |
 | Ultimate (3 bars) | `beamCharge` -> `beamFire` | {{name + description}} | palms | beam origin |
-| Charge ki | `charge` | {{...}} | - | - |
+| Charge ki | `charge` | {{the canon power-up: what shows on the body, the eyes, the floor; the sprite never draws the aura}} | - | - |
 | Intro / taunt / win | `intro` / `taunt` / `win` | {{signature poses, with the source moment they come from}} | - | - |
 
 ## Effect anchor points
@@ -66,7 +67,8 @@ character's colors at runtime.
 |---|---|---|
 | light hits | `spark`, `lines` | white / {{color}} |
 | heavy / smash hits | `burst`, `ring`, `lines`, `crater` (ground bounce) | {{color}} |
-| aura (charge, specials) | `flame`, `streak`, `glow` | `aura` / `auraCore` |
+| power-up (charge) | engine outline + {{`bubble` / `wisp` / `arc` / `ripple` / `flame` / new}}, eye glint `star` | `charge.palette` |
+| aura (ultimate wind-up, modes) | `flame`, `streak`, `glow` | `aura` / `auraCore` |
 | signature technique | {{`orb` / `lightning` / new}} + `glow` | {{color}} |
 | projectile | {{`shuriken` / `fire` / new}} | {{full color / tint}} |
 | ultimate beam | procedural beam + `glow` | `beam` colors |

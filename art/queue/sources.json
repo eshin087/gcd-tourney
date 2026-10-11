@@ -177,5 +177,135 @@
     {
       "id": "lines"
     }
+  ],
+  "decal": [
+    {
+      "id": "style_sheet",
+      "reference": "decal_style_sheet"
+    },
+    {
+      "id": "crack_s",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "crack",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "crater",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "crater_big",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "crater_huge",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "fracture_ring",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "scuff",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "skid",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "rubble",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "dirt_crater",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "dirt_skid",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "barrier_crack",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "crater_wall",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "burn_lightning",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "burn_lightning_big",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "fracture_lightning",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "burn_fire",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "burn_black",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "scour_spiral",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "scour_spiral_big",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "cut_wind",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "claw",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "scorch_chakra",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "fracture_chakra",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "erasure",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "erasure_trench",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "crush_implode",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "gouge_repel",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "fracture_cursed",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "fracture_cursed_big",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    },
+    {
+      "id": "scorch_ki",
+      "requires": "art/decals/reference/decal_style_sheet.png"
+    }
   ]
 }

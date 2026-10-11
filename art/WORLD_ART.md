@@ -1,7 +1,7 @@
 # World art: start here
 
 Everything in GCD Tourney that is **not a fighter**: the packed crowd in the stands, the tournament
-stage, the announcer and other side characters, the UI art and the effects. The goal is the authentic
+stage, the announcer and other side characters, the UI art, the effects and the ground damage. The goal is the authentic
 World Martial Arts Tournament feel from Dragon Ball: a stand full of 500+ visibly different anime/manga
 spectators around a hand-made white-stone ring, all in the same crisp HD-2D pixel art as the fighters.
 
@@ -22,7 +22,7 @@ without approved art keeps its procedural fallback, so nothing breaks while art 
 | **Codex worker** (many sessions) | [queue/README.md](queue/README.md) (worker loop), then the README / prompts of the area you claimed | claim a batch, generate, save, self-QA, `done`, claim the next |
 | **Claude** (Claude Code) | ADR 0008, this file | queue tool, packer world modes, engine loaders, fixes reported in `docs/TASKS.md` |
 
-## The five areas, in priority order
+## The six areas, in priority order
 
 | # | area | folder | what it produces in the game | size of the job | brief and prompts |
 |---|---|---|---|---|---|
@@ -31,8 +31,9 @@ without approved art keeps its procedural fallback, so nothing breaks while art 
 | 3 | **Announcer + NPCs** | `art/npc/` | `public/npc/<id>/sheet.png` + `anims.json` | **4 NPCs** (announcer, two monk officials `monk-a` / `monk-b`, food vendor) = 4 model sheets + 9 animation strips, 18 frames | `npc/README.md` (cast, NPC spec), `npc/<id>/CHARACTER.md`, `npc/<id>/PROMPTS.md` |
 | 4 | **UI** | `art/ui/` | logo, title key art, menu, character-select and results backgrounds, HUD frame pieces (shown once Claude wires them, ENG-013) | about **6-8 images** | [ui/README.md](ui/README.md), [ui/PROMPTS.md](ui/PROMPTS.md) |
 | 5 | **VFX** | `art/vfx/` | `public/vfx/atlas.png` + `atlas.json`: hit sparks, bursts, rings, dust, smoke, orb, lightning... | **15 effects**, 1 batch each | [vfx/README.md](vfx/README.md), [vfx/EFFECTS.md](vfx/EFFECTS.md), [vfx/PROMPTS.md](vfx/PROMPTS.md) |
+| 6 | **Ground decals** | `art/decals/` | `public/decals/atlas.json` + PNG pages per page set: cracks, craters, scorches, scars and wall holes, picked by hit force and element ([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)) | **31 names, 143 variants**: a style sheet (gate) + 31 batches, about 62 images | [decals/README.md](decals/README.md), [decals/DECALS.md](decals/DECALS.md), [decals/PROMPTS.md](decals/PROMPTS.md) |
 
-Altogether about **125-130 batches and about 640 images** (crowd 71 batches / 576 images, stage 30, NPC 4 batches / 13 images, UI about 7, VFX 15; counted 2026-10-08). Batch ids, claim order and exact output file
+Altogether about **125-130 batches and about 640 images** (crowd 71 batches / 576 images, stage 30, NPC 4 batches / 13 images, UI about 7, VFX 15; counted 2026-10-08), plus the ground decals added 2026-10-10 (32 batches, about 63 images). Batch ids, claim order and exact output file
 names come from the claim queue ([queue/README.md](queue/README.md)); `npm run queue -- status` shows the
 live counts.
 
@@ -49,6 +50,9 @@ live counts.
 4. **UI fourth.** Menus and HUD art matter once the arena looks right; the title key art should match the
    final fighters and stage anyway.
 5. **VFX fifth.** The procedural effects already read well in motion; hand-made ones are polish.
+6. **Ground decals sixth.** The procedural decals already scale with each hit; hand-made cracks and
+   scorches make every impact look different. The style sheet is the area's pilot: the queue hands out
+   the other decal batches only once its approved copy exists.
 
 The queue hands out batches in this order by default (`claim` without `--type` takes crowd first).
 
@@ -91,10 +95,17 @@ attach; strips go to `art/npc/<id>/raw/<anim>_vNN.png`.
 **UI** sizes: [ui/README.md](ui/README.md). **VFX** cells (128 x 128, ppu 56): [vfx/README.md](vfx/README.md)
 and [SPEC.md](SPEC.md). Both use the versioned names of ADR 0007.
 
+**Ground decals** (ADR 0024): ppu **64** (256 px = 4 world units, 512 px = 8), cells 256 x 256 up to
+512 x 512 (directional ones 2:1 or 4:1), drawn **straight top-down with radial shading only** (the engine
+rotates and lights them), <= 24 colors per name, pure **#FFFFFF** reserved for glowing hot seams. Raw
+`art/decals/raw/<name>_vNN.png` on a 1536 x 1024 magenta canvas, variants in one row; a name drawn over
+several images saves them as parts of one version (`<name>_vNN_A.png`, `_B.png` ...). Details:
+[decals/DECALS.md](decals/DECALS.md).
+
 ## Rules every world-art image follows
 
-- **Cut-out art** (spectators, NPCs, stage sprites such as trees, clouds and the parasol, the logo, VFX)
-  is drawn on a **flat #FF00FF magenta background**: one flat color, edge to edge, no gradient.
+- **Cut-out art** (spectators, NPCs, stage sprites such as trees, clouds and the parasol, the logo, VFX,
+  ground decals) is drawn on a **flat #FF00FF magenta background**: one flat color, edge to edge, no gradient.
   **Opaque art** (stage textures, the sky, UI backgrounds and key art) fills the whole canvas instead.
 - **Hard-edged pixel art**: crisp square pixels, **1 px dark outline** on characters and sprites, no
   anti-aliasing, no blur, no soft gradients, no noise or dithering fills. VFX follow their own color
@@ -181,11 +192,11 @@ overwriting each other.
 | who | writes | never touches |
 |---|---|---|
 | **Codex worker** | only the output files of the batch it holds (the exact paths `claim` printed); its claim, through the CLI only | shared files (`REVIEW.md`, `TRACKER.md`, `manifest.json`, rosters, `art/queue/*.json`), `public/`, `src/`, `tools/`, `docs/`, root docs; never runs `git add` / `git commit` |
-| **Codex lead** | shared art files (`REVIEW.md`, `TRACKER.md`, `manifest.json`, rosters, `art/queue/sources.json`), packer outputs (`art/crowd/contact/`, `public/{crowd,stage,npc,ui,vfx,characters}/`), moves to `_rejected/`, rows for Claude in `docs/TASKS.md`; commits `art/**` and those `public/` folders with explicit paths | `src/`, `tools/`, the rest of `docs/`, root docs (`CHANGELOG.md` included) |
+| **Codex lead** | shared art files (`REVIEW.md`, `TRACKER.md`, `manifest.json`, rosters, `art/queue/sources.json`), packer outputs (`art/crowd/contact/`, `public/{crowd,stage,npc,ui,vfx,decals,characters}/`), moves to `_rejected/`, rows for Claude in `docs/TASKS.md`; commits `art/**` and those `public/` folders with explicit paths | `src/`, `tools/`, the rest of `docs/`, root docs (`CHANGELOG.md` included) |
 | **Claude** | `src/`, `tools/`, `docs/`, root docs, ADRs; commits only the paths it changed | generated images, review statuses, rosters (unless asked to add groups) |
 | **the user** | decisions: approve / redo in chat or in the `REVIEW.md` status cell; roster wishes | - |
 
-Commit rules: the lead commits only `art/**` and `public/{crowd,stage,npc,ui,vfx,characters}/**`, always
+Commit rules: the lead commits only `art/**` and `public/{crowd,stage,npc,ui,vfx,decals,characters}/**`, always
 with explicit paths (never `git add -A` or `git add .`), with conventional messages such as
 `art(crowd): add crowd-dragon-ball-01 v01 (10 spectators)`. Claude commits only `src/`, `tools/`,
 `docs/` and root docs. Both retry when git reports `index.lock` (another session is committing). Details:
@@ -262,12 +273,15 @@ art/
     <id>/raw/<anim>_vNN.png  <id>/raw/_rejected/  <id>/frames/<anim>/<anim>_NN.png
   ui/                     logo, key art, backgrounds, HUD pieces (README.md, PROMPTS.md, raw/, final/)
   vfx/                    effects (README.md, EFFECTS.md, PROMPTS.md, raw/, frames/)
+  decals/                 ground damage (README.md, DECALS.md, PROMPTS.md, reference/decal_style_sheet_vNN.png,
+                          raw/<name>_vNN.png or raw/<name>_vNN_A.png + _B.png ..., raw/_rejected/, frames/<name>/)
 
 public/                   packer outputs only (never hand-edited)
   crowd/atlas.png  crowd/atlas.json
   stage/<slot>.png  stage/manifest.json
   npc/<id>/sheet.png  npc/<id>/anims.json
   vfx/atlas.png  vfx/atlas.json
+  decals/atlas.json  decals/decals_<set>[_n].png
 ```
 
 Shared status files stay where they are: [REVIEW.md](REVIEW.md) (review queue), [TRACKER.md](TRACKER.md)

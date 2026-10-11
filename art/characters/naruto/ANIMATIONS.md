@@ -97,7 +97,7 @@ are authoritative, and attacks are time-stretched over the move phases anyway.
 | [`light2`](#light2) | rear straight with the R (near) fist | 7 | 2/2/3 |  | **CORE** | 204 | 35, 30, 40, 50, 60, 50, 30 | A04 | 2 (A + B) |
 | [`light3`](#light3) | front push-kick with the R (rear) leg | 7 | 2/2/3 |  | **CORE** | 215 | 40, 35, 45, 60, 60, 60, 30 | A05 | 2 (A + B) |
 | [`light4`](#light4) | spinning roundhouse finisher with the R leg | 8 | 3/2/3 |  | **CORE** | 207 | 50, 45, 35, 40, 70, 70, 70, 40 | A06 | 2 (A + B) |
-| [`heavy`](#heavy) | rising uppercut launcher with the R fist | 8 | 3/2/3 |  | **CORE** | 218 | 40, 35, 30, 50, 70, 70, 60, 30 | A07 | 2 (A + B) |
+| [`heavy`](#heavy) | bursting uppercut launcher with the R fist | 8 | 3/2/3 |  | **CORE** | 218 | 40, 35, 30, 50, 70, 70, 60, 30 | A07 | 2 (A + B) |
 | [`airLight1`](#airlight1) | mid-air jab with the L fist | 5 | 1/2/2 |  | **CORE** | 198 | 45, 35, 50, 50, 30 | A08 | 1 |
 | [`airLight2`](#airlight2) | mid-air front kick with the R leg | 5 | 1/2/2 |  |  | 207 | 45, 40, 50, 50, 30 | A27 | 1 |
 | [`airLight3`](#airlight3) | mid-air spinning back-heel kick with the L leg | 6 | 2/2/2 |  |  | 201 | 50, 40, 50, 70, 60, 30 | A28 | 2 (A + B) |
@@ -400,27 +400,38 @@ Last hit of the auto combo: a big spinning roundhouse that launches and wall-bou
 
 <a id="heavy"></a>
 
-### `heavy`: rising uppercut launcher with the R fist
+### `heavy`: BURSTING UPPERCUT launcher with the R fist
 
-8 frames · phases 3/2/3 (startup f0–f2, active f3–f4, recovery f5–f7) · plays once · **CORE** · bodyHeight 218 · ms 40/35/30/50/70/70/60/30 · prompt A07 (2 images: f0–f4 + f5–f7)
+8 frames · phases 3/2/3 (startup f0-f2, active f3-f4, recovery f5-f7) · plays once · **CORE** · bodyHeight 218 ·
+ms 40/35/30/50/70/70/60/30 · prompt A07 (2 images: f0-f4 + f5-f7) · next version **v04**
 
-The launcher: a rising uppercut that knocks the opponent straight up for an air combo. The engine adds a small hop.
+He steps in, sinks into a deep coil with the R fist loaded low, then explodes upward: the legs drive, the hips lead
+the shoulders, the shoulders lead the fist, and the whole body rises off the floor behind a real uppercut.
 
-- **Strike target:** f3: R fist in the contact zone **x 180-208, y 58-86** (aim about x 194, y 72: driving up into the opponent's chin, forearm nearly vertical). f4: R fist in the zone **x 160-188**, above his head but still in front of his face; its top is the highest point of the strip (about y 22 at bodyHeight 218), inside the ADR zone y 22-46. The fist must stay IN FRONT of his body on the active frames: an uppercut that only goes straight up over his own head cannot hit anyone.
-- **Hair and cloth:** Hair spikes and tails flick UP on f3–f5 and drop on f6–f7.
+- **Strike target:** f3: R fist in **x 180-208, y 58-86**, aim about x 194, y 82, rising in front of his face with
+  the forearm nearly vertical. f4: R fist in **x 160-188, y 22-46**, above his forehead but still in front of his
+  face; its top (about y 22) is the highest pixel of the strip. The planted L knee and foot stay behind about x 172
+  on f3 and f4, so the packer's forward-strike rule finds only the fist.
+- **Smear:** allowed on f3 only (STYLE_GUIDE "Smears"): the R forearm and fist drawn as one solid tapered shape
+  stretched down along the path they came up, in the orange sleeve and skin colors, attached to the arm and entirely
+  below and behind the fist. No separate white or cream crescent: a detached arc is an effect (SPEC), and the packer
+  can put the hit box on it.
+- **Hair and cloth:** the headband tails swing down and back on f0-f1, stream back on f2-f3, flick up on f4-f5,
+  lift on f6 (falling) and settle on f7. The hair spikes squash 1 to 2 px on f1 and stretch 1 to 2 px on f4. The
+  jacket hem drags down on f4-f5 and lifts on f6.
+- **Scale:** the head and limb lengths match idle in every frame. Pack with an anatomy sidecar
+  (`raw/heavy_v04.json`, skull-to-chin per frame, as v03 did) so the raised fist does not shrink the strip.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `heavy_00` | startup | Anticipation crouch: knees bend deep, torso pitched forward about 24° and turned toward the viewer, R fist dropped low beside the R hip (cocked), L fist guarding forward at chest height. | focused, brows down |  |
-| f1 | `heavy_01` | startup | Deepest squash: knees bent about 90°, R fist at its lowest near the R knee, eyes looking up at the target's chin. | fierce |  |
-| f2 | `heavy_02` | startup | The explosion begins: legs driving straight, R fist rising forward past the belt, torso starting to rise. | fierce, mouth opening | QA: R fist ~x 176, y 140 |
-| f3 | `heavy_03` | **active** | IMPACT: stepping in and rising onto the toes (heels off the ground), hips driving up; R upper arm driving forward with the elbow bent about 90° and the forearm nearly vertical, so the fist rises at chin height well IN FRONT of his body (a true uppercut, not a straight punch), knuckles toward him; L arm pulled down and back to the hip. | shout | **Smear:** a solid tapered streak below and behind the fist, following its upward arc · QA: R fist x 194 ±8, y 72 (zone x 180-208, y 58-86) |
-| f4 | `heavy_04` | **active** | Follow-through: torso straightening and leaning back slightly, R arm extending up-forward at about 65°, fist above his head but still in front of his face; stretched up on the toes. | shout | QA: R fist x 160-188, top ~y 22 (highest point of the strip; ADR zone y 22-46) |
-| f5 | `heavy_05` | recovery | Peak: R arm still raised up-forward, fist no higher than in f4; body fully stretched on the toes, legs together. | shout, eyes closed | QA: fist top no higher than f4 (bodyHeight 218) |
-| f6 | `heavy_06` | recovery | Coming down: knees bending, R arm lowering to shoulder height. | focused |  |
-| f7 | `heavy_07` | recovery | Back in the stance. | determined | QA: within 1-2 px of idle f0 |
-
----
+| f0 | `heavy_00` | startup | STEP IN AND DROP: the L (lead) foot steps forward and plants, the stance about 15 px wider than idle; knees bending deep (about 60°); torso pitched forward about 25° and turned away from the target (R shoulder pulled back, more chest toward the viewer); R fist cocked low behind the R hip, elbow bent; L fist guarding in front of the chin. | focused, eyes on the target's chin | Tails swing down and back · QA: hips over the midpoint between the feet |
+| f1 | `heavy_01` | startup | COIL (the lowest frame): knees bent about 90°, hips sunk low, weight over the bent L leg; torso coiled further away (more of his back toward the viewer); R fist at its lowest beside the R knee, about shin height; L forearm forward and low as a guard; head low, eyes looking up at the target. | fierce, teeth gritted | Hair spikes squash 1-2 px · QA: the shortest frame (about 165-175 px) |
+| f2 | `heavy_02` | startup | DRIVE: legs pushing up, the R heel lifting and the R knee driving forward, hips swinging square to the target; the R fist sweeping up past the R knee and the belt in front of his body; the L arm starting to pull back. | fierce, mouth opening | Tails stream back · QA: R fist about x 166, y 142; head size equal to idle |
+| f3 | `heavy_03` | **active** | IMPACT: hips and shoulders fully rotated, the R shoulder leading; L leg braced and bent about 25°; R heel up, toes pivoting on the floor; R upper arm forward, elbow bent about 90°, forearm nearly vertical, so the fist rises at the opponent's chin height well IN FRONT of his face (a true uppercut, knuckles toward him); L fist pulled back to the L hip; head behind the fist. | shout | **Smear** (above) · QA: fist x 194 ±8, y 82 ±6; the fist is the right-most pixel; hair, tails and the L knee behind x 172 |
+| f4 | `heavy_04` | **active** | RISE: the R arm extends up and forward at about 65° (elbow slightly bent), the fist above his forehead but in front of his face; the body one stretched line from the R toes through the hips to the fist; both feet leaving the floor, toes pointed and under the hips; torso leaning back about 10°; L fist at the hip. | shout | Hair and tails flick UP · QA: fist x 160-188, top about y 22 (the highest pixel, inside y 22-46) |
+| f5 | `heavy_05` | recovery | PEAK, airborne (the frame held longest): body still stretched, the fist overhead and no higher than in f4; both legs hang below with the toes pointed under the hips, the L knee slightly bent; eyes up on the launched opponent. | fierce, mouth still open | Hair and tails float · QA: toes under the hips (no sideways jump from f4) |
+| f6 | `heavy_06` | recovery | DROP: the R arm coming down to shoulder height, the L fist rising toward the guard, knees bending, the feet reaching for the floor toes first. | focused | Tails lift (falling) · QA: close to `land` f0, which the engine plays right after touchdown |
+| f7 | `heavy_07` | recovery | Back in the stance (same as idle f0). | determined | QA: within 1-2 px of idle f0 in height, width and foot position |
 
 ## Air attacks
 
@@ -635,13 +646,15 @@ Tumbling through the air after big launches.
 
 Knockdown. The engine adds dust and sometimes a crater. ADR 0007 pose note: lying flat with the head toward screen-left, about 210 px long.
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f1 (the resting frame, shown on every knockdown), and f1 must flow into `getup` f0.
+
 - **Hair and cloth:** Hair spikes splay against the floor; tails flung up on f0 and lying flat on f1.
-- **QA:** Height about 96 px on f0 (shoulders and legs bounce up), lower on f1; length about 210 px. Head toward screen-left, feet toward screen-right, everything inside x 4-251.
+- **QA:** Height about 96 px on f0 (shoulders and legs bounce up), lower on f1 (about 60-70 px); length about 210 px. Head toward screen-left, feet toward screen-right, everything inside x 4-251. No `float above the floor line` warning for `down`.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
 | f0 | `down_00` | — | Ground impact: lying on his back, head toward screen-left and feet toward screen-right; his back has slammed into the floor and the shoulders and legs bounce up about 15° from flat; arms flung out from the shoulders. | pain: eyes squeezed shut, mouth open |  |
-| f1 | `down_01` | — | Lying flat on the back: arms out to the sides, L knee slightly raised, head turned toward the viewer. | out: eyes closed, dazed |  |
+| f1 | `down_01` | — | Lying flat on the back, seen side-on: head, back, hips and heels on the floor line; arms out along the floor at the sides, L knee only slightly raised, head turned toward the viewer. | out: eyes closed, dazed |  |
 
 <a id="ko"></a>
 
@@ -651,12 +664,14 @@ Knockdown. The engine adds dust and sometimes a crater. ADR 0007 pose note: lyin
 
 Final KO pose (held). ADR 0007 pose note: lying flat, head toward screen-left, about 210 px long.
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f0 (the KO and victory cameras look at it for seconds).
+
 - **Hair and cloth:** Hair splayed on the floor, tails lying flat.
-- **QA:** Height about 64 px, length about 210 px, inside x 4-251. No comedic eyes: he is knocked out cold.
+- **QA:** Height about 64 px (at most 73), length about 210 px, inside x 4-251. No comedic eyes: he is knocked out cold. No `float above the floor line` warning for `ko`.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `ko_00` | — | Lying flat on the back like down f1 but completely limp: arms loose at the sides, legs straight, head tilted toward the viewer. Head toward screen-left. | out: eyes closed, mouth slightly open |  |
+| f0 | `ko_00` | — | Lying flat on the back like down f1 but completely limp, seen side-on: head, back, hips, legs and heels on the floor line; arms loose along the floor at the sides, legs straight, head tilted toward the viewer. Head toward screen-left. | out: eyes closed, mouth slightly open |  |
 
 <a id="getup"></a>
 
@@ -700,20 +715,22 @@ Dizzy state. Played straight: dazed and unsteady, no comedic spiral eyes.
 
 <a id="charge"></a>
 
-### `charge`: powering up (loop)
+### `charge`: chakra power-up (loop)
 
-4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15
+4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · next version **v02**
 
-Holding the special button charges ki. The engine draws the orange flame aura around him: do NOT draw any aura.
-
-- **Hair and cloth:** An updraft blows the hair spikes, side locks and headband tails UP; they flicker between two shapes. The jacket hem lifts.
+Planted in a wide, low stance he strains to force his chakra out, shouting. Loop rules: the **feet are identical in
+all four frames** (soles on y 240); the shoulders and chest rise 2 to 3 px on f1-f2 and settle on f3; the fists
+tremble at most 1 to 2 px; the **head moves at most 2 px** (at 5 cycles a second a bigger head bob looks silly); the
+hair spikes, temple tufts, headband tails, jacket hem and pant cuffs change shape by 2 to 5 px in every frame, always
+blown upward. f3 must flow back into f0 without a pop. The engine draws the aura: none in the sprite.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `charge_00` | loop | Powering up: wide stance (feet well apart, knees bent about 35°), fists clenched at his sides pushed down and slightly out, elbows slightly bent, arms and shoulders tensed, chest out, torso arched back about 10°, head tilted up, shouting. | shout, eyes intense and narrowed | Hair/tails: spikes and tails blown up |
-| f1 | `charge_01` | loop | Same, whole body trembling 1 px to the left; arms flexed 1 px further out. | shout | Hair/tails: second flicker shape |
-| f2 | `charge_02` | loop | Same as f0 (tremble right). | shout | Hair/tails: first flicker shape |
-| f3 | `charge_03` | loop | Same as f1. | shout | Hair/tails: second flicker shape |
+| f0 | `charge_00` | loop | BRACE: feet planted wide (well wider than the shoulders, L foot forward), knees bent about 45°, hips sunk, weight centered; both fists clenched hard and pushed down and slightly out beside the hips, elbows nearly straight, forearms and shoulders tense; chest forward, head up and level. | fierce, teeth gritted | Hair, tufts and tails lifted by the updraft; jacket hem lifted |
+| f1 | `charge_01` | loop | SURGE: chest lifting, shoulders rising about 2 px and pulling back, fists pushed 1 to 2 px further down and out, chin up 1 px. | shout | Hair spikes stretched up 2 px, tails flung higher, jacket hem flared up |
+| f2 | `charge_02` | loop | PEAK: as f1, the whole body trembling 1 px to the right, the fists shaking 1 px, head tilted back about 5°. | shout, eyes intense and narrowed | Hair, tails, hem and pant cuffs at their highest (third shape) |
+| f3 | `charge_03` | loop | SETTLE: shoulders down 1 to 2 px, the shout narrowing; flows into f0. | shout, mouth half open | Tails and hem drop 2 px into a fourth shape |
 
 <a id="beamcharge"></a>
 

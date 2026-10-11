@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-10",
+  "userDecision": "approve everything",
+  "approved": {
+    "heavy": 6,
+    "charge": 2
+  },
+  "sheetSha256": "298b61fb19b9e0ef43ec3ad9053de0147975aec693fbfc0b0bb2173b54445eb6",
+  "animsSha256": "296f380b6bed366edac063d3fd080c3e09ef712aedf91a2408b777de6bc87c15",
+  "sheetMatchesReviewedPreview": true,
+  "animsMatchesReviewedPreview": true,
+  "packWarnings": 0,
+  "build": "PASS: documented Vite adapter,68modules",
+  "qaLimitations": "Previously recorded visual deviations accepted by user; no new technical fixes",
+  "integration": "Ready for Claude; not merged"
+}
