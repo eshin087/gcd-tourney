@@ -1,6 +1,5 @@
 # Art tracker
 
-> Naruto light4 v07 approved2026-10-11; full strict pack passes (exit0). Localized f0 hair patch,1/3 calls used; bodies/other7poses unchanged. Heavy10/throw5/airLight3_5 remain approved. [QA](characters/naruto/production/light4-local/QA.md).
 Sasuke second correction round: superDashv04 user approval applied. Selected new chargev09 and specialv10 pass; specialForwardv06 remains best with strict pop, v07/v08 rejected immutable. getupv04 unchanged for Claude manualQA. New sources need review; see characters/sasuke/production/SECOND_CORRECTION_ROUND.md.
 
 Sasuke post-approval correction checkpoint: charge v08/getup v04/special v06 (v07 rejected)/specialForward v05/superDash v04 need review. Strict pack retains four holds; all extra generation caps respected. Stronger special alternative v06 retained. See characters/sasuke/production/POST_APPROVAL_QA.md.
@@ -79,7 +78,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
-| 3 | idle | 8 | - | **yes** | 204 | approved | v04 | v02 | v04 seven-head candidate pending; v03 superseded after probe check.  User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
+| 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
 | 4 | run | 8 | - | **yes** | 204 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
@@ -563,60 +562,6 @@ fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); 
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
 ## Status legend
 
-## Naruto neutral production checkpoint (2026-10-11)
-
-All42 new sources attempted;32 packed candidates,10 technical holds. No new animation approved. Latest versions and individual gate/hold states: [production QA](characters/naruto/PRODUCTION_QA.md). ApprovedVersion values remain unchanged. Shared production standing target192.562px overrides historical table heights for these candidates.
-
-| Animation | Latest | Packed | Gate | Recommendation |
-|---|---|---|---|---|
-| airHeavy | v04 | v04 | ok | Candidate visual review |
-| airLight1 | v04 | v04 | ok | Candidate visual review |
-| airLight2 | v04 | v03 | old fallback: drift | Hold; correction required |
-| airLight3 | v04 | v02 | old fallback: pop | Hold; correction required |
-| airRecover | v03 | v03 | unmeasured | Manual scale verification required |
-| backDash | v03 | v03 | ok | Candidate visual review |
-| beamCharge | v06 | v06 | exempt | Review transformed anatomy separately |
-| beamFire | v08 | v08 | exempt | Review transformed anatomy separately |
-| block | v04 | v04 | ok | Candidate visual review |
-| charge | v05 | v04 | old fallback: drift | Hold; correction required |
-| dash | v03 | v03 | ok | Candidate visual review |
-| down | v03 | v03 | unmeasured | Manual scale verification required |
-| getup | v04 | v04 | unmeasured | Manual scale verification required |
-| guard | v04 | v04 | ok | Candidate visual review |
-| heavy | v08 | v07 | old fallback: pop | Hold; correction required |
-| hurtHigh | v02 | v01 | old fallback: unmeasured | Hold; correction required |
-| hurtLow | v02 | v02 | ok | Candidate visual review |
-| idle | v05 | v05 | ref | Candidate visual review |
-| intro | v02 | v02 | ok | Candidate visual review |
-| jumpFall | v03 | v03 | ok | Candidate visual review |
-| jumpSquat | v03 | v03 | unmeasured | Manual scale verification required |
-| jumpUp | v03 | v03 | ok | Candidate visual review |
-| ko | v06 | v06 | unmeasured | Manual scale verification required |
-| land | v03 | v03 | ok | Candidate visual review |
-| launched | v03 | v03 | unmeasured | Manual scale verification required |
-| light1 | v03 | v03 | ok | Candidate visual review |
-| light2 | v02 | v02 | ok | Candidate visual review |
-| light3 | v02 | v02 | ok | Candidate visual review |
-| light4 | v03 | v01 | old fallback: drift | Hold; correction required |
-| run | v05 | v05 | ok | Candidate visual review |
-| special | v05 | v05 | ok | Candidate visual review |
-| specialDown | v03 | v02 | old fallback: drift | Hold; correction required |
-| specialForward | v03 | v02 | old fallback: drift | Hold; correction required |
-| specialUp | v03 | v03 | ok | Candidate visual review |
-| spin | v03 | v03 | unmeasured | Manual scale verification required |
-| stagger | v02 | v02 | ok | Candidate visual review |
-| superDash | v02 | v02 | ok | Candidate visual review |
-| superPose | v04 | v04 | ok | Candidate visual review |
-| taunt | v02 | v01 | old fallback: unmeasured | Hold; correction required |
-| throw | v04 | v02 | old fallback: ok | Hold; correction required |
-| vanish | v02 | v02 | unmeasured | Manual scale verification required |
-| win | v04 | v04 | ok | Candidate visual review |
-
-## Naruto visual approval recorded (2026-10-11)
-
-User visual approval, 2026-10-11: "ok whats left to do? i approve everything and would like to see it live on the game". Applies to the42 latest reviewed checkpoint versions below. Technical clearance is separate:10 strict holds and8 unmeasured candidates remain. Shipping approvedVersion updates and fixed-name promotion are deferred until technical QA clears; no thresholds, baseline, or exemptions changed. No extra generation attempts inferred. Claude alone integrates and deploys production.
-
-[Exact42-version approval record](characters/naruto/VISUAL_APPROVAL_2026-10-11.md).
 | status | meaning | who sets it |
 |---|---|---|
 | `todo` | nothing generated yet for spec v2 | - |
