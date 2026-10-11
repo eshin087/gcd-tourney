@@ -153,7 +153,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 7 | charge | 4 | - | **yes** | 198 | approved | v11 | v02 | Title-style v11 candidate passes 48-color gate with measured auto-head fit 1.0638; all four native cells inspected. v10 archived; old v02 approval remains active pending full-set review. |
 | 7 | beamCharge | 3 | - | **yes** | 230 | approved | v05 | v01 | Title-style v05 candidate numeric head pass 1.03; palm above head and native cells inspected. v03/v04 archived; old v01 approved. |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v05 | v01 | Title-style v05 candidate numeric scale pass; palm x240–244,y90–113 needs Claude contact-zone validation against historical x212–234,y108–130. v03/v04 archived; old v01 approved. |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v13 | v03 | Title-style v13 candidate passes strict 48-color gate after third/final Part B correction; native strike hand remains connected. Contact validation pending. |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v05 | v01 | Title-style v05 candidate passes 48-color new-strip gate without clipping or exemption; v03 clipped/head-popped and v04 had enlarged head. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v05 | v01 | Title-style v05 candidate: actual atlas skull/torso/limb visual comparison supports a v05-only manual exemption of the airborne-tuck 0.58 head/0.55 feet proxy; this is not a numeric pass. v03/v04 archived. Old v01 remains approved pending final-set review. |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v05 | v01 | Title-style v05 third attempt passes 48-color new-strip gate without exemption/clipping; v03/v04 head/foot drift archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
@@ -162,8 +162,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | backDash | 3 | - | no | 207 | approved | v05 | v01 | Title-style v05 candidate corrects v04's enlarged head; 48-color new-strip gate passes without clipping/exemption and three actual atlas cells show push-off, airborne tuck and open-palm landing. Old v01 remains approved pending final-set review. |
 | 9 | superDash | 2 | - | no | 108 | approved | v05 | v01 | Title-style v05 numeric 48-color head pass with measured -24/-28 placement; native bounds 202×107/197×108 vs older ~230×120 geometry target. Claude geometry review held; old v01 approved. |
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v01 | Title-style v03 deep takeoff crouch: low-confidence probe requires v03-only manual anatomy acceptance after native packed face/torso/limb comparison; not a numeric pass. Old v01 remains approved pending final-set review. |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v04 | v02 | Title-style v04 five-frame airborne kick passes 48-color new-strip gate and native frame QA. |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v01 | Title-style v07 measured stitch and f2/f3 whole-pose offsets pass 48-color new-strip gate; native kick anatomy inspected. |
 | 9 | block | 2 | - | no | 204 | approved | v05 | v01 | Title-style v05 third attempt passes strict 48-color new-strip gate; v03/v04 enlarged-head variants archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
 | 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v01 | Title-style v03 candidate: measured head fit from 183 to 166 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows bent abdomen reaction and a matching rising stance. Old v01 remains approved pending full-set review. |
 | 9 | spin | 4 | - | no | 160 | approved | v03 | v01 | Title-style v03 source archived: diagnostic rotation correct, tucked torso/full-limb one-scale proof insufficient. No manual pass; old v01 approved and packed. |
@@ -174,13 +174,13 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | ko | 1 | - | no | 64 | approved | v05 | v02 | Title-style v04/v05 preserved original supine bent-knees KO but were rejected after three imagegen attempts: low-confidence anatomy and lying contact warnings. Original approved v02 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
 | 9 | intro | 4 | - | no | 210 | approved | v03 | v01 | Title-style v03 crossed-arm loop passes 48-color gate with measured auto-head fit 1.065; old v01 approved pending final-set review. |
 | 9 | taunt | 2 | - | no | 212 | approved | v03 | v01 | Title-style v03 red-eyed beckon passes 48-color new-strip gate without clipping/exemption; actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | Title-style v02 raw candidate fitted in diagnostic preview; fixed-name approved v01 unchanged; tight face crop is a composition review hold. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v01 | Title-style v02 raw candidate fitted in diagnostic preview; fixed-name approved v01 unchanged. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | Title-style v02 raw candidate fitted in diagnostic preview; fixed-name approved v01 unchanged. |
 
-| 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v10 | v02 | Title-style v10 measured Part B stitch and f2/f3 offsets pass new-strip gate; historical contact-zone validation held for Claude. |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v06 | v02 | Title-style v04-v06 archived: f5 fails exact airHeavy f0 endpoint and rotated/tucked head probe remains unresolved; old approved v02 packs. |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v01 | Title-style v04 planted counter guard passes 48-color new-strip gate; near-still hold is intentional. |
 | 9 | superPose | 4 | - | no | 208 | approved | v03 | v01 | Title-style v03 archived: native packed 5× eye crop cannot resolve required three-blade pattern. Original v01 remains approved and packed; art legibility retry needed. |
 
 ## killua
