@@ -79,7 +79,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 3 | idle | 8 | - | **yes** | 165 | approved | v07 | v02 | Title-style v07 candidate packed provisionally, technical hold: 6px loop seam. v06 technical rejection. Historic v02 remains user-approved only for prior direction; see title-style QA. |
 | 4 | run | 8 | - | **yes** | 162 | approved | v07 | v04 | Title-style v07 candidate packed with measured stitch and frame offsets; no new gate warning. Repeated stage/loop playback review pending. Historic v04 is the old user approval. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v06 | v01 | v06 source has 4 separate Part A poses but stitch cannot isolate x-overlap; assembly hold. Best assembled title-style v05 passes isolated scale but misses fist contact x/y. Historic v01 remains approved. |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style light2 seven-frame rear straight candidates and measured stitch QA; best assembled v05 passes isolated scale but misses the chin contact zone, and v06 Part A fails frame separation (ART-NAR-TITLE).
+
 - Added: Naruto title-style win v07 four-phase bent-elbow victory loop; measured anatomy and fist top pass isolated strict 48-color QA (ART-NAR-TITLE).
 
 - Added: Naruto title-style superPose v05 clean-cutout four-frame seal loop with isolated strict 48-color scale and loop QA (ART-NAR-TITLE).
