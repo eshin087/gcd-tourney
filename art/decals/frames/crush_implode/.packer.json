@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/crush_implode_v01_{A,B}.png",
-  "version": 1,
+  "sourceFile": "raw/crush_implode_v03_{A,B}.png",
+  "version": 3,
   "source": [
-    "decals/raw/crush_implode_v01_A.png",
-    "decals/raw/crush_implode_v01_B.png",
-    "decals/raw/crush_implode_v01.json"
+    "decals/raw/crush_implode_v03_A.png",
+    "decals/raw/crush_implode_v03_B.png",
+    "decals/raw/crush_implode_v03.json"
   ],
-  "sourceHash": "7cd244bb3d6353db43076a4be01eda44f0d5e9e1",
+  "sourceHash": "008b12541f5fa92a3b2b916906231aeb60e01c76",
   "cell": {
     "w": 256,
     "h": 256,
@@ -18,9 +18,9 @@
     ]
   },
   "files": {
-    "crush_implode_00.png": "b0fde2d429d08236fa92f249c4f0000dee0d0ee9",
-    "crush_implode_01.png": "251857d732c11e9ddc5ae25fc28a15fd9bbc80bb",
-    "crush_implode_02.png": "ceb7a8c203ddbcf73ba89bd7d68c77cbb3b74f54",
-    "crush_implode_03.png": "324b3133ba731169edcb0280d2585b49c55d56f2"
+    "crush_implode_00.png": "52512ae217cc8cde34e84b10cbec8d121dc2c0c4",
+    "crush_implode_01.png": "4ac023ab336af25a22bb9ae294edd706f55211a4",
+    "crush_implode_02.png": "9c13fbb5455a5d3c2172f4dbde4e31ad0b9a90d8",
+    "crush_implode_03.png": "17eeebe265c9b71c5c4fd3a0dac3a0e773a9fbdd"
   }
 }

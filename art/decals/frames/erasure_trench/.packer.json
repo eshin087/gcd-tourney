@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/erasure_trench_v01_{A,B}.png",
-  "version": 1,
+  "sourceFile": "raw/erasure_trench_v02_{A,B}.png",
+  "version": 2,
   "source": [
-    "decals/raw/erasure_trench_v01_A.png",
-    "decals/raw/erasure_trench_v01_B.png"
+    "decals/raw/erasure_trench_v02_A.png",
+    "decals/raw/erasure_trench_v02_B.png",
+    "decals/raw/erasure_trench_v02.json"
   ],
-  "sourceHash": "e94f39c979d1b499f4a43ea3fb69df148ce33b23",
+  "sourceHash": "9994262661ca76fa9d82679344ff29801e34069a",
   "cell": {
     "w": 512,
     "h": 256,
@@ -17,8 +18,8 @@
     ]
   },
   "files": {
-    "erasure_trench_00.png": "d1885053caf0f9e08450a406a76752ba5c89de6c",
-    "erasure_trench_01.png": "4141aeaa920f2e3055575bb5b4486921ab70b8ee",
-    "erasure_trench_02.png": "673c149f5f7da4b5564bb4d11da8156681ad2411"
+    "erasure_trench_00.png": "c4fd7036fbc55346873c3c70b4bef5af8fbdfe07",
+    "erasure_trench_01.png": "1d32d21d168d8c635fc16ebaafdc6be05f1689fe",
+    "erasure_trench_02.png": "a88658172208f6f0d080d5aacb5aa810782ee9a8"
   }
 }
