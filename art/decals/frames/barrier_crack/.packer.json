@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/barrier_crack_v02_{A,B}.png",
+  "version": 2,
+  "source": [
+    "decals/raw/barrier_crack_v02_A.png",
+    "decals/raw/barrier_crack_v02_B.png",
+    "decals/raw/barrier_crack_v02.json"
+  ],
+  "sourceHash": "1025c4bb58b73b45d3002f973c85fee1482ce585",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "barrier_crack_00.png": "852ea4e2ad1621db4a53298042bd30b2c26d9519",
+    "barrier_crack_01.png": "ea98d6eaec06953d2fc3d4c76b487d66618e2cd1",
+    "barrier_crack_02.png": "73817e71614f4f518bb9d42e1e06edbaf8efb834",
+    "barrier_crack_03.png": "74213f10532e7bb3ac311f708834d88726083414",
+    "barrier_crack_04.png": "3f746c9bc668a42e718416d3ef4defdf319a7e44",
+    "barrier_crack_05.png": "59eebdccbd32785535a1b070eb8741fee5d69598"
+  }
+}

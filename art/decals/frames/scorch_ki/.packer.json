@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/scorch_ki_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/scorch_ki_v01_A.png",
+    "decals/raw/scorch_ki_v01_B.png",
+    "decals/raw/scorch_ki_v01.json"
+  ],
+  "sourceHash": "c39d334fc9fabd2670e8e296254083b1cb25704a",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "scorch_ki_00.png": "1157584b64ad73690c43e0b4258aa80924e42b5e",
+    "scorch_ki_01.png": "b4ea457a245651fc25aa8ca43033c8df7477f881",
+    "scorch_ki_02.png": "705a53d6d6b23267d4e9b8b89fef7d379c9ce288",
+    "scorch_ki_03.png": "48d739cb760b11dc86482788be52eecc04f5aefd"
+  }
+}
