@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style win v07 four-phase bent-elbow victory loop; measured anatomy and fist top pass isolated strict 48-color QA (ART-NAR-TITLE).
+
 - Added: Naruto title-style superPose v05 clean-cutout four-frame seal loop with isolated strict 48-color scale and loop QA (ART-NAR-TITLE).
 
 - Added: Naruto title-style throw v09 candidate with old v02 hand edits preserved; isolated scale passes, but release hand overshoots the gameplay contact zone and remains held (ART-NAR-TITLE).

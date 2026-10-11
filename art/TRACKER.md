@@ -98,7 +98,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 8 | land | 2 | - | **yes** | 174 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 8 | win | 4 | - | **yes** | 212 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 8 | win | 4 | - | **yes** | 193 | approved | v07 | v03 | Title-style v07 bent-elbow victory loop passes isolated strict 48-color pack, fist top y48; historic v03 remains approved. |
 | 9 | backDash | 3 | - | no | 180 | approved | v04 | v01 | Title-style v04 passes isolated 48-color scratch pack and native anatomy review; historical v01 remains the old approval. |
 | 9 | superDash | 2 | - | no | 120 | approved | v03 | v01 | Title-style v03 passes isolated 48-color scratch pack with knees lowest; final review pending, historical v01 remains approved. |
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
