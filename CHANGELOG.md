@@ -12,6 +12,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Fixed: the results screen no longer shows a second, smaller winner sprite or covers the winner (ENG-063): the match ends on a cut to the winner alone (the KO'd loser leaves the shot), whole and undimmed beside a slim side panel (a bottom bar in narrow windows) with the WINNER tag, name and subtitle, on a steady swaying hero camera that never mirrors the sprite; clicking TITLE there (or QUIT TO TITLE in pause) now reaches the title instead of mode select.
+- Art handoff: Killua heavy v04 fixes frames 4–6 arm/hand flow in PR #30; update review preview links, keep all new art unapproved.
 
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
@@ -225,6 +226,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- EXIT TRAINING lands on SELECT MODE instead of a dead pause menu (undefined `MODE_ORDER`), Esc on the first character-select pick works again, and every return to the menus goes through `Game.toMenu()`, which falls back to the title if a screen fails to open (ENG-062).
 - Air combos no longer drop on the art packs: a launched pose leans back, so `airLight2` whiffed on Naruto and the
   `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and
   during the next move's startup, and the spike's box pad is wider; the air string connects ~97 % across all 16

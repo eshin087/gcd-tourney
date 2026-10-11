@@ -84,6 +84,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       sways. A window narrower than 3:4 gets a bottom bar with the winner above it. Rematch, character select
       and title bring both fighters back with no leftover framing shift.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
+- [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
+      any character select returns to SELECT MODE on that mode.
 - [ ] `npm run build` passes.
 
 ## Feature checklists

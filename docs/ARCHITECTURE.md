@@ -243,7 +243,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 The HUD and menus are **DOM** (`#ui`) over the WebGL canvas (`#app`), styled in `src/style.css`. Menus use a
 tiny `el()` helper and a generic `list()` with keyboard/gamepad navigation (`Menus.handle(events)`).
 The menus never touch game state directly. They call `Game` methods (`startMatch`, `startTraining`,
-`pause`, `quitToTitle`).
+`pause`, `quitToTitle`). Every way back from a match to the menus (`exitTraining`, `quitToTitle`, results →
+CHARACTER SELECT) goes through `Game.toMenu(open)`: it tears the match down, hides the old screen, then opens the next
+one, falling back to the title (with a `[menus]` console error) if that throws. The SELECT MODE rows live in one
+`MODES` table in `menus.js`, which `modeIndex()` reads too, so a screen returns to the right row.
 
 ## Audio
 

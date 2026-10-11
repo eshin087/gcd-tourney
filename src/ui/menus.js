@@ -56,6 +56,17 @@ export const MOVES_HTML = `
 const DUMMY_MODES = [['stand', 'STAND'], ['guard', 'GUARD'], ['jump', 'JUMP'], ['cpu', 'CPU']];
 const NO_COVER = Object.freeze({ x: 0, y: 0 }); // resultsCover() off the results screen
 
+// SELECT MODE rows in display order. modeIndex() reads the same table, so a new row can't desync the
+// cursor a screen returns to (a hard-coded index went stale when CPU VS CPU was added). The ids of the
+// first three rows are the charSelect / startMatch mode strings.
+const MODES = [
+  { id: 'solo', label: 'VS CPU', sub: 'fight the computer' },
+  { id: 'versus', label: '2 PLAYERS', sub: 'same keyboard or two gamepads' },
+  { id: 'cpu', label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out' },
+  { id: 'training', label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind' },
+  { id: 'sprites', label: 'SPRITE LAB', sub: 'preview & export sprite sheets' },
+];
+
 export class Menus {
   constructor(root, game) {
     this.game = game;
@@ -190,7 +201,7 @@ export class Menus {
 
   // Row of a mode on the SELECT MODE list (for going back to it with the cursor in place).
   modeIndex(mode) {
-    return Math.max(0, MODE_ORDER.indexOf(mode));
+    return Math.max(0, MODES.findIndex((m) => m.id === mode));
   }
 
   modeSelect(index = 0) {
@@ -198,13 +209,14 @@ export class Menus {
     this.screen = 'mode';
     this.root.classList.add('panel-screen');
     this.root.append(el('div', 'screen-title', 'SELECT MODE'));
-    const { box, ctrl } = this.list([
-      { label: 'VS CPU', sub: 'fight the computer', action: () => this.charSelect('solo') },
-      { label: '2 PLAYERS', sub: 'same keyboard or two gamepads', action: () => this.charSelect('versus') },
-      { label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out', action: () => this.charSelect('cpu') },
-      { label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind', action: () => this.game.startTraining() },
-      { label: 'SPRITE LAB', sub: 'preview & export sprite sheets', action: () => window.open('/sprites.html', '_blank') },
-    ], { index, back: () => this.title() });
+    // rows without an entry here are fight modes: they go to character select
+    const act = {
+      training: () => this.game.startTraining(),
+      sprites: () => window.open('/sprites.html', '_blank'),
+    };
+    const { box, ctrl } = this.list(
+      MODES.map((m) => ({ label: m.label, sub: m.sub, action: act[m.id] || (() => this.charSelect(m.id)) })),
+      { index, back: () => this.title() });
     this.root.append(box);
     this.ctrl = ctrl;
   }
