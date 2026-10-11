@@ -124,9 +124,9 @@ super" reads as one long combo (Light ×3 into Speed of Lightning: 12 hits).
 - CPU vs CPU combos are longer and different every match (soak numbers in docs/TESTING.md); rounds get somewhat
   shorter. Under the true-combo rules of ADR 0022 and the current hitstun decay a combo without meter tops out around
   10-11 hits; 12+ needs bars (vanish chains, a grind special) or a super carried on, so highlights come from those.
-- Link checks read the art's hit boxes, so art with a strike box that misses (Sasuke's light2 box sits behind his
-  body; Gojo's light2 and heavy boxes pass over a crouched Killua) makes the composer route around those links. Fixing
-  those boxes (art/hitboxes) lets them back in.
+- Link checks read the art's hit boxes, so art with a strike box that misses makes the composer route around that
+  link (Gojo's light2 and heavy boxes, at head height, pass over Killua's short hurt poses; Sasuke's old light2 box
+  behind his body, fixed by the newer art). Fixing such boxes (art/hitboxes) lets the links back in.
 - IMPOSSIBLE plays the `optimal` persona: about the same hits per combo as before; damage per combo within about +10 %
   (more where the old brain dropped links the art doesn't allow).
 - New contracts: `JUGGLE`; fighter fields `wbCount`, `gbCount`; `Game.onWallBounce(f, axis, sign, n)`,

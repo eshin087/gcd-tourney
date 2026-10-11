@@ -124,7 +124,7 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. The victim ground-bounces.
 - [ ] Bounce budget (ADR 0026): at most 3 wall bounces (air stun 32 / 28 / 22) and 2 ground bounces (30 / 24) per
       combo; a 4th wall-bounce hit just knocks them down. Lab **Handball (3 wall bounces)**: WALL BOUNCE!, WALL BOUNCE
-      ×2!, HANDBALL!, chips WALL ▸ DASH ▸ WALL ▸ VANISH ▸ WALL beside the counter, all four fighters (9 hits; Sasuke 8).
+      ×2!, HANDBALL!, chips WALL ▸ DASH ▸ WALL ▸ VANISH ▸ WALL beside the counter, 9 hits with each of the four fighters.
       **Vanish ping-pong**: two vanishes, VANISH ×2!, a gold (true) counter.
 - [ ] Combo ticker and rating (every match): techniques as chips beside the combo counter (clear of the special-name
       callout under it); when a combo ends, GREAT (10+), AMAZING (15+), LEGENDARY (20+) or STYLISH! (4+ different
@@ -385,17 +385,17 @@ throttles timers, so keep a console call awaiting (or the pane visible) while it
 **Combo composer targets** (ADR 0026, after changes to `aiCombo.js`, `JUGGLE`, hit boxes or MasterBrain), over 10+
 matches with all four fighters:
 
-| `comboStats()` | target | 2026-10-10 (2 × 12 matches) |
+| `comboStats()` | target | 2026-10-10 (4 soaks, 10-12 matches each) |
 |---|---|---|
 | `links.connected` (planned links that landed) | ≥ 85 % | 98-99 % |
 | `blue` (combos with a gap) | ~0 (the composer only plans true links) | 0-1 % |
-| `endedBy.tech` share | < 15 % | 12-17 % |
-| `handballMatches` (a combo with 2+ wall bounces) | ≥ 50 % of matches | 75 % |
-| `vanishPerMatch` (in-combo vanishes) | ≥ 1 | 4.1-4.3 |
-| `distinctRoutes` / `repeatPrev` | ≥ 80 % / ~0 | 86-90 % / 0 |
-| `comboShare` (fight time in combos) | 35-55 % | 48 % |
-| `rounds.avg` | 30-75 s | 36 s (min 20) |
-| `long12PerMatch` (combos of 12+ hits) | ≥ 1 per match (design goal) | 0.25-0.33: not met. Without meter a true combo tops out near 10-11 hits under the current decay (ADR 0022); 12+ comes from a grind special (Rasenshuriken, Lapse: Blue), a vanish chain or a super carried on |
+| `endedBy.tech` share | < 15 % | 12-17 % (bursts end another 6-9 %) |
+| `handballMatches` (a combo with 2+ wall bounces) | ≥ 50 % of matches | 60-75 % |
+| `vanishPerMatch` (in-combo vanishes) | ≥ 1 | 2.7-4.3 |
+| `distinctRoutes` / `repeatPrev` | ≥ 80 % / ~0 | 85-91 % / 0 |
+| `comboShare` (fight time in combos) | 35-55 % | 47-53 % |
+| `rounds.avg` | 30-75 s | 33-36 s (shortest 20-24 s) |
+| `long12PerMatch` (combos of 12+ hits) | ≥ 1 per match (design goal) | 0.25-0.33 (longest 16): not met. Without meter a true combo tops out near 10-11 hits under the current decay (ADR 0022); 12+ comes from a grind special (Rasenshuriken, Lapse: Blue), a vanish chain or a super carried on |
 
 `comboLog[i].steps` lists each decision of a combo with the edges that were possible and their weights, which is the
 place to start when a route ends early.
