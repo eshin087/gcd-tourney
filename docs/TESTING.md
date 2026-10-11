@@ -163,9 +163,10 @@ Run this for every new or re-packed character (`?fight=<id>,<other>&art=custom&d
 - [ ] The feet stay planted between idle, run and attacks (pivot consistent), with no jitter in loops.
 - [ ] Body height matches the other fighters (or its ADR 0010 `standingBodyPx`), and design and palette are
       consistent across animations.
-- [ ] Scale gate: `node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale` exits 0 (or every finding is a
-      known, briefed ART-SCALE item), `npm run scale -- <id>` heads sheet looked at, and `?scaleaudit` in a real match
-      logs only the strips the packer flagged.
+- [ ] Scale gate: `node tools/pack-sprites.mjs <id> --quantize 48` exits 0 (unapproved strips are strict; every `~`
+      finding on an approved strip is a known, briefed ART-SCALE item; `--strict-scale` exits 0 only once all pass),
+      `npm run scale -- <id>` heads sheet looked at, and `?scaleaudit` in a real match logs only the strips the packer
+      flagged.
 - [ ] Proportions stay at about 6.5 heads (spec v2) in every animation, with no chibi frames, and every
       packed animation comes from its approved version in `art/REVIEW.md` (the packer report names the
       `_vNN` file it used).

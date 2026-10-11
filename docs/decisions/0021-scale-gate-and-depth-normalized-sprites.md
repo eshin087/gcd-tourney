@@ -45,17 +45,26 @@ correspondence), so the art itself has to be right, and checked by a machine eve
    **12 points inside the strip**. Verdicts: `ok`, `uniform` (head and feet off together: the strip is at the wrong
    size), `drift` (the head is off, the body is not: a drawing problem), `pop` (two sizes in one strip),
    `unmeasured` (tumbling, lying, tucked and afterimage poses, or no head found), `exempt` (a written reason in the
-   manifest: `scaleExempt`, `scaleExemptFrames`). Thresholds are data (`spec.scaleGate`).
+   manifest: `scaleExempt`, `scaleExemptFrames`). An exemption names the strip version it was written for
+   (`scaleExemptVersion`) and covers only that drawing: a redraw is measured again, with a warning, until someone
+   re-exempts it on purpose, so "strict for new versions" cannot be bypassed by an old exemption. Thresholds are data
+   (`spec.scaleGate`).
 3. **Staged strictness** (user decision): unapproved strips (a candidate version newer than `approvedVersion`, or any
-   strip of a new fighter) fail the pack (exit code 1); approved strips that are off are listed as findings until
-   they are fixed (ART-SCALE-02), so art that already ships never blocks a pack. `--strict-scale` (and
-   `"scaleGate": "strict"` per character) makes every strip strict; a fighter is flipped to strict once all his
-   strips pass. The art pipeline requires a strip to pass `--strict-scale` before its review row is filed.
+   strip of a new fighter) fail the pack; approved strips that are off are listed as findings until they are fixed
+   (ART-SCALE-02), so art that already ships never blocks a pack. **Strict means refuse**: a strict strip that fails
+   writes nothing for that fighter (no `sheet.png`, `anims.json` or `frames/` write-back; the last good pack stays)
+   and exits 1, so an off-size strip cannot reach a commit or a deploy even when the exit code is missed.
+   `--strict-scale` (and `"scaleGate": "strict"` per character) makes every strip strict; it is the check before a
+   fighter is flipped to strict, once all his strips pass. The art pipeline requires a new strip to pass the default
+   pack (`node tools/pack-sprites.mjs <id> --quantize 48`, exit 0, no `scale gate:` line for it) before its review
+   row is filed; `--strict-scale` would also fail on approved strips that are not fixed yet.
 4. **Auto head fit, opt-in, for `uniform` strips only**: the sidecar `anatomy: { "measurement": "auto-head" }` (or
-   `--fit-head`) rescales a raw strip by 1/head (clamped 0.75-1.33) at import. The factor is kept in the frames/
-   marker (`autoHead`), so it is measured once and repeat packs are byte-identical; `hitboxes.json` boxes and hand
-   anchors of that animation are scaled about the pivot (`"_scale"` records the fit they were measured at). Drift
-   and pops are never auto-fitted: rescaling cannot fix a drawing. A fit is still a new version the user approves.
+   `--fit-head`) rescales a raw strip by 1/head (clamped 0.75-1.33) at import. An applied factor is kept in the frames/
+   marker (`autoHead`), so it is measured once and repeat packs are byte-identical; a request that was not fitted is
+   not recorded and is measured again on every pack while it stands (a new exemption or `headColors` can still make
+   it fit); `hitboxes.json` boxes and hand anchors of that animation are scaled about the pivot (`"_scale"` records
+   the fit they were measured at). Drift and pops are never auto-fitted: rescaling cannot fix a drawing. A fit is
+   still a new version the user approves.
 5. **Stitching with a measured factor** (TOOL-008, `npm run stitch`): both parts are measured against the idle and
    the bigger one is scaled down to match; a manual factor needs a written reason.
 6. **Evidence for every review**: `npm run scale` writes `art/scale/heads-<id>.png` (every frame's head next to the
@@ -86,12 +95,16 @@ correspondence), so the art itself has to be right, and checked by a machine eve
   heavier; a phase 2 if the blob probe stays noisy. Exemptions with reasons cover the known false readings today.
 - **Strict for every strip at once**: would stop `npm run sprites` for all four approved fighters until ART-SCALE-02
   is done. Rejected for staged strictness.
+- **A strict failure only sets the exit code** (the first version of this gate): the failing strip was still written
+  into `sheet.png`, so a missed exit code shipped it. **Pack the approved version of a failing strip instead**: keeps
+  the fighter's other new strips previewable, but needs a second gather per strip and quietly ships something other
+  than what was packed for. Refusing the whole fighter's pack is simpler and impossible to miss.
 - **Keep true perspective** or **half compensation**: the user chose full compensation in the fight cameras.
 
 ## Consequences
 
-- No strip can ship off-size unnoticed: new art fails the pack, approved art carries a visible finding and a brief
-  (`art/scale/SCALE_FIX_BRIEF.md`, ART-SCALE-02) until it is redrawn, re-stitched or re-imported.
+- No strip can ship off-size unnoticed: new art is refused by the pack, approved art carries a visible finding and a
+  brief (`art/scale/SCALE_FIX_BRIEF.md`, ART-SCALE-02) until it is redrawn, re-stitched or re-imported.
 - The head and feet numbers are proxies. A raised arm in hair colours, an afterimage or a slash arc can misread; the
   answer is an exemption with a reason plus the heads contact sheet, never a silent pass. Fighters whose hair shares
   body colours need `headColors` (Naruto: the hair yellow; Sasuke: his navy shades).

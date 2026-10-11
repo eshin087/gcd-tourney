@@ -191,7 +191,7 @@ Lessons from the first four fighters:
   2026-10-10). Stitch with `npm run stitch` (a measured factor), never a factor picked by eye.
 - **Every strip at the idle's size.** Killua grew and shrank in fights (2026-10-10) because strips were packed
   12-34 % off his idle: a fist above the head shrinks a whole strip, a redraw with a smaller hair mass shrinks his
-  head. The packer's scale gate now measures every frame; a new strip must pass `--strict-scale`.
+  head. The packer's scale gate now measures every frame; a new strip must pass it (a failure writes nothing).
 - **Commit after every approved step, in your branch.** Never leave work uncommitted in the main folder: on
   2026-10-10 a whole session of uncommitted art had to be split into PRs by hand before anything else could merge.
 - **UI images ship only after approval:** the approved `raw/ui_<name>_vNN.png` is copied to `ui/<name>.png` and
@@ -201,7 +201,7 @@ Lessons from the first four fighters:
 
 ```bash
 npm run sprites <id>
-node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale   # the scale gate, strict for every strip
+node tools/pack-sprites.mjs <id> --quantize 48                  # the scale gate: exit 0, no `scale gate:` line
 npm run scale -- <id>                                           # art/scale/heads-<id>.png for the REVIEW row
 ```
 

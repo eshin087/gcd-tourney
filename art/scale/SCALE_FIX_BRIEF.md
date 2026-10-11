@@ -13,20 +13,25 @@ brief lists every approved strip it found off, with the fix. Contract and verdic
   strip is brought to the idle, never the idle to the strips.
 - **Order**: batch 1 = Killua (the user's complaint), batch 2 = Naruto, batch 3 = Sasuke. One art PR per batch
   (`npm run pr -- start art/scale-fix-<id> --full`). Gojo has no batch: his whole redraw (ART-GOJ-BUILD, PR #24) must
-  pass `--strict-scale` inside that PR.
+  pass the gate inside that PR (see Gojo below).
 - **Not in this brief (owned by open art PRs, which must pass the strict gate themselves)**: Naruto `beamCharge`,
   `beamFire` (PR #25), `heavy`, `charge` (PR #29); Sasuke `heavy`, `charge` (PR #28), `light2`, `light3`, `special`
   (PR #27); Killua `heavy`, `charge` (PR #30), `beamCharge` (PR #26); Gojo everything (PR #24).
 - **Every fix is a new `_vNN`** (next free numbers are in the tables) with its own REVIEW row, and waits for the user's
   `approve vNN`. Never overwrite, reuse or delete a version. The gate does not approve art.
-- **Done means**, per strip: `node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale` shows the strip `ok`
-  (no `scale gate:` line for it), `npm run scale -- <id>` rewrote `art/scale/heads-<id>.png` and the REVIEW row links
-  it, and `npm run lineup` is attached to the batch (its rows include guard, charge, airLight1 and hurtHigh). Strips
-  of the same fighter that are not yet fixed still print `~` findings: that is expected until the batch is done.
+- **Done means**, per strip: `node tools/pack-sprites.mjs <id> --quantize 48` exits 0 and shows the strip `ok` (no
+  `scale gate:` line for it; the new version is a candidate, so it is strict there, and a failure writes nothing for
+  the fighter). Do not use `--strict-scale` for this: it also fails on every approved strip not fixed yet.
+  `npm run scale -- <id>` rewrote `art/scale/heads-<id>.png` and the REVIEW row links it, and `npm run lineup` is
+  attached to the batch (its rows include guard, charge, airLight1 and hurtHigh). Strips of the same fighter that are
+  not yet fixed still print `~` findings: that is expected until the batch is done.
   After the user approves, run `npm run scale` once more and commit `art/scale/scale-baseline.json` with the batch.
 - **Exemptions**: if the heads sheet shows the probe reading something that is not the head (an arm over it, a slash
-  arc in hair colours, an afterimage), add `"scaleExemptFrames": { "<frame>": "<reason>" }` to that animation in
-  `art/manifest.json` and say so in the REVIEW row. Never exempt a head that is really small.
+  arc in hair colours, an afterimage), add `"scaleExemptFrames": { "<frame>": "<reason>" }` and
+  `"scaleExemptVersion": <the new version>` to that animation in `art/manifest.json` and say so in the REVIEW row.
+  Never exempt a head that is really small. An exemption covers only the version it names: a new version of an
+  exempt strip is measured in full (with a `scale:` warning) until you check its heads sheet and move
+  `scaleExemptVersion` to it on purpose.
 
 ## The three routes
 
@@ -35,13 +40,17 @@ wrong size). The raw pixels are fine; the packer refits them.
 
 1. Copy the approved raw to the next free version: `raw/<anim>_vNN.png` -> `raw/<anim>_vMM.png` (same pixels).
 2. Write `raw/<anim>_vMM.json`: every key of `raw/<anim>_vNN.json` (if any) **except** `anatomy` and
-   `calibrationNotes`, plus `"anatomy": { "measurement": "auto-head" }`.
+   `calibrationNotes`, plus `"anatomy": { "measurement": "auto-head" }`. If the animation has a scale exemption in
+   the manifest (Killua airHeavy, specialUp; Sasuke block), the same pixels hide the head the same way: set its
+   `"scaleExemptVersion"` to MM before packing, so the fit is measured on the same frames.
 3. If the table says **frames edited**, `frames/<anim>/` holds hand edits that would win over the new version: move the
    folder to `production/previous-frames/<anim>_vNN/` (that is where earlier frames are kept), then check the new
    frames for the specks the edit had removed (fix them in a `frames/` touch-up, noted in the REVIEW row).
 4. `npm run sprites <id>`: the report notes `auto-head fit xF (head H, feet F of idle)`; then
-   `node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale`. A clip or margin warning for the fitted strip
-   means a pose is too big at the idle's size: switch that strip to route C.
+   `node tools/pack-sprites.mjs <id> --quantize 48` (exit 0). A clip or margin warning for the fitted strip means a
+   pose is too big at the idle's size: switch that strip to route C. `auto-head: verdict ... - not fitted` means the
+   probe does not see one uniform size error (a misread frame, a pop): fix that first; the request stays and is
+   measured again on the next pack.
 5. `hitboxes.json` boxes and hand points of that animation are scaled about the feet automatically (a note says so):
    check them in the test lab (ANIMATIONS tab), correct them if needed and set `"_scale": F` in that animation's block.
 6. REVIEW row: "same pixels as vNN, auto-head fit xF (head H -> 1.00 of the idle)".
@@ -132,8 +141,8 @@ by eye next to the fixed hurt strips and, if they still look small, add them as 
 | hurtLow | v01 | pop | 1.01 / 1.23 | 1.03 1.01 0.91 | check, then C | hurtLow_v02 | borderline (12.1 points); f2 reads slightly small |
 | throw | v02 | drift | 0.94 / 1.06 | 0.94 0.94 0.94 0.93 | check | - | borderline (6 %); frames edited; leave unless it looks small |
 
-Exempt already (manifest): `win` f1-f2 (the raised fist covers the hair), `specialDown` f0-f1 (the bowed head shows
-its crown).
+Exempt already (manifest, at the approved version): `win` f1-f2 (the raised fist covers the hair), `specialDown` f0-f1
+(the bowed head shows its crown).
 
 ## Batch 3: Sasuke (reference: idle v01; his head colours are declared: navy hair shades)
 
@@ -157,13 +166,15 @@ its crown).
 | light4 | v01 | drift | 0.92 / 1.20 | 0.99 0.93 0.92 0.92 0.93 0.90 0.88 0.89 | C | light4_v02 | a slow shrink across the strip (the second part small) |
 | airHeavy | v02 | pop | 1.14 / 1.71 | 1.16 0.95 1.14 1.18 - 0.95 (f4 exempt) | check, then B or C | airHeavy_v03 | the stitch check cannot compare its parts (after 1.12): look at f1 and f5 on the heads sheet first |
 
-Exempt already (manifest): `guard` and `beamCharge` (arms crossed or raised in hair shades), `jumpUp` f0, `block` f1,
-`airHeavy` f4, `specialUp` f4-f5.
+Exempt already (manifest, at the approved version): `guard` and `beamCharge` (arms crossed or raised in hair shades),
+`jumpUp` f0, `block` f1, `airHeavy` f4, `specialUp` f4-f5. `jumpUp_v02` (route C) and `airHeavy_v03` are new drawings:
+they are measured in full, and f0 / f4 are re-exempted only if the heads sheet shows the same misread.
 
 ## Gojo
 
-No batch here. ART-GOJ-BUILD (PR #24) redraws all 42 animations; every strip must pass
-`node tools/pack-sprites.mjs gojo --quantize 48 --strict-scale` against his approved compact head (idle head 31 x 19 px,
-hair 30 px wide). Today's outliers not to repeat: beamFire +17 %, superDash +18 %, block +14 %, run +8 %, dash +10 %,
-throw -11 %, airLight1/2 -8 %; specialUp f2-f3 and vanish are afterimage frames (exempt them with a reason if the redraw
-keeps the afterimages).
+No batch here. ART-GOJ-BUILD (PR #24) redraws all 42 animations; every redrawn strip is a candidate and must pass
+`node tools/pack-sprites.mjs gojo --quantize 48` against his approved compact head (idle head 31 x 19 px, hair 30 px
+wide). Once all 42 are redrawn and approved, `--strict-scale` must exit 0 too; then set `"scaleGate": "strict"` on
+him. Today's outliers not to repeat: beamFire +17 %, superDash +18 %, block +14 %, run +8 %, dash +10 %, throw -11 %,
+airLight1/2 -8 %; specialUp f2-f3 and vanish are afterimage frames (exempt them with a reason and the new version if
+the redraw keeps the afterimages).

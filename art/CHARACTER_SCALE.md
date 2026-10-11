@@ -155,7 +155,7 @@ the head to reach a number": naming another fighter in a prompt can leak his fea
 
 - Measure every candidate pose before final approval. Save skull crown and chin coordinates, the measured axis length, orientation/occlusion notes, and source version/hash. If either landmark is obscured, mark the measurement uncertain and compare another stable landmark; do not invent a precise value.
 - Versioned raw sidecars can provide `anatomy: { measurement: "skull-to-chin", targetHeadPx: 31, sourceHeadPx: [...] }`, with one independently checked source measurement per frame. The packer uses target/source instead of pose-bounds normalization. Cached frames retain that scale; changed sidecars invalidate the source cache.
-- `anatomy: { "measurement": "auto-head" }` instead lets the packer measure: it packs the strip as usual, measures it with the scale gate and, only when the verdict is `uniform`, rescales it from the raw by 1/head (clamped 0.75-1.33). The factor is stored in the `frames/<anim>/.packer.json` marker, so it is measured once; `hitboxes.json` boxes and hand anchors of that animation are scaled about the pivot with it (`"_scale"` records the fit they were measured at). By-eye `sourceHeadPx` estimates (Killua's hurtHigh/hurtLow/ko) packed 16-17 % small: prefer `auto-head`.
+- `anatomy: { "measurement": "auto-head" }` instead lets the packer measure: it packs the strip as usual, measures it with the scale gate and, only when the verdict is `uniform`, rescales it from the raw by 1/head (clamped 0.75-1.33). An applied factor is stored in the `frames/<anim>/.packer.json` marker, so it is measured once (a request that was not fitted is measured again on every pack while it stands); `hitboxes.json` boxes and hand anchors of that animation are scaled about the pivot with it (`"_scale"` records the fit they were measured at). By-eye `sourceHeadPx` estimates (Killua's hurtHigh/hurtLow/ko) packed 16-17 % small: prefer `auto-head`.
 - Strips generated in two parts are joined with `npm run stitch -- <id> <anim> <vNN>`: it measures part B's head against part A's and scales the bigger part down by that factor (art/PIPELINE.md "Long strips (parts)"). Never pick the factor by eye.
 - `bodyHeight` remains the legacy fallback and pose planning envelope. It is not proof of anatomy and must not be changed simply to hide drift. Do not change pixelsPerUnit or stretch x/y independently to compensate.
 - If correct anatomical scale clips a limb, redraw/repose that frame within the cell. Do not shrink the whole character to fit. Uniform scaling cannot repair a head that is proportionally too large relative to its torso; that needs an image edit.
@@ -194,16 +194,18 @@ strips are redrawn to it, not the other way round).
 | `drift` | the head (hair) is off but the body is not | **redraw** the head to the approved idle, with `reference/head_scale_guide.png` attached |
 | `pop` | two sizes inside one strip (two parts stitched at different scales) | **re-stitch** with a measured factor (`npm run stitch`), or redraw |
 | `unmeasured` | a low-confidence pose (`launched`, `spin`, `down`, `ko`, `airRecover`, `getup`, `jumpSquat`, `vanish`) or no head found | check by eye on the heads sheet |
-| `exempt` | the manifest says why (`"scaleExempt": "reason"` on the animation, or `"scaleExemptFrames": { "4": "reason" }`) | none; the reason must name what hides or fakes the head (arms over it, an afterimage, a slash arc in hair colours) |
+| `exempt` | the manifest says why (`"scaleExempt": "reason"` on the animation, or `"scaleExemptFrames": { "4": "reason" }`), with `"scaleExemptVersion": N`, the strip version it was written for | none; the reason must name what hides or fakes the head (arms over it, an afterimage, a slash arc in hair colours). Another version of the strip (a redraw, a refit) is measured again, with a warning, until someone checks its heads sheet and re-exempts it on purpose |
 
 **Strictness** (staged, so approved art never blocks a pack while it is being fixed):
 
 - A strip that is **not approved yet** (a candidate version newer than `approvedVersion`, or any strip of a new
-  fighter) **must pass**: `uniform`, `drift`, `pop` or an unexplained `unmeasured` fails the pack (`scale gate:` line,
-  exit code 1).
+  fighter) **must pass** the default pack, `node tools/pack-sprites.mjs <id> --quantize 48`: `uniform`, `drift`, `pop`
+  or an unexplained `unmeasured` fails it (`scale gate:` line, exit code 1) and **refuses the pack**: nothing is
+  written for that fighter (`public/characters/<id>/` keeps its last pack, `frames/` are not written back).
 - An **approved** strip that is off is listed as a finding (`~` lines) until ART-SCALE-02 fixes it.
-- `npm run sprites -- --strict-scale <id>` treats every strip as unapproved; `"scaleGate": "strict"` on a character
-  in the manifest makes that permanent (set it once all of a fighter's strips pass), `"warn"` reports only.
+- `npm run sprites -- --strict-scale <id>` treats every strip as unapproved, so it fails while any approved strip of
+  the fighter is still off (all four fighters until ART-SCALE-02 is done): it is the check before setting
+  `"scaleGate": "strict"` on a character, which makes that permanent; `"warn"` reports only.
 - `art/scale/scale-baseline.json` records each approved strip's head at its version: a strip whose head moves more
   than 3 % at the same version (a sidecar, `bodyHeight` or packer change) is warned. `npm run scale` adds new rows;
   `npm run scale -- --baseline` accepts an intended change.
@@ -217,8 +219,8 @@ version.
 
 ## Acceptance gate
 
-- **Scale gate**: the strip passes `npm run sprites -- --strict-scale <id>` (see "Scale gate (automatic)"), and its
-  REVIEW row links `art/scale/heads-<id>.png`.
+- **Scale gate**: `node tools/pack-sprites.mjs <id> --quantize 48` exits 0 with no `scale gate:` line for the strip
+  (see "Scale gate (automatic)"), and its REVIEW row links `art/scale/heads-<id>.png`.
 - Skull-to-chin target from approved proportions (nominal 31 px only where visually appropriate); tolerance +/-2 px for clear comparable views. Document foreshortened/occluded exceptions explicitly. An exemption from the automatic gate needs a written reason in the manifest.
 - Comparable-frame head axis and width vary by at most 2 px within a loop and across adjacent animation transitions. Hair strands may move, but the hair mass stays within ±8 % of the approved idle's: a smaller hair mass reads as a smaller head.
 - Neutral skeleton height stays within 5% of the character's declared height. Review cross-cast anatomy against the original Gojo; preserve his preferred head and deliberate body-height differences.

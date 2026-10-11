@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Tools: a measured **scale gate** for every packed frame (TOOL-025, TOOL-008, ADR 0021): the packer compares each frame's head (hair included) and feet with the fighter's approved idle, fails unapproved strips that are off (approved ones are listed until ART-SCALE-02 fixes them; `--strict-scale` for all), can refit a wrongly sized raw strip (`auto-head`), and `npm run stitch` joins two-part strips with a measured factor; `npm run scale` writes heads contact sheets, a report, a baseline and head scale guides; `?scaleaudit`, `scaleReport()` and the test lab's head boxes show it in game; brief for Codex in art/scale/SCALE_FIX_BRIEF.md.
+- Tools: a measured **scale gate** for every packed frame (TOOL-025, TOOL-008, ADR 0021): the packer compares each frame's head (hair included) and feet with the fighter's approved idle, refuses to pack a fighter whose unapproved strip is off (approved ones are listed until ART-SCALE-02 fixes them; `--strict-scale` for all), honours manifest exemptions only for the strip version they name, can refit a wrongly sized raw strip (`auto-head`), and `npm run stitch` joins two-part strips with a measured factor; `npm run scale` writes heads contact sheets, a report, a baseline and head scale guides; `?scaleaudit`, `scaleReport()` and the test lab's head boxes show it in game; brief for Codex in art/scale/SCALE_FIX_BRIEF.md.
 
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 

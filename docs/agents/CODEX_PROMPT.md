@@ -277,9 +277,11 @@ PACK AND QA
      details and colors as the approved model sheet
    - feet not on the baseline or drifting horizontally between frames (pivot x=128, soles y=240)
    - body height vs. the manifest bodyHeight, or one frame much bigger or smaller than the rest. The scale gate
-     must pass: node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale exits 0, and npm run scale -- <id>
-     writes art/scale/heads-<id>.png, which the REVIEW row links (art/CHARACTER_SCALE.md "Scale gate
-     (automatic)"). A failing strip is fixed, not filed
+     must pass: node tools/pack-sprites.mjs <id> --quantize 48 exits 0 with no "scale gate:" line for the new
+     strip (a failure writes nothing; --strict-scale also fails on approved strips, so it is not this check), and
+     npm run scale -- <id> writes art/scale/heads-<id>.png, which the REVIEW row links (art/CHARACTER_SCALE.md
+     "Scale gate (automatic)"). A failing strip is fixed, not filed; a head the probe misreads gets a manifest
+     exemption with a reason and "scaleExemptVersion" (the version it covers)
    - palette drift or more than 48 colors, anti-aliasing, blur, gradients, leftover magenta fringe, ground
      shadows, text
    - facing left instead of right, the wrong limb striking, active frames not reaching the art/SPEC.md

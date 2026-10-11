@@ -294,7 +294,8 @@ Run it on every packed strip (Codex runs it and writes the result in the REVIEW.
 - [ ] **Same height**: the character is the same size as in idle (compare head size) and within
       the animation's body height; nothing outside the cell margin (x 4..251, y 4..240) and no
       "clipped" warning.
-- [ ] **Scale gate**: `npm run sprites -- --strict-scale <id>` passes (no `scale gate:` line, exit 0), and
+- [ ] **Scale gate**: `node tools/pack-sprites.mjs <id> --quantize 48` passes (exit 0, no `scale gate:` line for the
+      strip; a failure writes nothing), and
       `npm run scale -- <id>` wrote `art/scale/heads-<id>.png`, linked from the REVIEW row (every frame's head
       next to the idle's; see CHARACTER_SCALE.md "Scale gate (automatic)").
 - [ ] Facing right, 3/4 view, both eyes visible.
@@ -324,7 +325,7 @@ Run it on every packed strip (Codex runs it and writes the result in the REVIEW.
 | pink/magenta fringe around the character | the generator anti-aliased into the background | re-pack (near-magenta pixels are removed); if it stays, touch up `frames/` or regenerate asking for "hard edges, no anti-aliasing" |
 | grey blob under the feet | the generator drew a ground shadow | regenerate with "no ground shadow", or erase it in a patched next version |
 | character too big/small in game | strip's tallest frame doesn't match the expected pose | read the scale gate line of the pack report (or `npm run scale`): `uniform` = re-import with the auto head fit, `drift` = redraw the head to `reference/head_scale_guide.png`, `pop` = `npm run stitch` with a measured factor |
-| `scale gate: ...` and exit code 1 | an unapproved strip's head is off the idle's (CHARACTER_SCALE.md "Scale gate (automatic)") | fix as the line says; a head the probe misreads (arms over it, an afterimage) gets `"scaleExempt"` / `"scaleExemptFrames"` with a reason in the manifest |
+| `scale gate: ...` and exit code 1 | an unapproved strip's head is off the idle's (CHARACTER_SCALE.md "Scale gate (automatic)"); nothing was written for that fighter | fix as the line says; a head the probe misreads (arms over it, an afterimage) gets `"scaleExempt"` / `"scaleExemptFrames"` with a reason and `"scaleExemptVersion"` (the strip version it covers) in the manifest |
 | "upscaled" warning | poses in the raw image are smaller than the target body height | generate fewer poses per image (two parts) so each figure is bigger |
 | "clipped" warning on a wide or lying pose | the pose is wider than the 256 cell allows | follow the SPEC pose notes (superDash angled ~25 degrees with bent knees, launched diagonal, down/ko ~210 px long) |
 | feet slide / character jitters in a loop | uneven poses or a cloth/hair piece in the bottom rows | make sure only the feet are in the bottom 20 % of the frame; fix the pose |

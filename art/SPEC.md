@@ -520,12 +520,14 @@ a newer raw, with a warning).
 **Scale gate** (TOOL-025, [ADR 0021](../docs/decisions/0021-scale-gate-and-depth-normalized-sprites.md),
 [CHARACTER_SCALE.md](CHARACTER_SCALE.md#scale-gate-automatic)): after packing, every strip's head silhouette (hair
 included) and feet are measured against the idle of the same pack. A strip off by more than ±6 %, or with a pop of
-more than 12 points inside it, fails the pack (exit code 1) when it is not approved yet (a candidate version, a new
-fighter) or with `--strict-scale`; approved strips are listed as findings until they are fixed. The result goes into
+more than 12 points inside it, fails the pack (exit code 1, and nothing is written for that fighter: the last pack
+stays) when it is not approved yet (a candidate version, a new fighter) or with `--strict-scale`; approved strips are
+listed as findings until they are fixed. Exemptions (`scaleExempt`, `scaleExemptFrames`) name the strip version they
+cover (`scaleExemptVersion`). The result goes into
 the report (`scale gate (...)` line, `~` findings, `scale gate:` failures) and into `anims.json` (`scaleAudit`).
 Opt-in **auto head fit**: a raw strip with the sidecar `{ "anatomy": { "measurement": "auto-head" } }` (or
-`--fit-head <id>:<anim>`) whose verdict is `uniform` is rescaled from the raw by 1/head, once (the factor is kept in
-the frames marker as `autoHead`), and its `hitboxes.json` boxes follow. Two-part strips are joined with
+`--fit-head <id>:<anim>`) whose verdict is `uniform` is rescaled from the raw by 1/head, once (an applied factor is
+kept in the frames marker as `autoHead`; an unfitted request is measured again on every pack), and its `hitboxes.json` boxes follow. Two-part strips are joined with
 `npm run stitch` (a measured factor). `npm run scale` writes `art/scale/heads-<id>.png`, `scale-report.json`,
 `scale-baseline.json` and, with `--guide`, `reference/head_scale_guide.png`.
 
