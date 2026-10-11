@@ -565,3 +565,5 @@ Killua title continuation: 16 independent candidates now saved; added backDash04
 Killua continuation now has32 independent animation candidates plus idle/guard and3UI; all title-style versions remain unapproved. Long attacks/reactions and measured fits are listed in production/title-style/candidate-settings.json, with attempt counts in generation-ledger.json.
 
 Killua title-style checkpoint: all42 canonical source strips now assembled (40 candidate settings plus idle05/guard07), plus3UI. Source coverage only: strict pack fails and numerous anatomy/motion/contact holds remain. No new approval or live release.
+
+Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; specialv07 removes sliced hand artifacts. RunA/B and specialForwardA/B budgets exhausted with motion/segmentation holds. Existing declared-color probe experiment remains isolated and unpromoted; full gate still pending.

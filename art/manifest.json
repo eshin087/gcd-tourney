@@ -2891,7 +2891,7 @@
             2,
             3
           ],
-          "bodyHeight": 165,
+          "bodyHeight": 151,
           "ms": [
             30,
             30,
@@ -2915,7 +2915,7 @@
             2,
             3
           ],
-          "bodyHeight": 180,
+          "bodyHeight": 160,
           "ms": [
             35,
             30,
@@ -2928,7 +2928,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 5,
+          "version": 6,
           "approvedVersion": 2
         },
         "light3": {
@@ -2963,7 +2963,7 @@
             2,
             3
           ],
-          "bodyHeight": 180,
+          "bodyHeight": 166,
           "ms": [
             50,
             45,
@@ -2977,7 +2977,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 8,
+          "version": 10,
           "approvedVersion": 2
         },
         "heavy": {
@@ -2988,7 +2988,7 @@
             2,
             3
           ],
-          "bodyHeight": 198,
+          "bodyHeight": 214,
           "ms": [
             40,
             35,
@@ -3080,7 +3080,7 @@
             2,
             2
           ],
-          "bodyHeight": 205,
+          "bodyHeight": 164,
           "ms": [
             50,
             45,
@@ -3099,7 +3099,7 @@
           },
           "scaleExemptVersion": 1,
           "status": "approved",
-          "version": 7,
+          "version": 8,
           "approvedVersion": 1
         },
         "guard": {
@@ -3368,7 +3368,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 6,
+          "version": 7,
           "approvedVersion": 2
         },
         "intro": {
@@ -3425,7 +3425,7 @@
             2,
             3
           ],
-          "bodyHeight": 175,
+          "bodyHeight": 139,
           "ms": [
             40,
             40,
@@ -3438,7 +3438,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 10,
+          "version": 12,
           "approvedVersion": 4
         },
         "specialUp": {
@@ -3503,7 +3503,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 7,
+          "version": 9,
           "approvedVersion": 3
         }
       },
