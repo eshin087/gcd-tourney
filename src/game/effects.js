@@ -505,9 +505,12 @@ export class Effects {
     const P = f.renderPos || f.pos;
     // an art pack's drawn palm (anims.json `hand` / hit box) wins over the placeholder's tuned offsets
     const H = f.actor?.hand?.();
-    const at = (fwd, up) => (H ? { x: P.x + fx * H.x, y: P.y + H.y, z: P.z + fz * H.x } : { x: P.x + fx * fwd, y: P.y + up, z: P.z + fz * fwd });
+    // the body draws scaled by depthK about its feet (SpriteActor.syncDepth, ENG-067), so the held effect scales its
+    // offset and size with it to stay on the drawn palm; visual only, these positions never feed the simulation
+    const k = f.actor?.depthK ?? 1;
+    const at = (fwd, up) => (H ? { x: P.x + fx * H.x * k, y: P.y + H.y * k, z: P.z + fz * H.x * k } : { x: P.x + fx * fwd * k, y: P.y + up * k, z: P.z + fz * fwd * k });
     if (kind === 'rasengan') {
-      const s = phase === 0 ? 0.25 + prog * 0.45 : 0.72;
+      const s = (phase === 0 ? 0.25 + prog * 0.45 : 0.72) * k;
       const p = at(0.6, 0.72);
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.7 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
@@ -515,7 +518,7 @@ export class Effects {
     } else if (kind === 'rasenshuriken') {
       // a big wind orb ringed by spinning blades, held high in startup and thrust forward in active
       const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
-      const s = phase === 0 ? 0.3 + prog * 0.6 : 0.9;
+      const s = (phase === 0 ? 0.3 + prog * 0.6 : 0.9) * k;
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, color: 0xe8f6ff, order: 9, glow: 0.8 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('ring', p.x, p.y, p.z, { scale: s * 2.1, color: 0xffffff, glow: 0.6, life: 0.12, fade: true, order: 8 });
@@ -525,7 +528,7 @@ export class Effects {
       }
     } else if (kind === 'chidori') {
       const p = phase === 2 ? at(0.7, 0.78) : at(-0.5, 0.32);
-      const s = phase === 0 ? 0.4 + prog * 0.5 : 0.9;
+      const s = (phase === 0 ? 0.4 + prog * 0.5 : 0.9) * k;
       const it = this.keep('hand' + f.index, 'lightning', p.x, p.y, p.z, { scale: s, color: 0xd8f0ff, order: 9, glow: 1.0 });
       it.random = true;
       it.rot = Math.random() * 6.28;

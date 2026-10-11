@@ -20,6 +20,11 @@ function dampV(cur, target, vel, smooth, dt) {
   cur.z = damp(cur.z, target.z, vel, 'z', smooth, dt);
 }
 
+// Results hero shot (mode 'results'): angle off the fight yaw, sway (rad) and its speed (rad/s), distance and
+// height above the look point (world units), look point above the ring, fov. Distance and fov keep the tallest
+// win pose (about 1.8 u) at roughly two thirds of the screen height with room above the head and below the feet.
+const RESULTS_SHOT = { yaw: -0.55, sway: 0.22, swaySpeed: 0.16, dist: 5.2, up: 0.8, lookY: 0.92, fov: 28 };
+
 // Intro flythrough keyframes: [time, position, lookAt]
 const INTRO = [
   [0.0, [0, 2.4, 47], [0, 3.6, 31]],
@@ -53,12 +58,16 @@ export class CameraDirector {
     this.introDur = INTRO[INTRO.length - 1][0];
     this.punch = 0;
     this.snapNext = false;
+    this.spriteRefDepth = null; // view depth fighter sprites are normalized to (fight / clash only; ENG-067)
   }
 
   set(mode, data = null) {
     this.mode = mode;
     this.modeT = 0;
     this.data = data;
+    // the results shot cuts to a fixed angle off the fight's yaw, well clear of where the victory orbit
+    // ends (about yaw + 0.1), so the cut reads as a cut and not as a jump
+    if (mode === 'results') this.resYaw = this.yaw + RESULTS_SHOT.yaw;
   }
 
   snap() {
@@ -203,8 +212,24 @@ export class CameraDirector {
         smoothP = 0.6;
         break;
       }
+      case 'results': {
+        // Post-match hero shot (Menus.results). Game.render shifts the projection so the winner stands whole in
+        // the space the panel leaves free; with a bottom bar (narrow window) the shot pulls back by the covered
+        // height. A bounded sway instead of the victory orbit: the stage behind stays put, and the billboard
+        // never turns past the point where it would mirror.
+        const R = RESULTS_SHOT, p = rp(this.data);
+        const a = this.resYaw + Math.sin(this.modeT * R.swaySpeed) * R.sway;
+        const k = 1 / Math.max(0.5, 1 - (game.viewCoverY || 0));
+        tgtLook.set(p.x, RING_TOP + R.lookY, p.z);
+        tgtPos.set(tgtLook.x + Math.sin(a) * R.dist * k, tgtLook.y + R.up * k, tgtLook.z + Math.cos(a) * R.dist * k);
+        fov = R.fov;
+        smoothP = 0.9;
+        smoothL = 0.4;
+        break;
+      }
     }
 
+    const snapped = this.snapNext;
     if (this.snapNext) {
       this.pos.copy(tgtPos);
       this.look.copy(tgtLook);
@@ -236,6 +261,16 @@ export class CameraDirector {
     cam.updateMatrixWorld();
 
     cam.getWorldDirection(this.fwd);
+    // The two-fighter framings draw both fighters at the size of one standing midway between their feet (the
+    // mean of their view depths), so fighters level in depth keep their size and a depth gap is split evenly.
+    // Eased, so when one fighter jumps in depth (vanish, teleport) both sizes drift together instead of the
+    // other one popping. Close-ups (focus, ko, victory) and the flythroughs keep true perspective.
+    if ((this.mode === 'fight' || this.mode === 'clash') && f[0] && f[1]) {
+      const a = rp(f[0]), b = rp(f[1]), p = cam.position;
+      const ref = ((a.x + b.x) / 2 - p.x) * this.fwd.x + (RING_TOP + (a.y + b.y) / 2 - p.y) * this.fwd.y + ((a.z + b.z) / 2 - p.z) * this.fwd.z;
+      const r0 = this.spriteRefDepth;
+      this.spriteRefDepth = r0 === null || snapped ? ref : r0 + (ref - r0) * (1 - Math.pow(0.75, dt * 60));
+    } else this.spriteRefDepth = null;
     this.fwd.y = 0;
     this.fwd.normalize();
     this.right.set(-this.fwd.z, 0, this.fwd.x);
