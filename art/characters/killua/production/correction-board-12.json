@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "ko_v05",
+    "file": "raw/ko_v05.png",
+    "rect": {
+      "x0": 266,
+      "x1": 1888,
+      "y0": 359,
+      "y1": 582
+    },
+    "factor": 0.3
+  },
+  {
+    "label": "_parts/specialUp_v07_B",
+    "file": "raw/_parts/specialUp_v07_B.png",
+    "rect": {
+      "x0": 676,
+      "x1": 1049,
+      "y0": 25,
+      "y1": 678
+    },
+    "factor": 0.3
+  }
+]

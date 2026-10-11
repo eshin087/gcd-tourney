@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Killua approved-neutral redraw checkpoint:42 actions generated;10 strict scale failures and8 manual anatomy holds remain. Versioned sources, calibrated sidecars, attempt ledger, review gallery and stitch-ROI tooling evidence; no new art approvals or atlas promotion (ART-KIL-SCALE-W1).
+
 - Capture Killua jab stitch refinement failure: the old packed idle target clips new heads, then the probe selects a shirt hem; preserve per-frame ROI/provenance evidence for Claude without changing tools or waiving final art QA.
 
 - Killua scale-fix evidence: retain 19 asset candidates, side-on KO/down and measured long-strip redraws; block approval/integration on the failing palette-sensitive scale gate. Previous approved runtime sheet retained.

@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "INTRO V03",
+    "file": "raw/intro_v03.png",
+    "rect": {
+      "x0": 184,
+      "x1": 416,
+      "y0": 57,
+      "y1": 679
+    },
+    "factor": 1
+  },
+  {
+    "label": "TAUNT V03",
+    "file": "raw/taunt_v03.png",
+    "rect": {
+      "x0": 550,
+      "x1": 813,
+      "y0": 31,
+      "y1": 693
+    },
+    "factor": 1
+  }
+]

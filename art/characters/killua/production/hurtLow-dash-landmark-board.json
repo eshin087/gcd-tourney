@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "HURTLOW V05",
+    "file": "raw/hurtLow_v05.png",
+    "rect": {
+      "x0": 277,
+      "x1": 614,
+      "y0": 39,
+      "y1": 687
+    },
+    "factor": 1
+  },
+  {
+    "label": "DASH V04",
+    "file": "raw/dash_v04.png",
+    "rect": {
+      "x0": 131,
+      "x1": 901,
+      "y0": 91,
+      "y1": 679
+    },
+    "factor": 0.65
+  }
+]

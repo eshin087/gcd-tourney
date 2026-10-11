@@ -1,0 +1,498 @@
+{
+  "anim": "airLight3",
+  "ver": "v05",
+  "bodyHeight": 183,
+  "publicIdleSource": {
+    "generatedBy": "tools/pack-sprites.mjs",
+    "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+    "sourceFile": "raw/idle_v01.png",
+    "version": 1,
+    "source": [
+      "characters/killua/raw/idle_v01.png"
+    ],
+    "sourceHash": "5b6befd89f14f14dc89c90368a2895019004a83c",
+    "bodyHeight": 186,
+    "cell": {
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "pivot": [
+        128,
+        240
+      ]
+    },
+    "files": {
+      "idle_00.png": "132976ba632669dc3e275d58fce42364560e5a6e",
+      "idle_01.png": "f74eda2907679fbbcce323679107fbba8a9b5448",
+      "idle_02.png": "dbb1b1febd136a4aedc7983e119e307db4e93d6a",
+      "idle_03.png": "0b5686147f0194e838fff56456397c1da3352fe3",
+      "idle_04.png": "eac87fe3c1040e77d41f561c3cb2ef6484e1c6c6",
+      "idle_05.png": "3ea2d883b493a5fb78a53651b5caed5d096d157d",
+      "idle_06.png": "b7a9456c7c45f5c07aff667a5b3d137e606e8f31",
+      "idle_07.png": "b1d59fb3d3b5467c8fd1c876d597a3754a519b22"
+    }
+  },
+  "sheetSHA256": "ec2c79e601cb108a8bfaac8d989ad93531e02e1e5812bfdf1913ccfd2a2c9339",
+  "ref": {
+    "hA": 1041.5,
+    "hW": 51,
+    "hH": 36.5,
+    "feet": 1878,
+    "box": [
+      108,
+      61,
+      157,
+      94
+    ],
+    "headPx": [
+      51,
+      37
+    ]
+  },
+  "parts": [
+    {
+      "name": "A",
+      "file": "art/characters/killua/raw/_parts/airLight3_v05_A.png",
+      "hash": "e1a8f9a0b4c8bad8e8c66eaa482b48405a9e3e341504ff96d7384d02241e5181",
+      "trial": {
+        "scale": 0.2928,
+        "head": 0.681,
+        "frames": [
+          {
+            "k": 0,
+            "raw": [
+              311,
+              625
+            ],
+            "scaled": [
+              91,
+              183
+            ],
+            "lost": 0,
+            "clip": [],
+            "head": 0.686,
+            "feet": 0.952,
+            "box": [
+              116,
+              59,
+              151,
+              83
+            ]
+          },
+          {
+            "k": 1,
+            "raw": [
+              393,
+              622
+            ],
+            "scaled": [
+              115,
+              182
+            ],
+            "lost": 0,
+            "clip": [],
+            "head": 0.685,
+            "feet": 1.033,
+            "box": [
+              111,
+              60,
+              145,
+              84
+            ]
+          },
+          {
+            "k": 2,
+            "raw": [
+              525,
+              533
+            ],
+            "scaled": [
+              154,
+              156
+            ],
+            "lost": 0,
+            "clip": [],
+            "head": 0.677,
+            "feet": 0.997,
+            "box": [
+              108,
+              87,
+              143,
+              109
+            ]
+          },
+          {
+            "k": 3,
+            "raw": [
+              518,
+              532
+            ],
+            "scaled": [
+              152,
+              156
+            ],
+            "lost": 0,
+            "clip": [],
+            "head": 0.648,
+            "feet": 0.992,
+            "box": [
+              110,
+              86,
+              142,
+              110
+            ]
+          }
+        ]
+      },
+      "refined": {
+        "scale": 0.4299559471365639,
+        "head": 0.959,
+        "frames": [
+          {
+            "k": 0,
+            "raw": [
+              311,
+              625
+            ],
+            "scaled": [
+              134,
+              269
+            ],
+            "lost": 1076,
+            "clip": [
+              "top 28px"
+            ],
+            "head": null,
+            "feet": 1.191,
+            "box": null
+          },
+          {
+            "k": 1,
+            "raw": [
+              393,
+              622
+            ],
+            "scaled": [
+              169,
+              267
+            ],
+            "lost": 982,
+            "clip": [
+              "top 26px"
+            ],
+            "head": 0.502,
+            "feet": 1.333,
+            "box": [
+              102,
+              0,
+              153,
+              11
+            ]
+          },
+          {
+            "k": 2,
+            "raw": [
+              525,
+              533
+            ],
+            "scaled": [
+              226,
+              229
+            ],
+            "lost": 110,
+            "clip": [
+              "right 6px"
+            ],
+            "head": 0.97,
+            "feet": 1.397,
+            "box": [
+              100,
+              14,
+              151,
+              48
+            ]
+          },
+          {
+            "k": 3,
+            "raw": [
+              518,
+              532
+            ],
+            "scaled": [
+              223,
+              229
+            ],
+            "lost": 85,
+            "clip": [
+              "right 5px"
+            ],
+            "head": 0.959,
+            "feet": 1.403,
+            "box": [
+              98,
+              15,
+              150,
+              49
+            ]
+          }
+        ]
+      },
+      "final": {
+        "scale": 0.4483377968055932,
+        "head": 0.8495,
+        "frames": [
+          {
+            "k": 0,
+            "raw": [
+              311,
+              625
+            ],
+            "scaled": [
+              139,
+              280
+            ],
+            "lost": 1735,
+            "clip": [
+              "top 39px"
+            ],
+            "head": 0.658,
+            "feet": 1.167,
+            "box": [
+              106,
+              68,
+              143,
+              91
+            ]
+          },
+          {
+            "k": 1,
+            "raw": [
+              393,
+              622
+            ],
+            "scaled": [
+              176,
+              279
+            ],
+            "lost": 1690,
+            "clip": [
+              "top 38px"
+            ],
+            "head": 0.685,
+            "feet": 1.317,
+            "box": [
+              111,
+              68,
+              145,
+              92
+            ]
+          },
+          {
+            "k": 2,
+            "raw": [
+              525,
+              533
+            ],
+            "scaled": [
+              235,
+              239
+            ],
+            "lost": 263,
+            "clip": [
+              "right 11px"
+            ],
+            "head": 1.041,
+            "feet": 1.434,
+            "box": [
+              97,
+              4,
+              151,
+              41
+            ]
+          },
+          {
+            "k": 3,
+            "raw": [
+              518,
+              532
+            ],
+            "scaled": [
+              232,
+              239
+            ],
+            "lost": 266,
+            "clip": [
+              "right 11px"
+            ],
+            "head": 1.014,
+            "feet": 1.433,
+            "box": [
+              98,
+              4,
+              151,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "B",
+      "file": "art/characters/killua/raw/_parts/airLight3_v05_B.png",
+      "hash": "9b68947e067748a143dff1a4006a80a279148d458763cdc752981410a7f09081",
+      "trial": {
+        "scale": 0.29233226837060705,
+        "head": 0.688,
+        "frames": [
+          {
+            "k": 0,
+            "raw": [
+              501,
+              600
+            ],
+            "scaled": [
+              146,
+              175
+            ],
+            "lost": 0,
+            "clip": [],
+            "head": 0.718,
+            "feet": 0.975,
+            "box": [
+              118,
+              68,
+              156,
+              92
+            ]
+          },
+          {
+            "k": 1,
+            "raw": [
+              277,
+              626
+            ],
+            "scaled": [
+              81,
+              183
+            ],
+            "lost": 0,
+            "clip": [],
+            "head": 0.658,
+            "feet": 0.97,
+            "box": [
+              111,
+              59,
+              146,
+              82
+            ]
+          }
+        ]
+      },
+      "refined": {
+        "scale": 0.42490155286425446,
+        "head": 0.714,
+        "frames": [
+          {
+            "k": 0,
+            "raw": [
+              501,
+              600
+            ],
+            "scaled": [
+              213,
+              255
+            ],
+            "lost": 341,
+            "clip": [
+              "top 14px"
+            ],
+            "head": 0.938,
+            "feet": 1.339,
+            "box": [
+              113,
+              0,
+              169,
+              25
+            ]
+          },
+          {
+            "k": 1,
+            "raw": [
+              277,
+              626
+            ],
+            "scaled": [
+              118,
+              266
+            ],
+            "lost": 935,
+            "clip": [
+              "top 25px"
+            ],
+            "head": 0.49,
+            "feet": 1.226,
+            "box": [
+              122,
+              0,
+              159,
+              13
+            ]
+          }
+        ]
+      },
+      "final": {
+        "scale": 0.5951002140955945,
+        "head": 0.6925,
+        "frames": [
+          {
+            "k": 0,
+            "raw": [
+              501,
+              600
+            ],
+            "scaled": [
+              298,
+              357
+            ],
+            "lost": 12017,
+            "clip": [
+              "left 22px",
+              "right 20px",
+              "top 116px"
+            ],
+            "head": 0.932,
+            "feet": 1.391,
+            "box": [
+              102,
+              0,
+              149,
+              33
+            ]
+          },
+          {
+            "k": 1,
+            "raw": [
+              277,
+              626
+            ],
+            "scaled": [
+              165,
+              373
+            ],
+            "lost": 11240,
+            "clip": [
+              "top 132px"
+            ],
+            "head": 0.453,
+            "feet": 1.355,
+            "box": [
+              52,
+              0,
+              82,
+              9
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

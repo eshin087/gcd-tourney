@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "BLOCK V06",
+    "file": "raw/block_v06.png",
+    "rect": {
+      "x0": 547,
+      "x1": 962,
+      "y0": 53,
+      "y1": 682
+    },
+    "factor": 1
+  },
+  {
+    "label": "HURTHIGH V05",
+    "file": "raw/hurtHigh_v05.png",
+    "rect": {
+      "x0": 134,
+      "x1": 623,
+      "y0": 50,
+      "y1": 688
+    },
+    "factor": 1
+  }
+]

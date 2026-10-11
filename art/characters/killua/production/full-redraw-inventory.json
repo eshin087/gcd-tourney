@@ -1,0 +1,560 @@
+[
+  {
+    "name": "idle",
+    "frames": 8,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6, f7",
+    "parts": [
+      4,
+      4
+    ],
+    "version": 3,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ref",
+    "attempts": "A2/3 B3/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "run",
+    "frames": 8,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6, f7",
+    "parts": [
+      4,
+      4
+    ],
+    "version": 6,
+    "state": "strict-gate-hold",
+    "gate": "drift",
+    "attempts": "A2/3 B3/3",
+    "notes": "CAPPED B: wrong leg-cycle reversal; also head drift. A remains 1 attempt, but defect is capped B."
+  },
+  {
+    "name": "dash",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 4,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "backDash",
+    "frames": 3,
+    "frameList": "f0, f1, f2",
+    "parts": [
+      3
+    ],
+    "version": 3,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "superDash",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 5,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "3/3",
+    "notes": "CAPPED third attempt fixes clipping and passes head gate .981. Far thigh hidden; final gameplay comparison still blocked by whole pack."
+  },
+  {
+    "name": "jumpSquat",
+    "frames": 1,
+    "frameList": "f0",
+    "parts": [
+      1
+    ],
+    "version": 4,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "jumpUp",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 4,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "jumpFall",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 4,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "land",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 3,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "light1",
+    "frames": 7,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6",
+    "parts": [
+      4,
+      3
+    ],
+    "version": 5,
+    "state": "strict-gate-hold",
+    "gate": "drift",
+    "attempts": "A3/3 B2/3",
+    "notes": "A capped; head drift .92. B has 1 attempt but direct bone comparison does not support shrinking B. Confirm exact offending head ROI before another source correction."
+  },
+  {
+    "name": "light2",
+    "frames": 7,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6",
+    "parts": [
+      4,
+      3
+    ],
+    "version": 4,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "A3/3 B3/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "light3",
+    "frames": 7,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6",
+    "parts": [
+      4,
+      3
+    ],
+    "version": 4,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "A2/3 B2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "light4",
+    "frames": 8,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6, f7",
+    "parts": [
+      5,
+      3
+    ],
+    "version": 5,
+    "state": "strict-gate-hold",
+    "gate": "pop",
+    "attempts": "A3/3 B3/3",
+    "notes": "CAPPED v06 A/B: five drawn A poses overlap horizontally; official stitch splits only four. No v06 strip was fabricated; v05 packed diagnostic remains failed."
+  },
+  {
+    "name": "heavy",
+    "frames": 8,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6, f7",
+    "parts": [
+      5,
+      3
+    ],
+    "version": 9,
+    "state": "strict-gate-hold",
+    "gate": "pop",
+    "attempts": "A2/3 B3/3",
+    "notes": "B capped; A has 1 attempt. Pop f0/f3 may include head tilt and hidden scalp; independent bone comparison finds no definite correction target. Needs same-scale ROI/landmark review."
+  },
+  {
+    "name": "airLight1",
+    "frames": 5,
+    "frameList": "f0, f1, f2, f3, f4",
+    "parts": [
+      5
+    ],
+    "version": 5,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "airLight2",
+    "frames": 5,
+    "frameList": "f0, f1, f2, f3, f4",
+    "parts": [
+      5
+    ],
+    "version": 6,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "airLight3",
+    "frames": 6,
+    "frameList": "f0, f1, f2, f3, f4, f5",
+    "parts": [
+      4,
+      2
+    ],
+    "version": 5,
+    "state": "strict-gate-hold",
+    "gate": "drift",
+    "attempts": "A2/3 B2/3",
+    "notes": "A/B each 1 remaining; hair-head ratio1.083 exceeds gate. Rotating viewpoints and hidden scalp uncertainty overlap error size; direct per-frame anatomy needed before targeted correction."
+  },
+  {
+    "name": "airHeavy",
+    "frames": 6,
+    "frameList": "f0, f1, f2, f3, f4, f5",
+    "parts": [
+      4,
+      2
+    ],
+    "version": 4,
+    "state": "strict-gate-hold",
+    "gate": "pop",
+    "attempts": "A2/3 B2/3",
+    "notes": "A/B each 1 remaining; within-A pop under hands/hair and bowed head. No demonstrated scalar correction; retain measured uncertainty."
+  },
+  {
+    "name": "guard",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 6,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "block",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 6,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "hurtHigh",
+    "frames": 3,
+    "frameList": "f0, f1, f2",
+    "parts": [
+      3
+    ],
+    "version": 5,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "hurtLow",
+    "frames": 3,
+    "frameList": "f0, f1, f2",
+    "parts": [
+      3
+    ],
+    "version": 5,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "launched",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 4,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "3/3",
+    "notes": "CAPPED third attempt fixes clipping. Tucked limbs and skull remain unmeasured; apparent head ratio1.112 is diagnostic only."
+  },
+  {
+    "name": "spin",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 3,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "airRecover",
+    "frames": 3,
+    "frameList": "f0, f1, f2",
+    "parts": [
+      3
+    ],
+    "version": 4,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "down",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 4,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "3/3",
+    "notes": "CAPPED: f1 overlong bare shin ~197+/-25 / skull105+/-15 =1.9+/-0.4; neutral1.3-1.5. Also cell margin warning."
+  },
+  {
+    "name": "getup",
+    "frames": 5,
+    "frameList": "f0, f1, f2, f3, f4",
+    "parts": [
+      5
+    ],
+    "version": 5,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "3/3",
+    "notes": "CAPPED third attempt fixes f0 floor contact. Lying shin remains uncertain (~1.7 heads); no manual anatomical clearance."
+  },
+  {
+    "name": "charge",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 10,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "throw",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 5,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "beamCharge",
+    "frames": 3,
+    "frameList": "f0, f1, f2",
+    "parts": [
+      3
+    ],
+    "version": 7,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "beamFire",
+    "frames": 3,
+    "frameList": "f0, f1, f2",
+    "parts": [
+      3
+    ],
+    "version": 7,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "vanish",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 3,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "stagger",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 3,
+    "state": "strict-gate-hold",
+    "gate": "uniform",
+    "attempts": "2/3",
+    "notes": "1 remaining; uniform head .894/feet .948 conflicts with skull-axis estimates. Establish hidden crown and shoe projection before a reliable correction; no forced fit."
+  },
+  {
+    "name": "ko",
+    "frames": 1,
+    "frameList": "f0",
+    "parts": [
+      1
+    ],
+    "version": 5,
+    "state": "manual-anatomy-hold",
+    "gate": "unmeasured",
+    "attempts": "3/3",
+    "notes": "CAPPED: overlong bare shin ~364+/-30 / skull160+/-20 =2.3+/-0.4; neutral1.3-1.5. Also cell margin warning."
+  },
+  {
+    "name": "special",
+    "frames": 8,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6, f7",
+    "parts": [
+      4,
+      4
+    ],
+    "version": 3,
+    "state": "strict-gate-hold",
+    "gate": "uniform",
+    "attempts": "A2/3 B3/3",
+    "notes": "CAPPED B v04 f0/f1 have extra arms. A remains 1 attempt but B is blocked. v03 historical diagnostic also fails."
+  },
+  {
+    "name": "intro",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 3,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "taunt",
+    "frames": 2,
+    "frameList": "f0, f1",
+    "parts": [
+      2
+    ],
+    "version": 3,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "win",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 3,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "specialForward",
+    "frames": 7,
+    "frameList": "f0, f1, f2, f3, f4, f5, f6",
+    "parts": [
+      4,
+      3
+    ],
+    "version": 9,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "A3/3 B2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  },
+  {
+    "name": "specialUp",
+    "frames": 6,
+    "frameList": "f0, f1, f2, f3, f4, f5",
+    "parts": [
+      4,
+      2
+    ],
+    "version": 7,
+    "state": "strict-gate-hold",
+    "gate": "pop",
+    "attempts": "A2/3 B2/3",
+    "notes": "A/B each 1 remaining; arms hide skull and B was measured independently at source .854 factor. Probe f4 .706 requires ROI clarification, not another arbitrary factor."
+  },
+  {
+    "name": "specialDown",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 3,
+    "state": "strict-gate-hold",
+    "gate": "pop",
+    "attempts": "2/3",
+    "notes": "1 remaining; crouch-to-rise head pop with +/-15px hidden-skull uncertainty. Resolve scalp axis/ROI before targeted redraw."
+  },
+  {
+    "name": "superPose",
+    "frames": 4,
+    "frameList": "f0, f1, f2, f3",
+    "parts": [
+      4
+    ],
+    "version": 6,
+    "state": "numeric-clear-global-pack-blocked",
+    "gate": "ok",
+    "attempts": "2/3",
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+  }
+]

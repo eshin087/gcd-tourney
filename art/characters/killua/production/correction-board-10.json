@@ -1,0 +1,35 @@
+[
+  {
+    "label": "NEUTRAL",
+    "file": "reference/height_neutral.png",
+    "rect": {
+      "x0": 455,
+      "x1": 809,
+      "y0": 95,
+      "y1": 1100
+    },
+    "factor": 0.8
+  },
+  {
+    "label": "launched_v03",
+    "file": "raw/launched_v03.png",
+    "rect": {
+      "x0": 107,
+      "x1": 1013,
+      "y0": 68,
+      "y1": 661
+    },
+    "factor": 0.65
+  },
+  {
+    "label": "spin_v03",
+    "file": "raw/spin_v03.png",
+    "rect": {
+      "x0": 72,
+      "x1": 493,
+      "y0": 115,
+      "y1": 641
+    },
+    "factor": 0.65
+  }
+]

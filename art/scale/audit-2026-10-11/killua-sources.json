@@ -1,0 +1,10 @@
+{
+  "mainHead": "1bb2d948c212ffd4594b6fa400b6ef320bd7d9a4",
+  "capturedAt": "2026-10-11T05:22:14.638Z",
+  "files": {
+    "public/characters/killua/sheet.png": "ec2c79e601cb108a8bfaac8d989ad93531e02e1e5812bfdf1913ccfd2a2c9339",
+    "public/characters/killua/anims.json": "68d51c8b500079e7ff41d5da0202c2cbfa255338304bb6a0acd1f9f3009ed8fc",
+    "art/manifest.json": "94d5e00538c001179fbba3879776e64fb5975b16adcab983bd4c7db0dc52df5f",
+    "art/scale/builds.json": "b9ac0dda3ba6ca3acd656c813a9d7893ebcc96bf8983fdba4c90637b64d66bc0"
+  }
+}
