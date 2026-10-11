@@ -1,6 +1,6 @@
 # Adding a character
 
-Before generating: complete the [shared fighter scale gate](../art/CHARACTER_SCALE.md), including measured skull/limb landmarks and cross-cast comparison.
+Before generating: follow the [approved cast baseline](../art/scale/APPROVED_CAST_BASELINE.md) and [shared fighter scale gate](../art/CHARACTER_SCALE.md). Record era, stature source and uncertainty; approve an upright neutral and cast lineup at the common pixels/cm. Measure skull, torso and limbs separately from hair/clothing bounds. Validate the new idle against that neutral before drawing the full set. Never give a child an extra height discount or cap a tall fighter individually.
 
 This is the end-to-end recipe for a new fighter, from data file to approved hi-res art. It's written so
 any of Claude, Codex or the user can pick up any step. Owners per step are suggestions. The task board
@@ -34,9 +34,9 @@ special, projectile or effect type.
   | PR | owner | branch (`npm run pr -- start <branch>`) | contains | merge when |
   |---|---|---|---|---|
   | 1. data | Claude | `feature/char-<id>` | steps 1-3: `src/characters/<id>.js`, roster, kit entries (+ an ADR for a new kind), placeholder model, `art/characters/<id>/KIT.md` (moveset + the poses each move needs) | playable on the baked placeholder (L0): soak and build pass |
-  | 2. refs | Codex | `art/<id>-refs` (`--full`) | step 4 briefs + manifest/tracker entries, model sheet, expressions, idle | the user approved those images |
-  | 3. core | Codex | `art/<id>-core` (`--full`) | the CORE animations: the custom sheet goes live (L1) | approved |
-  | 4. full | Codex | `art/<id>-full` (`--full`) | optional + kit animations, UI images (L2) | approved |
+  | 2. refs | Codex | `art/<id>-refs` (`--art <id>`) | step 4 briefs + manifest/tracker entries, model sheet, expressions, idle | the user approved those images |
+  | 3. core | Codex | `art/<id>-core` (`--art <id>`) | the CORE animations: the custom sheet goes live (L1) | approved |
+  | 4. full | Codex | `art/<id>-full` (`--art <id>`) | optional + kit animations, UI images (L2) | approved |
   | later | either | `fix/<id>-<what>` | redraws, balance | |
 
   Start each art PR from `main` after the previous one merged (no stacking). Two characters can run in parallel:

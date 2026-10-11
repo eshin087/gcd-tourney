@@ -1,3 +1,5 @@
+> New characters must follow [approved cast baseline](../../scale/APPROVED_CAST_BASELINE.md): era/source, neutral stature, measured head/build, cast lineup approval, then animation gate. Do not apply an extra child discount or individual tall cap.
+
 # {{NAME}}: character brief
 
 > TEMPLATE. Copy `art/characters/_template/` to `art/characters/<id>/` and replace every
@@ -16,7 +18,7 @@
 
 ## One-paragraph look
 
-{{3-5 sentences a stranger could draw from: age/build (state the ~6.5-head athletic build), hair, face,
+{{3-5 sentences a stranger could draw from: age/build (describe the approved neutral anatomy and measured head-to-body ratio), hair, face,
 outfit top to bottom, signature accessory or weapon, overall color impression. This paragraph is
 pasted into every prompt as TRAITS.}}
 
@@ -57,13 +59,11 @@ exists, then correct it against the anime colors.
 
 ## Proportions and silhouette
 
-- Height: about 6.5 heads (serious Shippuden-era proportions, not chibi); standing upright about
-  200 px to the top of the skull, head about 31 px (+ up to 20 px hair). Idle landmarks in
-  [SPEC.md](../../SPEC.md#proportions-and-landmarks).
-- {{Build: slim / athletic / broad, within the shared body scale}} {{if the character is notably
-  taller/shorter than the cast, say by how much; Claude adjusts bodyHeight values in manifest.json via
-  an ADR. If only the hair adds more or less height than ~16-20 px, note it: the bodyHeight overrides
-  may need a tweak after the first idle is packed}}
+- Era and stature: {{era, canon stature in cm, primary source, confidence/uncertainty}}.
+- Shared scale: {{production pixels/cm from APPROVED_CAST_BASELINE.md}}; neutral skull-to-sole {{px}}, occupied hair-to-sole {{px}}. Record shoe/hair/crown uncertainty.
+- Anatomy: {{skull-to-chin px along head axis}}, {{head-count ratio}}, {{shoulder-to-hip}}, {{hip-knee-ankle segment lengths}} measured on the approved neutral. Hair mass is separate from skull size.
+- Build: {{slim / athletic / broad with approved neutral chest, shoulder and limb landmarks}}. Clothing width is not body width. Do not force every character to 200px, equal heads or a universal head count.
+- Cell fit: preserve common cast ratios. A design exceeding the envelope requires Claude's shared-scale or renderer decision, never an individual height cap.
 - Fighting stance: {{orthodox lead-left, guard height, attitude: e.g. "fists up, forward lean,
   cocky"}}
 - Run style: {{ninja run (arms straight back) / normal / floating}}
@@ -90,6 +90,7 @@ to the fixed name below (the fixed names are what prompts attach):
 
 | file | content | candidates | from |
 |---|---|---|---|
+| `reference/height_neutral.png` | approved upright neutral with measured stature, head and body landmarks | `reference/height_neutral_vNN.png` | baseline and cast lineup approval |
 | `reference/model_sheet.png` | approved model sheet: turnaround (front, 3/4 right, side, back), the fighting stance facing right, palette swatches | `reference/model_sheet_vNN.png` | PROMPTS.md step 1 |
 | `reference/expressions.png` | approved expression sheet (the table above, head shots) | `reference/expressions_vNN.png` | PROMPTS.md step 2 |
 | `reference/idle_approved.png` | copy of the approved `idle` strip (pose and proportion anchor) | `raw/idle_vNN.png` | PROMPTS.md step 3 |

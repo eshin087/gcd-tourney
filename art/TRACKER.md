@@ -1,5 +1,7 @@
 # Art tracker
 
+Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
+
 Human-readable status of every art asset (hi-res sprite spec v2,
 [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md)). The machine-readable twin is
 [manifest.json](manifest.json); every generated image also has a row in the review queue
@@ -35,6 +37,19 @@ A character's sheet is used by the game automatically once **every core animatio
 **yes**) is at least `packed` (the packer then writes `"complete": true`). Before that, preview
 with `http://127.0.0.1:5188/?art=custom`. Use the notes column for problems ("F03 fist too
 low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
+
+## Corrected cast pilot — awaiting review
+
+Latest height/build proposal: cast `proportion_lineup v04`, raw, no approved version. Naruto v02 is leaner with a larger head; Sasuke v01 is the user-preferred unchanged reference. Killua v01 and Gojo v03 use new review factors; Gojo v03 is slimmer after official-design review. [Latest QA](scale/PROPORTION_PILOT_V03.md). Full production still paused.
+
+Reference samples only; existing production approvals stay unchanged. Full animation redraw waits for user review. [Gallery](../public/art-review/cast-proportion-pilot/index.html) · [QA](scale/PROPORTION_PILOT.md).
+
+| Fighter | Asset | Latest | Status | Approved |
+|---|---|---|---|---|
+| Naruto | proportion_sample | v02 (v01 rejected: bulky/small head) | raw | — |
+| Sasuke | proportion_sample | v01 | raw | — |
+| Killua | proportion_sample | v01 | raw | — |
+| Gojo | proportion_sample | v03 (v02 rejected: excess bulk) | raw | — |
 
 ## Summary
 
@@ -538,3 +553,5 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).

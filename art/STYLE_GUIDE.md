@@ -1,3 +1,5 @@
+> **Active baseline, user approved 2026-10-11:** [Approved cast baseline](scale/APPROVED_CAST_BASELINE.md) supersedes historical scale/build numbers below for the full redraw. Preserve common height ratios and individually measured anatomy; old values describe shipped art only. Claude owns formal spec/ADR integration.
+
 # Style guide
 
 Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md). Technical packing success does not establish anatomical consistency.

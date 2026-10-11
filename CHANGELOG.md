@@ -32,6 +32,26 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Art: add unapproved decal style and 19 base/edge/lightning/fire/ki candidates (99 variants), candidate preview gallery and documented fringe/shading limitations.
 - **Timed impact tech** (ENG-078, ADR 0028): Smash-style tech alongside the hold-Guard tech: a fresh Guard press up to 11 frames before you hit the floor or the ring barrier beats ground bounces, wall bounces (handball), spike and throw knockdowns and landings (tech in place, roll with ← / →; WALL TECH clings and kicks off, ↑ wall-jumps and can act), ends the combo and spends no bounce budget; an early press locks it out for 40 frames, holding doesn't count, presses in hitstop and freezes count, super finishes (`noTech`) can't be teched. TECH! / WALL TECH! banners, a white-cyan spark, a ting and a crowd pop; CPUs tech by level (5-65 %, with timing error), the combo composer weighs bounce routes by the victim's tech rate, DUMMY TECH TIMED, four lab scenarios.
+- Art QA: document the explicit low-confidence gate limitation and hand off anatomical acceptance criteria to Claude; no blanket exemptions or threshold changes.
+
+- Documented the reproduced stale-idle/clipped-head stitching failure and new-idle palette-mask lesson; queued tooling correction for Claude (TOOL-STITCH-ROI).
+
+- AGENTS.md and CLAUDE.md now carry the same approved-baseline override, so historical fixed-height/head-count rules cannot silently re-enter future art prompts (ART-CAST-PILOT).
+
+- Added a provenance-recorded cross-cast idle QA snapshot to compare corrected working anchors against approved neutrals (ART-CAST-PILOT); not an animation approval.
+
+- Future-character templates now require measured neutral anatomy and SCALE LOCK values instead of inherited 200px/31px/6.5-head defaults; onboarding links the approved cast contract (ART-CAST-PILOT).
+
+- Record explicit approval of the neutral four-character baseline; authorize full42-animation redraws and document shared proportional scaling for future fighters.
+
+- Art review: add four neutral standing candidates and a common-height lineup; remove child/tall-cap adjustments in this review only. Existing production art and approvals unchanged.
+
+- Art review: compare Gojo with official adult anime/game art and slim the sample shoulders, chest and arms while retaining height/head and the other three fighters. Queue Gojo sample v03 and lineup v04; no approvals or production changes (ART-CAST-PILOT).
+
+- Art review: revise the cast pilot after feedback: leaner Naruto with larger head, unchanged Sasuke, and clearer Gojo/Killua height separation on an uncapped review canvas. Preserve previous samples; production remains unchanged pending review (ART-CAST-PILOT).
+
+- Art review: generate a corrected four-character proportion pilot with idle, guard, run and light1 samples, equal-scale before/after gallery, head closeups and documented probe limits. Candidates only; full animation production waits for user review (ART-CAST-PILOT).
+
 - Fixed: the scale gate measured every strip in the fighter-wide `--quantize` palette, so a candidate's new colours moved the unchanged idle's head (Killua 52x35 vs 52x43) and other strips' verdicts. It now measures before quantizing against the idle's own palette (declared hair colours snapped first); `anims.json` records the per-frame numbers and `npm run scale` reports those. Sheets unchanged; scale baseline rewritten once for the method change (ART-KIL-PROBE).
 - Art review: add cast proportion sample gallery with fixed-scale playback, Naruto head comparisons, approved multi-angle models and title-screen reference; no shipped sprite or approval changes (ART-CAST-SAMPLES).
 

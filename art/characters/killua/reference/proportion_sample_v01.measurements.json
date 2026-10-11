@@ -1,0 +1,43 @@
+{
+  "width": 1254,
+  "height": 1254,
+  "boxes": [
+    {
+      "pose": "idle",
+      "x": 189,
+      "y": 77,
+      "w": 274,
+      "h": 512,
+      "maxX": 462,
+      "maxY": 588
+    },
+    {
+      "pose": "guard",
+      "x": 793,
+      "y": 77,
+      "w": 312,
+      "h": 513,
+      "maxX": 1104,
+      "maxY": 589
+    },
+    {
+      "pose": "run",
+      "x": 82,
+      "y": 699,
+      "w": 435,
+      "h": 490,
+      "maxX": 516,
+      "maxY": 1188
+    },
+    {
+      "pose": "light1",
+      "x": 747,
+      "y": 699,
+      "w": 442,
+      "h": 490,
+      "maxX": 1188,
+      "maxY": 1188
+    }
+  ],
+  "backgroundRemoval": "metrics only: R>170 B>170 G<120 ignored; no pixels edited"
+}
