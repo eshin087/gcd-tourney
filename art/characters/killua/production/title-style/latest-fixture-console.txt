@@ -1,0 +1,72 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/killua/production/title-style/qa-reference-art
+  out:  public/preview/killua-reference-diagnostic
+  anims: animGuide.js + art/characters/killua/production/title-style/qa-reference-art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== killua ======================================================
+  packed 40 anims, 158 frames -> sheet 4096x2560, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         1     <- raw/idle_v01.png             x1
+    run          8     <- raw/run_v08.png              x0.358  (removed 17 specks)
+    dash         2     <- raw/dash_v05.png             x0.217  (removed 9 specks)
+    backDash     3     <- raw/backDash_v04.png         x0.252
+    superDash    2     <- raw/superDash_v06.png        x0.226  (removed 26 specks)
+    jumpSquat    1     <- raw/jumpSquat_v05.png        x0.153
+    jumpUp       2     <- raw/jumpUp_v05.png           x0.22  (removed 16 specks)
+    jumpFall     2     <- raw/jumpFall_v05.png         x0.218  (removed 20 specks)
+    land         2     <- raw/land_v04.png             x0.208  (removed 7 specks)
+    light1       7     <- raw/light1_v11.png           x0.367  (removed 40 specks)
+    light2       7     <- raw/light2_v05.png           x0.335  (removed 14 specks)
+    light3       7     <- raw/light3_v05.png           x0.328  (removed 35 specks; split 1 touching pose group(s); kept 1 wide pose(s) whole (a long limb, not touching poses))
+    heavy        8     <- raw/heavy_v11.png            x0.317  (removed 22 specks)
+    airLight1    5     <- raw/airLight1_v06.png        x0.317  (removed 17 specks; split 1 touching pose group(s))
+    airLight2    5     <- raw/airLight2_v07.png        x0.374  (removed 20 specks)
+    airLight3    6     <- raw/airLight3_v09.png        x0.315  (removed 17 specks; split 1 touching pose group(s))
+    airHeavy     6     <- raw/airHeavy_v07.png         x0.332  (removed 39 specks)
+    block        2     <- raw/block_v07.png            x0.219  (removed 8 specks)
+    hurtHigh     3     <- raw/hurtHigh_v06.png         x0.235  (removed 4 specks)
+    hurtLow      3     <- raw/hurtLow_v06.png          x0.22
+    launched     2     <- raw/launched_v05.png         x0.299  (removed 17 specks)
+    spin         4     <- raw/spin_v04.png             x0.293  (removed 33 specks)
+    airRecover   3     <- raw/airRecover_v05.png       x0.254  (removed 4 specks)
+    down         2     <- raw/down_v07.png             x0.263
+    getup        5     <- raw/getup_v07.png            x0.458  (removed 59 specks)
+    charge       4     <- raw/charge_v11.png           x0.275  (removed 29 specks)
+    throw        4     <- raw/throw_v06.png            x0.295  (removed 8 specks)
+    beamCharge   3     <- raw/beamCharge_v08.png       x0.242
+    beamFire     3     <- raw/beamFire_v08.png         x0.274  (removed 20 specks)
+    vanish       2     <- raw/vanish_v04.png           x0.233  (removed 7 specks)
+    stagger      4     <- raw/stagger_v04.png          x0.279  (removed 29 specks)
+    ko           1     <- raw/ko_v08.png               x0.14
+    special      8     <- raw/special_v06.png          x0.323  (removed 30 specks; split 1 touching pose group(s))
+    intro        4     <- raw/intro_v04.png            x0.246  (removed 11 specks)
+    taunt        2     <- raw/taunt_v04.png            x0.222  (removed 7 specks)
+    win          4     <- raw/win_v04.png              x0.256  (removed 5 specks)
+    specialForward  7     <- raw/specialForward_v10.png   x0.398  (removed 20 specks; split 1 touching pose group(s))
+    specialUp    6     <- raw/specialUp_v08.png        x0.339  (removed 13 specks)
+    specialDown  4     <- raw/specialDown_v05.png      x0.306  (removed 12 specks)
+    superPose    4     <- raw/superPose_v07.png        x0.29  (removed 13 specks)
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 18 ok, 8 unmeasured, 4 drift, 8 uniform, 1 pop
+    ~ light1 head 0.82 of idle (feet 1.35): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v11]
+    ~ light2 head 1.13 of idle (feet 1.31): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v05]
+    ~ heavy head 0.93 of idle (feet 1.05): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v11]
+    ~ airHeavy pops inside the strip: f1 0.97 vs f3 1.34 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v07]
+    ~ block head 1.06 of idle (feet 1.29): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v07]
+    ~ charge head 1.08 of idle (feet 1.04): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v11]
+    ~ stagger head 1.09 of idle (feet 1.35): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v04]
+    ~ taunt head 1.07 of idle (feet 1.11): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v04]
+    ~ win head 1.09 of idle (feet 1.03): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v04]
+    ~ specialForward head 1.10 of idle (feet 1.23): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v10]
+    ~ specialUp head 1.09 of idle (feet 1.15): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v08]
+    ~ specialDown head 1.17 of idle (feet 1.15): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v05]
+    ~ superPose head 1.17 of idle (feet 1.31): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v07]
+  missing core (2): light4, guard
+  - palette snapped to 48 colors
+  - 1 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! launched: 1 frame(s) reach into the 4px cell margin (#1 left 1px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw
+  ! down: 1 lying frame(s) float above the floor line (#1: 19% of the body within 5px of y 240, worst fifth 16px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  ! ko: 1 lying frame(s) float above the floor line (#0: 11% of the body within 5px of y 240, worst fifth 24px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  wrote public/preview/killua-reference-diagnostic/characters/killua/sheet.png
+  wrote public/preview/killua-reference-diagnostic/characters/killua/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 3 warning(s).

@@ -204,37 +204,37 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 166 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | guard | 2 | - | **yes** | 140 trial | approved | v07 | v03 | Title-style v07 candidate: packed 140/139 px, stable feet; provisional until idle anchor is resolved. Existing v03 approval retained. |
-| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
+| 6 | hurtHigh | 3 | - | **yes** | 150 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 6 | launched | 2 | - | **yes** | 115 trial | approved | v05 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 6 | down | 2 | - | **yes** | 90 trial | approved | v07 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
 | 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 180 | approved | v07 | v07 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | charge | 4 | - | **yes** | 125 trial | approved | v11 | v07 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 7 | beamCharge | 3 | - | **yes** | 170 trial | approved | v08 | v05 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 7 | beamFire | 3 | - | **yes** | 145 trial | approved | v08 | v04 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
 | 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | dash | 2 | - | **yes** | 146 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 8 | jumpUp | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | jumpFall | 2 | - | **yes** | 190 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | land | 2 | - | **yes** | 158 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | win | 4 | - | **yes** | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | backDash | 3 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superDash | 2 | - | no | 109 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | jumpSquat | 1 | - | no | 147 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 8 | dash | 2 | - | **yes** | 122 trial | approved | v05 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 8 | jumpUp | 2 | - | **yes** | 148 trial | approved | v05 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 8 | jumpFall | 2 | - | **yes** | 165 trial | approved | v05 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 8 | land | 2 | - | **yes** | 132 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 8 | win | 4 | - | **yes** | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | backDash | 3 | - | no | 160 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | superDash | 2 | - | no | 98 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | jumpSquat | 1 | - | no | 115 trial | approved | v05 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 170 trial | approved | v07 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | block | 2 | - | no | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | hurtLow | 3 | - | no | 167 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | spin | 4 | - | no | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | airRecover | 3 | - | no | 164 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | throw | 4 | 1/1/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | vanish | 2 | - | no | 201 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | stagger | 4 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | ko | 1 | - | no | 58 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | taunt | 2 | - | no | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 9 | block | 2 | - | no | 160 trial | approved | v07 | v03 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | hurtLow | 3 | - | no | 149 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | spin | 4 | - | no | 136 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | airRecover | 3 | - | no | 145 trial | approved | v05 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | throw | 4 | 1/1/2 | no | 173 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | vanish | 2 | - | no | 185 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | stagger | 4 | - | no | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | ko | 1 | - | no | 78 trial | approved | v08 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | intro | 4 | - | no | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
+| 9 | taunt | 2 | - | no | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
 | 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
@@ -561,3 +561,7 @@ Killua additional correction round: idle v06 HOLD (narrow stance), idle_00_fix01
 Killua title production: eight additional independent source candidates (dash05,jumpUp05,jumpFall05,hurtHigh06,land04,intro04,taunt04,win04), one attempt each; six reference-gate ok, taunt/win HOLD. Full production idle and loops remain unresolved.
 
 Killua title continuation: 16 independent candidates now saved; added backDash04,superDash06,jumpSquat05,down07,ko08,airLight1_06,airLight2_07,hurtLow06. v05 idle retained provisionally after controlled anatomy re-evaluation, v06 technically rejected. Candidate approvals unchanged; full pack pending.
+
+Killua continuation now has32 independent animation candidates plus idle/guard and3UI; all title-style versions remain unapproved. Long attacks/reactions and measured fits are listed in production/title-style/candidate-settings.json, with attempt counts in generation-ledger.json.
+
+Killua title-style checkpoint: all42 canonical source strips now assembled (40 candidate settings plus idle05/guard07), plus3UI. Source coverage only: strict pack fails and numerous anatomy/motion/contact holds remain. No new approval or live release.

@@ -62,5 +62,101 @@
   "hurtLow": {
     "version": 6,
     "bodyHeight": 149
+  },
+  "block": {
+    "version": 7,
+    "bodyHeight": 160
+  },
+  "charge": {
+    "version": 11,
+    "bodyHeight": 125
+  },
+  "beamCharge": {
+    "version": 8,
+    "bodyHeight": 170
+  },
+  "airRecover": {
+    "version": 5,
+    "bodyHeight": 145
+  },
+  "launched": {
+    "version": 5,
+    "bodyHeight": 115
+  },
+  "throw": {
+    "version": 6,
+    "bodyHeight": 173
+  },
+  "vanish": {
+    "version": 4,
+    "bodyHeight": 185
+  },
+  "spin": {
+    "version": 4,
+    "bodyHeight": 136
+  },
+  "stagger": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "beamFire": {
+    "version": 8,
+    "bodyHeight": 127
+  },
+  "getup": {
+    "version": 7,
+    "bodyHeight": 158
+  },
+  "light1": {
+    "version": 10,
+    "bodyHeight": 165
+  },
+  "light2": {
+    "version": 5,
+    "bodyHeight": 180
+  },
+  "light3": {
+    "version": 5,
+    "bodyHeight": 180
+  },
+  "run": {
+    "version": 8,
+    "bodyHeight": 162
+  },
+  "heavy": {
+    "version": 11,
+    "bodyHeight": 198
+  },
+  "airLight3": {
+    "version": 9,
+    "bodyHeight": 180
+  },
+  "airHeavy": {
+    "version": 7,
+    "bodyHeight": 205
+  },
+  "specialDown": {
+    "version": 5,
+    "bodyHeight": 190
+  },
+  "superPose": {
+    "version": 7,
+    "bodyHeight": 186
+  },
+  "special": {
+    "version": 6,
+    "bodyHeight": 170
+  },
+  "specialForward": {
+    "version": 10,
+    "bodyHeight": 175
+  },
+  "specialUp": {
+    "version": 8,
+    "bodyHeight": 215
+  },
+  "light4": {
+    "version": 8,
+    "bodyHeight": 180
   }
 }
