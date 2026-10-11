@@ -87,7 +87,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | guard | 2 | - | **yes** | 165 | approved | v05 | v03 | New crossed-forearm title-style v05 packed and visually compared with approved combat; candidate awaits final user review. Historic v03 remains the prior approval. |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 6 | launched | 2 | - | **yes** | 136 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v02 | Title-style v05 technical anatomy hold: compact cell fit but low-confidence head and enlarged sandals; v04 clipped. Historical v02 remains approved. |
 | 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v04 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
