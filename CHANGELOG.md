@@ -12,6 +12,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Tools: a measured **scale gate** for every packed frame (TOOL-025, TOOL-008, ADR 0021): the packer compares each frame's head (hair included) and feet with the fighter's approved idle, refuses to pack a fighter whose unapproved strip is off (approved ones are listed until ART-SCALE-02 fixes them; `--strict-scale` for all), honours manifest exemptions only for the strip version they name, can refit a wrongly sized raw strip (`auto-head`), and `npm run stitch` joins two-part strips with a measured factor; `npm run scale` writes heads contact sheets, a report, a baseline and head scale guides; `?scaleaudit`, `scaleReport()` and the test lab's head boxes show it in game; brief for Codex in art/scale/SCALE_FIX_BRIEF.md.
+- Fixed: `npm run deploy` no longer piles up `gcd-deploy-*` exports in %TEMP% (hundreds of MB each): it retries cleanup for ~15 s and sweeps leftovers older than an hour at the start of every deploy.
+
 - Ops (OPS-006): install local repository-specific PR edit approval rule for future PR numbers; document separate body preparation and repo-first command order. Filesystem write grants unchanged.
 
 - Art review follow-up: restore Sasuke's approved charge v02 per user decision; hand off Killua heavy v05 with stronger forward claw strikes and compact recoil, still unapproved.
