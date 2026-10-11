@@ -1,3 +1,5 @@
+> **Latest user-approved direction:** [Title-style production contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md). Use its approved neutral/combat cells for these four characters; earlier cast-proportion numbers are superseded. Gates still apply. Inspect actual quantized atlas cells: `--quantize 48` does not refresh `frames/`, so cached frames can misrepresent the candidate.
+
 > **Active baseline, user approved 2026-10-11:** [Approved cast baseline](scale/APPROVED_CAST_BASELINE.md) supersedes historical scale/build numbers below for the full redraw. Preserve common height ratios and individually measured anatomy; old values describe shipped art only. Claude owns formal spec/ADR integration.
 
 # Shared fighter scale and anatomy gate
