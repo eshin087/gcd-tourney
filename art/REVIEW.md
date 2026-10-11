@@ -53,7 +53,7 @@ Status values: `needs review` · `approved` · `rejected`.
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-10-10 | sasuke | heavy | [candidate](characters/sasuke/raw/heavy_v06.png) | v06 | needs review | Fresh generated correction using approved references; approved v02 retained. | 48-color strict pack passes. [QA](characters/sasuke/production/heavy-charge-QA.md); remaining contact/loop tolerances explicitly flagged. |
+| 2026-10-10 | sasuke | heavy | [candidate](characters/sasuke/raw/heavy_v06.png) | v06 | approved | User approved everything on 2026-10-10; this latest version approved. |48-color strict pack passes. [QA](characters/sasuke/production/heavy-charge-QA.md); remaining contact/loop tolerances explicitly flagged. Existing QA deviations accepted by user, not technically fixed. |
 | 2026-10-10 | sasuke | charge | [archived](characters/sasuke/raw/_rejected/charge_v04.png) | v04 | rejected | User preferred the old charge: restore approved v02; no new generation. | v03/v04 archived; approved v02 raw and cleaned frames retained. Historical newest version stays4. |
 | 2026-10-10 | sasuke | heavy | [archived](characters/sasuke/raw/_rejected/heavy_v05.png) | v05 | rejected | Anatomy and recovery scale inconsistent; user requested correction. | Source and parts preserved; superseded by latest candidate. |
 | 2026-10-10 | sasuke | heavy | [archived](characters/sasuke/raw/_rejected/heavy_v04.png) | v04 | rejected | Active kick too steep and scale inconsistent; user requested correction. | Source and parts preserved; superseded by latest candidate. |
