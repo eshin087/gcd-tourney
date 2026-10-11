@@ -10,6 +10,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- art(gojo): correct five-pose getup segmentation and superDash placement; retain exhausted run and heavy source attempts with explicit QA holds.
 
 - art(gojo): begin the approved title-style 42-animation and three-UI redraw; preserve versioned candidates and explicit scale, pose, and pack QA holds (ART-GOJO-TITLE).
 

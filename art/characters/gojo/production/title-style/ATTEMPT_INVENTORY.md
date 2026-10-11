@@ -7,10 +7,10 @@ The latest quantized pack is `pack-all42.txt`: exit 1, 17 scale-gate holds, no u
 | Asset | Latest candidate | Generation rounds | Current hold or note |
 |---|---:|---:|---|
 | idle | v06 | 1 | head gate passes; full frame QA pending |
-| run | v08 | 2 | head pass; repeated leg lead |
+| run | v09 B rejected; assembled v08 | 3 | head pass on v08; generated v09 B also repeats leg lead; source rounds exhausted |
 | dash | v06 | 1 | head gate passes; full frame QA pending |
 | backDash | v04 | 1 | head gate passes; full frame QA pending |
-| superDash | v06 | 1 | head pass; 7px right clip |
+| superDash | v07 | 1 generation, 1 measured placement | head pass; 11px left offset clears right clip and cell-margin warning; native anatomy pending |
 | jumpSquat | v04 | 1 | manual scale pass, user review pending |
 | jumpUp | v04 | 1 | head gate passes; full frame QA pending |
 | jumpFall | v04 | 1 | head gate passes; full frame QA pending |
@@ -19,7 +19,7 @@ The latest quantized pack is `pack-all42.txt`: exit 1, 17 scale-gate holds, no u
 | light2 | v06 | 3 | head pass; 3 rounds used |
 | light3 | v03 | 1 | scale-gate hold |
 | light4 | v06 | 2 | head pass; B stitch x0.7965 |
-| heavy | v04 | 1 | gate hold; elbow reads fist |
+| heavy | v06 A rejected; assembled v05 | 3 | v05 elbow still ambiguous and head 0.93; v06 A crosses face; source rounds exhausted |
 | airLight1 | v05 | 1 | scale-gate hold |
 | airLight2 | v04 | 1 | head gate passes; full frame QA pending |
 | airLight3 | v10 | 3 | gate hold; 3 rounds used; B x0.7189 |
@@ -32,7 +32,7 @@ The latest quantized pack is `pack-all42.txt`: exit 1, 17 scale-gate holds, no u
 | spin | v04 | 1 | scale-gate hold |
 | airRecover | v03 | 1 | scale-gate hold |
 | down | v04 | 1 | gate hold; original pose, Claude adjudication |
-| getup | v03 | 1 | gate hold; 4 visible poses vs 5 |
+| getup | v05 | 3 | five distinct segmented poses after measured 3+2 stitch; low-confidence anatomy hold |
 | charge | v07 | 1 | head gate passes; full frame QA pending |
 | throw | v03 | 1 | scale-gate hold |
 | beamCharge | v03 | 1 | head gate passes; full frame QA pending |
@@ -52,4 +52,4 @@ The latest quantized pack is `pack-all42.txt`: exit 1, 17 scale-gate holds, no u
 | ui_cutin | v02 | 1 | visual candidate; not approved |
 | ui_select | v02 | 1 | visual candidate; not approved |
 
-The source separation or part-scale retry cap is reached for light2 and airLight3. Land's corrective round is also exhausted. Other 17 gate holds and visual issues need targeted QA and corrective decisions before more generation. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.
+The source separation, motion, or part-scale retry cap is reached for run, light2, heavy, getup, and airLight3. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The full pack still has 17 gate holds and writes no atlas. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.

@@ -325,7 +325,7 @@
           "required": true,
           "step": 4,
           "status": "approved",
-          "version": 8,
+          "version": 9,
           "approvedVersion": 3
         },
         "dash": {
@@ -368,7 +368,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 6,
+          "version": 7,
           "approvedVersion": 1
         },
         "jumpSquat": {
@@ -546,7 +546,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 4,
+          "version": 6,
           "approvedVersion": 1
         },
         "airLight1": {
@@ -770,7 +770,7 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 3,
+          "version": 5,
           "approvedVersion": 1
         },
         "charge": {
