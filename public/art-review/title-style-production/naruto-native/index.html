@@ -61,8 +61,8 @@
       light4: 'Scale passes; animation and contact review pending.',
       heavy: 'Scale passes; animation and contact review pending.',
       airLight1: 'Active fists overshoot the mid contact zone; generation budget exhausted.',
-      airLight3: 'Strict hold: f2 clips 6px left/12px right and head reads 1.24–1.32 of provisional idle.',
-      airHeavy: 'Strict scale passes, but f2/f3 and f4/f5 are nearly duplicate drawings; motion hold.',
+      airLight3: 'Packed v06 strict hold: f2 clips 6px left/12px right and head reads 1.24–1.32. Corrected v07 source is unassembled because the stitcher misses Part A head.',
+      airHeavy: 'Packed v08 strict scale passes, but f2/f3 and f4/f5 nearly repeat. Corrected v09 motion source is unassembled because the stitcher misses Part A head.',
       launched: 'Anatomy hold: large sandal/low-confidence head probe.',
       spin: 'Anatomy hold: large sandal/low-confidence head probe.',
       airRecover: 'Anatomy hold: large sandal/low-confidence head probe.',
@@ -80,12 +80,16 @@
     };
     const sourceParts = {
       light1: ['light1_v04_A.png', 'light1_v04_B.png'],
+      light2: ['light2_v06_A.png', 'light2_v06_B.png'],
+      airLight3: ['airLight3_v07_A.png', 'airLight3_v07_B.png'],
+      airHeavy: ['airHeavy_v09_A.png', 'airHeavy_v09_B.png'],
       special: ['special_v06_A.png', 'special_v06_B.png'],
       specialForward: ['specialForward_v04_A.png', 'specialForward_v04_B.png'],
       specialUp: ['specialUp_v04_A.png', 'specialUp_v04_B.png'],
     };
-    const latest = { light1: 4, light2: 6, airLight1: 7, special: 7, specialForward: 4, specialUp: 4 };
+    const latest = { light1: 4, light2: 6, airLight1: 7, airLight3: 7, airHeavy: 9, special: 7, specialForward: 4, specialUp: 4 };
     const historical = new Set(['light1', 'special', 'specialForward', 'specialUp']);
+    const sourceOnly = new Set(['light2', 'airLight3', 'airHeavy']);
     const canvas = document.getElementById('stage');
     const ctx = canvas.getContext('2d', { alpha: true });
     ctx.imageSmoothingEnabled = false;
@@ -100,7 +104,7 @@
       document.getElementById('heading').textContent = name;
       const packed = data.scaleAudit.anims[name]?.v;
       const fallback = latest[name] && packed !== latest[name];
-      document.getElementById('source').textContent = fallback && historical.has(name) ? `HISTORICAL FALLBACK v${String(packed).padStart(2, '0')} playing; title-style v${String(latest[name]).padStart(2, '0')} is source-only/rejected.` : fallback ? `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing; newer v${String(latest[name]).padStart(2, '0')} is held/rejected.` : `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing.`;
+      document.getElementById('source').textContent = fallback && historical.has(name) ? `HISTORICAL FALLBACK v${String(packed).padStart(2, '0')} playing; title-style v${String(latest[name]).padStart(2, '0')} is source-only/rejected.` : fallback && sourceOnly.has(name) ? `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing; newer v${String(latest[name]).padStart(2, '0')} is SOURCE-ONLY and unassembled.` : fallback ? `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing; newer v${String(latest[name]).padStart(2, '0')} is rejected.` : `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing.`;
       document.getElementById('finding').textContent = findings[name] || 'Candidate packed for visual review. Scale gate alone does not approve anatomy, motion, contact or gameplay.';
       document.getElementById('timing').textContent = `Frame durations: ${anim.durations.join(' / ')} ms; loop: ${anim.loop ? 'yes' : 'no'}.`;
       document.getElementById('sourceLinks').replaceChildren(...(sourceParts[name] || []).map((file, i) => { const a = document.createElement('a'); a.href = file; a.textContent = `Title source Part ${i ? 'B' : 'A'}`; return a; }));
