@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the scale gate measured every strip in the fighter-wide `--quantize` palette, so a candidate's new colours moved the unchanged idle's head (Killua 52x35 vs 52x43) and other strips' verdicts. It now measures before quantizing against the idle's own palette (declared hair colours snapped first); `anims.json` records the per-frame numbers and `npm run scale` reports those. Sheets unchanged; scale baseline rewritten once for the method change (ART-KIL-PROBE).
+
 - Tools: `npm run pr -- merge` now deploys the merged main to production (https://gcd-tourney.vercel.app) after publishing it, so a merge is live; `--no-deploy` skips it, and a failed deploy never undoes the merge (user request 2026-10-10).
 - art(naruto): add seven-head proportion redraw brief and model_sheet v03 candidate with cast lineup and mobile review; model approval required before idle. Raw palette and source-scale caveats documented.
 - Sasuke: document seven-head full-redraw plan and queue model_sheet v02 with measured cast lineup; model approval stop, no new idle or shipped sprite changes.

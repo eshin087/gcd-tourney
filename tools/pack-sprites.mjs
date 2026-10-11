@@ -1647,8 +1647,9 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
 }
 
 // ============================================================== scale gate (TOOL-025, ADR 0021, art/CHARACTER_SCALE.md)
-// tools/scale-probe.mjs measures every strip against the idle of this pack (unquantized cells are snapped to one
-// shared palette first, the median cut --quantize ships, so the audit is the same with or without --quantize).
+// tools/scale-probe.mjs measures every strip against the idle of this pack, on the cells before --quantize, with the
+// colours reduced to the idle's own palette (measurementCells), so the audit is the same with or without --quantize
+// and no strip's colours move another strip's numbers.
 function auditAnims(id, anims, env) {
   return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version })), {
     decl: env.builds?.[id] || {}, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
@@ -1893,15 +1894,17 @@ function packCharacter(id, env) {
   // 1b) auto head fit for the strips that asked for it (sidecar anatomy auto-head or --fit-head)
   if (anims.some((a) => a.fit)) fitHeads(id, anims, env, R);
 
-  // 2) optional palette snap (across the whole character so colors stay consistent)
+  // 2) scale gate: every strip's head (hair included) and feet against the approved idle. It runs before the palette
+  // snap: the shipped median cut covers every strip, so measuring after it let one strip's colours move another's
+  // numbers (ART-KIL-PROBE); the probe reduces colours to the idle's own palette instead (scale-probe measurementCells)
+  const scaleAudit = scaleGate(id, anims, env, R);
+
+  // 2b) optional palette snap (across the whole character so colors stay consistent)
   const allCells = anims.flatMap((a) => a.cells);
   if (env.quantize) R.notes.push(`palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
   R.colors = countColors(allCells);
   if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);
   else if (R.colors > spec.maxColors) R.notes.push(`palette has ${R.colors} colors: above the spec target of ${spec.maxColors} (warned above ${spec.warnColors})`);
-
-  // 2b) scale gate: every strip's head (hair included) and feet against the approved idle
-  const scaleAudit = scaleGate(id, anims, env, R);
 
   // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here)
   const meta = {

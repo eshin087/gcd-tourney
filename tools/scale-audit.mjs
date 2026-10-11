@@ -20,7 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
-import { auditCharacter, resolveGate, exemptionsFrom, staleExemptText, bboxOf, isSkin, hex, FLAGGED, verdictText } from './scale-probe.mjs';
+import { auditCharacter, auditFromCompact, resolveGate, exemptionsFrom, staleExemptText, bboxOf, isSkin, hex, FLAGGED, verdictText } from './scale-probe.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -52,16 +52,24 @@ function versionOf(id, name, meta, artDir) {
   return Number.isInteger(m?.version) ? m.version : null;
 }
 
-// Audit one packed fighter the way the packer's gate does (palette-snapped copies when the sheet is unquantized).
+// Audit one packed fighter with the packer gate's own numbers: the per-frame measurements it recorded in anims.json
+// (meta.scaleAudit, taken before --quantize against the idle's palette), judged with today's manifest. A pack that
+// predates them is measured from the sheet (A.legacy): close, but the shipped palette is the whole fighter's median
+// cut, so a borderline strip can read differently from the gate until it is repacked.
 export function auditPacked(id, { artDir = path.join(ROOT, 'art'), publicDir = path.join(ROOT, 'public'), manifest = null, builds = null } = {}) {
   const P = loadPacked(id, publicDir);
   if (!P) return null;
   manifest = manifest ?? readJson(path.join(artDir, 'manifest.json')) ?? {};
   builds = builds ?? readJson(path.join(artDir, 'scale', 'builds.json'))?.fighters ?? {};
   const gate = resolveGate(manifest.spec?.scaleGate);
-  const A = auditCharacter(P.anims.map((a) => ({ name: a.name, cells: a.cells, version: versionOf(id, a.name, P.meta, artDir) })), {
-    decl: builds[id] || {}, gate, exempt: exemptionsFrom(manifest.characters?.[id]?.animations), maxColors: manifest.spec?.maxColors ?? 48,
-  });
+  const exempt = exemptionsFrom(manifest.characters?.[id]?.animations);
+  let A = auditFromCompact(P.meta.scaleAudit, { gate, exempt });
+  if (!A) {
+    A = auditCharacter(P.anims.map((a) => ({ name: a.name, cells: a.cells, version: versionOf(id, a.name, P.meta, artDir) })), {
+      decl: builds[id] || {}, gate, exempt, maxColors: manifest.spec?.maxColors ?? 48,
+    });
+    A.legacy = true;
+  }
   return { P, A, gate, mc: manifest.characters?.[id] || {} };
 }
 
@@ -246,6 +254,7 @@ function main(argv) {
     }
     report.fighters[id] = { palette: { head: [...A.palette.head].map(hex), feet: [...A.palette.feet].map(hex), source: A.palette.headSource }, ref: { headPx: A.ref.headPx, box: A.ref.box, feetPx: A.ref.feet }, counts, anims };
     L(`\n== ${id}: idle head ${A.ref.headPx.join('x')} px (${A.palette.headSource} palette ${[...A.palette.head].map(hex).join(' ')})`);
+    if (A.legacy) L(`   (measured from the sheet: this pack predates the recorded gate numbers; repack with npm run sprites ${id} for the gate's own)`);
     L(`   ${Object.entries(counts).map(([k, n]) => `${n} ${k}`).join(', ')}`);
     const pct = (v) => (v == null ? '   -' : `${v >= 1 ? '+' : ''}${Math.round((v - 1) * 100)}%`.padStart(4));
     for (const [name, s] of Object.entries(A.anims)) {
