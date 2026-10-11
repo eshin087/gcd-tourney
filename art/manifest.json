@@ -149,8 +149,8 @@
         "expressions": { "file": "art/characters/sasuke/reference/expressions.png", "candidates": "art/characters/sasuke/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
       "animations": {
-        "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "idle": { "frames": 8, "loop": true, "bodyHeight": 180, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 7, "approvedVersion": 1 },
+        "run": { "frames": 8, "loop": true, "bodyHeight": 150, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 5, "approvedVersion": 2 },
         "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 1, "approvedVersion": 1 },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "superDash": { "frames": 2, "loop": true, "bodyHeight": 120, "ms": [50, 50], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -167,7 +167,7 @@
         "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "scaleExemptFrames": { "4": "both arms swung over the head are drawn in hair shades" }, "scaleExemptVersion": 2, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "guard": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [300, 300], "required": true, "step": 6, "scaleExempt": "arms crossed in front of the face are drawn in hair shades and merge with the hair", "scaleExemptVersion": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "guard": { "frames": 2, "loop": true, "bodyHeight": 180, "ms": [300, 300], "required": true, "step": 6, "scaleExempt": "v04: crossed navy forearms join the hair mask; independent packed-cell inspection finds both hair crowns at y61, upper head spans x100..142/x101..142 versus idle x95..134, consistent torso and planted feet; probe head 1.38 is not a valid skull measurement", "scaleExemptVersion": 4, "status": "approved", "version": 4, "approvedVersion": 1 },
         "block": { "frames": 2, "loop": false, "bodyHeight": 204, "ms": [60, 80], "required": false, "step": 9, "scaleExemptFrames": { "1": "the forearm across the face merges with the hair" }, "scaleExemptVersion": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
         "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 195, "ms": [70, 90, 100], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 2 },
         "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
