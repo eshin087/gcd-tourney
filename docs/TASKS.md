@@ -1,5 +1,9 @@
 # Task board
 
+ART-SAS-CORRECT-R2 | Codex | review | Approved superDashv04 applied. Chargev09/specialv10 pass combined strict check; SFv06 pop and getupv04 manual remain. No tooling overrides. See art/characters/sasuke/production/SECOND_CORRECTION_ROUND.md; PR62.
+
+ART-SAS-POST-YES | Codex | review | Corrected four authorized strips plus superDash placement; strict pack still blocked on charge/special/specialForward/getup. Claude owns manual QA and integration. Files: art/characters/sasuke/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/art-review/sasuke-post-approval/. See art/characters/sasuke/production/POST_APPROVAL_QA.md.
+
 The single list of work in flight, shared by the user, Claude and Codex. The protocol is in
 [AI_COLLABORATION.md](AI_COLLABORATION.md).
 
@@ -267,6 +271,26 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 | ART-SAS-CHARGE-ROLLBACK | Restore approved Sasuke charge after user rejection | Codex | done | PR28: archive v04, keep approved v02 and historical newest4; strict pack, geometry comparison and refreshed preview. Heavy v06 unchanged. User approved latest art; existing QA caveats accepted; integration remains pending. |
 | ART-SAS-SIZE-20261010 | Sasuke size-pop correction with phone review | Codex | done | files: art/characters/sasuke/, art/scale/lineup-sasuke-size*, public/art-review/sasuke-size-pops/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated fix/sasuke-size-pops; user approval recorded; ready for Claude integration. |
 
+| ART-SAS-PROP-IDLE | Smaller-head idle after model approval | Codex W3 | review | Branch art/sasuke-proportions port5213; files: art/characters/sasuke/raw/idle_v02*, art/characters/sasuke/raw/_parts/idle_v02*, art/characters/sasuke/reference/idle_v02*, art/characters/sasuke/frames/idle/, public/characters/sasuke/, art/scale/heads-sasuke.png, art/scale/lineup-sasuke-idle_v02*, art/REVIEW.md, art/TRACKER.md, art/manifest.json, CHANGELOG.md, public/art-review/sasuke-proportions-idle/. Stop for idle approval; Claude integration. |
+
+## Sasuke neutral redraw verification — 2026-10-11
+
+| id | title | owner | status | notes |
+|---|---|---|---|---|
+| ART-SAS-NEUTRAL | Redraw all42 against approved neutral | Codex | review | port5213 real art-sasuke-proportions; fixed neutral copied; latest42 checkpoint animations visually approved2026-10-11; six strict-pack failures/manual holds prevent shipping application; source inventory175frames. |
+| TOOL-SAS-NEUTRAL-PROBE | Old branch palette-sensitive gate; use current main tool | Claude | review | Local tool flips unchanged run from ok to0.62 when dash added. Current main e549325 fixes instability: explicit --root art --out public gives run1.08/dash1.10, real remaining candidate drift under investigation. See art/characters/sasuke/reference/neutral-main-tool-pack.txt and neutral-dash-v02-pack.txt. No tool edits or blanket exemption. |
+
+
+### TOOL-SAS-IDLE-V06-MASK — Claude tooling handoff (blocked)
+
+Current main command: node ../../tools/pack-sprites.mjs sasuke --root art --out public --quantize 48 exits 1 from art-sasuke-proportions. Inputs idle_v06.png/JSON and A/B parts. A hair mask box [109,40,144,73] vs B [109,45,124,69] despite similar visible hair; B excludes right hair mass. Investigate palette declaration/mask selection before treating idle ref as valid. No tools changed or blanket exemption. Exact logs/masks/landmark uncertainty: [neutral-redraw-QA](../art/characters/sasuke/reference/neutral-redraw-QA.md). All 42 source candidates exist; 31 strict failures and actual art issues prevent readiness. Claude owns tool fix; Codex owns later measured art corrections.
+
+Palette follow-up: TOOL-SAS-IDLE-V06-MASK is resolved in art data by measured #20315b/#292b53/#294686/#293b6c headColors. Full masks restored; no tooling patch required. Current main pack still fails14 strips, with independent anatomy/pose holds. See neutral-palette-corrected-pack.txt and QA resolution section.
+
+
+### ART-SAS-NEUTRAL visual approval follow-up — 2026-10-11
+
+User blanket visual approval recorded for exact42 latest checkpoint versions. Technical and manual QA holds remain; shipping approval application deferred. REVIEW rows approved visually, manifest approvedVersion/baseline unchanged. Repack result: see art/characters/sasuke/reference/neutral-approval-pack.txt. Claude alone integrates/production. No further image generation authorized by this approval.
 **ART-GOJO-FULL-20261011**, Codex, in-progress. All42 redraw against approvedneutral. Own art/characters/gojo, Gojo manifest/review rows, Gojo pack outputs, art/scale/heads-gojo.png and review lineup. Port5224, real worktree art-gojo-full-redraw. Claudeonly integrates.
 
 ART-GOJO-FULL-20261011 checkpoint:42 source animations drawn,37 packed candidates;5 attempt-cap holds. Review page public/art-review/gojo-full-redraw. Not merge-ready; Claude alone integrates.
@@ -278,6 +302,9 @@ Gojo visual approval (2026-10-11): user approved the latest selected full-redraw
 
 TOOL-ROTATED-ANATOMY, Claude, done in TOOL-030 (`scaleManualQA`, verdict `manual`). The current scale probe deliberately returns `unmeasured` for lowConf animations before assessing numeric head thresholds (tools/scale-probe.mjs:338). The approved-neutral redraw has eight such Gojo poses: jumpSquat, launched, spin, airRecover, down, getup, vanish and ko. Their visible head may be measured correctly, so a blanket wrong-ROI exemption would be dishonest. Define and validate an axis-aware anatomical/manual evidence acceptance path that preserves the user's strict gate requirement, without silently treating `unmeasured` as `ok` or weakening thresholds. Codex retains per-frame contacts, independent landmarks and uncertainties; these are manual-QA holds, not new art approvals. This is a tooling/spec handoff, not permission for Codex to edit the probe or engine.
 
+ART-SAS-CORRECT-R3 | Codex | review | charge09/special10 approvals applied; SF09 localized attempt rejected, recalibrated SF06 selected. Full strict pack exit0; getup04/SF06 still need user approval. Claude owns merge/production. See THIRD_CORRECTION_ROUND.md.
+
+ART-SAS-FINAL-APPROVAL | Codex | review | User approved SF06/getup04, Claude recorded048f703; final strict pack/build rechecked. All selected Sasuke animation approvals complete. Ready for Claude to merge art/sasuke-proportions when cast integration gates clear.
 ART-GOJO-CORRECT-20261011, Codex, review (integration blocked by airLight3). Four inbox corrections airLight3/airHeavy/charge/win; maximum3 additional generations each. Existing worktree/port5224. Claude remains coordinator. Own Gojo art/reference/manifest/review/QA plus generated outputs; no tooling or gate policy edits.
 
 Gojo correction round2026-10-11: airHeavy v06, charge v06, win v06 numeric ok and needs visual review. airLight3 v05 best remains technical hold; v06 rejected by QA. Three additional calls exhausted only for airLight3. Full strict pack exits1; production atlas unchanged. Exact evidence: redraw/CORRECTIONS_2026-10-11.md. Claude-only integration.

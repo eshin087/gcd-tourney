@@ -11,6 +11,21 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): verify final specialForward v06/getup v04 user approvals and passing strict atlas; hand off integration to Claude.
+
+- art(sasuke): record charge v09/special v10 approvals; retain Claude-calibrated specialForward v06 and getup v04 for review with a passing strict atlas.
+
+- Sasuke second correction round: record approved superDashv04; chargev09 and specialv10 pass scale checks. Strongest specialForwardv06 retained with explicit hold, getupv04 unchanged for Claude manualQA.
+
+- Sasuke post-approval correction candidates and complete frame evidence: refreshed approved idle guide, localized charge/rush edits, corrected getup proportions and superDash clearance; four strict/manual holds remain, no new approvals or production atlas.
+
+- Sasuke: record user blanket visual approval for latest42 reviewed checkpoint versions (2026-10-11); preserve six technical failures and manual continuity holds, defer shipping application to QA/Claude integration.
+
+- Sasuke: twelve bounded neutral-redraw corrections and exact probe-mask evidence; all42 candidates remain unapproved, six strict-pack holds remain (draft PR62).
+
+- Sasuke neutral redraw checkpoint: all 42 animations / 175 source frames, anatomical sidecars and full diagnostic gallery; strict scale failures and exhausted attempts remain explicit holds (ART-SAS-NEUTRAL).
+
+- Sasuke: idle v02/v03 candidates against approved smaller-head model; heads and lineup show proportion/build caveats, correction recommended before baseline approval.
 - Gojo: record user approval of airLight3 v07 and archive superseded v05.
 
 - Gojo: record user approval of charge, airHeavy and win v06; start newly authorized airLight3 correction round.

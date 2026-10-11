@@ -9,7 +9,7 @@
   },
   "fighters": {
     "naruto": { "build": "athletic-teen", "idleHands": "guard", "canonCm": 166, "standingPx": 200, "deltoidPx": 62, "headColors": ["#fcd457"], "_headColors": "the hair yellow only: the automatic palette also took the headband cloth, plate and orange shades the jacket shares, which welded the head to the collar or to raised sleeves" },
-    "sasuke": { "build": "athletic-teen", "idleHands": "guard", "canonCm": 168, "standingPx": 200, "deltoidPx": 60, "headColors": ["#18192e", "#2c3866", "#324377", "#3a4571", "#3b3a60", "#3a4c85", "#435ea3"], "_headColors": "his hair is drawn in outline and coat shades, so the automatic head palette (art/CHARACTER_SCALE.md Scale gate) misses most of it" },
+    "sasuke": { "build": "athletic-teen", "idleHands": "guard", "canonCm": 168, "standingPx": 200, "deltoidPx": 60, "headColors": ["#18192e","#2c3866","#324377","#3a4571","#3b3a60","#3a4c85","#435ea3","#20315b","#292b53","#294686","#293b6c"], "_headColors": "Hair shares outline/coat shades. Neutral idle v06 ROI adds #20315b #292b53 #294686 #293b6c; full A/B masks and before/after evidence in Sasuke neutral-redraw-QA." },
     "killua": { "build": "child", "idleHands": "guard", "canonCm": 158, "standingPx": 182, "deltoidPx": 42 },
     "gojo": { "build": "athletic-adult", "idleHands": "down", "canonCm": 190, "standingPx": 220.4022702379767, "_note": "Approved neutral height v01 overrides old 215px and deltoid78 target. Lean long-limbed build; class thresholds remain historical diagnostics pending Claude spec migration." }
   }

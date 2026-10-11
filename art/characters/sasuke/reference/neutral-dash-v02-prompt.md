@@ -1,0 +1,5 @@
+# Dash v02 prompt
+
+One built-in attempt. Current main gate fails at head1.10; not review-ready.
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. TWO fullbody DASH frames in ONEhorizontalrow1536x1024. f0 verylow fastforward dashright torso50degreesforward headup glaringahead, leftkneebent underchest rightlegstraightback toesdragging, BOTHarmstrailingstraightback; clothbangsrope streambackhard. f1 stride slightlywider with changedclothflutter. Both lowandlong sameheadheight sameanatomicalsize. Feetcontact commonfloor850, generousgaps nooverlap. Keep source skull106px and original leglengths. No punch.
+

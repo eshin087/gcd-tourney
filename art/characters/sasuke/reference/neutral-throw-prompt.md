@@ -1,0 +1,9 @@
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. 
+Exactly 4 fullbody poses horizontalrow. Entire silhouettes separated xintervals by80px emptymagenta corridor, same smallskull everyframe and normal limblengths. ANIMATION: "throw", FIREBALL, breathed in mid-air. 4 frames, left to right. Pose 2 is the RELEASE frame.
+EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it.
+1. Inhaling: air pose, torso upright leaning back, chest puffed, cheeks full, both hands forming a hand seal at his chin (fingers interlaced, both index and middle fingers pointing up together).
+2. RELEASE: exhaling hard: torso and head lunge forward and down toward the right (torso leaning about 30 degrees), legs trailing back and down, mouth wide open and round as if blowing; right hand raised beside his lips with the index and middle fingers up; left arm swung back; bangs whipping back.
+3. Still blowing with the mouth less open, body drifting back from the recoil, legs extending.
+4. Air pose, hands lowering, mouth closed.
+MOTION: All poses in mid-air. NO fire anywhere: the game draws the fireball in front of his mouth.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.

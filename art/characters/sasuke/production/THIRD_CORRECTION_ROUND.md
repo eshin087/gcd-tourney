@@ -1,0 +1,14 @@
+# Third correction checkpoint — 2026-10-11
+
+User explicitly approved charge v09 and special v10. Their approvedVersion fields are applied; superseded pending versions are archived immutable. User authorized up to three additional specialForward imagegen calls. One call was used; no more are necessary after Claude's concurrent calibration correction.
+
+The call edited a 220x200 crop of specialForward v06 B f0 (global f4), shortening only outer hair tips. Generated output 1315x1196 was mechanically restored to its source crop dimensions. Only ROI [330,65,180,105] was pasted into original B; all pixels outside it and all of A were preserved. Official measured stitch, counts4,3, produced v09. Its former-calibration strict result still popped (~1.09/.94); v09 is archived rejected, including its source sidecar. No factor was chosen by eye. The single-frame fix source and exact prompt are retained.
+
+Claude concurrently committed f483fd1: getup v04 manual QA, and specialForward v06 part-B calibration x0.95 with a version-specific f6 collar-occlusion exception. Worker did not change these records. v06 is selected; newest saved version9 remains recorded, approvedVersion stays3. v06 and getup04 still require user visual approval.
+
+Final `node tools/pack-sprites.mjs sasuke --quantize 48 --strict-scale` exits0: 42 animations/175 frames; 1ref,30ok,8manual,3exempt. SF06 head ratios: 1.000,1.003,1.057,1.057,1.029,.941,.911; last frame exempt by Claude because collar cuts height while width remains1.06. Counted range .116. Hairgate is not proof of all hidden anatomy. All seven SF poses visually retain consistent body construction; recovery poses rise naturally, and no obvious size jump remains. Getup04's bent final stance is shorter in posed bounds than idle; Claude's shoulder/torso comparison cleared transition.
+
+The actual packed atlas, full correction contact, heads and cast lineup are at public/art-review/sasuke-corrections-r3/. Other-character lineup columns reflect this worktree's existing atlases, not current production. Full game build passed. Existing warning: idle hair differs from historical scale-baseline; baseline was not changed. Existing5 uncertain strike-limb hitbox fallbacks remain unchanged. No threshold, new exemption, tooling, scaleFit or manualQA was authored by worker. Claude alone integrates and deploys production.
+
+## Final approval update
+User explicitly approved specialForward v06 and getup v04 on2026-10-11. Claude recorded manifest/REVIEW in048f703. This supersedes the pending-approval statements above. Worker verified approvedVersion6/4 and preserved Claude calibration/exemptions/manualQA. Fresh strict pack and build pass; all selected Sasuke animation approvals complete. No new generation. Ready for Claude integration when cast gates clear.

@@ -1,0 +1,12 @@
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. 
+PART B only as specified, fullposes horizontalrow each ownxinterval separated100px emptyverticalmagenta corridor, longnatural legs stable torso matchingneutral, no perposefill. ANIMATION: "specialForward", CHIDORI SHARP SPEAR, a fast, short-range spear-hand thrust with the LEFT hand. 7 frames in total, numbered 1 to 7 from left to right; this image is PART B of 2 and shows only poses 5 to 7 (the attached part A shows poses 1 to 4).
+EYES: the Sharingan in poses 2 to 5 (glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it); normal dark eyes (#2c2c40) in poses 1, 6 and 7.
+5. Pulling the arm back: the left elbow bends, the hand retracting toward his chest, the body rising out of the lunge, weight shifting back. Sharingan. Face: cold.
+6. The left hand back near the guard, opening into the knife-hand; the left foot slides back; normal dark eyes. Face: cold.
+7. Fighting stance (same as idle frame 1), normal dark eyes. Face: cold.
+MOTION: Draw NO lightning anywhere: the left hand is open and empty in every frame (the game adds the lightning). The sword stays sheathed at his back.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+
+Correction: Correct second and third pose left openhand to be raised at chestheight forward knifehand guard. Thirdpose finishes upright fightingstance matching attached idle. Preserve firstpose armrecovery, threefullposes, existingcompacthead andbodybuild.
+
+Final: Exactly THREE poses only: remove redundant fourth/rightmost character entirely. Keep first recoveringarm pose, second raisedlefthand knifehand pose, third fightingguard. Three fullbody poses wide magenta gaps. Do not add anyotherposes.
