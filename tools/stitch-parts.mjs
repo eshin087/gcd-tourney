@@ -10,6 +10,9 @@
 //                                                              version MM (a scale fix without generating new images)
 //   npm run stitch -- <id> <anim> <vNN> --factor 0.8 --reason "B's head is hidden by the raised arms"
 //                                                              a manual factor needs a written reason
+//   npm run stitch -- <id> <anim> <vNN> --counts 5,3           the poses in part A and B: touching poses (a kick
+//                                                              reaching into the next pose) are cut apart; without it
+//                                                              the stitch also checks the sum against the manifest
 //
 // How: both parts are cleaned like the packer cleans a strip (magenta removed, specks dropped, poses split), packed at
 // one trial scale and measured with the scale probe (head silhouette with hair, tools/scale-probe.mjs) against the
@@ -22,7 +25,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, resample, placeCharFrame, readJson } from './pack-sprites.mjs';
-import { palettesFromIdle, makeReference, measureFrame, snapToPalette, quantizeCopies, countColors, median, resolveGate } from './scale-probe.mjs';
+import { palettesFromIdle, makeReference, measureFrame, measurementCells, median, resolveGate } from './scale-probe.mjs';
 import { loadPacked } from './scale-audit.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -32,11 +35,11 @@ const SPEC = { frameWidth: 256, frameHeight: 256, pivot: [128, 240], cellMargin:
 function fail(msg) { console.error(`[stitch] ${msg}`); return 1; }
 
 // a cleaned part: background removed, specks dropped, split into trimmed poses (source resolution)
-function cleanPart(file) {
+function cleanPart(file, expected = 0) {
   const img = readPng(file);
   removeBackground(img, { tol: 72, mode: 'char' });
   removeSpecks(img, { frac: 0.0015, min: 4 });
-  const { rects } = splitStrip(img, 0, { split: 'auto', mode: 'char' });
+  const { rects } = splitStrip(img, expected, { split: 'auto', mode: 'char' });
   const poses = [];
   for (const r of rects) {
     const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
@@ -46,24 +49,35 @@ function cleanPart(file) {
   return { img, poses, box: bbox(img) };
 }
 
-const cellsAt = (poses, s) => poses.map((p) => placeCharFrame(resample(p, s, { coverage: 0.5, alphaMin: 128 }), SPEC).cell);
+// poses resampled by s and placed in cells like the packer's; clipped = poses cut at the TOP of the cell: a trial scale
+// that pushes the crown above the cell makes the probe read whatever is left (a shirt hem). An arm cut at the side does
+// not touch the head.
+const cellsAt = (poses, s) => {
+  const placed = poses.map((p) => placeCharFrame(resample(p, s, { coverage: 0.5, alphaMin: 128 }), SPEC));
+  return { cells: placed.map((x) => x.cell), clipped: placed.filter((x) => x.lost && x.clip.some((c) => c.startsWith('top'))).length };
+};
 
-// median head of some poses against the idle reference at resample scale s (cells placed like the packer's), their
-// raw colours snapped to the packed idle's (snapToPalette)
+// median head of some poses against the idle reference at resample scale s, their colours reduced to the idle's
+// palette exactly as the packer's gate does (measurementCells). A trial that clips a pose is not a measurement.
 function headsAt(poses, M, s) {
-  const cells = snapToPalette(cellsAt(poses, s), M.idle);
-  const heads = cells.map((c) => measureFrame(c, M.ref, M.pal).head);
-  return { heads, head: median(heads.filter((h) => h != null)) };
+  const { cells, clipped } = cellsAt(poses, s);
+  if (clipped) return { heads: [], head: NaN, clipped };
+  const [, part] = measurementCells([{ name: 'idle', cells: M.idle }, { name: 'part', cells }], { name: 'idle', cells: M.idle }, 48, M.decl);
+  const heads = part.cells.map((c) => measureFrame(c, M.ref, M.pal).head);
+  return { heads, head: median(heads.filter((h) => h != null)), clipped: 0 };
 }
 
 // The resample scale at which a part's heads match the idle's. Measured at the part's own trial scale (its tallest
 // pose = bodyHeight; bigger if the heads are too small for the probe), then once more at the scale that should bring
 // them to 1.00, where the probe is most exact. Two parts' scales give the factor: B must be scaled by eB / eA.
+// The refinement is only taken when it measures cleanly: if the trial at s / head clips a pose (the head pushed out
+// of the cell), the first trial's estimate stands and the result says so (refinedClipped).
 function idleScaleOf(poses, M, bodyHeight) {
   const s = bodyHeight / Math.max(...poses.map((p) => p.h));
   const m = headsAt(poses, M, s);
-  if (!Number.isFinite(m.head)) return { scale: NaN, heads: m.heads };
+  if (!Number.isFinite(m.head)) return { scale: NaN, heads: m.heads, clipped: m.clipped };
   const m2 = headsAt(poses, M, s / m.head);
+  if (m2.clipped) return { scale: s / m.head, heads: m.heads, refinedClipped: m2.clipped };
   return Number.isFinite(m2.head) ? { scale: s / m.head / m2.head, heads: m2.heads } : { scale: s / m.head, heads: m.heads };
 }
 
@@ -74,7 +88,9 @@ export function main(argv) {
   const DRY = flag('--dry-run');
   const artDir = path.resolve(opt('--root', path.join(ROOT, 'art')));
   const publicDir = path.resolve(opt('--public', path.join(ROOT, 'public')));
-  const manual = opt('--factor', null), reason = opt('--reason', null), partsArg = opt('--parts', null);
+  const manual = opt('--factor', null), reason = opt('--reason', null), partsArg = opt('--parts', null), countsArg = opt('--counts', null);
+  const counts = countsArg == null ? [0, 0] : String(countsArg).split(',').map(Number);
+  if (counts.length !== 2 || counts.some((n) => !Number.isInteger(n) || n < 0)) return fail(`--counts "${countsArg}" must be two pose counts like 5,3`);
   const gap = Math.max(24, Number(opt('--gap', '24')) || 24);
   if (args.some((a) => a.startsWith('-'))) return fail(`unknown option ${args.find((a) => a.startsWith('-'))}`);
   const [id, anim, vArg] = args;
@@ -96,21 +112,33 @@ export function main(argv) {
   const packed = loadPacked(id, publicDir);
   const idle = packed?.anims.find((a) => a.name === 'idle');
   if (!idle) return fail(`no packed idle in public/characters/${id}/ to measure against - pack the approved idle first`);
+  // the reference must be the idle the art now has: a refused pack leaves an older idle in public/, and measuring a
+  // redraw against it gives a wrong factor (Killua light1 v04 against idle v01, STITCH_TOOLING_HANDOFF.md)
+  const packedIdleV = packed.meta.scaleAudit?.anims?.idle?.v ?? null;
+  const rawIdleV = fs.existsSync(rawDir) ? Math.max(0, ...fs.readdirSync(rawDir).map((f) => /^idle_v(\d+)\.png$/.exec(f)?.[1]).filter(Boolean).map(Number)) : 0;
+  if (rawIdleV && packedIdleV !== rawIdleV) {
+    return fail(`the packed idle in ${path.relative(process.cwd(), publicDir) || '.'}/characters/${id}/ is ${packedIdleV == null ? 'unversioned' : `v${String(packedIdleV).padStart(2, '0')}`}, but raw/idle_v${String(rawIdleV).padStart(2, '0')}.png is the idle now - pack it first (if the whole fighter is refused, pack into a scratch folder with a "scaleGate": "warn" copy of the manifest: node tools/pack-sprites.mjs ${id} --quantize 48 --no-writeback --manifest <copy> --out <dir>) and pass --public <dir>`);
+  }
   const manifest = readJson(path.join(artDir, 'manifest.json')).data || {};
   const decl = readJson(path.join(artDir, 'scale', 'builds.json')).data?.fighters?.[id] || {};
   const mc = manifest.characters?.[id]?.animations?.[anim] || {}, md = manifest.animationDefaults?.[anim] || {};
   const bodyHeight = Number(mc.bodyHeight ?? md.bodyHeight) || 204;
 
-  const parts = ['A', 'B'].map((p) => ({ name: p, ...cleanPart(partFile(p)), factor: 1 }));
+  const parts = ['A', 'B'].map((p, k) => ({ name: p, ...cleanPart(partFile(p), counts[k]), factor: 1 }));
   for (const p of parts) if (!p.poses.length) return fail(`part ${p.name} has no poses after background removal (flat magenta #FF00FF?)`);
-  // the idle as packed (an unquantized pack is snapped to 48 colours first, as the packer's gate does)
-  const idleCells = countColors(idle.cells) > 48 ? quantizeCopies(idle.cells, 48) : idle.cells;
-  const M = { idle: idleCells, pal: palettesFromIdle(idleCells, decl) };
+  for (const [k, p] of parts.entries()) if (counts[k] && p.poses.length !== counts[k]) return fail(`part ${p.name}: found ${p.poses.length} pose(s), --counts says ${counts[k]} - leave a gap between the poses`);
+  const want = Number(mc.frames ?? md.frames) || 0, got = parts[0].poses.length + parts[1].poses.length;
+  if (want && got !== want) return fail(`parts A + B have ${parts[0].poses.length} + ${parts[1].poses.length} = ${got} pose(s), the manifest's ${anim} has ${want} frames - two poses touch? pass --counts <A>,<B>`);
+  // the idle as packed, reduced to its own palette like the gate does
+  const [idleQ] = measurementCells([{ name: 'idle', cells: idle.cells }], { name: 'idle', cells: idle.cells }, 48, decl);
+  const idleCells = idleQ.cells;
+  const M = { idle: idle.cells, decl, pal: palettesFromIdle(idleCells, decl) };
   M.ref = makeReference(idleCells, M.pal);
   if (!M.ref) return fail('no head found in the packed idle - declare headColors in art/scale/builds.json');
   const [eA, eB] = parts.map((p) => idleScaleOf(p.poses, M, bodyHeight));
   const bad = [eA, eB].findIndex((e) => !Number.isFinite(e.scale));
-  if (bad >= 0) return fail(`no head found in part ${'AB'[bad]} (the head is hidden or not in the idle's hair colours) - check it by eye and use --factor with --reason`);
+  if (bad >= 0) return fail(`no head found in part ${'AB'[bad]} (${[eA, eB][bad].clipped ? 'every trial scale clips a pose out of the cell' : "the head is hidden or not in the idle's hair colours"}) - check it by eye and use --factor with --reason`);
+  for (const [k, e] of [eA, eB].entries()) if (e.refinedClipped) console.warn(`[stitch] part ${'AB'[k]}: the refined trial clipped ${e.refinedClipped} pose(s) out of the cell, so its first estimate is used`);
   const measured = +(eB.scale / eA.scale).toFixed(4);
   const factor = manual != null ? Number(manual) : measured;
   const gateCfg = resolveGate(manifest.spec?.scaleGate);

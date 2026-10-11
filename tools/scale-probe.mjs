@@ -342,6 +342,9 @@ export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   else if (feet != null && Math.sign(head - 1) === Math.sign(feet - 1) && Math.abs(feet - 1) > gate.feetAgree &&
     Math.abs(feet - 1) >= gate.feetShare * Math.abs(head - 1)) verdict = 'uniform';
   else verdict = 'drift';
+  // a pose the probe cannot read, checked by a person for exactly this version (scaleManualQA): accepted, and shown as
+  // 'manual', never as 'ok' (TOOL-ROTATED-ANATOMY)
+  if (verdict === 'unmeasured' && exempt.manual) { verdict = 'manual'; reason = `manual QA by ${exempt.manual.by}: ${exempt.manual.note}${exempt.manual.evidence ? ` (${exempt.manual.evidence})` : ''}`; }
   return { head, feet, range, verdict, reason, lo: lo && { k: lo.k, head: lo.head }, hi: hi && { k: hi.k, head: hi.head }, frames };
 }
 
@@ -353,7 +356,7 @@ export function verdictText(name, s) {
   if (s.verdict === 'pop') return `${name} pops inside the strip: f${s.lo.k} ${p(s.lo.head)} vs f${s.hi.k} ${p(s.hi.head)} of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw`;
   if (s.verdict === 'uniform') return `${name} head ${p(s.head)} of idle (feet ${p(s.feet)}): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight`;
   if (s.verdict === 'drift') return `${name} head ${p(s.head)} of idle (feet ${s.feet == null ? 'not measurable' : p(s.feet)}): head/hair drift - redraw to the approved idle head (head_scale_guide.png)`;
-  if (s.verdict === 'unmeasured') return `${name}: ${s.reason || 'not measured'} - check it on the heads sheet (npm run scale); if the head is really hidden, exempt the strip with a reason ("scaleExempt" and "scaleExemptVersion" in the manifest)`;
+  if (s.verdict === 'unmeasured') return `${name}: ${s.reason || 'not measured'} - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation`;
   return `${name}: ${s.verdict}`;
 }
 
@@ -361,6 +364,11 @@ export function verdictText(name, s) {
 // "scaleExemptFrames": { "4": "reason" } (or a plain list of frame numbers) leaves those frames out of the median.
 // "scaleExemptVersion": N ties both to the drawing they were written for: a redraw (any other version) is measured
 // again until someone looks at it and re-exempts it on purpose. Without it they only cover an unversioned strip.
+//
+// "scaleManualQA": { "version": N, "result": "pass", "by": "...", "note": "...", "evidence": "path" } is the acceptance
+// path for a pose the probe cannot read (TOOL-ROTATED-ANATOMY: tumbling, lying, tucked, rotated; or no head found): a
+// person compared that version's frames with the approved idle at one scale and recorded it. It applies only while the
+// strip is 'unmeasured', only to that version, and only with result "pass"; it never turns a measured failure into a pass.
 export function exemptionsFrom(animations) {
   const out = {};
   for (const [name, v] of Object.entries(animations && typeof animations === 'object' ? animations : {})) {
@@ -368,7 +376,10 @@ export function exemptionsFrom(animations) {
     const reason = typeof v.scaleExempt === 'string' && v.scaleExempt.trim() ? v.scaleExempt.trim() : null;
     const fr = v.scaleExemptFrames;
     const frames = (Array.isArray(fr) ? fr : fr && typeof fr === 'object' ? Object.keys(fr) : []).map(Number).filter((k) => Number.isInteger(k) && k >= 0);
-    if (reason || frames.length) out[name] = { reason, frames, v: Number.isInteger(v.scaleExemptVersion) ? v.scaleExemptVersion : null };
+    const q = v.scaleManualQA;
+    const manual = q && typeof q === 'object' && q.result === 'pass' && Number.isInteger(q.version) && typeof q.by === 'string' && q.by.trim() && typeof q.note === 'string' && q.note.trim()
+      ? { v: q.version, by: q.by.trim(), note: q.note.trim(), evidence: typeof q.evidence === 'string' ? q.evidence : null } : null;
+    if (reason || frames.length || manual) out[name] = { reason, frames, v: Number.isInteger(v.scaleExemptVersion) ? v.scaleExemptVersion : null, manual };
   }
   return out;
 }
@@ -464,8 +475,11 @@ export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt 
 // one strip's verdict with its exemption (only for the version it was written for) and its version
 function judgeAnim(name, measured, version, gate, exempt) {
   const x = name === 'idle' ? null : exempt[name], own = x && x.v === version;
-  const s = name === 'idle' ? { ...judgeStrip('idle', measured, { ...gate, lowConf: [] }), verdict: 'ref', reason: null } : judgeStrip(name, measured, gate, own ? x : {});
-  if (x && !own) s.staleExempt = { v: x.v, version };
+  const manual = x?.manual && x.manual.v === version ? x.manual : null;
+  const s = name === 'idle' ? { ...judgeStrip('idle', measured, { ...gate, lowConf: [] }), verdict: 'ref', reason: null }
+    : judgeStrip(name, measured, gate, { ...(own ? x : {}), manual });
+  if (x && (x.reason || x.frames.length) && !own) s.staleExempt = { v: x.v, version };
+  if (x?.manual && !manual) s.staleManual = { v: x.manual.v, version };
   s.version = version;
   return s;
 }

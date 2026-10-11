@@ -417,7 +417,8 @@ function makeFixtures() {
     characters: {
       // scaleGate 'warn': these strips predate the scale gate (TOOL-025) and test other things; scaly tests the gate
       testy: { name: 'Testy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204, status: 'todo' }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'approved' }, land: { frames: 2, status: 'todo' } }, ui: { portrait: { status: 'todo' } } },
-      vers: { name: 'Vers', animations: { idle: { frames: 8, loop: true, status: 'todo', version: 0, approvedVersion: 2 } } },
+      vers: { name: 'Vers', animations: { idle: { frames: 8, loop: true, status: 'todo', version: 0, approvedVersion: 2 },
+        jumpSquat: { scaleManualQA: { version: 1, result: 'pass', by: 'test', note: 'one crouch frame compared with the idle at one scale' } } } },
     },
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
     vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
@@ -766,7 +767,8 @@ function main() {
   check(vi2?.source === 'raw/idle_v03.png' && vi2.version === 3 && rv2.json.characters[0].packed.length && JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'vers', 'anims.json'), 'utf8')).animations.idle.frames.length === 8,
     `versions 2: rejected v05 ignored, v03 re-imported (${vi2?.source})`);
 
-  // versions 3: hand-edited frames win over a newer version, with a warning naming both files
+  // versions 3: hand edits made on v03 never ship as a newer v06: the new version is measured and the pack is refused,
+  // with a warning naming both; archiving the edits (frames/_old/) packs v06
   const fe = loadPng(path.join(versIdle, 'idle_00.png'));
   fe.data[0] = 9; fe.data[1] = 9; fe.data[2] = 9; fe.data[3] = 255;
   savePng(path.join(versIdle, 'idle_00.png'), { w: fe.w, h: fe.h, data: fe.data });
@@ -774,10 +776,17 @@ function main() {
   const rv3 = pack(['--root', ART, '--out', OUT, '--json', '--update-manifest', 'vers']);
   const v3 = rv3.json?.characters[0];
   const vi3 = v3?.packed.find((p) => p.anim === 'idle');
-  check(vi3?.source === 'frames/idle/' && vi3.edited === true && vi3.from === 'raw/idle_v03.png', 'versions 3: hand-edited frames used');
-  check(anyWarn(v3?.warnings || [], /idle: newer source raw\/idle_v06\.png \(frames\/ came from raw\/idle_v03\.png\) but frames\/idle\/ has manual edits/), 'versions 3: warning names the new version and the edited source');
+  check(rv3.code === 1 && vi3?.source === 'raw/idle_v06.png' && v3.blocked?.join() === 'idle' && v3.refused, `versions 3: hand edits of v03 do not ship as v06: refused (exit ${rv3.code}, ${vi3?.source})`);
+  check(anyWarn(v3?.warnings || [], /idle: frames\/idle\/ has hand edits made on v03 \(raw\/idle_v03\.png\), but raw\/idle_v06\.png is newer .* Move frames\/idle\/ to frames\/_old\/idle_v03\//), 'versions 3: warning names the new version and the edited source');
   const man3 = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
   check(man3.characters.vers.animations.idle.version === 6 && man3.characters.vers.animations.idle.approvedVersion === 2, 'versions 3: --update-manifest raises version to 6 (latest candidate), approvedVersion untouched');
+
+  fs.mkdirSync(path.join(versDir, 'frames', '_old'), { recursive: true });
+  fs.renameSync(versIdle, path.join(versDir, 'frames', '_old', 'idle_v03'));
+  const rv3b = pack(['--root', ART, '--out', OUT, '--json', 'vers']);
+  const v3b = rv3b.json?.characters[0];
+  check(rv3b.code === 0 && v3b?.packed.find((p) => p.anim === 'idle')?.source === 'raw/idle_v06.png' && !v3b.blocked.length && !anyWarn(v3b.warnings, /_old/),
+    `versions 3: archived edits (frames/_old/) are ignored silently and v06 packs (exit ${rv3b.code})`);
 
   // versions 4: rejecting the only version must not keep shipping its packer-made frames/
   fs.renameSync(vraw('jumpSquat_v1.png'), vraw(path.join('_rejected', 'jumpSquat_v1.png')));
@@ -786,7 +795,7 @@ function main() {
   check(v4 && !v4.packed.some((p) => p.anim === 'jumpSquat') && !JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'vers', 'anims.json'), 'utf8')).animations.jumpSquat,
     'versions 4: frames/ cleaned from a rejected (moved) raw are not packed');
   check(anyWarn(v4?.warnings || [], /jumpSquat: frames\/jumpSquat\/ were cleaned from raw\/jumpSquat_v1\.png, which is no longer in raw\//), 'versions 4: stale frames/ warned');
-  check(v4?.packed.find((p) => p.anim === 'idle')?.source === 'frames/idle/', 'versions 4: hand-edited idle frames still used');
+  check(/^(raw\/idle_v06\.png|frames\/idle\/)$/.test(v4?.packed.find((p) => p.anim === 'idle')?.source || ''), 'versions 4: the idle still packs (v06)');
 
   // versions 5: rejecting the only version of a character's only strip removes its stale art pack from public/
   const loneRaw = (n) => path.join(ART, 'characters', 'lone', 'raw', n);
@@ -1247,8 +1256,8 @@ function scaleGateTests(base) {
   check(v('light1')?.verdict === 'uniform' && v('light1').head > 0.82 && v('light1').head < 0.93 && v('light1').feet < 0.95, `scale gate: a fist above the head shrinks the strip -> 'uniform' (head ${v('light1')?.head}, feet ${v('light1')?.feet})`);
   check(v('light2')?.verdict === 'drift' && v('light2').head < 0.85 && Math.abs(v('light2').feet - 1) < 0.05, `scale gate: a narrower hair mass on the same body -> 'drift' (head ${v('light2')?.head}, feet ${v('light2')?.feet})`);
   check(v('light3')?.verdict === 'pop' && v('light3').range > 0.2, `scale gate: half the strip at 0.7x -> 'pop' (range ${v('light3')?.range})`);
-  check(v('spin')?.verdict === 'unmeasured' && v('taunt')?.verdict === 'exempt' && v('idle')?.verdict === 'ref', `scale gate: low-confidence spin and exempt taunt are not judged (${v('spin')?.verdict}, ${v('taunt')?.verdict})`);
-  check(g1?.failed.sort().join() === 'light1,light2,light3' && g1.gate === 'auto', `scale gate: exactly the three off strips fail (${g1?.failed})`);
+  check(v('spin')?.verdict === 'unmeasured' && v('spin').strict && v('taunt')?.verdict === 'exempt' && v('idle')?.verdict === 'ref', `scale gate: low-confidence spin and exempt taunt are not judged (${v('spin')?.verdict}, ${v('taunt')?.verdict})`);
+  check(g1?.failed.sort().join() === 'light1,light2,light3,spin' && g1.gate === 'auto', `scale gate: the three off strips and the unread candidate spin fail (${g1?.failed})`);
   const w1 = s1.json?.characters.find((c) => c.id === 'scaly')?.warnings || [];
   check(anyWarn(w1, /scale gate: light2 head 0\.\d\d of idle .*head\/hair drift/) && anyWarn(w1, /scale gate: light3 pops inside the strip/), 'scale gate: failures are named with the fix (redraw, re-stitch)');
   check(anyWarn(w1, /scale: light1 head 0\.\d\d was 1\.00 in art\/scale\/scale-baseline\.json at the same version v01/), 'scale gate: a strip that moved from its baseline at the same version is warned');
@@ -1260,6 +1269,20 @@ function scaleGateTests(base) {
   check(d1?.error && /declare headColors/.test(d1.error) && !d1.failed.length, `scale gate: hair drawn in body colours is not found automatically (${d1?.error})`);
   check(!d2?.error && d2?.ref?.source === 'declared' && d2.anims.light1?.verdict === 'drift', `scale gate: builds.json headColors finds it (${d2?.error || d2?.anims.light1?.verdict})`);
   check(fs.existsSync(path.join(OUT, 'characters', 'darkier', 'anims.json')), 'scale gate: a "warn" fighter is still written');
+
+  // TOOL-ROTATED-ANATOMY: a person's check of that version accepts the unread spin as 'manual' (never 'ok'); a record
+  // for another version does not
+  const manQA = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  manQA.characters.scaly.animations.spin.scaleManualQA = { version: 2, result: 'pass', by: 'test', note: 'compared with the idle' };
+  fs.writeFileSync(manPath, JSON.stringify(manQA, null, 2));
+  const sq0 = pack([...base, '--dry-run', 'scaly']);
+  check(scale(sq0.json, 'scaly')?.anims.spin.verdict === 'unmeasured' && scale(sq0.json, 'scaly').failed.includes('spin') && anyWarn(sq0.json.characters[0].warnings, /spin: the manual QA record \(scaleManualQA\) is for v02 but the packed strip is v01/),
+    'manual QA: a record for another version does not accept the strip (warned)');
+  manQA.characters.scaly.animations.spin.scaleManualQA.version = 1;
+  fs.writeFileSync(manPath, JSON.stringify(manQA, null, 2));
+  const sq1 = pack([...base, '--dry-run', 'scaly']);
+  const sp1 = scale(sq1.json, 'scaly')?.anims.spin;
+  check(sp1?.verdict === 'manual' && /manual QA by test/.test(sp1.reason) && !scale(sq1.json, 'scaly').failed.includes('spin'), `manual QA: the recorded version is accepted as 'manual' (${sp1?.verdict})`);
 
   // manifest variants: light2 and light3 approved (findings, not failures), so a pack that fits light1 is written
   const variant = (name, edit) => {
@@ -1375,6 +1398,13 @@ function scaleGateTests(base) {
   check(l3 && l3.verdict !== 'pop' && l3.range <= 0.12, `stitch: the stitched light3_v02 packs without a pop (${l3?.verdict}, range ${l3?.range})`);
   check(stitch('scaly', 'light3', '2').status === 1, 'stitch: never overwrites an existing version');
   check(stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8').status === 1, 'stitch: a manual factor needs a reason');
+  const cnt = stitch('scaly', 'light3', '3', '--parts', '2', '--counts', '2,4', '--dry-run');
+  check(cnt.status === 1 && /part A: found 3 pose\(s\), --counts says 2/.test(cnt.stderr), 'stitch: --counts must match the poses found');
+  // the reference must be the idle the art has now, not an older packed one (Killua light1 v04 vs idle v01)
+  fs.copyFileSync(sraw('idle_v01.png'), sraw('idle_v02.png'));
+  const stale = stitch('scaly', 'light3', '3', '--parts', '2', '--dry-run');
+  fs.rmSync(sraw('idle_v02.png'));
+  check(stale.status === 1 && /packed idle .* is v01, but raw\/idle_v02\.png is the idle now/.test(stale.stderr), `stitch: refuses to measure against an older packed idle (${stale.stderr.trim().slice(0, 80)})`);
 
   // ART-KIL-PROBE: a strip's numbers come from its own pixels and the idle's only. A candidate that brings many new
   // colours between the hair and skin tones (a glowing prop) moved the fighter-wide median cut, and with it the
