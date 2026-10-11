@@ -1,6 +1,6 @@
 # Naruto neutral production checkpoint
 
-2026-10-11. Draft, not merge-ready. User approved only height_neutral v01; no new animation is approved. All 42 animation sources were attempted. The latest ten technical holds are stored under raw/_rejected solely to exclude them from packing; this is not a user rejection. Original three-attempt caps remain binding.
+2026-10-11. Draft, not merge-ready. User visually approved the42 latest checkpoint versions on2026-10-11; see VISUAL_APPROVAL_2026-10-11.md. Shipping approval fields remain deferred pending technical clearance. All 42 animation sources were attempted. The latest ten technical holds are stored under raw/_rejected solely to exclude them from packing; this is not a user rejection. Original three-attempt caps remain binding.
 
 ## Scale and anatomy
 

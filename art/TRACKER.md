@@ -587,3 +587,9 @@ All42 new sources attempted;32 packed candidates,10 technical holds. No new anim
 | throw | v04 | v02 | old fallback: ok | Hold; correction required |
 | vanish | v02 | v02 | unmeasured | Manual scale verification required |
 | win | v04 | v04 | ok | Candidate visual review |
+
+## Naruto visual approval recorded (2026-10-11)
+
+User visual approval, 2026-10-11: "ok whats left to do? i approve everything and would like to see it live on the game". Applies to the42 latest reviewed checkpoint versions below. Technical clearance is separate:10 strict holds and8 unmeasured candidates remain. Shipping approvedVersion updates and fixed-name promotion are deferred until technical QA clears; no thresholds, baseline, or exemptions changed. No extra generation attempts inferred. Claude alone integrates and deploys production.
+
+[Exact42-version approval record](characters/naruto/VISUAL_APPROVAL_2026-10-11.md).

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user visual approval of Naruto latest42 checkpoint versions (2026-10-11); preserve10 strict holds and8 unmeasured candidates, with shipping manifest promotion deferred until technical clearance.
+
 - Naruto getup v04 fixes the floor palm direction and two-foot deep landing squat within original3-attempt cap; rotating-head scale remains explicitly unmeasured.
 
 - Naruto backDash v03 corrects push-off, backward-hop balance and landing with original attempt2; pack passes. Added per-part attempt-cap evidence for ten remaining technical holds.

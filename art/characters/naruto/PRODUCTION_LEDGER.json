@@ -1,6 +1,6 @@
 {
   "date": "2026-10-11",
-  "state": "draft checkpoint;32 packed candidates,10 technical holds;no new animation approved",
+  "state": "Latest42 checkpoint versions visually approved2026-10-11; technical holds and shipping promotion pending",
   "records": [
     {
       "name": "airHeavy",
@@ -418,5 +418,53 @@
       "hold": true,
       "notes": "Thirdattempt layoutonly20percentuniformreduction toseparateframes. Manualinferredcrown267/chin327=60 +/-5. No more attempts permittedthisround. Contactzonealignment pending."
     }
-  ]
+  ],
+  "visualApproval": {
+    "date": "2026-10-11",
+    "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+    "versions": {
+      "backDash": 3,
+      "hurtLow": 2,
+      "intro": 2,
+      "jumpFall": 3,
+      "jumpUp": 3,
+      "land": 3,
+      "light2": 2,
+      "light3": 2,
+      "specialUp": 3,
+      "stagger": 2,
+      "superDash": 2,
+      "vanish": 2,
+      "hurtHigh": 2,
+      "light4": 3,
+      "taunt": 2,
+      "airRecover": 3,
+      "dash": 3,
+      "down": 3,
+      "getup": 4,
+      "jumpSquat": 3,
+      "launched": 3,
+      "light1": 3,
+      "spin": 3,
+      "airLight3": 4,
+      "specialDown": 3,
+      "specialForward": 3,
+      "throw": 4,
+      "airHeavy": 4,
+      "airLight1": 4,
+      "block": 4,
+      "guard": 4,
+      "superPose": 4,
+      "win": 4,
+      "airLight2": 4,
+      "special": 5,
+      "idle": 5,
+      "run": 5,
+      "charge": 5,
+      "beamCharge": 6,
+      "ko": 6,
+      "beamFire": 8,
+      "heavy": 8
+    }
+  }
 }
