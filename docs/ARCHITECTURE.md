@@ -46,6 +46,9 @@ src/game/
                             pull) and Beam (ultimate) with HDR shader
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames)
+  chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
+                            (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
+  auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha)
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory; shake, zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
@@ -109,7 +112,8 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
    checkUltimateClash()         two ultimates' bodies meeting head-on -> the rhythm clash
 8. projectiles update + projectileCollisions()   projectile vs fighter, projectile vs projectile, beam eats projectiles
 9. updateClash(), beams + orbs update, checkUltimateClash()   judge both pads against the chart, move the bodies
-10. fxTicks()                   aura / signature-hand effects, speed-line focus
+10. fxTicks(frozen)             charge styles (chargeFx), aura / signature-hand effects, speed-line focus; during a
+                                freeze or a special clash it runs with frozen = true (charges refresh, spawn nothing)
 11. round timer                 99 s countdown (not in training)
 ```
 
@@ -229,6 +233,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - `Effects.spawn(name, x, y, z, opts)` creates a camera-facing quad with a tint `color` (white art is
   tinted at runtime), `glow` (HDR boost into bloom), optional velocity, gravity, spin, follow and loop.
   `Effects.keep(id, ...)` updates a persistent effect (auras, hand orbs, clash glow).
+- **Power-ups** (ADR 0023): `chargeFx.chargeTick(game, f, t, frozen)` runs a fighter's charge style each sim frame.
+  Body spots live in the sprite's billboard plane (feet + camera right x side + camera up x height), so "behind the
+  body" holds however far the camera pitches. `SpriteActor.auraShell()` makes an `AuraShell`, a child of the body
+  mesh sharing its uvRect uniform (it inherits the billboard, flip and scale); `chargeEnd` hides it and drops held
+  effects when the charge ends. Charge sprites are tagged `charge` (`chargeBar` for bar beats, `chargeKeep` for held
+  ones) so tests can count them.
 - `Overlay` is a 2D canvas over the game for anime speed lines, full-screen flashes and impact frames.
 
 ## UI layer
@@ -241,7 +251,8 @@ The menus never touch game state directly. They call `Game` methods (`startMatch
 ## Audio
 
 `src/core/audio.js` synthesizes everything (oscillators + noise buffers): one-shots via `audio.play(name, vol)`,
-loops via `audio.loop(id, kind)` / `stopLoop(id)`, music styles `menu` / `battle`, and a crowd bed with an
+loops via `audio.loop(id, kind, variant)` / `stopLoop(id)` (the charge loop's variant is the style's `sound`: hum, boil,
+crackle, calm), music styles `menu` / `battle`, and a crowd bed with an
 excitement level. The first user gesture calls `audio.init()`. `audio.setMuted(bool)` mutes, bound to `M`, and
 the in-progress on-screen mute toggle uses it too. To swap in recorded samples later, change the cases in
 `play()`. Callers don't change.

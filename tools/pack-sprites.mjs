@@ -106,7 +106,7 @@ const VFX_EFFECTS = {
   wisp: { frames: 7, ms: 55, tinted: true, fill: 0.6, anchor: 'bottom', baseX: true },
   arc: { frames: 6, ms: 40, tinted: true, fill: 0.45 },
   ripple: { frames: 5, ms: 50, tinted: true, fill: 0.95 },
-  naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom' },
+  naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom', baseX: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
