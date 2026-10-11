@@ -18,6 +18,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Capture Killua jab stitch refinement failure: the old packed idle target clips new heads, then the probe selects a shirt hem; preserve per-frame ROI/provenance evidence for Claude without changing tools or waiving final art QA.
 
 - Killua scale-fix evidence: retain 19 asset candidates, side-on KO/down and measured long-strip redraws; block approval/integration on the failing palette-sensitive scale gate. Previous approved runtime sheet retained.
+- Fixed: the packer shipped hand-edited frames of an older version under a newer approved raw (Naruto light4, throw, specialForward packed v01/v02 as v03/v04). Such a pack is now refused with the fix named; `frames/_old/` archives are ignored.
+- Added: the scale gate's acceptance path for poses the probe cannot read (TOOL-ROTATED-ANATOMY): an unmeasured candidate strip now fails until a version-scoped `scaleManualQA` record exists, and is then reported as `manual`, never `ok`.
+- Fixed: `npm run stitch` measured redraws against a stale packed idle and could refine to a scale that cut the head off the cell; it now checks the idle version, ignores clipped trials, measures like the gate and takes `--counts A,B` for touching poses.
+
 - Integrated user-approved decal PRs #53, #52 and #54 sequentially: 31 types / 143 variants, approved-only combined atlas, unchanged reviewed pixels, maximum four pages per match; 308 regression checks and production build pass. Accepted visual QA caveats preserved; character redraw untouched.
 
 - art(decals): record user approval of cursed erasure/trench/repel/big v02 and implode/fracture v03, accepting documented visual deviations; pack approved production atlas without changing reviewed pixels.

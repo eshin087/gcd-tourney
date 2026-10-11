@@ -1114,7 +1114,10 @@ function markerOrigin(marker) {
 // Decide where an animation's frames come from: frames/<anim>/ (cleaned frames) or raw/ (pickRaw).
 // Packer-written frames carry a marker (.packer.json: source file name + hash, bodyHeight, cell). When the source
 // changed (a newer _vNN, an edited raw or sidecar, another bodyHeight or cell size) and nobody edited the frames,
-// they are re-imported; hand-edited frames always win (warned). Frames without a marker are hand-made: they win.
+// they are re-imported; hand-edited frames of the same drawing win (warned). Hand edits made on an OLDER version
+// than the newest raw/<anim>_vNN.png belong to another drawing: packing them would ship the old art under the new
+// version's approval, so the source is the new raw and the animation is 'shadowed', which refuses the pack (move the
+// folder to frames/_old/ or redo the edits on the new version). Frames without a marker are hand-made: they win.
 // Untouched packer-made frames whose raw source is gone (its only version moved to raw/_rejected/) are 'stale':
 // packing them would ship rejected art, so the animation counts as missing.
 // ctx: { bodyHeight, cell, artDir } - what the frames must have been written for.
@@ -1150,6 +1153,7 @@ function chooseSource(framesDir, raw, ctx, warn, label) {
   if (!why.length) return { kind: 'frames', framePngs, packerMade: true, origin, autoHead: marker.autoHead ?? null };
   const edited = isEdited();
   if (!edited) return { ...fromRaw, replaced: origin.file && origin.file !== raw.label ? origin.file : null };
+  if (raw.version != null && origin.version != null && raw.version > origin.version) return { ...fromRaw, shadowed: origin };
   warn(`${label}: ${why.join(', ')} but frames/${path.basename(framesDir)}/ has manual edits - using frames/ (delete that folder to re-import from raw/)`);
   return { kind: 'frames', framePngs, packerMade: true, edited: true, origin, autoHead: marker.autoHead ?? null };
 }
@@ -1726,13 +1730,16 @@ function scaleGate(id, anims, env, R) {
     const name = a.def.name, s = A.anims[name], strict = isStrict(a);
     out.anims[name] = { head: s.head, feet: s.feet, range: s.range, verdict: s.verdict, strict, version: a.version, reason: s.reason, frames: s.frames.map((f) => f.head) };
     const vv = a.version != null ? `v${String(a.version).padStart(2, '0')}` : 'unversioned';
-    const failing = FLAGGED.has(s.verdict) || (s.verdict === 'unmeasured' && !env.gate.lowConf.includes(name));
+    // a candidate the probe cannot read is not a pass: it needs a person's check of that version (scaleManualQA,
+    // verdict 'manual') before it ships (TOOL-ROTATED-ANATOMY); approved strips stay findings as before
+    const failing = FLAGGED.has(s.verdict) || s.verdict === 'unmeasured';
     if (failing && strict) {
       out.failed.push(name);
       R.warnings.push(`scale gate: ${verdictText(name, s)} [${vv}, ${mode === 'auto' ? 'not approved yet' : 'strict'}]`);
     } else if (FLAGGED.has(s.verdict)) out.findings.push(`${verdictText(name, s)} [approved ${vv}]`);
     // an exemption is tied to the drawing it was written for: a redraw is measured until it is re-exempted on purpose
     if (s.staleExempt) R.warnings.push(`scale: ${staleExemptText(name, s.staleExempt)}`);
+    if (s.staleManual) R.warnings.push(`scale: ${name}: the manual QA record (scaleManualQA) is for v${String(s.staleManual.v).padStart(2, '0')} but the packed strip is ${vv} - check this version and record it again`);
     // an approved strip whose head moved at the same version: a sidecar, bodyHeight or packer change resized it silently
     const b = base?.anims?.[name];
     if (b && a.version != null && b.v === a.version && Number.isFinite(b.head) && s.head != null && Math.abs(s.head - b.head) > env.gate.baselineTol) {
@@ -1751,7 +1758,7 @@ const scaleAboutPivot = (v, t, isBox) => {
 };
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {} };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -1766,7 +1773,7 @@ function packCharacter(id, env) {
   const rawIdx = scanRaw(path.join(charDir, 'raw'), names, warn, `${label}/raw`);
   const framesRoot = path.join(charDir, 'frames');
   for (const d of listDirs(framesRoot)) {
-    if (!names.includes(d) && listPngs(path.join(framesRoot, d)).length) warn(`${label}/frames/${d}/: unknown animation (not in manifest or animGuide) - ignored`);
+    if (!d.startsWith('_') && !names.includes(d) && listPngs(path.join(framesRoot, d)).length) warn(`${label}/frames/${d}/: unknown animation (not in manifest or animGuide) - ignored`);
   }
   // written into every frames/<anim>/.packer.json: a different cell (spec change) re-imports untouched frames
   const cellKey = { frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, pivot: [...spec.pivot] };
@@ -1793,6 +1800,11 @@ function packCharacter(id, env) {
       const src = chooseSource(framesDir, raw, { bodyHeight, cell: cellKey, artDir: env.artDir, fitHead }, warn, alabel);
       if (!src) { R.missing.push(def.name); continue; }
       if (src.kind === 'stale') { warn(staleText(alabel, def.name, src)); R.missing.push(def.name); continue; }
+      if (src.shadowed) {
+        const was = `v${String(src.shadowed.version).padStart(2, '0')}`;
+        R.blocked.push(def.name);
+        warn(`${alabel}: frames/${def.name}/ has hand edits made on ${was} (${src.shadowed.file}), but ${src.label} is newer - those edits belong to another drawing, so the pack is refused rather than shipping ${was} as ${src.label}. Move frames/${def.name}/ to frames/_old/${def.name}_${was}/ to pack ${src.label}, or redo the edits on it`);
+      }
       if (tooTall) warn(tooTall); // only for animations that have art: the rest would be noise
       let sprites, notes = [], sourceLabel, unreadable = false;
       // what the art came from: the raw file (also behind packer-written frames/), its version, hand edits
@@ -1978,9 +1990,10 @@ function packCharacter(id, env) {
   const outDir = path.join(env.outDir, 'characters', id);
   // a strict strip that failed the scale gate refuses the pack (ADR 0021): neither public/ nor frames/ is written, so
   // the last good sheet stays and a missed exit code cannot carry an off-size strip into a commit or a deploy
-  const refused = !!R.scale?.failed.length;
+  const refused = !!R.scale?.failed.length || R.blocked.length > 0;
   if (refused) {
-    R.scale.refused = true;
+    if (R.scale) R.scale.refused = true;
+    R.refused = true;
     warn(`scale gate: ${env.dryRun ? 'would not write' : 'did not write'} ${rel(env.cwd, outDir)}/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion`);
   }
   if (!refused) writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
@@ -2624,7 +2637,7 @@ function updateManifestStatus(raw, rep) {
     const mc = raw.characters?.[c.id];
     if (!mc || typeof mc !== 'object') continue;
     const anims = mc.animations || {};
-    for (const p of c.packed) n += raiseStatus(anims[p.anim], c.scale?.refused ? 'raw' : 'packed'); // a refused pack wrote nothing
+    for (const p of c.packed) n += raiseStatus(anims[p.anim], c.refused ? 'raw' : 'packed'); // a refused pack wrote nothing
     for (const a of c.failed) n += raiseStatus(anims[a], 'raw');
     for (const [a, v] of Object.entries(c.versions || {})) n += raiseVersion(anims[a], v);
     for (const u of c.uiItems) n += raiseStatus(mc.ui?.[u], 'packed');
@@ -2688,7 +2701,7 @@ function printReport(rep, env) {
       L('  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md');
       if (!c.removed?.length) L('  public/ was not touched for the sheet.');
     } else {
-      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.scale?.refused ? 'NOT WRITTEN (the scale gate failed, see below)' : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
+      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.refused ? `NOT WRITTEN (${c.blocked?.length ? `old hand edits shadow ${c.blocked.join(', ')}` : 'the scale gate failed'}, see below)` : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
       for (const p of c.packed) {
         const n = `${p.frames}`.padStart(2) + (p.frames !== p.expected ? `/${p.expected}` : '');
         L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -2768,6 +2781,8 @@ function printReport(rep, env) {
   const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image'], ['decals', 'decal']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
   const gateFailed = rep.characters.filter((c) => c.scale?.failed.length);
   if (gateFailed.length) L(`SCALE GATE FAILED: ${gateFailed.map((c) => `${c.id} (${c.scale.failed.join(', ')})`).join('; ')} - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"`);
+  const shadowed = rep.characters.filter((c) => c.blocked?.length);
+  if (shadowed.length) L(`OLD HAND EDITS SHADOW A NEWER VERSION: ${shadowed.map((c) => `${c.id} (${c.blocked.join(', ')})`).join('; ')} - not written; move each frames/<anim>/ to frames/_old/ or redo the edits on the new version`);
   L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
 
@@ -2855,7 +2870,7 @@ async function main() {
 
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);
-  if (rep.characters.some((c) => c.scale?.failed.length)) return 1; // the scale gate failed (art/CHARACTER_SCALE.md)
+  if (rep.characters.some((c) => c.scale?.failed.length || c.blocked?.length)) return 1; // the scale gate failed or old hand edits shadow a newer version
   return opts.strict && rep.totalWarnings ? 2 : 0;
 }
 
