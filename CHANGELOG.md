@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user approval of Naruto heavy v07 and charge v04 (2026-10-10, "approve everything"), including documented QA caveats; ready for Claude integration.
+
 - Naruto heavy v07 candidates repair active fist contact and exact idle recovery; charge v04 adds chest expansion, with residual foot drift documented. All new art remains unapproved.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.

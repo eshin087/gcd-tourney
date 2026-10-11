@@ -13,3 +13,6 @@ Technical: all42animations/175frames present; atlas48colors, binary alpha. Touch
 Recommendation: heavy is materially improved but exact elbow/peak posture deserves review; charge needs further correction before approval. No approvedVersion or fixed-name reference changed. Hosted candidate gallery includes these actual versions, raw art, packed playback and lineup. Browser evidence is recorded in the PR handoff.
 
 Hosted browser verification: candidate gallery images loaded3/3, frame stepping worked, no console errors. Test lab loaded Naruto custom sheet42animations. Heavy launched Killua (67damage); paused uppercut peak was inspected. Charge exercised through frame27, no console errors. This is browser evidence, not physical-phone validation.
+
+Approval record (2026-10-10): the user explicitly approved everything, including these latest versions and the documented QA caveats above. Art approval is complete; merge/integration remains Claude-owned. No regeneration or visual changes were made for this approval.
+Approval verification: strict quantized re-pack preserves both sheet.png and anims.json SHA256 byte-for-byte; only the pre-existing KO margin warning remains. npm run build passed. Existing preview therefore shows the approved art without a new deployment.

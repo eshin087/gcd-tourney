@@ -59,7 +59,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v07 | v03 | Candidate needs review; contact/recovery repaired, charge feet residual. |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | guard | 2 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -67,7 +67,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | launched | 2 | - | **yes** | 136 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v01 | Candidate needs review; contact/recovery repaired, charge feet residual. |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v04 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
