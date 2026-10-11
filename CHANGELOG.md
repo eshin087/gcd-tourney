@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Combo escape** (ENG-068, ADR 0022): hold Guard while being hit to tech out at the first gap (with a direction) or tech roll on landing (not after hard knockdowns); Guard + Special while hit is a once-per-round **Burst** (2 bars, blockable: burst bait) with a gem by each ki gauge; the combo counter turns **blue** when the combo had an escapable gap (training shows the gap in frames); stacked technique banners for PARRY!, DODGE!, AIR DODGE!, TECH!, TECH ROLL!, BURST!, THROW BREAK, REVERSAL, PUNISH! and WAVEDASH in every match; the CPUs and the training dummy (DUMMY TECH / DUMMY BURST) use all of it; lab scenarios for each.
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.

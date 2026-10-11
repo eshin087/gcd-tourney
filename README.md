@@ -48,8 +48,9 @@ Then open http://127.0.0.1:5188
   dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
 - **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
-  in its showman style: short flashy combos, every special and super in the kit, spells dodged and parried
-  ("DODGE!" / "PARRY!"), wavedashes and power-ups, so you see what the engine can do; Esc / Start pauses and
+  in its showman style: short flashy combos, every special and super in the kit, spells dodged and parried,
+  techs, tech rolls and bursts out of combos, wavedashes and power-ups, each called out on a banner (PARRY!,
+  DODGE!, TECH!, BURST!, PUNISH!...), so you see what the engine can do; Esc / Start pauses and
   the results screen offers a rematch
 - **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
   between them), key and button rebinding saved in your browser, and a live training room where your fighter
@@ -78,6 +79,8 @@ These are the default bindings. You can rebind them in the controls menu.
 | **Vanish** | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
 | **Super** (2nd super, 3 bars) | **H** or **B** | **T** | **'** | **L2 / LT** |
 | **Throw** (close) / break a throw | **J + K** | **F + G** | **, + .** | **□ + △** |
+| **Tech** / **tech roll**: hold Guard while hit | hold **Shift** | hold **L-Shift** | hold **;** | hold **L1 / LB** |
+| **Burst**: Guard + Special while hit (2 bars, once per round) | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
 
 Adding the SUPER button reset saved key bindings once (new storage key). Rebind again if you had
 custom keys.
@@ -98,7 +101,15 @@ custom keys.
   presses off the beat push you back, and the winner's ultimate lands.
 - **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
 - **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
-- **Air recover**: press any button while launched (hitstun decay makes long combos escapable).
+- **Tech** (combo escape): **hold Guard while you're being hit**. The moment the attacker leaves a gap you
+  flip out in the air (TECH!), or, if you hit the floor, roll back to your feet (TECH ROLL!) instead of lying
+  down. Hold a direction to pick where: away (default), toward them, ↑ rise in place, ↓ drop to the floor.
+  Pressing any button while launched still techs too. Spikes, throws and super finishes are hard knockdowns:
+  no roll.
+- **Burst** (2 bars, once per round): **Guard + Special while you're being hit**. A shockwave blows the attacker
+  away and ends the combo (BURST!). It can be blocked: an attacker who stops and guards gets to punish you. The
+  gem next to your ki gauge shows whether you still have it this round.
+- **Blue combo counter**: when the counter turns blue, the victim could have teched out somewhere in that combo.
 - **Hold back to block**: hold the stick away from the opponent and you block their attacks on the ground, no
   button needed (it's always on). With nothing coming you still run away; when they attack nearby or a shot or
   beam of theirs is out, you turn and raise your guard. Throws still beat it, like a held Guard.
@@ -123,7 +134,8 @@ Android goes fullscreen on the first tap; on iPhone use Share > Add to Home Scre
 
 - **Left half of the screen:** a joystick appears under your thumb. Flick twice in a direction to dash.
 - **Right side:** LIGHT, HEAVY, SPECIAL, JUMP, GUARD, DASH, plus **ULT** (Heavy + Special), **VANISH**
-  (Guard + Special) and **SUPER**, so you never need a two-finger chord. They dim until you have the ki.
+  (Guard + Special; it's the **Burst** while you're being hit) and **SUPER**, so you never need a two-finger chord.
+  They dim until you have the ki. Hold GUARD while you're being hit to tech.
   Hold the joystick in a direction while you tap SPECIAL for the directional specials.
 - **Top-left:** pause. In menus, tap items; the **BACK** button bottom-left replaces Esc. Tap the screen to
   skip the pre-fight intro.

@@ -30,10 +30,12 @@ src/game/
                             (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
                             projectile/beam/orb collisions, special and ultimate clashes (clash bodies, the
                             struggle line, endings), event hooks
-                            (onHit/onBlock/onVanish/...), super flash, KO, render orchestration
+                            (onHit/onBlock/onVanish/onBurst/...), technique callouts (Game.tag(f, id) -> TAGS,
+                            ADR 0022), super flash, KO, render orchestration
   clash.js                  rhythm clash (ADR 0017): seeded note chart, Judge (grades, strays, holds), CPU press plan
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
-                            launched/down/getup/charge/beamCharge/beamFire/clash/...), cancels, physics, takeHit
+                            launched/down/getup/charge/beamCharge/beamFire/clash/techRoll/burst/...), cancels,
+                            physics, takeHit; combo escape and true-combo tracking (gapF, comboBlue; ADR 0022)
   moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE,
                             SPECIAL_MOVES (kit specials by id), SUPERS (second supers)
   kit.js                    fighter kits (ADR 0009/0011): stick -> special slot, special kinds (rush/shot/teleport/
@@ -62,7 +64,8 @@ src/world/arena.js          tournament grounds: ring, temple, stands + instanced
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
-  hud.js                    health/ki bars, timer, combo counter, callouts, announcements, super cut-in, clash bar and rhythm track
+  hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable), callouts, TAGS
+                            technique banners (ADR 0022), announcements, super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)

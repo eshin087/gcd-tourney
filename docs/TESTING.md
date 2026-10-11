@@ -66,7 +66,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
+  wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo, wall bounce, vanish,
+  super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
   dummy, infinite meter, boxes, reset. ` hides the panel; the keyboard and touch controls still play YOU.
@@ -109,7 +110,7 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       Infinity stops a projectile (callout), and the counter freezes a melee attacker.
       Debug recipe: `freezeCpu()`, set `game.fighters[0].ki = 300`, then `hold('KeyD'); press('KeyL', 3); release('KeyD')`
       and `step(1)` while logging `f.state`, `f.kitState?.kind`, and the opponent's state and HP.
-- [ ] Air recover after launch. At 22+ hits the victim auto-techs.
+- [ ] Air recover after launch (any button, or Guard held). At 22+ hits the victim auto-techs.
 - [ ] KO by a big hit sends the loser out of the ring and into the stands.
 
 **Input and UI**
@@ -119,7 +120,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Training room: the character responds to live input, the dummy modes work, health refills, there's no
       timer, and input history shows.
 - [ ] Mute: `M` and the on-screen toggle (top corner, unobtrusive) both mute and unmute, and stay in sync.
-- [ ] HUD: health trail, ki bars, combo counter, callouts, timer.
+- [ ] HUD: health trail, ki bars, burst gems, combo counter (gold, blue after a gap), technique banners, callouts,
+      timer.
 
 **Art loading**
 - [ ] Without `public/characters/<id>/`: the console says `baked <id> from 3D`.
@@ -187,10 +189,42 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    for the winner, since the loser has less time). With Naruto and / or Gojo on both sides (ultimates that clash),
    most matches should show at least one rhythm clash (ENG-056); `clash` in `unseen()` means none happened.
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
-   Light + Heavy within 12 frames of the grab breaks it ("BREAK!", no damage); from 1.8 units it whiffs for ~32
+   Light + Heavy within 12 frames of the grab breaks it ("THROW BREAK", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /
    → Rasenshuriken) against a dummy that guards whenever it can: never blocked. Guard-only dummy vs IMPOSSIBLE:
    throws land within 50 s.
+
+## Combo escape, the blue counter and callouts (ADR 0022)
+
+Run after changes to `DEFENSE.tech` / `DEFENSE.burst`, hit stun or juggle physics, `TAGS` or the CPUs' escape code.
+The lab scenarios **Hold Guard to tech**, **Tech roll**, **Blue combo**, **Burst** and **Burst bait** show each part;
+by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a scripted brain (for example
+`game.brains[1].update = function () { const p = this.f.pad; p.tick(); p.set('guard', this.f.state === 'launched'); }`).
+
+1. **True route**: Light ×3 → Heavy → Jump → air L L → air Heavy on a P2 that never techs: `b.comboBlue` stays
+   false and `b.lastGap` is 0 on every hit; the counter stays gold.
+2. **Blue**: Heavy, then super dash in ~45 frames later: the second hit has `lastGap` > 0, the counter turns blue
+   with a pop, and the training room shows `GAP nF`.
+3. **Hold Guard**: P2 holds Guard while launched: `airRecover` on the first frame air stun is 0 above 0.35 units,
+   TECH! on P2's side, never a blue hit. Hold a direction too: toward / ↑ / ↓ change the hop.
+4. **Tech roll**: Light ×4 (away from the wall) on a P2 holding Guard: `techRoll` instead of `down`, TECH ROLL!.
+   After an air Heavy spike, a throw or a super finish: `down` (hard knockdown).
+5. **Multi-hit lock**: a beam or a Rasenshuriken / Blue vortex on an airborne P2 at 15+ hits holding Guard: no tech
+   until the move ends, no blue.
+6. **Burst**: P2 with 200 ki presses Guard + Special during your string: BURST!, an 8 frame freeze, the shockwave
+   launches you (10 damage), P2's ki −200, its gem goes dark, the combo ends. Refused when held (Domain, flurry,
+   maul), grabbed, during your beam or three-bar move, under 200 ki, and a second time in the round.
+7. **Burst bait**: stop after a hit and hold Guard: the burst is blocked, P2 recovers for 30 frames, your punish
+   shows PUNISH!.
+8. **Callouts**: parry → PARRY! (big); spot dodge a heavy → DODGE!; spot dodge a throw → DODGE!; air dodge a super
+   dash → AIR DODGE!; throw break → THROW BREAK; wavedash twice within 6 s → one WAVEDASH; a fourth banner pushes
+   the oldest out; a special name right after a PARRY! leaves the banner alone; in training the left stack clears the
+   input history.
+9. **Training dummy**: DUMMY TECH never / hold / random and DUMMY BURST off / on in the panel; the defaults keep the
+   old dummy (GUARD mode with tech NEVER still lets go of Guard when juggled).
+10. **CPU**: the soak below (`mode=cpu`, and IMPOSSIBLE vs Hard) shows TECH! and TECH ROLL! every match and BURST!
+    in most, never more than one burst per fighter per round (`burstUsed` ≤ 1), blue counters now and then, and
+    rounds still ending by KO in the usual time.
 
 ## Soak (CPU vs CPU)
 
