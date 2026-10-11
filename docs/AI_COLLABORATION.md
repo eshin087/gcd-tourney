@@ -95,6 +95,8 @@ sandbox/runtime solution; no broader read access or Git executable modification 
 - There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
 - Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
   candidates and review history; transfer selected changes into real worktrees before Git operations.
+  Never make new copies: each was a full ~2.2 GB project, and seven filled 15 GB. Art worktrees use
+  `npm run pr -- start <branch> --art <id>` (~0.5 GB); if worktree creation fails, stop and report instead.
 
 ## Roles
 

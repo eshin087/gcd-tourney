@@ -184,8 +184,13 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 ## Safe boundaries for code changes
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
-  Run `npm run pr -- start feature/<name>` (add `--full` for art work, e.g. `feature/char-<id>`) from the main
-  folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
+  Run `npm run pr -- start feature/<name>` (add `--art <id>` for art work, e.g. `feature/char-<id> --art <id>`) from
+  the main folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
+  **Disk budget:** `--art <id>[,<id>]` checks out only that character's (or art kind's, e.g. `vfx`) raw art, so a
+  worktree is about 0.5 GB; `--full` copies the whole ~2 GB art library and is a last resort. Never copy the project
+  folder instead of making a worktree (seven hand copies once filled 15 GB); if `git worktree` fails, stop and report.
+  Reuse one worktree for every version (v02, v03...) of the same task, and hand back its path when done so the
+  coordinator removes it (`npm run pr -- merge` does, and `npm run pr -- prune` clears merged leftovers).
   When it's done, `npm run pr -- open` and `npm run pr -- preview` there (a Vercel preview link for the user's phone,
   ADR 0018), and `npm run pr -- merge <branch>` from the main folder (never the
   GitHub merge button). Commits straight to `main` are allowed only for docs-only edits, bookkeeping and art
