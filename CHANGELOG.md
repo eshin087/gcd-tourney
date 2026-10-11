@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art QA: document the explicit low-confidence gate limitation and hand off anatomical acceptance criteria to Claude; no blanket exemptions or threshold changes.
+
 - Documented the reproduced stale-idle/clipped-head stitching failure and new-idle palette-mask lesson; queued tooling correction for Claude (TOOL-STITCH-ROI).
 
 - AGENTS.md and CLAUDE.md now carry the same approved-baseline override, so historical fixed-height/head-count rules cannot silently re-enter future art prompts (ART-CAST-PILOT).
