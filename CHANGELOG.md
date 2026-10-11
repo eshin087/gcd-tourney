@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): add six chakra v01 candidates (11 images/24 variants), scoped review gallery and QA; approval and palette corrections pending.
+
 - art(naruto): add seven-head proportion redraw brief and model_sheet v03 candidate with cast lineup and mobile review; model approval required before idle. Raw palette and source-scale caveats documented.
 - Sasuke: document seven-head full-redraw plan and queue model_sheet v02 with measured cast lineup; model approval stop, no new idle or shipped sprite changes.
 

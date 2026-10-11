@@ -1,0 +1,25 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/scorch_chakra_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/scorch_chakra_v01_A.png",
+    "decals/raw/scorch_chakra_v01_B.png",
+    "decals/raw/scorch_chakra_v01.json"
+  ],
+  "sourceHash": "2a96b642d570f90a5fa5d7047a5f17a9778a7359",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "scorch_chakra_00.png": "4c2a895acc5b78ef499c4b332a406e082e7fece0",
+    "scorch_chakra_01.png": "72a5d820984765b06a43be992e9384392cb5bcc0",
+    "scorch_chakra_02.png": "460958965ed977d65ef5a4cd7d786949773f547a"
+  }
+}

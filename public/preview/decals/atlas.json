@@ -1,0 +1,57 @@
+{
+  "ppu": 64,
+  "source": "candidates",
+  "packer": 2,
+  "pages": ["decals_chakra.png"],
+  "pageSizes": [[2048, 1792]],
+  "decals": {
+    "scour_spiral": {
+      "page": 0,
+      "w": 256,
+      "h": 256,
+      "frames": [[0, 1280], [256, 1280], [512, 1280], [768, 1280], [1024, 1280], [1280, 1280]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "hotKey": true,
+      "version": 1
+    },
+    "scour_spiral_big": { "page": 0, "w": 512, "h": 512, "frames": [[0, 0], [512, 0], [1024, 0]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 1 },
+    "cut_wind": {
+      "page": 0,
+      "w": 256,
+      "h": 256,
+      "frames": [[1536, 1280], [1792, 1280], [0, 1536], [256, 1536], [512, 1536], [768, 1536]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "hotKey": true,
+      "version": 1
+    },
+    "claw": {
+      "page": 0,
+      "w": 512,
+      "h": 256,
+      "frames": [[0, 1024], [512, 1024], [1024, 1024], [1536, 1024]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "directional": true,
+      "hotKey": true,
+      "version": 1
+    },
+    "scorch_chakra": {
+      "page": 0,
+      "w": 512,
+      "h": 512,
+      "frames": [[1536, 0], [0, 512], [512, 512]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "directional": true,
+      "hotKey": true,
+      "version": 1
+    },
+    "fracture_chakra": { "page": 0, "w": 512, "h": 512, "frames": [[1024, 512], [1536, 512]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 1 }
+  }
+}

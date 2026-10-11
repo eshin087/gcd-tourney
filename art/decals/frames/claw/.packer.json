@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/claw_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/claw_v01_A.png",
+    "decals/raw/claw_v01_B.png",
+    "decals/raw/claw_v01.json"
+  ],
+  "sourceHash": "53555486d897a42ec8a374d74cf7a05c8d5dead6",
+  "cell": {
+    "w": 512,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "claw_00.png": "e54cd49e09a22553d30c4a23a9c376d5f01821a7",
+    "claw_01.png": "61b76ecc455284952a428eaea7a14ea39b417e4f",
+    "claw_02.png": "cbea4c9443c0660ad4a836cd45be369f73fd035d",
+    "claw_03.png": "3bce94c332b909edc8ec245f55e14f260d3cfe64"
+  }
+}
