@@ -69,7 +69,7 @@ documentation that stays true.
 | `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse; `--art <id>[,<id>]` adds just that character's or art kind's raw art, `--full` all ~2 GB as a last resort). **Every feature/character starts here** (ADR 0013) |
 | `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
-| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree |
+| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it) |
 | `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
@@ -132,7 +132,7 @@ The docs-only/main exceptions below still apply.
 0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
    Start with `npm run pr -- start feature/<name>` (or `fix/`, `chore/`, `art/`), work and commit in that worktree,
    `npm run pr -- open`, then `npm run pr -- merge <branch>` once the Definition of Done passes (unless the user asked to
-   review first), then deploy. Never commit features straight to `main`, never `git checkout`/`switch`/`stash` in the
+   review first); the merge deploys to production. Never commit features straight to `main`, never `git checkout`/`switch`/`stash` in the
    shared main checkout, never use the GitHub merge button or `gh pr merge`. Only docs-only edits, bookkeeping and art
    approvals for a character that already ships may commit straight to `main`. Revert a feature with
    `git revert -m 1 <merge>` in a `fix/revert-<name>` PR. Each worktree runs its own dev server port
