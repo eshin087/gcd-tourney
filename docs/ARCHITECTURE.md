@@ -46,7 +46,8 @@ src/game/
                             pull) and Beam (ultimate) with HDR shader
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames)
-  camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory; shake, zoom punch
+  camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
+                            zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
@@ -134,6 +135,12 @@ renderer.render             low-res render -> bloom -> grade -> nearest upscale
 -> roundEnd -> (nextRound | matchEnd -> results)`, plus `draw` and `training`. Best of 3 rounds
 (`ROUNDS_TO_WIN = 2`), 99 s each. `Game.state` and `Game.stateT` hold the current state and how long
 it has run.
+
+Round wins use the orbiting `victory` shot. `matchEnd` cuts to the `results` hero shot instead: the loser's
+actor is hidden (only the winner, DBFZ-style; cleanupMatch disposes it, so a rematch brings it back), the winner
+is pinned facing screen-right, and the camera only sways, so the billboard never mirrors. `Menus.results` is a
+slim side panel (a bottom bar below 3:4), and `Game.render` shifts the projection by `Menus.resultsCover()` the
+same way it does for the training panel, so the whole winner stands in the free space.
 
 ## Coordinates and units
 

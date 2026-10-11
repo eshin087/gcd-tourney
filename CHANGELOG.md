@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the results screen no longer shows a second, smaller winner sprite or covers the winner (ENG-063): the match ends on a cut to the winner alone (the KO'd loser leaves the shot), whole and undimmed beside a slim side panel (a bottom bar in narrow windows) with the WINNER tag, name and subtitle, on a steady swaying hero camera that never mirrors the sprite; clicking TITLE there (or QUIT TO TITLE in pause) now reaches the title instead of mode select.
 - Art handoff: Killua heavy v04 fixes frames 4–6 arm/hand flow in PR #30; update review preview links, keep all new art unapproved.
 
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
