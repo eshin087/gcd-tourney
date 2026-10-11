@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the core decal review reloads candidate image pages before each group selection, so returning to a previously viewed group works after the game releases its textures (ART-DEC-W4).
+
 - art(decals): add unapproved v02 crack_s, scuff, skid, burn_lightning_big and barrier_crack corrections; preserve source history, fresh-pack 99 variants, document remaining fringe, and bundle an independent review gallery/game harness without tracked public/preview output.
 
 - Art: add unapproved decal style and 19 base/edge/lightning/fire/ki candidates (99 variants), candidate preview gallery and documented fringe/shading limitations.

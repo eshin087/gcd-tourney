@@ -26,6 +26,8 @@ All 99 packed cells have binary alpha and at most 24 colors per name. Every hot-
 
 ## Delivery and runtime
 
+The review-only loader pauses simulation before loading and preloads the candidate pages for each group selection. The game releases images for unused groups, so a one-time loader was insufficient when returning to an earlier group; that cache shortcut was removed. No engine file changed.
+
 The gallery bundles unchanged packer outputs under `public/art-review/decals/candidate/`. Its gallery and game harness use those files directly. The five previously tracked `public/preview/decals` files are removed from tracking and remain local only. Production `public/decals` is untouched. `game.html` loads the ordinary debug game and explicitly installs only this batch's candidate groups for review; it does not fetch a candidate atlas from `/preview/`.
 
 The coordinator's current production build passed (79 modules). Hosted game validation is completed after publication and recorded separately; this document does not claim that step has passed yet. Check base, edge, lightning, fire and ki; rotate by 90 degrees and advance cooling. Sources and QA are available in the same gallery. This is review delivery, not approval or production integration.
