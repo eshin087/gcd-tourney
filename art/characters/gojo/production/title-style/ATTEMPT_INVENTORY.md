@@ -2,7 +2,7 @@
 
 As of 2026-10-11, all 42 animation names have versioned assembled candidates and all three UI names have candidates. “Rounds” counts title-style generation rounds per asset (an A/B pair is one round). Land had one initial round plus three corrective image-generation calls; one of the latter was unsaved. Older approved art versions are excluded. All listed latest candidates still require user review.
 
-The latest quantized pack is `pack-after-light3.txt`: exit 1, 12 scale-gate holds, no updated atlas. A “head pass” here is only the automated head gate; it does not certify anatomy, motion, contact zones, or clipping.
+The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate holds, no updated atlas. A “head pass” here is only the automated head gate; it does not certify anatomy, motion, contact zones, or clipping.
 
 | Asset | Latest candidate | Generation rounds | Current hold or note |
 |---|---:|---:|---|
@@ -40,11 +40,11 @@ The latest quantized pack is `pack-after-light3.txt`: exit 1, 12 scale-gate hold
 | vanish | v03 | 1 | scale-gate hold |
 | stagger | v03 | 1 | head gate passes; full frame QA pending |
 | ko | v05 | 1 | gate hold; original pose, Claude adjudication |
-| special | v03 | 1 | scale-gate hold |
+| special | v05 | 3 | head gate passes; B factor x1.1884 and A/B seam anatomy held; source rounds exhausted |
 | intro | v03 | 1 | head gate passes; full frame QA pending |
 | taunt | v04 | 1 | head gate passes; full frame QA pending |
 | win | v07 | 1 | head gate passes; full frame QA pending |
-| specialForward | v05 | 1 | scale-gate hold |
+| specialForward | v06 | 2 | B factor x0.9886, head gate passes; recoil/contact QA pending |
 | specialUp | v03 | 1 | head gate passes; full frame QA pending |
 | specialDown | v05 | 3 | head gate passes after v04 overshoot; source rounds exhausted; anatomy QA pending |
 | superPose | v05 | 2 | head gate passes; eyes, finger sign and loop QA pending |
@@ -52,4 +52,6 @@ The latest quantized pack is `pack-after-light3.txt`: exit 1, 12 scale-gate hold
 | ui_cutin | v02 | 1 | visual candidate; not approved |
 | ui_select | v02 | 1 | visual candidate; not approved |
 
-The source separation, motion, or part-scale retry cap is reached for run, light2, heavy, getup, airLight3 and specialDown. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The full pack now has 12 gate holds and writes no atlas. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.
+The source separation, motion, or part-scale retry cap is reached for run, light2, heavy, getup, airLight3, specialDown and special. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The ten current gate holds are **heavy, airLight3, airHeavy, launched, spin, airRecover, down, getup, vanish, ko**. The full pack writes no atlas. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.
+
+Per-part call budget where a corrective half was generated: run A 2/B 3 (v09 B rejected, no assembled v09); heavy A 3/B 1 (v05 B copied from v04, v06 A rejected); getup first two rounds were single strips and final round A 1/B 1; light2 A 3/B 3; airLight3 A 2/B 3 (v10 A copied from v09); special A 2/B 3 (v05 A copied from v04); specialForward A 2/B 2; light3 A 2/B 2. Copied source pixels and measured placement metadata are not extra image-generation calls. These counts exclude historical pre-title-style source versions.

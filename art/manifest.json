@@ -905,7 +905,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 3,
+          "version": 5,
           "approvedVersion": 1
         },
         "intro": {
@@ -975,7 +975,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 5,
+          "version": 6,
           "approvedVersion": 1
         },
         "specialUp": {
