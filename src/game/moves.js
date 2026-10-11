@@ -12,6 +12,9 @@
 //  next/cancel  chain into the next move from this frame on
 //  spark      'light' | 'heavy' | 'smash' impact effect size
 //  boxPad     [x, y] world units the sprite hit box grows by for the overlap test (default 0.1/0.12, air 0.18/0.45)
+//  hardKnockdown  no tech roll on the landing after this hit (ADR 0022); unset, it defaults to true for ground-bounce
+//             spikes (dive slams) and big unblockable hits (super and ultimate finishes, clash results), else false
+//  lock       a multi-hit tick keeps air stun / hit stun at least this long, so one move can't be teched midway
 export const MOVES = {
   light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
   light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
@@ -21,7 +24,7 @@ export const MOVES = {
   airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light' },
   airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light' },
   airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true },
-  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45] },
+  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45] },
   throw: { anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, cost: 50 },
   // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport
   echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy' },
@@ -80,14 +83,38 @@ export const HIT_FLASH = {
 // hold: frames the victim is pinned before the toss; breakLag: recovery for both after a break.
 export const THROW = {
   startup: 5, active: 3, whiff: 26, range: 1.05, lane: 0.6, hold: 18, techWindow: 12, breakLag: 10, recovery: 14, push: 7,
-  hit: { dmg: 80, minScale: 0.8, launch: [12, 8.5], wallBounce: true, hitstop: 10, unblockable: true, big: true, spark: 'smash', shake: 0.6 },
+  hit: { dmg: 80, minScale: 0.8, launch: [12, 8.5], wallBounce: true, hardKnockdown: true, hitstop: 10, unblockable: true, big: true, spark: 'smash', shake: 0.6 },
 };
 
+// Combo escape (ADR 0022):
+//  tech       launched (not KO, not held): any button, or Guard simply held, techs on the first open frame (air stun
+//             over and above `minY`): `len` frames, invulnerable `invuln`. The stick picks the hop [along, up], `along`
+//             toward the opponent on screen: neutral or away = `back`, toward = `toward`, ↑ = `up` (rise in place),
+//             ↓ = `down` (fast fall). An open frame the victim lets pass is a gap: the combo turns blue.
+//    roll     landing from a launch while holding Guard rolls back to the feet instead of lying down (not after a
+//             `hardKnockdown` hit): `len` frames at `speed` (stick direction, else away), invulnerable `invuln`.
+//  burst      Guard + Special in hit stun or a launch (not held or grabbed, not inside their 3-bar move or beam):
+//             `cost` ki, `perRound` per round. A world freeze, then an invulnerable shockwave of `radius` on frames
+//             [startup, startup + active) that launches the attacker (`hit`, blockable and parryable: burst bait),
+//             then `whiff` frames of recovery (`blocked` when it was blocked or parried). `buffer`: Special or Guard
+//             pressed this recently still counts (a press during hitstop survives it); Special itself must be
+//             pressed during the combo and under `chord` frames ago (Guard pressed while a charge holds Special
+//             is a tech, not a burst).
+//  reversal   an attack started within `window` frames of leaving stun, block or wake-up that hits: REVERSAL
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
   spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
   airDodge: { len: 30, from: 2, to: 18, speed: 12.5, drop: 6.5, lowDrop: 24, lowY: 0.95, land: 10 },
   wavedash: { len: 16, act: 5, friction: 0.875, speed: 12.5 },
+  tech: {
+    minY: 0.35, len: 10, invuln: 16, back: [-2.5, 6.5], toward: [3, 7], up: [0, 7.5], down: [0, -9],
+    roll: { len: 20, invuln: 18, speed: 7.5, friction: 0.88 },
+  },
+  burst: {
+    cost: 200, perRound: 1, buffer: 3, chord: 6, freeze: 8, startup: 4, active: 6, radius: 2.4, whiff: 20, blocked: 30,
+    hit: { dmg: 10, minScale: 1, launch: [14, 9], hitstun: 14, push: 2, hitstop: 12, big: true, spark: 'smash', shake: 0.7, burst: true },
+  },
+  reversal: { window: 3 },
 };
 
 // Signature rush specials (1 ki bar). `cancelStartup`: the startup when it's cancelled out of a normal that hit

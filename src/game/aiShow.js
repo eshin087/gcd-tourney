@@ -1,6 +1,6 @@
 // Showcase (ADR 0016): the part of a CPU that wants to *show* its kit. It keeps a match-long record of
 // which tools this fighter has used (every kit special, the second super, the ultimate, and the system
-// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge; and an ultimate clash when
+// techniques: vanish, super dash, wavedash, parry, spot dodge, air dodge, throw, charge, burst (ADR 0022); and an ultimate clash when
 // both fighters' ultimates can meet, ADR 0017) and turns it into
 // weights, so a brain's planners prefer what the viewer hasn't seen yet. It only watches its own fighter's
 // state (what the screen shows) and never presses a button: each brain still decides whether a tool is a
@@ -10,8 +10,8 @@ import { kitOf, specialFor, clashable } from './kit.js';
 
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
 const AIR_SLOTS = ['air', 'airDown'];
-export const TECH = ['vanish', 'superDash', 'wavedash', 'parry', 'spotDodge', 'airDodge', 'throw', 'charge'];
-const ENTER = { dodge: 'spotDodge', airDodge: 'airDodge', wavedash: 'wavedash', vanish: 'vanish', superDash: 'superDash', throw: 'throw', charge: 'charge', beamCharge: 'beam' };
+export const TECH = ['vanish', 'superDash', 'wavedash', 'parry', 'spotDodge', 'airDodge', 'throw', 'charge', 'burst'];
+const ENTER = { dodge: 'spotDodge', airDodge: 'airDodge', wavedash: 'wavedash', vanish: 'vanish', superDash: 'superDash', throw: 'throw', charge: 'charge', beamCharge: 'beam', burst: 'burst' };
 
 // Weighted pick from { key: weight }; null when every weight is 0.
 export function pickW(w) {
