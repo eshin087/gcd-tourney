@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto light4 v07: localized generated f0 hair correction clears full strict scale packing. Other seven poses and all bodies preserved; candidate atlas updated, image approval pending.
+
 - Recorded user approval of Naruto heavy v10, throw v05 and airLight3 v05. Three additional light4 corrections retained v05 (v06 inferior retry archived), still held by the strict scale gate; runtime atlas remains unchanged.
 
 - Naruto post-approval candidates: heavy v10 fixes raised-pose clipping; throw v05 and airLight3 v05 pass scale. Light4 v04 remains held after the authorized extra attempts; strict packing blocks runtime changes. New versions await review (PR63).

@@ -28,11 +28,11 @@
   },
   {
     "name": "light4",
-    "version": 5,
+    "version": 7,
     "frames": 8,
-    "gate": "pop",
-    "head": 1.04,
-    "range": 0.146,
-    "attempts": 3
+    "gate": "ok",
+    "head": 1.039,
+    "range": 0.1,
+    "attempts": 1
   }
 ]
