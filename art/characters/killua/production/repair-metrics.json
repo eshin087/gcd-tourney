@@ -16,92 +16,92 @@
     {
       "name": "heavy/heavy_00.png",
       "bounds": [
-        74,
-        77,
-        178,
+        78,
+        100,
+        193,
         240
       ],
       "footBand": [
-        85,
-        164
+        84,
+        169
       ]
     },
     {
       "name": "heavy/heavy_01.png",
       "bounds": [
-        85,
-        113,
-        192,
+        77,
+        115,
+        197,
         240
       ],
       "footBand": [
         88,
-        165
+        193
       ]
     },
     {
       "name": "heavy/heavy_02.png",
       "bounds": [
-        87,
-        58,
-        192,
+        86,
+        83,
+        183,
         240
       ],
       "footBand": [
-        90,
+        87,
         173
       ]
     },
     {
       "name": "heavy/heavy_03.png",
       "bounds": [
-        90,
-        51,
-        204,
+        83,
+        70,
+        208,
         240
       ],
       "footBand": [
-        102,
-        121
+        83,
+        106
       ]
     },
     {
       "name": "heavy/heavy_04.png",
       "bounds": [
-        88,
-        27,
-        188,
+        85,
+        65,
+        184,
         240
       ],
       "footBand": [
-        109,
-        126
+        91,
+        112
       ]
     },
     {
       "name": "heavy/heavy_05.png",
       "bounds": [
-        64,
-        83,
-        151,
+        75,
+        112,
+        170,
         240
       ],
       "footBand": [
-        107,
-        129
+        103,
+        166
       ]
     },
     {
       "name": "heavy/heavy_06.png",
       "bounds": [
-        77,
-        98,
-        187,
+        81,
+        87,
+        179,
         240
       ],
       "footBand": [
-        90,
-        171
+        81,
+        179
       ]
     },
     {
