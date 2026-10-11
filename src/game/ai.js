@@ -45,6 +45,7 @@ export class CpuBrain {
     this.L = LEVELS[level] || LEVELS.normal;
     this.plan = 'idle';
     this.planT = 0;
+    this.clk = 0; // live frames, never reset (setPlan resets planT, which used to lose a pending reaction)
     this.wait = 30;
     this.hold = {};
     this.beat = null; // its plan for the current clash
@@ -78,7 +79,10 @@ export class CpuBrain {
     const laneGo = () => {
       const R = game.cam.right, F = game.cam.fwd;
       const want = Math.abs(sx) - 1.05;
-      const ax = Math.abs(want) > 0.15 ? Math.sign(sx) * Math.sign(want) : 0;
+      // stacked in depth right behind them (sx ~ 0, e.g. both against the barrier): step out toward the ring's
+      // middle, or the depth step and the body push hold them there for good
+      const side = Math.abs(sx) > 0.3 ? Math.sign(sx) : f.pos.x * R.x + f.pos.z * R.z > 0 ? 1 : -1;
+      const ax = Math.abs(want) > 0.15 ? side * Math.sign(want) : 0;
       const ad = Math.abs(sd) > 0.18 ? Math.sign(sd) : 0;
       moveWorld(R.x * ax + F.x * ad, R.z * ax + F.z * ad);
       return Math.abs(want) < 0.45 && Math.abs(sd) < 0.45;
@@ -90,6 +94,7 @@ export class CpuBrain {
       for (const p of this.beat.due(game.clash.timer + 1)) this.press(this.beat.button(), p.len);
     } else if (game.inputLive && !f.ko && !o.ko && !game.freeze) {
       this.planT++;
+      this.clk++;
       this.wait--;
 
       // --- air tech when juggled
@@ -113,8 +118,8 @@ export class CpuBrain {
 
       // --- reactions
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;
-      if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.planT + L.react;
-      if (oppAttacking && this.reactAt === this.planT && dist < 3.4 && !f.busy) {
+      if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.clk + L.react;
+      if (oppAttacking && this.reactAt === this.clk && dist < 3.4 && !f.busy) {
         // a counter may sit on ↓ or ← (Naruto's Substitution); the techniques the player hasn't seen this match
         // are a bit likelier (Showcase), each at its level's rate
         const sh = this.show, big = o.move.big || o.move.special, left = o.move.startup - o.t;

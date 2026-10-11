@@ -269,6 +269,9 @@ export class MasterBrain {
   // ------------------------------------------------------------------ frozen world
   // Super flash, vanish freeze, parry freeze: nothing moves but inputs still buffer. Keep guarding,
   // and right before the world restarts, buffer the punish after a parry.
+  // Gotcha: fighters don't update during a freeze, so a press read as a `.pressed` edge (Guard for a parry, Special,
+  // the vanish chord, Dash) made now is lost; only buffered() reads (Light, Heavy, Jump, the throw) survive. Anything
+  // else has to wait for the first live frame.
   frozen(game, c) {
     const f = this.f, o = f.opp;
     const punish = o.state === 'held' && o.heldT > 6 && c.dist < LIGHT_REACH + 0.6 && (f.state === 'guard' || f.state === 'idle');
@@ -815,8 +818,11 @@ export class MasterBrain {
       add({ key: 'sd' + this.oppSerial, kind: 'melee', frames: Math.max(0, (Math.hypot(c.dist, c.dy) - 1.0) / SUPER_DASH.speed * 60), len: 3, m: SUPER_DASH, big: true });
     }
     if (o.state === 'vanish') {
-      add({ key: 'v' + this.oppSerial, kind: 'melee', frames: Math.max(0, VANISH.hideFrames - o.t) + 7, len: 5, m: MOVES.vanishKick, big: true, behind: true });
-    }
+      // live frames to the kick: the rest of the hide, then vanishKick's startup (think() skips the arrival freeze)
+      const K = MOVES.vanishKick, key = 'v' + this.oppSerial;
+      this.strike = { key, name: 'vanishKick', vanish: true };
+      add({ key, kind: 'melee', frames: Math.max(0, VANISH.hideFrames - o.t) + K.startup, len: K.active, m: K, big: true, behind: true, vanish: true });
+    } else add(this.strikeThreat(o));
     for (const p of game.projectiles) {
       if (p.owner !== o || p.dead) continue;
       const age = (p.P.life - p.life) * 60;
@@ -891,11 +897,28 @@ export class MasterBrain {
         // one threat from the hover to the slam (a new key at the slam would re-pick the answer too late)
         return { key: 'dv' + this.oppSerial + (k.phase === 'rise' ? 'r' : 's'), kind: 'melee', frames: Math.max(0, fall), len: 2, m: hit, big: true, dive: k.phase !== 'rise' };
       }
-      case 'teleport':
-        if (m.follow && !k.arrived) return { key: 'tp' + this.oppSerial, kind: 'melee', frames: Math.max(0, (m.startup ?? 0) + m.hide - o.t) + 3, len: 4, m: MOVES[m.follow], big: true, behind: true };
-        return null;
+      case 'teleport': {
+        // a teleport strike (Rhythm Echo, Substitution): through the arrival and its recovery to the follow-up's
+        // first active frame, then strikeThreat keeps the same key on the strike itself
+        const F = m.follow && MOVES[m.follow];
+        if (!F) return null;
+        const key = 'tp' + this.oppSerial;
+        this.strike = { key, name: m.follow };
+        return { key, kind: 'melee', frames: Math.max(0, (m.startup ?? 0) + m.hide + (m.recovery ?? 0) - o.t) + F.startup, len: F.active, m: F, big: true, behind: true };
+      }
     }
     return null;
+  }
+
+  // The strike out of a vanish or a teleport (ADR 0025). It saw the smoke, so the kick keeps the threat it answered
+  // (same key, so the same answer, and no react gating: a 2-frame vanishKick would otherwise be invisible) until the
+  // strike's active frames are over.
+  strikeThreat(o) {
+    const st = this.strike;
+    if (!st || (o.state === 'kit' && o.kitState?.kind === 'teleport')) return null; // still on its way: kitThreat
+    const m = o.move;
+    if (o.state !== 'attack' || o.moveName !== st.name || !m || o.t >= m.startup + m.active) { this.strike = null; return null; }
+    return { key: st.key, kind: 'melee', frames: Math.max(0, m.startup - o.t) + o.hitstop, len: m.startup + m.active - Math.max(o.t, m.startup), m, big: true, behind: true, vanish: !!st.vanish };
   }
 
   // Pick the answer once per threat, at random among the ones that work against it, weighted by the style
@@ -905,7 +928,8 @@ export class MasterBrain {
     const f = this.f, o = f.opp, S = this.S, sh = this.show;
     const r = c.ready;
     const d = { key: th.key, type: 'none' };
-    if (!r) return d;
+    // picked while it can't act (hitstop, a dash's first frames, a throw): execDefense picks again once it can
+    if (!r) return { ...d, retry: true };
     const ki = f.ki;
     const now = f.pad.frame;
     const lockFree = (lead) => now + lead - f.parryTry >= PARRY.lockout;
@@ -944,7 +968,7 @@ export class MasterBrain {
       offer('none', 0.75 - S.dodge, {});
       return decide();
     }
-    if (r === 'dash') return d;
+    if (r === 'dash') return { ...d, retry: true };
     const big = th.big || th.p?.P?.big;
     if (th.kind === 'proj' && !th.vortex) {
       // plow through it with the super dash and hit its thrower, or spot dodge it as it arrives
@@ -973,6 +997,11 @@ export class MasterBrain {
     d.until = this.clock + th.len + 6;
     switch (d.type) {
       case 'none':
+        // a 'none' picked while it couldn't act is not the answer to this threat: pick again now it can (ADR 0025)
+        if (d.retry && c.ready && c.ready !== 'dash') {
+          this.resp = this.chooseDefense(game, c, th);
+          return this.execDefense(game, c, th, this.resp);
+        }
         return false;
       case 'block':
         this.keep.add('guard');
@@ -1011,7 +1040,9 @@ export class MasterBrain {
         return true;
       case 'counter':
         if (d.done) return true;
-        if (fr <= 4) {
+        // the special fires on the release a frame after the press: 5 keeps that release out of a teleport's
+        // arrival freeze (an edge made during a freeze is lost) and the stance still outlasts the strike
+        if (fr <= 5) {
           d.done = true;
           this.special(d.slot, 1);
         }
