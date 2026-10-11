@@ -1,0 +1,7 @@
+Anime fan-art pixel sprite strip, EXACTLY 4 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION charge: ANIMATION: "charge", calm power-up. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+POSES lefttoright:
+1. Calm power-up: wide stance with the feet well apart and the knees bent, torso upright, arms held slightly out from his sides and down, palms open facing the floor, fingers spread; head tilted slightly back. Face: calm lazy smile (no shouting). Hair tips and the jacket hem blown upward by a rising wind, sleeves fluttering. Whole body shifted slightly left.
+2. Same, shifted slightly right; hair tips in a new flicker shape.
+3. Shifted slightly left; palms slightly higher.
+4. Shifted slightly right; the jacket hem in a new flicker shape.
+SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

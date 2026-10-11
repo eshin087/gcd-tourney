@@ -11,6 +11,19 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo: record user approval of airLight3 v07 and archive superseded v05.
+
+- Gojo: record user approval of charge, airHeavy and win v06; start newly authorized airLight3 correction round.
+
+- Gojo: corrected hair continuity in airHeavy v06, charge v06 and win v06; queued visual review. AirLight3 remains capped technical hold. Refreshed fixed approved idle and its measured guide.
+
+- Recorded user visual approval of all 42 selected Gojo redraw versions; technical holds and shipping gates remain open.
+
+- Gojo spin v03: targeted hair-mass correction and independent anatomical-axis calibration; preview explicitly separates eight manual-QA holds from numeric passes. No new animation approval.
+
+- Art review checkpoint: Gojo approved-neutral redraw sources for all42 animations;37 candidates pass packing,5 technical holds preserved. Adds full-frame review page and production QA evidence. No production integration.
+
+- Begin Gojo full42-frame-set redraw against user-approved neutral baseline; candidates remain unapproved.
 - Fixed: the packer shipped hand-edited frames of an older version under a newer approved raw (Naruto light4, throw, specialForward packed v01/v02 as v03/v04). Such a pack is now refused with the fix named; `frames/_old/` archives are ignored.
 - Added: the scale gate's acceptance path for poses the probe cannot read (TOOL-ROTATED-ANATOMY): an unmeasured candidate strip now fails until a version-scoped `scaleManualQA` record exists, and is then reported as `manual`, never `ok`.
 - Fixed: `npm run stitch` measured redraws against a stale packed idle and could refine to a scale that cut the head off the cell; it now checks the idle version, ignores clipped trials, measures like the gate and takes `--counts A,B` for touching poses.

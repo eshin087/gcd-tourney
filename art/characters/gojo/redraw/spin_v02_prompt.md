@@ -1,0 +1,7 @@
+Anime fan-art pixel sprite strip, EXACTLY 4 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION spin: ANIMATION: "spin", tumbling backward. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+POSES lefttoright:
+1. Tumbling head over heels backward through the air after a big hit, balled up with knees to his chest and arms bent in, tilted back 30 degrees, head at the upper left. Face: teeth gritted. Blindfold on.
+2. Rotated 120 degrees: head pointing down-left.
+3. Upside down: head at the bottom.
+4. Rotated 300 degrees: head at the right, coming back upright.
+SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

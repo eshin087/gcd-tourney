@@ -1,0 +1,6 @@
+Anime fan-art sprite strip. EXACTLY 3 full-body poses in ONE horizontal row, flat #FF00FF background. Firstimage approved neutral anatomy, second unapproved working idle for continuity. Same TALL LEAN adult white-haired blindfolded man in darknavy silverzipper highcollar uniform, long loose trousers blackshoes. Preserve neutral individual compacthead, leanbuild and limb lengths; no bulky chest, no chibi. ANIMATION: "hurtLow", hit in the stomach. 3 frames, left to right.
+POSES:
+1. Hit in the stomach: doubled over, torso bent forward, head down, both arms clutching his stomach, knees bent. Face: mouth open, teeth gritted. The hair crown swinging forward and down. Blindfold on.
+2. About a third recovered. Face: pain.
+3. Rising, wincing, one hand still on his stomach. Face: teeth gritted.
+SCALE LOCK: production upright skullsole220.402px, skullchin23.20px; allposes at same anatomicalscale, rawskull around70px. Match hairmass/face relative to shoulders and legs of attachedidle, no independent resizing to fillpose slots. Right-facing3/4 gamecamera12degreesdown; allbodypartsinside, generousslotgaps. Crop changes throughmotion, neverbodyanatomy. Hardpixelart limited48colours, noAA blur gradients VFX text orshadows.
