@@ -19,7 +19,7 @@ feedback. The user can still generate an image by hand in ChatGPT; Codex files i
 | [One-liners](#one-liners) | resuming a session, or filing an image you made by hand |
 
 **Branches (ADR 0013):** every new feature or character is a pull request. A new character's work runs in its
-own worktree: `npm run pr -- start feature/char-<id> --full` from the main folder, then every Codex thread for that
+own worktree: `npm run pr -- start feature/char-<id> --art <id>` from the main folder, then every Codex thread for that
 character works and commits inside `.worktrees/feature-char-<id>`. Art approvals for a character that
 already ships still commit on `main`. Never `git checkout`, `switch` or `stash` in the main folder.
 
@@ -499,7 +499,7 @@ We're making the art for a new fighter in GCD Tourney: <Name> (id: <id>). Claude
 moveset is in art/characters/<id>/KIT.md. Read AGENTS.md, docs/ADDING_A_CHARACTER.md (the PR table in step 0),
 art/CHARACTER_SCALE.md, docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first.
 
-0. Branch (ADR 0013): from the main folder run npm run pr -- start art/<id>-refs --full and do ALL of the work
+0. Branch (ADR 0013): from the main folder run npm run pr -- start art/<id>-refs --art <id> and do ALL of the work
    below inside .worktrees/art-<id>-refs, committing there after each approved step; never on main, never
    uncommitted in the main folder. docs/NOW.md and docs/agents/CODEX_INBOX.md are edited on main only.
 1. Briefs: copy the rest of art/characters/_template/ (keep KIT.md as Claude wrote it) and fill CHARACTER.md

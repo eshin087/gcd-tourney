@@ -184,7 +184,7 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 ## Safe boundaries for code changes
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
-  Run `npm run pr -- start feature/<name>` (without `--full`, including art work) from the main
+  Run `npm run pr -- start feature/<name>` (with `--art <id>` for art work, never `--full`) from the main
   folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
   When it's done, `npm run pr -- open` and `npm run pr -- preview` there (a Vercel preview link for the user's phone,
   ADR 0018), and `npm run pr -- merge <branch>` from the main folder (never the
@@ -197,12 +197,13 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 - **Worktree storage rules (user direction, 2026-10-10).** These supersede older `--full` examples and
   copy-based sandbox instructions elsewhere in the project. The docs-only/main exceptions above still apply.
   1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
-     `main` (check with `git branch --merged main`).
+     `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
   2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
      needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
      creation fails in the sandbox, stop and tell the user; never fall back to copying.
-  3. Never use `--full` for art tasks. Start sparse, then add only the art folders the task needs, for example
-     `git sparse-checkout add art/characters/<id>` from the task worktree. The full art library is about 2 GB.
+  3. Never use `--full` for art tasks. Start with `npm run pr -- start <branch> --art <id>[,<id>]` (a character id or an
+     art kind like `vfx`), which checks out only that art, raw files included (~0.5 GB vs ~2 GB). A plain
+     `git sparse-checkout add art/characters/<id>` does not bring back its `raw/`.
   4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
   5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
      must finish cleanup of merged task worktrees; do not leave them behind.

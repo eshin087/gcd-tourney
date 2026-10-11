@@ -66,10 +66,11 @@ documentation that stays true.
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
-| `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse, including art). **Every feature/character starts here** (ADR 0013) |
+| `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse; `--art <id>[,<id>]` adds just that character's or art kind's raw art, `--full` all ~2 GB as a last resort). **Every feature/character starts here** (ADR 0013) |
 | `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree |
+| `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
@@ -115,12 +116,13 @@ These supersede older `--full` examples and copy-based sandbox instructions else
 The docs-only/main exceptions below still apply.
 
 1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
-   `main` (check with `git branch --merged main`).
+   `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
 2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
    needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
    creation fails in the sandbox, stop and tell the user; never fall back to copying.
-3. Never use `--full` for art tasks. Start sparse, then add only the art folders the task needs, for example
-   `git sparse-checkout add art/characters/<id>` from the task worktree. The full art library is about 2 GB.
+3. Never use `--full` for art tasks. Start with `npm run pr -- start <branch> --art <id>[,<id>]` (a character id or an
+   art kind like `vfx`), which checks out only that art, raw files included (~0.5 GB vs ~2 GB). A plain
+   `git sparse-checkout add art/characters/<id>` does not bring back its `raw/`.
 4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
 5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
    must finish cleanup of merged task worktrees; do not leave them behind.
