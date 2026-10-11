@@ -1,0 +1,75 @@
+{
+  "errors": [],
+  "logs": [
+    "[vite] connecting...",
+    "[vite] connected.",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "[vfx] custom effects (candidates): spark, burst, ring, dust, smoke, shuriken, fire, flame, lightning, orb, glow, streak, star, crater, lines, bubble, wisp, arc, ripple, naruto_chakraTail",
+    "[decals] procedural ground damage (no packed decal art yet)",
+    "[crowd] using custom crowd atlas (576 spectators, 466 seats)",
+    "[stage] custom slots: ringSide, ringTop, grass, steps, stoneBase, brick, path, roof, bannerBu, bannerDo, bannerSai, bannerTo, templeFacade, plaster, sky, cloudA, cloudB, cloudC, gong, parasol, woodDark, treeRoundA, treeRoundB, treePine, treePalm, sign, lanternBu, lanternSai, woodPillar, wood",
+    "[npc] placed announcer, monk-a, monk-b, vendor",
+    "[sprites] using custom sheet for naruto (42 animations)",
+    "[sprites] using custom sheet for sasuke (42 animations)",
+    "[sprites] using custom sheet for killua (42 animations)",
+    "[sprites] using custom sheet for gojo (42 animations)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "data": {
+    "state": "fight",
+    "anims": {
+      "bubble": {
+        "row": 15,
+        "n": 6,
+        "ms": 50
+      },
+      "wisp": {
+        "row": 16,
+        "n": 7,
+        "ms": 55
+      },
+      "arc": {
+        "row": 17,
+        "n": 6,
+        "ms": 40
+      },
+      "ripple": {
+        "row": 18,
+        "n": 5,
+        "ms": 50
+      },
+      "naruto_chakraTail": {
+        "row": 19,
+        "n": 6,
+        "ms": 60
+      }
+    },
+    "effects": [
+      {
+        "name": "bubble",
+        "color": "ff4030",
+        "frame": 6
+      },
+      {
+        "name": "wisp",
+        "color": "242030",
+        "frame": 7
+      },
+      {
+        "name": "arc",
+        "color": "aaddff",
+        "frame": 6
+      },
+      {
+        "name": "ripple",
+        "color": "aaddff",
+        "frame": 5
+      },
+      {
+        "name": "naruto_chakraTail",
+        "color": "ff4030",
+        "frame": 6
+      }
+    ]
+  }
+}

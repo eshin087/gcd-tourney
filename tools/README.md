@@ -419,9 +419,17 @@ Common warnings and the fix:
 The contract and the verdicts are in [art/CHARACTER_SCALE.md "Scale gate (automatic)"](../art/CHARACTER_SCALE.md#scale-gate-automatic).
 How the tools measure (`scale-probe.mjs`):
 
-- The **reference** is the idle of the same pack. Unquantized cells (a first raw import) are snapped to one shared
-  48-colour palette first, the same median cut `--quantize 48` ships, so a pack measures the same with or without
-  `--quantize`.
+- The **reference** is the idle of the same pack. The gate measures the cells **before** `--quantize`, with their
+  colours reduced to the **idle's own** palette (`measurementCells`, ART-KIL-PROBE): pixels within 20 of a declared
+  `headColors` / `feetColors` colour are snapped to it first (every strip), the palette is the idle's median cut to
+  48 colours, and every strip is mapped to its nearest colour (colours farther than any idle colour from the palette
+  stay unmatched). A strip's numbers therefore depend only on its own pixels and the idle's: adding, redrawing or
+  recolouring another strip never moves them, and `--quantize` does not change a single measurement. (Before, the
+  fighter-wide median cut decided the colours, so Killua's unchanged idle head read 52x35 or 52x43 depending on the
+  candidates in the pack.)
+- `anims.json` records the gate's per-frame measurements (`meta.scaleAudit`, `method: "idle-palette"`). `npm run scale`
+  and `npm run lineup` judge those with today's manifest instead of re-measuring the quantized sheet; a pack made
+  before the method is measured from the sheet and says so (repack it for the gate's own numbers).
 - **Head**: the colours at least 1.5x denser in the top 12 % of the idle figure than in its lower 60 % (skin
   excluded), or `headColors` of the fighter in `art/scale/builds.json` (Naruto: the hair yellow only, Sasuke: his
   navy hair shades). The mask is opened with a 3x3 cross, split into 8-connected blobs, and the highest blob of at

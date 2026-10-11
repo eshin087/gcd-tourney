@@ -12,6 +12,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { decalTests } from './test-pack-decals.mjs';
+import * as probe from './scale-probe.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -1374,6 +1375,63 @@ function scaleGateTests(base) {
   check(l3 && l3.verdict !== 'pop' && l3.range <= 0.12, `stitch: the stitched light3_v02 packs without a pop (${l3?.verdict}, range ${l3?.range})`);
   check(stitch('scaly', 'light3', '2').status === 1, 'stitch: never overwrites an existing version');
   check(stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8').status === 1, 'stitch: a manual factor needs a reason');
+
+  // ART-KIL-PROBE: a strip's numbers come from its own pixels and the idle's only. A candidate that brings many new
+  // colours between the hair and skin tones (a glowing prop) moved the fighter-wide median cut, and with it the
+  // unchanged idle's head (Killua: 52x35 -> 52x43) and every other strip's verdict. Now nothing else moves.
+  const glow = (seed) => {
+    const img = scaleStrip([{}, {}, {}, {}], seed);
+    const hue = (t) => [0, 1, 2].map((j) => Math.round(127.5 + 127.5 * Math.cos(2 * Math.PI * (t - j / 3))));
+    for (let k = 0; k < 4; k++) {
+      const x0 = (30 + k * 46 + 7) * S, y0 = (110 - 60) * S, w = 14 * S, h = 56 * S;
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const c = hue((x / w + y / h * 7) % 1), i = (y0 + y) * img.w * 4 + (x0 + x) * 4;
+        img.data[i] = c[0]; img.data[i + 1] = c[1]; img.data[i + 2] = c[2]; img.data[i + 3] = 255;
+      }
+    }
+    return img;
+  };
+  const mGlow = variant('scaly-glow', (c) => { c.scaly.animations.charge = { frames: 4, loop: true, bodyHeight: 204 }; });
+  const sg0 = scale(pack([...base, '--manifest', mGlow, '--dry-run', 'scaly']).json, 'scaly');
+  savePng(sraw('charge_v01.png'), glow(831));
+  const sg1 = scale(pack([...base, '--manifest', mGlow, '--dry-run', 'scaly']).json, 'scaly');
+  const moved = sg0 && sg1 ? Object.keys(sg0.anims).filter((n) => JSON.stringify(sg0.anims[n].frames) !== JSON.stringify(sg1.anims[n]?.frames)) : ['?'];
+  check(sg1?.anims.charge && JSON.stringify(sg0?.ref?.headPx) === JSON.stringify(sg1.ref.headPx) && !moved.length,
+    `scale probe: a new strip's colours move neither the idle head (${sg0?.ref?.headPx} / ${sg1?.ref?.headPx}) nor another strip (${moved})`);
+  check(sg0?.ref && JSON.stringify(sg0.ref.palette) === JSON.stringify(sg1?.ref?.palette),
+    `scale probe: the idle's head colours do not depend on the other strips (${sg0?.ref?.palette?.length} / ${sg1?.ref?.palette?.length} colours)`);
+  // the same at the probe level, with Killua-like colours: silver-lavender hair shades just above light skin shades,
+  // and a candidate with a broad rainbow prop (the fighter-wide median cut merged all his hair shades into one)
+  {
+    const W = 256;
+    const cell = (paint) => { const data = new Uint8Array(W * W * 4); paint((x, y, c) => { const i = (y * W + x) * 4; data[i] = c[0]; data[i + 1] = c[1]; data[i + 2] = c[2]; data[i + 3] = 255; }); return { w: W, h: W, data }; };
+    const fig = (bob = 0, rainbow = false) => cell((p) => {
+      const fill = (x0, x1, y0, y1, f) => { for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) p(x, y, f(x, y)); };
+      fill(104, 152, 232, 240, () => [150, 40, 40]);
+      fill(108, 148, 150, 232, (x, y) => [40 + (y % 3), 52, 96 + (x % 2)]);
+      fill(100, 156, 90 - bob, 150, (x, y) => [70 + (x % 4), 60 + (y % 3), 140]);
+      fill(110, 146, 62 - bob, 90 - bob, (x, y) => [250 - (x % 2), 234 - (y % 4), 234 - (x % 3) * 2]);
+      fill(104, 152, 36 - bob, 64 - bob, (x, y) => [242 + (x % 4), 238 - (y % 3) * 2, 250 - (x % 3)]);
+      if (rainbow) fill(0, 100, 20, 250, (x, y) => { const t = (x / 100 + (y - 20) / 230 * 9) % 1; return [0, 1, 2].map((j) => Math.round(127.5 + 127.5 * Math.cos(2 * Math.PI * (t - j / 3)))); });
+    });
+    const idle = { name: 'idle', cells: [0, 0, 1, 1, 1, 0, 0, 1].map((b) => fig(b)) }, run = { name: 'run', cells: [0, 1, 0, 1].map((b) => fig(b)) };
+    const a = probe.auditCharacter([idle, run]), b = probe.auditCharacter([idle, run, { name: 'charge', cells: [0, 1, 0, 1].map((k) => fig(k, true)) }]);
+    const hexes = (A) => [...(A.palette?.head || [])].sort().join();
+    check(!a.error && hexes(a) === hexes(b) && JSON.stringify(a.ref.headPx) === JSON.stringify(b.ref.headPx) && a.anims.run.head === b.anims.run.head,
+      `scale probe: a rainbow candidate leaves the idle's ${a.palette?.head.size} head colours as they are (${b.palette?.head.size} with it)`);
+  }
+  const q1 = scale(pack([...base, '--manifest', mGlow, '--dry-run', '--quantize', '48', 'scaly']).json, 'scaly');
+  check(sg1 && q1 && Object.keys(sg1.anims).every((n) => JSON.stringify(sg1.anims[n].frames) === JSON.stringify(q1.anims[n].frames)), 'scale probe: --quantize 48 does not change a single measurement');
+  fs.rmSync(sraw('charge_v01.png'));
+  // npm run scale reads the gate's own recorded numbers (meta.scaleAudit), not a re-measure of the quantized sheet
+  pack([...base, '--manifest', mApproved, '--quantize', '48', 'scaly']);
+  const smq = JSON.parse(fs.readFileSync(path.join(sOut, 'anims.json'), 'utf8')).scaleAudit;
+  const scq = spawnSync(process.execPath, [path.join(TOOL_DIR, 'scale-audit.mjs'), '--root', ART, '--public', OUT, '--json', 'scaly'], { encoding: 'utf8' });
+  let repq = null;
+  try { repq = JSON.parse(scq.stdout).fighters.scaly; } catch { /* reported below */ }
+  check(smq?.method === 'idle-palette' && repq && JSON.stringify(repq.ref.headPx) === JSON.stringify(smq.ref.headPx)
+    && Object.keys(smq.anims).every((n) => repq.anims[n]?.head === smq.anims[n].head && repq.anims[n]?.verdict === smq.anims[n].verdict),
+  `npm run scale: the report equals the packer gate's recorded audit (${scq.status}, ${repq?.ref?.headPx} / ${smq?.ref?.headPx})`);
   const st2 = stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8', '--reason', 'test', '--dry-run');
   check(st2.status === 0 && /manual: test/.test(st2.stdout) && !fs.existsSync(sraw('light3_v03.png')), 'stitch: --parts re-stitches older parts; --dry-run writes nothing');
 }
