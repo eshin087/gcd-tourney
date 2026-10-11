@@ -127,7 +127,9 @@ export class Menus {
     const btns = items.map((it, i) => {
       const b = el('button', 'item' + (it.cycle ? ' cyc' : ''), `<span>${label(it)}</span>${it.sub ? `<small>${it.sub}</small>` : ''}`);
       b.onmouseenter = () => { idx = i; render(); };
-      b.onclick = () => { idx = i; confirm(); };
+      // stop here: an item that opens the title screen (TITLE, QUIT TO TITLE) would otherwise bubble into the
+      // click-anywhere handler title() just put on .menus and skip straight on to mode select
+      b.onclick = (e) => { e.stopPropagation(); idx = i; confirm(); };
       box.append(b);
       return b;
     });
