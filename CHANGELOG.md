@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- AGENTS.md and CLAUDE.md now carry the same approved-baseline override, so historical fixed-height/head-count rules cannot silently re-enter future art prompts (ART-CAST-PILOT).
+
 - Added a provenance-recorded cross-cast idle QA snapshot to compare corrected working anchors against approved neutrals (ART-CAST-PILOT); not an animation approval.
 
 - Future-character templates now require measured neutral anatomy and SCALE LOCK values instead of inherited 200px/31px/6.5-head defaults; onboarding links the approved cast contract (ART-CAST-PILOT).
