@@ -146,8 +146,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v04 | v01 | Title-style v04 candidate: measured active-fist offset corrected v03 4 px clip; 48-color new-strip gate and five actual atlas frames pass. Old v01 remains approved pending full-set final review. |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v04 | v02 | Title-style v04 candidate: measured B stitch, six actual atlas frames and manual head/torso comparison. f0/f1 head-mask exemption is version-only and manual, not numeric pass; old v02 remains approved pending full-set final review. |
 | 6 | guard | 2 | - | **yes** | 180 | approved | v04 | v01 | Title-style v04 candidate, needs final batch review; v03 rejected for real frame pop. v04 crossed arms confuse the hair probe; version-owned manual exemption is documented in QA, not counted as a numeric pass. Old v01 remains approved. |
-| 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | hurtHigh | 3 | - | **yes** | 174 | approved | v05 | v02 | Title-style v05 candidate: measured head fit from 195 to 174 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows a consistent head, torso and grounded recovery. Old v02 remains approved pending full-set review. |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v01 | Title-style v03-v05 rejected after three imagegen attempts: first two too horizontal, v05 closer to arched pose but open-eyed/calm and one-scale anatomy unproven under the low-confidence gate. No exemption; old approved v01 remains packed. |
 | 6 | down | 2 | - | **yes** | 96 | approved | v05 | v01 | Title-style v04/v05 preserved original slam and straight-leg down poses but were rejected after three imagegen attempts: clip, low-confidence anatomy and lying contact warnings. Original approved v01 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v02 | User rejected new charge; approved v02 active. v03/v04 archived; v04 is historical newest, not active. |
@@ -165,7 +165,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | block | 2 | - | no | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | hurtLow | 3 | - | no | 183 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v01 | Title-style v03 candidate: measured head fit from 183 to 166 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows bent abdomen reaction and a matching rising stance. Old v01 remains approved pending full-set review. |
 | 9 | spin | 4 | - | no | 160 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
