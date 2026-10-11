@@ -15,6 +15,8 @@ import { DummyBrain, CPU_LEVELS } from '../game/ai.js';
 import { ScriptBrain, ReplayBrain, recordFrame, moveList, SCENARIOS } from './scripts.js';
 import { HIT_FLASH } from '../game/moves.js';
 import { FLASH_STYLES } from '../game/hitFlash.js';
+import { MasterBrain } from '../game/aiMaster.js';
+import { PERSONAS } from '../game/aiCombo.js';
 import './lab.css';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
@@ -36,6 +38,7 @@ const L = {
   p2: ids.includes(qs.get('p2')) ? qs.get('p2') : ids[1],
   speed: 1, paused: false, step: 0, dummy: 'stand', clashLevel: 'normal', infiniteKi: true, tab: 'moves',
   running: null, viewer: null, rec: [], recording: false, replay: false, note: '',
+  cpuP1: null, // YOU played by the showman CPU with this combo persona (ADR 0026), or null
 };
 
 // ------------------------------------------------------------------ helpers
@@ -63,6 +66,7 @@ function start() {
   game.startTraining({ p1: L.p1, p2: L.p2, dummy: L.dummy, infiniteKi: L.infiniteKi });
   game.menus.hide(); // the lab panel replaces the training panel
   game.brains[1] = dummyBrain();
+  if (L.cpuP1) cpuYou(L.cpuP1, false);
   const url = new URL(location.href);
   url.searchParams.set('p1', L.p1);
   url.searchParams.set('p2', L.p2);
@@ -70,11 +74,11 @@ function start() {
   render();
 }
 
-// Stand them `gap` apart (the dummy near the barrier for wall bounces) with fresh state.
-function place(gap, nearWall = false) {
+// Stand them `gap` apart (the dummy near the barrier for wall bounces, `room` units from it) with fresh state.
+function place(gap, nearWall = false, room = 0.9) {
   game.resetTrainingPositions();
   const [a, b] = fighters();
-  const cx = nearWall ? ARENA_LIMIT - 0.9 - gap / 2 : 0;
+  const cx = nearWall ? ARENA_LIMIT - room - gap / 2 : 0;
   a.reset(cx - gap / 2, 0);
   b.reset(cx + gap / 2, 0);
   game.faceEachOther();
@@ -91,7 +95,11 @@ function runScripts(stepsA, stepsB, label) {
   const end = (who) => {
     if (L.running !== run) return;
     run[who] = false;
-    if (who === 'a') {
+    if (who === 'a' && L.cpuP1) {
+      L.running = null; // (so cpuYou's stopScripts leaves the dummy's script alone)
+      cpuYou(L.cpuP1, false);
+      L.running = run;
+    } else if (who === 'a') {
       game.brains[0] = null;
       game.input.bind(game.pads, 'solo');
       game.input.flush();
@@ -112,6 +120,25 @@ function stopScripts() {
   game.input.bind(game.pads, 'solo');
 }
 
+// YOU played by the showman CPU with a combo persona ('auto' = drawn from the kit), against the dummy: with DUMMY
+// STAND it never techs, so every route the combo composer plans shows (its log is in the readout). null = you again.
+function cpuYou(persona, paint = true) {
+  stopScripts();
+  L.cpuP1 = persona;
+  if (persona) {
+    game.debugCombos = true; // keep the composer's per-combo log (window.comboLog)
+    window.comboLog = window.comboLog || [];
+    game.comboLog = game.comboLog || []; // its recent routes (the readout shows the last)
+    game.input.bind(game.pads, 'cpu');
+    game.brains[0] = new MasterBrain(fighters()[0], 'showman', (Math.random() * 4294967296) >>> 0, persona === 'auto' ? null : persona);
+  } else {
+    game.brains[0] = null;
+    game.input.bind(game.pads, 'solo');
+    game.input.flush();
+  }
+  if (paint) render();
+}
+
 function playMove(row) {
   exitViewer();
   place(row.range);
@@ -125,7 +152,7 @@ function playScenario(sc) {
   exitViewer();
   const defs = fighters().map((f) => f.def);
   L.note = sc.needs?.(defs) ?? '';
-  place(sc.setup.gap, sc.setup.nearWall);
+  place(sc.setup.gap, sc.setup.nearWall, sc.setup.room);
   const [a, b] = fighters();
   a.ki = Math.max(a.ki, sc.setup.kiA ?? 0);
   b.ki = Math.max(b.ki, sc.setup.kiB ?? 0);
@@ -314,6 +341,9 @@ function toolsTab() {
   // A/B the victim's hit flash live (ENG-064): the table is read every frame, so the next hit shows the change
   row('HIT FLASH', ...FLASH_STYLES.map((s) => chip(s.toUpperCase(), HIT_FLASH.style === s, () => { HIT_FLASH.style = s; render(); })));
   row('FLASH STR', ...[0.5, 0.75, 1, 1.25].map((v) => chip(v + '×', HIT_FLASH.strength === v, () => { HIT_FLASH.strength = v; render(); })));
+  // the combo composer (ADR 0026): YOU as the CPU with a persona
+  row('CPU YOU', chip('OFF', !L.cpuP1, () => cpuYou(null)), chip('AUTO', L.cpuP1 === 'auto', () => cpuYou('auto')),
+    ...Object.keys(PERSONAS).map((p) => chip(p.toUpperCase(), L.cpuP1 === p, () => cpuYou(p))));
   row('RESET', button('positions', () => { stopScripts(); place(3.2); }), button('refill HP', () => { for (const f of fighters()) f.hp = 1000; }));
   box.append(el('p', 'lab-help', 'Record: play a few seconds yourself, stop, then the dummy repeats it in a loop (mirrored toward you). Clash: how well the dummy plays a rhythm clash, from EASY (late presses, skipped notes) up. Pause and step to read frame data; the readout below shows both fighters every frame.'));
   return box;
@@ -329,7 +359,10 @@ function paintStatus() {
   const s = root.querySelector('.lab-status');
   if (!s || fighters().length < 2) return;
   const line = (f) => `<b style="color:${f.def.color}">${f.def.name}</b> ${f.state}${f.moveName ? '/' + f.moveName : ''}${f.kitState ? '/' + f.kitState.kind + (f.kitState.phase ? ':' + f.kitState.phase : '') : ''} t${f.t} · hp ${f.hp} · ki ${Math.round(f.ki)}${f.combo ? ` · combo ${f.combo} (${f.comboDmg})` : ''}`;
-  s.innerHTML = `${L.running ? `<span class="lab-run">▶ ${L.running.label}</span><br>` : ''}${L.recording ? '<span class="lab-rec">● REC</span> ' : ''}${line(fighters()[0])}<br>${line(fighters()[1])}`;
+  // CPU YOU: its persona and the combo route it is composing (or the last one)
+  const z = !L.running && game.brains[0]?.composer, last = game.comboLog?.[0];
+  const comp = z ? `<br><span class="lab-run">CPU ${z.p.name}: ${z.live ? `${z.tier} ${z.target} · ${z.route.join(' › ')}` : last ? `last ${last.hits} hits · ${last.edges.join(' › ')}` : 'neutral'}</span>` : '';
+  s.innerHTML = `${L.running ? `<span class="lab-run">▶ ${L.running.label}</span><br>` : ''}${L.recording ? '<span class="lab-rec">● REC</span> ' : ''}${line(fighters()[0])}<br>${line(fighters()[1])}${comp}`;
 }
 
 // ------------------------------------------------------------------ loop

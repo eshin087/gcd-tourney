@@ -169,9 +169,9 @@ export function countColors(cells) {
 
 // ------------------------------------------------------------------ palettes
 // Declared colours (art/scale/builds.json headColors / feetColors, e.g. Sasuke's hair drawn in outline shades): each
-// selects the idle colours within RGB distance 10 of it (the same paint split into near shades) and always the nearest
-// one within 40, so a palette that shifted a little after a repack (a new strip changes the shared median cut) still
-// matches.
+// selects the idle palette colours within RGB distance 16 of it (the same paint split into near shades; the idle's own
+// cut is finer than the fighter-wide one the colours were picked from) and always the nearest one within 40.
+// measurementCells has already snapped every pixel near a declared colour to it, in every strip.
 function matchDeclared(list, idleColors) {
   const out = new Set();
   for (const s of list) {
@@ -180,7 +180,7 @@ function matchDeclared(list, idleColors) {
     let best = null, bd = Infinity;
     for (const k of idleColors) {
       const dd = dist(k, want);
-      if (dd <= 10) out.add(k);
+      if (dd <= 16) out.add(k);
       if (dd < bd) { bd = dd; best = k; }
     }
     if (best != null && bd <= 40) out.add(best);
@@ -319,8 +319,14 @@ export function measureFrame(cell, ref, pal) {
 // Verdicts: ok | uniform (head and feet off together: rescale) | drift (head off, body not: redraw) | pop (two sizes
 // inside the strip: re-stitch or redraw) | unmeasured (a low-confidence pose or no head found) | exempt.
 export function auditStrip(name, cells, ref, pal, gate = GATE_DEFAULTS, exempt = {}) {
+  return judgeStrip(name, cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal) })), gate, exempt);
+}
+
+// The verdict from per-frame measurements ({ k, head, feet, box }): also used on the measurements the packer recorded
+// in anims.json (auditFromCompact), so `npm run scale` judges with today's manifest without re-measuring.
+export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   const skip = new Set(Array.isArray(exempt.frames) ? exempt.frames : []);
-  const frames = cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal), skipped: skip.has(k) || undefined }));
+  const frames = measured.map((f) => ({ ...f, skipped: skip.has(f.k) || undefined }));
   const use = frames.filter((f) => !f.skipped && f.head != null);
   const heads = use.map((f) => f.head);
   const head = r3(median(heads)), feet = r3(median(use.map((f) => f.feet)));
@@ -373,39 +379,127 @@ export function staleExemptText(name, x) {
   return `${name}: the manifest's scale exemption ${x.v == null ? 'has no "scaleExemptVersion"' : `was written for ${vv(x.v)}`} but the packed strip is ${x.version == null ? 'unversioned' : vv(x.version)} - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": ${x.version ?? 'null'}`;
 }
 
+// The cells the probe measures (ART-KIL-PROBE). The probe matches colours exactly, so it needs a small palette, and
+// that palette must come from the approved idle alone: a median cut over the whole fighter (what --quantize ships)
+// moves whenever any strip adds colours, and Killua's idle head then read 52x35 or 52x43 from the same idle pixels
+// (lavender candidate shades merged his hair with his skin and collar). So:
+//  1. declared paints first (builds.json headColors / feetColors): every pixel within DECLARED_SNAP of a declared
+//     colour becomes that colour, in every strip. No palette is involved, so a shade between two cuts (Naruto's hair
+//     highlight) reads as hair in a run frame exactly as in the idle;
+//  2. the palette is the idle's own median cut (or the idle's colours, when it already has that few);
+//  3. every strip, the idle included, is mapped to it by one rule, the nearest palette colour. A colour farther from
+//     every palette colour than any idle colour is from its own (lightning, a new prop) stays unmatched and can never
+//     join the head.
+// A strip's numbers then depend only on its own pixels, the idle's and the declared colours.
+export const DECLARED_SNAP = 20; // Naruto's and Sasuke's heads measure the same from 16 to 32; Sasuke's outfit purple is 29 from his hair
+export function measurementCells(anims, idle, maxColors = 48, decl = {}) {
+  const declared = [...(decl.headColors || []), ...(decl.feetColors || [])].map(parseHex).filter((k) => k != null).map((k) => [k >> 16, (k >> 8) & 255, k & 255]);
+  const snapDeclared = (cells) => (declared.length ? cells.map((c) => {
+    const d = Uint8Array.from(c.data);
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 128) continue;
+      let bd = DECLARED_SNAP * DECLARED_SNAP + 1, best = null;
+      for (const q of declared) { const dd = (q[0] - d[i]) ** 2 + (q[1] - d[i + 1]) ** 2 + (q[2] - d[i + 2]) ** 2; if (dd < bd) { bd = dd; best = q; } }
+      if (best) { d[i] = best[0]; d[i + 1] = best[1]; d[i + 2] = best[2]; }
+    }
+    return { w: c.w, h: c.h, data: d };
+  }) : cells);
+  anims = anims.map((a) => ({ ...a, cells: snapDeclared(a.cells) }));
+  const idleCells = anims.find((a) => a.name === idle.name).cells;
+  let palette = sharedPalette(idleCells, maxColors);
+  if (!palette) {
+    const seen = new Set();
+    palette = [];
+    for (const c of idleCells) for (let i = 0; i < c.data.length; i += 4) {
+      if (c.data[i + 3] < 128) continue;
+      const k = keyAt(c.data, i);
+      if (!seen.has(k)) { seen.add(k); palette.push([k >> 16, (k >> 8) & 255, k & 255]); }
+    }
+  }
+  const nearest = (k) => {
+    const r = k >> 16, g = (k >> 8) & 255, b = k & 255;
+    let bd = Infinity, best = null;
+    for (const q of palette) { const dd = (q[0] - r) ** 2 + (q[1] - g) ** 2 + (q[2] - b) ** 2; if (dd < bd) { bd = dd; best = q; } }
+    return [best, bd];
+  };
+  // reach: how far the idle's own colours sit from their palette colour (at least 40, for an already snapped idle)
+  let reach2 = 40 * 40;
+  for (const c of idleCells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3] >= 128) {
+    const dd = nearest(keyAt(c.data, i))[1];
+    if (dd > reach2) reach2 = dd;
+  }
+  const cache = new Map();
+  const map = (cells) => cells.map((c) => {
+    const out = { w: c.w, h: c.h, data: Uint8Array.from(c.data) }, d = out.data;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 128) continue;
+      const k = keyAt(d, i);
+      let q = cache.get(k);
+      if (q === undefined) { const [best, dd] = nearest(k); q = dd <= reach2 ? best : null; cache.set(k, q); }
+      if (q) { d[i] = q[0]; d[i + 1] = q[1]; d[i + 2] = q[2]; }
+    }
+    return out;
+  });
+  return anims.map((a) => ({ ...a, cells: map(a.cells) }));
+}
+
 // A whole character: anims = [{ name, cells, version }] with idle among them; decl = builds.json fighter entry;
 // exempt = { anim: { reason, frames, v } } (exemptionsFrom): it applies only to the strip version v; another version
-// is measured and carries `staleExempt` instead. Unquantized cells are snapped to one shared palette first
-// (sharedPalette). Returns { error } when there is no idle or no head can be found in it.
+// is measured and carries `staleExempt` instead. The colours are first reduced to the idle's own palette
+// (measurementCells), so a strip is measured from its own pixels and the idle's, never from anyone else's. Returns
+// { error } when there is no idle or no head can be found in it.
 export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt = {}, maxColors = 48 } = {}) {
-  const all = anims.flatMap((a) => a.cells);
-  if (countColors(all) > maxColors) {
-    const q = quantizeCopies(all, maxColors);
-    let i = 0;
-    anims = anims.map((a) => ({ ...a, cells: a.cells.map(() => q[i++]) }));
-  }
+  const idle0 = anims.find((a) => a.name === 'idle');
+  if (!idle0?.cells.length) return { error: 'no idle packed - nothing to measure against' };
+  anims = measurementCells(anims, idle0, maxColors, decl);
   const idle = anims.find((a) => a.name === 'idle');
-  if (!idle?.cells.length) return { error: 'no idle packed - nothing to measure against' };
   const pal = palettesFromIdle(idle.cells, decl);
   const ref = makeReference(idle.cells, pal);
   if (!ref) return { error: `no head found in the idle (${pal.head.size} head colour(s), ${pal.headSource}) - declare headColors in art/scale/builds.json`, palette: pal };
   const out = { palette: pal, ref, anims: {} };
-  for (const a of anims) {
-    const x = a.name === 'idle' ? null : exempt[a.name], own = x && x.v === (a.version ?? null);
-    const s = a.name === 'idle' ? { ...auditStrip('idle', a.cells, ref, pal, { ...gate, lowConf: [] }), verdict: 'ref', reason: null } : auditStrip(a.name, a.cells, ref, pal, gate, own ? x : {});
-    if (x && !own) s.staleExempt = { v: x.v, version: a.version ?? null };
-    s.version = a.version ?? null;
-    out.anims[a.name] = s;
-  }
+  for (const a of anims) out.anims[a.name] = judgeAnim(a.name, a.cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal) })), a.version ?? null, gate, exempt);
   return out;
 }
 
-// The compact audit the packer writes into anims.json (meta.scaleAudit) for the runtime check (?scaleaudit) and the
-// lab's ghost head box: per animation its head, feet, verdict, version and each frame's head and probe box.
+// one strip's verdict with its exemption (only for the version it was written for) and its version
+function judgeAnim(name, measured, version, gate, exempt) {
+  const x = name === 'idle' ? null : exempt[name], own = x && x.v === version;
+  const s = name === 'idle' ? { ...judgeStrip('idle', measured, { ...gate, lowConf: [] }), verdict: 'ref', reason: null } : judgeStrip(name, measured, gate, own ? x : {});
+  if (x && !own) s.staleExempt = { v: x.v, version };
+  s.version = version;
+  return s;
+}
+
+// The compact audit the packer writes into anims.json (meta.scaleAudit) for the runtime check (?scaleaudit), the lab's
+// ghost head box and `npm run scale`: per animation its head, feet, verdict, version and each frame's head, feet and
+// probe box, plus the reference. method 'idle-palette' marks measurements taken on the unquantized cells against the
+// idle's own palette (measurementCells); `npm run scale` re-judges those (auditFromCompact) instead of re-measuring
+// the shipped sheet, whose colours come from the whole fighter's median cut.
+export const AUDIT_METHOD = 'idle-palette';
 export function compactAudit(A, gate = GATE_DEFAULTS) {
   const anims = {};
   for (const [name, s] of Object.entries(A.anims)) {
-    anims[name] = { head: s.head, feet: s.feet, verdict: s.verdict, v: s.version, frames: s.frames.map((f) => f.head), boxes: s.frames.map((f) => f.box) };
+    anims[name] = { head: s.head, feet: s.feet, verdict: s.verdict, v: s.version, frames: s.frames.map((f) => f.head), feetFrames: s.frames.map((f) => f.feet), boxes: s.frames.map((f) => f.box) };
   }
-  return { tool: 'tools/scale-probe.mjs', tol: gate.stripTol, pop: gate.popTol, ref: { box: A.ref.box, headPx: A.ref.headPx, palette: A.palette.headSource }, anims };
+  const { hA, hW, hH, feet } = A.ref;
+  return {
+    tool: 'tools/scale-probe.mjs', method: AUDIT_METHOD, tol: gate.stripTol, pop: gate.popTol,
+    ref: { box: A.ref.box, headPx: A.ref.headPx, hA, hW, hH, feet, palette: A.palette.headSource, head: [...A.palette.head].map(hex), feetColors: [...A.palette.feet].map(hex) },
+    anims,
+  };
+}
+
+// The audit of a pack from its recorded measurements (meta.scaleAudit with method 'idle-palette'), judged with
+// today's gate and exemptions, in the shape auditCharacter returns. null when the pack predates the method.
+export function auditFromCompact(sa, { gate = GATE_DEFAULTS, exempt = {} } = {}) {
+  if (!sa || sa.method !== AUDIT_METHOD || !sa.ref || !sa.anims) return null;
+  const set = (l) => new Set((l || []).map(parseHex).filter((k) => k != null));
+  const palette = { head: set(sa.ref.head), feet: set(sa.ref.feetColors), headSource: sa.ref.palette, feetSource: sa.ref.palette };
+  const ref = { hA: sa.ref.hA, hW: sa.ref.hW, hH: sa.ref.hH, feet: sa.ref.feet, box: sa.ref.box, headPx: sa.ref.headPx };
+  const out = { palette, ref, anims: {}, recorded: true };
+  for (const [name, a] of Object.entries(sa.anims)) {
+    const measured = (a.frames || []).map((head, k) => ({ k, head, feet: a.feetFrames?.[k] ?? null, box: a.boxes?.[k] ?? null }));
+    out.anims[name] = judgeAnim(name, measured, a.v ?? null, gate, exempt);
+  }
+  return out;
 }

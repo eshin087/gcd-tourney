@@ -57,7 +57,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
 | 4 | run | 8 | - | **yes** | 204 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -117,7 +117,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved v02 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. New smaller-head v02 needs review; approved fixed reference remains v01. See PROPORTION_REDRAW.md and v02 QA. User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
@@ -315,11 +315,11 @@ ones.
 | star | 5 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crater | 3 | 1000 (static; 3 random variants) | full color | decal | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | lines | 4 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| bubble | 6 | 50 | white (tinted) | center | todo | - | - | ENG-069 power-ups: Naruto's Nine-Tails chakra boil. Procedural stand-in until approved. |
-| wisp | 7 | 55 | white (tinted) | bottom | todo | - | - | ENG-069: Sasuke's dark chakra, Naruto's head wisps, Gojo's faint cursed energy. Procedural stand-in. |
-| arc | 6 | 40 (random frame) | white (tinted) | center | todo | - | - | ENG-069: Killua's body crackle, Sasuke's Chidori current. Procedural stand-in. |
-| ripple | 5 | 50 | white (tinted) | center | todo | - | - | ENG-069: Gojo's Infinity ripple (drawn very faint). Procedural stand-in. |
-| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | todo | - | - | ENG-069: Naruto's one chakra tail at MAX ki. Procedural stand-in. |
+| bubble | 6 | 50 | white (tinted) | center | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| wisp | 7 | 55 | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| arc | 6 | 40 (random frame) | white (tinted) | center | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
 
 ## Shared UI (step 11)

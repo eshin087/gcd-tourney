@@ -4,7 +4,8 @@
 //   npm run pr -- start <branch> [--art <id>[,<id>]] [--full]   new worktree + branch off main in .worktrees/<branch>
 //   npm run pr -- open [--title "..."]      (inside the worktree) publish the branch slim + open the GitHub PR
 //   npm run pr -- preview                   (inside the worktree) deploy the branch to a Vercel preview, link it in the PR
-//   npm run pr -- merge <branch>            (in the main checkout) merge --no-ff, publish main, remove the worktree
+//   npm run pr -- merge <branch> [--no-deploy]  (in the main checkout) merge --no-ff, publish main, remove the worktree,
+//                                           deploy main to production
 //   npm run pr -- prune [--dry-run]         (in the main checkout) remove clean worktrees whose branch is merged
 //
 // Why worktrees: Claude sessions and Codex share the main checkout, so `git checkout` there would yank files
@@ -131,7 +132,16 @@ function merge() {
     try { git(['worktree', 'remove', dir], ROOT, true); } catch { console.warn(`[pr] left ${dir} (uncommitted files in it)`); }
   }
   try { git(['branch', '-d', branch], ROOT, true); } catch { /* still checked out somewhere */ }
-  console.log(`[pr] merged ${branch}. Revert later with: git revert -m 1 ${git(['rev-parse', '--short', 'HEAD'])}`);
+  const mergeCommit = git(['rev-parse', '--short', 'HEAD']);
+  // The user's call (2026-10-10): a merge should be live, not only on GitHub. Vercel isn't wired to the slim
+  // GitHub copy, so the merge deploys the merged main itself. A failed deploy never undoes the merge.
+  if (flag('--no-deploy')) console.log('[pr] skipped the production deploy (--no-deploy): run `npm run deploy` when ready');
+  else {
+    try { sh('node', [path.join(ROOT, 'tools', 'deploy.mjs')], ROOT); } catch {
+      console.warn('[pr] merged and published, but the production deploy failed: run `npm run deploy` from the main checkout');
+    }
+  }
+  console.log(`[pr] merged ${branch}. Revert later with: git revert -m 1 ${mergeCommit}`);
 }
 
 // Worktrees outlive their branch when a merge could not remove them (a session was still inside, or a branch

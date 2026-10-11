@@ -175,6 +175,10 @@ strips are redrawn to it, not the other way round).
   of the idle's head colours (colours much denser at the top of the idle than in its lower body; a fighter whose hair
   shares body colours declares `headColors` in `art/scale/builds.json`, as Naruto and Sasuke do) and its scale is
   the median of sqrt(area), width and height against the idle loop's median. 1.00 = the idle.
+- **A strip is measured from its own pixels and the idle's only** (ART-KIL-PROBE, 2026-10-10): the colours are reduced
+  to the idle's own palette before the shipped `--quantize`, so another strip's new colours (a candidate's glow, a
+  redraw's new shades) never move the idle's head or anyone else's numbers. `npm run scale` reports the gate's own
+  recorded numbers.
 - **Feet**: the area of the shoe colours, a second, independent size proxy.
 
 **The contract per strip** (the defaults in `tools/scale-probe.mjs`; an optional `spec.scaleGate` block in `art/manifest.json` overrides them):

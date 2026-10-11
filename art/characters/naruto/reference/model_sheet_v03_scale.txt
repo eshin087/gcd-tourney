@@ -1,0 +1,28 @@
+
+> gcd-tourney@0.1.0 scale
+> node tools/scale-audit.mjs naruto
+
+
+== naruto: idle head 33x17 px (declared palette #fcd053)
+   1 ref, 14 ok, 10 unmeasured, 5 uniform, 9 pop, 3 drift
+   jumpFall        v01  head -13%  feet -10%  UNIFORM  f: 0.87 0.88
+   land            v01  head  +9%  feet +11%  UNIFORM  f: 1.10 1.07
+   light3          v01  head  +0%  feet +15%  POP      f: 1.00 0.97 0.95 0.98 1.09 1.11 1.12
+   heavy           v07  head  -5%  feet  +3%  POP      f: 1.00 1.12 0.93 - - 0.47 0.92 0.97
+   airLight2       v03  head  -3%  feet  +3%  POP      f: 0.97 1.09 1.09 0.96 0.94
+   airLight3       v02  head  -8%  feet +10%  POP      f: 1.03 0.94 0.84 0.84 0.94 0.91
+   airHeavy        v03  head  -4%  feet  +2%  POP      f: 1.00 0.79 0.92 0.96 0.96 0.97
+   guard           v03  head -20%  feet  +7%  DRIFT    f: 0.82 0.77
+   block           v03  head -18%  feet -19%  UNIFORM  f: 0.83 0.81
+   hurtHigh        v01  head  -9%  feet +25%  DRIFT    f: 0.88 0.91 0.94
+   charge          v04  head -48%  feet -42%  POP      f: - 0.62 0.52 0.47
+   throw           v02  head  -6%  feet -11%  UNIFORM  f: 0.95 0.94 0.94 0.93
+   stagger         v01  head  -9%  feet -12%  UNIFORM  f: 0.91 0.91 0.95 0.91
+   special         v03  head -21%  feet  +1%  POP      f: 0.86 0.82 0.81 0.77 0.79 0.71 0.77 0.79
+   specialForward  v02  head -18%  feet -14%  POP      f: 0.82 0.82 0.79 0.82 0.99 1.00 0.99
+   specialUp       v01  head -29%  feet -10%  POP      f: 0.82 0.82 0.73 0.70 0.52 0.47
+   superPose       v03  head -26%  feet +72%  DRIFT    f: 0.76 0.73 0.77 0.72
+   ! superPose head 0.74 vs 0.71 in the baseline at the same version: something resized it (--baseline accepts it)
+   wrote art\scale\heads-naruto.png
+
+[scale] 17 flagged strip(s); wrote art\scale\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

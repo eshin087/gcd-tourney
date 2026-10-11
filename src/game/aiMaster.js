@@ -12,6 +12,8 @@ import { BeatPlan } from './clash.js';
 import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
 import { mixDefense, reachT } from './aiDefense.js';
+import { rng } from './rng.js';
+import { ComboComposer, makePersona } from './aiCombo.js';
 
 const BUTTONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -28,7 +30,7 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 //         supers as enders, counter-beams); tech: chance to air tech at the first legal frame
 // throw   how keen it is to throw a guarding opponent; throwBreak: chance to break a throw inside the window
 // show    how strongly it reaches for tools the viewer hasn't seen yet (Showcase, aiShow.js, ADR 0016)
-// cap     combo hits after which it cashes out with an ender instead of extending (0 = never: max damage)
+//         (its combos are the combo composer's, aiCombo.js / ADR 0026: COMBO_PERSONA below)
 // hoard   how often a round is spent saving meter for a three-bar finish
 // block   weight of a plain block among its answers to a threat it saw (the others: parry, dodges, counters...)
 // drop    chance that a combo is dropped after its first couple of hits (a missed link, like a person's)
@@ -39,10 +41,13 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 export const STYLES = {
   // INSANE, between HARD and IMPOSSIBLE: the same reads at a person's reaction time (12 f), fewer parries, dodges,
   // techs and throw breaks, and some dropped combos
-  insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, cap: 0, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
-  impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
-  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
+  insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
+  impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
+  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
 };
+// combo persona per style (aiCombo.js, ADR 0026): IMPOSSIBLE and INSANE run the optimal one (the most damage that
+// links); the showman (CPU vs CPU) draws one per match from its kit, so every spectated fight combos differently
+const COMBO_PERSONA = { impossible: 'optimal', insane: 'optimal', showman: null };
 // Defense showcase knobs (ADR 0025), merged into STYLES below; a style without one reads it as 0 (off).
 // defPersona  strength of the per-match defense persona (aiShow.js): 1 = as is; below 1 it only changes which
 //             advanced answer comes out, never how often one does (the weights are normalized)
@@ -86,10 +91,12 @@ function roomAlong(p, s, R) {
 let projIds = 0;
 
 export class MasterBrain {
-  constructor(fighter, style = 'impossible') {
+  // seed: this brain's share of the match seed (its persona and combo routes); persona: force one (the lab)
+  constructor(fighter, style = 'impossible', seed = (Math.random() * 4294967296) >>> 0, persona = null) {
     this.f = fighter;
     this.style = STYLES[style] ? style : 'impossible';
     this.S = STYLES[this.style];
+    this.rng = rng(seed);
     this.hold = {}; // button -> frames left on a tap
     this.fresh = new Set(); // taps that still need their press edge
     this.keep = new Set(); // buttons held down this frame only
@@ -110,6 +117,8 @@ export class MasterBrain {
     this.mem = { parries: 0, contacts: 0, jumps: 0, mashAfterBlock: 0, blockAfterBlock: 0 };
     this.lastOppState = '';
     this.show = new Showcase(fighter, this.S.show, this.S.defPersona ?? 0);
+    this.persona = makePersona(this.rng, fighter.def, persona ?? COMBO_PERSONA[this.style]);
+    this.composer = new ComboComposer(this, this.persona, this.rng);
   }
 
   // ------------------------------------------------------------------ pad output
@@ -192,6 +201,7 @@ export class MasterBrain {
     this.saving = this.hoarding || this.waitClash || (this.S.show >= 0.5 && f.ki >= 100 && this.bigCount() === 0);
     if (game.clash) this.playClash(game);
     else if (game.inputLive && !f.ko && !o.ko) this.think(game);
+    else this.composer.watch(game, null); // (think watches when live) a KO or the time-up closes our combo now
     if (this.chargeFrom != null) {
       if (f.state === 'charge' || !f.spPending || f.pad.frame - this.chargeFrom > 16) this.chargeFrom = null;
       else if (f.state === 'idle' || f.state === 'run' || f.state === 'land') this.keep.add('special');
@@ -203,6 +213,7 @@ export class MasterBrain {
     const f = this.f;
     const c = this.sense(game);
     this.trackOpponent(game, c);
+    this.composer.watch(game, c); // our combo's life, bounces, links (aiCombo.js)
     if (game.freeze > 0) return this.frozen(game, c);
     this.clock++;
     if (this.pendingPunish && this.parryPunish(game, c)) return;
@@ -431,7 +442,8 @@ export class MasterBrain {
     if (R.bait === undefined) {
       if (R.baitAt === undefined) R.baitAt = 3 + Math.floor(Math.random() * 3); // the hit it may stop after
       if (o.combo < R.baitAt || f.air) return false;
-      R.bait = o.burstUsed < BURST.perRound && o.ki >= BURST.cost && Math.random() < (this.S.bait ?? 0);
+      // a risk-loving combo persona stops to bait more often (aiCombo.js baitK)
+      R.bait = o.burstUsed < BURST.perRound && o.ki >= BURST.cost && Math.random() < (this.S.bait ?? 0) * this.composer.baitK;
       if (R.bait) this.baitUntil = this.clock + 50;
     }
     return !!R.bait;
@@ -452,6 +464,11 @@ export class MasterBrain {
     const f = this.f, o = f.opp;
     if (f.state === 'attack' && f.move) {
       this.comboStep(game, c);
+      return true;
+    }
+    // a throw's toss: the combo composer follows it (super dash or vanish from its frame 6, or its wall bounce)
+    if (f.state === 'throw' && f.throwSt?.phase === 'toss' && this.composer.live) {
+      this.composer.drive('move', c);
       return true;
     }
     if (f.state === 'superDash') {
@@ -476,19 +493,10 @@ export class MasterBrain {
     const juggle = o.state === 'launched' && !o.ko && o.hittable;
     const d3 = Math.hypot(c.sx, c.dy);
     const R = Math.random, showy = this.S.show >= 0.5;
-    if (juggle && f.moveHit && this.capped()) return true; // the showman's combo is over: drop down, play neutral
-    if (f.chase > 0 || (juggle && f.moveHit)) {
-      // after a launcher chase or a super dash contact: first air hit when the victim is in reach
-      if (!f.airAttack && juggle && d3 < 1.5 && Math.abs(c.sd) < 0.7) {
-        this.tap('light');
-        return true;
-      }
-      if (f.airAttack && juggle && f.airDashes === 0 && d3 < 5) {
-        this.tap('dash');
-        return true;
-      }
-      return true;
-    }
+    // our combo in the air (after a launcher chase, a super dash contact, a Blink...): the combo composer's
+    // (aiCombo.js); once it has ended its combo, drop down and play neutral
+    if (juggle && this.composer.live && (this.composer.drive('air', c) || this.composer.done)) return true;
+    if (f.chase > 0) return true;
     // an opponent we can reach in the air with an attack
     if (!f.airAttack && o.hittable && d3 < 1.5 && Math.abs(c.sd) < 0.6 && (o.air || c.dy > -0.6)) {
       this.tap(o.state === 'launched' || Math.random() < 0.6 ? 'light' : 'heavy');
@@ -530,145 +538,27 @@ export class MasterBrain {
     const f = this.f, o = f.opp, m = f.move, n = f.moveName;
     if (f.hitstop > 0) return; // presses on live frames, so the buffers line up with the cancel windows
     const t = f.t + 1;
-    const A = m.startup, B = A + m.active;
     if (!f.moveHit) {
       this.route.wasBlocked = this.route.wasBlocked || o.state === 'block';
       return this.stringStep(game, c, m, n, t);
     }
-    if (t < A) return;
+    if (t < m.startup) return;
     if (!this.route.counted) {
       this.route.counted = true;
       this.noteContact(false);
       if (this.S.drop && Math.random() < this.S.drop) this.route.dropAt = 2 + Math.floor(Math.random() * 2);
     }
-    if (this.route.dropAt && o.combo >= this.route.dropAt) return; // missed the link: the combo ends here
-    if (this.baitBurst()) return; // stop here and guard: they may burst
-    if (!m.special && this.finisher(game, c, m, t)) return;
-    switch (n) {
-      case 'light1':
-      case 'light2':
-        if (o.state === 'launched' && o.pos.y > 0.9) { this.tap('heavy'); return; } // popped up: launch them
-        if (t >= m.cancel - 1) this.tap('light');
-        return;
-      case 'light3':
-        return this.branchGround(game, c, m, t);
-      case 'heavy':
-        this.tap('jump'); // chase the launch
-        return;
-      case 'airLight1':
-        if (t >= m.cancel - 1) this.tap('light');
-        return;
-      case 'airLight2':
-        return this.branchAir(game, c, m, t);
-      case 'light4':
-        // showman: the wall bounce is the moment for a special the viewer hasn't seen (shot, teleport, rush)
-        if (this.S.show >= 0.5 && this.afterBounce(c)) return;
-      // falls through
-      default:
-        // launchers, spikes, wall bounces, vanish kicks, rush specials: chase with the super dash,
-        // or vanish behind them when the dash is spent; the showman cashes out instead once the combo is
-        // long enough, or right after the ender of a short route (only the launcher route chases)
-        if (t >= B) {
-          if (this.capped() || (this.S.show >= 0.5 && this.route.ground !== 'launch')) this.cashOut(game, c, m);
-          else this.extend(game, c);
-        }
-    }
+    // missed the link (INSANE's dropped combos), or stop and guard because they may burst: the combo ends here
+    if (this.route.dropAt && o.combo >= this.route.dropAt) { this.composer.stop('drop'); return; }
+    if (this.baitBurst()) { this.composer.stop('bait'); return; }
+    if (!m.special && this.finisher(game, c, m, t)) { this.composer.mark('big'); return; }
+    // every other choice is the combo composer's: chain, launch, wall, super dash, vanish, kit (aiCombo.js, ADR 0026)
+    this.composer.drive('move', c);
   }
 
-  // The showman's combo has done its job at `cap` hits (or its short route has ended): from there it ends
-  // with something flashy instead of looping super dash -> air string, because a long juggle is the part of
-  // a fight with nothing new to see, and rounds need room for neutral (ADR 0016).
+  // Our combo is over (the composer ended it, or it was dropped): drop down and play neutral.
   capped() {
-    return (this.S.cap > 0 && this.f.opp.combo >= this.S.cap) || !!this.route.over;
-  }
-
-  // light3 on hit: a kit special (ender or extender), the launcher route, or light4 into the wall. IMPOSSIBLE
-  // takes the special when it lands in time, else the launcher; the showman picks once per combo, weighted
-  // toward the specials the viewer hasn't seen (and away from the launcher once the combo is long).
-  branchGround(game, c, m, t) {
-    const f = this.f, o = f.opp, R = this.route;
-    const sp = o.state === 'hitstun' ? this.comboSpecial(c, o.stun - o.t) : null;
-    if (this.S.show >= 0.5 && !R.ground) {
-      // short routes first: an air juggle is the longest stretch of a fight with nothing new in it, so the
-      // launcher route is the exception (it still shows the air game and the super dash chase)
-      R.ground = pickW({
-        special: sp ? 2 * this.show.bias(specialId(sp.m)) : 0,
-        launch: this.capped() ? 0.1 : 0.55 * Math.sqrt(this.show.bias('superDash')),
-        wall: c.oppRoom < 1.2 ? 2 : 1.1,
-      }) || 'wall';
-    }
-    if (sp && (!R.ground || R.ground === 'special') && this.spend(sp.m.cost, sp.value)) {
-      this.special(sp.slot, 2);
-      R.special = sp.slot;
-      return;
-    }
-    if (R.ground === 'special') R.ground = 'wall'; // no special after all (no ki, or saving it): the short route
-    // launcher (more hits, a ground-bounce loop) unless they're right on the wall, where light4 bounces
-    if (R.ground === 'wall' || (!R.ground && c.oppRoom < 1.2) || R.l4) {
-      R.l4 = true;
-      if (t >= m.cancel - 1) this.tap('light');
-      return;
-    }
-    this.tap('heavy');
-  }
-
-  // airLight2 on hit: spike for a ground bounce while the super dash is still there to follow it,
-  // otherwise airLight3 (wall bounce) when the barrier is close behind them, else spike anyway. Past the
-  // showman's cap: a vanish kick it hasn't shown, else either ender at random.
-  branchAir(game, c, m, t) {
-    const f = this.f, o = f.opp, R = this.route;
-    if (this.capped()) {
-      if (R.air == null) R.air = pickW({ vanish: f.ki >= VANISH.cost && !R.vanished ? 0.6 * this.show.bias('vanish') : 0, spike: 1, wall: c.oppRoom < 3 ? 1.5 : 0.7 });
-      if (R.air === 'vanish' && f.ki >= VANISH.cost) { R.vanished = true; this.keep.add('guard'); this.tap('special', 2); return; }
-      if (R.air === 'wall') { if (t >= m.cancel - 1) this.tap('light'); return; }
-      this.tap('heavy');
-      return;
-    }
-    const spike = f.airDashes === 0 || c.oppRoom > 4 || o.pos.y > 2.2;
-    if (spike) this.tap('heavy');
-    else if (t >= m.cancel - 1) this.tap('light');
-  }
-
-  // light4 wall bounce (showman): cancel into a special that still catches them in flight, once per combo.
-  afterBounce(c) {
-    const f = this.f, o = f.opp, R = this.route;
-    if (R.special || R.bounceDone || o.state !== 'launched' || o.ko) return false;
-    R.bounceDone = true;
-    const sp = this.comboSpecial(c, 30, true);
-    if (!sp || !this.spend(sp.m.cost, sp.value) || Math.random() > 0.35 + 0.5 * this.S.show * (this.show.fresh(specialId(sp.m)) ? 1 : 0.4)) return false;
-    this.special(sp.slot, 2);
-    R.special = sp.slot;
-    return true;
-  }
-
-  // Past the cap: one last flashy hit if a fresh one fits (a vanish kick behind them), then let them fall.
-  cashOut(game, c, m) {
-    const f = this.f, o = f.opp, R = this.route;
-    if (R.cashed || o.state !== 'launched' || o.ko) return;
-    R.cashed = true;
-    R.over = true;
-    if (!R.vanished && f.ki >= VANISH.cost && Math.random() < 0.25 * this.show.bias('vanish') && this.spend(VANISH.cost, 90)) {
-      R.vanished = true;
-      this.keep.add('guard');
-      this.tap('special', 2);
-    }
-  }
-
-  extend(game, c) {
-    const f = this.f, o = f.opp;
-    if (o.state !== 'launched' || o.ko) return;
-    if (f.airDashes === 0) {
-      this.mx = 0;
-      this.my = 0;
-      this.tap('dash');
-      return;
-    }
-    // super dash spent: vanish behind them (wantsVanish needs Special pressed with Guard down)
-    if (f.ki >= VANISH.cost && this.spend(VANISH.cost, 90) && !this.route.vanished) {
-      this.route.vanished = true;
-      this.keep.add('guard');
-      this.tap('special', 2);
-    }
+    return this.composer.done;
   }
 
   // Our attack whiffed or got blocked: pressure with the string, or stop and let the next layer decide.
@@ -801,33 +691,6 @@ export class MasterBrain {
     }
     if (m.kind === 'teleport' && m.follow) return (m.startup ?? 0) + m.hide + (MOVES[m.follow]?.startup ?? 3) + 1;
     return null;
-  }
-
-  // Best special to cancel a hit into, by kind: rush and wall-bounce shots end big, long-stun shots and
-  // teleports extend. Only ones that land before the victim's stun runs out (`left` frames): after
-  // light3, a 24-frame Rasengan doesn't, and a blocked "ender" is a free punish. `value` is a rough damage
-  // worth of spending the ki; the pick also leans toward specials the viewer hasn't seen (Showcase).
-  // `flying`: the victim was knocked away (light4), so a rush only catches them off the wall.
-  comboSpecial(c, left = 99, flying = false) {
-    const f = this.f, seen = new Set();
-    let best = null;
-    for (const slot of SLOTS) {
-      const m = specialFor(f.def, slot);
-      if (!m || seen.has(m) || f.ki < (m.cost ?? 0)) continue;
-      seen.add(m);
-      if (flying && m.kind === 'rush' && c.oppRoom > 2.2) continue;
-      const hitIn = this.specialHitTime(m, c, true);
-      if (hitIn == null || hitIn > left - 1) continue;
-      let v = 0;
-      if (m.kind === 'rush') v = m.dmg * (m.vortex ? 1.2 : 1) - (m.selfDmg ?? 0);
-      else if (m.kind === 'shot') {
-        const P = m.proj && PROJ_INFO[m.proj];
-        if (P) v = P.wallBounce ? P.dmg * 1.3 : P.hitstun >= 30 ? P.dmg * 1.2 : 0;
-      } else if (m.kind === 'teleport' && m.follow) v = (MOVES[m.follow]?.dmg ?? 0) * 1.3;
-      const score = v * this.show.bias(specialId(m));
-      if (v > 0 && (!best || score > best.score)) best = { slot, m, value: v, score };
-    }
-    return best;
   }
 
   // Ki policy: keep a bar for defense (vanish, counter) unless it pays off, the style is loud, or the
@@ -1394,21 +1257,10 @@ export class MasterBrain {
     return false;
   }
 
-  // The victim is still reeling after a hit that wasn't one of our normals (shot, super dash contact,
-  // vortex pop): run in and restart the route.
+  // We're free on the ground while they still reel (after a shot, a super dash contact, a vortex pop, a bounce):
+  // the combo composer meets them (a jab, a dash-in light, a heavy relaunch, the handball off the wall) or ends it.
   followUp(game, c) {
-    const f = this.f, o = f.opp;
-    const sx = Math.abs(c.sx);
-    if (o.state === 'launched') {
-      if (o.pos.y < 1.7 && sx < 1.5 && Math.abs(c.sd) < 0.7) { this.tap('heavy'); this.route = {}; return true; }
-      if (f.airDashes === 0 && c.dist < 6 && o.pos.y > 0.8) { this.tap('dash'); return true; }
-      this.approach(c, 0.95);
-      return true;
-    }
-    const left = o.stun - o.t + o.hitstop;
-    if (sx < LIGHT_REACH && Math.abs(c.sd) < 0.8 && left >= 2) { this.tap('light'); this.route = {}; return true; }
-    if (sx < 4 && left >= 9 && c.ready === 'ground') { this.mx = c.toward; this.tap('dash', 2); this.route = { dashIn: true }; return true; }
-    if (c.ready === 'dash' && sx < DASH_LIGHT_REACH) { this.tap('light'); return true; }
+    if (this.composer.drive('ground', c)) return true;
     this.approach(c, 0.95);
     return true;
   }
@@ -1664,6 +1516,7 @@ export class MasterBrain {
     // three-bar move): back off and power up
     if (showy && dist < 5.5 && this.saving && ki < 300) w.powerUp = 2;
     else if (showy && ki < 200 && dist < 5.5 && sh.unseen().some((id) => id.startsWith('sp:') || id === 'super' || id === 'ultimate' || id === 'beam')) w.powerUp = 1.1;
+    this.personaStarters(w, c);
     // BEAM CLASH (ADR 0027), on the director's cue (CPU vs CPU): fire an energy move from where they can answer it, once
     // they have the ki to; short of ki for it, power up first. Cued to answer, it keeps to mid range (rushing in, the
     // two would be too close to lock) with the ki for its answer.
@@ -1695,6 +1548,17 @@ export class MasterBrain {
     if (name === 'airShot') p.slot = airSp.slot;
     if (name === 'big') p.tool = big;
     return p;
+  }
+
+  // The combo persona's starters (ADR 0026): a rushdown presses more, a juggler jumps in more, a vanish artist may open
+  // with a vanish from mid range, a wall bouncer pushes in while their back is near the barrier.
+  personaStarters(w, c) {
+    const P = this.persona;
+    if (!P?.primary) return;
+    if (w.pressure) w.pressure *= Math.sqrt(P.tags.ground ?? 1);
+    if (w.jumpin) w.jumpin *= Math.sqrt(P.tags.air ?? 1);
+    if (P.primary === 'vanishArtist' && c.dist > 2.5 && c.dist < 5 && this.f.ki >= VANISH.cost && !this.saving) w.vanishIn = 0.5 * Math.sqrt(this.show.bias('vanish'));
+    if (P.primary === 'wallBouncer' && c.oppRoom < 4) for (const k of ['approach', 'pressure']) if (w[k]) w[k] *= 1.4;
   }
 
   // Ground kit specials that make sense at this distance: { slot, w } with w = the Showcase weight.
@@ -1962,6 +1826,11 @@ export class MasterBrain {
         this.fireBig(p.tool);
         return;
       }
+      case 'vanishIn':
+        // a vanish artist's opener: behind them from mid range, the kick starts the combo (personaStarters)
+        if (!p.fired && f.ki >= VANISH.cost) { p.fired = true; this.keep.add('guard'); this.tap('special', 2); this.route = {}; }
+        p.done = p.t > 3;
+        return;
     }
   }
 

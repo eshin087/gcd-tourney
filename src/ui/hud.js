@@ -20,7 +20,19 @@ export const TAGS = {
   reversal: { text: 'REVERSAL', color: '#ffb43a' },
   punish: { text: 'PUNISH!', color: '#ff6a4a' },
   wavedash: { text: 'WAVEDASH', color: '#c8f0ff', small: true, cool: 360, excite: 0.05 },
+  // combo techniques (ADR 0026): the n-th wall bounce of a combo, a ground bounce, a relaunch, the vanish ping-pong
+  wallBounce: { text: 'WALL BOUNCE!', color: '#bfe8ff', small: true, excite: 0.2 },
+  wallBounce2: { text: 'WALL BOUNCE ×2!', color: '#bfe8ff', excite: 0.4 },
+  handball: { text: 'HANDBALL!', color: '#ffd84a', big: true, excite: 0.7 },
+  groundBounce: { text: 'GROUND BOUNCE!', color: '#fff3d0', small: true, excite: 0.1 },
+  relaunch: { text: 'RELAUNCH!', color: '#ffb43a', excite: 0.3 },
+  vanish2: { text: 'VANISH ×2!', color: null, excite: 0.4 },
+  vanish3: { text: 'VANISH ×3!', color: null, big: true, excite: 0.6 },
 };
+// the end-of-combo rating (ADR 0026): by hits, plus STYLISH! for 4+ different techniques in it
+const RATINGS = [[20, 'LEGENDARY'], [15, 'AMAZING'], [10, 'GREAT']];
+const STYLISH = 4;
+const CHIPS = 7; // ticker chips kept under a combo counter (the oldest scroll out)
 const TAG_STACK = 3; // banners per side; a fourth pushes the oldest out
 const h = (tag, cls, html = '') => {
   const e = document.createElement(tag);
@@ -98,8 +110,11 @@ export class Hud {
     this.root.append(top);
     this.combo = [0, 1].map((i) => {
       const c = h('div', `combo c${i + 1}`);
+      // the count, the technique ticker under it (ADR 0026) and the rating when it ends
+      const num = h('div', 'cnum'), chips = h('div', 'chips'), rate = h('div', 'rate');
+      c.append(num, chips, rate);
       this.root.append(c);
-      return { el: c, hits: 0, t: 0, blue: false };
+      return { el: c, num, chips, rate, hits: 0, t: 0, blue: false };
     });
     this.callouts = [0, 1].map((i) => {
       const c = h('div', `callout k${i + 1}`);
@@ -165,6 +180,7 @@ export class Hud {
       this.combo[i].hits = 0;
       this.combo[i].el.classList.remove('show');
       this.combo[i].blue = false;
+      this.comboStart(i);
       this.tags[i].textContent = '';
     });
     this.hint.innerHTML = hint;
@@ -223,7 +239,7 @@ export class Hud {
         C.hits = opp.combo;
         // blue (ADR 0022): the combo had a gap they could have teched out of; training shows the widest one in frames
         const blue = !!opp.comboBlue, gap = this.root.classList.contains('training') && opp.maxGap > 0 ? `<em>GAP ${opp.maxGap}F</em>` : '';
-        C.el.innerHTML = `<b>${opp.combo}</b><span>HITS</span><small>${opp.comboDmg} DMG</small>${gap}`;
+        C.num.innerHTML = `<b>${opp.combo}</b><span>HITS</span><small>${opp.comboDmg} DMG</small>${gap}`;
         C.el.classList.remove('pop', 'blue-pop');
         void C.el.offsetWidth;
         C.el.classList.toggle('blue', blue);
@@ -232,8 +248,10 @@ export class Hud {
         C.t = 1.4;
       }
       if (C.t > 0) {
-        C.t -= dt;
-        if (C.t <= 0) { C.el.classList.remove('show'); C.hits = 0; C.blue = false; }
+        // it stays up while they're still reeling in it (a long bounce, a super's hold), so the ticker and rating show
+        const reeling = opp.combo > 0 && (opp.state === 'launched' || opp.state === 'hitstun' || opp.state === 'held');
+        if (!reeling) C.t -= dt;
+        if (C.t <= 0) { C.el.classList.remove('show'); C.hits = 0; C.blue = false; this.comboStart(i); }
       }
     });
     const tl = Math.max(0, Math.ceil(timeLeft));
@@ -258,6 +276,46 @@ export class Hud {
     e.addEventListener('animationend', (ev) => { if (ev.target === e) e.remove(); });
     box.prepend(e);
     while (box.children.length > TAG_STACK) box.lastChild.remove();
+  }
+
+  // A new combo on side i: the ticker and the last rating clear.
+  comboStart(i) {
+    const C = this.combo[i];
+    C.chips.textContent = '';
+    C.rate.textContent = '';
+    C.rate.className = 'rate';
+  }
+
+  // A technique in side i's running combo (Game.comboChip): a chip in the ticker under the counter (WALL ▸ VANISH ▸
+  // BOUNCE ...); the same one twice in a row counts up instead.
+  comboTag(i, label) {
+    const C = this.combo[i], last = C.chips.lastElementChild;
+    if (last && last.dataset.l === label) {
+      last.dataset.n = String((+last.dataset.n || 1) + 1);
+      last.textContent = `${label} ×${last.dataset.n}`;
+      return;
+    }
+    const e = h('i', 'chip');
+    e.dataset.l = label;
+    e.textContent = label;
+    C.chips.append(e);
+    while (C.chips.children.length > CHIPS) C.chips.firstChild.remove();
+  }
+
+  // The combo on side i ended with `hits` hits and `kinds` different techniques: its rating under the counter, which
+  // stays up a little longer for it. Returns the rating word, or null for an unrated combo.
+  comboEnd(i, hits, kinds) {
+    const word = RATINGS.find(([n]) => hits >= n)?.[1] ?? null;
+    const stylish = kinds >= STYLISH;
+    if (!word && !stylish) return null;
+    const C = this.combo[i];
+    C.rate.innerHTML = `${word ? `<strong>${word}</strong>` : ''}${stylish ? '<strong class="sty">STYLISH!</strong>' : ''}`;
+    C.rate.className = 'rate';
+    void C.rate.offsetWidth; // restart the pop
+    C.rate.className = 'rate go ' + (word ? word.toLowerCase() : 'stylish');
+    C.el.classList.add('show');
+    C.t = Math.max(C.t, 2.4);
+    return word ?? 'STYLISH';
   }
 
   callout(i, text, color, big = false) {

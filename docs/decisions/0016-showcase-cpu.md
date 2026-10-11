@@ -141,3 +141,9 @@ Measured (showman, Naruto / Gojo pairings, both sides able to clash): see CHANGE
 spectator matches only, a show director (`src/game/showDirector.js`) that cues the two CPUs (showmen, or Easy-Hard
 CpuBrains) once per match to play a beam clash (one challenges, the other answers). It never presses a button; the brains still decide whether the cue
 is possible. `watch()` now notes `clash` only for an ultimate clash and `beamClash` for a beam clash.
+
+## Amendment (2026-10-10, ENG-072): the combo composer
+
+[ADR 0026](0026-combo-composer-and-bounce-budget.md) replaces the showman's short-combo routes and its `cap` with a
+seeded combo composer (`src/game/aiCombo.js`): a per-match combo persona, length tiers with a governor, and only
+links checked against the victim's stun. The "short combos with a flashy ender" section above is history.

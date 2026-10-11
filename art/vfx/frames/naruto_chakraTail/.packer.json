@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/naruto_chakraTail_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/naruto_chakraTail_v01.png"
+  ],
+  "sourceHash": "db90d0594a2a516ba8f47c75d4aa78ec96f16d06",
+  "files": {
+    "naruto_chakraTail_00.png": "a2133ff8252c258d62c9e434c5702725ffe5f4b9",
+    "naruto_chakraTail_01.png": "97b729703bcd5b01060c81f5d1b07d925e9b9569",
+    "naruto_chakraTail_02.png": "6bc2fb38a3185ce555e851b1df2ab69a7f46fd7a",
+    "naruto_chakraTail_03.png": "d59cbdd7a931862910275ba5466aef7a92ab2415",
+    "naruto_chakraTail_04.png": "4af985ac7b014eae97aba35d3a8c98e4420abedd",
+    "naruto_chakraTail_05.png": "72eedc6f8ab64d27224619ec4ba1de86b3bd3716"
+  }
+}
