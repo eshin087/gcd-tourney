@@ -105,7 +105,7 @@
         "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": true, "step": 6, "status": "approved", "version": 4, "approvedVersion": 1 },
         "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 171, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 1 },
         "launched": { "frames": 2, "loop": true, "bodyHeight": 136, "ms": [70, 70], "required": true, "step": 6, "status": "approved", "version": 5, "approvedVersion": 2 },
-        "spin": { "frames": 4, "loop": true, "bodyHeight": 160, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "spin": { "frames": 4, "loop": true, "bodyHeight": 160, "ms": [60, 60, 60, 60], "required": false, "step": 9, "status": "approved", "version": 6, "approvedVersion": 2 },
         "airRecover": { "frames": 3, "loop": false, "bodyHeight": 180, "ms": [50, 50, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "approved", "version": 5, "approvedVersion": 2 },
         "getup": { "frames": 5, "loop": false, "bodyHeight": 204, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 2 },
