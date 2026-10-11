@@ -200,7 +200,7 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 | TOOL-027 | tools/check-undeclared.mjs in prebuild (would have caught MODE_ORDER) | Claude | todo | prototype idea from ENG-062 |
 | TOOL-028 | pr merge refuses an art branch whose changed strips fail the scale gate (approval let off-size strips ship) | Claude | todo | gap found after the art batch #24-30 merged |
 | ENG-077 | Restyle the Nine-Tails cloak, Godspeed and beamCharge auras to the canon charge styles; scale auras with depthK | Claude | todo | follow-up to ENG-069/ENG-067 |
-| ART-NAR-PROP | Naruto at about 7 heads tall (head and hair ~8 % smaller): model sheet, idle, all 42 animations | Codex | in-progress | model sheet approved and merged 2026-10-10 (Naruto v03 #48, Sasuke v02 #47); next: idle, then stop for approval; user request 2026-10-10; replaces ART-SCALE-02 batch 2 and his ART-KO-01 |
+| ART-NAR-PROP | Naruto at about 7 heads tall (head and hair ~8 % smaller): model sheet, idle, all 42 animations | Codex | review | model v03 approved and merged; W2 owns idle-only candidate in art/naruto-proportions, port5212; files: Naruto raw/frames/review/tracker/manifest, heads/lineup, public Naruto and review gallery; STOP after idle for approval; user request 2026-10-10; replaces ART-SCALE-02 batch 2 and his ART-KO-01 |
 | ART-SAS-PROP | Sasuke at about 7 heads tall (head and hair ~8 % smaller): model sheet, idle, all 42 animations | Codex | in-progress | model sheet approved and merged 2026-10-10 (Naruto v03 #48, Sasuke v02 #47); next: idle, then stop for approval; user request 2026-10-10; replaces ART-SCALE-02 batch 3 and his ART-KO-01 |
 
 ## Later (M4+)
