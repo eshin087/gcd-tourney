@@ -246,6 +246,8 @@ export function tickMode(f) {
     f.mode = null;
     return;
   }
+  // while powering up the charge style shows the mode instead (its `charge.level` boost, chargeFx.js): no stacking
+  if (f.state === 'charge') return;
   const g = f.game, p = f.pos;
   if (M.fx === 'chakra') {
     if (f.t % 2 === 0) g.fx.auraTick(f, 0.45, g.cam.right);
@@ -588,7 +590,7 @@ const UPDATE = {
     if (t === m.startup) {
       f.mode = {
         id: m.name, t: m.len, len: m.len, speed: m.speed ?? 1, damage: m.damage ?? 1, defense: m.defense ?? 1,
-        blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore,
+        blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore, charge: m.charge,
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
@@ -637,6 +639,16 @@ const UPDATE = {
     }
     if (k.phase === 'hits') {
       f.vel.set(0, 0, 0);
+      if (o.ko) {
+        // KO'd mid-flurry: the body flies off on its KO launch; holding it would re-freeze it in the air every hit
+        o.heldT = 0;
+        k.phase = 'land';
+        k.t0 = 0;
+        f.hidden = false;
+        f.actor.setVisible(true);
+        f.air = true;
+        return;
+      }
       if (k.t0 % S.every !== 1) return;
       if (k.i < S.hits) {
         const R = g.cam.right, F = g.cam.fwd, a = k.i * 2.39996 + 0.6;
@@ -649,7 +661,7 @@ const UPDATE = {
         f.actor.ghost(S.color, 0.4, 0.55);
         o.heldT = Math.max(o.heldT, 30);
         o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
-        o.vel.set(0, 0, 0);
+        if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
         burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, 0xd8f0ff, 1.1);
         if (S.hitFx === 'smoke') burst(g, 'smoke', f.pos.x, f.pos.y + 0.7, f.pos.z, null, 0.6); // a clone pops
         g.cam.shake(0.25);
@@ -661,7 +673,7 @@ const UPDATE = {
       f.faceOpponent();
       f.actor.setPhase('airHeavy', 1, 0.5);
       o.heldT = 0;
-      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', ground: S.ground, color: S.color }, dirTo(f, o));
+      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
       if (S.finalFx === 'rasengan') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(0x6ab4ff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
@@ -689,7 +701,8 @@ const UPDATE = {
     f.actor.setPhase('superPose', 1, 0.5);
     if (k.t0 === S.delay) {
       if (!o.ko && !o.hidden && o.invuln <= 0) {
-        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'heavy' }, dirTo(f, o));
+        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'heavy', hitFlash: 'special' }, dirTo(f, o));
+        // color: the hit flash rim per tick and the burn mark's tint; ground: the floor style under a burning body
         o.burn = { t: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f, ground: S.ground, color: S.color };
         if (o.pos.y < 0.3) g.fx.ground.impact(o.pos, { kind: 'ignite', style: S.ground, tint: S.color, quiet: true });
         for (let i = 0; i < 10; i++) burst(g, 'black', o.pos.x + (Math.random() - 0.5) * 1.1, o.pos.y + Math.random() * 1.2, o.pos.z, null, 1.6);
@@ -728,9 +741,9 @@ const UPDATE = {
         if (o.hittable && Math.hypot(dx, dz) < S.radius && o.pos.y < 3) {
           const d = tmp.set(dx, dz);
           if (d.lengthSq() < 1e-4) d.set(f.face.x, f.face.y);
-          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash' }, d.clone().normalize());
+          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special' }, d.clone().normalize());
           g.excite = 1;
-        } else g.hud.callout(o.index, 'DODGED!', '#ffffff');
+        } else g.tag(o, 'dodge');
         k.phase = 'recover';
         k.t0 = 0;
       }
@@ -842,13 +855,20 @@ const UPDATE = {
     }
     if (k.phase === 'maul') {
       f.vel.set(0, 0, 0);
+      if (o.ko) {
+        // KO'd by a slam: let the body fly on its KO launch instead of pinning it for the rest of the mauling
+        o.heldT = 0;
+        k.phase = 'recover';
+        k.t0 = 0;
+        return;
+      }
       if (k.t0 % S.every !== 1) return;
       const d = dirTo(f, o), p = o.pos;
       if (k.i < S.slams) {
         f.actor.setPhase(S.maulPose ?? 'heavy', S.maulPhase ?? 1, 0.5); // the claw-strike frame
         o.heldT = Math.max(o.heldT, 30);
         o.takeHit(f, { dmg: S.slamDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 5, unblockable: true, spark: 'smash', shake: 0.6 }, d);
-        o.vel.set(0, 0, 0);
+        if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
         burst(g, 'chakra', p.x, p.y + 0.4, p.z, C.chakra, 1.6);
         g.fx.ground.impact(p, { kind: 'slam', style: S.ground, tint: C.chakra, dir: d });
         g.cam.shake(0.55);
@@ -858,7 +878,7 @@ const UPDATE = {
       // the chakra roar, point blank: it blasts them into the barrier
       o.heldT = 0;
       f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
-      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, d);
+      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d);
       g.fx.spawn('ring', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 3.6, color: C.chakra, glow: 1.2, order: 8, depthTest: false });
       g.fx.explosion(p.x, p.y + 0.9, p.z, new THREE.Color(C.chakra));
       g.fx.ground.impact(f.pos, { kind: 'roar', style: S.roarGround, tint: C.chakra, dir: d, origin: true, noMerge: true });
@@ -927,4 +947,28 @@ export function gravityScale(f) {
   if (k.kind === 'orb' || k.kind === 'reflex') return 0; // cast where they stand, in the air too
   if (k.kind === 'rampage') return k.phase === 'whiff' || k.phase === 'recover' ? 1 : 0;
   return 1;
+}
+
+// ------------------------------------------------------------------ recovery
+// Past the kit move's startup and active frames: a hit now punishes a whiff or a recovery instead of interrupting
+// the move, so the hit flash plays it as a normal hit, not a counter hit (hitFlash.js). One test per kind; a kind
+// without one never counts as recovering.
+const RECOVERING = {
+  teleport: (k, m, t) => t >= (m.startup ?? 0) + m.hide, // arrived
+  pull: (k, m, t) => t > m.startup, // the vortex is out
+  dive: (k) => k.phase === 'land',
+  counter: (k, m, t) => t >= m.len, // the stance is over (counterT 0)
+  mode: (k, m, t) => t > m.startup, // the mode is on
+  flurry: (k) => k.phase === 'land',
+  ignite: (k, m) => k.t0 > m.delay, // the flames are lit
+  skyStrike: (k) => k.phase === 'recover',
+  domain: (k) => k.phase === 'cast', // the void is up
+  orb: (k) => k.phase === 'fire', // the orb rolls on by itself
+  rampage: (k) => k.phase === 'whiff' || k.phase === 'recover',
+  reflex: (k) => k.phase === 'set',
+};
+
+export function inRecovery(f) {
+  const k = f.kitState;
+  return f.state === 'kit' && !!k && !!RECOVERING[k.kind]?.(k, k.m, f.t);
 }

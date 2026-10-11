@@ -24,16 +24,22 @@ src/core/
                             InputManager.poll), IS_TOUCH_DEVICE, button size prefs
   artIndex.js               production art index (public/art-index.json): only request art files that exist
                             saved to localStorage ('gcd.bindings.v1'), PS/Xbox pad detection, menu events
-  audio.js                  AudioEngine: everything synthesized with WebAudio (sfx, loops, music, crowd), mute
+  audio.js                  AudioEngine: everything synthesized with WebAudio (sfx, loops, crowd), mute, the music bus
+                            and MUSIC volume; music calls delegate to music.js
+  music.js                  MusicPlayer (ADR 0019): performs composed songs (lookahead scheduler, Karplus-Strong koto,
+                            pads, bass, brushed drums, echo), mood crossfades, ducks, intensity, lite mode
+  musicPlan.js              pure seeded composer (ADR 0019): MOODS / DUCKS data, voiceLead, composeSong (Node-tested)
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
                             (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
                             projectile/beam/orb collisions, special and ultimate clashes (clash bodies, the
                             struggle line, endings), event hooks
-                            (onHit/onBlock/onVanish/...), super flash, KO, render orchestration
+                            (onHit/onBlock/onVanish/onBurst/...), technique callouts (Game.tag(f, id) -> TAGS,
+                            ADR 0022), super flash, KO, render orchestration
   clash.js                  rhythm clash (ADR 0017): seeded note chart, Judge (grades, strays, holds), CPU press plan
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
-                            launched/down/getup/charge/beamCharge/beamFire/clash/...), cancels, physics, takeHit
+                            launched/down/getup/charge/beamCharge/beamFire/clash/techRoll/burst/...), cancels,
+                            physics, takeHit; combo escape and true-combo tracking (gapF, comboBlue; ADR 0022)
   moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, SPECIALS, PROJECTILES, ULTIMATE,
                             SPECIAL_MOVES (kit specials by id), SUPERS (second supers)
   kit.js                    fighter kits (ADR 0009/0011): stick -> special slot, special kinds (rush/shot/teleport/
@@ -48,9 +54,15 @@ src/game/
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
-  camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory; shake, zoom punch
+  chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
+                            (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
+  auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha)
+  camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
+                            zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
+  hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
+                            rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
@@ -65,7 +77,8 @@ src/world/arena.js          tournament grounds: ring, temple, stands + instanced
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
-  hud.js                    health/ki bars, timer, combo counter, callouts, announcements, super cut-in, clash bar and rhythm track
+  hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable), callouts, TAGS
+                            technique banners (ADR 0022), announcements, super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
@@ -112,7 +125,8 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
    checkUltimateClash()         two ultimates' bodies meeting head-on -> the rhythm clash
 8. projectiles update + projectileCollisions()   projectile vs fighter, projectile vs projectile, beam eats projectiles
 9. updateClash(), beams + orbs update, checkUltimateClash()   judge both pads against the chart, move the bodies
-10. fxTicks()                   aura / signature-hand effects, speed-line focus
+10. fxTicks(frozen)             charge styles (chargeFx), aura / signature-hand effects, speed-line focus; during a
+                                freeze or a special clash it runs with frozen = true (charges refresh, spawn nothing)
 11. round timer                 99 s countdown (not in training)
 ```
 
@@ -122,9 +136,10 @@ freeze while the rest of the world keeps going. Projectile and beam hits don't f
 ### render (every rAF)
 
 ```
-fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms
-cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch
-fighters.sync again         (uses the camera's new right vector), ghost trails fade
+fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms (hit flash
+                            pop/lift/rim from hitFlash.js, charge tint, dodge shimmer, super flash)
+cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch, spriteRefDepth
+fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
 beams.sync, fx.update       VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
 arena.setDim / update       super-flash dimming, crowd excitement
 hud.update                  bars, timer, combo counter
@@ -137,6 +152,12 @@ renderer.render             low-res render -> bloom -> grade -> nearest upscale
 -> roundEnd -> (nextRound | matchEnd -> results)`, plus `draw` and `training`. Best of 3 rounds
 (`ROUNDS_TO_WIN = 2`), 99 s each. `Game.state` and `Game.stateT` hold the current state and how long
 it has run.
+
+Round wins use the orbiting `victory` shot. `matchEnd` cuts to the `results` hero shot instead: the loser's
+actor is hidden (only the winner, DBFZ-style; cleanupMatch disposes it, so a rematch brings it back), the winner
+is pinned facing screen-right, and the camera only sways, so the billboard never mirrors. `Menus.results` is a
+slim side panel (a bottom bar below 3:4), and `Game.render` shifts the projection by `Menus.resultsCover()` the
+same way it does for the training panel, so the whole winner stands in the free space.
 
 ## Coordinates and units
 
@@ -181,7 +202,31 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
-  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
+  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
+  `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
+  and turns the caster with the billboard, so the whole body is grounded (ADR 0020); `SheetAsset.footprint(frame)`
+  gives the span in local units, and `fitShadow` multiplies it by the actor's `depthK` like the drawn body.
+- **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
+  then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
+  `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
+  bleeds in from the next cell), then the `flash` mix toward `flashColor` and the ghost `silhouette`. Lift and rim
+  are 0 outside a hit, so those branches are skipped; `src/game/hitFlash.js` drives them per hit tier.
+- **Depth-normalized size** (ENG-067, ADR 0021): a billboard's on-screen size goes with 1 / view depth, so under
+  true perspective the fighter nearer the camera drew 9-23% bigger whenever the two stood apart in depth (the
+  fight camera's yaw is clamped to ±0.42 rad, CPU lane steps) or one was in the air. In the `fight` and `clash`
+  camera modes `CameraDirector.spriteRefDepth` is the view depth midway between the two fighters' feet (eased, so
+  a vanish changes both sizes gently instead of popping the other fighter), and `SpriteActor.syncDepth` scales the
+  actor root by `(depth / spriteRefDepth) ^ SPRITE_DEPTH_COMP`, clamped to `SPRITE_DEPTH_CLAMP` (constants.js: 1 and
+  [0.82, 1.22]). Both use the same reference, so both fighters always draw at one size; fighters level in depth keep
+  scale 1. The root scales about the feet pivot and carries the mesh, shadow caster and box-viewer lines; the blob
+  shadow and ghost trails use the same `depthK`. Close-up modes (focus, ko, victory) set `spriteRefDepth` to null
+  and a blend weight takes `depthK` back to 1 over about half a second, with the camera move. It is **visual only**:
+  `SheetAsset.boxes()` and the hand anchors are never scaled, so the simulation stays camera-independent
+  (projectiles and beams start at the unscaled hand anchor: about 0.1 units off the drawn palm in a typical depth
+  gap, up to 0.25 at the clamp ends). Held VFX that only draw are scaled instead: `Effects.handTick` (Rasengan,
+  Rasenshuriken, Chidori) multiplies its offset from the feet and its size by the actor's `depthK`, so the orb stays
+  on the drawn palm. New on-body VFX at fixed body offsets should do the same with `f.actor.depthK`, unless their
+  position feeds the simulation. `?depthscale=0` shows true perspective for comparison.
 - World size stays the same across art sources. The chibi placeholder (112 px cells, PPU 44) and spec v2
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
@@ -250,9 +295,23 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
 - **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
   logo and the key art behind it.
+- **Ground decals (packer side, ADR 0024):** `npm run sprites decals` (`tools/pack-decals.mjs`, called by the sprite
+  packer with its image helpers) packs each approved decal name (`decals.items` / `worldArt.decal` in the manifest) into
+  `public/decals/atlas.json` + one PNG page per page set (`decals_<set>[_n].png`, each <= 2048 x 2048; base + edge share
+  the 2 floor pages, chakra + ki, lightning + fire and cursed one each, so a pairing needs at most the engine's 4 pages):
+  `{ ppu: 64, pages, pageSizes, decals: { <name>: { page, w, h, frames: [[x, y]...], mode, tinted, group, directional?,
+  hotKey?, tile?, version } } }`. The names, cells and per-image variant counts are the engine's contract (`DECAL_SPECS`);
+  pure #FFFFFF texels are the hot key the engine glows; `tile` variants span the full cell width.
+  Art: `art/decals/`.
 - `Effects.spawn(name, x, y, z, opts)` creates a camera-facing quad with a tint `color` (white art is
   tinted at runtime), `glow` (HDR boost into bloom), optional velocity, gravity, spin, follow and loop.
   `Effects.keep(id, ...)` updates a persistent effect (auras, hand orbs, clash glow).
+- **Power-ups** (ADR 0023): `chargeFx.chargeTick(game, f, t, frozen)` runs a fighter's charge style each sim frame.
+  Body spots live in the sprite's billboard plane (feet + camera right x side + camera up x height), so "behind the
+  body" holds however far the camera pitches. `SpriteActor.auraShell()` makes an `AuraShell`, a child of the body
+  mesh sharing its uvRect uniform (it inherits the billboard, flip and scale); `chargeEnd` hides it and drops held
+  effects when the charge ends. Charge sprites are tagged `charge` (`chargeBar` for bar beats, `chargeKeep` for held
+  ones) so tests can count them.
 - `Overlay` is a 2D canvas over the game for anime speed lines, full-screen flashes and impact frames.
 
 ## UI layer
@@ -260,15 +319,39 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 The HUD and menus are **DOM** (`#ui`) over the WebGL canvas (`#app`), styled in `src/style.css`. Menus use a
 tiny `el()` helper and a generic `list()` with keyboard/gamepad navigation (`Menus.handle(events)`).
 The menus never touch game state directly. They call `Game` methods (`startMatch`, `startTraining`,
-`pause`, `quitToTitle`).
+`pause`, `quitToTitle`). Every way back from a match to the menus (`exitTraining`, `quitToTitle`, results →
+CHARACTER SELECT) goes through `Game.toMenu(open)`: it tears the match down, hides the old screen, then opens the next
+one, falling back to the title (with a `[menus]` console error) if that throws. The SELECT MODE rows live in one
+`MODES` table in `menus.js`, which `modeIndex()` reads too, so a screen returns to the right row.
 
 ## Audio
 
 `src/core/audio.js` synthesizes everything (oscillators + noise buffers): one-shots via `audio.play(name, vol)`,
-loops via `audio.loop(id, kind)` / `stopLoop(id)`, music styles `menu` / `battle`, and a crowd bed with an
-excitement level. The first user gesture calls `audio.init()`. `audio.setMuted(bool)` mutes, bound to `M`, and
-the in-progress on-screen mute toggle uses it too. To swap in recorded samples later, change the cases in
-`play()`. Callers don't change.
+loops via `audio.loop(id, kind, variant)` / `stopLoop(id)` (the charge loop's variant is the style's `sound`: hum, boil,
+crackle, calm), and a crowd bed with an excitement level. The first user gesture
+calls `audio.init()`; every later pointerdown, touchend or keydown resumes a context that isn't running (iOS
+'interrupted'), and a hidden tab suspends it and wakes it on return. `audio.setMuted(bool)` mutes, bound to `M` and the on-screen speaker toggle. To swap in recorded
+samples later, change the cases in `play()`. Callers don't change.
+
+**Music** ([ADR 0019](decisions/0019-generative-lofi-music.md)) is generative lo-fi, composed per song and never
+looped:
+
+- `audio.startMusic(mood)` with `'menu'` (title, menus, results; 72 bpm), `'battle'` (matches; 86 bpm) or
+  `'training'` (training room and lab; 80 bpm, calmer). A mood already playing is a no-op; a new one crossfades
+  (2 s out, 1.5 s in). `stopMusic(fade)` fades out.
+- `src/core/musicPlan.js` composes a whole song from a seed (pad voicings, bass, koto melody, arpeggio, drums,
+  chimes; tune it in `MOODS`). `src/core/music.js` performs it with a 0.3 s lookahead scheduler; only that much
+  exists as nodes, a step more than 80 ms late is skipped (no burst after a stall), and the next song is composed
+  when one ends.
+- Hooks in `Game`: `audio.setMusicIntensity(excite)` each rendered frame of a fight (busier drums, arpeggio,
+  brighter pad as it heats up); `audio.duckMusic(id, on)` for `pause`, `clash` (rhythm clash), `ko` (until the win
+  pose) and `domain`; `audio.clearMusicDucks()` in `resetRound` / `cleanupMatch`; the results screen switches to
+  `'menu'`.
+- Volume: `audio.musicVolume` (0..1, default 0.7, localStorage `gcd.musicVol`) via `setMusicVolume(v)` /
+  `stepMusicVolume(d)`; the MUSIC row in both pause menus. Bus chain: track (crossfade) -> duck gain -> 5.2 kHz
+  lowpass -> `audio.music` (volume) -> master -> compressor. At 0% nothing is scheduled.
+- Phones (and 4 cores or fewer) get a lite mode with about half the nodes. `?debug` exposes `music.state()`,
+  `music.next()`, `music.seed(n)` and `?musicSeed=N`.
 
 ## Training room
 

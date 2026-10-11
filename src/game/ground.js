@@ -11,7 +11,7 @@
 // The art is the packed decal atlas (public/decals/, `npm run sprites decals`), merged per name over the
 // procedural pages of src/art/decalPainter.js.
 import * as THREE from 'three';
-import { RING_HALF, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
+import { RING_HALF, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { SPECIAL_MOVES, SUPERS, PROJECTILES } from './moves.js';
 import { kitOf } from './kit.js';
 import { DECALS, bakeDecals, paintDecal } from '../art/decalPainter.js';
@@ -227,15 +227,12 @@ export class GroundDamage {
     this.trails = new Map();
     this.slabs = [];
     this.charges = [];
-    this.kiSeen = [];
     this.bags = new Map();
     this.bodies = [];
     this.walls = [];
     this.slabMats = null;
     this.line = new THREE.Color(GROUND.colors.holo);
     this.cool = new THREE.Color(GROUND.colors.cool);
-    this.chargeDriven = false;
-    this.polling = false;
     // decal art: name -> { tex, pw, ph, w, h, frames, mode, tinted, src }
     this.active = {};
     this.procCache = new Map();
@@ -788,30 +785,32 @@ export class GroundDamage {
 
   // ---------------------------------------------------------------- charging (hold Special)
   // One decal per charging fighter that upgrades in place: crack_s, crack, fracture_ring, then the fighter's own
-  // fracture when the gauge fills (chargeMax). The power-up effects (chargeFx) call these; `ground.charge: false`
-  // (Gojo: Infinity holds the floor still) leaves the floor alone.
-  chargeTick(f, t) {
-    if (!this.polling) this.chargeDriven = true;
+  // fracture when the gauge fills (chargeMax). The power-up effects call these (chargeFx.js, ADR 0023) for a charge
+  // style whose `ground.crackAt` is above 0, every live charge frame. The crack waits for that level (`from`: Naruto
+  // bar 2, Sasuke MAX), then grows from the first stage, timed from that moment, so a late crack still grows in
+  // steps. `ground.charge: false` here (Gojo: Infinity holds the floor still) leaves the floor alone too.
+  chargeTick(f, t, level = 0, from = 0) {
     if (f.def.ground?.charge === false) return;
     let c = this.charges[f.index];
     if (!c || t < c.t) {
       if (c?.cluster) c.cluster.key = null; // a new charge: the old mark lives out its life
-      c = this.charges[f.index] = { t, stage: 0, cluster: null, max: false };
+      c = this.charges[f.index] = { t, t0: null, stage: 0, cluster: null, max: false };
     }
     c.t = t;
+    if (level < from) return;
     const st = GROUND.charge;
-    while (!c.max && c.stage < st.length && t >= st[c.stage].t) {
+    c.t0 ??= from > 0 ? t - st[0].t : 0; // the first stage at once when the level is reached
+    while (!c.max && c.stage < st.length && t - c.t0 >= st[c.stage].t) {
       const s = st[c.stage++];
       this.chargeStage(f, c, { name: s.name, d: s.d, force: s.force, quiet: s.force < GROUND.chunks.at, heat: 0 });
     }
   }
 
   chargeMax(f) {
-    if (!this.polling) this.chargeDriven = true;
     const G = f.def.ground;
     if (G?.charge === false) return;
     let c = this.charges[f.index];
-    if (!c) c = this.charges[f.index] = { t: 0, stage: 0, cluster: null, max: false };
+    if (!c) c = this.charges[f.index] = { t: 0, t0: null, stage: 0, cluster: null, max: false };
     if (c.max) return;
     c.max = true;
     c.stage = GROUND.charge.length;
@@ -1016,7 +1015,6 @@ export class GroundDamage {
       const k = (t - m.dissolveAt) / GROUND.dissolve.overflow;
       if (k >= 1) { this.removeDecal(m); this.wallMarks.splice(i, 1); } else m.u.uKeep.value = 1 - k;
     }
-    this.pollCharge();
   }
 
   updateBarriers(t) {
@@ -1039,23 +1037,6 @@ export class GroundDamage {
         if (k >= 1) { this.removeDecal(b); this.barriers.splice(i, 1); } else b.u.uKeep.value = 1 - k;
       }
     }
-  }
-
-  // Bridge until a charge driver calls chargeTick itself (feature/canon-powerups' chargeFx): follow the charging
-  // fighters here. Both calls are idempotent per frame, so the first external call simply switches this off.
-  pollCharge() {
-    if (this.chargeDriven) return;
-    this.polling = true;
-    for (const f of this.bodies) {
-      if (!f?.def || !f.game?.fighters.includes(f)) continue; // a quit match's fighters linger here until the next one
-      const before = this.kiSeen[f.index] ?? f.ki;
-      if (f.state === 'charge') {
-        this.chargeTick(f, f.t);
-        if (before < MAX_KI && f.ki >= MAX_KI) this.chargeMax(f);
-      }
-      this.kiSeen[f.index] = f.ki;
-    }
-    this.polling = false;
   }
 
   // round reset: the ring is clean again

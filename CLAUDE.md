@@ -53,6 +53,7 @@ documentation that stays true.
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |
 | `npm run sprites crowd` | pack only the crowd atlas into `public/crowd/` (approved spectators only) |
 | `npm run sprites stage npc ui` | pack the approved stage slots, NPC sheets and title art into `public/stage|npc|ui/` |
+| `npm run sprites decals` | pack the approved ground decals into `public/decals/` (atlas.json + the pages of each page set, at most 4 per match; ADR 0024, `tools/pack-decals.mjs`) |
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
@@ -115,7 +116,7 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    means updating `animGuide.js`, `FALLBACK` in `src/game/sprites.js`, `src/art/rig/anims.js` (placeholder),
    `art/manifest.json`, `art/SPEC.md`, `ASSETS.md` and the art template, all in the same change.
 3. **Generated files are outputs.** Never hand-edit `public/characters/<id>/sheet.png`, `anims.json` or
-   `public/vfx|crowd|stage|npc|ui/**`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
+   `public/vfx|crowd|stage|npc|ui|decals/**`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
    Generated images are inputs with a `_vNN` version (ADR 0007): never overwrite, reuse or delete one.
 4. **Character data lives in `src/characters/<id>.js`**. Shared systems should not special-case a character
    id (`if (def.id === 'naruto')`). Add a data field instead.

@@ -1,7 +1,8 @@
 import { hasArt, fetchArtJson } from '../core/artIndex.js';
 import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
-import { RING_TOP, RING_HALF } from './constants.js';
+import { RING_TOP, RING_HALF, SPRITE_DEPTH_COMP, SPRITE_DEPTH_CLAMP } from './constants.js';
+import { AuraShell } from './auraShell.js';
 
 // Missing animations in a custom sheet fall back to something sensible.
 const FALLBACK = {
@@ -17,6 +18,12 @@ const FALLBACK = {
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
 const ART_MODE = new URLSearchParams(location.search).get('art');
+// ?depthscale=0 turns the depth-normalized sprite size off (true perspective) to compare; 0.5 = half strength
+const DEPTH_Q = parseFloat(new URLSearchParams(location.search).get('depthscale'));
+const DEPTH_COMP = Number.isFinite(DEPTH_Q) ? Math.min(1, Math.max(0, DEPTH_Q)) : SPRITE_DEPTH_COMP;
+// per-60fps-frame easing of the switch between normalized and true size, so a cut to or from a close-up camera
+// (focus, ko, victory) blends with the camera move (about half a second) instead of popping
+const DEPTH_BLEND = 0.07;
 
 export async function loadImage(url) {
   if (!hasArt(url)) return null; // production: only request files the art index lists (no 404s)
@@ -104,6 +111,21 @@ export class SheetAsset {
     return out;
   }
 
+  // A lying frame's body span along the screen (anims.json `footprint`, ADR 0020) in local world units, facing right
+  // (callers mirror it). null for upright frames and for packs without one (the baked placeholder).
+  footprint(frame) {
+    const f = this.meta.footprint?.[frame];
+    if (!f) return null;
+    this._feet = this._feet || new Map();
+    let out = this._feet.get(frame);
+    if (!out) {
+      const ppu = this.meta.pixelsPerUnit, px = this.meta.pivot[0];
+      out = { x0: (f[0] - px) / ppu, x1: (f[1] + 1 - px) / ppu };
+      this._feet.set(frame, out);
+    }
+    return out;
+  }
+
   uv(frame, out) {
     const { frameWidth: fw, frameHeight: fh } = this.meta;
     const c = frame % this.cols, r = Math.floor(frame / this.cols);
@@ -162,18 +184,41 @@ const VERT = /* glsl */ `
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`;
 
+// lift and rim are the hit flash's hold (src/game/hitFlash.js): both stay 0 outside a hit, so those branches are
+// skipped for every other sprite (ghosts, menus) and a frame without a hit costs what it did before
 const FRAG = /* glsl */ `
   uniform sampler2D map;
+  uniform vec4 uvRect;
   uniform vec3 tint;
   uniform vec3 flashColor;
   uniform float flash;
+  uniform float lift;
+  uniform vec3 rimColor;
+  uniform float rim;
+  uniform float rimPx;
   uniform float opacity;
   uniform float silhouette;
   varying vec2 vUv;
   void main() {
+    vec2 px = fwidth(vUv) * rimPx; // rim width in render pixels; derivatives are taken before the discard
     vec4 c = texture2D(map, vUv);
     if (c.a < 0.5) discard;
     vec3 col = c.rgb * tint;
+    if (lift > 0.0) {
+      // brighten in ~gamma space weighted by luma: fills go bright while dark line art stays dark
+      vec3 g = sqrt(col);
+      g = mix(g, vec3(1.0), lift * (0.35 + 0.65 * dot(g, vec3(0.299, 0.587, 0.114))));
+      col = g * g;
+    }
+    if (rim > 0.0) {
+      // inner edge: any of the 4 neighbours (clamped to this frame's cell, so nothing bleeds in) is transparent
+      vec2 lo = uvRect.xy, hi = uvRect.zw;
+      float e = 4.0 - step(0.5, textureLod(map, clamp(vUv + vec2(px.x, 0.0), lo, hi), 0.0).a)
+                    - step(0.5, textureLod(map, clamp(vUv - vec2(px.x, 0.0), lo, hi), 0.0).a)
+                    - step(0.5, textureLod(map, clamp(vUv + vec2(0.0, px.y), lo, hi), 0.0).a)
+                    - step(0.5, textureLod(map, clamp(vUv - vec2(0.0, px.y), lo, hi), 0.0).a);
+      col = mix(col, rimColor, rim * min(1.0, e));
+    }
     col = mix(col, flashColor, flash);
     col = mix(col, flashColor, silhouette);
     gl_FragColor = vec4(col, opacity);
@@ -188,6 +233,10 @@ export function spriteMaterial(texture, transparent = false) {
       tint: { value: new THREE.Color(1, 1, 1) },
       flashColor: { value: new THREE.Color(1, 1, 1) },
       flash: { value: 0 },
+      lift: { value: 0 },
+      rim: { value: 0 },
+      rimColor: { value: new THREE.Color(1, 1, 1) },
+      rimPx: { value: 2 },
       opacity: { value: 1 },
       silhouette: { value: 0 },
     },
@@ -235,6 +284,7 @@ export class SpriteActor {
     scene.add(this.root);
 
     this.flip = 1;
+    this.lift = 1;
     this.animName = null;
     this.anim = null;
     this.fi = 0;
@@ -243,6 +293,13 @@ export class SpriteActor {
     this.frame = 0;
     this.ghosts = [];
     this._uv = new THREE.Vector4();
+    // visual size factor that cancels perspective between the two fighters (see syncDepth)
+    this.depthK = 1;
+    this._depthTarget = 1;
+    this._depthW = 0;
+    this._depthWBase = 0;
+    this._depthTime = -1;
+    this._depthDt = 0;
     this.play('idle');
   }
 
@@ -312,18 +369,74 @@ export class SpriteActor {
     const floor = onRing ? RING_TOP : 0;
     this.blob.position.set(x, floor + 0.012, z);
     const s = Math.max(0.35, 1 - (RING_TOP + y - floor) * 0.18);
-    this.blob.scale.set(1.25 * s, 1, 0.7 * s);
+    this.lift = s; // 1 on the floor, smaller with height (fitShadow only stretches a grounded body's blob)
+    this.blob.rotation.y = 0;
+    const k = this.depthK; // the contact shadow keeps the width of the (depth-scaled) feet
+    this.blob.scale.set(1.25 * s * k, 1, 0.7 * s * k);
     this.blob.material.opacity = 0.32 * s;
   }
 
-  // Billboard toward the camera and mirror when facing screen-left.
-  sync(camera, faceX, faceZ, camRight) {
+  // Billboard toward the camera and mirror when facing screen-left. refDepth/time: see syncDepth.
+  sync(camera, faceX, faceZ, camRight, refDepth = null, time = 0) {
     this.mesh.quaternion.copy(camera.quaternion);
     const d = faceX * camRight.x + faceZ * camRight.z;
     if (Math.abs(d) > 0.12) this.flip = d >= 0 ? 1 : -1;
     this.mesh.scale.x = this.flip;
     this.caster.scale.x = this.flip;
+    this.fitShadow(camRight);
     for (const g of this.ghosts) g.mesh.quaternion.copy(camera.quaternion);
+    this.syncDepth(camera, refDepth, time);
+  }
+
+  // Depth normalization (ENG-067): a billboard's on-screen size goes with 1 / view depth, so the fighter nearer
+  // the camera looked up to ~23% bigger whenever the two stood apart in depth or one was in the air. Scaling the
+  // root by (depth / refDepth) ^ SPRITE_DEPTH_COMP, with the same refDepth for both fighters (the fight and clash
+  // cameras' eased depth midway between their feet), draws both at exactly one size: no lag between them, and a
+  // vanish or a launch never makes one grow while the other shrinks. The root scales about the feet pivot and
+  // carries the mesh, the shadow caster and the box viewer; the blob follows in place(). Boxes and hand anchors
+  // are not scaled: the simulation must not depend on the camera (held hand VFX read depthK themselves,
+  // Effects.handTick). A null refDepth (close-ups) blends back to the
+  // true size; the blend weight is keyed on the camera clock so the two syncs of one rendered frame agree and the
+  // later one (made after the camera moved) wins.
+  syncDepth(camera, refDepth, time) {
+    if (DEPTH_COMP === 0) return;
+    if (time !== this._depthTime) {
+      this._depthDt = Math.min(0.1, Math.max(0, time - this._depthTime));
+      this._depthTime = time;
+      this._depthWBase = this._depthW;
+    }
+    if (refDepth > 0) {
+      const e = camera.matrixWorld.elements, p = this.root.position;
+      // view depth along the camera's forward axis (-z column of its world matrix)
+      const d = -((p.x - e[12]) * e[8] + (p.y - e[13]) * e[9] + (p.z - e[14]) * e[10]);
+      if (d > 0) this._depthTarget = Math.min(SPRITE_DEPTH_CLAMP[1], Math.max(SPRITE_DEPTH_CLAMP[0], Math.pow(d / refDepth, DEPTH_COMP)));
+    }
+    const a = 1 - Math.pow(1 - DEPTH_BLEND, this._depthDt * 60);
+    this._depthW = this._depthWBase + ((refDepth > 0 ? 1 : 0) - this._depthWBase) * a;
+    this.depthK = 1 + (this._depthTarget - 1) * this._depthW;
+    this.root.scale.setScalar(this.depthK);
+  }
+
+  // The round blob and the sun-facing caster suit an upright body. A lying one (a frame with a footprint, on the floor)
+  // is up to 2 units long: stretch the blob along the drawn body so the head and feet ends are grounded too, and turn
+  // the caster with the billboard so the silhouette's shadow runs under the body instead of off past the feet (ADR 0020).
+  // Runs after place(), which resets the blob every frame. The root (so the drawn body) is depth-scaled about the
+  // feet by depthK (syncDepth), so the footprint's offset and length take the same factor.
+  fitShadow(camRight) {
+    const fp = this.lift > 0.9 ? this.asset.footprint(this.frame) : null;
+    if (!fp) {
+      this.caster.rotation.y = SUN_YAW;
+      return;
+    }
+    const k = this.depthK;
+    const yaw = Math.atan2(-camRight.z, camRight.x);
+    const c = ((this.flip * (fp.x0 + fp.x1)) / 2) * k;
+    this.blob.position.x += camRight.x * c;
+    this.blob.position.z += camRight.z * c;
+    this.blob.rotation.y = yaw;
+    this.blob.scale.set((((fp.x1 - fp.x0) / 2 + 0.1) / 0.42) * k, 1, 0.75 * k);
+    this.blob.material.opacity = 0.36;
+    this.caster.rotation.y = yaw;
   }
 
   ghost(color, life = 0.3, opacity = 0.55) {
@@ -335,7 +448,7 @@ export class SpriteActor {
     const mesh = new THREE.Mesh(this.geo, mat);
     mesh.position.copy(this.root.position);
     mesh.quaternion.copy(this.mesh.quaternion);
-    mesh.scale.x = this.flip;
+    mesh.scale.set(this.flip * this.depthK, this.depthK, this.depthK); // same size as the body it echoes
     mesh.renderOrder = 1;
     this.scene.add(mesh);
     this.ghosts.push({ mesh, life, max: life, opacity });
@@ -354,6 +467,11 @@ export class SpriteActor {
     }
   }
 
+  // The power-up outline around the frame on screen (chargeFx.js), made on first use.
+  auraShell() {
+    return (this.shell ??= new AuraShell(this));
+  }
+
   setVisible(v) {
     this.root.visible = v;
     this.blob.visible = v;
@@ -368,6 +486,7 @@ export class SpriteActor {
       g.mesh.material.dispose();
     }
     this.ghosts.length = 0;
+    this.shell?.dispose();
     this.mat.dispose();
     this.caster.material.dispose();
     this.caster.customDepthMaterial.dispose();

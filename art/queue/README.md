@@ -53,9 +53,13 @@ A batch is the unit of work. Batch ids are stable as long as the sources do not 
 | `npc` | `npc-<id>`: `npc-announcer`, `npc-monk-a`, `npc-monk-b`, `npc-vendor` | the model sheet, then each animation | `art/npc/<id>/PROMPTS.md`, brief `art/npc/<id>/CHARACTER.md` | `art/npc/<id>/reference/model_sheet_vNN.png`, `art/npc/<id>/raw/<anim>_vNN.png` |
 | `ui` | `ui-<name>`, e.g. `ui-logo` | 1 UI image | `art/ui/PROMPTS.md` | `art/ui/raw/<name>_vNN.png` |
 | `vfx` | `vfx-<effect>`, e.g. `vfx-spark` | 1 effect strip | `art/vfx/PROMPTS.md`, brief `art/vfx/EFFECTS.md` | `art/vfx/raw/<effect>_vNN.png` |
+| `decal` | `decal-style_sheet` first, then `decal-<name>`, e.g. `decal-crater_big` | the style sheet, or 1 ground decal (all its variants) | `art/decals/PROMPTS.md`, brief `art/decals/DECALS.md` | `art/decals/reference/decal_style_sheet_vNN.png`; `art/decals/raw/<name>_vNN.png` or the parts `<name>_vNN_A.png`, `_B.png` ... of one version |
 | redo | `<batch>-rN`, e.g. `crowd-dragon-ball-01-r1` | only the re-opened items | same as the original batch, plus the lead's note | the next version of each re-opened item |
 
-`claim` without `--type` hands out work in priority order: crowd, stage, npc, ui, vfx.
+`claim` without `--type` hands out work in priority order: crowd, stage, npc, ui, vfx, decal. A batch
+with a `requires` file waits until that file exists: every `decal-<name>` batch requires the approved
+`art/decals/reference/decal_style_sheet.png`, so the decal style sheet is approved before any decal is
+drawn (`claim` says so when only such batches are left).
 
 ### Batch states
 
@@ -81,12 +85,12 @@ Run them from the repo root (PowerShell or Git Bash). If `npm run queue` is not 
 |---|---|---|
 | `npm run queue -- build` | lead | regenerates `batches.json` from the rosters and `sources.json`; prints the batch count per type. Safe at any time: claims and `extra.json` are kept |
 | `npm run queue -- claim --agent <name>` | worker | atomically claims the first free batch (crowd first) and prints the batch id, the items, the roster or brief, the prompt file and the **exact output paths** (next free versions) |
-| `npm run queue -- claim --type crowd --agent <name>` | worker | same, limited to one type (`crowd`, `stage`, `npc`, `ui`, `vfx`) |
+| `npm run queue -- claim --type crowd --agent <name>` | worker | same, limited to one type (`crowd`, `stage`, `npc`, `ui`, `vfx`, `decal`) |
 | `npm run queue -- done <batch> --agent <name> --note "..."` | worker | checks that every output of the batch has a current (non-rejected) `_vNN` file, then marks the batch done; `--note` is optional and is the way to report refusals, fallbacks and doubts to the lead |
 | `npm run queue -- release <batch> --agent <name>` | worker | gives the batch back (for example when you have to stop) |
 | `npm run queue -- reopen <batch> --items id1,id2 --note "..."` | lead only | creates the redo batch `<batch>-rN` with only those items (all items when `--items` is left out); the note tells the next worker what to fix |
 | `npm run queue -- status` | lead | prints progress per type (done / claimed / stale / free) and the active claims, and writes `STATUS.md` |
-| `npm run queue -- next-file <path-without-version>` | anyone | prints the next free versioned name, e.g. `art/crowd/raw/db-001` -> `art/crowd/raw/db-001_v02.png` (it counts `_rejected/` too) |
+| `npm run queue -- next-file <path-without-version>` | anyone | prints the next free versioned name, e.g. `art/crowd/raw/db-001` -> `art/crowd/raw/db-001_v02.png` (it counts `_rejected/` and decal parts `<name>_vNN_A.png` too) |
 
 Example `claim` output:
 
@@ -239,14 +243,14 @@ hard pixels, no text, no ground shadow.
 5. `npm run queue -- status`. Look at the newly `done` batches and read each claim's `note` in
    `art/queue/claims/<batch>.json`.
 6. **Pack**: `npm run sprites crowd` (atlas + contact sheets in `art/crowd/contact/`), `npm run sprites
-   stage`, `npm run sprites npc`, `npm run sprites vfx`. UI images are cleaned by hand into
+   stage`, `npm run sprites npc`, `npm run sprites vfx`, `node tools/pack-sprites.mjs decals --candidates`. UI images are cleaned by hand into
    `art/ui/final/` as `art/ui/README.md` describes. If a packer mode errors or does not exist yet, review
    the raw files directly and add a row for Claude in `docs/TASKS.md`.
 7. **Lead QA.** Open each contact sheet or image. Reject obvious failures yourself (wrong pose count,
    text, magenta fringe, cropped feet, clearly off-model) with the
    [redo steps](#rejections-and-redo) before the user sees them.
 8. **Queue the review.** Re-read `art/REVIEW.md`, then add one row per batch at the top: date, area
-   (`crowd`, `stage`, `npc`, `ui`, `vfx`), batch id with its id range, link to the contact sheet or
+   (`crowd`, `stage`, `npc`, `ui`, `vfx`, `decal`), batch id with its id range, link to the contact sheet or
    image, version(s), `needs review`, what changed, QA notes (worker notes included). Update
    `art/TRACKER.md` and `art/manifest.json` in the same edit.
 9. **Commit** the batch ([commits](#commits-lead-only)).
@@ -307,7 +311,7 @@ Only the lead does this, after the user's decision or the lead's own QA:
 
 ## Commits (lead only)
 
-- Commit only `art/**` and `public/{crowd,stage,npc,ui,vfx,characters}/**`, always with **explicit
+- Commit only `art/**` and `public/{crowd,stage,npc,ui,vfx,decals,characters}/**`, always with **explicit
   paths**. Never `git add -A`, `git add .` or `git commit -a`.
 - Add a batch's own files by name (the claim file lists its items), plus the shared files you changed.
   A whole folder is fine only where no worker writes (`public/crowd/`, `art/crowd/contact/`). This keeps

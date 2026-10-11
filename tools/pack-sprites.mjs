@@ -6,6 +6,7 @@
 //   npm run sprites vfx             pack only the VFX atlas (approved effects only)
 //   npm run sprites crowd           pack only the crowd atlas (approved spectators only)
 //   npm run sprites stage npc ui    pack the approved stage slots, NPC sheets and shared UI images
+//   npm run sprites decals          pack the approved ground-damage decals (tools/pack-decals.mjs, ADR 0024)
 //   npm run sprites -- --candidates world art: pack every latest candidate into public/preview/ instead of the
 //                                   shipped folders (git-ignored; the game shows it with ?art=custom)
 //   npm run sprites -- --dry-run    report only, write nothing
@@ -19,6 +20,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
+import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -66,6 +68,15 @@ const DEFAULT_MS = {
 // Attacks whose damage comes from something else (projectile): no melee hitbox.
 const NO_HITBOX = new Set(['throw']);
 
+// Lying frames (ADR 0020). `footprint`: frames whose x span goes into anims.json, so the engine lays the contact shadow
+// along the whole body. `check`: the resting frames of the ground check. Every frame's lowest pixel already sits on the
+// floor line, so the check asks whether the BODY rests on it (head, back, hips and legs), which a pose drawn from above
+// fails: one hand touches and the head end hangs in the air. down[0] (the bounce) and getup[1+] may leave the floor.
+const LYING = { ko: { footprint: 'all', check: 'all' }, down: { footprint: 'all', check: 'last' }, getup: { footprint: 'first', check: 'first' } };
+// Ground check thresholds in spec v2 px at a 200 px standing body (scaled with the character's standingBodyPx). Tuned on
+// the shipped art: every top-down ko / down[1] fails (9-34% contact, a fifth 13-36 px up), every getup[0] passes.
+const GROUND = { contactPx: 6, minContact: 0.4, maxGap: 12, segments: 5, tallFactor: 1.15 };
+
 // Used only if src/art/animGuide.js cannot be imported or parsed.
 const FALLBACK_GUIDE = {
   idle: { frames: 8, loop: true }, run: { frames: 8, loop: true }, dash: { frames: 2, loop: true }, backDash: { frames: 3 },
@@ -101,6 +112,12 @@ const VFX_EFFECTS = {
   star: { frames: 5, ms: 40, tinted: true, fill: 0.4 },
   crater: { frames: 3, ms: 1000, tinted: false, fill: 0.97 },
   lines: { frames: 4, ms: 40, tinted: true, fill: 0.95 },
+  // canon power-ups (ENG-069, ADR 0023): drawn white, tinted per fighter at runtime
+  bubble: { frames: 6, ms: 50, tinted: true, fill: 0.3 },
+  wisp: { frames: 7, ms: 55, tinted: true, fill: 0.6, anchor: 'bottom', baseX: true },
+  arc: { frames: 6, ms: 40, tinted: true, fill: 0.45 },
+  ripple: { frames: 5, ms: 50, tinted: true, fill: 0.95 },
+  naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom', baseX: true },
   dustWave: { frames: 6, ms: 60, tinted: false, fill: 0.7, anchor: 'bottom' }, // ground damage (ADR 0024)
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
@@ -123,7 +140,7 @@ const HELP = `GCD Tourney sprite packer  (art/ -> public/)
 usage: node tools/pack-sprites.mjs [targets...] [options]
        npm run sprites [targets...] [-- options]
 
-targets   character ids (folder names under art/characters/), "vfx", "crowd", "stage", "npc", "ui", or "all"
+targets   character ids (folder names under art/characters/), "vfx", "crowd", "stage", "npc", "ui", "decals", or "all"
           (default: every character + every world-art kind)
 
 options
@@ -138,7 +155,7 @@ options
   --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
                     raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
                     Also raises "version" to the highest raw/<anim>_vNN.png found ("approvedVersion" is never touched).
-  --candidates      world art (vfx, crowd, stage, npc, ui) is approval-gated: by default only items with an
+  --candidates      world art (vfx, crowd, stage, npc, ui, decals) is approval-gated: by default only items with an
                     "approvedVersion" in the manifest are packed, and stale outputs are removed when their
                     approval is gone. --candidates packs every latest candidate into <out>/preview/<kind>/
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
@@ -1323,6 +1340,63 @@ function hurtBox(cell) {
   return [b.x0 + ix, b.y0 + it, Math.max(2, b.w - 2 * ix), Math.max(2, b.h - it)];
 }
 
+// How a lying body meets the floor line (pivot y). Per column: the gap between its lowest opaque pixel and the floor.
+// contact = share of body columns within contactPx; gaps = the smallest gap in each equal segment of the body's length
+// (a segment that never comes near the floor is a hovering head or feet end); h = trimmed height.
+function groundContact(cell, floorY, G) {
+  const b = bbox(cell);
+  if (!b) return null;
+  const gaps = new Array(G.segments).fill(Infinity);
+  let cols = 0, near = 0;
+  for (let x = b.x0; x <= b.x1; x++) {
+    let low = -1;
+    for (let y = b.y1; y >= b.y0; y--) if (cell.data[(y * cell.w + x) * 4 + 3] >= 128) { low = y; break; }
+    if (low < 0) continue;
+    const gap = Math.max(0, floorY - low);
+    cols++;
+    if (gap <= G.contactPx) near++;
+    const s = Math.min(G.segments - 1, Math.floor(((x - b.x0) * G.segments) / b.w));
+    gaps[s] = Math.min(gaps[s], gap);
+  }
+  const seen = gaps.filter(Number.isFinite);
+  return { x0: b.x0, x1: b.x1, contact: cols ? near / cols : 0, gaps: gaps.map((g) => (Number.isFinite(g) ? g : null)), worst: seen.length ? Math.max(...seen) : 0, h: b.h };
+}
+
+// Lying frames (LYING): warn when a resting frame floats above the floor line (warn only: the game still needs a ko and
+// a down) and return the footprint map { "<sheet frame>": [x0, x1] } (inclusive cell px). R.ground gets the measurements.
+function groundCheck(anims, meta, spec, standingBodyPx, warn, R) {
+  const k = standingBodyPx / SPEC_DEFAULTS.standingBodyPx;
+  const G = { ...GROUND, contactPx: Math.max(1, Math.round(GROUND.contactPx * k)), maxGap: Math.max(1, Math.round(GROUND.maxGap * k)) };
+  const floorY = spec.pivot[1];
+  const pick = (rule, n) => (rule === 'all' ? [...Array(n).keys()] : rule === 'last' ? [n - 1] : rule === 'first' ? [0] : []);
+  const footprint = {};
+  for (const a of anims) {
+    const rule = LYING[a.def.name];
+    if (!rule) continue;
+    const frames = meta.animations[a.def.name].frames;
+    const fp = new Set(pick(rule.footprint, a.cells.length)), checked = new Set(pick(rule.check, a.cells.length));
+    const bad = [];
+    a.cells.forEach((cell, i) => {
+      if (!fp.has(i) && !checked.has(i)) return;
+      const g = groundContact(cell, floorY, G);
+      if (!g) return;
+      if (fp.has(i)) footprint[String(frames[i])] = [g.x0, g.x1];
+      if (!checked.has(i)) return;
+      const tallMax = Math.round(a.bodyHeight * G.tallFactor);
+      const why = [];
+      if (g.contact < G.minContact || g.worst > G.maxGap) why.push(`${Math.round(g.contact * 100)}% of the body within ${G.contactPx}px of y ${floorY}, worst fifth ${g.worst}px above it`);
+      if (g.h > tallMax) why.push(`${g.h}px tall > ${a.bodyHeight}x${G.tallFactor}`);
+      R.ground[a.def.name] = R.ground[a.def.name] || [];
+      R.ground[a.def.name].push({ frame: i, contact: +g.contact.toFixed(2), gaps: g.gaps, worst: g.worst, h: g.h, ok: !why.length });
+      if (why.length) bad.push(`#${i}: ${why.join(', ')}`);
+    });
+    // an approved version that predates the rule still warns (the art is wrong), but says what to do about it
+    const known = a.def.approvedVersion != null && a.version === a.def.approvedVersion ? `; v${String(a.version).padStart(2, '0')} is the approved version: queue a side-on redraw` : '';
+    if (bad.length) warn(`${a.def.name}: ${bad.length} lying frame(s) float above the floor line (${bad.join('; ')}) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y ${floorY} (art/SPEC.md "Lying poses", ADR 0020)${known}`);
+  }
+  return footprint;
+}
+
 // The striking part: the 8-connected blob containing (sx, sy) inside a region, plus any other blob
 // of the region within `near` px of it (a smear or spark drawn just in front of the fist).
 function strikeBox(img, sx, sy, x0, y0, x1, y1, near = 6) {
@@ -1554,7 +1628,7 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
 }
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [] };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -1746,6 +1820,9 @@ function packCharacter(id, env) {
   const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
   if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
+  // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
+  const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
+  if (Object.keys(footprint).length) meta.footprint = footprint;
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;
@@ -2530,13 +2607,19 @@ function printReport(rep, env) {
   worldSection('stage', rep.stage, 'stage slot', (p) => `${p.slot.padEnd(13)} ${vv(p.version)} <- ${p.from} (${p.colors} colors)${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
   worldSection('npc', rep.npc, 'NPC animation', (p) => `${p.id.padEnd(10)} ${p.anims.join(', ')}${p.missing.length ? ` (missing: ${p.missing.join(', ')})` : ''}, ${p.colors} colors, x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
   worldSection('ui', rep.ui, 'UI image', (p) => `${p.asset.padEnd(10)} ${vv(p.version)} <- ${p.from} (${p.colors} colors)${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
+  printDecalReport(rep.decals, { dryRun: env.dryRun, L });
   if (rep.manifestUpdates !== undefined) L(`\nmanifest: ${rep.manifestUpdates} status/version value(s) raised${env.dryRun ? ' (dry run: not saved)' : ''}${rep.manifestUpdates ? ' - sync art/TRACKER.md' : ''}`);
   L('');
   const nw = rep.totalWarnings;
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
-  const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
+  const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image'], ['decals', 'decal']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
   L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
+
+// The decal packer (tools/pack-decals.mjs, ADR 0024) uses this file's helpers: importing them from here would run the CLI.
+const decalHelpers = () => ({ readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, resample, downscaleMode, upscaleNearest, toGreyscale,
+  quantizeFrames, countColors, hasTransparency, chooseSource, readSidecars, staleText, writeFile, writeBack, removeOutputs, worldOut, worldApprovals,
+  stringifyCompact, PACKER_VERSION });
 
 // ============================================================== main
 async function main() {
@@ -2551,7 +2634,7 @@ async function main() {
   const outDir = path.resolve(opts.out || path.join(PROJECT_ROOT, 'public'));
   const manifestPath = path.resolve(opts.manifest || path.join(artDir, 'manifest.json'));
   const guidePath = path.resolve(opts.guide || path.join(PROJECT_ROOT, 'src', 'art', 'animGuide.js'));
-  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null, stage: null, npc: null, ui: null };
+  const rep = { art: rel(cwd, artDir) || '.', artExists: isDir(artDir), out: rel(cwd, outDir) || '.', warnings: [], characters: [], vfx: null, crowd: null, stage: null, npc: null, ui: null, decals: null };
 
   const { guide, source: guideSource } = await loadGuide(guidePath);
   rep.guideSource = guideSource;
@@ -2569,9 +2652,10 @@ async function main() {
   const world = new Set();
   const targets = opts.targets.length ? opts.targets : ['all'];
   for (const t of targets) {
-    if (t === 'all') { ids.push(...allIds); doVfx = true; ['crowd', 'stage', 'npc', 'ui'].forEach((k) => world.add(k)); }
+    if (t === 'all') { ids.push(...allIds); doVfx = true; ['crowd', 'stage', 'npc', 'ui', 'decals'].forEach((k) => world.add(k)); }
     else if (t === 'vfx') doVfx = true;
-    else if (['crowd', 'stage', 'npc', 'ui'].includes(t)) world.add(t);
+    else if (t === 'decal') world.add('decals');
+    else if (['crowd', 'stage', 'npc', 'ui', 'decals'].includes(t)) world.add(t);
     else if (allIds.includes(t)) ids.push(t);
     else {
       console.error(`error: unknown character "${t}". Known: ${allIds.join(', ') || '(none - create art/characters/<id>/ from _template)'}`);
@@ -2594,15 +2678,16 @@ async function main() {
   if (world.has('stage')) rep.stage = worldPack('stage', packStage);
   if (world.has('npc')) rep.npc = worldPack('npc', packNpcs);
   if (world.has('ui')) rep.ui = worldPack('ui', packSharedUi);
+  if (world.has('decals')) rep.decals = worldPack('decals', (e) => packDecals(e, decalHelpers()));
   if (opts.updateManifest) {
     if (!mj.data) rep.warnings.push('--update-manifest: no readable manifest.json - nothing updated');
     else {
-      const n = updateManifestStatus(mj.data, rep);
+      const n = updateManifestStatus(mj.data, rep) + updateDecalStatus(mj.data, rep.decals, raiseStatus, raiseVersion);
       rep.manifestUpdates = n;
       if (n && !opts.dryRun) fs.writeFileSync(manifestPath, stringifyCompact(mj.data) + '\n');
     }
   }
-  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + ['vfx', 'crowd', 'stage', 'npc', 'ui'].reduce((s, k) => s + (rep[k]?.warnings.length || 0), 0);
+  rep.totalWarnings = rep.warnings.length + rep.characters.reduce((s, c) => s + c.warnings.length, 0) + ['vfx', 'crowd', 'stage', 'npc', 'ui', 'decals'].reduce((s, k) => s + (rep[k]?.warnings.length || 0), 0);
 
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);

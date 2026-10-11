@@ -11,7 +11,14 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- **Ground damage that scales with power** (ENG-070, ADR 0024): the floor cracks, craters and scorches by how hard it was hit (five tiers, from a 1.5-unit hairline crack to a 7-unit crater with rubble, jutting floor slabs and a dust ring), in each move's own look (spiral scour, lightning burns that glow and cool, fire, black flame, wind cuts, claw furrows, cursed fractures, Hollow Purple's trench), grows one crater under repeated slams, lands where an airborne victim crashes, cracks the ki barrier on wall bounces, leaves dirt craters on the grass and a hole in the stand wall on KOs, and grows a fracture under a charging fighter; lit, clipped at the ring edge, holo in training, clean every round. Procedural decals until Codex's decal art is approved; `groundDemo()` / `groundTest()` under `?debug`, lab scenario "Ground damage".
+- **Ground damage that scales with power** (ENG-070, ADR 0024): the floor cracks, craters and scorches by how hard it was hit (five tiers, from a 1.5-unit hairline crack to a 7-unit crater with rubble, jutting floor slabs and a dust ring), in each move's own look (spiral scour, lightning burns that glow and cool, fire, black flame, wind cuts, claw furrows, cursed fractures, Hollow Purple's trench), grows one crater under repeated slams, lands where an airborne victim crashes, cracks the ki barrier on wall bounces, leaves dirt craters on the grass and a hole in the stand wall on KOs, and grows a fracture under a charging fighter from the power-up's crack level (Naruto bar 2, Sasuke MAX; Killua and Gojo keep the floor whole); lit, clipped at the ring edge, holo in training, clean every round. Procedural decals until Codex's decal art is approved; `groundDemo()` / `groundTest()` under `?debug`, lab scenario "Ground damage".
+- **Combo escape** (ENG-068, ADR 0022): hold Guard while being hit to tech out at the first gap (with a direction) or tech roll on landing (not after hard knockdowns); Guard + Special while hit is a once-per-round **Burst** (2 bars, blockable: burst bait) with a gem by each ki gauge; the combo counter turns **blue** when the combo had an escapable gap (training shows the gap in frames); stacked technique banners for PARRY!, DODGE!, AIR DODGE!, TECH!, TECH ROLL!, BURST!, THROW BREAK, REVERSAL, PUNISH! and WAVEDASH in every match; the CPUs and the training dummy (DUMMY TECH / DUMMY BURST) use all of it; lab scenarios for each.
+- **Chill generative lo-fi music** (ENG-065, ADR 0019): the grating 148 bpm taiko loop is replaced by songs composed fresh each time (koto plucks, warm pads, soft bass; a brushed beat at 86 bpm in fights, ambient 72 bpm menus with wind chimes, a calmer training mood) that follow the fight's heat, crossfade between moods, dip under pause, clashes and KOs, never burst after a stall, and get a **MUSIC** volume row in the pause menus.
+- Changed: getting hit no longer turns a fighter solid white (ENG-064). A hit pops white for 1-3 frames by weight, then keeps the art readable with a brightened body and a glowing rim (warm on heavy hits, gold on smash, orange on counter hits) that fades out; full white stays only on counter hits (not whiff or recovery punishes), supers and KOs (1-bar rush specials pop 2 frames), multi-hit ticks never re-pop, and the hitstop shake no longer shimmers. Compare styles with `?flash=pop|tint|rim|classic|off` or the lab's Tools chips; the lab has a Counter hit scenario.
+- Fixed: the fighter nearer the camera no longer draws 9-23% bigger than the other one when they stand apart in depth or one is in the air; in the fight and clash cameras both fighters are scaled to one on-screen size (visual only: hit boxes and hand anchors unchanged, held Rasengan/Chidori effects follow the scaled hand; close-ups keep true perspective; `?depthscale=0` compares) (ENG-067, ADR 0021).
+- Fixed: the results screen no longer shows a second, smaller winner sprite or covers the winner (ENG-063): the match ends on a cut to the winner alone (the KO'd loser leaves the shot), whole and undimmed beside a slim side panel (a bottom bar in narrow windows) with the WINNER tag, name and subtitle, on a steady swaying hero camera that never mirrors the sprite; clicking TITLE there (or QUIT TO TITLE in pause) now reaches the title instead of mode select.
+- Art handoff: Killua heavy v04 fixes frames 4–6 arm/hand flow in PR #30; update review preview links, keep all new art unapproved.
+
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
@@ -79,6 +86,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
+- **Ground-decal art pipeline** (TOOL-026, ADR 0024): `npm run sprites decals` packs approved decals into `public/decals/atlas.json` + pages per page set (base + edge on 2 floor pages, one page per element set, so any pairing stays within the engine's 4-page cap; 31 names, parts `_A/_B/_C` split into the brief's per-image counts in order, tiling `erasure_trench` stretched edge to edge, #FFFFFF hot key kept, <= 24 colors, `--candidates` preview); new `art/decals/` brief, palettes and prompts (style sheet first, gated in the claim queue's new `decal` type); manifest `decals` section; the VFX `crater` is superseded.
 - **IMPOSSIBLE CPU level** (VS CPU and CPU vs CPU, `?level=impossible`): a frame-data brain (`src/game/aiMaster.js`)
   that times parries, spot dodges and air dodges against what it sees coming, punishes whiffs and blocked big moves,
   runs each kit's max-damage routes with a lethal check (supers, Amaterasu, vanish and super dash extensions),
@@ -189,6 +197,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- **Canon, restrained power-ups** (hold Special, ENG-069, ADR 0023): each fighter powers up like their anime, mostly on the body and far dimmer than before: Naruto's red Nine-Tails chakra boils over him (red slit eyes at bar 2, one chakra tail at MAX), Sasuke's dark curse-mark chakra with Chidori current and the Sharingan glint, Killua's flickering electric outline, and Gojo almost nothing (a faint Infinity shimmer, pebbles that stop mid-air, the Six Eyes at MAX). No focus lines while holding, at most 16 effect sprites per fighter, and no new effects pile up during super-flash freezes; the lab gains "Charge to MAX".
 - Rush specials cancelled out of a normal that hit start faster (`cancelStartup`: Rasengan 14, Chidori 16,
   Rasenshuriken 18; raw stays 24 / 28 / 30), so light ×3 → special is a true combo again (ENG-045, ADR 0015).
 - CPU level picker has a fourth step, IMPOSSIBLE; CPU vs CPU starts on it. Hard's guard reaction now lands
@@ -224,6 +233,13 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- KO'd fighters no longer look like they float (ENG-066, TOOL-024, ADR 0020): lying frames get a contact shadow along
+  the whole body and a caster turned with the billboard (anims.json `footprint`), a body never rests across the ring
+  edge (it slides off onto the grass), a KO during a flurry super or the Four-Tails mauling keeps its launch, and the
+  packer warns about lying poses drawn from above (ground check); the side-on `ko` / `down` redraw is ART-KO-01
+  (art/scale/KO_DOWN_BRIEF.md).
+- An off-ring crater (a KO'd body that slid or flew off the edge) lies on the grass, not mid-air at ring height (ENG-066).
+- EXIT TRAINING lands on SELECT MODE instead of a dead pause menu (undefined `MODE_ORDER`), Esc on the first character-select pick works again, and every return to the menus goes through `Game.toMenu()`, which falls back to the title if a screen fails to open (ENG-062).
 - Air combos no longer drop on the art packs: a launched pose leans back, so `airLight2` whiffed on Naruto and the
   `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and
   during the next move's startup, and the spike's box pad is wider; the air string connects ~97 % across all 16

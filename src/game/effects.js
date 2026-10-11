@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
-import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
+import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { GroundDamage } from './ground.js';
 
 const VERT = /* glsl */ `
@@ -301,7 +301,8 @@ export class Effects {
   }
 
   clearAll() {
-    for (const it of this.items) { this.scene.remove(it.mesh); it.mat.dispose(); }
+    // life -1: a handle someone still holds (a charge emitter's live list) reads as dead instead of frozen alive
+    for (const it of this.items) { it.life = -1; this.scene.remove(it.mesh); it.mat.dispose(); }
     this.items.length = 0;
     this.keepers.clear();
     this.ground.clear();
@@ -439,10 +440,9 @@ export class Effects {
     this.walls.push({ mesh: m, life: 0.45, max: 0.45 });
   }
 
-  // A plain crater (ground.js picks tier, look and size; call fx.ground directly for force and style). The old power-up
-  // effect still calls this with the charging fighter's own position: that floor belongs to ground.chargeTick.
+  // A plain crater (ground.js picks tier, look and size, on the ring or in the grass off its edge; call fx.ground
+  // directly for force and style)
   crater(pos) {
-    for (const f of this.ground.bodies) if (f?.pos === pos && f.state === 'charge') return null;
     return this.ground.impact(pos, { kind: 'crater' });
   }
 
@@ -485,45 +485,18 @@ export class Effects {
     this.keep('aura' + f.index, 'glow', p.x + back.x * 0.4, p.y + 0.8, p.z + back.z * 0.4, { scale: 1.1 + Math.sin(performance.now() * 0.02) * 0.06, color: c, opacity: 0.28 * Math.min(1, power), order: 1, glow: 0.25 });
   }
 
-  // Powering up (hold Special, ENG-059). `t` = frames into the charge: the aura builds over the first ~3/4 s, ki
-  // streams in toward the chest from a ring around them, pebbles lift off the floor, a dust ring rolls out from the
-  // feet (faster as it builds) and the floor cracks under a long charge. At full ki the body crackles; a fighter's
-  // `charge.sparks` ('lightning': Killua) crackles from the start.
-  chargeTick(f, t, camRight) {
-    const b = Math.min(1, t / 45), full = f.ki >= MAX_KI;
-    // the aura itself grows a little; most of the build-up is motion around them, so the fighter stays readable
-    // (a big glow or flame shell behind them blooms over the sprite)
-    this.auraTick(f, 1 + b * 0.4 + (full ? 0.25 : 0), camRight, 0.12);
-    const p = f.renderPos || f.pos;
-    const c = new THREE.Color(f.mode?.auraColor ?? f.def.color);
-    const core = new THREE.Color().setRGB(...(f.mode?.auraCore ?? f.def.auraCore));
-    if (t % 2 === 0) {
-      const a = Math.random() * Math.PI * 2, r = 1.6 + Math.random() * 0.6;
-      const sx = p.x + Math.cos(a) * r, sy = p.y + 0.35 + Math.random() * 1.25, sz = p.z + Math.sin(a) * r * 0.6;
-      const k = 4; // reaches the chest in about a quarter second
-      this.spawn('star', sx, sy, sz, { scale: 0.15 + b * 0.08, frame: 2, vel: [(p.x - sx) * k, (p.y + 0.9 - sy) * k, (p.z - sz) * k], life: 0.24, color: Math.random() < 0.5 ? core : c, order: 6, glow: 1.4 });
-    }
-    if (b > 0.3 && Math.random() < 0.4 * b) {
-      const a = Math.random() * Math.PI * 2, r = 0.45 + Math.random() * 1.1;
-      this.spawn('star', p.x + Math.cos(a) * r, 0.04, p.z + Math.sin(a) * r * 0.6, { scale: 0.11 + Math.random() * 0.1, frame: 2, vel: [0, 1.1 + Math.random() * 1.6, 0], color: 0x9c8a74, life: 0.9, order: 2 });
-    }
-    if (t % Math.round(26 - b * 12) === 0) this.spawn('ring', p.x, 0.05, p.z, { scale: 1.1 + b * 0.8, color: 0xd8ccb8, opacity: 0.55, glow: 0.15, life: 0.35, fade: true });
-    if (t === 40) this.crater(f.pos);
-    const sparks = f.def.charge?.sparks;
-    if ((full || sparks === 'lightning') && t % 4 === 0) {
-      this.spawn('lightning', p.x + (Math.random() - 0.5) * 0.9, p.y + 0.3 + Math.random() * 1.3, p.z, { scale: 0.42 + Math.random() * 0.3, random: true, life: 0.07, color: sparks === 'lightning' ? 0xd8f0ff : core, rot: Math.random() * 6.28, order: 8, glow: 1.1 });
-    }
-  }
-
   // Signature move hand effects.
   handTick(f, kind, phase, prog) {
     const fx = f.face.x, fz = f.face.y;
     const P = f.renderPos || f.pos;
     // an art pack's drawn palm (anims.json `hand` / hit box) wins over the placeholder's tuned offsets
     const H = f.actor?.hand?.();
-    const at = (fwd, up) => (H ? { x: P.x + fx * H.x, y: P.y + H.y, z: P.z + fz * H.x } : { x: P.x + fx * fwd, y: P.y + up, z: P.z + fz * fwd });
+    // the body draws scaled by depthK about its feet (SpriteActor.syncDepth, ENG-067), so the held effect scales its
+    // offset and size with it to stay on the drawn palm; visual only, these positions never feed the simulation
+    const k = f.actor?.depthK ?? 1;
+    const at = (fwd, up) => (H ? { x: P.x + fx * H.x * k, y: P.y + H.y * k, z: P.z + fz * H.x * k } : { x: P.x + fx * fwd * k, y: P.y + up * k, z: P.z + fz * fwd * k });
     if (kind === 'rasengan') {
-      const s = phase === 0 ? 0.25 + prog * 0.45 : 0.72;
+      const s = (phase === 0 ? 0.25 + prog * 0.45 : 0.72) * k;
       const p = at(0.6, 0.72);
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.7 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
@@ -531,7 +504,7 @@ export class Effects {
     } else if (kind === 'rasenshuriken') {
       // a big wind orb ringed by spinning blades, held high in startup and thrust forward in active
       const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
-      const s = phase === 0 ? 0.3 + prog * 0.6 : 0.9;
+      const s = (phase === 0 ? 0.3 + prog * 0.6 : 0.9) * k;
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, color: 0xe8f6ff, order: 9, glow: 0.8 });
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('ring', p.x, p.y, p.z, { scale: s * 2.1, color: 0xffffff, glow: 0.6, life: 0.12, fade: true, order: 8 });
@@ -541,7 +514,7 @@ export class Effects {
       }
     } else if (kind === 'chidori') {
       const p = phase === 2 ? at(0.7, 0.78) : at(-0.5, 0.32);
-      const s = phase === 0 ? 0.4 + prog * 0.5 : 0.9;
+      const s = (phase === 0 ? 0.4 + prog * 0.5 : 0.9) * k;
       const it = this.keep('hand' + f.index, 'lightning', p.x, p.y, p.z, { scale: s, color: 0xd8f0ff, order: 9, glow: 1.0 });
       it.random = true;
       it.rot = Math.random() * 6.28;

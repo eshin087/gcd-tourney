@@ -59,11 +59,12 @@ decals next to a floor drawn at 64 px per unit.
   body-shaped when it was fast, until the round resets), and the ki barrier (a wall bounce cracks it in the barrier's
   color; it flickers, dissolves and sheds falling shards). The training room draws decals as holographic outlines in
   the grid's color (no 3D rubble); the domain hides the arena's decals and skips new ones.
-- **Charge.** One decal per charging fighter upgrades in place (crack_s at 30 frames, crack at 80, fracture_ring at
-  140, then the fighter's own fracture when the gauge fills, with chunks and slabs). `ground.charge: false` keeps the
-  floor still (Gojo: Infinity). The power-up effects call `fx.ground.chargeTick(f, t, level)` and `chargeMax(f)`;
-  until such a caller exists, GroundDamage follows charging fighters itself, and the first outside call turns that
-  off.
+- **Charge.** One decal per charging fighter upgrades in place (crack_s, crack 50 frames later, fracture_ring 110
+  frames after crack_s, then the fighter's own fracture when the gauge fills, with chunks and slabs).
+  `ground.charge: false` keeps the floor still (Gojo: Infinity). The power-up effects (`src/game/chargeFx.js`, ADR 0023) call
+  `fx.ground.chargeTick(f, t, level, crackAt)` every live charge frame and `chargeMax(f)` on the full gauge, only
+  for a charge style whose `ground.crackAt` is above 0; crack_s appears when the charge reaches that level (Naruto
+  from bar 2, Sasuke at MAX; Killua's and Gojo's power-ups never crack the floor) and the stages are timed from it.
 - **Round reset.** The ring is clean every round.
 
 ### 2. Rendering
@@ -84,15 +85,19 @@ quantization. Directional decals are drawn with the motion going left to right.
 
 ### 3. A separate decal atlas kind
 
-Decal art is its own world-art kind (`npm run sprites decals`, the packer side is TOOL-026), not more VFX rows:
+Decal art is its own world-art kind (`npm run sprites decals`, `tools/pack-decals.mjs`, TOOL-026), not more VFX rows:
 
-- `public/decals/atlas.json` + one PNG page per style group (`decals_<group>.png`, or `_<n>` when a group needs
-  several; each page at most 2048 x 2048). Shape: `{ ppu: 64, pages: [...], decals: { <name>: { page, w, h,
-  frames: [[x, y], ...], mode: 'flat' | 'wall', tinted, group } } }`. Only approved names ship; `--candidates`
-  writes the same shape to `public/preview/decals/` (`?art=custom`).
+- `public/decals/atlas.json` + the PNG pages of each **page set** (`decals_<set>.png`, or `_<n>` when a set needs
+  several; each page at most 2048 x 2048). The style groups share pages by set (`DECAL_PAGE_SETS`: base + edge,
+  chakra + ki, lightning + fire, cursed), so a pairing loads the floor set plus the element set of each fighter's
+  looks and stays within the 4-page cap. A name never spans two pages. Shape: `{ ppu: 64, pages: [...],
+  decals: { <name>: { page, w, h, frames: [[x, y], ...], mode: 'flat' | 'wall', tinted, group } } }` (the packer
+  adds `directional`, `hotKey`, `tile` and `version`; the engine ignores them). Only approved names ship;
+  `--candidates` writes the same shape to `public/preview/decals/` (`?art=custom`).
 - **ppu 64**, the approved ring top's density: a 256 px cell is 4 units, a 512 px cell 8 units.
 - The 31 names, their cell sizes, variant counts and groups (base, edge, lightning, fire, chakra, cursed, ki) are
-  the contract in `DECALS` (src/art/decalPainter.js), shared with the packer.
+  the contract in `DECALS` (src/art/decalPainter.js). The packer restates it in `DECAL_SPECS` (with each brief's
+  image split), and the manifest's `decals.items` restates it again; the packer warns on any drift.
 - `src/art/decalPainter.js` paints every name procedurally at half density (5 seeded painters: crack webs, bowls,
   scorches, grooves, wall holes) into the same shape, behind the loading screen. `GroundDamage.loadCustom()` reads
   the packed JSON and merges it over the procedural decals name by name, with one `[decals]` info line; any error
