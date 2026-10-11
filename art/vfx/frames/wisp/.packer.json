@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/wisp_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/wisp_v01.png"
+  ],
+  "sourceHash": "a555a030264a55fad9e749555ff6198c3f06c8dc",
+  "files": {
+    "wisp_00.png": "d352b8dd21b762e9ea16a23512f6fffe20b10d1d",
+    "wisp_01.png": "cd57f63b6726216687c84df94658bbf42613a056",
+    "wisp_02.png": "9cfefe53183053681ea2af86625eb477f9cb9b44",
+    "wisp_03.png": "48d84c2f2ccee39513e249482a3f20bf02a2e14b",
+    "wisp_04.png": "79015f5de270e2d5d9df45542bfb1e3bec978463",
+    "wisp_05.png": "26f9045f68c95710516f48d89aae16ea491c9207",
+    "wisp_06.png": "88893990836f728643e9dffe4a74eee932eafdd3"
+  }
+}

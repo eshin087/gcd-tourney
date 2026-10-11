@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/arc_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/arc_v01.png"
+  ],
+  "sourceHash": "42ab8bc8cdaf5193df0e8b5ef1a626ea6cc18152",
+  "files": {
+    "arc_00.png": "1bbe8d071b6ba00d6e2fbf3c3ec6db4445094b7b",
+    "arc_01.png": "0a14fe62e9b857a2abbf67318d2830012535ca6d",
+    "arc_02.png": "3e832820e69d1c84acab6dbe2750726ea10562cb",
+    "arc_03.png": "e2613e5afbd664c6988cfd6bc281b3b3b9598716",
+    "arc_04.png": "acb152ec6d84daadc4ad60a1b44018047a7cbb2f",
+    "arc_05.png": "62762f595ba5a2bd65e4e0c407bf7265a1ad02d8"
+  }
+}
