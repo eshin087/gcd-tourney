@@ -1,8 +1,10 @@
-# Naruto four-pose sample v01 — needs user review
+# Naruto four-pose sample v01 — rejected after feedback
+
+User feedback: too bulky compared with Sasuke, head too small. Original QA observations below are preserved as history; v02 is the new candidate. Source moved intact to `_rejected/`.
 
 Scope: new reference sample only. Built-in imagegen, three attempts, third selected. No animation, atlas, fixed-name reference, manifest, approval or shared tracker changed. User's new art-lead judgment instruction supersedes earlier guard/dodge preferences for this sample. Prompt and edit history: [proportion_sample_v01_prompt.md](proportion_sample_v01_prompt.md).
 
-Source: [proportion_sample_v01.png](proportion_sample_v01.png). Actual **1254x1254**, not requested 1024x1024. Four source cells are exactly `[0,0,627,627]`, `[627,0,627,627]`, `[0,627,627,627]`, `[627,627,627,627]` as x/y/width/height. Pose order: idle, cross-arm guard, airborne forward run, lead-left light1 jab. Right-facing three-quarter identity maintained. No text, effects or ground shadows. Preserve this untouched source.
+Source: [proportion_sample_v01.png](_rejected/proportion_sample_v01.png). Actual **1254x1254**, not requested 1024x1024. Four source cells are exactly `[0,0,627,627]`, `[627,0,627,627]`, `[0,627,627,627]`, `[627,627,627,627]` as x/y/width/height. Pose order: idle, cross-arm guard, airborne forward run, lead-left light1 jab. Right-facing three-quarter identity maintained. No text, effects or ground shadows. Preserve this untouched source.
 
 ## Visual anatomy observations
 

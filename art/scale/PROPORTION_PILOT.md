@@ -1,5 +1,7 @@
 # Four-character proportion pilot — awaiting user review
 
+> Historical first checkpoint. Superseded by [lineup v03](PROPORTION_PILOT_V03.md) after user feedback about height/build and Naruto's small head. Naruto sample v01 is rejected and retained under `reference/_rejected/`; the latest Naruto is v02. No sample approval has been recorded.
+
 2026-10-10 · ART-CAST-PILOT · branch `art/cast-proportion-pilot` · integration coordinator: Claude Code.
 
 The user requested corrected idle, guard, run and attack samples before the full set, and released the earlier preference locks. These are four-pose reference sheets, not new animation names or completed gameplay strips. No existing approval, fixed-name reference or gameplay atlas is changed.

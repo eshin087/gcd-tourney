@@ -1,4 +1,5 @@
 {
+  "reviewStudies": { "castProportions": { "asset": "proportion_lineup", "file": "public/art-review/cast-proportion-pilot/lineup_v03.png", "version": 3, "approvedVersion": null, "status": "raw", "note": "Review-only height/build proposal; Naruto v02, Sasuke v01 unchanged, Killua v01 and Gojo v02 rescaled. No gameplay promotion." } },
   "_readme": "Machine-readable art tracker for GCD Tourney. Spec: art/SPEC.md (hi-res sprite spec v2, ADR 0007). Human view: art/TRACKER.md; review queue: art/REVIEW.md (keep all three in sync). Top-level version = manifest format (2 = spec v2 with per-asset version fields). The packer reads spec, animationDefaults, characters and vfx, plus the approvedVersion fields of vfx.effects, worldArt.* batches and sharedUi: world art ships approved items only (ADR 0012). status: todo | raw | packed | approved. version = latest candidate number NN of the asset (file suffix _vNN; 0 = nothing generated yet); approvedVersion = the NN the user approved (null until then). Versions are never reused; rejected candidates move to a _rejected/ folder. Strips: raw/<anim>_vNN.png (the packer uses the highest). References: candidates reference/<name>_vNN.png, the approved one is copied to file (the approved idle strip is also copied to reference/idle_approved.png). UI: candidates raw/ui_<name>_vNN.png, the approved one is copied to file. step = generation order (art/PIPELINE.md). ms = default per-frame durations written to anims.json. animationDefaults = copy-me block for a new character.",
   "version": 2,
   "spec": { "name": "hi-res sprite spec v2", "adr": "docs/decisions/0007-art-spec-v2-shippuden-256.md", "frameWidth": 256, "frameHeight": 256, "columns": 16, "pivot": [128, 240], "pixelsPerUnit": 128, "facing": "right", "maxColors": 48, "warnColors": 64, "rawBackground": "#FF00FF", "standingBodyPx": 200, "cellMargin": 4, "versionSuffix": "_vNN" },
@@ -68,7 +69,7 @@
       "displayName": "NARUTO",
       "brief": "art/characters/naruto/CHARACTER.md",
       "reference": {
-        "proportionSample": { "file": "art/characters/naruto/reference/proportion_sample_v01.png", "candidates": "art/characters/naruto/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
+        "proportionSample": { "file": "art/characters/naruto/reference/proportion_sample_v02.png", "candidates": "art/characters/naruto/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 2, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/naruto/reference/model_sheet.png",
           "candidates": "art/characters/naruto/reference/model_sheet_vNN.png",

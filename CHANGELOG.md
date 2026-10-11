@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art review: revise the cast pilot after feedback: leaner Naruto with larger head, unchanged Sasuke, and clearer Gojo/Killua height separation on an uncapped review canvas. Preserve previous samples; production remains unchanged pending review (ART-CAST-PILOT).
+
 - Art review: generate a corrected four-character proportion pilot with idle, guard, run and light1 samples, equal-scale before/after gallery, head closeups and documented probe limits. Candidates only; full animation production waits for user review (ART-CAST-PILOT).
 
 - Fixed: the scale gate measured every strip in the fighter-wide `--quantize` palette, so a candidate's new colours moved the unchanged idle's head (Killua 52x35 vs 52x43) and other strips' verdicts. It now measures before quantizing against the idle's own palette (declared hair colours snapped first); `anims.json` records the per-frame numbers and `npm run scale` reports those. Sheets unchanged; scale baseline rewritten once for the method change (ART-KIL-PROBE).
