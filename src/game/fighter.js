@@ -14,6 +14,9 @@ const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 // out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
 const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge', 'throw']);
 const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
+// ADR 0022: leaving one of these opens the REVERSAL window; starting one of the actions inside it is a reversal
+const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'held']);
+const REVERSAL_STATES = new Set(['attack', 'kit', 'throw', 'vanish', 'superDash', 'beamCharge']);
 
 export class Fighter {
   constructor(game, def, asset, index) {
@@ -94,6 +97,20 @@ export class Fighter {
     this.carry.set(0, 0);
     this.throwSt = null; // running throw (state 'throw'), ADR 0015
     this.grab = null; // { by, t } while pinned by the opponent's throw
+    // combo escape and true combos (ADR 0022)
+    this.gapF = 0; // open frames (could have teched) since the last hit
+    this.lastGap = 0; // the gap before the latest hit
+    this.maxGap = 0; // the widest gap in this combo (training shows it)
+    this.comboBlue = false; // this combo had a gap: it could have been escaped
+    this.comboFrom = 0; // pad frame the combo started (a burst press must come after it)
+    this.hardKD = false; // the last hit was a hard knockdown: no tech roll
+    this.burstUsed = 0; // bursts this round
+    this.burstHit = null; // the running burst's shockwave connected: 'hit' | 'block'
+    this.burstEnd = 0;
+    this.freeAt = -99; // clock when stun, block or wake-up last ended (REVERSAL)
+    this.reversal = false;
+    this.punishHit = false;
+    this.tagAt = this.tagAt || {}; // Game.tag cooldowns
     this.endMoveFx();
     this.actor.setVisible(true);
     this.actor.play('idle', true);
@@ -110,6 +127,8 @@ export class Fighter {
       this.hidden = false;
       this.actor.setVisible(true);
     }
+    if (STUN_STATES.has(this.state) && !STUN_STATES.has(s)) this.freeAt = this.clock;
+    this.reversal = false; // update() sets it again when the new state is a reversal
     this.state = s;
     this.t = 0;
     if (anim) this.actor.play(anim, true);
@@ -371,6 +390,115 @@ export class Fighter {
     this.actor.ghost(this.def.color, 0.22, 0.45);
     this.game.fx.dust(this.pos, 0.9);
     audio.play('dash', 0.45);
+    this.game.tag(this, 'wavedash');
+  }
+
+  // ---- combo escape (ADR 0022, numbers in DEFENSE.tech / DEFENSE.burst)
+  // Launched and able to tech this frame: air stun over, high enough, not held. Every such frame the attacker
+  // doesn't take away again is a gap (the combo turns blue).
+  techOpen() {
+    return !this.ko && !this.heldT && this.airStun <= 0 && this.pos.y > DEFENSE.tech.minY;
+  }
+
+  // The combo is over for the victim (a tech, a tech roll, a burst).
+  endCombo() {
+    this.combo = 0;
+    this.comboBlue = false;
+    this.gapF = 0;
+    this.gb = this.wb = false;
+    this.forceTech = false;
+  }
+
+  // Burst input: Guard + Special both held, one of them pressed within `buffer` frames and after the combo began
+  // (a vanish press just before the hit doesn't turn into a burst).
+  wantsBurst() {
+    const p = this.pad, b = p.b;
+    if (!b.guard.down || !b.special.down) return false;
+    const last = Math.max(b.special.lastPress, b.guard.lastPress);
+    return p.frame - last <= DEFENSE.burst.buffer && last >= this.comboFrom;
+  }
+
+  // Burst is possible: in hit stun or a launch, the bar and ki for it, not held or grabbed (Domain, flurries,
+  // mauls, throws) and not inside the opponent's three-bar move or beam.
+  canBurst() {
+    const B = DEFENSE.burst, o = this.opp, g = this.game;
+    if (this.state !== 'hitstun' && this.state !== 'launched') return false;
+    if (this.ko || this.heldT > 0 || this.grab || this.burstUsed >= B.perRound || this.ki < B.cost) return false;
+    if (!g.inputLive || g.clash || g.domain) return false;
+    if (o.state === 'beamCharge' || o.state === 'beamFire' || (o.state === 'kit' && (o.kitState?.m?.cost ?? 0) >= 300)) return false;
+    return !g.beams.some((bm) => bm.owner === o && !bm.dead);
+  }
+
+  startBurst() {
+    const B = DEFENSE.burst;
+    this.ki -= B.cost;
+    this.burstUsed++;
+    this.spPending = false;
+    this.endMoveFx();
+    this.endCombo();
+    this.hitstop = 0;
+    this.shaking = false;
+    this.airStun = this.stun = 0;
+    this.vel.set(0, 0, 0);
+    this.carry.set(0, 0);
+    this.invuln = B.startup + B.active + 2;
+    this.burstHit = null;
+    this.burstEnd = B.startup + B.active + B.whiff;
+    this.setState('burst', 'charge');
+    this.faceOpponent();
+    this.game.onBurst(this);
+  }
+
+  // The shockwave's active frames: one hit on an attacker inside the radius. It is blockable and parryable, so
+  // an attacker who stopped and guarded makes it whiff into the long recovery (burst bait).
+  burstWave(k) {
+    const B = DEFENSE.burst, o = this.opp;
+    this.game.onBurstWave(this, k);
+    if (this.burstHit) return;
+    const dx = o.pos.x - this.pos.x, dz = o.pos.z - this.pos.z, d = Math.hypot(dx, dz);
+    if (d > B.radius || Math.abs(o.pos.y - this.pos.y) > B.radius) return;
+    if (!o.hittable) {
+      if (o.evading) this.game.onEvade(o);
+      return;
+    }
+    const dir = d > 0.01 ? new THREE.Vector2(dx / d, dz / d) : new THREE.Vector2(this.face.x, this.face.y);
+    this.burstHit = o.takeHit(this, B.hit, dir) === 'hit' ? 'hit' : 'block';
+  }
+
+  // Landing from a launch while holding Guard: roll back to the feet (the stick's direction, else away from them).
+  startTechRoll() {
+    const T = DEFENSE.tech.roll;
+    const d = this.inputDir();
+    if (d.lengthSq() > 0.04) d.normalize();
+    else d.set(this.pos.x - this.opp.pos.x, this.pos.z - this.opp.pos.z).normalize();
+    this.endCombo();
+    this.airStun = 0;
+    this.bounced = false;
+    this.bigLaunch = false;
+    this.vel.set(d.x * T.speed, 0, d.y * T.speed);
+    this.invuln = T.invuln;
+    this.setState('techRoll', 'airRecover');
+    this.faceOpponent();
+    this.game.fx.dust(this.pos, 0.8);
+    audio.play('dash', 0.6);
+    this.game.tag(this, 'techRoll');
+  }
+
+  // Stuck in their own recovery (a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag, a
+  // burst that missed): a fresh combo started here is a PUNISH.
+  inRecovery() {
+    const m = this.move;
+    switch (this.state) {
+      case 'attack': return !!m && this.t >= m.startup + m.active;
+      case 'held': return !this.grab && this.clock - (this.parriedAt ?? -99) < 40;
+      case 'dodge': case 'airDodge': return this.invuln <= 0;
+      case 'land': return this.landLag > 6;
+      case 'throw': return this.throwSt?.phase === 'whiff' || this.throwSt?.phase === 'broken';
+      case 'kit': return ['whiff', 'land', 'recover'].includes(this.kitState?.phase);
+      case 'burst': return this.t >= DEFENSE.burst.startup + DEFENSE.burst.active;
+      case 'beamFire': return true;
+      default: return false;
+    }
   }
 
   // A blockable hit met a fresh Guard press: nothing gets through, the defender acts at once and a melee
@@ -394,6 +522,7 @@ export class Fighter {
       att.carry.set(0, 0);
       att.heldT = m.big || m.special ? P.bigStagger : P.stagger;
       att.setState('held', 'stagger');
+      att.parriedAt = att.clock; // hitting them in this stagger is a PUNISH (inRecovery)
     }
     this.game.onParry(this, att, m);
     return 'parry';
@@ -586,6 +715,9 @@ export class Fighter {
       if (p.frame - this.parryTry >= DEFENSE.parry.lockout) this.parryAt = p.frame;
       this.parryTry = p.frame;
     }
+    // Burst (ADR 0022): read before the hitstop return, so a press on the hit itself is answered at once
+    if ((this.state === 'hitstun' || this.state === 'launched') && this.wantsBurst() && this.canBurst()) this.startBurst();
+    const s0 = this.state;
 
     if (this.hitstop > 0) {
       this.hitstop--;
@@ -790,20 +922,50 @@ export class Fighter {
         if (this.t >= this.stun) { this.combo = 0; this.setState('idle'); }
         freeAnim();
         break;
-      case 'launched':
+      case 'launched': {
+        // any button, or Guard simply held, techs on the first open frame (ADR 0022); an open frame let pass is a gap
+        const open = this.techOpen();
+        if (open) this.gapF++;
         if (!this.ko && !this.heldT && this.forceTech && this.t > 4 && this.pos.y > 0.2) { this.forceTech = false; this.airRecover(); break; }
-        if (!this.ko && !this.heldT && this.airStun <= 0 && this.pos.y > 0.35 && this.anyPress()) {
+        if (open && (this.anyPress() || p.b.guard.down)) {
           this.airRecover();
           break;
         }
         this.actor.play(this.bigLaunch && !this.ko ? 'spin' : 'launched');
         freeAnim();
         break;
+      }
       case 'airRecover':
         this.invuln = Math.max(this.invuln, 2);
-        if (this.t >= 10) { this.airAttack = false; this.setState('air', 'jumpFall'); }
+        if (this.t >= DEFENSE.tech.len) { this.airAttack = false; this.setState('air', 'jumpFall'); }
         freeAnim();
         break;
+      case 'techRoll': {
+        const T = DEFENSE.tech.roll;
+        this.vel.x *= T.friction; this.vel.z *= T.friction;
+        this.faceOpponent();
+        if (this.t % 3 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
+        if (this.t >= T.len) this.setState('idle');
+        freeAnim();
+        break;
+      }
+      case 'burst': {
+        const B = DEFENSE.burst, E = B.startup + B.active;
+        this.vel.x *= 0.7; this.vel.z *= 0.7;
+        if (this.t >= B.startup && this.t < E) this.burstWave(this.t - B.startup);
+        if (this.t === E) {
+          // a blocked or parried shockwave leaves the long recovery: the punish for burst bait
+          this.burstEnd = E + (this.burstHit === 'block' ? B.blocked : B.whiff);
+          this.actor.play(this.air ? 'jumpFall' : 'land', true);
+        }
+        if (this.t >= this.burstEnd) {
+          this.airAttack = false;
+          if (this.air) this.setState('air', 'jumpFall');
+          else this.setState('idle');
+        }
+        freeAnim();
+        break;
+      }
       case 'down':
         this.vel.x *= 0.85; this.vel.z *= 0.85;
         this.invuln = 2;
@@ -869,6 +1031,7 @@ export class Fighter {
         freeAnim();
     }
 
+    if (this.state !== s0 && REVERSAL_STATES.has(this.state) && this.clock - this.freeAt <= DEFENSE.reversal.window) this.reversal = true;
     if (p.b.special.released) this.spPending = false;
     if (this.state !== 'charge') audio.stopLoop('charge' + this.index);
     this.pad = real;
@@ -928,7 +1091,7 @@ export class Fighter {
         const dir = new THREE.Vector2(o.pos.x - this.pos.x, o.pos.z - this.pos.z).normalize();
         o.takeHit(this, { ...S, name: 'superDash' }, dir);
         this.moveHit = true;
-      }
+      } else if (o.evading) this.game.onEvade(o); // flew through their dodge
       this.vel.multiplyScalar(0.15);
       if (this.air) { this.airAttack = false; this.setState('air', 'jumpFall'); this.vel.y = Math.max(this.vel.y, 3); }
       else this.setState('idle');
@@ -1062,14 +1225,21 @@ export class Fighter {
     }
   }
 
+  // Air tech (ADR 0022): the stick picks the hop, read against the opponent's side of the screen: neutral or away
+  // hops back, toward hops over to their side, ↑ rises in place, ↓ drops straight to the floor.
   airRecover() {
-    this.combo = 0;
-    this.gb = this.wb = false;
-    this.vel.set(-this.face.x * 2.5, 6.5, -this.face.y * 2.5);
-    this.invuln = 16;
+    const T = DEFENSE.tech, s = kit.towardSide(this), R = this.game.cam.right;
+    const x = this.pad.mx * s, y = this.pad.my;
+    const kind = Math.abs(y) > 0.6 && Math.abs(y) > Math.abs(x) ? (y > 0 ? 'up' : 'down') : x > 0.5 ? 'toward' : 'back';
+    const [along, up] = T[kind];
+    this.endCombo();
+    this.vel.set(R.x * s * along, up, R.z * s * along);
+    this.invuln = T.invuln;
+    this.techDir = kind;
     this.setState('airRecover');
     audio.play('jump', 0.7);
     this.game.fx.ring(this.pos, '#ffffff', 0.6, this.pos.y + 0.8);
+    this.game.tag(this, 'tech');
   }
 
   onLand() {
@@ -1112,6 +1282,10 @@ export class Fighter {
       }
       case 'launched': {
         const impact = -this.vel.y;
+        // tech roll (ADR 0022): the floor is a way out unless the last hit was a hard knockdown; one not taken is a gap
+        const roll = !this.ko && !this.gb && !this.hardKD && !this.heldT;
+        if (roll && this.game.inputLive && this.pad.b.guard.down) { this.startTechRoll(); break; }
+        if (roll) this.gapF++;
         if (this.gb && !this.ko) {
           // ground bounce: pop back up for more juggling
           this.gb = false;
@@ -1160,6 +1334,8 @@ export class Fighter {
         return 0;
       case 'airDodge':
         return this.t < DEFENSE.airDodge.to ? 0 : 1; // the dodge holds its line (a directional one keeps its drop)
+      case 'burst':
+        return this.t < DEFENSE.burst.startup + DEFENSE.burst.active ? 0 : 1; // hangs in the air until the wave is out
       case 'attack':
         return this.move?.hover ? 0 : this.move?.air ? 0.35 : 1;
       case 'launched':
@@ -1287,6 +1463,19 @@ export class Fighter {
       return 'block';
     }
     const wasStunned = this.state === 'hitstun' || this.state === 'launched';
+    // true combos (ADR 0022): a hit after open frames (they could have teched) turns the rest of the combo blue
+    this.punishHit = !wasStunned && !m.burst && this.inRecovery();
+    if (wasStunned) {
+      this.lastGap = this.gapF;
+      this.maxGap = Math.max(this.maxGap, this.gapF);
+      if (this.gapF > 0) this.comboBlue = true;
+    } else {
+      this.lastGap = this.maxGap = 0;
+      this.comboBlue = false;
+      this.comboFrom = this.pad.frame;
+    }
+    this.gapF = 0;
+    this.hardKD = !!(m.hardKnockdown ?? (m.groundBounce || (m.unblockable && m.big)));
     this.combo = wasStunned ? this.combo + 1 : 1;
     this.carry.set(0, 0);
     this.airDodged = false; // getting hit gives the air dodge back (for after the tech)
@@ -1348,6 +1537,11 @@ export class Fighter {
       const pw = m.push ?? 3;
       this.vel.x = dir.x * pw;
       this.vel.z = dir.y * pw;
+    }
+    if (m.lock) {
+      // one multi-hit move (beam, vortex ticks) holds them until its next tick: it can't be teched midway
+      this.airStun = Math.max(this.airStun, m.lock);
+      this.stun = Math.max(this.stun, m.lock);
     }
     if (this.combo >= 22 && this.state === 'launched' && !this.ko) this.forceTech = true; // combo cap
     this.setSide(-att.side);

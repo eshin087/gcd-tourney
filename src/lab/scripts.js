@@ -190,6 +190,27 @@ export const SCENARIOS = [
     id: 'wavedash', name: 'Wavedash', info: 'Jump, then Guard with a direction at once: a ground slide.',
     setup: { gap: 5 }, a: [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 10 }], b: [],
   },
+  // combo escape (ADR 0022): the dummy's side is scripted, so these don't depend on the DUMMY TECH / BURST options
+  {
+    id: 'holdTech', name: 'Hold Guard to tech', info: 'You launch the dummy and stop; it holds Guard and techs on the first frame it can (TECH!). The stick picks the hop: away (default), toward, ↑ rise, ↓ drop.',
+    setup: { gap: 1.2 }, a: [tap(0, 'heavy')], b: [{ t: 24, btn: ['guard'], len: 90 }],
+  },
+  {
+    id: 'techRoll', name: 'Tech roll', info: 'Light ×4 knocks the dummy down; it holds Guard and rolls back to its feet instead of lying down (TECH ROLL!). Not after a hard knockdown (spike, throw, super finish).',
+    setup: { gap: 1.2 }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [{ t: 30, btn: ['guard'], len: 110 }],
+  },
+  {
+    id: 'blueCombo', name: 'Blue combo (a gap)', info: 'You launch, then super dash in late: the dummy could have teched in between (it never does here), so the counter turns blue. Compare with the air combo, which stays true.',
+    setup: { gap: 1.2 }, a: [tap(0, 'heavy'), tap(58, 'dash'), tap(80, 'light'), tap(92, 'light'), tap(104, 'heavy')], b: [],
+  },
+  {
+    id: 'burst', name: 'Burst', info: `The dummy bursts out of your light string (Guard + Special while hit, ${DEFENSE.burst.cost / 100} bars, once per round): BURST! blows you away.`,
+    setup: { gap: 1.2, kiB: DEFENSE.burst.cost }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [tap(30, ['guard', 'special'])],
+  },
+  {
+    id: 'burstBait', name: 'Burst bait', info: 'You jab once and hold Guard; the dummy bursts into your guard, and you super dash in to punish its long recovery (PUNISH!).',
+    setup: { gap: 1.2, kiB: DEFENSE.burst.cost }, a: [tap(0, 'light'), { t: 4, btn: ['guard'], len: 50 }, tap(64, 'dash'), tap(78, 'light'), tap(90, 'light'), tap(102, 'heavy')], b: [tap(26, ['guard', 'special'])],
+  },
   {
     id: 'airCombo', name: 'Air combo (launch, chase, spike)', info: 'Light × 3, Heavy launcher, jump to chase, air string, air heavy spike (ground bounce).',
     setup: { gap: 1.2 },

@@ -273,6 +273,23 @@ export class Menus {
       chips.append(b);
     }
     modeRow.append(el('span', 'tr-label', 'DUMMY DOES'), chips);
+    // combo escape (ADR 0022): how the dummy gets out of your combos
+    const optRow = (label, key, opts) => {
+      const row = el('div', 'tr-row'), box = el('div', 'tr-chips');
+      for (const [v, text] of opts) {
+        const b = el('button', 'ctl-chip' + (g.dummyOpts[key] === v ? ' on' : ''), text);
+        b.onclick = () => {
+          g.dummyOpts[key] = v;
+          audio.play('ui');
+          box.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+        };
+        box.append(b);
+      }
+      row.append(el('span', 'tr-label', label), box);
+      return row;
+    };
+    const techRow = optRow('DUMMY TECH', 'tech', [['never', 'NEVER'], ['hold', 'HOLD'], ['random', 'RANDOM']]);
+    const burstRow = optRow('DUMMY BURST', 'burst', [[false, 'OFF'], [true, 'ON']]);
 
     const kiRow = el('div', 'tr-row');
     const ki = el('button', 'ctl-chip' + (cfg.infiniteKi ? ' on' : ''), cfg.infiniteKi ? 'ON' : 'OFF');
@@ -294,7 +311,7 @@ export class Menus {
       audio.play('ui');
     };
     boxRow.append(el('span', 'tr-label', 'HITBOXES'), boxes, el('span', 'tr-legend', '<i class="lg-hurt"></i>body <i class="lg-hit"></i>attack'));
-    opts.append(modeRow, kiRow, boxRow);
+    opts.append(modeRow, techRow, burstRow, kiRow, boxRow);
 
     this.panel = new ControlsPanel(g.input, { layout: this.ctlLayout, onLayout: (l) => (this.ctlLayout = l) });
     const foot = el('div', 'tr-foot', '<kbd>Esc</kbd> / Options: menu &amp; full controls · <kbd>Tab</kbd>: hide panel');

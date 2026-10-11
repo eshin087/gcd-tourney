@@ -14,7 +14,7 @@ import { makeChart, beatChart, seedOf, Judge } from './clash.js';
 import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage } from './kit.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
-import { Hud } from '../ui/hud.js';
+import { Hud, TAGS } from '../ui/hud.js';
 import { Menus } from '../ui/menus.js';
 import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
@@ -28,6 +28,7 @@ const v3 = new THREE.Vector3();
 const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vector3(), sdc = new THREE.Vector3();
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const clashTmp = new THREE.Vector3();
+const burstCol = new THREE.Color();
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
 function segDist(p1, q1, p2, q2) {
@@ -117,6 +118,7 @@ export class Game {
     this.viewCover = 0; // fraction of the screen width hidden behind the training panel / touch buttons
     this.viewLift = 0; // projection shift up while touch buttons cover the bottom
     this.showBoxes = new URLSearchParams(location.search).has('boxes'); // hit/hurt box overlay
+    this.dummyOpts = { tech: 'never', burst: false }; // the training dummy's combo escape (ADR 0022, DummyBrain)
     // keep the on-screen button hints in sync with the device being used
     input.onDevice((d) => {
       if (this.fighters.length === 2 && !this.training) this.hud.hint.innerHTML = matchHint(this.cfg.mode, d);
@@ -570,6 +572,7 @@ export class Game {
         f.sinceHit = (f.sinceHit ?? 999) + 1;
         const reeling = f.state === 'hitstun' || f.state === 'launched' || f.state === 'down' || f.state === 'getup' || f.state === 'block';
         if (f.sinceHit > 50 && f.combo === 0 && !reeling && f.hp < 1000) f.hp = Math.min(1000, f.hp + 25);
+        if (f.sinceHit > 50 && !reeling && f.state !== 'burst') f.burstUsed = 0; // no rounds here: the burst comes back
       }
     }
     if (this.state === 'fight' && this.inputLive && !this.clash) {
@@ -1169,6 +1172,9 @@ export class Game {
     }
     if (m.launcher) audio.play('launch');
     if (def.combo === 10 || def.combo === 20) audio.play('cheer', 0.8);
+    // technique callouts (ADR 0022): a fresh combo on their recovery, an attack out of stun or wake-up
+    if (def.punishHit) { def.punishHit = false; this.tag(att, 'punish'); }
+    if (att.reversal && def.combo === 1) { att.reversal = false; this.tag(att, 'reversal'); }
     if (def.ko && !this.koTriggered) this.triggerKO(def, att);
   }
 
@@ -1184,10 +1190,14 @@ export class Game {
   // break each other. Returns true when the throw is resolved (grabbed or broken).
   tryGrab(att) {
     const def = att.opp, T = THROW;
-    if (def.ko || def.hidden || def.invuln > 0 || def.air || def.pos.y > 0.05 || att.air) return false;
+    if (def.ko || def.hidden || def.air || def.pos.y > 0.05 || att.air) return false;
     const R = this.cam.right, F = this.cam.fwd;
     const rx = def.pos.x - att.pos.x, rz = def.pos.z - att.pos.z;
     if (Math.abs(rx * R.x + rz * R.z) > T.range || Math.abs(rx * F.x + rz * F.z) > T.lane) return false;
+    if (def.invuln > 0) {
+      if (def.evading) this.onEvade(def); // a spot dodge beat the throw
+      return false;
+    }
     if (def.state === 'throw' && def.throwSt?.phase === 'reach') { this.breakThrow(att, def); return true; }
     const open = THROWABLE.has(def.state) || (def.state === 'attack' && def.move && def.t < def.move.startup && !def.move.air)
       || (def.state === 'kit' && THROWABLE_KIT.has(def.kitState?.kind));
@@ -1226,7 +1236,7 @@ export class Game {
     const x = (att.pos.x + def.pos.x) / 2, z = (att.pos.z + def.pos.z) / 2, y = def.pos.y + 0.9;
     this.fx.blockSpark(x, y, z);
     this.fx.spawn('ring', x, y, z, { scale: 1.4, color: 0xffffff, glow: 1.2, depthTest: false, order: 9 });
-    this.hud.callout(def.index, 'BREAK!', '#ffe2a0');
+    this.tag(def, 'throwBreak');
     this.freeze = Math.max(this.freeze, 4);
     this.cam.shake(0.2);
     audio.play('block', 1.2);
@@ -1252,13 +1262,13 @@ export class Game {
     this.fx.hitSpark(x, y, z, true, 0xbff4ff);
     this.fx.spawn('ring', x, y, z, { scale: 1.5, color: 0x9ff0ff, glow: 1.4, depthTest: false, order: 9 });
     this.fx.overlay.flash('#cff6ff', 0.3);
-    this.hud.callout(def.index, 'PARRY!', '#9ff0ff', true);
+    this.tag(def, 'parry');
     this.freeze = Math.max(this.freeze, DEFENSE.parry.freeze);
     this.cam.zoomPunch(0.5);
     this.cam.shake(0.22);
     audio.play('block', 1.4);
     audio.play('flash', 0.6);
-    this.excite = Math.min(1, this.excite + 0.5);
+    this.excite = Math.min(1, this.excite + 0.3);
   }
 
   // A spot dodge or air dodge made an attack, shot, beam or super pass through (ADR 0016): one callout per
@@ -1266,8 +1276,49 @@ export class Game {
   onEvade(f) {
     if (f.dodgeCalled) return;
     f.dodgeCalled = true;
-    this.hud.callout(f.index, f.state === 'airDodge' ? 'AIR DODGE!' : 'DODGE!', '#bfe8ff');
-    this.excite = Math.min(1, this.excite + 0.3);
+    this.tag(f, f.state === 'airDodge' ? 'airDodge' : 'dodge');
+    this.excite = Math.min(1, this.excite + 0.1);
+  }
+
+  // Technique callouts (ADR 0022): a side banner from the TAGS table (src/ui/hud.js) on fighter f's side of the
+  // screen, at most once per TAGS[id].cool frames per fighter. Every defensive success and named technique goes
+  // through here, so a new one is a TAGS row plus one call.
+  tag(f, id) {
+    const T = TAGS[id];
+    if (!T || !f) return;
+    if (T.cool && this.frameNo - (f.tagAt[id] ?? -1e9) < T.cool) return;
+    f.tagAt[id] = this.frameNo;
+    this.hud.tag(f.index, id, T.color ?? f.def.color);
+    this.excite = Math.min(1, this.excite + (T.excite ?? 0.2));
+  }
+
+  // Burst (ADR 0022): the combo is broken. A short freeze, a big BURST!, a shockwave in the fighter's color.
+  onBurst(f) {
+    const p = f.pos, col = new THREE.Color(f.def.color);
+    this.tag(f, 'burst');
+    this.freeze = Math.max(this.freeze, DEFENSE.burst.freeze);
+    for (const v of this.vortices) if (v.owner === f.opp) v.kill(); // a grinding Rasenshuriken / Blue lets go too
+    this.fx.burstAt(f, col, 1.4);
+    this.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 1.6, color: col, opacity: 0.85, life: 0.35, fade: true, grow: 1.2, depthTest: false, order: 6, glow: 1 });
+    this.fx.spawn('lines', p.x, p.y + 0.8, p.z, { scale: 1.6, color: 0xffffff, glow: 0.6, depthTest: false, order: 8 });
+    this.fx.overlay.flash(f.def.color, 0.35);
+    this.fx.overlay.impactFrame(2);
+    this.cam.zoomPunch(0.6);
+    this.cam.shake(0.5);
+    audio.play('kiMax', 0.9);
+    audio.play('smash', 0.8);
+  }
+
+  // each active frame of the burst: the wave rolls out from the body (and along the floor when grounded)
+  onBurstWave(f, k) {
+    const p = f.pos, col = burstCol.set(f.def.color); // spawn copies the color
+    if (k === 0) {
+      this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 1.0, grow: 4.5, life: 0.3, fade: true, color: col, glow: 1.2, depthTest: false, order: 8 });
+      this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.7, grow: 5, life: 0.25, fade: true, color: 0xffffff, glow: 1.6, depthTest: false, order: 9 });
+      if (!f.air) { this.fx.dust(p, 1.4); this.fx.debris(p.x, p.z, 6, 0.8); }
+      this.cam.shake(0.45);
+      audio.play('explosion', 0.6);
+    } else if (k % 2 === 0) this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.9 + k * 0.25, color: col, opacity: 0.6, life: 0.12, fade: true, glow: 0.8, depthTest: false, order: 7 });
   }
 
   onGroundBounce(f) {

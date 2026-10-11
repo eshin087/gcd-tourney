@@ -728,7 +728,7 @@ const UPDATE = {
           if (d.lengthSq() < 1e-4) d.set(f.face.x, f.face.y);
           o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash' }, d.clone().normalize());
           g.excite = 1;
-        } else g.hud.callout(o.index, 'DODGED!', '#ffffff');
+        } else g.tag(o, 'dodge');
         k.phase = 'recover';
         k.t0 = 0;
       }

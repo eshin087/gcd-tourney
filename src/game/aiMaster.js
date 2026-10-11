@@ -32,13 +32,17 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // block   weight of a plain block among its answers to a threat it saw (the others: parry, dodges, counters...)
 // drop    chance that a combo is dropped after its first couple of hits (a missed link, like a person's)
 // beat    its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
+// burst   chance per combo (3+ hits, ki and the round's burst in hand) that it bursts out (×1.5 when low on
+//         health or when the attacker sits on three bars); bait: chance per combo that it stops its own combo and
+//         guards against a victim who could burst (ADR 0022)
 export const STYLES = {
   // INSANE, between HARD and IMPOSSIBLE: the same reads at a person's reaction time (12 f), fewer parries, dodges,
   // techs and throw breaks, and some dropped combos
-  insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, cap: 0, hoard: 0.6, block: 1, drop: 0.15 },
-  impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1 },
-  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35 },
+  insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, cap: 0, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
+  impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
+  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
 };
+const BURST = DEFENSE.burst;
 
 // forward distance a lunging ground move still covers from frame t (its speed fades out over startup+active)
 function lungeLeft(m, t) {
@@ -181,6 +185,7 @@ export class MasterBrain {
     if (game.freeze > 0) return this.frozen(game, c);
     this.clock++;
     if (this.recover(game, c)) return;
+    if (this.holdBait()) return;
     if (this.ownMove(game, c)) return;
     const th = this.threat(game, c);
     if (th) {
@@ -283,13 +288,24 @@ export class MasterBrain {
   recover(game, c) {
     const f = this.f, S = this.S;
     if (f.state !== 'launched') this.techRoll = null;
+    if (f.state !== 'launched' && f.state !== 'hitstun') this.burstPlan = null;
     if (f.state !== 'down') this.wake = 0;
     if (!f.grab) this.breakRoll = null;
     switch (f.state) {
       case 'launched':
-        if (this.techRoll === null) this.techRoll = Math.random() < S.tech;
-        // tech at the first legal frame (a human mashes), or ride it out and tech late
-        if (f.airStun <= 0 && f.pos.y > 0.4 && !f.heldT && (this.techRoll || f.pos.y < 1.2)) this.tap('jump', 1);
+        if (this.techRoll === null) {
+          this.techRoll = Math.random() < S.tech;
+          // where to: mostly back, over to their side when they're close, straight down, or up in place
+          this.techDir = pickW({ back: 0.5, toward: c.dist < 2.5 ? 0.2 : 0.05, down: 0.2, up: 0.1 });
+        }
+        // hold Guard to tech at the first gap, or roll on landing (ADR 0022); else ride it out and tap a late tech
+        if (this.techRoll) {
+          this.keep.add('guard');
+          const d = this.techDir;
+          this.mx = d === 'back' ? -c.toward : d === 'toward' ? c.toward : 0;
+          this.my = d === 'up' ? 1 : d === 'down' ? -1 : 0;
+        } else if (f.airStun <= 0 && f.pos.y > 0.4 && !f.heldT && f.pos.y < 1.2) this.tap('jump', 1);
+        this.burstOut(c);
         return true;
       case 'down':
         // vary the wake-up so meaty timing is a guess
@@ -299,6 +315,10 @@ export class MasterBrain {
       case 'hitstun':
         // block the moment the stun ends if they're still on top of us
         if (f.t >= f.stun - 2 && c.dist < 2.5) this.keep.add('guard');
+        this.burstOut(c);
+        return true;
+      case 'burst':
+      case 'techRoll':
         return true;
       case 'held':
         if (f.grab) {
@@ -331,6 +351,45 @@ export class MasterBrain {
         return !(f.t + 1 >= 3 && f.landLag <= 6);
     }
     return false;
+  }
+
+  // Burst out of a combo (ADR 0022): decided once per combo at its 3rd hit, pressed then or a hit later, likelier
+  // when low on health or when the attacker sits on three bars (the combo would end in a super); the showman
+  // also leans toward it while the viewer hasn't seen one (Showcase).
+  burstOut(c) {
+    const f = this.f, o = f.opp;
+    if (this.burstPlan == null && f.combo >= 3 && f.ki >= BURST.cost && f.burstUsed < BURST.perRound) {
+      const k = (f.hp < 350 || o.ki >= 300 ? 1.5 : 1) * (this.S.show >= 0.5 ? Math.sqrt(this.show.bias('burst')) : 1);
+      this.burstPlan = Math.random() < (this.S.burst ?? 0) * k ? f.combo + Math.floor(Math.random() * 2) : 0;
+    }
+    if (this.burstPlan && f.combo >= this.burstPlan && f.canBurst()) {
+      this.keep.add('guard');
+      this.tap('special', 2);
+      this.burstPlan = 0;
+    }
+  }
+
+  // Burst bait (ADR 0022): their burst would blow us away mid-combo, so now and then (decided once per combo, on
+  // the ground) stop the combo after a hit and guard; a blocked burst leaves them open (opening: 'burst').
+  baitBurst() {
+    const f = this.f, o = f.opp, R = this.route;
+    if (R.bait === undefined) {
+      if (R.baitAt === undefined) R.baitAt = 3 + Math.floor(Math.random() * 3); // the hit it may stop after
+      if (o.combo < R.baitAt || f.air) return false;
+      R.bait = o.burstUsed < BURST.perRound && o.ki >= BURST.cost && Math.random() < (this.S.bait ?? 0);
+      if (R.bait) this.baitUntil = this.clock + 50;
+    }
+    return !!R.bait;
+  }
+
+  // While baiting: hold Guard until the burst comes (and let go to punish its recovery) or the moment passes.
+  holdBait() {
+    const f = this.f, o = f.opp;
+    if (!(this.clock < this.baitUntil)) return false;
+    if (o.state === 'burst' && o.t >= BURST.startup + BURST.active) { this.baitUntil = 0; return false; }
+    if (!['idle', 'run', 'guard', 'block', 'land'].includes(f.state)) return false;
+    this.keep.add('guard');
+    return true;
   }
 
   // ------------------------------------------------------------------ our own moves: routes and strings
@@ -430,6 +489,7 @@ export class MasterBrain {
       if (this.S.drop && Math.random() < this.S.drop) this.route.dropAt = 2 + Math.floor(Math.random() * 2);
     }
     if (this.route.dropAt && o.combo >= this.route.dropAt) return; // missed the link: the combo ends here
+    if (this.baitBurst()) return; // stop here and guard: they may burst
     if (!m.special && this.finisher(game, c, m, t)) return;
     switch (n) {
       case 'light1':
@@ -1018,6 +1078,8 @@ export class MasterBrain {
         return o.landLag > 6 ? { from: 0, to: o.landLag - o.t + lag } : null;
       case 'held':
         return { from: 0, to: o.heldT + lag };
+      case 'burst': // a burst that was blocked or whiffed: its recovery (ADR 0022)
+        return { from: Math.max(0, o.invuln), to: o.burstEnd - o.t + lag };
       case 'dodge': {
         const len = SPOT.len + (o.dodgeStale || 0) * SPOT.stale;
         return { from: Math.max(0, o.invuln), to: len - o.t + lag };

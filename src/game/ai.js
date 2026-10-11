@@ -28,10 +28,12 @@ export function makeBrain(fighter, level = 'normal', spectate = false) {
 // parry / spot / airDodge / wavedash: chances to use those techniques where they fit, and `slop` = frames its
 // parry timing can be off by (a wide error at Easy, so most of its parries fail and it gets hit)
 // beat: its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
+// techHold: chance per launch that it holds Guard to tech at the first gap (ADR 0022; `tech` stays the late tap);
+// burst: chance per combo (3+ hits, with the ki and the round's burst) that it bursts out
 const LEVELS = {
-  easy: { beat: { sd: 6.5, miss: 0.16 }, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
-  normal: { beat: { sd: 4.5, miss: 0.08 }, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
-  hard: { beat: { sd: 3, miss: 0.04 }, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
+  easy: { beat: { sd: 6.5, miss: 0.16 }, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, techHold: 0.05, burst: 0, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
+  normal: { beat: { sd: 4.5, miss: 0.08 }, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, techHold: 0.2, burst: 0.04, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
+  hard: { beat: { sd: 3, miss: 0.04 }, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, techHold: 0.45, burst: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
 };
 
 // The CPU presses virtual buttons on its own Pad, exactly like a player would.
@@ -92,6 +94,15 @@ export class CpuBrain {
 
       // --- air tech when juggled
       if (f.state === 'launched' && f.airStun <= 0 && f.pos.y > 0.4 && R() < L.tech) this.press('jump', 1);
+      // --- combo escape (ADR 0022): hold Guard through a launch (tech at the first gap, or roll on landing), and
+      // now and then burst out of a combo
+      if (f.state !== 'launched' && f.state !== 'hitstun') this.techHold = this.burstRoll = null;
+      else {
+        if (f.state === 'launched' && this.techHold == null) this.techHold = R() < L.techHold;
+        if (this.techHold) this.hold.guard = 2;
+        if (this.burstRoll == null && f.combo >= 3) this.burstRoll = R() < L.burst ? 3 + Math.floor(R() * 3) : 0; // at hit 3-5
+        if (this.burstRoll && f.combo >= this.burstRoll && f.canBurst()) { this.hold.guard = 3; this.press('special', 2); this.burstRoll = 0; }
+      }
       // --- throw break (ADR 0015): Light + Heavy once, at its reaction time, if the guard roll says so
       if (f.state === 'held' && f.grab && f.grab.t === Math.min(10, Math.max(4, L.react - 3)) && R() < L.guard * 0.6) { this.press('light'); this.press('heavy'); }
 
@@ -479,16 +490,28 @@ export class DummyBrain {
   update(game) {
     if (game.clash) return this.clashBrain.update(game);
     if (this.mode === 'cpu') return this.cpu.update(game);
-    const f = this.f, pad = f.pad;
+    const f = this.f, pad = f.pad, R = Math.random;
     pad.tick();
     this.t++;
-    pad.setMove(0, 0);
     const juggled = f.state === 'launched' && f.airStun <= 0;
+    // combo escape options (ADR 0022, game.dummyOpts): `tech` 'hold' holds Guard through every launch (tech at the
+    // first gap, roll on landing), 'random' half the launches with a random direction; `burst` bursts at hit 3
+    const O = game.dummyOpts ?? {};
+    if (f.state !== 'launched') this.techRoll = null;
+    else if (this.techRoll == null) {
+      this.techRoll = O.tech === 'hold' || (O.tech === 'random' && R() < 0.5);
+      this.techStick = O.tech === 'random' ? [[0, 0], [-1, 0], [1, 0], [0, 1], [0, -1]][Math.floor(R() * 5)] : [0, 0];
+    }
+    const holdTech = f.state === 'launched' && this.techRoll;
+    const burst = !!O.burst && f.combo >= 3 && f.canBurst();
+    const stick = holdTech ? this.techStick : [0, 0];
+    pad.setMove(stick[0] * towardSide(f), stick[1]);
+    pad.dashDir = null;
     pad.set('light', false);
     pad.set('heavy', false);
-    pad.set('special', false);
+    pad.set('special', burst);
     pad.set('dash', false);
-    pad.set('guard', this.mode === 'guard' && !juggled);
+    pad.set('guard', (this.mode === 'guard' && !juggled) || holdTech || burst);
     pad.set('jump', (this.mode === 'jump' && this.t % 70 < 3) || (juggled && this.mode !== 'stand' && this.t % 20 < 2));
   }
 }
