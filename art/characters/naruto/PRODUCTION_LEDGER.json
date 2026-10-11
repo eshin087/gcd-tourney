@@ -35,6 +35,14 @@
       "notes": "Manual crown350/chin438 f0;246/334 f1;342/430 f2 +/-7sourcepixels. Oneattempt. Canonical backDash lowest point remains baseline; engine movement supplies height. Candidate pose fidelity needs correction: f1 arms too guarded/tails rearward, f2 too close to f0."
     },
     {
+      "name": "backDash",
+      "version": 3,
+      "frames": 3,
+      "file": "art/characters/naruto/raw/backDash_v03.png",
+      "hold": false,
+      "notes": "Original round attempt2 of3. Targeted correction to push-off rear leg, backward airborne lean, open balancing arms and forward-flowing ties, distinct descending rear-foot landing. Inferred skull axes: f0 crown(300,289) to chin(315,376), f1 crown(686,260) to chin(728,337), f2 crown(1288,289) to chin(1303,376), about88 +/-8 sourcepx. Same anatomy, no per-pose normalization. Hair gate independent1.017 range.034. Ties cross beside face in f1; attachment stylization remains visual review, not a scale failure."
+    },
+    {
       "name": "beamCharge",
       "version": 6,
       "frames": 3,

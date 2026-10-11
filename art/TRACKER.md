@@ -550,7 +550,7 @@ All42 new sources attempted;32 packed candidates,10 technical holds. No new anim
 | airLight2 | v04 | v03 | old fallback: drift | Hold; correction required |
 | airLight3 | v04 | v02 | old fallback: pop | Hold; correction required |
 | airRecover | v03 | v03 | unmeasured | Manual scale verification required |
-| backDash | v02 | v02 | ok | Pose correction required |
+| backDash | v03 | v03 | ok | Candidate visual review |
 | beamCharge | v06 | v06 | exempt | Review transformed anatomy separately |
 | beamFire | v08 | v08 | exempt | Review transformed anatomy separately |
 | block | v04 | v04 | ok | Candidate visual review |

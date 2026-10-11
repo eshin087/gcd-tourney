@@ -18,7 +18,7 @@ Heads audit is current. Cast lineup shows Naruto candidate alongside legacy othe
 
 Do not approve the full set as technically finished. Eight unmeasured rotated/crouched/lying poses retain independent anatomical sidecars and visible contact sheets; these need explicit manual scale review. Four-tail beamCharge/beamFire use their transformed cranial dome, excluding tails and ears, and narrowly version-scoped absence-of-blond-hair exemptions. No general thresholds were lowered.
 
-backDash v02 passes the head gate but its guarded arms and recovery silhouette need pose correction. Finger seals, hand anatomy, contact reach and holster-leg continuity remain visual review points. light4 and specialForward failed after measured A/B restitches; a favorable average never replaces all-frame checks. airHeavy and special now show consistent final A/B scale after independent anatomical calibration.
+backDash v03 corrects push-off, opened balancing arms, backward lean and distinct landing using original attempt2 of3; full pack passes. The forward-flowing ties pass beside the face, a remaining stylization review point. Finger seals, hand anatomy, contact reach and holster-leg continuity remain visual review points. light4 and specialForward failed after measured A/B restitches; a favorable average never replaces all-frame checks. airHeavy and special now show consistent final A/B scale after independent anatomical calibration.
 
 The stitch tool's packed-palette and refinement ROI can measure clothing after clipping the head. Temporary sampled packed-idle palette is restored immediately; independently measured --factor values are documented in sidecars where needed. No tools changes. Prior source versions are immutable; restitches do not reset generator attempt caps.
 
@@ -31,7 +31,7 @@ The stitch tool's packed-palette and refinement ROI can measure clothing after c
 | airLight2 | v04 | v03 | old fallback: drift | Hold; correction required |
 | airLight3 | v04 | v02 | old fallback: pop | Hold; correction required |
 | airRecover | v03 | v03 | unmeasured | Manual scale verification required |
-| backDash | v02 | v02 | ok | Pose correction required |
+| backDash | v03 | v03 | ok | Candidate visual review |
 | beamCharge | v06 | v06 | exempt | Review transformed anatomy separately |
 | beamFire | v08 | v08 | exempt | Review transformed anatomy separately |
 | block | v04 | v04 | ok | Candidate visual review |
@@ -68,3 +68,20 @@ The stitch tool's packed-palette and refinement ROI can measure clothing after c
 | throw | v04 | v02 | old fallback: ok | Hold; correction required |
 | vanish | v02 | v02 | unmeasured | Manual scale verification required |
 | win | v04 | v04 | ok | Candidate visual review |
+
+## Original attempt-cap audit
+
+| Held source | Attempts used | Blocking evidence |
+|---|---|---|
+| light4 v03 | A3/B3 | Both parts capped; hair range/drift survives measured restitch |
+| heavy v08 | A3/B1 | Capped A f4 measures265px tall at anatomical target; cannot fit256 by translation |
+| airLight2 v04 | 3 | Hair scale drift after final pack |
+| airLight3 v04 | A2/B3 | Failing B capped; best B2 retained, B3 worsened hair |
+| hurtHigh v02 | 3 | Head/body drift |
+| charge v05 | 3 | Excessive hair/feet |
+| throw v04 | 3 total across versions | Scale/pose failure |
+| taunt v02 | 3 | Hair scale failure |
+| specialForward v03 | A3/B1 | Failing A capped; hair1.098 and upright lunge |
+| specialDown v03 | 3 | Hair1.163 and range.144, bowed head uncertainty |
+
+Unused attempts on a different passing part do not reset the failed part cap. No further attempts are assumed authorized. backDash has one unused original attempt; no clear further anatomy/pose failure remains after v03.
