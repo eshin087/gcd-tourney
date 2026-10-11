@@ -54,3 +54,13 @@ Record era, stature source/confidence and build in CHARACTER.md; create neutral 
 Formal updates to SPEC/ADRs and any renderer/reach/gameplay decisions remain Claude's. Candidate standingBodyPx values and existing anatomical sidecars suffice for art previews; shipping requires contact/hurtbox validation, especially smaller teens and tallerGojo. Do not tune gameplay to conceal art issues. No new asset is merge-ready without the user's final image decisions.
 
 Baseline artifacts: art/characters/<id>/reference/height_neutral_v01.png and fixed height_neutral.png. Measurement provenance: HEIGHT_STUDY_V01.md and public/art-review/cast-proportion-pilot/height_qa_v01.json. Approved gallery: public/art-review/cast-proportion-pilot/height_lineup_v01.png.
+
+## Full-batch QA lessons (2026-10-11)
+
+- Check the working idle against the approved neutral before using it to judge other strips. A stable head probe can still hide compressed torsos, shortened shins, or a wider build. Compare shoulder-to-hip length and hip-knee-ankle chains at the same anatomical scale; bent knees change occupied height, not bone lengths.
+- Record the packer commit and input paths. The idle must be measured using its own palette; whole-atlas palette changes can otherwise move the apparent reference between runs.
+- Inspect the pack report's selected source for every animation. Historical manually edited frame caches may supersede a new raw candidate; preserve the cache as evidence before intentionally importing the new strip.
+- A head-probe verdict of unmeasured is not a pass. Rotated heads, blindfolds, overlap and white effect arcs require independent anatomical landmarks and visual comparison. Document uncertainty and never use exemptions for real drift.
+- Check cell margins and the floor after anatomy calibration. A small measured position offset can fix pivot-related clipping without changing scale; a pose wider than the cell needs reposing, not a character-specific shrink.
+- Percentage requests to the generator are approximate. Re-measure the result; head-only corrections can overshoot dramatically. The three-attempt limit applies across version numbers, including saved corrections. Exhausted failures stay on technical hold.
+- Source completion, passing pack, visual QA, user approval, and integrated release are separate states. Report each honestly.
