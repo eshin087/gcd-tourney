@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): record user approval of all 19 latest core decal sets (99 variants), retain accepted QA deviations, archive superseded candidates, and generate approved-only output for coordinator integration.
+
 - Fixed: the core decal review reloads candidate image pages before each group selection, so returning to a previously viewed group works after the game releases its textures (ART-DEC-W4).
 
 - art(decals): add unapproved v02 crack_s, scuff, skid, burn_lightning_big and barrier_crack corrections; preserve source history, fresh-pack 99 variants, document remaining fringe, and bundle an independent review gallery/game harness without tracked public/preview output.
