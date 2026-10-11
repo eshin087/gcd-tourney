@@ -102,7 +102,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | backDash | 3 | - | no | 180 | approved | v04 | v01 | Title-style v04 passes isolated 48-color scratch pack and native anatomy review; historical v01 remains the old approval. |
 | 9 | superDash | 2 | - | no | 120 | approved | v03 | v01 | Title-style v03 passes isolated 48-color scratch pack with knees lowest; final review pending, historical v01 remains approved. |
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 179 | approved | v05 | v03 | Title-style v05 passes isolated strict 48-color scale after measured whole-pose correction; native five-phase kick/contact review pending. Historic v03 remains approved. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | block | 2 | - | no | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | hurtLow | 3 | - | no | 171 | approved | v03 | v01 | Title-style v03 passes isolated strict scratch pack after measured pose-height correction; historical v01 remains approved. |
@@ -115,8 +115,8 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | intro | 4 | - | no | 167 | approved | v05 | v01 | Title-style seal v05 passes isolated strict 48-color pack and 1px loop-crown check; historic v01 remains approved. |
 | 9 | taunt | 2 | - | no | 198 | approved | v06 | v01 | Title-style v06 head gate passes, but native sandal size remains large; manual anatomy hold. Historical v01 remains approved. |
 | 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v04 | v01 | Title-style v04 source A/B has 4+2 poses but stitcher refuses measured manual factor after head probe misses Part A; ASSEMBLY TOOL HOLD, no v04 strip/pack. Historic v01 remains approved. |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v02 | Title-style v04 feral activation has distinct poses/no aura; warning-mode native atlas has f0/f1 bowed-head ratios1.41/1.42 vs f2 1.14. Strict gate HOLD; no unverified new exemption. Historic v02 remains approved. |
 | 9 | superPose | 4 | - | no | 165 | approved | v05 | v03 | Title-style v05 clean transparent seal loop passes isolated strict 48-color pack; historic v03 remains approved. |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | New title-style portrait v02 candidate; fixed copy remains old approval. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v02 | New title-style cutin v03 candidate; source aspect narrower than target, side gutters likely. |
