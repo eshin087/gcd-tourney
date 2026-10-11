@@ -1,6 +1,6 @@
 # Naruto model_sheet v03 review evidence
 
-Generated with built-in imagegen; selected attempt 2 of 2. Original raw saved unchanged. Approved fixed files and all animation sources remain unchanged.
+Generated with built-in imagegen; selected attempt 2 of 3. Original raw saved unchanged. Approved fixed files and all animation sources remain unchanged.
 
 ## Manual anatomy check (source pixels, estimated landmarks)
 
@@ -17,3 +17,5 @@ Recommendation: request a correction before approval. The seven-head direction r
 Existing Naruto pack `node tools/pack-sprites.mjs naruto --quantize 48` completed 1/1 with four inherited warnings: ko margin, superPose baseline drift, down floor contact, ko floor contact. 17 existing strips remain scale-flagged; these await the post-idle redraw. No new animation created. Heads report produced. Ordinary npm build hit Windows realpath EPERM; production build passed via local sandbox adapter (77 modules). Browser connection to local review page timed out; source images and generated lineup were visually inspected directly.
 
 Lead visual check: visible magenta edge fringe remains around ties/legs in the candidate lineup. This is a raw-background/clean-preview defect, not a passed crisp-palette gate. Skeleton estimate above is measured from upright view1, independently of stance silhouette height210px.
+
+Final attempt3 requested400px skeleton,57px skull and flat48-color edges; it retained the oversized source layout and109276 RGBA colors. It did not resolve the technical failures, so it is not filed as another version. Candidate v03 remains the selected identity/layout reference.
