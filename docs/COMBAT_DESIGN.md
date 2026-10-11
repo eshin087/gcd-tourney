@@ -80,7 +80,7 @@ phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is befo
 | airLight1 | Light (air) | 4 | 4 | 9 | 17 | 24 | 1.4 / 1.0 | 7 | air pop 6.2 | chains to airLight2 from f7 |
 | airLight2 | Light (chain) | 4 | 4 | 10 | 18 | 26 | 1.45 / 1.0 | 7 | air pop 6.4 | chains to airLight3 from f8 |
 | airLight3 | Light (chain) | 6 | 4 | 14 | 24 | 40 | 1.55 / 1.05 | 11 | launch [12, 4.5] | knock-away, **wall bounce** |
-| airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce**, yTol 2.4, `boxPad` [0.5, 0.45] |
+| airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce** (budget: 2 per combo), yTol 2.4, `boxPad` [0.5, 0.45] |
 | throw | Special (air) | 8 | 3 | 14 | 25 | (projectile) | | | | costs 50 ki; spawns the projectile at f8 |
 | vanishKick | after Vanish | 2 | 5 | 20 | 27 | 75 | 1.7 / 1.15 | 16 | launch [17, 6.5] | uses the `light4` anim, wall bounce |
 | super dash | Dash (neutral) | | contact | | ≤ 42 | 38 | contact < 1.0 | 9 | stun 26, air pop 7 | homing at 18 u/s, projectile-invulnerable |
@@ -127,13 +127,22 @@ allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the
 
 ### Spike and ground bounce
 - `airHeavy` spikes downward ([3, -22]). A spiked victim that hits the floor **ground-bounces** back up
-  (vel.y 11, air stun 30) **once per combo**. A grounded victim of a spike gets popped up instead.
+  (vel.y 11). A grounded victim of a spike gets popped up instead.
 - Hard landings without a pending ground bounce do one small floor bounce (impact > 8 → 32% rebound).
 
 ### Wall bounce (ring ki barrier)
 - `wallBounce` moves (light4, airLight3, vanishKick, specials) mark the victim. When a launched victim hits the
-  barrier at ±8.55 faster than 5 u/s, it bounces back (55% speed, vel.y ≥ 7, air stun 32) **once per combo**,
-  with a barrier flash effect.
+  barrier at ±8.55 faster than 5 u/s, it bounces back (55% speed, vel.y ≥ 7) with a barrier flash effect. A victim
+  bounced back can be met and bounced into the same wall again: the **handball**.
+
+### Bounce budget (ADR 0026)
+All numbers in `JUGGLE` (`src/game/moves.js`). Each combo has at most **3 wall bounces** and **2 ground bounces**; a
+`wallBounce` / `groundBounce` hit only arms the victim while their combo has bounces of that kind left (`wbCount`,
+`gbCount` on the fighter, reset on a fresh combo, an air tech, a tech roll or a burst). Each bounce's air stun is flat
+(no hitstun decay) and shorter every time: wall 32, 28, 22 frames; ground 30, 24. The bounce hooks get the count
+(`Game.onWallBounce(f, axis, sign, n)`, `onGroundBounce(f, n)`), so the n-th bounce gets its own callout (WALL
+BOUNCE!, WALL BOUNCE ×2!, HANDBALL!; GROUND BOUNCE!). A wall bounce gives no super dash back. Before ADR 0026 the docs
+said "once per combo" while the code re-armed on every bounce hit (unlimited).
 
 ### Super dash
 - Dash with **no direction** (or Dash in the air): a homing flight at 18 u/s toward the opponent for up to 42
@@ -306,6 +315,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 
 ### Damage scaling, hitstun decay and the combo cap
 - Combo counter: hits while the victim is in `hitstun` or `launched` add to `combo`.
+- All of these numbers live in `JUGGLE` (`src/game/moves.js`), which the CPU combo composer reads too (ADR 0026).
 - **Damage scaling**: `dmg × max(minScale ?? 0.4, 1 − (combo−1) × 0.065) × power × modeDamage ÷ defense`
   (`modeDamage` is 1.15 in Godspeed).
 - **Hitstun decay**: `decay = max(0.35, 1 − (combo−1) × 0.045)` scales grounded hitstun and air stun.
@@ -334,8 +344,8 @@ Numbers in `DEFENSE.tech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `F
 - Grounded hit stun can't gap (it returns to idle and the combo restarts), and `held` victims (Domain, flurries,
   mauls, staggers) can't act, so their hits stay true.
 - Reference: the bread-and-butter route below is true. Juggle air stun is 10 f at hit 10, 5 f at 14 and 2 f at 20,
-  so air-chain extensions past about 12 hits turn blue unless they go through a bounce (fixed 30 / 32 f), a vanish
-  or a relaunch.
+  so air-chain extensions past about 12 hits turn blue unless they go through a bounce (flat: wall 32 / 28 / 22 f,
+  ground 30 / 24 f, the bounce budget), a vanish or a relaunch.
 
 ### Technique callouts (ADR 0022)
 Banners slide in at the screen edge of the fighter who did it, stacked newest on top (3 per side), in every match:

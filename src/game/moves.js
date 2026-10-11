@@ -7,7 +7,7 @@
 //  hitstun    frames a grounded victim is stunned;  push = knockback speed
 //  airPop     upward speed given to an airborne victim (keeps juggles alive)
 //  launch     [horizontal, vertical] speed -> knocks the victim into the air
-//  groundBounce / wallBounce  the victim bounces off the floor / ring barrier once per combo
+//  groundBounce / wallBounce  the victim bounces off the floor / ring barrier (a per-combo budget: JUGGLE.ground / .wall)
 //  launcher   a jump or dash input after it connects chases the victim into the air
 //  next/cancel  chain into the next move from this frame on
 //  spark      'light' | 'heavy' | 'smash' impact effect size
@@ -47,8 +47,10 @@ export const VANISH = { cost: 100, hideFrames: 9 };
 //  pop        a juggle hit's airPop × max(floor, 1 − per·combo)
 //  scale      damage scaling: max(minScale ?? floor, 1 − per·(combo − 1))
 //  wall       ring-barrier bounce: a launched victim faster than `minSpeed` toward it comes back at `keep` × its speed and
-//             rises at least at `up`; `stun` = its air stun (flat, no decay)
-//  ground     ground bounce: rises at `up`, keeps `keep` of the horizontal speed, air stun `stun`
+//             rises at least at `up`. Budget: at most `max` per combo (a wallBounce hit arms it only while bounces are
+//             left), the n-th with air stun `stun[n - 1]` (flat, no decay; shorter each time), so the same-wall
+//             "handball" is a real, limited route
+//  ground     ground bounce: rises at `up`, keeps `keep` of the horizontal speed; `max` per combo, air stun `stun[n - 1]`
 //  floor      a hard landing (impact > `impact`) bounces once at `keep` × the impact and `slide` of the horizontal speed
 export const JUGGLE = {
   cap: 22,
@@ -58,8 +60,8 @@ export const JUGGLE = {
   gravity: { base: 0.6, per: 0.035, max: 1.35 },
   pop: { per: 0.03, floor: 0.5 },
   scale: { per: 0.065, floor: 0.4 },
-  wall: { minSpeed: 5, keep: 0.55, up: 7, stun: 32 },
-  ground: { up: 11, keep: 0.35, stun: 30 },
+  wall: { max: 3, minSpeed: 5, keep: 0.55, up: 7, stun: [32, 28, 22] },
+  ground: { max: 2, up: 11, keep: 0.35, stun: [30, 24] },
   floor: { impact: 8, keep: 0.32, slide: 0.5 },
 };
 

@@ -80,6 +80,7 @@ export class Fighter {
     this.hurtAlt = false;
     this.gb = false; // ground bounce pending
     this.wb = false; // wall bounce pending
+    this.gbCount = this.wbCount = 0; // bounces this combo (the JUGGLE budget)
     this.chase = 0;
     this.airDashes = 0;
     this.forceTech = false;
@@ -415,6 +416,7 @@ export class Fighter {
     this.comboBlue = false;
     this.gapF = 0;
     this.gb = this.wb = false;
+    this.gbCount = this.wbCount = 0;
     this.forceTech = false;
   }
 
@@ -1304,9 +1306,10 @@ export class Fighter {
           this.vel.y = G.up;
           this.vel.x *= G.keep; this.vel.z *= G.keep;
           this.air = true;
-          this.airStun = G.stun;
+          this.airStun = G.stun[Math.min(this.gbCount, G.stun.length - 1)]; // less each time (the bounce budget)
+          this.gbCount++;
           this.bigLaunch = true;
-          this.game.onGroundBounce(this);
+          this.game.onGroundBounce(this, this.gbCount);
         } else if (impact > JUGGLE.floor.impact && !this.bounced) {
           this.bounced = true;
           this.vel.y = impact * JUGGLE.floor.keep;
@@ -1391,9 +1394,10 @@ export class Fighter {
           this.wb = false;
           this.vel[k] = -this.vel[k] * W.keep;
           this.vel.y = Math.max(this.vel.y, W.up);
-          this.airStun = W.stun;
+          this.airStun = W.stun[Math.min(this.wbCount, W.stun.length - 1)];
+          this.wbCount++;
           this.bigLaunch = true;
-          this.game.onWallBounce(this, k, s);
+          this.game.onWallBounce(this, k, s, this.wbCount);
         } else if (this.state === 'launched' || this.state === 'down') this.vel[k] *= -0.25;
         else this.vel[k] = 0;
       }
@@ -1510,7 +1514,7 @@ export class Fighter {
     this.airDodged = false; // getting hit gives the air dodge back (for after the tech)
     this.dodgeDir = null;
     if (this.grab) { this.grab = null; this.heldT = 0; } // knocked out of a throw's grip
-    if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; }
+    if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; this.gbCount = this.wbCount = 0; }
     const J = JUGGLE;
     const scale = Math.max(m.minScale ?? J.scale.floor, 1 - (this.combo - 1) * J.scale.per); // supers keep a higher floor
     const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
@@ -1537,8 +1541,9 @@ export class Fighter {
     }
     // hitstun decay: long combos give the victim less stun, more gravity and an earlier tech
     const decay = Math.max(J.decay.floor, 1 - (this.combo - 1) * J.decay.per);
-    if (m.groundBounce) this.gb = true;
-    if (m.wallBounce) this.wb = true;
+    // the bounce budget (ADR 0026): a bounce hit arms one only while this combo has bounces left
+    if (m.groundBounce && this.gbCount < J.ground.max) this.gb = true;
+    if (m.wallBounce && this.wbCount < J.wall.max) this.wb = true;
     const inAir = this.air || this.pos.y > 0.05;
     if (m.launch || this.ko) {
       const finisher = m.big || m.special || m.beam;
