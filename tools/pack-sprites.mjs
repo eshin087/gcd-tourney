@@ -66,6 +66,15 @@ const DEFAULT_MS = {
 // Attacks whose damage comes from something else (projectile): no melee hitbox.
 const NO_HITBOX = new Set(['throw']);
 
+// Lying frames (ADR 0020). `footprint`: frames whose x span goes into anims.json, so the engine lays the contact shadow
+// along the whole body. `check`: the resting frames of the ground check. Every frame's lowest pixel already sits on the
+// floor line, so the check asks whether the BODY rests on it (head, back, hips and legs), which a pose drawn from above
+// fails: one hand touches and the head end hangs in the air. down[0] (the bounce) and getup[1+] may leave the floor.
+const LYING = { ko: { footprint: 'all', check: 'all' }, down: { footprint: 'all', check: 'last' }, getup: { footprint: 'first', check: 'first' } };
+// Ground check thresholds in spec v2 px at a 200 px standing body (scaled with the character's standingBodyPx). Tuned on
+// the shipped art: every top-down ko / down[1] fails (9-34% contact, a fifth 13-36 px up), every getup[0] passes.
+const GROUND = { contactPx: 6, minContact: 0.4, maxGap: 12, segments: 5, tallFactor: 1.15 };
+
 // Used only if src/art/animGuide.js cannot be imported or parsed.
 const FALLBACK_GUIDE = {
   idle: { frames: 8, loop: true }, run: { frames: 8, loop: true }, dash: { frames: 2, loop: true }, backDash: { frames: 3 },
@@ -1322,6 +1331,63 @@ function hurtBox(cell) {
   return [b.x0 + ix, b.y0 + it, Math.max(2, b.w - 2 * ix), Math.max(2, b.h - it)];
 }
 
+// How a lying body meets the floor line (pivot y). Per column: the gap between its lowest opaque pixel and the floor.
+// contact = share of body columns within contactPx; gaps = the smallest gap in each equal segment of the body's length
+// (a segment that never comes near the floor is a hovering head or feet end); h = trimmed height.
+function groundContact(cell, floorY, G) {
+  const b = bbox(cell);
+  if (!b) return null;
+  const gaps = new Array(G.segments).fill(Infinity);
+  let cols = 0, near = 0;
+  for (let x = b.x0; x <= b.x1; x++) {
+    let low = -1;
+    for (let y = b.y1; y >= b.y0; y--) if (cell.data[(y * cell.w + x) * 4 + 3] >= 128) { low = y; break; }
+    if (low < 0) continue;
+    const gap = Math.max(0, floorY - low);
+    cols++;
+    if (gap <= G.contactPx) near++;
+    const s = Math.min(G.segments - 1, Math.floor(((x - b.x0) * G.segments) / b.w));
+    gaps[s] = Math.min(gaps[s], gap);
+  }
+  const seen = gaps.filter(Number.isFinite);
+  return { x0: b.x0, x1: b.x1, contact: cols ? near / cols : 0, gaps: gaps.map((g) => (Number.isFinite(g) ? g : null)), worst: seen.length ? Math.max(...seen) : 0, h: b.h };
+}
+
+// Lying frames (LYING): warn when a resting frame floats above the floor line (warn only: the game still needs a ko and
+// a down) and return the footprint map { "<sheet frame>": [x0, x1] } (inclusive cell px). R.ground gets the measurements.
+function groundCheck(anims, meta, spec, standingBodyPx, warn, R) {
+  const k = standingBodyPx / SPEC_DEFAULTS.standingBodyPx;
+  const G = { ...GROUND, contactPx: Math.max(1, Math.round(GROUND.contactPx * k)), maxGap: Math.max(1, Math.round(GROUND.maxGap * k)) };
+  const floorY = spec.pivot[1];
+  const pick = (rule, n) => (rule === 'all' ? [...Array(n).keys()] : rule === 'last' ? [n - 1] : rule === 'first' ? [0] : []);
+  const footprint = {};
+  for (const a of anims) {
+    const rule = LYING[a.def.name];
+    if (!rule) continue;
+    const frames = meta.animations[a.def.name].frames;
+    const fp = new Set(pick(rule.footprint, a.cells.length)), checked = new Set(pick(rule.check, a.cells.length));
+    const bad = [];
+    a.cells.forEach((cell, i) => {
+      if (!fp.has(i) && !checked.has(i)) return;
+      const g = groundContact(cell, floorY, G);
+      if (!g) return;
+      if (fp.has(i)) footprint[String(frames[i])] = [g.x0, g.x1];
+      if (!checked.has(i)) return;
+      const tallMax = Math.round(a.bodyHeight * G.tallFactor);
+      const why = [];
+      if (g.contact < G.minContact || g.worst > G.maxGap) why.push(`${Math.round(g.contact * 100)}% of the body within ${G.contactPx}px of y ${floorY}, worst fifth ${g.worst}px above it`);
+      if (g.h > tallMax) why.push(`${g.h}px tall > ${a.bodyHeight}x${G.tallFactor}`);
+      R.ground[a.def.name] = R.ground[a.def.name] || [];
+      R.ground[a.def.name].push({ frame: i, contact: +g.contact.toFixed(2), gaps: g.gaps, worst: g.worst, h: g.h, ok: !why.length });
+      if (why.length) bad.push(`#${i}: ${why.join(', ')}`);
+    });
+    // an approved version that predates the rule still warns (the art is wrong), but says what to do about it
+    const known = a.def.approvedVersion != null && a.version === a.def.approvedVersion ? `; v${String(a.version).padStart(2, '0')} is the approved version: queue a side-on redraw` : '';
+    if (bad.length) warn(`${a.def.name}: ${bad.length} lying frame(s) float above the floor line (${bad.join('; ')}) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y ${floorY} (art/SPEC.md "Lying poses", ADR 0020)${known}`);
+  }
+  return footprint;
+}
+
 // The striking part: the 8-connected blob containing (sx, sy) inside a region, plus any other blob
 // of the region within `near` px of it (a smear or spark drawn just in front of the fist).
 function strikeBox(img, sx, sy, x0, y0, x1, y1, near = 6) {
@@ -1553,7 +1619,7 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
 }
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [] };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -1745,6 +1811,9 @@ function packCharacter(id, env) {
   const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
   if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
+  // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
+  const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
+  if (Object.keys(footprint).length) meta.footprint = footprint;
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;
