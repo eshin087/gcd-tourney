@@ -46,7 +46,8 @@ src/game/
                             pull) and Beam (ultimate) with HDR shader
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames)
-  camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory; shake, zoom punch
+  camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
+                            zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
@@ -123,8 +124,8 @@ freeze while the rest of the world keeps going. Projectile and beam hits don't f
 ```
 fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms (hit flash
                             pop/lift/rim from hitFlash.js, charge tint, dodge shimmer, super flash)
-cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch
-fighters.sync again         (uses the camera's new right vector), ghost trails fade
+cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch, spriteRefDepth
+fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
 beams.sync, fx.update       VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
 arena.setDim / update       super-flash dimming, crowd excitement
 hud.update                  bars, timer, combo counter
@@ -137,6 +138,12 @@ renderer.render             low-res render -> bloom -> grade -> nearest upscale
 -> roundEnd -> (nextRound | matchEnd -> results)`, plus `draw` and `training`. Best of 3 rounds
 (`ROUNDS_TO_WIN = 2`), 99 s each. `Game.state` and `Game.stateT` hold the current state and how long
 it has run.
+
+Round wins use the orbiting `victory` shot. `matchEnd` cuts to the `results` hero shot instead: the loser's
+actor is hidden (only the winner, DBFZ-style; cleanupMatch disposes it, so a rematch brings it back), the winner
+is pinned facing screen-right, and the camera only sways, so the billboard never mirrors. `Menus.results` is a
+slim side panel (a bottom bar below 3:4), and `Game.render` shifts the projection by `Menus.resultsCover()` the
+same way it does for the training panel, so the whole winner stands in the free space.
 
 ## Coordinates and units
 
@@ -187,6 +194,22 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
   bleeds in from the next cell), then the `flash` mix toward `flashColor` and the ghost `silhouette`. Lift and rim
   are 0 outside a hit, so those branches are skipped; `src/game/hitFlash.js` drives them per hit tier.
+- **Depth-normalized size** (ENG-067, ADR 0021): a billboard's on-screen size goes with 1 / view depth, so under
+  true perspective the fighter nearer the camera drew 9-23% bigger whenever the two stood apart in depth (the
+  fight camera's yaw is clamped to ±0.42 rad, CPU lane steps) or one was in the air. In the `fight` and `clash`
+  camera modes `CameraDirector.spriteRefDepth` is the view depth midway between the two fighters' feet (eased, so
+  a vanish changes both sizes gently instead of popping the other fighter), and `SpriteActor.syncDepth` scales the
+  actor root by `(depth / spriteRefDepth) ^ SPRITE_DEPTH_COMP`, clamped to `SPRITE_DEPTH_CLAMP` (constants.js: 1 and
+  [0.82, 1.22]). Both use the same reference, so both fighters always draw at one size; fighters level in depth keep
+  scale 1. The root scales about the feet pivot and carries the mesh, shadow caster and box-viewer lines; the blob
+  shadow and ghost trails use the same `depthK`. Close-up modes (focus, ko, victory) set `spriteRefDepth` to null
+  and a blend weight takes `depthK` back to 1 over about half a second, with the camera move. It is **visual only**:
+  `SheetAsset.boxes()` and the hand anchors are never scaled, so the simulation stays camera-independent
+  (projectiles and beams start at the unscaled hand anchor: about 0.1 units off the drawn palm in a typical depth
+  gap, up to 0.25 at the clamp ends). Held VFX that only draw are scaled instead: `Effects.handTick` (Rasengan,
+  Rasenshuriken, Chidori) multiplies its offset from the feet and its size by the actor's `depthK`, so the orb stays
+  on the drawn palm. New on-body VFX at fixed body offsets should do the same with `f.actor.depthK`, unless their
+  position feeds the simulation. `?depthscale=0` shows true perspective for comparison.
 - World size stays the same across art sources. The chibi placeholder (112 px cells, PPU 44) and spec v2
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
@@ -244,7 +267,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 The HUD and menus are **DOM** (`#ui`) over the WebGL canvas (`#app`), styled in `src/style.css`. Menus use a
 tiny `el()` helper and a generic `list()` with keyboard/gamepad navigation (`Menus.handle(events)`).
 The menus never touch game state directly. They call `Game` methods (`startMatch`, `startTraining`,
-`pause`, `quitToTitle`).
+`pause`, `quitToTitle`). Every way back from a match to the menus (`exitTraining`, `quitToTitle`, results →
+CHARACTER SELECT) goes through `Game.toMenu(open)`: it tears the match down, hides the old screen, then opens the next
+one, falling back to the title (with a `[menus]` console error) if that throws. The SELECT MODE rows live in one
+`MODES` table in `menus.js`, which `modeIndex()` reads too, so a screen returns to the right row.
 
 ## Audio
 

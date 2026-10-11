@@ -1397,7 +1397,8 @@ export class Fighter {
     this.renderPos = this.renderPos || new THREE.Vector3();
     this.renderPos.set(x, y, z);
     this.actor.place(x, y, z);
-    this.actor.sync(camera, this.face.x, this.face.y, camRight);
+    const cam = this.game.cam; // depth-normalized sprite size, keyed on the camera clock (SpriteActor.syncDepth)
+    this.actor.sync(camera, this.face.x, this.face.y, camRight, cam?.spriteRefDepth, cam?.time ?? time);
     const u = this.actor.mat.uniforms;
     let flash = hitFlashUniforms(this, u, time);
     if (this.state === 'charge' || this.state === 'beamCharge') {

@@ -21,6 +21,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
 | `&flash=pop\|tint\|rim\|classic\|off` | the victim's hit flash style (default `pop`; `classic` = the old solid white), also on `/lab.html`; with `&debug`, `window.HIT_FLASH` tunes it live |
+| `&depthscale=0` | true perspective for fighter sprites (turns off the depth-normalized size, ENG-067); `0.5` = half strength |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 | `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
@@ -79,7 +80,14 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] The page loads, and the console shows only `[sprites] ...` info lines. **No errors.**
 - [ ] Title → mode select → char select → match starts. The intro flythrough can be skipped with Enter.
 - [ ] One full round plays to a KO. Round announcements, the win pose and the results screen work.
+- [ ] Results screen: the match ends on a cut to the winner alone (the loser and its shadow are gone), whole and
+      undimmed, facing screen-right, left of a slim panel (WINNER · P1/CPU/P2 tag, name, subtitle, REMATCH /
+      CHARACTER SELECT / TITLE); no second, smaller winner sprite; the winner never mirrors while the camera
+      sways. A window narrower than 3:4 gets a bottom bar with the winner above it. Rematch, character select
+      and title bring both fighters back with no leftover framing shift.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
+- [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
+      any character select returns to SELECT MODE on that mode.
 - [ ] `npm run build` passes.
 
 ## Feature checklists
@@ -137,6 +145,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       placeholder still looks chibi; that's expected until ENG-016.
 - [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
       chunky mode back for comparison.
+- [ ] Depth-normalized size (ENG-067): with `?debug`, `freezeCpu()`, `const [p1, p2] = game.fighters`, put the
+      fighters on a 45° diagonal (`p1.teleport(-1.41, 0, 1.41); p2.teleport(1.41, 0, -1.41); step(150)`) or lined
+      up in depth (`teleport(0, 0, ±1.5)`). Both stand the same height on screen (a screenshot), and
+      `game.fighters.map((f) => f.actor.depthK)` splits around 1 (about 0.95/1.05 on the diagonal, 0.90/1.10 lined
+      up; clamp 0.82..1.22). With `&depthscale=0` the nearer fighter is 11-23% bigger. Fighters level in depth keep
+      depthK 1 (no change from true perspective). A teleport of one fighter changes both sizes together, never one
+      alone. Ghost trails and the `?boxes` outlines match the scaled body, and a held Rasengan or Chidori sits on the
+      drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
+      depthK back to 1 over about half a second (no pop); ko and victory too.
 
 ### Mobile (landscape touch)
 
@@ -150,6 +167,8 @@ or add `?touch=1` on desktop to force the touch UI (`?touch=0` hides it).
 - [ ] Joystick moves (double flick dashes); every button acts; sliding a finger between buttons switches them;
       ULT fires the ultimate with 3 bars, VANISH with 1; both dim without enough ki.
 - [ ] The fight stays framed left of / above the button cluster. Pause button pauses; BACK resumes.
+- [ ] Results (740 x 360): panel on the right, the whole winner on the left, no touch buttons, no BACK button;
+      tapping REMATCH / CHARACTER SELECT / TITLE works.
 - [ ] Training: the panel starts collapsed; the TOUCH tab lists the controls and changes the button size.
 - [ ] Desktop is unchanged: keyboard hint bar, no touch UI, no rotate screen.
 
