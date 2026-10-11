@@ -191,7 +191,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 7 | charge | 4 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v03 | Whirlwind v05 raised heels, needs visual review; v04 history retained. Same approvedVersion. |
+| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 8 | dash | 2 | - | **yes** | 146 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |

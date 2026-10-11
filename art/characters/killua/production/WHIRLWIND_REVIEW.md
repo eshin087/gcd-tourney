@@ -1,5 +1,7 @@
 # Killua Whirlwind — beamCharge v05
 
+> Approval recorded2026-10-10: User approved all presented art on2026-10-10, including documented QA caveats; accepted art direction does not imply those technical deviations were repaired. Previous candidate-status language below is retained as production history.
+
 2026-10-10. Optional ART-KIL-WW handled after Naruto's Four-Tails candidate batch. Transferred into real worktree `art/killua-whirlwind`. User requested routine autonomous delivery; new art remains unapproved.
 
 Identity: approved silver-white hair, blue assassin eyes, purple/navy clothes, slim child build retained. No lightning or aura in source sprites.

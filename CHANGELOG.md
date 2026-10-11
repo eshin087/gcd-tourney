@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user approval of Killua Whirlwind beamCharge v05; archive superseded pending v04 with documented QA caveats accepted. Artwork unchanged; ready for integration.
+
 - Art (ART-KIL-WW): Whirlwind beamCharge v05 raised-heel ready stance, preserved v04 history, anatomy sidecars, cast lineup and hosted review gallery. All art remains unapproved; beamFire sources, frames and metadata unchanged.
 
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
