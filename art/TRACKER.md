@@ -4296,4 +4296,4 @@ Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 so
 
 Sasuke 2026-10-11: user explicitly approved charge v09 and special v10; approvals applied and older pending sources archived. specialForward correction round3 authorized (up to3 calls); getup v04 remains Claude-owned manual QA.
 
-Sasuke final correction checkpoint: full strict pack PASS (1ref/30ok/8manual/3exempt). Claude f483fd1 supplies getup04 manual QA and SF06 calibration/f6 collar exception. User review remains getup04 + specialForward06; latest attempted SF09 rejected.
+Sasuke final APPROVED checkpoint: full strict pack PASS (1ref/30ok/8manual/3exempt). Claude f483fd1 supplies getup04 manual QA and SF06 calibration/f6 collar exception. User explicitly approved getup04 + specialForward06 on2026-10-11; Claude applied approvedVersion4/6 in048f703. Latest attempted SF09 remains rejected. Ready for Claude integration; no production deployment by worker.

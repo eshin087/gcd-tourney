@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): verify final specialForward v06/getup v04 user approvals and passing strict atlas; hand off integration to Claude.
+
 - art(sasuke): record charge v09/special v10 approvals; retain Claude-calibrated specialForward v06 and getup v04 for review with a passing strict atlas.
 
 - Sasuke second correction round: record approved superDashv04; chargev09 and specialv10 pass scale checks. Strongest specialForwardv06 retained with explicit hold, getupv04 unchanged for Claude manualQA.
