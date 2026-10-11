@@ -184,21 +184,29 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 ## Safe boundaries for code changes
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
-  Run `npm run pr -- start feature/<name>` (add `--art <id>` for art work, e.g. `feature/char-<id> --art <id>`) from
-  the main folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
-  **Disk budget:** `--art <id>[,<id>]` checks out only that character's (or art kind's, e.g. `vfx`) raw art, so a
-  worktree is about 0.5 GB; `--full` copies the whole ~2 GB art library and is a last resort. Never copy the project
-  folder instead of making a worktree (seven hand copies once filled 15 GB); if `git worktree` fails, stop and report.
-  Reuse one worktree for every version (v02, v03...) of the same task, and hand back its path when done so the
-  coordinator removes it (`npm run pr -- merge` does, and `npm run pr -- prune` clears merged leftovers).
+  Run `npm run pr -- start feature/<name>` (with `--art <id>` for art work, never `--full`) from the main
+  folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
   When it's done, `npm run pr -- open` and `npm run pr -- preview` there (a Vercel preview link for the user's phone,
   ADR 0018), and `npm run pr -- merge <branch>` from the main folder (never the
   GitHub merge button). Commits straight to `main` are allowed only for docs-only edits, bookkeeping and art
   approvals for a character that already ships. A new character's art goes in batch PRs (`art/<id>-refs`,
   `art/<id>-core`, `art/<id>-full`), each started from `main` after the previous one merged
-  ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)). Your app's own worktree is fine
-  if it is on a named branch and you open the PR with `npm run pr -- open` from it. Base PRs on `main`, never on
+  ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)). Reuse the task's existing real
+  worktree and open the PR with `npm run pr -- open` from it. Base PRs on `main`, never on
   another PR's branch unless you say so in the PR body.
+- **Worktree storage rules (user direction, 2026-10-10).** These supersede older `--full` examples and
+  copy-based sandbox instructions elsewhere in the project. The docs-only/main exceptions above still apply.
+  1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
+     `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
+  2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
+     needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
+     creation fails in the sandbox, stop and tell the user; never fall back to copying.
+  3. Never use `--full` for art tasks. Start with `npm run pr -- start <branch> --art <id>[,<id>]` (a character id or an
+     art kind like `vfx`), which checks out only that art, raw files included (~0.5 GB vs ~2 GB). A plain
+     `git sparse-checkout add art/characters/<id>` does not bring back its `raw/`.
+  4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
+  5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
+     must finish cleanup of merged task worktrees; do not leave them behind.
 - **The main folder is merge-only.** Never leave uncommitted work there (git can't merge over it); docs-only and
   bookkeeping commits there go in right away. `docs/NOW.md` and `docs/agents/CODEX_INBOX.md` are edited only on
   `main`, never in a branch. Read the moveset from `art/characters/<id>/KIT.md`; ask Claude to change a move there

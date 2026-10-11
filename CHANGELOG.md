@@ -12,6 +12,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Changed: `npm run pr -- start --art <id>[,<id>]` checks out only that character's (or art kind's) raw art, about 0.5 GB per art worktree instead of 2.2 GB with `--full`; new `npm run pr -- prune` removes clean worktrees of merged branches. AGENTS.md forbids hand-made project copies (they had filled 15 GB).
+- Docs (OPS-007): require sparse real Git worktrees, prohibit project-copy fallbacks and art `--full`, reuse task worktrees across versions, and report merged worktrees and cleanup paths.
 
 - Art approval: user approved all current candidates across PRs #24–30; retain Sasuke charge v02, promote Gojo model v06, and hand off sequential integration to Claude. No production deployment in this approval pass.
 
