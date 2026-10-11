@@ -385,7 +385,35 @@ distance-to-line test.
 | light | small spark, `hit` sfx, shake 0.14 |
 | heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 |
 | smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s |
-| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer |
+| special | explosion + ground damage in the move's style, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer |
+
+### Ground damage per force (ADR 0024)
+
+The floor answers how hard something hit it (`GROUND` in `src/game/ground.js`). Force comes from the fall speed of a
+landing (`(vy - 8) / 26`, +0.25 for a ground bounce, +0.35 for a KO), from the hit (spark weight, damage, special,
+super), from a dive slam (0.7, 0.9 when it caught someone) or a fixed value per event. A special, styled shot or
+smash on an **airborne** victim leaves its crater where they land (impact debt, 90 frames); on a grounded victim
+(specials and styled shots) at once.
+
+| Force | Mark | Size (units) | Extras | Typical source |
+|---|---|---|---|---|
+| < 0.15 | none | | | a soft landing |
+| 0.15 | `crack_s` hairline star | 1.4-2.2 | | a launcher's fall, the super jump, charge after 30 f |
+| 0.35 | `crack` web around a dent | 2.0-3.0 | | a hard fall, a fireball on the floor |
+| 0.55 | `crater` | 2.6-3.6 | rim chunks, dust ring | specials on a grounded victim, dive slams, maul slams |
+| 0.85 | `crater_big` | 3.8-5.2 | crack satellites, rubble, floor slabs | an air heavy spike's ground bounce, KO landings |
+| 1.15 | `crater_huge` (stays for the round) | 5.4-7.6 | fracture ring, crack satellites, smoke | clash wins and draws, Kirin, a maul that kept growing |
+
+The move's **style** (`ground` on the move, projectile or super, else the attacker's `ground.style` for specials;
+normals and throws are stone) draws over the crater or replaces it: chakra scorch, spiral scour (Rasengan),
+wind cuts (Rasenshuriken), claw furrows and a roar scorch fan (Four-Tails), lightning burns (Chidori, Narukami,
+Thunderbolt, Kirin's starburst), fire scorch (Great Fireball), black flame (Amaterasu, and under a burning victim),
+glass-like cursed fractures (Gojo), the implosion of Lapse: Blue, Reversal: Red's gouges and Hollow Purple's
+erasure trench. Hot seams glow in the move's color, then cool. Repeated slams in one spot within 4 s grow one
+crater. Wall bounces crack the ki barrier, KO crashes leave a hole in the stand wall (body-shaped when fast), off-ring
+KOs a dirt crater in the grass, and knockdown and KO slides a skid. Holding Special grows one crack under the fighter
+into a fracture, and the full gauge breaks the floor in the fighter's own pattern (`ground.charge`; Gojo's Infinity
+keeps it still). The ring is clean every round.
 
 ## CPU AI
 

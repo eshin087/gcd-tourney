@@ -275,6 +275,8 @@ Colors: white #FFFFFF arms and core, optional #E6E6E6 on the tapered arm ends. N
 
 ### crater: floor crater decal
 
+Superseded by the ground-damage decals (ADR 0024, `art/decals/`); no new versions needed.
+
 Save as: `art/vfx/raw/crater_vNN.png`
 
 ```text
@@ -298,6 +300,22 @@ Frame 2: empty center 34%; tips 66-95%.
 Frame 3: empty center 47%; tips 70-94%.
 Frame 4: empty center 59%; tips 77-94%, thin, a few spikes missing.
 Colors: solid white #FFFFFF only. No outline.
+```
+
+### dustWave: rolling dust wall
+
+Save as: `art/vfx/raw/dustWave_vNN.png`
+
+```text
+Effect: ROLLING DUST WALL. FULL COLOR. 6 frames. BOTTOM-ANCHORED (all frames sit on the same ground line, horizontally centered). SIDE VIEW. Plays in 0.36 s; a ring of these rolls out of a big crater.
+Shape: a low, wide wall of chunky cartoon dust puffs rolling outward and up, then breaking apart. Anime style, not realistic smoke. Wider and lower than a dust puff.
+Frame 1: a low band of 7-9 round puffs on the ground line, about 47% of the cell wide and 17% tall.
+Frame 2: about 55% wide, the middle rising (23% tall), puffs rolling.
+Frame 3: fullest, about 62% wide, 30% tall.
+Frame 4: about 67% wide, puffs separating, gaps in the middle.
+Frame 5: about 70% wide (the widest frame), 5-6 smaller puffs drifting up and out.
+Frame 6: 2-4 small puffs left at the ends, almost gone.
+Palette (warm sand): highlight #F3EADB, light #E4D2BB, mid #CDB9A2, shadow #B39A80, outline #9C8370. Light from above.
 ```
 
 ---

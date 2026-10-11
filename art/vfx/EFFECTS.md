@@ -49,8 +49,9 @@ line thicknesses come out as specified.
 | glow | 2 | 60 | 120 ms | loop / held | white + alpha steps | center | radius 52 | grows, fades, pulses |
 | streak | 6 | 45 | 270 ms | one-shot | white (tinted) | bottom | 8 wide x 100 tall | rises upward |
 | star | 5 | 40 | 200 ms | one-shot; frame 2 as static particle | white (tinted) | center | radius 26 | scale 0.18-1.2 |
-| crater | 3 | n/a | n/a | one random variant, static | full color, fully opaque | top-down decal | diameter 124 | random rotation on the floor |
+| crater | 3 | n/a | n/a | **no longer drawn** (ground damage has its own decals, ADR 0024; kept in the atlas) | full color, fully opaque | top-down decal | diameter 124 | none |
 | lines | 4 | 40 | 160 ms | one-shot | white (tinted) | center | radius 62 | random rotation, scale 0.7-1.5 |
+| dustWave | 6 | 60 | 360 ms | one-shot | full color | bottom | 90 wide x ~40 tall | random horizontal flip, scale 0.36-0.56, slides outward |
 
 ---
 
@@ -314,7 +315,10 @@ line thicknesses come out as specified.
 
 ## crater: floor crater decal
 
-- **In game:** a static decal laid flat on the arena floor after ground bounces, knockdowns, specials,
+- **Superseded (ADR 0024):** ground damage now uses its own decal atlas (`art/decals/`, `npm run sprites decals`:
+  cracks, craters in five sizes, element scorches, wall holes). The engine no longer draws this row; it stays in the
+  atlas only so the approved art is not lost. No new versions needed.
+- **In game (before):** a static decal laid flat on the arena floor after ground bounces, knockdowns, specials,
   ultimate hits and KOs (scale 0.85, randomly rotated, fades out after ~9 s). **One random frame is
   picked**: the 3 frames are 3 variants, not an animation.
 - **Look:** seen straight from above: a shallow bowl smashed into stone floor tiles: a darker broken rim,
@@ -349,6 +353,26 @@ line thicknesses come out as specified.
 | 01 | 22 px | 42-61 px | ~5 px |
 | 02 | 30 px | 45-60 px | ~4 px |
 | 03 | 38 px | 49-60 px | ~3 px, a few spikes missing |
+
+## dustWave: rolling dust wall (ground damage)
+
+- **In game:** big impacts (craters from force 0.55 up, ADR 0024) spawn a ring of 7-12 of these around the
+  crater, each sliding outward at 1.4-2.8 units/s at scale 0.36-0.56, random horizontal flip, opacity 0.9. Sits
+  on the floor (`Effects.dustRing`).
+- **Look:** side view: a low, wide wall of chunky cartoon dust rolling outward and up, then breaking apart. Anime
+  dust, not realistic smoke. Wider and lower than `dust`.
+- **Color:** full color, the `dust` palette: highlight #F3EADB, light #E4D2BB, mid #CDB9A2, shadow #B39A80,
+  darkest #9C8370. Light from above (highlights on the top of each puff).
+- **Anchor:** bottom: the lowest puffs sit on y = 120, centered on x = 64.
+
+| Frame | Description |
+|---|---|
+| 00 | A low band of 7-9 puffs, ~60 px wide, ~22 px tall, flat on the ground line. |
+| 01 | ~70 px wide, the middle rising (~30 px tall), puffs rolling. |
+| 02 | ~80 px wide, ~38 px tall, the fullest frame. |
+| 03 | ~86 px wide, puffs separating, gaps appear in the middle. |
+| 04 | ~90 px wide (the widest frame), 5-6 smaller puffs drifting up and out. |
+| 05 | 2-4 small puffs left at the ends, almost gone. |
 
 ---
 

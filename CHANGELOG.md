@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Ground damage that scales with power** (ENG-070, ADR 0024): the floor cracks, craters and scorches by how hard it was hit (five tiers, from a 1.5-unit hairline crack to a 7-unit crater with rubble, jutting floor slabs and a dust ring), in each move's own look (spiral scour, lightning burns that glow and cool, fire, black flame, wind cuts, claw furrows, cursed fractures, Hollow Purple's trench), grows one crater under repeated slams, lands where an airborne victim crashes, cracks the ki barrier on wall bounces, leaves dirt craters on the grass and a hole in the stand wall on KOs, and grows a fracture under a charging fighter; lit, clipped at the ring edge, holo in training, clean every round. Procedural decals until Codex's decal art is approved; `groundDemo()` / `groundTest()` under `?debug`, lab scenario "Ground damage".
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.

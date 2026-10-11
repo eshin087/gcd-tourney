@@ -35,6 +35,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `sleep(ms)`, `waitFight()` | async helpers. `waitFight` waits until the round is live. |
 | `freezeCpu()` | P2's CPU stops moving and pressing (a training dummy) |
 | `snap()` / `unsnap()` | copy the WebGL frame into a 2D canvas so screenshots of background tabs aren't blank |
+| `groundDemo(group = 'all')` | lay every ground-damage decal name × variant out on the ring (`'base'`, `'chakra'`, ... or one name), fully revealed with hot seams lit, for art review (ADR 0024) |
+| `groundTest(force = 0.7, style = 'stone')` | one impact in the middle of the ring; returns its tier, size, parts and `fx.ground.stats()` |
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
@@ -66,7 +68,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
+  wavedash, air combo, wall bounce, ground damage, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a
+  projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
   dummy, infinite meter, boxes, reset. ` hides the panel; the keyboard and touch controls still play YOU.
@@ -75,7 +78,7 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 
 ## Smoke test (every change)
 
-- [ ] The page loads, and the console shows only `[sprites] ...` info lines. **No errors.**
+- [ ] The page loads, and the console shows only info lines (`[sprites] ...`, and one `[decals] ...` line). **No errors.**
 - [ ] Title → mode select → char select → match starts. The intro flythrough can be skipped with Enter.
 - [ ] One full round plays to a KO. Round announcements, the win pose and the results screen work.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
@@ -111,6 +114,26 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       and `step(1)` while logging `f.state`, `f.kitState?.kind`, and the opponent's state and HP.
 - [ ] Air recover after launch. At 22+ hits the victim auto-techs.
 - [ ] KO by a big hit sends the loser out of the ring and into the stands.
+
+**Ground damage (ADR 0024; lab **Ground damage**, `groundDemo()`, `groundTest()`)**
+- [ ] Tiers: a launcher's fall cracks (crack_s / crack), an air heavy spike's ground bounce leaves a crater_big with
+      rim chunks and floor slabs, a soft hop leaves nothing. `groundTest(0.2 / 0.45 / 0.7 / 1.0 / 1.4)` gives the five
+      tiers, 1.4 to 7.6 units across; ten `groundTest(0.7)` never repeat a variant back to back and cover every rotation.
+- [ ] Styles: Rasengan scours a spiral, Chidori / Narukami / Thunderbolt leave lightning burns whose seams glow in the
+      move's color and cool in about a second, Great Fireball scorches, Kirin blasts a glassy pit with a starburst,
+      Amaterasu leaves black flame (and keeps marking under a burning victim), Lapse: Blue an implosion, Reversal: Red
+      gouges, Hollow Purple a continuous trench (clipped at the ring edge, a furrow in the grass, nothing floating).
+- [ ] Merge: the Four-Tails maul grows one claw crater over its slams; its roar fans a scorch toward the victim.
+- [ ] Impact debt: a special that hits an airborne victim makes its crater where they land, not under the hit.
+- [ ] Off-ring KO: a dirt crater in the grass at grass height; a KO into the stands leaves a hole in the brick wall
+      (body-shaped when fast) until the next round; knockdown and KO slides leave skids.
+- [ ] Wall bounce (lab **Wall bounce**): a barrier crack at the impact, flicker, dissolve and falling shards by ~2.8 s.
+- [ ] Charge: holding Special grows exactly one decal under the fighter (`game.fx.ground.decals.filter((d) => d.key ===
+      'charge0').length === 1`): crack_s, crack, fracture_ring, then the fighter's fracture at MAX POWER. Gojo's floor
+      stays clean.
+- [ ] Super flash: decals dim with the floor; a fighter standing on a crater keeps its sun shadow and blob shadow.
+- [ ] Expiry: a crack dissolves pixel by pixel (~0.6 s), never a pop. The ring is clean at every round start.
+- [ ] Training: cyan holo outlines, no chunks or slabs. Unlimited Void hides the arena's decals and brings them back.
 
 **Input and UI**
 - [ ] A gamepad doesn't steer until one of its buttons is pressed. Menus work with the D-pad, A and B.
@@ -279,6 +302,7 @@ window.rrStep = (budget) => {
 | Custom sheet size | ≤ 4096 × 4096 px (spec v2: 16 columns × 256 px = 4096 px wide; 42 animations = 175 frames = 11 rows = 2816 px tall). A GPU with a 2048 texture limit gets a downscaled sheet and a three.js warning. | packer report |
 | VFX atlas | ≤ 2048 × 2048 px | packer report |
 | Live effects | no unbounded growth in `game.fx.items`, ghosts or decals over a soak | check the array lengths before and after a soak |
+| Ground damage | ≤ 40 floor decal meshes, ≤ 8 permanent marks, ≤ 128 rim chunks, ≤ 20 slabs, ≤ 4 barrier cracks and 4 wall holes, ≤ 4 decal pages per match | `game.fx.ground.stats()` during a soak (track the maximum of each) |
 | Boot | menu interactive in < 3 s with 2 characters on a warm cache | stopwatch or Performance panel |
 
 When adding characters, remember the bake is per roster entry at boot. Past ~6 placeholder characters,
