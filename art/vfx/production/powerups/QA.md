@@ -13,3 +13,4 @@ Review: /art-review/vfx-powerups/index.html. Approvals: `approve vfx bubble v01`
 - Candidate-only atlas outputs under public/preview/vfx are explicitly committed so this preview can show the candidates; approvedVersion remains null, shipped public/vfx unchanged. Claude alone integrates after approval and removes the temporary candidate preview outputs when appropriate.
 
 Worktree: `.worktrees/art-vfx-powerups`. Branch: `art/vfx-powerups`. Port5216. No main/NOW/INBOX edits; no merge or production deployment.
+- Packed measurements: zero non-grayscale visible pixels in all 30 frames. Wisp/tail bottoms y120 every frame; tail height83-90px. Ripple diameters46/70/90/106/122px (brief40/60/80/100/122): early rings modestly oversized. Bubble initial dot5px (brief8); oval38x27 (brief38x30). Wisp final heights60/45px (brief56/40). These are documented candidate deviations, not probe exemptions.
