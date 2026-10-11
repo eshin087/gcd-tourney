@@ -1,3 +1,5 @@
+> User approval recorded 2026-10-10 for light2 v02, light3 v02, special v03. Earlier review wording below is historical; technical deviations remain and were accepted, not fixed. Art is ready for Claude integration; no merge performed. Charge v02 stays active.
+
 # Sasuke size-pops review
 
 Existing approved raster pixels are preserved byte-for-byte in new candidate versions. Per-frame source crown/chin coordinates now accompany the provisional calibration, inferred beneath hair with +/-6 source-pixel uncertainty. light2 upright pose heights change from 194–216 to 199–202px; light3 from188–211 to199–202px; special f0 from211 to193px while its crouched keys remain unchanged. Bounds are only a silhouette cross-check. Compare skull, torso and boot proportions in animation before approving.
