@@ -122,6 +122,9 @@ export function moveList(def) {
   add('Movement', 'Wavedash', `slide, act from f${DEFENSE.wavedash.act}`, [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 8 }], 4);
   add('Movement', 'Vanish (Guard + Special)', `${VANISH.cost / 100} bar · teleport behind`, [tap(0, ['guard', 'special'])], 3.5, VANISH.cost);
   add('Movement', 'Charge ki (hold Special)', '', [{ t: 0, btn: ['special'], len: 80 }], 4);
+  // the whole power-up from an empty gauge: bars at charge frames 69, 138 and 207 (MAX); the hold starts it at f12
+  add('Movement', 'Charge to MAX (hold Special)', 'from 0 ki, 230 frames', [{ t: 0, btn: ['special'], len: 242 }], 4);
+  rows[rows.length - 1].kiFrom = 0;
   add('Defense', 'Spot dodge (Guard + ↓)', `intangible f${DEFENSE.spotDodge.from}-${DEFENSE.spotDodge.to}`, [tap(0, 'guard', { stick: 'down' })]);
   add('Defense', 'Air dodge', `intangible f${DEFENSE.airDodge.from}-${DEFENSE.airDodge.to}`, [tap(0, 'jump'), tap(12, 'guard', { stick: 'away' })]);
 
@@ -190,6 +193,27 @@ export const SCENARIOS = [
     id: 'wavedash', name: 'Wavedash', info: 'Jump, then Guard with a direction at once: a ground slide.',
     setup: { gap: 5 }, a: [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 10 }], b: [],
   },
+  // combo escape (ADR 0022): the dummy's side is scripted, so these don't depend on the DUMMY TECH / BURST options
+  {
+    id: 'holdTech', name: 'Hold Guard to tech', info: 'You launch the dummy and stop; it holds Guard and techs on the first frame it can (TECH!). The stick picks the hop: away (default), toward, ↑ rise, ↓ drop.',
+    setup: { gap: 1.2 }, a: [tap(0, 'heavy')], b: [{ t: 24, btn: ['guard'], len: 90 }],
+  },
+  {
+    id: 'techRoll', name: 'Tech roll', info: 'Light ×4 knocks the dummy down; it holds Guard and rolls back to its feet instead of lying down (TECH ROLL!). Not after a hard knockdown (spike, throw, super finish).',
+    setup: { gap: 1.2 }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [{ t: 30, btn: ['guard'], len: 110 }],
+  },
+  {
+    id: 'blueCombo', name: 'Blue combo (a gap)', info: 'You launch, then super dash in late: the dummy could have teched in between (it never does here), so the counter turns blue. Compare with the air combo, which stays true.',
+    setup: { gap: 1.2 }, a: [tap(0, 'heavy'), tap(58, 'dash'), tap(80, 'light'), tap(92, 'light'), tap(104, 'heavy')], b: [],
+  },
+  {
+    id: 'burst', name: 'Burst', info: `The dummy bursts out of your light string (Guard + Special while hit, ${DEFENSE.burst.cost / 100} bars, once per round): BURST! blows you away.`,
+    setup: { gap: 1.2, kiB: DEFENSE.burst.cost }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [tap(30, ['guard', 'special'])],
+  },
+  {
+    id: 'burstBait', name: 'Burst bait', info: 'You jab once and hold Guard; the dummy bursts into your guard, and you super dash in to punish its long recovery (PUNISH!).',
+    setup: { gap: 1.2, kiB: DEFENSE.burst.cost }, a: [tap(0, 'light'), { t: 4, btn: ['guard'], len: 50 }, tap(64, 'dash'), tap(78, 'light'), tap(90, 'light'), tap(102, 'heavy')], b: [tap(26, ['guard', 'special'])],
+  },
   {
     id: 'airCombo', name: 'Air combo (launch, chase, spike)', info: 'Light × 3, Heavy launcher, jump to chase, air string, air heavy spike (ground bounce).',
     setup: { gap: 1.2 },
@@ -205,6 +229,10 @@ export const SCENARIOS = [
     setup: { gap: 3.2, kiA: 100 }, a: [tap(0, ['guard', 'special'])], b: [],
   },
   { id: 'superDash', name: 'Super dash', info: 'Dash with no direction: a homing flight that plows through projectiles.', setup: { gap: 7 }, a: [tap(0, 'dash')], b: [] },
+  {
+    id: 'counterHit', name: 'Counter hit (hit flash)', info: 'The dummy starts a heavy; your jab lands in its startup: a counter hit, which keeps a full-white pop. Compare the styles in Tools → HIT FLASH.',
+    setup: { gap: 1.2 }, a: [tap(3, 'light'), tap(15, 'light'), tap(27, 'light')], b: [tap(0, 'heavy')],
+  },
   {
     id: 'counter', name: 'Counter stance', info: 'Your counter special, and the dummy walks into it with a jab.',
     needs: ([a]) => (['down', 'back'].some((s) => specialFor(a, s)?.kind === 'counter') ? null : 'your fighter has no counter special'),

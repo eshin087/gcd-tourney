@@ -230,6 +230,95 @@ const PAINTERS = {
       ctx.fill();
     }
   },
+  // ---- power-up effects (ENG-069): stand-ins until the Codex art in art/vfx/EFFECTS.md is approved
+  // chakra bubble: a dot swells round, wobbles, pops into droplets
+  bubble(i, n, ctx) {
+    ctx.translate(32, 32);
+    const ell = (rx, ry, col) => { ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.fill(); };
+    if (i < 4) {
+      const r = [2.5, 5, 8, 9][i], rx = i === 3 ? 9.5 : r, ry = i === 3 ? 7.5 : r;
+      ell(rx, ry, '#ffffff');
+      if (r > 4) ell(rx - 2, ry - 2, '#e6e6e6');
+      if (r > 4) { ctx.fillStyle = '#ffffff'; ctx.fillRect(-rx * 0.5, -ry * 0.55, 2, 2); }
+      return;
+    }
+    const d = i === 4 ? 7 : 10, s = i === 4 ? 2 : 1;
+    ctx.fillStyle = '#ffffff';
+    for (let k = 0; k < 4; k++) {
+      const a = k * 1.7 + 0.4;
+      ctx.fillRect(Math.round(Math.cos(a) * d) - s, Math.round(Math.sin(a) * d * 0.8) - s, s * 2, s * 2);
+    }
+  },
+  // thin S-curved energy wisp licking upward; the tip detaches at the end (base on the bottom anchor)
+  wisp(i, n, ctx) {
+    const h = [14, 24, 32, 38, 35, 28, 20][i], sway = [0, 2, 3, 0, -3, -4, -5][i], w = 4.5 - i * 0.4;
+    ctx.fillStyle = '#ffffff';
+    for (let s = 0; s <= 1; s += 0.02) {
+      if (i >= 5 && s > 0.62 && s < 0.74) continue;
+      const x = 32 + Math.sin(s * Math.PI * 1.6) * 2.5 * s + sway * s * s, y = 60 - h * s;
+      const r = Math.max(0.7, w * (1 - s * 0.85));
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+  },
+  // ONE short electric arc between two points with a fork or two; frames are shown at random
+  arc(i, n, ctx) {
+    const R = rng(300 + i * 17);
+    ctx.translate(32, 32);
+    const a0 = R() * Math.PI, L = 10 + R() * 4;
+    const pts = [];
+    for (let k = 0; k <= 5; k++) {
+      const s = k / 5 - 0.5, j = k % 5 ? (R() - 0.5) * 8 : 0;
+      pts.push([Math.cos(a0) * L * 2 * s - Math.sin(a0) * j, Math.sin(a0) * L * 2 * s + Math.cos(a0) * j]);
+    }
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    pts.forEach(([x, y], k) => (k ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    for (let k = 0; k < 1 + (i % 2); k++) {
+      const [x, y] = pts[2 + k], a = a0 + (R() < 0.5 ? 1 : -1) * (0.6 + R() * 0.6);
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a) * 5, y + Math.sin(a) * 5); ctx.lineTo(x + Math.cos(a + 0.5) * 8, y + Math.sin(a + 0.5) * 8); ctx.stroke();
+    }
+  },
+  // a thin, perfectly round space ripple with a dashed inner echo, breaking into dashes as it grows
+  ripple(i, n, ctx) {
+    const t = i / (n - 1), r = 10 + t * 20;
+    ctx.translate(32, 32);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = [3, 2, 2, 1, 1][i];
+    if (i === n - 1) ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#c8c8c8';
+    ctx.setLineDash([2, 3]);
+    ctx.beginPath(); ctx.arc(0, 0, r - 4, 0, Math.PI * 2); ctx.stroke();
+  },
+  // Naruto's one-tail chakra: a thick boiling tail out of the base, sweeping back (to the left) and up, swaying
+  naruto_chakraTail(i, n, ctx) {
+    const sw = Math.sin((i / n) * Math.PI * 2) * 3;
+    const pt = (s) => {
+      // cubic from the base (32,60) up and back to the tip
+      const p0 = [32, 60], p1 = [21, 54], p2 = [7 + sw * 0.4, 42], p3 = [8 + sw, 17 + sw * 0.4];
+      const u = 1 - s;
+      return [0, 1].map((k) => u * u * u * p0[k] + 3 * u * u * s * p1[k] + 3 * u * s * s * p2[k] + s * s * s * p3[k]);
+    };
+    const dot = (x, y, r, col) => { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); };
+    for (const [col, grow] of [['#c8c8c8', 1.2], ['#ffffff', 0]]) {
+      for (let s = 0; s <= 1; s += 0.025) {
+        const [x, y] = pt(s);
+        dot(x, y, Math.max(1, 6.5 * (1 - s * 0.75)) + grow, col);
+      }
+    }
+    // bubbles boiling along the edge, drifting toward the tip frame by frame
+    for (let k = 0; k < 6; k++) {
+      const s = ((k / 6 + i / (n * 6)) % 1) * 0.85;
+      const [x, y] = pt(s), [x2, y2] = pt(Math.min(1, s + 0.02));
+      const nx = -(y2 - y), ny = x2 - x, l = Math.hypot(nx, ny) || 1, side = k % 2 ? 1 : -1;
+      const r = 6.5 * (1 - s * 0.75);
+      dot(x + (nx / l) * r * side, y + (ny / l) * r * side, Math.max(1, r * 0.45), '#e6e6e6');
+    }
+  },
   crater(i, n, ctx) {
     const R = rng(5 + i);
     ctx.translate(32, 32);
@@ -267,6 +356,12 @@ export const VFX_ANIMS = {
   star: { n: 5, ms: 40, levels: [0, 255] },
   crater: { n: 3, ms: 1000, levels: [0, 255] },
   lines: { n: 4, ms: 40, levels: [0, 255] },
+  // power-ups (ENG-069)
+  bubble: { n: 6, ms: 50, levels: [0, 255] },
+  wisp: { n: 7, ms: 55, levels: [0, 255] },
+  arc: { n: 6, ms: 40, levels: [0, 255] },
+  ripple: { n: 5, ms: 50, levels: [0, 255] },
+  naruto_chakraTail: { n: 6, ms: 60, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.

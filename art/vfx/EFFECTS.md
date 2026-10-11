@@ -51,6 +51,11 @@ line thicknesses come out as specified.
 | star | 5 | 40 | 200 ms | one-shot; frame 2 as static particle | white (tinted) | center | radius 26 | scale 0.18-1.2 |
 | crater | 3 | n/a | n/a | one random variant, static | full color, fully opaque | top-down decal | diameter 124 | random rotation on the floor; **superseded by the ground decals** (`art/decals/`) |
 | lines | 4 | 40 | 160 ms | one-shot | white (tinted) | center | radius 62 | random rotation, scale 0.7-1.5 |
+| bubble | 6 | 50 | 300 ms | one-shot | white (tinted) | center | diameter 38 | rises, scale 0.1-0.17 |
+| wisp | 7 | 55 | 385 ms | one-shot | white (tinted) | bottom | ~20 wide x 77 tall | rises, random flip, scale 0.22-0.42 |
+| arc | 6 | 40 | random | random frame each tick | white (tinted) | center | 58 across | random rotation, scale 0.14-0.3 |
+| ripple | 5 | 50 | 250 ms | one-shot | white (tinted) | center | diameter 122 | scale 0.9-1.6, drawn very faint |
+| naruto_chakraTail | 6 | 60 | 360 ms | loop / held | white (tinted) | bottom (base) | ~90 tall | held behind the hips, mirrored with the facing, sways |
 
 ---
 
@@ -76,8 +81,9 @@ line thicknesses come out as specified.
 
 ## burst: spiky impact star
 
-- **In game:** heavy and smash hits (behind the spark, warm-white/gold tint), the ki-bar-full flash while
-  charging (character color), the super dash start (character color). Random rotation.
+- **In game:** heavy and smash hits (behind the spark, warm-white/gold tint), the new-ki-bar beat while
+  charging (Naruto and the default style; drawn behind the body), the super dash start (character color).
+  Random rotation.
 - **Look:** a solid 10-spike starburst (comic "BAM" shape) with uneven spike lengths, which then gets
   hollowed out from the center so the last frames are a ring of spike tips flying outward.
 - **Color:** white (tinted). Solid white, optional #E6E6E6 band near the spike bases.
@@ -190,9 +196,10 @@ line thicknesses come out as specified.
 
 ## flame: aura flame tongue
 
-- **In game:** the charging / power-up ki aura. Many tongues spawn around and behind the fighter every
-  frame, each rising upward (1.3 units/s), tinted with the character color or the aura core color,
-  semi-transparent. Together they form the DBZ-style aura.
+- **In game:** the ultimate wind-up and mode auras (many tongues around and behind the fighter, rising at
+  1.3 units/s, tinted with the character color), the restrained default power-up of a fighter without a
+  `charge` style (at most 6 small tongues behind the body), and Sasuke's black tongues licking up from his back
+  while he charges (tinted near-black).
 - **Look:** a single sharp, pointed flame tongue (teardrop with a long whipping tip), base on the ground,
   that shoots up, peaks, and thins out while its tip sways. Hard shapes, like anime aura flames.
 - **Color:** white (tinted). White core, #E6E6E6 outer band (1-3 px), optional #C8C8C8 edge.
@@ -276,8 +283,8 @@ line thicknesses come out as specified.
 
 ## streak: aura light streak
 
-- **In game:** thin vertical streaks of light shooting up through the charging aura (aura core tint,
-  rising at 2.6 units/s). Mixed with the `flame` tongues.
+- **In game:** thin vertical streaks of light shooting up through the ultimate wind-up and mode auras (aura core
+  tint, rising at 2.6 units/s). Mixed with the `flame` tongues. (The power-ups no longer use it, ADR 0023.)
 - **Look:** a thin vertical beam of light that stretches up and collapses, with a brighter, wider
   segment in its lower-middle part.
 - **Color:** white (tinted). Line white, the wider segment white with #E6E6E6 sides.
@@ -356,6 +363,113 @@ line thicknesses come out as specified.
 | 01 | 22 px | 42-61 px | ~5 px |
 | 02 | 30 px | 45-60 px | ~4 px |
 | 03 | 38 px | 49-60 px | ~3 px, a few spikes missing |
+
+## Power-up effects (ENG-069, ADR 0023)
+
+The canon power-ups (`src/game/chargeFx.js`) put most of each fighter's power-up on the body: an engine-drawn
+outline (no art needed) plus a few small sprites from the effects below. All five are **WHITE-ONLY** like the rest
+of the tinted effects: the engine tints them per fighter at runtime (red-orange for Naruto, near-black and dark
+violet for Sasuke, pale blue for Gojo, blue-white for Killua), so **never draw them in color, and never use
+magenta, pink, purple or violet inside them** (the packer deletes near-magenta pixels). They are drawn small,
+translucent and behind the fighter, so a clean, simple silhouette matters more than detail. Until the user approves
+a version, the procedural stand-ins in `src/art/vfxPainter.js` ship.
+
+### bubble: chakra bubble
+
+- **In game:** Naruto's Nine-Tails chakra boiling up off his body while he charges (tinted red-orange, scale
+  0.1-0.17, rising slowly, some in front of the body), later the Four-Tails shroud.
+- **Look:** a round bubble of thick liquid chakra: a white rim, a slightly darker inside, a tiny highlight. It
+  forms from a dot, swells, wobbles, then pops into 3-4 droplets and is gone.
+- **Color:** white (tinted). Rim #FFFFFF (2 px), inside #E6E6E6, highlight #FFFFFF 2x2 px at the upper left.
+- **Anchor:** center (64, 64).
+
+| Frame | Description |
+|---|---|
+| 00 | A dot, ~8 px across. |
+| 01 | A small round bubble, ~18 px. |
+| 02 | Full bubble, ~32 px, rim and highlight. |
+| 03 | Wobbling: an oval ~38 x 30 px (the biggest frame). |
+| 04 | Popped: 4 droplets (4 x 4 px) in a ring of radius ~14 px. |
+| 05 | 4 tiny droplets (2 x 2 px) at radius ~20 px, about to vanish. |
+
+### wisp: rising energy wisp
+
+- **In game:** thin licks of energy rising off a charging fighter: Sasuke's dark curse-mark chakra (tinted
+  near-black and dark violet, from his back), Naruto's chakra off his head, Gojo's faint cursed energy (pale blue,
+  very low opacity). Scale 0.22-0.42, random horizontal flip.
+- **Look:** a thin, S-curved tongue of energy that licks upward from a narrow base, sways, and lets its tip go
+  at the end. Thinner and wavier than `flame`.
+- **Color:** white (tinted). White body, optional #E6E6E6 1 px edge on one side.
+- **Anchor:** bottom: base on y = 120, centered on x = 64.
+
+| Frame | Height | Base width | Tip |
+|---|---|---|---|
+| 00 | 28 px | 10 px | centered |
+| 01 | 48 px | 9 px | leans 4 px right |
+| 02 | 64 px | 8 px | leans 6 px right, S-curve |
+| 03 | 77 px (peak) | 7 px | centered, S-curve |
+| 04 | 70 px | 6 px | leans 6 px left |
+| 05 | 56 px | 5 px | leans 8 px left, the tip detached (a 3-4 px gap) |
+| 06 | 40 px | 4 px | a thin wisp, the detached tip drifting off |
+
+### arc: one short electric arc
+
+- **In game:** electricity running over a fighter's body: Killua's Transmutation crackle (blue-white) and
+  Sasuke's Chidori current (white). Shown in **random frame order with a random rotation**, for 3-5 frames each,
+  scale 0.14-0.3. Smaller and simpler than `lightning` (which is a whole cluster).
+- **Look:** ONE short electric arc: a 2-3 px zigzag between two endpoints, 4-6 sharp turns, with 1-2 tiny 1 px
+  forks. A different shape per frame.
+- **Color:** white (tinted). Arc #FFFFFF, optional #C8C8C8 1 px edge on the thick part.
+- **Anchor:** center (64, 64) = the middle of the arc.
+
+| Frame | Description |
+|---|---|
+| 00 | A nearly straight arc ~50 px long with 5 sharp kinks, one fork. |
+| 01 | A C-shaped arc ~44 px, two forks. |
+| 02 | A tight zigzag ~38 px, one fork. |
+| 03 | A long arc reaching ~58 px (the biggest frame), few kinks. |
+| 04 | An arc that doubles back on itself (a small hook at one end). |
+| 05 | A short arc ~34 px with 2-3 loose 2 px sparks beside it. |
+
+### ripple: space ripple
+
+- **In game:** Gojo's Infinity: a faint ring of distorted space around his chest every few seconds and on each
+  new ki bar (pale blue, opacity 0.2-0.35, scale 0.9-1.6). Drawn very faint, so it must read with thin lines.
+- **Look:** a thin, perfectly round circle (NOT an ellipse) with a 1 px dashed inner echo a few pixels inside,
+  expanding and breaking into dashes.
+- **Color:** white (tinted). Main circle #FFFFFF, inner echo #C8C8C8.
+- **Anchor:** center (64, 64).
+
+| Frame | Diameter | Line | Inner echo |
+|---|---|---|---|
+| 00 | 40 px | 4 px | dashed, 8 px inside |
+| 01 | 60 px | 3 px | dashed, 8 px inside |
+| 02 | 80 px | 2 px | dashed, 8 px inside |
+| 03 | 100 px | 2 px | sparse dashes |
+| 04 | 122 px | 1 px, broken into dashes | gone |
+
+### naruto_chakraTail: one chakra tail
+
+- **In game:** Naruto's one-tail Nine-Tails cloak at MAX ki: one tail of boiling red chakra held behind his hips,
+  swaying (tinted red, opacity 0.6, scale 0.7, about 1.1 world units tall). It loops for as long as he holds the
+  charge, and the engine mirrors it when he faces left.
+- **Look:** one thick tail of boiling chakra rising from a base, sweeping **back to the LEFT and then up**, with
+  bubbly, uneven edges (small round bumps along both sides), tapering to a rounded tip. Bubbles drift along it
+  from base to tip across the loop.
+- **Color:** white (tinted). Body #FFFFFF, a 2 px #C8C8C8 edge, bubbles on the edge #E6E6E6.
+- **Anchor:** bottom: the base of the tail on y = 120 and x = 64 (the packer centers it on the base, `baseX`), so
+  the tail sweeps out to the left inside the cell.
+- **Loop:** 6 frames, frame 05 flows back into frame 00. The sway moves the tip about 6 px left and right; the
+  base stays still.
+
+| Frame | Description |
+|---|---|
+| 00 | Base ~20 px thick, the tail sweeps left ~45 px and up to ~90 px tall, tip centered in the sway. |
+| 01 | Tip swayed 3 px right and 1 px up; bubbles moved a little toward the tip. |
+| 02 | Tip 6 px right. |
+| 03 | Tip back to center. |
+| 04 | Tip 3 px left. |
+| 05 | Tip 6 px left; flows back into 00. |
 
 ---
 

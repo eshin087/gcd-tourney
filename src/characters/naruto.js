@@ -141,6 +141,25 @@ export default {
   color: '#ff8a1c',
   aura: [1.0, 0.55, 0.12],
   auraCore: [1.0, 0.92, 0.55],
+  // Powering up (ENG-069, src/game/chargeFx.js): the Nine-Tails' red chakra leaking out and boiling over him, the
+  // red slit eyes at bar 2, one chakra tail at MAX (the road to his Four-Tails ultimate).
+  charge: {
+    palette: { main: '#ff4a12', core: '#ffb35a', edge: '#c41c08', dark: '#8a1206', pebble: '#9c8a74', eye: '#ff2a10' },
+    bodyTint: 0.05,
+    shell: { kind: 'boil', color: 'edge', core: 'main', width: [0.03, 0.08], lift: 0.6, noise: 0.9, speed: 2.2, opacity: [0.4, 0.65] },
+    emit: [
+      { fx: 'bubble', from: 'body', every: 5, max: 5, scale: [0.1, 0.17], vel: [0, 0.9, 0], life: 0.45, color: 'main', opacity: 0.85, glow: 0.15, front: 0.35 },
+      { fx: 'bubble', from: 'body', bar: 1, every: 7, max: 3, scale: [0.1, 0.15], vel: [0, 1.1, 0], life: 0.4, color: 'core', opacity: 0.8, glow: 0.15 },
+      { fx: 'wisp', from: 'head', bar: 1, every: 10, max: 2, scale: [0.3, 0.4], vel: [0, 1.6, 0], color: 'main', opacity: 0.55 },
+      { fx: 'star', frame: 3, from: 'floor', every: 10, max: 4, scale: [0.16, 0.22], vel: [0, [1.1, 2.4], 0], life: 0.9, color: 'pebble', opacity: 1 },
+      { fx: 'naruto_chakraTail', from: 'hips', bar: 3, hold: true, max: 1, scale: 0.7, color: 'edge', opacity: 0.6, sway: 0.08 },
+    ],
+    eyes: { at: [-0.04, 1.24], color: 'eye', bar: 2 },
+    ground: { dustEvery: 24, crackAt: 2, rumble: 0.05 },
+    bar: { ring: { scale: 1.8, color: 'core', opacity: 0.45 }, burst: { scale: 0.9 } },
+    max: { ring: { scale: 2.4, color: 'main', opacity: 0.5 }, burst: { scale: 1.1 }, flash: 0.08 },
+    sound: 'boil',
+  },
   beam: { core: '#fff6d8', mid: '#ffb43a', edge: '#ff6a10', name: 'RASEN CANNON' },
   specialName: 'RASENGAN',
   projectileName: 'SHURIKEN',

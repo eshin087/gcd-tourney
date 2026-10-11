@@ -5,6 +5,7 @@ import { loadArtIndex } from '../core/artIndex.js';
 import { buildTrainingRoom } from '../world/trainingRoom.js';
 import { buildVoidStage } from '../world/voidStage.js';
 import { Effects } from './effects.js';
+import { chargeTick, chargeBar, chargeEnd } from './chargeFx.js';
 import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
@@ -14,7 +15,7 @@ import { makeChart, beatChart, seedOf, Judge } from './clash.js';
 import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage } from './kit.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
-import { Hud } from '../ui/hud.js';
+import { Hud, TAGS } from '../ui/hud.js';
 import { Menus } from '../ui/menus.js';
 import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
@@ -28,6 +29,7 @@ const v3 = new THREE.Vector3();
 const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vector3(), sdc = new THREE.Vector3();
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const clashTmp = new THREE.Vector3();
+const burstCol = new THREE.Color();
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
 function segDist(p1, q1, p2, q2) {
@@ -116,7 +118,9 @@ export class Game {
     this.dimTarget = 0;
     this.viewCover = 0; // fraction of the screen width hidden behind the training panel / touch buttons
     this.viewLift = 0; // projection shift up while touch buttons cover the bottom
+    this.viewCoverY = 0; // results bottom bar (narrow window): the 'results' camera pulls back by it
     this.showBoxes = new URLSearchParams(location.search).has('boxes'); // hit/hurt box overlay
+    this.dummyOpts = { tech: 'never', burst: false }; // the training dummy's combo escape (ADR 0022, DummyBrain)
     // keep the on-screen button hints in sync with the device being used
     input.onDevice((d) => {
       if (this.fighters.length === 2 && !this.training) this.hud.hint.innerHTML = matchHint(this.cfg.mode, d);
@@ -208,7 +212,7 @@ export class Game {
     this.hud.show(true);
     this.hud.training(true);
     this.inputLive = true;
-    audio.startMusic('battle');
+    audio.startMusic('training');
     audio.setCrowd(0);
     this.menus.trainingPanel();
   }
@@ -227,15 +231,10 @@ export class Game {
 
   // ------------------------------------------------------------ kits (ADR 0009)
   // named kit moves: callout + a short flash
-  // a new ki bar while powering up: a shockwave from the feet and a flash; the last bar is louder
+  // a new ki bar while powering up: the fighter's own beat (chargeFx.js, restrained); the last bar is louder
   onChargeBar(f) {
     const full = f.ki >= MAX_KI;
-    this.fx.burstAt(f, f.mode?.auraColor ?? f.def.color, full ? 1.6 : 1.25);
-    this.fx.spawn('ring', f.pos.x, 0.05, f.pos.z, { scale: full ? 3.2 : 2.4, color: 0xffffff, opacity: 0.85, glow: 0.5, life: 0.3, fade: true });
-    this.fx.dust(f.pos, full ? 1.4 : 1);
-    this.fx.overlay.flash(f.def.color, full ? 0.3 : 0.16);
-    this.cam.zoomPunch(full ? 0.5 : 0.3);
-    this.cam.shake(full ? 0.35 : 0.2);
+    chargeBar(this, f, full);
     audio.play(full ? 'kiMax' : 'kiFull');
     if (full) this.hud.callout(f.index, 'MAX POWER!', f.def.color);
   }
@@ -285,12 +284,14 @@ export class Game {
     this.fx.overlay.impactFrame(4);
     this.cam.shake(0.6);
     audio.play('gong');
+    audio.duckMusic('domain', true);
     this.excite = 1;
   }
 
   endDomain() {
     if (!this.domain) return;
     this.domain = null;
+    audio.duckMusic('domain', false);
     this.setStage(this.training ? 'training' : 'arena');
     this.fx.overlay.flash('#ffffff', 0.5);
   }
@@ -331,6 +332,7 @@ export class Game {
     this.clash = null;
     this.spClashCool = 0;
     audio.stopAllLoops();
+    audio.clearMusicDucks();
     this.fx.clearAll();
     this.hud.clash(false);
     this.hud.clearAnnounce();
@@ -342,6 +344,7 @@ export class Game {
     this.superFlash = null;
     this.dimTarget = 0;
     this.inputLive = false;
+    this.viewCover = this.viewLift = this.viewCoverY = 0; // a rematch's intro must not start in the results framing
   }
 
   resetRound() {
@@ -363,6 +366,7 @@ export class Game {
     this.spClashCool = 0;
     this.hud.clash(false);
     audio.stopAllLoops();
+    audio.clearMusicDucks();
     this.fx.clearAll();
     this.timeLeft = ROUND_TIME;
     this.timeScale = 1;
@@ -482,6 +486,7 @@ export class Game {
     if (this.paused) return;
     this.paused = true;
     if (audio.sfx) audio.sfx.gain.value = 0.25;
+    audio.duckMusic('pause', true);
     this.fx.overlay.clear();
     this.menus.pause(() => this.resume(), () => this.quitToTitle(), this.training);
   }
@@ -489,6 +494,7 @@ export class Game {
   resume() {
     this.paused = false;
     if (audio.sfx) audio.sfx.gain.value = 0.9;
+    audio.duckMusic('pause', false);
     this.menus.hide();
     for (const p of this.pads) p.clear();
     this.input.flush(); // the RESUME confirm press must not also jump / attack
@@ -496,27 +502,30 @@ export class Game {
     else if (this.fighters.length === 2) this.hud.hint.innerHTML = matchHint(this.cfg.mode, deviceLayout(this.input)); // bindings may have changed
   }
 
-  exitTraining() {
+  // Every way back to the menus (exit training, quit to title, results -> character select). The old
+  // screen goes first and a failing open() falls back to the title, so a menu bug can never leave the
+  // pause list up over an empty arena with no way out (ENG-062).
+  toMenu(open) {
     this.paused = false;
     if (audio.sfx) audio.sfx.gain.value = 0.9;
     this.cleanupMatch();
+    this.brains = [null, null];
     this.setState('menu');
     this.cam.set('orbit');
     audio.startMusic('menu');
     audio.setCrowd(0.05);
-    this.menus.modeSelect(this.menus.modeIndex('training'));
+    this.menus.hide();
+    try {
+      open();
+    } catch (e) {
+      console.error('[menus] could not open the next screen; back to the title', e);
+      this.menus.title();
+    }
   }
 
-  quitToTitle() {
-    this.paused = false;
-    if (audio.sfx) audio.sfx.gain.value = 0.9;
-    this.cleanupMatch();
-    this.setState('menu');
-    this.cam.set('orbit');
-    audio.startMusic('menu');
-    audio.setCrowd(0.05);
-    this.menus.title();
-  }
+  exitTraining() { this.toMenu(() => this.menus.modeSelect(this.menus.modeIndex('training'))); }
+
+  quitToTitle() { this.toMenu(() => this.menus.title()); }
 
   fixedUpdate() {
     this.frameNo++;
@@ -534,14 +543,14 @@ export class Game {
       // a special clash: the world holds still for its one beat (updateClash ends it)
       for (const f of this.fighters) f.prev.copy(f.pos);
       this.updateClash();
-      this.fxTicks();
+      this.fxTicks(true);
       return;
     }
     if (this.freeze > 0) {
       // super flash: the world holds its breath (inputs still buffer)
       this.freeze--;
       for (const f of this.fighters) f.prev.copy(f.pos);
-      this.fxTicks();
+      this.fxTicks(true);
       return;
     }
     for (const f of this.fighters) f.update();
@@ -570,6 +579,7 @@ export class Game {
         f.sinceHit = (f.sinceHit ?? 999) + 1;
         const reeling = f.state === 'hitstun' || f.state === 'launched' || f.state === 'down' || f.state === 'getup' || f.state === 'block';
         if (f.sinceHit > 50 && f.combo === 0 && !reeling && f.hp < 1000) f.hp = Math.min(1000, f.hp + 25);
+        if (f.sinceHit > 50 && !reeling && f.state !== 'burst') f.burstUsed = 0; // no rounds here: the burst comes back
       }
     }
     if (this.state === 'fight' && this.inputLive && !this.clash) {
@@ -602,14 +612,14 @@ export class Game {
     }
   }
 
-  fxTicks() {
+  // `frozen`: a super flash or special clash holds the world (f.t stands still), so effects only refresh
+  fxTicks(frozen = false) {
     let lines = 0;
     for (const f of this.fighters) {
+      if (f.state !== 'charge') chargeEnd(this, f);
       if (f.state === 'charge') {
-        this.fx.chargeTick(f, f.t, this.cam.right);
-        lines = Math.max(lines, 0.3 + 0.3 * Math.min(1, f.t / 45));
+        lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;
-        if (f.t % 4 === 0) this.cam.shake(0.04 + 0.06 * Math.min(1, f.t / 45)); // the ground rumbles
       } else if (f.state === 'beamCharge') {
         this.fx.auraTick(f, 1.8, this.cam.right);
         lines = 1;
@@ -675,7 +685,9 @@ export class Game {
     const list = this.pendingMelee;
     this.pendingMelee = [];
     for (const { att, def, m, dir, at } of list) {
-      if (def.ko) continue;
+      // a burst started after the hit was queued (P2 updates after P1) still beats it: the attack whiffs, as it
+      // would against P1
+      if (def.ko || (def.state === 'burst' && def.invuln > 0)) continue;
       const attacking = att.state === 'attack' && att.move === m; // false if the other hit landed first
       att.moveHit = true;
       att.hitPoint = at;
@@ -720,7 +732,7 @@ export class Game {
     for (const f of [a, b]) {
       const o = f.opp;
       const d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
     }
   }
 
@@ -865,6 +877,7 @@ export class Game {
       }
       this.placeClash(c);
       audio.loop('clash', 'clash');
+      audio.duckMusic('clash', true); // the clash's metronome runs on its own tempo
     }
     for (const f of this.fighters) f.pad.clear();
     // the one-beat clash keeps the fight camera: up close, the two specials' light would hide both fighters
@@ -1045,6 +1058,7 @@ export class Game {
     const c = this.clash;
     this.clash = null;
     audio.stopLoop('clash');
+    audio.duckMusic('clash', false);
     this.hud.clash(false);
     const P = c.point.clone();
     this.fx.overlay.impactFrame(4);
@@ -1114,7 +1128,7 @@ export class Game {
     if (W.state === 'attack' && W.move) W.t = Math.max(W.t, W.move.startup + W.move.active);
     W.vel.multiplyScalar(0.1);
     const d = new THREE.Vector2(L.pos.x - W.pos.x, L.pos.z - W.pos.z).normalize();
-    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
     const col = new THREE.Color(W.move?.color ?? W.def.color);
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, col);
     this.fx.debris(L.pos.x, L.pos.z, 10, 1.1);
@@ -1169,6 +1183,9 @@ export class Game {
     }
     if (m.launcher) audio.play('launch');
     if (def.combo === 10 || def.combo === 20) audio.play('cheer', 0.8);
+    // technique callouts (ADR 0022): a fresh combo on their recovery, an attack out of stun or wake-up
+    if (def.punishHit) { def.punishHit = false; this.tag(att, 'punish'); }
+    if (att.reversal && def.combo === 1) { att.reversal = false; this.tag(att, 'reversal'); }
     if (def.ko && !this.koTriggered) this.triggerKO(def, att);
   }
 
@@ -1184,10 +1201,14 @@ export class Game {
   // break each other. Returns true when the throw is resolved (grabbed or broken).
   tryGrab(att) {
     const def = att.opp, T = THROW;
-    if (def.ko || def.hidden || def.invuln > 0 || def.air || def.pos.y > 0.05 || att.air) return false;
+    if (def.ko || def.hidden || def.air || def.pos.y > 0.05 || att.air) return false;
     const R = this.cam.right, F = this.cam.fwd;
     const rx = def.pos.x - att.pos.x, rz = def.pos.z - att.pos.z;
     if (Math.abs(rx * R.x + rz * R.z) > T.range || Math.abs(rx * F.x + rz * F.z) > T.lane) return false;
+    if (def.invuln > 0) {
+      if (def.evading) this.onEvade(def); // a spot dodge beat the throw
+      return false;
+    }
     if (def.state === 'throw' && def.throwSt?.phase === 'reach') { this.breakThrow(att, def); return true; }
     const open = THROWABLE.has(def.state) || (def.state === 'attack' && def.move && def.t < def.move.startup && !def.move.air)
       || (def.state === 'kit' && THROWABLE_KIT.has(def.kitState?.kind));
@@ -1226,7 +1247,7 @@ export class Game {
     const x = (att.pos.x + def.pos.x) / 2, z = (att.pos.z + def.pos.z) / 2, y = def.pos.y + 0.9;
     this.fx.blockSpark(x, y, z);
     this.fx.spawn('ring', x, y, z, { scale: 1.4, color: 0xffffff, glow: 1.2, depthTest: false, order: 9 });
-    this.hud.callout(def.index, 'BREAK!', '#ffe2a0');
+    this.tag(def, 'throwBreak');
     this.freeze = Math.max(this.freeze, 4);
     this.cam.shake(0.2);
     audio.play('block', 1.2);
@@ -1252,13 +1273,13 @@ export class Game {
     this.fx.hitSpark(x, y, z, true, 0xbff4ff);
     this.fx.spawn('ring', x, y, z, { scale: 1.5, color: 0x9ff0ff, glow: 1.4, depthTest: false, order: 9 });
     this.fx.overlay.flash('#cff6ff', 0.3);
-    this.hud.callout(def.index, 'PARRY!', '#9ff0ff', true);
+    this.tag(def, 'parry');
     this.freeze = Math.max(this.freeze, DEFENSE.parry.freeze);
     this.cam.zoomPunch(0.5);
     this.cam.shake(0.22);
     audio.play('block', 1.4);
     audio.play('flash', 0.6);
-    this.excite = Math.min(1, this.excite + 0.5);
+    this.excite = Math.min(1, this.excite + 0.3);
   }
 
   // A spot dodge or air dodge made an attack, shot, beam or super pass through (ADR 0016): one callout per
@@ -1266,8 +1287,49 @@ export class Game {
   onEvade(f) {
     if (f.dodgeCalled) return;
     f.dodgeCalled = true;
-    this.hud.callout(f.index, f.state === 'airDodge' ? 'AIR DODGE!' : 'DODGE!', '#bfe8ff');
-    this.excite = Math.min(1, this.excite + 0.3);
+    this.tag(f, f.state === 'airDodge' ? 'airDodge' : 'dodge');
+    this.excite = Math.min(1, this.excite + 0.1);
+  }
+
+  // Technique callouts (ADR 0022): a side banner from the TAGS table (src/ui/hud.js) on fighter f's side of the
+  // screen, at most once per TAGS[id].cool frames per fighter. Every defensive success and named technique goes
+  // through here, so a new one is a TAGS row plus one call.
+  tag(f, id) {
+    const T = TAGS[id];
+    if (!T || !f) return;
+    if (T.cool && this.frameNo - (f.tagAt[id] ?? -1e9) < T.cool) return;
+    f.tagAt[id] = this.frameNo;
+    this.hud.tag(f.index, id, T.color ?? f.def.color);
+    this.excite = Math.min(1, this.excite + (T.excite ?? 0.2));
+  }
+
+  // Burst (ADR 0022): the combo is broken. A short freeze, a big BURST!, a shockwave in the fighter's color.
+  onBurst(f) {
+    const p = f.pos, col = new THREE.Color(f.def.color);
+    this.tag(f, 'burst');
+    this.freeze = Math.max(this.freeze, DEFENSE.burst.freeze);
+    for (const v of this.vortices) if (v.owner === f.opp) v.kill(); // a grinding Rasenshuriken / Blue lets go too
+    this.fx.burstAt(f, col, 1.4);
+    this.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 1.6, color: col, opacity: 0.85, life: 0.35, fade: true, grow: 1.2, depthTest: false, order: 6, glow: 1 });
+    this.fx.spawn('lines', p.x, p.y + 0.8, p.z, { scale: 1.6, color: 0xffffff, glow: 0.6, depthTest: false, order: 8 });
+    this.fx.overlay.flash(f.def.color, 0.35);
+    this.fx.overlay.impactFrame(2);
+    this.cam.zoomPunch(0.6);
+    this.cam.shake(0.5);
+    audio.play('kiMax', 0.9);
+    audio.play('smash', 0.8);
+  }
+
+  // each active frame of the burst: the wave rolls out from the body (and along the floor when grounded)
+  onBurstWave(f, k) {
+    const p = f.pos, col = burstCol.set(f.def.color); // spawn copies the color
+    if (k === 0) {
+      this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 1.0, grow: 4.5, life: 0.3, fade: true, color: col, glow: 1.2, depthTest: false, order: 8 });
+      this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.7, grow: 5, life: 0.25, fade: true, color: 0xffffff, glow: 1.6, depthTest: false, order: 9 });
+      if (!f.air) { this.fx.dust(p, 1.4); this.fx.debris(p.x, p.z, 6, 0.8); }
+      this.cam.shake(0.45);
+      audio.play('explosion', 0.6);
+    } else if (k % 2 === 0) this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.9 + k * 0.25, color: col, opacity: 0.6, life: 0.12, fade: true, glow: 0.8, depthTest: false, order: 7 });
   }
 
   onGroundBounce(f) {
@@ -1338,6 +1400,7 @@ export class Game {
     this.hud.announce('K.O.', 'ko', 1900);
     this.endDomain();
     audio.play('ko');
+    audio.duckMusic('ko', true);
     audio.play('cheer', 1.4);
     this.excite = 1;
     this.cam.set('ko', loser);
@@ -1445,16 +1508,21 @@ export class Game {
         }
         break;
       case 'matchEnd':
+        this.roundWinner.setSide(1); // the hero shot faces screen-right (unmirrored), whatever the sway does
         if (t > 1.6 && once('menu')) {
           const w = this.roundWinner;
           this.setState('results');
+          audio.startMusic('menu');
           this.hud.show(false);
           this.hud.clearAnnounce();
-          this.menus.results(w, this.assets[w.index],
+          this.menus.results(w,
             () => this.startMatch(this.cfg),
-            () => { this.cleanupMatch(); this.setState('menu'); this.cam.set('orbit'); audio.startMusic('menu'); this.menus.charSelect(this.cfg.mode); },
+            () => this.toMenu(() => this.menus.charSelect(this.cfg.mode)),
             () => this.quitToTitle());
         }
+        break;
+      case 'results':
+        this.roundWinner.setSide(1);
         break;
     }
   }
@@ -1470,12 +1538,22 @@ export class Game {
     this.cam.set('victory', w);
     this.hud.announce(`${w.def.name} WINS`, 'win', 2600);
     audio.play('cheer', 1.3);
+    audio.duckMusic('ko', false);
     this.excite = 1;
   }
 
   matchEnd(w) {
     this.setState('matchEnd');
     this.hud.announce(`${w.def.name}`, 'win', 0);
+    // Hard cut to the results hero shot: only the winner (DBFZ-style), so the loser leaves on the cut. Their
+    // actor is disposed by cleanupMatch and Fighter.reset shows the fresh one, so rematch / character select /
+    // title restore it. A running power-up mode or burn would keep sparking over the empty spot, so they end too.
+    const o = w.opp;
+    o.mode = null;
+    o.burn = null;
+    o.actor.setVisible(false);
+    this.cam.set('results', w);
+    this.cam.snap();
   }
 
   // ------------------------------------------------------------ render
@@ -1508,6 +1586,7 @@ export class Game {
     this.room.setDim(this.dim);
     this.voidStage.setDim(this.dim);
     this.excite = Math.max(0.12, this.excite - dt * 0.22);
+    audio.setMusicIntensity(this.state === 'fight' || this.training ? this.excite : 0.2);
     this.arena.update(performance.now() / 1000, this.excite);
     this.room.update(performance.now() / 1000);
     if (this.domain) this.voidStage.update(performance.now() / 1000);
@@ -1521,12 +1600,15 @@ export class Game {
       this.touch.setSpectate(this.watching);
       if (live) this.touch.setKi(this.fighters[0].ki);
     }
-    // keep the fight centered in the space the training panel / touch buttons leave free
+    // keep the fight centered in the space the training panel / touch buttons leave free, and the results
+    // screen's winner in the space beside (or above) the results panel
     const touchUi = !!this.touch?.visible && !this.watching;
-    const cover = Math.max(this.training && !this.paused ? this.menus.panelCover() : 0, touchUi ? 0.16 : 0);
+    const res = this.menus.resultsCover();
+    const cover = Math.max(this.training && !this.paused ? this.menus.panelCover() : 0, touchUi ? 0.16 : 0, res.x);
     const k = Math.min(1, dt * 8);
     this.viewCover += (cover - this.viewCover) * k;
-    this.viewLift += ((touchUi ? 0.07 : 0) - this.viewLift) * k; // lift the action above the bottom buttons
+    this.viewLift += (Math.max(touchUi ? 0.07 : 0, res.y / 2) - this.viewLift) * k; // lift the action above the bottom buttons
+    this.viewCoverY += (res.y - this.viewCoverY) * k;
     if (this.viewCover > 0.002 || this.viewLift > 0.002) this.camera.setViewOffset(1, 1, this.viewCover / 2, this.viewLift, 1, 1);
     else if (this.camera.view?.enabled) this.camera.clearViewOffset();
     this.renderer.render(this.scene, this.camera);

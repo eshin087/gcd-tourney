@@ -1,6 +1,7 @@
 # Testing
 
-Apart from the packer self-test (`npm run test:sprites`), there's no automated test suite yet (see
+Apart from the packer self-test (`npm run test:sprites`) and the music composer test (`npm run test:music`),
+there's no automated test suite yet (see
 [ROADMAP.md](ROADMAP.md) and [TASKS.md](TASKS.md)). Quality comes from a disciplined manual protocol,
 deterministic debug helpers and CPU-vs-CPU soaks. Run the parts that match your change, and always run the
 **smoke test** and `npm run build`. After any change to `tools/`, also run `npm run test:sprites`.
@@ -20,6 +21,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&debug` | expose console helpers (below) |
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
+| `&flash=pop\|tint\|rim\|classic\|off` | the victim's hit flash style (default `pop`; `classic` = the old solid white), also on `/lab.html`; with `&debug`, `window.HIT_FLASH` tunes it live |
+| `&depthscale=0` | true perspective for fighter sprites (turns off the depth-normalized size, ENG-067); `0.5` = half strength |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 | `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
@@ -36,6 +39,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `freezeCpu()` | P2's CPU stops moving and pressing (a training dummy) |
 | `snap()` / `unsnap()` | copy the WebGL frame into a 2D canvas so screenshots of background tabs aren't blank |
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
+| `music.state()` | the music (ADR 0019): mood, seed, song, section, bar, heat, ducks, volume, scheduler running |
+| `music.next()` / `music.seed(n)` | a new song (or song `n`) from the next bar; `?musicSeed=N` seeds the first one |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
 guard, `KeyO` dash.
@@ -66,10 +71,11 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
+  wavedash, hold Guard to tech, tech roll, blue combo, burst, burst bait (ADR 0022), air combo, wall bounce, vanish,
+  super dash, counter hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
-  dummy, infinite meter, boxes, reset. ` hides the panel; the keyboard and touch controls still play YOU.
+  dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, reset. ` hides the panel; the keyboard and touch controls still play YOU.
 - Scripts are timelines on the fighter's pad (`src/lab/scripts.js`), built from the kit data, so new fighters and moves
   appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands.
 
@@ -78,7 +84,14 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] The page loads, and the console shows only `[sprites] ...` info lines. **No errors.**
 - [ ] Title → mode select → char select → match starts. The intro flythrough can be skipped with Enter.
 - [ ] One full round plays to a KO. Round announcements, the win pose and the results screen work.
+- [ ] Results screen: the match ends on a cut to the winner alone (the loser and its shadow are gone), whole and
+      undimmed, facing screen-right, left of a slim panel (WINNER · P1/CPU/P2 tag, name, subtitle, REMATCH /
+      CHARACTER SELECT / TITLE); no second, smaller winner sprite; the winner never mirrors while the camera
+      sways. A window narrower than 3:4 gets a bottom bar with the winner above it. Rematch, character select
+      and title bring both fighters back with no leftover framing shift.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
+- [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
+      any character select returns to SELECT MODE on that mode.
 - [ ] `npm run build` passes.
 
 ## Feature checklists
@@ -96,8 +109,26 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. Ground bounce happens once.
 - [ ] Every strike visibly **touches the body** when it connects, the spark sits on the contact point, and there
       are no hits across a visible depth gap.
+- [ ] Hit flash (ENG-064): the victim pops white for 1 (light), 2 (heavy) or 3 (smash) frames, then keeps its line
+      art with a bright rim and fades; never solid white through a string, a beam or a vortex. Counter hits (lab
+      **Counter hit**), supers and KOs stay white a little longer; a Rasengan or Chidori pops 2 frames, and punishing a
+      whiff (a missed throw, a dive's landing) is a normal hit. `?flash=classic` (or the lab chip) shows the old look.
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
+- [ ] Power-ups (ADR 0023; lab **Charge to MAX (hold Special)** builds from an empty gauge in 230 frames): each
+      fighter stays fully readable with no white or orange blob, and shows its canon cues: Naruto a red boiling
+      outline, bubbles, the red eye glint from bar 2 and one chakra tail at MAX; Sasuke a dark violet outline, dark
+      tongues from his back, small white Chidori arcs and the red Sharingan glint; Killua a flickering blue-white
+      outline and arcs; Gojo only a faint shimmer, pebbles hanging in mid-air and the Six Eyes glint at MAX (no
+      flash, rumble or crack). Budget (`?debug`, `freezeCpu()`, `hold('KeyL')`, `step(10)` × 24):
+      `game.fx.items.filter(i => i.tag === 'charge' && i.life > 0).length` ≤ 16 every sample (Gojo ≤ 9), every
+      charge sprite's glow ≤ 0.6, `game.fx.overlay.lines` < 0.05 between bar pulses, `overlay.flashA` ≤ 0.1 at
+      MAX (0 for Gojo). While charging, `game.superFlashFor(game.fighters[1], 40, 0.5); step(40)` adds no charge
+      sprites and no craters. After a release, guard, jump, hit or ultimate, `f.actor.shell.mesh.visible` is false.
+      Tap **Charge to MAX** again mid-charge (a lab row resets the round, clearing every effect): the replay peaks
+      at the same sprite count as the first run (`game.fighters[0].chargeFx.live` holds no handle left from before
+      the reset). With the fighters apart in depth (`teleport(0, 0, ±1.5)`, `f.actor.depthK` ≠ 1) the eye glint
+      stays on the drawn eyes and the chakra tail on the hips; `&depthscale=0` compares.
 - [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:
       **Ultimate clash**, **Answer an ultimate**) → CLASH!: rings close on the target, each player's grade pops on
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).
@@ -109,8 +140,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       Infinity stops a projectile (callout), and the counter freezes a melee attacker.
       Debug recipe: `freezeCpu()`, set `game.fighters[0].ki = 300`, then `hold('KeyD'); press('KeyL', 3); release('KeyD')`
       and `step(1)` while logging `f.state`, `f.kitState?.kind`, and the opponent's state and HP.
-- [ ] Air recover after launch. At 22+ hits the victim auto-techs.
+- [ ] Air recover after launch (any button, or Guard held). At 22+ hits the victim auto-techs.
 - [ ] KO by a big hit sends the loser out of the ring and into the stands.
+- [ ] A KO'd body lies on the floor along its length: the contact shadow runs under it from head to feet, in the KO
+      orbit and the victory shot, in both facings (ADR 0020). It never rests across the ring edge: within about 1 unit
+      of the edge it slides off onto the grass. Debug recipe: `game.brains[1] = null`, `game.fighters[1].hp = 1`, a
+      light attack, `step(1)` until `game.fighters[1].state === 'down'`; for the edge, put the victim about 7.7 units
+      from the edge it is hit toward (a light KO carries it about 7.7 units).
+- [ ] A KO during a flurry super (Speed of Lightning, Shadow Clone Barrage) or the Four-Tails mauling sends the body
+      flying on its KO launch, with no hover.
 
 **Input and UI**
 - [ ] A gamepad doesn't steer until one of its buttons is pressed. Menus work with the D-pad, A and B.
@@ -119,7 +157,23 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Training room: the character responds to live input, the dummy modes work, health refills, there's no
       timer, and input history shows.
 - [ ] Mute: `M` and the on-screen toggle (top corner, unobtrusive) both mute and unmute, and stay in sync.
-- [ ] HUD: health trail, ki bars, combo counter, callouts, timer.
+- [ ] HUD: health trail, ki bars, burst gems, combo counter (gold, blue after a gap), technique banners, callouts,
+      timer.
+
+**Audio and music (ADR 0019)**
+- [ ] `npm run test:music` passes (composer: determinism, variety, ranges, voice leading, heat gates).
+- [ ] Flow: title → mode (menu mood; repeated confirms don't restart it) → match (crossfade to battle, no click) →
+      pause (quieter, muffled; `music.state().ducks` = `['pause']`) → resume → results (crossfade to menu) → rematch
+      (battle) → quit to title. Training plays the `training` mood (80 bpm).
+- [ ] Ducks: a rhythm clash (lab **Ultimate clash**) shows `clash` until it ends; a KO shows `ko` until the win pose;
+      Unlimited Void shows `domain`; after every round and match the list is empty.
+- [ ] MUSIC row in both pause menus (training: right before EXIT TRAINING): ◀ ▶ in 10% steps, a tap steps up and
+      wraps to OFF; the value survives a reload (`gcd.musicVol`); at OFF `music.state().scheduler` turns false.
+- [ ] Muted (`M`): no music nodes are created while muted; the pad comes back on unmute.
+- [ ] Stall: a 1.5 s busy loop in the console during a fight plays no burst of notes afterward.
+- [ ] Offline render (paste a harness that builds `new MusicPlayer({ ctx: offlineCtx, music, noiseBuf, muted,
+      musicVolume })` and calls `tick()` from `ctx.suspend()` points): no NaN, peaks under -10 dBFS at 100%, RMS
+      about -36 dBFS at the default 70%, smooth levels across crossfades and song seams.
 
 **Art loading**
 - [ ] Without `public/characters/<id>/`: the console says `baked <id> from 3D`.
@@ -132,6 +186,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       placeholder still looks chibi; that's expected until ENG-016.
 - [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
       chunky mode back for comparison.
+- [ ] Depth-normalized size (ENG-067): with `?debug`, `freezeCpu()`, `const [p1, p2] = game.fighters`, put the
+      fighters on a 45° diagonal (`p1.teleport(-1.41, 0, 1.41); p2.teleport(1.41, 0, -1.41); step(150)`) or lined
+      up in depth (`teleport(0, 0, ±1.5)`). Both stand the same height on screen (a screenshot), and
+      `game.fighters.map((f) => f.actor.depthK)` splits around 1 (about 0.95/1.05 on the diagonal, 0.90/1.10 lined
+      up; clamp 0.82..1.22). With `&depthscale=0` the nearer fighter is 11-23% bigger. Fighters level in depth keep
+      depthK 1 (no change from true perspective). A teleport of one fighter changes both sizes together, never one
+      alone. Ghost trails and the `?boxes` outlines match the scaled body, and a held Rasengan or Chidori sits on the
+      drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
+      depthK back to 1 over about half a second (no pop); ko and victory too.
 
 ### Mobile (landscape touch)
 
@@ -145,6 +208,8 @@ or add `?touch=1` on desktop to force the touch UI (`?touch=0` hides it).
 - [ ] Joystick moves (double flick dashes); every button acts; sliding a finger between buttons switches them;
       ULT fires the ultimate with 3 bars, VANISH with 1; both dim without enough ki.
 - [ ] The fight stays framed left of / above the button cluster. Pause button pauses; BACK resumes.
+- [ ] Results (740 x 360): panel on the right, the whole winner on the left, no touch buttons, no BACK button;
+      tapping REMATCH / CHARACTER SELECT / TITLE works.
 - [ ] Training: the panel starts collapsed; the TOUCH tab lists the controls and changes the button size.
 - [ ] Desktop is unchanged: keyboard hint bar, no touch UI, no rotate screen.
 
@@ -187,10 +252,44 @@ Run after changes to `aiMaster.js`, `DEFENSE`, hit boxes or juggle physics. Open
    for the winner, since the loser has less time). With Naruto and / or Gojo on both sides (ultimates that clash),
    most matches should show at least one rhythm clash (ENG-056); `clash` in `unseen()` means none happened.
 6. **Throws (ADR 0015)**: J + K at 0.9 units grabs a guarding P2 (80 damage, wall-bounce launch); P2 pressing
-   Light + Heavy within 12 frames of the grab breaks it ("BREAK!", no damage); from 1.8 units it whiffs for ~32
+   Light + Heavy within 12 frames of the grab breaks it ("THROW BREAK", no damage); from 1.8 units it whiffs for ~32
    frames; a P2 jab started first beats it; a P2 spot dodge beats it. Light ×3 → Special (Rasengan / Chidori /
    → Rasenshuriken) against a dummy that guards whenever it can: never blocked. Guard-only dummy vs IMPOSSIBLE:
    throws land within 50 s.
+
+## Combo escape, the blue counter and callouts (ADR 0022)
+
+Run after changes to `DEFENSE.tech` / `DEFENSE.burst`, hit stun or juggle physics, `TAGS` or the CPUs' escape code.
+The lab scenarios **Hold Guard to tech**, **Tech roll**, **Blue combo**, **Burst** and **Burst bait** show each part;
+by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a scripted brain (for example
+`game.brains[1].update = function () { const p = this.f.pad; p.tick(); p.set('guard', this.f.state === 'launched'); }`).
+
+1. **True route**: Light ×3 → Heavy → Jump → air L L → air Heavy on a P2 that never techs: `b.comboBlue` stays
+   false and `b.lastGap` is 0 on every hit; the counter stays gold.
+2. **Blue**: Heavy, then super dash in ~45 frames later: the second hit has `lastGap` > 0, the counter turns blue
+   with a pop, and the training room shows `GAP nF`.
+3. **Hold Guard**: P2 holds Guard while launched: `airRecover` on the first frame air stun is 0 above 0.35 units,
+   TECH! on P2's side, never a blue hit. Hold a direction too: toward / ↑ / ↓ change the hop.
+4. **Tech roll**: Light ×4 (away from the wall) on a P2 holding Guard: `techRoll` instead of `down`, TECH ROLL!.
+   After an air Heavy spike, a throw or a super finish: `down` (hard knockdown).
+5. **Multi-hit lock**: a beam or a Rasenshuriken / Blue vortex on an airborne P2 at 15+ hits holding Guard: no tech
+   until the move ends, no blue.
+6. **Burst**: P2 with 200 ki presses Guard + Special during your string: BURST!, an 8 frame freeze, the shockwave
+   launches you (10 damage), P2's ki −200, its gem goes dark, the combo ends. Refused when held (Domain, flurry,
+   maul), grabbed, during your beam or three-bar move, under 200 ki, and a second time in the round. Not a burst:
+   P2 charging ki (Special held) gets hit, then presses Guard (a tech, no BURST!, ki and gem kept). P2 bursting on
+   the frame your hit connects: the burst wins (P2 doesn't land back in `hitstun`).
+7. **Burst bait**: stop after a hit and hold Guard: the burst is blocked, P2 recovers for 30 frames, your punish
+   shows PUNISH!.
+8. **Callouts**: parry → PARRY! (big); spot dodge a heavy → DODGE!; spot dodge a throw → DODGE!; air dodge a super
+   dash → AIR DODGE!; throw break → THROW BREAK; wavedash twice within 6 s → one WAVEDASH; a fourth banner pushes
+   the oldest out; a special name right after a PARRY! leaves the banner alone; in training the left stack clears the
+   input history.
+9. **Training dummy**: DUMMY TECH never / hold / random and DUMMY BURST off / on in the panel; the defaults keep the
+   old dummy (GUARD mode with tech NEVER lets go of Guard for the whole launch: no TECH!, no TECH ROLL!).
+10. **CPU**: the soak below (`mode=cpu`, and IMPOSSIBLE vs Hard) shows TECH! and TECH ROLL! every match and BURST!
+    in most, never more than one burst per fighter per round (`burstUsed` ≤ 1), blue counters now and then, and
+    rounds still ending by KO in the usual time.
 
 ## Soak (CPU vs CPU)
 

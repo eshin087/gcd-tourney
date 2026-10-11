@@ -56,6 +56,8 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Air dodge (+direction) | Guard in the air | L1 in the air |
 | Wavedash | Jump, then Guard + direction right away | ✕ then L1 + stick |
 | Throw (close) / throw break (when grabbed) | Light + Heavy | □ + △ |
+| Tech / tech roll (ADR 0022) | hold Guard while hit (+ direction) | hold L1 |
+| Burst (2 bars, once per round) | Guard + Special while hit | L1 + ○ |
 
 Adding SUPER took L2/LT from guard. Bindings moved to a new localStorage key (`gcd.bindings.v2`), so saved
 custom bindings reset once.
@@ -240,12 +242,30 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Charge ki
 - **Hold Special** for 12+ frames on the ground: charge state with an aura, +1.45 ki per frame. Release,
   Guard or Jump cancels it. Heavy during charge with 3 bars fires the ultimate.
-- The power-up builds over its first 45 frames (`Effects.chargeTick`, ENG-059): the aura grows, ki streams in to
-  the chest from a ring around them, pebbles lift off the floor, a dust ring rolls out from the feet (faster as it
-  builds) and the floor cracks after 40 frames, with focus lines, a ground rumble, a one-pixel tremble on the
-  sprite and a hum that climbs (`audio.tune`). Each new bar fires `Game.onChargeBar`: a shockwave ring, a burst, a
-  flash and a camera punch, and "MAX POWER!" with a louder chime on the last one. At full ki the body crackles; a
-  fighter's `charge.sparks: 'lightning'` (Killua) crackles from the start.
+- **Each fighter powers up like their anime** (ENG-069, [ADR 0023](decisions/0023-canon-power-up-styles.md)). The
+  look is data, `charge` in `src/characters/<id>.js` over `CHARGE_DEFAULT`, run by `src/game/chargeFx.js`:
+  - a **body shell** (`src/game/auraShell.js`): a band of energy hugging the silhouette of the frame on screen;
+  - a few **emitters** (bubbles, wisps, arcs, pebbles...) and an **eye glint**, unlocked per ki level;
+  - a **bar beat** for each new bar and a **MAX beat** (rings, a burst behind the body, a short focus-line pulse, a
+    camera punch), plus a one-pixel tremble on the sprite and a charge hum per style (`sound`).
+- Level = filled bars + the active mode's `charge.level` (Nine-Tails cloak and Godspeed add 1), 0 to 3 (3 = the MAX
+  look). The first 45 frames only widen the shell.
+
+| Fighter | Shell | On the body / around | Eyes | Floor, beats |
+|---|---|---|---|---|
+| Naruto | `boil`: red Nine-Tails chakra boiling on his outline | chakra bubbles, wisps off the head; one chakra tail at MAX (`naruto_chakraTail`) | red slit eyes from bar 2 | pebbles, dust rings, a crack from bar 2, rumble |
+| Sasuke | `dark`: near-black curse-mark chakra with a violet rim | dark wisps from his back, black tongues from bar 2, Chidori current arcs over the body | Sharingan from bar 1 (bigger at MAX) | a crack at MAX, light rumble |
+| Killua | `electric`: a flickering blue-white outline | small arcs over the body and the floor (his charge strip raises his hair) | none | no crack, slight rumble |
+| Gojo | `shimmer`: a faint Infinity outline | pebbles that lift and stop dead in mid-air, a faint ripple every 3 s | Six Eyes at MAX | nothing: no rumble, dust, crack or flash |
+
+- **Restraint rules** (enforced in code): at most 16 live charge sprites per fighter (Gojo uses about 7), glow at
+  most 0.6, big sprites behind the body and translucent, no focus lines while holding (a bar pulses them up to
+  0.35), a screen flash only at MAX (at most 0.1, in the style's dark color, none for Gojo), a steady body tint of
+  at most 6 %, and rumble at most 0.05 per 4 frames. During a super flash or a special clash the charge only
+  refreshes (no new sprites, no new cracks). A mode's own aura pauses while charging.
+- Ground cracks go through the optional ground-damage hooks (`fx.ground.chargeTick` / `chargeMax`); without them
+  a style lays at most one crater per charge at its `ground.crackAt` level.
+- Each new bar still fires `Game.onChargeBar` ("MAX POWER!" with a louder chime on the last one).
 
 ### Ultimate, super flash and ultimate clash
 - The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's
@@ -293,10 +313,38 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   `max(5, 26 − combo) × decay`. Juggle pop shrinks with the combo (`airPop × max(0.5, 1 − 0.03·combo)`), and
   launched gravity grows (`min(1.35, 0.6 + 0.035·combo)`).
 - **Combo cap**: at **22 hits** a launched victim is forced to air tech automatically.
+- **Multi-hit lock** (`lock` on a hit): beam ticks (`tickEvery + 3`) and Rasenshuriken / Blue vortex ticks
+  (`tick + 3`) keep air stun and hit stun at least that long, so one committed multi-hit move can't be teched
+  midway and never turns blue.
 
-### Air tech (air recover)
-- When launched, once air stun has run out and the victim is above 0.35 units, **any button** does a backflip
-  recovery (16 frames invulnerable, small backward hop). This is why long combos become escapable.
+### Combo escape: tech, tech roll, Burst (ADR 0022)
+Numbers in `DEFENSE.tech` and `DEFENSE.burst` (`src/game/moves.js`), logic in `Fighter` (`techOpen`, `airRecover`,
+`startTechRoll`, `canBurst` / `startBurst` / `burstWave`).
+
+| Option | Input | Rules |
+|---|---|---|
+| Air tech | launched: **hold Guard**, or press any button | on an **open frame** (not KO'd or `held`, air stun over, above 0.35 units); holding Guard techs on the first one. 10 f, 16 f invulnerable. The stick picks the hop, against the opponent's side of the screen: neutral or away [−2.5, 6.5] (back), toward [3, 7], ↑ [0, 7.5] (rise in place), ↓ [0, −9] (drop to the floor, 4 f landing lag). |
+| Tech roll | land from a launch while **holding Guard** | instead of lying `down`: 20 f, invulnerable 18 f, 7.5 u/s in the stick's direction (else away from the attacker), friction 0.88. Not after a **hard knockdown**: `hardKnockdown` on the last hit, by default ground-bounce spikes (air heavy, dive slams) and big unblockable hits (throw toss, super and ultimate finishes, clash results), plus the beam's final hit. Not on a KO. |
+| Burst | **Guard + Special** in `hitstun` or `launched` (the later press within 3 f; Special pressed during the combo and under 6 f ago, so Guard pressed while a hit charge still holds Special is a tech; read during hitstop too; a burst on the frame a hit connects wins) | 200 ki, once per round. Not while `held` or grabbed, not during the opponent's three-bar `kit` move or beam, a clash or Domain. 8 f world freeze and BURST!, then startup 4 f and 6 active frames: an invulnerable shockwave (radius 2.4, 10 dmg, launch [14, 9], hit stun 14, hitstop 12) that ends the combo and lets go of a grinding vortex. **Blockable and parryable.** Recovery 20 f, or 30 f when it was blocked or parried (**burst bait**). The HUD gem by the ki gauge: lit (unused), glowing (enough ki), dark (spent). |
+
+### True combos and the blue counter (ADR 0022)
+- `gapF` counts the victim's open frames since the last hit (the air tech gate, and the landing when a tech roll
+  was possible and not taken). A hit after a gap sets `comboBlue` for the rest of the combo; the counter turns blue
+  (with a pop on the hit that turned it) and the training room shows `GAP nF`, the widest gap.
+- Grounded hit stun can't gap (it returns to idle and the combo restarts), and `held` victims (Domain, flurries,
+  mauls, staggers) can't act, so their hits stay true.
+- Reference: the bread-and-butter route below is true. Juggle air stun is 10 f at hit 10, 5 f at 14 and 2 f at 20,
+  so air-chain extensions past about 12 hits turn blue unless they go through a bounce (fixed 30 / 32 f), a vanish
+  or a relaunch.
+
+### Technique callouts (ADR 0022)
+Banners slide in at the screen edge of the fighter who did it, stacked newest on top (3 per side), in every match:
+PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, THROW BREAK, REVERSAL (the first hit of an attack
+started within 3 f of leaving hit stun, block stun, wake-up, a tech or a stagger), PUNISH! (a fresh combo on a
+fighter in their own recovery: a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag over
+6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam) and WAVEDASH (small, once per 6 s per
+fighter). The table is `TAGS` in `src/ui/hud.js` and the one entry point is `Game.tag(f, id)`; special names and
+kit callouts keep their own row, so they never wipe a banner out.
 
 ### Blocking
 - **Hold back to block** (ENG-057, always on): on the ground, the stick held away from the opponent on screen
@@ -338,13 +386,18 @@ Strike beats throw, throw beats guard / parry / counter stances, guard and parry
 jumping or a break beat throws.
 
 ### Knockdown and wake-up
-- A launched victim that lands goes `down` (invulnerable). Get up automatically after 40 frames, or press any
-  button after 16. Get-up is 20 frames with 28 frames of invulnerability.
+- A launched victim that lands goes `down` (invulnerable), unless they hold Guard and the last hit wasn't a hard
+  knockdown: then they tech roll (above). Get up automatically after 40 frames, or press any button after 16.
+  Get-up is 20 frames with 28 frames of invulnerability.
 
 ### KO and the destructive finish
 - At 0 HP the victim is launched at least [14, 8.5], or [23, 10] by a big move, special or beam. The ring
   barrier is off: they fly off the ring onto the grass and can crash into the stands' walls (explosion,
   debris). KO slow-mo is 0.22× for 1.4 s, with a KO camera.
+- A KO'd body never comes to rest across the ring edge (ADR 0020): lying within `KO_EDGE` (1 unit, half a lying
+  sprite) of the edge on the ring, or within the lip (`RING_LIP` 0.35) plus `KO_EDGE` of it on the grass, it keeps
+  sliding outward at `KO_SLIDE` (3 units/s) and drops onto the grass clear of the ring (`Fighter.slideOffEdge`).
+- A flurry super or the Four-Tails mauling that knocks the victim out lets go of them: the KO launch plays out.
 
 ## Hit detection: 2.5D lanes and frame boxes
 
@@ -380,12 +433,30 @@ distance-to-line test.
 
 ## Camera and feedback per hit tier
 
-| Tier | Effects |
-|---|---|
-| light | small spark, `hit` sfx, shake 0.14 |
-| heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 |
-| smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s |
-| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer |
+| Tier | Effects | Victim flash (`HIT_FLASH`, default `pop` style) |
+|---|---|---|
+| light | small spark, `hit` sfx, shake 0.14 | 1 white frame, then lift + white rim through hitstop, 6-frame fade |
+| heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 | 2 white frames, warm rim, 7-frame fade |
+| smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s | 3 white frames, gold rim, 8-frame fade |
+| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer | 2 white frames (about a smash's 3 on screen under the 0.3× slow-mo), white rim, 10-frame fade |
+
+The victim flash has its own tiers (`flashTier` in `src/game/hitFlash.js`, first match wins): **ko** (the hit that
+KOs: white for up to 5 frames, about 0.4 s under the KO slow-mo), the move's **`hitFlash`** field (3-bar super
+finals, Hollow Purple and the special-clash outcomes say `'special'`: white through the hitstop, up to 5 frames),
+**special** (a big beam), **tick** (hitstop ≤ 3 and not big: beam, vortex, Lapse: Blue and flurry hits never pop,
+only a pulse of lift and rim), **counter** (the hit lands in the startup or active frames of the victim's own attack,
+a kit move, a throw reach or a beam charge: white for up to 4 frames, orange rim; punishing a whiff or a recovery,
+such as a dive's landing, a stance after it ends or a missed throw, is a normal hit, `kit.inRecovery`), **rush**
+(`special`: the 1-bar rush specials, the table's special row), then smash, heavy, light as in the table. Full white
+longer than a smash's 3 frames is only for counter hits, supers and KOs. From combo hit 6 a normal hit pops 1 frame
+at most. A **parry** gives the parrier 1 white frame and a cyan rim through the freeze; a
+**burn** tick (Amaterasu) gives no pop, just a soft lift and a rim in the burn's color. All of it is render only and
+counts every sim frame (through hitstop and freezes), so it never changes timing. The hitstop shake is a whole-frame
+alternation per tier (0.035 light .. 0.09 special; 0.04 on block), so the sprite never sits between pixels.
+
+Styles for A/B: `pop` (default), `tint` (no rim), `rim` (no pop below counter), `classic` (the old look: solid white
+through the hitstop plus 5 frames) and `off`. Switch them with `?flash=<style>` on the game page or the HIT FLASH and
+FLASH STR chips in the lab's Tools tab; under `?debug`, `window.HIT_FLASH` is the live table.
 
 ## CPU AI
 
@@ -406,6 +477,15 @@ Easy, Normal and Hard also use the defensive options at their level's rate (`par
 `slop` frames, `spot`, `airDodge`, `wavedash` in `LEVELS`): a timed Guard press against attacks and
 projectiles, Guard + ↓ against big swings, an air dodge when something reaches them in the air, and wavedashes
 in and out in neutral.
+
+Combo escape (ADR 0022): `CpuBrain` holds Guard through a launch with `techHold` per launch (Easy 5 %, Normal
+20 %, Hard 45 %; its per-frame `tech` tap stays as a late fallback) and bursts with `burst` per combo of 3+ hits
+(0 / 4 % / 12 %, pressed at hit 3-5). `MasterBrain` holds Guard to tech on its `tech` roll with a direction picked
+per launch (back 0.5, toward 0.2 when close, down 0.2, up 0.1), bursts per combo of 3+ hits with `burst`
+(IMPOSSIBLE 30 %, INSANE 15 %, showman 35 %; ×1.5 under 350 HP or when the attacker has three bars; the showman
+leans toward it until the viewer has seen one), and IMPOSSIBLE and showman **bait** bursts (`bait` 25 % / 30 % per
+combo against a victim who has one): stop after hit 3-5, guard, punish the recovery. The training dummy has
+`DUMMY TECH` (never / hold / random) and `DUMMY BURST` (off / on, at hit 3) rows (`game.dummyOpts`).
 
 **Showcase** (ADR 0016, `src/game/aiShow.js`): every CPU keeps a match-long count of the tools it has used
 (kit specials, the second super, the ultimate or beam, vanish, super dash, wavedash, parry, spot dodge, air
@@ -457,6 +537,8 @@ Spend 1 bar on Vanish or Special to extend. End with the Ultimate for 3 bars.
 
 **Startup / active / recovery**: the three phases of an attack. **Hitstop**: a freeze on hit that sells
 impact. **Hitstun**: frames the victim can't act. **Launcher**: a move that pops the victim into the air.
-**Juggle**: hitting an airborne victim. **Tech**: recovering from a launch. **Chip**: damage through block.
+**Juggle**: hitting an airborne victim. **Tech**: recovering from a launch (air tech, or a tech roll on landing).
+**Hard knockdown**: a hit after which landing can't be teched. **Burst**: the once-per-round combo breaker.
+**True combo**: a combo the victim had no chance to tech out of; a **blue** combo had a gap. **Chip**: damage through block.
 **Super flash**: a short time freeze when a special or ultimate starts. **Lane**: the depth band in which
 melee can connect. **Hurtbox / hitbox**: where a fighter can be hit / where an attack hits.

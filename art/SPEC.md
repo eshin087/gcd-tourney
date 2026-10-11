@@ -44,7 +44,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 | sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 175 frames = 11 rows = 2816 px) |
 | facing | **right** (the engine mirrors the sprite when the fighter faces left) |
 | pivot | **[128, 240]**: x 128 = midpoint between the feet / body center line; y 240 = floor line. Soles touch y 240, 16 px empty below |
-| airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air) |
+| airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air). Lying poses are drawn **side-on from the same 12 degree camera**, never from above: head, back, hips and legs rest on y 240 along the body (packer ground check: at least 40 % of the body's width within 6 px of y 240, no fifth of its length more than 12 px above it, at most bodyHeight x 1.15 tall; see [Lying poses](#lying-poses), ADR 0020) |
 | pixelsPerUnit | **128** (a 200 px standing body is about 1.56 world units, about the same world size as v1 and the placeholder) |
 | colors | at most **48** per character (the packer warns above 64) |
 | outline | 1 px dark outline (selective / colored outline allowed) |
@@ -171,7 +171,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `launched` | 2 | yes | - | 136 | **yes** | 70 each | knocked flying backwards, body arched back diagonally (not fully horizontal), limbs flailing (loop) |
 | `spin` | 4 | yes | - | 160 | - | 60 each | tumbling head over heels through the air (one full backward rotation, loop) |
 | `airRecover` | 3 | - | - | 180 | - | 50 50 60 | backflip recovery in mid-air |
-| `down` | 2 | - | - | 96 | **yes** | 80 420 | hitting the ground, then lying flat on the back, head toward screen-left |
+| `down` | 2 | - | - | 96 | **yes** | 80 420 | hitting the ground, then lying flat on the back, head toward screen-left; side-on, not seen from above ([Lying poses](#lying-poses)) |
 | `getup` | 5 | - | - | 204 | **yes** | 70 60 60 80 70 | kip-up from lying on the back to standing |
 | `charge` | 4 | yes | - | 198 | **yes** | 50 each | powering up: wide stance, fists clenched at the sides, shouting upward (loop) |
 | `throw` | 4 | - | 1/1/2 | 201 | - | 50 60 70 50 | throwing a projectile in mid-air: arm cocked back, whipped forward, follow-through |
@@ -179,7 +179,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `beamFire` | 3 | yes | - | 198 | **yes** | 50 each | firing a beam: both arms thrust straight forward, palms open, shouting (loop) |
 | `vanish` | 2 | - | - | 221 | - | 50 each | crouch and blur before teleporting |
 | `stagger` | 4 | yes | - | 207 | - | 150 each | dizzy stagger (loop) |
-| `ko` | 1 | - | - | 64 | - | 500 | knocked out, lying flat on the back, head toward screen-left |
+| `ko` | 1 | - | - | 64 | - | 500 | knocked out, lying flat on the back, head toward screen-left; side-on, not seen from above ([Lying poses](#lying-poses)) |
 | `special` | 8 | - | 3/3/2 | 204 | **yes** | 120 120 120 120 120 160 110 70 | signature rush move: 3 frames charging the technique in hand, 2 running frames holding it forward, 1 thrust, 2 recover |
 | `intro` | 4 | yes | - | 210 | - | 150 each | pre-fight intro pose (character-specific attitude, loop) |
 | `taunt` | 2 | yes | - | 212 | - | 250 each | confident taunt / pointing at the opponent (loop) |
@@ -205,6 +205,27 @@ long, so:
 - `launched` is **arched diagonally**, not fully horizontal.
 - Wide strikes (`light3`, `light4`, `airLight2`, `airLight3`) must keep the back foot and hair inside
   x 4 and the striking foot inside x 251; the contact zones below already respect that.
+
+<a id="lying-poses"></a>
+
+**Lying poses** (`ko`, the resting `down` frame, the first `getup` frame; [ADR 0020](../docs/decisions/0020-lying-pose-ground-contact.md)).
+The body lies on the floor and the camera sees it **from the side**, from the same spec camera as every other pose
+(about 12 degrees down), never from above: a spread-eagle seen from overhead touches y 240 with one hand or shoe and
+hangs its head 15-35 px in the air, which reads as floating in the game. Draw:
+
+- the **back of the head, the shoulder blades, the back, the hips, the backs of the legs and the heels** all on one
+  horizontal floor line (y 240), arms limp along the sides on the floor; the far limbs at most about 8 px higher than
+  the near ones (the 12 degree camera), the chest turned only slightly toward the viewer;
+- the pose **flat and long**: about 3 times as wide as it is tall, no higher than the table's body height (`ko` 64,
+  `down` 96 on the bounce frame, the resting frame lower); a bent knee stays low;
+- the same character scale as the idle (SCALE LOCK): a lying body is as long as the standing one is tall, plus
+  the hair and the feet; never enlarge it to fill the canvas.
+
+The packer checks every resting lying frame and warns `<anim>: N lying frame(s) float above the floor line` unless at
+least **40 %** of the body's columns have their lowest pixel within **6 px** of y 240, **no fifth** of the body's length
+is more than **12 px** above it at its lowest, and the frame is at most **bodyHeight x 1.15** tall (px at a 200 px
+standing body, scaled with `standingBodyPx`). `down`'s bounce frame and `getup`'s rising frames may leave the floor.
+The game lays the contact shadow along the whole lying body (anims.json `footprint`).
 
 ## Strikes and contact zones
 
@@ -301,6 +322,9 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
   23 x 58 px) so a fist that visibly brushes the body counts.
 - `complete`: `true` only when every core animation is present.
 - `source`: `"art-pack"` for packer output.
+- `footprint` (only when the pack has lying frames): `{ "<sheet frame>": [x0, x1] }`, the opaque x span (inclusive
+  cell px) of every `ko` and `down` frame and the first `getup` frame. The engine stretches the contact shadow along
+  it ([Lying poses](#lying-poses)).
 
 ## Hitboxes and hurtboxes
 
