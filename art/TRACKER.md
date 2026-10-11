@@ -273,7 +273,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v04 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | block | 2 | - | no | 222 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | hurtLow | 3 | - | no | 199 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | spin | 4 | - | no | 174 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | spin | 4 | - | no | 174 | approved | v03 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | airRecover | 3 | - | no | 196 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | throw | 4 | 1/1/2 | no | 219 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | vanish | 2 | - | no | 232 | approved | v02 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |

@@ -261,3 +261,4 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 **ART-GOJO-FULL-20261011**, Codex, in-progress. All42 redraw against approvedneutral. Own art/characters/gojo, Gojo manifest/review rows, Gojo pack outputs, art/scale/heads-gojo.png and review lineup. Port5224, real worktree art-gojo-full-redraw. Claudeonly integrates.
 
 ART-GOJO-FULL-20261011 checkpoint:42 source animations drawn,37 packed candidates;5 attempt-cap holds. Review page public/art-review/gojo-full-redraw. Not merge-ready; Claude alone integrates.
+Gojo checkpoint supplement: spin v03 corrects fuller hair within attempt 2/3; eight low-confidence poses remain explicit manual-QA holds. Five capped redraws remain blocked; no art approved.

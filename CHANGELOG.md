@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo spin v03: targeted hair-mass correction and independent anatomical-axis calibration; preview explicitly separates eight manual-QA holds from numeric passes. No new animation approval.
+
 - Art review checkpoint: Gojo approved-neutral redraw sources for all42 animations;37 candidates pass packing,5 technical holds preserved. Adds full-frame review page and production QA evidence. No production integration.
 
 - Begin Gojo full42-frame-set redraw against user-approved neutral baseline; candidates remain unapproved.
@@ -380,4 +382,3 @@ Reconstructed from the codebase when the changelog was introduced.
 [Unreleased]: #unreleased
 [0.2.0]: #020---2026-10-04
 [0.1.0]: #010---2026-10-04
-

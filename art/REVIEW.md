@@ -53,6 +53,7 @@ Status values: `needs review` · `approved` · `rejected`.
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
+| 2026-10-11 | gojo | spin | [raw](characters/gojo/raw/spin_v03.png) | v03 | needs review | Hair-mass correction, attempt 2/3; skull/body preserved and calibrated on independently inferred axes. | Pack exit0; unmeasured rotated pose remains manual QA, not numeric ok. [heads](scale/heads-gojo.png), [lineup](scale/lineup.png), [QA](characters/gojo/redraw/VISUAL_QA.md). |
 | 2026-10-11 | gojo | idle source part | [image](characters/gojo/raw/_parts/idle_v04_A.png) | v04 | needs review | Versioned full-redraw source; immutable history. | Source part or candidate; see [QA](characters/gojo/redraw/VISUAL_QA.md), [heads](scale/heads-gojo.png), [lineup](scale/lineup.png). |
 | 2026-10-11 | gojo | idle source part | [image](characters/gojo/raw/_parts/idle_v04_B.png) | v04 | needs review | Versioned full-redraw source; immutable history. | Source part or candidate; see [QA](characters/gojo/redraw/VISUAL_QA.md), [heads](scale/heads-gojo.png), [lineup](scale/lineup.png). |
 | 2026-10-11 | gojo | run source part | [image](characters/gojo/raw/_parts/run_v06_A.png) | v06 | needs review | Versioned full-redraw source; immutable history. | Source part or candidate; see [QA](characters/gojo/redraw/VISUAL_QA.md), [heads](scale/heads-gojo.png), [lineup](scale/lineup.png). |

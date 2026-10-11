@@ -354,14 +354,15 @@
     "frames": 4,
     "step": 9,
     "version": 2,
-    "status": "packed-candidate-needs-review",
+    "status": "packed-candidate-manual-QA",
     "promptSection": "A31 · `spin`: tumbling backward (loop)",
     "savedStrips": [
-      "spin_v02.png"
+      "spin_v02.png",
+      "spin_v03.png"
     ],
     "savedParts": [],
-    "latestVersion": 2,
-    "reviewVersion": 2
+    "latestVersion": 3,
+    "reviewVersion": 3
   },
   {
     "name": "airRecover",
