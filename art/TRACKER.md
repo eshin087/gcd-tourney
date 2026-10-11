@@ -160,14 +160,14 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 8 | land | 2 | - | **yes** | 174 | approved | v03 | v01 | Title-style v03 impact crouch/open-palm half rise passes 48-color new-strip gate without exemption/clipping; actual two-frame atlas QA and y240 soles. Old v01 remains approved pending final-set review. |
 | 8 | win | 4 | - | **yes** | 212 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | backDash | 3 | - | no | 207 | approved | v05 | v01 | Title-style v05 candidate corrects v04's enlarged head; 48-color new-strip gate passes without clipping/exemption and three actual atlas cells show push-off, airborne tuck and open-palm landing. Old v01 remains approved pending final-set review. |
-| 9 | superDash | 2 | - | no | 120 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | superDash | 2 | - | no | 108 | approved | v05 | v01 | Title-style v05 numeric 48-color head pass with measured -24/-28 placement; native bounds 202×107/197×108 vs older ~230×120 geometry target. Claude geometry review held; old v01 approved. |
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v01 | Title-style v03 deep takeoff crouch: low-confidence probe requires v03-only manual anatomy acceptance after native packed face/torso/limb comparison; not a numeric pass. Old v01 remains approved pending final-set review. |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | block | 2 | - | no | 204 | approved | v05 | v01 | Title-style v05 third attempt passes strict 48-color new-strip gate; v03/v04 enlarged-head variants archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
 | 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v01 | Title-style v03 candidate: measured head fit from 183 to 166 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows bent abdomen reaction and a matching rising stance. Old v01 remains approved pending full-set review. |
-| 9 | spin | 4 | - | no | 160 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | spin | 4 | - | no | 160 | approved | v03 | v01 | Title-style v03 source archived: diagnostic rotation correct, tucked torso/full-limb one-scale proof insufficient. No manual pass; old v01 approved and packed. |
+| 9 | airRecover | 3 | - | no | 180 | approved | v03 | v01 | Title-style v03 source archived: diagnostic orientation correct, tucked torso/limb one-scale proof insufficient. No manual pass; old v01 approved and packed. |
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | vanish | 2 | - | no | 221 | approved | v05 | v01 | Title-style v05 afterimage candidate uses version-only manual low-confidence anatomy acceptance after native face/torso/limb QA; not a numeric pass. v03/v04 source-size mismatch archived. Old v01 remains approved pending final-set review. |
 | 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
