@@ -25,7 +25,12 @@ User-approved source: `reference/title_style_draft_v01.png`, plus the 256 px neu
 
 - Seven-frame left-lead jab, four poses in A and three in B. Stitch measured B factor 1.0362, scaled A 0.9651, and reported final B/A 1.036; no guessed size factor.
 - `node tools/pack-sprites.mjs sasuke --quantize 48` selected `raw/light1_v06.png` at x0.355 and exited 0. [All seven actual packed cells](packed-light1-v06.png) were inspected. The active fist is the rightmost element at head level in f2/f3, with a small solid smear in f2; f4–f6 retract to the idle guard. Feet remain grounded and hair, torso and leg proportions read consistently.
-- Visual caveat: f1's punch is already near full extension, so the anticipation-to-impact distinction is modest. User final batch review remains pending.
+- Visual defects: f1's punch is already near full extension, so the anticipation-to-impact distinction is modest; f6 has an open lead palm instead of returning to neutral closed-fist guard. Correct before final acceptance. User final batch review remains pending.
+
+## Light2 v05 → v06
+
+- v05 stitched with measured B factor 0.9856 but failed the new-strip gate. The dark right fist touching the face inflated f1's mask to 1.24× idle. Masking that frame exposed a 1.09× uniform head reading; actual packed upper hair width was 46–48 px versus 40 px in idle. [v05 QA cells](packed-light2-v05-qa.png) show the larger head. This is a technical reject, archived under `raw/_rejected/` with both parts preserved under `raw/_parts/_rejected/`.
+- v06 redraw narrowed the head and separated the fist contour. The measured stitch scaled B by 0.9686, final B/A 0.975. The 48-color candidate gate exits 0 **without a scale exemption** at bodyHeight 180, preserving the same standing envelope as the approved combat pilot. [All seven cells](packed-light2-v06.png) were extracted from the actual public atlas and inspected: coiled startup, right near fist extending at head level in f2/f3, and retraction into closed-fist guard by f6. The source maintains the lean torso/long-leg build and common y240 soles. User final review remains pending.
 
 ## Remaining checks
 
