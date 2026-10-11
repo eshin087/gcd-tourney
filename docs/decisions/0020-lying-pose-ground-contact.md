@@ -80,7 +80,9 @@ victim was re-frozen in the air every 7 frames.
   the ground warnings (expected until the redraw is approved).
 - Every new fighter's `ko` and `down` must pass the ground check; the character template and every ANIMATIONS.md
   carry the rule.
-- A KO'd body near the edge now ends on the grass a little more often; the KO crater may be left on the ring where
-  the body landed before it slid off (it reads as the skid out of the impact).
+- A KO'd body near the edge now ends on the grass a little more often. Its crater (`Game.onKOLanded`, about 20 frames
+  after touchdown) is placed where the body is by then, which for a body that landed within `KO_EDGE` of the edge is
+  already off the ring, so `Effects.crater` lays every crater on the floor under it: the ring top on the ring, the
+  grass off it (before, an off-ring crater hung at ring-top height, which also hit direct ring-out KOs).
 - The placeholder bake writes no footprint, so placeholder fighters keep the round blob (optional follow-up: the
   baker can write the same span).
