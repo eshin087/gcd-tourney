@@ -168,18 +168,41 @@ const VERT = /* glsl */ `
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`;
 
+// lift and rim are the hit flash's hold (src/game/hitFlash.js): both stay 0 outside a hit, so those branches are
+// skipped for every other sprite (ghosts, menus) and a frame without a hit costs what it did before
 const FRAG = /* glsl */ `
   uniform sampler2D map;
+  uniform vec4 uvRect;
   uniform vec3 tint;
   uniform vec3 flashColor;
   uniform float flash;
+  uniform float lift;
+  uniform vec3 rimColor;
+  uniform float rim;
+  uniform float rimPx;
   uniform float opacity;
   uniform float silhouette;
   varying vec2 vUv;
   void main() {
+    vec2 px = fwidth(vUv) * rimPx; // rim width in render pixels; derivatives are taken before the discard
     vec4 c = texture2D(map, vUv);
     if (c.a < 0.5) discard;
     vec3 col = c.rgb * tint;
+    if (lift > 0.0) {
+      // brighten in ~gamma space weighted by luma: fills go bright while dark line art stays dark
+      vec3 g = sqrt(col);
+      g = mix(g, vec3(1.0), lift * (0.35 + 0.65 * dot(g, vec3(0.299, 0.587, 0.114))));
+      col = g * g;
+    }
+    if (rim > 0.0) {
+      // inner edge: any of the 4 neighbours (clamped to this frame's cell, so nothing bleeds in) is transparent
+      vec2 lo = uvRect.xy, hi = uvRect.zw;
+      float e = 4.0 - step(0.5, textureLod(map, clamp(vUv + vec2(px.x, 0.0), lo, hi), 0.0).a)
+                    - step(0.5, textureLod(map, clamp(vUv - vec2(px.x, 0.0), lo, hi), 0.0).a)
+                    - step(0.5, textureLod(map, clamp(vUv + vec2(0.0, px.y), lo, hi), 0.0).a)
+                    - step(0.5, textureLod(map, clamp(vUv - vec2(0.0, px.y), lo, hi), 0.0).a);
+      col = mix(col, rimColor, rim * min(1.0, e));
+    }
     col = mix(col, flashColor, flash);
     col = mix(col, flashColor, silhouette);
     gl_FragColor = vec4(col, opacity);
@@ -194,6 +217,10 @@ export function spriteMaterial(texture, transparent = false) {
       tint: { value: new THREE.Color(1, 1, 1) },
       flashColor: { value: new THREE.Color(1, 1, 1) },
       flash: { value: 0 },
+      lift: { value: 0 },
+      rim: { value: 0 },
+      rimColor: { value: new THREE.Color(1, 1, 1) },
+      rimPx: { value: 2 },
       opacity: { value: 1 },
       silhouette: { value: 0 },
     },

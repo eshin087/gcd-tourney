@@ -50,6 +50,8 @@ src/game/
                             zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
+  hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
+                            rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
@@ -120,7 +122,8 @@ freeze while the rest of the world keeps going. Projectile and beam hits don't f
 ### render (every rAF)
 
 ```
-fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms
+fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms (hit flash
+                            pop/lift/rim from hitFlash.js, charge tint, dodge shimmer, super flash)
 cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch, spriteRefDepth
 fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
 beams.sync, fx.update       VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
@@ -186,6 +189,11 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
   shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
+- **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
+  then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
+  `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
+  bleeds in from the next cell), then the `flash` mix toward `flashColor` and the ghost `silhouette`. Lift and rim
+  are 0 outside a hit, so those branches are skipped; `src/game/hitFlash.js` drives them per hit tier.
 - **Depth-normalized size** (ENG-067, ADR 0021): a billboard's on-screen size goes with 1 / view depth, so under
   true perspective the fighter nearer the camera drew 9-23% bigger whenever the two stood apart in depth (the
   fight camera's yaw is clamped to ±0.42 rad, CPU lane steps) or one was in the air. In the `fight` and `clash`
