@@ -1495,7 +1495,8 @@ export class Fighter {
       this.game.onBlock(att, this, m);
       return 'block';
     }
-    const wasStunned = this.state === 'hitstun' || this.state === 'launched';
+    // a super that grabs a victim out of a combo (flurry, Domain, maul: `held`, not a throw) carries the combo on (ADR 0026)
+    const wasStunned = this.state === 'hitstun' || this.state === 'launched' || (this.state === 'held' && this.combo > 0 && !this.grab);
     // true combos (ADR 0022): a hit after open frames (they could have teched) turns the rest of the combo blue
     this.punishHit = !wasStunned && !m.burst && this.inRecovery();
     if (wasStunned) {

@@ -247,7 +247,9 @@ export class Hud {
         C.t = 1.4;
       }
       if (C.t > 0) {
-        C.t -= dt;
+        // it stays up while they're still reeling in it (a long bounce, a super's hold), so the ticker and rating show
+        const reeling = opp.combo > 0 && (opp.state === 'launched' || opp.state === 'hitstun' || opp.state === 'held');
+        if (!reeling) C.t -= dt;
         if (C.t <= 0) { C.el.classList.remove('show'); C.hits = 0; C.blue = false; this.comboStart(i); }
       }
     });

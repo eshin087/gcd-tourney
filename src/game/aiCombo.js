@@ -679,11 +679,25 @@ function afterStun(e, x) {
   return Math.max(s, wall, gb);
 }
 
+// The rest of the lookahead: after this edge, will we still have a way to reach them? A move that ends in a long
+// recovery in the air (a vanish kick, a rush or teleport strike, the last hit of an air string) leaves only the super
+// dash or another bar to follow its launch; a grind, a ground shot or a ground ender leaves time to walk up and meet.
+function followable(e, x) {
+  const f = x.f, ki = f.ki - (e.cost ?? 0), sd = f.airDashes === 0 && e.act !== 'sd';
+  switch (e.act) {
+    case 'vanish': return sd || ki >= VANISH.cost;
+    case 'special': return !!(e.m?.kind === 'pull' || e.m?.vortex || (e.m?.kind === 'shot' && !e.m.air)) || sd || ki >= VANISH.cost;
+    case 'chain': return !x.m?.air || x.m.next !== 'airLight3' || sd || ki >= VANISH.cost;
+    default: return true;
+  }
+}
+
 // Nothing fits right now but they're still stuck for a while (a vortex grinding them, a long launch, our recovery):
 // press nothing (walk up to them on the ground) and decide again at the next hit, bounce, or once we're free.
 const HOLD = { id: 'hold', act: 'hold', tags: [] };
 const SD_LATE = new Set(['WALLBACK', 'GBUP', 'AIRLOCK', 'RESTART']); // where a long combo spends its super dash
-const HOLD_NODES = new Set(['FLY', 'AIRLOCK', 'GBUP', 'WALLBACK', 'RESTART', 'G4', 'LAUNCH']);
+const NOT_OURS = new Set(['hitstun', 'launched', 'burst', 'down', 'held']); // our states when their combo isn't one we run
+const HOLD_NODES = new Set(['FLY', 'AIRLOCK', 'AFREE', 'GBUP', 'WALLBACK', 'RESTART', 'G4', 'LAUNCH', 'A1', 'A2']);
 
 // ------------------------------------------------------------------ the composer
 const ctx = { z: null, b: null, f: null, o: null, c: null, t: 0, m: null, left: 0, combo: 0, node: '', extra: null, wk: 1, optk: 1, handball: false, bounceAt: -1 };
@@ -741,8 +755,8 @@ export class ComboComposer {
     if (game.round !== this.round) { this.round = game.round; this.highlights = 0; }
     const inCombo = o.combo > 0 && !o.ko && (o.state === 'hitstun' || o.state === 'launched' || (o.state === 'held' && !o.grab && this.live));
     if (this.live && (!inCombo || o.combo < this.peak)) this.end(game, inCombo ? 'restart' : this.endReason(o));
-    // (a trade is no combo of ours: we're reeling too)
-    if (!this.live && inCombo && o.combo <= 3 && f.state !== 'hitstun' && f.state !== 'launched') this.begin(game, c);
+    // (a trade is no combo of ours: we're reeling too; nor is a burst's shockwave, which ends in its own recovery)
+    if (!this.live && inCombo && o.combo <= 3 && !NOT_OURS.has(f.state)) this.begin(game, c);
     if (!this.live) { this.lastState = f.state; return; }
     this.peak = Math.max(this.peak, o.combo);
     // move and airtime serials: a new move of ours is a new decision point
@@ -826,6 +840,8 @@ export class ComboComposer {
     const share = game.comboShare?.() ?? 0.4;
     if (share > 0.5) { w.highlight *= 0.3; w.medium *= 0.6; } else if (share < 0.3) w.highlight *= 1.5;
     if (this.burstThreat()) w.highlight *= P.risk >= 0.7 ? 1 : 0.5;
+    // a long route runs on bars (vanish chains, grinds): go for one when the meter is there for it
+    w.highlight *= this.f.ki >= 200 ? 1.6 : this.f.ki >= 100 ? 1 : 0.5;
     this.tier = pickW(w, this.rand) || 'short';
     const [lo, hi] = TIERS[this.tier];
     this.target = lo + Math.floor(this.rand() * (hi - lo + 1));
@@ -935,9 +951,10 @@ export class ComboComposer {
       const s = this.stats[e.id], rel = s ? Math.max(0.2, (s.ok + 2) / (s.n + 2)) : 1;
       let k = base * x.wk * rel;
       const after = afterStun(e, x);
+      const dead = remaining >= 4 && !followable(e, x); // it would end the combo early: an ender in effect
       if (P.optimal) {
         // the most damage that links: its priority, safer links first, and a window to keep going afterwards
-        const opt = (typeof e.opt === 'object' ? e.opt[node] ?? 1 : e.opt) * x.optk * rel * (margin < MARGIN + 2 ? 0.6 : 1) * (0.6 + after / 25);
+        const opt = (typeof e.opt === 'object' ? e.opt[node] ?? 1 : e.opt) * x.optk * rel * (margin < MARGIN + 2 ? 0.6 : 1) * (0.6 + after / 25) * (dead ? 0.5 : 1);
         opts.push({ e, tags, gap, raw, k: opt * (0.9 + 0.2 * this.rand()) });
         continue;
       }
@@ -945,7 +962,7 @@ export class ComboComposer {
       k /= 1 + 0.4 * (this.uses[e.id] ?? 0);
       if (this.route.includes(e.id) && !tags.includes('string') && !tags.includes('handball')) k *= 0.3;
       if (this.cooled(e.id)) k *= 0.25;
-      if (remaining >= 4 && ender) k *= 0.2;
+      if (remaining >= 4 && (ender || dead)) k *= dead && !ender ? 0.35 : 0.2;
       if (remaining <= 0 && !ender) k *= 0.1;
       if (margin < MARGIN + 2) k *= P.risk;
       // a long combo leans on what leaves a long stun window after it (a launch, a bounce, a grind)
@@ -957,7 +974,7 @@ export class ComboComposer {
       else if (this.tier === 'medium') k *= 0.75 + after / 40;
       if (e.tool) k *= Math.sqrt(sh.bias(e.tool));
       if (this.burstThreat() && this.tier !== 'highlight' && ender) k *= 1.3; // cash out before they burst
-      if (k > 0) { w[opts.length] = k; opts.push({ e, tags, gap, raw }); }
+      if (k > 0) { w[opts.length] = k; opts.push({ e, tags, gap, raw, k }); }
     }
     if (!opts.length) return null;
     if (x.left >= 10 && HOLD_NODES.has(node) && !opts.some((o) => o.e.id !== 'end')) {
@@ -973,7 +990,7 @@ export class ComboComposer {
     this.lastGap = pick.raw; // the expectation without the learned lateness, which note() re-measures
     if (this.f.game.debugCombos) {
       // ?debug: why this edge, out of which (comboLog[i].steps)
-      (this.steps || (this.steps = [])).push(`${node}@${x.combo} ${this.f.state}/${this.f.moveName ?? ''} vs ${x.o.state} left${x.left} y${x.o.pos.y.toFixed(1)} room${x.c.oppRoom.toFixed(1)} ki${Math.round(this.f.ki)}${this.f.airDashes ? ' sd-used' : ''} → ${e.id} gap${pick.gap === true ? '-' : Math.round(pick.gap)} [${opts.map((o) => o.e.id).join(',')}]`);
+      (this.steps || (this.steps = [])).push(`${node}@${x.combo} ${this.f.state}/${this.f.moveName ?? ''} vs ${x.o.state} left${x.left} y${x.o.pos.y.toFixed(1)} room${x.c.oppRoom.toFixed(1)} ki${Math.round(this.f.ki)}${this.f.airDashes ? ' sd-used' : ''} → ${e.id} gap${pick.gap === true ? '-' : Math.round(pick.gap)} [${opts.map((o) => o.e.id + ':' + (o.k ?? 0).toFixed(2)).join(',')}]`);
     }
     return e;
   }

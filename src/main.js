@@ -166,7 +166,8 @@ if (qs.has('debug')) {
     const perMatch = (fn) => [...matchIds].filter((m) => recs.some((r) => r.match === m && fn(r))).length / M;
     const hist = { '2-3': 0, '4-7': 0, '8-12': 0, '13-19': 0, '20+': 0 };
     for (const r of recs) hist[r.hits >= 20 ? '20+' : r.hits >= 13 ? '13-19' : r.hits >= 8 ? '8-12' : r.hits >= 4 ? '4-7' : '2-3']++;
-    const routes = log.filter((r) => r.edges.length >= 2);
+    // a route is two or more of the composer's decisions (the '·why' markers say how it stopped, not what it did)
+    const routes = log.filter((r) => r.edges.filter((e) => !e.startsWith('·')).length >= 2);
     let repeat = 0;
     const prev = {};
     for (const r of routes) { if (prev[r.match + ':' + r.who] === r.sig) repeat++; prev[r.match + ':' + r.who] = r.sig; }
@@ -207,7 +208,7 @@ if (qs.has('debug')) {
       game.startMatch({ mode: 'cpu', p1, p2, level });
       game.skipIntro();
     };
-    const seen = [{ s: '', n: 0 }, { s: '', n: 0 }];
+    const seen = [{ s: '', t: 0, n: 0 }, { s: '', t: 0, n: 0 }]; // one state that keeps counting up (not re-entered)
     start();
     (async () => {
       while (S.done < n) {
@@ -216,7 +217,7 @@ if (qs.has('debug')) {
           if (![f.pos.x, f.pos.y, f.pos.z, f.vel.x, f.vel.y, f.vel.z].every(Number.isFinite)) S.nan++;
           if (!f.ko && Math.max(Math.abs(f.pos.x), Math.abs(f.pos.z)) > 8.6) S.ring++;
           const live = game.state === 'fight' && !['idle', 'run', 'guard'].includes(f.state);
-          if (live && f.state === seen[i].s) { if (++seen[i].n === 5) S.stuck.push(`${f.def.id}:${f.state}`); } else seen[i] = { s: f.state, n: 0 };
+          if (live && f.state === seen[i].s && f.t >= seen[i].t) { seen[i].t = f.t; if (++seen[i].n === 5) S.stuck.push(`${f.def.id}:${f.state}/${f.moveName ?? f.kitState?.kind ?? ''}`); } else seen[i] = { s: f.state, t: f.t, n: 0 };
         });
         if (game.state === 'results') {
           S.matches.push({ pair: game.fighters.map((f) => f.def.id).join(' vs '), winner: game.roundWinner?.def.id, personas: game.brains.map((b) => b?.persona?.name) });
