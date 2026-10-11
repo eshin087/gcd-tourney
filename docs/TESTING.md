@@ -1,6 +1,7 @@
 # Testing
 
-Apart from the packer self-test (`npm run test:sprites`), there's no automated test suite yet (see
+Apart from the packer self-test (`npm run test:sprites`) and the music composer test (`npm run test:music`),
+there's no automated test suite yet (see
 [ROADMAP.md](ROADMAP.md) and [TASKS.md](TASKS.md)). Quality comes from a disciplined manual protocol,
 deterministic debug helpers and CPU-vs-CPU soaks. Run the parts that match your change, and always run the
 **smoke test** and `npm run build`. After any change to `tools/`, also run `npm run test:sprites`.
@@ -20,6 +21,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&debug` | expose console helpers (below) |
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
+| `&flash=pop\|tint\|rim\|classic\|off` | the victim's hit flash style (default `pop`; `classic` = the old solid white), also on `/lab.html`; with `&debug`, `window.HIT_FLASH` tunes it live |
+| `&depthscale=0` | true perspective for fighter sprites (turns off the depth-normalized size, ENG-067); `0.5` = half strength |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 | `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
@@ -36,6 +39,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `freezeCpu()` | P2's CPU stops moving and pressing (a training dummy) |
 | `snap()` / `unsnap()` | copy the WebGL frame into a 2D canvas so screenshots of background tabs aren't blank |
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
+| `music.state()` | the music (ADR 0019): mood, seed, song, section, bar, heat, ducks, volume, scheduler running |
+| `music.next()` / `music.seed(n)` | a new song (or song `n`) from the next bar; `?musicSeed=N` seeds the first one |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
 guard, `KeyO` dash.
@@ -66,10 +71,10 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
-  wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
+  wavedash, air combo, wall bounce, vanish, super dash, counter hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A
   scenario that the current pair can't show says so (for example "needs two rush specials").
 - **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
-  dummy, infinite meter, boxes, reset. ` hides the panel; the keyboard and touch controls still play YOU.
+  dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, reset. ` hides the panel; the keyboard and touch controls still play YOU.
 - Scripts are timelines on the fighter's pad (`src/lab/scripts.js`), built from the kit data, so new fighters and moves
   appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands.
 
@@ -78,7 +83,14 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] The page loads, and the console shows only `[sprites] ...` info lines. **No errors.**
 - [ ] Title → mode select → char select → match starts. The intro flythrough can be skipped with Enter.
 - [ ] One full round plays to a KO. Round announcements, the win pose and the results screen work.
+- [ ] Results screen: the match ends on a cut to the winner alone (the loser and its shadow are gone), whole and
+      undimmed, facing screen-right, left of a slim panel (WINNER · P1/CPU/P2 tag, name, subtitle, REMATCH /
+      CHARACTER SELECT / TITLE); no second, smaller winner sprite; the winner never mirrors while the camera
+      sways. A window narrower than 3:4 gets a bottom bar with the winner above it. Rematch, character select
+      and title bring both fighters back with no leftover framing shift.
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
+- [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
+      any character select returns to SELECT MODE on that mode.
 - [ ] `npm run build` passes.
 
 ## Feature checklists
@@ -96,6 +108,10 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. Ground bounce happens once.
 - [ ] Every strike visibly **touches the body** when it connects, the spark sits on the contact point, and there
       are no hits across a visible depth gap.
+- [ ] Hit flash (ENG-064): the victim pops white for 1 (light), 2 (heavy) or 3 (smash) frames, then keeps its line
+      art with a bright rim and fades; never solid white through a string, a beam or a vortex. Counter hits (lab
+      **Counter hit**), supers and KOs stay white a little longer; a Rasengan or Chidori pops 2 frames, and punishing a
+      whiff (a missed throw, a dive's landing) is a normal hit. `?flash=classic` (or the lab chip) shows the old look.
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
 - [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:
@@ -126,6 +142,21 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Training room: the character responds to live input, the dummy modes work, health refills, there's no
       timer, and input history shows.
 - [ ] Mute: `M` and the on-screen toggle (top corner, unobtrusive) both mute and unmute, and stay in sync.
+
+**Audio and music (ADR 0019)**
+- [ ] `npm run test:music` passes (composer: determinism, variety, ranges, voice leading, heat gates).
+- [ ] Flow: title → mode (menu mood; repeated confirms don't restart it) → match (crossfade to battle, no click) →
+      pause (quieter, muffled; `music.state().ducks` = `['pause']`) → resume → results (crossfade to menu) → rematch
+      (battle) → quit to title. Training plays the `training` mood (80 bpm).
+- [ ] Ducks: a rhythm clash (lab **Ultimate clash**) shows `clash` until it ends; a KO shows `ko` until the win pose;
+      Unlimited Void shows `domain`; after every round and match the list is empty.
+- [ ] MUSIC row in both pause menus (training: right before EXIT TRAINING): ◀ ▶ in 10% steps, a tap steps up and
+      wraps to OFF; the value survives a reload (`gcd.musicVol`); at OFF `music.state().scheduler` turns false.
+- [ ] Muted (`M`): no music nodes are created while muted; the pad comes back on unmute.
+- [ ] Stall: a 1.5 s busy loop in the console during a fight plays no burst of notes afterward.
+- [ ] Offline render (paste a harness that builds `new MusicPlayer({ ctx: offlineCtx, music, noiseBuf, muted,
+      musicVolume })` and calls `tick()` from `ctx.suspend()` points): no NaN, peaks under -10 dBFS at 100%, RMS
+      about -36 dBFS at the default 70%, smooth levels across crossfades and song seams.
 - [ ] HUD: health trail, ki bars, combo counter, callouts, timer.
 
 **Art loading**
@@ -139,6 +170,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       placeholder still looks chibi; that's expected until ENG-016.
 - [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
       chunky mode back for comparison.
+- [ ] Depth-normalized size (ENG-067): with `?debug`, `freezeCpu()`, `const [p1, p2] = game.fighters`, put the
+      fighters on a 45° diagonal (`p1.teleport(-1.41, 0, 1.41); p2.teleport(1.41, 0, -1.41); step(150)`) or lined
+      up in depth (`teleport(0, 0, ±1.5)`). Both stand the same height on screen (a screenshot), and
+      `game.fighters.map((f) => f.actor.depthK)` splits around 1 (about 0.95/1.05 on the diagonal, 0.90/1.10 lined
+      up; clamp 0.82..1.22). With `&depthscale=0` the nearer fighter is 11-23% bigger. Fighters level in depth keep
+      depthK 1 (no change from true perspective). A teleport of one fighter changes both sizes together, never one
+      alone. Ghost trails and the `?boxes` outlines match the scaled body, and a held Rasengan or Chidori sits on the
+      drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
+      depthK back to 1 over about half a second (no pop); ko and victory too.
 
 ### Mobile (landscape touch)
 
@@ -152,6 +192,8 @@ or add `?touch=1` on desktop to force the touch UI (`?touch=0` hides it).
 - [ ] Joystick moves (double flick dashes); every button acts; sliding a finger between buttons switches them;
       ULT fires the ultimate with 3 bars, VANISH with 1; both dim without enough ki.
 - [ ] The fight stays framed left of / above the button cluster. Pause button pauses; BACK resumes.
+- [ ] Results (740 x 360): panel on the right, the whole winner on the left, no touch buttons, no BACK button;
+      tapping REMATCH / CHARACTER SELECT / TITLE works.
 - [ ] Training: the panel starts collapsed; the TOUCH tab lists the controls and changes the button size.
 - [ ] Desktop is unchanged: keyboard hint bar, no touch UI, no rotate screen.
 

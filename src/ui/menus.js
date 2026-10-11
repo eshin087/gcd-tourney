@@ -54,6 +54,23 @@ export const MOVES_HTML = `
   </div>`;
 
 const DUMMY_MODES = [['stand', 'STAND'], ['guard', 'GUARD'], ['jump', 'JUMP'], ['cpu', 'CPU']];
+// the pause menus' MUSIC volume row (ADR 0019): left / right in 10% steps, a tap steps up and wraps to OFF
+const musicRow = () => ({
+  label: () => `MUSIC: ◀ ${audio.musicVolume > 0 ? `${Math.round(audio.musicVolume * 100)}%` : 'OFF'} ▶`,
+  cycle: (d) => audio.stepMusicVolume(d),
+});
+const NO_COVER = Object.freeze({ x: 0, y: 0 }); // resultsCover() off the results screen
+
+// SELECT MODE rows in display order. modeIndex() reads the same table, so a new row can't desync the
+// cursor a screen returns to (a hard-coded index went stale when CPU VS CPU was added). The ids of the
+// first three rows are the charSelect / startMatch mode strings.
+const MODES = [
+  { id: 'solo', label: 'VS CPU', sub: 'fight the computer' },
+  { id: 'versus', label: '2 PLAYERS', sub: 'same keyboard or two gamepads' },
+  { id: 'cpu', label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out' },
+  { id: 'training', label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind' },
+  { id: 'sprites', label: 'SPRITE LAB', sub: 'preview & export sprite sheets' },
+];
 
 export class Menus {
   constructor(root, game) {
@@ -126,7 +143,9 @@ export class Menus {
     const btns = items.map((it, i) => {
       const b = el('button', 'item' + (it.cycle ? ' cyc' : ''), `<span>${label(it)}</span>${it.sub ? `<small>${it.sub}</small>` : ''}`);
       b.onmouseenter = () => { idx = i; render(); };
-      b.onclick = () => { idx = i; confirm(); };
+      // stop here: an item that opens the title screen (TITLE, QUIT TO TITLE) would otherwise bubble into the
+      // click-anywhere handler title() just put on .menus and skip straight on to mode select
+      b.onclick = (e) => { e.stopPropagation(); idx = i; confirm(); };
       box.append(b);
       return b;
     });
@@ -187,7 +206,7 @@ export class Menus {
 
   // Row of a mode on the SELECT MODE list (for going back to it with the cursor in place).
   modeIndex(mode) {
-    return Math.max(0, MODE_ORDER.indexOf(mode));
+    return Math.max(0, MODES.findIndex((m) => m.id === mode));
   }
 
   modeSelect(index = 0) {
@@ -195,13 +214,14 @@ export class Menus {
     this.screen = 'mode';
     this.root.classList.add('panel-screen');
     this.root.append(el('div', 'screen-title', 'SELECT MODE'));
-    const { box, ctrl } = this.list([
-      { label: 'VS CPU', sub: 'fight the computer', action: () => this.charSelect('solo') },
-      { label: '2 PLAYERS', sub: 'same keyboard or two gamepads', action: () => this.charSelect('versus') },
-      { label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out', action: () => this.charSelect('cpu') },
-      { label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind', action: () => this.game.startTraining() },
-      { label: 'SPRITE LAB', sub: 'preview & export sprite sheets', action: () => window.open('/sprites.html', '_blank') },
-    ], { index, back: () => this.title() });
+    // rows without an entry here are fight modes: they go to character select
+    const act = {
+      training: () => this.game.startTraining(),
+      sprites: () => window.open('/sprites.html', '_blank'),
+    };
+    const { box, ctrl } = this.list(
+      MODES.map((m) => ({ label: m.label, sub: m.sub, action: act[m.id] || (() => this.charSelect(m.id)) })),
+      { index, back: () => this.title() });
     this.root.append(box);
     this.ctrl = ctrl;
   }
@@ -508,11 +528,13 @@ export class Menus {
           { label: () => `HITBOXES: ◀ ${g.showBoxes ? 'ON' : 'OFF'} ▶`, cycle: () => { g.showBoxes = !g.showBoxes; } },
           { label: 'RESET POSITIONS', action: () => { onResume(); g.resetTrainingPositions(); } },
           { label: 'CHANGE FIGHTERS', action: () => this.charSelect('training', again(6)) },
+          musicRow(),
           { label: 'EXIT TRAINING', action: () => g.exitTraining() },
         ]
       : [
           { label: 'RESUME', action: onResume },
           { label: 'CONTROLS', sub: 'PS / Xbox / keyboard · rebind', action: () => this.controls(again(1)) },
+          musicRow(),
           { label: 'QUIT TO TITLE', action: onQuit },
         ];
     const { box, ctrl } = this.list(items, { index, back: onResume });
@@ -520,24 +542,46 @@ export class Menus {
     this.ctrl = ctrl;
   }
 
-  results(winner, asset, onRematch, onChars, onTitle) {
+  // Post-match: the live 3D winner is the hero shot (camera 'results'; Game.render shifts the projection by
+  // resultsCover()), so this screen is only a slim side panel: no second sprite, no full-screen dim.
+  results(winner, onRematch, onChars, onTitle) {
     this.clear();
     this.screen = 'results';
-    this.root.classList.add('panel-screen', 'results');
-    const head = el('div', 'res-head');
-    const cv = document.createElement('canvas');
-    cv.width = asset.meta.frameWidth; cv.height = asset.meta.frameHeight;
-    cv.className = 'cs-sprite big';
-    head.append(cv, el('div', 'res-text', `<div class="res-win">WINNER</div><div class="res-name" style="color:${winner.def.color}">${winner.def.name}</div>`));
-    this.root.append(head);
-    this.previews = [new SpritePreview(cv, asset, 'win')];
+    this._resCover = null;
+    this.root.classList.add('results-screen');
+    const d = winner.def;
+    const tag = ({ solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'] }[this.game.cfg?.mode] || ['P1', 'P2'])[winner.index];
+    const panel = el('div', 'res-panel');
+    panel.append(el('div', 'res-text',
+      `<div class="res-win">WINNER · ${tag}</div><div class="res-name" style="color:${d.color};--len:${d.name.length}">${d.name}</div>` +
+      (d.subtitle ? `<div class="res-sub">${d.subtitle}</div>` : '')));
     const { box, ctrl } = this.list([
       { label: 'REMATCH', action: onRematch },
       { label: 'CHARACTER SELECT', action: onChars },
       { label: 'TITLE', action: onTitle },
-    ]);
-    this.root.append(box);
+    ], { cls: 'res-list' });
+    panel.append(box);
+    this.root.append(panel);
     this.ctrl = ctrl;
+  }
+
+  // Screen fractions the results panel hides: x from the right (side column) or y from the bottom (the bar a
+  // window narrower than 3:4 gets). Layout offsets ignore the slide-in transform, so the shot moves once, not
+  // with the animation. Cached like panelCover: reading layout every frame would force a reflow per frame.
+  resultsCover() {
+    if (this.screen !== 'results') return NO_COVER;
+    const now = performance.now();
+    if (!this._resCover || now - this._resCover.t > 500) {
+      const p = this.root.querySelector('.res-panel');
+      const W = this.root.clientWidth || window.innerWidth, H = this.root.clientHeight || window.innerHeight;
+      const bar = !!p && p.offsetWidth > W * 0.7;
+      this._resCover = {
+        t: now,
+        x: p && !bar ? Math.max(0, Math.min(0.5, 1 - p.offsetLeft / W)) : 0,
+        y: p && bar ? Math.max(0, Math.min(0.5, 1 - p.offsetTop / H)) : 0,
+      };
+    }
+    return this._resCover;
   }
 }
 

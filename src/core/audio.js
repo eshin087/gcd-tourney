@@ -1,23 +1,51 @@
 // All sound is synthesized with WebAudio, so the demo ships with zero audio files.
 // Swap any entry in play() for a sample later (AudioBuffer) without touching callers.
+// Music is composed and performed by music.js / musicPlan.js (ADR 0019); this engine owns its bus and volume.
+
+import { MusicPlayer } from './music.js';
+
+const MUSIC_MAX = 0.7; // music bus at 100%: about the old taiko loop's overall loudness; the default 70% is 6 dB under
+const musicGain = (v) => MUSIC_MAX * v * v; // a squared fader: the steps sound even
 
 export class AudioEngine {
   constructor() {
     this.ctx = null;
     this.muted = (() => { try { return localStorage.getItem('gcd.muted') === '1'; } catch { return false; } })();
-    this.musicOn = true;
+    this.musicVolume = (() => {
+      try {
+        const v = parseFloat(localStorage.getItem('gcd.musicVol'));
+        return Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : 0.7;
+      } catch { return 0.7; }
+    })();
     this.muteListeners = new Set();
     this.loops = new Map();
+    this.mus = new MusicPlayer(this);
   }
 
   init() {
     if (this.ctx) {
-      if (this.ctx.state === 'suspended') this.ctx.resume();
+      // 'suspended' before the first gesture, 'interrupted' after a call on iOS: a gesture brings it back
+      if (this.ctx.state !== 'running' && !document.hidden) this.ctx.resume()?.catch?.(() => {});
       return;
     }
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
     const ctx = (this.ctx = new AC());
+    // a hidden tab sleeps: nothing plays, nothing is scheduled, and the music picks up where it was on return.
+    // Any context that has ever run is woken, also one iOS left 'interrupted' or suspended while hidden (a call,
+    // Siri, an app switch); one still waiting for its first gesture stays as it is (waking it only warns).
+    // A resume the browser refuses outside a gesture is fine: every tap and key calls init(), which retries.
+    // (`slept` resumes even if our own suspend() hasn't landed yet, so a quick hide-and-show can't leave it asleep)
+    let slept = false, ran = ctx.state === 'running';
+    ctx.addEventListener?.('statechange', () => { if (ctx.state === 'running') ran = true; });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (ctx.state === 'running') { slept = ran = true; ctx.suspend()?.catch?.(() => {}); }
+      } else {
+        if (slept || (ran && ctx.state !== 'running')) ctx.resume()?.catch?.(() => {});
+        slept = false;
+      }
+    });
     this.master = ctx.createGain();
     this.master.gain.value = this.muted ? 0 : 0.8;
     const comp = ctx.createDynamicsCompressor();
@@ -28,7 +56,7 @@ export class AudioEngine {
     this.sfx.gain.value = 0.9;
     this.sfx.connect(this.master);
     this.music = ctx.createGain();
-    this.music.gain.value = 0.32;
+    this.music.gain.value = musicGain(this.musicVolume);
     this.music.connect(this.master);
     this.amb = ctx.createGain();
     this.amb.gain.value = 0.0;
@@ -45,6 +73,7 @@ export class AudioEngine {
     const d = this.noiseBuf.getChannelData(0);
     for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     this.startCrowd();
+    this.mus.wake();
   }
 
   get t() {
@@ -412,97 +441,41 @@ export class AudioEngine {
     this.amb.gain.setTargetAtTime(level, this.t, 0.4);
   }
 
-  // ---- music: taiko + pentatonic plucks, scheduled ahead ----
-  startMusic(style = 'battle') {
-    if (!this.ctx) return;
-    this.stopMusic();
-    const ctx = this.ctx;
-    const bpm = style === 'battle' ? 148 : 96;
-    const step = 60 / bpm / 4;
-    // Hirajoshi-ish scale on A
-    const scale = [220, 246.94, 261.63, 329.63, 349.23, 440, 493.88, 523.25, 659.25, 698.46];
-    const melody = style === 'battle'
-      ? [5, -1, 7, 5, 4, -1, 3, -1, 5, 7, 8, -1, 7, 5, 4, 3, 2, -1, 3, 4, 5, -1, 3, -1, 2, 1, 0, -1, 1, 2, 3, -1]
-      : [5, -1, -1, 4, -1, -1, 3, -1, 2, -1, -1, -1, 3, -1, 4, -1];
-    const bass = [0, -1, -1, 0, -1, -1, 0, -1, 3, -1, -1, 3, -1, -1, 2, -1];
-    const taiko = [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0];
-    const shime = [0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1];
-    let i = 0;
-    let next = ctx.currentTime + 0.1;
-    const dest = this.music;
-    const sched = () => {
-      while (next < ctx.currentTime + 0.2) {
-        const s16 = i % 16;
-        if (style === 'battle') {
-          if (taiko[s16]) this._drum(next, 0.9);
-          if (shime[s16]) this._click(next, 0.35);
-          const b = bass[s16];
-          if (b >= 0) this._pluck(next, scale[b] / 2, 'sawtooth', 0.09, step * 2.5, 500);
-        } else if (s16 % 8 === 0) this._drum(next, 0.4);
-        const m = melody[i % melody.length];
-        if (m >= 0) this._pluck(next, scale[m] * (style === 'battle' ? 2 : 1), 'triangle', 0.13, step * 3, 3000);
-        if (style === 'battle' && i % 64 >= 48 && m >= 0) this._pluck(next + step / 2, scale[(m + 2) % scale.length] * 2, 'square', 0.035, step, 2000);
-        next += step;
-        i++;
-      }
-    };
-    sched();
-    this.musicTimer = setInterval(sched, 40);
-    void dest;
+  // ---- music (ADR 0019): moods 'menu' | 'battle' | 'training'; a mood already playing is a no-op ----
+  startMusic(mood = 'battle') {
+    this.mus.play(mood);
   }
 
-  stopMusic() {
-    clearInterval(this.musicTimer);
-    this.musicTimer = null;
+  stopMusic(fade) {
+    this.mus.stop(fade);
   }
 
-  _drum(t, v) {
-    const ctx = this.ctx;
-    const o = ctx.createOscillator();
-    o.frequency.setValueAtTime(110, t);
-    o.frequency.exponentialRampToValueAtTime(45, t + 0.25);
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.7 * v, t + 0.005);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
-    o.connect(g).connect(this.music);
-    o.start(t);
-    o.stop(t + 0.4);
+  // MUSIC volume 0..1 in steps of 0.1, remembered across visits; 0 stops the music's scheduler altogether
+  setMusicVolume(v) {
+    v = Math.round(Math.min(1, Math.max(0, v)) * 10) / 10;
+    this.musicVolume = v;
+    try { localStorage.setItem('gcd.musicVol', String(v)); } catch {}
+    if (this.music) this.music.gain.setTargetAtTime(musicGain(v), this.t, 0.08);
+    this.mus.onVolume(v);
   }
 
-  _click(t, v) {
-    const ctx = this.ctx;
-    const s = ctx.createBufferSource();
-    s.buffer = this.noiseBuf;
-    const f = ctx.createBiquadFilter();
-    f.type = 'bandpass';
-    f.frequency.value = 2200;
-    f.Q.value = 4;
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.5 * v, t + 0.002);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
-    s.connect(f).connect(g).connect(this.music);
-    s.start(t, Math.random());
-    s.stop(t + 0.06);
+  // a menu row's left / right: wraps 100% -> OFF so a tap (which only steps forward) reaches every value
+  stepMusicVolume(d) {
+    this.setMusicVolume(((Math.round(this.musicVolume * 10) + d + 11) % 11) / 10);
   }
 
-  _pluck(t, f, type, v, dur, cutoff) {
-    const ctx = this.ctx;
-    const o = ctx.createOscillator();
-    o.type = type;
-    o.frequency.value = f;
-    const lp = ctx.createBiquadFilter();
-    lp.type = 'lowpass';
-    lp.frequency.setValueAtTime(cutoff, t);
-    lp.frequency.exponentialRampToValueAtTime(Math.max(200, cutoff / 6), t + dur);
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(v, t + 0.004);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(lp).connect(g).connect(this.music);
-    o.start(t);
-    o.stop(t + dur + 0.02);
+  // 0..1, how heated the fight is (game.excite): busier drums, arpeggio and a brighter pad when it's hot
+  setMusicIntensity(k) {
+    this.mus.setIntensity(k);
+  }
+
+  // duck the music under a moment: 'pause' | 'clash' | 'ko' | 'domain' (musicPlan.js DUCKS)
+  duckMusic(id, on) {
+    this.mus.setDuck(id, on);
+  }
+
+  clearMusicDucks() {
+    this.mus.clearDucks();
   }
 }
 

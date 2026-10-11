@@ -116,6 +116,7 @@ export class Game {
     this.dimTarget = 0;
     this.viewCover = 0; // fraction of the screen width hidden behind the training panel / touch buttons
     this.viewLift = 0; // projection shift up while touch buttons cover the bottom
+    this.viewCoverY = 0; // results bottom bar (narrow window): the 'results' camera pulls back by it
     this.showBoxes = new URLSearchParams(location.search).has('boxes'); // hit/hurt box overlay
     // keep the on-screen button hints in sync with the device being used
     input.onDevice((d) => {
@@ -208,7 +209,7 @@ export class Game {
     this.hud.show(true);
     this.hud.training(true);
     this.inputLive = true;
-    audio.startMusic('battle');
+    audio.startMusic('training');
     audio.setCrowd(0);
     this.menus.trainingPanel();
   }
@@ -285,12 +286,14 @@ export class Game {
     this.fx.overlay.impactFrame(4);
     this.cam.shake(0.6);
     audio.play('gong');
+    audio.duckMusic('domain', true);
     this.excite = 1;
   }
 
   endDomain() {
     if (!this.domain) return;
     this.domain = null;
+    audio.duckMusic('domain', false);
     this.setStage(this.training ? 'training' : 'arena');
     this.fx.overlay.flash('#ffffff', 0.5);
   }
@@ -331,6 +334,7 @@ export class Game {
     this.clash = null;
     this.spClashCool = 0;
     audio.stopAllLoops();
+    audio.clearMusicDucks();
     this.fx.clearAll();
     this.hud.clash(false);
     this.hud.clearAnnounce();
@@ -342,6 +346,7 @@ export class Game {
     this.superFlash = null;
     this.dimTarget = 0;
     this.inputLive = false;
+    this.viewCover = this.viewLift = this.viewCoverY = 0; // a rematch's intro must not start in the results framing
   }
 
   resetRound() {
@@ -363,6 +368,7 @@ export class Game {
     this.spClashCool = 0;
     this.hud.clash(false);
     audio.stopAllLoops();
+    audio.clearMusicDucks();
     this.fx.clearAll();
     this.timeLeft = ROUND_TIME;
     this.timeScale = 1;
@@ -482,6 +488,7 @@ export class Game {
     if (this.paused) return;
     this.paused = true;
     if (audio.sfx) audio.sfx.gain.value = 0.25;
+    audio.duckMusic('pause', true);
     this.fx.overlay.clear();
     this.menus.pause(() => this.resume(), () => this.quitToTitle(), this.training);
   }
@@ -489,6 +496,7 @@ export class Game {
   resume() {
     this.paused = false;
     if (audio.sfx) audio.sfx.gain.value = 0.9;
+    audio.duckMusic('pause', false);
     this.menus.hide();
     for (const p of this.pads) p.clear();
     this.input.flush(); // the RESUME confirm press must not also jump / attack
@@ -496,27 +504,30 @@ export class Game {
     else if (this.fighters.length === 2) this.hud.hint.innerHTML = matchHint(this.cfg.mode, deviceLayout(this.input)); // bindings may have changed
   }
 
-  exitTraining() {
+  // Every way back to the menus (exit training, quit to title, results -> character select). The old
+  // screen goes first and a failing open() falls back to the title, so a menu bug can never leave the
+  // pause list up over an empty arena with no way out (ENG-062).
+  toMenu(open) {
     this.paused = false;
     if (audio.sfx) audio.sfx.gain.value = 0.9;
     this.cleanupMatch();
+    this.brains = [null, null];
     this.setState('menu');
     this.cam.set('orbit');
     audio.startMusic('menu');
     audio.setCrowd(0.05);
-    this.menus.modeSelect(this.menus.modeIndex('training'));
+    this.menus.hide();
+    try {
+      open();
+    } catch (e) {
+      console.error('[menus] could not open the next screen; back to the title', e);
+      this.menus.title();
+    }
   }
 
-  quitToTitle() {
-    this.paused = false;
-    if (audio.sfx) audio.sfx.gain.value = 0.9;
-    this.cleanupMatch();
-    this.setState('menu');
-    this.cam.set('orbit');
-    audio.startMusic('menu');
-    audio.setCrowd(0.05);
-    this.menus.title();
-  }
+  exitTraining() { this.toMenu(() => this.menus.modeSelect(this.menus.modeIndex('training'))); }
+
+  quitToTitle() { this.toMenu(() => this.menus.title()); }
 
   fixedUpdate() {
     this.frameNo++;
@@ -720,7 +731,7 @@ export class Game {
     for (const f of [a, b]) {
       const o = f.opp;
       const d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
     }
   }
 
@@ -865,6 +876,7 @@ export class Game {
       }
       this.placeClash(c);
       audio.loop('clash', 'clash');
+      audio.duckMusic('clash', true); // the clash's metronome runs on its own tempo
     }
     for (const f of this.fighters) f.pad.clear();
     // the one-beat clash keeps the fight camera: up close, the two specials' light would hide both fighters
@@ -1045,6 +1057,7 @@ export class Game {
     const c = this.clash;
     this.clash = null;
     audio.stopLoop('clash');
+    audio.duckMusic('clash', false);
     this.hud.clash(false);
     const P = c.point.clone();
     this.fx.overlay.impactFrame(4);
@@ -1114,7 +1127,7 @@ export class Game {
     if (W.state === 'attack' && W.move) W.t = Math.max(W.t, W.move.startup + W.move.active);
     W.vel.multiplyScalar(0.1);
     const d = new THREE.Vector2(L.pos.x - W.pos.x, L.pos.z - W.pos.z).normalize();
-    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash' }, d);
+    L.takeHit(W, { dmg: CLASH.special.dmg, launch: [14, 9], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
     const col = new THREE.Color(W.move?.color ?? W.def.color);
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, col);
     this.fx.debris(L.pos.x, L.pos.z, 10, 1.1);
@@ -1338,6 +1351,7 @@ export class Game {
     this.hud.announce('K.O.', 'ko', 1900);
     this.endDomain();
     audio.play('ko');
+    audio.duckMusic('ko', true);
     audio.play('cheer', 1.4);
     this.excite = 1;
     this.cam.set('ko', loser);
@@ -1445,16 +1459,21 @@ export class Game {
         }
         break;
       case 'matchEnd':
+        this.roundWinner.setSide(1); // the hero shot faces screen-right (unmirrored), whatever the sway does
         if (t > 1.6 && once('menu')) {
           const w = this.roundWinner;
           this.setState('results');
+          audio.startMusic('menu');
           this.hud.show(false);
           this.hud.clearAnnounce();
-          this.menus.results(w, this.assets[w.index],
+          this.menus.results(w,
             () => this.startMatch(this.cfg),
-            () => { this.cleanupMatch(); this.setState('menu'); this.cam.set('orbit'); audio.startMusic('menu'); this.menus.charSelect(this.cfg.mode); },
+            () => this.toMenu(() => this.menus.charSelect(this.cfg.mode)),
             () => this.quitToTitle());
         }
+        break;
+      case 'results':
+        this.roundWinner.setSide(1);
         break;
     }
   }
@@ -1470,12 +1489,22 @@ export class Game {
     this.cam.set('victory', w);
     this.hud.announce(`${w.def.name} WINS`, 'win', 2600);
     audio.play('cheer', 1.3);
+    audio.duckMusic('ko', false);
     this.excite = 1;
   }
 
   matchEnd(w) {
     this.setState('matchEnd');
     this.hud.announce(`${w.def.name}`, 'win', 0);
+    // Hard cut to the results hero shot: only the winner (DBFZ-style), so the loser leaves on the cut. Their
+    // actor is disposed by cleanupMatch and Fighter.reset shows the fresh one, so rematch / character select /
+    // title restore it. A running power-up mode or burn would keep sparking over the empty spot, so they end too.
+    const o = w.opp;
+    o.mode = null;
+    o.burn = null;
+    o.actor.setVisible(false);
+    this.cam.set('results', w);
+    this.cam.snap();
   }
 
   // ------------------------------------------------------------ render
@@ -1508,6 +1537,7 @@ export class Game {
     this.room.setDim(this.dim);
     this.voidStage.setDim(this.dim);
     this.excite = Math.max(0.12, this.excite - dt * 0.22);
+    audio.setMusicIntensity(this.state === 'fight' || this.training ? this.excite : 0.2);
     this.arena.update(performance.now() / 1000, this.excite);
     this.room.update(performance.now() / 1000);
     if (this.domain) this.voidStage.update(performance.now() / 1000);
@@ -1521,12 +1551,15 @@ export class Game {
       this.touch.setSpectate(this.watching);
       if (live) this.touch.setKi(this.fighters[0].ki);
     }
-    // keep the fight centered in the space the training panel / touch buttons leave free
+    // keep the fight centered in the space the training panel / touch buttons leave free, and the results
+    // screen's winner in the space beside (or above) the results panel
     const touchUi = !!this.touch?.visible && !this.watching;
-    const cover = Math.max(this.training && !this.paused ? this.menus.panelCover() : 0, touchUi ? 0.16 : 0);
+    const res = this.menus.resultsCover();
+    const cover = Math.max(this.training && !this.paused ? this.menus.panelCover() : 0, touchUi ? 0.16 : 0, res.x);
     const k = Math.min(1, dt * 8);
     this.viewCover += (cover - this.viewCover) * k;
-    this.viewLift += ((touchUi ? 0.07 : 0) - this.viewLift) * k; // lift the action above the bottom buttons
+    this.viewLift += (Math.max(touchUi ? 0.07 : 0, res.y / 2) - this.viewLift) * k; // lift the action above the bottom buttons
+    this.viewCoverY += (res.y - this.viewCoverY) * k;
     if (this.viewCover > 0.002 || this.viewLift > 0.002) this.camera.setViewOffset(1, 1, this.viewCover / 2, this.viewLift, 1, 1);
     else if (this.camera.view?.enabled) this.camera.clearViewOffset();
     this.renderer.render(this.scene, this.camera);
