@@ -136,7 +136,23 @@ export default {
   color: '#8fd4ff',
   aura: [0.55, 0.82, 1.0],
   auraCore: [0.92, 0.97, 1.0],
-  charge: { sparks: 'lightning' }, // powering up crackles with Godspeed electricity (effects.chargeTick)
+  // Powering up (ENG-069, src/game/chargeFx.js): Transmutation, electricity running over his body as a flickering
+  // outline and small arcs (his charge strip already raises his hair).
+  charge: {
+    palette: { main: '#5ab8ff', core: '#eaf8ff', dark: '#1f5cff' },
+    bodyTint: 0.03, tint: 'core',
+    shell: { kind: 'electric', width: [0.025, 0.045], lift: 0, noise: 0, dash: 0.4, speed: 15, opacity: [0.6, 0.7] },
+    emit: [
+      { fx: 'arc', from: 'body', every: 3, max: 3, scale: [0.14, 0.24], life: 0.06, random: true, spin: true, color: 'core', glow: 0.5, front: 0.7 },
+      { fx: 'arc', from: 'body', bar: 3, every: 5, max: 2, scale: [0.16, 0.24], life: 0.06, random: true, spin: true, color: 'main', glow: 0.4, front: 1 },
+      { fx: 'arc', from: 'floor', bar: 1, every: 14, max: 1, scale: [0.22, 0.3], life: 0.06, random: true, spin: true, color: 'main', glow: 0.4 },
+      { fx: 'star', frame: 3, from: 'body', every: 6, max: 3, scale: 0.1, vel: [[-2, 2], [-1, 2], 0], life: 0.15, color: 'core', glow: 0.4, front: 1 },
+    ],
+    ground: { dustEvery: 0, crackAt: 0, rumble: 0.02 },
+    bar: { ring: { scale: 1.6, color: 'main', opacity: 0.4 }, burst: null, dust: 0, lines: 0.25, shake: 0.08 },
+    max: { ring: { scale: 2.2, color: 'core', opacity: 0.45 }, burst: null, dust: 0, flash: 0, fx: [{ fx: 'lightning', from: 'chest', scale: 0.6, life: 0.08, random: true, color: 'core', glow: 0.6 }] },
+    sound: 'crackle',
+  },
   beam: { core: '#ffffff', mid: '#9fdcff', edge: '#4a8cff', name: 'LIGHTNING PALM' },
   specialName: 'NARUKAMI',
   projectileName: 'NARUKAMI',
@@ -147,6 +163,9 @@ export default {
     ultimate: 'whirlwind', // Godspeed's reflex mode (ADR 0017)
   },
   stats: { speed: 6.8, power: 0.97, defense: 0.95 }, // stat index 1.01 (ADR 0011)
+  // floor damage (ground.js, ADR 0024). `charge` would be his power-up fracture, but his charge style's crackAt 0
+  // (above) keeps the floor whole while he powers up (ADR 0023)
+  ground: { style: 'lightning', tint: '#bfe6ff', charge: 'fracture_lightning' },
   model,
   stance,
   extraAnims,

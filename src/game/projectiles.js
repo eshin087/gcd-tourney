@@ -101,7 +101,7 @@ export class Beam {
         this.len = Math.min(this.len, along + 0.5);
         if (this.t % U.tickEvery === 0) {
           this.ticks++;
-          const r = o.takeHit(this.owner, { dmg: U.tickDmg, hitstun: 16, push: 3.5, hitstop: 0, beam: true }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          const r = o.takeHit(this.owner, { dmg: U.tickDmg, hitstun: 16, push: 3.5, hitstop: 0, beam: true, lock: U.tickEvery + 3 }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           if (r === 'hit') this.hasHit = true;
           const h = this.head;
           this.game.fx.hit(h.x, h.y, h.z, this.ticks % 3 === 0 ? 'heavy' : 'light', new THREE.Color(this.owner.def.beam.mid));
@@ -113,7 +113,7 @@ export class Beam {
         this.finished = true;
         const o2 = this.owner.opp;
         if (o2.state === 'hitstun' || o2.state === 'launched') {
-          o2.takeHit(this.owner, { dmg: U.finalDmg, launch: U.launch, hitstop: 14, beam: true, big: true }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          o2.takeHit(this.owner, { dmg: U.finalDmg, launch: U.launch, hitstop: 14, beam: true, big: true, hardKnockdown: true }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           const h = this.head;
           this.game.fx.explosion(h.x, h.y, h.z, new THREE.Color(this.owner.def.beam.mid));
           audio.play('explosion');
@@ -200,6 +200,8 @@ export class Projectile {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
         audio.play('hitHeavy', 0.7);
       }
+      // a styled shot marks the floor it reaches (a missed Narukami Air burns it too)
+      if (this.pos.y < 0.1 && this.P.ground) fx.ground.impact(this.pos, { kind: this.P.big ? 'shot' : 'shotSmall', style: this.P.ground, tint: this.P.glowColor, dir: this.vel });
       this.kill();
       return;
     }
@@ -286,10 +288,8 @@ export class Orb {
     this.grow = Math.min(1, this.grow + 0.1);
     if (!this.clash) {
       p.addScaledVector(this.dir, S.speed * DT);
-      if (this.t % 5 === 0) {
-        fx.crater(p);
-        fx.debris(p.x, p.z, 3, 0.7);
-      }
+      fx.ground.trail(this.id, p, this.dir, S.radius * 2, S.ground, S.orb); // the trench it carves
+      if (this.t % 5 === 0) fx.debris(p.x, p.z, 3, 0.7);
       const o = this.owner.opp;
       if (!this.hit && !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
         const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
@@ -300,7 +300,7 @@ export class Orb {
         else if (!touching && this.slip) { this.slip = false; g.onEvade(o); }
         else if (touching && o.invuln <= 0) {
           this.hit = true;
-          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));
           fx.overlay.impactFrame(4);
           g.cam.shake(1.1);
@@ -395,11 +395,12 @@ export class Vortex {
         o.vel.y = (dy / d) * k;
         o.air = true;
       }
-      if (this.t % m.tick === 0 && o.hittable) o.takeHit(this.owner, { ...m.tickHit, projectileHit: true }, dir);
+      if (this.t % m.tick === 0 && o.hittable) o.takeHit(this.owner, { ...m.tickHit, projectileHit: true, lock: m.tick + 3 }, dir);
     }
     if (this.t >= m.len) {
       if (canPull && d < 1.8 && o.hittable) o.takeHit(this.owner, { ...m.pop, projectileHit: true }, dir);
       fx.explosion(p.x, p.y, p.z, new THREE.Color(0x6ab4ff));
+      if (p.y < 2.5) fx.ground.impact(p, { kind: 'vortex', style: m.ground, tint: this.colors.glow });
       g.cam.shake(0.4);
       audio.play('explosion', 0.6);
       this.kill();
