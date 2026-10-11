@@ -496,27 +496,30 @@ export class Game {
     else if (this.fighters.length === 2) this.hud.hint.innerHTML = matchHint(this.cfg.mode, deviceLayout(this.input)); // bindings may have changed
   }
 
-  exitTraining() {
+  // Every way back to the menus (exit training, quit to title, results -> character select). The old
+  // screen goes first and a failing open() falls back to the title, so a menu bug can never leave the
+  // pause list up over an empty arena with no way out (ENG-062).
+  toMenu(open) {
     this.paused = false;
     if (audio.sfx) audio.sfx.gain.value = 0.9;
     this.cleanupMatch();
+    this.brains = [null, null];
     this.setState('menu');
     this.cam.set('orbit');
     audio.startMusic('menu');
     audio.setCrowd(0.05);
-    this.menus.modeSelect(this.menus.modeIndex('training'));
+    this.menus.hide();
+    try {
+      open();
+    } catch (e) {
+      console.error('[menus] could not open the next screen; back to the title', e);
+      this.menus.title();
+    }
   }
 
-  quitToTitle() {
-    this.paused = false;
-    if (audio.sfx) audio.sfx.gain.value = 0.9;
-    this.cleanupMatch();
-    this.setState('menu');
-    this.cam.set('orbit');
-    audio.startMusic('menu');
-    audio.setCrowd(0.05);
-    this.menus.title();
-  }
+  exitTraining() { this.toMenu(() => this.menus.modeSelect(this.menus.modeIndex('training'))); }
+
+  quitToTitle() { this.toMenu(() => this.menus.title()); }
 
   fixedUpdate() {
     this.frameNo++;
@@ -1452,7 +1455,7 @@ export class Game {
           this.hud.clearAnnounce();
           this.menus.results(w, this.assets[w.index],
             () => this.startMatch(this.cfg),
-            () => { this.cleanupMatch(); this.setState('menu'); this.cam.set('orbit'); audio.startMusic('menu'); this.menus.charSelect(this.cfg.mode); },
+            () => this.toMenu(() => this.menus.charSelect(this.cfg.mode)),
             () => this.quitToTitle());
         }
         break;

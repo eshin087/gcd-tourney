@@ -223,6 +223,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- EXIT TRAINING lands on SELECT MODE instead of a dead pause menu (undefined `MODE_ORDER`), Esc on the first character-select pick works again, and every return to the menus goes through `Game.toMenu()`, which falls back to the title if a screen fails to open (ENG-062).
 - Air combos no longer drop on the art packs: a launched pose leans back, so `airLight2` whiffed on Naruto and the
   `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and
   during the next move's startup, and the spike's box pad is wider; the air string connects ~97 % across all 16
