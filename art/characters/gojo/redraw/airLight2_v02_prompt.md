@@ -1,0 +1,8 @@
+Anime fan-art pixel sprite strip, EXACTLY 5 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION airLight2: ANIMATION: "airLight2", mid-air front kick with the right leg. 5 frames, left to right. Poses 2 and 3 are the HIT frames: the striking foot is fully extended toward the right and is the right-most part of the character; his head, hair, free hand and jacket hem stay behind it.
+POSES lefttoright:
+1. Right knee chambered up to the chest. Face: focused.
+2. IMPACT: right leg extends STRAIGHT FORWARD to the right, angled slightly down, at his own hip height, sole first; torso leans back slightly, the right arm out behind for balance, the left leg hanging as the lowest point. SMEAR: a solid arc to the foot (no blur). Face: focused.
+3. Same extension without the smear. Face: focused.
+4. Knee re-chambers. Face: focused.
+5. Air pose. Face: lazy smile.
+SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

@@ -28,6 +28,34 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Naruto: draft neutral-baseline checkpoint for all42 animations;32 packed candidates and10 technical holds, explicit unmeasured scale states, immutable sources, heads audit and browser review gallery. No new animation approved (ART-NAR-PROP,2026-10-11).
 
 - art(naruto): queue idle v04 at the approved seven-head-model gate; measured stitch, independent idle consistency audit and darker-gold hair probe declaration. Preserve approved idle v02 until review.
+- art(sasuke): verify final specialForward v06/getup v04 user approvals and passing strict atlas; hand off integration to Claude.
+
+- art(sasuke): record charge v09/special v10 approvals; retain Claude-calibrated specialForward v06 and getup v04 for review with a passing strict atlas.
+
+- Sasuke second correction round: record approved superDashv04; chargev09 and specialv10 pass scale checks. Strongest specialForwardv06 retained with explicit hold, getupv04 unchanged for Claude manualQA.
+
+- Sasuke post-approval correction candidates and complete frame evidence: refreshed approved idle guide, localized charge/rush edits, corrected getup proportions and superDash clearance; four strict/manual holds remain, no new approvals or production atlas.
+
+- Sasuke: record user blanket visual approval for latest42 reviewed checkpoint versions (2026-10-11); preserve six technical failures and manual continuity holds, defer shipping application to QA/Claude integration.
+
+- Sasuke: twelve bounded neutral-redraw corrections and exact probe-mask evidence; all42 candidates remain unapproved, six strict-pack holds remain (draft PR62).
+
+- Sasuke neutral redraw checkpoint: all 42 animations / 175 source frames, anatomical sidecars and full diagnostic gallery; strict scale failures and exhausted attempts remain explicit holds (ART-SAS-NEUTRAL).
+
+- Sasuke: idle v02/v03 candidates against approved smaller-head model; heads and lineup show proportion/build caveats, correction recommended before baseline approval.
+- Gojo: record user approval of airLight3 v07 and archive superseded v05.
+
+- Gojo: record user approval of charge, airHeavy and win v06; start newly authorized airLight3 correction round.
+
+- Gojo: corrected hair continuity in airHeavy v06, charge v06 and win v06; queued visual review. AirLight3 remains capped technical hold. Refreshed fixed approved idle and its measured guide.
+
+- Recorded user visual approval of all 42 selected Gojo redraw versions; technical holds and shipping gates remain open.
+
+- Gojo spin v03: targeted hair-mass correction and independent anatomical-axis calibration; preview explicitly separates eight manual-QA holds from numeric passes. No new animation approval.
+
+- Art review checkpoint: Gojo approved-neutral redraw sources for all42 animations;37 candidates pass packing,5 technical holds preserved. Adds full-frame review page and production QA evidence. No production integration.
+
+- Begin Gojo full42-frame-set redraw against user-approved neutral baseline; candidates remain unapproved.
 - Fixed: the packer shipped hand-edited frames of an older version under a newer approved raw (Naruto light4, throw, specialForward packed v01/v02 as v03/v04). Such a pack is now refused with the fix named; `frames/_old/` archives are ignored.
 - Added: the scale gate's acceptance path for poses the probe cannot read (TOOL-ROTATED-ANATOMY): an unmeasured candidate strip now fails until a version-scoped `scaleManualQA` record exists, and is then reported as `manual`, never `ok`.
 - Fixed: `npm run stitch` measured redraws against a stale packed idle and could refine to a scale that cut the head off the cell; it now checks the idle version, ignores clipped trials, measures like the gate and takes `--counts A,B` for touching poses.

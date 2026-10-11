@@ -1,0 +1,12 @@
+{
+  "target": [
+    1664,
+    793
+  ],
+  "generated": [
+    1816,
+    866
+  ],
+  "canvasNormalization": 0.9162995594713657,
+  "note": "Canvas-resolution normalization only, not a fitted character rescale. Generated replacement f2/f5 patched by PIPELINE Fixing frames. Four other poses retained from v05 parts."
+}

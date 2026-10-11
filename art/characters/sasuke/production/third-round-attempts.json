@@ -1,0 +1,13 @@
+{
+  "authorizedCalls": 3,
+  "usedCalls": 1,
+  "selected": "specialForward_v06 (Claude calibrated)",
+  "rejected": "specialForward_v09",
+  "prompt": "Edit target FIRST image, a 220x200 pixel crop of an anime fan-art sprite. Preserve its exact canvas framing and every anatomical feature: face, skull, chin, eye, ear, neck, shoulder, shirt and hand position. ONLY trim the OUTERMOST upper and back spiky hair envelope slightly inward, about 5 percent; topmost spike shorten about 5 original pixels and rearmost tips about 4 original pixels. Do not shrink or move skull/face or alter bangs at face. Hair remains same dark navy blue exact palette, same direction, same individual spike arrangement, no new highlights. All magenta background must be flat #FF00FF. Hard pixel edges no blur. Second image approved idle and third hair guide support identity only; never insert them or labels. Output only corrected first crop at exact 220x200 dimensions, no padding, zoom or rescale. This is a precise hair silhouette correction, not a redraw of the head.",
+  "inputs": [
+    ".tmp/sf-f4-head.png (crop of B06 at330,65,220,200)",
+    "reference/idle_approved.png",
+    "reference/head_scale_guide.png"
+  ],
+  "output": "raw/specialForward_04_fix01.png"
+}

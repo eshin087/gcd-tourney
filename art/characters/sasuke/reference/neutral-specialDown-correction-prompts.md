@@ -1,0 +1,9 @@
+# Attempt2
+
+Correct this four-pose counter strip. Keep head/hair/face/costume identity and RIGHT-facing threequarter view. Swap arm roles: character RIGHT arm is NEAR camera (shoulder on screen-left side of chest); that near forearm crosses UP diagonally in front of chest and its open hand stands vertically just ahead of face toward screenright, fingertips below eyes. FAR LEFT arm stays LOW at stomach. Exactly two arms/hands. f0 near right hand starting rise darkeyes; f1/f2 raised near right open hand fingers together palm toward screenright, red irises, calm still guard, farleft low; f3 near right lowers to chest. Feet identicalall4. Also match second approved NEUTRAL reference long torso/shins: neckbase-to-hip2.65 skullheights, knee-to-ankle1.22 skullheights, implied straightstanding7.96 skullheights. Same compactheadandbuild widths. No squashedlegs. Four separated fullbody horizontalposes80px magenta gaps fulltoes/hair. Flat#FF00FF crisp2px pixelart <=48colors, noenergy/glow/text.
+
+# Attempt3 selected
+
+Final anatomy correction to this four-pose strip. Preserve each pose, exact head/hair size, face, arm gestures, costume, colors and body width. Lengthen each lower leg SHIN from knee joint to ankle by18%, and lengthen each torso neckbase to pelvic hipjoint by8%. Preserve thigh length. This must match second approvedneutral longlegged body, rather than short squat proportions. Keep all4 heads the exact same size and hair mass. Extend canvas vertically if needed so fulltoes remain, never shrink entire figure. Four separate silhouettes horizontal row on flat#FF00FF, clear80px magenta gaps. Crisp2px pixelart <=48colors noAA text shadow. Keep near RIGHT forearm crossing up in front of chest f1/f2, farleft handlow, allfeetidentical.
+
+Final attempt3: near RIGHT arm corrected and torso/shins lengthened. Inferred crown156 chin262 about106 +/-10px. f0 rediris incorrectly persists: cap reached, hold.
