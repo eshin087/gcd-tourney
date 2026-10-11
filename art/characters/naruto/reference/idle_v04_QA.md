@@ -20,4 +20,4 @@ Lineup: candidate202px silhouette, SBR0.365 (73pxband) just below0.37 teenagegua
 
 Legacy animations still old proportions; many report drift against newcandidateidle. These remain for post-idle fullredraw; fixed reference/baseline not promoted. Existing ko/down floor warnings remain. Nominal heads row staysunchanged untiluserapprovesidle.
 
-Recommendation: review v04 idle direction/loop with model and lineup. Technical internal-head consistency passes after evidencedpalette correction; exact7heads/8%hair reduction remains uncertain. User decides whether this is the new baseline. STOP before allother41animations.
+Recommendation: HOLD approval and request correction unless the user explicitly accepts this visual direction and its limits. The requested8% head/hair reduction is not demonstrated. Review v04 idle direction/loop with model and lineup. Technical internal-head consistency passes after evidencedpalette correction; exact7heads/8%hair reduction remains uncertain. User decides whether this is the new baseline. STOP before allother41animations.
