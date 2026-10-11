@@ -570,7 +570,7 @@ slightly open. Bangs messy, hanging over the eyes.
 
 ### `charge`: powering up (loop) · Sharingan
 
-4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · 👁 Sharingan · candidate version **v04**
+4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · 👁 Sharingan · active approved **v02**; redraw v03/v04 rejected by user
 
 Cold intensity, not Naruto's open roar: a low, braced stance, the fists clenched hard and drawn down, the head level
 and the Sharingan locked on the opponent while the power tears at his clothes. Loop rules: the **feet are identical

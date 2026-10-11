@@ -127,7 +127,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v02 | Latest candidate needs review; approved v02 retained. See production/heavy-charge-QA.md. |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v02 | User rejected new charge; approved v02 active. v03/v04 archived; v04 is historical newest, not active. |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { PNG } from 'pngjs';
 const batch=process.argv[2]||'heavy-charge';
 const heavy=batch==='heavy-charge';
+if (heavy) throw new Error('Historical generator retired after user rejected charge v04. Use restore-approved-charge.mjs verify to export the kept v02 charge.');
 const versions=heavy?{heavy:6,charge:4}:{light2:2,light3:2,special:3};
 const approved=heavy?{heavy:2,charge:2}:{light2:1,light3:1,special:2};
 const prod='art/characters/sasuke/production';

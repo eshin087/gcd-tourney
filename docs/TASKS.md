@@ -215,3 +215,5 @@ VFX cells (128 px, ppu 56) and UI sizes didn't change in spec v2. Raws are versi
 | M1 | 3D-baked placeholder sprites + DBFZ combat feel | Claude | done | v0.2.0 |
 
 | ART-SAS-REDRAW-20261010 | Sasuke heavy and charge correction with phone review | Codex | review | files: art/characters/sasuke/, art/scale/lineup-sasuke-heavy*, public/art-review/sasuke-heavy-charge/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated art/sasuke-heavy-charge; approvals unchanged. |
+
+| ART-SAS-CHARGE-ROLLBACK | Restore approved Sasuke charge after user rejection | Codex | review | PR28: archive v04, keep approved v02 and historical newest4; strict pack, geometry comparison and refreshed preview. Heavy v06 unchanged. |
