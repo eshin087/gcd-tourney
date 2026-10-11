@@ -197,7 +197,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 3 | idle | 8 | - | **yes** | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 3 | idle | 8 | - | **yes** | 146 trial | approved | v05 | v01 | Title-style v05 candidate, not approved as animation anchor: packed frame heights 140-146; source/anatomy comparison and hold in production/title-style/QA.md. Existing v01 approval retained. |
 | 4 | run | 8 | - | **yes** | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
@@ -206,7 +206,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | guard | 2 | - | **yes** | 140 trial | approved | v07 | v03 | Title-style v07 candidate: packed 140/139 px, stable feet; provisional until idle anchor is resolved. Existing v03 approval retained. |
 | 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
@@ -239,9 +239,9 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | superPose | 4 | - | no | 191 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | Title-style v02 candidate from approved pilot; final review pending. Existing UI remains approved. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v02 | Title-style v03 candidate from approved pilot; final review pending. Existing UI remains approved. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | Title-style v02 candidate from approved pilot; final review pending. Existing UI remains approved. |
 
 ## gojo
 

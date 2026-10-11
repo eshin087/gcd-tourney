@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Killua title-style production trial from the approved pilot: versioned idle and guard strips plus three UI candidates, with native-size QA and a documented idle loop hold. Existing fixed-name art remains approved; no production integration yet (ART-KIL-TITLE-20261011).
+
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 
 - Changed: the redrawn cast ships (PRs #61 Gojo, #62 Sasuke, #63 Naruto, #64 Killua): every strip at the user-approved version on the approved neutral baseline, the scale gate clean (0 flagged strips) with the documented rescales, version-scoped misread notes and manual QA records. Killua's down and ko temporarily use the previous approved v04 / v05 until their fixed versions pass QA and approval (user decision 2026-10-11).
