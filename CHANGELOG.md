@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Added: Naruto title-style production checkpoint from the user-approved pilot: versioned provisional idle v07, run v07, crossed-forearm guard v05 and three UI candidates, native atlas comparison, measured stitches and explicit idle loop hold (ART-NAR-TITLE). The old game art remains the approved release until final review and Claude integration.
+- Added: Naruto title-style production checkpoint from the user-approved pilot: versioned provisional idle v07, run v07, crossed-forearm guard v05, hurtHigh v04 and three UI candidates, native atlas comparison, measured stitches and explicit idle loop/light1 stitch holds (ART-NAR-TITLE). The old game art remains the approved release until final review and Claude integration.
 
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 
