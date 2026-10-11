@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): add title-style airborne hammer v04 with measured two-part stitch and documented manual f0/f1 head-mask finding, backed by actual atlas crops.
+
 - art(sasuke): add title-style airborne jab v04, correct a measured 4 px contact-fist clip without changing generated pixels and inspect all five packed frames.
 
 - art(sasuke): add title-style heavy rising launcher v10 with measured generated idle recovery, preserve rejected v09 and verify eight 48-color packed frames.
