@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art: eight independent Killua title-style candidates and approved-reference QA controls; idle, taunt and win technical holds remain. No production release.
+
 - Added: Killua title-style production trial from the approved pilot: versioned idle and guard strips plus three UI candidates, with native-size QA and a documented idle loop hold. Existing fixed-name art remains approved; no production integration yet (ART-KIL-TITLE-20261011).
 
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
