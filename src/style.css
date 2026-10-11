@@ -109,6 +109,24 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 .combo.blue-pop { animation: bluePop 0.35s ease-out; }
 @keyframes bluePop { 0% { transform: scale(1.6); filter: brightness(1.8) drop-shadow(0 0 calc(var(--u) * 2) #7ad8ff); } 100% { transform: scale(1); filter: none; } }
 .combo em { font-style: normal; font-family: 'Press Start 2P', monospace; font-size: calc(var(--u) * 1.2); color: #7ad8ff; text-shadow: 1px 1px 0 var(--ink); margin-top: calc(var(--u) * 0.4); }
+/* the combo ticker and rating (ADR 0026, hud.js comboTag / comboEnd): the techniques of the combo as a short log
+   beside the count (inward, clear of the callout row under it), then the rating word under it when it ends */
+.combo .cnum { display: contents; }
+.combo .chips { position: absolute; top: calc(var(--u) * 1.5); display: flex; flex-direction: column; gap: calc(var(--u) * 0.35); }
+.combo.c1 .chips { left: 100%; margin-left: calc(var(--u) * 1.2); align-items: flex-start; }
+.combo.c2 .chips { right: 100%; margin-right: calc(var(--u) * 1.2); align-items: flex-end; }
+.combo .chips:empty, .combo .rate:empty { display: none; }
+.combo .chip { font-style: normal; font-family: 'Press Start 2P', monospace; font-size: calc(var(--u) * 1.25); line-height: 1.2; color: #fff4d0; text-shadow: 1px 1px 0 var(--ink), -1px -1px 0 var(--ink); white-space: nowrap; }
+.combo .chip::before { content: '\25B8 '; color: var(--gold); }
+.combo .chip:last-child { color: #fff; }
+.combo.blue .chip { color: #d8f2ff; }
+.combo .rate { display: flex; flex-direction: column; align-items: center; margin-top: calc(var(--u) * 0.3); }
+.combo .rate strong { font-weight: normal; font-size: calc(var(--u) * 4.6); line-height: 1; letter-spacing: 0.05em; transform: skewX(-10deg); background: linear-gradient(180deg, #ffffff 0 20%, #fff0a0 20% 50%, var(--gold) 50%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: calc(var(--u) * 0.3) var(--ink); filter: drop-shadow(0 calc(var(--u) * 0.4) 0 var(--ink)); }
+.combo .rate.amazing strong:first-child { background-image: linear-gradient(180deg, #ffffff 0 20%, #ffc070 20% 50%, #ff5a2a 50%); }
+.combo .rate.legendary strong:first-child { font-size: calc(var(--u) * 5.4); background-image: linear-gradient(180deg, #ffffff 0 18%, #e8b0ff 18% 48%, #9a4aff 48%); }
+.combo .rate strong.sty { font-size: calc(var(--u) * 3.4); background-image: linear-gradient(180deg, #ffffff 0 25%, #b8f4ff 25% 55%, #3ac0ff 55%); }
+.combo .rate.go { animation: ratePop 0.32s cubic-bezier(.2, 1.6, .4, 1); }
+@keyframes ratePop { 0% { opacity: 0; transform: scale(1.8); } 100% { opacity: 1; transform: scale(1); } }
 
 .announce { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 0; }
 .announce span { position: relative; font-size: calc(var(--u) * 17); letter-spacing: 0.04em; line-height: 1; white-space: nowrap; transform: skewX(-10deg); background: linear-gradient(180deg, #ffffff 0 18%, #fff2a0 18% 42%, var(--gold) 42% 68%, #ff7a1a 68%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: calc(var(--u) * 0.7) var(--ink); filter: drop-shadow(0 calc(var(--u) * 0.9) 0 var(--ink)) drop-shadow(0 0 calc(var(--u) * 3) rgba(255, 160, 40, 0.6)); }
