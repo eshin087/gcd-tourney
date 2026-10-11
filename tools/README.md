@@ -3,7 +3,9 @@
 | file | what |
 |---|---|
 | `pack-sprites.mjs` | **Sprite packer**: turns generated art in `art/` into what the game loads from `public/` (sheets, `anims.json` with hit/hurt boxes, VFX atlas, UI images). |
-| `test-pack-sprites.mjs` | Regression test for the packer. Generates fake ChatGPT-style strips in `tools/.test-fixtures/` (git-ignored), packs them, checks ~150 things (incl. adversarial art: specks, black/transparent backgrounds, edge-cropped feet, one huge pose, extra/missing poses; versioned `_vNN` candidates, rejected versions, the spec read from the manifest, the 64/65-color warning line), deletes the folder. |
+| `test-pack-sprites.mjs` | Regression test for the packer (then the decal tests, `test-pack-decals.mjs`). Generates fake ChatGPT-style strips in `tools/.test-fixtures/` (git-ignored), packs them, checks ~150 things (incl. adversarial art: specks, black/transparent backgrounds, edge-cropped feet, one huge pose, extra/missing poses; versioned `_vNN` candidates, rejected versions, the spec read from the manifest, the 64/65-color warning line), deletes the folder. |
+| `pack-decals.mjs` | The packer's **ground-decal** kind (`npm run sprites decals`, ADR 0024): `DECAL_SPECS` (the engine's decal contract), raw parts, hot key, pages. Called by `pack-sprites.mjs`, which passes its image helpers in. |
+| `test-pack-decals.mjs` | Decal regression test (run by `test-pack-sprites.mjs`, or alone): fixtures in `tools/.test-fixtures/decals/`. |
 | `queue.mjs` | Claim queue for parallel art production (world art batches): see its header comment and [ADR 0008](../docs/decisions/0008-world-art-and-parallel-production.md). Not part of the sprite packer. |
 
 All are plain Node ESM (Node 18+). The only dependency is `pngjs` (devDependency).
@@ -20,12 +22,13 @@ proportions, pivot `[128, 240]`, ppu 128. Where the numbers come from:
 ### Run it
 
 ```bash
-npm run sprites                 # every character in art/characters/ + every world-art kind (vfx, crowd, stage, npc, ui)
+npm run sprites                 # every character in art/characters/ + every world-art kind (vfx, crowd, stage, npc, ui, decals)
 npm run sprites naruto          # one character (several ids allowed: npm run sprites naruto sasuke)
 npm run sprites vfx             # only the VFX atlas (approved effects only)
 npm run sprites crowd           # only the crowd atlas (approved spectators only)
 npm run sprites stage npc ui    # approved stage slots, NPC sheets and shared UI images
-node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates   # every candidate -> public/preview/ (local, ?art=custom)
+npm run sprites decals          # approved ground decals -> public/decals/ (atlas.json + one page per style group)
+node tools/pack-sprites.mjs vfx crowd stage npc ui decals --candidates   # every candidate -> public/preview/ (local, ?art=custom)
 npm run test:sprites            # packer regression test (never touches art/ or public/)
 ```
 
@@ -46,7 +49,7 @@ node tools/pack-sprites.mjs --dry-run naruto
 | `--tolerance <n>` | background color tolerance, RGB distance (default 72). Raise it if a pink halo remains, lower it if the character loses pink/purple pixels. |
 | `--no-writeback` | do not write cleaned frames back to `art/.../frames/<anim>/` |
 | `--strict` | exit code 2 when there are warnings (CI) |
-| `--candidates` | world art (VFX, crowd, stage, NPC, UI) is **approval-gated**: by default only items with an `approvedVersion` in the manifest are packed, at that version (a newer candidate is noted in the report and waits), outputs whose approval is gone are removed, and an unreadable manifest leaves every world-art output untouched. `--candidates` packs every latest candidate into `<out>/preview/<kind>/` instead (an item without a candidate previews its approved image), leaving the shipped outputs alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
+| `--candidates` | world art (VFX, crowd, stage, NPC, UI, decals) is **approval-gated**: by default only items with an `approvedVersion` in the manifest are packed, at that version (a newer candidate is noted in the report and waits), outputs whose approval is gone are removed, and an unreadable manifest leaves every world-art output untouched. `--candidates` packs every latest candidate into `<out>/preview/<kind>/` instead (an item without a candidate previews its approved image), leaving the shipped outputs alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
 | `--root <dir>` (`--src`, `--art`) | art folder to read (default `./art`). Used by tests. |
 | `--out <dir>` | public folder to write (default `./public`). Used by tests, so they never overwrite real characters. |
 | `--manifest <file>` | manifest to read (default `<root>/manifest.json`) |
@@ -107,6 +110,9 @@ art/
                                      highest version packed, plain vfx/raw/<effect>.png only when none exists
   vfx/raw/_rejected/ _proposed/ ...  never read (_proposed/ = character effects waiting for an engine task)
   vfx/frames/<effect>/<effect>_NN.png
+  decals/raw/<name>_vNN.png          ground-decal candidate on magenta, or the parts <name>_vNN_A.png, _B.png ... of one version
+  decals/raw/<name>.json, <name>_vNN.json   optional sidecars (tolerance, drop, frames, split, parts.<letter>)
+  decals/frames/<name>/<name>_NN.png cleaned cells (exact cell size = final)
 ```
 
 **Source order per animation** (and per effect):
@@ -284,6 +290,18 @@ version is the one packed, and its keys win over `raw/<anim>.json`. Put image-sp
 - Shared UI (`art/ui/README.md`): `public/ui/logo.png` (at most 640 x 240, alpha 0/255), `public/ui/title_art.png` (exactly
   640 x 360, opaque) + `manifest.json` (`assets: { name: { file, size, version } }`). Approval: `sharedUi.<logo|titleArt>` or the
   `worldArt.ui` batches; source `final/<asset>.png`, else `review/<asset>_palette_vNN.png` / `_fit_vNN.png`.
+- Ground decals (`art/decals/README.md`, ADR 0024, `tools/pack-decals.mjs`): `public/decals/atlas.json` + one PNG page per
+  style group (`decals_<group>.png`, or `_1`, `_2` ... when a group needs several pages; each <= 2048 x 2048, shelf-packed, a
+  name never split across pages) = `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>":
+  { "page", "w", "h", "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "version" } } }`.
+  Names, cells, variant counts, groups and modes come from `DECAL_SPECS` (the engine contract; the manifest's `decals.items`
+  restates them, drift is warned) and only names with an `approvedVersion` (`decals.items.<name>` or a `worldArt.decal` batch)
+  ship. Per name: the raw's parts are joined in letter order, magenta removed (alpha 0/255, specks under 4 px dropped), each
+  image split into variants and scaled so its largest variant fills 97% of the cell (`erasure_trench`: the full width),
+  each variant centered; hot-key names snap near-white (>= 250) to #FFFFFF and keep it out of the <= 24-color median cut, other
+  names tone near-white down to #F6F6F6, the tinted `barrier_crack` becomes greyscale (warned when drawn in color);
+  magenta/purple pixels and a hot-key name without #FFFFFF are warned. Cleaned cells are written back to
+  `art/decals/frames/<name>/` with the usual marker; stale pages and an unapproved atlas are removed.
 
 ### `hitboxes.json` (optional, per character)
 
@@ -356,6 +374,8 @@ Common warnings and the fix:
 - **New character**: copy `art/characters/_template/` to `art/characters/<id>/`, add it to `art/manifest.json`. No packer change.
 - **New animation name**: add it to `art/manifest.json` (and `src/art/animGuide.js` so the engine and Sprite Lab know it). The packer picks it up from the manifest; set `bodyHeight`, `frames`, `phases`, `ms`.
 - **New VFX effect**: needs engine support first (effect names are fixed in code); then add it to `manifest.vfx.effects`.
+- **New decal name**: engine support first (`src/game/ground.js`, `src/art/decalPainter.js`), then `DECAL_SPECS` in
+  `pack-decals.mjs`, `decals.items` in the manifest, `art/queue/sources.json` and the brief (`art/decals/README.md`).
 - **Changing the spec** (cell size, pivot, pixelsPerUnit, color limits): record an ADR, change the `spec` block (and the
   body heights) in `art/manifest.json`, update `art/SPEC.md`, and re-run the packer. Packer-written `frames/` folders
   re-import automatically (their marker records the cell); hand-edited ones keep winning, so redo or delete them.
