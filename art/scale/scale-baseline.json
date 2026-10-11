@@ -15,23 +15,23 @@
     },
     "run": {
      "v": 4,
-     "head": 1
+     "head": 1.018
     },
     "dash": {
      "v": 2,
-     "head": 0.986
+     "head": 1.015
     },
     "backDash": {
      "v": 1,
-     "head": 1
+     "head": 1.001
     },
     "superDash": {
      "v": 1,
-     "head": 0.941
+     "head": 0.964
     },
     "jumpSquat": {
      "v": 2,
-     "head": 0.992
+     "head": 0.99
     },
     "jumpUp": {
      "v": 1,
@@ -39,39 +39,39 @@
     },
     "jumpFall": {
      "v": 1,
-     "head": 0.876
+     "head": 0.883
     },
     "land": {
      "v": 1,
-     "head": 1.093
+     "head": 1.098
     },
     "light1": {
      "v": 2,
-     "head": 1.021
+     "head": 1.03
     },
     "light2": {
      "v": 1,
-     "head": 1.024
+     "head": 1.023
     },
     "light3": {
      "v": 1,
-     "head": 1
+     "head": 1.022
     },
     "light4": {
      "v": 1,
-     "head": 0.97
+     "head": 0.999
     },
     "heavy": {
-     "v": 3,
-     "head": 1.036
+     "v": 7,
+     "head": 1.029
     },
     "airLight1": {
      "v": 3,
-     "head": 0.983
+     "head": 1.001
     },
     "airLight2": {
      "v": 3,
-     "head": 0.963
+     "head": 0.97
     },
     "airLight3": {
      "v": 2,
@@ -83,11 +83,11 @@
     },
     "guard": {
      "v": 3,
-     "head": 0.795
+     "head": 0.815
     },
     "block": {
      "v": 3,
-     "head": 0.798
+     "head": 0.826
     },
     "hurtHigh": {
      "v": 1,
@@ -95,7 +95,7 @@
     },
     "hurtLow": {
      "v": 1,
-     "head": 1.009
+     "head": 1.016
     },
     "launched": {
      "v": 2,
@@ -103,27 +103,27 @@
     },
     "spin": {
      "v": 2,
-     "head": 1.038
+     "head": 1.053
     },
     "airRecover": {
      "v": 2,
-     "head": 1.094
+     "head": 1.104
     },
     "down": {
      "v": 2,
-     "head": 0.849
+     "head": 0.859
     },
     "getup": {
      "v": 2,
-     "head": 0.944
+     "head": 0.956
     },
     "charge": {
-     "v": 1,
-     "head": 0.918
+     "v": 4,
+     "head": 1.017
     },
     "throw": {
      "v": 2,
-     "head": 0.939
+     "head": 0.944
     },
     "beamCharge": {
      "v": 3,
@@ -139,19 +139,19 @@
     },
     "stagger": {
      "v": 1,
-     "head": 0.909
+     "head": 0.92
     },
     "ko": {
      "v": 5,
-     "head": 0.911
+     "head": 0.909
     },
     "special": {
      "v": 3,
-     "head": 0.788
+     "head": 0.824
     },
     "intro": {
      "v": 1,
-     "head": 1.03
+     "head": 1.031
     },
     "taunt": {
      "v": 1,
@@ -159,23 +159,23 @@
     },
     "win": {
      "v": 3,
-     "head": 0.974
+     "head": 1.061
     },
     "specialForward": {
      "v": 2,
-     "head": 0.824
+     "head": 0.855
     },
     "specialUp": {
      "v": 1,
-     "head": 0.712
+     "head": 0.742
     },
     "specialDown": {
      "v": 2,
-     "head": 0.986
+     "head": 1.026
     },
     "superPose": {
      "v": 3,
-     "head": 0.708
+     "head": 0.774
     }
    }
   },
@@ -189,15 +189,15 @@
    "anims": {
     "idle": {
      "v": 1,
-     "head": 0.996
+     "head": 0.999
     },
     "run": {
      "v": 2,
-     "head": 1.108
+     "head": 1.111
     },
     "dash": {
      "v": 1,
-     "head": 1.156
+     "head": 1.153
     },
     "backDash": {
      "v": 1,
@@ -205,19 +205,19 @@
     },
     "superDash": {
      "v": 1,
-     "head": 1.216
+     "head": 1.196
     },
     "jumpSquat": {
      "v": 1,
-     "head": 1.084
+     "head": 1.036
     },
     "jumpUp": {
      "v": 1,
-     "head": 0.903
+     "head": 0.898
     },
     "jumpFall": {
      "v": 1,
-     "head": 1.062
+     "head": 1.05
     },
     "land": {
      "v": 1,
@@ -228,408 +228,52 @@
      "head": 0.988
     },
     "light2": {
-     "v": 1,
-     "head": 1.036
+     "v": 2,
+     "head": 0.993
     },
     "light3": {
+     "v": 2,
+     "head": 0.921
+    },
+    "light4": {
      "v": 1,
+     "head": 0.889
+    },
+    "heavy": {
+     "v": 6,
+     "head": 1.012
+    },
+    "airLight1": {
+     "v": 1,
+     "head": 0.881
+    },
+    "airLight2": {
+     "v": 2,
+     "head": 0.916
+    },
+    "airLight3": {
+     "v": 1,
+     "head": 1.185
+    },
+    "airHeavy": {
+     "v": 2,
+     "head": 1.132
+    },
+    "guard": {
+     "v": 1,
+     "head": 1.371
+    },
+    "block": {
+     "v": 1,
+     "head": 1.085
+    },
+    "hurtHigh": {
+     "v": 2,
      "head": 0.964
     },
-    "light4": {
-     "v": 1,
-     "head": 0.919
-    },
-    "heavy": {
-     "v": 2,
-     "head": 1.025
-    },
-    "airLight1": {
-     "v": 1,
-     "head": 0.885
-    },
-    "airLight2": {
-     "v": 2,
-     "head": 0.94
-    },
-    "airLight3": {
-     "v": 1,
-     "head": 1.182
-    },
-    "airHeavy": {
-     "v": 2,
-     "head": 1.135
-    },
-    "guard": {
-     "v": 1,
-     "head": 1.358
-    },
-    "block": {
-     "v": 1,
-     "head": 1.093
-    },
-    "hurtHigh": {
-     "v": 2,
-     "head": 0.965
-    },
     "hurtLow": {
      "v": 1,
-     "head": 0.943
-    },
-    "launched": {
-     "v": 1,
-     "head": 0.901
-    },
-    "spin": {
-     "v": 1,
-     "head": 1.387
-    },
-    "airRecover": {
-     "v": 1,
-     "head": 0.971
-    },
-    "down": {
-     "v": 1,
-     "head": 1.85
-    },
-    "getup": {
-     "v": 1,
-     "head": 0.988
-    },
-    "charge": {
-     "v": 2,
-     "head": 0.906
-    },
-    "throw": {
-     "v": 1,
-     "head": 0.887
-    },
-    "beamCharge": {
-     "v": 1,
-     "head": 0.491
-    },
-    "beamFire": {
-     "v": 1,
-     "head": 1.061
-    },
-    "vanish": {
-     "v": 1,
-     "head": 1.013
-    },
-    "stagger": {
-     "v": 1,
-     "head": 0.884
-    },
-    "ko": {
-     "v": 2,
-     "head": 0.452
-    },
-    "special": {
-     "v": 2,
-     "head": 1.126
-    },
-    "intro": {
-     "v": 1,
-     "head": 0.907
-    },
-    "taunt": {
-     "v": 1,
-     "head": 0.958
-    },
-    "win": {
-     "v": 1,
-     "head": 0.905
-    },
-    "specialForward": {
-     "v": 2,
-     "head": 1.036
-    },
-    "specialUp": {
-     "v": 2,
-     "head": 0.977
-    },
-    "specialDown": {
-     "v": 1,
-     "head": 1.003
-    },
-    "superPose": {
-     "v": 1,
-     "head": 0.927
-    }
-   }
-  },
-  "killua": {
-   "ref": {
-    "headPx": [
-     52,
-     35
-    ]
-   },
-   "anims": {
-    "idle": {
-     "v": 1,
-     "head": 1
-    },
-    "run": {
-     "v": 3,
-     "head": 0.999
-    },
-    "dash": {
-     "v": 2,
-     "head": 0.949
-    },
-    "backDash": {
-     "v": 1,
-     "head": 0.998
-    },
-    "superDash": {
-     "v": 2,
-     "head": 1.006
-    },
-    "jumpSquat": {
-     "v": 2,
-     "head": 0.905
-    },
-    "jumpUp": {
-     "v": 1,
-     "head": 0.874
-    },
-    "jumpFall": {
-     "v": 1,
-     "head": 1.101
-    },
-    "land": {
-     "v": 1,
-     "head": 1.004
-    },
-    "light1": {
-     "v": 2,
-     "head": 0.997
-    },
-    "light2": {
-     "v": 2,
-     "head": 0.991
-    },
-    "light3": {
-     "v": 2,
-     "head": 0.984
-    },
-    "light4": {
-     "v": 2,
-     "head": 0.96
-    },
-    "heavy": {
-     "v": 1,
-     "head": 0.876
-    },
-    "airLight1": {
-     "v": 2,
-     "head": 0.879
-    },
-    "airLight2": {
-     "v": 2,
-     "head": 0.869
-    },
-    "airLight3": {
-     "v": 2,
-     "head": 0.845
-    },
-    "airHeavy": {
-     "v": 1,
-     "head": 0.855
-    },
-    "guard": {
-     "v": 3,
-     "head": 0.797
-    },
-    "block": {
-     "v": 3,
-     "head": 0.802
-    },
-    "hurtHigh": {
-     "v": 2,
-     "head": 0.829
-    },
-    "hurtLow": {
-     "v": 2,
-     "head": 0.828
-    },
-    "launched": {
-     "v": 1,
-     "head": 0.738
-    },
-    "spin": {
-     "v": 1,
-     "head": 1.06
-    },
-    "airRecover": {
-     "v": 2,
-     "head": 0.991
-    },
-    "down": {
-     "v": 1,
-     "head": 0.835
-    },
-    "getup": {
-     "v": 2,
-     "head": 0.946
-    },
-    "charge": {
-     "v": 3,
-     "head": 0.782
-    },
-    "throw": {
-     "v": 2,
-     "head": 0.904
-    },
-    "beamCharge": {
-     "v": 3,
-     "head": 0.718
-    },
-    "beamFire": {
-     "v": 4,
-     "head": 0.886
-    },
-    "vanish": {
-     "v": 1,
-     "head": 1.032
-    },
-    "stagger": {
-     "v": 1,
-     "head": 0.956
-    },
-    "ko": {
-     "v": 2,
-     "head": 0.838
-    },
-    "special": {
-     "v": 2,
-     "head": 1.005
-    },
-    "intro": {
-     "v": 1,
-     "head": 0.968
-    },
-    "taunt": {
-     "v": 1,
-     "head": 1.038
-    },
-    "win": {
-     "v": 1,
-     "head": 0.988
-    },
-    "specialForward": {
-     "v": 4,
-     "head": 0.683
-    },
-    "specialUp": {
-     "v": 2,
-     "head": 0.774
-    },
-    "specialDown": {
-     "v": 1,
-     "head": 1.055
-    },
-    "superPose": {
-     "v": 3,
-     "head": 0.664
-    }
-   }
-  },
-  "gojo": {
-   "ref": {
-    "headPx": [
-     31,
-     19
-    ]
-   },
-   "anims": {
-    "idle": {
-     "v": 2,
-     "head": 1
-    },
-    "run": {
-     "v": 3,
-     "head": 1.082
-    },
-    "dash": {
-     "v": 1,
-     "head": 1.101
-    },
-    "backDash": {
-     "v": 1,
-     "head": 1.069
-    },
-    "superDash": {
-     "v": 1,
-     "head": 1.178
-    },
-    "jumpSquat": {
-     "v": 1,
-     "head": 1.246
-    },
-    "jumpUp": {
-     "v": 1,
-     "head": 1.042
-    },
-    "jumpFall": {
-     "v": 1,
-     "head": 1.016
-    },
-    "land": {
-     "v": 1,
-     "head": 0.973
-    },
-    "light1": {
-     "v": 1,
-     "head": 0.954
-    },
-    "light2": {
-     "v": 1,
-     "head": 0.945
-    },
-    "light3": {
-     "v": 1,
-     "head": 1.046
-    },
-    "light4": {
-     "v": 2,
-     "head": 1.064
-    },
-    "heavy": {
-     "v": 1,
-     "head": 1.025
-    },
-    "airLight1": {
-     "v": 1,
-     "head": 0.918
-    },
-    "airLight2": {
-     "v": 1,
-     "head": 0.919
-    },
-    "airLight3": {
-     "v": 1,
-     "head": 1.001
-    },
-    "airHeavy": {
-     "v": 2,
-     "head": 0.968
-    },
-    "guard": {
-     "v": 1,
-     "head": 1.021
-    },
-    "block": {
-     "v": 1,
-     "head": 1.144
-    },
-    "hurtHigh": {
-     "v": 1,
-     "head": 1.023
-    },
-    "hurtLow": {
-     "v": 1,
-     "head": 1.044
+     "head": 0.942
     },
     "launched": {
      "v": 1,
@@ -637,79 +281,435 @@
     },
     "spin": {
      "v": 1,
-     "head": 1.222
+     "head": 1.398
     },
     "airRecover": {
      "v": 1,
-     "head": 1.101
+     "head": 0.938
     },
     "down": {
      "v": 1,
-     "head": 1.185
+     "head": 1.787
     },
     "getup": {
      "v": 1,
-     "head": 1.006
+     "head": 0.964
     },
     "charge": {
-     "v": 1,
-     "head": 1.031
+     "v": 2,
+     "head": 0.881
     },
     "throw": {
      "v": 1,
-     "head": 0.887
+     "head": 0.875
     },
     "beamCharge": {
      "v": 1,
-     "head": 1.049
+     "head": 0.498
     },
     "beamFire": {
-     "v": 2,
-     "head": 1.17
+     "v": 1,
+     "head": 1.012
     },
     "vanish": {
      "v": 1,
-     "head": 1.303
+     "head": 1
     },
     "stagger": {
      "v": 1,
-     "head": 0.974
+     "head": 0.888
     },
     "ko": {
      "v": 2,
-     "head": 0.839
+     "head": 0.457
     },
     "special": {
-     "v": 1,
-     "head": 0.977
+     "v": 3,
+     "head": 1.121
     },
     "intro": {
      "v": 1,
-     "head": 1.032
+     "head": 0.905
     },
     "taunt": {
      "v": 1,
-     "head": 1.001
+     "head": 0.966
     },
     "win": {
      "v": 1,
-     "head": 1.007
+     "head": 0.91
     },
     "specialForward": {
-     "v": 1,
-     "head": 0.984
+     "v": 2,
+     "head": 1.037
     },
     "specialUp": {
-     "v": 1,
-     "head": 1.12
+     "v": 2,
+     "head": 0.955
     },
     "specialDown": {
      "v": 1,
-     "head": 0.958
+     "head": 1.009
     },
     "superPose": {
      "v": 1,
+     "head": 0.95
+    }
+   }
+  },
+  "killua": {
+   "ref": {
+    "headPx": [
+     51,
+     36
+    ]
+   },
+   "anims": {
+    "idle": {
+     "v": 1,
+     "head": 1.003
+    },
+    "run": {
+     "v": 3,
+     "head": 0.994
+    },
+    "dash": {
+     "v": 2,
+     "head": 0.944
+    },
+    "backDash": {
+     "v": 1,
+     "head": 0.99
+    },
+    "superDash": {
+     "v": 2,
+     "head": 0.999
+    },
+    "jumpSquat": {
+     "v": 2,
+     "head": 0.922
+    },
+    "jumpUp": {
+     "v": 1,
+     "head": 0.859
+    },
+    "jumpFall": {
+     "v": 1,
+     "head": 1.101
+    },
+    "land": {
+     "v": 1,
+     "head": 1.001
+    },
+    "light1": {
+     "v": 2,
+     "head": 0.99
+    },
+    "light2": {
+     "v": 2,
+     "head": 0.97
+    },
+    "light3": {
+     "v": 2,
+     "head": 0.966
+    },
+    "light4": {
+     "v": 2,
+     "head": 0.934
+    },
+    "heavy": {
+     "v": 5,
+     "head": 0.815
+    },
+    "airLight1": {
+     "v": 2,
+     "head": 0.845
+    },
+    "airLight2": {
+     "v": 2,
+     "head": 0.866
+    },
+    "airLight3": {
+     "v": 2,
+     "head": 0.803
+    },
+    "airHeavy": {
+     "v": 1,
+     "head": 0.85
+    },
+    "guard": {
+     "v": 3,
+     "head": 0.783
+    },
+    "block": {
+     "v": 3,
+     "head": 0.812
+    },
+    "hurtHigh": {
+     "v": 2,
+     "head": 0.814
+    },
+    "hurtLow": {
+     "v": 2,
+     "head": 0.838
+    },
+    "launched": {
+     "v": 1,
+     "head": 0.74
+    },
+    "spin": {
+     "v": 1,
+     "head": 1.023
+    },
+    "airRecover": {
+     "v": 2,
      "head": 1
+    },
+    "down": {
+     "v": 1,
+     "head": 0.845
+    },
+    "getup": {
+     "v": 2,
+     "head": 0.935
+    },
+    "charge": {
+     "v": 7,
+     "head": 1.155
+    },
+    "throw": {
+     "v": 2,
+     "head": 0.892
+    },
+    "beamCharge": {
+     "v": 5,
+     "head": 1.01
+    },
+    "beamFire": {
+     "v": 4,
+     "head": 0.891
+    },
+    "vanish": {
+     "v": 1,
+     "head": 1.031
+    },
+    "stagger": {
+     "v": 1,
+     "head": 0.971
+    },
+    "ko": {
+     "v": 2,
+     "head": 0.825
+    },
+    "special": {
+     "v": 2,
+     "head": 1.019
+    },
+    "intro": {
+     "v": 1,
+     "head": 0.973
+    },
+    "taunt": {
+     "v": 1,
+     "head": 1.043
+    },
+    "win": {
+     "v": 1,
+     "head": 0.98
+    },
+    "specialForward": {
+     "v": 4,
+     "head": 0.789
+    },
+    "specialUp": {
+     "v": 2,
+     "head": 0.758
+    },
+    "specialDown": {
+     "v": 1,
+     "head": 1.061
+    },
+    "superPose": {
+     "v": 3,
+     "head": 0.688
+    }
+   }
+  },
+  "gojo": {
+   "ref": {
+    "headPx": [
+     31,
+     18
+    ]
+   },
+   "anims": {
+    "idle": {
+     "v": 2,
+     "head": 1
+    },
+    "run": {
+     "v": 3,
+     "head": 1.106
+    },
+    "dash": {
+     "v": 1,
+     "head": 1.122
+    },
+    "backDash": {
+     "v": 1,
+     "head": 1.065
+    },
+    "superDash": {
+     "v": 1,
+     "head": 1.171
+    },
+    "jumpSquat": {
+     "v": 1,
+     "head": 1.222
+    },
+    "jumpUp": {
+     "v": 1,
+     "head": 1.058
+    },
+    "jumpFall": {
+     "v": 1,
+     "head": 1
+    },
+    "land": {
+     "v": 1,
+     "head": 0.982
+    },
+    "light1": {
+     "v": 1,
+     "head": 0.953
+    },
+    "light2": {
+     "v": 1,
+     "head": 0.968
+    },
+    "light3": {
+     "v": 1,
+     "head": 1.032
+    },
+    "light4": {
+     "v": 2,
+     "head": 1.059
+    },
+    "heavy": {
+     "v": 1,
+     "head": 1.047
+    },
+    "airLight1": {
+     "v": 1,
+     "head": 0.926
+    },
+    "airLight2": {
+     "v": 1,
+     "head": 0.917
+    },
+    "airLight3": {
+     "v": 1,
+     "head": 1
+    },
+    "airHeavy": {
+     "v": 2,
+     "head": 0.967
+    },
+    "guard": {
+     "v": 1,
+     "head": 1.027
+    },
+    "block": {
+     "v": 1,
+     "head": 1.129
+    },
+    "hurtHigh": {
+     "v": 1,
+     "head": 1.046
+    },
+    "hurtLow": {
+     "v": 1,
+     "head": 1.061
+    },
+    "launched": {
+     "v": 1,
+     "head": 0.889
+    },
+    "spin": {
+     "v": 1,
+     "head": 1.257
+    },
+    "airRecover": {
+     "v": 1,
+     "head": 1.123
+    },
+    "down": {
+     "v": 1,
+     "head": 1.18
+    },
+    "getup": {
+     "v": 1,
+     "head": 0.994
+    },
+    "charge": {
+     "v": 1,
+     "head": 1.048
+    },
+    "throw": {
+     "v": 1,
+     "head": 0.885
+    },
+    "beamCharge": {
+     "v": 1,
+     "head": 1.055
+    },
+    "beamFire": {
+     "v": 2,
+     "head": 1.194
+    },
+    "vanish": {
+     "v": 1,
+     "head": 1.316
+    },
+    "stagger": {
+     "v": 1,
+     "head": 0.993
+    },
+    "ko": {
+     "v": 2,
+     "head": 0.837
+    },
+    "special": {
+     "v": 1,
+     "head": 0.978
+    },
+    "intro": {
+     "v": 1,
+     "head": 1.017
+    },
+    "taunt": {
+     "v": 1,
+     "head": 1
+    },
+    "win": {
+     "v": 1,
+     "head": 1.016
+    },
+    "specialForward": {
+     "v": 1,
+     "head": 0.994
+    },
+    "specialUp": {
+     "v": 1,
+     "head": 1.119
+    },
+    "specialDown": {
+     "v": 1,
+     "head": 0.965
+    },
+    "superPose": {
+     "v": 1,
+     "head": 0.968
     }
    }
   }

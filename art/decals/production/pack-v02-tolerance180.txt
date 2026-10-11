@@ -1,0 +1,24 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== decals ======================================================
+  candidates: every decal with a raw, approved or not -> preview/decals/ (the game shows it with ?art=custom)
+  packed 6 decals, 20 variants -> 1 page(s): decals_cursed.png 2048x1280
+  pages per match: floor 0 + one element set per fighter (cursed 1); worst pairing 1 of the engine's 4
+    erasure              3    <- frames/erasure/ (raw/erasure_v02.png) x1  (24 colors; 8806 hot px)
+    erasure_trench       3    <- frames/erasure_trench/ (raw/erasure_trench_v02_{A,B}.png) x1  (23 colors; 14277 hot px)
+    crush_implode        4    <- raw/crush_implode_v02_{A,B}.png x0.346/0.407  (24 colors; removed 21 specks; 16 near-white px toned down to #F6F6F6 (no hot key in crush_implode))
+    gouge_repel          4    <- raw/gouge_repel_v02_{A,B}.png  x0.443/0.403  (24 colors; 464 hot px; removed 6 specks; removed 8 specks; 321 near-white px snapped to the #FFFFFF hot key)
+    fracture_cursed      4    <- raw/fracture_cursed_v02_{A,B}.png x0.43/0.43  (24 colors; 541 hot px; 426 near-white px snapped to the #FFFFFF hot key)
+    fracture_cursed_big  2    <- frames/fracture_cursed_big/ (raw/fracture_cursed_big_v02.png) x1  (24 colors; 192 hot px)
+  missing (procedural fallback): crack_s, crack, crater, crater_big, crater_huge, fracture_ring, scuff, skid, rubble, dirt_crater, dirt_skid, barrier_crack, crater_wall, burn_lightning, burn_lightning_big, fracture_lightning, burn_fire, burn_black, scour_spiral, scour_spiral_big, cut_wind, claw, scorch_chakra, fracture_chakra, scorch_ki
+  ! crush_implode: 0.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! fracture_cursed: 0.3% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  wrote public/preview/decals/decals_cursed.png
+  wrote public/preview/decals/atlas.json
+  cleaned variants written back to 3 folder(s) under art/decals/frames/
+
+done: 0/0 character(s) packed, vfx skipped, crowd skipped, 6 decal(s), 2 warning(s).

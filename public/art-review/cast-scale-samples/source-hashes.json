@@ -1,0 +1,18 @@
+{
+  "naruto": {
+    "sheet.png": "23c1255450e0d9abd158035a1acbfbf43ad34d86bce3c36b136231edfd3a1f9d",
+    "anims.json": "46d9061128dcb59a97e2f93a77481b88d945922dcb9122a3591c414f27adbfa8"
+  },
+  "sasuke": {
+    "sheet.png": "da39a3daecd6e1271066ccae2ff26cf0562a880758e32b8ebf09729697d32b84",
+    "anims.json": "6dbe1d918cde25d1e494d015a25e01a3a23df148505e49b175e350f667423fee"
+  },
+  "killua": {
+    "sheet.png": "ec2c79e601cb108a8bfaac8d989ad93531e02e1e5812bfdf1913ccfd2a2c9339",
+    "anims.json": "68d51c8b500079e7ff41d5da0202c2cbfa255338304bb6a0acd1f9f3009ed8fc"
+  },
+  "gojo": {
+    "sheet.png": "fe1d9baaae3455637b35286a46c4d44ad94a8fb52b3575cb58e3434a472e55f2",
+    "anims.json": "ba433347518e9d0cce984473530bf299a422206b6ec0bc021d1c5a7c28a1552c"
+  }
+}

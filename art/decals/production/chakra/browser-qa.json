@@ -1,0 +1,59 @@
+{
+  "demo": "6 names, 24 decals (6 custom)",
+  "errors": [],
+  "logs": [
+    "[vite] connecting...",
+    "[vite] connected.",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "[vfx] custom effects: spark, burst, ring, dust, smoke, shuriken, fire, flame, lightning, orb, glow, streak, star, crater, lines",
+    "[decals] custom ground damage (candidates): scour_spiral, scour_spiral_big, cut_wind, claw, scorch_chakra, fracture_chakra; procedural for the rest",
+    "[crowd] using custom crowd atlas (576 spectators, 473 seats)",
+    "[stage] custom slots: ringSide, grass, ringTop, steps, stoneBase, brick, path, roof, bannerBu, bannerDo, bannerSai, bannerTo, templeFacade, plaster, sky, cloudA, cloudB, cloudC, gong, parasol, woodDark, treeRoundA, treeRoundB, treePine, treePalm, sign, lanternBu, lanternSai, woodPillar, wood",
+    "[npc] placed announcer, monk-a, monk-b, vendor",
+    "[sprites] using custom sheet for naruto (42 animations)",
+    "[sprites] using custom sheet for sasuke (42 animations)",
+    "[sprites] using custom sheet for killua (42 animations)",
+    "[sprites] using custom sheet for gojo (42 animations)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failedResponses": [],
+  "data": {
+    "demo": "6 names, 24 decals (6 custom)",
+    "stats": {
+      "decals": 0,
+      "clusters": 24,
+      "persistent": 24,
+      "chunks": 0,
+      "slabs": 0,
+      "barriers": 0,
+      "wallCraters": 0,
+      "pages": 1
+    },
+    "active": {
+      "scour_spiral": {
+        "src": "custom",
+        "frames": 6
+      },
+      "scour_spiral_big": {
+        "src": "custom",
+        "frames": 3
+      },
+      "cut_wind": {
+        "src": "custom",
+        "frames": 6
+      },
+      "claw": {
+        "src": "custom",
+        "frames": 4
+      },
+      "scorch_chakra": {
+        "src": "custom",
+        "frames": 3
+      },
+      "fracture_chakra": {
+        "src": "custom",
+        "frames": 2
+      }
+    }
+  }
+}

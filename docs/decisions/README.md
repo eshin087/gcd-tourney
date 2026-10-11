@@ -53,6 +53,7 @@ when a decision should be revisited.
 | [0025](0025-cpu-defense-personas.md) | CPU defense personas, reads and exchanges for CPU vs CPU (amends 0016) | Proposed (in PR) |
 | [0026](0026-combo-composer-and-bounce-budget.md) | Seeded CPU combo composer and a per-combo bounce budget (amends 0016) | Proposed (in PR) |
 | [0027](0027-beam-clash-energy-struggles.md) | Beam clashes: energy specials that meet become a struggle; show director for CPU vs CPU | Proposed (in PR) |
+| [0028](0028-timed-impact-tech.md) | Timed impact tech (Smash style): a fresh Guard press before a floor or wall impact; wall tech, wall jump, lockout | Proposed (in PR) |
 
 ## Template
 

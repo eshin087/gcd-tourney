@@ -15,6 +15,7 @@
 //  hardKnockdown  no tech roll on the landing after this hit (ADR 0022); unset, it defaults to true for ground-bounce
 //             spikes (dive slams) and big unblockable hits (super and ultimate finishes, clash results), else false
 //  lock       a multi-hit tick keeps air stun / hit stun at least this long, so one move can't be teched midway
+//  noTech     the timed impact tech can't beat the floor or barrier impact after this hit (super finishes, ADR 0028)
 //  ground     the floor damage style a special, shot or super leaves (GROUND_STYLES in ground.js, ADR 0024)
 export const MOVES = {
   light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
@@ -91,6 +92,7 @@ export const HIT_FLASH = {
   tick: { pop: 0, lift: 0.3, rim: 0.7, rimColor: 0xffffff, fade: 5, shake: 0.03 },
   parry: { pop: 1, lift: 0.3, rim: 1, rimColor: 0x9ff0ff, fade: 8, shake: 0 },
   burn: { pop: 0, lift: 0.25, rim: 0.6, rimColor: null, fade: 6, shake: 0 },
+  tech: { pop: 1, lift: 0.4, rim: 1, rimColor: 0xc8f8ff, fade: 10, shake: 0 }, // a timed impact tech (ADR 0028)
 };
 
 // Defensive options (ADR 0014), all free. Frames at 60 fps.
@@ -130,6 +132,19 @@ export const THROW = {
 //             pressed during the combo and under `chord` frames ago (Guard pressed while a charge holds Special
 //             is a tech, not a burst).
 //  reversal   an attack started within `window` frames of leaving stun, block or wake-up that hits: REVERSAL
+//  impactTech timed tech, Smash style (ADR 0028): a FRESH Guard press (an edge: holding Guard alone never does it) at
+//             most `window` frames before a launched victim hits the floor (the first contact of a fall: a ground
+//             bounce, a spike's or throw's hard knockdown, a plain landing) or the ring barrier on a wall bounce techs
+//             the impact: the bounce never happens (no bounce budget used) and the combo ends. A press that doesn't
+//             tech locks the timed tech out for `lockout` frames counted from it, so mashing fails. Frames are the
+//             victim's live frames: a press during hitstop or a world freeze counts as made on the first frame after
+//             it. Never on a KO, while held, or after a `noTech` hit (super finishes).
+//    inPlace  floor, stick neutral: stand up on the spot, `len` frames, invulnerable `invuln`
+//    roll     floor, stick left / right: roll that way at `speed` (`friction` per frame), `len`, invulnerable `invuln`
+//    wall     barrier: cling `stick` frames, then kick off away from it at [along, up], free (falling) `len` frames
+//             after the kick; invulnerable `invuln` from the impact
+//    wallJump barrier with ↑ (or Jump) held at the kick: [along, up] higher, actionable at once; invulnerable `invuln`
+//             from the impact
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
   spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
@@ -144,6 +159,13 @@ export const DEFENSE = {
     hit: { dmg: 10, minScale: 1, launch: [14, 9], hitstun: 14, push: 2, hitstop: 12, big: true, spark: 'smash', shake: 0.7, burst: true },
   },
   reversal: { window: 3 },
+  impactTech: {
+    window: 11, lockout: 40,
+    inPlace: { len: 18, invuln: 14 },
+    roll: { len: 22, invuln: 18, speed: 8, friction: 0.88 },
+    wall: { stick: 6, along: 7, up: 6.5, len: 12, invuln: 22 },
+    wallJump: { along: 5, up: 13, invuln: 14 },
+  },
 };
 
 // Signature rush specials (1 ki bar). `cancelStartup`: the startup when it's cancelled out of a normal that hit

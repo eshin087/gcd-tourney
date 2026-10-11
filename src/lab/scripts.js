@@ -4,9 +4,11 @@
 import { ACTIONS } from '../core/input.js';
 import { MOVES, SPECIAL_MOVES, SUPERS, ULTIMATE, THROW, DEFENSE, VANISH, SUPER_DASH } from '../game/moves.js';
 import { kitOf, specialFor, towardSide, clashable, energyMoves, airEnergyMoves, canBeamClash } from '../game/kit.js';
+import { impactAhead } from '../game/aiTech.js';
 
 // A step holds buttons (and a stick) from frame `t` for `len` frames. Sticks: 'toward' / 'away' the opponent,
-// 'up' / 'down', or [mx, my] in screen space.
+// 'up' / 'down', or [mx, my] in screen space. A `tech: n` step is the timed impact tech (ADR 0028): between t and
+// t + len it presses Guard (3 frames) once, when the fighter's next floor or wall impact is n live frames away.
 const stick = (f, s) => {
   if (!s) return [0, 0];
   if (Array.isArray(s)) return s;
@@ -22,6 +24,7 @@ export class ScriptBrain {
     this.t = 0;
     this.done = done;
     this.end = Math.max(0, ...steps.map((s) => s.t + (s.len ?? 3))) + 2;
+    this.fired = new Map(); // tech step -> the frame it pressed (the steps are shared data: never written to)
   }
 
   update() {
@@ -33,7 +36,12 @@ export class ScriptBrain {
       if (t < s.t || t >= s.t + (s.len ?? 3)) continue;
       for (const b of s.btn || []) down.add(b);
       if (s.stick) mv = stick(this.f, s.stick);
+      if (s.tech != null && !this.fired.has(s)) {
+        const a = impactAhead(this.f);
+        if (a && a.k - 1 <= s.tech) this.fired.set(s, t);
+      }
     }
+    for (const at of this.fired.values()) if (t < at + 3) down.add('guard');
     pad.setMove(mv[0], mv[1]);
     pad.dashDir = null; // a scripted stick never reads as a double-tap dash
     for (const b of ACTIONS) pad.set(b, down.has(b));
@@ -240,6 +248,25 @@ export const SCENARIOS = [
   {
     id: 'techRoll', name: 'Tech roll', info: 'Light ×4 knocks the dummy down; it holds Guard and rolls back to its feet instead of lying down (TECH ROLL!). Not after a hard knockdown (spike, throw, super finish).',
     setup: { gap: 1.2 }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [{ t: 30, btn: ['guard'], len: 110 }],
+  },
+  // timed impact tech (ADR 0028): the dummy presses Guard `tech` live frames before its next impact
+  {
+    id: 'spikeTech', name: 'Timed tech off a spike', info: `Light ×3, launcher, chase, air Light ×2 and the air heavy spike: the dummy presses Guard 5 frames before it hits the floor and techs in place (TECH!) instead of the ground bounce. A fresh press up to ${DEFENSE.impactTech.window} frames early techs; holding Guard doesn't. Stick left / right at the impact rolls instead.`,
+    setup: { gap: 1.2 }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'heavy'), tap(62, 'jump'), tap(78, 'light'), tap(88, 'light'), tap(100, 'heavy')],
+    b: [{ t: 100, tech: 5, len: 90 }],
+  },
+  {
+    id: 'wallTech', name: 'Wall tech', info: 'Light ×4 into the barrier: the dummy presses Guard just before it hits and WALL TECH!s: it clings to the barrier for a moment and kicks off away from it, invulnerable. The bounce (and its budget) never happens.',
+    setup: { gap: 1.2, nearWall: true }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [{ t: 38, tech: 5, len: 60 }],
+  },
+  {
+    id: 'wallJumpTech', name: 'Wall-jump tech', info: 'The same wall tech with ↑ held: a higher jump off the barrier, free to act in the air at once (air attack, air dodge, super dash).',
+    setup: { gap: 1.2, nearWall: true }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [{ t: 38, tech: 5, len: 60, stick: 'up' }],
+  },
+  {
+    id: 'techLockout', name: 'Tech too early (locked out)', info: `The spike again: the dummy presses Guard during your air string, too early (about 16 frames before the floor, outside the ${DEFENSE.impactTech.window}-frame window), then again 4 frames before the floor. The first press locked the timed tech out for ${DEFENSE.impactTech.lockout} frames, so the second does nothing: it ground-bounces and stays down. Mashing fails.`,
+    setup: { gap: 1.2 }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'heavy'), tap(62, 'jump'), tap(78, 'light'), tap(88, 'light'), tap(100, 'heavy')],
+    b: [{ t: 100, btn: ['guard'], len: 3 }, { t: 104, tech: 4, len: 90 }],
   },
   {
     id: 'blueCombo', name: 'Blue combo (a gap)', info: 'You launch, then super dash in late: the dummy could have teched in between (it never does here), so the counter turns blue. Compare with the air combo, which stays true.',

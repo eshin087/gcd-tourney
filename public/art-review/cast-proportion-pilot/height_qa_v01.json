@@ -1,0 +1,99 @@
+{
+  "status": "needs review",
+  "method": "Neutral upright source, inferred skull crown to shoe sole; uniform scaling, 200/166 pixels per cm.",
+  "caveats": "Gojo 190 is a conservative working value, not an exact canon height. Skull hidden by hair: +/-10 source px. Shoe soles used consistently, not barefoot anthropometry. Generated neutral references are new candidates, not proof old combat anatomy matches. Production scale gate not applicable to these static references.",
+  "measurements": [
+    {
+      "id": "naruto",
+      "cm": 166,
+      "crownY": 153,
+      "file": "art/characters/naruto/reference/height_neutral_v01.png",
+      "sourceBounds": {
+        "x0": 426,
+        "y0": 107,
+        "x1": 816,
+        "y1": 1100,
+        "w": 391,
+        "h": 994,
+        "n": 192824
+      },
+      "sourceBody": 947,
+      "targetBody": 200,
+      "factor": 0.21119324181626187,
+      "estimatedCrownInCell": 104,
+      "uncertaintyPx": 2.1119324181626187,
+      "occupiedHeight": 210,
+      "palette": 48,
+      "clipped": 0
+    },
+    {
+      "id": "sasuke",
+      "cm": 168,
+      "crownY": 165,
+      "file": "art/characters/sasuke/reference/height_neutral_v01.png",
+      "sourceBounds": {
+        "x0": 408,
+        "y0": 115,
+        "x1": 812,
+        "y1": 1128,
+        "w": 405,
+        "h": 1014,
+        "n": 217678
+      },
+      "sourceBody": 963,
+      "targetBody": 202.40963855421685,
+      "factor": 0.2101865405547423,
+      "estimatedCrownInCell": 101.59036144578315,
+      "uncertaintyPx": 2.1018654055474233,
+      "occupiedHeight": 213,
+      "palette": 48,
+      "clipped": 0
+    },
+    {
+      "id": "killua",
+      "cm": 158,
+      "crownY": 176,
+      "file": "art/characters/killua/reference/height_neutral_v01.png",
+      "sourceBounds": {
+        "x0": 455,
+        "y0": 95,
+        "x1": 808,
+        "y1": 1099,
+        "w": 354,
+        "h": 1005,
+        "n": 189278
+      },
+      "sourceBody": 923,
+      "targetBody": 190.36144578313252,
+      "factor": 0.20624208643893013,
+      "estimatedCrownInCell": 113.63855421686748,
+      "uncertaintyPx": 2.0624208643893014,
+      "occupiedHeight": 207,
+      "palette": 48,
+      "clipped": 0
+    },
+    {
+      "id": "gojo",
+      "cm": 190,
+      "crownY": 108,
+      "file": "art/characters/gojo/reference/height_neutral_v01.png",
+      "sourceBounds": {
+        "x0": 447,
+        "y0": 50,
+        "x1": 823,
+        "y1": 1153,
+        "w": 377,
+        "h": 1104,
+        "n": 227195
+      },
+      "sourceBody": 1045,
+      "targetBody": 228.9156626506024,
+      "factor": 0.21905805038335158,
+      "estimatedCrownInCell": 75.0843373493976,
+      "uncertaintyPx": 2.190580503833516,
+      "occupiedHeight": 242,
+      "palette": 48,
+      "clipped": 0
+    }
+  ]
+}

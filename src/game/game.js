@@ -33,6 +33,7 @@ const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vect
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const clashTmp = new THREE.Vector3();
 const burstCol = new THREE.Color();
+const TECH_SPARK = 0xc8f8ff; // the timed impact tech's white-cyan (ADR 0028)
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
 // BEAM CLASH (ADR 0027): the reused body lists (checkEnergyClash runs a few times a frame); the states a fighter can be
@@ -1296,7 +1297,7 @@ export class Game {
       [c.a, c.b].forEach((s, i) => {
         s.obj?.kill();
         const sg = i === 0 ? -1 : 1;
-        s.f.takeHit(s.f.opp, { dmg: C.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+        s.f.takeHit(s.f.opp, { dmg: C.drawDmg, launch: [10, 8], hitstop: 12, unblockable: true, big: true, beam: true, spark: 'smash', noTech: c.tier !== 'struggle' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
       });
       return;
     }
@@ -1304,7 +1305,7 @@ export class Game {
     const W = WS.f, L = LS.f, sg = winner === 0 ? 1 : -1;
     LS.obj?.kill();
     this.overwhelm(WS, L);
-    L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
+    L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash', noTech: c.tier !== 'struggle' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
     this.fx.ground.impact(L.pos, { kind: 'clashWin', force: C.craters?.[0], style: WS.S?.ground ?? W.def.ground?.style, tint: W.def.ground?.tint ?? W.def.color, dir: { x: ax.x * sg, z: ax.z * sg } });
     audio.play('explosion', 1.4);
@@ -1560,6 +1561,22 @@ export class Game {
       this.cam.shake(0.45);
       audio.play('explosion', 0.6);
     } else if (k % 2 === 0) this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.9 + k * 0.25, color: col, opacity: 0.6, life: 0.12, fade: true, glow: 0.8, depthTest: false, order: 7 });
+  }
+
+  // Timed impact tech (ADR 0028): TECH! / WALL TECH!, a small white-cyan spark ring at the contact point (the floor
+  // under them, or the barrier), a bright ting and a crowd pop. The hold-Guard tech keeps its own white TECH!.
+  onImpactTech(f, kind, axis, sign) {
+    const p = f.pos, wall = kind === 'wall';
+    const x = wall && axis === 'x' ? sign * ARENA_LIMIT : p.x, z = wall && axis === 'z' ? sign * ARENA_LIMIT : p.z;
+    const y = wall ? p.y + 0.8 : 0.15;
+    if (wall) this.fx.barrier(p, axis, sign, '#bff8ff');
+    else this.fx.dust(p, 0.6);
+    this.fx.spawn('ring', x, y, z, { scale: 0.45, grow: 2.4, life: 0.24, fade: true, color: TECH_SPARK, glow: 1.5, depthTest: false, order: 9 });
+    this.fx.spawn('star', x, y + (wall ? 0 : 0.35), z, { scale: 0.5, color: 0xeaffff, glow: 1.5, depthTest: false, order: 9 });
+    this.tag(f, wall ? 'wallTech' : 'impactTech');
+    if (wall) this.cam.zoomPunch(0.25);
+    audio.play('tech');
+    audio.play('cheer', 0.55);
   }
 
   // `impact`: the downward speed it hit the floor at; n: this combo's ground bounce count (the JUGGLE budget)

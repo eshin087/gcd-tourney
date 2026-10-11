@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/skid_v02_{A,B}.png",
+  "version": 2,
+  "source": [
+    "decals/raw/skid_v02_A.png",
+    "decals/raw/skid_v02_B.png",
+    "decals/raw/skid_v02.json"
+  ],
+  "sourceHash": "27026c4d4026014f6e994ac2a5952bf94ad67dd2",
+  "cell": {
+    "w": 512,
+    "h": 128,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "skid_00.png": "026b1376149e7078db38aef55da3439ff2c18950",
+    "skid_01.png": "7b2ac1d14677b26fb19d3f305a6bbdfc0524af81",
+    "skid_02.png": "7aa041554bf57ff21590d8f1392457c0d2e8f0b5",
+    "skid_03.png": "a05649112aab8842db195c10c56d48fdd2ff618a"
+  }
+}
