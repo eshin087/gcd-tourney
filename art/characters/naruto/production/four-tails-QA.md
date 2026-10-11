@@ -11,3 +11,6 @@ The small KIT-authorized data change selects beamCharge for roar, beamFire for p
 Recommendation: review these repaired candidates in the gallery and the Ultimate/clash lab; four-tail count and clipping gates now pass.
 
 Hosted browser verification: the gallery loaded all three visible images; playback/frame step worked without console errors. Both Ultimate versus Killua and Ultimate clash versus Gojo were exercised through the test-lab UI. The maul stage showed the drawn shroud, and paused clash t2 showed the held claw pose. Console confirmed Naruto custom sheet42animations. This is browser evidence, not physical-phone validation.
+
+Approval record (2026-10-10): the user explicitly approved everything, including these latest versions and the documented QA caveats above. Art approval is complete; merge/integration remains Claude-owned. No regeneration or visual changes were made for this approval.
+Approval verification: strict quantized re-pack preserves both sheet.png and anims.json SHA256 byte-for-byte; only the pre-existing KO margin warning remains. npm run build passed. Existing preview therefore shows the approved art without a new deployment.
