@@ -1,0 +1,61 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== gojo ========================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, COMPLETE (game will use it)
+    idle         8     <- frames/idle/ (raw/idle_v02.png) x1
+    run          8     <- frames/run/ (raw/run_v03.png) x1
+    dash         2     <- frames/dash/ (raw/dash_v01.png) x1
+    backDash     3     <- frames/backDash/ (raw/backDash_v01.png) x1
+    superDash    2     <- frames/superDash/ (raw/superDash_v01.png) x1
+    jumpSquat    1     <- frames/jumpSquat/ (raw/jumpSquat_v01.png) x1
+    jumpUp       2     <- frames/jumpUp/ (raw/jumpUp_v01.png) x1
+    jumpFall     2     <- frames/jumpFall/ (raw/jumpFall_v01.png) x1
+    land         2     <- frames/land/ (raw/land_v01.png) x1
+    light1       7     <- frames/light1/ (raw/light1_v01.png) x1
+    light2       7     <- frames/light2/ (raw/light2_v01.png) x1  (ignored 4 stray pixel(s) - clean them in frames/light2/)
+    light3       7     <- frames/light3/ (raw/light3_v01.png) x1
+    light4       8     <- frames/light4/ (raw/light4_v02.png) x1  (ignored 1 stray pixel(s) - clean them in frames/light4/)
+    heavy        8     <- frames/heavy/ (raw/heavy_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/heavy/)
+    airLight1    5     <- frames/airLight1/ (raw/airLight1_v01.png) x1
+    airLight2    5     <- frames/airLight2/ (raw/airLight2_v01.png) x1  (ignored 7 stray pixel(s) - clean them in frames/airLight2/)
+    airLight3    6     <- frames/airLight3/ (raw/airLight3_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/airLight3/)
+    airHeavy     6     <- frames/airHeavy/ (raw/airHeavy_v02.png) x1
+    guard        2     <- frames/guard/ (raw/guard_v01.png) x1
+    block        2     <- frames/block/ (raw/block_v01.png) x1
+    hurtHigh     3     <- frames/hurtHigh/ (raw/hurtHigh_v01.png) x1
+    hurtLow      3     <- frames/hurtLow/ (raw/hurtLow_v01.png) x1
+    launched     2     <- frames/launched/ (raw/launched_v01.png) x1
+    spin         4     <- frames/spin/ (raw/spin_v01.png) x1
+    airRecover   3     <- frames/airRecover/ (raw/airRecover_v01.png) x1
+    down         2     <- frames/down/ (raw/down_v01.png) x1
+    getup        5     <- frames/getup/ (raw/getup_v01.png) x1
+    charge       4     <- frames/charge/ (raw/charge_v01.png) x1
+    throw        4     <- frames/throw/ (raw/throw_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/throw/)
+    beamCharge   3     <- frames/beamCharge/ (raw/beamCharge_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/beamCharge/)
+    beamFire     3     <- frames/beamFire/ (raw/beamFire_v02.png) x1
+    vanish       2     <- frames/vanish/ (raw/vanish_v01.png) x1  (ignored 3 stray pixel(s) - clean them in frames/vanish/)
+    stagger      4     <- frames/stagger/ (raw/stagger_v01.png) x1
+    ko           1     <- frames/ko/ (raw/ko_v02.png)  x1
+    special      8     <- frames/special/ (raw/special_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/special/)
+    intro        4     <- frames/intro/ (raw/intro_v01.png) x1
+    taunt        2     <- frames/taunt/ (raw/taunt_v01.png) x1
+    win          4     <- frames/win/ (raw/win_v01.png) x1
+    specialForward  7     <- frames/specialForward/ (raw/specialForward_v01.png) x1
+    specialUp    6     <- frames/specialUp/ (raw/specialUp_v01.png) x1
+    specialDown  4     <- frames/specialDown/ (raw/specialDown_v01.png) x1
+    superPose    4     <- frames/superPose/ (raw/superPose_v01.png) x1
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
+  - palette snapped to 48 colors
+  - 19 hitbox override(s) from hitboxes.json
+  - 3 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  wrote public/characters/gojo/portrait.png
+  wrote public/characters/gojo/cutin.png
+  wrote public/characters/gojo/select.png
+  wrote public/characters/gojo/sheet.png
+  wrote public/characters/gojo/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 0 warning(s).

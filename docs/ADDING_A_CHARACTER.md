@@ -52,7 +52,8 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 | `id`, `name`, `subtitle` | identity. `name` is upper-case and shows in the HUD and cards. |
 | `look` | one line of **visual traits** (hair, eyes, outfit, colors). The Sprite Lab prompt builder uses it. |
 | `color` | signature UI and aura color (hex) |
-| `aura`, `auraCore` | aura RGB (0..1) for flame tongues and the core streaks |
+| `aura`, `auraCore` | aura RGB (0..1) for flame tongues and the core streaks (ultimate wind-ups, modes) |
+| `charge` | optional: **how they power up** while holding Special ([ADR 0023](decisions/0023-canon-power-up-styles.md)). Without it they get `CHARGE_DEFAULT` (`src/game/chargeFx.js`), a restrained ki aura in `color` / `auraCore`. See below. |
 | `beam` | `{ core, mid, edge, name, width? }`: ultimate beam colors, its name in the cut-in, optional width |
 | `specialName`, `projectileName` | display names |
 | `special` | a key in `SPECIALS` (`'rasengan'`, `'chidori'`, or a new one, see step 3) |
@@ -66,6 +67,27 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 
 Register it in `src/characters/index.js` (`import` + add it to `ROSTER`). Keep the existing order. New
 characters go at the end.
+
+**The power-up (`charge`).** Ask how the character powers up in their own series and write that as data; the four
+shipped blocks (naruto, sasuke, killua, gojo) are the examples. Keys merge over `CHARGE_DEFAULT`:
+
+- `palette`: named colors (`main`, `core`, `dark`, `pebble`, any extra like `eye`, `edge`, `spark`) that the
+  other fields refer to by name.
+- `shell`: the outline drawn on the body: `kind` (`flame`, `boil`, `dark`, `electric`, `shimmer`), `width` and
+  `opacity` as `[start, full]` ranges, `color` / `core` (outer and inner band), `lift`, `noise`, `speed`, `dash`.
+- `emit`: a short list of emitters `{ fx, from, every, max, bar, scale, vel, life, color, opacity, glow, front,
+  frame, random, spin, fade, drag, hold }`. `from` is `body`, `back`, `head`, `chest`, `hips`, `feet`, `floor` or
+  `ring`; `bar` is the ki level (0-3) it unlocks at; `vel` is `[right, up, toward camera]` on screen; `hold: true`
+  keeps one effect alive behind the body (Naruto's tail).
+- `eyes`: `{ at: [forward, up], color, bar }`, a glint measured on the spec v2 `charge` frame (re-check it in the lab
+  after a redraw).
+- `ground`: `{ dustEvery, crackAt, rumble }` (`crackAt: 0` keeps the floor intact). `bar` / `max`: the beats when a
+  bar fills and when the gauge is full (`ring`, `ripple`, `burst`, `dust`, `flash`, `lines`, `shake`, `punch`,
+  `fx`). `sound`: `hum`, `boil`, `crackle` or `calm`.
+
+The engine clamps whatever the block asks for to the restraint rules (at most 16 live sprites, glow and opacity
+caps, no focus lines while holding, a faint dark flash only at MAX). A new effect sprite is a new VFX atlas name
+with a procedural fallback (art/vfx/README.md, "Adding a new effect"). Check it with the lab's **Charge to MAX** row.
 
 ## 2. 3D placeholder model (Claude)
 
@@ -142,7 +164,11 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
      (`<asset>_vNN.png`). Describe visual traits and say "anime fan-art sprite". Include the
      **fallback wording** for when a name or style request is refused.
 3. Add the character to `art/manifest.json` (every animation with `frames`, `phases`, `bodyHeight`,
-   `required`, `status: "todo"`) and to `art/TRACKER.md`.
+   `required`, `status: "todo"`) and to `art/TRACKER.md`. Until his strips are approved the packer's scale gate is
+   strict for them (art/CHARACTER_SCALE.md "Scale gate (automatic)"); once every strip passes, set
+   `"scaleGate": "strict"` on the character so it stays that way. If his hair shares body or outline colours, declare
+   `headColors` in his `art/scale/builds.json` row (check the first `npm run scale` heads sheet: the green boxes must
+   sit on the hair).
 
 Don't invent animation names. If the character needs a pose the list doesn't have, raise a task for
 Claude (see CLAUDE.md, hard rule 2).
@@ -182,9 +208,12 @@ the next one generated).
 Lessons from the first four fighters:
 
 - **One scale per strip.** A strip stitched from parts (`raw/_parts/<anim>_vNN_A.png` / `_B.png`) must calibrate
-  every part to the same skull-to-chin length ([art/CHARACTER_SCALE.md](../art/CHARACTER_SCALE.md)). A part packed
+  every part to the same head size ([art/CHARACTER_SCALE.md](../art/CHARACTER_SCALE.md)). A part packed
   at its own scale makes the fighter grow or shrink in the middle of a move (Sasuke's light2, light3 and special,
-  2026-10-10).
+  2026-10-10). Stitch with `npm run stitch` (a measured factor), never a factor picked by eye.
+- **Every strip at the idle's size.** Killua grew and shrank in fights (2026-10-10) because strips were packed
+  12-34 % off his idle: a fist above the head shrinks a whole strip, a redraw with a smaller hair mass shrinks his
+  head. The packer's scale gate now measures every frame; a new strip must pass it (a failure writes nothing).
 - **Commit after every approved step, in your branch.** Never leave work uncommitted in the main folder: on
   2026-10-10 a whole session of uncommitted art had to be split into PRs by hand before anything else could merge.
 - **UI images ship only after approval:** the approved `raw/ui_<name>_vNN.png` is copied to `ui/<name>.png` and
@@ -194,10 +223,14 @@ Lessons from the first four fighters:
 
 ```bash
 npm run sprites <id>
+node tools/pack-sprites.mjs <id> --quantize 48                  # the scale gate: exit 0, no `scale gate:` line
+npm run scale -- <id>                                           # art/scale/heads-<id>.png for the REVIEW row
 ```
 
 - Read the report: the `_vNN` file used per animation, packed anims, missing CORE anims, frame-count
-  mismatches, clipped frames, palette warnings (spec v2 target ≤ 48 colors; the packer warns above 64).
+  mismatches, clipped frames, palette warnings (spec v2 target ≤ 48 colors; the packer warns above 64), and the
+  **scale gate** line: every strip's head (hair included) against the idle. A `scale gate:` failure is fixed before
+  the REVIEW row is filed (auto head fit, re-stitch or redraw; art/CHARACTER_SCALE.md "Scale gate (automatic)").
 - Inspect `art/characters/<id>/frames/<anim>/` (cleaned frames you can touch up by hand and re-pack).
 - Fix hit/hurt boxes with `art/characters/<id>/hitboxes.json` (frame-local px in the 256 cell, per animation
   and frame number). Strikes on active frames must cover the fist, foot or palm, nothing more.

@@ -3,6 +3,7 @@ import { InputManager } from './core/input.js';
 import { audio } from './core/audio.js';
 import { Game } from './game/game.js';
 import { TouchControls, IS_TOUCH_DEVICE } from './core/touch.js';
+import { HIT_FLASH } from './game/moves.js';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
 const input = new InputManager();
@@ -43,9 +44,12 @@ if (IS_TOUCH_DEVICE) {
   }
 }
 
-// first interaction unlocks audio; M (or the small speaker top-right) toggles mute
+// first interaction unlocks audio, and every later one resumes a context iOS left 'interrupted' (a call mid-match);
+// init() is only a state check once running. touchend too: iOS may only count the end of a touch as a gesture.
+// M (or the small speaker top-right) toggles mute
 const unlock = () => audio.init();
-window.addEventListener('pointerdown', unlock, { once: true });
+window.addEventListener('pointerdown', unlock, { capture: true, passive: true });
+window.addEventListener('touchend', unlock, { capture: true, passive: true });
 window.addEventListener('keydown', (e) => {
   unlock();
   if (e.code === 'KeyM' && !e.repeat) audio.setMuted(!audio.muted);
@@ -117,6 +121,7 @@ if (qs.has('debug')) {
     return r;
   };
   window.resumeLoop = () => { window.__manualStep = false; };
+  window.HIT_FLASH = HIT_FLASH; // live hit-flash tuning (style, strength, tier numbers): read every frame, ENG-064
   // real-time helpers (rAF loop running): tap keys / chords with real timing
   window.sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   window.tap = async (codes, ms = 50) => {
@@ -143,6 +148,26 @@ if (qs.has('debug')) {
     return 'snapped';
   };
   window.unsnap = () => document.getElementById('debug-snap')?.remove();
+  // scale gate (TOOL-025): each fighter's strip on screen, its head scale vs the idle (packer audit, meta.scaleAudit),
+  // the verdict, every strip the gate flagged, and depthK (the sprite's depth normalization, 1 without it)
+  window.scaleReport = () => game.fighters.map((f) => {
+    const a = f.actor, A = a.asset.meta.scaleAudit, s = A?.anims?.[a.animName];
+    return {
+      id: f.def.id, anim: a.animName, head: s?.head ?? null, frameHead: s?.frames?.[a.fi] ?? null, verdict: s?.verdict ?? (A ? 'not packed' : 'no audit (baked art or an older pack)'),
+      flagged: A ? Object.entries(A.anims).filter(([, v]) => ['uniform', 'drift', 'pop'].includes(v.verdict)).map(([n, v]) => `${n} ${v.head} ${v.verdict}`) : [],
+      depthK: +(a.depthK ?? 1).toFixed(3),
+    };
+  });
+  // ground damage review (ADR 0024): every decal name x variant laid out on the ring ('all', a group such as
+  // 'base' or 'chakra', or one name), or one impact in the middle of the ring
+  window.groundDemo = (group = 'all') => game.fx.ground.demo(group);
+  window.groundTest = (force = 0.7, style = 'stone', o = {}) => {
+    const c = game.fx.ground.impact({ x: 0, y: 0, z: 0 }, { force, style, tint: '#ffb43a', ...o });
+    return c && { tier: c.tier, D: +c.D.toFixed(2), parts: c.parts.map((p) => p.name), stats: game.fx.ground.stats() };
+  };
+  // music (ADR 0019): music.state(), music.next() (a new song from the next bar), music.seed(n); ?musicSeed=N
+  window.music = audio.mus;
+  if (qs.get('musicSeed')) audio.mus.seedNext = Number(qs.get('musicSeed')) >>> 0;
   window.freezeCpu = () => {
     game.brains[1].update = function () {
       this.f.pad.tick();

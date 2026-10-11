@@ -35,6 +35,23 @@ if (!PREVIEW && branch !== 'main') {
   process.exit(1);
 }
 
+// Sweep exports that earlier runs left behind (a locked file outlived the retries, or the run was
+// killed before `finally`). Each one is a few hundred MB, and parallel agents deploy often, so
+// without this they piled up to tens of GB in %TEMP%. Only folders older than an hour are touched,
+// so a deploy running concurrently in another worktree keeps its export.
+const STALE_MS = 60 * 60 * 1000;
+for (const name of fs.readdirSync(os.tmpdir())) {
+  if (!name.startsWith('gcd-deploy-')) continue;
+  const p = path.join(os.tmpdir(), name);
+  try {
+    if (Date.now() - fs.statSync(p).mtimeMs < STALE_MS) continue;
+    fs.rmSync(p, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 });
+    console.log(`deploy: removed stale temp export ${p}`);
+  } catch {
+    // still locked; the next deploy tries again
+  }
+}
+
 const work = fs.mkdtempSync(path.join(os.tmpdir(), 'gcd-deploy-'));
 // export HEAD with git itself, through a private index file so the shared index (and anything
 // another agent has staged) is never touched
@@ -61,11 +78,12 @@ try {
   if (dirty.length) console.log(`not deployed: ${dirty.length} uncommitted change(s) outside art/ (commit them first if they should go live)`);
 } finally {
   // `vercel build` installs its own node_modules into the export (from package-lock.json); Windows can
-  // hold file locks for a moment after the CLI exits, so retry before giving up
+  // hold file locks for a while after the CLI exits, so retry (~15 s) before giving up; anything left
+  // is swept by the next deploy
   try {
-    fs.rmSync(work, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 });
+    fs.rmSync(work, { recursive: true, force: true, maxRetries: 30, retryDelay: 500 });
   } catch {
-    console.warn(`deploy: could not delete the temp export ${work} (locked); it is safe to delete by hand`);
+    console.warn(`deploy: could not delete the temp export ${work} (locked); the next deploy removes it`);
   }
   fs.rmSync(index, { force: true });
 }

@@ -47,7 +47,7 @@ game frames: startup / active / recovery. Damage is out of 1000 HP.
 | K in air | double-fist hammer | `airHeavy` | 9 / 6 / 16 | 62, spike, **ground bounce** | hit **smash** · `dust` + `crater` on bounce |
 | L tap · ○/B | **RASENGAN** rush (1 bar) | `special` | 24 / 22 / 20 | 150, launches, wall bounce | `orb` + `glow` + `star` at the palm · on hit: explosion, `crater`, debris, impact frame, blue flash, slow-mo |
 | L in air | **SHURIKEN** ×3 (½ bar) | `throw` | 8 / 3 / 14 | 22 each, 3 in a fan | `shuriken` sprites · hit **light** |
-| L hold | charge ki | `charge` | while held | fills ki | aura: `flame`, `streak`, `star`, `glow` |
+| L hold | charge ki | `charge` | while held | fills ki | Nine-Tails chakra (ADR 0023): a red boiling outline (engine shader), `bubble`s, `wisp`s off the head, floor pebbles (`star`), a red `star` glint on the eyes from bar 2, `naruto_chakraTail` at MAX |
 | K+L · △+○ | **RASEN CANNON** ultimate (3 bars) | `beamCharge` → `beamFire` | windup 46, beam 84 | ticks of 12 + 130 final | super flash + cut-in, aura, beam ribbon, `glow` bulbs, tick sparks, explosion, `crater` |
 | O / double-tap · R1/RB | dash | `dash` | | | `dust`, `ring` |
 | O neutral | super dash (homing) | `superDash` | up to 42 frames | 38 on contact | big dash burst: `ring` + `lines` + `burst` (orange) · hit **heavy** |
@@ -149,9 +149,11 @@ a **light** hit spark on contact. The throwing arm itself never hits (`hit: []`,
 
 ### Charge, guard, reactions
 
-- **Charge:** wide stance, fists down, shouting upward. The engine surrounds him with white flame
-  tongues tinted his aura colors (`#ff8c1f` outer, `#ffeb8c` core), rising light `streak`s, dust
-  motes (`star`) and a soft `glow`. Never draw aura in the sprite.
+- **Charge:** wide stance, fists down, shouting upward. The engine draws his power-up (`charge` in
+  `src/characters/naruto.js`, ENG-069): the Nine-Tails' red chakra leaking out as a boiling outline on his body
+  (`#c41c08` edge, `#ff4a12` inside), red-orange `bubble`s boiling up, `wisp`s off his head, pebbles lifting, the
+  red slit-eye glint (`#ff2a10`) from bar 2, and one chakra tail (`naruto_chakraTail`, `#c41c08`) behind his hips at
+  MAX. Never draw aura, chakra or a tail in the sprite.
 - **Guard / block:** cross-arm guard. The block spark is a light-blue `ring` + `star` + `lines`.
 - **Reactions:** the hurt frames sell the impact. The spark appears where the attacker's limb
   overlaps his hurtbox, so keep the hurt silhouettes compact (arms flung back, not forward) so
@@ -169,7 +171,8 @@ The VFX atlas is shared by all characters. Effect names are fixed by the engine.
 | `orb` (6 frames, full color) | **his Rasengan**, at the palm during `special` | A spiraling blue wind sphere: a solid core (`#ffffff` / `#e8f6ff` center), `#7ab8ff` body, `#3a7cf0` rim, with 3 to 4 curved white wind bands that rotate about 60° per frame so the 6 frames loop. Hard pixels, round silhouette, a few wind "fins" breaking the rim. No outline ring. |
 | `shuriken` (4 frames, full color) | his thrown shuriken | Classic four-pointed steel star with a center hole: `#5a6070` blades, `#c8d0dc` edge highlights, `#1a1a24` hole. 4-fold symmetric, so the 4 frames rotate 0°, 22.5°, 45°, 67.5° and loop seamlessly. |
 | `smoke` (7 frames, full color) | vanish puff, explosions, beam clash | Reads as the shadow-clone **poof**: a round puffy cool white/grey cloud (no pink or lavender) that bursts out from the center, with 3 to 4 bulbous lobes, then thins and breaks apart. Use the shared smoke colors. |
-| `flame`, `streak`, `glow`, `star` (white, tinted) | charge and ultimate aura, Rasengan sparkles | The engine tints them `#ff8c1f` / `#ffeb8c`. Keep them pure white/grey in the art. |
+| `flame`, `streak`, `glow`, `star` (white, tinted) | ultimate wind-up and Nine-Tails mode aura, Rasengan sparkles, charge pebbles and eye glint | The engine tints them `#ff8c1f` / `#ffeb8c` (pebbles `#9c8a74`, eye glint `#ff2a10`). Keep them pure white/grey in the art. |
+| `bubble`, `wisp`, `naruto_chakraTail` (white, tinted) | the **charge** power-up: chakra bubbles, wisps off the head, one tail at MAX | The engine tints them red-orange (`#ff4a12`, `#ffb35a`, `#c41c08`). Briefs in `art/vfx/EFFECTS.md` -> *Power-up effects*. |
 | `spark`, `burst`, `lines`, `ring`, `star` (white, tinted) | every hit | Shared hit language, no Naruto-specific art. |
 | `dust`, `crater` (full color) | landings, slams, Rasengan hit | Shared. |
 
