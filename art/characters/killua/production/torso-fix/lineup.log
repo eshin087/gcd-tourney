@@ -1,0 +1,17 @@
+
+> gcd-tourney@0.1.0 lineup
+> node tools/lineup.mjs --candidate art/characters/killua/production/torso-fix/candidate-ko.png --name killua-ko-v07 --out art/characters/killua/production/torso-fix/lineup.png
+
+fighter         class / hands           standing  idle h  band  SBR    band ok       MWR    DR (by eye)       
+naruto          athletic-teen / guard   192.56198347107437203     77    0.400  0.37-0.45     0.51   0.30 (0.29-0.33)  
+sasuke          athletic-teen / guard   200       202     87    0.435  0.37-0.45     0.51   0.30 (0.29-0.33)  
+killua          child / guard           182       186     64    0.352  0.3-0.38      0.46   0.23 (0.21-0.26)  
+gojo            athletic-adult / down   220.4022702379767232     61    0.277  0.35-0.41 X   0.37 X -                 
+  ^ gojo: SBR, MWR outside the athletic-adult bands: check the build by eye (CHARACTER_SCALE.md)
+  naruto heads vs idle: 41/41 strips ok or not judged
+  sasuke heads vs idle: 41/41 strips ok or not judged
+  killua heads vs idle: 21/41 strips ok or not judged; off: jumpUp 0.86 (drift), jumpFall 1.10 (uniform), light3 0.97 (pop), light4 0.93 (pop), heavy 0.81 (pop), airLight1 0.84 (drift), airLight2 0.87 (drift), airLight3 0.80 (drift), airHeavy 0.74 (pop), guard 0.78 (drift), block 0.81 (pop), hurtHigh 0.81 (uniform), hurtLow 0.84 (uniform), charge 1.16 (uniform), throw 0.89 (uniform), beamFire 0.89 (drift), specialForward 0.79 (pop), specialUp 0.76 (pop), specialDown 1.06 (pop), superPose 0.69 (drift)
+  gojo heads vs idle: 41/41 strips ok or not judged
+killua-ko-v07   child / guard           182       35      201   1.104  0.3-0.38 X    5.83   0.23 (0.21-0.26)  
+  ^ killua-ko-v07: SBR outside the child bands: check the build by eye (CHARACTER_SCALE.md)
+[lineup] wrote art\characters\killua\production\torso-fix\lineup.png (2640x3696; rows idle f0, run f3, heavy f3, guard f0, charge f0, airLight1 f2, hurtHigh f0) and its .json; 2 outside their build bands

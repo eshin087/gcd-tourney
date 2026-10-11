@@ -1,0 +1,7 @@
+
+== killua: idle head 43x32 px (auto palette #431a47 #fcfbfb #cdb9e3 #a788c7 #9769c1)
+   1 ref, 33 ok, 6 manual, 2 unmeasured
+   ! airHeavy: the manifest's scale exemption was written for v02 but the packed strip is v06 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 6
+   wrote art\characters\killua\production\torso-fix\final-scale\heads-killua.png
+
+[scale] 0 flagged strip(s); wrote art\characters\killua\production\torso-fix\final-scale\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md
