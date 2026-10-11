@@ -10,6 +10,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- art(sasuke): add title-style dash v05 and backDash v05, plus jumpUp v05 with a documented manual airborne-tuck scale exemption; archive five failed movement candidates.
 - art(sasuke): add title-style high/low hurt reactions with measured head-fit heights and actual 48-color atlas QA; archive three failed launched candidates without a scale exemption.
 
 - art(sasuke): preserve original down/KO pose layouts in new-style attempts v04/v05, archive technical rejects after clip, floor-contact and uncertain-scale checks; keep original approved poses active pending redraw guidance.
