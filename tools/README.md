@@ -442,6 +442,15 @@ How the tools measure (`scale-probe.mjs`):
   `"strict"` or `"warn"`; a character folder without a manifest entry is `warn`; `--strict-scale` makes every strip
   strict for the run. A strict strip that fails **refuses the pack**: neither `public/characters/<id>/` nor `frames/`
   is written for that fighter (the last good pack stays), and the exit code is 1.
+- **Unreadable poses** (`unmeasured`: the low-confidence list, or no head found) fail a strict strip unless the manifest
+  animation carries `"scaleManualQA": { "version", "result": "pass", "by", "note", "evidence" }` for exactly the packed
+  version; it is then `manual`, shown apart from `ok` (TOOL-ROTATED-ANATOMY).
+- **Shadowed hand edits**: `frames/<anim>/` edited on an older version than the newest raw refuses the pack (the new raw
+  is measured instead); `frames/_old/` and any `frames/_*` folder are archives the packer ignores.
+- **Stitch** (`stitch-parts.mjs`): refuses to measure against a packed idle older than `raw/idle_vNN.png` (pack the
+  current idle into a scratch `--public` first), ignores a refinement trial that cuts a pose at the top of the cell,
+  measures like the gate (`measurementCells`), and `--counts A,B` cuts touching poses; the pose total must match the
+  manifest's frame count.
 - **Exemptions** (`scaleExempt`, `scaleExemptFrames` on a manifest animation) need `"scaleExemptVersion"`: they
   cover only that version of the strip. A redraw (another version) is measured, with a warning, until someone looks
   at it and re-exempts it on purpose; an exemption without a version covers only an unversioned strip.
