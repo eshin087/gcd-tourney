@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Recorded user approval of Naruto heavy v10, throw v05 and airLight3 v05. Three additional light4 corrections retained v05 (v06 inferior retry archived), still held by the strict scale gate; runtime atlas remains unchanged.
+
 - Naruto post-approval candidates: heavy v10 fixes raised-pose clipping; throw v05 and airLight3 v05 pass scale. Light4 v04 remains held after the authorized extra attempts; strict packing blocks runtime changes. New versions await review (PR63).
 
 - Record user visual approval of Naruto latest42 checkpoint versions (2026-10-11); preserve10 strict holds and8 unmeasured candidates, with shipping manifest promotion deferred until technical clearance.
