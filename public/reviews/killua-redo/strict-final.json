@@ -212,7 +212,6 @@
           "notes": [
             "removed 9 specks",
             "re-imported: replaces frames/ cleaned from raw/light1_v02.png",
-            "candidate v09 (approved: v05)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -376,7 +375,6 @@
           "notes": [
             "removed 9 specks",
             "re-imported: replaces frames/ cleaned from raw/airLight3_v02.png",
-            "candidate v08 (approved: v05)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },

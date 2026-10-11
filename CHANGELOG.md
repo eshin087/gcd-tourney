@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): record explicit user approvals for light1 v09 and airLight3 v08; archive superseded pending versions. No new generation or runtime promotion; down05/ko06 manual QA remains Claude-owned.
+
 - art(killua): record user approval of run07, heavy10, airHeavy06, special05 and specialDown04; begin newly authorized three-call hair corrections for light1 and airLight3. Down/KO manual decisions remain Claude-owned.
 
 - art(killua): additional authorized corrections for nine strips, refreshed already-approved idle reference and guide, full-frame evidence and attempt ledger; five per-strip passes, two capped holds and two Claude manual-QA holds. Runtime atlas unchanged (ART-KIL-SCALE-W1).

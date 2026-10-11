@@ -59,7 +59,9 @@
       "measurementUncertaintyPx": 12,
       "calibrationNotes": "Round2 call1 hair-tip-only edit. Source body, face and inferred scalp/chin positions retained from prior measured part, with12px source uncertainty. B exact prior bytes. Official measured stitch factor applied to lengths; no scaleFit or hidden landmark adjustment. Body torso/shins unchanged by visual overlay comparison."
     },
-    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval.",
+    "approval": "user approved 2026-10-11",
+    "integration": "Claude down/KO manual QA pending"
   },
   {
     "asset": "airLight3",
@@ -119,6 +121,8 @@
       "measurementUncertaintyPx": 12,
       "calibrationNotes": "Round2 call1 hair-tip-only edit. Source body, face and inferred scalp/chin positions retained from prior measured part, with12px source uncertainty. B exact prior bytes. Official measured stitch factor applied to lengths; no scaleFit or hidden landmark adjustment. Body torso/shins unchanged by visual overlay comparison."
     },
-    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval."
+    "visual": "Every frame compared against idle at one pixel scale. Hair now consistent, no new torso/shin/head-position changes or clipping. Rotation/back-view uncertainty retained; numeric pass does not replace image approval.",
+    "approval": "user approved 2026-10-11",
+    "integration": "Claude down/KO manual QA pending"
   }
 ]

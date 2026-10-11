@@ -1,8 +1,6 @@
-# Killua round2 — 2026-10-11
+# Killua final two approvals — 2026-10-11
 
-User approved run07, heavy10, airHeavy06, special05, specialDown04; approvedVersion fields recorded and older pending candidates archived as superseded without deleting versions.
+User explicitly approved light1 v09 and airLight3 v08. Manifest approvedVersion, REVIEW and tracker record those decisions. No image generation or anatomical/calibration edits. Superseded pending versions moved intact to _rejected; moves.json lists every path.
 
-Fresh allowance:3 calls per remaining strip. Used1/3 each. light1 v09: strict ok, head0.984, range0.037. airLight3 v08: strict ok, head1.022, range0.095. All13 frames visually inspected against approved idle3 at one scale. Both retain face positions, body build and limb lengths; only hair tips changed. Recommend user visual approval of these two new versions.
-
-Whole-character `node tools/pack-sprites.mjs killua --quantize 48 --strict-scale` exits1 only for unchanged down05/ko06 pending Claude manual QA. Runtime atlas remains unchanged. No gates/exemptions/manualQA/scaleFit/builds changes. Source skull measurements unchanged; official stitch factors applied to sidecars. Exact prompts and attempt inventory included. Diagnostic scratch warn manifest produces contacts only; it is not a strict pass. Lineup contains historical worktree cast columns and current light1 candidate, clearly distinct.
-Validation: npm.cmd run build passed. Browser loaded all18 galleryimages and prior42-animation custom Killua atlas. Only existing favicon.ico404; no application exception. Root independently reviewed both13-frame contacts and recommends visual approval; not a user approval or Claude manual-QA record.
+Down v05 and ko v06 stay unchanged for Claude manual QA. No manual-QA, exemption, gate, scaleFit or builds record was changed by Codex. Whole pack must exit0 before ready-for-Claude-merge status.
+Validation: strict pack exits1 only down05/ko06 unmeasured; other40 strips are reference/ok/priorClaude-manual. Runtime writes refused. npm.cmd run build passed. Manifest semantic comparison confirms only light1 and airLight3 approvedVersion changed.
