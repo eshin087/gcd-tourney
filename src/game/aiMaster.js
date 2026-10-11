@@ -14,6 +14,7 @@ import { Showcase, specialId, pickW } from './aiShow.js';
 import { mixDefense, reachT } from './aiDefense.js';
 import { rng } from './rng.js';
 import { ComboComposer, makePersona } from './aiCombo.js';
+import { TechTimer } from './aiTech.js';
 
 const BUTTONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -38,12 +39,14 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // burst   chance per combo (3+ hits, ki and the round's burst in hand) that it bursts out (×1.5 when low on
 //         health or when the attacker sits on three bars); bait: chance per combo that it stops its own combo and
 //         guards against a victim who could burst (ADR 0022)
+// impactTech  chance per techable impact (floor or wall bounce) to go for the timed tech (ADR 0028), pressed `techSd`
+//         frames off on average (aiTech.js: too early locks it out, too late misses)
 export const STYLES = {
   // INSANE, between HARD and IMPOSSIBLE: the same reads at a person's reaction time (12 f), fewer parries, dodges,
   // techs and throw breaks, and some dropped combos
-  insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
-  impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
-  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
+  insane: { beat: { sd: 2.6, miss: 0.03 }, impactTech: 0.55, techSd: 2.5, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
+  impossible: { beat: { sd: 1.6, miss: 0.012 }, impactTech: 0.65, techSd: 2, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
+  showman: { beat: { sd: 2.2, miss: 0.02 }, impactTech: 0.65, techSd: 2, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
 };
 // combo persona per style (aiCombo.js, ADR 0026): IMPOSSIBLE and INSANE run the optimal one (the most damage that
 // links); the showman (CPU vs CPU) draws one per match from its kit, so every spectated fight combos differently
@@ -119,6 +122,7 @@ export class MasterBrain {
     this.show = new Showcase(fighter, this.S.show, this.S.defPersona ?? 0);
     this.persona = makePersona(this.rng, fighter.def, persona ?? COMBO_PERSONA[this.style]);
     this.composer = new ComboComposer(this, this.persona, this.rng);
+    this.techT = new TechTimer(this.S.impactTech ?? 0, this.S.techSd ?? 3);
   }
 
   // ------------------------------------------------------------------ pad output
@@ -351,7 +355,7 @@ export class MasterBrain {
     if (this.wdDir && f.state !== 'jumpSquat' && this.clock - this.wdAt > 1) this.wdDir = null;
     if (this.rev && this.reversal(c)) return true;
     switch (f.state) {
-      case 'launched':
+      case 'launched': {
         if (this.techRoll === null) {
           this.techRoll = Math.random() < S.tech;
           // where to: mostly back, over to their side when they're close, straight down, or up in place (the
@@ -359,15 +363,21 @@ export class MasterBrain {
           const P = (k) => this.show.pm(k);
           this.techDir = pickW({ back: 0.5 * P('airdodge'), toward: (c.dist < 2.5 ? 0.2 : 0.05) * P('read'), down: 0.2 * P('block'), up: 0.1 * P('escape') });
         }
-        // hold Guard to tech at the first gap, or roll on landing (ADR 0022); else ride it out and tap a late tech
+        // hold Guard to tech at the first gap, or roll on landing (ADR 0022); else ride it out and tap a late tech.
+        // Armed for the timed impact tech (ADR 0028), an earlier Guard press would lock it out: the gaps get a Jump tap.
+        const tt = this.techT.plan(f, c.toward);
         if (this.techRoll) {
-          this.keep.add('guard');
+          if (!this.techT.armed) this.keep.add('guard');
+          else if (f.airStun <= 1 && f.pos.y > DEFENSE.tech.minY && !f.heldT) this.tap('jump', 1);
           const d = this.techDir;
           this.mx = d === 'back' ? -c.toward : d === 'toward' ? c.toward : 0;
           this.my = d === 'up' ? 1 : d === 'down' ? -1 : 0;
         } else if (f.airStun <= 0 && f.pos.y > 0.4 && !f.heldT && f.pos.y < 1.2) this.tap('jump', 1);
+        if (tt?.guard === 'press') this.tap('guard', 2);
+        if (tt?.mx != null) { this.mx = tt.mx; this.my = tt.my; }
         this.burstOut(c);
         return true;
+      }
       case 'down':
         // vary the wake-up so meaty timing is a guess
         if (!this.wake) this.wake = 16 + Math.floor(Math.random() * 16);
@@ -384,6 +394,12 @@ export class MasterBrain {
       case 'burst':
       case 'techRoll':
         return true;
+      case 'impactTech': {
+        const tt = this.techT.plan(f, c.toward); // the wall jump keeps ↑ held through the cling
+        if (tt?.my != null) { this.mx = tt.mx ?? 0; this.my = tt.my; }
+        if (f.techKind === 'wall') this.teched = true; // free in the air after the kick: the showman's escape
+        return true;
+      }
       case 'held':
         if (f.grab) {
           // grabbed: break it on reaction (decided once per grab), Light + Heavy inside the window

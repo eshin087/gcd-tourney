@@ -16,6 +16,9 @@ export const TAGS = {
   backstep: { text: 'BACKSTEP', color: '#bfe8ff' }, // a back dash's invulnerable frames let a hit pass (ADR 0025)
   tech: { text: 'TECH!', color: '#ffffff' },
   techRoll: { text: 'TECH ROLL!', color: '#ffffff' },
+  // the timed impact tech (ADR 0028): a fresh Guard press right before the floor or the barrier, in white-cyan
+  impactTech: { text: 'TECH!', color: '#bff8ff', excite: 0.35 },
+  wallTech: { text: 'WALL TECH!', color: '#bff8ff', excite: 0.45 },
   throwBreak: { text: 'THROW BREAK', color: '#ffe2a0' },
   reversal: { text: 'REVERSAL', color: '#ffb43a' },
   punish: { text: 'PUNISH!', color: '#ff6a4a' },
