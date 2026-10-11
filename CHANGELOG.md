@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art: Killua heavy v04 repairs the three middle arm/hand poses, preserves idle recovery, and adds a packed before/after review to PR30; unapproved.
+
 - Killua review candidates: heavy v03 fixes the raised-claw clipping and recovery size pop; charge v07 stabilizes feet and adds shoulder twitches. Preserve rejected history and prior approvals; include cast lineup and committed public review gallery.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.

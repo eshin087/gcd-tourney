@@ -182,7 +182,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v03 | v01 | Candidate needs review; raised-claw clipping/recovery pop corrected, lineup and production/REPAIR_REVIEW.md. |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v04 | v01 | Candidate needs review; poses4–6 arm/hand correction, v04 lineup and production/ARM_REPAIR_REVIEW.md. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
