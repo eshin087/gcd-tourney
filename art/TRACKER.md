@@ -92,7 +92,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | getup | 5 | - | **yes** | 195 | approved | v07 | v02 | Title-style v07 passes isolated manual anatomy scale QA; down-to-getup knee continuity remains a motion hold. Historical v02 remains approved. |
 | 7 | charge | 4 | - | **yes** | 172 | approved | v06 | v04 | Title-style v06 passes isolated strict 48-color pack with 2px crown motion and stable planted feet; historical v04 remains approved. |
 | 7 | beamCharge | 3 | - | **yes** | 174 | approved | v08 | v05 | Title-style v08 passes isolated strict 48-color pack, stable loop and empty cupped hands; historical v05 remains approved. |
-| 7 | beamFire | 3 | - | **yes** | 198 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
+| 7 | beamFire | 3 | - | **yes** | 164 | approved | v12 | v07 | Title-style v12 technical hold: palms stop at x215-216 below contact x222-238, uniform head scale gate fails; historic v07 remains approved. |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
