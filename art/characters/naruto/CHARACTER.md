@@ -1,5 +1,7 @@
 # Naruto (Shippuden): character design brief
 
+> **ACTIVE2026-10-11:** user-approved `reference/height_neutral.png` supersedes historical head/build directives below. Follow [approved cast baseline](../../scale/APPROVED_CAST_BASELINE.md): common233/242factor; Naruto192.56198347107437px standing skeleton, unchanged256cells/ppu128/pivot128,240. Preserve measured neutral anatomy, not forced7heads. All42 redraws authorized as candidates; no automatic animation approvals.
+
 > **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
 
 > Read this first, then [ANIMATIONS.md](ANIMATIONS.md) (frame-by-frame poses),

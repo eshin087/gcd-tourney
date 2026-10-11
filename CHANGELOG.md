@@ -11,6 +11,23 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- User approved Naruto light4 v07; superseded pending light4 versions archived. Naruto strict repack passes; PR63 ready for Claude integration when cast gates clear.
+
+- Naruto light4 v07: localized generated f0 hair correction clears full strict scale packing. Other seven poses and all bodies preserved; candidate atlas updated, image approval pending.
+
+- Recorded user approval of Naruto heavy v10, throw v05 and airLight3 v05. Three additional light4 corrections retained v05 (v06 inferior retry archived), still held by the strict scale gate; runtime atlas remains unchanged.
+
+- Naruto post-approval candidates: heavy v10 fixes raised-pose clipping; throw v05 and airLight3 v05 pass scale. Light4 v04 remains held after the authorized extra attempts; strict packing blocks runtime changes. New versions await review (PR63).
+
+- Record user visual approval of Naruto latest42 checkpoint versions (2026-10-11); preserve10 strict holds and8 unmeasured candidates, with shipping manifest promotion deferred until technical clearance.
+
+- Naruto getup v04 fixes the floor palm direction and two-foot deep landing squat within original3-attempt cap; rotating-head scale remains explicitly unmeasured.
+
+- Naruto backDash v03 corrects push-off, backward-hop balance and landing with original attempt2; pack passes. Added per-part attempt-cap evidence for ten remaining technical holds.
+
+- Naruto: draft neutral-baseline checkpoint for all42 animations;32 packed candidates and10 technical holds, explicit unmeasured scale states, immutable sources, heads audit and browser review gallery. No new animation approved (ART-NAR-PROP,2026-10-11).
+
+- art(naruto): queue idle v04 at the approved seven-head-model gate; measured stitch, independent idle consistency audit and darker-gold hair probe declaration. Preserve approved idle v02 until review.
 - art(sasuke): verify final specialForward v06/getup v04 user approvals and passing strict atlas; hand off integration to Claude.
 
 - art(sasuke): record charge v09/special v10 approvals; retain Claude-calibrated specialForward v06 and getup v04 for review with a passing strict atlas.
