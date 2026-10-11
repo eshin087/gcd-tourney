@@ -1,0 +1,135 @@
+[
+  {
+    "name": "crack_s",
+    "frames": 8,
+    "expected": 8,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "crack",
+    "frames": 8,
+    "expected": 8,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "crater",
+    "frames": 8,
+    "expected": 8,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "crater_big",
+    "frames": 6,
+    "expected": 6,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "crater_huge",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "fracture_ring",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "scuff",
+    "frames": 8,
+    "expected": 8,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "skid",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "rubble",
+    "frames": 6,
+    "expected": 6,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "dirt_crater",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "dirt_skid",
+    "frames": 3,
+    "expected": 3,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "barrier_crack",
+    "frames": 6,
+    "expected": 6,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "crater_wall",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "burn_lightning",
+    "frames": 6,
+    "expected": 6,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "burn_lightning_big",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "fracture_lightning",
+    "frames": 2,
+    "expected": 2,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "burn_fire",
+    "frames": 6,
+    "expected": 6,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "burn_black",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  },
+  {
+    "name": "scorch_ki",
+    "frames": 4,
+    "expected": 4,
+    "colors": 24,
+    "partialAlpha": 0
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fracture_ring_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/fracture_ring_v01_A.png",
+    "decals/raw/fracture_ring_v01_B.png",
+    "decals/raw/fracture_ring_v01.json"
+  ],
+  "sourceHash": "56a72df4924d064c3416dec1bbac14ab5065cb07",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "fracture_ring_00.png": "ebe7224cb57a4dad2fd26794f92e4947519a5950",
+    "fracture_ring_01.png": "7c234aaf5a0961760448c0292d53c818d1c47214",
+    "fracture_ring_02.png": "dd8bb37d09ff2aa0cd46a8013440944c8d2774a8",
+    "fracture_ring_03.png": "6ce114bf072324f1da61bcef8c155ab1707c8fdf"
+  }
+}

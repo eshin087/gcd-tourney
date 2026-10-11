@@ -1,0 +1,31 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/crack_s_v02_{A,B,C}.png",
+  "version": 2,
+  "source": [
+    "decals/raw/crack_s_v02_A.png",
+    "decals/raw/crack_s_v02_B.png",
+    "decals/raw/crack_s_v02_C.png",
+    "decals/raw/crack_s_v02.json"
+  ],
+  "sourceHash": "a52c8273cc1dd0078aca8a6954b239cda414a1aa",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "crack_s_00.png": "05256a55cd88a396b1b1edafceaabf535df23482",
+    "crack_s_01.png": "2384b77f290a4b9b4987e8e95e75de09fc680021",
+    "crack_s_02.png": "10adb4e303b5d11dd34745c13588be84cb1b6a67",
+    "crack_s_03.png": "b15096a109ae970fed661877bfd7c093b2bf5247",
+    "crack_s_04.png": "15a5d00889c43a4c7b2b00a6ad0b0c723d0921c1",
+    "crack_s_05.png": "3880ef824dbc4aae836cc2b7b6221871cea698bf",
+    "crack_s_06.png": "9842216af6ec972686ee809924f2e2757b46a1ea",
+    "crack_s_07.png": "31487f77afe559cd4f6ed0d76591fbadfedb2619"
+  }
+}

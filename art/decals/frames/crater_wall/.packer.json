@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/crater_wall_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/crater_wall_v01_A.png",
+    "decals/raw/crater_wall_v01_B.png",
+    "decals/raw/crater_wall_v01.json"
+  ],
+  "sourceHash": "5edbc6face44298d19aabbac7393d9b0c6549237",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "crater_wall_00.png": "c090a7239b73d978abe1b453b7ffc84775e5aad8",
+    "crater_wall_01.png": "e7eb6ab2acfd8daa72ffc33a491caa1f61c0a2c9",
+    "crater_wall_02.png": "30021d024970f3bca82520391f42cf2242857d6b",
+    "crater_wall_03.png": "dc2779ff4f190d49a0ac695333098af939ee1d69"
+  }
+}

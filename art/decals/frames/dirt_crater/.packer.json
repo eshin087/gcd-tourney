@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dirt_crater_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/dirt_crater_v01_A.png",
+    "decals/raw/dirt_crater_v01_B.png",
+    "decals/raw/dirt_crater_v01.json"
+  ],
+  "sourceHash": "2aa5ef45fd691945f0b29493a5d068bd59a4d251",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "dirt_crater_00.png": "67afb7d7fa3b23a1dcadd800581b425ff152a832",
+    "dirt_crater_01.png": "cfcff3a087e6d071ef9aa854e9d9e8bb829a8aff",
+    "dirt_crater_02.png": "9cec539c4bd3106c971379134e70a5efab8f3a33",
+    "dirt_crater_03.png": "b736c0abd78ac7ab13c5b865a504169647de52b6"
+  }
+}
