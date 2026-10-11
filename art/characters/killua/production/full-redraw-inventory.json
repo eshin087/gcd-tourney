@@ -11,7 +11,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ref",
     "attempts": "A2/3 B3/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "run",
@@ -25,7 +31,13 @@
     "state": "strict-gate-hold",
     "gate": "drift",
     "attempts": "A2/3 B3/3",
-    "notes": "CAPPED B: wrong leg-cycle reversal; also head drift. A remains 1 attempt, but defect is capped B."
+    "notes": "CAPPED B: wrong leg-cycle reversal; also head drift. A remains 1 attempt, but defect is capped B.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 6
+    }
   },
   {
     "name": "dash",
@@ -38,7 +50,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "backDash",
@@ -51,7 +69,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "superDash",
@@ -64,7 +88,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "3/3",
-    "notes": "CAPPED third attempt fixes clipping and passes head gate .981. Far thigh hidden; final gameplay comparison still blocked by whole pack."
+    "notes": "CAPPED third attempt fixes clipping and passes head gate .981. Far thigh hidden; final gameplay comparison still blocked by whole pack.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "jumpSquat",
@@ -77,7 +107,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "jumpUp",
@@ -90,7 +126,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "jumpFall",
@@ -103,7 +145,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "land",
@@ -116,7 +164,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "light1",
@@ -130,7 +184,13 @@
     "state": "strict-gate-hold",
     "gate": "drift",
     "attempts": "A3/3 B2/3",
-    "notes": "A capped; head drift .92. B has 1 attempt but direct bone comparison does not support shrinking B. Confirm exact offending head ROI before another source correction."
+    "notes": "A capped; head drift .92. B has 1 attempt but direct bone comparison does not support shrinking B. Confirm exact offending head ROI before another source correction.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "light2",
@@ -144,7 +204,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "A3/3 B3/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "light3",
@@ -158,7 +224,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "A2/3 B2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "light4",
@@ -172,7 +244,13 @@
     "state": "strict-gate-hold",
     "gate": "pop",
     "attempts": "A3/3 B3/3",
-    "notes": "CAPPED v06 A/B: five drawn A poses overlap horizontally; official stitch splits only four. No v06 strip was fabricated; v05 packed diagnostic remains failed."
+    "notes": "CAPPED v06 A/B: five drawn A poses overlap horizontally; official stitch splits only four. No v06 strip was fabricated; v05 packed diagnostic remains failed.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 6
+    }
   },
   {
     "name": "heavy",
@@ -186,7 +264,13 @@
     "state": "strict-gate-hold",
     "gate": "pop",
     "attempts": "A2/3 B3/3",
-    "notes": "B capped; A has 1 attempt. Pop f0/f3 may include head tilt and hidden scalp; independent bone comparison finds no definite correction target. Needs same-scale ROI/landmark review."
+    "notes": "B capped; A has 1 attempt. Pop f0/f3 may include head tilt and hidden scalp; independent bone comparison finds no definite correction target. Needs same-scale ROI/landmark review.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 9
+    }
   },
   {
     "name": "airLight1",
@@ -199,7 +283,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "airLight2",
@@ -212,7 +302,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 6
+    }
   },
   {
     "name": "airLight3",
@@ -226,7 +322,13 @@
     "state": "strict-gate-hold",
     "gate": "drift",
     "attempts": "A2/3 B2/3",
-    "notes": "A/B each 1 remaining; hair-head ratio1.083 exceeds gate. Rotating viewpoints and hidden scalp uncertainty overlap error size; direct per-frame anatomy needed before targeted correction."
+    "notes": "A/B each 1 remaining; hair-head ratio1.083 exceeds gate. Rotating viewpoints and hidden scalp uncertainty overlap error size; direct per-frame anatomy needed before targeted correction.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "airHeavy",
@@ -240,7 +342,13 @@
     "state": "strict-gate-hold",
     "gate": "pop",
     "attempts": "A2/3 B2/3",
-    "notes": "A/B each 1 remaining; within-A pop under hands/hair and bowed head. No demonstrated scalar correction; retain measured uncertainty."
+    "notes": "A/B each 1 remaining; within-A pop under hands/hair and bowed head. No demonstrated scalar correction; retain measured uncertainty.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "guard",
@@ -253,7 +361,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 6
+    }
   },
   {
     "name": "block",
@@ -266,7 +380,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 6
+    }
   },
   {
     "name": "hurtHigh",
@@ -279,7 +399,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "hurtLow",
@@ -292,7 +418,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "launched",
@@ -305,7 +437,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "3/3",
-    "notes": "CAPPED third attempt fixes clipping. Tucked limbs and skull remain unmeasured; apparent head ratio1.112 is diagnostic only."
+    "notes": "CAPPED third attempt fixes clipping. Tucked limbs and skull remain unmeasured; apparent head ratio1.112 is diagnostic only.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "spin",
@@ -318,7 +456,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "airRecover",
@@ -331,7 +475,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "down",
@@ -344,7 +494,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "3/3",
-    "notes": "CAPPED: f1 overlong bare shin ~197+/-25 / skull105+/-15 =1.9+/-0.4; neutral1.3-1.5. Also cell margin warning."
+    "notes": "CAPPED: f1 overlong bare shin ~197+/-25 / skull105+/-15 =1.9+/-0.4; neutral1.3-1.5. Also cell margin warning.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "getup",
@@ -357,7 +513,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "3/3",
-    "notes": "CAPPED third attempt fixes f0 floor contact. Lying shin remains uncertain (~1.7 heads); no manual anatomical clearance."
+    "notes": "CAPPED third attempt fixes f0 floor contact. Lying shin remains uncertain (~1.7 heads); no manual anatomical clearance.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "charge",
@@ -370,7 +532,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 10
+    }
   },
   {
     "name": "throw",
@@ -383,7 +551,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "beamCharge",
@@ -396,7 +570,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 7
+    }
   },
   {
     "name": "beamFire",
@@ -409,7 +589,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 7
+    }
   },
   {
     "name": "vanish",
@@ -422,7 +608,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "stagger",
@@ -435,7 +627,13 @@
     "state": "strict-gate-hold",
     "gate": "uniform",
     "attempts": "2/3",
-    "notes": "1 remaining; uniform head .894/feet .948 conflicts with skull-axis estimates. Establish hidden crown and shoe projection before a reliable correction; no forced fit."
+    "notes": "1 remaining; uniform head .894/feet .948 conflicts with skull-axis estimates. Establish hidden crown and shoe projection before a reliable correction; no forced fit.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "ko",
@@ -448,7 +646,13 @@
     "state": "manual-anatomy-hold",
     "gate": "unmeasured",
     "attempts": "3/3",
-    "notes": "CAPPED: overlong bare shin ~364+/-30 / skull160+/-20 =2.3+/-0.4; neutral1.3-1.5. Also cell margin warning."
+    "notes": "CAPPED: overlong bare shin ~364+/-30 / skull160+/-20 =2.3+/-0.4; neutral1.3-1.5. Also cell margin warning.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 5
+    }
   },
   {
     "name": "special",
@@ -462,7 +666,13 @@
     "state": "strict-gate-hold",
     "gate": "uniform",
     "attempts": "A2/3 B3/3",
-    "notes": "CAPPED B v04 f0/f1 have extra arms. A remains 1 attempt but B is blocked. v03 historical diagnostic also fails."
+    "notes": "CAPPED B v04 f0/f1 have extra arms. A remains 1 attempt but B is blocked. v03 historical diagnostic also fails.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 4
+    }
   },
   {
     "name": "intro",
@@ -475,7 +685,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "taunt",
@@ -488,7 +704,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "win",
@@ -501,7 +723,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "specialForward",
@@ -515,7 +743,13 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "A3/3 B2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 9
+    }
   },
   {
     "name": "specialUp",
@@ -529,7 +763,13 @@
     "state": "strict-gate-hold",
     "gate": "pop",
     "attempts": "A2/3 B2/3",
-    "notes": "A/B each 1 remaining; arms hide skull and B was measured independently at source .854 factor. Probe f4 .706 requires ROI clarification, not another arbitrary factor."
+    "notes": "A/B each 1 remaining; arms hide skull and B was measured independently at source .854 factor. Probe f4 .706 requires ROI clarification, not another arbitrary factor.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 7
+    }
   },
   {
     "name": "specialDown",
@@ -542,7 +782,13 @@
     "state": "strict-gate-hold",
     "gate": "pop",
     "attempts": "2/3",
-    "notes": "1 remaining; crouch-to-rise head pop with +/-15px hidden-skull uncertainty. Resolve scalp axis/ROI before targeted redraw."
+    "notes": "1 remaining; crouch-to-rise head pop with +/-15px hidden-skull uncertainty. Resolve scalp axis/ROI before targeted redraw.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 3
+    }
   },
   {
     "name": "superPose",
@@ -555,6 +801,12 @@
     "state": "numeric-clear-global-pack-blocked",
     "gate": "ok",
     "attempts": "2/3",
-    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked."
+    "notes": "No numeric gate failure. Inferred skull calibration and qualitative anatomy review are not complete limb certification; final packed/gameplay QA blocked.",
+    "visualApproval": {
+      "status": "approved",
+      "date": "2026-10-11",
+      "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+      "selectedVersion": 6
+    }
   }
 ]

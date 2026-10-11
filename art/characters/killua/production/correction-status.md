@@ -1,8 +1,8 @@
 # Killua approved-neutral redraw checkpoint
 
-BLOCKED — NOT READY FOR ART APPROVAL OR MERGE. All42 actions have new drawn sources.40 latest corrected strips can be assembled; light4 v06 and special v04 remain parts-only holds. The selected diagnostic set totals175 frames and includes the earlier light4 v05 / special v03.
+VISUALLY APPROVED 2026-10-11 — TECHNICALLY BLOCKED, NOT READY TO MERGE. All42 actions have new drawn sources.40 latest corrected strips can be assembled; light4 v06 and special v04 remain parts-only holds. The selected diagnostic set totals175 frames and includes the earlier light4 v05 / special v03.
 
-Final pack exits1:23 ok +1 idle reference,10 strict failures,8 unmeasured. No new character atlas or cleaned frames were written. The game preview retains its prior atlas; it is not a preview of these42 redraws. No new strip is approved; no exemptions were added.
+Final pack exits1:23 ok +1 idle reference,10 strict failures,8 unmeasured. No new character atlas or cleaned frames were written. The game preview retains its prior atlas; it is not a preview of these42 redraws. User visually approved the latest checkpoint on2026-10-11; see VISUAL_APPROVAL.md. Manifest shipped approvedVersion remains unchanged; no exemptions were added.
 
 Final command: `node C:/Users/eshin/Desktop/Claude\ Code/gcdTourney/tools/pack-sprites.mjs killua --root <this-worktree>/art --out <this-worktree>/public --quantize 48 --json`. Main revision3f136d8e185016254dd217ff345b464b4b6c150c. Exact output: [full-redraw-final-pack.json](full-redraw-final-pack.json). Earlier .log predates the final3 corrections; JSON is authoritative. Common target skeleton183.28188788210693px; skull24.225774996334824px derived from approved neutral.
 
@@ -59,4 +59,4 @@ Third attempts superDash v05/launched v04/getup v05 removed all clipping and get
 
 Corrected contact sheets show every selected source frame but independently fit thumbnail display sizes; use raw anatomy sidecars and calibrated measurements for scale, not thumbnail dimensions. All175 per-frame records retain estimated skull values, uncertainty and unresolved bone landmarks.8 unmeasured poses are manual holds, not passes. Numbers selected before pack are preserved; no hidden-scap uncertainty was adjusted to satisfy a threshold. Independent raw review supports improved torso/shin proportions across most attack corrections; this is qualitative, not user approval.
 
-See STITCH_TOOLING_HANDOFF.md for confirmed clipped head ROI/hem misidentification using stale packed idle. Claude owns tooling. No tools or main outputs edited. Additional attempts beyond3 remain unauthorized. Approval recommendation: NONE at this checkpoint; resolve holds and achieve a whole-character exit0 plus candidate heads/lineup/gameplay evidence first.
+See STITCH_TOOLING_HANDOFF.md for confirmed clipped head ROI/hem misidentification using stale packed idle. Claude owns tooling. No tools or main outputs edited. Additional attempts beyond3 remain unauthorized. Visual approval is recorded. Remaining work: resolve technical holds and achieve a whole-character exit0 plus candidate heads/lineup/gameplay evidence before integration.

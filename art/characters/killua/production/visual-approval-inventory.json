@@ -1,0 +1,397 @@
+{
+  "date": "2026-10-11",
+  "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+  "scope": "Latest reviewed PR64 checkpoint;40 corrected strips plus light4 v06 and special v04 parts. The displayed earlier diagnostic light4 v05 and special v03 are also visually approved as reviewed evidence, not selected replacements for the later parts.",
+  "selected": [
+    {
+      "asset": "idle",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ref"
+    },
+    {
+      "asset": "run",
+      "version": 6,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "drift"
+    },
+    {
+      "asset": "dash",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "backDash",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "superDash",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "jumpSquat",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "jumpUp",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "jumpFall",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "land",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "light1",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "drift"
+    },
+    {
+      "asset": "light2",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "light3",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "light4",
+      "version": 6,
+      "kind": "parts A/B",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "pop"
+    },
+    {
+      "asset": "heavy",
+      "version": 9,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "pop"
+    },
+    {
+      "asset": "airLight1",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "airLight2",
+      "version": 6,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "airLight3",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "drift"
+    },
+    {
+      "asset": "airHeavy",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "pop"
+    },
+    {
+      "asset": "guard",
+      "version": 6,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "block",
+      "version": 6,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "hurtHigh",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "hurtLow",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "launched",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "spin",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "airRecover",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "down",
+      "version": 4,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "getup",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "charge",
+      "version": 10,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "throw",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "beamCharge",
+      "version": 7,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "beamFire",
+      "version": 7,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "vanish",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "stagger",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "uniform"
+    },
+    {
+      "asset": "ko",
+      "version": 5,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "manual-anatomy-hold",
+      "gate": "unmeasured"
+    },
+    {
+      "asset": "special",
+      "version": 4,
+      "kind": "parts A/B",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "uniform"
+    },
+    {
+      "asset": "intro",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "taunt",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "win",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "specialForward",
+      "version": 9,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    },
+    {
+      "asset": "specialUp",
+      "version": 7,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "pop"
+    },
+    {
+      "asset": "specialDown",
+      "version": 3,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "strict-gate-hold",
+      "gate": "pop"
+    },
+    {
+      "asset": "superPose",
+      "version": 6,
+      "kind": "strip",
+      "visualApproval": "approved",
+      "approvalDate": "2026-10-11",
+      "technicalState": "numeric-clear-global-pack-blocked",
+      "gate": "ok"
+    }
+  ],
+  "additionalReviewedDiagnostics": [
+    {
+      "asset": "light4",
+      "version": 5
+    },
+    {
+      "asset": "special",
+      "version": 3
+    }
+  ],
+  "technicalApproval": false,
+  "manifestApprovedVersionChanged": false
+}
