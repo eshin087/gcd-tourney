@@ -5,6 +5,7 @@ import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP }
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
+import { chargeStyle } from './chargeFx.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -828,7 +829,7 @@ export class Fighter {
         this.ki = Math.min(MAX_KI, this.ki + 1.45);
         if (this.t === 1) audio.play('powerUp');
         if (Math.floor(before / KI_BAR) < Math.floor(this.ki / KI_BAR)) this.game.onChargeBar(this);
-        audio.loop('charge' + this.index, 'charge');
+        audio.loop('charge' + this.index, 'charge', chargeStyle(this).sound);
         audio.tune('charge' + this.index, Math.min(1, this.t / 45)); // the hum climbs as the aura builds
         if (this.wantsUltimate() || (p.b.heavy.pressed && this.ki >= ULTIMATE.cost)) {
           audio.stopLoop('charge' + this.index);
@@ -1395,7 +1396,12 @@ export class Fighter {
     this.actor.sync(camera, this.face.x, this.face.y, camRight);
     const u = this.actor.mat.uniforms;
     let flash = this.flash > 0.6 ? 1 : this.flash * 0.6;
-    if (this.state === 'charge' || this.state === 'beamCharge') {
+    if (this.state === 'charge') {
+      // a steady tint in the power-up's color (ENG-069): the shell and emitters carry the motion, not a flicker
+      const cs = chargeStyle(this);
+      u.flashColor.value.copy(cs.tint);
+      flash = Math.max(flash, cs.bodyTint);
+    } else if (this.state === 'beamCharge') {
       u.flashColor.value.set(this.def.color);
       flash = Math.max(flash, 0.12 + 0.1 * Math.sin(time * 30));
     } else u.flashColor.value.set(0xffffff);

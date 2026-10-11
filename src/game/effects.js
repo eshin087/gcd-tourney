@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
-import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
+import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 
 const VERT = /* glsl */ `
   uniform vec4 uvRect;
@@ -497,36 +497,6 @@ export class Effects {
       this.spawn('star', p.x + Math.cos(a) * 0.9, 0.05, p.z + Math.sin(a) * 0.6, { scale: 0.18, frame: 2, vel: [0, 3 + Math.random() * 2, 0], color: 0xb8a48c, life: 0.6 });
     }
     this.keep('aura' + f.index, 'glow', p.x + back.x * 0.4, p.y + 0.8, p.z + back.z * 0.4, { scale: 1.1 + Math.sin(performance.now() * 0.02) * 0.06, color: c, opacity: 0.28 * Math.min(1, power), order: 1, glow: 0.25 });
-  }
-
-  // Powering up (hold Special, ENG-059). `t` = frames into the charge: the aura builds over the first ~3/4 s, ki
-  // streams in toward the chest from a ring around them, pebbles lift off the floor, a dust ring rolls out from the
-  // feet (faster as it builds) and the floor cracks under a long charge. At full ki the body crackles; a fighter's
-  // `charge.sparks` ('lightning': Killua) crackles from the start.
-  chargeTick(f, t, camRight) {
-    const b = Math.min(1, t / 45), full = f.ki >= MAX_KI;
-    // the aura itself grows a little; most of the build-up is motion around them, so the fighter stays readable
-    // (a big glow or flame shell behind them blooms over the sprite)
-    this.auraTick(f, 1 + b * 0.4 + (full ? 0.25 : 0), camRight, 0.12);
-    const p = f.renderPos || f.pos;
-    const c = new THREE.Color(f.mode?.auraColor ?? f.def.color);
-    const core = new THREE.Color().setRGB(...(f.mode?.auraCore ?? f.def.auraCore));
-    if (t % 2 === 0) {
-      const a = Math.random() * Math.PI * 2, r = 1.6 + Math.random() * 0.6;
-      const sx = p.x + Math.cos(a) * r, sy = p.y + 0.35 + Math.random() * 1.25, sz = p.z + Math.sin(a) * r * 0.6;
-      const k = 4; // reaches the chest in about a quarter second
-      this.spawn('star', sx, sy, sz, { scale: 0.15 + b * 0.08, frame: 2, vel: [(p.x - sx) * k, (p.y + 0.9 - sy) * k, (p.z - sz) * k], life: 0.24, color: Math.random() < 0.5 ? core : c, order: 6, glow: 1.4 });
-    }
-    if (b > 0.3 && Math.random() < 0.4 * b) {
-      const a = Math.random() * Math.PI * 2, r = 0.45 + Math.random() * 1.1;
-      this.spawn('star', p.x + Math.cos(a) * r, 0.04, p.z + Math.sin(a) * r * 0.6, { scale: 0.11 + Math.random() * 0.1, frame: 2, vel: [0, 1.1 + Math.random() * 1.6, 0], color: 0x9c8a74, life: 0.9, order: 2 });
-    }
-    if (t % Math.round(26 - b * 12) === 0) this.spawn('ring', p.x, 0.05, p.z, { scale: 1.1 + b * 0.8, color: 0xd8ccb8, opacity: 0.55, glow: 0.15, life: 0.35, fade: true });
-    if (t === 40) this.crater(f.pos);
-    const sparks = f.def.charge?.sparks;
-    if ((full || sparks === 'lightning') && t % 4 === 0) {
-      this.spawn('lightning', p.x + (Math.random() - 0.5) * 0.9, p.y + 0.3 + Math.random() * 1.3, p.z, { scale: 0.42 + Math.random() * 0.3, random: true, life: 0.07, color: sparks === 'lightning' ? 0xd8f0ff : core, rot: Math.random() * 6.28, order: 8, glow: 1.1 });
-    }
   }
 
   // Signature move hand effects.

@@ -263,7 +263,8 @@ export class AudioEngine {
   }
 
   // ---- loops (charging aura, rasengan whirr, chidori chirp, beams, clash) ----
-  loop(id, kind) {
+  // `variant`: the charge loop's voice per fighter (def.charge.sound, chargeFx.js): hum | boil | crackle | calm
+  loop(id, kind, variant = null) {
     if (!this.ctx || this.loops.has(id)) return;
     const ctx = this.ctx;
     const out = ctx.createGain();
@@ -306,7 +307,50 @@ export class AudioEngine {
     };
 
     let tune = null;
-    if (kind === 'charge') {
+    if (kind === 'charge' && variant === 'boil') {
+      // Nine-Tails chakra boiling up: low noise that bubbles (two uneven gain wobbles) over a growl
+      const n = src(), f = filt('lowpass', 520, 1.2), g = gain(0.16);
+      n.connect(f).connect(g).connect(out);
+      lfo(6.3, 0.07, g.gain);
+      lfo(8.9, 0.05, g.gain);
+      lfo(3, 120, f.frequency);
+      const o = osc('sawtooth', 52), og = gain(0.06);
+      o.connect(filt('lowpass', 320)).connect(og).connect(out);
+      lfo(4, 4, o.frequency);
+      tune = (k) => {
+        f.frequency.setTargetAtTime(520 + 380 * k, this.t, 0.05);
+        g.gain.setTargetAtTime(0.16 + 0.08 * k, this.t, 0.05);
+        o.frequency.setTargetAtTime(52 + 20 * k, this.t, 0.05);
+      };
+    } else if (kind === 'charge' && variant === 'crackle') {
+      // electricity running over the body: the Chidori chirp, quieter, over a soft hum
+      const o = osc('square', 2600), og = gain(0.0);
+      o.connect(filt('bandpass', 3000, 1)).connect(og).connect(out);
+      const n = src(), f = filt('highpass', 3500), g = gain(0.06);
+      n.connect(f).connect(g).connect(out);
+      const h = osc('sine', 92), hg = gain(0.05);
+      h.connect(hg).connect(out);
+      let amt = 0.75; // crackle loudness, grows with the charge
+      const iv = setInterval(() => {
+        const t = this.t;
+        o.frequency.setValueAtTime(1800 + Math.random() * 2600, t);
+        og.gain.setValueAtTime(Math.random() < 0.5 ? 0.03 * amt : 0, t);
+        g.gain.setValueAtTime((0.03 + Math.random() * 0.08) * amt, t);
+      }, 40);
+      nodes.push({ stop: () => clearInterval(iv) });
+      tune = (k) => {
+        amt = 0.75 + 0.5 * k;
+        hg.gain.setTargetAtTime(0.04 + 0.03 * k, this.t, 0.05);
+      };
+    } else if (kind === 'charge' && variant === 'calm') {
+      // Gojo: almost nothing, a still drone and a faint high shimmer; it does not climb
+      const o = osc('sine', 110), og = gain(0.05);
+      o.connect(og).connect(out);
+      const s = osc('sine', 2400), sg = gain(0.006);
+      s.connect(sg).connect(out);
+      lfo(0.7, 0.005, sg.gain);
+      tune = (k) => og.gain.setTargetAtTime(0.05 + 0.02 * k, this.t, 0.2);
+    } else if (kind === 'charge') {
       const n = src(), f = filt('bandpass', 500, 0.8), g = gain(0.22);
       n.connect(f).connect(g).connect(out);
       lfo(7, 250, f.frequency);

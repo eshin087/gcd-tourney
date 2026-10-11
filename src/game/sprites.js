@@ -2,6 +2,7 @@ import { hasArt, fetchArtJson } from '../core/artIndex.js';
 import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF } from './constants.js';
+import { AuraShell } from './auraShell.js';
 
 // Missing animations in a custom sheet fall back to something sensible.
 const FALLBACK = {
@@ -354,6 +355,11 @@ export class SpriteActor {
     }
   }
 
+  // The power-up outline around the frame on screen (chargeFx.js), made on first use.
+  auraShell() {
+    return (this.shell ??= new AuraShell(this));
+  }
+
   setVisible(v) {
     this.root.visible = v;
     this.blob.visible = v;
@@ -368,6 +374,7 @@ export class SpriteActor {
       g.mesh.material.dispose();
     }
     this.ghosts.length = 0;
+    this.shell?.dispose();
     this.mat.dispose();
     this.caster.material.dispose();
     this.caster.customDepthMaterial.dispose();
