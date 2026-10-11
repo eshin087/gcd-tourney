@@ -31,12 +31,20 @@ export class AudioEngine {
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
     const ctx = (this.ctx = new AC());
-    // a hidden tab sleeps: nothing plays, nothing is scheduled, and the music picks up where it was on return
-    // (only a context that was running is woken: one still waiting for its first gesture stays as it is)
-    let slept = false;
+    // a hidden tab sleeps: nothing plays, nothing is scheduled, and the music picks up where it was on return.
+    // Any context that has ever run is woken, also one iOS left 'interrupted' or suspended while hidden (a call,
+    // Siri, an app switch); one still waiting for its first gesture stays as it is (waking it only warns).
+    // A resume the browser refuses outside a gesture is fine: every tap and key calls init(), which retries.
+    // (`slept` resumes even if our own suspend() hasn't landed yet, so a quick hide-and-show can't leave it asleep)
+    let slept = false, ran = ctx.state === 'running';
+    ctx.addEventListener?.('statechange', () => { if (ctx.state === 'running') ran = true; });
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden && ctx.state === 'running') { slept = true; ctx.suspend()?.catch?.(() => {}); }
-      else if (!document.hidden && slept) { slept = false; ctx.resume()?.catch?.(() => {}); }
+      if (document.hidden) {
+        if (ctx.state === 'running') { slept = ran = true; ctx.suspend()?.catch?.(() => {}); }
+      } else {
+        if (slept || (ran && ctx.state !== 'running')) ctx.resume()?.catch?.(() => {});
+        slept = false;
+      }
     });
     this.master = ctx.createGain();
     this.master.gain.value = this.muted ? 0 : 0.8;

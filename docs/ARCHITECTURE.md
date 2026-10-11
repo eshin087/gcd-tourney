@@ -256,8 +256,8 @@ one, falling back to the title (with a `[menus]` console error) if that throws. 
 
 `src/core/audio.js` synthesizes everything (oscillators + noise buffers): one-shots via `audio.play(name, vol)`,
 loops via `audio.loop(id, kind)` / `stopLoop(id)`, and a crowd bed with an excitement level. The first user gesture
-calls `audio.init()`; a later gesture resumes a context that isn't running (iOS 'interrupted'), and a hidden tab
-suspends it. `audio.setMuted(bool)` mutes, bound to `M` and the on-screen speaker toggle. To swap in recorded
+calls `audio.init()`; every later pointerdown, touchend or keydown resumes a context that isn't running (iOS
+'interrupted'), and a hidden tab suspends it and wakes it on return. `audio.setMuted(bool)` mutes, bound to `M` and the on-screen speaker toggle. To swap in recorded
 samples later, change the cases in `play()`. Callers don't change.
 
 **Music** ([ADR 0019](decisions/0019-generative-lofi-music.md)) is generative lo-fi, composed per song and never

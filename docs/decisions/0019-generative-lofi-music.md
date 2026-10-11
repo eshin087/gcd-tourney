@@ -71,8 +71,10 @@ ducking under pause, clashes or KO, and a scheduler that played every missed not
 ### 4. Robustness
 
 - **No burst after a stall**: a step more than 80 ms late is skipped, never played late.
-- A hidden tab suspends the audio context and resumes it when visible (only a context that was running); a gesture
-  resumes any context that is not running (iOS 'interrupted').
+- A hidden tab suspends the audio context. On return it resumes any context that has ever run, also one iOS left
+  'interrupted' or suspended (a call, Siri, an app switch), never one still waiting for its first gesture. Every
+  pointerdown, touchend and keydown calls `audio.init()`, which resumes a context that is not running, so a resume the
+  browser refuses outside a gesture comes back on the next tap.
 - **Lite mode** (touch devices or 4 cores or fewer): no arpeggio, 8th hats only, one delay instead of the ping-pong,
   3 pad voices, no crackle; about half the nodes.
 
