@@ -22,6 +22,8 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 Cast proportion review: **ART-CAST-SAMPLES**, Codex, review. User requested a quick sample checkpoint before the full frame audit. Branch `art/cast-scale-samples` compares production-matched sprites, Naruto guard/block/spot-dodge head crops, and approved turnarounds. No art approvals or gameplay changes. Full audit paused for user feedback; Claude owns integration.
 
+Corrected cast pilot: **ART-CAST-PILOT**, Codex, review. Branch `art/cast-proportion-pilot`; four newly generated key poses per fighter and an interactive before/after lineup. Recommend Naruto/Sasuke/Killua proportion_sample v01 and Gojo v02. Sample approval required before full production. Files: art/scale/pack-proportion-pilot.mjs, art/scale/PROPORTION_PILOT.md, art/characters/{naruto,sasuke,killua,gojo}/reference/proportion_sample*, public/art-review/cast-proportion-pilot/, art/manifest.json, art/TRACKER.md, art/REVIEW.md, docs/TASKS.md, CHANGELOG.md. Claude alone integrates; no main or inbox edits.
+
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
 | OPS-007 | Require sparse real worktrees and task reuse | Codex | done | files: AGENTS.md, CLAUDE.md, docs/TASKS.md, CHANGELOG.md, docs/NOW.md. Recorded all five user storage rules; feature/beam-clash is merged into local main and awaits coordinator cleanup. Production build passed via local adapter; docs-only task on main, no new worktree. |

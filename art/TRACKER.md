@@ -36,6 +36,17 @@ A character's sheet is used by the game automatically once **every core animatio
 with `http://127.0.0.1:5188/?art=custom`. Use the notes column for problems ("F03 fist too
 low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 
+## Corrected cast pilot — awaiting review
+
+Reference samples only; existing production approvals stay unchanged. Full animation redraw waits for user review. [Gallery](../public/art-review/cast-proportion-pilot/index.html) · [QA](scale/PROPORTION_PILOT.md).
+
+| Fighter | Asset | Latest | Status | Approved |
+|---|---|---|---|---|
+| Naruto | proportion_sample | v01 | raw | — |
+| Sasuke | proportion_sample | v01 | raw | — |
+| Killua | proportion_sample | v01 | raw | — |
+| Gojo | proportion_sample | v02 (v01 retained) | raw | — |
+
 ## Summary
 
 | character | reference (2) | core anims (23) | optional anims | UI (3) | sheet complete |

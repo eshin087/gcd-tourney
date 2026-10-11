@@ -68,6 +68,7 @@
       "displayName": "NARUTO",
       "brief": "art/characters/naruto/CHARACTER.md",
       "reference": {
+        "proportionSample": { "file": "art/characters/naruto/reference/proportion_sample_v01.png", "candidates": "art/characters/naruto/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/naruto/reference/model_sheet.png",
           "candidates": "art/characters/naruto/reference/model_sheet_vNN.png",
@@ -134,6 +135,7 @@
       "displayName": "SASUKE",
       "brief": "art/characters/sasuke/CHARACTER.md",
       "reference": {
+        "proportionSample": { "file": "art/characters/sasuke/reference/proportion_sample_v01.png", "candidates": "art/characters/sasuke/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/sasuke/reference/model_sheet.png",
           "candidates": "art/characters/sasuke/reference/model_sheet_vNN.png",
@@ -197,6 +199,7 @@
       "brief": "art/characters/killua/CHARACTER.md",
       "standingBodyPx": 182,
       "reference": {
+        "proportionSample": { "file": "art/characters/killua/reference/proportion_sample_v01.png", "candidates": "art/characters/killua/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/killua/reference/model_sheet.png",
           "candidates": "art/characters/killua/reference/model_sheet_vNN.png",
@@ -264,6 +267,7 @@
       "brief": "art/characters/gojo/CHARACTER.md",
       "standingBodyPx": 215,
       "reference": {
+        "proportionSample": { "file": "art/characters/gojo/reference/proportion_sample_v02.png", "candidates": "art/characters/gojo/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 2, "approvedVersion": null },
         "modelSheet": {
           "file": "art/characters/gojo/reference/model_sheet.png",
           "candidates": "art/characters/gojo/reference/model_sheet_vNN.png",
