@@ -1,5 +1,7 @@
 # Killua heavy v05 — attack motion correction
 
+> Approval recorded2026-10-10: User approved all presented art on2026-10-10, including documented QA caveats; accepted art direction does not imply those technical deviations were repaired. Previous candidate-status language below is retained as production history.
+
 The user rejected heavy v04 because it looked like reaching upward instead of attacking. v05 redraws f0–f6 into a low coil, shoulder-driven rising claw strike forward of the face, compact recoil and landing. The approved idle f0 is reused exactly as heavy f7. Charge v07 and all approval fields are unchanged. v04 source and sidecar are archived, with its original source parts retained.
 
 Identity and anatomy: silver hair, blue eyes, purple/navy costume and the child-class build remain. The two selected built-in generations are Part A attempt3 and Part B attempt3, after three attempts each. Common anatomical scaling uses estimated skull-to-chin source lengths95px and128px respectively, normalized to30px; crown positions beneath hair are uncertain by roughly5sourcepx. No bounds-based shrinking was used. The sidecar records source hashes and axes.

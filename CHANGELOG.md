@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user approval of Killua heavy v05 and charge v07 with documented QA caveats accepted. Artwork unchanged; ready for integration.
+
 - Killua heavy v05 candidate rebuilds the reaching animation into a coiled, torso-driven forward rising claw strike with compact recovery; v04 rejected and archived, exact idle ending and gameplay timings preserved. PR30 includes synchronized before/after playback; all candidate art remains unapproved.
 
 - Art: Killua heavy v04 repairs the three middle arm/hand poses, preserves idle recovery, and adds a packed before/after review to PR30; unapproved.
