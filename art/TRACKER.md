@@ -156,12 +156,12 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v05 | v01 | Title-style v05 candidate passes 48-color new-strip gate without clipping or exemption; v03 clipped/head-popped and v04 had enlarged head. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v05 | v01 | Title-style v05 candidate: actual atlas skull/torso/limb visual comparison supports a v05-only manual exemption of the airborne-tuck 0.58 head/0.55 feet proxy; this is not a numeric pass. v03/v04 archived. Old v01 remains approved pending final-set review. |
-| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 8 | land | 2 | - | **yes** | 174 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v05 | v01 | Title-style v05 third attempt passes 48-color new-strip gate without exemption/clipping; v03/v04 head/foot drift archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
+| 8 | land | 2 | - | **yes** | 174 | approved | v03 | v01 | Title-style v03 impact crouch/open-palm half rise passes 48-color new-strip gate without exemption/clipping; actual two-frame atlas QA and y240 soles. Old v01 remains approved pending final-set review. |
 | 8 | win | 4 | - | **yes** | 212 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | backDash | 3 | - | no | 207 | approved | v05 | v01 | Title-style v05 candidate corrects v04's enlarged head; 48-color new-strip gate passes without clipping/exemption and three actual atlas cells show push-off, airborne tuck and open-palm landing. Old v01 remains approved pending final-set review. |
 | 9 | superDash | 2 | - | no | 120 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | jumpSquat | 1 | - | no | 162 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v01 | Title-style v03 deep takeoff crouch: low-confidence probe requires v03-only manual anatomy acceptance after native packed face/torso/limb comparison; not a numeric pass. Old v01 remains approved pending final-set review. |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | block | 2 | - | no | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
