@@ -559,3 +559,5 @@ Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 so
 Killua additional correction round: idle v06 HOLD (narrow stance), idle_00_fix01 standalone unassembled. Three extra authorized calls used; no passing idle yet.
 
 Killua title production: eight additional independent source candidates (dash05,jumpUp05,jumpFall05,hurtHigh06,land04,intro04,taunt04,win04), one attempt each; six reference-gate ok, taunt/win HOLD. Full production idle and loops remain unresolved.
+
+Killua title continuation: 16 independent candidates now saved; added backDash04,superDash06,jumpSquat05,down07,ko08,airLight1_06,airLight2_07,hurtLow06. v05 idle retained provisionally after controlled anatomy re-evaluation, v06 technically rejected. Candidate approvals unchanged; full pack pending.

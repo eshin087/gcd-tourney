@@ -1,0 +1,66 @@
+{
+  "dash": {
+    "version": 5,
+    "bodyHeight": 122
+  },
+  "jumpUp": {
+    "version": 5,
+    "bodyHeight": 148
+  },
+  "jumpFall": {
+    "version": 5,
+    "bodyHeight": 165
+  },
+  "hurtHigh": {
+    "version": 6,
+    "bodyHeight": 150
+  },
+  "land": {
+    "version": 4,
+    "bodyHeight": 132
+  },
+  "intro": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "taunt": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "win": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "backDash": {
+    "version": 4,
+    "bodyHeight": 160
+  },
+  "superDash": {
+    "version": 6,
+    "bodyHeight": 98
+  },
+  "jumpSquat": {
+    "version": 5,
+    "bodyHeight": 115
+  },
+  "down": {
+    "version": 7,
+    "bodyHeight": 90
+  },
+  "ko": {
+    "version": 8,
+    "bodyHeight": 78
+  },
+  "airLight1": {
+    "version": 6,
+    "bodyHeight": 166
+  },
+  "airLight2": {
+    "version": 7,
+    "bodyHeight": 170
+  },
+  "hurtLow": {
+    "version": 6,
+    "bodyHeight": 149
+  }
+}

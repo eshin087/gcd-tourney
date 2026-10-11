@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): add eight title-style movement/reaction candidates and controlled idle anatomy re-evaluation; all pending review, full atlas not ready.
+
 - Art: eight independent Killua title-style candidates and approved-reference QA controls; idle, taunt and win technical holds remain. No production release.
 
 - Added: Killua title-style production trial from the approved pilot: versioned idle and guard strips plus three UI candidates, with native-size QA and a documented idle loop hold. Existing fixed-name art remains approved; no production integration yet (ART-KIL-TITLE-20261011).
