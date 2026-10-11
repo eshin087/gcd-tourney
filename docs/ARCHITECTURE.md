@@ -48,7 +48,10 @@ src/game/
                             passives, modes, burn; state 'kit'
   ai.js                     CpuBrain (Easy/Normal/Hard), DummyBrain (training), makeBrain: press buttons on a Pad
   aiMaster.js               MasterBrain (IMPOSSIBLE; `showman` style for CPU vs CPU), ADR 0014/0016
-  aiShow.js                 Showcase (ADR 0016): which tools a CPU has shown this match -> option weights
+  aiShow.js                 Showcase (ADR 0016): which tools a CPU has shown this match -> option weights;
+                            the per-match defense persona (ADR 0025)
+  aiDefense.js              MasterBrain's defense showcase (ADR 0025): parry rallies, reversals, string reads,
+                            tech escapes; reachT (threats timed to the drawn strike)
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue

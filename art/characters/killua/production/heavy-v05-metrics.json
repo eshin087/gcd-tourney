@@ -1,0 +1,43 @@
+{
+  "rawColors": {
+    "heavy_v05.png": 36135,
+    "_parts/heavy_v05_A.png": 160005,
+    "_parts/heavy_v05_B.png": 123147
+  },
+  "attempts": {
+    "A": 3,
+    "B": 3
+  },
+  "selected": {
+    "A": 3,
+    "B": 3
+  },
+  "recoveryMatchesIdle": true,
+  "chargeFrameFilesUnchanged": true,
+  "unchangedContract": {
+    "frames": 8,
+    "phases": [
+      3,
+      2,
+      3
+    ],
+    "bodyHeight": 206,
+    "ms": [
+      40,
+      35,
+      30,
+      50,
+      70,
+      70,
+      60,
+      30
+    ]
+  },
+  "remaining": [
+    "anticipation near hand forward rather than loaded behind",
+    "two active poses similar",
+    "f4 forward forehead-height finish replaces overhead target",
+    "recovery pelvis aligned with +8px offset; pronounced vertical tuck remains",
+    "source palette and crown estimates remain imperfect"
+  ]
+}

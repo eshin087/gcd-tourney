@@ -5,6 +5,7 @@
 - Deciders: User, Claude
 - Builds on: [0014](0014-defensive-options-and-impossible-cpu.md) (IMPOSSIBLE CPU, defensive options),
   [0015](0015-throws-and-cancelled-special-startup.md) (throws)
+- Amended by: [0025](0025-cpu-defense-personas.md) (defense personas, reads and parry rallies)
 
 ## Context
 

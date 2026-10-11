@@ -1,27 +1,5 @@
 {
   "_comment": "256px frame-local boxes over the visible striking hands, replacing full-body fallback detections. Visual target-zone deviations are recorded in production/QA.md.",
-  "heavy": {
-    "3": {
-      "hit": [
-        [
-          145,
-          55,
-          24,
-          34
-        ]
-      ]
-    },
-    "4": {
-      "hit": [
-        [
-          148,
-          32,
-          26,
-          43
-        ]
-      ]
-    }
-  },
   "airHeavy": {
     "3": {
       "hit": [
@@ -102,5 +80,28 @@
         88
       ]
     }
-  }
+  },
+  "heavy": {
+    "3": {
+      "hit": [
+        [
+          186,
+          73,
+          14,
+          15
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          158,
+          21,
+          16,
+          19
+        ]
+      ]
+    }
+  },
+  "_heavyV06": "Visible fist-local boxes measured after isolated arm correction. f3 centered193,80; f4 top21. No invisible reach extension."
 }

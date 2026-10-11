@@ -1,0 +1,168 @@
+{
+  "split": "even",
+  "frames": 8,
+  "anatomy": {
+    "measurement": "skull-to-chin",
+    "targetHeadPx": 31,
+    "sourceHeadPx": [
+      73.763,
+      68.411,
+      78.16,
+      80.777,
+      86.284,
+      120.507,
+      119.683,
+      117.712
+    ]
+  },
+  "measurements": [
+    {
+      "frame": 0,
+      "source": "_parts/heavy_v06_A.png",
+      "crown": [
+        304,
+        412
+      ],
+      "chin": [
+        324,
+        483
+      ],
+      "length": 73.763,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 1,
+      "source": "_parts/heavy_v06_A.png",
+      "crown": [
+        689,
+        430
+      ],
+      "chin": [
+        707,
+        496
+      ],
+      "length": 68.411,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 2,
+      "source": "_parts/heavy_v06_A.png",
+      "crown": [
+        1025,
+        231
+      ],
+      "chin": [
+        1047,
+        306
+      ],
+      "length": 78.16,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 3,
+      "source": "_parts/heavy_v06_A.png",
+      "crown": [
+        1301,
+        220
+      ],
+      "chin": [
+        1343,
+        289
+      ],
+      "length": 80.777,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 4,
+      "source": "_parts/heavy_v06_A.png",
+      "crown": [
+        1732,
+        159
+      ],
+      "chin": [
+        1778,
+        232
+      ],
+      "length": 86.284,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 5,
+      "source": "_parts/heavy_v06_B.png",
+      "crown": [
+        281,
+        127
+      ],
+      "chin": [
+        300,
+        246
+      ],
+      "length": 120.507,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 6,
+      "source": "_parts/heavy_v06_B.png",
+      "crown": [
+        785,
+        209
+      ],
+      "chin": [
+        805,
+        327
+      ],
+      "length": 119.683,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 7,
+      "source": "_parts/heavy_v06_B.png",
+      "crown": [
+        1284,
+        214
+      ],
+      "chin": [
+        1304,
+        330
+      ],
+      "length": 117.712,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    }
+  ],
+  "sourceSha256": "d9b354259360933aaa03ccc9da3472bd0abd1c73b4a426cdb35782f7034eb722",
+  "calibrationNotes": "New generated correction, explicit source-coordinate landmarks and source hash; measure skull independent of pose bounds. Human image approval remains pending.",
+  "frameOffsets": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ]
+}

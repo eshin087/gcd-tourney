@@ -13,6 +13,7 @@ export const TAGS = {
   burst: { text: 'BURST!', color: null, big: true, excite: 0.6 },
   dodge: { text: 'DODGE!', color: '#bfe8ff' },
   airDodge: { text: 'AIR DODGE!', color: '#bfe8ff' },
+  backstep: { text: 'BACKSTEP', color: '#bfe8ff' }, // a back dash's invulnerable frames let a hit pass (ADR 0025)
   tech: { text: 'TECH!', color: '#ffffff' },
   techRoll: { text: 'TECH ROLL!', color: '#ffffff' },
   throwBreak: { text: 'THROW BREAK', color: '#ffe2a0' },

@@ -87,7 +87,7 @@ brackets).
 | [light2](#light2) | 7 | 2/2/3 | | 186 | 35 30 40 50 60 50 30 | ✓ | | A04 | f6 (stance) |
 | [light3](#light3) | 7 | 2/2/3 | | 196 | 40 35 45 60 60 60 30 | ✓ | | A05 | f2 (on the ball of the L foot) |
 | [light4](#light4) | 8 | 3/2/3 | | 188 | 50 45 35 40 70 70 70 40 | ✓ | | A06 | f3 (on the ball, leg at head height) |
-| [heavy](#heavy) | 8 | 3/2/3 | | **206** | 40 35 30 50 70 70 60 30 | ✓ | | A07 | f4 (claw top ~y 34, ~20 px above the hair) |
+| [heavy](#heavy) | 8 | 3/2/3 | | **206** | 40 35 30 50 70 70 60 30 | ✓ | | A07 | f4 (claw top about y 34, over the head) |
 | [airLight1](#airlight1) | 5 | 1/2/2 | | 180 | 45 35 50 50 30 | ✓ | | A08 | f0/f4 (air neutral) |
 | [airLight2](#airlight2) | 5 | 1/2/2 | | 188 | 45 40 50 50 30 | | | A27 | f1 (leg extended) |
 | [airLight3](#airlight3) | 6 | 2/2/2 | | 183 | 50 40 50 70 60 30 | | | A28 | f2 (kick at chest height) |
@@ -379,32 +379,37 @@ MOVES_AND_VFX.md).
 
 <a id="heavy"></a>
 
-### heavy: rising claw uppercut launcher with the R (near) hand · 8 frames · phases 3/2/3
+### heavy: ASSASSIN'S RISING RAKE, spiraling claw launcher with the R hand
 
-The engine adds a small hop. The claw path must pass **through the opponent's chin space in front of
-him**, not straight up beside his own head. **Killua's `bodyHeight` here is 206** (not 198): his arm goes
-almost straight up on f4 so the claw tops out at about y 34, inside the ADR F04 zone.
+8 frames · phases 3/2/3 (startup f0-f2, active f3-f4, recovery f5-f7) · plays once · **CORE** · bodyHeight **206** ·
+ms 40/35/30/50/70/70/60/30 · prompt A07 (2 images: f0-f4 + f5-f7) · claws f2-f5 · next version **v02**
 
-- **f0 · S**: crouch starts. Knees bend, torso leans forward about 20°, the R hand drops low beside the
-  R hip, fingers hooking into a claw.
-- **f1 · S**: deepest crouch (squash). R claw low behind the hip, L hand forward guarding. Head down,
-  eyes up at the target. Shirt hem pooled over the thighs.
-- **f2 · S**: legs explode upward. The R claw starts its upward arc in front of the stomach.
-- **f3 · A · smear**: rising, heels off, toes last to leave the floor. The R claw **rakes up and forward**
-  in front of his face, through an opponent's chin height: **claw in x 180 to 208, y 58 to 86** (HIGH; for
-  him that is in front of his forehead), arm about 45 to 60° above horizontal. Torso leans back 10 to
-  15°, L arm pulled down to his side. Solid crescent smear from the low position up to the claw, with
-  claw-trail streaks. Face: fierce.
-- **f4 · A**: peak, fully airborne, knees bent and feet hanging with pointed toes (so his hair top is
-  about as high as in idle). R arm up and forward about 65 to 70°, **claw overhead at x 160 to 188 with
-  its top at about y 34**, about 20 px above the top of his hair and no higher (the tallest frame,
-  206). ADR zone for this frame: x 160 to 188, y 22 to 46. Tufts pressed down, the shirt riding up so the
-  white hem shows more.
-- **f5 · R**: descending, arm coming down, nails shrinking back, knees bending.
-- **f6 · R**: landing crouch on the balls of the feet.
-- **f7 · R**: idle stance.
+- **Strike target:** f3: the R claw tips in **x 180-208, y 58-86**, aim about x 194, y 82, raking up in front of his
+  face with the arm at about 45° above horizontal. f4: the claw in **x 160-188, y 22-46**, over his head but still
+  in front of his face, its top at about y 34 (about two thirds of a head above his hair top), the highest pixel of
+  the strip.
+- **Forward-most and highest:** on f3 and f4 the hair tufts, the rolled collar, the loose shirt and its white hem,
+  and the L arm stay behind about x 165 and below the claw.
+- **Smear:** allowed on f3 only: one solid tapered streak in the sleeve purple, white cuff and skin colors from the
+  knee-height start up to the hand, plus four thin solid claw-trail streaks in the nail colors along the fingertips'
+  path (CHARACTER.md §6), all attached to the hand and below and behind the claw tips. No separate white crescent:
+  v01's swoosh became the hit box.
+- **Hair and cloth:** tufts compress 1-2 px on f0-f1, sweep back on f2-f3, press down on f4 (rising), float on f5,
+  lift 1 px on f6 and settle on f7. The shirt hem pools on f1, twists with the turn on f2-f3 and rides up on f4-f5
+  (more white hem shows); the shorts' leg openings flap on the skip.
+- **Centering:** on f1 the claw hand stays about 10 px above the floor (out of the bottom rows), so the packer's foot
+  centering doesn't shift him; on f4-f5 the lowest point (the L toes) sits under the hips.
+- **Scale:** pack with an anatomy sidecar (`raw/heavy_v02.json`, skull-to-chin per frame) so the strip keeps idle's
+  head size (v01 packed by bounds and came out about 9 % small).
 
----
+- **f0** (startup): DROP AND TWIST: in one beat he sinks into a low cat crouch on the balls of his feet (knees bent about 80°), weight forward on the bent L leg; torso pitched forward about 35° and twisted away from the target so more of his back shows (R shoulder pulled back); the R hand dropped low behind the R hip, fingers starting to hook (normal fingertips); the L hand low in front, open. Face: cold. Tufts compressed 1-2 px · QA: hips over the midpoint between the feet
+- **f1** (startup): COIL (the lowest frame): lower still, the torso twisted furthest, the R hand at its lowest behind the R heel (about 10 px above the floor), fingers hooked; the L hand forward low; head low, eyes up on the target. Face: focused. Shirt hem pooled over the thighs · QA: the shortest frame (about 125-135 px)
+- **f2** (startup): UNCOIL (CLAW): legs driving up, hips and shoulders turning back toward the viewer (the chest opening), the R claw sweeping forward past the R knee at knee height in front of him; the L arm swinging back. Face: focused. Tufts swept back · QA: claw about x 156, y 186
+- **f3** (**active**): RAKE (CLAW): the R claw rakes UP in front of his body through a taller opponent's chin height, arm up and forward at about 45°, fingers hooked with the nails leading upward; the body turned toward the viewer with the chest open; up on the ball of the L foot, the R knee lifting forward toward hip height (a skip); the L arm swung down and back. Face: fierce, one small fang. **Smear** (above) · QA: claw tips x 194 ±8, y 82 ±6; the claw tips are the right-most pixels
+- **f4** (**active**): OVER THE TOP (CLAW): the claw carries on up over his head, still in front of his face, the arm up and forward at about 70°; airborne in the skip: the R knee driven up to hip height, the L leg trailing straight down with the toes pointed (the lowest point, under the hips); torso upright to leaning back about 10°. Face: fierce. Tufts pressed down, shirt riding up · QA: claw x 160-188, top about y 34, the highest pixel of the strip (`bodyHeight` 206)
+- **f5** (recovery): APEX, airborne (CLAW; the frame held longest): tucked compact in the air, both knees drawn up (the R higher), the R claw lowering to shoulder height with the nails still out, the L hand low; head up at the launched opponent. Face: focused. Tufts floating · QA: the lowest point under the hips
+- **f6** (recovery): SILENT LANDING: the feet reaching down toes first, the knees bending into a low catch, the R hand opening with normal fingertips again, arms loose. Face: cold. Tufts lift 1 px · QA: close to `land` f0, which the engine plays right after touchdown
+- **f7** (recovery): Idle stance (matches idle f0). Face: cold. QA: within 1-2 px of idle f0 in height (186), width and feet
 
 ## Air normals
 
@@ -614,17 +619,19 @@ slightly open. Tufts messy, hanging over the eyes.
 
 ### charge: powering up (hold Special) · 4 frames, loop
 
-Charging his body with electricity. Wide low stance (feet well apart, knees bent), arms held down and
-away from his sides, **hands open with the fingers spread rigid and the claws out** (as if current runs
-through them), shoulders hunched, head up, teeth clenched in a fierce grimace (mouth slightly open,
-one small fang). Normal blue eyes, wide and intense. Tufts **bristling upward** (static, 2 to 3 px
-taller than idle), the loose shirt and sleeves fluttering upward. The engine draws the aura and any
-lightning.
+4 frames · loops · **CORE** · bodyHeight 180 · ms 50/50/50/50 · prompt A15 · claws on · next version **v04**
 
-- **f0**: as described, shifted 1 px left.
-- **f1**: shifted 1 px right, tufts in a new bristle shape.
-- **f2**: 1 px left, hands 1 px higher.
-- **f3**: 1 px right, tuft and hem flicker variant. Loops.
+Charging his body with electricity, read through the body: a low crouch on the balls of his feet, the claws spread
+rigid, and short **asymmetric twitches** (one shoulder, then the other) as if current jolts through him. Loop rules:
+the **feet are identical in all four frames** (soles on y 240); each frame moves a different part by 2 px (f1 the far
+shoulder, f2 the near shoulder, f3 both settle); the hands twitch 1 to 2 px; the **head moves at most 2 px**; the
+tufts bristle 2 to 4 px above idle and change shape every frame; the shirt hem and sleeves flick upward. f3 flows back
+into f0 without a pop. No lightning, sparks or glow in the sprite.
+
+- **f0** (loop): CROUCH: wide low stance on the balls of his feet (heels just off the floor), knees bent about 50°, torso hunched slightly forward; both arms down and away from his sides, hands open with the fingers spread rigid, claws out; shoulders hunched up; head up. Face: fierce grimace, one small fang; blue eyes wide. Tufts bristling 2 px above idle; shirt hem and sleeves lifting
+- **f1** (loop): TWITCH: the L (far) shoulder jerks up about 2 px, the R hand's fingers splay wider. Face: fierce. Tufts bristle 1-2 px higher on one side; the shirt hem flicks up
+- **f2** (loop): TWITCH: the R (near) shoulder jerks up about 2 px while the L drops back, the L hand twitches, the whole body shivers 1 px. Face: fierce, teeth clenched. Tufts at their highest (about 4 px above idle)
+- **f3** (loop): SETTLE: both shoulders drop 1 px, the hands ease 1 px; flows into f0. Face: fierce. A fourth tuft shape; the hem settles 2 px
 
 <a id="throw"></a>
 

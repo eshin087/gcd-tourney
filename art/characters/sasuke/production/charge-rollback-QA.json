@@ -1,0 +1,30 @@
+{
+  "selectedVersion": 2,
+  "historicalNewest": 4,
+  "approvedVersion": 2,
+  "source": "raw/charge_v02.png",
+  "frames": [
+    {
+      "frame": 0,
+      "alphaDifferences": 0,
+      "colorDifferences": 6581
+    },
+    {
+      "frame": 1,
+      "alphaDifferences": 0,
+      "colorDifferences": 6299
+    },
+    {
+      "frame": 2,
+      "alphaDifferences": 0,
+      "colorDifferences": 6080
+    },
+    {
+      "frame": 3,
+      "alphaDifferences": 0,
+      "colorDifferences": 6391
+    }
+  ],
+  "heavySourceUnchanged": true,
+  "paletteNote": "Global 48-color quantization can change RGB values; charge silhouette alpha is identical to approved main atlas."
+}

@@ -1,0 +1,58 @@
+{
+  "rawNonMagentaColors": {
+    "heavy_v04.png": 31899,
+    "_parts/heavy_v04_middle.png": 113123,
+    "charge_v07.png": 157775
+  },
+  "selectedAttempt": 3,
+  "attempts": 3,
+  "changedPoses": [
+    3,
+    4,
+    5
+  ],
+  "exactPreservedFrames": [
+    1,
+    2,
+    6,
+    7
+  ],
+  "frame0": "same geometry;2 isolated pixels removed by packer",
+  "frameOffsets": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      -15,
+      0
+    ],
+    [
+      -9,
+      0
+    ],
+    [
+      -9,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "heavyRecoveryEqualsIdle": true,
+  "chargeUnchanged": true,
+  "clawCaveat": "f4 fingers more extended than hooked, f3 high within allowed band; human review pending"
+}

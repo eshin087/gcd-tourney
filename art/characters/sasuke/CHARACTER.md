@@ -151,7 +151,7 @@ Strike heights on a same-size opponent (ADR 0007) and the contact zones of his a
 
 | zone | y (px) | used by (contact zone x, y) |
 |---|---|---|
-| HIGH (face) | 58 to 90 | `light1` lead fist (206-226, 64-86), `light2` rear fist (214-236, 70-92), `light4` foot (224-248, 56-88), `heavy` f3 fist (180-208, 58-86), then overhead f4 (160-188, 22-46) |
+| HIGH (face) | 58 to 90 | `light1` lead fist (206-226, 64-86), `light2` rear fist (214-236, 70-92), `light4` foot (224-248, 56-88), `heavy` f3 R foot (180-208, 58-86), then overhead f4 R foot (160-188, 22-46) |
 | MID (chest) | 92 to 124 | `airLight1` fist (206-230, 100-120), `airLight3` heel (222-248, 105-150) |
 | LOW (stomach) | 122 to 152 | `light3` sole (222-246, 122-148), `airLight2` foot (220-246, 130-155), Chidori thrust hand (194-222, 128-158) |
 | down-forward | | `airHeavy` clasped fists (180-218, 160-206) |
@@ -314,6 +314,8 @@ local, never commit them, and never upload them to an image generator (SPEC.md).
 approved model sheet instead.
 
 ## 9. Trait-only description (fallback wording)
+
+Lion's Barrage opener = a rising anti-air kick.
 
 If the image generator refuses or waters down a prompt that names the character, replace the
 `CHARACTER:` line of the prompt with this block. Also drop "Sasuke", "Uchiha", "Naruto",

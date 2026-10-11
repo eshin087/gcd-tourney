@@ -65,7 +65,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | guard | 2 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -73,7 +73,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | launched | 2 | - | **yes** | 136 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v04 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v05 | v05 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -122,10 +122,10 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 3 | idle | 8 | - | **yes** | 204 | approved | v01 | v01 | User approved 2026-10-09; 6 px breathing bob accepted; fixed idle_approved.png saved unchanged; 48-color pack, game/Sprite Lab checked |
 | 4 | run | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved 2026-10-09; 48 colors, zero final warnings, corrected placement and flight lift. Naruto hair update is a separate reference revision. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v06 | v06 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | guard | 2 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -133,10 +133,10 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v02 | User rejected new charge; approved v02 active. v03/v04 archived; v04 is historical newest, not active. |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -188,7 +188,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -196,7 +196,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | charge | 4 | - | **yes** | 180 | approved | v07 | v07 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |

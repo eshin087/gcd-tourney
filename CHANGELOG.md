@@ -12,6 +12,27 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - **Beam clash** (ENG-073, ADR 0027): two energy specials meeting head-on (Narukami, Reversal: Red, Chidori Spear, Great Fireball; Naruto drives a Rasengan / Rasenshuriken into one), or one fired while theirs flies at you, become a BEAM CLASH: both attacks turn into streams in their own colors, a 4.5 s rhythm struggle decides it (winner 120 + wall bounce, draw 45 each); CPU vs CPU shows at least one every match at any level (a spectator-only show director picks the moment), CPUs at every level sometimes answer your shots (only when a clash can start), lab scenarios Beam clash / Answer an energy shot / Beam clash from the air.
+- **CPU defense showcase** (ENG-071, ADR 0025): CPU vs CPU now parries, spot dodges, backsteps (new BACKSTEP callout), wavedashes out of shots, wins vanish wars, reads approaches and blocked strings, reverses out of gappy combos and wake-ups, escapes after techs and trades parry rallies, with a hidden per-match defense persona (parrier, dancer, phantom, rock, scrapper) so every fight defends differently; fixed: CPU answers to vanishes, teleport strikes and late-drawn strikes (Chidori) now fire, an answer picked mid-dash is re-picked, and Easy-Hard no longer lose reactions to plan changes or stall against the barrier.
+- Integrated the approved art batch (PRs #24-30) into main: Naruto Four-Tails beamCharge v05 / beamFire v07 and heavy v07 / charge v04, Sasuke heavy v06 and light2 v02 / light3 v02 / special v03 (charge stays v02), Killua Whirlwind beamCharge v05 and heavy v05 / charge v07, Gojo model sheet v06. Each fighter repacked with `--quantize 48` on main's packer, so both batches per fighter share one palette; the Four-Tails `rampage` keeps its new poses with main's ground styles.
+
+- Record user approval of Killua heavy v05 and charge v07 with documented QA caveats accepted. Artwork unchanged; ready for integration.
+
+- Killua heavy v05 candidate rebuilds the reaching animation into a coiled, torso-driven forward rising claw strike with compact recovery; v04 rejected and archived, exact idle ending and gameplay timings preserved. PR30 includes synchronized before/after playback; all candidate art remains unapproved.
+
+- Art: Killua heavy v04 repairs the three middle arm/hand poses, preserves idle recovery, and adds a packed before/after review to PR30; unapproved.
+
+- Killua review candidates: heavy v03 fixes the raised-claw clipping and recovery size pop; charge v07 stabilizes feet and adds shoulder twitches. Preserve rejected history and prior approvals; include cast lineup and committed public review gallery.
+- Record user approval of Naruto heavy v07 and charge v04 (2026-10-10, "approve everything"), including documented QA caveats; ready for Claude integration.
+
+- Naruto heavy v07 candidates repair active fist contact and exact idle recovery; charge v04 adds chest expansion, with residual foot drift documented. All new art remains unapproved.
+- Sasuke: record user approval for heavy v06; existing QA limitations accepted. Approved charge v02 remains active; rejected v04 stays archived.
+
+- Sasuke: reject charge v04 per user feedback and restore approved charge v02; preserve rejected source history and heavy v06 candidate.
+
+- Sasuke heavy-charge: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.
+- Sasuke: record user approval for light2 v02, light3 v02, special v03; existing QA limitations accepted. Approved charge v02 remains active; rejected v04 stays archived.
+
+- Sasuke size-pops: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.
 - Record user approval of Killua Whirlwind beamCharge v05; archive superseded pending v04 with documented QA caveats accepted. Artwork unchanged; ready for integration.
 
 - Art (ART-KIL-WW): Whirlwind beamCharge v05 raised-heel ready stance, preserved v04 history, anatomy sidecars, cast lineup and hosted review gallery. All art remains unapproved; beamFire sources, frames and metadata unchanged.
