@@ -4293,3 +4293,7 @@ fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); 
 User: "ok whats left to do? i approve everything and would like to see it live on the game". Latest reviewed42 animation versions are visually approved; exact versions and scope: [approval record](characters/sasuke/reference/neutral-visual-approval-2026-10-11.json). Six strict-pack failures and separate manual continuity holds remain. Shipping application is deferred: approvedVersion, scale baseline and approved idle unchanged. Claude alone integrates and deploys production.
 
 Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).
+
+Sasuke 2026-10-11: user explicitly approved charge v09 and special v10; approvals applied and older pending sources archived. specialForward correction round3 authorized (up to3 calls); getup v04 remains Claude-owned manual QA.
+
+Sasuke final correction checkpoint: full strict pack PASS (1ref/30ok/8manual/3exempt). Claude f483fd1 supplies getup04 manual QA and SF06 calibration/f6 collar exception. User review remains getup04 + specialForward06; latest attempted SF09 rejected.
