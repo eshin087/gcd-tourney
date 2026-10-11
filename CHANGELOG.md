@@ -11,7 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Added: Naruto title-style light2 seven-frame rear straight candidates and measured stitch QA; best assembled v05 passes isolated scale but misses the chin contact zone, and v06 Part A fails frame separation (ART-NAR-TITLE).
+- Added: Naruto title-style airLight1 five-frame jab candidates; best v06 passes isolated strict scale but overshoots the fist contact zone, while v07 reaches the cell margin (ART-NAR-TITLE).
+- Added: Naruto title-style light2 seven-frame rear straight candidates and measured stitch QA; best assembled v05 passes isolated scale but misses the chin contact zone, and v06's four source figures overlap in x projection so the stitcher miscounts them (ART-NAR-TITLE).
 
 - Added: Naruto title-style win v07 four-phase bent-elbow victory loop; measured anatomy and fist top pass isolated strict 48-color QA (ART-NAR-TITLE).
 
