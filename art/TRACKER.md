@@ -561,3 +561,5 @@ Gojo full redraw2026-10-11: approved neutral v01; idle v04 and first four moveme
 
 Gojo visual approval (2026-10-11): user approved the latest selected full-redraw checkpoint; exact 42 versions are in art/characters/gojo/redraw/USER_APPROVAL.json. Five technical failures and eight manual-QA holds remain. Shipping manifest promotion is deferred; no gate baseline change, merge or deployment. Claude owns integration.
 Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).
+
+Gojo correction round2026-10-11: airHeavy v06, charge v06, win v06 numeric ok and needs visual review. airLight3 v05 best remains technical hold; v06 rejected by QA. Three additional calls exhausted only for airLight3. Full strict pack exits1; production atlas unchanged. Exact evidence: redraw/CORRECTIONS_2026-10-11.md. Claude-only integration.

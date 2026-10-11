@@ -253,30 +253,32 @@
     "frames": 6,
     "step": 9,
     "version": 2,
-    "status": "technical-hold-attempt-cap",
+    "status": "technical-hold-capped",
     "promptSection": "A28 · `airLight3`: mid-air spinning heel kick with the L leg",
     "savedStrips": [],
     "savedParts": [
       "airLight3_v02_A.png",
       "airLight3_v02_B.png"
     ],
-    "latestVersion": 4,
-    "reviewVersion": null
+    "latestVersion": 6,
+    "reviewVersion": 5,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md"
   },
   {
     "name": "airHeavy",
     "frames": 6,
     "step": 5,
     "version": 3,
-    "status": "technical-hold-attempt-cap",
+    "status": "numeric-ok-needs-new-visual-approval",
     "promptSection": "A09 · `airHeavy`: two-handed hammer spike (CORE)",
     "savedStrips": [],
     "savedParts": [
       "airHeavy_v03_A.png",
       "airHeavy_v03_B.png"
     ],
-    "latestVersion": 5,
-    "reviewVersion": null
+    "latestVersion": 6,
+    "reviewVersion": 6,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md"
   },
   {
     "name": "guard",
@@ -411,12 +413,13 @@
     "frames": 4,
     "step": 7,
     "version": 3,
-    "status": "technical-hold-attempt-cap",
+    "status": "numeric-ok-needs-new-visual-approval",
     "promptSection": "A15 · `charge`: calm power-up (loop) (CORE)",
     "savedStrips": [],
     "savedParts": [],
-    "latestVersion": 5,
-    "reviewVersion": null
+    "latestVersion": 6,
+    "reviewVersion": 6,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md"
   },
   {
     "name": "throw",
@@ -552,12 +555,13 @@
     "frames": 4,
     "step": 8,
     "version": 2,
-    "status": "technical-hold-attempt-cap",
+    "status": "numeric-ok-needs-new-visual-approval",
     "promptSection": "A23 · `win`: peace sign (loop) (CORE)",
     "savedStrips": [],
     "savedParts": [],
-    "latestVersion": 4,
-    "reviewVersion": null
+    "latestVersion": 6,
+    "reviewVersion": 6,
+    "correctionEvidence": "CORRECTIONS_2026-10-11.md"
   },
   {
     "name": "specialForward",

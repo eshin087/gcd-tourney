@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo: corrected hair continuity in airHeavy v06, charge v06 and win v06; queued visual review. AirLight3 remains capped technical hold. Refreshed fixed approved idle and its measured guide.
+
 - Recorded user visual approval of all 42 selected Gojo redraw versions; technical holds and shipping gates remain open.
 
 - Gojo spin v03: targeted hair-mass correction and independent anatomical-axis calibration; preview explicitly separates eight manual-QA holds from numeric passes. No new animation approval.

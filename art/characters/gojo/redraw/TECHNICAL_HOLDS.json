@@ -7,17 +7,22 @@
     ],
     "best": 5,
     "reason": "Compact torso/limbs too large relative to head despite probe success",
-    "attempts": 3
+    "attempts": 3,
+    "historical": true,
+    "resolvedBy": "Claude pre-correction calibration"
   },
   "airLight3": {
     "versions": [
       2,
       3,
-      4
+      4,
+      5,
+      6
     ],
-    "best": 3,
-    "reason": "Head-to-body drift; final head enlargement and auto-fit compress anatomy",
-    "attempts": 3
+    "best": 5,
+    "reason": "v05 head range 0.161; v06 patch overshot and clipped. Additional generation cap exhausted.",
+    "additionalCalls": 3,
+    "evidence": "CORRECTIONS_2026-10-11.md"
   },
   "airHeavy": {
     "versions": [
@@ -27,7 +32,9 @@
     ],
     "best": 3,
     "reason": "Head pop remains f0 .97 versus f2 1.13 after final correction",
-    "attempts": 3
+    "attempts": 3,
+    "historical": true,
+    "resolvedBy": "v06 numeric pass; visual approval pending"
   },
   "charge": {
     "versions": [
@@ -37,7 +44,9 @@
     ],
     "best": 4,
     "reason": "Head correction overshoot/undershoot; no passing attempt",
-    "attempts": 3
+    "attempts": 3,
+    "historical": true,
+    "resolvedBy": "v06 numeric pass; visual approval pending"
   },
   "win": {
     "versions": [
@@ -47,6 +56,8 @@
     ],
     "best": 2,
     "reason": "Initial head .934 is closest; corrections overshot then undershot",
-    "attempts": 3
+    "attempts": 3,
+    "historical": true,
+    "resolvedBy": "v06 numeric pass; visual approval pending"
   }
 }
