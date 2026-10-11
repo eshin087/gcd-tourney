@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): record user approval of run07, heavy10, airHeavy06, special05 and specialDown04; begin newly authorized three-call hair corrections for light1 and airLight3. Down/KO manual decisions remain Claude-owned.
+
 - art(killua): additional authorized corrections for nine strips, refreshed already-approved idle reference and guide, full-frame evidence and attempt ledger; five per-strip passes, two capped holds and two Claude manual-QA holds. Runtime atlas unchanged (ART-KIL-SCALE-W1).
 
 - Record user blanket visual approval (2026-10-11) of Killua PR64 latest reviewed checkpoint, with exact versions. Strict pack and manual anatomy holds remain; no atlas or manifest shipped-approval promotion (ART-KIL-SCALE-W1).

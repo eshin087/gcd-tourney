@@ -1,0 +1,7 @@
+Killua's remaining hair-scale corrections now pass: light1 v09 (head0.984/range0.037) and airLight3 v08 (head1.022/range0.095). Each used1 of3 freshly authorized built-in image-generation calls. All13 frames were inspected at one pixel scale with approved idle3; the edit preserves faces, torsos, limbs and costume while trimming hair tips. These two new versions need user visual approval.
+
+The user's explicit approvals of run v07, heavy v10, airHeavy v06, special v05 and specialDown v04 are recorded in manifest, REVIEW and tracker. Older pending versions of those assets were archived as superseded without deleting their immutable sources.
+
+Technical hold: whole-character `node tools/pack-sprites.mjs killua --quantize 48 --strict-scale` exits1 only for unchanged down v05 and ko v06, which need Claude's version-scoped manual QA. No runtime atlas was written. No gates, exemptions, scaleFit, builds or manual-QA records were changed by Codex. Official measured stitching used explicit counts and current-idle scratch reference; numeric diagnostics do not imply user approval.
+
+Evidence: `art/characters/killua/production/redo-round2/` contains exact prompts, calls, strict reports, 13-frame anatomical records with uncertainty, contacts, heads and lineup. Build passed. Gallery `/reviews/killua-redo/index.html` distinguishes five approved corrections, two new passing candidates and the two manual holds. The game keeps the previous atlas until Claude completes technical QA and integration. This PR remains draft; Claude alone merges and deploys production.

@@ -54,7 +54,6 @@
           ],
           "notes": [
             "re-imported: replaces frames/ cleaned from raw/run_v03.png",
-            "candidate v07 (approved: v06)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -195,25 +194,25 @@
           "anim": "light1",
           "frames": 7,
           "expected": 7,
-          "source": "raw/light1_v08.png",
-          "from": "raw/light1_v08.png",
-          "version": 8,
+          "source": "raw/light1_v09.png",
+          "from": "raw/light1_v09.png",
+          "version": 9,
           "edited": false,
           "handMade": false,
           "scale": 1,
           "frameScales": [
-            0.33606,
-            0.33606,
-            0.33606,
-            0.33606,
+            0.31065,
+            0.31065,
+            0.31065,
+            0.31065,
             0.30282,
             0.30282,
             0.30282
           ],
           "notes": [
-            "removed 5 specks",
+            "removed 9 specks",
             "re-imported: replaces frames/ cleaned from raw/light1_v02.png",
-            "candidate v08 (approved: v05)",
+            "candidate v09 (approved: v05)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -310,7 +309,6 @@
           ],
           "notes": [
             "re-imported: replaces frames/ cleaned from raw/heavy_v05.png",
-            "candidate v10 (approved: v09)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -361,24 +359,24 @@
           "anim": "airLight3",
           "frames": 6,
           "expected": 6,
-          "source": "raw/airLight3_v07.png",
-          "from": "raw/airLight3_v07.png",
-          "version": 7,
+          "source": "raw/airLight3_v08.png",
+          "from": "raw/airLight3_v08.png",
+          "version": 8,
           "edited": false,
           "handMade": false,
           "scale": 1,
           "frameScales": [
-            0.36872,
-            0.36872,
-            0.36872,
-            0.36872,
+            0.35514,
+            0.35514,
+            0.35514,
+            0.35514,
             0.32738,
             0.32738
           ],
           "notes": [
-            "removed 10 specks",
+            "removed 9 specks",
             "re-imported: replaces frames/ cleaned from raw/airLight3_v02.png",
-            "candidate v07 (approved: v05)",
+            "candidate v08 (approved: v05)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -403,7 +401,6 @@
           "notes": [
             "removed 4 specks",
             "re-imported: replaces frames/ cleaned from raw/airHeavy_v01.png",
-            "candidate v06 (approved: v04)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -750,7 +747,6 @@
           ],
           "notes": [
             "re-imported: replaces frames/ cleaned from raw/special_v02.png",
-            "candidate v05 (approved: v04)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -881,7 +877,6 @@
           ],
           "notes": [
             "re-imported: replaces frames/ cleaned from raw/specialDown_v01.png",
-            "candidate v04 (approved: v03)",
             "anatomical scale: skull-to-chin 24.225774996334824px; bounds are pose-dependent"
           ]
         },
@@ -922,14 +917,14 @@
         "jumpUp": 4,
         "jumpFall": 4,
         "land": 3,
-        "light1": 8,
+        "light1": 9,
         "light2": 4,
         "light3": 4,
         "light4": 6,
         "heavy": 10,
         "airLight1": 5,
         "airLight2": 6,
-        "airLight3": 7,
+        "airLight3": 8,
         "airHeavy": 6,
         "guard": 6,
         "block": 6,
@@ -962,8 +957,6 @@
       "colors": 48,
       "warnings": [
         "scale: the idle head is 43x32 px, 51x36 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)",
-        "scale gate: light1 head 1.07 of idle (feet 1.01): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v08, strict]",
-        "scale gate: airLight3 pops inside the strip: f5 0.99 vs f3 1.14 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v07, strict]",
         "scale: airHeavy: the manifest's scale exemption was written for v02 but the packed strip is v06 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with \"scaleExemptVersion\": 6",
         "scale gate: down: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: \"scaleManualQA\": { \"version\": <v>, \"result\": \"pass\", \"by\": \"<who>\", \"note\": \"<what was compared>\", \"evidence\": \"<image>\" } in the manifest animation [v05, strict]",
         "scale gate: ko: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: \"scaleManualQA\": { \"version\": <v>, \"result\": \"pass\", \"by\": \"<who>\", \"note\": \"<what was compared>\", \"evidence\": \"<image>\" } in the manifest animation [v06, strict]",
@@ -1042,8 +1035,6 @@
       "scale": {
         "gate": "strict",
         "failed": [
-          "light1",
-          "airLight3",
           "down",
           "ko"
         ],
@@ -1179,18 +1170,18 @@
             ]
           },
           "light1": {
-            "head": 1.074,
-            "feet": 1.013,
-            "range": 0.112,
-            "verdict": "drift",
+            "head": 0.984,
+            "feet": 0.985,
+            "range": 0.037,
+            "verdict": "ok",
             "strict": true,
-            "version": 8,
+            "version": 9,
             "reason": null,
             "frames": [
-              1.074,
-              1.094,
-              1.076,
-              1.079,
+              0.984,
+              0.984,
+              0.965,
+              0.965,
               0.994,
               1.002,
               0.982
@@ -1303,18 +1294,18 @@
             ]
           },
           "airLight3": {
-            "head": 1.077,
-            "feet": 1.051,
-            "range": 0.156,
-            "verdict": "pop",
+            "head": 1.022,
+            "feet": 1.031,
+            "range": 0.095,
+            "verdict": "ok",
             "strict": true,
-            "version": 7,
+            "version": 8,
             "reason": null,
             "frames": [
+              1.079,
+              0.984,
               1.048,
-              1.106,
-              1.129,
-              1.143,
+              1.055,
               0.996,
               0.987
             ]
@@ -1736,5 +1727,5 @@
     "cellMargin": 4,
     "standingBodyPx": 200
   },
-  "totalWarnings": 7
+  "totalWarnings": 5
 }
