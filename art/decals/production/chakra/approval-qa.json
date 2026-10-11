@@ -1,0 +1,30 @@
+{
+  "approvedAt": "2026-10-11",
+  "approvedPreview": "https://gcd-tourney-n8108nc1x-eshin087s-projects.vercel.app/art-review/decals-chakra-cursed/index.html",
+  "source": {
+    "review": "candidates",
+    "approved": "approved"
+  },
+  "metadataEqualExceptSource": true,
+  "names": [
+    "scour_spiral",
+    "scour_spiral_big",
+    "cut_wind",
+    "claw",
+    "scorch_chakra",
+    "fracture_chakra"
+  ],
+  "variants": 24,
+  "pages": [
+    {
+      "file": "decals_chakra.png",
+      "width": 2048,
+      "height": 1792,
+      "byteIdentical": true,
+      "changedPixels": 0,
+      "reviewSha256": "55ef7ddfd74f7d34a858aed188259eb1916a9b7a3725dcbe4fa84f99a8ebf637",
+      "approvedSha256": "55ef7ddfd74f7d34a858aed188259eb1916a9b7a3725dcbe4fa84f99a8ebf637"
+    }
+  ],
+  "sourceQaCaveats": "Four original fresh-import fringe warnings and documented shape/hot-key deviations accepted by the user; zero cached approved-pack warnings is not a raw-source fix."
+}

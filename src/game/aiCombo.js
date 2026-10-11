@@ -817,6 +817,16 @@ export class ComboComposer {
     return !o.ko && o.burstUsed < B.perRound && o.ki >= B.cost;
   }
 
+  // The victim can still beat the bounce an edge sets up (or waits for) with a timed impact tech (ADR 0028): how often
+  // it did this match (teched of the techable impacts it met, with a prior of about 1 in 6), 0 while a missed press
+  // has it locked out.
+  techRisk() {
+    const o = this.f.opp;
+    if (o.ko || o.noTech || o.impactTechLocked()) return 0;
+    const s = o.techStats;
+    return (s.teched + 0.5) / (s.faced + 3);
+  }
+
   // Every frame (MasterBrain.update, also through a KO and the time-up): follow the combo's life, the bounces and
   // whether our last link connected.
   watch(game, c) {
@@ -872,6 +882,8 @@ export class ComboComposer {
   endReason(o) {
     if (o.ko) return 'ko';
     if (o.state === 'burst') return 'burst';
+    // a timed impact tech (ADR 0028) beat the bounce or the landing: the route just ends there
+    if (o.clock - o.techedAt <= 2) return o.techKind === 'inPlace' || o.techKind === 'roll' ? 'groundTech' : 'wallTech';
     if (this.over) return 'end'; // we ended it (an 'end' edge, burst bait, a dropped link: the route says which)
     switch (o.state) {
       case 'airRecover': return 'tech';
@@ -1009,6 +1021,7 @@ export class ComboComposer {
     const P = this.p, node = x.node, opts = [], w = {};
     const remaining = this.target - x.combo;
     const sh = this.b.show;
+    const risk = this.techRisk();
     for (const e of this.edges) {
       if (!e.nodes.includes(node)) continue;
       const base = typeof e.w === 'object' ? e.w[node] ?? 0 : e.w;
@@ -1029,9 +1042,13 @@ export class ComboComposer {
       let k = base * x.wk * rel;
       const after = afterStun(e, x);
       const dead = remaining >= 4 && !followable(e, x); // it would end the combo early: an ender in effect
+      // a route through a bounce (setting one up, or waiting for it) gives the victim a timed tech at the impact
+      // (ADR 0028); waiting for it, with nothing of ours on the way, the most
+      const bounce = e.act === 'wait' || (e.id !== 'handball' && (tags.includes('wall') || tags.includes('gb')));
+      const techK = bounce ? 1 - risk * (e.act === 'wait' ? 0.9 : 0.6) : 1;
       if (P.optimal) {
         // the most damage that links: its priority, safer links first, and a window to keep going afterwards
-        const opt = (typeof e.opt === 'object' ? e.opt[node] ?? 1 : e.opt) * x.optk * rel * (margin < MARGIN + 2 ? 0.6 : 1) * (0.6 + after / 25) * (dead ? 0.5 : 1);
+        const opt = (typeof e.opt === 'object' ? e.opt[node] ?? 1 : e.opt) * x.optk * rel * (margin < MARGIN + 2 ? 0.6 : 1) * (0.6 + after / 25) * (dead ? 0.5 : 1) * techK;
         opts.push({ e, tags, gap, raw, k: opt * (0.9 + 0.2 * this.rand()) });
         continue;
       }
@@ -1042,6 +1059,7 @@ export class ComboComposer {
       if (remaining >= 4 && (ender || dead)) k *= dead && !ender ? 0.35 : 0.2;
       if (remaining <= 0 && !ender) k *= 0.1;
       if (margin < MARGIN + 2) k *= P.risk;
+      if (bounce) k *= Math.max(0.15, 1 - risk * (e.act === 'wait' ? 1.5 : 1.1) * (1.2 - P.risk)); // risk lovers bounce anyway
       // a long combo leans on what leaves a long stun window after it (a launch, a bounce, a grind)
       if (this.tier === 'highlight') {
         k *= Math.pow(0.5 + after / 20, 1.3) * (e.cost ? 1.5 : 1); // and spends its bars on it

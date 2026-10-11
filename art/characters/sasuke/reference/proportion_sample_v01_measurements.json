@@ -1,0 +1,77 @@
+{
+  "width": 1254,
+  "height": 1254,
+  "cells": [
+    {
+      "pose": "idle",
+      "cell": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nonMagentaBBox": [
+        159,
+        60,
+        494,
+        607
+      ]
+    },
+    {
+      "pose": "guard",
+      "cell": [
+        627,
+        0,
+        627,
+        627
+      ],
+      "nonMagentaBBox": [
+        781,
+        71,
+        1118,
+        607
+      ]
+    },
+    {
+      "pose": "run",
+      "cell": [
+        0,
+        627,
+        627,
+        627
+      ],
+      "nonMagentaBBox": [
+        67,
+        682,
+        512,
+        1153
+      ]
+    },
+    {
+      "pose": "light1 active",
+      "cell": [
+        627,
+        627,
+        627,
+        627
+      ],
+      "nonMagentaBBox": [
+        723,
+        688,
+        1187,
+        1202
+      ]
+    }
+  ],
+  "manualIdle": {
+    "skullCrownY": 95,
+    "chinY": 170,
+    "solesY": 603,
+    "uncertaintyPx": 8,
+    "estimatedSkullPx": 75,
+    "estimatedSkeletonPx": 508,
+    "singleFactorTo200": 0.3937007874015748,
+    "normalizedSkullPx": 29.52755905511811,
+    "notes": "Crown inferred under hair; bent knees make soles-to-crown a pose bound not exact standing skeleton. Factor is provisional with +/-8px landmark uncertainty."
+  }
+}

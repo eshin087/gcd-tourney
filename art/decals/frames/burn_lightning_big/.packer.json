@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/burn_lightning_big_v02_{A,B}.png",
+  "version": 2,
+  "source": [
+    "decals/raw/burn_lightning_big_v02_A.png",
+    "decals/raw/burn_lightning_big_v02_B.png",
+    "decals/raw/burn_lightning_big_v02.json"
+  ],
+  "sourceHash": "cd22a58b62271e5999b56b53b4f14119901049c0",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "burn_lightning_big_00.png": "9b455c2f488e8aecb941341cf58b5536a2d93e9b",
+    "burn_lightning_big_01.png": "f01bff3d9e617ba8c27332b87172708ade56913a",
+    "burn_lightning_big_02.png": "743dedff9a9460ed0f13ba4e4d1ada8fbbf612bd",
+    "burn_lightning_big_03.png": "efe4389c0e592cde79eaca01dc80b349adad6c50"
+  }
+}

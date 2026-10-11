@@ -18,6 +18,46 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Art review checkpoint: Gojo approved-neutral redraw sources for all42 animations;37 candidates pass packing,5 technical holds preserved. Adds full-frame review page and production QA evidence. No production integration.
 
 - Begin Gojo full42-frame-set redraw against user-approved neutral baseline; candidates remain unapproved.
+- Integrated user-approved decal PRs #53, #52 and #54 sequentially: 31 types / 143 variants, approved-only combined atlas, unchanged reviewed pixels, maximum four pages per match; 308 regression checks and production build pass. Accepted visual QA caveats preserved; character redraw untouched.
+
+- art(decals): record user approval of cursed erasure/trench/repel/big v02 and implode/fracture v03, accepting documented visual deviations; pack approved production atlas without changing reviewed pixels.
+
+- art(decals): revise cursed candidates, preserve rejected history, remove tracked preview outputs and host an isolated candidate gallery; remaining fringe and repel hot-placement failures are explicit, no approval.
+
+- art(decals): six cursed v01 candidates, 20 packed variants, review gallery and documented remaining palette/design caveats; no art approved.
+- art(decals): record user approval of PR52's six latest chakra decal versions / 24 variants and pack approved outputs; preserve source fringe, shape and hot-key caveats as accepted deviations. No redraw or production deployment.
+
+- art(decals): revise chakra shapes and palette candidates in PR52; preserve rejected histories, remove tracked preview outputs, add a self-contained unapproved game review atlas. Four fresh-source fringe failures remain explicitly documented; no approval or production promotion.
+
+- art(decals): add six chakra v01 candidates (11 images/24 variants), scoped review gallery and QA; approval and palette corrections pending.
+
+- art(decals): record user approval of all 19 latest core decal sets (99 variants), retain accepted QA deviations, archive superseded candidates, and generate approved-only output for coordinator integration.
+
+- Fixed: the core decal review reloads candidate image pages before each group selection, so returning to a previously viewed group works after the game releases its textures (ART-DEC-W4).
+
+- art(decals): add unapproved v02 crack_s, scuff, skid, burn_lightning_big and barrier_crack corrections; preserve source history, fresh-pack 99 variants, document remaining fringe, and bundle an independent review gallery/game harness without tracked public/preview output.
+
+- Art: add unapproved decal style and 19 base/edge/lightning/fire/ki candidates (99 variants), candidate preview gallery and documented fringe/shading limitations.
+- **Timed impact tech** (ENG-078, ADR 0028): Smash-style tech alongside the hold-Guard tech: a fresh Guard press up to 11 frames before you hit the floor or the ring barrier beats ground bounces, wall bounces (handball), spike and throw knockdowns and landings (tech in place, roll with ← / →; WALL TECH clings and kicks off, ↑ wall-jumps and can act), ends the combo and spends no bounce budget; an early press locks it out for 40 frames, holding doesn't count, presses in hitstop and freezes count, super finishes (`noTech`) can't be teched. TECH! / WALL TECH! banners, a white-cyan spark, a ting and a crowd pop; CPUs tech by level (5-65 %, with timing error), the combo composer weighs bounce routes by the victim's tech rate, DUMMY TECH TIMED, four lab scenarios.
+- Art QA: document the explicit low-confidence gate limitation and hand off anatomical acceptance criteria to Claude; no blanket exemptions or threshold changes.
+
+- Documented the reproduced stale-idle/clipped-head stitching failure and new-idle palette-mask lesson; queued tooling correction for Claude (TOOL-STITCH-ROI).
+
+- AGENTS.md and CLAUDE.md now carry the same approved-baseline override, so historical fixed-height/head-count rules cannot silently re-enter future art prompts (ART-CAST-PILOT).
+
+- Added a provenance-recorded cross-cast idle QA snapshot to compare corrected working anchors against approved neutrals (ART-CAST-PILOT); not an animation approval.
+
+- Future-character templates now require measured neutral anatomy and SCALE LOCK values instead of inherited 200px/31px/6.5-head defaults; onboarding links the approved cast contract (ART-CAST-PILOT).
+
+- Record explicit approval of the neutral four-character baseline; authorize full42-animation redraws and document shared proportional scaling for future fighters.
+
+- Art review: add four neutral standing candidates and a common-height lineup; remove child/tall-cap adjustments in this review only. Existing production art and approvals unchanged.
+
+- Art review: compare Gojo with official adult anime/game art and slim the sample shoulders, chest and arms while retaining height/head and the other three fighters. Queue Gojo sample v03 and lineup v04; no approvals or production changes (ART-CAST-PILOT).
+
+- Art review: revise the cast pilot after feedback: leaner Naruto with larger head, unchanged Sasuke, and clearer Gojo/Killua height separation on an uncapped review canvas. Preserve previous samples; production remains unchanged pending review (ART-CAST-PILOT).
+
+- Art review: generate a corrected four-character proportion pilot with idle, guard, run and light1 samples, equal-scale before/after gallery, head closeups and documented probe limits. Candidates only; full animation production waits for user review (ART-CAST-PILOT).
 
 - Fixed: the scale gate measured every strip in the fighter-wide `--quantize` palette, so a candidate's new colours moved the unchanged idle's head (Killua 52x35 vs 52x43) and other strips' verdicts. It now measures before quantizing against the idle's own palette (declared hair colours snapped first); `anims.json` records the per-frame numbers and `npm run scale` reports those. Sheets unchanged; scale baseline rewritten once for the method change (ART-KIL-PROBE).
 - Art review: add cast proportion sample gallery with fixed-scale playback, Naruto head comparisons, approved multi-angle models and title-screen reference; no shipped sprite or approval changes (ART-CAST-SAMPLES).
