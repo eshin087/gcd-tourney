@@ -22,6 +22,9 @@
     .references figure { margin: 0; width: min(100%, 256px); }
     .references img { width: 100%; image-rendering: pixelated; background: #283644; }
     .source-links a { display: inline-block; margin-right: 10px; }
+    .ui-gallery { display: flex; flex-wrap: wrap; gap: 14px; align-items: start; }
+    .ui-gallery figure { margin: 0; padding: 12px; background: #1b2735; border-radius: 8px; max-width: 100%; }
+    .ui-gallery img { display: block; max-width: 100%; height: auto; background: #283644; }
     a { color: #93d7ff; }
     @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
   </style>
@@ -47,8 +50,13 @@
   </div>
   <h2>Approved visual anchors at the same cell scale</h2>
   <div class="references"><figure><img src="title_neutral_v01.png" alt="Approved Naruto title-style neutral"><figcaption>Approved neutral: 94×205 occupied pixels</figcaption></figure><figure><img src="title_combat_v01.png" alt="Approved Naruto title-style combat"><figcaption>Approved combat: 150×165 occupied pixels</figcaption></figure></div>
-  <h2>Three provisional UI sources</h2>
-  <div class="source-links"><a href="ui_portrait_v02.png">Portrait v02</a><a href="ui_cutin_v03.png">Cut-in v03</a><a href="ui_select_v02.png">Select v02</a></div>
+  <h2>Three provisional UI candidates, fitted by the packer</h2>
+  <p>These are isolated diagnostic fits of the new versioned raw sources into their native UI slots. The approved fixed UI files were not changed. Cut-in side gutters and select crop remain visual-review items.</p>
+  <div class="ui-gallery">
+    <figure><img src="portrait_v02_fitted.png" width="96" height="96" alt="New portrait v02 fitted to 96 by 96"><figcaption>Portrait v02 · 96×96 · <a href="ui_portrait_v02.png">raw source</a></figcaption></figure>
+    <figure><img src="cutin_v03_fitted.png" width="480" height="128" alt="New cut-in v03 fitted to 480 by 128"><figcaption>Cut-in v03 · 480×128 · <a href="ui_cutin_v03.png">raw source</a></figcaption></figure>
+    <figure><img src="select_v02_fitted.png" width="384" height="384" alt="New select v02 fitted to 384 by 384"><figcaption>Select v02 · 384×384 · <a href="ui_select_v02.png">raw source</a></figcaption></figure>
+  </div>
   <script>
     const findings = {
       idle: 'Technical hold: 6px loop seam; provisional anatomy support only.',
