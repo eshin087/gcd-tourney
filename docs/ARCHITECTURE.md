@@ -189,9 +189,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   scale 1. The root scales about the feet pivot and carries the mesh, shadow caster and box-viewer lines; the blob
   shadow and ghost trails use the same `depthK`. Close-up modes (focus, ko, victory) set `spriteRefDepth` to null
   and a blend weight takes `depthK` back to 1 over about half a second, with the camera move. It is **visual only**:
-  `SheetAsset.boxes()` and the hand anchors are never scaled, so the simulation stays camera-independent (hand
-  effects, projectiles and beams start at the unscaled hand anchor: about 0.1 units off the drawn palm in a typical
-  depth gap, up to 0.25 at the clamp ends). `?depthscale=0` shows true perspective for comparison.
+  `SheetAsset.boxes()` and the hand anchors are never scaled, so the simulation stays camera-independent
+  (projectiles and beams start at the unscaled hand anchor: about 0.1 units off the drawn palm in a typical depth
+  gap, up to 0.25 at the clamp ends). Held VFX that only draw are scaled instead: `Effects.handTick` (Rasengan,
+  Rasenshuriken, Chidori) multiplies its offset from the feet and its size by the actor's `depthK`, so the orb stays
+  on the drawn palm. New on-body VFX at fixed body offsets should do the same with `f.actor.depthK`, unless their
+  position feeds the simulation. `?depthscale=0` shows true perspective for comparison.
 - World size stays the same across art sources. The chibi placeholder (112 px cells, PPU 44) and spec v2
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.

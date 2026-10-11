@@ -347,7 +347,8 @@ export class SpriteActor {
   // cameras' eased depth midway between their feet), draws both at exactly one size: no lag between them, and a
   // vanish or a launch never makes one grow while the other shrinks. The root scales about the feet pivot and
   // carries the mesh, the shadow caster and the box viewer; the blob follows in place(). Boxes and hand anchors
-  // are not scaled: the simulation must not depend on the camera. A null refDepth (close-ups) blends back to the
+  // are not scaled: the simulation must not depend on the camera (held hand VFX read depthK themselves,
+  // Effects.handTick). A null refDepth (close-ups) blends back to the
   // true size; the blend weight is keyed on the camera clock so the two syncs of one rendered frame agree and the
   // later one (made after the camera moved) wins.
   syncDepth(camera, refDepth, time) {

@@ -139,7 +139,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       `game.fighters.map((f) => f.actor.depthK)` splits around 1 (about 0.95/1.05 on the diagonal, 0.90/1.10 lined
       up; clamp 0.82..1.22). With `&depthscale=0` the nearer fighter is 11-23% bigger. Fighters level in depth keep
       depthK 1 (no change from true perspective). A teleport of one fighter changes both sizes together, never one
-      alone. Ghost trails and the `?boxes` outlines match the scaled body. `game.cam.set('focus', p1)` eases
+      alone. Ghost trails and the `?boxes` outlines match the scaled body, and a held Rasengan or Chidori sits on the
+      drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
       depthK back to 1 over about half a second (no pop); ko and victory too.
 
 ### Mobile (landscape touch)
