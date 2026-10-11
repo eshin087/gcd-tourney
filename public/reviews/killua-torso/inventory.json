@@ -4,7 +4,7 @@
     "version": 6,
     "calls": 2,
     "cap": 3,
-    "source": "art/characters/killua/raw/down_v06.png",
+    "source": "art/characters/killua/raw/_rejected/down_v06.png",
     "sha256": "d5fbc2323beb9c3e7b8d14e5fff9b6d2c80080afac424b377b3e0a28489dc47e",
     "sidecar": {
       "anatomy": {
@@ -18,15 +18,16 @@
       "measurementUncertaintyPx": 18,
       "calibrationNotes": "Side elevation. Display2048x683/native2172x724. f0 inferred crown(180,385) to chin(274,427), axis103 display/~109 source; f1 inferred crown(1140,385) to chin(1238,435), axis110 display/~117 source within uncertainty. f1 knee~1690 to ankle1825 gives143 source, shin/skull1.30. Head/back/hip/heel line visually aligned; far leg and hidden hip need Claude manual QA. New local torso edit: native2172x724 unchanged; head axis re-inspected against source and remains within prior uncertainty. No posed-bounds fitting. New version requires Claude manual QA; see production/torso-fix/STATUS.md."
     },
-    "approval": "needs review",
-    "technical": "unmeasured; Claude manual QA required"
+    "approval": "rejected",
+    "technical": "Rejected by user; do not integrate",
+    "rejectionReason": "User rejected the new fallen sprites and prefers the older ones (2026-10-11). Stop torso production; new cast direction is a separate draft."
   },
   {
     "asset": "ko",
     "version": 7,
     "calls": 1,
     "cap": 3,
-    "source": "art/characters/killua/raw/ko_v07.png",
+    "source": "art/characters/killua/raw/_rejected/ko_v07.png",
     "sha256": "acd4d71c2110835966a3444467c6713d2f699f686b5cc2f272774bc4e9654eda",
     "sidecar": {
       "anatomy": {
@@ -39,7 +40,8 @@
       "measurementUncertaintyPx": 20,
       "calibrationNotes": "Side elevation. Display2048x683/native2172x724, inferred crown around(450,400) to chin(590,430), axis143 display/~151 source. Near knee~1260 to ankle1470 gives~223 source, shin/skull1.49 versus prior2.3. Shoulder~665 to hip1030 gives~388 source, torso/skull2.59 with clothing joint uncertainty. Candidate for Claude manual QA, not self-cleared. New local torso edit: native2172x724 unchanged; head axis re-inspected against source and remains within prior uncertainty. No posed-bounds fitting. New version requires Claude manual QA; see production/torso-fix/STATUS.md."
     },
-    "approval": "needs review",
-    "technical": "unmeasured; Claude manual QA required"
+    "approval": "rejected",
+    "technical": "Rejected by user; do not integrate",
+    "rejectionReason": "User rejected the new fallen sprites and prefers the older ones (2026-10-11). Stop torso production; new cast direction is a separate draft."
   }
 ]

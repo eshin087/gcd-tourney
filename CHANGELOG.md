@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art: record user rejection of Killua down v06 / ko v07, archive immutable candidate sources, and stop torso production. Approved older versions and runtime remain unchanged; PR66 must not merge.
+
 - Art: Killua down v06 / ko v07 shorten overlong lying torsos, with same-scale old/new/idle evidence. New pixels await user approval and Claude manual QA; strict atlas promotion remains blocked.
 
 - art(killua): record explicit user approvals for light1 v09 and airLight3 v08; archive superseded pending versions. No new generation or runtime promotion; down05/ko06 manual QA remains Claude-owned.

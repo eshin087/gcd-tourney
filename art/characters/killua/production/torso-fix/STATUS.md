@@ -1,4 +1,6 @@
-# Killua torso samples — 2026-10-11
+# Killua torso samples — REJECTED 2026-10-11
+
+**DO NOT MERGE.** User rejected the new fallen sprites and prefers the older ones (2026-10-11). Stop torso production; new cast direction is a separate draft. Raw files/sidecars moved to raw/_rejected. Prior approved versions and runtime atlas unchanged. All pending/recommendation wording below is historical pre-rejection evidence.
 
 New candidates: **down v06** (two successful imagegen calls, second selected) and **ko v07** (one successful call, selected). A missing-file KO request failed before generation while Claude moved its target into `_hold`; it produced no image. Limit three successful attempts per strip. No more generation recommended.
 
