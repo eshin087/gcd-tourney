@@ -58,6 +58,29 @@ for (const group of groups.values()) {
 const sep = '|---|---|---|---|---|---|---|---|\n';
 if (!review.includes(sep)) throw new Error('Review table separator missing');
 review = review.replace(sep, sep + rows.reverse().join('\n') + (rows.length ? '\n' : ''));
+const retryResults = [
+  ['light2', '04', 'rejected', 'Part A poses touch; cannot stitch.'],
+  ['light2', '05', 'rejected', 'Part A detected two instead of four poses; cannot stitch.'],
+  ['light2', '06', 'needs review', 'Measured A/B stitch x0.9288; automated head gate passes. Full frame and contact QA pending.'],
+  ['light4', '05', 'rejected', 'Part B pose separation fails; kick reads as front kick.'],
+  ['light4', '06', 'needs review', 'Roundhouse A/B stitched, measured B factor x0.7965; large part size difference and full frame QA pending.'],
+  ['airLight3', '08', 'rejected', 'Part A slash counts as a fifth component; cannot stitch.'],
+  ['airLight3', '09', 'rejected', 'Measured B factor x0.6887 is too large a part-size difference.'],
+  ['airLight3', '10', 'needs review', 'Part A carried byte-identical from v09; B regenerated as third attempt. Stitch factor x0.7189 remains too large and head ratio 0.86 fails gate.'],
+];
+for (const [asset, version, status, note] of retryResults) {
+  const rowRe = new RegExp(`^\\| 2026-10-11 \\| gojo \\| ${asset} \\|[^\\n]*\\| v${version} \\|[^\\n]*$`, 'm');
+  review = review.replace(rowRe, (row) => {
+    const cells = row.split('|');
+    cells[6] = ` ${status} `;
+    cells[8] = ` ${note} `;
+    if (status === 'rejected') {
+      cells[4] = cells[4].replaceAll('characters/gojo/raw/_parts/', 'characters/gojo/raw/_parts/_rejected/')
+        .replaceAll('characters/gojo/raw/airLight3_v09.', 'characters/gojo/raw/_rejected/airLight3_v09.');
+    }
+    return cells.join('|');
+  });
+}
 fs.writeFileSync('art/REVIEW.md', review);
 
 let manifest = fs.readFileSync('art/manifest.json', 'utf8');
