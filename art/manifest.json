@@ -3126,7 +3126,7 @@
         "block": {
           "frames": 2,
           "loop": false,
-          "bodyHeight": 160,
+          "bodyHeight": 151,
           "ms": [
             60,
             80
@@ -3477,7 +3477,7 @@
             2,
             2
           ],
-          "bodyHeight": 215,
+          "bodyHeight": 197,
           "ms": [
             50,
             50,
@@ -3505,7 +3505,7 @@
             1,
             1
           ],
-          "bodyHeight": 190,
+          "bodyHeight": 179.597423510467,
           "ms": [
             90,
             90,
@@ -3515,7 +3515,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 5,
+          "version": 7,
           "approvedVersion": 1
         },
         "superPose": {

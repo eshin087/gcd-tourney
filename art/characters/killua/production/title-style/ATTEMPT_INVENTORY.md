@@ -42,7 +42,7 @@ Counts are cumulative across saved versions. Unsaved unsuccessful calls also cou
 | special | A 2 / B 3 |
 | specialForward | A 3 / B 3 |
 | specialUp | A 1 / B 1 |
-| specialDown | 1 |
+| specialDown | 3 |
 | superPose | 3 |
 
 Each source part has a limit of3 calls. New strips are unapproved. Full production pack fails; diagnostic head OK never certifies anatomy or animation.

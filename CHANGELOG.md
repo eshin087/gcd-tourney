@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Killua: refine specialDown hair without changing body scale; document footwear-proxy limitations and peer anatomy QA, refresh all41 non-idle diagnostic candidates. No production approval.
+
 - Killua: added native animation workbench and corrected recovery candidates; documented same-pixel probe sensitivity and intact-source stitching failure. All new art remains unapproved; full production gate blocked.
 
 - Killua title-style production checkpoint: versioned attacks/reactions/specials, approved-reference diagnostics and explicit anatomy/motion holds; no new approvals or production release.
