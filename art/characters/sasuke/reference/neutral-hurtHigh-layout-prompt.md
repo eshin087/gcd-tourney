@@ -1,1 +1,0 @@
-Layout correction: three existing whole headhit reactionposes must have nonoverlapping horizontalintervals. Add100px FULLHEIGHT magentacorridor between each figure including arms, rope, feet. Preserve exactlythreeposes and fullbody anatomicalsize, solid skinhands. Widen canvas or equally shrink allposes ifneeded. No cropping noextraeffects.

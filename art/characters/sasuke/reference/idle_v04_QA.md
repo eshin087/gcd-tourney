@@ -1,3 +1,0 @@
-# Sasuke idle v04 correction evidence
-
-Final A attempt (3 total) and B second attempt. Automatic stitch factor1.0075 (A down0.9926), after B/A1.018. Pack exit0 and48colors, idle verdict ref (not ok). Head variation .985..1.025 =4points within12. Probe head43x42 vsold42x41: target smallerhead not achieved. Manual skull estimate31-32px vs28.57 target; uncertainty from hidden crown. SBR.465 above.45, bodybuild not independently verified. This is an unsuccessful correction candidate, NOT recommended for approval or a new baseline. v03 has smallerhead direction but documented18-20%hairreduction and8pxdip. All later animations remain stopped; fixed idle v01 unchanged. No exemptions. Other approved-strip findings expected.
