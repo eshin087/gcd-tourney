@@ -2,7 +2,7 @@
 
 As of 2026-10-11, all 42 animation names have versioned assembled candidates and all three UI names have candidates. “Rounds” counts title-style generation rounds per asset (an A/B pair is one round). Land had one initial round plus three corrective image-generation calls; one of the latter was unsaved. Older approved art versions are excluded. All listed latest candidates still require user review.
 
-The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate holds, no updated atlas. A “head pass” here is only the automated head gate; it does not certify anatomy, motion, contact zones, or clipping.
+The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 scale-gate holds, no updated atlas. A separate warn-mode QA manifest produced diagnostic native contacts only; it is not a scale pass or game/production atlas. A “head pass” here is only the automated head gate; it does not certify anatomy, motion, contact zones, or clipping.
 
 | Asset | Latest candidate | Generation rounds | Current hold or note |
 |---|---:|---:|---|
@@ -28,10 +28,10 @@ The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate
 | block | v03 | 1 | head gate passes; full frame QA pending |
 | hurtHigh | v03 | 1 | head gate passes; full frame QA pending |
 | hurtLow | v04 | 1 | head gate passes; full frame QA pending |
-| launched | v04 | 1 | scale-gate hold |
+| launched | v06; v05 rejected | 2 generations, 1 measured placement | v06 preserves v04 pixels; +37/+27 offsets clear clip; low-confidence gate hold |
 | spin | v04 | 1 | scale-gate hold |
 | airRecover | v03 | 1 | scale-gate hold |
-| down | v04 | 1 | gate hold; original pose, Claude adjudication |
+| down | v05 | 1 generation, 1 measured placement | v04 pixels retained; right clip cleared, floor and low-confidence gate hold, Claude adjudication |
 | getup | v05 | 3 | five distinct segmented poses after measured 3+2 stitch; low-confidence anatomy hold |
 | charge | v07 | 1 | head gate passes; full frame QA pending |
 | throw | v04 | 2 | head gate passes; flick and anatomy QA pending |
@@ -39,7 +39,7 @@ The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate
 | beamFire | v04 | 1 | head gate passes; full frame QA pending |
 | vanish | v03 | 1 | scale-gate hold |
 | stagger | v03 | 1 | head gate passes; full frame QA pending |
-| ko | v05 | 1 | gate hold; original pose, Claude adjudication |
+| ko | v06 | 1 generation, 1 measured placement | v05 pixels retained; left margin cleared, floor and low-confidence gate hold, Claude adjudication |
 | special | v05 | 3 | head gate passes; B factor x1.1884 and A/B seam anatomy held; source rounds exhausted |
 | intro | v03 | 1 | head gate passes; full frame QA pending |
 | taunt | v04 | 1 | head gate passes; full frame QA pending |
@@ -52,6 +52,6 @@ The latest quantized pack is `pack-after-special-v05.txt`: exit 1, 10 scale-gate
 | ui_cutin | v02 | 1 | visual candidate; not approved |
 | ui_select | v02 | 1 | visual candidate; not approved |
 
-The source separation, motion, or part-scale retry cap is reached for run, light2, light4, heavy, getup, airLight3, specialDown and special. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The ten current gate holds are **heavy, airLight3, airHeavy, launched, spin, airRecover, down, getup, vanish, ko**. The full pack writes no atlas. The original down/KO pose geometry remains a Claude adjudication hold, not a manual pass.
+The source separation, motion, or part-scale retry cap is reached for run, light2, light4, heavy, getup, airLight3, specialDown and special. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The ten current gate holds are **heavy, airLight3, airHeavy, launched, spin, airRecover, down, getup, vanish, ko**. The full pack writes no atlas. The original down/KO pose geometry and floor contact remain Claude adjudication holds, not manual passes.
 
 Per-part call budget where a corrective half was generated: run A 2/B 3 (v09 B rejected, no assembled v09); light4 A 2/B 3 (v07 B rejected, no assembled v07); heavy A 3/B 1 (v05 B copied from v04, v06 A rejected); getup first two rounds were single strips and final round A 1/B 1; light2 A 3/B 3; airLight3 A 2/B 3 (v10 A copied from v09); special A 2/B 3 (v05 A copied from v04); specialForward A 2/B 2; light3 A 2/B 2. Copied source pixels and measured placement metadata are not extra image-generation calls. These counts exclude historical pre-title-style source versions.
