@@ -247,7 +247,8 @@ GENERATE AND SAVE
    version; (b) a retry or a strip fix may attach the candidate being corrected, together with the list of
    changes. Never attach reference/source/, reference/_old/ or v1 files. Strips with 6 or more frames are
    always two images (the Part A / Part B blocks in PROMPTS.md): save raw/_parts/<anim>_vNN_A.png and
-   _B.png and stitch them into raw/<anim>_vNN.png (art/PIPELINE.md "Long strips (parts)").
+   _B.png and stitch them into raw/<anim>_vNN.png with npm run stitch -- <id> <anim> <vNN> (a measured size
+   factor; art/PIPELINE.md "Long strips (parts)").
 7. Make up to 3 attempts per asset, then save ONLY the single best attempt as the next version (one new
    version per round; unsaved attempts get no number). The next free version is 1 + the highest vNN for
    that asset in the folder, raw/_parts/, the _rejected/ subfolder and REVIEW.md:
@@ -275,7 +276,12 @@ PACK AND QA
      6.5, Killua about 6, Gojo about 7; no chibi frames), same hair, headband / blindfold (or none), outfit
      details and colors as the approved model sheet
    - feet not on the baseline or drifting horizontally between frames (pivot x=128, soles y=240)
-   - body height vs. the manifest bodyHeight, or one frame much bigger or smaller than the rest
+   - body height vs. the manifest bodyHeight, or one frame much bigger or smaller than the rest. The scale gate
+     must pass: node tools/pack-sprites.mjs <id> --quantize 48 exits 0 with no "scale gate:" line for the new
+     strip (a failure writes nothing; --strict-scale also fails on approved strips, so it is not this check), and
+     npm run scale -- <id> writes art/scale/heads-<id>.png, which the REVIEW row links (art/CHARACTER_SCALE.md
+     "Scale gate (automatic)"). A failing strip is fixed, not filed; a head the probe misreads gets a manifest
+     exemption with a reason and "scaleExemptVersion" (the version it covers)
    - palette drift or more than 48 colors, anti-aliasing, blur, gradients, leftover magenta fringe, ground
      shadows, text
    - facing left instead of right, the wrong limb striking, active frames not reaching the art/SPEC.md

@@ -231,6 +231,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
 - The engine reads frame size, pivot and PPU from `anims.json`, so a spec change needs no engine code.
+- **Scale gate** (TOOL-025, [ADR 0021](decisions/0021-scale-gate-and-depth-normalized-sprites.md)): the engine never
+  rescales a strip, so a fighter only looks the same size in every animation if the art is. The packer measures every
+  frame's head (hair included) and feet against the idle (`tools/scale-probe.mjs`), fails unapproved strips that are
+  off, and writes the result into `anims.json` (`scaleAudit`). It is dev-only at runtime: `?scaleaudit` logs the
+  flagged strips as they play, `scaleReport()` lists them under `?debug`, and the test lab's `BoxViewer` draws the
+  idle head size around the frame's head (`actor.headCheck`).
 - **Hand anchors** (art packs only): `SheetAsset.hand(anim, frame)` / `SpriteActor.hand()` give the drawn
   palm or fingertip of the current frame (from `hand: [x, y]` in `hitboxes.json`, else the frame's hit box,
   else the nearest frame of the animation that has one). Hand effects (Rasengan, Rasenshuriken, Chidori),

@@ -1,6 +1,6 @@
 # art/: start here
 
-Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md). Technical packing success does not establish anatomical consistency.
+Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md), including the packer's automatic scale gate (`node tools/pack-sprites.mjs <id> --quantize 48` must exit 0 for a new strip, heads sheet from `npm run scale`). Technical packing success alone does not establish anatomical consistency.
 
 Everything needed to turn GCD Tourney's placeholder fighters into **hi-res pixel-art anime
 fighters**: the briefs the image generator draws from, the versioned images it produces, the review
