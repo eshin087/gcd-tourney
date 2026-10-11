@@ -19,7 +19,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
-import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, FLAGGED, hex } from './scale-probe.mjs';
+import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, staleExemptText, FLAGGED, hex } from './scale-probe.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -144,9 +144,10 @@ options
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
-  --strict-scale    scale gate (art/CHARACTER_SCALE.md): every strip whose head is off the idle's is an error
-                    (exit code 1), approved or not. Without it only unapproved strips (candidates, new fighters)
-                    and characters with "scaleGate": "strict" fail; approved strips are listed as findings
+  --strict-scale    scale gate (art/CHARACTER_SCALE.md): every strip whose head is off the idle's is an error,
+                    approved or not (to check a fighter before setting "scaleGate": "strict"). Without it only
+                    unapproved strips (candidates, new fighters) and "scaleGate": "strict" characters fail;
+                    approved strips are listed as findings. A failure writes nothing for that character (exit 1)
   --fit-head <list> auto head fit for these strips, e.g. killua:airLight1,killua:hurtHigh (same as the sidecar
                     anatomy { "measurement": "auto-head" }): a raw strip drawn at the wrong size is rescaled so
                     its head matches the idle's. Only a 'uniform' verdict is fitted
@@ -1125,8 +1126,8 @@ function chooseSource(framesDir, raw, ctx, warn, label) {
   }
   if ((marker.bodyHeight ?? null) !== (ctx.bodyHeight ?? null)) why.push(`bodyHeight changed (${marker.bodyHeight ?? 'none'} -> ${ctx.bodyHeight})`);
   if (cellOf(marker.cell) !== cellOf(ctx.cell)) why.push('the spec cell changed');
-  // the auto head fit (TOOL-025) is measured at import: asking for it (or dropping it) re-imports once, after that
-  // the marker's autoHead factor says the frames already have their fitted size
+  // the auto head fit (TOOL-025) is measured at import: the marker's autoHead factor says the frames already have
+  // their fitted size; asking for it without a recorded fit (never fitted yet) or dropping it re-imports
   if ((marker.autoHead != null) !== !!ctx.fitHead) why.push(ctx.fitHead ? 'auto head fit requested' : 'auto head fit removed');
   if (!why.length) return { kind: 'frames', framePngs, packerMade: true, origin, autoHead: marker.autoHead ?? null };
   const edited = isEdited();
@@ -1581,15 +1582,16 @@ function auditAnims(id, anims, env) {
 
 // Auto head fit (opt-in per strip): a raw strip whose head AND feet are off the idle's in the same direction ('uniform')
 // was drawn or packed at the wrong size, so it is resampled once more from the raw by 1/head. Drift (the head alone)
-// and pops are never fitted: rescaling cannot fix a drawing. The factor goes into the frames/ marker, so the fit is
-// measured once at import and repeat packs keep the fitted frames byte for byte.
+// and pops are never fitted: rescaling cannot fix a drawing. An applied factor goes into the frames/ marker, so the fit
+// is measured once at import and repeat packs keep the fitted frames byte for byte. A request that was not fitted is
+// not recorded: it re-imports and is measured again on every pack while it stands, so a new exemption, headColors
+// or idle can still make it fit.
 function fitHeads(id, anims, env, R) {
   const A = auditAnims(id, anims, env);
   const spec = env.spec, g = env.gate;
   for (const a of anims) {
     if (!a.fit) continue;
     const s = A.anims?.[a.def.name];
-    a.autoHead = 1;
     if (!s || s.verdict !== 'uniform') {
       a.notes.push(`auto-head: ${s ? `verdict ${s.verdict}${s.head != null ? ` (head ${s.head.toFixed(2)})` : ''}` : A.error} - not fitted (only a uniform size error is)`);
       continue;
@@ -1617,10 +1619,10 @@ function fitHeads(id, anims, env, R) {
   }
 }
 
-// Every strip against the approved idle. Strict strips fail the pack (exit code 1): unapproved ones in the default
-// 'auto' mode (a candidate version, a new fighter), every strip with --strict-scale or "scaleGate": "strict". Approved
-// strips are findings until they are fixed (ART-SCALE-02), so art that already ships never blocks a pack. A folder
-// without a manifest entry (scratch art, no manifest) is only reported ('warn').
+// Every strip against the approved idle. A strict strip that is off refuses the pack (nothing written, exit code 1):
+// unapproved ones in the default 'auto' mode (a candidate version, a new fighter), every strip with --strict-scale or
+// "scaleGate": "strict". Approved strips are findings until they are fixed (ART-SCALE-02), so art that already ships
+// never blocks a pack. A folder without a manifest entry (scratch art, no manifest) is only reported ('warn').
 // Returns the compact audit for anims.json (meta.scaleAudit), or null when nothing could be measured.
 function scaleGate(id, anims, env, R) {
   const mc = env.manifestRaw?.characters?.[id];
@@ -1653,6 +1655,8 @@ function scaleGate(id, anims, env, R) {
       out.failed.push(name);
       R.warnings.push(`scale gate: ${verdictText(name, s)} [${vv}, ${mode === 'auto' ? 'not approved yet' : 'strict'}]`);
     } else if (FLAGGED.has(s.verdict)) out.findings.push(`${verdictText(name, s)} [approved ${vv}]`);
+    // an exemption is tied to the drawing it was written for: a redraw is measured until it is re-exempted on purpose
+    if (s.staleExempt) R.warnings.push(`scale: ${staleExemptText(name, s.staleExempt)}`);
     // an approved strip whose head moved at the same version: a sidecar, bodyHeight or packer change resized it silently
     const b = base?.anims?.[name];
     if (b && a.version != null && b.v === a.version && Number.isFinite(b.head) && s.head != null && Math.abs(s.head - b.head) > env.gate.baselineTol) {
@@ -1891,14 +1895,21 @@ function packCharacter(id, env) {
   R.sheet = `${sheet.w}x${sheet.h}`;
   R.complete = meta.complete;
   const outDir = path.join(env.outDir, 'characters', id);
-  writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
-  writeFile(env, path.join(outDir, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
+  // a strict strip that failed the scale gate refuses the pack (ADR 0021): neither public/ nor frames/ is written, so
+  // the last good sheet stays and a missed exit code cannot carry an off-size strip into a commit or a deploy
+  const refused = !!R.scale?.failed.length;
+  if (refused) {
+    R.scale.refused = true;
+    warn(`scale gate: ${env.dryRun ? 'would not write' : 'did not write'} ${rel(env.cwd, outDir)}/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion`);
+  }
+  if (!refused) writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
+  if (!refused) writeFile(env, path.join(outDir, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const a of anims) {
     R.packed.push({
       anim: a.def.name, frames: a.cells.length, expected: a.def.frames, source: a.sourceLabel, from: a.origin, version: a.version,
       edited: a.edited, handMade: a.handMade, scale: +a.scale.toFixed(3), frameScales: a.frameScales, notes: a.notes,
     });
-    if (a.src.kind === 'raw' && !env.quantize) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight, cell: cellKey, ...(a.fitHead ? { autoHead: a.autoHead ?? 1 } : {}) });
+    if (a.src.kind === 'raw' && !env.quantize && !refused) writeBack(env, path.join(framesRoot, a.def.name), a.def.name, a.cells, a.src, R, { bodyHeight: a.bodyHeight, cell: cellKey, ...(a.autoHead ? { autoHead: a.autoHead } : {}) });
   }
   return R;
 }
@@ -2532,7 +2543,7 @@ function updateManifestStatus(raw, rep) {
     const mc = raw.characters?.[c.id];
     if (!mc || typeof mc !== 'object') continue;
     const anims = mc.animations || {};
-    for (const p of c.packed) n += raiseStatus(anims[p.anim], 'packed');
+    for (const p of c.packed) n += raiseStatus(anims[p.anim], c.scale?.refused ? 'raw' : 'packed'); // a refused pack wrote nothing
     for (const a of c.failed) n += raiseStatus(anims[a], 'raw');
     for (const [a, v] of Object.entries(c.versions || {})) n += raiseVersion(anims[a], v);
     for (const u of c.uiItems) n += raiseStatus(mc.ui?.[u], 'packed');
@@ -2596,7 +2607,7 @@ function printReport(rep, env) {
       L('  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md');
       if (!c.removed?.length) L('  public/ was not touched for the sheet.');
     } else {
-      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
+      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.scale?.refused ? 'NOT WRITTEN (the scale gate failed, see below)' : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
       for (const p of c.packed) {
         const n = `${p.frames}`.padStart(2) + (p.frames !== p.expected ? `/${p.expected}` : '');
         L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -2605,7 +2616,7 @@ function printReport(rep, env) {
     if (c.scale) {
       const S = c.scale, n = {};
       for (const a of Object.values(S.anims)) n[a.verdict] = (n[a.verdict] || 0) + 1;
-      L(`  scale gate (${S.gate}; head with hair vs the idle, art/CHARACTER_SCALE.md): ${S.error || Object.entries(n).map(([k, v]) => `${v} ${k}`).join(', ')}${S.failed.length ? `  FAILED: ${S.failed.join(', ')}` : ''}`);
+      L(`  scale gate (${S.gate}; head with hair vs the idle, art/CHARACTER_SCALE.md): ${S.error || Object.entries(n).map(([k, v]) => `${v} ${k}`).join(', ')}${S.failed.length ? `  FAILED: ${S.failed.join(', ')} - nothing written` : ''}`);
       for (const f of S.findings) L(`    ~ ${f}`);
     }
     if (c.missingCore.length) L(`  missing core (${c.missingCore.length}): ${c.missingCore.join(', ')}`);
@@ -2674,7 +2685,7 @@ function printReport(rep, env) {
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
   const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
   const gateFailed = rep.characters.filter((c) => c.scale?.failed.length);
-  if (gateFailed.length) L(`SCALE GATE FAILED: ${gateFailed.map((c) => `${c.id} (${c.scale.failed.join(', ')})`).join('; ')} - see art/CHARACTER_SCALE.md "Scale gate (automatic)"`);
+  if (gateFailed.length) L(`SCALE GATE FAILED: ${gateFailed.map((c) => `${c.id} (${c.scale.failed.join(', ')})`).join('; ')} - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"`);
   L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
 

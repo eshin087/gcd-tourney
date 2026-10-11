@@ -20,7 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
-import { auditCharacter, resolveGate, exemptionsFrom, bboxOf, isSkin, hex, FLAGGED, verdictText } from './scale-probe.mjs';
+import { auditCharacter, resolveGate, exemptionsFrom, staleExemptText, bboxOf, isSkin, hex, FLAGGED, verdictText } from './scale-probe.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -242,7 +242,7 @@ function main(argv) {
     const anims = {};
     for (const [name, s] of Object.entries(A.anims)) {
       counts[s.verdict] = (counts[s.verdict] || 0) + 1;
-      anims[name] = { v: s.version, head: s.head, feet: s.feet, range: s.range, verdict: s.verdict, reason: s.reason ?? undefined, frames: s.frames.map((f) => ({ head: f.head, feet: f.feet, box: f.box, ...(f.skipped ? { exempt: true } : {}) })) };
+      anims[name] = { v: s.version, head: s.head, feet: s.feet, range: s.range, verdict: s.verdict, reason: s.reason ?? undefined, staleExempt: s.staleExempt, frames: s.frames.map((f) => ({ head: f.head, feet: f.feet, box: f.box, ...(f.skipped ? { exempt: true } : {}) })) };
     }
     report.fighters[id] = { palette: { head: [...A.palette.head].map(hex), feet: [...A.palette.feet].map(hex), source: A.palette.headSource }, ref: { headPx: A.ref.headPx, box: A.ref.box, feetPx: A.ref.feet }, counts, anims };
     L(`\n== ${id}: idle head ${A.ref.headPx.join('x')} px (${A.palette.headSource} palette ${[...A.palette.head].map(hex).join(' ')})`);
@@ -253,6 +253,7 @@ function main(argv) {
       flaggedTotal++;
       L(`   ${name.padEnd(15)} ${s.version != null ? 'v' + String(s.version).padStart(2, '0') : '   '}  head ${pct(s.head)}  feet ${pct(s.feet)}  ${s.verdict.toUpperCase().padEnd(8)} f: ${s.frames.map((f) => (f.head == null ? '-' : f.head.toFixed(2))).join(' ')}`);
     }
+    for (const [name, s] of Object.entries(A.anims)) if (s.staleExempt) L(`   ! ${staleExemptText(name, s.staleExempt)}`);
     // baseline: a strip whose head moved at the same version is reported; new rows and new versions are recorded
     const B = (baseline.fighters[id] = baseline.fighters[id] || { ref: null, anims: {} });
     if (BASELINE || !B.ref) B.ref = { headPx: A.ref.headPx };

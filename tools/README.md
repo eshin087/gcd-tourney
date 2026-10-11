@@ -50,7 +50,7 @@ node tools/pack-sprites.mjs --dry-run naruto
 | `--tolerance <n>` | background color tolerance, RGB distance (default 72). Raise it if a pink halo remains, lower it if the character loses pink/purple pixels. |
 | `--no-writeback` | do not write cleaned frames back to `art/.../frames/<anim>/` |
 | `--strict` | exit code 2 when there are warnings (CI) |
-| `--strict-scale` | scale gate strict for **every** strip: a head off the idle's fails the pack (exit 1), approved or not. Without it only unapproved strips fail (see "Scale gate") |
+| `--strict-scale` | scale gate strict for **every** strip, approved or not: the check before a fighter is set to `"scaleGate": "strict"`. Without it only unapproved strips fail, which is the gate a new strip must pass (see "Scale gate") |
 | `--fit-head <id>:<anim>[,...]` | auto head fit for these strips, like the sidecar `anatomy: { "measurement": "auto-head" }`: a raw strip whose verdict is `uniform` is rescaled so its head matches the idle's |
 | `--candidates` | world art (VFX, crowd, stage, NPC, UI) is **approval-gated**: by default only items with an `approvedVersion` in the manifest are packed, at that version (a newer candidate is noted in the report and waits), outputs whose approval is gone are removed, and an unreadable manifest leaves every world-art output untouched. `--candidates` packs every latest candidate into `<out>/preview/<kind>/` instead (an item without a candidate previews its approved image), leaving the shipped outputs alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
 | `--root <dir>` (`--src`, `--art`) | art folder to read (default `./art`). Used by tests. |
@@ -257,8 +257,10 @@ needed; the next run reads them instead of raw. Rules:
 - untouched frames whose raw source is gone (its only version was moved to `raw/_rejected/`) are **not packed**
   (warned), so rejected art never reaches the game; hand-edited ones still are;
 - frames without a marker are treated as hand-made and are never overwritten;
-- an auto head fit records its factor as `"autoHead"` in the marker (`1` = asked for but not fitted): asking for the
-  fit, or dropping it, re-imports the raw once; after that the fitted frames are kept as they are.
+- an applied auto head fit records its factor as `"autoHead"` in the marker: asking for the fit, or dropping it,
+  re-imports the raw once; after that the fitted frames are kept as they are. A request that was **not** fitted
+  (verdict not `uniform`) is not recorded, so it re-imports and is measured again on every pack while it stands: an
+  exemption, `headColors` or a new idle can still make it fit.
 
 Re-running the packer on unchanged input produces byte-identical output (safe to commit).
 
@@ -369,7 +371,9 @@ Common warnings and the fix:
 | `... changed but frames/<anim>/ has manual edits` | keep the edits, or delete `frames/<anim>/` to re-import the new source |
 | `frames/<anim>/ were cleaned from ..., which is no longer in raw/` | the only version was rejected: delete `frames/<anim>/` (or add a new `_vNN`) |
 | `manifest spec.X is ... - must be ...` | the manifest's spec block has a malformed value; fix it (the v2 default is used meanwhile) |
-| `scale gate: <anim> head 0.80 of idle (feet 1.01): head/hair drift` | an unapproved strip's head is off the idle's (exit 1): redraw it to `reference/head_scale_guide.png` |
+| `scale gate: <anim> head 0.80 of idle (feet 1.01): head/hair drift` | an unapproved strip's head is off the idle's (exit 1, nothing written): redraw it to `reference/head_scale_guide.png` |
+| `scale gate: did not write public/characters/<id>/ (it keeps its last pack) or frames/` | a strict strip failed, so the whole pack of that fighter was refused: fix the strips named above |
+| `scale: <anim>: the manifest's scale exemption was written for vNN but the packed strip is vMM` | an exemption covers only its own drawing: look at the new version on the heads sheet; if the probe misreads it too, set `"scaleExemptVersion": MM` |
 | `scale gate: <anim> head 0.85 of idle (feet 0.88): the whole figure is off` | re-import with the auto head fit (a new version, sidecar `anatomy: { "measurement": "auto-head" }`) |
 | `scale gate: <anim> pops inside the strip` | two parts at two sizes: `npm run stitch` with a measured factor, or redraw |
 | `~ <anim> ... [approved vNN]` (scale findings) | an approved strip is off; not a failure until it is fixed (ART-SCALE-02) |
@@ -393,7 +397,11 @@ How the tools measure (`scale-probe.mjs`):
   `feetAgree`, `feetShare`, `fitMin`, `fitMax`, `baselineTol`, `lowConf`).
 - **Strictness**: per character `"scaleGate": "auto"` (default: unapproved strips strict, approved ones findings),
   `"strict"` or `"warn"`; a character folder without a manifest entry is `warn`; `--strict-scale` makes every strip
-  strict for the run.
+  strict for the run. A strict strip that fails **refuses the pack**: neither `public/characters/<id>/` nor `frames/`
+  is written for that fighter (the last good pack stays), and the exit code is 1.
+- **Exemptions** (`scaleExempt`, `scaleExemptFrames` on a manifest animation) need `"scaleExemptVersion"`: they
+  cover only that version of the strip. A redraw (another version) is measured, with a warning, until someone looks
+  at it and re-exempts it on purpose; an exemption without a version covers only an unversioned strip.
 - **Auto head fit**: after the gather, the strips that asked for it are audited; a `uniform` one is resampled from its
   raw at `scale / head` (clamped `fitMin..fitMax`); the gate then audits the final cells.
 - **Stitch** (`stitch-parts.mjs`): each part's poses are measured at their own trial scale and once more at the scale

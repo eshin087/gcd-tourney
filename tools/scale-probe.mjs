@@ -347,12 +347,14 @@ export function verdictText(name, s) {
   if (s.verdict === 'pop') return `${name} pops inside the strip: f${s.lo.k} ${p(s.lo.head)} vs f${s.hi.k} ${p(s.hi.head)} of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw`;
   if (s.verdict === 'uniform') return `${name} head ${p(s.head)} of idle (feet ${p(s.feet)}): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight`;
   if (s.verdict === 'drift') return `${name} head ${p(s.head)} of idle (feet ${s.feet == null ? 'not measurable' : p(s.feet)}): head/hair drift - redraw to the approved idle head (head_scale_guide.png)`;
-  if (s.verdict === 'unmeasured') return `${name}: ${s.reason || 'not measured'} - check it on the heads sheet (npm run scale); if the head is really hidden, exempt the strip with a reason ("scaleExempt" in the manifest)`;
+  if (s.verdict === 'unmeasured') return `${name}: ${s.reason || 'not measured'} - check it on the heads sheet (npm run scale); if the head is really hidden, exempt the strip with a reason ("scaleExempt" and "scaleExemptVersion" in the manifest)`;
   return `${name}: ${s.verdict}`;
 }
 
 // Per-animation exemptions from a manifest character's animations: "scaleExempt": "reason" exempts the whole strip,
 // "scaleExemptFrames": { "4": "reason" } (or a plain list of frame numbers) leaves those frames out of the median.
+// "scaleExemptVersion": N ties both to the drawing they were written for: a redraw (any other version) is measured
+// again until someone looks at it and re-exempts it on purpose. Without it they only cover an unversioned strip.
 export function exemptionsFrom(animations) {
   const out = {};
   for (const [name, v] of Object.entries(animations && typeof animations === 'object' ? animations : {})) {
@@ -360,14 +362,21 @@ export function exemptionsFrom(animations) {
     const reason = typeof v.scaleExempt === 'string' && v.scaleExempt.trim() ? v.scaleExempt.trim() : null;
     const fr = v.scaleExemptFrames;
     const frames = (Array.isArray(fr) ? fr : fr && typeof fr === 'object' ? Object.keys(fr) : []).map(Number).filter((k) => Number.isInteger(k) && k >= 0);
-    if (reason || frames.length) out[name] = { reason, frames };
+    if (reason || frames.length) out[name] = { reason, frames, v: Number.isInteger(v.scaleExemptVersion) ? v.scaleExemptVersion : null };
   }
   return out;
 }
 
+// One-line explanation for an exemption that does not cover the packed version (packer warnings, `npm run scale`).
+export function staleExemptText(name, x) {
+  const vv = (n) => `v${String(n).padStart(2, '0')}`;
+  return `${name}: the manifest's scale exemption ${x.v == null ? 'has no "scaleExemptVersion"' : `was written for ${vv(x.v)}`} but the packed strip is ${x.version == null ? 'unversioned' : vv(x.version)} - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": ${x.version ?? 'null'}`;
+}
+
 // A whole character: anims = [{ name, cells, version }] with idle among them; decl = builds.json fighter entry;
-// exempt = { anim: { reason, frames } }. Unquantized cells are snapped to one shared palette first (sharedPalette).
-// Returns { error } when there is no idle or no head can be found in it.
+// exempt = { anim: { reason, frames, v } } (exemptionsFrom): it applies only to the strip version v; another version
+// is measured and carries `staleExempt` instead. Unquantized cells are snapped to one shared palette first
+// (sharedPalette). Returns { error } when there is no idle or no head can be found in it.
 export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt = {}, maxColors = 48 } = {}) {
   const all = anims.flatMap((a) => a.cells);
   if (countColors(all) > maxColors) {
@@ -382,7 +391,9 @@ export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt 
   if (!ref) return { error: `no head found in the idle (${pal.head.size} head colour(s), ${pal.headSource}) - declare headColors in art/scale/builds.json`, palette: pal };
   const out = { palette: pal, ref, anims: {} };
   for (const a of anims) {
-    const s = a.name === 'idle' ? { ...auditStrip('idle', a.cells, ref, pal, { ...gate, lowConf: [] }), verdict: 'ref', reason: null } : auditStrip(a.name, a.cells, ref, pal, gate, exempt[a.name] || {});
+    const x = a.name === 'idle' ? null : exempt[a.name], own = x && x.v === (a.version ?? null);
+    const s = a.name === 'idle' ? { ...auditStrip('idle', a.cells, ref, pal, { ...gate, lowConf: [] }), verdict: 'ref', reason: null } : auditStrip(a.name, a.cells, ref, pal, gate, own ? x : {});
+    if (x && !own) s.staleExempt = { v: x.v, version: a.version ?? null };
     s.version = a.version ?? null;
     out.anims[a.name] = s;
   }
