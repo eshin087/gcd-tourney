@@ -184,17 +184,24 @@ The generator does not remember the design between images. These keep a characte
 ## Long strips (parts)
 
 Save parts as `raw/_parts/<anim>_vNN_A.png`, `raw/_parts/<anim>_vNN_B.png` (the packer ignores
-`raw/_parts/`). Codex stitches them into `raw/<anim>_vNN.png` with the same `NN`. There is no stitch
-tool in `tools/` yet (task TOOL-008 for Claude), so Codex writes a throwaway script outside
-`tools/` (Node + `pngjs` from `node_modules`):
+`raw/_parts/`). Stitch them with **`npm run stitch -- <id> <anim> <vNN>`** (TOOL-008, `tools/stitch-parts.mjs`;
+in PowerShell `npm.cmd run stitch -- ...` or `node tools/stitch-parts.mjs ...`). It writes `raw/<anim>_vNN.png`
+with the same `NN`:
 
-- one canvas filled with flat `#FF00FF`, A on the left, B on the right, both bottom-aligned (feet on
-  one line), with at least 24 px of magenta between the last pose of A and the first of B;
-- if B must be rescaled so the character's head size matches A, use **nearest-neighbor only**, never
-  bilinear or bicubic (smooth resizing adds blended colors and a magenta-purple fringe);
-- save the result as `raw/<anim>_vNN.png`.
+- it cleans both parts like the packer, **measures** each part's head (hair included) against the packed idle and
+  computes the factor that brings B to A's size, then scales the bigger part **down** (palette-preserving, never
+  an upscale), so no factor is picked by eye any more (Naruto's specialUp was stitched at x0.7 by eye and packed its
+  last two frames 45 % small);
+- one canvas of flat `#FF00FF`, A on the left, B on the right, soles on one line, at least 24 px of magenta between;
+- the factor, the measured heads and which part was scaled go into `raw/<anim>_vNN.json` as `"stitch"`;
+- `--dry-run` measures only; `--factor <f> --reason "<why>"` overrides a factor the probe cannot measure (a head
+  hidden by the arms); `--parts <vMM>` re-stitches the parts of an older version as the new `vNN` (a scale fix
+  without generating images: the REVIEW row says "re-stitched from the vMM parts");
+- it never overwrites a version. A warning that the parts differ by more than x0.75 means: regenerate part B at
+  part A's size instead.
 
-One REVIEW row covers the stitched strip. Then pack as usual.
+One REVIEW row covers the stitched strip. Then pack as usual; the packer's scale gate checks the result (a `pop`
+verdict means the parts still differ).
 
 ## Fixing frames
 
@@ -287,6 +294,9 @@ Run it on every packed strip (Codex runs it and writes the result in the REVIEW.
 - [ ] **Same height**: the character is the same size as in idle (compare head size) and within
       the animation's body height; nothing outside the cell margin (x 4..251, y 4..240) and no
       "clipped" warning.
+- [ ] **Scale gate**: `npm run sprites -- --strict-scale <id>` passes (no `scale gate:` line, exit 0), and
+      `npm run scale -- <id>` wrote `art/scale/heads-<id>.png`, linked from the REVIEW row (every frame's head
+      next to the idle's; see CHARACTER_SCALE.md "Scale gate (automatic)").
 - [ ] Facing right, 3/4 view, both eyes visible.
 - [ ] Frame count matches `manifest.json` (or update it on purpose, with a note).
 - [ ] The report names the version you expect (`raw/<anim>_vNN.png` with the highest `NN`).
@@ -313,7 +323,8 @@ Run it on every packed strip (Codex runs it and writes the result in the REVIEW.
 | two threads overwrote each other's rows | REVIEW/TRACKER/manifest edited at the same time | re-read before editing, restore the lost row from the other thread's note, edit only your character's lines |
 | pink/magenta fringe around the character | the generator anti-aliased into the background | re-pack (near-magenta pixels are removed); if it stays, touch up `frames/` or regenerate asking for "hard edges, no anti-aliasing" |
 | grey blob under the feet | the generator drew a ground shadow | regenerate with "no ground shadow", or erase it in a patched next version |
-| character too big/small in game | strip's tallest frame doesn't match the expected pose | check `bodyHeight` for that animation; a raised arm or flying hair makes the tallest frame. Adjust the art or (with a note) the manifest value |
+| character too big/small in game | strip's tallest frame doesn't match the expected pose | read the scale gate line of the pack report (or `npm run scale`): `uniform` = re-import with the auto head fit, `drift` = redraw the head to `reference/head_scale_guide.png`, `pop` = `npm run stitch` with a measured factor |
+| `scale gate: ...` and exit code 1 | an unapproved strip's head is off the idle's (CHARACTER_SCALE.md "Scale gate (automatic)") | fix as the line says; a head the probe misreads (arms over it, an afterimage) gets `"scaleExempt"` / `"scaleExemptFrames"` with a reason in the manifest |
 | "upscaled" warning | poses in the raw image are smaller than the target body height | generate fewer poses per image (two parts) so each figure is bigger |
 | "clipped" warning on a wide or lying pose | the pose is wider than the 256 cell allows | follow the SPEC pose notes (superDash angled ~25 degrees with bent knees, launched diagonal, down/ko ~210 px long) |
 | feet slide / character jitters in a loop | uneven poses or a cloth/hair piece in the bottom rows | make sure only the feet are in the bottom 20 % of the frame; fix the pose |

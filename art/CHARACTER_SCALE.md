@@ -155,20 +155,80 @@ the head to reach a number": naming another fighter in a prompt can leak his fea
 
 - Measure every candidate pose before final approval. Save skull crown and chin coordinates, the measured axis length, orientation/occlusion notes, and source version/hash. If either landmark is obscured, mark the measurement uncertain and compare another stable landmark; do not invent a precise value.
 - Versioned raw sidecars can provide `anatomy: { measurement: "skull-to-chin", targetHeadPx: 31, sourceHeadPx: [...] }`, with one independently checked source measurement per frame. The packer uses target/source instead of pose-bounds normalization. Cached frames retain that scale; changed sidecars invalidate the source cache.
+- `anatomy: { "measurement": "auto-head" }` instead lets the packer measure: it packs the strip as usual, measures it with the scale gate and, only when the verdict is `uniform`, rescales it from the raw by 1/head (clamped 0.75-1.33). The factor is stored in the `frames/<anim>/.packer.json` marker, so it is measured once; `hitboxes.json` boxes and hand anchors of that animation are scaled about the pivot with it (`"_scale"` records the fit they were measured at). By-eye `sourceHeadPx` estimates (Killua's hurtHigh/hurtLow/ko) packed 16-17 % small: prefer `auto-head`.
+- Strips generated in two parts are joined with `npm run stitch -- <id> <anim> <vNN>`: it measures part B's head against part A's and scales the bigger part down by that factor (art/PIPELINE.md "Long strips (parts)"). Never pick the factor by eye.
 - `bodyHeight` remains the legacy fallback and pose planning envelope. It is not proof of anatomy and must not be changed simply to hide drift. Do not change pixelsPerUnit or stretch x/y independently to compensate.
 - If correct anatomical scale clips a limb, redraw/repose that frame within the cell. Do not shrink the whole character to fit. Uniform scaling cannot repair a head that is proportionally too large relative to its torso; that needs an image edit.
 - Preserve raw `_vNN` sources. Record every visual correction as a new version and retain previous approvals/history. Recompute and visually inspect hitboxes and hand anchors after scale or placement changes.
 
+## Scale gate (automatic)
+
+User decision 2026-10-10 (TOOL-025, [ADR 0021](../docs/decisions/0021-scale-gate-and-depth-normalized-sprites.md)):
+Killua grew and shrank in fights because whole strips were packed 12-34 % off his idle. Every packed frame is now
+measured against the fighter's **approved idle, which stays the reference** (Killua keeps his big idle hair; the
+strips are redrawn to it, not the other way round).
+
+**What is measured** (`tools/scale-probe.mjs`, on the packed cells):
+
+- **Head silhouette, hair included.** Hair is what makes a head read big or small (Killua's hair mass is 51 px wide
+  on the idle and 35-42 px in the drifted strips while his face stayed the same), so it counts. The head is the blob
+  of the idle's head colours (colours much denser at the top of the idle than in its lower body; a fighter whose hair
+  shares body colours declares `headColors` in `art/scale/builds.json`, as Naruto and Sasuke do) and its scale is
+  the median of sqrt(area), width and height against the idle loop's median. 1.00 = the idle.
+- **Feet**: the area of the shoe colours, a second, independent size proxy.
+
+**The contract per strip** (the defaults in `tools/scale-probe.mjs`; an optional `spec.scaleGate` block in `art/manifest.json` overrides them):
+
+| rule | limit |
+|---|---|
+| median head of the strip vs the idle | within ±6 % (`stripTol` 0.06) |
+| largest minus smallest head inside one strip (a pop) | at most 12 points (`popTol` 0.12) |
+| hair | strands may move, but the hair MASS stays within ±8 % of the idle's (the ±6 % median plus a frame's noise) |
+
+**Verdicts** (`npm run sprites` report, `anims.json` `meta.scaleAudit`, `npm run scale`):
+
+| verdict | means | fix |
+|---|---|---|
+| `ok` | head within ±6 %, no pop | none |
+| `uniform` | head AND feet off in the same direction (the feet confirm at least a third of it): the strip was drawn or packed at the wrong size | the packer's **auto head fit**: a new version with the same raw pixels and the sidecar `{ "anatomy": { "measurement": "auto-head" } }` (or `--fit-head <id>:<anim>` to try it) |
+| `drift` | the head (hair) is off but the body is not | **redraw** the head to the approved idle, with `reference/head_scale_guide.png` attached |
+| `pop` | two sizes inside one strip (two parts stitched at different scales) | **re-stitch** with a measured factor (`npm run stitch`), or redraw |
+| `unmeasured` | a low-confidence pose (`launched`, `spin`, `down`, `ko`, `airRecover`, `getup`, `jumpSquat`, `vanish`) or no head found | check by eye on the heads sheet |
+| `exempt` | the manifest says why (`"scaleExempt": "reason"` on the animation, or `"scaleExemptFrames": { "4": "reason" }`) | none; the reason must name what hides or fakes the head (arms over it, an afterimage, a slash arc in hair colours) |
+
+**Strictness** (staged, so approved art never blocks a pack while it is being fixed):
+
+- A strip that is **not approved yet** (a candidate version newer than `approvedVersion`, or any strip of a new
+  fighter) **must pass**: `uniform`, `drift`, `pop` or an unexplained `unmeasured` fails the pack (`scale gate:` line,
+  exit code 1).
+- An **approved** strip that is off is listed as a finding (`~` lines) until ART-SCALE-02 fixes it.
+- `npm run sprites -- --strict-scale <id>` treats every strip as unapproved; `"scaleGate": "strict"` on a character
+  in the manifest makes that permanent (set it once all of a fighter's strips pass), `"warn"` reports only.
+- `art/scale/scale-baseline.json` records each approved strip's head at its version: a strip whose head moves more
+  than 3 % at the same version (a sidecar, `bodyHeight` or packer change) is warned. `npm run scale` adds new rows;
+  `npm run scale -- --baseline` accepts an intended change.
+
+**Every strip's review** attaches the heads contact sheet `art/scale/heads-<id>.png` from `npm run scale` (one row
+per animation: the idle head, then every frame's head with its box and number; the dotted box is the idle head's
+size) and, for size changes, the `npm run lineup` image (its rows now include guard, charge, airLight1 and hurtHigh).
+A redraw prompt attaches `reference/head_scale_guide.png` (`npm run scale -- --guide`: the idle at the generation
+multiplier with its crown, hair-width and chin lines). The gate does not approve art: the user still approves every
+version.
+
 ## Acceptance gate
 
-- Skull-to-chin target from approved proportions (nominal 31 px only where visually appropriate); tolerance +/-2 px for clear comparable views. Document foreshortened/occluded exceptions explicitly. No automatic exemption for a whole animation.
-- Comparable-frame head axis and width vary by at most 2 px within a loop and across adjacent animation transitions. Hair motion alone is allowed to change hair bounds.
+- **Scale gate**: the strip passes `npm run sprites -- --strict-scale <id>` (see "Scale gate (automatic)"), and its
+  REVIEW row links `art/scale/heads-<id>.png`.
+- Skull-to-chin target from approved proportions (nominal 31 px only where visually appropriate); tolerance +/-2 px for clear comparable views. Document foreshortened/occluded exceptions explicitly. An exemption from the automatic gate needs a written reason in the manifest.
+- Comparable-frame head axis and width vary by at most 2 px within a loop and across adjacent animation transitions. Hair strands may move, but the hair mass stays within ±8 % of the approved idle's: a smaller hair mass reads as a smaller head.
 - Neutral skeleton height stays within 5% of the character's declared height. Review cross-cast anatomy against the original Gojo; preserve his preferred head and deliberate body-height differences.
 - Verify limb lengths and torso width in comparable views. Rotation/foreshortening may change projection; cropping or zoom may not.
 - Inspect ALL packed frames at native scale, plus idle-to-run, idle-to-attack, recovery-to-idle, jump-to-air-attack and knockdown-to-getup transitions at game speed.
 - Check fixed cell/ppu/pivot, no clipping, correct facing, feet/airborne placement, palette and regenerated contact/effect anchors.
 - Run packer regression tests after tooling changes, strict packing, build, and same-depth browser mirror/cross-cast checks. Compare on a common camera/depth so perspective does not masquerade as scale drift.
-- A hair/skin segmentation heuristic can flag suspicious frames, but cannot certify skull size or anatomy. Bounds and color-component metrics must remain labelled as proxies until visually reviewed.
+- The automatic gate's head and feet numbers are proxies: they block a strip that is off and flag it for eyes, and a
+  clean number plus the heads contact sheet is the evidence the reviewer approves. A frame the proxy misreads gets a
+  written exemption, never a silent pass.
 
 - **Build gate (blocking for the model sheet, idle and run approvals, and for any build change).** The fighter's
   `standingBodyPx` follows the canon-height rule, or an ADR records why not. On the packed idle, the **DR lies inside

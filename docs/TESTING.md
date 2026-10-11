@@ -35,6 +35,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `sleep(ms)`, `waitFight()` | async helpers. `waitFight` waits until the round is live. |
 | `freezeCpu()` | P2's CPU stops moving and pressing (a training dummy) |
 | `snap()` / `unsnap()` | copy the WebGL frame into a 2D canvas so screenshots of background tabs aren't blank |
+| `scaleReport()` | per fighter: the strip on screen, its head scale vs the idle (this frame and the strip median), the packer's scale verdict, every strip the scale gate flagged, and `depthK` (the sprite's depth normalization, 1 without it) |
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
@@ -56,6 +57,10 @@ p2.combo                          // about 7 if everything connected
 
 Timings are approximate. If a step misses, print `step(1)` after each press and adjust the frame counts.
 
+`?scaleaudit` (any page, not only `?debug`) logs once per fighter and animation, as it plays, every strip the
+packer's scale gate flagged: `[sprites] killua guard: head 0.80 of idle (drift, packer scale audit)`. These are
+console warnings on purpose; the console without the flag stays clean.
+
 ## Test lab (`/lab.html`, ADR 0018)
 
 The fastest way to check a change by hand, locally or on a PR's preview link (`npm run pr -- preview`):
@@ -63,7 +68,9 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - **MOVES**: every move of YOU (normals, movement, defense, each directional special, SUPER, ultimate) with its frame
   data; ▶ resets the distance for that move and plays it against the dummy. Swap fighters with ⇄.
 - **ANIMATIONS**: all 42 animations frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
-  frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown).
+  frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown). The scale
+  check draws the approved idle's head size (white box) around this frame's measured head (gold, orange when the
+  packer flagged the strip) and prints both numbers (TOOL-025).
 - **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash (the dummy plays clashes at
   Normal timing; you press), throw and break, parry, spot dodge, air dodge,
   wavedash, air combo, wall bounce, vanish, super dash, counter stance, Whirlwind, Hollow Purple vs a projectile. A
@@ -156,6 +163,9 @@ Run this for every new or re-packed character (`?fight=<id>,<other>&art=custom&d
 - [ ] The feet stay planted between idle, run and attacks (pivot consistent), with no jitter in loops.
 - [ ] Body height matches the other fighters (or its ADR 0010 `standingBodyPx`), and design and palette are
       consistent across animations.
+- [ ] Scale gate: `node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale` exits 0 (or every finding is a
+      known, briefed ART-SCALE item), `npm run scale -- <id>` heads sheet looked at, and `?scaleaudit` in a real match
+      logs only the strips the packer flagged.
 - [ ] Proportions stay at about 6.5 heads (spec v2) in every animation, with no chibi frames, and every
       packed animation comes from its approved version in `art/REVIEW.md` (the packer report names the
       `_vNN` file it used).

@@ -26,6 +26,11 @@ the approved `vNN` (`-` = none yet, `null` in the manifest). A status never goes
 candidate arrives for an approved asset, it stays `approved` (version > approved means a candidate is
 waiting in REVIEW.md), and the approved version stays until the user approves another one.
 
+`packed` also needs the **scale gate** (TOOL-025): a new version passes `npm run sprites -- --strict-scale <id>`
+and its REVIEW row links `art/scale/heads-<id>.png` (art/CHARACTER_SCALE.md "Scale gate (automatic)"). Approved
+strips the gate measured off their idle are listed with their fix in [scale/SCALE_FIX_BRIEF.md](scale/SCALE_FIX_BRIEF.md)
+(ART-SCALE-02).
+
 A character's sheet is used by the game automatically once **every core animation** (marked
 **yes**) is at least `packed` (the packer then writes `"complete": true`). Before that, preview
 with `http://127.0.0.1:5188/?art=custom`. Use the notes column for problems ("F03 fist too

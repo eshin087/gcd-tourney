@@ -67,7 +67,8 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    - a strip: `art/characters/<id>/raw/<anim>_vNN.png` (poses left to right). The packer uses the highest
      version; a plain `raw/<anim>.png` is used only when no versioned file exists.
    - parts of a long strip (every strip with 6 or more frames): `raw/_parts/<anim>_vNN_A.png`, `_B.png`,
-     stitched into `raw/<anim>_vNN.png` (art/PIPELINE.md "Long strips (parts)")
+     stitched into `raw/<anim>_vNN.png` with `npm run stitch -- <id> <anim> <vNN>` (a measured factor; never
+     a factor picked by eye, art/PIPELINE.md "Long strips (parts)")
    - single frames: `raw/<anim>_NN.png` (`NN` = the 0-based frame number, no `v`), only for an animation
      delivered frame by frame. To fix one bad pose, see art/PIPELINE.md "Fixing frames": attempts are
      `raw/<anim>_NN_fixMM.png` (skipped by the packer) and the patched strip is the next `raw/<anim>_vNN.png`
@@ -85,7 +86,11 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    such as chibi proportions or design drift from the approved model sheet, misaligned feet, wrong body
    height, palette drift, anti-aliasing or blur, wrong facing, or limbs that don't reach the art/SPEC.md
    contact zones toward screen-right on active frames.
-8. **Queue it for review**: one row per saved version at the top of art/REVIEW.md (date, character, asset,
+8. **Pass the scale gate first**: `npm run sprites -- --strict-scale <id>` must exit 0 for the new strip (no
+   `scale gate:` line; art/CHARACTER_SCALE.md "Scale gate (automatic)"), and `npm run scale -- <id>` writes
+   `art/scale/heads-<id>.png`, which the REVIEW row links (plus the `npm run lineup` image for any size change). A
+   strip that fails is fixed (auto head fit, re-stitch or redraw), not filed.
+   **Queue it for review**: one row per saved version at the top of art/REVIEW.md (date, character, asset,
    file link, version, `needs review`, what changed, QA notes). Re-read REVIEW.md right before each edit;
    parallel threads only touch their own character's rows. Update `version` and the status in the
    manifest and TRACKER (`todo` -> `raw` on the first save, `raw` -> `packed` after a clean pack; a status
@@ -132,7 +137,10 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
   warns above 64).
 - The in-game 3D-baked placeholder is still chibi (112 px cells, ppu 44). Never match new art to it.
 - Body heights per animation come from the manifest (`bodyHeight`). Don't "fix" a height in an image.
-  The packer scales each strip.
+  The packer scales each strip, and its **scale gate** measures every frame's head (hair included) against the
+  approved idle: a new strip must pass `npm run sprites -- --strict-scale <id>` and its REVIEW row must link
+  `art/scale/heads-<id>.png` from `npm run scale` (art/CHARACTER_SCALE.md "Scale gate (automatic)"). Never pick a
+  rescale factor by eye: `npm run stitch` measures part B against part A, the auto head fit measures a strip.
 - **Hit/hurt boxes**: the packer generates them automatically. Correct them with
   `art/characters/<id>/hitboxes.json` overrides (frame-local px in the final 256×256 cell, keyed by
   animation, then the 0-based frame number = the `NN` in `<anim>_NN.png`). Never hand-edit
@@ -152,6 +160,10 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
 | `npm run dev` | game at http://127.0.0.1:5188 (`npm run dev:alt` uses port 5200 if 5188 is busy) |
 | `npm run sprites [id\|vfx]` | pack art from `art/` into `public/` and print a QA report |
 | `npm run test:sprites` | packer regression test (fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
+| `npm run sprites -- --strict-scale <id>` | pack with the scale gate strict for every strip (exit 1 when a head is off the idle's) |
+| `npm run scale [id]` | scale report: `art/scale/heads-<id>.png` (attach to the REVIEW row), `scale-report.json`; `-- --guide` writes `reference/head_scale_guide.png` |
+| `npm run stitch -- <id> <anim> <vNN>` | join `raw/_parts/<anim>_vNN_A.png` + `_B.png` with a measured size factor |
+| `npm run lineup` | the cast side by side (idle, run, heavy, guard, charge, airLight1, hurtHigh) with each fighter's head scale per animation |
 | `npm run build` | production build. Must pass before you finish. |
 
 Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug` (console helpers:

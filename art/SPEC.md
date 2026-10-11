@@ -124,7 +124,10 @@ packer cleans the rest:
   no text, no labels, no frame numbers, no borders or grid lines.
 - One animation per image, poses in **one horizontal row**, left to right in play order, with clear
   empty space between poses (poses must not touch or overlap).
-- Every pose at the **same scale** (the packer computes one scale per strip from the tallest frame).
+- Every pose at the **same scale** as the approved idle (the packer computes one scale per strip from the tallest
+  frame, then its scale gate measures every frame's head, hair included, against the idle: see
+  [CHARACTER_SCALE.md "Scale gate (automatic)"](CHARACTER_SCALE.md#scale-gate-automatic)). A raised fist or slash
+  arc above the head makes the tallest frame taller and shrinks the whole person.
 - Landscape images (1536 x 1024) work best. With 6.5-head bodies, a row of more than 4-5 poses gets
   small; generate long strips in two parts and stitch them (see `PIPELINE.md`). Each pose should come
   out clearly taller than its target body height so the packer only downscales (it warns when it has
@@ -301,6 +304,11 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
   23 x 58 px) so a fist that visibly brushes the body counts.
 - `complete`: `true` only when every core animation is present.
 - `source`: `"art-pack"` for packer output.
+- `scaleAudit` (packer output since TOOL-025, dev tools only): the scale gate's measurement. `ref.box` = the idle
+  f0 head box `[x0, y0, x1, y1]` (cell px), `ref.headPx`; per animation `head` (median head scale vs the idle, 1.00 =
+  idle), `feet`, `verdict` (`ref ok uniform drift pop unmeasured exempt`), `v` (the strip's version), `frames` (each
+  frame's head scale) and `boxes` (each frame's head box). `?scaleaudit` logs the flagged strips as they play, the
+  test lab draws the boxes, `scaleReport()` (`?debug`) lists them. The game ignores it otherwise.
 
 ## Hitboxes and hurtboxes
 
@@ -508,6 +516,18 @@ Packer-written `frames/<anim>/` folders carry a `.packer.json` marker: they are 
 automatically when the chosen raw file changes (a new `_vNN` counts as a change). Delete
 `frames/<anim>/` only if you hand-edited it and want to discard the edits (hand-edited frames win over
 a newer raw, with a warning).
+
+**Scale gate** (TOOL-025, [ADR 0021](../docs/decisions/0021-scale-gate-and-depth-normalized-sprites.md),
+[CHARACTER_SCALE.md](CHARACTER_SCALE.md#scale-gate-automatic)): after packing, every strip's head silhouette (hair
+included) and feet are measured against the idle of the same pack. A strip off by more than ±6 %, or with a pop of
+more than 12 points inside it, fails the pack (exit code 1) when it is not approved yet (a candidate version, a new
+fighter) or with `--strict-scale`; approved strips are listed as findings until they are fixed. The result goes into
+the report (`scale gate (...)` line, `~` findings, `scale gate:` failures) and into `anims.json` (`scaleAudit`).
+Opt-in **auto head fit**: a raw strip with the sidecar `{ "anatomy": { "measurement": "auto-head" } }` (or
+`--fit-head <id>:<anim>`) whose verdict is `uniform` is rescaled from the raw by 1/head, once (the factor is kept in
+the frames marker as `autoHead`), and its `hitboxes.json` boxes follow. Two-part strips are joined with
+`npm run stitch` (a measured factor). `npm run scale` writes `art/scale/heads-<id>.png`, `scale-report.json`,
+`scale-baseline.json` and, with `--guide`, `reference/head_scale_guide.png`.
 
 ## Game-side contract
 
