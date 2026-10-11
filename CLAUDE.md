@@ -66,7 +66,7 @@ documentation that stays true.
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
-| `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse; `--full` for art). **Every feature/character starts here** (ADR 0013) |
+| `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse, including art). **Every feature/character starts here** (ADR 0013) |
 | `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree |
@@ -108,6 +108,24 @@ docs/          SDLC docs, ADRs, task board, agent prompts
 ```
 
 ## Hard rules
+
+### Worktree storage rules (user direction, 2026-10-10)
+
+These supersede older `--full` examples and copy-based sandbox instructions elsewhere in the project.
+The docs-only/main exceptions below still apply.
+
+1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
+   `main` (check with `git branch --merged main`).
+2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
+   needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
+   creation fails in the sandbox, stop and tell the user; never fall back to copying.
+3. Never use `--full` for art tasks. Start sparse, then add only the art folders the task needs, for example
+   `git sparse-checkout add art/characters/<id>` from the task worktree. The full art library is about 2 GB.
+4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
+5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
+   must finish cleanup of merged task worktrees; do not leave them behind.
+
+### Code and integration rules
 
 0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
    Start with `npm run pr -- start feature/<name>` (or `fix/`, `chore/`, `art/`), work and commit in that worktree,
