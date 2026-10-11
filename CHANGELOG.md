@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: `npm run deploy` no longer piles up `gcd-deploy-*` exports in %TEMP% (hundreds of MB each): it retries cleanup for ~15 s and sweeps leftovers older than an hour at the start of every deploy.
+
 - Ops (OPS-006): install local repository-specific PR edit approval rule for future PR numbers; document separate body preparation and repo-first command order. Filesystem write grants unchanged.
 
 - Art review follow-up: restore Sasuke's approved charge v02 per user decision; hand off Killua heavy v05 with stronger forward claw strikes and compact recoil, still unapproved.
