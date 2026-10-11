@@ -120,10 +120,13 @@ Scenarios **Beam clash (energy vs energy)**, **Answer an energy shot** and **Bea
   air shot on P1's side. Negative cases (hit stun, under 2.2 apart, inside the cooldown, shuriken vs bolt) cancel as
   before; Hollow Purple still erases shots. Ultimate clash: tier `ultimate`, 20 notes, 250 / 90; special clash:
   tier `beat`.
-- CPU vs CPU soak, every ordered pairing ×3 (48 matches): **45 / 45 matches that can have one showed a beam clash**
-  (1.2 per match), 13 % draws, first beam clash anywhere from 99 to 40 s on the round clock, director dues 9-61 s,
-  no NaN, no stuck states, no console errors. A further 44 Naruto-pairing matches: 42 / 44. ENG-056 is not
-  starved: 15 / 18 Naruto / Gojo matches still had their ultimate clash (13 / 15 with the director off).
+- CPU vs CPU soaks (IMPOSSIBLE showman, frame-stepped): every ordered pairing ×3 twice (96 matches, the second after
+  merging main's ground damage) plus 44 Naruto-pairing matches: **130 / 134 matches that can have one showed a beam
+  clash (97 %)**, about 1.2 per match (at most 4, a Sasuke mirror trading spears), 23 of 159 struggles drawn (14 %),
+  the first one anywhere from 99 to 40 s on the round clock, director dues 9-61 s; no NaN, no fighter outside the
+  ring, no stuck states, no console errors, live effects back to 0-9 between matches. ENG-056 is not starved: 15 / 18
+  Naruto / Gojo matches still had their ultimate clash (13 / 15 with the director off). The misses were short
+  matches or ones where four cues in a row found the answerer busy.
 
 ## Alternatives considered
 
