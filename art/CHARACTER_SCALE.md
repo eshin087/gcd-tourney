@@ -199,15 +199,20 @@ strips are redrawn to it, not the other way round).
 | `uniform` | head AND feet off in the same direction (the feet confirm at least a third of it): the strip was drawn or packed at the wrong size | the packer's **auto head fit**: a new version with the same raw pixels and the sidecar `{ "anatomy": { "measurement": "auto-head" } }` (or `--fit-head <id>:<anim>` to try it) |
 | `drift` | the head (hair) is off but the body is not | **redraw** the head to the approved idle, with `reference/head_scale_guide.png` attached |
 | `pop` | two sizes inside one strip (two parts stitched at different scales) | **re-stitch** with a measured factor (`npm run stitch`), or redraw |
-| `unmeasured` | a low-confidence pose (`launched`, `spin`, `down`, `ko`, `airRecover`, `getup`, `jumpSquat`, `vanish`) or no head found | check by eye on the heads sheet |
+| `unmeasured` | a low-confidence pose (`launched`, `spin`, `down`, `ko`, `airRecover`, `getup`, `jumpSquat`, `vanish`) or no head found | a candidate fails until a person checks it (below) |
+| `manual` | an `unmeasured` strip a person compared with the approved idle at one scale, recorded for exactly that version: `"scaleManualQA": { "version": N, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" }` on the manifest animation (TOOL-ROTATED-ANATOMY) | none; a redraw (another version) is unmeasured again, and a record never turns a measured failure into a pass |
 | `exempt` | the manifest says why (`"scaleExempt": "reason"` on the animation, or `"scaleExemptFrames": { "4": "reason" }`), with `"scaleExemptVersion": N`, the strip version it was written for | none; the reason must name what hides or fakes the head (arms over it, an afterimage, a slash arc in hair colours). Another version of the strip (a redraw, a refit) is measured again, with a warning, until someone checks its heads sheet and re-exempts it on purpose |
 
 **Strictness** (staged, so approved art never blocks a pack while it is being fixed):
 
 - A strip that is **not approved yet** (a candidate version newer than `approvedVersion`, or any strip of a new
   fighter) **must pass** the default pack, `node tools/pack-sprites.mjs <id> --quantize 48`: `uniform`, `drift`, `pop`
-  or an unexplained `unmeasured` fails it (`scale gate:` line, exit code 1) and **refuses the pack**: nothing is
-  written for that fighter (`public/characters/<id>/` keeps its last pack, `frames/` are not written back).
+  or an `unmeasured` strip without a `scaleManualQA` record for its version fails it (`scale gate:` line, exit code 1)
+  and **refuses the pack**: nothing is written for that fighter (`public/characters/<id>/` keeps its last pack,
+  `frames/` are not written back).
+- **No old frames under a new version:** hand edits in `frames/<anim>/` made on an older version than the newest
+  `raw/<anim>_vNN.png` refuse the pack too (`OLD HAND EDITS SHADOW A NEWER VERSION`): they belong to another drawing.
+  Move the folder to `frames/_old/<anim>_vNN/` (never read) or redo the edits on the new version.
 - An **approved** strip that is off is listed as a finding (`~` lines) until ART-SCALE-02 fixes it.
 - `npm run sprites -- --strict-scale <id>` treats every strip as unapproved, so it fails while any approved strip of
   the fighter is still off (all four fighters until ART-SCALE-02 is done): it is the check before setting
