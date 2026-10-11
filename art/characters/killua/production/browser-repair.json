@@ -1,0 +1,27 @@
+{
+  "testedCommit": "beb9045",
+  "url": "https://gcd-tourney-73kpl076v-eshin087s-projects.vercel.app",
+  "method": "Hosted CUA browser",
+  "galleryImagesLoaded": 4,
+  "heavyFramesStepped": 8,
+  "chargeFramesStepped": 4,
+  "gameLabArt": "custom",
+  "heavyF4SheetCell": 63,
+  "chargeFirstSheetCell": 115,
+  "moves": [
+    "Heavy launcher",
+    "Charge ki hold"
+  ],
+  "scenario": "Air combo: Light x3, Heavy launcher, jump chase, air string, spike",
+  "scenarioResult": {
+    "hits": 7,
+    "damage": 192
+  },
+  "capturedConsoleErrors": [],
+  "limitations": [
+    "No exact contact-timing assertion",
+    "Raw hard-pixel palette gate fails",
+    "Charge foot endpoints are median +/-1px; pairwise extremes2px",
+    "Anatomy axes are visual estimates beneath hair"
+  ]
+}

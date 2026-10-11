@@ -188,7 +188,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -196,7 +196,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | charge | 4 | - | **yes** | 180 | approved | v07 | v07 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
