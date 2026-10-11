@@ -178,7 +178,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
-  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
+  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
+  `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
+  and turns the caster with the billboard, so the whole body is grounded (ADR 0020); `SheetAsset.footprint(frame)`
+  gives the span in local units.
 - World size stays the same across art sources. The chibi placeholder (112 px cells, PPU 44) and spec v2
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.

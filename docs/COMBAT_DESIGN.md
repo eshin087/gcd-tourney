@@ -345,6 +345,10 @@ jumping or a break beat throws.
 - At 0 HP the victim is launched at least [14, 8.5], or [23, 10] by a big move, special or beam. The ring
   barrier is off: they fly off the ring onto the grass and can crash into the stands' walls (explosion,
   debris). KO slow-mo is 0.22× for 1.4 s, with a KO camera.
+- A KO'd body never comes to rest across the ring edge (ADR 0020): lying within `KO_EDGE` (1 unit, half a lying
+  sprite) of the edge on the ring, or within the lip (`RING_LIP` 0.35) plus `KO_EDGE` of it on the grass, it keeps
+  sliding outward at `KO_SLIDE` (3 units/s) and drops onto the grass clear of the ring (`Fighter.slideOffEdge`).
+- A flurry super or the Four-Tails mauling that knocks the victim out lets go of them: the KO launch plays out.
 
 ## Hit detection: 2.5D lanes and frame boxes
 
