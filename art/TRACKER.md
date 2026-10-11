@@ -106,7 +106,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | block | 2 | - | no | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | hurtLow | 3 | - | no | 171 | approved | v03 | v01 | Title-style v03 passes isolated strict scratch pack after measured pose-height correction; historical v01 remains approved. |
-| 9 | spin | 4 | - | no | 160 | approved | v02 | v02 | Final batch approved; see production/QA.md |
+| 9 | spin | 4 | - | no | 160 | approved | v06 | v02 | Four-phase title-style tumble fits cell; low-confidence head and enlarged sandals leave technical anatomy hold. Historical v02 remains approved. |
 | 9 | airRecover | 3 | - | no | 180 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | Final batch approved; see production/QA.md |
