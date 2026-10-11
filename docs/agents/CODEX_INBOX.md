@@ -62,7 +62,17 @@ decals: crush_implode, gouge_repel, fracture_cursed, fracture_cursed_big). Do no
 - [ ] **#55 / #56 (idle redraws):** merge main first. The gate measures every strip against the idle, so with a new idle
   candidate every strip is re-measured against it; those numbers are now stable from pack to pack. Prove the head change
   with `npm run lineup` against the approved idle and the heads sheet before asking the user.
-- [ ] **#52-#54 (decals):** fringe corrections as listed above; the decal packer is unchanged.
+- [ ] **#52-#54 (decals):** fringe corrections as listed above; the decal packer is unchanged. **Also remove the committed
+  candidate packs:** all three branches force-added `public/preview/decals/*` (atlas.json and the page PNGs), which
+  `.gitignore` excludes because `--candidates` regenerates them locally. They make the three PRs conflict with each
+  other (atlas.json, decals_chakra.png). `git rm --cached -r public/preview/decals` in each branch and keep the review
+  gallery under `public/art-review/`. After #53 merges, merge main into #52, then #54, and combine the `decals` manifest
+  entries, TRACKER rows and TASKS rows by hand (keep every item).
+- **Integration order Claude will use** (each only after the gate passes and the user approves it): #51, #56, #55, then
+  #53, #52, #54. #51 / #56 / #55 conflict with main only in generated files (`art/scale/heads-<id>.png`,
+  `scale-report.json`, `public/characters/<id>/anims.json`) plus a docs/TASKS.md row: merge main into the branch and
+  repack (`node tools/pack-sprites.mjs <id> --quantize 48`, then `npm run scale -- <id>`) rather than picking a side.
+  **#57 (cast scale samples) is merged** (2026-10-11); its gallery is live at `/art-review/cast-scale-samples/index.html`.
 
 ## One chat for everything (2026-10-10)
 
