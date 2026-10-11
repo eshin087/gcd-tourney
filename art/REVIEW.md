@@ -53,6 +53,8 @@ Status values: `needs review` · `approved` · `rejected`.
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
+| 2026-10-11 | killua | idle | [idle_v06](characters/killua/raw/idle_v06.png) | v06 | needs review | Additional authorized correction round, A/B regenerated. | HOLD: loop height improved143–146px but stance width118–120 versus approved148px and head mismatch with guard; not production anchor. |
+| 2026-10-11 | killua | idle frame0 correction | [fix01](characters/killua/raw/idle_00_fix01.png) | fix01 | needs review | Third targeted attempt: single replacement pose from approved original combat. | Not yet assembled; does not approve a new idle. |
 | 2026-10-11 | killua | ui_select | [ui_select_v02.png](characters/killua/raw/ui_select_v02.png) | v02 | needs review | Title-style full-body select art from approved pilot; new style and crisp lightning. | Candidate only; source inspected; fixed UI unchanged. [Trial QA](characters/killua/production/title-style/QA.md). |
 | 2026-10-11 | killua | ui_cutin | [ui_cutin_v03.png](characters/killua/raw/ui_cutin_v03.png) | v03 | needs review | Title-style cold-eye super cut-in from approved pilot. | Candidate only; source inspected; fixed UI unchanged. [Trial QA](characters/killua/production/title-style/QA.md). |
 | 2026-10-11 | killua | ui_portrait | [ui_portrait_v02.png](characters/killua/raw/ui_portrait_v02.png) | v02 | needs review | Title-style HUD portrait from approved pilot. | Candidate only; source inspected; fixed UI unchanged. [Trial QA](characters/killua/production/title-style/QA.md). |

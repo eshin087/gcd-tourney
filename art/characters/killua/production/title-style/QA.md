@@ -41,3 +41,6 @@ The trial `manifest.json` sets Killua `standingBodyPx` to 176, idle `bodyHeight`
 ## Next technical gate
 
 Correct idle f0 and confirm all eight frames at native size and in a loop against the approved neutral/combat cells. Recheck head, torso, limbs, foot position, facing and contact proportions. Then run strict pack, heads sheet, lineup and equal-depth game QA as the rest of the set is produced. The 3 UI candidates can receive final review independently.
+
+## Additional user-authorized correction round
+The user allowed three more targeted attempts. Root generated A and B (one call each) and a single f0 fix (third call). Stitched v06 uses measured B factor0.9899. Diagnostic-only pack: actual heights145,146,145,145,143,144,143,144; widths118–120 vs approved148. This reduced loop pop but introduced a visibly narrower stance and fails independent baseline comparison. Strict candidate pack refuses guard head0.92 against this new idle. No exemption or passing anchor is claimed. Single f0 fix01 returns closer approved pose geometry but cannot fix all seven remaining frames by itself; not assembled/approved. All three extra image calls are used. Continue holding full Killua production pending a passing baseline animation.
