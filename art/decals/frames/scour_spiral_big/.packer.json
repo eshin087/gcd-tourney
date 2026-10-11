@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/scour_spiral_big_v01_{A,B}.png",
-  "version": 1,
+  "sourceFile": "raw/scour_spiral_big_v02_{A,B}.png",
+  "version": 2,
   "source": [
-    "decals/raw/scour_spiral_big_v01_A.png",
-    "decals/raw/scour_spiral_big_v01_B.png",
-    "decals/raw/scour_spiral_big_v01.json"
+    "decals/raw/scour_spiral_big_v02_A.png",
+    "decals/raw/scour_spiral_big_v02_B.png",
+    "decals/raw/scour_spiral_big_v02.json"
   ],
-  "sourceHash": "b50e99ddc772f0f1ebde42603780b67505ba8d2c",
+  "sourceHash": "8d813e0bc0c4bed67184915b7446682c84c902e1",
   "cell": {
     "w": 512,
     "h": 512,
@@ -18,8 +18,8 @@
     ]
   },
   "files": {
-    "scour_spiral_big_00.png": "d472275caa6466071fea70c177b2d6b7d10ffb32",
-    "scour_spiral_big_01.png": "abfacc1a8f89ef4c09cd5ce28f8d0296cdbefa27",
-    "scour_spiral_big_02.png": "593aa64e6e8d89f7a2e28e470398e9aea335c1f1"
+    "scour_spiral_big_00.png": "5662d0d10d8c6a2253ce2c416e18bc18738cf802",
+    "scour_spiral_big_01.png": "577428b61aeea72841d3f7778c721185136e620e",
+    "scour_spiral_big_02.png": "95a4685709f74fb45ee1371188bc145afcebca9a"
   }
 }

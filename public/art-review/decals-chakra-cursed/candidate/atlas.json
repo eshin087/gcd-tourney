@@ -16,7 +16,7 @@
       "hotKey": true,
       "version": 1
     },
-    "scour_spiral_big": { "page": 0, "w": 512, "h": 512, "frames": [[0, 0], [512, 0], [1024, 0]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 1 },
+    "scour_spiral_big": { "page": 0, "w": 512, "h": 512, "frames": [[0, 0], [512, 0], [1024, 0]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 2 },
     "cut_wind": {
       "page": 0,
       "w": 256,
@@ -26,7 +26,7 @@
       "tinted": false,
       "group": "chakra",
       "hotKey": true,
-      "version": 1
+      "version": 3
     },
     "claw": {
       "page": 0,
@@ -38,7 +38,7 @@
       "group": "chakra",
       "directional": true,
       "hotKey": true,
-      "version": 1
+      "version": 2
     },
     "scorch_chakra": {
       "page": 0,
@@ -50,8 +50,8 @@
       "group": "chakra",
       "directional": true,
       "hotKey": true,
-      "version": 1
+      "version": 2
     },
-    "fracture_chakra": { "page": 0, "w": 512, "h": 512, "frames": [[1024, 512], [1536, 512]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 1 }
+    "fracture_chakra": { "page": 0, "w": 512, "h": 512, "frames": [[1024, 512], [1536, 512]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 2 }
   }
 }

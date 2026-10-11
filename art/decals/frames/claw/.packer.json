@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/claw_v01_{A,B}.png",
-  "version": 1,
+  "sourceFile": "raw/claw_v02_{A,B}.png",
+  "version": 2,
   "source": [
-    "decals/raw/claw_v01_A.png",
-    "decals/raw/claw_v01_B.png",
-    "decals/raw/claw_v01.json"
+    "decals/raw/claw_v02_A.png",
+    "decals/raw/claw_v02_B.png",
+    "decals/raw/claw_v02.json"
   ],
-  "sourceHash": "53555486d897a42ec8a374d74cf7a05c8d5dead6",
+  "sourceHash": "c385ccac6945adadf4c8d62e69bf0512eaa9db96",
   "cell": {
     "w": 512,
     "h": 256,
@@ -18,9 +18,9 @@
     ]
   },
   "files": {
-    "claw_00.png": "e54cd49e09a22553d30c4a23a9c376d5f01821a7",
-    "claw_01.png": "61b76ecc455284952a428eaea7a14ea39b417e4f",
-    "claw_02.png": "cbea4c9443c0660ad4a836cd45be369f73fd035d",
-    "claw_03.png": "3bce94c332b909edc8ec245f55e14f260d3cfe64"
+    "claw_00.png": "cc2e372a5629615694b10305cb11d2362ca3377b",
+    "claw_01.png": "05d89f931ef45e8e7bb48980471b205d2ea955c5",
+    "claw_02.png": "03a8f6e65b17fd996a67928ebe64e0b16bb72ec9",
+    "claw_03.png": "ada8bf3fb33ddf7d61fa2aa3a02b0076f30badc8"
   }
 }

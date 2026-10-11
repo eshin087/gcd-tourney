@@ -1,4 +1,33 @@
-# Chakra decal candidates v01
+# Chakra decal correction review, 2026-10-11
+
+Current candidates: scour_spiral v01, scour_spiral_big v02, cut_wind v03, claw v02, scorch_chakra v02, fracture_chakra v02. All remain unapproved. The earlier blanket approval of other art does not approve these decals or the provisional style sheet.
+
+## Current technical result — incomplete
+
+- `pack-report-final-source.txt` is a fresh import of ALL six raw sources, not a cached-frame pass. Exit 0; six names, 24 variants, one 2048x1792 chakra page. Four warnings remain: scour_spiral_big 0.7%, cut_wind 2.8%, claw 1.1%, scorch_chakra 0.5% magenta/pink/purple before palette quantization. Fracture's source warning is resolved. **Do not call the requested fringe correction complete.**
+- `pixel-qa.json`: every name has 24 packed colors, binary alpha and nonzero hot pixels. Quantized packed frames have zero purple pixels under the packer's predicate, but that does not retroactively pass the raw imports.
+- Normal tolerance160 retained. Experiments180 and195 did not clear the warnings and were reverted, with their reports retained. No tolerance200+, warning threshold edits, palette exemption, hand-edited frames, or production output edits were used. Valid named stone palette colors can be as close as211RGB distance from magenta; chasing the remaining dark blended outlines with high tolerance risks removing stone. No interior-loss claim is made for the abandoned experiments.
+- Versioned sources are immutable. v01 failures were archived with rejection rows after the user's correction request; wind v02 was saved before source QA and then archived when its 4.3% source warning prompted v03. No version was overwritten or deleted. The v02/v03 numbering records this actual sequence rather than hiding the extra saved correction round.
+- Selected round attempts: giant spiral A3/B1; wind initial A2/B1, then palette correction A1/B1 (cumulative A3/B2); claw A2/B1; scorch A1/B1; fracture1. Further shape/palette correction is still needed, not waived by these bounded attempts.
+
+## Current visual result
+
+- Giant spiral: thin grooves, smaller bowls and longer cracks improve the shape. Exact 6/8 groove counts are still approximate; A/B pixel density and small chip faceting remain visible.
+- Wind: thin slashes replace the heavy gouges. Slabs are flatter and white seams reduced; exact small-slab count and perfectly flat shading remain imperfect.
+- Claw: four furrows per variant; straight/up/down/short-deep direction retained, rubble on the right. Shortened hot streaks. Some lower-lip light bias and raised-looking chips persist.
+- Scorch: narrower/wider/deep-center fans point left-to-right with origin-only white seams; texture is simpler and more consistent. Part B is still drawn larger and then normalized by the normal packer.
+- Fracture: clearer beige radial streaks and center hot specks. Bright outer tips acquire a few hot pixels through the packer's existing near-white snap, so hot-key placement is not a complete pass.
+- Small spiral v01 retained unchanged visually, including approximate groove counts and minor facet-light bias. No new approval.
+
+## Review delivery
+
+The gallery at `/art-review/decals-chakra-cursed/index.html` contains the actual latest raw sources and packed variants. `candidate/atlas.json` and its page are byte-for-byte copies of the normal candidate pack. `game.html` uses a review-only helper to install that atlas and invoke `groundDemo('chakra')`; a button rotates the live decals90degrees. The ordinary game/runtime engine and production decals are unchanged. Tracked `public/preview/decals` files were removed from the index, retained locally, and remain ignored.
+
+Production build and hosted browser result are recorded in the PR body after verification; old browser evidence below applies only to v01 and must not be presented as new verification.
+
+---
+
+# Historical chakra decal candidates v01
 
 Six names, 11 immutable built-in imagegen sources, 24 variants. User batch instruction permits continuing from provisional style v01; the style sheet is not approved and no fixed-name reference was promoted. Cursed assets belong to the separate art/decals-cursed branch. Claude alone integrates, edits main, and deploys production.
 

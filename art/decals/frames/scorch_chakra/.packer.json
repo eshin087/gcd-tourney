@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/scorch_chakra_v01_{A,B}.png",
-  "version": 1,
+  "sourceFile": "raw/scorch_chakra_v02_{A,B}.png",
+  "version": 2,
   "source": [
-    "decals/raw/scorch_chakra_v01_A.png",
-    "decals/raw/scorch_chakra_v01_B.png",
-    "decals/raw/scorch_chakra_v01.json"
+    "decals/raw/scorch_chakra_v02_A.png",
+    "decals/raw/scorch_chakra_v02_B.png",
+    "decals/raw/scorch_chakra_v02.json"
   ],
-  "sourceHash": "2a96b642d570f90a5fa5d7047a5f17a9778a7359",
+  "sourceHash": "5be40bbd92f84492cbb2d23b19402b36cb205e18",
   "cell": {
     "w": 512,
     "h": 512,
@@ -18,8 +18,8 @@
     ]
   },
   "files": {
-    "scorch_chakra_00.png": "4c2a895acc5b78ef499c4b332a406e082e7fece0",
-    "scorch_chakra_01.png": "72a5d820984765b06a43be992e9384392cb5bcc0",
-    "scorch_chakra_02.png": "460958965ed977d65ef5a4cd7d786949773f547a"
+    "scorch_chakra_00.png": "7eccf6fdbeed50087e1347e596dd71011dc25cea",
+    "scorch_chakra_01.png": "db44f61cc6a87b4f05d724ea63b2323613b7f566",
+    "scorch_chakra_02.png": "d74f4d0dd2b69e6ce607d1fc4662d59b2aa3b156"
   }
 }

@@ -361,11 +361,11 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 | burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
 | burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
 | scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
-| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
-| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
-| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
-| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
-| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
+| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
+| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | raw | v03 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
+| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
+| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
+| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
 | erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | todo | - | - | |
 | erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | todo | - | - | |
 | crush_implode | cursed | 256 x 256 | 4 | flat | full color | todo | - | - | |
