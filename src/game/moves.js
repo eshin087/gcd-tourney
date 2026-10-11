@@ -35,9 +35,10 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 export const VANISH = { cost: 100, hideFrames: 9 };
 
 // Hit flash on the victim's sprite (ENG-064, src/game/hitFlash.js). Render only; frames at 60 fps, counted every
-// sim frame including hitstop and freezes. Which tier a hit plays: ko > the move's `hitFlash` field > special
-// (`special`, or a big beam) > tick (hitstop <= 3, not big: multi-hits never re-pop) > counter (it interrupts the
-// victim's own move) > smash > heavy (`big` or a heavy spark) > light.
+// sim frame including hitstop and freezes. Which tier a hit plays: ko > the move's `hitFlash` field (supers) > special
+// (a big beam) > tick (hitstop <= 3, not big: multi-hits never re-pop) > counter (it interrupts the startup or active
+// frames of the victim's own move) > rush (`special`: the 1-bar rush specials) > smash > heavy (`big` or a heavy
+// spark) > light. Full white for longer than a smash is for counter hits, supers and KOs only.
 //  pop    frames of pure white at contact (the snap); 'hs' = the whole hitstop, capped at popMax
 //  lift   brighten held through the rest of hitstop; keeps the line art (0 none .. 1 near white)
 //  rim    inner-edge glow (a bright outline) in rimColor (null = the attacker's color); fade: ease-out frames
@@ -52,6 +53,8 @@ export const HIT_FLASH = {
   smash: { pop: 3, lift: 0.5, rim: 1, rimColor: 0xffe08a, fade: 8, shake: 0.07 },
   counter: { pop: 'hs', popMax: 4, lift: 0.5, rim: 1, rimColor: 0xffa070, fade: 8, shake: 0.07 },
   special: { pop: 'hs', popMax: 5, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 10, shake: 0.09 },
+  // 2 frames under the special hit's 0.3x slow-mo last about as long on screen as a smash's 3 under its 0.4x
+  rush: { pop: 2, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 10, shake: 0.09 },
   ko: { pop: 'hs', popMax: 5, lift: 0.55, rim: 1, rimColor: 0xffffff, fade: 12, shake: 0.09 },
   tick: { pop: 0, lift: 0.3, rim: 0.7, rimColor: 0xffffff, fade: 5, shake: 0.03 },
   parry: { pop: 1, lift: 0.3, rim: 1, rimColor: 0x9ff0ff, fade: 8, shake: 0 },

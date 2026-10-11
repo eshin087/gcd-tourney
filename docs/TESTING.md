@@ -99,7 +99,8 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       are no hits across a visible depth gap.
 - [ ] Hit flash (ENG-064): the victim pops white for 1 (light), 2 (heavy) or 3 (smash) frames, then keeps its line
       art with a bright rim and fades; never solid white through a string, a beam or a vortex. Counter hits (lab
-      **Counter hit**), supers and KOs stay white a little longer. `?flash=classic` (or the lab chip) shows the old look.
+      **Counter hit**), supers and KOs stay white a little longer; a Rasengan or Chidori pops 2 frames, and punishing a
+      whiff (a missed throw, a dive's landing) is a normal hit. `?flash=classic` (or the lab chip) shows the old look.
 - [ ] Vanish (1 bar) from neutral, on hit and from block.
 - [ ] Special (tap) with super flash. Charge (hold) fills ki with an aura. Air projectile (½ bar).
 - [ ] Ultimate (3 bars): cut-in and the fighter's finisher. Fire yours into theirs (Gojo vs Naruto; lab:

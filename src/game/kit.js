@@ -927,3 +927,27 @@ export function gravityScale(f) {
   if (k.kind === 'rampage') return k.phase === 'whiff' || k.phase === 'recover' ? 1 : 0;
   return 1;
 }
+
+// ------------------------------------------------------------------ recovery
+// Past the kit move's startup and active frames: a hit now punishes a whiff or a recovery instead of interrupting
+// the move, so the hit flash plays it as a normal hit, not a counter hit (hitFlash.js). One test per kind; a kind
+// without one never counts as recovering.
+const RECOVERING = {
+  teleport: (k, m, t) => t >= (m.startup ?? 0) + m.hide, // arrived
+  pull: (k, m, t) => t > m.startup, // the vortex is out
+  dive: (k) => k.phase === 'land',
+  counter: (k, m, t) => t >= m.len, // the stance is over (counterT 0)
+  mode: (k, m, t) => t > m.startup, // the mode is on
+  flurry: (k) => k.phase === 'land',
+  ignite: (k, m) => k.t0 > m.delay, // the flames are lit
+  skyStrike: (k) => k.phase === 'recover',
+  domain: (k) => k.phase === 'cast', // the void is up
+  orb: (k) => k.phase === 'fire', // the orb rolls on by itself
+  rampage: (k) => k.phase === 'whiff' || k.phase === 'recover',
+  reflex: (k) => k.phase === 'set',
+};
+
+export function inRecovery(f) {
+  const k = f.kitState;
+  return f.state === 'kit' && !!k && !!RECOVERING[k.kind]?.(k, k.m, f.t);
+}

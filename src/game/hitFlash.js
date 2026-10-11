@@ -1,12 +1,13 @@
 // Hit flash on the victim's sprite (ENG-064). The old look turned the whole body solid white for the hitstop plus
 // five frames, which hid the art for most of a string. Now a hit pops pure white for a frame or three by weight
 // (the snap that sells it), then holds a lift that keeps the line art plus a bright inner rim through hitstop, then
-// eases out. Full white stays for counter hits, specials, supers and KOs. Tuning lives in HIT_FLASH (moves.js).
+// eases out. Full white stays for counter hits, supers and KOs. Tuning lives in HIT_FLASH (moves.js).
 // Render only: the envelope runs on Game.frameNo, which advances every sim frame (through hitstop, the super-flash
 // and parry freezes and clashes) and holds while paused, so the flash length never depends on the hitstop and the
 // simulation never reads it. The lift and rim live in the sprite shader (sprites.js).
 import * as THREE from 'three';
 import { HIT_FLASH } from './moves.js';
+import { inRecovery } from './kit.js';
 
 export const FLASH_STYLES = ['pop', 'tint', 'rim', 'classic', 'off'];
 
@@ -27,17 +28,21 @@ export function resetHitFlash(f) {
 export function flashTier(f, m) {
   if (f.hp <= 0 && !f.game.training) return 'ko';
   if (m.hitFlash) return m.hitFlash;
-  if (m.special || (m.beam && m.big)) return 'special';
+  if (m.beam && m.big) return 'special';
   if ((m.hitstop ?? 6) <= 3 && !m.big) return 'tick';
   if (interrupted(f)) return 'counter';
+  // a 1-bar rush special (Rasengan, Chidori) is the most common big hit, so it pops like a smash, not like a super
+  if (m.special) return 'rush';
   if (m.spark === 'smash') return 'smash';
   if (m.big || m.spark === 'heavy') return 'heavy';
   return 'light';
 }
 
-// a hit landing in the startup or active frames of the victim's own attack, special, throw or beam charge
+// a hit landing in the startup or active frames of the victim's own attack, kit move, throw reach or beam charge;
+// punishing a whiff or a recovery is a normal hit
 const interrupted = (f) => (f.state === 'attack' && f.move && f.t < f.move.startup + f.move.active)
-  || f.state === 'kit' || f.state === 'throw' || f.state === 'beamCharge';
+  || (f.state === 'kit' && !inRecovery(f)) || (f.state === 'throw' && f.throwSt?.phase === 'reach')
+  || f.state === 'beamCharge';
 
 // Start the envelope. hs = the hit's hitstop (the lift and rim hold through it); color = the rim color for tiers
 // whose rimColor is null (burn: the attacker's color).

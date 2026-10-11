@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed: getting hit no longer turns a fighter solid white (ENG-064). A hit pops white for 1-3 frames by weight, then keeps the art readable with a brightened body and a glowing rim (warm on heavy hits, gold on smash, orange on counter hits) that fades out; full white stays only on counter hits, specials, supers and KOs, multi-hit ticks never re-pop, and the hitstop shake no longer shimmers. Compare styles with `?flash=pop|tint|rim|classic|off` or the lab's Tools chips; the lab has a Counter hit scenario.
+- Changed: getting hit no longer turns a fighter solid white (ENG-064). A hit pops white for 1-3 frames by weight, then keeps the art readable with a brightened body and a glowing rim (warm on heavy hits, gold on smash, orange on counter hits) that fades out; full white stays only on counter hits (not whiff or recovery punishes), supers and KOs (1-bar rush specials pop 2 frames), multi-hit ticks never re-pop, and the hitstop shake no longer shimmers. Compare styles with `?flash=pop|tint|rim|classic|off` or the lab's Tools chips; the lab has a Counter hit scenario.
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
