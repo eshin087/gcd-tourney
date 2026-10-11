@@ -148,7 +148,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 6 | guard | 2 | - | **yes** | 180 | approved | v04 | v01 | Title-style v04 candidate, needs final batch review; v03 rejected for real frame pop. v04 crossed arms confuse the hair probe; version-owned manual exemption is documented in QA, not counted as a numeric pass. Old v01 remains approved. |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
+| 6 | down | 2 | - | **yes** | 96 | approved | v05 | v01 | Title-style v04/v05 preserved original slam and straight-leg down poses but were rejected after three imagegen attempts: clip, low-confidence anatomy and lying contact warnings. Original approved v01 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v02 | User rejected new charge; approved v02 active. v03/v04 archived; v04 is historical newest, not active. |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -171,7 +171,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | ko | 1 | - | no | 64 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
+| 9 | ko | 1 | - | no | 64 | approved | v05 | v02 | Title-style v04/v05 preserved original supine bent-knees KO but were rejected after three imagegen attempts: low-confidence anatomy and lying contact warnings. Original approved v02 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
 | 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | taunt | 2 | - | no | 212 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
