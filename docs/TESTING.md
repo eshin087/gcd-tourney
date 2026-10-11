@@ -127,6 +127,13 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       and `step(1)` while logging `f.state`, `f.kitState?.kind`, and the opponent's state and HP.
 - [ ] Air recover after launch. At 22+ hits the victim auto-techs.
 - [ ] KO by a big hit sends the loser out of the ring and into the stands.
+- [ ] A KO'd body lies on the floor along its length: the contact shadow runs under it from head to feet, in the KO
+      orbit and the victory shot, in both facings (ADR 0020). It never rests across the ring edge: within about 1 unit
+      of the edge it slides off onto the grass. Debug recipe: `game.brains[1] = null`, `game.fighters[1].hp = 1`, a
+      light attack, `step(1)` until `game.fighters[1].state === 'down'`; for the edge, put the victim about 7.7 units
+      from the edge it is hit toward (a light KO carries it about 7.7 units).
+- [ ] A KO during a flurry super (Speed of Lightning, Shadow Clone Barrage) or the Four-Tails mauling sends the body
+      flying on its KO launch, with no hover.
 
 **Input and UI**
 - [ ] A gamepad doesn't steer until one of its buttons is pressed. Menus work with the D-pad, A and B.

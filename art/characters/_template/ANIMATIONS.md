@@ -508,7 +508,7 @@ Air recovery after being launched.
 **hitting the ground, then lying flat on the back**  
 2 frames · plays once · body height 96 px · **CORE** · step 6 · default ms 80, 420
 
-Knockdown. Head toward screen-LEFT, feet toward screen-right; lying flat the body is about 210 px long (keep it inside x 4..251).
+Knockdown. Head toward screen-LEFT, feet toward screen-right; lying flat the body is about 210 px long (keep it inside x 4..251). Lying rule ([SPEC.md](../../SPEC.md#lying-poses), ADR 0020): seen side-on from the 12 degree spec camera, never from above; on 01 the back of the head, the back, the hips, the backs of the legs and the heels rest on y 240 (the packer's ground check must report nothing for it).
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 
@@ -635,7 +635,7 @@ Dizzy state.
 **knocked out, lying flat on the back**  
 1 frame · plays once · body height 64 px · optional · step 9 · default ms 500
 
-KO pose. Same orientation and length as down 01 (about 210 px long, head toward screen-left).
+KO pose. Same orientation and length as down 01 (about 210 px long, head toward screen-left). Same lying rule as `down` 01: side-on, head, back, hips, legs and heels on y 240, at most body height x 1.15 tall.
 
 {{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
 

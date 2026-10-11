@@ -110,6 +110,21 @@ export class SheetAsset {
     return out;
   }
 
+  // A lying frame's body span along the screen (anims.json `footprint`, ADR 0020) in local world units, facing right
+  // (callers mirror it). null for upright frames and for packs without one (the baked placeholder).
+  footprint(frame) {
+    const f = this.meta.footprint?.[frame];
+    if (!f) return null;
+    this._feet = this._feet || new Map();
+    let out = this._feet.get(frame);
+    if (!out) {
+      const ppu = this.meta.pixelsPerUnit, px = this.meta.pivot[0];
+      out = { x0: (f[0] - px) / ppu, x1: (f[1] + 1 - px) / ppu };
+      this._feet.set(frame, out);
+    }
+    return out;
+  }
+
   uv(frame, out) {
     const { frameWidth: fw, frameHeight: fh } = this.meta;
     const c = frame % this.cols, r = Math.floor(frame / this.cols);
@@ -268,6 +283,7 @@ export class SpriteActor {
     scene.add(this.root);
 
     this.flip = 1;
+    this.lift = 1;
     this.animName = null;
     this.anim = null;
     this.fi = 0;
@@ -352,6 +368,8 @@ export class SpriteActor {
     const floor = onRing ? RING_TOP : 0;
     this.blob.position.set(x, floor + 0.012, z);
     const s = Math.max(0.35, 1 - (RING_TOP + y - floor) * 0.18);
+    this.lift = s; // 1 on the floor, smaller with height (fitShadow only stretches a grounded body's blob)
+    this.blob.rotation.y = 0;
     const k = this.depthK; // the contact shadow keeps the width of the (depth-scaled) feet
     this.blob.scale.set(1.25 * s * k, 1, 0.7 * s * k);
     this.blob.material.opacity = 0.32 * s;
@@ -364,6 +382,7 @@ export class SpriteActor {
     if (Math.abs(d) > 0.12) this.flip = d >= 0 ? 1 : -1;
     this.mesh.scale.x = this.flip;
     this.caster.scale.x = this.flip;
+    this.fitShadow(camRight);
     for (const g of this.ghosts) g.mesh.quaternion.copy(camera.quaternion);
     this.syncDepth(camera, refDepth, time);
   }
@@ -395,6 +414,28 @@ export class SpriteActor {
     this._depthW = this._depthWBase + ((refDepth > 0 ? 1 : 0) - this._depthWBase) * a;
     this.depthK = 1 + (this._depthTarget - 1) * this._depthW;
     this.root.scale.setScalar(this.depthK);
+  }
+
+  // The round blob and the sun-facing caster suit an upright body. A lying one (a frame with a footprint, on the floor)
+  // is up to 2 units long: stretch the blob along the drawn body so the head and feet ends are grounded too, and turn
+  // the caster with the billboard so the silhouette's shadow runs under the body instead of off past the feet (ADR 0020).
+  // Runs after place(), which resets the blob every frame. The root (so the drawn body) is depth-scaled about the
+  // feet by depthK (syncDepth), so the footprint's offset and length take the same factor.
+  fitShadow(camRight) {
+    const fp = this.lift > 0.9 ? this.asset.footprint(this.frame) : null;
+    if (!fp) {
+      this.caster.rotation.y = SUN_YAW;
+      return;
+    }
+    const k = this.depthK;
+    const yaw = Math.atan2(-camRight.z, camRight.x);
+    const c = ((this.flip * (fp.x0 + fp.x1)) / 2) * k;
+    this.blob.position.x += camRight.x * c;
+    this.blob.position.z += camRight.z * c;
+    this.blob.rotation.y = yaw;
+    this.blob.scale.set((((fp.x1 - fp.x0) / 2 + 0.1) / 0.42) * k, 1, 0.75 * k);
+    this.blob.material.opacity = 0.36;
+    this.caster.rotation.y = yaw;
   }
 
   ghost(color, life = 0.3, opacity = 0.55) {

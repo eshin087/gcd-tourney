@@ -229,6 +229,12 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- KO'd fighters no longer look like they float (ENG-066, TOOL-024, ADR 0020): lying frames get a contact shadow along
+  the whole body and a caster turned with the billboard (anims.json `footprint`), a body never rests across the ring
+  edge (it slides off onto the grass), a KO during a flurry super or the Four-Tails mauling keeps its launch, and the
+  packer warns about lying poses drawn from above (ground check); the side-on `ko` / `down` redraw is ART-KO-01
+  (art/scale/KO_DOWN_BRIEF.md).
+- An off-ring crater (a KO'd body that slid or flew off the edge) lies on the grass, not mid-air at ring height (ENG-066).
 - EXIT TRAINING lands on SELECT MODE instead of a dead pause menu (undefined `MODE_ORDER`), Esc on the first character-select pick works again, and every return to the menus goes through `Game.toMenu()`, which falls back to the title if a screen fails to open (ENG-062).
 - Air combos no longer drop on the art packs: a launched pose leans back, so `airLight2` whiffed on Naruto and the
   `airHeavy` spike on Gojo nearly every time. Air attacks now close to the juggle spacing while riding a hit and

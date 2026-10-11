@@ -510,20 +510,25 @@ Backward flip, counter-clockwise on screen.
 
 **ADR 0007 pose: lying flat with the head toward screen-left** (about 210 px long).
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f1.
+
 - **f0** (short): his back slams flat onto the floor from the shoulders to the hips (the whole back is
   the lowest part, so the pose stays centered); knees bent and lifted toward the upper-right by the
   bounce, arms flung out. Eyes shut, mouth open. Hair splashes out to the left. The tallest frame
   (96), about 180 px wide.
-- **f1** (long hold): lying flat on his back, arms out at the sides, legs straight. Eyes closed,
-  grimacing. Waist cloth splayed, the sword grip visible beside his near hip.
+- **f1** (long hold): lying flat on his back, seen side-on (head, back, hips and heels on the floor line), arms
+  out along the floor at the sides, legs straight. Eyes closed, grimacing. Waist cloth splayed, the sword grip
+  visible beside his near hip.
 
 <a id="ko"></a>
 
 ### ko: 1 frame
 
-- **f0**: **lying flat on his back, head toward screen-left** (ADR 0007, about 210 px long, 64 px
-  tall), completely limp, arms splayed, one knee only slightly bent (a high knee would make the frame
-  taller than 64). Eyes closed, mouth slightly open. Hair spread on the floor, waist cloth splayed,
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f0.
+
+- **f0**: **lying flat on his back, head toward screen-left, seen side-on** (ADR 0007, about 210 px long,
+  64 px tall), completely limp, arms loose along the floor, one knee only slightly bent (a high knee would make
+  the frame taller than 64). Eyes closed, mouth slightly open. Hair spread on the floor, waist cloth splayed,
   the sword grip visible beside his near hip.
 
 <a id="getup"></a>

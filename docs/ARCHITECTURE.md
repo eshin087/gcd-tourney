@@ -192,7 +192,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
-  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
+  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
+  `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
+  and turns the caster with the billboard, so the whole body is grounded (ADR 0020); `SheetAsset.footprint(frame)`
+  gives the span in local units, and `fitShadow` multiplies it by the actor's `depthK` like the drawn body.
 - **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
   then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
   `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
