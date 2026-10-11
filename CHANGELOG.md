@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke: twelve bounded neutral-redraw corrections and exact probe-mask evidence; all42 candidates remain unapproved, six strict-pack holds remain (draft PR62).
+
 - Sasuke neutral redraw checkpoint: all 42 animations / 175 source frames, anatomical sidecars and full diagnostic gallery; strict scale failures and exhausted attempts remain explicit holds (ART-SAS-NEUTRAL).
 
 - Sasuke: idle v02/v03 candidates against approved smaller-head model; heads and lineup show proportion/build caveats, correction recommended before baseline approval.

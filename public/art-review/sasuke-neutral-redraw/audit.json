@@ -200,39 +200,39 @@
     },
     {
       "name": "backDash",
-      "version": 2,
+      "version": 3,
       "frames": 3,
       "detected": 3,
-      "file": "backDash_v02.png",
+      "file": "backDash_v03.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          96,
-          96,
-          96
+          100,
+          100,
+          100
         ],
-        "note": "Crown~256/chin352 f0/f2,179/275 f1;96 +/-8source same anatomy."
+        "note": "Crown/chin near256/356 f0,178/278 f1; +/-12 sourcepx. Torso/shins lengthened attempt2."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.25507012473570295,
+          "factor": 0.24486731974627482,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.25507012473570295,
+          "factor": 0.24486731974627482,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.25507012473570295,
+          "factor": 0.24486731974627482,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -241,31 +241,33 @@
     },
     {
       "name": "superDash",
-      "version": 2,
+      "version": 3,
       "frames": 2,
       "detected": 2,
-      "file": "superDash_v02.png",
+      "file": "superDash_v03.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          106,
-          106
+          122,
+          122
         ],
-        "note": "Inferred crown274/chin380,106 +/-8source; hair streams backward intentional. Both poses airborne, renderer controls world elevation."
+        "note": "Native1774x887; crown176/chin298, +/-12source. Attempt3 lengthens torso/shins; posed airborne axis, cap reached."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.23100690542101399,
+          "factor": 0.20071091782481543,
           "clip": [],
-          "margin": [],
+          "margin": [
+            "right 3px"
+          ],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.23100690542101399,
+          "factor": 0.20071091782481543,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -398,10 +400,10 @@
     },
     {
       "name": "light1",
-      "version": 4,
+      "version": 5,
       "frames": 7,
       "detected": 7,
-      "file": "light1_v04.png",
+      "file": "light1_v05.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
@@ -410,11 +412,11 @@
           77,
           77,
           77,
-          75.3816,
-          75.3816,
-          75.3816
+          77.0024,
+          77.0024,
+          77.0024
         ],
-        "note": "A inferred crown218/chin295=77 +/-7source. B crown202/chin300=98 +/-8 multiplied measured stitch0.7692. Same anatomy acrossparts; source A thirdattempt corrects verticalcolumn gaps."
+        "note": "Source inferred skull A77, B101 +/-12px; measured skull ratio used for stitch, not old public idle hair refinement. Longer torso/shins correction. Skull crown under hair remains uncertain; independent body review and technical holds apply. Not approved."
       },
       "issues": [],
       "placements": [
@@ -448,21 +450,21 @@
         },
         {
           "k": 4,
-          "factor": 0.32483698906135555,
+          "factor": 0.31799959448832094,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 5,
-          "factor": 0.32483698906135555,
+          "factor": 0.31799959448832094,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 6,
-          "factor": 0.32483698906135555,
+          "factor": 0.31799959448832094,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -471,71 +473,71 @@
     },
     {
       "name": "light2",
-      "version": 3,
+      "version": 4,
       "frames": 7,
       "detected": 7,
-      "file": "light2_v03.png",
+      "file": "light2_v04.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          95,
-          95,
-          95,
-          95,
-          93.83850000000001,
-          93.83850000000001,
-          93.83850000000001
+          97,
+          97,
+          97,
+          97,
+          96.99549999999999,
+          96.99549999999999,
+          96.99549999999999
         ],
-        "note": "A inferred crown177/chin272=95 +/-8source; B crown195/chin300=105 +/-8. Multiplied recorded measured stitch perpart."
+        "note": "Source inferred skull A97, B107 +/-12px; measured skull ratio used for stitch, not old public idle hair refinement. Longer torso/shins correction. Skull crown under hair remains uncertain; independent body review and technical holds apply. Not approved."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.2577550734171314,
+          "factor": 0.25244053582090187,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.2577550734171314,
+          "factor": 0.25244053582090187,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.2577550734171314,
+          "factor": 0.25244053582090187,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.2577550734171314,
+          "factor": 0.25244053582090187,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 4,
-          "factor": 0.26094547520077027,
+          "factor": 0.2524522475231066,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 5,
-          "factor": 0.26094547520077027,
+          "factor": 0.2524522475231066,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 6,
-          "factor": 0.26094547520077027,
+          "factor": 0.2524522475231066,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -544,71 +546,71 @@
     },
     {
       "name": "light3",
-      "version": 3,
+      "version": 4,
       "frames": 7,
       "detected": 7,
-      "file": "light3_v03.png",
+      "file": "light3_v04.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          84,
-          84,
-          84,
-          84,
-          86.5469,
-          86.5469,
-          86.5469
+          94,
+          94,
+          94,
+          94,
+          76.5,
+          76.5,
+          76.5
         ],
-        "note": "A crown185/chin269 about84 +/-8source, B crown230/chin331 about101 +/-8source. Measured stitch applied perpart. Recovery armguard late f5, playbackQA pending."
+        "note": "Source inferred skull A81, B108 +/-12px; measured skull ratio used for stitch, not old public idle hair refinement. Longer torso/shins correction. Skull crown under hair remains uncertain; independent body review and technical holds apply. Not approved. Enlarged source review corrects A inferred crown155/chin249=94 +/-10px, B crown155/chin257=102 +/-10px. Initial A81 estimate was a measurement error. Sidecar follows observed landmarks; raw stitch unchanged."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.2915087139836605,
+          "factor": 0.2604971486662498,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.2915087139836605,
+          "factor": 0.2604971486662498,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.2915087139836605,
+          "factor": 0.2604971486662498,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.2915087139836605,
+          "factor": 0.2604971486662498,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 4,
-          "factor": 0.2829302028683579,
+          "factor": 0.32008799966833307,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 5,
-          "factor": 0.2829302028683579,
+          "factor": 0.32008799966833307,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 6,
-          "factor": 0.2829302028683579,
+          "factor": 0.32008799966833307,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -617,10 +619,10 @@
     },
     {
       "name": "light4",
-      "version": 3,
+      "version": 4,
       "frames": 8,
       "detected": 8,
-      "file": "light4_v03.png",
+      "file": "light4_v04.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
@@ -630,11 +632,11 @@
           80,
           80,
           80,
-          61.775999999999996,
-          61.775999999999996,
-          61.775999999999996
+          55.512,
+          55.512,
+          55.512
         ],
-        "note": "A inferred crown approximately195/chin275 (first), B crown174/chin284; +/-10 sourcepx; back-facing f1/f2 crown less certain. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "A source retained; B final original attempt3 corrects torso/shins. Inferred B skull 108 +/-12sourcepx, multiplied measured stitch factor. Head landmarks under hair uncertain. Independent limb-ratio QA and remaining technical holds apply; no approval."
       },
       "issues": [],
       "placements": [
@@ -675,21 +677,21 @@
         },
         {
           "k": 5,
-          "factor": 0.3963793702186526,
+          "factor": 0.4411070034339869,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 6,
-          "factor": 0.3963793702186526,
+          "factor": 0.4411070034339869,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 7,
-          "factor": 0.3963793702186526,
+          "factor": 0.4411070034339869,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -698,10 +700,10 @@
     },
     {
       "name": "heavy",
-      "version": 7,
+      "version": 8,
       "frames": 8,
       "detected": 8,
-      "file": "heavy_v07.png",
+      "file": "heavy_v08.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
@@ -711,11 +713,11 @@
           80,
           80,
           80,
-          95.60249999999999,
-          95.60249999999999,
-          95.60249999999999
+          83.4816,
+          83.4816,
+          83.4816
         ],
-        "note": "A first crown420/chin500, B crown90/chin195; +/-10 sourcepx; tilted kick heads measured along axis. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "A source retained; B final original attempt3 corrects torso/shins. Inferred B skull 96 +/-12sourcepx, multiplied measured stitch factor. Head landmarks under hair uncertain. Independent limb-ratio QA and remaining technical holds apply; no approval."
       },
       "issues": [],
       "placements": [
@@ -756,21 +758,21 @@
         },
         {
           "k": 5,
-          "factor": 0.25613066577367205,
+          "factor": 0.2933189106896308,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 6,
-          "factor": 0.25613066577367205,
+          "factor": 0.2933189106896308,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 7,
-          "factor": 0.25613066577367205,
+          "factor": 0.2933189106896308,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -893,10 +895,10 @@
     },
     {
       "name": "airLight3",
-      "version": 3,
+      "version": 4,
       "frames": 6,
       "detected": 6,
-      "file": "airLight3_v03.png",
+      "file": "airLight3_v04.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
@@ -905,10 +907,10 @@
           82,
           82,
           82,
-          92.4084,
-          92.4084
+          85.8256,
+          85.8256
         ],
-        "note": "A crown220/chin302, B crown194/chin320, +/-10px; back view f0 less certain. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "A source retained; B final original attempt3 corrects torso/shins. Inferred B skull 112 +/-12sourcepx, multiplied measured stitch factor. Head landmarks under hair uncertain. Independent limb-ratio QA and remaining technical holds apply; no approval."
       },
       "issues": [],
       "placements": [
@@ -942,14 +944,14 @@
         },
         {
           "k": 4,
-          "factor": 0.2649838323640219,
+          "factor": 0.2853080196890844,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 5,
-          "factor": 0.2649838323640219,
+          "factor": 0.2853080196890844,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -966,55 +968,59 @@
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          76.27000000000001,
-          76.27000000000001,
-          76.27000000000001,
-          76.27000000000001,
-          100,
-          100
+          80.0835,
+          73.2192,
+          73.2192,
+          78.55810000000001,
+          94,
+          97
         ],
-        "note": "A inferred crown247/chin347, B crown246/chin346, +/-10px; raised arms overlap hair so probe may need separate evidence. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "A inferred crown247/chin347, B crown246/chin346, +/-10px; raised arms overlap hair so probe may need separate evidence. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx. Enlarged source review uses per-frame crown/chin rather than blanket100: A244/349,230/326,300/396,310/413; B250/344,225/322, all +/-10px and head-axis rotation uncertain. A multiplied recorded stitch. Raised-arm mask exceptions remain only f1/f4; no true drift exemption."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.3210532578291265,
+          "factor": 0.30576500745631097,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.3210532578291265,
-          "clip": [],
+          "factor": 0.33443047690534017,
+          "clip": [
+            "top 9px"
+          ],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.3210532578291265,
-          "clip": [],
+          "factor": 0.33443047690534017,
+          "clip": [
+            "top 9px"
+          ],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.3210532578291265,
+          "factor": 0.31170219206711314,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 4,
-          "factor": 0.24486731974627482,
+          "factor": 0.2604971486662498,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 5,
-          "factor": 0.24486731974627482,
+          "factor": 0.25244053582090187,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -1386,47 +1392,47 @@
     },
     {
       "name": "charge",
-      "version": 5,
+      "version": 6,
       "frames": 4,
       "detected": 4,
-      "file": "charge_v05.png",
+      "file": "charge_v06.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          114,
-          114,
-          114,
-          114
+          108,
+          108,
+          108,
+          108
         ],
-        "note": "Manual crown/chin axis estimate +/-10source; inspect mask/limbs before gate exemptions. Candidate not approved."
+        "note": "Crown192/chin300 +/-12source. Attempt3 fixes growing hair and lengthens torso/shins. Remaining torso compression vs neutral possible; cap reached."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.21479589451427616,
+          "factor": 0.22672899976506927,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.21479589451427616,
+          "factor": 0.22672899976506927,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.21479589451427616,
+          "factor": 0.22672899976506927,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.21479589451427616,
+          "factor": 0.22672899976506927,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -1599,47 +1605,47 @@
     },
     {
       "name": "stagger",
-      "version": 2,
+      "version": 3,
       "frames": 4,
       "detected": 4,
-      "file": "stagger_v02.png",
+      "file": "stagger_v03.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          108,
-          100,
-          108,
-          100
+          102,
+          102,
+          102,
+          102
         ],
-        "note": "Tilted frames skull-axis about108 +/-10px, upright crown175/chin275=100 +/-10px. Both lean poses point same direction: pose issue. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "Final attempt3: first leansright thirdleansleft; torso/shins lengthened. Crown165 chin266 upright102 +/-10px; tilted crowns measured same skullaxis."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.22672899976506927,
+          "factor": 0.24006599975124981,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.24486731974627482,
+          "factor": 0.24006599975124981,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.22672899976506927,
+          "factor": 0.24006599975124981,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.24486731974627482,
+          "factor": 0.24006599975124981,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -1836,47 +1842,47 @@
     },
     {
       "name": "win",
-      "version": 2,
+      "version": 3,
       "frames": 4,
       "detected": 4,
-      "file": "win_v02.png",
+      "file": "win_v03.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          90,
-          90,
-          90,
-          90
+          92,
+          92,
+          92,
+          92
         ],
-        "note": "Rear quarter inferred crown178/chin268 +/-12px; backview partially occluded. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "Native1774x887; inferred rear crown120/chin212 +/-12source. Attempt2 lengthens torso/shins, rear skull uncertain."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.2720747997180831,
+          "factor": 0.26616013015899437,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.2720747997180831,
+          "factor": 0.26616013015899437,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.2720747997180831,
+          "factor": 0.26616013015899437,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.2720747997180831,
+          "factor": 0.26616013015899437,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -2023,47 +2029,47 @@
     },
     {
       "name": "specialDown",
-      "version": 2,
+      "version": 3,
       "frames": 4,
       "detected": 4,
-      "file": "specialDown_v02.png",
+      "file": "specialDown_v03.png",
       "anatomy": {
         "measurement": "skull-to-chin",
         "targetHeadPx": 24.48673197462748,
         "sourceHeadPx": [
-          108,
-          108,
-          108,
-          108
+          106,
+          106,
+          106,
+          106
         ],
-        "note": "Inferred crown183/chin291 +/-10px each; hand identity appears mirrored relative canonical near-right, needs review. Manual inferred landmarks, not auto approval. Neutral target uncertainty about +/-2.84gamepx."
+        "note": "Final attempt3: near RIGHT arm corrected and torso/shins lengthened. Inferred crown156 chin262 about106 +/-10px. f0 rediris incorrectly persists: cap reached, hold."
       },
       "issues": [],
       "placements": [
         {
           "k": 0,
-          "factor": 0.22672899976506927,
+          "factor": 0.23100690542101399,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 1,
-          "factor": 0.22672899976506927,
+          "factor": 0.23100690542101399,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 2,
-          "factor": 0.22672899976506927,
+          "factor": 0.23100690542101399,
           "clip": [],
           "margin": [],
           "lost": 0
         },
         {
           "k": 3,
-          "factor": 0.22672899976506927,
+          "factor": 0.23100690542101399,
           "clip": [],
           "margin": [],
           "lost": 0
@@ -2336,66 +2342,66 @@
         ]
       },
       "backDash": {
-        "head": 1.059,
-        "feet": 3.233,
+        "head": 1.028,
+        "feet": 3.404,
         "verdict": "ok",
-        "v": 2,
+        "v": 3,
         "frames": [
-          1.059,
-          1.071,
-          1.052
+          1.03,
+          1.028,
+          1.025
         ],
         "feetFrames": [
-          3.762,
-          3.198,
-          3.233
+          3.555,
+          3.404,
+          3.041
         ],
         "boxes": [
           [
-            118,
-            73,
-            155,
-            106
+            117,
+            68,
+            153,
+            102
           ],
           [
-            81,
-            23,
+            83,
+            52,
             123,
-            54
+            84
           ],
           [
-            108,
-            74,
-            144,
-            106
+            107,
+            67,
+            143,
+            100
           ]
         ]
       },
       "superDash": {
-        "head": 1.065,
-        "feet": 3.485,
-        "verdict": "uniform",
-        "v": 2,
+        "head": 1.044,
+        "feet": 3.37,
+        "verdict": "ok",
+        "v": 3,
         "frames": [
-          1.06,
-          1.07
+          1.041,
+          1.047
         ],
         "feetFrames": [
-          3.398,
-          3.571
+          3.37,
+          3.37
         ],
         "boxes": [
           [
-            150,
-            121,
-            199,
-            155
+            158,
+            112,
+            203,
+            145
           ],
           [
-            152,
-            122,
-            201,
-            154
+            154,
+            111,
+            199,
+            144
           ]
         ]
       },
@@ -2421,8 +2427,8 @@
       },
       "jumpUp": {
         "head": 0.686,
-        "feet": 7.241,
-        "verdict": "drift",
+        "feet": 7.177,
+        "verdict": "exempt",
         "v": 2,
         "frames": [
           0.686,
@@ -2505,205 +2511,205 @@
       },
       "light1": {
         "head": 1,
-        "feet": 1.602,
+        "feet": 1.53,
         "verdict": "ok",
-        "v": 4,
+        "v": 5,
         "frames": [
+          1.004,
+          1.004,
+          1.029,
           1,
-          1.01,
-          1,
-          1,
-          1.002,
-          0.999,
-          1.007
+          0.981,
+          0.976,
+          1
         ],
         "feetFrames": [
+          1.53,
+          1.374,
+          1.727,
+          1.53,
           1.602,
           1.332,
-          1.578,
-          1.517,
-          1.812,
-          1.791,
-          2.028
+          1.414
         ],
         "boxes": [
           [
             109,
             69,
             143,
-            102
-          ],
-          [
-            104,
-            69,
-            138,
-            103
-          ],
-          [
-            107,
-            70,
-            141,
             103
           ],
           [
             105,
             69,
             139,
+            103
+          ],
+          [
+            106,
+            69,
+            141,
+            103
+          ],
+          [
+            106,
+            69,
+            140,
             102
           ],
           [
-            104,
-            68,
+            105,
+            56,
             140,
-            100
+            88
           ],
           [
-            107,
-            67,
+            106,
+            56,
             140,
-            101
+            88
           ],
           [
             101,
-            67,
-            136,
-            100
+            56,
+            135,
+            89
           ]
         ]
       },
       "light2": {
-        "head": 1.054,
-        "feet": 6.757,
+        "head": 1.037,
+        "feet": 7.026,
         "verdict": "ok",
-        "v": 3,
+        "v": 4,
         "frames": [
-          1.047,
-          1.058,
-          1.045,
+          1.028,
+          1.037,
           1.031,
-          1.086,
-          1.054,
-          1.055
+          1.029,
+          1.059,
+          1.067,
+          1.058
         ],
         "feetFrames": [
-          6.757,
-          6.766,
-          7.076,
-          6.955,
-          3.426,
-          3.168,
-          2.761
+          7.026,
+          7.071,
+          7.044,
+          7.068,
+          2.298,
+          2.092,
+          2.009
         ],
         "boxes": [
           [
-            110,
-            68,
-            146,
-            101
-          ],
-          [
             109,
-            68,
+            53,
             145,
-            103
+            84
           ],
           [
-            111,
-            68,
-            147,
-            101
-          ],
-          [
-            111,
-            68,
-            147,
-            101
-          ],
-          [
-            108,
-            62,
-            145,
-            98
-          ],
-          [
-            109,
-            62,
-            144,
-            97
-          ],
-          [
-            108,
-            62,
+            107,
+            53,
             143,
-            98
+            86
+          ],
+          [
+            111,
+            53,
+            147,
+            86
+          ],
+          [
+            111,
+            53,
+            146,
+            86
+          ],
+          [
+            109,
+            51,
+            145,
+            86
+          ],
+          [
+            107,
+            50,
+            143,
+            88
+          ],
+          [
+            107,
+            50,
+            143,
+            85
           ]
         ]
       },
       "light3": {
-        "head": 1.029,
-        "feet": 5.674,
+        "head": 0.941,
+        "feet": 2.685,
         "verdict": "ok",
-        "v": 3,
+        "v": 4,
         "frames": [
-          1.044,
-          1.031,
-          1.029,
-          1.024,
-          1.029,
-          0.992,
-          1.015
+          0.925,
+          0.941,
+          0.912,
+          0.904,
+          0.969,
+          0.973,
+          0.96
         ],
         "feetFrames": [
-          5.535,
-          5.674,
-          4.539,
-          4.056,
-          6.419,
-          6.428,
-          6.053
+          2.685,
+          2.465,
+          2.257,
+          2.154,
+          4.802,
+          4.806,
+          3.561
         ],
         "boxes": [
           [
-            121,
-            50,
-            157,
-            84
-          ],
-          [
-            116,
-            49,
-            151,
-            84
-          ],
-          [
-            120,
-            54,
-            155,
+            122,
+            59,
+            154,
             88
           ],
           [
-            116,
-            53,
+            117,
+            59,
+            149,
+            90
+          ],
+          [
+            120,
+            62,
             152,
-            85
+            92
           ],
           [
-            107,
-            64,
-            142,
-            98
+            118,
+            61,
+            149,
+            90
           ],
           [
-            125,
-            67,
-            159,
-            98
+            109,
+            44,
+            144,
+            72
           ],
           [
-            107,
-            69,
-            142,
-            101
+            122,
+            44,
+            157,
+            75
+          ],
+          [
+            109,
+            45,
+            143,
+            76
           ]
         ]
       },
@@ -2711,16 +2717,16 @@
         "head": 0.935,
         "feet": 2.298,
         "verdict": "pop",
-        "v": 3,
+        "v": 4,
         "frames": [
           1.004,
           0.916,
           0.954,
           1,
           0.985,
-          0.856,
-          0.882,
-          0.873
+          0.897,
+          0.912,
+          0.876
         ],
         "feetFrames": [
           2.606,
@@ -2728,9 +2734,9 @@
           2.555,
           2.371,
           2.274,
-          2.119,
-          2.119,
-          1.923
+          1.833,
+          1.648,
+          1.671
         ],
         "boxes": [
           [
@@ -2764,39 +2770,39 @@
             106
           ],
           [
-            105,
-            109,
-            136,
-            136
-          ],
-          [
-            113,
-            112,
-            145,
-            141
-          ],
-          [
-            115,
             111,
-            147,
-            139
+            82,
+            145,
+            110
+          ],
+          [
+            111,
+            81,
+            143,
+            111
+          ],
+          [
+            111,
+            82,
+            143,
+            110
           ]
         ]
       },
       "heavy": {
-        "head": 0.898,
+        "head": 0.916,
         "feet": 3.162,
-        "verdict": "pop",
-        "v": 7,
+        "verdict": "drift",
+        "v": 8,
         "frames": [
           0.971,
           0.951,
           0.958,
           0.883,
           0.912,
-          0.816,
-          0.803,
-          0.811
+          0.918,
+          0.914,
+          0.896
         ],
         "feetFrames": [
           3.437,
@@ -2804,9 +2810,9 @@
           3.245,
           3.696,
           3.629,
-          2.606,
-          2.599,
-          2.146
+          2.119,
+          1.943,
+          1.693
         ],
         "boxes": [
           [
@@ -2840,22 +2846,22 @@
             92
           ],
           [
-            122,
-            86,
-            152,
-            111
+            119,
+            57,
+            153,
+            87
           ],
           [
-            121,
-            110,
-            150,
-            135
+            125,
+            75,
+            158,
+            104
           ],
           [
-            112,
             111,
-            141,
-            136
+            76,
+            144,
+            103
           ]
         ]
       },
@@ -2964,122 +2970,122 @@
         ]
       },
       "airLight3": {
-        "head": 0.939,
-        "feet": 5.892,
-        "verdict": "pop",
-        "v": 3,
+        "head": 0.94,
+        "feet": 5.929,
+        "verdict": "drift",
+        "v": 4,
         "frames": [
-          0.907,
-          0.973,
-          0.971,
-          0.971,
-          0.853,
-          0.851
+          0.917,
+          0.974,
+          0.945,
+          0.934,
+          0.931,
+          0.947
         ],
         "feetFrames": [
-          5.422,
-          6.676,
-          6.573,
-          6.313,
-          5.306,
-          5.47
+          5.494,
+          6.684,
+          6.507,
+          6.363,
+          3.895,
+          4.024
         ],
         "boxes": [
           [
-            98,
-            81,
-            131,
+            99,
+            80,
+            133,
             107
           ],
           [
-            68,
-            82,
-            102,
+            69,
+            81,
+            104,
             113
           ],
           [
-            84,
+            105,
             90,
-            120,
-            122
-          ],
-          [
-            88,
-            89,
-            124,
+            140,
             121
           ],
           [
-            72,
-            98,
-            103,
-            126
+            104,
+            90,
+            139,
+            117
           ],
           [
-            97,
-            91,
-            127,
-            117
+            54,
+            46,
+            87,
+            76
+          ],
+          [
+            83,
+            46,
+            117,
+            77
           ]
         ]
       },
       "airHeavy": {
-        "head": 0.959,
-        "feet": 2.234,
-        "verdict": "pop",
+        "head": 0.971,
+        "feet": 2.149,
+        "verdict": "ok",
         "v": 3,
         "frames": [
-          1.057,
+          1.047,
           0.543,
-          0.971,
-          0.971,
-          0.514,
-          0.947
+          0.977,
+          0.947,
+          0.6,
+          0.965
         ],
         "feetFrames": [
-          2.315,
-          2.056,
-          2.065,
-          2.154,
-          2.822,
-          3.047
+          2.083,
+          2.101,
+          2.206,
+          2.092,
+          2.875,
+          3.256
         ],
         "boxes": [
           [
+            104,
+            88,
+            138,
+            128
+          ],
+          [
+            85,
+            90,
             103,
-            80,
-            139,
-            123
-          ],
-          [
-            87,
-            95,
-            105,
-            113
-          ],
-          [
-            121,
-            106,
-            156,
-            138
+            107
           ],
           [
             120,
-            109,
-            153,
-            142
+            101,
+            158,
+            133
           ],
           [
-            105,
-            60,
+            120,
+            112,
+            152,
+            146
+          ],
+          [
+            102,
+            48,
             122,
-            80
+            69
           ],
           [
-            105,
-            69,
+            104,
+            63,
             138,
-            99
+            93
           ]
         ]
       },
@@ -3112,9 +3118,9 @@
         ]
       },
       "block": {
-        "head": 1.166,
-        "feet": 3.638,
-        "verdict": "pop",
+        "head": 0.96,
+        "feet": 4.125,
+        "verdict": "ok",
         "v": 2,
         "frames": [
           0.96,
@@ -3400,46 +3406,46 @@
         ]
       },
       "charge": {
-        "head": 0.919,
-        "feet": 2.168,
-        "verdict": "drift",
-        "v": 5,
+        "head": 0.833,
+        "feet": 0.597,
+        "verdict": "uniform",
+        "v": 6,
         "frames": [
-          0.917,
-          0.921,
-          1,
-          0.912
+          0.829,
+          0.833,
+          0.832,
+          0.835
         ],
         "feetFrames": [
-          2.137,
-          2.198,
-          2.525,
-          1.952
+          0.549,
+          0.644,
+          0.549,
+          0.7
         ],
         "boxes": [
           [
-            117,
-            95,
-            149,
-            124
-          ],
-          [
             115,
-            90,
-            148,
-            119
-          ],
-          [
-            112,
-            89,
-            147,
-            122
+            66,
+            143,
+            91
           ],
           [
             114,
-            95,
-            146,
-            125
+            65,
+            143,
+            92
+          ],
+          [
+            113,
+            66,
+            142,
+            90
+          ],
+          [
+            113,
+            65,
+            143,
+            91
           ]
         ]
       },
@@ -3490,7 +3496,7 @@
       "beamCharge": {
         "head": 0.616,
         "feet": 2.137,
-        "verdict": "drift",
+        "verdict": "exempt",
         "v": 2,
         "frames": [
           0.617,
@@ -3588,46 +3594,46 @@
         ]
       },
       "stagger": {
-        "head": 1.011,
-        "feet": 5.945,
+        "head": 1,
+        "feet": 2.393,
         "verdict": "ok",
-        "v": 2,
+        "v": 3,
         "frames": [
-          0.943,
-          1.053,
-          0.971,
-          1.051
+          1,
+          1.007,
+          1,
+          1
         ],
         "feetFrames": [
-          6.016,
-          5.927,
-          5.736,
-          5.962
+          2.649,
+          2.24,
+          2.282,
+          2.503
         ],
         "boxes": [
           [
-            122,
-            75,
+            120,
+            49,
             154,
-            108
+            82
           ],
           [
-            108,
-            53,
-            144,
-            86
+            107,
+            44,
+            142,
+            77
           ],
           [
-            117,
-            75,
-            150,
-            108
+            106,
+            52,
+            141,
+            85
           ],
           [
             109,
-            51,
-            144,
-            87
+            44,
+            143,
+            76
           ]
         ]
       },
@@ -3800,46 +3806,46 @@
         ]
       },
       "win": {
-        "head": 1.135,
-        "feet": 4.924,
-        "verdict": "uniform",
-        "v": 2,
+        "head": 1.013,
+        "feet": 2.905,
+        "verdict": "ok",
+        "v": 3,
         "frames": [
-          1.133,
-          1.14,
-          1.136,
-          1.127
+          1.008,
+          1.032,
+          1.012,
+          1.014
         ],
         "feetFrames": [
-          4.953,
-          4.895,
-          5.013,
-          4.609
+          3.09,
+          3.174,
+          2.72,
+          2.442
         ],
         "boxes": [
           [
-            103,
-            31,
-            144,
+            107,
+            37,
+            143,
             67
           ],
           [
-            104,
-            31,
-            145,
-            66
+            107,
+            37,
+            144,
+            68
           ],
           [
-            101,
-            31,
-            142,
-            65
+            106,
+            36,
+            143,
+            68
           ],
           [
-            105,
-            31,
-            146,
-            65
+            107,
+            36,
+            143,
+            67
           ]
         ]
       },
@@ -3912,9 +3918,9 @@
         ]
       },
       "specialUp": {
-        "head": 1.019,
-        "feet": 3.515,
-        "verdict": "pop",
+        "head": 1.027,
+        "feet": 3.598,
+        "verdict": "ok",
         "v": 3,
         "frames": [
           1.027,
@@ -3972,46 +3978,46 @@
         ]
       },
       "specialDown": {
-        "head": 0.974,
-        "feet": 3.024,
+        "head": 0.99,
+        "feet": 0.858,
         "verdict": "ok",
-        "v": 2,
+        "v": 3,
         "frames": [
-          0.978,
-          0.968,
-          0.981,
-          0.971
+          0.99,
+          0.98,
+          1,
+          0.99
         ],
         "feetFrames": [
-          3.216,
-          3.114,
-          2.933,
-          2.888
+          0.89,
+          0.869,
+          0.847,
+          0.644
         ],
         "boxes": [
           [
-            108,
-            68,
+            107,
+            51,
             141,
-            101
+            82
           ],
           [
-            109,
-            69,
-            141,
-            102
-          ],
-          [
-            108,
-            67,
+            107,
+            51,
             140,
-            101
+            84
           ],
           [
-            108,
-            68,
+            106,
+            51,
+            140,
+            85
+          ],
+          [
+            107,
+            51,
             141,
-            100
+            83
           ]
         ]
       },
