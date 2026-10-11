@@ -125,7 +125,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v02 | v02 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v06 | v06 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | guard | 2 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -133,7 +133,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v04 | v02 | User rejected new charge; approved v02 active. v03/v04 archived; v04 is historical newest, not active. |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved latest version 2026-10-10; documented QA deviations accepted. Ready for integration. |

@@ -243,5 +243,6 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 |---|---|---|---|---|
 | M0 | Playable demo: arena, 2 fighters, VS CPU / 2P, rounds, synth audio, Sprite Lab | Claude | done | v0.1.0 |
 | M1 | 3D-baked placeholder sprites + DBFZ combat feel | Claude | done | v0.2.0 |
-
+| ART-SAS-REDRAW-20261010 | Sasuke heavy and charge correction with phone review | Codex | done | files: art/characters/sasuke/, art/scale/lineup-sasuke-heavy*, public/art-review/sasuke-heavy-charge/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated art/sasuke-heavy-charge; user approval recorded; ready for Claude integration. |
+| ART-SAS-CHARGE-ROLLBACK | Restore approved Sasuke charge after user rejection | Codex | done | PR28: archive v04, keep approved v02 and historical newest4; strict pack, geometry comparison and refreshed preview. Heavy v06 unchanged. User approved latest art; existing QA caveats accepted; integration remains pending. |
 | ART-SAS-SIZE-20261010 | Sasuke size-pop correction with phone review | Codex | done | files: art/characters/sasuke/, art/scale/lineup-sasuke-size*, public/art-review/sasuke-size-pops/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated fix/sasuke-size-pops; user approval recorded; ready for Claude integration. |

@@ -1,0 +1,1 @@
+PASS: documented .codex/vite.mjs build; Vite6.4.3,68 modules transformed. Branch-local build included portable public/art-review gallery.

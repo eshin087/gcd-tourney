@@ -11,6 +11,11 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke: record user approval for heavy v06; existing QA limitations accepted. Approved charge v02 remains active; rejected v04 stays archived.
+
+- Sasuke: reject charge v04 per user feedback and restore approved charge v02; preserve rejected source history and heavy v06 candidate.
+
+- Sasuke heavy-charge: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.
 - Sasuke: record user approval for light2 v02, light3 v02, special v03; existing QA limitations accepted. Approved charge v02 remains active; rejected v04 stays archived.
 
 - Sasuke size-pops: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.
