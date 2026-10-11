@@ -138,6 +138,7 @@ function viewAnim(name) {
   const a = fighters()[0];
   a.setState('idle');
   a.actor.play(name, true);
+  a.actor.headCheck = true; // the scale gate's head boxes (boxViewer.js)
   L.viewer = { name, playing: false };
   game.showBoxes = true;
   render();
@@ -155,6 +156,7 @@ function viewerFrame(d) {
 function exitViewer() {
   if (!L.viewer) return;
   L.viewer = null;
+  fighters()[0].actor.headCheck = false;
   fighters()[0].setState('idle');
   render();
 }
@@ -166,11 +168,14 @@ function viewerInfo() {
   const ph = A.phases?.length === 3 ? A.phases : null;
   const phase = ph ? (act.fi < ph[0] ? 'startup' : act.fi < ph[0] + ph[1] ? 'active' : 'recovery') : (A.loop ? 'loop' : '');
   const boxes = (k) => f.asset.boxes(act.frame, k, 1)?.length ?? 0;
+  const sa = f.asset.meta?.scaleAudit?.anims?.[V.name], fh = sa?.frames?.[act.fi];
+  const off = sa && ['uniform', 'drift', 'pop'].includes(sa.verdict);
   return [
     `<b>${V.name}</b> ${own ? '' : `<span class="lab-warn">not in this sheet: falls back to ${used ?? '?'}</span>`}`,
     `frame ${act.fi + 1} / ${A.frames.length} · sheet cell ${act.frame} · ${A.durations?.[act.fi] ?? 100} ms${phase ? ' · ' + phase : ''}`,
     ph ? `phases ${ph.join(' / ')} (startup / active / recovery)` : '',
     `boxes: ${boxes('hurt')} hurt, ${boxes('hit')} hit · art: ${f.asset.source ?? (f.asset.meta?.source || 'baked')}`,
+    sa ? `head ${fh == null ? '-' : fh.toFixed(2)} of the idle's · strip ${sa.head == null ? '-' : sa.head.toFixed(2)} <span class="${off ? 'lab-warn' : ''}">${sa.verdict}</span> (white box = idle head size, gold = this frame's head)` : '',
     `<i>${ANIM_GUIDE[V.name]?.pose ?? ''}</i>`,
   ].filter(Boolean).join('<br>');
 }
@@ -258,7 +263,7 @@ function animsTab() {
   }
   const grid = el('div', 'lab-grid');
   for (const name of Object.keys(ANIM_GUIDE)) grid.append(button(name, () => viewAnim(name), L.viewer?.name === name ? 'on' : ''));
-  box.append(grid, el('p', 'lab-help', 'Pick an animation: the game pauses and YOU shows it frame by frame on the real sheet, with hurt boxes (blue) and hit boxes (red, active frames).'));
+  box.append(grid, el('p', 'lab-help', 'Pick an animation: the game pauses and YOU shows it frame by frame on the real sheet, with hurt boxes (blue), hit boxes (red, active frames) and the scale check: the idle head size (white) around this frame\'s head (gold, orange when the packer flagged the strip).'));
   return box;
 }
 

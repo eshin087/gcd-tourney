@@ -143,6 +143,16 @@ if (qs.has('debug')) {
     return 'snapped';
   };
   window.unsnap = () => document.getElementById('debug-snap')?.remove();
+  // scale gate (TOOL-025): each fighter's strip on screen, its head scale vs the idle (packer audit, meta.scaleAudit),
+  // the verdict, every strip the gate flagged, and depthK (the sprite's depth normalization, 1 without it)
+  window.scaleReport = () => game.fighters.map((f) => {
+    const a = f.actor, A = a.asset.meta.scaleAudit, s = A?.anims?.[a.animName];
+    return {
+      id: f.def.id, anim: a.animName, head: s?.head ?? null, frameHead: s?.frames?.[a.fi] ?? null, verdict: s?.verdict ?? (A ? 'not packed' : 'no audit (baked art or an older pack)'),
+      flagged: A ? Object.entries(A.anims).filter(([, v]) => ['uniform', 'drift', 'pop'].includes(v.verdict)).map(([n, v]) => `${n} ${v.head} ${v.verdict}`) : [],
+      depthK: +(a.depthK ?? 1).toFixed(3),
+    };
+  });
   window.freezeCpu = () => {
     game.brains[1].update = function () {
       this.f.pad.tick();

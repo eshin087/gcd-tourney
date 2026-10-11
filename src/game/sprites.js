@@ -18,6 +18,19 @@ const FALLBACK = {
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
 const ART_MODE = new URLSearchParams(location.search).get('art');
 
+// ?scaleaudit (dev only, TOOL-025): names, once each, the strips the packer's scale gate measured off the idle's head
+// size (anims.json meta.scaleAudit) as they play, so a fighter who grows or shrinks can be traced to its strip.
+const SCALE_AUDIT = new URLSearchParams(location.search).has('scaleaudit');
+const scaleLogged = new Set();
+function logScaleAudit(meta, name) {
+  const s = meta.scaleAudit?.anims?.[name];
+  const key = `${meta.character}:${name}`;
+  if (!s || scaleLogged.has(key) || !['uniform', 'drift', 'pop'].includes(s.verdict)) return;
+  scaleLogged.add(key);
+  const fr = (s.frames || []).filter((h) => h != null);
+  console.warn(`[sprites] ${meta.character} ${name}: head ${s.head?.toFixed(2)} of idle (${s.verdict}${s.verdict === 'pop' ? `, frames ${Math.min(...fr).toFixed(2)}-${Math.max(...fr).toFixed(2)}` : ''}, packer scale audit)`);
+}
+
 export async function loadImage(url) {
   if (!hasArt(url)) return null; // production: only request files the art index lists (no 404s)
   // load/error events, not img.decode(): decode() can stay pending while the tab is in the
@@ -250,6 +263,7 @@ export class SpriteActor {
     if (this.animName === name && !restart) return;
     this.animName = name;
     this.anim = this.asset.anim(name);
+    if (SCALE_AUDIT) logScaleAudit(this.asset.meta, name);
     this.fi = 0;
     this.ft = 0;
     this.done = false;
