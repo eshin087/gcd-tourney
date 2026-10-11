@@ -270,8 +270,8 @@
           "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches",
           "step": 1,
           "status": "approved",
-          "version": 4,
-          "approvedVersion": 3
+          "version": 6,
+          "approvedVersion": 6
         },
         "expressions": {
           "file": "art/characters/gojo/reference/expressions.png",
