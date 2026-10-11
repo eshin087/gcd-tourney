@@ -1,4 +1,4 @@
-# Power-up VFX candidate review
+# Power-up VFX approved review
 
 Built-in imagegen, using the preamble and per-effect prompts in art/vfx/PROMPTS.md. Selected bubble/tail attempt 2, wisp/arc attempt 1, ripple attempt 3. Raw files are immutable; ripple v01 remains as an earlier technical-failure record. The unsaved intermediate ripple attempt received no version.
 
@@ -10,7 +10,7 @@ Review: /art-review/vfx-powerups/index.html. Approvals: `approve vfx bubble v01`
 - Browser: actual game at port5216, `?fight=naruto,sasuke&mode=solo&art=custom&debug`, logs all five candidate names. Spawned each effect through game.fx at red/dark/blue tints, verified metadata and shader tint values, captured game-qa.png. Zero page exceptions; development optional-resource 404 messages remain. This controlled spawn verifies game rendering, not a complete natural-charge gameplay soak.
 - Gallery: verified all five animation canvases in Edge; packed art is shown at 2x nearest-neighbor, tint multiplication, original links. Screenshot gallery-qa.png.
 - Build: local restricted-profile Vite adapter production build passed, 77 modules. No engine/tool changes.
-- Candidate-only atlas outputs under public/preview/vfx are explicitly committed so this preview can show the candidates; approvedVersion remains null, shipped public/vfx unchanged. Claude alone integrates after approval and removes the temporary candidate preview outputs when appropriate.
+- User explicitly approved bubble/wisp/arc/chakra tail v01 and ripple v02. approvedVersion/status and review records updated; superseded ripple v01 archived. Normal approved pack contains20effects/106frames, zero warnings. public/vfx atlas PNG/JSON match the reviewed candidate atlas byte-for-byte. Temporary candidate atlas removed; Claude alone integrates.
 
 Worktree: `.worktrees/art-vfx-powerups`. Branch: `art/vfx-powerups`. Port5216. No main/NOW/INBOX edits; no merge or production deployment.
 - Packed measurements: zero non-grayscale visible pixels in all 30 frames. Wisp/tail bottoms y120 every frame; tail height83-90px. Ripple diameters46/70/90/106/122px (brief40/60/80/100/122): early rings modestly oversized. Bubble initial dot5px (brief8); oval38x27 (brief38x30). Wisp final heights60/45px (brief56/40). These are documented candidate deviations, not probe exemptions.

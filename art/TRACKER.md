@@ -315,11 +315,11 @@ ones.
 | star | 5 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crater | 3 | 1000 (static; 3 random variants) | full color | decal | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | lines | 4 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| bubble | 6 | 50 | white (tinted) | center | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
-| wisp | 7 | 55 | white (tinted) | bottom | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
-| arc | 6 | 40 (random frame) | white (tinted) | center | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
-| ripple | 5 | 50 | white (tinted) | center | packed | v02 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
-| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
+| bubble | 6 | 50 | white (tinted) | center | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| wisp | 7 | 55 | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| arc | 6 | 40 (random frame) | white (tinted) | center | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
+| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
 
 ## Shared UI (step 11)
