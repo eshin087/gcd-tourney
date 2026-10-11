@@ -4,6 +4,7 @@
 |---|---|
 | `pack-sprites.mjs` | **Sprite packer**: turns generated art in `art/` into what the game loads from `public/` (sheets, `anims.json` with hit/hurt boxes, VFX atlas, UI images). |
 | `test-pack-sprites.mjs` | Regression test for the packer. Generates fake ChatGPT-style strips in `tools/.test-fixtures/` (git-ignored), packs them, checks ~150 things (incl. adversarial art: specks, black/transparent backgrounds, edge-cropped feet, one huge pose, extra/missing poses; versioned `_vNN` candidates, rejected versions, the spec read from the manifest, the 64/65-color warning line), deletes the folder. |
+| `test-music.mjs` | Test for the generative music composer (`src/core/musicPlan.js`, [ADR 0019](../docs/decisions/0019-generative-lofi-music.md)): same seed same song, varied 8-bar windows across 20 seeds, melody / pad ranges and scales, pad voice-leading leaps, no intro drums, heat gates. `npm run test:music` (`-- --print` prints a song). No dependencies. |
 | `queue.mjs` | Claim queue for parallel art production (world art batches): see its header comment and [ADR 0008](../docs/decisions/0008-world-art-and-parallel-production.md). Not part of the sprite packer. |
 
 All are plain Node ESM (Node 18+). The only dependency is `pngjs` (devDependency).
@@ -172,6 +173,13 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
      length and blob size, box padding) was tuned on spec v1 art and is scaled by `standingBodyPx / 136`
      (x1.47 in spec v2), so the boxes behave the same on bigger sprites.
    - `hitboxes.json` overrides are applied last.
+   - **Lying frames** (ADR 0020): the resting ones (`ko` all, `down` last, `getup` first) get a **ground check**:
+     per body column, the gap between its lowest opaque pixel and y 240. Warned (never dropped) unless at least
+     40% of the columns are within 6 px, no fifth of the body's length is more than 12 px up at its lowest, and the
+     frame is at most `bodyHeight` x 1.15 tall (px at a 200 px standing body, scaled by `standingBodyPx / 200`).
+     A pose drawn from above fails it: one hand touches the floor line and the head end hangs in the air. Every
+     `ko` and `down` frame and `getup` f0 also get a `footprint` (their opaque x span); the JSON report's `ground`
+     has the measurements.
 7. **Palette** is counted per character: above `maxColors` (48) is a note, above `warnColors` (64) a warning
    (use `--quantize 48`).
 
@@ -193,9 +201,13 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
  "boxes": {
   "0":  { "hurt": [[110,45,36,196]] },
   "10": { "hurt": [[115,45,60,196]], "hit": [[204,62,26,26]] }
- }
+ },
+ "footprint": { "108": [20,224], "109": [35,249], "110": [65,181], "135": [0,253] }
 }
 ```
+
+- `footprint` (only when the pack has lying frames): `"<sheet frame>": [x0, x1]`, the opaque x span (inclusive cell
+  px) of every `ko` and `down` frame and `getup` f0. The engine stretches the contact shadow along it (ADR 0020).
 
 - `complete` is `true` only when every core animation exists (`idle run dash jumpUp jumpFall land light1 light2
   light3 light4 heavy airLight1 airHeavy guard hurtHigh launched down getup special beamCharge beamFire charge win`,
@@ -347,6 +359,7 @@ Common warnings and the fix:
 | `bodyHeight N does not fit` | fix `bodyHeight` in the manifest or sidecar (max 237 in spec v2) |
 | `palette has N colors (> 64 ...)` | clean the art, or pack with `--quantize 48` |
 | `large auto hitbox` / `no clear strike limb` | check the frame; add a `hitboxes.json` override |
+| `N lying frame(s) float above the floor line` | the lying pose is drawn from above: redraw it side-on at the spec camera with the head, back, hips and legs on y 240 (art/SPEC.md "Lying poses"; the four current fighters: art/scale/KO_DOWN_BRIEF.md) |
 | `... changed but frames/<anim>/ has manual edits` | keep the edits, or delete `frames/<anim>/` to re-import the new source |
 | `frames/<anim>/ were cleaned from ..., which is no longer in raw/` | the only version was rejected: delete `frames/<anim>/` (or add a new `_vNN`) |
 | `manifest spec.X is ... - must be ...` | the manifest's spec block has a malformed value; fix it (the v2 default is used meanwhile) |

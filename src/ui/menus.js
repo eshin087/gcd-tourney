@@ -54,6 +54,11 @@ export const MOVES_HTML = `
   </div>`;
 
 const DUMMY_MODES = [['stand', 'STAND'], ['guard', 'GUARD'], ['jump', 'JUMP'], ['cpu', 'CPU']];
+// the pause menus' MUSIC volume row (ADR 0019): left / right in 10% steps, a tap steps up and wraps to OFF
+const musicRow = () => ({
+  label: () => `MUSIC: ◀ ${audio.musicVolume > 0 ? `${Math.round(audio.musicVolume * 100)}%` : 'OFF'} ▶`,
+  cycle: (d) => audio.stepMusicVolume(d),
+});
 const NO_COVER = Object.freeze({ x: 0, y: 0 }); // resultsCover() off the results screen
 
 // SELECT MODE rows in display order. modeIndex() reads the same table, so a new row can't desync the
@@ -523,11 +528,13 @@ export class Menus {
           { label: () => `HITBOXES: ◀ ${g.showBoxes ? 'ON' : 'OFF'} ▶`, cycle: () => { g.showBoxes = !g.showBoxes; } },
           { label: 'RESET POSITIONS', action: () => { onResume(); g.resetTrainingPositions(); } },
           { label: 'CHANGE FIGHTERS', action: () => this.charSelect('training', again(6)) },
+          musicRow(),
           { label: 'EXIT TRAINING', action: () => g.exitTraining() },
         ]
       : [
           { label: 'RESUME', action: onResume },
           { label: 'CONTROLS', sub: 'PS / Xbox / keyboard · rebind', action: () => this.controls(again(1)) },
+          musicRow(),
           { label: 'QUIT TO TITLE', action: onQuit },
         ];
     const { box, ctrl } = this.list(items, { index, back: onResume });

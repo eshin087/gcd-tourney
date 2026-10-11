@@ -44,9 +44,12 @@ if (IS_TOUCH_DEVICE) {
   }
 }
 
-// first interaction unlocks audio; M (or the small speaker top-right) toggles mute
+// first interaction unlocks audio, and every later one resumes a context iOS left 'interrupted' (a call mid-match);
+// init() is only a state check once running. touchend too: iOS may only count the end of a touch as a gesture.
+// M (or the small speaker top-right) toggles mute
 const unlock = () => audio.init();
-window.addEventListener('pointerdown', unlock, { once: true });
+window.addEventListener('pointerdown', unlock, { capture: true, passive: true });
+window.addEventListener('touchend', unlock, { capture: true, passive: true });
 window.addEventListener('keydown', (e) => {
   unlock();
   if (e.code === 'KeyM' && !e.repeat) audio.setMuted(!audio.muted);
@@ -145,6 +148,9 @@ if (qs.has('debug')) {
     return 'snapped';
   };
   window.unsnap = () => document.getElementById('debug-snap')?.remove();
+  // music (ADR 0019): music.state(), music.next() (a new song from the next bar), music.seed(n); ?musicSeed=N
+  window.music = audio.mus;
+  if (qs.get('musicSeed')) audio.mus.seedNext = Number(qs.get('musicSeed')) >>> 0;
   window.freezeCpu = () => {
     game.brains[1].update = function () {
       this.f.pad.tick();

@@ -203,6 +203,8 @@ attach the lineup (scale standard).
 The next-version numbers were read from the folders and REVIEW.md today; recheck before saving (1 + the highest
 number anywhere, AGENTS.md).
 
+**Lying rule (ADR 0020):** `down` (A13) and `ko` (A36) take **route B**, not an edit: the approved poses are drawn from above and float in the game, so draw them fresh side-on at the spec camera with the head, back, hips, legs and heels on y 240 ([SPEC.md "Lying poses"](../../SPEC.md#lying-poses); prompt lines and QA in [KO_DOWN_BRIEF.md](../../scale/KO_DOWN_BRIEF.md)); the packer's ground check must report nothing for `ko`, `down` f1 and `getup` f0.
+
 ## 7. `heavy` redesign: ONE-HAND RISING ELBOW INTO PALM
 
 8 frames · phases 3/2/3 (startup f0-f2, active f3-f4, recovery f5-f7) · plays once · **CORE** · bodyHeight **228**

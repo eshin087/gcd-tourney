@@ -638,6 +638,16 @@ const UPDATE = {
     }
     if (k.phase === 'hits') {
       f.vel.set(0, 0, 0);
+      if (o.ko) {
+        // KO'd mid-flurry: the body flies off on its KO launch; holding it would re-freeze it in the air every hit
+        o.heldT = 0;
+        k.phase = 'land';
+        k.t0 = 0;
+        f.hidden = false;
+        f.actor.setVisible(true);
+        f.air = true;
+        return;
+      }
       if (k.t0 % S.every !== 1) return;
       if (k.i < S.hits) {
         const R = g.cam.right, F = g.cam.fwd, a = k.i * 2.39996 + 0.6;
@@ -650,7 +660,7 @@ const UPDATE = {
         f.actor.ghost(S.color, 0.4, 0.55);
         o.heldT = Math.max(o.heldT, 30);
         o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
-        o.vel.set(0, 0, 0);
+        if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
         burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, 0xd8f0ff, 1.1);
         if (S.hitFx === 'smoke') burst(g, 'smoke', f.pos.x, f.pos.y + 0.7, f.pos.z, null, 0.6); // a clone pops
         g.cam.shake(0.25);
@@ -842,13 +852,20 @@ const UPDATE = {
     }
     if (k.phase === 'maul') {
       f.vel.set(0, 0, 0);
+      if (o.ko) {
+        // KO'd by a slam: let the body fly on its KO launch instead of pinning it for the rest of the mauling
+        o.heldT = 0;
+        k.phase = 'recover';
+        k.t0 = 0;
+        return;
+      }
       if (k.t0 % S.every !== 1) return;
       const d = dirTo(f, o), p = o.pos;
       if (k.i < S.slams) {
         f.actor.setPhase(S.maulPose ?? 'heavy', S.maulPhase ?? 1, 0.5); // the claw-strike frame
         o.heldT = Math.max(o.heldT, 30);
         o.takeHit(f, { dmg: S.slamDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 5, unblockable: true, spark: 'smash', shake: 0.6 }, d);
-        o.vel.set(0, 0, 0);
+        if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
         burst(g, 'chakra', p.x, p.y + 0.4, p.z, C.chakra, 1.6);
         g.fx.crater(p);
         g.fx.debris(p.x, p.z, 6, 0.9);

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
-import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
+import { VFX_PPU as PPU, RING_TOP, RING_HALF, ARENA_LIMIT } from './constants.js';
 
 const VERT = /* glsl */ `
   uniform vec4 uvRect;
@@ -460,7 +460,10 @@ export class Effects {
     m.rotation.z = Math.random() * Math.PI;
     const s = this.cellWorld * 0.85;
     m.scale.set(s, s, 1);
-    m.position.set(pos.x, RING_TOP + 0.01, pos.z);
+    // on the floor under pos: a KO'd body can slide off the ring edge before its crater lands (ADR 0020), so off the
+    // ring the decal lies on the grass (just above the stone paths at 0.02) instead of hanging at ring-top height
+    const onRing = Math.abs(pos.x) <= RING_HALF && Math.abs(pos.z) <= RING_HALF;
+    m.position.set(pos.x, onRing ? RING_TOP + 0.01 : 0.03, pos.z);
     this.scene.add(m);
     this.decals.push({ mesh: m, life: 9 });
     if (this.decals.length > 10) this.removeDecal(this.decals.shift());

@@ -24,7 +24,11 @@ src/core/
                             InputManager.poll), IS_TOUCH_DEVICE, button size prefs
   artIndex.js               production art index (public/art-index.json): only request art files that exist
                             saved to localStorage ('gcd.bindings.v1'), PS/Xbox pad detection, menu events
-  audio.js                  AudioEngine: everything synthesized with WebAudio (sfx, loops, music, crowd), mute
+  audio.js                  AudioEngine: everything synthesized with WebAudio (sfx, loops, crowd), mute, the music bus
+                            and MUSIC volume; music calls delegate to music.js
+  music.js                  MusicPlayer (ADR 0019): performs composed songs (lookahead scheduler, Karplus-Strong koto,
+                            pads, bass, brushed drums, echo), mood crossfades, ducks, intensity, lite mode
+  musicPlan.js              pure seeded composer (ADR 0019): MOODS / DUCKS data, voiceLead, composeSong (Node-tested)
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
                             (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
@@ -192,7 +196,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
   one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
-  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages).
+  shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
+  `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
+  and turns the caster with the billboard, so the whole body is grounded (ADR 0020); `SheetAsset.footprint(frame)`
+  gives the span in local units, and `fitShadow` multiplies it by the actor's `depthK` like the drawn body.
 - **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
   then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
   `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
@@ -286,10 +293,30 @@ one, falling back to the title (with a `[menus]` console error) if that throws. 
 
 `src/core/audio.js` synthesizes everything (oscillators + noise buffers): one-shots via `audio.play(name, vol)`,
 loops via `audio.loop(id, kind, variant)` / `stopLoop(id)` (the charge loop's variant is the style's `sound`: hum, boil,
-crackle, calm), music styles `menu` / `battle`, and a crowd bed with an
-excitement level. The first user gesture calls `audio.init()`. `audio.setMuted(bool)` mutes, bound to `M`, and
-the in-progress on-screen mute toggle uses it too. To swap in recorded samples later, change the cases in
-`play()`. Callers don't change.
+crackle, calm), and a crowd bed with an excitement level. The first user gesture
+calls `audio.init()`; every later pointerdown, touchend or keydown resumes a context that isn't running (iOS
+'interrupted'), and a hidden tab suspends it and wakes it on return. `audio.setMuted(bool)` mutes, bound to `M` and the on-screen speaker toggle. To swap in recorded
+samples later, change the cases in `play()`. Callers don't change.
+
+**Music** ([ADR 0019](decisions/0019-generative-lofi-music.md)) is generative lo-fi, composed per song and never
+looped:
+
+- `audio.startMusic(mood)` with `'menu'` (title, menus, results; 72 bpm), `'battle'` (matches; 86 bpm) or
+  `'training'` (training room and lab; 80 bpm, calmer). A mood already playing is a no-op; a new one crossfades
+  (2 s out, 1.5 s in). `stopMusic(fade)` fades out.
+- `src/core/musicPlan.js` composes a whole song from a seed (pad voicings, bass, koto melody, arpeggio, drums,
+  chimes; tune it in `MOODS`). `src/core/music.js` performs it with a 0.3 s lookahead scheduler; only that much
+  exists as nodes, a step more than 80 ms late is skipped (no burst after a stall), and the next song is composed
+  when one ends.
+- Hooks in `Game`: `audio.setMusicIntensity(excite)` each rendered frame of a fight (busier drums, arpeggio,
+  brighter pad as it heats up); `audio.duckMusic(id, on)` for `pause`, `clash` (rhythm clash), `ko` (until the win
+  pose) and `domain`; `audio.clearMusicDucks()` in `resetRound` / `cleanupMatch`; the results screen switches to
+  `'menu'`.
+- Volume: `audio.musicVolume` (0..1, default 0.7, localStorage `gcd.musicVol`) via `setMusicVolume(v)` /
+  `stepMusicVolume(d)`; the MUSIC row in both pause menus. Bus chain: track (crossfade) -> duck gain -> 5.2 kHz
+  lowpass -> `audio.music` (volume) -> master -> compressor. At 0% nothing is scheduled.
+- Phones (and 4 cores or fewer) get a lite mode with about half the nodes. `?debug` exposes `music.state()`,
+  `music.next()`, `music.seed(n)` and `?musicSeed=N`.
 
 ## Training room
 

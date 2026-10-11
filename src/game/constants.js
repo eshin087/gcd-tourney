@@ -1,6 +1,7 @@
 // Shared world constants. 1 world unit = 1 floor tile.
 export const RING_HALF = 9; // ring spans -9..9 on x and z
 export const RING_TOP = 0.6; // height of the ring surface
+export const RING_LIP = 0.35; // the low stone step around the ring's base (arena.js lip box: S + 0.7 wide)
 export const ARENA_LIMIT = RING_HALF - 0.45; // how far fighters can move from center
 export const FPS = 60; // fixed simulation rate
 export const DT = 1 / FPS;
