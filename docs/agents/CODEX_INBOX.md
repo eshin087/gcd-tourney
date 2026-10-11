@@ -19,6 +19,52 @@ How it works:
 
 The user approved the three final decal previews and explicitly assigned Codex as coordinator for these merges while Claude was paused. This supersedes the older no-approval/no-merge instructions below for PRs #52-54 only. All latest 31 decal types / 143 variants are approved with the documented visual deviations accepted. Merge order: #53 core, #52 chakra, #54 cursed; combined pack preserves every reviewed pixel and needs at most four pages per match. Regression suite: 308 passed, zero failed; build passes. The initial deployment was blocked by automatic approval review; the user then explicitly authorized production release. Committed main 7f2410d is now deployed at https://gcd-tourney.vercel.app. The three merged decal worktrees were removed; versioned sources and QA remain in main. Character redraw and PR #59 are untouched; #51/#55/#56 were previously closed as superseded. Historical instructions below are not a new task to revive those closed PRs. This temporary Codex integration assignment is complete; Claude may resume coordination. Release evidence: art/decals/production/RELEASE_QA.md.
 
+## Redraws after the user's yes to all (2026-10-11)
+
+The user answered "yes to all" (chat with Claude): **more attempts for the real failures** (up to 3 more generations per
+strip below, on top of the earlier cap), the packer rescale for wrong-size strips, written misread notes, and Claude's
+manual QA. Claude did everything except the redraws, in branches #61-#64 (pull them; do not redo it):
+
+- manifest `version`/`approvedVersion` = the recorded visual approvals; Killua light4 v06 / special v04 stitched;
+- `uniform` strips recalibrated (sidecar `scaleFit`): Naruto airLight2 v04, charge v05, taunt v02, specialForward v03;
+  Killua stagger v03, light4 v06 - all now `ok`;
+- misread exemptions (`scaleExemptFrames` + `scaleExemptVersion`, per-frame head-box evidence): Sasuke light4 v04, heavy
+  v08, airLight3 v04 (collar hides the back hair); Killua specialUp v07 (raised arm crosses the hair); Naruto hurtHigh
+  v02, specialDown v03 (shaded face read as hair, then manual QA);
+- `scaleManualQA` for 31 unmeasured strips (contact sheets in `art/characters/<id>/production/manual-qa-2026-10-11/`).
+
+**Redraw these 20 strips** (new `_vNN` above every existing version, same frame count and timing, the approved idle and
+head_scale_guide attached; long strips in parts + `npm run stitch -- <id> <anim> <vNN> --counts A,B --public <scratch
+pack with the current idle>`). Each must pass `node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale`
+(exit 0) with the strip `ok` (or `manual` after Claude's check for a lying/tumbling pose). Numbers = head vs idle per frame:
+
+| fighter | strip | now | what is wrong (Claude's QA of the heads sheet) |
+|---|---|---|---|
+| Gojo | airLight3 v03 | drift 0.88 (0.82-0.91) | hair ~12 % small in every frame; f2 also touches the right cell margin |
+| Gojo | airHeavy v03 | pop: f2 1.13, f3 1.10 | hair swells mid-strip |
+| Gojo | charge v04 | drift 1.10 | hair ~10 % bigger in every frame (keep the flare inside the idle's hair mass) |
+| Gojo | win v02 | drift 0.93 | f0, f2, f3 hair ~7 % small (f1 is right) |
+| Sasuke | charge v06 | 0.83 | head ~17 % small in width and height |
+| Sasuke | special v04 | pop: f3-f7 1.06-1.12 | head 6-14 % big from f3 on (f0-f2 right) |
+| Sasuke | specialForward v03 | 1.06-1.11 | head ~9 % big in every frame |
+| Sasuke | getup v02 | manual QA fail | f4 (the guard stance before idle) is the whole figure ~20 % small (shoulders and torso) |
+| Naruto | light4 v03 | pop: 0.89-1.16 | f5-f7 hair 13-16 % big, f4 small |
+| Naruto | airLight3 v04 | pop: f5 0.90 | f4-f5 small against f0-f1 |
+| Naruto | throw v04 | 1.04-1.08 | hair slightly big in f2-f3 |
+| Naruto | heavy v08 | (passes the gate) | **f4 clipped 24 px and f5 5 px at the top of the cell**: the uppercut must fit inside y >= 4 |
+| Killua | run v06 | drift 0.94 | head ~6 % small (f5 0.89) |
+| Killua | light1 v05 | drift 0.92 | f0-f3 head ~8 % small |
+| Killua | heavy v09 | pop: f0 1.11, f5 1.09 | hair big in f0 and f5 |
+| Killua | airLight3 v05 | drift 1.08 | hair ~8 % big in every frame |
+| Killua | airHeavy v04 | pop: f2 1.11, f3 1.08 | hair big mid-strip (no arm in the way: real) |
+| Killua | special v04 | drift 0.94 | head ~6 % small (f4, f6 0.92) |
+| Killua | specialDown v03 | pop: f1 1.13 | hair big in f0-f1 |
+| Killua | down v04 / ko v05 | manual QA fail | lying body ~245-250 px long against a 200 px stance: legs/shins too long (your own QA note); also touch the cell margin |
+
+Also reposition Sasuke superDash f0 (right cell margin, 4 px). Then add the REVIEW rows and **stop for the user's
+visual approval of each new version**; Claude records nothing for you and only merges once all four strict packs exit
+0. Do not edit thresholds, exemptions, manual-QA records, `scaleFit` or `builds.json`.
+
 ## Cast integration blockers (2026-10-11, Claude)
 
 The user visually approved the latest redraws (#61 Gojo, #62 Sasuke, #63 Naruto, #64 Killua). Claude merged #59 and the
