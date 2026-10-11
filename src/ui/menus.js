@@ -308,7 +308,7 @@ export class Menus {
       row.append(el('span', 'tr-label', label), box);
       return row;
     };
-    const techRow = optRow('DUMMY TECH', 'tech', [['never', 'NEVER'], ['hold', 'HOLD'], ['random', 'RANDOM']]);
+    const techRow = optRow('DUMMY TECH', 'tech', [['never', 'NEVER'], ['hold', 'HOLD'], ['random', 'RANDOM'], ['timed', 'TIMED']]); // timed: ADR 0028
     const burstRow = optRow('DUMMY BURST', 'burst', [[false, 'OFF'], [true, 'ON']]);
 
     const kiRow = el('div', 'tr-row');

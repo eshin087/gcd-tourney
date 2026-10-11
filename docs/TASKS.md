@@ -206,6 +206,7 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 | ENG-077 | Restyle the Nine-Tails cloak, Godspeed and beamCharge auras to the canon charge styles; scale auras with depthK | Claude | todo | follow-up to ENG-069/ENG-067 |
 | ART-NAR-PROP | Naruto at about 7 heads tall (head and hair ~8 % smaller): model sheet, idle, all 42 animations | Codex | in-progress | model sheet approved and merged 2026-10-10 (Naruto v03 #48, Sasuke v02 #47); next: idle, then stop for approval; user request 2026-10-10; replaces ART-SCALE-02 batch 2 and his ART-KO-01 |
 | ART-SAS-PROP | Sasuke at about 7 heads tall (head and hair ~8 % smaller): model sheet, idle, all 42 animations | Codex | in-progress | model sheet approved and merged 2026-10-10 (Naruto v03 #48, Sasuke v02 #47); next: idle, then stop for approval; user request 2026-10-10; replaces ART-SCALE-02 batch 3 and his ART-KO-01 |
+| ENG-078 | Smash-style timed impact tech: Guard pressed within 11 f before a floor or wall impact techs bounces and knockdowns (not super finishes); roll, in place, wall tech, wall-jump tech; CPUs by level | Claude | review | user request 2026-10-11; ADR 0028; merged and deployed PR #60 (35b038e); follow-up: about a third of CPU vs CPU bounce routes now end in a timed tech (balance pass ENG-048) |
 
 ## Later (M4+)
 
