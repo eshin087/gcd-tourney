@@ -101,6 +101,7 @@ const VFX_EFFECTS = {
   star: { frames: 5, ms: 40, tinted: true, fill: 0.4 },
   crater: { frames: 3, ms: 1000, tinted: false, fill: 0.97 },
   lines: { frames: 4, ms: 40, tinted: true, fill: 0.95 },
+  dustWave: { frames: 6, ms: 60, tinted: false, fill: 0.7, anchor: 'bottom' }, // ground damage (ADR 0024)
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

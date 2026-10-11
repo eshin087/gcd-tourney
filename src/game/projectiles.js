@@ -198,6 +198,7 @@ export class Projectile {
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
       if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
+        fx.ground.impact(this.pos, { kind: 'shot', style: this.P.ground, tint: this.P.glowColor, dir: this.vel });
         audio.play('hitHeavy', 0.7);
       }
       this.kill();
@@ -286,10 +287,8 @@ export class Orb {
     this.grow = Math.min(1, this.grow + 0.1);
     if (!this.clash) {
       p.addScaledVector(this.dir, S.speed * DT);
-      if (this.t % 5 === 0) {
-        fx.crater(p);
-        fx.debris(p.x, p.z, 3, 0.7);
-      }
+      fx.ground.trail(this.id, p, this.dir, S.radius * 2, S.ground, S.orb); // the trench it carves
+      if (this.t % 5 === 0) fx.debris(p.x, p.z, 3, 0.7);
       const o = this.owner.opp;
       if (!this.hit && !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
         const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
@@ -400,6 +399,7 @@ export class Vortex {
     if (this.t >= m.len) {
       if (canPull && d < 1.8 && o.hittable) o.takeHit(this.owner, { ...m.pop, projectileHit: true }, dir);
       fx.explosion(p.x, p.y, p.z, new THREE.Color(0x6ab4ff));
+      if (p.y < 2.5) fx.ground.impact(p, { kind: 'vortex', style: m.ground, tint: this.colors.glow });
       g.cam.shake(0.4);
       audio.play('explosion', 0.6);
       this.kill();

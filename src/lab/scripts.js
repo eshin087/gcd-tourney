@@ -201,6 +201,18 @@ export const SCENARIOS = [
     setup: { gap: 1.2, nearWall: true }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [],
   },
   {
+    id: 'groundDamage', name: 'Ground damage', info: 'Light × 3, launcher, chase, air light × 2 and the air heavy spike (a ground bounce crater), the dive special (or the forward special), then Special held for 4 s: the crack under you grows into a fracture (MAX POWER needs METER on normal).',
+    setup: { gap: 1.2, kiA: 300 },
+    a: (defs) => {
+      const dive = ['up', 'neutral', 'forward'].find((s) => specialFor(defs[0], s)?.kind === 'dive');
+      return [
+        tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'heavy'), tap(62, 'jump'), tap(78, 'light'), tap(88, 'light'), tap(100, 'heavy'),
+        tap(190, 'special', { stick: dive ? SLOT_STICK[dive] : 'toward' }), { t: 300, btn: ['special'], len: 240 },
+      ];
+    },
+    b: [],
+  },
+  {
     id: 'vanish', name: 'Vanish', info: 'Guard + Special: teleport behind them and kick.',
     setup: { gap: 3.2, kiA: 100 }, a: [tap(0, ['guard', 'special'])], b: [],
   },

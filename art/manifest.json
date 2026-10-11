@@ -1104,7 +1104,8 @@
       "streak": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":2,"approvedVersion":2},
       "star": {"frames":5,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
       "crater": {"frames":3,"ms":1000,"colorRule":"fullColor","anchor":"decal","step":10,"status":"approved","version":1,"approvedVersion":1},
-      "lines": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1}
+      "lines": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "dustWave": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null}
     }
   },
   "sharedUi": {

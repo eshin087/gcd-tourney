@@ -147,6 +147,7 @@ export default {
     ultimate: 'whirlwind', // Godspeed's reflex mode (ADR 0017)
   },
   stats: { speed: 6.8, power: 0.97, defense: 0.95 }, // stat index 1.01 (ADR 0011)
+  ground: { style: 'lightning', tint: '#bfe6ff', charge: 'fracture_lightning' }, // floor damage (ground.js, ADR 0024)
   model,
   stance,
   extraAnims,
