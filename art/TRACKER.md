@@ -164,16 +164,16 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v01 | Title-style v03 deep takeoff crouch: low-confidence probe requires v03-only manual anatomy acceptance after native packed face/torso/limb comparison; not a numeric pass. Old v01 remains approved pending final-set review. |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | block | 2 | - | no | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | block | 2 | - | no | 204 | approved | v05 | v01 | Title-style v05 third attempt passes strict 48-color new-strip gate; v03/v04 enlarged-head variants archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
 | 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v01 | Title-style v03 candidate: measured head fit from 183 to 166 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows bent abdomen reaction and a matching rising stance. Old v01 remains approved pending full-set review. |
 | 9 | spin | 4 | - | no | 160 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | vanish | 2 | - | no | 221 | approved | v05 | v01 | Title-style v05 afterimage candidate uses version-only manual low-confidence anatomy acceptance after native face/torso/limb QA; not a numeric pass. v03/v04 source-size mismatch archived. Old v01 remains approved pending final-set review. |
 | 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | ko | 1 | - | no | 64 | approved | v05 | v02 | Title-style v04/v05 preserved original supine bent-knees KO but were rejected after three imagegen attempts: low-confidence anatomy and lying contact warnings. Original approved v02 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
 | 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | taunt | 2 | - | no | 212 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | taunt | 2 | - | no | 212 | approved | v03 | v01 | Title-style v03 red-eyed beckon passes 48-color new-strip gate without clipping/exemption; actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
