@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/gouge_repel_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/gouge_repel_v01_A.png",
+    "decals/raw/gouge_repel_v01_B.png",
+    "decals/raw/gouge_repel_v01.json"
+  ],
+  "sourceHash": "2b930b5291e3da71a0ade475eacace7d743890a8",
+  "cell": {
+    "w": 512,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "gouge_repel_00.png": "bbd94329b891efa69de606766a267eb6dcf0dd7f",
+    "gouge_repel_01.png": "8cda2a0938f5662d86b232beb501c394fb9b4a3d",
+    "gouge_repel_02.png": "11f64ca1f5971ac823d43a164da31ed73de2f6b4",
+    "gouge_repel_03.png": "2b1fd2ebf2a3f4557b92866da8cae3c5ddaa60cd"
+  }
+}

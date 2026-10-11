@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): six cursed v01 candidates, 20 packed variants, review gallery and documented remaining palette/design caveats; no art approved.
+
 - Tools: `npm run pr -- merge` now deploys the merged main to production (https://gcd-tourney.vercel.app) after publishing it, so a merge is live; `--no-deploy` skips it, and a failed deploy never undoes the merge (user request 2026-10-10).
 - art(naruto): add seven-head proportion redraw brief and model_sheet v03 candidate with cast lineup and mobile review; model approval required before idle. Raw palette and source-scale caveats documented.
 - Sasuke: document seven-head full-redraw plan and queue model_sheet v02 with measured cast lineup; model approval stop, no new idle or shipped sprite changes.

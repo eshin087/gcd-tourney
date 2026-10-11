@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/erasure_trench_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/erasure_trench_v01_A.png",
+    "decals/raw/erasure_trench_v01_B.png"
+  ],
+  "sourceHash": "e94f39c979d1b499f4a43ea3fb69df148ce33b23",
+  "cell": {
+    "w": 512,
+    "h": 256,
+    "fill": [
+      1,
+      0.97
+    ]
+  },
+  "files": {
+    "erasure_trench_00.png": "d1885053caf0f9e08450a406a76752ba5c89de6c",
+    "erasure_trench_01.png": "4141aeaa920f2e3055575bb5b4486921ab70b8ee",
+    "erasure_trench_02.png": "673c149f5f7da4b5564bb4d11da8156681ad2411"
+  }
+}

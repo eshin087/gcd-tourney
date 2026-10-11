@@ -1,0 +1,58 @@
+{
+  "ppu": 64,
+  "source": "candidates",
+  "packer": 2,
+  "pages": ["decals_cursed.png"],
+  "pageSizes": [[2048, 1280]],
+  "decals": {
+    "erasure": {
+      "page": 0,
+      "w": 256,
+      "h": 256,
+      "frames": [[1536, 512], [1792, 512], [0, 768]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "hotKey": true,
+      "version": 1
+    },
+    "erasure_trench": {
+      "page": 0,
+      "w": 512,
+      "h": 256,
+      "frames": [[1024, 0], [1536, 0], [1024, 256]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "directional": true,
+      "hotKey": true,
+      "tile": true,
+      "version": 1
+    },
+    "crush_implode": { "page": 0, "w": 256, "h": 256, "frames": [[256, 768], [512, 768], [768, 768], [1024, 768]], "mode": "flat", "tinted": false, "group": "cursed", "version": 1 },
+    "gouge_repel": {
+      "page": 0,
+      "w": 512,
+      "h": 256,
+      "frames": [[1536, 256], [0, 512], [512, 512], [1024, 512]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "directional": true,
+      "hotKey": true,
+      "version": 1
+    },
+    "fracture_cursed": {
+      "page": 0,
+      "w": 256,
+      "h": 256,
+      "frames": [[1280, 768], [1536, 768], [1792, 768], [0, 1024]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "cursed",
+      "hotKey": true,
+      "version": 1
+    },
+    "fracture_cursed_big": { "page": 0, "w": 512, "h": 512, "frames": [[0, 0], [512, 0]], "mode": "flat", "tinted": false, "group": "cursed", "hotKey": true, "version": 1 }
+  }
+}

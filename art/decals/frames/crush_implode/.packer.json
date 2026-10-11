@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/crush_implode_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/crush_implode_v01_A.png",
+    "decals/raw/crush_implode_v01_B.png",
+    "decals/raw/crush_implode_v01.json"
+  ],
+  "sourceHash": "7cd244bb3d6353db43076a4be01eda44f0d5e9e1",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "crush_implode_00.png": "b0fde2d429d08236fa92f249c4f0000dee0d0ee9",
+    "crush_implode_01.png": "251857d732c11e9ddc5ae25fc28a15fd9bbc80bb",
+    "crush_implode_02.png": "ceb7a8c203ddbcf73ba89bd7d68c77cbb3b74f54",
+    "crush_implode_03.png": "324b3133ba731169edcb0280d2585b49c55d56f2"
+  }
+}

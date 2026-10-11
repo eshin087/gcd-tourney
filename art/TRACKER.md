@@ -538,3 +538,14 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+## Cursed decal candidates (2026-10-10)
+
+| Asset | Status | Version | Approved |
+|---|---|---|---|
+| erasure | packed, needs review | v01 | none |
+| erasure_trench | packed, needs review | v01 | none |
+| crush_implode | packed, needs review | v01 | none |
+| gouge_repel | packed, needs review | v01 | none |
+| fracture_cursed | packed, needs review | v01 | none |
+| fracture_cursed_big | packed, needs review | v01 | none |

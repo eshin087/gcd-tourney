@@ -1,0 +1,23 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/erasure_v01.png",
+  "version": 1,
+  "source": [
+    "decals/raw/erasure_v01.png"
+  ],
+  "sourceHash": "398a5049dc9329e5e54e34e8f9ad43781179743e",
+  "cell": {
+    "w": 256,
+    "h": 256,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "erasure_00.png": "6b06b1eb5e45a88dc09e402aaac324f5d14c484f",
+    "erasure_01.png": "eab0fa09b9c97372d3e41396b1def9fa749f7fd8",
+    "erasure_02.png": "12c1c8185580c1788265bdf7718aae3432e22080"
+  }
+}
