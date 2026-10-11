@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): preserve original down/KO pose layouts in new-style attempts v04/v05, archive technical rejects after clip, floor-contact and uncertain-scale checks; keep original approved poses active pending redraw guidance.
+
 - art(sasuke): add title-style airborne hammer v04 with measured two-part stitch and documented manual f0/f1 head-mask finding, backed by actual atlas crops.
 
 - art(sasuke): add title-style airborne jab v04, correct a measured 4 px contact-fist clip without changing generated pixels and inspect all five packed frames.
