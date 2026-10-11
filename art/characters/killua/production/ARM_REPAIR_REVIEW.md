@@ -31,4 +31,3 @@ The v04 cast lineup is art/scale/lineup-killua-heavy_v04.png. Approved idle chil
 - Fresh hosted browser results will be recorded in PR30 after the committed preview publishes.
 
 Recommendation: review the improved arm motion and hand silhouettes, with the extended f4 fingers, upper contact height and raw-palette limitations visible. No approval or merge is implied.
-
