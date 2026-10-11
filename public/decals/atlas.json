@@ -3,7 +3,7 @@
   "source": "approved",
   "packer": 2,
   "pages": ["decals_base_1.png", "decals_base_2.png", "decals_chakra.png", "decals_lightning.png"],
-  "pageSizes": [[2048, 2048], [2048, 1920], [1024, 256], [2048, 1280]],
+  "pageSizes": [[2048, 2048], [2048, 1920], [2048, 1792], [2048, 1280]],
   "decals": {
     "crack_s": {
       "page": 0,
@@ -164,11 +164,59 @@
       "group": "fire",
       "version": 1
     },
+    "scour_spiral": {
+      "page": 2,
+      "w": 256,
+      "h": 256,
+      "frames": [[0, 1280], [256, 1280], [512, 1280], [768, 1280], [1024, 1280], [1280, 1280]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "hotKey": true,
+      "version": 1
+    },
+    "scour_spiral_big": { "page": 2, "w": 512, "h": 512, "frames": [[0, 0], [512, 0], [1024, 0]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 2 },
+    "cut_wind": {
+      "page": 2,
+      "w": 256,
+      "h": 256,
+      "frames": [[1536, 1280], [1792, 1280], [0, 1536], [256, 1536], [512, 1536], [768, 1536]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "hotKey": true,
+      "version": 3
+    },
+    "claw": {
+      "page": 2,
+      "w": 512,
+      "h": 256,
+      "frames": [[0, 1024], [512, 1024], [1024, 1024], [1536, 1024]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "directional": true,
+      "hotKey": true,
+      "version": 2
+    },
+    "scorch_chakra": {
+      "page": 2,
+      "w": 512,
+      "h": 512,
+      "frames": [[1536, 0], [0, 512], [512, 512]],
+      "mode": "flat",
+      "tinted": false,
+      "group": "chakra",
+      "directional": true,
+      "hotKey": true,
+      "version": 2
+    },
+    "fracture_chakra": { "page": 2, "w": 512, "h": 512, "frames": [[1024, 512], [1536, 512]], "mode": "flat", "tinted": false, "group": "chakra", "hotKey": true, "version": 2 },
     "scorch_ki": {
       "page": 2,
       "w": 256,
       "h": 256,
-      "frames": [[0, 0], [256, 0], [512, 0], [768, 0]],
+      "frames": [[1024, 1536], [1280, 1536], [1536, 1536], [1792, 1536]],
       "mode": "flat",
       "tinted": false,
       "group": "ki",

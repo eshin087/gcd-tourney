@@ -11,6 +11,12 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): record user approval of PR52's six latest chakra decal versions / 24 variants and pack approved outputs; preserve source fringe, shape and hot-key caveats as accepted deviations. No redraw or production deployment.
+
+- art(decals): revise chakra shapes and palette candidates in PR52; preserve rejected histories, remove tracked preview outputs, add a self-contained unapproved game review atlas. Four fresh-source fringe failures remain explicitly documented; no approval or production promotion.
+
+- art(decals): add six chakra v01 candidates (11 images/24 variants), scoped review gallery and QA; approval and palette corrections pending.
+
 - art(decals): record user approval of all 19 latest core decal sets (99 variants), retain accepted QA deviations, archive superseded candidates, and generate approved-only output for coordinator integration.
 
 - Fixed: the core decal review reloads candidate image pages before each group selection, so returning to a previously viewed group works after the game releases its textures (ART-DEC-W4).
