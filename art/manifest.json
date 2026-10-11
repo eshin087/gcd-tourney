@@ -118,7 +118,7 @@
         "ko": { "frames": 1, "loop": false, "bodyHeight": 59, "ms": [500], "required": false, "step": 9, "status": "approved", "version": 7, "approvedVersion": 5 },
         "special": { "frames": 8, "loop": false, "phases": [3, 3, 2], "bodyHeight": 204, "ms": [120, 120, 120, 120, 120, 160, 110, 70], "required": true, "step": 7, "status": "approved", "version": 3, "approvedVersion": 3 },
         "intro": { "frames": 4, "loop": true, "bodyHeight": 210, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "taunt": { "frames": 2, "loop": true, "bodyHeight": 212, "ms": [250, 250], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "taunt": { "frames": 2, "loop": true, "bodyHeight": 198, "ms": [250, 250], "required": false, "step": 9, "status": "approved", "version": 6, "approvedVersion": 1 },
         "win": { "frames": 4, "loop": true, "bodyHeight": 212, "ms": [110, 90, 260, 180], "required": true, "step": 8, "scaleExemptFrames": { "1": "the raised fist covers part of the hair", "2": "the raised fist covers part of the hair" }, "scaleExemptVersion": 3, "status": "approved", "version": 3, "approvedVersion": 3 },
         "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [60, 60, 70, 90, 80, 80, 60], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
