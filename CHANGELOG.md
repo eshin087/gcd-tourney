@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke neutral redraw checkpoint: all 42 animations / 175 source frames, anatomical sidecars and full diagnostic gallery; strict scale failures and exhausted attempts remain explicit holds (ART-SAS-NEUTRAL).
+
 - Sasuke: idle v02/v03 candidates against approved smaller-head model; heads and lineup show proportion/build caveats, correction recommended before baseline approval.
 
 - Tools: `npm run pr -- merge` now deploys the merged main to production (https://gcd-tourney.vercel.app) after publishing it, so a merge is live; `--no-deploy` skips it, and a failed deploy never undoes the merge (user request 2026-10-10).

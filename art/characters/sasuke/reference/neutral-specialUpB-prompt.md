@@ -1,0 +1,10 @@
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. 
+PART B ONLY exactly TWO fullbody poses. Match PartA smallhead size natural limbs; second pose armsclaspedoverhead same as airHeavy reference. Wideblank magenta gap. ANIMATION: "specialUp", LION'S BARRAGE rise: a rising anti-air kick that carries him straight up (it ends in his double-fist hammer slam). 6 frames in total, numbered 1 to 6 from left to right; this image is PART B of 2 and shows only poses 5 to 6 (the attached part A shows poses 1 to 4).
+5. Turning over at the top of the jump: the kicking leg folds, both knees tuck toward his chest, the body tips forward over the top (torso pitched about 30 degrees forward, head looking down at the target below on the right), both arms swinging up past his shoulders with the hands coming together. Face: focused.
+6. Apex hang: both hands clasped together (fingers interlocked) raised overhead, torso arching back, knees tucked; this pose leads straight into his double-fist hammer slam (match the first pose of the attached airHeavy strip exactly). Face: shout.
+MOTION: All poses are in mid-air. Normal dark eyes in every pose. Draw NO lightning, dust or speed lines. Nothing in poses 5 and 6 rises above the kicking foot of pose 3 in part A.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+
+Correction: none
+
+Final: none

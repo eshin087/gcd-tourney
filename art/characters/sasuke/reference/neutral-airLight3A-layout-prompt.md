@@ -1,0 +1,1 @@
+Fix layout of four airbornekick poses: everywholefigure (INCLUDING whitecrescent) has separate nonoverlapping horizontalinterval with minimum100px fullheight magenta corridor. Widen canvas, or shrinkALL bysamefactor to fit. Exactlyfourwholeposes unchangedanatomy moves. Remove whitecrescent entirely if it obstructs spacing. No croppedtoes.

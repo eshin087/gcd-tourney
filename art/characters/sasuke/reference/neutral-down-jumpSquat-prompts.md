@@ -1,0 +1,10 @@
+# Down v02
+
+One built-in attempt, candidate only.
+Anime fan-art pixel sprite DOWN animation TWO fullbody horizontal lying poses LEFT TO RIGHT in single row, each inside half of1536x1024 magenta canvas. Identity/anatomy from approved neutral firstreference, desired side-on lying design secondreference. Same slim teenage darkhaired ninja white open shirt navycloth pants guards purple ropebelt and sheathed sword sandals. HeadLEFT feetRIGHT both poses. Camera side-on12degrees above floor, NEVERoverhead. f0 small impact bounce: shoulders/head lifted only12sourcepx above contact, hips andheels touching floor; arms fall alongside; knees smallbend. f1 fully settled matchingKO reference: headback shoulders spine hips calves heels on SAMEfloorline. Wholebody elongated about3.5timeswiderthantall, head-to-limb ratios preserve neutral. Two clear isolated figures each~620sourcepxwide (skull~70sourcepx), not clipping neighbors. Feet/head same scale BOTH. Floorbaseline700 but no drawnline/shadow. Eyesclosed mouthslightlyopen; no injuryblood. Hardpixel edges2px discreteblocks flat48color shading, noAA blur gradients VFX text borders. Both poses must keep broad continuous back-to-heel contact, not suspended pelvis/head.
+
+# Jump squat v02
+
+One built-in attempt, candidate only.
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. ONE fullbody jumpSquat pose centered1536x1024: deep pre-jump crouch knees bent sharply, left foot forward, torso forward, BOTH arms swung DOWN and BACK with openhands, head looks forwardandup, waistcloth overknees. BOTHFEET flat onfloor baseline850, keep shins and thighs original lengths bybending notshortening. Hands behindhips ready swingup. No leap yet. Wholefigure withmargin.
+

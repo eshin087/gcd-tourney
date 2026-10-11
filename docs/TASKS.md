@@ -256,3 +256,17 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 | ART-SAS-SIZE-20261010 | Sasuke size-pop correction with phone review | Codex | done | files: art/characters/sasuke/, art/scale/lineup-sasuke-size*, public/art-review/sasuke-size-pops/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md. Isolated fix/sasuke-size-pops; user approval recorded; ready for Claude integration. |
 
 | ART-SAS-PROP-IDLE | Smaller-head idle after model approval | Codex W3 | review | Branch art/sasuke-proportions port5213; files: art/characters/sasuke/raw/idle_v02*, art/characters/sasuke/raw/_parts/idle_v02*, art/characters/sasuke/reference/idle_v02*, art/characters/sasuke/frames/idle/, public/characters/sasuke/, art/scale/heads-sasuke.png, art/scale/lineup-sasuke-idle_v02*, art/REVIEW.md, art/TRACKER.md, art/manifest.json, CHANGELOG.md, public/art-review/sasuke-proportions-idle/. Stop for idle approval; Claude integration. |
+
+## Sasuke neutral redraw verification — 2026-10-11
+
+| id | title | owner | status | notes |
+|---|---|---|---|---|
+| ART-SAS-NEUTRAL | Redraw all42 against approved neutral | Codex | review | port5213 real art-sasuke-proportions; fixed neutral copied, all new animations unapproved; source inventory175frames. |
+| TOOL-SAS-NEUTRAL-PROBE | Old branch palette-sensitive gate; use current main tool | Claude | review | Local tool flips unchanged run from ok to0.62 when dash added. Current main e549325 fixes instability: explicit --root art --out public gives run1.08/dash1.10, real remaining candidate drift under investigation. See art/characters/sasuke/reference/neutral-main-tool-pack.txt and neutral-dash-v02-pack.txt. No tool edits or blanket exemption. |
+
+
+### TOOL-SAS-IDLE-V06-MASK — Claude tooling handoff (blocked)
+
+Current main command: node ../../tools/pack-sprites.mjs sasuke --root art --out public --quantize 48 exits 1 from art-sasuke-proportions. Inputs idle_v06.png/JSON and A/B parts. A hair mask box [109,40,144,73] vs B [109,45,124,69] despite similar visible hair; B excludes right hair mass. Investigate palette declaration/mask selection before treating idle ref as valid. No tools changed or blanket exemption. Exact logs/masks/landmark uncertainty: [neutral-redraw-QA](../art/characters/sasuke/reference/neutral-redraw-QA.md). All 42 source candidates exist; 31 strict failures and actual art issues prevent readiness. Claude owns tool fix; Codex owns later measured art corrections.
+
+Palette follow-up: TOOL-SAS-IDLE-V06-MASK is resolved in art data by measured #20315b/#292b53/#294686/#293b6c headColors. Full masks restored; no tooling patch required. Current main pack still fails14 strips, with independent anatomy/pose holds. See neutral-palette-corrected-pack.txt and QA resolution section.

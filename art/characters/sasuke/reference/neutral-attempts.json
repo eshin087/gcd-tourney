@@ -1,0 +1,32 @@
+{
+  "limit": 3,
+  "additionalAttemptsAuthorized": false,
+  "defaultAttempts": 1,
+  "overrides": {
+    "idleA": 3,
+    "idleB": 3,
+    "runA": 1,
+    "runB": 3,
+    "light1A": 3,
+    "light1B": 2,
+    "light4A": 3,
+    "light4B": 1,
+    "heavyA": 2,
+    "heavyB": 2,
+    "hurtHigh": 3,
+    "getup": 3,
+    "specialA": 1,
+    "specialB": 3,
+    "specialForwardA": 2,
+    "specialForwardB": 3,
+    "superDash": 2,
+    "airLight1": 2,
+    "airLight2": 2,
+    "airLight3A": 2,
+    "airLight3B": 1,
+    "beamFire": 2,
+    "specialUpA": 2,
+    "specialUpB": 1
+  },
+  "note": "Counts are cumulative across versions in this production batch; parts are separate images. Saved historical versions remain immutable."
+}

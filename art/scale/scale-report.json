@@ -2188,242 +2188,237 @@
       "palette": {
         "head": [
           "#18192e",
-          "#2c3966",
-          "#324478",
-          "#3a4672",
-          "#3b3b60",
-          "#3a4c85",
-          "#3d5ba5",
-          "#435fa8",
-          "#435ea3"
+          "#2c3967",
+          "#31467c",
+          "#394571",
+          "#3a3a60",
+          "#39487d",
+          "#425fa7",
+          "#435fa2"
         ],
-        "feet": [
-          "#3a4672",
-          "#561e33"
-        ],
+        "feet": [],
         "source": "declared"
       },
       "ref": {
         "headPx": [
-          43,
-          42
+          34,
+          35
         ],
         "box": [
-          103,
-          41,
-          144,
-          81
+          110,
+          65,
+          143,
+          99
         ],
-        "feetPx": 67.5
+        "feetPx": 0
       },
       "counts": {
         "ref": 1,
-        "uniform": 4,
-        "ok": 9,
+        "ok": 3,
+        "drift": 21,
         "unmeasured": 8,
-        "drift": 13,
-        "pop": 5,
+        "pop": 7,
         "exempt": 2
       },
       "anims": {
         "idle": {
-          "v": 4,
-          "head": 0.996,
-          "feet": 1,
-          "range": 0.04,
+          "v": 5,
+          "head": 1,
+          "feet": null,
+          "range": 0.019,
           "verdict": "ref",
           "frames": [
             {
-              "head": 0.988,
-              "feet": 1.004,
+              "head": 1,
+              "feet": null,
               "box": [
-                103,
-                41,
-                144,
-                81
+                110,
+                65,
+                143,
+                99
+              ]
+            },
+            {
+              "head": 1,
+              "feet": null,
+              "box": [
+                110,
+                64,
+                143,
+                98
+              ]
+            },
+            {
+              "head": 1.004,
+              "feet": null,
+              "box": [
+                109,
+                65,
+                143,
+                98
+              ]
+            },
+            {
+              "head": 1,
+              "feet": null,
+              "box": [
+                110,
+                64,
+                143,
+                98
+              ]
+            },
+            {
+              "head": 1,
+              "feet": null,
+              "box": [
+                110,
+                66,
+                143,
+                99
+              ]
+            },
+            {
+              "head": 1,
+              "feet": null,
+              "box": [
+                110,
+                65,
+                143,
+                99
               ]
             },
             {
               "head": 0.985,
-              "feet": 1.054,
+              "feet": null,
               "box": [
-                102,
-                41,
-                144,
-                80
-              ]
-            },
-            {
-              "head": 0.988,
-              "feet": 1.122,
-              "box": [
-                102,
-                40,
+                110,
+                66,
                 143,
-                80
+                98
               ]
             },
             {
-              "head": 1.017,
-              "feet": 1.075,
+              "head": 1,
+              "feet": null,
               "box": [
-                101,
-                39,
+                109,
+                65,
                 143,
-                82
-              ]
-            },
-            {
-              "head": 1.004,
-              "feet": 0.834,
-              "box": [
-                103,
-                39,
-                145,
-                80
-              ]
-            },
-            {
-              "head": 0.988,
-              "feet": 0.996,
-              "box": [
-                102,
-                39,
-                143,
-                79
-              ]
-            },
-            {
-              "head": 1.004,
-              "feet": 0.911,
-              "box": [
-                102,
-                38,
-                144,
-                80
-              ]
-            },
-            {
-              "head": 1.025,
-              "feet": 0.834,
-              "box": [
-                102,
-                38,
-                144,
-                80
+                99
               ]
             }
           ]
         },
         "run": {
-          "v": 2,
-          "head": 1.084,
-          "feet": 3.12,
-          "range": 0.048,
-          "verdict": "uniform",
+          "v": 3,
+          "head": 1.057,
+          "feet": null,
+          "range": 0.045,
+          "verdict": "ok",
           "frames": [
             {
-              "head": 1.084,
-              "feet": 2.971,
+              "head": 1.057,
+              "feet": null,
               "box": [
+                111,
+                74,
+                147,
+                110
+              ]
+            },
+            {
+              "head": 1.021,
+              "feet": null,
+              "box": [
+                179,
+                78,
+                215,
+                111
+              ]
+            },
+            {
+              "head": 1.014,
+              "feet": null,
+              "box": [
+                171,
+                73,
+                206,
+                107
+              ]
+            },
+            {
+              "head": 1.057,
+              "feet": null,
+              "box": [
+                103,
+                75,
+                140,
+                111
+              ]
+            },
+            {
+              "head": 1.057,
+              "feet": null,
+              "box": [
+                102,
+                81,
                 138,
-                46,
-                184,
-                90
+                117
               ]
             },
             {
-              "head": 1.06,
-              "feet": 2.823,
+              "head": 1.057,
+              "feet": null,
               "box": [
-                138,
-                51,
-                183,
-                94
-              ]
-            },
-            {
-              "head": 1.07,
-              "feet": 2.644,
-              "box": [
-                138,
-                40,
-                183,
-                87
-              ]
-            },
-            {
-              "head": 1.07,
-              "feet": 2.713,
-              "box": [
-                138,
-                32,
-                183,
-                76
-              ]
-            },
-            {
-              "head": 1.084,
-              "feet": 3.94,
-              "box": [
-                138,
-                43,
-                184,
-                87
-              ]
-            },
-            {
-              "head": 1.108,
-              "feet": 3.336,
-              "box": [
-                137,
-                49,
-                184,
-                94
-              ]
-            },
-            {
-              "head": 1.093,
-              "feet": 3.268,
-              "box": [
-                138,
-                38,
-                184,
-                84
-              ]
-            },
-            {
-              "head": 1.093,
-              "feet": 3.483,
-              "box": [
-                139,
-                31,
                 185,
-                76
+                80,
+                220,
+                116
+              ]
+            },
+            {
+              "head": 1.012,
+              "feet": null,
+              "box": [
+                171,
+                76,
+                207,
+                110
+              ]
+            },
+            {
+              "head": 1.057,
+              "feet": null,
+              "box": [
+                107,
+                80,
+                143,
+                116
               ]
             }
           ]
         },
         "dash": {
           "v": 1,
-          "head": 1.116,
-          "feet": 3.069,
-          "range": 0.001,
-          "verdict": "uniform",
+          "head": 1.376,
+          "feet": null,
+          "range": 0.006,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 1.115,
-              "feet": 3.043,
+              "head": 1.379,
+              "feet": null,
               "box": [
                 205,
-                83,
+                84,
                 251,
                 130
               ]
             },
             {
-              "head": 1.116,
-              "feet": 3.094,
+              "head": 1.373,
+              "feet": null,
               "box": [
                 181,
                 82,
@@ -2435,14 +2430,14 @@
         },
         "backDash": {
           "v": 1,
-          "head": 0.977,
-          "feet": 4.064,
-          "range": 0.024,
-          "verdict": "ok",
+          "head": 1.219,
+          "feet": null,
+          "range": 0.026,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 0.992,
-              "feet": 4.156,
+              "head": 1.221,
+              "feet": null,
               "box": [
                 94,
                 36,
@@ -2451,8 +2446,8 @@
               ]
             },
             {
-              "head": 0.968,
-              "feet": 4.064,
+              "head": 1.195,
+              "feet": null,
               "box": [
                 71,
                 54,
@@ -2461,8 +2456,8 @@
               ]
             },
             {
-              "head": 0.977,
-              "feet": 3.637,
+              "head": 1.219,
+              "feet": null,
               "box": [
                 102,
                 36,
@@ -2474,14 +2469,14 @@
         },
         "superDash": {
           "v": 1,
-          "head": 1.193,
-          "feet": 3.7,
-          "range": 0.024,
-          "verdict": "uniform",
+          "head": 1.434,
+          "feet": null,
+          "range": 0.068,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 1.181,
-              "feet": 3.367,
+              "head": 1.4,
+              "feet": null,
               "box": [
                 133,
                 81,
@@ -2490,47 +2485,47 @@
               ]
             },
             {
-              "head": 1.205,
-              "feet": 4.033,
+              "head": 1.468,
+              "feet": null,
               "box": [
                 131,
                 81,
                 191,
-                130
+                128
               ]
             }
           ]
         },
         "jumpSquat": {
-          "v": 1,
-          "head": 1.047,
-          "feet": 3.373,
+          "v": 2,
+          "head": 0.974,
+          "feet": null,
           "range": 0,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 1.047,
-              "feet": 3.373,
+              "head": 0.974,
+              "feet": null,
               "box": [
-                122,
-                80,
-                166,
-                124
+                121,
+                107,
+                158,
+                137
               ]
             }
           ]
         },
         "jumpUp": {
           "v": 1,
-          "head": 0.875,
-          "feet": 4.099,
+          "head": 1.082,
+          "feet": null,
           "range": 0,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.465,
-              "feet": 3.933,
+              "head": 0.576,
+              "feet": null,
               "box": [
                 188,
                 54,
@@ -2540,8 +2535,8 @@
               "exempt": true
             },
             {
-              "head": 0.875,
-              "feet": 4.099,
+              "head": 1.082,
+              "feet": null,
               "box": [
                 128,
                 62,
@@ -2553,14 +2548,14 @@
         },
         "jumpFall": {
           "v": 1,
-          "head": 1.024,
-          "feet": 2.598,
-          "range": 0.002,
-          "verdict": "ok",
+          "head": 1.261,
+          "feet": null,
+          "range": 0.009,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 1.023,
-              "feet": 2.743,
+              "head": 1.257,
+              "feet": null,
               "box": [
                 113,
                 35,
@@ -2569,27 +2564,27 @@
               ]
             },
             {
-              "head": 1.025,
-              "feet": 2.453,
+              "head": 1.266,
+              "feet": null,
               "box": [
                 116,
                 33,
                 164,
-                73
+                72
               ]
             }
           ]
         },
         "land": {
           "v": 1,
-          "head": 0.966,
-          "feet": 3.092,
-          "range": 0.045,
-          "verdict": "ok",
+          "head": 1.195,
+          "feet": null,
+          "range": 0.059,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 0.989,
-              "feet": 2.974,
+              "head": 1.224,
+              "feet": null,
               "box": [
                 147,
                 100,
@@ -2598,8 +2593,8 @@
               ]
             },
             {
-              "head": 0.944,
-              "feet": 3.209,
+              "head": 1.165,
+              "feet": null,
               "box": [
                 118,
                 68,
@@ -2611,14 +2606,14 @@
         },
         "light1": {
           "v": 1,
-          "head": 0.954,
-          "feet": 2.28,
-          "range": 0.079,
-          "verdict": "ok",
+          "head": 1.182,
+          "feet": null,
+          "range": 0.096,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 0.954,
-              "feet": 2.28,
+              "head": 1.182,
+              "feet": null,
               "box": [
                 109,
                 43,
@@ -2627,8 +2622,8 @@
               ]
             },
             {
-              "head": 0.953,
-              "feet": 2.41,
+              "head": 1.17,
+              "feet": null,
               "box": [
                 105,
                 43,
@@ -2637,18 +2632,18 @@
               ]
             },
             {
-              "head": 0.944,
-              "feet": 2.329,
+              "head": 1.163,
+              "feet": null,
               "box": [
                 107,
-                43,
+                44,
                 148,
                 81
               ]
             },
             {
-              "head": 0.952,
-              "feet": 2.351,
+              "head": 1.174,
+              "feet": null,
               "box": [
                 104,
                 44,
@@ -2657,8 +2652,8 @@
               ]
             },
             {
-              "head": 1.023,
-              "feet": 1.004,
+              "head": 1.259,
+              "feet": null,
               "box": [
                 99,
                 37,
@@ -2667,8 +2662,8 @@
               ]
             },
             {
-              "head": 1.023,
-              "feet": 1.471,
+              "head": 1.232,
+              "feet": null,
               "box": [
                 98,
                 38,
@@ -2677,8 +2672,8 @@
               ]
             },
             {
-              "head": 1.005,
-              "feet": 1.241,
+              "head": 1.244,
+              "feet": null,
               "box": [
                 103,
                 38,
@@ -2690,14 +2685,14 @@
         },
         "light2": {
           "v": 2,
-          "head": 0.971,
-          "feet": 2.831,
-          "range": 0.34,
+          "head": 1.197,
+          "feet": null,
+          "range": 0.46,
           "verdict": "pop",
           "frames": [
             {
-              "head": 1.256,
-              "feet": 2.831,
+              "head": 1.588,
+              "feet": null,
               "box": [
                 84,
                 43,
@@ -2706,8 +2701,8 @@
               ]
             },
             {
-              "head": 0.916,
-              "feet": 2.929,
+              "head": 1.128,
+              "feet": null,
               "box": [
                 102,
                 44,
@@ -2716,8 +2711,8 @@
               ]
             },
             {
-              "head": 0.94,
-              "feet": 3.153,
+              "head": 1.142,
+              "feet": null,
               "box": [
                 94,
                 42,
@@ -2726,8 +2721,8 @@
               ]
             },
             {
-              "head": 0.924,
-              "feet": 2.994,
+              "head": 1.143,
+              "feet": null,
               "box": [
                 94,
                 42,
@@ -2736,8 +2731,8 @@
               ]
             },
             {
-              "head": 0.977,
-              "feet": 2.647,
+              "head": 1.206,
+              "feet": null,
               "box": [
                 111,
                 40,
@@ -2746,8 +2741,8 @@
               ]
             },
             {
-              "head": 0.977,
-              "feet": 2.602,
+              "head": 1.207,
+              "feet": null,
               "box": [
                 103,
                 42,
@@ -2756,8 +2751,8 @@
               ]
             },
             {
-              "head": 0.971,
-              "feet": 2.491,
+              "head": 1.197,
+              "feet": null,
               "box": [
                 101,
                 43,
@@ -2769,14 +2764,14 @@
         },
         "light3": {
           "v": 2,
-          "head": 0.893,
-          "feet": 1.559,
-          "range": 0.126,
+          "head": 1.104,
+          "feet": null,
+          "range": 0.164,
           "verdict": "pop",
           "frames": [
             {
-              "head": 0.892,
-              "feet": 1.43,
+              "head": 1.088,
+              "feet": null,
               "box": [
                 125,
                 40,
@@ -2785,8 +2780,8 @@
               ]
             },
             {
-              "head": 0.893,
-              "feet": 1.559,
+              "head": 1.104,
+              "feet": null,
               "box": [
                 113,
                 40,
@@ -2795,8 +2790,8 @@
               ]
             },
             {
-              "head": 0.886,
-              "feet": 1.535,
+              "head": 1.091,
+              "feet": null,
               "box": [
                 99,
                 42,
@@ -2805,8 +2800,8 @@
               ]
             },
             {
-              "head": 0.893,
-              "feet": 1.525,
+              "head": 1.102,
+              "feet": null,
               "box": [
                 107,
                 42,
@@ -2815,8 +2810,8 @@
               ]
             },
             {
-              "head": 1.012,
-              "feet": 1.94,
+              "head": 1.252,
+              "feet": null,
               "box": [
                 122,
                 42,
@@ -2825,8 +2820,8 @@
               ]
             },
             {
-              "head": 1.012,
-              "feet": 2.221,
+              "head": 1.237,
+              "feet": null,
               "box": [
                 108,
                 43,
@@ -2835,8 +2830,8 @@
               ]
             },
             {
-              "head": 1.012,
-              "feet": 1.993,
+              "head": 1.251,
+              "feet": null,
               "box": [
                 100,
                 43,
@@ -2848,14 +2843,14 @@
         },
         "light4": {
           "v": 1,
-          "head": 0.888,
-          "feet": 3.048,
-          "range": 0.1,
-          "verdict": "drift",
+          "head": 1.097,
+          "feet": null,
+          "range": 0.156,
+          "verdict": "pop",
           "frames": [
             {
-              "head": 0.953,
-              "feet": 3.88,
+              "head": 1.206,
+              "feet": null,
               "box": [
                 108,
                 48,
@@ -2864,8 +2859,8 @@
               ]
             },
             {
-              "head": 0.895,
-              "feet": 2.53,
+              "head": 1.102,
+              "feet": null,
               "box": [
                 112,
                 35,
@@ -2874,8 +2869,8 @@
               ]
             },
             {
-              "head": 0.89,
-              "feet": 2.888,
+              "head": 1.101,
+              "feet": null,
               "box": [
                 106,
                 37,
@@ -2884,28 +2879,28 @@
               ]
             },
             {
-              "head": 0.885,
-              "feet": 2.844,
+              "head": 1.092,
+              "feet": null,
               "box": [
                 112,
                 44,
                 154,
-                78
+                77
               ]
             },
             {
-              "head": 0.899,
-              "feet": 2.956,
+              "head": 1.109,
+              "feet": null,
               "box": [
-                109,
-                42,
+                110,
+                43,
                 154,
                 78
               ]
             },
             {
-              "head": 0.863,
-              "feet": 3.139,
+              "head": 1.065,
+              "feet": null,
               "box": [
                 123,
                 63,
@@ -2914,8 +2909,8 @@
               ]
             },
             {
-              "head": 0.853,
-              "feet": 3.353,
+              "head": 1.05,
+              "feet": null,
               "box": [
                 109,
                 69,
@@ -2924,47 +2919,47 @@
               ]
             },
             {
-              "head": 0.862,
-              "feet": 3.223,
+              "head": 1.065,
+              "feet": null,
               "box": [
                 111,
                 68,
                 147,
-                104
+                103
               ]
             }
           ]
         },
         "heavy": {
           "v": 6,
-          "head": 1.011,
-          "feet": 3.19,
-          "range": 0.427,
+          "head": 1.231,
+          "feet": null,
+          "range": 0.405,
           "verdict": "pop",
           "frames": [
             {
-              "head": 1.093,
-              "feet": 4.181,
+              "head": 1.279,
+              "feet": null,
               "box": [
                 115,
                 97,
                 161,
-                142
+                140
               ]
             },
             {
-              "head": 1.163,
-              "feet": 3.989,
+              "head": 1.429,
+              "feet": null,
               "box": [
                 127,
-                95,
+                96,
                 176,
                 145
               ]
             },
             {
-              "head": 1.036,
-              "feet": 3.496,
+              "head": 1.229,
+              "feet": null,
               "box": [
                 131,
                 44,
@@ -2973,8 +2968,8 @@
               ]
             },
             {
-              "head": 0.858,
-              "feet": 2.686,
+              "head": 1.066,
+              "feet": null,
               "box": [
                 96,
                 48,
@@ -2983,18 +2978,18 @@
               ]
             },
             {
-              "head": 0.736,
-              "feet": 3.434,
+              "head": 1.024,
+              "feet": null,
               "box": [
                 81,
                 45,
-                111,
+                124,
                 76
               ]
             },
             {
-              "head": 1.023,
-              "feet": 2.815,
+              "head": 1.232,
+              "feet": null,
               "box": [
                 125,
                 56,
@@ -3003,8 +2998,8 @@
               ]
             },
             {
-              "head": 0.964,
-              "feet": 2.946,
+              "head": 1.185,
+              "feet": null,
               "box": [
                 118,
                 47,
@@ -3013,8 +3008,8 @@
               ]
             },
             {
-              "head": 1,
-              "feet": 2.757,
+              "head": 1.237,
+              "feet": null,
               "box": [
                 105,
                 39,
@@ -3026,14 +3021,14 @@
         },
         "airLight1": {
           "v": 1,
-          "head": 0.86,
-          "feet": 3.468,
-          "range": 0.026,
-          "verdict": "drift",
+          "head": 1.057,
+          "feet": null,
+          "range": 0.032,
+          "verdict": "ok",
           "frames": [
             {
-              "head": 0.841,
-              "feet": 3.54,
+              "head": 1.057,
+              "feet": null,
               "box": [
                 139,
                 44,
@@ -3042,8 +3037,8 @@
               ]
             },
             {
-              "head": 0.867,
-              "feet": 3.565,
+              "head": 1.07,
+              "feet": null,
               "box": [
                 143,
                 45,
@@ -3052,8 +3047,8 @@
               ]
             },
             {
-              "head": 0.86,
-              "feet": 3.468,
+              "head": 1.054,
+              "feet": null,
               "box": [
                 142,
                 46,
@@ -3062,8 +3057,8 @@
               ]
             },
             {
-              "head": 0.855,
-              "feet": 3.048,
+              "head": 1.055,
+              "feet": null,
               "box": [
                 139,
                 45,
@@ -3072,8 +3067,8 @@
               ]
             },
             {
-              "head": 0.86,
-              "feet": 3.172,
+              "head": 1.086,
+              "feet": null,
               "box": [
                 136,
                 44,
@@ -3085,14 +3080,14 @@
         },
         "airLight2": {
           "v": 2,
-          "head": 0.907,
-          "feet": 2.069,
-          "range": 0.04,
+          "head": 1.114,
+          "feet": null,
+          "range": 0.054,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.907,
-              "feet": 2.033,
+              "head": 1.114,
+              "feet": null,
               "box": [
                 123,
                 38,
@@ -3101,8 +3096,8 @@
               ]
             },
             {
-              "head": 0.924,
-              "feet": 2.069,
+              "head": 1.145,
+              "feet": null,
               "box": [
                 101,
                 47,
@@ -3111,8 +3106,8 @@
               ]
             },
             {
-              "head": 0.924,
-              "feet": 2.167,
+              "head": 1.137,
+              "feet": null,
               "box": [
                 99,
                 46,
@@ -3121,8 +3116,8 @@
               ]
             },
             {
-              "head": 0.886,
-              "feet": 2.15,
+              "head": 1.091,
+              "feet": null,
               "box": [
                 115,
                 41,
@@ -3131,8 +3126,8 @@
               ]
             },
             {
-              "head": 0.884,
-              "feet": 1.955,
+              "head": 1.114,
+              "feet": null,
               "box": [
                 111,
                 35,
@@ -3144,14 +3139,14 @@
         },
         "airLight3": {
           "v": 1,
-          "head": 1.157,
-          "feet": 3.577,
-          "range": 0.077,
-          "verdict": "uniform",
+          "head": 1.404,
+          "feet": null,
+          "range": 0.116,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 1.109,
-              "feet": 3.609,
+              "head": 1.37,
+              "feet": null,
               "box": [
                 97,
                 8,
@@ -3160,8 +3155,8 @@
               ]
             },
             {
-              "head": 1.186,
-              "feet": 3.702,
+              "head": 1.486,
+              "feet": null,
               "box": [
                 136,
                 5,
@@ -3170,8 +3165,8 @@
               ]
             },
             {
-              "head": 1.157,
-              "feet": 3.7,
+              "head": 1.392,
+              "feet": null,
               "box": [
                 73,
                 43,
@@ -3180,8 +3175,8 @@
               ]
             },
             {
-              "head": 1.157,
-              "feet": 3.544,
+              "head": 1.397,
+              "feet": null,
               "box": [
                 107,
                 63,
@@ -3190,8 +3185,8 @@
               ]
             },
             {
-              "head": 1.181,
-              "feet": 3.538,
+              "head": 1.41,
+              "feet": null,
               "box": [
                 117,
                 37,
@@ -3200,8 +3195,8 @@
               ]
             },
             {
-              "head": 1.157,
-              "feet": 3.355,
+              "head": 1.418,
+              "feet": null,
               "box": [
                 82,
                 27,
@@ -3213,24 +3208,24 @@
         },
         "airHeavy": {
           "v": 2,
-          "head": 1.097,
-          "feet": 4.881,
-          "range": 0.219,
+          "head": 1.377,
+          "feet": null,
+          "range": 0.279,
           "verdict": "pop",
           "frames": [
             {
-              "head": 1.118,
-              "feet": 4.236,
+              "head": 1.377,
+              "feet": null,
               "box": [
                 100,
-                57,
+                58,
                 152,
                 102
               ]
             },
             {
-              "head": 0.916,
-              "feet": 4.955,
+              "head": 1.125,
+              "feet": null,
               "box": [
                 89,
                 19,
@@ -3239,8 +3234,8 @@
               ]
             },
             {
-              "head": 1.097,
-              "feet": 5.129,
+              "head": 1.382,
+              "feet": null,
               "box": [
                 121,
                 22,
@@ -3249,8 +3244,8 @@
               ]
             },
             {
-              "head": 1.135,
-              "feet": 4.881,
+              "head": 1.404,
+              "feet": null,
               "box": [
                 127,
                 28,
@@ -3259,8 +3254,8 @@
               ]
             },
             {
-              "head": 0.512,
-              "feet": 4.5,
+              "head": 0.647,
+              "feet": null,
               "box": [
                 101,
                 43,
@@ -3270,8 +3265,8 @@
               "exempt": true
             },
             {
-              "head": 0.917,
-              "feet": 4.246,
+              "head": 1.134,
+              "feet": null,
               "box": [
                 128,
                 51,
@@ -3282,45 +3277,45 @@
           ]
         },
         "guard": {
-          "v": 1,
-          "head": 1.312,
-          "feet": 2.468,
-          "range": 0.008,
+          "v": 2,
+          "head": 1.43,
+          "feet": null,
+          "range": 0.027,
           "verdict": "exempt",
-          "reason": "arms crossed in front of the face are drawn in hair shades and merge with the hair",
+          "reason": "v02 diagnostic neutral-guard-probe.json: navy crossed forearms merge into hair; probe boxes47x58 and48x60 extend to chest vs idle34x35. Raw skull106px matches idle; independent anatomy target24.49px.",
           "frames": [
             {
-              "head": 1.316,
-              "feet": 2.471,
+              "head": 1.416,
+              "feet": null,
               "box": [
-                104,
-                44,
-                156,
-                108
+                108,
+                60,
+                154,
+                117
               ]
             },
             {
-              "head": 1.308,
-              "feet": 2.465,
+              "head": 1.443,
+              "feet": null,
               "box": [
-                102,
-                53,
-                154,
-                114
+                108,
+                62,
+                156,
+                120
               ]
             }
           ]
         },
         "block": {
           "v": 1,
-          "head": 1.057,
-          "feet": 3.151,
+          "head": 1.308,
+          "feet": null,
           "range": 0,
-          "verdict": "ok",
+          "verdict": "drift",
           "frames": [
             {
-              "head": 1.057,
-              "feet": 3.151,
+              "head": 1.308,
+              "feet": null,
               "box": [
                 65,
                 38,
@@ -3329,8 +3324,8 @@
               ]
             },
             {
-              "head": 1.279,
-              "feet": 3.12,
+              "head": 1.618,
+              "feet": null,
               "box": [
                 102,
                 40,
@@ -3343,14 +3338,14 @@
         },
         "hurtHigh": {
           "v": 2,
-          "head": 0.935,
-          "feet": 3.074,
-          "range": 0.025,
+          "head": 1.149,
+          "feet": null,
+          "range": 0.004,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.928,
-              "feet": 3.211,
+              "head": 1.148,
+              "feet": null,
               "box": [
                 55,
                 48,
@@ -3359,8 +3354,8 @@
               ]
             },
             {
-              "head": 0.953,
-              "feet": 3.074,
+              "head": 1.149,
+              "feet": null,
               "box": [
                 114,
                 49,
@@ -3369,8 +3364,8 @@
               ]
             },
             {
-              "head": 0.935,
-              "feet": 3.038,
+              "head": 1.152,
+              "feet": null,
               "box": [
                 111,
                 47,
@@ -3382,14 +3377,14 @@
         },
         "hurtLow": {
           "v": 1,
-          "head": 0.911,
-          "feet": 2.098,
-          "range": 0.027,
+          "head": 1.127,
+          "feet": null,
+          "range": 0.033,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.932,
-              "feet": 2.388,
+              "head": 1.151,
+              "feet": null,
               "box": [
                 136,
                 82,
@@ -3398,8 +3393,8 @@
               ]
             },
             {
-              "head": 0.911,
-              "feet": 1.878,
+              "head": 1.127,
+              "feet": null,
               "box": [
                 126,
                 71,
@@ -3408,8 +3403,8 @@
               ]
             },
             {
-              "head": 0.905,
-              "feet": 2.098,
+              "head": 1.118,
+              "feet": null,
               "box": [
                 118,
                 60,
@@ -3421,45 +3416,45 @@
         },
         "launched": {
           "v": 1,
-          "head": 0.868,
-          "feet": 2.559,
-          "range": 0.03,
+          "head": 0.517,
+          "feet": null,
+          "range": 0.109,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 0.853,
-              "feet": 2.599,
+              "head": 0.462,
+              "feet": null,
               "box": [
-                22,
-                95,
-                66,
-                126
+                38,
+                78,
+                59,
+                93
               ]
             },
             {
-              "head": 0.883,
-              "feet": 2.518,
+              "head": 0.571,
+              "feet": null,
               "box": [
-                22,
-                103,
-                64,
-                135
+                63,
+                88,
+                83,
+                107
               ]
             }
           ]
         },
         "spin": {
           "v": 1,
-          "head": 1.311,
-          "feet": 4.258,
-          "range": 1.029,
+          "head": 1.533,
+          "feet": null,
+          "range": 1.072,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 0.831,
-              "feet": 4.129,
+              "head": 1.016,
+              "feet": null,
               "box": [
                 87,
                 116,
@@ -3468,28 +3463,28 @@
               ]
             },
             {
-              "head": 1.86,
-              "feet": 4.472,
+              "head": 2.088,
+              "feet": null,
               "box": [
                 90,
-                93,
-                169,
+                116,
+                160,
                 189
               ]
             },
             {
-              "head": 1.737,
-              "feet": 4.317,
+              "head": 1.947,
+              "feet": null,
               "box": [
                 88,
-                84,
+                119,
                 156,
                 184
               ]
             },
             {
-              "head": 0.884,
-              "feet": 4.199,
+              "head": 1.118,
+              "feet": null,
               "box": [
                 136,
                 111,
@@ -3501,15 +3496,15 @@
         },
         "airRecover": {
           "v": 1,
-          "head": 0.937,
-          "feet": 2.214,
-          "range": 0.828,
+          "head": 1.094,
+          "feet": null,
+          "range": 0.531,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 0.937,
-              "feet": 2.214,
+              "head": 1.16,
+              "feet": null,
               "box": [
                 72,
                 125,
@@ -3518,68 +3513,68 @@
               ]
             },
             {
-              "head": 1.744,
-              "feet": 2.101,
+              "head": 0.629,
+              "feet": null,
               "box": [
-                105,
+                152,
                 93,
-                179,
-                168
+                178,
+                114
               ]
             },
             {
-              "head": 0.916,
-              "feet": 2.37,
+              "head": 1.094,
+              "feet": null,
               "box": [
                 107,
                 63,
-                146,
+                145,
                 100
               ]
             }
           ]
         },
         "down": {
-          "v": 1,
-          "head": 1.786,
-          "feet": 3.654,
-          "range": 1.685,
+          "v": 2,
+          "head": 1.04,
+          "feet": null,
+          "range": 0.042,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 2.628,
-              "feet": 3.91,
+              "head": 1.061,
+              "feet": null,
               "box": [
-                139,
-                123,
-                251,
-                235
+                9,
+                189,
+                47,
+                224
               ]
             },
             {
-              "head": 0.943,
-              "feet": 3.397,
+              "head": 1.019,
+              "feet": null,
               "box": [
-                21,
-                172,
-                59,
-                213
+                26,
+                203,
+                61,
+                236
               ]
             }
           ]
         },
         "getup": {
           "v": 1,
-          "head": 0.937,
-          "feet": 3.172,
-          "range": 0.935,
+          "head": 1.176,
+          "feet": null,
+          "range": 1.28,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 1.47,
-              "feet": 3.172,
+              "head": 1.765,
+              "feet": null,
               "box": [
                 119,
                 176,
@@ -3588,18 +3583,18 @@
               ]
             },
             {
-              "head": 0.535,
-              "feet": 3.53,
+              "head": 0.485,
+              "feet": null,
               "box": [
+                189,
                 104,
-                49,
-                134,
-                70
+                204,
+                123
               ]
             },
             {
-              "head": 0.892,
-              "feet": 2.658,
+              "head": 1.067,
+              "feet": null,
               "box": [
                 70,
                 88,
@@ -3608,8 +3603,8 @@
               ]
             },
             {
-              "head": 0.937,
-              "feet": 3.172,
+              "head": 1.176,
+              "feet": null,
               "box": [
                 127,
                 97,
@@ -3618,8 +3613,8 @@
               ]
             },
             {
-              "head": 0.953,
-              "feet": 3.645,
+              "head": 1.2,
+              "feet": null,
               "box": [
                 104,
                 38,
@@ -3631,14 +3626,14 @@
         },
         "charge": {
           "v": 2,
-          "head": 0.875,
-          "feet": 2.405,
-          "range": 0.036,
+          "head": 1.081,
+          "feet": null,
+          "range": 0.04,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.873,
-              "feet": 2.588,
+              "head": 1.08,
+              "feet": null,
               "box": [
                 90,
                 44,
@@ -3647,18 +3642,18 @@
               ]
             },
             {
-              "head": 0.87,
-              "feet": 2.385,
+              "head": 1.075,
+              "feet": null,
               "box": [
-                90,
+                91,
                 45,
                 133,
                 77
               ]
             },
             {
-              "head": 0.877,
-              "feet": 2.422,
+              "head": 1.082,
+              "feet": null,
               "box": [
                 90,
                 44,
@@ -3667,12 +3662,12 @@
               ]
             },
             {
-              "head": 0.906,
-              "feet": 2.388,
+              "head": 1.115,
+              "feet": null,
               "box": [
                 93,
-                45,
-                137,
+                46,
+                136,
                 78
               ]
             }
@@ -3680,14 +3675,14 @@
         },
         "throw": {
           "v": 1,
-          "head": 0.856,
-          "feet": 2.457,
-          "range": 0.114,
-          "verdict": "drift",
+          "head": 1.055,
+          "feet": null,
+          "range": 0.15,
+          "verdict": "pop",
           "frames": [
             {
-              "head": 0.836,
-              "feet": 2.477,
+              "head": 1.026,
+              "feet": null,
               "box": [
                 126,
                 44,
@@ -3696,8 +3691,8 @@
               ]
             },
             {
-              "head": 0.928,
-              "feet": 2.218,
+              "head": 1.149,
+              "feet": null,
               "box": [
                 174,
                 56,
@@ -3706,8 +3701,8 @@
               ]
             },
             {
-              "head": 0.876,
-              "feet": 2.437,
+              "head": 1.083,
+              "feet": null,
               "box": [
                 162,
                 52,
@@ -3716,8 +3711,8 @@
               ]
             },
             {
-              "head": 0.814,
-              "feet": 2.527,
+              "head": 0.999,
+              "feet": null,
               "box": [
                 132,
                 41,
@@ -3729,15 +3724,15 @@
         },
         "beamCharge": {
           "v": 1,
-          "head": 0.481,
-          "feet": 2.388,
-          "range": 0.02,
+          "head": 0.596,
+          "feet": null,
+          "range": 0.026,
           "verdict": "exempt",
           "reason": "the raised arm above the head is drawn in hair shades and is read as the head",
           "frames": [
             {
-              "head": 0.492,
-              "feet": 2.465,
+              "head": 0.61,
+              "feet": null,
               "box": [
                 158,
                 28,
@@ -3746,8 +3741,8 @@
               ]
             },
             {
-              "head": 0.481,
-              "feet": 2.37,
+              "head": 0.596,
+              "feet": null,
               "box": [
                 155,
                 39,
@@ -3756,8 +3751,8 @@
               ]
             },
             {
-              "head": 0.472,
-              "feet": 2.388,
+              "head": 0.584,
+              "feet": null,
               "box": [
                 161,
                 30,
@@ -3769,24 +3764,24 @@
         },
         "beamFire": {
           "v": 1,
-          "head": 1.022,
-          "feet": 3.991,
-          "range": 0.059,
-          "verdict": "ok",
+          "head": 1.262,
+          "feet": null,
+          "range": 0.071,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 1.022,
-              "feet": 3.991,
+              "head": 1.271,
+              "feet": null,
               "box": [
                 94,
-                49,
+                50,
                 139,
                 90
               ]
             },
             {
-              "head": 0.977,
-              "feet": 4.158,
+              "head": 1.2,
+              "feet": null,
               "box": [
                 81,
                 44,
@@ -3795,11 +3790,11 @@
               ]
             },
             {
-              "head": 1.036,
-              "feet": 3.849,
+              "head": 1.262,
+              "feet": null,
               "box": [
                 90,
-                48,
+                49,
                 134,
                 90
               ]
@@ -3808,25 +3803,25 @@
         },
         "vanish": {
           "v": 1,
-          "head": 0.982,
-          "feet": 3.21,
-          "range": 0.035,
+          "head": 1.2,
+          "feet": null,
+          "range": 0.024,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 1,
-              "feet": 3.485,
+              "head": 1.212,
+              "feet": null,
               "box": [
                 138,
-                75,
+                76,
                 180,
                 116
               ]
             },
             {
-              "head": 0.965,
-              "feet": 2.936,
+              "head": 1.188,
+              "feet": null,
               "box": [
                 104,
                 20,
@@ -3838,14 +3833,14 @@
         },
         "stagger": {
           "v": 1,
-          "head": 0.854,
-          "feet": 2.022,
-          "range": 0.063,
-          "verdict": "drift",
+          "head": 1.055,
+          "feet": null,
+          "range": 0.1,
+          "verdict": "ok",
           "frames": [
             {
-              "head": 0.907,
-              "feet": 1.925,
+              "head": 1.143,
+              "feet": null,
               "box": [
                 130,
                 43,
@@ -3854,8 +3849,8 @@
               ]
             },
             {
-              "head": 0.848,
-              "feet": 2.119,
+              "head": 1.048,
+              "feet": null,
               "box": [
                 108,
                 35,
@@ -3864,8 +3859,8 @@
               ]
             },
             {
-              "head": 0.86,
-              "feet": 1.901,
+              "head": 1.062,
+              "feet": null,
               "box": [
                 134,
                 45,
@@ -3874,8 +3869,8 @@
               ]
             },
             {
-              "head": 0.844,
-              "feet": 2.119,
+              "head": 1.043,
+              "feet": null,
               "box": [
                 109,
                 35,
@@ -3886,35 +3881,35 @@
           ]
         },
         "ko": {
-          "v": 2,
-          "head": 1.007,
-          "feet": 2.941,
+          "v": 3,
+          "head": 0.927,
+          "feet": null,
           "range": 0,
           "verdict": "unmeasured",
           "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
           "frames": [
             {
-              "head": 1.007,
-              "feet": 2.941,
+              "head": 0.927,
+              "feet": null,
               "box": [
-                6,
-                163,
-                50,
-                203
+                22,
+                204,
+                53,
+                234
               ]
             }
           ]
         },
         "special": {
           "v": 3,
-          "head": 1.101,
-          "feet": 2.137,
+          "head": 1.34,
+          "feet": null,
           "range": 0.18,
           "verdict": "pop",
           "frames": [
             {
-              "head": 0.953,
-              "feet": 2.805,
+              "head": 1.173,
+              "feet": null,
               "box": [
                 109,
                 50,
@@ -3923,8 +3918,8 @@
               ]
             },
             {
-              "head": 1.088,
-              "feet": 3.16,
+              "head": 1.353,
+              "feet": null,
               "box": [
                 133,
                 52,
@@ -3933,8 +3928,8 @@
               ]
             },
             {
-              "head": 1.093,
-              "feet": 3.043,
+              "head": 1.343,
+              "feet": null,
               "box": [
                 133,
                 57,
@@ -3943,8 +3938,8 @@
               ]
             },
             {
-              "head": 1.116,
-              "feet": 1.963,
+              "head": 1.343,
+              "feet": null,
               "box": [
                 148,
                 62,
@@ -3953,8 +3948,8 @@
               ]
             },
             {
-              "head": 1.108,
-              "feet": 2.108,
+              "head": 1.323,
+              "feet": null,
               "box": [
                 148,
                 62,
@@ -3963,8 +3958,8 @@
               ]
             },
             {
-              "head": 1.108,
-              "feet": 2.133,
+              "head": 1.336,
+              "feet": null,
               "box": [
                 147,
                 65,
@@ -3973,8 +3968,8 @@
               ]
             },
             {
-              "head": 1.065,
-              "feet": 2.011,
+              "head": 1.306,
+              "feet": null,
               "box": [
                 139,
                 72,
@@ -3983,8 +3978,8 @@
               ]
             },
             {
-              "head": 1.133,
-              "feet": 2.14,
+              "head": 1.343,
+              "feet": null,
               "box": [
                 117,
                 64,
@@ -3996,14 +3991,14 @@
         },
         "intro": {
           "v": 1,
-          "head": 0.882,
-          "feet": 2.027,
-          "range": 0.052,
+          "head": 1.076,
+          "feet": null,
+          "range": 0.062,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.857,
-              "feet": 2.029,
+              "head": 1.059,
+              "feet": null,
               "box": [
                 102,
                 32,
@@ -4012,8 +4007,8 @@
               ]
             },
             {
-              "head": 0.907,
-              "feet": 2.026,
+              "head": 1.092,
+              "feet": null,
               "box": [
                 99,
                 32,
@@ -4022,8 +4017,8 @@
               ]
             },
             {
-              "head": 0.907,
-              "feet": 1.955,
+              "head": 1.121,
+              "feet": null,
               "box": [
                 98,
                 32,
@@ -4032,8 +4027,8 @@
               ]
             },
             {
-              "head": 0.855,
-              "feet": 2.058,
+              "head": 1.059,
+              "feet": null,
               "box": [
                 102,
                 32,
@@ -4045,14 +4040,14 @@
         },
         "taunt": {
           "v": 1,
-          "head": 0.927,
-          "feet": 2.482,
-          "range": 0.009,
+          "head": 1.149,
+          "feet": null,
+          "range": 0.004,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.931,
-              "feet": 2.565,
+              "head": 1.151,
+              "feet": null,
               "box": [
                 108,
                 30,
@@ -4061,8 +4056,8 @@
               ]
             },
             {
-              "head": 0.922,
-              "feet": 2.398,
+              "head": 1.147,
+              "feet": null,
               "box": [
                 108,
                 30,
@@ -4074,14 +4069,14 @@
         },
         "win": {
           "v": 1,
-          "head": 0.879,
-          "feet": 1.406,
-          "range": 0.041,
+          "head": 1.07,
+          "feet": null,
+          "range": 0.047,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.851,
-              "feet": 1.193,
+              "head": 1.057,
+              "feet": null,
               "box": [
                 106,
                 30,
@@ -4090,8 +4085,8 @@
               ]
             },
             {
-              "head": 0.892,
-              "feet": 1.461,
+              "head": 1.104,
+              "feet": null,
               "box": [
                 105,
                 30,
@@ -4100,8 +4095,8 @@
               ]
             },
             {
-              "head": 0.884,
-              "feet": 1.393,
+              "head": 1.08,
+              "feet": null,
               "box": [
                 106,
                 30,
@@ -4110,8 +4105,8 @@
               ]
             },
             {
-              "head": 0.874,
-              "feet": 1.419,
+              "head": 1.059,
+              "feet": null,
               "box": [
                 106,
                 30,
@@ -4123,14 +4118,14 @@
         },
         "specialForward": {
           "v": 2,
-          "head": 1.012,
-          "feet": 2.329,
-          "range": 0.069,
-          "verdict": "ok",
+          "head": 1.238,
+          "feet": null,
+          "range": 0.066,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 0.967,
-              "feet": 2.329,
+              "head": 1.2,
+              "feet": null,
               "box": [
                 107,
                 52,
@@ -4139,8 +4134,8 @@
               ]
             },
             {
-              "head": 1.023,
-              "feet": 2.257,
+              "head": 1.257,
+              "feet": null,
               "box": [
                 111,
                 51,
@@ -4149,8 +4144,8 @@
               ]
             },
             {
-              "head": 1.036,
-              "feet": 2.319,
+              "head": 1.266,
+              "feet": null,
               "box": [
                 110,
                 52,
@@ -4159,8 +4154,8 @@
               ]
             },
             {
-              "head": 1.012,
-              "feet": 2.083,
+              "head": 1.238,
+              "feet": null,
               "box": [
                 101,
                 52,
@@ -4169,8 +4164,8 @@
               ]
             },
             {
-              "head": 1.012,
-              "feet": 3.373,
+              "head": 1.239,
+              "feet": null,
               "box": [
                 109,
                 38,
@@ -4179,8 +4174,8 @@
               ]
             },
             {
-              "head": 1,
-              "feet": 3.12,
+              "head": 1.228,
+              "feet": null,
               "box": [
                 108,
                 39,
@@ -4189,8 +4184,8 @@
               ]
             },
             {
-              "head": 1,
-              "feet": 2.984,
+              "head": 1.234,
+              "feet": null,
               "box": [
                 102,
                 38,
@@ -4202,14 +4197,14 @@
         },
         "specialUp": {
           "v": 2,
-          "head": 0.958,
-          "feet": 3.308,
-          "range": 0.048,
-          "verdict": "ok",
+          "head": 1.163,
+          "feet": null,
+          "range": 0.069,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 0.964,
-              "feet": 3.284,
+              "head": 1.19,
+              "feet": null,
               "box": [
                 139,
                 87,
@@ -4218,8 +4213,8 @@
               ]
             },
             {
-              "head": 0.916,
-              "feet": 3.468,
+              "head": 1.121,
+              "feet": null,
               "box": [
                 149,
                 47,
@@ -4228,8 +4223,8 @@
               ]
             },
             {
-              "head": 0.964,
-              "feet": 3.331,
+              "head": 1.167,
+              "feet": null,
               "box": [
                 105,
                 28,
@@ -4238,18 +4233,18 @@
               ]
             },
             {
-              "head": 0.953,
-              "feet": 2.813,
+              "head": 1.159,
+              "feet": null,
               "box": [
                 101,
                 27,
                 141,
-                66
+                64
               ]
             },
             {
-              "head": 0.529,
-              "feet": 4.617,
+              "head": 0.644,
+              "feet": null,
               "box": [
                 182,
                 76,
@@ -4259,8 +4254,8 @@
               "exempt": true
             },
             {
-              "head": 1.302,
-              "feet": 4.344,
+              "head": 1.647,
+              "feet": null,
               "box": [
                 98,
                 37,
@@ -4273,14 +4268,14 @@
         },
         "specialDown": {
           "v": 1,
-          "head": 0.97,
-          "feet": 2.428,
-          "range": 0.028,
-          "verdict": "ok",
+          "head": 1.193,
+          "feet": null,
+          "range": 0.033,
+          "verdict": "drift",
           "frames": [
             {
-              "head": 0.963,
-              "feet": 2.453,
+              "head": 1.176,
+              "feet": null,
               "box": [
                 103,
                 38,
@@ -4289,8 +4284,8 @@
               ]
             },
             {
-              "head": 0.953,
-              "feet": 2.404,
+              "head": 1.179,
+              "feet": null,
               "box": [
                 102,
                 39,
@@ -4299,8 +4294,8 @@
               ]
             },
             {
-              "head": 0.981,
-              "feet": 2.562,
+              "head": 1.209,
+              "feet": null,
               "box": [
                 100,
                 38,
@@ -4309,8 +4304,8 @@
               ]
             },
             {
-              "head": 0.976,
-              "feet": 2.244,
+              "head": 1.206,
+              "feet": null,
               "box": [
                 102,
                 38,
@@ -4322,14 +4317,14 @@
         },
         "superPose": {
           "v": 1,
-          "head": 0.916,
-          "feet": 2.105,
-          "range": 0.033,
+          "head": 1.086,
+          "feet": null,
+          "range": 0.051,
           "verdict": "drift",
           "frames": [
             {
-              "head": 0.916,
-              "feet": 2.174,
+              "head": 1.086,
+              "feet": null,
               "box": [
                 103,
                 35,
@@ -4338,8 +4333,8 @@
               ]
             },
             {
-              "head": 0.916,
-              "feet": 2.004,
+              "head": 1.086,
+              "feet": null,
               "box": [
                 104,
                 34,
@@ -4348,8 +4343,8 @@
               ]
             },
             {
-              "head": 0.94,
-              "feet": 2.112,
+              "head": 1.114,
+              "feet": null,
               "box": [
                 104,
                 34,
@@ -4358,11 +4353,11 @@
               ]
             },
             {
-              "head": 0.907,
-              "feet": 2.098,
+              "head": 1.063,
+              "feet": null,
               "box": [
                 104,
-                34,
+                35,
                 142,
                 71
               ]

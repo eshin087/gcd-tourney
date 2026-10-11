@@ -1,0 +1,12 @@
+Anime fan-art pixel sprite of approved neutral reference: preserve its exact compact blackblue head/hair long bangs, pale lean teen anatomy and limb lengths, white highcollar open shirt/navy pants waistcloth forearmguards/purple BACK rope bow/sandals/sheathed sword behind waist. Rightfacing3/4 camera12deg. Neutral implied skeleton844sourcepx, skull106sourcepx, do not force posedheight. Flat#FF00FF crisp2px hardpixel flat48color, noAA blur gradients shadows text VFX borders. 
+Exactly 3 fullbody poses in one horizontal row. Completely separated xintervals, minimum80px EMPTY vertical magenta corridors between every adjacent wholebody silhouettes including cloth weapons limbs, no crop. Same smallskull and limbsize. ANIMATION: "beamFire", KIRIN: he brings the raised arm down to point at the opponent while the lightning falls. 3 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+EYES: the Sharingan in every frame: glowing red irises (#d81e28) with a thin dark-red rim (#7c0c16), a black pupil and three small black comma marks around it.
+1. Wide, low stance: left foot forward, knees bent, torso leaning slightly forward. The RIGHT ARM SWUNG DOWN AND FORWARD and fully extended toward the opponent on the right, slightly below shoulder height, the hand open with the fingers straight and together, pointing at the target; the left arm pulled back low at his side. Head behind the right shoulder, glaring along the arm. Face: cold, mouth a flat line. Bangs, rope ends, waist cloth and sleeves whipped back to the left by the blast wind.
+2. Recoil: the whole body pushed slightly back; bangs and rope ends in a new whipping shape.
+3. Pushing slightly forward again.
+MOTION: The pointing fingertips are the right-most point of every frame. Draw NO lightning, dragon or energy: the game draws the lightning dragon.
+VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Punches, kicks and hand strikes travel horizontally toward the right edge of the image.
+
+Correction: Preserve three wholeposes exactly; widen layout to put80px FULLHEIGHT EMPTYMAGENTA vertical corridor between each wholepose silhouette horizontalinterval. Firstpose's foot must end before secondpose's rope begins. Secondpose's foot must end before thirdpose's rope begins. No other changes.
+
+Final correction: none
