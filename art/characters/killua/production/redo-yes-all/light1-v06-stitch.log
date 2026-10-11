@@ -1,3 +1,0 @@
-[stitch] killua light1 v06: part A 4 pose(s), part B 3 pose(s); each matches the idle head at x0.2843 / x0.3052 of its raw size
-[stitch] B factor x1.0734 (measured): part A scaled by x0.9316; after: B/A 0.972
-[stitch] wrote art\characters\killua\raw\light1_v06.png (3680x669) and light1_v06.json; next: npm run sprites killua, then npm run scale -- killua and attach heads-killua.png

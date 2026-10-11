@@ -15,6 +15,13 @@ How it works:
 
 ---
 
+## Cast redraw reverted (2026-10-11, Claude)
+
+At the user's request main reverted PRs #61-#64 and their repack (merge a590cce); production is back on the original
+art. **Merge main into `art/title-style-pilot`** (it was started from 7005b17, before the revert) so the new direction
+builds on the original art, then show the user the initial drafts. The reverted redraw stays in history; do not reuse its
+branches. Killua's down v06 / ko v07 work remains on `art/scale-fix-killua` (not merged) if any of it is still wanted.
+
 ## Decal approval and integration update (2026-10-11)
 
 The user approved the three final decal previews and explicitly assigned Codex as coordinator for these merges while Claude was paused. This supersedes the older no-approval/no-merge instructions below for PRs #52-54 only. All latest 31 decal types / 143 variants are approved with the documented visual deviations accepted. Merge order: #53 core, #52 chakra, #54 cursed; combined pack preserves every reviewed pixel and needs at most four pages per match. Regression suite: 308 passed, zero failed; build passes. The initial deployment was blocked by automatic approval review; the user then explicitly authorized production release. Committed main 7f2410d is now deployed at https://gcd-tourney.vercel.app. The three merged decal worktrees were removed; versioned sources and QA remain in main. Character redraw and PR #59 are untouched; #51/#55/#56 were previously closed as superseded. Historical instructions below are not a new task to revive those closed PRs. This temporary Codex integration assignment is complete; Claude may resume coordination. Release evidence: art/decals/production/RELEASE_QA.md.

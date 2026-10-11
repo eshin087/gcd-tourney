@@ -1,6 +1,0 @@
-Anime fan-art pixel sprite strip, EXACTLY 3 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION airRecover: ANIMATION: "airRecover", mid-air backflip recovery. 3 frames, left to right.
-POSES lefttoright:
-1. Tucked, tilted back about 60 degrees, knees to the chest. Face: mouth flat, regaining control.
-2. Upside down, fully tucked.
-3. Almost upright, unfolding: legs extending down, arms out for balance. Face: lazy smile.
-SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.

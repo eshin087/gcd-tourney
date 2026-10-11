@@ -1,29 +1,5 @@
 # Naruto: proportion correction and full redraw
 
-## Active production override — user approval 2026-10-11
-
-The user approved the latest neutral cast study and `height_neutral_v01` for all four fighters, then authorized remaking all42 animations without another idle-only stop. This section supersedes the historical seven-head target and model/idle stop gates below. Approved `reference/height_neutral.png` is the anatomical authority; model/expression references supply identity only. Preserve this neutral's compact head, hair, lean teenage build and limb ratios, rather than imposing an unrelated numeric heads-tall ideal. Latest lineage is proportion_sample_v02 in the cast-study branch, not this branch's earlier samplev01.
-
-Production contract: [APPROVED_CAST_BASELINE.md](../../scale/APPROVED_CAST_BASELINE.md), shared factor233/242=0.9628099173553719. Naruto standing192.56198347107437px; neutral source skeleton947px, factor0.203339053296804. Neutral inferred124px skull yields target25.214px with landmark uncertainty. No per-character tall cap, child discount, per-frame fit-to-cell resizing or old-bodyHeight shortcut. Source generation uses nominal400px upright skeleton; actual generated anatomy must be measured and normalized using approved neutral proportions, not trusted from the prompt. Keep256cell,pivot128,240,ppu128. Claude validates reach/gameplay before integration.
-
-All42 canonical animations and175 frames remain in scope. Current next-version inventory is `REDRAW_INVENTORY.json`, covering raw/parts/rejected/review history. All strips with6+ frames use parts of at most5 poses. Next idle isv05,8frames, A=f0-f3 and B=f4-f7. New idle remains **needs review**, but user authorization permits it as a clearly labeled provisional pose/scale reference for this batch. Keep `idle_approved.png` and all approvedVersion values unchanged until explicit art approval. The packer currently uses the packed idle as its reference and skips its strict gate; independently audit all idle frames against neutral and each other. A pack success is not proof of the idle's proportion accuracy.
-
-### Lessons incorporated in every prompt and QA
-
-- Read actual output dimensions. Prior requests for1024 yielded1254; never assume requested canvas or source skeleton was honored.
-- Measure skull crown/chin independently of hair-color blob; record uncertainty and reject unsupported precision. Neutral source crown153+/-10, chin approximately277+/-6, sole1100+/-3 imply947px skeleton and124px skull, about7.64heads with substantial landmark uncertainty. Final target comes from neutral calibration and lead contract, not the old7-head instruction.
-- Standing calibration must use straight knees. A combat crouch's occupied height is not its standing skeleton. Do not compare source model density with packed density without a recorded factor.
-- Hair highlights alone can miss darker gold; validate the declared hair palette against visible full hair, without adding jacket oranges that weld components together.
-- A correct median does not prove correct individual frames, build, silhouette or transitions. Inspect every frame and body/head relationship; record real occlusion/foreshortening without blanket exemptions.
-- Raw illustrative antialiasing and near-magenta are not technical compliance. Quantize48 via packer, inspect cleaned edges, retain immutable original raw images and candid QA.
-- Preserve current move definitions: four-tail beamCharge/beamFire override old Rasen Cannon prompts; side-on grounded ko/down override overhead poses.
-
-### Mandatory SCALE LOCK for all42 prompt blocks
-
-Draw the SAME anime fan-art teenage ninja as attached approved height_neutral.png. It is the anatomy authority: same skull, compact blond hair mass, head-to-torso ratio, shoulder joints, upper/lower limb lengths and thickness, hands and feet. Identity references preserve face/costume/colors only. Draw all frames/parts at one orthographic camera scale, nominal400sourcepx upright soles-to-skull skeleton; empty space stays empty. Never enlarge crouches, airborne tucks or lying poses to fill their slot. Measure actual output after generation. Knees/rotation change pose bounds, not person size. All ordinary poses face right in three-quarter view, about12degrees above ground. Flat magenta, crisp pixel edges, <=48colors, no effects/shadows/text. PartB attaches PartA for measured cross-part scale continuity. KO/down use true side-on floor contact: headleft, heelsright, head/back/hips/legs on one line; repose limbs inside cell rather than shrinking the skeleton. New idle may be used provisionally for pose continuity, never described as approved.
-
-The existing complete frame list and per-animation prompt blocks below remain the move/pose inventory, with this SCALE LOCK replacing every older proportion/scale paragraph. `ANIMATIONS.md` frame tables and latestKIT define phase continuity; no new names or frame counts. Record each actual generation prompt alongside candidate QA.
-
 User decision, 2026-10-10. This brief follows Gojo BUILD_REDRAW.md, but changes only Naruto head-to-body proportions. Claude alone integrates. User approval is required at the model and idle gates. No idle or other animation is authorized for generation before model approval.
 
 ## Targets and invariants

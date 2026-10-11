@@ -1,1 +1,0 @@
-Precise edit of this anime fan-art pixel sprite. Reduce just the WHITE HAIR silhouette area slightly, about 5 percent in both dimensions, on all four figures. Keep the FACE, BLINDFOLD and anatomical skull unchanged. Body and poses untouched. Preserve exact pose count, locations, all limbs and clothing, hard pixel edges, flat magenta background. No effects or text.

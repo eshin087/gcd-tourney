@@ -1,7 +1,0 @@
-Anime fan-art pixel sprite strip, EXACTLY 4 complete poses in ONE horizontal row. First reference is APPROVED neutral anatomy, second is working idle continuity. Same tall lean adult, small blindfolded head, white upswept hair, navy high collar silverzipper uniform, loose trousers, black shoes. Keep neutral slender waist, shoulders and long limbs. Facing right 3/4 gamecamera 12degreesdown. ANIMATION stagger: ANIMATION: "stagger", dizzy stagger. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
-POSES lefttoright:
-1. Dizzy: standing almost upright on wobbly knees, arms hanging loose out of the pockets, head lolling, leaning to the right. Face: mouth slack and slightly open. Blindfold on, the hair crown tilted.
-2. Centered and upright. Face: slack.
-3. Leaning to the left. Face: slack.
-4. Centered. Face: slack.
-SCALE LOCK: upright skull-to-sole220.402px, skull-to-chin23.20px, draw raw about3x: skull70px, uprightbody661px. Same anatomy allframes. Poses change bounds NEVER character scale. Keep head/hair mass constant. Generous gaps/margins; no clipping.  Hard edged pixelart <=48colours, flat #FF00FF. NO effects,glow,arcs,beams,speedlines,shadows,text,borders,blur. Respect anatomical reference over historical7heads215px instructions.
