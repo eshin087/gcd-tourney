@@ -17,10 +17,11 @@ import { Showcase, specialId, pickW } from './aiShow.js';
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
 
 // One brain per CPU side. IMPOSSIBLE is its own frame-data brain (aiMaster.js, ADR 0014); in CPU vs CPU it
-// plays the louder 'showman' style so a spectated fight keeps moving.
-export function makeBrain(fighter, level = 'normal', spectate = false) {
+// plays the louder 'showman' style so a spectated fight keeps moving. `seed`: the brain's share of the match seed
+// (Game.brainSeed), which draws its combo persona and routes (aiCombo.js, ADR 0026).
+export function makeBrain(fighter, level = 'normal', spectate = false, seed = (Math.random() * 4294967296) >>> 0) {
   // INSANE is the same frame-data brain with human reactions and the odd dropped combo (STYLES.insane)
-  if (level === 'impossible' || level === 'insane') return new MasterBrain(fighter, spectate ? 'showman' : level);
+  if (level === 'impossible' || level === 'insane') return new MasterBrain(fighter, spectate ? 'showman' : level, seed);
   return new CpuBrain(fighter, level);
 }
 

@@ -13,15 +13,8 @@ const AIR_SLOTS = ['air', 'airDown'];
 export const TECH = ['vanish', 'superDash', 'wavedash', 'parry', 'spotDodge', 'airDodge', 'throw', 'charge', 'burst'];
 const ENTER = { dodge: 'spotDodge', airDodge: 'airDodge', wavedash: 'wavedash', vanish: 'vanish', superDash: 'superDash', throw: 'throw', charge: 'charge', beamCharge: 'beam', burst: 'burst' };
 
-// Weighted pick from { key: weight }; null when every weight is 0.
-export function pickW(w) {
-  let total = 0;
-  for (const k in w) total += Math.max(0, w[k] || 0);
-  if (total <= 0) return null;
-  let r = Math.random() * total;
-  for (const k in w) if ((r -= Math.max(0, w[k] || 0)) <= 0) return k;
-  return null;
-}
+// Weighted pick from { key: weight } (rng.js; an optional seeded source as the second argument)
+export { pickW } from './rng.js';
 
 // A special's tool id: its name (a ground move and its air version share one), else its projectile.
 export const specialId = (m) => 'sp:' + (m.name ?? m.proj ?? m.kind);
