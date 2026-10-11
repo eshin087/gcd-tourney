@@ -17,3 +17,6 @@ node tools/pack-sprites.mjs gojo --quantize 48 --strict-scale passes, writing th
 npm run scale -- gojo --out art/characters/gojo/redraw/round2-scale: zero flagged strips. npm run lineup writes round2-lineup.png: Gojo current atlas, other characters historical local atlases. Its build-class bands are historical (athletic-adult), so SBR/MWR warnings remain, not silently reclassified. Approved lean baseline is unchanged. Existing idle-baseline head warning and beamFire hitbox override/fallback notes remain for Claude. No thresholds, exemptions, scaleManualQA, scaleFit or builds.json changed.
 
 Production build passed. Gallery uses the passing branch atlas, includes approved three corrections and new v07, clearly identifies approval status. Claude alone merges, deploys production and edits main/NOW/inbox. Existing worktree .worktrees/art-gojo-full-redraw is retained for integration and cleanup.
+
+## Approval checkpoint
+User approved airLight3 v07 on2026-10-11 along with the five passing corrections. approvedVersion7 and REVIEW approved recorded; older pending v05 archived immutably as superseded. This is an approval-only step; no new images generated.

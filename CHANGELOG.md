@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo: record user approval of airLight3 v07 and archive superseded v05.
+
 - Gojo: record user approval of charge, airHeavy and win v06; start newly authorized airLight3 correction round.
 
 - Gojo: corrected hair continuity in airHeavy v06, charge v06 and win v06; queued visual review. AirLight3 remains capped technical hold. Refreshed fixed approved idle and its measured guide.

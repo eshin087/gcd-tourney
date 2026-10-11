@@ -253,7 +253,7 @@
     "frames": 6,
     "step": 9,
     "version": 2,
-    "status": "numeric-ok-needs-new-visual-approval",
+    "status": "approved",
     "promptSection": "A28 · `airLight3`: mid-air spinning heel kick with the L leg",
     "savedStrips": [],
     "savedParts": [
@@ -262,7 +262,8 @@
     ],
     "latestVersion": 7,
     "reviewVersion": 7,
-    "correctionEvidence": "ROUND2.md"
+    "correctionEvidence": "ROUND2.md",
+    "approvedVersion": 7
   },
   {
     "name": "airHeavy",

@@ -311,7 +311,7 @@
         "heavy": { "frames":  8, "loop":  false, "phases":  [3,2,3], "bodyHeight":  228, "ms":  [40,35,30,50,70,70,60,30], "required":  true, "step":  5, "status":  "approved", "version":  3, "approvedVersion":  3 },
         "airLight1": { "frames":  5, "loop":  false, "phases":  [1,2,2], "bodyHeight":  215, "ms":  [45,35,50,50,30], "required":  true, "step":  5, "status":  "approved", "version":  4, "approvedVersion":  4 },
         "airLight2": { "frames":  5, "loop":  false, "phases":  [1,2,2], "bodyHeight":  225, "ms":  [45,40,50,50,30], "required":  false, "step":  9, "status":  "approved", "version":  3, "approvedVersion":  3 },
-        "airLight3": { "frames":  6, "loop":  false, "phases":  [2,2,2], "bodyHeight":  219, "ms":  [50,40,50,70,60,30], "required":  false, "step":  9, "status":  "approved", "version":  7, "approvedVersion":  3 },
+        "airLight3": { "frames":  6, "loop":  false, "phases":  [2,2,2], "bodyHeight":  219, "ms":  [50,40,50,70,60,30], "required":  false, "step":  9, "status":  "approved", "version":  7, "approvedVersion":  7 },
         "airHeavy": { "frames":  6, "loop":  false, "phases":  [2,2,2], "bodyHeight":  215, "ms":  [50,45,45,70,70,40], "required":  true, "step":  5, "status":  "approved", "version":  6, "approvedVersion":  6 },
         "guard": { "frames":  2, "loop":  true, "bodyHeight":  215, "ms":  [300,300], "required":  true, "step":  6, "status":  "approved", "version":  3, "approvedVersion":  3 },
         "block": { "frames":  2, "loop":  false, "bodyHeight":  222, "ms":  [60,80], "required":  false, "step":  9, "status":  "approved", "version":  2, "approvedVersion":  2 },

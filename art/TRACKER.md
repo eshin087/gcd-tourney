@@ -567,3 +567,5 @@ Gojo correction round2026-10-11: airHeavy v06, charge v06, win v06 numeric ok an
 2026-10-11 Gojo: user approved charge/airHeavy/win v06. Recorded approval, strict repack required. Fresh authorization: at most three more generation calls for airLight3 only; new pixels need review. Claude retains integration.
 
 2026-10-11 Gojo round2 complete: airLight3 v07 passes full strict pack (1 ref/33 ok/8 existing manual), awaiting fresh visual approval. charge/airHeavy/win v06 approved. Two of three new calls used. All six airLight3 frames inspected. Evidence: redraw/ROUND2.md.
+
+2026-10-11 user approved Gojo airLight3 v07 (five passing corrections). Approval recorded; v05 superseded and archived. Full strict repack/build before Claude handoff. Claude retains integration and cleanup.
