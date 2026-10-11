@@ -341,25 +341,25 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 
 | name | group | cell | variants | mode | color rule | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | todo | - | - | approve first; attach the approved copy to every decal prompt |
-| crack_s | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crack | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crater | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crater_big | base | 512 x 512 | 6 | flat | full color | todo | - | - | |
-| crater_huge | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
-| fracture_ring | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
-| scuff | base | 256 x 128 | 8 | flat, directional | full color | todo | - | - | |
-| skid | base | 512 x 128 | 4 | flat, directional | full color | todo | - | - | |
-| rubble | base | 256 x 256 | 6 | flat | full color | todo | - | - | |
-| dirt_crater | edge | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | todo | - | - | |
-| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | todo | - | - | |
-| crater_wall | edge | 512 x 512 | 4 | wall | full color | todo | - | - | |
-| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | todo | - | - | |
-| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | raw | v01 | - | Provisional unapproved style; user allowed uninterrupted production |
+| crack_s | base | 256 x 256 | 8 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| crack | base | 256 x 256 | 8 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| crater | base | 256 x 256 | 8 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| crater_big | base | 512 x 512 | 6 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| crater_huge | base | 512 x 512 | 4 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| fracture_ring | base | 512 x 512 | 4 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| scuff | base | 256 x 128 | 8 | flat, directional | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| skid | base | 512 x 128 | 4 | flat, directional | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| rubble | base | 256 x 256 | 6 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| dirt_crater | edge | 256 x 256 | 4 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| crater_wall | edge | 512 x 512 | 4 | wall | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | raw | v02 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
+| burn_black | fire | 256 x 256 | 4 | flat | full color | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
 | scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
 | scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | todo | - | - | |
 | cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
@@ -372,7 +372,7 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 | gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
 | fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
 | fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
+| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | raw | v01 | - | Candidate packed with warnings; see decals/REVIEW_W4.md |
 
 ## World art (ADR 0008)
 

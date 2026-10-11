@@ -22,6 +22,7 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
+| ART-DEC-W4 | Produce base/edge/lightning/fire/ki decal candidates | Codex | review | art/decals port 5215; 19 names / 99 variants plus style; warnings in art/decals/REVIEW_W4.md. Separate chakra/cursed PRs need combined repack by Claude. |
 | OPS-007 | Require sparse real worktrees and task reuse | Codex | done | files: AGENTS.md, CLAUDE.md, docs/TASKS.md, CHANGELOG.md, docs/NOW.md. Recorded all five user storage rules; feature/beam-clash is merged into local main and awaits coordinator cleanup. Production build passed via local adapter; docs-only task on main, no new worktree. |
 | OPS-004 | Project-scoped autonomous agents and sequential integration | Codex | blocked | Tightened profile build/server now pass via local adapter (OPS-005); unrelated reads/writes denied. Actual Git CLI fixture fails at getcwd, despite Git file-write probe passing; direct executable and explicit project path fail too. Earlier worktree success was under broader reads. No broad-read fallback. |
 | OPS-005 | Build and serve inside the restricted-read Windows profile | Codex | done | Local .codex/vite.mjs: prebuild + production build pass (68 modules, four pages); HTTP root/lab/main JS/Three.js 200; unrelated/private reads and writes still denied. No added read grants. Ordinary npm launcher unchanged; command in docs/AI_COLLABORATION.md. |

@@ -1,0 +1,30 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/scuff_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/scuff_v01_A.png",
+    "decals/raw/scuff_v01_B.png",
+    "decals/raw/scuff_v01.json"
+  ],
+  "sourceHash": "3c841eed3d92e2c58874b1837a8db403788e6672",
+  "cell": {
+    "w": 256,
+    "h": 128,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "scuff_00.png": "28ca7ba3dfcbb942cb6318769507bcff6dfc1710",
+    "scuff_01.png": "6e64ba172f42dea6e9ab91263855e8a8946953b6",
+    "scuff_02.png": "99b142f7d2b194541aafa87cf43f5365d59c0591",
+    "scuff_03.png": "5032066be8fa9408b6560ac8b70aef904fb70e74",
+    "scuff_04.png": "59949c816c097b54c48f8962ee7f6f4e8fc6cce0",
+    "scuff_05.png": "42fc84e12fd3dcb4a030cf2eea0ca5239409a186",
+    "scuff_06.png": "f278712eb13f60d52f08d9eeb67f0f4d1972968a",
+    "scuff_07.png": "2aa68aac3b900d70def980f30d22b36996e76406"
+  }
+}

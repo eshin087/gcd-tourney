@@ -1,0 +1,26 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/crater_huge_v01_{A,B}.png",
+  "version": 1,
+  "source": [
+    "decals/raw/crater_huge_v01_A.png",
+    "decals/raw/crater_huge_v01_B.png",
+    "decals/raw/crater_huge_v01.json"
+  ],
+  "sourceHash": "378a1365628946dd63b24b098b5541cc3a5a6fc2",
+  "cell": {
+    "w": 512,
+    "h": 512,
+    "fill": [
+      0.97,
+      0.97
+    ]
+  },
+  "files": {
+    "crater_huge_00.png": "63878a2fcaf2aed2731e2448ad961dc138328472",
+    "crater_huge_01.png": "adb4f6432cd7a7bd143685b83447601cb5591781",
+    "crater_huge_02.png": "bf4639f19396623a60c44faf4333e319eeb7b8d3",
+    "crater_huge_03.png": "3c15ff763716bc2e7c839694f462b3891a338443"
+  }
+}
