@@ -1,0 +1,81 @@
+{
+  "rows": [
+    "idle:0"
+  ],
+  "fighters": [
+    "naruto",
+    "sasuke",
+    "killua",
+    "gojo"
+  ],
+  "candidate": "gojo-model_sheet_v05-diagnostic",
+  "measured": {
+    "naruto": {
+      "standingPx": 200,
+      "idleHeightPx": 203,
+      "bandPx": 77,
+      "maxWidthPx": 103,
+      "sbr": 0.385,
+      "mwr": 0.507,
+      "dr": 0.31,
+      "build": "athletic-teen",
+      "idleHands": "guard",
+      "flags": []
+    },
+    "sasuke": {
+      "standingPx": 200,
+      "idleHeightPx": 202,
+      "bandPx": 87,
+      "maxWidthPx": 103,
+      "sbr": 0.435,
+      "mwr": 0.51,
+      "dr": 0.3,
+      "build": "athletic-teen",
+      "idleHands": "guard",
+      "flags": []
+    },
+    "killua": {
+      "standingPx": 182,
+      "idleHeightPx": 186,
+      "bandPx": 64,
+      "maxWidthPx": 86,
+      "sbr": 0.352,
+      "mwr": 0.462,
+      "dr": 0.231,
+      "build": "child",
+      "idleHands": "guard",
+      "flags": []
+    },
+    "gojo": {
+      "standingPx": 215,
+      "idleHeightPx": 221,
+      "bandPx": 52,
+      "maxWidthPx": 80,
+      "sbr": 0.242,
+      "mwr": 0.362,
+      "dr": 0.233,
+      "build": "athletic-adult",
+      "idleHands": "down",
+      "flags": [
+        "SBR",
+        "MWR",
+        "DR"
+      ]
+    },
+    "gojo-model_sheet_v05-diagnostic": {
+      "standingPx": 215,
+      "idleHeightPx": 234,
+      "bandPx": 75,
+      "maxWidthPx": 110,
+      "sbr": 0.349,
+      "mwr": 0.47,
+      "dr": 0.233,
+      "build": "athletic-adult",
+      "idleHands": "down",
+      "flags": [
+        "SBR",
+        "DR"
+      ]
+    }
+  }
+}

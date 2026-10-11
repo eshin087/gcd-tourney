@@ -137,6 +137,7 @@ export class Game {
   async init() {
     await loadArtIndex();
     await this.fx.loadCustom();
+    await this.fx.ground.loadCustom();
     const crowd = await loadCrowdAtlas();
     if (crowd) {
       this.arena.setCrowdAtlas(crowd);
@@ -173,6 +174,7 @@ export class Game {
     this.assets = assets;
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18); // mirror match tint
+    this.fx.ground.prepare(this.fighters, this.renderer.renderer); // their decal pages, uploaded now
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; f.wins = 0; });
     // 'solo': P1 human vs CPU. 'cpu': spectate two CPUs at the same level (defaults to impossible, the
@@ -207,6 +209,7 @@ export class Game {
     this.assets = assets;
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18);
+    this.fx.ground.prepare(this.fighters, this.renderer.renderer);
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; });
     this.brains = [null, new DummyBrain(this.fighters[1], this.trainingCfg.dummy)];
@@ -235,6 +238,7 @@ export class Game {
     this.arena.group.visible = kind === 'arena';
     this.room.group.visible = kind === 'training';
     this.voidStage.group.visible = kind === 'void';
+    this.fx.ground.setSurface(kind, kind === 'training' ? this.room.surface : this.arena.surface);
   }
 
   // ------------------------------------------------------------ kits (ADR 0009)
@@ -738,7 +742,8 @@ export class Game {
     this.arena.npcCue('clash');
     const mid = v3.set((a.pos.x + b.pos.x) / 2, Math.max(a.pos.y, b.pos.y) + 0.9, (a.pos.z + b.pos.z) / 2);
     this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xbfe0ff));
-    this.fx.debris(mid.x, mid.z, 12, 1.2);
+    if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
+    else this.fx.debris(mid.x, mid.z, 12, 1.2);
     this.fx.overlay.impactFrame(4);
     this.fx.overlay.flash('#ffffff', 0.7);
     audio.play('explosion', 1.2);
@@ -884,6 +889,7 @@ export class Game {
       out.push({
         kind: 'shot', live: true, f, obj: p, id: p.type, name: p.name, dir: p.vel.clone().normalize(), r: p.P.radius,
         back: p.pos.clone().addScaledVector(p.vel, -DT), front: p.pos.clone().addScaledVector(p.vel, DT), color: p.P.stream?.mid ?? f.def.beam.mid, palette: p.P.stream,
+        S: { ground: p.P.ground }, // the floor style its win craters (endClash)
       });
     }
     const m = f.state === 'attack' ? f.move : null;
@@ -894,13 +900,13 @@ export class Game {
       const at = new THREE.Vector3(f.pos.x + f.face.x * fwd, f.pos.y + (H ? H.y : 0.9), f.pos.z + f.face.y * fwd);
       const P = PROJECTILES[m.proj], o = f.opp;
       const dir = new THREE.Vector3(o.pos.x - at.x, o.pos.y + 0.85 - at.y, o.pos.z - at.z).normalize();
-      out.push({ kind: 'shot', live: false, charging: true, f, id: m.proj, name: m.name ?? f.def.projectileName, dir, back: at, front: at.clone(), r: 0.6, color: P.stream?.mid ?? f.def.beam.mid, palette: P.stream });
+      out.push({ kind: 'shot', live: false, charging: true, f, id: m.proj, name: m.name ?? f.def.projectileName, dir, back: at, front: at.clone(), r: 0.6, color: P.stream?.mid ?? f.def.beam.mid, palette: P.stream, S: { ground: P.ground } });
     } else if (!f.moveHit && f.t < m.startup + m.active) {
       const dir = new THREE.Vector3(f.face.x, 0, f.face.y);
       const reach = CLASH.struggle.rushReach, back = new THREE.Vector3(f.pos.x, f.pos.y + 0.7, f.pos.z), front = back.clone().addScaledVector(dir, reach);
       out.push({
         kind: 'rush', live: f.t >= m.startup, f, move: m, id: m.name, name: m.name, fx: m.fx, dir, back, front, tip: front.clone(), reach, r: 0.5, color: m.color ?? f.def.color,
-        S: { strikePose: m.anim, maulPose: m.anim, maulPhase: 1 }, // held on its rush frame, the hand effect lit (fxTicks)
+        S: { strikePose: m.anim, maulPose: m.anim, maulPhase: 1, ground: m.ground }, // held on its rush frame, the hand effect lit (fxTicks)
       });
     }
     return out;
@@ -1207,7 +1213,7 @@ export class Game {
     if (winner < 0) {
       // even: both ultimates blow up between them
       this.fx.explosion(P.x, P.y, P.z, new THREE.Color(0xffffff));
-      this.fx.debris(P.x, P.z, 14, 1.3);
+      this.fx.ground.impact(P, { kind: 'clashDraw', force: C.craters?.[1] });
       audio.play('explosion', 1.3);
       this.hud.announce('DRAW!', 'clash', 900);
       [c.a, c.b].forEach((s, i) => {
@@ -1223,8 +1229,7 @@ export class Game {
     this.overwhelm(WS, L);
     L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
     this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
-    this.fx.crater(L.pos);
-    this.fx.debris(L.pos.x, L.pos.z, 12, 1.2);
+    this.fx.ground.impact(L.pos, { kind: 'clashWin', force: C.craters?.[0], style: WS.S?.ground ?? W.def.ground?.style, tint: W.def.ground?.tint ?? W.def.color, dir: { x: ax.x * sg, z: ax.z * sg } });
     audio.play('explosion', 1.4);
     audio.play('cheer');
     this.hud.callout(W.index, 'OVERWHELMED!', W.def.color, true);
@@ -1288,13 +1293,12 @@ export class Game {
     const x = hp ? hp.x : def.pos.x + (tx / tl) * 0.25, y = hp ? hp.y : def.pos.y + (m.low ? 0.5 : 0.85), z = hp ? hp.z : def.pos.z + (tz / tl) * 0.25;
     const dir = new THREE.Vector2(-tx / tl, -tz / tl);
     const kind = m.spark || (m.big ? 'heavy' : 'light');
+    this.fx.ground.hit(att, def, m, dmg); // the floor under them, or where they come down
     if (m.beam) {
       // beam ticks draw their own sparks
     } else if (m.special) {
       const col = new THREE.Color(m.color);
       this.fx.explosion(x, y, z, col);
-      this.fx.crater(def.pos);
-      this.fx.debris(def.pos.x, def.pos.z, 10, 1.1);
       audio.play('specialHit');
       this.cam.shake(0.9, dir);
       this.cam.zoomPunch(1);
@@ -1474,10 +1478,10 @@ export class Game {
     } else if (k % 2 === 0) this.fx.spawn('ring', p.x, p.y + 0.85, p.z, { scale: 0.9 + k * 0.25, color: col, opacity: 0.6, life: 0.12, fade: true, glow: 0.8, depthTest: false, order: 7 });
   }
 
-  onGroundBounce(f) {
+  // `impact`: the downward speed it hit the floor at
+  onGroundBounce(f, impact = 20) {
     this.fx.dust(f.pos, 1.6);
-    this.fx.crater(f.pos);
-    this.fx.debris(f.pos.x, f.pos.z, 9, 1);
+    this.fx.ground.land(f, impact, { bounce: true });
     this.fx.ring(f.pos, '#fff3d0', 1.4);
     audio.play('groundBounce');
     this.cam.shake(0.5);
@@ -1486,6 +1490,7 @@ export class Game {
 
   onWallBounce(f, axis, sign) {
     this.fx.barrier(f.pos, axis, sign);
+    this.fx.ground.wall(f.pos, axis, sign, Math.abs(f.vel[axis]) / 0.55); // the speed before the bounce (fighter.physics)
     this.fx.hit(f.pos.x, f.pos.y + 0.8, f.pos.z, 'heavy', 0xbfe8ff);
     audio.play('wallBounce');
     this.cam.shake(0.5);
@@ -1564,11 +1569,11 @@ export class Game {
     audio.play('explosion', 1.2);
     audio.play('cheer', 1.4);
     this.excite = 1;
-    void speed;
+    this.fx.ground.wallCrater(f.pos, speed);
   }
 
   onKOLanded(f) {
-    this.fx.crater(f.pos);
+    this.fx.ground.koMark(f);
     this.fx.dust(f.pos, 2);
     this.cam.shake(0.5);
     audio.play('groundBounce');

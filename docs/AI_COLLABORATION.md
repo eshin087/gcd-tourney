@@ -28,6 +28,20 @@ passed a Git write probe, localhost listener and GitHub HTTP check. Existing cha
 previous permission policy; use a fresh project session and verify its effective permissions. A session
 using the old policy may reapply Git protection. Do not silently switch to machine-wide Full access.
 
+### Reusable PR metadata approvals
+
+Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
+Prepare the body file in a separate command, then run exactly this argument order:
+`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+(optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
+flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
+It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
+Existing chats may need restarting to load this manually installed project-local rule. Other actions,
+including merges and art approval, retain their existing policies.
+
+The local rule was checked with future PR numbers; other-repository, merge and repository-delete
+commands do not match it. Existing saved rules are independent. No filesystem permissions changed.
+
 ### Verified build and local server in the restricted profile
 
 The machine-local `.codex/vite.mjs` adapter fixes the build without adding filesystem permissions.
@@ -81,6 +95,8 @@ sandbox/runtime solution; no broader read access or Git executable modification 
 - There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
 - Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
   candidates and review history; transfer selected changes into real worktrees before Git operations.
+  Never make new copies: each was a full ~2.2 GB project, and seven filled 15 GB. Art worktrees use
+  `npm run pr -- start <branch> --art <id>` (~0.5 GB); if worktree creation fails, stop and report instead.
 
 ## Roles
 

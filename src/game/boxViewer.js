@@ -8,6 +8,11 @@ const MAX_RECTS = 8;
 const HURT = new THREE.Color('#3fd6ff');
 const HIT = new THREE.Color('#ff3a4a');
 const FALLBACK = new THREE.Color('#9aa0b8');
+// head check (lab animation viewer, actor.headCheck): the scale probe's head box on this frame (gold; orange when the
+// strip is off the idle) and the approved idle's head box centred on it (white), from anims.json meta.scaleAudit
+const HEAD = new THREE.Color('#ffd23f');
+const HEAD_OFF = new THREE.Color('#ff5a3c');
+const HEAD_REF = new THREE.Color('#f4f4ff');
 
 export class BoxViewer {
   constructor(actor) {
@@ -50,11 +55,30 @@ export class BoxViewer {
     const hurt = asset.boxes(actor.frame, 'hurt', flip);
     for (const b of hurt || defaultHurt) rect(b, hurt ? HURT : FALLBACK);
     for (const b of asset.boxes(actor.frame, 'hit', flip) || []) rect(b, HIT);
+    if (actor.headCheck) this.headBoxes(rect);
     const geo = this.lines.geometry;
     geo.setDrawRange(0, n * 8);
     geo.attributes.position.needsUpdate = true;
     geo.attributes.color.needsUpdate = true;
     this.lines.quaternion.copy(actor.mesh.quaternion);
+  }
+
+  // the frame's measured head box and the idle head's size around the same centre, in local units like boxes()
+  headBoxes(rect) {
+    const { actor } = this, meta = actor.asset.meta, A = meta.scaleAudit;
+    const s = A?.anims?.[actor.animName], ref = A?.ref?.box;
+    if (!s || !ref) return;
+    const ppu = meta.pixelsPerUnit, [px, py] = meta.pivot, flip = actor.flip;
+    const local = (x0, y0, x1, y1) => {
+      let a = (x0 - px) / ppu, b = (x1 + 1 - px) / ppu;
+      if (flip < 0) [a, b] = [-b, -a];
+      return { x0: a, x1: b, y0: (py - (y1 + 1)) / ppu, y1: (py - y0) / ppu };
+    };
+    const box = s.boxes?.[actor.fi];
+    const [cx, cy] = box ? [(box[0] + box[2]) / 2, (box[1] + box[3]) / 2] : [(ref[0] + ref[2]) / 2, (ref[1] + ref[3]) / 2];
+    const hw = (ref[2] - ref[0]) / 2, hh = (ref[3] - ref[1]) / 2;
+    rect(local(cx - hw, cy - hh, cx + hw, cy + hh), HEAD_REF);
+    if (box) rect(local(...box), ['uniform', 'drift', 'pop'].includes(s.verdict) ? HEAD_OFF : HEAD);
   }
 
   dispose() {

@@ -11,6 +11,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
+import { decalTests } from './test-pack-decals.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -413,7 +414,8 @@ function makeFixtures() {
     coreAnimations: ['idle', 'run'],
     animationDefaults: { idle: { frames: 8, loop: true, bodyHeight: 204, ms: [150, 150, 150, 150, 150, 150, 150, 150], required: true, status: 'todo', version: 0, approvedVersion: null } },
     characters: {
-      testy: { name: 'Testy', animations: { idle: { frames: 8, loop: true, bodyHeight: 204, status: 'todo' }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'approved' }, land: { frames: 2, status: 'todo' } }, ui: { portrait: { status: 'todo' } } },
+      // scaleGate 'warn': these strips predate the scale gate (TOOL-025) and test other things; scaly tests the gate
+      testy: { name: 'Testy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204, status: 'todo' }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'approved' }, land: { frames: 2, status: 'todo' } }, ui: { portrait: { status: 'todo' } } },
       vers: { name: 'Vers', animations: { idle: { frames: 8, loop: true, status: 'todo', version: 0, approvedVersion: 2 } } },
     },
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
@@ -975,6 +977,8 @@ function main() {
       `lying: a lying frame taller than bodyHeight x1.15 says so (${tall.json?.characters[0].warnings})`);
   }
 
+  scaleGateTests(base);
+
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
   const r5 = pack(['--src', path.join(FIX, 'does-not-exist'), '--out', ghostOut]);
@@ -1158,7 +1162,220 @@ function main() {
   check(shippedBefore && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'npc/tester/anims.json', 'ui/logo.png', 'ui/manifest.json'].every((f) => !fs.existsSync(path.join(OUT, f))),
     'run 14: stage, NPC and UI outputs whose approval is gone are removed');
 
+  // ground-damage decals (ADR 0024): their own fixtures in tools/.test-fixtures/decals/
+  decalTests({ check, fix: FIX });
   return finish();
+}
+
+// ---------------------------------------------------------------- scale gate (TOOL-025, ADR 0021)
+// A fighter with distinct shoes (the probe's feet proxy) drawn at any pixel size s, with options to draw his hair
+// mass narrower than the idle's, in another colour, or a fist raised above the head (which shrinks the whole strip,
+// because each strip is scaled so its tallest pose matches bodyHeight).
+const SHOE = [150, 40, 40];
+function scaleFigure(p = {}) {
+  const b = p.bob || 0, hw = p.thinHair ? 4 : 7, hair = p.hairC || COL.hair, body = p.bodyC || COL.orange;
+  const R = [[-7, -1, 0, 4, SHOE], [1, 7, 0, 4, SHOE], [-6, -2, 4, 28, COL.pants], [2, 6, 4, 28, COL.pants]];
+  R.push([-7, 7, 28 + b, 52 + b, body], [-6, 6, 52 + b, 64 + b, COL.skin], [-hw, hw, 62 + b, 70 + b, hair], [-5, -3, 70 + b, 74 + b, hair], [1, 3, 70 + b, 75 + b, hair]);
+  R.push([-11, -7, 38 + b, 42 + b, COL.skin], [7, 11, 42 + b, 46 + b, COL.skin]);
+  if (p.up) R.push([3, 7, 64 + b, 64 + b + p.up, COL.fist]);
+  return R;
+}
+function scaleStrip(poses, seed, { gap = 46 } = {}) {
+  const rand = mulberry(seed);
+  const img = image((poses.length * gap + 30) * S, 120 * S, [255, 0, 255], rand);
+  poses.forEach((p, k) => {
+    const s = S * (p.scale || 1), fx = (30 + k * gap) * S, floor = 110 * S;
+    const X = (v) => Math.round(fx + v * s), Y = (v) => Math.round(floor - v * s);
+    const rects = scaleFigure(p);
+    for (const [x0, x1, y0, y1] of rects) rect(img, X(x0 - 1), Y(y1 + 1), X(x1 + 1) - X(x0 - 1), Y(y0 - 1) - Y(y1 + 1), COL.outline, rand);
+    for (const [x0, x1, y0, y1, c] of rects) rect(img, X(x0), Y(y1), X(x1) - X(x0), Y(y0) - Y(y1), c, rand);
+  });
+  fringe(img, rand);
+  return img;
+}
+
+function scaleGateTests(base) {
+  const SCALY = path.join(ART, 'characters', 'scaly');
+  const sraw = (n) => path.join(SCALY, 'raw', n);
+  const seven = (p) => Array.from({ length: 7 }, (_, k) => ({ ...(typeof p === 'function' ? p(k) : p) }));
+  savePng(sraw('idle_v01.png'), scaleStrip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), 801));
+  // light1: a fist raised high in frame 3 -> the whole strip packs ~12 % small (head AND feet): 'uniform'
+  savePng(sraw('light1_v01.png'), scaleStrip(seven((k) => (k === 3 ? { up: 22 } : {})), 802));
+  // light2: the same body with a narrower hair mass: 'drift' (never auto-fitted)
+  savePng(sraw('light2_v01.png'), scaleStrip(seven({ thinHair: true }), 803));
+  // light3: frames 4-6 drawn at 0.7x (a part B stitched at the wrong size): 'pop'
+  savePng(sraw('light3_v01.png'), scaleStrip(seven((k) => (k >= 4 ? { scale: 0.7 } : {})), 804));
+  // spin (a low-confidence pose by default) and taunt (exempt in the manifest) with a small head: no finding
+  savePng(sraw('spin_v01.png'), scaleStrip([{ thinHair: true }, { thinHair: true }, { thinHair: true }, { thinHair: true }], 805));
+  savePng(sraw('taunt_v01.png'), scaleStrip([{ thinHair: true }, { thinHair: true }], 806));
+  fs.writeFileSync(path.join(SCALY, 'hitboxes.json'), JSON.stringify({ light1: { 3: { hit: [[180, 80, 40, 30]], hand: [200, 96] } } }));
+  // the same parts for the stitch tool: A (3 poses) at 1x, B (4 poses) drawn at 0.7x
+  savePng(sraw(path.join('_parts', 'light3_v02_A.png')), scaleStrip([{}, {}, {}], 807));
+  savePng(sraw(path.join('_parts', 'light3_v02_B.png')), scaleStrip(Array.from({ length: 4 }, () => ({ scale: 0.7 })), 808));
+  // darky / darkier: hair drawn in the body's colour (like Sasuke's outline-shade hair); only darkier declares it
+  for (const id of ['darky', 'darkier']) {
+    const d = (n) => path.join(ART, 'characters', id, 'raw', n);
+    const dark = { hairC: COL.pants, bodyC: COL.pants };
+    savePng(d('idle_v01.png'), scaleStrip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ ...dark, bob })), 811));
+    savePng(d('light1_v01.png'), scaleStrip(seven({ ...dark, thinHair: true }), 812));
+  }
+  // fitty: a fist above the head on every frame packs the whole strip ~13 % small, and f0 is drawn at 0.7x: a 'pop'
+  // (never auto-fitted) until f0 is exempted, then a 'uniform' strip the auto head fit can fix
+  const fraw = (n) => path.join(ART, 'characters', 'fitty', 'raw', n);
+  savePng(fraw('idle_v01.png'), scaleStrip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), 821));
+  savePng(fraw('light1_v01.png'), scaleStrip(seven((k) => ({ up: 22, ...(k === 0 ? { scale: 0.7 } : {}) })), 822));
+  fs.writeFileSync(fraw('light1_v01.json'), JSON.stringify({ anatomy: { measurement: 'auto-head' } }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  const atk = { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'todo' };
+  man.characters.scaly = { name: 'Scaly', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: atk, light2: atk, light3: atk,
+    spin: { frames: 4, loop: true, bodyHeight: 204 }, taunt: { frames: 2, loop: true, bodyHeight: 204, scaleExempt: 'test: a pose the probe cannot read', scaleExemptVersion: 1 } } };
+  for (const id of ['darky', 'darkier', 'fitty']) man.characters[id] = { name: id, scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: atk } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  fs.mkdirSync(path.join(ART, 'scale'), { recursive: true });
+  fs.writeFileSync(path.join(ART, 'scale', 'builds.json'), JSON.stringify({ fighters: { darkier: { headColors: ['#283460'] } } }));
+  fs.writeFileSync(path.join(ART, 'scale', 'scale-baseline.json'), JSON.stringify({ fighters: { scaly: { anims: { light1: { v: 1, head: 1 } } } } }));
+  const scale = (rep, id) => rep?.characters.find((c) => c.id === id)?.scale;
+  const sOut = path.join(OUT, 'characters', 'scaly');
+
+  // (a)-(d): a new fighter (no approved strips) is gated strictly: uniform, drift and pop fail the pack
+  const s1 = pack([...base, 'scaly', 'darky', 'darkier']);
+  const g1 = scale(s1.json, 'scaly');
+  check(s1.code === 1, `scale gate: a new fighter with off-size strips fails the pack (exit ${s1.code})`);
+  const v = (n) => g1?.anims[n];
+  check(v('light1')?.verdict === 'uniform' && v('light1').head > 0.82 && v('light1').head < 0.93 && v('light1').feet < 0.95, `scale gate: a fist above the head shrinks the strip -> 'uniform' (head ${v('light1')?.head}, feet ${v('light1')?.feet})`);
+  check(v('light2')?.verdict === 'drift' && v('light2').head < 0.85 && Math.abs(v('light2').feet - 1) < 0.05, `scale gate: a narrower hair mass on the same body -> 'drift' (head ${v('light2')?.head}, feet ${v('light2')?.feet})`);
+  check(v('light3')?.verdict === 'pop' && v('light3').range > 0.2, `scale gate: half the strip at 0.7x -> 'pop' (range ${v('light3')?.range})`);
+  check(v('spin')?.verdict === 'unmeasured' && v('taunt')?.verdict === 'exempt' && v('idle')?.verdict === 'ref', `scale gate: low-confidence spin and exempt taunt are not judged (${v('spin')?.verdict}, ${v('taunt')?.verdict})`);
+  check(g1?.failed.sort().join() === 'light1,light2,light3' && g1.gate === 'auto', `scale gate: exactly the three off strips fail (${g1?.failed})`);
+  const w1 = s1.json?.characters.find((c) => c.id === 'scaly')?.warnings || [];
+  check(anyWarn(w1, /scale gate: light2 head 0\.\d\d of idle .*head\/hair drift/) && anyWarn(w1, /scale gate: light3 pops inside the strip/), 'scale gate: failures are named with the fix (redraw, re-stitch)');
+  check(anyWarn(w1, /scale: light1 head 0\.\d\d was 1\.00 in art\/scale\/scale-baseline\.json at the same version v01/), 'scale gate: a strip that moved from its baseline at the same version is warned');
+  // "strict" means refuse: a failing strict strip writes nothing (no sheet, no anims.json, no frames/ write-back)
+  check(g1?.refused && !fs.existsSync(sOut) && !fs.existsSync(path.join(SCALY, 'frames')) && anyWarn(w1, /scale gate: did not write .*characters\/scaly\/ \(it keeps its last pack\)/),
+    'scale gate: a failing strict strip refuses the pack: nothing is written for that fighter');
+  // (g) hair in the body's colour: found only with a declared headColors
+  const d1 = scale(s1.json, 'darky'), d2 = scale(s1.json, 'darkier');
+  check(d1?.error && /declare headColors/.test(d1.error) && !d1.failed.length, `scale gate: hair drawn in body colours is not found automatically (${d1?.error})`);
+  check(!d2?.error && d2?.ref?.source === 'declared' && d2.anims.light1?.verdict === 'drift', `scale gate: builds.json headColors finds it (${d2?.error || d2?.anims.light1?.verdict})`);
+  check(fs.existsSync(path.join(OUT, 'characters', 'darkier', 'anims.json')), 'scale gate: a "warn" fighter is still written');
+
+  // manifest variants: light2 and light3 approved (findings, not failures), so a pack that fits light1 is written
+  const variant = (name, edit) => {
+    const m = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    edit(m.characters);
+    const file = path.join(FIX, `manifest-${name}.json`);
+    fs.writeFileSync(file, JSON.stringify(m));
+    return file;
+  };
+  const approve = (a, names) => { for (const n of names) a[n] = { ...a[n], version: 1, approvedVersion: 1 }; };
+  const mFit = variant('scaly-fit', (c) => approve(c.scaly.animations, ['light2', 'light3']));
+
+  // auto head fit: only the 'uniform' strip is rescaled, once, from the raw; boxes follow the fit
+  const s2 = pack([...base, '--manifest', mFit, 'scaly', '--fit-head', 'scaly:light1,scaly:light2']);
+  const g2 = scale(s2.json, 'scaly');
+  const p2 = s2.json?.characters.find((c) => c.id === 'scaly');
+  const fit = p2?.packed.find((p) => p.anim === 'light1');
+  const f = Number(/auto-head fit x([\d.]+)/.exec(fit?.notes.join(' ') || '')?.[1]);
+  check(s2.code === 0 && fit?.source === 'raw/light1_v01.png' && f > 1.08 && f < 1.25 && Math.abs(g2.anims.light1.head - 1) <= 0.03 && g2.anims.light1.verdict === 'ok',
+    `auto head fit: the uniform strip is rescaled x${f} and its head now matches the idle (${g2?.anims.light1.head}, exit ${s2.code})`);
+  check(p2?.packed.find((p) => p.anim === 'light2')?.notes.some((n) => /auto-head: verdict drift .* not fitted/.test(n)) && g2.anims.light2.verdict === 'drift', 'auto head fit: a drift strip is never fitted');
+  const mk1 = JSON.parse(fs.readFileSync(path.join(SCALY, 'frames', 'light1', '.packer.json'), 'utf8'));
+  const mk2 = JSON.parse(fs.readFileSync(path.join(SCALY, 'frames', 'light2', '.packer.json'), 'utf8'));
+  check(mk1.autoHead === f && !('autoHead' in mk2), `auto head fit: the frames/ marker records an applied factor only (${mk1.autoHead}, ${mk2.autoHead})`);
+  const sm2 = JSON.parse(fs.readFileSync(path.join(sOut, 'anims.json'), 'utf8'));
+  check(sm2.scaleAudit?.ref?.box?.length === 4 && sm2.scaleAudit.anims.light2?.verdict === 'drift' && sm2.scaleAudit.anims.light1.frames.length === 7 && sm2.scaleAudit.anims.light1.boxes.length === 7,
+    'scale gate: anims.json carries meta.scaleAudit (reference head box, per-anim verdicts, per-frame heads and boxes)');
+  const k3 = sm2.animations.light1.frames[3];
+  const want = [128 + (180 - 128) * f, 240 + (80 - 240) * f, 40 * f, 30 * f].map(Math.round), wantHand = [128 + (200 - 128) * f, 240 + (96 - 240) * f].map(Math.round);
+  check(JSON.stringify(sm2.boxes[k3].hit) === JSON.stringify([want]) && JSON.stringify(sm2.boxes[k3].hand) === JSON.stringify(wantHand) && p2.notes.some((n) => /hitboxes\.json light1: .* scaled x1\.\d+ about the pivot/.test(n)),
+    `auto head fit: hitboxes.json boxes and hand anchors scale about the pivot (${JSON.stringify(sm2.boxes[k3].hit)} vs ${JSON.stringify([want])})`);
+  const sheet2 = fs.readFileSync(path.join(sOut, 'sheet.png')), meta2 = fs.readFileSync(path.join(sOut, 'anims.json'));
+  const s3 = pack([...base, '--manifest', mFit, 'scaly', '--fit-head', 'scaly:light1,scaly:light2']);
+  const p3 = s3.json?.characters.find((c) => c.id === 'scaly');
+  check(p3?.packed.find((p) => p.anim === 'light1')?.source === 'frames/light1/'
+    && Buffer.compare(sheet2, fs.readFileSync(path.join(sOut, 'sheet.png'))) === 0 && Buffer.compare(meta2, fs.readFileSync(path.join(sOut, 'anims.json'))) === 0,
+    'auto head fit: the next pack reads the fitted frames/ and is byte-identical');
+  check(p3?.packed.find((p) => p.anim === 'light2')?.source === 'raw/light2_v01.png', 'auto head fit: a request that was not fitted is measured again from the raw on the next pack (not cached)');
+  fs.writeFileSync(path.join(SCALY, 'hitboxes.json'), JSON.stringify({ light1: { _scale: f, 3: { hit: [[180, 80, 40, 30]] } } }));
+  const s3b = pack([...base, '--manifest', mFit, 'scaly', '--fit-head', 'scaly:light1,scaly:light2']);
+  const sm3b = JSON.parse(fs.readFileSync(path.join(sOut, 'anims.json'), 'utf8'));
+  check(JSON.stringify(sm3b.boxes[sm3b.animations.light1.frames[3]].hit) === '[[180,80,40,30]]' && s3b.code === 0, 'auto head fit: boxes re-measured at the fit ("_scale") are not scaled again');
+  // dropping the fit re-imports once, back to the raw size: light1 is a candidate again, so the pack is refused and
+  // the last good sheet stays as it was
+  const sheet3 = fs.readFileSync(path.join(sOut, 'sheet.png'));
+  const s4 = pack([...base, '--manifest', mFit, 'scaly']);
+  const l4 = s4.json?.characters.find((c) => c.id === 'scaly')?.packed.find((p) => p.anim === 'light1');
+  check(l4?.source === 'raw/light1_v01.png' && scale(s4.json, 'scaly').anims.light1.verdict === 'uniform', 'auto head fit: removing it re-imports the raw at its packed size');
+  check(s4.code === 1 && Buffer.compare(sheet3, fs.readFileSync(path.join(sOut, 'sheet.png'))) === 0, 'scale gate: a refused pack keeps the last written sheet byte for byte');
+
+  // (e) staged strictness: an approved strip is a finding, not a failure; --strict-scale fails it anyway
+  const mApproved = path.join(FIX, 'manifest-scaly-approved.json');
+  const ma = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  approve(ma.characters.scaly.animations, ['light1', 'light2', 'light3']);
+  fs.writeFileSync(mApproved, JSON.stringify(ma));
+  const s4b = pack([...base, '--manifest', mApproved, 'scaly']); // written: the unfitted light1 for npm run scale below
+  const s5 = pack([...base, '--manifest', mApproved, '--dry-run', 'scaly']);
+  const g5 = scale(s5.json, 'scaly');
+  check(s4b.code === 0 && s5.code === 0 && !g5.failed.length && g5.findings.length === 3 && !anyWarn(s5.json.characters[0].warnings, /scale gate:/), `staged gate: approved off-size strips are findings, the pack passes (exit ${s5.code}, ${g5?.findings.length} findings)`);
+  const s6 = pack([...base, '--manifest', mApproved, '--dry-run', '--strict-scale', 'scaly']);
+  check(s6.code === 1 && scale(s6.json, 'scaly').failed.length === 3, `--strict-scale: approved off-size strips fail too (exit ${s6.code})`);
+  const r6t = pack(['--root', ART, '--out', OUT, '--manifest', mApproved, '--dry-run', '--strict-scale', 'scaly']);
+  check(r6t.code === 1 && /SCALE GATE FAILED: scaly .* not written/.test(r6t.out) && /NOT WRITTEN/.test(r6t.out) && /~ light1 head|scale gate \(strict/.test(r6t.out), 'text report: the scale gate line and the failure summary');
+  ma.characters.scaly.animations.light1 = { ...ma.characters.scaly.animations.light1, version: 1, approvedVersion: null };
+  Object.assign(ma.characters.scaly.animations.light2, { scaleExempt: 'test', scaleExemptVersion: 1 });
+  Object.assign(ma.characters.scaly.animations.light3, { scaleExempt: 'test', scaleExemptVersion: 1 });
+  fs.writeFileSync(mApproved, JSON.stringify(ma));
+  const s7 = pack([...base, '--manifest', mApproved, '--dry-run', '--strict-scale', '--fit-head', 'scaly:light1', 'scaly']);
+  check(s7.code === 0 && !scale(s7.json, 'scaly').failed.length, `--strict-scale: exit 0 once every strip is ok or exempt (exit ${s7.code}, ${scale(s7.json, 'scaly')?.failed})`);
+  // an exemption covers only the version it was written for: another version (or none given) is measured and warned
+  ma.characters.scaly.animations.light2.scaleExemptVersion = 2;
+  delete ma.characters.scaly.animations.light3.scaleExemptVersion;
+  fs.writeFileSync(mApproved, JSON.stringify(ma));
+  const s7b = pack([...base, '--manifest', mApproved, '--dry-run', '--strict-scale', '--fit-head', 'scaly:light1', 'scaly']);
+  const g7b = scale(s7b.json, 'scaly'), w7b = s7b.json?.characters.find((c) => c.id === 'scaly')?.warnings || [];
+  check(s7b.code === 1 && g7b?.anims.light2.verdict === 'drift' && g7b.anims.light3.verdict === 'pop' && g7b.failed.sort().join() === 'light2,light3'
+    && anyWarn(w7b, /light2: the manifest's scale exemption was written for v02 but the packed strip is v01 - measured/) && anyWarn(w7b, /light3: the manifest's scale exemption has no "scaleExemptVersion"/),
+    `exemptions are tied to their strip version: a redraw is measured until re-exempted (${g7b?.failed})`);
+
+  // an auto-head request that was not fitted is not cached: exempting the misread frame lets the next pack fit it
+  const fittyFrames = path.join(ART, 'characters', 'fitty', 'frames', 'light1');
+  const fp1 = pack([...base, 'fitty']);
+  const fl1 = fp1.json?.characters.find((c) => c.id === 'fitty')?.packed.find((p) => p.anim === 'light1');
+  const fmk1 = JSON.parse(fs.readFileSync(path.join(fittyFrames, '.packer.json'), 'utf8'));
+  check(scale(fp1.json, 'fitty')?.anims.light1.verdict === 'pop' && fl1?.notes.some((n) => /auto-head: verdict pop .* not fitted/.test(n)) && !('autoHead' in fmk1),
+    `auto head fit: a 'pop' strip is not fitted and the request is not recorded (${scale(fp1.json, 'fitty')?.anims.light1.verdict})`);
+  const mFitty = variant('fitty-exempt', (c) => Object.assign(c.fitty.animations.light1, { scaleExemptFrames: { 0: 'test: drawn at another size' }, scaleExemptVersion: 1 }));
+  const fp2 = pack([...base, '--manifest', mFitty, 'fitty']);
+  const fl2 = fp2.json?.characters.find((c) => c.id === 'fitty')?.packed.find((p) => p.anim === 'light1');
+  const fmk2 = JSON.parse(fs.readFileSync(path.join(fittyFrames, '.packer.json'), 'utf8'));
+  check(fl2?.source === 'raw/light1_v01.png' && fl2.notes.some((n) => /auto-head fit x1\.\d+/.test(n)) && scale(fp2.json, 'fitty')?.anims.light1.verdict === 'ok' && fmk2.autoHead > 1,
+    `auto head fit: after an exemption the standing request is re-measured and fitted (${scale(fp2.json, 'fitty')?.anims.light1.verdict}, marker ${fmk2.autoHead})`);
+
+  // npm run scale on the packed fixture: report, heads sheet, baseline, guide
+  const sc = spawnSync(process.execPath, [path.join(TOOL_DIR, 'scale-audit.mjs'), '--root', ART, '--public', OUT, '--guide', 'scaly'], { encoding: 'utf8' });
+  const rep = fs.existsSync(path.join(ART, 'scale', 'scale-report.json')) && JSON.parse(fs.readFileSync(path.join(ART, 'scale', 'scale-report.json'), 'utf8'));
+  check(sc.status === 0 && rep?.fighters?.scaly?.anims?.light2?.verdict === 'drift' && /light2 .*DRIFT/.test(sc.stdout), `npm run scale: report written with the same verdicts (exit ${sc.status}) ${sc.stderr}`);
+  const heads = fs.existsSync(path.join(ART, 'scale', 'heads-scaly.png')) && loadPng(path.join(ART, 'scale', 'heads-scaly.png'));
+  check(heads && heads.h > 6 * 100 && heads.w > 8 * 100, `npm run scale: heads-scaly.png contact sheet (${heads?.w}x${heads?.h})`);
+  check(fs.existsSync(path.join(SCALY, 'reference', 'head_scale_guide.png')), 'npm run scale --guide: reference/head_scale_guide.png');
+  const bl = JSON.parse(fs.readFileSync(path.join(ART, 'scale', 'scale-baseline.json'), 'utf8'));
+  check(bl.fighters.scaly.anims.light1.head === 1 && bl.fighters.scaly.anims.light2?.v === 1 && /light1 head 0\.\d\d vs 1\.00 in the baseline/.test(sc.stdout),
+    'npm run scale: the baseline keeps a same-version row (and reports the move) and records new rows');
+
+  // TOOL-008: stitch two parts with a measured factor; the result packs without a pop
+  const stitch = (...a) => spawnSync(process.execPath, [path.join(TOOL_DIR, 'stitch-parts.mjs'), '--root', ART, '--public', OUT, ...a], { encoding: 'utf8' });
+  const st = stitch('scaly', 'light3', '2');
+  const side = fs.existsSync(sraw('light3_v02.json')) && JSON.parse(fs.readFileSync(sraw('light3_v02.json'), 'utf8')).stitch;
+  check(st.status === 0 && fs.existsSync(sraw('light3_v02.png')) && side?.scaledPart === 'A' && side.bFactor > 1.3 && side.bFactor < 1.6 && Math.abs(side.afterB_vs_A - 1) < 0.06,
+    `stitch: part B drawn at 0.7x measured x${side?.bFactor}; the bigger part A is scaled down (after ${side?.afterB_vs_A}) ${st.stderr}`);
+  const s8 = pack([...base, '--dry-run', 'scaly']);
+  const l3 = scale(s8.json, 'scaly')?.anims.light3;
+  check(l3 && l3.verdict !== 'pop' && l3.range <= 0.12, `stitch: the stitched light3_v02 packs without a pop (${l3?.verdict}, range ${l3?.range})`);
+  check(stitch('scaly', 'light3', '2').status === 1, 'stitch: never overwrites an existing version');
+  check(stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8').status === 1, 'stitch: a manual factor needs a reason');
+  const st2 = stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8', '--reason', 'test', '--dry-run');
+  check(st2.status === 0 && /manual: test/.test(st2.stdout) && !fs.existsSync(sraw('light3_v03.png')), 'stitch: --parts re-stitches older parts; --dry-run writes nothing');
 }
 
 function finish() {

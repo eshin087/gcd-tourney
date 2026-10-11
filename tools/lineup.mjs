@@ -4,7 +4,8 @@
 // A new character's model sheet, idle, run and heavy reviews attach this lineup, so a fighter who reads too small,
 // too thin or too big next to the cast is caught before approval (Gojo shipped with a 13-year-old's shoulders).
 //
-//   npm run lineup                               the cast in roster order, rows idle f0, run f3, heavy f3
+//   npm run lineup                               the cast in roster order, rows idle f0, run f3, heavy f3, guard f0,
+//                                                charge f0, airLight1 f2, hurtHigh f0 (the poses that drifted in size)
 //   npm run lineup -- naruto gojo                only these fighters
 //   npm run lineup -- --rows idle:0,charge:2     other rows (animation:frame index)
 //   npm run lineup -- --candidate sheet.png --scale 0.5 --name gojo-v05
@@ -16,11 +17,15 @@
 // Numbers (proxies on opaque pixels, see CHARACTER_SCALE.md): SBR = the widest row 15-30 % below the top of the idle
 // (median over the loop) / the declared standing skeleton; MWR = the idle's max width / its height with hair. Each
 // fighter's class, idle hand style and by-eye deltoid width (DR, the gate measure) come from art/scale/builds.json;
-// a number outside its band is flagged for the reviewer. Writes only the output files.
+// a number outside its band is flagged for the reviewer. Each fighter's head scale per animation (the scale gate's
+// measure, tools/scale-probe.mjs: head silhouette with hair vs the idle) is printed under the table, the off ones
+// named. Writes only the output files.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
+import { auditPacked } from './scale-audit.mjs';
+import { FLAGGED } from './scale-probe.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -29,7 +34,7 @@ const opt = (name, dflt) => {
   return i >= 0 ? args.splice(i, 2)[1] : dflt;
 };
 const OUT = path.resolve(ROOT, opt('--out', 'art/scale/lineup.png'));
-const ROWS = opt('--rows', 'idle:0,run:3,heavy:3').split(',').filter(Boolean).map((r) => {
+const ROWS = opt('--rows', 'idle:0,run:3,heavy:3,guard:0,charge:0,airLight1:2,hurtHigh:0').split(',').filter(Boolean).map((r) => {
   const [anim, f] = r.split(':');
   return { anim, frame: Number(f ?? 0) };
 });
@@ -131,6 +136,17 @@ for (const id of IDS) {
   if (!idle) { console.log(`${id}: no idle animation`); continue; }
   check(id, idle.frames.map((i) => packedCell(S, i)), BUILDS.fighters?.[id]);
 }
+// head scale per animation (the scale gate), so a pose that reads small or big next to the fighter's own idle shows
+const heads = {};
+for (const id of IDS) {
+  const R = auditPacked(id);
+  if (!R || R.A.error) { console.log(`  ${id} heads: ${R?.A.error ?? 'not measured'}`); continue; }
+  const rows = Object.entries(R.A.anims).filter(([n]) => n !== 'idle');
+  heads[id] = Object.fromEntries(rows.map(([n, s]) => [n, { head: s.head, verdict: s.verdict }]));
+  const off = rows.filter(([, s]) => FLAGGED.has(s.verdict));
+  console.log(`  ${id} heads vs idle: ${rows.length - off.length}/${rows.length} strips ok or not judged${off.length ? `; off: ${off.map(([n, s]) => `${n} ${s.head?.toFixed(2)} (${s.verdict})`).join(', ')}` : ''}`);
+}
+
 let cand = null;
 if (CAND) {
   cand = candidateCell(CAND, CAND_SCALE);
@@ -161,5 +177,5 @@ ROWS.forEach(({ anim, frame }, r) => IDS.forEach((id, k) => {
 if (cand) blit(cand, IDS.length, 0);
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, PNG.sync.write(img));
-fs.writeFileSync(OUT.replace(/\.png$/i, '.json'), JSON.stringify({ rows: ROWS.map((r) => `${r.anim}:${r.frame}`), fighters: IDS, candidate: CAND_NAME, measured: report }, null, 2) + '\n');
+fs.writeFileSync(OUT.replace(/\.png$/i, '.json'), JSON.stringify({ rows: ROWS.map((r) => `${r.anim}:${r.frame}`), fighters: IDS, candidate: CAND_NAME, measured: report, heads }, null, 2) + '\n');
 console.log(`[lineup] wrote ${path.relative(ROOT, OUT)} (${W}x${H}; rows ${ROWS.map((r) => `${r.anim} f${r.frame}`).join(', ')}) and its .json${flagged ? `; ${flagged} outside their build bands` : ''}`);

@@ -163,6 +163,9 @@ export default {
     ultimate: 'whirlwind', // Godspeed's reflex mode (ADR 0017)
   },
   stats: { speed: 6.8, power: 0.97, defense: 0.95 }, // stat index 1.01 (ADR 0011)
+  // floor damage (ground.js, ADR 0024). `charge` would be his power-up fracture, but his charge style's crackAt 0
+  // (above) keeps the floor whole while he powers up (ADR 0023)
+  ground: { style: 'lightning', tint: '#bfe6ff', charge: 'fracture_lightning' },
   model,
   stance,
   extraAnims,

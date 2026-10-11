@@ -4,10 +4,10 @@
 // emitters, an eye glint, and the bar / MAX beats. The restraint rules R1-R9 are enforced here rather than trusted
 // to the data, so no charge block can bring back ENG-059's ~100 blooming flame sprites around the fighter.
 //
-// Ground damage is optional (feature/ground-damage): every live charge frame calls
-// game.fx.ground?.chargeTick?.(f, t, level) and a full gauge calls game.fx.ground?.chargeMax?.(f); without that
-// module a style with ground.crackAt lays at most one crater per charge. Styles with crackAt 0 (Gojo, Killua) never
-// touch the floor.
+// Ground damage is optional (ADR 0024): every live charge frame calls game.fx.ground?.chargeTick?.(f, t, level,
+// crackAt), which grows the crack from the crackAt level on, and a full gauge calls game.fx.ground?.chargeMax?.(f);
+// without that module a style with ground.crackAt lays at most one crater per charge. Styles with crackAt 0 (Gojo,
+// Killua) never touch the floor.
 import * as THREE from 'three';
 import { KI_BAR } from './constants.js';
 
@@ -296,7 +296,7 @@ export function chargeTick(game, f, t, frozen = false) {
   }
   if (G.crackAt > 0) {
     const ground = fx.ground;
-    if (ground?.chargeTick) ground.chargeTick(f, t, level);
+    if (ground?.chargeTick) ground.chargeTick(f, t, level, G.crackAt);
     else if (!S.cracked && level >= G.crackAt && t >= 30) {
       S.cracked = true;
       fx.crater(f.pos);
