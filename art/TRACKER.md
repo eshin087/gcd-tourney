@@ -360,12 +360,12 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 | fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
 | burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
 | burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | raw | v01 | - | Candidate pack; QA caveats in REVIEW; no approval. |
-| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
-| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | raw | v03 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
-| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
-| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
-| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | raw | v02 | - | Corrected candidates; fresh-source QA caveats in REVIEW; unapproved. |
+| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | approved | v03 | v03 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
 | erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | todo | - | - | |
 | erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | todo | - | - | |
 | crush_implode | cursed | 256 x 256 | 4 | flat | full color | todo | - | - | |

@@ -1,4 +1,14 @@
-# Chakra decal correction review, 2026-10-11
+# User approval and production-pack parity, 2026-10-11
+
+The user explicitly approved all three decal previews. This batch records approval for scour_spiral v01, scour_spiral_big v02, cut_wind v03, claw v02, scorch_chakra v02 and fracture_chakra v02: six names / 24 variants. Existing fringe, shape and hot-key caveats below are accepted visual deviations, not technical fixes. Rejected history stays rejected; no superseded needs-review versions remained to archive.
+
+`node tools/pack-sprites.mjs decals` passed with six approved names, 24 variants and zero cached-pack warnings. The approved atlas PNG is byte-identical to the reviewed candidate atlas: SHA-256 `55ef7ddfd74f7d34a858aed188259eb1916a9b7a3725dcbe4fa84f99a8ebf637`, zero changed pixels, 2048 x 1792. Atlas metadata is identical except `source: candidates` becomes `source: approved`. See `approval-qa.json` and `pack-report-approved.txt`. The production build passes through the local Vite adapter (80 modules). No source image, packed frame, gallery image or preview deployment changed during approval.
+
+The existing hosted preview remains the user's reviewed snapshot and therefore retains its historical unapproved labels. Repository approval records and the PR body now carry the user's decision. Root is the user-designated integration coordinator for these three decal PRs while Claude is paused; this worker does not merge or deploy production. The coordinator must reconcile shared manifest rows and repack the combined approved decals after integration.
+
+---
+
+# Historical chakra decal correction review, 2026-10-11
 
 Current candidates: scour_spiral v01, scour_spiral_big v02, cut_wind v03, claw v02, scorch_chakra v02, fracture_chakra v02. All remain unapproved. The earlier blanket approval of other art does not approve these decals or the provisional style sheet.
 
