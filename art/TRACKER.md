@@ -74,8 +74,8 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | beamFire | 3 | - | **yes** | 198 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v05 | v05 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
+| 7 | beamFire | 3 | - | **yes** | 198 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |

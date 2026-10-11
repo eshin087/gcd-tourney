@@ -11,6 +11,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user approval of Naruto beamCharge v05 and beamFire v07 (2026-10-10, "approve everything"), including documented QA caveats; ready for Claude integration.
+
+- Naruto Four-Tails candidate roar v05 and pounce/slams v07 restore four tails per pose, preserve calibrated skull scale, and wire the ultimate to the drawn shroud. Candidates remain unapproved.
 - Changed: `npm run pr -- start --art <id>[,<id>]` checks out only that character's (or art kind's) raw art, about 0.5 GB per art worktree instead of 2.2 GB with `--full`; new `npm run pr -- prune` removes clean worktrees of merged branches. AGENTS.md forbids hand-made project copies (they had filled 15 GB).
 - Docs (OPS-007): require sparse real Git worktrees, prohibit project-copy fallbacks and art `--full`, reuse task worktrees across versions, and report merged worktrees and cleanup paths.
 
