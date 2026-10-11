@@ -10,6 +10,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- art(gojo): add direct diagnostic playback for all 42 current candidate strips and three UI images in the draft preview, visibly labeled with strict-gate and motion holds.
 - art(gojo): clear down and KO cell clipping by measured whole-pose placement, retaining original lying pixels and unresolved floor-contact holds.
 - art(gojo): preserve launched v04 reaction pixels in v06 with measured offsets that clear cell clipping; retain its low-confidence scale hold and diagnostic native contact.
 - art(gojo): retain rejected third light4 recovery half after it repeated the oversize A/B seam; document the exhausted source budget and strict-pack hold.
