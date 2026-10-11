@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): add title-style heavy rising launcher v10 with measured generated idle recovery, preserve rejected v09 and verify eight 48-color packed frames.
+
 - art(sasuke): add title-style roundhouse v08 and correct light1 v09, light2 v07, light3 v08 recovery endpoints to the approved open-palm stance by measured reuse of generated idle source poses; preserve all prior versions and verify the 48-color atlas.
 
 - art(sasuke): add title-style front kick v07 with measured placement, unclipped active sandals and a recovery pose that rejoins the approved idle height; archive two rejected attempts.
