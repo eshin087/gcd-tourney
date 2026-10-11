@@ -25,7 +25,7 @@ GCD Tourney sprite packer v2
     airLight3    6     <- raw/airLight3_v09.png        x0.315  (removed 17 specks; split 1 touching pose group(s); re-imported: replaces frames/ cleaned from raw/airLight3_v02.png; candidate v09 (approved: v02))
     airHeavy     6     <- raw/airHeavy_v08.png         x0.269  (removed 23 specks; re-imported: replaces frames/ cleaned from raw/airHeavy_v01.png; candidate v08 (approved: v01))
     guard        2     <- raw/guard_v07.png            x0.195  (re-imported: replaces frames/ cleaned from raw/guard_v03.png; candidate v07 (approved: v03))
-    block        2     <- raw/block_v07.png            x0.219  (removed 8 specks; re-imported: replaces frames/ cleaned from raw/block_v03.png; candidate v07 (approved: v03))
+    block        2     <- raw/block_v07.png            x0.207  (removed 8 specks; re-imported: replaces frames/ cleaned from raw/block_v03.png; candidate v07 (approved: v03))
     hurtHigh     3     <- raw/hurtHigh_v06.png         x0.235  (removed 4 specks; re-imported: replaces frames/ cleaned from raw/hurtHigh_v02.png; candidate v06 (approved: v02))
     hurtLow      3     <- raw/hurtLow_v06.png          x0.22  (re-imported: replaces frames/ cleaned from raw/hurtLow_v02.png; candidate v06 (approved: v02))
     launched     2     <- raw/launched_v05.png         x0.299  (removed 17 specks; re-imported: replaces frames/ cleaned from raw/launched_v01.png; candidate v05 (approved: v01))
@@ -45,10 +45,10 @@ GCD Tourney sprite packer v2
     taunt        2     <- raw/taunt_v04.png            x0.222  (removed 7 specks; re-imported: replaces frames/ cleaned from raw/taunt_v01.png; candidate v04 (approved: v01))
     win          4     <- raw/win_v04.png              x0.256  (removed 5 specks; re-imported: replaces frames/ cleaned from raw/win_v01.png; candidate v04 (approved: v01))
     specialForward  7     <- raw/specialForward_v12.png   x0.378  (removed 30 specks; split 1 touching pose group(s); re-imported: replaces frames/ cleaned from raw/specialForward_v04.png; candidate v12 (approved: v04))
-    specialUp    6     <- raw/specialUp_v08.png        x0.339  (removed 13 specks; candidate v08 (approved: v02))
-    specialDown  4     <- raw/specialDown_v05.png      x0.306  (removed 12 specks; re-imported: replaces frames/ cleaned from raw/specialDown_v01.png; candidate v05 (approved: v01))
+    specialUp    6     <- raw/specialUp_v08.png        x0.311  (removed 13 specks; candidate v08 (approved: v02))
+    specialDown  4     <- raw/specialDown_v07.png      x0.307  (removed 11 specks; re-imported: replaces frames/ cleaned from raw/specialDown_v01.png; candidate v07 (approved: v01))
     superPose    4     <- raw/superPose_v08.png        x0.304  (removed 13 specks; re-imported: replaces frames/ cleaned from raw/superPose_v03.png; candidate v08 (approved: v03))
-  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 22 drift, 2 uniform, 4 manual, 1 pop, 8 ok, 4 unmeasured  FAILED: run, dash, backDash, superDash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, hurtHigh, hurtLow, launched, down, getup, throw, beamCharge, beamFire, ko, special, intro, specialForward, superPose - nothing written
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 25 drift, 2 uniform, 4 manual, 1 pop, 5 ok, 4 unmeasured  FAILED: run, dash, backDash, superDash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, block, hurtHigh, hurtLow, launched, down, getup, throw, beamCharge, beamFire, ko, special, intro, specialForward, specialUp, specialDown, superPose - nothing written
   ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
   - palette snapped to 48 colors
   - 13 hitbox override(s) from hitboxes.json
@@ -72,6 +72,7 @@ GCD Tourney sprite packer v2
   ! scale gate: airLight3 head 0.90 of idle (feet 0.94): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [v09, not approved yet]
   ! scale gate: airHeavy pops inside the strip: f1 0.72 vs f3 0.91 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v08, not approved yet]
   ! scale: airHeavy: the manifest's scale exemption was written for v01 but the packed strip is v08 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 8
+  ! scale gate: block head 0.90 of idle (feet 0.99): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v07, not approved yet]
   ! scale gate: hurtHigh head 0.84 of idle (feet 0.97): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, not approved yet]
   ! scale gate: hurtLow head 0.88 of idle (feet 0.96): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, not approved yet]
   ! scale gate: launched: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v05, not approved yet]
@@ -84,7 +85,9 @@ GCD Tourney sprite packer v2
   ! scale gate: special head 0.91 of idle (feet 1.02): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v07, not approved yet]
   ! scale gate: intro head 0.93 of idle (feet 1.04): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v04, not approved yet]
   ! scale gate: specialForward head 0.89 of idle (feet 0.97): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v12, not approved yet]
+  ! scale gate: specialUp head 0.89 of idle (feet 0.98): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v08, not approved yet]
   ! scale: specialUp: the manifest's scale exemption was written for v02 but the packed strip is v08 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 8
+  ! scale gate: specialDown head 0.90 of idle (feet 1.08): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v07, not approved yet]
   ! scale gate: superPose head 0.89 of idle (feet 1.07): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v08, not approved yet]
   ! down: 1 lying frame(s) float above the floor line (#1: 19% of the body within 5px of y 240, worst fifth 16px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
   ! ko: 1 lying frame(s) float above the floor line (#0: 11% of the body within 5px of y 240, worst fifth 24px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
@@ -93,5 +96,5 @@ GCD Tourney sprite packer v2
   wrote public/characters/killua/cutin.png
   wrote public/characters/killua/select.png
 
-SCALE GATE FAILED: killua (run, dash, backDash, superDash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, hurtHigh, hurtLow, launched, down, getup, throw, beamCharge, beamFire, ko, special, intro, specialForward, superPose) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
-done: 1/1 character(s) packed, vfx skipped, crowd skipped, 36 warning(s).
+SCALE GATE FAILED: killua (run, dash, backDash, superDash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airLight2, airLight3, airHeavy, block, hurtHigh, hurtLow, launched, down, getup, throw, beamCharge, beamFire, ko, special, intro, specialForward, specialUp, specialDown, superPose) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 39 warning(s).

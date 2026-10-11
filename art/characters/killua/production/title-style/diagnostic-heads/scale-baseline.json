@@ -166,12 +166,16 @@
      "head": 1.091
     },
     "specialDown": {
-     "v": 5,
-     "head": 1.172
+     "v": 7,
+     "head": 1.01
     },
     "superPose": {
      "v": 8,
      "head": 0.996
+    },
+    "guard": {
+     "v": 7,
+     "head": 1.05
     }
    }
   }

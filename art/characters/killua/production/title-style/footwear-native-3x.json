@@ -1,0 +1,12 @@
+{
+  "description": "Native bottom48px crops enlarged3x equally; no anatomical resizing. Rows in order.",
+  "rows": [
+    "approved-neutral",
+    "approved-combat",
+    "superPose",
+    "stagger",
+    "taunt",
+    "block",
+    "intro"
+  ]
+}

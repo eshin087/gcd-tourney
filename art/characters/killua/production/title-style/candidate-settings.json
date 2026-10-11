@@ -65,7 +65,7 @@
   },
   "block": {
     "version": 7,
-    "bodyHeight": 160
+    "bodyHeight": 151
   },
   "charge": {
     "version": 11,
@@ -136,8 +136,8 @@
     "bodyHeight": 164
   },
   "specialDown": {
-    "version": 5,
-    "bodyHeight": 190
+    "version": 7,
+    "bodyHeight": 179.597423510467
   },
   "superPose": {
     "version": 8,
@@ -153,10 +153,14 @@
   },
   "specialUp": {
     "version": 8,
-    "bodyHeight": 215
+    "bodyHeight": 197
   },
   "light4": {
     "version": 10,
     "bodyHeight": 166
+  },
+  "guard": {
+    "version": 7,
+    "bodyHeight": 140
   }
 }

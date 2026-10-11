@@ -1,0 +1,152 @@
+{
+  "method": "Opaque width below y214, split at x128; visual native crop confirms boots dominate width. Band may contain ankle pixels, so widths carry ~2px uncertainty, not exact anatomical shoe lengths.",
+  "rows": [
+    {
+      "name": "approved-neutral",
+      "leftBand": {
+        "x0": 87,
+        "y0": 0,
+        "x1": 106,
+        "y1": 26,
+        "w": 20,
+        "h": 27,
+        "n": 387
+      },
+      "rightBand": {
+        "x0": 10,
+        "y0": 0,
+        "x1": 40,
+        "y1": 25,
+        "w": 31,
+        "h": 26,
+        "n": 526
+      }
+    },
+    {
+      "name": "approved-combat",
+      "leftBand": {
+        "x0": 54,
+        "y0": 0,
+        "x1": 81,
+        "y1": 26,
+        "w": 28,
+        "h": 27,
+        "n": 430
+      },
+      "rightBand": {
+        "x0": 42,
+        "y0": 0,
+        "x1": 73,
+        "y1": 25,
+        "w": 32,
+        "h": 26,
+        "n": 488
+      }
+    },
+    {
+      "name": "superPose",
+      "leftBand": {
+        "x0": 84,
+        "y0": 0,
+        "x1": 101,
+        "y1": 26,
+        "w": 18,
+        "h": 27,
+        "n": 356
+      },
+      "rightBand": {
+        "x0": 18,
+        "y0": 0,
+        "x1": 45,
+        "y1": 25,
+        "w": 28,
+        "h": 26,
+        "n": 450
+      }
+    },
+    {
+      "name": "stagger",
+      "leftBand": {
+        "x0": 90,
+        "y0": 0,
+        "x1": 109,
+        "y1": 26,
+        "w": 20,
+        "h": 27,
+        "n": 412
+      },
+      "rightBand": {
+        "x0": 10,
+        "y0": 0,
+        "x1": 40,
+        "y1": 24,
+        "w": 31,
+        "h": 25,
+        "n": 521
+      }
+    },
+    {
+      "name": "taunt",
+      "leftBand": {
+        "x0": 91,
+        "y0": 0,
+        "x1": 111,
+        "y1": 26,
+        "w": 21,
+        "h": 27,
+        "n": 415
+      },
+      "rightBand": {
+        "x0": 10,
+        "y0": 0,
+        "x1": 41,
+        "y1": 22,
+        "w": 32,
+        "h": 23,
+        "n": 491
+      }
+    },
+    {
+      "name": "block",
+      "leftBand": {
+        "x0": 84,
+        "y0": 0,
+        "x1": 100,
+        "y1": 26,
+        "w": 17,
+        "h": 27,
+        "n": 346
+      },
+      "rightBand": {
+        "x0": 16,
+        "y0": 0,
+        "x1": 45,
+        "y1": 24,
+        "w": 30,
+        "h": 25,
+        "n": 446
+      }
+    },
+    {
+      "name": "intro",
+      "leftBand": {
+        "x0": 94,
+        "y0": 0,
+        "x1": 111,
+        "y1": 26,
+        "w": 18,
+        "h": 27,
+        "n": 341
+      },
+      "rightBand": {
+        "x0": 7,
+        "y0": 0,
+        "x1": 36,
+        "y1": 24,
+        "w": 30,
+        "h": 25,
+        "n": 471
+      }
+    }
+  ]
+}

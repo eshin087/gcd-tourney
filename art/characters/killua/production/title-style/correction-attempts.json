@@ -44,9 +44,7 @@
       "A": 1,
       "B": 1
     },
-    "specialDown": {
-      "attempts": 1
-    },
+    "specialDown": 3,
     "superPose": {
       "attempts": 3
     }
