@@ -11,6 +11,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user approval of Killua Whirlwind beamCharge v05; archive superseded pending v04 with documented QA caveats accepted. Artwork unchanged; ready for integration.
+
+- Art (ART-KIL-WW): Whirlwind beamCharge v05 raised-heel ready stance, preserved v04 history, anatomy sidecars, cast lineup and hosted review gallery. All art remains unapproved; beamFire sources, frames and metadata unchanged.
 - Record user approval of Naruto beamCharge v05 and beamFire v07 (2026-10-10, "approve everything"), including documented QA caveats; ready for Claude integration.
 
 - Naruto Four-Tails candidate roar v05 and pounce/slams v07 restore four tails per pose, preserve calibrated skull scale, and wire the ultimate to the drawn shroud. Candidates remain unapproved.
