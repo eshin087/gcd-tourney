@@ -68,7 +68,7 @@ its own section below.
 
 ## naruto
 
-Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, guard v05 and three UI images remain unapproved candidates. Idle v07 has a technical loop hold. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
+Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, guard v05, hurtHigh v04 and three UI images remain unapproved candidates. Idle v07 has a technical loop hold; light1 v04 parts are technically rejected after the stitch could not isolate seven poses. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
