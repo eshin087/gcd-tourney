@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Killua title-style production checkpoint: versioned attacks/reactions/specials, approved-reference diagnostics and explicit anatomy/motion holds; no new approvals or production release.
+
 - art(killua): add eight title-style movement/reaction candidates and controlled idle anatomy re-evaluation; all pending review, full atlas not ready.
 
 - Art: eight independent Killua title-style candidates and approved-reference QA controls; idle, taunt and win technical holds remain. No production release.
