@@ -261,7 +261,7 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 
 | id | title | owner | status | notes |
 |---|---|---|---|---|
-| ART-SAS-NEUTRAL | Redraw all42 against approved neutral | Codex | review | port5213 real art-sasuke-proportions; fixed neutral copied, all new animations unapproved; source inventory175frames. |
+| ART-SAS-NEUTRAL | Redraw all42 against approved neutral | Codex | review | port5213 real art-sasuke-proportions; fixed neutral copied; latest42 checkpoint animations visually approved2026-10-11; six strict-pack failures/manual holds prevent shipping application; source inventory175frames. |
 | TOOL-SAS-NEUTRAL-PROBE | Old branch palette-sensitive gate; use current main tool | Claude | review | Local tool flips unchanged run from ok to0.62 when dash added. Current main e549325 fixes instability: explicit --root art --out public gives run1.08/dash1.10, real remaining candidate drift under investigation. See art/characters/sasuke/reference/neutral-main-tool-pack.txt and neutral-dash-v02-pack.txt. No tool edits or blanket exemption. |
 
 
@@ -270,3 +270,8 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 Current main command: node ../../tools/pack-sprites.mjs sasuke --root art --out public --quantize 48 exits 1 from art-sasuke-proportions. Inputs idle_v06.png/JSON and A/B parts. A hair mask box [109,40,144,73] vs B [109,45,124,69] despite similar visible hair; B excludes right hair mass. Investigate palette declaration/mask selection before treating idle ref as valid. No tools changed or blanket exemption. Exact logs/masks/landmark uncertainty: [neutral-redraw-QA](../art/characters/sasuke/reference/neutral-redraw-QA.md). All 42 source candidates exist; 31 strict failures and actual art issues prevent readiness. Claude owns tool fix; Codex owns later measured art corrections.
 
 Palette follow-up: TOOL-SAS-IDLE-V06-MASK is resolved in art data by measured #20315b/#292b53/#294686/#293b6c headColors. Full masks restored; no tooling patch required. Current main pack still fails14 strips, with independent anatomy/pose holds. See neutral-palette-corrected-pack.txt and QA resolution section.
+
+
+### ART-SAS-NEUTRAL visual approval follow-up — 2026-10-11
+
+User blanket visual approval recorded for exact42 latest checkpoint versions. Technical and manual QA holds remain; shipping approval application deferred. REVIEW rows approved visually, manifest approvedVersion/baseline unchanged. Repack result: see art/characters/sasuke/reference/neutral-approval-pack.txt. Claude alone integrates/production. No further image generation authorized by this approval.

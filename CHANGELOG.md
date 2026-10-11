@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke: record user blanket visual approval for latest42 reviewed checkpoint versions (2026-10-11); preserve six technical failures and manual continuity holds, defer shipping application to QA/Claude integration.
+
 - Sasuke: twelve bounded neutral-redraw corrections and exact probe-mask evidence; all42 candidates remain unapproved, six strict-pack holds remain (draft PR62).
 
 - Sasuke neutral redraw checkpoint: all 42 animations / 175 source frames, anatomical sidecars and full diagnostic gallery; strict scale failures and exhausted attempts remain explicit holds (ART-SAS-NEUTRAL).

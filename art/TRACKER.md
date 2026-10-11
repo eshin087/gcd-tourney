@@ -4267,3 +4267,8 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+
+## Sasuke visual approval — 2026-10-11
+
+User: "ok whats left to do? i approve everything and would like to see it live on the game". Latest reviewed42 animation versions are visually approved; exact versions and scope: [approval record](characters/sasuke/reference/neutral-visual-approval-2026-10-11.json). Six strict-pack failures and separate manual continuity holds remain. Shipping application is deferred: approvedVersion, scale baseline and approved idle unchanged. Claude alone integrates and deploys production.
