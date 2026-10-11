@@ -825,8 +825,7 @@ export class ComboComposer {
     switch (o.state) {
       case 'airRecover': return 'tech';
       case 'techRoll': return 'techRoll';
-      case 'burst': return 'burst';
-      case 'down': case 'getup': return this.over ? 'end' : 'down';
+      case 'down': case 'getup': return 'down';
       default: return this.expect ? 'whiff:' + this.expect.id : 'drop';
     }
   }
@@ -852,6 +851,7 @@ export class ComboComposer {
   // round per CPU and the share of fight time spent in combos near ADR 0016's 40 %).
   begin(game, c) {
     this.reset();
+    this.b.route = {}; // MasterBrain's per-combo choices (drop roll, burst bait, the three-bar ender) start fresh too
     this.live = true;
     this.over = false;
     this.peak = this.f.opp.combo;
