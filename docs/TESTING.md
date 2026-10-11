@@ -385,17 +385,27 @@ throttles timers, so keep a console call awaiting (or the pane visible) while it
 **Combo composer targets** (ADR 0026, after changes to `aiCombo.js`, `JUGGLE`, hit boxes or MasterBrain), over 10+
 matches with all four fighters:
 
-| `comboStats()` | target | 2026-10-10 (4 soaks, 10-12 matches each) |
-|---|---|---|
-| `links.connected` (planned links that landed) | ≥ 85 % | 98-99 % |
-| `blue` (combos with a gap) | ~0 (the composer only plans true links) | 0-1 % |
-| `endedBy.tech` share | < 15 % | 12-17 % (bursts end another 6-9 %) |
-| `handballMatches` (a combo with 2+ wall bounces) | ≥ 50 % of matches | 60-75 % |
-| `vanishPerMatch` (in-combo vanishes) | ≥ 1 | 2.7-4.3 |
-| `distinctRoutes` / `repeatPrev` | ≥ 80 % / ~0 | 85-91 % / 0 |
-| `comboShare` (fight time in combos) | 35-55 % | 47-53 % |
-| `rounds.avg` | 30-75 s | 33-36 s (shortest 20-24 s) |
-| `long12PerMatch` (combos of 12+ hits) | ≥ 1 per match (design goal) | 0.25-0.33 (longest 16): not met. Without meter a true combo tops out near 10-11 hits under the current decay (ADR 0022); 12+ comes from a grind special (Rasenshuriken, Lapse: Blue), a vanish chain or a super carried on |
+| `comboStats()` | target | 2026-10-10 (4 soaks, 10-12 matches each) | after the review fixes (20 matches) |
+|---|---|---|---|
+| `links.connected` (planned links that landed) | ≥ 85 % | 98-99 % | 99 % |
+| `blue` (combos with a gap) | ~0 (the composer only plans true links) | 0-1 % | 0 % |
+| `endedBy.tech` + `techRoll` share | < 15 % | 12-17 % (bursts end another 6-9 %) | 10 % (12 % with the wait / three-bar checks off) |
+| `handballMatches` (a combo with 2+ wall bounces) | ≥ 50 % of matches | 60-75 % | 70 % |
+| `vanishPerMatch` (in-combo vanishes) | ≥ 1 | 2.7-4.3 | 3.3 |
+| `distinctRoutes` / `repeatPrev` | ≥ 80 % / ~0 | 85-91 % / 0 | 82 % / 1 % |
+| `comboShare` (fight time in combos) | 35-55 % | 47-53 % | 49 % |
+| `rounds.avg` | 30-75 s | 33-36 s (shortest 20-24 s) | 34 s (shortest 21 s) |
+| `long12PerMatch` (combos of 12+ hits) | ≥ 1 per match (design goal) | 0.25-0.33 (longest 16) | 0.15 (longest 16): **not met**, see below |
+
+**Open gap (ENG-072, needs a design decision):** the governor draws a highlight tier about 0.8 times per CPU per
+round, but highlight-tier combos average 5 hits, so "one highlight per round per CPU" (about 4.6 per match) is met at
+0.15 combos of 12+ hits per match.
+`comboLog[i].steps` shows why: most highlights stop at an `end` that was the only edge left, typically after a vanish
+kick with 1-8 frames of stun and no super dash or bar to follow it. Without meter a true combo tops out near 10-11 hits
+under the current decay (ADR 0022); 12+ comes from a grind special (Rasenshuriken, Lapse: Blue), a vanish chain or a
+super carried on. Options for the user and the coordinator: softer hitstun decay after a bounce or a vanish (`JUGGLE`,
+affects players), a highlight tier that reserves bars before it can be drawn (CPU only), or more ki for the showman
+(the super dash refund on a wall bounce was already rejected).
 
 `comboLog[i].steps` lists each decision of a combo with the edges that were possible and their weights, which is the
 place to start when a route ends early.

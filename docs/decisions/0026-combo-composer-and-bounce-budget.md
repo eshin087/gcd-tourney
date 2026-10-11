@@ -57,7 +57,10 @@ shots and dives), waiting for a predicted bounce, meeting the victim from the gr
 dash-in light, a heavy relaunch), a three-bar move that carries the combo on, or the end.
 
 - **Only links that work.** An edge's link gap is checked against the victim's stun left with **2+ frames of
-  margin**, so a victim holding Guard never escapes a planned link (and the counter stays gold). Predictions use
+  margin**, so a victim holding Guard never escapes a planned link (and the counter stays gold). Waiting for a
+  predicted bounce is a link too: their air stun must outlast the flight to it by the margin wherever they are high
+  enough to tech, with no floor skip (a tech roll) on the way unless the last hit was a hard knockdown; a three-bar
+  move is checked by its own delay or dash (Amaterasu's gaze, the flurry and Four-Tails pounce chasing the forecast). Predictions use
   `JUGGLE`, `MOVES`, a frame-by-frame forecast of the victim's flight (barrier and floor bounces, the budget, their
   hitstop) and **the art's hit boxes** (the union of a move's active-frame boxes: a strike drawn high misses a short or
   crouched body; one drawn behind the body never reaches). Edges that need ki, the super dash or the bounce budget
@@ -124,6 +127,14 @@ super" reads as one long combo (Light ×3 into Speed of Lightning: 12 hits).
 - CPU vs CPU combos are longer and different every match (soak numbers in docs/TESTING.md); rounds get somewhat
   shorter. Under the true-combo rules of ADR 0022 and the current hitstun decay a combo without meter tops out around
   10-11 hits; 12+ needs bars (vanish chains, a grind special) or a super carried on, so highlights come from those.
+- **Not met yet:** "about one highlight combo per round per CPU". The tier and governor shape the route but can't
+  deliver the length: highlight-tier combos average about 5 hits and 12+ hit combos come about 0.15 times per match
+  (docs/TESTING.md, combo composer targets). Closing the gap is a design decision left open for the user: softer hitstun
+  decay after a bounce or a vanish (`JUGGLE`, affects players), a highlight tier that reserves bars before it can be
+  drawn (CPU only), or more ki for the showman.
+- A combo's record counts the hit that ends it by KO (`Game.trackCombos`, the composer's `comboLog`), and the
+  composer follows its combo through a KO or the time-up (`MasterBrain.update` keeps watching), so a KO combo is
+  rated on its full count and ends as `ko`, not in the next round.
 - Link checks read the art's hit boxes, so art with a strike box that misses makes the composer route around that
   link (Gojo's light2 and heavy boxes, at head height, pass over Killua's short hurt poses; Sasuke's old light2 box
   behind his body, fixed by the newer art). Fixing such boxes (art/hitboxes) lets the links back in.
