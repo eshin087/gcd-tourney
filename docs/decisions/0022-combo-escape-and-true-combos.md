@@ -57,8 +57,11 @@ never rolls.
 | HUD | a gem by each ki gauge: lit while the round's burst is unused, glowing when there's ki for it, dark once spent. |
 
 The input is the vanish chord, which does nothing in hit stun, so it needs no new button, and the touch VANISH
-macro bursts too. A press must come after the combo began (`comboFrom`) and within 3 f (`buffer`), so a vanish
-pressed just before getting hit doesn't turn into a burst.
+macro bursts too. The later press must be within 3 f (`buffer`), and Special itself must be pressed after the
+combo began (`comboFrom`) and under 6 f ago (`chord`, as for the vanish), so a vanish pressed just before getting
+hit doesn't turn into a burst, and neither does a Guard press (a tech) from a fighter whose ki charge got hit with
+Special still held. A burst that starts on the frame the attacker's hit connects wins: a melee hit queued earlier
+that frame (P1 updates before P2) whiffs against it.
 
 ### 4. True combos and the blue counter
 
@@ -108,7 +111,7 @@ row plus one `game.tag(f, id)` call.
   guard, then punish the burst's recovery (a new `opening` case).
 - **DummyBrain** (training): `DUMMY TECH` never / hold / random (half the launches, a random direction) and `DUMMY
   BURST` off / on (bursts at hit 3) in the training panel (`game.dummyOpts`). The default (never, off) keeps the
-  old dummy.
+  old dummy: GUARD mode lets go of Guard for the whole launch, so it never techs or rolls by holding it.
 - **Showcase**: `burst` is a technique tool.
 
 ## Alternatives considered

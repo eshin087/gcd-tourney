@@ -678,7 +678,9 @@ export class Game {
     const list = this.pendingMelee;
     this.pendingMelee = [];
     for (const { att, def, m, dir, at } of list) {
-      if (def.ko) continue;
+      // a burst started after the hit was queued (P2 updates after P1) still beats it: the attack whiffs, as it
+      // would against P1
+      if (def.ko || (def.state === 'burst' && def.invuln > 0)) continue;
       const attacking = att.state === 'attack' && att.move === m; // false if the other hit landed first
       att.moveHit = true;
       att.hitPoint = at;

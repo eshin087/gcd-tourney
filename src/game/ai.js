@@ -98,6 +98,7 @@ export class CpuBrain {
       // now and then burst out of a combo
       if (f.state !== 'launched' && f.state !== 'hitstun') this.techHold = this.burstRoll = null;
       else {
+        if (this.plan === 'charge') { this.hold.special = 0; this.setPlan('idle', 10); } // a hit ends the charge: let go of Special
         if (f.state === 'launched' && this.techHold == null) this.techHold = R() < L.techHold;
         if (this.techHold) this.hold.guard = 2;
         if (this.burstRoll == null && f.combo >= 3) this.burstRoll = R() < L.burst ? 3 + Math.floor(R() * 3) : 0; // at hit 3-5
@@ -511,7 +512,8 @@ export class DummyBrain {
     pad.set('heavy', false);
     pad.set('special', burst);
     pad.set('dash', false);
-    pad.set('guard', (this.mode === 'guard' && !juggled) || holdTech || burst);
+    // GUARD lets go for the whole launch: a held Guard techs at the first gap and rolls on landing (DUMMY TECH's job)
+    pad.set('guard', (this.mode === 'guard' && f.state !== 'launched') || holdTech || burst);
     pad.set('jump', (this.mode === 'jump' && this.t % 70 < 3) || (juggled && this.mode !== 'stand' && this.t % 20 < 2));
   }
 }

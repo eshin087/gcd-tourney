@@ -70,7 +70,9 @@ export const THROW = {
 //             `cost` ki, `perRound` per round. A world freeze, then an invulnerable shockwave of `radius` on frames
 //             [startup, startup + active) that launches the attacker (`hit`, blockable and parryable: burst bait),
 //             then `whiff` frames of recovery (`blocked` when it was blocked or parried). `buffer`: Special or Guard
-//             pressed this recently still counts (a press during hitstop survives it).
+//             pressed this recently still counts (a press during hitstop survives it); Special itself must be
+//             pressed during the combo and under `chord` frames ago (Guard pressed while a charge holds Special
+//             is a tech, not a burst).
 //  reversal   an attack started within `window` frames of leaving stun, block or wake-up that hits: REVERSAL
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
@@ -82,7 +84,7 @@ export const DEFENSE = {
     roll: { len: 20, invuln: 18, speed: 7.5, friction: 0.88 },
   },
   burst: {
-    cost: 200, perRound: 1, buffer: 3, freeze: 8, startup: 4, active: 6, radius: 2.4, whiff: 20, blocked: 30,
+    cost: 200, perRound: 1, buffer: 3, chord: 6, freeze: 8, startup: 4, active: 6, radius: 2.4, whiff: 20, blocked: 30,
     hit: { dmg: 10, minScale: 1, launch: [14, 9], hitstun: 14, push: 2, hitstop: 12, big: true, spark: 'smash', shake: 0.7, burst: true },
   },
   reversal: { window: 3 },

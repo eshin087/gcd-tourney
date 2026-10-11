@@ -107,6 +107,7 @@ export class Fighter {
     this.burstUsed = 0; // bursts this round
     this.burstHit = null; // the running burst's shockwave connected: 'hit' | 'block'
     this.burstEnd = 0;
+    this.parriedAt = -99; // clock when this fighter was parried (PUNISH); `clock` restarts every round
     this.freeAt = -99; // clock when stun, block or wake-up last ended (REVERSAL)
     this.reversal = false;
     this.punishHit = false;
@@ -409,13 +410,14 @@ export class Fighter {
     this.forceTech = false;
   }
 
-  // Burst input: Guard + Special both held, one of them pressed within `buffer` frames and after the combo began
-  // (a vanish press just before the hit doesn't turn into a burst).
+  // Burst input: Guard + Special both held, the later press within `buffer` frames, and Special itself a fresh
+  // press: after the combo began and under `chord` frames ago (like the vanish chord). A ki charge that got hit
+  // still holds Special, so pressing Guard to tech must not spend the burst; a vanish pressed just before the hit
+  // doesn't turn into one either.
   wantsBurst() {
-    const p = this.pad, b = p.b;
-    if (!b.guard.down || !b.special.down) return false;
-    const last = Math.max(b.special.lastPress, b.guard.lastPress);
-    return p.frame - last <= DEFENSE.burst.buffer && last >= this.comboFrom;
+    const p = this.pad, b = p.b, B = DEFENSE.burst, sp = b.special.lastPress;
+    if (!b.guard.down || !b.special.down || sp < this.comboFrom || p.frame - sp >= B.chord) return false;
+    return p.frame - Math.max(sp, b.guard.lastPress) <= B.buffer;
   }
 
   // Burst is possible: in hit stun or a launch, the bar and ki for it, not held or grabbed (Domain, flurries,
@@ -490,7 +492,7 @@ export class Fighter {
     const m = this.move;
     switch (this.state) {
       case 'attack': return !!m && this.t >= m.startup + m.active;
-      case 'held': return !this.grab && this.clock - (this.parriedAt ?? -99) < 40;
+      case 'held': return !this.grab && this.clock - this.parriedAt < 40;
       case 'dodge': case 'airDodge': return this.invuln <= 0;
       case 'land': return this.landLag > 6;
       case 'throw': return this.throwSt?.phase === 'whiff' || this.throwSt?.phase === 'broken';

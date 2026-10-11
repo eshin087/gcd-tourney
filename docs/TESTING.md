@@ -213,7 +213,9 @@ by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a 
    until the move ends, no blue.
 6. **Burst**: P2 with 200 ki presses Guard + Special during your string: BURST!, an 8 frame freeze, the shockwave
    launches you (10 damage), P2's ki −200, its gem goes dark, the combo ends. Refused when held (Domain, flurry,
-   maul), grabbed, during your beam or three-bar move, under 200 ki, and a second time in the round.
+   maul), grabbed, during your beam or three-bar move, under 200 ki, and a second time in the round. Not a burst:
+   P2 charging ki (Special held) gets hit, then presses Guard (a tech, no BURST!, ki and gem kept). P2 bursting on
+   the frame your hit connects: the burst wins (P2 doesn't land back in `hitstun`).
 7. **Burst bait**: stop after a hit and hold Guard: the burst is blocked, P2 recovers for 30 frames, your punish
    shows PUNISH!.
 8. **Callouts**: parry → PARRY! (big); spot dodge a heavy → DODGE!; spot dodge a throw → DODGE!; air dodge a super
@@ -221,7 +223,7 @@ by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a 
    the oldest out; a special name right after a PARRY! leaves the banner alone; in training the left stack clears the
    input history.
 9. **Training dummy**: DUMMY TECH never / hold / random and DUMMY BURST off / on in the panel; the defaults keep the
-   old dummy (GUARD mode with tech NEVER still lets go of Guard when juggled).
+   old dummy (GUARD mode with tech NEVER lets go of Guard for the whole launch: no TECH!, no TECH ROLL!).
 10. **CPU**: the soak below (`mode=cpu`, and IMPOSSIBLE vs Hard) shows TECH! and TECH ROLL! every match and BURST!
     in most, never more than one burst per fighter per round (`burstUsed` ≤ 1), blue counters now and then, and
     rounds still ending by KO in the usual time.
