@@ -1,5 +1,7 @@
 # Art tracker
 
+> Naruto post-approval redraw checkpoint2026-10-11: heavy v10, throw v05, airLight3 v05 pass; light4 v04 capped technical hold. All four need review. Full strict pack exits1 and leaves runtime atlas unchanged. [Evidence](characters/naruto/production/POST_APPROVAL_REDRAWS.md).
+
 Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
 
 Human-readable status of every art asset (hi-res sprite spec v2,

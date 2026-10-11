@@ -1,0 +1,38 @@
+[
+  {
+    "name": "heavy",
+    "version": 10,
+    "frames": 8,
+    "gate": "ok",
+    "head": 0.984,
+    "range": 0.05,
+    "attempts": 3
+  },
+  {
+    "name": "throw",
+    "version": 5,
+    "frames": 4,
+    "gate": "ok",
+    "head": 0.995,
+    "range": 0.032,
+    "attempts": 1
+  },
+  {
+    "name": "airLight3",
+    "version": 5,
+    "frames": 6,
+    "gate": "ok",
+    "head": 1.003,
+    "range": 0.084,
+    "attempts": 3
+  },
+  {
+    "name": "light4",
+    "version": 4,
+    "frames": 8,
+    "gate": "pop",
+    "head": 1.092,
+    "range": 0.16,
+    "attempts": 3
+  }
+]
