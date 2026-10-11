@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style airLight3 v06, airHeavy v08, special v06/v07 and specialForward v04 sources. AirHeavy passes isolated scale with repeated-pose motion hold; airLight3 clips/has oversized heads, while special and specialForward expose stitch assembly blockers (ART-NAR-TITLE).
 - Added: Naruto title-style airLight2 v05, specialDown v04 and specialUp v04 source parts; airLight2 passes isolated strict scale, specialDown remains a bowed-head scale hold, and specialUp exposes a stitcher manual-factor head-probe blocker (ART-NAR-TITLE).
 - Added: Naruto title-style light3 v04, light4 v08 and heavy v11 source strips and native atlas QA; all pass isolated strict scale, with combo/recovery motion checks recorded for review (ART-NAR-TITLE).
 - Added: Naruto title-style airLight1 five-frame jab candidates; best v06 passes isolated strict scale but overshoots the fist contact zone, while v07 reaches the cell margin (ART-NAR-TITLE).
