@@ -1,4 +1,6 @@
-# Gojo model sheet v06 — needs review, correction still recommended
+# Gojo model sheet v06 — approved by user 2026-10-10
+
+Approval update: the user approved all current candidates, including this model. model_sheet.png now matches v06 exactly. The measurements and pre-approval recommendation below are historical QA evidence, not an outstanding approval request. No animation redraw or runtime art replacement is included.
 
 2026-10-10. Real worktree `art/gojo-build`, based on main. Best of three new built-in image-generator attempts (attempt 2). This supersedes the old sandbox delivery limitations of the v05 report.
 

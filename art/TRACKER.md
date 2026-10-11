@@ -226,7 +226,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
 Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
-white hair swept up. User-selected model v03 overrides the numeric head ratio: compact head, slim torso and long legs.
+white hair swept up. User approved the broader model v06 on 2026-10-10. Existing animation art still follows the older model until a separately scoped redraw.
 
 Body scale: **taller than the cast** (standing body 215 px, `standingBodyPx: 215`,
 [ADR 0010](../docs/decisions/0010-per-character-body-scale.md)): every `bodyHeight` is the shared
@@ -237,7 +237,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v03 | v06 needs review: neutral poses/profile improved; source scale and raw palette still fail after 3 attempts. Approved v03 retained; no idle redraw. |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
 | 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |

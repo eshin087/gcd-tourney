@@ -270,7 +270,7 @@
           "step": 1,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 3
+          "approvedVersion": 6
         },
         "expressions": {
           "file": "art/characters/gojo/reference/expressions.png",
