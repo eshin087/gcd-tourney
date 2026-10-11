@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- art(sasuke): start approved title-style redraw with measured idle v07 and corrected guard v04 candidates; preserve pilot references and document the guard mask exemption and pending full-batch QA.
+- art(sasuke): start approved title-style redraw with measured idle v07, corrected guard v04 and lead jab v06 candidates; preserve pilot references and document the guard mask exemption and pending full-batch QA.
 
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 
