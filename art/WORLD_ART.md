@@ -31,7 +31,7 @@ without approved art keeps its procedural fallback, so nothing breaks while art 
 | 3 | **Announcer + NPCs** | `art/npc/` | `public/npc/<id>/sheet.png` + `anims.json` | **4 NPCs** (announcer, two monk officials `monk-a` / `monk-b`, food vendor) = 4 model sheets + 9 animation strips, 18 frames | `npc/README.md` (cast, NPC spec), `npc/<id>/CHARACTER.md`, `npc/<id>/PROMPTS.md` |
 | 4 | **UI** | `art/ui/` | logo, title key art, menu, character-select and results backgrounds, HUD frame pieces (shown once Claude wires them, ENG-013) | about **6-8 images** | [ui/README.md](ui/README.md), [ui/PROMPTS.md](ui/PROMPTS.md) |
 | 5 | **VFX** | `art/vfx/` | `public/vfx/atlas.png` + `atlas.json`: hit sparks, bursts, rings, dust, smoke, orb, lightning... | **15 effects**, 1 batch each | [vfx/README.md](vfx/README.md), [vfx/EFFECTS.md](vfx/EFFECTS.md), [vfx/PROMPTS.md](vfx/PROMPTS.md) |
-| 6 | **Ground decals** | `art/decals/` | `public/decals/atlas.json` + one PNG page per style group: cracks, craters, scorches, scars and wall holes, picked by hit force and element ([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)) | **31 names, 143 variants**: a style sheet (gate) + 31 batches, about 62 images | [decals/README.md](decals/README.md), [decals/DECALS.md](decals/DECALS.md), [decals/PROMPTS.md](decals/PROMPTS.md) |
+| 6 | **Ground decals** | `art/decals/` | `public/decals/atlas.json` + PNG pages per page set: cracks, craters, scorches, scars and wall holes, picked by hit force and element ([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)) | **31 names, 143 variants**: a style sheet (gate) + 31 batches, about 62 images | [decals/README.md](decals/README.md), [decals/DECALS.md](decals/DECALS.md), [decals/PROMPTS.md](decals/PROMPTS.md) |
 
 Altogether about **125-130 batches and about 640 images** (crowd 71 batches / 576 images, stage 30, NPC 4 batches / 13 images, UI about 7, VFX 15; counted 2026-10-08), plus the ground decals added 2026-10-10 (32 batches, about 63 images). Batch ids, claim order and exact output file
 names come from the claim queue ([queue/README.md](queue/README.md)); `npm run queue -- status` shows the
@@ -281,7 +281,7 @@ public/                   packer outputs only (never hand-edited)
   stage/<slot>.png  stage/manifest.json
   npc/<id>/sheet.png  npc/<id>/anims.json
   vfx/atlas.png  vfx/atlas.json
-  decals/atlas.json  decals/decals_<group>[_n].png
+  decals/atlas.json  decals/decals_<set>[_n].png
 ```
 
 Shared status files stay where they are: [REVIEW.md](REVIEW.md) (review queue), [TRACKER.md](TRACKER.md)

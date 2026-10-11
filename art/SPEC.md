@@ -441,14 +441,16 @@ prompts: `art/decals/PROMPTS.md`; workflow and packing notes: `art/decals/README
 - **Raw**: `art/decals/raw/<name>_vNN.png` on a 1536 x 1024 magenta canvas, the variants in one row, or
   **parts of one version** `<name>_vNN_A.png`, `_B.png`, `_C.png` (joined in letter order by the packer).
   Rejected versions move to `art/decals/raw/_rejected/`. Final cells: `art/decals/frames/<name>/<name>_NN.png`.
-- The packer scales each image so its largest variant fills **97%** of the cell (`erasure_trench`: the
-  full width, so it tiles), centers every variant, snaps near-white to the hot key in hot-key names and
-  tones it down elsewhere, converts the tinted name to greyscale, and caps colors at 24 with the hot key
-  kept exact.
-- **Packer output** `public/decals/atlas.json` + one PNG page per group (`decals_<group>.png`, or
-  `decals_<group>_1.png`, `_2.png` ... when a group needs several), each <= 2048 x 2048, shelf-packed, a
-  name never split across pages:
-  `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>": { "page", "w", "h", "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "version" } } }`.
+- The packer splits each image into its count from `DECALS.md` (extra pieces such as the halves of a
+  broken ring are joined by slot, in order), scales each image so its largest variant fills **97%** of the
+  cell (`erasure_trench` tiles: every variant is stretched to the full width), centers every variant,
+  snaps near-white to the hot key in hot-key names and tones it down elsewhere, converts the tinted name
+  to greyscale, and caps colors at 24 with the hot key kept exact.
+- **Packer output** `public/decals/atlas.json` + one PNG page per page set (base + edge = the floor set,
+  chakra + ki, lightning + fire, cursed: `decals_<set>.png`, or `decals_<set>_1.png`, `_2.png` ... when a
+  set needs several), each <= 2048 x 2048, a name never split across pages. A match loads the floor
+  pages (2) plus one element set per fighter: at most 4, the engine's cap (the report checks it):
+  `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>": { "page", "w", "h", "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "tile"?, "version" } } }`.
   Only approved names ship; the rest stay procedural. `--candidates` writes `public/preview/decals/`.
 - **Style sheet first**: `art/decals/reference/decal_style_sheet_vNN.png` needs the user's approval; the
   approved copy `decal_style_sheet.png` is attached to every decal prompt, and the claim queue holds the

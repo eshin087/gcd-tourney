@@ -2541,7 +2541,7 @@ function printReport(rep, env) {
 }
 
 // The decal packer (tools/pack-decals.mjs, ADR 0024) uses this file's helpers: importing them from here would run the CLI.
-const decalHelpers = () => ({ readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, resample, toGreyscale,
+const decalHelpers = () => ({ readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, resample, downscaleMode, upscaleNearest, toGreyscale,
   quantizeFrames, countColors, hasTransparency, chooseSource, readSidecars, staleText, writeFile, writeBack, removeOutputs, worldOut, worldApprovals,
   stringifyCompact, PACKER_VERSION });
 

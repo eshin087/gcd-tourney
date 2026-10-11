@@ -9,7 +9,7 @@ numbers and the engine side are in [ADR 0024](../../docs/decisions/0024-ground-d
 Today the game paints every decal procedurally (`src/art/decalPainter.js`). When custom art exists
 here **and the user approved it** (`approvedVersion` in `art/manifest.json` -> `decals.items`, or a
 `decal-<name>` batch in `worldArt.decal`), `npm run sprites decals` packs it into
-`public/decals/atlas.json` + one PNG page per style group, and the game uses it for that name instead.
+`public/decals/atlas.json` + the PNG pages of its page set, and the game uses it for that name instead.
 **Any name without approved art keeps its procedural version**, so decals can be replaced one at a
 time. To see candidates in a match before approval: `node tools/pack-sprites.mjs decals --candidates`
 (writes the git-ignored `public/preview/decals/`), then open the game with `?art=custom&debug` and run
@@ -42,7 +42,10 @@ Who does what:
 
 `ppu` **64**: a 256 px cell is 4 world units, a 512 px cell 8 units (a fighter is about 1.6 units
 tall). The engine scales each decal to the size the hit calls for, so a cell is the whole decal,
-cracks included. Group = the PNG page the name is packed on; a match loads only the pages it needs.
+cracks included. Group = the style group; groups share PNG pages in **page sets**: the floor set
+(`base` + `edge`, 2 pages, every match), `chakra` + `ki`, `lightning` + `fire`, and `cursed` (1 page
+each). A match loads the floor pages plus one element set per fighter, so any pairing needs at most 4
+pages, the engine's cap (`DECAL_PAGE_SETS` in `tools/pack-decals.mjs`).
 
 | name | cell (px) | variants | group | mode | color rule |
 |---|---|---|---|---|---|
@@ -138,24 +141,38 @@ Full wording in [`DECALS.md`](DECALS.md) -> Common rules. In short:
   `<name>_vNN.png` and parts exist, the whole image wins (warned).
 - **Background**: flat magenta removed with the character rules (flood fill, enclosed holes, magenta
   fringe); alpha is binary. Only specks under 4 px are dropped, so small pebbles survive.
-- **Split**: each image is split at the magenta gaps into variants (a 2-row grid is read row by row).
-- **Scale**: one scale per image: its largest variant fills **97%** of the cell (`erasure_trench`:
-  100% of the width so its ends meet when tiled), the other variants of that image keep their size
-  relative to it. Each variant is centered in its cell. Downscaling keeps the palette (mode sampling);
-  upscaling is noted (draw fewer variants per image for more detail).
+- **Split**: each image is split at the magenta gaps into its count from `DECALS.md` (part A gets the
+  first image's count, B the second's ...; a single whole image gets every variant). Pieces beyond the
+  count (a ring broken at its top and bottom, a detached chip) are joined by slot: the cuts go into the
+  gaps nearest the image's even slot boundaries, so the brief's order holds (`crater_wall`: A = body
+  holes, B = round holes). The report notes every join; an image that really holds more variants than
+  the brief says needs `"parts": { "A": { "frames": N } }` in the sidecar. When the number of parts
+  differs from the brief, each part is split at its gaps without a count (noted).
+- **Scale**: one scale per image: its largest variant fills **97%** of the cell, the other variants of
+  that image keep their size relative to it. Each variant is centered in its cell. Downscaling keeps the
+  palette (mode sampling); upscaling is noted (draw fewer variants per image for more detail).
+  **Tiling** (`erasure_trench`, `tile` in the contract): the engine repeats one variant along a path, so
+  every variant is stretched on its own to the full cell width (the height keeps the image's 97% scale).
+  A variant that does not reach both cell ends (e.g. a hand-edited frame) is warned; ends with different
+  profiles (the seam shows) and a stretch over 10% are noted.
 - **Colors**: <= 24 per name (median cut over all its variants). Hot-key names: every near-white pixel
   (all channels >= 250) snaps to #FFFFFF and the hot key is kept out of the color cut, so it survives
   exactly. Other names: near-white is toned down to #F6F6F6 so nothing glows by accident. The tinted
   `barrier_crack` is converted to greyscale (warned when drawn in color). Magenta/pink/purple pixels
   and a hot-key name without any #FFFFFF are warned.
-- **Pages**: one PNG per style group (`decals_<group>.png`, or `decals_<group>_1.png`, `_2.png` when a
-  group needs more than one), each at most 2048 x 2048, shelf-packed tallest cells first, cells edge to
-  edge, a name never split across pages. Page sizes are the used extent (also in `pageSizes`).
+- **Pages**: one PNG per page set (`decals_<set>.png`, or `decals_<set>_1.png`, `_2.png` when a set
+  needs more than one: the floor set is `decals_base_1.png` + `_2.png`), each at most 2048 x 2048,
+  biggest cells first, each at the first free 128 px spot in reading order, cells edge to edge, a name
+  never split across pages. Page sizes are the used extent (also in `pageSizes`). With all 31 names
+  approved: base 2048 x 2048 + 2048 x 1920, chakra 2048 x 1792, lightning 2048 x 1280, cursed 2048 x 1280.
+- **Page budget**: the report prints the pages per match (floor pages + the two biggest element sets)
+  against the engine's cap of 4, and warns when a pairing would need more (the engine would then drop
+  pages and keep that approved art procedural).
 - **Output** `public/decals/atlas.json`:
   `{ "ppu": 64, "source": "approved"|"candidates", "packer": 2, "pages": ["decals_base_1.png", ...], "pageSizes": [[w, h], ...],
   "decals": { "<name>": { "page": i, "w": 256, "h": 256, "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted": false, "group": "base",
-  "directional": true, "hotKey": true, "version": 1 } } }` (`frames` = top-left of each variant cell on its page; `directional` and
-  `hotKey` only when true).
+  "directional": true, "hotKey": true, "tile": true, "version": 1 } } }` (`frames` = top-left of each variant cell on its page;
+  `directional`, `hotKey` and `tile` only when true).
 - **Write-back**: cleaned cells go to `frames/<name>/<name>_NN.png` with a `.packer.json` marker, exactly
   like VFX: untouched frames are re-imported when a new version (or sidecar) appears, hand-edited frames
   win (warned), frames whose raw was rejected stop shipping. A `frames/<name>/` file of exactly the cell

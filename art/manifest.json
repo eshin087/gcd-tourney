@@ -1109,7 +1109,7 @@
     }
   },
   "decals": {
-    "_readme": "Ground-damage decals (ADR 0024, art/decals/README.md). Names, cells, variants, groups, modes and color rules are the engine contract (DECAL_SPECS in tools/pack-decals.mjs; drift is warned). npm run sprites decals packs approved items (approvedVersion here or on worldArt.decal batches) into public/decals/atlas.json + one PNG page per group; --candidates writes public/preview/decals/.",
+    "_readme": "Ground-damage decals (ADR 0024, art/decals/README.md). Names, cells, variants, groups, modes and color rules are the engine contract (DECAL_SPECS in tools/pack-decals.mjs; drift is warned). npm run sprites decals packs approved items (approvedVersion here or on worldArt.decal batches) into public/decals/atlas.json + the PNG pages of each page set (at most 4 per match); --candidates writes public/preview/decals/.",
     "ppu": 64,
     "brief": "art/decals/DECALS.md",
     "candidates": "art/decals/raw/<name>_vNN.png, or the parts <name>_vNN_A.png, _B.png, _C.png of one version",
@@ -1150,7 +1150,7 @@
       "scorch_chakra": {"cell":[512,512],"variants":3,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
       "fracture_chakra": {"cell":[512,512],"variants":2,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
       "erasure": {"cell":[256,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "erasure_trench": {"cell":[512,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
+      "erasure_trench": {"cell":[512,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"tile":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
       "crush_implode": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","step":12,"status":"todo","version":0,"approvedVersion":null},
       "gouge_repel": {"cell":[512,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
       "fracture_cursed": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},

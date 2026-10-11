@@ -42,7 +42,9 @@ Every decal image follows these, without exception.
   edge or another variant.
 - **Save as** `art/decals/raw/<name>_vNN.png`, or, when a name needs several images (most do, see each
   section), as **parts of one version**: `<name>_vNN_A.png`, `_B.png`, `_C.png` (same `NN`, letters in
-  order). The packer joins the parts; nobody stitches.
+  order). The packer joins the parts; nobody stitches. Each image holds exactly the variants its section
+  lists (image A first): the packer splits every image into that count, so a broken ring or a loose
+  chip stays part of its variant, and the variant order is the brief's.
 - **Floor decals are drawn STRAIGHT TOP-DOWN**: orthographic, no perspective, no horizon, no bowl walls
   seen from the side. The 3D camera adds the perspective in game.
 - **Shading is RADIAL ONLY**: darker toward the pit, lighter on the rim tops and lifted edges. **No

@@ -3,8 +3,9 @@
 //   npm run test:sprites runs it after the sprite tests (fixtures in tools/.test-fixtures/decals/).
 //   node tools/test-pack-decals.mjs [--keep] runs it alone.
 // Generates fake generator-style decal rows (magenta background, 4x "art pixels", per-pixel color noise, magenta
-// fringe), packs them into a scratch output folder and checks the atlas contract the engine reads: cells, pages,
-// approval gate, candidates, parts, hot key, greyscale, colors, binary alpha, write-back. Never touches art/ or public/.
+// fringe), packs them into a scratch output folder and checks the atlas contract the engine reads: cells, page sets and
+// the per-match page budget, approval gate, candidates, parts and their per-image counts, tiling, hot key, greyscale,
+// colors, binary alpha, write-back. Never touches art/ or public/.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -37,11 +38,15 @@ const loadPng = (file) => { const p = PNG.sync.read(fs.readFileSync(file)); retu
 const STONE = [[87, 70, 56], [143, 118, 99], [176, 154, 130], [210, 193, 168], [227, 213, 191]];
 const SOOT = [[30, 26, 24], [42, 36, 32], [58, 48, 42], [94, 107, 120], [140, 154, 168]];
 const ICE = [[150, 205, 250], [180, 222, 255], [120, 190, 245]];
+const VOID = [[60, 58, 64], [46, 44, 51], [35, 33, 40]];
 
 // One row of n variants on a 1536 x 1024 magenta canvas. Each variant is an ellipse of 4 px art pixels whose rings
 // step through the palette (center = first tone), with +-10 noise per art pixel, sizes relative to the slot.
 // seam: 'near' = a hot seam in near-white (#FCFBFD-ish), 'white' = pure #FFFFFF; purple: a violet patch.
-function decalRow(sizes, { seed, aspect = 1, palette = STONE, seam = null, purple = false, w = 1536, h = 1024 }) {
+// hole: a ring with this fraction of the radius empty; split: also empty the middle columns (+- split x radius), so a
+// ring broken at its top and bottom falls apart into a left and a right half.
+// rects: [[w, h] px, ...] boxes instead of ellipses (a trench: a #FFFFFF hot rim line along the top and bottom).
+function decalRow(sizes, { seed, aspect = 1, palette = STONE, seam = null, purple = false, w = 1536, h = 1024, hole = 0, split = 0, rects = null }) {
   const S = 4;
   const rand = mulberry(seed);
   const img = { w, h, data: new Uint8Array(w * h * 4), mask: new Uint8Array(w * h) };
@@ -56,9 +61,18 @@ function decalRow(sizes, { seed, aspect = 1, palette = STONE, seam = null, purpl
   sizes.forEach((sz, k) => {
     const rx = Math.floor((slot * 0.4 * sz) / S) * S, ry = Math.max(S, Math.floor((rx * aspect) / S) * S);
     const cx = Math.round(((k + 0.5) * slot) / S) * S, cy = Math.round(h / 2 / S) * S;
+    if (rects) {
+      const [bw, bh] = rects[k];
+      const x0 = cx - Math.round(bw / 2 / S) * S, y0 = cy - Math.round(bh / 2 / S) * S;
+      for (let by = 0; by < bh; by += S) for (let bx = 0; bx < bw; bx += S) {
+        const band = palette[Math.min(palette.length - 1, Math.floor((Math.abs(by + S / 2 - bh / 2) / (bh / 2)) * palette.length))];
+        block(x0 + bx, y0 + by, by < S || by >= bh - S ? [255, 255, 255] : band.map((v) => clamp(v + (rand() - 0.5) * 20)));
+      }
+      return;
+    }
     for (let by = -ry; by < ry; by += S) for (let bx = -rx; bx < rx; bx += S) {
       const d = Math.hypot((bx + S / 2) / rx, (by + S / 2) / ry);
-      if (d > 1) continue;
+      if (d > 1 || d < hole || Math.abs(bx + S / 2) < rx * split) continue;
       const band = palette[Math.min(palette.length - 1, Math.floor(d * palette.length))];
       block(cx + bx, cy + by, band.map((v) => clamp(v + (rand() - 0.5) * 20)));
     }
@@ -117,6 +131,13 @@ export function decalTests({ check, fix }) {
   savePng(raw('rubble_v01_C.png'), decalRow([0.95], { seed: 11 }));
   // scorch_ki: a hot-key decal with no white at all and a violet patch: both warned
   savePng(raw('scorch_ki_v01.png'), decalRow([1, 0.9, 0.95, 1], { seed: 12, palette: SOOT, purple: true }));
+  // crater_wall: image A = two rings broken at top and bottom (each falls apart into halves; their empty middles are
+  // wider than the gap between the rings), image B = two solid holes; the brief's 2 + 2 keeps A's variants first
+  savePng(raw('crater_wall_v01_A.png'), decalRow([1.1, 1.1], { seed: 18, hole: 0.45, split: 0.3 }));
+  savePng(raw('crater_wall_v01_B.png'), decalRow([1, 0.9], { seed: 19 }));
+  // erasure_trench (tiles along x): trenches of unequal widths, 2 + 1 per image
+  savePng(raw('erasure_trench_v01_A.png'), decalRow([1, 1], { seed: 20, palette: VOID, rects: [[480, 240], [440, 232]] }));
+  savePng(raw('erasure_trench_v01_B.png'), decalRow([1], { seed: 21, palette: VOID, rects: [[460, 236]] }));
   // skid: never approved -> only in --candidates
   savePng(raw('skid_v01.png'), decalRow([1, 0.9, 0.95, 1], { seed: 13, aspect: 0.25 }));
   // names the packer must reject with a warning
@@ -127,7 +148,7 @@ export function decalTests({ check, fix }) {
 
   const items = {};
   for (const [name, s] of Object.entries(DECAL_SPECS)) items[name] = { cell: [...s.cell], variants: s.variants, group: s.group, mode: s.mode, status: 'todo', version: 0, approvedVersion: null };
-  for (const n of ['crack', 'scuff', 'burn_lightning', 'crater_big', 'crater_huge', 'fracture_ring', 'rubble', 'scorch_ki', 'crack_s']) items[n].approvedVersion = 1;
+  for (const n of ['crack', 'scuff', 'burn_lightning', 'crater_big', 'crater_huge', 'fracture_ring', 'rubble', 'scorch_ki', 'crack_s', 'crater_wall', 'erasure_trench']) items[n].approvedVersion = 1;
   items.crater.group = 'edge'; // drift from the engine contract: warned, contract wins
   items.bogus = { approvedVersion: 1 };
   const manifest = { version: 2, decals: { ppu: 64, items }, worldArt: { decal: { batches: { 'decal-barrier_crack': { items: { barrier_crack: { approvedVersion: 1 } } }, 'decal-style_sheet': { items: { decal_style_sheet: { approvedVersion: 1 } } } } } } };
@@ -152,16 +173,18 @@ export function decalTests({ check, fix }) {
   const am = JSON.parse(fs.readFileSync(atlasPath, 'utf8'));
   const shipped = Object.keys(am.decals).join();
   check(am.ppu === 64 && am.source === 'approved' && Array.isArray(am.pages) && am.pageSizes?.length === am.pages.length, `decals 1: atlas header (ppu ${am.ppu}, ${am.pages?.length} pages)`);
-  check(shipped === 'crack,crater_big,crater_huge,fracture_ring,scuff,rubble,barrier_crack,burn_lightning,scorch_ki', `decals 1: approved names only, in contract order (${shipped})`);
+  check(shipped === 'crack,crater_big,crater_huge,fracture_ring,scuff,rubble,barrier_crack,crater_wall,burn_lightning,erasure_trench,scorch_ki', `decals 1: approved names only, in contract order (${shipped})`);
   check(d1.unapproved.includes('skid') && !am.decals.skid, 'decals 1: the unapproved skid is not shipped');
 
   const pages = am.pages.map((f) => loadPng(path.join(OUT, 'decals', f)));
   check(am.pages.every((f) => /^decals_[a-z]+(_\d+)?\.png$/.test(f)), `decals 1: page names ${am.pages.join(', ')}`);
   check(pages.every((p, k) => p.w <= 2048 && p.h <= 2048 && p.w === am.pageSizes[k][0] && p.h === am.pageSizes[k][1]), `decals 1: every page <= 2048x2048 and matches pageSizes (${am.pageSizes.map((s) => s.join('x')).join(', ')})`);
-  check(am.pages.includes('decals_base_1.png') && am.pages.includes('decals_base_2.png') && am.decals.crater_big.page !== am.decals.crack.page && am.pages[am.decals.crack.page] === 'decals_base_2.png',
-    'decals 1: the base group splits into decals_base_1/_2 and no name spans two pages');
-  check(am.pages[am.decals.barrier_crack.page] === 'decals_edge.png' && am.pages[am.decals.burn_lightning.page] === 'decals_lightning.png' && am.pages[am.decals.scorch_ki.page] === 'decals_ki.png',
-    'decals 1: one page per style group (edge, lightning, ki)');
+  const pageOf = (n) => am.pages[am.decals[n].page];
+  check(am.pages.join() === 'decals_base_1.png,decals_base_2.png,decals_chakra.png,decals_lightning.png,decals_cursed.png' && pageOf('crater_big') === 'decals_base_1.png' && pageOf('crater_wall') === 'decals_base_2.png',
+    `decals 1: the floor set (base + edge) splits into decals_base_1/_2, one page per element set (${am.pages.join(', ')})`);
+  check(pageOf('crack') === 'decals_base_1.png' && pageOf('barrier_crack') === 'decals_base_2.png' && pageOf('scorch_ki') === 'decals_chakra.png' && pageOf('erasure_trench') === 'decals_cursed.png',
+    'decals 1: small cells fill the holes the big ones leave; edge shares the floor pages, ki the chakra page');
+  check(d1.budget?.cap === 4 && d1.budget.floor === 2 && d1.budget.worst === 4 && !anyWarn(d1.warnings, /decal pages .* over the engine/), `decals 1: a match needs at most 4 pages (${JSON.stringify(d1.budget)})`);
   {
     let inside = true, overlap = false;
     const rects = am.pages.map(() => []);
@@ -191,6 +214,19 @@ export function decalTests({ check, fix }) {
   check(e('barrier_crack').mode === 'wall' && e('barrier_crack').tinted === true && e('barrier_crack').group === 'edge', 'decals 1: barrier_crack is a tinted wall decal, approved via its worldArt.decal batch');
   check(e('burn_lightning').hotKey === true && !e('crack').hotKey, 'decals 1: hotKey flag only on hot-key names');
   check(e('rubble').frames.length === 3 && anyWarn(d1.warnings, /rubble: v01 has parts A, C - a letter is missing/), 'decals 1: parts A + C pack (3 variants), the missing B is warned');
+  {
+    const cw = d1.packed.find((p) => p.name === 'crater_wall');
+    const mid = cellsOf('crater_wall').map((c) => c.data[(256 * c.w + 256) * 4 + 3]);
+    check(e('crater_wall').frames.length === 4 && !anyWarn(d1.warnings, /crater_wall: \d+ variant/) && cw?.notes.some((n) => /^A: 4 pieces joined into 2 variants/.test(n)),
+      `decals 1: crater_wall's broken rings stay 2 variants (the brief's 2 + 2), not 4 halves (${e('crater_wall').frames.length}; ${cw?.notes.join('; ')})`);
+    check(mid.join() === '0,0,255,255', `decals 1: crater_wall keeps the brief's order: A's rings are variants 0-1, B's holes 2-3 (center alpha ${mid.join(',')})`);
+  }
+  {
+    const tr = cellsOf('erasure_trench').map(bb);
+    check(e('erasure_trench').tile === true && e('erasure_trench').frames.length === 3 && tr.every((b) => b.x0 === 0 && b.x1 === 511),
+      `decals 1: every erasure_trench variant spans the whole 512 px cell, unequal widths included (x ${tr.map((b) => `${b.x0}-${b.x1}`).join(', ')})`);
+    check(Math.max(...tr.map((b) => b.h)) >= 244 && Math.max(...tr.map((b) => b.h)) <= 256 && !anyWarn(d1.warnings, /erasure_trench: variant/), `decals 1: the trench height keeps its 97% fill (${tr.map((b) => b.h).join(', ')} px), no tiling warning`);
+  }
 
   // fit: the largest variant of an image fills 97% of the cell, every variant centered
   {
@@ -239,6 +275,18 @@ export function decalTests({ check, fix }) {
   check(r2.code === 0 && before.every((b, k) => Buffer.compare(b, after[k]) === 0), 'decals 2: re-running is byte-identical (atlas.json and every page)');
   check(r2.json?.decals.packed.find((p) => p.name === 'crack')?.source === 'frames/crack/', 'decals 2: crack now read from frames/crack/');
 
+  // run 2b: a hand-edited trench cell that no longer reaches the left end is warned (then restored)
+  {
+    const f = path.join(ART, 'decals', 'frames', 'erasure_trench', 'erasure_trench_01.png');
+    const orig = fs.readFileSync(f);
+    const c = loadPng(f);
+    for (let y = 0; y < c.h; y++) for (let x = 0; x < 12; x++) c.data[(y * c.w + x) * 4 + 3] = 0;
+    savePng(f, c);
+    const r2b = pack(['--json', '--dry-run', 'decals']);
+    fs.writeFileSync(f, orig);
+    check(anyWarn(r2b.json?.decals.warnings, /erasure_trench: variant\(s\) 1 \(x 12-511\) do not reach both ends/), 'decals 2b: a tiling cell that stops short of a cell end is warned');
+  }
+
   // run 3: --candidates -> preview/decals, shipped files untouched ---------------------------------------------
   const r3 = pack(['--json', '--candidates', 'decals']);
   const pv = path.join(OUT, 'preview', 'decals', 'atlas.json');
@@ -263,6 +311,28 @@ export function decalTests({ check, fix }) {
   const r4 = pack(['--json', '--manifest', m4, 'decals']);
   const left = fs.readdirSync(path.join(OUT, 'decals'));
   check(r4.code === 0 && !left.length && r4.json?.decals.removed.length === am.pages.length + 1, `decals 4: no approval left -> atlas.json and every page removed (left: ${left.join(', ') || 'none'})`);
+
+  // run 5: every name approved, delivered as the brief's images (small canvases, quick) -> the page budget holds
+  {
+    const A5 = path.join(FIXD, 'all', 'art'), O5 = path.join(FIXD, 'all', 'out');
+    const items5 = {};
+    Object.entries(DECAL_SPECS).forEach(([name, s], k) => {
+      items5[name] = { approvedVersion: 1 };
+      s.images.forEach((n, i) => {
+        const part = s.images.length > 1 ? `_${String.fromCharCode(65 + i)}` : '';
+        savePng(path.join(A5, 'decals', 'raw', `${name}_v01${part}.png`), decalRow(Array(n).fill(1), { seed: 100 + k * 4 + i, aspect: s.cell[1] / s.cell[0], w: 200 * n, h: 200, seam: s.hotKey ? 'white' : null }));
+      });
+    });
+    fs.writeFileSync(path.join(A5, 'manifest.json'), JSON.stringify({ version: 2, decals: { ppu: 64, items: items5 } }));
+    const r5 = spawnSync(process.execPath, [PACKER, '--root', A5, '--out', O5, '--json', 'decals'], { encoding: 'utf8' });
+    let d5 = null;
+    try { d5 = JSON.parse(r5.stdout).decals; } catch { /* reported below */ }
+    const short = (d5?.packed || []).filter((p) => p.variants !== p.expected).map((p) => `${p.name} ${p.variants}/${p.expected}`);
+    check(d5 && d5.packed.length === Object.keys(DECAL_SPECS).length && !short.length, `decals 5: all ${Object.keys(DECAL_SPECS).length} names pack with the brief's variant counts (${short.join(', ') || 'ok'})`);
+    const pg = (d5?.pages || []).map((p) => `${p.file} ${p.size.join('x')}`);
+    check(d5?.pages.length === 5 && d5.budget.floor === 2 && Object.entries(d5.budget.sets).every(([s, n]) => s === 'base' || n === 1), `decals 5: the floor set fits 2 pages and every element set 1 (${pg.join(', ')})`);
+    check(d5?.budget.worst <= 4 && !anyWarn(d5.warnings, /decal pages .* over the engine/), `decals 5: any pairing needs <= 4 pages (worst ${d5?.budget.worst}: floor + ${d5?.budget.worstPair.join(' + ')})`);
+  }
 }
 
 // standalone: node tools/test-pack-decals.mjs [--keep]

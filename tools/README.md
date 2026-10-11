@@ -27,7 +27,7 @@ npm run sprites naruto          # one character (several ids allowed: npm run sp
 npm run sprites vfx             # only the VFX atlas (approved effects only)
 npm run sprites crowd           # only the crowd atlas (approved spectators only)
 npm run sprites stage npc ui    # approved stage slots, NPC sheets and shared UI images
-npm run sprites decals          # approved ground decals -> public/decals/ (atlas.json + one page per style group)
+npm run sprites decals          # approved ground decals -> public/decals/ (atlas.json + the pages of each page set)
 node tools/pack-sprites.mjs vfx crowd stage npc ui decals --candidates   # every candidate -> public/preview/ (local, ?art=custom)
 npm run test:sprites            # packer regression test (never touches art/ or public/)
 ```
@@ -291,15 +291,19 @@ version is the one packed, and its keys win over `raw/<anim>.json`. Put image-sp
   640 x 360, opaque) + `manifest.json` (`assets: { name: { file, size, version } }`). Approval: `sharedUi.<logo|titleArt>` or the
   `worldArt.ui` batches; source `final/<asset>.png`, else `review/<asset>_palette_vNN.png` / `_fit_vNN.png`.
 - Ground decals (`art/decals/README.md`, ADR 0024, `tools/pack-decals.mjs`): `public/decals/atlas.json` + one PNG page per
-  style group (`decals_<group>.png`, or `_1`, `_2` ... when a group needs several pages; each <= 2048 x 2048, shelf-packed, a
-  name never split across pages) = `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>":
-  { "page", "w", "h", "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "version" } } }`.
-  Names, cells, variant counts, groups and modes come from `DECAL_SPECS` (the engine contract; the manifest's `decals.items`
+  page set (`DECAL_PAGE_SETS`: base + edge, chakra + ki, lightning + fire, cursed; `decals_<set>.png`, or `_1`, `_2` ... when a
+  set needs several pages; each <= 2048 x 2048, first fit on a 128 px grid, biggest cells first, a name never split across
+  pages; the report checks the floor pages + the two biggest element sets against the engine's 4-page cap per match)
+  = `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>": { "page", "w", "h",
+  "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "tile"?, "version" } } }`.
+  Names, cells, variants per image, groups and modes come from `DECAL_SPECS` (the engine contract; the manifest's `decals.items`
   restates them, drift is warned) and only names with an `approvedVersion` (`decals.items.<name>` or a `worldArt.decal` batch)
   ship. Per name: the raw's parts are joined in letter order, magenta removed (alpha 0/255, specks under 4 px dropped), each
-  image split into variants and scaled so its largest variant fills 97% of the cell (`erasure_trench`: the full width),
-  each variant centered; hot-key names snap near-white (>= 250) to #FFFFFF and keep it out of the <= 24-color median cut, other
-  names tone near-white down to #F6F6F6, the tinted `barrier_crack` becomes greyscale (warned when drawn in color);
+  image split into its brief count (extra pieces such as ring halves joined by slot, in order) and scaled so its largest
+  variant fills 97% of the cell, each variant centered (tiling `erasure_trench`: each variant stretched to the full width,
+  a variant short of either end warned); hot-key names snap near-white (>= 250) to #FFFFFF and keep it out of the
+  <= 24-color median cut, other names tone near-white down to #F6F6F6, the tinted `barrier_crack` becomes greyscale (warned
+  when drawn in color);
   magenta/purple pixels and a hot-key name without #FFFFFF are warned. Cleaned cells are written back to
   `art/decals/frames/<name>/` with the usual marker; stale pages and an unapproved atlas are removed.
 
