@@ -185,6 +185,7 @@ export default {
     ultimate: 'amaterasu',
   },
   stats: { speed: 6.2, power: 1.0, defense: 1.0 },
+  ground: { style: 'lightning', tint: '#9ad8ff', charge: 'fracture_lightning' }, // floor damage (ground.js, ADR 0024)
   model,
   stance,
   extraAnims,

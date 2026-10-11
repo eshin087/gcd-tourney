@@ -320,6 +320,7 @@ export class Fighter {
     audio.play('superDash');
     this.game.fx.dashBurst(this, true);
     this.game.fx.dust(this.pos, 1.0);
+    if (this.pos.y < 0.05) this.game.fx.ground.scuff(this.pos, this.face);
     return true;
   }
 
@@ -398,6 +399,7 @@ export class Fighter {
     this.faceOpponent();
     this.actor.ghost(this.def.color, 0.22, 0.45);
     this.game.fx.dust(this.pos, 0.9);
+    this.game.fx.ground.scuff(this.pos, this.vel);
     audio.play('dash', 0.45);
     this.game.tag(this, 'wavedash');
   }
@@ -629,6 +631,7 @@ export class Fighter {
     audio.play('superJump');
     this.game.fx.dust(this.pos, 1.0);
     this.game.fx.dashBurst(this, true);
+    if (this.pos.y < 0.05) this.game.fx.ground.impact(this.pos, { kind: 'chase' }); // the super jump cracks the floor
   }
 
   wantsUltimate() {
@@ -1305,7 +1308,7 @@ export class Fighter {
           this.air = true;
           this.airStun = 30;
           this.bigLaunch = true;
-          this.game.onGroundBounce(this);
+          this.game.onGroundBounce(this, impact);
         } else if (impact > 8 && !this.bounced) {
           this.bounced = true;
           this.vel.y = impact * 0.32;
@@ -1313,7 +1316,7 @@ export class Fighter {
           this.air = true;
           audio.play('thud');
           this.game.fx.dust(this.pos, 1.3);
-          if (impact > 14 || this.ko) this.game.fx.crater(this.pos);
+          this.game.fx.ground.land(this, impact); // harder falls crack deeper (and an airborne hit's crater lands here)
           this.game.cam.shake(0.25);
         } else {
           this.vel.y = 0;
@@ -1321,6 +1324,8 @@ export class Fighter {
           this.setState('down', this.ko ? 'ko' : 'down');
           audio.play('land', 0.8);
           this.game.fx.dust(this.pos, 1.0);
+          this.game.fx.ground.land(this, impact);
+          this.game.fx.ground.slide(this, 0.85); // the 'down' slide's friction
         }
         break;
       }
@@ -1435,6 +1440,7 @@ export class Fighter {
             this.vel.y = 0;
             this.setState('down', 'ko');
             this.game.fx.dust(this.pos, 1.2);
+            this.game.fx.ground.slide(this, 0.9); // the KO slide's friction (below)
           }
         }
       }

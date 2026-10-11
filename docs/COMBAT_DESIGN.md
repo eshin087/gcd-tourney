@@ -263,8 +263,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   0.35), a screen flash only at MAX (at most 0.1, in the style's dark color, none for Gojo), a steady body tint of
   at most 6 %, and rumble at most 0.05 per 4 frames. During a super flash or a special clash the charge only
   refreshes (no new sprites, no new cracks). A mode's own aura pauses while charging.
-- Ground cracks go through the optional ground-damage hooks (`fx.ground.chargeTick` / `chargeMax`); without them
-  a style lays at most one crater per charge at its `ground.crackAt` level.
+- Ground cracks go through the ground-damage hooks (`fx.ground.chargeTick` / `chargeMax`, ADR 0024): from the
+  style's `ground.crackAt` level one crack grows under the fighter (crack, then a fracture ring), and the full gauge
+  breaks the floor in the fighter's own pattern. Without that module a style would lay at most one crater per charge
+  at its `ground.crackAt` level.
 - Each new bar still fires `Game.onChargeBar` ("MAX POWER!" with a louder chime on the last one).
 
 ### Ultimate, super flash and ultimate clash
@@ -438,7 +440,7 @@ distance-to-line test.
 | light | small spark, `hit` sfx, shake 0.14 | 1 white frame, then lift + white rim through hitstop, 6-frame fade |
 | heavy | big spark, `hitHeavy`, shake 0.4 toward the hit, zoom punch 0.45 | 2 white frames, warm rim, 7-frame fade |
 | smash | burst + lines, `smash`, shake 0.6, zoom punch 0.8, white flash, slow-mo 0.4× for 0.18 s | 3 white frames, gold rim, 8-frame fade |
-| special | explosion + crater + debris, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer | 2 white frames (about a smash's 3 on screen under the 0.3× slow-mo), white rim, 10-frame fade |
+| special | explosion + ground damage in the move's style, impact frame, color flash, slow-mo 0.3× for 0.5 s, crowd cheer | 2 white frames (about a smash's 3 on screen under the 0.3× slow-mo), white rim, 10-frame fade |
 
 The victim flash has its own tiers (`flashTier` in `src/game/hitFlash.js`, first match wins): **ko** (the hit that
 KOs: white for up to 5 frames, about 0.4 s under the KO slow-mo), the move's **`hitFlash`** field (3-bar super
@@ -457,6 +459,35 @@ alternation per tier (0.035 light .. 0.09 special; 0.04 on block), so the sprite
 Styles for A/B: `pop` (default), `tint` (no rim), `rim` (no pop below counter), `classic` (the old look: solid white
 through the hitstop plus 5 frames) and `off`. Switch them with `?flash=<style>` on the game page or the HIT FLASH and
 FLASH STR chips in the lab's Tools tab; under `?debug`, `window.HIT_FLASH` is the live table.
+
+### Ground damage per force (ADR 0024)
+
+The floor answers how hard something hit it (`GROUND` in `src/game/ground.js`). Force comes from the fall speed of a
+landing (`(vy - 8) / 26`, +0.25 for a ground bounce, +0.35 for a KO), from the hit (spark weight, damage, special,
+super), from a dive slam (0.7, 0.9 when it caught someone) or a fixed value per event. A special, styled shot or
+smash on an **airborne** victim leaves its crater where they land (impact debt, 90 frames); on a grounded victim
+(specials and styled shots) at once.
+
+| Force | Mark | Size (units) | Extras | Typical source |
+|---|---|---|---|---|
+| < 0.15 | none | | | a soft landing |
+| 0.15 | `crack_s` hairline star | 1.4-2.2 | | a launcher's fall, the super jump, charge after 30 f |
+| 0.35 | `crack` web around a dent | 2.0-3.0 | | a hard fall, Narukami / Chidori Spear on a standing victim or the floor |
+| 0.55 | `crater` | 2.6-3.6 | rim chunks, dust ring | specials on a grounded victim, a fireball on the floor, dive slams, maul slams |
+| 0.85 | `crater_big` | 3.8-5.2 | crack satellites, rubble, floor slabs | an air heavy spike's ground bounce, KO landings |
+| 1.15 | `crater_huge` (stays for the round) | 5.4-7.6 | fracture ring, crack satellites, smoke | clash wins and draws, Kirin, a maul that kept growing |
+
+The move's **style** (`ground` on the move, projectile or super, else the attacker's `ground.style` for specials;
+normals and throws are stone) draws over the crater or replaces it: chakra scorch, spiral scour (Rasengan),
+wind cuts (Rasenshuriken), claw furrows and a roar scorch fan (Four-Tails), lightning burns (Chidori, Narukami,
+Thunderbolt, Kirin's starburst), fire scorch (Great Fireball), black flame (Amaterasu, and under a burning victim),
+glass-like cursed fractures (Gojo), the implosion of Lapse: Blue, Reversal: Red's gouges and Hollow Purple's
+erasure trench. Hot seams glow in the move's color, then cool. Repeated slams in one spot within 4 s grow one
+crater (a hit two tiers weaker, such as the super jump beside it, leaves it alone). Wall bounces crack the ki
+barrier, KO crashes leave a hole in the stand wall (body-shaped when fast), off-ring KOs a dirt crater in the grass,
+and knockdown and KO slides a skid. Holding Special grows one crack under the fighter into a fracture from the
+power-up's `charge.ground.crackAt` level (Naruto bar 2, Sasuke MAX; Killua and Gojo never crack it), and the full
+gauge breaks the floor in the fighter's own pattern (`ground.charge`). The ring is clean every round.
 
 ## CPU AI
 

@@ -173,6 +173,8 @@ export default {
     ultimate: 'fourTails', // ADR 0017: the cast keeps one beam at most (Goku's Kamehameha)
   },
   stats: { speed: 5.9, power: 1.0, defense: 1.0 }, // stat index 0.95 (ADR 0011)
+  // floor damage (ground.js, ADR 0024): his specials and slams leave chakra scorch; a full charge flattens a dish
+  ground: { style: 'chakra', tint: '#ffb43a', charge: 'fracture_chakra' },
   model,
   stance,
   extraAnims,

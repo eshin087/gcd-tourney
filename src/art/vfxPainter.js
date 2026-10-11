@@ -319,6 +319,28 @@ const PAINTERS = {
       dot(x + (nx / l) * r * side, y + (ny / l) * r * side, Math.max(1, r * 0.45), '#e6e6e6');
     }
   },
+  // ---- ground damage (ADR 0024)
+  // side view: a low, wide wall of chunky dust rolling outward and up, then breaking apart (rings of these roll
+  // out of big craters, see Effects.dustRing)
+  dustWave(i, n, ctx) {
+    const t = i / (n - 1);
+    const R = rng(61);
+    ctx.translate(32, 60);
+    const puffs = 9;
+    for (let k = 0; k < puffs; k++) {
+      const u = k / (puffs - 1) - 0.5;
+      const x = u * (30 + t * 22) + (R() - 0.5) * 3;
+      const r = (5 + R() * 3) * (1 - t * 0.5) + t * 2;
+      const y = -r * 0.7 - (1 - Math.abs(u) * 1.5) * (3 + t * 12);
+      if (t > 0.55 && R() < (t - 0.55) * 2.2) continue; // breaking apart
+      ctx.fillStyle = '#9c8370';
+      ctx.beginPath(); ctx.arc(x, y + 1.5, r, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = k % 2 ? '#cdb9a2' : '#b39a80';
+      ctx.beginPath(); ctx.arc(x, y, r * 0.92, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = k % 3 ? '#e4d2bb' : '#f3eadb';
+      ctx.beginPath(); ctx.arc(x - r * 0.15, y - r * 0.3, r * 0.55, 0, Math.PI * 2); ctx.fill();
+    }
+  },
   crater(i, n, ctx) {
     const R = rng(5 + i);
     ctx.translate(32, 32);
@@ -362,6 +384,8 @@ export const VFX_ANIMS = {
   arc: { n: 6, ms: 40, levels: [0, 255] },
   ripple: { n: 5, ms: 50, levels: [0, 255] },
   naruto_chakraTail: { n: 6, ms: 60, levels: [0, 255] },
+  // ground damage (ADR 0024)
+  dustWave: { n: 6, ms: 60, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.

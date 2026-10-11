@@ -2,7 +2,8 @@ import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
-import { VFX_PPU as PPU, RING_TOP, RING_HALF, ARENA_LIMIT } from './constants.js';
+import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
+import { GroundDamage } from './ground.js';
 
 const VERT = /* glsl */ `
   uniform vec4 uvRect;
@@ -72,7 +73,6 @@ export class Effects {
     this.barrierGeo = new THREE.PlaneGeometry(4.5, 3); // shared by every wall-bounce flash
     this.items = [];
     this.keepers = new Map();
-    this.decals = [];
     this.rocks = [];
     this.walls = [];
     this.hexTex = hexTexture();
@@ -81,6 +81,7 @@ export class Effects {
     this.overlay = new Overlay();
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
+    this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
   }
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
@@ -264,15 +265,6 @@ export class Effects {
       qz.setFromAxisAngle(zAxis, it.rot);
       it.mesh.quaternion.copy(camera.quaternion).multiply(qz);
     }
-    for (let i = this.decals.length - 1; i >= 0; i--) {
-      const d = this.decals[i];
-      d.life -= dt;
-      d.mesh.material.opacity = Math.min(1, d.life / 2);
-      if (d.life <= 0) {
-        this.removeDecal(d);
-        this.decals.splice(i, 1);
-      }
-    }
     for (let i = this.rocks.length - 1; i >= 0; i--) {
       const r = this.rocks[i];
       r.life -= dt;
@@ -304,6 +296,7 @@ export class Effects {
         this.walls.splice(i, 1);
       }
     }
+    this.ground.update(dt);
     this.overlay.update(dt);
   }
 
@@ -312,8 +305,7 @@ export class Effects {
     for (const it of this.items) { it.life = -1; this.scene.remove(it.mesh); it.mat.dispose(); }
     this.items.length = 0;
     this.keepers.clear();
-    for (const d of this.decals) this.removeDecal(d);
-    this.decals.length = 0;
+    this.ground.clear();
     for (const r of this.rocks) this.scene.remove(r.mesh);
     this.rocks.length = 0;
     for (const w of this.walls) {
@@ -448,31 +440,21 @@ export class Effects {
     this.walls.push({ mesh: m, life: 0.45, max: 0.45 });
   }
 
+  // A plain crater (ground.js picks tier, look and size, on the ring or in the grass off its edge; call fx.ground
+  // directly for force and style)
   crater(pos) {
-    const mat = new THREE.MeshBasicMaterial({ map: this.tex, transparent: true, alphaTest: 0.5, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3 });
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
-    const uv = this.uv('crater', Math.floor(Math.random() * this.meta.anims.crater.n), new THREE.Vector4());
-    const g = m.geometry.attributes.uv;
-    for (let i = 0; i < g.count; i++) {
-      g.setXY(i, g.getX(i) ? uv.z : uv.x, g.getY(i) ? uv.w : uv.y);
-    }
-    m.rotation.x = -Math.PI / 2;
-    m.rotation.z = Math.random() * Math.PI;
-    const s = this.cellWorld * 0.85;
-    m.scale.set(s, s, 1);
-    // on the floor under pos: a KO'd body can slide off the ring edge before its crater lands (ADR 0020), so off the
-    // ring the decal lies on the grass (just above the stone paths at 0.02) instead of hanging at ring-top height
-    const onRing = Math.abs(pos.x) <= RING_HALF && Math.abs(pos.z) <= RING_HALF;
-    m.position.set(pos.x, onRing ? RING_TOP + 0.01 : 0.03, pos.z);
-    this.scene.add(m);
-    this.decals.push({ mesh: m, life: 9 });
-    if (this.decals.length > 10) this.removeDecal(this.decals.shift());
+    return this.ground.impact(pos, { kind: 'crater' });
   }
 
-  removeDecal(d) {
-    this.scene.remove(d.mesh);
-    d.mesh.material.dispose();
-    d.mesh.geometry.dispose();
+  // a ring of rolling dust walls around a big impact (y: the floor, fighter space)
+  dustRing(pos, r = 1, n = 10, y = 0) {
+    for (let k = 0; k < n; k++) {
+      const a = (k / n) * Math.PI * 2 + Math.random() * 0.4, sp = 1.4 + Math.random() * 1.4;
+      // low and small (about half a body wide each), so the ring frames the fighter instead of hiding them
+      this.spawn('dustWave', pos.x + Math.cos(a) * r, y, pos.z + Math.sin(a) * r, {
+        bottom: true, scale: 0.36 + Math.random() * 0.2, flipX: Math.random() < 0.5, vel: [Math.cos(a) * sp, 0, Math.sin(a) * sp], opacity: 0.9,
+      });
+    }
   }
 
   // Charging aura: flame tongues + light streaks + glow, tinted per character.

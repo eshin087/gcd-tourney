@@ -235,6 +235,7 @@ export function tickBurn(f) {
   const g = f.game, p = f.renderPos || f.pos;
   if (B.t % 2 === 0) burst(g, 'black', p.x + (Math.random() - 0.5) * 0.7, p.y + 0.3 + Math.random() * 0.9, p.z, null, 0.8 + Math.random() * 0.5);
   if (B.t % B.every === 0) f.dot(B.att, B.dmg);
+  if (B.ground && B.t % 40 === 0 && f.pos.y < 0.3) g.fx.ground.impact(f.pos, { kind: 'burn', style: B.ground, tint: B.color, quiet: true, noMerge: true });
 }
 
 // Per-frame mode upkeep: timer and the mode's look (Godspeed crackle, Nine-Tails chakra cloak).
@@ -672,7 +673,7 @@ const UPDATE = {
       f.faceOpponent();
       f.actor.setPhase('airHeavy', 1, 0.5);
       o.heldT = 0;
-      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special' }, dirTo(f, o));
+      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
       if (S.finalFx === 'rasengan') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(0x6ab4ff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
@@ -701,7 +702,9 @@ const UPDATE = {
     if (k.t0 === S.delay) {
       if (!o.ko && !o.hidden && o.invuln <= 0) {
         o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'heavy', hitFlash: 'special' }, dirTo(f, o));
-        o.burn = { t: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f, color: S.color }; // color: the hit flash rim per tick
+        // color: the hit flash rim per tick and the burn mark's tint; ground: the floor style under a burning body
+        o.burn = { t: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f, ground: S.ground, color: S.color };
+        if (o.pos.y < 0.3) g.fx.ground.impact(o.pos, { kind: 'ignite', style: S.ground, tint: S.color, quiet: true });
         for (let i = 0; i < 10; i++) burst(g, 'black', o.pos.x + (Math.random() - 0.5) * 1.1, o.pos.y + Math.random() * 1.2, o.pos.z, null, 1.6);
         g.hud.callout(f.index, S.callout ?? S.name, S.color);
         g.fx.overlay.flash('#000000', 0.5);
@@ -730,7 +733,7 @@ const UPDATE = {
         g.fx.thunder(a.x, a.z, 0xd8f0ff);
         g.fx.thunder(a.x + 0.4, a.z, 0x9fd8ff);
         g.fx.explosion(a.x, 0.8, a.z, new THREE.Color(0x9fd8ff));
-        g.fx.crater(a);
+        g.fx.ground.impact(a, { kind: 'kirin', style: S.ground, tint: S.color, d: S.radius * 3.2 });
         g.fx.overlay.impactFrame(4);
         g.cam.shake(1.2);
         audio.play('explosion', 1.3);
@@ -867,8 +870,7 @@ const UPDATE = {
         o.takeHit(f, { dmg: S.slamDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 5, unblockable: true, spark: 'smash', shake: 0.6 }, d);
         if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
         burst(g, 'chakra', p.x, p.y + 0.4, p.z, C.chakra, 1.6);
-        g.fx.crater(p);
-        g.fx.debris(p.x, p.z, 6, 0.9);
+        g.fx.ground.impact(p, { kind: 'slam', style: S.ground, tint: C.chakra, dir: d });
         g.cam.shake(0.55);
         k.i++;
         return;
@@ -879,6 +881,7 @@ const UPDATE = {
       o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d);
       g.fx.spawn('ring', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 3.6, color: C.chakra, glow: 1.2, order: 8, depthTest: false });
       g.fx.explosion(p.x, p.y + 0.9, p.z, new THREE.Color(C.chakra));
+      g.fx.ground.impact(f.pos, { kind: 'roar', style: S.roarGround, tint: C.chakra, dir: d, origin: true, noMerge: true });
       g.fx.overlay.impactFrame(4);
       g.fx.overlay.flash('#ff2010', 0.5);
       g.cam.shake(1.2);
@@ -920,11 +923,10 @@ export function onLand(f) {
   if (!k) return finish(f);
   if (k.kind === 'dive' && k.phase === 'slam') {
     const g = f.game, o = f.opp, m = k.m;
-    if (o.hittable && f.distTo() < m.area && Math.abs(o.pos.y - f.pos.y) < 1.3 && inLane(f, o, 1.1)) o.takeHit(f, m.hit, dirTo(f, o));
+    const hit = o.hittable && f.distTo() < m.area && Math.abs(o.pos.y - f.pos.y) < 1.3 && inLane(f, o, 1.1) ? o.takeHit(f, m.hit, dirTo(f, o)) : null;
     if (m.landFx === 'thunder') g.fx.thunder(f.pos.x, f.pos.z, 0xd8f0ff);
     else g.fx.dust(f.pos, 1.6);
-    g.fx.crater(f.pos);
-    g.fx.debris(f.pos.x, f.pos.z, 8, 1);
+    g.fx.ground.dive(f, m, hit === 'hit');
     g.cam.shake(0.8);
     audio.play('explosion', 0.9);
     k.phase = 'land';

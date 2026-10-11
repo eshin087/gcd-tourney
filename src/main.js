@@ -148,6 +148,13 @@ if (qs.has('debug')) {
     return 'snapped';
   };
   window.unsnap = () => document.getElementById('debug-snap')?.remove();
+  // ground damage review (ADR 0024): every decal name x variant laid out on the ring ('all', a group such as
+  // 'base' or 'chakra', or one name), or one impact in the middle of the ring
+  window.groundDemo = (group = 'all') => game.fx.ground.demo(group);
+  window.groundTest = (force = 0.7, style = 'stone', o = {}) => {
+    const c = game.fx.ground.impact({ x: 0, y: 0, z: 0 }, { force, style, tint: '#ffb43a', ...o });
+    return c && { tier: c.tier, D: +c.D.toFixed(2), parts: c.parts.map((p) => p.name), stats: game.fx.ground.stats() };
+  };
   // music (ADR 0019): music.state(), music.next() (a new song from the next bar), music.seed(n); ?musicSeed=N
   window.music = audio.mus;
   if (qs.get('musicSeed')) audio.mus.seedNext = Number(qs.get('musicSeed')) >>> 0;

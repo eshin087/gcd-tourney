@@ -118,6 +118,7 @@ const VFX_EFFECTS = {
   arc: { frames: 6, ms: 40, tinted: true, fill: 0.45 },
   ripple: { frames: 5, ms: 50, tinted: true, fill: 0.95 },
   naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom', baseX: true },
+  dustWave: { frames: 6, ms: 60, tinted: false, fill: 0.7, anchor: 'bottom' }, // ground damage (ADR 0024)
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

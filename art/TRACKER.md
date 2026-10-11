@@ -315,6 +315,7 @@ ones.
 | arc | 6 | 40 (random frame) | white (tinted) | center | todo | - | - | ENG-069: Killua's body crackle, Sasuke's Chidori current. Procedural stand-in. |
 | ripple | 5 | 50 | white (tinted) | center | todo | - | - | ENG-069: Gojo's Infinity ripple (drawn very faint). Procedural stand-in. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | todo | - | - | ENG-069: Naruto's one chakra tail at MAX ki. Procedural stand-in. |
+| dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
 
 ## Shared UI (step 11)
 

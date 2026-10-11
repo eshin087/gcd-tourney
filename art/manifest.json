@@ -1110,7 +1110,8 @@
       "wisp": {"frames":7,"ms":55,"colorRule":"tinted","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null},
       "arc": {"frames":6,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
       "ripple": {"frames":5,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "naruto_chakraTail": {"frames":6,"ms":60,"colorRule":"tinted","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null}
+      "naruto_chakraTail": {"frames":6,"ms":60,"colorRule":"tinted","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null},
+      "dustWave": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null}
     }
   },
   "decals": {
