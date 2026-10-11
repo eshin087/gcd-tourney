@@ -226,14 +226,14 @@ class Defense {
       case 'wavedash':
       case 'jumpOut':
         if (!free) return f.state === R.from;
-        this.rev = null;
-        this.show.logDef(R.from + ':' + R.type, true);
-        if (R.type === 'wavedash') this.wavedash(-c.toward, 0);
-        else {
+        if (R.type === 'backstep') {
           this.mx = -c.toward;
           this.my = 0;
-          this.tap(R.type === 'backstep' ? 'dash' : 'jump', 2);
-        }
+          if (!this.pressDash()) return true; // out of Guard: let go this frame, press on the next
+        } else if (R.type === 'wavedash') this.wavedash(-c.toward, 0);
+        else this.jumpTo(-c.toward);
+        this.rev = null;
+        this.show.logDef(R.from + ':' + R.type, true);
         return true;
     }
     this.rev = null;
@@ -345,6 +345,30 @@ class Defense {
     E.go = this.clock;
     this.show.logDef('escape:' + E.type, true);
     return true;
+  }
+
+  // ------------------------------------------------------------------ presses the fighter reads late or not at all
+  // Press Dash (a back dash, a sidestep, the super dash). Guard state starts a dash only from a double-tap's dashDir,
+  // never from the Dash button, and the brain never double-taps (flush), so out of Guard it lets go first: no Guard
+  // this frame (Guard drops to idle) and the press on the next. True once the press is out.
+  pressDash() {
+    if (this.f.state === 'guard') {
+      this.hold.guard = 0; // a parry tap still running would keep it up
+      return false;
+    }
+    this.tap('dash', 2);
+    return true;
+  }
+
+  // A jump toward screen direction sx (+1 right) and depth sd. The fighter reads the jump's direction on the squat's
+  // last frame, not on the press, so the stick has to stay there through the squat: recover() holds wdDir there (the
+  // wavedash's slot, cleared once the squat is over).
+  jumpTo(sx, sd = 0) {
+    this.wdDir = [sx, sd];
+    this.wdAt = this.clock;
+    this.mx = sx;
+    this.my = sd;
+    this.tap('jump', 2);
   }
 
   // A dodge right after another is slower (spot dodge staleness): the showman picks one less often then.

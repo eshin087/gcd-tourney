@@ -111,6 +111,10 @@ freeze.
   counts `f.evades` for the report.
 - The showcase's methods live in `src/game/aiDefense.js` (mixed into `MasterBrain`), so `aiMaster.js` stays
   readable and parallel branches touch fewer of its lines.
+- Two input gotchas the answers work around: Guard state starts a dash only from a double-tap's `dashDir`, never from
+  the Dash button, so a dash answer out of Guard (backstep, sidestep, super dash) lets go of Guard a frame first
+  (`pressDash`); and a jump reads its direction on the squat's last frame, so a back jump holds the stick through the
+  squat (`jumpTo`, the wavedash's `wdDir`, cleared once the squat is over).
 - Measurement: `game.brains.map((b) => b.show.report())` returns `{ persona, used, defLog, done, parries, evades,
   rallies }` (`defLog` = answers picked, `done` = actions carried out).
 

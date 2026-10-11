@@ -335,6 +335,9 @@ export class MasterBrain {
     if (f.state !== 'launched' && f.state !== 'hitstun') this.burstPlan = null;
     if (f.state !== 'down') this.wake = 0;
     if (!f.grab) this.breakRoll = null;
+    // the stick held through a jump squat (wavedash(), jumpTo()) belongs to that squat: once it is over (a frame of
+    // slack for a press that waits on a release), a stale one would steer a later jump
+    if (this.wdDir && f.state !== 'jumpSquat' && this.clock - this.wdAt > 1) this.wdDir = null;
     if (this.rev && this.reversal(c)) return true;
     switch (f.state) {
       case 'launched':
@@ -1183,21 +1186,27 @@ export class MasterBrain {
         return true;
       }
       case 'backstep':
-        // a back dash: 8 invulnerable frames carry it out through the swing (BACKSTEP when it passes through)
-        if (d.done) return f.state === 'dash' && f.t + 1 < 4;
-        if (fr > d.at) return fr <= d.at + 20 && f.state !== 'block';
-        d.done = true;
+        // a back dash: 8 invulnerable frames carry it out through the swing (BACKSTEP when it passes through). Out of
+        // Guard it lets go a frame early (pressDash), and it counts once the fighter is really in the back dash.
+        if (d.done) {
+          if (f.state === 'dash') {
+            if (f.backDash && !d.seen) { d.seen = true; this.show.logDef('backstep', true); }
+            return f.t + 1 < 4;
+          }
+          this.mx = -c.toward; // a press that waits on a release is still on its way
+          return this.hold.dash > 0;
+        }
+        if (fr > d.at + (f.state === 'guard' ? 1 : 0)) return fr <= d.at + 20 && f.state !== 'block';
         this.mx = -c.toward;
         this.my = 0;
-        this.tap('dash', 2);
-        this.show.logDef('backstep', true);
+        d.done = this.pressDash();
         return true;
       case 'jumpOut':
-        // a back jump out of an approach; airborne, the threat layer air dodges an anti-air
+        // a back jump out of an approach (the stick held through the squat); airborne, the threat layer air dodges an
+        // anti-air
         if (d.done) return f.state === 'jumpSquat';
         d.done = true;
-        this.mx = -c.toward;
-        this.tap('jump', 2);
+        this.jumpTo(-c.toward);
         this.show.logDef('jumpOut', true);
         return true;
       case 'stuff':
@@ -1229,18 +1238,14 @@ export class MasterBrain {
         return true;
       case 'superDash':
         if (fr > d.at) return false;
-        if (!d.done) {
-          d.done = true;
-          this.tap('dash', 2);
-        }
+        if (!d.done) d.done = this.pressDash();
         return true;
       case 'sidestep': {
         // dash out of the line in depth (beams, rushes and flurries run along the lane)
         if (fr > d.at || d.done) return d.done;
-        d.done = true;
         this.my = c.sd > 0 ? -1 : 1;
         if (Math.abs(f.pos.z) > ARENA_LIMIT - 1.5) this.my = -Math.sign(f.pos.z) * Math.sign(c.F.z || 1);
-        this.tap('dash', 2);
+        d.done = this.pressDash();
         return true;
       }
       case 'dashOut': {
@@ -1250,8 +1255,7 @@ export class MasterBrain {
         this.mx = (ax * c.R.x + az * c.R.z) / l;
         this.my = (ax * c.F.x + az * c.F.z) / l;
         if (Math.hypot(this.mx, this.my) < 0.3) this.mx = -c.toward;
-        this.tap('dash', 2);
-        d.done = true;
+        d.done = this.pressDash();
         return true;
       }
     }
@@ -1704,6 +1708,7 @@ export class MasterBrain {
   // a wavedash toward screen direction sx (+1 right) and depth sd: jump, Guard in the squat, stick held
   wavedash(sx, sd = 0) {
     this.wdDir = [sx, sd];
+    this.wdAt = this.clock;
     this.mx = sx;
     this.my = sd;
     this.tap('jump', 1);
