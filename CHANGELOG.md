@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the fighter nearer the camera no longer draws 9-23% bigger than the other one when they stand apart in depth or one is in the air; in the fight and clash cameras both fighters are scaled to one on-screen size (visual only: hit boxes and hand anchors unchanged, held Rasengan/Chidori effects follow the scaled hand; close-ups keep true perspective; `?depthscale=0` compares) (ENG-067, ADR 0021).
 - Fixed: the results screen no longer shows a second, smaller winner sprite or covers the winner (ENG-063): the match ends on a cut to the winner alone (the KO'd loser leaves the shot), whole and undimmed beside a slim side panel (a bottom bar in narrow windows) with the WINNER tag, name and subtitle, on a steady swaying hero camera that never mirrors the sprite; clicking TITLE there (or QUIT TO TITLE in pause) now reaches the title instead of mode select.
 - Art handoff: Killua heavy v04 fixes frames 4–6 arm/hand flow in PR #30; update review preview links, keep all new art unapproved.
 

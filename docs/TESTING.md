@@ -20,6 +20,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&debug` | expose console helpers (below) |
 | `&art=custom` | use custom sheets even when they're incomplete (falls back per animation) |
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
+| `&depthscale=0` | true perspective for fighter sprites (turns off the depth-normalized size, ENG-067); `0.5` = half strength |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 | `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
@@ -139,6 +140,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       placeholder still looks chibi; that's expected until ENG-016.
 - [ ] With a hi-res sheet loaded the renderer is in `hd` detail (sharper image); `?res=pixel` forces the
       chunky mode back for comparison.
+- [ ] Depth-normalized size (ENG-067): with `?debug`, `freezeCpu()`, `const [p1, p2] = game.fighters`, put the
+      fighters on a 45° diagonal (`p1.teleport(-1.41, 0, 1.41); p2.teleport(1.41, 0, -1.41); step(150)`) or lined
+      up in depth (`teleport(0, 0, ±1.5)`). Both stand the same height on screen (a screenshot), and
+      `game.fighters.map((f) => f.actor.depthK)` splits around 1 (about 0.95/1.05 on the diagonal, 0.90/1.10 lined
+      up; clamp 0.82..1.22). With `&depthscale=0` the nearer fighter is 11-23% bigger. Fighters level in depth keep
+      depthK 1 (no change from true perspective). A teleport of one fighter changes both sizes together, never one
+      alone. Ghost trails and the `?boxes` outlines match the scaled body, and a held Rasengan or Chidori sits on the
+      drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
+      depthK back to 1 over about half a second (no pop); ko and victory too.
 
 ### Mobile (landscape touch)
 
