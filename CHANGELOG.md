@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Integrated user-approved decal PRs #53, #52 and #54 sequentially: 31 types / 143 variants, approved-only combined atlas, unchanged reviewed pixels, maximum four pages per match; 308 regression checks and production build pass. Accepted visual QA caveats preserved; character redraw untouched.
+
 - art(decals): record user approval of cursed erasure/trench/repel/big v02 and implode/fracture v03, accepting documented visual deviations; pack approved production atlas without changing reviewed pixels.
 
 - art(decals): revise cursed candidates, preserve rejected history, remove tracked preview outputs and host an isolated candidate gallery; remaining fringe and repel hot-placement failures are explicit, no approval.
