@@ -20,6 +20,8 @@ The single list of work in flight, shared by the user, Claude and Codex. The pro
 
 ## Milestone M2: training, input, hit accuracy (v0.3.0)
 
+Cast proportion review: **ART-CAST-SAMPLES**, Codex, review. User requested a quick sample checkpoint before the full frame audit. Branch `art/cast-scale-samples` compares production-matched sprites, Naruto guard/block/spot-dodge head crops, and approved turnarounds. No art approvals or gameplay changes. Full audit paused for user feedback; Claude owns integration.
+
 | ID | Title | Owner | Status | Notes |
 |---|---|---|---|---|
 | OPS-007 | Require sparse real worktrees and task reuse | Codex | done | files: AGENTS.md, CLAUDE.md, docs/TASKS.md, CHANGELOG.md, docs/NOW.md. Recorded all five user storage rules; feature/beam-clash is merged into local main and awaits coordinator cleanup. Production build passed via local adapter; docs-only task on main, no new worktree. |
