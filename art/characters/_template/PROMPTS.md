@@ -1,3 +1,5 @@
+> **Title-style consistency lessons (2026-10-11):** Record the approved neutral and combat cells at native game size, plus source hashes and landmark uncertainty. Compare the first idle independently with both before using it as a working reference. Preserve head, torso and limb dimensions rather than matching only the silhouette height. Match original approved pose design where requested. Check every loop seam for size/foot jumps. Inspect the actual packed atlas after quantization; cached frames may be stale. A detector pass never substitutes for anatomy or motion review. If the reference is superseded, replace the active prompt contract explicitly so old proportions cannot leak into later strips.
+
 # {{NAME}}: image prompts
 
 > TEMPLATE. Every block below is a complete, copy-paste prompt for an image generator: Codex's
