@@ -3,27 +3,10 @@
 // struggle point harder, and a press with no note near it pushes back, so mashing loses. This module is the pure
 // logic (chart + judging); Game owns the bodies and the visuals, the HUD draws the rings.
 import { CLASH } from './moves.js';
+// the seeded PRNG (rng.js): a pairing always gets the same chart, and both players get the same one
+import { rng, seedOf, gauss } from './rng.js';
 
-// small seeded PRNG (mulberry32): a pairing always gets the same chart, and both players get the same one
-function rng(seed) {
-  let a = seed >>> 0;
-  return () => {
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// FNV-1a over the sorted ids: Hollow Purple vs Four-Tails is the same chart whoever is on the left
-export function seedOf(...ids) {
-  let h = 2166136261;
-  for (const ch of ids.map(String).sort().join('|')) {
-    h ^= ch.charCodeAt(0);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-}
+export { seedOf };
 
 // Frames from the clash start. Phase by phase the notes come faster; some become doubles (a second tap
 // `doubleGap` later) and a later phase may rest one beat; the chart ends on the FINAL PUSH hold.
@@ -137,17 +120,11 @@ export class Judge {
 // The CPU's presses for a chart: each note at its frame plus a gaussian error (`sd` frames), or skipped (`miss`);
 // the hold is let go around its end with half that error. Returns [{ at, len }] in time order (len = frames held).
 export function cpuPlan(chart, skill, rand = Math.random) {
-  const gauss = () => {
-    let u = 0, v = 0;
-    while (u === 0) u = rand();
-    while (v === 0) v = rand();
-    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
-  };
   const presses = [];
   for (const n of chart.notes) {
     if (rand() < skill.miss) continue;
-    const at = Math.max(1, Math.round(n.t + gauss() * skill.sd));
-    const len = n.kind === 'hold' ? Math.max(4, Math.round(n.end + gauss() * skill.sd * 0.5) - at) : 2;
+    const at = Math.max(1, Math.round(n.t + gauss(rand) * skill.sd));
+    const len = n.kind === 'hold' ? Math.max(4, Math.round(n.end + gauss(rand) * skill.sd * 0.5) - at) : 2;
     presses.push({ at, len });
   }
   return presses.sort((a, b) => a.at - b.at);
