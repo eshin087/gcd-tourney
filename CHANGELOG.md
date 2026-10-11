@@ -12,6 +12,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - **CPU defense showcase** (ENG-071, ADR 0025): CPU vs CPU now parries, spot dodges, backsteps (new BACKSTEP callout), wavedashes out of shots, wins vanish wars, reads approaches and blocked strings, reverses out of gappy combos and wake-ups, escapes after techs and trades parry rallies, with a hidden per-match defense persona (parrier, dancer, phantom, rock, scrapper) so every fight defends differently; fixed: CPU answers to vanishes, teleport strikes and late-drawn strikes (Chidori) now fire, an answer picked mid-dash is re-picked, and Easy-Hard no longer lose reactions to plan changes or stall against the barrier.
+- Integrated the approved art batch (PRs #24-30) into main: Naruto Four-Tails beamCharge v05 / beamFire v07 and heavy v07 / charge v04, Sasuke heavy v06 and light2 v02 / light3 v02 / special v03 (charge stays v02), Killua Whirlwind beamCharge v05 and heavy v05 / charge v07, Gojo model sheet v06. Each fighter repacked with `--quantize 48` on main's packer, so both batches per fighter share one palette; the Four-Tails `rampage` keeps its new poses with main's ground styles.
+
 - Record user approval of Killua heavy v05 and charge v07 with documented QA caveats accepted. Artwork unchanged; ready for integration.
 
 - Killua heavy v05 candidate rebuilds the reaching animation into a coiled, torso-driven forward rising claw strike with compact recovery; v04 rejected and archived, exact idle ending and gameplay timings preserved. PR30 includes synchronized before/after playback; all candidate art remains unapproved.
