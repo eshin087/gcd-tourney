@@ -26,6 +26,11 @@ the approved `vNN` (`-` = none yet, `null` in the manifest). A status never goes
 candidate arrives for an approved asset, it stays `approved` (version > approved means a candidate is
 waiting in REVIEW.md), and the approved version stays until the user approves another one.
 
+`packed` also needs the **scale gate** (TOOL-025): a new version passes `node tools/pack-sprites.mjs <id> --quantize 48`
+(exit 0, no `scale gate:` line for it; a failure writes nothing) and its REVIEW row links `art/scale/heads-<id>.png`
+(art/CHARACTER_SCALE.md "Scale gate (automatic)"). Approved strips the gate measured off their idle are listed with
+their fix in [scale/SCALE_FIX_BRIEF.md](scale/SCALE_FIX_BRIEF.md) (ART-SCALE-02).
+
 A character's sheet is used by the game automatically once **every core animation** (marked
 **yes**) is at least `packed` (the packer then writes `"complete": true`). Before that, preview
 with `http://127.0.0.1:5188/?art=custom`. Use the notes column for problems ("F03 fist too
@@ -39,8 +44,9 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 | sasuke | 2/2 approved | 2/23 approved | 0/15 | 0/3 | no |
 | killua | 2/2 approved | 23/23 approved | 19/19 approved | 3/3 approved | yes; final batch approved |
 | gojo | 2/2 approved | 23/23 approved | 19/19 approved | 3/3 approved | yes; final batch approved |
-| VFX atlas | 0/1 (style sheet, optional) | 15/15 effects approved | - | - | custom atlas (approved 2026-10-10) |
+| VFX atlas | 0/1 (style sheet, optional) | 15/20 effects approved (5 power-up effects todo, ENG-069) | - | - | custom atlas (approved 2026-10-10); new effects use procedural stand-ins |
 | shared UI | - | - | - | 2/2 approved | - |
+| ground decals | 0/1 (style sheet, required first) | 0/31 names (143 variants) | - | - | procedural (ADR 0024) |
 
 Naruto and Sasuke can be produced in parallel (separate Codex threads); each thread updates only
 its own section below.
@@ -65,11 +71,11 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | guard | 2 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 6 | launched | 2 | - | **yes** | 136 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | beamFire | 3 | - | **yes** | 198 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | beamCharge | 3 | - | **yes** | 198 | approved | v05 | v05 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
+| 7 | beamFire | 3 | - | **yes** | 198 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | dash | 2 | - | **yes** | 160 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
@@ -88,7 +94,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 9 | ko | 1 | - | no | 64 | approved | v05 | v05 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | ko | 1 | - | no | 64 | approved | v05 | v05 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | taunt | 2 | - | no | 212 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
@@ -125,7 +131,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 6 | guard | 2 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 204 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | charge | 4 | - | **yes** | 198 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | beamCharge | 3 | - | **yes** | 198 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -148,7 +154,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | vanish | 2 | - | no | 221 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | ko | 1 | - | no | 64 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | ko | 1 | - | no | 64 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | taunt | 2 | - | no | 212 | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -188,10 +194,10 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
+| 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 7 | charge | 4 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
 | 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 8 | dash | 2 | - | **yes** | 146 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -211,7 +217,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 9 | throw | 4 | 1/1/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | vanish | 2 | - | no | 201 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | stagger | 4 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | ko | 1 | - | no | 58 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 9 | ko | 1 | - | no | 58 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 9 | intro | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | taunt | 2 | - | no | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
 | 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
@@ -226,7 +232,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
 Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
-white hair swept up. User-selected model v03 overrides the numeric head ratio: compact head, slim torso and long legs.
+white hair swept up. User approved the broader model v06 on 2026-10-10. Existing animation art still follows the older model until a separately scoped redraw.
 
 Body scale: **taller than the cast** (standing body 215 px, `standingBodyPx: 215`,
 [ADR 0010](../docs/decisions/0010-per-character-body-scale.md)): every `bodyHeight` is the shared
@@ -237,7 +243,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v04 | v03 | Model v04 rejected: enlarged head. Original approved model v03 retained. |
+| 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
 | 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |
@@ -251,7 +257,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 6 | guard | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 6 | launched | 2 | - | **yes** | 148 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 6 | getup | 5 | - | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 7 | charge | 4 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
 | 7 | beamCharge | 3 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
@@ -274,7 +280,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 9 | throw | 4 | 1/1/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | vanish | 2 | - | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | stagger | 4 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | ko | 1 | - | no | 70 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 9 | ko | 1 | - | no | 70 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
 | 9 | intro | 4 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | taunt | 2 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 9 | specialForward | 7 | 2/2/3 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
@@ -309,6 +315,12 @@ ones.
 | star | 5 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crater | 3 | 1000 (static; 3 random variants) | full color | decal | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | lines | 4 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+| bubble | 6 | 50 | white (tinted) | center | todo | - | - | ENG-069 power-ups: Naruto's Nine-Tails chakra boil. Procedural stand-in until approved. |
+| wisp | 7 | 55 | white (tinted) | bottom | todo | - | - | ENG-069: Sasuke's dark chakra, Naruto's head wisps, Gojo's faint cursed energy. Procedural stand-in. |
+| arc | 6 | 40 (random frame) | white (tinted) | center | todo | - | - | ENG-069: Killua's body crackle, Sasuke's Chidori current. Procedural stand-in. |
+| ripple | 5 | 50 | white (tinted) | center | todo | - | - | ENG-069: Gojo's Infinity ripple (drawn very faint). Procedural stand-in. |
+| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | todo | - | - | ENG-069: Naruto's one chakra tail at MAX ki. Procedural stand-in. |
+| dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
 
 ## Shared UI (step 11)
 
@@ -319,6 +331,48 @@ cleaned into `art/ui/final/`.
 |---|---|---|---|---|---|
 | ui/final/logo.png ("GCD TOURNEY" + 天下一武闘祭) | ~480x180 | approved | v01 | v01 | Fitted candidate in ui/review; final approval and engine hooks pending. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | ui/final/title_art.png (title key art) | 640x360 | approved | v01 | v01 | Fitted candidate in ui/review; final approval and engine hooks pending. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+
+## Ground decals (step 12)
+
+Brief: [decals/DECALS.md](decals/DECALS.md), prompts [decals/PROMPTS.md](decals/PROMPTS.md), workflow [decals/README.md](decals/README.md)
+([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)). Candidates `art/decals/raw/<name>_vNN.png` or the parts
+`<name>_vNN_A.png`, `_B.png` ... of one version; ppu 64. Approved names ship with `npm run sprites decals`; the rest stay
+procedural. The style sheet comes first: the claim queue holds every decal batch until its approved copy exists.
+
+| name | group | cell | variants | mode | color rule | status | version | approved | notes |
+|---|---|---|---|---|---|---|---|---|---|
+| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | todo | - | - | approve first; attach the approved copy to every decal prompt |
+| crack_s | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
+| crack | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
+| crater | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
+| crater_big | base | 512 x 512 | 6 | flat | full color | todo | - | - | |
+| crater_huge | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
+| fracture_ring | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
+| scuff | base | 256 x 128 | 8 | flat, directional | full color | todo | - | - | |
+| skid | base | 512 x 128 | 4 | flat, directional | full color | todo | - | - | |
+| rubble | base | 256 x 256 | 6 | flat | full color | todo | - | - | |
+| dirt_crater | edge | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | todo | - | - | |
+| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | todo | - | - | |
+| crater_wall | edge | 512 x 512 | 4 | wall | full color | todo | - | - | |
+| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | todo | - | - | |
+| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | todo | - | - | |
+| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
+| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
+| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | todo | - | - | |
+| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | todo | - | - | |
+| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | todo | - | - | |
+| crush_implode | cursed | 256 x 256 | 4 | flat | full color | todo | - | - | |
+| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
+| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
+| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
 
 ## World art (ADR 0008)
 

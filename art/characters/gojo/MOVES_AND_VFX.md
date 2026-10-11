@@ -57,7 +57,8 @@ by the engine. This table says what Gojo's moves need from them. VFX cells stay 
 | `smoke`, `lines` | Blink / vanish poof | none / white | grey-white puffs, radial lines |
 | explosion (glow, bursts, ring, smoke) | Blue pop at the end of the vortex (`#6ab4ff`), Red impact (`#ff3048`), Hollow Purple final hit (`#b46cff`) | per use | see `art/vfx/EFFECTS.md` |
 | `spark`, `star`, `lines`, `burst`, `ring` | hit sparks: light = spark + star + lines; heavy adds burst + ring; smash (light4, heavy, Red, Blue pop) adds a white glow flash and two bursts | per hit | see `art/vfx/EFFECTS.md` |
-| `flame`, `streak` (tinted) | ki **charge** aura and **Hollow Purple** charge aura (stronger) | flame `#73b8ff`, streak `#e6f5ff` | flame tongues and vertical light streaks, bottom-anchored |
+| `flame`, `streak` (tinted) | **Hollow Purple** wind-up aura | flame `#73b8ff`, streak `#e6f5ff` | flame tongues and vertical light streaks, bottom-anchored |
+| `wisp`, `ripple`, `star` (tinted) | the **charge** power-up: faint cursed-energy wisps (`#8fd0ff`, very low opacity), a faint space ripple every 3 s and on each bar (`#e8f8ff`), pebbles that lift and stop in mid-air (`#8a7560`), the Six Eyes glint at MAX (`#7fe8ff`) | per use | briefs in `art/vfx/EFFECTS.md` -> *Power-up effects* |
 | `dust`, `crater` | dashes, landings, ground bounce, KO, final beam hit | none | — |
 
 Character-colored engine touches (no art needed): afterimages and the Blink ghost in `#9fd8ff` /
@@ -161,7 +162,9 @@ the middle of it.
 
 ### Ki charge (`charge`)
 
-Engine: aura flames and light streaks in his colors, glow, small floor pebbles. Sprite: wide stance,
+Engine (`charge` in `src/characters/gojo.js`, ENG-069): almost no aura. A faint Infinity shimmer on his outline,
+pebbles that lift off the floor and stop dead in mid-air, a faint space `ripple` every few seconds, and the Six Eyes
+glint on the blindfold at MAX; no rumble, dust, cracks or screen flash. Sprite: wide stance,
 arms slightly out with the palms down, head tilted back, calm smile, hair tips and hem blown upward.
 
 ### Super dash, dash, vanish

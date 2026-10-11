@@ -1,7 +1,26 @@
 import { MAX_HP, MAX_KI, KI_BAR } from '../game/constants.js';
+import { DEFENSE } from '../game/moves.js';
 import { InputHistory } from './controls.js';
 
 const JUDGE_WORDS = { perfect: 'PERFECT', great: 'GREAT', good: 'GOOD', miss: 'MISS', stray: 'OFF BEAT' };
+
+// Technique callouts (ADR 0022): side banners stacked under the combo counter, newest on top, on the side of the
+// fighter who did it. Game.tag(f, id) shows one. color: null = the fighter's own color; big: the large banner
+// for the decisive moments; small: the quiet one for movement tech; cool: frames before the same fighter can
+// show it again; excite: how much it lifts the crowd.
+export const TAGS = {
+  parry: { text: 'PARRY!', color: '#9ff0ff', big: true },
+  burst: { text: 'BURST!', color: null, big: true, excite: 0.6 },
+  dodge: { text: 'DODGE!', color: '#bfe8ff' },
+  airDodge: { text: 'AIR DODGE!', color: '#bfe8ff' },
+  tech: { text: 'TECH!', color: '#ffffff' },
+  techRoll: { text: 'TECH ROLL!', color: '#ffffff' },
+  throwBreak: { text: 'THROW BREAK', color: '#ffe2a0' },
+  reversal: { text: 'REVERSAL', color: '#ffb43a' },
+  punish: { text: 'PUNISH!', color: '#ff6a4a' },
+  wavedash: { text: 'WAVEDASH', color: '#c8f0ff', small: true, cool: 360, excite: 0.05 },
+};
+const TAG_STACK = 3; // banners per side; a fourth pushes the oldest out
 const h = (tag, cls, html = '') => {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -58,7 +77,10 @@ export class Hud {
         return f;
       });
       const kiNum = h('div', 'ki-num', '1');
-      kiRow.append(kiNum);
+      // the round's Burst (ADR 0022): lit while it's there, glowing once there's ki for it, dark once used
+      const burst = h('div', 'burst-ico', '<i></i>');
+      burst.title = 'Burst: Guard + Special while being hit (2 bars, once per round)';
+      kiRow.append(kiNum, burst);
       // timed mode (Godspeed): a thin draining bar under the ki gauge
       const modeBar = h('div', 'mode-bar', '<i></i>');
       const wins = h('div', 'wins', '<i></i><i></i>');
@@ -70,16 +92,21 @@ export class Hud {
         this.trainTag = h('div', 'train-tag', 'TRAINING');
         top.append(this.timer, this.trainTag);
       }
-      return { side, portrait, name, trail, fill, segs, kiNum, kiRow, wins, modeBar, trailHp: MAX_HP, shown: -1 };
+      return { side, portrait, name, trail, fill, segs, kiNum, kiRow, wins, modeBar, burst, burstState: '', trailHp: MAX_HP, shown: -1 };
     });
     this.root.append(top);
     this.combo = [0, 1].map((i) => {
       const c = h('div', `combo c${i + 1}`);
       this.root.append(c);
-      return { el: c, hits: 0, t: 0 };
+      return { el: c, hits: 0, t: 0, blue: false };
     });
     this.callouts = [0, 1].map((i) => {
       const c = h('div', `callout k${i + 1}`);
+      this.root.append(c);
+      return c;
+    });
+    this.tags = [0, 1].map((i) => {
+      const c = h('div', `tags k${i + 1}`);
       this.root.append(c);
       return c;
     });
@@ -136,6 +163,8 @@ export class Hud {
       P.trailHp = MAX_HP;
       this.combo[i].hits = 0;
       this.combo[i].el.classList.remove('show');
+      this.combo[i].blue = false;
+      this.tags[i].textContent = '';
     });
     this.hint.innerHTML = hint;
     this.cards.innerHTML = fighters.map((f, i) => `
@@ -176,6 +205,8 @@ export class Hud {
       });
       P.kiNum.textContent = bars;
       P.kiRow.classList.toggle('max', f.ki >= MAX_KI);
+      const B = DEFENSE.burst, bs = f.burstUsed >= B.perRound ? 'used' : f.ki >= B.cost ? 'ready' : 'held';
+      if (bs !== P.burstState) { P.burstState = bs; P.burst.className = 'burst-ico ' + bs; }
       P.modeBar.classList.toggle('on', !!f.mode);
       if (f.mode) {
         P.modeBar.firstChild.style.width = (f.mode.t / f.mode.len) * 100 + '%';
@@ -189,15 +220,19 @@ export class Hud {
       const C = this.combo[i];
       if (opp.combo >= 2 && opp.combo !== C.hits) {
         C.hits = opp.combo;
-        C.el.innerHTML = `<b>${opp.combo}</b><span>HITS</span><small>${opp.comboDmg} DMG</small>`;
-        C.el.classList.remove('pop');
+        // blue (ADR 0022): the combo had a gap they could have teched out of; training shows the widest one in frames
+        const blue = !!opp.comboBlue, gap = this.root.classList.contains('training') && opp.maxGap > 0 ? `<em>GAP ${opp.maxGap}F</em>` : '';
+        C.el.innerHTML = `<b>${opp.combo}</b><span>HITS</span><small>${opp.comboDmg} DMG</small>${gap}`;
+        C.el.classList.remove('pop', 'blue-pop');
         void C.el.offsetWidth;
-        C.el.classList.add('show', 'pop');
+        C.el.classList.toggle('blue', blue);
+        C.el.classList.add('show', blue && !C.blue ? 'blue-pop' : 'pop');
+        C.blue = blue;
         C.t = 1.4;
       }
       if (C.t > 0) {
         C.t -= dt;
-        if (C.t <= 0) { C.el.classList.remove('show'); C.hits = 0; }
+        if (C.t <= 0) { C.el.classList.remove('show'); C.hits = 0; C.blue = false; }
       }
     });
     const tl = Math.max(0, Math.ceil(timeLeft));
@@ -210,6 +245,18 @@ export class Hud {
     r.classList.remove('short');
     void r.offsetWidth;
     r.classList.add('short');
+  }
+
+  // A technique banner (TAGS[id]) on side i, newest on top; it slides out by itself (and the stack never grows past
+  // TAG_STACK, also in a hidden tab where animations don't run).
+  tag(i, id, color) {
+    const T = TAGS[id], box = this.tags[i];
+    if (!T || !box) return;
+    const e = h('div', 'tag' + (T.big ? ' big' : T.small ? ' small' : ''), `<span>${T.text}</span>`);
+    e.style.setProperty('--cc', color);
+    e.addEventListener('animationend', (ev) => { if (ev.target === e) e.remove(); });
+    box.prepend(e);
+    while (box.children.length > TAG_STACK) box.lastChild.remove();
   }
 
   callout(i, text, color, big = false) {
