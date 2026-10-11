@@ -36,6 +36,7 @@ Then open http://127.0.0.1:5188
 | `npm run build` / `npm run preview` | production build into `dist/` / serve it |
 | `npm run sprites [id\|vfx]` | pack generated art from `art/` into `public/` (see [art/README.md](art/README.md)) |
 | `npm run test:sprites` | self-test for the sprite packer |
+| `npm run test:music` | self-test for the music composer (ADR 0019) |
 
 ## Modes
 
@@ -112,7 +113,8 @@ custom keys.
   tosses them into the wall. Whiff it and you're wide open. If you get grabbed, press Light + Heavy quickly to
   **break** it. Jabs, jumps and spot dodges beat throws.
 - KO with a big hit sends the loser flying out of the ring into the stands.
-- Esc / P / Start: pause. M (or the small speaker toggle in the top corner): mute.
+- Esc / P / Start: pause. M (or the small speaker toggle in the top corner): mute. The pause menu's **MUSIC** row
+  sets the music volume (◀ ▶, remembered); the music itself is chill generated lo-fi, a new song every time.
 - A gamepad only takes control after you press one of its buttons, so an idle controller with a
   drifting stick can't move your fighter.
 
@@ -189,7 +191,8 @@ docs/          architecture, combat design, workflows, ADRs, task board
 - `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
 - `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
   `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,
-  `snap()` / `unsnap()`. See [docs/TESTING.md](docs/TESTING.md) for the test checklists and the CPU-vs-CPU soak.
+  `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song). See
+  [docs/TESTING.md](docs/TESTING.md) for the test checklists and the CPU-vs-CPU soak.
 
 ## Docs
 

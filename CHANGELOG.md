@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- **Chill generative lo-fi music** (ENG-065, ADR 0019): the grating 148 bpm taiko loop is replaced by songs composed fresh each time (koto plucks, warm pads, soft bass; a brushed beat at 86 bpm in fights, ambient 72 bpm menus with wind chimes, a calmer training mood) that follow the fight's heat, crossfade between moods, dip under pause, clashes and KOs, never burst after a stall, and get a **MUSIC** volume row in the pause menus.
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.

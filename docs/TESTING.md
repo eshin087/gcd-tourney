@@ -1,6 +1,7 @@
 # Testing
 
-Apart from the packer self-test (`npm run test:sprites`), there's no automated test suite yet (see
+Apart from the packer self-test (`npm run test:sprites`) and the music composer test (`npm run test:music`),
+there's no automated test suite yet (see
 [ROADMAP.md](ROADMAP.md) and [TASKS.md](TASKS.md)). Quality comes from a disciplined manual protocol,
 deterministic debug helpers and CPU-vs-CPU soaks. Run the parts that match your change, and always run the
 **smoke test** and `npm run build`. After any change to `tools/`, also run `npm run test:sprites`.
@@ -36,6 +37,8 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `freezeCpu()` | P2's CPU stops moving and pressing (a training dummy) |
 | `snap()` / `unsnap()` | copy the WebGL frame into a 2D canvas so screenshots of background tabs aren't blank |
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
+| `music.state()` | the music (ADR 0019): mood, seed, song, section, bar, heat, ducks, volume, scheduler running |
+| `music.next()` / `music.seed(n)` | a new song (or song `n`) from the next bar; `?musicSeed=N` seeds the first one |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
 guard, `KeyO` dash.
@@ -119,6 +122,21 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Training room: the character responds to live input, the dummy modes work, health refills, there's no
       timer, and input history shows.
 - [ ] Mute: `M` and the on-screen toggle (top corner, unobtrusive) both mute and unmute, and stay in sync.
+
+**Audio and music (ADR 0019)**
+- [ ] `npm run test:music` passes (composer: determinism, variety, ranges, voice leading, heat gates).
+- [ ] Flow: title → mode (menu mood; repeated confirms don't restart it) → match (crossfade to battle, no click) →
+      pause (quieter, muffled; `music.state().ducks` = `['pause']`) → resume → results (crossfade to menu) → rematch
+      (battle) → quit to title. Training plays the `training` mood (80 bpm).
+- [ ] Ducks: a rhythm clash (lab **Ultimate clash**) shows `clash` until it ends; a KO shows `ko` until the win pose;
+      Unlimited Void shows `domain`; after every round and match the list is empty.
+- [ ] MUSIC row in both pause menus (training: right before EXIT TRAINING): ◀ ▶ in 10% steps, a tap steps up and
+      wraps to OFF; the value survives a reload (`gcd.musicVol`); at OFF `music.state().scheduler` turns false.
+- [ ] Muted (`M`): no music nodes are created while muted; the pad comes back on unmute.
+- [ ] Stall: a 1.5 s busy loop in the console during a fight plays no burst of notes afterward.
+- [ ] Offline render (paste a harness that builds `new MusicPlayer({ ctx: offlineCtx, music, noiseBuf, muted,
+      musicVolume })` and calls `tick()` from `ctx.suspend()` points): no NaN, peaks under -10 dBFS at 100%, RMS
+      about -36 dBFS at the default 70%, smooth levels across crossfades and song seams.
 - [ ] HUD: health trail, ki bars, combo counter, callouts, timer.
 
 **Art loading**
