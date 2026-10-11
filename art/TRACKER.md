@@ -68,7 +68,7 @@ its own section below.
 
 ## naruto
 
-Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, dash v04, jumpSquat v04, jumpUp v04, jumpFall v04, land v06, guard v05, block v05, hurtHigh v04, down v05, KO v07 and three UI images remain unapproved candidates. Dash/block/jumpFall passed isolated candidate packing; jumpSquat passed with explicit manual low-confidence QA. Idle/run/jumpUp and small-foot land have animation/anatomy holds; down/KO preserve original poses but have low-confidence scale/floor-contact holds; light1 v04 parts are rejected after stitch isolation failure. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
+Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. BackDash v04 passed isolated candidate packing and awaits final review. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, dash v04, jumpSquat v04, jumpUp v04, jumpFall v04, land v06, guard v05, block v05, hurtHigh v04, down v05, KO v07 and three UI images remain unapproved candidates. Dash/block/jumpFall passed isolated candidate packing; jumpSquat passed with explicit manual low-confidence QA. Idle/run/jumpUp and small-foot land have animation/anatomy holds; down/KO preserve original poses but have low-confidence scale/floor-contact holds; light1 v04 parts are rejected after stitch isolation failure. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
@@ -99,7 +99,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 8 | land | 2 | - | **yes** | 174 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 8 | win | 4 | - | **yes** | 212 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | backDash | 3 | - | no | 207 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | backDash | 3 | - | no | 180 | approved | v04 | v01 | Title-style v04 passes isolated 48-color scratch pack and native anatomy review; historical v01 remains the old approval. |
 | 9 | superDash | 2 | - | no | 120 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
