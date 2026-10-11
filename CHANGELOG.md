@@ -16,6 +16,19 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - art(decals): revise cursed candidates, preserve rejected history, remove tracked preview outputs and host an isolated candidate gallery; remaining fringe and repel hot-placement failures are explicit, no approval.
 
 - art(decals): six cursed v01 candidates, 20 packed variants, review gallery and documented remaining palette/design caveats; no art approved.
+- art(decals): record user approval of PR52's six latest chakra decal versions / 24 variants and pack approved outputs; preserve source fringe, shape and hot-key caveats as accepted deviations. No redraw or production deployment.
+
+- art(decals): revise chakra shapes and palette candidates in PR52; preserve rejected histories, remove tracked preview outputs, add a self-contained unapproved game review atlas. Four fresh-source fringe failures remain explicitly documented; no approval or production promotion.
+
+- art(decals): add six chakra v01 candidates (11 images/24 variants), scoped review gallery and QA; approval and palette corrections pending.
+
+- art(decals): record user approval of all 19 latest core decal sets (99 variants), retain accepted QA deviations, archive superseded candidates, and generate approved-only output for coordinator integration.
+
+- Fixed: the core decal review reloads candidate image pages before each group selection, so returning to a previously viewed group works after the game releases its textures (ART-DEC-W4).
+
+- art(decals): add unapproved v02 crack_s, scuff, skid, burn_lightning_big and barrier_crack corrections; preserve source history, fresh-pack 99 variants, document remaining fringe, and bundle an independent review gallery/game harness without tracked public/preview output.
+
+- Art: add unapproved decal style and 19 base/edge/lightning/fire/ki candidates (99 variants), candidate preview gallery and documented fringe/shading limitations.
 - **Timed impact tech** (ENG-078, ADR 0028): Smash-style tech alongside the hold-Guard tech: a fresh Guard press up to 11 frames before you hit the floor or the ring barrier beats ground bounces, wall bounces (handball), spike and throw knockdowns and landings (tech in place, roll with ← / →; WALL TECH clings and kicks off, ↑ wall-jumps and can act), ends the combo and spends no bounce budget; an early press locks it out for 40 frames, holding doesn't count, presses in hitstop and freezes count, super finishes (`noTech`) can't be teched. TECH! / WALL TECH! banners, a white-cyan spark, a ting and a crowd pop; CPUs tech by level (5-65 %, with timing error), the combo composer weighs bounce routes by the victim's tech rate, DUMMY TECH TIMED, four lab scenarios.
 - Fixed: the scale gate measured every strip in the fighter-wide `--quantize` palette, so a candidate's new colours moved the unchanged idle's head (Killua 52x35 vs 52x43) and other strips' verdicts. It now measures before quantizing against the idle's own palette (declared hair colours snapped first); `anims.json` records the per-frame numbers and `npm run scale` reports those. Sheets unchanged; scale baseline rewritten once for the method change (ART-KIL-PROBE).
 - Art review: add cast proportion sample gallery with fixed-scale playback, Naruto head comparisons, approved multi-angle models and title-screen reference; no shipped sprite or approval changes (ART-CAST-SAMPLES).

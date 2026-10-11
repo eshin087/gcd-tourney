@@ -1,0 +1,192 @@
+[
+  {
+    "name": "crack_s",
+    "version": 2,
+    "frames": 8,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0
+  },
+  {
+    "name": "crack",
+    "version": 1,
+    "frames": 8,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.6350670893903552
+  },
+  {
+    "name": "crater",
+    "version": 1,
+    "frames": 8,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.33430115581529246
+  },
+  {
+    "name": "crater_big",
+    "version": 1,
+    "frames": 6,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.14123416428279525
+  },
+  {
+    "name": "crater_huge",
+    "version": 1,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.20874940793296579
+  },
+  {
+    "name": "fracture_ring",
+    "version": 1,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.08841323698913581
+  },
+  {
+    "name": "scuff",
+    "version": 2,
+    "frames": 8,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.2844721163651978
+  },
+  {
+    "name": "skid",
+    "version": 2,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.6320091237407337
+  },
+  {
+    "name": "rubble",
+    "version": 1,
+    "frames": 6,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.3226397800183318
+  },
+  {
+    "name": "dirt_crater",
+    "version": 1,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.3510320763442216
+  },
+  {
+    "name": "dirt_skid",
+    "version": 1,
+    "frames": 3,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0
+  },
+  {
+    "name": "barrier_crack",
+    "version": 2,
+    "frames": 6,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0
+  },
+  {
+    "name": "crater_wall",
+    "version": 1,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.35661747445186937
+  },
+  {
+    "name": "burn_lightning",
+    "version": 2,
+    "frames": 6,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 4662,
+    "requiresHot": true,
+    "packedPurplePct": 0.484263938948513
+  },
+  {
+    "name": "burn_lightning_big",
+    "version": 2,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 15371,
+    "requiresHot": true,
+    "packedPurplePct": 0.44911607281223553
+  },
+  {
+    "name": "fracture_lightning",
+    "version": 1,
+    "frames": 2,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 4920,
+    "requiresHot": true,
+    "packedPurplePct": 0.5658182494997905
+  },
+  {
+    "name": "burn_fire",
+    "version": 1,
+    "frames": 6,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 788,
+    "requiresHot": true,
+    "packedPurplePct": 0
+  },
+  {
+    "name": "burn_black",
+    "version": 1,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 0,
+    "requiresHot": false,
+    "packedPurplePct": 0.1409488834003595
+  },
+  {
+    "name": "scorch_ki",
+    "version": 1,
+    "frames": 4,
+    "colors": 24,
+    "partialAlpha": 0,
+    "hot": 2663,
+    "requiresHot": true,
+    "packedPurplePct": 0.5701748054909999
+  }
+]

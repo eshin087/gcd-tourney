@@ -1,0 +1,68 @@
+[
+  {
+    "name": "scour_spiral",
+    "version": 1,
+    "variants": 6,
+    "colors": 24,
+    "opaque": 141782,
+    "partialAlpha": 0,
+    "packedPurple": 0,
+    "hotPixels": 1148,
+    "note": "Original v01 retained. Six spirals; groove counts approximate and small facets retain light bias."
+  },
+  {
+    "name": "scour_spiral_big",
+    "version": 2,
+    "variants": 3,
+    "colors": 24,
+    "opaque": 263576,
+    "partialAlpha": 0,
+    "packedPurple": 0,
+    "hotPixels": 181,
+    "note": "Narrower grooves, basin about half footprint, four major slabs in first variant. Counts still approximate rather than exact 6/8; fine cracks and chips may read busy. Fresh source fringe warning remains."
+  },
+  {
+    "name": "cut_wind",
+    "version": 3,
+    "variants": 6,
+    "colors": 24,
+    "opaque": 57617,
+    "partialAlpha": 0,
+    "packedPurple": 0,
+    "hotPixels": 949,
+    "note": "Hairline cuts replace broad gouges; smaller white seams and flatter chips. Four/six slab counts remain approximate. Fresh source fringe warning remains; the final palette retry did not eliminate it."
+  },
+  {
+    "name": "claw",
+    "version": 2,
+    "variants": 4,
+    "colors": 24,
+    "opaque": 153340,
+    "partialAlpha": 0,
+    "packedPurple": 0,
+    "hotPixels": 326,
+    "note": "Four furrows in each variant; straight, upward, downward and short/deep layouts. White streaks shortened. Some lower-lip light bias and raised-looking chips remain. Fresh source fringe warning remains."
+  },
+  {
+    "name": "scorch_chakra",
+    "version": 2,
+    "variants": 3,
+    "colors": 24,
+    "opaque": 219897,
+    "partialAlpha": 0,
+    "packedPurple": 0,
+    "hotPixels": 118,
+    "note": "Narrow/wide/deep-center fans travel left to right, with restrained origin seams and more consistent texture. Fine part B pixel density and small chip shading remain review caveats. Fresh source fringe warning remains."
+  },
+  {
+    "name": "fracture_chakra",
+    "version": 2,
+    "variants": 2,
+    "colors": 24,
+    "opaque": 185623,
+    "partialAlpha": 0,
+    "packedPurple": 0,
+    "hotPixels": 355,
+    "note": "Pressure dishes keep center hot specks and clearer beige outward streaks. Fresh source fringe warning cleared. Near-white snapping also creates a few hot pixels on bright outer tips: inspect at game scale."
+  }
+]

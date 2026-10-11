@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const approved='public/decals', reviewed='public/art-review/decals/candidate';
+const a=JSON.parse(fs.readFileSync(approved+'/atlas.json')),b=JSON.parse(fs.readFileSync(reviewed+'/atlas.json'));
+const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const pages=a.pages.map(file=>({file,approvedHash:hash(approved+'/'+file),reviewedHash:hash(reviewed+'/'+file)}));
+const source={approved:a.source,reviewed:b.source};delete a.source;delete b.source;
+const result={names:Object.keys(a.decals).length,variants:Object.values(a.decals).reduce((s,d)=>s+d.frames.length,0),source,metadataIdenticalExceptSource:JSON.stringify(a)===JSON.stringify(b),pages,pixelFilesIdentical:pages.every(p=>p.approvedHash===p.reviewedHash)};
+fs.writeFileSync('art/decals/approved-comparison.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));
+if(!result.metadataIdenticalExceptSource||!result.pixelFilesIdentical)process.exitCode=1;

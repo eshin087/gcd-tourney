@@ -1,0 +1,1593 @@
+[
+  {
+    "file": "barrier_crack_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 89934,
+        "purple": 5917,
+        "purplePct": 6.579,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 89490,
+        "purple": 5473,
+        "purplePct": 6.116,
+        "lost": 444,
+        "interiorLost": 57
+      },
+      {
+        "tol": 110,
+        "opaque": 89095,
+        "purple": 5078,
+        "purplePct": 5.7,
+        "lost": 839,
+        "interiorLost": 106
+      },
+      {
+        "tol": 130,
+        "opaque": 88814,
+        "purple": 4797,
+        "purplePct": 5.401,
+        "lost": 1120,
+        "interiorLost": 159
+      }
+    ]
+  },
+  {
+    "file": "barrier_crack_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 88300,
+        "purple": 3344,
+        "purplePct": 3.787,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 87858,
+        "purple": 2902,
+        "purplePct": 3.303,
+        "lost": 442,
+        "interiorLost": 88
+      },
+      {
+        "tol": 110,
+        "opaque": 87541,
+        "purple": 2585,
+        "purplePct": 2.953,
+        "lost": 759,
+        "interiorLost": 197
+      },
+      {
+        "tol": 130,
+        "opaque": 87320,
+        "purple": 2364,
+        "purplePct": 2.707,
+        "lost": 980,
+        "interiorLost": 276
+      }
+    ]
+  },
+  {
+    "file": "burn_black_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 378743,
+        "purple": 3898,
+        "purplePct": 1.029,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 378661,
+        "purple": 3816,
+        "purplePct": 1.008,
+        "lost": 82,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 378589,
+        "purple": 3744,
+        "purplePct": 0.989,
+        "lost": 154,
+        "interiorLost": 2
+      },
+      {
+        "tol": 130,
+        "opaque": 378545,
+        "purple": 3700,
+        "purplePct": 0.977,
+        "lost": 198,
+        "interiorLost": 10
+      }
+    ]
+  },
+  {
+    "file": "burn_black_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 319455,
+        "purple": 2254,
+        "purplePct": 0.706,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 319408,
+        "purple": 2207,
+        "purplePct": 0.691,
+        "lost": 47,
+        "interiorLost": 4
+      },
+      {
+        "tol": 110,
+        "opaque": 319397,
+        "purple": 2196,
+        "purplePct": 0.688,
+        "lost": 58,
+        "interiorLost": 4
+      },
+      {
+        "tol": 130,
+        "opaque": 319347,
+        "purple": 2146,
+        "purplePct": 0.672,
+        "lost": 108,
+        "interiorLost": 20
+      }
+    ]
+  },
+  {
+    "file": "burn_fire_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 317444,
+        "purple": 3986,
+        "purplePct": 1.256,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 317326,
+        "purple": 3868,
+        "purplePct": 1.219,
+        "lost": 118,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 317234,
+        "purple": 3776,
+        "purplePct": 1.19,
+        "lost": 210,
+        "interiorLost": 11
+      },
+      {
+        "tol": 130,
+        "opaque": 316790,
+        "purple": 3332,
+        "purplePct": 1.052,
+        "lost": 654,
+        "interiorLost": 13
+      }
+    ]
+  },
+  {
+    "file": "burn_fire_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 274018,
+        "purple": 3708,
+        "purplePct": 1.353,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 273969,
+        "purple": 3659,
+        "purplePct": 1.336,
+        "lost": 49,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 273911,
+        "purple": 3601,
+        "purplePct": 1.315,
+        "lost": 107,
+        "interiorLost": 6
+      },
+      {
+        "tol": 130,
+        "opaque": 273363,
+        "purple": 3053,
+        "purplePct": 1.117,
+        "lost": 655,
+        "interiorLost": 10
+      }
+    ]
+  },
+  {
+    "file": "burn_lightning_big_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 401167,
+        "purple": 16284,
+        "purplePct": 4.059,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 399023,
+        "purple": 14140,
+        "purplePct": 3.544,
+        "lost": 2144,
+        "interiorLost": 195
+      },
+      {
+        "tol": 110,
+        "opaque": 396978,
+        "purple": 12095,
+        "purplePct": 3.047,
+        "lost": 4189,
+        "interiorLost": 543
+      },
+      {
+        "tol": 130,
+        "opaque": 395423,
+        "purple": 10540,
+        "purplePct": 2.665,
+        "lost": 5744,
+        "interiorLost": 863
+      }
+    ]
+  },
+  {
+    "file": "burn_lightning_big_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 395566,
+        "purple": 17751,
+        "purplePct": 4.487,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 394881,
+        "purple": 17066,
+        "purplePct": 4.322,
+        "lost": 685,
+        "interiorLost": 4
+      },
+      {
+        "tol": 110,
+        "opaque": 394052,
+        "purple": 16237,
+        "purplePct": 4.121,
+        "lost": 1514,
+        "interiorLost": 61
+      },
+      {
+        "tol": 130,
+        "opaque": 393311,
+        "purple": 15496,
+        "purplePct": 3.94,
+        "lost": 2255,
+        "interiorLost": 108
+      }
+    ]
+  },
+  {
+    "file": "burn_lightning_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 222074,
+        "purple": 11041,
+        "purplePct": 4.972,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 221600,
+        "purple": 10567,
+        "purplePct": 4.769,
+        "lost": 474,
+        "interiorLost": 12
+      },
+      {
+        "tol": 110,
+        "opaque": 221063,
+        "purple": 10030,
+        "purplePct": 4.537,
+        "lost": 1011,
+        "interiorLost": 27
+      },
+      {
+        "tol": 130,
+        "opaque": 220551,
+        "purple": 9518,
+        "purplePct": 4.316,
+        "lost": 1523,
+        "interiorLost": 33
+      }
+    ]
+  },
+  {
+    "file": "burn_lightning_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 204902,
+        "purple": 8790,
+        "purplePct": 4.29,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 204512,
+        "purple": 8400,
+        "purplePct": 4.107,
+        "lost": 390,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 204101,
+        "purple": 7989,
+        "purplePct": 3.914,
+        "lost": 801,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 203684,
+        "purple": 7572,
+        "purplePct": 3.718,
+        "lost": 1218,
+        "interiorLost": 3
+      }
+    ]
+  },
+  {
+    "file": "burn_lightning_v02_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 244558,
+        "purple": 2774,
+        "purplePct": 1.134,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 244544,
+        "purple": 2760,
+        "purplePct": 1.129,
+        "lost": 14,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 244523,
+        "purple": 2739,
+        "purplePct": 1.12,
+        "lost": 35,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 244513,
+        "purple": 2729,
+        "purplePct": 1.116,
+        "lost": 45,
+        "interiorLost": 0
+      }
+    ]
+  },
+  {
+    "file": "burn_lightning_v02_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 216523,
+        "purple": 2370,
+        "purplePct": 1.095,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 216507,
+        "purple": 2354,
+        "purplePct": 1.087,
+        "lost": 16,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 216463,
+        "purple": 2310,
+        "purplePct": 1.067,
+        "lost": 60,
+        "interiorLost": 13
+      },
+      {
+        "tol": 130,
+        "opaque": 216451,
+        "purple": 2298,
+        "purplePct": 1.062,
+        "lost": 72,
+        "interiorLost": 18
+      }
+    ]
+  },
+  {
+    "file": "crack_s_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 28042,
+        "purple": 1226,
+        "purplePct": 4.372,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 27930,
+        "purple": 1114,
+        "purplePct": 3.989,
+        "lost": 112,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 27871,
+        "purple": 1055,
+        "purplePct": 3.785,
+        "lost": 171,
+        "interiorLost": 2
+      },
+      {
+        "tol": 130,
+        "opaque": 27849,
+        "purple": 1033,
+        "purplePct": 3.709,
+        "lost": 193,
+        "interiorLost": 3
+      }
+    ]
+  },
+  {
+    "file": "crack_s_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 33715,
+        "purple": 1141,
+        "purplePct": 3.384,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 33698,
+        "purple": 1124,
+        "purplePct": 3.336,
+        "lost": 17,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 33681,
+        "purple": 1107,
+        "purplePct": 3.287,
+        "lost": 34,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 33673,
+        "purple": 1099,
+        "purplePct": 3.264,
+        "lost": 42,
+        "interiorLost": 2
+      }
+    ]
+  },
+  {
+    "file": "crack_s_v01_C.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 31946,
+        "purple": 1061,
+        "purplePct": 3.321,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 31924,
+        "purple": 1039,
+        "purplePct": 3.255,
+        "lost": 22,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 31907,
+        "purple": 1022,
+        "purplePct": 3.203,
+        "lost": 39,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 31900,
+        "purple": 1015,
+        "purplePct": 3.182,
+        "lost": 46,
+        "interiorLost": 0
+      }
+    ]
+  },
+  {
+    "file": "crack_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 139131,
+        "purple": 3834,
+        "purplePct": 2.756,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 138832,
+        "purple": 3535,
+        "purplePct": 2.546,
+        "lost": 299,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 138679,
+        "purple": 3382,
+        "purplePct": 2.439,
+        "lost": 452,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 138542,
+        "purple": 3245,
+        "purplePct": 2.342,
+        "lost": 589,
+        "interiorLost": 4
+      }
+    ]
+  },
+  {
+    "file": "crack_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 161282,
+        "purple": 5020,
+        "purplePct": 3.113,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 160756,
+        "purple": 4494,
+        "purplePct": 2.796,
+        "lost": 526,
+        "interiorLost": 31
+      },
+      {
+        "tol": 110,
+        "opaque": 160132,
+        "purple": 3870,
+        "purplePct": 2.417,
+        "lost": 1150,
+        "interiorLost": 207
+      },
+      {
+        "tol": 130,
+        "opaque": 159741,
+        "purple": 3479,
+        "purplePct": 2.178,
+        "lost": 1541,
+        "interiorLost": 350
+      }
+    ]
+  },
+  {
+    "file": "crack_v01_C.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 216083,
+        "purple": 3515,
+        "purplePct": 1.627,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 215847,
+        "purple": 3279,
+        "purplePct": 1.519,
+        "lost": 236,
+        "interiorLost": 2
+      },
+      {
+        "tol": 110,
+        "opaque": 215733,
+        "purple": 3165,
+        "purplePct": 1.467,
+        "lost": 350,
+        "interiorLost": 3
+      },
+      {
+        "tol": 130,
+        "opaque": 215638,
+        "purple": 3070,
+        "purplePct": 1.424,
+        "lost": 445,
+        "interiorLost": 8
+      }
+    ]
+  },
+  {
+    "file": "crater_big_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 413460,
+        "purple": 2970,
+        "purplePct": 0.718,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 413340,
+        "purple": 2850,
+        "purplePct": 0.69,
+        "lost": 120,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 413263,
+        "purple": 2773,
+        "purplePct": 0.671,
+        "lost": 197,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 413203,
+        "purple": 2713,
+        "purplePct": 0.657,
+        "lost": 257,
+        "interiorLost": 4
+      }
+    ]
+  },
+  {
+    "file": "crater_big_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 425474,
+        "purple": 3641,
+        "purplePct": 0.856,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 425180,
+        "purple": 3347,
+        "purplePct": 0.787,
+        "lost": 294,
+        "interiorLost": 54
+      },
+      {
+        "tol": 110,
+        "opaque": 424901,
+        "purple": 3068,
+        "purplePct": 0.722,
+        "lost": 573,
+        "interiorLost": 155
+      },
+      {
+        "tol": 130,
+        "opaque": 424713,
+        "purple": 2880,
+        "purplePct": 0.678,
+        "lost": 761,
+        "interiorLost": 258
+      }
+    ]
+  },
+  {
+    "file": "crater_big_v01_C.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 504151,
+        "purple": 3510,
+        "purplePct": 0.696,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 503746,
+        "purple": 3105,
+        "purplePct": 0.616,
+        "lost": 405,
+        "interiorLost": 15
+      },
+      {
+        "tol": 110,
+        "opaque": 503524,
+        "purple": 2883,
+        "purplePct": 0.573,
+        "lost": 627,
+        "interiorLost": 40
+      },
+      {
+        "tol": 130,
+        "opaque": 503385,
+        "purple": 2744,
+        "purplePct": 0.545,
+        "lost": 766,
+        "interiorLost": 72
+      }
+    ]
+  },
+  {
+    "file": "crater_huge_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 424544,
+        "purple": 2820,
+        "purplePct": 0.664,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 424432,
+        "purple": 2708,
+        "purplePct": 0.638,
+        "lost": 112,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 424383,
+        "purple": 2659,
+        "purplePct": 0.627,
+        "lost": 161,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 424353,
+        "purple": 2629,
+        "purplePct": 0.62,
+        "lost": 191,
+        "interiorLost": 0
+      }
+    ]
+  },
+  {
+    "file": "crater_huge_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 488470,
+        "purple": 3361,
+        "purplePct": 0.688,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 488310,
+        "purple": 3201,
+        "purplePct": 0.656,
+        "lost": 160,
+        "interiorLost": 1
+      },
+      {
+        "tol": 110,
+        "opaque": 488235,
+        "purple": 3126,
+        "purplePct": 0.64,
+        "lost": 235,
+        "interiorLost": 1
+      },
+      {
+        "tol": 130,
+        "opaque": 488179,
+        "purple": 3070,
+        "purplePct": 0.629,
+        "lost": 291,
+        "interiorLost": 1
+      }
+    ]
+  },
+  {
+    "file": "crater_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 240272,
+        "purple": 1902,
+        "purplePct": 0.792,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 240192,
+        "purple": 1822,
+        "purplePct": 0.759,
+        "lost": 80,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 240156,
+        "purple": 1786,
+        "purplePct": 0.744,
+        "lost": 116,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 240128,
+        "purple": 1758,
+        "purplePct": 0.732,
+        "lost": 144,
+        "interiorLost": 0
+      }
+    ]
+  },
+  {
+    "file": "crater_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 268629,
+        "purple": 2073,
+        "purplePct": 0.772,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 268465,
+        "purple": 1909,
+        "purplePct": 0.711,
+        "lost": 164,
+        "interiorLost": 3
+      },
+      {
+        "tol": 110,
+        "opaque": 268404,
+        "purple": 1848,
+        "purplePct": 0.689,
+        "lost": 225,
+        "interiorLost": 5
+      },
+      {
+        "tol": 130,
+        "opaque": 268356,
+        "purple": 1800,
+        "purplePct": 0.671,
+        "lost": 273,
+        "interiorLost": 8
+      }
+    ]
+  },
+  {
+    "file": "crater_v01_C.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 342387,
+        "purple": 2647,
+        "purplePct": 0.773,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 342086,
+        "purple": 2346,
+        "purplePct": 0.686,
+        "lost": 301,
+        "interiorLost": 27
+      },
+      {
+        "tol": 110,
+        "opaque": 341911,
+        "purple": 2171,
+        "purplePct": 0.635,
+        "lost": 476,
+        "interiorLost": 53
+      },
+      {
+        "tol": 130,
+        "opaque": 341774,
+        "purple": 2034,
+        "purplePct": 0.595,
+        "lost": 613,
+        "interiorLost": 102
+      }
+    ]
+  },
+  {
+    "file": "crater_wall_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 620615,
+        "purple": 4642,
+        "purplePct": 0.748,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 619529,
+        "purple": 3556,
+        "purplePct": 0.574,
+        "lost": 1086,
+        "interiorLost": 295
+      },
+      {
+        "tol": 110,
+        "opaque": 618970,
+        "purple": 2997,
+        "purplePct": 0.484,
+        "lost": 1645,
+        "interiorLost": 518
+      },
+      {
+        "tol": 130,
+        "opaque": 618553,
+        "purple": 2580,
+        "purplePct": 0.417,
+        "lost": 2062,
+        "interiorLost": 694
+      }
+    ]
+  },
+  {
+    "file": "crater_wall_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 524947,
+        "purple": 4054,
+        "purplePct": 0.772,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 523732,
+        "purple": 2839,
+        "purplePct": 0.542,
+        "lost": 1215,
+        "interiorLost": 572
+      },
+      {
+        "tol": 110,
+        "opaque": 523176,
+        "purple": 2283,
+        "purplePct": 0.436,
+        "lost": 1771,
+        "interiorLost": 891
+      },
+      {
+        "tol": 130,
+        "opaque": 522904,
+        "purple": 2011,
+        "purplePct": 0.385,
+        "lost": 2043,
+        "interiorLost": 946
+      }
+    ]
+  },
+  {
+    "file": "dirt_crater_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 364703,
+        "purple": 2543,
+        "purplePct": 0.697,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 364419,
+        "purple": 2259,
+        "purplePct": 0.62,
+        "lost": 284,
+        "interiorLost": 92
+      },
+      {
+        "tol": 110,
+        "opaque": 364214,
+        "purple": 2054,
+        "purplePct": 0.564,
+        "lost": 489,
+        "interiorLost": 178
+      },
+      {
+        "tol": 130,
+        "opaque": 364184,
+        "purple": 2024,
+        "purplePct": 0.556,
+        "lost": 519,
+        "interiorLost": 181
+      }
+    ]
+  },
+  {
+    "file": "dirt_crater_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 462561,
+        "purple": 3380,
+        "purplePct": 0.731,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 462132,
+        "purple": 2951,
+        "purplePct": 0.639,
+        "lost": 429,
+        "interiorLost": 23
+      },
+      {
+        "tol": 110,
+        "opaque": 461919,
+        "purple": 2738,
+        "purplePct": 0.593,
+        "lost": 642,
+        "interiorLost": 58
+      },
+      {
+        "tol": 130,
+        "opaque": 461754,
+        "purple": 2573,
+        "purplePct": 0.557,
+        "lost": 807,
+        "interiorLost": 98
+      }
+    ]
+  },
+  {
+    "file": "dirt_skid_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 177207,
+        "purple": 1880,
+        "purplePct": 1.061,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 177025,
+        "purple": 1698,
+        "purplePct": 0.959,
+        "lost": 182,
+        "interiorLost": 11
+      },
+      {
+        "tol": 110,
+        "opaque": 176906,
+        "purple": 1579,
+        "purplePct": 0.893,
+        "lost": 301,
+        "interiorLost": 36
+      },
+      {
+        "tol": 130,
+        "opaque": 176851,
+        "purple": 1524,
+        "purplePct": 0.862,
+        "lost": 356,
+        "interiorLost": 55
+      }
+    ]
+  },
+  {
+    "file": "dirt_skid_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 338335,
+        "purple": 1771,
+        "purplePct": 0.523,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 338148,
+        "purple": 1584,
+        "purplePct": 0.468,
+        "lost": 187,
+        "interiorLost": 18
+      },
+      {
+        "tol": 110,
+        "opaque": 338039,
+        "purple": 1475,
+        "purplePct": 0.436,
+        "lost": 296,
+        "interiorLost": 42
+      },
+      {
+        "tol": 130,
+        "opaque": 337974,
+        "purple": 1410,
+        "purplePct": 0.417,
+        "lost": 361,
+        "interiorLost": 61
+      }
+    ]
+  },
+  {
+    "file": "fracture_lightning_v01.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 422575,
+        "purple": 5084,
+        "purplePct": 1.203,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 421765,
+        "purple": 4274,
+        "purplePct": 1.013,
+        "lost": 810,
+        "interiorLost": 33
+      },
+      {
+        "tol": 110,
+        "opaque": 421386,
+        "purple": 3895,
+        "purplePct": 0.924,
+        "lost": 1189,
+        "interiorLost": 45
+      },
+      {
+        "tol": 130,
+        "opaque": 421159,
+        "purple": 3668,
+        "purplePct": 0.871,
+        "lost": 1416,
+        "interiorLost": 56
+      }
+    ]
+  },
+  {
+    "file": "fracture_ring_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 414973,
+        "purple": 1884,
+        "purplePct": 0.454,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 414884,
+        "purple": 1795,
+        "purplePct": 0.433,
+        "lost": 89,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 414835,
+        "purple": 1746,
+        "purplePct": 0.421,
+        "lost": 138,
+        "interiorLost": 0
+      },
+      {
+        "tol": 130,
+        "opaque": 414802,
+        "purple": 1713,
+        "purplePct": 0.413,
+        "lost": 171,
+        "interiorLost": 0
+      }
+    ]
+  },
+  {
+    "file": "fracture_ring_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 452131,
+        "purple": 2101,
+        "purplePct": 0.465,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 452052,
+        "purple": 2022,
+        "purplePct": 0.447,
+        "lost": 79,
+        "interiorLost": 0
+      },
+      {
+        "tol": 110,
+        "opaque": 451984,
+        "purple": 1954,
+        "purplePct": 0.432,
+        "lost": 147,
+        "interiorLost": 4
+      },
+      {
+        "tol": 130,
+        "opaque": 451908,
+        "purple": 1878,
+        "purplePct": 0.416,
+        "lost": 223,
+        "interiorLost": 33
+      }
+    ]
+  },
+  {
+    "file": "rubble_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 199190,
+        "purple": 4218,
+        "purplePct": 2.118,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 198532,
+        "purple": 3560,
+        "purplePct": 1.793,
+        "lost": 658,
+        "interiorLost": 55
+      },
+      {
+        "tol": 110,
+        "opaque": 198125,
+        "purple": 3153,
+        "purplePct": 1.591,
+        "lost": 1065,
+        "interiorLost": 149
+      },
+      {
+        "tol": 130,
+        "opaque": 197883,
+        "purple": 2911,
+        "purplePct": 1.471,
+        "lost": 1307,
+        "interiorLost": 209
+      }
+    ]
+  },
+  {
+    "file": "rubble_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 179585,
+        "purple": 2938,
+        "purplePct": 1.636,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 179378,
+        "purple": 2731,
+        "purplePct": 1.522,
+        "lost": 207,
+        "interiorLost": 66
+      },
+      {
+        "tol": 110,
+        "opaque": 179173,
+        "purple": 2526,
+        "purplePct": 1.41,
+        "lost": 412,
+        "interiorLost": 166
+      },
+      {
+        "tol": 130,
+        "opaque": 178857,
+        "purple": 2216,
+        "purplePct": 1.239,
+        "lost": 728,
+        "interiorLost": 267
+      }
+    ]
+  },
+  {
+    "file": "scorch_ki_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 297049,
+        "purple": 4646,
+        "purplePct": 1.564,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 296849,
+        "purple": 4446,
+        "purplePct": 1.498,
+        "lost": 200,
+        "interiorLost": 27
+      },
+      {
+        "tol": 110,
+        "opaque": 296748,
+        "purple": 4345,
+        "purplePct": 1.464,
+        "lost": 301,
+        "interiorLost": 30
+      },
+      {
+        "tol": 130,
+        "opaque": 296642,
+        "purple": 4239,
+        "purplePct": 1.429,
+        "lost": 407,
+        "interiorLost": 57
+      }
+    ]
+  },
+  {
+    "file": "scorch_ki_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 321238,
+        "purple": 3358,
+        "purplePct": 1.045,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 321156,
+        "purple": 3276,
+        "purplePct": 1.02,
+        "lost": 82,
+        "interiorLost": 13
+      },
+      {
+        "tol": 110,
+        "opaque": 321060,
+        "purple": 3180,
+        "purplePct": 0.99,
+        "lost": 178,
+        "interiorLost": 46
+      },
+      {
+        "tol": 130,
+        "opaque": 320964,
+        "purple": 3084,
+        "purplePct": 0.961,
+        "lost": 274,
+        "interiorLost": 76
+      }
+    ]
+  },
+  {
+    "file": "scuff_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 73443,
+        "purple": 2570,
+        "purplePct": 3.499,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 72858,
+        "purple": 1985,
+        "purplePct": 2.724,
+        "lost": 585,
+        "interiorLost": 15
+      },
+      {
+        "tol": 110,
+        "opaque": 72500,
+        "purple": 1627,
+        "purplePct": 2.244,
+        "lost": 943,
+        "interiorLost": 71
+      },
+      {
+        "tol": 130,
+        "opaque": 72300,
+        "purple": 1427,
+        "purplePct": 1.974,
+        "lost": 1143,
+        "interiorLost": 109
+      }
+    ]
+  },
+  {
+    "file": "scuff_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 83896,
+        "purple": 2848,
+        "purplePct": 3.395,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 83395,
+        "purple": 2347,
+        "purplePct": 2.814,
+        "lost": 501,
+        "interiorLost": 29
+      },
+      {
+        "tol": 110,
+        "opaque": 83076,
+        "purple": 2028,
+        "purplePct": 2.441,
+        "lost": 820,
+        "interiorLost": 108
+      },
+      {
+        "tol": 130,
+        "opaque": 82865,
+        "purple": 1817,
+        "purplePct": 2.193,
+        "lost": 1031,
+        "interiorLost": 163
+      }
+    ]
+  },
+  {
+    "file": "skid_v01_A.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 118621,
+        "purple": 2492,
+        "purplePct": 2.101,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 118297,
+        "purple": 2168,
+        "purplePct": 1.833,
+        "lost": 324,
+        "interiorLost": 21
+      },
+      {
+        "tol": 110,
+        "opaque": 118069,
+        "purple": 1940,
+        "purplePct": 1.643,
+        "lost": 552,
+        "interiorLost": 59
+      },
+      {
+        "tol": 130,
+        "opaque": 117969,
+        "purple": 1840,
+        "purplePct": 1.56,
+        "lost": 652,
+        "interiorLost": 96
+      }
+    ]
+  },
+  {
+    "file": "skid_v01_B.png",
+    "samples": [
+      {
+        "tol": 72,
+        "opaque": 151400,
+        "purple": 1845,
+        "purplePct": 1.219,
+        "lost": 0,
+        "interiorLost": 0
+      },
+      {
+        "tol": 90,
+        "opaque": 151284,
+        "purple": 1729,
+        "purplePct": 1.143,
+        "lost": 116,
+        "interiorLost": 7
+      },
+      {
+        "tol": 110,
+        "opaque": 151196,
+        "purple": 1641,
+        "purplePct": 1.085,
+        "lost": 204,
+        "interiorLost": 39
+      },
+      {
+        "tol": 130,
+        "opaque": 151132,
+        "purple": 1577,
+        "purplePct": 1.043,
+        "lost": 268,
+        "interiorLost": 61
+      }
+    ]
+  }
+]

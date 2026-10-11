@@ -46,7 +46,7 @@ low", "regenerate: hair color drifted"); per-version QA notes go in REVIEW.md.
 | gojo | 2/2 approved | 23/23 approved | 19/19 approved | 3/3 approved | yes; final batch approved |
 | VFX atlas | 0/1 (style sheet, optional) | 15/20 effects approved (5 power-up effects todo, ENG-069) | - | - | custom atlas (approved 2026-10-10); new effects use procedural stand-ins |
 | shared UI | - | - | - | 2/2 approved | - |
-| ground decals | 0/1 (style sheet, required first) | 0/31 names (143 variants) | - | - | procedural (ADR 0024) |
+| ground decals | 0/1 (style sheet, required first) | 19/31 names (99 approved variants) | - | - | procedural (ADR 0024) |
 
 Naruto and Sasuke can be produced in parallel (separate Codex threads); each thread updates only
 its own section below.
@@ -341,38 +341,38 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 
 | name | group | cell | variants | mode | color rule | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | todo | - | - | approve first; attach the approved copy to every decal prompt |
-| crack_s | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crack | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crater | base | 256 x 256 | 8 | flat | full color | todo | - | - | |
-| crater_big | base | 512 x 512 | 6 | flat | full color | todo | - | - | |
-| crater_huge | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
-| fracture_ring | base | 512 x 512 | 4 | flat | full color | todo | - | - | |
-| scuff | base | 256 x 128 | 8 | flat, directional | full color | todo | - | - | |
-| skid | base | 512 x 128 | 4 | flat, directional | full color | todo | - | - | |
-| rubble | base | 256 x 256 | 6 | flat | full color | todo | - | - | |
-| dirt_crater | edge | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | todo | - | - | |
-| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | todo | - | - | |
-| crater_wall | edge | 512 x 512 | 4 | wall | full color | todo | - | - | |
-| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | todo | - | - | |
-| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| burn_black | fire | 256 x 256 | 4 | flat | full color | todo | - | - | |
-| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | todo | - | - | |
-| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | todo | - | - | |
-| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
-| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | todo | - | - | |
-| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
+| reference/decal_style_sheet_vNN.png -> decal_style_sheet.png (required style anchor) | - | 1536 x 1024 | - | - | palettes in DECALS.md | raw | v01 | - | Provisional unapproved style; user allowed uninterrupted production |
+| crack_s | base | 256 x 256 | 8 | flat | full color | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crack | base | 256 x 256 | 8 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater | base | 256 x 256 | 8 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater_big | base | 512 x 512 | 6 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater_huge | base | 512 x 512 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| fracture_ring | base | 512 x 512 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| scuff | base | 256 x 128 | 8 | flat, directional | full color | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| skid | base | 512 x 128 | 4 | flat, directional | full color | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| rubble | base | 256 x 256 | 6 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| dirt_crater | edge | 256 x 256 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| dirt_skid | edge | 512 x 128 | 3 | flat, directional | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| barrier_crack | edge | 256 x 256 | 6 | wall | white only (tinted) | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| crater_wall | edge | 512 x 512 | 4 | wall | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_lightning | lightning | 256 x 256 | 6 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_lightning_big | lightning | 512 x 512 | 4 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| fracture_lightning | lightning | 512 x 512 | 2 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_fire | fire | 256 x 256 | 6 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| burn_black | fire | 256 x 256 | 4 | flat | full color | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
+| scour_spiral | chakra | 256 x 256 | 6 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| scour_spiral_big | chakra | 512 x 512 | 3 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| cut_wind | chakra | 256 x 256 | 6 | flat | full color + hot key | approved | v03 | v03 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
+| fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | User approved 2026-10-11; existing QA deviations accepted, not fixed. Ready for coordinator integration. |
 | erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | approved | v02 | v02 | |
 | erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | |
 | crush_implode | cursed | 256 x 256 | 4 | flat | full color | approved | v03 | v03 | |
 | gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | |
 | fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | approved | v03 | v03 | |
 | fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | |
-| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
+| scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | approved | v01 | v01 | User approved 2026-10-11; documented visual deviations accepted; see decals/APPROVAL_QA.md |
 
 ## World art (ADR 0008)
 
@@ -538,14 +538,3 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
-
-## Cursed decal candidates (2026-10-10)
-
-| Asset | Status | Version | Approved |
-|---|---|---|---|
-| erasure | approved (deviations accepted) | v02 | v02 |
-| erasure_trench | approved (deviations accepted) | v02 | v02 |
-| crush_implode | approved (deviations accepted) | v03 | v03 |
-| gouge_repel | approved (deviations accepted) | v02 | v02 |
-| fracture_cursed | approved (deviations accepted) | v03 | v03 |
-| fracture_cursed_big | approved (deviations accepted) | v02 | v02 |

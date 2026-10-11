@@ -1,0 +1,56 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== decals ======================================================
+  candidates: every decal with a raw, approved or not -> preview/decals/ (the game shows it with ?art=custom)
+  packed 19 decals, 99 variants -> 4 page(s): decals_base_1.png 2048x2048, decals_base_2.png 2048x1920 (base+edge), decals_chakra.png 1024x256, decals_lightning.png 2048x1280 (lightning+fire)
+  pages per match: floor 2 + one element set per fighter (chakra 1, lightning 1); worst pairing 4 of the engine's 4
+    crack_s              8    <- raw/crack_s_v02_{A,B,C}.png    x0.463/0.545/0.357  (24 colors; 45 near-white px toned down to #F6F6F6 (no hot key in crack_s))
+    crack                8    <- raw/crack_v01_{A,B,C}.png      x0.516/0.462/0.354  (24 colors; removed 45 specks; removed 39 specks; removed 52 specks; 271 near-white px toned down to #F6F6F6 (no hot key in crack))
+    crater               8    <- raw/crater_v01_{A,B,C}.png     x0.504/0.466/0.341  (24 colors; removed 12 specks; removed 6 specks; 249 near-white px toned down to #F6F6F6 (no hot key in crater))
+    crater_big           6    <- raw/crater_big_v01_{A,B,C}.png x0.674/0.648/0.688  (24 colors; removed 20 specks; removed 21 specks; removed 19 specks; 254 near-white px toned down to #F6F6F6 (no hot key in crater_big))
+    crater_huge          4    <- raw/crater_huge_v01_{A,B}.png  x0.652/0.678  (24 colors; removed 13 specks; A: poses touch: split into 2; removed 19 specks; 211 near-white px toned down to #F6F6F6 (no hot key in crater_huge))
+    fracture_ring        4    <- raw/fracture_ring_v01_{A,B}.png x0.722/0.685  (24 colors; removed 4 specks; removed 14 specks; 299 near-white px toned down to #F6F6F6 (no hot key in fracture_ring))
+    scuff                8    <- raw/scuff_v02_{A,B}.png        x0.712/0.726  (24 colors; removed 10 specks; 3578 near-white px toned down to #F6F6F6 (no hot key in scuff))
+    skid                 4    <- raw/skid_v02_{A,B}.png         x0.549/0.38  (24 colors; removed 19 specks; removed 13 specks; B: 3 pieces joined into 2 variants by slot (a broken outline or a detached chip; if this image really holds more, set "parts": { "B": { "frames": N } } in raw/skid.json); 54 near-white px toned down to #F6F6F6 (no hot key in skid))
+    rubble               6    <- raw/rubble_v01_{A,B}.png       x0.534/0.524  (24 colors; removed 24 specks; removed 29 specks; 484 near-white px toned down to #F6F6F6 (no hot key in rubble))
+    dirt_crater          4    <- raw/dirt_crater_v01_{A,B}.png  x0.323/0.349  (24 colors; removed 9 specks; removed 15 specks)
+    dirt_skid            3    <- raw/dirt_skid_v01_{A,B}.png    x0.511/0.274  (24 colors; removed 5 specks)
+    barrier_crack        6    <- raw/barrier_crack_v02_{A,B}.png x0.428/0.445  (24 colors; removed 15 specks)
+    crater_wall          4    <- raw/crater_wall_v01_{A,B}.png  x0.622/0.714  (24 colors; removed 14 specks; removed 10 specks)
+    burn_lightning       6    <- raw/burn_lightning_v02_{A,B}.png x0.481/0.431  (24 colors; 4662 hot px; removed 5 specks; 3220 near-white px snapped to the #FFFFFF hot key)
+    burn_lightning_big   4    <- raw/burn_lightning_big_v02_{A,B}.png x0.644/0.625  (24 colors; 15371 hot px; removed 10 specks; removed 16 specks; 11857 near-white px snapped to the #FFFFFF hot key)
+    fracture_lightning   2    <- raw/fracture_lightning_v01.png x0.709  (24 colors; 4920 hot px; removed 45 specks; 3952 near-white px snapped to the #FFFFFF hot key)
+    burn_fire            6    <- raw/burn_fire_v01_{A,B}.png    x0.333/0.505  (24 colors; 788 hot px; removed 19 specks; 660 near-white px snapped to the #FFFFFF hot key)
+    burn_black           4    <- raw/burn_black_v01_{A,B}.png   x0.321/0.343  (24 colors; removed 5 specks; removed 8 specks)
+    scorch_ki            4    <- raw/scorch_ki_v01_{A,B}.png    x0.325/0.339  (24 colors; 2663 hot px; removed 12 specks; removed 10 specks; B: dropped a small detached blob at x=696; 1844 near-white px snapped to the #FFFFFF hot key)
+  missing (procedural fallback): scour_spiral, scour_spiral_big, cut_wind, claw, scorch_chakra, fracture_chakra, erasure, erasure_trench, crush_implode, gouge_repel, fracture_cursed, fracture_cursed_big
+  ! crack_s: 2.9% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crack: 2.7% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater: 0.8% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_big: 0.9% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_huge: 0.8% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! fracture_ring: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! scuff: 1.9% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! skid: 1.2% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! rubble: 2.0% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! dirt_crater: 0.8% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! dirt_skid: 1.0% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! crater_wall: 0.9% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_lightning: 1.1% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_lightning_big: 1.1% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! fracture_lightning: 1.4% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_fire: 1.5% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! burn_black: 0.6% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  ! scorch_ki: 1.1% of the pixels are magenta/pink/purple - never inside a decal (the engine tints purple at runtime); redraw in the DECALS.md palette
+  wrote public/preview/decals/decals_base_1.png
+  wrote public/preview/decals/decals_base_2.png
+  wrote public/preview/decals/decals_chakra.png
+  wrote public/preview/decals/decals_lightning.png
+  wrote public/preview/decals/atlas.json
+  cleaned variants written back to 19 folder(s) under art/decals/frames/
+
+done: 0/0 character(s) packed, vfx skipped, crowd skipped, 19 decal(s), 18 warning(s).
