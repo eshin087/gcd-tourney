@@ -1,4 +1,6 @@
-# Neutral height calibration v01 — needs review
+> APPROVED: user approved this lineup and all four neutral sources on2026-10-11. Historical generation/measurement notes follow. Full-frame redraw now authorized; use APPROVED_CAST_BASELINE.md.
+
+# Neutral height calibration v01 — approved 2026-10-11
 
 User authorized the recommended neutral comparison on 2026-10-11. Four separate built-in imagegen edits, one attempt each, preserve the recent design direction while replacing combat crouches with upright standing poses. Each source has its own height_neutral_v01_prompt.md. These are new reference candidates; matching existing combat anatomy is not established.
 

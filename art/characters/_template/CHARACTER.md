@@ -1,3 +1,5 @@
+> New characters must follow [approved cast baseline](../../scale/APPROVED_CAST_BASELINE.md): era/source, neutral stature, measured head/build, cast lineup approval, then animation gate. Do not apply an extra child discount or individual tall cap.
+
 # {{NAME}}: character brief
 
 > TEMPLATE. Copy `art/characters/_template/` to `art/characters/<id>/` and replace every

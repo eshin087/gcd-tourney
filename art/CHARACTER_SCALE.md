@@ -1,8 +1,10 @@
+> **Active baseline, user approved 2026-10-11:** [Approved cast baseline](scale/APPROVED_CAST_BASELINE.md) supersedes historical scale/build numbers below for the full redraw. Preserve common height ratios and individually measured anatomy; old values describe shipped art only. Claude owns formal spec/ADR integration.
+
 # Shared fighter scale and anatomy gate
 
 Status: required production check under ART-SCALE-01. User direction: retain Gojo's taller body and Killua's shorter body, while matching anatomical scale and preventing animation size changes. This operational guide implements ADR 0007 and ADR 0010; it does not change gameplay stats.
 
-## User decision 2026-10-10: Gojo's build is broadened (ART-GOJ-BUILD)
+## Historical user decision 2026-10-10 (superseded for new redraw): Gojo's build is broadened (ART-GOJ-BUILD)
 
 Gojo reads too thin and too small next to the cast: his packed idle has a 13-year-old's shoulders (deltoid ratio 0.23,
 the same as Killua's). Keep his approved head (size, face, blindfold, white hair) and his 215 px standing skeleton;
@@ -14,7 +16,7 @@ section below; the head half of it stands. Brief: `art/characters/gojo/BUILD_RED
 
 The user reaffirmed that the original approved Gojo head scale and size are preferred. Enlarging Gojo toward a universal 31px head was an incorrect interpretation and is rejected. Preserve model v03 and idle v02 proportions, and use the original packed Gojo as the visual reference for the cast. Height differences remain intentional. Measure approved anatomy before choosing correction factors; numeric targets must not override this direction. Other fighters still require review against this baseline.
 
-## Nominal contract (Gojo visual exception takes precedence)
+## Historical shipped nominal contract (superseded for new redraw)
 
 | Property | Naruto | Sasuke | Killua | Gojo |
 |---|---:|---:|---:|---:|
@@ -30,7 +32,7 @@ The user reaffirmed that the original approved Gojo head scale and size are pref
 
 A tilted head is measured along its skull-to-chin axis, not its vertical bounding box. Hair, bangs, hats, headbands, weapons, raised hands and effects do not count toward anatomical head or body height. Gojo's narrow adult face and Killua's youthful face remain distinct; equal anatomical scale does not mean identical silhouettes.
 
-## Canon height to standing skeleton
+## Historical height conversion (superseded for new redraw)
 
 Every fighter's `standingBodyPx` (ADR 0010) comes from his canon height in the depicted era:
 
