@@ -1,7 +1,5 @@
 # Naruto: image prompts (spec v2, generation order)
 
-> **ACTIVE2026-10-11:** replace historical proportion/scale paragraphs with the SCALE LOCK in [PROPORTION_REDRAW](PROPORTION_REDRAW.md) and [approved cast baseline](../../scale/APPROVED_CAST_BASELINE.md). Approved height_neutral.png is anatomical authority. Common233/242factor sets Naruto192.56198347107437px standing skeleton; head/limbs derive from neutral, not nominal7heads or31px. Pose/frame lists remain canonical; latest four-tail brief overrides oldbeam wording. Newidle may anchor batch provisionally, never autoapproved.
-
 > **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
 
 > Copy-paste prompts for the image generator, in the order to run them. **Spec v2**

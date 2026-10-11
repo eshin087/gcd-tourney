@@ -1,6 +1,0 @@
-Animefanart pixel sprite PART B continuing firstimage PartA. EXACTLY 4 fullbodyposes ONErow withlargemargins and nooverlap. Identity and lean longlimbed proportions from approvedneutral secondimage. Match rawhead andhair size of PartA, NEVER fit crouchedpose to sameboundingheight asuprightpose. SAME uniformscale allposes. Animationheavy. Draw ONLY remainingposes:
-5. Peak, fully in the air, knees bent and feet hanging with pointed toes: the right elbow points STRAIGHT UP in front of his face, its tip level with the top of his hair and never above it; hair tips dragged down, jacket hem lifted. Face: grin.
-6. Descending, the arm unfolding down, knees bending. Face: focused.
-7. Landing crouch. Face: lazy smile.
-8. Back in the relaxed stance with both hands in the pockets (same as idle frame 1). Face: lazy smile.
-Solid complete limbs only, no smears, trails, arcs, beams, speedlines or glows. Navyzippedjacket,pants,blackshoes,whitehair,blindfold. Rightfacing3/4camera. Flatmagenta hardedgepixelart <=48colours. ScaleLock productionbody220.402px skull23.20px, sourcearound3x consistentwithPartA. Entirelimbsinsideimage generousspace.
