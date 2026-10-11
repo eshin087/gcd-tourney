@@ -19,6 +19,11 @@ fs.mkdirSync(`${root}/characters/killua/raw`, { recursive: true });
 fs.mkdirSync(`${root}/scale`, { recursive: true });
 fs.copyFileSync(`${base}/combat_v01.png`, `${root}/characters/killua/raw/idle_v01.png`);
 fs.copyFileSync('art/scale/builds.json', `${root}/scale/builds.json`);
+// UI candidates are fitted only inside this diagnostic fixture; approved UI stays untouched.
+fs.mkdirSync(`${root}/characters/killua/ui`, { recursive: true });
+for (const [name, version] of Object.entries({ portrait: '02', cutin: '03', select: '02' })) {
+  fs.copyFileSync(`art/characters/killua/raw/ui_${name}_v${version}.png`, `${root}/characters/killua/ui/${name}.png`);
+}
 const animations = { idle: { frames: 1, bodyHeight: 145, version: 1, approvedVersion: 1 } };
 for (const [name, setting] of Object.entries(settings)) {
   const file = `${name}_v${String(setting.version).padStart(2, '0')}`;

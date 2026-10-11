@@ -115,3 +115,5 @@ Independent peer anatomy check of light1, light2, light4, heavy, block and speci
 Latest full production check after specialDown07: exit1,32 listed animation failures (production-pack-checkpoint.txt); character atlas not written. Diagnostic28ok/8unmeasured/5flagged excludes idle reference. Separate UI outputs are still written by the packer on character-gate failure; do not interpret UI output as a successful atlas. Build passes80modules.
 
 Browser check: all41 non-idle options present, specialDown07 selected and step/pause works, canvas renders neutral/combat/candidate, no console errors. Added packed-duration playback with optional slow review; non-looping moves intentionally repeat for inspection, not a gameplay transition simulation.
+
+UI review completeness: fitted portrait02/cutin03/select02 from their versioned raw sources in the isolated diagnostic fixture and displayed them in the native workbench. Real fixed-name UI remains unchanged; the normal failed pack rewrites existing approved UI, not these new candidates.

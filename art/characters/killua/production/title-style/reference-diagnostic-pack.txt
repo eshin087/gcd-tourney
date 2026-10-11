@@ -54,11 +54,15 @@ GCD Tourney sprite packer v2
     ~ stagger head 1.09 of idle (feet 1.35): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v04]
     ~ taunt head 1.07 of idle (feet 1.11): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v04]
     ~ win head 1.09 of idle (feet 1.03): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v04]
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
   - palette snapped to 48 colors
   - 6 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
   ! launched: 1 frame(s) reach into the 4px cell margin (#1 left 1px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw
   ! down: 1 lying frame(s) float above the floor line (#1: 19% of the body within 5px of y 240, worst fifth 16px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
   ! ko: 1 lying frame(s) float above the floor line (#0: 11% of the body within 5px of y 240, worst fifth 24px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  wrote public/preview/killua-reference-diagnostic/characters/killua/portrait.png
+  wrote public/preview/killua-reference-diagnostic/characters/killua/cutin.png
+  wrote public/preview/killua-reference-diagnostic/characters/killua/select.png
   wrote public/preview/killua-reference-diagnostic/characters/killua/sheet.png
   wrote public/preview/killua-reference-diagnostic/characters/killua/anims.json
 
