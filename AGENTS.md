@@ -16,6 +16,15 @@ Existing image/design approval gates still apply; permission to execute commands
 These rules supersede older requirements to ask again for routine technical actions or have the user
 perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
 
+Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
+Prepare the body file in a separate command, then run exactly this argument order:
+`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+(optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
+flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
+It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
+Existing chats may need restarting to load this manually installed project-local rule. Other actions,
+including merges and art approval, retain their existing policies.
+
 For this machine's restricted Windows profile, build and serve with the local `.codex/vite.mjs`
 adapter documented in docs/AI_COLLABORATION.md. It passed the production build without broadening reads;
 the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a
@@ -72,12 +81,13 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    - single frames: `raw/<anim>_NN.png` (`NN` = the 0-based frame number, no `v`), only for an animation
      delivered frame by frame. To fix one bad pose, see art/PIPELINE.md "Fixing frames": attempts are
      `raw/<anim>_NN_fixMM.png` (skipped by the packer) and the patched strip is the next `raw/<anim>_vNN.png`
-   - VFX: `art/vfx/raw/<effect>_vNN.png`; UI: `art/characters/<id>/raw/ui_<name>_vNN.png` (`portrait`,
+   - VFX: `art/vfx/raw/<effect>_vNN.png`; ground decals: `art/decals/raw/<name>_vNN.png` or its parts
+     `<name>_vNN_A.png`, `_B.png` ... (art/decals/README.md); UI: `art/characters/<id>/raw/ui_<name>_vNN.png` (`portrait`,
      `cutin`, `select`); shared UI: `art/ui/raw/<asset>_vNN.png`
    - images the user made by hand in ChatGPT get the same names and the same review
-6. **Pack**: `npm run sprites <id>` (or `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` for world art
+6. **Pack**: `npm run sprites <id>` (or `node tools/pack-sprites.mjs vfx crowd stage npc ui decals --candidates` for world art
    waiting for review: it writes the git-ignored `public/preview/`, seen with `?art=custom`; `npm run sprites vfx`
-   / `crowd` / `stage` / `npc` / `ui` ship approved art only). Read the report: which file it used per
+   / `crowd` / `stage` / `npc` / `ui` / `decals` ship approved art only). Read the report: which file it used per
    animation, packed anims, missing CORE anims, frame-count mismatches, clipped frames, palette warnings.
 7. **QA** the output in `art/characters/<id>/frames/<anim>/` and in the game
    (`npm run dev`, then `http://127.0.0.1:5188/?fight=<id>,<id>&mode=solo&art=custom&debug`). The Sprite
@@ -146,7 +156,7 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
   `art/characters/<id>/hitboxes.json` overrides (frame-local px in the final 256×256 cell, keyed by
   animation, then the 0-based frame number = the `NN` in `<anim>_NN.png`). Never hand-edit
   `public/characters/<id>/anims.json`.
-- Never hand-edit `public/characters/**` or `public/vfx|crowd|stage|npc|ui/**`. They are packer outputs.
+- Never hand-edit `public/characters/**` or `public/vfx|crowd|stage|npc|ui|decals/**`. They are packer outputs.
 - Prompts describe **visual traits** (hair, outfit, colors, silhouette) and say "anime fan-art sprite".
   Don't depend on character or artist names. If the image generator refuses, use the fallback wording in
   the PROMPTS file.

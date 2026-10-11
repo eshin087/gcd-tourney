@@ -15,7 +15,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 [Raw generations](#raw-generations) · [Animation list](#animation-list) ·
 [Strikes and contact zones](#strikes-and-contact-zones) · [Effect anchor points](#effect-anchor-points) ·
 [anims.json](#animsjson) · [Hitboxes and hurtboxes](#hitboxes-and-hurtboxes) · [Fallbacks](#fallbacks) ·
-[UI images](#per-character-ui-images) · [VFX atlas](#vfx-atlas) · [Files and naming](#files-and-naming) ·
+[UI images](#per-character-ui-images) · [VFX atlas](#vfx-atlas) · [Ground decals](#ground-decals) · [Files and naming](#files-and-naming) ·
 [Packer](#packer) · [Game-side contract](#game-side-contract)
 
 ## Glossary
@@ -44,7 +44,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 | sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 175 frames = 11 rows = 2816 px) |
 | facing | **right** (the engine mirrors the sprite when the fighter faces left) |
 | pivot | **[128, 240]**: x 128 = midpoint between the feet / body center line; y 240 = floor line. Soles touch y 240, 16 px empty below |
-| airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air) |
+| airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air). Lying poses are drawn **side-on from the same 12 degree camera**, never from above: head, back, hips and legs rest on y 240 along the body (packer ground check: at least 40 % of the body's width within 6 px of y 240, no fifth of its length more than 12 px above it, at most bodyHeight x 1.15 tall; see [Lying poses](#lying-poses), ADR 0020) |
 | pixelsPerUnit | **128** (a 200 px standing body is about 1.56 world units, about the same world size as v1 and the placeholder) |
 | colors | at most **48** per character (the packer warns above 64) |
 | outline | 1 px dark outline (selective / colored outline allowed) |
@@ -174,7 +174,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `launched` | 2 | yes | - | 136 | **yes** | 70 each | knocked flying backwards, body arched back diagonally (not fully horizontal), limbs flailing (loop) |
 | `spin` | 4 | yes | - | 160 | - | 60 each | tumbling head over heels through the air (one full backward rotation, loop) |
 | `airRecover` | 3 | - | - | 180 | - | 50 50 60 | backflip recovery in mid-air |
-| `down` | 2 | - | - | 96 | **yes** | 80 420 | hitting the ground, then lying flat on the back, head toward screen-left |
+| `down` | 2 | - | - | 96 | **yes** | 80 420 | hitting the ground, then lying flat on the back, head toward screen-left; side-on, not seen from above ([Lying poses](#lying-poses)) |
 | `getup` | 5 | - | - | 204 | **yes** | 70 60 60 80 70 | kip-up from lying on the back to standing |
 | `charge` | 4 | yes | - | 198 | **yes** | 50 each | powering up: wide stance, fists clenched at the sides, shouting upward (loop) |
 | `throw` | 4 | - | 1/1/2 | 201 | - | 50 60 70 50 | throwing a projectile in mid-air: arm cocked back, whipped forward, follow-through |
@@ -182,7 +182,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `beamFire` | 3 | yes | - | 198 | **yes** | 50 each | firing a beam: both arms thrust straight forward, palms open, shouting (loop) |
 | `vanish` | 2 | - | - | 221 | - | 50 each | crouch and blur before teleporting |
 | `stagger` | 4 | yes | - | 207 | - | 150 each | dizzy stagger (loop) |
-| `ko` | 1 | - | - | 64 | - | 500 | knocked out, lying flat on the back, head toward screen-left |
+| `ko` | 1 | - | - | 64 | - | 500 | knocked out, lying flat on the back, head toward screen-left; side-on, not seen from above ([Lying poses](#lying-poses)) |
 | `special` | 8 | - | 3/3/2 | 204 | **yes** | 120 120 120 120 120 160 110 70 | signature rush move: 3 frames charging the technique in hand, 2 running frames holding it forward, 1 thrust, 2 recover |
 | `intro` | 4 | yes | - | 210 | - | 150 each | pre-fight intro pose (character-specific attitude, loop) |
 | `taunt` | 2 | yes | - | 212 | - | 250 each | confident taunt / pointing at the opponent (loop) |
@@ -208,6 +208,27 @@ long, so:
 - `launched` is **arched diagonally**, not fully horizontal.
 - Wide strikes (`light3`, `light4`, `airLight2`, `airLight3`) must keep the back foot and hair inside
   x 4 and the striking foot inside x 251; the contact zones below already respect that.
+
+<a id="lying-poses"></a>
+
+**Lying poses** (`ko`, the resting `down` frame, the first `getup` frame; [ADR 0020](../docs/decisions/0020-lying-pose-ground-contact.md)).
+The body lies on the floor and the camera sees it **from the side**, from the same spec camera as every other pose
+(about 12 degrees down), never from above: a spread-eagle seen from overhead touches y 240 with one hand or shoe and
+hangs its head 15-35 px in the air, which reads as floating in the game. Draw:
+
+- the **back of the head, the shoulder blades, the back, the hips, the backs of the legs and the heels** all on one
+  horizontal floor line (y 240), arms limp along the sides on the floor; the far limbs at most about 8 px higher than
+  the near ones (the 12 degree camera), the chest turned only slightly toward the viewer;
+- the pose **flat and long**: about 3 times as wide as it is tall, no higher than the table's body height (`ko` 64,
+  `down` 96 on the bounce frame, the resting frame lower); a bent knee stays low;
+- the same character scale as the idle (SCALE LOCK): a lying body is as long as the standing one is tall, plus
+  the hair and the feet; never enlarge it to fill the canvas.
+
+The packer checks every resting lying frame and warns `<anim>: N lying frame(s) float above the floor line` unless at
+least **40 %** of the body's columns have their lowest pixel within **6 px** of y 240, **no fifth** of the body's length
+is more than **12 px** above it at its lowest, and the frame is at most **bodyHeight x 1.15** tall (px at a 200 px
+standing body, scaled with `standingBodyPx`). `down`'s bounce frame and `getup`'s rising frames may leave the floor.
+The game lays the contact shadow along the whole lying body (anims.json `footprint`).
 
 ## Strikes and contact zones
 
@@ -309,6 +330,9 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
   idle), `feet`, `verdict` (`ref ok uniform drift pop unmeasured exempt`), `v` (the strip's version), `frames` (each
   frame's head scale) and `boxes` (each frame's head box). `?scaleaudit` logs the flagged strips as they play, the
   test lab draws the boxes, `scaleReport()` (`?debug`) lists them. The game ignores it otherwise.
+- `footprint` (only when the pack has lying frames): `{ "<sheet frame>": [x0, x1] }`, the opaque x span (inclusive
+  cell px) of every `ko` and `down` frame and the first `getup` frame. The engine stretches the contact shadow along
+  it ([Lying poses](#lying-poses)).
 
 ## Hitboxes and hurtboxes
 
@@ -422,6 +446,48 @@ Engine names are fixed. Brief: `art/vfx/EFFECTS.md`. VFX cells did not change in
 | `crater` | 3 | static (3 random variants) | full color | decal: center (64, 64), drawn straight top-down | cracked floor decal; 3 variants, one picked at random (not an animation) |
 | `lines` | 4 | 40 | white (tinted) | center | radial manga impact lines |
 
+The `crater` effect is superseded by the ground decals below (the engine draws ground damage with them);
+it stays in the atlas only as long as the engine still reads it. No new `crater` art.
+
+## Ground decals
+
+Cracks, craters, scorches and scars left on the ring, the grass, the ki barrier and the stand walls
+([ADR 0024](../docs/decisions/0024-ground-damage-decals.md)). Custom art replaces the procedural decals
+(`src/art/decalPainter.js`) name by name. Engine names are fixed. Brief: `art/decals/DECALS.md`;
+prompts: `art/decals/PROMPTS.md`; workflow and packing notes: `art/decals/README.md`.
+
+- **Own atlas, not VFX**: `ppu` **64** (the approved ring floor's density): a 256 px cell = 4 world
+  units, a 512 px cell = 8. The engine scales a decal to the size the hit calls for, so the cell is the
+  whole decal, cracks included.
+- **31 names** in 7 style groups (`base`, `edge`, `lightning`, `fire`, `chakra`, `cursed`, `ki`), cells
+  256 x 256, 512 x 512, 256 x 128, 512 x 128 or 512 x 256, 2-8 variants each (143 in all). The table is
+  in `art/decals/README.md` and `DECAL_SPECS` in `tools/pack-decals.mjs` (the manifest restates it in
+  `decals.items`; drift is warned).
+- **Modes**: `flat` decals are drawn **straight top-down** with **radial shading only** (the engine
+  rotates them freely and lights them); `wall` decals (`barrier_crack`, `crater_wall`) are face-on and
+  never rotated. **Directional** decals are drawn with the motion **left to right**.
+- **Colors**: hard pixel art, binary alpha, **<= 24 colors per name**, palettes in `DECALS.md`.
+  **Hot key**: pure **#FFFFFF** marks glowing hot seams in the hot-key names (the engine glows them in the
+  fighter's tint, then cools them); no other pixel is pure white. `barrier_crack` is **white only**
+  (tinted, drawn additive). Never magenta, pink, purple or violet.
+- **Raw**: `art/decals/raw/<name>_vNN.png` on a 1536 x 1024 magenta canvas, the variants in one row, or
+  **parts of one version** `<name>_vNN_A.png`, `_B.png`, `_C.png` (joined in letter order by the packer).
+  Rejected versions move to `art/decals/raw/_rejected/`. Final cells: `art/decals/frames/<name>/<name>_NN.png`.
+- The packer splits each image into its count from `DECALS.md` (extra pieces such as the halves of a
+  broken ring are joined by slot, in order), scales each image so its largest variant fills **97%** of the
+  cell (`erasure_trench` tiles: every variant is stretched to the full width), centers every variant,
+  snaps near-white to the hot key in hot-key names and tones it down elsewhere, converts the tinted name
+  to greyscale, and caps colors at 24 with the hot key kept exact.
+- **Packer output** `public/decals/atlas.json` + one PNG page per page set (base + edge = the floor set,
+  chakra + ki, lightning + fire, cursed: `decals_<set>.png`, or `decals_<set>_1.png`, `_2.png` ... when a
+  set needs several), each <= 2048 x 2048, a name never split across pages. A match loads the floor
+  pages (2) plus one element set per fighter: at most 4, the engine's cap (the report checks it):
+  `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>": { "page", "w", "h", "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "tile"?, "version" } } }`.
+  Only approved names ship; the rest stay procedural. `--candidates` writes `public/preview/decals/`.
+- **Style sheet first**: `art/decals/reference/decal_style_sheet_vNN.png` needs the user's approval; the
+  approved copy `decal_style_sheet.png` is attached to every decal prompt, and the claim queue holds the
+  decal batches back until it exists.
+
 ## Files and naming
 
 **Versioning rule (ADR 0007).** Every generated image gets a two-digit version suffix `_vNN` (`v01`,
@@ -463,6 +529,8 @@ art/characters/<id>/
 art/vfx/raw/<effect>_vNN.png      VFX strip candidates (highest version packed); rejected -> art/vfx/raw/_rejected/
 art/vfx/reference/vfx_style_sheet_vNN.png   VFX style-sheet candidates; approved one copied to vfx_style_sheet.png
 art/vfx/raw/_proposed/<charId>_<effect>_vNN.png   character-specific effect art waiting for engine support
+art/decals/raw/<name>_vNN.png     ground-decal candidates (or parts <name>_vNN_A.png, _B.png ... of one version); rejected -> raw/_rejected/
+art/decals/reference/decal_style_sheet_vNN.png   decal style-sheet candidates; approved one copied to decal_style_sheet.png
 art/ui/raw/<asset>_vNN.png        shared UI candidates (logo, title art); approved one cleaned into art/ui/final/
 art/REVIEW.md                     the review queue: one row per candidate
 ```
@@ -485,6 +553,7 @@ npm run sprites            # every character
 npm run sprites naruto     # one character
 npm run sprites vfx        # the VFX atlas (approved effects only)
 npm run sprites crowd      # the crowd atlas (approved spectators only)
+npm run sprites decals     # the ground-decal atlas and pages (approved decals only)
 npm run test:sprites       # packer regression test (after any change to tools/)
 npm run sprites naruto -- --update-manifest   # also raise status / version in manifest.json
 ```
@@ -546,5 +615,7 @@ Implemented by the lead engineer (Claude) in `src/`; documented here so art and 
 - It loads `portrait.png` / `cutin.png` when present.
 - It loads `public/vfx/atlas.png` + `atlas.json` when present (approved effects only; missing effects stay
   procedural). `?art=custom` prefers the unapproved candidates in `public/preview/` (local only).
+- It loads `public/decals/atlas.json` and the pages it needs when present and merges them per name over the
+  procedural decals (one `[decals]` console line; any error falls back to procedural).
 - Combat uses 2.5D lanes: attacks fire along the screen horizontal and auto-step to line up
   depth; a hit needs hitbox/hurtbox overlap **and** the same lane.

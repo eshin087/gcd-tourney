@@ -387,6 +387,7 @@ export function buildArena(scene) {
   const R = Math.random;
   const tierStep = 1.25, tierRise = 0.7, wallH = 1.25;
   const TIERS = 6; // a packed tournament: ~500 seats so a 500+ spectator roster rarely repeats
+  const standWalls = []; // the brick faces toward the ring, where KO crashes leave holes (ground.wallCrater)
   const addCrowdRow = (x0, z0, x1, z1, y, density = 1.05, skipFn = null) => {
     const len = Math.hypot(x1 - x0, z1 - z0);
     const n = Math.floor(len / density);
@@ -404,6 +405,7 @@ export function buildArena(scene) {
     const zA = -13, zB = 13;
     const L = zB - zA;
     world.add(box(0.4, wallH, L, lambert(repeatTex(brickTex, L / 2, 1)), x0, wallH / 2, 0));
+    standWalls.push({ axis: 'x', at: x0 - s * 0.2, normal: -s, min: zA, max: zB, top: wallH });
     for (let i = 0; i < TIERS; i++) {
       const h = wallH - 0.35 + i * tierRise;
       const xc = x0 + s * (0.2 + tierStep * (i + 0.5));
@@ -428,6 +430,7 @@ export function buildArena(scene) {
     const xc = (xa + xb) / 2, L = Math.abs(xb - xa);
     const z0 = 12.8;
     world.add(box(L, wallH, 0.4, lambert(repeatTex(brickTex, L / 2, 1)), xc, wallH / 2, z0));
+    standWalls.push({ axis: 'z', at: z0 - 0.2, normal: -1, min: Math.min(xa, xb), max: Math.max(xa, xb), top: wallH });
     for (let i = 0; i < TIERS; i++) {
       const h = wallH - 0.35 + i * tierRise;
       const zc = z0 + 0.2 + tierStep * (i + 0.5);
@@ -514,6 +517,9 @@ export function buildArena(scene) {
     crowd: crowd.mesh,
     seats: crowdPos.length,
     gong: disc,
+    // for ground damage (ground.setSurface): floor slabs use the ring's own materials (stage art swaps their
+    // texture in place), KO holes go on the stand walls
+    surface: { slabTop: topMat, slabSide: sideMat, walls: standWalls },
     update(time, excite) {
       const u = crowd.mesh.material.uniforms;
       // a sudden jump in excitement (KO, super, clash) makes the stand gasp, then it fades

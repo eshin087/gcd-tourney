@@ -563,20 +563,24 @@ Backward flip, counter-clockwise on screen, landing-ready like a cat.
 
 **ADR 0007 pose: lying flat with the head toward screen-left** (about 190 px long at his size).
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f1.
+
 - **f0** (short): his back slams flat onto the floor from the shoulders to the hips (the whole back is
   the lowest part, so the pose stays centered); knees bent and lifted toward the upper-right by the
   bounce, arms flung out. Eyes shut, mouth open. Hair splashes out to the left. The tallest frame (87),
   about 165 px wide.
-- **f1** (long hold): lying flat on his back, arms out at the sides, legs straight. Eyes closed,
-  grimacing. Shirt splayed, the white hem showing.
+- **f1** (long hold): lying flat on his back, seen side-on (head, back, hips and heels on the floor line), arms
+  out along the floor at the sides, legs straight. Eyes closed, grimacing. Shirt splayed, the white hem showing.
 
 <a id="ko"></a>
 
 ### ko: 1 frame
 
-- **f0**: **lying flat on his back, head toward screen-left** (about 190 px long, 58 px tall),
-  completely limp, arms splayed, one knee only slightly bent (a high knee would make the frame taller
-  than 58). Eyes closed, mouth slightly open. Hair spread on the floor, shirt splayed.
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f0.
+
+- **f0**: **lying flat on his back, head toward screen-left, seen side-on** (about 190 px long, 58 px
+  tall), completely limp, arms loose along the floor, one knee only slightly bent (a high knee would make the
+  frame taller than 58). Eyes closed, mouth slightly open. Hair spread on the floor, shirt splayed.
 
 <a id="getup"></a>
 

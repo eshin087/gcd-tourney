@@ -12,6 +12,7 @@
     "sprites": "node tools/pack-sprites.mjs",
     "review:export": "node tools/export-art-review.mjs",
     "test:sprites": "node tools/test-pack-sprites.mjs",
+    "test:music": "node tools/test-music.mjs",
     "queue": "node tools/queue.mjs",
     "status": "node tools/status.mjs",
     "lineup": "node tools/lineup.mjs",

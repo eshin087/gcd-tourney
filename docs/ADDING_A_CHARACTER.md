@@ -52,7 +52,8 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 | `id`, `name`, `subtitle` | identity. `name` is upper-case and shows in the HUD and cards. |
 | `look` | one line of **visual traits** (hair, eyes, outfit, colors). The Sprite Lab prompt builder uses it. |
 | `color` | signature UI and aura color (hex) |
-| `aura`, `auraCore` | aura RGB (0..1) for flame tongues and the core streaks |
+| `aura`, `auraCore` | aura RGB (0..1) for flame tongues and the core streaks (ultimate wind-ups, modes) |
+| `charge` | optional: **how they power up** while holding Special ([ADR 0023](decisions/0023-canon-power-up-styles.md)). Without it they get `CHARGE_DEFAULT` (`src/game/chargeFx.js`), a restrained ki aura in `color` / `auraCore`. See below. |
 | `beam` | `{ core, mid, edge, name, width? }`: ultimate beam colors, its name in the cut-in, optional width |
 | `specialName`, `projectileName` | display names |
 | `special` | a key in `SPECIALS` (`'rasengan'`, `'chidori'`, or a new one, see step 3) |
@@ -66,6 +67,27 @@ Copy `src/characters/naruto.js` to `src/characters/<id>.js` and change the field
 
 Register it in `src/characters/index.js` (`import` + add it to `ROSTER`). Keep the existing order. New
 characters go at the end.
+
+**The power-up (`charge`).** Ask how the character powers up in their own series and write that as data; the four
+shipped blocks (naruto, sasuke, killua, gojo) are the examples. Keys merge over `CHARGE_DEFAULT`:
+
+- `palette`: named colors (`main`, `core`, `dark`, `pebble`, any extra like `eye`, `edge`, `spark`) that the
+  other fields refer to by name.
+- `shell`: the outline drawn on the body: `kind` (`flame`, `boil`, `dark`, `electric`, `shimmer`), `width` and
+  `opacity` as `[start, full]` ranges, `color` / `core` (outer and inner band), `lift`, `noise`, `speed`, `dash`.
+- `emit`: a short list of emitters `{ fx, from, every, max, bar, scale, vel, life, color, opacity, glow, front,
+  frame, random, spin, fade, drag, hold }`. `from` is `body`, `back`, `head`, `chest`, `hips`, `feet`, `floor` or
+  `ring`; `bar` is the ki level (0-3) it unlocks at; `vel` is `[right, up, toward camera]` on screen; `hold: true`
+  keeps one effect alive behind the body (Naruto's tail).
+- `eyes`: `{ at: [forward, up], color, bar }`, a glint measured on the spec v2 `charge` frame (re-check it in the lab
+  after a redraw).
+- `ground`: `{ dustEvery, crackAt, rumble }` (`crackAt: 0` keeps the floor intact). `bar` / `max`: the beats when a
+  bar fills and when the gauge is full (`ring`, `ripple`, `burst`, `dust`, `flash`, `lines`, `shake`, `punch`,
+  `fx`). `sound`: `hum`, `boil`, `crackle` or `calm`.
+
+The engine clamps whatever the block asks for to the restraint rules (at most 16 live sprites, glow and opacity
+caps, no focus lines while holding, a faint dark flash only at MAX). A new effect sprite is a new VFX atlas name
+with a procedural fallback (art/vfx/README.md, "Adding a new effect"). Check it with the lab's **Charge to MAX** row.
 
 ## 2. 3D placeholder model (Claude)
 

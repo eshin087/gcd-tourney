@@ -25,7 +25,7 @@ retired; its one candidate is archived and listed as rejected in [REVIEW.md](REV
 | **ChatGPT** (optional, run by the user) | the prompt block you were given + the attached reference images; for context [STYLE_GUIDE.md](STYLE_GUIDE.md) | draw exactly what the block asks: one horizontal strip, facing right, about 6.5 heads tall, flat #FF00FF background |
 | **Claude** (Claude Code) | [SPEC.md](SPEC.md) (game-side contract), `CLAUDE.md` at the repo root | integrate, tune hitboxes/moves, extend the packer |
 
-> **World art** (500+ crowd spectators, stage set, announcer/NPCs, UI, VFX) and the parallel claim
+> **World art** (500+ crowd spectators, stage set, announcer/NPCs, UI, VFX, ground decals) and the parallel claim
 > queue: start at [WORLD_ART.md](WORLD_ART.md) and [queue/README.md](queue/README.md) (ADR 0008).
 
 ## The files
@@ -41,6 +41,7 @@ retired; its one candidate is archived and listed as rejected in [REVIEW.md](REV
 | [characters/_template/](characters/_template/) | copy-me folder for a new character |
 | `characters/<id>/` | one folder per fighter: `CHARACTER.md`, `ANIMATIONS.md`, `MOVES_AND_VFX.md`, `PROMPTS.md`, `reference/`, `raw/`, `frames/`, `ui/` |
 | `vfx/` | shared effects (sparks, bursts, Rasengan orb, lightning...): `EFFECTS.md`, `PROMPTS.md`, `raw/`, `frames/` |
+| [decals/](decals/) | ground damage (cracks, craters, element scorches, wall holes; ADR 0024): `README.md`, `DECALS.md`, `PROMPTS.md`, `reference/`, `raw/`, `frames/` |
 | [ui/](ui/) | shared UI art: logo, title-screen key art |
 
 ```
@@ -52,6 +53,7 @@ art/
     naruto/      (same layout, filled in)
     sasuke/      (same layout, filled in)
   vfx/           README.md EFFECTS.md PROMPTS.md reference/ raw/ (raw/_proposed/, raw/_rejected/) frames/<effect>/
+  decals/        README.md DECALS.md PROMPTS.md reference/ raw/ (raw/_rejected/) frames/<name>/
   ui/            README.md PROMPTS.md raw/ final/
 ```
 
