@@ -344,8 +344,9 @@ Banners slide in at the screen edge of the fighter who did it, stacked newest on
 PARRY! and BURST! (big), DODGE!, AIR DODGE!, TECH!, TECH ROLL!, THROW BREAK, REVERSAL (the first hit of an attack
 started within 3 f of leaving hit stun, block stun, wake-up, a tech or a stagger), PUNISH! (a fresh combo on a
 fighter in their own recovery: a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag over
-6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam) and WAVEDASH (small, once per 6 s per
-fighter). The table is `TAGS` in `src/ui/hud.js` and the one entry point is `Game.tag(f, id)`; special names and
+6 f, a whiffed throw, a kit move's recovery, a blocked burst, a beam), WAVEDASH (small, once per 6 s per
+fighter) and BACKSTEP (ADR 0025: a back dash's 8 invulnerable frames let a swing pass, or carried them just out of
+its reach). The table is `TAGS` in `src/ui/hud.js` and the one entry point is `Game.tag(f, id)`; special names and
 kit callouts keep their own row, so they never wipe a banner out.
 
 ### Blocking
@@ -520,7 +521,7 @@ combo against a victim who has one): stop after hit 3-5, guard, punish the recov
 
 **Showcase** (ADR 0016, `src/game/aiShow.js`): every CPU keeps a match-long count of the tools it has used
 (kit specials, the second super, the ultimate or beam, vanish, super dash, wavedash, parry, spot dodge, air
-dodge, throw, charge) and weights its options by `bias(tool)`: up to `1 + 3·push` for a tool the viewer
+dodge, throw, charge, burst, backstep, vanish war) and weights its options by `bias(tool)`: up to `1 + 3·push` for a tool the viewer
 hasn't seen. It only reweights options the brain already judged sensible, so the fight stays real. `push`:
 Easy 0.3, Normal 0.5, Hard 0.7, IMPOSSIBLE 0.35, showman 1. The CPUs end strings with the special the player
 hasn't seen, pick the super or ultimate by the same weights, and spend more of their ki on the kit.
@@ -551,6 +552,24 @@ powers up) for its first three-bar move of the match. When both fighters' ultima
 Four-Tails, a beam), that first three-bar moment is reserved for a **clash** (ENG-056, once per match): it keeps
 three bars, fires its ultimate only once the opponent has three too, and otherwise answers theirs; it gives up for
 the round after 10 s at three bars or with under 20 s on the clock. The training dummy plays any clash at the CLASH level picked in the lab.
+
+**Defense showcase** (ADR 0025). Every CPU times threats to the drawn strike (`reachT`: the first active frame whose
+hit box reaches in front of the body), re-picks an answer it chose while it couldn't act, and tracks a vanish or
+teleport strike from the smoke to the kick; `CpuBrain` reacts on a live-frame clock. Each CPU rolls a hidden
+**defense persona** per match (parrier, dancer, phantom, rock, scrapper; `DEF_PERSONAS` in `aiShow.js`, jittered per
+match and per round) that reweights its answers: fully for the showman and spectated Easy-Hard (their technique rates
+also ×1.5, capped at 0.9), normalized for IMPOSSIBLE, INSANE and Easy-Hard against a person (it changes which
+technique comes out, not how often one does). The showman (`DEF_KNOBS` in `aiMaster.js`, methods in
+`src/game/aiDefense.js`) also: reacts in 6 frames; wavedashes out of a shot's line, backsteps through a swing,
+vanishes back against a vanish (the **vanish war**); guesses at an approach (parry, dodge, backstep, wavedash or jump
+out, a jab to stuff it, a vanish behind them) and at the next hit of a blocked string (parry it on rhythm,
+guard-cancel vanish); reverses at the end of hit stun when the combo has a gap and on wake-up (parry, dodge,
+backstep); escapes after an air tech (air dodge away or through, waveland, vanish, super dash); rotates its answers
+(`rotate` per repeat among its last four, half as many dodges within 150 f of the last); and after a parry picks a
+jab, heavy, throw, vanish or a **rally**: a hit timed to land after their stagger (a raw rush or shot, a vanish that
+reappears as they recover, or a heavy already in sight), which they can parry back. IMPOSSIBLE and INSANE keep the
+sure jab. `game.brains.map((b) => b.show.report())` returns the persona, the answers picked (`defLog`) and carried
+out (`done`), parries, evades and rallies.
 
 ## Bread-and-butter route (reference)
 

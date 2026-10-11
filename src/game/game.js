@@ -673,7 +673,11 @@ export class Game {
       const along = sx * att.side;
       if (along > -0.25 && along < m.reach + 0.25 && Math.abs(sy) < (m.yTol ?? 1.25)) pt = { x: sx * 0.75, y: sy + 0.85 };
     }
-    if (!pt) return;
+    if (!pt) {
+      // a back dash carrying them just out of the swing's reach is a dodge too (BACKSTEP, ADR 0025)
+      if (evading && def.state === 'dash' && sx * att.side < (m.reach ?? 1.3) + 0.6) this.onEvade(def);
+      return;
+    }
     if (evading) { this.onEvade(def); return; }
     att.hitDone = true;
     // applied after both fighters moved this frame, so two attacks meeting on the same frame trade
@@ -1290,7 +1294,8 @@ export class Game {
   onEvade(f) {
     if (f.dodgeCalled) return;
     f.dodgeCalled = true;
-    this.tag(f, f.state === 'airDodge' ? 'airDodge' : 'dodge');
+    f.evades = (f.evades || 0) + 1; // the CPU showcase report (ADR 0025)
+    this.tag(f, f.state === 'airDodge' ? 'airDodge' : f.state === 'dash' ? 'backstep' : 'dodge');
     this.excite = Math.min(1, this.excite + 0.1);
   }
 

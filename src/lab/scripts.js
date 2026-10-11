@@ -193,6 +193,10 @@ export const SCENARIOS = [
     id: 'wavedash', name: 'Wavedash', info: 'Jump, then Guard with a direction at once: a ground slide.',
     setup: { gap: 5 }, a: [tap(0, 'jump', { len: 2 }), { t: 2, btn: ['guard'], len: 3, stick: 'toward' }, { t: 5, stick: 'toward', len: 10 }], b: [],
   },
+  {
+    id: 'backstep', name: 'Backstep', info: 'The dummy swings a heavy; you back dash out of it (Dash with the stick away: 8 invulnerable frames), and BACKSTEP calls it out (ADR 0025).',
+    setup: { gap: 1.2 }, a: [tap(6, 'dash', { stick: 'away' })], b: [tap(0, 'heavy')],
+  },
   // combo escape (ADR 0022): the dummy's side is scripted, so these don't depend on the DUMMY TECH / BURST options
   {
     id: 'holdTech', name: 'Hold Guard to tech', info: 'You launch the dummy and stop; it holds Guard and techs on the first frame it can (TECH!). The stick picks the hop: away (default), toward, ↑ rise, ↓ drop.',

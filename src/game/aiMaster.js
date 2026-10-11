@@ -11,6 +11,7 @@ import { specialFor, kitOf, clashable, mergeOf, roarOf } from './kit.js';
 import { BeatPlan } from './clash.js';
 import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
+import { mixDefense, reachT } from './aiDefense.js';
 
 const BUTTONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -40,8 +41,28 @@ export const STYLES = {
   // techs and throw breaks, and some dropped combos
   insane: { beat: { sd: 2.6, miss: 0.03 }, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, cap: 0, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
   impossible: { beat: { sd: 1.6, miss: 0.012 }, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, cap: 0, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
-  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 8, parry: 0.45, dodge: 0.5, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
+  showman: { beat: { sd: 2.2, miss: 0.02 }, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, cap: 5, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
 };
+// Defense showcase knobs (ADR 0025), merged into STYLES below; a style without one reads it as 0 (off).
+// defPersona  strength of the per-match defense persona (aiShow.js): 1 = as is; below 1 it only changes which
+//             advanced answer comes out, never how often one does (the weights are normalized)
+// read        chance per approach to guess it (parry, dodge, backstep, wavedash out, jump out, stuff it with a jab)
+// stringRead  chance per blocked string hit to guess the next one (parry it, guard-cancel vanish, step out)
+// gapEscape   chance per hit stun / wake-up to reverse at its end (parry, dodge, backstep): beats only a gap
+// escape      chance to escape right after an air tech (air dodge away / through, waveland, vanish, super dash)
+// rally       weight of a flashy, non-guaranteed parry punish (a raw special, a vanish or a heavy timed to land after
+//             their stagger, so they can parry it back), rallyMax per exchange; rotate: weight factor per repeat of
+//             an answer among its last 4 (so a match rotates them)
+// wdDefense / backstep / vanishWar  weights of a defensive wavedash (out of a shot's line), a back dash through a
+//             melee swing (8 invulnerable frames) and a counter-vanish against a vanish
+const DEF_KNOBS = {
+  insane: { defPersona: 0.4 },
+  impossible: { defPersona: 0.4 },
+  showman: { defPersona: 1, read: 0.5, stringRead: 0.5, gapEscape: 0.6, escape: 0.5, rally: 2, rallyMax: 3, rotate: 0.5, wdDefense: 0.8, backstep: 0.8, vanishWar: 2 },
+};
+for (const k in DEF_KNOBS) Object.assign(STYLES[k], DEF_KNOBS[k]);
+// which persona column scales each answer
+const PERSONA_OF = { parry: 'parry', dodge: 'dodge', airdodge: 'airdodge', wavedash: 'wavedash', backstep: 'backstep', vanish: 'vanish', vanishWar: 'vanish', counter: 'counter', block: 'block', jumpOut: 'airdodge', stuff: 'read', sidestep: 'wavedash' };
 const BURST = DEFENSE.burst;
 
 // forward distance a lunging ground move still covers from frame t (its speed fades out over startup+active)
@@ -88,7 +109,7 @@ export class MasterBrain {
     // habits of the opponent, slowly forgotten: what it does after blocking, how often it jumps in, parries
     this.mem = { parries: 0, contacts: 0, jumps: 0, mashAfterBlock: 0, blockAfterBlock: 0 };
     this.lastOppState = '';
-    this.show = new Showcase(fighter, this.S.show);
+    this.show = new Showcase(fighter, this.S.show, this.S.defPersona ?? 0);
   }
 
   // ------------------------------------------------------------------ pad output
@@ -184,6 +205,7 @@ export class MasterBrain {
     this.trackOpponent(game, c);
     if (game.freeze > 0) return this.frozen(game, c);
     this.clock++;
+    if (this.pendingPunish && this.parryPunish(game, c)) return;
     if (this.recover(game, c)) return;
     if (this.holdBait()) return;
     if (this.ownMove(game, c)) return;
@@ -269,9 +291,31 @@ export class MasterBrain {
   // ------------------------------------------------------------------ frozen world
   // Super flash, vanish freeze, parry freeze: nothing moves but inputs still buffer. Keep guarding,
   // and right before the world restarts, buffer the punish after a parry.
+  // Gotcha: fighters don't update during a freeze, so a press read as a `.pressed` edge (Guard for a parry, Special,
+  // the vanish chord, Dash) made now is lost; only buffered() reads (Light, Heavy, Jump, the throw) survive. Anything
+  // else has to wait for the first live frame.
   frozen(game, c) {
     const f = this.f, o = f.opp;
-    const punish = o.state === 'held' && o.heldT > 6 && c.dist < LIGHT_REACH + 0.6 && (f.state === 'guard' || f.state === 'idle');
+    const free = f.state === 'guard' || f.state === 'idle';
+    // the showman varies its parry punish (ADR 0025), picked once per parry: what buffers (jab, heavy, throw) is
+    // pressed now, a vanish or a rally special on the first live frame (parryPunish)
+    if (this.S.rally && free && o.state === 'held' && !o.grab && f.parries !== (this.punKey ?? 0)) {
+      this.punKey = f.parries;
+      this.pendingPunish = this.pickParryPunish(c);
+      if (this.pendingPunish) this.resp = null;
+    }
+    const pp = this.pendingPunish;
+    if (pp && pp.buffered) {
+      if (game.freeze <= 3) {
+        if (pp.type === 'throw') this.throwNow();
+        else { this.tap(pp.type === 'heavy' ? 'heavy' : 'light', 2); this.route = {}; }
+        this.show.logDef('punish:' + pp.type, true);
+        this.pendingPunish = null;
+      }
+      return;
+    }
+    if (pp) return; // a vanish or a rally waits for the first live frame
+    const punish = o.state === 'held' && o.heldT > 6 && c.dist < LIGHT_REACH + 0.6 && free;
     if (punish) {
       // let go of Guard (Guard state ignores attacks) and buffer the jab for the first live frame
       this.resp = null;
@@ -291,12 +335,18 @@ export class MasterBrain {
     if (f.state !== 'launched' && f.state !== 'hitstun') this.burstPlan = null;
     if (f.state !== 'down') this.wake = 0;
     if (!f.grab) this.breakRoll = null;
+    // the stick held through a jump squat (wavedash(), jumpTo()) belongs to that squat: once it is over (a frame of
+    // slack for a press that waits on a release), a stale one would steer a later jump
+    if (this.wdDir && f.state !== 'jumpSquat' && this.clock - this.wdAt > 1) this.wdDir = null;
+    if (this.rev && this.reversal(c)) return true;
     switch (f.state) {
       case 'launched':
         if (this.techRoll === null) {
           this.techRoll = Math.random() < S.tech;
-          // where to: mostly back, over to their side when they're close, straight down, or up in place
-          this.techDir = pickW({ back: 0.5, toward: c.dist < 2.5 ? 0.2 : 0.05, down: 0.2, up: 0.1 });
+          // where to: mostly back, over to their side when they're close, straight down, or up in place (the
+          // defense persona leans it: a dancer hops away, a scrapper over them, a rock drops to the floor)
+          const P = (k) => this.show.pm(k);
+          this.techDir = pickW({ back: 0.5 * P('airdodge'), toward: (c.dist < 2.5 ? 0.2 : 0.05) * P('read'), down: 0.2 * P('block'), up: 0.1 * P('escape') });
         }
         // hold Guard to tech at the first gap, or roll on landing (ADR 0022); else ride it out and tap a late tech
         if (this.techRoll) {
@@ -313,10 +363,13 @@ export class MasterBrain {
         if (f.t >= this.wake && !f.ko) this.tap('light', 1);
         return true;
       case 'hitstun':
+        this.burstOut(c);
+        if (this.gapEscape(c)) return true;
         // block the moment the stun ends if they're still on top of us
         if (f.t >= f.stun - 2 && c.dist < 2.5) this.keep.add('guard');
-        this.burstOut(c);
         return true;
+      case 'block':
+        return this.stringRead(game, c);
       case 'burst':
       case 'techRoll':
         return true;
@@ -331,6 +384,8 @@ export class MasterBrain {
         this.teched = true;
         return true;
       case 'getup':
+        this.wakeRead(c);
+        return true;
       case 'vanish':
       case 'beamCharge':
       case 'beamFire':
@@ -359,7 +414,7 @@ export class MasterBrain {
   burstOut(c) {
     const f = this.f, o = f.opp;
     if (this.burstPlan == null && f.combo >= 3 && f.ki >= BURST.cost && f.burstUsed < BURST.perRound) {
-      const k = (f.hp < 350 || o.ki >= 300 ? 1.5 : 1) * (this.S.show >= 0.5 ? Math.sqrt(this.show.bias('burst')) : 1);
+      const k = (f.hp < 350 || o.ki >= 300 ? 1.5 : 1) * (this.S.show >= 0.5 ? Math.sqrt(this.show.bias('burst')) : 1) * this.show.pm('escape');
       this.burstPlan = Math.random() < (this.S.burst ?? 0) * k ? f.combo + Math.floor(Math.random() * 2) : 0;
     }
     if (this.burstPlan && f.combo >= this.burstPlan && f.canBurst()) {
@@ -462,14 +517,12 @@ export class MasterBrain {
       }
       if (m?.kind === 'dive') this.mx = c.toward;
     }
-    // showman, just teched out of a juggle with them close: air dodge away (sometimes through them)
+    // showman, just teched out of a juggle with them close: an escape, decided once per tech (ADR 0025)
     if (this.teched) {
       this.teched = false;
-      if (showy && !f.airDodged && c.dist < 3.5 && R() < 0.2 * this.show.bias('airDodge')) {
-        this.mx = R() < 0.3 ? c.toward : -c.toward;
-        this.tap('guard', 2);
-      }
+      this.esc = showy && c.dist < 3.5 ? this.pickEscape() : null;
     }
+    if (this.esc && this.airEscape(c)) return true;
     return false; // nothing of ours running: let the threat layer answer what's coming (air dodge)
   }
 
@@ -805,9 +858,11 @@ export class MasterBrain {
         const reach = (m.reach ?? 1.3) + travel + 0.55;
         const depth = Math.max(0, Math.abs(c.sd) - (Math.abs(c.sd) < 2.6 ? 0.1 * Math.max(0, A - o.t) : 0));
         if (Math.abs(c.sx) < reach && depth < 0.7 && Math.abs(c.dy) < (m.yTol ?? 1.25) + 0.8) {
-          // a rush connects once it has run the gap, not when its active phase starts
+          // a rush connects once it has run the gap, not when its active phase starts, and no move before its drawn
+          // strike reaches out (reachT)
           const run = m.rush ? Math.max(0, Math.abs(c.sx) - (m.reach ?? 1.3) - 0.2) / m.rush * 60 : 0;
-          add({ key: 'm' + this.oppSerial, kind: 'melee', frames: Math.max(0, A - o.t) + run + delay, len: B - Math.max(o.t, A), m, big: !!(m.big || m.special), unblockable: !!m.unblockable, rush: !!m.rush });
+          const at = Math.max(Math.max(A, o.t) + run, reachT(o, m));
+          add({ key: 'm' + this.oppSerial, kind: 'melee', frames: at - o.t + delay, len: B - Math.max(o.t, A), m, big: !!(m.big || m.special), unblockable: !!m.unblockable, rush: !!m.rush });
         }
       }
     }
@@ -815,8 +870,11 @@ export class MasterBrain {
       add({ key: 'sd' + this.oppSerial, kind: 'melee', frames: Math.max(0, (Math.hypot(c.dist, c.dy) - 1.0) / SUPER_DASH.speed * 60), len: 3, m: SUPER_DASH, big: true });
     }
     if (o.state === 'vanish') {
-      add({ key: 'v' + this.oppSerial, kind: 'melee', frames: Math.max(0, VANISH.hideFrames - o.t) + 7, len: 5, m: MOVES.vanishKick, big: true, behind: true });
-    }
+      // live frames to the kick: the rest of the hide, then vanishKick's startup (think() skips the arrival freeze)
+      const K = MOVES.vanishKick, key = 'v' + this.oppSerial;
+      this.strike = { key, name: 'vanishKick', vanish: true };
+      add({ key, kind: 'melee', frames: Math.max(0, VANISH.hideFrames - o.t) + reachT(o, K), len: K.active, m: K, big: true, behind: true, vanish: true });
+    } else add(this.strikeThreat(o));
     for (const p of game.projectiles) {
       if (p.owner !== o || p.dead) continue;
       const age = (p.P.life - p.life) * 60;
@@ -856,7 +914,36 @@ export class MasterBrain {
       if (along > -ob.r && perp < ob.r + 0.9) add({ key: 'ob' + this.oppSerial, kind: 'beam', frames: Math.max(0, (along - ob.r) / ob.S.speed * 60), len: 20 });
     }
     if (o.state === 'kit' && o.kitState) add(this.kitThreat(game, c, o.kitState));
+    // nothing real on its way: the showman may still guess at an approach (a real threat replaces the guess)
+    if (best) this.readTh = null;
+    else if (S.read) best = this.readApproach(c);
     return best;
+  }
+
+  // Approach read (ADR 0025, showman): they dash, run or wavedash in fast. Their jab would be a guess for anyone (5
+  // frames, under its reaction time), so it guesses too, once per approach: a synthetic threat timed to when a jab
+  // from them would land, answered like a real one (parry, dodge, backstep, wavedash or jump out, stuff it, block).
+  // A throw beats the guard and parry reads, a delayed jab beats the dodge: a real guess, not a free answer.
+  readApproach(c) {
+    const f = this.f, o = f.opp, S = this.S;
+    const rd = this.readTh;
+    if (rd) {
+      const left = rd.eta - (this.clock - rd.at);
+      if (left > -8 && o.state !== 'hitstun' && o.state !== 'launched') { rd.th.frames = Math.max(0, left); return rd.th; }
+      this.readTh = null;
+      return null;
+    }
+    if (c.ready !== 'ground' || this.readSerial === this.oppSerial || c.dist >= 3.4 || Math.abs(c.sd) > 0.8) return null;
+    const dash = o.state === 'dash' && !o.backDash;
+    if (!dash && o.state !== 'run' && o.state !== 'wavedash') return null;
+    const v = (o.vel.x * (f.pos.x - o.pos.x) + o.vel.z * (f.pos.z - o.pos.z)) / (c.dist || 1); // closing speed
+    if (v <= 3) return null;
+    this.readSerial = this.oppSerial;
+    if (Math.random() >= S.read * this.show.pm('read')) return null;
+    const eta = (Math.max(0, Math.abs(c.sx) - (dash ? DASH_LIGHT_REACH : LIGHT_REACH)) / v) * 60 + MOVES.light1.startup;
+    const th = { key: 'rd' + this.oppSerial, kind: 'read', frames: eta, len: 3, m: MOVES.light1 };
+    this.readTh = { th, eta, at: this.clock };
+    return th;
   }
 
   kitThreat(game, c, k) {
@@ -891,11 +978,28 @@ export class MasterBrain {
         // one threat from the hover to the slam (a new key at the slam would re-pick the answer too late)
         return { key: 'dv' + this.oppSerial + (k.phase === 'rise' ? 'r' : 's'), kind: 'melee', frames: Math.max(0, fall), len: 2, m: hit, big: true, dive: k.phase !== 'rise' };
       }
-      case 'teleport':
-        if (m.follow && !k.arrived) return { key: 'tp' + this.oppSerial, kind: 'melee', frames: Math.max(0, (m.startup ?? 0) + m.hide - o.t) + 3, len: 4, m: MOVES[m.follow], big: true, behind: true };
-        return null;
+      case 'teleport': {
+        // a teleport strike (Rhythm Echo, Substitution): through the arrival and its recovery to the follow-up's
+        // first active frame, then strikeThreat keeps the same key on the strike itself
+        const F = m.follow && MOVES[m.follow];
+        if (!F) return null;
+        const key = 'tp' + this.oppSerial;
+        this.strike = { key, name: m.follow };
+        return { key, kind: 'melee', frames: Math.max(0, (m.startup ?? 0) + m.hide + (m.recovery ?? 0) - o.t) + reachT(o, F), len: F.active, m: F, big: true, behind: true };
+      }
     }
     return null;
+  }
+
+  // The strike out of a vanish or a teleport (ADR 0025). It saw the smoke, so the kick keeps the threat it answered
+  // (same key, so the same answer, and no react gating: a 2-frame vanishKick would otherwise be invisible) until the
+  // strike's active frames are over.
+  strikeThreat(o) {
+    const st = this.strike;
+    if (!st || (o.state === 'kit' && o.kitState?.kind === 'teleport')) return null; // still on its way: kitThreat
+    const m = o.move;
+    if (o.state !== 'attack' || o.moveName !== st.name || !m || o.t >= m.startup + m.active) { this.strike = null; return null; }
+    return { key: st.key, kind: 'melee', frames: Math.max(0, reachT(o, m) - o.t) + o.hitstop, len: m.startup + m.active - Math.max(o.t, m.startup), m, big: true, behind: true, vanish: !!st.vanish };
   }
 
   // Pick the answer once per threat, at random among the ones that work against it, weighted by the style
@@ -905,20 +1009,41 @@ export class MasterBrain {
     const f = this.f, o = f.opp, S = this.S, sh = this.show;
     const r = c.ready;
     const d = { key: th.key, type: 'none' };
-    if (!r) return d;
+    // picked while it can't act (hitstop, a dash's first frames, a throw): execDefense picks again once it can
+    if (!r) return { ...d, retry: true };
     const ki = f.ki;
     const now = f.pad.frame;
     const lockFree = (lead) => now + lead - f.parryTry >= PARRY.lockout;
-    const w = {}, ans = {};
+    // weights: the style's, × the Showcase bias for unseen tools, × the defense persona (ADR 0025), × `rotate` per
+    // repeat among the last four answers (showman), so a match cycles through its answers
+    const w = {}, base = {}, ans = {}, P = sh.persona, recent = this.recentDef || (this.recentDef = []);
     const offer = (key, weight, resp, tool) => {
       if (!(weight > 0)) return;
-      w[key] = weight * (tool ? sh.bias(tool) : 1);
+      base[key] = weight * (tool ? sh.bias(tool) : 1);
+      let x = base[key] * (PERSONA_OF[key] ? sh.pm(PERSONA_OF[key]) : 1);
+      if (S.rotate) for (const t of recent) if (t === (resp.type ?? key)) x *= S.rotate;
+      w[key] = x;
       ans[key] = { ...d, ...resp };
     };
-    const decide = () => ans[pickW(w)] ?? d;
+    const decide = () => {
+      // a weak persona (IMPOSSIBLE, INSANE) only reshuffles the advanced answers: their total stays the style's
+      if (P && P.s < 1) {
+        let b0 = 0, b1 = 0;
+        for (const k in w) if (k !== 'block' && k !== 'none') { b0 += base[k]; b1 += w[k]; }
+        for (const k in w) if (k !== 'block' && k !== 'none' && b1 > 0) w[k] *= b0 / b1;
+        if (w.block) w.block = base.block;
+      }
+      const a = ans[pickW(w)] ?? d;
+      if (a.type !== 'none') {
+        sh.logDef(a.type);
+        if (a.type !== 'block') { recent.push(a.type); if (recent.length > 4) recent.shift(); }
+      }
+      return a;
+    };
     // a spot dodge is intangible 3-4 frames after the press (Guard, neutral, ↓, dodge frame 2): too late below that
     const dodgeLead = f.state === 'guard' ? 4 : 5;
     const canDodge = th.frames >= dodgeLead;
+    const stale = this.staleK();
     // their beam, orb or pounce on its way and an ultimate of ours that can meet it: answer it (a rhythm clash,
     // ADR 0017). Amaterasu or Whirlwind can't touch it, so those don't offer.
     if (th.clash && ki >= ULTIMATE.cost && clashable(f.def)) {
@@ -935,34 +1060,61 @@ export class MasterBrain {
       if (th.kind === 'zone') return { ...d, type: 'dashOut' };
       if (ki >= VANISH.cost) offer('vanish', 3, { type: 'vanish', at: th.rangeless ? 6 : 4 }, 'vanish');
       // a spot dodge's intangibility lets a flurry dash or Amaterasu pass through
-      if (r === 'ground' && canDodge && !th.noDodge) offer('dodge', th.rangeless ? 1 : 0.4 + 0.4 * S.show, { type: 'dodge', at: 7 }, 'spotDodge');
+      if (r === 'ground' && canDodge && !th.noDodge) offer('dodge', (th.rangeless ? 1 : 0.4 + 0.4 * S.show) * stale, { type: 'dodge', at: 7 }, 'spotDodge');
       if (r === 'air') { if (!f.airDodged) offer('airdodge', 1, { type: 'airdodge', at: 5 }, 'airDodge'); } else offer('sidestep', 1, { type: 'sidestep', at: 5 });
       return decide();
     }
     if (r === 'air') {
       if (!f.airDodged) offer('airdodge', S.dodge + 0.25, { type: 'airdodge', at: 3 }, 'airDodge');
+      if (th.vanish && S.vanishWar && ki >= VANISH.cost) offer('vanishWar', S.vanishWar, { type: 'vanish', at: 4 }, 'vanishWar'); // works in the air too
       offer('none', 0.75 - S.dodge, {});
       return decide();
     }
-    if (r === 'dash') return d;
+    if (r === 'dash') return { ...d, retry: true };
+    if (th.kind === 'read') {
+      // a guess at their approach (readApproach): the jab it expects may be a throw or a delayed hit instead
+      if (lockFree(Math.max(0, th.frames - 2))) offer('parry', 0.9, { type: 'parry' }, 'parry');
+      if (th.frames >= 6) offer('dodge', 0.6 * stale, { type: 'dodge', at: 6 }, 'spotDodge');
+      if (c.myRoom > 2) {
+        if (th.frames >= 4) offer('backstep', 0.5 * Math.sqrt(sh.bias('backstep')), { type: 'backstep', at: 4 });
+        offer('wavedash', 0.6 * Math.sqrt(sh.bias('wavedash')), { type: 'wavedash', at: 99, dir: 'back' });
+      }
+      offer('jumpOut', 0.35, { type: 'jumpOut', at: 99 });
+      offer('stuff', 0.6, { type: 'stuff' });
+      // vanish behind the runner (they can answer it with a vanish of their own: the vanish war)
+      if (ki >= VANISH.cost && this.spend(VANISH.cost, 90)) offer('vanish', 0.5, { type: 'vanish', at: 99 }, 'vanish');
+      offer('block', 1, { type: 'block' });
+      return decide();
+    }
     const big = th.big || th.p?.P?.big;
     if (th.kind === 'proj' && !th.vortex) {
-      // plow through it with the super dash and hit its thrower, or spot dodge it as it arrives
+      // plow through it with the super dash and hit its thrower, or spot dodge it as it arrives (a shot is often
+      // seen late: two frames more of lead than a swing), or (showman) wavedash out of its line in depth
       if (r === 'ground' && f.airDashes === 0 && c.dist < 7) offer('superDash', 0.25 + S.flair * 0.25, { type: 'superDash', at: 12 }, 'superDash');
-      if (r === 'ground' && canDodge) offer('dodge', S.dodge * 0.6 * S.show, { type: 'dodge', at: 8 }, 'spotDodge');
+      if (r === 'ground' && th.frames >= dodgeLead + 2) offer('dodge', S.dodge * 0.6 * S.show * stale, { type: 'dodge', at: 8 }, 'spotDodge');
+      const wdAt = big ? 19 : 12;
+      if (r === 'ground' && S.wdDefense && th.frames >= wdAt) offer('wavedash', S.wdDefense * Math.sqrt(sh.bias('wavedash')), { type: 'wavedash', at: wdAt, dir: 'depth' });
     }
-    if (lockFree(Math.max(0, th.frames - 2))) offer('parry', S.parry * 2 * (big ? 1.2 : 1), { type: 'parry' }, 'parry');
+    // (not a vortex's grind: its ticks keep coming after the one a press could meet)
+    if (!th.vortex && lockFree(Math.max(0, th.frames - 2))) offer('parry', S.parry * 2 * (big ? 1.2 : 1), { type: 'parry' }, 'parry');
     // dodge what leaves something to punish: its active + recovery outlasts our dodge (a hop launcher
     // lands and recovers first, so that one gets parried or blocked)
     // (the showman also dodges the rest now and then: even trade, but the viewer sees the dodge)
     const punishable = th.dive || (th.m && !th.m.hop && (th.m.active ?? 0) + (th.m.recovery ?? 0) >= SPOT.len);
-    if (th.kind === 'melee' && r === 'ground' && canDodge && (punishable || S.show >= 0.5)) {
-      offer('dodge', punishable ? S.dodge * (big ? 1.4 : 0.5 * S.show) : S.dodge * 0.35, { type: 'dodge', at: f.state === 'guard' ? 6 : 7 }, 'spotDodge');
+    // (never a rush special: its body keeps pressing against the dodger, and its long active frames outlast the dodge)
+    if (th.kind === 'melee' && r === 'ground' && canDodge && !th.rush && (punishable || S.show >= 0.5)) {
+      offer('dodge', (punishable ? S.dodge * (big ? 1.4 : 0.5 * S.show) : S.dodge * 0.35) * stale, { type: 'dodge', at: f.state === 'guard' ? 6 : 7 }, 'spotDodge');
     }
     const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
     const cm = cSlot && specialFor(f.def, cSlot);
     if (th.kind === 'melee' && cm && r === 'ground' && ki >= cm.cost + (S.show >= 0.5 ? 0 : 50)) offer('counter', S.flair * 0.45, { type: 'counter', slot: cSlot }, specialId(cm));
     if (th.kind === 'melee' && big && ki >= VANISH.cost * (S.show >= 0.5 ? 1 : 2)) offer('vanish', S.flair * 0.3, { type: 'vanish', at: 4 }, 'vanish');
+    // showman (ADR 0025): a back dash through a swing (its 8 invulnerable frames, then the punish layer takes the whiff),
+    // and against a vanish the vanish war: vanish too, so their kick whiffs and ours lands in its recovery
+    if (th.kind === 'melee' && r === 'ground' && S.backstep && !th.rush && !th.behind && !th.dive && th.frames >= 3 && th.frames <= 10 && c.myRoom > 2) {
+      offer('backstep', S.backstep * Math.sqrt(sh.bias('backstep')), { type: 'backstep', at: 3 });
+    }
+    if (th.vanish && S.vanishWar && ki >= VANISH.cost) offer('vanishWar', S.vanishWar, { type: 'vanish', at: 4 }, 'vanishWar');
     offer('block', S.block, { type: 'block' });
     return decide();
   }
@@ -973,6 +1125,11 @@ export class MasterBrain {
     d.until = this.clock + th.len + 6;
     switch (d.type) {
       case 'none':
+        // a 'none' picked while it couldn't act is not the answer to this threat: pick again now it can (ADR 0025)
+        if (d.retry && c.ready && c.ready !== 'dash') {
+          this.resp = this.chooseDefense(game, c, th);
+          return this.execDefense(game, c, th, this.resp);
+        }
         return false;
       case 'block':
         this.keep.add('guard');
@@ -983,12 +1140,13 @@ export class MasterBrain {
         if (!d.pressed && fr <= lead) {
           this.tap('guard', 4);
           d.pressed = true;
+          this.show.logDef('parry', true);
         }
         if (d.pressed && this.hold.guard <= 0) this.keep.add('guard');
         return true;
       }
       case 'dodge':
-        if (!d.go && fr <= d.at) d.go = true;
+        if (!d.go && fr <= d.at) { d.go = true; this.show.logDef('dodge', true); }
         // wait for it in place: a dash or an attack started now couldn't guard into the dodge in time
         if (!d.go) return fr <= d.at + 20 && f.state !== 'block';
         if (f.state === 'dodge') return true;
@@ -1001,19 +1159,74 @@ export class MasterBrain {
           d.done = true;
           this.mx = -c.toward; // dodge away and down
           this.tap('guard', 2);
+          this.show.logDef('airdodge', true);
         }
         return true;
       case 'vanish':
-        if (fr > d.at || d.done) return d.done;
+        if (d.done) return true;
+        if (fr > d.at) return fr <= d.at + 20 && f.state !== 'block'; // wait for it in place, like a dodge
         d.done = true;
         this.keep.add('guard');
         this.tap('special', 2);
+        this.show.logDef(th.vanish ? 'vanishWar' : 'vanish', true);
+        return true;
+      case 'wavedash': {
+        // out of a shot's line in depth (mirrored at the barrier, like the sidestep), or straight back from an
+        // approach read; a slide, so it can act again from its 5th frame
+        if (d.done) return f.state === 'jumpSquat' || (f.state === 'wavedash' && f.t + 1 < WD.act);
+        if (fr > d.at) return fr <= d.at + 20 && f.state !== 'block';
+        d.done = true;
+        if (d.dir === 'back') this.wavedash(-c.toward, 0);
+        else {
+          let sd = c.sd > 0 ? -1 : 1;
+          if (Math.abs(f.pos.z) > ARENA_LIMIT - 1.5) sd = -Math.sign(f.pos.z) * Math.sign(c.F.z || 1);
+          this.wavedash(0, sd);
+        }
+        this.show.logDef('wavedash', true);
+        return true;
+      }
+      case 'backstep':
+        // a back dash: 8 invulnerable frames carry it out through the swing (BACKSTEP when it passes through). Out of
+        // Guard it lets go a frame early (pressDash), and it counts once the fighter is really in the back dash.
+        if (d.done) {
+          if (f.state === 'dash') {
+            if (f.backDash && !d.seen) { d.seen = true; this.show.logDef('backstep', true); }
+            return f.t + 1 < 4;
+          }
+          this.mx = -c.toward; // a press that waits on a release is still on its way
+          return this.hold.dash > 0;
+        }
+        if (fr > d.at + (f.state === 'guard' ? 1 : 0)) return fr <= d.at + 20 && f.state !== 'block';
+        this.mx = -c.toward;
+        this.my = 0;
+        d.done = this.pressDash();
+        return true;
+      case 'jumpOut':
+        // a back jump out of an approach (the stick held through the squat); airborne, the threat layer air dodges an
+        // anti-air
+        if (d.done) return f.state === 'jumpSquat';
+        d.done = true;
+        this.jumpTo(-c.toward);
+        this.show.logDef('jumpOut', true);
+        return true;
+      case 'stuff':
+        // a jab into their approach, the moment they step into its reach
+        if (d.done) return false;
+        if (Math.abs(c.sx) < 1.45 && Math.abs(c.sd) < 0.6) {
+          d.done = true;
+          this.tap('light');
+          this.route = {};
+          this.show.logDef('stuff', true);
+        }
         return true;
       case 'counter':
         if (d.done) return true;
-        if (fr <= 4) {
+        // the special fires on the release a frame after the press: 5 keeps that release out of a teleport's
+        // arrival freeze (an edge made during a freeze is lost) and the stance still outlasts the strike
+        if (fr <= 5) {
           d.done = true;
           this.special(d.slot, 1);
+          this.show.logDef('counter', true);
         }
         return true;
       case 'counterBeam':
@@ -1025,18 +1238,14 @@ export class MasterBrain {
         return true;
       case 'superDash':
         if (fr > d.at) return false;
-        if (!d.done) {
-          d.done = true;
-          this.tap('dash', 2);
-        }
+        if (!d.done) d.done = this.pressDash();
         return true;
       case 'sidestep': {
         // dash out of the line in depth (beams, rushes and flurries run along the lane)
         if (fr > d.at || d.done) return d.done;
-        d.done = true;
         this.my = c.sd > 0 ? -1 : 1;
         if (Math.abs(f.pos.z) > ARENA_LIMIT - 1.5) this.my = -Math.sign(f.pos.z) * Math.sign(c.F.z || 1);
-        this.tap('dash', 2);
+        d.done = this.pressDash();
         return true;
       }
       case 'dashOut': {
@@ -1046,8 +1255,7 @@ export class MasterBrain {
         this.mx = (ax * c.R.x + az * c.R.z) / l;
         this.my = (ax * c.F.x + az * c.F.z) / l;
         if (Math.hypot(this.mx, this.my) < 0.3) this.mx = -c.toward;
-        this.tap('dash', 2);
-        d.done = true;
+        d.done = this.pressDash();
         return true;
       }
     }
@@ -1500,6 +1708,7 @@ export class MasterBrain {
   // a wavedash toward screen direction sx (+1 right) and depth sd: jump, Guard in the squat, stick held
   wavedash(sx, sd = 0) {
     this.wdDir = [sx, sd];
+    this.wdAt = this.clock;
     this.mx = sx;
     this.my = sd;
     this.tap('jump', 1);
@@ -1705,6 +1914,8 @@ export class MasterBrain {
     for (const p of this.beat.due(game.clash.timer + 1)) this.tap(this.beat.button(), p.len);
   }
 }
+
+mixDefense(MasterBrain); // the defense showcase's methods (ADR 0025, aiDefense.js)
 
 // Projectile facts the brain plans with: speed (units/s), range (speed × life, plus the hand), damage,
 // stun, and whether it bounces the victim off the barrier.

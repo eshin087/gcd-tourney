@@ -12,6 +12,7 @@ function ultimateFits(U, dist, sd) {
   return true;
 }
 import { MasterBrain } from './aiMaster.js';
+import { reachT } from './aiDefense.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
 
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
@@ -21,7 +22,22 @@ export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
 export function makeBrain(fighter, level = 'normal', spectate = false) {
   // INSANE is the same frame-data brain with human reactions and the odd dropped combo (STYLES.insane)
   if (level === 'impossible' || level === 'insane') return new MasterBrain(fighter, spectate ? 'showman' : level);
-  return new CpuBrain(fighter, level);
+  return new CpuBrain(fighter, level, spectate);
+}
+
+// The level's technique rates reshaped by the defense persona (ADR 0025). Against a person the persona only changes
+// which technique comes out (the sum of the rates stays the level's); spectated, the CPU shows off: ×1.5, capped.
+const TECH_RATES = { parry: 'parry', spot: 'dodge', airDodge: 'airdodge', wavedash: 'wavedash', vanish: 'vanish', dodge: 'dodge' };
+function personaLevel(base, P, spectate) {
+  const L = { ...base };
+  let sum0 = 0, sum1 = 0;
+  for (const k in TECH_RATES) {
+    L[k] = base[k] * P.m[TECH_RATES[k]] * (spectate ? 1.5 : 1);
+    sum0 += base[k];
+    sum1 += L[k];
+  }
+  for (const k in TECH_RATES) L[k] = spectate ? Math.min(0.9, L[k]) : (L[k] * sum0) / sum1;
+  return L;
 }
 
 // show: how strongly it reaches for kit tools the player hasn't seen yet (Showcase, aiShow.js, ADR 0016);
@@ -40,18 +56,20 @@ const LEVELS = {
 // Combos are driven by watching its own fighter's state (cancel windows, hit
 // confirms), so it chains auto-combo -> launcher -> chase -> air combo -> spike.
 export class CpuBrain {
-  constructor(fighter, level = 'normal') {
+  constructor(fighter, level = 'normal', spectate = false) {
     this.f = fighter;
-    this.L = LEVELS[level] || LEVELS.normal;
+    this.L = this.baseL = LEVELS[level] || LEVELS.normal;
+    this.spectate = spectate;
     this.plan = 'idle';
     this.planT = 0;
+    this.clk = 0; // live frames, never reset (setPlan resets planT, which used to lose a pending reaction)
     this.wait = 30;
     this.hold = {};
     this.beat = null; // its plan for the current clash
     this.lastOppState = '';
     this.strafe = Math.random() < 0.5 ? 1 : -1;
     this.route = 'launch';
-    this.show = new Showcase(fighter, this.L.show);
+    this.show = new Showcase(fighter, this.L.show, spectate ? 1 : 0.4);
   }
 
   // only from a released state, so every press is a fresh edge
@@ -60,9 +78,14 @@ export class CpuBrain {
   }
 
   update(game) {
-    const f = this.f, o = f.opp, pad = f.pad, L = this.L;
+    const f = this.f, o = f.opp, pad = f.pad;
     pad.tick();
     this.show.watch();
+    if (this.show.persona && this.persona !== this.show.persona) {
+      this.persona = this.show.persona; // rolled, or nudged for a new round
+      this.L = personaLevel(this.baseL, this.persona, this.spectate);
+    }
+    const L = this.L;
     let mx = 0, my = 0;
     const R = Math.random;
     const dx = o.pos.x - f.pos.x, dz = o.pos.z - f.pos.z;
@@ -78,7 +101,10 @@ export class CpuBrain {
     const laneGo = () => {
       const R = game.cam.right, F = game.cam.fwd;
       const want = Math.abs(sx) - 1.05;
-      const ax = Math.abs(want) > 0.15 ? Math.sign(sx) * Math.sign(want) : 0;
+      // stacked in depth right behind them (sx ~ 0, e.g. both against the barrier): step out toward the ring's
+      // middle, or the depth step and the body push hold them there for good
+      const side = Math.abs(sx) > 0.3 ? Math.sign(sx) : f.pos.x * R.x + f.pos.z * R.z > 0 ? 1 : -1;
+      const ax = Math.abs(want) > 0.15 ? side * Math.sign(want) : 0;
       const ad = Math.abs(sd) > 0.18 ? Math.sign(sd) : 0;
       moveWorld(R.x * ax + F.x * ad, R.z * ax + F.z * ad);
       return Math.abs(want) < 0.45 && Math.abs(sd) < 0.45;
@@ -90,6 +116,7 @@ export class CpuBrain {
       for (const p of this.beat.due(game.clash.timer + 1)) this.press(this.beat.button(), p.len);
     } else if (game.inputLive && !f.ko && !o.ko && !game.freeze) {
       this.planT++;
+      this.clk++;
       this.wait--;
 
       // --- air tech when juggled
@@ -113,11 +140,11 @@ export class CpuBrain {
 
       // --- reactions
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;
-      if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.planT + L.react;
-      if (oppAttacking && this.reactAt === this.planT && dist < 3.4 && !f.busy) {
+      if (oppAttacking && o.state !== this.lastOppState) this.reactAt = this.clk + L.react;
+      if (oppAttacking && this.reactAt === this.clk && dist < 3.4 && !f.busy) {
         // a counter may sit on ↓ or ← (Naruto's Substitution); the techniques the player hasn't seen this match
         // are a bit likelier (Showcase), each at its level's rate
-        const sh = this.show, big = o.move.big || o.move.special, left = o.move.startup - o.t;
+        const sh = this.show, big = o.move.big || o.move.special, left = reachT(o, o.move) - o.t;
         const cSlot = ['down', 'back'].find((sl) => specialFor(f.def, sl)?.kind === 'counter');
         const counter = cSlot && specialFor(f.def, cSlot);
         this.tgtProj = null;
@@ -406,7 +433,7 @@ export class CpuBrain {
       const d = Math.hypot(p.pos.x - f.pos.x, p.pos.z - f.pos.z) - (p.P.radius + 0.4);
       return (d / (Math.hypot(p.vel.x, p.vel.z) || 1)) * 60;
     }
-    return o.state === 'attack' && o.move ? o.move.startup - o.t + o.hitstop : -99;
+    return o.state === 'attack' && o.move ? reachT(o, o.move) - o.t + o.hitstop : -99; // to the drawn strike (reachT)
   }
 
   setPlan(p, len = 40) {
