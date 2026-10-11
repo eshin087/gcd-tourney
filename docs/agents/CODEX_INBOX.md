@@ -19,6 +19,22 @@ How it works:
 
 The user approved the three final decal previews and explicitly assigned Codex as coordinator for these merges while Claude was paused. This supersedes the older no-approval/no-merge instructions below for PRs #52-54 only. All latest 31 decal types / 143 variants are approved with the documented visual deviations accepted. Merge order: #53 core, #52 chakra, #54 cursed; combined pack preserves every reviewed pixel and needs at most four pages per match. Regression suite: 308 passed, zero failed; build passes. The initial deployment was blocked by automatic approval review; the user then explicitly authorized production release. Committed main 7f2410d is now deployed at https://gcd-tourney.vercel.app. The three merged decal worktrees were removed; versioned sources and QA remain in main. Character redraw and PR #59 are untouched; #51/#55/#56 were previously closed as superseded. Historical instructions below are not a new task to revive those closed PRs. This temporary Codex integration assignment is complete; Claude may resume coordination. Release evidence: art/decals/production/RELEASE_QA.md.
 
+## After the cast release (2026-10-11)
+
+PRs #61-#64 are merged into main and live (user decision: ship all four now). Their worktrees are removed; start new
+work from main with `npm run pr -- start art/killua-down-ko --art killua`.
+
+- [ ] **Killua down and ko.** down v05 and ko v06 are in `art/characters/killua/raw/_hold/` (never packed): they fail
+  Claude's manual QA because the lying **torso** is 25-35 % longer than the idle's (shirt scarf-to-hem 50-58 px vs
+  40-43 px; evidence `art/characters/killua/production/manual-qa-2026-10-11/QA_down-v05_ko-v06.md`). The game uses the
+  previous approved down v04 / ko v05 as temporary stand-ins (their legs are too long; that is why they were redrawn).
+  Make new versions above every existing one (down v06+, ko v07+) with the torso at the idle's length and the legs as
+  in v05 / v06, keep them inside x 4..251, pack with `node tools/pack-sprites.mjs killua --quantize 48 --strict-scale`
+  (it exits 0 only once both carry Claude's manual QA), add REVIEW rows and stop: Claude checks them by eye, then the
+  user approves them, then Claude merges.
+- Follow-up for Claude (not Codex): art/scale/builds.json build bands predate the approved cast baseline; the lineup
+  flags Sasuke, Killua and Gojo against the old bands.
+
 ## Last fixes before merge (2026-10-11)
 
 Claude's results on the current branches (`node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale`):
