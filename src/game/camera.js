@@ -53,6 +53,7 @@ export class CameraDirector {
     this.introDur = INTRO[INTRO.length - 1][0];
     this.punch = 0;
     this.snapNext = false;
+    this.spriteRefDepth = null; // view depth fighter sprites are normalized to (fight / clash only; ENG-067)
   }
 
   set(mode, data = null) {
@@ -205,6 +206,7 @@ export class CameraDirector {
       }
     }
 
+    const snapped = this.snapNext;
     if (this.snapNext) {
       this.pos.copy(tgtPos);
       this.look.copy(tgtLook);
@@ -236,6 +238,16 @@ export class CameraDirector {
     cam.updateMatrixWorld();
 
     cam.getWorldDirection(this.fwd);
+    // The two-fighter framings draw both fighters at the size of one standing midway between their feet (the
+    // mean of their view depths), so fighters level in depth keep their size and a depth gap is split evenly.
+    // Eased, so when one fighter jumps in depth (vanish, teleport) both sizes drift together instead of the
+    // other one popping. Close-ups (focus, ko, victory) and the flythroughs keep true perspective.
+    if ((this.mode === 'fight' || this.mode === 'clash') && f[0] && f[1]) {
+      const a = rp(f[0]), b = rp(f[1]), p = cam.position;
+      const ref = ((a.x + b.x) / 2 - p.x) * this.fwd.x + (RING_TOP + (a.y + b.y) / 2 - p.y) * this.fwd.y + ((a.z + b.z) / 2 - p.z) * this.fwd.z;
+      const r0 = this.spriteRefDepth;
+      this.spriteRefDepth = r0 === null || snapped ? ref : r0 + (ref - r0) * (1 - Math.pow(0.75, dt * 60));
+    } else this.spriteRefDepth = null;
     this.fwd.y = 0;
     this.fwd.normalize();
     this.right.set(-this.fwd.z, 0, this.fwd.x);

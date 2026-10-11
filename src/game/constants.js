@@ -12,3 +12,9 @@ export const ROUND_TIME = 99;
 export const ROUNDS_TO_WIN = 2;
 export const VFX_PPU = 28; // world scale of procedural effect sprites (64px cells)
 export const CROWD_PPU = 28; // world scale of crowd / prop billboards
+// Fighter sprites are camera-facing billboards, so true perspective draws the fighter nearer the camera up to
+// ~23% bigger than the other one. In the fight and clash cameras each sprite is scaled by its view depth over
+// the depth midway between the two fighters, raised to SPRITE_DEPTH_COMP (1 = both always the same size,
+// 0 = true perspective), and clamped. Visual only: boxes and hand anchors stay unscaled (ENG-067, ADR 0021; ?depthscale=0 compares).
+export const SPRITE_DEPTH_COMP = 1;
+export const SPRITE_DEPTH_CLAMP = [0.82, 1.22];

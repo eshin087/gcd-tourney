@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the fighter nearer the camera no longer draws 9-23% bigger than the other one when they stand apart in depth or one is in the air; in the fight and clash cameras both fighters are scaled to one on-screen size (visual only: hit boxes and hand anchors unchanged; close-ups keep true perspective; `?depthscale=0` compares) (ENG-067, ADR 0021).
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
