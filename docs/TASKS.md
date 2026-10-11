@@ -262,3 +262,6 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 
 ART-GOJO-FULL-20261011 checkpoint:42 source animations drawn,37 packed candidates;5 attempt-cap holds. Review page public/art-review/gojo-full-redraw. Not merge-ready; Claude alone integrates.
 Gojo checkpoint supplement: spin v03 corrects fuller hair within attempt 2/3; eight low-confidence poses remain explicit manual-QA holds. Five capped redraws remain blocked; no art approved.
+
+
+Gojo visual approval (2026-10-11): user approved the latest selected full-redraw checkpoint; exact 42 versions are in art/characters/gojo/redraw/USER_APPROVAL.json. Five technical failures and eight manual-QA holds remain. Shipping manifest promotion is deferred; no gate baseline change, merge or deployment. Claude owns integration.

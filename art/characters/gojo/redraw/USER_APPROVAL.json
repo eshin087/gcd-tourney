@@ -1,0 +1,260 @@
+{
+  "date": "2026-10-11",
+  "quote": "ok whats left to do? i approve everything and would like to see it live on the game",
+  "sourceCommit": "ada24d1",
+  "scope": "Latest selected checkpoint versions, not superseded attempts. Visual approval does not waive technical gates. Manifest promotion is deferred to avoid changing the gate baseline before technical clearance.",
+  "assets": [
+    {
+      "asset": "idle",
+      "version": 4,
+      "visualApproval": "approved",
+      "technicalStatus": "reference; full-set QA pending"
+    },
+    {
+      "asset": "run",
+      "version": 6,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "dash",
+      "version": 5,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "backDash",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "superDash",
+      "version": 5,
+      "visualApproval": "approved",
+      "technicalStatus": "blocked"
+    },
+    {
+      "asset": "jumpSquat",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "jumpUp",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "jumpFall",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "land",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "light1",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "light2",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "light3",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "light4",
+      "version": 4,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "heavy",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "airLight1",
+      "version": 4,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "airLight2",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "airLight3",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "blocked"
+    },
+    {
+      "asset": "airHeavy",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "blocked"
+    },
+    {
+      "asset": "guard",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "block",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "hurtHigh",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "hurtLow",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "launched",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "spin",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "airRecover",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "down",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "getup",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "charge",
+      "version": 4,
+      "visualApproval": "approved",
+      "technicalStatus": "blocked"
+    },
+    {
+      "asset": "throw",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "beamCharge",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "beamFire",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "vanish",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "stagger",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "ko",
+      "version": 4,
+      "visualApproval": "approved",
+      "technicalStatus": "manual verification required"
+    },
+    {
+      "asset": "special",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "intro",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "taunt",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "win",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "blocked"
+    },
+    {
+      "asset": "specialForward",
+      "version": 4,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "specialUp",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "specialDown",
+      "version": 2,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    },
+    {
+      "asset": "superPose",
+      "version": 3,
+      "visualApproval": "approved",
+      "technicalStatus": "numeric ok; full-set QA pending"
+    }
+  ]
+}

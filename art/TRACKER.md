@@ -542,3 +542,6 @@ Gojo full redraw2026-10-11: approved neutral v01; idle v04 and first four moveme
 ## Gojo full redraw — 2026-10-11 checkpoint
 
 42 source animations drawn; 37 new candidates packed. Five technical holds: superDash, airLight3, airHeavy, charge, win; three attempts exhausted. No new strip approvals. See characters/gojo/redraw/INVENTORY.json and TECHNICAL_HOLDS.json. Approved versions remain unchanged.
+
+
+Gojo visual approval (2026-10-11): user approved the latest selected full-redraw checkpoint; exact 42 versions are in art/characters/gojo/redraw/USER_APPROVAL.json. Five technical failures and eight manual-QA holds remain. Shipping manifest promotion is deferred; no gate baseline change, merge or deployment. Claude owns integration.

@@ -50,3 +50,6 @@ An independent reviewer measured v02 source skull axes at approximately72/68/65/
 
 The exact new atlas contact is `contact/packed-spin-v03.png`; earlier `packed-unmeasured.png` and `packed-spin.png` retain v02 evidence. V03's hair median is1.010 versus v02's1.194. Its rotated per-frame range remains0.135 and verdict remains `unmeasured`; the pose still needs manual review. All four packed cells were inspected: hair is more compact, limb/torso construction remains unchanged, no clipping. Full review-subset pack exits0 with the same five historical fallbacks and six documented legacy warnings. No new art approval or numeric-pass claim.
 Latest local gallery verified42 sections; unresolved-QA filter shows13 entries (five technical plus eight manual). No browser console errors. Build passed79 modules after the spin correction.
+
+
+Gojo visual approval (2026-10-11): user approved the latest selected full-redraw checkpoint; exact 42 versions are in art/characters/gojo/redraw/USER_APPROVAL.json. Five technical failures and eight manual-QA holds remain. Shipping manifest promotion is deferred; no gate baseline change, merge or deployment. Claude owns integration.
