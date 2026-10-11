@@ -1095,6 +1095,10 @@ export class Game {
       const sg = s === c.a ? 1 : -1, f = s.f;
       const dx = axis.x * sg, dy = axis.y * sg, dz = axis.z * sg;
       const at = this.clashStance(c, s, P);
+      // a body locked against the barrier (a rush's reach measured off its facing, not the clash axis) never stands past
+      // it: physics, which keeps everyone inside, doesn't run during a clash
+      at.x = THREE.MathUtils.clamp(at.x, -ARENA_LIMIT, ARENA_LIMIT);
+      at.z = THREE.MathUtils.clamp(at.z, -ARENA_LIMIT, ARENA_LIMIT);
       const gx = at.x - f.pos.x, gz = at.z - f.pos.z;
       f.pos.x = at.x;
       f.pos.z = at.z;
