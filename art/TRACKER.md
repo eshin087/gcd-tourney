@@ -315,11 +315,11 @@ ones.
 | star | 5 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crater | 3 | 1000 (static; 3 random variants) | full color | decal | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | lines | 4 | 40 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
-| bubble | 6 | 50 | white (tinted) | center | todo | - | - | ENG-069 power-ups: Naruto's Nine-Tails chakra boil. Procedural stand-in until approved. |
-| wisp | 7 | 55 | white (tinted) | bottom | todo | - | - | ENG-069: Sasuke's dark chakra, Naruto's head wisps, Gojo's faint cursed energy. Procedural stand-in. |
-| arc | 6 | 40 (random frame) | white (tinted) | center | todo | - | - | ENG-069: Killua's body crackle, Sasuke's Chidori current. Procedural stand-in. |
-| ripple | 5 | 50 | white (tinted) | center | todo | - | - | ENG-069: Gojo's Infinity ripple (drawn very faint). Procedural stand-in. |
-| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | todo | - | - | ENG-069: Naruto's one chakra tail at MAX ki. Procedural stand-in. |
+| bubble | 6 | 50 | white (tinted) | center | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
+| wisp | 7 | 55 | white (tinted) | bottom | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
+| arc | 6 | 40 (random frame) | white (tinted) | center | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
+| ripple | 5 | 50 | white (tinted) | center | packed | v02 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
+| naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | packed | v01 | - | W5 candidate; 128px, white-tinted; awaiting explicit approval. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
 
 ## Shared UI (step 11)

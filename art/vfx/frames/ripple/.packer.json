@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/ripple_v02.png",
+  "version": 2,
+  "source": [
+    "vfx/raw/ripple_v02.png",
+    "vfx/raw/ripple_v02.json"
+  ],
+  "sourceHash": "b1fc5091f4dc7188fb6915b4b89bdc8d150a55df",
+  "files": {
+    "ripple_00.png": "80e23d561d3f060da6ce4d4b0564870aa24d3286",
+    "ripple_01.png": "924f79d43f0dfa7e10bc99cb14bcba07181aaa21",
+    "ripple_02.png": "08e00aa4b8752ebf7b13bd005905aa05a22ba3d4",
+    "ripple_03.png": "3a88f9ed3584a448cf2f2ad87ae021ed41d12277",
+    "ripple_04.png": "63ffe5cc8b0901ac6b02a772dd7b0d03d329c316"
+  }
+}
