@@ -366,12 +366,12 @@ procedural. The style sheet comes first: the claim queue holds every decal batch
 | claw | chakra | 512 x 256 | 4 | flat, directional | full color + hot key | todo | - | - | |
 | scorch_chakra | chakra | 512 x 512 | 3 | flat, directional | full color + hot key | todo | - | - | |
 | fracture_chakra | chakra | 512 x 512 | 2 | flat | full color + hot key | todo | - | - | |
-| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | packed | v02 | - | |
-| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | packed | v02 | - | |
-| crush_implode | cursed | 256 x 256 | 4 | flat | full color | packed | v03 | - | |
-| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | packed | v02 | - | |
-| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | packed | v03 | - | |
-| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | packed | v02 | - | |
+| erasure | cursed | 256 x 256 | 3 | flat | full color + hot key | approved | v02 | v02 | |
+| erasure_trench | cursed | 512 x 256 | 3 | flat, directional | full color + hot key | approved | v02 | v02 | |
+| crush_implode | cursed | 256 x 256 | 4 | flat | full color | approved | v03 | v03 | |
+| gouge_repel | cursed | 512 x 256 | 4 | flat, directional | full color + hot key | approved | v02 | v02 | |
+| fracture_cursed | cursed | 256 x 256 | 4 | flat | full color + hot key | approved | v03 | v03 | |
+| fracture_cursed_big | cursed | 512 x 512 | 2 | flat | full color + hot key | approved | v02 | v02 | |
 | scorch_ki | ki | 256 x 256 | 4 | flat | full color + hot key | todo | - | - | |
 
 ## World art (ADR 0008)
@@ -543,9 +543,9 @@ fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); 
 
 | Asset | Status | Version | Approved |
 |---|---|---|---|
-| erasure | packed, needs review | v02 | none |
-| erasure_trench | packed, needs review | v02 | none |
-| crush_implode | packed, needs review | v03 | none |
-| gouge_repel | packed, needs review | v02 | none |
-| fracture_cursed | packed, needs review | v03 | none |
-| fracture_cursed_big | packed, needs review | v02 | none |
+| erasure | approved (deviations accepted) | v02 | v02 |
+| erasure_trench | approved (deviations accepted) | v02 | v02 |
+| crush_implode | approved (deviations accepted) | v03 | v03 |
+| gouge_repel | approved (deviations accepted) | v02 | v02 |
+| fracture_cursed | approved (deviations accepted) | v03 | v03 |
+| fracture_cursed_big | approved (deviations accepted) | v02 | v02 |

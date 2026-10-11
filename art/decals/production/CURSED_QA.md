@@ -1,5 +1,7 @@
 # Cursed decal correction QA
 
+**Approval update, 2026-10-11:** the user approved all six versions shown in the linked preview and accepted the listed visual deviations. Older unapproved/do-not-approve language below records the pre-approval assessment. Pixel defects remain unchanged; approval does not mean they were technically repaired. Rejected v01/v02 history is preserved and there are no other pending versions of these six assets.
+
 2026-10-11, PR54, art/decals-cursed. All six names remain **unapproved**; approvedVersion is null. Claude remains integration coordinator. This is a review-only candidate delivery, not a claim that every brief gate passed.
 
 ## Versions and selection
@@ -35,3 +37,7 @@ Hot pixels: erasure8806, trench14277, repel464, fracture757, big192; implode0. R
 ## Delivery checks
 
 Gallery copies normal packed atlas/pages byte-for-byte to public/art-review/decals-cursed/candidate. It filters cursed entries and loads each entry's actual page. The review-only helper installs preloaded candidate images in the embedded game instance; it changes neither approvals nor production assets. No dependency on ignored /preview files. Production build and hosted show/rotate results are recorded in the PR handoff after publication.
+
+## Approved-only production pack
+
+User-approved versions packed on 2026-10-11: 6 names, 20 variants, one 2048x1280 page. Production PNG is byte-identical to the reviewed candidate page: **0 changed pixels**; decal entries are identical, only atlas source metadata changes candidates to approved. Normal pack reports the known packed implode fringe as 0.3%; earlier fresh-source 0.6%/0.2% reports remain historical evidence, not repaired warnings. Build passes80modules. [Exact verification](approval-verification.json), [approved pack](pack-approved.txt). Root Codex is now user-appointed coordinator for these three PR merges; worker performed no merge or production deploy.

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(decals): record user approval of cursed erasure/trench/repel/big v02 and implode/fracture v03, accepting documented visual deviations; pack approved production atlas without changing reviewed pixels.
+
 - art(decals): revise cursed candidates, preserve rejected history, remove tracked preview outputs and host an isolated candidate gallery; remaining fringe and repel hot-placement failures are explicit, no approval.
 
 - art(decals): six cursed v01 candidates, 20 packed variants, review gallery and documented remaining palette/design caveats; no art approved.

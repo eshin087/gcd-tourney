@@ -1155,12 +1155,12 @@
       "claw": {"cell":[512,256],"variants":4,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
       "scorch_chakra": {"cell":[512,512],"variants":3,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
       "fracture_chakra": {"cell":[512,512],"variants":2,"group":"chakra","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null},
-      "erasure": {"cell":[256,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"packed","version":2,"approvedVersion":null},
-      "erasure_trench": {"cell":[512,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"tile":true,"step":12,"status":"packed","version":2,"approvedVersion":null},
-      "crush_implode": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","step":12,"status":"packed","version":3,"approvedVersion":null},
-      "gouge_repel": {"cell":[512,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"packed","version":2,"approvedVersion":null},
-      "fracture_cursed": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"packed","version":3,"approvedVersion":null},
-      "fracture_cursed_big": {"cell":[512,512],"variants":2,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"packed","version":2,"approvedVersion":null},
+      "erasure": {"cell":[256,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "erasure_trench": {"cell":[512,256],"variants":3,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"tile":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "crush_implode": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","step":12,"status":"approved","version":3,"approvedVersion":3},
+      "gouge_repel": {"cell":[512,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"directional":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
+      "fracture_cursed": {"cell":[256,256],"variants":4,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":3,"approvedVersion":3},
+      "fracture_cursed_big": {"cell":[512,512],"variants":2,"group":"cursed","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"approved","version":2,"approvedVersion":2},
       "scorch_ki": {"cell":[256,256],"variants":4,"group":"ki","mode":"flat","colorRule":"fullColor","hotKey":true,"step":12,"status":"todo","version":0,"approvedVersion":null}
     }
   },

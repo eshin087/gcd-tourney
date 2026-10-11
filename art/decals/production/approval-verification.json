@@ -1,0 +1,33 @@
+{
+  "approvedVersions": {
+    "erasure": 2,
+    "erasure_trench": 2,
+    "crush_implode": 3,
+    "gouge_repel": 2,
+    "fracture_cursed": 3,
+    "fracture_cursed_big": 2
+  },
+  "names": 6,
+  "variants": 20,
+  "pageDimensions": [
+    [
+      2048,
+      1280
+    ]
+  ],
+  "pages": [
+    {
+      "file": "decals_cursed.png",
+      "byteIdentical": true,
+      "changedPixels": 0,
+      "sha256": "79bd5fb2c52d659e5660235cdb020fb3d1f3a399a70e962df421c672a188e664"
+    }
+  ],
+  "entriesIdentical": true,
+  "metadataChange": {
+    "source": [
+      "candidates",
+      "approved"
+    ]
+  }
+}
