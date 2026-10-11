@@ -68,14 +68,16 @@ its own section below.
 
 ## naruto
 
+Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07 and guard v05 remain unapproved candidates. Idle v07 has a technical loop hold. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
+
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
-| 3 | idle | 8 | - | **yes** | 204 | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to idle_approved.png. 48 colors, zero pack warnings; inherited small head-loop shift documented (ART-NAR-12) |
-| 4 | run | 8 | - | **yes** | 204 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 3 | idle | 8 | - | **yes** | 165 | approved | v07 | v02 | Title-style v07 candidate packed provisionally, technical hold: 6px loop seam. v06 technical rejection. Historic v02 remains user-approved only for prior direction; see title-style QA. |
+| 4 | run | 8 | - | **yes** | 162 | approved | v07 | v04 | Title-style v07 candidate packed with measured stitch and frame offsets; no new gate warning. Repeated stage/loop playback review pending. Historic v04 is the old user approval. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 204 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 215 | approved | v01 | v01 | Final batch approved; see production/QA.md |
@@ -83,7 +85,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v07 | v07 | User approved everything 2026-10-10; documented QA caveats accepted; Claude integration pending. |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | guard | 2 | - | **yes** | 198 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
+| 6 | guard | 2 | - | **yes** | 165 | approved | v05 | v03 | New crossed-forearm title-style v05 packed and visually compared with approved combat; candidate awaits final user review. Historic v03 remains the prior approval. |
 | 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 6 | launched | 2 | - | **yes** | 136 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
