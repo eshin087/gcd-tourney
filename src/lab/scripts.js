@@ -263,6 +263,19 @@ export const SCENARIOS = [
     id: 'wallBounce', name: 'Wall bounce', info: 'The light auto combo ends in light4, which bounces them off the ring barrier.',
     setup: { gap: 1.2, nearWall: true }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [],
   },
+  // combo composer routes (ADR 0026): `room` = units from the dummy to the barrier behind it
+  {
+    id: 'handball', name: 'Handball (3 wall bounces)', info: 'Light ×4 into the barrier (WALL BOUNCE!), super dash after the bounce, air Light ×3 into the same wall (WALL BOUNCE ×2!), then a vanish kick bounces them a third time (HANDBALL!). The bounce budget: 3 wall bounces per combo, 32 / 28 / 22 frames of stun.',
+    setup: { gap: 1.2, nearWall: true, room: 1.8, kiA: 100 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light'), { t: 68, btn: ['dash'], len: 6 }, tap(90, 'light'), tap(101, 'light'), tap(112, 'light'), tap(140, ['guard', 'special'])],
+    b: [],
+  },
+  {
+    id: 'vanishPingPong', name: 'Vanish ping-pong', info: 'Launch, chase, air Light ×2, vanish behind them, then vanish again out of the kick (VANISH ×2!): a true combo, no gap.',
+    setup: { gap: 1.2, kiA: 200 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'heavy'), tap(62, 'jump'), tap(78, 'light'), tap(88, 'light'), tap(106, ['guard', 'special']), tap(142, ['guard', 'special'])],
+    b: [],
+  },
   {
     id: 'groundDamage', name: 'Ground damage', info: 'Light × 3, launcher, chase, air light × 2 and the air heavy spike (a ground bounce crater), the dive special (or the forward special), then Special held for 4 s: the crack under you grows into a fracture from the crack level of your power-up (Naruto bar 2, Sasuke MAX; Killua and Gojo keep the floor whole; MAX POWER needs METER on normal).',
     setup: { gap: 1.2, kiA: 300 },
