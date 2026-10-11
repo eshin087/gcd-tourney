@@ -126,9 +126,9 @@
         "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 3 }
       },
       "ui": {
-        "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "cutin": { "file": "art/characters/naruto/ui/cutin.png", "candidates": "art/characters/naruto/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "select": { "file": "art/characters/naruto/ui/select.png", "candidates": "art/characters/naruto/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 }
+        "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 },
+        "cutin": { "file": "art/characters/naruto/ui/cutin.png", "candidates": "art/characters/naruto/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "select": { "file": "art/characters/naruto/ui/select.png", "candidates": "art/characters/naruto/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 }
       }
     },
     "sasuke": {
