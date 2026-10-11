@@ -33,7 +33,7 @@ Who does what:
 | `frames/<effect>/` | Cleaned final frames: `frames/<effect>/<effect>_00.png`, `_01.png`, ... (128x128, transparent). |
 | `reference/` | Optional style anchors to attach to the image generator so every effect matches: candidates `vfx_style_sheet_vNN.png`, the approved one copied to `vfx_style_sheet.png` (or a screenshot of an approved effect). Never packed. |
 
-## The 15 engine effects (names are fixed: the engine looks them up by name)
+## The 20 engine effects (names are fixed: the engine looks them up by name)
 
 | Effect | Frames | ms/frame | Color rule | Anchor | Used for |
 |---|---|---|---|---|---|
@@ -52,6 +52,11 @@ Who does what:
 | `star` | 5 | 40 | white (tinted) | center | 4-point flare; frame 2 is also a tiny sparkle particle |
 | `crater` | 3 | (variants) | full color | top-down decal | Floor crater after big slams |
 | `lines` | 4 | 40 | white (tinted) | center | Radial impact lines on every hit |
+| `bubble` | 6 | 50 | white (tinted) | center | Chakra bubble boiling off a power-up (Naruto) |
+| `wisp` | 7 | 55 | white (tinted) | bottom | Thin energy wisp rising off a power-up (Sasuke, Naruto, Gojo) |
+| `arc` | 6 | 40 | white (tinted) | center | One short electric arc over the body (Killua, Sasuke); random frame |
+| `ripple` | 5 | 50 | white (tinted) | center | Faint round space ripple (Gojo's Infinity) |
+| `naruto_chakraTail` | 6 | 60 | white (tinted) | bottom (base) | Naruto's one chakra tail at MAX ki (loop) |
 
 Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
 
@@ -61,7 +66,7 @@ Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
    are exactly 128x128.
 2. **Anchor**
    - *center* effects: the effect's center sits on pixel **(64, 64)** in every frame.
-   - *bottom* effects (`dust`, `flame`, `streak`): horizontally centered on x = 64, the base sits on
+   - *bottom* effects (`dust`, `flame`, `streak`, `wisp`, `naruto_chakraTail`): horizontally centered on x = 64, the base sits on
      the line **y = 120** (8 px of empty space below). The engine places y = 120 on the ground or on
      the fighter's feet.
    - `crater`: centered on (64, 64), drawn **straight top-down** (the engine lays it flat on the floor
@@ -93,7 +98,8 @@ Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
 1. Check `../TRACKER.md` (or `../manifest.json` -> `vfx`) for the next effect with status `todo`.
    Suggested order: `spark`, `lines`, `burst`, `ring`, `star` (every hit uses them) -> `orb`,
    `lightning`, `fire`, `shuriken` (signature moves) -> `flame`, `streak` (aura) -> `dust`, `smoke`,
-   `crater` -> `glow` (optional, the procedural one is fine).
+   `crater` -> `glow` (optional, the procedural one is fine) -> the power-up effects (`naruto_chakraTail`,
+   `arc`, `wisp`, `bubble`, `ripple`; ENG-069).
 2. Optional, once: generate the **VFX style sheet** (first prompt in `PROMPTS.md`) and save it as
    `reference/vfx_style_sheet_vNN.png`. When the user approves one, copy it to
    `reference/vfx_style_sheet.png` and attach that to every later effect prompt.

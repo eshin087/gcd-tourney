@@ -164,6 +164,7 @@ export function buildTrainingRoom(scene) {
 
   return {
     group,
+    surface: { line }, // ground damage shows as cracks in the grid's color (ground.setSurface)
     update(t) {
       time.value = t;
     },

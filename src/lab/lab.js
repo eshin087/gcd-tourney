@@ -13,6 +13,8 @@ import { ANIM_GUIDE } from '../art/animGuide.js';
 import { ARENA_LIMIT } from '../game/constants.js';
 import { DummyBrain, CPU_LEVELS } from '../game/ai.js';
 import { ScriptBrain, ReplayBrain, recordFrame, moveList, SCENARIOS } from './scripts.js';
+import { HIT_FLASH } from '../game/moves.js';
+import { FLASH_STYLES } from '../game/hitFlash.js';
 import './lab.css';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
@@ -114,8 +116,9 @@ function playMove(row) {
   exitViewer();
   place(row.range);
   const [a] = fighters();
-  a.ki = Math.max(a.ki, row.ki);
+  a.ki = row.kiFrom ?? Math.max(a.ki, row.ki); // kiFrom: a row that needs an exact start (charge to MAX)
   runScripts(row.steps, null, row.name);
+  if (row.kiFrom != null) L.running.ownKi = true; // the infinite meter waits while it plays (it fills from empty)
 }
 
 function playScenario(sc) {
@@ -138,6 +141,7 @@ function viewAnim(name) {
   const a = fighters()[0];
   a.setState('idle');
   a.actor.play(name, true);
+  a.actor.headCheck = true; // the scale gate's head boxes (boxViewer.js)
   L.viewer = { name, playing: false };
   game.showBoxes = true;
   render();
@@ -155,6 +159,7 @@ function viewerFrame(d) {
 function exitViewer() {
   if (!L.viewer) return;
   L.viewer = null;
+  fighters()[0].actor.headCheck = false;
   fighters()[0].setState('idle');
   render();
 }
@@ -166,11 +171,14 @@ function viewerInfo() {
   const ph = A.phases?.length === 3 ? A.phases : null;
   const phase = ph ? (act.fi < ph[0] ? 'startup' : act.fi < ph[0] + ph[1] ? 'active' : 'recovery') : (A.loop ? 'loop' : '');
   const boxes = (k) => f.asset.boxes(act.frame, k, 1)?.length ?? 0;
+  const sa = f.asset.meta?.scaleAudit?.anims?.[V.name], fh = sa?.frames?.[act.fi];
+  const off = sa && ['uniform', 'drift', 'pop'].includes(sa.verdict);
   return [
     `<b>${V.name}</b> ${own ? '' : `<span class="lab-warn">not in this sheet: falls back to ${used ?? '?'}</span>`}`,
     `frame ${act.fi + 1} / ${A.frames.length} · sheet cell ${act.frame} · ${A.durations?.[act.fi] ?? 100} ms${phase ? ' · ' + phase : ''}`,
     ph ? `phases ${ph.join(' / ')} (startup / active / recovery)` : '',
     `boxes: ${boxes('hurt')} hurt, ${boxes('hit')} hit · art: ${f.asset.source ?? (f.asset.meta?.source || 'baked')}`,
+    sa ? `head ${fh == null ? '-' : fh.toFixed(2)} of the idle's · strip ${sa.head == null ? '-' : sa.head.toFixed(2)} <span class="${off ? 'lab-warn' : ''}">${sa.verdict}</span> (white box = idle head size, gold = this frame's head)` : '',
     `<i>${ANIM_GUIDE[V.name]?.pose ?? ''}</i>`,
   ].filter(Boolean).join('<br>');
 }
@@ -258,7 +266,7 @@ function animsTab() {
   }
   const grid = el('div', 'lab-grid');
   for (const name of Object.keys(ANIM_GUIDE)) grid.append(button(name, () => viewAnim(name), L.viewer?.name === name ? 'on' : ''));
-  box.append(grid, el('p', 'lab-help', 'Pick an animation: the game pauses and YOU shows it frame by frame on the real sheet, with hurt boxes (blue) and hit boxes (red, active frames).'));
+  box.append(grid, el('p', 'lab-help', 'Pick an animation: the game pauses and YOU shows it frame by frame on the real sheet, with hurt boxes (blue), hit boxes (red, active frames) and the scale check: the idle head size (white) around this frame\'s head (gold, orange when the packer flagged the strip).'));
   return box;
 }
 
@@ -303,6 +311,9 @@ function toolsTab() {
     chip(L.replay ? 'replaying on dummy' : `replay on dummy (${(L.rec.length / 60).toFixed(1)} s)`, L.replay, toggleReplay));
   row('METER', chip(L.infiniteKi ? 'infinite (both)' : 'normal', L.infiniteKi, () => { L.infiniteKi = !L.infiniteKi; game.trainingCfg.infiniteKi = L.infiniteKi; render(); }));
   row('BOXES', chip(game.showBoxes ? 'ON' : 'OFF', game.showBoxes, () => { game.showBoxes = !game.showBoxes; render(); }));
+  // A/B the victim's hit flash live (ENG-064): the table is read every frame, so the next hit shows the change
+  row('HIT FLASH', ...FLASH_STYLES.map((s) => chip(s.toUpperCase(), HIT_FLASH.style === s, () => { HIT_FLASH.style = s; render(); })));
+  row('FLASH STR', ...[0.5, 0.75, 1, 1.25].map((v) => chip(v + '×', HIT_FLASH.strength === v, () => { HIT_FLASH.strength = v; render(); })));
   row('RESET', button('positions', () => { stopScripts(); place(3.2); }), button('refill HP', () => { for (const f of fighters()) f.hp = 1000; }));
   box.append(el('p', 'lab-help', 'Record: play a few seconds yourself, stop, then the dummy repeats it in a loop (mirrored toward you). Clash: how well the dummy plays a rhythm clash, from EASY (late presses, skipped notes) up. Pause and step to read frame data; the readout below shows both fighters every frame.'));
   return box;
@@ -339,6 +350,8 @@ function loop(now) {
 // one lab frame; exposed as window.lab.tick so a hidden tab (no requestAnimationFrame) can be driven from the console
 function tick(dt) {
   if (game.fighters.length < 2) { game.frame(dt); return; }
+  const meter = L.infiniteKi && !L.running?.ownKi;
+  if (game.trainingCfg) game.trainingCfg.infiniteKi = meter; // the training room refills P1 inside the frame
   if (L.viewer) {
     if (L.viewer.playing) {
       const act = fighters()[0].actor;
@@ -351,7 +364,7 @@ function tick(dt) {
     while (L.step > 0) { L.step--; game.frame(1 / 60); }
     game.render(0);
   } else game.frame(dt * L.speed);
-  if (L.infiniteKi) for (const f of game.fighters) f.ki = Math.max(f.ki, 300);
+  if (meter) for (const f of game.fighters) f.ki = Math.max(f.ki, 300);
   if (L.recording && !L.running) {
     L.rec.push(recordFrame(fighters()[0]));
     if (L.rec.length >= 600) { L.recording = false; render(); }

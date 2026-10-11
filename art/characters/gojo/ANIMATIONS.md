@@ -541,12 +541,15 @@ Backward flip, counter-clockwise on screen.
 **Lying flat with the head toward screen-left** (about 224 px long; he is long, so one knee stays a
 little bent).
 
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f1.
+
 - **f0** (short): his back slams flat onto the floor from the shoulders to the hips (the whole back is
   the lowest part, so the pose stays centered); knees bent and lifted toward the upper-right by the
   bounce, arms flung out to the sides. Mouth open. Hair crown splashes out to the left. The tallest
   frame (104), about 200 px wide.
-- **f1** (long hold): lying flat on his back, arms out at his sides (never stretched above the head),
-  one knee slightly bent. Grimacing. The blindfold still on, the jacket hem splayed.
+- **f1** (long hold): lying flat on his back, seen side-on (head, back, hips and heels on the floor line), arms
+  out along the floor at his sides (never stretched above the head), one knee slightly bent. Grimacing. The
+  blindfold still on, the jacket hem splayed.
 
 QA: the hair stays inside x 4 and the shoes inside x 251.
 
@@ -554,9 +557,11 @@ QA: the hair stays inside x 4 and the shoes inside x 251.
 
 ### ko: 1 frame
 
-- **f0**: **lying flat on his back, head toward screen-left** (about 226 px long, 70 px tall),
-  completely limp, arms splayed at his sides, one knee only slightly bent (a high knee would make the
-  frame taller than 70). Mouth slightly open, slack. The blindfold still on, hair spread on the floor,
+**Lying rule ([ADR 0020](../../../docs/decisions/0020-lying-pose-ground-contact.md), [SPEC.md](../../SPEC.md#lying-poses)):** seen **side-on** from the 12 degree spec camera, never from above: the back of the head, the back, the hips, the backs of the legs and the heels rest on the floor line (y 240), the far limbs at most about 8 px higher. The packer's ground check must report nothing for f0.
+
+- **f0**: **lying flat on his back, head toward screen-left, seen side-on** (about 226 px long, 70 px
+  tall), completely limp, arms loose along the floor at his sides, one knee only slightly bent (a high knee
+  would make the frame taller than 70). Mouth slightly open, slack. The blindfold still on, hair spread on the floor,
   jacket hem splayed.
 
 <a id="getup"></a>

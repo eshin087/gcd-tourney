@@ -153,6 +153,25 @@ export default {
   color: '#4a7bff',
   aura: [0.25, 0.55, 1.0],
   auraCore: [0.8, 0.92, 1.0],
+  // Powering up (ENG-069, src/game/chargeFx.js): dark curse-mark chakra (near-black wisps, a dark shell, black
+  // tongues licking up from his back from bar 2), Chidori current crawling over the body, the Sharingan glint
+  // (stronger at MAX). No Susanoo.
+  charge: {
+    palette: { main: '#5a3a8e', core: '#9a7ad8', dark: '#120a1c', spark: '#d8f0ff', eye: '#ff1a2a' },
+    bodyTint: 0,
+    shell: { kind: 'dark', width: [0.03, 0.065], lift: 0.8, noise: 0.7, speed: 1.4, opacity: [0.45, 0.7] },
+    emit: [
+      { fx: 'wisp', from: 'back', every: 7, max: 4, scale: [0.3, 0.42], vel: [0, 1.5, 0], color: 'dark', opacity: 0.7 },
+      { fx: 'wisp', from: 'back', bar: 1, every: 12, max: 2, scale: [0.28, 0.36], vel: [0, 1.4, 0], color: 'main', opacity: 0.5 },
+      { fx: 'flame', from: 'back', bar: 2, every: 8, max: 3, scale: [0.36, 0.5], vel: [0, 1.2, 0], color: 'dark', opacity: 0.6 },
+      { fx: 'arc', from: 'body', every: 5, max: 2, scale: [0.14, 0.22], life: 0.08, random: true, spin: true, color: 'spark', glow: 0.5, front: 1 },
+    ],
+    eyes: { at: [-0.04, 1.36], color: 'eye', bar: 1 },
+    ground: { dustEvery: 0, crackAt: 3, rumble: 0.03 },
+    bar: { ring: { scale: 1.6, color: 'main', opacity: 0.4 }, burst: null, dust: 0.4, lines: 0.25 },
+    max: { ring: { scale: 2.2, color: 'main', opacity: 0.5 }, burst: null, dust: 0.5, flash: 0.08, fx: [{ fx: 'arc', from: 'chest', scale: 0.3, life: 0.08, random: true, spin: true, color: 'spark', glow: 0.5, front: 1 }] },
+    sound: 'crackle',
+  },
   beam: { core: '#f0fbff', mid: '#62b8ff', edge: '#3a54ff', name: 'LIGHTNING LANCE' },
   specialName: 'CHIDORI',
   projectileName: 'FIREBALL',
@@ -166,6 +185,7 @@ export default {
     ultimate: 'amaterasu',
   },
   stats: { speed: 6.2, power: 1.0, defense: 1.0 },
+  ground: { style: 'lightning', tint: '#9ad8ff', charge: 'fracture_lightning' }, // floor damage (ground.js, ADR 0024)
   model,
   stance,
   extraAnims,
