@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // Feature branches as pull requests, without touching the shared working copy (ADR 0013).
 //
-//   npm run pr -- start <branch> [--full]   new worktree + branch off main in .worktrees/<branch>
+//   npm run pr -- start <branch> [--art <id>[,<id>]] [--full]   new worktree + branch off main in .worktrees/<branch>
 //   npm run pr -- open [--title "..."]      (inside the worktree) publish the branch slim + open the GitHub PR
 //   npm run pr -- preview                   (inside the worktree) deploy the branch to a Vercel preview, link it in the PR
 //   npm run pr -- merge <branch>            (in the main checkout) merge --no-ff, publish main, remove the worktree
+//   npm run pr -- prune [--dry-run]         (in the main checkout) remove clean worktrees whose branch is merged
 //
 // Why worktrees: Claude sessions and Codex share the main checkout, so `git checkout` there would yank files
 // out from under the others. Each feature lives in its own folder and branch; main only receives merges.
@@ -12,7 +13,10 @@
 // Why merge locally instead of `gh pr merge`: GitHub holds a filter-repo rewrite of local main
 // (tools/publish.mjs); a merge commit made on GitHub would make the next publish non-fast-forward.
 // Publishing main after the local merge makes GitHub mark the PR merged.
-// Code worktrees skip raw image generations (~1.5 GB, same globs as publish.mjs); --full checks them out for art work.
+// Code worktrees skip raw image generations (~2 GB, same globs as publish.mjs). Art work adds back only the raw
+// art it needs with --art (a character id like naruto, or an art/ folder like vfx or crowd), so a worktree stays
+// a few hundred MB; --full copies the whole art library and is a last resort. Never copy the project folder
+// by hand instead of making a worktree: seven such copies once filled 15 GB.
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -43,17 +47,32 @@ const currentBranch = (cwd = ROOT) => git(['rev-parse', '--abbrev-ref', 'HEAD'],
 
 function start() {
   const branch = positional;
-  if (!branch || !PREFIXES.some((p) => branch.startsWith(p))) die(`usage: pr start <${PREFIXES.join('|')}name> [--full]`);
+  if (!branch || !PREFIXES.some((p) => branch.startsWith(p))) die(`usage: pr start <${PREFIXES.join('|')}name> [--art <id>[,<id>]] [--full]`);
+  const art = artPatterns(opt('--art'));
   const dir = worktreeDir(branch);
   if (fs.existsSync(dir)) die(`${dir} already exists`);
   git(['worktree', 'add', '--no-checkout', '-b', branch, dir, 'main'], ROOT, true);
-  if (!flag('--full')) {
-    git(['sparse-checkout', 'set', '--no-cone', ...SPARSE], dir, true);
+  if (flag('--full')) {
+    console.warn('[pr] --full checks out the whole ~2 GB art library; prefer --art <id> for one character or art kind');
+  } else {
+    // later patterns win, so the re-included folders bring back their raw/ that SPARSE excluded
+    git(['sparse-checkout', 'set', '--no-cone', ...SPARSE, ...art], dir, true);
   }
   git(['checkout', branch], dir, true);
   console.log('[pr] installing dependencies');
   sh('npm', ['ci', '--prefer-offline', '--no-audit', '--no-fund'], dir);
   console.log(`[pr] ready: ${dir}\n[pr] work and commit there, then run \`npm run pr -- open\` from that folder.`);
+}
+
+// --art naruto,vfx -> /art/characters/naruto/ and /art/vfx/ (whole folders, raw included)
+function artPatterns(list) {
+  if (!list) return [];
+  return list.split(',').filter(Boolean).flatMap((id) => {
+    // an id with no folder yet is a new character; its folder must still be in the sparse set or `git add` refuses it
+    const rel = [id, 'characters/' + id].find((r) => fs.existsSync(path.join(ROOT, 'art', r))) || 'characters/' + id;
+    // `/**` too: the SPARSE exclusions match raw/ itself, so re-including only the parent folder is not enough
+    return [`/art/${rel}/`, `/art/${rel}/**`];
+  });
 }
 
 function open() {
@@ -115,4 +134,43 @@ function merge() {
   console.log(`[pr] merged ${branch}. Revert later with: git revert -m 1 ${git(['rev-parse', '--short', 'HEAD'])}`);
 }
 
-({ start, open, preview, merge }[cmd] || (() => die('usage: pr start|open|preview|merge (see tools/pr.mjs)')))();
+// Worktrees outlive their branch when a merge could not remove them (a session was still inside, or a branch
+// was merged some other way). Remove the clean ones; anything with uncommitted work stays and is listed.
+// Folders in .worktrees/ that are not git worktrees (hand-made copies) are only reported, never deleted.
+function prune() {
+  if (currentBranch() !== 'main') die('run this in the main checkout');
+  const dry = flag('--dry-run');
+  // "merged" = the branch tip is a merged-in parent of a merge commit on main (what `pr merge` makes);
+  // `git branch --merged` would also count a just-started branch with no commits yet
+  const mergedTips = new Set(git(['rev-list', '--merges', '--parents', 'main']).split('\n')
+    .flatMap((line) => line.split(' ').slice(2)));
+  const merged = new Set(git(['for-each-ref', '--format=%(refname:short) %(objectname)', 'refs/heads/']).split('\n')
+    .map((line) => line.split(' ')).filter(([, sha]) => mergedTips.has(sha)).map(([name]) => name));
+  const trees = git(['worktree', 'list', '--porcelain']).split(/\n\n+/).map((block) => ({
+    dir: path.resolve((block.match(/^worktree (.+)$/m) || [])[1] || ''),
+    branch: (block.match(/^branch refs\/heads\/(.+)$/m) || [])[1],
+  })).filter((t) => t.branch && t.dir !== path.resolve(ROOT));
+  for (const t of trees) {
+    if (!merged.has(t.branch)) continue;
+    const dirty = git(['status', '--porcelain'], t.dir);
+    if (dirty) { console.warn(`[pr] kept ${t.dir}: ${t.branch} is merged but has uncommitted work`); continue; }
+    if (dry) { console.log(`[pr] would remove ${t.dir} (${t.branch} merged)`); continue; }
+    try {
+      git(['worktree', 'remove', t.dir], ROOT, true);
+      try { git(['branch', '-d', t.branch], ROOT, true); } catch { /* checked out elsewhere */ }
+      console.log(`[pr] removed ${t.dir} (${t.branch} merged)`);
+    } catch {
+      console.warn(`[pr] could not remove ${t.dir} (a session or editor may have it open); retry later`);
+    }
+  }
+  const known = new Set(trees.map((t) => t.dir));
+  const base = path.join(ROOT, '.worktrees');
+  for (const name of fs.existsSync(base) ? fs.readdirSync(base) : []) {
+    const dir = path.join(base, name);
+    if (fs.statSync(dir).isDirectory() && !known.has(path.resolve(dir))) {
+      console.warn(`[pr] ${dir} is not a git worktree (a plain copy?); delete it by hand once its work is safe`);
+    }
+  }
+}
+
+({ start, open, preview, merge, prune }[cmd] || (() => die('usage: pr start|open|preview|merge|prune (see tools/pr.mjs)')))();

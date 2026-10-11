@@ -3,7 +3,14 @@
 | file | what |
 |---|---|
 | `pack-sprites.mjs` | **Sprite packer**: turns generated art in `art/` into what the game loads from `public/` (sheets, `anims.json` with hit/hurt boxes, VFX atlas, UI images). |
-| `test-pack-sprites.mjs` | Regression test for the packer. Generates fake ChatGPT-style strips in `tools/.test-fixtures/` (git-ignored), packs them, checks ~150 things (incl. adversarial art: specks, black/transparent backgrounds, edge-cropped feet, one huge pose, extra/missing poses; versioned `_vNN` candidates, rejected versions, the spec read from the manifest, the 64/65-color warning line), deletes the folder. |
+| `test-pack-sprites.mjs` | Regression test for the packer (then the decal tests, `test-pack-decals.mjs`). Generates fake ChatGPT-style strips in `tools/.test-fixtures/` (git-ignored), packs them, checks ~150 things (incl. adversarial art: specks, black/transparent backgrounds, edge-cropped feet, one huge pose, extra/missing poses; versioned `_vNN` candidates, rejected versions, the spec read from the manifest, the 64/65-color warning line), deletes the folder. |
+| `scale-probe.mjs` | The **scale probe** (TOOL-025, ADR 0021): measures each packed frame's head silhouette (hair included) and feet against the fighter's idle. A module (no CLI) shared by the packer's scale gate, `scale-audit.mjs`, `stitch-parts.mjs` and `lineup.mjs`. See "Scale gate" below. |
+| `scale-audit.mjs` | `npm run scale`: the scale gate's numbers for the shipped sheets, the heads contact sheets `art/scale/heads-<id>.png`, `art/scale/scale-report.json`, `scale-baseline.json`, and with `--guide` each fighter's `reference/head_scale_guide.png`. |
+| `stitch-parts.mjs` | `npm run stitch`: joins a strip generated in two parts (`raw/_parts/<anim>_vNN_A.png` + `_B.png`) with a **measured** size factor (TOOL-008). |
+| `lineup.mjs` | `npm run lineup`: the cast side by side on one floor line with build numbers and each fighter's head scale per animation (art/CHARACTER_SCALE.md "Lineup review"). |
+| `pack-decals.mjs` | The packer's **ground-decal** kind (`npm run sprites decals`, ADR 0024): `DECAL_SPECS` (the engine's decal contract), raw parts, hot key, pages. Called by `pack-sprites.mjs`, which passes its image helpers in. |
+| `test-pack-decals.mjs` | Decal regression test (run by `test-pack-sprites.mjs`, or alone): fixtures in `tools/.test-fixtures/decals/`. |
+| `test-music.mjs` | Test for the generative music composer (`src/core/musicPlan.js`, [ADR 0019](../docs/decisions/0019-generative-lofi-music.md)): same seed same song, varied 8-bar windows across 20 seeds, melody / pad ranges and scales, pad voice-leading leaps, no intro drums, heat gates. `npm run test:music` (`-- --print` prints a song). No dependencies. |
 | `queue.mjs` | Claim queue for parallel art production (world art batches): see its header comment and [ADR 0008](../docs/decisions/0008-world-art-and-parallel-production.md). Not part of the sprite packer. |
 
 All are plain Node ESM (Node 18+). The only dependency is `pngjs` (devDependency).
@@ -20,12 +27,13 @@ proportions, pivot `[128, 240]`, ppu 128. Where the numbers come from:
 ### Run it
 
 ```bash
-npm run sprites                 # every character in art/characters/ + every world-art kind (vfx, crowd, stage, npc, ui)
+npm run sprites                 # every character in art/characters/ + every world-art kind (vfx, crowd, stage, npc, ui, decals)
 npm run sprites naruto          # one character (several ids allowed: npm run sprites naruto sasuke)
 npm run sprites vfx             # only the VFX atlas (approved effects only)
 npm run sprites crowd           # only the crowd atlas (approved spectators only)
 npm run sprites stage npc ui    # approved stage slots, NPC sheets and shared UI images
-node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates   # every candidate -> public/preview/ (local, ?art=custom)
+npm run sprites decals          # approved ground decals -> public/decals/ (atlas.json + the pages of each page set)
+node tools/pack-sprites.mjs vfx crowd stage npc ui decals --candidates   # every candidate -> public/preview/ (local, ?art=custom)
 npm run test:sprites            # packer regression test (never touches art/ or public/)
 ```
 
@@ -46,13 +54,16 @@ node tools/pack-sprites.mjs --dry-run naruto
 | `--tolerance <n>` | background color tolerance, RGB distance (default 72). Raise it if a pink halo remains, lower it if the character loses pink/purple pixels. |
 | `--no-writeback` | do not write cleaned frames back to `art/.../frames/<anim>/` |
 | `--strict` | exit code 2 when there are warnings (CI) |
-| `--candidates` | world art (VFX, crowd, stage, NPC, UI) is **approval-gated**: by default only items with an `approvedVersion` in the manifest are packed, at that version (a newer candidate is noted in the report and waits), outputs whose approval is gone are removed, and an unreadable manifest leaves every world-art output untouched. `--candidates` packs every latest candidate into `<out>/preview/<kind>/` instead (an item without a candidate previews its approved image), leaving the shipped outputs alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
+| `--strict-scale` | scale gate strict for **every** strip, approved or not: the check before a fighter is set to `"scaleGate": "strict"`. Without it only unapproved strips fail, which is the gate a new strip must pass (see "Scale gate") |
+| `--fit-head <id>:<anim>[,...]` | auto head fit for these strips, like the sidecar `anatomy: { "measurement": "auto-head" }`: a raw strip whose verdict is `uniform` is rescaled so its head matches the idle's |
+| `--candidates` | world art (VFX, crowd, stage, NPC, UI, decals) is **approval-gated**: by default only items with an `approvedVersion` in the manifest are packed, at that version (a newer candidate is noted in the report and waits), outputs whose approval is gone are removed, and an unreadable manifest leaves every world-art output untouched. `--candidates` packs every latest candidate into `<out>/preview/<kind>/` instead (an item without a candidate previews its approved image), leaving the shipped outputs alone. `public/preview/` is git-ignored; the game shows it with `?art=custom`. Characters are not affected. |
 | `--root <dir>` (`--src`, `--art`) | art folder to read (default `./art`). Used by tests. |
 | `--out <dir>` | public folder to write (default `./public`). Used by tests, so they never overwrite real characters. |
 | `--manifest <file>` | manifest to read (default `<root>/manifest.json`) |
 | `--guide <file>` | animation guide module (default `src/art/animGuide.js`) |
 
-Exit codes: `0` ok (also when nothing is packed yet), `1` bad arguments / unknown character / crash, `2` warnings with `--strict`.
+Exit codes: `0` ok (also when nothing is packed yet), `1` bad arguments / unknown character / crash, or the **scale gate failed**
+(a `scale gate:` line; the sheet is still written so you can look at it), `2` warnings with `--strict`.
 
 ### The spec comes from the manifest
 
@@ -107,6 +118,9 @@ art/
                                      highest version packed, plain vfx/raw/<effect>.png only when none exists
   vfx/raw/_rejected/ _proposed/ ...  never read (_proposed/ = character effects waiting for an engine task)
   vfx/frames/<effect>/<effect>_NN.png
+  decals/raw/<name>_vNN.png          ground-decal candidate on magenta, or the parts <name>_vNN_A.png, _B.png ... of one version
+  decals/raw/<name>.json, <name>_vNN.json   optional sidecars (tolerance, drop, frames, split, parts.<letter>)
+  decals/frames/<name>/<name>_NN.png cleaned cells (exact cell size = final)
 ```
 
 **Source order per animation** (and per effect):
@@ -172,8 +186,17 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
      length and blob size, box padding) was tuned on spec v1 art and is scaled by `standingBodyPx / 136`
      (x1.47 in spec v2), so the boxes behave the same on bigger sprites.
    - `hitboxes.json` overrides are applied last.
+   - **Lying frames** (ADR 0020): the resting ones (`ko` all, `down` last, `getup` first) get a **ground check**:
+     per body column, the gap between its lowest opaque pixel and y 240. Warned (never dropped) unless at least
+     40% of the columns are within 6 px, no fifth of the body's length is more than 12 px up at its lowest, and the
+     frame is at most `bodyHeight` x 1.15 tall (px at a 200 px standing body, scaled by `standingBodyPx / 200`).
+     A pose drawn from above fails it: one hand touches the floor line and the head end hangs in the air. Every
+     `ko` and `down` frame and `getup` f0 also get a `footprint` (their opaque x span); the JSON report's `ground`
+     has the measurements.
 7. **Palette** is counted per character: above `maxColors` (48) is a note, above `warnColors` (64) a warning
    (use `--quantize 48`).
+8. **Scale gate**: every strip's head (hair included) and feet are measured against the idle of the same pack (see
+   "Scale gate" below). Strips with the auto head fit are rescaled first.
 
 ### What it writes
 
@@ -193,9 +216,16 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
  "boxes": {
   "0":  { "hurt": [[110,45,36,196]] },
   "10": { "hurt": [[115,45,60,196]], "hit": [[204,62,26,26]] }
- }
+ },
+ "footprint": { "108": [20,224], "109": [35,249], "110": [65,181], "135": [0,253] }
 }
 ```
+
+- `scaleAudit` (added after `boxes`): the scale gate's measurement for the dev tools (`?scaleaudit`, the test lab's head
+  boxes, `scaleReport()`): `ref.box` (idle f0 head box), and per animation `head`, `feet`, `verdict`, `v`, per-frame
+  `frames` and `boxes`. The game ignores it otherwise.
+- `footprint` (only when the pack has lying frames): `"<sheet frame>": [x0, x1]`, the opaque x span (inclusive cell
+  px) of every `ko` and `down` frame and `getup` f0. The engine stretches the contact shadow along it (ADR 0020).
 
 - `complete` is `true` only when every core animation exists (`idle run dash jumpUp jumpFall land light1 light2
   light3 light4 heavy airLight1 airHeavy guard hurtHigh launched down getup special beamCharge beamFire charge win`,
@@ -244,7 +274,11 @@ needed; the next run reads them instead of raw. Rules:
   files (delete `frames/<anim>/` to re-import from raw);
 - untouched frames whose raw source is gone (its only version was moved to `raw/_rejected/`) are **not packed**
   (warned), so rejected art never reaches the game; hand-edited ones still are;
-- frames without a marker are treated as hand-made and are never overwritten.
+- frames without a marker are treated as hand-made and are never overwritten;
+- an applied auto head fit records its factor as `"autoHead"` in the marker: asking for the fit, or dropping it,
+  re-imports the raw once; after that the fitted frames are kept as they are. A request that was **not** fitted
+  (verdict not `uniform`) is not recorded, so it re-imports and is measured again on every pack while it stands: an
+  exemption, `headColors` or a new idle can still make it fit.
 
 Re-running the packer on unchanged input produces byte-identical output (safe to commit).
 
@@ -257,6 +291,8 @@ Re-running the packer on unchanged input produces byte-identical output (safe to
 `frames`: how many poses the strip really has. `split: "even"`: cut the strip into equal slices (snapped to the
 emptiest column) instead of by gaps. `bodyHeight`: override for this animation. `tolerance`: background
 tolerance. `drop`: indices of bad poses to discard (after splitting; out-of-range indices are warned and ignored).
+`anatomy: { "measurement": "auto-head" }`: the auto head fit (see "Scale gate"). `stitch`: written by
+`npm run stitch` (the measured factor); the packer ignores it.
 
 `raw/<anim>.json` applies to every source of the animation. `raw/<anim>_vNN.json` applies only while that
 version is the one packed, and its keys win over `raw/<anim>.json`. Put image-specific keys (`frames`, `split`,
@@ -284,6 +320,22 @@ version is the one packed, and its keys win over `raw/<anim>.json`. Put image-sp
 - Shared UI (`art/ui/README.md`): `public/ui/logo.png` (at most 640 x 240, alpha 0/255), `public/ui/title_art.png` (exactly
   640 x 360, opaque) + `manifest.json` (`assets: { name: { file, size, version } }`). Approval: `sharedUi.<logo|titleArt>` or the
   `worldArt.ui` batches; source `final/<asset>.png`, else `review/<asset>_palette_vNN.png` / `_fit_vNN.png`.
+- Ground decals (`art/decals/README.md`, ADR 0024, `tools/pack-decals.mjs`): `public/decals/atlas.json` + one PNG page per
+  page set (`DECAL_PAGE_SETS`: base + edge, chakra + ki, lightning + fire, cursed; `decals_<set>.png`, or `_1`, `_2` ... when a
+  set needs several pages; each <= 2048 x 2048, first fit on a 128 px grid, biggest cells first, a name never split across
+  pages; the report checks the floor pages + the two biggest element sets against the engine's 4-page cap per match)
+  = `{ "ppu": 64, "source", "packer", "pages": [...], "pageSizes": [[w, h], ...], "decals": { "<name>": { "page", "w", "h",
+  "frames": [[x, y], ...], "mode": "flat"|"wall", "tinted", "group", "directional"?, "hotKey"?, "tile"?, "version" } } }`.
+  Names, cells, variants per image, groups and modes come from `DECAL_SPECS` (the engine contract; the manifest's `decals.items`
+  restates them, drift is warned) and only names with an `approvedVersion` (`decals.items.<name>` or a `worldArt.decal` batch)
+  ship. Per name: the raw's parts are joined in letter order, magenta removed (alpha 0/255, specks under 4 px dropped), each
+  image split into its brief count (extra pieces such as ring halves joined by slot, in order) and scaled so its largest
+  variant fills 97% of the cell, each variant centered (tiling `erasure_trench`: each variant stretched to the full width,
+  a variant short of either end warned); hot-key names snap near-white (>= 250) to #FFFFFF and keep it out of the
+  <= 24-color median cut, other names tone near-white down to #F6F6F6, the tinted `barrier_crack` becomes greyscale (warned
+  when drawn in color);
+  magenta/purple pixels and a hot-key name without #FFFFFF are warned. Cleaned cells are written back to
+  `art/decals/frames/<name>/` with the usual marker; stale pages and an unapproved atlas are removed.
 
 ### `hitboxes.json` (optional, per character)
 
@@ -301,7 +353,10 @@ A frame with no `hit` key at all falls back to the move's `reach` in `src/game/m
 `"hand": [x, y]` marks the drawn palm or fingertip (256-cell px, rounded) for hand effects, projectile spawns and beam
 origins (`null` removes it); frames without one use their hit box, then the nearest frame of the animation (art/SPEC.md
 "Effect anchor points").
-Keys starting with `_` are ignored. Out-of-range frames and malformed boxes are warned, not fatal.
+Keys starting with `_` are ignored, except an animation's `"_scale"`: the auto head fit it was measured at (default 1).
+When an animation is packed at another fit, its boxes and `hand` points are scaled about the pivot by the ratio (a note
+says so), so re-measured boxes get `"_scale": <the fit>` and are not scaled twice.
+Out-of-range frames and malformed boxes are warned, not fatal.
 Contact zones per attack (where a hit box should sit) are in `art/SPEC.md`.
 
 ### Reading the report
@@ -347,15 +402,65 @@ Common warnings and the fix:
 | `bodyHeight N does not fit` | fix `bodyHeight` in the manifest or sidecar (max 237 in spec v2) |
 | `palette has N colors (> 64 ...)` | clean the art, or pack with `--quantize 48` |
 | `large auto hitbox` / `no clear strike limb` | check the frame; add a `hitboxes.json` override |
+| `N lying frame(s) float above the floor line` | the lying pose is drawn from above: redraw it side-on at the spec camera with the head, back, hips and legs on y 240 (art/SPEC.md "Lying poses"; the four current fighters: art/scale/KO_DOWN_BRIEF.md) |
 | `... changed but frames/<anim>/ has manual edits` | keep the edits, or delete `frames/<anim>/` to re-import the new source |
 | `frames/<anim>/ were cleaned from ..., which is no longer in raw/` | the only version was rejected: delete `frames/<anim>/` (or add a new `_vNN`) |
 | `manifest spec.X is ... - must be ...` | the manifest's spec block has a malformed value; fix it (the v2 default is used meanwhile) |
+| `scale gate: <anim> head 0.80 of idle (feet 1.01): head/hair drift` | an unapproved strip's head is off the idle's (exit 1, nothing written): redraw it to `reference/head_scale_guide.png` |
+| `scale gate: did not write public/characters/<id>/ (it keeps its last pack) or frames/` | a strict strip failed, so the whole pack of that fighter was refused: fix the strips named above |
+| `scale: <anim>: the manifest's scale exemption was written for vNN but the packed strip is vMM` | an exemption covers only its own drawing: look at the new version on the heads sheet; if the probe misreads it too, set `"scaleExemptVersion": MM` |
+| `scale gate: <anim> head 0.85 of idle (feet 0.88): the whole figure is off` | re-import with the auto head fit (a new version, sidecar `anatomy: { "measurement": "auto-head" }`) |
+| `scale gate: <anim> pops inside the strip` | two parts at two sizes: `npm run stitch` with a measured factor, or redraw |
+| `~ <anim> ... [approved vNN]` (scale findings) | an approved strip is off; not a failure until it is fixed (ART-SCALE-02) |
+| `scale: <anim> head X was Y in art/scale/scale-baseline.json at the same version` | something other than new art resized a strip (sidecar, bodyHeight, packer): find it, or `npm run scale -- --baseline` if intended |
+
+### Scale gate (TOOL-025, ADR 0021)
+
+The contract and the verdicts are in [art/CHARACTER_SCALE.md "Scale gate (automatic)"](../art/CHARACTER_SCALE.md#scale-gate-automatic).
+How the tools measure (`scale-probe.mjs`):
+
+- The **reference** is the idle of the same pack. Unquantized cells (a first raw import) are snapped to one shared
+  48-colour palette first, the same median cut `--quantize 48` ships, so a pack measures the same with or without
+  `--quantize`.
+- **Head**: the colours at least 1.5x denser in the top 12 % of the idle figure than in its lower 60 % (skin
+  excluded), or `headColors` of the fighter in `art/scale/builds.json` (Naruto: the hair yellow only, Sasuke: his
+  navy hair shades). The mask is opened with a 3x3 cross, split into 8-connected blobs, and the highest blob of at
+  least 20 % of the idle head area is the head (holes filled). Head scale = median of sqrt(area), width and height
+  ratios. **Feet**: colours at least 3x denser in the bottom 7 % (or `feetColors`).
+- **Per strip**: the median head and feet over the frames (exempt frames left out) and the head range. Verdicts and
+  thresholds: `GATE_DEFAULTS` in the module, overridable by `spec.scaleGate` in the manifest (`stripTol`, `popTol`,
+  `feetAgree`, `feetShare`, `fitMin`, `fitMax`, `baselineTol`, `lowConf`).
+- **Strictness**: per character `"scaleGate": "auto"` (default: unapproved strips strict, approved ones findings),
+  `"strict"` or `"warn"`; a character folder without a manifest entry is `warn`; `--strict-scale` makes every strip
+  strict for the run. A strict strip that fails **refuses the pack**: neither `public/characters/<id>/` nor `frames/`
+  is written for that fighter (the last good pack stays), and the exit code is 1.
+- **Exemptions** (`scaleExempt`, `scaleExemptFrames` on a manifest animation) need `"scaleExemptVersion"`: they
+  cover only that version of the strip. A redraw (another version) is measured, with a warning, until someone looks
+  at it and re-exempts it on purpose; an exemption without a version covers only an unversioned strip.
+- **Auto head fit**: after the gather, the strips that asked for it are audited; a `uniform` one is resampled from its
+  raw at `scale / head` (clamped `fitMin..fitMax`); the gate then audits the final cells.
+- **Stitch** (`stitch-parts.mjs`): each part's poses are measured at their own trial scale and once more at the scale
+  that should bring the head to 1.00; their colours are snapped to the packed idle's (brightness weighted double, so a
+  more saturated hair shade still reads as hair). Factor = the ratio of the two parts' idle-matching scales.
+
+```bash
+npm run scale                      # every packed fighter: heads-<id>.png, scale-report.json, scale-baseline.json
+npm run scale -- killua --guide    # + art/characters/killua/reference/head_scale_guide.png (redraw reference)
+npm run scale -- --baseline        # accept the current heads as the baseline (an intended change)
+npm run stitch -- naruto specialUp 2 --parts 1     # re-stitch the v01 parts with a measured factor as v02
+npm run stitch -- killua light2 3 --dry-run        # measure only
+```
+
+`npm run scale` reads `public/characters/<id>/` (what ships), so pack first. `--root`, `--public`, `--out` point it
+elsewhere (the regression test does).
 
 ### Changing the spec / extending
 
 - **New character**: copy `art/characters/_template/` to `art/characters/<id>/`, add it to `art/manifest.json`. No packer change.
 - **New animation name**: add it to `art/manifest.json` (and `src/art/animGuide.js` so the engine and Sprite Lab know it). The packer picks it up from the manifest; set `bodyHeight`, `frames`, `phases`, `ms`.
 - **New VFX effect**: needs engine support first (effect names are fixed in code); then add it to `manifest.vfx.effects`.
+- **New decal name**: engine support first (`src/game/ground.js`, `src/art/decalPainter.js`), then `DECAL_SPECS` in
+  `pack-decals.mjs`, `decals.items` in the manifest, `art/queue/sources.json` and the brief (`art/decals/README.md`).
 - **Changing the spec** (cell size, pivot, pixelsPerUnit, color limits): record an ADR, change the `spec` block (and the
   body heights) in `art/manifest.json`, update `art/SPEC.md`, and re-run the packer. Packer-written `frames/` folders
   re-import automatically (their marker records the cell); hand-edited ones keep winning, so redo or delete them.

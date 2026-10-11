@@ -1,0 +1,121 @@
+{
+  "anatomy": {
+    "measurement": "skull-to-chin",
+    "targetHeadPx": 31,
+    "sourceHeadPx": [
+      108,
+      108,
+      108,
+      108,
+      117,
+      117,
+      117
+    ]
+  },
+  "calibrationNotes": "Per-frame crown/chin traces now recorded in full stitched-source coordinates; hair hides the crown, so source-axis uncertainty remains +/-6px. Calibration checked against torso, legs and pose transitions. Raw pixels are byte-identical to the previous approved version; candidate approval remains pending.",
+  "sourceSha256": "c184ac95b1a7c15b0c14567a3d93c821695b44226ff7241a98007cfd04d411f8",
+  "measurementUncertainty": {
+    "status": "visually traced, approximate",
+    "reason": "Coordinates refer to full stitched raw source. Skull crown is inferred beneath hair; +/-6 source px. Calibration values stay inside the approximate crown range; silhouette heights are cross-checks, not skull measurements."
+  },
+  "measurements": [
+    {
+      "frame": 0,
+      "crown": [
+        210,
+        244
+      ],
+      "chin": [
+        218,
+        352
+      ],
+      "tracedHeadPx": 108.3,
+      "calibrationHeadPx": 108,
+      "uncertaintyPx": 6
+    },
+    {
+      "frame": 1,
+      "crown": [
+        658,
+        244
+      ],
+      "chin": [
+        663,
+        352
+      ],
+      "tracedHeadPx": 108.12,
+      "calibrationHeadPx": 108,
+      "uncertaintyPx": 6
+    },
+    {
+      "frame": 2,
+      "crown": [
+        1069,
+        244
+      ],
+      "chin": [
+        1079,
+        352
+      ],
+      "tracedHeadPx": 108.46,
+      "calibrationHeadPx": 108,
+      "uncertaintyPx": 6
+    },
+    {
+      "frame": 3,
+      "crown": [
+        1539,
+        244
+      ],
+      "chin": [
+        1547,
+        352
+      ],
+      "tracedHeadPx": 108.3,
+      "calibrationHeadPx": 108,
+      "uncertaintyPx": 6
+    },
+    {
+      "frame": 4,
+      "crown": [
+        2110,
+        175
+      ],
+      "chin": [
+        2124,
+        290
+      ],
+      "tracedHeadPx": 115.85,
+      "calibrationHeadPx": 117,
+      "uncertaintyPx": 6
+    },
+    {
+      "frame": 5,
+      "crown": [
+        2609,
+        175
+      ],
+      "chin": [
+        2624,
+        290
+      ],
+      "tracedHeadPx": 115.97,
+      "calibrationHeadPx": 117,
+      "uncertaintyPx": 6
+    },
+    {
+      "frame": 6,
+      "crown": [
+        3110,
+        175
+      ],
+      "chin": [
+        3124,
+        290
+      ],
+      "tracedHeadPx": 115.85,
+      "calibrationHeadPx": 117,
+      "uncertaintyPx": 6
+    }
+  ]
+}

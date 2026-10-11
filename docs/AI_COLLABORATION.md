@@ -28,6 +28,20 @@ passed a Git write probe, localhost listener and GitHub HTTP check. Existing cha
 previous permission policy; use a fresh project session and verify its effective permissions. A session
 using the old policy may reapply Git protection. Do not silently switch to machine-wide Full access.
 
+### Reusable PR metadata approvals
+
+Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
+Prepare the body file in a separate command, then run exactly this argument order:
+`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+(optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
+flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
+It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
+Existing chats may need restarting to load this manually installed project-local rule. Other actions,
+including merges and art approval, retain their existing policies.
+
+The local rule was checked with future PR numbers; other-repository, merge and repository-delete
+commands do not match it. Existing saved rules are independent. No filesystem permissions changed.
+
 ### Verified build and local server in the restricted profile
 
 The machine-local `.codex/vite.mjs` adapter fixes the build without adding filesystem permissions.
@@ -63,6 +77,15 @@ directory (Permission denied). The fixture was removed. Git file-write probes do
 compatibility. OPS-004 remains blocked for Git CLI integration; the build/server fix is verified.
 No broad-read fallback is enabled. Previous alias and ancestor-rule experiments were removed/restored.
 
+Follow-up Git CLI diagnosis (2026-10-10): Git for Windows 2.49.0.windows.1 runs git --version, but
+git status --short fails before repository access with Unable to read current working directory:
+Permission denied. Calling C:/Program Files/Git/mingw64/bin/git.exe directly fails identically;
+an explicit -C or extended Windows path did not help. The installed Git implementation resolves
+its working directory through Windows path APIs before repository operations. No supported narrow
+permission adjustment has been demonstrated to fix that failure. Do not claim unattended worktree,
+commit or merge verification from the successful metadata file-write probes. This requires a compatible
+sandbox/runtime solution; no broader read access or Git executable modification was installed.
+
 - Each parallel task owns one real worktree, branch and server port; claim overlapping files first.
 - Agree on one integration coordinator across Claude and Codex. Only that coordinator mutates main,
   updates main-only NOW/inbox, or merges/publishes it. Integrations run sequentially, never concurrently.
@@ -72,6 +95,8 @@ No broad-read fallback is enabled. Previous alias and ancestor-rule experiments 
 - There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
 - Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
   candidates and review history; transfer selected changes into real worktrees before Git operations.
+  Never make new copies: each was a full ~2.2 GB project, and seven filled 15 GB. Art worktrees use
+  `npm run pr -- start <branch> --art <id>` (~0.5 GB); if worktree creation fails, stop and report instead.
 
 ## Roles
 

@@ -16,6 +16,15 @@ Existing image/design approval gates still apply; permission to execute commands
 These rules supersede older requirements to ask again for routine technical actions or have the user
 perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
 
+Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
+Prepare the body file in a separate command, then run exactly this argument order:
+`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+(optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
+flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
+It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
+Existing chats may need restarting to load this manually installed project-local rule. Other actions,
+including merges and art approval, retain their existing policies.
+
 For this machine's restricted Windows profile, build and serve with the local `.codex/vite.mjs`
 adapter documented in docs/AI_COLLABORATION.md. It passed the production build without broadening reads;
 the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a
@@ -67,16 +76,18 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    - a strip: `art/characters/<id>/raw/<anim>_vNN.png` (poses left to right). The packer uses the highest
      version; a plain `raw/<anim>.png` is used only when no versioned file exists.
    - parts of a long strip (every strip with 6 or more frames): `raw/_parts/<anim>_vNN_A.png`, `_B.png`,
-     stitched into `raw/<anim>_vNN.png` (art/PIPELINE.md "Long strips (parts)")
+     stitched into `raw/<anim>_vNN.png` with `npm run stitch -- <id> <anim> <vNN>` (a measured factor; never
+     a factor picked by eye, art/PIPELINE.md "Long strips (parts)")
    - single frames: `raw/<anim>_NN.png` (`NN` = the 0-based frame number, no `v`), only for an animation
      delivered frame by frame. To fix one bad pose, see art/PIPELINE.md "Fixing frames": attempts are
      `raw/<anim>_NN_fixMM.png` (skipped by the packer) and the patched strip is the next `raw/<anim>_vNN.png`
-   - VFX: `art/vfx/raw/<effect>_vNN.png`; UI: `art/characters/<id>/raw/ui_<name>_vNN.png` (`portrait`,
+   - VFX: `art/vfx/raw/<effect>_vNN.png`; ground decals: `art/decals/raw/<name>_vNN.png` or its parts
+     `<name>_vNN_A.png`, `_B.png` ... (art/decals/README.md); UI: `art/characters/<id>/raw/ui_<name>_vNN.png` (`portrait`,
      `cutin`, `select`); shared UI: `art/ui/raw/<asset>_vNN.png`
    - images the user made by hand in ChatGPT get the same names and the same review
-6. **Pack**: `npm run sprites <id>` (or `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` for world art
+6. **Pack**: `npm run sprites <id>` (or `node tools/pack-sprites.mjs vfx crowd stage npc ui decals --candidates` for world art
    waiting for review: it writes the git-ignored `public/preview/`, seen with `?art=custom`; `npm run sprites vfx`
-   / `crowd` / `stage` / `npc` / `ui` ship approved art only). Read the report: which file it used per
+   / `crowd` / `stage` / `npc` / `ui` / `decals` ship approved art only). Read the report: which file it used per
    animation, packed anims, missing CORE anims, frame-count mismatches, clipped frames, palette warnings.
 7. **QA** the output in `art/characters/<id>/frames/<anim>/` and in the game
    (`npm run dev`, then `http://127.0.0.1:5188/?fight=<id>,<id>&mode=solo&art=custom&debug`). The Sprite
@@ -85,7 +96,12 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    such as chibi proportions or design drift from the approved model sheet, misaligned feet, wrong body
    height, palette drift, anti-aliasing or blur, wrong facing, or limbs that don't reach the art/SPEC.md
    contact zones toward screen-right on active frames.
-8. **Queue it for review**: one row per saved version at the top of art/REVIEW.md (date, character, asset,
+8. **Pass the scale gate first**: `node tools/pack-sprites.mjs <id> --quantize 48` must exit 0 with no `scale gate:`
+   line for the new strip (a new version is strict there and a failure writes nothing; art/CHARACTER_SCALE.md "Scale
+   gate (automatic)"), and `npm run scale -- <id>` writes `art/scale/heads-<id>.png`, which the REVIEW row links
+   (plus the `npm run lineup` image for any size change). A strip that fails is fixed (auto head fit, re-stitch or
+   redraw), not filed; a head the probe misreads gets a manifest exemption with a reason and its `scaleExemptVersion`.
+   **Queue it for review**: one row per saved version at the top of art/REVIEW.md (date, character, asset,
    file link, version, `needs review`, what changed, QA notes). Re-read REVIEW.md right before each edit;
    parallel threads only touch their own character's rows. Update `version` and the status in the
    manifest and TRACKER (`todo` -> `raw` on the first save, `raw` -> `packed` after a clean pack; a status
@@ -132,12 +148,15 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
   warns above 64).
 - The in-game 3D-baked placeholder is still chibi (112 px cells, ppu 44). Never match new art to it.
 - Body heights per animation come from the manifest (`bodyHeight`). Don't "fix" a height in an image.
-  The packer scales each strip.
+  The packer scales each strip, and its **scale gate** measures every frame's head (hair included) against the
+  approved idle: a new strip must pass `node tools/pack-sprites.mjs <id> --quantize 48` (exit 0) and its REVIEW row must link
+  `art/scale/heads-<id>.png` from `npm run scale` (art/CHARACTER_SCALE.md "Scale gate (automatic)"). Never pick a
+  rescale factor by eye: `npm run stitch` measures part B against part A, the auto head fit measures a strip.
 - **Hit/hurt boxes**: the packer generates them automatically. Correct them with
   `art/characters/<id>/hitboxes.json` overrides (frame-local px in the final 256×256 cell, keyed by
   animation, then the 0-based frame number = the `NN` in `<anim>_NN.png`). Never hand-edit
   `public/characters/<id>/anims.json`.
-- Never hand-edit `public/characters/**` or `public/vfx|crowd|stage|npc|ui/**`. They are packer outputs.
+- Never hand-edit `public/characters/**` or `public/vfx|crowd|stage|npc|ui|decals/**`. They are packer outputs.
 - Prompts describe **visual traits** (hair, outfit, colors, silhouette) and say "anime fan-art sprite".
   Don't depend on character or artist names. If the image generator refuses, use the fallback wording in
   the PROMPTS file.
@@ -152,6 +171,10 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
 | `npm run dev` | game at http://127.0.0.1:5188 (`npm run dev:alt` uses port 5200 if 5188 is busy) |
 | `npm run sprites [id\|vfx]` | pack art from `art/` into `public/` and print a QA report |
 | `npm run test:sprites` | packer regression test (fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
+| `npm run sprites -- --strict-scale <id>` | scale gate strict for every strip, approved ones too: fails until all of a fighter's strips pass (the check before `"scaleGate": "strict"`); not the per-strip check |
+| `npm run scale [id]` | scale report: `art/scale/heads-<id>.png` (attach to the REVIEW row), `scale-report.json`; `-- --guide` writes `reference/head_scale_guide.png` |
+| `npm run stitch -- <id> <anim> <vNN>` | join `raw/_parts/<anim>_vNN_A.png` + `_B.png` with a measured size factor |
+| `npm run lineup` | the cast side by side (idle, run, heavy, guard, charge, airLight1, hurtHigh) with each fighter's head scale per animation |
 | `npm run build` | production build. Must pass before you finish. |
 
 Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug` (console helpers:
@@ -161,16 +184,29 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 ## Safe boundaries for code changes
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
-  Run `npm run pr -- start feature/<name>` (add `--full` for art work, e.g. `feature/char-<id>`) from the main
+  Run `npm run pr -- start feature/<name>` (with `--art <id>` for art work, never `--full`) from the main
   folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
   When it's done, `npm run pr -- open` and `npm run pr -- preview` there (a Vercel preview link for the user's phone,
   ADR 0018), and `npm run pr -- merge <branch>` from the main folder (never the
   GitHub merge button). Commits straight to `main` are allowed only for docs-only edits, bookkeeping and art
   approvals for a character that already ships. A new character's art goes in batch PRs (`art/<id>-refs`,
   `art/<id>-core`, `art/<id>-full`), each started from `main` after the previous one merged
-  ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)). Your app's own worktree is fine
-  if it is on a named branch and you open the PR with `npm run pr -- open` from it. Base PRs on `main`, never on
+  ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)). Reuse the task's existing real
+  worktree and open the PR with `npm run pr -- open` from it. Base PRs on `main`, never on
   another PR's branch unless you say so in the PR body.
+- **Worktree storage rules (user direction, 2026-10-10).** These supersede older `--full` examples and
+  copy-based sandbox instructions elsewhere in the project. The docs-only/main exceptions above still apply.
+  1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
+     `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
+  2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
+     needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
+     creation fails in the sandbox, stop and tell the user; never fall back to copying.
+  3. Never use `--full` for art tasks. Start with `npm run pr -- start <branch> --art <id>[,<id>]` (a character id or an
+     art kind like `vfx`), which checks out only that art, raw files included (~0.5 GB vs ~2 GB). A plain
+     `git sparse-checkout add art/characters/<id>` does not bring back its `raw/`.
+  4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
+  5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
+     must finish cleanup of merged task worktrees; do not leave them behind.
 - **The main folder is merge-only.** Never leave uncommitted work there (git can't merge over it); docs-only and
   bookkeeping commits there go in right away. `docs/NOW.md` and `docs/agents/CODEX_INBOX.md` are edited only on
   `main`, never in a branch. Read the moveset from `art/characters/<id>/KIT.md`; ask Claude to change a move there

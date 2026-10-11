@@ -21,10 +21,10 @@ const TOUCH_ROWS = [
   ['heavy', 'HEAVY', 'Heavy / launcher'],
   ['special', 'SPECIAL', 'Signature rush · hold to charge ki'],
   ['jump', 'JUMP', 'Jump · chase after a launcher'],
-  ['guard', 'GUARD', 'Block (or hold the stick away) · tap to parry'],
+  ['guard', 'GUARD', 'Block (or hold the stick away) · tap to parry · hold while hit: tech / tech roll'],
   ['dash', 'DASH', 'Dash with the stick · super dash without'],
   ['ult', 'ULT', 'Ultimate (Heavy + Special, 3 bars)'],
-  ['vanish', 'VANISH', 'Vanish (Guard + Special, 1 bar)'],
+  ['vanish', 'VANISH', 'Vanish (Guard + Special, 1 bar) · while hit: Burst (2 bars, once per round)'],
   ['super', 'SUPER', 'Second super (3 bars)'],
 ];
 const PROFILES = [['solo', 'VS CPU / TRAINING'], ['p1', '2P · PLAYER 1'], ['p2', '2P · PLAYER 2']];
@@ -172,6 +172,8 @@ export class ControlsPanel {
     r.append(el('div', 'ctl-combos', `
       <div><b>Ultimate</b>${k('heavy')}+${k('special')}</div>
       <div><b>Vanish</b>${k('guard')}+${k('special')}</div>
+      <div><b>Tech</b>hold ${k('guard')} while hit</div>
+      <div><b>Burst</b>${k('guard')}+${k('special')} while hit</div>
       <div><b>Super dash</b>${k('dash')} no direction</div>
       <div><b>Specials</b>${k('special')} + ←↑→↓ for more</div>
       <div><b>Dash</b>double-tap a direction</div>`));
@@ -244,6 +246,8 @@ export class ControlsPanel {
     r.append(el('div', 'ctl-combos', `
       <div><b>Ultimate</b>${b('heavy')}+${b('special')}</div>
       <div><b>Vanish</b>${b('guard')}+${b('special')}</div>
+      <div><b>Tech</b>hold ${b('guard')} while hit</div>
+      <div><b>Burst</b>${b('guard')}+${b('special')} while hit</div>
       <div><b>Super dash</b>${b('dash')} stick neutral</div>
       <div><b>Specials</b>${b('special')} + stick direction</div>
       <div><b>*Training</b><kbd>${names[8]}</kbd> resets positions</div>`));
@@ -393,14 +397,14 @@ export function matchHint(mode, layout) {
       const i = PAD_BUTTONS[a]?.[0];
       return `<kbd style="${i <= 3 ? `color:${face[i]}` : ''}">${n[i] ?? '—'}</kbd>`;
     };
-    return `Stick move · ${b('light')} light · ${b('heavy')} launcher · ${b('special')} special · ${b('heavy')}+${b('special')} ultimate · ${b('super')} super · ${b('guard')}+${b('special')} vanish · ${b('jump')} jump · ${b('dash')} super dash · <kbd>${n[9]}</kbd> pause`;
+    return `Stick move · ${b('light')} light · ${b('heavy')} launcher · ${b('special')} special · ${b('heavy')}+${b('special')} ultimate · ${b('super')} super · ${b('guard')}+${b('special')} vanish · ${b('jump')} jump · ${b('dash')} super dash · hit: hold ${b('guard')} tech, ${b('guard')}+${b('special')} burst · <kbd>${n[9]}</kbd> pause`;
   }
   if (mode === 'versus') {
     const p = (m) => `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} ${k(m, 'light')}${k(m, 'heavy')}${k(m, 'special')} ${k(m, 'jump')} ${k(m, 'guard')} ${k(m, 'dash')}`;
     return `P1 ${p(KEYMAPS.p1)} · P2 ${p(KEYMAPS.p2)} · Heavy+Special ultimate · Guard+Special vanish · <kbd>Esc</kbd> pause`;
   }
   const m = KEYMAPS.solo;
-  return `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} move · ${k(m, 'light')} light · ${k(m, 'heavy')} launcher · ${k(m, 'special')} special (hold: charge) · ${k(m, 'heavy')}+${k(m, 'special')} ultimate · ${k(m, 'super')} super · ${k(m, 'guard')}+${k(m, 'special')} vanish · ${k(m, 'jump')} jump · ${k(m, 'dash')} super dash · <kbd>Esc</kbd> pause`;
+  return `${k(m, 'up')}${k(m, 'left')}${k(m, 'down')}${k(m, 'right')} move · ${k(m, 'light')} light · ${k(m, 'heavy')} launcher · ${k(m, 'special')} special (hold: charge) · ${k(m, 'heavy')}+${k(m, 'special')} ultimate · ${k(m, 'super')} super · ${k(m, 'guard')}+${k(m, 'special')} vanish · ${k(m, 'jump')} jump · ${k(m, 'dash')} super dash · hit: hold ${k(m, 'guard')} tech, ${k(m, 'guard')}+${k(m, 'special')} burst · <kbd>Esc</kbd> pause`;
 }
 
 // Clash prompt (a rhythm clash, ADR 0017: any attack button on the beat), from the live bindings (training and

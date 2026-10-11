@@ -275,6 +275,10 @@ Colors: white #FFFFFF arms and core, optional #E6E6E6 on the tapered arm ends. N
 
 ### crater: floor crater decal
 
+> **Superseded**: ground damage is drawn from the decal prompts in
+> [`../decals/PROMPTS.md`](../decals/PROMPTS.md) (`crater`, `crater_big` ... with radial shading only; ADR 0024).
+> Do not generate new `crater` VFX art; this prompt is kept as the record of the approved v01.
+
 Save as: `art/vfx/raw/crater_vNN.png`
 
 ```text
@@ -298,6 +302,105 @@ Frame 2: empty center 34%; tips 66-95%.
 Frame 3: empty center 47%; tips 70-94%.
 Frame 4: empty center 59%; tips 77-94%, thin, a few spikes missing.
 Colors: solid white #FFFFFF only. No outline.
+```
+
+### Power-up effects (ENG-069, ADR 0023)
+
+All five are WHITE-ONLY: the game tints them per fighter (red, near-black, violet, pale blue), so the image must
+have no color at all and no magenta, pink, purple or violet inside the effect. They are shown small and
+translucent, so keep the silhouettes simple and bold. Briefs: `EFFECTS.md` -> *Power-up effects*.
+
+### bubble: chakra bubble
+
+Save as: `art/vfx/raw/bubble_vNN.png`
+
+```text
+Effect: BOILING ENERGY BUBBLE. WHITE-ONLY. 6 frames. CENTER-ANCHORED. Plays in 0.3 s; many of these boil up off a fighter who is powering up.
+Shape: a round bubble of thick liquid energy: a 2-pixel bright rim, a slightly darker inside, a tiny square highlight at its upper left. It forms from a dot, swells, wobbles, then pops into droplets.
+Frame 1: a dot, about 6% of the cell across.
+Frame 2: a small round bubble, about 14% of the cell.
+Frame 3: the full bubble, about 25% of the cell, rim and highlight.
+Frame 4: wobbling into a wide oval, about 30% x 23% of the cell (the biggest frame).
+Frame 5: popped: 4 small square droplets in a ring, about 22% of the cell across.
+Frame 6: 4 tiny droplets a little further out, about to vanish.
+Colors: rim and highlight white #FFFFFF, inside light grey #E6E6E6. No outline.
+```
+
+### wisp: rising energy wisp
+
+Save as: `art/vfx/raw/wisp_vNN.png`
+
+```text
+Effect: RISING ENERGY WISP. WHITE-ONLY. 7 frames. BOTTOM-ANCHORED (the base of every frame sits on the same ground line, horizontally centered). Plays in 0.39 s; a few of these lick up off a fighter who is powering up.
+Shape: one thin, S-curved tongue of energy that licks upward from a narrow base, sways, and lets its tip go at the end. Thinner and wavier than a flame.
+Height (% of the cell) / base width / tip:
+Frame 1: 22% tall, 8% wide, tip centered.
+Frame 2: 38% tall, 7% wide, tip leaning right.
+Frame 3: 50% tall, 6% wide, tip leaning right, S-curve.
+Frame 4: 60% tall (peak), 6% wide, tip centered, S-curve.
+Frame 5: 55% tall, 5% wide, tip leaning left.
+Frame 6: 44% tall, 4% wide, tip leaning further left, the tip detached by a small gap.
+Frame 7: 31% tall, 3% wide, a thin wisp with the detached tip drifting off.
+Colors: white #FFFFFF body, optional #E6E6E6 1-pixel edge on one side. No outline.
+```
+
+### arc: one short electric arc
+
+Save as: `art/vfx/raw/arc_vNN.png`
+
+```text
+Effect: SINGLE ELECTRIC ARC. WHITE-ONLY. 6 frames. CENTER-ANCHORED (the middle of the arc on the cell center). The game shows these frames in random order and random rotation, very briefly, so every frame is a different, self-contained arc (no continuity needed).
+Shape: ONE short electric arc: a 2-3 pixel thick zigzag between two endpoints with 4-6 sharp angular turns and 1-2 tiny 1-pixel forks. Much smaller and simpler than a lightning cluster: one crackle running over a body.
+Frame 1: a nearly straight arc about 40% of the cell long with 5 sharp kinks and one fork.
+Frame 2: a C-shaped arc about 35% long, two forks.
+Frame 3: a tight zigzag about 30% long, one fork.
+Frame 4: a long arc about 45% long (the biggest frame), few kinks.
+Frame 5: an arc that doubles back into a small hook at one end.
+Frame 6: a short arc about 27% long with 2-3 loose tiny sparks beside it.
+Colors: white #FFFFFF, optional #C8C8C8 1-pixel edge on the thickest part. No outline.
+```
+
+### ripple: space ripple
+
+Save as: `art/vfx/raw/ripple_vNN.png`
+
+```text
+Effect: SPACE RIPPLE. WHITE-ONLY. 5 frames. CENTER-ANCHORED. Plays in 0.25 s; shown very faint around a calm fighter, like space itself bending.
+Shape: a thin, PERFECTLY ROUND circle (not an oval) centered on the cell center, with a dashed inner echo circle a few pixels inside it, expanding and breaking apart.
+Diameter (% of the cell) and line:
+Frame 1: 31%, line 4 px, dashed echo inside.
+Frame 2: 47%, line 3 px, dashed echo inside.
+Frame 3: 63%, line 2 px, dashed echo inside.
+Frame 4: 78%, line 2 px, sparse echo dashes.
+Frame 5: 95%, line 1 px, broken into dashes, no echo.
+Colors: main circle white #FFFFFF, inner echo light grey #C8C8C8. No outline, no fill.
+```
+
+### naruto_chakraTail: one chakra tail
+
+Save as: `art/vfx/raw/naruto_chakraTail_vNN.png`
+
+```text
+Effect: ONE TAIL OF BOILING ENERGY. WHITE-ONLY. 6 frames, a seamless loop. BOTTOM-ANCHORED: the base of the tail sits on the same point near the bottom center of every cell and never moves. Loops (0.36 s) while a fighter holds full power; the game tints it red and mirrors it when he faces the other way.
+Shape: one thick, fox-like tail made of boiling liquid energy, rising from the base, sweeping back to the LEFT and then curling up, tapering to a rounded tip. Its edges are bubbly and uneven: small round bumps along both sides. A few bubbles drift along it from base to tip across the loop. About 70% of the cell tall, sweeping about 35% of the cell to the left of the base; the base is about 15% of the cell thick.
+Loop: the tip sways gently: frame 1 centered, frame 2 a little right, frame 3 further right, frame 4 back to center, frame 5 a little left, frame 6 further left (flows back into frame 1). The base stays still.
+Colors: white #FFFFFF body, a 2-pixel #C8C8C8 edge, bubbles #E6E6E6. No outline. No fox head, no face, no character: only the tail.
+```
+
+### dustWave: rolling dust wall
+
+Save as: `art/vfx/raw/dustWave_vNN.png`
+
+```text
+Effect: ROLLING DUST WALL. FULL COLOR. 6 frames. BOTTOM-ANCHORED (all frames sit on the same ground line, horizontally centered). SIDE VIEW. Plays in 0.36 s; a ring of these rolls out of a big crater.
+Shape: a low, wide wall of chunky cartoon dust puffs rolling outward and up, then breaking apart. Anime style, not realistic smoke. Wider and lower than a dust puff.
+Frame 1: a low band of 7-9 round puffs on the ground line, about 47% of the cell wide and 17% tall.
+Frame 2: about 55% wide, the middle rising (23% tall), puffs rolling.
+Frame 3: fullest, about 62% wide, 30% tall.
+Frame 4: about 67% wide, puffs separating, gaps in the middle.
+Frame 5: about 70% wide (the widest frame), 5-6 smaller puffs drifting up and out.
+Frame 6: 2-4 small puffs left at the ends, almost gone.
+Palette (warm sand): highlight #F3EADB, light #E4D2BB, mid #CDB9A2, shadow #B39A80, outline #9C8370. Light from above.
 ```
 
 ---
