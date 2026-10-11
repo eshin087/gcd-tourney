@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art review: add four neutral standing candidates and a common-height lineup; remove child/tall-cap adjustments in this review only. Existing production art and approvals unchanged.
+
 - Art review: compare Gojo with official adult anime/game art and slim the sample shoulders, chest and arms while retaining height/head and the other three fighters. Queue Gojo sample v03 and lineup v04; no approvals or production changes (ART-CAST-PILOT).
 
 - Art review: revise the cast pilot after feedback: leaner Naruto with larger head, unchanged Sasuke, and clearer Gojo/Killua height separation on an uncapped review canvas. Preserve previous samples; production remains unchanged pending review (ART-CAST-PILOT).

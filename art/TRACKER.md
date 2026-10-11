@@ -551,3 +551,5 @@ Copy the naruto section, rename it, and add the same block to `manifest.json`
 (`specialForward`, `specialUp`, `specialDown`, `superPose`, step 9) are only needed when the
 fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); Naruto and Sasuke use all four under ADR 0011. A fighter whose body is genuinely taller or shorter sets
 `standingBodyPx` and scaled `bodyHeight`s ([ADR 0010](../docs/decisions/0010-per-character-body-scale.md)).
+
+Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all raw / needs review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).
