@@ -14,6 +14,10 @@
   "airLight3": {
     "2": {"hit": [[176, 146, 40, 50]]}
   },
+  "heavy": {
+    "3": {"hit": [[183, 79, 26, 29]]},
+    "4": {"hit": [[166, 72, 22, 28]]}
+  },
   "_hands": "hand: palm/fingertip point (256 cell) for shots and beams; measured by Claude 2026-10-10 from the packed frames",
   "throw": {
     "1": {"hand": [236, 108]},

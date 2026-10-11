@@ -1,0 +1,73 @@
+{
+  "anatomy": {
+    "measurement": "skull-to-chin",
+    "targetHeadPx": 30,
+    "sourceHeadPx": [
+      119.6,
+      123.7,
+      120.5
+    ]
+  },
+  "frameOffsets": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "measurementRecord": {
+    "sourceSha256": "c2fcc5b9ca86f0839d281db873de28258cab6fa6d280a8d11e3e1cb0df0af2a9",
+    "method": "Manual estimated crown under occluding hair; human anatomy verification pending.",
+    "frames": [
+      {
+        "frame": 0,
+        "crown": [
+          287,
+          215
+        ],
+        "chin": [
+          299,
+          334
+        ],
+        "axisLength": 119.6,
+        "uncertain": true,
+        "orientation": "3/4 right; hair occludes skull crown"
+      },
+      {
+        "frame": 1,
+        "crown": [
+          792,
+          214
+        ],
+        "chin": [
+          805,
+          337
+        ],
+        "axisLength": 123.7,
+        "uncertain": true,
+        "orientation": "3/4 right; hair occludes skull crown"
+      },
+      {
+        "frame": 2,
+        "crown": [
+          1300,
+          215
+        ],
+        "chin": [
+          1311,
+          335
+        ],
+        "axisLength": 120.5,
+        "uncertain": true,
+        "orientation": "3/4 right; hair occludes skull crown"
+      }
+    ]
+  }
+}

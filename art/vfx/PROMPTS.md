@@ -275,6 +275,10 @@ Colors: white #FFFFFF arms and core, optional #E6E6E6 on the tapered arm ends. N
 
 ### crater: floor crater decal
 
+> **Superseded**: ground damage is drawn from the decal prompts in
+> [`../decals/PROMPTS.md`](../decals/PROMPTS.md) (`crater`, `crater_big` ... with radial shading only; ADR 0024).
+> Do not generate new `crater` VFX art; this prompt is kept as the record of the approved v01.
+
 Save as: `art/vfx/raw/crater_vNN.png`
 
 ```text
@@ -381,6 +385,22 @@ Effect: ONE TAIL OF BOILING ENERGY. WHITE-ONLY. 6 frames, a seamless loop. BOTTO
 Shape: one thick, fox-like tail made of boiling liquid energy, rising from the base, sweeping back to the LEFT and then curling up, tapering to a rounded tip. Its edges are bubbly and uneven: small round bumps along both sides. A few bubbles drift along it from base to tip across the loop. About 70% of the cell tall, sweeping about 35% of the cell to the left of the base; the base is about 15% of the cell thick.
 Loop: the tip sways gently: frame 1 centered, frame 2 a little right, frame 3 further right, frame 4 back to center, frame 5 a little left, frame 6 further left (flows back into frame 1). The base stays still.
 Colors: white #FFFFFF body, a 2-pixel #C8C8C8 edge, bubbles #E6E6E6. No outline. No fox head, no face, no character: only the tail.
+```
+
+### dustWave: rolling dust wall
+
+Save as: `art/vfx/raw/dustWave_vNN.png`
+
+```text
+Effect: ROLLING DUST WALL. FULL COLOR. 6 frames. BOTTOM-ANCHORED (all frames sit on the same ground line, horizontally centered). SIDE VIEW. Plays in 0.36 s; a ring of these rolls out of a big crater.
+Shape: a low, wide wall of chunky cartoon dust puffs rolling outward and up, then breaking apart. Anime style, not realistic smoke. Wider and lower than a dust puff.
+Frame 1: a low band of 7-9 round puffs on the ground line, about 47% of the cell wide and 17% tall.
+Frame 2: about 55% wide, the middle rising (23% tall), puffs rolling.
+Frame 3: fullest, about 62% wide, 30% tall.
+Frame 4: about 67% wide, puffs separating, gaps in the middle.
+Frame 5: about 70% wide (the widest frame), 5-6 smaller puffs drifting up and out.
+Frame 6: 2-4 small puffs left at the ends, almost gone.
+Palette (warm sand): highlight #F3EADB, light #E4D2BB, mid #CDB9A2, shadow #B39A80, outline #9C8370. Light from above.
 ```
 
 ---

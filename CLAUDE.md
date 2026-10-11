@@ -15,6 +15,15 @@ Existing image/design approval gates still apply; permission to execute commands
 These rules supersede older requirements to ask again for routine technical actions or have the user
 perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permission activation and limits.
 
+Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
+Prepare the body file in a separate command, then run exactly this argument order:
+`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+(optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
+flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
+It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
+Existing chats may need restarting to load this manually installed project-local rule. Other actions,
+including merges and art approval, retain their existing policies.
+
 For this machine's restricted Windows profile, build and serve with the local `.codex/vite.mjs`
 adapter documented in docs/AI_COLLABORATION.md. It passed the production build without broadening reads;
 the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a
@@ -53,13 +62,15 @@ documentation that stays true.
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |
 | `npm run sprites crowd` | pack only the crowd atlas into `public/crowd/` (approved spectators only) |
 | `npm run sprites stage npc ui` | pack the approved stage slots, NPC sheets and title art into `public/stage|npc|ui/` |
+| `npm run sprites decals` | pack the approved ground decals into `public/decals/` (atlas.json + the pages of each page set, at most 4 per match; ADR 0024, `tools/pack-decals.mjs`) |
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
-| `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse; `--full` for art). **Every feature/character starts here** (ADR 0013) |
+| `npm run pr -- start feature/<name>` | new worktree + branch off main in `.worktrees/` (inside the project, git-ignored; sparse; `--art <id>[,<id>]` adds just that character's or art kind's raw art, `--full` all ~2 GB as a last resort). **Every feature/character starts here** (ADR 0013) |
 | `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree |
+| `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
@@ -99,6 +110,25 @@ docs/          SDLC docs, ADRs, task board, agent prompts
 
 ## Hard rules
 
+### Worktree storage rules (user direction, 2026-10-10)
+
+These supersede older `--full` examples and copy-based sandbox instructions elsewhere in the project.
+The docs-only/main exceptions below still apply.
+
+1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
+   `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
+2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
+   needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
+   creation fails in the sandbox, stop and tell the user; never fall back to copying.
+3. Never use `--full` for art tasks. Start with `npm run pr -- start <branch> --art <id>[,<id>]` (a character id or an
+   art kind like `vfx`), which checks out only that art, raw files included (~0.5 GB vs ~2 GB). A plain
+   `git sparse-checkout add art/characters/<id>` does not bring back its `raw/`.
+4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
+5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
+   must finish cleanup of merged task worktrees; do not leave them behind.
+
+### Code and integration rules
+
 0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
    Start with `npm run pr -- start feature/<name>` (or `fix/`, `chore/`, `art/`), work and commit in that worktree,
    `npm run pr -- open`, then `npm run pr -- merge <branch>` once the Definition of Done passes (unless the user asked to
@@ -115,7 +145,7 @@ docs/          SDLC docs, ADRs, task board, agent prompts
    means updating `animGuide.js`, `FALLBACK` in `src/game/sprites.js`, `src/art/rig/anims.js` (placeholder),
    `art/manifest.json`, `art/SPEC.md`, `ASSETS.md` and the art template, all in the same change.
 3. **Generated files are outputs.** Never hand-edit `public/characters/<id>/sheet.png`, `anims.json` or
-   `public/vfx|crowd|stage|npc|ui/**`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
+   `public/vfx|crowd|stage|npc|ui|decals/**`. Change the inputs (`art/**`, `hitboxes.json`, manifest) and re-run `npm run sprites`.
    Generated images are inputs with a `_vNN` version (ADR 0007): never overwrite, reuse or delete one.
 4. **Character data lives in `src/characters/<id>.js`**. Shared systems should not special-case a character
    id (`if (def.id === 'naruto')`). Add a data field instead.

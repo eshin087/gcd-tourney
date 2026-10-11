@@ -53,8 +53,10 @@ src/game/
                             tech escapes; reachT (threats timed to the drawn strike)
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (ultimate) with HDR shader
-  effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, craters,
-                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames)
+  effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
+                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
+  ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
+                            lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
                             (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
   auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha)
@@ -69,6 +71,7 @@ src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
   animGuide.js              canonical animation list (frames, phases, pose text) + ChatGPT prompt builder
   vfxPainter.js             procedural VFX atlas (64 px cells), VFX_ANIMS table
+  decalPainter.js           the decal contract (DECALS: names, cells, groups) + procedural decals at half density
   pixel.js, textures.js, crowdPainter.js   procedural pixel art: helpers, arena textures, crowd/announcer sprites
   rig/                      3D placeholder pipeline: geo.js, rig.js (chibi model), toon.js (toon + ID/depth pass),
                             pose.js (pose model, keyframes), anims.js (shared moveset), face.js (pixel faces),
@@ -231,6 +234,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   custom art (256 px cells, PPU 128, a ~200 px standing body = 1.56 units) both stand about 1.6 units
   tall. Only the proportions differ (the placeholder is chibi, v2 art is ~6.5 heads) until ENG-016.
 - The engine reads frame size, pivot and PPU from `anims.json`, so a spec change needs no engine code.
+- **Scale gate** (TOOL-025, [ADR 0021](decisions/0021-scale-gate-and-depth-normalized-sprites.md)): the engine never
+  rescales a strip, so a fighter only looks the same size in every animation if the art is. The packer measures every
+  frame's head (hair included) and feet against the idle (`tools/scale-probe.mjs`), fails unapproved strips that are
+  off, and writes the result into `anims.json` (`scaleAudit`). It is dev-only at runtime: `?scaleaudit` logs the
+  flagged strips as they play, `scaleReport()` lists them under `?debug`, and the test lab's `BoxViewer` draws the
+  idle head size around the frame's head (`actor.headCheck`).
 - **Hand anchors** (art packs only): `SheetAsset.hand(anim, frame)` / `SpriteActor.hand()` give the drawn
   palm or fingertip of the current frame (from `hand: [x, y]` in `hitboxes.json`, else the frame's hit box,
   else the nearest frame of the animation that has one). Hand effects (Rasengan, Rasenshuriken, Chidori),
@@ -246,11 +255,32 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 
 - `src/art/vfxPainter.js` paints a **procedural atlas** at boot (64 px cells, one row per effect, `VFX_PPU = 28`).
   Effect names are fixed: `spark burst ring dust smoke shuriken fire flame lightning orb glow streak star
-  crater lines`.
+  crater lines dustWave` (`crater` is no longer drawn: ground damage has its own decals, ADR 0024; `dustWave` rolls
+  out of big craters).
 - Custom VFX art: `npm run sprites vfx` writes `public/vfx/atlas.png` + `atlas.json` (128 px cells, `ppu` 56,
   the same world size) from the **approved** effects only (`approvedVersion` in `art/manifest.json`), and removes
   a stale atlas when none are approved. The game loads it when present, and missing effects fall back to
   procedural ones.
+
+## Ground damage (ADR 0024)
+
+- Every floor-marking event goes through `fx.ground` (`src/game/ground.js`): `hit` (Game.onHit), `land` (launched
+  landings and ground bounces), `koMark`, `slide` (knockdown and KO skids), `dive`, `impact` (slams, specials, clash
+  endings, Kirin, the maul and roar, shots hitting the floor, vortex pops, the super jump), `trail` (Hollow Purple's
+  trench), `scuff` (wavedash and super dash takeoff), `wall` (barrier crack on a wall bounce), `wallCrater` (KO crash
+  into the stands), `chargeTick` / `chargeMax` (the power-up).
+- A **force** picks the tier and size (`GROUND.tiers`: crack_s, crack, crater, crater_big, crater_huge, 1.4 to 7.6
+  units); a **style** picks the look (`GROUND_STYLES`, from `ground` fields on moves, projectiles, supers and
+  characters). One impact is a cluster: underlay and satellites, the crater (or the style's own decal), the overlay,
+  rubble, then rim chunks (one InstancedMesh), slabs (the ring's own materials), rocks, a `dustWave` ring and smoke.
+  Nearby repeat slams merge into one growing crater; an airborne victim's crater waits for their landing
+  (`groundMark`, impact debt).
+- Decals are Lambert quads (lit, shadowed, dimmed in super flashes) sharing one program per kind; `onBeforeCompile`
+  adds the ring/grass/wall clip, the reveal, the pixel dissolve and the hot key (pure white texels glow in the tint,
+  then cool). The training room draws them as holo outlines, the domain hides them, and the ring is clean every round.
+- Art: `public/decals/atlas.json` + pages (`npm run sprites decals`, ppu 64, pages per style group), merged per name
+  over the procedural pages of `src/art/decalPainter.js` (painted at boot). A match uploads at most 4 pages
+  (`prepare`). `?debug`: `groundDemo()`, `groundTest(force, style)`; `fx.ground.stats()` for soaks.
 
 ## World art: approval gate and candidate preview
 
@@ -274,6 +304,14 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
 - **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
   logo and the key art behind it.
+- **Ground decals (packer side, ADR 0024):** `npm run sprites decals` (`tools/pack-decals.mjs`, called by the sprite
+  packer with its image helpers) packs each approved decal name (`decals.items` / `worldArt.decal` in the manifest) into
+  `public/decals/atlas.json` + one PNG page per page set (`decals_<set>[_n].png`, each <= 2048 x 2048; base + edge share
+  the 2 floor pages, chakra + ki, lightning + fire and cursed one each, so a pairing needs at most the engine's 4 pages):
+  `{ ppu: 64, pages, pageSizes, decals: { <name>: { page, w, h, frames: [[x, y]...], mode, tinted, group, directional?,
+  hotKey?, tile?, version } } }`. The names, cells and per-image variant counts are the engine's contract (`DECAL_SPECS`);
+  pure #FFFFFF texels are the hot key the engine glows; `tile` variants span the full cell width.
+  Art: `art/decals/`.
 - `Effects.spawn(name, x, y, z, opts)` creates a camera-facing quad with a tint `color` (white art is
   tinted at runtime), `glow` (HDR boost into bloom), optional velocity, gravity, spin, follow and loop.
   `Effects.keep(id, ...)` updates a persistent effect (auras, hand orbs, clash glow).
@@ -352,6 +390,7 @@ click-to-rebind. Bindings persist in localStorage.
 | a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight + where `MasterBrain` uses it (`kitOptions`, `pickBig`, `comboSpecial`); `aiShow.js` `toolsOf` lists it automatically |
 | a projectile type | `PROJECTILES` in `moves.js` (sprite = a VFX atlas name) |
 | a VFX effect | `VFX_ANIMS` + painter in `vfxPainter.js`; custom art via `art/vfx/` |
+| a ground damage look | a `ground` field on the move / projectile / super / character; a new look is a `GROUND_STYLES` entry in `ground.js` (+ decal names in `DECALS`, decalPainter.js, and their art) |
 | a sound | a case in `AudioEngine.play()` / `loop()` |
 | a camera move | a mode in `CameraDirector.update()` |
 | a menu screen | a method on `Menus` + CSS |

@@ -19,7 +19,7 @@ feedback. The user can still generate an image by hand in ChatGPT; Codex files i
 | [One-liners](#one-liners) | resuming a session, or filing an image you made by hand |
 
 **Branches (ADR 0013):** every new feature or character is a pull request. A new character's work runs in its
-own worktree: `npm run pr -- start feature/char-<id> --full` from the main folder, then every Codex thread for that
+own worktree: `npm run pr -- start feature/char-<id> --art <id>` from the main folder, then every Codex thread for that
 character works and commits inside `.worktrees/feature-char-<id>`. Art approvals for a character that
 already ships still commit on `main`. Never `git checkout`, `switch` or `stash` in the main folder.
 
@@ -247,7 +247,8 @@ GENERATE AND SAVE
    version; (b) a retry or a strip fix may attach the candidate being corrected, together with the list of
    changes. Never attach reference/source/, reference/_old/ or v1 files. Strips with 6 or more frames are
    always two images (the Part A / Part B blocks in PROMPTS.md): save raw/_parts/<anim>_vNN_A.png and
-   _B.png and stitch them into raw/<anim>_vNN.png (art/PIPELINE.md "Long strips (parts)").
+   _B.png and stitch them into raw/<anim>_vNN.png with npm run stitch -- <id> <anim> <vNN> (a measured size
+   factor; art/PIPELINE.md "Long strips (parts)").
 7. Make up to 3 attempts per asset, then save ONLY the single best attempt as the next version (one new
    version per round; unsaved attempts get no number). The next free version is 1 + the highest vNN for
    that asset in the folder, raw/_parts/, the _rejected/ subfolder and REVIEW.md:
@@ -275,7 +276,12 @@ PACK AND QA
      6.5, Killua about 6, Gojo about 7; no chibi frames), same hair, headband / blindfold (or none), outfit
      details and colors as the approved model sheet
    - feet not on the baseline or drifting horizontally between frames (pivot x=128, soles y=240)
-   - body height vs. the manifest bodyHeight, or one frame much bigger or smaller than the rest
+   - body height vs. the manifest bodyHeight, or one frame much bigger or smaller than the rest. The scale gate
+     must pass: node tools/pack-sprites.mjs <id> --quantize 48 exits 0 with no "scale gate:" line for the new
+     strip (a failure writes nothing; --strict-scale also fails on approved strips, so it is not this check), and
+     npm run scale -- <id> writes art/scale/heads-<id>.png, which the REVIEW row links (art/CHARACTER_SCALE.md
+     "Scale gate (automatic)"). A failing strip is fixed, not filed; a head the probe misreads gets a manifest
+     exemption with a reason and "scaleExemptVersion" (the version it covers)
    - palette drift or more than 48 colors, anti-aliasing, blur, gradients, leftover magenta fringe, ground
      shadows, text
    - facing left instead of right, the wrong limb striking, active frames not reaching the art/SPEC.md
@@ -493,7 +499,7 @@ We're making the art for a new fighter in GCD Tourney: <Name> (id: <id>). Claude
 moveset is in art/characters/<id>/KIT.md. Read AGENTS.md, docs/ADDING_A_CHARACTER.md (the PR table in step 0),
 art/CHARACTER_SCALE.md, docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first.
 
-0. Branch (ADR 0013): from the main folder run npm run pr -- start art/<id>-refs --full and do ALL of the work
+0. Branch (ADR 0013): from the main folder run npm run pr -- start art/<id>-refs --art <id> and do ALL of the work
    below inside .worktrees/art-<id>-refs, committing there after each approved step; never on main, never
    uncommitted in the main folder. docs/NOW.md and docs/agents/CODEX_INBOX.md are edited on main only.
 1. Briefs: copy the rest of art/characters/_template/ (keep KIT.md as Claude wrote it) and fill CHARACTER.md

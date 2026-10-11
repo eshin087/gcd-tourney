@@ -12,6 +12,43 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - **CPU defense showcase** (ENG-071, ADR 0025): CPU vs CPU now parries, spot dodges, backsteps (new BACKSTEP callout), wavedashes out of shots, wins vanish wars, reads approaches and blocked strings, reverses out of gappy combos and wake-ups, escapes after techs and trades parry rallies, with a hidden per-match defense persona (parrier, dancer, phantom, rock, scrapper) so every fight defends differently; fixed: CPU answers to vanishes, teleport strikes and late-drawn strikes (Chidori) now fire, an answer picked mid-dash is re-picked, and Easy-Hard no longer lose reactions to plan changes or stall against the barrier.
+- Record user approval of Killua heavy v05 and charge v07 with documented QA caveats accepted. Artwork unchanged; ready for integration.
+
+- Killua heavy v05 candidate rebuilds the reaching animation into a coiled, torso-driven forward rising claw strike with compact recovery; v04 rejected and archived, exact idle ending and gameplay timings preserved. PR30 includes synchronized before/after playback; all candidate art remains unapproved.
+
+- Art: Killua heavy v04 repairs the three middle arm/hand poses, preserves idle recovery, and adds a packed before/after review to PR30; unapproved.
+
+- Killua review candidates: heavy v03 fixes the raised-claw clipping and recovery size pop; charge v07 stabilizes feet and adds shoulder twitches. Preserve rejected history and prior approvals; include cast lineup and committed public review gallery.
+- Record user approval of Naruto heavy v07 and charge v04 (2026-10-10, "approve everything"), including documented QA caveats; ready for Claude integration.
+
+- Naruto heavy v07 candidates repair active fist contact and exact idle recovery; charge v04 adds chest expansion, with residual foot drift documented. All new art remains unapproved.
+- Sasuke: record user approval for heavy v06; existing QA limitations accepted. Approved charge v02 remains active; rejected v04 stays archived.
+
+- Sasuke: reject charge v04 per user feedback and restore approved charge v02; preserve rejected source history and heavy v06 candidate.
+
+- Sasuke heavy-charge: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.
+- Sasuke: record user approval for light2 v02, light3 v02, special v03; existing QA limitations accepted. Approved charge v02 remains active; rejected v04 stays archived.
+
+- Sasuke size-pops: versioned unapproved candidates, strict packing, source landmarks, cast lineup and a portable phone review gallery; approval versions unchanged.
+- Record user approval of Killua Whirlwind beamCharge v05; archive superseded pending v04 with documented QA caveats accepted. Artwork unchanged; ready for integration.
+
+- Art (ART-KIL-WW): Whirlwind beamCharge v05 raised-heel ready stance, preserved v04 history, anatomy sidecars, cast lineup and hosted review gallery. All art remains unapproved; beamFire sources, frames and metadata unchanged.
+- Record user approval of Naruto beamCharge v05 and beamFire v07 (2026-10-10, "approve everything"), including documented QA caveats; ready for Claude integration.
+
+- Naruto Four-Tails candidate roar v05 and pounce/slams v07 restore four tails per pose, preserve calibrated skull scale, and wire the ultimate to the drawn shroud. Candidates remain unapproved.
+- Changed: `npm run pr -- start --art <id>[,<id>]` checks out only that character's (or art kind's) raw art, about 0.5 GB per art worktree instead of 2.2 GB with `--full`; new `npm run pr -- prune` removes clean worktrees of merged branches. AGENTS.md forbids hand-made project copies (they had filled 15 GB).
+- Docs (OPS-007): require sparse real Git worktrees, prohibit project-copy fallbacks and art `--full`, reuse task worktrees across versions, and report merged worktrees and cleanup paths.
+
+- Art approval: user approved all current candidates across PRs #24–30; retain Sasuke charge v02, promote Gojo model v06, and hand off sequential integration to Claude. No production deployment in this approval pass.
+
+- Tools: a measured **scale gate** for every packed frame (TOOL-025, TOOL-008, ADR 0021): the packer compares each frame's head (hair included) and feet with the fighter's approved idle, refuses to pack a fighter whose unapproved strip is off (approved ones are listed until ART-SCALE-02 fixes them; `--strict-scale` for all), honours manifest exemptions only for the strip version they name, can refit a wrongly sized raw strip (`auto-head`), and `npm run stitch` joins two-part strips with a measured factor; `npm run scale` writes heads contact sheets, a report, a baseline and head scale guides; `?scaleaudit`, `scaleReport()` and the test lab's head boxes show it in game; brief for Codex in art/scale/SCALE_FIX_BRIEF.md.
+- Fixed: `npm run deploy` no longer piles up `gcd-deploy-*` exports in %TEMP% (hundreds of MB each): it retries cleanup for ~15 s and sweeps leftovers older than an hour at the start of every deploy.
+
+- Ops (OPS-006): install local repository-specific PR edit approval rule for future PR numbers; document separate body preparation and repo-first command order. Filesystem write grants unchanged.
+
+- Art review follow-up: restore Sasuke's approved charge v02 per user decision; hand off Killua heavy v05 with stronger forward claw strikes and compact recoil, still unapproved.
+
+- **Ground damage that scales with power** (ENG-070, ADR 0024): the floor cracks, craters and scorches by how hard it was hit (five tiers, from a 1.5-unit hairline crack to a 7-unit crater with rubble, jutting floor slabs and a dust ring), in each move's own look (spiral scour, lightning burns that glow and cool, fire, black flame, wind cuts, claw furrows, cursed fractures, Hollow Purple's trench), grows one crater under repeated slams, lands where an airborne victim crashes, cracks the ki barrier on wall bounces, leaves dirt craters on the grass and a hole in the stand wall on KOs, and grows a fracture under a charging fighter from the power-up's crack level (Naruto bar 2, Sasuke MAX; Killua and Gojo keep the floor whole); lit, clipped at the ring edge, holo in training, clean every round. Procedural decals until Codex's decal art is approved; `groundDemo()` / `groundTest()` under `?debug`, lab scenario "Ground damage".
 - **Combo escape** (ENG-068, ADR 0022): hold Guard while being hit to tech out at the first gap (with a direction) or tech roll on landing (not after hard knockdowns); Guard + Special while hit is a once-per-round **Burst** (2 bars, blockable: burst bait) with a gem by each ki gauge; the combo counter turns **blue** when the combo had an escapable gap (training shows the gap in frames); stacked technique banners for PARRY!, DODGE!, AIR DODGE!, TECH!, TECH ROLL!, BURST!, THROW BREAK, REVERSAL, PUNISH! and WAVEDASH in every match; the CPUs and the training dummy (DUMMY TECH / DUMMY BURST) use all of it; lab scenarios for each.
 - **Chill generative lo-fi music** (ENG-065, ADR 0019): the grating 148 bpm taiko loop is replaced by songs composed fresh each time (koto plucks, warm pads, soft bass; a brushed beat at 86 bpm in fights, ambient 72 bpm menus with wind chimes, a calmer training mood) that follow the fight's heat, crossfade between moods, dip under pause, clashes and KOs, never burst after a stall, and get a **MUSIC** volume row in the pause menus.
 - Changed: getting hit no longer turns a fighter solid white (ENG-064). A hit pops white for 1-3 frames by weight, then keeps the art readable with a brightened body and a glowing rim (warm on heavy hits, gold on smash, orange on counter hits) that fades out; full white stays only on counter hits (not whiff or recovery punishes), supers and KOs (1-bar rush specials pop 2 frames), multi-hit ticks never re-pop, and the hitstop shake no longer shimmers. Compare styles with `?flash=pop|tint|rim|classic|off` or the lab's Tools chips; the lab has a Counter hit scenario.
@@ -20,6 +57,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Art handoff: Killua heavy v04 fixes frames 4–6 arm/hand flow in PR #30; update review preview links, keep all new art unapproved.
 
 - Docs (OPS-004): verified direct Git executable also fails working-directory resolution under the restricted profile; unattended worktree/commit/merge workflow remains blocked and permissions stay narrow.
+- art(gojo): record user approval of model sheet v06 and promote its fixed reference; retain measured QA caveats. No animation redraw.
+
+- Art (ART-GOJ-BUILD): preserve model v05 history and add unapproved v06 with corrected neutral poses/profile, exact half-scale lineup and preview gallery; record remaining source-scale/palette failures after three attempts. Approved references and runtime art unchanged.
 
 - Docs (OPS-005): document verified machine-local Vite build/dev adapter under restricted reads (production build and HTTP checks pass without new read grants); distinguish remaining Git CLI directory-resolution failure from successful Git file writes.
 
@@ -86,6 +126,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Killua complete candidate batch for one final review: expressions, 42 animations / 175 frames, and three UI images; corrected strip separation, run alignment and air-heavy boxes; strict 48-color pack, browser preview and build verified. Visual reach/pose caveats recorded in `art/characters/killua/production/QA.md` (ART-KIL-01).
 
 ### Added
+- **Ground-decal art pipeline** (TOOL-026, ADR 0024): `npm run sprites decals` packs approved decals into `public/decals/atlas.json` + pages per page set (base + edge on 2 floor pages, one page per element set, so any pairing stays within the engine's 4-page cap; 31 names, parts `_A/_B/_C` split into the brief's per-image counts in order, tiling `erasure_trench` stretched edge to edge, #FFFFFF hot key kept, <= 24 colors, `--candidates` preview); new `art/decals/` brief, palettes and prompts (style sheet first, gated in the claim queue's new `decal` type); manifest `decals` section; the VFX `crater` is superseded.
 - **IMPOSSIBLE CPU level** (VS CPU and CPU vs CPU, `?level=impossible`): a frame-data brain (`src/game/aiMaster.js`)
   that times parries, spot dodges and air dodges against what it sees coming, punishes whiffs and blocked big moves,
   runs each kit's max-damage routes with a lethal check (supers, Amaterasu, vanish and super dash extensions),

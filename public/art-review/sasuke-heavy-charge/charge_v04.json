@@ -1,0 +1,74 @@
+{
+  "split": "even",
+  "frames": 4,
+  "anatomy": {
+    "measurement": "skull-to-chin",
+    "targetHeadPx": 31,
+    "sourceHeadPx": [
+      103.812,
+      104.048,
+      103.812,
+      103.812
+    ]
+  },
+  "measurements": [
+    {
+      "frame": 0,
+      "source": "charge_v04.png",
+      "crown": [
+        296,
+        91
+      ],
+      "chin": [
+        320,
+        192
+      ],
+      "length": 103.812,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 1,
+      "source": "charge_v04.png",
+      "crown": [
+        831,
+        91
+      ],
+      "chin": [
+        856,
+        192
+      ],
+      "length": 104.048,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 2,
+      "source": "charge_v04.png",
+      "crown": [
+        1368,
+        91
+      ],
+      "chin": [
+        1392,
+        192
+      ],
+      "length": 103.812,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    },
+    {
+      "frame": 3,
+      "source": "charge_v04.png",
+      "crown": [
+        1907,
+        91
+      ],
+      "chin": [
+        1931,
+        192
+      ],
+      "length": 103.812,
+      "uncertainty": "Crown inferred beneath hair; visually traced axis, approximate +/-3 source px. Tilted heavy f3/f4 axes measured diagonally."
+    }
+  ],
+  "sourceSha256": "8a92f51ee7246f14a2eb902f11dbf3813b81986c2ca0e4ec06adca221beae7f6",
+  "calibrationNotes": "New generated correction, explicit source-coordinate landmarks and source hash; measure skull independent of pose bounds. Human image approval remains pending."
+}

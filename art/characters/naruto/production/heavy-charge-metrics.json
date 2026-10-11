@@ -1,0 +1,183 @@
+{
+  "heavy": [
+    {
+      "x0": 74,
+      "y0": 52,
+      "x1": 191,
+      "y1": 240,
+      "width": 118,
+      "height": 189,
+      "pixels": 10053
+    },
+    {
+      "x0": 78,
+      "y0": 80,
+      "x1": 188,
+      "y1": 240,
+      "width": 111,
+      "height": 161,
+      "pixels": 8745
+    },
+    {
+      "x0": 90,
+      "y0": 40,
+      "x1": 190,
+      "y1": 240,
+      "width": 101,
+      "height": 201,
+      "pixels": 9121
+    },
+    {
+      "x0": 85,
+      "y0": 23,
+      "x1": 199,
+      "y1": 240,
+      "width": 115,
+      "height": 218,
+      "pixels": 10399
+    },
+    {
+      "x0": 92,
+      "y0": 20,
+      "x1": 172,
+      "y1": 240,
+      "width": 81,
+      "height": 221,
+      "pixels": 8166
+    },
+    {
+      "x0": 81,
+      "y0": 43,
+      "x1": 183,
+      "y1": 240,
+      "width": 103,
+      "height": 198,
+      "pixels": 9369
+    },
+    {
+      "x0": 87,
+      "y0": 38,
+      "x1": 196,
+      "y1": 240,
+      "width": 110,
+      "height": 203,
+      "pixels": 10845
+    },
+    {
+      "x0": 79,
+      "y0": 37,
+      "x1": 180,
+      "y1": 240,
+      "width": 102,
+      "height": 204,
+      "pixels": 9408
+    }
+  ],
+  "charge": [
+    {
+      "bounds": {
+        "x0": 69,
+        "y0": 39,
+        "x1": 193,
+        "y1": 240,
+        "width": 125,
+        "height": 202,
+        "pixels": 10916
+      },
+      "bottomFeet": {
+        "x0": 69,
+        "y0": 226,
+        "x1": 193,
+        "y1": 240,
+        "width": 125,
+        "height": 15,
+        "pixels": 528
+      }
+    },
+    {
+      "bounds": {
+        "x0": 71,
+        "y0": 38,
+        "x1": 190,
+        "y1": 240,
+        "width": 120,
+        "height": 203,
+        "pixels": 11042
+      },
+      "bottomFeet": {
+        "x0": 71,
+        "y0": 226,
+        "x1": 190,
+        "y1": 240,
+        "width": 120,
+        "height": 15,
+        "pixels": 524
+      }
+    },
+    {
+      "bounds": {
+        "x0": 70,
+        "y0": 38,
+        "x1": 189,
+        "y1": 240,
+        "width": 120,
+        "height": 203,
+        "pixels": 10938
+      },
+      "bottomFeet": {
+        "x0": 71,
+        "y0": 226,
+        "x1": 189,
+        "y1": 240,
+        "width": 119,
+        "height": 15,
+        "pixels": 517
+      }
+    },
+    {
+      "bounds": {
+        "x0": 75,
+        "y0": 43,
+        "x1": 188,
+        "y1": 240,
+        "width": 114,
+        "height": 198,
+        "pixels": 10454
+      },
+      "bottomFeet": {
+        "x0": 75,
+        "y0": 226,
+        "x1": 188,
+        "y1": 240,
+        "width": 114,
+        "height": 15,
+        "pixels": 509
+      }
+    }
+  ],
+  "idleRecoveryAlphaDifference": 0,
+  "idle": {
+    "x0": 79,
+    "y0": 37,
+    "x1": 180,
+    "y1": 240,
+    "width": 102,
+    "height": 204,
+    "pixels": 9408
+  },
+  "fistManual": {
+    "f3": [
+      186,
+      73,
+      14,
+      15
+    ],
+    "f4": [
+      158,
+      21,
+      16,
+      19
+    ]
+  },
+  "caveat": "Skull length from approximate manual source landmarks; +/-4sourcepx, not exact anatomical proof."
+}
