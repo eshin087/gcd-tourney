@@ -198,7 +198,7 @@
       "name": "Killua Zoldyck",
       "displayName": "KILLUA",
       "brief": "art/characters/killua/CHARACTER.md",
-      "standingBodyPx": 182,
+      "standingBodyPx": 176,
       "reference": {
         "proportionSample": { "file": "art/characters/killua/reference/proportion_sample_v01.png", "candidates": "art/characters/killua/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": {
@@ -213,7 +213,7 @@
         "expressions": { "file": "art/characters/killua/reference/expressions.png", "candidates": "art/characters/killua/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
       "animations": {
-        "idle": { "frames": 8, "loop": true, "bodyHeight": 186, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "idle": { "frames": 8, "loop": true, "bodyHeight": 146, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 5, "approvedVersion": 1 },
         "run": { "frames": 8, "loop": true, "bodyHeight": 186, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 3, "approvedVersion": 3 },
         "dash": { "frames": 2, "loop": true, "bodyHeight": 146, "ms": [60, 60], "required": true, "step": 8, "status": "approved", "version": 2, "approvedVersion": 2 },
         "backDash": { "frames": 3, "loop": false, "bodyHeight": 188, "ms": [60, 60, 80], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -231,7 +231,7 @@
         "airLight2": { "frames": 5, "loop": false, "phases": [1, 2, 2], "bodyHeight": 188, "ms": [45, 40, 50, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "airLight3": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 183, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "airHeavy": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 180, "ms": [50, 45, 45, 70, 70, 40], "required": true, "step": 5, "scaleExemptFrames": { "0": "the raised arm covers the top of the hair", "1": "the raised arm covers the top of the hair", "2": "the claw slash arc is drawn in hair colours", "4": "the raised arm covers the top of the hair" }, "scaleExemptVersion": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "guard": { "frames": 2, "loop": true, "bodyHeight": 180, "ms": [300, 300], "required": true, "step": 6, "status": "approved", "version": 3, "approvedVersion": 3 },
+        "guard": { "frames": 2, "loop": true, "bodyHeight": 140, "ms": [300, 300], "required": true, "step": 6, "status": "approved", "version": 7, "approvedVersion": 3 },
         "block": { "frames": 2, "loop": false, "bodyHeight": 186, "ms": [60, 80], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 3 },
         "hurtHigh": { "frames": 3, "loop": false, "bodyHeight": 177, "ms": [70, 90, 100], "required": true, "step": 6, "status": "approved", "version": 2, "approvedVersion": 2 },
         "hurtLow": { "frames": 3, "loop": false, "bodyHeight": 167, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
@@ -257,9 +257,9 @@
         "superPose": { "frames": 4, "loop": true, "bodyHeight": 191, "ms": [120, 120, 120, 120], "required": false, "step": 9, "status": "approved", "version": 3, "approvedVersion": 3 }
       },
       "ui": {
-        "portrait": { "file": "art/characters/killua/ui/portrait.png", "candidates": "art/characters/killua/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "cutin": { "file": "art/characters/killua/ui/cutin.png", "candidates": "art/characters/killua/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "select": { "file": "art/characters/killua/ui/select.png", "candidates": "art/characters/killua/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 }
+        "portrait": { "file": "art/characters/killua/ui/portrait.png", "candidates": "art/characters/killua/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 },
+        "cutin": { "file": "art/characters/killua/ui/cutin.png", "candidates": "art/characters/killua/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 3, "approvedVersion": 2 },
+        "select": { "file": "art/characters/killua/ui/select.png", "candidates": "art/characters/killua/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 }
       }
     },
     "gojo": {
