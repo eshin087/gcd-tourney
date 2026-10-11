@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style light3 v04, light4 v08 and heavy v11 source strips and native atlas QA; all pass isolated strict scale, with combo/recovery motion checks recorded for review (ART-NAR-TITLE).
 - Added: Naruto title-style airLight1 five-frame jab candidates; best v06 passes isolated strict scale but overshoots the fist contact zone, while v07 reaches the cell margin (ART-NAR-TITLE).
 - Added: Naruto title-style light2 seven-frame rear straight candidates and measured stitch QA; best assembled v05 passes isolated scale but misses the chin contact zone, and v06's four source figures overlap in x projection so the stitcher miscounts them (ART-NAR-TITLE).
 
