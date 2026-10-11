@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): add title-style front kick v07 with measured placement, unclipped active sandals and a recovery pose that rejoins the approved idle height; archive two rejected attempts.
+
 - art(sasuke): correct the lead jab's early extension and open-hand recovery in title-style v07; preserve rejected v06 and inspect all seven packed frames.
 
 - art(sasuke): add title-style rear straight v06 candidate with measured stitch, strict new-strip scale pass and actual-atlas QA; archive enlarged-head v05 and flag light1 recovery for correction.
