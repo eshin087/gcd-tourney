@@ -68,7 +68,7 @@ its own section below.
 
 ## naruto
 
-Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07 and guard v05 remain unapproved candidates. Idle v07 has a technical loop hold. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
+Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, guard v05 and three UI images remain unapproved candidates. Idle v07 has a technical loop hold. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
@@ -118,9 +118,9 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v01 | v01 | Final batch approved; see production/QA.md |
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | superPose | 4 | - | no | 208 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | New title-style portrait v02 candidate; fixed copy remains old approval. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v02 | New title-style cutin v03 candidate; source aspect narrower than target, side gutters likely. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | New title-style select v02 candidate; top/bottom crop caveat, final review pending. |
 
 ## sasuke
 
