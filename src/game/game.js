@@ -208,7 +208,7 @@ export class Game {
     this.hud.show(true);
     this.hud.training(true);
     this.inputLive = true;
-    audio.startMusic('battle');
+    audio.startMusic('training');
     audio.setCrowd(0);
     this.menus.trainingPanel();
   }
@@ -285,12 +285,14 @@ export class Game {
     this.fx.overlay.impactFrame(4);
     this.cam.shake(0.6);
     audio.play('gong');
+    audio.duckMusic('domain', true);
     this.excite = 1;
   }
 
   endDomain() {
     if (!this.domain) return;
     this.domain = null;
+    audio.duckMusic('domain', false);
     this.setStage(this.training ? 'training' : 'arena');
     this.fx.overlay.flash('#ffffff', 0.5);
   }
@@ -331,6 +333,7 @@ export class Game {
     this.clash = null;
     this.spClashCool = 0;
     audio.stopAllLoops();
+    audio.clearMusicDucks();
     this.fx.clearAll();
     this.hud.clash(false);
     this.hud.clearAnnounce();
@@ -363,6 +366,7 @@ export class Game {
     this.spClashCool = 0;
     this.hud.clash(false);
     audio.stopAllLoops();
+    audio.clearMusicDucks();
     this.fx.clearAll();
     this.timeLeft = ROUND_TIME;
     this.timeScale = 1;
@@ -482,6 +486,7 @@ export class Game {
     if (this.paused) return;
     this.paused = true;
     if (audio.sfx) audio.sfx.gain.value = 0.25;
+    audio.duckMusic('pause', true);
     this.fx.overlay.clear();
     this.menus.pause(() => this.resume(), () => this.quitToTitle(), this.training);
   }
@@ -489,6 +494,7 @@ export class Game {
   resume() {
     this.paused = false;
     if (audio.sfx) audio.sfx.gain.value = 0.9;
+    audio.duckMusic('pause', false);
     this.menus.hide();
     for (const p of this.pads) p.clear();
     this.input.flush(); // the RESUME confirm press must not also jump / attack
@@ -865,6 +871,7 @@ export class Game {
       }
       this.placeClash(c);
       audio.loop('clash', 'clash');
+      audio.duckMusic('clash', true); // the clash's metronome runs on its own tempo
     }
     for (const f of this.fighters) f.pad.clear();
     // the one-beat clash keeps the fight camera: up close, the two specials' light would hide both fighters
@@ -1045,6 +1052,7 @@ export class Game {
     const c = this.clash;
     this.clash = null;
     audio.stopLoop('clash');
+    audio.duckMusic('clash', false);
     this.hud.clash(false);
     const P = c.point.clone();
     this.fx.overlay.impactFrame(4);
@@ -1338,6 +1346,7 @@ export class Game {
     this.hud.announce('K.O.', 'ko', 1900);
     this.endDomain();
     audio.play('ko');
+    audio.duckMusic('ko', true);
     audio.play('cheer', 1.4);
     this.excite = 1;
     this.cam.set('ko', loser);
@@ -1448,6 +1457,7 @@ export class Game {
         if (t > 1.6 && once('menu')) {
           const w = this.roundWinner;
           this.setState('results');
+          audio.startMusic('menu');
           this.hud.show(false);
           this.hud.clearAnnounce();
           this.menus.results(w, this.assets[w.index],
@@ -1470,6 +1480,7 @@ export class Game {
     this.cam.set('victory', w);
     this.hud.announce(`${w.def.name} WINS`, 'win', 2600);
     audio.play('cheer', 1.3);
+    audio.duckMusic('ko', false);
     this.excite = 1;
   }
 
@@ -1508,6 +1519,7 @@ export class Game {
     this.room.setDim(this.dim);
     this.voidStage.setDim(this.dim);
     this.excite = Math.max(0.12, this.excite - dt * 0.22);
+    audio.setMusicIntensity(this.state === 'fight' || this.training ? this.excite : 0.2);
     this.arena.update(performance.now() / 1000, this.excite);
     this.room.update(performance.now() / 1000);
     if (this.domain) this.voidStage.update(performance.now() / 1000);

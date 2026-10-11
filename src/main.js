@@ -143,6 +143,9 @@ if (qs.has('debug')) {
     return 'snapped';
   };
   window.unsnap = () => document.getElementById('debug-snap')?.remove();
+  // music (ADR 0019): music.state(), music.next() (a new song from the next bar), music.seed(n); ?musicSeed=N
+  window.music = audio.mus;
+  if (qs.get('musicSeed')) audio.mus.seedNext = Number(qs.get('musicSeed')) >>> 0;
   window.freezeCpu = () => {
     game.brains[1].update = function () {
       this.f.pad.tick();
