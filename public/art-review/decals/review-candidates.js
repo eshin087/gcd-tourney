@@ -1,10 +1,11 @@
 // Review-page-only candidate loader. It never writes approvals or production files.
-const installed = new WeakMap();
 export async function installReviewCandidates(frame, allowedGroups) {
   const w = frame.contentWindow;
   const ground = w?.game?.fx?.ground;
   if (!ground || typeof w.groundDemo !== 'function') throw new Error('Wait for the match to finish loading.');
-  if (installed.get(ground)) return installed.get(ground);
+  // The game releases pages when changing groups. Reinstall preloaded images
+  // on every selection so revisiting an earlier group also renders immediately.
+  w.step(0);
   const dir = new URL('./candidate/', import.meta.url);
   const response = await fetch(new URL('atlas.json', dir));
   if (!response.ok) throw new Error('Review atlas could not load: ' + response.status);
@@ -37,7 +38,6 @@ export async function installReviewCandidates(frame, allowedGroups) {
   for (const page of ground.custom?.pages ?? []) page.tex?.dispose();
   ground.custom = { dir: dir.pathname.replace(/\/$/, ''), pages, decals };
   const result = { names: Object.keys(decals), variants: Object.values(decals).reduce((sum, e) => sum + e.frames.length, 0) };
-  installed.set(ground, result);
   return result;
 }
 export async function showReviewGroup(frame, group, allowedGroups) {
