@@ -39,9 +39,10 @@ export const GROUND = {
   hit: { spark: { light: 0.2, heavy: 0.45, smash: 0.6 }, dmg: 400, special: 0.15, superCost: 300, super: 0.35 },
   dive: { base: 0.7, hit: 0.2 },
   // fixed forces (impact `kind`)
-  fixed: { trade: 1.0, slam: 0.55, roar: 1.2, ko: 1.1, clashWin: 1.35, clashDraw: 1.5, kirin: 1.5, crater: 0.7, chase: 0.25, shot: 0.6, vortex: 0.75, ignite: 0.8, burn: 0.3 },
+  fixed: { trade: 1.0, slam: 0.55, roar: 1.2, ko: 1.1, clashWin: 1.35, clashDraw: 1.5, kirin: 1.5, crater: 0.7, chase: 0.25, shot: 0.6, shotSmall: 0.4, vortex: 0.75, ignite: 0.8, burn: 0.3 },
   debt: { frames: 90, minY: 0.3 }, // an airborne victim's crater waits up to this long for the floor
-  // within reach * D of a younger, weaker crater: that one grows instead; inside * D of a younger, bigger one: nothing
+  // within reach * D of a younger crater at most one tier above the hit: it grows by `bonus` per tier of it (nothing
+  // new when that would not reach a bigger tier); inside * D of a younger one two or more tiers bigger: nothing
   merge: { reach: 0.45, age: 4, bonus: 0.15, inside: 0.3 },
   life: { scuff: 3, skid: 3, extras: 26, overflow: 8 }, // extras: satellites and rubble of a persistent crater
   caps: { decals: 40, soft: 34, persistent: 8, barrier: 4, wallCraters: 4, chunks: 128, slabs: 20, trail: 24, pages: 4 },
@@ -433,7 +434,7 @@ export class GroundDamage {
     if (def.pos.y > GROUND.debt.minY) {
       const mk = def.groundMark, now = def.game.frameNo;
       if (!mk || now - mk.frame > GROUND.debt.frames || mk.force <= F) def.groundMark = { force: F, style, tint, dx, dz, frame: now };
-    } else if (m.special || (m.ground && m.big)) this.impact(def.pos, { force: F, style, tint, dir: { x: dx, z: dz } });
+    } else if (m.special || m.ground) this.impact(def.pos, { force: F, style, tint, dir: { x: dx, z: dz } }); // a small shot's F (~0.4) burns a crack
   }
 
   // the victim's pending mark, if it is still fresh (consumed)
@@ -493,7 +494,10 @@ export class GroundDamage {
     if (!surf) return null;
     if (F < GROUND.tiers[0].at && !o.name) return null;
     let tier = tierIndex(F);
-    // a slam where a younger, weaker crater lies grows that crater instead of stacking a copy
+    let x = pos.x, z = pos.z, merged = false;
+    // A slam where a younger crater lies grows that crater instead of stacking a copy. Only a hit at most one tier
+    // weaker may grow it: a super-jump crack or a launcher's landing beside a fresh crater_big must not wipe it and
+    // replay a full big impact somewhere else.
     if (!o.noMerge && !o.name) {
       const M = GROUND.merge, T = GROUND.tiers[Math.max(0, tier)];
       const reach = M.reach * (T.d[0] + T.d[1]) / 2;
@@ -501,17 +505,24 @@ export class GroundDamage {
       for (const c of this.clusters) {
         if (c.dissolving || !c.mergeable || c.surface !== surf || this.time - c.t0 > M.age) continue;
         const d = Math.hypot(c.x - pos.x, c.z - pos.z);
-        if (tierIndex(F + M.bonus * (c.tier + 1)) < c.tier) {
+        if (tier < c.tier - 1) {
           if (d < c.D * M.inside) return c; // a much smaller hit inside a fresh, bigger crater: already broken there
-          continue;
+          continue; // further out: its own small mark
         }
         if (d < Math.max(reach, c.D * M.reach) && d < bd) { bd = d; best = c; }
       }
       if (best) {
+        const grown = Math.min(GROUND.maxForce, F + M.bonus * (best.tier + 1));
+        // not a bigger tier than the crater already is: the floor is broken that much there (no copy, no debris)
+        if (tierIndex(grown) <= best.tier) return best;
         this.dissolve(best, GROUND.dissolve.merge);
-        F = Math.min(GROUND.maxForce, F + M.bonus * (best.tier + 1));
+        // the grown crater sits between the two, nearer the harder one, so it does not jump to the weaker hit
+        const mx = (best.x * best.force + x * F) / (best.force + F), mz = (best.z * best.force + z * F) / (best.force + F);
+        if (this.surfaceAt(mx, mz) === surf) { x = mx; z = mz; }
+        F = grown;
         if (style === 'stone' && best.style !== 'stone') { style = best.style; tint = tint ?? best.tint; }
         tier = tierIndex(F);
+        merged = true;
       }
     }
     const S = GROUND_STYLES[style];
@@ -520,8 +531,7 @@ export class GroundDamage {
     const life = o.persistent || (!o.name && T.life === 0) ? 0 : (o.life ?? T.life) * (S.life ?? 1);
     const dir = dirOf(o.dir, { x: 0, z: 0 });
     // `origin`: pos is where the decal starts (a blast fanning out from the attacker), so the cluster sits ahead of it
-    let x = pos.x, z = pos.z;
-    if (o.origin && dir && !o.name) { x += dir.x * D / 2; z += dir.z * D / 2; }
+    if (o.origin && dir && !o.name && !merged) { x += dir.x * D / 2; z += dir.z * D / 2; }
     const c = {
       x, z, surface: surf, tier: Math.max(0, tier), force: F, style, tint, D, t0: this.time, life,
       persistent: life === 0, key: o.key ?? null, mergeable: !o.name, parts: [], chunks: [], slabs: [], dissolving: false, dissolveAt: 0, dissolveLen: 0,

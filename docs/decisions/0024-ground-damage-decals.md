@@ -43,13 +43,17 @@ decals next to a floor drawn at 64 px per unit.
   (one InstancedMesh of 128), floor slabs jutting up at 12 to 30 degrees that use the ring's own top and side
   materials (>= 0.85, at most 20, never within 0.6 units of a fighter: a slab sinks at once when one comes close),
   flying rocks, a ring of rolling `dustWave` sprites (a new VFX row) and smoke for the biggest.
-- **Merging.** An impact within 0.45 D of a younger (< 4 s) crater that it would not shrink dissolves that one and
-  adds 0.15 per tier of it to its own force, so repeated slams (the maul, juggle bounces) grow one crater instead of
-  stacking copies. A much smaller hit inside a fresh, bigger crater adds nothing.
+- **Merging.** An impact at most one tier weaker than a younger (< 4 s) crater within 0.45 D adds 0.15 per tier of
+  that crater to its own force. When that reaches a bigger tier, the old crater dissolves and the grown one appears
+  between the two, weighted toward the harder hit; otherwise nothing new is drawn (the floor is already broken that
+  much). So repeated slams (the maul, juggle bounces) grow one crater instead of stacking copies. A hit two or more
+  tiers weaker (a super-jump crack or a launcher's landing beside a fresh big crater) never grows it: inside 0.3 D it
+  adds nothing, further out it leaves its own small mark.
 - **Impact debt.** A special, styled shot, smash or big launcher that hits an airborne victim (higher than 0.3)
   records `groundMark` on them; their next floor contact within 90 frames (a landing, ground bounce or KO landing)
   makes the crater there, in that style, so it appears where they crash and not under a mid-air hit. A grounded
-  victim of a special or styled shot is marked at once.
+  victim of a special or styled shot (Narukami, Chidori Spear: a burned crack) is marked at once, and a styled shot
+  that reaches the floor marks it there (0.6, or 0.4 for a shot that is not `big`).
 - **Surfaces.** The ring (stone; decals clip at the ring edge), the grass around it (decals sit just above the grass
   and path, clip inside the ring footprint and use the dirt names), the brick stand walls (a KO crash leaves a hole,
   body-shaped when it was fast, until the round resets), and the ki barrier (a wall bounce cracks it in the barrier's

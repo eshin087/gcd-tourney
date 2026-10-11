@@ -198,9 +198,10 @@ export class Projectile {
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
       if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
-        fx.ground.impact(this.pos, { kind: 'shot', style: this.P.ground, tint: this.P.glowColor, dir: this.vel });
         audio.play('hitHeavy', 0.7);
       }
+      // a styled shot marks the floor it reaches (a missed Narukami Air burns it too)
+      if (this.pos.y < 0.1 && this.P.ground) fx.ground.impact(this.pos, { kind: this.P.big ? 'shot' : 'shotSmall', style: this.P.ground, tint: this.P.glowColor, dir: this.vel });
       this.kill();
       return;
     }

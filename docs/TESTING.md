@@ -118,12 +118,14 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 **Ground damage (ADR 0024; lab **Ground damage**, `groundDemo()`, `groundTest()`)**
 - [ ] Tiers: a launcher's fall cracks (crack_s / crack), an air heavy spike's ground bounce leaves a crater_big with
       rim chunks and floor slabs, a soft hop leaves nothing. `groundTest(0.2 / 0.45 / 0.7 / 1.0 / 1.4)` gives the five
-      tiers, 1.4 to 7.6 units across; ten `groundTest(0.7)` never repeat a variant back to back and cover every rotation.
+      tiers, 1.4 to 7.6 units across; ten `groundTest(0.7, 'stone', { noMerge: true })` never repeat a variant back to
+      back and cover every rotation.
 - [ ] Styles: Rasengan scours a spiral, Chidori / Narukami / Thunderbolt leave lightning burns whose seams glow in the
       move's color and cool in about a second, Great Fireball scorches, Kirin blasts a glassy pit with a starburst,
       Amaterasu leaves black flame (and keeps marking under a burning victim), Lapse: Blue an implosion, Reversal: Red
       gouges, Hollow Purple a continuous trench (clipped at the ring edge, a furrow in the grass, nothing floating).
-- [ ] Merge: the Four-Tails maul grows one claw crater over its slams; its roar fans a scorch toward the victim.
+- [ ] Merge: the Four-Tails maul grows one claw crater over its slams; its roar fans a scorch toward the victim. A
+      super jump (chase) right after the spike's ground bounce leaves the crater_big where it is (no second big impact).
 - [ ] Impact debt: a special that hits an airborne victim makes its crater where they land, not under the hit.
 - [ ] Off-ring KO: a dirt crater in the grass at grass height; a KO into the stands leaves a hole in the brick wall
       (body-shaped when fast) until the next round; knockdown and KO slides leave skids.

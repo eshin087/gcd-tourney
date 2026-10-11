@@ -399,8 +399,8 @@ smash on an **airborne** victim leaves its crater where they land (impact debt, 
 |---|---|---|---|---|
 | < 0.15 | none | | | a soft landing |
 | 0.15 | `crack_s` hairline star | 1.4-2.2 | | a launcher's fall, the super jump, charge after 30 f |
-| 0.35 | `crack` web around a dent | 2.0-3.0 | | a hard fall, a fireball on the floor |
-| 0.55 | `crater` | 2.6-3.6 | rim chunks, dust ring | specials on a grounded victim, dive slams, maul slams |
+| 0.35 | `crack` web around a dent | 2.0-3.0 | | a hard fall, Narukami / Chidori Spear on a standing victim or the floor |
+| 0.55 | `crater` | 2.6-3.6 | rim chunks, dust ring | specials on a grounded victim, a fireball on the floor, dive slams, maul slams |
 | 0.85 | `crater_big` | 3.8-5.2 | crack satellites, rubble, floor slabs | an air heavy spike's ground bounce, KO landings |
 | 1.15 | `crater_huge` (stays for the round) | 5.4-7.6 | fracture ring, crack satellites, smoke | clash wins and draws, Kirin, a maul that kept growing |
 
@@ -410,10 +410,11 @@ wind cuts (Rasenshuriken), claw furrows and a roar scorch fan (Four-Tails), ligh
 Thunderbolt, Kirin's starburst), fire scorch (Great Fireball), black flame (Amaterasu, and under a burning victim),
 glass-like cursed fractures (Gojo), the implosion of Lapse: Blue, Reversal: Red's gouges and Hollow Purple's
 erasure trench. Hot seams glow in the move's color, then cool. Repeated slams in one spot within 4 s grow one
-crater. Wall bounces crack the ki barrier, KO crashes leave a hole in the stand wall (body-shaped when fast), off-ring
-KOs a dirt crater in the grass, and knockdown and KO slides a skid. Holding Special grows one crack under the fighter
-into a fracture, and the full gauge breaks the floor in the fighter's own pattern (`ground.charge`; Gojo's Infinity
-keeps it still). The ring is clean every round.
+crater (a hit two tiers weaker, such as the super jump beside it, leaves it alone). Wall bounces crack the ki
+barrier, KO crashes leave a hole in the stand wall (body-shaped when fast), off-ring KOs a dirt crater in the grass,
+and knockdown and KO slides a skid. Holding Special grows one crack under the fighter into a fracture, and the full
+gauge breaks the floor in the fighter's own pattern (`ground.charge`; Gojo's Infinity keeps it still). The ring is
+clean every round.
 
 ## CPU AI
 
