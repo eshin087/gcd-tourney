@@ -68,7 +68,7 @@ its own section below.
 
 ## naruto
 
-Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, guard v05, hurtHigh v04, down v05, KO v07 and three UI images remain unapproved candidates. Idle/run have animation holds; down/KO preserve original poses but have low-confidence scale and floor-contact holds; light1 v04 parts are rejected after stitch isolation failure. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
+Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, dash v04, guard v05, hurtHigh v04, down v05, KO v07 and three UI images remain unapproved candidates. Dash passed isolated candidate packing; idle/run have animation holds; down/KO preserve original poses but have low-confidence scale and floor-contact holds; light1 v04 parts are rejected after stitch isolation failure. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
