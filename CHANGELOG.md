@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Naruto title-style intro v05 candidate with stable four-frame crossed-finger seal loop and isolated strict 48-color pack result (ART-NAR-TITLE).
+
 - Added: Naruto title-style stagger v05 four-frame candidate; isolated scale gate passes, but opposite sway lacks distinction and remains a motion hold (ART-NAR-TITLE).
 
 - Added: Naruto title-style vanish v04 candidate with measured native 48-color anatomy comparison and version-scoped manual scale QA; final cast review and full-pack resolution remain pending (ART-NAR-TITLE).

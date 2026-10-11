@@ -112,7 +112,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | vanish | 2 | - | no | 221 | approved | v04 | v01 | Title-style v04 passes isolated 48-color manual anatomy scale QA for low-confidence crouch/toe-rise; final review pending, historic v01 remains approved. |
 | 9 | stagger | 4 | - | no | 207 | approved | v05 | v01 | Title-style v05 passes isolated scale gate but opposite sway reads too similar; motion hold. Historic v01 remains approved. |
 | 9 | ko | 1 | - | no | 64 | approved | v05 | v05 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 210 | approved | v01 | v01 | Final batch approved; see production/QA.md |
+| 9 | intro | 4 | - | no | 167 | approved | v05 | v01 | Title-style seal v05 passes isolated strict 48-color pack and 1px loop-crown check; historic v01 remains approved. |
 | 9 | taunt | 2 | - | no | 198 | approved | v06 | v01 | Title-style v06 head gate passes, but native sandal size remains large; manual anatomy hold. Historical v01 remains approved. |
 | 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
 | 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v01 | v01 | Final batch approved; see production/QA.md |
