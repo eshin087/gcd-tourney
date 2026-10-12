@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- User approved killua round-2 art: idle v08, stagger v05, taunt v05. Other visual/technical holds remain for Claude integration; no production deployment.
+
 - Art: Killua round-2 title-style corrections in PR70: idle v08, stagger v05 and taunt v05 pass a strict diagnostic subset and await review; charge v13, beamFire v09 and run v09 remain held. Full fighter strict pack fails charge. No new art approvals or production integration.
 
 - Art (PR70, not on main yet): Killua's scale gate measures against the approved title-style combat cell; launched refit, manual scale records, the win cuff misread, the user's 2026-10-11 approval of the shown versions (UI portrait v02 / cutin v03 / select v02 promoted), and hit boxes re-measured on the new art (his light string lands again). Strict scale gate still fails on charge, stagger and taunt (head/hair drawn too big) and down (decision); idle loop dip, beamFire recoil and run phase need new images.
