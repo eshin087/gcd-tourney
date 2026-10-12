@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Gojo title-style art ships (PR #72) with round-3 QA: airLight3 v12, airHeavy v08 and special v07 boxes re-measured; run v12 (the user's hover-glide), special v07 and airHeavy v08 are user-approved stand-ins until the round-3 redraws.
+
 - User approved gojo round-2 art: airLight3 v12. Other visual/technical holds remain for Claude integration; no production deployment.
 
 - Gojo title-style round2 candidates: airHeavy v08 best and airLight3 v12 clear the strict scale gate, with a hair-volume hold retained for airHeavy after technically failed v09; run v12 hover-glide and special v07 also pack but retain explicit tighter-scale / body-seam visual holds. Versioned history, cumulative budgets and native review evidence retained; no approval, main integration, production deploy or tech animations.
