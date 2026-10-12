@@ -378,7 +378,7 @@ export class Fighter {
     this.spPending = false;
     this.carry.set(0, 0);
     this.vel.x *= 0.3; this.vel.z *= 0.3;
-    this.setState('dodge', S.pose);
+    this.setState('dodge', (this.def.dodgePose?.[0]) ?? S.pose);
     audio.play('whoosh', 0.7);
   }
 
@@ -989,7 +989,7 @@ export class Fighter {
         if (this.t === S.from) this.invuln = Math.max(this.invuln, S.to - S.from);
         if (this.t >= S.from && this.t < S.to && this.t % 3 === 0) this.actor.ghost('#bfe8ff', 0.18, 0.4);
         if (this.t >= S.len + this.dodgeStale * S.stale) this.setState(p.b.guard.down ? 'guard' : 'idle');
-        else if (S.poseFrame != null && this.actor.anim?.frames?.length) this.actor.setFrame(this.actor.anim.frames[Math.min(S.poseFrame, this.actor.anim.frames.length - 1)]);
+        else if (S.poseFrame != null && this.actor.anim?.frames?.length) this.actor.setFrame(this.actor.anim.frames[Math.min(this.def.dodgePose?.[1] ?? S.poseFrame, this.actor.anim.frames.length - 1)]);
         else freeAnim();
         break;
       }
