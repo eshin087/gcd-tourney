@@ -56,7 +56,9 @@ Gojo (`art/gojo-title-production`):
       poses touch, so fingertips land in the next frames. Redraw part A at the idle's head/body ratio and keep a gap
       between all poses. Budget A 1, B 0 (extra authorization for B).
 - [ ] airLight3 v10 -> v11: head ~12% small for the body. Budget A 1, B 0.
-- [ ] run v08: f4-f7 repeat the f0-f3 lead leg (the live v03 has the same flaw). Budget A 1, B 0.
+- [ ] run v08 -> v09: drawn as a deep crouched sprint (~145 px tall against his 234 px standing idle), so in the
+      game he shrinks into a crouch the moment he runs, and f4-f7 repeat the f0-f3 lead leg. Redraw an upright,
+      long-stride run at his tall, relaxed build (about 205-225 px tall), legs alternating. Budget A 1, B 0 (extra).
 - [ ] heavy v05 only if the user picks a redraw over Claude's reach tuning: the elbow is drawn folded across his
       chin (0.17-0.20 units forward), so it can never touch a standing opponent. Budget: see ATTEMPT_INVENTORY.md.
 
