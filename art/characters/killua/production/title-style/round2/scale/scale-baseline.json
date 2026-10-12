@@ -1,0 +1,39 @@
+{
+ "_doc": "Head scale per approved strip at its version (tools/scale-audit.mjs). The packer warns when a strip moves more than spec.scaleGate.baselineTol at the same version. npm run scale records new animations and changed versions; npm run scale -- --baseline rewrites every row (an intended change).",
+ "fighters": {
+  "killua": {
+   "ref": {
+    "headPx": [
+     40,
+     31
+    ]
+   },
+   "anims": {
+    "idle": {
+     "v": 8,
+     "head": 0.983
+    },
+    "run": {
+     "v": 9,
+     "head": 1.032
+    },
+    "charge": {
+     "v": 13,
+     "head": 0.92
+    },
+    "beamFire": {
+     "v": 9,
+     "head": 1.038
+    },
+    "stagger": {
+     "v": 5,
+     "head": 0.996
+    },
+    "taunt": {
+     "v": 5,
+     "head": 0.996
+    }
+   }
+  }
+ }
+}

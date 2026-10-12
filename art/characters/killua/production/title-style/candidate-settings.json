@@ -1,0 +1,166 @@
+{
+  "dash": {
+    "version": 5,
+    "bodyHeight": 122
+  },
+  "jumpUp": {
+    "version": 5,
+    "bodyHeight": 148
+  },
+  "jumpFall": {
+    "version": 5,
+    "bodyHeight": 165
+  },
+  "hurtHigh": {
+    "version": 6,
+    "bodyHeight": 150
+  },
+  "land": {
+    "version": 4,
+    "bodyHeight": 132
+  },
+  "intro": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "taunt": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "win": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "backDash": {
+    "version": 4,
+    "bodyHeight": 160
+  },
+  "superDash": {
+    "version": 6,
+    "bodyHeight": 98
+  },
+  "jumpSquat": {
+    "version": 5,
+    "bodyHeight": 115
+  },
+  "down": {
+    "version": 7,
+    "bodyHeight": 90
+  },
+  "ko": {
+    "version": 8,
+    "bodyHeight": 78
+  },
+  "airLight1": {
+    "version": 6,
+    "bodyHeight": 166
+  },
+  "airLight2": {
+    "version": 7,
+    "bodyHeight": 170
+  },
+  "hurtLow": {
+    "version": 6,
+    "bodyHeight": 149
+  },
+  "block": {
+    "version": 7,
+    "bodyHeight": 151
+  },
+  "charge": {
+    "version": 11,
+    "bodyHeight": 125
+  },
+  "beamCharge": {
+    "version": 8,
+    "bodyHeight": 170
+  },
+  "airRecover": {
+    "version": 5,
+    "bodyHeight": 145
+  },
+  "launched": {
+    "version": 5,
+    "bodyHeight": 115
+  },
+  "throw": {
+    "version": 6,
+    "bodyHeight": 173
+  },
+  "vanish": {
+    "version": 4,
+    "bodyHeight": 185
+  },
+  "spin": {
+    "version": 4,
+    "bodyHeight": 136
+  },
+  "stagger": {
+    "version": 4,
+    "bodyHeight": 186
+  },
+  "beamFire": {
+    "version": 8,
+    "bodyHeight": 127
+  },
+  "getup": {
+    "version": 7,
+    "bodyHeight": 158
+  },
+  "light1": {
+    "version": 10,
+    "bodyHeight": 151
+  },
+  "light2": {
+    "version": 6,
+    "bodyHeight": 160
+  },
+  "light3": {
+    "version": 5,
+    "bodyHeight": 180
+  },
+  "run": {
+    "version": 8,
+    "bodyHeight": 162
+  },
+  "heavy": {
+    "version": 11,
+    "bodyHeight": 214
+  },
+  "airLight3": {
+    "version": 9,
+    "bodyHeight": 180
+  },
+  "airHeavy": {
+    "version": 8,
+    "bodyHeight": 164
+  },
+  "specialDown": {
+    "version": 7,
+    "bodyHeight": 179.597423510467
+  },
+  "superPose": {
+    "version": 8,
+    "bodyHeight": 186
+  },
+  "special": {
+    "version": 7,
+    "bodyHeight": 170
+  },
+  "specialForward": {
+    "version": 12,
+    "bodyHeight": 139
+  },
+  "specialUp": {
+    "version": 8,
+    "bodyHeight": 197
+  },
+  "light4": {
+    "version": 10,
+    "bodyHeight": 166
+  },
+  "guard": {
+    "version": 7,
+    "bodyHeight": 140
+  }
+}

@@ -1,0 +1,47 @@
+{
+ "_doc": "Head scale per approved strip at its version (tools/scale-audit.mjs). The packer warns when a strip moves more than spec.scaleGate.baselineTol at the same version. npm run scale records new animations and changed versions; npm run scale -- --baseline rewrites every row (an intended change).",
+ "fighters": {
+  "sasuke": {
+   "ref": {
+    "headPx": [
+     39,
+     38
+    ]
+   },
+   "anims": {
+    "idle": {
+     "v": 7,
+     "head": 1
+    },
+    "backDash": {
+     "v": 7,
+     "head": 0.998
+    },
+    "heavy": {
+     "v": 11,
+     "head": 1.026
+    },
+    "block": {
+     "v": 7,
+     "head": 1.031
+    },
+    "charge": {
+     "v": 12,
+     "head": 1.047
+    },
+    "throw": {
+     "v": 7,
+     "head": 0.96
+    },
+    "stagger": {
+     "v": 8,
+     "head": 0.979
+    },
+    "specialUp": {
+     "v": 9,
+     "head": 1.009
+    }
+   }
+  }
+ }
+}

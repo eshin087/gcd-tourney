@@ -1,0 +1,8 @@
+
+== killua: idle head 40x31 px (auto palette #36356f #3d3e79 #cdc8e8 #7a5eb4 #6a5c8b #f0eff6 #b2acd3 #bdb8d7 #8a80b4)
+   5 ok, 1 drift
+   charge          v13  head  -8%  feet  +4%  DRIFT    f: 0.92 0.92 0.94 0.90
+   wrote art\characters\killua\production\title-style\round2\scale\heads-killua.png
+
+[scale] 1 flagged strip(s); wrote art\characters\killua\production\title-style\round2\scale\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md
+

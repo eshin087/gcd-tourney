@@ -1,0 +1,122 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== sasuke ======================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v07.png             x0.337  (re-imported: replaces frames/ cleaned from raw/idle_v01.png; candidate v07 (approved: v01))
+    run          8     <- raw/run_v05.png              x0.352  (re-imported: replaces frames/ cleaned from raw/run_v02.png; candidate v05 (approved: v02))
+    dash         2     <- frames/dash/ (raw/dash_v01.png) x1
+    backDash     3     <- frames/backDash/ (raw/backDash_v01.png) x1
+    superDash    2     <- frames/superDash/ (raw/superDash_v01.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    jumpSquat    1     <- frames/jumpSquat/ (raw/jumpSquat_v01.png) x1
+    jumpUp       2     <- frames/jumpUp/ (raw/jumpUp_v01.png) x1
+    jumpFall     2     <- frames/jumpFall/ (raw/jumpFall_v01.png) x1
+    land         2     <- frames/land/ (raw/land_v01.png) x1
+    light1       7     <- frames/light1/ (raw/light1_v01.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    light2       7     <- raw/light2_v02.png           x1  (re-imported: replaces frames/ cleaned from raw/light2_v01.png; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    light3       7     <- raw/light3_v02.png           x1  (re-imported: replaces frames/ cleaned from raw/light3_v01.png; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    light4       8     <- frames/light4/ (raw/light4_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/light4/; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    heavy        8     <- raw/heavy_v06.png            x1  (re-imported: replaces frames/ cleaned from raw/heavy_v02.png; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    airLight1    5     <- frames/airLight1/ (raw/airLight1_v01.png) x1
+    airLight2    5     <- frames/airLight2/ (raw/airLight2_v02.png) x1
+    airLight3    6     <- frames/airLight3/ (raw/airLight3_v01.png) x1  (ignored 2 stray pixel(s) - clean them in frames/airLight3/; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    airHeavy     6     <- frames/airHeavy/ (raw/airHeavy_v02.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    guard        2     <- raw/guard_v04.png            x0.25  (re-imported: replaces frames/ cleaned from raw/guard_v01.png; candidate v04 (approved: v01))
+    block        2     <- frames/block/ (raw/block_v01.png) x1
+    hurtHigh     3     <- frames/hurtHigh/ (raw/hurtHigh_v02.png) x1
+    hurtLow      3     <- frames/hurtLow/ (raw/hurtLow_v01.png) x1
+    launched     2     <- frames/launched/ (raw/launched_v01.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    spin         4     <- frames/spin/ (raw/spin_v01.png) x1
+    airRecover   3     <- frames/airRecover/ (raw/airRecover_v01.png) x1
+    down         2     <- frames/down/ (raw/down_v01.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    getup        5     <- frames/getup/ (raw/getup_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/getup/)
+    charge       4     <- frames/charge/ (raw/charge_v02.png) x1  (ignored 4 stray pixel(s) - clean them in frames/charge/)
+    throw        4     <- frames/throw/ (raw/throw_v01.png) x1
+    beamCharge   3     <- frames/beamCharge/ (raw/beamCharge_v01.png) x1  (ignored 1 stray pixel(s) - clean them in frames/beamCharge/)
+    beamFire     3     <- frames/beamFire/ (raw/beamFire_v01.png) x1
+    vanish       2     <- frames/vanish/ (raw/vanish_v01.png) x1
+    stagger      4     <- frames/stagger/ (raw/stagger_v01.png) x1
+    ko           1     <- frames/ko/ (raw/ko_v02.png)  x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    special      8     <- raw/special_v03.png          x1  (re-imported: replaces frames/ cleaned from raw/special_v02.png; anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    intro        4     <- frames/intro/ (raw/intro_v01.png) x1
+    taunt        2     <- frames/taunt/ (raw/taunt_v01.png) x1
+    win          4     <- frames/win/ (raw/win_v01.png) x1
+    specialForward  7     <- frames/specialForward/ (raw/specialForward_v02.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    specialUp    6     <- frames/specialUp/ (raw/specialUp_v02.png) x1  (anatomical scale: skull-to-chin 31px; bounds are pose-dependent)
+    specialDown  4     <- frames/specialDown/ (raw/specialDown_v01.png) x1
+    superPose    4     <- frames/superPose/ (raw/superPose_v01.png) x1
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 3 drift, 9 uniform, 8 unmeasured, 13 ok, 6 pop, 2 exempt  FAILED: run - nothing written
+    ~ dash head 1.25 of idle (feet 1.32): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ backDash head 1.08 of idle (feet 1.34): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ superDash head 1.32 of idle (feet 1.39): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ jumpFall head 1.13 of idle (feet 1.48): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ land head 1.08 of idle (feet 1.53): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ light1 head 1.06 of idle (feet 1.35): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ light2 pops inside the strip: f1 1.03 vs f0 1.39 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ light3 pops inside the strip: f0 0.97 vs f4 1.13 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ heavy pops inside the strip: f4 0.95 vs f1 1.28 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v06]
+    ~ airLight3 head 1.28 of idle (feet 1.02): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ airHeavy pops inside the strip: f5 1.03 vs f3 1.26 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ block head 1.19 of idle (feet 0.99): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ throw pops inside the strip: f3 0.90 vs f1 1.05 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v01]
+    ~ beamFire head 1.15 of idle (feet 1.43): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ special pops inside the strip: f0 1.07 vs f1 1.22 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v03]
+    ~ specialForward head 1.13 of idle (feet 1.59): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v02]
+    ~ specialDown head 1.09 of idle (feet 1.23): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
+  - palette snapped to 48 colors
+  - 16 hitbox override(s) from hitboxes.json
+  - 2 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! scale: the idle head is 39x38 px, 42x41 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)
+  ! scale gate: run head 1.06 of idle (feet 0.75): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v05, not approved yet]
+  ! scale: dash head 1.25 was 1.15 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: backDash head 1.08 was 1.01 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: superDash head 1.32 was 1.20 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: jumpSquat head 1.16 was 1.04 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: jumpUp head 0.97 was 0.90 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: jumpFall head 1.13 was 1.05 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: land head 1.08 was 1.00 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light1 head 1.06 was 0.99 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light2 head 1.08 was 0.99 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light3 head 1.00 was 0.92 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: light4 head 1.00 was 0.89 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: heavy head 1.11 was 1.01 in art/scale/scale-baseline.json at the same version v06 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airLight1 head 0.95 was 0.88 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airLight2 head 1.00 was 0.92 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airLight3 head 1.28 was 1.19 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airHeavy head 1.23 was 1.13 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: block head 1.19 was 1.08 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: hurtHigh head 1.05 was 0.96 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: hurtLow head 1.02 was 0.94 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: launched head 0.75 was 0.88 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: spin head 1.54 was 1.40 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airRecover head 1.05 was 0.94 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: down head 1.98 was 1.79 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: getup head 1.07 was 0.96 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: charge head 0.97 was 0.88 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: throw head 0.96 was 0.88 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: beamCharge head 0.54 was 0.50 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: beamFire head 1.15 was 1.01 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: vanish head 1.10 was 1.00 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: stagger head 0.96 was 0.89 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: ko head 0.49 was 0.46 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: special head 1.21 was 1.12 in art/scale/scale-baseline.json at the same version v03 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: intro head 0.98 was 0.91 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: taunt head 1.04 was 0.97 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: win head 0.97 was 0.91 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: specialForward head 1.13 was 1.04 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: specialUp head 1.05 was 0.95 in art/scale/scale-baseline.json at the same version v02 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: specialDown head 1.09 was 1.01 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: superPose head 1.01 was 0.95 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! down: 1 lying frame(s) float above the floor line (#1: 9% of the body within 6px of y 240, worst fifth 13px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v01 is the approved version: queue a side-on redraw
+  ! ko: 1 lying frame(s) float above the floor line (#0: 9% of the body within 6px of y 240, worst fifth 36px above it, 97px tall > 64x1.15) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v02 is the approved version: queue a side-on redraw
+  ! scale gate: did not write public/characters/sasuke/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+  wrote public/characters/sasuke/portrait.png
+  wrote public/characters/sasuke/cutin.png
+  wrote public/characters/sasuke/select.png
+
+SCALE GATE FAILED: sasuke (run) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 44 warning(s).

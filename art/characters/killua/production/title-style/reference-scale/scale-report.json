@@ -1,0 +1,351 @@
+{
+ "_doc": "npm run scale (tools/scale-audit.mjs): every packed frame against the approved idle. head = head silhouette with hair, feet = shoe area (1.00 = the idle). Verdicts: art/CHARACTER_SCALE.md \"Scale gate (automatic)\".",
+ "fighters": {
+  "killua": {
+   "palette": {
+    "head": [
+     "#36356f",
+     "#3d3e79",
+     "#cdc8e8",
+     "#7a5eb4",
+     "#6a5c8b",
+     "#f0eff6",
+     "#b2acd3",
+     "#bdb8d7",
+     "#8a80b4"
+    ],
+    "feet": [
+     "#43276d",
+     "#f0eff6",
+     "#594a68",
+     "#4a4a81",
+     "#382161",
+     "#bdb8d7",
+     "#443345"
+    ],
+    "source": "auto"
+   },
+   "ref": {
+    "headPx": [
+     40,
+     31
+    ],
+    "box": [
+     107,
+     98,
+     146,
+     128
+    ],
+    "feetPx": 1325
+   },
+   "counts": {
+    "ref": 1,
+    "ok": 7,
+    "drift": 1
+   },
+   "anims": {
+    "idle": {
+     "v": 1,
+     "head": 1,
+     "feet": 1,
+     "range": 0,
+     "verdict": "ref",
+     "frames": [
+      {
+       "head": 1,
+       "feet": 1,
+       "box": [
+        107,
+        98,
+        146,
+        128
+       ]
+      }
+     ]
+    },
+    "dash": {
+     "v": 5,
+     "head": 1.027,
+     "feet": 1.041,
+     "range": 0.001,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.028,
+       "feet": 1.034,
+       "box": [
+        149,
+        123,
+        190,
+        153
+       ]
+      },
+      {
+       "head": 1.027,
+       "feet": 1.048,
+       "box": [
+        139,
+        122,
+        180,
+        152
+       ]
+      }
+     ]
+    },
+    "jumpUp": {
+     "v": 5,
+     "head": 0.95,
+     "feet": 1.051,
+     "range": 0.1,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.9,
+       "feet": 1.049,
+       "box": [
+        117,
+        96,
+        152,
+        130
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.052,
+       "box": [
+        114,
+        97,
+        153,
+        130
+       ]
+      }
+     ]
+    },
+    "jumpFall": {
+     "v": 5,
+     "head": 0.974,
+     "feet": 0.99,
+     "range": 0.02,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.964,
+       "feet": 0.974,
+       "box": [
+        90,
+        90,
+        126,
+        120
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.006,
+       "box": [
+        98,
+        80,
+        134,
+        112
+       ]
+      }
+     ]
+    },
+    "land": {
+     "v": 4,
+     "head": 0.97,
+     "feet": 1.027,
+     "range": 0.04,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.95,
+       "feet": 0.994,
+       "box": [
+        140,
+        132,
+        177,
+        159
+       ]
+      },
+      {
+       "head": 0.99,
+       "feet": 1.061,
+       "box": [
+        116,
+        112,
+        155,
+        140
+       ]
+      }
+     ]
+    },
+    "hurtHigh": {
+     "v": 6,
+     "head": 0.949,
+     "feet": 0.954,
+     "range": 0.029,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.946,
+       "feet": 0.942,
+       "box": [
+        77,
+        94,
+        110,
+        131
+       ]
+      },
+      {
+       "head": 0.975,
+       "feet": 0.965,
+       "box": [
+        130,
+        99,
+        168,
+        126
+       ]
+      },
+      {
+       "head": 0.949,
+       "feet": 0.954,
+       "box": [
+        123,
+        104,
+        161,
+        129
+       ]
+      }
+     ]
+    },
+    "intro": {
+     "v": 4,
+     "head": 1.035,
+     "feet": 1.046,
+     "range": 0.036,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.025,
+       "feet": 1.064,
+       "box": [
+        108,
+        62,
+        148,
+        92
+       ]
+      },
+      {
+       "head": 1.014,
+       "feet": 1.048,
+       "box": [
+        106,
+        59,
+        145,
+        93
+       ]
+      },
+      {
+       "head": 1.044,
+       "feet": 1.044,
+       "box": [
+        106,
+        61,
+        148,
+        92
+       ]
+      },
+      {
+       "head": 1.05,
+       "feet": 1.044,
+       "box": [
+        107,
+        62,
+        148,
+        94
+       ]
+      }
+     ]
+    },
+    "taunt": {
+     "v": 4,
+     "head": 1.012,
+     "feet": 1.047,
+     "range": 0.041,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.032,
+       "feet": 1.053,
+       "box": [
+        107,
+        70,
+        146,
+        102
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 1.041,
+       "box": [
+        109,
+        70,
+        147,
+        102
+       ]
+      }
+     ]
+    },
+    "win": {
+     "v": 4,
+     "head": 1.091,
+     "feet": 1.029,
+     "range": 0.018,
+     "verdict": "drift",
+     "frames": [
+      {
+       "head": 1.086,
+       "feet": 1.023,
+       "box": [
+        99,
+        60,
+        149,
+        90
+       ]
+      },
+      {
+       "head": 1.096,
+       "feet": 1.035,
+       "box": [
+        99,
+        58,
+        150,
+        90
+       ]
+      },
+      {
+       "head": 1.081,
+       "feet": 1.037,
+       "box": [
+        99,
+        60,
+        149,
+        89
+       ]
+      },
+      {
+       "head": 1.099,
+       "feet": 1.023,
+       "box": [
+        99,
+        59,
+        150,
+        90
+       ]
+      }
+     ]
+    }
+   }
+  }
+ }
+}
