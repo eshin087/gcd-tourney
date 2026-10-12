@@ -806,8 +806,8 @@ height for 00).
 A tech roll (a timed tech with the stick left or right, or landing from a launch while holding Guard): the fighter rolls
 along the floor, invulnerable through the tumble. Drawn as a FORWARD roll toward screen-right; the game plays 01-04
 backward for a roll away from the opponent, so they are four even quarter turns. Every frame touches y 240 (rolling, not
-airborne). The tumble is a tight ball about half the standing height (packer band 0.30-0.68 of the idle's height), the
-same head and limb lengths as the idle, folded. 05 hands over to `idle`.
+airborne). The contact and the tumble are a tight ball about half the standing height (packer band 0.30-0.68 of the
+idle's height for 00-04), the same head and limb lengths as the idle, folded. 05 hands over to `idle`.
 
 {{NAME}} flavor for the whole animation: _{{fill in}}_
 
@@ -827,9 +827,10 @@ same head and limb lengths as the idle, folded. 05 hands over to `idle`.
 
 A timed tech against the ring barrier: the fighter clings to it for 6 frames, kicks off away from it and falls free.
 The wall is NOT drawn: it is implied at the cell's LEFT, behind the fighter. 00-02 are wall-anchored by the packer: their
-leftmost opaque pixel goes on x 128 (the barrier), so the soles flat on the wall (and optionally the near hand) are the
-leftmost part of the figure; hair and cloth trail up or to the right, never past the soles. 03-04 are ordinary airborne
-poses; 04 hands over to `jumpFall` f0. The wall jump (↑ at the kick) shows 00-01, 02 for 4 frames, then `jumpUp`.
+leftmost opaque pixel goes on x 8, the cell's left edge (the game puts that line on the barrier), so the push-off can
+reach across the whole cell. The soles flat on the wall (and optionally the near hand) are the leftmost part of the
+figure; hair and cloth trail up or to the right, never past the soles. 03-04 are ordinary airborne poses; 04 hands over
+to `jumpFall` f0. The wall jump (↑ at the kick) shows 00-01, 02 for 4 frames, then `jumpUp`.
 
 {{NAME}} flavor for the whole animation: _{{fill in}}_
 

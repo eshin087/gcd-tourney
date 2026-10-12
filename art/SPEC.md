@@ -231,28 +231,32 @@ tech's timing, invulnerability or movement:
 
 - **Orientation.** Every strip faces right like the rest of the sheet. `techRoll` is a **forward** roll toward screen-right;
   a fighter rolling away from the opponent plays its tumble beat backward (a back roll) without turning around, so the
-  four tumble frames are even quarter turns that read in either order. `wallTech` has its **wall at the cell's left**,
-  behind the fighter: on the ring barrier's left and right walls (the x walls, at a screen side) the game turns the strip
-  away from the wall; on the front and back walls (the z walls, seen in depth) the fighter keeps facing the opponent and
-  the strip is re-centred on the fighter (`wallAnchor` below). The facing for gameplay never changes.
+  four tumble frames are even quarter turns that read in either order. The roll keeps the facing it started with on
+  screen, even when the opponent crosses over mid-roll. `wallTech` has its **wall at the cell's left**, behind the
+  fighter: on the ring barrier's left and right walls (the x walls, at a screen side) the game turns the strip away from
+  the wall and puts its wall line on the barrier; on the front and back walls (the z walls, seen in depth) the fighter
+  keeps facing the opponent and the strip is re-centred on the fighter (`wallAnchor` below). The facing for gameplay
+  never changes.
 - **Wall contact.** The packer puts the leftmost opaque pixel of the cling and push-off frames (beats 1-2: frames 0-2)
-  on the pivot column, x 128: the barrier. So the soles drawn flat on the wall must be the leftmost part of the figure,
-  with the near hand optionally on the same line; hair, scarf and headband tails trail up or to the right, never past the
-  soles. The packer warns `wallTech: N cling frame(s) barely touch the wall line` when fewer than about 12 opaque px (at a
-  200 px standing body) of a cling frame lie on x 128-131. The push-off frame only needs its toes there. The airborne
-  frames are centred on the feet as usual. The wall jump (↑ at the kick) shows the cling, then the push-off frame for 4
-  frames, then `jumpUp`: no extra strip.
+  on the **wall line, x 8** (just inside the 4 px cell margin), not on the pivot: a full diagonal push-off has the whole
+  cell width, x 8-251, to reach right. The game draws that line on the barrier (`wallLine` below). So the soles drawn
+  flat on the wall must be the leftmost part of the figure, with the near hand optionally on the same line; hair, scarf
+  and headband tails trail up or to the right, never past the soles. The packer warns `wallTech: N cling frame(s) barely
+  touch the wall line` when fewer than about 12 opaque px (at a 200 px standing body) of a cling frame lie on x 8-11.
+  The push-off frame only needs its toes there. A frame that still clips is reposed inside the cell at the same
+  anatomical scale; never lower `bodyHeight` below it. The airborne frames are centred on the feet as usual. The wall
+  jump (↑ at the kick) shows the cling, then the push-off frame for 4 frames, then `jumpUp`: no extra strip.
 - **Scale.** One anatomical scale with the approved neutral and idle: the same head, torso and limb lengths, folded or
   braced. **Never stretch a tucked, rolling or braced pose to a standing height.** The tallest frame sets the strip's
   `bodyHeight`: the stance of `techGround` (the idle's height), the crouch of `techRoll` (about the `jumpSquat` crouch),
   the airborne recovery of `wallTech` (about `jumpFall`); a fighter drawn at another stature sets them in its manifest
   entry. The packer warns when a tucked or braced frame leaves its height band against the idle's median height:
-  `techGround` brace 0.45-0.85, `techRoll` tumble 0.30-0.68, `wallTech` cling 0.35-0.90.
-- **Scale gate.** The probe cannot read a head in the tumble or the rotated cling: `techRoll` frames 1-4 and `wallTech`
-  frames 0-2 are reported **not read** (manifest `spec.scaleGate.lowConfPhases`), the readable frames are judged as
-  usual, and a strip that passes on them is `partial`, which is not a pass: a candidate needs a person's
-  `scaleManualQA` record of that version (unread frames compared with the approved neutral at one scale: head, torso,
-  limb lengths, not the box height) before it ships. `techGround` is measured in full.
+  `techGround` brace 0.45-0.85, `techRoll` shoulder contact and tumble 0.30-0.68, `wallTech` cling 0.35-0.90.
+- **Scale gate.** The probe cannot read a head in the shoulder contact, the tumble or the rotated cling: `techRoll`
+  frames 0-4 and `wallTech` frames 0-2 are reported **not read** (manifest `spec.scaleGate.lowConfPhases`), the
+  readable frames are judged as usual, and a strip that passes on them is `partial`, which is not a pass: a candidate
+  needs a person's `scaleManualQA` record of that version (unread frames compared with the approved neutral at one
+  scale: head, torso, limb lengths, not the box height) before it ships. `techGround` is measured in full.
 - **Transitions.** `techGround` f3 and `techRoll` f5 hand over to `idle`; `wallTech` f4 hands over to `jumpFall`; their
   first frames follow `launched` / `spin` (a body falling into the floor or the wall). Keep `down` and `ko` separate:
   a tech never lies down.
@@ -382,8 +386,10 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
   cell px) of every `ko` and `down` frame and the first `getup` frame. The engine stretches the contact shadow along
   it ([Lying poses](#lying-poses)).
 - `wallAnchor` (only when the pack has a `wallTech` strip): `{ "<sheet frame>": px }`, for every wall-anchored frame
-  (the cling and push-off), how far right of the pivot the body's centre was packed. The engine shifts the frame back by
-  it on a wall seen in depth ([Tech poses](#tech-poses)).
+  (the cling and push-off), where the body's centre was packed against the pivot (px right of it; negative when it
+  lies left of the pivot, as it usually does). The engine shifts the frame back by it on a wall seen in depth.
+- `wallLine` (with `wallAnchor`): the cell column the packer put the wall-anchored frames' leftmost pixel on (8). On a
+  wall at a screen side the engine draws that column on the barrier ([Tech poses](#tech-poses)).
 
 ## Hitboxes and hurtboxes
 

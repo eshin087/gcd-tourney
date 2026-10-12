@@ -27,23 +27,28 @@ their tucked and rotated poses defeat the scale probe and the packer's horizonta
    (`SheetAsset.has`); otherwise it keeps exactly the legacy poses, free-running as before (`LEGACY_POSE`). New
    characters and the four current sheets need no art to keep working.
 4. **Orientation.** All strips face right. `techRoll` is a forward roll; a roll against the facing plays its tumble
-   beat backward (a back roll), so the sprite never turns around mid-roll. `wallTech` is drawn with the wall at the
-   cell's left: on the ring barrier's x walls (screen sides: the fight camera's yaw stays within ±0.42 rad) the strip
-   faces away from the wall; on the z walls (in depth) it keeps facing the opponent and is re-centred on the fighter.
-   Visual only: the fighter's facing for gameplay never changes. The wall jump shows the cling, then the push-off frame
-   for `wallJump.animFrames` (4) frames while already actionable, then `jumpUp`.
+   beat backward (a back roll), so the sprite never turns around mid-roll. Both are decided at the roll's start
+   (`Fighter.lockRollPose`): a cross-up mid-roll turns the fighter for gameplay but never flips the strip. `wallTech`
+   is drawn with the wall at the cell's left: on the ring barrier's x walls (screen sides: the fight camera's yaw stays
+   within ±0.42 rad) the strip faces away from the wall with its wall line on the barrier; on the z walls (in depth) it
+   keeps facing the opponent and is re-centred on the fighter. Visual only: the fighter's facing for gameplay,
+   `renderPos` and the hurt boxes never change (every wall pose is invulnerable). The wall jump shows the cling, then
+   the push-off frame for `wallJump.animFrames` (4) frames while already actionable, then `jumpUp`.
 5. **Wall anchoring (packer).** The cling and push-off frames (`TECH_POSES.wallTech.wall`: beats 1-2) are placed with
-   their leftmost opaque pixel on the pivot column, so the soles drawn on the implied wall touch the barrier;
-   `anims.json` `wallAnchor` records each such frame's body centre for the depth-wall re-centring. Tech strips get no
-   hit boxes (`NO_HITBOX`).
+   their leftmost opaque pixel on the wall line, cell x 8 (just inside the 4 px margin), so a full diagonal push-off
+   has the whole cell width to reach right; `anims.json` `wallLine` records that column, which the engine draws on the
+   barrier, and `wallAnchor` each such frame's body centre for the depth-wall re-centring. Tech strips get no hit boxes
+   (`NO_HITBOX`).
 6. **Pose QA (packer, warn only).** A cling frame with fewer than about 12 opaque px on the wall line warns; a tucked or
    braced frame outside its height band against the idle's median height warns (`techGround` brace 0.45-0.85,
-   `techRoll` tumble 0.30-0.68, `wallTech` cling 0.35-0.90): the giveaway of a pose packed at a standing height.
-7. **Scale gate: unread beats are not a pass.** `spec.scaleGate.lowConfPhases` (defaults `techRoll: [1]`,
+   `techRoll` shoulder contact and tumble 0.30-0.68, `wallTech` cling 0.35-0.90): the giveaway of a pose packed at a
+   standing height.
+7. **Scale gate: unread beats are not a pass.** `spec.scaleGate.lowConfPhases` (defaults `techRoll: [0, 1]`,
    `wallTech: [0, 1]`) marks beats the head probe cannot read; their frames are reported "not read", the readable
    frames are judged as usual, and a strip that passes on them is `partial`. `partial` fails a strict (candidate)
-   strip until a `scaleManualQA` record of that version covers the unread frames (then `manual`, never `ok`). No
-   blanket exemption.
+   strip until a `scaleManualQA` record of that version covers the unread frames (then `manual`, never `ok`). The
+   recorded audit (`anims.json` `scaleAudit`) lists every unread frame, so a later re-judgement never reads their
+   probe numbers. No blanket exemption.
 
 ## Consequences
 
@@ -53,3 +58,11 @@ their tucked and rotated poses defeat the scale probe and the packer's horizonta
   the user approves every version as usual.
 - Tests: `npm run test:anims` (selection, beat transitions, frame mapping, back rolls, walls, fallbacks) and
   `npm run test:sprites` (wall anchoring, the contact and band warnings, `partial` and manual QA, no hit boxes).
+
+## Revision (2026-10-11, before any art)
+
+The first review of PR #74 changed three points above, before any tech art existed: the wall line moved from the
+pivot column (x 128, which left a push-off only x 128-251) to x 8 with `anims.json` `wallLine` (5); the roll's
+shoulder contact joined the unread beats and the size band, because it is as rotated as the tumble (6, 7); the roll
+locks its on-screen facing and direction at its start, and the wall jump's push-off keeps its facing to its last frame
+and never replays after an air attack (4).
