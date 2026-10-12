@@ -1,5 +1,7 @@
 # Gojo title-style candidate attempt inventory
 
+2026-10-12: user approved airLight3 v12. No new image calls; cumulative budgets unchanged. Other visual/technical holds remain. Current approval record: production/round2-approvals/APPROVALS.md.
+
 Round2 checkpoint 2026-10-11: full strict quantized pack exits0,42animations/175frames. New run v12 and special v07 remain visual holds despite normal head passes. AirLight3 v12 recommends review; airHeavy v08 best has unresolved f3 hair-volume HOLD after v09 technical failure. Current authorization and cumulative calls: round2/generation-record.json; no new approval recorded. Older notes below are historical.
 
 As of 2026-10-11, all 42 animation names have versioned assembled candidates and all three UI names have candidates. “Rounds” counts title-style generation rounds per asset (an A/B pair is one round). Land had one initial round plus three corrective image-generation calls; one of the latter was unsaved. Older approved art versions are excluded. All listed latest candidates still require user review.

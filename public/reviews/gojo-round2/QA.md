@@ -1,5 +1,8 @@
 # Gojo title-style corrections round 2
 
+**2026-10-12 approval update:** the user approved airLight3 v12. These artworks are approved; technical/contact holds and other candidate decisions remain separate. See APPROVALS.md. Original QA findings below are retained as historical evidence.
+
+
 2026-10-11. Existing branch art/gojo-title-production, PR72, port5224. `git merge main` completed before corrections. Built-in imagegen only; source prompts and cumulative calls in generation-record.json. No gameplay/tool/gate changes. ART-TECH-01 remains on hold.
 
 | Candidate | Strict result | Native QA / recommendation |
@@ -13,7 +16,6 @@ Final selected-best full `node tools/pack-sprites.mjs gojo --quantize 48 --stric
 
 Run v11 and special v06 are preserved intermediate failed candidates. airLight3 v11 has A plus a failed six-pose B and could not be stitched (4+6 instead of6); v12 A copies v11 A, and its new B has2poses. special v07 A copies v06 A. No image overwrites, no silent budget resets.
 
-Heads: heads-gojo.png. Cast lineup: lineup.png (other fighters are the worktree's currently packed sheets; older build-band constants do not supersede ADR0029). Exact title neutral reference remains authoritative. Review page has native and2x playback, frame stepping, all actual full-atlas contacts and heads. Art approval, production integration and live gameplay validation are pending. Claude alone integrates and deploys production.
+Heads: ../../../../../scale/heads-gojo.png. Cast lineup: ../../../../../scale/lineup-gojo-round2.png (other fighters are the worktree's currently packed sheets; older build-band constants do not supersede ADR0029). Exact title neutral reference remains authoritative. Review page has native and2x playback, frame stepping, all actual full-atlas contacts and heads. Art approval, production integration and live gameplay validation are pending. Claude alone integrates and deploys production.
 
 Producer selection is explicit: airHeavy newest saved v09 is a technical failure archived under raw/_rejected (no user art decision or new approval); best v08 stays selected for review with the f3 hair-volume HOLD. See airHeavy-v09/strict-pack.txt and airHeavy-v09-generation.json. Other saved intermediate candidates remain marked needs review as history. Build passes (82 modules); browser playback / live game contact validation remains pending.
-

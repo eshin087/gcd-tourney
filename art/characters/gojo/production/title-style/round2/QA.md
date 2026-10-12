@@ -1,5 +1,8 @@
 # Gojo title-style corrections round 2
 
+**2026-10-12 approval update:** the user approved airLight3 v12. These artworks are approved; technical/contact holds and other candidate decisions remain separate. See ../../round2-approvals/APPROVALS.md. Original QA findings below are retained as historical evidence.
+
+
 2026-10-11. Existing branch art/gojo-title-production, PR72, port5224. `git merge main` completed before corrections. Built-in imagegen only; source prompts and cumulative calls in generation-record.json. No gameplay/tool/gate changes. ART-TECH-01 remains on hold.
 
 | Candidate | Strict result | Native QA / recommendation |
