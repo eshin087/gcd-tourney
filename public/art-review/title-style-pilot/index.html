@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GCD Tourney — original-style character draft</title>
+  <style>
+    :root{color-scheme:dark;font:16px/1.55 system-ui,sans-serif;background:#111820;color:#e9edf1}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:32px 24px 64px}h1{font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-.04em;margin:12px 0 16px}h2{font-size:23px;letter-spacing:-.02em;margin:26px 0 10px}p{max-width:760px;color:#b8c2cc;margin:8px 0 16px}.eyebrow{color:#e8b768;font-weight:750;font-size:12px;letter-spacing:.15em;text-transform:uppercase}.note{border-left:3px solid #e8b768;padding-left:14px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:24px 0 12px}button{font:inherit;cursor:pointer;border:1px solid #384654;background:#1d2935;color:#dfe6ed;padding:8px 14px;border-radius:8px}button[aria-pressed=true]{background:#e8b768;color:#17202a;border-color:#e8b768;font-weight:700}.spacer{flex:1}.viewport{overflow:auto;border:1px solid #52616c;border-radius:12px;background:#ccd5d3}.stage{position:relative;width:1024px;height:300px;background:linear-gradient(#dbe3df,#c2cec9);transform-origin:top left}.stage:after{content:'';position:absolute;top:264px;left:0;right:0;border-top:1px solid #6c8279}.names{height:24px;display:grid;grid-template-columns:repeat(4,1fr);color:#31493f;font-size:12px;text-align:center;font-weight:750;padding-top:6px}.lineup{display:block;width:1024px;height:256px;image-rendering:pixelated}.floor-label{position:absolute;bottom:9px;left:16px;color:#385547;font-size:11px;letter-spacing:.06em}.caption{font-size:13px;margin-top:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}.card{border:1px solid #33414e;border-radius:12px;background:#17212b;padding:16px}.card h2{margin:0 0 5px;font-size:19px}.card p{font-size:14px;margin:0 0 10px}.card img{width:100%;display:block;background:#d7dfdc;border-radius:8px}.reference{max-width:640px;width:100%;image-rendering:pixelated;border-radius:8px}a{color:#f1c987}details{margin-top:24px;color:#bac6d1}summary{cursor:pointer}.small{font-size:13px}footer{border-top:1px solid #33414e;margin-top:32px;padding-top:16px;color:#8fa0af;font-size:13px}@media(max-width:650px){main{padding:22px 14px 40px}.grid{grid-template-columns:1fr}.spacer{display:none}.viewport{border-radius:8px}button{padding:7px 11px}.caption:after{content:' Swipe sideways to compare all four at full size.'}}
+  </style>
+</head>
+<body><main>
+  <div class="eyebrow">GCD Tourney · first draft · v01</div>
+  <h1>Back to the title-screen look.</h1>
+  <p>Naruto and Killua follow the title art you chose. Sasuke and Gojo use the same clean anime shading and readable shapes, with their original designs.</p>
+  <p class="note">Review the look and relative size first. This is a draft, with no animation set or live-game changes.</p>
+  <div class="toolbar" aria-label="Draft display controls">
+    <button data-pose="neutral" aria-pressed="true">Standing</button><button data-pose="combat" aria-pressed="false">Fighting stance</button>
+    <span class="spacer"></span><button data-zoom="1" aria-pressed="true">Game size · 1×</button><button data-zoom="2" aria-pressed="false">Close look · 2×</button>
+  </div>
+  <div class="viewport"><div id="stage-wrap" style="width:1024px;height:300px"><div class="stage" id="stage">
+    <div class="names"><span>NARUTO</span><span>SASUKE</span><span>KILLUA</span><span>GOJO</span></div>
+    <img id="lineup" class="lineup" src="neutral-lineup_v01.png" alt="Draft standing lineup: Naruto, Sasuke, smaller Killua, and tallest Gojo, all on one floor line">
+    <span class="floor-label">ONE SHARED FLOOR · SAME VIEWING DISTANCE</span>
+  </div></div></div>
+  <p class="caption">Killua is visibly shorter and narrower; Naruto and Sasuke have similar teenage builds; Gojo is the tall, lean adult. Each fighting stance keeps its standing view’s scale.</p>
+  <div class="grid">
+    <article class="card"><h2>Naruto</h2><p>The title’s face, compact spikes and orange-and-black outfit.</p><img src="naruto-source_v01.png" alt="Naruto draft neutral and fighting stance"><a href="naruto-source_v01.png">Open full-size draft</a></article>
+    <article class="card"><h2>Sasuke</h2><p>Original design, a comparable teen build, and the title’s clean finish.</p><img src="sasuke-source_v01.png" alt="Sasuke draft neutral and fighting stance"><a href="sasuke-source_v01.png">Open full-size draft</a></article>
+    <article class="card"><h2>Killua</h2><p>The title’s youthful face, lavender shirt and low assassin stance.</p><img src="killua-source_v01.png" alt="Killua draft neutral and fighting stance"><a href="killua-source_v01.png">Open full-size draft</a></article>
+    <article class="card"><h2>Gojo</h2><p>Original lean silhouette and blindfold, with clear adult height.</p><img src="gojo-source_v01.png" alt="Gojo draft neutral and fighting stance"><a href="gojo-source_v01.png">Open full-size draft</a></article>
+  </div>
+  <h2>The reference you chose</h2><p>The original title-screen image, kept here for direct comparison.</p>
+  <img class="reference" src="title-reference.png" alt="Original title artwork with Naruto and Killua">
+  <details><summary>Scale proposal and review notes</summary><p class="small">Standing silhouette heights, including hair: Naruto 205px, Sasuke 209px, Killua 186px, Gojo 236px. Killua is intentionally about 10% shorter than Naruto in this visual draft; this is a proposal for your review, not an exact canon-height claim. Hair and stance are evaluated separately. Crown landmarks carry roughly ±3px uncertainty after scaling.</p><p class="small">The sheets show two concept poses each. They are not packed animation strips or an animation-gate pass. The next production checkpoint, only after your approval, is an idle/guard trial in the real game at equal depth.</p><p class="small"><a href="QA.md">QA and source notes</a> · <a href="measurements.json">Measured layout</a></p></details>
+  <footer>Built-in generated art, saved as title_style_draft_v01 for each character. Review only. Claude owns integration and production release.</footer>
+</main><script>
+  const lineup=document.getElementById('lineup'), stage=document.getElementById('stage'), wrap=document.getElementById('stage-wrap');
+  document.querySelectorAll('[data-pose]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-pose]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));lineup.src=button.dataset.pose+'-lineup_v01.png';lineup.alt='Draft '+button.dataset.pose+' lineup: Naruto, Sasuke, Killua, Gojo at shared scale';}));
+  document.querySelectorAll('[data-zoom]').forEach(button=>button.addEventListener('click',()=>{const z=Number(button.dataset.zoom);document.querySelectorAll('[data-zoom]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));stage.style.transform='scale('+z+')';wrap.style.width=(1024*z)+'px';wrap.style.height=(300*z)+'px';}));
+</script></body></html>

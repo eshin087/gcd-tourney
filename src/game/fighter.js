@@ -7,6 +7,7 @@ import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
 import { chargeStyle } from './chargeFx.js';
 import { resetHitFlash, startHitFlash, flashTier, hitFlashUniforms, hitShake } from './hitFlash.js';
+import { TECH_ART, techPose, rollBackward, wallFacing, wallShift } from './techAnim.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -24,6 +25,9 @@ const REVERSAL_STATES = new Set(['attack', 'kit', 'throw', 'vanish', 'superDash'
 const KO_EDGE = 1.0;
 const KO_SLIDE = 3; // units/s the body slides outward while it is within KO_EDGE of the edge
 const AXES = ['x', 'z'];
+// reused results of the per-frame tech pose helpers (techAnim.js), read at once
+const TECH_POSE = {};
+const WALL_FACE = {};
 
 export class Fighter {
   constructor(game, def, asset, index) {
@@ -131,6 +135,11 @@ export class Fighter {
     this.techAxis = null;
     this.techSign = 0;
     this.techedAt = -99; // clock of the last timed tech (the combo composer's end reason)
+    this.techArt = false; // the running tech has its dedicated strip in this fighter's sheet (ADR 0030)
+    this.wallJumpPose = 0; // airborne frames the wall tech's push-off pose still shows over a wall jump (visual only)
+    this.rollBack = false; // the running tech roll plays its tumble backward (decided at its start, lockRollPose)
+    this.rollFx = this.face.x; // ... and the facing its strip keeps on screen
+    this.rollFz = this.face.y;
     this.endMoveFx();
     this.actor.setVisible(true);
     this.actor.play('idle', true);
@@ -148,6 +157,9 @@ export class Fighter {
       this.actor.setVisible(true);
     }
     if (STUN_STATES.has(this.state) && !STUN_STATES.has(s)) this.freeAt = this.clock;
+    // the push-off pose belongs to the wall jump's first airborne frames only (wallKick sets it after this): any other
+    // state, or 'air' again after an air attack, never replays it
+    this.wallJumpPose = 0;
     this.reversal = false; // update() sets it again when the new state is a reversal
     this.state = s;
     this.t = 0;
@@ -503,8 +515,11 @@ export class Fighter {
     this.bigLaunch = false;
     this.vel.set(d.x * T.speed, 0, d.y * T.speed);
     this.invuln = T.invuln;
-    this.setState('techRoll', 'airRecover');
+    this.techArt = this.actor.hasAnim(TECH_ART.roll);
+    this.setState('techRoll', this.techArt ? null : 'airRecover');
     this.faceOpponent();
+    this.lockRollPose();
+    if (this.techArt) this.showTech('roll', T.animPhases);
     this.game.fx.dust(this.pos, 0.8);
     audio.play('dash', 0.6);
     this.game.tag(this, 'techRoll');
@@ -559,24 +574,30 @@ export class Fighter {
     this.techAxis = axis;
     this.techSign = sign;
     this.carry.set(0, 0);
+    // the dedicated strip (ADR 0030) when this fighter's sheet has it, else the poses the tech always showed
     if (kind === 'wall') {
       this.techKind = 'wall';
       this.vel.set(0, 0, 0);
       this.invuln = I.wall.invuln;
-      this.setState('impactTech', 'land');
+      this.techArt = this.actor.hasAnim(TECH_ART.wall);
+      this.setState('impactTech', this.techArt ? null : 'land');
     } else if (Math.abs(this.pad.mx) > 0.5) {
       const d = this.inputDir().normalize();
       this.techKind = 'roll';
       this.vel.set(d.x * I.roll.speed, 0, d.y * I.roll.speed);
       this.invuln = I.roll.invuln;
-      this.setState('impactTech', 'airRecover');
+      this.techArt = this.actor.hasAnim(TECH_ART.roll);
+      this.setState('impactTech', this.techArt ? null : 'airRecover');
     } else {
       this.techKind = 'inPlace';
       this.vel.set(0, 0, 0);
       this.invuln = I.inPlace.invuln;
-      this.setState('impactTech', 'land');
+      this.techArt = this.actor.hasAnim(TECH_ART.inPlace);
+      this.setState('impactTech', this.techArt ? null : 'land');
     }
     this.faceOpponent();
+    this.lockRollPose();
+    if (this.techArt) this.showImpactTech();
     startHitFlash(this, 'tech', 0);
     this.game.onImpactTech(this, kind, axis, sign);
   }
@@ -596,11 +617,56 @@ export class Fighter {
       this.techKind = null;
       this.airAttack = false;
       this.airDodged = false;
-      this.setState('air', 'jumpUp');
+      // with the wall strip, its push-off pose shows for wallJump.animFrames frames (this one and the next airborne
+      // ones) before jumpUp; the jump is free at once
+      const art = this.techArt;
+      this.setState('air', art ? null : 'jumpUp');
+      if (art) {
+        this.wallJumpPose = I.wallJump.animFrames - 1;
+        this.actor.setPhase(TECH_ART.wall, 1, 0);
+      }
     } else {
       this.techKind = 'wallKick';
-      this.actor.play('airRecover', true);
+      if (!this.techArt) this.actor.play('airRecover', true);
     }
+  }
+
+  // ---- tech poses (ADR 0030, src/game/techAnim.js): the dedicated strip on the tech state's own clock when the
+  // sheet has it (techArt), else the legacy pose free-running exactly as before. Never changes timing or movement.
+  showTech(kind, beats) {
+    const P = techPose(kind, this.t, beats, this.techArt, kind === 'roll' && this.rollBack, TECH_POSE);
+    if (P.free) {
+      this.actor.play(P.name);
+      this.actor.update(FRAME_MS);
+    } else this.actor.setPhase(P.name, P.phase, P.p, P.reverse);
+  }
+
+  // At a tech's start (after faceOpponent): a roll's direction against the facing (a back roll plays its tumble
+  // backward) and the facing its strip keeps on screen, both fixed for the whole roll (techAnim.rollBackward).
+  lockRollPose() {
+    this.rollFx = this.face.x;
+    this.rollFz = this.face.y;
+    this.rollBack = rollBackward(this.vel.x, this.vel.z, this.face.x, this.face.y);
+  }
+
+  showImpactTech() {
+    const I = DEFENSE.impactTech, k = this.techKind;
+    if (k === 'roll') this.showTech('roll', I.roll.animPhases);
+    else if (k === 'wall' || k === 'wallKick') this.showTech('wall', I.wall.animPhases);
+    else this.showTech('inPlace', I.inPlace.animPhases);
+  }
+
+  // The wall strip is on screen (the cling, the kick, or the push-off over a wall jump, to its last frame): Fighter.sync
+  // turns it away from the wall it is drawn against and puts its wall line on the barrier, or re-centres it on a wall
+  // seen in depth (techAnim.wallFacing / wallShift).
+  wallPoseShown() {
+    if (!this.techArt || this.techAxis == null || (this.state !== 'impactTech' && this.state !== 'air')) return false;
+    return this.actor.animName === TECH_ART.wall;
+  }
+
+  // The roll strip is on screen (either tech roll): Fighter.sync keeps the facing it started with (lockRollPose).
+  rollPoseShown() {
+    return this.techArt && (this.state === 'techRoll' || this.state === 'impactTech') && this.actor.animName === TECH_ART.roll;
   }
 
   // Stuck in their own recovery (a whiffed or blocked move, a parry stagger, the end of a dodge, landing lag, a
@@ -1018,7 +1084,12 @@ export class Fighter {
         freeAnim();
         break;
       case 'air': {
-        this.actor.play(this.vel.y > 1.5 ? 'jumpUp' : 'jumpFall');
+        // a wall jump's first frames keep the wall tech's push-off pose (ADR 0030); the jump is actionable throughout
+        const kick = this.wallJumpPose > 0;
+        if (kick) {
+          this.wallJumpPose--;
+          this.actor.setPhase(TECH_ART.wall, 1, 1 - this.wallJumpPose / (DEFENSE.impactTech.wallJump.animFrames - 1));
+        } else this.actor.play(this.vel.y > 1.5 ? 'jumpUp' : 'jumpFall');
         if (this.chase <= 0) {
           const d = this.inputDir();
           const sp = this.speedStat;
@@ -1028,7 +1099,7 @@ export class Fighter {
         } else if (this.chase % 2 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
         this.faceOpponent();
         if (this.tryAirActions()) break;
-        freeAnim();
+        if (!kick) freeAnim();
         break;
       }
       case 'land':
@@ -1068,8 +1139,8 @@ export class Fighter {
         this.vel.x *= T.friction; this.vel.z *= T.friction;
         this.faceOpponent();
         if (this.t % 3 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
-        if (this.t >= T.len) this.setState('idle');
-        freeAnim();
+        if (this.t >= T.len) { this.setState('idle'); freeAnim(); break; }
+        this.showTech('roll', T.animPhases);
         break;
       }
       case 'impactTech': {
@@ -1092,7 +1163,8 @@ export class Fighter {
             this.vel.x *= 0.6; this.vel.z *= 0.6;
             if (this.t >= I.inPlace.len) this.setState('idle');
         }
-        freeAnim();
+        if (this.state === 'impactTech') this.showImpactTech();
+        else if (!this.wallPoseShown()) freeAnim(); // (a wall jump's push-off frame is set, not free-running)
         break;
       }
       case 'burst': {
@@ -1771,9 +1843,22 @@ export class Fighter {
     }
     this.renderPos = this.renderPos || new THREE.Vector3();
     this.renderPos.set(x, y, z);
+    // the wall strip (ADR 0030) is drawn against a wall at its left: on a wall at a screen side it faces away from the
+    // wall with its wall line on the barrier; on a wall seen in depth it keeps facing the opponent, re-centred on the
+    // fighter. A tech roll's strip keeps the facing it started with. The sprite only: the facing for gameplay and
+    // renderPos (followed by the camera and the effects) stay on the fighter.
+    let fx = this.face.x, fz = this.face.y;
+    if (this.wallPoseShown()) {
+      const w = wallFacing(this.techAxis, this.techSign, camRight, WALL_FACE);
+      if (w.side) { fx = w.fx; fz = w.fz; }
+      const a = this.actor;
+      const s = wallShift(w.side, a.flipFor(fx, fz, camRight), a.wallLine(), a.wallAnchor()) * (a.depthK || 1);
+      x += camRight.x * s;
+      z += camRight.z * s;
+    } else if (this.rollPoseShown()) { fx = this.rollFx; fz = this.rollFz; }
     this.actor.place(x, y, z);
     const cam = this.game.cam; // depth-normalized sprite size, keyed on the camera clock (SpriteActor.syncDepth)
-    this.actor.sync(camera, this.face.x, this.face.y, camRight, cam?.spriteRefDepth, cam?.time ?? time);
+    this.actor.sync(camera, fx, fz, camRight, cam?.spriteRefDepth, cam?.time ?? time);
     const u = this.actor.mat.uniforms;
     let flash = hitFlashUniforms(this, u, time);
     if (this.state === 'charge') {
