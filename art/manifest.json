@@ -328,7 +328,7 @@
           "required": true,
           "step": 4,
           "status": "approved",
-          "version": 10,
+          "version": 12,
           "approvedVersion": 8
         },
         "dash": {
@@ -620,7 +620,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 10,
+          "version": 12,
           "approvedVersion": 10
         },
         "airHeavy": {
@@ -643,7 +643,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 7,
+          "version": 9,
           "approvedVersion": 7
         },
         "guard": {
@@ -961,7 +961,7 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 5,
+          "version": 7,
           "approvedVersion": 5
         },
         "intro": {

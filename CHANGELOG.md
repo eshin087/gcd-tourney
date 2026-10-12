@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo title-style round2 candidates: airHeavy v08 best and airLight3 v12 clear the strict scale gate, with a hair-volume hold retained for airHeavy after technically failed v09; run v12 hover-glide and special v07 also pack but retain explicit tighter-scale / body-seam visual holds. Versioned history, cumulative budgets and native review evidence retained; no approval, main integration, production deploy or tech animations.
+
 - art(gojo): draft upright run v10 using authorized A1/B2 attempts; add strict isolated native review and measured evidence. Height214–221px and margins pass; tight2% head and clean leg alternation remain held. Full fighter pack still blocked by existing airLight3/airHeavy. New v10 unapproved.
 
 - Art (PR72, not on main yet): Gojo's title-style set with the user's 2026-10-11 approval recorded; light4 v08 re-stitch, true-scale fits for launched/getup/ko, manual scale records, hit boxes re-measured on the new art (heavy keeps its old box: the drawn elbow never reaches). Strict scale gate still fails on airLight3 and airHeavy (head drawn too small); special's part A head and fragments and run's repeated lead leg need new images.

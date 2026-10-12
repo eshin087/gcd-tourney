@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-11",
+  "tool": "builtin imagegen",
+  "calls": [
+    {
+      "key": "run11A",
+      "prompt": "Use case: stylized-concept. Anime fan-art hi-res pixel sprite strip for a 2D fighting game. Create PART A of an 8-frame upright relaxed hover-glide replacing the run visuals. Exactly FOUR complete separate figures in one horizontal row, left to right f0 f1 f2 f3. Flat solid magenta #FF00FF background, wide clear magenta gaps; no text, grid, shadows or effects.\nImage1 approved neutral identity and anatomy; image2 approved idle exact same character and head/body ratio. Tall lanky adult with snow-white upward spikes, black blindfold fully covering eyes, tall collar zipped navy jacket, loose slim navy trousers, black shoes. Keep approved face, skull, hair mass, torso length, shoulder width and long limb lengths. Both hands remain IN POCKETS. No running strides.\nPose: cool levitating glide toward RIGHT, three-quarter view. Whole tall body leans forward only about 8 degrees, hips remain high, knees gently relaxed, legs hanging diagonally backward with one foot slightly trailing the other; never deep crouch, never horizontal flying. Length of neck-to-crotch and crotch-to-heels same as approved idle. Posed crown-to-lowest-shoe silhouette about 92-95% of upright idle while HEAD and shoes retain identical absolute dimensions. The head with hair must remain about 35x22 units at packed scale, equal to idle, not miniature. No head size variation.\nLoop first half: f0 steady glide with coat hem resting back; f1 coat hem lifts one unit, left trailing heel lifts one unit; f2 gentle float apex (two units higher) with hem lightly lifted; f3 float settles one unit with coat beginning to drop. Same body pose, low motion, confident slight smile. Tight motion, subtle cloth and hair tips, no skeletal squashing.\nCrisp hard-edged pixel art matching references, navy cel shading, no smooth gradients, no blur, no texture, <=48 colors. Entire bodies including hair/fingertips/shoes inside each slot. Each figure same source scale; leave unused space rather than magnify any pose.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-463372fc-a7c3-494b-9960-0589fd9aaa46.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "run11B",
+      "prompt": "Use case: stylized-concept. Anime fan-art hi-res pixel sprite strip for a 2D fighting game. Create PART A of an 8-frame upright relaxed hover-glide replacing the run visuals. Exactly FOUR complete separate figures in one horizontal row, left to right f0 f1 f2 f3. Flat solid magenta #FF00FF background, wide clear magenta gaps; no text, grid, shadows or effects.\nImage1 approved neutral identity and anatomy; image2 approved idle exact same character and head/body ratio. Tall lanky adult with snow-white upward spikes, black blindfold fully covering eyes, tall collar zipped navy jacket, loose slim navy trousers, black shoes. Keep approved face, skull, hair mass, torso length, shoulder width and long limb lengths. Both hands remain IN POCKETS. No running strides.\nPose: cool levitating glide toward RIGHT, three-quarter view. Whole tall body leans forward only about 8 degrees, hips remain high, knees gently relaxed, legs hanging diagonally backward with one foot slightly trailing the other; never deep crouch, never horizontal flying. Length of neck-to-crotch and crotch-to-heels same as approved idle. Posed crown-to-lowest-shoe silhouette about 92-95% of upright idle while HEAD and shoes retain identical absolute dimensions. The head with hair must remain about 35x22 units at packed scale, equal to idle, not miniature. No head size variation.\nLoop first half: f0 steady glide with coat hem resting back; f1 coat hem lifts one unit, left trailing heel lifts one unit; f2 gentle float apex (two units higher) with hem lightly lifted; f3 float settles one unit with coat beginning to drop. Same body pose, low motion, confident slight smile. Tight motion, subtle cloth and hair tips, no skeletal squashing.\nCrisp hard-edged pixel art matching references, navy cel shading, no smooth gradients, no blur, no texture, <=48 colors. Entire bodies including hair/fingertips/shoes inside each slot. Each figure same source scale; leave unused space rather than magnify any pose.\nTHIS IS PART B: four poses f4 f5 f6 f7, not A. Image3 is selected PartA, match its absolute head/hair/shoe size and posture exactly. Finish the restrained loop: f4 cloth hem lowest and feet trailing relaxed; f5 hem returns halfway; f6 close to original steady float; f7 almost exactly image3's first pose for seamless f7->f0, hair tips settle. Do not introduce stride, zoom, crouch or greater lean. Both hands in pockets throughout. Clearly separate whole figures.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-1146c765-b80e-430d-95bf-3a694af6c52e.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "run12A",
+      "prompt": "Use case: stylized-concept. Anime fan-art hi-res pixel sprite strip for a 2D fighting game. Create PART A of an 8-frame upright relaxed hover-glide replacing the run visuals. Exactly FOUR complete separate figures in one horizontal row, left to right f0 f1 f2 f3. Flat solid magenta #FF00FF background, wide clear magenta gaps; no text, grid, shadows or effects.\nImage1 approved neutral identity and anatomy; image2 approved idle exact same character and head/body ratio. Tall lanky adult with snow-white upward spikes, black blindfold fully covering eyes, tall collar zipped navy jacket, loose slim navy trousers, black shoes. Keep approved face, skull, hair mass, torso length, shoulder width and long limb lengths. Both hands remain IN POCKETS. No running strides.\nPose: cool levitating glide toward RIGHT, three-quarter view. Whole tall body leans forward only about 8 degrees, hips remain high, knees gently relaxed, legs hanging diagonally backward with one foot slightly trailing the other; never deep crouch, never horizontal flying. Length of neck-to-crotch and crotch-to-heels same as approved idle. Posed crown-to-lowest-shoe silhouette about 92-95% of upright idle while HEAD and shoes retain identical absolute dimensions. The head with hair must remain about 35x22 units at packed scale, equal to idle, not miniature. No head size variation.\nLoop first half: f0 steady glide with coat hem resting back; f1 coat hem lifts one unit, left trailing heel lifts one unit; f2 gentle float apex (two units higher) with hem lightly lifted; f3 float settles one unit with coat beginning to drop. Same body pose, low motion, confident slight smile. Tight motion, subtle cloth and hair tips, no skeletal squashing.\nCrisp hard-edged pixel art matching references, navy cel shading, no smooth gradients, no blur, no texture, <=48 colors. Entire bodies including hair/fingertips/shoes inside each slot. Each figure same source scale; leave unused space rather than magnify any pose.\nCORRECTION ONLY to attached image3 previous glide: keep the body, shoulders, torso, limbs, posture, pockets, shoes and source scale exactly. Enlarge the HEAD AND HAIR together by 8% relative to existing body; preserve face/blindfold. It measures7% too small once packed, the approved idle head must match. Keep all four heads identical size and hair mass. Do not enlarge torso or boots.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-739500f3-2a27-4cb0-9ca2-3867d81bdea5.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "run12B",
+      "prompt": "Use case: stylized-concept. Anime fan-art hi-res pixel sprite strip for a 2D fighting game. Create PART A of an 8-frame upright relaxed hover-glide replacing the run visuals. Exactly FOUR complete separate figures in one horizontal row, left to right f0 f1 f2 f3. Flat solid magenta #FF00FF background, wide clear magenta gaps; no text, grid, shadows or effects.\nImage1 approved neutral identity and anatomy; image2 approved idle exact same character and head/body ratio. Tall lanky adult with snow-white upward spikes, black blindfold fully covering eyes, tall collar zipped navy jacket, loose slim navy trousers, black shoes. Keep approved face, skull, hair mass, torso length, shoulder width and long limb lengths. Both hands remain IN POCKETS. No running strides.\nPose: cool levitating glide toward RIGHT, three-quarter view. Whole tall body leans forward only about 8 degrees, hips remain high, knees gently relaxed, legs hanging diagonally backward with one foot slightly trailing the other; never deep crouch, never horizontal flying. Length of neck-to-crotch and crotch-to-heels same as approved idle. Posed crown-to-lowest-shoe silhouette about 92-95% of upright idle while HEAD and shoes retain identical absolute dimensions. The head with hair must remain about 35x22 units at packed scale, equal to idle, not miniature. No head size variation.\nLoop first half: f0 steady glide with coat hem resting back; f1 coat hem lifts one unit, left trailing heel lifts one unit; f2 gentle float apex (two units higher) with hem lightly lifted; f3 float settles one unit with coat beginning to drop. Same body pose, low motion, confident slight smile. Tight motion, subtle cloth and hair tips, no skeletal squashing.\nCrisp hard-edged pixel art matching references, navy cel shading, no smooth gradients, no blur, no texture, <=48 colors. Entire bodies including hair/fingertips/shoes inside each slot. Each figure same source scale; leave unused space rather than magnify any pose.\nTHIS IS PART B: four poses f4 f5 f6 f7, not A. Image3 is selected PartA, match its absolute head/hair/shoe size and posture exactly. Finish the restrained loop: f4 cloth hem lowest and feet trailing relaxed; f5 hem returns halfway; f6 close to original steady float; f7 almost exactly image3's first pose for seamless f7->f0, hair tips settle. Do not introduce stride, zoom, crouch or greater lean. Both hands in pockets throughout. Clearly separate whole figures.\nCorrection: match image3's NEW enlarged head relative to unchanged body. Image4 old B's head is7% too small: redraw head/hair8% larger but torso, legs and boots unchanged. ExactlymatchnewAidentity and head-to-body ratio. Finishsamequiethoverglideloop.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-2abf13dd-3afc-400d-9cef-58c724515040.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "airHeavy08A",
+      "prompt": "Use case: stylized-concept. Anime fan-art sprite strip in exact approved title style. Image1 neutral anatomy; image2 idle exact head/body reference; image3 current air hammer poses to CORRECT. Exactly FOUR whole separated figures on one wide horizontal row, flat magenta#FF00FF with generous gaps.\nCorrection: keep current airHeavy poses, body dimensions, shoes, slender torso and long limbs, but draw head/hair about15% larger relative to body to match approved idle (35x22 at packed scale). Preserve black blindfold white crown, navy zipped tall collar uniform and shoes. Head same size in every frame; no bulky chest. Facingright3/4.\nf0 clasped hands behind head, archback, knee tucked. f1 windupmorearchclaspedhandsbelowhairtop. f2 hammer impact: both straightarms downforwardclaspedhands in front below chest but above hangingfeet, torsoforward40degrees; small DARK navy solidcrescentinstead of white hair-colored slash, compactwithinwholefigure. f3 sameimpactwithoutcrescenthands2unitslower. Nohandoccludinghair. Hair remainsconsistent. Noeyeexposure. Noother effects/text/grid. Crisp pixelart <=48colors,samepalette,hardedges no blur/gradients. Keep original anatomical lengths, notheadtiny. Visible50pixelmagenta gapbetweenallposes.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-61074c10-4635-47cf-aeb3-a9578ad29d76.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "airHeavy08B",
+      "prompt": "Use case: stylized-concept. Anime fan-art sprite strip in exact approved title style. Image1 neutral anatomy; image2 idle exact head/body reference; image3 current air hammer poses to CORRECT. Exactly FOUR whole separated figures on one wide horizontal row, flat magenta#FF00FF with generous gaps.\nCorrection: keep current airHeavy poses, body dimensions, shoes, slender torso and long limbs, but draw head/hair about15% larger relative to body to match approved idle (35x22 at packed scale). Preserve black blindfold white crown, navy zipped tall collar uniform and shoes. Head same size in every frame; no bulky chest. Facingright3/4.\nf0 clasped hands behind head, archback, knee tucked. f1 windupmorearchclaspedhandsbelowhairtop. f2 hammer impact: both straightarms downforwardclaspedhands in front below chest but above hangingfeet, torsoforward40degrees; small DARK navy solidcrescentinstead of white hair-colored slash, compactwithinwholefigure. f3 sameimpactwithoutcrescenthands2unitslower. Nohandoccludinghair. Hair remainsconsistent. Noeyeexposure. Noother effects/text/grid. Crisp pixelart <=48colors,samepalette,hardedges no blur/gradients. Keep original anatomical lengths, notheadtiny. Visible50pixelmagenta gapbetweenallposes.\nPART B only TWO poses f4 f5. Image3 correctedA setshead/body scale. f4 armsrisingatCHESTheightbodyuncurling, headclear without handsabovehair; f5 airneutral torso upright bothhandslooselyguardchestleftkneeforwardrightleghanginglow. Same absoluteheadhairsize asAandapprovedidle;nooversizedhands or armsabovehead. Two completefigures widegap.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-36281919-0710-47e9-909a-6365624d5525.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "special06A",
+      "prompt": "Use case: stylized-concept. Hi-res pixel-art anime fan-art sprite strip in approved title art style. Exactly THREE complete figures, one horizontal row with generous magenta #FF00FF gap between figures including extended fingers. Reference1 approved neutral, reference2 approved idle06 anatomy, reference3 old specialA edit-target. Correct ONLY old head/body ratio: its head is10% too big; head/hair must be exact approved idle's proportion. Preserve tall slimbody jacket longlegs and shoes, no bulky shoulders. Navy zipped jacket highcollar, blackblindfold fullycovers eyes, whitespikyhair exactsameapprovedshapeandvolume.\nf0 right hand comes outpocket to chest, left handremainpocket; f1rightarmextendingtwofingers (INDEXANDMIDDLEtogether) otherfingerscurled; f2rightarmfullyforwardhorizontalatupperchestheight twofingertipsat target right. Same steady body and uprightrelaxedstancewithlittleweightshift, no8%size step. Allheads/body atoneconsistentdensity. f2fingertipsremaininitsownslotwithatleast60pixelmagenta gap.\nSCALELOCK: Preserve approved neutral/idle head, shoulder-to-hip, legchain dimensions, hair/collarvolume. Headwithhair atpackedscale35x22; neutral silhouette234px, specialupright232px. No old model03oridle02ratios. Crisp hardpixel48colorcelshading, noblur gradients dithering, no effectsorb vortexshadowtextgrid. Faceviewrightthreequarter. Three figures only.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-6dd5d84a-f2fd-4a53-bb70-c6786c3fd2f2.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "special06B",
+      "prompt": "Use case: stylized-concept. Hi-respixel animefan-art sprite strip exact approved title style, same fighter as all refs. Image1neutral identity, image2idleapprovedanatomy, image3new specialA sets absolute scale. PARTB for special, exactly FIVE complete separate figures f3 f4 f5 f6 f7 one widehorizontalrow with LARGE clear magenta gaps between ALL figures and everyfingertip. Canvaslandscape atleastratio3:1; do notcompressfiveposesorallowtouching.\nTallslenderwhitehairedblindfoldedadultnavyhighcollarzippedjacket matchingtrousersblackshoes. Headandbodyexactlysameapprovedratio asAandidle. Left hand in pocket allfive. f3rightarmforwardchestlevel wristturnspalmup twofingersextended; f4same twofingers1unitcrooked; f5arm2unitsback; f6heldcomeherecurltwofingerspalmup,subtlesmileandhemtipsdrawnright; f7armloweringhandtowardpocket,stanceasidle.\nKeepidenticalheadhair35x22packedscalehairmass,lankybody234upright,facesright3/4. No muscular shoulders/oversizeboots. No bluevortexeffects. All poses samepixelscale andgroundbaseline. Every extendedhandinsideownfigureslot, at least50pixelmagentaemptyspaceafterhandbefore nextfigure. Threequartercamera,keylightupperrighthardpixelnavyceltones48colors,noantialiasgradientsblurnoisetextlabelsgridshadow.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-d5b71419-b76e-4de4-9f3f-d9b815397adb.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "special07B",
+      "prompt": "Use case: stylized-concept. Hi-respixel animefan-art sprite strip exact approved title style, same fighter as all refs. Image1neutral identity, image2idleapprovedanatomy, image3new specialA sets absolute scale. PARTB for special, exactly FIVE complete separate figures f3 f4 f5 f6 f7 one widehorizontalrow with LARGE clear magenta gaps between ALL figures and everyfingertip. Canvaslandscape atleastratio3:1; do notcompressfiveposesorallowtouching.\nTallslenderwhitehairedblindfoldedadultnavyhighcollarzippedjacket matchingtrousersblackshoes. Headandbodyexactlysameapprovedratio asAandidle. Left hand in pocket allfive. f3rightarmforwardchestlevel wristturnspalmup twofingersextended; f4same twofingers1unitcrooked; f5arm2unitsback; f6heldcomeherecurltwofingerspalmup,subtlesmileandhemtipsdrawnright; f7armloweringhandtowardpocket,stanceasidle.\nKeepidenticalheadhair35x22packedscalehairmass,lankybody234upright,facesright3/4. No muscular shoulders/oversizeboots. No bluevortexeffects. All poses samepixelscale andgroundbaseline. Every extendedhandinsideownfigureslot, at least50pixelmagentaemptyspaceafterhandbefore nextfigure. Threequartercamera,keylightupperrighthardpixelnavyceltones48colors,noantialiasgradientsblurnoisetextlabelsgridshadow.\nTARGETEDRETRY: previousB (image4) has head8% too small relativebody: enlarge headANDhair8%, KEEPbodyandshoesunchanged. f3-f6 must KEEP THE RIGHT ARM FULLYEXTENDED HORIZONTALLY, handatupperchestheightpointingright with palmup TWO FINGERScrooked. Do notbringarmupatfaceorbacktochestuntil f7. These fourholdposes are nearlyidentical, movementonly1-2units. Startf3matchingimage3lastposetorsolegs,twistwristonly. Keep exactsameheadproportions asimage3 A. Exactly FIVE complete separatedfigures; rightfingertips owncell.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-e53ccd04-80a4-4ec7-86db-a7762c2de50d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "airLight311A",
+      "prompt": "Use case: stylized-concept. Exact approvedtitle pixelart animefan-art sprite. Image1approvedneutralanatomy, image2idleapprovedscale, image3currentairLight3Acorrectiontarget. Exactly FOUR separatefullbodies lefttorightf0f1f2f3 inwidehorizontalrowonflatmagenta#FF00FF. Correctionhead/hairabout12% too smallforbody: enlargeheadtoreference'sheadbodyratio, preservelongadultlegs torsoleanbuild clothingandshoe dimensions. Allframesameheadmass andsource scale. Whiteupwardhairblackblindfoldnavyzippedhighcollarjacketloosetrousersblackshoes exactlyapproved.\nf0twistawaybacktocamera leftkneechambered; f1rotatinghipsheadspotsright; f2leftlegextendsstraighttorightheelatownwaistlevel bodyback15degreesrightkneefolds armsflungbelowheadrightbackleftforward. SHORT darknavy solidcrescentclosetoleg, no whitehaircolored arc. f3holdsamekickwithoutcrescent. Knee-to-hipandknee-to-heel eachmatchapprovedlonglegs NOelongatedbootorleg. Strikingheelrightmostpart,hairhandsbehindheel. Eachposecompacthorizontalprojectionnotmore245unitswhenapprovedhead35x22, heelnear228-240 andbackfingertipsabove4. Clear60pixelmagenta gapbetweenallfigures includingcrescent. Neverresizeposebboxstandingheight. Headshoe absoluteconsistency controls density.\nCrisphardpixels48colorsnavycelshadingexactapprovedstyle,noblurgradientsditheringtexturesorgridtextshadow. Completefigures andvisiblefaces/blindfold hair.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-9f1324ea-d936-4950-ba4b-91052a1fe6d2.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "airLight311B",
+      "prompt": "Use case: stylized-concept. Exact approvedtitle pixelart animefan-art sprite. Image1approvedneutralanatomy, image2idleapprovedscale, image3currentairLight3Acorrectiontarget. Exactly FOUR separatefullbodies lefttorightf0f1f2f3 inwidehorizontalrowonflatmagenta#FF00FF. Correctionhead/hairabout12% too smallforbody: enlargeheadtoreference'sheadbodyratio, preservelongadultlegs torsoleanbuild clothingandshoe dimensions. Allframesameheadmass andsource scale. Whiteupwardhairblackblindfoldnavyzippedhighcollarjacketloosetrousersblackshoes exactlyapproved.\nf0twistawaybacktocamera leftkneechambered; f1rotatinghipsheadspotsright; f2leftlegextendsstraighttorightheelatownwaistlevel bodyback15degreesrightkneefolds armsflungbelowheadrightbackleftforward. SHORT darknavy solidcrescentclosetoleg, no whitehaircolored arc. f3holdsamekickwithoutcrescent. Knee-to-hipandknee-to-heel eachmatchapprovedlonglegs NOelongatedbootorleg. Strikingheelrightmostpart,hairhandsbehindheel. Eachposecompacthorizontalprojectionnotmore245unitswhenapprovedhead35x22, heelnear228-240 andbackfingertipsabove4. Clear60pixelmagenta gapbetweenallfigures includingcrescent. Neverresizeposebboxstandingheight. Headshoe absoluteconsistency controls density.\nCrisphardpixels48colorsnavycelshadingexactapprovedstyle,noblurgradientsditheringtexturesorgridtextshadow. Completefigures andvisiblefaces/blindfold hair.\nPARTBonlyTWOfiguresf4andf5, image3newpartAsetsanatomicalscale. f4legfoldsbackinchestupafterheelkick; f5airneutral torso upright slightforward,bothhandslooselyguardchestleftkneeforwardrightleghanginglowest. Noextra kicks. MaintainexactAapprovedidleheadhairratio same35x22packedmass, shoe andlimblength. Twofigureswidecleargap.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-8c59b1f8-d02b-4c1e-a3b4-e6cc96b87af8.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "airLight312B",
+      "prompt": "Hi-respixelart animefan-art sprite strip. EXACTLY TWO FIGURES, no others. Onehorizontalrowonmagenta#FF00FF. This is PartB withonlyf4f5ofthe approved spinningheelkick. Image1approvedneutralidentityandstyle; image2approvedidlehead/anatomy; image3newPartAsetsconsistent scale. DoNOTrepeatfourposes ofPartA. DoNOTinclude6poses. TWOfiguresonly.\nf4recoverfromkick: leftlegfoldsback at knee, torso rising, rightleghanginglowest, twoarmsbelowhead. f5airneutral: torso uprightslightlean, bothhandsopenatloosechestguard,leftkneebentforwardrightleghangingalmoststraightwithpointedtoeslowest. Feetlowest. Sameheadhairandshoeabsolute scaleasAandidle, samebodylonglimbs; tallslendernavyjacketnotbulky. Snowwhiteupwardhairblackblindfoldcoversboth eyeshighcollarnavyzippeduniformblackshoes. Match35x22packedheadexact approved proportions. ThreequarterfaceRIGHT. Crisp48colorpixelcelshading,no blurgradientshadowgridtextvortexorenergy. TWO completefullbodieswithcleargapmagenta at least80pixels.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-84b06225-1f4f-415e-ae92-58bd3d5f86d5.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "key": "airHeavy09A",
+      "prompt": "Precise correction to Image3 airHeavyA. Keep its exact FOUR whole figures, their complete bodies, limbs, shoes, poses and source scale unchanged. Replace only the heads/hair: their white hair crown is5% too large, especially4thfigure f3. Reduce all four head+hair masses uniformly by5% anchoredatneck, matching approved idle image2. Preserve facialstyleblindfoldfeatures; in f3downwardheaddoNOTflattenorinflate the whitecrown. Same whitehairstyleproportionasidle. DoNOTshrinkbodiesorboots orchangeclaspedhands. Darknavysmear thirdfigure staysdarknavy. Allposescompletewidegaps onflatmagenta. Crisp approvedtitle pixelart celshading48colors, noeyeexposureblurnoise gradients shadows text orgrid. FOUR figuresonlyasimage3. Image1approvedneutralanatomy, image2approvedidleexactheadmass.",
+      "outputHint": "Generated images are saved to C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988 as C:\\Users\\eshin\\.codex\\generated_images\\01a12eb6-a35b-75d3-b5df-cc3f3ae8f988\\exec-09344b8c-df18-482f-b49e-25d041347a9e.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "result": "technical failure: head drift0.85; archived in raw/_rejected; no user art decision",
+      "selectedBest": 8,
+      "manifestNewestSaved": 9,
+      "usedNewCalls": {
+        "A": 2,
+        "B": 1
+      },
+      "cumulative": {
+        "A": 3,
+        "B": 2
+      },
+      "remaining": {
+        "A": 0,
+        "B": 1
+      }
+    }
+  ],
+  "budgets": {
+    "run": {
+      "before": {
+        "A": 3,
+        "B": 5
+      },
+      "authorized": {
+        "A": 2,
+        "B": 2
+      },
+      "used": {
+        "A": 2,
+        "B": 2
+      },
+      "remaining": {
+        "A": 0,
+        "B": 0
+      }
+    },
+    "airHeavy": {
+      "before": {
+        "A": 1,
+        "B": 1
+      },
+      "authorized": {
+        "A": 2,
+        "B": 2
+      },
+      "used": {
+        "A": 2,
+        "B": 1
+      },
+      "remaining": {
+        "A": 0,
+        "B": 1
+      }
+    },
+    "special": {
+      "before": {
+        "A": 2,
+        "B": 3
+      },
+      "authorized": {
+        "A": 1,
+        "B": 2
+      },
+      "used": {
+        "A": 1,
+        "B": 2
+      },
+      "remaining": {
+        "A": 0,
+        "B": 0
+      }
+    },
+    "airLight3": {
+      "before": {
+        "A": 2,
+        "B": 3
+      },
+      "authorized": {
+        "A": 1,
+        "B": 2
+      },
+      "used": {
+        "A": 1,
+        "B": 2
+      },
+      "remaining": {
+        "A": 0,
+        "B": 0
+      }
+    }
+  }
+}
