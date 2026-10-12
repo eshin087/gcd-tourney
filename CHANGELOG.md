@@ -24,6 +24,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Art: eight independent Killua title-style candidates and approved-reference QA controls; idle, taunt and win technical holds remain. No production release.
 
 - Added: Killua title-style production trial from the approved pilot: versioned idle and guard strips plus three UI candidates, with native-size QA and a documented idle loop hold. Existing fixed-name art remains approved; no production integration yet (ART-KIL-TITLE-20261011).
+- Added: `builds.json` `scaleReference` (approved reference cells the scale gate measures every strip and the idle against, for a fighter whose idle biases the probe), and a whole-figure frame split in the packer for strips whose column split cuts a connected figure (Gojo airLight1/light2/light4, Killua light3/specialForward). Main's shipped atlases are unchanged.
+
+- Fixed: `npm run stitch` cut connected figures into neighbouring frames when their horizontal projections overlapped (Killua specialForward v12, Naruto light2 v06, special v07), aborted on parts whose hair yellow differed slightly from the quantized shipped idle (Naruto's title-style aerials), and refused a written manual factor where no head was found. It now separates whole figures, lays them out with clean gaps, measures against a fresh unquantized idle, and honours `--factor` with `--landmarks`/`--uncertainty`.
 
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 

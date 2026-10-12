@@ -21,6 +21,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { auditCharacter, auditFromCompact, resolveGate, exemptionsFrom, staleExemptText, bboxOf, isSkin, hex, FLAGGED, verdictText } from './scale-probe.mjs';
+import { loadScaleReference } from './pack-sprites.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -66,7 +67,7 @@ export function auditPacked(id, { artDir = path.join(ROOT, 'art'), publicDir = p
   let A = auditFromCompact(P.meta.scaleAudit, { gate, exempt });
   if (!A) {
     A = auditCharacter(P.anims.map((a) => ({ name: a.name, cells: a.cells, version: versionOf(id, a.name, P.meta, artDir) })), {
-      decl: builds[id] || {}, gate, exempt, maxColors: manifest.spec?.maxColors ?? 48,
+      decl: builds[id] || {}, gate, exempt, maxColors: manifest.spec?.maxColors ?? 48, reference: loadScaleReference(artDir, builds[id] || {}),
     });
     A.legacy = true;
   }
