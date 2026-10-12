@@ -1,0 +1,170 @@
+[
+  {
+    "id": "naruto",
+    "crownY": 70,
+    "bodyPx": 195,
+    "crownUncertaintySourcePx": 12,
+    "source": "art/characters/naruto/reference/title_style_draft_v01.png",
+    "uniformScale": 0.23212646403099058,
+    "poses": [
+      {
+        "pose": "neutral",
+        "sourceBounds": {
+          "x": 271,
+          "y": 20,
+          "w": 406,
+          "h": 884,
+          "soleY": 903
+        },
+        "packedBounds": {
+          "width": 94,
+          "height": 205,
+          "left": 81,
+          "top": 36
+        }
+      },
+      {
+        "pose": "combat",
+        "sourceBounds": {
+          "x": 868,
+          "y": 193,
+          "w": 645,
+          "h": 711,
+          "soleY": 903
+        },
+        "packedBounds": {
+          "width": 150,
+          "height": 165,
+          "left": 53,
+          "top": 76
+        }
+      }
+    ]
+  },
+  {
+    "id": "sasuke",
+    "crownY": 88,
+    "bodyPx": 197,
+    "crownUncertaintySourcePx": 12,
+    "source": "art/characters/sasuke/reference/title_style_draft_v01.png",
+    "uniformScale": 0.23735666806212155,
+    "poses": [
+      {
+        "pose": "neutral",
+        "sourceBounds": {
+          "x": 314,
+          "y": 33,
+          "w": 381,
+          "h": 879,
+          "soleY": 911
+        },
+        "packedBounds": {
+          "width": 90,
+          "height": 209,
+          "left": 83,
+          "top": 32
+        }
+      },
+      {
+        "pose": "combat",
+        "sourceBounds": {
+          "x": 898,
+          "y": 154,
+          "w": 652,
+          "h": 758,
+          "soleY": 911
+        },
+        "packedBounds": {
+          "width": 155,
+          "height": 180,
+          "left": 50,
+          "top": 61
+        }
+      }
+    ]
+  },
+  {
+    "id": "killua",
+    "crownY": 95,
+    "bodyPx": 176,
+    "crownUncertaintySourcePx": 12,
+    "source": "art/characters/killua/reference/title_style_draft_v01.png",
+    "uniformScale": 0.2217547756078289,
+    "poses": [
+      {
+        "pose": "neutral",
+        "sourceBounds": {
+          "x": 251,
+          "y": 42,
+          "w": 372,
+          "h": 841,
+          "soleY": 882
+        },
+        "packedBounds": {
+          "width": 82,
+          "height": 186,
+          "left": 87,
+          "top": 55
+        }
+      },
+      {
+        "pose": "combat",
+        "sourceBounds": {
+          "x": 893,
+          "y": 222,
+          "w": 667,
+          "h": 659,
+          "soleY": 880
+        },
+        "packedBounds": {
+          "width": 148,
+          "height": 146,
+          "left": 54,
+          "top": 95
+        }
+      }
+    ]
+  },
+  {
+    "id": "gojo",
+    "crownY": 92,
+    "bodyPx": 222,
+    "crownUncertaintySourcePx": 12,
+    "source": "art/characters/gojo/reference/title_style_draft_v01.png",
+    "uniformScale": 0.2536111218681021,
+    "poses": [
+      {
+        "pose": "neutral",
+        "sourceBounds": {
+          "x": 251,
+          "y": 32,
+          "w": 360,
+          "h": 929,
+          "soleY": 960
+        },
+        "packedBounds": {
+          "width": 91,
+          "height": 236,
+          "left": 82,
+          "top": 5
+        }
+      },
+      {
+        "pose": "combat",
+        "sourceBounds": {
+          "x": 804,
+          "y": 119,
+          "w": 614,
+          "h": 842,
+          "soleY": 960
+        },
+        "packedBounds": {
+          "width": 156,
+          "height": 214,
+          "left": 50,
+          "top": 27
+        }
+      }
+    ]
+  }
+]

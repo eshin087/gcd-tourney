@@ -1,3 +1,5 @@
+> **Scale and anatomy ([ADR 0029](../docs/decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
+
 # art/: start here
 
 Required for every fighter and every body strip: [shared scale and anatomy gate](CHARACTER_SCALE.md), including the packer's automatic scale gate (`node tools/pack-sprites.mjs <id> --quantize 48` must exit 0 for a new strip, heads sheet from `npm run scale`). Technical packing success alone does not establish anatomical consistency.

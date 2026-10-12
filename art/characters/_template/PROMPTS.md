@@ -1,3 +1,5 @@
+> **Title-style consistency lessons (2026-10-11):** Record the approved neutral and combat cells at native game size, plus source hashes and landmark uncertainty. Compare the first idle independently with both before using it as a working reference. Preserve head, torso and limb dimensions rather than matching only the silhouette height. Match original approved pose design where requested. Check every loop seam for size/foot jumps. Inspect the actual packed atlas after quantization; cached frames may be stale. A detector pass never substitutes for anatomy or motion review. If the reference is superseded, replace the active prompt contract explicitly so old proportions cannot leak into later strips.
+
 # {{NAME}}: image prompts
 
 > TEMPLATE. Every block below is a complete, copy-paste prompt for an image generator: Codex's
@@ -6,6 +8,8 @@
 > When creating a character, Codex replaces `{{NAME}}`, `{{TRAITS}}`, `{{PALETTE}}` and every
 > `{{...}}` with the text from `CHARACTER.md`, and adds the "{{NAME}} specifics" from
 > `ANIMATIONS.md` to each pose line, so nobody has to assemble anything.
+
+Approved identity takes precedence over generic visibility wording: a long bang or blindfold may intentionally obscure an eye. Do not redesign approved hair or facial anatomy solely to satisfy a generic both-eyes line. Record a deliberate UI-camera composition choice for review.
 
 ## How to use
 
@@ -32,7 +36,7 @@
 
 ## Shared pieces (fill once, reused everywhere)
 
-**SCALE_LOCK** must be filled from [APPROVED_CAST_BASELINE.md](../../scale/APPROVED_CAST_BASELINE.md) and this fighter's approved neutral: era/stature, common pixels/cm, STANDING_BODY_PX, HEAD_PX, head-to-body ratio, torso and limb landmarks, build and hair mass. Attach approved height_neutral.png for anatomy alongside identity references. Posed occupied height is not stature. Do not copy historical 200px/31px/6.5-head defaults into a new fighter. Validate the working idle against the neutral before propagating it. Long strips use at most five poses per generated part and a measured stitch.
+**SCALE_LOCK** must be filled from the [title-style production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md) (ADR 0029; APPROVED_CAST_BASELINE.md numbers are historical) and this fighter's approved neutral: era/stature, current common calibration with uncertainty (or approved native reference cells if pixels/cm is not formally established), STANDING_BODY_PX, HEAD_PX, head-to-body ratio, torso and limb landmarks, build and hair mass. Attach the current approved neutral identified in CHARACTER.md alongside identity references; never select a historical height_neutral.png merely because that filename exists. Posed occupied height is not stature. Do not copy historical 200px/31px/6.5-head defaults into a new fighter. Validate the working idle against the neutral before propagating it. Long strips use at most five poses per generated part and a measured stitch.
 
 
 **TRAITS** (from `CHARACTER.md`, "One-paragraph look"):

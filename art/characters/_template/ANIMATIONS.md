@@ -15,7 +15,7 @@ drawn in front of the body. "Far" = the side behind the body. Stance is orthodox
 hitbox comes from these frames, so the fist/foot must reach the contact zone), `recovery` frames
 return to stance. `loop` frames must cycle seamlessly.
 
-**Proportions**: use the approved neutral and [shared cast baseline](../../scale/APPROVED_CAST_BASELINE.md), with measured skull, torso and limb lengths. A pose changes occupied bounds, not anatomical scale. The historical body-height values below describe pose envelopes; they are not independent rescale targets for new art. Calibrate from anatomical landmarks, then verify contacts, cell margins and floor placement. Claude owns formal spec/contact-zone migration.
+**Proportions**: use the approved neutral and combat cells and the [title-style production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md) (ADR 0029), with measured skull, torso and limb lengths. A pose changes occupied bounds, not anatomical scale. The historical body-height values below describe pose envelopes; they are not independent rescale targets for new art. Calibrate from anatomical landmarks, then verify contacts, cell margins and floor placement. Claude owns formal spec/contact-zone migration.
 
 **Files**: every generated strip is saved as the next version `raw/<anim>_vNN.png` (poses left to
 right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW.md`; single frames
