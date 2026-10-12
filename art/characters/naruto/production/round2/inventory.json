@@ -4,7 +4,7 @@
   "assets": [
     {
       "a": "airLight3",
-      "v": 8,
+      "v": 9,
       "prior": {
         "A": 3,
         "B": 2
@@ -21,16 +21,59 @@
         "A": 1,
         "B": 1
       },
-      "verdict": "uniform hold; B3/3 exhausted; A1 extra left"
+      "verdict": "ok: heads1.016–1.054 allx61..251; needsuserreview",
+      "history": {
+        "v08": {
+          "status": "rejected",
+          "by": "user",
+          "date": "2026-10-12",
+          "reason": "looks bad",
+          "path": "raw/_rejected/airLight3_v08.png"
+        }
+      },
+      "path": "raw/airLight3_v09.png",
+      "latestEvidence": "round2-next/QA.md",
+      "followupAuthorization": {
+        "date": "2026-10-12",
+        "calls": {
+          "A": 1,
+          "B": 1
+        },
+        "used": {
+          "A": 1,
+          "B": 1
+        }
+      },
+      "cumulative": {
+        "A": 5,
+        "B": 4
+      }
     },
     {
       "a": "ko",
-      "v": 8,
+      "v": 9,
       "prior": 1,
       "budget": 2,
       "used": 2,
       "selected": 2,
-      "verdict": "unmeasured pending Claude; head improved; original pose preserved"
+      "verdict": "HOLD: official59px pack unmeasured/under-scale, diagnostic77px proposal needsClaude calibration",
+      "history": {
+        "v08": {
+          "status": "rejected",
+          "by": "user",
+          "date": "2026-10-12",
+          "reason": "looks really bad",
+          "path": "raw/_rejected/ko_v08.png"
+        }
+      },
+      "path": "raw/ko_v09.png",
+      "latestEvidence": "round2-next/QA.md",
+      "followupAuthorization": {
+        "date": "2026-10-12",
+        "calls": 1,
+        "used": 1
+      },
+      "cumulative": 4
     },
     {
       "a": "spin",

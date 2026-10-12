@@ -3,14 +3,16 @@
     {
       "a": "airLight3",
       "v": 8,
-      "notes": "Clear whole figures and smaller crescent now fit x26..240. Strict FAIL uniform head .809/feet .700; f4/f5 head/body relation still off and A/B posture changes. B budget exhausted. HOLD, not recommended approval.",
-      "approvedRecommended": false
+      "notes": "USER REJECTED v08 on2026-10-12. Latestv09 review: /reviews/naruto-ko-kick-v09/index.html. Historical QA: Clear whole figures and smaller crescent now fit x26..240. Strict FAIL uniform head .809/feet .700; f4/f5 head/body relation still off and A/B posture changes. B budget exhausted. HOLD, not recommended approval.",
+      "approvedRecommended": false,
+      "rejected": true
     },
     {
       "a": "ko",
       "v": 8,
-      "notes": "Original one-knee-raised supine KO preserved; enlarged head matches down more closely. Actual diagnostic head reads1.051 but unmeasured, not a numeric pass. Measured+2px placement fixes x4..226. Contact27%, floor warning. HOLD for Claude anatomy/contact QA.",
-      "approvedRecommended": false
+      "notes": "USER REJECTED v08 on2026-10-12. Latestv09 review: /reviews/naruto-ko-kick-v09/index.html. Historical QA: Original one-knee-raised supine KO preserved; enlarged head matches down more closely. Actual diagnostic head reads1.051 but unmeasured, not a numeric pass. Measured+2px placement fixes x4..226. Contact27%, floor warning. HOLD for Claude anatomy/contact QA.",
+      "approvedRecommended": false,
+      "rejected": true
     },
     {
       "a": "spin",

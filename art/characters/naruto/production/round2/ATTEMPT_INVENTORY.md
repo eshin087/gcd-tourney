@@ -17,3 +17,5 @@ Every call includes unsaved failures. Re-stitching does not reset any count. All
 Source budget evidence: ../title-style-qa/QA.md and main inbox Title-style corrections, round2. Latest authorization grants two EXTRA calls only when the prior budget was exhausted. Remaining numeric budgets in the inbox are otherwise honored. Unused calls were retained where a strict pass already existed or another exhausted part blocks the strip; no new concept resets any budget.
 
 One selected inventory: inventory.json. Prompts/provider source paths for all11 calls: generation-record.json. No image generated for ART-TECH-01, airHeavy, light2/light4/stagger or UI.
+
+2026-10-12 follow-up: user rejected ko08/airLight3_08 and narrowed authorization to one additional call for KO and one per kick part. Used exactly1KO/1A/1B, currentselectedv09. CumulativeKO4/A5/B4. Older unused A allowance is not used beyond the latest narrower limit. See ../round2-next/ATTEMPT_INVENTORY.md and QA.md.
