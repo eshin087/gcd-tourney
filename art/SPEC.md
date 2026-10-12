@@ -193,11 +193,15 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `specialUp` | 6 | - | 2/2/2 | 214 | - | 50 50 60 60 70 70 | **kit**: a rising special (Killua's Thunderbolt leap; f5 hands over to `airHeavy` f0). Missing → `special` |
 | `specialDown` | 4 | - | 2/1/1 | 204 | - | 80 80 160 90 | **kit**: a stance or power-up, no hit box (Killua's Godspeed activation, Gojo's Infinity palm). Missing → `charge` |
 | `superPose` | 4 | yes | - | 208 | - | 140 each | **kit**: the second super's pose during the super flash (Whirlwind, Domain Expansion hand sign; Gojo lifts the blindfold here). Missing → `taunt` |
+| `techGround` | 4 | - | 1/2/1 beats | 204 | - | 67 83 83 67 | **tech** ([Tech poses](#tech-poses), ADR 0030): ground tech in place: impact brace low on the floor, push up, rise, back in the fighting stance. Missing → `land` |
+| `techRoll` | 6 | - | 1/4/1 beats | 162 | - | 50 63 62 63 62 67 | **tech**: ground tech roll: shoulder contact, one tight forward roll toward screen-right (4 quarter turns), low crouch. Missing → `airRecover` |
+| `wallTech` | 5 | - | 2/1/2 beats | 209 | - | 50 50 67 67 66 | **tech**: wall tech: lands feet-first on a wall at the cell's left (2 frames), pushes off toward screen-right, airborne recovery into `jumpFall`. Missing → `land`, then `airRecover` |
 
 Totals: 38 animations, 154 frames per character; 23 core animations. Every fighter has a kit
 ([ADR 0011](../docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter also draws the 4 **kit**
 animations (optional for the `complete` flag because they fall back): 42 animations, 175 frames, an 11-row
-sheet. A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
+sheet. The three **tech** strips ([Tech poses](#tech-poses)) are optional for every fighter and fall back too: with them,
+45 animations, 190 frames, a 12-row sheet (4096 x 3072). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
 of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`).
 
@@ -210,6 +214,48 @@ long, so:
 - `launched` is **arched diagonally**, not fully horizontal.
 - Wide strikes (`light3`, `light4`, `airLight2`, `airLight3`) must keep the back foot and hair inside
   x 4 and the striking foot inside x 251; the contact zones below already respect that.
+
+<a id="tech-poses"></a>
+
+**Tech poses** (`techGround`, `techRoll`, `wallTech`; [ADR 0030](../docs/decisions/0030-tech-recovery-animations.md)).
+The engine plays them on the tech state's own clock in three beats, `DEFENSE` `animPhases` in `src/game/moves.js`
+(contact / main motion / settle, in 60 fps frames; the art's `phases` are frames per beat), so the art never changes a
+tech's timing, invulnerability or movement:
+
+| strip | beats in game frames | art frames per beat | what each beat shows |
+|---|---|---|---|
+| `techGround` | 4 / 10 / 4 (18 f) | 1 / 2 / 1 | brace on impact (invulnerable) · push up and rise (invulnerable to f14) · stance |
+| `techRoll` timed | 3 / 15 / 4 (22 f) | 1 / 4 / 1 | shoulder contact · the tumble (invulnerable to f18) · low crouch |
+| `techRoll` hold-Guard | 3 / 15 / 2 (20 f) | 1 / 4 / 1 | the same strip on the shorter roll |
+| `wallTech` | 6 / 4 / 8 (18 f) | 2 / 1 / 2 | the cling (exactly the 6-frame stick) · the push-off · the airborne recovery into `jumpFall` |
+
+- **Orientation.** Every strip faces right like the rest of the sheet. `techRoll` is a **forward** roll toward screen-right;
+  a fighter rolling away from the opponent plays its tumble beat backward (a back roll) without turning around, so the
+  four tumble frames are even quarter turns that read in either order. `wallTech` has its **wall at the cell's left**,
+  behind the fighter: on the ring barrier's left and right walls (the x walls, at a screen side) the game turns the strip
+  away from the wall; on the front and back walls (the z walls, seen in depth) the fighter keeps facing the opponent and
+  the strip is re-centred on the fighter (`wallAnchor` below). The facing for gameplay never changes.
+- **Wall contact.** The packer puts the leftmost opaque pixel of the cling and push-off frames (beats 1-2: frames 0-2)
+  on the pivot column, x 128: the barrier. So the soles drawn flat on the wall must be the leftmost part of the figure,
+  with the near hand optionally on the same line; hair, scarf and headband tails trail up or to the right, never past the
+  soles. The packer warns `wallTech: N cling frame(s) barely touch the wall line` when fewer than about 12 opaque px (at a
+  200 px standing body) of a cling frame lie on x 128-131. The push-off frame only needs its toes there. The airborne
+  frames are centred on the feet as usual. The wall jump (↑ at the kick) shows the cling, then the push-off frame for 4
+  frames, then `jumpUp`: no extra strip.
+- **Scale.** One anatomical scale with the approved neutral and idle: the same head, torso and limb lengths, folded or
+  braced. **Never stretch a tucked, rolling or braced pose to a standing height.** The tallest frame sets the strip's
+  `bodyHeight`: the stance of `techGround` (the idle's height), the crouch of `techRoll` (about the `jumpSquat` crouch),
+  the airborne recovery of `wallTech` (about `jumpFall`); a fighter drawn at another stature sets them in its manifest
+  entry. The packer warns when a tucked or braced frame leaves its height band against the idle's median height:
+  `techGround` brace 0.45-0.85, `techRoll` tumble 0.30-0.68, `wallTech` cling 0.35-0.90.
+- **Scale gate.** The probe cannot read a head in the tumble or the rotated cling: `techRoll` frames 1-4 and `wallTech`
+  frames 0-2 are reported **not read** (manifest `spec.scaleGate.lowConfPhases`), the readable frames are judged as
+  usual, and a strip that passes on them is `partial`, which is not a pass: a candidate needs a person's
+  `scaleManualQA` record of that version (unread frames compared with the approved neutral at one scale: head, torso,
+  limb lengths, not the box height) before it ships. `techGround` is measured in full.
+- **Transitions.** `techGround` f3 and `techRoll` f5 hand over to `idle`; `wallTech` f4 hands over to `jumpFall`; their
+  first frames follow `launched` / `spin` (a body falling into the floor or the wall). Keep `down` and `ko` separate:
+  a tech never lies down.
 
 <a id="lying-poses"></a>
 
@@ -335,6 +381,9 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
 - `footprint` (only when the pack has lying frames): `{ "<sheet frame>": [x0, x1] }`, the opaque x span (inclusive
   cell px) of every `ko` and `down` frame and the first `getup` frame. The engine stretches the contact shadow along
   it ([Lying poses](#lying-poses)).
+- `wallAnchor` (only when the pack has a `wallTech` strip): `{ "<sheet frame>": px }`, for every wall-anchored frame
+  (the cling and push-off), how far right of the pivot the body's centre was packed. The engine shifts the frame back by
+  it on a wall seen in depth ([Tech poses](#tech-poses)).
 
 ## Hitboxes and hurtboxes
 
@@ -392,6 +441,10 @@ repeated until something exists (last resort `idle`):
 | superDash | dash | backDash | jumpFall |
 | airRecover | jumpUp | vanish | dash |
 | spin | launched | jumpFall | jumpUp |
+| techGround, wallTech | land | techRoll | airRecover |
+
+The tech strips are also switched on per strip: until a sheet has one, the engine keeps showing exactly what that tech
+showed before (`land`; `airRecover`; the wall tech's `land` cling, `airRecover` kick and `jumpUp` wall jump).
 
 ## Per-character UI images
 
