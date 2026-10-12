@@ -1,3 +1,5 @@
+> **Scale and anatomy ([ADR 0029](docs/decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](art/scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
+
 # Assets
 
 All art work now lives in **[art/](art/README.md)**. Start there. Current spec: **hi-res sprite spec v2**
@@ -35,6 +37,11 @@ Every fighter has a kit ([ADR 0009](docs/decisions/0009-move-system-v2.md), base
 falls back to `special`, `special`, `charge` and `taunt`. A character drawn taller or shorter than
 the 200 px standard body (Killua 182 px, Gojo 215 px) follows
 [ADR 0010](docs/decisions/0010-per-character-body-scale.md).
+
+Every fighter can also draw three optional **tech** strips ([ADR 0030](docs/decisions/0030-tech-recovery-animations.md),
+art/SPEC.md "Tech poses"): `techGround` (tech in place), `techRoll` (tech roll) and `wallTech` (wall tech). Until a
+fighter has one, the game keeps showing `land` / `airRecover` / `jumpUp` for that tech. Per-frame brief and prompts:
+`art/characters/TECH_POSES_BRIEF.md`.
 
 ## Sprite Lab
 

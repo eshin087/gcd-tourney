@@ -1,3 +1,9 @@
+# Current approved baseline: title-style pilot
+
+The user subsequently rejected the earlier full redraw and approved all four title_style_draft_v01 sheets plus the displayed neutral/combat lineup on 2026-10-11. **Current production uses [the title-style production contract](title-style-pilot/PRODUCTION_CONTRACT.md)** and its exact approved cells. The older numerical contract below is historical, not a second active target. Preserve original down/KO poses and redraw their look. Claude owns formal spec and runtime integration.
+
+## Historical superseded contract
+
 # Approved cast baseline and full-frame redraw contract
 
 Approved by the user in chat on 2026-10-11: cast height_lineup v01 and Naruto, Sasuke, Killua, Gojo height_neutral v01. User authorized remaking all 42 canonical animations per fighter. This approves the references and production direction, not future generated frames. Claude alone integrates, merges, deploys production, edits main/NOW/inbox. Workers may publish committed previews.

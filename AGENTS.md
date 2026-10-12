@@ -4,25 +4,29 @@ Instructions for Codex and any other coding agent working in this repository. Cl
 [CLAUDE.md](CLAUDE.md), which has the same rules plus engine detail. When the two disagree, fix
 the docs. Don't pick one silently.
 
-## Approved anatomy and cast scale (user decision, 2026-10-11)
+## Approved anatomy and cast scale (user decision, 2026-10-11; ADR 0029)
 
-For the full cast redraw and future characters, [APPROVED_CAST_BASELINE.md](art/scale/APPROVED_CAST_BASELINE.md)
-is the current anatomy/scale contract. It supersedes conflicting historical instructions below to make
-all fighters 200px tall, give them 31px heads or force a universal 6.5/7-head ratio. Preserve the approved
-era-specific stature ratios at one shared pixels/cm, and each neutral's head, torso, limb lengths and build.
-Hair, clothing and posed bounding boxes are separate measurements; do not resize a crouch or fallen pose
-to standing height. Do not add a child discount, individual tall-character cap or shoulder inflation.
+The user approved the four title-style references (`title_style_draft_v01`) and their neutral/combat lineups
+(PR #68) and rejected the earlier cast redraw. [PRODUCTION_CONTRACT.md](art/scale/title-style-pilot/PRODUCTION_CONTRACT.md)
+and its exact cells in `public/art-review/title-style-pilot/` are the scale and anatomy baseline for the cast and
+every future character ([ADR 0029](docs/decisions/0029-title-style-scale-baseline.md)). It supersedes every older
+scale target: a 200px body, a 31px head, a universal 6.5/7-head ratio, the canon-height formula and the common
+pixels/cm of [APPROVED_CAST_BASELINE.md](art/scale/APPROVED_CAST_BASELINE.md) (historical below its notice). Preserve
+each fighter's head, torso, limb lengths, build and clothing volume across every pose. Hair, clothing and posed
+bounding boxes are separate measurements; do not resize a crouch, run or fallen pose to standing height. Do not
+add a child discount, individual tall-character cap or shoulder inflation.
 
-Approve a neutral and cast lineup before full production. Independently compare the working idle to
-that neutral before using it as an animation reference. Head-gate success does not certify torso/limb
-proportions; inspect every frame and loop. An unmeasured/low-confidence probe is not a numeric pass.
-Use the updated character templates and preserve measurement uncertainty, source provenance and attempt
-limits. Reference approval never approves subsequent strips. The user authorized the current four-fighter
-batch without intermediate approval stops; future characters retain their normal reference/idle gates.
+A new character records era/stature provenance and uncertainty, then gets a title-style neutral and combat
+reference laid beside the four approved cells at one pixel density. The user approves that lineup before the
+idle. Independently compare the working idle to the approved neutral and combat cells before using it as an
+animation reference. Head-gate success does not certify torso/limb proportions; inspect every frame and loop in
+the actual quantized atlas. An unmeasured/low-confidence probe is not a numeric pass. Follow the character
+templates and the contract's QA lessons: cumulative attempt budgets (max 3 per image), one candidate inventory,
+measurement uncertainty and source provenance. Reference approval never approves subsequent strips.
 
-Cell size, pivot, pixel density, canonical moves and gameplay remain governed by the existing spec.
-Claude owns formal SPEC/ADR migration, contact/hurtbox validation and integration. For this redraw,
-Claude alone merges or deploys production; Codex workers may publish committed preview deployments.
+Cell size, pivot, pixel density, canonical moves and gameplay remain governed by art/SPEC.md. Runtime scale data
+(`standingBodyPx`, contact zones) stays until Claude's contact/hurtbox check; Claude owns that migration and
+integration. Claude alone merges or deploys production; Codex workers may publish committed preview deployments.
 
 ## Autonomous work (user authorization, 2026-10-10)
 
@@ -56,7 +60,7 @@ GCD Tourney is a browser HD-2D pixel-art anime arena fighter (Three.js + Vite, p
 with a Dragon Ball FighterZ-style combat feel. The current fighters are Naruto and Sasuke, and many more
 are planned. Today their sprites are 3D-baked chibi placeholders generated at startup. The real art is
 **hi-res pixel art on art spec v2** ([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)):
-Naruto Shippuden designs, about 6.5 heads tall (serious anime proportions, not chibi), 256 px cells.
+Naruto Shippuden designs in the approved title style (serious anime proportions, not chibi; scale per ADR 0029), 256 px cells.
 **You (Codex) generate it** with your built-in image generator from the briefs in `art/`, and the **user
 reviews and approves** every image in [art/REVIEW.md](art/REVIEW.md). A Node packer (`npm run sprites`)
 cleans and packs it into `public/characters/<id>/`, and the game picks it up automatically.
@@ -162,8 +166,8 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
   art/SPEC.md and the manifest). If a character needs something new, add a task for Claude in
   docs/TASKS.md instead.
 - **Follow ADR 0007 and art/SPEC.md exactly**: 256×256 cells, 16 columns, pivot `[128,240]` (feet center on
-  x=128, soles on y=240), `pixelsPerUnit` 128, standing body about 200 px from soles to top of skull,
-  about 6.5 heads tall, facing **right**, 3/4 view, flat magenta `#FF00FF` background on raw generations,
+  x=128, soles on y=240), `pixelsPerUnit` 128, body scale and anatomy from the approved title-style cells (ADR 0029, not the
+  older 200 px / 6.5-head numbers), facing **right**, 3/4 view, flat magenta `#FF00FF` background on raw generations,
   hard pixels (no anti-aliasing, blur, gradients or dithering fills), ≤ 48 colors per character (the packer
   warns above 64).
 - The in-game 3D-baked placeholder is still chibi (112 px cells, ppu 44). Never match new art to it.

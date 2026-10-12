@@ -1,4 +1,4 @@
-> **Active baseline, user approved 2026-10-11:** [Approved cast baseline](scale/APPROVED_CAST_BASELINE.md) supersedes historical scale/build numbers below for the full redraw. Preserve common height ratios and individually measured anatomy; old values describe shipped art only. Claude owns formal spec/ADR integration.
+> **Scale and anatomy ([ADR 0029](../docs/decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
 
 # Shared fighter scale and anatomy gate
 
@@ -190,6 +190,13 @@ strips are redrawn to it, not the other way round).
 | median head of the strip vs the idle | within ±6 % (`stripTol` 0.06) |
 | largest minus smallest head inside one strip (a pop) | at most 12 points (`popTol` 0.12) |
 | hair | strands may move, but the hair MASS stays within ±8 % of the idle's (the ±6 % median plus a frame's noise) |
+
+**Beats the probe cannot read** (ADR 0030): `spec.scaleGate.lowConfPhases` lists, per animation, the beats whose poses
+the head probe cannot read (defaults: `techRoll` [0, 1] the shoulder contact and the tumble, `wallTech` [0, 1] the
+rotated cling and push-off). Their frames are reported **not read** (the heads sheet labels them), the other frames
+are judged as usual, and a strip that passes on them is `partial`: not a pass. A candidate needs a `scaleManualQA`
+record of that version for the unread frames (verdict `manual`); a crouched, rolled or braced pose is compared by its
+head, torso and limb lengths, never by its box height, and never fitted to a standing height.
 
 **Verdicts** (`npm run sprites` report, `anims.json` `meta.scaleAudit`, `npm run scale`):
 
