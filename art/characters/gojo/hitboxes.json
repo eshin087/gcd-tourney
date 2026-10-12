@@ -4,7 +4,7 @@
   "light1": {"_v": 5, "_scale": 0.9208, "2": {"hit": [[191, 60, 22, 33]]}, "3": {"hit": [[184, 60, 21, 33]]}},
   "light3": {"_v": 4, "2": {"hit": [[185, 93, 19, 35]]}, "3": {"hit": [[202, 91, 21, 36]]}, "_refit": "scaled x0.9479 about the pivot with the strip's bodyHeight 228 -> 216 (size consistency pass, 2026-10-11)"},
   "light4": {"_v": 8, "3": {"hit": [[205, 60, 28, 32]]}, "4": {"hit": [[190, 63, 27, 24]]}},
-  "heavy": {"_v": 5, "_note": "heavy v05 strikes with the R elbow folded across the chin (x 132-153, 0.17-0.20 units forward): a box on it can never reach past the 0.72 minimum spacing, so the launcher would always whiff. The old box in front of the face is kept until the heavy is redrawn or Gojo's heavy lunge is tuned (QA-TITLE-CONTACT, 2026-10-11).", "3": {"hit": [[160, 52, 36, 27]]}, "4": {"hit": [[160, 52, 36, 27]]}},
+  "heavy": {"_v": 5, "_note": "Gojo heavy reach tuning (user: 'tune gojo heavy', 2026-10-11). v05 strikes with the R elbow folded across his chin (x 132-153, 0.17-0.20 units forward), which can never reach past the 0.72 minimum spacing. The box covers the drawn elbow and extends forward to x 196 (the reach the launcher had before), a deliberate disjoint reach until the heavy is redrawn.", "3": {"hit": [[132, 52, 64, 36]]}, "4": {"hit": [[132, 52, 64, 36]]}},
   "airLight1": {"_v": 6, "1": {"hit": [[204, 53, 21, 26]]}, "2": {"hit": [[204, 55, 20, 26]]}},
   "airLight2": {"_v": 4, "1": {"hit": [[202, 96, 27, 40]]}, "2": {"hit": [[200, 96, 26, 39]]}},
   "airLight3": {"_v": 10, "2": {"hit": [[190, 162, 22, 29]]}, "3": {"hit": [[192, 162, 21, 28]]}},
