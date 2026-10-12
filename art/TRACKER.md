@@ -265,14 +265,14 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 3 | idle | 8 | - | **yes** | 236 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
-| 4 | run | 8 | - | **yes** | 222 | approved | v10 | v08 | v10 needs review: upright214–221px and normal gate ok; requested2% head target unmet (median0.959, f6=0.914), leg alternation still held. A1/B2 extra-authorized calls used; no calls remain. Full strict pack blocked by existing airLight3/airHeavy. v08 retains user approval. |
+| 4 | run | 8 | - | **yes** | 222 | approved | v12 | v08 | v12 hover-glide needs review; strict head ok (0.981), but requested 2% per-frame target missed in B, 203-221 px height spread / seam. HOLD; A2/B2 glide budget exhausted. Approved v08 retained. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v08 | v06 | Review pending: v08 re-stitch of the approved v06 parts. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v07 | v07 | HOLD (strict gate): v07 head ~15% small (f2 crescent misread aside). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v09 | v07 | Best selected v08 needs review / HOLD f3 hair9.1% high; newest saved v09 A technical failure head0.85 archived. A2/B1 used, A0/B1 remain. No new approval. |
 | 6 | guard | 2 | - | **yes** | 218 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | launched | 2 | - | **yes** | 170 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -281,7 +281,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 7 | charge | 4 | - | **yes** | 215 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamCharge | 3 | - | **yes** | 215 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamFire | 3 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v05 | v05 | HOLD (visual): part A head ~10% big: an 8% body step between f2 and f3, and fingertip fragments in f4-f6 (part B poses touch). Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v07 | v05 | v07 needs review; full strict head ok (1.000), intact fingertips, but 20 px body step f2->f3. HOLD despite head pass; A1/B2 budget exhausted. Approved v05 retained. |
 | 8 | dash | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpUp | 2 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpFall | 2 | - | **yes** | 227 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -291,7 +291,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 9 | superDash | 2 | - | no | 140 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | jumpSquat | 1 | - | no | 176 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v10 | v10 | HOLD (strict gate): v10 head ~12% small for the body. Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v12 | v10 | v12 needs review; full strict ok (0.972), all x59..214, six heel-kick phases. Impact heel reach requires Claude gameplay/contact check. A1/B2 budget exhausted. Approved v10 retained. |
 | 9 | block | 2 | - | no | 222 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | hurtLow | 3 | - | no | 199 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | spin | 4 | - | no | 174 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |

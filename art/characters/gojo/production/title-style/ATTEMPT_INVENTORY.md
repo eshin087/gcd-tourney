@@ -1,5 +1,7 @@
 # Gojo title-style candidate attempt inventory
 
+Round2 checkpoint 2026-10-11: full strict quantized pack exits0,42animations/175frames. New run v12 and special v07 remain visual holds despite normal head passes. AirLight3 v12 recommends review; airHeavy v08 best has unresolved f3 hair-volume HOLD after v09 technical failure. Current authorization and cumulative calls: round2/generation-record.json; no new approval recorded. Older notes below are historical.
+
 As of 2026-10-11, all 42 animation names have versioned assembled candidates and all three UI names have candidates. “Rounds” counts title-style generation rounds per asset (an A/B pair is one round). Land had one initial round plus three corrective image-generation calls; one of the latter was unsaved. Older approved art versions are excluded. All listed latest candidates still require user review.
 
 The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 scale-gate holds, no updated atlas. A separate warn-mode QA manifest produced diagnostic native contacts only; it is not a scale pass or game/production atlas. A “head pass” here is only the automated head gate; it does not certify anatomy, motion, contact zones, or clipping.
@@ -7,7 +9,7 @@ The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 s
 | Asset | Latest candidate | Generation rounds | Current hold or note |
 |---|---:|---:|---|
 | idle | v06 | 1 | head gate passes; full frame QA pending |
-| run | v10; v09 B rejected history | A3 / B5 cumulative calls | User authorized A1 remaining and B2 extra. All used. v10 upright214–221px; normal head gate ok, but requested2% unmet and stride alternation held. See run-v10/QA.md; no generation calls remain. |
+| run | v12 | A5 / B7 cumulative calls | v12 glide regular strict ok; tighter 2% and phase height / seam HOLD. User authorized two fresh calls each; all used. v11 history retained. |
 | dash | v06 | 1 | head gate passes; full frame QA pending |
 | backDash | v04 | 1 | head gate passes; full frame QA pending |
 | superDash | v07 | 1 generation, 1 measured placement | head pass; 11px left offset clears right clip and cell-margin warning; native anatomy pending |
@@ -22,8 +24,8 @@ The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 s
 | heavy | v06 A rejected; assembled v05 | 3 | v05 elbow still ambiguous and head 0.93; v06 A crosses face; source rounds exhausted |
 | airLight1 | v06 | 2 | head gate passes; splitter warning from touching source group, native edge QA pending |
 | airLight2 | v04 | 1 | head gate passes; full frame QA pending |
-| airLight3 | v10 | 3 | gate hold; 3 rounds used; B x0.7189 |
-| airHeavy | v07 | 1 | gate hold; within-strip head pop |
+| airLight3 | v12 | A3 / B5 cumulative calls | v12 strict ok / native review. A1/B2 authorized used; first B returned6poses; no calls remain. |
+| airHeavy | newest saved v09; best selected v08 | A3 / B2 cumulative calls | v09 head0.85 technical failure archived. Best v08 strict ok but f3 hair9.1% HOLD. A0/B1 calls remain. |
 | guard | v04 | 1 | head gate passes; full frame QA pending |
 | block | v03 | 1 | head gate passes; full frame QA pending |
 | hurtHigh | v03 | 1 | head gate passes; full frame QA pending |
@@ -40,7 +42,7 @@ The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 s
 | vanish | v03 | 1 | scale-gate hold |
 | stagger | v03 | 1 | head gate passes; full frame QA pending |
 | ko | v06 | 1 generation, 1 measured placement | v05 pixels retained; left margin cleared, floor and low-confidence gate hold, Claude adjudication |
-| special | v05 | 3 | head gate passes; B factor x1.1884 and A/B seam anatomy held; source rounds exhausted |
+| special | v07 | A3 / B5 cumulative calls | v07 head ok, body step HOLD. A1/B2 authorized used; no calls remain. |
 | intro | v03 | 1 | head gate passes; full frame QA pending |
 | taunt | v04 | 1 | head gate passes; full frame QA pending |
 | win | v07 | 1 | head gate passes; full frame QA pending |
