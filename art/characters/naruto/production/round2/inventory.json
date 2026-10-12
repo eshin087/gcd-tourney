@@ -21,7 +21,7 @@
         "A": 1,
         "B": 1
       },
-      "verdict": "ok: heads1.016–1.054 allx61..251; needsuserreview",
+      "verdict": "ok: heads1.016–1.054 allx61..251; art approved by user 2026-10-12",
       "history": {
         "v08": {
           "status": "rejected",
@@ -47,6 +47,13 @@
       "cumulative": {
         "A": 5,
         "B": 4
+      },
+      "approval": {
+        "version": 9,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "ok i approve narutos samples",
+        "scope": "latest KO and airLight3 artwork; technical holds remain"
       }
     },
     {
@@ -73,7 +80,14 @@
         "calls": 1,
         "used": 1
       },
-      "cumulative": 4
+      "cumulative": 4,
+      "approval": {
+        "version": 9,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "ok i approve narutos samples",
+        "scope": "latest KO and airLight3 artwork; technical holds remain"
+      }
     },
     {
       "a": "spin",
