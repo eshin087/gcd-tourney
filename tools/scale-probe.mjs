@@ -27,10 +27,10 @@ export const GATE_DEFAULTS = Object.freeze({
   // tumbling, lying, tucked and afterimage poses: the head is upside down, hidden or doubled
   lowConf: Object.freeze(['launched', 'spin', 'down', 'ko', 'airRecover', 'getup', 'jumpSquat', 'vanish']),
   // strips with only SOME beats the probe can't read (ADR 0030): the beats (phase indices) of tucked, rolling or
-  // rotated frames. Their frames are left out of the numbers and reported as not measured; the readable frames are
-  // judged as usual, and a strip that passes on them is 'partial' (not a pass) until a person's scaleManualQA record
-  // covers the unread frames of that version
-  lowConfPhases: Object.freeze({ techRoll: Object.freeze([1]), wallTech: Object.freeze([0, 1]) }),
+  // rotated frames (the roll's shoulder contact and tumble, the wall cling and push-off). Their frames are left out of
+  // the numbers and reported as not measured; the readable frames are judged as usual, and a strip that passes on them
+  // is 'partial' (not a pass) until a person's scaleManualQA record covers the unread frames of that version
+  lowConfPhases: Object.freeze({ techRoll: Object.freeze([0, 1]), wallTech: Object.freeze([0, 1]) }),
 });
 
 // A manifest spec.scaleGate block -> the thresholds (a malformed key is reported in `issues` and keeps its default).
@@ -362,7 +362,10 @@ export function auditStrip(name, cells, ref, pal, gate = GATE_DEFAULTS, exempt =
 export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   const skip = new Set(Array.isArray(exempt.frames) ? exempt.frames : []);
   const frames = measured.map((f) => ({ ...f, skipped: skip.has(f.k) || undefined }));
-  // frames of a low-confidence beat (gate.lowConfPhases) are never numbers: reported as not measured
+  // frames of a low-confidence beat (gate.lowConfPhases) are never numbers: reported as not measured. The result's
+  // `low` lists all of them, also those an exemption skips, so a recorded audit (compactAudit) judged again with
+  // another manifest never reads their heads as measurements
+  const lowAll = frames.filter((f) => f.low).map((f) => f.k);
   const low = frames.filter((f) => f.low && !f.skipped).map((f) => f.k);
   const use = frames.filter((f) => !f.skipped && !f.low && f.head != null);
   const heads = use.map((f) => f.head);
@@ -385,7 +388,7 @@ export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   // a pose the probe cannot read, checked by a person for exactly this version (scaleManualQA): accepted, and shown as
   // 'manual', never as 'ok' (TOOL-ROTATED-ANATOMY)
   if ((verdict === 'unmeasured' || verdict === 'partial') && exempt.manual) { verdict = 'manual'; reason = `manual QA by ${exempt.manual.by}: ${exempt.manual.note}${exempt.manual.evidence ? ` (${exempt.manual.evidence})` : ''}`; }
-  return { head, feet, range, verdict, reason, lo: lo && { k: lo.k, head: lo.head }, hi: hi && { k: hi.k, head: hi.head }, frames, ...(low.length ? { low } : {}) };
+  return { head, feet, range, verdict, reason, lo: lo && { k: lo.k, head: lo.head }, hi: hi && { k: hi.k, head: hi.head }, frames, ...(lowAll.length ? { low: lowAll } : {}) };
 }
 
 export const FLAGGED = new Set(['uniform', 'drift', 'pop']);

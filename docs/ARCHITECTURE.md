@@ -230,8 +230,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   gives the span in local units, and `fitShadow` multiplies it by the actor's `depthK` like the drawn body.
 - **Tech poses** (ADR 0030): a tech state plays `techGround` / `techRoll` / `wallTech` through `setPhase` on its own
   clock (`DEFENSE` `animPhases`) when the sheet has the strip (`SheetAsset.has`), else the legacy pose free-running.
-  `Fighter.sync` turns the wall strip away from a screen-side barrier wall, or re-centres it on a wall in depth by
-  `SheetAsset.wallAnchor(frame)` (anims.json `wallAnchor`, written by the packer's wall anchoring). Visual only.
+  `Fighter.sync` turns the wall strip away from a screen-side barrier wall and shifts its wall line onto the barrier
+  (`SheetAsset.wallLine(frame)`, anims.json `wallLine`), or re-centres it on a wall in depth
+  (`SheetAsset.wallAnchor(frame)`, anims.json `wallAnchor`; both written by the packer's wall anchoring:
+  `techAnim.wallShift`). A tech roll's strip keeps the facing and the roll direction it started with
+  (`Fighter.lockRollPose`). Visual only: it moves the sprite, not `renderPos` (camera, effects), the gameplay facing or
+  the hurt boxes; every wall pose is invulnerable, so its packed boxes never meet a hit (`npm run test:anims` checks it).
 - **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
   then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
   `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing

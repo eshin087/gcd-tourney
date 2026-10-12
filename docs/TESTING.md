@@ -367,15 +367,19 @@ Run after changes to `src/game/techAnim.js`, `animPhase.js`, the tech states in 
 packer's `TECH_POSES` / wall anchoring or the scale gate's `lowConfPhases`:
 
 - [ ] `npm run test:anims`: the guide entries and fallbacks, every beat boundary, the frames a whole tech state shows
-      (a back roll reversed), the wall facing at yaw -0.42 / 0 / 0.42 and `SheetAsset` fallbacks.
-- [ ] `npm run test:sprites`: wall-anchored frames on x 128 with `wallAnchor`, the thin-contact and size-band warnings,
-      `partial` / `manual`, no hit boxes on tech frames.
+      (a back roll reversed), the wall facing at yaw -0.42 / 0 / 0.42, the wall line and body centre landing on the
+      fighter (`wallShift`, either facing), reused result objects and `SheetAsset` fallbacks.
+- [ ] `npm run test:sprites`: wall-anchored frames on the wall line x 8 with `wallLine` and `wallAnchor`, a full
+      push-off fitting the cell, the thin-contact and size-band warnings, `partial` / `manual`, the recorded audit
+      keeping every unread frame, no hit boxes on tech frames.
 - [ ] Without the strips (today's sheets): `/lab.html` SCENARIOS "Timed tech off a spike", "Wall tech", "Wall-jump tech"
       and "Tech roll" show exactly the old poses (`land`, `land` then `airRecover`, `land` then `jumpUp`, `airRecover`).
 - [ ] With a strip (a packed candidate, or stand-in strips injected into `game.fighters[1].actor.asset.meta.animations`):
       the same scenarios play it on the beats (tech in place 4/5/5/4 game frames per art frame; wall tech 3,3 | 4 | 4,4;
-      the "Tech roll" scenario's back roll plays the tumble backward; the wall jump shows the push-off 4 frames, then
-      `jumpUp`). A tech off a front or back barrier wall keeps facing the opponent and is re-centred by `wallAnchor`.
+      the "Tech roll" scenario's back roll plays the tumble backward, and a cross-up mid-roll never flips it; the wall
+      jump shows the push-off 4 frames, all of them turned away from the wall, then `jumpUp`, and an air attack out of
+      it never brings the push-off back). On a side wall the strip's wall line sits on the barrier; a tech off a front
+      or back barrier wall keeps facing the opponent and is re-centred by `wallAnchor`.
 - [ ] `?art=procedural`: the baked placeholder has all three strips; the console is clean.
 
 ## Timed impact tech (ADR 0028)

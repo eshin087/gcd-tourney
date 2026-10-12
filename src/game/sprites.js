@@ -85,6 +85,13 @@ export class SheetAsset {
     return px ? px / this.meta.pixelsPerUnit : 0;
   }
 
+  // A wall-anchored frame's wall line (anims.json wallLine): how far left of the pivot the packer put its leftmost
+  // pixel, in local world units, so a wall at a screen side can sit on it. 0 for other frames (and packs without it).
+  wallLine(frame) {
+    const m = this.meta;
+    return m.wallLine != null && m.wallAnchor?.[frame] != null ? (m.pivot[0] - m.wallLine) / m.pixelsPerUnit : 0;
+  }
+
   anim(name) {
     const A = this.meta.animations;
     let n = name, guard = 0;
@@ -379,9 +386,19 @@ export class SpriteActor {
     return this.asset.has(name);
   }
 
-  // the current frame's wall-anchor shift (SheetAsset.wallAnchor), world units facing right
+  // the current frame's wall-anchor shift and wall line (SheetAsset.wallAnchor / wallLine), world units facing right
   wallAnchor() {
     return this.asset.wallAnchor(this.frame);
+  }
+
+  wallLine() {
+    return this.asset.wallLine(this.frame);
+  }
+
+  // The mirror sync() gives this facing (1 = facing screen-right); a facing almost into the camera keeps the current one.
+  flipFor(faceX, faceZ, camRight) {
+    const d = faceX * camRight.x + faceZ * camRight.z;
+    return Math.abs(d) > 0.12 ? (d >= 0 ? 1 : -1) : this.flip;
   }
 
   // Playback driven by a gameplay clock (an attack's phases, a tech state's beats): phase 0..2 with progress 0..1.
@@ -409,8 +426,7 @@ export class SpriteActor {
   // Billboard toward the camera and mirror when facing screen-left. refDepth/time: see syncDepth.
   sync(camera, faceX, faceZ, camRight, refDepth = null, time = 0) {
     this.mesh.quaternion.copy(camera.quaternion);
-    const d = faceX * camRight.x + faceZ * camRight.z;
-    if (Math.abs(d) > 0.12) this.flip = d >= 0 ? 1 : -1;
+    this.flip = this.flipFor(faceX, faceZ, camRight);
     this.mesh.scale.x = this.flip;
     this.caster.scale.x = this.flip;
     this.fitShadow(camRight);
