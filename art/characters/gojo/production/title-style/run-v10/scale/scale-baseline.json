@@ -1,0 +1,23 @@
+{
+ "_doc": "Head scale per approved strip at its version (tools/scale-audit.mjs). The packer warns when a strip moves more than spec.scaleGate.baselineTol at the same version. npm run scale records new animations and changed versions; npm run scale -- --baseline rewrites every row (an intended change).",
+ "fighters": {
+  "gojo": {
+   "ref": {
+    "headPx": [
+     35,
+     22
+    ]
+   },
+   "anims": {
+    "idle": {
+     "v": 6,
+     "head": 1
+    },
+    "run": {
+     "v": 10,
+     "head": 0.959
+    }
+   }
+  }
+ }
+}

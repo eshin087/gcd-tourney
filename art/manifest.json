@@ -294,7 +294,7 @@
         "idle": {
           "frames": 8,
           "loop": true,
-          "bodyHeight": 222,
+          "bodyHeight": 236,
           "ms": [
             150,
             150,
@@ -308,8 +308,8 @@
           "required": true,
           "step": 3,
           "status": "approved",
-          "version": 3,
-          "approvedVersion": 2
+          "version": 6,
+          "approvedVersion": 6
         },
         "run": {
           "frames": 8,
@@ -328,8 +328,8 @@
           "required": true,
           "step": 4,
           "status": "approved",
-          "version": 4,
-          "approvedVersion": 3
+          "version": 12,
+          "approvedVersion": 12
         },
         "dash": {
           "frames": 2,
@@ -342,13 +342,13 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 6,
+          "approvedVersion": 6
         },
         "backDash": {
           "frames": 3,
           "loop": false,
-          "bodyHeight": 225,
+          "bodyHeight": 219,
           "ms": [
             60,
             60,
@@ -357,13 +357,13 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "superDash": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 140,
+          "bodyHeight": 146,
           "ms": [
             50,
             50
@@ -371,8 +371,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 7,
+          "approvedVersion": 7
         },
         "jumpSquat": {
           "frames": 1,
@@ -384,8 +384,9 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4,
+          "scaleManualQA": { "version": 4, "result": "pass", "by": "Codex", "note": "Low-confidence crouch checked at native packed cell size beside approved neutral and idle f0/f4: hair/head same scale; collar-to-hem torso and both legs compress only through knee and hip flexion; no enlarged shoulders or missing limb. Single pose has no loop. This is manual anatomy evidence, not a numeric probe pass or user art approval.", "evidence": "art/characters/gojo/production/title-style/jumpSquat-compare.png" }
         },
         "jumpUp": {
           "frames": 2,
@@ -398,8 +399,8 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "jumpFall": {
           "frames": 2,
@@ -412,8 +413,8 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "land": {
           "frames": 2,
@@ -426,8 +427,8 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 6,
+          "approvedVersion": 6
         },
         "light1": {
           "frames": 7,
@@ -450,8 +451,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 5,
+          "approvedVersion": 5
         },
         "light2": {
           "frames": 7,
@@ -461,7 +462,7 @@
             2,
             3
           ],
-          "bodyHeight": 222,
+          "bodyHeight": 232,
           "ms": [
             35,
             30,
@@ -474,8 +475,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 6,
+          "approvedVersion": 6
         },
         "light3": {
           "frames": 7,
@@ -485,7 +486,7 @@
             2,
             3
           ],
-          "bodyHeight": 228,
+          "bodyHeight": 216,
           "ms": [
             40,
             35,
@@ -498,8 +499,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "light4": {
           "frames": 8,
@@ -523,8 +524,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
+          "version": 8,
+          "approvedVersion": 8
         },
         "heavy": {
           "frames": 8,
@@ -548,8 +549,12 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 5,
+          "approvedVersion": 5,
+          "scaleExemptFrames": {
+            "4": "raised right forearm and fist cross in front of the face and cover the lower-left hair (probe head blob 32x17 vs idle 35x22); f3's fist only grazes the hair and reads 0.955, so it stays measured"
+          },
+          "scaleExemptVersion": 5
         },
         "airLight1": {
           "frames": 5,
@@ -570,8 +575,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 6,
+          "approvedVersion": 6
         },
         "airLight2": {
           "frames": 5,
@@ -592,8 +597,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "airLight3": {
           "frames": 6,
@@ -615,8 +620,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 12,
+          "approvedVersion": 12
         },
         "airHeavy": {
           "frames": 6,
@@ -638,13 +643,13 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
+          "version": 8,
+          "approvedVersion": 8
         },
         "guard": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 215,
+          "bodyHeight": 214,
           "ms": [
             300,
             300
@@ -652,13 +657,13 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "block": {
           "frames": 2,
           "loop": false,
-          "bodyHeight": 222,
+          "bodyHeight": 213,
           "ms": [
             60,
             80
@@ -666,13 +671,13 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3
         },
         "hurtHigh": {
           "frames": 3,
           "loop": false,
-          "bodyHeight": 212,
+          "bodyHeight": 216,
           "ms": [
             70,
             90,
@@ -681,8 +686,8 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3
         },
         "hurtLow": {
           "frames": 3,
@@ -696,13 +701,13 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "launched": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 148,
+          "bodyHeight": 170,
           "ms": [
             70,
             70
@@ -710,8 +715,15 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 6,
+          "approvedVersion": 6,
+          "scaleManualQA": {
+            "version": 6,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "At the inherited bodyHeight 148 the whole figure was ~13% small: hair area 0.84/0.86 of idle and whole-figure area 0.92/0.90, while hurtHigh f0 (same thrown-back head, arms spread) reads head 0.99 / area 1.03 at true scale, and the head is visibly smaller than gojo-neutral_v01 rotated to the same 40-55 deg tilt. At bodyHeight 170 (x1.149) both frames compared at native packed scale with the rotated neutral and hurtHigh f0: hair area 0.97/0.99, figure area 1.05/1.04 (matches hurtHigh), torso, legs and shoes in line with the neutral; hands within the spread of the reference hands. Two-frame loop wrap is a small arm/leg flutter, no pop. frameOffsets [62,0]/[49,0] keep the true-size pose inside x 4..251 and centre the body on the pivot instead of the feet.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/launched-v06-bh170.png"
+          }
         },
         "spin": {
           "frames": 4,
@@ -726,13 +738,20 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4,
+          "scaleManualQA": {
+            "version": 4,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "Four tumble frames compared at native packed scale (bodyHeight 174) with gojo-combat_v01/neutral_v01 and the tucked backDash f1/jumpSquat: crown-to-chin 39 px vs combat 38 / neutral 39-40, side-view shoe 36-38 px vs combat 38, shins and hands consistent. The probe's hair area reads 1.09-1.19 only because the spikes fan out in the tumble (hair 40 px wide vs 38). f0 seated tuck -> f1 rotate -> f2 inverted -> f3 rotate back; f3->f0 wrap is continuous rotation. A bodyHeight cut was tested (156) and rejected: it made head length and shins ~7% small.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/spin-v04.png"
+          }
         },
         "airRecover": {
           "frames": 3,
           "loop": false,
-          "bodyHeight": 196,
+          "bodyHeight": 202,
           "ms": [
             50,
             50,
@@ -741,8 +760,15 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3,
+          "scaleManualQA": {
+            "version": 3,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "Three frames compared at native packed scale with gojo-neutral_v01/combat_v01: tucked f0 (hair area 0.92), inverted f1 (0.98) and upright f2 (0.96-0.98, torso, arms and shoes match the neutral). No detached parts, no clipping; one-shot, ends in an airborne upright pose.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/airRecover-v03.png"
+          }
         },
         "down": {
           "frames": 2,
@@ -755,13 +781,20 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 5,
+          "approvedVersion": 5,
+          "scaleManualQA": {
+            "version": 5,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "Original lying composition preserved. Both frames compared at native packed scale with gojo-neutral_v01 rotated 90 deg (crown aligned): head outline, torso and overall length (f1 234 px vs neutral 236) match within ~3%; hair area reads 1.10 only because the hair is seen from the crown side; shoe 38 px. Floor-band warning (#1 13% within 6px, worst fifth 18px) left for in-game grounding check.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/down-v05.png"
+          }
         },
         "getup": {
           "frames": 5,
           "loop": false,
-          "bodyHeight": 222,
+          "bodyHeight": 234,
           "ms": [
             70,
             60,
@@ -772,13 +805,20 @@
           "required": true,
           "step": 6,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 5,
+          "approvedVersion": 5,
+          "scaleManualQA": {
+            "version": 5,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "f4 is the idle stance (hands in pockets). At the inherited bodyHeight 222 it packed 221 px vs the idle's 234: shoe 38 px = idle, legs 112 vs 115, crown-to-chin 37 vs 38, but hair 32 vs 35 px wide (0.91) and collar-to-hem 72 vs 80 (0.90), and the crown sat 13 px below the idle's at the getup->idle cut. At bodyHeight 234 (x1.054) every f4 segment is within 5% of the idle (hair 34, crown-to-chin 39, torso 76, legs 118, shoe 40) and the crown meets the idle's (y8 vs y7). f0 curl, f1 shoulder stand, f2 kip-up and f3 crouch compared with the neutral at native scale (hair area 0.95-1.04). Five distinct poses, no fragments.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/getup-v05-bh234.png"
+          }
         },
         "charge": {
           "frames": 4,
           "loop": true,
-          "bodyHeight": 215,
+          "bodyHeight": 221,
           "ms": [
             50,
             50,
@@ -788,8 +828,8 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 1
+          "version": 7,
+          "approvedVersion": 7
         },
         "throw": {
           "frames": 4,
@@ -799,7 +839,7 @@
             1,
             2
           ],
-          "bodyHeight": 219,
+          "bodyHeight": 207,
           "ms": [
             50,
             60,
@@ -809,13 +849,13 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "beamCharge": {
           "frames": 3,
           "loop": true,
-          "bodyHeight": 215,
+          "bodyHeight": 221,
           "ms": [
             50,
             50,
@@ -824,8 +864,8 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3
         },
         "beamFire": {
           "frames": 3,
@@ -839,13 +879,13 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
+          "version": 4,
+          "approvedVersion": 4
         },
         "vanish": {
           "frames": 2,
           "loop": false,
-          "bodyHeight": 232,
+          "bodyHeight": 222,
           "ms": [
             50,
             50
@@ -853,13 +893,20 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3,
+          "scaleManualQA": {
+            "version": 3,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "Both frames compared at native packed scale with gojo-neutral_v01: f0 lean (head 1.05, torso and shoes match), f1 standing 232 px vs idle 234, head 1.01; the horizontal glitch slices in f1 are the intended teleport effect (separate islands by design). No clipping.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/vanish-v03.png"
+          }
         },
         "stagger": {
           "frames": 4,
           "loop": true,
-          "bodyHeight": 225,
+          "bodyHeight": 233,
           "ms": [
             150,
             150,
@@ -869,21 +916,28 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3
         },
         "ko": {
           "frames": 1,
           "loop": false,
-          "bodyHeight": 70,
+          "bodyHeight": 81,
           "ms": [
             500
           ],
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 2,
-          "approvedVersion": 2
+          "version": 6,
+          "approvedVersion": 6,
+          "scaleManualQA": {
+            "version": 6,
+            "result": "pass",
+            "by": "Claude (QA agent)",
+            "note": "Original KO composition preserved. At the inherited bodyHeight 70 the body was ~14% small against gojo-neutral_v01 rotated 90 deg (length 200 vs 233 px crown-to-sole, crown-to-chin 35 vs 40, torso ~0.85) and 12% shorter than down f1. At bodyHeight 81 (x1.157) length 237 px, crown-to-chin ~40, face and floor hand match the neutral and down f1. frameOffsets [24,0] keep the true-size pose inside x 4..251. Floor-band warning (23% within 6px, worst fifth 20px) left for the in-game grounding check.",
+            "evidence": "art/characters/gojo/production/title-style/claude-qa/ko-v06-bh81.png"
+          }
         },
         "special": {
           "frames": 8,
@@ -893,7 +947,7 @@
             3,
             2
           ],
-          "bodyHeight": 222,
+          "bodyHeight": 232,
           "ms": [
             120,
             120,
@@ -907,13 +961,13 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 7,
+          "approvedVersion": 7
         },
         "intro": {
           "frames": 4,
           "loop": true,
-          "bodyHeight": 228,
+          "bodyHeight": 236,
           "ms": [
             150,
             150,
@@ -923,8 +977,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3
         },
         "taunt": {
           "frames": 2,
@@ -937,8 +991,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 4,
+          "approvedVersion": 4
         },
         "win": {
           "frames": 4,
@@ -953,8 +1007,8 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 7,
+          "approvedVersion": 7
         },
         "specialForward": {
           "frames": 7,
@@ -977,8 +1031,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 6,
+          "approvedVersion": 6
         },
         "specialUp": {
           "frames": 6,
@@ -1000,8 +1054,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 3,
+          "approvedVersion": 3
         },
         "specialDown": {
           "frames": 4,
@@ -1011,7 +1065,7 @@
             1,
             1
           ],
-          "bodyHeight": 222,
+          "bodyHeight": 227,
           "ms": [
             60,
             60,
@@ -1021,8 +1075,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 5,
+          "approvedVersion": 5
         },
         "superPose": {
           "frames": 4,
@@ -1037,8 +1091,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 1,
-          "approvedVersion": 1
+          "version": 5,
+          "approvedVersion": 5
         }
       },
       "ui": {

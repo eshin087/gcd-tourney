@@ -11,6 +11,24 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Gojo title-style art ships (PR #72) with round-3 QA: airLight3 v12, airHeavy v08 and special v07 boxes re-measured; run v12 (the user's hover-glide), special v07 and airHeavy v08 are user-approved stand-ins until the round-3 redraws.
+
+- User approved gojo round-2 art: airLight3 v12. Other visual/technical holds remain for Claude integration; no production deployment.
+
+- Gojo title-style round2 candidates: airHeavy v08 best and airLight3 v12 clear the strict scale gate, with a hair-volume hold retained for airHeavy after technically failed v09; run v12 hover-glide and special v07 also pack but retain explicit tighter-scale / body-seam visual holds. Versioned history, cumulative budgets and native review evidence retained; no approval, main integration, production deploy or tech animations.
+
+- art(gojo): draft upright run v10 using authorized A1/B2 attempts; add strict isolated native review and measured evidence. Height214–221px and margins pass; tight2% head and clean leg alternation remain held. Full fighter pack still blocked by existing airLight3/airHeavy. New v10 unapproved.
+
+- Art (PR72, not on main yet): Gojo's title-style set with the user's 2026-10-11 approval recorded; light4 v08 re-stitch, true-scale fits for launched/getup/ko, manual scale records, hit boxes re-measured on the new art (heavy keeps its old box: the drawn elbow never reaches). Strict scale gate still fails on airLight3 and airHeavy (head drawn too small); special's part A head and fragments and run's repeated lead leg need new images.
+- art(gojo): add direct diagnostic playback for all 42 current candidate strips and three UI images in the draft preview, visibly labeled with strict-gate and motion holds.
+- art(gojo): clear down and KO cell clipping by measured whole-pose placement, retaining original lying pixels and unresolved floor-contact holds.
+- art(gojo): preserve launched v04 reaction pixels in v06 with measured offsets that clear cell clipping; retain its low-confidence scale hold and diagnostic native contact.
+- art(gojo): retain rejected third light4 recovery half after it repeated the oversize A/B seam; document the exhausted source budget and strict-pack hold.
+- art(gojo): correct five-pose getup segmentation and superDash placement; retain exhausted run and heavy source attempts with explicit QA holds.
+- art(gojo): add anatomy corrections for specialDown, superPose, throw, airLight1 and light3; all five clear the automated head gate while full frame review remains pending.
+- art(gojo): add corrected special and specialForward candidate strips; preserve measured part-size seams and original down/KO pose holds for review.
+
+- art(gojo): begin the approved title-style 42-animation and three-UI redraw; preserve versioned candidates and explicit scale, pose, and pack QA holds (ART-GOJO-TITLE).
 - Changed: Sasuke title-style art ships (PR #71) with round-3 QA: launched/down/KO calibrated to his standing size (manual QA), heavy/throw within 2% of the idle, heavy/throw/specialUp boxes and the release point re-measured.
 
 - User approved sasuke round-2 art: heavy v11, backDash v07, charge v12, block v07, throw v07, stagger v08, specialUp v09. Other visual/technical holds remain for Claude integration; no production deployment.

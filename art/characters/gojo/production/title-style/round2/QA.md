@@ -1,0 +1,21 @@
+# Gojo title-style corrections round 2
+
+**2026-10-12 approval update:** the user approved airLight3 v12. These artworks are approved; technical/contact holds and other candidate decisions remain separate. See ../../round2-approvals/APPROVALS.md. Original QA findings below are retained as historical evidence.
+
+
+2026-10-11. Existing branch art/gojo-title-production, PR72, port5224. `git merge main` completed before corrections. Built-in imagegen only; source prompts and cumulative calls in generation-record.json. No gameplay/tool/gate changes. ART-TECH-01 remains on hold.
+
+| Candidate | Strict result | Native QA / recommendation |
+|---|---|---|
+| run v12 (hover-glide) | ok, median0.981; f0-f7 1.014,0.991,1.000,1.000,0.971,0.959,0.955,0.971 | HOLD: user-specific2% target missed in all B frames. Heights213,209,203,211,221,215,216,221px; f2 below205px and part seam has visible vertical/pose shift. Tall hands-in-pockets direction succeeds; body/boots remain lanky. All A2/B2 glide calls used (cumulative A5/B7). No approval recommended yet. |
+| airHeavy v08 | ok, median1.050; spread0.081 | HOLD for unresolved hair-volume caveat: complete hammer wind-up, downward clasped impact and air-neutral recovery; anatomy plausible across arch/bend, no detached fingers or clipping. All x104..217. Dark navy smear avoids a white hair-color probe false reading. A2/B1 calls used, A0/B1 remain. v09 A retry shrank the head too far (strict drift0.85); that technically failed candidate is archived with its parts; v08 remains best selected, manifest newest saved9. Head is up to9.1% high in f3; inspect hair volume in review. Existing/fallback hitbox placement still belongs to Claude. |
+| special v07 | ok, median1.000, spread0.021 | HOLD: intact separated figures and proper held arm, but A heights231-232 vs B211-212px (about20px step f2->f3), with smaller B torso/legs/boots despite matching heads. Head-only pass does not certify anatomy. All A1/B2 correction calls used (cumulative A3/B5). |
+| airLight3 v12 | ok, median0.972, spread0.035 | Recommend review: six distinct chamber/spin/heel-extension/fold/air-neutral phases. Head/hair stable, elbow/torso/leg chains plausible through rotation, all x59..214. Impact foot currently x212..214: Claude must validate/reconcile the strike contact zone in game before release. A1/B2 used (cumulative A3/B5), no calls remain. |
+
+Final selected-best full `node tools/pack-sprites.mjs gojo --quantize 48 --strict-scale` exits0:42animations/175frames,48colors,1ref/33ok/8existing manual records. New four strips are `ok`, no exemptions or manual passes added. The full actual quantized atlas is copied into the review page and `*-full-native.png` contacts; isolated fixtures are separately labeled and reproducible by round2-qa.mjs. Quantization does not refresh frames/; all visual judgments use actual atlas cells. Three inherited warnings remain: old idle baseline35x22 vs31x18, down/KO floor heuristics. No down/KO source changes. Six fallback active hitboxes remain Claude QA, not art scale failures.
+
+Run v11 and special v06 are preserved intermediate failed candidates. airLight3 v11 has A plus a failed six-pose B and could not be stitched (4+6 instead of6); v12 A copies v11 A, and its new B has2poses. special v07 A copies v06 A. No image overwrites, no silent budget resets.
+
+Heads: ../../../../../scale/heads-gojo.png. Cast lineup: ../../../../../scale/lineup-gojo-round2.png (other fighters are the worktree's currently packed sheets; older build-band constants do not supersede ADR0029). Exact title neutral reference remains authoritative. Review page has native and2x playback, frame stepping, all actual full-atlas contacts and heads. Art approval, production integration and live gameplay validation are pending. Claude alone integrates and deploys production.
+
+Producer selection is explicit: airHeavy newest saved v09 is a technical failure archived under raw/_rejected (no user art decision or new approval); best v08 stays selected for review with the f3 hair-volume HOLD. See airHeavy-v09/strict-pack.txt and airHeavy-v09-generation.json. Other saved intermediate candidates remain marked needs review as history. Build passes (82 modules); browser playback / live game contact validation remains pending.
