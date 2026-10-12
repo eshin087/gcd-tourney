@@ -1,3 +1,5 @@
+> **Scale and anatomy ([ADR 0029](decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](../art/scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
+
 # AI collaboration: Claude, Codex and the user (plus optional ChatGPT)
 
 Two AI tools and one human work on this project, and the human can bring in ChatGPT by hand. This doc
