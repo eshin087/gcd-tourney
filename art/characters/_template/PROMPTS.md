@@ -1,3 +1,5 @@
+> **Title-style consistency lessons (2026-10-11):** Record the approved neutral and combat cells at native game size, plus source hashes and landmark uncertainty. Compare the first idle independently with both before using it as a working reference. Preserve head, torso and limb dimensions rather than matching only the silhouette height. Match original approved pose design where requested. Check every loop seam for size/foot jumps. Inspect the actual packed atlas after quantization; cached frames may be stale. A detector pass never substitutes for anatomy or motion review. If the reference is superseded, replace the active prompt contract explicitly so old proportions cannot leak into later strips.
+
 # {{NAME}}: image prompts
 
 > TEMPLATE. Every block below is a complete, copy-paste prompt for an image generator: Codex's
@@ -6,6 +8,8 @@
 > When creating a character, Codex replaces `{{NAME}}`, `{{TRAITS}}`, `{{PALETTE}}` and every
 > `{{...}}` with the text from `CHARACTER.md`, and adds the "{{NAME}} specifics" from
 > `ANIMATIONS.md` to each pose line, so nobody has to assemble anything.
+
+Approved identity takes precedence over generic visibility wording: a long bang or blindfold may intentionally obscure an eye. Do not redesign approved hair or facial anatomy solely to satisfy a generic both-eyes line. Record a deliberate UI-camera composition choice for review.
 
 ## How to use
 
@@ -32,7 +36,7 @@
 
 ## Shared pieces (fill once, reused everywhere)
 
-**SCALE_LOCK** must be filled from [APPROVED_CAST_BASELINE.md](../../scale/APPROVED_CAST_BASELINE.md) and this fighter's approved neutral: era/stature, common pixels/cm, STANDING_BODY_PX, HEAD_PX, head-to-body ratio, torso and limb landmarks, build and hair mass. Attach approved height_neutral.png for anatomy alongside identity references. Posed occupied height is not stature. Do not copy historical 200px/31px/6.5-head defaults into a new fighter. Validate the working idle against the neutral before propagating it. Long strips use at most five poses per generated part and a measured stitch.
+**SCALE_LOCK** must be filled from the [title-style production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md) (ADR 0029; APPROVED_CAST_BASELINE.md numbers are historical) and this fighter's approved neutral: era/stature, current common calibration with uncertainty (or approved native reference cells if pixels/cm is not formally established), STANDING_BODY_PX, HEAD_PX, head-to-body ratio, torso and limb landmarks, build and hair mass. Attach the current approved neutral identified in CHARACTER.md alongside identity references; never select a historical height_neutral.png merely because that filename exists. Posed occupied height is not stature. Do not copy historical 200px/31px/6.5-head defaults into a new fighter. Validate the working idle against the neutral before propagating it. Long strips use at most five poses per generated part and a measured stitch.
 
 
 **TRAITS** (from `CHARACTER.md`, "One-paragraph look"):
@@ -885,6 +889,78 @@ Animation "airRecover": backflip recovery in mid-air.
 Pose 1: tucked backflip start{{; NAME specifics}}.
 Pose 2: upside-down tuck{{; NAME specifics}}.
 Pose 3: upright, arms out, legs ready to land{{; NAME specifics}}.
+```
+
+#### techGround
+
+Save as: `raw/techGround_vNN.png` · 4 poses · beats 1/2/1 · optional (tech, ADR 0030) · after the idle is approved
+
+```text
+Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 4 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
+SIZE: each pose is cut into a 256x256 game sprite where the neutral skull-to-sole height is {{STANDING_BODY_PX}} px and anatomical skull-to-chin length is {{HEAD_PX}} px at the common cast scale: draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+Body facing RIGHT in 3/4 view (body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show), camera slightly above. Every pose at the same anatomical scale as the approved neutral: a crouched or braced pose is the same person folded, never shrunk, never stretched to a standing height; feet on one shared baseline. SCALE LOCK: {{SCALE_LOCK}}. Preserve the approved neutral head, torso, limb lengths and build in every pose; serious tone. Not chibi, not super-deformed, no big head, no oversized hands or feet. "Near" arm/leg = the one closer to the viewer, drawn in front of the body; "far" = the one partly behind the body.
+Crisp hard pixel art: 1-pixel dark outline, 3-5 tone cel shading per color, light from the upper front right, no anti-aliasing, no blur, no gradients, no dithering, no motion blur (fast motion drawn as solid smear shapes). Use only these colors: {{PALETTE}}.
+Background: flat solid magenta #FF00FF everywhere. No ground shadow, no floor, no wall, no text, no labels, no numbers, no borders, no effects (no aura, no energy, no speed lines, no impact flash).
+{{NAME LINE}}
+The character: {{TRAITS}}. Match the attached reference images exactly.
+Animation "techGround": a ground tech in place: the fighter hits the floor from a fall, breaks the fall in a split second and is back in the fighting stance.
+Pose 1: impact brace: both feet planted wide on the baseline, the near palm slapped flat on the floor in front, knees deeply bent, torso low, head up looking right{{; NAME specifics}}.
+Pose 2: pushing up: the palm leaves the floor, legs drive upward, half crouch, guard hands rising{{; NAME specifics}}.
+Pose 3: nearly upright, knees slightly bent, guard up{{; NAME specifics}}.
+Pose 4: the fighting stance, exactly like the approved idle's first pose (same foot placement, same guard){{; NAME specifics}}.
+```
+
+#### techRoll
+
+Save as: `raw/_parts/techRoll_vNN_A.png` (poses 1-3) and `raw/_parts/techRoll_vNN_B.png` (poses 4-6), joined with
+`npm run stitch -- <id> techRoll <vNN> --counts 3,3` · 6 poses · beats 1/4/1 · optional (tech, ADR 0030)
+
+```text
+Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 3 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
+SIZE: each pose is cut into a 256x256 game sprite where the neutral skull-to-sole height is {{STANDING_BODY_PX}} px and anatomical skull-to-chin length is {{HEAD_PX}} px at the common cast scale: draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+Body facing RIGHT in 3/4 view (body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show), camera slightly above. Every pose at the same anatomical scale as the approved neutral: a tucked, rolling pose is the same person folded into a tight ball about half the standing height, never stretched to a standing height; every pose touches one shared floor line. SCALE LOCK: {{SCALE_LOCK}}. Preserve the approved neutral head, torso, limb lengths and build in every pose; serious tone. Not chibi, not super-deformed, no big head, no oversized hands or feet. "Near" arm/leg = the one closer to the viewer, drawn in front of the body; "far" = the one partly behind the body.
+Crisp hard pixel art: 1-pixel dark outline, 3-5 tone cel shading per color, light from the upper front right, no anti-aliasing, no blur, no gradients, no dithering, no motion blur (fast motion drawn as solid smear shapes). Use only these colors: {{PALETTE}}.
+Background: flat solid magenta #FF00FF everywhere. No ground shadow, no floor, no wall, no text, no labels, no numbers, no borders, no effects (no aura, no energy, no speed lines, no impact flash).
+{{NAME LINE}}
+The character: {{TRAITS}}. Match the attached reference images exactly.
+Animation "techRoll" (part A of 2): a ground tech roll: the fighter hits the floor and rolls forward along it toward screen-right, back to a crouch.
+Pose 1: hits the floor on the back of the near shoulder, chin tucked, knees pulled to the chest, the near hand slapping the floor{{; NAME specifics}}.
+Pose 2: a forward roll, a quarter turn on from pose 1: hips rolling over the shoulders, body tucked into a tight ball on the floor{{; NAME specifics}}.
+Pose 3: a quarter turn further: upside down on the upper back, legs tucked over, still a tight ball touching the floor{{; NAME specifics}}.
+```
+
+```text
+Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 3 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
+SIZE: each pose is cut into a 256x256 game sprite where the neutral skull-to-sole height is {{STANDING_BODY_PX}} px and anatomical skull-to-chin length is {{HEAD_PX}} px at the common cast scale: draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+Body facing RIGHT in 3/4 view (body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show), camera slightly above. Every pose at the same anatomical scale as the approved neutral: a tucked, rolling pose is the same person folded into a tight ball about half the standing height, never stretched to a standing height; every pose touches one shared floor line. The attached part A sets the size: match it exactly. SCALE LOCK: {{SCALE_LOCK}}. Preserve the approved neutral head, torso, limb lengths and build in every pose; serious tone. Not chibi, not super-deformed, no big head, no oversized hands or feet. "Near" arm/leg = the one closer to the viewer, drawn in front of the body; "far" = the one partly behind the body.
+Crisp hard pixel art: 1-pixel dark outline, 3-5 tone cel shading per color, light from the upper front right, no anti-aliasing, no blur, no gradients, no dithering, no motion blur (fast motion drawn as solid smear shapes). Use only these colors: {{PALETTE}}.
+Background: flat solid magenta #FF00FF everywhere. No ground shadow, no floor, no wall, no text, no labels, no numbers, no borders, no effects (no aura, no energy, no speed lines, no impact flash).
+{{NAME LINE}}
+The character: {{TRAITS}}. Match the attached reference images exactly.
+Animation "techRoll" (part B of 2): the end of the same forward roll toward screen-right.
+Pose 1: a quarter turn on from part A's last pose: rolling over onto the hips and feet, still tucked{{; NAME specifics}}.
+Pose 2: coming up onto both feet, still tucked, the roll's last quarter turn{{; NAME specifics}}.
+Pose 3: low crouch on both feet facing right, guard up, ready to stand{{; NAME specifics}}.
+```
+
+#### wallTech
+
+Save as: `raw/wallTech_vNN.png` · 5 poses · beats 2/1/2 · optional (tech, ADR 0030)
+
+```text
+Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 5 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
+SIZE: each pose is cut into a 256x256 game sprite where the neutral skull-to-sole height is {{STANDING_BODY_PX}} px and anatomical skull-to-chin length is {{HEAD_PX}} px at the common cast scale: draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
+Body facing RIGHT in 3/4 view (body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show), camera slightly above. Every pose at the same anatomical scale as the approved neutral: a braced or airborne pose is the same person, never stretched to a standing height. SCALE LOCK: {{SCALE_LOCK}}. Preserve the approved neutral head, torso, limb lengths and build in every pose; serious tone. Not chibi, not super-deformed, no big head, no oversized hands or feet. "Near" arm/leg = the one closer to the viewer, drawn in front of the body; "far" = the one partly behind the body.
+Crisp hard pixel art: 1-pixel dark outline, 3-5 tone cel shading per color, light from the upper front right, no anti-aliasing, no blur, no gradients, no dithering, no motion blur (fast motion drawn as solid smear shapes). Use only these colors: {{PALETTE}}.
+Background: flat solid magenta #FF00FF everywhere. No ground shadow, no floor, no wall, no text, no labels, no numbers, no borders, no effects (no aura, no energy, no speed lines, no impact flash).
+{{NAME LINE}}
+The character: {{TRAITS}}. Match the attached reference images exactly.
+Animation "wallTech": a wall tech: the fighter is knocked into an invisible wall at the LEFT of each pose, lands on it feet-first, clings for an instant and kicks off to the right. Do NOT draw the wall: it is implied. In poses 1-3 the soles are the LEFTMOST part of the figure (nothing further left: hair, scarf and headband tails trail upward or to the right).
+Pose 1: lands feet-first on the wall: both soles flat against an imaginary vertical wall at the pose's left, knees pulled to the chest, torso tilted out from the wall, the near hand also touching the wall, head turned right toward the opponent{{; NAME specifics}}.
+Pose 2: the same cling, coiled tighter, eyes on the opponent, about to spring{{; NAME specifics}}.
+Pose 3: push-off: legs fully extended, only the toes still touching the wall, body launched diagonally up and to the right, arms swept back{{; NAME specifics}}.
+Pose 4: uncurling in mid-air, knees tucking under, arms opening for balance{{; NAME specifics}}.
+Pose 5: falling pose like the approved jumpFall's first pose: legs extending down, arms out for balance{{; NAME specifics}}.
 ```
 
 #### throw

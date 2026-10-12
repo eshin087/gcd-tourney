@@ -44,6 +44,9 @@ const BODY_HEIGHT = {
   light1: 204, light2: 204, light3: 215, light4: 207, heavy: 218, airLight1: 198, airLight2: 207, airLight3: 201, airHeavy: 198, throw: 201,
   guard: 198, block: 204, hurtHigh: 195, hurtLow: 183, launched: 136, spin: 160, down: 96, ko: 64, getup: 204, stagger: 207, charge: 198,
   beamCharge: 198, beamFire: 198, vanish: 221, special: 204, intro: 210, taunt: 212, win: 212,
+  // tech poses (ADR 0030): the tallest frame is the settle stance (= idle), the recovery crouch (= jumpSquat) and the
+  // fall handoff (= jumpFall); a fighter drawn at another stature overrides them per animation in the manifest
+  techGround: 204, techRoll: 162, wallTech: 209,
 };
 const DEFAULT_BODY_HEIGHT = 204;
 
@@ -64,10 +67,13 @@ const DEFAULT_MS = {
   airHeavy: [50, 45, 45, 70, 70, 40], throw: [50, 60, 70, 50], guard: 300, block: [60, 80], hurtHigh: [70, 90, 100], hurtLow: [70, 90, 100],
   launched: 70, spin: 60, down: [80, 420], ko: [500], getup: [70, 60, 60, 80, 70], stagger: 150, charge: 50, beamCharge: 50, beamFire: 50,
   vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
+  // tech poses: their beats at 60 fps (DEFENSE animPhases); the engine drives them by the tech state's clock anyway
+  techGround: [67, 83, 83, 67], techRoll: [50, 63, 62, 63, 62, 67], wallTech: [50, 50, 67, 67, 66],
 };
 
-// Attacks whose damage comes from something else (projectile): no melee hitbox.
-const NO_HITBOX = new Set(['throw']);
+// Attacks whose damage comes from something else (projectile), and phased strips that never strike (the tech
+// poses, ADR 0030: their middle beat is a roll or a push-off, not an active frame): no melee hitbox.
+const NO_HITBOX = new Set(['throw', 'techGround', 'techRoll', 'wallTech']);
 
 // Lying frames (ADR 0020). `footprint`: frames whose x span goes into anims.json, so the engine lays the contact shadow
 // along the whole body. `check`: the resting frames of the ground check. Every frame's lowest pixel already sits on the
@@ -77,6 +83,38 @@ const LYING = { ko: { footprint: 'all', check: 'all' }, down: { footprint: 'all'
 // Ground check thresholds in spec v2 px at a 200 px standing body (scaled with the character's standingBodyPx). Tuned on
 // the shipped art: every top-down ko / down[1] fails (9-34% contact, a fifth 13-36 px up), every getup[0] passes.
 const GROUND = { contactPx: 6, minContact: 0.4, maxGap: 12, segments: 5, tallFactor: 1.15 };
+
+// Tech poses (ADR 0030, art/SPEC.md "Tech poses"). wall: the beats (phase indices) whose frames are WALL-ANCHORED:
+// their leftmost opaque pixel goes on the wall line (WALL_LINE, near the cell's left edge) instead of the feet being
+// centred, so a full diagonal push-off has the whole cell width to reach right. The engine puts that line on the
+// barrier (anims.json wallLine) and, on a wall seen in depth, re-centres the body (anims.json wallAnchor: each such
+// frame's body centre, px right of the pivot). contact: the cling beats whose wall line must carry the soles.
+// envelope: beats whose frames are tucked, crouched or braced, with their allowed trimmed height as a share of the
+// idle's: the idle's anatomical scale, never stretched to a standing height (the scale probe can't read the roll's or
+// the cling's heads either: scale-probe lowConfPhases, a manual scale QA record per version).
+const TECH_POSES = {
+  techGround: { envelope: { phases: [0], min: 0.45, max: 0.85 } },
+  techRoll: { envelope: { phases: [0, 1], min: 0.3, max: 0.68 } },
+  wallTech: { wall: [0, 1], contact: [0], envelope: { phases: [0], min: 0.35, max: 0.9 } },
+};
+// the wall line: a cell column just inside the cell margin. Its first `cols` columns must hold `minPx` opaque px on a
+// cling frame (px at a 200 px standing body, scaled with standingBodyPx)
+const WALL_LINE = 8;
+const wallLineOf = (spec) => Math.max(WALL_LINE, spec.cellMargin);
+const WALL_CONTACT = { cols: 4, minPx: 12 };
+
+// Frame indices of an animation's beats (phase indices) for a strip of n frames (its phases rescaled to n, as packed).
+function beatFrames(phases, n, beats) {
+  const ph = phases && beats?.length ? rescalePhases(phases, n) : null;
+  const out = new Set();
+  if (!ph) return out;
+  let start = 0;
+  ph.forEach((c, i) => {
+    if (beats.includes(i)) for (let k = start; k < start + c; k++) out.add(k);
+    start += c;
+  });
+  return out;
+}
 
 // Used only if src/art/animGuide.js cannot be imported or parsed.
 const FALLBACK_GUIDE = {
@@ -90,6 +128,7 @@ const FALLBACK_GUIDE = {
   throw: { frames: 4, phases: [1, 1, 2] }, beamCharge: { frames: 3, loop: true }, beamFire: { frames: 3, loop: true }, vanish: { frames: 2 },
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
+  techGround: { frames: 4, phases: [1, 2, 1] }, techRoll: { frames: 6, phases: [1, 4, 1] }, wallTech: { frames: 5, phases: [2, 1, 2] },
 };
 
 // VFX atlas spec. fill = size of the largest frame of the strip as a fraction of the cell
@@ -1386,11 +1425,13 @@ function anatomicalScalesFor(side, count, warn, label) {
 
 // Feet center on the pivot x, lowest row on the pivot y (the floor line) before any per-frame correction.
 // clip = pixels lost outside the cell; margin = pixels inside its safe margin (including below the floor).
-function placeCharFrame(sprite, spec, offset = [0, 0]) {
+function placeCharFrame(sprite, spec, offset = [0, 0], anchor = null) {
   const W = spec.frameWidth, H = spec.frameHeight, m = spec.cellMargin;
   const cell = newImage(W, H);
-  const dx = Math.round(spec.pivot[0] - footAnchor(sprite)) + offset[0];
-  const dy = spec.pivot[1] - (sprite.h - 1) + offset[1];
+  const off = offset || [0, 0];
+  // a wall-anchored frame (TECH_POSES, ADR 0030): its wall side, the leftmost opaque pixel, on the wall line
+  const dx = (anchor === 'wall' ? wallLineOf(spec) - (bbox(sprite)?.x0 ?? 0) : Math.round(spec.pivot[0] - footAnchor(sprite))) + off[0];
+  const dy = spec.pivot[1] - (sprite.h - 1) + off[1];
   const lost = blit(cell, sprite, dx, dy);
   const clip = [];
   if (dx < 0) clip.push(`left ${-dx}px`);
@@ -1483,6 +1524,50 @@ function groundCheck(anims, meta, spec, standingBodyPx, warn, R) {
     if (bad.length) warn(`${a.def.name}: ${bad.length} lying frame(s) float above the floor line (${bad.join('; ')}) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y ${floorY} (art/SPEC.md "Lying poses", ADR 0020)${known}`);
   }
   return footprint;
+}
+
+// Tech poses (TECH_POSES, ADR 0030), warn only: a cling frame whose wall line holds too few opaque px (a fingertip, not
+// the soles), and a tucked / crouched / braced frame outside its height band against the idle's median height (the
+// giveaway of a pose packed at a standing height). Returns the wall anchors { "<sheet frame>": px of the body centre
+// right of the pivot } for the engine. R.tech gets the measurements.
+function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
+  const k = standingBodyPx / SPEC_DEFAULTS.standingBodyPx;
+  const minPx = Math.max(1, Math.round(WALL_CONTACT.minPx * k));
+  const idle = anims.find((a) => a.def.name === 'idle');
+  const hs = idle ? idle.cells.map((c) => bbox(c)?.h).filter(Number.isFinite).sort((p, q) => p - q) : [];
+  const idleH = hs.length ? hs[Math.floor(hs.length / 2)] : NaN;
+  const px0 = wallLineOf(spec);
+  const out = {};
+  for (const a of anims) {
+    const rule = TECH_POSES[a.def.name];
+    if (!rule) continue;
+    const n = a.cells.length, phases = a.def.phases;
+    const frames = meta.animations[a.def.name]?.frames || [];
+    const wall = beatFrames(phases, n, rule.wall), contact = beatFrames(phases, n, rule.contact), band = beatFrames(phases, n, rule.envelope?.phases);
+    const thin = [], off = [], rec = [];
+    a.cells.forEach((cell, i) => {
+      const b = bbox(cell);
+      if (!b) return;
+      const m = { frame: i };
+      if (wall.has(i)) {
+        if (frames[i] != null) out[String(frames[i])] = Math.round((b.x0 + b.x1) / 2 - spec.pivot[0]);
+        let touch = 0;
+        for (let y = b.y0; y <= b.y1; y++) for (let x = px0; x < px0 + WALL_CONTACT.cols; x++) if (cell.data[(y * cell.w + x) * 4 + 3] >= 128) touch++;
+        m.wallPx = touch;
+        if (contact.has(i) && touch < minPx) thin.push(`#${i}: ${touch}px on x ${px0}-${px0 + WALL_CONTACT.cols - 1}`);
+      }
+      if (band.has(i) && Number.isFinite(idleH)) {
+        const r = b.h / idleH;
+        m.height = +r.toFixed(2);
+        if (r < rule.envelope.min || r > rule.envelope.max) off.push(`#${i} ${r.toFixed(2)}`);
+      }
+      rec.push(m);
+    });
+    R.tech[a.def.name] = rec;
+    if (thin.length) warn(`${a.def.name}: ${thin.length} cling frame(s) barely touch the wall line (${thin.join('; ')}) - the soles (and the back or a hand) rest flat on the wall at the cell's left; the packer puts the leftmost pixel on x ${px0} (art/SPEC.md "Tech poses", ADR 0030)`);
+    if (off.length) warn(`${a.def.name}: ${off.length} tucked / braced frame(s) out of their size band (${off.join(', ')} of the idle's height, band ${rule.envelope.min}-${rule.envelope.max}) - draw them at the idle's anatomical scale, never stretched to a standing height; check the strip's bodyHeight or its auto head fit (art/SPEC.md "Tech poses")`);
+  }
+  return out;
 }
 
 // The striking part: the 8-connected blob containing (sx, sy) inside a region, plus any other blob
@@ -1725,7 +1810,7 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
 // and no strip's colours move another strip's numbers.
 function auditAnims(id, anims, env) {
   const decl = env.builds?.[id] || {};
-  return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version })), {
+  return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version, phases: a.def.phases })), {
     decl, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
     reference: loadScaleReference(env.artDir, decl),
   });
@@ -1769,6 +1854,7 @@ function fitHeads(id, anims, env, R) {
     const s = A.anims?.[a.def.name];
     if (!s || s.verdict !== 'uniform') {
       a.notes.push(`auto-head: ${s ? `verdict ${s.verdict}${s.head != null ? ` (head ${s.head.toFixed(2)})` : ''}` : A.error} - not fitted (only a uniform size error is)`);
+      R.warnings.push(...a.fit.placeWarn); // not fitted: the pre-fit cells are the ones that ship
       continue;
     }
     let f = 1 / s.head;
@@ -1779,7 +1865,7 @@ function fitHeads(id, anims, env, R) {
     f = Math.round(f * 1e4) / 1e4;
     const clipped = [], tight = [];
     a.cells = a.fit.sprites.map((sp, k) => {
-      const { cell, lost, clip, margin } = placeCharFrame(resample(sp, a.fit.scales[k] * f, { coverage: 0.5, alphaMin: 128 }), spec, a.fit.frameOffsets?.[k]);
+      const { cell, lost, clip, margin } = placeCharFrame(resample(sp, a.fit.scales[k] * f, { coverage: 0.5, alphaMin: 128 }), spec, a.fit.frameOffsets?.[k], a.fit.wallFrames?.has(k) ? 'wall' : null);
       if (lost) clipped.push(`#${k} ${clip.join('/')}`);
       else if (margin.length) tight.push(`#${k} ${margin.join('/')}`);
       return cell;
@@ -1829,7 +1915,7 @@ function scaleGate(id, anims, env, R) {
     const vv = a.version != null ? `v${String(a.version).padStart(2, '0')}` : 'unversioned';
     // a candidate the probe cannot read is not a pass: it needs a person's check of that version (scaleManualQA,
     // verdict 'manual') before it ships (TOOL-ROTATED-ANATOMY); approved strips stay findings as before
-    const failing = FLAGGED.has(s.verdict) || s.verdict === 'unmeasured';
+    const failing = FLAGGED.has(s.verdict) || s.verdict === 'unmeasured' || s.verdict === 'partial';
     if (failing && strict) {
       out.failed.push(name);
       R.warnings.push(`scale gate: ${verdictText(name, s)} [${vv}, ${mode === 'auto' ? 'not approved yet' : 'strict'}]`);
@@ -1855,7 +1941,7 @@ const scaleAboutPivot = (v, t, isBox) => {
 };
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {} };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -1949,6 +2035,7 @@ function packCharacter(id, env) {
       if (autoHead != null && autoHead !== 1) { scale = 1; notes.push(`auto-head fit x${autoHead} (from the import)`); }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
       const frameOffsets = frameOffsetsFor(side, sprites.length, spec, warn, alabel);
+      const wallFrames = beatFrames(def.phases, sprites.length, TECH_POSES[def.name]?.wall);
       const cells = [];
       const frameScales = [];
       const clipped = [], tight = [];
@@ -1956,17 +2043,22 @@ function packCharacter(id, env) {
         const poseScale = anatomyScales && src.kind !== 'frames' ? anatomyScales[k] : scale;
         frameScales.push(+poseScale.toFixed(5));
         const small = resample(s, poseScale, { coverage: 0.5, alphaMin: 128 });
-        const { cell, lost, clip, margin } = placeCharFrame(small, spec, frameOffsets?.[k]);
+        const { cell, lost, clip, margin } = placeCharFrame(small, spec, frameOffsets?.[k], wallFrames.has(k) ? 'wall' : null);
         if (lost) clipped.push(`#${k} ${clip.join('/')}`);
         else if (margin.length) tight.push(`#${k} ${margin.join('/')}`);
         cells.push(cell);
       });
       const fitAdvice = anatomyScales ? 'repose or reposition while preserving anatomical scale' : 'lower bodyHeight or redraw';
-      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; ${fitAdvice}`);
-      if (tight.length) warn(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; ${fitAdvice}`);
+      // a strip that asks for the auto head fit is placed again at its fitted size (fitHeads), so its clip and margin
+      // warnings wait for that: the pre-fit cells are discarded and their warnings described pixels that never ship
+      // (Sasuke special v13: "clipped 15px" for a fitted frame that sits inside the cell)
+      const placeWarn = [];
+      if (clipped.length) placeWarn.push(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; ${fitAdvice}`);
+      if (tight.length) placeWarn.push(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; ${fitAdvice}`);
+      if (!(fitHead && src.kind === 'raw')) placeWarn.forEach(warn);
       if (cells.length !== def.frames) warn(`${alabel}: ${cells.length} frame(s), manifest expects ${def.frames}${def.phases ? ` (phases rescaled to ${rescalePhases(def.phases, cells.length).join('/')})` : ''}`);
       // fit: what the auto head fit needs to rescale a raw strip after the scale audit (raw sources only)
-      const fit = fitHead && src.kind === 'raw' ? { sprites, scales: frameScales.slice(), frameOffsets } : null;
+      const fit = fitHead && src.kind === 'raw' ? { sprites, scales: frameScales.slice(), frameOffsets, wallFrames, placeWarn } : null;
       if (fitHead && src.kind !== 'raw' && autoHead == null) notes.push('auto-head fit needs the raw source (frames/ were hand-edited or the raw is gone) - not fitted');
       anims.push({ def, cells, scale, frameScales, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade, fitHead, autoHead, fit });
     } catch (e) {
@@ -2072,6 +2164,9 @@ function packCharacter(id, env) {
   // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
   const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(footprint).length) meta.footprint = footprint;
+  // tech poses (ADR 0030): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
+  const wallAnchor = techPoseCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
+  if (Object.keys(wallAnchor).length) { meta.wallAnchor = wallAnchor; meta.wallLine = wallLineOf(spec); }
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;
