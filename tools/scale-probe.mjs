@@ -459,25 +459,38 @@ export function measurementCells(anims, idle, maxColors = 48, decl = {}) {
 // is measured and carries `staleExempt` instead. The colours are first reduced to the idle's own palette
 // (measurementCells), so a strip is measured from its own pixels and the idle's, never from anyone else's. Returns
 // { error } when there is no idle or no head can be found in it.
-export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt = {}, maxColors = 48 } = {}) {
-  const idle0 = anims.find((a) => a.name === 'idle');
-  if (!idle0?.cells.length) return { error: 'no idle packed - nothing to measure against' };
-  anims = measurementCells(anims, idle0, maxColors, decl);
-  const idle = anims.find((a) => a.name === 'idle');
-  const pal = palettesFromIdle(idle.cells, decl);
-  const ref = makeReference(idle.cells, pal);
-  if (!ref) return { error: `no head found in the idle (${pal.head.size} head colour(s), ${pal.headSource}) - declare headColors in art/scale/builds.json`, palette: pal };
-  const out = { palette: pal, ref, anims: {} };
-  for (const a of anims) out.anims[a.name] = judgeAnim(a.name, a.cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal) })), a.version ?? null, gate, exempt);
+//
+// reference: { cells, label } = approved reference cells (builds.json scaleReference, loadScaleReference in
+// pack-sprites.mjs): every strip, the idle included, is measured against them and the idle gets a real verdict. Used
+// where the idle's own exact shades bias the probe: Killua's title-style idle palette fits its own hair perfectly and
+// maps the other strips' separately generated shading partly off the hair, so every strip read ~0.89 of a fair value
+// and even the user-approved combat cell read 0.912 against it.
+export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt = {}, maxColors = 48, reference = null } = {}) {
+  if (reference?.error) return { error: reference.error };
+  const external = !!reference?.cells?.length;
+  const ref0 = external ? { name: REFERENCE, cells: reference.cells } : anims.find((a) => a.name === 'idle');
+  if (!ref0?.cells.length) return { error: 'no idle packed - nothing to measure against' };
+  const mapped = measurementCells(external ? [ref0, ...anims] : anims, ref0, maxColors, decl);
+  const refCells = mapped.find((a) => a.name === ref0.name).cells;
+  anims = external ? mapped.filter((a) => a.name !== REFERENCE) : mapped;
+  const pal = palettesFromIdle(refCells, decl);
+  const ref = makeReference(refCells, pal);
+  const what = external ? `the reference ${reference.label}` : 'the idle';
+  if (!ref) return { error: `no head found in ${what} (${pal.head.size} head colour(s), ${pal.headSource}) - declare headColors in art/scale/builds.json`, palette: pal };
+  const out = { palette: pal, ref, anims: {}, reference: external ? reference.label : null };
+  for (const a of anims) out.anims[a.name] = judgeAnim(a.name, a.cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal) })), a.version ?? null, gate, exempt, external);
   return out;
 }
+const REFERENCE = '__reference__';
 
 // one strip's verdict with its exemption (only for the version it was written for) and its version
-function judgeAnim(name, measured, version, gate, exempt) {
-  const x = name === 'idle' ? null : exempt[name], own = x && x.v === version;
+function judgeAnim(name, measured, version, gate, exempt, external = false) {
+  // the idle is the reference ('ref') unless an approved reference cell set is: then it is measured like any strip
+  if (external && name === 'idle') name = 'idle ';
+  const x = name === 'idle' ? null : exempt[name.trim()], own = x && x.v === version;
   const manual = x?.manual && x.manual.v === version ? x.manual : null;
   const s = name === 'idle' ? { ...judgeStrip('idle', measured, { ...gate, lowConf: [] }), verdict: 'ref', reason: null }
-    : judgeStrip(name, measured, gate, { ...(own ? x : {}), manual });
+    : judgeStrip(name.trim(), measured, gate, { ...(own ? x : {}), manual });
   if (x && (x.reason || x.frames.length) && !own) s.staleExempt = { v: x.v, version };
   if (x?.manual && !manual) s.staleManual = { v: x.manual.v, version };
   s.version = version;
@@ -498,7 +511,7 @@ export function compactAudit(A, gate = GATE_DEFAULTS) {
   const { hA, hW, hH, feet } = A.ref;
   return {
     tool: 'tools/scale-probe.mjs', method: AUDIT_METHOD, tol: gate.stripTol, pop: gate.popTol,
-    ref: { box: A.ref.box, headPx: A.ref.headPx, hA, hW, hH, feet, palette: A.palette.headSource, head: [...A.palette.head].map(hex), feetColors: [...A.palette.feet].map(hex) },
+    ref: { box: A.ref.box, headPx: A.ref.headPx, hA, hW, hH, feet, palette: A.palette.headSource, head: [...A.palette.head].map(hex), feetColors: [...A.palette.feet].map(hex), ...(A.reference ? { reference: A.reference } : {}) },
     anims,
   };
 }
@@ -510,10 +523,10 @@ export function auditFromCompact(sa, { gate = GATE_DEFAULTS, exempt = {} } = {})
   const set = (l) => new Set((l || []).map(parseHex).filter((k) => k != null));
   const palette = { head: set(sa.ref.head), feet: set(sa.ref.feetColors), headSource: sa.ref.palette, feetSource: sa.ref.palette };
   const ref = { hA: sa.ref.hA, hW: sa.ref.hW, hH: sa.ref.hH, feet: sa.ref.feet, box: sa.ref.box, headPx: sa.ref.headPx };
-  const out = { palette, ref, anims: {}, recorded: true };
+  const out = { palette, ref, anims: {}, recorded: true, reference: sa.ref.reference ?? null };
   for (const [name, a] of Object.entries(sa.anims)) {
     const measured = (a.frames || []).map((head, k) => ({ k, head, feet: a.feetFrames?.[k] ?? null, box: a.boxes?.[k] ?? null }));
-    out.anims[name] = judgeAnim(name, measured, a.v ?? null, gate, exempt);
+    out.anims[name] = judgeAnim(name, measured, a.v ?? null, gate, exempt, !!sa.ref.reference);
   }
   return out;
 }
