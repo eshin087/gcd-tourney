@@ -306,7 +306,7 @@
           "step": 3,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 2
+          "approvedVersion": 6
         },
         "run": {
           "frames": 8,
@@ -325,8 +325,8 @@
           "required": true,
           "step": 4,
           "status": "approved",
-          "version": 9,
-          "approvedVersion": 3
+          "version": 8,
+          "approvedVersion": 8
         },
         "dash": {
           "frames": 2,
@@ -340,7 +340,7 @@
           "step": 8,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 1
+          "approvedVersion": 6
         },
         "backDash": {
           "frames": 3,
@@ -355,7 +355,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "superDash": {
           "frames": 2,
@@ -369,7 +369,7 @@
           "step": 9,
           "status": "approved",
           "version": 7,
-          "approvedVersion": 1
+          "approvedVersion": 7
         },
         "jumpSquat": {
           "frames": 1,
@@ -382,7 +382,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1,
+          "approvedVersion": 4,
           "scaleManualQA": { "version": 4, "result": "pass", "by": "Codex", "note": "Low-confidence crouch checked at native packed cell size beside approved neutral and idle f0/f4: hair/head same scale; collar-to-hem torso and both legs compress only through knee and hip flexion; no enlarged shoulders or missing limb. Single pose has no loop. This is manual anatomy evidence, not a numeric probe pass or user art approval.", "evidence": "art/characters/gojo/production/title-style/jumpSquat-compare.png" }
         },
         "jumpUp": {
@@ -397,7 +397,7 @@
           "step": 8,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "jumpFall": {
           "frames": 2,
@@ -411,7 +411,7 @@
           "step": 8,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "land": {
           "frames": 2,
@@ -425,7 +425,7 @@
           "step": 8,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 1
+          "approvedVersion": 6
         },
         "light1": {
           "frames": 7,
@@ -449,7 +449,7 @@
           "step": 5,
           "status": "approved",
           "version": 5,
-          "approvedVersion": 1
+          "approvedVersion": 5
         },
         "light2": {
           "frames": 7,
@@ -473,7 +473,7 @@
           "step": 5,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 1
+          "approvedVersion": 6
         },
         "light3": {
           "frames": 7,
@@ -497,7 +497,7 @@
           "step": 5,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "light4": {
           "frames": 8,
@@ -522,7 +522,7 @@
           "step": 5,
           "status": "approved",
           "version": 8,
-          "approvedVersion": 2
+          "approvedVersion": 6
         },
         "heavy": {
           "frames": 8,
@@ -546,8 +546,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 6,
-          "approvedVersion": 1,
+          "version": 5,
+          "approvedVersion": 5,
           "scaleExemptFrames": {
             "4": "raised right forearm and fist cross in front of the face and cover the lower-left hair (probe head blob 32x17 vs idle 35x22); f3's fist only grazes the hair and reads 0.955, so it stays measured"
           },
@@ -573,7 +573,7 @@
           "step": 5,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 1
+          "approvedVersion": 6
         },
         "airLight2": {
           "frames": 5,
@@ -595,7 +595,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "airLight3": {
           "frames": 6,
@@ -618,7 +618,7 @@
           "step": 9,
           "status": "approved",
           "version": 10,
-          "approvedVersion": 1
+          "approvedVersion": 10
         },
         "airHeavy": {
           "frames": 6,
@@ -641,7 +641,7 @@
           "step": 5,
           "status": "approved",
           "version": 7,
-          "approvedVersion": 2
+          "approvedVersion": 7
         },
         "guard": {
           "frames": 2,
@@ -655,7 +655,7 @@
           "step": 6,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "block": {
           "frames": 2,
@@ -669,7 +669,7 @@
           "step": 9,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1
+          "approvedVersion": 3
         },
         "hurtHigh": {
           "frames": 3,
@@ -684,7 +684,7 @@
           "step": 6,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1
+          "approvedVersion": 3
         },
         "hurtLow": {
           "frames": 3,
@@ -699,7 +699,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "launched": {
           "frames": 2,
@@ -713,7 +713,7 @@
           "step": 6,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 1,
+          "approvedVersion": 6,
           "scaleManualQA": {
             "version": 6,
             "result": "pass",
@@ -736,7 +736,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1,
+          "approvedVersion": 4,
           "scaleManualQA": {
             "version": 4,
             "result": "pass",
@@ -758,7 +758,7 @@
           "step": 9,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1,
+          "approvedVersion": 3,
           "scaleManualQA": {
             "version": 3,
             "result": "pass",
@@ -779,7 +779,7 @@
           "step": 6,
           "status": "approved",
           "version": 5,
-          "approvedVersion": 1,
+          "approvedVersion": 5,
           "scaleManualQA": {
             "version": 5,
             "result": "pass",
@@ -803,7 +803,7 @@
           "step": 6,
           "status": "approved",
           "version": 5,
-          "approvedVersion": 1,
+          "approvedVersion": 5,
           "scaleManualQA": {
             "version": 5,
             "result": "pass",
@@ -826,7 +826,7 @@
           "step": 7,
           "status": "approved",
           "version": 7,
-          "approvedVersion": 1
+          "approvedVersion": 7
         },
         "throw": {
           "frames": 4,
@@ -847,7 +847,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "beamCharge": {
           "frames": 3,
@@ -862,7 +862,7 @@
           "step": 7,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1
+          "approvedVersion": 3
         },
         "beamFire": {
           "frames": 3,
@@ -877,7 +877,7 @@
           "step": 7,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 2
+          "approvedVersion": 4
         },
         "vanish": {
           "frames": 2,
@@ -891,7 +891,7 @@
           "step": 9,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1,
+          "approvedVersion": 3,
           "scaleManualQA": {
             "version": 3,
             "result": "pass",
@@ -914,7 +914,7 @@
           "step": 9,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1
+          "approvedVersion": 3
         },
         "ko": {
           "frames": 1,
@@ -927,7 +927,7 @@
           "step": 9,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 2,
+          "approvedVersion": 6,
           "scaleManualQA": {
             "version": 6,
             "result": "pass",
@@ -959,7 +959,7 @@
           "step": 7,
           "status": "approved",
           "version": 5,
-          "approvedVersion": 1
+          "approvedVersion": 5
         },
         "intro": {
           "frames": 4,
@@ -975,7 +975,7 @@
           "step": 9,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1
+          "approvedVersion": 3
         },
         "taunt": {
           "frames": 2,
@@ -989,7 +989,7 @@
           "step": 9,
           "status": "approved",
           "version": 4,
-          "approvedVersion": 1
+          "approvedVersion": 4
         },
         "win": {
           "frames": 4,
@@ -1005,7 +1005,7 @@
           "step": 8,
           "status": "approved",
           "version": 7,
-          "approvedVersion": 1
+          "approvedVersion": 7
         },
         "specialForward": {
           "frames": 7,
@@ -1029,7 +1029,7 @@
           "step": 9,
           "status": "approved",
           "version": 6,
-          "approvedVersion": 1
+          "approvedVersion": 6
         },
         "specialUp": {
           "frames": 6,
@@ -1052,7 +1052,7 @@
           "step": 9,
           "status": "approved",
           "version": 3,
-          "approvedVersion": 1
+          "approvedVersion": 3
         },
         "specialDown": {
           "frames": 4,
@@ -1073,7 +1073,7 @@
           "step": 9,
           "status": "approved",
           "version": 5,
-          "approvedVersion": 1
+          "approvedVersion": 5
         },
         "superPose": {
           "frames": 4,
@@ -1089,7 +1089,7 @@
           "step": 9,
           "status": "approved",
           "version": 5,
-          "approvedVersion": 1
+          "approvedVersion": 5
         }
       },
       "ui": {

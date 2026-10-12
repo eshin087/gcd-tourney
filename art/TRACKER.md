@@ -245,6 +245,8 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 ## gojo
 
+**Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips); `approved` = the exact version that played. light4 v08 is Claude's re-stitch of the approved v06 parts (review pending). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see the holds per row and docs/NOW.md.
+
 Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
 Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
 white hair swept up. User approved the broader model v06 on 2026-10-10. Existing animation art still follows the older model until a separately scoped redraw.
@@ -260,51 +262,51 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 3 | idle | 8 | - | **yes** | 222 | approved | v03 | v02 | ART-SCALE-01 corrected-scale candidate; previous approval retained; final motion review pending. |
-| 4 | run | 8 | - | **yes** | 222 | approved | v04 | v03 | enlarged-head candidate rejected; original approved art active |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | guard | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | launched | 2 | - | **yes** | 148 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 6 | down | 2 | - | **yes** | 104 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 6 | getup | 5 | - | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | charge | 4 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 7 | beamCharge | 3 | - | **yes** | 215 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | beamFire | 3 | - | **yes** | 215 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 8 | dash | 2 | - | **yes** | 174 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | land | 2 | - | **yes** | 189 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 8 | win | 4 | - | **yes** | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | backDash | 3 | - | no | 225 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 9 | superDash | 2 | - | no | 140 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 9 | jumpSquat | 1 | - | no | 176 | approved | v02 | v01 | enlarged-head candidate rejected; original approved art active |
-| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | block | 2 | - | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | hurtLow | 3 | - | no | 199 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | spin | 4 | - | no | 174 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | airRecover | 3 | - | no | 196 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | vanish | 2 | - | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | stagger | 4 | - | no | 225 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | ko | 1 | - | no | 70 | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. Regenerate side-on with ART-GOJ-BUILD (route B, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | taunt | 2 | - | no | 228 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | specialForward | 7 | 2/2/3 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | specialUp | 6 | 2/2/2 | no | 232 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | specialDown | 4 | 2/1/1 | no | 222 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 9 | superPose | 4 | - | no | 230 | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
+| 3 | idle | 8 | - | **yes** | 236 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 4 | run | 8 | - | **yes** | 222 | approved | v08 | v08 | HOLD (visual): f4-f7 repeat the f0-f3 lead leg (same as the live v03). Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v08 | v06 | Review pending: v08 re-stitch of the approved v06 parts. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v07 | v07 | HOLD (strict gate): v07 head ~15% small (f2 crescent misread aside). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | guard | 2 | - | **yes** | 218 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | launched | 2 | - | **yes** | 170 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | down | 2 | - | **yes** | 104 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | getup | 5 | - | **yes** | 234 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 215 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamCharge | 3 | - | **yes** | 215 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamFire | 3 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | special | 8 | 3/3/2 | **yes** | 222 | approved | v05 | v05 | HOLD (visual): part A head ~10% big: an 8% body step between f2 and f3, and fingertip fragments in f4-f6 (part B poses touch). Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | dash | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpUp | 2 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | land | 2 | - | **yes** | 189 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | win | 4 | - | **yes** | 230 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | backDash | 3 | - | no | 225 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 140 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | jumpSquat | 1 | - | no | 176 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v10 | v10 | HOLD (strict gate): v10 head ~12% small for the body. Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | block | 2 | - | no | 222 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 199 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | spin | 4 | - | no | 174 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airRecover | 3 | - | no | 196 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | vanish | 2 | - | no | 232 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | stagger | 4 | - | no | 225 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | ko | 1 | - | no | 81 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | intro | 4 | - | no | 228 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | taunt | 2 | - | no | 228 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialForward | 7 | 2/2/3 | no | 222 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialUp | 6 | 2/2/2 | no | 232 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialDown | 4 | 2/1/1 | no | 222 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superPose | 4 | - | no | 230 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | v02 never shown (the preview showed v01); v01 ships. Approved v01. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
 
 ## VFX atlas (step 10)
 
