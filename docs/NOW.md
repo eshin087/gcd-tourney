@@ -8,7 +8,7 @@ main; their art (ART-TECH-01) waits for this round._
 
 ## Your next actions
 
-1. **Look at the whole title-style cast in the game** (Vercel preview, needs your Vercel login): https://gcd-tourney-rak32hl4a-eshin087s-projects.vercel.app
+1. **Look at the whole title-style cast in the game** (Vercel preview, needs your Vercel login): https://gcd-tourney-dzp7vx12k-eshin087s-projects.vercel.app
    (add `?fight=killua,sasuke` etc.; `/lab.html` for moves and animations). Check the strips Claude assembled or
    re-stitched from your approved parts after your review (no new images): Naruto light1 v04, light2 v06,
    airLight3 v07, airHeavy v09, special v08, specialForward v04, specialUp v04, heavy v12; Gojo light4 v08.
