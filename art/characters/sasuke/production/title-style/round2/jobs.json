@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-11",
+  "authority": "CODEX_INBOX Title-style corrections round 2: two additional calls per image/part",
+  "jobs": [
+    {
+      "asset": "heavy",
+      "version": 11,
+      "counts": [
+        5,
+        3
+      ],
+      "priorCalls": {
+        "A": 3,
+        "B": 2
+      }
+    },
+    {
+      "asset": "backDash",
+      "version": 7,
+      "frames": 3,
+      "priorCalls": 2,
+      "bodyHeight": 180
+    },
+    {
+      "asset": "charge",
+      "version": 12,
+      "frames": 4,
+      "priorCalls": 2,
+      "bodyHeight": 180
+    },
+    {
+      "asset": "throw",
+      "version": 7,
+      "frames": 4,
+      "priorCalls": 3
+    },
+    {
+      "asset": "block",
+      "version": 7,
+      "frames": 2,
+      "priorCalls": 3,
+      "bodyHeight": 180
+    },
+    {
+      "asset": "launched",
+      "version": 7,
+      "frames": 2,
+      "priorCalls": 3
+    },
+    {
+      "asset": "down",
+      "version": 8,
+      "frames": 2,
+      "priorCalls": 3
+    },
+    {
+      "asset": "ko",
+      "version": 7,
+      "frames": 1,
+      "priorCalls": 3
+    },
+    {
+      "asset": "specialUp",
+      "version": 9,
+      "counts": [
+        4,
+        2
+      ],
+      "priorCalls": {
+        "A": 3,
+        "B": 3
+      }
+    },
+    {
+      "asset": "stagger",
+      "version": 8,
+      "frames": 4,
+      "priorCalls": 3
+    }
+  ],
+  "calls": []
+}

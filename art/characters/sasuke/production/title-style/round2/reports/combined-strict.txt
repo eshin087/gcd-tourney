@@ -1,0 +1,28 @@
+exit 0
+node tools/pack-sprites.mjs sasuke --quantize 48 --strict-scale --root C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\combined-fixtures\strict --out C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\strict --no-writeback
+GCD Tourney sprite packer v2
+  art:  art/characters/sasuke/production/title-style/round2/combined-fixtures/strict
+  out:  public/reviews/sasuke-round2/strict
+  anims: animGuide.js + art/characters/sasuke/production/title-style/round2/combined-fixtures/strict/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== sasuke ======================================================
+  packed 8 anims, 39 frames -> sheet 4096x768, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.337
+    backDash     3     <- raw/backDash_v07.png         x0.322  (candidate v07 (approved: v05); auto-head fit x0.9328 (head 1.07, feet 1.18 of idle))
+    heavy        8     <- raw/heavy_v11.png            x0.406  (candidate v11 (approved: v10))
+    block        2     <- raw/block_v07.png            x0.252  (candidate v07 (approved: v05))
+    charge       4     <- raw/charge_v12.png           x0.327  (candidate v12 (approved: v11))
+    throw        4     <- raw/throw_v07.png            x0.319  (candidate v07 (approved: v01))
+    stagger      4     <- raw/stagger_v08.png          x0.371  (candidate v08 (approved: v01))
+    specialUp    6     <- raw/specialUp_v09.png        x0.323  (candidate v09 (approved: v02); auto-head fit x1.0834 (head 0.92, feet 0.75 of idle))
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 7 ok
+  missing core (20): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, beamCharge, beamFire, special, win
+  missing optional (17): superDash, jumpSquat, airLight2, airLight3, hurtLow, spin, airRecover, vanish, ko, intro, taunt, specialForward, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  - 1 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! scale: block: the manifest's scale exemption was written for v01 but the packed strip is v07 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 7
+  wrote public/reviews/sasuke-round2/strict/characters/sasuke/sheet.png
+  wrote public/reviews/sasuke-round2/strict/characters/sasuke/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 1 warning(s).

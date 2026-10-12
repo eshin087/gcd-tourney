@@ -1,0 +1,60 @@
+
+> gcd-tourney@0.1.0 scale
+> node tools/scale-audit.mjs sasuke
+
+
+== sasuke: idle head 39x38 px (declared palette #15162a #2b3764 #3a426d #314377 #3a4c85 #435ea3)
+   1 ref, 17 ok, 8 uniform, 8 unmeasured, 4 pop, 2 drift, 2 exempt
+   dash            v01  head +25%  feet +32%  UNIFORM  f: 1.25 1.24
+   backDash        v01  head  +8%  feet +34%  UNIFORM  f: 1.10 1.08 1.08
+   superDash       v01  head +32%  feet +39%  UNIFORM  f: 1.29 1.35
+   jumpFall        v01  head +13%  feet +48%  UNIFORM  f: 1.11 1.16
+   land            v01  head  +8%  feet +53%  UNIFORM  f: 1.11 1.05
+   heavy           v06  head +11%  feet +64%  POP      f: 1.18 1.28 1.11 0.98 0.95 1.12 1.08 1.10
+   airLight3       v01  head +28%  feet  +2%  DRIFT    f: 1.24 1.31 1.27 1.27 1.29 1.29
+   airHeavy        v02  head +23%  feet +44%  POP      f: 1.24 1.04 1.23 1.26 0.56 1.03
+   block           v01  head +19%  feet  -1%  DRIFT    f: 1.19 1.41
+   throw           v01  head  -4%  feet  +9%  POP      f: 0.94 1.05 0.99 0.90
+   beamFire        v01  head +15%  feet +43%  UNIFORM  f: 1.16 1.09 1.15
+   special         v03  head +21%  feet +39%  POP      f: 1.07 1.22 1.22 1.21 1.21 1.22 1.20 1.21
+   specialForward  v02  head +13%  feet +59%  UNIFORM  f: 1.09 1.13 1.15 1.13 1.13 1.10 1.13
+   specialDown     v01  head  +9%  feet +23%  UNIFORM  f: 1.08 1.07 1.10 1.10
+   ! dash head 1.25 vs 1.15 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! backDash head 1.08 vs 1.01 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! superDash head 1.32 vs 1.20 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! jumpSquat head 1.16 vs 1.04 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! jumpUp head 0.97 vs 0.90 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! jumpFall head 1.13 vs 1.05 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! land head 1.08 vs 1.00 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! light4 head 1.00 vs 0.89 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! heavy head 1.11 vs 1.01 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! airLight1 head 0.95 vs 0.88 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! airLight2 head 1.00 vs 0.92 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! airLight3 head 1.28 vs 1.19 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! airHeavy head 1.23 vs 1.13 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! block head 1.19 vs 1.08 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! hurtHigh head 1.05 vs 0.96 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! hurtLow head 1.02 vs 0.94 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! launched head 0.75 vs 0.88 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! spin head 1.54 vs 1.40 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! airRecover head 1.05 vs 0.94 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! down head 1.98 vs 1.79 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! getup head 1.07 vs 0.96 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! charge head 0.97 vs 0.88 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! throw head 0.96 vs 0.88 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! beamCharge head 0.54 vs 0.50 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! beamFire head 1.15 vs 1.01 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! vanish head 1.10 vs 1.00 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! stagger head 0.96 vs 0.89 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! ko head 0.49 vs 0.46 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! special head 1.21 vs 1.12 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! intro head 0.98 vs 0.91 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! taunt head 1.04 vs 0.97 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! win head 0.97 vs 0.91 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! specialForward head 1.13 vs 1.04 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! specialUp head 1.05 vs 0.95 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! specialDown head 1.09 vs 1.01 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! superPose head 1.01 vs 0.95 in the baseline at the same version: something resized it (--baseline accepts it)
+   wrote art\scale\heads-sasuke.png
+
+[scale] 14 flagged strip(s); wrote art\scale\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md
