@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto KO/kick v08 user rejections archived; v09 whole-pose redraws use exactly three authorized calls. Kick passes strict scale and margins; KO remains a calibration/manual QA hold with a separately labeled77px proposal (PR69).
+
 - Naruto title-style round2: seven versioned corrections and native48-color review evidence; three recommended for art review, run/kick motion-size holds and KO/spin manual QA pending (PR69).
 
 - Art (PR69, not on main yet): Claude assembled Naruto's approved source-only title-style parts with the fixed stitch (light1 v04, light2 v06, airLight3 v07, airHeavy v09, special v08, specialForward v04, specialUp v04; heavy v12 re-stitch), fitted their scale, recorded the user's 2026-10-11 approval of the versions shown in the final preview, re-measured hit boxes and hand anchors on the new art, and added manual scale records. Strict scale gate still fails on jumpUp, airLight3, airHeavy v09, specialDown, spin and ko (new images or decisions needed).

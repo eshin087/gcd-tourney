@@ -1,0 +1,38 @@
+{
+  "diagnostic": true,
+  "bodyHeight": 77,
+  "officialBodyHeight": 59,
+  "frameOffset": [
+    40,
+    0
+  ],
+  "bounds": {
+    "x0": 6,
+    "y0": 164,
+    "x1": 232,
+    "y1": 240,
+    "w": 227,
+    "h": 77,
+    "n": 7859
+  },
+  "audit": {
+    "head": 0.833,
+    "feet": null,
+    "verdict": "unmeasured",
+    "v": 9,
+    "frames": [
+      0.833
+    ],
+    "feetFrames": [
+      null
+    ],
+    "boxes": [
+      [
+        28,
+        178,
+        43,
+        202
+      ]
+    ]
+  }
+}
