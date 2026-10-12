@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Naruto",
+    "status": "42 animation sources and 3 UI drafts. The player labels older fallbacks and newer source-only corrections; stitching, motion and contact holds remain.",
+    "pr": "https://github.com/eshin087/gcd-tourney/pull/69",
+    "preview": "https://gcd-tourney-5yl11mwjm-eshin087s-projects.vercel.app/art-review/title-style-production/naruto-native/"
+  },
+  {
+    "name": "Sasuke",
+    "status": "42 animation sources and 3 UI drafts. Diagnostic player: 35 new/held candidates + 7 older fallbacks. Strict production pack passes with 33 new candidates + 9 fallbacks. Not release-ready.",
+    "pr": "https://github.com/eshin087/gcd-tourney/pull/71",
+    "preview": "https://gcd-tourney-4o9c0q48t-eshin087s-projects.vercel.app/art-review/title-production/sasuke-candidate/index.html"
+  },
+  {
+    "name": "Killua",
+    "status": "42 animation and 3 UI drafts. Corrected hair and measured fits are included. Idle/run motion, stitching and scale-probe holds remain.",
+    "pr": "https://github.com/eshin087/gcd-tourney/pull/70",
+    "preview": "https://gcd-tourney-ao6niydpj-eshin087s-projects.vercel.app/reviews/killua-title-production/animations.html"
+  },
+  {
+    "name": "Gojo",
+    "status": "42 animation and 3 UI drafts. Ten strict-pack holds plus documented motion/anatomy corrections remain.",
+    "pr": "https://github.com/eshin087/gcd-tourney/pull/72",
+    "preview": "https://gcd-tourney-l6ciloo1x-eshin087s-projects.vercel.app/qa-gojo/"
+  }
+]
