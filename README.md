@@ -11,8 +11,8 @@ Every fighter has the same baseline kit: directional specials, a second super an
 Their sprites are **3D-baked placeholders**: chibi models built in code,
 animated with smooth keyframes and rendered into pixel-art sprite sheets at startup.
 Hi-res pixel art replaces them one character at a time. It follows art spec v2
-([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Shippuden-era designs at about
-6.5 heads tall (serious anime proportions, not chibi) in 256 px cells. Codex generates the images,
+([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Shippuden-era designs with
+serious anime proportions in the approved title style (not chibi) in 256 px cells. Codex generates the images,
 and every version is queued in [art/REVIEW.md](art/REVIEW.md) for the user's approval (the packer packs
 the newest candidate for preview; rejected ones move to `_rejected/`). See
 [art/README.md](art/README.md) for the full pipeline, or [ASSETS.md](ASSETS.md) for the quick Sprite Lab import.

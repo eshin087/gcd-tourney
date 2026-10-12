@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the approved title-style cells and production contract (PR #68) are the one scale and anatomy baseline for the cast and new characters (ADR 0029). CLAUDE.md, AGENTS.md, the art spec/guides, the agent prompts and the character templates point there; the 200 px / 31 px / 6.5-head, canon-height and pixels/cm numbers are marked historical. Runtime scale data and shipped atlases are unchanged.
+- User approved the four title-style v01 character references and scaled lineups; full animation production authorized with original down/KO poses preserved in the new style.
 - Art: capture title-style production QA lessons, reproducible stitch/probe holds and Claude handoff; add a consolidated candidate-review hub. Full sources exist across all four fighters, but new strips/UI remain unapproved and production unchanged.
 
 - Art review only: original-title-style four-character draft, shared-size neutral/combat comparison and documented current Killua/Sasuke silhouette mismatch. Pilot approved by the user; subsequent production candidates remain unapproved and production unchanged.
@@ -490,4 +492,3 @@ Reconstructed from the codebase when the changelog was introduced.
 [Unreleased]: #unreleased
 [0.2.0]: #020---2026-10-04
 [0.1.0]: #010---2026-10-04
-- User approved the four title-style v01 character references and scaled lineups; full animation production authorized with original down/KO poses preserved in the new style.
