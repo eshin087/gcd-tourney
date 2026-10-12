@@ -212,6 +212,10 @@ strips are redrawn to it, not the other way round).
   or an `unmeasured` strip without a `scaleManualQA` record for its version fails it (`scale gate:` line, exit code 1)
   and **refuses the pack**: nothing is written for that fighter (`public/characters/<id>/` keeps its last pack,
   `frames/` are not written back).
+- **Approved reference instead of the idle** (`art/scale/builds.json` fighter `scaleReference`): for a fighter whose idle
+  biases the probe, the gate measures every strip and the idle itself against the user-approved reference cells (for the
+  title-style batch, the approved combat cell in `art/scale/title-style-pilot`). The idle then needs its own pass. This
+  is configuration with evidence (same-pixel comparisons), never a lowered threshold.
 - **No old frames under a new version:** hand edits in `frames/<anim>/` made on an older version than the newest
   `raw/<anim>_vNN.png` refuse the pack too (`OLD HAND EDITS SHADOW A NEWER VERSION`): they belong to another drawing.
   Move the folder to `frames/_old/<anim>_vNN/` (never read) or redo the edits on the new version.

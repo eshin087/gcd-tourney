@@ -460,6 +460,60 @@ function clearLabels(img, label, kill) {
   for (let p = 0; p < label.length; p++) if (kill[label[p]]) { const i = p * 4; d[i] = d[i + 1] = d[i + 2] = d[i + 3] = 0; }
 }
 
+// The poses of a strip as whole figures (TITLE-STITCH), for when a column split cuts one: the `expected` biggest
+// 8-connected components are the bodies (at least 4x bigger than the next component and 15 % of the biggest, so the
+// choice is clear-cut), every smaller component joins the body whose box is nearest (a detached hair strand, a sleeve
+// tip). expected 0 = every component of a quarter of the biggest or more. Returns the figures as trimmed images ordered
+// left to right by box centre, or null when that is not clear-cut (two poses really touch).
+function figureSplit(img, expected = 0) {
+  const { label, comps } = components(img);
+  const list = comps.slice(1).map((c, i) => ({ ...c, id: i + 1 })).sort((a, b) => b.n - a.n);
+  if (!list.length) return null;
+  let n = expected || list.filter((c) => c.n >= list[0].n * 0.25).length;
+  if (list.length < n) return null;
+  const smallest = list[n - 1].n, next = list[n]?.n ?? 0;
+  if (smallest < list[0].n * 0.15 || smallest < next * 4) return null;
+  const bodies = list.slice(0, n).map((c) => ({ x0: c.x0, y0: c.y0, x1: c.x1, y1: c.y1, ids: new Set([c.id]), cx: (c.x0 + c.x1) / 2 }));
+  const gapTo = (a, b) => Math.hypot(Math.max(0, a.x0 - b.x1, b.x0 - a.x1), Math.max(0, a.y0 - b.y1, b.y0 - a.y1));
+  for (const c of list.slice(n)) {
+    let best = bodies[0], bd = Infinity;
+    for (const b of bodies) { const g = gapTo(c, b); if (g < bd) { bd = g; best = b; } }
+    best.ids.add(c.id);
+    best.x0 = Math.min(best.x0, c.x0); best.y0 = Math.min(best.y0, c.y0); best.x1 = Math.max(best.x1, c.x1); best.y1 = Math.max(best.y1, c.y1);
+  }
+  return bodies.sort((a, b) => a.cx - b.cx).map((b) => {
+    const out = newImage(b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
+    for (let y = b.y0; y <= b.y1; y++) for (let x = b.x0; x <= b.x1; x++) {
+      if (!b.ids.has(label[y * img.w + x])) continue;
+      const i = (y * img.w + x) * 4, o = ((y - b.y0) * out.w + (x - b.x0)) * 4;
+      out.data[o] = img.data[i]; out.data[o + 1] = img.data[i + 1]; out.data[o + 2] = img.data[i + 2]; out.data[o + 3] = img.data[i + 3];
+    }
+    return out;
+  });
+}
+
+// Where a column split cuts a figure: the frame pairs "k/k+1" for every connected component with at least `min` pixels
+// on both sides of a frame boundary (a hand reaching over the next pose's column, its fingertips landing in that frame).
+function cutFigures(img, rects, min = 6) {
+  const { label } = components(img);
+  const seen = new Map(); // label -> Map(rect index -> pixels)
+  rects.forEach((r, k) => {
+    for (let y = r.y0; y < r.y1; y++) for (let x = r.x0; x < r.x1; x++) {
+      const l = label[y * img.w + x];
+      if (!l) continue;
+      let m = seen.get(l);
+      if (!m) seen.set(l, (m = new Map()));
+      m.set(k, (m.get(k) || 0) + 1);
+    }
+  });
+  const pairs = new Set();
+  for (const m of seen.values()) {
+    const ks = [...m].filter(([, n]) => n >= min).map(([k]) => k).sort((a, b) => a - b);
+    for (let i = 1; i < ks.length; i++) pairs.add(`${ks[i - 1]}/${ks[i]}`);
+  }
+  return [...pairs];
+}
+
 // Drop tiny disconnected blobs (noise, stray specks).
 function removeSpecks(img, { frac = 0.0015, min = 4 } = {}) {
   const { label, comps } = components(img);
@@ -1193,6 +1247,21 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
       const want = Number(side.frames) > 0 ? Number(side.frames) : expected;
       const { rects, notes: n2 } = splitStrip(img, want, { split: side.split === 'even' ? 'even' : 'auto', mode });
       notes.push(...n2);
+      // a column split that cuts a figure (a hand over the next pose's column) or miscounts the poses: take the poses as
+      // whole figures instead, when they are clear-cut; one-row strips only (a grid's figures are ordered by row)
+      let figs = null;
+      if (mode === 'char' && want > 1 && side.split !== 'even' && new Set(rects.map((r) => r.y0)).size <= 1) {
+        const cut = rects.length > 1 ? cutFigures(img, rects) : [];
+        if (cut.length || rects.length !== want) {
+          figs = figureSplit(img, want);
+          if (figs) notes.push(cut.length ? `split by whole figures: the column split cut a figure between frames ${cut.join(', ')}` : `split by whole figures: the column split found ${rects.length} pose(s), ${want} expected`);
+          else if (cut.length) warn(`${label}: the column split cuts a figure between frames ${cut.join(', ')} and the poses touch - leave a gap between them (a hand reaching into the next pose's column ends up in that frame)`);
+        }
+      }
+      if (figs) {
+        for (const t of figs) { strays += dropStrays(t); const b = bbox(t); if (b) out.push(crop(t, b.x0, b.y0, b.w, b.h)); }
+        continue;
+      }
       for (const r of rects) {
         const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
         if (mode === 'char') strays += dropStrays(piece);
@@ -1655,10 +1724,36 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
 // colours reduced to the idle's own palette (measurementCells), so the audit is the same with or without --quantize
 // and no strip's colours move another strip's numbers.
 function auditAnims(id, anims, env) {
+  const decl = env.builds?.[id] || {};
   return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version })), {
-    decl: env.builds?.[id] || {}, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
+    decl, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
+    reference: loadScaleReference(env.artDir, decl),
   });
 }
+
+// builds.json fighter "scaleReference": { "cells": ["characters/<id>/reference/<approved cell>.png", ...], "why": "..." }
+// (paths under art/): approved reference cells at the packed scale (256 px, feet on the pivot line) that the gate
+// measures every strip against, the idle included, instead of the idle (scale-probe auditCharacter). null when unset;
+// a missing or wrong-size cell is { error } (the gate then fails every strict strip), never silently the idle.
+const scaleRefCache = new Map();
+export function loadScaleReference(artDir, decl) {
+  const list = decl?.scaleReference?.cells;
+  if (!Array.isArray(list) || !list.length) return null;
+  const key = `${artDir}|${list.join('|')}`;
+  if (scaleRefCache.has(key)) return scaleRefCache.get(key);
+  const cells = list.map((f) => {
+    const file = path.join(artDir, f);
+    if (!fs.existsSync(file)) return `builds.json scaleReference: ${f} does not exist under ${artDir}`;
+    const img = readPng(file);
+    if (img.w !== SPEC_CELL || img.h !== SPEC_CELL) return `builds.json scaleReference: ${f} is ${img.w}x${img.h}, not a ${SPEC_CELL} px game cell`;
+    return img;
+  });
+  const bad = cells.find((c) => typeof c === 'string');
+  const out = bad ? { error: bad } : { cells, label: list.join(', ') };
+  scaleRefCache.set(key, out);
+  return out;
+}
+const SPEC_CELL = 256;
 
 // Auto head fit (opt-in per strip): a raw strip whose head AND feet are off the idle's in the same direction ('uniform')
 // was drawn or packed at the wrong size, so it is resampled once more from the raw by 1/head. Drift (the head alone)
@@ -1710,7 +1805,9 @@ function scaleGate(id, anims, env, R) {
   const out = { gate: mode, failed: [], findings: [], anims: {} };
   R.scale = out;
   const approved = (a) => a.def.approvedVersion != null && (a.version == null || a.version <= a.def.approvedVersion);
-  const isStrict = (a) => a.def.name !== 'idle' && (mode === 'strict' || (mode === 'auto' && !approved(a)));
+  // the idle is the reference and never fails, unless builds.json names an approved reference: then it is gated too
+  const external = !!loadScaleReference(env.artDir, env.builds?.[id] || {})?.cells;
+  const isStrict = (a) => (a.def.name !== 'idle' || external) && (mode === 'strict' || (mode === 'auto' && !approved(a)));
   if (!anims.some((a) => a.def.name === 'idle')) { out.error = 'no idle packed yet - nothing to measure against'; R.notes.push(`scale: ${out.error}`); return null; }
   const A = auditAnims(id, anims, env);
   if (A.error) {
@@ -1720,7 +1817,7 @@ function scaleGate(id, anims, env, R) {
     else R.notes.push(`scale: ${A.error}`);
     return null;
   }
-  out.ref = { box: A.ref.box, headPx: A.ref.headPx, palette: [...A.palette.head].map(hex), source: A.palette.headSource };
+  out.ref = { box: A.ref.box, headPx: A.ref.headPx, palette: [...A.palette.head].map(hex), source: A.palette.headSource, ...(A.reference ? { reference: A.reference } : {}) };
   const base = env.baseline?.[id];
   const tol = env.gate.stripTol;
   if (base?.ref?.headPx && A.ref.headPx.some((v, k) => Math.abs(v / base.ref.headPx[k] - 1) > tol)) {
@@ -2875,7 +2972,7 @@ async function main() {
 }
 
 // Imported by tools/stitch-parts.mjs (the same background removal, splitting and resampling), run as the packer otherwise.
-export { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, dropStrays, splitStrip, resample, placeCharFrame, quantizeFrames, readJson };
+export { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, dropStrays, splitStrip, figureSplit, resample, placeCharFrame, quantizeFrames, readJson };
 
 const samePath = (a, b) => (process.platform === 'win32' ? a.toLowerCase() === b.toLowerCase() : a === b);
 if (process.argv[1] && samePath(path.resolve(process.argv[1]), fileURLToPath(import.meta.url))) {
