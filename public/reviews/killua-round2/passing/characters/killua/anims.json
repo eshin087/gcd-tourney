@@ -1,0 +1,106 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 16,
+  "pivot": [128, 240],
+  "pixelsPerUnit": 128,
+  "facing": "right",
+  "spec": "hi-res sprite spec v2",
+  "source": "art-pack",
+  "character": "killua",
+  "packer": 2,
+  "complete": false,
+  "missingCore": [
+    "run",
+    "dash",
+    "jumpUp",
+    "jumpFall",
+    "land",
+    "light1",
+    "light2",
+    "light3",
+    "light4",
+    "heavy",
+    "airLight1",
+    "airHeavy",
+    "guard",
+    "hurtHigh",
+    "launched",
+    "down",
+    "getup",
+    "charge",
+    "beamCharge",
+    "beamFire",
+    "special",
+    "win"
+  ],
+  "animations": {
+    "idle": { "frames": [0, 1, 2, 3, 4, 5, 6, 7], "durations": [150, 150, 150, 150, 150, 150, 150, 150], "loop": true },
+    "stagger": { "frames": [8, 9, 10, 11], "durations": [150, 150, 150, 150], "loop": true },
+    "taunt": { "frames": [12, 13], "durations": [220, 220], "loop": true }
+  },
+  "boxes": {
+    "0": { "hurt": [[81, 103, 91, 138]] },
+    "1": { "hurt": [[82, 102, 91, 139]] },
+    "2": { "hurt": [[82, 104, 91, 137]] },
+    "3": { "hurt": [[82, 103, 91, 138]] },
+    "4": { "hurt": [[82, 101, 91, 140]] },
+    "5": { "hurt": [[83, 101, 90, 140]] },
+    "6": { "hurt": [[82, 103, 91, 138]] },
+    "7": { "hurt": [[83, 101, 90, 140]] },
+    "8": { "hurt": [[104, 66, 52, 175]] },
+    "9": { "hurt": [[104, 63, 51, 178]] },
+    "10": { "hurt": [[104, 64, 52, 177]] },
+    "11": { "hurt": [[105, 64, 51, 177]] },
+    "12": { "hurt": [[105, 63, 51, 178]] },
+    "13": { "hurt": [[105, 64, 51, 177]] }
+  },
+  "scaleAudit": {
+    "tool": "tools/scale-probe.mjs",
+    "method": "idle-palette",
+    "tol": 0.06,
+    "pop": 0.12,
+    "ref": {
+      "box": [108, 98, 147, 128],
+      "headPx": [40, 31],
+      "hA": 739,
+      "hW": 40,
+      "hH": 31,
+      "feet": 1325,
+      "palette": "auto",
+      "head": ["#36356f", "#3d3e79", "#cdc8e8", "#7a5eb4", "#6a5c8b", "#f0eff6", "#b2acd3", "#bdb8d7", "#8a80b4"],
+      "feetColors": ["#43276d", "#f0eff6", "#594a68", "#4a4a81", "#382161", "#bdb8d7", "#443345"],
+      "reference": "characters/killua/reference/title_style_combat_cell_v01.png"
+    },
+    "anims": {
+      "idle": {
+        "head": 0.983,
+        "feet": 1.033,
+        "verdict": "ok",
+        "v": 8,
+        "frames": [0.974, 0.975, 0.988, 0.995, 0.985, 0.982, 0.984, 0.98],
+        "feetFrames": [1.024, 1.03, 1.028, 1.036, 1.045, 1.035, 1.021, 1.042],
+        "boxes": [
+          [111, 100, 150, 127],
+          [113, 98, 151, 126],
+          [114, 99, 151, 129],
+          [113, 100, 152, 129],
+          [112, 98, 151, 125],
+          [113, 97, 152, 125],
+          [113, 98, 152, 127],
+          [113, 97, 152, 126]
+        ]
+      },
+      "stagger": {
+        "head": 0.996,
+        "feet": 1.363,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [1, 0.982, 1.025, 0.993],
+        "feetFrames": [1.378, 1.36, 1.366, 1.36],
+        "boxes": [[125, 61, 164, 91], [111, 59, 151, 88], [100, 59, 140, 90], [108, 58, 148, 87]]
+      },
+      "taunt": { "head": 0.996, "feet": 1.28, "verdict": "ok", "v": 5, "frames": [0.993, 1], "feetFrames": [1.262, 1.298], "boxes": [[109, 58, 147, 90], [110, 59, 148, 89]] }
+    }
+  }
+}

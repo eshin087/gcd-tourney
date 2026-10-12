@@ -189,6 +189,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 
 ## killua
 
+**Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips and UI portrait v02, cutin v03, select v02, promoted to ui/); `approved` = the exact version that played. The scale gate measures against the approved title-style combat cell (art/scale/builds.json scaleReference). Not shipped yet: see the holds per row and docs/NOW.md.
+
 Brief: [characters/killua/](characters/killua/). Godspeed era (Chimera Ant arc): loose purple
 long-sleeved shirt with a navy rolled collar, white undershirt cuffs and hem, navy shorts,
 purple-and-white high-tops; ~6 heads. Confirm the outfit at the S1 model-sheet review.
@@ -203,51 +205,51 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 3 | idle | 8 | - | **yes** | 186 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 4 | run | 8 | - | **yes** | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 180 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | guard | 2 | - | **yes** | 180 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | hurtHigh | 3 | - | **yes** | 177 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 6 | launched | 2 | - | **yes** | 124 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | down | 2 | - | **yes** | 87 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 180 | approved | v07 | v07 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 7 | beamCharge | 3 | - | **yes** | 180 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 7 | beamFire | 3 | - | **yes** | 180 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | dash | 2 | - | **yes** | 146 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 8 | jumpUp | 2 | - | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | jumpFall | 2 | - | **yes** | 190 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | land | 2 | - | **yes** | 158 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | win | 4 | - | **yes** | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | backDash | 3 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superDash | 2 | - | no | 109 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | jumpSquat | 1 | - | no | 147 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | block | 2 | - | no | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | hurtLow | 3 | - | no | 167 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | spin | 4 | - | no | 146 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | airRecover | 3 | - | no | 164 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | throw | 4 | 1/1/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | vanish | 2 | - | no | 201 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | stagger | 4 | - | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | ko | 1 | - | no | 58 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 191 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | taunt | 2 | - | no | 193 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superPose | 4 | - | no | 191 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v02 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
+| 3 | idle | 8 | - | **yes** | 146 | approved | v08 | v08 | User approved v08 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v08 needs review: strict subset ok, head0.983; large f0 dip fixed, residual2px wrap. Recommend approval; full fighter blocked by charge. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 4 | run | 8 | - | **yes** | 158 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 151 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 160 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 180 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 166 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 214 | approved | v11 | v11 | Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 166 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 164 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | guard | 2 | - | **yes** | 140 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 150 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | launched | 2 | - | **yes** | 106 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | down | 2 | - | **yes** | 90 | approved | v07 | v07 | HOLD (strict gate): v07 f0 hair flare reads 1.09 with the body at reference size (needs a decision or a redraw). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | getup | 5 | - | **yes** | 158 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 125 | approved | v13 | v13 | Title-style v13 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. Size exception recorded: the head reads 0.92 of the combat cell (strict drift) until charge v14. |
+| 7 | beamCharge | 3 | - | **yes** | 170 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamFire | 3 | - | **yes** | 123 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
+| 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | dash | 2 | - | **yes** | 122 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpUp | 2 | - | **yes** | 148 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpFall | 2 | - | **yes** | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | land | 2 | - | **yes** | 132 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | win | 4 | - | **yes** | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | backDash | 3 | - | no | 160 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 98 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | jumpSquat | 1 | - | no | 115 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 180 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | block | 2 | - | no | 151 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 149 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | spin | 4 | - | no | 136 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airRecover | 3 | - | no | 145 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | throw | 4 | 1/1/2 | no | 173 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | vanish | 2 | - | no | 185 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | stagger | 4 | - | no | 186 | approved | v05 | v05 | User approved v05 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v05 needs review: compact hair, head0.996 ok; recommend approval. One authorized extra call remains unused. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 9 | ko | 1 | - | no | 78 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | intro | 4 | - | no | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | taunt | 2 | - | no | 186 | approved | v05 | v05 | User approved v05 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v05 needs review: compact hair, head0.996 ok; recommend approval. One authorized call remains unused. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 9 | specialForward | 7 | 2/2/3 | no | 139 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialUp | 6 | 2/2/2 | no | 197 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialDown | 4 | 2/1/1 | no | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superPose | 4 | - | no | 186 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 
 ## gojo
 
@@ -577,4 +579,17 @@ fighter's kit uses them ([ADR 0009](../docs/decisions/0009-move-system-v2.md)); 
 
 Neutral height checkpoint: cast height_lineup v01 and four height_neutral v01 sources, all approved 2026-10-11. Full42-animation redraw per fighter authorized; generated strips still need review. Common 200/166 px per cm; no production approval changes. [QA](scale/HEIGHT_STUDY_V01.md).
 
+Killua additional correction round: idle v06 HOLD (narrow stance), idle_00_fix01 standalone unassembled. Three extra authorized calls used; no passing idle yet.
+
+Killua title production: eight additional independent source candidates (dash05,jumpUp05,jumpFall05,hurtHigh06,land04,intro04,taunt04,win04), one attempt each; six reference-gate ok, taunt/win HOLD. Full production idle and loops remain unresolved.
+
+Killua title continuation: 16 independent candidates now saved; added backDash04,superDash06,jumpSquat05,down07,ko08,airLight1_06,airLight2_07,hurtLow06. v05 idle retained provisionally after controlled anatomy re-evaluation, v06 technically rejected. Candidate approvals unchanged; full pack pending.
+
+Killua continuation now has32 independent animation candidates plus idle/guard and3UI; all title-style versions remain unapproved. Long attacks/reactions and measured fits are listed in production/title-style/candidate-settings.json, with attempt counts in generation-ledger.json.
+
+Killua title-style checkpoint: all42 canonical source strips now assembled (41 candidate settings plus idle05), plus3UI. Source coverage only: strict pack fails and numerous anatomy/motion/contact holds remain. No new approval or live release.
+
+Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; specialv07 removes sliced hand artifacts. RunA/B and specialForwardA/B budgets exhausted with motion/segmentation holds. Existing declared-color probe experiment remains isolated and unpromoted; full gate still pending.
+
+Killua latest QA: specialDown07 retained after final hair-only correction; diagnostic reference28 ok/8 unmeasured/5 flagged. Block151/specialUp197 measured fits retained after peer anatomy review. Full production remains blocked; no new image approved.
 Title-style pilot v01: all four sheets and neutral/combat lineups approved by user 2026-10-11. Full animation production authorized; new strips require final review. Original down/KO poses retained with new style.

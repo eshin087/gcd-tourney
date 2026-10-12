@@ -1,0 +1,15 @@
+
+== killua: idle head 40x31 px (auto palette #36356f #3d3e79 #cdc8e8 #7a5eb4 #6a5c8b #f0eff6 #b2acd3 #bdb8d7 #8a80b4)
+   1 ref, 28 ok, 8 unmeasured, 1 pop, 2 drift, 2 uniform
+   airHeavy        v08  head  -8%  feet  -5%  POP      f: 0.82 0.81 1.00 1.02 0.86 0.99
+   charge          v11  head  +8%  feet  +4%  DRIFT    f: 1.08 1.05 1.10 1.07
+   stagger         v04  head  +9%  feet +35%  UNIFORM  f: 1.07 1.10 1.10 1.09
+   taunt           v04  head  +7%  feet +12%  UNIFORM  f: 1.09 1.06
+   win             v04  head  +9%  feet  +3%  DRIFT    f: 1.09 1.10 1.08 1.10
+   ! heavy head 1.00 vs 0.93 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! airHeavy head 0.92 vs 1.13 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! block head 1.01 vs 1.06 in the baseline at the same version: something resized it (--baseline accepts it)
+   ! specialUp head 0.99 vs 1.09 in the baseline at the same version: something resized it (--baseline accepts it)
+   wrote art\characters\killua\production\title-style\diagnostic-heads\heads-killua.png
+
+[scale] 5 flagged strip(s); wrote art\characters\killua\production\title-style\diagnostic-heads\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md
