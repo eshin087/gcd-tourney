@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (PR70, not on main yet): Killua's scale gate measures against the approved title-style combat cell; launched refit, manual scale records, the win cuff misread, the user's 2026-10-11 approval of the shown versions (UI portrait v02 / cutin v03 / select v02 promoted), and hit boxes re-measured on the new art (his light string lands again). Strict scale gate still fails on charge, stagger and taunt (head/hair drawn too big) and down (decision); idle loop dip, beamFire recoil and run phase need new images.
+
 - Killua review: expose all three unapproved UI candidates through a separate fitted diagnostic gallery; approved UI is untouched.
 
 - Killua: refine specialDown hair without changing body scale; document footwear-proxy limitations and peer anatomy QA, refresh all41 non-idle diagnostic candidates. No production approval.
