@@ -73,7 +73,7 @@ src/game/
                             zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
                             ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
-  techAnim.js               tech poses (ADR 0029): which strip a tech state shows (dedicated or legacy), its beats,
+  techAnim.js               tech poses (ADR 0030): which strip a tech state shows (dedicated or legacy), its beats,
                             back rolls and the wall facing per barrier wall; pure, tested by npm run test:anims
   animPhase.js              the phase -> frame mapping shared by SpriteActor.setPhase and the tech poses
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
@@ -228,7 +228,7 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
   and turns the caster with the billboard, so the whole body is grounded (ADR 0020); `SheetAsset.footprint(frame)`
   gives the span in local units, and `fitShadow` multiplies it by the actor's `depthK` like the drawn body.
-- **Tech poses** (ADR 0029): a tech state plays `techGround` / `techRoll` / `wallTech` through `setPhase` on its own
+- **Tech poses** (ADR 0030): a tech state plays `techGround` / `techRoll` / `wallTech` through `setPhase` on its own
   clock (`DEFENSE` `animPhases`) when the sheet has the strip (`SheetAsset.has`), else the legacy pose free-running.
   `Fighter.sync` turns the wall strip away from a screen-side barrier wall, or re-centres it on a wall in depth by
   `SheetAsset.wallAnchor(frame)` (anims.json `wallAnchor`, written by the packer's wall anchoring). Visual only.

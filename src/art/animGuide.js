@@ -44,7 +44,7 @@ export const ANIM_GUIDE = {
   specialUp: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'up special: a leap or rising anti-air technique' },
   specialDown: { frames: 4, phases: [2, 1, 1], optional: true, pose: 'down special: a power-up or a calm defensive stance' },
   superPose: { frames: 4, loop: true, optional: true, pose: 'second super activation pose (the cut-in moment)' },
-  // tech recoveries (ADR 0029): optional for every fighter; missing ones fall back to the poses the engine showed
+  // tech recoveries (ADR 0030): optional for every fighter; missing ones fall back to the poses the engine showed
   // before (FALLBACK, src/game/techAnim.js). The engine plays them on the tech state's own clock (DEFENSE animPhases in
   // src/game/moves.js), so `phases` here are art frames per beat: contact, main motion, settle.
   techGround: { frames: 4, phases: [1, 2, 1], optional: true, pose: 'ground tech in place: impact brace low on the floor (feet wide, one palm slapped down, head up), pushing up, rising, back in the fighting stance' },

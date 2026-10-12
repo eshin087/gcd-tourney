@@ -1,4 +1,4 @@
-// Tech recovery poses (ADR 0029): which strip a tech state shows, on what clock, facing which way. Pure (no three.js,
+// Tech recovery poses (ADR 0030): which strip a tech state shows, on what clock, facing which way. Pure (no three.js,
 // no DOM) so tools/test-tech-anims.mjs runs it in Node; Fighter asks it every frame of a tech state.
 //
 // The three dedicated strips (src/art/animGuide.js: techGround, techRoll, wallTech) are optional. A fighter whose sheet

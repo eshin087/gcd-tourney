@@ -361,7 +361,7 @@ by hand, `/?fight=naruto,sasuke&mode=solo&debug`, `freezeCpu()`, then give P2 a 
     in most, never more than one burst per fighter per round (`burstUsed` ≤ 1), blue counters now and then, and
     rounds still ending by KO in the usual time.
 
-## Tech poses (ADR 0029)
+## Tech poses (ADR 0030)
 
 Run after changes to `src/game/techAnim.js`, `animPhase.js`, the tech states in `Fighter`, `DEFENSE` `animPhases`, the
 packer's `TECH_POSES` / wall anchoring or the scale gate's `lowConfPhases`:

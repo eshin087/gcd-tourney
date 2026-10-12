@@ -1521,7 +1521,7 @@ function scaleGateTests(base) {
   fs.writeFileSync(buildsPath, buildsBefore);
 }
 
-// Tech poses (ADR 0029): wallTech's cling and push-off frames are wall-anchored (leftmost pixel on the pivot column,
+// Tech poses (ADR 0030): wallTech's cling and push-off frames are wall-anchored (leftmost pixel on the pivot column,
 // anims.json wallAnchor); a cling with only a thin arm on the wall line warns; a tumble packed at a standing height
 // warns; the scale gate leaves the tucked / rotated beats unread ('partial', not a pass) until a manual QA record of that
 // version covers them.

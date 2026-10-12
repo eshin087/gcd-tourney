@@ -191,7 +191,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `specialUp` | 6 | - | 2/2/2 | 214 | - | 50 50 60 60 70 70 | **kit**: a rising special (Killua's Thunderbolt leap; f5 hands over to `airHeavy` f0). Missing → `special` |
 | `specialDown` | 4 | - | 2/1/1 | 204 | - | 80 80 160 90 | **kit**: a stance or power-up, no hit box (Killua's Godspeed activation, Gojo's Infinity palm). Missing → `charge` |
 | `superPose` | 4 | yes | - | 208 | - | 140 each | **kit**: the second super's pose during the super flash (Whirlwind, Domain Expansion hand sign; Gojo lifts the blindfold here). Missing → `taunt` |
-| `techGround` | 4 | - | 1/2/1 beats | 204 | - | 67 83 83 67 | **tech** ([Tech poses](#tech-poses), ADR 0029): ground tech in place: impact brace low on the floor, push up, rise, back in the fighting stance. Missing → `land` |
+| `techGround` | 4 | - | 1/2/1 beats | 204 | - | 67 83 83 67 | **tech** ([Tech poses](#tech-poses), ADR 0030): ground tech in place: impact brace low on the floor, push up, rise, back in the fighting stance. Missing → `land` |
 | `techRoll` | 6 | - | 1/4/1 beats | 162 | - | 50 63 62 63 62 67 | **tech**: ground tech roll: shoulder contact, one tight forward roll toward screen-right (4 quarter turns), low crouch. Missing → `airRecover` |
 | `wallTech` | 5 | - | 2/1/2 beats | 209 | - | 50 50 67 67 66 | **tech**: wall tech: lands feet-first on a wall at the cell's left (2 frames), pushes off toward screen-right, airborne recovery into `jumpFall`. Missing → `land`, then `airRecover` |
 
@@ -215,7 +215,7 @@ long, so:
 
 <a id="tech-poses"></a>
 
-**Tech poses** (`techGround`, `techRoll`, `wallTech`; [ADR 0029](../docs/decisions/0029-tech-recovery-animations.md)).
+**Tech poses** (`techGround`, `techRoll`, `wallTech`; [ADR 0030](../docs/decisions/0030-tech-recovery-animations.md)).
 The engine plays them on the tech state's own clock in three beats, `DEFENSE` `animPhases` in `src/game/moves.js`
 (contact / main motion / settle, in 60 fps frames; the art's `phases` are frames per beat), so the art never changes a
 tech's timing, invulnerability or movement:

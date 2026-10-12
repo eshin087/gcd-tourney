@@ -44,7 +44,7 @@ const BODY_HEIGHT = {
   light1: 204, light2: 204, light3: 215, light4: 207, heavy: 218, airLight1: 198, airLight2: 207, airLight3: 201, airHeavy: 198, throw: 201,
   guard: 198, block: 204, hurtHigh: 195, hurtLow: 183, launched: 136, spin: 160, down: 96, ko: 64, getup: 204, stagger: 207, charge: 198,
   beamCharge: 198, beamFire: 198, vanish: 221, special: 204, intro: 210, taunt: 212, win: 212,
-  // tech poses (ADR 0029): the tallest frame is the settle stance (= idle), the recovery crouch (= jumpSquat) and the
+  // tech poses (ADR 0030): the tallest frame is the settle stance (= idle), the recovery crouch (= jumpSquat) and the
   // fall handoff (= jumpFall); a fighter drawn at another stature overrides them per animation in the manifest
   techGround: 204, techRoll: 162, wallTech: 209,
 };
@@ -72,7 +72,7 @@ const DEFAULT_MS = {
 };
 
 // Attacks whose damage comes from something else (projectile), and phased strips that never strike (the tech
-// poses, ADR 0029: their middle beat is a roll or a push-off, not an active frame): no melee hitbox.
+// poses, ADR 0030: their middle beat is a roll or a push-off, not an active frame): no melee hitbox.
 const NO_HITBOX = new Set(['throw', 'techGround', 'techRoll', 'wallTech']);
 
 // Lying frames (ADR 0020). `footprint`: frames whose x span goes into anims.json, so the engine lays the contact shadow
@@ -84,7 +84,7 @@ const LYING = { ko: { footprint: 'all', check: 'all' }, down: { footprint: 'all'
 // the shipped art: every top-down ko / down[1] fails (9-34% contact, a fifth 13-36 px up), every getup[0] passes.
 const GROUND = { contactPx: 6, minContact: 0.4, maxGap: 12, segments: 5, tallFactor: 1.15 };
 
-// Tech poses (ADR 0029, art/SPEC.md "Tech poses"). wall: the beats (phase indices) whose frames are WALL-ANCHORED:
+// Tech poses (ADR 0030, art/SPEC.md "Tech poses"). wall: the beats (phase indices) whose frames are WALL-ANCHORED:
 // their leftmost opaque pixel goes on the pivot column (x 128, the barrier in the game) instead of the feet being
 // centred, so soles drawn flat on the wall touch the barrier; anims.json wallAnchor records each such frame's body
 // centre (px right of the pivot) so the engine can re-centre it on a wall seen in depth. contact: the cling beats whose
@@ -1426,7 +1426,7 @@ function placeCharFrame(sprite, spec, offset = [0, 0], anchor = null) {
   const W = spec.frameWidth, H = spec.frameHeight, m = spec.cellMargin;
   const cell = newImage(W, H);
   const off = offset || [0, 0];
-  // a wall-anchored frame (TECH_POSES, ADR 0029): its wall side, the leftmost opaque pixel, on the pivot column
+  // a wall-anchored frame (TECH_POSES, ADR 0030): its wall side, the leftmost opaque pixel, on the pivot column
   const dx = (anchor === 'wall' ? spec.pivot[0] - (bbox(sprite)?.x0 ?? 0) : Math.round(spec.pivot[0] - footAnchor(sprite))) + off[0];
   const dy = spec.pivot[1] - (sprite.h - 1) + off[1];
   const lost = blit(cell, sprite, dx, dy);
@@ -1523,7 +1523,7 @@ function groundCheck(anims, meta, spec, standingBodyPx, warn, R) {
   return footprint;
 }
 
-// Tech poses (TECH_POSES, ADR 0029), warn only: a cling frame whose wall line (the pivot column) holds too few opaque px
+// Tech poses (TECH_POSES, ADR 0030), warn only: a cling frame whose wall line (the pivot column) holds too few opaque px
 // (a fingertip, not the soles), and a tucked / crouched / braced frame outside its height band against the idle's
 // median height (the giveaway of a pose packed at a standing height). Returns the wall anchors { "<sheet frame>": px
 // of the body centre right of the pivot } for the engine. R.tech gets the measurements.
@@ -1561,7 +1561,7 @@ function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
       rec.push(m);
     });
     R.tech[a.def.name] = rec;
-    if (thin.length) warn(`${a.def.name}: ${thin.length} cling frame(s) barely touch the wall line (${thin.join('; ')}) - the soles (and the back or a hand) rest flat on the wall at the cell's left; the packer puts the leftmost pixel on x ${px0} (art/SPEC.md "Tech poses", ADR 0029)`);
+    if (thin.length) warn(`${a.def.name}: ${thin.length} cling frame(s) barely touch the wall line (${thin.join('; ')}) - the soles (and the back or a hand) rest flat on the wall at the cell's left; the packer puts the leftmost pixel on x ${px0} (art/SPEC.md "Tech poses", ADR 0030)`);
     if (off.length) warn(`${a.def.name}: ${off.length} tucked / braced frame(s) out of their size band (${off.join(', ')} of the idle's height, band ${rule.envelope.min}-${rule.envelope.max}) - draw them at the idle's anatomical scale, never stretched to a standing height; check the strip's bodyHeight or its auto head fit (art/SPEC.md "Tech poses")`);
   }
   return out;
@@ -2155,7 +2155,7 @@ function packCharacter(id, env) {
   // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
   const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(footprint).length) meta.footprint = footprint;
-  // tech poses (ADR 0029): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
+  // tech poses (ADR 0030): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
   const wallAnchor = techPoseCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(wallAnchor).length) meta.wallAnchor = wallAnchor;
 

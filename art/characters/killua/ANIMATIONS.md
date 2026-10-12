@@ -874,7 +874,7 @@ mouth, one tiny fang), eyes curved shut.
 - **f2**: one eye opens, glancing at the camera with the cat grin.
 - **f3**: settle, flutter variant.
 
-## Tech poses (ADR 0029)
+## Tech poses (ADR 0030)
 
 `techGround` (4 frames, beats 1/2/1), `techRoll` (6, 1/4/1) and `wallTech` (5, 2/1/2): optional; until they are
 packed the game shows `land` / `airRecover` / `jumpUp` for the techs. Per-frame poses, this fighter's flavor, the

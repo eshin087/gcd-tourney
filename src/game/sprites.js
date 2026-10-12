@@ -15,7 +15,7 @@ export const FALLBACK = {
   heavy: 'light1', jumpUp: 'idle', jumpFall: 'jumpUp', run: 'idle',
   // move system v2 (ADR 0009), optional per character
   specialForward: 'special', specialUp: 'special', specialDown: 'charge', superPose: 'taunt',
-  // tech recoveries (ADR 0029): the poses the techs showed before their strips existed. Fighter itself keeps the
+  // tech recoveries (ADR 0030): the poses the techs showed before their strips existed. Fighter itself keeps the
   // per-beat legacy poses (techAnim.js LEGACY_POSE) when a sheet lacks a strip; these cover direct lookups (lab, tools)
   techGround: 'land', techRoll: 'airRecover', wallTech: 'land',
 };
@@ -78,7 +78,7 @@ export class SheetAsset {
     return !!this.meta.animations?.[name]?.frames?.length;
   }
 
-  // A wall-anchored frame's horizontal shift (anims.json wallAnchor, ADR 0029): how far right of the pivot the body's
+  // A wall-anchored frame's horizontal shift (anims.json wallAnchor, ADR 0030): how far right of the pivot the body's
   // centre was packed, in local world units facing right, so a wall seen in depth can re-centre it. 0 for other frames.
   wallAnchor(frame) {
     const px = this.meta.wallAnchor?.[frame];

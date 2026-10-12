@@ -1,6 +1,6 @@
 # Tech poses brief (ART-TECH-01)
 
-For Codex. Three new optional animations for every fighter ([ADR 0029](../../docs/decisions/0029-tech-recovery-animations.md)):
+For Codex. Three new optional animations for every fighter ([ADR 0030](../../docs/decisions/0030-tech-recovery-animations.md)):
 the poses of the techs players and CPUs already do. Today the game shows `land`, `airRecover` and `jumpUp` for them; as
 soon as a fighter's strip is packed, the game plays it instead (each strip switches on by itself). Contract:
 [SPEC.md "Tech poses"](../SPEC.md#tech-poses); template rows and prompts:
