@@ -17,7 +17,9 @@ How it works:
 
 ## Title-style corrections, round 2 (2026-10-11, Claude)
 
-**Do nothing here until the user authorizes it in chat** (`authorize ...`, see docs/NOW.md). The user approved the
+**Authorized by the user, 2026-10-11** ("ok assembled, authorize all, accept down, ship v09, tune gojo heavy, keep
+current UI"). For every item below whose budget was used up, that authorization allows up to 2 more generation calls
+per image or part; if those fail too, stop and report instead of spending more. The user approved the
 latest candidates shown in your final previews; Claude recorded that (manifest approvedVersion, REVIEW.md) and ran
 technical QA. Approval did not waive QA: the strips below fail the strict scale gate or have a drawing defect, and need
 new images. Work in the same title-production worktrees (PR #69-72), one sub-agent per fighter; `git merge main` first.
@@ -47,7 +49,6 @@ Killua (`art/killua-title-production`):
 - [ ] beamFire v08: f1 is a different, narrower pose and f2 = f0, so the loop shakes; make a 1-2 px recoil loop with
       the palms forward at the beam origin. Budget 1.
 - [ ] run v08: f4-f7 repeat the f0-f3 lead leg; redraw part B with the other leg leading. Budget 0 (extra).
-- [ ] down v07 only if the user asks for it (f0 hair flare).
 
 Gojo (`art/gojo-title-production`):
 - [ ] airHeavy v07 -> v08 (core): the head is ~15% small for the body in the clear frames (body and shoes match
@@ -56,11 +57,9 @@ Gojo (`art/gojo-title-production`):
       poses touch, so fingertips land in the next frames. Redraw part A at the idle's head/body ratio and keep a gap
       between all poses. Budget A 1, B 0 (extra authorization for B).
 - [ ] airLight3 v10 -> v11: head ~12% small for the body. Budget A 1, B 0.
-- [ ] run v08 -> v09: drawn as a deep crouched sprint (~145 px tall against his 234 px standing idle), so in the
+- [ ] run (already in progress as v10 from the user's separate Gojo run prompt; finish it first) - v08 is drawn as a deep crouched sprint (~145 px tall against his 234 px standing idle), so in the
       game he shrinks into a crouch the moment he runs, and f4-f7 repeat the f0-f3 lead leg. Redraw an upright,
       long-stride run at his tall, relaxed build (about 205-225 px tall), legs alternating. Budget A 1, B 0 (extra).
-- [ ] heavy v05 only if the user picks a redraw over Claude's reach tuning: the elbow is drawn folded across his
-      chin (0.17-0.20 units forward), so it can never touch a standing opponent. Budget: see ATTEMPT_INVENTORY.md.
 
 Naruto (`art/naruto-title-production`):
 - [ ] airLight3: v06's head is ~28% too big, v07's ~24% too small, and the f2 crescent is too wide for the cell at
@@ -70,9 +69,12 @@ Naruto (`art/naruto-title-production`):
 - [ ] specialDown v04 -> v05: bowed-head frames read as a size pop; keep the head size constant. Budget 2.
 - [ ] jumpUp v04: f0 hair spikes larger than f1 (pulse); budget 0 (extra); old v01 ships meanwhile.
 - [ ] run v07: the legs never alternate (part B repeats part A); new part B with the other leg leading. Budget 2.
-- [ ] light2 v05/v06 boots (1.36-1.42x), light4 A/B size step, stagger repeated phases: only if the user asks.
+- [ ] charge v06 -> v07: the user sees it as bigger: the head is the idle's size but the planted charge is drawn
+      bulkier; redraw at the idle's build.
+- light2 boots, light4 A/B size step and stagger's repeated phases are not part of this round (not authorized).
+- airHeavy v09 ships as is (the user chose it with a recorded frame exception): no airHeavy redraw.
 
-Sasuke (`art/sasuke-title-production`), all budgets 0 (extra authorization needed for each):
+Sasuke (`art/sasuke-title-production`), budgets used up (the authorization above covers 2 more calls each):
 - [ ] heavy v10: the kicking leg in the high kick (f3-f4) is drawn ~1.7x his standing leg; redraw with true leg length.
 - [ ] backDash v05: f0/f2 stand fully upright (~212 px vs the 177 px combat idle), so he grows on every backstep; keep
       the backstep near his fighting crouch.
@@ -81,7 +83,7 @@ Sasuke (`art/sasuke-title-production`), all budgets 0 (extra authorization neede
 - [ ] throw (title-style): v05 head drawn too big (drift 1.14) and clipped; the original v01 ships meanwhile.
 - [ ] block v05: stands 24 px taller than the crouched guard v04; redraw at the guard's height.
 - [ ] launched, down, ko, specialUp, stagger in the title style (the approved originals ship meanwhile).
-- [ ] spin, airRecover, superPose v03 and UI v02: no new images; they need the user's review (they were never shown).
+- spin, airRecover, superPose and the UI keep their current versions (the user's choice): nothing to do.
 
 After the corrections: ART-TECH-01 (below) in the same worktrees.
 
