@@ -115,6 +115,11 @@ correspondence), so the art itself has to be right, and checked by a machine eve
   strip), `anims.json` records the per-frame numbers, and `npm run scale` judges those. On main's four fighters the
   idle heads stay within a pixel and the approved strips' heads move by a median 0.01; the baseline was rewritten once
   for the method change.
+- **Amendment 2026-10-11 (title-style integration):** a fighter may name approved reference cells
+  (`builds.json` `scaleReference`) that replace the idle as the measure; the idle is then gated like any strip. Reason:
+  the probe's palette comes from its reference, so an idle drawn with its own exact shading fits itself perfectly and maps
+  separately generated strips' shading partly off the hair (Killua: a constant ~0.89 offset, the approved combat cell
+  itself 0.912). The packer also splits a one-row strip into whole figures when its column split cuts one.
 - Packing takes about a second longer per fighter; `anims.json` grows by about 10 KB (`scaleAudit`), ignored by the
   game outside the dev tools.
 - Every review attaches one more image (the heads sheet). Codex follows the gate in AGENTS.md and
