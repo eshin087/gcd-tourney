@@ -8,11 +8,13 @@ main; their art (ART-TECH-01) waits for this round._
 
 ## Your next actions
 
-1. **Look at the whole title-style cast in the game** (Vercel preview, needs your Vercel login): https://gcd-tourney-q14yfh137-eshin087s-projects.vercel.app
+1. **Look at the whole title-style cast in the game** (Vercel preview, needs your Vercel login): https://gcd-tourney-rak32hl4a-eshin087s-projects.vercel.app
    (add `?fight=killua,sasuke` etc.; `/lab.html` for moves and animations). Check the strips Claude assembled or
    re-stitched from your approved parts after your review (no new images): Naruto light1 v04, light2 v06,
    airLight3 v07, airHeavy v09, special v08, specialForward v04, specialUp v04, heavy v12; Gojo light4 v08.
-   Reply `ok assembled`, or name the ones you don't want.
+   Reply `ok assembled`, or name the ones you don't want. Since your size feedback every strip is resized to within 2%
+   of its fighter's reference (the old check allowed 6%, so moves jumped up to ~12%); standing moves still look taller
+   than the new crouched idles, which is the pose, not the scale.
 2. **Authorize new images** (calls left of 3 per Codex's inventories; 0 = needs your extra yes):
    - Killua: charge head too big (2), stagger hair (0), taunt hair (2), idle frame-0 dip at the loop (0),
      beamFire recoil frame (1), run repeated leg (0)

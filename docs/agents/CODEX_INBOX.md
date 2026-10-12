@@ -42,6 +42,8 @@ Killua (`art/killua-title-production`):
       user's extra authorization), taunt 2.
 - [ ] idle v05: frame 0's crown and collar sit 4-6 px lower than f1-f7 (a dip every loop). Budget 0 (extra
       authorization). idle_00_fix01 does not drop in (wider stance, the foot slides).
+      Also draw the head at the approved combat cell's size: v05's head reads ~6% bigger than the cell, every
+      other strip matches the cell, so the idle is the one that looks different.
 - [ ] beamFire v08: f1 is a different, narrower pose and f2 = f0, so the loop shakes; make a 1-2 px recoil loop with
       the palms forward at the beam origin. Budget 1.
 - [ ] run v08: f4-f7 repeat the f0-f3 lead leg; redraw part B with the other leg leading. Budget 0 (extra).
@@ -69,6 +71,8 @@ Naruto (`art/naruto-title-production`):
 - [ ] light2 v05/v06 boots (1.36-1.42x), light4 A/B size step, stagger repeated phases: only if the user asks.
 
 Sasuke (`art/sasuke-title-production`), all budgets 0 (extra authorization needed for each):
+- [ ] charge v11: the user sees it as bigger: the head is the idle's size but the powered stance is drawn bulkier
+      (bigger torso and arms); redraw at the idle's build.
 - [ ] throw (title-style): v05 head drawn too big (drift 1.14) and clipped; the original v01 ships meanwhile.
 - [ ] block v05: stands 24 px taller than the crouched guard v04; redraw at the guard's height.
 - [ ] launched, down, ko, specialUp, stagger in the title style (the approved originals ship meanwhile).
