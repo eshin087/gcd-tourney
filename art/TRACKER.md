@@ -146,15 +146,15 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 190 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 193 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v11 | v10 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | guard | 2 | - | **yes** | 180 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | hurtHigh | 3 | - | **yes** | 174 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | Fallback: original v01 (manual scale pass). Approved original v01. |
-| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | Fallback: original v01 (manual scale pass). Approved original v01. |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v07 | v01 | Round 2 HOLD candidate; not recommended; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
+| 6 | down | 2 | - | **yes** | 96 | approved | v08 | v01 | Round 2 HOLD candidate; not recommended; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 6 | getup | 5 | - | **yes** | 180 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v11 | v11 | Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 180 | approved | v12 | v11 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 7 | beamCharge | 3 | - | **yes** | 230 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamFire | 3 | - | **yes** | 198 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v13 | v13 | Title-style v13 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -163,19 +163,19 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 174 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 212 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | backDash | 3 | - | no | 207 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | backDash | 3 | - | no | 180 | approved | v07 | v05 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | superDash | 2 | - | no | 108 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | block | 2 | - | no | 204 | approved | v05 | v05 | HOLD (visual): stands 24 px taller than the crouched guard v04 (pop on every block). Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | block | 2 | - | no | 180 | approved | v07 | v05 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | spin | 4 | - | no | 160 | approved | v01 | v01 | Fallback: original v01 (manual scale pass; title v03 viable but unreviewed). Approved original v01. |
 | 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | Fallback: original v01 (manual scale pass; title v03 viable but unreviewed). Approved original v01. |
-| 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | HOLD (strict gate): original v01 pops (streaming hair f1, as live today); title v05 drift 1.14 and clipped. Approved original v01. |
+| 9 | throw | 4 | 1/1/2 | no | 201 | approved | v07 | v01 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | vanish | 2 | - | no | 221 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | Fallback: original v01 ships (title v06 drift 1.08). Approved original v01. |
-| 9 | ko | 1 | - | no | 64 | approved | v02 | v02 | Fallback: original v02 (manual scale pass). Approved original v02. |
+| 9 | stagger | 4 | - | no | 216 | approved | v08 | v01 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
+| 9 | ko | 1 | - | no | 64 | approved | v07 | v02 | Round 2 HOLD candidate; not recommended; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | intro | 4 | - | no | 210 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | taunt | 2 | - | no | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | v02 never shown (the preview showed v01); v01 ships. Approved v01. |
@@ -183,7 +183,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
 
 | 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v02 | v02 | Fallback: original v02 (title v04-v06 fail; f5 no longer matches airHeavy f0). Approved original v02. |
+| 9 | specialUp | 6 | 2/2/2 | no | 203 | approved | v09 | v02 | Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | Fallback: original v01 (title v03 passes but was never shown). Approved original v01. |
 

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): add seven strict-passing round-2 correction candidates and three explicit holds on PR71, with native quantized review playback, cumulative attempt inventory and retained original approvals (ART-SAS-TITLE-20261011).
+
 - Art (PR71, not on main yet): Sasuke's title-style set with the user's 2026-10-11 approval recorded; the approved originals ship for throw, stagger, launched, spin, airRecover, down, ko, specialUp and superPose (manual scale checks against the new idle); edge, run and jumpFall placement fixes; hit boxes re-measured on the new art. Strict scale gate fails only on the original throw v01 (the same finding as live).
 
 - Added Sasuke title-style first-pass source coverage for all 42 canonical animations and three UI candidates, with a 48-color diagnostic player and explicit mixed-atlas review holds (ART-SAS-TITLE-20261011).
