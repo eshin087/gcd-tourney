@@ -102,6 +102,10 @@ export const HIT_FLASH = {
 //             so mashing Guard only blocks; a parry re-arms at once, so a string can be parried hit by hit.
 //  spotDodge  Guard + ↓ (pressed): intangible on frames [from, to), then recovery. Each dodge within
 //             `staleWindow` frames of the last adds `stale` recovery frames (up to `staleMax` times).
+//             `pose`/`poseFrame`: the dodge holds that strip's frame (the vanish strip's low crouch): the strip's
+//             last frame is the vanish's standing toe-rise, and holding it made every crouched-idle fighter pop up
+//             taller for the whole dodge. A fighter whose vanish crouch is still taller than its idle names its own
+//             held pose as character data (`dodgePose: [animation, frame]`, Sasuke).
 //  airDodge   Guard in the air, once per airtime. With a direction it bursts that way at `speed`, angled
 //             down (`drop`; `lowDrop` when below `lowY`, so a dodge right after takeoff meets the floor).
 //             Landing in a neutral dodge costs `land` frames.
@@ -153,7 +157,7 @@ export const THROW = {
 //             jumpUp (the jump is actionable throughout; any action replaces the pose).
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
-  spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
+  spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150, pose: 'vanish', poseFrame: 0 },
   airDodge: { len: 30, from: 2, to: 18, speed: 12.5, drop: 6.5, lowDrop: 24, lowY: 0.95, land: 10 },
   wavedash: { len: 16, act: 5, friction: 0.875, speed: 12.5 },
   tech: {
