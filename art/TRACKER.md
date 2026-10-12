@@ -122,6 +122,8 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 ## sasuke
 
+**Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview; `approved` = the exact version that played for the 33 title-style strips. The preview also played throw v05 and stagger v06: approved, but they fail the strict scale gate and stay in raw/_rejected, so the approved originals ship. The approved originals also ship for launched, spin, airRecover, down, ko, specialUp and superPose (scale-checked against the new idle). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see docs/NOW.md.
+
 Title-style redraw in progress: user approved `title_style_draft_v01` and the neutral/combat cells. New idle v07 and guard v04 are provisional candidates for the full 42-animation/3-UI batch; old approved versions remain recorded separately. [Production QA](characters/sasuke/production/title-style/QA.md). The pilot's 90×209 neutral, 155×180 combat and 197 px body target supersede the old universal head ratio for this batch.
 
 Brief: [characters/sasuke/](characters/sasuke/). Shippuden (Hebi-era) design, ~6.5 heads, sword
@@ -136,52 +138,52 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v02 | v02 | User approved v02 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. New smaller-head v02 needs review; approved fixed reference remains v01. See PROPORTION_REDRAW.md and v02 QA. User approved v01 on 2026-10-09; documented QA: V too deep, estimated 7.3 heads, sword projection drift, 36/34 swatches, near-magenta background; see REVIEW.md |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved v01 on 2026-10-09; recorded QA: 8 readable expressions, approved identity; Sharingan marks stylized; raw head scale and magenta differ from prompt; see REVIEW.md |
-| 3 | idle | 8 | - | **yes** | 180 | approved | v07 | v01 | Title-style v07 candidate, needs final batch review; 48-color candidate pack exits 0, measured stitch, native idle 159×177 against pilot combat 155×180. Old v01 remains the approved version. |
-| 4 | run | 8 | - | **yes** | 150 | approved | v05 | v02 | Title-style v05 candidate needs full-set review; v04 was rejected for head pop and clipped flight poses. v05 measured stitch and new-strip gate pass; all eight actual atlas cells inspected. Old v02 remains approved. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 180 | approved | v09 | v01 | Title-style v09 candidate uses measured generated idle f0 endpoint in the approved open-palm stance; 48-color new-strip gate and actual packed seven-frame QA pass. Full-set final review pending; old v01 remains approved. |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v07 | v02 | Title-style v07 candidate uses measured generated idle f0 endpoint; 48-color new-strip gate and actual packed seven-frame QA pass. v05 oversized head and v06 closed-fist endpoint were rejected; old v02 remains approved. |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 190 | approved | v08 | v02 | Title-style v08 candidate retains measured active-foot offsets and uses generated idle f0 endpoint; 48-color new-strip gate and actual atlas QA pass. v05 clipped, v06 tall and v07 closed-fist recovery were rejected; old v02 remains approved. |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 193 | approved | v08 | v01 | Title-style v08 candidate: measured active-foot offsets and generated idle f0 open-palm endpoint; 48-color new-strip gate and actual atlas QA pass. v05–v07 rejected; old v01 remains approved pending full-set review. |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v10 | v06 | Title-style v10 candidate: measured B stitch, generated idle endpoint, 48-color new-strip gate and actual atlas QA pass. v09 had a too-short return and was rejected; old v06 remains approved pending final full-set review. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v04 | v01 | Title-style v04 candidate: measured active-fist offset corrected v03 4 px clip; 48-color new-strip gate and five actual atlas frames pass. Old v01 remains approved pending full-set final review. |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v04 | v02 | Title-style v04 candidate: measured B stitch, six actual atlas frames and manual head/torso comparison. f0/f1 head-mask exemption is version-only and manual, not numeric pass; old v02 remains approved pending full-set final review. |
-| 6 | guard | 2 | - | **yes** | 180 | approved | v04 | v01 | Title-style v04 candidate, needs final batch review; v03 rejected for real frame pop. v04 crossed arms confuse the hair probe; version-owned manual exemption is documented in QA, not counted as a numeric pass. Old v01 remains approved. |
-| 6 | hurtHigh | 3 | - | **yes** | 174 | approved | v05 | v02 | Title-style v05 candidate: measured head fit from 195 to 174 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows a consistent head, torso and grounded recovery. Old v02 remains approved pending full-set review. |
-| 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v01 | Title-style v03-v05 rejected after three imagegen attempts: first two too horizontal, v05 closer to arched pose but open-eyed/calm and one-scale anatomy unproven under the low-confidence gate. No exemption; old approved v01 remains packed. |
-| 6 | down | 2 | - | **yes** | 96 | approved | v05 | v01 | Title-style v04/v05 preserved original slam and straight-leg down poses but were rejected after three imagegen attempts: clip, low-confidence anatomy and lying contact warnings. Original approved v01 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
-| 6 | getup | 5 | - | **yes** | 180 | approved | v05 | v01 | Title-style v05 native five-frame QA passes with versioned manual inverted-head finding; f1 numeric 2.28 is not a numeric pass. Old v01 remains approved pending full-set review. |
-| 7 | charge | 4 | - | **yes** | 198 | approved | v11 | v02 | Title-style v11 candidate passes 48-color gate with measured auto-head fit 1.0638; all four native cells inspected. v10 archived; old v02 approval remains active pending full-set review. |
-| 7 | beamCharge | 3 | - | **yes** | 230 | approved | v05 | v01 | Title-style v05 candidate numeric head pass 1.03; palm above head and native cells inspected. v03/v04 archived; old v01 approved. |
-| 7 | beamFire | 3 | - | **yes** | 198 | approved | v05 | v01 | Title-style v05 candidate numeric scale pass; palm x240–244,y90–113 needs Claude contact-zone validation against historical x212–234,y108–130. v03/v04 archived; old v01 approved. |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v13 | v03 | Title-style v13 candidate passes strict 48-color gate after third/final Part B correction; native strike hand remains connected. Contact validation pending. |
-| 8 | dash | 2 | - | **yes** | 160 | approved | v05 | v01 | Title-style v05 candidate passes 48-color new-strip gate without clipping or exemption; v03 clipped/head-popped and v04 had enlarged head. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
-| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v05 | v01 | Title-style v05 candidate: actual atlas skull/torso/limb visual comparison supports a v05-only manual exemption of the airborne-tuck 0.58 head/0.55 feet proxy; this is not a numeric pass. v03/v04 archived. Old v01 remains approved pending final-set review. |
-| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v05 | v01 | Title-style v05 third attempt passes 48-color new-strip gate without exemption/clipping; v03/v04 head/foot drift archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
-| 8 | land | 2 | - | **yes** | 174 | approved | v03 | v01 | Title-style v03 impact crouch/open-palm half rise passes 48-color new-strip gate without exemption/clipping; actual two-frame atlas QA and y240 soles. Old v01 remains approved pending final-set review. |
-| 8 | win | 4 | - | **yes** | 212 | approved | v04 | v01 | Title-style v04 three-quarter-back salute passes 48-color numeric gate and native loop QA; old v01 approved pending final-set review. |
-| 9 | backDash | 3 | - | no | 207 | approved | v05 | v01 | Title-style v05 candidate corrects v04's enlarged head; 48-color new-strip gate passes without clipping/exemption and three actual atlas cells show push-off, airborne tuck and open-palm landing. Old v01 remains approved pending final-set review. |
-| 9 | superDash | 2 | - | no | 108 | approved | v05 | v01 | Title-style v05 numeric 48-color head pass with measured -24/-28 placement; native bounds 202×107/197×108 vs older ~230×120 geometry target. Claude geometry review held; old v01 approved. |
-| 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v01 | Title-style v03 deep takeoff crouch: low-confidence probe requires v03-only manual anatomy acceptance after native packed face/torso/limb comparison; not a numeric pass. Old v01 remains approved pending final-set review. |
-| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v04 | v02 | Title-style v04 five-frame airborne kick passes 48-color new-strip gate and native frame QA. |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v01 | Title-style v07 measured stitch and f2/f3 whole-pose offsets pass 48-color new-strip gate; native kick anatomy inspected. |
-| 9 | block | 2 | - | no | 204 | approved | v05 | v01 | Title-style v05 third attempt passes strict 48-color new-strip gate; v03/v04 enlarged-head variants archived. Actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
-| 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v01 | Title-style v03 candidate: measured head fit from 183 to 166 px target, strict new-strip 48-color gate passes; actual packed three-frame QA shows bent abdomen reaction and a matching rising stance. Old v01 remains approved pending full-set review. |
-| 9 | spin | 4 | - | no | 160 | approved | v03 | v01 | Title-style v03 source archived: diagnostic rotation correct, tucked torso/full-limb one-scale proof insufficient. No manual pass; old v01 approved and packed. |
-| 9 | airRecover | 3 | - | no | 180 | approved | v03 | v01 | Title-style v03 source archived: diagnostic orientation correct, tucked torso/limb one-scale proof insufficient. No manual pass; old v01 approved and packed. |
-| 9 | throw | 4 | 1/1/2 | no | 201 | approved | v05 | v01 | Final title-style v05 fails head/foot drift, right clipping and mouth release zone after three calls; old approved v01 packs. |
-| 9 | vanish | 2 | - | no | 221 | approved | v05 | v01 | Title-style v05 afterimage candidate uses version-only manual low-confidence anatomy acceptance after native face/torso/limb QA; not a numeric pass. v03/v04 source-size mismatch archived. Old v01 remains approved pending final-set review. |
-| 9 | stagger | 4 | - | no | 207 | approved | v06 | v01 | Final title-style v06 fails head/foot drift and f2 near-frontal angle after three calls; old approved v01 packs. |
-| 9 | ko | 1 | - | no | 64 | approved | v05 | v02 | Title-style v04/v05 preserved original supine bent-knees KO but were rejected after three imagegen attempts: low-confidence anatomy and lying contact warnings. Original approved v02 remains packed; technical redraw guidance needed. [QA](characters/sasuke/production/title-style/QA.md). |
-| 9 | intro | 4 | - | no | 210 | approved | v03 | v01 | Title-style v03 crossed-arm loop passes 48-color gate with measured auto-head fit 1.065; old v01 approved pending final-set review. |
-| 9 | taunt | 2 | - | no | 212 | approved | v03 | v01 | Title-style v03 red-eyed beckon passes 48-color new-strip gate without clipping/exemption; actual two-frame atlas QA. Old v01 remains approved pending final-set review. |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | Title-style v02 raw candidate fitted in diagnostic preview; fixed-name approved v01 unchanged; tight face crop is a composition review hold. |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v01 | Title-style v02 raw candidate fitted in diagnostic preview; fixed-name approved v01 unchanged. |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | Title-style v02 raw candidate fitted in diagnostic preview; fixed-name approved v01 unchanged. |
+| 3 | idle | 8 | - | **yes** | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 4 | run | 8 | - | **yes** | 150 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 180 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 190 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 193 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 198 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | guard | 2 | - | **yes** | 180 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 174 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v01 | v01 | Fallback: original v01 (manual scale pass). Approved original v01. |
+| 6 | down | 2 | - | **yes** | 96 | approved | v01 | v01 | Fallback: original v01 (manual scale pass). Approved original v01. |
+| 6 | getup | 5 | - | **yes** | 180 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 198 | approved | v11 | v11 | Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamCharge | 3 | - | **yes** | 230 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamFire | 3 | - | **yes** | 198 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v13 | v13 | Title-style v13 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | dash | 2 | - | **yes** | 160 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | land | 2 | - | **yes** | 174 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | win | 4 | - | **yes** | 212 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | backDash | 3 | - | no | 207 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 108 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | block | 2 | - | no | 204 | approved | v05 | v05 | HOLD (visual): stands 24 px taller than the crouched guard v04 (pop on every block). Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 166 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | spin | 4 | - | no | 160 | approved | v01 | v01 | Fallback: original v01 (manual scale pass; title v03 viable but unreviewed). Approved original v01. |
+| 9 | airRecover | 3 | - | no | 180 | approved | v01 | v01 | Fallback: original v01 (manual scale pass; title v03 viable but unreviewed). Approved original v01. |
+| 9 | throw | 4 | 1/1/2 | no | 201 | approved | v01 | v01 | HOLD (strict gate): original v01 pops (streaming hair f1, as live today); title v05 drift 1.14 and clipped. Approved original v01. |
+| 9 | vanish | 2 | - | no | 221 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | stagger | 4 | - | no | 207 | approved | v01 | v01 | Fallback: original v01 ships (title v06 drift 1.08). Approved original v01. |
+| 9 | ko | 1 | - | no | 64 | approved | v02 | v02 | Fallback: original v02 (manual scale pass). Approved original v02. |
+| 9 | intro | 4 | - | no | 210 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | taunt | 2 | - | no | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | v02 never shown (the preview showed v01); v01 ships. Approved v01. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
 
-| 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v10 | v02 | Title-style v10 measured Part B stitch and f2/f3 offsets pass new-strip gate; historical contact-zone validation held for Claude. |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v06 | v02 | Title-style v04-v06 archived: f5 fails exact airHeavy f0 endpoint and rotated/tucked head probe remains unresolved; old approved v02 packs. |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v01 | Title-style v04 planted counter guard passes 48-color new-strip gate; near-still hold is intentional. |
-| 9 | superPose | 4 | - | no | 208 | approved | v03 | v01 | Title-style v03 archived: native packed 5× eye crop cannot resolve required three-blade pattern. Original v01 remains approved and packed; art legibility retry needed. |
+| 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v02 | v02 | Fallback: original v02 (title v04-v06 fail; f5 no longer matches airHeavy f0). Approved original v02. |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | Fallback: original v01 (title v03 passes but was never shown). Approved original v01. |
 
 ## killua
 
