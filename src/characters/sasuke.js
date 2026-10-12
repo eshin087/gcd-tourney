@@ -190,6 +190,9 @@ export default {
   stance,
   extraAnims,
   runLean: 40,
+  // the spot dodge's held pose [animation, frame] (DEFENSE.spotDodge): his vanish crouch stands 193 px against the
+  // 177 px idle, so he ducks into the jump squat's low lunge instead
+  dodgePose: ['jumpSquat', 0],
   portraitFace: 'angry',
   cutinRedEyes: true,
 };

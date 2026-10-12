@@ -1,107 +1,18 @@
 {
-  "_comment": "256px frame-local boxes over the visible striking hands, replacing full-body fallback detections. Visual target-zone deviations are recorded in production/QA.md.",
-  "airHeavy": {
-    "3": {
-      "hit": [
-        [
-          194,
-          163,
-          30,
-          33
-        ]
-      ]
-    }
-  },
-  "_hands": "hand: palm/fingertip point (256 cell) for hand effects, shots and beams; measured by Claude 2026-10-10 from the packed frames (Rasengan forms between the cupped hands, Rasenshuriken sits on the raised palm); scale correction recheck 2026-10-10: beamFire palms and heavy f4 corrected from final packed overlays.",
-  "special": {
-    "0": {
-      "hand": [
-        168,
-        116
-      ]
-    },
-    "1": {
-      "hand": [
-        174,
-        124
-      ]
-    },
-    "2": {
-      "hand": [
-        164,
-        111
-      ]
-    }
-  },
-  "specialForward": {
-    "0": {
-      "hand": [
-        158,
-        40
-      ]
-    },
-    "1": {
-      "hand": [
-        164,
-        46
-      ]
-    }
-  },
-  "throw": {
-    "1": {
-      "hand": [
-        232,
-        92
-      ]
-    },
-    "2": {
-      "hand": [
-        225,
-        128
-      ]
-    }
-  },
-  "beamFire": {
-    "0": {
-      "hand": [
-        201,
-        88
-      ]
-    },
-    "1": {
-      "hand": [
-        185,
-        98
-      ]
-    },
-    "2": {
-      "hand": [
-        201,
-        88
-      ]
-    }
-  },
-  "heavy": {
-    "3": {
-      "hit": [
-        [
-          186,
-          73,
-          14,
-          15
-        ]
-      ]
-    },
-    "4": {
-      "hit": [
-        [
-          158,
-          21,
-          16,
-          19
-        ]
-      ]
-    }
-  },
-  "_heavyV06": "Visible fist-local boxes measured after isolated arm correction. f3 centered193,80; f4 top21. No invisible reach extension."
+  "_comment": "256px frame-local hit boxes on the striking limb's contact end, measured by Claude 2026-10-11 on the title-style art (quantize-48 pack of light4 v08, heavy v12, airHeavy v09, special v08, specialUp v04; airLight3 v09 and light2 v06 f3 re-measured 2026-10-12, see _airLight3V09 / _light2V06). They replace auto boxes that took in a smear trail, the other hand, the knee, the hair (heavy) or the front 28% of the body (special f3), and the old-art boxes that sat on the torso or in the air. Auto boxes that already cover only the striking limb stay: light1-3, light4 f4, airLight1-2, special f5, specialForward f2-f3, specialUp f3. Re-measure any strip whose packed version changes.",
+  "light4": {"3": {"hit": [[213, 88, 33, 19]]}},
+  "light2": {"3": {"hit": [[190, 86, 24, 21]]}},
+  "_light2V06": "light2 v06 f3 (Claude, 2026-10-12, measured on the title-style art at bodyHeight 185): since the size pass (180 -> 185) the auto rule \"rising strike above the idle head\" picks the hair (box x 91-169, y 61-90); the jab fist is at x 194-211, y 89-104 (cuff from x 190). f2 keeps its auto fist box.",
+  "heavy": {"3": {"hit": [[156, 50, 24, 54]]}, "4": {"hit": [[177, 21, 19, 25]]}},
+  "_heavyV12": "R fist + cuff boxes on heavy v12 (Claude, 2026-10-11, measured on the title-style art). f3: the uppercut fist rises straight up in front of the face (x 157-175, y 52-72), 5-23 px short of the SPEC F03 zone; the box covers the fist and the rising forearm down to the elbow (x 156-180, y 50-104) so the launcher meets the short cast on every active frame, on the drawn limb, no reach extension. f4: fist above the forehead, x 179-193, y 23-43.",
+  "airLight3": {"2": {"hit": [[215, 117, 31, 34]]}, "3": {"hit": [[215, 117, 31, 34]]}},
+  "_airLight3V09": "Kicking-foot boxes re-measured by Claude 2026-10-12 on the title-style airLight3 v09 packed at bodyHeight 192 with sidecar offsets f2/f3 [-2,0] (the v07 boxes sat under the foot, on the shin and in the air). f2 and f3 are the same extended kick (f2 with the crescent): the sandal from the ankle to the sole, x 215-245, y 118-150; the crescent (effect) is not part of the box. Front edge x 246 = 0.92 units ahead of the pivot.",
+  "airHeavy": {"2": {"hit": [[219, 178, 29, 26]]}, "3": {"hit": [[224, 187, 27, 26]]}},
+  "specialUp": {"2": {"hit": [[212, 2, 37, 45]]}},
+  "_hands": "hand: palm/fingertip point (256 cell) for hand effects, shots and beams, measured by Claude 2026-10-11 on the title-style art (throw v09, beamCharge v08, beamFire v12, special v08, specialForward v04): the Rasengan forms between the cupped hands (special f0-f1: midpoint of the two hands, about 13-15 px from each), then sits in the R palm (f2-f5; the post-hit recovery frames keep f5's point, the impact); the Rasenshuriken sits on the raised palm (specialForward f0-f1), then the thrust palm (f2-f3; recovery keeps f3's point); shuriken leave the open R hand (throw f1, f2 = follow-through hand); the beam leaves the front of both palms (beamFire); beamCharge marks the pocket between the cupped hands at the rear hip.",
+  "special": {"0": {"hand": [163, 139]}, "1": {"hand": [160, 149]}, "2": {"hand": [200, 146]}, "3": {"hit": [[174, 142, 27, 24]], "hand": [188, 150]}, "4": {"hit": [[202, 130, 29, 24]], "hand": [217, 141]}, "5": {"hand": [231, 123]}},
+  "specialForward": {"0": {"hand": [164, 44]}, "1": {"hand": [166, 55]}, "2": {"hand": [242, 114]}, "3": {"hand": [242, 114]}},
+  "throw": {"1": {"hand": [216, 124]}, "2": {"hand": [207, 158]}, "_refit": "scaled x1.0277 about the pivot with the strip's bodyHeight 163 -> 168 (size consistency pass, 2026-10-11)"},
+  "beamCharge": {"0": {"hand": [100, 153]}, "1": {"hand": [99, 153]}, "2": {"hand": [99, 154]}, "_refit": "scaled x0.9804 about the pivot with the strip's bodyHeight 174 -> 171 (size consistency pass, 2026-10-11)"},
+  "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}}
 }

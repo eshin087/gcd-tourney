@@ -15,6 +15,110 @@ How it works:
 
 ---
 
+## Title-style corrections, round 3 (2026-10-12, Claude)
+
+Claude QA'd every round-2 hold and fixed what could be fixed without new images. The fixes are bodyHeight
+calibration, frame offsets and hit boxes, committed on the four title-production branches with evidence under
+`art/characters/<id>/production/round3-claude/`. What is left below is a drawing defect. Work in the same worktrees
+(`git merge main` first). Everything in "Every thread" still applies.
+
+**Only items marked `GO` may use an image call now. Every other item has an exhausted budget: do nothing there until
+the user's `authorize ...` appears in docs/NOW.md.** Pack with `node tools/pack-sprites.mjs <id> --quantize 48
+--strict-scale`. The replaced strip must come back `ok`, or `manual` with a measured note for tumbling/lying
+poses. Every frame must sit inside x 4..251. Leave at least 24 px of magenta between the poses in each part, and
+re-stitch with `npm run stitch -- <id> <anim> vNN`. After packing, Claude sets bodyHeight and offsets; do not
+hand-tune them.
+
+Naruto (`art/naruto-title-production`):
+- [ ] GO **spin v07 -> v08**: 1 call left (round-2 extra authorization).
+  - Keep v07's four backward-tumble phases, the rotation, body, limb lengths, fists, sandals (30-33 px, correct)
+    and the loop.
+  - Redraw only the head (skull + hair) about 12% smaller in every frame, with spikes the length of the combat
+    cell's.
+  - At the native pack the head silhouette should be about 39-41 x 35-37 px, i.e. 0.98-1.03 of the idle (v07:
+    42x42 / 48x42 / 43x38 / 47x39).
+  - Evidence: production/round3-claude/spin_v07_head_drift.png.
+- [ ] run v08 -> v09, part B only. Budget exhausted. The approved v07 ships meanwhile; v08 is in
+      raw/_qa_hold/.
+  - Keep part A as v07's A. Draw B as A's four phases mirrored, with the legs swapped (holster = right leg).
+  - f4: contact with the holster leg in front, crown y76 +-3, both soles on y240 at f0's stance width.
+  - f5: the holster leg supports, the other knee swings forward, crown about y92.
+  - f6: the other leg leads, the holster leg trails on its rear toe, crown about y81.
+  - f7: a push-off mirroring f3, crown about y92 (not v08's planted front-foot lunge).
+  - The torso lean per phase equals A's.
+  - Evidence: run_v08_seam.png.
+
+Killua (`art/killua-title-production`), all budgets exhausted:
+- [ ] **charge v13 -> v14**: the head and hair are drawn about 8% small for a body at reference size. v11 had the
+      reverse.
+  - Change the hair only, in all 4 frames. Widen the hair mass to the combat cell's volume: silhouette about 45 px
+    at packed scale (now 41-42), widest row about 42-43 (now 37-39).
+  - Let the side locks and bangs hang 2-4 px below the eye line, as in the combat cell.
+  - Keep the spike roots solid (at least 3 px).
+  - Do not raise the crown: extra height makes the packer shrink the body, which is what went wrong with v11.
+  - Keep the body, pose, hands, shoes, face, palette, the +-1 px loop and the aura cadence.
+  - Accept when the probe head reads 0.98-1.02 in every frame at bodyHeight 125, with shoe and collar sizes
+    unchanged.
+  - Evidence: charge-v13-vs-refs-native2x.png, charge-heads4b.png.
+- [ ] **beamFire v09 -> v10**: redraw f1 only.
+  - The recoil lives in the shoulders, hair and clothing.
+  - Palms within 2 px of f0/f2 (they are now 15 px behind the beam root), head within 3 px (now 16), both shoes
+    within 1 px.
+  - Keep f0/f2 and the lunge template.
+  - Evidence: beamFire-v09-bh123-boxes.png.
+- [ ] **run v09 -> v10**: part B only (f4-f7). Keep part A, which the user has approved since v08.
+  - Match A's phase heights within 2 px (neck heights at bodyHeight 158: A 121/131/116/135, B now
+    124/125/119/129).
+  - Redraw f5 as the mirror of A's f1, leaning forward with the head about 19 px further forward. This removes
+    the 41 px lurch from f5 to f6.
+  - Shade the far leg one step darker and keep it behind the near leg in f5-f6.
+  - Evidence: run-v09-legs-B.png, run-v09-f2-f6-overlap.png.
+
+Gojo (`art/gojo-title-production`):
+- [ ] **run v12 -> v13**: budget exhausted (A0/B0). The user first chooses the direction, glide or stride (see
+      NOW).
+  - Glide:
+    - Redraw part A (f0-f3) only and reuse v12 B as v13_B.
+    - Match B's head, torso (70-72 px packed), legs (108-112 px), shoes and height (215-221 px). A is now
+      203-213 px, 6-8% short.
+    - No size change inside the part. The head path stays smooth (3 px or less per frame).
+    - f0 takes f7's lean so the loop does not jump.
+    - Keep the hands in the pockets.
+  - Stride: an upright, legs-alternating run per ANIMATIONS.md, 205-225 px tall.
+  - Evidence: run-v12-seams-3x.png, run-feet.png.
+- [ ] **special v07 -> v08**: v07 A, copied with no call, plus a new part B. Budget exhausted.
+  - Redraw part B (5 poses, f3-f7) at A's and the idle's head-to-body ratio: with the hair box 35-37 px wide and
+    the head 38-39 px, the figure is 231-234 px tall, torso 74-76, legs 118-121. v07 B is 211-212 / 68-69 / 104-105.
+  - Keep v07 B's poses: the arm horizontal at upper-chest height, palm up, two fingers crooked; the left hand in
+    the pocket; f7 lowering to the pocket.
+  - At least 50 px of magenta after every fingertip.
+  - Evidence: special-v07-seam-3x.png.
+- [ ] GO **airHeavy v08 -> v10, part B (f4/f5)**: 1 call left.
+  - Same air-neutral pose and body (213-214 px, matching airLight1 f0), head and hair about 5% smaller: hair
+    36-37 px wide (now 39-40), head 39 px (now 40-41).
+  - Reuse v08 A as v10_A.
+  - Part A (f2/f3 read 1.06/1.09) is exhausted: redraw its bowed head at the idle size only after the user's
+    `authorize`.
+  - Evidence: heads-airHeavy.png.
+
+Sasuke (`art/sasuke-title-production`):
+- [ ] GO **charge v12 -> v13**: 1 call left.
+  - Redraw all four frames with the head (hair mass and skull) about 4-5% smaller. The target is idle v07 f0's
+    head, which packs to a 38x38 px hair blob at bodyHeight 180 (v12 f0: 41x39; gate 1.035-1.051, shape match
+    1.06-1.07).
+  - Keep exactly: the planted stance (rear heel x 46, front toe x 206, height 176-180 at bodyHeight 180), the
+    sandals, the lean torso and arms, the fists (at the hips in f0/f1/f3, raised in f2) and the four-phase cloth
+    pulse. No aura or camera zoom.
+  - Evidence: production/round3-claude/r3-round2-sizes.png. The user sees this charge as bigger.
+- launched, down and ko need no new images: Claude calibrated them, and their manual QA passed.
+- backDash f1 (about 6% small) and block (head 1.031, height = guard): only if the user asks. Budgets exhausted.
+- Remaining budgets: heavy A 1, heavy B 1, specialUp A 1.
+
+Release condition: the four fighters go live together once every strip that packs is user-approved and passes
+the strict pack. Today Killua's charge has no passing version (v11 and v13 both fail). The unapproved latest
+images also still need the user's approval, or a fallback: Killua beamFire/run v09, Gojo run v12, special v07 and
+airHeavy v08. ART-TECH-01 stays paused.
+
 ## Title-style corrections, round 2 (2026-10-11, Claude)
 
 **Authorized by the user, 2026-10-11** ("ok assembled, authorize all, accept down, ship v09, tune gojo heavy, keep

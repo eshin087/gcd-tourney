@@ -32,6 +32,41 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Art: eight independent Killua title-style candidates and approved-reference QA controls; idle, taunt and win technical holds remain. No production release.
 
 - Added: Killua title-style production trial from the approved pilot: versioned idle and guard strips plus three UI candidates, with native-size QA and a documented idle loop hold. Existing fixed-name art remains approved; no production integration yet (ART-KIL-TITLE-20261011).
+- Changed: Naruto title-style art ships (PR #69) with round-3 QA: KO calibrated to the down pose, round-2 strips within 2% of the idle, re-measured airLight3/light2 boxes; spin v07 is a user-approved stand-in with a recorded size exception until spin v08; run v07 ships while v08 is held.
+
+- User approved naruto round-2 art: charge v07, jumpUp v06, specialDown v05. Other visual/technical holds remain for Claude integration; no production deployment.
+
+- User approved Naruto airLight3 v09 and KO v09 artwork; approvals recorded in PR #69. KO calibration/contact and other existing technical holds remain for Claude; no production deployment.
+
+- Naruto KO/kick v08 user rejections archived; v09 whole-pose redraws use exactly three authorized calls. Kick passes strict scale and margins; KO remains a calibration/manual QA hold with a separately labeled77px proposal (PR69).
+
+- Naruto title-style round2: seven versioned corrections and native48-color review evidence; three recommended for art review, run/kick motion-size holds and KO/spin manual QA pending (PR69).
+
+- Art (PR69, not on main yet): Claude assembled Naruto's approved source-only title-style parts with the fixed stitch (light1 v04, light2 v06, airLight3 v07, airHeavy v09, special v08, specialForward v04, specialUp v04; heavy v12 re-stitch), fitted their scale, recorded the user's 2026-10-11 approval of the versions shown in the final preview, re-measured hit boxes and hand anchors on the new art, and added manual scale records. Strict scale gate still fails on jumpUp, airLight3, airHeavy v09, specialDown, spin and ko (new images or decisions needed).
+
+- Added: Naruto diagnostic player now shows packer-fitted previews of the new versioned portrait, cut-in and select UI sources without changing approved UI files (ART-NAR-TITLE).
+- Added: Naruto title-style airLight3 v07 head-proportion and airHeavy v09 motion redraw source parts; both remain source-only because the stitcher aborts at Part A head detection before assembly (ART-NAR-TITLE).
+- Added: Naruto title-style airLight3 v06, airHeavy v08, special v06/v07 and specialForward v04 sources. AirHeavy passes isolated scale with repeated-pose motion hold; airLight3 clips/has oversized heads, while special and specialForward expose stitch assembly blockers (ART-NAR-TITLE).
+- Added: Naruto title-style airLight2 v05, specialDown v04 and specialUp v04 source parts; airLight2 passes isolated strict scale, specialDown remains a bowed-head scale hold, and specialUp exposes a stitcher manual-factor head-probe blocker (ART-NAR-TITLE).
+- Added: Naruto title-style light3 v04, light4 v08 and heavy v11 source strips and native atlas QA; all pass isolated strict scale, with combo/recovery motion checks recorded for review (ART-NAR-TITLE).
+- Added: Naruto title-style airLight1 five-frame jab candidates; best v06 passes isolated strict scale but overshoots the fist contact zone, while v07 reaches the cell margin (ART-NAR-TITLE).
+- Added: Naruto title-style light2 seven-frame rear straight candidates and measured stitch QA; best assembled v05 passes isolated scale but misses the chin contact zone, and v06's four source figures overlap in x projection so the stitcher miscounts them (ART-NAR-TITLE).
+
+- Added: Naruto title-style win v07 four-phase bent-elbow victory loop; measured anatomy and fist top pass isolated strict 48-color QA (ART-NAR-TITLE).
+
+- Added: Naruto title-style superPose v05 clean-cutout four-frame seal loop with isolated strict 48-color scale and loop QA (ART-NAR-TITLE).
+
+- Added: Naruto title-style throw v09 candidate with old v02 hand edits preserved; isolated scale passes, but release hand overshoots the gameplay contact zone and remains held (ART-NAR-TITLE).
+
+- Added: Naruto title-style intro v05 candidate with stable four-frame crossed-finger seal loop and isolated strict 48-color pack result (ART-NAR-TITLE).
+
+- Added: Naruto title-style stagger v05 four-frame candidate; isolated scale gate passes, but opposite sway lacks distinction and remains a motion hold (ART-NAR-TITLE).
+
+- Added: Naruto title-style vanish v04 candidate with measured native 48-color anatomy comparison and version-scoped manual scale QA; final cast review and full-pack resolution remain pending (ART-NAR-TITLE).
+
+- Added: Naruto title-style production checkpoint from the user-approved pilot: provisional idle v07, run v07, dash v04, backDash v04, superDash v03, jumpSquat v04, jumpUp v04, jumpFall v04, land v06, guard v05, block v05, hurtHigh v04, hurtLow v03, getup v07, charge v06, beamCharge v08, original-pose down v05/KO v07 and three UI candidates. Native atlas QA records isolated dash/block/jumpFall passes and manual low-confidence crouch QA; idle/run/jumpUp/land and down/KO holds remain without promotion, and light1 stitch is rejected and launched v05, spin v06 and airRecover v07 and taunt v06 remain anatomy holds; beamFire v12 remains a scale/contact hold (ART-NAR-TITLE). The old game art remains the approved release until final review and Claude integration.
+- Changed: the spot dodge holds the vanish strip's crouch frame instead of playing through to its standing toe-rise; with the crouched title-style idles every fighter popped up taller for the whole dodge.
+
 - Fixed: the packer warned about clipped or margin-touching frames of a strip that the auto head fit then placed again at its fitted size (Sasuke special v13 "clipped 15px" for a fitted frame inside the cell); the warnings now describe the cells that ship.
 - Added: tech poses (ENG-079, TOOL-034, ADR 0030): three optional canonical animations, `techGround` (tech in place), `techRoll` (tech roll, played backward for a back roll) and `wallTech` (wall tech; the wall jump reuses its push-off, then `jumpUp`), played on each tech state's own clock (`DEFENSE` `animPhases`) so the art never changes timing; a fighter without them keeps the old `land` / `airRecover` / `jumpUp` poses. The packer wall-anchors the cling frames on the barrier (anims.json `wallAnchor`, re-centred on walls seen in depth), warns on a thin wall contact or a tucked pose packed at standing height, and the scale gate reports their unreadable beats as not read (`partial` until a manual QA record). Brief for Codex: art/characters/TECH_POSES_BRIEF.md. `npm run test:anims`.
 
