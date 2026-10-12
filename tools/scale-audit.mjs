@@ -40,7 +40,7 @@ export function loadPacked(id, publicDir = path.join(ROOT, 'public')) {
     for (let y = 0; y < H; y++) data.set(png.data.subarray(((oy + y) * png.width + ox) * 4, ((oy + y) * png.width + ox + W) * 4), y * W * 4);
     return { w: W, h: H, data };
   };
-  const anims = Object.entries(meta.animations).map(([name, A]) => ({ name, frames: A.frames, cells: A.frames.map(cell) }));
+  const anims = Object.entries(meta.animations).map(([name, A]) => ({ name, frames: A.frames, phases: A.phases ?? null, cells: A.frames.map(cell) }));
   return { id, meta, anims };
 }
 
@@ -66,7 +66,7 @@ export function auditPacked(id, { artDir = path.join(ROOT, 'art'), publicDir = p
   const exempt = exemptionsFrom(manifest.characters?.[id]?.animations);
   let A = auditFromCompact(P.meta.scaleAudit, { gate, exempt });
   if (!A) {
-    A = auditCharacter(P.anims.map((a) => ({ name: a.name, cells: a.cells, version: versionOf(id, a.name, P.meta, artDir) })), {
+    A = auditCharacter(P.anims.map((a) => ({ name: a.name, cells: a.cells, phases: a.phases, version: versionOf(id, a.name, P.meta, artDir) })), {
       decl: builds[id] || {}, gate, exempt, maxColors: manifest.spec?.maxColors ?? 48, reference: loadScaleReference(artDir, builds[id] || {}),
     });
     A.legacy = true;
@@ -158,9 +158,10 @@ export function headsSheet({ P, A, gate }) {
     text(img, LABW + 2, oy + CROP * SC + 3, 'idle f0', GREY);
     a.cells.forEach((c, k) => {
       const f = s.frames[k], ox = LABW + (k + 1) * CW;
-      const out = !f.skipped && f.head != null && s.verdict !== 'ref' && FLAGGED.has(s.verdict) && Math.abs(f.head - 1) > gate.stripTol;
-      crop(c, f.box, ox, oy, f.skipped ? undefined : f.head, out);
+      const out = !f.skipped && !f.low && f.head != null && s.verdict !== 'ref' && FLAGGED.has(s.verdict) && Math.abs(f.head - 1) > gate.stripTol;
+      crop(c, f.box, ox, oy, f.skipped || f.low ? undefined : f.head, out);
       if (f.skipped) text(img, ox + 2, oy + CROP * SC + 3, 'exempt', GREY);
+      else if (f.low) text(img, ox + 2, oy + CROP * SC + 3, 'not read', GREY);
     });
   });
   return img;
@@ -251,7 +252,7 @@ function main(argv) {
     const anims = {};
     for (const [name, s] of Object.entries(A.anims)) {
       counts[s.verdict] = (counts[s.verdict] || 0) + 1;
-      anims[name] = { v: s.version, head: s.head, feet: s.feet, range: s.range, verdict: s.verdict, reason: s.reason ?? undefined, staleExempt: s.staleExempt, frames: s.frames.map((f) => ({ head: f.head, feet: f.feet, box: f.box, ...(f.skipped ? { exempt: true } : {}) })) };
+      anims[name] = { v: s.version, head: s.head, feet: s.feet, range: s.range, verdict: s.verdict, reason: s.reason ?? undefined, staleExempt: s.staleExempt, frames: s.frames.map((f) => ({ head: f.head, feet: f.feet, box: f.box, ...(f.skipped ? { exempt: true } : {}), ...(f.low ? { notRead: true } : {}) })) };
     }
     report.fighters[id] = { palette: { head: [...A.palette.head].map(hex), feet: [...A.palette.feet].map(hex), source: A.palette.headSource }, ref: { headPx: A.ref.headPx, box: A.ref.box, feetPx: A.ref.feet }, counts, anims };
     L(`\n== ${id}: idle head ${A.ref.headPx.join('x')} px (${A.palette.headSource} palette ${[...A.palette.head].map(hex).join(' ')})`);
