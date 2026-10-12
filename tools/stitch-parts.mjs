@@ -39,7 +39,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, resample, placeCharFrame, readJson } from './pack-sprites.mjs';
+import { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, figureSplit, resample, placeCharFrame, readJson, loadScaleReference } from './pack-sprites.mjs';
 import { palettesFromIdle, makeReference, measureFrame, measurementCells, median, resolveGate } from './scale-probe.mjs';
 import { loadPacked } from './scale-audit.mjs';
 
@@ -74,61 +74,6 @@ function freshIdle(id, artDir) {
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 }
 
-// 8-connected opaque components of a cleaned image: { lab, comps: [{ id, area, x0, y0, x1, y1, cx }] } biggest first
-function components(img) {
-  const { w: W, h: H, data: d } = img, lab = new Int32Array(W * H).fill(-1), q = new Int32Array(W * H), comps = [];
-  for (let s = 0; s < W * H; s++) {
-    if (d[s * 4 + 3] < 128 || lab[s] >= 0) continue;
-    const id = comps.length;
-    let qn = 0, qh = 0, x0 = W, y0 = H, x1 = -1, y1 = -1, sx = 0;
-    q[qn++] = s; lab[s] = id;
-    while (qh < qn) {
-      const v = q[qh++], x = v % W, y = (v / W) | 0;
-      sx += x; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
-      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
-        const xx = x + dx, yy = y + dy;
-        if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue;
-        const j = yy * W + xx;
-        if (lab[j] < 0 && d[j * 4 + 3] >= 128) { lab[j] = id; q[qn++] = j; }
-      }
-    }
-    comps.push({ id, area: qn, x0, y0, x1, y1, cx: sx / qn });
-  }
-  return { lab, comps: comps.sort((a, b) => b.area - a.area) };
-}
-
-// The figures of a part: the `expected` biggest components are the bodies (they must stand clearly apart in size from
-// the next one: at least 4x bigger, and at least 15 % of the biggest), every smaller component joins the body whose
-// box is nearest (a detached hair strand or sleeve tip). expected 0 = every component of at least a quarter of the
-// biggest is a body. null when that is not clear-cut (two figures touch, or a big detached piece): the caller falls
-// back to the projection split.
-function figures(img, expected) {
-  const { lab, comps } = components(img);
-  if (!comps.length) return null;
-  let n = expected;
-  if (!n) n = comps.filter((c) => c.area >= comps[0].area * 0.25).length;
-  if (comps.length < n) return null;
-  const smallestBody = comps[n - 1].area, nextArea = comps[n]?.area ?? 0;
-  if (smallestBody < comps[0].area * 0.15 || smallestBody < nextArea * 4) return null;
-  const bodies = comps.slice(0, n).map((c) => ({ ...c, ids: new Set([c.id]) }));
-  const gapTo = (a, b) => Math.hypot(Math.max(0, a.x0 - b.x1, b.x0 - a.x1), Math.max(0, a.y0 - b.y1, b.y0 - a.y1));
-  for (const c of comps.slice(n)) {
-    let best = bodies[0], bd = Infinity;
-    for (const b of bodies) { const g = gapTo(c, b); if (g < bd) { bd = g; best = b; } }
-    best.ids.add(c.id);
-    best.x0 = Math.min(best.x0, c.x0); best.y0 = Math.min(best.y0, c.y0); best.x1 = Math.max(best.x1, c.x1); best.y1 = Math.max(best.y1, c.y1);
-  }
-  return bodies.sort((a, b) => a.cx - b.cx).map((b) => {
-    const out = newImage(b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
-    for (let y = b.y0; y <= b.y1; y++) for (let x = b.x0; x <= b.x1; x++) {
-      if (!b.ids.has(lab[y * img.w + x])) continue;
-      const i = (y * img.w + x) * 4, o = ((y - b.y0) * out.w + (x - b.x0)) * 4;
-      out.data[o] = img.data[i]; out.data[o + 1] = img.data[i + 1]; out.data[o + 2] = img.data[i + 2]; out.data[o + 3] = img.data[i + 3];
-    }
-    return out;
-  });
-}
-
 // a cleaned part: background removed, specks dropped, its poses as whole figures (source resolution). layout
 // 'figures' = laid out again one by one when stitched; 'projection' = the fallback vertical split (figures touch),
 // stitched with the part's own layout so no pixel is duplicated
@@ -136,7 +81,7 @@ function cleanPart(file, expected = 0) {
   const img = readPng(file);
   removeBackground(img, { tol: 72, mode: 'char' });
   removeSpecks(img, { frac: 0.0015, min: 4 });
-  const figs = figures(img, expected);
+  const figs = figureSplit(img, expected);
   if (figs) return { img, poses: figs, box: bbox(img), layout: 'figures' };
   const { rects } = splitStrip(img, expected, { split: 'auto', mode: 'char' });
   const poses = [];
@@ -222,6 +167,10 @@ export function main(argv) {
   }
   const manifest = readJson(path.join(artDir, 'manifest.json')).data || {};
   const decl = readJson(path.join(artDir, 'scale', 'builds.json')).data?.fighters?.[id] || {};
+  // a fighter whose gate measures against approved reference cells (builds.json scaleReference) is stitched against them
+  const sref = loadScaleReference(artDir, decl);
+  if (sref?.error) return fail(sref.error);
+  if (sref) { idle.cells = sref.cells; console.log(`[stitch] measuring against the approved reference ${sref.label} (builds.json scaleReference)`); }
   const mc = manifest.characters?.[id]?.animations?.[anim] || {}, md = manifest.animationDefaults?.[anim] || {};
   const bodyHeight = Number(mc.bodyHeight ?? md.bodyHeight) || 204;
 
