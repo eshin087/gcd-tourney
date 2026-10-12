@@ -104,7 +104,8 @@ export const HIT_FLASH = {
 //             `staleWindow` frames of the last adds `stale` recovery frames (up to `staleMax` times).
 //             `pose`/`poseFrame`: the dodge holds that strip's frame (the vanish strip's low crouch): the strip's
 //             last frame is the vanish's standing toe-rise, and holding it made every crouched-idle fighter pop up
-//             taller for the whole dodge.
+//             taller for the whole dodge. A fighter whose vanish crouch is still taller than its idle names its own
+//             held pose as character data (`dodgePose: [animation, frame]`, Sasuke).
 //  airDodge   Guard in the air, once per airtime. With a direction it bursts that way at `speed`, angled
 //             down (`drop`; `lowDrop` when below `lowY`, so a dodge right after takeoff meets the floor).
 //             Landing in a neutral dodge costs `land` frames.
