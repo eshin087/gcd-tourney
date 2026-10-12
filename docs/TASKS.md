@@ -1,5 +1,7 @@
 # Task board
 
+ART-TITLE-PRODUCTION-QA | Codex | review | Four character worktrees contain full first-pass source coverage. Consolidated review hub and QA lessons in PR68; individual drafts PR69-72. Probe/stitch/runtime holds in art/scale/title-style-pilot/TOOLING_HANDOFF.md and CLAUDE_NEXT_STEPS.md. No new strip approval or live integration. files: art/scale/title-style-pilot/, public/art-review/title-production/, docs/TASKS.md, CHANGELOG.md.
+
 ART-TITLE-STYLE-PILOT | Codex | done | User approved all four title_style_draft_v01 sheets and shared neutral/combat lineups; full production authorized. Claude owns integration.
 The single list of work in flight, shared by the user, Claude and Codex. The protocol is in
 [AI_COLLABORATION.md](AI_COLLABORATION.md).
@@ -272,3 +274,11 @@ the engine PR they depend on merges. Branches leave this file alone; the coordin
 ## Low-confidence gate handoff — 2026-10-11
 
 TOOL-ROTATED-ANATOMY, Claude, done in TOOL-030 (`scaleManualQA`, verdict `manual`). The current scale probe deliberately returns `unmeasured` for lowConf animations before assessing numeric head thresholds (tools/scale-probe.mjs:338). The approved-neutral redraw has eight such Gojo poses: jumpSquat, launched, spin, airRecover, down, getup, vanish and ko. Their visible head may be measured correctly, so a blanket wrong-ROI exemption would be dishonest. Define and validate an axis-aware anatomical/manual evidence acceptance path that preserves the user's strict gate requirement, without silently treating `unmeasured` as `ok` or weakening thresholds. Codex retains per-frame contacts, independent landmarks and uncertainties; these are manual-QA holds, not new art approvals. This is a tooling/spec handoff, not permission for Codex to edit the probe or engine.
+
+## Title-style production tooling handoff (Codex evidence, Claude implementation)
+
+| ID | Task | Owner | Status | Notes |
+|---|---|---|---|---|
+| TOOL-TITLE-PROBE | Stable hair-region comparison against the approved title baseline | Claude | todo | Same-pixel Killua palette evidence; do not weaken gates. See art/scale/title-style-pilot/TOOLING_HANDOFF.md. files: tools/scale-probe.mjs. |
+| TOOL-TITLE-STITCH | Preserve 2D-separated poses and honor documented manual scale factors | Claude | todo | Killua specialForward and Naruto light2/special cross-projection cuts; Naruto specialUp/Forward/airLight3/airHeavy no-head abort before manual factor. Preserve source parts; exact reproduction in character QA. files: tools/stitch-parts.mjs. |
+| QA-TITLE-CONTACT | Validate contacts, hurtboxes and original fallen poses on approved common scale | Claude | todo | After safe assembly, test game contacts and down/KO/getup seams without resizing to historical posed envelopes. Formal SPEC/ADR changes belong to Claude. No art approval inferred. |
