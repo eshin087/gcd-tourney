@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Sasuke title-style art ships (PR #71) with round-3 QA: launched/down/KO calibrated to his standing size (manual QA), heavy/throw within 2% of the idle, heavy/throw/specialUp boxes and the release point re-measured.
+
 - User approved sasuke round-2 art: heavy v11, backDash v07, charge v12, block v07, throw v07, stagger v08, specialUp v09. Other visual/technical holds remain for Claude integration; no production deployment.
 
 - art(sasuke): add seven strict-passing round-2 correction candidates and three explicit holds on PR71, with native quantized review playback, cumulative attempt inventory and retained original approvals (ART-SAS-TITLE-20261011).
