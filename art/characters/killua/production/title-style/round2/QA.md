@@ -1,5 +1,8 @@
 # Killua round-2 corrections
 
+**2026-10-12 approval update:** the user approved idle v08, stagger v05, taunt v05. These artworks are approved; technical/contact holds and other candidate decisions remain separate. See ../../round2-approvals/APPROVALS.md. Original QA findings below are retained as historical evidence.
+
+
 Existing real worktree: `.worktrees/art-killua-title-production`, branch `art/killua-title-production`, PR70. Main merged first. Six named strips only; no tech, UI, down/KO, engine or tooling changes. Built-in imagegen prompts and call history are in [generation-record.json](generation-record.json).
 
 ## Recommendations and holds

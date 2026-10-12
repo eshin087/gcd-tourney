@@ -1,5 +1,7 @@
 # Killua title-style attempt inventory
 
+2026-10-12: user approved idle v08, stagger v05, taunt v05. No new image calls; cumulative budgets unchanged. Other visual/technical holds remain. Current approval record: production/round2-approvals/APPROVALS.md.
+
 Counts are cumulative across saved versions. Unsaved unsuccessful calls also count. No version rename resets budgets. Idle initial budget plus all3 user-authorized extra calls exhausted; v05 retained, v06 rejected. Guard3 calls. Each UI1.
 
 | Asset | Calls used |
