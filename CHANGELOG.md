@@ -20,6 +20,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - art(gojo): begin the approved title-style 42-animation and three-UI redraw; preserve versioned candidates and explicit scale, pose, and pack QA holds (ART-GOJO-TITLE).
 
+- Added: `builds.json` `scaleReference` (approved reference cells the scale gate measures every strip and the idle against, for a fighter whose idle biases the probe), and a whole-figure frame split in the packer for strips whose column split cuts a connected figure (Gojo airLight1/light2/light4, Killua light3/specialForward). Main's shipped atlases are unchanged.
+
+- Fixed: `npm run stitch` cut connected figures into neighbouring frames when their horizontal projections overlapped (Killua specialForward v12, Naruto light2 v06, special v07), aborted on parts whose hair yellow differed slightly from the quantized shipped idle (Naruto's title-style aerials), and refused a written manual factor where no head was found. It now separates whole figures, lays them out with clean gaps, measures against a fresh unquantized idle, and honours `--factor` with `--landmarks`/`--uncertainty`.
+
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 
 - Changed: the redrawn cast ships (PRs #61 Gojo, #62 Sasuke, #63 Naruto, #64 Killua): every strip at the user-approved version on the approved neutral baseline, the scale gate clean (0 flagged strips) with the documented rescales, version-scoped misread notes and manual QA records. Killua's down and ko temporarily use the previous approved v04 / v05 until their fixed versions pass QA and approval (user decision 2026-10-11).
