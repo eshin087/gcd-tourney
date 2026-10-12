@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the spot dodge holds the vanish strip's crouch frame instead of playing through to its standing toe-rise; with the crouched title-style idles every fighter popped up taller for the whole dodge.
+
 - Fixed: the packer warned about clipped or margin-touching frames of a strip that the auto head fit then placed again at its fitted size (Sasuke special v13 "clipped 15px" for a fitted frame inside the cell); the warnings now describe the cells that ship.
 - Added: tech poses (ENG-079, TOOL-034, ADR 0030): three optional canonical animations, `techGround` (tech in place), `techRoll` (tech roll, played backward for a back roll) and `wallTech` (wall tech; the wall jump reuses its push-off, then `jumpUp`), played on each tech state's own clock (`DEFENSE` `animPhases`) so the art never changes timing; a fighter without them keeps the old `land` / `airRecover` / `jumpUp` poses. The packer wall-anchors the cling frames on the barrier (anims.json `wallAnchor`, re-centred on walls seen in depth), warns on a thin wall contact or a tucked pose packed at standing height, and the scale gate reports their unreadable beats as not read (`partial` until a manual QA record). Brief for Codex: art/characters/TECH_POSES_BRIEF.md. `npm run test:anims`.
 
