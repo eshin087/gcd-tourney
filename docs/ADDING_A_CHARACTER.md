@@ -1,6 +1,8 @@
+> **Scale and anatomy ([ADR 0029](decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](../art/scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
+
 # Adding a character
 
-Before generating: follow the [approved cast baseline](../art/scale/APPROVED_CAST_BASELINE.md) and [shared fighter scale gate](../art/CHARACTER_SCALE.md). Record era, stature source and uncertainty; approve an upright neutral and cast lineup at the common pixels/cm. Measure skull, torso and limbs separately from hair/clothing bounds. Validate the new idle against that neutral before drawing the full set. Never give a child an extra height discount or cap a tall fighter individually.
+Before generating: follow the [title-style production contract](../art/scale/title-style-pilot/PRODUCTION_CONTRACT.md) (ADR 0029) and the [shared fighter scale gate](../art/CHARACTER_SCALE.md). Record era, stature source and uncertainty; draw a title-style neutral and combat reference and lay it beside the four approved cells (`public/art-review/title-style-pilot/`) at one pixel density for the user to approve. Measure skull, torso and limbs separately from hair/clothing bounds. Validate the new idle against that neutral and combat reference before drawing the full set. Never give a child an extra height discount or cap a tall fighter individually.
 
 This is the end-to-end recipe for a new fighter, from data file to approved hi-res art. It's written so
 any of Claude, Codex or the user can pick up any step. Owners per step are suggestions. The task board
@@ -155,7 +157,7 @@ Check it in the **Sprite Lab** (`/sprites.html`) and in a match. The console pri
 2. Fill in:
    - `CHARACTER.md`: the design era, visual traits from the source material (hair shape and color, eyes,
      marks, outfit layers, accessories, silhouette notes), the hex palette (≤ 48 colors, matching
-     `model.palette`), proportions per art/SPEC.md (spec v2: about 6.5 heads, not chibi), an identity
+     `model.palette`), proportions per the title-style contract (ADR 0029; not chibi), an identity
      checklist that every model sheet is checked against, do's and don'ts, and what makes the character
      instantly recognizable.
    - `ANIMATIONS.md`: every animation from `src/art/animGuide.js` with frame counts, phases and the

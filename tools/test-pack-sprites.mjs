@@ -988,6 +988,7 @@ function main() {
   }
 
   scaleGateTests(base);
+  techPoseTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1518,6 +1519,119 @@ function scaleGateTests(base) {
   check(sm.code === 1 && /scaleReference: characters\/scaly\/reference\/missing_v01\.png does not exist/.test(gm?.error || '') && gm.failed.length > 0,
     `scaleReference: a missing reference cell fails the gate (${gm?.error})`);
   fs.writeFileSync(buildsPath, buildsBefore);
+
+  // the auto head fit places a fitted strip again: clip and margin warnings describe the cells that ship, not the
+  // discarded pre-fit ones (Sasuke special v13 warned "clipped 15px" for a fitted frame inside the cell). widey's
+  // light1 packs 13 % too big (bodyHeight 230 vs the idle's 204) and its f3 arm clips there; fitted it fits. light2
+  // reads the idle's size (not fitted) and clips: that warning stays.
+  const wraw = (n) => path.join(ART, 'characters', 'widey', 'raw', n);
+  savePng(wraw('idle_v01.png'), scaleStrip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), 851, { gap: 70 }));
+  savePng(wraw('light1_v01.png'), scaleStrip(seven((k) => (k === 3 ? { reach: 37 } : {})), 852, { gap: 70 }));
+  savePng(wraw('light2_v01.png'), scaleStrip(seven((k) => (k === 3 ? { reach: 60 } : {})), 853, { gap: 100 }));
+  for (const n of ['light1', 'light2']) fs.writeFileSync(wraw(`${n}_v01.json`), JSON.stringify({ anatomy: { measurement: 'auto-head' } }));
+  const mw = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  mw.characters.widey = { name: 'widey', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: { ...atk, bodyHeight: 230 }, light2: atk } };
+  const mwPath = path.join(FIX, 'manifest-widey.json');
+  fs.writeFileSync(mwPath, JSON.stringify(mw));
+  const wp = pack([...base, '--manifest', mwPath, '--dry-run', 'widey']);
+  const wr = wp.json?.characters.find((c) => c.id === 'widey');
+  const wl1 = wr?.packed.find((p) => p.anim === 'light1');
+  check(wl1?.notes.some((n) => /auto-head fit x0\.8\d/.test(n)) && !anyWarn(wr.warnings, /^light1: .*(clipped by the|cell margin)/) && anyWarn(wr.warnings, /^light2: 1 frame\(s\) clipped by the 256x256 cell \(#3 right \d+px\)/),
+    `auto head fit: placement warnings are for the fitted cells (light1 fitted, none; light2 unfitted, kept) (${wr?.warnings.filter((w) => /clipped|margin/.test(w)).join(' | ')})`);
+}
+
+// Tech poses (ADR 0030): wallTech's cling and push-off frames are wall-anchored (leftmost pixel on the wall line x 8,
+// anims.json wallLine + wallAnchor), so a full push-off fits the cell; a cling with only a thin arm on the wall line
+// warns; a roll frame packed at a standing height warns; the scale gate leaves the tucked / rotated beats unread
+// ('partial', not a pass) until a manual QA record of that version covers them, and its record keeps every unread frame.
+function techPoseTests(base) {
+  const traw = (n) => path.join(ART, 'characters', 'techy', 'raw', n);
+  // poses as rect lists [x0, x1, y0, y1, colour, { rawH, bare }] in art px from the feet; `bare` skips the outline,
+  // `rawH` sets a rect's height in raw px (a limb thinner than one art px)
+  const poseStrip = (poses, seed, gap = 60) => {
+    const rand = mulberry(seed);
+    const img = image((poses.length * gap + 40) * S, 120 * S, [255, 0, 255], rand);
+    poses.forEach((pose, k) => {
+      const fx = (40 + k * gap) * S, floor = 110 * S;
+      for (const [x0, x1, y0, y1, , o] of pose) if (!o?.bare) rect(img, fx + (x0 - 1) * S, floor - (y1 + 1) * S, (x1 - x0 + 2) * S, (y1 - y0 + 2) * S, COL.outline, rand);
+      for (const [x0, x1, y0, y1, c, o] of pose) rect(img, fx + x0 * S, floor - y1 * S, (x1 - x0) * S, o?.rawH ?? (y1 - y0) * S, c, rand);
+    });
+    fringe(img, rand);
+    return img;
+  };
+  const stand = () => scaleFigure({});
+  savePng(traw('idle_v01.png'), scaleStrip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), 901));
+  // wallTech: f0 soles flat on the wall (a tall block at the far left), f1 only a thin arm reaching the wall, f2 a full
+  // diagonal push-off (legs out about 200 px from the wall: more than the old pivot anchoring left room for), f3-f4
+  // ordinary airborne figures (centred on the feet, not anchored)
+  const body = [[0, 14, 14, 44, COL.orange], [2, 12, 44, 56, COL.skin], [1, 13, 56, 64, COL.hair]];
+  const cling = [[-22, -18, 6, 30, SHOE], [-18, 0, 14, 22, COL.pants], ...body];
+  const reach = [[-18, 0, 30, 31, COL.skin, { rawH: 4, bare: true }], [-6, 0, 10, 22, COL.pants], ...body];
+  const push = [[-60, -56, 20, 26, SHOE], [-56, 0, 18, 24, COL.pants], ...body];
+  savePng(traw('wallTech_v01.png'), poseStrip([cling, reach, push, stand(), stand()], 902, 100));
+  // techRoll: f0 the shoulder contact and f1-f4 the tumble, tucked balls about half the standing height (all unread by
+  // the probe), except f3: a ball drawn at the full standing height (a pose packed like a standing one); f5 a readable
+  // standing figure
+  const ball = (h) => [[-h / 2, h / 2, 0, h, COL.orange], [-h / 4, h / 4, h * 0.6, h * 0.9, COL.hair]];
+  savePng(traw('techRoll_v01.png'), poseStrip([ball(36), ball(36), ball(36), ball(72), ball(36), stand()], 904));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.techy = { name: 'Techy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 },
+    wallTech: { frames: 5, phases: [2, 1, 2], bodyHeight: 204 }, techRoll: { frames: 6, phases: [1, 4, 1], bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  const r = pack([...base, 'techy']);
+  const C = r.json?.characters.find((c) => c.id === 'techy');
+  const metaFile = path.join(OUT, 'characters', 'techy', 'anims.json');
+  if (!fs.existsSync(metaFile)) { check(false, `tech poses: techy packed (${(C?.warnings || []).join(' | ').slice(0, 400)})`); return; }
+  const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
+  const sheet = loadPng(path.join(OUT, 'characters', 'techy', 'sheet.png'));
+  const wf = meta.animations.wallTech?.frames || [];
+  const boxes = wf.map((i) => bb(cell(sheet, i)));
+  const left = boxes.map((b) => b?.x0), WL = 8;
+  check(wf.length === 5 && left[0] === WL && left[1] === WL && left[2] === WL && left[3] > WL && left[4] > WL && meta.wallLine === WL,
+    `tech poses: the cling and push-off frames are wall-anchored on the wall line x ${WL} (anims.json wallLine ${meta.wallLine}), the airborne ones are not (${left})`);
+  const W = C?.warnings || [];
+  check(boxes[2]?.w > 180 && boxes[2].x1 <= FW - 1 - 4 && !anyWarn(W, /wallTech: \d+ frame\(s\) (clipped|reach into)/),
+    `tech poses: a full diagonal push-off (${boxes[2]?.w} px wide) fits the cell without clipping or touching its margin`);
+  const techFrames = [...(meta.animations.techRoll?.frames || []), ...wf];
+  check(techFrames.length === 11 && techFrames.every((i) => meta.boxes[i] && !meta.boxes[i].hit && meta.boxes[i].hurt), 'tech poses: tech frames get hurt boxes but never hit boxes (their middle beat is no strike)');
+  const wa = meta.wallAnchor || {};
+  check(Object.keys(wa).sort().join() === wf.slice(0, 3).map(String).sort().join() &&
+    wf.slice(0, 3).every((i, k) => wa[i] === Math.round((boxes[k].x0 + boxes[k].x1) / 2 - PX)),
+    `tech poses: anims.json wallAnchor records the anchored frames' body centre against the pivot (${JSON.stringify(wa)})`);
+  check(anyWarn(W, /wallTech: 1 cling frame\(s\) barely touch the wall line \(#1: \d+px/) && !anyWarn(W, /barely touch the wall line \(#0/),
+    `tech poses: a cling with only a thin arm on the wall line warns; soles flat on it do not (${W.filter((w) => /wall line/.test(w)).join(' | ')})`);
+  check(anyWarn(W, /techRoll: 1 tucked \/ braced frame\(s\) out of their size band \(#3 0\.\d\d of the idle's height/),
+    `tech poses: a roll frame packed at a standing height warns; half-height balls (the contact included) do not (${W.filter((w) => /size band/.test(w)).join(' | ')})`);
+  const g = C?.scale;
+  check(g?.anims.techRoll?.verdict === 'partial' && g.anims.wallTech?.verdict === 'partial',
+    `tech poses: the readable frames pass, the unread beats keep the strips 'partial' (${g?.anims.techRoll?.verdict} ${g?.anims.techRoll?.head}, ${g?.anims.wallTech?.verdict} ${g?.anims.wallTech?.head})`);
+  const sx = pack([...base, '--dry-run', '--strict-scale', 'techy']);
+  check(sx.json?.characters.find((c) => c.id === 'techy')?.scale?.failed.includes('techRoll'), "tech poses: 'partial' is not a pass for a strict strip");
+  man.characters.techy.animations.techRoll.scaleManualQA = { version: 1, result: 'pass', by: 'test', note: 'tumble frames compared with the idle at one scale' };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const sq = pack([...base, '--dry-run', '--strict-scale', 'techy']);
+  const gq = sq.json?.characters.find((c) => c.id === 'techy')?.scale;
+  check(gq?.anims.techRoll?.verdict === 'manual' && !gq.failed.includes('techRoll') && gq.failed.includes('wallTech'),
+    `tech poses: a manual QA record of that version accepts the unread beats as 'manual' (${gq?.anims.techRoll?.verdict}); wallTech still fails`);
+  // unit: the unread frames follow the strip's beats, rescaled like the packer does for another frame count
+  const G = probe.resolveGate(null);
+  check(probe.lowConfFrames('techRoll', G, [1, 4, 1], 6).join() === '0,1,2,3,4' && probe.lowConfFrames('wallTech', G, [2, 1, 2], 5).join() === '0,1,2' &&
+    probe.lowConfFrames('techRoll', G, [1, 4, 1], 8).join() === '0,1,2,3,4,5' &&probe.lowConfFrames('techRoll', G, null, 3).join() === '0,1,2' &&
+    probe.lowConfFrames('techGround', G, [1, 2, 1], 4).length === 0,
+    'tech poses: unread frames come from the beats (the roll\'s contact and tumble; rescaled; a listed strip without phases is entirely unread)');
+  const bad = [];
+  probe.resolveGate({ lowConfPhases: { techRoll: [5] } }, bad);
+  check(bad.length === 1 && /lowConfPhases/.test(bad[0]), 'tech poses: a malformed spec.scaleGate.lowConfPhases is reported');
+  // the recorded audit keeps every unread frame, also one a frame exemption skipped: judged again without that
+  // exemption (auditFromCompact), it is still not read, never its probe number (here a 0.7 head, which would be a pop)
+  const measured = [{ k: 0, head: 1, feet: 1 }, { k: 1, head: 0.7, feet: 1, low: true }, { k: 2, head: 1.01, feet: 1 }];
+  const sx1 = { ...probe.judgeStrip('techRoll', measured, G, { frames: [1] }), version: 1 };
+  const A = { anims: { techRoll: sx1 }, ref: { box: null, headPx: 30, hA: 1, hW: 1, hH: 1, feet: 1 }, palette: { headSource: 'idle', head: new Set(), feet: new Set() } };
+  const rt = probe.auditFromCompact(probe.compactAudit(A, G), { gate: G })?.anims.techRoll;
+  check(sx1.low?.join() === '1' && rt?.verdict === 'partial' && rt.low?.join() === '1' && rt.frames[1].low === true,
+    `tech poses: the compact audit keeps an exempted unread frame unread (${sx1.low}; re-judged ${rt?.verdict}, low ${rt?.low})`);
 }
 
 function finish() {

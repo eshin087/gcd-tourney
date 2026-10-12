@@ -1,3 +1,5 @@
+> **Scale and anatomy ([ADR 0029](../../../docs/decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
+
 # Naruto: proportion correction and full redraw
 
 User decision, 2026-10-10. This brief follows Gojo BUILD_REDRAW.md, but changes only Naruto head-to-body proportions. Claude alone integrates. User approval is required at the model and idle gates. No idle or other animation is authorized for generation before model approval.
