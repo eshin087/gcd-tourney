@@ -1,4 +1,4 @@
-> 2026-10-11 title-style pilot: Naruto, Sasuke, Killua and Gojo title_style_draft v01 need review. Two concept poses each; no animation/atlas changes. User rejects the recent full-redraw direction and prefers original title art. See [brief](scale/title-style-pilot/BRIEF.md).
+> 2026-10-11 title-style pilot: Naruto, Sasuke, Killua and Gojo title_style_draft v01 and both lineups **approved**; they are the scale and anatomy baseline ([contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md), ADR 0029). Production strips on PR69-72 are separate candidates.
 
 # Art tracker
 

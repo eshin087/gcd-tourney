@@ -2,7 +2,7 @@
 
 > **Title-style consistency lessons (2026-10-11):** Record the approved neutral and combat cells at native game size, plus source hashes and landmark uncertainty. Compare the first idle independently with both before using it as a working reference. Preserve head, torso and limb dimensions rather than matching only the silhouette height. Match original approved pose design where requested. Check every loop seam for size/foot jumps. Inspect the actual packed atlas after quantization; cached frames may be stale. A detector pass never substitutes for anatomy or motion review. If the reference is superseded, replace the active prompt contract explicitly so old proportions cannot leak into later strips.
 
-> New characters must follow [approved cast baseline](../../scale/APPROVED_CAST_BASELINE.md): era/source, neutral stature, measured head/build, cast lineup approval, then animation gate. Do not apply an extra child discount or individual tall cap.
+> New characters follow the [title-style production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md) ([ADR 0029](../../../docs/decisions/0029-title-style-scale-baseline.md)): era/source and stature uncertainty, a title-style neutral + combat reference laid beside the four approved cells in `public/art-review/title-style-pilot/` at one pixel density, user lineup approval, then the idle gate. Do not apply an extra child discount or individual tall cap. [APPROVED_CAST_BASELINE.md](../../scale/APPROVED_CAST_BASELINE.md) numbers are historical.
 
 # {{NAME}}: character brief
 
@@ -64,7 +64,7 @@ exists, then correct it against the anime colors.
 ## Proportions and silhouette
 
 - Era and stature: {{era, canon stature in cm, primary source, confidence/uncertainty}}.
-- Shared scale: {{current approved calibration and reference-cell provenance linked by APPROVED_CAST_BASELINE.md; never reuse its historical constants. If pixels/cm is not formally calibrated for the current visual pilot, record that uncertainty and request a cast-lineup decision before production}}; neutral skull-to-sole {{px}}, occupied hair-to-sole {{px}}. Record shoe/hair/crown uncertainty.
+- Shared scale: {{current approved calibration and reference-cell provenance from the approved title-style cells (PRODUCTION_CONTRACT.md, ADR 0029); never reuse historical constants from APPROVED_CAST_BASELINE.md. If pixels/cm is not formally calibrated for the current visual pilot, record that uncertainty and request a cast-lineup decision before production}}; neutral skull-to-sole {{px}}, occupied hair-to-sole {{px}}. Record shoe/hair/crown uncertainty.
 - Anatomy: {{skull-to-chin px along head axis}}, {{head-count ratio}}, {{shoulder-to-hip}}, {{hip-knee-ankle segment lengths}} measured on the approved neutral. Hair mass is separate from skull size.
 - Build: {{slim / athletic / broad with approved neutral chest, shoulder and limb landmarks}}. Clothing width is not body width. Do not force every character to 200px, equal heads or a universal head count.
 - Cell fit: preserve common cast ratios. A design exceeding the envelope requires Claude's shared-scale or renderer decision, never an individual height cap.
@@ -94,7 +94,7 @@ to the fixed name below (the fixed names are what prompts attach):
 
 | file | content | candidates | from |
 |---|---|---|---|
-| `reference/height_neutral.png` | approved upright neutral with measured stature, head and body landmarks | `reference/height_neutral_vNN.png` | baseline and cast lineup approval |
+| `reference/title_style_draft.png` | approved title-style neutral + combat reference sheet (measured stature, head and body landmarks, uncertainty), with its native 256 px neutral/combat cells beside the approved cast | `reference/title_style_draft_vNN.png` | contract + cast lineup approval |
 | `reference/model_sheet.png` | approved model sheet: turnaround (front, 3/4 right, side, back), the fighting stance facing right, palette swatches | `reference/model_sheet_vNN.png` | PROMPTS.md step 1 |
 | `reference/expressions.png` | approved expression sheet (the table above, head shots) | `reference/expressions_vNN.png` | PROMPTS.md step 2 |
 | `reference/idle_approved.png` | copy of the approved `idle` strip (pose and proportion anchor) | `raw/idle_vNN.png` | PROMPTS.md step 3 |
