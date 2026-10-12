@@ -447,6 +447,15 @@ How the tools measure (`scale-probe.mjs`):
   version; it is then `manual`, shown apart from `ok` (TOOL-ROTATED-ANATOMY).
 - **Shadowed hand edits**: `frames/<anim>/` edited on an older version than the newest raw refuses the pack (the new raw
   is measured instead); `frames/_old/` and any `frames/_*` folder are archives the packer ignores.
+- **Approved reference cells** (`builds.json` fighter `"scaleReference": { "cells": ["characters/<id>/reference/<cell>.png"],
+  "why": "..." }`, 256 px game cells): every strip, the idle included, is measured against them instead of the idle, and
+  the idle gets a real verdict and is gated like a candidate. For a fighter whose idle's own exact shades bias the probe
+  (Killua's title-style idle: every strip read ~0.89 of its value against the approved combat cell, and the approved cell
+  itself read 0.912 against the idle). A missing or wrong-size cell fails the gate. The stitch tool uses the same cells.
+- **Whole-figure frame split**: when the column split cuts a connected figure (a hand reaching over the next pose's
+  column) or miscounts the poses, a one-row strip is split into its figures instead (the biggest components are the
+  bodies, small detached bits join the nearest); figures that really touch are warned. Strips that split cleanly are
+  unchanged.
 - **Stitch** (`stitch-parts.mjs`): measures against the fighter's current idle packed fresh from `art/` without
   `--quantize`, the cells the gate measures (`--public <dir>` uses an existing pack instead and refuses one older than
   `raw/idle_vNN.png`); ignores a refinement trial that cuts a pose at the top of the cell; measures like the gate

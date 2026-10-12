@@ -1499,6 +1499,25 @@ function scaleGateTests(base) {
   `npm run scale: the report equals the packer gate's recorded audit (${scq.status}, ${repq?.ref?.headPx} / ${smq?.ref?.headPx})`);
   const st2 = stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8', '--reason', 'test', '--dry-run');
   check(st2.status === 0 && /manual: test/.test(st2.stdout) && !fs.existsSync(sraw('light3_v03.png')), 'stitch: --parts re-stitches older parts; --dry-run writes nothing');
+
+  // builds.json scaleReference: an approved reference cell replaces the idle as the measure; the idle gets a real verdict
+  // (and is gated), and a missing cell fails the gate instead of falling back to the idle (Killua's title-style idle)
+  const refDir = path.join(SCALY, 'reference');
+  fs.mkdirSync(refDir, { recursive: true });
+  savePng(path.join(refDir, 'ref_cell_v01.png'), cell(figSheet, figMeta.animations.idle.frames[0]));
+  const buildsPath = path.join(ART, 'scale', 'builds.json'), buildsBefore = fs.readFileSync(buildsPath, 'utf8');
+  const withRef = (cells) => { const b = JSON.parse(buildsBefore); b.fighters.scaly = { ...(b.fighters.scaly || {}), scaleReference: { cells } }; fs.writeFileSync(buildsPath, JSON.stringify(b)); };
+  withRef(['characters/scaly/reference/ref_cell_v01.png']);
+  const sr = pack([...base, '--dry-run', '--strict-scale', 'scaly']);
+  const gr = scale(sr.json, 'scaly');
+  check(gr?.ref?.reference === 'characters/scaly/reference/ref_cell_v01.png' && gr.anims.idle?.verdict === 'ok' && gr.anims.idle.strict && gr.anims.light2?.verdict === 'drift',
+    `scaleReference: the idle is measured against the approved cell (${gr?.anims?.idle?.verdict}, ${gr?.anims?.idle?.head}) and the strips still are (${gr?.anims?.light2?.verdict})`);
+  withRef(['characters/scaly/reference/missing_v01.png']);
+  const sm = pack([...base, '--dry-run', 'scaly']);
+  const gm = scale(sm.json, 'scaly');
+  check(sm.code === 1 && /scaleReference: characters\/scaly\/reference\/missing_v01\.png does not exist/.test(gm?.error || '') && gm.failed.length > 0,
+    `scaleReference: a missing reference cell fails the gate (${gm?.error})`);
+  fs.writeFileSync(buildsPath, buildsBefore);
 }
 
 function finish() {
