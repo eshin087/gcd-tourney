@@ -8,7 +8,7 @@ main; their art (ART-TECH-01) waits for this round._
 
 ## Your next actions
 
-1. **Look at the whole title-style cast in the game** (Vercel preview, needs your Vercel login): https://gcd-tourney-dzp7vx12k-eshin087s-projects.vercel.app
+1. **Look at the whole title-style cast in the game** (Vercel preview, needs your Vercel login): https://gcd-tourney-923cpq1wx-eshin087s-projects.vercel.app
    (add `?fight=killua,sasuke` etc.; `/lab.html` for moves and animations). Check the strips Claude assembled or
    re-stitched from your approved parts after your review (no new images): Naruto light1 v04, light2 v06,
    airLight3 v07, airHeavy v09, special v08, specialForward v04, specialUp v04, heavy v12; Gojo light4 v08.
@@ -22,7 +22,7 @@ main; their art (ART-TECH-01) waits for this round._
      airLight3 head too small (A 1, B 0), run repeated lead leg (A 1, B 0)
    - Naruto: airLight3 head/crescent (A 0, B 1), ko head too small, spin sandals (0), specialDown pop (2),
      jumpUp pop (0), run legs never alternate (2)
-   - Sasuke: throw (0), block height vs guard (0), title-style launched/down/ko/specialUp/stagger (0 each; the
+   - Sasuke: heavy kick leg ~1.7x his standing leg, backDash stands fully upright, charge drawn bulkier, throw (0), block height vs guard (0), title-style launched/down/ko/specialUp/stagger (0 each; the
      approved originals ship meanwhile)
    Reply e.g. `authorize killua charge idle stagger; gojo airHeavy special`, or `authorize all`.
 3. **Decide** (no new images):
