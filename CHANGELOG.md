@@ -38,6 +38,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - art(sasuke): add title-style rear straight v06 candidate with measured stitch, strict new-strip scale pass and actual-atlas QA; archive enlarged-head v05. Its closed-fist endpoint was later rejected against the approved open-palm stance.
 
 - art(sasuke): start approved title-style redraw with measured idle v07, corrected guard v04 and lead jab v06 candidates; preserve pilot references and document the guard mask exemption and pending full-batch QA.
+- Added: `builds.json` `scaleReference` (approved reference cells the scale gate measures every strip and the idle against, for a fighter whose idle biases the probe), and a whole-figure frame split in the packer for strips whose column split cuts a connected figure (Gojo airLight1/light2/light4, Killua light3/specialForward). Main's shipped atlases are unchanged.
+
+- Fixed: `npm run stitch` cut connected figures into neighbouring frames when their horizontal projections overlapped (Killua specialForward v12, Naruto light2 v06, special v07), aborted on parts whose hair yellow differed slightly from the quantized shipped idle (Naruto's title-style aerials), and refused a written manual factor where no head was found. It now separates whole figures, lays them out with clean gaps, measures against a fresh unquantized idle, and honours `--factor` with `--landmarks`/`--uncertainty`.
 
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 
