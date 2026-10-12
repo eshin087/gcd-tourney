@@ -1519,6 +1519,25 @@ function scaleGateTests(base) {
   check(sm.code === 1 && /scaleReference: characters\/scaly\/reference\/missing_v01\.png does not exist/.test(gm?.error || '') && gm.failed.length > 0,
     `scaleReference: a missing reference cell fails the gate (${gm?.error})`);
   fs.writeFileSync(buildsPath, buildsBefore);
+
+  // the auto head fit places a fitted strip again: clip and margin warnings describe the cells that ship, not the
+  // discarded pre-fit ones (Sasuke special v13 warned "clipped 15px" for a fitted frame inside the cell). widey's
+  // light1 packs 13 % too big (bodyHeight 230 vs the idle's 204) and its f3 arm clips there; fitted it fits. light2
+  // reads the idle's size (not fitted) and clips: that warning stays.
+  const wraw = (n) => path.join(ART, 'characters', 'widey', 'raw', n);
+  savePng(wraw('idle_v01.png'), scaleStrip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), 851, { gap: 70 }));
+  savePng(wraw('light1_v01.png'), scaleStrip(seven((k) => (k === 3 ? { reach: 37 } : {})), 852, { gap: 70 }));
+  savePng(wraw('light2_v01.png'), scaleStrip(seven((k) => (k === 3 ? { reach: 60 } : {})), 853, { gap: 100 }));
+  for (const n of ['light1', 'light2']) fs.writeFileSync(wraw(`${n}_v01.json`), JSON.stringify({ anatomy: { measurement: 'auto-head' } }));
+  const mw = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  mw.characters.widey = { name: 'widey', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: { ...atk, bodyHeight: 230 }, light2: atk } };
+  const mwPath = path.join(FIX, 'manifest-widey.json');
+  fs.writeFileSync(mwPath, JSON.stringify(mw));
+  const wp = pack([...base, '--manifest', mwPath, '--dry-run', 'widey']);
+  const wr = wp.json?.characters.find((c) => c.id === 'widey');
+  const wl1 = wr?.packed.find((p) => p.anim === 'light1');
+  check(wl1?.notes.some((n) => /auto-head fit x0\.8\d/.test(n)) && !anyWarn(wr.warnings, /^light1: .*(clipped by the|cell margin)/) && anyWarn(wr.warnings, /^light2: 1 frame\(s\) clipped by the 256x256 cell \(#3 right \d+px\)/),
+    `auto head fit: placement warnings are for the fitted cells (light1 fitted, none; light2 unfitted, kept) (${wr?.warnings.filter((w) => /clipped|margin/.test(w)).join(' | ')})`);
 }
 
 // Tech poses (ADR 0030): wallTech's cling and push-off frames are wall-anchored (leftmost pixel on the pivot column,
