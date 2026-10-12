@@ -105,7 +105,14 @@
       "budget": 2,
       "used": 2,
       "selected": 2,
-      "verdict": "ok"
+      "verdict": "ok; artwork approved by user 2026-10-12",
+      "approval": {
+        "version": 5,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "Ok all approved",
+        "scope": "the 14 explicitly listed passing samples"
+      }
     },
     {
       "a": "jumpUp",
@@ -114,7 +121,14 @@
       "budget": 2,
       "used": 1,
       "selected": 1,
-      "verdict": "ok"
+      "verdict": "ok; artwork approved by user 2026-10-12",
+      "approval": {
+        "version": 6,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "Ok all approved",
+        "scope": "the 14 explicitly listed passing samples"
+      }
     },
     {
       "a": "run",
@@ -144,7 +158,14 @@
       "budget": 1,
       "used": 1,
       "selected": 1,
-      "verdict": "ok"
+      "verdict": "ok; artwork approved by user 2026-10-12",
+      "approval": {
+        "version": 7,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "Ok all approved",
+        "scope": "the 14 explicitly listed passing samples"
+      }
     }
   ]
 }
