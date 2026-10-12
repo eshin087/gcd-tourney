@@ -182,7 +182,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `throw` | 4 | - | 1/1/2 | 201 | - | 50 60 70 50 | throwing a projectile in mid-air: arm cocked back, whipped forward, follow-through |
 | `beamCharge` | 3 | yes | - | 198 | **yes** | 50 each | charging a beam: both hands cupped together at the rear hip, shouting (loop) |
 | `beamFire` | 3 | yes | - | 198 | **yes** | 50 each | firing a beam: both arms thrust straight forward, palms open, shouting (loop) |
-| `vanish` | 2 | - | - | 221 | - | 50 each | crouch and blur before teleporting |
+| `vanish` | 2 | - | - | 221 | - | 50 each | crouch and blur before teleporting; the spot dodge holds frame 00 (the crouch), so keep it at or below the idle's height |
 | `stagger` | 4 | yes | - | 207 | - | 150 each | dizzy stagger (loop) |
 | `ko` | 1 | - | - | 64 | - | 500 | knocked out, lying flat on the back, head toward screen-left; side-on, not seen from above ([Lying poses](#lying-poses)) |
 | `special` | 8 | - | 3/3/2 | 204 | **yes** | 120 120 120 120 120 160 110 70 | signature rush move: 3 frames charging the technique in hand, 2 running frames holding it forward, 1 thrust, 2 recover |
