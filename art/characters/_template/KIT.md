@@ -25,7 +25,7 @@ Archetype and feel: <rushdown / zoner / bruiser / trickster, in one line>.
 | passive | always | (optional) | | | | |
 
 Stats: speed <5.8-6.8>, power <>, defense <>; stat index `(speed / 6.2) × power × defense` = <0.93-1.02>.
-Standing height: <px per ADR 0010 and art/CHARACTER_SCALE.md; the 31 px head is shared by the cast>.
+Standing height: <occupied neutral px measured on the approved title-style reference beside the cast (ADR 0029); runtime standingBodyPx per ADR 0010 until Claude migrates it>.
 
 ## 2. Poses each move needs (for Codex)
 
