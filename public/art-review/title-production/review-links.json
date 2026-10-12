@@ -7,9 +7,9 @@
   },
   {
     "name": "Sasuke",
-    "status": "42 source animations and 3 UI drafts. Diagnostic player includes held attempts; strict production pack passes only with 33 new candidates and 9 older fallbacks. Not release-ready.",
+    "status": "42 animation sources and 3 UI drafts. Diagnostic player: 35 new/held candidates + 7 older fallbacks. Strict production pack passes with 33 new candidates + 9 fallbacks. Not release-ready.",
     "pr": "https://github.com/eshin087/gcd-tourney/pull/71",
-    "preview": "https://gcd-tourney-c31b3dq8t-eshin087s-projects.vercel.app/art-review/title-production/sasuke-candidate/index.html"
+    "preview": "https://gcd-tourney-4o9c0q48t-eshin087s-projects.vercel.app/art-review/title-production/sasuke-candidate/index.html"
   },
   {
     "name": "Killua",
