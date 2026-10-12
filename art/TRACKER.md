@@ -94,12 +94,12 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | getup | 5 | - | **yes** | 195 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | charge | 4 | - | **yes** | 172 | approved | v07 | v06 | Round2 candidate needs review: Lean torso restored. Isolated strict ok; heads 1.020–1.083, no margins. Recommend approval after visual review. |
+| 7 | charge | 4 | - | **yes** | 172 | approved | v07 | v07 | User approved v07 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round2 candidate needs review: Lean torso restored. Isolated strict ok; heads 1.020–1.083, no margins. Recommend approval after visual review. |
 | 7 | beamCharge | 3 | - | **yes** | 174 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamFire | 3 | - | **yes** | 153 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v08 | v03 | Review pending: v08 assembled from the approved v06 parts. Approved original v03. |
 | 8 | dash | 2 | - | **yes** | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v06 | v04 | Round2 candidate needs review: Hair pulse corrected. Isolated strict ok; heads .947/1.000, no margins. Recommend approval after visual review. |
+| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v06 | v06 | User approved v06 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round2 candidate needs review: Hair pulse corrected. Isolated strict ok; heads .947/1.000, no margins. Recommend approval after visual review. |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 193 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -120,7 +120,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | taunt | 2 | - | no | 198 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | specialForward | 7 | 2/2/3 | no | 210 | approved | v04 | v02 | Review pending: v04 assembled from the approved parts. Approved original v02. |
 | 9 | specialUp | 6 | 2/2/2 | no | 237 | approved | v04 | v01 | Review pending: v04 assembled (bodyHeight 237 = cell maximum). Approved original v01. |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v05 | v04 | Round2 candidate needs review: Bowed head kept compact across feral phases. Isolated strict ok; heads .973–1.059. Stale v02 exemption remains historical, not applied. Recommend approval after visual review. |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v05 | v05 | User approved v05 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round2 candidate needs review: Bowed head kept compact across feral phases. Isolated strict ok; heads .973–1.059. Stale v02 exemption remains historical, not applied. Recommend approval after visual review. |
 | 9 | superPose | 4 | - | no | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |

@@ -1,5 +1,7 @@
 # Naruto round 2 cumulative attempts
 
+2026-10-12: user approved charge v07, jumpUp v06, specialDown v05. No new image calls; cumulative budgets unchanged. Other visual/technical holds remain. Current approval record: production/round2-approvals/APPROVALS.md.
+
 Every call includes unsaved failures. Re-stitching does not reset any count. All selected candidates await user review; unmeasured poses and motion defects remain holds.
 
 | asset / part | prior used | authorized new calls | used this round | cumulative | remaining | selected |

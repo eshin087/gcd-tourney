@@ -1,5 +1,8 @@
 # Naruto title-style corrections round 2
 
+**2026-10-12 approval update:** the user approved charge v07, jumpUp v06, specialDown v05. These artworks are approved; technical/contact holds and other candidate decisions remain separate. See ../round2-approvals/APPROVALS.md. Original QA findings below are retained as historical evidence.
+
+
 All seven candidates are unapproved. Exact approved title neutral/combat cells are anatomy ground truth. No gate thresholds, exemptions, pose manual passes, gameplay, tools, UI, other fighter assets, main, NOW or inbox changed. ART-TECH-01 remains on hold.
 
 Recommend approval: charge v07, jumpUp v06, specialDown v05. Hold run v08 for its loop/posture seam, airLight3 v08 for actual size disagreement, ko v08 and spin v07 for Claude manual QA. Full strict character pack remains a failure until these holds clear.

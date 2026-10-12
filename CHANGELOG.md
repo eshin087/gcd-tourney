@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- User approved naruto round-2 art: charge v07, jumpUp v06, specialDown v05. Other visual/technical holds remain for Claude integration; no production deployment.
+
 - User approved Naruto airLight3 v09 and KO v09 artwork; approvals recorded in PR #69. KO calibration/contact and other existing technical holds remain for Claude; no production deployment.
 
 - Naruto KO/kick v08 user rejections archived; v09 whole-pose redraws use exactly three authorized calls. Kick passes strict scale and margins; KO remains a calibration/manual QA hold with a separately labeled77px proposal (PR69).

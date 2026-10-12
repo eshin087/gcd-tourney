@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-12",
+  "userDecision": "Ok all approved, whats next",
+  "fighter": "naruto",
+  "approved": {
+    "charge": {
+      "version": 7,
+      "previousApprovedVersion": 6
+    },
+    "jumpUp": {
+      "version": 6,
+      "previousApprovedVersion": 4
+    },
+    "specialDown": {
+      "version": 5,
+      "previousApprovedVersion": 4
+    }
+  },
+  "remainingHolds": "KO v09 artwork is already approved, but calibration/contact is unresolved; spin v07 remains unmeasured and run v08 has a motion seam.",
+  "archived": [],
+  "repack": {
+    "strictExitCode": 1,
+    "failures": "naruto (spin, ko) - not written; see art/CHARACTER_SCALE.md \"Scale gate (automatic)\"",
+    "report": "repack.txt",
+    "fullCharacter": true
+  },
+  "build": {
+    "exitCode": 0,
+    "modules": 82,
+    "report": "build.txt"
+  }
+}
