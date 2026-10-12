@@ -1,3 +1,5 @@
+> **Scale and anatomy ([ADR 0029](../decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](../../art/scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
+
 # Codex prompts
 
 Copy-paste prompts for starting a Codex session in this repo. Codex reads `AGENTS.md` automatically, and
@@ -497,19 +499,24 @@ baked placeholder and `art/characters/<id>/KIT.md` holds the moveset. Replace `<
 ```text
 We're making the art for a new fighter in GCD Tourney: <Name> (id: <id>). Claude has merged the data PR, so the
 moveset is in art/characters/<id>/KIT.md. Read AGENTS.md, docs/ADDING_A_CHARACTER.md (the PR table in step 0),
-art/CHARACTER_SCALE.md, docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first.
+art/scale/title-style-pilot/PRODUCTION_CONTRACT.md (the approved scale/anatomy baseline, ADR 0029), art/CHARACTER_SCALE.md,
+docs/decisions/0007-art-spec-v2-shippuden-256.md, art/README.md and art/SPEC.md first. Older 200 px / 31 px /
+6.5-head / pixels/cm numbers are historical; never use them as targets.
 
 0. Branch (ADR 0013): from the main folder run npm run pr -- start art/<id>-refs --art <id> and do ALL of the work
    below inside .worktrees/art-<id>-refs, committing there after each approved step; never on main, never
    uncommitted in the main folder. docs/NOW.md and docs/agents/CODEX_INBOX.md are edited on main only.
 1. Briefs: copy the rest of art/characters/_template/ (keep KIT.md as Claude wrote it) and fill CHARACTER.md
-   (visual traits of the era in KIT.md, a hex palette of at most 48 colors, proportions per art/SPEC.md and the
-   height in KIT.md, an identity checklist, do's and don'ts), ANIMATIONS.md (every animation from
+   (visual traits of the era in KIT.md, a hex palette of at most 48 colors, proportions per the title-style
+   contract with era/stature provenance and uncertainty, an identity checklist, do's and don'ts), ANIMATIONS.md (every animation from
    src/art/animGuide.js, with KIT.md §2 for the kit poses and beamCharge/beamFire), MOVES_AND_VFX.md and
    PROMPTS.md (S1 model sheet, S2 expression sheet, then one prompt per strip in art/manifest.json step order,
    then UI). Add the character to art/manifest.json (status "todo") and art/TRACKER.md. Stop for my review.
-2. References: S1 model sheet, S2 expressions, idle; one saved _vNN version per round, a REVIEW.md row each,
-   stop for my "approve vNN". When all three are approved, run npm run pr -- open in the worktree and tell me
+2. References: first a title-style neutral + combat sheet (reference/title_style_draft_vNN.png) with its native
+   256 px cells laid beside the four approved cells in public/art-review/title-style-pilot/ at one pixel density;
+   stop for my lineup approval. Then S1 model sheet, S2 expressions, idle (compared independently with the
+   approved neutral and combat cells); one saved _vNN version per round (max 3 attempts per image), a REVIEW.md
+   row each, stop for my "approve vNN". When all three are approved, run npm run pr -- open in the worktree and tell me
    the PR link; Claude merges it.
 3. Then continue with Prompt 1 for <id>: the CORE animations in an art/<id>-core PR (started from main after the
    refs PR merged), then optional + kit animations and UI in art/<id>-full. Calibrate every stitched part to the

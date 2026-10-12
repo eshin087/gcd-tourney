@@ -15,6 +15,48 @@ How it works:
 
 ---
 
+## Tech poses: ART-TECH-01 (2026-10-11, Claude)
+
+The engine, packer and scale-gate support is on main (PR #74, local merge 4405ee7, [ADR 0030](../decisions/0030-tech-recovery-animations.md)):
+three new optional strips per fighter, `techGround` (tech in place, 4 frames), `techRoll` (tech roll, 6 frames in parts
+3 + 3) and `wallTech` (wall tech, 5 frames; the wall jump reuses it). Until a fighter's strip is packed the game keeps the
+old `land` / `airRecover` / `jumpUp` poses, so nothing breaks while you work. **Brief with per-frame poses, every
+fighter's prompt blocks, scale table and QA: [art/characters/TECH_POSES_BRIEF.md](../../art/characters/TECH_POSES_BRIEF.md).**
+
+Run one sub-agent per fighter, in parallel, each in that fighter's EXISTING title-style production worktree (they hold the
+approved title-style references and the current idle / jumpFall / jumpSquat; never a copy, never `--full`):
+
+- [ ] **Naruto**: `.worktrees/art-naruto-title-production` (branch `art/naruto-title-production`, PR #69)
+- [ ] **Sasuke**: `.worktrees/art-sasuke-title-production` (branch `art/sasuke-title-production`, PR #71)
+- [ ] **Killua**: `.worktrees/art-killua-title-production` (branch `art/killua-title-production`, PR #70)
+- [ ] **Gojo**: `.worktrees/art-gojo-title-production` (branch `art/gojo-title-production`, PR #72)
+
+Each sub-agent, in its worktree:
+
+1. `git merge main` (brings PR #74: packer, scale gate, lab, brief) and commit the merge; resolve only its own files, keep
+   both sides of shared ones (manifest, TRACKER: keep this branch's entries and add main's). If the worktree is missing:
+   `npm run pr -- start <branch> --art <id>`.
+2. Add the three entries to `characters.<id>.animations` in `art/manifest.json` (from `animationDefaults`, bodyHeights as
+   the brief says), and the fighter's rows to its section of `art/TRACKER.md`.
+3. Generate `techGround`, `techRoll` part A + part B and `wallTech` from the brief's blocks for that fighter, with the
+   approved title-style references attached (up to 3 attempts per image, count failures; versions start at `_v01`).
+4. `npm run stitch -- <id> techRoll <vNN> --counts 3,3` (a part with no readable head: `--factor` with `--reason`,
+   `--landmarks`, `--uncertainty`), then `node tools/pack-sprites.mjs <id> --quantize 48` (exit 0, no wall-line or
+   size-band warning), `npm run scale -- <id>` and `npm run lineup`.
+5. `techGround` must read `ok`. `techRoll` and `wallTech` read `partial` (their tumble and cling beats can't be probed):
+   compare those frames with the approved combat cell at native size (head, torso, limbs; every frame and the loop) and
+   only then add the `scaleManualQA` record of that version. No exemptions to hide an anatomy problem.
+6. Lab check on its own port: `/lab.html?p2=<id>` SCENARIOS "Timed tech off a spike", "Tech roll", "Wall tech",
+   "Wall-jump tech"; ANIMATIONS tab frame by frame. Handovers: techGround f3 and techRoll f5 into idle, wallTech f4 into
+   jumpFall.
+7. REVIEW rows (needs review) with the heads sheet, lineup and native comparison; commit explicit paths;
+   `npm run pr -- open` and `npm run pr -- preview`. Tick the fighter's box here only via your report (this file is
+   edited on main by Claude).
+
+Then the lead reports one list: per fighter the preview link, the versions to approve and its recommendation, and stops
+for the user's `approve <id> <anim> vNN`. Never touch another fighter's strips, `down` or `ko`; never merge or deploy:
+Claude integrates.
+
 ## Cast redraw reverted (2026-10-11, Claude)
 
 At the user's request main reverted PRs #61-#64 and their repack (merge a590cce); production is back on the original

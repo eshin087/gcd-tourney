@@ -92,8 +92,8 @@ candidate in `art/REVIEW.md` like any other image). It moves to
 ## Cut-in and portraits
 
 UI candidates are saved as `raw/ui_<name>_vNN.png` and queued in `art/REVIEW.md`; the approved one is
-copied to `ui/<name>.png` (SPEC.md "Per-character UI images"). Same Shippuden design and ~6.5-head
-proportions as the sprites.
+copied to `ui/<name>.png` (SPEC.md "Per-character UI images"). Same Shippuden design and approved title-style
+proportions as the sprites (ADR 0029).
 
 - Cut-in (`ui/cutin.png`, 480x128): {{eye description, expression, special eye state}}. The face
   fills the strip; a flat {{background band color: character color or dark navy}} may show only

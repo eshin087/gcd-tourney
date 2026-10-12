@@ -3,9 +3,10 @@ import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF, SPRITE_DEPTH_COMP, SPRITE_DEPTH_CLAMP } from './constants.js';
 import { AuraShell } from './auraShell.js';
+import { phaseFrame } from './animPhase.js';
 
 // Missing animations in a custom sheet fall back to something sensible.
-const FALLBACK = {
+export const FALLBACK = {
   intro: 'idle', taunt: 'idle', win: 'idle', jumpSquat: 'land', land: 'idle', block: 'guard', hurtLow: 'hurtHigh',
   airLight1: 'airLight', airLight2: 'airLight1', airLight3: 'airLight2', airLight: 'light3', airHeavy: 'heavy', throw: 'light1',
   special: 'heavy', beamCharge: 'charge', beamFire: 'light1', stagger: 'hurtHigh', ko: 'down', getup: 'idle', dash: 'run',
@@ -14,6 +15,9 @@ const FALLBACK = {
   heavy: 'light1', jumpUp: 'idle', jumpFall: 'jumpUp', run: 'idle',
   // move system v2 (ADR 0009), optional per character
   specialForward: 'special', specialUp: 'special', specialDown: 'charge', superPose: 'taunt',
+  // tech recoveries (ADR 0030): the poses the techs showed before their strips existed. Fighter itself keeps the
+  // per-beat legacy poses (techAnim.js LEGACY_POSE) when a sheet lacks a strip; these cover direct lookups (lab, tools)
+  techGround: 'land', techRoll: 'airRecover', wallTech: 'land',
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
@@ -67,6 +71,25 @@ export class SheetAsset {
     this.W = image.width;
     this.H = image.height;
     this.cols = meta.columns || Math.floor(this.W / meta.frameWidth);
+  }
+
+  // The sheet has this strip itself (not through FALLBACK): optional poses such as the tech strips switch on with it.
+  has(name) {
+    return !!this.meta.animations?.[name]?.frames?.length;
+  }
+
+  // A wall-anchored frame's horizontal shift (anims.json wallAnchor, ADR 0030): how far right of the pivot the body's
+  // centre was packed, in local world units facing right, so a wall seen in depth can re-centre it. 0 for other frames.
+  wallAnchor(frame) {
+    const px = this.meta.wallAnchor?.[frame];
+    return px ? px / this.meta.pixelsPerUnit : 0;
+  }
+
+  // A wall-anchored frame's wall line (anims.json wallLine): how far left of the pivot the packer put its leftmost
+  // pixel, in local world units, so a wall at a screen side can sit on it. 0 for other frames (and packs without it).
+  wallLine(frame) {
+    const m = this.meta;
+    return m.wallLine != null && m.wallAnchor?.[frame] != null ? (m.pivot[0] - m.wallLine) / m.pixelsPerUnit : 0;
   }
 
   anim(name) {
@@ -359,21 +382,31 @@ export class SpriteActor {
     this.setFrame(a.frames[this.fi]);
   }
 
-  // Attack playback driven by gameplay phase: phase 0..2 with progress 0..1.
-  setPhase(name, phase, p) {
+  hasAnim(name) {
+    return this.asset.has(name);
+  }
+
+  // the current frame's wall-anchor shift and wall line (SheetAsset.wallAnchor / wallLine), world units facing right
+  wallAnchor() {
+    return this.asset.wallAnchor(this.frame);
+  }
+
+  wallLine() {
+    return this.asset.wallLine(this.frame);
+  }
+
+  // The mirror sync() gives this facing (1 = facing screen-right); a facing almost into the camera keeps the current one.
+  flipFor(faceX, faceZ, camRight) {
+    const d = faceX * camRight.x + faceZ * camRight.z;
+    return Math.abs(d) > 0.12 ? (d >= 0 ? 1 : -1) : this.flip;
+  }
+
+  // Playback driven by a gameplay clock (an attack's phases, a tech state's beats): phase 0..2 with progress 0..1.
+  // reverse plays the beat backward (a tech roll toward the back).
+  setPhase(name, phase, p, reverse = false) {
     if (this.animName !== name) this.play(name);
     const a = this.anim;
-    const n = a.frames.length;
-    let idx;
-    if (a.phases && a.phases.length === 3) {
-      const start = phase === 0 ? 0 : phase === 1 ? a.phases[0] : a.phases[0] + a.phases[1];
-      const cnt = Math.max(1, a.phases[phase]);
-      idx = start + Math.min(cnt - 1, Math.floor(p * cnt));
-    } else {
-      const total = phase === 0 ? p * 0.33 : phase === 1 ? 0.33 + p * 0.33 : 0.66 + p * 0.34;
-      idx = Math.floor(total * n);
-    }
-    this.fi = Math.max(0, Math.min(n - 1, idx));
+    this.fi = phaseFrame(a.phases, a.frames.length, phase, reverse ? Math.max(0, 1 - p - 1e-6) : p);
     this.setFrame(a.frames[this.fi]);
   }
 
@@ -393,8 +426,7 @@ export class SpriteActor {
   // Billboard toward the camera and mirror when facing screen-left. refDepth/time: see syncDepth.
   sync(camera, faceX, faceZ, camRight, refDepth = null, time = 0) {
     this.mesh.quaternion.copy(camera.quaternion);
-    const d = faceX * camRight.x + faceZ * camRight.z;
-    if (Math.abs(d) > 0.12) this.flip = d >= 0 ? 1 : -1;
+    this.flip = this.flipFor(faceX, faceZ, camRight);
     this.mesh.scale.x = this.flip;
     this.caster.scale.x = this.flip;
     this.fitShadow(camRight);
