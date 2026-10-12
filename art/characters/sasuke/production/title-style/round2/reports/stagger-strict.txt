@@ -1,0 +1,20 @@
+exit 0
+node tools/pack-sprites.mjs sasuke --quantize 48 --strict-scale --root C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\fixtures\stagger --out C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\packs\stagger\strict --no-writeback
+GCD Tourney sprite packer v2
+  art:  art/characters/sasuke/production/title-style/round2/fixtures/stagger
+  out:  art/characters/sasuke/production/title-style/round2/packs/stagger/strict
+  anims: animGuide.js + art/characters/sasuke/production/title-style/round2/fixtures/stagger/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== sasuke ======================================================
+  packed 2 anims, 12 frames -> sheet 4096x256, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.337
+    stagger      4     <- raw/stagger_v08.png          x0.371  (candidate v08 (approved: v01))
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 ok
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (21): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  wrote art/characters/sasuke/production/title-style/round2/packs/stagger/strict/characters/sasuke/sheet.png
+  wrote art/characters/sasuke/production/title-style/round2/packs/stagger/strict/characters/sasuke/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 0 warning(s).

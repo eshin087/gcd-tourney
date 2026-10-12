@@ -11,6 +11,41 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Sasuke title-style art ships (PR #71) with round-3 QA: launched/down/KO calibrated to his standing size (manual QA), heavy/throw within 2% of the idle, heavy/throw/specialUp boxes and the release point re-measured.
+
+- User approved sasuke round-2 art: heavy v11, backDash v07, charge v12, block v07, throw v07, stagger v08, specialUp v09. Other visual/technical holds remain for Claude integration; no production deployment.
+
+- art(sasuke): add seven strict-passing round-2 correction candidates and three explicit holds on PR71, with native quantized review playback, cumulative attempt inventory and retained original approvals (ART-SAS-TITLE-20261011).
+
+- Art (PR71, not on main yet): Sasuke's title-style set with the user's 2026-10-11 approval recorded; the approved originals ship for throw, stagger, launched, spin, airRecover, down, ko, specialUp and superPose (manual scale checks against the new idle); edge, run and jumpFall placement fixes; hit boxes re-measured on the new art. Strict scale gate fails only on the original throw v01 (the same finding as live).
+
+- Added Sasuke title-style first-pass source coverage for all 42 canonical animations and three UI candidates, with a 48-color diagnostic player and explicit mixed-atlas review holds (ART-SAS-TITLE-20261011).
+- art(sasuke): add title-style intro v03 and rear-view win v04 with native 48-color QA; archive unreadable superPose v03 eye detail after atlas crop.
+- art(sasuke): add title-style getup v05 with native five-frame manual inverted-head QA; archive two clipped/head-popped throws and two frontal staggers.
+- art(sasuke): add numeric-gated superDash v05 with measured whole-frame placement and archive unproven spin/airRecover sources without production scale exemptions.
+- art(sasuke): add title-style charge v11, beamCharge v05 and beamFire v05 with 48-color native atlas QA; record beamFire's historical contact-zone hold and archive five earlier power-pose candidates.
+- art(sasuke): add title-style block and Sharingan taunt with numeric pack passes, and vanish with versioned manual afterimage QA; archive four oversized or mismatched candidates.
+- art(sasuke): add title-style jump squat, falling loop and landing with actual atlas QA; document the crouch's manual low-confidence scale finding and archive two falling rejects.
+- art(sasuke): add title-style dash v05 and backDash v05, plus jumpUp v05 with a documented manual airborne-tuck scale exemption; archive five failed movement candidates.
+- art(sasuke): add title-style high/low hurt reactions with measured head-fit heights and actual 48-color atlas QA; archive three failed launched candidates without a scale exemption.
+
+- art(sasuke): preserve original down/KO pose layouts in new-style attempts v04/v05, archive technical rejects after clip, floor-contact and uncertain-scale checks; keep original approved poses active pending redraw guidance.
+
+- art(sasuke): add title-style airborne hammer v04 with measured two-part stitch and documented manual f0/f1 head-mask finding, backed by actual atlas crops.
+
+- art(sasuke): add title-style airborne jab v04, correct a measured 4 px contact-fist clip without changing generated pixels and inspect all five packed frames.
+
+- art(sasuke): add title-style heavy rising launcher v10 with measured generated idle recovery, preserve rejected v09 and verify eight 48-color packed frames.
+
+- art(sasuke): add title-style roundhouse v08 and correct light1 v09, light2 v07, light3 v08 recovery endpoints to the approved open-palm stance by measured reuse of generated idle source poses; preserve all prior versions and verify the 48-color atlas.
+
+- art(sasuke): add title-style front kick v07 with measured placement, unclipped active sandals and a recovery pose that rejoins the approved idle height; archive two rejected attempts.
+
+- art(sasuke): correct the lead jab's early extension in title-style v07; preserve rejected v06 and inspect all seven packed frames. The v07 two-fist recovery was later rejected because the approved stance has an open lead palm.
+
+- art(sasuke): add title-style rear straight v06 candidate with measured stitch, strict new-strip scale pass and actual-atlas QA; archive enlarged-head v05. Its closed-fist endpoint was later rejected against the approved open-palm stance.
+
+- art(sasuke): start approved title-style redraw with measured idle v07, corrected guard v04 and lead jab v06 candidates; preserve pilot references and document the guard mask exemption and pending full-batch QA.
 - Changed: Killua title-style art ships (PR #70) with round-3 QA: idle loop offset, beamFire/run v09 within 2% of the combat cell, beamFire hand points; charge v13, beamFire v09 and run v09 are user-approved stand-ins until the round-3 redraws (charge with a recorded size exception).
 
 - User approved killua round-2 art: idle v08, stagger v05, taunt v05. Other visual/technical holds remain for Claude integration; no production deployment.
