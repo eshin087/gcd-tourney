@@ -7,7 +7,7 @@ The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 s
 | Asset | Latest candidate | Generation rounds | Current hold or note |
 |---|---:|---:|---|
 | idle | v06 | 1 | head gate passes; full frame QA pending |
-| run | v09 B rejected; assembled v08 | 3 | head pass on v08; generated v09 B also repeats leg lead; source rounds exhausted |
+| run | v10; v09 B rejected history | A3 / B5 cumulative calls | User authorized A1 remaining and B2 extra. All used. v10 upright214–221px; normal head gate ok, but requested2% unmet and stride alternation held. See run-v10/QA.md; no generation calls remain. |
 | dash | v06 | 1 | head gate passes; full frame QA pending |
 | backDash | v04 | 1 | head gate passes; full frame QA pending |
 | superDash | v07 | 1 generation, 1 measured placement | head pass; 11px left offset clears right clip and cell-margin warning; native anatomy pending |
