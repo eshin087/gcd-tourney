@@ -85,19 +85,22 @@ const LYING = { ko: { footprint: 'all', check: 'all' }, down: { footprint: 'all'
 const GROUND = { contactPx: 6, minContact: 0.4, maxGap: 12, segments: 5, tallFactor: 1.15 };
 
 // Tech poses (ADR 0030, art/SPEC.md "Tech poses"). wall: the beats (phase indices) whose frames are WALL-ANCHORED:
-// their leftmost opaque pixel goes on the pivot column (x 128, the barrier in the game) instead of the feet being
-// centred, so soles drawn flat on the wall touch the barrier; anims.json wallAnchor records each such frame's body
-// centre (px right of the pivot) so the engine can re-centre it on a wall seen in depth. contact: the cling beats whose
-// wall line must carry the soles. envelope: beats whose frames are tucked, crouched or braced, with their allowed
-// trimmed height as a share of the idle's: the idle's anatomical scale, never stretched to a standing height (the
-// scale probe can't read these heads either: scale-probe lowConfPhases, a manual scale QA record per version).
+// their leftmost opaque pixel goes on the wall line (WALL_LINE, near the cell's left edge) instead of the feet being
+// centred, so a full diagonal push-off has the whole cell width to reach right. The engine puts that line on the
+// barrier (anims.json wallLine) and, on a wall seen in depth, re-centres the body (anims.json wallAnchor: each such
+// frame's body centre, px right of the pivot). contact: the cling beats whose wall line must carry the soles.
+// envelope: beats whose frames are tucked, crouched or braced, with their allowed trimmed height as a share of the
+// idle's: the idle's anatomical scale, never stretched to a standing height (the scale probe can't read the roll's or
+// the cling's heads either: scale-probe lowConfPhases, a manual scale QA record per version).
 const TECH_POSES = {
   techGround: { envelope: { phases: [0], min: 0.45, max: 0.85 } },
-  techRoll: { envelope: { phases: [1], min: 0.3, max: 0.68 } },
+  techRoll: { envelope: { phases: [0, 1], min: 0.3, max: 0.68 } },
   wallTech: { wall: [0, 1], contact: [0], envelope: { phases: [0], min: 0.35, max: 0.9 } },
 };
-// the wall line: its first `cols` columns from the pivot must hold `minPx` opaque px on a cling frame (px at a 200 px
-// standing body, scaled with standingBodyPx)
+// the wall line: a cell column just inside the cell margin. Its first `cols` columns must hold `minPx` opaque px on a
+// cling frame (px at a 200 px standing body, scaled with standingBodyPx)
+const WALL_LINE = 8;
+const wallLineOf = (spec) => Math.max(WALL_LINE, spec.cellMargin);
 const WALL_CONTACT = { cols: 4, minPx: 12 };
 
 // Frame indices of an animation's beats (phase indices) for a strip of n frames (its phases rescaled to n, as packed).
@@ -1426,8 +1429,8 @@ function placeCharFrame(sprite, spec, offset = [0, 0], anchor = null) {
   const W = spec.frameWidth, H = spec.frameHeight, m = spec.cellMargin;
   const cell = newImage(W, H);
   const off = offset || [0, 0];
-  // a wall-anchored frame (TECH_POSES, ADR 0030): its wall side, the leftmost opaque pixel, on the pivot column
-  const dx = (anchor === 'wall' ? spec.pivot[0] - (bbox(sprite)?.x0 ?? 0) : Math.round(spec.pivot[0] - footAnchor(sprite))) + off[0];
+  // a wall-anchored frame (TECH_POSES, ADR 0030): its wall side, the leftmost opaque pixel, on the wall line
+  const dx = (anchor === 'wall' ? wallLineOf(spec) - (bbox(sprite)?.x0 ?? 0) : Math.round(spec.pivot[0] - footAnchor(sprite))) + off[0];
   const dy = spec.pivot[1] - (sprite.h - 1) + off[1];
   const lost = blit(cell, sprite, dx, dy);
   const clip = [];
@@ -1523,17 +1526,17 @@ function groundCheck(anims, meta, spec, standingBodyPx, warn, R) {
   return footprint;
 }
 
-// Tech poses (TECH_POSES, ADR 0030), warn only: a cling frame whose wall line (the pivot column) holds too few opaque px
-// (a fingertip, not the soles), and a tucked / crouched / braced frame outside its height band against the idle's
-// median height (the giveaway of a pose packed at a standing height). Returns the wall anchors { "<sheet frame>": px
-// of the body centre right of the pivot } for the engine. R.tech gets the measurements.
+// Tech poses (TECH_POSES, ADR 0030), warn only: a cling frame whose wall line holds too few opaque px (a fingertip, not
+// the soles), and a tucked / crouched / braced frame outside its height band against the idle's median height (the
+// giveaway of a pose packed at a standing height). Returns the wall anchors { "<sheet frame>": px of the body centre
+// right of the pivot } for the engine. R.tech gets the measurements.
 function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
   const k = standingBodyPx / SPEC_DEFAULTS.standingBodyPx;
   const minPx = Math.max(1, Math.round(WALL_CONTACT.minPx * k));
   const idle = anims.find((a) => a.def.name === 'idle');
   const hs = idle ? idle.cells.map((c) => bbox(c)?.h).filter(Number.isFinite).sort((p, q) => p - q) : [];
   const idleH = hs.length ? hs[Math.floor(hs.length / 2)] : NaN;
-  const px0 = spec.pivot[0];
+  const px0 = wallLineOf(spec);
   const out = {};
   for (const a of anims) {
     const rule = TECH_POSES[a.def.name];
@@ -1547,7 +1550,7 @@ function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
       if (!b) return;
       const m = { frame: i };
       if (wall.has(i)) {
-        if (frames[i] != null) out[String(frames[i])] = Math.round((b.x0 + b.x1) / 2 - px0);
+        if (frames[i] != null) out[String(frames[i])] = Math.round((b.x0 + b.x1) / 2 - spec.pivot[0]);
         let touch = 0;
         for (let y = b.y0; y <= b.y1; y++) for (let x = px0; x < px0 + WALL_CONTACT.cols; x++) if (cell.data[(y * cell.w + x) * 4 + 3] >= 128) touch++;
         m.wallPx = touch;
@@ -2163,7 +2166,7 @@ function packCharacter(id, env) {
   if (Object.keys(footprint).length) meta.footprint = footprint;
   // tech poses (ADR 0030): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
   const wallAnchor = techPoseCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
-  if (Object.keys(wallAnchor).length) meta.wallAnchor = wallAnchor;
+  if (Object.keys(wallAnchor).length) { meta.wallAnchor = wallAnchor; meta.wallLine = wallLineOf(spec); }
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;

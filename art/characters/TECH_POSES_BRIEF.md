@@ -9,14 +9,15 @@ soon as a fighter's strip is packed, the game plays it instead (each strip switc
 | strip | what | frames | art beats | game beats (60 fps) | tallest frame (sets `bodyHeight`) |
 |---|---|---|---|---|---|
 | `techGround` | ground tech in place: impact brace, push up, back in the stance | 4 | 1 / 2 / 1 | 4 / 10 / 4 | f3, the stance (= the idle's height) |
-| `techRoll` | ground tech roll: shoulder contact, one forward roll, low crouch | 6 (parts 3 + 3) | 1 / 4 / 1 | 3 / 15 / 4 (hold-Guard roll 3 / 15 / 2) | f5 or f0 (a crouch: about the `jumpSquat` height) |
+| `techRoll` | ground tech roll: shoulder contact, one forward roll, low crouch | 6 (parts 3 + 3) | 1 / 4 / 1 | 3 / 15 / 4 (hold-Guard roll 3 / 15 / 2) | f5, the crouch (about the `jumpSquat` height) |
 | `wallTech` | wall tech: feet-first cling, push-off, airborne recovery | 5 | 2 / 1 / 2 | 6 / 4 / 8 | f4, the fall (= the `jumpFall` height) |
 
 The engine drives each strip by the tech state's own clock, so the art never changes timing, invulnerability or movement.
 `techRoll` is drawn as a forward roll toward screen-right; the game plays the four tumble frames backward for a roll away
 from the opponent, so make them even quarter turns. `wallTech`'s wall is implied at the cell's left; the packer puts
-the leftmost pixel of f0-f2 on x 128 (the barrier) and the game turns or re-centres the strip for each of the four
-barrier walls. The wall jump (↑ at the kick) reuses f0-f2, then `jumpUp`: no extra strip.
+the leftmost pixel of f0-f2 on x 8, the cell's left edge, so the push-off has the whole cell width to reach right, and
+the game puts that line on the barrier (turning or re-centring the strip for each of the four barrier walls). The
+wall jump (↑ at the kick) reuses f0-f2, then `jumpUp`: no extra strip.
 
 ## Rules for this batch
 
@@ -258,11 +259,12 @@ ANIMATION: "wallTech", a wall tech: he is knocked into an invisible wall at the 
    and pass `--factor <B/A> --reason "..." --landmarks "A f0 <landmark> <px>, B f2 <landmark> <px>" --uncertainty "<+- px>"`
    (recorded in the sidecar). The others are single images.
 2. **Pack:** `node tools/pack-sprites.mjs <id> --quantize 48` must exit 0. Expect and clear:
-   - no `cling frame(s) barely touch the wall line` warning (wallTech f0-f1: the soles flat on x 128-131);
-   - no `tucked / braced frame(s) out of their size band` warning (techGround brace 0.45-0.85, techRoll tumble 0.30-0.68,
-     wallTech cling 0.35-0.90 of the idle's height);
-   - no clipping or cell-margin warning; 48 colors.
-3. **Scale gate:** `techGround` is measured in full and must read `ok`. `techRoll` (f1-f4) and `wallTech` (f0-f2) have
+   - no `cling frame(s) barely touch the wall line` warning (wallTech f0-f1: the soles flat on x 8-11);
+   - no `tucked / braced frame(s) out of their size band` warning (techGround brace 0.45-0.85, techRoll contact and
+     tumble 0.30-0.68, wallTech cling 0.35-0.90 of the idle's height);
+   - no clipping or cell-margin warning (a frame that clips is reposed inside the cell at the same scale; never lower
+     `bodyHeight` below the anatomical scale); 48 colors.
+3. **Scale gate:** `techGround` is measured in full and must read `ok`. `techRoll` (f0-f4) and `wallTech` (f0-f2) have
    beats the probe cannot read: their readable frames must pass, and the strip reads `partial`, which is **not** a pass. Run
    `npm run scale -- <id>` and compare the unread frames with the approved combat cell at the same native scale (head,
    torso and limb lengths, not the box height; inspect every frame and the loop). Only when they match, record it in that
@@ -270,7 +272,8 @@ ANIMATION: "wallTech", a wall tech: he is knocked into an invisible wall at the 
    compared>", "evidence": "<image path>" }`. A redraw needs a new record. No exemptions to hide an anatomy problem.
 4. **In the game:** `npm run dev` (or the `.codex/vite.mjs` adapter) on your port, then `/lab.html?p2=<id>`, SCENARIOS:
    "Timed tech off a spike" (techGround), "Tech roll" (techRoll played backward: a back roll), "Wall tech" (wallTech on a
-   side wall) and "Wall-jump tech" (f0-f2 then jumpUp); the ANIMATIONS tab steps each strip frame by frame with its boxes.
+   side wall: the soles on the barrier, the push-off never cut off) and "Wall-jump tech" (f0-f2 then jumpUp); the
+   ANIMATIONS tab steps each strip frame by frame with its boxes.
    Check the handovers: techGround f3 and techRoll f5 into `idle`, wallTech f4 into `jumpFall`, nothing popping in size.
 5. **Review:** REVIEW rows link the strip, the heads sheet (`art/scale/heads-<id>.png`), `npm run lineup` and the native
    comparison; commit with explicit paths, `npm run pr -- open` and `npm run pr -- preview`. Report the preview link and
