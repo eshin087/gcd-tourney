@@ -1,0 +1,101 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 16,
+  "pivot": [128, 240],
+  "pixelsPerUnit": 128,
+  "facing": "right",
+  "spec": "hi-res sprite spec v2",
+  "source": "art-pack",
+  "character": "naruto",
+  "packer": 2,
+  "complete": false,
+  "missingCore": [
+    "run",
+    "dash",
+    "jumpUp",
+    "jumpFall",
+    "land",
+    "light1",
+    "light2",
+    "light3",
+    "light4",
+    "heavy",
+    "airLight1",
+    "airHeavy",
+    "guard",
+    "hurtHigh",
+    "launched",
+    "down",
+    "getup",
+    "charge",
+    "beamCharge",
+    "beamFire",
+    "special",
+    "win"
+  ],
+  "animations": {
+    "idle": { "frames": [0, 1, 2, 3, 4, 5, 6, 7], "durations": [150, 150, 150, 150, 150, 150, 150, 150], "loop": true },
+    "specialDown": { "frames": [8, 9, 10, 11], "durations": [80, 80, 220, 90], "loop": false, "phases": [2, 1, 1] }
+  },
+  "boxes": {
+    "0": { "hurt": [[84, 83, 90, 158]] },
+    "1": { "hurt": [[84, 86, 90, 155]] },
+    "2": { "hurt": [[84, 85, 91, 156]] },
+    "3": { "hurt": [[84, 85, 90, 156]] },
+    "4": { "hurt": [[85, 87, 88, 154]] },
+    "5": { "hurt": [[85, 87, 87, 154]] },
+    "6": { "hurt": [[86, 87, 86, 154]] },
+    "7": { "hurt": [[85, 88, 87, 153]] },
+    "8": { "hurt": [[73, 93, 109, 148]] },
+    "9": { "hurt": [[68, 110, 114, 131]] },
+    "10": { "hurt": [[72, 45, 113, 196]] },
+    "11": { "hurt": [[74, 65, 112, 176]] }
+  },
+  "scaleAudit": {
+    "tool": "tools/scale-probe.mjs",
+    "method": "idle-palette",
+    "tol": 0.06,
+    "pop": 0.12,
+    "ref": {
+      "box": [126, 79, 155, 96],
+      "headPx": [29, 19],
+      "hA": 327.5,
+      "hW": 29,
+      "hH": 19,
+      "feet": 389.5,
+      "palette": "declared",
+      "head": ["#fcb540"],
+      "feetColors": ["#1b1b21"]
+    },
+    "anims": {
+      "idle": {
+        "head": 1,
+        "feet": 1,
+        "verdict": "ref",
+        "v": 7,
+        "frames": [1.01, 0.967, 0.981, 1.002, 1.028, 1, 1, 0.996],
+        "feetFrames": [1.053, 1.001, 1.018, 0.985, 1.003, 0.999, 0.927, 0.984],
+        "boxes": [
+          [126, 79, 155, 96],
+          [125, 81, 152, 99],
+          [124, 81, 153, 97],
+          [124, 81, 154, 99],
+          [127, 83, 155, 103],
+          [125, 84, 153, 101],
+          [124, 83, 152, 101],
+          [126, 85, 153, 103]
+        ]
+      },
+      "specialDown": {
+        "head": 1.023,
+        "feet": 0.771,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [1.011, 0.973, 1.034, 1.059],
+        "feetFrames": [0.787, 0.791, 0.755, 0.741],
+        "boxes": [[135, 89, 160, 108], [130, 107, 155, 125], [86, 39, 115, 60], [124, 60, 157, 78]]
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-12",
+  "userDecision": "Ok all approved, whats next",
+  "fighter": "sasuke",
+  "approved": {
+    "heavy": {
+      "version": 11,
+      "previousApprovedVersion": 10
+    },
+    "backDash": {
+      "version": 7,
+      "previousApprovedVersion": 5
+    },
+    "charge": {
+      "version": 12,
+      "previousApprovedVersion": 11
+    },
+    "block": {
+      "version": 7,
+      "previousApprovedVersion": 5
+    },
+    "throw": {
+      "version": 7,
+      "previousApprovedVersion": 1
+    },
+    "stagger": {
+      "version": 8,
+      "previousApprovedVersion": 1
+    },
+    "specialUp": {
+      "version": 9,
+      "previousApprovedVersion": 2
+    }
+  },
+  "remainingHolds": "Launched v07, down v08 and KO v07 remain unmeasured; fallen-pose calibration/contact needs Claude.",
+  "archived": [
+    {
+      "from": "art/characters/sasuke/raw/stagger_v07.png",
+      "to": "art/characters/sasuke/raw/_rejected/stagger_v07.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/stagger_v07.json",
+      "to": "art/characters/sasuke/raw/_rejected/stagger_v07.json"
+    },
+    {
+      "from": "art/characters/sasuke/raw/specialUp_v08.png",
+      "to": "art/characters/sasuke/raw/_rejected/specialUp_v08.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/specialUp_v08.json",
+      "to": "art/characters/sasuke/raw/_rejected/specialUp_v08.json"
+    },
+    {
+      "from": "art/characters/sasuke/raw/_parts/specialUp_v08_A.png",
+      "to": "art/characters/sasuke/raw/_parts/_rejected/specialUp_v08_A.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/_parts/specialUp_v08_B.png",
+      "to": "art/characters/sasuke/raw/_parts/_rejected/specialUp_v08_B.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/specialUp_v07.png",
+      "to": "art/characters/sasuke/raw/_rejected/specialUp_v07.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/specialUp_v07.json",
+      "to": "art/characters/sasuke/raw/_rejected/specialUp_v07.json"
+    },
+    {
+      "from": "art/characters/sasuke/raw/_parts/specialUp_v07_A.png",
+      "to": "art/characters/sasuke/raw/_parts/_rejected/specialUp_v07_A.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/_parts/specialUp_v07_B.png",
+      "to": "art/characters/sasuke/raw/_parts/_rejected/specialUp_v07_B.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/block_v06.png",
+      "to": "art/characters/sasuke/raw/_rejected/block_v06.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/throw_v06.png",
+      "to": "art/characters/sasuke/raw/_rejected/throw_v06.png"
+    },
+    {
+      "from": "art/characters/sasuke/raw/backDash_v06.png",
+      "to": "art/characters/sasuke/raw/_rejected/backDash_v06.png"
+    }
+  ],
+  "repack": {
+    "strictExitCode": 1,
+    "failures": "sasuke (launched, down, ko) - not written; see art/CHARACTER_SCALE.md \"Scale gate (automatic)\"",
+    "report": "repack.txt",
+    "fullCharacter": true
+  },
+  "build": {
+    "exitCode": 0,
+    "modules": 82,
+    "report": "build.txt"
+  }
+}

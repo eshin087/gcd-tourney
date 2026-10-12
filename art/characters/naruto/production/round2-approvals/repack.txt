@@ -1,0 +1,70 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v07.png             x0.286  (re-imported: replaces frames/ cleaned from raw/idle_v02.png)
+    run          8     <- raw/run_v08.png              x0.286  (re-imported: replaces frames/ cleaned from raw/run_v04.png; candidate v08 (approved: v07))
+    dash         2     <- raw/dash_v04.png             x0.257  (re-imported: replaces frames/ cleaned from raw/dash_v02.png)
+    backDash     3     <- raw/backDash_v04.png         x0.311  (re-imported: replaces frames/ cleaned from raw/backDash_v01.png)
+    superDash    2     <- raw/superDash_v03.png        x0.263  (re-imported: replaces frames/ cleaned from raw/superDash_v01.png)
+    jumpSquat    1     <- raw/jumpSquat_v04.png        x0.215  (re-imported: replaces frames/ cleaned from raw/jumpSquat_v02.png)
+    jumpUp       2     <- raw/jumpUp_v06.png           x0.285  (re-imported: replaces frames/ cleaned from raw/jumpUp_v01.png)
+    jumpFall     2     <- raw/jumpFall_v04.png         x0.262  (re-imported: replaces frames/ cleaned from raw/jumpFall_v01.png)
+    land         2     <- raw/land_v06.png             x0.253  (re-imported: replaces frames/ cleaned from raw/land_v01.png)
+    light1       7     <- raw/light1_v04.png           x0.288  (re-imported: replaces frames/ cleaned from raw/light1_v02.png)
+    light2       7     <- raw/light2_v06.png           x0.301  (re-imported: replaces frames/ cleaned from raw/light2_v01.png)
+    light3       7     <- raw/light3_v04.png           x0.336  (re-imported: replaces frames/ cleaned from raw/light3_v01.png)
+    light4       8     <- raw/light4_v08.png           x0.429
+    heavy        8     <- raw/heavy_v12.png            x0.366  (re-imported: replaces frames/ cleaned from raw/heavy_v07.png)
+    airLight1    5     <- raw/airLight1_v06.png        x0.364  (removed 14 specks; re-imported: replaces frames/ cleaned from raw/airLight1_v03.png)
+    airLight2    5     <- raw/airLight2_v05.png        x0.4  (removed 8 specks; re-imported: replaces frames/ cleaned from raw/airLight2_v03.png)
+    airLight3    6     <- raw/airLight3_v09.png        x0.388  (re-imported: replaces frames/ cleaned from raw/airLight3_v02.png)
+    airHeavy     6     <- raw/airHeavy_v09.png         x0.374  (re-imported: replaces frames/ cleaned from raw/airHeavy_v03.png)
+    guard        2     <- raw/guard_v05.png            x0.192  (re-imported: replaces frames/ cleaned from raw/guard_v03.png)
+    block        2     <- raw/block_v05.png            x0.266  (re-imported: replaces frames/ cleaned from raw/block_v03.png)
+    hurtHigh     3     <- raw/hurtHigh_v04.png         x0.269  (re-imported: replaces frames/ cleaned from raw/hurtHigh_v01.png)
+    hurtLow      3     <- raw/hurtLow_v03.png          x0.263  (re-imported: replaces frames/ cleaned from raw/hurtLow_v01.png)
+    launched     2     <- raw/launched_v05.png         x0.209  (re-imported: replaces frames/ cleaned from raw/launched_v02.png)
+    spin         4     <- raw/spin_v07.png             x0.327  (re-imported: replaces frames/ cleaned from raw/spin_v02.png; candidate v07 (approved: v06))
+    airRecover   3     <- raw/airRecover_v07.png       x0.271  (re-imported: replaces frames/ cleaned from raw/airRecover_v02.png)
+    down         2     <- raw/down_v05.png             x0.229  (re-imported: replaces frames/ cleaned from raw/down_v02.png)
+    getup        5     <- raw/getup_v07.png            x0.355  (re-imported: replaces frames/ cleaned from raw/getup_v02.png)
+    charge       4     <- raw/charge_v07.png           x0.302  (re-imported: replaces frames/ cleaned from raw/charge_v04.png)
+    throw        4     <- raw/throw_v09.png            x0.289
+    beamCharge   3     <- raw/beamCharge_v08.png       x0.281  (re-imported: replaces frames/ cleaned from raw/beamCharge_v05.png)
+    beamFire     3     <- raw/beamFire_v12.png         x0.251  (re-imported: replaces frames/ cleaned from raw/beamFire_v07.png)
+    vanish       2     <- raw/vanish_v04.png           x0.258  (re-imported: replaces frames/ cleaned from raw/vanish_v01.png)
+    stagger      4     <- raw/stagger_v05.png          x0.344  (re-imported: replaces frames/ cleaned from raw/stagger_v01.png)
+    ko           1     <- raw/ko_v09.png               x0.095  (re-imported: replaces frames/ cleaned from raw/ko_v05.png)
+    special      8     <- raw/special_v08.png          x0.366  (re-imported: replaces frames/ cleaned from raw/special_v03.png)
+    intro        4     <- raw/intro_v05.png            x0.29  (re-imported: replaces frames/ cleaned from raw/intro_v01.png)
+    taunt        2     <- raw/taunt_v06.png            x0.26  (re-imported: replaces frames/ cleaned from raw/taunt_v01.png)
+    win          4     <- raw/win_v07.png              x0.327  (re-imported: replaces frames/ cleaned from raw/win_v03.png)
+    specialForward  7     <- raw/specialForward_v04.png   x0.361
+    specialUp    6     <- raw/specialUp_v04.png        x0.394  (re-imported: replaces frames/ cleaned from raw/specialUp_v01.png)
+    specialDown  4     <- raw/specialDown_v05.png      x0.374  (re-imported: replaces frames/ cleaned from raw/specialDown_v02.png)
+    superPose    4     <- raw/superPose_v05.png        x0.276  (re-imported: replaces frames/ cleaned from raw/superPose_v03.png)
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 33 ok, 6 manual, 2 unmeasured  FAILED: spin, ko - nothing written
+  missing optional (3): techGround, techRoll, wallTech
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
+  - palette snapped to 48 colors
+  - 26 hitbox override(s) from hitboxes.json
+  - 2 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! scale: the idle head is 29x19 px, 33x17 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)
+  ! scale gate: spin: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v07, strict]
+  ! scale gate: ko: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v09, strict]
+  ! scale: win: the manifest's scale exemption was written for v03 but the packed strip is v07 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 7
+  ! scale: specialDown: the manifest's scale exemption was written for v02 but the packed strip is v05 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 5
+  ! down: 1 lying frame(s) float above the floor line (#1: 28% of the body within 6px of y 240, worst fifth 7px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v05 is the approved version: queue a side-on redraw
+  ! ko: 1 lying frame(s) float above the floor line (#0: 30% of the body within 6px of y 240, worst fifth 18px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v09 is the approved version: queue a side-on redraw
+  ! scale gate: did not write public/characters/naruto/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+  wrote public/characters/naruto/portrait.png
+  wrote public/characters/naruto/cutin.png
+  wrote public/characters/naruto/select.png
+
+SCALE GATE FAILED: naruto (spin, ko) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 8 warning(s).

@@ -1,0 +1,21 @@
+exit 0
+node tools/pack-sprites.mjs sasuke --quantize 48 --root C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\fixtures\backDash --out C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\packs\backDash\diagnostic --no-writeback
+GCD Tourney sprite packer v2
+  art:  art/characters/sasuke/production/title-style/round2/fixtures/backDash
+  out:  art/characters/sasuke/production/title-style/round2/packs/backDash/diagnostic
+  anims: animGuide.js + art/characters/sasuke/production/title-style/round2/fixtures/backDash/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== sasuke ======================================================
+  packed 2 anims, 11 frames -> sheet 4096x256, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.337
+    backDash     3     <- raw/backDash_v06.png         x0.333
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 uniform
+    ~ backDash head 1.12 of idle (feet 1.25): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v06]
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (21): superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  wrote art/characters/sasuke/production/title-style/round2/packs/backDash/diagnostic/characters/sasuke/sheet.png
+  wrote art/characters/sasuke/production/title-style/round2/packs/backDash/diagnostic/characters/sasuke/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 0 warning(s).

@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-11",
+  "scope": "Title-style corrections round2 Naruto only. Do not start ART-TECH-01.",
+  "assets": [
+    {
+      "a": "airLight3",
+      "v": 9,
+      "prior": {
+        "A": 3,
+        "B": 2
+      },
+      "budget": {
+        "A": 2,
+        "B": 1
+      },
+      "used": {
+        "A": 1,
+        "B": 1
+      },
+      "selected": {
+        "A": 1,
+        "B": 1
+      },
+      "verdict": "ok: heads1.016–1.054 allx61..251; art approved by user 2026-10-12",
+      "history": {
+        "v08": {
+          "status": "rejected",
+          "by": "user",
+          "date": "2026-10-12",
+          "reason": "looks bad",
+          "path": "raw/_rejected/airLight3_v08.png"
+        }
+      },
+      "path": "raw/airLight3_v09.png",
+      "latestEvidence": "round2-next/QA.md",
+      "followupAuthorization": {
+        "date": "2026-10-12",
+        "calls": {
+          "A": 1,
+          "B": 1
+        },
+        "used": {
+          "A": 1,
+          "B": 1
+        }
+      },
+      "cumulative": {
+        "A": 5,
+        "B": 4
+      },
+      "approval": {
+        "version": 9,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "ok i approve narutos samples",
+        "scope": "latest KO and airLight3 artwork; technical holds remain"
+      }
+    },
+    {
+      "a": "ko",
+      "v": 9,
+      "prior": 1,
+      "budget": 2,
+      "used": 2,
+      "selected": 2,
+      "verdict": "HOLD: official59px pack unmeasured/under-scale, diagnostic77px proposal needsClaude calibration",
+      "history": {
+        "v08": {
+          "status": "rejected",
+          "by": "user",
+          "date": "2026-10-12",
+          "reason": "looks really bad",
+          "path": "raw/_rejected/ko_v08.png"
+        }
+      },
+      "path": "raw/ko_v09.png",
+      "latestEvidence": "round2-next/QA.md",
+      "followupAuthorization": {
+        "date": "2026-10-12",
+        "calls": 1,
+        "used": 1
+      },
+      "cumulative": 4,
+      "approval": {
+        "version": 9,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "ok i approve narutos samples",
+        "scope": "latest KO and airLight3 artwork; technical holds remain"
+      }
+    },
+    {
+      "a": "spin",
+      "v": 7,
+      "prior": 3,
+      "budget": 2,
+      "used": 1,
+      "selected": 1,
+      "verdict": "unmeasured pending Claude; no blanket exemption"
+    },
+    {
+      "a": "specialDown",
+      "v": 5,
+      "prior": 1,
+      "budget": 2,
+      "used": 2,
+      "selected": 2,
+      "verdict": "ok; artwork approved by user 2026-10-12",
+      "approval": {
+        "version": 5,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "Ok all approved",
+        "scope": "the 14 explicitly listed passing samples"
+      }
+    },
+    {
+      "a": "jumpUp",
+      "v": 6,
+      "prior": 3,
+      "budget": 2,
+      "used": 1,
+      "selected": 1,
+      "verdict": "ok; artwork approved by user 2026-10-12",
+      "approval": {
+        "version": 6,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "Ok all approved",
+        "scope": "the 14 explicitly listed passing samples"
+      }
+    },
+    {
+      "a": "run",
+      "v": 8,
+      "prior": {
+        "A": 1,
+        "B": 1
+      },
+      "budget": {
+        "A": 0,
+        "B": 2
+      },
+      "used": {
+        "A": 0,
+        "B": 2
+      },
+      "selected": {
+        "A": "reused v07A",
+        "B": 2
+      },
+      "verdict": "head ok; motion seam hold"
+    },
+    {
+      "a": "charge",
+      "v": 7,
+      "prior": 2,
+      "budget": 1,
+      "used": 1,
+      "selected": 1,
+      "verdict": "ok; artwork approved by user 2026-10-12",
+      "approval": {
+        "version": 7,
+        "by": "user",
+        "date": "2026-10-12",
+        "decision": "Ok all approved",
+        "scope": "the 14 explicitly listed passing samples"
+      }
+    }
+  ]
+}
