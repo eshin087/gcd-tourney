@@ -1,0 +1,20 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round2/fixture
+  out:  art/characters/naruto/production/round2/packed-specialDown
+  anims: animGuide.js + art/characters/naruto/production/round2/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 2 anims, 12 frames -> sheet 4096x256, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.286
+    specialDown  4     <- raw/specialDown_v05.png      x0.366  (candidate v05 (approved: v04))
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 pop
+    ~ specialDown pops inside the strip: f2 1.10 vs f0 1.32 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v05]
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (21): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  ! scale: specialDown: the manifest's scale exemption was written for v02 but the packed strip is v05 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 5
+  wrote art/characters/naruto/production/round2/packed-specialDown/characters/naruto/sheet.png
+  wrote art/characters/naruto/production/round2/packed-specialDown/characters/naruto/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 1 warning(s).
