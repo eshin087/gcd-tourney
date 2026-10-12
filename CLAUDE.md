@@ -3,25 +3,29 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
-## Approved anatomy and cast scale (user decision, 2026-10-11)
+## Approved anatomy and cast scale (user decision, 2026-10-11; ADR 0029)
 
-For the full cast redraw and future characters, [APPROVED_CAST_BASELINE.md](art/scale/APPROVED_CAST_BASELINE.md)
-is the current anatomy/scale contract. It supersedes conflicting historical instructions below to make
-all fighters 200px tall, give them 31px heads or force a universal 6.5/7-head ratio. Preserve the approved
-era-specific stature ratios at one shared pixels/cm, and each neutral's head, torso, limb lengths and build.
-Hair, clothing and posed bounding boxes are separate measurements; do not resize a crouch or fallen pose
-to standing height. Do not add a child discount, individual tall-character cap or shoulder inflation.
+The user approved the four title-style references (`title_style_draft_v01`) and their neutral/combat lineups
+(PR #68) and rejected the earlier cast redraw. [PRODUCTION_CONTRACT.md](art/scale/title-style-pilot/PRODUCTION_CONTRACT.md)
+and its exact cells in `public/art-review/title-style-pilot/` are the scale and anatomy baseline for the cast and
+every future character ([ADR 0029](docs/decisions/0029-title-style-scale-baseline.md)). It supersedes every older
+scale target: a 200px body, a 31px head, a universal 6.5/7-head ratio, the canon-height formula and the common
+pixels/cm of [APPROVED_CAST_BASELINE.md](art/scale/APPROVED_CAST_BASELINE.md) (historical below its notice). Preserve
+each fighter's head, torso, limb lengths, build and clothing volume across every pose. Hair, clothing and posed
+bounding boxes are separate measurements; do not resize a crouch, run or fallen pose to standing height. Do not
+add a child discount, individual tall-character cap or shoulder inflation.
 
-Approve a neutral and cast lineup before full production. Independently compare the working idle to
-that neutral before using it as an animation reference. Head-gate success does not certify torso/limb
-proportions; inspect every frame and loop. An unmeasured/low-confidence probe is not a numeric pass.
-Use the updated character templates and preserve measurement uncertainty, source provenance and attempt
-limits. Reference approval never approves subsequent strips. The user authorized the current four-fighter
-batch without intermediate approval stops; future characters retain their normal reference/idle gates.
+A new character records era/stature provenance and uncertainty, then gets a title-style neutral and combat
+reference laid beside the four approved cells at one pixel density. The user approves that lineup before the
+idle. Independently compare the working idle to the approved neutral and combat cells before using it as an
+animation reference. Head-gate success does not certify torso/limb proportions; inspect every frame and loop in
+the actual quantized atlas. An unmeasured/low-confidence probe is not a numeric pass. Follow the character
+templates and the contract's QA lessons: cumulative attempt budgets (max 3 per image), one candidate inventory,
+measurement uncertainty and source provenance. Reference approval never approves subsequent strips.
 
-Cell size, pivot, pixel density, canonical moves and gameplay remain governed by the existing spec.
-Claude owns formal SPEC/ADR migration, contact/hurtbox validation and integration. For this redraw,
-Claude alone merges or deploys production; Codex workers may publish committed preview deployments.
+Cell size, pivot, pixel density, canonical moves and gameplay remain governed by art/SPEC.md. Runtime scale data
+(`standingBodyPx`, contact zones) stays until Claude's contact/hurtbox check; Claude owns that migration and
+integration. Claude alone merges or deploys production; Codex workers may publish committed preview deployments.
 
 ## Autonomous work (user authorization, 2026-10-10)
 
@@ -60,7 +64,7 @@ more will follow, so everything should stay data-driven and template-based.
 The fighter art in the game today is **3D-baked placeholder art**: chibi models built in code and
 rendered into 112 px sprite sheets (ppu 44) at startup. The long-term art is **hi-res pixel art on art
 spec v2** ([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Naruto Shippuden designs,
-about 6.5 heads tall (serious anime proportions, not chibi), 256 px cells, pivot `[128,240]`, ppu 128.
+serious anime proportions in the approved title style (not chibi; scale per ADR 0029), 256 px cells, pivot `[128,240]`, ppu 128.
 Codex generates it with its built-in image generator, the user approves every versioned image in
 [art/REVIEW.md](art/REVIEW.md), and `npm run sprites` packs it (see [art/README.md](art/README.md) and
 [art/SPEC.md](art/SPEC.md)).
@@ -92,6 +96,7 @@ documentation that stays true.
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it) |
 | `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
+| `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell

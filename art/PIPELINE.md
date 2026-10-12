@@ -1,4 +1,4 @@
-> **Active baseline, user approved 2026-10-11:** [Approved cast baseline](scale/APPROVED_CAST_BASELINE.md) supersedes historical scale/build numbers below for the full redraw. Preserve common height ratios and individually measured anatomy; old values describe shipped art only. Claude owns formal spec/ADR integration.
+> **Scale and anatomy ([ADR 0029](../docs/decisions/0029-title-style-scale-baseline.md), 2026-10-11):** the approved title-style cells and the [production contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md) set every fighter's scale and anatomy, including new characters. The 200 px body, 31 px head, 6.5/7-head, canon-height and pixels/cm numbers in this file describe today's shipped art or a superseded direction; never use them as targets for new drawings. Inspect the actual quantized atlas: `--quantize 48` does not refresh `frames/`.
 
 # Art pipeline
 
