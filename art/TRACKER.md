@@ -68,6 +68,8 @@ its own section below.
 
 ## naruto
 
+**Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview; `approved` = the exact version that played (UI portrait v02, cutin v03, select v02 promoted to ui/). The four historical strips that played (light1 v02, special v03, specialForward v02, specialUp v01) stay approved originals. Claude assembled the approved source-only parts with the fixed stitch (light1 v04, light2 v06, airLight3 v07, airHeavy v09, special v08 from v06 parts, specialForward v04, specialUp v04) and re-stitched heavy v12; their playback review is pending. Not shipped yet: see the holds per row and docs/NOW.md.
+
 Title-style production in progress on `art/naruto-title-production`: the user approved `title_style_draft_v01` and neutral/combat samples as the current visual direction. BackDash v04 passed isolated candidate packing and awaits final review. The previously approved animation versions in this table describe historical shipped art; new idle v07, run v07, dash v04, jumpSquat v04, jumpUp v04, jumpFall v04, land v06, guard v05, block v05, hurtHigh v04, down v05, KO v07 and three UI images remain unapproved candidates. Dash/block/jumpFall passed isolated candidate packing; jumpSquat passed with explicit manual low-confidence QA. Idle/run/jumpUp and small-foot land have animation/anatomy holds; down/KO preserve original poses but have low-confidence scale/floor-contact holds; light1 v04 parts are rejected after stitch isolation failure. See [title-style QA](characters/naruto/production/title-style-qa/QA.md).
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
@@ -76,51 +78,51 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
-| 3 | idle | 8 | - | **yes** | 165 | approved | v07 | v02 | Title-style v07 candidate packed provisionally, technical hold: 6px loop seam. v06 technical rejection. Historic v02 remains user-approved only for prior direction; see title-style QA. |
-| 4 | run | 8 | - | **yes** | 162 | approved | v07 | v04 | Title-style v07 candidate packed with measured stitch and frame offsets; no new gate warning. Repeated stage/loop playback review pending. Historic v04 is the old user approval. |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 204 | approved | v02 | v02 | Final batch approved; see production/QA.md |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v06 | v01 | v06 source has 4 separate Part A poses but stitch cannot isolate x-overlap; assembly hold. Best assembled title-style v05 passes isolated scale but misses fist contact x/y. Historic v01 remains approved. |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v04 | v01 | Title-style v04 measured re-stitch passes isolated strict scale; starts with a raised knee and needs combo-transition/motion review. Historic v01 remains approved. |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 192 | approved | v08 | v01 | Title-style v08 passes isolated strict scale; low recovery shoe-color probe reflects stance/palette changes and is not verified shrink. Native f0/f7 lower dark span 56..199/63..192; motion review pending. Old hand edits preserved under frames/_old. Historic v01 remains approved. |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v11 | v07 | Title-style v11 passes isolated strict scale; low airborne/recovery shoe-color probe is not verified shrink. Native grounded f0/f7 lower dark span 70..199/72..191; motion review pending. Historic v07 remains approved. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v07 | v03 | Title-style v06 is the best assembled candidate: native isolated strict 48-color scale passes, but active fists overshoot contact x/y. v07 margin warning rejected; 3 generation calls exhausted. Historic v03 remains approved. |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 183 | approved | v09 | v03 | Title-style v09 A/B sources fix repeated motion, but stitcher aborts at Part A head detection, so source-only tooling hold. V08 is isolated-scale-passing yet has repeated-motion hold; historical v03 remains approved. |
-| 6 | guard | 2 | - | **yes** | 165 | approved | v05 | v03 | New crossed-forearm title-style v05 packed and visually compared with approved combat; candidate awaits final user review. Historic v03 remains the prior approval. |
-| 6 | hurtHigh | 3 | - | **yes** | 195 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v02 | Title-style v05 technical anatomy hold: compact cell fit but low-confidence head and enlarged sandals; v04 clipped. Historical v02 remains approved. |
-| 6 | down | 2 | - | **yes** | 96 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 6 | getup | 5 | - | **yes** | 195 | approved | v07 | v02 | Title-style v07 passes isolated manual anatomy scale QA; down-to-getup knee continuity remains a motion hold. Historical v02 remains approved. |
-| 7 | charge | 4 | - | **yes** | 172 | approved | v06 | v04 | Title-style v06 passes isolated strict 48-color pack with 2px crown motion and stable planted feet; historical v04 remains approved. |
-| 7 | beamCharge | 3 | - | **yes** | 174 | approved | v08 | v05 | Title-style v08 passes isolated strict 48-color pack, stable loop and empty cupped hands; historical v05 remains approved. |
-| 7 | beamFire | 3 | - | **yes** | 164 | approved | v12 | v07 | Title-style v12 technical hold: palms stop at x215-216 below contact x222-238, uniform head scale gate fails; historic v07 remains approved. |
-| 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v07 | v03 | Title-style v06/v07 assembly rejected: vertical source-figure x overlap cuts f5 palm from arm despite intact B source. Tooling hold for Claude; historical v03 remains approved. |
-| 8 | dash | 2 | - | **yes** | 160 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 8 | land | 2 | - | **yes** | 174 | approved | v01 | v01 | Final batch approved; see production/QA.md |
-| 8 | win | 4 | - | **yes** | 193 | approved | v07 | v03 | Title-style v07 bent-elbow victory loop passes isolated strict 48-color pack, fist top y48; historic v03 remains approved. |
-| 9 | backDash | 3 | - | no | 180 | approved | v04 | v01 | Title-style v04 passes isolated 48-color scratch pack and native anatomy review; historical v01 remains the old approval. |
-| 9 | superDash | 2 | - | no | 120 | approved | v03 | v01 | Title-style v03 passes isolated 48-color scratch pack with knees lowest; final review pending, historical v01 remains approved. |
-| 9 | jumpSquat | 1 | - | no | 162 | approved | v02 | v02 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 179 | approved | v05 | v03 | Title-style v05 passes isolated strict 48-color scale after measured whole-pose correction; native five-phase kick/contact review pending. Historic v03 remains approved. |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v02 | Title-style v07 A/B source corrects visibly large heads, but stitcher aborts at Part A head detection; source-only tooling hold. Packed v06 clips and fails strict head gate; historical v02 remains approved. |
-| 9 | block | 2 | - | no | 204 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | hurtLow | 3 | - | no | 171 | approved | v03 | v01 | Title-style v03 passes isolated strict scratch pack after measured pose-height correction; historical v01 remains approved. |
-| 9 | spin | 4 | - | no | 160 | approved | v06 | v02 | Four-phase title-style tumble fits cell; low-confidence head and enlarged sandals leave technical anatomy hold. Historical v02 remains approved. |
-| 9 | airRecover | 3 | - | no | 180 | approved | v07 | v02 | Title-style v07 preserves v05 three-phase rotation after v06 worsened foot scale; low-confidence probe and enlarged feet make technical anatomy hold. |
-| 9 | throw | 4 | 1/1/2 | no | 163 | approved | v09 | v02 | Title-style v09 passes isolated scale gate, but release fingertips x221 exceed target x212; contact hold. Old v02 hand edits preserved in frames/_old/. |
-| 9 | vanish | 2 | - | no | 221 | approved | v04 | v01 | Title-style v04 passes isolated 48-color manual anatomy scale QA for low-confidence crouch/toe-rise; final review pending, historic v01 remains approved. |
-| 9 | stagger | 4 | - | no | 207 | approved | v05 | v01 | Title-style v05 passes isolated scale gate but opposite sway reads too similar; motion hold. Historic v01 remains approved. |
-| 9 | ko | 1 | - | no | 64 | approved | v05 | v05 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). Regenerate side-on (ART-KO-01, [scale/KO_DOWN_BRIEF.md](scale/KO_DOWN_BRIEF.md)): drawn from above, it floats; the packer ground check warns (ADR 0020). |
-| 9 | intro | 4 | - | no | 167 | approved | v05 | v01 | Title-style seal v05 passes isolated strict 48-color pack and 1px loop-crown check; historic v01 remains approved. |
-| 9 | taunt | 2 | - | no | 198 | approved | v06 | v01 | Title-style v06 head gate passes, but native sandal size remains large; manual anatomy hold. Historical v01 remains approved. |
-| 9 | specialForward | 7 | 2/2/3 | no | 204 | approved | v04 | v02 | Title-style v04 4+3 source parts preserved; stitcher aborts at no-head Part A before assembling. Tooling hold for Claude; historical v02 remains approved. |
-| 9 | specialUp | 6 | 2/2/2 | no | 214 | approved | v04 | v01 | Title-style v04 source A/B has 4+2 poses but stitcher refuses measured manual factor after head probe misses Part A; ASSEMBLY TOOL HOLD, no v04 strip/pack. Historic v01 remains approved. |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v02 | Title-style v04 feral activation has distinct poses/no aura; warning-mode native atlas has f0/f1 bowed-head ratios1.41/1.42 vs f2 1.14. Strict gate HOLD; no unverified new exemption. Historic v02 remains approved. |
-| 9 | superPose | 4 | - | no | 165 | approved | v05 | v03 | Title-style v05 clean transparent seal loop passes isolated strict 48-color pack; historic v03 remains approved. |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | New title-style portrait v02 candidate; fixed copy remains old approval. |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v02 | New title-style cutin v03 candidate; source aspect narrower than target, side gutters likely. |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | New title-style select v02 candidate; top/bottom crop caveat, final review pending. |
+| 3 | idle | 8 | - | **yes** | 165 | approved | v07 | v07 | HOLD (visual): part B packs ~3% small: 6 px crown snap at f7->f0 (re-stitch v08 rejected). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 4 | run | 8 | - | **yes** | 162 | approved | v07 | v07 | HOLD (visual): legs do not alternate (part B repeats A). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 173 | approved | v04 | v02 | Review pending: v04 assembled from the approved parts. Approved original v02. |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v06 | v05 | Review pending: v06 assembled; boots 1.36-1.42x in v05 and v06. Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 192 | approved | v08 | v08 | HOLD (visual): part A/B size step ~11%. Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 218 | approved | v12 | v11 | Review pending: v12 re-stitch (part B no longer 5-8% small). Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 198 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 183 | approved | v09 | v08 | HOLD (strict gate): v09 pops (bowed-head f3); v08 ships. Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | guard | 2 | - | **yes** | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 183 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | down | 2 | - | **yes** | 96 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | getup | 5 | - | **yes** | 195 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 172 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamCharge | 3 | - | **yes** | 174 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamFire | 3 | - | **yes** | 153 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v08 | v03 | Review pending: v08 assembled from the approved v06 parts. Approved original v03. |
+| 8 | dash | 2 | - | **yes** | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v04 | v04 | HOLD (strict gate): v04 pops (f0 hair 1.10 vs f1 0.98). Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpFall | 2 | - | **yes** | 209 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | land | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | win | 4 | - | **yes** | 193 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | backDash | 3 | - | no | 180 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 120 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | jumpSquat | 1 | - | no | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 179 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v06 | HOLD (strict gate): v06 head 1.29 and v07 head 0.76, f2 crescent clips 20/28 px. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | block | 2 | - | no | 170 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 171 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | spin | 4 | - | no | 160 | approved | v06 | v06 | HOLD (strict gate): v06 sandals 1.22-1.32x the combat cell, no manual pass. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airRecover | 3 | - | no | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | throw | 4 | 1/1/2 | no | 163 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | vanish | 2 | - | no | 221 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | stagger | 4 | - | no | 207 | approved | v05 | v05 | HOLD (visual): f2/f3 repeat f0/f1. Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | ko | 1 | - | no | 59 | approved | v07 | v07 | HOLD (strict gate): v07 head ~75-80% of down f1's. Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | intro | 4 | - | no | 167 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | taunt | 2 | - | no | 198 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialForward | 7 | 2/2/3 | no | 210 | approved | v04 | v02 | Review pending: v04 assembled from the approved parts. Approved original v02. |
+| 9 | specialUp | 6 | 2/2/2 | no | 237 | approved | v04 | v01 | Review pending: v04 assembled (bodyHeight 237 = cell maximum). Approved original v01. |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v04 | HOLD (strict gate): v04 pops (bowed head f0/f1 1.41). Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superPose | 4 | - | no | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 
 ## sasuke
 
