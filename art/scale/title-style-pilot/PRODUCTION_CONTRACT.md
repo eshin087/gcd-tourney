@@ -26,3 +26,9 @@ Claude alone integrates, merges main, and deploys production. Workers may publis
 - A recovery pose may have a different bounding-box height because its knees bend differently. Compare head, shoulder-to-hip length and limb chains with the approved combat reference before resizing. Head-only agreement cannot certify torso or footwear.
 - Preserve the user-selected original down/KO poses. Oblique floor contours are not automatically failures; Claude checks grounding and contact in the actual game. Do not revive a superseded side-on redesign to satisfy a stale brief.
 - Review pages must label source coverage, diagnostic packs, candidate approvals and actual production atlas separately. A passing application build does not mean the sprite gate passed or the new art is live.
+
+- The reported feet ratio is already the square root of a matching-color pixel-count ratio, not raw area or a measured shoe width. Matching colors anywhere in a frame can affect it. Check native footwear geometry and occlusion before using it to justify a redraw or an extra scaling factor.
+
+## Future-character calibration
+
+Use this current approved visual lineup and exact reference cells, not the historical numeric table retained below the supersession notice in APPROVED_CAST_BASELINE.md. Record the new character's era/stature provenance and measurement uncertainty, then review its neutral beside this cast at one pixel density. The title-style pilot is an approved visual relationship, not a newly certified pixels/cm measurement. If formal physical calibration is required, Claude must reconcile it explicitly and the user must review the resulting cast lineup before full production. Never silently import old constants, individually cap a tall character, or enlarge a crouch to standing height.

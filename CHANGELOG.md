@@ -11,7 +11,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Art review only: original-title-style four-character draft, shared-size neutral/combat comparison and documented current Killua/Sasuke silhouette mismatch. Await user approval; production unchanged.
+- Art: capture title-style production QA lessons, reproducible stitch/probe holds and Claude handoff; add a consolidated candidate-review hub. Full sources exist across all four fighters, but new strips/UI remain unapproved and production unchanged.
+
+- Art review only: original-title-style four-character draft, shared-size neutral/combat comparison and documented current Killua/Sasuke silhouette mismatch. Pilot approved by the user; subsequent production candidates remain unapproved and production unchanged.
 - Reverted: the redrawn cast (PRs #61-#64) and its repack, at the user's request (2026-10-11); the game is back on the previous approved art for all four fighters. The redraw stays in history; the next art revision lands as a new PR.
 
 - Changed: the redrawn cast ships (PRs #61 Gojo, #62 Sasuke, #63 Naruto, #64 Killua): every strip at the user-approved version on the approved neutral baseline, the scale gate clean (0 flagged strips) with the documented rescales, version-scoped misread notes and manual QA records. Killua's down and ko temporarily use the previous approved v04 / v05 until their fixed versions pass QA and approval (user decision 2026-10-11).

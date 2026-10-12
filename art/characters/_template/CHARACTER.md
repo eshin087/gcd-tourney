@@ -64,7 +64,7 @@ exists, then correct it against the anime colors.
 ## Proportions and silhouette
 
 - Era and stature: {{era, canon stature in cm, primary source, confidence/uncertainty}}.
-- Shared scale: {{production pixels/cm from APPROVED_CAST_BASELINE.md}}; neutral skull-to-sole {{px}}, occupied hair-to-sole {{px}}. Record shoe/hair/crown uncertainty.
+- Shared scale: {{current approved calibration and reference-cell provenance linked by APPROVED_CAST_BASELINE.md; never reuse its historical constants. If pixels/cm is not formally calibrated for the current visual pilot, record that uncertainty and request a cast-lineup decision before production}}; neutral skull-to-sole {{px}}, occupied hair-to-sole {{px}}. Record shoe/hair/crown uncertainty.
 - Anatomy: {{skull-to-chin px along head axis}}, {{head-count ratio}}, {{shoulder-to-hip}}, {{hip-knee-ankle segment lengths}} measured on the approved neutral. Hair mass is separate from skull size.
 - Build: {{slim / athletic / broad with approved neutral chest, shoulder and limb landmarks}}. Clothing width is not body width. Do not force every character to 200px, equal heads or a universal head count.
 - Cell fit: preserve common cast ratios. A design exceeding the envelope requires Claude's shared-scale or renderer decision, never an individual height cap.
