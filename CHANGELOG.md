@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- User approved Naruto airLight3 v09 and KO v09 artwork; approvals recorded in PR #69. KO calibration/contact and other existing technical holds remain for Claude; no production deployment.
+
 - Naruto KO/kick v08 user rejections archived; v09 whole-pose redraws use exactly three authorized calls. Kick passes strict scale and margins; KO remains a calibration/manual QA hold with a separately labeled77px proposal (PR69).
 
 - Naruto title-style round2: seven versioned corrections and native48-color review evidence; three recommended for art review, run/kick motion-size holds and KO/spin manual QA pending (PR69).

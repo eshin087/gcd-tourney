@@ -1,6 +1,8 @@
 # Naruto KO and airLight3 follow-up v09
 
-User rejected ko v08 (“looks really bad”) and airLight3 v08 (“looks bad”) on 2026-10-12. Their versioned raw strips, sidecars and kick parts moved into the adjacent _rejected directories; round2 evidence is preserved. This follow-up used exactly ONE new built-in call for KO, ONE for kick Part A and ONE for Part B. No further image calls are authorized for this follow-up. ApprovedVersion values remain7 for both assets.
+**2026-10-12: user approved both v09 artwork samples. KO technical calibration/anatomy/contact HOLD remains; the 77px fit remains diagnostic only. See APPROVALS.md.**
+
+User rejected ko v08 (“looks really bad”) and airLight3 v08 (“looks bad”) on 2026-10-12. Their versioned raw strips, sidecars and kick parts moved into the adjacent _rejected directories; round2 evidence is preserved. This follow-up used exactly ONE new built-in call for KO, ONE for kick Part A and ONE for Part B. No further image calls are authorized for this follow-up. At generation, approvedVersion was7 for both assets.
 
 ## airLight3 v09 — recommend visual review
 
