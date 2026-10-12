@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+const tracked=execFileSync('git',['diff','--name-only'],{encoding:'utf8'}).trim().split('\n');
+const untracked=execFileSync('git',['ls-files','--others','--exclude-standard'],{encoding:'utf8'}).trim().split('\n');
+const shared=new Set(['art/manifest.json','art/TRACKER.md','art/REVIEW.md','docs/TASKS.md','CHANGELOG.md']);
+const allowed=p=>shared.has(p)||p.startsWith('art/characters/sasuke/raw/')||p.startsWith('art/characters/sasuke/production/title-style/round2/')||p.startsWith('public/reviews/sasuke-round2/')||p.startsWith('art/scale/lineup-sasuke-round2.');
+const paths=[...new Set([...tracked,...untracked])].filter(p=>p&&allowed(p)&&!p.match(/\/round2\/(fixtures|packs|combined-fixtures)\//));
+fs.writeFileSync('art/characters/sasuke/production/title-style/round2/committed-paths.json',JSON.stringify(paths,null,2)+'\n');
+paths.push('art/characters/sasuke/production/title-style/round2/committed-paths.json');
+execFileSync('git',['add','--',...paths],{stdio:'inherit'});
+console.log(`Staged ${paths.length} explicit owned/bookkeeping paths; disposable fixtures excluded.`);

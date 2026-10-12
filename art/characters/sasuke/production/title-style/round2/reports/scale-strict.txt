@@ -1,0 +1,9 @@
+exit 0
+node tools/scale-audit.mjs sasuke --root C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\combined-fixtures\strict --public C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\strict --out C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\strict\scale
+
+== sasuke: idle head 39x38 px (declared palette #15162a #2b3764 #3a426d #314377 #3a4c85 #435ea3)
+   1 ref, 7 ok
+   ! block: the manifest's scale exemption was written for v01 but the packed strip is v07 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 7
+   wrote public\reviews\sasuke-round2\strict\scale\heads-sasuke.png
+
+[scale] 0 flagged strip(s); wrote public\reviews\sasuke-round2\strict\scale\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md
