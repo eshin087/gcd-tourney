@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-12",
+  "userDecision": "Ok all approved, whats next",
+  "fighter": "killua",
+  "approved": {
+    "idle": {
+      "version": 8,
+      "previousApprovedVersion": 5
+    },
+    "stagger": {
+      "version": 5,
+      "previousApprovedVersion": 4
+    },
+    "taunt": {
+      "version": 5,
+      "previousApprovedVersion": 4
+    }
+  },
+  "remainingHolds": "Charge v13 fails scale; beamFire v09 recoil and run v09 leg alternation remain visual holds.",
+  "archived": [
+    {
+      "from": "art/characters/killua/raw/idle_00_fix01.png",
+      "to": "art/characters/killua/raw/_rejected/idle_00_fix01.png"
+    }
+  ],
+  "repack": {
+    "strictExitCode": 1,
+    "failures": "killua (charge) - not written; see art/CHARACTER_SCALE.md \"Scale gate (automatic)\"",
+    "report": "repack.txt",
+    "fullCharacter": true
+  },
+  "build": {
+    "exitCode": 0,
+    "modules": 82,
+    "report": "build.txt"
+  }
+}

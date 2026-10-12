@@ -1,0 +1,3 @@
+# Third and final cumulative specialDown attempt
+
+Edit target image 1, the four-pose anime fan-art sprite strip. Supporting approved identity image 2. A precise hair-only correction: trim the outer silver-white hair spike silhouette another 9 percent in width and height around the unchanged face, and 13 percent on the third shouting pose. Match the compact hair mass relative to skull in the approved reference. Preserve each face, skull, expression, neck, torso, limbs, hands, shoes, clothing, pose and exact source pixel-scale. Do not shrink bodies or heads themselves, only excess outer hair puff and spike length. Keep exactly four complete figures with identical spacing in one row, same flat magenta background. No added text or effects. Crisp cel-shaded art.

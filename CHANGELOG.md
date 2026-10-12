@@ -11,6 +11,27 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Killua title-style art ships (PR #70) with round-3 QA: idle loop offset, beamFire/run v09 within 2% of the combat cell, beamFire hand points; charge v13, beamFire v09 and run v09 are user-approved stand-ins until the round-3 redraws (charge with a recorded size exception).
+
+- User approved killua round-2 art: idle v08, stagger v05, taunt v05. Other visual/technical holds remain for Claude integration; no production deployment.
+
+- Art: Killua round-2 title-style corrections in PR70: idle v08, stagger v05 and taunt v05 pass a strict diagnostic subset and await review; charge v13, beamFire v09 and run v09 remain held. Full fighter strict pack fails charge. No new art approvals or production integration.
+
+- Art (PR70, not on main yet): Killua's scale gate measures against the approved title-style combat cell; launched refit, manual scale records, the win cuff misread, the user's 2026-10-11 approval of the shown versions (UI portrait v02 / cutin v03 / select v02 promoted), and hit boxes re-measured on the new art (his light string lands again). Strict scale gate still fails on charge, stagger and taunt (head/hair drawn too big) and down (decision); idle loop dip, beamFire recoil and run phase need new images.
+
+- Killua review: expose all three unapproved UI candidates through a separate fitted diagnostic gallery; approved UI is untouched.
+
+- Killua: refine specialDown hair without changing body scale; document footwear-proxy limitations and peer anatomy QA, refresh all41 non-idle diagnostic candidates. No production approval.
+
+- Killua: added native animation workbench and corrected recovery candidates; documented same-pixel probe sensitivity and intact-source stitching failure. All new art remains unapproved; full production gate blocked.
+
+- Killua title-style production checkpoint: versioned attacks/reactions/specials, approved-reference diagnostics and explicit anatomy/motion holds; no new approvals or production release.
+
+- art(killua): add eight title-style movement/reaction candidates and controlled idle anatomy re-evaluation; all pending review, full atlas not ready.
+
+- Art: eight independent Killua title-style candidates and approved-reference QA controls; idle, taunt and win technical holds remain. No production release.
+
+- Added: Killua title-style production trial from the approved pilot: versioned idle and guard strips plus three UI candidates, with native-size QA and a documented idle loop hold. Existing fixed-name art remains approved; no production integration yet (ART-KIL-TITLE-20261011).
 - Changed: Naruto title-style art ships (PR #69) with round-3 QA: KO calibrated to the down pose, round-2 strips within 2% of the idle, re-measured airLight3/light2 boxes; spin v07 is a user-approved stand-in with a recorded size exception until spin v08; run v07 ships while v08 is held.
 
 - User approved naruto round-2 art: charge v07, jumpUp v06, specialDown v05. Other visual/technical holds remain for Claude integration; no production deployment.
@@ -532,3 +553,5 @@ Reconstructed from the codebase when the changelog was introduced.
 [Unreleased]: #unreleased
 [0.2.0]: #020---2026-10-04
 [0.1.0]: #010---2026-10-04
+
+- Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
