@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- User approved sasuke round-2 art: heavy v11, backDash v07, charge v12, block v07, throw v07, stagger v08, specialUp v09. Other visual/technical holds remain for Claude integration; no production deployment.
+
 - art(sasuke): add seven strict-passing round-2 correction candidates and three explicit holds on PR71, with native quantized review playback, cumulative attempt inventory and retained original approvals (ART-SAS-TITLE-20261011).
 
 - Art (PR71, not on main yet): Sasuke's title-style set with the user's 2026-10-11 approval recorded; the approved originals ship for throw, stagger, launched, spin, airRecover, down, ko, specialUp and superPose (manual scale checks against the new idle); edge, run and jumpFall placement fixes; hit boxes re-measured on the new art. Strict scale gate fails only on the original throw v01 (the same finding as live).
