@@ -202,7 +202,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
 | 3 | idle | 8 | - | **yes** | 146 | approved | v08 | v08 | User approved v08 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v08 needs review: strict subset ok, head0.983; large f0 dip fixed, residual2px wrap. Recommend approval; full fighter blocked by charge. [QA](characters/killua/production/title-style/round2/QA.md). |
-| 4 | run | 8 | - | **yes** | 162 | approved | v09 | v08 | New v09 needs review: head1.032 ok; HOLD opposite-leg readability, extra B budget exhausted. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 4 | run | 8 | - | **yes** | 158 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 151 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 160 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 180 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -215,9 +215,9 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 6 | launched | 2 | - | **yes** | 106 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | down | 2 | - | **yes** | 90 | approved | v07 | v07 | HOLD (strict gate): v07 f0 hair flare reads 1.09 with the body at reference size (needs a decision or a redraw). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | getup | 5 | - | **yes** | 158 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | charge | 4 | - | **yes** | 125 | approved | v13 | v11 | New v13 needs review: head0.920 drift, HOLD, remaining budget exhausted; v12 technical rejection retained. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 7 | charge | 4 | - | **yes** | 125 | approved | v13 | v13 | Title-style v13 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. Size exception recorded: the head reads 0.92 of the combat cell (strict drift) until charge v14. |
 | 7 | beamCharge | 3 | - | **yes** | 170 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | beamFire | 3 | - | **yes** | 127 | approved | v09 | v08 | New v09 needs review: head1.038 ok; HOLD f1 footprint/palm shifts exceed recoil target, budget exhausted. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 7 | beamFire | 3 | - | **yes** | 123 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | dash | 2 | - | **yes** | 122 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpUp | 2 | - | **yes** | 148 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |

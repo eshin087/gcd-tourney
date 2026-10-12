@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Killua title-style art ships (PR #70) with round-3 QA: idle loop offset, beamFire/run v09 within 2% of the combat cell, beamFire hand points; charge v13, beamFire v09 and run v09 are user-approved stand-ins until the round-3 redraws (charge with a recorded size exception).
+
 - User approved killua round-2 art: idle v08, stagger v05, taunt v05. Other visual/technical holds remain for Claude integration; no production deployment.
 
 - Art: Killua round-2 title-style corrections in PR70: idle v08, stagger v05 and taunt v05 pass a strict diagnostic subset and await review; charge v13, beamFire v09 and run v09 remain held. Full fighter strict pack fails charge. No new art approvals or production integration.
