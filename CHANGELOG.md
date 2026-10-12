@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: tech poses (ENG-079, TOOL-034, ADR 0029): three optional canonical animations, `techGround` (tech in place), `techRoll` (tech roll, played backward for a back roll) and `wallTech` (wall tech; the wall jump reuses its push-off, then `jumpUp`), played on each tech state's own clock (`DEFENSE` `animPhases`) so the art never changes timing; a fighter without them keeps the old `land` / `airRecover` / `jumpUp` poses. The packer wall-anchors the cling frames on the barrier (anims.json `wallAnchor`, re-centred on walls seen in depth), warns on a thin wall contact or a tucked pose packed at standing height, and the scale gate reports their unreadable beats as not read (`partial` until a manual QA record). Brief for Codex: art/characters/TECH_POSES_BRIEF.md. `npm run test:anims`.
+
 - Added: `builds.json` `scaleReference` (approved reference cells the scale gate measures every strip and the idle against, for a fighter whose idle biases the probe), and a whole-figure frame split in the packer for strips whose column split cuts a connected figure (Gojo airLight1/light2/light4, Killua light3/specialForward). Main's shipped atlases are unchanged.
 
 - Fixed: `npm run stitch` cut connected figures into neighbouring frames when their horizontal projections overlapped (Killua specialForward v12, Naruto light2 v06, special v07), aborted on parts whose hair yellow differed slightly from the quantized shipped idle (Naruto's title-style aerials), and refused a written manual factor where no head was found. It now separates whole figures, lays them out with clean gaps, measures against a fresh unquantized idle, and honours `--factor` with `--landmarks`/`--uncertainty`.

@@ -145,6 +145,12 @@ export const THROW = {
 //             after the kick; invulnerable `invuln` from the impact
 //    wallJump barrier with ↑ (or Jump) held at the kick: [along, up] higher, actionable at once; invulnerable `invuln`
 //             from the impact
+//  animPhases (ADR 0029, art only: no gameplay effect) the tech's dedicated pose (techGround / techRoll / wallTech) is
+//             played on the state's own clock in three beats of sim frames [contact, main motion, settle] that sum to
+//             the state's length, so any frame count of the art lands on the same moments: the contact beat ends as
+//             the body leaves the impact, the main motion ends with the invulnerability (rolls, in place) or the kick
+//             (wall: its first beat is `stick`). wallJump.animFrames: frames the push-off pose shows in the air before
+//             jumpUp (the jump is actionable throughout; any action replaces the pose).
 export const DEFENSE = {
   parry: { window: 6, lockout: 24, stagger: 16, bigStagger: 24, freeze: 7, ki: 12 },
   spotDodge: { len: 24, from: 2, to: 15, stale: 4, staleMax: 3, staleWindow: 150 },
@@ -152,7 +158,7 @@ export const DEFENSE = {
   wavedash: { len: 16, act: 5, friction: 0.875, speed: 12.5 },
   tech: {
     minY: 0.35, len: 10, invuln: 16, back: [-2.5, 6.5], toward: [3, 7], up: [0, 7.5], down: [0, -9],
-    roll: { len: 20, invuln: 18, speed: 7.5, friction: 0.88 },
+    roll: { len: 20, invuln: 18, speed: 7.5, friction: 0.88, animPhases: [3, 15, 2] },
   },
   burst: {
     cost: 200, perRound: 1, buffer: 3, chord: 6, freeze: 8, startup: 4, active: 6, radius: 2.4, whiff: 20, blocked: 30,
@@ -161,10 +167,10 @@ export const DEFENSE = {
   reversal: { window: 3 },
   impactTech: {
     window: 11, lockout: 40,
-    inPlace: { len: 18, invuln: 14 },
-    roll: { len: 22, invuln: 18, speed: 8, friction: 0.88 },
-    wall: { stick: 6, along: 7, up: 6.5, len: 12, invuln: 22 },
-    wallJump: { along: 5, up: 13, invuln: 14 },
+    inPlace: { len: 18, invuln: 14, animPhases: [4, 10, 4] },
+    roll: { len: 22, invuln: 18, speed: 8, friction: 0.88, animPhases: [3, 15, 4] },
+    wall: { stick: 6, along: 7, up: 6.5, len: 12, invuln: 22, animPhases: [6, 4, 8] },
+    wallJump: { along: 5, up: 13, invuln: 14, animFrames: 4 },
   },
 };
 

@@ -81,6 +81,30 @@ export function buildAnims(C) {
     [0.1, air({ root: { lean: -340 } }), 'linear'],
   ] };
 
+  // tech recoveries (ADR 0029): the engine plays them on the tech state's clock, beat by beat (phases = frames per
+  // beat: contact, main motion, settle), so the sample times here only set the default durations
+  const brace = st({ squash: 0.84, spine: { lean: 28 }, lF: { sw: 52, kn: 94 }, lN: { sw: -24, kn: 82 }, aN: { sw: 72, ab: 18, el: 8 }, aF: { sw: -30, ab: 40, el: 44 }, face: 'angry' });
+  A.techGround = { samples: [0, 0.067, 0.15, 0.233], end: 0.3, phases: [1, 2, 1], keys: [
+    [0, brace],
+    [0.067, st({ squash: 0.9, spine: { lean: 18 }, lF: { sw: 42, kn: 64 }, lN: { sw: -18, kn: 54 }, aN: { sw: 40, ab: 30, el: 40 }, face: 'angry' })],
+    [0.15, st({ squash: 0.96, spine: { lean: 8 }, face: 'angry' })],
+    [0.233, st({ face: 'angry' })],
+  ] };
+  const tuck = (lean) => air({ root: { lean }, spine: { lean: 30 }, head: { nod: 30 }, lF: { sw: 128, kn: 138 }, lN: { sw: 118, kn: 138 }, aN: { sw: 70, ab: 20, el: 110 }, aF: { sw: 60, ab: 20, el: 110 }, flutter: 1 });
+  A.techRoll = { samples: [0, 0.05, 0.113, 0.175, 0.238, 0.3], end: 0.367, phases: [1, 4, 1], keys: [
+    [0, tuck(-70)],
+    [0.05, tuck(20)], [0.113, tuck(110), 'linear'], [0.175, tuck(200), 'linear'], [0.238, tuck(290), 'linear'],
+    [0.3, st({ squash: 0.84, spine: { lean: 24 }, lF: { sw: 52, kn: 96 }, lN: { sw: -20, kn: 84 }, face: 'angry' })],
+  ] };
+  // the placeholder cannot model the barrier: a feet-first cling, the push-off and the airborne recovery, grounded
+  A.wallTech = { samples: [0, 0.05, 0.1, 0.167, 0.233], end: 0.3, phases: [2, 1, 2], keys: [
+    [0, air({ root: { lean: 60 }, spine: { lean: 20 }, lF: { sw: 120, kn: 130 }, lN: { sw: 110, kn: 128 }, aN: { sw: 90, ab: 30, el: 40 }, aF: { sw: -60, ab: 30, el: 30 } })],
+    [0.05, air({ root: { lean: 55 }, spine: { lean: 22 }, lF: { sw: 124, kn: 138 }, lN: { sw: 114, kn: 136 }, aN: { sw: 96, ab: 30, el: 40 }, aF: { sw: -64, ab: 30, el: 30 }, face: 'angry' })],
+    [0.1, air({ root: { lean: 25 }, spine: { lean: 10 }, lF: { sw: 30, kn: 10, fl: 0 }, lN: { sw: 10, kn: 6, fl: 0 }, aN: { sw: -60, ab: 30, el: 20 }, aF: { sw: -70, ab: 30, el: 20 }, flutter: 1.6, face: 'angry' })],
+    [0.167, air({ spine: { lean: 6 }, lF: { sw: 60, kn: 90 }, lN: { sw: 30, kn: 70 }, aN: { sw: 60, ab: 50, el: 30 }, aF: { sw: -30, ab: 40, el: 20 } })],
+    [0.233, st({ spine: { lean: 2 }, lF: { sw: 36, kn: 42, fl: 0, an: -20 }, lN: { sw: -12, kn: 30, fl: 0, an: -25 }, aN: { sw: 72, ab: 50, el: 22 }, aF: { sw: -42, ab: 40, el: 18 }, flutter: 1.2 })],
+  ] };
+
   // ---------------------------------------------------------------- auto combo
   A.light1 = {
     samples: [0.02, 0.05, 0.08, 0.12, 0.17, 0.22, 0.27], end: 0.3, phases: [2, 2, 3], smear: { 2: ['handF'] },

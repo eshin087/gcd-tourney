@@ -36,6 +36,11 @@ falls back to `special`, `special`, `charge` and `taunt`. A character drawn tall
 the 200 px standard body (Killua 182 px, Gojo 215 px) follows
 [ADR 0010](docs/decisions/0010-per-character-body-scale.md).
 
+Every fighter can also draw three optional **tech** strips ([ADR 0029](docs/decisions/0029-tech-recovery-animations.md),
+art/SPEC.md "Tech poses"): `techGround` (tech in place), `techRoll` (tech roll) and `wallTech` (wall tech). Until a
+fighter has one, the game keeps showing `land` / `airRecover` / `jumpUp` for that tech. Per-frame brief and prompts:
+`art/characters/TECH_POSES_BRIEF.md`.
+
 ## Sprite Lab
 
 Open **http://127.0.0.1:5188/sprites.html** (or *Sprite Lab* in the main menu) while `npm run dev`
