@@ -1,5 +1,8 @@
 # Sasuke title-style corrections, round 2
 
+**2026-10-12 approval update:** the user approved heavy v11, backDash v07, charge v12, block v07, throw v07, stagger v08, specialUp v09. These artworks are approved; technical/contact holds and other candidate decisions remain separate. See ../../round2-approvals/APPROVALS.md. Original QA findings below are retained as historical evidence.
+
+
 2026-10-11. Existing worktree `art/sasuke-title-production`, PR71, port5222. Main was merged before production. User-authorized extra generation budget is two calls per image/part, cumulative with the earlier inventory. No candidate below is approved. Claude owns integration and contact/hurtbox migration.
 
 ## Recommended candidates
