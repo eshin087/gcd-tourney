@@ -1,5 +1,9 @@
 # Claude handoff: title-style production blockers
 
+> **Status 2026-10-11 (Claude):** the user approved the latest candidates shown in the final review previews (recorded
+> per fighter on PR69-72 against the exact versions). Checks 1-3 are fixed in PR #73 (TOOL-032/033). Checks 4-5
+> (contacts/hurtboxes, down/KO/getup grounding) run on the assembled packs before each fighter merges.
+
 Please keep sole ownership of integration, tooling, main bookkeeping and production deployment. The user approved the title-style pilot baseline and original down/KO poses, and authorized the full redraw. That does not approve the subsequently generated animation/UI candidates. Do not merge the WIP production branches yet.
 
 Use the real local worktrees; their raw image sources are intentionally omitted by the slim GitHub publisher:
