@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Naruto title-style art ships (PR #69) with round-3 QA: KO calibrated to the down pose, round-2 strips within 2% of the idle, re-measured airLight3/light2 boxes; spin v07 is a user-approved stand-in with a recorded size exception until spin v08; run v07 ships while v08 is held.
+
 - User approved naruto round-2 art: charge v07, jumpUp v06, specialDown v05. Other visual/technical holds remain for Claude integration; no production deployment.
 
 - User approved Naruto airLight3 v09 and KO v09 artwork; approvals recorded in PR #69. KO calibration/contact and other existing technical holds remain for Claude; no production deployment.
