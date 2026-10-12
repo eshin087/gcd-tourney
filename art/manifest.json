@@ -192,9 +192,9 @@
         "win": { "frames": 4, "loop": true, "bodyHeight": 204, "ms": [250, 250, 250, 250], "required": true, "step": 8, "status": "approved", "version": 4, "approvedVersion": 4 }
       ,"specialForward":{"frames":7,"phases":[2,2,3],"bodyHeight":204,"ms":[50,50,50,80,70,60,50],"loop":false,"required":false,"step":9,"status":"approved","version":10,"approvedVersion":10},"specialUp":{"frames":6,"phases":[2,2,2],"bodyHeight":203,"ms":[50,50,60,60,70,70],"loop":false,"required":false,"step":9,"scaleExemptFrames":{"4":"the rising arm over the head is drawn in hair shades","5":"the rising arm over the head is drawn in hair shades"},"scaleExemptVersion":2,"status":"approved","version":2,"approvedVersion":2},"specialDown":{"frames":4,"phases":[2,1,1],"bodyHeight":204,"ms":[80,80,200,90],"hitbox":false,"loop":false,"required":false,"step":9,"status":"approved","version":4,"approvedVersion":4},"superPose":{"frames":4,"bodyHeight":208,"ms":[140,140,140,140],"loop":true,"required":false,"step":9,"status":"approved","version":1,"approvedVersion":1}},
       "ui": {
-        "portrait": { "file": "art/characters/sasuke/ui/portrait.png", "candidates": "art/characters/sasuke/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 },
-        "cutin": { "file": "art/characters/sasuke/ui/cutin.png", "candidates": "art/characters/sasuke/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 },
-        "select": { "file": "art/characters/sasuke/ui/select.png", "candidates": "art/characters/sasuke/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 1 }
+        "portrait": { "file": "art/characters/sasuke/ui/portrait.png", "candidates": "art/characters/sasuke/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "cutin": { "file": "art/characters/sasuke/ui/cutin.png", "candidates": "art/characters/sasuke/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "select": { "file": "art/characters/sasuke/ui/select.png", "candidates": "art/characters/sasuke/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 }
       }
     },
     "killua": {
