@@ -1,0 +1,213 @@
+{
+ "_doc": "npm run scale (tools/scale-audit.mjs): every packed frame against the approved idle. head = head silhouette with hair, feet = shoe area (1.00 = the idle). Verdicts: art/CHARACTER_SCALE.md \"Scale gate (automatic)\".",
+ "fighters": {
+  "naruto": {
+   "palette": {
+    "head": [
+     "#fcb540"
+    ],
+    "feet": [
+     "#1b1b21"
+    ],
+    "source": "declared"
+   },
+   "ref": {
+    "headPx": [
+     29,
+     19
+    ],
+    "box": [
+     126,
+     79,
+     155,
+     96
+    ],
+    "feetPx": 389.5
+   },
+   "counts": {
+    "ref": 1,
+    "ok": 1
+   },
+   "anims": {
+    "idle": {
+     "v": 7,
+     "head": 1,
+     "feet": 1,
+     "range": 0.061,
+     "verdict": "ref",
+     "frames": [
+      {
+       "head": 1.01,
+       "feet": 1.053,
+       "box": [
+        126,
+        79,
+        155,
+        96
+       ]
+      },
+      {
+       "head": 0.967,
+       "feet": 1.001,
+       "box": [
+        125,
+        81,
+        152,
+        99
+       ]
+      },
+      {
+       "head": 0.981,
+       "feet": 1.018,
+       "box": [
+        124,
+        81,
+        153,
+        97
+       ]
+      },
+      {
+       "head": 1.002,
+       "feet": 0.985,
+       "box": [
+        124,
+        81,
+        154,
+        99
+       ]
+      },
+      {
+       "head": 1.028,
+       "feet": 1.003,
+       "box": [
+        127,
+        83,
+        155,
+        103
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.999,
+       "box": [
+        125,
+        84,
+        153,
+        101
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.927,
+       "box": [
+        124,
+        83,
+        152,
+        101
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 0.984,
+       "box": [
+        126,
+        85,
+        153,
+        103
+       ]
+      }
+     ]
+    },
+    "run": {
+     "v": 8,
+     "head": 1,
+     "feet": 0.65,
+     "range": 0.041,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.002,
+       "feet": 0.767,
+       "box": [
+        139,
+        77,
+        168,
+        95
+       ]
+      },
+      {
+       "head": 0.981,
+       "feet": 0.86,
+       "box": [
+        167,
+        93,
+        194,
+        111
+       ]
+      },
+      {
+       "head": 0.995,
+       "feet": 0.689,
+       "box": [
+        186,
+        81,
+        213,
+        101
+       ]
+      },
+      {
+       "head": 1.022,
+       "feet": 0.768,
+       "box": [
+        148,
+        93,
+        178,
+        111
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 0.61,
+       "box": [
+        140,
+        94,
+        169,
+        111
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.567,
+       "box": [
+        158,
+        96,
+        186,
+        114
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.582,
+       "box": [
+        186,
+        100,
+        216,
+        118
+       ]
+      },
+      {
+       "head": 1.001,
+       "feet": 0.557,
+       "box": [
+        124,
+        116,
+        153,
+        134
+       ]
+      }
+     ]
+    }
+   }
+  }
+ }
+}
