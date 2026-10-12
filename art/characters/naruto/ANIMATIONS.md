@@ -958,3 +958,10 @@ Shown during the super flash of his second super, SHADOW CLONE BARRAGE: he forms
 - Body heights are the ADR 0007 table. If an approved strip packs visibly bigger or smaller than idle
   (compare head sizes, about 31 px), Codex corrects that animation's `bodyHeight` in the manifest
   and notes it in TRACKER.md; don't redraw for it.
+
+## Tech poses (ADR 0029)
+
+`techGround` (4 frames, beats 1/2/1), `techRoll` (6, 1/4/1) and `wallTech` (5, 2/1/2): optional; until they are
+packed the game shows `land` / `airRecover` / `jumpUp` for the techs. Per-frame poses, this fighter's flavor, the
+prompt blocks and the QA: [TECH_POSES_BRIEF.md](../TECH_POSES_BRIEF.md) (ART-TECH-01); the generic rows:
+[_template/ANIMATIONS.md](../_template/ANIMATIONS.md#techground).

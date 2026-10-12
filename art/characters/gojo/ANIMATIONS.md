@@ -846,3 +846,10 @@ at cheek height, **never above the top of his hair**. Big grin, head tilted. Bli
 - **f1**: hair tips and the hem flutter in the breeze.
 - **f2**: the peace sign tilts 3 px (a playful wiggle).
 - **f3**: settle, flutter variant.
+
+## Tech poses (ADR 0029)
+
+`techGround` (4 frames, beats 1/2/1), `techRoll` (6, 1/4/1) and `wallTech` (5, 2/1/2): optional; until they are
+packed the game shows `land` / `airRecover` / `jumpUp` for the techs. Per-frame poses, this fighter's flavor, the
+prompt blocks and the QA: [TECH_POSES_BRIEF.md](../TECH_POSES_BRIEF.md) (ART-TECH-01); the generic rows:
+[_template/ANIMATIONS.md](../_template/ANIMATIONS.md#techground).

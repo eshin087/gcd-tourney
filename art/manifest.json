@@ -61,7 +61,10 @@
     "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [50, 50, 60, 80, 70, 60, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 160, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-    "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+    "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "techGround": { "frames": 4, "loop": false, "phases": [1, 2, 1], "bodyHeight": 204, "ms": [67, 83, 83, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "techRoll": { "frames": 6, "loop": false, "phases": [1, 4, 1], "bodyHeight": 162, "ms": [50, 63, 62, 63, 62, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "wallTech": { "frames": 5, "loop": false, "phases": [2, 1, 2], "bodyHeight": 209, "ms": [50, 50, 67, 67, 66], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
   },
   "characters": {
     "naruto": {
