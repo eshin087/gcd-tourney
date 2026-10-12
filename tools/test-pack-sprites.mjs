@@ -1188,6 +1188,7 @@ function scaleFigure(p = {}) {
   R.push([-7, 7, 28 + b, 52 + b, body], [-6, 6, 52 + b, 64 + b, COL.skin], [-hw, hw, 62 + b, 70 + b, hair], [-5, -3, 70 + b, 74 + b, hair], [1, 3, 70 + b, 75 + b, hair]);
   R.push([-11, -7, 38 + b, 42 + b, COL.skin], [7, 11, 42 + b, 46 + b, COL.skin]);
   if (p.up) R.push([3, 7, 64 + b, 64 + b + p.up, COL.fist]);
+  if (p.reach) R.push([7, 7 + p.reach, 55 + b, 58 + b, COL.skin]); // a long arm at head height, over the next pose's hand
   return R;
 }
 function scaleStrip(poses, seed, { gap = 46 } = {}) {
@@ -1406,6 +1407,40 @@ function scaleGateTests(base) {
   fs.rmSync(sraw('idle_v02.png'));
   check(stale.status === 1 && /packed idle .* is v01, but raw\/idle_v02\.png is the idle now/.test(stale.stderr), `stitch: refuses to measure against an older packed idle (${stale.stderr.trim().slice(0, 80)})`);
 
+  // TITLE-STITCH: a pose's arm reaches over the next pose's column without touching it (Killua specialForward v12). A
+  // vertical cut handed that piece of the arm to the neighbour; the stitch now cuts each figure out by its own pixels and
+  // lays the figures out one by one, so the packed frames keep the arm whole and the neighbour clean.
+  savePng(sraw(path.join('_parts', 'light3_v04_A.png')), scaleStrip([{}, { reach: 28 }, {}], 841));
+  savePng(sraw(path.join('_parts', 'light3_v04_B.png')), scaleStrip(Array.from({ length: 4 }, () => ({ scale: 0.7 })), 842));
+  const fg = stitch('scaly', 'light3', '4');
+  const fgSide = fs.existsSync(sraw('light3_v04.json')) && JSON.parse(fs.readFileSync(sraw('light3_v04.json'), 'utf8')).stitch;
+  check(fg.status === 0 && fgSide?.poses?.join() === '3,4' && fgSide.layout?.join() === 'figures,figures', `stitch: figures overlapping in projection are found whole (${fgSide?.poses}, ${fgSide?.layout}) ${fg.stderr}`);
+  const figOut = path.join(FIX, 'out-figures');
+  const mWarn = variant('scaly-warn', (c) => { c.scaly.scaleGate = 'warn'; }); // the fixture's other strips fail on purpose
+  const fp = spawnSync(process.execPath, [PACKER, '--root', ART, '--out', figOut, '--manifest', mWarn, '--no-writeback', '--json', 'scaly'], { encoding: 'utf8' });
+  const figMeta = fs.existsSync(path.join(figOut, 'characters', 'scaly', 'anims.json')) && JSON.parse(fs.readFileSync(path.join(figOut, 'characters', 'scaly', 'anims.json'), 'utf8'));
+  const figSheet = figMeta && loadPng(path.join(figOut, 'characters', 'scaly', 'sheet.png'));
+  const cellBox = (f) => bb(cell(figSheet, f));
+  const lf = figMeta?.animations?.light3?.frames || [];
+  const [b0, b1, b2] = lf.slice(0, 3).map(cellBox);
+  check(fp.status === 0 && lf.length === 7 && b1 && b0 && b2 && b1.w > b0.w * 1.6 && Math.abs(b2.w - b0.w) <= 3,
+    `stitch: the reaching arm stays in its own frame and the next frame is clean (widths ${b0?.w} / ${b1?.w} / ${b2?.w})`);
+  for (const f of ['light3_v04.png', 'light3_v04.json']) fs.rmSync(sraw(f), { force: true });
+  // a manual factor is honoured where the probe finds no head (hair in a colour the idle does not have), but only with
+  // the measured landmarks and their uncertainty on record (Naruto specialUp v04)
+  savePng(sraw(path.join('_parts', 'light3_v05_A.png')), scaleStrip([{ hairC: [40, 200, 200] }, { hairC: [40, 200, 200] }, { hairC: [40, 200, 200] }], 843));
+  savePng(sraw(path.join('_parts', 'light3_v05_B.png')), scaleStrip(Array.from({ length: 4 }, () => ({ hairC: [40, 200, 200] })), 844));
+  const noHead = stitch('scaly', 'light3', '5', '--dry-run');
+  const noLm = stitch('scaly', 'light3', '5', '--factor', '1', '--reason', 'test', '--dry-run');
+  const withLm = stitch('scaly', 'light3', '5', '--factor', '1', '--reason', 'test', '--landmarks', 'A f0 hair 14 px, B f0 14 px', '--uncertainty', '1 px', '--dry-run');
+  check(noHead.status === 1 && /no head found in part A/.test(noHead.stderr) && noLm.status === 1 && /--landmarks/.test(noLm.stderr) && withLm.status === 0 && /landmarks: A f0 hair 14 px/.test(withLm.stdout),
+    `stitch: an unmeasurable head needs --factor with --landmarks and --uncertainty, then it is honoured (${noHead.status}/${noLm.status}/${withLm.status})`);
+  // by default the reference is the current idle packed fresh from art/ without --quantize (what the gate measures);
+  // it agrees with the measurement against this test's own pack
+  const fresh = spawnSync(process.execPath, [path.join(TOOL_DIR, 'stitch-parts.mjs'), '--root', ART, 'scaly', 'light3', '3', '--parts', '2', '--dry-run'], { encoding: 'utf8' });
+  const fm = Number(/B factor x([\d.]+)/.exec(fresh.stdout)?.[1]);
+  check(fresh.status === 0 && Math.abs(fm - side.bFactor) < 0.03, `stitch: the fresh unquantized idle reference measures like the packed one (x${fm} vs x${side?.bFactor}) ${fresh.stderr}`);
+
   // ART-KIL-PROBE: a strip's numbers come from its own pixels and the idle's only. A candidate that brings many new
   // colours between the hair and skin tones (a glowing prop) moved the fighter-wide median cut, and with it the
   // unchanged idle's head (Killua: 52x35 -> 52x43) and every other strip's verdict. Now nothing else moves.
@@ -1464,6 +1499,25 @@ function scaleGateTests(base) {
   `npm run scale: the report equals the packer gate's recorded audit (${scq.status}, ${repq?.ref?.headPx} / ${smq?.ref?.headPx})`);
   const st2 = stitch('scaly', 'light3', '3', '--parts', '2', '--factor', '0.8', '--reason', 'test', '--dry-run');
   check(st2.status === 0 && /manual: test/.test(st2.stdout) && !fs.existsSync(sraw('light3_v03.png')), 'stitch: --parts re-stitches older parts; --dry-run writes nothing');
+
+  // builds.json scaleReference: an approved reference cell replaces the idle as the measure; the idle gets a real verdict
+  // (and is gated), and a missing cell fails the gate instead of falling back to the idle (Killua's title-style idle)
+  const refDir = path.join(SCALY, 'reference');
+  fs.mkdirSync(refDir, { recursive: true });
+  savePng(path.join(refDir, 'ref_cell_v01.png'), cell(figSheet, figMeta.animations.idle.frames[0]));
+  const buildsPath = path.join(ART, 'scale', 'builds.json'), buildsBefore = fs.readFileSync(buildsPath, 'utf8');
+  const withRef = (cells) => { const b = JSON.parse(buildsBefore); b.fighters.scaly = { ...(b.fighters.scaly || {}), scaleReference: { cells } }; fs.writeFileSync(buildsPath, JSON.stringify(b)); };
+  withRef(['characters/scaly/reference/ref_cell_v01.png']);
+  const sr = pack([...base, '--dry-run', '--strict-scale', 'scaly']);
+  const gr = scale(sr.json, 'scaly');
+  check(gr?.ref?.reference === 'characters/scaly/reference/ref_cell_v01.png' && gr.anims.idle?.verdict === 'ok' && gr.anims.idle.strict && gr.anims.light2?.verdict === 'drift',
+    `scaleReference: the idle is measured against the approved cell (${gr?.anims?.idle?.verdict}, ${gr?.anims?.idle?.head}) and the strips still are (${gr?.anims?.light2?.verdict})`);
+  withRef(['characters/scaly/reference/missing_v01.png']);
+  const sm = pack([...base, '--dry-run', 'scaly']);
+  const gm = scale(sm.json, 'scaly');
+  check(sm.code === 1 && /scaleReference: characters\/scaly\/reference\/missing_v01\.png does not exist/.test(gm?.error || '') && gm.failed.length > 0,
+    `scaleReference: a missing reference cell fails the gate (${gm?.error})`);
+  fs.writeFileSync(buildsPath, buildsBefore);
 }
 
 function finish() {
