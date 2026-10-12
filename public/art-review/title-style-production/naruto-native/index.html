@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naruto title-style diagnostic playback</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; background: #101722; color: #ecf3fa; }
+    * { box-sizing: border-box; }
+    body { max-width: 1100px; margin: auto; padding: 24px; }
+    h1 { margin-bottom: 4px; }
+    p { max-width: 80ch; }
+    .notice { background: #47341c; border: 1px solid #b38a43; padding: 12px 16px; border-radius: 8px; }
+    .grid { display: grid; grid-template-columns: minmax(290px, 550px) minmax(280px, 1fr); gap: 18px; }
+    .panel { background: #1b2735; padding: 16px; border-radius: 10px; }
+    canvas { width: 100%; max-width: 512px; image-rendering: pixelated; background: repeating-conic-gradient(#303f50 0% 25%, #253344 0% 50%) 50% / 32px 32px; }
+    button, select { font: inherit; color: inherit; background: #33495d; border: 1px solid #7d9bb3; border-radius: 6px; padding: 7px 10px; }
+    button { cursor: pointer; }
+    .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 10px 0; }
+    .status { font-weight: 700; color: #ffcf87; }
+    .references { display: flex; flex-wrap: wrap; gap: 12px; }
+    .references figure { margin: 0; width: min(100%, 256px); }
+    .references img { width: 100%; image-rendering: pixelated; background: #283644; }
+    .source-links a { display: inline-block; margin-right: 10px; }
+    .ui-gallery { display: flex; flex-wrap: wrap; gap: 14px; align-items: start; }
+    .ui-gallery figure { margin: 0; padding: 12px; background: #1b2735; border-radius: 8px; max-width: 100%; }
+    .ui-gallery img { display: block; max-width: 100%; height: auto; background: #283644; }
+    a { color: #93d7ff; }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>Naruto title-style animation checkpoint</h1>
+  <p class="notice">Diagnostic 48-color atlas packed in warning mode for review only. Several candidates fail strict scale, clipping, motion or contact checks. This is not a full-pack pass, user approval, merged art, or production deployment. The player uses the packer's native 256×256 cells and per-frame durations.</p>
+  <div class="grid">
+    <section class="panel">
+      <label for="anim">Animation</label>
+      <select id="anim"></select>
+      <div class="controls"><button id="toggle">Pause</button><button id="prev">◀ Frame</button><button id="next">Frame ▶</button><span id="counter"></span></div>
+      <canvas id="stage" width="256" height="256" aria-label="Native packed animation frame"></canvas>
+    </section>
+    <section class="panel">
+      <h2 id="heading">Loading…</h2>
+      <p id="source" class="status"></p>
+      <p id="finding"></p>
+      <p id="timing"></p>
+      <div id="sourceLinks" class="source-links"></div>
+      <p>Use pause and frame stepping to inspect anatomy, foot position, contact and loop seams at actual packed scale. The in-game hit and hurt boxes still require Claude's validation.</p>
+    </section>
+  </div>
+  <h2>Approved visual anchors at the same cell scale</h2>
+  <div class="references"><figure><img src="title_neutral_v01.png" alt="Approved Naruto title-style neutral"><figcaption>Approved neutral: 94×205 occupied pixels</figcaption></figure><figure><img src="title_combat_v01.png" alt="Approved Naruto title-style combat"><figcaption>Approved combat: 150×165 occupied pixels</figcaption></figure></div>
+  <h2>Three provisional UI candidates, fitted by the packer</h2>
+  <p>These are isolated diagnostic fits of the new versioned raw sources into their native UI slots. The approved fixed UI files were not changed. Cut-in side gutters and select crop remain visual-review items.</p>
+  <div class="ui-gallery">
+    <figure><img src="portrait_v02_fitted.png" width="96" height="96" alt="New portrait v02 fitted to 96 by 96"><figcaption>Portrait v02 · 96×96 · <a href="ui_portrait_v02.png">raw source</a></figcaption></figure>
+    <figure><img src="cutin_v03_fitted.png" width="480" height="128" alt="New cut-in v03 fitted to 480 by 128"><figcaption>Cut-in v03 · 480×128 · <a href="ui_cutin_v03.png">raw source</a></figcaption></figure>
+    <figure><img src="select_v02_fitted.png" width="384" height="384" alt="New select v02 fitted to 384 by 384"><figcaption>Select v02 · 384×384 · <a href="ui_select_v02.png">raw source</a></figcaption></figure>
+  </div>
+  <script>
+    const findings = {
+      idle: 'Technical hold: 6px loop seam; provisional anatomy support only.',
+      run: 'Motion/anatomy hold: compact f1/f5 and mismatched alternating leg cycle.',
+      jumpUp: 'Head-size pop across the two frames.',
+      land: 'Small-foot probe signal; native footwear review pending.',
+      light1: 'Source-only title v04 was rejected because the stitcher could not separate the seven poses after the third Part A attempt.',
+      light2: 'Best assembled v05 misses the chin contact zone; v06 improved source cannot be stitched because separate figures overlap in x projection.',
+      light3: 'Startup knee already lifted; combo transition and contact review pending.',
+      light4: 'Scale passes; animation and contact review pending.',
+      heavy: 'Scale passes; animation and contact review pending.',
+      airLight1: 'Active fists overshoot the mid contact zone; generation budget exhausted.',
+      airLight3: 'Packed v06 strict hold: f2 clips 6px left/12px right and head reads 1.24–1.32. Corrected v07 source is unassembled because the stitcher misses Part A head.',
+      airHeavy: 'Packed v08 strict scale passes, but f2/f3 and f4/f5 nearly repeat. Corrected v09 motion source is unassembled because the stitcher misses Part A head.',
+      launched: 'Anatomy hold: large sandal/low-confidence head probe.',
+      spin: 'Anatomy hold: large sandal/low-confidence head probe.',
+      airRecover: 'Anatomy hold: large sandal/low-confidence head probe.',
+      down: 'Original down pose restyled. Grounding/low-confidence scale await Claude review.',
+      getup: 'Native scale checked; transition from down pose remains held.',
+      throw: 'Release fingertips x221 exceed historical target x212; contact review held.',
+      beamFire: 'Strict scale/contact hold: palms stop short of historical zone.',
+      stagger: 'Opposite sway reads too similar; motion hold.',
+      ko: 'Original KO pose restyled. Grounding/low-confidence scale await Claude review.',
+      special: 'Title source-only v06/v07 is rejected for stitcher-cut floating palm. Historical v03 plays here.',
+      taunt: 'Large-foot probe signal; actual native shoe geometry needs review.',
+      specialForward: 'Title source-only v04; stitcher aborts before assembling due missing Part A head detection. Historical v02 plays here.',
+      specialUp: 'Title source-only v04; stitcher aborts before honoring measured manual factor. Historical v01 plays here.',
+      specialDown: 'Strict hold: bowed-head probe pops from 1.42 to 1.14; no version-scoped exemption.',
+    };
+    const sourceParts = {
+      light1: ['light1_v04_A.png', 'light1_v04_B.png'],
+      light2: ['light2_v06_A.png', 'light2_v06_B.png'],
+      airLight3: ['airLight3_v07_A.png', 'airLight3_v07_B.png'],
+      airHeavy: ['airHeavy_v09_A.png', 'airHeavy_v09_B.png'],
+      special: ['special_v06_A.png', 'special_v06_B.png'],
+      specialForward: ['specialForward_v04_A.png', 'specialForward_v04_B.png'],
+      specialUp: ['specialUp_v04_A.png', 'specialUp_v04_B.png'],
+    };
+    const latest = { light1: 4, light2: 6, airLight1: 7, airLight3: 7, airHeavy: 9, special: 7, specialForward: 4, specialUp: 4 };
+    const historical = new Set(['light1', 'special', 'specialForward', 'specialUp']);
+    const sourceOnly = new Set(['light2', 'airLight3', 'airHeavy']);
+    const canvas = document.getElementById('stage');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    ctx.imageSmoothingEnabled = false;
+    const select = document.getElementById('anim');
+    let data, sheet, name, frame = 0, playing = true, nextAt = 0;
+    function show() {
+      const anim = data.animations[name];
+      const n = anim.frames[frame];
+      ctx.clearRect(0, 0, 256, 256);
+      ctx.drawImage(sheet, (n % data.columns) * 256, Math.floor(n / data.columns) * 256, 256, 256, 0, 0, 256, 256);
+      document.getElementById('counter').textContent = `${frame + 1} / ${anim.frames.length}`;
+      document.getElementById('heading').textContent = name;
+      const packed = data.scaleAudit.anims[name]?.v;
+      const fallback = latest[name] && packed !== latest[name];
+      document.getElementById('source').textContent = fallback && historical.has(name) ? `HISTORICAL FALLBACK v${String(packed).padStart(2, '0')} playing; title-style v${String(latest[name]).padStart(2, '0')} is source-only/rejected.` : fallback && sourceOnly.has(name) ? `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing; newer v${String(latest[name]).padStart(2, '0')} is SOURCE-ONLY and unassembled.` : fallback ? `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing; newer v${String(latest[name]).padStart(2, '0')} is rejected.` : `Unapproved title-style candidate v${String(packed).padStart(2, '0')} playing.`;
+      document.getElementById('finding').textContent = findings[name] || 'Candidate packed for visual review. Scale gate alone does not approve anatomy, motion, contact or gameplay.';
+      document.getElementById('timing').textContent = `Frame durations: ${anim.durations.join(' / ')} ms; loop: ${anim.loop ? 'yes' : 'no'}.`;
+      document.getElementById('sourceLinks').replaceChildren(...(sourceParts[name] || []).map((file, i) => { const a = document.createElement('a'); a.href = file; a.textContent = `Title source Part ${i ? 'B' : 'A'}`; return a; }));
+    }
+    function change(n) { name = n; frame = 0; nextAt = 0; show(); }
+    function tick(t) {
+      if (playing && data) {
+        const anim = data.animations[name];
+        if (!nextAt) nextAt = t + anim.durations[frame];
+        if (t >= nextAt) { frame = (frame + 1) % anim.frames.length; show(); nextAt = t + anim.durations[frame]; }
+      }
+      requestAnimationFrame(tick);
+    }
+    document.getElementById('toggle').onclick = () => { playing = !playing; document.getElementById('toggle').textContent = playing ? 'Pause' : 'Play'; nextAt = 0; };
+    document.getElementById('prev').onclick = () => { playing = false; document.getElementById('toggle').textContent = 'Play'; frame = (frame - 1 + data.animations[name].frames.length) % data.animations[name].frames.length; show(); };
+    document.getElementById('next').onclick = () => { playing = false; document.getElementById('toggle').textContent = 'Play'; frame = (frame + 1) % data.animations[name].frames.length; show(); };
+    select.onchange = () => change(select.value);
+    Promise.all([fetch('anims.json').then(r => r.json()), new Promise((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = 'sheet.png'; })]).then(([json, img]) => {
+      data = json; sheet = img;
+      for (const key of Object.keys(data.animations)) { const option = document.createElement('option'); option.value = key; option.textContent = key; select.append(option); }
+      change('idle'); requestAnimationFrame(tick);
+    }).catch(error => { document.getElementById('heading').textContent = 'Preview failed to load'; document.getElementById('finding').textContent = String(error); });
+  </script>
+</body>
+</html>

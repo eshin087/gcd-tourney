@@ -1,0 +1,16 @@
+{
+  "rows": [
+    "approved-neutral",
+    "approved-combat",
+    "stagger",
+    "taunt",
+    "win",
+    "superPose",
+    "block",
+    "charge",
+    "specialDown",
+    "intro"
+  ],
+  "columns": 5,
+  "note": "Native64x64 crops enlarged3x equally; centers differ with pose, no head resizing."
+}

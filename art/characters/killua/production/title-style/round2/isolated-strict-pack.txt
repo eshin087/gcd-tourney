@@ -1,0 +1,25 @@
+exit 1
+GCD Tourney sprite packer v2
+  art:  art/characters/killua/production/title-style/round2/fixture
+  out:  public/reviews/killua-round2
+  anims: animGuide.js + art/characters/killua/production/title-style/round2/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== killua ======================================================
+  packed 6 anims, 29 frames -> sheet 4096x512, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v08.png             x0.29  (removed 10 specks; candidate v08 (approved: v05))
+    run          8     <- raw/run_v09.png              x0.363  (removed 17 specks; candidate v09 (approved: v08))
+    charge       4     <- raw/charge_v13.png           x0.294  (removed 40 specks; candidate v13 (approved: v11))
+    beamFire     3     <- raw/beamFire_v09.png         x0.285  (removed 22 specks; split by whole figures: the column split found 2 pose(s), 3 expected; candidate v09 (approved: v08))
+    stagger      4     <- raw/stagger_v05.png          x0.281  (removed 53 specks; candidate v05 (approved: v04))
+    taunt        2     <- raw/taunt_v05.png            x0.226  (removed 10 specks; candidate v05 (approved: v04))
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 5 ok, 1 drift  FAILED: charge - nothing written
+  missing core (19): dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, beamCharge, special, win
+  missing optional (20): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, ko, intro, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  ! scale gate: charge head 0.92 of idle (feet 1.04): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v13, strict]
+  ! scale gate: did not write public/reviews/killua-round2/characters/killua/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+
+SCALE GATE FAILED: killua (charge) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 2 warning(s).
+

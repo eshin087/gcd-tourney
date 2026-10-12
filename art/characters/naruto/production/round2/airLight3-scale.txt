@@ -1,0 +1,7 @@
+
+== naruto: idle head 29x19 px (declared palette #fcb540)
+   1 ref, 1 uniform
+   airLight3       v08  head -19%  feet -30%  UNIFORM  f: 0.85 0.83 0.79 0.77 0.82 0.80
+   wrote art\characters\naruto\production\round2\scale-airLight3\heads-naruto.png
+
+[scale] 1 flagged strip(s); wrote art\characters\naruto\production\round2\scale-airLight3\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

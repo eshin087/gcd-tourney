@@ -1,0 +1,21 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round2-next/comparison-fixture
+  out:  art/characters/naruto/production/round2-next/comparison-packed
+  anims: animGuide.js + art/characters/naruto/production/round2-next/comparison-fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 3 anims, 11 frames -> sheet 4096x256, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.286
+    down         2     <- raw/down_v05.png             x0.229
+    ko           1     <- raw/ko_v09.png               x0.095  (candidate v09 (approved: v07))
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 manual, 1 unmeasured
+  missing core (21): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, getup, charge, beamCharge, beamFire, special, win
+  missing optional (21): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  ! down: 1 lying frame(s) float above the floor line (#1: 28% of the body within 6px of y 240, worst fifth 7px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v05 is the approved version: queue a side-on redraw
+  ! ko: 1 lying frame(s) float above the floor line (#0: 30% of the body within 6px of y 240, worst fifth 18px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  wrote art/characters/naruto/production/round2-next/comparison-packed/characters/naruto/sheet.png
+  wrote art/characters/naruto/production/round2-next/comparison-packed/characters/naruto/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 2 warning(s).
