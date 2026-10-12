@@ -447,10 +447,14 @@ How the tools measure (`scale-probe.mjs`):
   version; it is then `manual`, shown apart from `ok` (TOOL-ROTATED-ANATOMY).
 - **Shadowed hand edits**: `frames/<anim>/` edited on an older version than the newest raw refuses the pack (the new raw
   is measured instead); `frames/_old/` and any `frames/_*` folder are archives the packer ignores.
-- **Stitch** (`stitch-parts.mjs`): refuses to measure against a packed idle older than `raw/idle_vNN.png` (pack the
-  current idle into a scratch `--public` first), ignores a refinement trial that cuts a pose at the top of the cell,
-  measures like the gate (`measurementCells`), and `--counts A,B` cuts touching poses; the pose total must match the
-  manifest's frame count.
+- **Stitch** (`stitch-parts.mjs`): measures against the fighter's current idle packed fresh from `art/` without
+  `--quantize`, the cells the gate measures (`--public <dir>` uses an existing pack instead and refuses one older than
+  `raw/idle_vNN.png`); ignores a refinement trial that cuts a pose at the top of the cell; measures like the gate
+  (`measurementCells`). Poses are **whole figures** (8-connected components: the biggest ones are the bodies, small
+  detached bits join the nearest), so a hand reaching over the next pose's column is not cut into it, and the stitched
+  strip lays the figures out one by one with a clean gap; only figures that really touch fall back to the column split
+  (warned, with the part's own layout). `--counts A,B` fixes the pose counts; the total must match the manifest. Where
+  the probe finds no head, `--factor` needs `--reason`, `--landmarks` and `--uncertainty` (recorded in the sidecar).
 - **Exemptions** (`scaleExempt`, `scaleExemptFrames` on a manifest animation) need `"scaleExemptVersion"`: they
   cover only that version of the strip. A redraw (another version) is measured, with a warning, until someone looks
   at it and re-exempts it on purpose; an exemption without a version covers only an unversioned strip.
