@@ -183,6 +183,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 
 ## killua
 
+**Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips and UI portrait v02, cutin v03, select v02, promoted to ui/); `approved` = the exact version that played. The scale gate measures against the approved title-style combat cell (art/scale/builds.json scaleReference). Not shipped yet: see the holds per row and docs/NOW.md.
+
 Brief: [characters/killua/](characters/killua/). Godspeed era (Chimera Ant arc): loose purple
 long-sleeved shirt with a navy rolled collar, white undershirt cuffs and hem, navy shorts,
 purple-and-white high-tops; ~6 heads. Confirm the outfit at the S1 model-sheet review.
@@ -197,51 +199,51 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 3 | idle | 8 | - | **yes** | 146 trial | approved | v05 | v01 | Title-style v05 candidate, not approved as animation anchor: packed frame heights 140-146; source/anatomy comparison and hold in production/title-style/QA.md. Existing v01 approval retained. |
-| 4 | run | 8 | - | **yes** | 186 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 5 | light1 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light2 | 7 | 2/2/3 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | light4 | 8 | 3/2/3 | **yes** | 188 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 5 | heavy | 8 | 3/2/3 | **yes** | 206 | approved | v05 | v05 | Approved2026-10-10 with documented QA caveats; ready for integration. |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 166 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 5 | airHeavy | 6 | 2/2/2 | **yes** | 180 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 6 | guard | 2 | - | **yes** | 140 trial | approved | v07 | v03 | Title-style v07 candidate: packed 140/139 px, stable feet; provisional until idle anchor is resolved. Existing v03 approval retained. |
-| 6 | hurtHigh | 3 | - | **yes** | 150 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 6 | launched | 2 | - | **yes** | 115 trial | approved | v05 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 6 | down | 2 | - | **yes** | 90 trial | approved | v07 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 6 | getup | 5 | - | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 7 | charge | 4 | - | **yes** | 125 trial | approved | v11 | v07 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 7 | beamCharge | 3 | - | **yes** | 170 trial | approved | v08 | v05 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 7 | beamFire | 3 | - | **yes** | 145 trial | approved | v08 | v04 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 7 | special | 8 | 3/3/2 | **yes** | 186 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 8 | dash | 2 | - | **yes** | 122 trial | approved | v05 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 8 | jumpUp | 2 | - | **yes** | 148 trial | approved | v05 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 8 | jumpFall | 2 | - | **yes** | 165 trial | approved | v05 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 8 | land | 2 | - | **yes** | 132 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 8 | win | 4 | - | **yes** | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | backDash | 3 | - | no | 160 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | superDash | 2 | - | no | 98 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | jumpSquat | 1 | - | no | 115 trial | approved | v05 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 170 trial | approved | v07 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | airLight3 | 6 | 2/2/2 | no | 183 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | block | 2 | - | no | 160 trial | approved | v07 | v03 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | hurtLow | 3 | - | no | 149 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | spin | 4 | - | no | 136 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | airRecover | 3 | - | no | 145 trial | approved | v05 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | throw | 4 | 1/1/2 | no | 173 trial | approved | v06 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | vanish | 2 | - | no | 185 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | stagger | 4 | - | no | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | ko | 1 | - | no | 78 trial | approved | v08 | v02 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | intro | 4 | - | no | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | taunt | 2 | - | no | 186 trial | approved | v04 | v01 | Title-style candidate, unapproved; full QA pending (production/title-style/QA.md). |
-| 9 | specialForward | 7 | 2/2/3 | no | 186 | approved | v04 | v04 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 9 | specialUp | 6 | 2/2/2 | no | 198 | approved | v02 | v02 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | specialDown | 4 | 2/1/1 | no | 188 | approved | v01 | v01 | User approved final batch 2026-10-09; QA caveats retained in production/QA.md |
-| 9 | superPose | 4 | - | no | 191 | approved | v03 | v03 | User approved the final batch 2026-10-10 (chat with Claude, PR #9). |
-| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | Title-style v02 candidate from approved pilot; final review pending. Existing UI remains approved. |
-| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v02 | Title-style v03 candidate from approved pilot; final review pending. Existing UI remains approved. |
-| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | Title-style v02 candidate from approved pilot; final review pending. Existing UI remains approved. |
+| 3 | idle | 8 | - | **yes** | 146 | approved | v05 | v05 | HOLD (visual): f0 crown and collar dip 4-6 px at the f7->f0 wrap (budget exhausted; idle_00_fix01 trades it for a foot slide). Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 4 | run | 8 | - | **yes** | 162 | approved | v08 | v08 | HOLD (visual): f4-f7 repeat the f0-f3 lead-leg phase. Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light1 | 7 | 2/2/3 | **yes** | 151 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light2 | 7 | 2/2/3 | **yes** | 160 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 180 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light4 | 8 | 3/2/3 | **yes** | 166 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | heavy | 8 | 3/2/3 | **yes** | 214 | approved | v11 | v11 | Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 166 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airHeavy | 6 | 2/2/2 | **yes** | 164 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | guard | 2 | - | **yes** | 140 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 150 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | launched | 2 | - | **yes** | 106 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | down | 2 | - | **yes** | 90 | approved | v07 | v07 | HOLD (strict gate): v07 f0 hair flare reads 1.09 with the body at reference size (needs a decision or a redraw). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | getup | 5 | - | **yes** | 158 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 125 | approved | v11 | v11 | HOLD (strict gate): v11 head ~20% big for the body (shoes 0.89 of the combat cell). Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamCharge | 3 | - | **yes** | 170 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamFire | 3 | - | **yes** | 127 | approved | v08 | v08 | HOLD (visual): f1 is a different narrower pose, the loop shakes; palms short of the beam origin. Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | dash | 2 | - | **yes** | 122 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpUp | 2 | - | **yes** | 148 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpFall | 2 | - | **yes** | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | land | 2 | - | **yes** | 132 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | win | 4 | - | **yes** | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | backDash | 3 | - | no | 160 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 98 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | jumpSquat | 1 | - | no | 115 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 180 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | block | 2 | - | no | 151 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 149 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | spin | 4 | - | no | 136 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airRecover | 3 | - | no | 145 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | throw | 4 | 1/1/2 | no | 173 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | vanish | 2 | - | no | 185 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | stagger | 4 | - | no | 186 | approved | v04 | v04 | HOLD (strict gate): v04 hair drawn ~10% fuller than the reference (body matches). Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | ko | 1 | - | no | 78 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | intro | 4 | - | no | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | taunt | 2 | - | no | 186 | approved | v04 | v04 | HOLD (strict gate): v04 hair drawn ~8% fuller than the reference (body matches). Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialForward | 7 | 2/2/3 | no | 139 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialUp | 6 | 2/2/2 | no | 197 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialDown | 4 | 2/1/1 | no | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superPose | 4 | - | no | 186 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
+| 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
+| 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 
 ## gojo
 
