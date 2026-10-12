@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-11",
+  "scope": "Title-style corrections round2 Naruto only. Do not start ART-TECH-01.",
+  "assets": [
+    {
+      "a": "airLight3",
+      "v": 8,
+      "prior": {
+        "A": 3,
+        "B": 2
+      },
+      "budget": {
+        "A": 2,
+        "B": 1
+      },
+      "used": {
+        "A": 1,
+        "B": 1
+      },
+      "selected": {
+        "A": 1,
+        "B": 1
+      },
+      "verdict": "uniform hold; B3/3 exhausted; A1 extra left"
+    },
+    {
+      "a": "ko",
+      "v": 8,
+      "prior": 1,
+      "budget": 2,
+      "used": 2,
+      "selected": 2,
+      "verdict": "unmeasured pending Claude; head improved; original pose preserved"
+    },
+    {
+      "a": "spin",
+      "v": 7,
+      "prior": 3,
+      "budget": 2,
+      "used": 1,
+      "selected": 1,
+      "verdict": "unmeasured pending Claude; no blanket exemption"
+    },
+    {
+      "a": "specialDown",
+      "v": 5,
+      "prior": 1,
+      "budget": 2,
+      "used": 2,
+      "selected": 2,
+      "verdict": "ok"
+    },
+    {
+      "a": "jumpUp",
+      "v": 6,
+      "prior": 3,
+      "budget": 2,
+      "used": 1,
+      "selected": 1,
+      "verdict": "ok"
+    },
+    {
+      "a": "run",
+      "v": 8,
+      "prior": {
+        "A": 1,
+        "B": 1
+      },
+      "budget": {
+        "A": 0,
+        "B": 2
+      },
+      "used": {
+        "A": 0,
+        "B": 2
+      },
+      "selected": {
+        "A": "reused v07A",
+        "B": 2
+      },
+      "verdict": "head ok; motion seam hold"
+    },
+    {
+      "a": "charge",
+      "v": 7,
+      "prior": 2,
+      "budget": 1,
+      "used": 1,
+      "selected": 1,
+      "verdict": "ok"
+    }
+  ]
+}

@@ -81,7 +81,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved short-hair v02 on 2026-10-09; copied unchanged to expressions.png. Idle v02 and run v03 also approved; hair propagation complete (ART-NAR-12) |
 | 3 | idle | 8 | - | **yes** | 165 | approved | v07 | v07 | HOLD (visual): part B packs ~3% small: 6 px crown snap at f7->f0 (re-stitch v08 rejected). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 4 | run | 8 | - | **yes** | 162 | approved | v07 | v07 | HOLD (visual): legs do not alternate (part B repeats A). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 4 | run | 8 | - | **yes** | 167 | approved | v08 | v07 | Round2 candidate needs review: Part B now places holstered right leg trailing on flight phases, opposite A. Isolated strict head ok .981–1.022; all x50..228. MOTION HOLD: native crown moves y74..114 and the f7→f0 seam changes posture/horizontal position sharply. Do not approve for shipping yet. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 173 | approved | v04 | v02 | Review pending: v04 assembled from the approved parts. Approved original v02. |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 180 | approved | v06 | v05 | Review pending: v06 assembled; boots 1.36-1.42x in v05 and v06. Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light3 | 7 | 2/2/3 | **yes** | 196 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -94,12 +94,12 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 6 | launched | 2 | - | **yes** | 136 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | down | 2 | - | **yes** | 96 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | getup | 5 | - | **yes** | 195 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | charge | 4 | - | **yes** | 172 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | charge | 4 | - | **yes** | 172 | approved | v07 | v06 | Round2 candidate needs review: Lean torso restored. Isolated strict ok; heads 1.020–1.083, no margins. Recommend approval after visual review. |
 | 7 | beamCharge | 3 | - | **yes** | 174 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamFire | 3 | - | **yes** | 153 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v08 | v03 | Review pending: v08 assembled from the approved v06 parts. Approved original v03. |
 | 8 | dash | 2 | - | **yes** | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v04 | v04 | HOLD (strict gate): v04 pops (f0 hair 1.10 vs f1 0.98). Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpUp | 2 | - | **yes** | 198 | approved | v06 | v04 | Round2 candidate needs review: Hair pulse corrected. Isolated strict ok; heads .947/1.000, no margins. Recommend approval after visual review. |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 193 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -107,20 +107,20 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 9 | superDash | 2 | - | no | 120 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | jumpSquat | 1 | - | no | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight2 | 5 | 1/2/2 | no | 179 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v06 | HOLD (strict gate): v06 head 1.29 and v07 head 0.76, f2 crescent clips 20/28 px. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v08 | v06 | Round2 candidate needs review: Clear whole figures and smaller crescent now fit x26..240. Strict FAIL uniform head .809/feet .700; f4/f5 head/body relation still off and A/B posture changes. B budget exhausted. HOLD, not recommended approval. |
 | 9 | block | 2 | - | no | 170 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | hurtLow | 3 | - | no | 171 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | spin | 4 | - | no | 160 | approved | v06 | v06 | HOLD (strict gate): v06 sandals 1.22-1.32x the combat cell, no manual pass. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | spin | 4 | - | no | 160 | approved | v07 | v06 | Round2 candidate needs review: Four original backward tumble phases preserved; sandals reduced toward reference volume. Strict FAIL unmeasured; diagnostic head1.137 not a certified numeric measure. No margins. HOLD for Claude manual anatomy/footwear QA. |
 | 9 | airRecover | 3 | - | no | 180 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | throw | 4 | 1/1/2 | no | 163 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | vanish | 2 | - | no | 221 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | stagger | 4 | - | no | 207 | approved | v05 | v05 | HOLD (visual): f2/f3 repeat f0/f1. Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | ko | 1 | - | no | 59 | approved | v07 | v07 | HOLD (strict gate): v07 head ~75-80% of down f1's. Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | ko | 1 | - | no | 59 | approved | v08 | v07 | Round2 candidate needs review: Original one-knee-raised supine KO preserved; enlarged head matches down more closely. Actual diagnostic head reads1.051 but unmeasured, not a numeric pass. Measured+2px placement fixes x4..226. Contact27%, floor warning. HOLD for Claude anatomy/contact QA. |
 | 9 | intro | 4 | - | no | 167 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | taunt | 2 | - | no | 198 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | specialForward | 7 | 2/2/3 | no | 210 | approved | v04 | v02 | Review pending: v04 assembled from the approved parts. Approved original v02. |
 | 9 | specialUp | 6 | 2/2/2 | no | 237 | approved | v04 | v01 | Review pending: v04 assembled (bodyHeight 237 = cell maximum). Approved original v01. |
-| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v04 | HOLD (strict gate): v04 pops (bowed head f0/f1 1.41). Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v05 | v04 | Round2 candidate needs review: Bowed head kept compact across feral phases. Isolated strict ok; heads .973–1.059. Stale v02 exemption remains historical, not applied. Recommend approval after visual review. |
 | 9 | superPose | 4 | - | no | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |

@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto title-style round2: seven versioned corrections and native48-color review evidence; three recommended for art review, run/kick motion-size holds and KO/spin manual QA pending (PR69).
+
 - Art (PR69, not on main yet): Claude assembled Naruto's approved source-only title-style parts with the fixed stitch (light1 v04, light2 v06, airLight3 v07, airHeavy v09, special v08, specialForward v04, specialUp v04; heavy v12 re-stitch), fitted their scale, recorded the user's 2026-10-11 approval of the versions shown in the final preview, re-measured hit boxes and hand anchors on the new art, and added manual scale records. Strict scale gate still fails on jumpUp, airLight3, airHeavy v09, specialDown, spin and ko (new images or decisions needed).
 
 - Added: Naruto diagnostic player now shows packer-fitted previews of the new versioned portrait, cut-in and select UI sources without changing approved UI files (ART-NAR-TITLE).
