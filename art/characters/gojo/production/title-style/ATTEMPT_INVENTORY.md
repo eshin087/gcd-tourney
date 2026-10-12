@@ -1,0 +1,61 @@
+# Gojo title-style candidate attempt inventory
+
+2026-10-12: user approved airLight3 v12. No new image calls; cumulative budgets unchanged. Other visual/technical holds remain. Current approval record: production/round2-approvals/APPROVALS.md.
+
+Round2 checkpoint 2026-10-11: full strict quantized pack exits0,42animations/175frames. New run v12 and special v07 remain visual holds despite normal head passes. AirLight3 v12 recommends review; airHeavy v08 best has unresolved f3 hair-volume HOLD after v09 technical failure. Current authorization and cumulative calls: round2/generation-record.json; no new approval recorded. Older notes below are historical.
+
+As of 2026-10-11, all 42 animation names have versioned assembled candidates and all three UI names have candidates. “Rounds” counts title-style generation rounds per asset (an A/B pair is one round). Land had one initial round plus three corrective image-generation calls; one of the latter was unsaved. Older approved art versions are excluded. All listed latest candidates still require user review.
+
+The latest strict quantized pack is `pack-after-ground-offset.txt`: exit 1, 10 scale-gate holds, no updated atlas. A separate warn-mode QA manifest produced diagnostic native contacts only; it is not a scale pass or game/production atlas. A “head pass” here is only the automated head gate; it does not certify anatomy, motion, contact zones, or clipping.
+
+| Asset | Latest candidate | Generation rounds | Current hold or note |
+|---|---:|---:|---|
+| idle | v06 | 1 | head gate passes; full frame QA pending |
+| run | v12 | A5 / B7 cumulative calls | v12 glide regular strict ok; tighter 2% and phase height / seam HOLD. User authorized two fresh calls each; all used. v11 history retained. |
+| dash | v06 | 1 | head gate passes; full frame QA pending |
+| backDash | v04 | 1 | head gate passes; full frame QA pending |
+| superDash | v07 | 1 generation, 1 measured placement | head pass; 11px left offset clears right clip and cell-margin warning; native anatomy pending |
+| jumpSquat | v04 | 1 | manual scale pass, user review pending |
+| jumpUp | v04 | 1 | head gate passes; full frame QA pending |
+| jumpFall | v04 | 1 | head gate passes; full frame QA pending |
+| land | v06 | 4 | head pass after fit; 3 correction calls after v04 |
+| light1 | v05 | 2 | head gate passes; full frame QA pending |
+| light2 | v06 | 3 | head pass; 3 rounds used |
+| light3 | v04 | 2 | measured B stitch x0.9467; head gate passes; contact QA pending |
+| light4 | v07 B rejected; assembled v06 | 3 | head pass on v06; B stitch x0.7965; regenerated B remains oversize, rounds exhausted |
+| heavy | v06 A rejected; assembled v05 | 3 | v05 elbow still ambiguous and head 0.93; v06 A crosses face; source rounds exhausted |
+| airLight1 | v06 | 2 | head gate passes; splitter warning from touching source group, native edge QA pending |
+| airLight2 | v04 | 1 | head gate passes; full frame QA pending |
+| airLight3 | v12 | A3 / B5 cumulative calls | v12 strict ok / native review. A1/B2 authorized used; first B returned6poses; no calls remain. |
+| airHeavy | newest saved v09; best selected v08 | A3 / B2 cumulative calls | v09 head0.85 technical failure archived. Best v08 strict ok but f3 hair9.1% HOLD. A0/B1 calls remain. |
+| guard | v04 | 1 | head gate passes; full frame QA pending |
+| block | v03 | 1 | head gate passes; full frame QA pending |
+| hurtHigh | v03 | 1 | head gate passes; full frame QA pending |
+| hurtLow | v04 | 1 | head gate passes; full frame QA pending |
+| launched | v06; v05 rejected | 2 generations, 1 measured placement | v06 preserves v04 pixels; +37/+27 offsets clear clip; low-confidence gate hold |
+| spin | v04 | 1 | scale-gate hold |
+| airRecover | v03 | 1 | scale-gate hold |
+| down | v05 | 1 generation, 1 measured placement | v04 pixels retained; right clip cleared, floor and low-confidence gate hold, Claude adjudication |
+| getup | v05 | 3 | five distinct segmented poses after measured 3+2 stitch; low-confidence anatomy hold |
+| charge | v07 | 1 | head gate passes; full frame QA pending |
+| throw | v04 | 2 | head gate passes; flick and anatomy QA pending |
+| beamCharge | v03 | 1 | head gate passes; full frame QA pending |
+| beamFire | v04 | 1 | head gate passes; full frame QA pending |
+| vanish | v03 | 1 | scale-gate hold |
+| stagger | v03 | 1 | head gate passes; full frame QA pending |
+| ko | v06 | 1 generation, 1 measured placement | v05 pixels retained; left margin cleared, floor and low-confidence gate hold, Claude adjudication |
+| special | v07 | A3 / B5 cumulative calls | v07 head ok, body step HOLD. A1/B2 authorized used; no calls remain. |
+| intro | v03 | 1 | head gate passes; full frame QA pending |
+| taunt | v04 | 1 | head gate passes; full frame QA pending |
+| win | v07 | 1 | head gate passes; full frame QA pending |
+| specialForward | v06 | 2 | B factor x0.9886, head gate passes; recoil/contact QA pending |
+| specialUp | v03 | 1 | head gate passes; full frame QA pending |
+| specialDown | v05 | 3 | head gate passes after v04 overshoot; source rounds exhausted; anatomy QA pending |
+| superPose | v05 | 2 | head gate passes; eyes, finger sign and loop QA pending |
+| ui_portrait | v02 | 1 | visual candidate; not approved |
+| ui_cutin | v02 | 1 | visual candidate; not approved |
+| ui_select | v02 | 1 | visual candidate; not approved |
+
+The source separation, motion, or part-scale retry cap is reached for run, light2, light4, heavy, getup, airLight3, specialDown and special. Land's corrective round is also exhausted. Getup now has five packed poses, but its low-confidence anatomy hold remains. The ten current gate holds are **heavy, airLight3, airHeavy, launched, spin, airRecover, down, getup, vanish, ko**. The full pack writes no atlas. The original down/KO pose geometry and floor contact remain Claude adjudication holds, not manual passes.
+
+Per-part call budget where a corrective half was generated: run A 2/B 3 (v09 B rejected, no assembled v09); light4 A 2/B 3 (v07 B rejected, no assembled v07); heavy A 3/B 1 (v05 B copied from v04, v06 A rejected); getup first two rounds were single strips and final round A 1/B 1; light2 A 3/B 3; airLight3 A 2/B 3 (v10 A copied from v09); special A 2/B 3 (v05 A copied from v04); specialForward A 2/B 2; light3 A 2/B 2. Copied source pixels and measured placement metadata are not extra image-generation calls. These counts exclude historical pre-title-style source versions.

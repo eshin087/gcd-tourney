@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-12",
+  "userDecision": "Ok all approved, whats next",
+  "fighter": "gojo",
+  "approved": {
+    "airLight3": {
+      "version": 12,
+      "previousApprovedVersion": 10
+    }
+  },
+  "remainingHolds": "Run/glide v12, special v07 and airHeavy v08 remain visual holds. Approved airLight3 v12 still needs Claude strike-contact validation.",
+  "archived": [
+    {
+      "from": "art/characters/gojo/raw/_parts/airLight3_v11_B.png",
+      "to": "art/characters/gojo/raw/_parts/_rejected/airLight3_v11_B.png"
+    },
+    {
+      "from": "art/characters/gojo/raw/_parts/airLight3_v11_A.png",
+      "to": "art/characters/gojo/raw/_parts/_rejected/airLight3_v11_A.png"
+    }
+  ],
+  "repack": {
+    "strictExitCode": 0,
+    "failures": null,
+    "report": "repack.txt",
+    "fullCharacter": true
+  },
+  "build": {
+    "exitCode": 0,
+    "modules": 82,
+    "report": "build.txt"
+  }
+}
