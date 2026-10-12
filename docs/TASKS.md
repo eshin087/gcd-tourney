@@ -1,5 +1,7 @@
 # Task board
 
+ART-GOJO-RUN10 | Codex | review | Run-only bounded title-style redraw in existing PR72 worktree after git merge main. A1 and B2 authorized calls used; upright214–221px/margins/normal run gate pass, but requested2% head tolerance and leg alternation remain held. Full strict pack exits1 on existing airLight3/airHeavy; isolated strict idle/run exits0. See art/characters/gojo/production/title-style/run-v10/QA.md. files: art/characters/gojo/raw/run_v10.*, art/characters/gojo/raw/_parts/run_v10_*.png, art/characters/gojo/production/title-style/run-v10/, art/scale/lineup-gojo-run_v10.*, public/reviews/gojo-run-v10/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md.
+
 The single list of work in flight, shared by the user, Claude and Codex. The protocol is in
 [AI_COLLABORATION.md](AI_COLLABORATION.md).
 
