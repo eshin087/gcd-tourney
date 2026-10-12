@@ -18,18 +18,26 @@ How it works:
 ## Title-style corrections, round 3 (2026-10-12, Claude)
 
 Claude QA'd every round-2 hold and fixed what could be fixed without new images. The fixes are bodyHeight
-calibration, frame offsets and hit boxes, committed on the four title-production branches with evidence under
-`art/characters/<id>/production/round3-claude/`. What is left below is a drawing defect. Work in the same worktrees
-(`git merge main` first). Everything in "Every thread" still applies.
+calibration, frame offsets and hit boxes, now on main, with evidence under
+`art/characters/<id>/production/round3-claude/`. What is left below is a drawing defect.
 
-**Only items marked `GO` may use an image call now. Every other item has an exhausted budget: do nothing there until
-the user's `authorize ...` appears in docs/NOW.md.** Pack with `node tools/pack-sprites.mjs <id> --quantize 48
+**Live since 2026-10-12 (production dfab2fb):** PR #69-72 are merged. The user approved the integrated preview as
+shipped, so the stand-ins below are live until their redraw replaces them: Naruto spin v07; Killua charge v13,
+beamFire v09 and run v09; Gojo run v12, special v07 and airHeavy v08. The old title-production worktrees are
+removed, and their untracked scratch files are archived in `.worktrees/_codex-scratch-2026-10-12/<id>/`. Start one
+new worktree per fighter: `npm run pr -- start art/<id>-title-r3 --art <id>`, each with its own port. Everything in
+"Every thread" still applies.
+
+**Authorized by the user on 2026-10-12 ("authorize all round 3"):** every item below. The `GO` items use their
+remaining call. Each item with an exhausted budget gets one extra call. Nothing beyond that is authorized.
+
+Pack with `node tools/pack-sprites.mjs <id> --quantize 48
 --strict-scale`. The replaced strip must come back `ok`, or `manual` with a measured note for tumbling/lying
 poses. Every frame must sit inside x 4..251. Leave at least 24 px of magenta between the poses in each part, and
 re-stitch with `npm run stitch -- <id> <anim> vNN`. After packing, Claude sets bodyHeight and offsets; do not
 hand-tune them.
 
-Naruto (`art/naruto-title-production`):
+Naruto (new branch `art/naruto-title-r3`):
 - [ ] GO **spin v07 -> v08**: 1 call left (round-2 extra authorization).
   - Keep v07's four backward-tumble phases, the rotation, body, limb lengths, fists, sandals (30-33 px, correct)
     and the loop.
@@ -48,7 +56,7 @@ Naruto (`art/naruto-title-production`):
   - The torso lean per phase equals A's.
   - Evidence: run_v08_seam.png.
 
-Killua (`art/killua-title-production`), all budgets exhausted:
+Killua (new branch `art/killua-title-r3`), all budgets exhausted:
 - [ ] **charge v13 -> v14**: the head and hair are drawn about 8% small for a body at reference size. v11 had the
       reverse.
   - Change the hair only, in all 4 frames. Widen the hair mass to the combat cell's volume: silhouette about 45 px
@@ -74,9 +82,9 @@ Killua (`art/killua-title-production`), all budgets exhausted:
   - Shade the far leg one step darker and keep it behind the near leg in f5-f6.
   - Evidence: run-v09-legs-B.png, run-v09-f2-f6-overlap.png.
 
-Gojo (`art/gojo-title-production`):
-- [ ] **run v12 -> v13**: budget exhausted (A0/B0). The user first chooses the direction, glide or stride (see
-      NOW).
+Gojo (new branch `art/gojo-title-r3`):
+- [ ] **run v12 -> v13**: budget exhausted (A0/B0), one extra call authorized. Direction: **glide**, the
+      user's choice on 2026-10-12.
   - Glide:
     - Redraw part A (f0-f3) only and reuse v12 B as v13_B.
     - Match B's head, torso (70-72 px packed), legs (108-112 px), shoes and height (215-221 px). A is now
@@ -101,7 +109,7 @@ Gojo (`art/gojo-title-production`):
     `authorize`.
   - Evidence: heads-airHeavy.png.
 
-Sasuke (`art/sasuke-title-production`):
+Sasuke (new branch `art/sasuke-title-r3`):
 - [ ] GO **charge v12 -> v13**: 1 call left.
   - Redraw all four frames with the head (hair mass and skull) about 4-5% smaller. The target is idle v07 f0's
     head, which packs to a 38x38 px hair blob at bodyHeight 180 (v12 f0: 41x39; gate 1.035-1.051, shape match
@@ -114,10 +122,8 @@ Sasuke (`art/sasuke-title-production`):
 - backDash f1 (about 6% small) and block (head 1.031, height = guard): only if the user asks. Budgets exhausted.
 - Remaining budgets: heavy A 1, heavy B 1, specialUp A 1.
 
-Release condition: the four fighters go live together once every strip that packs is user-approved and passes
-the strict pack. Today Killua's charge has no passing version (v11 and v13 both fail). The unapproved latest
-images also still need the user's approval, or a fallback: Killua beamFire/run v09, Gojo run v12, special v07 and
-airHeavy v08. ART-TECH-01 stays paused.
+Release: all four fighters are already title-style, so each fighter's round-3 PR can merge on its own once its
+strips are approved and pass the strict pack. Claude merges. ART-TECH-01 stays paused.
 
 ## Title-style corrections, round 2 (2026-10-11, Claude)
 
