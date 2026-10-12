@@ -28,7 +28,7 @@ barrier walls. The wall jump (↑ at the kick) reuses f0-f2, then `jumpUp`: no e
   alone merges them.
 - **Own only `techGround`, `techRoll`, `wallTech` of that fighter.** `down` and `ko` stay as they are (the user's
   chosen original poses): a tech never lies down.
-- **The approved title-style contract applies** (`art/scale/title-style-pilot/PRODUCTION_CONTRACT.md` in PR #68): the
+- **The approved title-style contract applies** (`art/scale/title-style-pilot/PRODUCTION_CONTRACT.md`, on main since PR #68): the
   approved neutral and combat cells are ground truth; one anatomical scale in every pose; head, torso, limb lengths and
   clothing volume preserved; a crouch, roll or brace is never fitted to a standing height; no generic head ratio.
 - **Versions:** these names are new, so the first candidates are `_v01` unless Git history or `art/REVIEW.md` already
@@ -49,7 +49,7 @@ barrier walls. The wall jump (↑ at the kick) reuses f0-f2, then `jumpUp`: no e
 | Killua | 82x186 px | 148x146 px | 176 px | `art/characters/killua/reference/title_style_approved.png`, `art/characters/killua/reference/title_style_draft_v01.png`; the fighter's current idle and jumpFall |
 | Gojo | 91x236 px | 156x214 px | 222 px | `art/characters/gojo/reference/title_style_approved.png`, `art/characters/gojo/reference/title_neutral_approved.png`; the fighter's current idle and jumpFall |
 
-Ground truth for every fighter, at the exact packed scale: the approved pilot cells `<id>-neutral_v01.png` and `<id>-combat_v01.png` in `.worktrees/art-title-style-pilot/public/art-review/title-style-pilot/` (PR #68). Compare every new frame with them at native size.
+Ground truth for every fighter, at the exact packed scale: the approved pilot cells `<id>-neutral_v01.png` and `<id>-combat_v01.png` in `public/art-review/title-style-pilot/` (on main since PR #68). Compare every new frame with them at native size.
 
 Every prompt below is self-contained. Attach the listed approved references (and, for techRoll part B, part A of the same
 version), then paste the block. Save as `art/characters/<id>/raw/techGround_vNN.png`, `raw/wallTech_vNN.png` and the roll
