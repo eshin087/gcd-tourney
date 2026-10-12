@@ -1,0 +1,174 @@
+{
+ "_doc": "npm run scale (tools/scale-audit.mjs): every packed frame against the approved idle. head = head silhouette with hair, feet = shoe area (1.00 = the idle). Verdicts: art/CHARACTER_SCALE.md \"Scale gate (automatic)\".",
+ "fighters": {
+  "naruto": {
+   "palette": {
+    "head": [
+     "#fcb540"
+    ],
+    "feet": [
+     "#1b1b21"
+    ],
+    "source": "declared"
+   },
+   "ref": {
+    "headPx": [
+     29,
+     19
+    ],
+    "box": [
+     126,
+     79,
+     155,
+     96
+    ],
+    "feetPx": 389.5
+   },
+   "counts": {
+    "ref": 1,
+    "unmeasured": 1
+   },
+   "anims": {
+    "idle": {
+     "v": 7,
+     "head": 1,
+     "feet": 1,
+     "range": 0.061,
+     "verdict": "ref",
+     "frames": [
+      {
+       "head": 1.01,
+       "feet": 1.053,
+       "box": [
+        126,
+        79,
+        155,
+        96
+       ]
+      },
+      {
+       "head": 0.967,
+       "feet": 1.001,
+       "box": [
+        125,
+        81,
+        152,
+        99
+       ]
+      },
+      {
+       "head": 0.981,
+       "feet": 1.018,
+       "box": [
+        124,
+        81,
+        153,
+        97
+       ]
+      },
+      {
+       "head": 1.002,
+       "feet": 0.985,
+       "box": [
+        124,
+        81,
+        154,
+        99
+       ]
+      },
+      {
+       "head": 1.028,
+       "feet": 1.003,
+       "box": [
+        127,
+        83,
+        155,
+        103
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.999,
+       "box": [
+        125,
+        84,
+        153,
+        101
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.927,
+       "box": [
+        124,
+        83,
+        152,
+        101
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 0.984,
+       "box": [
+        126,
+        85,
+        153,
+        103
+       ]
+      }
+     ]
+    },
+    "spin": {
+     "v": 7,
+     "head": 1.137,
+     "feet": 0.762,
+     "range": 0.082,
+     "verdict": "unmeasured",
+     "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
+     "frames": [
+      {
+       "head": 1.103,
+       "feet": 0.76,
+       "box": [
+        47,
+        121,
+        78,
+        149
+       ]
+      },
+      {
+       "head": 1.171,
+       "feet": 0.748,
+       "box": [
+        50,
+        165,
+        76,
+        199
+       ]
+      },
+      {
+       "head": 1.103,
+       "feet": 0.775,
+       "box": [
+        101,
+        206,
+        132,
+        227
+       ]
+      },
+      {
+       "head": 1.185,
+       "feet": 0.763,
+       "box": [
+        106,
+        178,
+        138,
+        205
+       ]
+      }
+     ]
+    }
+   }
+  }
+ }
+}
