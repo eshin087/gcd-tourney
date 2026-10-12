@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: tech poses (ENG-079, TOOL-034, ADR 0030): three optional canonical animations, `techGround` (tech in place), `techRoll` (tech roll, played backward for a back roll) and `wallTech` (wall tech; the wall jump reuses its push-off, then `jumpUp`), played on each tech state's own clock (`DEFENSE` `animPhases`) so the art never changes timing; a fighter without them keeps the old `land` / `airRecover` / `jumpUp` poses. The packer wall-anchors the cling frames on the barrier (anims.json `wallAnchor`, re-centred on walls seen in depth), warns on a thin wall contact or a tucked pose packed at standing height, and the scale gate reports their unreadable beats as not read (`partial` until a manual QA record). Brief for Codex: art/characters/TECH_POSES_BRIEF.md. `npm run test:anims`.
+
 - Changed: the approved title-style cells and production contract (PR #68) are the one scale and anatomy baseline for the cast and new characters (ADR 0029). CLAUDE.md, AGENTS.md, the art spec/guides, the agent prompts and the character templates point there; the 200 px / 31 px / 6.5-head, canon-height and pixels/cm numbers are marked historical. Runtime scale data and shipped atlases are unchanged.
 - User approved the four title-style v01 character references and scaled lineups; full animation production authorized with original down/KO poses preserved in the new style.
 - Art: capture title-style production QA lessons, reproducible stitch/probe holds and Claude handoff; add a consolidated candidate-review hub. Full sources exist across all four fighters, but new strips/UI remain unapproved and production unchanged.

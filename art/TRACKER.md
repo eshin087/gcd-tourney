@@ -308,6 +308,21 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v01 | v01 | User approved complete batch 2026-10-09; see production/QA.md. |
 
+## Tech poses (ADR 0030)
+
+Three optional strips every fighter draws (step 9): `techGround` (4 frames, beats 1/2/1), `techRoll` (6 frames,
+1/4/1), `wallTech` (5 frames, 2/1/2). Until a fighter's strip is packed, the game keeps the poses those techs always
+showed (`land`, `airRecover`, `jumpUp`), so nothing waits on them. Brief, per-frame poses, prompts and QA:
+[characters/TECH_POSES_BRIEF.md](characters/TECH_POSES_BRIEF.md) (ART-TECH-01). Each fighter's rows move into its own
+section's table when its strips are generated (the manifest gets the same entries in `characters.<id>.animations`).
+
+| fighter | techGround | techRoll | wallTech | notes |
+|---|---|---|---|---|
+| naruto | todo | todo | todo | title-style production branch (PR #69) |
+| sasuke | todo | todo | todo | title-style production branch (PR #71) |
+| killua | todo | todo | todo | title-style production branch (PR #70) |
+| gojo | todo | todo | todo | title-style production branch (PR #72) |
+
 ## VFX atlas (step 10)
 
 Brief: [vfx/EFFECTS.md](vfx/EFFECTS.md). Candidates `art/vfx/raw/<effect>_vNN.png` (the packer uses

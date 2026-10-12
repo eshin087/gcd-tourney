@@ -55,6 +55,7 @@ when a decision should be revisited.
 | [0027](0027-beam-clash-energy-struggles.md) | Beam clashes: energy specials that meet become a struggle; show director for CPU vs CPU | Proposed (in PR) |
 | [0028](0028-timed-impact-tech.md) | Timed impact tech (Smash style): a fresh Guard press before a floor or wall impact; wall tech, wall jump, lockout | Proposed (in PR) |
 | [0029](0029-title-style-scale-baseline.md) | The approved title-style cells are the cast and new-character scale/anatomy baseline; older numeric targets are historical | Accepted |
+| [0030](0030-tech-recovery-animations.md) | Tech recovery animations: techGround, techRoll, wallTech on the tech's clock, wall anchoring, unread beats are not a scale pass | Proposed |
 
 ## Template
 

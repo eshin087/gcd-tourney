@@ -67,12 +67,20 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [specialUp](#specialup) | 6 | 2/2/2 | - | 214 | - (kit) | 9 |
 | [specialDown](#specialdown) | 4 | 2/1/1 | - | 204 | - (kit) | 9 |
 | [superPose](#superpose) | 4 | - | yes | 208 | - (kit) | 9 |
+| [techGround](#techground) | 4 | 1/2/1 beats | - | 204 | - (tech) | 9 |
+| [techRoll](#techroll) | 6 | 1/4/1 beats | - | 162 | - (tech) | 9 |
+| [wallTech](#walltech) | 5 | 2/1/2 beats | - | 209 | - (tech) | 9 |
 
 The four **kit** rows ([ADR 0009](../../../docs/decisions/0009-move-system-v2.md)) are part of every
 fighter's baseline kit ([ADR 0011](../../../docs/decisions/0011-kit-baseline-and-balance.md)): fill them for
 this character's →, ↑, ↓ specials and second super. Missing kit animations fall back (`specialForward`/`specialUp` →
 `special`, `specialDown` → `charge`, `superPose` → `taunt`). Worked examples:
 [killua/ANIMATIONS.md](../killua/ANIMATIONS.md), [gojo/ANIMATIONS.md](../gojo/ANIMATIONS.md).
+
+The three **tech** rows ([ADR 0030](../../../docs/decisions/0030-tech-recovery-animations.md),
+[SPEC.md "Tech poses"](../../SPEC.md#tech-poses)) are the tech recoveries; every fighter draws them, after its idle is
+approved. Until then the game shows `land` / `airRecover` / `jumpUp` for them. The engine plays each on the tech's own
+clock in three beats, so the "beat" column below is which beat a frame belongs to.
 
 ## idle
 
@@ -770,3 +778,65 @@ Only if the kit has a second super (SUPER button). Shown during the freeze befor
 | 01 | loop | aura / cloth / hair variation | _{{fill in}}_ |
 | 02 | loop | like 00, stronger energy | _{{fill in}}_ |
 | 03 | loop | variation, loops into 00 | _{{fill in}}_ |
+
+## techGround
+
+**ground tech in place: impact brace, push up, back in the stance**
+4 frames · plays once (on the tech's clock: beats 4 / 10 / 4 game frames) · body height 204 px (the stance) · optional · step 9 · default ms 67, 83, 83, 67
+
+A timed tech on the floor with the stick neutral (ADR 0028): the fighter beats the impact and stands up on the spot,
+invulnerable through 01-02. Lowest pixels on y 240 in every frame. 03 hands over to `idle` f0 without a pop. Never a
+lying pose. Scale: the idle's anatomy, the brace folded, not shrunk or stretched (packer band 0.45-0.85 of the idle's
+height for 00).
+
+{{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details}}_
+
+| # | beat | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | contact | impact brace: feet planted wide, the near palm slapped flat on the floor in front, knees deeply bent, torso low, head up looking right | _{{fill in}}_ |
+| 01 | rise | palm leaving the floor, legs driving up, half crouch, guard hands rising | _{{fill in}}_ |
+| 02 | rise | nearly upright, knees slightly bent, guard up | _{{fill in}}_ |
+| 03 | settle | the fighting stance, the same as idle f0 | _{{fill in}}_ |
+
+## techRoll
+
+**ground tech roll: shoulder contact, one forward roll, low crouch**
+6 frames · plays once (beats 3 / 15 / 4 game frames, 3 / 15 / 2 for the hold-Guard roll) · body height 162 px (the crouch) · optional · step 9 · default ms 50, 63, 62, 63, 62, 67
+
+A tech roll (a timed tech with the stick left or right, or landing from a launch while holding Guard): the fighter rolls
+along the floor, invulnerable through the tumble. Drawn as a FORWARD roll toward screen-right; the game plays 01-04
+backward for a roll away from the opponent, so they are four even quarter turns. Every frame touches y 240 (rolling, not
+airborne). The tumble is a tight ball about half the standing height (packer band 0.30-0.68 of the idle's height), the
+same head and limb lengths as the idle, folded. 05 hands over to `idle`.
+
+{{NAME}} flavor for the whole animation: _{{fill in}}_
+
+| # | beat | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | contact | hits the floor on the back of the near shoulder, chin tucked, knees pulled to the chest, near hand slapping the floor | _{{fill in}}_ |
+| 01 | tumble | hips rolling over the shoulders, a quarter turn on from 00 | _{{fill in}}_ |
+| 02 | tumble | upside down on the upper back, legs tucked over | _{{fill in}}_ |
+| 03 | tumble | rolling over onto the hips and feet | _{{fill in}}_ |
+| 04 | tumble | coming up onto both feet, still tucked | _{{fill in}}_ |
+| 05 | settle | low crouch on both feet facing right, guard up, ready to stand | _{{fill in}}_ |
+
+## wallTech
+
+**wall tech: feet-first on the wall, push off, airborne recovery**
+5 frames · plays once (beats 6 / 4 / 8 game frames) · body height 209 px (the airborne recovery) · optional · step 9 · default ms 50, 50, 67, 67, 66
+
+A timed tech against the ring barrier: the fighter clings to it for 6 frames, kicks off away from it and falls free.
+The wall is NOT drawn: it is implied at the cell's LEFT, behind the fighter. 00-02 are wall-anchored by the packer: their
+leftmost opaque pixel goes on x 128 (the barrier), so the soles flat on the wall (and optionally the near hand) are the
+leftmost part of the figure; hair and cloth trail up or to the right, never past the soles. 03-04 are ordinary airborne
+poses; 04 hands over to `jumpFall` f0. The wall jump (↑ at the kick) shows 00-01, 02 for 4 frames, then `jumpUp`.
+
+{{NAME}} flavor for the whole animation: _{{fill in}}_
+
+| # | beat | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | cling | lands feet-first on the wall: both soles flat on it, knees to the chest, torso tilted out from the wall, near hand on the wall, head turned right | _{{fill in}}_ |
+| 01 | cling | the same cling, coiled tighter, eyes on the opponent | _{{fill in}}_ |
+| 02 | push-off | legs fully extended, toes just leaving the wall, body launched up and to the right, arms swept back | _{{fill in}}_ |
+| 03 | recovery | uncurling in mid-air, knees tucking under, arms opening | _{{fill in}}_ |
+| 04 | recovery | falling pose like `jumpFall` f0: legs extending down, arms out | _{{fill in}}_ |

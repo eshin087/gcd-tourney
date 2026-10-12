@@ -26,11 +26,16 @@ export const GATE_DEFAULTS = Object.freeze({
   baselineTol: 0.03, // an approved strip whose head moved more than this at the same version is reported
   // tumbling, lying, tucked and afterimage poses: the head is upside down, hidden or doubled
   lowConf: Object.freeze(['launched', 'spin', 'down', 'ko', 'airRecover', 'getup', 'jumpSquat', 'vanish']),
+  // strips with only SOME beats the probe can't read (ADR 0030): the beats (phase indices) of tucked, rolling or
+  // rotated frames. Their frames are left out of the numbers and reported as not measured; the readable frames are
+  // judged as usual, and a strip that passes on them is 'partial' (not a pass) until a person's scaleManualQA record
+  // covers the unread frames of that version
+  lowConfPhases: Object.freeze({ techRoll: Object.freeze([1]), wallTech: Object.freeze([0, 1]) }),
 });
 
 // A manifest spec.scaleGate block -> the thresholds (a malformed key is reported in `issues` and keeps its default).
 export function resolveGate(raw, issues = []) {
-  const g = { ...GATE_DEFAULTS, lowConf: [...GATE_DEFAULTS.lowConf] };
+  const g = { ...GATE_DEFAULTS, lowConf: [...GATE_DEFAULTS.lowConf], lowConfPhases: { ...GATE_DEFAULTS.lowConfPhases } };
   if (raw == null) return g;
   if (typeof raw !== 'object' || Array.isArray(raw)) { issues.push(`spec.scaleGate must be an object - using the defaults`); return g; }
   const num = (k, lo, hi) => {
@@ -42,6 +47,12 @@ export function resolveGate(raw, issues = []) {
   if (raw.lowConf !== undefined) {
     if (Array.isArray(raw.lowConf) && raw.lowConf.every((n) => typeof n === 'string')) g.lowConf = [...raw.lowConf];
     else issues.push('spec.scaleGate.lowConf must be a list of animation names - using the defaults');
+  }
+  if (raw.lowConfPhases !== undefined) {
+    const ok = raw.lowConfPhases && typeof raw.lowConfPhases === 'object' && !Array.isArray(raw.lowConfPhases) &&
+      Object.values(raw.lowConfPhases).every((l) => Array.isArray(l) && l.every((p) => p === 0 || p === 1 || p === 2));
+    if (ok) g.lowConfPhases = { ...raw.lowConfPhases };
+    else issues.push('spec.scaleGate.lowConfPhases must map animation names to lists of beats (0, 1, 2) - using the defaults');
   }
   return g;
 }
@@ -315,11 +326,35 @@ export function measureFrame(cell, ref, pal) {
   return { head: r3(head), feet: r3(feet), box: h?.box ?? null };
 }
 
+// The frames of a strip's low-confidence beats (gate.lowConfPhases) for n frames whose art phases are `phases`
+// (anims.json, e.g. [1, 4, 1]; rescaled to n like the packer does). A listed strip without phases: every frame.
+export function lowConfFrames(name, gate, phases, n) {
+  const beats = gate.lowConfPhases?.[name];
+  if (!beats?.length || !(n > 0)) return [];
+  if (!Array.isArray(phases) || phases.length !== 3) return [...Array(n).keys()];
+  let ph = phases;
+  const T = ph[0] + ph[1] + ph[2];
+  if (T !== n) {
+    const s0 = Math.min(n - 1, Math.max(1, Math.round((n * ph[0]) / T)));
+    const s1 = Math.max(1, Math.min(n - s0, Math.round((n * ph[1]) / T)));
+    ph = n <= 1 ? [0, 1, 0] : n === 2 ? [1, 1, 0] : [s0, s1, Math.max(0, n - s0 - s1)];
+  }
+  const out = [];
+  let start = 0;
+  ph.forEach((c, i) => {
+    if (beats.includes(i)) for (let k = start; k < start + c; k++) out.push(k);
+    start += c;
+  });
+  return out;
+}
+
 // One strip against the reference. exempt: { reason, frames: [k] } from the manifest (scaleExempt / scaleExemptFrames).
 // Verdicts: ok | uniform (head and feet off together: rescale) | drift (head off, body not: redraw) | pop (two sizes
-// inside the strip: re-stitch or redraw) | unmeasured (a low-confidence pose or no head found) | exempt.
-export function auditStrip(name, cells, ref, pal, gate = GATE_DEFAULTS, exempt = {}) {
-  return judgeStrip(name, cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal) })), gate, exempt);
+// inside the strip: re-stitch or redraw) | unmeasured (a low-confidence pose or no head found) | partial (the readable
+// frames pass, its low-confidence beats are not measured: ADR 0030) | manual (a person checked the unread frames) | exempt.
+export function auditStrip(name, cells, ref, pal, gate = GATE_DEFAULTS, exempt = {}, phases = null) {
+  const low = new Set(lowConfFrames(name, gate, phases, cells.length));
+  return judgeStrip(name, cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal), ...(low.has(k) ? { low: true } : {}) })), gate, exempt);
 }
 
 // The verdict from per-frame measurements ({ k, head, feet, box }): also used on the measurements the packer recorded
@@ -327,7 +362,9 @@ export function auditStrip(name, cells, ref, pal, gate = GATE_DEFAULTS, exempt =
 export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   const skip = new Set(Array.isArray(exempt.frames) ? exempt.frames : []);
   const frames = measured.map((f) => ({ ...f, skipped: skip.has(f.k) || undefined }));
-  const use = frames.filter((f) => !f.skipped && f.head != null);
+  // frames of a low-confidence beat (gate.lowConfPhases) are never numbers: reported as not measured
+  const low = frames.filter((f) => f.low && !f.skipped).map((f) => f.k);
+  const use = frames.filter((f) => !f.skipped && !f.low && f.head != null);
   const heads = use.map((f) => f.head);
   const head = r3(median(heads)), feet = r3(median(use.map((f) => f.feet)));
   let lo = null, hi = null;
@@ -336,16 +373,19 @@ export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   let verdict, reason = null;
   if (exempt.reason) { verdict = 'exempt'; reason = exempt.reason; }
   else if (gate.lowConf.includes(name)) { verdict = 'unmeasured'; reason = 'low-confidence pose (tumbling, lying, tucked or afterimage)'; }
-  else if (!heads.length) { verdict = 'unmeasured'; reason = 'no head found in any frame'; }
+  else if (low.length && low.length === frames.filter((f) => !f.skipped).length) { verdict = 'unmeasured'; reason = 'every frame is a low-confidence beat (tucked, rolling or rotated)'; }
+  else if (!heads.length) { verdict = 'unmeasured'; reason = low.length ? `no head found in the readable frames (f${low.join(', f')} are low-confidence beats)` : 'no head found in any frame'; }
   else if (range > gate.popTol) verdict = 'pop';
   else if (Math.abs(head - 1) <= gate.stripTol) verdict = 'ok';
   else if (feet != null && Math.sign(head - 1) === Math.sign(feet - 1) && Math.abs(feet - 1) > gate.feetAgree &&
     Math.abs(feet - 1) >= gate.feetShare * Math.abs(head - 1)) verdict = 'uniform';
   else verdict = 'drift';
+  // the readable frames pass but some beats were not read (ADR 0030): not a numeric pass of the whole strip
+  if (verdict === 'ok' && low.length) { verdict = 'partial'; reason = `f${low.join(', f')} not measured (tucked, rolling or rotated beats)`; }
   // a pose the probe cannot read, checked by a person for exactly this version (scaleManualQA): accepted, and shown as
   // 'manual', never as 'ok' (TOOL-ROTATED-ANATOMY)
-  if (verdict === 'unmeasured' && exempt.manual) { verdict = 'manual'; reason = `manual QA by ${exempt.manual.by}: ${exempt.manual.note}${exempt.manual.evidence ? ` (${exempt.manual.evidence})` : ''}`; }
-  return { head, feet, range, verdict, reason, lo: lo && { k: lo.k, head: lo.head }, hi: hi && { k: hi.k, head: hi.head }, frames };
+  if ((verdict === 'unmeasured' || verdict === 'partial') && exempt.manual) { verdict = 'manual'; reason = `manual QA by ${exempt.manual.by}: ${exempt.manual.note}${exempt.manual.evidence ? ` (${exempt.manual.evidence})` : ''}`; }
+  return { head, feet, range, verdict, reason, lo: lo && { k: lo.k, head: lo.head }, hi: hi && { k: hi.k, head: hi.head }, frames, ...(low.length ? { low } : {}) };
 }
 
 export const FLAGGED = new Set(['uniform', 'drift', 'pop']);
@@ -357,6 +397,7 @@ export function verdictText(name, s) {
   if (s.verdict === 'uniform') return `${name} head ${p(s.head)} of idle (feet ${p(s.feet)}): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight`;
   if (s.verdict === 'drift') return `${name} head ${p(s.head)} of idle (feet ${s.feet == null ? 'not measurable' : p(s.feet)}): head/hair drift - redraw to the approved idle head (head_scale_guide.png)`;
   if (s.verdict === 'unmeasured') return `${name}: ${s.reason || 'not measured'} - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation`;
+  if (s.verdict === 'partial') return `${name}: the readable frames match the idle (head ${p(s.head)}), but ${s.reason} - compare those frames with the approved idle at one scale (npm run scale contact sheet; head, torso and limb lengths, not the box height) and record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation`;
   return `${name}: ${s.verdict}`;
 }
 
@@ -478,7 +519,10 @@ export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt 
   const what = external ? `the reference ${reference.label}` : 'the idle';
   if (!ref) return { error: `no head found in ${what} (${pal.head.size} head colour(s), ${pal.headSource}) - declare headColors in art/scale/builds.json`, palette: pal };
   const out = { palette: pal, ref, anims: {}, reference: external ? reference.label : null };
-  for (const a of anims) out.anims[a.name] = judgeAnim(a.name, a.cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal) })), a.version ?? null, gate, exempt, external);
+  for (const a of anims) {
+    const low = new Set(lowConfFrames(a.name, gate, a.phases, a.cells.length));
+    out.anims[a.name] = judgeAnim(a.name, a.cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal), ...(low.has(k) ? { low: true } : {}) })), a.version ?? null, gate, exempt, external);
+  }
   return out;
 }
 const REFERENCE = '__reference__';
@@ -506,7 +550,7 @@ export const AUDIT_METHOD = 'idle-palette';
 export function compactAudit(A, gate = GATE_DEFAULTS) {
   const anims = {};
   for (const [name, s] of Object.entries(A.anims)) {
-    anims[name] = { head: s.head, feet: s.feet, verdict: s.verdict, v: s.version, frames: s.frames.map((f) => f.head), feetFrames: s.frames.map((f) => f.feet), boxes: s.frames.map((f) => f.box) };
+    anims[name] = { head: s.head, feet: s.feet, verdict: s.verdict, v: s.version, frames: s.frames.map((f) => f.head), feetFrames: s.frames.map((f) => f.feet), boxes: s.frames.map((f) => f.box), ...(s.low ? { low: s.low } : {}) };
   }
   const { hA, hW, hH, feet } = A.ref;
   return {
@@ -525,7 +569,8 @@ export function auditFromCompact(sa, { gate = GATE_DEFAULTS, exempt = {} } = {})
   const ref = { hA: sa.ref.hA, hW: sa.ref.hW, hH: sa.ref.hH, feet: sa.ref.feet, box: sa.ref.box, headPx: sa.ref.headPx };
   const out = { palette, ref, anims: {}, recorded: true, reference: sa.ref.reference ?? null };
   for (const [name, a] of Object.entries(sa.anims)) {
-    const measured = (a.frames || []).map((head, k) => ({ k, head, feet: a.feetFrames?.[k] ?? null, box: a.boxes?.[k] ?? null }));
+    const low = new Set(a.low || []);
+    const measured = (a.frames || []).map((head, k) => ({ k, head, feet: a.feetFrames?.[k] ?? null, box: a.boxes?.[k] ?? null, ...(low.has(k) ? { low: true } : {}) }));
     out.anims[name] = judgeAnim(name, measured, a.v ?? null, gate, exempt, !!sa.ref.reference);
   }
   return out;
