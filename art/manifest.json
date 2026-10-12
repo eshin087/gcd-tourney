@@ -348,7 +348,7 @@
         "backDash": {
           "frames": 3,
           "loop": false,
-          "bodyHeight": 225,
+          "bodyHeight": 219,
           "ms": [
             60,
             60,
@@ -363,7 +363,7 @@
         "superDash": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 140,
+          "bodyHeight": 146,
           "ms": [
             50,
             50
@@ -462,7 +462,7 @@
             2,
             3
           ],
-          "bodyHeight": 222,
+          "bodyHeight": 232,
           "ms": [
             35,
             30,
@@ -486,7 +486,7 @@
             2,
             3
           ],
-          "bodyHeight": 228,
+          "bodyHeight": 216,
           "ms": [
             40,
             35,
@@ -649,7 +649,7 @@
         "guard": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 218,
+          "bodyHeight": 214,
           "ms": [
             300,
             300
@@ -663,7 +663,7 @@
         "block": {
           "frames": 2,
           "loop": false,
-          "bodyHeight": 222,
+          "bodyHeight": 213,
           "ms": [
             60,
             80
@@ -677,7 +677,7 @@
         "hurtHigh": {
           "frames": 3,
           "loop": false,
-          "bodyHeight": 212,
+          "bodyHeight": 216,
           "ms": [
             70,
             90,
@@ -751,7 +751,7 @@
         "airRecover": {
           "frames": 3,
           "loop": false,
-          "bodyHeight": 196,
+          "bodyHeight": 202,
           "ms": [
             50,
             50,
@@ -818,7 +818,7 @@
         "charge": {
           "frames": 4,
           "loop": true,
-          "bodyHeight": 215,
+          "bodyHeight": 221,
           "ms": [
             50,
             50,
@@ -839,7 +839,7 @@
             1,
             2
           ],
-          "bodyHeight": 219,
+          "bodyHeight": 207,
           "ms": [
             50,
             60,
@@ -855,7 +855,7 @@
         "beamCharge": {
           "frames": 3,
           "loop": true,
-          "bodyHeight": 215,
+          "bodyHeight": 221,
           "ms": [
             50,
             50,
@@ -885,7 +885,7 @@
         "vanish": {
           "frames": 2,
           "loop": false,
-          "bodyHeight": 232,
+          "bodyHeight": 222,
           "ms": [
             50,
             50
@@ -906,7 +906,7 @@
         "stagger": {
           "frames": 4,
           "loop": true,
-          "bodyHeight": 225,
+          "bodyHeight": 233,
           "ms": [
             150,
             150,
@@ -947,7 +947,7 @@
             3,
             2
           ],
-          "bodyHeight": 222,
+          "bodyHeight": 232,
           "ms": [
             120,
             120,
@@ -967,7 +967,7 @@
         "intro": {
           "frames": 4,
           "loop": true,
-          "bodyHeight": 228,
+          "bodyHeight": 236,
           "ms": [
             150,
             150,
@@ -1065,7 +1065,7 @@
             1,
             1
           ],
-          "bodyHeight": 222,
+          "bodyHeight": 227,
           "ms": [
             60,
             60,
