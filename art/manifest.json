@@ -525,7 +525,7 @@
           "step": 5,
           "status": "approved",
           "version": 8,
-          "approvedVersion": 6
+          "approvedVersion": 8
         },
         "heavy": {
           "frames": 8,
@@ -1105,7 +1105,7 @@
           ],
           "step": 11,
           "status": "approved",
-          "version": 2,
+          "version": 1,
           "approvedVersion": 1
         },
         "cutin": {
@@ -1117,7 +1117,7 @@
           ],
           "step": 11,
           "status": "approved",
-          "version": 2,
+          "version": 1,
           "approvedVersion": 1
         },
         "select": {
@@ -1129,7 +1129,7 @@
           ],
           "step": 11,
           "status": "approved",
-          "version": 2,
+          "version": 1,
           "approvedVersion": 1
         }
       }
