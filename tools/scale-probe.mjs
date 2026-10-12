@@ -26,7 +26,7 @@ export const GATE_DEFAULTS = Object.freeze({
   baselineTol: 0.03, // an approved strip whose head moved more than this at the same version is reported
   // tumbling, lying, tucked and afterimage poses: the head is upside down, hidden or doubled
   lowConf: Object.freeze(['launched', 'spin', 'down', 'ko', 'airRecover', 'getup', 'jumpSquat', 'vanish']),
-  // strips with only SOME beats the probe can't read (ADR 0029): the beats (phase indices) of tucked, rolling or
+  // strips with only SOME beats the probe can't read (ADR 0030): the beats (phase indices) of tucked, rolling or
   // rotated frames. Their frames are left out of the numbers and reported as not measured; the readable frames are
   // judged as usual, and a strip that passes on them is 'partial' (not a pass) until a person's scaleManualQA record
   // covers the unread frames of that version
@@ -351,7 +351,7 @@ export function lowConfFrames(name, gate, phases, n) {
 // One strip against the reference. exempt: { reason, frames: [k] } from the manifest (scaleExempt / scaleExemptFrames).
 // Verdicts: ok | uniform (head and feet off together: rescale) | drift (head off, body not: redraw) | pop (two sizes
 // inside the strip: re-stitch or redraw) | unmeasured (a low-confidence pose or no head found) | partial (the readable
-// frames pass, its low-confidence beats are not measured: ADR 0029) | manual (a person checked the unread frames) | exempt.
+// frames pass, its low-confidence beats are not measured: ADR 0030) | manual (a person checked the unread frames) | exempt.
 export function auditStrip(name, cells, ref, pal, gate = GATE_DEFAULTS, exempt = {}, phases = null) {
   const low = new Set(lowConfFrames(name, gate, phases, cells.length));
   return judgeStrip(name, cells.map((c, k) => ({ k, ...measureFrame(c, ref, pal), ...(low.has(k) ? { low: true } : {}) })), gate, exempt);
@@ -380,7 +380,7 @@ export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   else if (feet != null && Math.sign(head - 1) === Math.sign(feet - 1) && Math.abs(feet - 1) > gate.feetAgree &&
     Math.abs(feet - 1) >= gate.feetShare * Math.abs(head - 1)) verdict = 'uniform';
   else verdict = 'drift';
-  // the readable frames pass but some beats were not read (ADR 0029): not a numeric pass of the whole strip
+  // the readable frames pass but some beats were not read (ADR 0030): not a numeric pass of the whole strip
   if (verdict === 'ok' && low.length) { verdict = 'partial'; reason = `f${low.join(', f')} not measured (tucked, rolling or rotated beats)`; }
   // a pose the probe cannot read, checked by a person for exactly this version (scaleManualQA): accepted, and shown as
   // 'manual', never as 'ok' (TOOL-ROTATED-ANATOMY)

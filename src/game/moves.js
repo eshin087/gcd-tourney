@@ -145,7 +145,7 @@ export const THROW = {
 //             after the kick; invulnerable `invuln` from the impact
 //    wallJump barrier with ↑ (or Jump) held at the kick: [along, up] higher, actionable at once; invulnerable `invuln`
 //             from the impact
-//  animPhases (ADR 0029, art only: no gameplay effect) the tech's dedicated pose (techGround / techRoll / wallTech) is
+//  animPhases (ADR 0030, art only: no gameplay effect) the tech's dedicated pose (techGround / techRoll / wallTech) is
 //             played on the state's own clock in three beats of sim frames [contact, main motion, settle] that sum to
 //             the state's length, so any frame count of the art lands on the same moments: the contact beat ends as
 //             the body leaves the impact, the main motion ends with the invulnerability (rolls, in place) or the kick

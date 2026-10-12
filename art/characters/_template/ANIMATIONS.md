@@ -77,7 +77,7 @@ this character's →, ↑, ↓ specials and second super. Missing kit animations
 `special`, `specialDown` → `charge`, `superPose` → `taunt`). Worked examples:
 [killua/ANIMATIONS.md](../killua/ANIMATIONS.md), [gojo/ANIMATIONS.md](../gojo/ANIMATIONS.md).
 
-The three **tech** rows ([ADR 0029](../../../docs/decisions/0029-tech-recovery-animations.md),
+The three **tech** rows ([ADR 0030](../../../docs/decisions/0030-tech-recovery-animations.md),
 [SPEC.md "Tech poses"](../../SPEC.md#tech-poses)) are the tech recoveries; every fighter draws them, after its idle is
 approved. Until then the game shows `land` / `airRecover` / `jumpUp` for them. The engine plays each on the tech's own
 clock in three beats, so the "beat" column below is which beat a frame belongs to.

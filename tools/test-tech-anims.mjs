@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Tech recovery poses (ADR 0029): animation selection, beat transitions and missing-art fallbacks, without a browser.
+// Tech recovery poses (ADR 0030): animation selection, beat transitions and missing-art fallbacks, without a browser.
 //   npm run test:anims
 // Imports the engine's pure modules (src/game/techAnim.js, animPhase.js, moves.js, src/art/animGuide.js) and the real
 // FALLBACK / SheetAsset from src/game/sprites.js (location is stubbed: the module reads URL flags at load).

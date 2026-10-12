@@ -191,7 +191,7 @@ strips are redrawn to it, not the other way round).
 | largest minus smallest head inside one strip (a pop) | at most 12 points (`popTol` 0.12) |
 | hair | strands may move, but the hair MASS stays within ±8 % of the idle's (the ±6 % median plus a frame's noise) |
 
-**Beats the probe cannot read** (ADR 0029): `spec.scaleGate.lowConfPhases` lists, per animation, the beats whose poses
+**Beats the probe cannot read** (ADR 0030): `spec.scaleGate.lowConfPhases` lists, per animation, the beats whose poses
 the head probe cannot read (defaults: `techRoll` [1] the tumble, `wallTech` [0, 1] the rotated cling and push-off).
 Their frames are reported **not read** (the heads sheet labels them), the other frames are judged as usual, and a strip
 that passes on them is `partial`: not a pass. A candidate needs a `scaleManualQA` record of that version for the

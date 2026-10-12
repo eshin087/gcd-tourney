@@ -81,7 +81,7 @@ export function buildAnims(C) {
     [0.1, air({ root: { lean: -340 } }), 'linear'],
   ] };
 
-  // tech recoveries (ADR 0029): the engine plays them on the tech state's clock, beat by beat (phases = frames per
+  // tech recoveries (ADR 0030): the engine plays them on the tech state's clock, beat by beat (phases = frames per
   // beat: contact, main motion, settle), so the sample times here only set the default durations
   const brace = st({ squash: 0.84, spine: { lean: 28 }, lF: { sw: 52, kn: 94 }, lN: { sw: -24, kn: 82 }, aN: { sw: 72, ab: 18, el: 8 }, aF: { sw: -30, ab: 40, el: 44 }, face: 'angry' });
   A.techGround = { samples: [0, 0.067, 0.15, 0.233], end: 0.3, phases: [1, 2, 1], keys: [

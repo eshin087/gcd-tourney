@@ -132,7 +132,7 @@ export class Fighter {
     this.techAxis = null;
     this.techSign = 0;
     this.techedAt = -99; // clock of the last timed tech (the combo composer's end reason)
-    this.techArt = false; // the running tech has its dedicated strip in this fighter's sheet (ADR 0029)
+    this.techArt = false; // the running tech has its dedicated strip in this fighter's sheet (ADR 0030)
     this.wallJumpPose = 0; // frames the wall tech's push-off pose still shows over a wall jump (visual only)
     this.endMoveFx();
     this.actor.setVisible(true);
@@ -565,7 +565,7 @@ export class Fighter {
     this.techAxis = axis;
     this.techSign = sign;
     this.carry.set(0, 0);
-    // the dedicated strip (ADR 0029) when this fighter's sheet has it, else the poses the tech always showed
+    // the dedicated strip (ADR 0030) when this fighter's sheet has it, else the poses the tech always showed
     if (kind === 'wall') {
       this.techKind = 'wall';
       this.vel.set(0, 0, 0);
@@ -620,7 +620,7 @@ export class Fighter {
     }
   }
 
-  // ---- tech poses (ADR 0029, src/game/techAnim.js): the dedicated strip on the tech state's own clock when the
+  // ---- tech poses (ADR 0030, src/game/techAnim.js): the dedicated strip on the tech state's own clock when the
   // sheet has it (techArt), else the legacy pose free-running exactly as before. Never changes timing or movement.
   showTech(kind, beats) {
     const back = kind === 'roll' && rollBackward(this.vel.x, this.vel.z, this.face.x, this.face.y);
@@ -1061,7 +1061,7 @@ export class Fighter {
         freeAnim();
         break;
       case 'air': {
-        // a wall jump's first frames keep the wall tech's push-off pose (ADR 0029); the jump is actionable throughout
+        // a wall jump's first frames keep the wall tech's push-off pose (ADR 0030); the jump is actionable throughout
         const kick = this.wallJumpPose > 0;
         if (kick) this.actor.setPhase(TECH_ART.wall, 1, 1 - this.wallJumpPose-- / (DEFENSE.impactTech.wallJump.animFrames - 1));
         else this.actor.play(this.vel.y > 1.5 ? 'jumpUp' : 'jumpFall');
@@ -1816,7 +1816,7 @@ export class Fighter {
       x += camRight.x * s;
       z += camRight.z * s;
     }
-    // the wall strip (ADR 0029) is drawn against a wall at its left: on a wall at a screen side it faces away from the
+    // the wall strip (ADR 0030) is drawn against a wall at its left: on a wall at a screen side it faces away from the
     // wall (the drawn wall on the barrier); on a wall seen in depth it keeps facing the opponent, re-centred on the
     // fighter. Visual only: the fighter's facing for gameplay is untouched.
     let fx = this.face.x, fz = this.face.y;

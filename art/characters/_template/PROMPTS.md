@@ -889,7 +889,7 @@ Pose 3: upright, arms out, legs ready to land{{; NAME specifics}}.
 
 #### techGround
 
-Save as: `raw/techGround_vNN.png` · 4 poses · beats 1/2/1 · optional (tech, ADR 0029) · after the idle is approved
+Save as: `raw/techGround_vNN.png` · 4 poses · beats 1/2/1 · optional (tech, ADR 0030) · after the idle is approved
 
 ```text
 Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 4 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
@@ -909,7 +909,7 @@ Pose 4: the fighting stance, exactly like the approved idle's first pose (same f
 #### techRoll
 
 Save as: `raw/_parts/techRoll_vNN_A.png` (poses 1-3) and `raw/_parts/techRoll_vNN_B.png` (poses 4-6), joined with
-`npm run stitch -- <id> techRoll <vNN> --counts 3,3` · 6 poses · beats 1/4/1 · optional (tech, ADR 0029)
+`npm run stitch -- <id> techRoll <vNN> --counts 3,3` · 6 poses · beats 1/4/1 · optional (tech, ADR 0030)
 
 ```text
 Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 3 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
@@ -941,7 +941,7 @@ Pose 3: low crouch on both feet facing right, guard up, ready to stand{{; NAME s
 
 #### wallTech
 
-Save as: `raw/wallTech_vNN.png` · 5 poses · beats 2/1/2 · optional (tech, ADR 0029)
+Save as: `raw/wallTech_vNN.png` · 5 poses · beats 2/1/2 · optional (tech, ADR 0030)
 
 ```text
 Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 5 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.

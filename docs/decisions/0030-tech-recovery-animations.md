@@ -1,4 +1,4 @@
-# 0029: Tech recovery animations (techGround, techRoll, wallTech)
+# 0030: Tech recovery animations (techGround, techRoll, wallTech)
 
 **Status:** Proposed
 **Date:** 2026-10-11
