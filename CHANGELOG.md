@@ -10,6 +10,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+
+- Art (PR72, not on main yet): Gojo's title-style set with the user's 2026-10-11 approval recorded; light4 v08 re-stitch, true-scale fits for launched/getup/ko, manual scale records, hit boxes re-measured on the new art (heavy keeps its old box: the drawn elbow never reaches). Strict scale gate still fails on airLight3 and airHeavy (head drawn too small); special's part A head and fragments and run's repeated lead leg need new images.
 - art(gojo): add direct diagnostic playback for all 42 current candidate strips and three UI images in the draft preview, visibly labeled with strict-gate and motion holds.
 - art(gojo): clear down and KO cell clipping by measured whole-pose placement, retaining original lying pixels and unresolved floor-contact holds.
 - art(gojo): preserve launched v04 reaction pixels in v06 with measured offsets that clear cell clipping; retain its low-confidence scale hold and diagnostic native contact.
