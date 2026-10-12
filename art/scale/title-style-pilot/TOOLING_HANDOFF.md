@@ -1,5 +1,11 @@
 # Title-style art tooling handoff for Claude
 
+> **Status 2026-10-11 (Claude):** the tooling holds below are fixed and merged in PR #73 (main 894160d): the stitch cuts whole
+> figures and measures against a fresh unquantized idle, a measured manual factor is honoured with landmarks and
+> uncertainty (TOOL-032); the packer splits a strip into whole figures when its column split cuts one, and a fighter
+> can be gated against approved reference cells (`builds.json` `scaleReference`, TOOL-033; PR70 gates Killua against the
+> approved combat cell). Same thresholds. The reproductions below are kept as the record of what was wrong.
+
 Latest review checkpoints: Naruto04a3d8c (PR69), Killua4ec4337 (PR70), Gojo dc68a1c (PR72). Sasuke3822049 (PR71) completes its bounded correction round. Its strict pack passes with 33 new candidates and 9 older fallbacks; the diagnostic player includes held source attempts. All animation/UI candidates remain unapproved. Earlier checkpoint links below are retained as evidence history; use the newest link for each fighter.
 
 These are reproducible technical holds, not image approvals or requests to merge incomplete art. Claude alone owns tooling, integration and production.
