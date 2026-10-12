@@ -1,0 +1,55 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { loadPacked } from '../../../../../tools/scale-audit.mjs';
+import { bbox, blit, encodePng, newImage } from '../../../../../tools/pack-sprites.mjs';
+const base = 'art/characters/naruto/production/round2-next';
+const fixture = base + '/fixture';
+const asset = process.argv[2];
+const source = process.argv[3];
+const version = Number(process.argv[4]);
+const m = JSON.parse(fs.readFileSync('art/manifest.json'));
+const c = structuredClone(m.characters.naruto);
+c.animations = { idle: c.animations.idle, ...(asset === 'idle' ? {} : { [asset]: c.animations[asset] }) };
+delete c.ui; delete c.reference;
+c.animations[asset].version = version;
+// A diagnostic fixture keeps production gate thresholds and anatomy data unchanged.
+fs.mkdirSync(fixture + '/characters/naruto/raw', { recursive: true });
+fs.mkdirSync(fixture + '/scale', { recursive: true });
+fs.writeFileSync(fixture + '/manifest.json', JSON.stringify({ ...m, characters: { naruto: c } }, null, 2));
+fs.copyFileSync('art/scale/builds.json', fixture + '/scale/builds.json');
+const dir = fixture + '/characters/naruto/raw';
+for (const f of fs.readdirSync(dir)) fs.unlinkSync(dir + '/' + f);
+fs.copyFileSync('art/characters/naruto/raw/idle_v07.png', dir + '/idle_v07.png');
+if (fs.existsSync('art/characters/naruto/raw/idle_v07.json')) fs.copyFileSync('art/characters/naruto/raw/idle_v07.json', dir + '/idle_v07.json');
+fs.copyFileSync(source, dir + '/' + asset + '_v' + String(version).padStart(2, '0') + '.png');
+const side = source.replace(/\.png$/, '.json');
+if(fs.existsSync(side)) fs.copyFileSync(side, dir + '/' + asset + '_v' + String(version).padStart(2, '0') + '.json');
+const out = base + '/packed-' + asset;
+const args = ['tools/pack-sprites.mjs', 'naruto', '--quantize', '48', '--strict-scale', '--root', fixture, '--out', out, '--no-writeback'];
+let r = spawnSync(process.execPath, args, { encoding: 'utf8' });
+fs.writeFileSync(base + '/' + asset + '-strict.txt', r.stdout + r.stderr);
+console.log(asset, 'STRICT EXIT', r.status, r.stdout.slice(-2200));
+// Unmeasured poses and failures get warning-mode pixels for diagnosis, not a claimed pass.
+if(r.status) {
+  c.scaleGate = 'warn';
+  fs.writeFileSync(fixture + '/manifest.json', JSON.stringify({ ...m, characters: { naruto: c } }, null, 2));
+  r = spawnSync(process.execPath, args.filter(v => v !== '--strict-scale'), { encoding: 'utf8' });
+  fs.writeFileSync(base + '/' + asset + '-diagnostic.txt', r.stdout + r.stderr);
+}
+const P = loadPacked('naruto', path.resolve(out));
+const cells = P.anims.find(a => a.name === asset)?.cells;
+if(!cells) throw Error('Missing packed animation');
+const reference = P.anims.find(a => a.name === 'idle').cells[0];
+const image = newImage((cells.length + 1) * 256, 256);
+blit(image, reference, 0, 0);
+cells.forEach((p,i) => blit(image, p, (i+1)*256, 0));
+fs.writeFileSync(base + '/' + asset + '-native.png', encodePng(image));
+fs.writeFileSync(base + '/' + asset + '-f0.png', encodePng(cells[0]));
+const metrics = { version, bounds: cells.map(p => bbox(p)), audit: P.meta.scaleAudit };
+fs.writeFileSync(base + '/' + asset + '-metrics.json', JSON.stringify(metrics,null,2));
+const scaleOut = base + '/scale-' + asset;
+const scale = spawnSync(process.execPath, ['tools/scale-audit.mjs','naruto','--root',fixture,'--public',out,'--out',scaleOut], {encoding:'utf8'});
+fs.writeFileSync(base + '/' + asset + '-scale.txt', scale.stdout + scale.stderr);
+console.log(JSON.stringify(metrics));
+
