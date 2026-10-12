@@ -73,6 +73,9 @@ Naruto (`art/naruto-title-production`):
 - [ ] light2 v05/v06 boots (1.36-1.42x), light4 A/B size step, stagger repeated phases: only if the user asks.
 
 Sasuke (`art/sasuke-title-production`), all budgets 0 (extra authorization needed for each):
+- [ ] heavy v10: the kicking leg in the high kick (f3-f4) is drawn ~1.7x his standing leg; redraw with true leg length.
+- [ ] backDash v05: f0/f2 stand fully upright (~212 px vs the 177 px combat idle), so he grows on every backstep; keep
+      the backstep near his fighting crouch.
 - [ ] charge v11: the user sees it as bigger: the head is the idle's size but the powered stance is drawn bulkier
       (bigger torso and arms); redraw at the idle's build.
 - [ ] throw (title-style): v05 head drawn too big (drift 1.14) and clipped; the original v01 ships meanwhile.
