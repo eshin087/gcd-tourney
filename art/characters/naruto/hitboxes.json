@@ -9,7 +9,7 @@
   "_hands": "hand: palm/fingertip point (256 cell) for hand effects, shots and beams, measured by Claude 2026-10-11 on the title-style art (throw v09, beamCharge v08, beamFire v12, special v08, specialForward v04): the Rasengan forms between the cupped hands (special f0-f1: midpoint of the two hands, about 13-15 px from each), then sits in the R palm (f2-f5; the post-hit recovery frames keep f5's point, the impact); the Rasenshuriken sits on the raised palm (specialForward f0-f1), then the thrust palm (f2-f3; recovery keeps f3's point); shuriken leave the open R hand (throw f1, f2 = follow-through hand); the beam leaves the front of both palms (beamFire); beamCharge marks the pocket between the cupped hands at the rear hip.",
   "special": {"0": {"hand": [163, 139]}, "1": {"hand": [160, 149]}, "2": {"hand": [200, 146]}, "3": {"hit": [[174, 142, 27, 24]], "hand": [188, 150]}, "4": {"hit": [[202, 130, 29, 24]], "hand": [217, 141]}, "5": {"hand": [231, 123]}},
   "specialForward": {"0": {"hand": [164, 44]}, "1": {"hand": [166, 55]}, "2": {"hand": [242, 114]}, "3": {"hand": [242, 114]}},
-  "throw": {"1": {"hand": [214, 127]}, "2": {"hand": [205, 160]}},
-  "beamCharge": {"0": {"hand": [99, 151]}, "1": {"hand": [98, 151]}, "2": {"hand": [98, 152]}},
+  "throw": {"1": {"hand": [216, 124]}, "2": {"hand": [207, 158]}, "_refit": "scaled x1.0277 about the pivot with the strip's bodyHeight 163 -> 168 (size consistency pass, 2026-10-11)"},
+  "beamCharge": {"0": {"hand": [100, 153]}, "1": {"hand": [99, 153]}, "2": {"hand": [99, 154]}, "_refit": "scaled x0.9804 about the pivot with the strip's bodyHeight 174 -> 171 (size consistency pass, 2026-10-11)"},
   "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}}
 }
