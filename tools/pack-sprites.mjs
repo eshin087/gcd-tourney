@@ -1854,6 +1854,7 @@ function fitHeads(id, anims, env, R) {
     const s = A.anims?.[a.def.name];
     if (!s || s.verdict !== 'uniform') {
       a.notes.push(`auto-head: ${s ? `verdict ${s.verdict}${s.head != null ? ` (head ${s.head.toFixed(2)})` : ''}` : A.error} - not fitted (only a uniform size error is)`);
+      R.warnings.push(...a.fit.placeWarn); // not fitted: the pre-fit cells are the ones that ship
       continue;
     }
     let f = 1 / s.head;
@@ -2048,11 +2049,16 @@ function packCharacter(id, env) {
         cells.push(cell);
       });
       const fitAdvice = anatomyScales ? 'repose or reposition while preserving anatomical scale' : 'lower bodyHeight or redraw';
-      if (clipped.length) warn(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; ${fitAdvice}`);
-      if (tight.length) warn(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; ${fitAdvice}`);
+      // a strip that asks for the auto head fit is placed again at its fitted size (fitHeads), so its clip and margin
+      // warnings wait for that: the pre-fit cells are discarded and their warnings described pixels that never ship
+      // (Sasuke special v13: "clipped 15px" for a fitted frame that sits inside the cell)
+      const placeWarn = [];
+      if (clipped.length) placeWarn.push(`${alabel}: ${clipped.length} frame(s) clipped by the ${spec.frameWidth}x${spec.frameHeight} cell (${clipped.join(', ')}) - pose too wide/tall for the pivot; ${fitAdvice}`);
+      if (tight.length) placeWarn.push(`${alabel}: ${tight.length} frame(s) reach into the ${spec.cellMargin}px cell margin (${tight.join(', ')}) - keep every pixel inside x ${spec.cellMargin}..${spec.frameWidth - 1 - spec.cellMargin}, y >= ${spec.cellMargin}; ${fitAdvice}`);
+      if (!(fitHead && src.kind === 'raw')) placeWarn.forEach(warn);
       if (cells.length !== def.frames) warn(`${alabel}: ${cells.length} frame(s), manifest expects ${def.frames}${def.phases ? ` (phases rescaled to ${rescalePhases(def.phases, cells.length).join('/')})` : ''}`);
       // fit: what the auto head fit needs to rescale a raw strip after the scale audit (raw sources only)
-      const fit = fitHead && src.kind === 'raw' ? { sprites, scales: frameScales.slice(), frameOffsets, wallFrames } : null;
+      const fit = fitHead && src.kind === 'raw' ? { sprites, scales: frameScales.slice(), frameOffsets, wallFrames, placeWarn } : null;
       if (fitHead && src.kind !== 'raw' && autoHead == null) notes.push('auto-head fit needs the raw source (frames/ were hand-edited or the raw is gone) - not fitted');
       anims.push({ def, cells, scale, frameScales, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade, fitHead, autoHead, fit });
     } catch (e) {
