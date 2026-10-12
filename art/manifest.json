@@ -329,7 +329,7 @@
           "step": 4,
           "status": "approved",
           "version": 12,
-          "approvedVersion": 8
+          "approvedVersion": 12
         },
         "dash": {
           "frames": 2,
@@ -643,8 +643,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 9,
-          "approvedVersion": 7
+          "version": 8,
+          "approvedVersion": 8
         },
         "guard": {
           "frames": 2,
@@ -962,7 +962,7 @@
           "step": 7,
           "status": "approved",
           "version": 7,
-          "approvedVersion": 5
+          "approvedVersion": 7
         },
         "intro": {
           "frames": 4,
