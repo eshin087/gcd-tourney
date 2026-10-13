@@ -1,0 +1,93 @@
+{
+  "fighter": "sasuke",
+  "authorization": "Round4 user decision: up to3 NEW calls per named or measured-failed image; no automatic reset",
+  "beforeRound4": "Existing version history is preserved; no claim about unknown earlier cumulative call totals.",
+  "approval": "None. Selected candidates and earlier prematurely filed attempts all need review; no anatomical pass.",
+  "images": {
+    "superDash": {
+      "selected": "art/characters/sasuke/raw/superDash_v07.png",
+      "round4Calls": 3,
+      "remainingRound4Calls": 0,
+      "sha256": "5f67a214dc6c4e8f680aa32083d83b0fe81f384add9bd68f53506407d6989a14",
+      "earlierFiled": [
+        "v06"
+      ],
+      "anatomyFit": "Packer measured auto-head, no bodyHeight/offset changes"
+    },
+    "jumpSquat": {
+      "selected": "art/characters/sasuke/raw/jumpSquat_v06.png",
+      "round4Calls": 3,
+      "remainingRound4Calls": 0,
+      "sha256": "5a100831589c45c9d4207b687b2ddc22800954bb058482677de774fcd67ed741",
+      "earlierFiled": [
+        "v04",
+        "v05"
+      ],
+      "anatomyFit": "Legacy pose-height packing; no manual pass entered"
+    },
+    "beamFire": {
+      "selected": "art/characters/sasuke/raw/beamFire_v07.png",
+      "round4Calls": 3,
+      "remainingRound4Calls": 0,
+      "sha256": "281088c67ef774351943b130cbe2dffe25a8ac219f4b612c975d955b180b4d4c",
+      "earlierFiled": [
+        "v06"
+      ],
+      "anatomyFit": "Packer measured auto-head, no bodyHeight/offset changes"
+    },
+    "dash": {
+      "selected": "art/characters/sasuke/raw/dash_v07.png",
+      "round4Calls": 2,
+      "remainingRound4Calls": 1,
+      "sha256": "65fd971a7d230854855d7cb4c82c3fdbf3f86610bb3d43acc1e5659c7143814e",
+      "earlierFiled": [
+        "v06"
+      ],
+      "anatomyFit": "Legacy pose-height packing; no manual pass entered"
+    }
+  },
+  "calls": {
+    "superDash": [
+      "exec-5aee464d-d650-447d-9ba0-c69901aa5164.png",
+      "exec-c7685533-4ddc-45c2-aaed-e08de2bd0f49.png",
+      "exec-95579d81-cd34-4e85-a039-775ce99461e9.png"
+    ],
+    "jumpSquat": [
+      "exec-a5037d85-e9de-4b3a-825e-24ba07d9cb15.png",
+      "exec-7ce11de0-5007-4908-8205-a98f3075bd1f.png",
+      "exec-da33183a-9c67-4a55-8697-39cd118d323f.png"
+    ],
+    "beamFire": [
+      "exec-3ac8cc3b-b83a-49ad-b506-3a215143acda.png",
+      "exec-46c9bcd1-34cb-4620-afae-1941ca8302a8.png",
+      "exec-d92685e8-1bcc-4d4f-8f62-9d5f0d6c1c8d.png"
+    ],
+    "dash": [
+      "exec-177e3bd7-bac6-4082-aad6-ca1bf8feed8f.png",
+      "exec-716ab526-5c05-4619-b8c9-70f57e309bf4.png"
+    ]
+  },
+  "toolOutputDirectory": "E:/Vibe Coding/.codex/generated_images/01a13383-bc11-7ea3-9efb-19487cca400a/",
+  "suspectsNotRedrawn": [
+    "run v05",
+    "airLight3 v07",
+    "specialUp v09",
+    "hurtLow v03",
+    "airRecover v01"
+  ],
+  "whyNotRedrawn": "Inspected every frame; broad joint/crown-jaw uncertainty prevents +/-6% certification and prevents an evidenced failure. Garment-area warnings alone are not failures.",
+  "sourceInputs": {
+    "reference/idle_approved.png": "e2a9a1f44bef56a16cfb4807f5539179e7140607e2056e08772649435fb1680c",
+    "reference/model_sheet.png": "821cd5592798a5885800ffa2c8987d0eb1c4657c21166981325782c9068153a5",
+    "reference/expressions.png": "55ebcb0e570327444f1a244d1b315861d0e159551fc68ed6aca51c220180a758"
+  },
+  "approvedCombat": "4b1c4fec691c6d29e42be5e02ee5f1b72c431f0df281ce8122276b93e3e185d7",
+  "productionAtlas": "b2a847f90d261ccc20ecb801442b63150a0ab422ab6be2913ac29b6927aad0f4",
+  "diagnosticAtlas": "92fefb5770f429da4ce3cafbd70ee3a07b7f3eba26d51595cc438c081af92e50",
+  "claudeOwns": [
+    "bodyHeight",
+    "frameOffsets",
+    "contact/hitbox integration",
+    "integration"
+  ]
+}

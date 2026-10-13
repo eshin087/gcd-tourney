@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sasuke round4 candidate review</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;background:#171b27;color:#edf0fa;max-width:1180px;margin:auto;padding:20px}h1{font-size:26px}a{color:#9ecaff}button,select{padding:9px;border-radius:6px;background:#30394f;color:white;border:1px solid #69708a;margin:4px}canvas{image-rendering:pixelated;background:#2d2d2d;width:256px;height:256px;max-width:100%}.row{display:flex;gap:12px;flex-wrap:wrap}figure{margin:0}figcaption{font-size:14px;max-width:256px}.hold{border-left:5px solid #ffb354;background:#392b28;padding:14px}.source{width:100%;image-rendering:pixelated}table{border-collapse:collapse;font-size:13px;width:100%}td,th{padding:6px;border:1px solid #69708a;vertical-align:top}section{overflow:auto}details{margin:16px 0}pre{white-space:pre-wrap}#audit p{white-space:pre-wrap}
+</style>
+<h1>Sasuke round4 — candidates need review</h1>
+<p class="hold">No strip has a full anatomical ±6% pass. SuperDash v07 clips 10/4px at the right edge after measured auto fit. JumpSquat v06 remains a low-confidence strict-gate hold. Other measurements include unresolved covered joints and crown-to-chin axis uncertainty. This page shows a diagnostic 48-color render; the production atlas below is the prior pack. No approval or production integration has occurred.</p>
+<p>Inspect identity, pose and body consistency against idle and the approved combat cell. The frame tables record numerical uncertainty. A matching hair probe or garment-area number alone passes nothing.</p>
+<select id="anim" aria-label="Animation"></select><button id="play">Pause</button><button id="prev">Previous frame</button><button id="next">Next frame</button><select id="speed" aria-label="Playback speed"><option value="1">Normal</option><option value=".5">Half speed</option><option value=".25">Quarter speed</option></select><span id="frame"></span>
+<div class="row">
+<figure><canvas id="idle" width="256" height="256"></canvas><figcaption>Idle v07, fixed density</figcaption></figure>
+<figure><canvas id="combat" width="256" height="256"></canvas><figcaption>Approved combat cell v01, fixed density</figcaption></figure>
+<figure><canvas id="candidate" width="256" height="256"></canvas><figcaption id="candidate-caption">Diagnostic candidate</figcaption></figure>
+<figure><canvas id="production" width="256" height="256"></canvas><figcaption id="production-caption">Production atlas before round4</figcaption></figure>
+</div>
+<p id="loaded">Loading…</p>
+<details open><summary>Selected sources — all need review</summary><div id="sources"></div></details>
+<details><summary>Body sheets (advisory garment-area labels)</summary><p>Each cell is shown beside idle and the exact approved combat cell. B is a noisy garment-area proxy; the segment audit below is the relevant constraint.</p><a href="body-production.png">Production body sheet</a> · <a href="body-candidate.png">Diagnostic candidate body sheet</a> · <a href="heads-production.png">Production hair probe</a> · <a href="heads-candidate.png">Diagnostic candidate hair probe</a></details>
+<details><summary>Every-frame comparisons at 3x with coordinate grids</summary><div id="grids"></div></details>
+<details open><summary>Numeric audit and limits</summary><section id="audit"></section></details>
+<p><a href="audit.md">Audit source</a> · <a href="inventory.json">Calls, versions and hashes</a> · <a href="/?fight=sasuke,sasuke&mode=solo&art=custom&debug">Game using preserved production sheet</a></p>
+<script type="module">
+const ids=['superDash','jumpSquat','beamFire','dash','run','airLight3','specialUp','hurtLow','airRecover'];
+const versions={superDash:'v07',jumpSquat:'v06',beamFire:'v07',dash:'v07'};
+const byId=id=>document.getElementById(id);
+const img=src=>new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(Error('Image failed: '+src));i.src=src;});
+const get=async p=>{const r=await fetch(p);if(!r.ok)throw Error(p+' '+r.status);return r.json();};
+let playing=true,f=0,last=0;
+for(const n of ids)byId('anim').add(new Option(n+(versions[n]?' '+versions[n]:' (unchanged)'),n));
+const [p,c,pm,cm,combat]=await Promise.all([img('production/sheet.png'),img('candidate/sheet.png'),get('production/anims.json'),get('candidate/anims.json'),img('combat.png')]);
+function cell(id,image,index){const ctx=byId(id).getContext('2d');ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,256,256);ctx.drawImage(image,(index%16)*256,Math.floor(index/16)*256,256,256,0,0,256,256);}
+function draw(){const n=byId('anim').value,a=cm.animations[n],old=pm.animations[n];f=((f%a.frames.length)+a.frames.length)%a.frames.length;cell('idle',p,pm.animations.idle.frames[0]);cell('candidate',c,a.frames[f]);cell('production',p,old.frames[f%old.frames.length]);const ctx=byId('combat').getContext('2d');ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,256,256);ctx.drawImage(combat,0,0);byId('frame').textContent=`Frame ${f} / ${a.frames.length-1}`;byId('candidate-caption').textContent=versions[n]?`${n} ${versions[n]} diagnostic — needs review`:`${n} unchanged diagnostic`;byId('production-caption').textContent=`${n} prior production pack`;
+byId('grids').replaceChildren();for(let k=0;k<a.frames.length;k++){const row=document.createElement('p');for(const [label,path]of [['Production','baseline'],['Diagnostic','final-candidates']]){const l=document.createElement('a');l.href=`${path}/${n}-${k}.png`;l.textContent=`${label} f${k} `;row.append(l);}byId('grids').append(row);}}
+function tick(t){const a=cm.animations[byId('anim').value];const ms=Array.isArray(a.ms)?a.ms[f]:100;if(playing&&t-last>ms/Number(byId('speed').value)){f++;draw();last=t;}requestAnimationFrame(tick);}
+byId('anim').onchange=()=>{f=0;draw();};byId('play').onclick=()=>{playing=!playing;byId('play').textContent=playing?'Pause':'Play';};for(const [id,delta]of [['prev',-1],['next',1]])byId(id).onclick=()=>{playing=false;byId('play').textContent='Play';f+=delta;draw();};
+for(const [n,v]of Object.entries(versions)){const d=document.createElement('details');const summary=document.createElement('summary');summary.textContent=`${n} ${v} — needs review`;const im=document.createElement('img');im.src=`${n}_${v}.png`;im.className='source';im.alt=`${n} ${v} source candidate`;d.append(summary,im);byId('sources').append(d);}
+const audit=await (await fetch('audit.md')).text();let table=null;for(const line of audit.split('\n')){if(line.startsWith('|')){if(/^\|[-:| ]+\|$/.test(line))continue;if(!table){table=document.createElement('table');byId('audit').append(table);}const tr=document.createElement('tr');for(const value of line.split('|').slice(1,-1)){const td=document.createElement('td');td.textContent=value.trim();tr.append(td);}table.append(tr);}else{table=null;if(!line.trim())continue;const el=document.createElement(line.startsWith('#')?'h3':'p');el.textContent=line.replace(/^#+ /,'');byId('audit').append(el);}}
+byId('loaded').textContent='Both complete atlas images and metadata loaded. Candidate frames use the diagnostic pack; game link uses the preserved production atlas.';draw();requestAnimationFrame(tick);
+</script>
