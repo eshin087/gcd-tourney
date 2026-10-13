@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo G/H/I review-only run/glide studies following D, with relaxed swing, one-pocket and low floating arm treatments; versioned sources, eight-frame contacts, playable GIF/MP4 and verified embedded demo. Measured density correction clears neutral head probe; leg/seam review holds remain. Production runv12 unchanged.
+
 - Gojo D/E/F eight-frame run/glide direction studies: versioned review-only sources,48color native cells, contact sheets, GIF/MP4, embedded offline demo and browser/media QA; earlier B/C rejected. Production runv12 unchanged; scale/anatomy/leg-continuity holds remain.
 
 - Art follow-up (2026-10-12): recorded Sasuke/Killua/Gojo movement scale feedback and Gojo run/glide concept request. Round-3 production stopped at denied real worktree creation; no new candidates or production changes.
