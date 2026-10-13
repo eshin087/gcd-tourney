@@ -1,0 +1,36 @@
+{
+  "guard09": {
+    "coordinates": "raw1536x1024 first figure",
+    "head": {
+      "crown": [
+        493,
+        146
+      ],
+      "chin": [
+        511,
+        340
+      ],
+      "errorPx": 6
+    },
+    "solesY": 900,
+    "leg": {
+      "hip": [
+        483,
+        530
+      ],
+      "knee": [
+        574,
+        658
+      ],
+      "ankle": [
+        632,
+        792
+      ],
+      "errorPx": 18
+    },
+    "note": "Raw visible landmarks, hip under clothing uncertain; head~195 occupied754. AtH40 inferred height155±5, leg62±5; not a packed PASS."
+  },
+  "superDash08": {
+    "note": "NativeH34±2,L44–45±6, head-scaled L52–53±8 overlaps baseline61±6; shoulder/hip concealed, pitched axes. INCONCLUSIVE; preserve1remainingcall until evidenced failure. Strict head0.832 HOLD."
+  }
+}

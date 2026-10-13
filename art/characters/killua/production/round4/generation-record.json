@@ -1,0 +1,97 @@
+{
+  "tool": "built-in image_gen",
+  "generatedRoot": "E:/Vibe Coding/.codex/generated_images/01a13383-8f65-7d82-a672-bb7e6799546a",
+  "calls": [
+    {
+      "asset": "idleA",
+      "roundCall": 1,
+      "generatedFile": "exec-8a2cdae3-51e9-4bdc-bb8d-a12dd4fe048f.png",
+      "filed": "idle09A"
+    },
+    {
+      "asset": "idleB",
+      "roundCall": 1,
+      "generatedFile": "exec-17bc4609-c160-4bbd-a751-52e129ff902b.png",
+      "filed": "idle09B"
+    },
+    {
+      "asset": "guard",
+      "roundCall": 1,
+      "generatedFile": "exec-84f4a547-d575-49e6-8ec8-17a1b0131f57.png",
+      "filed": "guard08"
+    },
+    {
+      "asset": "superDash",
+      "roundCall": 1,
+      "generatedFile": "exec-38fe23ad-45c4-4ea5-8b99-be7e37287e97.png",
+      "filed": "superDash07"
+    },
+    {
+      "asset": "stagger",
+      "roundCall": 1,
+      "generatedFile": "exec-f89a6561-b659-44d0-8ccc-cc666a394b7e.png",
+      "filed": "stagger06"
+    },
+    {
+      "asset": "win",
+      "roundCall": 1,
+      "generatedFile": "exec-3967576b-15dd-4a32-8d89-3457cc694750.png",
+      "filed": "win05"
+    },
+    {
+      "asset": "stagger",
+      "roundCall": 2,
+      "generatedFile": "exec-58f4f315-d56d-4927-afc2-8d7f1dbc49dc.png",
+      "filed": "unsaved"
+    },
+    {
+      "asset": "stagger",
+      "roundCall": 3,
+      "generatedFile": "exec-7ff7455e-76d1-49f6-b9bf-a8de2d686551.png",
+      "filed": "stagger07"
+    },
+    {
+      "asset": "superDash",
+      "roundCall": 2,
+      "generatedFile": "exec-ac5f6bc6-f920-4c23-a696-5c4efd3c0230.png",
+      "filed": "superDash08"
+    },
+    {
+      "asset": "idleA",
+      "roundCall": 2,
+      "generatedFile": "exec-7fca76f5-9331-4c6e-a7ee-0a03b7216e53.png",
+      "filed": "idle10A"
+    },
+    {
+      "asset": "idleB",
+      "roundCall": 2,
+      "generatedFile": "exec-158c411f-0494-4d2c-9e4e-f81feb549063.png",
+      "filed": "idle10B"
+    },
+    {
+      "asset": "idleA",
+      "roundCall": 3,
+      "generatedFile": "exec-f5598460-abcb-49b2-a933-ad213548844e.png",
+      "filed": "idle11A"
+    },
+    {
+      "asset": "idleB",
+      "roundCall": 3,
+      "generatedFile": "exec-69caf24c-7d6c-46d2-8a05-4da4b0917cf4.png",
+      "filed": "idle11B"
+    },
+    {
+      "asset": "guard",
+      "roundCall": 2,
+      "generatedFile": "exec-865b1704-fec6-4025-b475-653d86b3b952.png",
+      "filed": "guard09"
+    }
+  ],
+  "referenceHashes": {
+    "reference/model_sheet.png": "07f9ab5dce6167044d84c52598e43f6e9a05944aa89dcff86d339d9445ff149b",
+    "reference/expressions.png": "d0cbf270247593afe5d04f999f261e528001eef4f6ff833892bbed31ff284450",
+    "reference/idle_approved.png": "73d87aab785a12fc2d4820f2d7fb32fddd6f89f67e53e9bbb8a76bd1de6a3100",
+    "reference/title_style_combat_cell_v01.png": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6"
+  },
+  "notes": "Exact prompts remain in tool history; summary is not claimed as an exact transcript. A3/B3 target head40/body158 by longer approved leg chains and less knee bend, no uniform scaling. Guard2 targets40/154 through leg/torso/posture; previous source poses too squat. Stagger3 exhausted; no further calls. All approved fixed reference files unchanged."
+}
