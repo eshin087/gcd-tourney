@@ -75,11 +75,12 @@ export function auditPacked(id, { artDir = path.join(ROOT, 'art'), publicDir = p
 }
 
 // ------------------------------------------------------------------ drawing
-// 3x5 pixel font for labels (digits, capitals and a few signs), so the sheets need no font files.
-const GLYPHS = {
+// 3x5 pixel font for labels (digits, capitals and a few signs), so the sheets need no font files. Shared with
+// tools/body-sheet.mjs, as are the drawing helpers below.
+export const GLYPHS = {
   0: '111101101101111', 1: '010110010010111', 2: '111001111100111', 3: '111001111001111', 4: '101101111001001', 5: '111100111001111',
   6: '111100111101111', 7: '111001010010010', 8: '111101111101111', 9: '111101111001111', '.': '000000000000010', '-': '000000111000000',
-  '+': '000010111010000', ':': '000010000010000', '/': '001001010100100', '%': '101001010100101', ' ': '000000000000000', '?': '111001011000010',
+  '+': '000010111010000', ',': '000000000010100', ':': '000010000010000', '/': '001001010100100', '%': '101001010100101', ' ': '000000000000000', '?': '111001011000010',
   '(': '010100100100010', ')': '010001001001010', '=': '000111000111000', '<': '001010100010001', '>': '100010001010100',
   A: '010101111101101', B: '110101110101110', C: '011100100100011', D: '110101101101110', E: '111100110100111', F: '111100110100100',
   G: '011100101101011', H: '101101111101101', I: '111010010010111', J: '001001001101010', K: '101101110101101', L: '100100100100111',
@@ -88,17 +89,17 @@ const GLYPHS = {
   Y: '101101010010010', Z: '111001010100111',
 };
 
-function canvas(w, h, bg) {
+export function canvas(w, h, bg) {
   const img = new PNG({ width: w, height: h });
   for (let i = 0; i < img.data.length; i += 4) { img.data[i] = bg[0]; img.data[i + 1] = bg[1]; img.data[i + 2] = bg[2]; img.data[i + 3] = 255; }
   return img;
 }
-function px(img, x, y, c) {
+export function px(img, x, y, c) {
   if (x < 0 || y < 0 || x >= img.width || y >= img.height) return;
   const i = (y * img.width + x) * 4;
   img.data[i] = c[0]; img.data[i + 1] = c[1]; img.data[i + 2] = c[2]; img.data[i + 3] = 255;
 }
-function text(img, x, y, s, c, sc = 2) {
+export function text(img, x, y, s, c, sc = 2) {
   for (const ch of String(s).toUpperCase()) {
     const g = GLYPHS[ch] ?? GLYPHS['?'];
     for (let r = 0; r < 5; r++) for (let q = 0; q < 3; q++) if (g[r * 3 + q] === '1') for (let dy = 0; dy < sc; dy++) for (let dx = 0; dx < sc; dx++) px(img, x + q * sc + dx, y + r * sc + dy, c);
@@ -112,7 +113,7 @@ function frame(img, x0, y0, x1, y1, c, dotted = false, clip = null) {
   for (let y = y0; y <= y1; y++) if (!dotted || y % 2 === 0) { dot(x0, y); dot(x1, y); }
 }
 // a cell region (sx, sy, w, h) at scale sc into the canvas at (ox, oy); transparent pixels stay background
-function blitCell(img, cell, sx, sy, w, h, ox, oy, sc) {
+export function blitCell(img, cell, sx, sy, w, h, ox, oy, sc) {
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
     const X = sx + x, Y = sy + y;
     if (X < 0 || Y < 0 || X >= cell.w || Y >= cell.h) continue;
