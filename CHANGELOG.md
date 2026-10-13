@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Round-4 fighter scale consistency work started in isolated sparse worktrees with one sub-agent per fighter; every visible body segment is measured in the packed atlas. Naruto attack alts remain gated on ENG-081 landing on main; Gojo run direction studies and round-3 candidates are preserved.
+
 - Record user rejection of prior Gojo B/C movement studies and link D/E/F review deliverables in the existing managed worktree; production runv12 unchanged.
 
 - Review recovery (2026-10-12, OPS-PERM-20261012): saved a durable, self-contained Gojo B/C HTML comparison and v02 GIF/frame exports in docs after TEMP expired; no new drawing call or production-art change. Prepared a root-relative workspace permission edit and separate Git/local-preview verification guide; no configuration, ACL, worktree or production deployment changed.
