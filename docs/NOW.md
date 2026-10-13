@@ -13,9 +13,18 @@ paused._
    `art/killua-title-r3`, `art/sasuke-title-r3`, `art/naruto-title-r3` worktrees and Gojo's existing managed
    worktree. New images remain candidates. Full visible-segment measurements, strict pack results and
    calibration holds will be attached to the review rows; the head probe alone passes nothing.
-   Naruto's 11 attack alts still wait for Claude's ENG-081 on main. ART-TECH-01 stays paused.
-3. **Review the round-4 candidates as Codex files them.** Claude's audit found the cause: each strip's head
-   matches the idle, but its body can be 10-25 % off.
+   ENG-081 is now on main (`8ebe9c0`); Naruto's 11 attack alts are being prepared on `art/naruto-alts`,
+   with frame tables and current hitbox contracts checked before drawing. Gojo's preserved branch is
+   being recovered into `.worktrees/art-gojo-title-r3`. ART-TECH-01 stays paused.
+3. **Sasuke and Naruto round-4 previews are ready for direction review, with anatomy holds.**
+   [Sasuke](https://gcd-tourney-b4s5hamum-eshin087s-projects.vercel.app/reviews/sasuke-round4/index.html)
+   has superDash v07, jumpSquat v06, beamFire v07 and dash v07; the packed superDash clips its leading fist.
+   [Naruto](https://gcd-tourney-pwvs5k8dg-eshin087s-projects.vercel.app/reviews/naruto-round4/index.html)
+   has stagger v06, taunt v07 and win v08; packed heads remain oversized.
+   Killua's latest idle v11, guard v09, superDash v08, stagger v07 and win v05 also remain held;
+   the review page is being updated to show the selected loops clearly. The
+   [independent audit](../deliverables/round4-qa/astra-three-fighters_v01.md) records all three HOLD results.
+   Gojo's six measured failures and Naruto's alts are still in progress. No candidate is approved or merged.
 
 ## Generated status
 

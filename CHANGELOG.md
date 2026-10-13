@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Independent round-4 Astra audit records HOLD findings across 123 Sasuke, Killua and Naruto frame instances, with exact atlas hashes and native comparison sheets; review previews remain unapproved diagnostic output.
+
 - ENG-081 opened the Naruto attack-alt pilot gate; a Luna worker is preparing frame tables in `art/naruto-alts`, and Astra performs the independent final anatomy audit. The vanished external Gojo checkout is being recovered from its preserved branch and backed-up measurements into a real project worktree.
 
 - Changed: future Codex agents use GPT-6 Luna with medium reasoning for all work except final anatomy/scale audits, which use GPT-6 Astra with medium reasoning; matched policy in AGENTS.md and CLAUDE.md preserves user art approval (OPS-008).
