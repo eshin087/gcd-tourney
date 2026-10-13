@@ -14,6 +14,15 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Gojo G/H/I review-only run/glide studies following D, with relaxed swing, one-pocket and low floating arm treatments; versioned sources, eight-frame contacts, playable GIF/MP4 and verified embedded demo. Measured density correction clears neutral head probe; leg/seam review holds remain. Production runv12 unchanged.
 
 - Gojo D/E/F eight-frame run/glide direction studies: versioned review-only sources,48color native cells, contact sheets, GIF/MP4, embedded offline demo and browser/media QA; earlier B/C rejected. Production runv12 unchanged; scale/anatomy/leg-continuity holds remain.
+- Record user rejection of prior Gojo B/C movement studies and link D/E/F review deliverables in the existing managed worktree; production runv12 unchanged.
+
+- Review recovery (2026-10-12, OPS-PERM-20261012): saved a durable, self-contained Gojo B/C HTML comparison and v02 GIF/frame exports in docs after TEMP expired; no new drawing call or production-art change. Prepared a root-relative workspace permission edit and separate Git/local-preview verification guide; no configuration, ACL, worktree or production deployment changed.
+
+- Workflow (2026-10-12, OPS-005): all GCD Tourney worktrees must live inside project `.worktrees/`; removed the older allowance for external Codex app worktrees from collaboration instructions and aligned AGENTS/CLAUDE. Documented app Worktree root setting and read-only inventory: external Gojo checkout preserved pending inspection, Killua checkout preserved with three unmerged commits. No app setting, permission profile, worktree move or deletion performed.
+
+- Art review follow-up (2026-10-12, ART-TITLE-R3): standalone full eight-frame Gojo B pocket-glide and C blindfold-float comparison, versioned source inventory, normal/half-speed GIFs and synchronized interactive controls. Review records only committed; artifacts remain in permitted TEMP pending accessible real-worktree filing. No manifest, atlas, gameplay or production changes.
+
+- Art/workflow follow-up (2026-10-12): Codex app created a real Gojo worktree; current session access remains blocked outside its permitted roots. Added a three-direction Gojo movement study for review (tool output awaiting versioned worktree filing); no atlas or production change. Restored repository-local commit identity from recent commit history.
 
 - Art follow-up (2026-10-12): recorded Sasuke/Killua/Gojo movement scale feedback and Gojo run/glide concept request. Round-3 production stopped at denied real worktree creation; no new candidates or production changes.
 
