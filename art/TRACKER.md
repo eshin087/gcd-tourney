@@ -2,6 +2,8 @@
 
 # Art tracker
 
+Gojo full B/C movement demo v02 (2026-10-12): needs direction review; eight drawn frames each, normal/half-speed GIFs and interactive TEMP demo. Five drawing calls (B A1/B2; C A1/B1), sources versioned/inventoried. 48 shared colors, zero clipped pixels. Full anatomy, production scale gate and browser playback remain unverified; real-worktree access blocks production filing. Manifest run remains approved v12. See newest REVIEW rows.
+
 Gojo movement direction study v01 (2026-10-12): needs review, automatic tool output pending versioned filing in the attached real worktree. A athletic stride / B low pocket glide / C upright float. One concept call used; production run remains approved v12 in the manifest. No production strips were generated or packed this session. See newest REVIEW row.
 
 Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
