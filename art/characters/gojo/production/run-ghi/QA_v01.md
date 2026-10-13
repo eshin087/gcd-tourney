@@ -13,3 +13,7 @@ Mechanical packaging only: magenta removal, connected-component background clean
 Adult silhouette remains upright with no crouch; head crown is smooth. Arm directions differ clearly. Drawings still repeat the same leading leg or make near/far identity ambiguous, despite corrective B attempts. Narrower passing poses improved but the requested natural alternating gait and perfectly seamless motion are NOT certified. H's first half also reads shorter in torso/leg silhouette than its second despite head-density matching; source-part anatomy/clothing volume must be checked. I last head-frame probe0.914 remains a per-frame caveat although median gate passes. No further calls beyond three per study. G is the strongest conventional relaxed-arm direction; I is the clearest supernatural gesture. User selection is direction review only.
 
 Production raw/run_vNN, public/characters/gojo, approvedVersion, runtime scale and engine unchanged. No merge or production deploy. Canonical packer intentionally not run against these studies, as it selects highest production raw version. All candidates isolated outside raw/.
+
+## User selection
+
+User: "ok lets go with G". G direction study is approved; H and I are rejected as alternatives. This decision does not erase the recorded technical holds. No new image calls, production strip filing, canonical packing, runtime changes, merge or deployment occurred. H/I selected source parts moved intact to source/_rejected with original names/hashes; GIF/MP4/contact history remains available.
