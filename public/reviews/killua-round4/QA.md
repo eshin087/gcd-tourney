@@ -192,3 +192,7 @@ Astra report (main deliverables/round4-qa/astra-three-fighters_v01.md, GPT-6Astr
 
 
 Gallery refresh production build completed: adapter command exited 0 (82 modules; 1m39s). Full output and exit code are recorded in gallery-refresh-build.txt. Browser preview remains pending root verification.
+
+## Local rendered browser verification
+
+Coordinator Chrome verification passed at `http://127.0.0.1:5289/reviews/killua-round4/index.html`: exact five selected versions loaded, all image elements completed with no broken images, five paused states showed the expected frames, stagger f3 cell134 wrapped to f0 cell131, idle half-speed worked, and the console had no errors or warnings. Screenshot: `deliverables/round4-qa/killua-gallery-selected.jpg`. Hosted committed-preview verification remains pending root redeploy.
