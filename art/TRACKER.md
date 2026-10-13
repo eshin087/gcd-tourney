@@ -2,6 +2,8 @@
 
 # Art tracker
 
+Gojo G/H/I run-direction studies v01: **needs review**, following D with relaxed swing, one-pocket glide and floating gesture. [24 frames](../public/reviews/gojo-run-ghi/GHI_all_24_frames_v01.png), [playable GIF](../public/reviews/gojo-run-ghi/GHI_comparison_v01.gif), [QA](characters/gojo/production/run-ghi/QA_v01.md). Neutral head probes pass; alternating leg identity and seam remain technical holds. Production runv12 stays approved.
+
 Gojo D/E/F run-direction studies v01: **needs review / technical HOLD**, three calls each, B/C rejected. [Combined24frames](../public/reviews/gojo-run-def/DEF_all_24_frames_v01.png), [playable comparison](../public/reviews/gojo-run-def/DEF_comparison_v01.gif), [QA](characters/gojo/production/run-def/QA_v01.md). Production run remains v12/approvedVersion12.
 
 Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
