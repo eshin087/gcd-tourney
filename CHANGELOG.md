@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke round4: measured sandal failures trigger beamFire/dash redraws; superDash and spot-dodge candidates filed for full-body audit. No art approval or runtime calibration change.
+
 - Record user rejection of prior Gojo B/C movement studies and link D/E/F review deliverables in the existing managed worktree; production runv12 unchanged.
 
 - Review recovery (2026-10-12, OPS-PERM-20261012): saved a durable, self-contained Gojo B/C HTML comparison and v02 GIF/frame exports in docs after TEMP expired; no new drawing call or production-art change. Prepared a root-relative workspace permission edit and separate Git/local-preview verification guide; no configuration, ACL, worktree or production deployment changed.

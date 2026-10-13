@@ -1,0 +1,39 @@
+{
+  "fighter": "sasuke",
+  "authorization": "2026-10-12 round4: maximum3newcalls per named image or measured-failed strip",
+  "base": "c67170e",
+  "named": {
+    "superDash": {
+      "candidate": "raw/superDash_v06.png",
+      "round4Calls": 1,
+      "maxRound4Calls": 3,
+      "historyCallsBeforeRound4": 2,
+      "prompt": "superDash-prompt-1.txt",
+      "status": "source awaiting strict pack and every-frame segment measurement"
+    },
+    "jumpSquat": {
+      "candidate": "raw/jumpSquat_v04.png",
+      "round4Calls": 1,
+      "maxRound4Calls": 3,
+      "historyCallsBeforeRound4": 1,
+      "prompt": "jumpSquat-prompt-1.txt",
+      "status": "source awaiting strict pack and every-frame segment measurement"
+    }
+  },
+  "suspects": [
+    "beamFire",
+    "airLight3",
+    "dash",
+    "run",
+    "specialUp",
+    "hurtLow",
+    "airRecover"
+  ],
+  "claudeOwns": [
+    "bodyHeight",
+    "frameOffsets",
+    "contact/hitboxes",
+    "integration"
+  ],
+  "approval": "None; all new candidates need user review"
+}
