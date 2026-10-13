@@ -18,6 +18,11 @@ export const FALLBACK = {
   // tech recoveries (ADR 0030): the poses the techs showed before their strips existed. Fighter itself keeps the
   // per-beat legacy poses (techAnim.js LEGACY_POSE) when a sheet lacks a strip; these cover direct lookups (lab, tools)
   techGround: 'land', techRoll: 'airRecover', wallTech: 'land',
+  // attack alts (ADR 0031): a missing alt is its base. Fighter only picks an alt the sheet has (animAlts.js), so these
+  // cover direct lookups (lab viewer, tools); the 3D placeholder bakes no alt (rig/anims.js)
+  light1Alt: 'light1', light2Alt: 'light2', light3Alt: 'light3', light4Alt: 'light4', heavyAlt: 'heavy',
+  airLight1Alt: 'airLight1', airLight2Alt: 'airLight2', airLight3Alt: 'airLight3', airHeavyAlt: 'airHeavy',
+  hurtHighAlt: 'hurtHigh', hurtLowAlt: 'hurtLow',
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.

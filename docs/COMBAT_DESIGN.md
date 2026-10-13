@@ -71,6 +71,14 @@ Frames are at 60 fps. **Startup** is the frames before the hitbox is live, **act
 hitbox can connect, and **recovery** is the frames after. Animation frames are spread across these
 phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is before scaling (HP 1000).
 
+**Attack alts** ([ADR 0031](decisions/0031-attack-alt-animations.md)): each normal (light1-4, heavy, airLight1-3,
+airHeavy, and the kit moves that borrow those strips, e.g. `vanishKick` = `light4`) and both hit reactions may have an
+`<anim>Alt` strip. The fighter alternates base and alt per use in a fixed Thue-Morse pattern (no randomness; never the
+same version three times in a row; `src/game/animAlts.js`), only when its sheet has that alt. The row's numbers never
+change: an alt plays the same move data on the same phases. The alt is visual, but **its hit boxes are real**: melee
+hits read the frame on screen, so an alt is drawn to strike at its base's height and reach (the packer warns past 12 px
+of reach or 16 px of height) and `light3Alt` stays a low. The throw keeps its `light1` / `light4` poses.
+
 | Move | Input | Startup | Active | Recovery | Total | Dmg | Reach / width | Hitstop | On hit | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
 | light1 | Light | 5 | 3 | 11 | 19 | 28 | 1.3 / 0.95 | 7 | stun 22, push 2.2 | jab; chains to light2 from f7; lunge 4.5 |

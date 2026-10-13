@@ -103,6 +103,13 @@ const WALL_LINE = 8;
 const wallLineOf = (spec) => Math.max(WALL_LINE, spec.cellMargin);
 const WALL_CONTACT = { cols: 4, minPx: 12 };
 
+// Attack alts (ADR 0031, art/SPEC.md "Attack alts"): an alt plays its base's move data (startup, active, recovery,
+// reach) and melee hits read the art's hit boxes, so the alt must strike where the base does. Compared on the union of
+// the active-phase hit boxes, in cell px facing right: reach = its far edge right of the pivot, height = its vertical
+// centre above the floor line. Warn only (altCheck). low: bases whose strike height is a rule (MOVES.light3.low).
+const ALT_TOLERANCE = { reachPx: 12, centrePx: 16 };
+const ALT_LOW = new Set(['light3']);
+
 // Frame indices of an animation's beats (phase indices) for a strip of n frames (its phases rescaled to n, as packed).
 function beatFrames(phases, n, beats) {
   const ph = phases && beats?.length ? rescalePhases(phases, n) : null;
@@ -129,6 +136,11 @@ const FALLBACK_GUIDE = {
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
   techGround: { frames: 4, phases: [1, 2, 1] }, techRoll: { frames: 6, phases: [1, 4, 1] }, wallTech: { frames: 5, phases: [2, 1, 2] },
+  light1Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light1' }, light2Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light2' },
+  light3Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light3' }, light4Alt: { frames: 8, phases: [3, 2, 3], altOf: 'light4' },
+  heavyAlt: { frames: 8, phases: [3, 2, 3], altOf: 'heavy' }, airLight1Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight1' },
+  airLight2Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight2' }, airLight3Alt: { frames: 6, phases: [2, 2, 2], altOf: 'airLight3' },
+  airHeavyAlt: { frames: 6, phases: [2, 2, 2], altOf: 'airHeavy' }, hurtHighAlt: { frames: 3, altOf: 'hurtHigh' }, hurtLowAlt: { frames: 3, altOf: 'hurtLow' },
 };
 
 // VFX atlas spec. fill = size of the largest frame of the strip as a fraction of the cell
@@ -942,6 +954,8 @@ async function loadGuide(file) {
       const phases = /phases\s*:\s*\[\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\]/.exec(body);
       g[m[1]] = { frames: +frames[1], loop: /loop\s*:\s*true/.test(body) };
       if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
+      const altOf = /altOf\s*:\s*'(\w+)'/.exec(body);
+      if (altOf) g[m[1]].altOf = altOf[1];
     }
     if (Object.keys(g).length >= 10) return { guide: g, source: 'animGuide.js (parsed)' };
   } catch { /* fall through */ }
@@ -956,6 +970,7 @@ function normalizeGuide(g) {
     if (Array.isArray(a.phases) && a.phases.length === 3) out[name].phases = a.phases.map((v) => v | 0);
     if (a.durations) out[name].durations = a.durations;
     if (a.ms) out[name].ms = a.ms;
+    if (typeof a.altOf === 'string') out[name].altOf = a.altOf;
   }
   return out;
 }
@@ -985,6 +1000,7 @@ function normalizeAnimEntry(v) {
   if (typeof v.hitbox === 'boolean') o.hitbox = v.hitbox;
   if (typeof v.status === 'string') o.status = v.status;
   if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) o.approvedVersion = v.approvedVersion;
+  if (typeof v.altOf === 'string') o.altOf = v.altOf;
   return o;
 }
 
@@ -1071,16 +1087,22 @@ function animDefsFor(id, env) {
     const g = env.guide[name] || {};
     const d = env.manifest.defaults[name] || {};
     const c = mc[name] || {};
-    const pick = (k) => c[k] ?? d[k] ?? g[k];
+    // an attack alt (ADR 0031) packs like this fighter's base strip wherever its own entry is silent: same frames,
+    // phases and timing (the packer warns when a drawn alt differs, altCheck)
+    const altOf = c.altOf ?? d.altOf ?? g.altOf ?? null;
+    const b = (altOf && mc[altOf]) || {};
+    const pick = (k) => c[k] ?? b[k] ?? d[k] ?? g[k];
+    const ms = (e) => e.durations ?? (e.ms != null ? e.ms : undefined);
     return {
       name,
+      altOf,
       frames: pick('frames') || 1,
       phases: pick('phases') || null,
       loop: !!pick('loop'),
-      bodyHeight: c.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? DEFAULT_BODY_HEIGHT,
+      bodyHeight: c.bodyHeight ?? b.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? BODY_HEIGHT[altOf] ?? DEFAULT_BODY_HEIGHT,
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
-      durations: c.durations ?? (c.ms != null ? c.ms : undefined) ?? d.durations ?? (d.ms != null ? d.ms : undefined) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? 100,
-      hitbox: (c.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
+      durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
+      hitbox: (c.hitbox ?? b.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
       approvedVersion: c.approvedVersion ?? null,
     };
   });
@@ -1570,6 +1592,58 @@ function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
   return out;
 }
 
+// Attack alts (ALT_TOLERANCE, ADR 0031), warn only: every packed alt whose base is packed keeps the base's frame count
+// and phases, and its active-phase hit boxes reach as far and sit as high as the base's. Runs on the final boxes (after
+// hitboxes.json). R.alts gets the measurements: { "<alt>": { base, strike: { reach, centre }, baseStrike } } in px.
+function altCheck(packed, meta, spec, warn, R) {
+  const byName = new Map(packed.map((p) => [p.name, p]));
+  const [px, py] = spec.pivot;
+  const strike = (p) => {
+    const ph = p.phases;
+    if (!ph) return null;
+    let x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let k = ph[0]; k < ph[0] + ph[1] && k < p.indices.length; k++) {
+      for (const [x, y, w, h] of meta.boxes[String(p.indices[k])]?.hit || []) {
+        x1 = Math.max(x1, x + w);
+        y0 = Math.min(y0, y);
+        y1 = Math.max(y1, y + h);
+      }
+    }
+    return Number.isFinite(x1) ? { reach: x1 - px, centre: +(py - (y0 + y1) / 2).toFixed(1) } : null;
+  };
+  const signed = (v) => `${v > 0 ? '+' : ''}${+v.toFixed(1)}px`;
+  const rule = 'an alt plays its base\'s move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)';
+  for (const p of packed) {
+    const baseName = p.def.altOf;
+    if (!baseName) continue;
+    const base = byName.get(baseName);
+    if (!base) {
+      warn(`${p.name}: packed without its base ${baseName} - the game alternates it with whatever stands in for ${baseName}; pack ${baseName} first`);
+      continue;
+    }
+    const rec = { base: baseName };
+    const phases = (q) => (q.phases ? ` (phases ${q.phases.join('/')})` : '');
+    if (p.indices.length !== base.indices.length || String(p.phases) !== String(base.phases)) {
+      warn(`${p.name}: ${p.indices.length} frame(s)${phases(p)}, its base ${baseName} has ${base.indices.length}${phases(base)} - ${rule}`);
+    }
+    const a = strike(p), b = strike(base);
+    if (a) rec.strike = a;
+    if (b) rec.baseStrike = b;
+    if (b && !a) warn(`${p.name}: no hit box on its active frames, ${baseName} strikes ${b.reach}px out at ${b.centre}px high - draw the strike on the active frames (or add hitboxes.json overrides); ${rule}`);
+    if (a && b) {
+      const dReach = a.reach - b.reach, dCentre = a.centre - b.centre;
+      if (Math.abs(dReach) > ALT_TOLERANCE.reachPx) {
+        warn(`${p.name}: strike reach ${a.reach}px from the pivot, ${baseName} ${b.reach}px (${signed(dReach)}, tolerance ${ALT_TOLERANCE.reachPx}px) - ${rule}`);
+      }
+      if (Math.abs(dCentre) > ALT_TOLERANCE.centrePx) {
+        const low = ALT_LOW.has(baseName) && dCentre > 0 ? ` - ${baseName} is a low: its alt must hit low too` : '';
+        warn(`${p.name}: strike height ${a.centre}px above the floor, ${baseName} ${b.centre}px (${signed(dCentre)}, tolerance ${ALT_TOLERANCE.centrePx}px)${low} - ${rule}`);
+      }
+    }
+    R.alts[p.name] = rec;
+  }
+}
+
 // The striking part: the 8-connected blob containing (sx, sy) inside a region, plus any other blob
 // of the region within `near` px of it (a smear or spark drawn just in front of the fist).
 function strikeBox(img, sx, sy, x0, y0, x1, y1, near = 6) {
@@ -1941,7 +2015,7 @@ const scaleAboutPivot = (v, t, isBox) => {
 };
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {} };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {}, alts: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -2167,6 +2241,8 @@ function packCharacter(id, env) {
   // tech poses (ADR 0030): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
   const wallAnchor = techPoseCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(wallAnchor).length) { meta.wallAnchor = wallAnchor; meta.wallLine = wallLineOf(spec); }
+  // attack alts (ADR 0031): frame count, phases and the strike's reach and height against the base (warn only)
+  altCheck(packed, meta, spec, warn, R);
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;

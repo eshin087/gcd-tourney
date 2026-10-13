@@ -23,6 +23,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `&res=pixel` / `&res=hd` | force the render detail (default: `hd` when any loaded sheet has `pixelsPerUnit` >= 70, e.g. spec v2 art) |
 | `&flash=pop\|tint\|rim\|classic\|off` | the victim's hit flash style (default `pop`; `classic` = the old solid white), also on `/lab.html`; with `&debug`, `window.HIT_FLASH` tunes it live |
 | `&depthscale=0` | true perspective for fighter sprites (turns off the depth-normalized size, ENG-067); `0.5` = half strength |
+| `&alts=0` / `&alts=1` | attack alts (ADR 0031): `0` never plays an `<anim>Alt` strip, `1` always plays it when the sheet has one (review); default alternates in the fixed pattern. Also on `/lab.html` |
 | `/sprites.html` | Sprite Lab: preview every animation, prompts, import |
 | `/lab.html?p1=<id>&p2=<id>` | Test lab (ADR 0018): one-tap moves and scenarios, animation viewer with boxes, time tools; `window.lab.tick()` drives it in a hidden tab |
 
@@ -381,6 +382,26 @@ packer's `TECH_POSES` / wall anchoring or the scale gate's `lowConfPhases`:
       it never brings the push-off back). On a side wall the strip's wall line sits on the barrier; a tech off a front
       or back barrier wall keeps facing the opponent and is re-centred by `wallAnchor`.
 - [ ] `?art=procedural`: the baked placeholder has all three strips; the console is clean.
+
+## Attack alts (ADR 0031)
+
+Run after changes to `src/game/animAlts.js`, the move / hit-reaction animation hooks in `Fighter` (`startMove`,
+`updateAttack`, `takeHit`), the alt entries of the animation contract or the packer's `altCheck`:
+
+- [ ] `npm run test:alts`: the 11 guide entries and fallbacks, balance over 64 uses, never three of one version in a
+      row, the light string mixing versions, a missing alt keeping the base (counter untouched), `?alts` modes, and
+      `SheetAsset.has` never counting a FALLBACK.
+- [ ] `npm run test:sprites`: an alt inheriting its base's frames, phases, timing and body height; warnings for another
+      frame count or phases, a strike that falls short, the low's alt hitting high, an alt packed without its base; a
+      matching alt, a hit reaction alt and an alt with no art stay silent.
+- [ ] Without alt art (today's sheets): in a real match `light1`-`light4` and `heavy` play their base strips,
+      `game.fighters[0].animUses` stays `{}`, the console is clean. `/lab.html` SCENARIOS "Attack alts (repeat a
+      string)" plays light ×3 three times and two heavies, all base strips.
+- [ ] With alts (a packed candidate, or stand-ins injected, e.g.
+      `a = game.fighters[0].asset.meta.animations; a.light1Alt = { ...a.light2 }`): the same scenario alternates
+      `light1` / `light1Alt` in the Thue-Morse pattern (light1: base, alt, base, base, alt, alt, base, base), the alt
+      lands its hits from its own boxes on the base's phases, the dummy's hit reactions alternate too, and `&alts=1` /
+      `&alts=0` show only alts / only bases. Check each alt's contact in the lab viewer with boxes on.
 
 ## Timed impact tech (ADR 0028)
 

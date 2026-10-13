@@ -1083,6 +1083,24 @@ Write each block like the `taunt` block above: same SIZE/BODY/PIXEL/BACKGROUND l
 ([ADR 0010](../../../docs/decisions/0010-per-character-body-scale.md)) changes the SIZE line's body
 height in every block.
 
+#### Attack alts (optional, after the base strip is approved)
+
+`light1Alt`, `light2Alt`, `light3Alt`, `light4Alt`, `heavyAlt`, `airLight1Alt`, `airLight2Alt`, `airLight3Alt`,
+`airHeavyAlt`, `hurtHighAlt`, `hurtLowAlt` ([ADR 0031](../../../docs/decisions/0031-attack-alt-animations.md),
+[ANIMATIONS.md "Attack alts"](ANIMATIONS.md#attack-alts)): another technique on the base move's timing. Copy the base
+strip's block (the same pose count, the same PART split, the same active poses) and change only:
+
+- `Animation "<base>Alt": alternate of <base>: <technique>, on exactly the same timing as <base>.`
+- one `Pose N:` line per frame from this fighter's `<base>Alt` section in ANIMATIONS.md. Pose 1 leaves from the base's
+  pose 1 and the last pose returns to the base's last pose; the STRIKE poses put the striking limb at the base's
+  contact zone (the same height and reach, the forward-most pixel). `light3Alt` stays a low; `heavyAlt` rises upward;
+  `airHeavyAlt` strikes down-forward.
+- attach the approved base strip as a pose and size reference, next to the identity references, and add:
+  `Same size, baseline and anatomy as the attached <base> strip; a different technique, not the same strike re-posed.`
+
+Save as `raw/<base>Alt_vNN.png` (v01 first). The packer warns when the alt's frame count or phases differ from the base's
+or its strike lands more than 12 px nearer or farther, or 16 px higher or lower.
+
 ## Step 11: UI
 
 Save each candidate as `raw/ui_<name>_vNN.png` (the sheet packer skips `ui_*`) and queue it in
