@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- ART-SCALE-R4-KIL: corrected the Killua gallery to foreground selected candidates, play exact diagnostic atlas frames beside approved references with pause/step controls, and expose Astra’s stagger loop-reset hold; art and approvals unchanged.
+
 - ART-SCALE-R4: Killua unapproved taller idle/guard and superDash/stagger/win redraws, per-frame native48 anatomy evidence and diagnostic review gallery; strict packing/calibration holds, shipped atlas unchanged.
 - Round-4 fighter scale consistency work started in isolated sparse worktrees with one sub-agent per fighter; every visible body segment is measured in the packed atlas. Naruto attack alts remain gated on ENG-081 landing on main; Gojo run direction studies and round-3 candidates are preserved.
 
