@@ -8,7 +8,7 @@ paused._
 
 ## Your next actions
 
-1. **Choose Gojo G, H or I in this Codex chat.** D direction looks okay to the user; the new studies explore relaxed arm swing, one-pocket glide and low floating gestures. [Combined GIF](<E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/public/reviews/gojo-run-ghi/GHI_comparison_v01.gif>); [all24frames](<E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/public/reviews/gojo-run-ghi/GHI_all_24_frames_v01.png>); [verified demo](http://127.0.0.1:5273/reviews/gojo-run-ghi/demo_v01.html). Individual GIF/MP4 and8frame contacts are provided. Neutral head probes now pass; leg identity, loop joins and H part anatomy remain holds. Review-only commit bc18355, existing gojo-title-r3 worktree on codex/gojo-run-def. Production runv12 unchanged; no production approval, merge or deployment.
+1. **Gojo G is selected.** User chose the relaxed-arm glide direction. H/I alternatives are rejected and preserved. Direction review is finished; [selection and technical handoff](<E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/SELECTION_v01.md>) records intact sources and cumulative calls. Leg-phase and loop-join cleanup plus anatomical checks remain before production approval. Existing gojo-title-r3 worktree, branch codex/gojo-run-def; production runv12 unchanged, no merge/deploy.
 2. **Paste the round-4 prompt into Codex** (Claude gave it to you on 2026-10-12; the full brief is in
    docs/agents/CODEX_INBOX.md, "Scale consistency and attack alts, round 4").
    - Part 1, the scale fixes, starts now: Killua's taller idle/guard, Gojo's combat-cell idle, the three superDash
