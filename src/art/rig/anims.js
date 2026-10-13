@@ -106,6 +106,10 @@ export function buildAnims(C) {
   ] };
 
   // ---------------------------------------------------------------- auto combo
+  // Attack alts (light1Alt ... airHeavyAlt, hurtHighAlt, hurtLowAlt; ADR 0031) are deliberately NOT keyed here: the
+  // baker renders every entry of this table on the main thread at startup, and a placeholder alt would only re-pose the
+  // same chibi swing. With no entry the baked sheet has no alt strip (SheetAsset.has is false), so Fighter keeps the
+  // base and FALLBACK maps direct lookups to it. Bake time stays flat.
   A.light1 = {
     samples: [0.02, 0.05, 0.08, 0.12, 0.17, 0.22, 0.27], end: 0.3, phases: [2, 2, 3], smear: { 2: ['handF'] },
     keys: [
