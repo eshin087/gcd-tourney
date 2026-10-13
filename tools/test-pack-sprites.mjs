@@ -989,6 +989,7 @@ function main() {
 
   scaleGateTests(base);
   techPoseTests(base);
+  attackAltTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1632,6 +1633,69 @@ function techPoseTests(base) {
   const rt = probe.auditFromCompact(probe.compactAudit(A, G), { gate: G })?.anims.techRoll;
   check(sx1.low?.join() === '1' && rt?.verdict === 'partial' && rt.low?.join() === '1' && rt.frames[1].low === true,
     `tech poses: the compact audit keeps an exempted unread frame unread (${sx1.low}; re-judged ${rt?.verdict}, low ${rt?.low})`);
+}
+
+// Attack alts (ADR 0031): an alt packs like its base (the fighter's base bodyHeight when its own entry has none, the
+// guide's frames and phases when the manifest has no entry), and the packer warns, never fails, when a drawn alt's
+// frame count or phases differ from its base's, or its active hit boxes reach shorter or sit higher than the base's
+// (tolerance 12 px reach, 16 px height). An alt entry with no art yet (status todo) stays silent.
+function attackAltTests(base) {
+  const araw = (n) => path.join(ART, 'characters', 'alty', 'raw', n);
+  const jab = [{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}];
+  const kick = [{}, { kick: 4 }, { kick: 16 }, { kick: 16 }, { kick: 8 }, { kick: 3 }, {}];
+  const upper = [{}, { bob: -1 }, { bob: -2 }, { up: 16 }, { up: 18 }, { up: 6 }, { bob: -1 }, {}];
+  const opt = (seed) => ({ seed, specks: 0 });
+  savePng(araw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), opt(951)));
+  savePng(araw('light1_v01.png'), strip(jab, opt(952)));
+  savePng(araw('light1Alt_v01.png'), strip(jab, opt(953))); // the same strike: silent
+  savePng(araw('light2_v01.png'), strip(jab, opt(954)));
+  savePng(araw('light2Alt_v01.png'), strip(jab.map((q) => (q.punch ? { punch: Math.min(q.punch, 3) } : q)), opt(955))); // falls short
+  savePng(araw('light3_v01.png'), strip(kick, opt(956)));
+  savePng(araw('light3Alt_v01.png'), strip(jab, opt(957))); // the low kick's alt punches at head height
+  savePng(araw('heavy_v01.png'), strip(upper, opt(958)));
+  savePng(araw('heavyAlt_v01.png'), strip(upper.filter((q, k) => k !== 6), opt(959))); // 7 frames: phases 3/2/2
+  savePng(araw('hurtHigh_v01.png'), strip([{}, { bob: -1 }, { bob: -2 }], opt(960)));
+  savePng(araw('hurtHighAlt_v01.png'), strip([{}, { bob: -2 }, { bob: -1 }], opt(961))); // no strike: frame count only
+  savePng(araw('airLight1Alt_v01.png'), strip([{}, { punch: 16 }, { punch: 16 }, { punch: 8 }, {}], opt(962))); // no base drawn
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  // light2Alt, heavyAlt, hurtHighAlt and airLight1Alt have no manifest entry: the guide gives frames, phases and altOf
+  man.characters.alty = { name: 'Alty', scaleGate: 'warn', animations: {
+    idle: { frames: 8, loop: true, bodyHeight: 204 },
+    light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 190 },
+    light1Alt: { altOf: 'light1', status: 'todo' },
+    light3Alt: { frames: 7, phases: [2, 2, 3], bodyHeight: 215, altOf: 'light3', status: 'todo' },
+    airHeavyAlt: { frames: 6, phases: [2, 2, 2], altOf: 'airHeavy', status: 'todo', version: 0, approvedVersion: null },
+  } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  const r = pack([...base, 'alty']);
+  const C = r.json?.characters.find((c) => c.id === 'alty');
+  const metaFile = path.join(OUT, 'characters', 'alty', 'anims.json');
+  if (r.code !== 0 || !fs.existsSync(metaFile)) { check(false, `attack alts: alty packed, exit 0 (${r.code}; ${(C?.warnings || []).join(' | ').slice(0, 400)})`); return; }
+  const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
+  const sheet = loadPng(path.join(OUT, 'characters', 'alty', 'sheet.png'));
+  const W = C.warnings, A = C.alts || {};
+  const about = (name) => W.filter((w) => w.startsWith(`${name}:`));
+  const alts = ['light1Alt', 'light2Alt', 'light3Alt', 'heavyAlt', 'hurtHighAlt', 'airLight1Alt'];
+  check(alts.every((n) => meta.animations[n]?.frames.length), `attack alts: every drawn alt is packed (${alts.filter((n) => !meta.animations[n]).join(', ') || 'all'})`);
+  const tallest = Math.max(...(meta.animations.light1Alt?.frames || []).map((f) => bb(cell(sheet, f))?.h ?? 0));
+  check(tallest >= 188 && tallest <= 190 && JSON.stringify(meta.animations.light1Alt?.phases) === '[2,2,3]',
+    `attack alts: an alt entry without frames or bodyHeight packs like the fighter's base (light1Alt ${tallest}px, light1 bodyHeight 190)`);
+  check(JSON.stringify(meta.animations.light2Alt?.durations) === JSON.stringify(meta.animations.light2?.durations) && JSON.stringify(meta.animations.light2Alt?.phases) === '[2,2,3]',
+    'attack alts: an alt with no manifest entry takes its base\'s default timing and the guide\'s phases');
+  check(!about('light1Alt').length && A.light1Alt?.base === 'light1' && Math.abs(A.light1Alt.strike.reach - A.light1Alt.baseStrike.reach) <= 12,
+    `attack alts: an alt striking like its base is silent (${about('light1Alt').join(' | ')}; ${JSON.stringify(A.light1Alt)})`);
+  check(anyWarn(W, /^light2Alt: strike reach \d+px from the pivot, light2 \d+px \(-\d+(\.\d)?px, tolerance 12px\) - an alt plays its base's move data/),
+    `attack alts: an alt that falls short warns with both reaches (a lower strike may warn too) (${about('light2Alt').join(' | ')})`);
+  check(anyWarn(W, /^light3Alt: strike height [\d.]+px above the floor, light3 [\d.]+px \(\+[\d.]+px, tolerance 16px\) - light3 is a low: its alt must hit low too - an alt plays/),
+    `attack alts: the low's alt hitting higher warns and says it is a low (${about('light3Alt').join(' | ')})`);
+  check(anyWarn(W, /^heavyAlt: 7 frame\(s\) \(phases 3\/2\/2\), its base heavy has 8 \(phases 3\/2\/3\)/) && !anyWarn(W, /^heavyAlt: strike/),
+    `attack alts: an alt with another frame count warns (its strike still matches) (${about('heavyAlt').join(' | ')})`);
+  check(!about('hurtHighAlt').length && A.hurtHighAlt?.base === 'hurtHigh' && !A.hurtHighAlt.strike, `attack alts: a hit reaction alt with its base's frame count is silent (${about('hurtHighAlt').join(' | ')})`);
+  check(anyWarn(W, /^airLight1Alt: packed without its base airLight1/), 'attack alts: an alt packed without its base warns');
+  check(!W.some((w) => /airHeavyAlt/.test(w)) && C.missing.includes('airHeavyAlt') && !C.missingCore.some((n) => /Alt$/.test(n)),
+    'attack alts: an alt entry with no art yet is a silent missing optional, never core');
 }
 
 function finish() {

@@ -76,6 +76,8 @@ src/game/
   techAnim.js               tech poses (ADR 0030): which strip a tech state shows (dedicated or legacy), its beats,
                             back rolls and the wall facing per barrier wall; pure, tested by npm run test:anims
   animPhase.js              the phase -> frame mapping shared by SpriteActor.setPhase and the tech poses
+  animAlts.js               attack alts (ADR 0031): base -> <base>Alt table and pickAnim (Thue-Morse per base use,
+                            only alts the sheet has, ?alts=0|1); pure, tested by npm run test:alts
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
                             rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
@@ -236,6 +238,10 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   `techAnim.wallShift`). A tech roll's strip keeps the facing and the roll direction it started with
   (`Fighter.lockRollPose`). Visual only: it moves the sprite, not `renderPos` (camera, effects), the gameplay facing or
   the hurt boxes; every wall pose is invulnerable, so its packed boxes never meet a hit (`npm run test:anims` checks it).
+- **Attack alts** (ADR 0031): `Fighter.startMove` maps a move's `anim` through `Fighter.pickAnim` (animAlts.js, the
+  fighter's `animUses` counters, `SheetAsset.has`) and `updateAttack` plays that strip on the move's phases; `takeHit`
+  does the same for the `hurtHigh` / `hurtLow` it chose. A sheet without the alt (every sheet today, and the 3D bake,
+  which keys no alts) keeps the base; the counters only move while an alt exists.
 - **The sprite shader** (`spriteMaterial`, shared by fighters and ghosts, one compiled program) tints the cell,
   then applies the hit flash's `lift` (a luma-weighted brighten in ~gamma space that keeps the dark line art) and
   `rim` (an inner outline `rimPx` render pixels wide: 4 alpha taps clamped to the frame's `uvRect`, so nothing
