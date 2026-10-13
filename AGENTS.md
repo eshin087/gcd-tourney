@@ -208,30 +208,31 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 ## Safe boundaries for code changes
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
-  Run `npm run pr -- start feature/<name>` (with `--art <id>` for art work, never `--full`) from the main
-  folder, then work, pack and commit **only inside the new worktree** (`.worktrees/<prefix>-<name>`).
-  When it's done, `npm run pr -- open` and `npm run pr -- preview` there (a Vercel preview link for the user's phone,
-  ADR 0018), and `npm run pr -- merge <branch>` from the main folder (never the
-  GitHub merge button). Commits straight to `main` are allowed only for docs-only edits, bookkeeping and art
-  approvals for a character that already ships. A new character's art goes in batch PRs (`art/<id>-refs`,
-  `art/<id>-core`, `art/<id>-full`), each started from `main` after the previous one merged
-  ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)). Reuse the task's existing real
-  worktree and open the PR with `npm run pr -- open` from it. Base PRs on `main`, never on
-  another PR's branch unless you say so in the PR body.
-- **Worktree storage rules (user direction, 2026-10-10).** These supersede older `--full` examples and
-  copy-based sandbox instructions elsewhere in the project. The docs-only/main exceptions above still apply.
+  Work on a task branch in one real Git worktree. Use the worktree supplied by the Codex app or other host when
+  available. For a manual CLI session, or when an art task needs this repository's sparse checkout, the optional
+  helper is `npm run pr -- start <branch> --art <id>[,<id>]`; never use `--full` for art work. When the work is
+  ready, run `npm run pr -- open` and `npm run pr -- preview` in the worktree, then have the coordinator run
+  `npm run pr -- merge <branch>` from the main folder (never the GitHub merge button). Commits straight to `main`
+  are allowed only for docs-only edits, bookkeeping and art approvals for a character that already ships. A new
+  character's art goes in batch PRs (`art/<id>-refs`, `art/<id>-core`, `art/<id>-full`), each based on `main`
+  after the previous one merged ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)).
+  Reuse the task's existing real worktree. Base PRs on `main`, never on another PR's branch unless the PR body
+  explains the dependency.
+- **Worktree workflow rules.** The docs-only/main exceptions above still apply.
   1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
      `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
-  2. Never copy the project folder, under `.worktrees/sandbox-batches/` or anywhere else. Every task that
-     needs a worktree uses a real Git worktree made with `npm run pr -- start <branch>`. If Git worktree
-     creation fails in the sandbox, stop and tell the user; never fall back to copying.
-  3. Never use `--full` for art tasks. Start with `npm run pr -- start <branch> --art <id>[,<id>]` (a character id or an
-     art kind like `vfx`), which checks out only that art, raw files included (~0.5 GB vs ~2 GB). A plain
-     `git sparse-checkout add art/characters/<id>` does not bring back its `raw/`.
-  4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
-  5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
-     must finish cleanup of merged task worktrees; do not leave them behind.
-  6. Keep every worktree for this repository under `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/` (user direction, 2026-10-12). Use the project `npm run pr -- start <branch> --art <id>[,<id>]` helper for art tasks. Do not use `$CODEX_HOME/worktrees` or the Codex app worktree tool as a fallback when project-local creation fails. For app-created worktrees, the user must first set Settings > Worktrees > Worktree root to this project `.worktrees` directory; verify the actual returned path before using it, and retain the named-branch and sparse-art rules. This is project scope, not a relocation of Codex configuration, memories or caches. Existing external worktrees are audited for uncommitted/ignored files before moving or archiving; never prune one just because the sandbox cannot stat it.
+  2. Never copy the project folder as a substitute for a worktree. Use the host's managed-worktree feature when
+     available, or create a real Git worktree with the project helper in a manual CLI session.
+  3. For an art task created with the project helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the
+     required raw art is included without a full checkout. A plain `git sparse-checkout add art/characters/<id>`
+     does not bring back its `raw/` directory.
+  4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
+  5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
+     finish cleanup of merged task worktrees.
+  6. Worktree storage is controlled by the user's Codex app or Git configuration. Do not require a repository-local
+     worktree root, change the user's global Worktree root, or reject an app-managed worktree because it is outside
+     this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
+     ignored files before moving, removing or archiving them.
 - **The main folder is merge-only.** Never leave uncommitted work there (git can't merge over it); docs-only and
   bookkeeping commits there go in right away. `docs/NOW.md` and `docs/agents/CODEX_INBOX.md` are edited only on
   `main`, never in a branch. Read the moveset from `art/characters/<id>/KIT.md`; ask Claude to change a move there
