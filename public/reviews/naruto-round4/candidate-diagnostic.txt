@@ -1,0 +1,65 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round4/candidate-input
+  out:  art/characters/naruto/production/round4/candidate-public
+  anims: animGuide.js + art/characters/naruto/production/round4/candidate-input/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, COMPLETE (game will use it)
+    idle         8     <- raw/idle_v07.png             x0.286
+    run          8     <- raw/run_v07.png              x0.286
+    dash         2     <- raw/dash_v04.png             x0.257
+    backDash     3     <- raw/backDash_v04.png         x0.311
+    superDash    2     <- raw/superDash_v03.png        x0.263
+    jumpSquat    1     <- raw/jumpSquat_v04.png        x0.215
+    jumpUp       2     <- raw/jumpUp_v06.png           x0.295
+    jumpFall     2     <- raw/jumpFall_v04.png         x0.262
+    land         2     <- raw/land_v06.png             x0.253
+    light1       7     <- raw/light1_v04.png           x0.288
+    light2       7     <- raw/light2_v06.png           x0.301
+    light3       7     <- raw/light3_v04.png           x0.336
+    light4       8     <- raw/light4_v08.png           x0.429
+    heavy        8     <- raw/heavy_v12.png            x0.366
+    airLight1    5     <- raw/airLight1_v06.png        x0.364  (removed 14 specks)
+    airLight2    5     <- raw/airLight2_v05.png        x0.4  (removed 8 specks)
+    airLight3    6     <- raw/airLight3_v09.png        x0.371
+    airHeavy     6     <- raw/airHeavy_v09.png         x0.374
+    guard        2     <- raw/guard_v05.png            x0.192
+    block        2     <- raw/block_v05.png            x0.266
+    hurtHigh     3     <- raw/hurtHigh_v04.png         x0.269
+    hurtLow      3     <- raw/hurtLow_v03.png          x0.263
+    launched     2     <- raw/launched_v05.png         x0.209
+    spin         4     <- raw/spin_v07.png             x0.327
+    airRecover   3     <- raw/airRecover_v07.png       x0.271
+    down         2     <- raw/down_v05.png             x0.229
+    getup        5     <- raw/getup_v07.png            x0.355
+    charge       4     <- raw/charge_v07.png           x0.293
+    throw        4     <- raw/throw_v09.png            x0.289
+    beamCharge   3     <- raw/beamCharge_v08.png       x0.281
+    beamFire     3     <- raw/beamFire_v12.png         x0.251
+    vanish       2     <- raw/vanish_v04.png           x0.258
+    stagger      4     <- raw/stagger_v06.png          x0.384  (candidate v06 (approved: v05))
+    ko           1     <- raw/ko_v09.png               x0.123
+    special      8     <- raw/special_v08.png          x0.366
+    intro        4     <- raw/intro_v05.png            x0.29
+    taunt        2     <- raw/taunt_v07.png            x0.309  (candidate v07 (approved: v06))
+    win          4     <- raw/win_v08.png              x0.357  (candidate v08 (approved: v07))
+    specialForward  7     <- raw/specialForward_v04.png   x0.361
+    specialUp    6     <- raw/specialUp_v04.png        x0.394
+    specialDown  4     <- raw/specialDown_v05.png      x0.365
+    superPose    4     <- raw/superPose_v05.png        x0.276
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 30 ok, 7 manual, 1 unmeasured, 3 drift
+    ~ stagger head 1.19 of idle (feet 0.82): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v06]
+    ~ taunt head 1.20 of idle (feet 0.82): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v07]
+    ~ win head 1.19 of idle (feet 0.72): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v08]
+  missing optional (3): techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  - 3 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! scale: win: the manifest's scale exemption was written for v03 but the packed strip is v08 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 8
+  ! scale: specialDown: the manifest's scale exemption was written for v02 but the packed strip is v05 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 5
+  ! down: 1 lying frame(s) float above the floor line (#1: 28% of the body within 6px of y 240, worst fifth 7px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v05 is the approved version: queue a side-on redraw
+  ! ko: 1 lying frame(s) float above the floor line (#0: 23% of the body within 6px of y 240, worst fifth 23px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v09 is the approved version: queue a side-on redraw
+  wrote art/characters/naruto/production/round4/candidate-public/characters/naruto/sheet.png
+  wrote art/characters/naruto/production/round4/candidate-public/characters/naruto/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 4 warning(s).
