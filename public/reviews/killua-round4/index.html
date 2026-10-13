@@ -1,1 +1,83 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Killua round4 — diagnostic review holds</title><style>body{background:#18202a;color:#eee;font:16px system-ui;max-width:1100px;margin:auto;padding:20px}img{max-width:100%;image-rendering:pixelated;background:#070b10}a{color:#9fe}h2{margin-top:48px}.hold{border:3px solid #f9b147;padding:15px}button{padding:9px}pre{white-space:pre-wrap}</style><h1>Killua round4 review holds</h1><p class="hold">All new images are unapproved. The current game atlas remains unchanged. This page shows source direction and a quantized DIAGNOSTIC atlas. Strict packing exits1: superDash08, guard09 and existing charge13 fail. The diagnostic fixture bypasses write blocking only to inspect pixels; its labels are not approvals. No full anatomy pass. Review visual direction; hold in-game integration pending Claude calibration and anatomy checks.</p><p><a href="QA.md">Per-frame numeric audit and uncertainty</a> · <a href="measurements.json">Numbers / hashes</a> · <a href="pack-final.txt">Strict gate output</a> · <a href="diagnostic-anims.json">Diagnostic atlas metadata</a></p><p>Native baseline: approved idle08 H38±2 / torso38±2 / arm39±4 / leg61±6 / shoe25±2 px. A rotated or concealed chain gets no passing number. This round14calls: idleA3/B3, guard2, superDash2, stagger3, win1.</p><h2>Latest selected direction: idle11 / guard09 — HOLD</h2><p>Final idle11 nativeheight 144/144/144/144/146/146/146/146px misses156–162target, H36–38±2/T38±2/A35±4/L56–58±6/S23±2. Full-figure calibration could oversize torso. Guard09 H34±2/T34±2/armsoccluded/L56±6/S23±2, nativeheight132, stricthead0.904FAIL. No full anatomy pass; idle/stagger generation budgets exhausted.</p><img src="idle_v11.png" alt="idle11 unapproved"><img src="guard_v09.png" alt="guard09 unapproved"><h2>idle — Taller, wider open-hand stance; best v10. Native144px height misses156–162 target; full-body hold.</h2><p>Diagnostic comparison: approved combat | candidate idle10 | earlier hold strip frames</p><img src="idle-comparison.png" alt="idle diagnostic native48 frames"><details ><summary>Unapproved source idle_v09.png — earlier technical hold</summary><img src="idle_v09.png" alt="idle_v09.png"></details><details open><summary>Unapproved source idle_v10.png — earlier hold</summary><img src="idle_v10.png" alt="idle_v10.png"></details><h2>guard — Taller crossed-forearm guard direction; native132px height remains hold.</h2><p>Diagnostic comparison: approved combat | candidate idle10 | earlier hold strip frames</p><img src="guard-comparison.png" alt="guard diagnostic native48 frames"><details open><summary>Unapproved source guard_v08.png — earlier hold</summary><img src="guard_v08.png" alt="guard_v08.png"></details><h2>superDash — Redrawn folded leg chains; best v08. Strict head0.832 fails under legacy posed-height fit.</h2><p>Diagnostic comparison: approved combat | candidate idle10 | earlier hold strip frames</p><img src="superDash-comparison.png" alt="superDash diagnostic native48 frames"><details ><summary>Unapproved source superDash_v07.png — earlier technical hold</summary><img src="superDash_v07.png" alt="superDash_v07.png"></details><details open><summary>Unapproved source superDash_v08.png — earlier hold</summary><img src="superDash_v08.png" alt="superDash_v08.png"></details><h2>stagger — Measured old torso47–48px versus idle38±2; earlier hold v07 after3calls. Packed arms/legs/shoes remain hold.</h2><p>Diagnostic comparison: approved combat | candidate idle10 | earlier hold strip frames</p><img src="stagger-comparison.png" alt="stagger diagnostic native48 frames"><details ><summary>Unapproved source stagger_v06.png — earlier technical hold</summary><img src="stagger_v06.png" alt="stagger_v06.png"></details><details open><summary>Unapproved source stagger_v07.png — earlier hold</summary><img src="stagger_v07.png" alt="stagger_v07.png"></details><h2>win — Measured old torso46–47px versus idle38±2; redrawn compact trunk. Raised arm chains remain occluded.</h2><p>Diagnostic comparison: approved combat | candidate idle10 | earlier hold strip frames</p><img src="win-comparison.png" alt="win diagnostic native48 frames"><details open><summary>Unapproved source win_v05.png — earlier hold</summary><img src="win_v05.png" alt="win_v05.png"></details><h2>Seven shipped suspect strips audited</h2><p>Only stagger and win had evidenced upright torso failures and were redrawn. The five movement/aerial strips are inconclusive under projection/occlusion; no numeric approval is claimed.</p><h3>jumpUp — current shipped atlas</h3><img src="shipped-jumpUp.png" alt="shipped jumpUp"><h3>jumpFall — current shipped atlas</h3><img src="shipped-jumpFall.png" alt="shipped jumpFall"><h3>airRecover — current shipped atlas</h3><img src="shipped-airRecover.png" alt="shipped airRecover"><h3>stagger — current shipped atlas</h3><img src="shipped-stagger.png" alt="shipped stagger"><h3>win — current shipped atlas</h3><img src="shipped-win.png" alt="shipped win"><h3>airLight1 — current shipped atlas</h3><img src="shipped-airLight1.png" alt="shipped airLight1"><h3>airLight2 — current shipped atlas</h3><img src="shipped-airLight2.png" alt="shipped airLight2"><h2>Body-sheet evidence</h2><p>Body-colour area is a noisy triage proxy, never an anatomical-chain pass. TOOL-036 merged from main; npm run body -- killua exits0. Shipped42-strip area flags17; diagnostic10-strip area flags4. Area does not replace measured joint chains.</p><p><a href="body-diagnostic.png">Diagnostic candidate body sheet</a> · <a href="body-diagnostic-report.json">candidate area numbers</a> · <a href="body-shipped.png">Current shipped body sheet</a> · <a href="body-shipped-report.json">shipped area numbers</a> · <a href="heads-diagnostic.png">Diagnostic head-only sheet</a></p><img src="body-diagnostic.png" alt="Diagnostic candidate body-sheet, area proxy only"><h2>Full diagnostic atlas</h2><img src="diagnostic-sheet.png" alt="Diagnostic atlas, strict gate failed">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Killua round 4 — selected diagnostic candidates</title>
+  <link rel="stylesheet" href="gallery.css">
+  <script src="gallery.js" defer></script>
+</head>
+<body>
+<main>
+  <h1>Killua round 4: selected candidates</h1>
+  <p class="hold">All five candidates are <strong>HOLD / needs review</strong>. No new art is approved. The current game atlas is unchanged. Playback comes from the exact quantized diagnostic atlas; this is not a passing production pack or in-game integration.</p>
+  <p>Selected: <strong>idle v11 · guard v09 · superDash v08 · stagger v07 · win v05</strong>. Earlier attempts are closed history below.</p>
+  <nav aria-label="Review evidence"><a href="QA.md">Per-frame measurements</a> · <a href="astra-three-fighters_v01.md">Independent Astra audit</a> · <a href="measurements.json">Numbers and hashes</a> · <a href="pack-final.txt">Strict gate output</a> · <a href="diagnostic-anims.json">Exact atlas metadata</a></nav>
+  <p>Strict packing refuses guard09, superDash08 and existing charge13. A head probe never clears torso, limbs or shoes. No full anatomy pass.</p>
+  <p>Each comparison uses native 256×256 cells, one image pixel per display pixel: approved combat, shipped approved idle08 frame0, selected candidate. On small screens, scroll sideways. Pause or step to compare poses; slow playback to inspect joins.</p>
+  <p id="load-status" role="status">Loading the exact diagnostic atlas…</p>
+
+  <section class="candidate" data-animation="idle" data-version="11">
+    <h2>Selected idle v11 — HOLD</h2>
+    <p>Occupied height144px in frames0–3 /146px in frames4–7 misses156–162px. Head36–38±2, torso38±2, arm35±4, leg56–58±6 and shoe23±2px remain uncertain. Uniform enlargement could oversize the torso. The A/B join introduces a2px top-bound step; user motion review remains pending. <strong>Idle A/B budgets exhausted.</strong></p>
+    <div class="player"></div>
+    <details><summary>Selected unapproved source: idle_v11.png</summary><img src="idle_v11.png" alt="Selected idle v11 source strip"></details>
+  </section>
+  <section class="candidate" data-animation="guard" data-version="9">
+    <h2>Selected guard v09 — HOLD</h2>
+    <p>Both frames occupy132px, below150–158px. Head34±2px versus combat about40–41; probe0.904 fails. Crossed arms conceal collar and arm chains. Raw landmarks suggest a calibration hypothesis, not a source-body pass. One generation call remains.</p>
+    <div class="player"></div>
+    <details><summary>Selected unapproved source: guard_v09.png</summary><img src="guard_v09.png" alt="Selected guard v09 source strip"></details>
+  </section>
+  <section class="candidate" data-animation="superDash" data-version="8">
+    <h2>Selected superDash v08 — HOLD</h2>
+    <p>Probe0.832 fails. Head34±2, torso29–30±2, arm39±4, folded leg44–45±6 and shoe23±2px are projection-limited. Calibration alone and correct anatomy are unproven. Both packed frames retain the source limbs. One generation call remains.</p>
+    <div class="player"></div>
+    <details><summary>Selected unapproved source: superDash_v08.png</summary><img src="superDash_v08.png" alt="Selected superDash v08 source strip"></details>
+  </section>
+  <section class="candidate" data-animation="stagger" data-version="7">
+    <h2>Selected stagger v07 — HOLD; loop reset</h2>
+    <p class="hold"><strong>Astra motion finding:</strong> frames0–2 dangle the arms; frame3 restores fighting guard. The looping <strong>frame3 → frame0</strong> abruptly drops arms and slumps again. This source pose-sequence issue is separate from atlas calibration. <strong>Three-call budget exhausted; no new generation requested.</strong></p>
+    <p>Head/hair and shoes exceed candidate idle. Shoe29–30±2 versus candidate idle23±2 gives conservative ratio≥1.08: an evidenced mismatch within the candidate set. Full comparison against approved combat anatomy remains unresolved.</p>
+    <div class="player"></div>
+    <details><summary>Selected unapproved source: stagger_v07.png</summary><img src="stagger_v07.png" alt="Selected stagger v07 source strip"></details>
+  </section>
+  <section class="candidate" data-animation="win" data-version="5">
+    <h2>Selected win v05 — HOLD</h2>
+    <p>Torso37±2, leg58±6 and shoe24±2px overlap baseline too broadly to certify. Hands behind the head hide wrist/elbow chains. Astra found no gross frame3 → frame0 size discontinuity; this does not clear anatomy. Two generation calls remain.</p>
+    <div class="player"></div>
+    <details><summary>Selected unapproved source: win_v05.png</summary><img src="win_v05.png" alt="Selected win v05 source strip"></details>
+  </section>
+
+  <section>
+    <h2>Shipped suspects — retained, inconclusive</h2>
+    <p>The five retained movement/aerial strips have concealed or projected joints; no numerical pass. Old stagger/win were redrawn after measured torso concerns. These are shipped baseline strips, not the selected candidates.</p>
+    <details><summary>Show all seven shipped strips</summary>
+      <h3>jumpUp v05</h3><img src="shipped-jumpUp.png" alt="Shipped jumpUp v05">
+      <h3>jumpFall v05</h3><img src="shipped-jumpFall.png" alt="Shipped jumpFall v05">
+      <h3>airRecover v05</h3><img src="shipped-airRecover.png" alt="Shipped airRecover v05">
+      <h3>stagger v05</h3><img src="shipped-stagger.png" alt="Shipped stagger v05">
+      <h3>win v04</h3><img src="shipped-win.png" alt="Shipped win v04">
+      <h3>airLight1 v06</h3><img src="shipped-airLight1.png" alt="Shipped airLight1 v06">
+      <h3>airLight2 v07</h3><img src="shipped-airLight2.png" alt="Shipped airLight2 v07">
+    </details>
+  </section>
+  <section>
+    <h2>Earlier attempts — history only</h2>
+    <p>Immutable unapproved history. These are not selected and are never used by the players above.</p>
+    <details><summary>Historical idle v09</summary><img src="idle_v09.png" alt="Historical idle v09"></details>
+    <details><summary>Historical idle v10</summary><img src="idle_v10.png" alt="Historical idle v10"></details>
+    <details><summary>Historical guard v08</summary><img src="guard_v08.png" alt="Historical guard v08"></details>
+    <details><summary>Historical superDash v07</summary><img src="superDash_v07.png" alt="Historical superDash v07"></details>
+    <details><summary>Historical stagger v06</summary><img src="stagger_v06.png" alt="Historical stagger v06"></details>
+  </section>
+  <section>
+    <h2>Body-sheet evidence</h2>
+    <p>Garment-colour area B is advisory, not a chain pass. Shipped42-strip area flags17; diagnostic10-strip flags4. Manual segments and Astra findings remain separate.</p>
+    <p><a href="body-diagnostic.png">Diagnostic body sheet</a> · <a href="body-diagnostic-report.json">Diagnostic area numbers</a> · <a href="body-shipped.png">Shipped body sheet</a> · <a href="body-shipped-report.json">Shipped area numbers</a> · <a href="heads-diagnostic.png">Head-only sheet</a></p>
+    <details><summary>Show diagnostic body sheet</summary><img src="body-diagnostic.png" alt="Diagnostic body sheet, area proxy only"></details>
+    <details><summary>Show exact full diagnostic atlas</summary><img src="diagnostic-sheet.png" alt="Exact quantized diagnostic atlas, production gate failed"></details>
+  </section>
+</main>
+</body>
+</html>

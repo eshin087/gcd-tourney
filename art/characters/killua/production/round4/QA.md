@@ -183,3 +183,12 @@ SuperDash08 head34±2/leg44–45±6: headscaled40/34 gives52–53±8, overlappin
 Merged currentmain tooling into taskbranch (d4994c9); resolvedTASKS by retaining coordinator ART-SCALE-R4 in-progress and adding scoped ART-SCALE-R4-KIL review row. npm run body -- killua exits0: shipped17/42area flags. Direct CLI candidate10-strip diagnostic body command exits0:4area flags (airLight1,airLight2,guard,airRecover); source candidate atlas unchanged. B measures opaque body-colour area, not anatomical segment scale; ±10%pose noise, no numeric certification. Head-only sheet diagnostic generated separately. Posed-height and approved references unchanged.
 
 Production adapter build exits0 (82modules,9m45s; full public art copied). git diff --check clean; public/characters/killua has zero changes. Gallery file src/href references all present. Local IAB browser returned ERR_CONNECTION_TIMED_OUT and direct restricted-profile fetch EACCES127.0.0.1:5275; browser preview verification remains coordinator-owned. No in-game approval or candidate gameplay integration.
+
+## Selected-candidate playback correction
+
+Gallery main sections now select idle11/guard09/superDash08/stagger07/win05 only. Earlier saved candidates are closed historical details. Each player crops the exact diagnostic-sheet.png using diagnostic-anims.json frame IDs and durations, beside approved combatv01 and shipped approved idle08f0 at native256density. Independent pause/previous/next/restart, half/quarter speed and repeat toggle expose every frame and join. Metadata versions are checked before playback; missing/mismatched data errors without substitute sources. One-off VM exercised actual control handlers and every selected atlas crop, pause/duration, half-speed, repeat-off and stagger3→0; this is not rendered browser verification. Source/atlas9filehashes unchanged from HEAD. Root verifies the committed hosted preview.
+
+Astra report (main deliverables/round4-qa/astra-three-fighters_v01.md, GPT-6Astra medium) adds a motion HOLD: stagger07f3→f0 abruptly returns from recovered guard to dangling/slumped arms. Source pose-sequence issue, separate from calibration. Three-call budget exhausted; no new generation requested or performed. The report is mirrored read-only in the gallery. No approval, manifest, packed-atlas or source change.
+
+
+Gallery refresh production build completed: adapter command exited 0 (82 modules; 1m39s). Full output and exit code are recorded in gallery-refresh-build.txt. Browser preview remains pending root verification.
