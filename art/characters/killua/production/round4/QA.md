@@ -177,3 +177,9 @@ Final idle11 headprobe0.966 (individual0.942–1.000), feet1.211–1.242; actual
 Guard09 raw firstfigure crown(493,146), chin(511,340), solesY900 gives head~195±6 / height754px. AtH40 ratio implies155±5px; target150–158 uncertainty preventsPASS. Leg hip(483,530), knee(574,658), ankle(632,792) chain303±18px (hip under clothing); normalizedH40 ~62±5px. These are independent visible source points, not prompt targets or a guessed scalp. [Record](raw-landmarks.json).
 
 SuperDash08 head34±2/leg44–45±6: headscaled40/34 gives52–53±8, overlapping baseline61±6. Arm39±4 scaled~46±6 overlapsbaseline39±4; torso pitched. INCONCLUSIVE, not evidenced anatomy failure. Final1call preserved pending definite joint feedback. Stricthead0.832 hold unchanged.
+
+## TOOL-036 body sheets and build
+
+Merged currentmain tooling into taskbranch (d4994c9); resolvedTASKS by retaining coordinator ART-SCALE-R4 in-progress and adding scoped ART-SCALE-R4-KIL review row. npm run body -- killua exits0: shipped17/42area flags. Direct CLI candidate10-strip diagnostic body command exits0:4area flags (airLight1,airLight2,guard,airRecover); source candidate atlas unchanged. B measures opaque body-colour area, not anatomical segment scale; ±10%pose noise, no numeric certification. Head-only sheet diagnostic generated separately. Posed-height and approved references unchanged.
+
+Production adapter build exits0 (82modules,9m45s; full public art copied). git diff --check clean; public/characters/killua has zero changes. Gallery file src/href references all present. Local IAB browser returned ERR_CONNECTION_TIMED_OUT and direct restricted-profile fetch EACCES127.0.0.1:5275; browser preview verification remains coordinator-owned. No in-game approval or candidate gameplay integration.
