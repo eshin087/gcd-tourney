@@ -26,20 +26,23 @@
       "reference/idle_approved.png",
       "prior D_A_v01 direction only"
     ],
-    "reviewStatus": "needs review",
-    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains."
+    "reviewStatus": "approved",
+    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains.",
+    "selectionScope": "Direction study only; production run remains v12 and technical holds remain.",
+    "selectedOn": "2026-10-13T04:27:31.298Z",
+    "userDecision": "ok lets go with G"
   },
   "H": {
     "title": "One-pocket glide",
     "calls": 3,
     "parts": [
       {
-        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/H_A_v01.png",
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/H_A_v01.png",
         "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-2a6d5cd1-c952-4054-b2a1-a2bd8e8db1e1.png",
         "sha256": "4C6CDAD4800C4DC5A597E65ACB021BFDB6CB85F8EE89B627BB1D25032A819B81"
       },
       {
-        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/H_B_v01.png",
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/H_B_v01.png",
         "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-b6b421b5-1786-406d-bafd-d2ec5cfb0c8b.png",
         "sha256": "3E27638B99294D6B9185996E9F804FBF70AEBD0E0FB32D0A5E63FCC57A90307B"
       }
@@ -56,20 +59,21 @@
       "reference/idle_approved.png",
       "prior D_A_v01 direction only"
     ],
-    "reviewStatus": "needs review",
-    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains."
+    "reviewStatus": "rejected",
+    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains.",
+    "rejectionReason": "Not selected; superseded by user-selected G direction."
   },
   "I": {
     "title": "Low floating gesture",
     "calls": 3,
     "parts": [
       {
-        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/I_A_v01.png",
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/I_A_v01.png",
         "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-1338e938-0de1-48c2-ab28-dd9fdb0bb996.png",
         "sha256": "5D118366C7AF7F974965C38173CAD6FE3EE6AB58491A1816BCB1A64EF7BFB6B9"
       },
       {
-        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/I_B_v01.png",
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/I_B_v01.png",
         "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-16b4bd19-4fa7-45d0-abb1-56adcd4be74a.png",
         "sha256": "8A114DA70DBAF103DC6E37E591E1A08B41E36E19047ED28D6AAC3018540DF0AA"
       }
@@ -86,7 +90,8 @@
       "reference/idle_approved.png",
       "prior D_A_v01 direction only"
     ],
-    "reviewStatus": "needs review",
-    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains."
+    "reviewStatus": "rejected",
+    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains.",
+    "rejectionReason": "Not selected; superseded by user-selected G direction."
   }
 }
