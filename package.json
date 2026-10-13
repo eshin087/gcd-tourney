@@ -17,6 +17,7 @@
     "status": "node tools/status.mjs",
     "lineup": "node tools/lineup.mjs",
     "scale": "node tools/scale-audit.mjs",
+    "body": "node tools/body-sheet.mjs",
     "stitch": "node tools/stitch-parts.mjs",
     "publish:github": "node tools/publish.mjs",
     "pr": "node tools/pr.mjs",

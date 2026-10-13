@@ -239,6 +239,49 @@ A redraw prompt attaches `reference/head_scale_guide.png` (`npm run scale -- --g
 multiplier with its crown, hair-width and chin lines). The gate does not approve art: the user still approves every
 version.
 
+## Body sheet (TOOL-036)
+
+**Why.** Every strip is a separately generated drawing with its own head-to-body ratio. The packer sizes a strip with
+one factor so its head matches the idle, and the scale gate measures only the head (its feet number is a colour count
+that misreads), so a strip can read head 1.00 while its body is 10-25 % off: Sasuke superDash about 0.80, Naruto
+stagger about 1.20. In game the fighter visibly grows and shrinks between moves. The body sheet shows the body.
+
+**What it measures** (`npm run body`, `tools/body-sheet.mjs`, on the packed atlas):
+
+- **B, body size per frame** = sqrt(garment px of the frame / garment px of idle f0). Garment px = opaque pixels in the
+  fighter's `bodyColors` (`art/scale/builds.json`): the shipped shades of the main garment, the one visible in almost
+  every pose (Naruto's orange jumpsuit; Sasuke's white shirt, purple rope and blue apron; Killua's lavender sweater;
+  Gojo's navy uniform). `_bodyColors` records the HSL rule each list was derived with from the packed palette; a
+  sheet colour within RGB 8 of a listed shade counts. When a repack moves the palette, the tool prints
+  `bodyColors not in the packed palette`: re-derive the list with that rule.
+- **H, head size per frame** = the scale gate's own recorded number (`anims.json` `meta.scaleAudit`); `-` = a frame
+  the probe did not read.
+
+**Commands and files.** `npm run body` writes `art/scale/body-<id>.png` for every packed fighter and
+`art/scale/body-report.json` (per strip: version, B and H per frame, median B and H, flag `big` above 1.12 or `small`
+below 0.88). `npm run body -- killua` runs one fighter; `npm run body -- sasuke superDash jumpSquat` only those
+animations (`art/scale/body-sasuke-superDash-jumpSquat.png`); a partial run updates only its rows of the report.
+`--scale 2` upscales the cells, `--json` prints the report.
+
+**How to read it.** One row per animation in sheet order: idle f0, the approved combat cell
+(`public/art-review/title-style-pilot/<id>-combat_v01.png`, shown in the packed palette; skipped with a note when
+missing), then every frame, all at the game's pixel density on one floor line and cropped to 200 px around the
+pivot. The solid line is the floor (y 240), the dashed line idle f0's crown. Each frame's label `B0.81 H1.00` is red
+when B is more than 12 % off, amber above 8 %. The row label gives the strip's version, median B (with its flag),
+median H and the gate verdict when it is not `ok`. Look whether the figure is the same person as the idle and the
+combat cell: head, shoulders, torso, legs and shoes. A crouch or lunge sits below the crown line by pose, which is
+fine; its segments must still match.
+
+**Round-4 rule (Codex, `docs/agents/CODEX_INBOX.md`).** In the packed atlas, next to idle f0 and the approved combat
+cell at one pixel density, measure every visible segment: head (crown to chin), collar to belt or hem, upper arm +
+forearm, thigh + shin, shoe length, and shoulder width in a frontal pose. A strip passes when every visible segment is
+within ±6 % of the idle's; name any foreshortened segment you skip and put the numbers in the REVIEW row.
+
+**Noise.** B is a proxy of about ±10 % and depends on the pose: a back view or arms crossed over the garment lower it
+(Killua's guard reads 0.57, partly because both arms cover his sweater), an open coat or a sleeve swinging clear raise it. It is
+advisory: a flagged strip is a suspect to confirm by measuring the segments above, a clean B approves nothing, and a
+passing head probe alone never certifies a strip. The user still approves every version.
+
 ## Acceptance gate
 
 - **Scale gate**: `node tools/pack-sprites.mjs <id> --quantize 48` exits 0 with no `scale gate:` line for the strip

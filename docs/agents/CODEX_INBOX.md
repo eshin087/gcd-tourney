@@ -52,6 +52,11 @@ pose): treat each one as a suspect, not a verdict.
 
 ### Part 1: scale fixes (ART-SCALE-R4)
 
+**Codex execution started 2026-10-12:** root coordinates dedicated fighter workers in real task worktrees;
+Killua, Sasuke and Naruto sparse round-3 branches were created because their checkouts were missing.
+Gojo uses the existing managed `codex/gojo-run-def` checkout; all run-direction studies and round-3 items
+remain outside this task. No images are approved by the agents. ENG-081 is not on main at start.
+
 Work in each fighter's round-3 worktree and branch (`art/<id>-title-r3`; Gojo: the managed worktree you already
 use), one sub-agent per fighter. The open round-3 items stay as they are.
 
