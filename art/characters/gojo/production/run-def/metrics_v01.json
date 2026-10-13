@@ -1,0 +1,398 @@
+{
+  "D": {
+    "scale": 0.35353535353535354,
+    "measuredPartFactors": [
+      1.0,
+      1.0050761421319796
+    ],
+    "placement": "fixed hair crown and head center; floor pivot remains [128,240]; foot lift retained",
+    "referenceHairWidth": 35,
+    "frames": [
+      {
+        "frame": 0,
+        "bounds": [
+          52,
+          14,
+          211,
+          239
+        ],
+        "hairWidth": 34,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 14,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 1,
+        "bounds": [
+          76,
+          13,
+          163,
+          240
+        ],
+        "hairWidth": 35,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 2,
+        "bounds": [
+          53,
+          13,
+          204,
+          239
+        ],
+        "hairWidth": 34,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 3,
+        "bounds": [
+          94,
+          13,
+          154,
+          240
+        ],
+        "hairWidth": 35,
+        "hairHeight": 50,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 4,
+        "bounds": [
+          52,
+          13,
+          214,
+          239
+        ],
+        "hairWidth": 34,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 5,
+        "bounds": [
+          68,
+          13,
+          175,
+          241
+        ],
+        "hairWidth": 35,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 6,
+        "bounds": [
+          93,
+          13,
+          174,
+          240
+        ],
+        "hairWidth": 34,
+        "hairHeight": 52,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      },
+      {
+        "frame": 7,
+        "bounds": [
+          51,
+          13,
+          215,
+          237
+        ],
+        "hairWidth": 34,
+        "hairHeight": 52,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.35353535353535354
+      }
+    ],
+    "uniformScale": true,
+    "noClipping": true,
+    "anatomyStatus": "visual review required; hair geometry does not certify torso or legs",
+    "gif": {
+      "frames": 8,
+      "durationMs": 60,
+      "infiniteLoop": true
+    },
+    "mp4Decoded": true
+  },
+  "E": {
+    "scale": 0.40229885057471265,
+    "measuredPartFactors": [
+      1.0,
+      0.7131147540983607
+    ],
+    "placement": "fixed hair crown and head center; floor pivot remains [128,240]; foot lift retained",
+    "referenceHairWidth": 35,
+    "frames": [
+      {
+        "frame": 0,
+        "bounds": [
+          60,
+          27,
+          183,
+          239
+        ],
+        "hairWidth": 35,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 27,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 1,
+        "bounds": [
+          76,
+          27,
+          163,
+          239
+        ],
+        "hairWidth": 33,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 27,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 2,
+        "bounds": [
+          76,
+          26,
+          166,
+          241
+        ],
+        "hairWidth": 33,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 26,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 3,
+        "bounds": [
+          54,
+          26,
+          183,
+          239
+        ],
+        "hairWidth": 33,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 26,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 4,
+        "bounds": [
+          56,
+          26,
+          177,
+          236
+        ],
+        "hairWidth": 34,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 26,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 5,
+        "bounds": [
+          70,
+          26,
+          167,
+          234
+        ],
+        "hairWidth": 35,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 26,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 6,
+        "bounds": [
+          77,
+          26,
+          165,
+          236
+        ],
+        "hairWidth": 34,
+        "hairHeight": 47,
+        "headCenterX": 128,
+        "crownY": 26,
+        "scale": 0.40229885057471265
+      },
+      {
+        "frame": 7,
+        "bounds": [
+          62,
+          26,
+          186,
+          234
+        ],
+        "hairWidth": 36,
+        "hairHeight": 48,
+        "headCenterX": 128,
+        "crownY": 26,
+        "scale": 0.40229885057471265
+      }
+    ],
+    "uniformScale": true,
+    "noClipping": true,
+    "anatomyStatus": "visual review required; hair geometry does not certify torso or legs",
+    "gif": {
+      "frames": 8,
+      "durationMs": 60,
+      "infiniteLoop": true
+    },
+    "mp4Decoded": true
+  },
+  "F": {
+    "scale": 0.30837004405286345,
+    "measuredPartFactors": [
+      1.0,
+      1.008888888888889
+    ],
+    "placement": "fixed hair crown and head center; floor pivot remains [128,240]; foot lift retained",
+    "referenceHairWidth": 35,
+    "frames": [
+      {
+        "frame": 0,
+        "bounds": [
+          69,
+          13,
+          194,
+          233
+        ],
+        "hairWidth": 34,
+        "hairHeight": 49,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 1,
+        "bounds": [
+          87,
+          14,
+          165,
+          240
+        ],
+        "hairWidth": 34,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 14,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 2,
+        "bounds": [
+          89,
+          14,
+          154,
+          240
+        ],
+        "hairWidth": 34,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 14,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 3,
+        "bounds": [
+          76,
+          14,
+          189,
+          240
+        ],
+        "hairWidth": 35,
+        "hairHeight": 50,
+        "headCenterX": 128,
+        "crownY": 14,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 4,
+        "bounds": [
+          65,
+          13,
+          194,
+          231
+        ],
+        "hairWidth": 34,
+        "hairHeight": 49,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 5,
+        "bounds": [
+          88,
+          13,
+          175,
+          241
+        ],
+        "hairWidth": 35,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 6,
+        "bounds": [
+          88,
+          13,
+          169,
+          239
+        ],
+        "hairWidth": 34,
+        "hairHeight": 51,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.30837004405286345
+      },
+      {
+        "frame": 7,
+        "bounds": [
+          68,
+          13,
+          197,
+          231
+        ],
+        "hairWidth": 34,
+        "hairHeight": 48,
+        "headCenterX": 128,
+        "crownY": 13,
+        "scale": 0.30837004405286345
+      }
+    ],
+    "uniformScale": true,
+    "noClipping": true,
+    "anatomyStatus": "visual review required; hair geometry does not certify torso or legs",
+    "gif": {
+      "frames": 8,
+      "durationMs": 60,
+      "infiniteLoop": true
+    },
+    "mp4Decoded": true
+  }
+}
