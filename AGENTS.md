@@ -217,7 +217,9 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
   character's art goes in batch PRs (`art/<id>-refs`, `art/<id>-core`, `art/<id>-full`), each based on `main`
   after the previous one merged ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)).
   Reuse the task's existing real worktree. Base PRs on `main`, never on another PR's branch unless the PR body
-  explains the dependency.
+  explains the dependency. A managed worktree may start at a detached HEAD. Before editing or committing, run
+  `git branch --show-current`; if it is empty, create or attach the intended named task branch inside that worktree
+  after auditing its status. Never run `npm run pr -- open` from a detached HEAD.
 - **Worktree workflow rules.** The docs-only/main exceptions above still apply.
   1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
      `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
@@ -228,7 +230,9 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
      does not bring back its `raw/` directory.
   4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
   5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
-     finish cleanup of merged task worktrees.
+     finish cleanup of merged task worktrees. `npm run pr -- merge` automatically removes only the project-local
+     worktree path created by the helper; archive or remove an app-managed worktree through the Codex app after
+     its branch is merged.
   6. Worktree storage is controlled by the user's Codex app or Git configuration. Do not require a repository-local
      worktree root, change the user's global Worktree root, or reject an app-managed worktree because it is outside
      this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
