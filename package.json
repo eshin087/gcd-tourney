@@ -22,7 +22,8 @@
     "publish:github": "node tools/publish.mjs",
     "pr": "node tools/pr.mjs",
     "deploy": "node tools/deploy.mjs",
-    "test:anims": "node tools/test-tech-anims.mjs"
+    "test:anims": "node tools/test-tech-anims.mjs",
+    "test:alts": "node tools/test-anim-alts.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"

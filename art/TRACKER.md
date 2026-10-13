@@ -339,6 +339,24 @@ section's table when its strips are generated (the manifest gets the same entrie
 | killua | todo | todo | todo | title-style production branch (PR #70) |
 | gojo | todo | todo | todo | title-style production branch (PR #72) |
 
+## Attack alts (ADR 0031)
+
+Eleven optional strips per fighter (step 9), one alternate of each attack and hit reaction: `light1Alt`, `light2Alt`,
+`light3Alt` (7 frames, 2/2/3), `light4Alt`, `heavyAlt` (8, 3/2/3), `airLight1Alt`, `airLight2Alt` (5, 1/2/2),
+`airLight3Alt`, `airHeavyAlt` (6, 2/2/2), `hurtHighAlt`, `hurtLowAlt` (3). Each keeps its base's frame count, phases and
+strike height and reach with another technique (art/SPEC.md "Attack alts"); the game alternates it with the base and
+plays the base until it is packed, so nothing waits on them. The manifest lists all eleven per fighter (status `todo`,
+`altOf` = the base, frames / phases / ms / bodyHeight copied from that fighter's base). Naruto pilots them (ART-ALTS-NAR,
+brief docs/agents/CODEX_INBOX.md round 4 Part 2); the others follow his in-game review (ART-ALTS). Each fighter's rows
+move into its own section's table when its alts are generated.
+
+| fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
+|---|---|---|---|---|---|---|
+| naruto | todo | todo | todo | todo | todo | pilot (ART-ALTS-NAR) |
+| sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+| killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+| gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+
 ## VFX atlas (step 10)
 
 Brief: [vfx/EFFECTS.md](vfx/EFFECTS.md). Candidates `art/vfx/raw/<effect>_vNN.png` (the packer uses
