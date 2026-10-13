@@ -4,6 +4,34 @@ Instructions for Codex and any other coding agent working in this repository. Cl
 [CLAUDE.md](CLAUDE.md), which has the same rules plus engine detail. When the two disagree, fix
 the docs. Don't pick one silently.
 
+## Agent model selection (user direction, 2026-10-12)
+
+For every newly spawned Codex agent, select the model and reasoning effort explicitly:
+
+| Work | Model | Reasoning |
+|---|---|---|
+| All work except the final anatomy/scale audit: planning, art prompts, generation, packing, previews, routine QA, fixes, code, docs and Git | `gpt-6-luna` (GPT-6 Luna) | `medium` |
+| Final anatomy and scale audit of completed art candidates | `gpt-6-astra` (GPT-6 Astra) | `medium` |
+
+The user's "6.1 Astra" request maps to the available GPT-6 Astra model above; GPT-6.1 Sol is a different
+model. Do not silently substitute Sol, another model or another reasoning effort.
+
+- With `collaboration.spawn_agent`, pass `model`, `reasoning_effort: "medium"` and
+  `fork_turns: "none"`; a full-history fork inherits its parent's model. Supply a self-contained task,
+  worktree path, exact candidate/reference paths, approval state and relevant constraints.
+- For a user-requested new Codex chat, pass the same `model` and `thinking: "medium"` where supported.
+  This policy does not itself authorize creating new user-visible chats.
+- The final Astra audit compares every frame and loop in the actual quantized atlas with the approved
+  title-style neutral/combat cells and production contract. Inspect heads, torsos, limbs, build and clothing
+  volume across poses; record exact versions, evidence and measurement uncertainty. Head-gate success alone
+  is insufficient. Return pass/hold findings; Luna handles fixes and Astra rechecks the affected final art.
+  An audit pass never replaces the user's image/design approval.
+- These instructions select future agents; they do not switch an existing chat or running agent, or select
+  the image generator's rendering model. If the requested model is unavailable, report the limitation,
+  continue unaffected work and leave the final audit pending rather than claiming it was completed by Astra.
+- This routing applies to Codex/model-capable launch tools. Claude Code retains its engine and integration
+  role; these OpenAI model IDs are not Claude model names. Existing worktree and art-approval rules still apply.
+
 ## Approved anatomy and cast scale (user decision, 2026-10-11; ADR 0029)
 
 The user approved the four title-style references (`title_style_draft_v01`) and their neutral/combat lineups
