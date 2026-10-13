@@ -1,0 +1,3 @@
+import fs from 'node:fs';
+let s=fs.readFileSync('art/manifest.json','utf8');const st=s.indexOf('"sasuke": {'),en=s.indexOf('"killua": {',st);let own=s.slice(st,en);own=own.replace(/("jumpSquat": \{[^\n]*?"scaleManualQA": \{ "version": )5/, '$13');own=own.replace(/("jumpSquat": \{[^\n]*?"status": "approved", "version": )3/, '$15');fs.writeFileSync('art/manifest.json',s.slice(0,st)+own+s.slice(en));
+s=fs.readFileSync('art/TRACKER.md','utf8');const i=s.indexOf('## sasuke'),j=s.indexOf('## killua',i);let t=s.slice(i,j);for(const [a,v]of Object.entries({superDash:7,jumpSquat:5,beamFire:6,dash:6}))t=t.replace(new RegExp('(\\| '+a+' \\|[^\\n]*?approved \\| )v\\d+'), '$1v'+String(v).padStart(2,'0'));fs.writeFileSync('art/TRACKER.md',s.slice(0,i)+t+s.slice(j));
