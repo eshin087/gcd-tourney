@@ -197,6 +197,7 @@ World art (crowd, stage, NPCs, UI, VFX) runs as a parallel claim queue with one 
 | `npm run test:sprites` | packer regression test (fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 | `npm run sprites -- --strict-scale <id>` | scale gate strict for every strip, approved ones too: fails until all of a fighter's strips pass (the check before `"scaleGate": "strict"`); not the per-strip check |
 | `npm run scale [id]` | scale report: `art/scale/heads-<id>.png` (attach to the REVIEW row), `scale-report.json`; `-- --guide` writes `reference/head_scale_guide.png` |
+| `npm run body [id] [anim...]` | body sheet (TOOL-036): every packed frame beside idle f0 and the approved combat cell at one density with its body size B (garment area) and head H; `art/scale/body-<id>.png` + `body-report.json`. B is advisory (±10 %): confirm a flagged strip by measuring its segments (art/CHARACTER_SCALE.md "Body sheet") |
 | `npm run stitch -- <id> <anim> <vNN>` | join `raw/_parts/<anim>_vNN_A.png` + `_B.png` with a measured size factor |
 | `npm run lineup` | the cast side by side (idle, run, heavy, guard, charge, airLight1, hurtHigh) with each fighter's head scale per animation |
 | `npm run build` | production build. Must pass before you finish. |
