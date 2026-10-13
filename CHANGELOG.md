@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art review follow-up (2026-10-12, ART-TITLE-R3): standalone full eight-frame Gojo B pocket-glide and C blindfold-float comparison, versioned source inventory, normal/half-speed GIFs and synchronized interactive controls. Review records only committed; artifacts remain in permitted TEMP pending accessible real-worktree filing. No manifest, atlas, gameplay or production changes.
+
 - Art/workflow follow-up (2026-10-12): Codex app created a real Gojo worktree; current session access remains blocked outside its permitted roots. Added a three-direction Gojo movement study for review (tool output awaiting versioned worktree filing); no atlas or production change. Restored repository-local commit identity from recent commit history.
 
 - Art follow-up (2026-10-12): recorded Sasuke/Killua/Gojo movement scale feedback and Gojo run/glide concept request. Round-3 production stopped at denied real worktree creation; no new candidates or production changes.
