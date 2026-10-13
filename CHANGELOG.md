@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo D/E/F eight-frame run/glide direction studies: versioned review-only sources,48color native cells, contact sheets, GIF/MP4, embedded offline demo and browser/media QA; earlier B/C rejected. Production runv12 unchanged; scale/anatomy/leg-continuity holds remain.
+
 - Art follow-up (2026-10-12): recorded Sasuke/Killua/Gojo movement scale feedback and Gojo run/glide concept request. Round-3 production stopped at denied real worktree creation; no new candidates or production changes.
 
 - Changed: Gojo title-style art ships (PR #72) with round-3 QA: airLight3 v12, airHeavy v08 and special v07 boxes re-measured; run v12 (the user's hover-glide), special v07 and airHeavy v08 are user-approved stand-ins until the round-3 redraws.

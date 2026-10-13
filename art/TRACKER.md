@@ -2,6 +2,8 @@
 
 # Art tracker
 
+Gojo D/E/F run-direction studies v01: **needs review / technical HOLD**, three calls each, B/C rejected. [Combined24frames](../public/reviews/gojo-run-def/DEF_all_24_frames_v01.png), [playable comparison](../public/reviews/gojo-run-def/DEF_comparison_v01.gif), [QA](characters/gojo/production/run-def/QA_v01.md). Production run remains v12/approvedVersion12.
+
 Candidate idle comparison v01: derived QA of Naruto5/Sasuke6/Killua3/Gojo4 against approved neutrals; needs review, no animation approvals. See scale/CANDIDATE_IDLE_COMPARISON_V01.md.
 
 Human-readable status of every art asset (hi-res sprite spec v2,
