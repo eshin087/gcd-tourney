@@ -1,0 +1,730 @@
+{
+  "method": "Manual f0 landmarks on actual quantized diagnostic atlas, followed by 7x7 exact-pixel landmark template matching +/-3px per frame; all frame comparison inspected. Coordinates cell-local. This is diagnostic at unchanged bodyHeight236, not production atlas.",
+  "uncertainty": "Manual landmarks +/-2px each; articulated chain +/-5px. Clothing obscures joint centers; no numeric pass. Far arm/far leg foreshortened or occluded; frontal shoulder width skipped because three-quarter.",
+  "baseline": {
+    "version": 6,
+    "landmarks": {
+      "chin": [
+        138,
+        45
+      ],
+      "collar": [
+        132,
+        48
+      ],
+      "hem": [
+        138,
+        127
+      ],
+      "shoulder": [
+        114,
+        57
+      ],
+      "elbow": [
+        98,
+        91
+      ],
+      "wrist": [
+        116,
+        118
+      ],
+      "hip": [
+        137,
+        127
+      ],
+      "knee": [
+        143,
+        177
+      ],
+      "ankle": [
+        145,
+        229
+      ],
+      "heel": [
+        141,
+        236
+      ],
+      "toe": [
+        174,
+        236
+      ]
+    },
+    "measurements": {
+      "headCrownToChin": 36,
+      "torsoCollarToHem": 79.22752047110902,
+      "nearUpperArm": 37.57658845611187,
+      "nearForearm": 32.449961479175904,
+      "nearArmChain": 70.02654993528778,
+      "nearThigh": 50.35871324805669,
+      "nearShin": 52.038447325030745,
+      "nearLegChain": 102.39716057308743,
+      "nearShoeLength": 33
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "bounds": {
+        "frame": 0,
+        "bounds": [
+          60,
+          5,
+          197,
+          240
+        ],
+        "width": 138,
+        "height": 236
+      },
+      "landmarks": {
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          44
+        ],
+        "hem": [
+          127,
+          129
+        ],
+        "shoulder": [
+          112,
+          57
+        ],
+        "elbow": [
+          94,
+          93
+        ],
+        "wrist": [
+          119,
+          117
+        ],
+        "hip": [
+          132,
+          133
+        ],
+        "knee": [
+          165,
+          168
+        ],
+        "ankle": [
+          166,
+          225
+        ],
+        "heel": [
+          164,
+          237
+        ],
+        "toe": [
+          196,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 36,
+        "torsoCollarToHem": 85.1,
+        "nearUpperArm": 40.2,
+        "nearForearm": 34.7,
+        "nearArmChain": 74.9,
+        "nearThigh": 48.1,
+        "nearShin": 57,
+        "nearLegChain": 105.1,
+        "nearShoeLength": 32
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": 0,
+        "torsoCollarToHem": 7.5,
+        "nearUpperArm": 7.1,
+        "nearForearm": 6.8,
+        "nearArmChain": 7,
+        "nearThigh": -4.5,
+        "nearShin": 9.6,
+        "nearLegChain": 2.7,
+        "nearShoeLength": -3
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 1,
+      "bounds": {
+        "frame": 1,
+        "bounds": [
+          60,
+          5,
+          196,
+          240
+        ],
+        "width": 137,
+        "height": 236
+      },
+      "landmarks": {
+        "chin": [
+          136,
+          39
+        ],
+        "collar": [
+          132,
+          44
+        ],
+        "hem": [
+          127,
+          129
+        ],
+        "shoulder": [
+          110,
+          56
+        ],
+        "elbow": [
+          94,
+          93
+        ],
+        "wrist": [
+          119,
+          117
+        ],
+        "hip": [
+          132,
+          133
+        ],
+        "knee": [
+          167,
+          165
+        ],
+        "ankle": [
+          166,
+          225
+        ],
+        "heel": [
+          164,
+          237
+        ],
+        "toe": [
+          195,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 35,
+        "torsoCollarToHem": 85.1,
+        "nearUpperArm": 40.3,
+        "nearForearm": 34.7,
+        "nearArmChain": 75,
+        "nearThigh": 47.4,
+        "nearShin": 60,
+        "nearLegChain": 107.4,
+        "nearShoeLength": 31
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": -2.8,
+        "torsoCollarToHem": 7.5,
+        "nearUpperArm": 7.3,
+        "nearForearm": 6.8,
+        "nearArmChain": 7.1,
+        "nearThigh": -5.8,
+        "nearShin": 15.3,
+        "nearLegChain": 4.9,
+        "nearShoeLength": -6.1
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 2,
+      "bounds": {
+        "frame": 2,
+        "bounds": [
+          60,
+          5,
+          196,
+          240
+        ],
+        "width": 137,
+        "height": 236
+      },
+      "landmarks": {
+        "chin": [
+          135,
+          39
+        ],
+        "collar": [
+          131,
+          44
+        ],
+        "hem": [
+          128,
+          127
+        ],
+        "shoulder": [
+          111,
+          57
+        ],
+        "elbow": [
+          92,
+          92
+        ],
+        "wrist": [
+          117,
+          117
+        ],
+        "hip": [
+          133,
+          132
+        ],
+        "knee": [
+          167,
+          165
+        ],
+        "ankle": [
+          165,
+          225
+        ],
+        "heel": [
+          163,
+          237
+        ],
+        "toe": [
+          195,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 35,
+        "torsoCollarToHem": 83.1,
+        "nearUpperArm": 39.8,
+        "nearForearm": 35.4,
+        "nearArmChain": 75.2,
+        "nearThigh": 47.4,
+        "nearShin": 60,
+        "nearLegChain": 107.4,
+        "nearShoeLength": 32
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": -2.8,
+        "torsoCollarToHem": 4.8,
+        "nearUpperArm": 6,
+        "nearForearm": 9,
+        "nearArmChain": 7.4,
+        "nearThigh": -5.9,
+        "nearShin": 15.4,
+        "nearLegChain": 4.9,
+        "nearShoeLength": -3
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 3,
+      "bounds": {
+        "frame": 3,
+        "bounds": [
+          61,
+          5,
+          196,
+          240
+        ],
+        "width": 136,
+        "height": 236
+      },
+      "landmarks": {
+        "chin": [
+          136,
+          39
+        ],
+        "collar": [
+          132,
+          44
+        ],
+        "hem": [
+          128,
+          129
+        ],
+        "shoulder": [
+          112,
+          57
+        ],
+        "elbow": [
+          94,
+          93
+        ],
+        "wrist": [
+          119,
+          117
+        ],
+        "hip": [
+          131,
+          134
+        ],
+        "knee": [
+          167,
+          165
+        ],
+        "ankle": [
+          165,
+          225
+        ],
+        "heel": [
+          164,
+          237
+        ],
+        "toe": [
+          195,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 35,
+        "torsoCollarToHem": 85.1,
+        "nearUpperArm": 40.2,
+        "nearForearm": 34.7,
+        "nearArmChain": 74.9,
+        "nearThigh": 47.5,
+        "nearShin": 60,
+        "nearLegChain": 107.5,
+        "nearShoeLength": 31
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": -2.8,
+        "torsoCollarToHem": 7.4,
+        "nearUpperArm": 7.1,
+        "nearForearm": 6.8,
+        "nearArmChain": 7,
+        "nearThigh": -5.7,
+        "nearShin": 15.4,
+        "nearLegChain": 5,
+        "nearShoeLength": -6.1
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 4,
+      "bounds": {
+        "frame": 4,
+        "bounds": [
+          60,
+          6,
+          196,
+          240
+        ],
+        "width": 137,
+        "height": 235
+      },
+      "landmarks": {
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          45
+        ],
+        "hem": [
+          127,
+          129
+        ],
+        "shoulder": [
+          113,
+          57
+        ],
+        "elbow": [
+          94,
+          93
+        ],
+        "wrist": [
+          119,
+          118
+        ],
+        "hip": [
+          130,
+          134
+        ],
+        "knee": [
+          164,
+          169
+        ],
+        "ankle": [
+          165,
+          225
+        ],
+        "heel": [
+          163,
+          237
+        ],
+        "toe": [
+          195,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 35,
+        "torsoCollarToHem": 84.1,
+        "nearUpperArm": 40.7,
+        "nearForearm": 35.4,
+        "nearArmChain": 76.1,
+        "nearThigh": 48.8,
+        "nearShin": 56,
+        "nearLegChain": 104.8,
+        "nearShoeLength": 32
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": -2.8,
+        "torsoCollarToHem": 6.2,
+        "nearUpperArm": 8.3,
+        "nearForearm": 9,
+        "nearArmChain": 8.6,
+        "nearThigh": -3.1,
+        "nearShin": 7.6,
+        "nearLegChain": 2.4,
+        "nearShoeLength": -3
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 5,
+      "bounds": {
+        "frame": 5,
+        "bounds": [
+          61,
+          6,
+          196,
+          240
+        ],
+        "width": 136,
+        "height": 235
+      },
+      "landmarks": {
+        "chin": [
+          138,
+          37
+        ],
+        "collar": [
+          132,
+          45
+        ],
+        "hem": [
+          128,
+          129
+        ],
+        "shoulder": [
+          112,
+          58
+        ],
+        "elbow": [
+          95,
+          94
+        ],
+        "wrist": [
+          120,
+          118
+        ],
+        "hip": [
+          133,
+          133
+        ],
+        "knee": [
+          166,
+          167
+        ],
+        "ankle": [
+          167,
+          225
+        ],
+        "heel": [
+          164,
+          237
+        ],
+        "toe": [
+          195,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 32,
+        "torsoCollarToHem": 84.1,
+        "nearUpperArm": 39.8,
+        "nearForearm": 34.7,
+        "nearArmChain": 74.5,
+        "nearThigh": 47.4,
+        "nearShin": 58,
+        "nearLegChain": 105.4,
+        "nearShoeLength": 31
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": -11.1,
+        "torsoCollarToHem": 6.1,
+        "nearUpperArm": 5.9,
+        "nearForearm": 6.8,
+        "nearArmChain": 6.3,
+        "nearThigh": -5.9,
+        "nearShin": 11.5,
+        "nearLegChain": 2.9,
+        "nearShoeLength": -6.1
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 6,
+      "bounds": {
+        "frame": 6,
+        "bounds": [
+          60,
+          7,
+          195,
+          240
+        ],
+        "width": 136,
+        "height": 234
+      },
+      "landmarks": {
+        "chin": [
+          134,
+          41
+        ],
+        "collar": [
+          130,
+          46
+        ],
+        "hem": [
+          127,
+          129
+        ],
+        "shoulder": [
+          111,
+          59
+        ],
+        "elbow": [
+          93,
+          94
+        ],
+        "wrist": [
+          117,
+          118
+        ],
+        "hip": [
+          130,
+          134
+        ],
+        "knee": [
+          163,
+          169
+        ],
+        "ankle": [
+          164,
+          225
+        ],
+        "heel": [
+          162,
+          237
+        ],
+        "toe": [
+          194,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 35,
+        "torsoCollarToHem": 83.1,
+        "nearUpperArm": 39.4,
+        "nearForearm": 33.9,
+        "nearArmChain": 73.3,
+        "nearThigh": 48.1,
+        "nearShin": 56,
+        "nearLegChain": 104.1,
+        "nearShoeLength": 32
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": -2.8,
+        "torsoCollarToHem": 4.8,
+        "nearUpperArm": 4.7,
+        "nearForearm": 4.6,
+        "nearArmChain": 4.7,
+        "nearThigh": -4.5,
+        "nearShin": 7.6,
+        "nearLegChain": 1.7,
+        "nearShoeLength": -3
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    },
+    {
+      "frame": 7,
+      "bounds": {
+        "frame": 7,
+        "bounds": [
+          61,
+          6,
+          195,
+          240
+        ],
+        "width": 135,
+        "height": 235
+      },
+      "landmarks": {
+        "chin": [
+          135,
+          41
+        ],
+        "collar": [
+          131,
+          45
+        ],
+        "hem": [
+          128,
+          130
+        ],
+        "shoulder": [
+          114,
+          59
+        ],
+        "elbow": [
+          94,
+          94
+        ],
+        "wrist": [
+          119,
+          118
+        ],
+        "hip": [
+          129,
+          135
+        ],
+        "knee": [
+          167,
+          165
+        ],
+        "ankle": [
+          165,
+          225
+        ],
+        "heel": [
+          163,
+          237
+        ],
+        "toe": [
+          195,
+          237
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 36,
+        "torsoCollarToHem": 85.1,
+        "nearUpperArm": 40.3,
+        "nearForearm": 34.7,
+        "nearArmChain": 75,
+        "nearThigh": 48.4,
+        "nearShin": 60,
+        "nearLegChain": 108.4,
+        "nearShoeLength": 32
+      },
+      "percentFromApprovedIdle": {
+        "headCrownToChin": 0,
+        "torsoCollarToHem": 7.4,
+        "nearUpperArm": 7.3,
+        "nearForearm": 6.8,
+        "nearArmChain": 7.1,
+        "nearThigh": -3.9,
+        "nearShin": 15.4,
+        "nearLegChain": 5.9,
+        "nearShoeLength": -3
+      },
+      "status": "HOLD: target bounds fail; chain uncertainty crosses tolerance; not anatomy pass"
+    }
+  ]
+}

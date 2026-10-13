@@ -1,0 +1,3 @@
+[stitch] gojo idle v07: part A 4 pose(s), part B 4 pose(s) (figures / figures); each matches the idle head at x0.418 / x0.4162 of its raw size
+[stitch] B factor x0.9956 (measured): part B scaled by x0.9956; after: B/A ?
+[stitch] wrote art\characters\gojo\raw\idle_v07.png (3122x676) and idle_v07.json; next: npm run sprites gojo, then npm run scale -- gojo and attach heads-gojo.png

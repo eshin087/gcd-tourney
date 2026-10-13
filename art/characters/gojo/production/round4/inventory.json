@@ -1,0 +1,47 @@
+{
+  "round": "2026-10-12 Scale consistency round4",
+  "runtimeCalibrationUnchanged": true,
+  "preexistingIdleCalls": "historical v05 A/B cumulative stored in title production; round4 adds2 A calls",
+  "assets": {
+    "idle": {
+      "version": 7,
+      "parts": {
+        "A": {
+          "calls": 3,
+          "authorization": 3,
+          "selectedSource": "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-3df78cb4-e4a9-46ec-86c6-1695bdb7699e.png",
+          "discardedSource": "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-ef3a94eb-f1c5-4527-957a-74887e23d0c8.png",
+          "reason": "A2 selected: A1 larger head; A3 larger head plus edge crowding; full atlas anatomy not passed",
+          "round4DiscardedSources": [
+            "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-ef3a94eb-f1c5-4527-957a-74887e23d0c8.png",
+            "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-799e06d7-bdec-45b0-aa4c-89b3699b6e2e.png"
+          ],
+          "cumulativeRecordedCalls": 4
+        },
+        "B": {
+          "calls": 1,
+          "authorization": 3,
+          "cumulativeRecordedCalls": 2,
+          "selectedSource": "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-7e98780c-389a-4f76-88e1-9f4b5ecb10b4.png"
+        }
+      }
+    },
+    "superDash": {
+      "version": 9,
+      "round4Calls": 3,
+      "round4Authorization": 3,
+      "cumulativeRecordedCalls": 4,
+      "historicalRecordedCalls": 1,
+      "sources": [
+        "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-1b09eb19-c9b5-4c51-8854-19691f31c4c1.png",
+        "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-0e07d56c-7f77-48ee-8132-49ad1bf7b509.png",
+        "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-32735d3e-2764-497a-b21d-f8540591a49a.png"
+      ],
+      "selectedAttempt": 3,
+      "immutableIntermediateVersion": 8,
+      "reason": "v08 prematurely filed before last call; preserved immutable review history. v09 head correction strict median1.03 but full anatomy remains HOLD. Does not reset budget."
+    }
+  },
+  "historicalLedger": "../title-style/prompts.json and ../title-style/round2/generation-record.json",
+  "measurementReference": "approved idle_v06; idle_v07 not approved and cannot become an animation identity reference"
+}
