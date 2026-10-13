@@ -151,6 +151,7 @@ The docs-only/main exceptions below still apply.
 4. Use one worktree per task. Reuse it for later versions (`v02`, `v03`, etc.) of that same task.
 5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator
    must finish cleanup of merged task worktrees; do not leave them behind.
+6. Keep every worktree for this repository under `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/` (user direction, 2026-10-12). Use the project `npm run pr -- start <branch> --art <id>[,<id>]` helper for art tasks. Do not use `$CODEX_HOME/worktrees` or the Codex app worktree tool as a fallback when project-local creation fails. For app-created worktrees, the user must first set Settings > Worktrees > Worktree root to this project `.worktrees` directory; verify the actual returned path before using it, and retain the named-branch and sparse-art rules. This is project scope, not a relocation of Codex configuration, memories or caches. Existing external worktrees are audited for uncommitted/ignored files before moving or archiving; never prune one just because the sandbox cannot stat it.
 
 ### Code and integration rules
 

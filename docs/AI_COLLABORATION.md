@@ -193,9 +193,14 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 ## Branches, worktrees and shared files
 
 - **Every feature or character is a PR from its own worktree** ([ADR 0013](decisions/0013-pull-requests-in-worktrees.md)).
-  `npm run pr -- start <branch>` makes `.worktrees/<branch>`. Codex may use its app's own worktree instead
-  (`~/.codex/worktrees/...`) as long as it is on a named branch (`art/...` or `codex/...`) and opens the PR with
-  `npm run pr -- open` from there. A new character's PR plan is in
+  `npm run pr -- start <branch>` makes a real worktree under the project `.worktrees/` directory.
+  **User direction, 2026-10-12:** keep every task worktree inside this project; do not fall back to
+  `$CODEX_HOME/worktrees` when the sandbox denies local creation. The Codex app exposes
+  Settings > Worktrees > Worktree root ([official documentation](https://learn.chatgpt.com/docs/environments/git-worktrees));
+  an app-created checkout is usable here only after its actual path is verified under the project `.worktrees/`,
+  on a named branch and with the required sparse art checkout. Changing the root is not verified to relocate
+  existing checkouts: audit and migrate/archive them separately. Do not relocate Codex config or memories.
+  A new character's PR plan is in
   [ADDING_A_CHARACTER.md](ADDING_A_CHARACTER.md#0-plan-user--claude).
 - **Preview before merge** ([ADR 0018](decisions/0018-preview-deploys-and-test-lab.md)): after `npm run pr -- open`, run
   `npm run pr -- preview` and give the user the preview link; they try it on their phone and say "merge".
@@ -285,3 +290,11 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 - Both AIs update "Your next actions" and run `npm run status -- --write` before handing back.
 - The user can type **"status"** to either AI and gets the short version.
 - Approvals still happen in the Codex thread that owns the asset (`approve <id> vNN`); NOW.md only points to them.
+
+
+## Worktree location audit (2026-10-12, OPS-005)
+
+- This repository registers one external managed checkout: `E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney`, detached at `0ae07b2`. It has zero commits outside current `main`; this agent generated no art in it. Current session cannot read its files or list the enclosing `.codex/worktrees` directory (EPERM), so uncommitted/ignored work and other repositories are not audited. Keep it until an accessible inspection and project-local replacement are complete; then prefer app-managed archival. The `prunable` annotation is not evidence of absence while sandbox access is denied.
+- The project-local `.worktrees/art-scale-fix-killua` has three commits not reachable from `main` (`6a0ca36`, `4bdf784`, `c696807`). Preserve it. Its `.git` pointer already references E, but Git status in that checkout fails on ancestor `E:/Vibe Coding`; dirty state is unverified.
+- `pr prune --dry-run` found no clean merged branch worktrees eligible for removal. It separately reported eleven archive/residual directories under `.worktrees`; those are not registered Git worktrees. Preserve candidates and archived scratch until their contents are reviewed. No move, deletion or prune was performed.
+- Project permission configuration remains unchanged. The earlier suggestion to grant the external Gojo checkout is superseded by project-local worktree storage. Native Git creation/access still needs a successful real-worktree test; changing storage preference alone is not proof that the sandbox issue is fixed.

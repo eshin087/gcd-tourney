@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Workflow (2026-10-12, OPS-005): all GCD Tourney worktrees must live inside project `.worktrees/`; removed the older allowance for external Codex app worktrees from collaboration instructions and aligned AGENTS/CLAUDE. Documented app Worktree root setting and read-only inventory: external Gojo checkout preserved pending inspection, Killua checkout preserved with three unmerged commits. No app setting, permission profile, worktree move or deletion performed.
+
 - Art review follow-up (2026-10-12, ART-TITLE-R3): standalone full eight-frame Gojo B pocket-glide and C blindfold-float comparison, versioned source inventory, normal/half-speed GIFs and synchronized interactive controls. Review records only committed; artifacts remain in permitted TEMP pending accessible real-worktree filing. No manifest, atlas, gameplay or production changes.
 
 - Art/workflow follow-up (2026-10-12): Codex app created a real Gojo worktree; current session access remains blocked outside its permitted roots. Added a three-direction Gojo movement study for review (tool output awaiting versioned worktree filing); no atlas or production change. Restored repository-local commit identity from recent commit history.
