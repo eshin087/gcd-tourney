@@ -1,0 +1,26 @@
+{
+  "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-sasuke-title-r3\\public\\reviews\\sasuke-round4\\candidate\\sheet.png": {
+    "sha256": "92fefb5770f429da4ce3cafbd70ee3a07b7f3eba26d51595cc438c081af92e50",
+    "metadataSha256": "257fa279ea98b2bf37890743b7c64278561301384769f37fac0fd276444a0974"
+  },
+  "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-sasuke-title-r3\\public\\reviews\\sasuke-round4\\production\\sheet.png": {
+    "sha256": "b2a847f90d261ccc20ecb801442b63150a0ab422ab6be2913ac29b6927aad0f4",
+    "metadataSha256": "9c5f586e06c4f3f38c0232d2253b45105f69a9b56494c665533f8c98fb4e70cf"
+  },
+  "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-killua-title-r3\\public\\reviews\\killua-round4\\diagnostic-sheet.png": {
+    "sha256": "f9d0d80a7b0bbc9341fe909d5bf57bccdfb3f8c0297a16069453a6d772a0097a",
+    "metadataSha256": "9ef60e70b94af486cb6ee1200593de62b8d0c35887e1854cf754feb3896fb746"
+  },
+  "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-killua-title-r3\\public\\characters\\killua\\sheet.png": {
+    "sha256": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+    "metadataSha256": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3"
+  },
+  "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-title-r3\\public\\reviews\\naruto-round4\\candidate-sheet.png": {
+    "sha256": "0496c7aae6da74b5611e8cab204d193d7de865d1bf09589eac20ed52ed3578a2",
+    "metadataSha256": "28e28ad9c9d859d9875b3d137322d7730a1933e166a9afe4623b9bb9ed40439b"
+  },
+  "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-title-r3\\public\\reviews\\naruto-round4\\baseline-sheet.png": {
+    "sha256": "8d33ba2116321822db29f76c6e6edd3433c155775e5cb599b3f1774aa2effe53",
+    "metadataSha256": "334f92a6cf8237e83c664ea5c7b384ee3291d85ce509d39903d62f7c377abe7b"
+  }
+}
