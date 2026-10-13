@@ -91,7 +91,7 @@ documentation that stays true.
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
 | `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work |
-| `npm run pr -- open` | (in the worktree) publish the branch slim and open or update its GitHub PR |
+| `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it) |
 | `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
@@ -148,7 +148,9 @@ The docs-only/main exceptions below still apply.
    `git sparse-checkout add art/characters/<id>` does not bring back its `raw/` directory.
 4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
 5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
-   finish cleanup of merged task worktrees.
+   finish cleanup of merged task worktrees. `npm run pr -- merge` automatically removes only the project-local
+   worktree path created by the helper; archive or remove an app-managed worktree through the Codex app after
+   its branch is merged.
 6. Worktree storage is controlled by the user's Codex app or Git configuration. Do not require a repository-local
    worktree root, change the user's global Worktree root, or reject an app-managed worktree because it is outside
    this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
@@ -159,7 +161,10 @@ The docs-only/main exceptions below still apply.
 0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
    Start or reuse one real managed worktree for the task. Use the worktree returned by the Codex app or other host
    when available. In a manual CLI session, `npm run pr -- start <branch>` is an optional helper; use its `--art`
-   form for sparse art work. Work and commit in the task worktree, run `npm run pr -- open`, then run
+   form for sparse art work. A managed worktree may start at a detached HEAD. Before editing or committing, run
+   `git branch --show-current`; if it is empty, create or attach the intended named task branch after auditing the
+   worktree status. Never run `npm run pr -- open` from a detached HEAD. Work and commit in the task worktree, run
+   `npm run pr -- open`, then run
    `npm run pr -- merge <branch>` from the main checkout once the Definition of Done passes (unless the user asked
    to review first); the merge deploys to production. Never commit features straight to `main`, never
    `git checkout`/`switch`/`stash` in the shared main checkout, and never use the GitHub merge button or
