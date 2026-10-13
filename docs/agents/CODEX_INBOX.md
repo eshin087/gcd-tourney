@@ -15,6 +15,135 @@ How it works:
 
 ---
 
+## Scale consistency and attack alts, round 4 (2026-10-12, Claude)
+
+**The user's request and decisions (2026-10-12, chat with Claude):** "make sure every character's animation and
+frames are consistent", plus an alternate version of every attack so combat stops repeating the same strip.
+They chose:
+- Killua: a taller idle/guard stance only.
+- Gojo: an idle built from his approved combat cell.
+- Alts: all nine attacks plus both hit reactions.
+- Rollout: Naruto pilots the alts.
+
+**Extra authorization:** up to 3 generation calls per image (or per part) for every image named in Part 1, and for
+every "measure" strip that fails the measuring rule below. Record cumulative calls as usual. Part 2 gets the normal
+3 calls per new image. Nothing else is authorized.
+
+**Why fighters change size between animations (Claude's atlas audit):** every strip is a separate generated
+drawing with its own head-to-body ratio. The packer sizes a strip with one factor so that its *head* matches the
+idle, and the scale gate measures only the head. Its feet number is a colour count that misreads; Killua's shoe
+colours, for example, also appear in his hair and sweater. So a strip drawn with a relatively big head ships with a
+shrunken body (superDash: head 1.00, body about 0.8), and one with a small head ships with an inflated body.
+**A passing head probe never certifies a strip in this round.**
+
+**Measuring rule (every image in this section):**
+- Measure in the packed atlas after `node tools/pack-sprites.mjs <id> --quantize 48 --strict-scale`, next to idle
+  f0 and the approved combat cell at the same pixel density.
+- Measure every visible segment: head (crown to chin), collar to belt/hem, upper arm + forearm, thigh + shin,
+  shoe/sandal length, and shoulder width when the pose is frontal.
+- A strip passes when every visible segment is within ±6 % of the idle's. Name any foreshortened segment you skip.
+- Put the numbers in the REVIEW row.
+- Use Claude's body sheet (`npm run body -- <id> <anim>`, TOOL-036) once it is on main. Until then, use
+  side-by-side crops at 2-3x.
+- After packing, Claude sets bodyHeight and offsets. Do not hand-tune them.
+
+The "~1.2" numbers below come from Claude's automatic garment-area probe. It is noisy (about ±10 %, depends on the
+pose): treat each one as a suspect, not a verdict.
+
+### Part 1: scale fixes (ART-SCALE-R4)
+
+Work in each fighter's round-3 worktree and branch (`art/<id>-title-r3`; Gojo: the managed worktree you already
+use), one sub-agent per fighter. The open round-3 items stay as they are.
+
+Killua:
+- [ ] **idle v08 and guard v07 -> next free versions (8 and 2 frames): taller stance.** His crouch takes 22 % off his
+  standing height (Sasuke's 14 %), so in game he stands at 81 % of Sasuke (canon 94 %, approved neutral 89 %).
+  - Packed targets:
+    - idle: crown to sole 156-162 px (now 144-146), foot span 110-125 px (now 141-143);
+    - guard: 150-158 px tall (now 132-133).
+  - Keep exactly the approved combat cell's anatomy (head/hair size, torso, limb lengths, sneakers), the claw-hand
+    guard, the palette and the 8-frame breathing loop (±1-2 px).
+  - Change only the knee/hip bend and the stance width. Knees stay bent, weight forward, less squat.
+  - Head probe 0.98-1.02 against the combat cell in every frame. Shoes within ±4 %.
+  - Run `npm run lineup` with the new idle and attach it.
+- [ ] **superDash v06 -> next free version:** the body (shoes, torso, limbs) is drawn about 15-20 % small for its head. Keep the
+  pose idea and draw the body at the idle's anatomical scale.
+- [ ] measure jumpUp v05, jumpFall v05 and airRecover v05 (the air dodge), which the user sees as larger.
+  - An extended jump is legitimately taller than the crouched idle. Redraw only on a failed segment.
+- [ ] measure the suspects:
+  - larger: stagger v05 (~1.25), win v04 (~1.17);
+  - smaller: airLight1 v06 and airLight2 v07 (~0.7).
+
+Gojo:
+- [ ] **idle v06 -> next free version, from the approved combat cell** (`public/art-review/title-style-pilot/gojo-combat_v01.png`,
+  213 x 156 px): his open-hand relaxed fighting stance.
+  - The hands-in-pockets neutral stays in intro, taunt and win. Today he idles fully upright, 89 px wide, beside
+    stances 140-160 px wide, so he reads as a thin pole at 131 % of Sasuke's height.
+  - 8-frame breathing loop, 210-216 px tall, 145-160 px wide.
+  - Head and hair equal to idle v06 within 2 %. The idle is his gate reference, so a different head would shift
+    every other strip's numbers.
+  - Same limb lengths, uniform, shoes and palette.
+  - Check guard v04 (211-213 x 141-143) beside the new idle. Redraw it only if its anatomy fails the measuring rule.
+- [ ] **superDash v07 -> next free version:** legs and torso small for the head.
+- [ ] measure jumpUp v04, jumpFall v04 and airRecover v03 (the user sees them larger).
+- [ ] measure the suspects (smaller): throw v04 (~0.77), airLight1-3 (~0.82), light3 v04 (~0.84), hurtLow v04
+  (~0.84).
+
+Sasuke:
+- [ ] **superDash v05 -> next free version:** the body is about 0.80 of the idle while the head matches. Shirt, sash, legs and
+  sandals are all small.
+- [ ] **jumpSquat v03 -> next free version:** head 1.085 and the torso large. This is his spot-dodge hold pose
+  (`dodgePose: ['jumpSquat', 0]`) and the first frame of every jump, which is why the spot dodge looks big.
+- [ ] measure the suspects:
+  - larger: beamFire v05 (~1.32), airLight3 v07 (~1.16), dash v05 (~1.14);
+  - smaller: run v05 (~0.85), specialUp v09 (~0.78), hurtLow v03 (~0.80), airRecover v01 (~0.80).
+
+Naruto (his base scale is right; individual strips drift):
+- [ ] measure, and redraw any that fail:
+  - larger: stagger v05 (~1.2), taunt v06 (~1.19), jumpUp v06 (~1.12), win v07 (~1.11);
+  - smaller: superDash v03 (~0.86).
+
+### Part 2: attack alts, Naruto pilot (ART-ALTS-NAR)
+
+Start after Claude's ENG-081 is on main: `light1Alt` must be in `src/art/animGuide.js` and `art/manifest.json`.
+The game then alternates each base strip with its alt in a fixed, non-random pattern. A missing alt plays the base.
+
+- New names: `light1Alt`, `light2Alt`, `light3Alt`, `light4Alt`, `heavyAlt`, `airLight1Alt`, `airLight2Alt`,
+  `airLight3Alt`, `airHeavyAlt`, `hurtHighAlt`, `hurtLowAlt`.
+- Gameplay contract (melee hits use the art's hit boxes, so these are rules, not taste):
+  - same frame count and phases as the base strip (timing lives in moves.js);
+  - the strike lands at the same height and reach: active-frame hit box within 12 px of the base's (the packer will
+    warn). light3Alt stays a low. heavyAlt launches upward. light4Alt and airLight3Alt send the opponent forward.
+    airHeavyAlt spikes downward;
+  - the first frame leaves from the base's first pose and the last frame returns to its recovery pose, so any mix
+    of base and alt in a combo blends. Air alts start and end in the air base pose;
+  - a clearly different technique (another limb or motion), not a re-pose of the same strike;
+  - the same anatomy at the idle's scale, checked with Part 1's measuring rule.
+- Suggested techniques for Naruto. Write the frame tables into `art/characters/naruto/ANIMATIONS.md` first, one alt
+  section after each base in the same format. If a technique cannot meet the contract, swap it and say why.
+
+  | alt | base (keep its timing) | alt technique |
+  |---|---|---|
+  | light1Alt | lead L jab | short L hook to the jaw |
+  | light2Alt | rear R straight | L front snap kick to the midsection, foot at the base fist's reach |
+  | light3Alt | R push-kick (low) | low R sweep at shin height, body dropping slightly |
+  | light4Alt | spinning R roundhouse | stepping double-palm shove at chest height that blasts them away |
+  | heavyAlt | bursting R uppercut | rising L flip-kick, foot sweeping from the floor to above the head |
+  | airLight1Alt | air L jab | air R backfist |
+  | airLight2Alt | air R front kick | air L knee |
+  | airLight3Alt | air spinning back-heel | air R roundhouse (forward launch) |
+  | airHeavyAlt | double-fist hammer spike | air axe kick, R heel chopping down |
+  | hurtHighAlt | hit in the face | head and shoulders snapped sideways, torso twisting away |
+  | hurtLowAlt | hit in the stomach | struck in the ribs, folding sideways, one arm clutching |
+
+- Work in a new worktree on branch `art/naruto-alts` (`--art naruto`, its own port). Save every image as v01 of
+  its alt, add the REVIEW rows, lineup and body sheet, then `npm run pr -- open` and `npm run pr -- preview`.
+- Stop for the user's in-game review. Claude writes the Sasuke, Killua and Gojo alt section after that.
+
+**Hand back:** follow "Every thread". Update "Your next actions" in docs/NOW.md, run `npm run status -- --write`,
+and commit this file and NOW.md on main (explicit paths). Claude calibrates every new strip, checks contact boxes
+in game and integrates.
+
 ## Title-style corrections, round 3 (2026-10-12, Claude)
 
 Claude QA'd every round-2 hold and fixed what could be fixed without new images. The fixes are bodyHeight
