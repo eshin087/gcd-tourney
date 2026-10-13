@@ -2,7 +2,7 @@
 
 # Art tracker
 
-Gojo full B/C movement demo v02 (2026-10-12): needs direction review; eight drawn frames each, normal/half-speed GIFs and interactive TEMP demo. Five drawing calls (B A1/B2; C A1/B1), sources versioned/inventoried. 48 shared colors, zero clipped pixels. Full anatomy, production scale gate and browser playback remain unverified; real-worktree access blocks production filing. Manifest run remains approved v12. See newest REVIEW rows.
+Gojo full B/C movement demo (2026-10-12): needs direction review. [Durable offline HTML v04](../docs/art-review/gojo-bc/gojo_BC_standalone_v04.html), normal/half-speed GIFs and all frames preserve the selected eight-frame v02 render after TEMP expired. Five drawing calls total (B A1/B2; C A1/B1), no new generation during recovery. 48 shared colors, zero clipped pixels; syntax and simulated controls pass. Browser playback, full anatomy and production scale gate remain unverified. Raw source filing still needs an accessible real worktree. Manifest run remains approved v12.
 
 Gojo movement direction study v01 (2026-10-12): needs review, automatic tool output pending versioned filing in the attached real worktree. A athletic stride / B low pocket glide / C upright float. One concept call used; production run remains approved v12 in the manifest. No production strips were generated or packed this session. See newest REVIEW row.
 

@@ -1,0 +1,421 @@
+{
+  "kind": "standalone direction demo; no production scale certification",
+  "reference": "ADR0029 approved neutral/combat cells",
+  "referenceHairWidth": 31,
+  "parts": [
+    {
+      "file": "run_B_demo_v01_A.png",
+      "factor": 0.27074235807860264,
+      "method": "single uniform factor for part from median grayscale-hair blob width; no per-frame resize",
+      "measures": [
+        {
+          "rawHeight": 685,
+          "rawHair": {
+            "area": 3595,
+            "w": 116,
+            "h": 63,
+            "box": [
+              261,
+              7,
+              376,
+              69
+            ]
+          },
+          "cellBounds": {
+            "x0": 64,
+            "y0": 53,
+            "x1": 193,
+            "y1": 236,
+            "w": 130,
+            "h": 184,
+            "n": 6403
+          }
+        },
+        {
+          "rawHeight": 685,
+          "rawHair": {
+            "area": 3538,
+            "w": 114,
+            "h": 63,
+            "box": [
+              179,
+              7,
+              292,
+              69
+            ]
+          },
+          "cellBounds": {
+            "x0": 88,
+            "y0": 53,
+            "x1": 168,
+            "y1": 236,
+            "w": 81,
+            "h": 184,
+            "n": 5731
+          }
+        },
+        {
+          "rawHeight": 684,
+          "rawHair": {
+            "area": 3486,
+            "w": 115,
+            "h": 63,
+            "box": [
+              259,
+              6,
+              373,
+              68
+            ]
+          },
+          "cellBounds": {
+            "x0": 64,
+            "y0": 53,
+            "x1": 185,
+            "y1": 237,
+            "w": 122,
+            "h": 185,
+            "n": 6208
+          }
+        },
+        {
+          "rawHeight": 682,
+          "rawHair": {
+            "area": 3436,
+            "w": 111,
+            "h": 63,
+            "box": [
+              268,
+              6,
+              378,
+              68
+            ]
+          },
+          "cellBounds": {
+            "x0": 63,
+            "y0": 53,
+            "x1": 194,
+            "y1": 237,
+            "w": 132,
+            "h": 185,
+            "n": 6106
+          }
+        }
+      ]
+    },
+    {
+      "file": "run_B_demo_v02_B.png",
+      "factor": 0.2767857142857143,
+      "method": "single uniform factor for part from median grayscale-hair blob width; no per-frame resize",
+      "measures": [
+        {
+          "rawHeight": 686,
+          "rawHair": {
+            "area": 3756,
+            "w": 113,
+            "h": 71,
+            "box": [
+              270,
+              6,
+              382,
+              76
+            ]
+          },
+          "cellBounds": {
+            "x0": 61,
+            "y0": 52,
+            "x1": 204,
+            "y1": 241,
+            "w": 144,
+            "h": 190,
+            "n": 6302
+          }
+        },
+        {
+          "rawHeight": 687,
+          "rawHair": {
+            "area": 3671,
+            "w": 111,
+            "h": 64,
+            "box": [
+              119,
+              6,
+              229,
+              69
+            ]
+          },
+          "cellBounds": {
+            "x0": 102,
+            "y0": 53,
+            "x1": 180,
+            "y1": 241,
+            "w": 79,
+            "h": 189,
+            "n": 6345
+          }
+        },
+        {
+          "rawHeight": 632,
+          "rawHair": {
+            "area": 3640,
+            "w": 113,
+            "h": 63,
+            "box": [
+              252,
+              6,
+              364,
+              68
+            ]
+          },
+          "cellBounds": {
+            "x0": 65,
+            "y0": 53,
+            "x1": 207,
+            "y1": 226,
+            "w": 143,
+            "h": 174,
+            "n": 5906
+          }
+        },
+        {
+          "rawHeight": 683,
+          "rawHair": {
+            "area": 3605,
+            "w": 108,
+            "h": 64,
+            "box": [
+              196,
+              6,
+              303,
+              69
+            ]
+          },
+          "cellBounds": {
+            "x0": 82,
+            "y0": 53,
+            "x1": 200,
+            "y1": 240,
+            "w": 119,
+            "h": 188,
+            "n": 6148
+          }
+        }
+      ]
+    },
+    {
+      "file": "run_C_demo_v01_A.png",
+      "factor": 0.2616033755274262,
+      "method": "single uniform factor for part from median grayscale-hair blob width; no per-frame resize",
+      "measures": [
+        {
+          "rawHeight": 877,
+          "rawHair": {
+            "area": 3195,
+            "w": 118,
+            "h": 64,
+            "box": [
+              86,
+              5,
+              203,
+              68
+            ]
+          },
+          "cellBounds": {
+            "x0": 90,
+            "y0": 6,
+            "x1": 167,
+            "y1": 233,
+            "w": 78,
+            "h": 228,
+            "n": 7887
+          }
+        },
+        {
+          "rawHeight": 868,
+          "rawHair": {
+            "area": 2959,
+            "w": 117,
+            "h": 52,
+            "box": [
+              82,
+              7,
+              198,
+              58
+            ]
+          },
+          "cellBounds": {
+            "x0": 90,
+            "y0": 5,
+            "x1": 167,
+            "y1": 231,
+            "w": 78,
+            "h": 227,
+            "n": 7842
+          }
+        },
+        {
+          "rawHeight": 887,
+          "rawHair": {
+            "area": 3294,
+            "w": 119,
+            "h": 63,
+            "box": [
+              83,
+              6,
+              201,
+              68
+            ]
+          },
+          "cellBounds": {
+            "x0": 90,
+            "y0": 5,
+            "x1": 169,
+            "y1": 236,
+            "w": 80,
+            "h": 232,
+            "n": 7829
+          }
+        },
+        {
+          "rawHeight": 891,
+          "rawHair": {
+            "area": 2720,
+            "w": 119,
+            "h": 51,
+            "box": [
+              83,
+              7,
+              201,
+              57
+            ]
+          },
+          "cellBounds": {
+            "x0": 89,
+            "y0": 6,
+            "x1": 167,
+            "y1": 238,
+            "w": 79,
+            "h": 233,
+            "n": 7638
+          }
+        }
+      ]
+    },
+    {
+      "file": "run_C_demo_v01_B.png",
+      "factor": 0.2594142259414226,
+      "method": "single uniform factor for part from median grayscale-hair blob width; no per-frame resize",
+      "measures": [
+        {
+          "rawHeight": 869,
+          "rawHair": {
+            "area": 3445,
+            "w": 121,
+            "h": 65,
+            "box": [
+              84,
+              4,
+              204,
+              68
+            ]
+          },
+          "cellBounds": {
+            "x0": 90,
+            "y0": 4,
+            "x1": 168,
+            "y1": 228,
+            "w": 79,
+            "h": 225,
+            "n": 7815
+          }
+        },
+        {
+          "rawHeight": 879,
+          "rawHair": {
+            "area": 3231,
+            "w": 119,
+            "h": 58,
+            "box": [
+              85,
+              4,
+              203,
+              61
+            ]
+          },
+          "cellBounds": {
+            "x0": 90,
+            "y0": 6,
+            "x1": 168,
+            "y1": 233,
+            "w": 79,
+            "h": 228,
+            "n": 8228
+          }
+        },
+        {
+          "rawHeight": 816,
+          "rawHair": {
+            "area": 3424,
+            "w": 118,
+            "h": 64,
+            "box": [
+              84,
+              4,
+              201,
+              67
+            ]
+          },
+          "cellBounds": {
+            "x0": 91,
+            "y0": 5,
+            "x1": 169,
+            "y1": 216,
+            "w": 79,
+            "h": 212,
+            "n": 7603
+          }
+        },
+        {
+          "rawHeight": 876,
+          "rawHair": {
+            "area": 3235,
+            "w": 120,
+            "h": 57,
+            "box": [
+              85,
+              3,
+              204,
+              59
+            ]
+          },
+          "cellBounds": {
+            "x0": 90,
+            "y0": 6,
+            "x1": 168,
+            "y1": 231,
+            "w": 79,
+            "h": 226,
+            "n": 7830
+          }
+        }
+      ]
+    }
+  ],
+  "drawCalls": {
+    "B_A": 1,
+    "B_B": 2,
+    "C_A": 1,
+    "C_B": 1
+  },
+  "B": {
+    "frames": 8,
+    "colors": 48,
+    "clipped": 0,
+    "uniqueFrames": 8
+  },
+  "C": {
+    "frames": 8,
+    "colors": 48,
+    "clipped": 0,
+    "uniqueFrames": 8
+  }
+}

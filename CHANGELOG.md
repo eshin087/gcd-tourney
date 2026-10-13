@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Review recovery (2026-10-12, OPS-PERM-20261012): saved a durable, self-contained Gojo B/C HTML comparison and v02 GIF/frame exports in docs after TEMP expired; no new drawing call or production-art change. Prepared a root-relative workspace permission edit and separate Git/local-preview verification guide; no configuration, ACL, worktree or production deployment changed.
+
 - Workflow (2026-10-12, OPS-005): all GCD Tourney worktrees must live inside project `.worktrees/`; removed the older allowance for external Codex app worktrees from collaboration instructions and aligned AGENTS/CLAUDE. Documented app Worktree root setting and read-only inventory: external Gojo checkout preserved pending inspection, Killua checkout preserved with three unmerged commits. No app setting, permission profile, worktree move or deletion performed.
 
 - Art review follow-up (2026-10-12, ART-TITLE-R3): standalone full eight-frame Gojo B pocket-glide and C blindfold-float comparison, versioned source inventory, normal/half-speed GIFs and synchronized interactive controls. Review records only committed; artifacts remain in permitted TEMP pending accessible real-worktree filing. No manifest, atlas, gameplay or production changes.
