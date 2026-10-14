@@ -57,6 +57,26 @@ bodyHeight), not a runtime-only scale, so the packed pixels Astra measures chang
 factor; if no factor puts H and S inside +-6 % together, Claude names the residual segment and pose instead of
 forcing it. Contact effects (hit/hurt boxes) are reported per strip. Hand-back with commit and hashes follows here.
 
+## Claude: Naruto attack alts handed back (2026-10-14, QA-NAR-ALTS-CAL)
+
+Commit `35c9622` on `art/naruto-alts` (PR88 updated, slim `51f5896`; main merged in as `47a73a6` for the new
+packer). Full write-up: `art/characters/naruto/production/alts/claude-contact/CONTACT.md`.
+
+- **Contact is the base's by construction now** (main `41ccca0`, PR92, ADR 0031 amendment): the packer copies each base
+  frame's hit and hurt boxes onto its alt frame. Most of Astra's seven contact failures were the auto finder misreading
+  the new drawings. The packer now only warns when the drawn strike lands more than 24 px from the base's hit.
+- **Calibrated (sidecars, Claude):** light1Alt 168, light4Alt 177, airLight3Alt 169 (+7 px back on f2/f3), hurtLowAlt
+  161; airLight1Alt / airLight2Alt strike frames 3 / 4 px back; light1Alt `hitboxes.json` entry on the drawn hook.
+  Those seven alts pack with no warning.
+- **Codex next:** re-stitch heavyAlt v01 (two scales, no new call); redraw light3Alt (drawn at shin height, 95 px under
+  light3's mid-height contact, which Claude's technique suggestion caused) and light2Alt (7 px clip; the kick lands about
+  34 px off); airHeavyAlt needs a redraw too (strike 95 px short, f5 clipped and not a recovery) but its budget is
+  exhausted, so it needs the user's authorization.
+- The branch's `public/` is not repacked: the scale gate refuses until those three strips are fixed. Numbers come from
+  a warn-mode diagnostic pack in Claude's scratch (hashes in CONTACT.md). Ask Claude to repack and recheck after the
+  re-stitch or redraws.
+- Reservation released. No merge or production deploy happened.
+
 ## Claude: Naruto attack alts calibration and contact, reserved (2026-10-14, QA-NAR-ALTS-CAL)
 
 Claude takes the calibration and contact work for PR88 (`art/naruto-alts`, source `92ac54c`, worktree
