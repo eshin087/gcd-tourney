@@ -1,0 +1,334 @@
+{
+  "method": "Per-frame head probe (H) from packer scaleAudit and garment area proxy (B) from TOOL-036, measured on this exact isolated 48-color atlas. B is advisory ±10% and never a segment pass. The full anatomical chain review is a separate manual audit; low-confidence/occluded/depth-projected/curl/sole-facing points are inconclusive.",
+  "atlas": "art/characters/gojo/production/round4/final-candidate-public/characters/gojo/sheet.png",
+  "atlasSha256": "89FD7021575060D70A065C620607D3A80FD526D6B8B6F709D2106766381F0B28",
+  "animsJson": "art/characters/gojo/production/round4/final-candidate-public/characters/gojo/anims.json",
+  "animsSha256": "40A09F854DA368550C4C158CC16350B7562CFA88030BE79BF77002307FF3BDC9",
+  "reference": "approved idle_v06 and approved title-style combat cell; idle_v07 not used",
+  "gate": "warn only inside disposable isolated fixture; production thresholds and files untouched",
+  "candidates": {
+    "jumpFall": {
+      "source": "jumpFall_v06.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.034,
+          "B": 1.004,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.021,
+          "B": 1.011,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "throw": {
+      "source": "throw_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.886,
+          "B": 0.777,
+          "headProbeVerdict": "drift",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.914,
+          "B": 0.806,
+          "headProbeVerdict": "drift",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.886,
+          "B": 0.807,
+          "headProbeVerdict": "drift",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.891,
+          "B": 0.809,
+          "headProbeVerdict": "drift",
+          "notes": []
+        }
+      ]
+    },
+    "airLight1": {
+      "source": "airLight1_v07.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.95,
+          "B": 0.792,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.949,
+          "B": 0.846,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.945,
+          "B": 0.86,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.949,
+          "B": 0.794,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.947,
+          "B": 0.792,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "airRecover": {
+      "source": "airRecover_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.225,
+          "B": 0.853,
+          "headProbeVerdict": "unmeasured",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.173,
+          "B": 0.818,
+          "headProbeVerdict": "unmeasured",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 1.093,
+          "B": 0.967,
+          "headProbeVerdict": "unmeasured",
+          "notes": []
+        }
+      ]
+    },
+    "airLight2": {
+      "source": "airLight2_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.971,
+          "B": 0.821,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.962,
+          "B": 0.8,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.97,
+          "B": 0.806,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.971,
+          "B": 0.816,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.971,
+          "B": 0.826,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "light3": {
+      "source": "light3_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.914,
+          "B": 0.842,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.914,
+          "B": 0.854,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.943,
+          "B": 0.862,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.914,
+          "B": 0.855,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.87,
+          "B": 0.823,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 5,
+          "H": 0.864,
+          "B": 0.878,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 6,
+          "H": 0.884,
+          "B": 0.884,
+          "headProbeVerdict": "uniform",
+          "notes": []
+        }
+      ]
+    },
+    "guard": {
+      "source": "guard_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.978,
+          "B": 0.963,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1,
+          "B": 0.957,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "jumpUp": {
+      "source": "jumpUp_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.009,
+          "B": 0.865,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.001,
+          "B": 0.878,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "airLight3": {
+      "source": "airLight3_v12.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.967,
+          "B": 0.808,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1,
+          "B": 0.773,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.965,
+          "B": 0.823,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.989,
+          "B": 0.746,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.973,
+          "B": 0.851,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 5,
+          "H": 0.97,
+          "B": 0.857,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "hurtLow": {
+      "source": "hurtLow_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.025,
+          "B": 0.803,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.003,
+          "B": 0.831,
+          "headProbeVerdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.971,
+          "B": 0.877,
+          "headProbeVerdict": "ok",
+          "notes": []
+        }
+      ]
+    }
+  }
+}
