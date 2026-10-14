@@ -1,0 +1,146 @@
+{
+  "method": "Manual cell-local landmarks in actual isolated strict quantized atlas; same approved idle v06 and unchanged runtime bodyHeight/offsets. Chain endpoints under clothes +/-2px each, chain +/-5px. Near shoe diagonal visible heel/toe length, out-of-plane foreshortening makes shoe ratio inconclusive.",
+  "baseline": {
+    "headCrownToChin": 36,
+    "torsoCollarToHem": 79.22752047110902,
+    "nearUpperArm": 37.57658845611187,
+    "nearForearm": 32.449961479175904,
+    "nearArmChain": 70.02654993528778,
+    "nearThigh": 50.35871324805669,
+    "nearShin": 52.038447325030745,
+    "nearLegChain": 102.39716057308743,
+    "nearShoeLength": 33
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "crown": [
+          169,
+          97
+        ],
+        "chin": [
+          172,
+          134
+        ],
+        "collar": [
+          163,
+          139
+        ],
+        "hem": [
+          137,
+          186
+        ],
+        "shoulder": [
+          171,
+          143
+        ],
+        "elbow": [
+          192,
+          140
+        ],
+        "wrist": [
+          215,
+          136
+        ],
+        "hip": [
+          129,
+          192
+        ],
+        "knee": [
+          153,
+          216
+        ],
+        "ankle": [
+          113,
+          216
+        ],
+        "heel": [
+          90,
+          214
+        ],
+        "toe": [
+          64,
+          236
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 38,
+        "torsoCollarToHem": 53.7,
+        "frontUpperArm": 21.2,
+        "frontForearm": 23.3,
+        "nearThigh": 33.9,
+        "nearShin": 40,
+        "nearShoeLength": 34.1,
+        "frontArmChain": 44.6,
+        "nearLegChain": 73.9
+      },
+      "status": "HOLD: visible torso and arm/leg chains materially shorter than approved idle; shoes foreshortened, frontal shoulder/far limbs skipped"
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "crown": [
+          169,
+          97
+        ],
+        "chin": [
+          172,
+          133
+        ],
+        "collar": [
+          163,
+          138
+        ],
+        "hem": [
+          137,
+          185
+        ],
+        "shoulder": [
+          170,
+          143
+        ],
+        "elbow": [
+          191,
+          140
+        ],
+        "wrist": [
+          215,
+          135
+        ],
+        "hip": [
+          129,
+          192
+        ],
+        "knee": [
+          153,
+          216
+        ],
+        "ankle": [
+          113,
+          218
+        ],
+        "heel": [
+          90,
+          214
+        ],
+        "toe": [
+          64,
+          236
+        ]
+      },
+      "measurements": {
+        "headCrownToChin": 37,
+        "torsoCollarToHem": 53.7,
+        "frontUpperArm": 21.2,
+        "frontForearm": 24.5,
+        "nearThigh": 33.9,
+        "nearShin": 40,
+        "nearShoeLength": 34.1,
+        "frontArmChain": 45.7,
+        "nearLegChain": 74
+      },
+      "status": "HOLD: visible torso and arm/leg chains materially shorter than approved idle; shoes foreshortened, frontal shoulder/far limbs skipped"
+    }
+  ]
+}

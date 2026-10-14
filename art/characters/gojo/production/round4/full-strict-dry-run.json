@@ -1,0 +1,1803 @@
+{
+  "art": "art",
+  "artExists": true,
+  "out": "public",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "gojo",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v07.png",
+          "from": "raw/idle_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.376,
+          "frameScales": [
+            0.3758,
+            0.3758,
+            0.3758,
+            0.3758,
+            0.3758,
+            0.3758,
+            0.3758,
+            0.3758
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/idle_v02.png",
+            "candidate v07 (approved: v06)"
+          ]
+        },
+        {
+          "anim": "run",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/run_v12.png",
+          "from": "raw/run_v12.png",
+          "version": 12,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.341,
+          "frameScales": [
+            0.34101,
+            0.34101,
+            0.34101,
+            0.34101,
+            0.34101,
+            0.34101,
+            0.34101,
+            0.34101
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/run_v03.png"
+          ]
+        },
+        {
+          "anim": "dash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/dash_v06.png",
+          "from": "raw/dash_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.266,
+          "frameScales": [
+            0.26565,
+            0.26565
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/dash_v01.png",
+            "auto-head: verdict drift (head 1.08) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "backDash",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/backDash_v04.png",
+          "from": "raw/backDash_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.267,
+          "frameScales": [
+            0.26707,
+            0.26707,
+            0.26707
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/backDash_v01.png",
+            "auto-head: verdict pop (head 0.48) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "superDash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/superDash_v09.png",
+          "from": "raw/superDash_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.31,
+          "frameScales": [
+            0.30969,
+            0.30969
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/superDash_v01.png",
+            "candidate v09 (approved: v07)",
+            "auto-head fit x1.33 (head 0.47, feet 0.71 of idle)"
+          ]
+        },
+        {
+          "anim": "jumpSquat",
+          "frames": 1,
+          "expected": 1,
+          "source": "raw/jumpSquat_v04.png",
+          "from": "raw/jumpSquat_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.164,
+          "frameScales": [
+            0.16357
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/jumpSquat_v01.png",
+            "auto-head: verdict manual (head 0.95) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "jumpUp",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpUp_v04.png",
+          "from": "raw/jumpUp_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.237,
+          "frameScales": [
+            0.23659,
+            0.23659
+          ],
+          "notes": [
+            "removed 4 specks",
+            "re-imported: replaces frames/ cleaned from raw/jumpUp_v01.png",
+            "auto-head fit x0.8 (head 1.25, feet 1.19 of idle)"
+          ]
+        },
+        {
+          "anim": "jumpFall",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpFall_v06.png",
+          "from": "raw/jumpFall_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.298,
+          "frameScales": [
+            0.2979,
+            0.2979
+          ],
+          "notes": [
+            "removed 5 specks",
+            "re-imported: replaces frames/ cleaned from raw/jumpFall_v01.png",
+            "candidate v06 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "land",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/land_v06.png",
+          "from": "raw/land_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.276,
+          "frameScales": [
+            0.27551,
+            0.27551
+          ],
+          "notes": [
+            "removed 11 specks",
+            "re-imported: replaces frames/ cleaned from raw/land_v01.png",
+            "auto-head: verdict drift (head 0.83) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "light1",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light1_v05.png",
+          "from": "raw/light1_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.561,
+          "frameScales": [
+            0.56061,
+            0.56061,
+            0.56061,
+            0.56061,
+            0.56061,
+            0.56061,
+            0.56061
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/light1_v01.png",
+            "auto-head: verdict pop (head 1.00) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v06.png",
+          "from": "raw/light2_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.305,
+          "frameScales": [
+            0.30486,
+            0.30486,
+            0.30486,
+            0.30486,
+            0.30486,
+            0.30486,
+            0.30486
+          ],
+          "notes": [
+            "split 1 touching pose group(s)",
+            "split by whole figures: the column split cut a figure between frames 2/3",
+            "re-imported: replaces frames/ cleaned from raw/light2_v01.png"
+          ]
+        },
+        {
+          "anim": "light3",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light3_v05.png",
+          "from": "raw/light3_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.301,
+          "frameScales": [
+            0.30084,
+            0.30084,
+            0.30084,
+            0.30084,
+            0.30084,
+            0.30084,
+            0.30084
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/light3_v01.png",
+            "candidate v05 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v08.png",
+          "from": "raw/light4_v08.png",
+          "version": 8,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.398,
+          "frameScales": [
+            0.39823,
+            0.39823,
+            0.39823,
+            0.39823,
+            0.39823,
+            0.39823,
+            0.39823,
+            0.39823
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/light4_v02.png"
+          ]
+        },
+        {
+          "anim": "heavy",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/heavy_v05.png",
+          "from": "raw/heavy_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.321,
+          "frameScales": [
+            0.32113,
+            0.32113,
+            0.32113,
+            0.32113,
+            0.32113,
+            0.32113,
+            0.32113,
+            0.32113
+          ],
+          "notes": [
+            "removed 4 specks",
+            "re-imported: replaces frames/ cleaned from raw/heavy_v01.png"
+          ]
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v07.png",
+          "from": "raw/airLight1_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.317,
+          "frameScales": [
+            0.31664,
+            0.31664,
+            0.31664,
+            0.31664,
+            0.31664
+          ],
+          "notes": [
+            "removed 6 specks",
+            "split 1 touching pose group(s)",
+            "split by whole figures: the column split cut a figure between frames 1/2",
+            "re-imported: replaces frames/ cleaned from raw/airLight1_v01.png",
+            "candidate v07 (approved: v06)"
+          ]
+        },
+        {
+          "anim": "airLight2",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight2_v05.png",
+          "from": "raw/airLight2_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.4,
+          "frameScales": [
+            0.39964,
+            0.39964,
+            0.39964,
+            0.39964,
+            0.39964
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/airLight2_v01.png",
+            "candidate v05 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "airLight3",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airLight3_v12.png",
+          "from": "raw/airLight3_v12.png",
+          "version": 12,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.337,
+          "frameScales": [
+            0.33692,
+            0.33692,
+            0.33692,
+            0.33692,
+            0.33692,
+            0.33692
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/airLight3_v01.png"
+          ]
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v08.png",
+          "from": "raw/airHeavy_v08.png",
+          "version": 8,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.326,
+          "frameScales": [
+            0.32576,
+            0.32576,
+            0.32576,
+            0.32576,
+            0.32576,
+            0.32576
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/airHeavy_v02.png"
+          ]
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v04.png",
+          "from": "raw/guard_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.251,
+          "frameScales": [
+            0.25088,
+            0.25088
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/guard_v01.png"
+          ]
+        },
+        {
+          "anim": "block",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/block_v03.png",
+          "from": "raw/block_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.269,
+          "frameScales": [
+            0.26937,
+            0.26937
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/block_v01.png",
+            "auto-head fit x1.0661 (head 0.94, feet 0.94 of idle)"
+          ]
+        },
+        {
+          "anim": "hurtHigh",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtHigh_v03.png",
+          "from": "raw/hurtHigh_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.277,
+          "frameScales": [
+            0.27692,
+            0.27692,
+            0.27692
+          ],
+          "notes": [
+            "removed 4 specks",
+            "re-imported: replaces frames/ cleaned from raw/hurtHigh_v01.png",
+            "auto-head: verdict pop (head 1.07) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "hurtLow",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtLow_v04.png",
+          "from": "raw/hurtLow_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.243,
+          "frameScales": [
+            0.24268,
+            0.24268,
+            0.24268
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/hurtLow_v01.png",
+            "auto-head: verdict pop (head 0.93) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v06.png",
+          "from": "raw/launched_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.309,
+          "frameScales": [
+            0.30853,
+            0.30853
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/launched_v01.png"
+          ]
+        },
+        {
+          "anim": "spin",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/spin_v04.png",
+          "from": "raw/spin_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.356,
+          "frameScales": [
+            0.35583,
+            0.35583,
+            0.35583,
+            0.35583
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/spin_v01.png"
+          ]
+        },
+        {
+          "anim": "airRecover",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/airRecover_v05.png",
+          "from": "raw/airRecover_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.302,
+          "frameScales": [
+            0.3024,
+            0.3024,
+            0.3024
+          ],
+          "notes": [
+            "removed 14 specks",
+            "re-imported: replaces frames/ cleaned from raw/airRecover_v01.png",
+            "candidate v05 (approved: v03)"
+          ]
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v05.png",
+          "from": "raw/down_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.317,
+          "frameScales": [
+            0.31707,
+            0.31707
+          ],
+          "notes": [
+            "removed 9 specks",
+            "re-imported: replaces frames/ cleaned from raw/down_v01.png"
+          ]
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v05.png",
+          "from": "raw/getup_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.292,
+          "frameScales": [
+            0.29213,
+            0.29213,
+            0.29213,
+            0.29213,
+            0.29213
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/getup_v01.png"
+          ]
+        },
+        {
+          "anim": "charge",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/charge_v07.png",
+          "from": "raw/charge_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.311,
+          "frameScales": [
+            0.31127,
+            0.31127,
+            0.31127,
+            0.31127
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/charge_v01.png"
+          ]
+        },
+        {
+          "anim": "throw",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/throw_v05.png",
+          "from": "raw/throw_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.269,
+          "frameScales": [
+            0.26883,
+            0.26883,
+            0.26883,
+            0.26883
+          ],
+          "notes": [
+            "split 1 touching pose group(s)",
+            "split by whole figures: the column split cut a figure between frames 0/1",
+            "re-imported: replaces frames/ cleaned from raw/throw_v01.png",
+            "candidate v05 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "beamCharge",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamCharge_v03.png",
+          "from": "raw/beamCharge_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.325,
+          "frameScales": [
+            0.32548,
+            0.32548,
+            0.32548
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/beamCharge_v01.png"
+          ]
+        },
+        {
+          "anim": "beamFire",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamFire_v04.png",
+          "from": "raw/beamFire_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.349,
+          "frameScales": [
+            0.34903,
+            0.34903,
+            0.34903
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/beamFire_v02.png",
+            "auto-head: verdict pop (head 0.50) - not fitted (only a uniform size error is)"
+          ]
+        },
+        {
+          "anim": "vanish",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/vanish_v03.png",
+          "from": "raw/vanish_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.269,
+          "frameScales": [
+            0.26877,
+            0.26877
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/vanish_v01.png"
+          ]
+        },
+        {
+          "anim": "stagger",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/stagger_v03.png",
+          "from": "raw/stagger_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.287,
+          "frameScales": [
+            0.28695,
+            0.28695,
+            0.28695,
+            0.28695
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/stagger_v01.png"
+          ]
+        },
+        {
+          "anim": "ko",
+          "frames": 1,
+          "expected": 1,
+          "source": "raw/ko_v06.png",
+          "from": "raw/ko_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.162,
+          "frameScales": [
+            0.16232
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/ko_v02.png"
+          ]
+        },
+        {
+          "anim": "special",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/special_v07.png",
+          "from": "raw/special_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.319,
+          "frameScales": [
+            0.31912,
+            0.31912,
+            0.31912,
+            0.31912,
+            0.31912,
+            0.31912,
+            0.31912,
+            0.31912
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/special_v01.png"
+          ]
+        },
+        {
+          "anim": "intro",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/intro_v03.png",
+          "from": "raw/intro_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.277,
+          "frameScales": [
+            0.277,
+            0.277,
+            0.277,
+            0.277
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/intro_v01.png"
+          ]
+        },
+        {
+          "anim": "taunt",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/taunt_v04.png",
+          "from": "raw/taunt_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.259,
+          "frameScales": [
+            0.25909,
+            0.25909
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/taunt_v01.png"
+          ]
+        },
+        {
+          "anim": "win",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/win_v07.png",
+          "from": "raw/win_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.288,
+          "frameScales": [
+            0.28786,
+            0.28786,
+            0.28786,
+            0.28786
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/win_v01.png"
+          ]
+        },
+        {
+          "anim": "specialForward",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/specialForward_v06.png",
+          "from": "raw/specialForward_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.278,
+          "frameScales": [
+            0.27785,
+            0.27785,
+            0.27785,
+            0.27785,
+            0.27785,
+            0.27785,
+            0.27785
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/specialForward_v01.png"
+          ]
+        },
+        {
+          "anim": "specialUp",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/specialUp_v03.png",
+          "from": "raw/specialUp_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.311,
+          "frameScales": [
+            0.31141,
+            0.31141,
+            0.31141,
+            0.31141,
+            0.31141,
+            0.31141
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/specialUp_v01.png"
+          ]
+        },
+        {
+          "anim": "specialDown",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/specialDown_v05.png",
+          "from": "raw/specialDown_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.274,
+          "frameScales": [
+            0.27382,
+            0.27382,
+            0.27382,
+            0.27382
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/specialDown_v01.png"
+          ]
+        },
+        {
+          "anim": "superPose",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/superPose_v05.png",
+          "from": "raw/superPose_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.251,
+          "frameScales": [
+            0.25082,
+            0.25082,
+            0.25082,
+            0.25082
+          ],
+          "notes": [
+            "re-imported: replaces frames/ cleaned from raw/superPose_v01.png"
+          ]
+        }
+      ],
+      "missing": [
+        "techGround",
+        "techRoll",
+        "wallTech"
+      ],
+      "missingCore": [],
+      "failed": [],
+      "blocked": [],
+      "versions": {
+        "idle": 7,
+        "run": 12,
+        "dash": 6,
+        "backDash": 4,
+        "superDash": 9,
+        "jumpSquat": 4,
+        "jumpUp": 4,
+        "jumpFall": 6,
+        "land": 6,
+        "light1": 5,
+        "light2": 6,
+        "light3": 5,
+        "light4": 8,
+        "heavy": 5,
+        "airLight1": 7,
+        "airLight2": 5,
+        "airLight3": 12,
+        "airHeavy": 8,
+        "guard": 4,
+        "block": 3,
+        "hurtHigh": 3,
+        "hurtLow": 4,
+        "launched": 6,
+        "spin": 4,
+        "airRecover": 5,
+        "down": 5,
+        "getup": 5,
+        "charge": 7,
+        "throw": 5,
+        "beamCharge": 3,
+        "beamFire": 4,
+        "vanish": 3,
+        "stagger": 3,
+        "ko": 6,
+        "special": 7,
+        "intro": 3,
+        "taunt": 4,
+        "win": 7,
+        "specialForward": 6,
+        "specialUp": 3,
+        "specialDown": 5,
+        "superPose": 5
+      },
+      "complete": true,
+      "frames": 175,
+      "sheet": "4096x2816",
+      "colors": 48,
+      "warnings": [
+        "superDash: auto-head fit x2.14 is outside 0.75-1.33 - clamped; redraw the strip at the idle's size",
+        "superDash: auto-head fit clips 2 frame(s) (#0 right 15px, #1 right 15px) - repose those frames inside the cell",
+        "scale gate: run pops inside the strip: f4 0.70 vs f2 1.11 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v12, strict]",
+        "scale: run head 0.92 was 0.98 in art/scale/scale-baseline.json at the same version v12 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: dash head 1.08 of idle (feet 0.95): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, strict]",
+        "scale: dash head 1.08 was 0.99 in art/scale/scale-baseline.json at the same version v06 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: backDash pops inside the strip: f2 0.46 vs f1 0.99 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale: backDash head 0.48 was 0.99 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: superDash pops inside the strip: f1 0.84 vs f0 1.01 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v09, strict]",
+        "scale: jumpSquat head 0.95 was 1.00 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: jumpUp head 0.93 of idle (feet 0.94): the whole figure is off - re-import with the auto head fit (sidecar anatomy { \"measurement\": \"auto-head\" }) or fix the strip's bodyHeight [v04, strict]",
+        "scale: jumpUp head 0.93 was 1.00 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: land head 0.83 of idle (feet 1.06): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v06, strict]",
+        "scale: land head 0.83 was 1.01 in art/scale/scale-baseline.json at the same version v06 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: light1 pops inside the strip: f2 0.47 vs f0 1.15 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: light2 pops inside the strip: f6 0.48 vs f5 1.13 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v06, strict]",
+        "scale: light2 head 0.94 was 1.00 in art/scale/scale-baseline.json at the same version v06 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: light3 pops inside the strip: f0 0.47 vs f2 0.88 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: light4 pops inside the strip: f7 0.43 vs f3 1.21 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v08, strict]",
+        "scale: light4 head 1.07 was 0.98 in art/scale/scale-baseline.json at the same version v08 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: heavy pops inside the strip: f5 0.43 vs f3 1.06 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: airLight1 head 0.86 of idle (feet 0.83): the whole figure is off - re-import with the auto head fit (sidecar anatomy { \"measurement\": \"auto-head\" }) or fix the strip's bodyHeight [v07, strict]",
+        "scale gate: airLight2 pops inside the strip: f0 0.41 vs f1 1.07 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: airLight3 pops inside the strip: f1 0.83 vs f4 0.98 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v12, strict]",
+        "scale: airLight3 head 0.89 was 0.97 in art/scale/scale-baseline.json at the same version v12 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: airHeavy pops inside the strip: f2 0.70 vs f0 0.98 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v08, strict]",
+        "scale: airHeavy head 0.92 was 1.05 in art/scale/scale-baseline.json at the same version v08 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: hurtHigh pops inside the strip: f2 0.53 vs f0 1.20 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v03, strict]",
+        "scale: hurtHigh head 1.07 was 1.00 in art/scale/scale-baseline.json at the same version v03 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: hurtLow pops inside the strip: f0 0.83 vs f1 1.00 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale: hurtLow head 0.93 was 1.00 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale: launched head 1.13 was 0.98 in art/scale/scale-baseline.json at the same version v06 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale: spin head 1.29 was 1.11 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: airRecover: low-confidence pose (tumbling, lying, tucked or afterimage) - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: \"scaleManualQA\": { \"version\": <v>, \"result\": \"pass\", \"by\": \"<who>\", \"note\": \"<what was compared>\", \"evidence\": \"<image>\" } in the manifest animation [v05, strict]",
+        "scale: airRecover: the manual QA record (scaleManualQA) is for v03 but the packed strip is v05 - check this version and record it again",
+        "scale: down head 1.34 was 1.11 in art/scale/scale-baseline.json at the same version v05 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale: getup head 1.04 was 0.99 in art/scale/scale-baseline.json at the same version v05 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: charge pops inside the strip: f3 1.02 vs f0 1.24 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v07, strict]",
+        "scale: charge head 1.10 was 0.99 in art/scale/scale-baseline.json at the same version v07 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: throw head 0.79 of idle (feet 0.82): the whole figure is off - re-import with the auto head fit (sidecar anatomy { \"measurement\": \"auto-head\" }) or fix the strip's bodyHeight [v05, strict]",
+        "scale gate: beamFire pops inside the strip: f0 0.46 vs f1 1.06 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale: beamFire head 0.50 was 1.00 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale: vanish head 0.96 was 1.00 in art/scale/scale-baseline.json at the same version v03 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: stagger pops inside the strip: f2 0.91 vs f1 1.07 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v03, strict]",
+        "scale gate: special pops inside the strip: f7 0.47 vs f6 1.04 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v07, strict]",
+        "scale: special head 0.89 was 1.00 in art/scale/scale-baseline.json at the same version v07 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: intro head 0.92 of idle (feet 0.89): the whole figure is off - re-import with the auto head fit (sidecar anatomy { \"measurement\": \"auto-head\" }) or fix the strip's bodyHeight [v03, strict]",
+        "scale: intro head 0.92 was 0.99 in art/scale/scale-baseline.json at the same version v03 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: taunt pops inside the strip: f0 0.72 vs f1 0.88 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale: taunt head 0.80 was 1.01 in art/scale/scale-baseline.json at the same version v04 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: specialForward head 0.85 of idle (feet 0.81): the whole figure is off - re-import with the auto head fit (sidecar anatomy { \"measurement\": \"auto-head\" }) or fix the strip's bodyHeight [v06, strict]",
+        "scale: specialForward head 0.85 was 1.02 in art/scale/scale-baseline.json at the same version v06 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: specialUp pops inside the strip: f1 0.45 vs f0 1.06 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v03, strict]",
+        "scale: specialUp head 0.97 was 1.00 in art/scale/scale-baseline.json at the same version v03 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: specialDown pops inside the strip: f0 0.46 vs f2 0.91 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale: specialDown head 0.90 was 1.00 in art/scale/scale-baseline.json at the same version v05 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "scale gate: superPose pops inside the strip: f0 0.54 vs f1 0.82 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale: superPose head 0.80 was 0.96 in art/scale/scale-baseline.json at the same version v05 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)",
+        "down: 1 lying frame(s) float above the floor line (#1: 13% of the body within 6px of y 240, worst fifth 18px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020); v05 is the approved version: queue a side-on redraw",
+        "ko: 1 lying frame(s) float above the floor line (#0: 23% of the body within 6px of y 240, worst fifth 20px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020); v06 is the approved version: queue a side-on redraw",
+        "scale gate: would not write public/characters/gojo/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion"
+      ],
+      "notes": [
+        "palette snapped to 48 colors",
+        "hitboxes.json light1: boxes and hand anchors scaled x1.086 about the pivot (auto-head fit x1); re-measure them and set \"_scale\": 1",
+        "hitboxes.json beamFire: boxes and hand anchors scaled x1.151 about the pivot (auto-head fit x1); re-measure them and set \"_scale\": 1",
+        "27 hitbox override(s) from hitboxes.json",
+        "14 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [],
+      "writeback": [],
+      "ui": [
+        "portrait (fitted to 96x96)",
+        "cutin (fitted to 480x128)",
+        "select (fitted to 384x384)"
+      ],
+      "uiItems": [
+        "portrait",
+        "cutin",
+        "select"
+      ],
+      "ground": {
+        "down": [
+          {
+            "frame": 1,
+            "contact": 0.13,
+            "gaps": [
+              17,
+              0,
+              14,
+              18,
+              17
+            ],
+            "worst": 18,
+            "h": 72,
+            "ok": false
+          }
+        ],
+        "getup": [
+          {
+            "frame": 0,
+            "contact": 0.58,
+            "gaps": [
+              10,
+              0,
+              0,
+              0,
+              0
+            ],
+            "worst": 10,
+            "h": 75,
+            "ok": true
+          }
+        ],
+        "ko": [
+          {
+            "frame": 0,
+            "contact": 0.23,
+            "gaps": [
+              20,
+              0,
+              0,
+              11,
+              3
+            ],
+            "worst": 20,
+            "h": 81,
+            "ok": false
+          }
+        ]
+      },
+      "tech": {},
+      "scale": {
+        "gate": "strict",
+        "failed": [
+          "run",
+          "dash",
+          "backDash",
+          "superDash",
+          "jumpUp",
+          "land",
+          "light1",
+          "light2",
+          "light3",
+          "light4",
+          "heavy",
+          "airLight1",
+          "airLight2",
+          "airLight3",
+          "airHeavy",
+          "hurtHigh",
+          "hurtLow",
+          "airRecover",
+          "charge",
+          "throw",
+          "beamFire",
+          "stagger",
+          "special",
+          "intro",
+          "taunt",
+          "specialForward",
+          "specialUp",
+          "specialDown",
+          "superPose"
+        ],
+        "findings": [],
+        "anims": {
+          "idle": {
+            "head": 1,
+            "feet": 1,
+            "range": 0.118,
+            "verdict": "ref",
+            "strict": false,
+            "version": 7,
+            "reason": null,
+            "frames": [
+              1.059,
+              1,
+              0.992,
+              1.008,
+              1,
+              1,
+              0.96,
+              0.941
+            ]
+          },
+          "run": {
+            "head": 0.918,
+            "feet": 0.775,
+            "range": 0.409,
+            "verdict": "pop",
+            "strict": true,
+            "version": 12,
+            "reason": null,
+            "frames": [
+              1.097,
+              1,
+              1.109,
+              0.881,
+              0.7,
+              0.826,
+              0.955,
+              0.725
+            ]
+          },
+          "dash": {
+            "head": 1.079,
+            "feet": 0.952,
+            "range": 0.041,
+            "verdict": "drift",
+            "strict": true,
+            "version": 6,
+            "reason": null,
+            "frames": [
+              1.099,
+              1.058
+            ]
+          },
+          "backDash": {
+            "head": 0.484,
+            "feet": 0.91,
+            "range": 0.525,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.484,
+              0.987,
+              0.462
+            ]
+          },
+          "superDash": {
+            "head": 0.927,
+            "feet": 0.962,
+            "range": 0.163,
+            "verdict": "pop",
+            "strict": true,
+            "version": 9,
+            "reason": null,
+            "frames": [
+              1.008,
+              0.845
+            ]
+          },
+          "jumpSquat": {
+            "head": 0.952,
+            "feet": 1.141,
+            "range": 0,
+            "verdict": "manual",
+            "strict": true,
+            "version": 4,
+            "reason": "manual QA by Codex: Low-confidence crouch checked at native packed cell size beside approved neutral and idle f0/f4: hair/head same scale; collar-to-hem torso and both legs compress only through knee and hip flexion; no enlarged shoulders or missing limb. Single pose has no loop. This is manual anatomy evidence, not a numeric probe pass or user art approval. (art/characters/gojo/production/title-style/jumpSquat-compare.png)",
+            "frames": [
+              0.952
+            ]
+          },
+          "jumpUp": {
+            "head": 0.926,
+            "feet": 0.945,
+            "range": 0.031,
+            "verdict": "uniform",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.941,
+              0.91
+            ]
+          },
+          "jumpFall": {
+            "head": 0.988,
+            "feet": 1.048,
+            "range": 0.024,
+            "verdict": "ok",
+            "strict": true,
+            "version": 6,
+            "reason": null,
+            "frames": [
+              1,
+              0.976
+            ]
+          },
+          "land": {
+            "head": 0.833,
+            "feet": 1.064,
+            "range": 0,
+            "verdict": "drift",
+            "strict": true,
+            "version": 6,
+            "reason": null,
+            "frames": [
+              0.833,
+              0.833
+            ]
+          },
+          "light1": {
+            "head": 1,
+            "feet": 0.975,
+            "range": 0.684,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              1.152,
+              1.111,
+              0.468,
+              0.55,
+              1,
+              0.941,
+              1.041
+            ]
+          },
+          "light2": {
+            "head": 0.935,
+            "feet": 0.988,
+            "range": 0.641,
+            "verdict": "pop",
+            "strict": true,
+            "version": 6,
+            "reason": null,
+            "frames": [
+              0.91,
+              0.974,
+              0.916,
+              1.031,
+              0.935,
+              1.125,
+              0.484
+            ]
+          },
+          "light3": {
+            "head": 0.845,
+            "feet": 0.797,
+            "range": 0.408,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.467,
+              0.845,
+              0.875,
+              0.791,
+              0.718,
+              0.845,
+              0.872
+            ]
+          },
+          "light4": {
+            "head": 1.074,
+            "feet": 0.904,
+            "range": 0.781,
+            "verdict": "pop",
+            "strict": true,
+            "version": 8,
+            "reason": null,
+            "frames": [
+              1.167,
+              1.067,
+              1.056,
+              1.214,
+              1.08,
+              1.13,
+              0.904,
+              0.433
+            ]
+          },
+          "heavy": {
+            "head": 0.927,
+            "feet": 0.84,
+            "range": 0.626,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.927,
+              0.505,
+              0.93,
+              1.059,
+              0.949,
+              0.433,
+              0.467,
+              0.949
+            ]
+          },
+          "airLight1": {
+            "head": 0.86,
+            "feet": 0.833,
+            "range": 0.113,
+            "verdict": "uniform",
+            "strict": true,
+            "version": 7,
+            "reason": null,
+            "frames": [
+              0.907,
+              0.804,
+              0.794,
+              0.875,
+              0.86
+            ]
+          },
+          "airLight2": {
+            "head": 0.979,
+            "feet": 0.924,
+            "range": 0.655,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.412,
+              1.067,
+              1.051,
+              0.963,
+              0.979
+            ]
+          },
+          "airLight3": {
+            "head": 0.893,
+            "feet": 0.831,
+            "range": 0.144,
+            "verdict": "pop",
+            "strict": true,
+            "version": 12,
+            "reason": null,
+            "frames": [
+              0.974,
+              0.832,
+              0.845,
+              0.884,
+              0.976,
+              0.901
+            ]
+          },
+          "airHeavy": {
+            "head": 0.923,
+            "feet": 0.767,
+            "range": 0.284,
+            "verdict": "pop",
+            "strict": true,
+            "version": 8,
+            "reason": null,
+            "frames": [
+              0.984,
+              0.941,
+              0.7,
+              0.7,
+              0.91,
+              0.935
+            ]
+          },
+          "guard": {
+            "head": 1.017,
+            "feet": 0.952,
+            "range": 0.033,
+            "verdict": "ok",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              1.033,
+              1
+            ]
+          },
+          "block": {
+            "head": 1.002,
+            "feet": 1.004,
+            "range": 0.003,
+            "verdict": "ok",
+            "strict": true,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              1,
+              1.003
+            ]
+          },
+          "hurtHigh": {
+            "head": 1.067,
+            "feet": 1.006,
+            "range": 0.675,
+            "verdict": "pop",
+            "strict": true,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              1.2,
+              1.067,
+              0.525
+            ]
+          },
+          "hurtLow": {
+            "head": 0.93,
+            "feet": 0.906,
+            "range": 0.165,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.835,
+              1,
+              0.93
+            ]
+          },
+          "launched": {
+            "head": 1.134,
+            "feet": 0.982,
+            "range": 0.028,
+            "verdict": "manual",
+            "strict": true,
+            "version": 6,
+            "reason": "manual QA by Claude (QA agent): At the inherited bodyHeight 148 the whole figure was ~13% small: hair area 0.84/0.86 of idle and whole-figure area 0.92/0.90, while hurtHigh f0 (same thrown-back head, arms spread) reads head 0.99 / area 1.03 at true scale, and the head is visibly smaller than gojo-neutral_v01 rotated to the same 40-55 deg tilt. At bodyHeight 170 (x1.149) both frames compared at native packed scale with the rotated neutral and hurtHigh f0: hair area 0.97/0.99, figure area 1.05/1.04 (matches hurtHigh), torso, legs and shoes in line with the neutral; hands within the spread of the reference hands. Two-frame loop wrap is a small arm/leg flutter, no pop. frameOffsets [62,0]/[49,0] keep the true-size pose inside x 4..251 and centre the body on the pivot instead of the feet. (art/characters/gojo/production/title-style/claude-qa/launched-v06-bh170.png)",
+            "frames": [
+              1.12,
+              1.148
+            ]
+          },
+          "spin": {
+            "head": 1.288,
+            "feet": 0.924,
+            "range": 0.815,
+            "verdict": "manual",
+            "strict": true,
+            "version": 4,
+            "reason": "manual QA by Claude (QA agent): Four tumble frames compared at native packed scale (bodyHeight 174) with gojo-combat_v01/neutral_v01 and the tucked backDash f1/jumpSquat: crown-to-chin 39 px vs combat 38 / neutral 39-40, side-view shoe 36-38 px vs combat 38, shins and hands consistent. The probe's hair area reads 1.09-1.19 only because the spikes fan out in the tumble (hair 40 px wide vs 38). f0 seated tuck -> f1 rotate -> f2 inverted -> f3 rotate back; f3->f0 wrap is continuous rotation. A bodyHeight cut was tested (156) and rejected: it made head length and shins ~7% small. (art/characters/gojo/production/title-style/claude-qa/spin-v04.png)",
+            "frames": [
+              1.294,
+              1.388,
+              1.281,
+              0.573
+            ]
+          },
+          "airRecover": {
+            "head": 0.99,
+            "feet": 0.833,
+            "range": 0.482,
+            "verdict": "unmeasured",
+            "strict": true,
+            "version": 5,
+            "reason": "low-confidence pose (tumbling, lying, tucked or afterimage)",
+            "frames": [
+              1.139,
+              0.657,
+              0.99
+            ]
+          },
+          "down": {
+            "head": 1.344,
+            "feet": 0.964,
+            "range": 0.054,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by Claude (QA agent): Original lying composition preserved. Both frames compared at native packed scale with gojo-neutral_v01 rotated 90 deg (crown aligned): head outline, torso and overall length (f1 234 px vs neutral 236) match within ~3%; hair area reads 1.10 only because the hair is seen from the crown side; shoe 38 px. Floor-band warning (#1 13% within 6px, worst fifth 18px) left for in-game grounding check. (art/characters/gojo/production/title-style/claude-qa/down-v05.png)",
+            "frames": [
+              1.317,
+              1.371
+            ]
+          },
+          "getup": {
+            "head": 1.041,
+            "feet": 0.788,
+            "range": 0.621,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by Claude (QA agent): f4 is the idle stance (hands in pockets). At the inherited bodyHeight 222 it packed 221 px vs the idle's 234: shoe 38 px = idle, legs 112 vs 115, crown-to-chin 37 vs 38, but hair 32 vs 35 px wide (0.91) and collar-to-hem 72 vs 80 (0.90), and the crown sat 13 px below the idle's at the getup->idle cut. At bodyHeight 234 (x1.054) every f4 segment is within 5% of the idle (hair 34, crown-to-chin 39, torso 76, legs 118, shoe 40) and the crown meets the idle's (y8 vs y7). f0 curl, f1 shoulder stand, f2 kip-up and f3 crouch compared with the neutral at native scale (hair area 0.95-1.04). Five distinct poses, no fragments. (art/characters/gojo/production/title-style/claude-qa/getup-v05-bh234.png)",
+            "frames": [
+              0.462,
+              1.083,
+              1.066,
+              1.041,
+              0.76
+            ]
+          },
+          "charge": {
+            "head": 1.102,
+            "feet": 0.925,
+            "range": 0.217,
+            "verdict": "pop",
+            "strict": true,
+            "version": 7,
+            "reason": null,
+            "frames": [
+              1.24,
+              1.118,
+              1.085,
+              1.023
+            ]
+          },
+          "throw": {
+            "head": 0.787,
+            "feet": 0.82,
+            "range": 0.075,
+            "verdict": "uniform",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.839,
+              0.764,
+              0.787,
+              0.787
+            ]
+          },
+          "beamCharge": {
+            "head": 1.023,
+            "feet": 0.972,
+            "range": 0.096,
+            "verdict": "ok",
+            "strict": true,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              1.083,
+              0.987,
+              1.023
+            ]
+          },
+          "beamFire": {
+            "head": 0.5,
+            "feet": 1.025,
+            "range": 0.602,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.456,
+              1.058,
+              0.5
+            ]
+          },
+          "vanish": {
+            "head": 0.958,
+            "feet": 0.973,
+            "range": 0.011,
+            "verdict": "manual",
+            "strict": true,
+            "version": 3,
+            "reason": "manual QA by Claude (QA agent): Both frames compared at native packed scale with gojo-neutral_v01: f0 lean (head 1.05, torso and shoes match), f1 standing 232 px vs idle 234, head 1.01; the horizontal glitch slices in f1 are the intended teleport effect (separate islands by design). No clipping. (art/characters/gojo/production/title-style/claude-qa/vanish-v03.png)",
+            "frames": [
+              0.963,
+              0.952
+            ]
+          },
+          "stagger": {
+            "head": 1.003,
+            "feet": 0.904,
+            "range": 0.154,
+            "verdict": "pop",
+            "strict": true,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              1.018,
+              1.067,
+              0.913,
+              0.987
+            ]
+          },
+          "ko": {
+            "head": 0.872,
+            "feet": 1.005,
+            "range": 0,
+            "verdict": "manual",
+            "strict": true,
+            "version": 6,
+            "reason": "manual QA by Claude (QA agent): Original KO composition preserved. At the inherited bodyHeight 70 the body was ~14% small against gojo-neutral_v01 rotated 90 deg (length 200 vs 233 px crown-to-sole, crown-to-chin 35 vs 40, torso ~0.85) and 12% shorter than down f1. At bodyHeight 81 (x1.157) length 237 px, crown-to-chin ~40, face and floor hand match the neutral and down f1. frameOffsets [24,0] keep the true-size pose inside x 4..251. Floor-band warning (23% within 6px, worst fifth 20px) left for the in-game grounding check. (art/characters/gojo/production/title-style/claude-qa/ko-v06-bh81.png)",
+            "frames": [
+              0.872
+            ]
+          },
+          "special": {
+            "head": 0.888,
+            "feet": 0.773,
+            "range": 0.574,
+            "verdict": "pop",
+            "strict": true,
+            "version": 7,
+            "reason": null,
+            "frames": [
+              0.816,
+              0.845,
+              0.86,
+              0.982,
+              0.916,
+              0.971,
+              1.041,
+              0.467
+            ]
+          },
+          "intro": {
+            "head": 0.917,
+            "feet": 0.892,
+            "range": 0.109,
+            "verdict": "uniform",
+            "strict": true,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              0.913,
+              0.963,
+              0.854,
+              0.921
+            ]
+          },
+          "taunt": {
+            "head": 0.803,
+            "feet": 0.99,
+            "range": 0.162,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.722,
+              0.884
+            ]
+          },
+          "win": {
+            "head": 0.95,
+            "feet": 0.869,
+            "range": 0.073,
+            "verdict": "ok",
+            "strict": true,
+            "version": 7,
+            "reason": null,
+            "frames": [
+              0.957,
+              0.89,
+              0.963,
+              0.944
+            ]
+          },
+          "specialForward": {
+            "head": 0.851,
+            "feet": 0.813,
+            "range": 0.058,
+            "verdict": "uniform",
+            "strict": true,
+            "version": 6,
+            "reason": null,
+            "frames": [
+              0.823,
+              0.851,
+              0.872,
+              0.881,
+              0.851,
+              0.842,
+              0.872
+            ]
+          },
+          "specialUp": {
+            "head": 0.97,
+            "feet": 0.948,
+            "range": 0.61,
+            "verdict": "pop",
+            "strict": true,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              1.061,
+              0.451,
+              1.021,
+              0.992,
+              0.938,
+              0.949
+            ]
+          },
+          "specialDown": {
+            "head": 0.897,
+            "feet": 0.794,
+            "range": 0.451,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.462,
+              0.904,
+              0.913,
+              0.89
+            ]
+          },
+          "superPose": {
+            "head": 0.801,
+            "feet": 0.803,
+            "range": 0.289,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.535,
+              0.824,
+              0.824,
+              0.777
+            ]
+          }
+        },
+        "ref": {
+          "box": [
+            111,
+            9,
+            140,
+            26
+          ],
+          "headPx": [
+            30,
+            17
+          ],
+          "palette": [
+            "#e9e9f3",
+            "#7d81ac",
+            "#abb0cc",
+            "#c7c4e2",
+            "#dcdbe2"
+          ],
+          "source": "auto"
+        },
+        "refused": true
+      },
+      "refused": true
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "decals": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 61
+}
