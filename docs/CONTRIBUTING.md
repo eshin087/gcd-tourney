@@ -146,8 +146,16 @@ exists for architectural decisions, and the commit is conventional.
 
 - **GitHub** (private): https://github.com/eshin087/gcd-tourney. PRs come from `npm run pr` (above). `npm run publish:github` pushes `main`
   without raw image generations (`art/**/raw/`, `_rejected/`, `_old/`, contact sheets), which stay only in
-  the local repository (~1 GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
+  the local repository (several GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
   `python -m pip install git-filter-repo`.
+- **The publish cache** (`.publish-cache/` in the main checkout, git-ignored): every publish (`npm run publish:github`,
+  `npm run pr -- open`, `npm run pr -- merge`) from any worktree, Claude session or Codex thread uses the one bare
+  repository there. It borrows the main repository's objects (`git clone --shared`, no copy), fetches the branch,
+  rewrites it in about a second without a gc and pushes, so a publish takes seconds plus the push instead of a full
+  clone every time. `.publish-cache/publish.lock` makes concurrent publishes wait their turn. A missing or broken
+  cache rebuilds itself; `npm run publish:github -- --full` forces a rebuild, and deleting the folder is always safe.
+  Each run rewrites the whole branch on purpose: filter-repo's incremental `--state-branch` mode gives revert
+  commits different ids than a full rewrite (see tools/publish.mjs).
 - **Vercel**: https://gcd-tourney.vercel.app. `npm run deploy` (tools/deploy.mjs) exports HEAD without `art/` into
   a temp folder, builds it there (`prebuild` writes `public/art-index.json`, the list of packed art, so production
   never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
