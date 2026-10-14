@@ -95,6 +95,7 @@ sandbox/runtime solution; no broader read access or Git executable modification 
   conflicts in the branch, reruns checks against current main, then uses the existing PR merge script.
 - Routine technical work and eligible merges need no new user confirmation. Art/design gates remain.
 - There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
+- **Art guard on every merge (TOOL-028).** `npm run pr -- merge` first judges the merge result (`tools/pr-guard.mjs`): a fighter strip the branch changed must have its newest raw `_vNN` equal to the manifest `approvedVersion`, must not ship an unapproved committed pack, and must pass the packer's strict scale gate (a dry run on scratch copies; `art/` and `public/` are never written). Fix by approving the version (the user's call), or by moving the candidate to `raw/_qa_hold/`. `npm run pr -- check <branch>` previews the verdict read-only. Only the coordinator uses `--force-art "<reason>"`, and only when the user has said the art may ship; the reason is recorded in the merge commit. Code branches are unaffected.
 - Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
   candidates and review history; transfer selected changes into real worktrees before Git operations.
   Never make new copies: each was a full ~2.2 GB project, and seven filled 15 GB. Art worktrees use

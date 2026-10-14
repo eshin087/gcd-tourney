@@ -444,8 +444,12 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
        idle pose's bounding box `maxX - 9 px` (6 px at the spec v1 scale, scaled by
        standingBodyPx / 136), as one box (the limb only: the box stops where the
        columns get torso-thick, and a guard fist next to a kick is left out);
-    2) rising strike above the idle head (uppercut): the fist/forearm blob around the highest pixel
-       (when it rises further above the idle head than it reaches forward, this rule is tried first);
+    2) rising strike above the **standing head** (uppercut): the fist/forearm blob around the highest pixel
+       (when it rises further above the standing head than it reaches forward, this rule is tried first). The
+       standing head is the top of the fighter's approved upright cell (`art/scale/builds.json` fighter
+       `standingReference.cells`, the title-style neutral cell), not the idle's: the title-style idles are crouched
+       combat stances (Killua's is 146 px tall against a 186 px neutral), so against the idle every upright pose's
+       hair "rose above the head". A fighter without a `standingReference` keeps the idle as the measure (TOOL-037);
     3) otherwise the forward-most **28 %** of the bounding box, full height.
   - That is why the idle pose must stay compact (lead fist around x 170-185, the v1 position at the v2
     scale) and the strike must be the forward-most point.

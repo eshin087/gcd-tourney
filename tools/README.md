@@ -10,6 +10,9 @@
 | `lineup.mjs` | `npm run lineup`: the cast side by side on one floor line with build numbers and each fighter's head scale per animation (art/CHARACTER_SCALE.md "Lineup review"). |
 | `pack-decals.mjs` | The packer's **ground-decal** kind (`npm run sprites decals`, ADR 0024): `DECAL_SPECS` (the engine's decal contract), raw parts, hot key, pages. Called by `pack-sprites.mjs`, which passes its image helpers in. |
 | `test-pack-decals.mjs` | Decal regression test (run by `test-pack-sprites.mjs`, or alone): fixtures in `tools/.test-fixtures/decals/`. |
+| `lint-anims.mjs` | `npm run lint:anims` (first step of `prebuild`, TOOL-004): the animation contract as a build check: `animGuide.js` ↔ manifest `animationDefaults` and per-fighter entries ↔ `FALLBACK` (sprites.js) ↔ the placeholder rig anims ↔ `altOf` frames/phases ↔ `art/SPEC.md`. Errors fail the build; warnings (optional strips a fighter lacks, SPEC wording) do not unless `--strict`. Skips the manifest/SPEC checks when `art/` is absent (deploy export). |
+| `check-undeclared.mjs` | `npm run lint:undeclared` (second step of `prebuild`, TOOL-027): finds identifiers used in `src/**/*.js` that are never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug). Parser-free lexer + brace-scope pass; permissive where it cannot tell, so it never flags working code. |
+| `test-lints.mjs` | `npm run test:lints`: regression test for both lints (planted `MODE_ORDER` bug, a valid-syntax sample, one doctored case per animation rule, CLI exit codes). Fixtures in `tools/.test-fixtures/lints/` (git-ignored, deleted after the run). |
 | `test-music.mjs` | Test for the generative music composer (`src/core/musicPlan.js`, [ADR 0019](../docs/decisions/0019-generative-lofi-music.md)): same seed same song, varied 8-bar windows across 20 seeds, melody / pad ranges and scales, pad voice-leading leaps, no intro drums, heat gates. `npm run test:music` (`-- --print` prints a song). No dependencies. |
 | `queue.mjs` | Claim queue for parallel art production (world art batches): see its header comment and [ADR 0008](../docs/decisions/0008-world-art-and-parallel-production.md). Not part of the sprite packer. |
 
@@ -181,7 +184,7 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
      reaches past the idle pose (pixels beyond idle maxX - 6 px at spec v1 scale, 9 px at v2). The limb is
      isolated by walking back from the tip until columns get torso-thick, keeping the blob that holds the
      forward-most pixel plus smears touching it (a guard fist next to a kick is not included). Uppercuts that
-     rise above the idle head use the same idea upward. If nothing sticks out: the forward-most 28% of the body.
+     rise above the standing head use the same idea upward. The standing head is the top of the approved upright cell in `art/scale/builds.json` `standingReference.cells` (the title-style neutral cell); without one it is the idle's top (a crouched idle makes every upright pose's hair "rise"). The forward rule still measures against the idle's front. If nothing sticks out: the forward-most 28% of the body.
      Boxes larger than 40% of the body are warned. Every pixel threshold of these rules (tip band, minimum limb
      length and blob size, box padding) was tuned on spec v1 art and is scaled by `standingBodyPx / 136`
      (x1.47 in spec v2), so the boxes behave the same on bigger sprites.
@@ -401,7 +404,8 @@ Common warnings and the fix:
 | `dropped N stray mark(s)` (note) | a speck far from a pose was removed; check the frame if something real was lost |
 | `bodyHeight N does not fit` | fix `bodyHeight` in the manifest or sidecar (max 237 in spec v2) |
 | `palette has N colors (> 64 ...)` | clean the art, or pack with `--quantize 48` |
-| `large auto hitbox` / `no clear strike limb` | check the frame; add a `hitboxes.json` override |
+| `large auto hitbox` / `no clear strike limb` | check the frame; add a `hitboxes.json` override. The strike-limb note lists the frames (`light2#2`) still on the auto box; frames a `hitboxes.json` override replaced are not counted. `--json` reports every active frame's box and rule (`hitBoxes`) and the rising-strike reference (`hitRef`) |
+| `standingReference: ... does not exist` | the cell named in `builds.json` is missing or not 256x256: the rising-strike rule falls back to the idle until it is fixed |
 | `N lying frame(s) float above the floor line` | the lying pose is drawn from above: redraw it side-on at the spec camera with the head, back, hips and legs on y 240 (art/SPEC.md "Lying poses"; the four current fighters: art/scale/KO_DOWN_BRIEF.md) |
 | `... changed but frames/<anim>/ has manual edits` | keep the edits, or delete `frames/<anim>/` to re-import the new source |
 | `frames/<anim>/ were cleaned from ..., which is no longer in raw/` | the only version was rejected: delete `frames/<anim>/` (or add a new `_vNN`) |

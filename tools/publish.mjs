@@ -16,7 +16,7 @@
 // them (E: is exFAT, so hardlinks are not an option), and holds only the slim rewrites, a few MB. Original
 // branches live in its refs/heads/, their rewrites in refs/publish/. A run fetches the branch (no object
 // transfer), rewrites that one ref with --refs (partial mode: no gc or repack, ~1 s for the whole history)
-// and pushes it. The old way, a full clone into os.tmpdir() plus gc on every run, took minutes to ~50 min.
+// and pushes it. The old way, a full throw-away clone plus gc on every run, took minutes to ~50 min.
 // Why not filter-repo's incremental --state-branch mode: a commit rewritten in an earlier run is opaque to
 // it, so it leaves the id in a revert's "This reverts commit <id>" untranslated and can't see pruned raw-only
 // parents of a merge. Its ids would drift from a full rewrite, and the next rebuild (new cache, --full) could

@@ -25,7 +25,8 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
   npm run pr -- open                        # from the worktree: slim publish + gh pr create (re-run to update)
   npm run pr -- preview                     # from the worktree: a Vercel preview of the branch, linked on the PR (ADR 0018)
   git merge main                            # in the worktree, only if merge reports conflicts
-  npm run pr -- merge feature/<name>        # from the main folder: --no-ff merge, publish main, remove worktree
+  npm run pr -- check art/<name>            # optional, read-only: the art guard's verdict (unapproved or off-size fighter strips)
+  npm run pr -- merge feature/<name>        # from the main folder: art guard, --no-ff merge, publish main, remove worktree
   npm run deploy
   ```
 
@@ -157,8 +158,8 @@ exists for architectural decisions, and the commit is conventional.
   Each run rewrites the whole branch on purpose: filter-repo's incremental `--state-branch` mode gives revert
   commits different ids than a full rewrite (see tools/publish.mjs).
 - **Vercel**: https://gcd-tourney.vercel.app. `npm run deploy` (tools/deploy.mjs) exports HEAD without `art/` into
-  a temp folder, builds it there (`prebuild` writes `public/art-index.json`, the list of packed art, so production
-  never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
+  a temp folder, builds it there (`prebuild` runs the build lints, `tools/lint-anims.mjs` and `tools/check-undeclared.mjs`, then writes
+  `public/art-index.json`, the list of packed art, so production never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
   changes are listed as "not deployed". Deploys are on demand, not on every push.
 - The site and repo contain fan art of copyrighted characters: keep the repo private, and see ADR 0008
   (ENG-020) before any public release.
