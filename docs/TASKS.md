@@ -333,8 +333,8 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 
 | ID | Task | Owner | Status | Notes |
 |---|---|---|---|---|
-| CHAR-goku-data | Goku data: kit, placeholder model, KIT.md, manifest block | Claude | review | PR feature/char-goku-luffy; files: src/characters/goku.js, src/game/moves.js, art/characters/goku/KIT.md |
-| CHAR-luffy-data | Luffy data: kit, placeholder model, KIT.md, manifest block; laneStrike kind | Claude | review | PR feature/char-goku-luffy; files: src/characters/luffy.js, src/game/moves.js, src/game/kit.js, ai.js, aiMaster.js, art/characters/luffy/KIT.md |
+| CHAR-goku-data | Goku data: kit, placeholder model, KIT.md, manifest block | Claude | done | merged PR #91 (fff5c0b), live; files: src/characters/goku.js, src/game/moves.js, art/characters/goku/KIT.md |
+| CHAR-luffy-data | Luffy data: kit, placeholder model, KIT.md, manifest block; laneStrike kind | Claude | done | merged PR #91 (fff5c0b), live; files: src/characters/luffy.js, src/game/moves.js, src/game/kit.js, ai.js, aiMaster.js, art/characters/luffy/KIT.md |
 | ART-goku-ref | Goku briefs + title-style neutral/combat reference, preview stop; then model sheet, expressions, idle | Codex | todo | after the data PR merges; branch art/goku-refs (--art goku); files: art/characters/goku/**, the goku block of art/manifest.json and art/TRACKER.md |
 | ART-luffy-ref | Luffy briefs + title-style neutral/combat reference, preview stop; then model sheet, expressions, idle | Codex | todo | after the data PR merges; branch art/luffy-refs (--art luffy); files: art/characters/luffy/**, the luffy block of art/manifest.json and art/TRACKER.md |
 | CHAR-goku-balance | Six-fighter CPU round-robin with Goku; log in ADR 0011 | Claude | todo | after his core art lands |
