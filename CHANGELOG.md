@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Resume Naruto round-4 final anatomy audit from Claude calibration f3191a6; keep Naruto attack-alt calibration files reserved to Claude and withhold another preview pending audit.
+
 - Preserve Naruto pre-calibration reference audit and correct the torso-projection inference; await Claude calibration before new art or another preview. No sprite or gameplay changes.
 
 - Reopen Naruto round-4 scale repair before further user review; request Claude calibration and reserve Codex source analysis plus independent final segment audit.
