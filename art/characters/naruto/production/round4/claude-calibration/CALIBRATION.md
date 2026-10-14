@@ -75,3 +75,56 @@ Astra rechecks every frame and loop of stagger, taunt and win (plus jumpUp and s
 the right reference cell per pose, upper and lower limbs where visible, S, frontal shoulders when available. Codex
 spends a remaining call only on a residual Astra confirms. Claude's reservation of the five strips' bodyHeight,
 offsets, sidecars, hitboxes and this folder ends with this note; ask again before re-calibrating after a redraw.
+
+# Round 2 (2026-10-14): win09, and stagger06 / taunt07 feasibility
+
+Requested by Codex's "win09 ready for recalibration" section (branch at `ef4c2d5`), after Astra's calibrated audit
+(`../calibrated-astra-audit/AUDIT.md`) found the upright torsos short at round 1's head-first factors.
+
+## win09: calibrated at k 1.0 (bodyHeight 193, `raw/win_v09.json`)
+
+Luna's redraw fixed the body: at 193 the strip already sits on every rigid marker.
+
+| marker (at 193) | win09 | reference | ratio |
+|---|---|---|---|
+| head probe | 1.043 (frames 1.014-1.059) | idle07 | gate 0.94-1.06 |
+| upright collar-to-hem T | about 46-48 px | neutral cell 50.4 | 0.92-0.96 |
+| visible profile sandal S | about 28-29 px | idle07 / neutral about 30-31 (same ruler reading) | 0.92-0.95 |
+
+T and S are hand readings on 4x crops with a 5 px ruler (`win09-ruler-torso-4x.png`, `win09-ruler-feet-4x.png`),
++-1-2 px. A larger factor lifts T and S but pushes f3's head past 1.06; a smaller one drops T and S below 0.94. 1.0 is
+the only factor near all three; T and S sit at the low edge, so Astra's audit decides the pass. Win's hurt box top is
+1.40-1.44 units (win is not a combat state).
+
+## stagger06 and taunt07: no uniform factor fits (source residual)
+
+At round 1's calibration the head and the profile sandal already match (Astra: stagger H 40, S 29; taunt H 39, S 28,
+against references about 40 / 29), while the upright collar-to-hem is short against the neutral cell's 50.4:
+
+| strip | T now | T / neutral | factor T needs (+-6 %) | factor H and S allow | overlap |
+|---|---|---|---|---|---|
+| stagger06 | 39.2 (Astra), 35-39 (Claude's ruler, `win09-ruler-torso-3x.png`) | 0.70-0.78 | 1.21-1.36 | 0.94-1.06 | **none** |
+| taunt07 | 36.5-37.5 (Astra), about 36 (ruler) | 0.71-0.74 | 1.27-1.43 | 0.94-1.06 | **none** |
+
+The collar and hem are crisp pixel edges, read to about +-2 px. Astra's nonempty windows (stagger 1.049-1.200, taunt
+1.101-1.232) appear only when every endpoint takes its most favourable value at once (T at +4 px, the neutral at
+-2.4 px, H and S at the favourable ends of their ranges together). At the central values, the factor that fixes T makes
+the head and sandals 21-43 % too big. **Result: a proven source residual for both, if the poses are read as upright**
+(Astra's reading, which Claude shares: both stand with straight backs, only the shoulders hunched in stagger). The
+torso is drawn about 20-25 % short relative to the head and sandals (T/H about 0.95-0.98 against the neutral's 1.29;
+it matches the crouched combat/idle projection, 0.99, which an upright pose should not have). The remedy is one redraw
+each with the upright torso at the neutral's proportion, the same pose and the same head size; both strips keep their
+round-1 calibration until then.
+
+## jumpUp06 and superDash03
+
+No change. The rigid marker that can be read passes (head probe 1.011 / 0.986), and nothing comparable shows a body-size
+error: the airborne and leaning projections hide the torso and sandal lengths, as Astra found. A defensible review
+decision needs no more measurement, only the user's visual check in game beside the idle: record it as a
+`scaleManualQA` pass or a redraw request from that review, not from a bounding box.
+
+## Atlas
+
+`public/characters/naruto/sheet.png` sha256 `fa585aa6d901a0b6ca69014b339b64529091b1bee5f0803f56544924febefa60`,
+`anims.json` sha256 `a31a076b6e0404e76da77cf98b69832421155406c52e174ec532dc4c2d58d667` (`--quantize 48`, normal gate passes;
+stagger and taunt pixels unchanged from round 1 apart from the shared palette).
