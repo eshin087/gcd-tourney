@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Link Gojo PR83 and committed review preview; complete the Part 1 handoff with all anatomy holds explicit and Naruto alts still in progress.
+
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
 - Art round 4: link Killua's committed selected-loop review preview; retain all anatomy holds. Further browser QA uses the Codex browser per user direction.

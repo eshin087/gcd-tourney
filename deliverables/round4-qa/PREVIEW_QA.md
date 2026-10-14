@@ -30,3 +30,7 @@ Saved screenshot SHA-256:
 - Sasuke: `7b45d6e5a93877a57ad46ddd4ae717d544536671aecd71e6ab988e45a74a01b5`.
 
 The [independent Astra report](astra-three-fighters_v01.md) remains HOLD for all three fighters. Gojo and Naruto's eleven alts are separate ongoing work and are not certified by this record.
+
+## Gojo publication
+
+PR83 is open at filtered head 0e9ec98fba213dd1d6d828bc4a16182d6d75e422, exported from local source 19eb3174b60d464671b1e1e942aeef7e3bd304bf. Committed preview: https://gcd-tourney-2ste13exl-eshin087s-projects.vercel.app/reviews/gojo-round4/index.html . Its build passed (82 modules). The page was queued in the Codex in-app browser; hosted interactive QA remains unverified because automation was not exposed. No desktop fallback was used. A read-only merge simulation identifies only docs/TASKS.md as conflicted; Claude owns integration. All candidates remain HOLD and production atlas unchanged.
