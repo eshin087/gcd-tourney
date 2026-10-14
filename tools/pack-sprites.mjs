@@ -104,11 +104,12 @@ const wallLineOf = (spec) => Math.max(WALL_LINE, spec.cellMargin);
 const WALL_CONTACT = { cols: 4, minPx: 12 };
 
 // Attack alts (ADR 0031, art/SPEC.md "Attack alts"): an alt plays its base's move data (startup, active, recovery,
-// reach) and melee hits read the art's hit boxes, so the alt must strike where the base does. Compared on the union of
-// the active-phase hit boxes, in cell px facing right: reach = its far edge right of the pivot, height = its vertical
-// centre above the floor line. Warn only (altCheck). low: bases whose strike height is a rule (MOVES.light3.low).
-const ALT_TOLERANCE = { reachPx: 12, centrePx: 16 };
-const ALT_LOW = new Set(['light3']);
+// reach) AND its base's hit and hurt boxes, copied frame for frame (inheritAltBoxes), so a different technique never
+// changes what connects. The drawn strike still has to land near the base's box, or the hit spark (drawn where the
+// boxes overlap) floats away from the fist or foot: altCheck compares the alt's own active-phase boxes (the auto
+// finder or a hitboxes.json entry on the alt, before inheritance) with the base's, in cell px facing right. reach =
+// the far edge right of the pivot, height = the vertical centre above the floor line. Warn only.
+const ALT_TOLERANCE = { reachPx: 24, centrePx: 24 };
 
 // Frame indices of an animation's beats (phase indices) for a strip of n frames (its phases rescaled to n, as packed).
 function beatFrames(phases, n, beats) {
@@ -1593,8 +1594,9 @@ function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
 }
 
 // Attack alts (ALT_TOLERANCE, ADR 0031), warn only: every packed alt whose base is packed keeps the base's frame count
-// and phases, and its active-phase hit boxes reach as far and sit as high as the base's. Runs on the final boxes (after
-// hitboxes.json). R.alts gets the measurements: { "<alt>": { base, strike: { reach, centre }, baseStrike } } in px.
+// and phases, and its drawn strike (its own active-phase hit boxes, after hitboxes.json and before inheritAltBoxes)
+// lands within the tolerance of the base's. R.alts gets the measurements:
+// { "<alt>": { base, strike: { reach, centre }, baseStrike, boxes } } in px; boxes is set by inheritAltBoxes.
 function altCheck(packed, meta, spec, warn, R) {
   const byName = new Map(packed.map((p) => [p.name, p]));
   const [px, py] = spec.pivot;
@@ -1612,7 +1614,7 @@ function altCheck(packed, meta, spec, warn, R) {
     return Number.isFinite(x1) ? { reach: x1 - px, centre: +(py - (y0 + y1) / 2).toFixed(1) } : null;
   };
   const signed = (v) => `${v > 0 ? '+' : ''}${+v.toFixed(1)}px`;
-  const rule = 'an alt plays its base\'s move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)';
+  const rule = 'an alt plays its base\'s move data and hit boxes, so it keeps the frame count and phases, and its drawn strike lands where the base\'s hit registers, or the hit spark floats off the limb (art/SPEC.md "Attack alts", ADR 0031)';
   for (const p of packed) {
     const baseName = p.def.altOf;
     if (!baseName) continue;
@@ -1629,18 +1631,41 @@ function altCheck(packed, meta, spec, warn, R) {
     const a = strike(p), b = strike(base);
     if (a) rec.strike = a;
     if (b) rec.baseStrike = b;
-    if (b && !a) warn(`${p.name}: no hit box on its active frames, ${baseName} strikes ${b.reach}px out at ${b.centre}px high - draw the strike on the active frames (or add hitboxes.json overrides); ${rule}`);
+    if (b && !a) warn(`${p.name}: no hit box found on its active frames, ${baseName} strikes ${b.reach}px out at ${b.centre}px high - draw the strike on the active frames, or point a hitboxes.json entry for ${p.name} at the drawn fist or foot (it only feeds this check); ${rule}`);
+    // the auto finder can pick a torso or a guard fist on a new drawing: a hitboxes.json entry on the alt fixes the reading
     if (a && b) {
       const dReach = a.reach - b.reach, dCentre = a.centre - b.centre;
       if (Math.abs(dReach) > ALT_TOLERANCE.reachPx) {
-        warn(`${p.name}: strike reach ${a.reach}px from the pivot, ${baseName} ${b.reach}px (${signed(dReach)}, tolerance ${ALT_TOLERANCE.reachPx}px) - ${rule}`);
+        warn(`${p.name}: drawn strike reach ${a.reach}px from the pivot, ${baseName}'s hit ${b.reach}px (${signed(dReach)}, tolerance ${ALT_TOLERANCE.reachPx}px) - ${rule}`);
       }
       if (Math.abs(dCentre) > ALT_TOLERANCE.centrePx) {
-        const low = ALT_LOW.has(baseName) && dCentre > 0 ? ` - ${baseName} is a low: its alt must hit low too` : '';
-        warn(`${p.name}: strike height ${a.centre}px above the floor, ${baseName} ${b.centre}px (${signed(dCentre)}, tolerance ${ALT_TOLERANCE.centrePx}px)${low} - ${rule}`);
+        warn(`${p.name}: drawn strike height ${a.centre}px above the floor, ${baseName}'s hit ${b.centre}px (${signed(dCentre)}, tolerance ${ALT_TOLERANCE.centrePx}px) - ${rule}`);
       }
     }
     R.alts[p.name] = rec;
+  }
+}
+
+// Attack alts take their base's hit and hurt boxes frame for frame (ADR 0031): what connects, what can be hit and
+// the hit spark's spot are the base move's, whatever the alt draws, so the alternation is visual only. Runs after
+// altCheck, which judged the alt's own drawn strike. An alt's own `hand` anchor stays (hand effects follow the drawn
+// hand). An alt whose frame count differs from its base's has no frame-for-frame match: it keeps its own boxes, and
+// altCheck has already warned.
+function inheritAltBoxes(packed, meta, R) {
+  const byName = new Map(packed.map((p) => [p.name, p]));
+  const copy = (list) => list.map((b) => [...b]);
+  for (const p of packed) {
+    const base = byName.get(p.def.altOf);
+    if (!base || base.indices.length !== p.indices.length) continue;
+    p.indices.forEach((frame, k) => {
+      const from = meta.boxes[String(base.indices[k])] || {}, key = String(frame);
+      const to = meta.boxes[key] = meta.boxes[key] || {};
+      if (from.hit?.length) to.hit = copy(from.hit); else delete to.hit;
+      if (from.hurt?.length) to.hurt = copy(from.hurt); else delete to.hurt;
+    });
+    // the --json hit box report describes what ships
+    if (R.hitBoxes[p.name]) R.hitBoxes[p.name] = R.hitBoxes[p.name].map((e) => ({ frame: e.frame, hit: meta.boxes[String(p.indices[e.frame])]?.hit ?? null, rule: `base ${base.name}` }));
+    if (R.alts[p.name]) R.alts[p.name].boxes = 'base';
   }
 }
 
@@ -2272,8 +2297,10 @@ function packCharacter(id, env) {
   // tech poses (ADR 0030): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
   const wallAnchor = techPoseCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(wallAnchor).length) { meta.wallAnchor = wallAnchor; meta.wallLine = wallLineOf(spec); }
-  // attack alts (ADR 0031): frame count, phases and the strike's reach and height against the base (warn only)
+  // attack alts (ADR 0031): frame count, phases and where the drawn strike lands against the base (warn only), then
+  // the base's hit and hurt boxes on every alt frame, so an alt never changes what connects
   altCheck(packed, meta, spec, warn, R);
+  inheritAltBoxes(packed, meta, R);
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;
