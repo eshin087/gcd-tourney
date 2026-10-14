@@ -60,7 +60,7 @@ remain outside this task. No images are approved by the agents. ENG-081 is not o
 **Execution update:** ENG-081 gate verified on main `8ebe9c0`; Naruto alt frame tables are prepared before drawing.
 The vanished external Gojo checkout was recovered from preserved `codex/gojo-run-def` HEAD `3f2c214`
 into the real `.worktrees/art-gojo-title-r3`, with its complete saved measurements and run studies preserved.
-Sasuke PR #79 and Naruto Part-1 PR #80 have review previews; Killua PR #81 is receiving clearer selected-loop playback.
+Sasuke PR #79 and Naruto Part-1 PR #80 have review previews; Killua PR #81 now has committed selected-loop playback at preview fllkidy67 (source 8c25da8); all five atlas players loaded, all anatomy HOLD.
 Independent Astra audit covers 123 scoped Sasuke/Killua/Naruto frame instances and records HOLD, never approval.
 
 Work in each fighter's round-3 worktree and branch (`art/<id>-title-r3`; Gojo: the managed worktree you already

@@ -21,8 +21,9 @@ paused._
    has superDash v07, jumpSquat v06, beamFire v07 and dash v07; the packed superDash clips its leading fist.
    [Naruto](https://gcd-tourney-pwvs5k8dg-eshin087s-projects.vercel.app/reviews/naruto-round4/index.html)
    has stagger v06, taunt v07 and win v08; packed heads remain oversized.
-   Killua's latest idle v11, guard v09, superDash v08, stagger v07 and win v05 also remain held;
-   the review page is being updated to show the selected loops clearly. The
+   [Killua](https://gcd-tourney-fllkidy67-eshin087s-projects.vercel.app/reviews/killua-round4/index.html)'s
+   selected idle v11, guard v09, superDash v08, stagger v07 and win v05 now have native-size loop players.
+   They remain held: idle is 144-146 px versus the requested 156-162 px; guard is 132 px versus 150-158 px. The
    [independent audit](../deliverables/round4-qa/astra-three-fighters_v01.md) records all three HOLD results.
    Gojo's six measured failures and Naruto's alts are still in progress. No candidate is approved or merged.
 
