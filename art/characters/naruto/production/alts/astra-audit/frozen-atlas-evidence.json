@@ -1,0 +1,1860 @@
+{
+  "sha256": {
+    "sheet.png": "bddb6bfb78d2d71097e375875296f3b85dd697cf16873a699f875a9544f8310c",
+    "anims.json": "bc8d81f9beb535151af926d9e8a5423603e918dc374f0407d9473cf0e037dd42"
+  },
+  "alphaValues": [
+    0,
+    255
+  ],
+  "animations": {
+    "light1Alt": {
+      "frameCount": 7,
+      "expectedFrameCount": 7,
+      "countMatches": true,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "phasesMatch": true,
+      "durations": [
+        30,
+        30,
+        40,
+        50,
+        50,
+        50,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.6822
+        },
+        {
+          "frame": 6,
+          "alphaIdentical": false,
+          "alphaIoU": 0.7361
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 73,
+          "boundsExclusive": [
+            53,
+            68,
+            202,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "c50f5c275e4353adf22c132c8dc438c51fcffb8d46b38a898a1ec8ed22cc6a15",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 74,
+          "boundsExclusive": [
+            53,
+            68,
+            202,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "4f032668a9fb8fce8aa5f80997957bf62d96c86f5cddcf4c68bbe281888d4477",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 75,
+          "boundsExclusive": [
+            55,
+            68,
+            211,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "da3e509c77e5d7a09525dffad0ccacf9f4079fb4bc533f5e9eeb63a4c19c8021",
+          "hit": [
+            [
+              189,
+              102,
+              25,
+              21
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              99,
+              31,
+              22
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                3,
+                -6,
+                2
+              ],
+              "within12": true
+            }
+          ],
+          "contactStatus": "PASS"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 76,
+          "boundsExclusive": [
+            54,
+            68,
+            202,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "54fe5658f541058375e4c8a1b7e3c3410a104ea72c2e58574bb40b1d08ee6905",
+          "hit": [
+            [
+              158,
+              102,
+              47,
+              139
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              101,
+              25,
+              20
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -31,
+                1,
+                -9,
+                120
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 77,
+          "boundsExclusive": [
+            55,
+            69,
+            201,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "9986fc3b20d674bb93bc80eaf78655efcd132d528302a3c1d5f26439b9af241c",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 78,
+          "boundsExclusive": [
+            54,
+            69,
+            202,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "65783048ed5956f954864e838ee4dc7be58842cb631b91cdd81da7ee8fa89da6",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 79,
+          "boundsExclusive": [
+            56,
+            69,
+            200,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "5a41dd3f328997193c5d4c5486b0c10b082615ab92ccac4c68d5f34e773e4b72",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "light2Alt": {
+      "frameCount": 7,
+      "expectedFrameCount": 7,
+      "countMatches": true,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "phasesMatch": true,
+      "durations": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.6457
+        },
+        {
+          "frame": 6,
+          "alphaIdentical": false,
+          "alphaIoU": 0.7592
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 80,
+          "boundsExclusive": [
+            55,
+            65,
+            201,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "1e3c4ac9065607ae55ba45c49813eb5c406f6fee2c0fcb579f92b9913b925460",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 81,
+          "boundsExclusive": [
+            87,
+            56,
+            201,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "58d5cc2bc5715014e17d12dea9eb6d26eb59749f256bab1b134a7ff8fc70f9d2",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 82,
+          "boundsExclusive": [
+            104,
+            64,
+            256,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "c4a4e79cac7c174be258b4d8b52abb8c1c52bbe5d9c957e32fbd878d083a8827",
+          "hit": [
+            [
+              189,
+              111,
+              67,
+              41
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              84,
+              34,
+              26
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                27,
+                33,
+                42
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 83,
+          "boundsExclusive": [
+            107,
+            64,
+            251,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "818449d647d7c4b6c24d6fd491f0753cd2295c9f595d370be5868ff8ddb4abc8",
+          "hit": [
+            [
+              189,
+              111,
+              65,
+              41
+            ]
+          ],
+          "baseHit": [
+            [
+              190,
+              86,
+              24,
+              21
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -1,
+                25,
+                40,
+                45
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 84,
+          "boundsExclusive": [
+            105,
+            59,
+            195,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "36900ae71a2a4c68ce2aa4d8a53aa9c78d7f7276da2265d2fea12f0d54247ada",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 85,
+          "boundsExclusive": [
+            63,
+            65,
+            196,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "8a977c9fded18d1c2d3ea3ecd7e85a3dd8eaec0e08b67c2c16acd836c7af1b02",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 86,
+          "boundsExclusive": [
+            55,
+            66,
+            202,
+            241
+          ],
+          "opaqueColors": 45,
+          "alphaSha256": "44de90c58bd669e4e8400ae783e86c8057c574d48f3ddb74caaaa44c75e41463",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "light3Alt": {
+      "frameCount": 7,
+      "expectedFrameCount": 7,
+      "countMatches": true,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "phasesMatch": true,
+      "durations": [
+        40,
+        35,
+        45,
+        60,
+        60,
+        60,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.2672
+        },
+        {
+          "frame": 6,
+          "alphaIdentical": false,
+          "alphaIoU": 0.5529
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 87,
+          "boundsExclusive": [
+            59,
+            52,
+            197,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "bd0169a6c06ddbdef799f28d67deb61e9668bdabb1af44e0680c334e53d80780",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 88,
+          "boundsExclusive": [
+            45,
+            60,
+            156,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "9dbc789e266d165ce330fefa4d457e02189019cf15fb86c267459b3785343a7c",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 89,
+          "boundsExclusive": [
+            33,
+            78,
+            207,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "0877f041da9170d8f578c9a5bd82238024dd94b1cbe00402f86b0ae7f40f3428",
+          "hit": [
+            [
+              189,
+              208,
+              21,
+              25
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              102,
+              56,
+              44
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                106,
+                -35,
+                87
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 90,
+          "boundsExclusive": [
+            32,
+            78,
+            218,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "3f000f93ebc9628c3ad0dd6234456e67d5a5bf1309f59fd8e3828adfd234680b",
+          "hit": [
+            [
+              189,
+              202,
+              32,
+              31
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              98,
+              65,
+              47
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                104,
+                -33,
+                88
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 91,
+          "boundsExclusive": [
+            45,
+            46,
+            156,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "712d10c2c90b005b118703f361788da1ebbf39d9edd8c0d23082defca0bd023e",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 92,
+          "boundsExclusive": [
+            46,
+            49,
+            210,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "b672f373551eb5fafc78bb3a74ff610d971565ca8ce83cc5772dfd9d43eb10ed",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 93,
+          "boundsExclusive": [
+            45,
+            48,
+            209,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "2ea0c1e613f1a20f206820a5f0f7c2008564c1064e36f26ae4102c4dfaf7339f",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "light4Alt": {
+      "frameCount": 8,
+      "expectedFrameCount": 8,
+      "countMatches": true,
+      "phases": [
+        3,
+        2,
+        3
+      ],
+      "phasesMatch": true,
+      "durations": [
+        50,
+        45,
+        35,
+        40,
+        70,
+        70,
+        70,
+        40
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.6582
+        },
+        {
+          "frame": 7,
+          "alphaIdentical": false,
+          "alphaIoU": 0.455
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 94,
+          "boundsExclusive": [
+            50,
+            49,
+            210,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "b26cd6d6e8a5bf9f1aa91de083b44395da15ce80b0d180ecfb5ccc3415e3e45f",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 95,
+          "boundsExclusive": [
+            51,
+            49,
+            212,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "b9c6c575586160281eb07a56c6e1e01f5a8a8457c4a692877fdddd0dd32de110",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 96,
+          "boundsExclusive": [
+            45,
+            49,
+            225,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "949c16c171956e6b73decca7d34998597579a8fa1f1f5fa31e673df1f53999d0",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 97,
+          "boundsExclusive": [
+            36,
+            51,
+            239,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "6732375997c9c831c823a16bf297a699bf02233701bd8daeab4eee77728ad1eb",
+          "hit": [
+            [
+              205,
+              84,
+              37,
+              42
+            ]
+          ],
+          "baseHit": [
+            [
+              213,
+              88,
+              33,
+              19
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -8,
+                -4,
+                -4,
+                19
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 98,
+          "boundsExclusive": [
+            42,
+            61,
+            220,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "1be1d3281ab4991d0872999db1645477ed222486ed395b9f0485965181c0fc49",
+          "hit": [
+            [
+              189,
+              95,
+              34,
+              39
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              87,
+              58,
+              33
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                8,
+                -24,
+                14
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 99,
+          "boundsExclusive": [
+            61,
+            57,
+            192,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "b053a5b0939dc83d7b86eb78a7bccee0af2cd48e47d6b226c95f570c8956f3c5",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 100,
+          "boundsExclusive": [
+            59,
+            57,
+            194,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "8ae3040ba968a4ebd1c036abe687c39315841e89ac14f58af5e83ddd3b4faf26",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 101,
+          "boundsExclusive": [
+            49,
+            60,
+            206,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "e786be57346ea6c90f6560079aaccd0ef8ed870e0ed16a7ed5ae2cba76a39fe9",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "heavyAlt": {
+      "frameCount": 8,
+      "expectedFrameCount": 8,
+      "countMatches": true,
+      "phases": [
+        3,
+        2,
+        3
+      ],
+      "phasesMatch": true,
+      "durations": [
+        40,
+        35,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.6315
+        },
+        {
+          "frame": 7,
+          "alphaIdentical": false,
+          "alphaIoU": 0.507
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 102,
+          "boundsExclusive": [
+            58,
+            83,
+            206,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "2b827738a311b3cec13519c6b88f4a6ef8695976de7479950157fdd6c956f4ef",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 103,
+          "boundsExclusive": [
+            57,
+            97,
+            205,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "fa0f4cb121bf51a2e81dd22fe071aff89f7631077e6d3f6ec3641bc1c0d719ec",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 104,
+          "boundsExclusive": [
+            67,
+            28,
+            195,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "4832d41b56ab2ab32136ce78bcd62ff85e0eba74c5f70a81e72bbe56067cdaad",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 105,
+          "boundsExclusive": [
+            59,
+            33,
+            170,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "21d7e1008468430b53f5352d6a09b2e7c695606bff40d6c1faedf236235c03b3",
+          "hit": [
+            [
+              99,
+              30,
+              71,
+              47
+            ]
+          ],
+          "baseHit": [
+            [
+              156,
+              50,
+              24,
+              54
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -57,
+                -20,
+                -10,
+                -27
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 106,
+          "boundsExclusive": [
+            57,
+            42,
+            180,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "111efa47181b986faeb639015b8a891e91421b017f3bcec8065de184bd9a5c94",
+          "hit": [
+            [
+              146,
+              39,
+              37,
+              44
+            ]
+          ],
+          "baseHit": [
+            [
+              177,
+              21,
+              19,
+              25
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -31,
+                18,
+                -13,
+                37
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 107,
+          "boundsExclusive": [
+            75,
+            23,
+            192,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "b8affa96c5e290e41b559bdb7e52ede409d6267a5b751f47bb8f0fd579e171d0",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 108,
+          "boundsExclusive": [
+            59,
+            64,
+            180,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "9f130ca0da441b6668ba48e19b9936f75b59df7b6337a79a8f19fc910d426fa2",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 109,
+          "boundsExclusive": [
+            52,
+            64,
+            204,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "6c8f1a4de95418a073a64b209e83019ac7b7ee78b738b098462e897c607b95a6",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "airLight1Alt": {
+      "frameCount": 5,
+      "expectedFrameCount": 5,
+      "countMatches": true,
+      "phases": [
+        1,
+        2,
+        2
+      ],
+      "phasesMatch": true,
+      "durations": [
+        45,
+        35,
+        50,
+        50,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.8586
+        },
+        {
+          "frame": 4,
+          "alphaIdentical": false,
+          "alphaIoU": 0.8342
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 110,
+          "boundsExclusive": [
+            116,
+            49,
+            214,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "3c09ed96892331a968d6fde04e9a3efcc5d2a1b06a41513c337213887dc33fdd",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 111,
+          "boundsExclusive": [
+            116,
+            49,
+            255,
+            241
+          ],
+          "opaqueColors": 44,
+          "alphaSha256": "c1a9accbdd41acba67a1d43fab0eb61c79dd9e83a9af3a8721856e630cbf4f21",
+          "hit": [
+            [
+              202,
+              87,
+              54,
+              23
+            ]
+          ],
+          "baseHit": [
+            [
+              201,
+              87,
+              48,
+              24
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                1,
+                0,
+                7,
+                -1
+              ],
+              "within12": true
+            }
+          ],
+          "contactStatus": "PASS"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 112,
+          "boundsExclusive": [
+            115,
+            49,
+            250,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "d0ae127b9ace40b5df704b4f91b76bad24363e291ba283f02cd95d898b901d9d",
+          "hit": [
+            [
+              200,
+              87,
+              53,
+              23
+            ]
+          ],
+          "baseHit": [
+            [
+              197,
+              88,
+              44,
+              22
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                3,
+                -1,
+                12,
+                0
+              ],
+              "within12": true
+            }
+          ],
+          "contactStatus": "PASS"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 113,
+          "boundsExclusive": [
+            116,
+            49,
+            218,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "ad13e6e28114068275a863f4d670f73b6c3da3107fe2d17ffe3b2ed0e0026a2a",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 114,
+          "boundsExclusive": [
+            116,
+            49,
+            217,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "4f18f14d6cb4cd33d00c08592361395a0b53ca317732191eac77a25bad966282",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "airLight2Alt": {
+      "frameCount": 5,
+      "expectedFrameCount": 5,
+      "countMatches": true,
+      "phases": [
+        1,
+        2,
+        2
+      ],
+      "phasesMatch": true,
+      "durations": [
+        45,
+        40,
+        50,
+        50,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.7368
+        },
+        {
+          "frame": 4,
+          "alphaIdentical": false,
+          "alphaIoU": 0.7877
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 115,
+          "boundsExclusive": [
+            109,
+            62,
+            200,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "f59e1db7687b208f3ab24bb97894fe41c3023c07dd2ed93be3954e6ee5df7c80",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 116,
+          "boundsExclusive": [
+            62,
+            64,
+            249,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "b92af014e1ced05125d50276342e9f3c2521b39e293bfd744df03e1d1557cdf3",
+          "hit": [
+            [
+              189,
+              127,
+              63,
+              31
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              129,
+              56,
+              30
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                -2,
+                7,
+                -1
+              ],
+              "within12": true
+            }
+          ],
+          "contactStatus": "PASS"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 117,
+          "boundsExclusive": [
+            60,
+            64,
+            256,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "1638963f2532252aed676331267c012556f6069d7dc4ed5d6cc3e4d805b1d0a2",
+          "hit": [
+            [
+              189,
+              127,
+              67,
+              34
+            ]
+          ],
+          "baseHit": [
+            [
+              189,
+              129,
+              56,
+              33
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                0,
+                -2,
+                11,
+                -1
+              ],
+              "within12": true
+            }
+          ],
+          "contactStatus": "PASS"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 118,
+          "boundsExclusive": [
+            99,
+            65,
+            189,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "7b7951b8cc90752ba46c6e920d0a30b074a65c19a72b04c209c3e71b68cea794",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 119,
+          "boundsExclusive": [
+            112,
+            62,
+            201,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "8dcf54a54cdcf81d8d3ef8f6d47994051106553f43e4e4c07aefa28007ce2ef8",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "airLight3Alt": {
+      "frameCount": 6,
+      "expectedFrameCount": 6,
+      "countMatches": true,
+      "phases": [
+        2,
+        2,
+        2
+      ],
+      "phasesMatch": true,
+      "durations": [
+        50,
+        40,
+        50,
+        70,
+        60,
+        30
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.6092
+        },
+        {
+          "frame": 5,
+          "alphaIdentical": false,
+          "alphaIoU": 0.5742
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 120,
+          "boundsExclusive": [
+            100,
+            49,
+            212,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "06cb4196dfbc9e993f08c1eba8010b312517eda2e53615ce5f5940af68826fa6",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 121,
+          "boundsExclusive": [
+            59,
+            60,
+            226,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "a83b8ac8e53862037fe53b69ed9cbe13c847ca357daf1b05f9852906bfec5f28",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 122,
+          "boundsExclusive": [
+            54,
+            63,
+            256,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "9d23801388e0b2b7356479978a3bd5286cb03c078f264c0976647956b738163d",
+          "hit": [
+            [
+              76,
+              60,
+              86,
+              73
+            ]
+          ],
+          "baseHit": [
+            [
+              215,
+              117,
+              31,
+              34
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -139,
+                -57,
+                -84,
+                -18
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 123,
+          "boundsExclusive": [
+            54,
+            63,
+            256,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "d229f585d5068e8203e906213fb1470f0906c944fa4ef60a3ec3550bfbae3770",
+          "hit": [
+            [
+              189,
+              124,
+              67,
+              38
+            ]
+          ],
+          "baseHit": [
+            [
+              215,
+              117,
+              31,
+              34
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -26,
+                7,
+                10,
+                11
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 124,
+          "boundsExclusive": [
+            72,
+            65,
+            213,
+            241
+          ],
+          "opaqueColors": 43,
+          "alphaSha256": "77ce2b34f8e61936c3dd7277d383956f16aa1c70107e71b38e18f88f9b4443e3",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 125,
+          "boundsExclusive": [
+            98,
+            59,
+            213,
+            241
+          ],
+          "opaqueColors": 45,
+          "alphaSha256": "68aac3292ac971864f6c9dcf8443cd64d826541bbcfa217806f31a11e1a41c4e",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "airHeavyAlt": {
+      "frameCount": 6,
+      "expectedFrameCount": 6,
+      "countMatches": true,
+      "phases": [
+        2,
+        2,
+        2
+      ],
+      "phasesMatch": true,
+      "durations": [
+        50,
+        45,
+        45,
+        70,
+        70,
+        40
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.725
+        },
+        {
+          "frame": 5,
+          "alphaIdentical": false,
+          "alphaIoU": 0.024
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 126,
+          "boundsExclusive": [
+            58,
+            58,
+            176,
+            241
+          ],
+          "opaqueColors": 45,
+          "alphaSha256": "faf4f8997061daa6d2ede1e603c431a8c9152056bb2f36f8e2d9547e855f291f",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 127,
+          "boundsExclusive": [
+            56,
+            80,
+            203,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "fbc707dd4b7143ee1b4b60bdbdbe5bfe35aca11b82fa3986d615ac83343dab0b",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 128,
+          "boundsExclusive": [
+            5,
+            87,
+            152,
+            241
+          ],
+          "opaqueColors": 43,
+          "alphaSha256": "4df20caa8e0da3d1fa3e659313be0b331f19b5016d4fdb0d4abfd255f9aed8e8",
+          "hit": [
+            [
+              108,
+              103,
+              47,
+              141
+            ]
+          ],
+          "baseHit": [
+            [
+              219,
+              178,
+              29,
+              26
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -111,
+                -75,
+                -93,
+                40
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 129,
+          "boundsExclusive": [
+            9,
+            83,
+            153,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "6e5a401a33a3782f52d835fd462b173ec2722f01cf2c10a3506c7c430eaba415",
+          "hit": [
+            [
+              110,
+              82,
+              46,
+              162
+            ]
+          ],
+          "baseHit": [
+            [
+              224,
+              187,
+              27,
+              26
+            ]
+          ],
+          "activeEdgeComparisons": [
+            {
+              "deltaXYRightBottom": [
+                -114,
+                -105,
+                -95,
+                31
+              ],
+              "within12": false
+            }
+          ],
+          "contactStatus": "HOLD"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 130,
+          "boundsExclusive": [
+            58,
+            94,
+            196,
+            241
+          ],
+          "opaqueColors": 44,
+          "alphaSha256": "ce1fe1175a7dfd2a0f0f13a9c64cd8d210abbfae820e1b14f31dea25a56d6dee",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 131,
+          "boundsExclusive": [
+            0,
+            82,
+            154,
+            241
+          ],
+          "opaqueColors": 46,
+          "alphaSha256": "5604a0fe36e211872979adca1739dfe494909db14360e499057027723185ff92",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "hurtHighAlt": {
+      "frameCount": 3,
+      "expectedFrameCount": 3,
+      "countMatches": true,
+      "phases": null,
+      "phasesMatch": true,
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.8079
+        },
+        {
+          "frame": 2,
+          "alphaIdentical": false,
+          "alphaIoU": 0.8999
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 132,
+          "boundsExclusive": [
+            48,
+            64,
+            186,
+            241
+          ],
+          "opaqueColors": 42,
+          "alphaSha256": "910152cfa86fda02cea5069269742c4bf4d5f27570a6e81329106a3583e389dc",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 133,
+          "boundsExclusive": [
+            40,
+            66,
+            189,
+            241
+          ],
+          "opaqueColors": 44,
+          "alphaSha256": "d6d11b283f384edeb0a04cc4c131063fa6f21ea215843cd1e1ca7ae6a13346bb",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 134,
+          "boundsExclusive": [
+            66,
+            65,
+            189,
+            241
+          ],
+          "opaqueColors": 44,
+          "alphaSha256": "4ebbb370d98f06bcea17ada71907c91ab7d886c7f61ee52b832b89ce80d9213e",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    },
+    "hurtLowAlt": {
+      "frameCount": 3,
+      "expectedFrameCount": 3,
+      "countMatches": true,
+      "phases": null,
+      "phasesMatch": true,
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "durationsMatch": true,
+      "loop": false,
+      "endpoints": [
+        {
+          "frame": 0,
+          "alphaIdentical": false,
+          "alphaIoU": 0.794
+        },
+        {
+          "frame": 2,
+          "alphaIdentical": false,
+          "alphaIoU": 0.8715
+        }
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 135,
+          "boundsExclusive": [
+            67,
+            78,
+            193,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "646949e27b025bef855bca810a3ab197426ccba63234df1efbeed6fd45b6ee3d",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 136,
+          "boundsExclusive": [
+            67,
+            82,
+            190,
+            241
+          ],
+          "opaqueColors": 47,
+          "alphaSha256": "cd38bcbe7d4f86981fa8364317f72c7f869f4a3f399c10660689712e45502523",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 137,
+          "boundsExclusive": [
+            68,
+            71,
+            190,
+            241
+          ],
+          "opaqueColors": 48,
+          "alphaSha256": "2b661d05e3142eff1010661a4c190c90351080d5d837e8fa4845cb080fe5af5a",
+          "hit": [],
+          "baseHit": [],
+          "activeEdgeComparisons": [],
+          "contactStatus": "not active"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,618 @@
+{
+  "note": "Corrected contact comparison: approved base hitboxes are read from the current packed public Naruto production snapshot (including hitbox overrides); candidate boxes are actual packer-generated boxes from frozen warning-mode quantized candidate fixture. This file supplements audit-manifest.json and does not modify the frozen atlas.",
+  "productionAnimsSha256": "334f92a6cf8237e83c664ea5c7b384ee3291d85ce509d39903d62f7c377abe7b",
+  "pairs": {
+    "light1Alt": [
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          189,
+          99,
+          31,
+          22
+        ],
+        "candidateAutoHit": [
+          189,
+          102,
+          25,
+          21
+        ],
+        "productionBaseEdges": [
+          189,
+          99,
+          220,
+          121
+        ],
+        "candidateEdges": [
+          189,
+          102,
+          214,
+          123
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          3,
+          -6,
+          2
+        ]
+      },
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          189,
+          101,
+          25,
+          20
+        ],
+        "candidateAutoHit": [
+          158,
+          102,
+          47,
+          139
+        ],
+        "productionBaseEdges": [
+          189,
+          101,
+          214,
+          121
+        ],
+        "candidateEdges": [
+          158,
+          102,
+          205,
+          241
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -31,
+          1,
+          -9,
+          120
+        ]
+      }
+    ],
+    "light2Alt": [
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          189,
+          84,
+          34,
+          26
+        ],
+        "candidateAutoHit": [
+          189,
+          111,
+          67,
+          41
+        ],
+        "productionBaseEdges": [
+          189,
+          84,
+          223,
+          110
+        ],
+        "candidateEdges": [
+          189,
+          111,
+          256,
+          152
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          27,
+          33,
+          42
+        ]
+      },
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          190,
+          86,
+          24,
+          21
+        ],
+        "candidateAutoHit": [
+          189,
+          111,
+          65,
+          41
+        ],
+        "productionBaseEdges": [
+          190,
+          86,
+          214,
+          107
+        ],
+        "candidateEdges": [
+          189,
+          111,
+          254,
+          152
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -1,
+          25,
+          40,
+          45
+        ]
+      }
+    ],
+    "light3Alt": [
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          189,
+          102,
+          56,
+          44
+        ],
+        "candidateAutoHit": [
+          189,
+          208,
+          21,
+          25
+        ],
+        "productionBaseEdges": [
+          189,
+          102,
+          245,
+          146
+        ],
+        "candidateEdges": [
+          189,
+          208,
+          210,
+          233
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          106,
+          -35,
+          87
+        ]
+      },
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          189,
+          98,
+          65,
+          47
+        ],
+        "candidateAutoHit": [
+          189,
+          202,
+          32,
+          31
+        ],
+        "productionBaseEdges": [
+          189,
+          98,
+          254,
+          145
+        ],
+        "candidateEdges": [
+          189,
+          202,
+          221,
+          233
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          104,
+          -33,
+          88
+        ]
+      }
+    ],
+    "light4Alt": [
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          213,
+          88,
+          33,
+          19
+        ],
+        "candidateAutoHit": [
+          205,
+          84,
+          37,
+          42
+        ],
+        "productionBaseEdges": [
+          213,
+          88,
+          246,
+          107
+        ],
+        "candidateEdges": [
+          205,
+          84,
+          242,
+          126
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -8,
+          -4,
+          -4,
+          19
+        ]
+      },
+      {
+        "frame": 4,
+        "productionBaseHit": [
+          189,
+          87,
+          58,
+          33
+        ],
+        "candidateAutoHit": [
+          189,
+          95,
+          34,
+          39
+        ],
+        "productionBaseEdges": [
+          189,
+          87,
+          247,
+          120
+        ],
+        "candidateEdges": [
+          189,
+          95,
+          223,
+          134
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          8,
+          -24,
+          14
+        ]
+      }
+    ],
+    "heavyAlt": [
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          156,
+          50,
+          24,
+          54
+        ],
+        "candidateAutoHit": [
+          99,
+          30,
+          71,
+          47
+        ],
+        "productionBaseEdges": [
+          156,
+          50,
+          180,
+          104
+        ],
+        "candidateEdges": [
+          99,
+          30,
+          170,
+          77
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -57,
+          -20,
+          -10,
+          -27
+        ]
+      },
+      {
+        "frame": 4,
+        "productionBaseHit": [
+          177,
+          21,
+          19,
+          25
+        ],
+        "candidateAutoHit": [
+          146,
+          39,
+          37,
+          44
+        ],
+        "productionBaseEdges": [
+          177,
+          21,
+          196,
+          46
+        ],
+        "candidateEdges": [
+          146,
+          39,
+          183,
+          83
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -31,
+          18,
+          -13,
+          37
+        ]
+      }
+    ],
+    "airLight1Alt": [
+      {
+        "frame": 1,
+        "productionBaseHit": [
+          201,
+          87,
+          48,
+          24
+        ],
+        "candidateAutoHit": [
+          202,
+          87,
+          54,
+          23
+        ],
+        "productionBaseEdges": [
+          201,
+          87,
+          249,
+          111
+        ],
+        "candidateEdges": [
+          202,
+          87,
+          256,
+          110
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          1,
+          0,
+          7,
+          -1
+        ]
+      },
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          197,
+          88,
+          44,
+          22
+        ],
+        "candidateAutoHit": [
+          200,
+          87,
+          53,
+          23
+        ],
+        "productionBaseEdges": [
+          197,
+          88,
+          241,
+          110
+        ],
+        "candidateEdges": [
+          200,
+          87,
+          253,
+          110
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          3,
+          -1,
+          12,
+          0
+        ]
+      }
+    ],
+    "airLight2Alt": [
+      {
+        "frame": 1,
+        "productionBaseHit": [
+          189,
+          129,
+          56,
+          30
+        ],
+        "candidateAutoHit": [
+          189,
+          127,
+          63,
+          31
+        ],
+        "productionBaseEdges": [
+          189,
+          129,
+          245,
+          159
+        ],
+        "candidateEdges": [
+          189,
+          127,
+          252,
+          158
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          -2,
+          7,
+          -1
+        ]
+      },
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          189,
+          129,
+          56,
+          33
+        ],
+        "candidateAutoHit": [
+          189,
+          127,
+          67,
+          34
+        ],
+        "productionBaseEdges": [
+          189,
+          129,
+          245,
+          162
+        ],
+        "candidateEdges": [
+          189,
+          127,
+          256,
+          161
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          0,
+          -2,
+          11,
+          -1
+        ]
+      }
+    ],
+    "airLight3Alt": [
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          215,
+          117,
+          31,
+          34
+        ],
+        "candidateAutoHit": [
+          76,
+          60,
+          86,
+          73
+        ],
+        "productionBaseEdges": [
+          215,
+          117,
+          246,
+          151
+        ],
+        "candidateEdges": [
+          76,
+          60,
+          162,
+          133
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -139,
+          -57,
+          -84,
+          -18
+        ]
+      },
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          215,
+          117,
+          31,
+          34
+        ],
+        "candidateAutoHit": [
+          189,
+          124,
+          67,
+          38
+        ],
+        "productionBaseEdges": [
+          215,
+          117,
+          246,
+          151
+        ],
+        "candidateEdges": [
+          189,
+          124,
+          256,
+          162
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -26,
+          7,
+          10,
+          11
+        ]
+      }
+    ],
+    "airHeavyAlt": [
+      {
+        "frame": 2,
+        "productionBaseHit": [
+          219,
+          178,
+          29,
+          26
+        ],
+        "candidateAutoHit": [
+          108,
+          103,
+          47,
+          141
+        ],
+        "productionBaseEdges": [
+          219,
+          178,
+          248,
+          204
+        ],
+        "candidateEdges": [
+          108,
+          103,
+          155,
+          244
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -111,
+          -75,
+          -93,
+          40
+        ]
+      },
+      {
+        "frame": 3,
+        "productionBaseHit": [
+          224,
+          187,
+          27,
+          26
+        ],
+        "candidateAutoHit": [
+          110,
+          82,
+          46,
+          162
+        ],
+        "productionBaseEdges": [
+          224,
+          187,
+          251,
+          213
+        ],
+        "candidateEdges": [
+          110,
+          82,
+          156,
+          244
+        ],
+        "edgeDeltaCandidateMinusBase": [
+          -114,
+          -105,
+          -95,
+          31
+        ]
+      }
+    ]
+  }
+}

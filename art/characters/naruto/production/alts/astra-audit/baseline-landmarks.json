@@ -1,0 +1,217 @@
+{
+  "method": "Independent manual landmarks on actual approved quantized atlas and approved title cells. Segment values are projected, not foreshortening-corrected. Crouching idle must not be treated as a universal standing anatomy ratio.",
+  "uncertaintyPx": {
+    "head": 4,
+    "torso": 6,
+    "upperArm": 6,
+    "forearm": 6,
+    "thigh": 6,
+    "shin": 6,
+    "shoe": 4,
+    "armChain": 12,
+    "legChain": 12
+  },
+  "references": {
+    "idle07": {
+      "landmarks": {
+        "crown": [
+          141,
+          76
+        ],
+        "chin": [
+          141,
+          116
+        ],
+        "collar": [
+          138,
+          117
+        ],
+        "hem": [
+          134,
+          157
+        ],
+        "shoulder": [
+          119,
+          124
+        ],
+        "elbow": [
+          103,
+          139
+        ],
+        "wrist": [
+          121,
+          129
+        ],
+        "hip": [
+          140,
+          167
+        ],
+        "knee": [
+          168,
+          187
+        ],
+        "ankle": [
+          175,
+          222
+        ],
+        "heel": [
+          170,
+          235
+        ],
+        "toe": [
+          198,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 40.0,
+        "torso": 40.2,
+        "upperArm": 21.9,
+        "forearm": 20.6,
+        "thigh": 34.4,
+        "shin": 35.7,
+        "shoe": 28.0,
+        "armChain": 42.5,
+        "legChain": 70.1
+      },
+      "skips": [
+        "Frontal shoulder width not applicable to three-quarter view.",
+        "Far arm/leg occluded or depth-foreshortened. Crouched torso/upper limbs have depth projection uncertainty beyond landmark interval."
+      ]
+    },
+    "combat": {
+      "landmarks": {
+        "crown": [
+          142,
+          76
+        ],
+        "chin": [
+          139,
+          113
+        ],
+        "collar": [
+          137,
+          115
+        ],
+        "hem": [
+          131,
+          157
+        ],
+        "shoulder": [
+          119,
+          122
+        ],
+        "elbow": [
+          102,
+          138
+        ],
+        "wrist": [
+          120,
+          127
+        ],
+        "hip": [
+          138,
+          166
+        ],
+        "knee": [
+          172,
+          191
+        ],
+        "ankle": [
+          181,
+          226
+        ],
+        "heel": [
+          175,
+          236
+        ],
+        "toe": [
+          201,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 37.1,
+        "torso": 42.4,
+        "upperArm": 23.3,
+        "forearm": 21.1,
+        "thigh": 42.2,
+        "shin": 36.1,
+        "shoe": 26.0,
+        "armChain": 44.4,
+        "legChain": 78.3
+      },
+      "skips": [
+        "Frontal shoulder width not applicable to three-quarter view.",
+        "Far arm/leg occluded or depth-foreshortened. Crouched torso/upper limbs have depth projection uncertainty beyond landmark interval."
+      ]
+    },
+    "neutral": {
+      "landmarks": {
+        "crown": [
+          132,
+          36
+        ],
+        "chin": [
+          133,
+          75
+        ],
+        "collar": [
+          131,
+          78
+        ],
+        "hem": [
+          132,
+          137
+        ],
+        "shoulder": [
+          113,
+          84
+        ],
+        "elbow": [
+          100,
+          113
+        ],
+        "wrist": [
+          96,
+          142
+        ],
+        "hip": [
+          138,
+          143
+        ],
+        "knee": [
+          146,
+          179
+        ],
+        "ankle": [
+          151,
+          222
+        ],
+        "heel": [
+          145,
+          235
+        ],
+        "toe": [
+          173,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 39.0,
+        "torso": 59.0,
+        "upperArm": 31.8,
+        "forearm": 29.3,
+        "thigh": 36.9,
+        "shin": 43.3,
+        "shoe": 28.0,
+        "armChain": 61.1,
+        "legChain": 80.2
+      },
+      "skips": [
+        "Frontal shoulder width not applicable to three-quarter view.",
+        "Far arm/leg occluded or depth-foreshortened. Crouched torso/upper limbs have depth projection uncertainty beyond landmark interval."
+      ]
+    }
+  }
+}
