@@ -63,7 +63,7 @@ into the real `.worktrees/art-gojo-title-r3`, with its complete saved measuremen
 Sasuke PR #79 and Naruto Part-1 PR #80 have review previews; Killua PR #81 now has committed selected-loop playback at preview fllkidy67 (source 8c25da8); all five atlas players loaded, all anatomy HOLD.
 Independent Astra audit covers 123 scoped Sasuke/Killua/Naruto frame instances and records HOLD, never approval.
 Gojo is now committed at 19eb317 with PR #83 and preview 2ste13exl; its final Astra audit also records HOLD.
-All four Part 1 review packages are delivered; requested anatomy/stance passes are not achieved. Naruto alts remain active.
+All four Part 1 review packages are delivered; requested anatomy/stance passes are not achieved. Naruto alts are committed at 92ac54c, PR #88, preview 74z352mc9 (/reviews/naruto-alts/index.html). Astra inspected all 65 alt frames: all eleven HOLD, seven of nine attack contact failures, six margin failures/four confirmed clips. Counts/phases/timing match. Frame tables preceded generation; 13 saved versions have REVIEW rows. Codex browser opening is queued, hosted interaction unverified. In-game candidate review awaits correction/calibration; no art is approved or integrated.
 Generation-budget breaches and exact-hash source recovery are disclosed in deliverables/round4-qa/GENERATION_INCIDENTS.md.
 
 Work in each fighter's round-3 worktree and branch (`art/<id>-title-r3`; Gojo: the managed worktree you already
