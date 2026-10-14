@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node tools/art-index.mjs",
+    "prebuild": "node tools/lint-anims.mjs && node tools/check-undeclared.mjs && node tools/art-index.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "dev:alt": "vite --port 5200",
@@ -22,8 +22,11 @@
     "publish:github": "node tools/publish.mjs",
     "pr": "node tools/pr.mjs",
     "deploy": "node tools/deploy.mjs",
+    "lint:anims": "node tools/lint-anims.mjs",
+    "lint:undeclared": "node tools/check-undeclared.mjs",
     "test:anims": "node tools/test-tech-anims.mjs",
-    "test:alts": "node tools/test-anim-alts.mjs"
+    "test:alts": "node tools/test-anim-alts.mjs",
+    "test:lints": "node tools/test-lints.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"
