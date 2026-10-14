@@ -109,7 +109,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
 - [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
       any character select returns to SELECT MODE on that mode.
-- [ ] `npm run build` passes.
+- [ ] `npm run build` passes. Its `prebuild` step runs two lints first and fails with a `file:line` / precise list:
+      `tools/lint-anims.mjs` (TOOL-004: the animation contract, i.e. `animGuide.js` ↔ `art/manifest.json` defaults and
+      per-fighter entries ↔ `FALLBACK` in `src/game/sprites.js` ↔ the placeholder in `src/art/rig/anims.js` ↔ `altOf`
+      frames/phases ↔ `art/SPEC.md`; warnings, such as an optional strip a fighter lacks, do not fail) and
+      `tools/check-undeclared.mjs` (TOOL-027: a name used in `src/` but never declared or imported). Run them alone with
+      `npm run lint:anims` / `npm run lint:undeclared`, and `npm run test:lints` after changing either. The undeclared
+      check is scope-aware but parser-free: it leans permissive (it can miss a bug, never flags working code); a real
+      false alarm means a syntax form it does not know yet, so fix the scanner (and add a case to `test-lints.mjs`)
+      instead of silencing the code. A deploy export has no `art/`, so the manifest and SPEC checks are skipped there.
 
 ## Feature checklists
 

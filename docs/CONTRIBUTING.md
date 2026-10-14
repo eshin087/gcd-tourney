@@ -149,8 +149,8 @@ exists for architectural decisions, and the commit is conventional.
   the local repository (~1 GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
   `python -m pip install git-filter-repo`.
 - **Vercel**: https://gcd-tourney.vercel.app. `npm run deploy` (tools/deploy.mjs) exports HEAD without `art/` into
-  a temp folder, builds it there (`prebuild` writes `public/art-index.json`, the list of packed art, so production
-  never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
+  a temp folder, builds it there (`prebuild` runs the build lints, `tools/lint-anims.mjs` and `tools/check-undeclared.mjs`, then writes
+  `public/art-index.json`, the list of packed art, so production never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
   changes are listed as "not deployed". Deploys are on demand, not on every push.
 - The site and repo contain fan art of copyrighted characters: keep the repo private, and see ADR 0008
   (ENG-020) before any public release.
