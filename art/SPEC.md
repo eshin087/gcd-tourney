@@ -281,16 +281,21 @@ tech's timing, invulnerability or movement:
 one alternate strip. The game alternates each base with its alt in a fixed, balanced pattern (never the same version
 three times in a row; `src/game/animAlts.js`) and plays the base while the alt is missing, so an alt only adds
 variety: it never changes a move. The move data stays the base's (startup, active, recovery, damage, reach, launch in
-`src/game/moves.js`), while melee hits read the art's hit boxes, so these are gameplay rules, not taste:
+`src/game/moves.js`), and so do the **hit and hurt boxes**: the packer copies the base's boxes onto the alt frame for
+frame, so what connects and what can be hit never depend on the alt's drawing (amended 2026-10-14). The rules:
 
 - **Same frame count and phases** as the base strip (the table above). The engine stretches either over the base
   move's startup / active / recovery.
-- **Same strike height and reach.** The active frames strike at the base's contact zone ([Strikes and contact
-  zones](#strikes-and-contact-zones)): the packer compares the union of the active-frame hit boxes with the base's and
-  warns `<alt>: strike reach ...` when its far edge is more than **12 px** nearer or farther, and `<alt>: strike height
-  ...` when its vertical centre is more than **16 px** higher or lower (cell px, facing right). `light3Alt` stays a
-  **low**; `heavyAlt` launches upward; `light4Alt` and `airLight3Alt` send the opponent forward; `airHeavyAlt` spikes
-  downward. A hit reaction alt keeps the height it was hit at (face or body).
+- **Drawn to land where the base's hit lands.** The hit spark appears where the base's boxes meet the opponent, so
+  the alt's fist or foot has to reach that spot on its active frames ([Strikes and contact
+  zones](#strikes-and-contact-zones)). The packer reads the alt's own drawn strike (its auto hit box, or a
+  `hitboxes.json` entry on the alt pointing at the fist or foot; that entry only feeds this check) and warns
+  `<alt>: drawn strike reach ...` / `drawn strike height ...` when it lands more than **24 px** from the base's hit
+  (cell px, facing right). Keep each move's character: a mid-height strike stays mid-height (`light3`'s contact is a
+  front kick to the body even though the move counts as a low), `heavyAlt` rises, `light4Alt` and `airLight3Alt`
+  drive forward, `airHeavyAlt` comes down. A hit reaction alt keeps the height it was hit at (face or body).
+- **Same frame count as the base** is also what lets the boxes copy frame for frame: an alt with another frame count
+  keeps its own boxes, and the packer warns.
 - **Start and end on the base's poses.** The first frame leaves from the base's first pose and the last frame returns
   to its recovery pose, so any mix of base and alt in a string blends. Air alts start and end in the air base pose.
 - **A different technique**: another limb or motion, not a re-pose of the same strike.
@@ -355,7 +360,7 @@ x 194-222, y 128-158.
 Hit detection uses the packed boxes, so **where the art puts the fist is where the hit lands**: a
 strike that stops short of its contact zone simply misses at normal spacing. Claude tunes `reach` /
 `lunge` in `src/game/moves.js` to the packed boxes so attacks connect at normal combo range. An attack alt plays its
-base's move with its own boxes, so it strikes in its base's contact zone ([Attack alts](#attack-alts)).
+base's move with its base's boxes, copied frame for frame by the packer ([Attack alts](#attack-alts)).
 
 ## Effect anchor points
 
