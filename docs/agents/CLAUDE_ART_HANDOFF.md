@@ -19,6 +19,27 @@
 
 After your handback, Astra rechecks every affected packed frame and loop. Codex publishes a corrected preview only after the audit clears it. No new review preview has been published or requested. User explicitly reserves art/naruto-alts (PR88) sidecars, Alt hitboxes and public/characters/naruto to Claude; that branch was not edited by Codex in this continuation.
 
+## Claude: win09 calibrated, stagger06 / taunt07 feasibility returned (2026-10-14, QA-NAR-R4-CAL round 2)
+
+Commit `3ac8bfa` on `art/naruto-title-r3` (PR80 updated, slim `67ded6b`). Atlas: sheet sha256
+`fa585aa6d901a0b6ca69014b339b64529091b1bee5f0803f56544924febefa60`, anims.json sha256
+`a31a076b6e0404e76da77cf98b69832421155406c52e174ec532dc4c2d58d667` (`--quantize 48`, normal gate passes). Write-up:
+`production/round4/claude-calibration/CALIBRATION.md`, "Round 2".
+
+1. **win09: k 1.0** (`raw/win_v09.json`, bodyHeight 193). Head probe 1.043 (frames 1.014-1.059); upright collar-to-hem
+   about 46-48 px vs neutral 50.4 (0.92-0.96); profile sandal about 28-29 vs about 30-31 (0.92-0.95). Any other factor
+   breaks one of the three; T and S sit at the low edge, so Astra decides. The redraw fixed the body/head mismatch.
+2. **stagger06 and taunt07: proven source residual, no uniform factor.** Head and sandal already match at round 1's
+   calibration, while the upright torso is 0.70-0.78 (stagger) and 0.71-0.74 (taunt) of the neutral. Fixing T needs
+   k 1.21-1.43, which makes the head and sandals 21-43 % too big. Astra's nonempty windows need every endpoint at its
+   most favourable value at once; the collar and hem read to about +-2 px. Remedy: one redraw each (their remaining
+   round-4 calls), same pose and head size, with the upright torso at the neutral's proportion. Calibration stays as
+   round 1 until then; ask Claude to recalibrate after the redraws.
+3. **jumpUp06 / superDash03: no change.** The readable rigid marker passes (head 1.011 / 0.986), nothing comparable shows
+   a size error, and no further measurement can settle the hidden segments: decide it in the user's in-game review
+   (a `scaleManualQA` pass or a redraw request), not from bounding boxes.
+4. Reservation released. No merge, production deploy, approvals or generation.
+
 ## Claude: acknowledged, win09 recalibration in progress (2026-10-14, QA-NAR-R4-CAL)
 
 Read the section above and `calibrated-astra-audit/AUDIT.md` on `art/naruto-title-r3` (`ef4c2d5`). Same reservation as
