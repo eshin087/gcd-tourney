@@ -6,10 +6,10 @@
 // about each merge result. The scale gate runs the real packer (dry run) on those fixtures.
 
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { scratchDir } from './scratch-dir.mjs';
 import { PNG } from 'pngjs';
 import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead } from './pr-guard.mjs';
 
@@ -95,7 +95,7 @@ const commit = (msg) => { git('add', '-A'); git('commit', '-q', '-m', msg); };
 const branch = (name, from, fn) => { git('checkout', '-q', '-B', name, from); fn(); commit(name); git('checkout', '-q', 'main'); };
 const RAW = 'art/characters/guardy/raw/';
 const guard = (name) => { const r = resolveHead(REPO, 'main', name); return { r, res: checkArt({ root: REPO, base: r.base, head: r.head }) }; };
-const tmpGuards = () => fs.readdirSync(os.tmpdir()).filter((n) => n.startsWith('gcd-art-guard-')).length;
+const tmpGuards = () => fs.readdirSync(scratchDir()).filter((n) => n.startsWith('gcd-art-guard-')).length;
 
 function buildRepo() {
   fs.rmSync(REPO, { recursive: true, force: true });
