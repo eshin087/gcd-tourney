@@ -1,6 +1,8 @@
 {
   "_comment": "256px frame-local hit boxes on the striking limb's contact end, measured by Claude 2026-10-11 on the title-style art (quantize-48 pack of light4 v08, heavy v12, airHeavy v09, special v08, specialUp v04; airLight3 v09 and light2 v06 f3 re-measured 2026-10-12, see _airLight3V09 / _light2V06). They replace auto boxes that took in a smear trail, the other hand, the knee, the hair (heavy) or the front 28% of the body (special f3), and the old-art boxes that sat on the torso or in the air. Auto boxes that already cover only the striking limb stay: light1-3, light4 f4, airLight1-2, special f5, specialForward f2-f3, specialUp f3. Re-measure any strip whose packed version changes.",
   "light4": {"3": {"hit": [[213, 88, 33, 19]]}},
+  "light1Alt": {"2": {"hit": [[177, 107, 31, 18]]}, "3": {"hit": [[164, 108, 31, 20]]}},
+  "_light1Alt": "Claude 2026-10-14 (QA-NAR-ALTS-CAL): the drawn hook fist on v01 f2/f3 in the calibrated pack (bodyHeight 168). Only the packer's visual check reads these: an alt ships its base's boxes (ADR 0031 amendment). The auto finder had read the strike at knee height.",
   "light2": {"3": {"hit": [[190, 86, 24, 21]]}},
   "_light2V06": "light2 v06 f3 (Claude, 2026-10-12, measured on the title-style art at bodyHeight 185): since the size pass (180 -> 185) the auto rule \"rising strike above the idle head\" picks the hair (box x 91-169, y 61-90); the jab fist is at x 194-211, y 89-104 (cuff from x 190). f2 keeps its auto fist box.",
   "heavy": {"3": {"hit": [[156, 50, 24, 54]]}, "4": {"hit": [[177, 21, 19, 25]]}},
