@@ -181,7 +181,7 @@ unknown animation names with or without `_vNN`) is reported, never packed. Also 
      reaches past the idle pose (pixels beyond idle maxX - 6 px at spec v1 scale, 9 px at v2). The limb is
      isolated by walking back from the tip until columns get torso-thick, keeping the blob that holds the
      forward-most pixel plus smears touching it (a guard fist next to a kick is not included). Uppercuts that
-     rise above the idle head use the same idea upward. If nothing sticks out: the forward-most 28% of the body.
+     rise above the standing head use the same idea upward. The standing head is the top of the approved upright cell in `art/scale/builds.json` `standingReference.cells` (the title-style neutral cell); without one it is the idle's top (a crouched idle makes every upright pose's hair "rise"). The forward rule still measures against the idle's front. If nothing sticks out: the forward-most 28% of the body.
      Boxes larger than 40% of the body are warned. Every pixel threshold of these rules (tip band, minimum limb
      length and blob size, box padding) was tuned on spec v1 art and is scaled by `standingBodyPx / 136`
      (x1.47 in spec v2), so the boxes behave the same on bigger sprites.
@@ -401,7 +401,8 @@ Common warnings and the fix:
 | `dropped N stray mark(s)` (note) | a speck far from a pose was removed; check the frame if something real was lost |
 | `bodyHeight N does not fit` | fix `bodyHeight` in the manifest or sidecar (max 237 in spec v2) |
 | `palette has N colors (> 64 ...)` | clean the art, or pack with `--quantize 48` |
-| `large auto hitbox` / `no clear strike limb` | check the frame; add a `hitboxes.json` override |
+| `large auto hitbox` / `no clear strike limb` | check the frame; add a `hitboxes.json` override. The strike-limb note lists the frames (`light2#2`) still on the auto box; frames a `hitboxes.json` override replaced are not counted. `--json` reports every active frame's box and rule (`hitBoxes`) and the rising-strike reference (`hitRef`) |
+| `standingReference: ... does not exist` | the cell named in `builds.json` is missing or not 256x256: the rising-strike rule falls back to the idle until it is fixed |
 | `N lying frame(s) float above the floor line` | the lying pose is drawn from above: redraw it side-on at the spec camera with the head, back, hips and legs on y 240 (art/SPEC.md "Lying poses"; the four current fighters: art/scale/KO_DOWN_BRIEF.md) |
 | `... changed but frames/<anim>/ has manual edits` | keep the edits, or delete `frames/<anim>/` to re-import the new source |
 | `frames/<anim>/ were cleaned from ..., which is no longer in raw/` | the only version was rejected: delete `frames/<anim>/` (or add a new `_vNN`) |
