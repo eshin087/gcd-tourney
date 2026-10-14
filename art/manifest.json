@@ -84,7 +84,7 @@
       "brief": "art/characters/goku/CHARACTER.md",
       "kit": "art/characters/goku/KIT.md",
       "reference": {
-        "titleStyleDraft": { "file": "art/characters/goku/reference/title_style_draft.png", "candidates": "art/characters/goku/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); the user approves this lineup before the idle", "step": 1, "status": "todo", "version": 0, "approvedVersion": null },
+        "titleStyleDraft": { "file": "art/characters/goku/reference/title_style_draft.png", "candidates": "art/characters/goku/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); lineup in reference/title_style_lineup_v01.png; proposed review row in art/characters/goku/REVIEW_ROWS.md", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
         "modelSheet": { "file": "art/characters/goku/reference/model_sheet.png", "candidates": "art/characters/goku/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches", "step": 1, "status": "todo", "version": 0, "approvedVersion": null },
         "expressions": { "file": "art/characters/goku/reference/expressions.png", "candidates": "art/characters/goku/reference/expressions_vNN.png", "step": 2, "status": "todo", "version": 0, "approvedVersion": null }
       },
