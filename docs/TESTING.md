@@ -45,7 +45,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `window.game` | the live Game: `fighters`, `brains`, `cam`, `fx`, `hud`, `state`, `projectiles`, `beams` |
 | `music.state()` | the music (ADR 0019): mood, seed, song, section, bar, heat, ducks, volume, scheduler running |
 | `music.next()` / `music.seed(n)` | a new song (or song `n`) from the next bar; `?musicSeed=N` seeds the first one |
-| `soak(n, pairs, level)` | n CPU vs CPU matches back to back (`pairs` like `[['naruto','sasuke'], ...]`, cycled), stepped in chunks so it runs in a hidden tab; returns `soakStatus` (errors, NaN positions, ring-outs outside a KO, a state stuck for 10 s, `finished`) |
+| `soak(n, opts)` | n CPU vs CPU matches back to back on the fixed step (ENG-012), every frame checked for NaN positions / velocities, a fighter outside the ring barrier outside a KO, a non-idle state running 600+ frames, console and uncaught errors, a stalled game. `opts`: `pairs` (`[['naruto','sasuke'], ...]`, cycled), `level`, `stuck`, `maxFrames`, `seed`. Returns the live status at once (also `window.__soak`); see **Soak** below |
 | `comboStats()` | the CPU combos since the page loaded (ADR 0026): hit histogram, 12+ hit combos per match, matches with a handball (2+ wall bounces) or 3 wall bounces, in-combo vanishes per match, distinct routes, repeats of a CPU's previous route, combo-time share, round lengths, how combos ended, link success, personas, edge counts. Raw data: `comboRecs`, `comboLog` (with each decision's options in `steps`), `comboLinks`, `roundRecs` |
 | `?seed=N` | fixes the match seed: the same CPU personas and combo draws (the rest of the sim still uses `Math.random`) |
 
@@ -109,7 +109,15 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
 - [ ] Pause (Esc/P/Start) → resume → quit to title works, and the title still works afterward.
 - [ ] Training → pause → EXIT TRAINING lands on SELECT MODE with TRAINING & CONTROLS selected; Esc on the first pick of
       any character select returns to SELECT MODE on that mode.
-- [ ] `npm run build` passes.
+- [ ] `npm run build` passes. Its `prebuild` step runs two lints first and fails with a `file:line` / precise list:
+      `tools/lint-anims.mjs` (TOOL-004: the animation contract, i.e. `animGuide.js` ↔ `art/manifest.json` defaults and
+      per-fighter entries ↔ `FALLBACK` in `src/game/sprites.js` ↔ the placeholder in `src/art/rig/anims.js` ↔ `altOf`
+      frames/phases ↔ `art/SPEC.md`; warnings, such as an optional strip a fighter lacks, do not fail) and
+      `tools/check-undeclared.mjs` (TOOL-027: a name used in `src/` but never declared or imported). Run them alone with
+      `npm run lint:anims` / `npm run lint:undeclared`, and `npm run test:lints` after changing either. The undeclared
+      check is scope-aware but parser-free: it leans permissive (it can miss a bug, never flags working code); a real
+      false alarm means a syntax form it does not know yet, so fix the scanner (and add a case to `test-lints.mjs`)
+      instead of silencing the code. A deploy export has no `art/`, so the manifest and SPEC checks are skipped there.
 
 ## Feature checklists
 
@@ -473,44 +481,45 @@ Run after changes to `aiMaster.js` threats or answers, `aiDefense.js`, `DEF_PERS
 
 ## Soak (CPU vs CPU)
 
-Use this for combat, AI, physics and performance changes. It catches stuck states, NaNs and rare crashes.
+Use this for combat, AI, physics and performance changes. It catches stuck states, NaNs, ring-outs and rare crashes.
 
-1. Open `/?fight=naruto,sasuke&mode=solo&level=hard&debug`, with DevTools console open.
-2. Paste:
+1. Open `/?fight=naruto,sasuke&mode=cpu&debug` (a page with `?debug`; the helper starts its own matches).
+2. Run `soak(n, opts)` without awaiting it. It plays n matches (intro skipped) on the fixed step, one `game.frame` per
+   frame, and checks every frame:
+
+   | Violation | Means |
+   |---|---|
+   | `nan` | a position or velocity is not finite |
+   | `ring` | a fighter that is not KO'd stands more than 0.01 past `ARENA_LIMIT` (one entry per excursion, `over` = the worst overshoot) |
+   | `stuck` | a state other than idle / run / guard in a live round for 600+ frames of its own time (`opts.stuck`; hitstop and super flashes don't count) |
+   | `error` | `console.error` or an uncaught error / rejection |
+   | `timeout`, `stall`, `exception` | a match over `opts.maxFrames` (40000), `game.frameNo` not advancing, or the loop itself threw |
+
+   Options: `pairs` (default: the page's pairing), `level` (`'impossible'`), `stuck`, `maxFrames`, `seed`. `Math.random`
+   is reseeded per match (`seed + match index`, `perMatch[i].seed`): the same seed gives the same CPU personas and a
+   similar match, not a frame-exact replay (wall-clock effects and leftovers of earlier matches still differ). A
+   violation's frame, round, state and position say where to look; reproduce it by forcing the situation (the ENG-075
+   check started both fighters at the wall with full ki by wrapping `game.resetRound`).
+3. The call returns the live status at once and keeps running between yields: poll `window.__soak`
+   (`done`, `n`, `frame`, `violations`, `finished`) with short calls (a browser tool call times out after ~45 s,
+   so never `await` the whole soak there; in code, `await __soak.promise`). When `__soak.finished`, read
+   `__soak.summary`: `pass`, `matches`, `winners`, `rounds`, `frames`, `violationCounts`, `violations` (match, frame in
+   that match, round, fighter, side, state/move, position), and `perMatch` (pair, seed, winner, rounds, wins, seconds,
+   `clashes` by tier, `maxOver` = how far past `ARENA_LIMIT` anyone got). `comboStats()` then has the combo numbers.
 
 ```js
-const { CpuBrain } = await import('/src/game/ai.js');
-let matches = 0, errors = 0;
-window.addEventListener('error', () => errors++);
-const arm = () => {
-  game.input.bindings = [];                                   // keyboard/gamepad no longer drive P1
-  game.brains[0] = new CpuBrain(game.fighters[0], 'hard');    // CPU plays P1 too
-};
-arm();
-const soak = setInterval(() => {
-  for (const f of game.fighters) {
-    if (![f.pos.x, f.pos.y, f.pos.z, f.vel.x, f.vel.y, f.vel.z].every(Number.isFinite)) console.error('[soak] NaN', f.def.id, f.state);
-    if (!f.ko && (Math.abs(f.pos.x) > 8.6 || Math.abs(f.pos.z) > 8.6)) console.error('[soak] out of ring', f.def.id, f.state);
-  }
-  if (game.state === 'results') {
-    matches++;
-    console.info(`[soak] match ${matches} done, errors so far: ${errors}`);
-    if (matches >= 3) { clearInterval(soak); console.info('[soak] finished'); return; }
-    game.startMatch(game.cfg); arm();
-  }
-}, 500);
+soak(10, { pairs: [['naruto','sasuke'], ['killua','gojo'], ['gojo','naruto'], ['sasuke','killua'], ['naruto','killua'],
+  ['gojo','sasuke'], ['killua','naruto'], ['sasuke','gojo'], ['naruto','gojo'], ['killua','sasuke']] });
+// ... later, in short calls:
+JSON.stringify({ done: __soak.done, v: __soak.violations, fin: __soak.finished });
+JSON.stringify(__soak.summary.violationCounts);
 ```
 
-3. Let it run for **at least 3 full matches** (about 5 to 8 minutes). Pass criteria: no `[soak]` errors, no
-   uncaught exceptions, no fighter stuck in one state for more than 10 s, rounds end
-   by KO or time, and the frame rate stays smooth.
-4. For long soaks, switch characters (`?fight=sasuke,naruto`, mirror matches) and levels.
-
-**Built-in (CPU vs CPU, also in a hidden tab):** open `/?fight=naruto,sasuke&mode=cpu&debug`, then
-`soak(10, [['naruto','sasuke'], ['killua','gojo'], ['gojo','naruto'], ['sasuke','killua'], ['naruto','killua'],
-['gojo','sasuke'], ['killua','naruto'], ['sasuke','gojo'], ['naruto','gojo'], ['killua','sasuke']])`. Poll
-`soakStatus` (`errors`, `nan`, `ring`, `stuck` must stay empty / 0; `finished`), then `comboStats()`. A hidden tab
-throttles timers, so keep a console call awaiting (or the pane visible) while it runs.
+4. Pass criteria: `summary.pass` (no violations, all n matches finished), rounds end by KO or time, and the frame rate
+   stays smooth. Run **at least 3 full matches** per change, more for AI changes; switch characters and include
+   mirrors (a Gojo mirror caught the ENG-075 clash push-back). A hidden pane runs the soak in a few seconds per match;
+   a visible one renders every frame and is several times slower. The soak leaves the game in manual-step mode:
+   `resumeLoop()` hands it back.
 
 **Combo composer targets** (ADR 0026, after changes to `aiCombo.js`, `JUGGLE`, hit boxes or MasterBrain), over 10+
 matches with all four fighters:
