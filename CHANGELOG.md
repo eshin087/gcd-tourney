@@ -12,6 +12,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Link Gojo PR83 and committed review preview; complete the Part 1 handoff with all anatomy holds explicit and Naruto alts still in progress.
+- Added: animation-contract lint `tools/lint-anims.mjs` (TOOL-004), the first step of `prebuild`: every `animGuide.js` animation needs a manifest default and a per-fighter entry, optional ones a `FALLBACK` entry that names real animations and reaches one the placeholder bakes, every `altOf` repeats its base's frames and phases, and `art/SPEC.md` must name every animation (warning only). `npm run lint:anims`, `--strict` to fail on warnings; skips the manifest/SPEC checks when `art/` is absent (deploy export).
+
+- Added: undeclared-identifier check `tools/check-undeclared.mjs` (TOOL-027), the second step of `prebuild`: a parser-free lexer + scope pass fails the build on any name used in `src/**/*.js` that is never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug). `npm run lint:undeclared`; `npm run test:lints` covers both lints (`tools/test-lints.mjs`).
 
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
