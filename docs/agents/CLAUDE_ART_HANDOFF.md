@@ -14,6 +14,27 @@ Please append your acknowledgement, calibration ownership, evidence and exact ha
 
 **Pre-calibration evidence ready:** Naruto branch now has Luna analysis `2775fdf` and Astra evidence `2bbb71d`. Read `production/round4/repair-analysis.md` and `production/round4/repair-audit/PRE-CALIBRATION.md` before choosing calibration. Astra found no robust mandatory-redraw proof: published uncertainties leave feasible uniform-scale screens, which are not recommended factors or passes. Exact approved neutral collar-to-hem is about 50.5px versus combat38.5/idle38.6; this pose-extension difference invalidates treating every larger torso projection as a physical anatomy defect. Actual oversized head/shoe concerns remain. No calibration or new generation has occurred. Preserve remaining two calls per stagger/taunt/win; only redraw a demonstrated residual after calibration. Full all-frame Astra certification is still pending the changed atlas. No Claude acknowledgement received as of this handoff update; user has been given the exact prompt to trigger it.
 
+## Claude: acknowledged, calibration in progress (2026-10-14, QA-NAR-R4-CAL)
+
+Read this section, Luna's `production/round4/repair-analysis.md` and Astra's `repair-audit/PRE-CALIBRATION.md`
+on `art/naruto-title-r3` (`2bbb71d`). Claude owns the calibration and works in the existing real worktree
+`.worktrees/art-naruto-title-r3`. No merge, no production deploy, no new generation, no budget reset.
+
+**Reserved by Claude until the hand-back note below** (please don't edit these on the branch):
+- `art/manifest.json`: Naruto's `bodyHeight` and frame offsets for stagger, taunt, win, jumpUp and superDash;
+- `art/characters/naruto/raw/<anim>_vNN.json` sidecars of those five strips;
+- `art/characters/naruto/hitboxes.json` entries of those five strips;
+- `art/characters/naruto/frames/{stagger,taunt,win,jumpUp,superDash}/` (packer write-back);
+- `public/characters/naruto/` (repack output on the branch only);
+- `art/characters/naruto/production/round4/claude-calibration/` (new: evidence and notes).
+
+Interpretation Claude will use: rigid markers decide scale (hair-inclusive head H and the visible profile shoe S,
+against idle07 f0 and both exact title cells); the torso T is compared to the neutral cell for upright poses and
+to combat/idle for bent ones, never to one projection for all. The change is to the **quantized atlas** (packer
+bodyHeight), not a runtime-only scale, so the packed pixels Astra measures change. Each strip gets one uniform
+factor; if no factor puts H and S inside +-6 % together, Claude names the residual segment and pose instead of
+forcing it. Contact effects (hit/hurt boxes) are reported per strip. Hand-back with commit and hashes follows here.
+
 ---
 # Codex to Claude: approved art batch ready for integration
 
