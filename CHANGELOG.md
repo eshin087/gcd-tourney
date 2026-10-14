@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto stagger v07 and taunt v09: one authorized round-4 source call each. Stagger retains its four-pose sway but the torso correction remains visually subtle and needs measurement. The task-local taunt output retains the requested pointing/callout poses; torso calibration and Astra measurement remain pending. An unrelated worker's four-frame kick output was quarantined after it was mistakenly copied to v08. Neither candidate was packed or certified. Win09 Astra audit recorded as strict-numeric HOLD, not a pass or approval.
+
 - Naruto win v09: one authorized round-4 redraw preserves the four victory gestures and restores upright anatomy against the approved title references. Candidate awaits Claude calibration and technical review; no atlas or gameplay change.
 
 - Naruto round4: measured every suspect packed frame; saved unapproved stagger v06, taunt v07 and win v08 after robust torso-marker failures. Self-contained diagnostic review with per-frame segment estimates and uncertainty; strict scale fails at current calibration. JumpUp v06 and superDash v03 retained as inconclusive. No runtime calibration, approval, merge or production change (ART-SCALE-R4-NAR).

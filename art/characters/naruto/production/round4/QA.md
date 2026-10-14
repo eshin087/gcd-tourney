@@ -23,6 +23,12 @@ Three-line verdict: Identity recognizable; changed source body/head relationship
 
 ## Review entry point
 
+## Post-calibration source redraws (2026-10-14)
+
+Claude's round-2 calibration identified the upright torso residual after the earlier head/shoe calibration. The user authorized exactly one additional source call for each strip. `stagger_v07.png` preserves the four dazed sway poses and apparent head/foot scale, but the collar-to-hem change is visually subtle; Claude must calibrate and Astra must remeasure before any anatomy claim. The correct task-local `taunt_v09.png` preserves the two pointing/callout poses; torso calibration and Astra measurement remain pending. The four-frame chest-kick image originally misfiled as v08 is an unrelated worker output, now preserved in `_qa_hold` and excluded from this call's provenance and call count. Each strip now has 3 historical + 2 round4 calls (5 total); one round4 call remains unused. Exact prompts, reference hashes, source hashes and output paths are in `stagger-attempt2.md` and `taunt-attempt2.md`.
+
+Win09's new Astra review is [win09-astra-audit/AUDIT.md](win09-astra-audit/AUDIT.md): HOLD for strict numeric certification, with no robust redraw-level failure. It records H40 [38-42], T46-47±2 versus neutral50.4 [48-53], and S28-29 [27-30] versus 29 [27-31]. See the audit for every frame's limbs, uncertainty and exclusions. This is neither a pass nor user approval.
+
 /public/reviews/naruto-round4/index.html (URL /reviews/naruto-round4/index.html). Sources, per-frame numbers, actual baseline/candidate playback, head/body sheets and strict log are self-contained under public so committed previews include them. The diagnostic lineup attaches the candidate native cell beside the shipped cast at scale1; historical SBR/build-band warnings are advisory and not new anatomy targets.
 
 Validation: production build passed using the main checkout's restricted-profile Vite adapter (82 modules, 4m15s). Static gallery assets, module syntax,42animation/175frame diagnostic metadata and25measurement rows (idle+14baseline+10candidate) checked. Local IAB timed out and local HTTP fetch was denied EACCES by the sandbox; browser playback and game/contact QA are pending coordinator-hosted verification. No browser pass claimed. Root owns PR/committed preview publishing and main-only NOW/inbox bookkeeping.
