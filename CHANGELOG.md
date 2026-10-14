@@ -12,6 +12,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Added (TOOL-028): `npm run pr -- merge` now runs an art guard (`tools/pr-guard.mjs`) on the merge result and refuses a branch whose changed fighter strips have a newest raw `_vNN` that is not the manifest `approvedVersion` (move it to `raw/_qa_hold/` or get it approved), ship an unapproved committed pack, or fail the strict scale gate (packer dry run on scratch copies, nothing written under art/ or public/); `--force-art "<reason>"` overrides and records the reason in the merge commit; `npm run pr -- check <branch>` previews the verdict read-only; `npm run test:guard` covers it.
+- Link Gojo PR83 and committed review preview; complete the Part 1 handoff with all anatomy holds explicit and Naruto alts still in progress.
+- Added: animation-contract lint `tools/lint-anims.mjs` (TOOL-004), the first step of `prebuild`: every `animGuide.js` animation needs a manifest default and a per-fighter entry, optional ones a `FALLBACK` entry that names real animations and reaches one the placeholder bakes, every `altOf` repeats its base's frames and phases, and `art/SPEC.md` must name every animation (warning only). `npm run lint:anims`, `--strict` to fail on warnings; skips the manifest/SPEC checks when `art/` is absent (deploy export).
+
+- Added: undeclared-identifier check `tools/check-undeclared.mjs` (TOOL-027), the second step of `prebuild`: a parser-free lexer + scope pass fails the build on any name used in `src/**/*.js` that is never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug). `npm run lint:undeclared`; `npm run test:lints` covers both lints (`tools/test-lints.mjs`).
 
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
