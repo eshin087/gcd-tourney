@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto win v09: one authorized round-4 redraw preserves the four victory gestures and restores upright anatomy against the approved title references. Candidate awaits Claude calibration and technical review; no atlas or gameplay change.
+
 - Naruto round4: measured every suspect packed frame; saved unapproved stagger v06, taunt v07 and win v08 after robust torso-marker failures. Self-contained diagnostic review with per-frame segment estimates and uncertainty; strict scale fails at current calibration. JumpUp v06 and superDash v03 retained as inconclusive. No runtime calibration, approval, merge or production change (ART-SCALE-R4-NAR).
 
 - Round-4 fighter scale consistency work started in isolated sparse worktrees with one sub-agent per fighter; every visible body segment is measured in the packed atlas. Naruto attack alts remain gated on ENG-081 landing on main; Gojo run direction studies and round-3 candidates are preserved.
