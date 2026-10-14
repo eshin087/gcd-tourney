@@ -16,9 +16,9 @@
 
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { scratchDir } from './scratch-dir.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -178,7 +178,7 @@ function materialize(root, head, ids, dir) {
 }
 
 function scaleRun(root, head, ids) {
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'gcd-art-guard-'));
+  const tmp = fs.mkdtempSync(path.join(scratchDir(), 'gcd-art-guard-'));
   try {
     materialize(root, head, ids, tmp);
     const q = showJson(root, head, 'art/manifest.json')?.spec?.maxColors || 48;

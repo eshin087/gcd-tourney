@@ -12,9 +12,9 @@
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { scratchDir } from './scratch-dir.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REMOTE = process.env.GCD_PUBLISH_REMOTE || 'https://github.com/eshin087/gcd-tourney.git';
@@ -24,7 +24,7 @@ const EXCLUDE = ['art/*/raw/*', 'art/*/_rejected/*', 'art/*/_old/*', 'art/*/cont
 
 const run = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: ['ignore', 'pipe', 'inherit'] }).toString().trim();
 
-const work = fs.mkdtempSync(path.join(os.tmpdir(), 'gcd-publish-'));
+const work = fs.mkdtempSync(path.join(scratchDir(), 'gcd-publish-'));
 try {
   run('git', ['clone', '-q', '--no-local', '--single-branch', '--branch', BRANCH, ROOT, work]);
   const python = process.platform === 'win32' ? 'python' : 'python3';

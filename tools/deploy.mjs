@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { scratchDir } from './scratch-dir.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const git = (...args) => execFileSync('git', args, { cwd: ROOT }).toString().trim();
@@ -39,23 +40,28 @@ if (!PREVIEW && branch !== 'main') {
 // killed before `finally`). Each one is a few hundred MB, and parallel agents deploy often, so
 // without this they piled up to tens of GB in %TEMP%. Only folders older than an hour are touched,
 // so a deploy running concurrently in another worktree keeps its export.
+// Exports live in the scratch folder (tools/scratch-dir.mjs: the project's drive, not a small system
+// drive); the OS temp folder is swept too, for exports that older versions of this script left there.
+const SCRATCH = scratchDir();
 const STALE_MS = 60 * 60 * 1000;
-for (const name of fs.readdirSync(os.tmpdir())) {
-  if (!name.startsWith('gcd-deploy-')) continue;
-  const p = path.join(os.tmpdir(), name);
-  try {
-    if (Date.now() - fs.statSync(p).mtimeMs < STALE_MS) continue;
-    fs.rmSync(p, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 });
-    console.log(`deploy: removed stale temp export ${p}`);
-  } catch {
-    // still locked; the next deploy tries again
+for (const dir of new Set([SCRATCH, os.tmpdir()])) {
+  for (const name of fs.readdirSync(dir)) {
+    if (!name.startsWith('gcd-deploy-')) continue;
+    const p = path.join(dir, name);
+    try {
+      if (Date.now() - fs.statSync(p).mtimeMs < STALE_MS) continue;
+      fs.rmSync(p, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 });
+      console.log(`deploy: removed stale temp export ${p}`);
+    } catch {
+      // still locked; the next deploy tries again
+    }
   }
 }
 
-const work = fs.mkdtempSync(path.join(os.tmpdir(), 'gcd-deploy-'));
+const work = fs.mkdtempSync(path.join(SCRATCH, 'gcd-deploy-'));
 // export HEAD with git itself, through a private index file so the shared index (and anything
 // another agent has staged) is never touched
-const index = path.join(os.tmpdir(), `gcd-deploy-${process.pid}.index`);
+const index = path.join(SCRATCH, `gcd-deploy-${process.pid}.index`);
 const gitIdx = (...args) => execFileSync('git', args, { cwd: ROOT, env: { ...process.env, GIT_INDEX_FILE: index } });
 try {
   gitIdx('read-tree', 'HEAD');
