@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
+
 - Art round 4: link Killua's committed selected-loop review preview; retain all anatomy holds. Further browser QA uses the Codex browser per user direction.
 
 - Independent round-4 Astra audit records HOLD findings across 123 Sasuke, Killua and Naruto frame instances, with exact atlas hashes and native comparison sheets; review previews remain unapproved diagnostic output.
