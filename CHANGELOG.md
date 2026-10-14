@@ -11,6 +11,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: `soak(n, opts)` debug helper (ENG-012, `?debug`): n CPU vs CPU matches on the fixed step, every frame checked for NaN positions, ring-outs outside a KO, stuck states, console errors and stalls; returns a summary (winners, rounds, durations, every violation with frame / fighter / state / position), progress in `window.__soak`, `Math.random` reseeded per match (`seed` option). TESTING.md's manual soak recipe is replaced by it.
+
+- Fixed: ENG-075, a clash push-back (Gojo mirror) carried a fighter up to 0.4 past `ARENA_LIMIT` for the whole struggle; reproduced with `soak()` by removing `placeClash`'s clamp (23 ring-outs in 15 of 24 cornered Gojo mirrors), the clamp that was already on main (69e8b14) now carries the ENG-075 note and the soak shows 0 ring-outs.
+
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
 - Art round 4: link Killua's committed selected-loop review preview; retain all anatomy holds. Further browser QA uses the Codex browser per user direction.
