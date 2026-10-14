@@ -126,6 +126,7 @@ documentation that stays true.
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
 | `npm run body [id] [anim...]` | body sheet (TOOL-036): every packed frame beside idle f0 and the approved combat cell at one density, labelled with body size B (garment area vs idle f0) and head H; writes `art/scale/body-<id>.png` + `body-report.json`. Advisory (±10 %): confirm a flagged strip by its segments |
 | `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
+| `npm run test:alts` | attack-alt picker test (`tools/test-anim-alts.mjs`: balanced Thue-Morse alternation, never three in a row, base when the alt is missing, `?alts` override; ADR 0031); run after changes to `src/game/animAlts.js` or the alt hooks in fighter.js |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
