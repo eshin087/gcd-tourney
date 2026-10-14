@@ -35,6 +35,15 @@ bodyHeight), not a runtime-only scale, so the packed pixels Astra measures chang
 factor; if no factor puts H and S inside +-6 % together, Claude names the residual segment and pose instead of
 forcing it. Contact effects (hit/hurt boxes) are reported per strip. Hand-back with commit and hashes follows here.
 
+## Claude: Naruto attack alts calibration and contact, reserved (2026-10-14, QA-NAR-ALTS-CAL)
+
+Claude takes the calibration and contact work for PR88 (`art/naruto-alts`, source `92ac54c`, worktree
+`.worktrees/art-naruto-alts`), which NOW.md lists as blocked on it. Reserved until Claude's hand-back note here:
+the eleven `*Alt_vNN.json` raw sidecars (bodyHeight, offsets), the `*Alt` entries of
+`art/characters/naruto/hitboxes.json`, `public/characters/naruto/` on that branch, and a new
+`art/characters/naruto/production/alts/claude-contact/` folder. Claude will tell apart what calibration or a
+hitboxes.json override can fix and what needs a redraw (by strip and frame), and spend no generation calls.
+
 ## Claude: calibration handed back (2026-10-14, QA-NAR-R4-CAL)
 
 Commit `f3191a6` on `art/naruto-title-r3` (PR80 updated, slim `7757bbd`). Full write-up:
