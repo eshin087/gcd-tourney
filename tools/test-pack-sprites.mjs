@@ -1637,9 +1637,9 @@ function techPoseTests(base) {
 }
 
 // Attack alts (ADR 0031): an alt packs like its base (the fighter's base bodyHeight when its own entry has none, the
-// guide's frames and phases when the manifest has no entry), and the packer warns, never fails, when a drawn alt's
-// frame count or phases differ from its base's, or its active hit boxes reach shorter or sit higher than the base's
-// (tolerance 12 px reach, 16 px height). An alt entry with no art yet (status todo) stays silent.
+// guide's frames and phases when the manifest has no entry) and ships its base's hit and hurt boxes frame for frame.
+// The packer warns, never fails, when a drawn alt's frame count or phases differ from its base's, or its drawn strike
+// lands more than 24 px (reach or height) from the base's hit. An alt entry with no art yet (status todo) stays silent.
 function attackAltTests(base) {
   const araw = (n) => path.join(ART, 'characters', 'alty', 'raw', n);
   const jab = [{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}];
@@ -1687,10 +1687,18 @@ function attackAltTests(base) {
     'attack alts: an alt with no manifest entry takes its base\'s default timing and the guide\'s phases');
   check(!about('light1Alt').length && A.light1Alt?.base === 'light1' && Math.abs(A.light1Alt.strike.reach - A.light1Alt.baseStrike.reach) <= 12,
     `attack alts: an alt striking like its base is silent (${about('light1Alt').join(' | ')}; ${JSON.stringify(A.light1Alt)})`);
-  check(anyWarn(W, /^light2Alt: strike reach \d+px from the pivot, light2 \d+px \(-\d+(\.\d)?px, tolerance 12px\) - an alt plays its base's move data/),
-    `attack alts: an alt that falls short warns with both reaches (a lower strike may warn too) (${about('light2Alt').join(' | ')})`);
-  check(anyWarn(W, /^light3Alt: strike height [\d.]+px above the floor, light3 [\d.]+px \(\+[\d.]+px, tolerance 16px\) - light3 is a low: its alt must hit low too - an alt plays/),
-    `attack alts: the low's alt hitting higher warns and says it is a low (${about('light3Alt').join(' | ')})`);
+  check(anyWarn(W, /^light2Alt: drawn strike reach \d+px from the pivot, light2's hit \d+px \(-\d+(\.\d)?px, tolerance 24px\) - an alt plays its base's move data and hit boxes/),
+    `attack alts: an alt drawn falling short warns with both reaches (a lower strike may warn too) (${about('light2Alt').join(' | ')})`);
+  check(anyWarn(W, /^light3Alt: drawn strike height [\d.]+px above the floor, light3's hit [\d.]+px \(\+[\d.]+px, tolerance 24px\) - an alt plays/),
+    `attack alts: an alt drawn striking far higher than its base warns with both heights (${about('light3Alt').join(' | ')})`);
+  // the base's boxes ship on every alt frame (ADR 0031): same contact whatever the alt draws
+  const boxesOf = (name) => meta.animations[name]?.frames.map((f) => JSON.stringify({ hit: meta.boxes[f]?.hit ?? null, hurt: meta.boxes[f]?.hurt ?? null }));
+  const same = (alt, b) => JSON.stringify(boxesOf(alt)) === JSON.stringify(boxesOf(b));
+  check(same('light2Alt', 'light2') && same('light3Alt', 'light3') && same('hurtHighAlt', 'hurtHigh') && A.light3Alt?.boxes === 'base',
+    `attack alts: an alt with its base's frame count ships the base's hit and hurt boxes frame for frame (light3Alt ${JSON.stringify(boxesOf('light3Alt')?.slice(2, 4))} vs light3 ${JSON.stringify(boxesOf('light3')?.slice(2, 4))})`);
+  check(!same('heavyAlt', 'heavy') && !A.heavyAlt?.boxes, 'attack alts: an alt with another frame count keeps its own boxes (no frame-for-frame match)');
+  check((C.hitBoxes?.light3Alt || []).every((e) => e.rule === 'base light3') && JSON.stringify(C.hitBoxes?.light3Alt?.map((e) => e.hit)) === JSON.stringify(C.hitBoxes?.light3?.map((e) => e.hit)),
+    `attack alts: the --json hit box report shows the inherited boxes (${JSON.stringify(C.hitBoxes?.light3Alt)})`);
   check(anyWarn(W, /^heavyAlt: 7 frame\(s\) \(phases 3\/2\/2\), its base heavy has 8 \(phases 3\/2\/3\)/) && !anyWarn(W, /^heavyAlt: strike/),
     `attack alts: an alt with another frame count warns (its strike still matches) (${about('heavyAlt').join(' | ')})`);
   check(!about('hurtHighAlt').length && A.hurtHighAlt?.base === 'hurtHigh' && !A.hurtHighAlt.strike, `attack alts: a hit reaction alt with its base's frame count is silent (${about('hurtHighAlt').join(' | ')})`);

@@ -43,7 +43,7 @@ thread) and stay deterministic for a future online mode (CLAUDE.md gotcha: the s
    resuming a rush, plays its base). `takeHit` maps the `hurtHigh` / `hurtLow` it chose (the existing high/low
    alternation stays). The throw keeps its borrowed `light1` / `light4` poses: its reach, hold and toss are tuned to
    those frames and an alternate technique would not read as a grab.
-6. **Same contract as the base, checked by the packer.** An alt keeps the base's frame count and phases, strikes at the
+6. **Same contract as the base, checked by the packer** (contact amended 2026-10-14, see the amendment below). An alt keeps the base's frame count and phases, strikes at the
    base's height and reach, starts and ends on the base's poses (so any mix blends), uses a different technique and the
    same anatomy at the idle's scale (art/SPEC.md "Attack alts"). The packer (`altCheck`) compares every packed alt with
    its packed base: another frame count or phases warns; the union of the active-phase hit boxes (cell px, facing
@@ -73,10 +73,32 @@ thread) and stay deterministic for a future online mode (CLAUDE.md gotcha: the s
 - Art cost: 11 strips per fighter (65 frames), drawn after the base is approved; Naruto first, the user reviews them in
   game before the other three (ART-ALTS). With every alt a sheet has 56 animations and 255 frames: 16 rows, 4096 x 4096
   (still one 4096 texture).
-- Hit boxes must match: an alt is gameplay art. The packer warns, and Claude checks the contact in the lab viewer with
-  boxes on before an alt ships. `aiDefense` / `aiCombo` keep reading the base strip's timing (the same phases), and an
+- Hit boxes: since the 2026-10-14 amendment an alt ships its base's boxes, so contact cannot differ; the drawn strike
+  still has to land near them (the packer warns past 24 px) so the hit spark sits on the limb. `aiDefense` / `aiCombo` keep reading the base strip's timing (the same phases), and an
   alt within tolerance changes their reach estimate by at most a few px.
 - `npm run status` counts the alts as unapproved optional strips (42/53 per fighter until they are drawn).
 - Tests: `npm run test:alts` (the picker, the contract, `?alts`), `npm run test:sprites` (`altCheck`, inheritance from
   the base entry).
 - Revisit if the user wants context-based variety, more alts per move, or alts for specials and supers.
+
+## Amendment (2026-10-14): alts inherit their base's boxes
+
+The Naruto pilot (PR88, eleven v01 alts) showed the art-box contract failing for reasons that are not about gameplay.
+Seven of nine attack alts missed the 12 / 16 px contact tolerance: the packer's auto hit box finder had picked a torso,
+a guard fist or a whole foot area on new drawings, and a few alts struck elsewhere by design. Keeping each alt's own
+boxes would mean a hitboxes.json override per alt frame, or redraws, just to reproduce boxes the base already has. It
+would also leave gameplay depending on the drawing, against what the user was promised when they chose alts:
+"damage, timing and hitboxes stay the same; only the art changes".
+
+**Decision.** The packer copies the base's `hit` and `hurt` boxes onto every alt frame, frame for frame
+(`inheritAltBoxes`, after `altCheck`). An alt's own `hand` anchor stays, so hand effects follow the drawn hand. An alt
+whose frame count differs from its base's cannot be matched frame for frame: it keeps its own boxes and the packer
+warns, as before. `altCheck` now judges the drawing only: where the alt's drawn strike lands (its auto box, or a
+`hitboxes.json` entry on the alt that points at the fist or foot) against the base's hit, with a 24 px tolerance,
+because the hit spark appears where the base's boxes meet the opponent.
+
+**Consequences.** Contact, hurt boxes and the AI's reach estimates are the base's by construction; no per-alt
+hitboxes.json overrides are needed. An alt drawn far from the base's strike (a low sweep for a mid kick) still connects
+like the base but shows the spark off the limb, so it is redrawn rather than accepted. The runtime is unchanged
+(`checkMelee` reads the frame's boxes as before).
+

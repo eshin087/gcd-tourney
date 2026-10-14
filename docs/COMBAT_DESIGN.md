@@ -75,9 +75,9 @@ phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is befo
 airHeavy, and the kit moves that borrow those strips, e.g. `vanishKick` = `light4`) and both hit reactions may have an
 `<anim>Alt` strip. The fighter alternates base and alt per use in a fixed Thue-Morse pattern (no randomness; never the
 same version three times in a row; `src/game/animAlts.js`), only when its sheet has that alt. The row's numbers never
-change: an alt plays the same move data on the same phases. The alt is visual, but **its hit boxes are real**: melee
-hits read the frame on screen, so an alt is drawn to strike at its base's height and reach (the packer warns past 12 px
-of reach or 16 px of height) and `light3Alt` stays a low. The throw keeps its `light1` / `light4` poses.
+change: an alt plays the same move data on the same phases, and the packer gives every alt frame its base frame's hit
+and hurt boxes, so the alternation is visual only (amended 2026-10-14). The alt is still drawn to land where the base's
+hit lands, so the hit spark sits on the fist or foot (the packer warns past 24 px). The throw keeps its `light1` / `light4` poses.
 
 | Move | Input | Startup | Active | Recovery | Total | Dmg | Reach / width | Hitstop | On hit | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
