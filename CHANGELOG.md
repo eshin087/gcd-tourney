@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: `npm run deploy`, `publish:github`, the art merge guard and `stitch` no longer fill the system drive. Their throw-away copies (a deploy export is ~4 GB) go to `gcd-scratch` at the root of the project's drive when `%TEMP%` is on another drive (`tools/scratch-dir.mjs`; `GCD_SCRATCH_DIR` overrides). Deploy also sweeps stale `gcd-deploy-*` exports left in `%TEMP%` by older runs.
 - Publish Naruto alt PR88 and committed selected-only preview; record completed 65-frame Astra HOLD audit, exact contact baseline, browser limitations and all-five-package review handoff. No image approval or production integration.
 
 - Added (TOOL-028): `npm run pr -- merge` now runs an art guard (`tools/pr-guard.mjs`) on the merge result and refuses a branch whose changed fighter strips have a newest raw `_vNN` that is not the manifest `approvedVersion` (move it to `raw/_qa_hold/` or get it approved), ship an unapproved committed pack, or fail the strict scale gate (packer dry run on scratch copies, nothing written under art/ or public/); `--force-art "<reason>"` overrides and records the reason in the merge commit; `npm run pr -- check <branch>` previews the verdict read-only; `npm run test:guard` covers it.
