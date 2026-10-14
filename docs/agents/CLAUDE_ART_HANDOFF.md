@@ -1,3 +1,25 @@
+# Codex: win09 ready for recalibration; calibrated Astra audit returned (2026-10-13, QA-NAR-R4-CAL)
+
+**Claude action requested:** recalibrate the new `win_v09.png` in existing real worktree `.worktrees/art-naruto-title-r3`, branch `art/naruto-title-r3`, now **ef4c2d5**. Source-only redraw commit **17e951d6f9856c4c6411b226f6e00acae569c9d9**; final calibrated audit/review-note commit **ef4c2d5**. No merge, production deploy or art approval. Please acknowledge/reserve your calibration paths, then hand back exact commit and atlas hashes here. Codex will not change sidecars, bodyHeight, offsets, hitboxes or packer code.
+
+## What Codex completed
+
+- Verified your f3191a6 atlas: sheet `051c6c59baf0f1a137b8174eea6e19b8d4327aa4d0dae0c1fcae22620ff4d93e`, metadata `7debe0114b917e14a2cbb5023219b88b893b864379f705ca392c008c655ef923`. Both remain unchanged after this work.
+- Astra/medium audited all14 actual atlas frames and every transition/wrap in stagger06, taunt07, win08, jumpUp06 and superDash03. Complete H/T, bilateral upper/lower limbs or explicit exclusions, S, pose-specific reference selection, shoulder exclusions, uncertainty, native endpoints, reference data and hashes: `art/characters/naruto/production/round4/calibrated-astra-audit/AUDIT.md` and `audit.json` on this branch.
+- **Overall HOLD.** Current upright torso lengths remain short relative to the upright neutral cell (T50.4, conservative48-53): stagger39.1-39.2 [36-43], taunt36.5-37.5 [34-41], win36.1-37.1 [34-40]. These poses are upright/mildly side-leaned, not combat-like folded. Worst-case ratios43/48,41/48,40/48 are all below.94.
+- Win H/S central values support the body/head concern, but broad uncertainty does **not** rigorously prove no uniform H/S factor exists. The confirmed upright T residual supplied the redraw evidence. The report preserves that distinction instead of claiming a stronger H/S proof.
+- Luna used **exactly one** built-in call for win: round4 call2/3, historical3 + round4two = five cumulative. New source `art/characters/naruto/raw/win_v09.png`, SHA256 **17ab6249b1447148bebdefdfec425a0bdb4a051dcc3046e383d66002d1fb23d**. Four existing celebration poses preserved; correction uses approved neutral/combat anatomy plus idle07 and win08 pose reference. `production/round4/win-attempt2.md` records prompt/reference hashes and original output; `attempts.txt` records budget. One round4 call remains, not authorized for use in this continuation.
+- Win09 is NOT PACKED and has NO new sidecar. Existing win08 sidecar and all calibration fields are untouched. Manifest changes only newest win version to9; existing approved status/approvedVersion7 preserved. REVIEW marks v09 needs review/technical pending; current calibrated measurements added to v06/v07/v08 rows. Build passes (82 modules), which does not certify art. No additional redraw or generation call was used.
+
+## Claude calibration questions
+
+1. Calibrate win09 using actual reference anatomy, not the old win08 factor by assumption; report whether all visible segment relationships can meet the contract. If not, identify exact residuals before any further generation.
+2. Stagger06 and taunt07 have robust CURRENT upright-T failures, but generous uncertainty-aware joint H/T/S possible-factor intervals remain nonempty: stagger1.049-1.200, taunt1.101-1.232. These are feasibility screens, not suggested factors or passes. Please determine whether reference-based calibration can satisfy the segments and head gate together, or return a proven source residual. Their two remaining round4 calls each are unused; Codex deliberately did not spend them while feasibility remains unresolved.
+3. Retained jumpUp06/superDash03 have no demonstrated redraw-level failure. Occluded/projected limbs/shoes and pitched head prevent a complete numeric pass; see per-frame exclusions. Do not infer a body-size defect from posed bounding boxes. Return any additional comparable evidence needed for a defensible review decision.
+
+After your handback, Astra rechecks every affected packed frame and loop. Codex publishes a corrected preview only after the audit clears it. No new review preview has been published or requested. User explicitly reserves art/naruto-alts (PR88) sidecars, Alt hitboxes and public/characters/naruto to Claude; that branch was not edited by Codex in this continuation.
+
+---
 # Naruto round-4 scale repair: calibration requested (2026-10-13, Codex)
 
 The user explicitly requests: fix Naruto's scale issues before asking for another review; coordinate calibration with Claude, recheck every body segment against approved idle/combat, then send the corrected preview. This concerns the four-figure scale-fixes gallery in PR80, not the separate attack-alt gallery. The prior gallery renders all four cells at the same density; the oversized baseline/candidates are genuine packed geometry. No art approval was given.
