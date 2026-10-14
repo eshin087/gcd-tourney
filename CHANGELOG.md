@@ -12,6 +12,33 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Art (ART-ALTS-NAR): filed 11 Naruto attack-alt candidates (including v02 selections assembled from already generated parts), reconciled cumulative call budgets, and produced isolated 48-color quantized QA with paired base/alt atlas, exact input hashes, per-frame bounds and active hitbox deltas. Candidate assets remain unapproved; multiple technical holds are recorded in REVIEW.md.
+- Resume Naruto round-4 final anatomy audit from Claude calibration f3191a6; keep Naruto attack-alt calibration files reserved to Claude and withhold another preview pending audit.
+- Added: Goku (Super Saiyan, Cell saga) and Luffy (Enies Lobby, Gear Second / Third) are playable on baked placeholders (ADR 0032): their kits, KIT.md briefs and reserved manifest blocks; a `laneStrike` ultimate kind (Gigant Pistol), flurry options `front` / `hitColor` / `finalFx: 'impact'`, and the `kiFist` hand effect. Goku's Kamehameha is the cast's one beam.
+
+- Preserve Naruto pre-calibration reference audit and correct the torso-projection inference; await Claude calibration before new art or another preview. No sprite or gameplay changes.
+
+- Reopen Naruto round-4 scale repair before further user review; request Claude calibration and reserve Codex source analysis plus independent final segment audit.
+
+- Fixed: `npm run deploy`, `publish:github`, the art merge guard and `stitch` no longer fill the system drive. Their throw-away copies (a deploy export is ~4 GB) go to `gcd-scratch` at the root of the project's drive when `%TEMP%` is on another drive (`tools/scratch-dir.mjs`; `GCD_SCRATCH_DIR` overrides). Deploy also sweeps stale `gcd-deploy-*` exports left in `%TEMP%` by older runs.
+- Publish Naruto alt PR88 and committed selected-only preview; record completed 65-frame Astra HOLD audit, exact contact baseline, browser limitations and all-five-package review handoff. No image approval or production integration.
+
+- Added (TOOL-028): `npm run pr -- merge` now runs an art guard (`tools/pr-guard.mjs`) on the merge result and refuses a branch whose changed fighter strips have a newest raw `_vNN` that is not the manifest `approvedVersion` (move it to `raw/_qa_hold/` or get it approved), ship an unapproved committed pack, or fail the strict scale gate (packer dry run on scratch copies, nothing written under art/ or public/); `--force-art "<reason>"` overrides and records the reason in the merge commit; `npm run pr -- check <branch>` previews the verdict read-only; `npm run test:guard` covers it.
+- Link Gojo PR83 and committed review preview; complete the Part 1 handoff with all anatomy holds explicit and Naruto alts still in progress.
+- Added: animation-contract lint `tools/lint-anims.mjs` (TOOL-004), the first step of `prebuild`: every `animGuide.js` animation needs a manifest default and a per-fighter entry, optional ones a `FALLBACK` entry that names real animations and reaches one the placeholder bakes, every `altOf` repeats its base's frames and phases, and `art/SPEC.md` must name every animation (warning only). `npm run lint:anims`, `--strict` to fail on warnings; skips the manifest/SPEC checks when `art/` is absent (deploy export).
+
+- Added: undeclared-identifier check `tools/check-undeclared.mjs` (TOOL-027), the second step of `prebuild`: a parser-free lexer + scope pass fails the build on any name used in `src/**/*.js` that is never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug). `npm run lint:undeclared`; `npm run test:lints` covers both lints (`tools/test-lints.mjs`).
+- Fixed (TOOL-037): the packer's automatic hit box finder measured its "rising strike" rule against the idle head, so a crouched title-style idle made the hair of every upright pose a strike box. It now measures against the approved standing cell (`art/scale/builds.json` `standingReference`, the title-style neutral; byte copies added for Killua and Sasuke), and the "no clear strike limb" note no longer counts frames `hitboxes.json` overrides. The `--json` report gains `hitBoxes` and `hitRef`. Shipped art: one auto box moves (Naruto specialUp f3, same front edge).
+- Added: `soak(n, opts)` debug helper (ENG-012, `?debug`): n CPU vs CPU matches on the fixed step, every frame checked for NaN positions, ring-outs outside a KO, stuck states, console errors and stalls; returns a summary (winners, rounds, durations, every violation with frame / fighter / state / position), progress in `window.__soak`, `Math.random` reseeded per match (`seed` option). TESTING.md's manual soak recipe is replaced by it.
+
+- Fixed: ENG-075, a clash push-back (Gojo mirror) carried a fighter up to 0.4 past `ARENA_LIMIT` for the whole struggle; reproduced with `soak()` by removing `placeClash`'s clamp (23 ring-outs in 15 of 24 cornered Gojo mirrors), the clamp that was already on main (69e8b14) now carries the ENG-075 note and the soak shows 0 ring-outs.
+
+- Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
+
+- Art round 4: link Killua's committed selected-loop review preview; retain all anatomy holds. Further browser QA uses the Codex browser per user direction.
+
+- Independent round-4 Astra audit records HOLD findings across 123 Sasuke, Killua and Naruto frame instances, with exact atlas hashes and native comparison sheets; review previews remain unapproved diagnostic output.
+
+- ENG-081 opened the Naruto attack-alt pilot gate; a Luna worker is preparing frame tables in `art/naruto-alts`, and Astra performs the independent final anatomy audit. The vanished external Gojo checkout is being recovered from its preserved branch and backed-up measurements into a real project worktree.
 
 - Changed: future Codex agents use GPT-6 Luna with medium reasoning for all work except final anatomy/scale audits, which use GPT-6 Astra with medium reasoning; matched policy in AGENTS.md and CLAUDE.md preserves user art approval (OPS-008).
 
@@ -503,6 +530,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
   and Codex prompts in docs/agents/ (DOC-001).
 
 ### Changed
+- **Attack alts ship their base's hit and hurt boxes** (ADR 0031 amendment): the packer copies the base strip's boxes onto every alt frame, so an alt's drawing can never change what connects or what can be hit; `altCheck` now only warns when the drawn strike lands more than 24 px from the base's hit (the spark would float off the limb), and an alt with another frame count keeps its own boxes. No runtime change.
+- Publishing to GitHub (`npm run publish:github`, `npm run pr -- open|merge`) reuses one shared publish cache in `.publish-cache/` instead of cloning the whole repository into the temp folder and gc-ing it every time: it fetches the branch, rewrites it with the same commit ids in about a second and pushes. A lock file makes concurrent publishes wait; a broken cache rebuilds itself (`-- --full` forces it).
 - **Canon, restrained power-ups** (hold Special, ENG-069, ADR 0023): each fighter powers up like their anime, mostly on the body and far dimmer than before: Naruto's red Nine-Tails chakra boils over him (red slit eyes at bar 2, one chakra tail at MAX), Sasuke's dark curse-mark chakra with Chidori current and the Sharingan glint, Killua's flickering electric outline, and Gojo almost nothing (a faint Infinity shimmer, pebbles that stop mid-air, the Six Eyes at MAX). No focus lines while holding, at most 16 effect sprites per fighter, and no new effects pile up during super-flash freezes; the lab gains "Charge to MAX".
 - Rush specials cancelled out of a normal that hit start faster (`cancelStartup`: Rasengan 14, Chidori 16,
   Rasenshuriken 18; raw stays 24 / 28 / 30), so light ×3 → special is a true combo again (ENG-045, ADR 0015).

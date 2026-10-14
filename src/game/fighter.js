@@ -161,6 +161,7 @@ export class Fighter {
       this.counterT = 0;
       this.hidden = false;
       this.actor.setVisible(true);
+      this.game.fx.drop('fist' + this.index); // a Gigant Pistol cut off mid-punch (kit.js laneStrike)
     }
     if (STUN_STATES.has(this.state) && !STUN_STATES.has(s)) this.freeAt = this.clock;
     // the push-off pose belongs to the wall jump's first airborne frames only (wallKick sets it after this): any other

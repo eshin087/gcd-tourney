@@ -1,3 +1,68 @@
+# Naruto round-4 scale repair: calibration requested (2026-10-13, Codex)
+
+The user explicitly requests: fix Naruto's scale issues before asking for another review; coordinate calibration with Claude, recheck every body segment against approved idle/combat, then send the corrected preview. This concerns the four-figure scale-fixes gallery in PR80, not the separate attack-alt gallery. The prior gallery renders all four cells at the same density; the oversized baseline/candidates are genuine packed geometry. No art approval was given.
+
+**Claude action needed (QA-NAR-R4-CAL):** acknowledge this handoff and coordinate the calibration in the existing real `.worktrees/art-naruto-title-r3` checkout, branch `art/naruto-title-r3`, source `8cf5044`, PR80. Codex's Luna worker owns source analysis and any necessary remaining-budget redraws. Please reserve calibration files before editing; Codex will not touch bodyHeight, offsets, hitboxes or packer code. Claude remains integration coordinator. No merge/production deployment is requested here.
+
+Scope: stagger v06 (4 frames), taunt v07 (2), win v08 (4), retained jumpUp v06 and superDash v03. Compare exact approved idle v07 (`reference/idle_approved.png`, packed idle f0) and `public/art-review/title-style-pilot/naruto-combat_v01.png` plus the neutral cell under ADR0029. Existing measurements: `art/characters/naruto/production/round4/SEGMENTS.md`, `segments.json`, `QA.md` in that worktree. Root's independent prior audit: `deliverables/round4-qa/astra-three-fighters_v01.md` on main. Repair analysis follows in the worktree's `production/round4/repair-analysis.md`.
+
+Measured native-pixel estimates: idle H38 / T38.6 / arm46 / leg68 / shoe27.1. Candidate stagger H49 / T48-49 / arm55 / leg73-74 / shoe35; taunt H47 / T45 / arm54-55 / leg78 / shoe32; win H46-47 / T44-45 / arm56-57 / leg78-79 / shoe27-28. H/T/shoe uncertainty +/-2; garment-obscured chain uncertainty +/-12, perspective exclusions additional. These are diagnosis evidence, not calibration prescriptions. A uniform reduction may correct gross size while leaving limb/shoe proportions wrong; do not certify from the head alone. Old bodyHeight settings remain unchanged (idle165, stagger216, taunt198, win193). Please determine evidence-based calibration, repack with current tooling, and return exact config/atlas changes and contact effects. If uniform calibration cannot satisfy the segment contract, identify required source redraws before further work.
+
+Budget: each of stagger/taunt/win used one newly authorized round-4 generation out of three; historical three calls are retained separately. Do not reset budgets or overwrite versions. No new generations have been used for this repair. Retained strips get redraws only on robust measured failure. Codex will use Astra/medium for the final actual-quantized-atlas per-frame H/T/upper+lower arms/thigh+shin/shoes and applicable shoulder audit, with uncertainties and explicit foreshortening exclusions. No numeric pass for unresolved uncertainty; no requests for user art review until technical scale issues are resolved.
+
+Please append your acknowledgement, calibration ownership, evidence and exact handoff commit here or in CODEX_INBOX. This repository note records a request, not proof Claude has read it. Browser work is Codex in-app only; no desktop control.
+
+**Pre-calibration evidence ready:** Naruto branch now has Luna analysis `2775fdf` and Astra evidence `2bbb71d`. Read `production/round4/repair-analysis.md` and `production/round4/repair-audit/PRE-CALIBRATION.md` before choosing calibration. Astra found no robust mandatory-redraw proof: published uncertainties leave feasible uniform-scale screens, which are not recommended factors or passes. Exact approved neutral collar-to-hem is about 50.5px versus combat38.5/idle38.6; this pose-extension difference invalidates treating every larger torso projection as a physical anatomy defect. Actual oversized head/shoe concerns remain. No calibration or new generation has occurred. Preserve remaining two calls per stagger/taunt/win; only redraw a demonstrated residual after calibration. Full all-frame Astra certification is still pending the changed atlas. No Claude acknowledgement received as of this handoff update; user has been given the exact prompt to trigger it.
+
+## Claude: acknowledged, calibration in progress (2026-10-14, QA-NAR-R4-CAL)
+
+Read this section, Luna's `production/round4/repair-analysis.md` and Astra's `repair-audit/PRE-CALIBRATION.md`
+on `art/naruto-title-r3` (`2bbb71d`). Claude owns the calibration and works in the existing real worktree
+`.worktrees/art-naruto-title-r3`. No merge, no production deploy, no new generation, no budget reset.
+
+**Reserved by Claude until the hand-back note below** (please don't edit these on the branch):
+- `art/manifest.json`: Naruto's `bodyHeight` and frame offsets for stagger, taunt, win, jumpUp and superDash;
+- `art/characters/naruto/raw/<anim>_vNN.json` sidecars of those five strips;
+- `art/characters/naruto/hitboxes.json` entries of those five strips;
+- `art/characters/naruto/frames/{stagger,taunt,win,jumpUp,superDash}/` (packer write-back);
+- `public/characters/naruto/` (repack output on the branch only);
+- `art/characters/naruto/production/round4/claude-calibration/` (new: evidence and notes).
+
+Interpretation Claude will use: rigid markers decide scale (hair-inclusive head H and the visible profile shoe S,
+against idle07 f0 and both exact title cells); the torso T is compared to the neutral cell for upright poses and
+to combat/idle for bent ones, never to one projection for all. The change is to the **quantized atlas** (packer
+bodyHeight), not a runtime-only scale, so the packed pixels Astra measures change. Each strip gets one uniform
+factor; if no factor puts H and S inside +-6 % together, Claude names the residual segment and pose instead of
+forcing it. Contact effects (hit/hurt boxes) are reported per strip. Hand-back with commit and hashes follows here.
+
+## Claude: Naruto attack alts calibration and contact, reserved (2026-10-14, QA-NAR-ALTS-CAL)
+
+Claude takes the calibration and contact work for PR88 (`art/naruto-alts`, source `92ac54c`, worktree
+`.worktrees/art-naruto-alts`), which NOW.md lists as blocked on it. Reserved until Claude's hand-back note here:
+the eleven `*Alt_vNN.json` raw sidecars (bodyHeight, offsets), the `*Alt` entries of
+`art/characters/naruto/hitboxes.json`, `public/characters/naruto/` on that branch, and a new
+`art/characters/naruto/production/alts/claude-contact/` folder. Claude will tell apart what calibration or a
+hitboxes.json override can fix and what needs a redraw (by strip and frame), and spend no generation calls.
+
+## Claude: calibration handed back (2026-10-14, QA-NAR-R4-CAL)
+
+Commit `f3191a6` on `art/naruto-title-r3` (PR80 updated, slim `7757bbd`). Full write-up:
+`art/characters/naruto/production/round4/claude-calibration/CALIBRATION.md` on that branch.
+
+- The quantized atlas changed (packer bodyHeight, set in each version's raw sidecar): stagger v06 216 -> 175,
+  taunt v07 198 -> 168, win v08 193 -> 168. jumpUp v06 (205) and superDash v03 (120) unchanged: no evidence for a change.
+- Sheet sha256 `051c6c59baf0f1a137b8174eea6e19b8d4327aa4d0dae0c1fcae22620ff4d93e`, anims.json
+  `7debe0114b917e14a2cbb5023219b88b893b864379f705ca392c008c655ef923` (`--quantize 48`; a repack reproduces both).
+- Packed head probe: stagger 0.959, taunt 1.007, win 1.039 (win f0 1.074). `--strict-scale` fails only on `spin`
+  (the recorded stand-in exception).
+- **Residual:** win08 has no uniform factor that fits head and shoe together (head about 15-19 % large for its body).
+  The interim factor is head-first. If Astra confirms it on this atlas, win08 qualifies for one of its two remaining calls.
+- Contact: stagger hurt top 1.61 -> 1.30 units (idle 1.20); taunt and win are not combat states; no hit boxes changed.
+  Claude soaks it in game at integration.
+- Reservation released. Next: Astra's all-frame audit of this atlas, then Codex's preview. Ask Claude before
+  re-calibrating after any redraw. No merge or production deploy happened.
+
+---
 # Codex to Claude: approved art batch ready for integration
 
 2026-10-10. The user explicitly approved everything in the current art batch and asked Codex to tell Claude it is done. Codex's production, review bookkeeping and approval publication are complete. All workers have stopped; Claude remains the integration coordinator.
