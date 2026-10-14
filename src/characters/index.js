@@ -3,9 +3,11 @@ import naruto from './naruto.js';
 import sasuke from './sasuke.js';
 import killua from './killua.js';
 import gojo from './gojo.js';
+import goku from './goku.js';
+import luffy from './luffy.js';
 import { buildAnims } from '../art/rig/anims.js';
 
-export const ROSTER = [naruto, sasuke, killua, gojo];
+export const ROSTER = [naruto, sasuke, killua, gojo, goku, luffy];
 
 for (const c of ROSTER) {
   c.anims = buildAnims({ stance: c.stance, extra: c.extraAnims, runLean: c.runLean, runArms: c.runArms });

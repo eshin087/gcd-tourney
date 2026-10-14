@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Goku (Super Saiyan, Cell saga) and Luffy (Enies Lobby, Gear Second / Third) are playable on baked placeholders (ADR 0032): their kits, KIT.md briefs and reserved manifest blocks; a `laneStrike` ultimate kind (Gigant Pistol), flurry options `front` / `hitColor` / `finalFx: 'impact'`, and the `kiFist` hand effect. Goku's Kamehameha is the cast's one beam.
+
 - Preserve Naruto pre-calibration reference audit and correct the torso-projection inference; await Claude calibration before new art or another preview. No sprite or gameplay changes.
 
 - Reopen Naruto round-4 scale repair before further user review; request Claude calibration and reserve Codex source analysis plus independent final segment audit.

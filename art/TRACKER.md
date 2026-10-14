@@ -596,6 +596,18 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | crowd | crowd-sailor-moon-01-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-sailor-moon-01-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crowd | crowd-travelers-tourists-02-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-travelers-tourists-02-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 
+## goku
+
+Data PR `feature/char-goku-luffy` (ADR 0032): playable on the baked placeholder; moveset in
+[KIT.md](characters/goku/KIT.md); manifest block reserved. Art: nothing generated yet. First image: the title-style
+neutral + combat reference beside the four approved cells (ADR 0029), then a preview stop for the user.
+
+## luffy
+
+Data PR `feature/char-goku-luffy` (ADR 0032): playable on the baked placeholder; moveset in
+[KIT.md](characters/luffy/KIT.md); manifest block reserved. Art: nothing generated yet. First image: the title-style
+neutral + combat reference beside the four approved cells (ADR 0029), then a preview stop for the user.
+
 ## Adding a character
 
 Copy the naruto section, rename it, and add the same block to `manifest.json`
