@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (TOOL-037): the packer's automatic hit box finder measured its "rising strike" rule against the idle head, so a crouched title-style idle made the hair of every upright pose a strike box. It now measures against the approved standing cell (`art/scale/builds.json` `standingReference`, the title-style neutral; byte copies added for Killua and Sasuke), and the "no clear strike limb" note no longer counts frames `hitboxes.json` overrides. The `--json` report gains `hitBoxes` and `hitRef`. Shipped art: one auto box moves (Naruto specialUp f3, same front edge).
+
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
 - Art round 4: link Killua's committed selected-loop review preview; retain all anatomy holds. Further browser QA uses the Codex browser per user direction.
