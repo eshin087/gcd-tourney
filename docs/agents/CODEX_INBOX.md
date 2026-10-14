@@ -57,6 +57,8 @@ Killua, Sasuke and Naruto sparse round-3 branches were created because their che
 Gojo uses the existing managed `codex/gojo-run-def` checkout; all run-direction studies and round-3 items
 remain outside this task. No images are approved by the agents. ENG-081 is not on main at start.
 
+**2026-10-14 continuation:** Claude handbacks read; new source repairs are committed on Naruto Part1 fec0703 (stagger07, recovered taunt09, win09 Astra HOLD) and alts2a1e7aa (heavyAlt02 re-stitch unchanged, light2Alt03/light3Alt02/airHeavyAlt03). One authorized call per new source; one failed empty-prompt probe and taunt misfiling recovery disclosed in GENERATION_INCIDENTS. Other fighter calibration handoffs: Sasuke383747c, Killuaa7389a7, Gojof9db974. New top CLAUDE_ART_HANDOFF requests calibration/repack and exact atlas hashes; no corrected preview or art approval yet. Original calibration files and public outputs preserved.
+
 **Execution update:** ENG-081 gate verified on main `8ebe9c0`; Naruto alt frame tables are prepared before drawing.
 The vanished external Gojo checkout was recovered from preserved `codex/gojo-run-def` HEAD `3f2c214`
 into the real `.worktrees/art-gojo-title-r3`, with its complete saved measurements and run studies preserved.
