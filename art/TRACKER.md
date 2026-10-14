@@ -352,7 +352,7 @@ move into its own section's table when its alts are generated.
 
 | fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
 |---|---|---|---|---|---|---|
-| naruto | 4 candidates: light1Alt v01, light2Alt v02, light3Alt v01, light4Alt v01 | 1 candidate: heavyAlt v01 | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v02 | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: all 11 candidates filed and technically reviewed; multiple strict-scale, clipping, technique, and active-contact holds. Full paired quantized atlas and exact measurements in production/alts/frozen/. No new candidates approved. |
+| naruto | 4 candidates: light1Alt v01, light2Alt v01/v02/v03, light3Alt v01/v02, light4Alt v01 | heavyAlt v01/v02 (v02 is byte-identical measured restitch) | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v01/v02/v03 | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: source repairs filed 2026-10-14; all four latest candidates await Claude's strict repack/contact check. Historical versions, budgets and approved fields preserved; no new candidate approved or packed. Full prior paired quantized atlas and measurements in production/alts/frozen/. |
 | sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |

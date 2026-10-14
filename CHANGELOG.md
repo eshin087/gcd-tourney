@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-ALTS-NAR): added a measured heavyAlt v02 restitch and source repairs for light2Alt v03, light3Alt v02 and airHeavyAlt v03; preserved prior versions and budgets, and left strict repack/contact verification to Claude. No candidate is approved or in public output.
 - Art (ART-ALTS-NAR): filed 11 Naruto attack-alt candidates (including v02 selections assembled from already generated parts), reconciled cumulative call budgets, and produced isolated 48-color quantized QA with paired base/alt atlas, exact input hashes, per-frame bounds and active hitbox deltas. Candidate assets remain unapproved; multiple technical holds are recorded in REVIEW.md.
 - Resume Naruto round-4 final anatomy audit from Claude calibration f3191a6; keep Naruto attack-alt calibration files reserved to Claude and withhold another preview pending audit.
 - Added: Goku (Super Saiyan, Cell saga) and Luffy (Enies Lobby, Gear Second / Third) are playable on baked placeholders (ADR 0032): their kits, KIT.md briefs and reserved manifest blocks; a `laneStrike` ultimate kind (Gigant Pistol), flurry options `front` / `hitColor` / `finalFx: 'impact'`, and the `kiFist` hand effect. Goku's Kamehameha is the cast's one beam.
