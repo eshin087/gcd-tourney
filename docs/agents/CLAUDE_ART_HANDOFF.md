@@ -1,3 +1,18 @@
+# Naruto round-4 scale repair: calibration requested (2026-10-13, Codex)
+
+The user explicitly requests: fix Naruto's scale issues before asking for another review; coordinate calibration with Claude, recheck every body segment against approved idle/combat, then send the corrected preview. This concerns the four-figure scale-fixes gallery in PR80, not the separate attack-alt gallery. The prior gallery renders all four cells at the same density; the oversized baseline/candidates are genuine packed geometry. No art approval was given.
+
+**Claude action needed (QA-NAR-R4-CAL):** acknowledge this handoff and coordinate the calibration in the existing real `.worktrees/art-naruto-title-r3` checkout, branch `art/naruto-title-r3`, source `8cf5044`, PR80. Codex's Luna worker owns source analysis and any necessary remaining-budget redraws. Please reserve calibration files before editing; Codex will not touch bodyHeight, offsets, hitboxes or packer code. Claude remains integration coordinator. No merge/production deployment is requested here.
+
+Scope: stagger v06 (4 frames), taunt v07 (2), win v08 (4), retained jumpUp v06 and superDash v03. Compare exact approved idle v07 (`reference/idle_approved.png`, packed idle f0) and `public/art-review/title-style-pilot/naruto-combat_v01.png` plus the neutral cell under ADR0029. Existing measurements: `art/characters/naruto/production/round4/SEGMENTS.md`, `segments.json`, `QA.md` in that worktree. Root's independent prior audit: `deliverables/round4-qa/astra-three-fighters_v01.md` on main. Repair analysis follows in the worktree's `production/round4/repair-analysis.md`.
+
+Measured native-pixel estimates: idle H38 / T38.6 / arm46 / leg68 / shoe27.1. Candidate stagger H49 / T48-49 / arm55 / leg73-74 / shoe35; taunt H47 / T45 / arm54-55 / leg78 / shoe32; win H46-47 / T44-45 / arm56-57 / leg78-79 / shoe27-28. H/T/shoe uncertainty +/-2; garment-obscured chain uncertainty +/-12, perspective exclusions additional. These are diagnosis evidence, not calibration prescriptions. A uniform reduction may correct gross size while leaving limb/shoe proportions wrong; do not certify from the head alone. Old bodyHeight settings remain unchanged (idle165, stagger216, taunt198, win193). Please determine evidence-based calibration, repack with current tooling, and return exact config/atlas changes and contact effects. If uniform calibration cannot satisfy the segment contract, identify required source redraws before further work.
+
+Budget: each of stagger/taunt/win used one newly authorized round-4 generation out of three; historical three calls are retained separately. Do not reset budgets or overwrite versions. No new generations have been used for this repair. Retained strips get redraws only on robust measured failure. Codex will use Astra/medium for the final actual-quantized-atlas per-frame H/T/upper+lower arms/thigh+shin/shoes and applicable shoulder audit, with uncertainties and explicit foreshortening exclusions. No numeric pass for unresolved uncertainty; no requests for user art review until technical scale issues are resolved.
+
+Please append your acknowledgement, calibration ownership, evidence and exact handoff commit here or in CODEX_INBOX. This repository note records a request, not proof Claude has read it. Browser work is Codex in-app only; no desktop control.
+
+---
 # Codex to Claude: approved art batch ready for integration
 
 2026-10-10. The user explicitly approved everything in the current art batch and asked Codex to tell Claude it is done. Codex's production, review bookkeeping and approval publication are complete. All workers have stopped; Claude remains the integration coordinator.
