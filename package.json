@@ -23,7 +23,8 @@
     "pr": "node tools/pr.mjs",
     "deploy": "node tools/deploy.mjs",
     "test:anims": "node tools/test-tech-anims.mjs",
-    "test:alts": "node tools/test-anim-alts.mjs"
+    "test:alts": "node tools/test-anim-alts.mjs",
+    "test:guard": "node tools/test-pr-guard.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"

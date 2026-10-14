@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (TOOL-028): `npm run pr -- merge` now runs an art guard (`tools/pr-guard.mjs`) on the merge result and refuses a branch whose changed fighter strips have a newest raw `_vNN` that is not the manifest `approvedVersion` (move it to `raw/_qa_hold/` or get it approved), ship an unapproved committed pack, or fail the strict scale gate (packer dry run on scratch copies, nothing written under art/ or public/); `--force-art "<reason>"` overrides and records the reason in the merge commit; `npm run pr -- check <branch>` previews the verdict read-only; `npm run test:guard` covers it.
+
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
 - Art round 4: link Killua's committed selected-loop review preview; retain all anatomy holds. Further browser QA uses the Codex browser per user direction.
