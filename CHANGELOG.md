@@ -18,6 +18,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Added: undeclared-identifier check `tools/check-undeclared.mjs` (TOOL-027), the second step of `prebuild`: a parser-free lexer + scope pass fails the build on any name used in `src/**/*.js` that is never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug). `npm run lint:undeclared`; `npm run test:lints` covers both lints (`tools/test-lints.mjs`).
 - Fixed (TOOL-037): the packer's automatic hit box finder measured its "rising strike" rule against the idle head, so a crouched title-style idle made the hair of every upright pose a strike box. It now measures against the approved standing cell (`art/scale/builds.json` `standingReference`, the title-style neutral; byte copies added for Killua and Sasuke), and the "no clear strike limb" note no longer counts frames `hitboxes.json` overrides. The `--json` report gains `hitBoxes` and `hitRef`. Shipped art: one auto box moves (Naruto specialUp f3, same front edge).
+- Added: `soak(n, opts)` debug helper (ENG-012, `?debug`): n CPU vs CPU matches on the fixed step, every frame checked for NaN positions, ring-outs outside a KO, stuck states, console errors and stalls; returns a summary (winners, rounds, durations, every violation with frame / fighter / state / position), progress in `window.__soak`, `Math.random` reseeded per match (`seed` option). TESTING.md's manual soak recipe is replaced by it.
+
+- Fixed: ENG-075, a clash push-back (Gojo mirror) carried a fighter up to 0.4 past `ARENA_LIMIT` for the whole struggle; reproduced with `soak()` by removing `placeClash`'s clamp (23 ring-outs in 15 of 24 cornered Gojo mirrors), the clamp that was already on main (69e8b14) now carries the ENG-075 note and the soak shows 0 ring-outs.
 
 - Record round-4 generation-budget breaches and exact-hash recovery of Gojo temporary sources; no versioned candidate was overwritten or approved.
 
