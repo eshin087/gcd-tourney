@@ -242,6 +242,11 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   the opponent wherever they are (no range limit, can't be blocked, misses only if they're invulnerable or
   hidden): 80 on ignition, then a **burn** status, 14 every 20 frames for 200 frames. Burn ticks never stun
   or add to the combo, but they can KO.
+- **Gear Third: Gigant Pistol** (Luffy, kind `laneStrike`, ADR 0032): a 44-frame flash, a 34-frame windup while the
+  arm blows up, then the giant fist shoots down the lane he faces to 7 units in 8 frames and hits once for 270
+  (unblockable, wall bounce) anything within 1.1 of the lane and below 2.0 up. It commits to the lane when the punch
+  leaves: leave the lane or jump during the windup. It never clashes. 30 frames of recovery.
+- **Kamehameha** (Goku): the shared beam (below), his `beam` palette; the cast's only beam.
 
 ### Passives
 - **Infinity** (Gojo): a projectile that comes within its radius + 1.15 units of him is stopped (ring
