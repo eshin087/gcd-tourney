@@ -9,13 +9,9 @@ paused._
 ## Your next actions
 
 1. **Gojo G is selected.** User chose the relaxed-arm glide direction. H/I alternatives are rejected and preserved. Direction review is finished; [selection and technical handoff](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-title-r3/art/characters/gojo/production/run-ghi/SELECTION_v01.md>) records intact sources and cumulative calls. Leg-phase and loop-join cleanup plus anatomical checks remain before production approval. Restored real worktree `.worktrees/art-gojo-title-r3`, same branch `codex/gojo-run-def`; production runv12 unchanged, no merge/deploy.
-2. **Review the Part 1 diagnostic previews; every new candidate remains HOLD.**
-   [Sasuke / PR79](https://gcd-tourney-b4s5hamum-eshin087s-projects.vercel.app/reviews/sasuke-round4/index.html): superDash v07 clips its fist; jumpSquat v06, beamFire v07 and dash v07 retain anatomy uncertainty.
-   **Naruto / PR80: awaiting Claude recalibration; no review requested.** Astra audited all14 calibrated frames from f3191a6 and found upright torso residuals. One authorized win redraw is saved as win09 (17e951d; audit ef4c2d5), not packed. Claude has a new top handoff requesting win09 calibration and stagger/taunt feasibility checks. No other call used; attack-alt branch untouched. A corrected preview waits for recalibration and a passing audit.
-   [Killua / PR81](https://gcd-tourney-fllkidy67-eshin087s-projects.vercel.app/reviews/killua-round4/index.html): idle v11 is 144-146 px versus target 156-162; guard v09 is 132 px versus 150-158. SuperDash v08, stagger v07 and win v05 are also held.
-   [Gojo / PR83](https://gcd-tourney-2ste13exl-eshin087s-projects.vercel.app/reviews/gojo-round4/index.html): idle v07 is 234-236 by 135-138 px versus 210-216 by 145-160; superDash v09 and six measured redraws remain held. Astra's per-frame segment tables are linked in the gallery. These previews do not integrate held art into production.
-3. **Naruto attack alts / PR88 are with Claude for calibration and contact work.** Claude reserves the eleven Alt sidecars, Alt hitbox entries, public/characters/naruto and production/alts/claude-contact on art/naruto-alts until the handback in CLAUDE_ART_HANDOFF.md. Codex will not edit these. Existing candidates remain unapproved; no new review requested during calibration. ART-TECH-01 stays paused.
-4. **Technical handoff stays with Claude.** [Astra's first-three-fighter report](../deliverables/round4-qa/astra-three-fighters_v01.md), [preview evidence](../deliverables/round4-qa/PREVIEW_QA.md) and [generation-budget incident/recovery record](../deliverables/round4-qa/GENERATION_INCIDENTS.md) are saved. Gojo's two temporary sources were recovered by exact hash; no versioned candidate was overwritten. Claude owns calibration/contact checks and integration; read-only local merge checks found `docs/TASKS.md` conflicts for Gojo PR83 and Naruto PR88. All five review packages are committed; no held candidate was integrated. Naruto's preview is queued in Codex, but hosted interaction is unverified because in-app automation is unavailable. Further browser work is restricted to Codex's in-app browser; no desktop control.
+2. **Prompt Claude: round-4 repair handoff is ready.** Read the newest top section of `docs/agents/CLAUDE_ART_HANDOFF.md`, "Codex: round-4 repairs returned for calibration and repack (2026-10-14)." Recalibrate Naruto stagger07/taunt09 on `art/naruto-title-r3` at `fec0703`; repack/recheck the four corrected alts on `art/naruto-alts` at `2a1e7aa`; continue the three other fighters' calibration/assembly handoffs. Return commits and atlas hashes. No merge, production deploy or approvals.
+3. **Your round-4 art review: nothing new yet.** Win09's four-frame Astra audit is HOLD for numeric uncertainty, with no robust defect justifying another redraw. Stagger07 and taunt09 need calibration. HeavyAlt02 re-stitch is byte-identical to v01 and still needs diagnosis; light2Alt03/light3Alt02/airHeavyAlt03 await packed contact, clipping and anatomy checks. Corrected previews wait for technical recheck. Older diagnostic previews are not corrected deliveries.
+4. **Other fighters and source handling:** Sasuke handoff `383747c` covers packed fist clipping; Killua `a7389a7` covers idle/guard fit and stagger motion; Gojo `f9db974` covers idle proportions, superDash, light3 seam and source assembly. Each branch has `production/round4/CLAUDE_RECALIBRATION_20261014.md`. No new calls for these fighters; run studies/round-3 items preserved. Source filing and failed-probe incidents are documented in [the incident record](../deliverables/round4-qa/GENERATION_INCIDENTS.md): incorrect taunt08 is quarantined, actual taunt09 recovered without another call. No art approved or integrated. Browser work remains Codex in-app only.
 5. **Goku and Luffy: start their art now.** Both are live on placeholders (PR #91, ADR 0032; movesets in art/characters/goku|luffy/KIT.md). Open a new Codex chat on GPT-6 Luna / medium and paste the Goku/Luffy prompt Claude gave you. Codex makes one title-style neutral + combat reference per fighter beside the cast, then stops: reply `approve goku v01` / `approve luffy v01` or give feedback.
 
 ## Generated status
@@ -23,7 +19,7 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-14 05:57 UTC._
+_Generated by `npm run status` at 2026-10-14 15:55 UTC._
 
 ### Waiting for your review (166)
 - **gojo** (59): run direction study (concept only) study v01, airHeavy v09, special v06, run v11, …. Reply in the gojo Codex thread: `approve gojo <asset> vNN` or feedback
@@ -53,17 +49,19 @@ _Generated by `npm run status` at 2026-10-14 05:57 UTC._
 - OPS-004: Project-scoped autonomous agents and sequential integration [blocked]
 - ART-NAR-TITLE: Redraw all 42 animations and 3 UI images in approved title style [in-progress]
 - ART-NAR-R4-REPAIR: Correct Naruto round-4 scale before another user review [in-progress]
+- ART-SCALE-R4: Scale consistency round 4: Killua taller idle/guard, Gojo combat-cell idle, superDash x3,… [in-progress]
+- ART-ALTS-NAR: Naruto attack alts pilot (11 strips) [in-progress]
 - ART-KIL-TITLE-20261011: Killua full title-style redraw from the approved pilot [in-progress]
 - ART-TITLE-R3: Title-style round-3 redraws and movement scale reports [blocked]
 
-### Finished, waiting for a check (47)
-- ART-KIL-TITLE-R2 (Codex), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), ART-SCALE-R4 (Codex), ART-ALTS-NAR (Codex), QA-R4-ASTRA (Codex), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex)
+### Finished, waiting for a check (45)
+- ART-KIL-TITLE-R2 (Codex), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex)
 
 ### Last commits
-- 41ccca0 10-13 22:56 Merge branch 'feature/alt-base-boxes'
-- 7d5b811 10-13 22:56 docs: Goku and Luffy live on placeholders (PR #91); next action: start their Codex art
-- 4376483 10-13 22:55 feat(tools): attack alts ship their base's hit and hurt boxes (ADR 0031 amendment)
-- fff5c0b 10-13 22:54 Merge branch 'feature/char-goku-luffy'
-- 4074640 10-13 22:52 feat(chars): Goku and Luffy join on baked placeholders (ADR 0032)
-- 0cefe37 10-13 22:47 docs(naruto): record calibration handback and audit ownership
+- 1427658 10-14 08:54 docs(art): record repair output recovery and failed probe
+- 4e92698 10-14 08:41 docs(art): resume round-four repair coordination
+- a5a259c 10-13 23:13 docs(art): Claude hands back win09 calibration and the stagger/taunt feasibility result (3ac8bfa)
+- 81d6b9c 10-13 23:08 docs(art): Claude acknowledges the win09 recalibration request and reserves its files
+- c5f18e2 10-13 23:02 docs(art): Claude hands back the Naruto attack-alt calibration (35c9622)
+- b584b4c 10-13 22:57 docs(naruto): hand win09 and calibrated audit back to Claude
 <!-- status:end -->

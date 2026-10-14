@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art: returned round-4 Naruto source repairs and win09 Astra HOLD plus Sasuke/Killua/Gojo calibration handoffs to Claude; preserved calibration files and documented source-recovery/failed-probe incidents. No candidate approval, merge or production deployment.
+
 - Complete calibrated Naruto 14-frame Astra audit, use one authorized win09 redraw, and request Claude recalibration; preserve source budgets and withhold preview while anatomy holds remain.
 
 - Resume Naruto round-4 final anatomy audit from Claude calibration f3191a6; keep Naruto attack-alt calibration files reserved to Claude and withhold another preview pending audit.
