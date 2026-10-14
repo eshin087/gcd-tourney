@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Preserve Naruto pre-calibration reference audit and correct the torso-projection inference; await Claude calibration before new art or another preview. No sprite or gameplay changes.
+
 - Reopen Naruto round-4 scale repair before further user review; request Claude calibration and reserve Codex source analysis plus independent final segment audit.
 
 - Fixed: `npm run deploy`, `publish:github`, the art merge guard and `stitch` no longer fill the system drive. Their throw-away copies (a deploy export is ~4 GB) go to `gcd-scratch` at the root of the project's drive when `%TEMP%` is on another drive (`tools/scratch-dir.mjs`; `GCD_SCRATCH_DIR` overrides). Deploy also sweeps stale `gcd-deploy-*` exports left in `%TEMP%` by older runs.

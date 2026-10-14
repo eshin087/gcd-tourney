@@ -12,6 +12,8 @@ Budget: each of stagger/taunt/win used one newly authorized round-4 generation o
 
 Please append your acknowledgement, calibration ownership, evidence and exact handoff commit here or in CODEX_INBOX. This repository note records a request, not proof Claude has read it. Browser work is Codex in-app only; no desktop control.
 
+**Pre-calibration evidence ready:** Naruto branch now has Luna analysis `2775fdf` and Astra evidence `2bbb71d`. Read `production/round4/repair-analysis.md` and `production/round4/repair-audit/PRE-CALIBRATION.md` before choosing calibration. Astra found no robust mandatory-redraw proof: published uncertainties leave feasible uniform-scale screens, which are not recommended factors or passes. Exact approved neutral collar-to-hem is about 50.5px versus combat38.5/idle38.6; this pose-extension difference invalidates treating every larger torso projection as a physical anatomy defect. Actual oversized head/shoe concerns remain. No calibration or new generation has occurred. Preserve remaining two calls per stagger/taunt/win; only redraw a demonstrated residual after calibration. Full all-frame Astra certification is still pending the changed atlas. No Claude acknowledgement received as of this handoff update; user has been given the exact prompt to trigger it.
+
 ---
 # Codex to Claude: approved art batch ready for integration
 
