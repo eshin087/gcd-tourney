@@ -1709,8 +1709,9 @@ function colCount(img, x) {
 //  1. forward strike (reaches past the idle front): walk back from the tip until the columns get
 //     torso-thick, so only the limb counts; take the blob holding the forward-most pixel (+ smears
 //     touching it) within +-T.band px of the tip row (a guard fist next to a kick is excluded);
-//  2. rising strike (uppercut, rises above the idle head): the same idea around the highest pixel;
-//     whichever of 1/2 reaches further past the idle pose is tried first;
+//  2. rising strike (uppercut, rises above the standing head): the same idea around the highest pixel;
+//     whichever of 1/2 reaches further past the reference is tried first. ref.minY is the approved upright cell's top
+//     (builds.json standingReference), not the idle's: a crouched idle made every upright pose's hair "rise";
 //  3. otherwise the forward-most 28% of the body at strike height.
 function hitBox(cell, ref, T) {
   const b = bbox(cell);
@@ -1753,7 +1754,7 @@ function hitBox(cell, ref, T) {
 
 function validBox(b) { return Array.isArray(b) && b.length === 4 && b.every((v) => Number.isFinite(v)); }
 
-function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = null, notes = null) {
+function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = null, notes = null, hitSet = null) {
   const r = readJson(file);
   if (!r.exists) return 0;
   if (r.error) { warn(`${label}/hitboxes.json is not valid JSON (${r.error}) - ignored`); return 0; }
@@ -1783,6 +1784,7 @@ function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = n
           if (list.length) boxes[key][kind] = list.map((bx) => (tf ? scaleAboutPivot(bx, tf, true) : bx).map((v) => Math.round(v)));
           else if (kind === 'hit') boxes[key].hit = [];
           else delete boxes[key][kind];
+          if (kind === 'hit') hitSet?.add(key);
         }
         // hand: the palm/fingertip point the engine anchors hand effects, shots and beams to
         // ([x, y] in the 256 cell; the engine falls back to the hit box, then fixed offsets)
@@ -1893,24 +1895,31 @@ function auditAnims(id, anims, env) {
 // builds.json fighter "scaleReference": { "cells": ["characters/<id>/reference/<approved cell>.png", ...], "why": "..." }
 // (paths under art/): approved reference cells at the packed scale (256 px, feet on the pivot line) that the gate
 // measures every strip against, the idle included, instead of the idle (scale-probe auditCharacter). null when unset;
-// a missing or wrong-size cell is { error } (the gate then fails every strict strip), never silently the idle.
+// a missing or wrong-size cell is { error }, never silently the idle.
+// "standingReference" has the same shape and is the approved upright cell the hit box finder measures "above the head"
+// against (loadStandingReference).
 const scaleRefCache = new Map();
-export function loadScaleReference(artDir, decl) {
-  const list = decl?.scaleReference?.cells;
+function loadReferenceCells(artDir, list, key) {
   if (!Array.isArray(list) || !list.length) return null;
-  const key = `${artDir}|${list.join('|')}`;
-  if (scaleRefCache.has(key)) return scaleRefCache.get(key);
+  const ck = `${key}|${artDir}|${list.join('|')}`;
+  if (scaleRefCache.has(ck)) return scaleRefCache.get(ck);
   const cells = list.map((f) => {
     const file = path.join(artDir, f);
-    if (!fs.existsSync(file)) return `builds.json scaleReference: ${f} does not exist under ${artDir}`;
+    if (!fs.existsSync(file)) return `builds.json ${key}: ${f} does not exist under ${artDir}`;
     const img = readPng(file);
-    if (img.w !== SPEC_CELL || img.h !== SPEC_CELL) return `builds.json scaleReference: ${f} is ${img.w}x${img.h}, not a ${SPEC_CELL} px game cell`;
+    if (img.w !== SPEC_CELL || img.h !== SPEC_CELL) return `builds.json ${key}: ${f} is ${img.w}x${img.h}, not a ${SPEC_CELL} px game cell`;
     return img;
   });
   const bad = cells.find((c) => typeof c === 'string');
   const out = bad ? { error: bad } : { cells, label: list.join(', ') };
-  scaleRefCache.set(key, out);
+  scaleRefCache.set(ck, out);
   return out;
+}
+export function loadScaleReference(artDir, decl) {
+  return loadReferenceCells(artDir, decl?.scaleReference?.cells, 'scaleReference');
+}
+export function loadStandingReference(artDir, decl) {
+  return loadReferenceCells(artDir, decl?.standingReference?.cells, 'standingReference');
 }
 const SPEC_CELL = 256;
 
@@ -2015,7 +2024,7 @@ const scaleAboutPivot = (v, t, isBox) => {
 };
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {}, alts: {} };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {}, alts: {}, hitBoxes: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -2200,7 +2209,14 @@ function packCharacter(id, env) {
   }
 
   // 4) boxes: hurt on every frame, hit on active attack frames
+  // ref.minY is the top of an UPRIGHT head: the rising-strike rule (hitBox) looks for a fist above it. The title-style
+  // idles are crouched combat stances (Killua's is 146 px against a 186 px neutral), so every upright pose's hair would
+  // read as "rising above the idle head"; builds.json "standingReference" (the approved neutral cell) is the measure
+  // instead, and a fighter without one keeps the idle (TOOL-037). ref.maxX stays the idle's front (the forward rule).
   const idle = packed.find((p) => p.name === 'idle');
+  const standing = loadStandingReference(env.artDir, env.builds?.[id] || {});
+  if (standing?.error) warn(`${standing.error} - the rising-strike hit box rule is measured against the idle`);
+  const standingTop = standing?.cells ? Math.min(...standing.cells.map((c) => bbox(c)?.y0).filter(Number.isFinite)) : NaN;
   let ref;
   if (idle) {
     const bs = idle.cells.map((c) => bbox(c)).filter(Boolean);
@@ -2210,8 +2226,9 @@ function packCharacter(id, env) {
     ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
     warn('idle is not packed yet - hitboxes estimated from the idle bodyHeight');
   }
+  if (Number.isFinite(standingTop)) { ref.idleMinY = ref.minY; ref.minY = standingTop; R.hitRef = { maxX: ref.maxX, minY: ref.minY, idleMinY: ref.idleMinY, source: standing.label }; }
   const T = boxTuning({ ...spec, standingBodyPx: env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx });
-  const rules = {};
+  const autoRule = new Map(); // frame index -> { rule, at } that drew its auto hit box (R.hitBoxes, the "front" note)
   const big = [];
   for (const p of packed) {
     p.cells.forEach((cell, k) => {
@@ -2223,7 +2240,7 @@ function packCharacter(id, env) {
         const h = hitBox(cell, ref, T);
         if (h?.box) {
           meta.boxes[key].hit = [h.box];
-          rules[h.rule] = (rules[h.rule] || 0) + 1;
+          autoRule.set(key, { rule: h.rule, at: `${p.name}#${k}` });
           const b = bbox(cell);
           if (h.box[2] * h.box[3] > 0.4 * b.w * b.h) big.push(`${p.name}#${k}`);
         }
@@ -2232,9 +2249,23 @@ function packCharacter(id, env) {
   }
   if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
   const fits = new Map(anims.filter((a) => a.autoHead != null && a.autoHead !== 1).map((a) => [a.def.name, a.autoHead]));
-  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes);
+  const overridden = new Set(); // frames whose hit box hitboxes.json replaced
+  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes, overridden);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
-  if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
+  // the active-frame hit boxes as shipped, with the rule that drew each auto one (--json report: before/after tables)
+  for (const p of packed) {
+    if (!p.phases || !p.def.hitbox) continue;
+    const list = [];
+    for (let k = p.phases[0]; k < p.phases[0] + p.phases[1] && k < p.indices.length; k++) {
+      const key = String(p.indices[k]);
+      list.push({ frame: k, hit: meta.boxes[key]?.hit ?? null, rule: overridden.has(key) ? 'override' : autoRule.get(key)?.rule ?? null });
+    }
+    R.hitBoxes[p.name] = list;
+  }
+  // only the frames still on the auto box: an override replaced the rest, so "check them" would send the artist to
+  // frames that are already handled (TOOL-037)
+  const front = [...autoRule].filter(([key, a]) => a.rule === 'front' && !overridden.has(key)).map(([, a]) => a.at);
+  if (front.length) R.notes.push(`${front.length} active frame(s) had no clear strike limb - hitbox = front 28% of the body (${front.join(', ')}; check them in the Sprite Lab or add hitboxes.json overrides)`);
   // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
   const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(footprint).length) meta.footprint = footprint;
