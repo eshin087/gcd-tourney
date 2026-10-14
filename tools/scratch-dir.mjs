@@ -1,4 +1,4 @@
-// Where tools build throw-away copies (deploy exports, publish clones, art-guard scratch trees).
+// Where tools build throw-away copies (deploy exports, art-guard scratch trees; publishing uses .publish-cache/).
 //
 // Not os.tmpdir() when that is on another drive than the project: a deploy export (committed tree plus
 // `vercel build`) is ~4 GB, and parallel agents deploy often, so on a machine whose project drive is not the system
