@@ -328,3 +328,14 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 | ART-SCALE-TITLE-BANDS | Lineup build-class bands (art/scale/builds.json SBR/MWR/DR, standingPx) still assume upright idles: all four title-style fighters are flagged; migrate the numbers to the title-style cells (ADR 0029) and re-accept art/scale/scale-baseline.json at integration | Claude | todo | `npm run lineup` on the integrated preview, 2026-10-11 |
 
 | OPS-PERM-20261012 | Portable workspace permissions and durable Gojo review | Codex | review | files: docs/WORKTREE_PERMISSIONS.md, docs/art-review/gojo-bc/, art/REVIEW.md, art/TRACKER.md, docs/TASKS.md, CHANGELOG.md. Durable offline HTML v04 and v02 GIF/frame exports saved; script and simulated controls pass, browser playback unverified. Exact profile edit prepared, not installed; native Git repair requires fresh-session verification. Production build (82 modules) and diff check pass. Private Page embed rejected by approval policy never. Documentation and standalone exports only. docs/NOW.md remains claimed by DOC-010; user next actions: apply docs/WORKTREE_PERMISSIONS.md profile edit in external editor, reopen checkout chat, review B/C offline. |
+
+## Goku and Luffy (ADR 0032, user approval 2026-10-13)
+
+| ID | Task | Owner | Status | Notes |
+|---|---|---|---|---|
+| CHAR-goku-data | Goku data: kit, placeholder model, KIT.md, manifest block | Claude | review | PR feature/char-goku-luffy; files: src/characters/goku.js, src/game/moves.js, art/characters/goku/KIT.md |
+| CHAR-luffy-data | Luffy data: kit, placeholder model, KIT.md, manifest block; laneStrike kind | Claude | review | PR feature/char-goku-luffy; files: src/characters/luffy.js, src/game/moves.js, src/game/kit.js, ai.js, aiMaster.js, art/characters/luffy/KIT.md |
+| ART-goku-ref | Goku briefs + title-style neutral/combat reference, preview stop; then model sheet, expressions, idle | Codex | todo | after the data PR merges; branch art/goku-refs (--art goku); files: art/characters/goku/**, the goku block of art/manifest.json and art/TRACKER.md |
+| ART-luffy-ref | Luffy briefs + title-style neutral/combat reference, preview stop; then model sheet, expressions, idle | Codex | todo | after the data PR merges; branch art/luffy-refs (--art luffy); files: art/characters/luffy/**, the luffy block of art/manifest.json and art/TRACKER.md |
+| CHAR-goku-balance | Six-fighter CPU round-robin with Goku; log in ADR 0011 | Claude | todo | after his core art lands |
+| CHAR-luffy-balance | Six-fighter CPU round-robin with Luffy; Gigant Pistol cell margins on his drawn beamCharge/beamFire | Claude | todo | after his core art lands |
