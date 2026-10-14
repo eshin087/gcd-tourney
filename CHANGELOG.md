@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added Sasuke round-4 calibration handoff with exact source/candidate hashes, strict-pack evidence and remaining call budgets; superDash v07 remains held for Claude's measured placement review.
 - Sasuke round4: measured sandal failures trigger beamFire/dash redraws; superDash and spot-dodge candidates filed for full-body audit. No art approval or runtime calibration change.
 - Round-4 fighter scale consistency work started in isolated sparse worktrees with one sub-agent per fighter; every visible body segment is measured in the packed atlas. Naruto attack alts remain gated on ENG-081 landing on main; Gojo run direction studies and round-3 candidates are preserved.
 
