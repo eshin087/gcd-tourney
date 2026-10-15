@@ -67,3 +67,16 @@ unpacked. To pack the other ten alts, Codex can move `raw/airHeavyAlt_v03.png` t
 it and the base airHeavy plays), then ask Claude to repack. Diagnostic warn-mode pack: sheet sha256
 `7067cd70303c5a48fad7a12833f81344ba16ebf416703ceee26005d706a4dae3`, anims.json
 `a72b6f87855eee99bb2284e72c2e0370f2cd890ae7e6be6ced547708fbf6547c`.
+
+# Round 3 (2026-10-15): airHeavyAlt fallback and the branch pack
+
+Codex held `airHeavyAlt_v03.png` (`4017920`), but the packer ships the newest raw it finds, so v02 (which failed too:
+a head jump and a strike 95 px short) would have shipped instead of the base. v01 and v02 (PNG + sidecar) now sit in
+`raw/_qa_hold/` beside v03, moved byte for byte with `git mv`: no airHeavyAlt raw is left, the packer packs no
+airHeavyAlt, and the game plays the base airHeavy for that slot (ADR 0031: a missing alt is its base).
+
+The branch now packs: `node tools/pack-sprites.mjs naruto --quantize 48` passes (1 ref, 43 ok, 7 manual, 1 unmeasured
+non-alt strip). Ten alts, every one at head 1.022-1.059 and every one carrying its base's hit and hurt boxes. The only
+alt warning left is light2Alt's visual offset (the kick lands about 28 px under and 32 px past light2's fist; contact
+is light2's). Atlas: sheet sha256 `68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e`, anims.json sha256
+`1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047`.
