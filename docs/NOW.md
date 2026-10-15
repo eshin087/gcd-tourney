@@ -8,18 +8,19 @@ paused._
 
 ## Your next actions
 
-1. **Gojo G is selected.** User chose the relaxed-arm glide direction. H/I alternatives are rejected and preserved. Direction review is finished; [selection and technical handoff](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-title-r3/art/characters/gojo/production/run-ghi/SELECTION_v01.md>) records intact sources and cumulative calls. Leg-phase and loop-join cleanup plus anatomical checks remain before production approval. Restored real worktree `.worktrees/art-gojo-title-r3`, same branch `codex/gojo-run-def`; production runv12 unchanged, no merge/deploy.
-2. **Prompt Claude: round-4 repair handoff is ready.** Read the newest top section of `docs/agents/CLAUDE_ART_HANDOFF.md`, "Codex: round-4 repairs returned for calibration and repack (2026-10-14)." Recalibrate Naruto stagger07/taunt09 on `art/naruto-title-r3` at `fec0703`; repack/recheck the four corrected alts on `art/naruto-alts` at `2a1e7aa`; continue the three other fighters' calibration/assembly handoffs. Return commits and atlas hashes. No merge, production deploy or approvals.
-3. **Your round-4 art review: nothing new yet.** Win09's four-frame Astra audit is HOLD for numeric uncertainty, with no robust defect justifying another redraw. Stagger07 and taunt09 need calibration. HeavyAlt02 re-stitch is byte-identical to v01 and still needs diagnosis; light2Alt03/light3Alt02/airHeavyAlt03 await packed contact, clipping and anatomy checks. Corrected previews wait for technical recheck. Older diagnostic previews are not corrected deliveries.
-4. **Other fighters and source handling:** Sasuke handoff `383747c` covers packed fist clipping; Killua `a7389a7` covers idle/guard fit and stagger motion; Gojo `f9db974` covers idle proportions, superDash, light3 seam and source assembly. Each branch has `production/round4/CLAUDE_RECALIBRATION_20261014.md`. No new calls for these fighters; run studies/round-3 items preserved. Source filing and failed-probe incidents are documented in [the incident record](../deliverables/round4-qa/GENERATION_INCIDENTS.md): incorrect taunt08 is quarantined, actual taunt09 recovered without another call. No art approved or integrated. Browser work remains Codex in-app only.
-5. **Goku and Luffy: start their art now.** Both are live on placeholders (PR #91, ADR 0032; movesets in art/characters/goku|luffy/KIT.md). Open a new Codex chat on GPT-6 Luna / medium and paste the Goku/Luffy prompt Claude gave you. Codex makes one title-style neutral + combat reference per fighter beside the cast, then stops: reply `approve goku v01` / `approve luffy v01` or give feedback.
+1. **The Claude-Codex relay is live** (PR #95, ADR 0033): Claude now sends work straight into the Codex chats "1 - Scale Consistency" (lane `scale`) and "2 - Goku Luffy" (lane `goku-luffy`), and Codex rings Claude back, so no more pasting prompts between the apps. You step in only for approvals, BLOCKED items or decisions (you get a notification), or after 4 round trips without you. Say "stop the relay" to either AI to pause it; "status" shows each lane.
+2. **Gojo G is selected.** User chose the relaxed-arm glide direction. H/I alternatives are rejected and preserved. Direction review is finished; [selection and technical handoff](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-title-r3/art/characters/gojo/production/run-ghi/SELECTION_v01.md>) records intact sources and cumulative calls. Leg-phase and loop-join cleanup plus anatomical checks remain before production approval. Restored real worktree `.worktrees/art-gojo-title-r3`, same branch `codex/gojo-run-def`; production runv12 unchanged, no merge/deploy.
+3. **Prompt Claude: round-4 repair handoff is ready.** Read the newest top section of `docs/agents/CLAUDE_ART_HANDOFF.md`, "Codex: round-4 repairs returned for calibration and repack (2026-10-14)." Recalibrate Naruto stagger07/taunt09 on `art/naruto-title-r3` at `fec0703`; repack/recheck the four corrected alts on `art/naruto-alts` at `2a1e7aa`; continue the three other fighters' calibration/assembly handoffs. Return commits and atlas hashes. No merge, production deploy or approvals.
+4. **Your round-4 art review: nothing new yet.** Win09's four-frame Astra audit is HOLD for numeric uncertainty, with no robust defect justifying another redraw. Stagger07 and taunt09 need calibration. HeavyAlt02 re-stitch is byte-identical to v01 and still needs diagnosis; light2Alt03/light3Alt02/airHeavyAlt03 await packed contact, clipping and anatomy checks. Corrected previews wait for technical recheck. Older diagnostic previews are not corrected deliveries.
+5. **Other fighters and source handling:** Sasuke handoff `383747c` covers packed fist clipping; Killua `a7389a7` covers idle/guard fit and stagger motion; Gojo `f9db974` covers idle proportions, superDash, light3 seam and source assembly. Each branch has `production/round4/CLAUDE_RECALIBRATION_20261014.md`. No new calls for these fighters; run studies/round-3 items preserved. Source filing and failed-probe incidents are documented in [the incident record](../deliverables/round4-qa/GENERATION_INCIDENTS.md): incorrect taunt08 is quarantined, actual taunt09 recovered without another call. No art approved or integrated. Browser work remains Codex in-app only.
+6. **Goku and Luffy: start their art now.** Both are live on placeholders (PR #91, ADR 0032; movesets in art/characters/goku|luffy/KIT.md). Open a new Codex chat on GPT-6 Luna / medium and paste the Goku/Luffy prompt Claude gave you. Codex makes one title-style neutral + combat reference per fighter beside the cast, then stops: reply `approve goku v01` / `approve luffy v01` or give feedback.
 
 ## Generated status
 
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-14 15:55 UTC._
+_Generated by `npm run status` at 2026-10-15 17:36 UTC._
 
 ### Waiting for your review (166)
 - **gojo** (59): run direction study (concept only) study v01, airHeavy v09, special v06, run v11, …. Reply in the gojo Codex thread: `approve gojo <asset> vNN` or feedback
@@ -58,10 +59,10 @@ _Generated by `npm run status` at 2026-10-14 15:55 UTC._
 - ART-KIL-TITLE-R2 (Codex), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex)
 
 ### Last commits
-- 1427658 10-14 08:54 docs(art): record repair output recovery and failed probe
-- 4e92698 10-14 08:41 docs(art): resume round-four repair coordination
-- a5a259c 10-13 23:13 docs(art): Claude hands back win09 calibration and the stagger/taunt feasibility result (3ac8bfa)
-- 81d6b9c 10-13 23:08 docs(art): Claude acknowledges the win09 recalibration request and reserves its files
-- c5f18e2 10-13 23:02 docs(art): Claude hands back the Naruto attack-alt calibration (35c9622)
-- b584b4c 10-13 22:57 docs(naruto): hand win09 and calibrated audit back to Claude
+- 26ed1cf 10-15 10:36 Merge branch 'feature/claude-codex-relay'
+- ae374e0 10-15 10:35 docs(tasks): TOOL-041 live relay round trip verified
+- 11cd885 10-15 10:30 fix(tools): relay reads chat names from the Codex thread table and maps unsaved titles
+- 2658b22 10-15 09:02 feat(tools): Claude-Codex relay for handoffs without paste-in prompts (TOOL-041)
+- be7b4cb 10-14 23:04 docs(art): Claude hands back round-4 calibration for all five branches; TOOL-040 Gojo gate reference
+- a42a579 10-14 22:36 docs(art): Claude reserves round-4 calibration on all five branches
 <!-- status:end -->
