@@ -604,7 +604,7 @@ neutral + combat reference beside the four approved cells (ADR 0029), then a pre
 
 ## luffy
 
-Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md); manifest block reserved. Reference title_style_draft_v01 is saved and awaiting user review. Proposed shared queue row and provenance are in the Luffy art folder; no model sheet, idle, animation or packed art is approved.
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The Enies Lobby title-style neutral/combat reference v01 is approved. Model sheet v01, expressions v01 and idle v01 are candidates awaiting user review; see [REVIEW_ROWS.md](characters/luffy/REVIEW_ROWS.md) and reference provenance notes. No candidate has been packed or approved beyond the title-style reference.
 
 ## Adding a character
 

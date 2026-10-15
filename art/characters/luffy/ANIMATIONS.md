@@ -25,4 +25,8 @@ Shared pose rules: 256×256 cells, pivot `[128,240]`, face screen-right in 3/4 v
 
 ## Reference gate
 
-The current candidate is `reference/title_style_draft_v01.png`; its equal-density comparison is `reference/title_style_lineup_v01.svg`. It has not been approved. Generate no model sheet or animation until the user approves this lineup. The first idle must later be compared independently with both the approved neutral and combat cells before use as an animation reference.
+`reference/title_style_draft_v01.png` and `reference/title_style_lineup_v01.svg` were approved by the user for both poses on 2026-10-14. The first idle must still be compared independently with both approved neutral and combat cells before it is used as a future animation reference.
+
+## Idle v01 candidate
+
+The requested `raw/idle_v01.png` contains eight 256×256 cells in canonical order, 00 through 07, arranged as a restrained breathing/guard loop. The source generator placed them in a 4×2 grid; the final strip was assembled from those eight cells with nearest-neighbor scaling. In the saved candidate the poses read consistently, but motion between frames is very subtle and needs review at native size and in a loop. Do not treat the strip as approved or as a certified anatomy/scale match.
