@@ -80,6 +80,19 @@ All v01 images used the approved title-style Luffy reference (SHA-256 `1b7717c25
 | 2026-10-15 | luffy | jumpFall | [v02](characters/luffy/raw/jumpFall_v02.png) | v02 | needs review | Two-frame falling loop with reduced horizontal head/hat shift. | 2/3 cumulative calls. Superseded by v03; preserved as version history. Astra measured ~16px vertical shift, so v02 was not selected into the final atlas. SHA-256 926050f6dea896804395d35a532c8226959c776ca49165b8f2732ba6f26742a4. Not user-approved. |
 | 2026-10-15 | luffy | light3 | [v02](characters/luffy/raw/_qa_hold/light3_v02.png) | v02 | needs review | Seven-frame front kick retry with distal leg/sandal kept inside the cell. | 3/3 cumulative calls. Held in raw/_qa_hold: strict pack still clips frame 3 by 8px at the right edge; attempt budget exhausted. SHA-256 1210235c6278437df7e49d57b688e8ee84e34624eac3fb78a6bf11bd14d21ce5. Not user-approved. |
 | 2026-10-15 | luffy | beamFire | [v02](characters/luffy/raw/_qa_hold/beamFire_v02.png) | v02 | needs review | Three-frame Gear Third release retry with continuous arm and giant fist. | 3/3 cumulative calls. Held in raw/_qa_hold: strict pack clips f1 by 44px and f2 by 130px; attempt budget exhausted. SHA-256 d091f39e477d274e410015523fbb16555b520e35f54bb61e9295b43622ccef11. Not user-approved. |
+| 2026-10-15 | luffy | light4 | [v02](characters/luffy/raw/_qa_hold/light4_v02.png) | v02 | needs review | Re-stitched existing A/B parts with manual 0.84 B factor; no new image call. | Body landmark range 0.817–0.875, but stitcher head ratio conflicts (post-rescale B/A 1.303). Astra HOLD pending native packed comparison. See `production/claude-calibration-20261015/calibration-results.md` and `astra-audit-20261015.md`. SHA-256 2547d41f81656b9755ce9eafba50bed1ad416b1c4a9ec4f1f43bf9b5611e826b. Not user-approved. |
+| 2026-10-15 | luffy | win | [v02](characters/luffy/raw/_qa_hold/win_v02.png) | v02 | needs review | Rescaled existing win figures by measured factor 1.3145 ±0.023 using the approved neutral's exact 256px SVG cell mapping; no new image call. | Reference stature 237.2597px hat-to-sole; win v01 median 180.5px. Astra HOLD: packed stature not established. See `production/claude-calibration-20261015/calibration-results.md` and `astra-audit-20261015.md`. SHA-256 9b49d44e5a48bf3b60aad3a84ecae217f65dc32b869f1ed09be1cc6fa8c6c444. Not user-approved. |
+
+## Luffy core calibration follow-up (2026-10-15)
+
+- [x] 1. light4 v02 re-stitched at 0.84 from existing parts; **HOLD**, stitcher head comparison conflicts with hat-top/sole landmarks.
+- [ ] 2. **BLOCKED:** special f6 is cut at the seam; available B sources are byte-identical and the missing pixels cannot be reconstructed. This round authorizes no new image.
+- [x] 3. Heavy B/A brim ratio 0.971 with uncertainty interval 0.811–1.161; existing 0.900 factor is inside the interval, so no re-stitch.
+- [x] 4. win v02 derived at 1.3145 ±0.023 from the approved native cell; **HOLD**, packed stature not established.
+- [x] 5. Astra inspected every requested frame. **No `scaleManualQA: pass` supported**; see `production/claude-calibration-20261015/astra-audit-20261015.md` for per-strip findings, stale sheet/version mismatches, clipped assemblies and measurement uncertainty.
+- [ ] 6. **BLOCKED:** no checked candidate qualifies to move from `_qa_hold`; no safe strict pack/preview is available until a version-bound native comparison resolves the holds. New light4 v02 and win v02 are preserved in `_qa_hold`.
+
+No new image generated. No scale exemption or approval made.
 
 ## Current frozen atlas after jumpFall v03
 
