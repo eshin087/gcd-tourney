@@ -598,6 +598,8 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 
 ## goku
 
+**2026-10-15 reference approvals:** User approved model_sheet_v02 and expressions_v02. Both fixed reference PNGs now match v02 byte-for-byte; manifest status approved and approvedVersion 2. Idle02 visual approval is recorded separately; Claude calibration and technical checks remain pending.
+
 **2026-10-15 idle decision:** User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
 
 Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in
@@ -605,8 +607,8 @@ Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; m
   on 2026-10-14. The fixed reference/title_style_draft.png copies v02 (207±4px body excluding hair; 234px
   including hair); its lineup preserves the four exact approved cells at common density. Body-only ordering is
   above Naruto/Sasuke and below Gojo within uncertainty. Model-sheet v01 and expressions v01 remain held because
-  they derive from withdrawn v01; their fixed copies remain inactive. New v02 model-sheet, expressions and idle
-  candidates are awaiting review. Idle v01 approval remains historical and is not used as a candidate input.
+  they derive from withdrawn v01; their versioned sources are preserved. The fixed model and expression anchors
+  now contain the user-approved v02 files. Idle02 is approved as drawn, with technical checks pending. Idle v01 approval remains historical and is not used as a candidate input.
   Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
 ## luffy
 
