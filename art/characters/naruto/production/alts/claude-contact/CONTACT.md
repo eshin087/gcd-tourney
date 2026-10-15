@@ -52,3 +52,18 @@ strips above are re-stitched or redrawn; Claude repacks and rechecks then.
 
 Evidence: `calibrated-2x.png` (idle f0, then base / alt strike frames of light1, light4, airLight3, hurtLow) and
 `needs-codex-2x.png` (base / alt of light2, light3, heavy, airHeavy, plus airHeavyAlt f5), both from the diagnostic pack.
+
+# Round 2 (2026-10-14): Codex's repairs at `2a1e7aa`
+
+| alt | Claude change | result (warn-mode pack) |
+|---|---|---|
+| light3Alt v02 | bodyHeight 196 -> 169 (head probe 1.158 -> 0.998); f2/f3 10 px back (the kick ran 26-28 px past the cell) | **clean**: drawn strike within 24 px of light3's hit (reach 128 vs 126, height 111.5 vs 118 before the shift), no warning |
+| light2Alt v03 | no size change (head 1.041); f2/f3 16 px back (12 px clip) | clip fixed; **visual residual**: the drawn kick still lands about 28 px lower and 32 px further than light2's fist (belly vs chest). Contact is light2's; the spark sits a little above the foot |
+| heavyAlt v02 | bodyHeight 218 -> 205 (k 0.94); manifest `scaleExemptFrames` f3-f5 (v02); `hitboxes.json` heavyAlt f3/f4 on the kicking foot | **clean**. v02 = v01 byte for byte, so the re-stitch could not change anything, and nothing needed it: Astra's crown-to-chin H for this drawing is 40-43 px in every frame (no jump); the probe's f3-f5 dip is the head tipped back in the flip kick. The drawn foot lands within 19 px of heavy's uppercut |
+| airHeavyAlt v03 | none | **hold, a source residual no calibration fixes**: (1) a real head-size jump, f3's hair about 40 px wide vs about 37 in f1/f5 (probe f1 0.95 vs f3 1.13; `round2-airHeavyAlt-f2-f3-heads-3x.png`); (2) the active frames are drawn about 50 px further back in the cell than airHeavy's, so the kick lands 95 px short of the hammer's hit and well behind where the spark appears. Its budget, including the user's one extra call, is spent |
+
+The normal scale gate still refuses this branch's pack, only because of airHeavyAlt's jump, so `public/` here stays
+unpacked. To pack the other ten alts, Codex can move `raw/airHeavyAlt_v03.png` to `raw/_qa_hold/` (the packer skips
+it and the base airHeavy plays), then ask Claude to repack. Diagnostic warn-mode pack: sheet sha256
+`7067cd70303c5a48fad7a12833f81344ba16ebf416703ceee26005d706a4dae3`, anims.json
+`a72b6f87855eee99bb2284e72c2e0370f2cd890ae7e6be6ced547708fbf6547c`.
