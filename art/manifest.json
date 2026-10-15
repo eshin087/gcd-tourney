@@ -84,9 +84,9 @@
       "brief": "art/characters/goku/CHARACTER.md",
       "kit": "art/characters/goku/KIT.md",
       "reference": {
-        "titleStyleDraft": { "file": "art/characters/goku/reference/title_style_draft.png", "candidates": "art/characters/goku/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); lineup in reference/title_style_lineup_v01.png; user approved v01 on 2026-10-14", "step": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "modelSheet": { "file": "art/characters/goku/reference/model_sheet.png", "candidates": "art/characters/goku/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches", "step": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "expressions": { "file": "art/characters/goku/reference/expressions.png", "candidates": "art/characters/goku/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
+        "titleStyleDraft": { "file": "art/characters/goku/reference/title_style_draft.png", "candidates": "art/characters/goku/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); v01 approval withdrawn by user on 2026-10-14 for undersized body; v02 in review with body-only measured lineup", "step": 1, "status": "raw", "version": 2, "approvedVersion": null },
+        "modelSheet": { "file": "art/characters/goku/reference/model_sheet.png", "candidates": "art/characters/goku/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches; v01 held because derived from withdrawn title-style v01; fixed copy preserved but inactive", "step": 1, "status": "raw", "version": 1, "approvedVersion": null },
+        "expressions": { "file": "art/characters/goku/reference/expressions.png", "candidates": "art/characters/goku/reference/expressions_vNN.png", "includes": "v01 held because derived from withdrawn title-style v01; fixed copy preserved but inactive", "step": 2, "status": "raw", "version": 1, "approvedVersion": null }
       },
       "animations": {
           "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
