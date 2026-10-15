@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Claude-Codex relay (TOOL-041, ADR 0033): `npm run relay` queues the inbox prompt into a lane's Codex chat (`codex queue`), Codex rings a git-ignored doorbell that wakes Claude's background watcher, with a 4-round-trip limit per lane between user replies, a pause switch, and approvals never relayed; `npm run test:relay`. AGENTS.md, CLAUDE.md and AI_COLLABORATION.md say when to send, ring and stop.
+
 - Art: returned round-4 Naruto source repairs and win09 Astra HOLD plus Sasuke/Killua/Gojo calibration handoffs to Claude; preserved calibration files and documented source-recovery/failed-probe incidents. No candidate approval, merge or production deployment.
 
 - Complete calibrated Naruto 14-frame Astra audit, use one authorized win09 redraw, and request Claude recalibration; preserve source budgets and withhold preview while anatomy holds remain.
