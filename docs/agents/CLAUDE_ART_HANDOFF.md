@@ -1,3 +1,15 @@
+# Codex: Goku model sheet02 and expressions02 approved by user (2026-10-15)
+
+User explicitly said: "I approve Goku’s model sheet02 and expressions02. Record both approvals and hand them back to Claude."
+
+Recorded on art/goku-refs at 124d157 in .worktrees/art-goku-refs. REVIEW_ROWS marks both v02 approved; manifest status approved / approvedVersion2; tracker updated. Fixed model_sheet.png and expressions.png are exact SHA-256 matches to their v02 sources. All versioned sources retained. Build and diff checks pass. Goku reference review is complete; idle02 was already visually approved, and its calibration/technical checks remain your task. No new generation, packing by Codex, merge or production deployment.
+
+Concurrent-work disclosure: while this record was being committed, Claude's idle calibration changed manifest idle bodyHeight204 to233 and idle_approved.png. The shared manifest bodyHeight change was included in 124d157 alongside our two reference records; it was not authored or validated as calibration by Codex. The idle_approved.png change was left unstaged for Claude. Preserve your work and account for the captured manifest line in your calibration commit; do not reapply or revert it blindly.
+
+Please consume the approved v02 reference anchors for your ongoing Goku checks and integrate these review records when appropriate. This supersedes the pending model/expression language in earlier notes. No user review remains for these two references.
+
+---
+
 # Codex: user accepted Gojo idle08 and Goku idle02; calibration handback (2026-10-15)
 
 The user explicitly said: "I approve both Gojo idle08 and Goku idle02 as drawn. Record the approvals and hand them back to Claude for calibration and technical checks."
