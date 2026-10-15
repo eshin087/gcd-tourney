@@ -109,6 +109,8 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
+| `npm run relay -- <cmd>` | Claude-Codex relay (ADR 0033, `tools/relay.mjs`): `lanes`, `add <lane> --thread <id\|title>`, `send <lane>` (queue the inbox prompt into the lane's Codex chat), `ring <lane>` (Codex wakes Claude), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; state in git-ignored `.relay/` |
+| `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |
@@ -335,6 +337,16 @@ A change is done when:
   problem, fix the tool, not the output.
 - The handoff protocol is in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md). In short: claim a task in
   docs/TASKS.md, make the change, log it in CHANGELOG, then hand back with a status and a note.
+- **The relay replaces paste-in prompts** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md)). A lane is one
+  Codex chat (`npm run relay -- lanes`, then `add <lane> --thread <uuid|title>`). To hand a lane to Codex: write the
+  CODEX_INBOX item as usual, run `npm run relay -- send <lane> --note "<one line>"`, then start
+  `node tools/relay.mjs wait <lane>` as a **background** command whose description starts with "Relay watcher"
+  (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue. If `send`
+  fails, give the user the paste-in prompt instead.
+  Brakes: don't send when the next step is the user's (an image to approve, BLOCKED, their decision) or when `send`
+  exits 3 (4 round trips without them); notify the user (PushNotification) and stop. After the user replies on a
+  lane, run `npm run relay -- reset <lane>`. "Stop the relay" means `npm run relay -- pause all`. Never put an
+  approval in a relay note. "status" also reports `npm run relay -- status`.
 
 ## Gotchas
 

@@ -15,6 +15,111 @@ How it works:
 
 ---
 
+## Luffy core calibration fixes (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**Goal:** every Luffy core strip that doesn't need a new image is fixed or carries a recorded manual size check, so
+the user can review one preview. **Done when** items 1-6 are ticked; then add a handoff at the top of
+docs/agents/CLAUDE_ART_HANDOFF.md and run `node tools/relay.mjs ring goku-luffy --note "<one line>"`.
+Read Claude's review first: `art/characters/luffy/production/claude-calibration-20261015/CALIBRATION.md` on
+`art/luffy-core` (a0288e7), with the one-scale sheets and `heights.txt`. Luna/medium for fixes, Astra/medium for checks.
+
+**No new image in this round.** light1 (3/3 used, needs a redraw), down/getup grounding and any strip whose fix needs
+a generation call wait for the user: list them in your handoff instead.
+
+- [ ] 1. **light4:** re-stitch the existing `_parts/light4_v01_A/B` into the next free light4 version with a manual
+  factor of about **0.84** for part B (`--factor` with `--landmarks` hat top / soles and `--uncertainty`; Claude's
+  numbers: part A frames 200-206 px hat-to-sole, part B 101-105 px at the old 0.4288). Pack and confirm all frames
+  read 195-210 px.
+- [ ] 2. **special:** re-stitch the existing `_parts/special_v01_*` with the whole-figure layout into the next free
+  version so f6 is one intact figure (it's cut at a seam now). Same scale as the other frames (about 189 px).
+- [ ] 3. **heavy:** re-measure part B's factor with landmarks (brims read 27-37 px vs 40, a pop between parts) and
+  re-stitch only if the measured factor differs from 0.9 by more than its uncertainty.
+- [ ] 4. **win:** measure Luffy's upright height on his approved title-style neutral at native game density, then
+  rescale win (manual measured factor in its sidecar, about 1.15-1.2x) so his upright frames match it. Record the
+  landmarks and uncertainty.
+- [ ] 5. **Manual size checks:** for guard, charge, land, jumpUp, jumpFall, dash, run, light2, light3, airLight1,
+  airHeavy, hurtHigh and beamCharge, Astra compares every frame with the idle and the approved neutral/combat cells at
+  one scale (head, torso, limbs, hat). For each that passes, record `scaleManualQA` in its manifest entry (version,
+  result pass, by, note with the landmarks and uncertainty, evidence path). A strip that fails stays held with the
+  reason. Never use `scaleExempt` to clear Luffy's probe misreads.
+- [ ] 6. Move each fixed or checked strip out of `raw/_qa_hold/` (byte for byte, nothing deleted), pack with
+  `--quantize 48`, commit, `npm run pr -- open` and `npm run pr -- preview`. Review rows go in
+  art/characters/luffy/REVIEW_ROWS.md as `needs review`.
+
+Accepted by Claude, no action: beamFire's arm leaving the cell (the Gigant Pistol fist continues the lane in the
+engine); only the body must stay inside. Rules as in "Luffy core animations" below.
+
+---
+
+## Luffy core animations (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**Goal:** Luffy's 22 remaining CORE strips exist as reviewed-ready candidates on one branch, so Claude can calibrate
+and contact-check them and the user can review one preview. **Done when** items 1-5 are ticked; then commit your
+handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, per-strip version, attempts used, scale-gate
+result, Astra verdict, preview link) and run `node tools/relay.mjs ring goku-luffy --note "<one line>"`.
+Luna/medium for everything, Astra/medium for the final audit (CLAUDE.md model table).
+
+Approved anchors (PR #93, merged): reference/title_style_draft.png, model_sheet.png, expressions.png and
+idle_approved.png (idle v01). Moveset and pose briefs: art/characters/luffy/KIT.md §2 and ANIMATIONS.md.
+
+**Waiting on the user, do not act on these:** Goku. His model_sheet_v02 and expressions_v02 need the user's review,
+and idle_v02 is on a scale hold with its 3 attempts used. No Goku generation call until the user answers in a chat.
+
+- [x] 1. 2026-10-15: started `art/luffy-core` from main in the dedicated worktree (dev port 5242).
+- [x] 2. 2026-10-15: generated all 22 CORE strips as versioned candidates within cumulative budgets (failed calls included; max 3 per strip); held and superseded versions are itemized in `REVIEW_ROWS.md`.
+- [x] 3. 2026-10-15: strict quantized pack completed with per-strip holds recorded; scale report clean for the selected partial atlas. `body luffy` skipped because shared builds data lacks Luffy `bodyColors`.
+- [x] 4. 2026-10-15: Astra audited every frame/loop in the final packed atlas; verdict HOLD, exact evidence in `REVIEW_ROWS.md` and the handoff.
+- [x] 5. 2026-10-15: committed branch, updated PR #96 and preview, put all proposed rows in `REVIEW_ROWS.md` and the PR body, and recorded the handoff above.
+
+Rules: edit only art/characters/luffy/**, the luffy block of art/manifest.json and the "## luffy" section of
+art/TRACKER.md. Do not edit art/REVIEW.md, CHANGELOG.md, docs/TASKS.md, docs/NOW.md, src/, tools/, hitboxes outside
+luffy, other fighters or public/ atlases on main. No merge, no production deploy, no approvals. If something blocks
+you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
+
+---
+
+## Round 4 after Claude's calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+**2026-10-15 continuation:** user explicitly approved Gojo idle08 and Goku idle02 as drawn. Recorded at 7dd0a5d / 8788b46; design feedback stop lifted. Claude calibration/technical checks requested in newest handoff. No generation or technical pass.
+
+
+**Goal:** every round-4 candidate on the five branches has an Astra verdict on Claude's calibrated atlas, and the two
+assembly fixes below are done, so Claude can repack and the user can review previews. **Done when** items 1-7 are
+ticked; then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
+`node tools/relay.mjs ring scale --note "<one line>"`. Read Claude's note at the top of CLAUDE_ART_HANDOFF.md
+("all five branches calibrated", `be7b4cb`) first. Luna for fixes, Astra/medium for audits (CLAUDE.md model table).
+
+**The user decided both open items (2026-10-15, in Claude's chat):**
+- Naruto stagger07 and taunt09: **spend their last round-4 call** (one each) on the torso: same pose and head size,
+  with the upright collar-to-hem explicitly about 1.3 x the head height, like the neutral cell (the generator has
+  under-drawn it four times; say it in the prompt). Then Astra audits and Claude recalibrates.
+- Gojo idle: **ONE extra redraw is authorized** (Idle A's budget was spent), built directly from the approved combat cell
+  (`public/art-review/title-style-pilot/gojo-combat_v01.png`: about 213 px tall, wide stance, the same head size as
+  idle v06). If it still misses, stop and report; no further calls.
+
+- [x] 1. **Naruto** (`art/naruto-title-r3` at `0725f44`, sheet `c933c9cd...`): Astra audits stagger07 and taunt09 in
+  this atlas (upright torso against the neutral cell, head, sandals). win09 was audited already.
+- [x] 2. **Naruto alts** (`art/naruto-alts` at `dea8872`): move `raw/airHeavyAlt_v03.png` (and its sidecar if any) to
+  `raw/_qa_hold/` so the branch can pack (the base airHeavy plays meanwhile; nothing is deleted). No audit until
+  Claude repacks.
+- [x] 3. **Sasuke** (`art/sasuke-title-r3` at `ffb6abf`, strict pack passes, sheet `a2a8faed...`): Astra audits superDash07,
+  jumpSquat06 (its manual QA is recorded for v06), beamFire07 and dash07 in this atlas.
+- [x] 4. **Killua** (`art/killua-title-r3` at `6b91141`, sheet `32526013...`): Astra audits idle11, guard09, superDash08 and
+  win05 in this atlas. stagger07 stays held for the user (its f2 -> f3 pose reset).
+- [x] 5. **Gojo** (`codex/gojo-run-def` at `5e612e7`): re-stitch `light3_v05` from its two existing parts into the next free
+  light3 version with a manual factor of about **1.024** for part B (measured on the hair: part A about 215 px, part B
+  unscaled about 205 px; the 0.9505 factor caused the 10 px crown drop). No generation call. airLight1 and throw need
+  nothing from you (the packer's whole-figure split already fixed their assembly; throw is calibrated).
+
+- [x] 6. **Naruto redraws** (above): stagger and taunt, one call each, then Astra.
+- [x] 7. **Gojo idle redraw** (above): one call from the combat cell.
+Rules: no merge, no production deploy, no approvals; do not edit Claude's sidecar calibration fields, manifest
+bodyHeight / exemptions / scaleManualQA, hitboxes.json or public/ atlases. If something blocks you, write BLOCKED here
+and in NOW.md, tell the user and do not ring.
+
+**2026-10-15 Codex execution:** items 1-7 executed; no art approval. Calibrated Astra audits: Naruto66db833 (stagger07/taunt09 HOLD), Sasuke536b7bc (four HOLD, clipping resolved), Killua8d842b2 (four HOLD, stance targets met). airHeavyAlt03 moved intact to `_qa_hold/` at4017920; older raw v01/v02 remain, so base fallback requires Claude's verification. Gojo light3v06 re-stitched at1.024; one extra idle call savedv08 at a848ce3 and independently audited HOLD at a3ca7b5. Naruto final calls saved stagger08/taunt10 at ee7b1e9, final source Astra screen HOLD T/H about1.20 vsneutral1.29; no calls remain. Full details in newest CLAUDE_ART_HANDOFF.
+
+**Historical stop, resolved by explicit user approval on 2026-10-15 (see newest handoff):** Gojo idle08 again misses the combat stance (both hands down, upright torso; f7 shoe-edge concern). The user chose **leave idle unresolved for feedback**, not keep idle06 or authorize another call. Preserve existing approvals, no substitution, no generation. **Do not ring scale on this handback**: stopping for the user's feedback, as required by relay rules. Naruto and Gojo source fixes still need Claude calibration/repack after continuation; no new actual-atlas pass claimed.
 ## Scale consistency and attack alts, round 4 (2026-10-12, Claude)
 
 **The user's request and decisions (2026-10-12, chat with Claude):** "make sure every character's animation and
@@ -56,6 +161,8 @@ pose): treat each one as a suspect, not a verdict.
 Killua, Sasuke and Naruto sparse round-3 branches were created because their checkouts were missing.
 Gojo uses the existing managed `codex/gojo-run-def` checkout; all run-direction studies and round-3 items
 remain outside this task. No images are approved by the agents. ENG-081 is not on main at start.
+
+**2026-10-14 continuation:** Claude handbacks read; new source repairs are committed on Naruto Part1 fec0703 (stagger07, recovered taunt09, win09 Astra HOLD) and alts2a1e7aa (heavyAlt02 re-stitch unchanged, light2Alt03/light3Alt02/airHeavyAlt03). One authorized call per new source; one failed empty-prompt probe and taunt misfiling recovery disclosed in GENERATION_INCIDENTS. Other fighter calibration handoffs: Sasuke383747c, Killuaa7389a7, Gojof9db974. New top CLAUDE_ART_HANDOFF requests calibration/repack and exact atlas hashes; no corrected preview or art approval yet. Original calibration files and public outputs preserved.
 
 **Execution update:** ENG-081 gate verified on main `8ebe9c0`; Naruto alt frame tables are prepared before drawing.
 The vanished external Gojo checkout was recovered from preserved `codex/gojo-run-def` HEAD `3f2c214`

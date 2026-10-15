@@ -14,6 +14,13 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Art: record explicit user approval of Goku model sheet v02 and expressions v02; promote exact approved fixed references, preserving idle technical holds.
 
 - Art: User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
+- Art: completed scale-relay calibrated audits, held airHeavyAlt03, re-stitched Gojo light3 and saved the authorized final Naruto/Gojo source calls; all holds and user-feedback stop recorded, relay not rung.
+
+- Added: Luffy's approved art references (PR #93): title-style neutral + combat v01, model sheet v01, expressions v01 and idle v01, plus his CHARACTER, ANIMATIONS, MOVES_AND_VFX and PROMPTS briefs. He still plays on the baked placeholder until his core animations land.
+
+- Added: Claude-Codex relay (TOOL-041, ADR 0033): `npm run relay` queues the inbox prompt into a lane's Codex chat (`codex queue`), Codex rings a git-ignored doorbell that wakes Claude's background watcher, with a 4-round-trip limit per lane between user replies, a pause switch, and approvals never relayed; `npm run test:relay`. AGENTS.md, CLAUDE.md and AI_COLLABORATION.md say when to send, ring and stop.
+
+- Art: returned round-4 Naruto source repairs and win09 Astra HOLD plus Sasuke/Killua/Gojo calibration handoffs to Claude; preserved calibration files and documented source-recovery/failed-probe incidents. No candidate approval, merge or production deployment.
 
 - Complete calibrated Naruto 14-frame Astra audit, use one authorized win09 redraw, and request Claude recalibration; preserve source budgets and withhold preview while anatomy holds remain.
 
