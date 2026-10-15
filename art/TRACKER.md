@@ -604,7 +604,7 @@ neutral + combat reference beside the four approved cells (ADR 0029), then a pre
 
 ## luffy
 
-Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style reference, model sheet, expressions and idle v01 are user-approved. Core candidate inventory is in [REVIEW_ROWS.md](characters/luffy/REVIEW_ROWS.md): 22 requested strips generated (38 total image calls across original attempts and four targeted fixes). Four new strips passed the strict scale gate into the current partial atlas (dash v02, jumpFall v03, light2 v01, hurtHigh v01); 18 other current candidates are preserved in raw/_qa_hold/ with measured holds. Final Astra audit verdict is HOLD: dash v02 rear-foot clipping cleared; jumpFall v03 retains a 17px vertical head/hat rise over its 80ms loop, a motion-continuity concern. Light3 and beamFire v02 are exhausted at 3/3 and held for clipping; packed anatomy remains quantitatively uncertain. All core strips remain unapproved. Partial pack/build QA and exact atlas hashes are recorded locally.
 
 ## Adding a character
 
