@@ -599,14 +599,13 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 ## goku
 
 Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in
-[KIT.md](characters/goku/KIT.md). The user withdrew approval of title-style v01 on 2026-10-14 because its
-body excluding hair was about 20px shorter than Naruto. Title-style v02 (207±4px body, 234px including hair)
-and the six-cell lineup are now needs review; body-only scale ordering is above Naruto/Sasuke and below Gojo.
-Model-sheet v01 and expressions v01 are held because they derive from withdrawn title-style v01. Their versioned
-sources and fixed copies are preserved, but model_sheet.png and expressions.png are inactive, not approved
-anchors. Idle v01's earlier approval remains historical and must be independently revalidated against an approved
-title reference before further animation work. No new model sheet, expressions, idle or animation generated.
-Proposed character-local review rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
+  [KIT.md](characters/goku/KIT.md). The user withdrew title-style v01 and approved corrected title-style v02
+  on 2026-10-14. The fixed reference/title_style_draft.png copies v02 (207±4px body excluding hair; 234px
+  including hair); its lineup preserves the four exact approved cells at common density. Body-only ordering is
+  above Naruto/Sasuke and below Gojo within uncertainty. Model-sheet v01 and expressions v01 remain held because
+  they derive from withdrawn v01; their fixed copies remain inactive. New v02 model-sheet, expressions and idle
+  candidates are awaiting review. Idle v01 approval remains historical and is not used as a candidate input.
+  Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
 ## luffy
 
 Data PR `feature/char-goku-luffy` (ADR 0032): playable on the baked placeholder; moveset in
