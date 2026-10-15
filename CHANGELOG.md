@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Audit Killua calibrated idle11, guard09, superDash08 and win05 from exact atlas hashes: stance heights pass; explicit head target and upright win torso remain HOLD, with all16 per-frame bilateral measurements and uncertainty. No art approval or output changes.
+
 - ART-SCALE-R4-KIL: corrected the Killua gallery to foreground selected candidates, play exact diagnostic atlas frames beside approved references with pause/step controls, and expose Astra’s stagger loop-reset hold; art and approvals unchanged.
 
 - ART-SCALE-R4: Killua unapproved taller idle/guard and superDash/stagger/win redraws, per-frame native48 anatomy evidence and diagnostic review gallery; strict packing/calibration holds, shipped atlas unchanged.
