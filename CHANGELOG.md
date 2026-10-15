@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Naruto stagger v08 and taunt v10: one final authorized round-4 generation call each, explicitly targeting the approved neutral cell's upright collar-to-hem/head ratio (~1.3x) while preserving pose, head and footwear. Both are source-only candidates awaiting Claude calibration and Astra audit; no pack or approval.
+
 - Audit Naruto stagger v07 and taunt v09 in Claude-calibrated atlas 0725f44: six frames and loop wraps, full hashes and bilateral projected measurements; both remain anatomy HOLD with torso residual and explicit uncertainty. No art approval or production changes.
 
 - Naruto stagger v07 and taunt v09: one authorized round-4 source call each. Stagger retains its four-pose sway but the torso correction remains visually subtle and needs measurement. The task-local taunt output retains the requested pointing/callout poses; torso calibration and Astra measurement remain pending. An unrelated worker's four-frame kick output was quarantined after it was mistakenly copied to v08. Neither candidate was packed or certified. Win09 Astra audit recorded as strict-numeric HOLD, not a pass or approval.
