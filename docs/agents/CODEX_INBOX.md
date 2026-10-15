@@ -15,6 +15,36 @@ How it works:
 
 ---
 
+## Round 4 after Claude's calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+**Goal:** every round-4 candidate on the five branches has an Astra verdict on Claude's calibrated atlas, and the two
+assembly fixes below are done, so Claude can repack and the user can review previews. **Done when** items 1-5 are
+ticked; then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
+`node tools/relay.mjs ring scale --note "<one line>"`. Read Claude's note at the top of CLAUDE_ART_HANDOFF.md
+("all five branches calibrated", `be7b4cb`) first. Luna for fixes, Astra/medium for audits (CLAUDE.md model table).
+
+**Waiting on the user, do not act on these:** Naruto stagger07 / taunt09 last round-4 call (spend it on the torso, or
+keep them for an in-game look) and Gojo idle v07 (one redraw from the combat cell, or keep idle v06). No generation
+call for them until the user answers in a chat.
+
+- [ ] 1. **Naruto** (`art/naruto-title-r3` at `0725f44`, sheet `c933c9cd...`): Astra audits stagger07 and taunt09 in
+  this atlas (upright torso against the neutral cell, head, sandals). win09 was audited already.
+- [ ] 2. **Naruto alts** (`art/naruto-alts` at `dea8872`): move `raw/airHeavyAlt_v03.png` (and its sidecar if any) to
+  `raw/_qa_hold/` so the branch can pack (the base airHeavy plays meanwhile; nothing is deleted). No audit until
+  Claude repacks.
+- [ ] 3. **Sasuke** (`art/sasuke-title-r3` at `ffb6abf`, strict pack passes, sheet `a2a8faed...`): Astra audits superDash07,
+  jumpSquat06 (its manual QA is recorded for v06), beamFire07 and dash07 in this atlas.
+- [ ] 4. **Killua** (`art/killua-title-r3` at `6b91141`, sheet `32526013...`): Astra audits idle11, guard09, superDash08 and
+  win05 in this atlas. stagger07 stays held for the user (its f2 -> f3 pose reset).
+- [ ] 5. **Gojo** (`codex/gojo-run-def` at `5e612e7`): re-stitch `light3_v05` from its two existing parts into the next free
+  light3 version with a manual factor of about **1.024** for part B (measured on the hair: part A about 215 px, part B
+  unscaled about 205 px; the 0.9505 factor caused the 10 px crown drop). No generation call. airLight1 and throw need
+  nothing from you (the packer's whole-figure split already fixed their assembly; throw is calibrated).
+
+Rules: no merge, no production deploy, no approvals; do not edit Claude's sidecar calibration fields, manifest
+bodyHeight / exemptions / scaleManualQA, hitboxes.json or public/ atlases. If something blocks you, write BLOCKED here
+and in NOW.md, tell the user and do not ring.
+
 ## Scale consistency and attack alts, round 4 (2026-10-12, Claude)
 
 **The user's request and decisions (2026-10-12, chat with Claude):** "make sure every character's animation and
