@@ -15,6 +15,41 @@ How it works:
 
 ---
 
+## Luffy core animations (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**Goal:** Luffy's 22 remaining CORE strips exist as reviewed-ready candidates on one branch, so Claude can calibrate
+and contact-check them and the user can review one preview. **Done when** items 1-5 are ticked; then commit your
+handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, per-strip version, attempts used, scale-gate
+result, Astra verdict, preview link) and run `node tools/relay.mjs ring goku-luffy --note "<one line>"`.
+Luna/medium for everything, Astra/medium for the final audit (CLAUDE.md model table).
+
+Approved anchors (PR #93, merged): reference/title_style_draft.png, model_sheet.png, expressions.png and
+idle_approved.png (idle v01). Moveset and pose briefs: art/characters/luffy/KIT.md §2 and ANIMATIONS.md.
+
+**Waiting on the user, do not act on these:** Goku. His model_sheet_v02 and expressions_v02 need the user's review,
+and idle_v02 is on a scale hold with its 3 attempts used. No Goku generation call until the user answers in a chat.
+
+- [ ] 1. From the main checkout: `npm run pr -- start art/luffy-core --art luffy` (dev port 5242). Work only there.
+- [ ] 2. Generate the 22 CORE strips in art/manifest.json step order: run; light1-4, heavy, airLight1, airHeavy;
+  guard, hurtHigh, launched, down, getup; charge, beamCharge, beamFire, special; dash, jumpUp, jumpFall, land, win.
+  Each as the next free `raw/<anim>_vNN.png`, at most 3 attempts per strip (failed ones count), one scale per strip
+  (`npm run stitch` with a measured factor for parts). Luffy's drawn stretches (Pistol arm in `special`, the giant
+  Gear Third arm in `beamCharge` / `beamFire`) are part of the body; no effects in sprites.
+- [ ] 3. `node tools/pack-sprites.mjs luffy --quantize 48` until the strict scale gate passes (or record the measured
+  hold per strip; never weaken thresholds or exempt a strip to hide an anatomy failure). Then `npm run scale -- luffy`
+  and `npm run body luffy`.
+- [ ] 4. Astra/medium audits every frame and loop of the packed atlas against the approved neutral and combat cells
+  (head, torso, limbs, build, clothing volume, hat). Luna fixes holds within the attempt budget; Astra rechecks.
+- [ ] 5. Commit, `npm run pr -- open` and `npm run pr -- preview`. Put the new review rows in
+  art/characters/luffy/REVIEW_ROWS.md (status `needs review`) and the PR body.
+
+Rules: edit only art/characters/luffy/**, the luffy block of art/manifest.json and the "## luffy" section of
+art/TRACKER.md. Do not edit art/REVIEW.md, CHANGELOG.md, docs/TASKS.md, docs/NOW.md, src/, tools/, hitboxes outside
+luffy, other fighters or public/ atlases on main. No merge, no production deploy, no approvals. If something blocks
+you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
+
+---
+
 ## Round 4 after Claude's calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
 **Goal:** every round-4 candidate on the five branches has an Astra verdict on Claude's calibrated atlas, and the two
