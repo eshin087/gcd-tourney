@@ -1,5 +1,7 @@
 # Task board
 
+ART-IDLE-DECISION-GOJO | Codex | review | User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. files: art/manifest.json, art/TRACKER.md, art/REVIEW.md, art/characters/gojo/IDLE_APPROVAL_20261015.md, docs/TASKS.md, CHANGELOG.md.
+
 ART-IDLE-PHONE | Codex | review | Host exact Gojo idle08 and Goku idle02 sources for mobile feedback; no generation, packing or approval. files: public/reviews/idle-feedback/, docs/TASKS.md, CHANGELOG.md.
 
 ART-GOJO-ROUND4 | Codex | review | Frozen 47-frame diagnostic atlas and Astra per-frame H/T/A/L/S audit; all candidates HOLD, strict production dry-run exits 1, source recovery and airLight2 5/3 overrun disclosed. Gallery: public/reviews/gojo-round4/index.html; exact atlas hashes and QA: art/characters/gojo/production/round4/QA-FINAL.md. Build passed (82 modules); root owns preview/main; no approval or production changes. files: art/characters/gojo/production/round4/, art/characters/gojo/raw/, public/reviews/gojo-round4/, art/manifest.json, art/TRACKER.md, art/REVIEW.md, docs/TASKS.md, CHANGELOG.md.
