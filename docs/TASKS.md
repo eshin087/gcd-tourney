@@ -1,5 +1,7 @@
 # Task board
 
+ART-IDLE-DECISION-GOKU | Codex | review | User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. files: art/manifest.json, art/TRACKER.md, art/characters/goku/REVIEW_ROWS.md, art/characters/goku/IDLE_APPROVAL_20261015.md, docs/TASKS.md, CHANGELOG.md.
+
 OPS-008 | Codex | review | Matched model policy: future Codex agents use gpt-6-luna/medium; final anatomy/scale audits use gpt-6-astra/medium with exact-version evidence and user approval preserved. files: AGENTS.md, CLAUDE.md, docs/TASKS.md, CHANGELOG.md. Diff check passes; local-adapter production build transformed 82 modules but has not completed. docs/NOW.md remains claimed by Claude DOC-010. Next action: use updated instructions for future spawns; existing chats/worktree copies retain their current model/instructions until refreshed.
 
 ART-GOJO-TITLE-R2 | Codex | review | Full strict pack exit0; airLight3 v12 recommends review; best airHeavy v08 is HOLD f3 hair-volume caveat, v09 failed and archived. Run v12 glide and special v07 remain visual HOLD after named retry budgets. Existing PR72 worktree; no ART-TECH-01. files: art/characters/gojo/raw/, art/characters/gojo/production/title-style/round2/, art/scale/heads-gojo.png, art/scale/lineup-gojo-round2.*, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/characters/gojo/, public/reviews/gojo-round2/, CHANGELOG.md.
