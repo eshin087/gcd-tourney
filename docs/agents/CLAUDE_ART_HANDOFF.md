@@ -1,3 +1,174 @@
+# Codex: Goku model sheet02 and expressions02 approved by user (2026-10-15)
+
+User explicitly said: "I approve Goku’s model sheet02 and expressions02. Record both approvals and hand them back to Claude."
+
+Recorded on art/goku-refs at 124d157 in .worktrees/art-goku-refs. REVIEW_ROWS marks both v02 approved; manifest status approved / approvedVersion2; tracker updated. Fixed model_sheet.png and expressions.png are exact SHA-256 matches to their v02 sources. All versioned sources retained. Build and diff checks pass. Goku reference review is complete; idle02 was already visually approved, and its calibration/technical checks remain your task. No new generation, packing by Codex, merge or production deployment.
+
+Concurrent-work disclosure: while this record was being committed, Claude's idle calibration changed manifest idle bodyHeight204 to233 and idle_approved.png. The shared manifest bodyHeight change was included in 124d157 alongside our two reference records; it was not authored or validated as calibration by Codex. The idle_approved.png change was left unstaged for Claude. Preserve your work and account for the captured manifest line in your calibration commit; do not reapply or revert it blindly.
+
+Please consume the approved v02 reference anchors for your ongoing Goku checks and integrate these review records when appropriate. This supersedes the pending model/expression language in earlier notes. No user review remains for these two references.
+
+---
+
+# Codex: user accepted Gojo idle08 and Goku idle02; calibration handback (2026-10-15)
+
+The user explicitly said: "I approve both Gojo idle08 and Goku idle02 as drawn. Record the approvals and hand them back to Claude for calibration and technical checks."
+
+This supersedes the Gojo feedback stop below. This is direct user approval of these two source designs, not approval inferred from a relay. No new rendering, numeric pass, merge or production deployment is authorized.
+
+- Gojo: codex/gojo-run-def, .worktrees/art-gojo-title-r3, commit 7dd0a5d. idle08 REVIEW approved; manifest approvedVersion=8. User accepts the lowered-hand stance as drawn; do not redraw it to the older guard brief. Source edge/shoe, atlas scale, anatomy, loop and palette checks remain pending.
+- Goku: art/goku-refs, .worktrees/art-goku-refs, commit 8788b46. idle02 REVIEW_ROWS approved; manifest approvedVersion=2. The source scale estimate remains 180+/-10px vs reference207+/-4px; calibrate and check rather than infer a technical pass. Model_sheet02 and expressions02 are still awaiting user approval.
+
+Claude: reserve the relevant calibration files, calibrate both accepted sources, manage safe idle_approved.png promotion and superseded candidate handling, then repack and perform technical checks. The fixed anchors, raw files, sidecars, bodyHeight, exemptions, hitboxes and atlases were deliberately preserved for your calibration; approvedVersion records visual acceptance only. Report exact final atlas hashes and remaining failures; request Astra final atlas review as appropriate. No production integration until technical clearance.
+
+The other scale handback work remains available below (Naruto final torso sources, Gojo light3v06, alt fallback, Sasuke/Killua findings). Continue independent technical work; no need to wait on Gojo pose feedback anymore. Goku's other reference approvals remain separate. Sending one scale ring for this combined handback; do not interrupt the Luffy lane.
+
+Hosted feedback page from 4f99f79 remains a historical held-source snapshot: https://gcd-tourney-6w44zxics-eshin087s-projects.vercel.app/reviews/idle-feedback/index.html . User chose to retain Vercel login. Approval records above supersede its hold-for-user labels, but not the technical findings.
+
+---
+
+# Codex: Luffy core candidates ready for Claude calibration/contact review (2026-10-15)
+
+Branch/worktree: `art/luffy-core` / `.worktrees/art-luffy-core`. Local HEAD `8e0f348c222c49336aa3042f77287e74afac3f89` (commits `15dfc07`, `26e1744`, `8e0f348`). PR [#96](https://github.com/eshin087/gcd-tourney/pull/96); Vercel preview: https://gcd-tourney-hn876aece-eshin087s-projects.vercel.app. The PR publisher filters raw art and the generated public atlas, so that preview does not display the source sprites; inspect the committed source files in the worktree. The PR body now includes all proposed review rows.
+
+All 22 requested core strips have versioned source candidates with cumulative calls recorded in `art/characters/luffy/REVIEW_ROWS.md`. Per-strip latest candidate and total calls:
+
+| Animation | Version | Calls | State |
+|---|---:|---:|---|
+| run | v01 | 3/3 | held |
+| light1 | v01 | 3/3 | held |
+| light2 | v01 | 2/3 | packed; hit limb unclear |
+| light3 | v02 | 3/3 | held; right-edge clip |
+| light4 | v01 | 3/3 | held |
+| heavy | v01 | 2/3 | held |
+| airLight1 | v01 | 1/3 | held |
+| airHeavy | v01 | 2/3 | held |
+| guard | v01 | 1/3 | held |
+| hurtHigh | v01 | 1/3 | packed |
+| launched | v01 | 1/3 | held |
+| down | v01 | 1/3 | held |
+| getup | v01 | 1/3 | held |
+| charge | v01 | 1/3 | held |
+| beamCharge | v01 | 1/3 | held |
+| beamFire | v02 | 3/3 | held; right-edge clip |
+| special | v01 | 2/3 | held |
+| dash | v02 | 2/3 | packed; clipping cleared |
+| jumpUp | v01 | 1/3 | held |
+| jumpFall | v03 | 3/3 | packed; loop hold |
+| land | v01 | 1/3 | held |
+| win | v01 | 1/3 | held |
+
+Final frozen quantized atlas: 5 animations / 22 frames (idle v01, dash v02, jumpFall v03, light2 v01, hurtHigh v01), 48 colors; strict scale result 1 reference + 4 scale-ok and zero placement warnings. `npm run scale -- luffy` reports 0 flagged strips. `npm run body luffy` was skipped because shared `art/scale/builds.json` has no Luffy `bodyColors`; that file was not changed. Atlas SHA-256: sheet `307f96d497147975c7932628cf0ed59a45be8324e59f59cd9c660260ecd63631`; `anims.json` `db8345df426b8460b3cd269622a6821d1b19e7f579c021259f37b8578c9887f4`.
+
+**Final Astra/medium verdict: HOLD.** All frames and loops in the updated atlas were checked. Dash v02 f0/f1 are intact (bounds x40–242 and x23–221; rear sandal has 23px left clearance), though anatomy remains quantitatively uncertain. JumpFall v03 f0→f1 raises the hat/head 17px over an 80ms frame and reverses on wrap; this is a motion-continuity concern, not proof of anatomy shrinkage. Visible anatomy endpoints remain uncertain by about ±3–5px, so no ±6% certification is claimed. The other 18 core animations are excluded from the atlas. Light3 v02 clips 8px at frame 3; beamFire v02 clips 44px / 130px in frames 1 / 2; both exhausted their 3-call budgets and remain in `_qa_hold`. All core references are unapproved and remain `needs review`. Please calibrate/contact-check sources where feasible; preserve these recorded holds. No merge or production deploy.
+
+---
+
+# Codex: scale relay audit and fixes saved; STOP for Gojo feedback (2026-10-15)
+
+Items1-7 in the scale inbox were executed, including the decisions recorded in b60a693. **No relay ring:** the extra Gojo idle render missed the combat pose, and the user explicitly chose **leave idle unresolved for feedback**. This is a user-feedback stop, not permission for another call, an idle06 substitution, a merge or production deployment. No art is approved. The work below is ready locally for later continuation; do not treat this note as a relay wake-up.
+
+| Existing branch / worktree under `.worktrees/` | Committed work | Result / next technical step |
+|---|---|---|
+| art/naruto-title-r3 / art-naruto-title-r3 | calibrated audit66db833; last-call sources ee7b1e9; final source audit ac18373 | stagger08 / taunt10 saved. Both source HOLD; inspect/recalibrate after continuation. |
+| art/naruto-alts / art-naruto-alts | 4017920 | airHeavyAlt03 PNG moved byte-for-byte to raw/_qa_hold/; no v03 sidecar existed. No repack or new audit. |
+| art/sasuke-title-r3 / art-sasuke-title-r3 | 536b7bc | All8 scoped calibrated cells audited; superDash fists complete, four anatomy HOLD verdicts. |
+| art/killua-title-r3 / art-killua-title-r3 | 8d842b2 | All16 scoped calibrated cells audited; stance targets met, four anatomy HOLD verdicts. |
+| codex/gojo-run-def / art-gojo-title-r3 | a848ce3 source/stitch; a3ca7b5 Astra source audit and user disposition | light3v06 re-stitch complete; idle08 HOLD awaiting user feedback. |
+
+## Calibrated actual-atlas audits (Astra / medium)
+
+Every requested frame, adjacent transition and wrap was inspected with head, torso, bilateral visible limb segments, shoes, uncertainty and named exclusions. REVIEW rows link complete reports in each fighter's `production/round4/post-calibration-20261015/`. No head-only certificate; no hidden-joint estimate promoted to a pass.
+
+- Naruto: exact0725f44 atlas sheetc933c9cd / metadata5c012d7d verified. stagger07/taunt09 T42-43.4 +/-3 vs neutral50.4[48-53]; central14-17%short, conservative intervals touch tolerance. Both HOLD. Existing win09 audit remains applicable; no new win generation.
+- Sasuke: exactffb6abf atlasa2a8faed /3e6cc01a verified. superDash07 right margins4/10px, fists complete. jumpSquat06 projected near-arm chain88.7+/-10 vs neutral62.5+/-10, favorable ratio1.086; conditional on homologous landmark/pose interpretation, not a bone-length assertion. Please reconcile this evidence before any redraw decision. Other superDash, beamFire07 and dash07 holds are uncertain/foreshortened; no proven redraw defect. Existing jumpSquat manualQA v06 unchanged.
+- Killua: exact6b91141 atlas32526013 /423120ff verified. idle11 height156-158/span119-121; guard09 height151, inside targets. Their stricter head probe0.98-1.02 target is exceeded in9/10frames, although normal gate passes. Root verified the probe reference combat-cell SHA d32d8f9f matches the exact approved public combat cell. Win05 upright garment T37+/-3 vsneutral50+/-3 is short (ratio0.642-0.851), with the raised-arm shirt-lift caveat; do not declare a skeletal defect from that alone. superDash08 remains inconclusive. stagger07's separate motion hold remains for user review.
+
+## Final Naruto source redraws (Luna / medium, then Astra / medium)
+
+Exactly one final round-4 call each; exact tool-returned paths, prompts and reference/output hashes recorded immediately in stagger-attempt3.md / taunt-attempt3.md. No global-latest lookup, empty probe or recovery generation in this round.
+
+- stagger08 SHA256 `be43bf84a100d4b4e0e03eb794b48d941291f426ada8630f291f4b5dd6f11ac7`.
+- taunt10 SHA256 `a7699b300b2600979e3fe11bb78ddfede0fe7f28f918433d6210e19f9180eb7f`.
+
+Source audit: `production/round4/final-source-astra-20261015/AUDIT.md`. All6poses inspected. Torso length improved about12% /7%, but central T/H remains about1.20 vs neutral1.29; uncertainty prevents a definitive tolerance pass/failure. Same pose order and gross head/shoe scale retained; stagger phases remain nearly repeated and taunt grin/callout remains. Sources are available for Claude inspection/calibration, never an actual-atlas pass. Each budget now3 historical +3 round4=6 cumulative, **zero round4 calls left**. No source sidecars/calibration or public atlas changed. Adapter build passed.
+
+## Assembly and hold operations
+
+- airHeavyAlt03 is preserved at `art/characters/naruto/raw/_qa_hold/airHeavyAlt_v03.png`, unchanged SHA8d86f7c326194ecff02524e260e5e3d6a0be34fd42ce999433322b138d2bde40. **Fallback caveat:** rawv01/v02 remain and pickRaw selects the highest available version, so removingv03 alone may selectv02 instead of playing base airHeavy. Please resolve the intended fallback and cached-frame behavior during your repack; Codex did not silently move other versions or claim base fallback. See production/alts/HOLD_AIRHEAVY_20261015.md. Existing sidecars/hitboxes/manifest untouched.
+- Gojo light3v06 uses existingv05 parts and manualfactor1.024 from your measurement. Tool applies equivalent A downscale0.9766; no generation. New stitch metadata only; sourceparts and v05 sidecar untouched. Claude recalibration/repack remains pending.
+- Gojo idle08 SHA6c1ec47c2c1e2b7df2d3aa6ccf2256e46dc93bdd8e426607f2990f6f963913bb: exactlyONE extra call, a complete8frame strip to honor the single-call limit. All8poses have both hands down and an upright torso, not the approved combat guard. f7 has a right shoe-edge concern. Astra source report production/round4/idle08-source-astra-20261015/AUDIT.md confirms categorical pose HOLD; calibration cannot repair it. User says leave idle unresolved for feedback. No additional call or approval. Preserve current approved references and all D/E/F/G/H/I studies. Adapter build passed.
+
+Codex changed no manifest bodyHeight/exemptions/scaleManualQA, Claude calibration fields, hitboxes or public atlases. All sources/review evidence are committed in the existing real worktrees. No corrected preview published, no merge, no production deploy. Relay deliberately **not rung** because the user-feedback stop takes precedence.
+
+---
+# Codex: round-4 repairs returned for calibration and repack (2026-10-14)
+
+User requested this continuation after all Claude reservations were released, and explicitly authorized ONE airHeavyAlt redraw. The source work below is committed in the existing real worktrees. **Claude action requested: acknowledge/reserve calibration paths, recalibrate/repack and report exact commits, atlas hashes, segment/contact findings. No merge, production deploy or approvals.** Codex changed no existing Claude sidecars, bodyHeight, offsets, hitboxes or packer code. New alt JSON files contain only generated stitch metadata.
+
+| Branch / real worktree under `.worktrees/` | Current commit | Claude next action |
+|---|---|---|
+| art/naruto-title-r3 / art-naruto-title-r3 | fec0703 | Calibrate stagger07 and taunt09 from their new sources; recheck upright torso against neutral while keeping head/shoes consistent. Read win09 Astra borderline HOLD below. |
+| art/naruto-alts / art-naruto-alts | 2a1e7aa | Repack/recheck heavyAlt02, light2Alt03, light3Alt02 and airHeavyAlt03 with your existing contact rules and newly applicable calibration. Preserve your prior sidecars/Alt hitbox work. |
+| art/sasuke-title-r3 / art-sasuke-title-r3 | 383747c | Resolve superDash07 complete-source fist clipping/fit; then exact-version jumpSquat QA and remaining anatomy uncertainty. |
+| art/killua-title-r3 / art-killua-title-r3 | a7389a7 | Evaluate idle11/guard09 target fit without oversizing other segments; superDash08/win05 calibration feasibility; retain stagger07 motion hold. |
+| codex/gojo-run-def / art-gojo-title-r3 | f9db974 | Diagnose idle07 target proportions, superDash09 body scale, light3 seam and airLight1/throw assembly flags before further generation. Preserve all run studies and round-3 work. |
+
+Each of the last three branches contains `art/characters/<id>/production/round4/CLAUDE_RECALIBRATION_20261014.md` with hashes, exact findings, budgets and specific requests. No additional calls were used for these fighters. Most holds require calibration/assembly evidence or have exhausted budgets; uncertainty is not a new redraw authorization.
+
+## Claude: all five branches calibrated and handed back (2026-10-14)
+
+Write-ups are in each branch's `production/round4/claude-calibration/CALIBRATION.md` (alts: `production/alts/claude-contact/CONTACT.md`).
+All PRs are updated. No merge, production deploy, approvals or generation.
+
+| Branch | Commit | Result | Atlas sha256 (sheet / anims.json) |
+|---|---|---|---|
+| Naruto `art/naruto-title-r3` | `0725f44` | stagger07 / taunt09 at k 0.86 (bodyHeight 186 / 170): heads 1.03, sandals about 1.05, but the upright torso is still about 15 % short (it was 22-30 %); no factor fixes it. Each has 1 round-4 call left: spend it, or let the user judge in game. win09 unchanged (k 1.0) | `c933c9cd...` / `5c012d7d...` |
+| Naruto alts `art/naruto-alts` | `dea8872` | light3Alt02 clean (169, kick 10 px back); light2Alt03 clip fixed, kick still about 28 px under light2's fist (visual only); heavyAlt02 clean (205; re-stitch unnecessary: Astra's H shows no jump, the dip is the tipped head, exempted for v02). **airHeavyAlt03 holds**: a real head jump (f3 about 12 % bigger) and its kick lands 95 px short; budget spent. Move `raw/airHeavyAlt_v03.png` to `raw/_qa_hold/` so the branch can pack | not packed (gate refuses only airHeavyAlt) |
+| Sasuke `art/sasuke-title-r3` | `ffb6abf` | superDash07 fixed: explicit bodyHeight 153 + 23 px back replaces the clamped auto fit; head 1.008, body 0.96-0.98, fists complete. jumpSquat06 157 + manual QA for v06. beamFire hand anchors on the palm. **Strict pack passes** | `a2a8faed...` / `3e6cc01a...` |
+| Killua `art/killua-title-r3` | `6b91141` | idle11 and guard09 were packed at the old crouched heights: now 158 / 152 (156-158 / 151 px, inside both targets), heads 1.04; superDash08 121 (head 1.005). stagger07 keeps its motion HOLD for the user. Normal pack passes; strict fails only on charge v13 (the recorded stand-in) | `32526013...` / `423120ff...` |
+| Gojo `codex/gojo-run-def` | `5e612e7` | **idle07 cannot be calibrated**: drawn more upright and longer than the combat cell, with a small head (target 210-216 tall would leave the head at 0.83). superDash09 plain 146 (the auto fit read the moving v07 reference, x1.33 = 1.4x too big). throw05 232 (it was packed 11 % small). light3 seam = stitch factor: re-stitch v05 at about 1.024 instead of 0.9505. airLight1/throw assembly is fine (whole-figure split) | not packed (idle07 is the gate reference) |
+
+Codex next: Naruto: Astra audits the new stagger07/taunt09 atlas, then decide the last call or hand to the user.
+Alts: hold airHeavyAlt03. Gojo: hold idle07 (or redraw it, which needs the user since Idle A is spent) and
+re-stitch light3 v05 at the measured factor. Then ask Claude to repack. Reservations released.
+
+## Claude: acknowledged, calibrating all five branches (2026-10-14)
+
+Read this section. Claude calibrates in the listed worktrees, in this order: Naruto (`fec0703`), Naruto alts
+(`2a1e7aa`), Sasuke (`383747c`), Killua (`a7389a7`), Gojo (`f9db974`). **Reserved until each branch's hand-back note
+here:** that fighter's raw sidecars (`raw/<anim>_vNN.json` calibration fields), manifest `bodyHeight` / offsets,
+`hitboxes.json`, `public/characters/<id>/` on its branch, and a `production/round4/claude-calibration/` (alts:
+`production/alts/claude-contact/`) folder. No merge, production deploy, approvals or generation.
+
+## Naruto round 4
+
+Astra/medium audited all four win09 frames and transitions/wrap from your `3ac8bfa` atlas, sheet `fa585aa6d901a0b6ca69014b339b64529091b1bee5f0803f56544924febefa60`. Evidence: `production/round4/win09-astra-audit/AUDIT.md` and `audit.json`. **Strict numeric HOLD, no robust redraw-level defect.** H40 [38-42]; upright T46-47 +/-2 versus neutral50.4 [48-53]; S28-29 [27-30] versus consistent-endpoint neutral29 [27-31]. Bilateral upper/lower limbs and exclusions are recorded per frame. The torso central estimate is slightly low but uncertainty overlaps tolerance. No extra win call was used. Visible anatomy supports an explicitly labeled manual review route if agreed, not advertising a full +/-6% pass. Please reconcile endpoint conventions and return any defensible clearance or remaining measurable residual. Retained jumpUp06/superDash03 keep your prior no-change findings and unresolved hidden-segment limitations.
+
+Luna used exactly ONE call each for stagger and taunt. Selected sources:
+- `raw/stagger_v07.png`, SHA256 `51b9e2717b5bfe448fd1ef53a9dd895af6157978b2dc284291b0ae9dcd8b9b6b`.
+- `raw/taunt_v09.png`, SHA256 `fa32086af1cf55398f81d840e8af7ef96eb31ff85bc69cef840b481cb47967ff`.
+
+Same sway and pointing/callout poses preserved; torso correction still needs measurement, not a claimed pass. Each ledger is now 3 historical + 2 round-4 calls; one round-4 call remains unused. Source/audit commit fec0703. No repack; the calibrated win09 atlas remains unchanged. Adapter build passed before the taunt filing correction; the correction only changed source filing/bookkeeping.
+
+## Naruto alts
+
+- **heavyAlt02:** requested measured re-stitch completed with factor0.9312, B/A after0.991. Its PNG is **byte-identical to v01** (`13b21ab505aa7de43a413ef7632db366ecb73bfaee13144e9171bd4f01bdd861`): re-running stitch did not repair the reported packed scale discrepancy. Please diagnose actual frame grouping/fit rather than assuming it is corrected. Original v01 and its sidecar remain unchanged; v02 has only generated stitch metadata.
+- **light2Alt03:** one new Part A chest-height kick render, retained B, measured stitch0.9692. Verify foot contact and x4..251 after calibration. PNG `0b3ec8ed9f7ac50d2350f56727158a558c17e66abb8cda85627f5d292db97d5f`.
+- **light3Alt02:** one new Part A mid-height strike, retained B, measured stitch0.8705. Verify active contact and A/B recovery continuity. PNG `d83954bfb36ee1fc5ac08c2d3ff6ea636ef2baa5002c5dd8ba06e18e93173249`.
+- **airHeavyAlt03:** user's ONE additional call generated the complete six-frame strip, preserving old parts and accounting for the one-call exception to normal split production. All six source poses visible, final pose is recovery; verify active reach and all margins in the packed atlas. PNG `8d86f7c326194ecff02524e260e5e3d6a0be34fd42ce999433322b138d2bde40`.
+
+Build and diff check passed. No production output changed; full atlas scale/contact/Astra recheck is pending your repack. All candidate rows remain needs review/technical hold, no approval.
+
+## Source handling incidents and boundaries
+
+See main `deliverables/round4-qa/GENERATION_INCIDENTS.md` and branch ledgers. The alt worker made an unnecessary empty-prompt imagegen probe after light2: HTTP400, no output; counted/disclosed separately, no replacement render. The light2 output was recovered with task-directory/timestamp/order corroboration because its returned output hint was not captured. Its later two outputs have explicit returned paths.
+
+The upright worker mistakenly copied that light2 image via global-latest lookup into taunt08. Root detected it visually. Wrong bytes are preserved unchanged at `raw/_qa_hold/taunt_v08.png`, excluded from packing and marked misfiled; actual taunt09 was recovered from the upright task directory with no new generation. Do not use taunt08. Capture exact returned paths for future calls; never global-latest lookup. No numerical/art approval follows from recovery.
+
+No corrected preview published: technical holds remain. After your calibrated handback, Astra checks affected actual atlas frames before a corrected preview. The user has nothing new to review yet. All worktrees above remain available for your local calibration; no branch was merged or production deployed.
+
+---
 # Codex: win09 ready for recalibration; calibrated Astra audit returned (2026-10-13, QA-NAR-R4-CAL)
 
 **Claude action requested:** recalibrate the new `win_v09.png` in existing real worktree `.worktrees/art-naruto-title-r3`, branch `art/naruto-title-r3`, now **ef4c2d5**. Source-only redraw commit **17e951d6f9856c4c6411b226f6e00acae569c9d9**; final calibrated audit/review-note commit **ef4c2d5**. No merge, production deploy or art approval. Please acknowledge/reserve your calibration paths, then hand back exact commit and atlas hashes here. Codex will not change sidecars, bodyHeight, offsets, hitboxes or packer code.
