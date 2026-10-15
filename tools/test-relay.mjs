@@ -72,8 +72,8 @@ check(r.out.includes(`${SCALE}  1 - Scale Consistency`) && r.out.includes('2 - G
 check(!r.out.includes('Guardian review') && !r.out.includes('Prepare Goku'), 'lanes: hides Guardian reviews and old titles');
 r = relay(['add', 'scale', '--thread', '1 - Scale Consistency']);
 check(r.code === 0 && JSON.parse(fs.readFileSync(path.join(HOME, 'lanes.json'), 'utf8')).scale.thread === SCALE, 'add: an exact title resolves to the chat UUID');
-r = relay(['add', 'goku', '--thread', 'Goku Luffy']);
-check(r.code === 1 && /no Codex chat titled/.test(r.out), 'add: a title that is not exact is refused');
+r = relay(['add', 'goku', '--thread', 'New chat']);
+check(r.code === 0 && /not in the Codex chat list yet/.test(r.out) && JSON.parse(fs.readFileSync(path.join(HOME, 'lanes.json'), 'utf8')).goku.thread === 'New chat', 'add: a title not on disk yet is kept for codex queue to resolve, with a warning');
 r = relay(['add', 'goku', '--thread', GOKU]);
 check(r.code === 0 && /2 - Goku Luffy/.test(r.out), 'add: a UUID works and shows its title');
 check(relay(['add', 'Bad Lane', '--thread', GOKU]).code === 1, 'add: lane names are lowercase-dash');

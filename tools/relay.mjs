@@ -89,16 +89,31 @@ function noteArg() {
   return note.trim();
 }
 
-// Recent Codex chats by their latest title (the app appends a line per rename), newest first.
-function codexChats() {
-  const file = path.join(CODEX_HOME, 'session_index.jsonl');
-  if (!fs.existsSync(file)) return [];
+// Recent Codex chats by their latest title, newest first: the app's thread table (state_5.sqlite, read-only through
+// node:sqlite where this Node has it), else session_index.jsonl (the app appends a line per rename, but not always).
+async function codexChats() {
   const byId = new Map();
-  for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+  const file = path.join(CODEX_HOME, 'session_index.jsonl');
+  if (fs.existsSync(file)) {
+    for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+      try {
+        const o = JSON.parse(line);
+        if (o.id) byId.set(o.id, { id: o.id, title: o.thread_name ?? '', updated: o.updated_at ?? '' });
+      } catch { /* a torn last line while the app writes */ }
+    }
+  }
+  const db = path.join(CODEX_HOME, 'state_5.sqlite');
+  if (fs.existsSync(db)) {
+    const emit = process.emitWarning;
     try {
-      const o = JSON.parse(line);
-      if (o.id) byId.set(o.id, { id: o.id, title: o.thread_name ?? '', updated: o.updated_at ?? '' });
-    } catch { /* a torn last line while the app writes */ }
+      process.emitWarning = () => {}; // node:sqlite is experimental on Node 22; its warning is noise here
+      const { DatabaseSync } = await import('node:sqlite');
+      const con = new DatabaseSync(db, { readOnly: true });
+      const rows = con.prepare(`select id, name, updated_at_ms from threads
+        where archived = 0 and name is not null and source not like '%subagent%'`).all();
+      for (const r of rows) byId.set(r.id, { id: r.id, title: r.name, updated: new Date(Number(r.updated_at_ms)).toISOString() });
+      con.close();
+    } catch { /* an older Node or another schema: the index above is enough */ } finally { process.emitWarning = emit; }
   }
   return [...byId.values()].filter((c) => c.title && c.title !== 'Guardian review')
     .sort((a, b) => b.updated.localeCompare(a.updated));
@@ -122,25 +137,26 @@ function runCodex(args) {
   return execFileSync(file, argv, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 60_000 });
 }
 
-function cmdLanes() {
+async function cmdLanes() {
   const configured = lanes();
   console.log('Lanes (.relay/lanes.json):');
   if (!Object.keys(configured).length) console.log('  none yet: npm run relay -- add <lane> --thread <Codex chat UUID or exact title>');
   for (const [lane, l] of Object.entries(configured)) console.log(`  ${lane.padEnd(16)} ${l.thread}  ${l.title ?? ''}`);
   console.log('\nRecent Codex chats:');
-  for (const c of codexChats().slice(0, 12)) console.log(`  ${c.id}  ${c.title}  (${c.updated.slice(0, 16).replace('T', ' ')})`);
+  for (const c of (await codexChats()).slice(0, 12)) console.log(`  ${c.id}  ${c.title}  (${c.updated.slice(0, 16).replace('T', ' ')})`);
 }
 
-function cmdAdd() {
+async function cmdAdd() {
   const lane = laneArg();
   const want = opt('--thread');
   if (!want) die('usage: relay add <lane> --thread <Codex chat UUID or exact title>');
-  const chats = codexChats();
+  const chats = await codexChats();
   const chat = UUID_RE.test(want) ? chats.find((c) => c.id === want) : chats.find((c) => c.title === want);
-  if (!chat && !UUID_RE.test(want)) die(`no Codex chat titled "${want}" (npm run relay -- lanes lists them)`);
+  // A chat made minutes ago may not be on disk yet; `codex queue` resolves an exact title itself.
+  if (!chat) console.warn(`[relay] "${want}" is not in the Codex chat list yet; codex queue will look it up by exact ${UUID_RE.test(want) ? 'id' : 'title'}`);
   const all = lanes();
-  // Keep the UUID: titles change, and `codex queue` takes either.
-  all[lane] = { thread: chat?.id ?? want, title: chat?.title ?? '' };
+  // Keep the UUID when known: titles change, and `codex queue` takes either.
+  all[lane] = { thread: chat?.id ?? want, title: chat?.title ?? (UUID_RE.test(want) ? '' : want) };
   writeJson(path.join(HOME, 'lanes.json'), all);
   console.log(`[relay] lane ${lane} -> ${all[lane].thread} ${all[lane].title}`);
 }
