@@ -155,3 +155,20 @@ Contact: stagger hurt box top 1.38/1.38/1.39/1.39 units (idle 1.20); taunt and w
 
 Atlas: sheet sha256 `c933c9cd9080e278e372d19e574c39ee3142b8d9a51ba0420385c6fa52a45e5f`, anims.json sha256
 `5c012d7d7554589b6ea807c32fc6a87cf17259389e76d737ea62b2fd80d04930` (`--quantize 48`, normal gate passes).
+
+# Round 4 (2026-10-15): the final redraws stagger08 and taunt10
+
+Each strip's last round-4 call (Codex `ee7b1e9`, the user's decision); calibrated on this branch at `ac18373`.
+
+| strip | at default (216 / 198) | factor, bodyHeight | packed head | upright torso vs neutral 50.4 |
+|---|---|---|---|---|
+| stagger08 | head 1.225, front sandal 25 vs 20 (about 1.25), collar-to-hem about 59-61 px | **0.83, 179** | 1.009 (0.999-1.016) | about 49-50 px = **0.97: fixed** |
+| taunt10 | head 1.209, front sandal 21 vs 20, collar-to-hem about 46-50 px | **0.86, 170** | 1.044 (1.035-1.053) | about 40-43 px = **0.80-0.85: still short** |
+
+stagger's torso residual is gone: the last redraw drew it at the standing proportion. taunt10 improved (v09 was about
+0.81 of the neutral at the same head) but is still about 15-18 % short; no factor reaches 0.94 without pushing the head
+past the 1.06 gate, and taunt has no round-4 call left, so the user judges it in game (taunt is not a combat state).
+Evidence: `round4-torso-at-default-3x.png` (ruler every 5 px). Stagger hurt box top 1.33/1.34/1.34/1.34 units (idle 1.20).
+
+Atlas: sheet sha256 `715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241`, anims.json sha256
+`de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2` (`--quantize 48`, normal gate passes).
