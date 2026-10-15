@@ -4,7 +4,7 @@ Canonical names, counts, phases, timing, and required flags remain those reserve
 
 ## Reference gate
 
-The current v01 candidate contains only the required neutral and combat reference poses. They are shown beside the four exact approved neutral cells in `reference/title_style_lineup_v01.png`. This reference is not approved yet. Do not generate an idle or any other strip until the user approves this reference lineup.
+The title-style reference v01 is approved by the user. It contains neutral and combat poses shown beside the four exact approved neutral cells in `reference/title_style_lineup_v01.png`. Model sheet, expressions, and idle v01 are now separate candidates awaiting review; their approval does not follow from the title-style reference approval.
 
 ## Shared combat language
 

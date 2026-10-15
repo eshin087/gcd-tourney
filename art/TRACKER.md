@@ -599,9 +599,9 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 ## goku
 
 Data PR `feature/char-goku-luffy` (ADR 0032): playable on the baked placeholder; moveset in
-[KIT.md](characters/goku/KIT.md). Title-style neutral/combat reference v01 is saved and awaiting user review;
-lineup: [candidate comparison](characters/goku/reference/title_style_lineup_v01.png). No model sheet, expressions, idle,
-or animations generated. Proposed shared review row: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
+[KIT.md](characters/goku/KIT.md). Title-style neutral/combat reference v01 approved by user on 2026-10-14.
+Model sheet v01, expressions v01, and idle v01 are candidates awaiting the next user review. No other
+animations or UI generated. Proposed shared rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
 
 ## luffy
 

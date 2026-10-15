@@ -40,7 +40,7 @@ Adult, lean and powerfully athletic, with golden Super Saiyan hair in distinct u
 
 ## Proportions and silhouette
 
-- Era and stature: Cell saga Super Saiyan adult. Canon stature is about 175 cm in the cited character profile; secondary reference provenance, medium confidence, approximately ±2 cm.
+- Era and stature: Cell saga Super Saiyan adult. The approved Goku KIT.md design brief records about 175 cm; it supplies no underlying canon citation or uncertainty interval. Treat era/adult status as the approved design direction and exact stature as unverified context, not a scale input.
 - Shared scale: compare native 256px neutral and combat cells against the four approved title-style cells. The pilot is a visual relationship, not a formally calibrated pixels/cm scale. Hair crown, boot sole, and pose landmarks are uncertain until measured from the candidate; do not infer body height from hair-inclusive bounds.
 - Anatomy: record skull, chin, shoulder, hip, knee and ankle landmarks from the proposed neutral after generation; no numeric pass before direct measurement. Hair mass is separate from skull size.
 - Build: adult athletic build with defined shoulders, compact waist and muscular limbs; preserve torso and limb lengths independently of clothing width.
@@ -65,10 +65,10 @@ Adult, lean and powerfully athletic, with golden Super Saiyan hair in distinct u
 
 | file | content | candidates | from |
 |---|---|---|---|
-| `reference/title_style_draft.png` | title-style neutral and combat reference beside approved cast; awaiting user approval | `reference/title_style_draft_vNN.png` | ADR 0029 lineup |
-| `reference/model_sheet.png` | approved turnaround and stance | `reference/model_sheet_vNN.png` | PROMPTS.md |
-| `reference/expressions.png` | approved expression sheet | `reference/expressions_vNN.png` | PROMPTS.md |
-| `reference/idle_approved.png` | approved idle | `raw/idle_vNN.png` | after reference and model approvals |
+| `reference/title_style_draft.png` | approved title-style neutral and combat reference beside approved cast (user approved v01 2026-10-14) | `reference/title_style_draft_vNN.png` | ADR 0029 lineup |
+| `reference/model_sheet.png` | future approved turnaround and stance | `reference/model_sheet_vNN.png` | PROMPTS.md; v01 candidate awaiting review |
+| `reference/expressions.png` | future approved expression sheet | `reference/expressions_vNN.png` | PROMPTS.md; v01 candidate awaiting review |
+| `reference/idle_approved.png` | future approved idle | `raw/idle_vNN.png` | v01 candidate awaiting review; do not copy before approval |
 
 ## Don'ts for this character
 
