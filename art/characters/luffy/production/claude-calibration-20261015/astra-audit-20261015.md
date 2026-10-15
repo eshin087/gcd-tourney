@@ -1,3 +1,5 @@
+> Native evidence follow-up: [version-bound 256px comparisons and measured segments](../native-audit-20261015/AUDIT.md) now supersede the stale/downsampled limitations below where stated. Current light3 v02, light4 v02 and win v02 have native diagnostic findings; production pack and approvals remain unchanged.
+
 # Luffy core calibration Astra review (2026-10-15)
 
 Scope: inbox item 5 requested manual scale/anatomy checks for 13 strips, plus review of light4 v02 and win v02. No files, manifest entries, pack, PR or approval were changed by the auditor.
