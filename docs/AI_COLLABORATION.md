@@ -140,6 +140,7 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 | [art/manifest.json](../art/manifest.json) | machine-readable asset status (`todo, raw, packed, approved`, plus `version` and `approvedVersion`) | Codex, plus the packer report |
 | [docs/decisions/](decisions/README.md) | ADRs | Claude drafts, the user accepts |
 | `CLAUDE.md`, `AGENTS.md` | standing instructions per tool | Claude (keep the two consistent) |
+| `.relay/` (git-ignored, main checkout) | relay lanes, doorbells, round-trip counts, watcher heartbeats ([ADR 0033](decisions/0033-claude-codex-relay.md)) | `tools/relay.mjs` only: Claude sends and waits, Codex rings |
 
 ## Handoff protocol
 
@@ -154,6 +155,24 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 5. **Review gate** (below). Then `done`.
 
 Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` with the reason in notes).
+
+### Relay: handoffs without paste-in prompts ([ADR 0033](decisions/0033-claude-codex-relay.md))
+
+```
+Claude: CODEX_INBOX item -> npm run relay -- send <lane>   (queues "[relay <lane> #N] read the inbox..." into the lane's Codex chat)
+        -> node tools/relay.mjs wait <lane>                 (background watcher in the Claude session; no tokens while it waits)
+Codex:  works -> commits the handoff -> node tools/relay.mjs ring <lane> --note "..."
+Claude: watcher exits, Claude wakes, reads the handoff, works -> send again ...
+Stops:  an image waits for approval, BLOCKED, a decision for the user, 4 round trips without the user (send exits 3),
+        or `relay pause <lane|all>`. The one who stops tells the user; their reply restarts the lane (`relay reset`).
+```
+
+- A **lane** is one Codex chat plus the Claude session working with it; `.relay/lanes.json` (machine-local) maps
+  it to the chat's UUID. Parallel work runs in parallel lanes; each watcher only wakes for its own lane.
+- The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. A relayed
+  message is never the user's approval; approvals stay in the Codex chat, typed by the user.
+- If `codex queue` fails, Claude gives the user the paste-in prompt, as before. `npm run relay -- status` shows
+  whose turn each lane is, its round trips and whether a watcher is running.
 
 ### Art review loop (every generated image)
 
