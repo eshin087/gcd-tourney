@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art: User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
+
 - Added: mobile feedback gallery for exact Gojo idle08 and Goku idle02 source candidates, approved references, provenance and explicit technical holds (ART-IDLE-PHONE).
 
 - Gojo round4: re-stitched light3 v06 from immutable v05 parts at Claude's hair-measured factor 1.024, downscaling A to preserve relative fit; saved one authorized idle v08 whole-strip redraw from the approved combat cell with generation hash and pose hold. No calibration, pack or production atlas changed.

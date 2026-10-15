@@ -266,6 +266,8 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 
 ## gojo
 
+**2026-10-15 idle decision:** User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
+
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips); `approved` = the exact version that played. light4 v08 is Claude's re-stitch of the approved v06 parts (review pending). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see the holds per row and docs/NOW.md.
 
 **Round4 candidate checkpoint (2026-10-13):** jumpFall v06, airRecover v05, throw v05, airLight1 v07, airLight2 v05 and light3 v05 are saved for review; all remain `needs review` and QA HOLD. Prior approvedVersion values are unchanged. Full strict pack exits 1; see [round4 QA](characters/gojo/production/round4/QA-FINAL.md) and [review gallery](../public/reviews/gojo-round4/index.html). AirLight2 source-call overrun (5/3) and recovery are disclosed; no production calibration or atlas changed.
@@ -285,7 +287,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 3 | idle | 8 | - | **yes** | 236 | approved | v08 | v06 | v08 is the one-call redraw from the approved combat cell; needs review and has a pose hold (upright torso/hands down differ from combat). v06 remains the approved version. |
+| 3 | idle | 8 | - | **yes** | 236 | approved | v08 | v08 | v08 is the one-call redraw from the approved combat cell; needs review and has a pose hold (upright torso/hands down differ from combat). v06 remains the approved version. | User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
 | 4 | run | 8 | - | **yes** | 222 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. The hover-glide is the user-chosen direction (2026-10-12). |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |

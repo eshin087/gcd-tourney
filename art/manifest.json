@@ -309,7 +309,7 @@
           "step": 3,
           "status": "approved",
           "version": 8,
-          "approvedVersion": 6
+          "approvedVersion": 8
         },
         "run": {
           "frames": 8,
