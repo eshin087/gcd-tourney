@@ -66,26 +66,29 @@ ticked; then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
   (`public/art-review/title-style-pilot/gojo-combat_v01.png`: about 213 px tall, wide stance, the same head size as
   idle v06). If it still misses, stop and report; no further calls.
 
-- [ ] 1. **Naruto** (`art/naruto-title-r3` at `0725f44`, sheet `c933c9cd...`): Astra audits stagger07 and taunt09 in
+- [x] 1. **Naruto** (`art/naruto-title-r3` at `0725f44`, sheet `c933c9cd...`): Astra audits stagger07 and taunt09 in
   this atlas (upright torso against the neutral cell, head, sandals). win09 was audited already.
-- [ ] 2. **Naruto alts** (`art/naruto-alts` at `dea8872`): move `raw/airHeavyAlt_v03.png` (and its sidecar if any) to
+- [x] 2. **Naruto alts** (`art/naruto-alts` at `dea8872`): move `raw/airHeavyAlt_v03.png` (and its sidecar if any) to
   `raw/_qa_hold/` so the branch can pack (the base airHeavy plays meanwhile; nothing is deleted). No audit until
   Claude repacks.
-- [ ] 3. **Sasuke** (`art/sasuke-title-r3` at `ffb6abf`, strict pack passes, sheet `a2a8faed...`): Astra audits superDash07,
+- [x] 3. **Sasuke** (`art/sasuke-title-r3` at `ffb6abf`, strict pack passes, sheet `a2a8faed...`): Astra audits superDash07,
   jumpSquat06 (its manual QA is recorded for v06), beamFire07 and dash07 in this atlas.
-- [ ] 4. **Killua** (`art/killua-title-r3` at `6b91141`, sheet `32526013...`): Astra audits idle11, guard09, superDash08 and
+- [x] 4. **Killua** (`art/killua-title-r3` at `6b91141`, sheet `32526013...`): Astra audits idle11, guard09, superDash08 and
   win05 in this atlas. stagger07 stays held for the user (its f2 -> f3 pose reset).
-- [ ] 5. **Gojo** (`codex/gojo-run-def` at `5e612e7`): re-stitch `light3_v05` from its two existing parts into the next free
+- [x] 5. **Gojo** (`codex/gojo-run-def` at `5e612e7`): re-stitch `light3_v05` from its two existing parts into the next free
   light3 version with a manual factor of about **1.024** for part B (measured on the hair: part A about 215 px, part B
   unscaled about 205 px; the 0.9505 factor caused the 10 px crown drop). No generation call. airLight1 and throw need
   nothing from you (the packer's whole-figure split already fixed their assembly; throw is calibrated).
 
-- [ ] 6. **Naruto redraws** (above): stagger and taunt, one call each, then Astra.
-- [ ] 7. **Gojo idle redraw** (above): one call from the combat cell.
+- [x] 6. **Naruto redraws** (above): stagger and taunt, one call each, then Astra.
+- [x] 7. **Gojo idle redraw** (above): one call from the combat cell.
 Rules: no merge, no production deploy, no approvals; do not edit Claude's sidecar calibration fields, manifest
 bodyHeight / exemptions / scaleManualQA, hitboxes.json or public/ atlases. If something blocks you, write BLOCKED here
 and in NOW.md, tell the user and do not ring.
 
+**2026-10-15 Codex execution:** items 1-7 executed; no art approval. Calibrated Astra audits: Naruto66db833 (stagger07/taunt09 HOLD), Sasuke536b7bc (four HOLD, clipping resolved), Killua8d842b2 (four HOLD, stance targets met). airHeavyAlt03 moved intact to `_qa_hold/` at4017920; older raw v01/v02 remain, so base fallback requires Claude's verification. Gojo light3v06 re-stitched at1.024; one extra idle call savedv08 at a848ce3 and independently audited HOLD at a3ca7b5. Naruto final calls saved stagger08/taunt10 at ee7b1e9, final source Astra screen HOLD T/H about1.20 vsneutral1.29; no calls remain. Full details in newest CLAUDE_ART_HANDOFF.
+
+**BLOCKED / user feedback:** Gojo idle08 again misses the combat stance (both hands down, upright torso; f7 shoe-edge concern). The user chose **leave idle unresolved for feedback**, not keep idle06 or authorize another call. Preserve existing approvals, no substitution, no generation. **Do not ring scale on this handback**: stopping for the user's feedback, as required by relay rules. Naruto and Gojo source fixes still need Claude calibration/repack after continuation; no new actual-atlas pass claimed.
 ## Scale consistency and attack alts, round 4 (2026-10-12, Claude)
 
 **The user's request and decisions (2026-10-12, chat with Claude):** "make sure every character's animation and
