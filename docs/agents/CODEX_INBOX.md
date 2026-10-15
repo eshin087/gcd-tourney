@@ -15,6 +15,42 @@ How it works:
 
 ---
 
+## Luffy core calibration fixes (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**Goal:** every Luffy core strip that doesn't need a new image is fixed or carries a recorded manual size check, so
+the user can review one preview. **Done when** items 1-6 are ticked; then add a handoff at the top of
+docs/agents/CLAUDE_ART_HANDOFF.md and run `node tools/relay.mjs ring goku-luffy --note "<one line>"`.
+Read Claude's review first: `art/characters/luffy/production/claude-calibration-20261015/CALIBRATION.md` on
+`art/luffy-core` (a0288e7), with the one-scale sheets and `heights.txt`. Luna/medium for fixes, Astra/medium for checks.
+
+**No new image in this round.** light1 (3/3 used, needs a redraw), down/getup grounding and any strip whose fix needs
+a generation call wait for the user: list them in your handoff instead.
+
+- [ ] 1. **light4:** re-stitch the existing `_parts/light4_v01_A/B` into the next free light4 version with a manual
+  factor of about **0.84** for part B (`--factor` with `--landmarks` hat top / soles and `--uncertainty`; Claude's
+  numbers: part A frames 200-206 px hat-to-sole, part B 101-105 px at the old 0.4288). Pack and confirm all frames
+  read 195-210 px.
+- [ ] 2. **special:** re-stitch the existing `_parts/special_v01_*` with the whole-figure layout into the next free
+  version so f6 is one intact figure (it's cut at a seam now). Same scale as the other frames (about 189 px).
+- [ ] 3. **heavy:** re-measure part B's factor with landmarks (brims read 27-37 px vs 40, a pop between parts) and
+  re-stitch only if the measured factor differs from 0.9 by more than its uncertainty.
+- [ ] 4. **win:** measure Luffy's upright height on his approved title-style neutral at native game density, then
+  rescale win (manual measured factor in its sidecar, about 1.15-1.2x) so his upright frames match it. Record the
+  landmarks and uncertainty.
+- [ ] 5. **Manual size checks:** for guard, charge, land, jumpUp, jumpFall, dash, run, light2, light3, airLight1,
+  airHeavy, hurtHigh and beamCharge, Astra compares every frame with the idle and the approved neutral/combat cells at
+  one scale (head, torso, limbs, hat). For each that passes, record `scaleManualQA` in its manifest entry (version,
+  result pass, by, note with the landmarks and uncertainty, evidence path). A strip that fails stays held with the
+  reason. Never use `scaleExempt` to clear Luffy's probe misreads.
+- [ ] 6. Move each fixed or checked strip out of `raw/_qa_hold/` (byte for byte, nothing deleted), pack with
+  `--quantize 48`, commit, `npm run pr -- open` and `npm run pr -- preview`. Review rows go in
+  art/characters/luffy/REVIEW_ROWS.md as `needs review`.
+
+Accepted by Claude, no action: beamFire's arm leaving the cell (the Gigant Pistol fist continues the lane in the
+engine); only the body must stay inside. Rules as in "Luffy core animations" below.
+
+---
+
 ## Luffy core animations (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **Goal:** Luffy's 22 remaining CORE strips exist as reviewed-ready candidates on one branch, so Claude can calibrate
