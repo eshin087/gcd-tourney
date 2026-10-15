@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gojo & Goku — idle feedback</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#10151e;color:#edf1f8;font:17px/1.6 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:24px 16px 72px}h1{font-size:clamp(27px,5vw,42px);line-height:1.15}h2{margin:0;font-size:27px}h3{font-size:18px}a{color:#9dccff}nav{display:flex;gap:12px;flex-wrap:wrap}nav a,.file-link{display:inline-block;padding:10px 16px;border:1px solid #51637e;border-radius:10px}section{scroll-margin-top:20px;margin-top:32px;border:1px solid #39475c;border-radius:16px;padding:20px;background:#192231}.badge{display:inline-block;background:#654c1c;color:#ffe4a0;border-radius:6px;padding:3px 10px;font-weight:700;margin:8px 0}.note{color:#c1cddd}.strip{overflow-x:auto;border:1px solid #51637e;border-radius:10px;background:#242936;padding:8px;overscroll-behavior-x:contain}.strip img{display:block;height:320px;width:auto;max-width:none;image-rendering:pixelated}.reference{display:block;max-width:100%;max-height:480px;width:auto;height:auto;image-rendering:pixelated;background:#242936;border-radius:8px}.prompt{border-left:3px solid #98c9ff;padding-left:14px}details{margin-top:20px}summary{cursor:pointer;padding:10px 0}code{overflow-wrap:anywhere;font-size:13px}footer{margin-top:28px;color:#b5c1d3}@media(max-width:480px){section{padding:14px}.strip img{height:290px}}
+  </style>
+</head>
+<body><main>
+  <p class="note">GCD Tourney · feedback only · 15 October 2026</p>
+  <h1>Two idle candidates need your direction</h1>
+  <p>Both candidates remain on hold. View the full strips and approved references below, then reply in the Codex chat with your feedback.</p>
+  <nav aria-label="Candidates"><a href="#gojo">Gojo idle08</a><a href="#goku">Goku idle02</a></nav>
+  <p class="note">Swipe each strip sideways to see all eight poses. Images use independent display sizes for readability: this page is for pose feedback, not a same-scale anatomy comparison or an in-game preview. Tap “Open full image” to zoom.</p>
+  <section id="gojo">
+    <h2>Gojo · idle08</h2><span class="badge">HOLD — pose feedback</span>
+    <p>All eight poses have both hands down and an upright torso. The requested reference has an open-hand guard and wider stance. The final shoe also reaches the source edge.</p>
+    <div class="strip" tabindex="0" aria-label="Gojo idle08, eight poses; scroll horizontally"><img src="gojo-idle08.png" alt="Gojo idle08 source strip, eight poses with lowered arms"></div>
+    <p><a class="file-link" href="gojo-idle08.png">Open full image</a></p>
+    <h3>Approved combat stance</h3>
+    <img class="reference" src="gojo-combat-approved.png" alt="Approved Gojo combat reference with open-hand guard">
+    <p class="prompt"><strong>Your feedback:</strong> describe the hand position, torso lean and stance you want. Idle remains unresolved; another generation call is not currently authorized.</p>
+    <details><summary>Source and audit details</summary><p>Exact source from <code>codex/gojo-run-def @ a3ca7b5</code>. The one extra authorized call is spent. Astra inspected all eight source poses and returned HOLD. No packed-atlas scale pass or approval.</p><p><a href="gojo-audit.md">Read source audit</a> · <a href="provenance.json">Image hashes</a></p></details>
+  </section>
+  <section id="goku">
+    <h2>Goku · idle02</h2><span class="badge">HOLD — scale decision</span>
+    <p>The body-only estimate is about 180 ±10 px versus the approved neutral reference at 207 ±4 px. All three attempts are used. This idle cannot become an animation anchor while the scale hold remains.</p>
+    <div class="strip" tabindex="0" aria-label="Goku idle02, eight cells; scroll horizontally"><img src="goku-idle02.png" alt="Goku idle02 source strip, eight breathing and guard poses"></div>
+    <p><a class="file-link" href="goku-idle02.png">Open full image</a></p>
+    <h3>Approved title-style reference v02</h3>
+    <img class="reference" src="goku-title-approved-v02.png" alt="Approved Goku title-style neutral and combat reference v02">
+    <p><a href="goku-title-approved-v02.png">Open full reference</a></p>
+    <p class="prompt"><strong>Your decision:</strong> authorize additional attempts or request a different correction approach. Give your direction in the Goku–Luffy chat; this page records no approvals.</p>
+    <details><summary>Source and review details</summary><p>Exact idle source from <code>art/goku-refs @ 3614ef0</code>, assembled into eight 256 px cells. Approved reference is title-style v02 only. Idle02 remains unapproved and has not passed packed-atlas anatomy checks.</p><p><a href="goku-review-rows.md">Read review notes</a> · <a href="provenance.json">Image hashes</a></p></details>
+  </section>
+  <footer>No generation, calibration, gameplay changes or approvals were performed to create this review page.</footer>
+</main></body></html>

@@ -1,0 +1,22 @@
+[
+  {
+    "sha256": "6c1ec47c2c1e2b7df2d3aa6ccf2256e46dc93bdd8e426607f2990f6f963913bb",
+    "source": ".worktrees/art-gojo-title-r3/art/characters/gojo/raw/idle_v08.png",
+    "file": "gojo-idle08.png"
+  },
+  {
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "source": ".worktrees/art-goku-refs/art/characters/goku/raw/idle_v02.png",
+    "file": "goku-idle02.png"
+  },
+  {
+    "sha256": "ab42bc6facd14659bf35b48a4bce8682cd17218f200d1e7fcdc6430f58451656",
+    "source": ".worktrees/art-gojo-title-r3/public/art-review/title-style-pilot/gojo-combat_v01.png",
+    "file": "gojo-combat-approved.png"
+  },
+  {
+    "sha256": "f7ae672771e9282f31e7804b02bb3f0ed46488618efd6050a4b864b2203dea42",
+    "source": ".worktrees/art-goku-refs/art/characters/goku/reference/title_style_draft_v02.png",
+    "file": "goku-title-approved-v02.png"
+  }
+]
