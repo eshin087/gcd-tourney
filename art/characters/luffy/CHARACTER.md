@@ -69,10 +69,10 @@ Candidate palette guidance; exact colors should be sampled/refined against the u
 
 | file | content | candidates | from |
 |---|---|---|---|
-| `reference/title_style_draft.png` | user-approved title-style neutral + combat reference | `reference/title_style_draft_vNN.png` | candidate v01; approval pending |
-| `reference/model_sheet.png` | approved turnaround and palette | `reference/model_sheet_vNN.png` | future step |
-| `reference/expressions.png` | approved expressions | `reference/expressions_vNN.png` | future step |
-| `reference/idle_approved.png` | approved idle strip | `raw/idle_vNN.png` | future step |
+| `reference/title_style_draft.png` | approved Enies Lobby neutral + combat reference | `reference/title_style_draft_vNN.png` | v01 approved by user for both poses |
+| `reference/model_sheet.png` | approved turnaround and palette | `reference/model_sheet_vNN.png` | v01 candidate pending review; not copied to fixed name |
+| `reference/expressions.png` | approved expressions | `reference/expressions_vNN.png` | v01 candidate pending review; not copied to fixed name |
+| `reference/idle_approved.png` | approved idle strip | `raw/idle_vNN.png` | v01 candidate pending review; not copied to fixed name |
 | `reference/title_style_lineup_v01.svg` | four approved neutral cells plus Luffy candidate at equal 256px display size | - | ADR 0029 review |
 | `reference/notes.md` | provenance, candidate inventory and uncertainty | - | Codex |
 

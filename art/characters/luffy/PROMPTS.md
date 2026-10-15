@@ -16,6 +16,16 @@ Native cell is 256×256, pivot [128,240], grounded soles near y=240. Cell geomet
 Hard-edged high-detail pixel art, selective dark outline, discrete cel-shading bands, no antialiasing, blur, gradients, dithering or semitransparent edges. Restrained palette: skin #9b5b43/#c77b58/#e6a27a/#f3c29a; hair #17151b/#29252b/#40363a/#62504a; vest #762b25/#b83c32/#e34c3d/#f4775c; shorts #183b68/#285a91/#3979b8/#68a2d3; sash #a96c16/#d99b25/#f0bd43; straw #6e4325/#a86a32/#d39a50/#f0c978; white cuffs #a8a8a6/#e1ded4/#fff5df; outline #211a20. Flat #FF00FF background. No text, aura, steam, motion lines, ground shadow or additional figures.
 ```
 
-## Later steps
+## Step 1: model sheet v01
 
-Model sheet, expressions and animation prompt blocks are intentionally not authored until this reference lineup is approved and its landmarks are measured. Use the canonical animation names and counts from `art/manifest.json`; kit-specific pose guidance is in `ANIMATIONS.md`.
+One candidate generated after title-style draft v01 approval. Preserve the exact identity and proportions from `reference/title_style_draft_v01.png`; turnaround, fighting stance and palette swatches should occupy one image. The generated candidate is `reference/model_sheet_v01.png` and is not approved.
+
+## Step 2: expressions v01
+
+Eight portraits: neutral, determined, angry/focused, shout, grin, pain, eyes-closed laughter and Gear Second flush. Candidate continuity inputs were the approved title-style reference and unapproved model-sheet v01, per the user's explicit batch instruction. The generated candidate is `reference/expressions_v01.png` and is not approved.
+
+## Step 3: idle v01
+
+Eight full-body 256px cells, right-facing 3/4 view, subtle breathing guard loop on flat magenta. Candidate continuity inputs were the approved title-style reference and unapproved model-sheet v01. The generated 4×2 cell grid was cropped and arranged into `raw/idle_v01.png` in canonical frame order using nearest-neighbor scaling. It is not approved; review motion subtly across frames and anatomy against both approved reference poses. Do not copy it to `reference/idle_approved.png` unless the user approves it.
+
+Use the canonical animation names and counts from `art/manifest.json`; kit-specific pose guidance is in `ANIMATIONS.md`.
