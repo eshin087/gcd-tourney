@@ -66,9 +66,9 @@ Adult, lean and powerfully athletic, with golden Super Saiyan hair in distinct u
 | file | content | candidates | from |
 |---|---|---|---|
 | `reference/title_style_draft.png` | approved title-style neutral and combat reference beside approved cast (user approved v01 2026-10-14) | `reference/title_style_draft_vNN.png` | ADR 0029 lineup |
-| `reference/model_sheet.png` | future approved turnaround and stance | `reference/model_sheet_vNN.png` | PROMPTS.md; v01 candidate awaiting review |
-| `reference/expressions.png` | future approved expression sheet | `reference/expressions_vNN.png` | PROMPTS.md; v01 candidate awaiting review |
-| `reference/idle_approved.png` | future approved idle | `raw/idle_vNN.png` | v01 candidate awaiting review; do not copy before approval |
+| `reference/model_sheet.png` | approved turnaround and stance (v01 approved 2026-10-14) | `reference/model_sheet_vNN.png` | PROMPTS.md; approved from v01 |
+| `reference/expressions.png` | approved expression sheet (v01 approved 2026-10-14) | `reference/expressions_vNN.png` | PROMPTS.md; approved from v01 |
+| `reference/idle_approved.png` | approved idle (v01 approved 2026-10-14) | `raw/idle_vNN.png` | PROMPTS.md; approved copy from v01 |
 
 ## Don'ts for this character
 
