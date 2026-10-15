@@ -27,7 +27,9 @@
     "test:anims": "node tools/test-tech-anims.mjs",
     "test:alts": "node tools/test-anim-alts.mjs",
     "test:guard": "node tools/test-pr-guard.mjs",
-    "test:lints": "node tools/test-lints.mjs"
+    "test:lints": "node tools/test-lints.mjs",
+    "relay": "node tools/relay.mjs",
+    "test:relay": "node tools/test-relay.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"
