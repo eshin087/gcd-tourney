@@ -10,22 +10,20 @@ paused._
 
 1. **The Claude-Codex relay is live** (PR #95, ADR 0033): Claude now sends work straight into the Codex chats "1 - Scale Consistency" (lane `scale`) and "2 - Goku Luffy" (lane `goku-luffy`), and Codex rings Claude back, so no more pasting prompts between the apps. You step in only for approvals, BLOCKED items or decisions (you get a notification), or after 4 round trips without you. Say "stop the relay" to either AI to pause it; "status" shows each lane.
 2. **Gojo G is selected.** User chose the relaxed-arm glide direction. H/I alternatives are rejected and preserved. Direction review is finished; [selection and technical handoff](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-title-r3/art/characters/gojo/production/run-ghi/SELECTION_v01.md>) records intact sources and cumulative calls. Leg-phase and loop-join cleanup plus anatomical checks remain before production approval. Restored real worktree `.worktrees/art-gojo-title-r3`, same branch `codex/gojo-run-def`; production runv12 unchanged, no merge/deploy.
-3. **Prompt Claude: round-4 repair handoff is ready.** Read the newest top section of `docs/agents/CLAUDE_ART_HANDOFF.md`, "Codex: round-4 repairs returned for calibration and repack (2026-10-14)." Recalibrate Naruto stagger07/taunt09 on `art/naruto-title-r3` at `fec0703`; repack/recheck the four corrected alts on `art/naruto-alts` at `2a1e7aa`; continue the three other fighters' calibration/assembly handoffs. Return commits and atlas hashes. No merge, production deploy or approvals.
-4. **Your round-4 art review: nothing new yet.** Win09's four-frame Astra audit is HOLD for numeric uncertainty, with no robust defect justifying another redraw. Stagger07 and taunt09 need calibration. HeavyAlt02 re-stitch is byte-identical to v01 and still needs diagnosis; light2Alt03/light3Alt02/airHeavyAlt03 await packed contact, clipping and anatomy checks. Corrected previews wait for technical recheck. Older diagnostic previews are not corrected deliveries.
-5. **Other fighters and source handling:** Sasuke handoff `383747c` covers packed fist clipping; Killua `a7389a7` covers idle/guard fit and stagger motion; Gojo `f9db974` covers idle proportions, superDash, light3 seam and source assembly. Each branch has `production/round4/CLAUDE_RECALIBRATION_20261014.md`. No new calls for these fighters; run studies/round-3 items preserved. Source filing and failed-probe incidents are documented in [the incident record](../deliverables/round4-qa/GENERATION_INCIDENTS.md): incorrect taunt08 is quarantined, actual taunt09 recovered without another call. No art approved or integrated. Browser work remains Codex in-app only.
-6. **Goku and Luffy: start their art now.** Both are live on placeholders (PR #91, ADR 0032; movesets in art/characters/goku|luffy/KIT.md). Open a new Codex chat on GPT-6 Luna / medium and paste the Goku/Luffy prompt Claude gave you. Codex makes one title-style neutral + combat reference per fighter beside the cast, then stops: reply `approve goku v01` / `approve luffy v01` or give feedback.
-
-5. **Goku: your review.** In the "2 - Goku Luffy" Codex chat: approve or give feedback on Goku's model_sheet v02 and expressions v02 (PR #94), and decide idle v02 (3/3 attempts used, body ~180 px vs the approved 207 px): more attempts or a different fix. **Luffy:** references merged (PR #93); Codex is drawing his 22 core animations via the relay, nothing to do until his preview arrives.
+3. **Scale chat: Gojo idle is waiting for your feedback.** The one extra redraw, idle08, still has both hands down and an upright torso instead of the approved combat guard; the last shoe reaches the source edge. Astra inspected all eight poses and returned HOLD. You chose to leave it unresolved for feedback. No further calls, no substitution of idle06, no approval. **Codex did not ring the scale relay because this is a user-feedback stop.**
+4. **Completed this scale relay round:** Naruto calibrated stagger07/taunt09 audits; Sasuke's four-strip calibrated audit (fists now complete); Killua's four-strip audit (stance sizes met); airHeavyAlt03 quarantined intact; Gojo light3 re-stitched asv06 at1.024; Naruto's last calls saved stagger08/taunt10 and source-audited. All anatomy verdicts remain HOLD with explicit uncertainty/residuals. The final Naruto sources improved the torso but T/H remains centrally about1.20 vsneutral1.29. Existing call budgets are exhausted for these requested redraws.
+5. **Pending technical work, after the feedback stop:** Claude inspection/calibration of Naruto sources, Gojo light3 repack, airHeavyAlt fallback verification/repack (old v01/v02 remain), and reconciliation of Astra's Sasuke jumpSquat arm and Killua win/head findings. Handoff is committed in `docs/agents/CLAUDE_ART_HANDOFF.md`; no corrected preview is ready and no production output was changed by Codex. No need to paste a Claude prompt while the lane is stopped for your feedback.
+6. **Goku: your review.** In the "2 - Goku Luffy" Codex chat: approve or give feedback on Goku's model_sheet v02 and expressions v02 (PR #94), and decide idle v02 (3/3 attempts used, body ~180 px vs the approved 207 px): more attempts or a different fix. **Luffy:** references merged (PR #93); Codex is drawing his 22 core animations via the relay, nothing to do until his preview arrives.
 
 ## Generated status
 
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-15 19:17 UTC._
+_Generated by `npm run status` at 2026-10-15 19:30 UTC._
 
-### Waiting for your review (166)
-- **gojo** (59): run direction study (concept only) study v01, airHeavy v09, special v06, run v11, …. Reply in the gojo Codex thread: `approve gojo <asset> vNN` or feedback
+### Waiting for your review (163)
+- **gojo** (56): run v11, run v10, throw v03, superPose v04, …. Reply in the gojo Codex thread: `approve gojo <asset> vNN` or feedback
 - **sasuke** (24): ko v07, ko v06, down v08, down v07, …. Reply in the sasuke Codex thread: `approve sasuke <asset> vNN` or feedback
 - **Killua** (8): light4 v09, specialForward v11, light4 v08, special v06, …. Reply in the Killua Codex thread: `approve Killua <asset> vNN` or feedback
 - **killua** (61): light2 v05, down v05, ko v06, light4 v04, …. Reply in the killua Codex thread: `approve killua <asset> vNN` or feedback
@@ -61,10 +59,10 @@ _Generated by `npm run status` at 2026-10-15 19:17 UTC._
 - ART-KIL-TITLE-R2 (Codex), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex)
 
 ### Last commits
+- 16c14bc 10-15 12:18 art(sasuke): user approves the shipped launched v07, down v08 and ko v07 (records only)
+- c772054 10-15 12:17 docs(inbox): Luffy core animations for the goku-luffy chat (relay lane goku-luffy); NOW: Goku review
 - b60a693 10-15 12:17 docs(inbox): the user's decisions for the scale chat (Naruto torso redraws, one extra Gojo idle redraw)
 - dbffa0f 10-15 12:16 Merge branch 'art/luffy-refs'
 - 4c32e18 10-15 12:15 docs(inbox): round-4 audits and assembly fixes for the scale chat (relay lane scale)
 - d1df502 10-15 12:15 docs(art): integrate Luffy's approved reference rows into the shared review queue
-- 99fa826 10-15 12:15 Merge branch 'main' into art/luffy-refs
-- d3e56e3 10-15 10:36 docs(now): the Claude-Codex relay is live; lanes scale and goku-luffy
 <!-- status:end -->
