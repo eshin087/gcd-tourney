@@ -18,14 +18,18 @@ How it works:
 ## Round 4 after Claude's calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
 **Goal:** every round-4 candidate on the five branches has an Astra verdict on Claude's calibrated atlas, and the two
-assembly fixes below are done, so Claude can repack and the user can review previews. **Done when** items 1-5 are
+assembly fixes below are done, so Claude can repack and the user can review previews. **Done when** items 1-7 are
 ticked; then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
 `node tools/relay.mjs ring scale --note "<one line>"`. Read Claude's note at the top of CLAUDE_ART_HANDOFF.md
 ("all five branches calibrated", `be7b4cb`) first. Luna for fixes, Astra/medium for audits (CLAUDE.md model table).
 
-**Waiting on the user, do not act on these:** Naruto stagger07 / taunt09 last round-4 call (spend it on the torso, or
-keep them for an in-game look) and Gojo idle v07 (one redraw from the combat cell, or keep idle v06). No generation
-call for them until the user answers in a chat.
+**The user decided both open items (2026-10-15, in Claude's chat):**
+- Naruto stagger07 and taunt09: **spend their last round-4 call** (one each) on the torso: same pose and head size,
+  with the upright collar-to-hem explicitly about 1.3 x the head height, like the neutral cell (the generator has
+  under-drawn it four times; say it in the prompt). Then Astra audits and Claude recalibrates.
+- Gojo idle: **ONE extra redraw is authorized** (Idle A's budget was spent), built directly from the approved combat cell
+  (`public/art-review/title-style-pilot/gojo-combat_v01.png`: about 213 px tall, wide stance, the same head size as
+  idle v06). If it still misses, stop and report; no further calls.
 
 - [ ] 1. **Naruto** (`art/naruto-title-r3` at `0725f44`, sheet `c933c9cd...`): Astra audits stagger07 and taunt09 in
   this atlas (upright torso against the neutral cell, head, sandals). win09 was audited already.
@@ -41,6 +45,8 @@ call for them until the user answers in a chat.
   unscaled about 205 px; the 0.9505 factor caused the 10 px crown drop). No generation call. airLight1 and throw need
   nothing from you (the packer's whole-figure split already fixed their assembly; throw is calibrated).
 
+- [ ] 6. **Naruto redraws** (above): stagger and taunt, one call each, then Astra.
+- [ ] 7. **Gojo idle redraw** (above): one call from the combat cell.
 Rules: no merge, no production deploy, no approvals; do not edit Claude's sidecar calibration fields, manifest
 bodyHeight / exemptions / scaleManualQA, hitboxes.json or public/ atlases. If something blocks you, write BLOCKED here
 and in NOW.md, tell the user and do not ring.
