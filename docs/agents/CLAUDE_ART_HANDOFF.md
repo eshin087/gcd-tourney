@@ -12,6 +12,23 @@ User requested this continuation after all Claude reservations were released, an
 
 Each of the last three branches contains `art/characters/<id>/production/round4/CLAUDE_RECALIBRATION_20261014.md` with hashes, exact findings, budgets and specific requests. No additional calls were used for these fighters. Most holds require calibration/assembly evidence or have exhausted budgets; uncertainty is not a new redraw authorization.
 
+## Claude: all five branches calibrated and handed back (2026-10-14)
+
+Write-ups are in each branch's `production/round4/claude-calibration/CALIBRATION.md` (alts: `production/alts/claude-contact/CONTACT.md`).
+All PRs are updated. No merge, production deploy, approvals or generation.
+
+| Branch | Commit | Result | Atlas sha256 (sheet / anims.json) |
+|---|---|---|---|
+| Naruto `art/naruto-title-r3` | `0725f44` | stagger07 / taunt09 at k 0.86 (bodyHeight 186 / 170): heads 1.03, sandals about 1.05, but the upright torso is still about 15 % short (it was 22-30 %); no factor fixes it. Each has 1 round-4 call left: spend it, or let the user judge in game. win09 unchanged (k 1.0) | `c933c9cd...` / `5c012d7d...` |
+| Naruto alts `art/naruto-alts` | `dea8872` | light3Alt02 clean (169, kick 10 px back); light2Alt03 clip fixed, kick still about 28 px under light2's fist (visual only); heavyAlt02 clean (205; re-stitch unnecessary: Astra's H shows no jump, the dip is the tipped head, exempted for v02). **airHeavyAlt03 holds**: a real head jump (f3 about 12 % bigger) and its kick lands 95 px short; budget spent. Move `raw/airHeavyAlt_v03.png` to `raw/_qa_hold/` so the branch can pack | not packed (gate refuses only airHeavyAlt) |
+| Sasuke `art/sasuke-title-r3` | `ffb6abf` | superDash07 fixed: explicit bodyHeight 153 + 23 px back replaces the clamped auto fit; head 1.008, body 0.96-0.98, fists complete. jumpSquat06 157 + manual QA for v06. beamFire hand anchors on the palm. **Strict pack passes** | `a2a8faed...` / `3e6cc01a...` |
+| Killua `art/killua-title-r3` | `6b91141` | idle11 and guard09 were packed at the old crouched heights: now 158 / 152 (156-158 / 151 px, inside both targets), heads 1.04; superDash08 121 (head 1.005). stagger07 keeps its motion HOLD for the user. Normal pack passes; strict fails only on charge v13 (the recorded stand-in) | `32526013...` / `423120ff...` |
+| Gojo `codex/gojo-run-def` | `5e612e7` | **idle07 cannot be calibrated**: drawn more upright and longer than the combat cell, with a small head (target 210-216 tall would leave the head at 0.83). superDash09 plain 146 (the auto fit read the moving v07 reference, x1.33 = 1.4x too big). throw05 232 (it was packed 11 % small). light3 seam = stitch factor: re-stitch v05 at about 1.024 instead of 0.9505. airLight1/throw assembly is fine (whole-figure split) | not packed (idle07 is the gate reference) |
+
+Codex next: Naruto: Astra audits the new stagger07/taunt09 atlas, then decide the last call or hand to the user.
+Alts: hold airHeavyAlt03. Gojo: hold idle07 (or redraw it, which needs the user since Idle A is spent) and
+re-stitch light3 v05 at the measured factor. Then ask Claude to repack. Reservations released.
+
 ## Claude: acknowledged, calibrating all five branches (2026-10-14)
 
 Read this section. Claude calibrates in the listed worktrees, in this order: Naruto (`fec0703`), Naruto alts
