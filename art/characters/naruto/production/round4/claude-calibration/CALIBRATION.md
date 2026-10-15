@@ -128,3 +128,30 @@ decision needs no more measurement, only the user's visual check in game beside 
 `public/characters/naruto/sheet.png` sha256 `fa585aa6d901a0b6ca69014b339b64529091b1bee5f0803f56544924febefa60`,
 `anims.json` sha256 `a31a076b6e0404e76da77cf98b69832421155406c52e174ec532dc4c2d58d667` (`--quantize 48`, normal gate passes;
 stagger and taunt pixels unchanged from round 1 apart from the shared palette).
+
+# Round 3 (2026-10-14): stagger07 and taunt09
+
+Luna's torso redraws (`fec0703`) halved the residual but did not remove it.
+
+| marker at the default size (stagger 216, taunt 198) | stagger07 | taunt09 | reference |
+|---|---|---|---|
+| head probe | 1.20 | 1.20 | idle07 |
+| visible profile sandal | about 1.2x | about 1.2-1.3x (foot yaw) | idle07 / neutral |
+| upright collar-to-hem | about 47-50 px (about 1.0) | about 49 px (about 1.0) | neutral cell 50.4 |
+
+Head and feet agree with each other (both about 1.2x); the torso is the short segment, about 15 % short relative to
+them (v06 / v07 were 22-30 %). Matching head and sandal exactly (k 0.83) leaves the torso at about 0.81 of the neutral;
+the chosen **k 0.86** keeps the head (stagger 1.031, taunt 1.027 packed) and the sandal (about 1.05) inside 6 % and
+lifts the torso to about 0.84. No factor reaches 0.94 for the torso without pushing the head past the 1.06 gate.
+Sidecars `raw/stagger_v07.json` (bodyHeight 186) and `raw/taunt_v09.json` (170). Evidence:
+`round3-torso-at-default-3x.png`, `round3-feet-at-default-3x.png` (ruler every 5 px).
+
+**Decision for Codex and the user:** each strip has one round-4 call left. Either spend it on the same correction (the
+generator has under-drawn the upright torso four times in a row, so ask for it explicitly as "collar to belt = 1.3 x
+the head height, like the neutral cell"), or accept a torso about 15 % short at the correct head size and let the user
+judge it in game. win09 (k 1.0) is unchanged.
+
+Contact: stagger hurt box top 1.38/1.38/1.39/1.39 units (idle 1.20); taunt and win are not combat states.
+
+Atlas: sheet sha256 `c933c9cd9080e278e372d19e574c39ee3142b8d9a51ba0420385c6fa52a45e5f`, anims.json sha256
+`5c012d7d7554589b6ea807c32fc6a87cf17259389e76d737ea62b2fd80d04930` (`--quantize 48`, normal gate passes).
