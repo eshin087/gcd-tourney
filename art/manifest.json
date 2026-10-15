@@ -158,12 +158,12 @@
       "brief": "art/characters/luffy/CHARACTER.md",
       "kit": "art/characters/luffy/KIT.md",
       "reference": {
-        "titleStyleDraft": { "file": "art/characters/luffy/reference/title_style_draft.png", "candidates": "art/characters/luffy/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); the user approves this lineup before the idle", "step": 1, "status": "todo", "version": 0, "approvedVersion": null },
-        "modelSheet": { "file": "art/characters/luffy/reference/model_sheet.png", "candidates": "art/characters/luffy/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches", "step": 1, "status": "todo", "version": 0, "approvedVersion": null },
-        "expressions": { "file": "art/characters/luffy/reference/expressions.png", "candidates": "art/characters/luffy/reference/expressions_vNN.png", "step": 2, "status": "todo", "version": 0, "approvedVersion": null }
+        "titleStyleDraft": { "file": "art/characters/luffy/reference/title_style_draft.png", "candidates": "art/characters/luffy/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); approved neutral and combat lineup; model sheet, expressions and idle each separately approved v01", "step": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "modelSheet": { "file": "art/characters/luffy/reference/model_sheet.png", "candidates": "art/characters/luffy/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches", "step": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "expressions": { "file": "art/characters/luffy/reference/expressions.png", "candidates": "art/characters/luffy/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 1, "approvedVersion": 1 }
       },
       "animations": {
-          "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "todo", "version": 0, "approvedVersion": null },
+          "idle": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 1, "approvedVersion": 1 },
           "run": { "frames": 8, "loop": true, "bodyHeight": 204, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "todo", "version": 0, "approvedVersion": null },
           "dash": { "frames": 2, "loop": true, "bodyHeight": 160, "ms": [60, 60], "required": true, "step": 8, "status": "todo", "version": 0, "approvedVersion": null },
           "backDash": { "frames": 3, "loop": false, "bodyHeight": 207, "ms": [60, 60, 80], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },

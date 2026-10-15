@@ -604,9 +604,7 @@ neutral + combat reference beside the four approved cells (ADR 0029), then a pre
 
 ## luffy
 
-Data PR `feature/char-goku-luffy` (ADR 0032): playable on the baked placeholder; moveset in
-[KIT.md](characters/luffy/KIT.md); manifest block reserved. Art: nothing generated yet. First image: the title-style
-neutral + combat reference beside the four approved cells (ADR 0029), then a preview stop for the user.
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
 
 ## Adding a character
 
