@@ -80,6 +80,9 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
 ## Round 4 after Claude's calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
+**2026-10-15 continuation:** user explicitly approved Gojo idle08 and Goku idle02 as drawn. Recorded at 7dd0a5d / 8788b46; design feedback stop lifted. Claude calibration/technical checks requested in newest handoff. No generation or technical pass.
+
+
 **Goal:** every round-4 candidate on the five branches has an Astra verdict on Claude's calibrated atlas, and the two
 assembly fixes below are done, so Claude can repack and the user can review previews. **Done when** items 1-7 are
 ticked; then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
@@ -116,7 +119,7 @@ and in NOW.md, tell the user and do not ring.
 
 **2026-10-15 Codex execution:** items 1-7 executed; no art approval. Calibrated Astra audits: Naruto66db833 (stagger07/taunt09 HOLD), Sasuke536b7bc (four HOLD, clipping resolved), Killua8d842b2 (four HOLD, stance targets met). airHeavyAlt03 moved intact to `_qa_hold/` at4017920; older raw v01/v02 remain, so base fallback requires Claude's verification. Gojo light3v06 re-stitched at1.024; one extra idle call savedv08 at a848ce3 and independently audited HOLD at a3ca7b5. Naruto final calls saved stagger08/taunt10 at ee7b1e9, final source Astra screen HOLD T/H about1.20 vsneutral1.29; no calls remain. Full details in newest CLAUDE_ART_HANDOFF.
 
-**BLOCKED / user feedback:** Gojo idle08 again misses the combat stance (both hands down, upright torso; f7 shoe-edge concern). The user chose **leave idle unresolved for feedback**, not keep idle06 or authorize another call. Preserve existing approvals, no substitution, no generation. **Do not ring scale on this handback**: stopping for the user's feedback, as required by relay rules. Naruto and Gojo source fixes still need Claude calibration/repack after continuation; no new actual-atlas pass claimed.
+**Historical stop, resolved by explicit user approval on 2026-10-15 (see newest handoff):** Gojo idle08 again misses the combat stance (both hands down, upright torso; f7 shoe-edge concern). The user chose **leave idle unresolved for feedback**, not keep idle06 or authorize another call. Preserve existing approvals, no substitution, no generation. **Do not ring scale on this handback**: stopping for the user's feedback, as required by relay rules. Naruto and Gojo source fixes still need Claude calibration/repack after continuation; no new actual-atlas pass claimed.
 ## Scale consistency and attack alts, round 4 (2026-10-12, Claude)
 
 **The user's request and decisions (2026-10-12, chat with Claude):** "make sure every character's animation and
