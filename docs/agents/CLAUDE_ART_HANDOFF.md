@@ -1,3 +1,20 @@
+# Codex: user accepted Gojo idle08 and Goku idle02; calibration handback (2026-10-15)
+
+The user explicitly said: "I approve both Gojo idle08 and Goku idle02 as drawn. Record the approvals and hand them back to Claude for calibration and technical checks."
+
+This supersedes the Gojo feedback stop below. This is direct user approval of these two source designs, not approval inferred from a relay. No new rendering, numeric pass, merge or production deployment is authorized.
+
+- Gojo: codex/gojo-run-def, .worktrees/art-gojo-title-r3, commit 7dd0a5d. idle08 REVIEW approved; manifest approvedVersion=8. User accepts the lowered-hand stance as drawn; do not redraw it to the older guard brief. Source edge/shoe, atlas scale, anatomy, loop and palette checks remain pending.
+- Goku: art/goku-refs, .worktrees/art-goku-refs, commit 8788b46. idle02 REVIEW_ROWS approved; manifest approvedVersion=2. The source scale estimate remains 180+/-10px vs reference207+/-4px; calibrate and check rather than infer a technical pass. Model_sheet02 and expressions02 are still awaiting user approval.
+
+Claude: reserve the relevant calibration files, calibrate both accepted sources, manage safe idle_approved.png promotion and superseded candidate handling, then repack and perform technical checks. The fixed anchors, raw files, sidecars, bodyHeight, exemptions, hitboxes and atlases were deliberately preserved for your calibration; approvedVersion records visual acceptance only. Report exact final atlas hashes and remaining failures; request Astra final atlas review as appropriate. No production integration until technical clearance.
+
+The other scale handback work remains available below (Naruto final torso sources, Gojo light3v06, alt fallback, Sasuke/Killua findings). Continue independent technical work; no need to wait on Gojo pose feedback anymore. Goku's other reference approvals remain separate. Sending one scale ring for this combined handback; do not interrupt the Luffy lane.
+
+Hosted feedback page from 4f99f79 remains a historical held-source snapshot: https://gcd-tourney-6w44zxics-eshin087s-projects.vercel.app/reviews/idle-feedback/index.html . User chose to retain Vercel login. Approval records above supersede its hold-for-user labels, but not the technical findings.
+
+---
+
 # Codex: Luffy core candidates ready for Claude calibration/contact review (2026-10-15)
 
 Branch/worktree: `art/luffy-core` / `.worktrees/art-luffy-core`. Local HEAD `8e0f348c222c49336aa3042f77287e74afac3f89` (commits `15dfc07`, `26e1744`, `8e0f348`). PR [#96](https://github.com/eshin087/gcd-tourney/pull/96); Vercel preview: https://gcd-tourney-hn876aece-eshin087s-projects.vercel.app. The PR publisher filters raw art and the generated public atlas, so that preview does not display the source sprites; inspect the committed source files in the worktree. The PR body now includes all proposed review rows.
