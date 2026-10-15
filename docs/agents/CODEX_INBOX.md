@@ -29,19 +29,11 @@ idle_approved.png (idle v01). Moveset and pose briefs: art/characters/luffy/KIT.
 **Waiting on the user, do not act on these:** Goku. His model_sheet_v02 and expressions_v02 need the user's review,
 and idle_v02 is on a scale hold with its 3 attempts used. No Goku generation call until the user answers in a chat.
 
-- [ ] 1. From the main checkout: `npm run pr -- start art/luffy-core --art luffy` (dev port 5242). Work only there.
-- [ ] 2. Generate the 22 CORE strips in art/manifest.json step order: run; light1-4, heavy, airLight1, airHeavy;
-  guard, hurtHigh, launched, down, getup; charge, beamCharge, beamFire, special; dash, jumpUp, jumpFall, land, win.
-  Each as the next free `raw/<anim>_vNN.png`, at most 3 attempts per strip (failed ones count), one scale per strip
-  (`npm run stitch` with a measured factor for parts). Luffy's drawn stretches (Pistol arm in `special`, the giant
-  Gear Third arm in `beamCharge` / `beamFire`) are part of the body; no effects in sprites.
-- [ ] 3. `node tools/pack-sprites.mjs luffy --quantize 48` until the strict scale gate passes (or record the measured
-  hold per strip; never weaken thresholds or exempt a strip to hide an anatomy failure). Then `npm run scale -- luffy`
-  and `npm run body luffy`.
-- [ ] 4. Astra/medium audits every frame and loop of the packed atlas against the approved neutral and combat cells
-  (head, torso, limbs, build, clothing volume, hat). Luna fixes holds within the attempt budget; Astra rechecks.
-- [ ] 5. Commit, `npm run pr -- open` and `npm run pr -- preview`. Put the new review rows in
-  art/characters/luffy/REVIEW_ROWS.md (status `needs review`) and the PR body.
+- [x] 1. 2026-10-15: started `art/luffy-core` from main in the dedicated worktree (dev port 5242).
+- [x] 2. 2026-10-15: generated all 22 CORE strips as versioned candidates within cumulative budgets (failed calls included; max 3 per strip); held and superseded versions are itemized in `REVIEW_ROWS.md`.
+- [x] 3. 2026-10-15: strict quantized pack completed with per-strip holds recorded; scale report clean for the selected partial atlas. `body luffy` skipped because shared builds data lacks Luffy `bodyColors`.
+- [x] 4. 2026-10-15: Astra audited every frame/loop in the final packed atlas; verdict HOLD, exact evidence in `REVIEW_ROWS.md` and the handoff.
+- [x] 5. 2026-10-15: committed branch, updated PR #96 and preview, put all proposed rows in `REVIEW_ROWS.md` and the PR body, and recorded the handoff above.
 
 Rules: edit only art/characters/luffy/**, the luffy block of art/manifest.json and the "## luffy" section of
 art/TRACKER.md. Do not edit art/REVIEW.md, CHANGELOG.md, docs/TASKS.md, docs/NOW.md, src/, tools/, hitboxes outside
