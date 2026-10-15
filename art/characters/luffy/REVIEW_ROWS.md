@@ -7,4 +7,4 @@
 | 2026-10-14 | luffy | expressions | [candidate](characters/luffy/reference/expressions_v01.png), [approved copy](characters/luffy/reference/expressions.png) | v01 | approved | Eight Enies Lobby expression portraits using approved title-style v01 and model-sheet v01 for continuity. | User approved v01. Eight states are preserved with matching identity. |
 | 2026-10-14 | luffy | idle | [candidate](characters/luffy/raw/idle_v01.png), [approved copy](characters/luffy/reference/idle_approved.png) | v01 | approved | Eight-frame subtle guard/breathing idle, assembled in canonical order from one generated 4×2 grid. | User approved v01. 2048×256; 8 frames. Motion is very subtle. No pack, scale-gate or in-game result claimed. |
 
-These rows are intentionally proposed locally because this task does not edit shared `art/REVIEW.md`. Claude should move them into the shared queue when integrating the PR. The explicit user approvals apply to these v01 images only; core strips and later art still need their own approval.
+Moved into art/REVIEW.md by Claude when PR #93 merged (2026-10-15). Later Luffy rows go here the same way.
