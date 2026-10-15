@@ -142,6 +142,18 @@
       "superDash": { "totalCalls": 3, "authorization": 3, "versionCandidates": ["v08", "v09"], "status": "within round4 budget; v08 is immutable early-saved hold" }
     },
     "integrityIncident": "airLight2 original call1 and call2 were restored from exact SHA-256 matches. The three inadvertent calls are separately preserved under sources/airLight2-budget-incident-20261013/round-call3.png through round-call5.png. The temporary overwritten bytes also remain preserved under sources/incident-airLight2-overrun/."
+  },
+  {
+    "asset": "idle-whole-strip-v08",
+    "calls": 1,
+    "maxNewCalls": 1,
+    "authorization": "One extra Gojo idle redraw authorized by the user in b60a693; does not reset prior part budgets.",
+    "priorCumulativeCalls": { "A": 3, "B": 1 },
+    "candidate": "idle_v08.png",
+    "candidateSha256": "6c1ec47c2c1e2b7df2d3aa6ccf2256e46dc93bdd8e426607f2990f6f963913bb",
+    "generatedOutputOriginal": "E:/Vibe Coding/.codex/generated_images/01a14103-b9dc-7852-9623-3a865e50a249/exec-3b0be005-c1fd-484a-a126-8f060272806f.png",
+    "selectedSource": "call1",
+    "selectedReason": "Only authorized extra whole-strip redraw; kept immutable as v08. Pose HOLD: the torso is upright and both hands hang down instead of matching the approved combat cell. No further calls authorized."
   }
 ]
 

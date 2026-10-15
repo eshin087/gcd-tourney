@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Gojo round4: re-stitched light3 v06 from immutable v05 parts at Claude's hair-measured factor 1.024, downscaling A to preserve relative fit; saved one authorized idle v08 whole-strip redraw from the approved combat cell with generation hash and pose hold. No calibration, pack or production atlas changed.
+
 - Gojo round4: added a hash-identified Claude handoff for idle/superDash calibration review, light3 seam diagnosis and airLight1/throw source-column assembly; separates confirmed envelope/torso/seam concerns from projection uncertainty and records remaining image-call budgets. No art, calibration, production atlas or approval changed.
 
 - Gojo round4: saved jumpFall v06, airRecover v05, throw v05, airLight1 v07, airLight2 v05 and light3 v05 as unapproved candidates; added quantized diagnostic atlas, per-frame Astra H/T/A/L/S holds and review gallery. Full strict pack remains blocked; airLight2 call overrun and source recovery are disclosed. No production atlas, scale calibration or approval changed.
