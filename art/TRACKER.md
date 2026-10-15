@@ -598,6 +598,8 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 
 ## goku
 
+**2026-10-15 idle decision:** User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
+
 Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in
   [KIT.md](characters/goku/KIT.md). The user withdrew title-style v01 and approved corrected title-style v02
   on 2026-10-14. The fixed reference/title_style_draft.png copies v02 (207±4px body excluding hair; 234px
