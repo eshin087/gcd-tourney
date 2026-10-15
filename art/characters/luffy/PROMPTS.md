@@ -18,14 +18,14 @@ Hard-edged high-detail pixel art, selective dark outline, discrete cel-shading b
 
 ## Step 1: model sheet v01
 
-One candidate generated after title-style draft v01 approval. Preserve the exact identity and proportions from `reference/title_style_draft_v01.png`; turnaround, fighting stance and palette swatches should occupy one image. The generated candidate is `reference/model_sheet_v01.png` and is not approved.
+One candidate generated after title-style draft v01 approval. Preserve the exact identity and proportions from `reference/title_style_draft_v01.png`; turnaround, fighting stance and palette swatches should occupy one image. Candidate `reference/model_sheet_v01.png` was approved by the user as v01; the fixed copy is `reference/model_sheet.png`.
 
 ## Step 2: expressions v01
 
-Eight portraits: neutral, determined, angry/focused, shout, grin, pain, eyes-closed laughter and Gear Second flush. Candidate continuity inputs were the approved title-style reference and unapproved model-sheet v01, per the user's explicit batch instruction. The generated candidate is `reference/expressions_v01.png` and is not approved.
+Eight portraits: neutral, determined, angry/focused, shout, grin, pain, eyes-closed laughter and Gear Second flush. Candidate continuity inputs were the approved title-style reference and model-sheet v01, per the user's explicit batch instruction. The generated `reference/expressions_v01.png` was approved by the user; its fixed copy is `reference/expressions.png`.
 
 ## Step 3: idle v01
 
-Eight full-body 256px cells, right-facing 3/4 view, subtle breathing guard loop on flat magenta. Candidate continuity inputs were the approved title-style reference and unapproved model-sheet v01. The generated 4×2 cell grid was cropped and arranged into `raw/idle_v01.png` in canonical frame order using nearest-neighbor scaling. It is not approved; review motion subtly across frames and anatomy against both approved reference poses. Do not copy it to `reference/idle_approved.png` unless the user approves it.
+Eight full-body 256px cells, right-facing 3/4 view, subtle breathing guard loop on flat magenta. Candidate continuity inputs were the approved title-style reference and unapproved model-sheet v01. The generated 4×2 cell grid was cropped and arranged into `raw/idle_v01.png` in canonical frame order using nearest-neighbor scaling. The user approved this v01, and `reference/idle_approved.png` is its fixed copy. The motion remains subtle; no pack or scale gate is claimed.
 
 Use the canonical animation names and counts from `art/manifest.json`; kit-specific pose guidance is in `ANIMATIONS.md`.

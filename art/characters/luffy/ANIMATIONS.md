@@ -29,4 +29,4 @@ Shared pose rules: 256×256 cells, pivot `[128,240]`, face screen-right in 3/4 v
 
 ## Idle v01 candidate
 
-The requested `raw/idle_v01.png` contains eight 256×256 cells in canonical order, 00 through 07, arranged as a restrained breathing/guard loop. The source generator placed them in a 4×2 grid; the final strip was assembled from those eight cells with nearest-neighbor scaling. In the saved candidate the poses read consistently, but motion between frames is very subtle and needs review at native size and in a loop. Do not treat the strip as approved or as a certified anatomy/scale match.
+The requested `raw/idle_v01.png` contains eight 256×256 cells in canonical order, 00 through 07, arranged as a restrained breathing/guard loop. The source generator placed them in a 4×2 grid; the final strip was assembled from those eight cells with nearest-neighbor scaling. The user approved idle v01 and its fixed copy is `reference/idle_approved.png`. The poses read consistently, but motion between frames is very subtle. Approval does not certify anatomy/scale, packing or loop quality.

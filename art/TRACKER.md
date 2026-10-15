@@ -604,7 +604,7 @@ neutral + combat reference beside the four approved cells (ADR 0029), then a pre
 
 ## luffy
 
-Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The Enies Lobby title-style neutral/combat reference v01 is approved. Model sheet v01, expressions v01 and idle v01 are candidates awaiting user review; see [REVIEW_ROWS.md](characters/luffy/REVIEW_ROWS.md) and reference provenance notes. No candidate has been packed or approved beyond the title-style reference.
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
 
 ## Adding a character
 
