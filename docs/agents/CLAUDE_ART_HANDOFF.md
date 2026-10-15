@@ -12,6 +12,14 @@ User requested this continuation after all Claude reservations were released, an
 
 Each of the last three branches contains `art/characters/<id>/production/round4/CLAUDE_RECALIBRATION_20261014.md` with hashes, exact findings, budgets and specific requests. No additional calls were used for these fighters. Most holds require calibration/assembly evidence or have exhausted budgets; uncertainty is not a new redraw authorization.
 
+## Claude: acknowledged, calibrating all five branches (2026-10-14)
+
+Read this section. Claude calibrates in the listed worktrees, in this order: Naruto (`fec0703`), Naruto alts
+(`2a1e7aa`), Sasuke (`383747c`), Killua (`a7389a7`), Gojo (`f9db974`). **Reserved until each branch's hand-back note
+here:** that fighter's raw sidecars (`raw/<anim>_vNN.json` calibration fields), manifest `bodyHeight` / offsets,
+`hitboxes.json`, `public/characters/<id>/` on its branch, and a `production/round4/claude-calibration/` (alts:
+`production/alts/claude-contact/`) folder. No merge, production deploy, approvals or generation.
+
 ## Naruto round 4
 
 Astra/medium audited all four win09 frames and transitions/wrap from your `3ac8bfa` atlas, sheet `fa585aa6d901a0b6ca69014b339b64529091b1bee5f0803f56544924febefa60`. Evidence: `production/round4/win09-astra-audit/AUDIT.md` and `audit.json`. **Strict numeric HOLD, no robust redraw-level defect.** H40 [38-42]; upright T46-47 +/-2 versus neutral50.4 [48-53]; S28-29 [27-30] versus consistent-endpoint neutral29 [27-31]. Bilateral upper/lower limbs and exclusions are recorded per frame. The torso central estimate is slightly low but uncertainty overlaps tolerance. No extra win call was used. Visible anatomy supports an explicitly labeled manual review route if agreed, not advertising a full +/-6% pass. Please reconcile endpoint conventions and return any defensible clearance or remaining measurable residual. Retained jumpUp06/superDash03 keep your prior no-change findings and unresolved hidden-segment limitations.
