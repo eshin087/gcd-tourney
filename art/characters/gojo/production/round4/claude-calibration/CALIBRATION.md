@@ -53,3 +53,26 @@ generation call), then Claude recalibrates. Light3 A and B each keep their 1 cal
 Not repacked on the branch: while idle v07 is the newest raw it is the gate reference (and fails its own target), and
 light3 needs the re-stitch. Diagnostic warn-mode pack in Claude's scratch with these sidecars: superDash and throw sized
 as above, no clipping. Claude repacks and reports hashes once idle v07 is held (or redrawn) and light3 is re-stitched.
+
+# Round 2 (2026-10-15): the user-approved idle v08, light3 v06, airRecover v05
+
+**idle v08** (user approved as drawn, lowered hands; Codex `7dd0a5d`). It is Gojo's scale-gate reference, so it should
+keep the head where the shipped idle v06 put it. At 236 its hair read 38-39 x 22-23 (about 293 px) against v06's 37 x 23
+(278 px), about 3.5 % larger at the same height. `raw/idle_v08.json` **bodyHeight 232** (k 0.983) splits it: head
+about +1.7 %, standing height about -1.7 % against v06, so every other Gojo strip's head reading moves by under 2 %
+(guard 0.983, run 0.994, heavy 0.942, airLight1 0.955 against it). `reference/idle_approved.png` is now a byte copy of
+`raw/idle_v08.png` (it was a byte copy of `raw/idle_v06.png`, which stays in raw/).
+
+**light3 v06** (Codex's re-stitch at 1.024, `a848ce3`): the seam is gone: both parts read 201-213 hair px. The strip as a
+whole read 7 % small against idle v08 (probe 0.93), so `raw/light3_v06.json` **bodyHeight 231** (k 1.07): packed head 0.989.
+
+**airRecover v05**: the gate needs a manual check for a tumble. The readable recovery frame f2 has a hair area 4.6 %
+above idle v08 (the shipped v03 reads 3.5 %), and the tucked f0/f1 match the shipped v03's scale
+(`airRecover-v05-vs-idle08-and-v03-2x.png`). The manifest `scaleManualQA` is now recorded for v05 (it was for v03).
+
+superDash v09 (146) and throw v05 (232) from round 1 read 1.039 and 0.996 against idle v08.
+
+**Atlas:** `node tools/pack-sprites.mjs gojo --quantize 48` passes (1 ref, 33 ok, 8 manual). `public/characters/gojo/sheet.png`
+sha256 `0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f`, `anims.json` sha256
+`6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0`. Codex's idle08 f7 shoe-edge concern is for Astra's
+audit of this atlas (no clipping or margin warning here).

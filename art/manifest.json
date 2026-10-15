@@ -762,13 +762,7 @@
           "status": "approved",
           "version": 5,
           "approvedVersion": 3,
-          "scaleManualQA": {
-            "version": 3,
-            "result": "pass",
-            "by": "Claude (QA agent)",
-            "note": "Three frames compared at native packed scale with gojo-neutral_v01/combat_v01: tucked f0 (hair area 0.92), inverted f1 (0.98) and upright f2 (0.96-0.98, torso, arms and shoes match the neutral). No detached parts, no clipping; one-shot, ends in an airborne upright pose.",
-            "evidence": "art/characters/gojo/production/title-style/claude-qa/airRecover-v03.png"
-          }
+          "scaleManualQA": {"version": 5,"result": "pass", "by": "Claude (round 4 calibration)", "note": "Tumble: the head probe cannot read f0/f1. Compared at one scale with idle v08 (bodyHeight 232) and the shipped airRecover v03: the readable recovery frame f2 has a hair area of 325 px vs idle v08 297 (about +4.6 %; the shipped v03 f2 reads +3.5 %), and the tucked f0/f1 bodies and shoes match the shipped v03 at the same scale. Not an art approval.", "evidence": "art/characters/gojo/production/round4/claude-calibration/airRecover-v05-vs-idle08-and-v03-2x.png"}
         },
         "down": {
           "frames": 2,
