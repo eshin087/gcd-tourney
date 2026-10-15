@@ -11,7 +11,7 @@
 
 ## Follow-up candidate batch (2026-10-14)
 
-The user's explicit `approved for both` authorized the following three candidates and no further assets. Each image used one generation attempt; no further attempts were used. The model sheet candidate was allowed as a working continuity reference for expressions and idle. None has been promoted to a fixed-name approved file.
+The user's explicit `approved for both` authorized the following three candidates and no further assets. Each image used one generation attempt; no further attempts were used. The model sheet candidate was allowed as a working continuity reference for expressions and idle. The user subsequently approved all three v01 candidates; their versioned files remain unchanged and fixed-name copies are now present.
 
 | candidate | dimensions | SHA-256 | provenance and review uncertainty |
 |---|---:|---|---|
@@ -20,3 +20,7 @@ The user's explicit `approved for both` authorized the following three candidate
 | `raw/idle_v01.png` | 2048×256 | `b11ae08cddc02bd2be95a21663f0dfba993d2743c356a7a346dfdd00d7cecb4b` | One attempt; generated with approved title-style v01 and model-sheet v01. Source was an 8-cell 4×2 grid, cropped and nearest-neighbor arranged as eight 256×256 frames. Body fills about 225 px including hat; this is an occupied bounding estimate, not a stature measurement. Feet sit near a common baseline. Frames 0–7 have very subtle changes and a near-static loop; motion readability is uncertain. |
 
 The approved neutral and combat provide visual reference only; title-style pilot has no formal pixels/cm calibration. The user must independently review every candidate. No packer, head probe, anatomy audit, game preview or physical scale pass was performed on these three candidates.
+
+## Approval record
+
+The user explicitly approved `model_sheet_v01`, `expressions_v01` and `idle_v01` on 2026-10-14. The manifest records `approvedVersion: 1` for each. Approved copies: `reference/model_sheet.png`, `reference/expressions.png` and `reference/idle_approved.png`. This records image approval only; it does not claim the idle passed packing, the scale gate, in-game QA, or the full anatomy audit.
