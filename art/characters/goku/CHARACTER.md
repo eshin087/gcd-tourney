@@ -40,8 +40,8 @@ Adult, lean and powerfully athletic, with golden Super Saiyan hair in distinct u
 
 ## Proportions and silhouette
 
-- Era and stature: Cell saga Super Saiyan adult. The approved Goku KIT.md design brief records about 175 cm; it supplies no underlying canon citation or uncertainty interval. Treat era/adult status as the approved design direction and exact stature as unverified context, not a scale input.
-- Shared scale: compare native 256px neutral and combat cells against the four approved title-style cells. The pilot is a visual relationship, not a formally calibrated pixels/cm scale. Hair crown, boot sole, and pose landmarks are uncertain until measured from the candidate; do not infer body height from hair-inclusive bounds.
+- Era and stature: Cell saga Super Saiyan adult. KIT.md records about 175 cm but no canon citation or uncertainty interval; treat exact stature as unverified context, not a scale input. User withdrew title-style v01 approval because hair-inclusive silhouette concealed a body about 20px shorter than Naruto; v02 is a corrected scale candidate, not approved.
+- Shared scale: the four approved title-style cells are visual comparisons, not calibrated pixels/cm. In title_style_lineup_v02.png, neutral body height is 207±4px from estimated skull crown (hair excluded) to boot sole; full silhouette is 234px including hair. This lies above Naruto 195±3px and Sasuke 197±3px and below Gojo 222±3px. Goku skull-crown estimate is ±10 source px (~±3px after fit); sole is ±1px. Hair-inclusive and body-only bounds are separately labeled. This is a candidate measurement, not an anatomy certification.
 - Anatomy: record skull, chin, shoulder, hip, knee and ankle landmarks from the proposed neutral after generation; no numeric pass before direct measurement. Hair mass is separate from skull size.
 - Build: adult athletic build with defined shoulders, compact waist and muscular limbs; preserve torso and limb lengths independently of clothing width.
 - Cell fit: use the common cast lineup density. No individual height cap or shoulder inflation.
@@ -65,10 +65,10 @@ Adult, lean and powerfully athletic, with golden Super Saiyan hair in distinct u
 
 | file | content | candidates | from |
 |---|---|---|---|
-| `reference/title_style_draft.png` | approved title-style neutral and combat reference beside approved cast (user approved v01 2026-10-14) | `reference/title_style_draft_vNN.png` | ADR 0029 lineup |
-| `reference/model_sheet.png` | approved turnaround and stance (v01 approved 2026-10-14) | `reference/model_sheet_vNN.png` | PROMPTS.md; approved from v01 |
-| `reference/expressions.png` | approved expression sheet (v01 approved 2026-10-14) | `reference/expressions_vNN.png` | PROMPTS.md; approved from v01 |
-| `reference/idle_approved.png` | approved idle (v01 approved 2026-10-14) | `raw/idle_vNN.png` | PROMPTS.md; approved copy from v01 |
+| reference/title_style_draft.png | unversioned fixed copy removed after v01 approval withdrawal; v02 neutral/combat candidate pending review | reference/title_style_draft_vNN.png; reference/title_style_lineup_v02.png | ADR 0029 lineup |
+| reference/model_sheet.png | preserved fixed copy, inactive/held because v01 derives from withdrawn title-style v01 | reference/model_sheet_vNN.png | held, do not use |
+| reference/expressions.png | preserved fixed copy, inactive/held because v01 derives from withdrawn title-style v01 | reference/expressions_vNN.png | held, do not use |
+| reference/idle_approved.png | historical user-approved idle v01; not an active scale/identity anchor pending corrected title reference and independent revalidation | raw/idle_vNN.png | PROMPTS.md |
 
 ## Don'ts for this character
 
