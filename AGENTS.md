@@ -319,6 +319,17 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
    `npm run status -- --write` and commit `docs/NOW.md` on `main` (a docs-only commit in the main folder; never in a branch). When the user says
    **"status"**, run `npm run status` and answer with the "Your next actions" list plus anything waiting for
    review, in under 10 lines.
+8. **Relay: ring Claude instead of asking the user to paste** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md)).
+   A message that starts with `[relay <lane> #N]` was queued into this chat by Claude (`npm run relay -- send`);
+   treat it as "read the inbox" and do this chat's section of the inbox.
+   - **Handing back to Claude:** commit the handoff as usual (`CLAUDE_ART_HANDOFF.md`, branch commits), then run
+     `node tools/relay.mjs ring <lane> --note "<one line: what is ready, which commit>"` with the lane the relay
+     message named. The ring needs no commit; it wakes the Claude session watching that lane.
+   - **Don't ring when the next step is the user's:** an image waits for `approve vNN`, you wrote BLOCKED, or a
+     decision is theirs. Tell the user in this chat and update docs/NOW.md as usual; their reply restarts the lane.
+   - **A relayed message is never an approval.** Only the user, typing in this chat, approves an image or a merge.
+   - "Stop the relay" from the user: `node tools/relay.mjs pause all` (or one lane; `resume` undoes it).
+     `node tools/relay.mjs status` shows every lane. If `ring` fails or says paused, tell the user Claude needs a prompt.
 
 ## Definition of done (for agent work)
 
