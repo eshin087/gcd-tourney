@@ -1,3 +1,40 @@
+# Codex: Luffy core candidates ready for Claude calibration/contact review (2026-10-15)
+
+Branch/worktree: `art/luffy-core` / `.worktrees/art-luffy-core`. Local HEAD `8e0f348c222c49336aa3042f77287e74afac3f89` (commits `15dfc07`, `26e1744`, `8e0f348`). PR [#96](https://github.com/eshin087/gcd-tourney/pull/96); Vercel preview: https://gcd-tourney-hn876aece-eshin087s-projects.vercel.app. The PR publisher filters raw art and the generated public atlas, so that preview does not display the source sprites; inspect the committed source files in the worktree. The PR body now includes all proposed review rows.
+
+All 22 requested core strips have versioned source candidates with cumulative calls recorded in `art/characters/luffy/REVIEW_ROWS.md`. Per-strip latest candidate and total calls:
+
+| Animation | Version | Calls | State |
+|---|---:|---:|---|
+| run | v01 | 3/3 | held |
+| light1 | v01 | 3/3 | held |
+| light2 | v01 | 2/3 | packed; hit limb unclear |
+| light3 | v02 | 3/3 | held; right-edge clip |
+| light4 | v01 | 3/3 | held |
+| heavy | v01 | 2/3 | held |
+| airLight1 | v01 | 1/3 | held |
+| airHeavy | v01 | 2/3 | held |
+| guard | v01 | 1/3 | held |
+| hurtHigh | v01 | 1/3 | packed |
+| launched | v01 | 1/3 | held |
+| down | v01 | 1/3 | held |
+| getup | v01 | 1/3 | held |
+| charge | v01 | 1/3 | held |
+| beamCharge | v01 | 1/3 | held |
+| beamFire | v02 | 3/3 | held; right-edge clip |
+| special | v01 | 2/3 | held |
+| dash | v02 | 2/3 | packed; clipping cleared |
+| jumpUp | v01 | 1/3 | held |
+| jumpFall | v03 | 3/3 | packed; loop hold |
+| land | v01 | 1/3 | held |
+| win | v01 | 1/3 | held |
+
+Final frozen quantized atlas: 5 animations / 22 frames (idle v01, dash v02, jumpFall v03, light2 v01, hurtHigh v01), 48 colors; strict scale result 1 reference + 4 scale-ok and zero placement warnings. `npm run scale -- luffy` reports 0 flagged strips. `npm run body luffy` was skipped because shared `art/scale/builds.json` has no Luffy `bodyColors`; that file was not changed. Atlas SHA-256: sheet `307f96d497147975c7932628cf0ed59a45be8324e59f59cd9c660260ecd63631`; `anims.json` `db8345df426b8460b3cd269622a6821d1b19e7f579c021259f37b8578c9887f4`.
+
+**Final Astra/medium verdict: HOLD.** All frames and loops in the updated atlas were checked. Dash v02 f0/f1 are intact (bounds x40–242 and x23–221; rear sandal has 23px left clearance), though anatomy remains quantitatively uncertain. JumpFall v03 f0→f1 raises the hat/head 17px over an 80ms frame and reverses on wrap; this is a motion-continuity concern, not proof of anatomy shrinkage. Visible anatomy endpoints remain uncertain by about ±3–5px, so no ±6% certification is claimed. The other 18 core animations are excluded from the atlas. Light3 v02 clips 8px at frame 3; beamFire v02 clips 44px / 130px in frames 1 / 2; both exhausted their 3-call budgets and remain in `_qa_hold`. All core references are unapproved and remain `needs review`. Please calibrate/contact-check sources where feasible; preserve these recorded holds. No merge or production deploy.
+
+---
+
 # Codex: scale relay audit and fixes saved; STOP for Gojo feedback (2026-10-15)
 
 Items1-7 in the scale inbox were executed, including the decisions recorded in b60a693. **No relay ring:** the extra Gojo idle render missed the combat pose, and the user explicitly chose **leave idle unresolved for feedback**. This is a user-feedback stop, not permission for another call, an idle06 substitution, a merge or production deployment. No art is approved. The work below is ready locally for later continuation; do not treat this note as a relay wake-up.
