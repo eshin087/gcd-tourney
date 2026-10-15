@@ -12,3 +12,6 @@ The parent task keeps shared review files untouched. Claude should copy the cand
 | 2026-10-14 | goku | model sheet | [v01 candidate](characters/goku/reference/model_sheet_v01.png) | v01 | held | Held because it was derived from withdrawn title-style v01. | Do not approve, use, or build on v01. Preserve versioned v01; fixed model_sheet.png now contains approved v02. |
 | 2026-10-14 | goku | expressions | [v01 candidate](characters/goku/reference/expressions_v01.png) | v01 | held | Held because it was derived from withdrawn title-style v01. | Do not approve, use, or build on v01. Preserve versioned v01; fixed expressions.png now contains approved v02. |
 | 2026-10-14 | goku | idle | [v01 candidate](characters/goku/raw/idle_v01.png) | v01 | approved (historical) | Earlier user approval predates the title-style v01 withdrawal. | Preserve approval history; title reference v02 is now approved, but idle v01 is not used as a candidate input. |
+
+
+Moved into art/REVIEW.md by Claude when PR #94 merged (2026-10-15). Later Goku rows go here the same way.
