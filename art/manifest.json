@@ -308,7 +308,7 @@
           "required": true,
           "step": 3,
           "status": "approved",
-          "version": 7,
+          "version": 8,
           "approvedVersion": 6
         },
         "run": {

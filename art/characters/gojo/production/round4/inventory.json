@@ -4,7 +4,7 @@
   "preexistingIdleCalls": "historical v05 A/B cumulative stored in title production; round4 adds2 A calls",
   "assets": {
     "idle": {
-      "version": 7,
+      "version": 8,
       "parts": {
         "A": {
           "calls": 3,
@@ -24,6 +24,16 @@
           "cumulativeRecordedCalls": 2,
           "selectedSource": "E:/Vibe Coding/.codex/generated_images/01a13382-60a1-7310-a004-6cdc4fec393f/exec-7e98780c-389a-4f76-88e1-9f4b5ecb10b4.png"
         }
+      },
+      "extraWholeStripCall20261015": {
+        "authorization": "One extra user-authorized call recorded in b60a693; budget was not reset.",
+        "priorCumulativeCalls": { "A": 3, "B": 1 },
+        "additionalCallsUsed": 1,
+        "selectedVersion": 8,
+        "generatedOutputOriginal": "E:/Vibe Coding/.codex/generated_images/01a14103-b9dc-7852-9623-3a865e50a249/exec-3b0be005-c1fd-484a-a126-8f060272806f.png",
+        "sha256": "6c1ec47c2c1e2b7df2d3aa6ccf2256e46dc93bdd8e426607f2990f6f963913bb",
+        "dimensions": [2172, 724],
+        "result": "HOLD: eight figures present; upright torso and both hands down differ from approved combat pose; dimensions and head match not calibrated; no further calls authorized."
       }
     },
     "superDash": {
