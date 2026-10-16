@@ -4,6 +4,7 @@
 
 Gojo round4 checkpoint: idle_v07 and superDash_v08/v09 **needs review / QA HOLD**. Named drafts filed, no approvals changed. New idle wrong target bounds; full strict pack fails from changed head-probe denominator. superDash v09 isolated strict head1.03 but torso/limb chains remain short. [checkpoint](characters/gojo/production/round4/CHECKPOINT.md). Other listed suspects need complete segment audit before redraw.
 
+Gojo J/K/L run-direction studies v01: **needs review; user pick pending**. Built-in generation used J 3 calls, K 1, L 1; selected candidates, shared 48-color strips, idle+8-frame contact sheets, looping GIF/MP4 and comparison GIF are filed in [review page](../public/reviews/gojo-run-jkl/index.html) with [QA](characters/gojo/production/run-jkl/QA_v01.md). J f3/f7 leave the far hand out of pocket; K f2/f6 hair is about 26% wide; all three second halves closely reprise the first instead of reading as a mirrored stride, so loop/alternation remain on hold. These are not production strips; the manifest remains shipped run v12 / approvedVersion12.
 Gojo G/H/I run-direction studies v01: **G direction selected by user; H/I rejected**. G relaxed-arm glide proceeds to technical cleanup before production approval. [24 frames](../public/reviews/gojo-run-ghi/GHI_all_24_frames_v01.png), [playable GIF](../public/reviews/gojo-run-ghi/GHI_comparison_v01.gif), [QA](characters/gojo/production/run-ghi/QA_v01.md). Neutral head probes pass; alternating leg identity and seam remain technical holds. Production runv12 stays approved.
 
 Gojo D/E/F run-direction studies v01: **needs review / technical HOLD**, three calls each, B/C rejected. [Combined24frames](../public/reviews/gojo-run-def/DEF_all_24_frames_v01.png), [playable comparison](../public/reviews/gojo-run-def/DEF_comparison_v01.gif), [QA](characters/gojo/production/run-def/QA_v01.md). Production run remains v12/approvedVersion12.
@@ -676,3 +677,4 @@ Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; spec
 
 Killua latest QA: specialDown07 retained after final hair-only correction; diagnostic reference28 ok/8 unmeasured/5 flagged. Block151/specialUp197 measured fits retained after peer anatomy review. Full production remains blocked; no new image approved.
 Title-style pilot v01: all four sheets and neutral/combat lineups approved by user 2026-10-11. Full animation production authorized; new strips require final review. Original down/KO poses retained with new style.
+
