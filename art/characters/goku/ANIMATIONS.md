@@ -4,7 +4,7 @@ Canonical names, counts, phases, timing, and required flags remain those reserve
 
 ## Reference gate
 
-The title-style reference v01 is approved by the user. It contains neutral and combat poses shown beside the four exact approved neutral cells in `reference/title_style_lineup_v01.png`. The user separately approved model sheet v01, expressions v01, and idle v01 on 2026-10-14; those approvals do not extend to other animations.
+The corrected title-style reference v02 is user-approved and is shown beside the four approved neutral cells in `reference/title_style_lineup_v02.png`. The user also approved model sheet v02, expressions v02 and idle v02. These approvals do not extend to other animations. Run v04 and light1 v02 remain held; light2, light3, light4, heavy, airLight1 and airHeavy each exhausted three calls and remain held after strict scale-gate failure. See [REVIEW_ROWS.md](REVIEW_ROWS.md); no core atlas is available for final audit yet.
 
 ## Shared combat language
 

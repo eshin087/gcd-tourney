@@ -1,6 +1,6 @@
 # Son Goku: image prompts
 
-Prompts follow art/SPEC.md, ADR 0007, ADR 0029 and the approved title-style production contract. The user withdrew title-style v01 approval on 2026-10-14 because Goku's body excluding hair was about 20px shorter than Naruto; the user approved corrected title-style v02 on 2026-10-14. Its fixed copy is reference/title_style_draft.png. Model-sheet v01 and expressions v01 remain held as derivatives of withdrawn v01; neither was used as a reference input. The v02 model sheet is an unapproved working continuity reference for expressions_v02 and idle_v02 only.
+Prompts follow art/SPEC.md, ADR 0007, ADR 0029 and the approved title-style production contract. The user withdrew title-style v01 approval on 2026-10-14 because Goku's body excluding hair was about 20px shorter than Naruto; the user approved corrected title-style v02 on 2026-10-14. Its fixed copy is reference/title_style_draft.png. Model-sheet v01 and expressions v01 remain held as derivatives of withdrawn v01; neither was used as a reference input. The v02 model sheet and expressions were approved by the user on 2026-10-15 and copied to their fixed reference names; idle_v02 was also user-approved.
 
 ## Candidate inventory
 
@@ -9,11 +9,19 @@ Prompts follow art/SPEC.md, ADR 0007, ADR 0029 and the approved title-style prod
 | title-style neutral + combat | reference/title_style_draft_v01.png | 2 | 2 | superseded; approval withdrawn 2026-10-14 |
 | title-style neutral + combat | reference/title_style_draft_v02.png | 2 of max 3 | 2 | approved by user 2026-10-14; fixed copy created |
 | model sheet | reference/model_sheet_v01.png | 1 | 1 | held; derived from withdrawn v01 |
-| model sheet | reference/model_sheet_v02.png | 1 of max 3 | 1 | needs review |
+| model sheet | reference/model_sheet_v02.png | 1 of max 3 | 1 | approved by user 2026-10-15; fixed copy created |
 | expressions | reference/expressions_v01.png | 1 | 1 | held; derived from withdrawn v01 |
-| expressions | reference/expressions_v02.png | 1 of max 3 | 1 | needs review |
+| expressions | reference/expressions_v02.png | 1 of max 3 | 1 | approved by user 2026-10-15; fixed copy created |
 | idle | raw/idle_v01.png | 1 | 1 | historically approved; not used as input |
-| idle | raw/idle_v02.png | 3 of max 3 | 3 | needs review; scale hold, body-only estimate about 180±10px vs approved neutral 207±4px |
+| idle | raw/idle_v02.png | 3 of max 3 | 3 | approved by user 2026-10-15; Claude calibration and technical QA pending |
+| run | raw/_qa_hold/run_v01-v04.png | 4 calls (one extra authorized) | v04 | held; strict scale/clipping failure, no further calls authorized |
+| light1 | raw/_qa_hold/light1_v01-v02.png | 3/3 | v02 | held; strict scale failure, no further calls authorized |
+| light2 | raw/_qa_hold/light2_v01.png, v02.png, v03.png | 3/3 | v03 | held; strict scale pop, see REVIEW_ROWS.md |
+| light3 | raw/_qa_hold/light3_v01.png, v02.png, v03.png | 3/3 | v03 | held; strict scale pop and minor clipping, see REVIEW_ROWS.md |
+| light4 | raw/_qa_hold/light4_v01.png, v02.png, v03.png | 3/3 | v03 | held; strict scale pop, see REVIEW_ROWS.md |
+| heavy | raw/_qa_hold/heavy_v01.png, v02.png, v03.png | 3/3 | v03 | held; strict scale pop, see REVIEW_ROWS.md |
+| airLight1 | raw/_qa_hold/airLight1_v01.png, v02.png, v03.png | 3/3 | v03 | held; strict scale pop, see REVIEW_ROWS.md |
+| airHeavy | raw/_qa_hold/airHeavy_v01.png, v02.png, v03.png | 3/3 | v03 | held; strict scale pop, see REVIEW_ROWS.md |
 
 For v02, attempt 1 was discarded without saving; attempt 2 is the single saved candidate. Both used the four exact approved neutral cells as scale/style references. Attempt 2 also used title_style_draft_v01.png for identity, outfit, palette and pose continuity only, explicitly disregarding its body size. No additional candidate was saved.
 
@@ -126,6 +134,8 @@ Attempt 3 exact prompt (selected):
 Create one idle-loop pixel-art sprite sheet for the exact Goku in the attached approved title-style reference: 8 separate sequential frames arranged in a precise 4-column by 2-row square grid. Each frame occupies one square cell; no title, text, labels or palette panel. Every cell shows the full same adult Super Saiyan Goku in a right-facing 3/4 guard stance, boots visible, feet on a common baseline within each cell. Use the attached approved neutral/combat reference as exact scale/style authority: body-only from skull crown excluding hair to soles about 207±4px in a 256px cell; compact golden hair only about 27px above scalp, head/head-body proportion like reference. Match outfit exactly: orange sleeveless gi over dark blue short-sleeve undershirt, blue sash, wristbands, dark boots; teal-green eyes. The second image model_sheet_v02 is a working continuity reference only, unapproved. Grid sequence left-to-right, top row then bottom row: base, gentle chest rise, settle, slight cloth/hair movement, near-base, gentle breath, settle, near-identical loop close to frame 1. Preserve anatomy and scale across frames; feet planted, no position jumps. Every cell square with ample magenta margins and no cropped silhouettes. Hard pixel clusters, dark outlines, restrained cel shading, pure #FF00FF background, no blur, gradients, dithering, anti-aliasing, attacks, aura, ki, effects or additional characters. Candidate only, not production approved.
 ```
 
-Before producing other animations, the user must review this batch. The model sheet and expression candidate are unapproved and neither may be copied to a fixed reference name. The idle is a technical scale hold and is not a production animation. Any image approved later is copied to its fixed name only after explicit approval. Each image has its own cumulative maximum of three attempts and candidate inventory; a reference approval does not approve a later candidate.
+Reference approvals do not approve animation candidates. Goku core candidates are reviewed per version; the six newest strips (light2, light3, light4, heavy, airLight1, airHeavy) each exhausted three calls and remain on technical hold in raw/_qa_hold after strict scale-gate failures. Run and light1 remain held. Each image has its own cumulative maximum of three attempts; only the user can approve an animation candidate.
 
 For future prompts, if the character/style name is refused, use this fallback description without names: “adult athletic martial artist with sharply spiked golden hair, teal-green eyes, orange sleeveless gi over a dark blue undershirt, blue sash, wristbands and boots.” Keep the requested original pose and the same title-style proportions.
+
+\n

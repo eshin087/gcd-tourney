@@ -1,0 +1,4 @@
+import fs from 'node:fs'; import { PNG } from 'pngjs';const idles=PNG.sync.read(fs.readFileSync('art/characters/goku/reference/idle_approved.png'));
+const files=['light2_v03','light3_v03','light4_v03','heavy_v03','airLight1_v03','airHeavy_v03'];
+function m(png,cell){let x0=cell*256,minX=256,maxX=-1,minY=70,maxY=-1;for(let y=0;y<70;y++)for(let x=0;x<256;x++){let i=(y*png.width+x0+x)*4,r=png.data[i],g=png.data[i+1],b=png.data[i+2];if(r>170&&g>90&&b<150&&r-g>15){minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y)}}return [minX,maxX,minY,maxY,maxY-minY+1,maxX-minX+1]}
+console.log('idle',m(idles,0));for(const f of files){const p=PNG.sync.read(fs.readFileSync(`art/characters/goku/raw/_qa_hold/${f}.png`));console.log(f,Array.from({length:p.width/256},(_,i)=>m(p,i)).map(x=>x.slice(4)).join(' '))}
