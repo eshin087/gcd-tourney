@@ -218,6 +218,7 @@ export class Game {
     this.round = 1;
     this.frameNo = 0; // per match: cooldown stamps and beam-clash charts read it, and every machine must agree
     this.nextShotId = 0;
+    this.netplay?.reset();
     this.basis.reset();
     this.resetRound();
     this.beginIntro();
@@ -508,7 +509,9 @@ export class Game {
         this.acc += dt;
         let steps = 0;
         while (this.acc >= DT && steps < 6) {
-          this.fixedUpdate();
+          // online (ADR 0036): the rollback session runs the frame (or stalls, or rewinds first)
+          if (this.netplay) this.netplay.tick();
+          else this.fixedUpdate();
           this.acc -= DT;
           steps++;
         }
@@ -660,10 +663,13 @@ export class Game {
   stepWorld() {
     this.frameNo++;
     this.basis.step(this.fighters); // the axes this frame's inputs and lanes read, from where the fighters ended last frame
-    this.input.poll();
+    if (this.netplay) this.netplay.applyInputs(this); // this frame's inputs, local and remote, from the rollback session
+    else {
+      this.input.poll();
+      this.director?.update();
+      for (let i = 0; i < 2; i++) if (this.brains[i]) this.brains[i].update(this);
+    }
     if (this.training) this.hud.history?.tick(this.pads[0], deviceLayout(this.input));
-    this.director?.update();
-    for (let i = 0; i < 2; i++) if (this.brains[i]) this.brains[i].update(this);
     if (this.superFlash) {
       this.superFlash.t++;
       if (this.superFlash.t >= this.superFlash.len) {

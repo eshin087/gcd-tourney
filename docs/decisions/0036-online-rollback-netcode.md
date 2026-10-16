@@ -204,3 +204,28 @@ off, and reports the first frame where the two runs differ and which values diff
     - One-off events (a hit spark, a callout, a camera cut) that a mispredicted frame played are not taken back.
     - A rewind across a match's end would miss its results screen (the menus are stood in for).
     - The CPU brains are not saved: rollback is for person-vs-person.
+- **ENG-093, 2026-10-16:** the rollback session, proven over a simulated network.
+  - `src/net/rollback.js` `RollbackSession`: one packed number per player and frame (stick as signed 8 bits per axis,
+    buttons as bits), local inputs `delay` frames ahead (default 2), unacknowledged ones resent in every message,
+    remote ones predicted by repeating the last real one. A wrong prediction restores the state saved before that
+    frame and re-simulates to the present quietly. It never runs more than `maxRollback` (8) frames past the newest
+    remote input; past that it stalls, which keeps both machines in step. Every 60 frames the two sides compare the
+    hash of a frame both have confirmed.
+  - `Game.frame` runs `netplay.tick()` instead of `fixedUpdate()` when `game.netplay` is set, and `stepWorld` takes
+    the pads' inputs from it instead of the devices and brains. `InputManager.poll` is now `sample()` (the devices,
+    no pad writes) plus the pad writes, so a session can read the devices for a future frame.
+  - `src/net/netSim.js`: `SimLink` (latency, jitter, loss) and `SimRemote` (the other machine, with its own frame
+    clock and the same stall rule). `?net=sim` plays a normal match through it (a CPU or player 2 on the far side)
+    with a stats overlay.
+  - Test: `det.netplay(log, opts)` plays a recording's two players through the session, one local and one over the
+    simulated network, and compares every frame with a plain replay. Result: MATCH on every frame for naruto-sasuke
+    (6 ± 2 frames one way, 5 % loss: 321 rollbacks up to 7 frames deep; 12 ± 4, 15 % loss: 9 stalls, 8-frame
+    rollbacks), gojo-killua (4 ± 3, 10 %, local as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke
+    (6 ± 2, 5 %), no desyncs; a tampered input at frame 600 is reported as a desync at frame 600. A `?net=sim`
+    match against the CPU ran to its KO with 289 rollbacks and a clean console, and a 3-match soak is clean.
+  - Known gaps for ENG-094:
+    - The CPU brain on the far side of `?net=sim` thinks on the predicted present, not the confirmed past; online
+      matches are person vs person.
+    - A rewind across the match's last KO would replay its results quietly; the server should decide the result
+      from confirmed frames.
+    - The transport is the remaining piece: the lobby server relays the same `in` / `ck` messages.

@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: rollback netcode, tested locally (ENG-093, ADR 0036): `src/net/rollback.js` (`RollbackSession`: packed inputs, input delay, prediction, save / restore and quiet re-simulation, stalls past 8 frames, state-hash desync check), `src/net/netSim.js` (simulated latency / jitter / loss), `?net=sim[&lag=6&jitter=2&loss=5&delay=2]` plays a match through it against the CPU (or player 2 in versus) with a stats overlay, and `det.netplay(log, opts)` checks every frame against a plain replay; `InputManager.poll` is split into `sample()` + the pad writes.
 - Added: rollback groundwork (ENG-092, ADR 0036): `Game.saveState()` / `loadState()` (`src/game/snapshot.js`), `Game.quiet()` for silent re-simulation, shots drawn from state by `ShotViews` (projectiles keyed by id, beam meshes in `BeamView`), and a rollback stress test (`det.replay(log, { rollback })`, also on the `?det=` page): four pairings stay frame-exact through 500-1,000 rewinds.
 - Changed: the melee clash's CLASH! / CLASH ×n! / CLASH BREAK! text is a right-hand side banner like TECH! (each count replaces the last) instead of a center-screen callout over the fighters (ENG-096, ADR 0038).
 

@@ -9,6 +9,8 @@
 import { ACTIONS } from '../core/input.js';
 import { rng } from '../game/rng.js';
 import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
+import { RollbackSession, packInput, applyInput, foldHash } from './rollback.js';
+import { SimLink, SimRemote } from './netSim.js';
 
 // this build's simulation fingerprint (vite.config.js simId): a fixture recorded on another one is stale
 const SIM = import.meta.env.SIM_ID ?? null;
@@ -64,6 +66,24 @@ function hookStep(game, f0, after, timing) {
 
 // Both pads, frame k, from the recorded changes: the same writes a brain or InputManager.poll makes (tick, stick,
 // buttons), so the pads' own derived state (buffers, double taps) is rebuilt rather than copied.
+// The log's inputs as packed per-frame values (rollback.js packInput), the first `neutral` frames left at rest: what a
+// rollback session sends and applies, so a straight replay of this table is the reference a netplay run must equal.
+function packedInputs(inputs, frames, neutral = 0) {
+  return inputs.map((L) => {
+    const out = new Array(frames + 64).fill(0);
+    let j = 0, cur = 0;
+    for (let k = 0; k < out.length; k++) {
+      while (j < L.length && L[j][0] <= k) {
+        const [, mx, my, bits] = L[j++], b = {};
+        ACTIONS.forEach((a, i) => { b[a] = !!(bits & (1 << i)); });
+        cur = packInput(mx, my, b);
+      }
+      out[k] = k < neutral ? 0 : cur;
+    }
+    return out;
+  });
+}
+
 function makeFeed(inputs) {
   const ptr = [0, 0], cur = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
   return (game, k) => {
@@ -163,14 +183,16 @@ export function install(game, ready, qs) {
   // saves the state, plays `depth` frames on wrong inputs (a misprediction), restores, and re-simulates them quietly
   // on the right ones, the way rollback netcode will; every frame is still checked against the recording.
   async function replay(log, { dt = '60', stopAt = log.frames, dumpAt = null, noDraw = false, onProgress = null,
-    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null, rollback = null } = {}) {
+    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null, rollback = null, packed = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(randomSeed);
     const { f0, done } = startRun(game, log.cfg);
     game.brains = [null, null]; // the match setup (Game.kinds) still says both sides are CPUs, as when it was recorded
     game.director = null;
     const art = game.assets.map(artPrint);
-    const feed = makeFeed(log.inputs), poll = game.input.poll, draw = game.renderer.render;
+    // packed: per-player packed inputs (packedInputs) applied the way a rollback session does, instead of the log's
+    const feed = packed ? (g, k) => g.pads.forEach((pad, i) => applyInput(pad, packed[i][k] ?? 0)) : makeFeed(log.inputs);
+    const poll = game.input.poll, draw = game.renderer.render;
     game.input.poll = () => feed(game, game.frameNo - f0 - 1);
     if (noDraw) game.renderer.render = () => {};
     const ref = refPer ?? log.per ?? null, checks = ref ? null : unhex(log.checks), fh = !ref && log.frameHashes ? unhex(log.frameHashes) : null;
@@ -254,6 +276,53 @@ export function install(game, ready, qs) {
       step, frame: stats(drawT), rollback8: step && +(8 * step.p95).toFixed(2), burst8: stats(burst), timerMs: Number.isFinite(tick) ? +tick.toFixed(3) : null,
       result: { winner: game.roundWinner?.index ?? null, rounds: game.round, hp: game.fighters.map((f) => f.hp) },
       rollback: rollback && { ...rollback, n: rb.n, save: stats(rb.save), load: stats(rb.load), resim: stats(rb.resim) },
+    };
+  }
+
+  // netplay(log, { delay, latency, jitter, loss, seed, localPlayer, maxRollback }): the log's two players through a
+  // rollback session (rollback.js) over a simulated network (netSim.js): one is local, the other's inputs arrive
+  // `latency` ± `jitter` frames late or not at all (`loss`). Every frame's final state must equal a straight replay of
+  // the same packed inputs, and the remote's hash reports (the desync check) must all agree. tamper: a frame from
+  // which the remote reports hashes of a different input (its jump pressed): the desync check must catch it.
+  async function netplay(log, { delay = 2, latency = 6, jitter = 2, loss = 0.05, seed = 1, localPlayer = 0, maxRollback = 8, onProgress = null, tamper = null } = {}) {
+    const table = packedInputs(log.inputs, log.frames, delay);
+    const ref = await replay(log, { packed: table, keepPer: true, noDraw: true, ref: new Uint32Array(0) }); // nothing to compare: it is the reference
+    const refFold = [];
+    for (let k = 0; (k + 1) * NG <= ref.per.length; k++) refFold.push(foldHash(ref.per.subarray(k * NG, k * NG + NG)));
+    const realRandom = Math.random;
+    Math.random = rng((log.cfg.seed ^ 0x9e3779b9) >>> 0);
+    startRun(game, log.cfg);
+    game.brains = [null, null];
+    game.director = null;
+    const remotePlayer = 1 - localPlayer, link = new SimLink({ latency, jitter, loss, seed });
+    const source = (f) => (table[remotePlayer][f] ?? 0) ^ (tamper != null && f === tamper ? 1 << (16 + ACTIONS.indexOf('jump')) : 0);
+    new SimRemote(link, { player: remotePlayer, delay, maxRollback, source, check: (f) => refFold[f], checkEvery: 60 });
+    const session = new RollbackSession(game, { link, local: (p, f) => table[p][f] ?? 0, localPlayers: [localPlayer], remotePlayers: [remotePlayer], delay, maxRollback, hashEvery: 1 });
+    const draw = game.renderer.render;
+    game.renderer.render = () => {};
+    game.netplay = session;
+    try {
+      let it = 0;
+      while (game.frameNo < ref.frames && game.state !== 'results' && it < ref.frames * 3) {
+        game.frame(1 / 60);
+        if (++it % 120 === 0) { onProgress?.(game.frameNo, ref.frames); await yieldNow(); }
+      }
+    } finally {
+      game.netplay = null;
+      game.renderer.render = draw;
+      Math.random = realRandom;
+    }
+    const done = Math.min(session.remoteConfirmed(), game.frameNo - 1);
+    let first = null, compared = 0;
+    for (let f = 0; f <= done; f++) {
+      const h = session.hashes.get(f);
+      if (h === undefined || refFold[f] === undefined) continue;
+      compared++;
+      if (h !== refFold[f]) { first = f; break; }
+    }
+    return {
+      match: first === null && session.stats.desyncs === 0 && compared > 0.9 * ref.frames, first, compared,
+      frames: game.frameNo, of: ref.frames, net: { latency, jitter, loss, delay, maxRollback }, stats: { ...session.stats }, link: { ...link.stats },
     };
   }
 
@@ -373,7 +442,7 @@ export function install(game, ready, qs) {
     return r;
   }
 
-  const det = { record, replay, diagnose, addTrace, traceCheck, save, load, run, dump: () => dumpSim(game), hash: () => Array.from(hashSim(game)) };
+  const det = { record, replay, netplay, diagnose, addTrace, traceCheck, save, load, run, dump: () => dumpSim(game), hash: () => Array.from(hashSim(game)) };
   window.det = det;
   if (qs.get('det')) ready.then(() => run(qs.get('det'), qs.get('dt') || '60'));
   return det;

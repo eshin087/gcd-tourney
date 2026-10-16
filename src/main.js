@@ -97,11 +97,16 @@ ready.then(() => {
 // (mode=cpu spectates two CPUs; its level defaults to impossible); &seed=N fixes the match seed (the CPUs' combo
 // personas and routes, ADR 0026)
 const qs = new URLSearchParams(location.search);
+// ?net=sim: the local rollback test mode (ADR 0036, src/net/netSim.js): player 2's inputs cross a simulated network
+// (&lag=frames &jitter=frames &loss=% &delay=frames); it is set up before the match so the session starts with it
+const netReady = qs.get('net') === 'sim'
+  ? ready.then(() => import('./net/netSim.js')).then((m) => m.startNetSim(game, qs))
+  : ready;
 if (qs.get('fight')) {
   const [p1, p2] = qs.get('fight').split(',');
   const mode = qs.get('mode') || 'solo';
   const seed = qs.get('seed') ? Number(qs.get('seed')) >>> 0 : undefined;
-  ready.then(() => game.startMatch({ mode, p1, p2: p2 || p1, level: qs.get('level') || (mode === 'cpu' ? 'impossible' : 'normal'), seed }));
+  netReady.then(() => game.startMatch({ mode, p1, p2: p2 || p1, level: qs.get('level') || (mode === 'cpu' ? 'impossible' : 'normal'), seed }));
 }
 
 // the online-play determinism test (ADR 0036): window.det with ?debug, and ?det=<log> replays a saved log at once
