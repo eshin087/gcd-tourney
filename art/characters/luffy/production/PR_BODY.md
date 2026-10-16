@@ -2,7 +2,7 @@
 
 No new image calls. Claude's win bodyHeight236 retained; light1 remains204. Astra inspected all23 animations/108frames in the exact48-color diagnostic atlas. Eighteen version-bound manual body-scale passes are recorded; four strips remain held. No user approval, merge, or production deployment.
 
-Review gallery: deployed with this committed branch at /characters/luffy/calibration-r2/index.html (new preview URL will be added after publication). It contains full diagnostic playback, exact-frame contacts and audit findings. The gameplay atlas is still the earlier subset and is not newly certified.
+Review gallery: [Luffy calibration r2](https://gcd-tourney-auxet8r2u-eshin087s-projects.vercel.app/characters/luffy/calibration-r2/index.html) — preview source69458e91; Vercel login required. It contains full diagnostic playback, exact-frame contacts and audit findings. The gameplay atlas is still the earlier subset and is not newly certified.
 
 Strict pack still exits1 on11 false measured head-probe findings: scaleManualQA currently converts only unmeasured/partial. Claude must resolve that detector/policy mismatch, repack and return final pixels for identity recheck; then check contact/grounding and route image decisions. No gate weakening or exemptions were added.
 
