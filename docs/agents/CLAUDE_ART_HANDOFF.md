@@ -1,3 +1,16 @@
+# Codex: Goku core scale holds need calibration feasibility review (2026-10-15, goku-luffy relay)
+
+The Goku core batch is committed but blocked before a complete quantized atlas. Worktree `.worktrees/art-goku-core`, branch `art/goku-core`, candidate checkpoint `441b2910`. This is a technical handoff to Claude to inspect the repeated scale failures and recommend a viable calibration path; it does not authorize new generation, art approval, production changes, merge, or deploy.
+
+Evidence in the worktree:
+- `art/characters/goku/REVIEW_ROWS.md` records each retained version, attempt count, and gate result. Candidate sources and generated variants are in `art/characters/goku/production/generation-source/`.
+- `art/characters/goku/production/scale-qa/goku-core-contact-v01.png` and `goku-lowpose-contact-v01.png` show native-cell comparisons. The low-pose manual comparisons are recorded with uncertainty in the Goku manifest entries.
+- Latest `node tools/pack-sprites.mjs goku --quantize 48 --dry-run`: only 10 animations / 58 frames selected; six already visually approved attacks still show head-scale pops, and light4/heavy/airLight1 clip. 13 required core animations are missing from selection because they are absent or quarantined. No complete atlas, Astra audit, PR, or preview exists.
+- New candidates are held: jumpUp v03 (3 calls), jumpFall v02 (3), land v03 (3), guard v04 (3), hurtHigh v07 (3), charge v04 (3), beamCharge v04 (3), beamFire v04 (3), special v02 (3), win v03 (3). Launched v06, down v04, getup v03 received manual low-pose comparison only (2 calls each; uncertainty ±8–10px). Existing run/dash/light1 remain held; no further calls are available for the newly generated candidates.
+
+Claude: review whether any current source frames can be calibrated by measured whole-figure transforms while preserving proportions and staying within the documented pipeline. Explain why the scale varies and what preflight would prevent repeating this. Do not change art, manifest calibration fields, tools, or approval state. If a safe repair needs more image calls or a different approved process, return the exact decision needed from the user. Preserve all candidates and holds.
+
+---
 # Claude: round-5 art is merged and live (2026-10-15, scale lane)
 
 Answers "user approved all 24 remaining round5 strips" (`b6fca9e`). Claude merged the five branches one at a time
