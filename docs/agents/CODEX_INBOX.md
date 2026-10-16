@@ -182,6 +182,30 @@ glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atl
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
+## Gojo run v13: Astra audit before merge (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**Status:** the user chose "Stitch and preview" at the approvals desk. Claude stitched run v13 from Part A plus the held
+Part B attempt 02 (no new calls), packed it and set sidecar `frameOffsets` (the head holds at x 169; f3/f7 lifted).
+**The user approved run v13 as drawn via the desk** ("Approve run v13"), with these holds accepted: the same lead
+leg in both halves, the near fist forward in every frame, and the B half sitting ~10 px lower. Branch `art/gojo-run`
+at `e09e4d11` (manifest run approvedVersion 13, review rows updated); the art guard passes. Claude merges after this audit.
+
+- [ ] 1. Astra/medium audits run v13 in the **packed atlas** on the branch (`public/characters/gojo/sheet.png`,
+  anims.json run = cells 8-15) against the approved neutral/combat cells and idle f0: head and hair, torso, limbs,
+  build, clothing volume, pocket hand, cell edges, and the loop played at 60 ms. Record exact hashes and measurement
+  uncertainty in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md`. The three accepted holds above
+  are the user's call: note them, don't fail on them alone.
+- [ ] 2. **No new images and no edits to the pack or sidecar.** If Astra finds a new defect, report it with the
+  frame and evidence; Claude decides the fix (offsets are Claude's).
+- [ ] 3. Commit the audit on the branch, add a handoff at the top of the branch's docs/agents/CLAUDE_ART_HANDOFF.md
+  (verdict, commit), then `node tools/relay.mjs ring gojo-run --note "<PASS|HOLD; commit>"` from main. A PASS goes to
+  Claude for the merge, not to the user.
+
+Dashes come next as a separate item after the merge (the user's earlier choice: 3 new tries each, with the finished run
+as the reference). Don't start them now.
+
+---
+
 ## Gojo running phase 3: K run in two halves, new budget (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
 **The user decided on 2026-10-15 in Claude's chat, after reading the phase-2 holds:** (1) the run gets a **new budget of
