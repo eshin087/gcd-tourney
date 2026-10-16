@@ -89,7 +89,7 @@ Then continue with "Luffy core: the user's decisions" below. Same rules as "Goku
 
 ## Super banners and ultimate splashes: Sasuke pilot (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
 
-**Latest state (2026-10-15, effects relay #5):** the user authorized 3 additional calls each for the Sasuke v02 foreground redraws. Codex completed v03, Astra audited, and both remain on technical HOLD. PR #111 commit `753409cb` has the updated gallery and game preview; see docs/NOW.md. The next step is the user's decision whether to accept either v03 despite its hold, leave it held, or authorize more generation. Do not ring Claude; Codex routes the decision through the existing effects relay.
+**Latest state (2026-10-15, effects relay #6):** the user approved both v03 foregrounds via Claude despite Astra holds. They are copied to approved UI files and packed; PR #111 has the live preview. See docs/NOW.md and the latest CLAUDE_ART_HANDOFF.md entry. Claude is next for integration and final in-game review; no further user decision is pending in this task.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** supers, ultimates and specials should
 have "the iconic anime/manga stunning epic feel". Ultimates must show more than a partial face; the banner's empty
