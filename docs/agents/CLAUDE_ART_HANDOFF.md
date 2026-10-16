@@ -1,3 +1,29 @@
+# Codex: round-5 audits and 28-strip phone gallery ready (2026-10-15, scale lane)
+
+Items1-2 of the Round5 inbox are complete. [Phone review gallery](https://gcd-tourney-cjilg9ac0-eshin087s-projects.vercel.app/reviews/round5/index.html), committed preview **d3c7eef** on `codex/gojo-run-def`. Vercel login remains required by the user's choice. This handback is not an image approval, anatomy pass, merge instruction or production deployment authorization.
+
+| worktree under `.worktrees/` | branch / final commit | evidence |
+|---|---|---|
+| art-gojo-title-r3 | codex/gojo-run-def / d3c7eef | Astra035c3eb audited idle08/light3v06/airRecoverv05; ede1cdc refreshed all five other Gojo gallery strips on the current atlas. Reports in `art/characters/gojo/production/round5/astra/` and `astra-retained/`. Gallery and copied evidence in `public/reviews/round5/`. |
+| art-naruto-title-r3 | art/naruto-title-r3 / ac58516 | stagger08/taunt10: every frame, transition and loop; `art/characters/naruto/production/round5/astra/`. |
+| art-naruto-alts | art/naruto-alts / ab85c7b | Initial c7119e5 plus complete59-frame annotation supplement; `art/characters/naruto/production/round5/astra-alts/`. H/T/upper arm/forearm/shin59/59; thigh58/59 and shoe43/59 with individual hidden-endpoint exclusions. Ten landmark overlays and uncertainty/ratio tables. |
+| art-killua-title-r3 | art/killua-title-r3 / 2da444f | No new audit requested; approved win04 fallback retained. Prior findings labelled historical because the palette changed; candidate alpha silhouettes match earlier audited frames. |
+| art-sasuke-title-r3 | art/sasuke-title-r3 / 536b7bc | Reviewed candidate cell RGBA exactly matches calibrated ffb6abf; prior audit retained. |
+
+All calibrated sheet/metadata hashes match your preceding handoff; no raw, sidecar, bodyHeight, offsets, hitboxes, packer or production atlas changes. No image calls. All28 candidates remain needs review. All full-contract Astra verdicts are HOLD; uncertain projected lengths are not demonstrated defects or numerical passes.
+
+Technical findings to reconcile:
+- Naruto stagger08 central T51±3 versus neutral50.4±3 is corrected; near-upright leg/forearm readings remain short centrally with garment-joint uncertainty. Taunt10 matched upper-collar-to-black-hem T46.1–46.2±3 versus50.4±3 gives about0.915 with uncertainty overlapping tolerance. Astra did not reproduce your0.80–0.85 estimate using matched landmarks; preserve both methods rather than silently substituting one ratio.
+- Gojo idle08 remains user-approved as drawn. Source f7 right shoe intersects the raw edge at x2171; missing extent cannot be measured despite the packed margin. Current light3 and retained strips are intact; motion/projection limits prevent full-segment certification. Old diagnostic split-figure findings were not reproduced on the current airLight1/throw cells.
+- Alts: all59 inherited hit/hurt-box objects match their bases; all ten duration/phase arrays match. Every animation is nonlooping; preview replay was inspected separately. light2Alt foot center offset is (+29.5,+27)px at f2, (+21,+27.5)px at f3 against inherited hit center; f2 toe about31px beyond drawn base fist. airHeavyAlt remains absent so base plays.
+- The gallery flags taunt10 torso, Sasuke jumpSquat06 reaching arm, light2Alt03 contact and Killua stagger07 f2→f3 reset for the user. No extra calls are authorized by this handback.
+
+Verification: build passed; all43 playback crop strips (185 frames including bases/idles) compared RGBA-exact to copied atlases; source hashes and all evidence links checked. Codex in-app browser at390px verified equal canvas sizes, no page overflow, aligned comparisons, loop pause/step, one-shot stop/replay and direct anchors. Hosted JSON/player/crop hashes match; audit text matches after Git newline normalization; HTML contains Vercel's normal feedback script. No native desktop control or public bypass link.
+
+Please consume this technical handback and await the user's per-strip decisions. NOW contains the gallery and four direct links. The scale doorbell is rung after this docs commit per Round5's explicit completion instruction; it does not grant permission to generate, merge or deploy production.
+
+---
+
 # Claude: round-5 calibration done on all five branches; Astra audits and one phone review page next (2026-10-15)
 
 Answers "user accepted Gojo idle08 and Goku idle02; calibration handback" (`13d4ec7`) and the scale relay audit (`4a5e405`)
