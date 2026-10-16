@@ -93,17 +93,30 @@ src/game/
   dmath.js                  deterministic hypot / sin / cos / atan / atan2 from + - * / and Math.sqrt for every
                             gameplay file (Safari's Math.hypot differs from Chrome's in the last bit);
                             tools/lint-sim-math.mjs keeps engine Math out of those files
-src/net/                    online play (ADR 0036): rollback, a simulated network, the determinism test
+src/net/                    online play (ADR 0036): rooms, rollback, spectating, a simulated network, the tests
+  online.js                 Online (game.online, loaded on first use): the online screens' logic, the room, each
+                            match's session (RollbackSession as a player, SpectateSession otherwise), the result report,
+                            the match strip; Game hooks: update() per frame, menuKey() (Esc / pause), overlay
+  lobby.js                  LobbyClient: one WebSocket to a room on the lobby server (server/), JSON messages, ping;
+                            matchLink() is the transport a RollbackSession reads; LOBBY_URL / lobbyUrl(), room codes
+  spectate.js               SpectateSession: replays the confirmed inputs the room feeds, a little behind, never
+                            rolling back; a late joiner fast-forwards quietly
   rollback.js               RollbackSession (GGPO-style, transport-agnostic): packed inputs (packInput / applyInput),
-                            input delay, prediction, save / restore and quiet re-simulation, stalls past maxRollback
-                            (time sync), state-hash checks (desync); takes over Game.frame's step when game.netplay
+                            input delay, prediction, save / restore and quiet re-simulation, stalls past maxRollback,
+                            time sync (frame advantage), state-hash checks (desync); takes over Game.frame's step when
+                            game.netplay
   netSim.js                 SimLink (latency / jitter / loss) + SimRemote (the other machine) for tests and ?net=sim
                             (a normal match through rollback, CPU or player 2 on the far side, stats overlay)
   simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, control
                             basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
   detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and
                             hashes, replay them (brains off, other render rates), report the first split and its
-                            values, time the fixed step; fixtures in public/det/, saved via the dev server
+                            values, time the fixed step; fixtures in public/det/, saved via the dev server;
+                            det.netplay (simulated network), det.online (the real lobby server), det.bot (a stand-in
+                            room member)
+server/                     the lobby server (Cloudflare Worker + one Durable Object per room, own package.json with
+                            wrangler; server/README.md has the protocol): roomCore.js (the room's rules, plain JS),
+                            room.js (the Durable Object), index.js (routing, allowed origins)
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
   animGuide.js              canonical animation list (frames, phases, pose text) + ChatGPT prompt builder

@@ -232,3 +232,38 @@ off, and reports the first frame where the two runs differ and which values diff
     - A rewind across the match's last KO would replay its results quietly; the server should decide the result
       from confirmed frames.
     - The transport is the remaining piece: the lobby server relays the same `in` / `ck` messages.
+- **ENG-094, 2026-10-16:** online rooms on the lobby server.
+  - `server/`: a Cloudflare Worker and one `Room` Durable Object per room code (hibernating WebSockets, an alarm for
+    timers). The rules live in `roomCore.js`, plain JavaScript that a Node test drives with a fake clock. It handles
+    members, the winner-stays-on line (streak cap 5), the relay of `in` / `ck` between the two players, the
+    spectator feed of confirmed frames (all of them for a late joiner), and both players' results. A match ends
+    early on a mismatch, a desync report, a player leaving (forfeit) or a player silent for 10 s (timeout). Every
+    member must run the same simulation build (`SIM_ID`). Allowed origins only, and a flood limit.
+  - Client: `src/net/lobby.js` (the socket), `online.js` (the screens' logic and each match: a RollbackSession for a
+    player, a `SpectateSession` that replays the feed a little behind for everyone else), ONLINE on the mode list,
+    `?room=CODE` invite links, the room screen and the match strip. Online matches have no pause and no intro skip
+    (both run on every machine), and the results screen is the room.
+  - Time sync (frame advantage, GGPO-style) in RollbackSession: a machine that started earlier waits out half the
+    difference instead of making the other roll back every frame.
+  - Fixes the real network exposed: the intro's length was read from the camera, which a quiet re-simulation stands
+    in for (a rollback in the intro would have ended it early on one machine); it is a constant now (`INTRO_DUR`).
+    `link.pump?.(++ticks)` never counted ticks on a link without `pump` (optional chaining skips the argument).
+  - Test: `det.online(log)` plays a recording through the real server (wrangler dev): naruto-sasuke (1,500 frames) and
+    gojo-killua (2,400) MATCH on every frame with the intro, the hash checks pass through the server, and the
+    spectator feed equals both players' inputs. With stand-in bots: winner stays on, forfeit, timeout, a full match
+    to KO reported and counted, spectating, a late join fast-forwarding about 650 frames, the room over a watched
+    match, phone landscape layout. A 3-match soak is clean.
+  - Deployed 2026-10-16 on the user's Cloudflare account (free plan): https://gcd-tourney-lobby.eshin087.workers.dev
+    (`LOBBY_URL`). `det.online` against it from a local page: naruto-sasuke, 1,800 frames, MATCH on every frame at a
+    23 ms ping, 30 hash checks, the feed exact. A page on localhost still uses `npm run lobby` unless `?lobby=` says
+    otherwise.
+  - Playtest 1 (phone vs PC, 2026-10-16): "seems to be some input delay or lag compared to single player". Every
+    match had 2 frames (33 ms) of input delay, on top of a phone's own touch latency. Now the server picks the delay
+    per match from the two players' measured round trips to the room (`pickDelay`): 1 frame up to 67 ms player to
+    player (home Wi-Fi, one region), 2 up to 117 ms, else 3; rollback hides the rest. Clients measure the round trip
+    before joining (the hello carries it) and report it every 5 s. Each player also sends its match's connection
+    stats (rollbacks, stalls, time-sync waits, frame rate) to the room (`GET /room/<CODE>/stats`), so the next
+    playtest shows device by device whether any lag left is the network or a slow frame rate. The match strip shows
+    the delay. `det.online` over the deployed server: MATCH at 1 frame of delay (10 ms ping, rollbacks of at most
+    3 frames, no stalls).
+  - Not yet: reconnecting to a match after a dropped connection; public lobbies, chat and moderation (ENG-095).

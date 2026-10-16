@@ -384,10 +384,10 @@ export class InputHistory {
 
 // Bottom-of-screen hint for matches, built from the live bindings + active device.
 export function matchHint(mode, layout) {
-  if (mode === 'cpu') {
-    // spectating: nobody is playing, so only the way out matters
+  if (mode === 'cpu' || mode === 'watch') {
+    // spectating: nobody is playing, so only the way out matters ('watch': an online match, Esc opens the room)
     const pause = layout === 'touch' ? '<kbd>❙❙</kbd>' : layout !== 'keyboard' && PAD_NAMES[layout] ? `<kbd>${PAD_NAMES[layout][9]}</kbd>` : '<kbd>Esc</kbd>';
-    return `CPU vs CPU · ${pause} pause`;
+    return mode === 'watch' ? `Watching · ${pause} room` : `CPU vs CPU · ${pause} pause`;
   }
   if (layout === 'touch') return ''; // the on-screen buttons are labelled
   const k = (map, a) => `<kbd>${keyLabel(map[a]?.[0])}</kbd>`;

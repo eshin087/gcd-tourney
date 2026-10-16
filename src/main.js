@@ -109,6 +109,9 @@ if (qs.get('fight')) {
   netReady.then(() => game.startMatch({ mode, p1, p2: p2 || p1, level: qs.get('level') || (mode === 'cpu' ? 'impossible' : 'normal'), seed }));
 }
 
+// ?room=CODE: an invite link to an online room (ADR 0036, ENG-094): the online screen with the code filled in
+if (qs.get('room') && !qs.get('fight')) ready.then(() => game.openOnline(qs.get('room')));
+
 // the online-play determinism test (ADR 0036): window.det with ?debug, and ?det=<log> replays a saved log at once
 // (another browser or a phone checking itself against the reference); loaded only when asked for
 if (qs.has('debug') || qs.has('det')) import('./net/detTest.js').then((m) => m.install(game, ready, qs));

@@ -184,6 +184,7 @@ export class InputManager {
       this.suppressPad.delete(e.gamepad.index);
     });
     window.addEventListener('keydown', (e) => {
+      if (e.target?.closest?.('input, textarea')) return; // typing a name or a room code (online menu)
       // Enter too: a focused <button> would otherwise be clicked on top of the queued 'confirm'
       if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Slash', 'Quote', 'Tab', 'Enter', 'NumpadEnter'].includes(e.code)) e.preventDefault();
       if (this.capture) {

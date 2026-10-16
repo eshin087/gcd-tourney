@@ -147,6 +147,8 @@ documentation that stays true.
 | `npm run preview` | serve the built `dist/` |
 | `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`; state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
+| `npm run lobby` | the online lobby server locally (`server/`, wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself). Deploy: `server/README.md` (the user's Cloudflare account) |
+| `npm run test:lobby` | lobby room rules test (`server/test/room.test.mjs`: RoomCore with a fake clock: line, relay, feed, results, forfeit, timeout); run after changes to `server/src/roomCore.js` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |

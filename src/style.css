@@ -493,3 +493,28 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 .mode-bar i { display: block; height: 100%; background: var(--mc, #bfe6ff); box-shadow: 0 0 8px var(--mc, #bfe6ff); }
 .t-super { --tc: #ff5ad8; right: calc(var(--b) * 0.35); bottom: calc(var(--b) * 3.3); }
 .t-buttons { height: calc(var(--b) * 4.15) !important; }
+
+/* online (ADR 0036, ENG-094): name / code form, the room screen, the line over a match */
+.online-screen .screen-title { font-size: calc(var(--u) * 6.5); margin-bottom: calc(var(--u) * 1.5); text-align: center; }
+.on-form { display: flex; gap: calc(var(--u) * 2.5); margin-bottom: calc(var(--u) * 1.5); flex-wrap: wrap; justify-content: center; }
+.on-field { display: flex; flex-direction: column; gap: calc(var(--u) * 0.7); font-family: 'Press Start 2P', monospace; font-size: max(9px, calc(var(--u) * 1.3)); color: rgba(255, 255, 255, 0.75); }
+/* 16 px or more: iOS zooms into smaller fields */
+.on-input { font-family: inherit; font-size: max(16px, calc(var(--u) * 2.6)); padding: calc(var(--u) * 1.1) calc(var(--u) * 1.5); background: var(--panel); color: #fff; border: 2px solid rgba(255, 255, 255, 0.35); border-radius: 0; outline: none; width: min(70vw, calc(var(--u) * 36)); box-sizing: border-box; }
+.on-input:focus { border-color: var(--gold); }
+.on-code { width: min(40vw, calc(var(--u) * 20)); letter-spacing: 0.3em; text-transform: uppercase; }
+.on-msg { min-height: 1.3em; max-width: 90vw; margin-bottom: calc(var(--u) * 1.5); text-align: center; color: #ffb2a0; font-family: 'Press Start 2P', monospace; font-size: max(9px, calc(var(--u) * 1.3)); line-height: 1.5; }
+.on-status { margin-bottom: calc(var(--u) * 2); max-width: 92vw; text-align: center; color: var(--gold); font-family: 'Press Start 2P', monospace; font-size: max(9px, calc(var(--u) * 1.6)); line-height: 1.5; }
+.on-cols { display: flex; gap: calc(var(--u) * 4); align-items: flex-start; justify-content: center; flex-wrap: wrap; max-width: 96vw; }
+.on-members { display: flex; flex-direction: column; gap: calc(var(--u) * 0.7); width: min(92vw, calc(var(--u) * 52)); max-height: 50vh; overflow-y: auto; }
+.on-row { display: flex; align-items: center; gap: calc(var(--u) * 1.4); padding: calc(var(--u) * 0.8) calc(var(--u) * 1.4); background: var(--panel); border-left: calc(var(--u) * 0.6) solid transparent; }
+.on-row.me { border-left-color: var(--gold); }
+.on-row.live { background: linear-gradient(90deg, rgba(255, 138, 28, 0.4), var(--panel)); }
+.on-row canvas, .on-pic { width: max(26px, calc(var(--u) * 5.5)); height: max(26px, calc(var(--u) * 5.5)); flex: none; image-rendering: pixelated; }
+.on-who { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.on-who b { overflow: hidden; color: #fff; font-size: max(14px, calc(var(--u) * 2.8)); font-weight: normal; letter-spacing: 0.04em; text-overflow: ellipsis; white-space: nowrap; }
+.on-who small { overflow: hidden; color: rgba(255, 255, 255, 0.65); text-overflow: ellipsis; white-space: nowrap; font-family: 'Press Start 2P', monospace; font-size: max(8px, calc(var(--u) * 1.1)); }
+.on-role { color: var(--ki); font-family: 'Press Start 2P', monospace; font-size: max(8px, calc(var(--u) * 1.2)); white-space: nowrap; }
+.on-row.live .on-role { color: var(--gold); }
+.on-actions { min-width: min(92vw, calc(var(--u) * 50)); }
+.on-actions .item small { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
+.on-strip { position: fixed; top: calc(var(--u) * 13 + env(safe-area-inset-top)); left: 50%; z-index: 15; max-width: 94vw; overflow: hidden; padding: 4px 10px; transform: translateX(-50%); border-radius: 4px; background: rgba(10, 6, 24, 0.6); color: #fff; font-family: 'Press Start 2P', monospace; font-size: max(8px, calc(var(--u) * 1.2)); pointer-events: none; text-overflow: ellipsis; white-space: nowrap; }

@@ -29,7 +29,7 @@ export const GLOBALS = new Set(`
   Image ImageData ImageBitmap createImageBitmap OffscreenCanvas Audio AudioContext webkitAudioContext OfflineAudioContext
   URL URLSearchParams Blob File FileReader FormData Headers Request Response AbortController TextEncoder TextDecoder
   Event CustomEvent KeyboardEvent MouseEvent PointerEvent TouchEvent WheelEvent ResizeObserver IntersectionObserver
-  MutationObserver Worker MessageChannel BroadcastChannel XMLHttpRequest DOMParser CSS
+  MutationObserver Worker MessageChannel BroadcastChannel WebSocket XMLHttpRequest DOMParser CSS
   Option Node Element HTMLElement HTMLCanvasElement HTMLImageElement HTMLInputElement HTMLButtonElement HTMLSelectElement
   CanvasRenderingContext2D WebGLRenderingContext WebGL2RenderingContext Path2D
 `.split(/\s+/).filter(Boolean));

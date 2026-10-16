@@ -7,14 +7,18 @@
 // the real one arrives and differs from what was used, the session restores the state saved before that frame and
 // re-simulates up to the present quietly (Game.quiet: nothing drawn or heard twice). It never runs more than
 // `maxRollback` frames past the newest remote input: past that it stalls a frame, which is also how two machines
-// keep pace. Every `checkEvery` frames both sides exchange the state hash of a frame they have both confirmed; a
-// different hash is a desync.
+// keep pace. Time sync: each message carries the sender's frame advantage (how far its frame is past the newest
+// frame it has heard of from the other side); a side whose advantage is clearly bigger than the other's waits half
+// the difference, so a machine that started a little earlier doesn't make the other roll back on every frame.
+// Every `checkEvery` frames both sides exchange the state hash of a frame they have both confirmed; a different
+// hash is a desync.
 //
 // The link is anything with send(msg), receive() -> [msg] and optionally pump(tick) (netSim.js simulates one; the
 // lobby server's relay will be another, ENG-094).
 import { ACTIONS } from '../core/input.js';
 import { hashSim } from './simHash.js';
 
+const SYNC_EVERY = 60; // ticks between time-sync checks
 const q8 = (v) => Math.max(-127, Math.min(127, Math.round(v * 127)));
 const s8 = (b) => (b << 24) >> 24;
 
@@ -57,7 +61,10 @@ export class RollbackSession {
     this.ackedByRemote = this.delay - 1; // the newest of our inputs the other side has confirmed
     this.cur = new Array(n).fill(0);
     this.ticks = 0;
-    this.stats = { frames: 0, rollbacks: 0, resimFrames: 0, maxDepth: 0, stalls: 0, predicted: 0, missed: 0, desyncs: 0, checks: 0, lost: 0 };
+    this.remoteFrame = -1; // the other side's newest frame we know of (its newest input, less its delay)
+    this.remoteAdv = null; // its frame advantage, as it last reported it
+    this.syncWait = 0; // frames left to wait for the other side (time sync)
+    this.stats = { frames: 0, rollbacks: 0, resimFrames: 0, maxDepth: 0, stalls: 0, syncWaits: 0, predicted: 0, missed: 0, desyncs: 0, checks: 0, lost: 0 };
   }
 
   remoteConfirmed() {
@@ -70,7 +77,8 @@ export class RollbackSession {
   // frame (or stall). Returns whether a frame ran.
   tick() {
     const g = this.game, now = g.frameNo;
-    this.link.pump?.(++this.ticks); // wall-clock ticks: they keep counting while we stall
+    this.ticks++; // wall-clock ticks: they keep counting while we stall (not inside pump?.(): skipped without one)
+    this.link.pump?.(this.ticks);
     for (const p of this.localPlayers) {
       const f = now + this.delay;
       if (!this.inputs[p].has(f)) {
@@ -84,6 +92,15 @@ export class RollbackSession {
     for (const msg of this.link.receive()) rewind = Math.min(rewind, this.receive(msg, now));
     if (rewind < now) this.rewind(rewind, now);
     this.sendChecks();
+    if (this.ticks % SYNC_EVERY === 0 && this.remoteAdv != null && this.remoteFrame >= 0) {
+      const diff = this.advantage() - this.remoteAdv;
+      if (diff >= 2) this.syncWait = Math.min(this.maxRollback, diff >> 1);
+    }
+    if (this.syncWait > 0) {
+      this.syncWait--;
+      this.stats.syncWaits++;
+      return false;
+    }
     if (now - this.remoteConfirmed() > this.maxRollback) {
       this.stats.stalls++;
       return false;
@@ -91,6 +108,12 @@ export class RollbackSession {
     this.simulate(now);
     this.stats.frames++;
     return true;
+  }
+
+  // how far our frame is past the newest frame of the other side's we know of (includes the one-way latency, which
+  // the other side's figure includes too, so the difference of the two is twice the head start)
+  advantage() {
+    return this.remoteFrame < 0 ? 0 : this.game.frameNo - this.remoteFrame;
   }
 
   // the frame's input for every player: real when known, else the remote's last real one again
@@ -140,7 +163,7 @@ export class RollbackSession {
       const start = Math.max(this.ackedByRemote + 1, this.lastConf[p] - 15);
       const v = [];
       for (let f = start; f <= this.lastConf[p]; f++) v.push(this.inputs[p].get(f) ?? 0);
-      this.link.send({ t: 'in', from: p, start, v, ack: this.remoteConfirmed() });
+      this.link.send({ t: 'in', from: p, start, v, ack: this.remoteConfirmed(), adv: this.advantage() });
     }
   }
 
@@ -160,6 +183,8 @@ export class RollbackSession {
         }
       });
       while (map.has(this.lastConf[p] + 1)) this.lastConf[p]++;
+      this.remoteFrame = Math.max(this.remoteFrame, msg.start + msg.v.length - 1 - this.delay);
+      if (Number.isFinite(msg.adv)) this.remoteAdv = msg.adv;
       for (const f of map.keys()) if (f < this.lastConf[p] - 4 * (this.maxRollback + this.delay)) map.delete(f);
       if (msg.ack != null) this.ackedByRemote = Math.max(this.ackedByRemote, msg.ack);
     } else if (msg.t === 'ck') this.remoteChecks.set(msg.frame, msg.hash);

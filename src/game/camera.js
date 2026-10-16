@@ -24,6 +24,9 @@ const INTRO = [
   [4.9, [5, 7.0, 15], [14, 2, -2]],
   [6.2, [0, 5.2, 13.5], [0, 1.4, 0]],
 ];
+// the flythrough's length: the match flow (simulation) ends the intro on it, so it must be data, not the camera's
+// state (a quiet re-simulation stands the camera in, ADR 0036)
+export const INTRO_DUR = INTRO[INTRO.length - 1][0];
 
 export class CameraDirector {
   constructor(camera) {
@@ -44,7 +47,7 @@ export class CameraDirector {
     this.fwd = new THREE.Vector3(0, 0, -1);
     this.introPos = new THREE.CatmullRomCurve3(INTRO.map((k) => new THREE.Vector3(...k[1])), false, 'centripetal');
     this.introLook = new THREE.CatmullRomCurve3(INTRO.map((k) => new THREE.Vector3(...k[2])), false, 'centripetal');
-    this.introDur = INTRO[INTRO.length - 1][0];
+    this.introDur = INTRO_DUR;
     this.punch = 0;
     this.snapNext = false;
     this.spriteRefDepth = null; // view depth fighter sprites are normalized to (fight / clash only; ENG-067)

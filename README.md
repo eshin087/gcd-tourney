@@ -48,6 +48,11 @@ Then open http://127.0.0.1:5188
   whole kit over a match (specials, modes, supers, ultimates) and, from Normal up, parries, spot dodges, air
   dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
+- **Online**: make a room, send the invite link (or the five-letter room code) to your friends, on a computer or a
+  phone. The first two in line fight, the winner stays on (up to five wins in a row) and the loser goes to the back;
+  everyone else watches the match live. Matches run on rollback netcode: your own inputs are two frames late and the
+  game corrects for the other player's lag. Esc (or the pause button) opens the room while you watch; a match has no
+  pause, and leaving it counts as a loss
 - **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
   in its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
   "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
@@ -63,7 +68,8 @@ Then open http://127.0.0.1:5188
   with its hit and hurt boxes, replay shared mechanics (ultimate, special and beam clashes, throws, parries, dodges, wavedash,
   air combos, bounces, vanish, super dash), slow motion, frame step, record and replay on the dummy
 
-Best of 3 rounds, 99 seconds each. The intro flythrough can be skipped with Enter / Start.
+Best of 3 rounds, 99 seconds each. The intro flythrough can be skipped with Enter / Start (not online: it runs on
+both machines).
 
 ## Controls
 
@@ -221,6 +227,9 @@ docs/          architecture, combat design, workflows, ADRs, task board
   insane or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
   `&seed=N` fixes the match seed (the CPUs' combo styles and choices).
 - `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
+- `/?room=ABCDE` opens the online screen for that room (the invite link); `&lobby=ws://...` picks another lobby server
+  (`npm run lobby` runs one locally, which a page on localhost uses by itself; see [server/README.md](server/README.md)).
+- `/?fight=naruto,sasuke&mode=solo&net=sim&lag=6&loss=5` plays a match through rollback over a simulated network.
 - `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
   `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,
   `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song), `soak(n, pairs)` and

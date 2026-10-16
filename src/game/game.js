@@ -6,7 +6,7 @@ import { buildTrainingRoom } from '../world/trainingRoom.js';
 import { buildVoidStage } from '../world/voidStage.js';
 import { Effects } from './effects.js';
 import { chargeTick, chargeBar, chargeEnd } from './chargeFx.js';
-import { CameraDirector } from './camera.js';
+import { CameraDirector, INTRO_DUR } from './camera.js';
 import { ControlBasis } from './basis.js';
 import * as dmath from './dmath.js';
 import { Fighter } from './fighter.js';
@@ -151,7 +151,7 @@ export class Game {
     this.dummyOpts = { tech: 'never', burst: false }; // the training dummy's combo escape (ADR 0022, DummyBrain)
     // keep the on-screen button hints in sync with the device being used
     input.onDevice((d) => {
-      if (this.fighters.length === 2 && !this.training) this.hud.hint.innerHTML = matchHint(this.cfg.mode, d);
+      if (this.fighters.length === 2 && !this.training) this.hud.hint.innerHTML = matchHint(this.hintMode, d);
     });
   }
 
@@ -213,8 +213,9 @@ export class Game {
       : cfg.mode === 'cpu' ? this.fighters.map((f, i) => makeBrain(f, level, true, this.brainSeed(i)))
       : [null, null];
     this.director = this.watching ? new ShowDirector(this) : null; // spectator-only choreography (ADR 0027)
-    this.input.bind(this.pads, cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
-    this.hud.setup(this.fighters, assets, matchHint(cfg.mode, deviceLayout(this.input)));
+    // online: this machine's player on every device (a spectator on none); the other side arrives over the network
+    this.input.bind(this.pads, cfg.mode === 'online' ? (cfg.spectate ? 'cpu' : 'solo') : cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
+    this.hud.setup(this.fighters, assets, matchHint(this.hintMode, deviceLayout(this.input)));
     this.round = 1;
     this.frameNo = 0; // per match: cooldown stamps and beam-clash charts read it, and every machine must agree
     this.nextShotId = 0;
@@ -263,6 +264,21 @@ export class Game {
     audio.startMusic('training');
     audio.setCrowd(0);
     this.menus.trainingPanel();
+  }
+
+  // the controls hint's mode: an online spectator's is the watching line
+  get hintMode() {
+    return this.cfg?.spectate ? 'watch' : this.cfg?.mode;
+  }
+
+  // Online play (ADR 0036, ENG-094): the room screens and matches over the lobby server (net/online.js, loaded on
+  // first use). code: a room from an invite link (?room=).
+  async openOnline(code = '') {
+    if (!this.online) {
+      const { Online } = await import('../net/online.js');
+      this.online = new Online(this);
+    }
+    this.online.entry(code);
   }
 
   // CPU vs CPU spectator match: both pads are driven by brains, nobody is playing.
@@ -500,7 +516,7 @@ export class Game {
     dtReal = Math.min(dtReal, 0.1);
     this.input.pollMenu();
     const events = this.input.takeMenuEvents();
-    if (this.state === 'menu' || this.state === 'results' || this.paused) this.menus.handle(events);
+    if (this.state === 'menu' || this.state === 'results' || this.paused || this.online?.overlay) this.menus.handle(events);
     else this.handleGameEvents(events);
 
     if (!this.paused) {
@@ -520,12 +536,15 @@ export class Game {
       }
       this.time += dt; // the render clock: effects and sprite wobble only, never the simulation
     }
+    this.online?.update();
     this.render(dtReal);
   }
 
   handleGameEvents(events) {
+    const online = this.cfg?.mode === 'online';
     for (const e of events) {
-      if (this.state === 'intro' && (e.action === 'confirm' || e.action === 'pause' || e.action === 'back')) {
+      // online, the intro is part of the simulation every machine runs: nobody skips it alone
+      if (this.state === 'intro' && !online && (e.action === 'confirm' || e.action === 'pause' || e.action === 'back')) {
         if (this.stateT > 0.3) this.skipIntro();
         continue;
       }
@@ -542,10 +561,11 @@ export class Game {
 
   // a tap on the game view during the pre-fight intro skips it (touch has no Enter key)
   tapSkip() {
-    if (this.state === 'intro' && this.stateT > 0.3 && !this.paused) this.skipIntro();
+    if (this.state === 'intro' && this.stateT > 0.3 && !this.paused && this.cfg?.mode !== 'online') this.skipIntro();
   }
 
   pause() {
+    if (this.cfg?.mode === 'online') return this.online?.menuKey(); // the match runs on every machine: no pause
     if (this.paused) return;
     this.paused = true;
     if (audio.sfx) audio.sfx.gain.value = 0.25;
@@ -562,7 +582,7 @@ export class Game {
     for (const p of this.pads) p.clear();
     this.input.flush(); // the RESUME confirm press must not also jump / attack
     if (this.training) this.menus.trainingPanel();
-    else if (this.fighters.length === 2) this.hud.hint.innerHTML = matchHint(this.cfg.mode, deviceLayout(this.input)); // bindings may have changed
+    else if (this.fighters.length === 2) this.hud.hint.innerHTML = matchHint(this.hintMode, deviceLayout(this.input)); // bindings may have changed
   }
 
   // Every way back to the menus (exit training, quit to title, results -> character select). The old
@@ -2047,7 +2067,7 @@ export class Game {
           this.hud.showCards(true);
           audio.play('taiko');
         }
-        if (t > this.cam.introDur + 0.2) {
+        if (t > INTRO_DUR + 0.2) {
           this.hud.showCards(false);
           this.beginRound();
         }
@@ -2106,7 +2126,8 @@ export class Game {
           audio.startMusic('menu');
           this.hud.show(false);
           this.hud.clearAnnounce();
-          this.menus.results(w,
+          // online, the room comes back once both players agree on the result (net/online.js)
+          if (this.cfg.mode !== 'online') this.menus.results(w,
             () => this.startMatch(this.cfg),
             () => this.toMenu(() => this.menus.charSelect(this.cfg.mode)),
             () => this.quitToTitle());
