@@ -8,6 +8,21 @@ video{width:min(100%,256px);height:auto;background:#f0f}a{color:#9bd5ff}figure i
 <p>Unapproved direction candidates. Each contact sheet shows approved idle f0 beside run frames 0–7 at one scale.
 Playback is 60 ms per frame. Compare stride, leg identity, hand placement, and the loop seam. The selected direction
 will still need a separate production strip and technical review.</p>
+<section><h2>Phase 2 audit result — technical hold</h2>
+<p><strong>No production strip is review-ready.</strong> K is the selected direction only; this is not image approval.
+Dash v09 passed the packer scale gate, then independent Astra audit held the actual quantized atlas: slot 17 loses
+the near/right arm pump behind the torso, the torso garment axis appears shortened versus approved references, and
+the head shifts about 37 px across the loop. The candidate is preserved under <code>raw/_qa_hold/</code>; it has no
+remaining generation budget. The atlas shown here is the audited technical hold, not a release candidate.</p>
+<p>The contact sheet compares approved idle f0 with packed dash frames 0 and 1 at one scale. Measured pose envelopes
+are 103×231 px for idle f0, 143×174 px for dash f0, and 134×174 px for dash f1, with soles at y=240. These are posed
+bounds, not skeleton measurements. <a href="dash_v09_contact_v01.png">Audited dash v09 contact sheet</a> ·
+<a href="phase2_dash_qa_v01.json">Quantitative QA record</a> ·
+<a href="phase2_attempt_inventory_v01.json">Attempt/provenance inventory</a></p>
+<p>Run v13 has no image after 3/3 calls failed the mirrored-phase requirement. BackDash v05/v06 and SuperDash
+v10/v11 are held after exhausted budgets. See the inventory for exact hashes and reasons.</p>
+<img class="contact" src="dash_v09_contact_v01.png" alt="Approved idle frame zero beside the held quantized dash v09 frames zero and one at native cell scale">
+</section>
 <figure><figcaption>J / K / L comparison loop</figcaption><img src="JKL_comparison_v01.gif" alt="J, K, and L side by side through their eight frames"></figure>
 
 <section><h2>J — Easy long stride</h2>
