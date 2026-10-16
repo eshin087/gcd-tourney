@@ -11,6 +11,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. No candidate approved or packed.
+
+- Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. No candidate approved or packed.
+
 - Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.

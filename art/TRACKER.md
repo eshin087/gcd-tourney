@@ -696,3 +696,27 @@ Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; spec
 
 Killua latest QA: specialDown07 retained after final hair-only correction; diagnostic reference28 ok/8 unmeasured/5 flagged. Block151/specialUp197 measured fits retained after peer anatomy review. Full production remains blocked; no new image approved.
 Title-style pilot v01: all four sheets and neutral/combat lineups approved by user 2026-10-11. Full animation production authorized; new strips require final review. Original down/KO poses retained with new style.
+
+
+## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
+
+| Fighter | Asset | Latest | Status | Approved | Notes |
+|---|---|---|---|---|---|
+| Sasuke | super_bg | v01 | raw / needs review | — | Kirin; review page; not packed. |
+| Sasuke | super_fg | v01 | raw / needs review | — | Kirin; Astra technical HOLD. |
+| Sasuke | ult_bg | v01 | raw / needs review | — | Amaterasu; review page; not packed. |
+| Sasuke | ult_fg | v01 | raw / needs review | — | Amaterasu; Astra technical HOLD. |
+
+All four candidates await user review; none is installed. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+
+
+## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
+
+| Fighter | Asset | Latest | Status | Approved | Notes |
+|---|---|---|---|---|---|
+| Sasuke | super_bg | v01 | raw / needs review | — | Kirin; not packed. |
+| Sasuke | super_fg | v01 | raw / needs review | — | Kirin; Astra technical HOLD. |
+| Sasuke | ult_bg | v01 | raw / needs review | — | Amaterasu; not packed. |
+| Sasuke | ult_fg | v01 | raw / needs review | — | Amaterasu; Astra technical HOLD. |
+
+All candidates await user review; none is installed. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).

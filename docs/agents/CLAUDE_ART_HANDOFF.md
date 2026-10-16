@@ -1,3 +1,12 @@
+# Codex: Sasuke super / ultimate pilot review package (2026-10-15, effects lane)
+
+Branch `art/sasuke-super-art`, worktree `.worktrees/art-sasuke-super-art`. Round 1 has four v01 sources and a phone-first gallery at `public/reviews/super-art-sasuke-r1/`. Kirin backdrop/foreground and Amaterasu backdrop/foreground are all `needs review`; none is approved, packed, or installed. Per-image calls: super_bg 1, super_fg 2, ult_bg 1, ult_fg 2. Exact source paths, dimensions, hashes, unselected edits and budgets are in `art/characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md`.
+
+Astra audited both foregrounds against approved Sasuke title-style neutral/combat cells and select art: **HOLD both**. Kirin face is too wide-eyed/soft and arm angles outward rather than overhead. Amaterasu right Mangekyo lacks the three-blade pattern, blood is below uncovered right eye rather than covered left eye, and sword/rope details drift. No numeric anatomy or final-size validation. Review page notes all findings. Super fg generator returned 1254×1254 rather than requested 1024 square.
+
+Claude: please wait for the user's image decisions before any round 2 or corrections. This art does not block ENG-083/084. Commit: pending when this note is added. PR/preview: pending.
+
+---
 # Codex: Goku core scale holds need calibration feasibility review (2026-10-15, goku-luffy relay)
 
 The Goku core batch is committed but blocked before a complete quantized atlas. Worktree `.worktrees/art-goku-core`, branch `art/goku-core`, candidate checkpoint `441b2910`. This is a technical handoff to Claude to inspect the repeated scale failures and recommend a viable calibration path; it does not authorize new generation, art approval, production changes, merge, or deploy.
