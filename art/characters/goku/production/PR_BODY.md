@@ -2,8 +2,8 @@
 
 ## Review
 
-- **Calibration gallery:** https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html
-- **Preview:** https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app
+- **Calibration gallery:** https://gcd-tourney-j1kdu3fnk-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html
+- **Preview:** https://gcd-tourney-j1kdu3fnk-eshin087s-projects.vercel.app
 - Local review entry: `/characters/goku/calibration-r4/index.html`
 
 The gallery shows the approved neutral/combat reference strip at native 256px cells, approved identity references, exact candidate frames and one-shot timing, the light3 256px diagnostic beside its complete 280px companion, and an atlas player reading the branch `sheet.png` and `anims.json`. Parent browser QA is recorded in `art/characters/goku/production/relay9-generation/PARENT_BROWSER_R4.md`.

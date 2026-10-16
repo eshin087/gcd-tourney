@@ -5,8 +5,8 @@
 - Pull request: #123
 - Art/audit commit: `1a0b198d` (`art(goku): relay9 heavy and light3 repairs`)
 - Preview build commit: `1a0b198d`
-- Preview: https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app
-- Direct calibration gallery: https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html
+- Preview: https://gcd-tourney-j1kdu3fnk-eshin087s-projects.vercel.app
+- Direct calibration gallery: https://gcd-tourney-j1kdu3fnk-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html
 
 ## Result
 
