@@ -2,6 +2,11 @@
 
 # Art tracker
 
+Gojo round4 checkpoint: idle_v07 and superDash_v08/v09 **needs review / QA HOLD**. Named drafts filed, no approvals changed. New idle wrong target bounds; full strict pack fails from changed head-probe denominator. superDash v09 isolated strict head1.03 but torso/limb chains remain short. [checkpoint](characters/gojo/production/round4/CHECKPOINT.md). Other listed suspects need complete segment audit before redraw.
+
+Gojo G/H/I run-direction studies v01: **G direction selected by user; H/I rejected**. G relaxed-arm glide proceeds to technical cleanup before production approval. [24 frames](../public/reviews/gojo-run-ghi/GHI_all_24_frames_v01.png), [playable GIF](../public/reviews/gojo-run-ghi/GHI_comparison_v01.gif), [QA](characters/gojo/production/run-ghi/QA_v01.md). Neutral head probes pass; alternating leg identity and seam remain technical holds. Production runv12 stays approved.
+
+Gojo D/E/F run-direction studies v01: **needs review / technical HOLD**, three calls each, B/C rejected. [Combined24frames](../public/reviews/gojo-run-def/DEF_all_24_frames_v01.png), [playable comparison](../public/reviews/gojo-run-def/DEF_comparison_v01.gif), [QA](characters/gojo/production/run-def/QA_v01.md). Production run remains v12/approvedVersion12.
 Gojo full B/C movement demo (2026-10-12): needs direction review. [Durable offline HTML v04](../docs/art-review/gojo-bc/gojo_BC_standalone_v04.html), normal/half-speed GIFs and all frames preserve the selected eight-frame v02 render after TEMP expired. Five drawing calls total (B A1/B2; C A1/B1), no new generation during recovery. 48 shared colors, zero clipped pixels; syntax and simulated controls pass. Browser playback, full anatomy and production scale gate remain unverified. Raw source filing still needs an accessible real worktree. Manifest run remains approved v12.
 
 Gojo movement direction study v01 (2026-10-12): needs review, automatic tool output pending versioned filing in the attached real worktree. A athletic stride / B low pocket glide / C upright float. One concept call used; production run remains approved v12 in the manifest. No production strips were generated or packed this session. See newest REVIEW row.
@@ -132,6 +137,9 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 ## sasuke
 
+Round4: superDash v07, beamFire v07, dash v07 need review. jumpSquat v07 is user-approved as drawn; technical HOLD remains; standard strict pack fails because v06 manual QA does not apply. A separate gate-warn diagnostic atlas is filed under `production/round6/diagnostic-v07/`; its head/body scale verdict remains unmeasured. All9 prior strips inspected; numerical joint/skull certification remains inconclusive, SD clips10/4px, strict pack holds JS. Production atlas preserved. [Audit](characters/sasuke/production/round4/SEGMENT_AUDIT.md).
+
+
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview; `approved` = the exact version that played for the 33 title-style strips. The preview also played throw v05 and stagger v06: approved, but they fail the strict scale gate and stay in raw/_rejected, so the approved originals ship. The approved originals also ship for launched, spin, airRecover, down, ko, specialUp and superPose (scale-checked against the new idle). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see docs/NOW.md.
 
 Title-style redraw in progress: user approved `title_style_draft_v01` and the neutral/combat cells. New idle v07 and guard v04 are provisional candidates for the full 42-animation/3-UI batch; old approved versions remain recorded separately. [Production QA](characters/sasuke/production/title-style/QA.md). The pilot's 90×209 neutral, 155×180 combat and 197 px body target supersede the old universal head ratio for this batch.
@@ -164,16 +172,16 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 6 | getup | 5 | - | **yes** | 180 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | charge | 4 | - | **yes** | 180 | approved | v12 | v12 | User approved v12 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 7 | beamCharge | 3 | - | **yes** | 230 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | beamFire | 3 | - | **yes** | 198 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamFire | 3 | - | **yes** | 198 | approved | v07 | v07 | User approved beamFire v07 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 7 | special | 8 | 3/3/2 | **yes** | 204 | approved | v13 | v13 | Title-style v13 approved by the user 2026-10-11 (shown in the final review preview). |
-| 8 | dash | 2 | - | **yes** | 160 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | dash | 2 | - | **yes** | 160 | approved | v07 | v07 | User approved dash v07 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 8 | jumpUp | 2 | - | **yes** | 198 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 174 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 212 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | backDash | 3 | - | no | 180 | approved | v07 | v07 | User approved v07 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
-| 9 | superDash | 2 | - | no | 108 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | jumpSquat | 1 | - | no | 162 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 108 | approved | v07 | v07 | User approved superDash v07 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
+| 9 | jumpSquat | 1 | - | no | 162 | approved | v07 | v07 | User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization. |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | block | 2 | - | no | 180 | approved | v07 | v07 | User approved v07 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
@@ -195,6 +203,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | Fallback: original v01 (title v03 passes but was never shown). Approved original v01. |
 
+User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
+
 ## killua
 
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips and UI portrait v02, cutin v03, select v02, promoted to ui/); `approved` = the exact version that played. The scale gate measures against the approved title-style combat cell (art/scale/builds.json scaleReference). Not shipped yet: see the holds per row and docs/NOW.md.
@@ -213,7 +223,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v01 | v01 | user approved 2026-10-09 with documented palette/background deviations; complete final batch now approved |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v01 | v01 | User approved final batch 2026-10-09; fixed reference/UI promoted |
-| 3 | idle | 8 | - | **yes** | 146 | approved | v08 | v08 | User approved v08 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v08 needs review: strict subset ok, head0.983; large f0 dip fixed, residual2px wrap. Recommend approval; full fighter blocked by charge. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 3 | idle | 8 | - | **yes** | 146 | approved | v11 | v11 | User approved idle v11 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 4 | run | 8 | - | **yes** | 158 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 151 | approved | v10 | v10 | Title-style v10 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 160 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -222,7 +232,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 5 | heavy | 8 | 3/2/3 | **yes** | 214 | approved | v11 | v11 | Title-style v11 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 166 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 164 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | guard | 2 | - | **yes** | 140 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | guard | 2 | - | **yes** | 140 | approved | v09 | v09 | User approved guard v09 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 6 | hurtHigh | 3 | - | **yes** | 150 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | launched | 2 | - | **yes** | 106 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | down | 2 | - | **yes** | 90 | approved | v07 | v07 | HOLD (strict gate): v07 f0 hair flare reads 1.09 with the body at reference size (needs a decision or a redraw). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -235,9 +245,9 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 8 | jumpUp | 2 | - | **yes** | 148 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpFall | 2 | - | **yes** | 165 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 132 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 8 | win | 4 | - | **yes** | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | win | 4 | - | **yes** | 186 | approved | v05 | v04 | Round4 v05 needs review; no full-body pass, calibration/anatomy hold. [QA](characters/killua/production/round4/QA.md).  Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | backDash | 3 | - | no | 160 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | superDash | 2 | - | no | 98 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 98 | approved | v08 | v08 | User approved superDash v08 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | jumpSquat | 1 | - | no | 115 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 180 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -247,7 +257,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 9 | airRecover | 3 | - | no | 145 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | throw | 4 | 1/1/2 | no | 173 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | vanish | 2 | - | no | 185 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | stagger | 4 | - | no | 186 | approved | v05 | v05 | User approved v05 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v05 needs review: compact hair, head0.996 ok; recommend approval. One authorized extra call remains unused. [QA](characters/killua/production/title-style/round2/QA.md). |
+| 9 | stagger | 4 | - | no | 186 | approved | v08 | v08 | User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization. |
 | 9 | ko | 1 | - | no | 78 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | intro | 4 | - | no | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | taunt | 2 | - | no | 186 | approved | v05 | v05 | User approved v05 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v05 needs review: compact hair, head0.996 ok; recommend approval. One authorized call remains unused. [QA](characters/killua/production/title-style/round2/QA.md). |
@@ -259,9 +269,15 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 
+User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
+
 ## gojo
 
+**2026-10-15 idle decision:** User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
+
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips); `approved` = the exact version that played. light4 v08 is Claude's re-stitch of the approved v06 parts (review pending). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see the holds per row and docs/NOW.md.
+
+**Round4 candidate checkpoint (2026-10-13):** jumpFall v06, airRecover v05, throw v05, airLight1 v07, airLight2 v05 and light3 v05 are saved for review; all remain `needs review` and QA HOLD. Prior approvedVersion values are unchanged. Full strict pack exits 1; see [round4 QA](characters/gojo/production/round4/QA-FINAL.md) and [review gallery](../public/reviews/gojo-round4/index.html). AirLight2 source-call overrun (5/3) and recovery are disclosed; no production calibration or atlas changed.
 
 Brief: [characters/gojo/](characters/gojo/). Jujutsu Kaisen: black blindfold in every sprite (the Six
 Eyes show only in `superPose`, the cut-in and expression 8), dark navy high-collar uniform, spiky
@@ -278,14 +294,14 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v06 | v06 | User approved v06 on 2026-10-10; fixed model reference promoted. Source-scale/raw-palette caveats retained; no idle redraw in this batch. |
 | 2 | reference/expressions_vNN.png -> expressions.png | - | - | yes | - | approved | v02 | v02 | User approved complete batch 2026-10-09; see production/QA.md. |
-| 3 | idle | 8 | - | **yes** | 236 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 3 | idle | 8 | - | **yes** | 236 | approved | v08 | v08 | v08 is the one-call redraw from the approved combat cell; needs review and has a pose hold (upright torso/hands down differ from combat). v06 remains the approved version. | User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
 | 4 | run | 8 | - | **yes** | 222 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. The hover-glide is the user-chosen direction (2026-10-12). |
 | 5 | light1 | 7 | 2/2/3 | **yes** | 222 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | light2 | 7 | 2/2/3 | **yes** | 222 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
-| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | light3 | 7 | 2/2/3 | **yes** | 228 | approved | v06 | v06 | User approved light3 v06 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 5 | light4 | 8 | 3/2/3 | **yes** | 225 | approved | v08 | v06 | Review pending: v08 re-stitch of the approved v06 parts. Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 5 | heavy | 8 | 3/2/3 | **yes** | 228 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v07 | v07 | User approved airLight1 v07 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 6 | guard | 2 | - | **yes** | 218 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -298,19 +314,19 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 7 | special | 8 | 3/3/2 | **yes** | 232 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 8 | dash | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpUp | 2 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | jumpFall | 2 | - | **yes** | 227 | approved | v06 | v06 | User approved jumpFall v06 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 8 | land | 2 | - | **yes** | 189 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 230 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | backDash | 3 | - | no | 225 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | superDash | 2 | - | no | 140 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | superDash | 2 | - | no | 140 | approved | v09 | v09 | User approved superDash v09 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | jumpSquat | 1 | - | no | 176 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v05 | v05 | User approved airLight2 v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v12 | v12 | User approved v12 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. v12 needs review; full strict ok (0.972), all x59..214, six heel-kick phases. Impact heel reach requires Claude gameplay/contact check. A1/B2 budget exhausted. Approved v10 retained. |
 | 9 | block | 2 | - | no | 222 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | hurtLow | 3 | - | no | 199 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | spin | 4 | - | no | 174 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | airRecover | 3 | - | no | 196 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airRecover | 3 | - | no | 196 | approved | v05 | v05 | User approved airRecover v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
+| 9 | throw | 4 | 1/1/2 | no | 219 | approved | v05 | v05 | User approved throw v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | vanish | 2 | - | no | 232 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | stagger | 4 | - | no | 225 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | ko | 1 | - | no | 81 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -338,6 +354,24 @@ section's table when its strips are generated (the manifest gets the same entrie
 | sasuke | todo | todo | todo | title-style production branch (PR #71) |
 | killua | todo | todo | todo | title-style production branch (PR #70) |
 | gojo | todo | todo | todo | title-style production branch (PR #72) |
+
+## Attack alts (ADR 0031)
+
+Eleven optional strips per fighter (step 9), one alternate of each attack and hit reaction: `light1Alt`, `light2Alt`,
+`light3Alt` (7 frames, 2/2/3), `light4Alt`, `heavyAlt` (8, 3/2/3), `airLight1Alt`, `airLight2Alt` (5, 1/2/2),
+`airLight3Alt`, `airHeavyAlt` (6, 2/2/2), `hurtHighAlt`, `hurtLowAlt` (3). Each keeps its base's frame count, phases and
+strike height and reach with another technique (art/SPEC.md "Attack alts"); the game alternates it with the base and
+plays the base until it is packed, so nothing waits on them. The manifest lists all eleven per fighter (status `todo`,
+`altOf` = the base, frames / phases / ms / bodyHeight copied from that fighter's base). Naruto pilots them (ART-ALTS-NAR,
+brief docs/agents/CODEX_INBOX.md round 4 Part 2); the others follow his in-game review (ART-ALTS). Each fighter's rows
+move into its own section's table when its alts are generated.
+
+| fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
+|---|---|---|---|---|---|---|
+| naruto | todo | todo | todo | todo | todo | pilot (ART-ALTS-NAR) |
+| sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+| killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+| gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 
 ## VFX atlas (step 10)
 
@@ -577,6 +611,24 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | crowd | crowd-ninja-samurai-cosplayers-01-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-ninja-samurai-cosplayers-01-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crowd | crowd-sailor-moon-01-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-sailor-moon-01-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crowd | crowd-travelers-tourists-02-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-travelers-tourists-02-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+
+## goku
+
+**2026-10-15 reference approvals:** User approved model_sheet_v02 and expressions_v02. Both fixed reference PNGs now match v02 byte-for-byte; manifest status approved and approvedVersion 2. Idle02 visual approval is recorded separately; Claude calibration and technical checks remain pending.
+
+**2026-10-15 idle decision:** User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
+
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in
+  [KIT.md](characters/goku/KIT.md). The user withdrew title-style v01 and approved corrected title-style v02
+  on 2026-10-14. The fixed reference/title_style_draft.png copies v02 (207±4px body excluding hair; 234px
+  including hair); its lineup preserves the four exact approved cells at common density. Body-only ordering is
+  above Naruto/Sasuke and below Gojo within uncertainty. Model-sheet v01 and expressions v01 remain held because
+  they derive from withdrawn v01; their versioned sources are preserved. The fixed model and expression anchors
+  now contain the user-approved v02 files. Idle02 is approved as drawn, with technical checks pending. Idle v01 approval remains historical and is not used as a candidate input.
+  Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
+## luffy
+
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
 
 ## Adding a character
 

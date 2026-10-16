@@ -1180,7 +1180,9 @@ export class Game {
       const dx = axis.x * sg, dy = axis.y * sg, dz = axis.z * sg;
       const at = this.clashStance(c, s, P);
       // a body locked against the barrier (a rush's reach measured off its facing, not the clash axis) never stands past
-      // it: physics, which keeps everyone inside, doesn't run during a clash
+      // it: physics, which keeps everyone inside, doesn't run during a clash. Without this a push-back (a Gojo mirror's orb
+      // or stream shoving the loser back against the wall) put a body up to 0.4 past ARENA_LIMIT for the whole struggle
+      // (ENG-075; soak() reports it as a `ring` violation in state `clash`)
       at.x = THREE.MathUtils.clamp(at.x, -ARENA_LIMIT, ARENA_LIMIT);
       at.z = THREE.MathUtils.clamp(at.z, -ARENA_LIMIT, ARENA_LIMIT);
       const gx = at.x - f.pos.x, gz = at.z - f.pos.z;

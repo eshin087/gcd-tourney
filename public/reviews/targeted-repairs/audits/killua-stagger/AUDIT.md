@@ -1,0 +1,31 @@
+# Killua stagger v08: final Astra audit, 2026-10-15
+
+Auditor: GPT-6 Astra, medium. Source/diagnostic commit `484e3a0`; task worktree `.worktrees/art-killua-title-r3`, branch `art/killua-title-r3`. **Overall HOLD. The requested guard-reset motion repair succeeds; full anatomy is not certified.** User approval remains pending. No generation, calibration, hitbox, exemption, manual-QA or shipped-output changes made.
+
+## Exact scope and evidence
+
+Audited actual-manifest diagnostic sheet SHA-256 `b7694cc7c450288d76ebe6069c0ecc1d580b6cb4ddcb7f7304714e70a938f74c`, metadata `9dfcbfb70ce37ddb1faa9094bc5aa9d544ed24e937d2b815bb593dd0de43a566`, all four stagger v08 frames at atlas indices 131–134, 150ms each, loop true. This is the supplied pack with production approvedVersion5, not the earlier fixture that temporarily set approvedVersion8. Current reported head ratio is 1.025, per-frame 1.032/1.025/0.975/1.024; feet proxy 1.235, per-frame 1.203/1.257/1.248/1.221. Those pass the normal head gate and do not certify full anatomy. The old fixture ratios 1.074/1.328 do not describe this audit's pixels.
+
+`hashes.json` binds atlas, metadata, raw v08, approved title neutral/combat cells, fixed-name approved idle source and cached approved production idle08 f0. The approved-idle cache hash matches the prior verified audit; unapproved working idle11 is not a reference. `f0.png`–`f3.png` are direct 256px quantized atlas crops; `comparison.png` shows references and all frames at equal 2x nearest-neighbour density. Grids retain native coordinate labels. `loop.gif` is an evidence animation using the actual metadata timing; conclusions below are from ordered raster inspection of every transition, not live gameplay validation.
+
+## Measurements and limits
+
+`measurements.json` records every native-pixel endpoint, calculated projected length and uncertainty. H includes visible hair crown, not an invented skull landmark. T uses the skin/neck-to-collar boundary to central white lower-shirt hem. Limbs use shoulder/elbow/wrist and hip/knee/ankle centers, estimated where cloth obscures them; shoe uses heel-to-toe long axis. L/R means screen side. Uncertainty: H±2, T±3, upper arm/forearm±4, thigh±6, shin±3, shoe±2px. These uncertainties often exceed ±6%; an overlap is not a numeric pass. Shoulder width is excluded because no reliable frontal deltoid pair is visible.
+
+| Frame | H | T | arm L upper/fore | arm R upper/fore | leg L thigh/shin | leg R thigh/shin | shoe L/R |
+|---|---:|---:|---|---|---|---|---|
+| 0 | 41 | 33 | 27/20 | 27/18 | 39/31 | 35/31 | 17/29 |
+| 1 | 42 | 36 | 29/18 | 27/20 | 36/31 | 34/32 | 16/26 |
+| 2 | 40 | 35 | 28/17 | 28/21 | 37/32 | 35/31 | 16/26 |
+| 3 | 41 | 34 | 28/19 | 25/19 | 35/29 | 32/31 | 15/27 |
+
+Reference readings use the prior audit's same conventions: neutral H41±2/T50±3, upper/forearm29/23, thighs31/36, shins35/33, shoes22/29. Combat H40±2/T38±3, arms25/12 and24/15, thighs34/34, shins33/33, shoes23/26. Approved idle08 H38±2/T38±3, arms24/12 and24/15, thighs32/32, shins31/29, shoes23/25. Arms/legs and near-front-facing left shoe have different projection; do not force a projected shoe or bent pose to neutral length.
+
+## Findings
+
+- **Motion target PASS, limited to removal of guard reset.** Frames 0→1 lift the head/torso; 1→2 sway left; 2→3 return to a drooping head with both arms still hanging; 3→0 shift right/up while preserving the same dazed state. The previous recovery-to-guard then sudden arm drop is absent. Crown moves about (149,75)→(130,68)→(115,70)→(139,81)→(149,75): the largest step is now 2→3, approximately26px diagonally, versus12px at wrap. Thus the coarse four-frame sway remains uneven; it is not evidence of perfectly smooth motion. Feet stay near their established contacts; no whole-body rescale pop is evident. Live playback/user feel remains unverified.
+- **Torso/clothing HOLD, pre-existing in unchanged frames1–2.** Their relatively upright collar-to-hem lengths35–36±3 are robustly short against upright neutral50±3. Even the generous39/47 ratio is0.830, below0.94. The sweater hem sits unusually high relative to the collar, while head size is compatible with the neutral. This certifies a visible garment-segment discrepancy, not an independently measured skeletal torso. F0/f3 forward droop makes combat/idle38±3 the more useful comparator;33–34±3 is not a defensible ±6% pass but projection can explain part of it. A whole-strip enlargement would enlarge already compatible heads and is not justified.
+- **Limbs/build HOLD from uncertainty, not a proven new f3 defect.** F3 hanging upper arms/forearms and leg chains remain compatible with the other stagger frames within the stated endpoint uncertainty; no missing/doubled limb. Broad cuffs/shorts hide true joints. The arms' lower projected lengths versus neutral can reflect elbow bend/foreshortening. Left shoe points toward the viewer and its short projected axis cannot be compared as though side-on; right shoe26–29±2 is compatible with neutral29±2 and stance25–26±2, without strict numeric certification. Violet layered top, white hem, navy shorts, spiked white hair and purple sneakers preserve identity. F3 torso volume does not abruptly swell, although this does not resolve the inherited short shirt.
+- **Technical HOLD, new f3 stray fragment.** Besides the main5735-pixel connected figure at inclusive bounds[90,81,169,240], f3 contains a detached13-pixel component at[76,233,77,239], visibly left of the foot. This is not footwear anatomy and must not be counted in stance width. It is present in the audited quantized atlas. Record for source/assembly cleanup by the responsible worker; never hand-edit the public atlas. Occupied bounds f0[88,75,173,241), f1[91,68,167,241), f2[91,70,167,241), f3[76,81,170,241) include this fragment; their heights are166/173/171/160, not standing-body targets.
+
+Recommendation: retain v08 as the motion-improved candidate, keep overall technical/anatomy HOLD and needs review. Do not spend another generation without user authorization. The coordinator can distinguish source/assembly cleanup from the inherited upright garment issue and bring the candidate to user review. This audit never approves the image or its integration.

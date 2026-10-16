@@ -35,10 +35,10 @@
 // clean gap, which the packer's column split cannot get wrong. Only when two figures really touch does the stitch
 // fall back to the projection split (and keep the parts' own layout), and it says so.
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { scratchDir } from './scratch-dir.mjs';
 import { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, figureSplit, resample, placeCharFrame, readJson, loadScaleReference } from './pack-sprites.mjs';
 import { palettesFromIdle, makeReference, measureFrame, measurementCells, median, resolveGate } from './scale-probe.mjs';
 import { loadPacked } from './scale-audit.mjs';
@@ -53,7 +53,7 @@ function fail(msg) { console.error(`[stitch] ${msg}`); return 1; }
 // sidecars and frames/idle/), packed without --quantize in warn mode. Returns the loadPacked() result or { error }.
 function freshIdle(id, artDir) {
   const charDir = path.join(artDir, 'characters', id), rawDir = path.join(charDir, 'raw');
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'gcd-stitch-ref-'));
+  const tmp = fs.mkdtempSync(path.join(scratchDir(), 'gcd-stitch-ref-'));
   try {
     const tArt = path.join(tmp, 'art'), tChar = path.join(tArt, 'characters', id);
     fs.mkdirSync(path.join(tChar, 'raw'), { recursive: true });

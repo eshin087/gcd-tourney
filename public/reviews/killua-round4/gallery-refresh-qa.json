@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-13T06:21:38.006Z",
+  "scope": "Presentation/control QA, not final anatomy or rendered-browser certification",
+  "selected": {
+    "idle": 11,
+    "guard": 9,
+    "superDash": 8,
+    "stagger": 7,
+    "win": 5
+  },
+  "hashes": {
+    "diagnostic-sheet.png": "f9d0d80a7b0bbc9341fe909d5bf57bccdfb3f8c0297a16069453a6d772a0097a",
+    "diagnostic-anims.json": "9ef60e70b94af486cb6ee1200593de62b8d0c35887e1854cf754feb3896fb746",
+    "combat.png": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6",
+    "approved-idle.png": "ae7262a4ada30ee0730511b5cab62a82c2eb9e826204f00a1ab9234b7236df62",
+    "idle_v11.png": "67e7016328a35ae12aaa2969f5e8c911d64b093039d9b1612583b21bff655aa9",
+    "guard_v09.png": "71444147e5840a8a7bf91aa1dc71693da0b19b2635a157ead5371dcb3a6bdd2e",
+    "superDash_v08.png": "810e986d1ef749aa08b45fda03c64f69a1cdd3bcaeb056251e61098e756c029a",
+    "stagger_v07.png": "d747963987fccf4e8357e844a7f3a6b0cffa4c07c85c301ad6cdd9cc7ba921c5",
+    "win_v05.png": "2cf3be95fe422b31c409d1c487be88e69c13753e7287a838376b4501ed51f1a6"
+  },
+  "checks": [
+    "idle: exact version/all cells/forward-wrap/backward-wrap/restart",
+    "guard: exact version/all cells/forward-wrap/backward-wrap/restart",
+    "superDash: exact version/all cells/forward-wrap/backward-wrap/restart",
+    "stagger: exact version/all cells/forward-wrap/backward-wrap/restart",
+    "win: exact version/all cells/forward-wrap/backward-wrap/restart",
+    "idle: exact duration, pause, half speed",
+    "stagger: actual3-to0 transition exposed",
+    "all5: repeat-off holds lastframe"
+  ],
+  "links": "All literal targets present",
+  "atlasAndSources": "Unchanged from HEAD",
+  "browser": "Root will verify committed hosted preview",
+  "rawSourceCopies": {
+    "idle_v11.png": "67e7016328a35ae12aaa2969f5e8c911d64b093039d9b1612583b21bff655aa9",
+    "guard_v09.png": "71444147e5840a8a7bf91aa1dc71693da0b19b2635a157ead5371dcb3a6bdd2e",
+    "superDash_v08.png": "810e986d1ef749aa08b45fda03c64f69a1cdd3bcaeb056251e61098e756c029a",
+    "stagger_v07.png": "d747963987fccf4e8357e844a7f3a6b0cffa4c07c85c301ad6cdd9cc7ba921c5",
+    "win_v05.png": "2cf3be95fe422b31c409d1c487be88e69c13753e7287a838376b4501ed51f1a6"
+  },
+  "astraReportHash": "be99f0b596e9f31704911f5310898480ee29e24e0b58e802ec04c7726dcf790f",
+  "productionBuild": "Passed: adapter build via node --preserve-symlinks --preserve-symlinks-main .codex/vite.mjs build; 82 modules, exit 0."
+}

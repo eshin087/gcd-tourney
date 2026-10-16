@@ -1,0 +1,1222 @@
+{
+  "date": "2026-10-15",
+  "total": 28,
+  "fighters": 4,
+  "note": "No image has been approved by this page.",
+  "sources": {
+    "gojo": {
+      "sheet": "atlases/gojo/sheet.png",
+      "metadata": "atlases/gojo/anims.json",
+      "branch": "codex/gojo-run-def",
+      "commit": "ede1cdc",
+      "calibrationCommit": "941d8e0",
+      "sheetHash": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "metadataHash": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0"
+    },
+    "naruto": {
+      "sheet": "atlases/naruto/sheet.png",
+      "metadata": "atlases/naruto/anims.json",
+      "branch": "art/naruto-title-r3",
+      "commit": "ac58516",
+      "calibrationCommit": "5dee03f",
+      "sheetHash": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "metadataHash": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2"
+    },
+    "naruto-alts": {
+      "sheet": "atlases/naruto-alts/sheet.png",
+      "metadata": "atlases/naruto-alts/anims.json",
+      "branch": "art/naruto-alts",
+      "commit": "357951e",
+      "calibrationCommit": "357951e",
+      "sheetHash": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "metadataHash": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047"
+    },
+    "killua": {
+      "sheet": "atlases/killua/sheet.png",
+      "metadata": "atlases/killua/anims.json",
+      "branch": "art/killua-title-r3",
+      "commit": "2da444f",
+      "calibrationCommit": "2da444f",
+      "sheetHash": "16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02",
+      "metadataHash": "ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861"
+    },
+    "killua-approved": {
+      "sheet": "atlases/killua-approved/sheet.png",
+      "metadata": "atlases/killua-approved/anims.json",
+      "branch": "main · approved production atlas",
+      "commit": "main snapshot 2026-10-15",
+      "calibrationCommit": "approved idle v08",
+      "sheetHash": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+      "metadataHash": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3"
+    },
+    "sasuke": {
+      "sheet": "atlases/sasuke/sheet.png",
+      "metadata": "atlases/sasuke/anims.json",
+      "branch": "art/sasuke-title-r3",
+      "commit": "536b7bc",
+      "calibrationCommit": "ffb6abf",
+      "sheetHash": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "metadataHash": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb"
+    }
+  },
+  "groups": [
+    {
+      "id": "gojo",
+      "name": "Gojo",
+      "sourceKey": "gojo",
+      "approvedIdleVersion": 8,
+      "idleSourceKey": "gojo",
+      "neutral": "refs/gojo-neutral_v01.png",
+      "combat": "refs/gojo-combat_v01.png",
+      "note": "Seven review candidates from the calibrated atlas. Gojo idle08 is user-approved as a design and appears only as the approved-idle comparator. Astra still records a technical hold for the source f7 right shoe edge; this does not reopen the design decision.",
+      "referenceEvidence": {
+        "note": "Gojo idle08 f7 source shoe-edge crop (reference only):",
+        "href": "audits/gojo/round5-astra/idle-source-f7-edge.png",
+        "label": "Open Astra’s shoe-edge evidence"
+      },
+      "items": [
+        {
+          "animation": "airLight1",
+          "version": 7,
+          "frames": 5,
+          "verdict": "HOLD",
+          "summary": "Guarded and palm frames remain intact. At f2 the retracted arm overlaps the torso; airborne limb and shoe projections lack matched poses, so full ±6% certification is incomplete.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-retained-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-retained-astra/airLight1-contact.png",
+              "label": "All airLight1 frames"
+            }
+          ],
+          "sourceFrames": [
+            67,
+            68,
+            69,
+            70,
+            71
+          ],
+          "durations": [
+            45,
+            35,
+            50,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/gojo/airLight1.png"
+        },
+        {
+          "animation": "airLight2",
+          "version": 5,
+          "frames": 5,
+          "verdict": "HOLD",
+          "summary": "The crown drops about 9 px from f0 to f1 during the kick and returns by f3. Pose and depth hide comparable joint lengths; this is not certified as a scale change.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-retained-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-retained-astra/airLight2-contact.png",
+              "label": "All airLight2 frames"
+            }
+          ],
+          "sourceFrames": [
+            72,
+            73,
+            74,
+            75,
+            76
+          ],
+          "durations": [
+            45,
+            40,
+            50,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/gojo/airLight2.png"
+        },
+        {
+          "animation": "airRecover",
+          "version": 5,
+          "frames": 3,
+          "verdict": "HOLD",
+          "summary": "Three intact rotation phases. The tucked torso, limbs and shoes have no pose-matched reference, so projected measurements cannot certify ±6%.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-astra/airRecover-contact.png",
+              "label": "All airRecover frames"
+            }
+          ],
+          "sourceFrames": [
+            105,
+            106,
+            107
+          ],
+          "durations": [
+            50,
+            50,
+            60
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/gojo/airRecover.png"
+        },
+        {
+          "animation": "jumpFall",
+          "version": 6,
+          "frames": 2,
+          "verdict": "HOLD",
+          "summary": "Stable two-frame loop. The reaching hand moves about 15 px; elbows and airborne shoes remain projection-limited, without a full-segment certificate.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-retained-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-retained-astra/jumpFall-contact.png",
+              "label": "All jumpFall frames"
+            }
+          ],
+          "sourceFrames": [
+            26,
+            27
+          ],
+          "durations": [
+            80,
+            80
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/gojo/jumpFall.png"
+        },
+        {
+          "animation": "light3",
+          "version": 6,
+          "frames": 7,
+          "verdict": "HOLD",
+          "summary": "The crown rises about 11 px from f3 to f4 during recoil. Head lengths and torso/arm projections do not prove a size pop; full ±6% certification remains incomplete.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-astra/light3-contact.png",
+              "label": "All light3 frames"
+            }
+          ],
+          "sourceFrames": [
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50
+          ],
+          "durations": [
+            40,
+            35,
+            45,
+            60,
+            60,
+            60,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/gojo/light3.png"
+        },
+        {
+          "animation": "superDash",
+          "version": 9,
+          "frames": 2,
+          "verdict": "HOLD",
+          "summary": "The projected torso chord is about 52 px versus 71 px in combat. Forward pitch could explain the difference; folded legs and shoes remain uncertified.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-retained-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-retained-astra/superDash-contact.png",
+              "label": "Both superDash frames"
+            }
+          ],
+          "sourceFrames": [
+            21,
+            22
+          ],
+          "durations": [
+            50,
+            50
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/gojo/superDash.png"
+        },
+        {
+          "animation": "throw",
+          "version": 5,
+          "frames": 4,
+          "verdict": "HOLD",
+          "summary": "Four intact rotating gestures with no split figure. Raised/retracted arms and airborne legs lack pose-matched length evidence for full ±6% certification.",
+          "evidence": [
+            {
+              "href": "audits/gojo/round5-retained-astra/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/gojo/round5-retained-astra/throw-contact.png",
+              "label": "All throw frames"
+            }
+          ],
+          "sourceFrames": [
+            119,
+            120,
+            121,
+            122
+          ],
+          "durations": [
+            50,
+            60,
+            70,
+            50
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/gojo/throw.png"
+        }
+      ],
+      "idleSource": {
+        "key": "gojo",
+        "branch": "codex/gojo-run-def",
+        "commit": "ede1cdc",
+        "sheetHash": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+        "metadataHash": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+        "frame": 0,
+        "preview": "crops/approved-idle-gojo-v08.png"
+      },
+      "neutralHash": "d9fd4dca67c7cc133e897773a3c8128d6c5320a42402642c11409fea770175a0",
+      "combatHash": "ab42bc6facd14659bf35b48a4bce8682cd17218f200d1e7fcdc6430f58451656"
+    },
+    {
+      "id": "naruto",
+      "name": "Naruto",
+      "sourceKey": "naruto",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "naruto",
+      "neutral": "refs/naruto-neutral_v01.png",
+      "combat": "refs/naruto-combat_v01.png",
+      "note": "Two current Astra reports and one earlier report for win09. The win09 card labels its audit as historical to the earlier atlas.",
+      "items": [
+        {
+          "animation": "stagger",
+          "version": 8,
+          "frames": 4,
+          "verdict": "HOLD",
+          "summary": "The corrected central torso reading is about 51 px versus 50.4 px in neutral; head and shoe readings are compatible centrally. Near-upright legs remain short centrally, while clothing-joint uncertainty prevents a ±6% pass.",
+          "evidence": [
+            {
+              "href": "audits/naruto/round5-astra/AUDIT.md",
+              "label": "Current Astra verdicts and method"
+            },
+            {
+              "href": "audits/naruto/round5-astra/stagger-panel.png",
+              "label": "Same-density stagger comparison"
+            }
+          ],
+          "sourceFrames": [
+            131,
+            132,
+            133,
+            134
+          ],
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/naruto/stagger.png"
+        },
+        {
+          "animation": "taunt",
+          "version": 10,
+          "frames": 2,
+          "verdict": "HOLD",
+          "decision": true,
+          "summary": "The latest Astra estimate is 46.1 px from upper collar to black hem versus 50.4 px neutral (about 0.915); uncertainty overlaps tolerance. This uses different landmarks from Claude’s earlier 0.80–0.85 estimate, so the values must stay distinct.",
+          "residual": "User decision: assess the short-torso appearance with both estimates and their landmark uncertainty. The latest report does not confirm Claude’s earlier ratio or certify a pass.",
+          "evidence": [
+            {
+              "href": "audits/naruto/round5-astra/AUDIT.md",
+              "label": "Current Astra verdicts, measurements and uncertainty"
+            },
+            {
+              "href": "audits/naruto/round5-astra/taunt-panel.png",
+              "label": "Same-density taunt comparison"
+            }
+          ],
+          "sourceFrames": [
+            148,
+            149
+          ],
+          "durations": [
+            250,
+            250
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/naruto/taunt.png"
+        },
+        {
+          "animation": "win",
+          "version": 9,
+          "frames": 4,
+          "verdict": "HOLD",
+          "summary": "Previously audited by Astra with no robust redraw-level defect; full numeric certification was still held. That report uses an earlier atlas, so its measurements are not claimed as current-atlas values.",
+          "auditNote": "Historical evidence only: this win09 report predates the current calibrated atlas. It remains an unapproved candidate; no current-atlas measurements are asserted here.",
+          "evidence": [
+            {
+              "href": "audits/naruto/round4-win09-astra/AUDIT.md",
+              "label": "Earlier Astra win09 report (historical atlas)"
+            },
+            {
+              "href": "audits/naruto/round4-win09-astra/audit.json",
+              "label": "Earlier report provenance and measurements"
+            }
+          ],
+          "sourceFrames": [
+            150,
+            151,
+            152,
+            153
+          ],
+          "durations": [
+            110,
+            90,
+            260,
+            180
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/naruto/win.png"
+        }
+      ],
+      "idleSource": {
+        "key": "naruto",
+        "branch": "art/naruto-title-r3",
+        "commit": "ac58516",
+        "sheetHash": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+        "metadataHash": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+        "frame": 0,
+        "preview": "crops/approved-idle-naruto-v07.png"
+      },
+      "neutralHash": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "combatHash": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    },
+    {
+      "id": "naruto-alts",
+      "name": "Naruto · attack alts",
+      "sourceKey": "naruto-alts",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "naruto",
+      "neutral": "refs/naruto-neutral_v01.png",
+      "combat": "refs/naruto-combat_v01.png",
+      "note": "Ten alternate strips from the calibrated alts atlas, each shown beside its packed base from that same atlas. airHeavyAlt is held entirely; the base plays and it is not an approval card.",
+      "items": [
+        {
+          "animation": "airLight1Alt",
+          "version": 1,
+          "frames": 5,
+          "baseAnimation": "airLight1",
+          "verdict": "HOLD",
+          "summary": "No new visible scale pop; the punch stays close to its base technique. Foreshortened limbs and feet leave full ±6% certification unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/airLight1Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            212,
+            213,
+            214,
+            215,
+            216
+          ],
+          "durations": [
+            45,
+            35,
+            50,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/airLight1Alt.png",
+          "baseSourceFrames": [
+            67,
+            68,
+            69,
+            70,
+            71
+          ],
+          "basePreview": "crops/naruto-alts/base-airLight1.png"
+        },
+        {
+          "animation": "airLight2Alt",
+          "version": 1,
+          "frames": 5,
+          "baseAnimation": "airLight2",
+          "verdict": "HOLD",
+          "summary": "Kick and chamber stay close to base. Bent and occluded limbs leave full ±6% certification unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/airLight2Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            217,
+            218,
+            219,
+            220,
+            221
+          ],
+          "durations": [
+            45,
+            40,
+            50,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/airLight2Alt.png",
+          "baseSourceFrames": [
+            72,
+            73,
+            74,
+            75,
+            76
+          ],
+          "basePreview": "crops/naruto-alts/base-airLight2.png"
+        },
+        {
+          "animation": "airLight3Alt",
+          "version": 1,
+          "frames": 6,
+          "baseAnimation": "airLight3",
+          "verdict": "HOLD",
+          "summary": "The calibrated kick is intact; its start, end and spin differ from base. Full projected limb and foot certification remains unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/airLight3Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            222,
+            223,
+            224,
+            225,
+            226,
+            227
+          ],
+          "durations": [
+            50,
+            40,
+            50,
+            70,
+            60,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/airLight3Alt.png",
+          "baseSourceFrames": [
+            77,
+            78,
+            79,
+            80,
+            81,
+            82
+          ],
+          "basePreview": "crops/naruto-alts/base-airLight3.png"
+        },
+        {
+          "animation": "heavyAlt",
+          "version": 2,
+          "frames": 8,
+          "baseAnimation": "heavy",
+          "verdict": "HOLD",
+          "summary": "The high-kick parts show no clear head-size jump. The rear-tipped head limits the probe; full limb certification is unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/heavyAlt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211
+          ],
+          "durations": [
+            40,
+            35,
+            30,
+            50,
+            70,
+            70,
+            60,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/heavyAlt.png",
+          "baseSourceFrames": [
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "basePreview": "crops/naruto-alts/base-heavy.png"
+        },
+        {
+          "animation": "hurtHighAlt",
+          "version": 1,
+          "frames": 3,
+          "baseAnimation": "hurtHigh",
+          "verdict": "HOLD",
+          "summary": "The reaction is intact and broadly follows base. Tilted head and projected sandals prevent strict ±6% certification.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/hurtHighAlt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            228,
+            229,
+            230
+          ],
+          "durations": [
+            70,
+            90,
+            100
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/hurtHighAlt.png",
+          "baseSourceFrames": [
+            93,
+            94,
+            95
+          ],
+          "basePreview": "crops/naruto-alts/base-hurtHigh.png"
+        },
+        {
+          "animation": "hurtLowAlt",
+          "version": 1,
+          "frames": 3,
+          "baseAnimation": "hurtLow",
+          "verdict": "HOLD",
+          "summary": "The folded reaction is intact; nearby hands and waist plus bent knees prevent full ±6% certification.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/hurtLowAlt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            231,
+            232,
+            233
+          ],
+          "durations": [
+            70,
+            90,
+            100
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/hurtLowAlt.png",
+          "baseSourceFrames": [
+            96,
+            97,
+            98
+          ],
+          "basePreview": "crops/naruto-alts/base-hurtLow.png"
+        },
+        {
+          "animation": "light1Alt",
+          "version": 1,
+          "frames": 7,
+          "baseAnimation": "light1",
+          "verdict": "HOLD",
+          "summary": "The active pose reads as a straight punch rather than a compact hook; the endpoint stance differs. Full anatomy certification remains unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/light1Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            175,
+            176,
+            177,
+            178,
+            179,
+            180,
+            181
+          ],
+          "durations": [
+            30,
+            30,
+            40,
+            50,
+            50,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/light1Alt.png",
+          "baseSourceFrames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "basePreview": "crops/naruto-alts/base-light1.png"
+        },
+        {
+          "animation": "light2Alt",
+          "version": 3,
+          "frames": 7,
+          "baseAnimation": "light2",
+          "verdict": "HOLD",
+          "decision": true,
+          "summary": "Confirmed drawn-foot contact offset: the foot center is about (+29.5, +27) px at f2 and (+21, +27.5) px at f3 relative to the inherited hit center; f2’s toe sits about 31 px past the drawn fist.",
+          "residual": "User decision: review the low kick/contact placement. The inherited hit center belongs to the base attack; the drawn foot stays low and past the fist.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and current measurement limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/light2-contact.png",
+              "label": "Light2Alt contact evidence"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/light2Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188
+          ],
+          "durations": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/light2Alt.png",
+          "baseSourceFrames": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "basePreview": "crops/naruto-alts/base-light2.png"
+        },
+        {
+          "animation": "light3Alt",
+          "version": 2,
+          "frames": 7,
+          "baseAnimation": "light3",
+          "verdict": "HOLD",
+          "summary": "Kick contact is mid-height and intact. The f3→f4 chamber is a large pose reset and startup differs from base; full anatomy certification remains unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/light3Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            189,
+            190,
+            191,
+            192,
+            193,
+            194,
+            195
+          ],
+          "durations": [
+            40,
+            35,
+            45,
+            60,
+            60,
+            60,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/light3Alt.png",
+          "baseSourceFrames": [
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50
+          ],
+          "basePreview": "crops/naruto-alts/base-light3.png"
+        },
+        {
+          "animation": "light4Alt",
+          "version": 1,
+          "frames": 8,
+          "baseAnimation": "light4",
+          "verdict": "HOLD",
+          "summary": "A distinct double-palm move with no confirmed global scale pop. Recovery differs from base; full anatomy certification remains unresolved.",
+          "evidence": [
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/AUDIT.md",
+              "label": "Astra verdicts and audit limits"
+            },
+            {
+              "href": "audits/naruto-alts/round5-astra-alts/light4Alt-endpoints.png",
+              "label": "Alt and base endpoints"
+            }
+          ],
+          "sourceFrames": [
+            196,
+            197,
+            198,
+            199,
+            200,
+            201,
+            202,
+            203
+          ],
+          "durations": [
+            50,
+            45,
+            35,
+            40,
+            70,
+            70,
+            70,
+            40
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/light4Alt.png",
+          "baseSourceFrames": [
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58
+          ],
+          "basePreview": "crops/naruto-alts/base-light4.png"
+        }
+      ],
+      "idleSource": {
+        "key": "naruto",
+        "branch": "art/naruto-title-r3",
+        "commit": "ac58516",
+        "sheetHash": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+        "metadataHash": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+        "frame": 0,
+        "preview": "crops/approved-idle-naruto-alts-v07.png"
+      },
+      "neutralHash": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "combatHash": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    },
+    {
+      "id": "killua",
+      "name": "Killua",
+      "sourceKey": "killua",
+      "approvedIdleVersion": 8,
+      "idleSourceKey": "killua-approved",
+      "neutral": "refs/killua-neutral_v01.png",
+      "combat": "refs/killua-combat_v01.png",
+      "note": "The candidate atlas contains idle11; the approved idle08 comparator is extracted from main’s production atlas. Prior Astra geometry findings remain qualitative context because current palette pixels differ.",
+      "items": [
+        {
+          "animation": "guard",
+          "version": 9,
+          "frames": 2,
+          "verdict": "HOLD",
+          "summary": "Prior Astra audit: target stance height met, but full anatomy remained HOLD. The current palette differs; prior numeric measurements are not carried forward as current-atlas readings.",
+          "auditNote": "See CURRENT-ATLAS-NOTE.md before using earlier report measurements.",
+          "evidence": [
+            {
+              "href": "audits/killua/CURRENT-ATLAS-NOTE.md",
+              "label": "Current atlas versus prior report"
+            },
+            {
+              "href": "audits/killua/post-calibration-20261015/AUDIT.md",
+              "label": "Earlier Astra report and limits"
+            }
+          ],
+          "sourceFrames": [
+            89,
+            90
+          ],
+          "durations": [
+            300,
+            300
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/killua/guard.png"
+        },
+        {
+          "animation": "idle",
+          "version": 11,
+          "frames": 8,
+          "verdict": "HOLD",
+          "summary": "Candidate idle11 remains technically held by the prior Astra audit. Approved idle08 is shown separately from main. Current palette pixels differ, so the earlier report’s numeric readings are historical.",
+          "auditNote": "The approved idle08 comparator is copied from main’s production sheet, not candidate idle11.",
+          "evidence": [
+            {
+              "href": "audits/killua/CURRENT-ATLAS-NOTE.md",
+              "label": "Current atlas versus prior report"
+            },
+            {
+              "href": "audits/killua/post-calibration-20261015/AUDIT.md",
+              "label": "Earlier Astra report and limits"
+            },
+            {
+              "href": "audits/killua/post-calibration-20261015/idle-all-2x.png",
+              "label": "Earlier same-density idle comparison"
+            }
+          ],
+          "sourceFrames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            150,
+            150,
+            150,
+            150,
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/killua/idle.png"
+        },
+        {
+          "animation": "stagger",
+          "version": 7,
+          "frames": 4,
+          "verdict": "HOLD",
+          "decision": true,
+          "summary": "The prior Astra audit held full anatomy certification. User decision: Killua stagger07 has a visible f2→f3 pose reset; judge the transition directly in this current atlas.",
+          "residual": "Current palette differs from the prior report, so its pixel measurements are not presented as current-atlas numbers.",
+          "auditNote": "See CURRENT-ATLAS-NOTE.md before using earlier report measurements.",
+          "evidence": [
+            {
+              "href": "audits/killua/CURRENT-ATLAS-NOTE.md",
+              "label": "Current atlas versus prior report"
+            },
+            {
+              "href": "audits/killua/post-calibration-20261015/AUDIT.md",
+              "label": "Earlier Astra report and limits"
+            }
+          ],
+          "sourceFrames": [
+            131,
+            132,
+            133,
+            134
+          ],
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/killua/stagger.png"
+        },
+        {
+          "animation": "superDash",
+          "version": 8,
+          "frames": 2,
+          "verdict": "HOLD",
+          "summary": "Prior Astra audit: stance target met, while projected limbs and shoes prevented a full anatomy certificate. Current palette pixels differ; prior numeric readings are historical.",
+          "auditNote": "See CURRENT-ATLAS-NOTE.md before using earlier report measurements.",
+          "evidence": [
+            {
+              "href": "audits/killua/CURRENT-ATLAS-NOTE.md",
+              "label": "Current atlas versus prior report"
+            },
+            {
+              "href": "audits/killua/post-calibration-20261015/AUDIT.md",
+              "label": "Earlier Astra report and limits"
+            }
+          ],
+          "sourceFrames": [
+            21,
+            22
+          ],
+          "durations": [
+            50,
+            50
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/killua/superDash.png"
+        }
+      ],
+      "idleSource": {
+        "key": "killua-approved",
+        "branch": "main · approved production atlas",
+        "commit": "main snapshot 2026-10-15",
+        "sheetHash": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+        "metadataHash": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3",
+        "frame": 0,
+        "preview": "crops/approved-idle-killua-v08.png"
+      },
+      "neutralHash": "86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855",
+      "combatHash": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6"
+    },
+    {
+      "id": "sasuke",
+      "name": "Sasuke",
+      "sourceKey": "sasuke",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "sasuke",
+      "neutral": "refs/sasuke-neutral_v01.png",
+      "combat": "refs/sasuke-combat_v01.png",
+      "note": "The calibrated atlas is byte-identical to Astra’s audit input. All four remain unapproved HOLDs.",
+      "items": [
+        {
+          "animation": "beamFire",
+          "version": 7,
+          "frames": 3,
+          "verdict": "HOLD",
+          "summary": "Head readings stay close centrally; the bent torso and projected sandal do not certify ±6%. Clothing volume remains coherent and no robust new anatomy defect was established.",
+          "evidence": [
+            {
+              "href": "audits/sasuke/post-calibration-20261015/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/sasuke/post-calibration-20261015/all-2x.png",
+              "label": "All audited frames at equal density"
+            }
+          ],
+          "sourceFrames": [
+            126,
+            127,
+            128
+          ],
+          "durations": [
+            50,
+            50,
+            50
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/sasuke/beamFire.png"
+        },
+        {
+          "animation": "dash",
+          "version": 7,
+          "frames": 2,
+          "verdict": "HOLD",
+          "summary": "Central torso and head readings are close to idle. A long trailing forearm silhouette remains a visual concern, but the uncertainty interval prevents a proven defect.",
+          "evidence": [
+            {
+              "href": "audits/sasuke/post-calibration-20261015/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/sasuke/post-calibration-20261015/all-2x.png",
+              "label": "All audited frames at equal density"
+            }
+          ],
+          "sourceFrames": [
+            16,
+            17
+          ],
+          "durations": [
+            60,
+            60
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/sasuke/dash.png"
+        },
+        {
+          "animation": "jumpSquat",
+          "version": 6,
+          "frames": 1,
+          "verdict": "HOLD",
+          "decision": true,
+          "summary": "Confirmed projected arm-length concern: the near shoulder-to-wrist chain is about 88.7 px versus 62.5 px neutral. Even the favorable uncertainty bound remains above +6%; this is a projected drawing concern, not an exact bone-length claim.",
+          "residual": "User decision: accept this pose or request a redraw. The round-4 call budget is spent; no new call is authorized by the audit.",
+          "evidence": [
+            {
+              "href": "audits/sasuke/post-calibration-20261015/AUDIT.md",
+              "label": "Astra verdict and decision context"
+            },
+            {
+              "href": "audits/sasuke/post-calibration-20261015/jumpSquat-0-arm-landmarks.png",
+              "label": "Marked candidate arm endpoints"
+            },
+            {
+              "href": "audits/sasuke/post-calibration-20261015/neutral-arm-landmarks.png",
+              "label": "Marked neutral arm endpoints"
+            }
+          ],
+          "sourceFrames": [
+            23
+          ],
+          "durations": [
+            70
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/sasuke/jumpSquat.png"
+        },
+        {
+          "animation": "superDash",
+          "version": 7,
+          "frames": 2,
+          "verdict": "HOLD",
+          "summary": "The flying posture changes projected legs and footwear; hidden joints prevent full ±6% certification. The prior fist clipping is resolved.",
+          "evidence": [
+            {
+              "href": "audits/sasuke/post-calibration-20261015/AUDIT.md",
+              "label": "Astra verdicts, method and measurements"
+            },
+            {
+              "href": "audits/sasuke/post-calibration-20261015/all-2x.png",
+              "label": "All audited frames at equal density"
+            }
+          ],
+          "sourceFrames": [
+            21,
+            22
+          ],
+          "durations": [
+            50,
+            50
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/sasuke/superDash.png"
+        }
+      ],
+      "idleSource": {
+        "key": "sasuke",
+        "branch": "art/sasuke-title-r3",
+        "commit": "536b7bc",
+        "sheetHash": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+        "metadataHash": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+        "frame": 0,
+        "preview": "crops/approved-idle-sasuke-v07.png"
+      },
+      "neutralHash": "fbc6b37701c9055b7e1349aec0b1f035ed1aa21638a66541ffbf71ba3e222352",
+      "combatHash": "4b1c4fec691c6d29e42be5e02ee5f1b72c431f0df281ce8122276b93e3e185d7"
+    }
+  ]
+}

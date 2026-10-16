@@ -1,0 +1,17 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/gojo/production/round4/diagnostic-art
+  out:  art/characters/gojo/production/round4/diagnostic-public
+  anims: animGuide.js + art/characters/gojo/production/round4/diagnostic-art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== gojo ========================================================
+  packed 1 anims, 8 frames -> sheet 4096x256, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.376  (candidate v07 (approved: v06))
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (22): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  wrote art/characters/gojo/production/round4/diagnostic-public/characters/gojo/sheet.png
+  wrote art/characters/gojo/production/round4/diagnostic-public/characters/gojo/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 0 warning(s).

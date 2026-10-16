@@ -50,3 +50,7 @@ Counts are cumulative across saved versions. Unsaved unsuccessful calls also cou
 Idle historical counts: initial A3/B3, user extra A1/B1/single-f0-fix1. Round2 authorized two additional calls per part: A2/B2 used, cumulative A6/B6 plus the separate fix1. v07 over-shrank heads (technical rejection); best v08 head0.983 and improved loop retained. All extra idle calls exhausted.
 
 Round2 calls and prompts: [generation-record.json](round2/generation-record.json). One candidate inventory: idle08/run09/charge13/stagger05/taunt05/beamFire09. All new art unapproved. Only idle08/stagger05/taunt05 recommended for review. Full strict pack fails charge13; diagnostic head OK never certifies anatomy or animation. ART-TECH-01 not started.
+
+Round4 (2026-10-12): idleA2/B2 cumulative8/8+prior singlefix1; guard1 cumulative4; superDash2 cumulative4; stagger3 cumulative7 exhausted; win1 cumulative2. Final selected idle10/guard08/superDash08/stagger07/win05. Saved earlier09/07/06 technical holds remain immutable needs-review.11calls total; no round3 work. [Audit and candidate inventory](../round4/QA.md).
+
+Round4 final extension: idleA3/B3 cumulative9/9 exhausted +priorfix1, guard2 cumulative5,14totalcalls. Latest11/09 still HOLD after native measurements. [Final QA](../round4/QA.md).

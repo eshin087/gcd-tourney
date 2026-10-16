@@ -1,0 +1,25 @@
+{
+  "stitch": {
+    "bFactor": 0.9505,
+    "measured": 0.9505,
+    "scaledPart": "B",
+    "scaledBy": 0.9505,
+    "idleScaleA": 0.3678,
+    "idleScaleB": 0.3496,
+    "afterB_vs_A": null,
+    "parts": [
+      "raw/_parts/light3_v05_A.png",
+      "raw/_parts/light3_v05_B.png"
+    ],
+    "poses": [
+      4,
+      3
+    ],
+    "layout": [
+      "figures",
+      "figures"
+    ],
+    "gapPx": 24,
+    "tool": "tools/stitch-parts.mjs"
+  }
+}

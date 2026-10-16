@@ -1,0 +1,20 @@
+:root { color-scheme: dark; }
+body { margin: 0; background: #18202a; color: #eee; font: 16px/1.5 system-ui, sans-serif; }
+main { max-width: 1056px; margin: auto; padding: 20px; }
+a { color: #9fe; }
+h2 { margin-top: 40px; }
+img { max-width: 100%; image-rendering: pixelated; background: #070b10; }
+.hold { border-left: 4px solid #f9b147; padding: 12px 16px; background: #30291d; }
+.candidate { border-top: 1px solid #5a6675; margin-top: 40px; }
+.native-row { display: grid; grid-template-columns: repeat(3, 256px); gap: 16px; overflow-x: auto; padding-bottom: 12px; }
+figure { margin: 0; }
+figcaption { min-height: 48px; font-size: 14px; }
+.native-row img, canvas { width: 256px; height: 256px; max-width: none; image-rendering: pixelated; background: #070b10; display: block; }
+.controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+button, select { padding: 8px 12px; font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid #9fe; outline-offset: 3px; }
+.frame-status { font-variant-numeric: tabular-nums; }
+summary { cursor: pointer; padding: 10px 0; }
+details img { margin: 8px 0; }
+.error { color: #ffb3a8; }
