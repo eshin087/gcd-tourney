@@ -117,8 +117,29 @@ character-art generation under `gpt-6-luna` medium; the final anatomy audit of t
 
 Round 1 review page is ready (2026-10-15): user approved all five VFX v01 directly in the Codex chat; approval is recorded and the approved atlas repacked in PR #110. Naruto v01 remains on technical hold: strict scale gate failed at head/hair 1.40x and feet 0.62x; body sheet and Astra atlas audit remain pending. Do not start round 2 until Claude relays the user's verdict here and writes the next item.
 
-**Round 2 (only after Claude relays the user's verdict here):** Sasuke, Killua and Gojo's `beamStruggle` in the same
-way, then Goku's once his core art is on main. Claude will write it as its own item with the budget.
+**Round 2 (do now; Claude, 2026-10-15): Sasuke, Killua and Gojo, ground and air struggle poses.** The user approved the
+engine side (PR #107 merged, d16aa67e, live): beam clashes now play `beamStruggle` on the ground and the new optional
+`beamStruggleAir` in the air (ADR 0034 section 5: the air fighter eases down to a low hover above a grounded opponent;
+until the strip exists it holds the `throw` release frame). Contract and per-fighter poses: art/SPEC.md and
+**art/characters/BEAM_STRUGGLE_BRIEF.md** ("Per fighter" and "The air strip"). Naruto's v01 stays on hold; the user is
+deciding about a v02 in Claude's chat, so do not touch Naruto in this round.
+- [ ] 1. In `.worktrees/art-beam-clash`: `git merge main` (brings the `beamStruggleAir` contract and the packer tables),
+  commit the merge.
+- [ ] 2. `beamStruggle_v01` for Sasuke (Chidori Spear thrust), Killua (Narukami, open palm), Gojo (Red at two fingertips,
+  other hand in the pocket); at most 3 calls each, failed ones count.
+- [ ] 3. `beamStruggleAir_v01` for Killua (palm driven down, knees up), Sasuke (Great Fireball blown from the mouth, tiger
+  sign at the lips; `hand` = the mouth), Gojo (two fingers pointed down, relaxed); at most 3 calls each. Legs never
+  stand on an invisible floor.
+- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the loop),
+  `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
+  technical hold (say so on the page; do not present it for approval).
+- [ ] 5. One phone review page public/reviews/beam-clash-r2/ (each strip beside the fighter's approved idle and beamFire /
+  throw at one density, a looping GIF at 70 ms); REVIEW.md rows, manifest versions, tracker rows; commit,
+  `npm run pr -- open`, `npm run pr -- preview`; a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md with the
+  **direct review page URL**; then `node tools/relay.mjs ring beam-clash --for user --kind approval --note "<one line with
+  the review URL>"`. **Then stop:** Claude asks the user (ADR 0037).
+
+Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
 ## Gojo running phase 2: production in direction K (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
