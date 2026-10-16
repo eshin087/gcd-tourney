@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- docs(scale): hand user-approved Sasuke jumpSquat07 and Killua stagger08 back to Claude for technical checks; retain Naruto light2Alt04 hold.
+
 - Fixed: relay `send` now marks every earlier ring as read, so a ring Claude handled by hand no longer wakes the next watcher as if Codex had already replied (ADR 0033).
 
 - Added: Goku's approved art references (PR #94): title-style neutral + combat v02 (v01 superseded: too small), model sheet v02, expressions v02 and idle v02 (calibrated: idle bodyHeight 233, packs at x1). He still plays on the baked placeholder until his core animations land.
