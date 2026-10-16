@@ -278,7 +278,8 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
      available, or create a real Git worktree with the project helper in a manual CLI session.
   3. For an art task created with the project helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the
      required raw art is included without a full checkout. A plain `git sparse-checkout add art/characters/<id>`
-     does not bring back its `raw/` directory.
+     does not bring back its `raw/` directory (and typed in Git Bash, `/art/...` becomes `C:/Program Files/Git/art/...`).
+     In an existing worktree run `npm run pr -- art <id>[,<id>]` there instead; it verifies the raws are on disk.
   4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
   5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
      finish cleanup of merged task worktrees. `npm run pr -- merge` automatically removes only the project-local

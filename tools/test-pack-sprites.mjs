@@ -1160,6 +1160,22 @@ function main() {
   const pa13 = r13c.code === 0 && JSON.parse(fs.readFileSync(path.join(FIX, 'out13', 'preview', 'vfx', 'atlas.json'), 'utf8'));
   check(pa13 && pa13.anims.flame && pa13.anims.spark?.n === 5 && r13c.json.vfx.unapproved.length === 0, `run 13c: candidates preview every effect at its newest version (spark ${pa13 && pa13.anims.spark?.n} frames)`);
 
+  // run 13d (TOOL-047): the shipped spark's raws are missing on disk (a sparse worktree without art/vfx/raw/), so its
+  // frames/ are stale: the atlas is refused and left as it is, unless --allow-drop says the loss is intended
+  const lostArt = path.join(FIX, 'art-lost-raw');
+  fs.rmSync(lostArt, { recursive: true, force: true });
+  fs.cpSync(path.join(ART, 'vfx'), path.join(lostArt, 'vfx'), { recursive: true });
+  for (const f of ['spark_v01.png', 'spark_v02.png', 'spark.png']) fs.rmSync(path.join(lostArt, 'vfx', 'raw', f), { force: true });
+  const atlas13 = path.join(FIX, 'out13', 'vfx', 'atlas.json');
+  const before13 = fs.readFileSync(atlas13, 'utf8');
+  const r13d = pack(['--root', lostArt, '--out', path.join(FIX, 'out13'), '--manifest', m13, '--no-writeback', '--json', 'vfx']);
+  check(r13d.code === 1 && JSON.stringify(r13d.json?.vfx.refused) === '["spark"]' && anyWarn(r13d.json.vfx.warnings, /VFX ATLAS NOT WRITTEN: .*ships spark.*--allow-drop/)
+    && fs.readFileSync(atlas13, 'utf8') === before13, `run 13d: a shipped effect whose raw is gone refuses the atlas and keeps it (exit ${r13d.code}, refused ${r13d.json?.vfx.refused})`);
+  const r13dText = pack(['--root', lostArt, '--out', path.join(FIX, 'out13'), '--manifest', m13, '--no-writeback', '--dry-run', 'vfx']);
+  check(r13dText.code === 1 && /VFX ATLAS NOT WRITTEN: it would lose spark/.test(r13dText.out), `run 13d: a dry run reports the refusal too (exit ${r13dText.code})`);
+  const r13e = pack(['--root', lostArt, '--out', path.join(FIX, 'out13'), '--manifest', m13, '--no-writeback', '--json', '--allow-drop', 'vfx']);
+  check(r13e.code === 0 && !r13e.json?.vfx.refused.length && !fs.existsSync(atlas13), `run 13e: --allow-drop lets the atlas lose it (exit ${r13e.code})`);
+
   // run 14: nothing approved any more -> the shipped outputs are removed
   const m14 = path.join(FIX, 'manifest-unapproved.json');
   const man14 = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));

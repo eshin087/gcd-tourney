@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Feature branches as pull requests, without touching the shared working copy (ADR 0013).
 //
-//   npm run pr -- start <branch> [--art <id>[,<id>]] [--full]   new worktree + branch off main in .worktrees/<branch>
+//   npm run pr -- start <branch> [--art <id>[,<id>]] [--full] [--no-install]   new worktree + branch off main in .worktrees/<branch>
+//   npm run pr -- art <id>[,<id>]           (inside a sparse worktree) check out more raw art there, and verify it is on disk
 //   npm run pr -- open [--title "..."]      (inside the worktree) publish the branch slim + open the GitHub PR
 //   npm run pr -- preview                   (inside the worktree) deploy the branch to a Vercel preview, link it in the PR
 //   npm run pr -- merge <branch> [--no-deploy] [--force-art "<reason>"]  (in the main checkout) art guard, merge --no-ff,
@@ -25,12 +26,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead, worktreeHolding } from './pr-guard.mjs';
+import { SPARSE, artFolders, folderPatterns, mangledPatterns, rawGaps, sparsePatterns } from './sparse-art.mjs';
 
 // The main checkout, wherever this copy of the script lives (it also runs from inside a worktree).
 const ROOT = path.dirname(execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
   { cwd: path.dirname(fileURLToPath(import.meta.url)) }).toString().trim());
 const REPO = 'eshin087/gcd-tourney';
-const SPARSE = ['/*', '!/art/*/raw/', '!/art/*/*/raw/', '!/art/**/_rejected/', '!/art/**/_old/', '!/art/**/contact/'];
 const PREFIXES = ['feature/', 'fix/', 'art/', 'docs/', 'chore/'];
 
 const [cmd, ...rest] = process.argv.slice(2);
@@ -50,8 +51,8 @@ const currentBranch = (cwd = ROOT) => git(['rev-parse', '--abbrev-ref', 'HEAD'],
 
 function start() {
   const branch = positional;
-  if (!branch || !PREFIXES.some((p) => branch.startsWith(p))) die(`usage: pr start <${PREFIXES.join('|')}name> [--art <id>[,<id>]] [--full]`);
-  const art = artPatterns(opt('--art'));
+  if (!branch || !PREFIXES.some((p) => branch.startsWith(p))) die(`usage: pr start <${PREFIXES.join('|')}name> [--art <id>[,<id>]] [--full] [--no-install]`);
+  const folders = artFolders(ROOT, opt('--art'));
   const dir = worktreeDir(branch);
   if (fs.existsSync(dir)) die(`${dir} already exists`);
   git(['worktree', 'add', '--no-checkout', '-b', branch, dir, 'main'], ROOT, true);
@@ -59,23 +60,54 @@ function start() {
     console.warn('[pr] --full checks out the whole ~2 GB art library; prefer --art <id> for one character or art kind');
   } else {
     // later patterns win, so the re-included folders bring back their raw/ that SPARSE excluded
-    git(['sparse-checkout', 'set', '--no-cone', ...SPARSE, ...art], dir, true);
+    git(['sparse-checkout', 'set', '--no-cone', ...SPARSE, ...folderPatterns(folders)], dir, true);
   }
   git(['checkout', branch], dir, true);
-  console.log('[pr] installing dependencies');
-  sh('npm', ['ci', '--prefer-offline', '--no-audit', '--no-fund'], dir);
+  verifyArt(dir, folders);
+  if (flag('--no-install')) console.log('[pr] skipped npm ci (--no-install)');
+  else {
+    console.log('[pr] installing dependencies');
+    sh('npm', ['ci', '--prefer-offline', '--no-audit', '--no-fund'], dir);
+  }
   console.log(`[pr] ready: ${dir}\n[pr] work and commit there, then run \`npm run pr -- open\` from that folder.`);
 }
 
-// --art naruto,vfx -> /art/characters/naruto/ and /art/vfx/ (whole folders, raw included)
-function artPatterns(list) {
-  if (!list) return [];
-  return list.split(',').filter(Boolean).flatMap((id) => {
-    // an id with no folder yet is a new character; its folder must still be in the sparse set or `git add` refuses it
-    const rel = [id, 'characters/' + id].find((r) => fs.existsSync(path.join(ROOT, 'art', r))) || 'characters/' + id;
-    // `/**` too: the SPARSE exclusions match raw/ itself, so re-including only the parent folder is not enough
-    return [`/art/${rel}/`, `/art/${rel}/**`];
-  });
+// Proof, not hope (TOOL-047): every tracked raw/ file of the --art folders is on disk. A worktree that silently lacks
+// art/vfx/raw/ packs an atlas without the effects whose raws are missing, and that atlas then gets committed.
+function verifyArt(dir, folders) {
+  const bad = mangledPatterns(sparsePatterns(dir));
+  if (bad.length) console.warn(`[pr] sparse-checkout patterns that match nothing (a shell rewrote the leading /): ${bad.join(', ')}`);
+  const gaps = rawGaps(dir, folders);
+  for (const g of gaps) if (!g.skipped.length) console.log(`[pr] ${g.folder}/raw/: ${g.tracked} tracked file(s) on disk`);
+  const missing = gaps.filter((g) => g.skipped.length);
+  if (missing.length) {
+    die(`raw art is not checked out: ${missing.map((g) => `${g.folder}/raw/ (${g.skipped.length} of ${g.tracked} file(s) missing, e.g. ${g.skipped[0]})`).join('; ')}. ` +
+      'Run `npm run pr -- art <id>` inside the worktree; do not pack until it passes');
+  }
+}
+
+// Bring more raw art into an existing sparse worktree (one recreated without --art, or a task that grew), the same
+// patterns `start --art` writes. `git sparse-checkout add art/x` by hand misses raw/, and typed in Git Bash a leading
+// /art/... becomes C:/Program Files/Git/art/..., which matches nothing.
+function art() {
+  const list = positional;
+  if (!list) die('usage: pr art <id>[,<id>]   (inside the worktree; a character id like naruto, or an art/ folder like vfx)');
+  const cwd = git(['rev-parse', '--show-toplevel'], process.cwd());
+  if (path.resolve(cwd) === path.resolve(ROOT)) die('run this inside a sparse feature worktree; the main checkout has all the art');
+  const folders = artFolders(ROOT, list);
+  const current = sparsePatterns(cwd);
+  if (!current.length) {
+    console.log('[pr] this worktree is not sparse: all art is already checked out');
+  } else {
+    if (!current.some((p) => p.startsWith('!'))) die('this worktree uses cone-mode sparse checkout; recreate it with `npm run pr -- start --art`');
+    const wanted = folderPatterns(folders);
+    const kept = current.filter((p) => !mangledPatterns([p]).length);
+    if (kept.length < current.length) console.log(`[pr] dropping pattern(s) a shell rewrote: ${mangledPatterns(current).join(', ')}`);
+    const add = wanted.filter((p) => !kept.includes(p));
+    if (add.length || kept.length < current.length) git(['sparse-checkout', 'set', '--no-cone', ...kept, ...add], cwd, true);
+    else console.log('[pr] the sparse patterns already include ' + folders.join(', '));
+  }
+  verifyArt(cwd, folders);
 }
 
 function open() {
@@ -221,4 +253,4 @@ function prune() {
   }
 }
 
-({ start, open, preview, merge, check, prune }[cmd] || (() => die('usage: pr start|open|preview|merge|check|prune (see tools/pr.mjs)')))();
+({ start, art, open, preview, merge, check, prune }[cmd] || (() => die('usage: pr start|art|open|preview|merge|check|prune (see tools/pr.mjs)')))();
