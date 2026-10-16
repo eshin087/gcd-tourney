@@ -20,8 +20,8 @@ How it works:
 **USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." Exact versions are in the new shared REVIEW.md section and the final full-set handoff. All 23 core drawings per fighter are now user-approved when combined with prior approvals; runtime/integration checks remain separate. No new image calls.
 
 - [x] Recorded all 35 exact approvals in main's shared REVIEW.md and resumed the existing Luna/medium fighter workers in their own worktrees.
-- [ ] Update branch manifest approvedVersions, TRACKER, REVIEW_ROWS and preview labels; preserve versions and reproduce the audited atlas bytes.
-- [ ] Run both merge guards against committed branch heads, publish updated PRs/previews, commit combined handoff and ring Claude for runtime checks and integration.
+- [x] Updated branch manifest approvedVersions, TRACKER, REVIEW_ROWS and preview labels; all 23 per fighter approved. Goku `56ee182c`, Luffy `ae93eff9`; both strict packs and hosted outputs reproduce the audited atlas bytes. Source versions and dependencies preserved (2026-10-16).
+- [ ] Run both merge guards against committed branch heads, publish updated PRs/previews, commit combined handoff and ring Claude for runtime checks and integration. Guards passed against main `3ca0ca94`; PRs/previews updated and independently checked. Combined handoff prepared; normal relay delivery is the final step (2026-10-16).
 
 ---
 
@@ -55,6 +55,7 @@ refused because their newest raw has no `approvedVersion`. Two cases:
 - [ ] 3. After the user's answer is relayed: record `approvedVersion` for each approved strip (move any rejected one to
   `raw/_qa_hold/`), re-run `node tools/pr.mjs check` until it passes, commit, `npm run pr -- open`, and hand back to
   Claude (ring `goku-luffy`) for the merge.
+  Relay #14 approved all 35 remaining drawings. Approval commits, updated PRs/previews and both passing guards are complete; combined handoff above awaits its final normal ring (2026-10-16).
 
 ---
 

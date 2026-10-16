@@ -1,3 +1,36 @@
+# Codex: all Goku/Luffy core drawings approved; merge guards pass (2026-10-16, relay #14)
+
+**USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." All 35 exact approvals are recorded in main's shared REVIEW at `3e307d1a` and in the fighter branches' manifests, TRACKER sections and REVIEW_ROWS. Together with earlier approvals, **all 23 core drawings per fighter are approved**. This supersedes the pending drawing requests in the historical handoffs below. No further drawing decision is needed; no new image calls occurred.
+
+| Fighter | Real worktree / branch / PR | Approval and preview source / final branch HEAD | Updated approved gallery |
+|---|---|---|---|
+| Goku | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core`; `art/goku-core`; [PR #123](https://github.com/eshin087/gcd-tourney/pull/123) | `ef61b68d` / `56ee182c` (final change is PR-body documentation only) | [All 23 Goku core strips](https://gcd-tourney-n4nm8l3wq-eshin087s-projects.vercel.app/characters/goku/core-review-final/index.html) |
+| Luffy | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core`; `art/luffy-core`; [PR #96](https://github.com/eshin087/gcd-tourney/pull/96) | Approval `6a41d929`; source-dependency restoration and preview/final HEAD `ae93eff9` | [All 23 Luffy core strips](https://gcd-tourney-2evwtyr04-eshin087s-projects.vercel.app/characters/luffy/final-core-review/index.html) |
+
+## Exact newly approved versions
+
+- **Goku (16):** run v09, dash v09, jumpUp v04, jumpFall v04, land v07, light1 v04, guard v05, hurtHigh v08, launched v08, down v05, getup v11, charge v05, beamCharge v07, beamFire v07, special v05, win v05.
+- **Luffy (19):** run v01, dash v02, jumpUp v01, jumpFall v03, land v01, light1 v02, light2 v01, light3 v02, light4 v02, heavy v01, airLight1 v01, airHeavy v01, guard v01, hurtHigh v01, launched v02, charge v01, beamCharge v01, beamFire v02, win v03.
+
+## Verification and preserved history
+
+- Both strict quantize-48 packs passed: **23 animations / 108 frames / 48 colors** each. Atlas and metadata bytes remain identical to the final Astra-audited r5/r6 outputs. The existing audits and their measurement uncertainty apply to these exact bytes; no new Astra audit or gameplay/contact certification is claimed.
+- Goku sheet SHA256 `ebb27850371179a0fdc9da5d76816ebdb52b747712643b60cd40e14bfe6460ca`; metadata `b43af90a609dc0a36e688bad916c50694962ce2fced6fb02384cd400bcd814ca`.
+- Luffy sheet SHA256 `e8d5ba9f95a833af82bd13441d3099d15cf44449573e15db5af404f01eb92ce0`; metadata `7acf280f3c8a7b7b7f2ae8ec75119d8bc61c42e507faaa6ae14a1ee84816ebcd`.
+- Parent independently retrieved all four files from the new authenticated previews and matched those hashes and local bytes. Hosted gallery HTML matches committed files after removing Vercel's injected feedback script and normalizing final newlines. Both galleries visibly label all 23 drawings approved, with exact versions and the relay #14 quote. Prior frame/playback/mobile checks remain documented below; this round checked changed approval labels and artifacts, not gameplay.
+- Both adapter builds and committed preview builds passed. Luffy's ordinary launcher still hit the documented Windows EPERM path-resolution restriction; the documented adapter passed. No test suite was added or run.
+- **Both merge guards passed again against main `3ca0ca94`**, using final Goku `56ee182c` and Luffy `ae93eff9`: `node tools/pr.mjs check art/goku-core` (25 changed strips) and `node tools/pr.mjs check art/luffy-core` (23 changed strips), both exit 0 with no refusal or conflict warning. No force override. Claude must retain normal integration guards against the main state at merge time.
+- All source versions survive. Goku's older held candidates remain at their existing paths because audit/assembly evidence depends on them; their review rows are marked superseded. Luffy archived eight standalone superseded candidates byte-identically with SHA256 receipts in REVIEW_ROWS. Launched v01 and win v01 were restored to their original `_qa_hold` paths in `ae93eff9` because reassembly sidecars reference them; special source A is unchanged. No approved atlas input was replaced.
+- Both PRs and bodies are updated. Workers removed their own verified `node_modules`, `dist` and owned E: preview exports; no C: scratch was used. Goku is clean. Luffy has no tracked changes and retains only pre-existing `art/characters/luffy/production/deploy-scratch/`; preserve that residue for the coordinator's later audit. Unmerged worktrees and all versioned source art remain intact. Main's unrelated `deliverables/round4-qa/` deletions were not touched or staged.
+
+## Claude next; no user drawing request
+
+Please perform the remaining runtime/contact/grounding checks and integrate sequentially under the project safeguards. Known items: **Goku getup floor/contact warning; Luffy run/light3/light4/airLight1 placement warnings, front-28% fallback contacts, and beamFire arm-only continuation**. Audit details remain in Goku `production/manual-audit-r5/FINAL_ATLAS_AUDIT.md` and Luffy `production/manual-audit-r6/FINAL_STRICT_AUDIT.md`. Drawing approval does not establish correct contacts, grounding or timing.
+
+Claude owns shared TASKS/CHANGELOG consolidation, integration conflict resolution and post-merge worktree cleanup. Main's manifest still describes its integrated assets; the approved unmerged core versions live in these PR manifests. Codex has not merged or deployed production. The combined handoff is ready for a normal `goku-luffy` ring; no new user ask is required. Both workers have stopped.
+
+---
+
 # Codex: repair approvals recorded; complete core sets ready for review (2026-10-16, relay #12 + final-set inbox)
 
 **USER APPROVAL via Claude:** "Approve Goku light3 v13 and Luffy special v02 as drawn." Recorded in main's shared REVIEW at `f32605ff` and in each fighter branch's manifest, TRACKER and REVIEW_ROWS. No new image calls, artwork versions, rescaling or atlas changes occurred. The cumulative light3/special call counts remain 6/5.
