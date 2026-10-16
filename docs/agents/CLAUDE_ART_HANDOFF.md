@@ -1,3 +1,33 @@
+# Codex: Gojo run v14 Astra recheck PASS (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, inspected source commit `65ff1ea1`. Astra audited the actual quantized atlas run cells 8–15 against the approved title-style neutral/combat cells and packed idle. **PASS for visible atlas anatomy and discrete-frame continuity:** the v13 f6 free-arm/fist dropout is resolved; no new visible defect was established. V14 repeats Part A for both halves, so all four second-half cells are exact RGBA repeats of the first half. The user's accepted same-lead-leg and forward-fist choices were recorded, not failed.
+
+Audit: `art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md` (SHA256 `DF47A1B2AF24D20B6425D5ACC529D6F0BEEB5E85DBCBA8C49628F7DE6192A54E`). Audited packed atlas `public/characters/gojo/sheet.png` SHA256 `F20E42CB8DB1D7A1A109AFB2CF6FEF5B2548579DB5604797AA1C8F1C4D11094F`. The eight 60 ms review-GIF frames match the atlas pixels. This is not strict ±6% certification of hidden/foreshortened segments, successful live browser playback, runtime-contact QA, user approval, or merge clearance. No images, pack outputs, sidecars, manifest or approval rows were edited; no new calls or pack were run.
+
+Next: Claude handles live playback/runtime checks and technical disposition. This audit is not a new image approval. The parent committed the report and this handoff, then rang `gojo-run` with the scoped PASS.
+
+---
+
+# Codex: Gojo run v13 user-approved; Astra HOLD (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, PR #102. User approved the stitched and packed run v13 via relay #6: "Approve run v13." This approval is recorded in `art/REVIEW.md`, Gojo `REVIEW_ROWS.md` and manifest `run.approvedVersion=13`. Astra audited the actual packed atlas and returned **HOLD** for a new defect: f6 / slot 14 has no separately visible free arm/fist, which disappears between f5 and f7. Exact hashes, per-frame measurements, uncertainty, and the browser playback timeout are in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md` (report SHA256 `BA77A42F1EB2AE279B6F3E2FDFD373EB6FB0B2A502BC5BA7C1C07A72DE6D2445`; atlas SHA256 `610E84DC5972D2F810EC5114D4521E21282C3C4C87DFD89B0E92E9E8380B49D2`). The user's accepted same-leg, forward-fist and B-half-height differences were not failed. Visual approval stands; technical clearance and merge do not.
+
+Generation provenance: Part A is in `raw/_parts/run_v13_A.png`; the extra Part B attempt is held at `raw/_qa_hold/run_v13_B_attempt02.png`, then Claude stitched that exact attempt into the reviewed v13 without new calls. Full call history is in `phase3_run_v13_attempt_inventory_v01.json`. The candidate remains branch-only; no production merge/deploy is claimed. Next Claude decides the disposition of the new f6 defect. Dashes remain a separate task and are not authorized here.
+
+---
+
+# Codex: Gojo phase 2 dash audit hold (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, worktree `.worktrees/art-gojo-run`, PR #102. Phase 2 handoff commit: `f14a6966` (includes the independent Astra audit); this shared handoff update follows on the same branch. User selected K as direction only; no production image is approved.
+
+Generation was directed under gpt-6-luna / medium. Cumulative calls: run v13 3/3 (no saved candidate; mirrored phases failed); dash v07-v09 3/3 (v07/v08/v09 all preserved in `art/characters/gojo/raw/_qa_hold/`); backDash v05/v06 3/3 (both held); superDash v10/v11 3/3 (both held; call 3 unsaved). Exact per-attempt source paths and hashes are in `art/characters/gojo/production/run-jkl/phase2_attempt_inventory_v01.json`.
+
+Dash v09 passed the packer's scale gate, but Astra/medium audited the actual quantized atlas SHA256 `7CB18EB86F22FAAF9ABF05BEA18EC21C500CF51D1B7637B5CD4082B290C52252` and returned **HOLD**: atlas slot 17 loses the near/right arm pump behind the torso, the projected torso garment axis appears shortened versus approved refs, and the head shifts about 37 px across the loop. Full measurement uncertainty and evidence are in `art/characters/gojo/production/run-jkl/ASTRA_DASH_AUDIT_v01.md`. No image is review-ready; do not merge or deploy production.
+
+The public review page labels every production candidate as held and distinguishes the audited atlas from a release candidate: `public/reviews/gojo-run-jkl/index.html`. `npm run build` passed with existing optional-animation-default warnings. `npm run pr -- preview` succeeded for commit `ee9c41e8`: https://gcd-tourney-ncaxh7yr0-eshin087s-projects.vercel.app (PR #102 preview comment: https://github.com/eshin087/gcd-tourney/pull/102#issuecomment-6207426423). An initial non-escalated attempt failed at `EPERM` creating the external scratch directory; the authorized escalated retry completed with Vercel build success. No relay ring was sent because the audit hold and exhausted call budgets block further work. Next user decision: whether to authorize a new repair task/budget after reviewing the audit; this is not an approval request for any current image.
+
+---
+
 # Codex: Goku/Luffy workflow repair and resumed source checkpoint (2026-10-15, goku-luffy)
 
 The user asked for a better workflow and then resumed production. This is a technical calibration handback, not a completed fighter batch or an image-approval request. No merge or production deploy. **Claude acts next; the user has no action yet.**
