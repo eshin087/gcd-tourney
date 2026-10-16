@@ -16,16 +16,11 @@ paused._
 
 **Goku/Luffy calibration audit: waiting for Claude (2026-10-15).** No user action yet. [Goku review](https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/reassembly/index.html) (PR #123,1366aec7) contains15 reassemblies, three unresolved source holds and the final81-frame Astra audit; proposed calibration passes are separate from remaining size/crop holds. [Luffy review](https://gcd-tourney-auxet8r2u-eshin087s-projects.vercel.app/characters/luffy/calibration-r2/index.html) (PR #96,12586584) has18 body-scale passes and four holds. Both previews need Vercel sign-in. Claude must resolve false head-probe failures, select Goku calibration and check final packs/contacts before approval review. Zero new image calls; nothing merged or deployed to production. See the newest [handoff](agents/CLAUDE_ART_HANDOFF.md); Codex waits for the relay.
 
-
-
 **Online play, determinism spike done (2026-10-15, PR #109 + #115, ADR 0036, ENG-090):** your iPhone and Chrome now compute the same fight frame for frame (deterministic math + the camera/clock fixes in the test). Live and matching: https://gcd-tourney.vercel.app/?det=naruto-sasuke-s7 and https://gcd-tourney.vercel.app/?det=gojo-killua-s3. Nothing to do; next is ENG-091 (the simulation fixes for real) when you want online work to continue.
 
-**Sasuke v03 art approved (2026-10-15, effects relay #6):** the user approved Kirin `ui_super_fg v03` and Amaterasu `ui_ult_fg v03` via Claude despite Astra holds. The approved art is packed in the live PR #111 preview at commit `4da6f6b6`: [review gallery](https://gcd-tourney-enuuc9gcz-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/) and [in-game demo](https://gcd-tourney-enuuc9gcz-eshin087s-projects.vercel.app/?fight=sasuke,sasuke&mode=solo&level=hard). The gallery keeps Astra's findings: Kirin's eyes remain relatively open/round and chin slightly elevated; Amaterasu's connected eye motif is faint at fit and blood remains under the uncovered eye. Both budgets are exhausted at 6/6 cumulative. Claude is next for integration and final in-game review; nothing is waiting on you in this art task.
+**Sasuke super art live (2026-10-15):** Kirin banner and Amaterasu splash, backdrops and cutouts, are on https://gcd-tourney.vercel.app (merges d84127c0, 6e3a6d8a). Next is the same recipe for Naruto, Killua, Gojo, Goku and Luffy when you say go.
 
 **Effects and ground live (2026-10-15):** you approved after the demo; PR #108 (natural ground damage) and PR #113 (super banner, ultimate splash, Sharingan) are merged and on https://gcd-tourney.vercel.app. Nothing to do.
-
-**Sasuke art history:** v01 foregrounds were rejected and archived; v02s were superseded and archived after the v03 redo. No foreground is approved or packed; no production deploy has been made for this art branch.
-
 
 **Automatic handback rule (2026-10-15, OPS-009):** every agent must check whether Claude needs its result before finishing and ring the matching lane when required. No manual reminder is needed once the chat reads the updated main-checkout rules/inbox. Already-running chats may still hold older instructions; approval and paused-lane stops remain.
 
@@ -99,13 +94,11 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - ART-KIL-TITLE-R2 (Codex), ART-SCALE-R4-NAR (Codex Naruto worker), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), OPS-013 (Claude), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ART-BEAM-CLASH (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-SCALE-R4-KIL (Codex), ART-SCALE-R4-SAS (Codex Sasuke sub-agent), TOOL-045 (Claude), TOOL-048 (Claude), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex), ART-R5-APPROVE-NARUTO (Codex), ART-R5-APPROVE-GOJO (Codex), ART-DECISION-SASUKE-20261015 (Codex), ART-R5-APPROVE-SASUKE (Codex), ART-DECISION-KILLUA-20261015 (Codex), ART-R5-APPROVE-KILLUA (Codex), ART-DECISION-NARUTO-20261015 (Codex), ART-R5-APPROVE-NARUTO-ALTS (Codex), ART-SCALE-LOOSE-20261015 (Codex), ART-LOOSE-NARUTO-20261015 (Codex), ART-LOOSE-KILLUA-20261015 (Codex)
 
 ### Last commits
+- 96c942a0 10-15 22:09 docs(now): Sasuke super art live (PR #111); round 2 waits for the user (ART-SUPER-ART)
 - 6e3a6d8a 10-15 22:08 Merge branch 'art/sasuke-super-art'
 - 12a22ba7 10-15 22:08 Merge branch 'main' into art/sasuke-super-art
 - 21eef4a7 10-15 22:05 docs(art): hand back Goku and Luffy calibration audit r2
 - 46675b00 10-15 22:05 docs(now): Gojo dash technical review handoff
 - 10176522 10-15 22:00 docs(now): beam clash live (PR #110); Goku struggle and Astra audit remain
-- fb4ac16e 10-15 21:59 Merge branch 'art/beam-clash'
 <!-- status:end -->
-
-
 
