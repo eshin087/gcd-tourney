@@ -5,6 +5,7 @@ import { IS_TOUCH_DEVICE } from '../core/touch.js';
 import { kitOf } from '../game/kit.js';
 import { SPECIAL_MOVES, SUPERS } from '../game/moves.js';
 import { CPU_LEVELS } from '../game/ai.js';
+import { QUICK } from '../net/quickChat.js';
 
 const el = (tag, cls, html = '') => {
   const e = document.createElement(tag);
@@ -142,7 +143,8 @@ export class Menus {
     box.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
     const label = (it) => (typeof it.label === 'function' ? it.label() : it.label);
     const btns = items.map((it, i) => {
-      const b = el('button', 'item' + (it.cycle ? ' cyc' : ''), `<span>${label(it)}</span>${it.sub ? `<small>${it.sub}</small>` : ''}`);
+      const sub = typeof it.sub === 'function' ? it.sub() : it.sub;
+      const b = el('button', 'item' + (it.cycle ? ' cyc' : ''), `<span>${label(it)}</span>${it.sub ? `<small>${sub}</small>` : ''}`);
       b.onmouseenter = () => { idx = i; render(); };
       // stop here: an item that opens the title screen (TITLE, QUIT TO TITLE) would otherwise bubble into the
       // click-anywhere handler title() just put on .menus and skip straight on to mode select
@@ -153,6 +155,7 @@ export class Menus {
     const render = () => btns.forEach((b, i) => {
       b.classList.toggle('sel', i === idx);
       if (typeof items[i].label === 'function') b.querySelector('span').innerHTML = label(items[i]);
+      if (typeof items[i].sub === 'function') b.querySelector('small').innerHTML = items[i].sub();
     });
     const step = (d) => {
       const it = items[idx];
@@ -525,8 +528,10 @@ export class Menus {
     render();
   }
 
-  // ------------------------------------------------------------ online (ADR 0036, ENG-094; the logic is net/online.js)
-  // your name and a room code: create a room or join one (code: from an invite link, JOIN is then selected)
+  // ------------------------------------------------------------ online (ADR 0036, ENG-094/095; the logic is net/online.js)
+  // Your name and a room code: browse the public rooms, open a public or private one, or join one by its code (code:
+  // from an invite link, JOIN is then selected). Room titles and member names come from the server, already filtered,
+  // and always go in as text, never as markup.
   onlineEntry(online, code = '') {
     this.clear();
     this.screen = 'online-entry';
@@ -550,16 +555,56 @@ export class Menus {
     form.append(field('YOUR NAME', name), field('ROOM CODE', room));
     const msg = el('div', 'on-msg');
     msg.textContent = online.error || (online.available ? '' : 'Online play is not set up yet.');
-    const create = () => { online.setName(name.value); online.create(); };
-    const join = () => { online.setName(name.value); online.join(room.value); };
+    const named = (fn) => () => { online.setName(name.value); fn(); };
+    const join = named(() => online.join(room.value));
     const { box, ctrl } = this.list([
-      { label: 'CREATE A ROOM', sub: 'then send your friends the invite link', action: create },
-      { label: 'JOIN A ROOM', sub: 'with the code a friend sent you', action: join },
-    ], { index: code ? 1 : 0, back: () => this.modeSelect(this.modeIndex('online')) });
-    // Enter in a field: join with a code, else create
-    for (const i of [name, room]) i.addEventListener('keydown', (e) => { if (e.key === 'Enter') (room.value.trim() ? join : create)(); });
+      { label: 'BROWSE PUBLIC ROOMS', sub: 'join anyone playing now', action: named(() => online.browse()) },
+      { label: 'CREATE A PUBLIC ROOM', sub: 'listed for everyone to join', action: named(() => online.create(true)) },
+      { label: 'CREATE A PRIVATE ROOM', sub: 'only people with your invite link', action: named(() => online.create(false)) },
+      { label: 'JOIN WITH A CODE', sub: 'the code a friend sent you', action: join },
+    ], { index: code ? 3 : 0, back: () => this.modeSelect(this.modeIndex('online')) });
+    // Enter in a field: join with a code, else browse
+    for (const i of [name, room]) i.addEventListener('keydown', (e) => { if (e.key === 'Enter') (room.value.trim() ? join : named(() => online.browse()))(); });
     this.root.append(form, msg, box);
     this.ctrl = ctrl;
+  }
+
+  // the anti-bot check before a public room opens: Cloudflare's widget draws itself in the returned element
+  onlineVerify(online) {
+    this.clear();
+    this.screen = 'online-verify';
+    this.root.classList.add('panel-screen', 'online-screen');
+    this.root.append(el('div', 'screen-title', 'OPENING A PUBLIC ROOM'));
+    this.root.append(el('div', 'on-status', 'A quick check that you are a person (Cloudflare Turnstile)'));
+    const box = el('div', 'on-turnstile');
+    const { box: list, ctrl } = this.list([{ label: 'CANCEL', action: () => online.cancelVerify() }], { back: () => online.cancelVerify() });
+    this.root.append(box, list);
+    this.ctrl = ctrl;
+    return box;
+  }
+
+  // The public rooms (online.rooms; null while loading): each joins on confirm. Pings fill in as they're measured
+  // (onlineBrowseRefresh).
+  onlineBrowse(online) {
+    this.clear();
+    this.screen = 'online-browse';
+    this.root.classList.add('panel-screen', 'online-screen');
+    this.root.append(el('div', 'screen-title', 'PUBLIC ROOMS'));
+    const msg = el('div', 'on-status');
+    const rooms = online.rooms;
+    msg.textContent = rooms == null ? 'LOADING...' : online.error || (rooms.length ? `${rooms.length} open` : 'No public rooms right now: create one');
+    const esc = (t) => String(t).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+    const items = (rooms || []).map((r) => ({
+      label: () => esc(r.title) + (r.full ? ' · FULL' : ''),
+      sub: () => [r.region, `${r.members} here`, r.playing ? esc(r.playing.join(' vs ')) : 'waiting for players', r.ping != null ? `${r.ping} ms` : '... ms'].filter(Boolean).join(' · '),
+      action: () => (r.full ? audio.play('block') : online.join(r.code)),
+    }));
+    items.push({ label: 'REFRESH', action: () => online.browse() });
+    items.push({ label: 'CREATE A PUBLIC ROOM', action: () => online.create(true) });
+    const { box, ctrl, refresh } = this.list(items, { cls: 'on-browse', back: () => online.entry() });
+    this.root.append(msg, box);
+    this.ctrl = ctrl;
+    this.onlineBrowseRefresh = () => { if (this.screen === 'online-browse') refresh(); };
   }
 
   // connecting
@@ -574,7 +619,8 @@ export class Menus {
   }
 
   // The room between matches (or over a match being watched: overlay): who is here, who plays, the line, your
-  // fighter and whether you queue. onlineRefresh() repaints it on every room update without moving the cursor.
+  // fighter and whether you queue, the quick-chat, removing someone (the host does; others vote; tap a member's row to
+  // point at them). onlineRefresh() repaints it on every room update without moving the cursor.
   onlineRoom(online, overlay = false) {
     this.clear();
     this.screen = 'online-room';
@@ -583,22 +629,44 @@ export class Menus {
     const roster = this.game.roster, assets = this.game.rosterAssets;
     const fighterName = (id) => roster.find((c) => c.id === id)?.name ?? id;
     const title = el('div', 'screen-title', `ROOM ${online.code}`);
+    const tag = el('div', 'on-tag');
     const status = el('div', 'on-status');
     const members = el('div', 'on-members');
+    const chat = el('div', 'on-chat');
+    const memberName = (id) => online.room?.members.find((m) => m.id === id)?.name ?? '';
+    const removeLabel = () => {
+      const R = online.room, t = online.target && memberName(online.target);
+      if (!t) return 'REMOVE: no one else here';
+      const host = online.isHost(), votes = R?.votes?.[online.target] || 0;
+      return `${host ? 'REMOVE' : 'VOTE TO REMOVE'}: ◀ ${t.replace(/[&<>"']/g, '')}${host ? '' : ` (${votes}/${R?.needed ?? 2})`} ▶`;
+    };
     const { box, ctrl, refresh } = this.list([
       { label: () => `FIGHTER: ◀ ${fighterName(online.fighter).toUpperCase()} ▶`, cycle: (d) => online.cycleFighter(d) },
       { label: () => `PLAY: ◀ ${online.play ? 'YES, IN LINE' : 'NO, JUST WATCH'} ▶`, cycle: () => online.setPlay(!online.play) },
+      { label: () => `SAY: ◀ ${QUICK[online.sayIndex]} ▶`, cycle: (d) => { online.sayIndex = (online.sayIndex + d + QUICK.length) % QUICK.length; }, action: () => online.say() },
       { label: 'INVITE A FRIEND', sub: online.inviteUrl().replace(/^https?:\/\//, ''), action: () => online.invite() },
+      { label: removeLabel, cycle: (d) => online.pickTarget(d), action: () => online.remove() },
       ...(overlay ? [{ label: 'BACK TO THE MATCH', action: () => online.menuKey() }] : []),
       { label: 'LEAVE ROOM', action: () => online.leaveRoom() },
     ], { cls: 'on-actions', back: overlay ? () => online.menuKey() : null });
+    const left = el('div', 'on-left');
+    left.append(members, chat);
     const cols = el('div', 'on-cols');
-    cols.append(members, box);
-    this.root.append(title, status, cols);
+    cols.append(left, box);
+    this.root.append(title, tag, status, cols);
     this.ctrl = ctrl;
     const paint = () => {
       const R = online.room;
       if (!R) return;
+      if (!online.others().some((m) => m.id === online.target)) online.pickTarget(0);
+      tag.textContent = R.pub ? `PUBLIC ROOM · ${R.title}${R.region ? ` · ${R.region}` : ''}` : 'PRIVATE ROOM · invite only';
+      chat.replaceChildren(...(R.chat || []).slice(-6).map((c) => {
+        const line = el('div', 'on-line');
+        const b = el('b');
+        b.textContent = c.name;
+        line.append(b, document.createTextNode(` ${QUICK[c.i] ?? ''}`));
+        return line;
+      }));
       const playing = R.match?.players ?? [];
       const order = (m) => (playing.includes(m.id) ? playing.indexOf(m.id) : R.queue.includes(m.id) ? 2 + R.queue.indexOf(m.id) : 1e3);
       const names = (ids) => ids.map((id) => R.members.find((m) => m.id === id)?.name ?? '?').join(' vs ');
@@ -614,12 +682,13 @@ export class Menus {
           : q < 0 ? 'WATCHING'
           : !R.match && R.queue.length < 2 ? 'READY'
           : (R.match ? q === 0 : q < 2) ? 'NEXT' : `IN LINE ${R.match ? q + 1 : q}`;
-        const row = el('div', 'on-row' + (m.id === online.you ? ' me' : '') + (playing.includes(m.id) ? ' live' : ''));
+        const row = el('div', 'on-row' + (m.id === online.you ? ' me' : '') + (playing.includes(m.id) ? ' live' : '') + (m.id === online.target ? ' target' : ''));
+        if (m.id !== online.you) row.onclick = () => { online.target = m.id; paint(); };
         const i = roster.findIndex((c) => c.id === m.fighter);
         const pic = i >= 0 ? portraitCanvas(assets[i], 22) : el('span', 'on-pic');
         const who = el('div', 'on-who');
         const nm = el('b');
-        nm.textContent = m.name + (m.id === online.you ? ' (you)' : '');
+        nm.textContent = m.name + (m.id === online.you ? ' (you)' : '') + (m.id === R.host ? ' ★' : '');
         const sub = el('small');
         sub.textContent = fighterName(m.fighter) + (m.wins ? ` · ${m.wins} win${m.wins > 1 ? 's' : ''}` : '') + (m.streak > 1 ? ` · ${m.streak} in a row` : '');
         who.append(nm, sub);

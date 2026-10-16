@@ -11,6 +11,14 @@
 // player leaving or going silent ends the match early. Each member reports its round trip to the room (`rtt`), and a
 // match's input delay comes from its two players' (pickDelay); players send their connection stats after a match
 // (`stats`), kept for GET /room/<CODE>/stats.
+//
+// Public rooms (ENG-095): the member who opens an empty room makes it public (hello `public`, after the anti-bot check
+// room.js runs) or private; a public room's summary() is listed by the directory. Members talk in quick-chat only
+// (`say`: an index into the client's phrase and emote list, no free text) and names pass a filter (names.js). The
+// host (the longest-standing member) can remove anyone; anyone can vote to remove someone, and a majority of the
+// others does it. A removed member's browser (its `cid`) can't come back for BAN_MS, nor its address unless someone
+// still in the room shares it (one home's Wi-Fi: the host who removed them, a sibling).
+import { cleanName } from './names.js';
 
 export const STREAK_CAP = 5;
 export const STATS_KEPT = 20; // the newest per-player match stats a room keeps
@@ -19,11 +27,16 @@ export const SILENT_MS = 10000; // a player whose inputs stop this long (closed 
 export const RESULT_WAIT_MS = 8000; // one player reported the winner: how long the other has to agree
 export const MAX_MEMBERS = 24;
 export const WATCHDOG_MS = 2000; // the silence check's period while a match runs
+export const QUICK_COUNT = 24; // quick-chat phrases and emotes (the client's list, src/net/quickChat.js)
+export const CHAT_KEPT = 8; // lines a room keeps for members who arrive later
+export const CHAT_GAP_MS = 1200; // one line per member at most this often
+export const BAN_MS = 10 * 60 * 1000; // a removed member stays out this long
+export const VOTE_MS = 90 * 1000; // a vote to remove someone lapses after this
 const FEED_EVERY = 6; // confirmed frames per spectator message (ten a second)
 const FEED_CHUNK = 3000; // frames per message when catching a late spectator up
 const RATE = 150; // messages a second a member may send (a player sends 60), and twice that as a burst
 
-const cleanName = (s) => String(s ?? '').replace(/[^\p{L}\p{N} _.-]/gu, '').trim().slice(0, 16) || 'Player';
+const seedOf = (id) => [...String(id)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7);
 const cleanFighter = (s) => (typeof s === 'string' && /^[a-z0-9_-]{1,24}$/.test(s) ? s : null);
 const isInput = (v) => Number.isInteger(v) && v >= 0 && v < 1 << 23;
 const isFrame = (f) => Number.isInteger(f) && f >= 0 && f < 1e7;
@@ -53,20 +66,40 @@ export class RoomCore {
     this.told = new Set();
     this.bucket = new Map(); // id -> { tokens, at }: the flood limit
     this.statsLog = s.stats || []; // the players' connection stats of recent matches, newest last
+    this.pub = !!s.pub; // listed in the public directory
+    this.title = s.title || '';
+    this.region = s.region || ''; // where its first member connected from (Cloudflare's location code, e.g. LAX)
+    this.bans = s.bans || {}; // 'c:' + browser id or 'i:' + address hash -> until (ms)
+    this.chat = []; // recent quick-chat lines { from, name, i }
+    this.votes = new Map(); // target id -> Map(voter id -> when)
   }
 
   // a member a restarted object finds on its sockets (room.js): back in, without a broadcast
   restore(m) {
-    this.members.set(m.id, { id: m.id, name: m.name, fighter: m.fighter, play: m.play, sim: m.sim, rtt: m.rtt ?? null });
+    this.members.set(m.id, { id: m.id, name: m.name, fighter: m.fighter, play: m.play, sim: m.sim, rtt: m.rtt ?? null, ip: m.ip ?? null, cid: m.cid ?? null });
   }
 
-  // a new connection's hello; returns the member, or null (rejected: the socket is closed after the error)
-  join(id, hello) {
+  // A new connection's hello; returns the member, or null (rejected: the socket is closed after the error). info (from
+  // room.js): { ip: a hash of the address, region, verified: the anti-bot check passed }.
+  join(id, hello, info = {}) {
     const sim = String(hello?.sim ?? '').slice(0, 40);
     const first = this.members.values().next().value;
+    const now = this.io.now();
+    const cid = typeof hello?.cid === 'string' ? hello.cid.slice(0, 40) : null;
+    if ((cid && this.bans['c:' + cid] > now) || (info.ip && this.bans['i:' + info.ip] > now)) {
+      return this.reject(id, 'banned', 'You were removed from this room. Try another one.');
+    }
     if (this.members.size >= MAX_MEMBERS) return this.reject(id, 'full', 'This room is full.');
     if (first && first.sim !== sim) return this.reject(id, 'version', 'This room runs another version of the game. Refresh the page to update.');
-    const m = { id, name: cleanName(hello?.name), fighter: cleanFighter(hello?.fighter) || 'naruto', play: hello?.play !== false, sim, rtt: null };
+    const m = { id, name: cleanName(hello?.name, seedOf(id)), fighter: cleanFighter(hello?.fighter) || 'naruto', play: hello?.play !== false, sim, rtt: null, ip: info.ip ?? null, cid };
+    if (!first) {
+      // the room opens: public only after the anti-bot check
+      if (hello?.public && !info.verified) return this.reject(id, 'verify', 'Could not check that you are a person. Try again.');
+      this.pub = !!hello?.public;
+      this.title = `${m.name}'s room`;
+      this.region = String(info.region ?? '').slice(0, 8);
+      this.chat = [];
+    }
     this.rtt(m, { ms: hello?.rtt });
     this.members.set(id, m);
     this.queue = this.queue.filter((q) => this.members.has(q)); // ids a restart left behind
@@ -90,7 +123,16 @@ export class RoomCore {
     if (M && M.players.includes(id)) this.finish(1 - M.players.indexOf(id), 'forfeit');
     delete this.wins[id];
     delete this.streak[id];
+    this.votes.delete(id);
+    for (const v of this.votes.values()) v.delete(id);
+    if (!this.members.size) this.empty();
     this.changed();
+  }
+
+  // the last member left: the code is free again (a later visitor opens a fresh room under it)
+  empty() {
+    Object.assign(this, { queue: [], wins: {}, streak: {}, pub: false, title: '', region: '', chat: [], nextAt: 0 });
+    this.votes.clear();
   }
 
   // returns 'flood' when the member sent too much (room.js closes the socket)
@@ -106,7 +148,60 @@ export class RoomCore {
       case 'desync': return this.desync(m, msg);
       case 'rtt': return this.rtt(m, msg);
       case 'stats': return this.stats(m, msg);
+      case 'say': return this.say(m, msg);
+      case 'kick': return this.kick(m, msg);
+      case 'vote': return this.vote(m, msg);
     }
+  }
+
+  // ------------------------------------------------------------ talk and moderation (ENG-095)
+  // a quick-chat line: an index into the client's list, so no one can type anything at anyone
+  say(m, msg) {
+    const now = this.io.now();
+    if (!Number.isInteger(msg.i) || msg.i < 0 || msg.i >= QUICK_COUNT || (m.saidAt != null && now - m.saidAt < CHAT_GAP_MS)) return;
+    m.saidAt = now;
+    const line = { from: m.id, name: m.name, i: msg.i };
+    this.chat.push(line);
+    if (this.chat.length > CHAT_KEPT) this.chat.shift();
+    for (const id of this.members.keys()) this.io.send(id, { t: 'say', ...line });
+  }
+
+  host() {
+    return this.members.keys().next().value ?? null;
+  }
+
+  // the host removes someone
+  kick(m, msg) {
+    if (m.id !== this.host() || msg.id === m.id || !this.members.has(msg.id)) return;
+    this.remove(msg.id, 'The host removed you from the room.');
+  }
+
+  // anyone votes to remove someone; a majority of the others (at least two votes) does it
+  vote(m, msg) {
+    const target = msg.id, now = this.io.now();
+    if (target === m.id || !this.members.has(target)) return;
+    const v = this.votes.get(target) || new Map();
+    v.set(m.id, now);
+    for (const [voter, at] of v) if (now - at > VOTE_MS || !this.members.has(voter)) v.delete(voter);
+    this.votes.set(target, v);
+    if (v.size >= this.needed()) this.remove(target, 'The room voted to remove you.');
+    else this.changed();
+  }
+
+  // votes it takes to remove someone: a majority of everyone else, and never fewer than two
+  needed() {
+    return Math.max(2, Math.floor((this.members.size - 1) / 2) + 1);
+  }
+
+  remove(id, text) {
+    const m = this.members.get(id);
+    if (!m) return;
+    const until = this.io.now() + BAN_MS;
+    if (m.cid) this.bans['c:' + m.cid] = until;
+    if (m.ip && ![...this.members.values()].some((o) => o.id !== id && o.ip === m.ip)) this.bans['i:' + m.ip] = until;
+    this.io.send(id, { t: 'error', code: 'removed', text });
+    this.io.close?.(id, 4001, 'removed');
+    this.leave(id); // a player in a match forfeits it
   }
 
   // the member's round trip to the room (its ping / pong), smoothed: it sets the next match's input delay
@@ -137,7 +232,7 @@ export class RoomCore {
 
   // name, fighter (from the next match on) and whether the member wants to play
   set(m, msg) {
-    if ('name' in msg) m.name = cleanName(msg.name);
+    if ('name' in msg) m.name = cleanName(msg.name, seedOf(m.id));
     if ('fighter' in msg) m.fighter = cleanFighter(msg.fighter) || m.fighter;
     if ('play' in msg) {
       m.play = !!msg.play;
@@ -312,8 +407,28 @@ export class RoomCore {
       members: [...this.members.values()].map((m) => ({ id: m.id, name: m.name, fighter: m.fighter, play: m.play, wins: this.wins[m.id] || 0, streak: this.streak[m.id] || 0 })),
       queue: this.queue.slice(),
       match: this.match ? { no: this.match.no, players: this.match.players.slice(), fighters: this.match.fighters.slice() } : null,
-      host: this.members.keys().next().value ?? null,
+      host: this.host(),
       nextIn: !this.match && this.queue.length >= 2 ? Math.max(0, this.nextAt - now) : null,
+      pub: this.pub,
+      title: this.title,
+      region: this.region,
+      chat: this.chat.slice(),
+      votes: Object.fromEntries([...this.votes].filter(([, v]) => v.size).map(([id, v]) => [id, v.size])),
+      needed: this.needed(),
+    };
+  }
+
+  // what the public directory lists (null: not listed)
+  summary() {
+    if (!this.pub || !this.members.size) return null;
+    const names = (ids) => ids.map((id) => this.members.get(id)?.name ?? '?');
+    return {
+      title: this.title,
+      region: this.region,
+      members: this.members.size,
+      playing: this.match ? names(this.match.players) : null,
+      waiting: this.queue.length,
+      full: this.members.size >= MAX_MEMBERS,
     };
   }
 
@@ -325,6 +440,11 @@ export class RoomCore {
   }
 
   persist() {
-    this.io.save({ queue: this.queue, wins: this.wins, streak: this.streak, matchNo: this.matchNo, nextAt: this.nextAt, live: this.match?.no ?? null, stats: this.statsLog });
+    const now = this.io.now();
+    for (const [ip, until] of Object.entries(this.bans)) if (until <= now) delete this.bans[ip];
+    this.io.save({
+      queue: this.queue, wins: this.wins, streak: this.streak, matchNo: this.matchNo, nextAt: this.nextAt,
+      live: this.match?.no ?? null, stats: this.statsLog, pub: this.pub, title: this.title, region: this.region, bans: this.bans,
+    });
   }
 }

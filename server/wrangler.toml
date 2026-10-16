@@ -8,10 +8,22 @@ compatibility_date = "2026-09-01"
 name = "ROOMS"
 class_name = "Room"
 
+# the public room list (ENG-095): one object for the whole game
+[[durable_objects.bindings]]
+name = "DIRECTORY"
+class_name = "Directory"
+
 # SQLite-backed Durable Objects: the kind the Workers free plan includes
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["Room"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["Directory"]
+
+# Secrets (not in this file): TURNSTILE_SECRET, the Turnstile widget's secret (`wrangler secret put`). Locally,
+# server/.dev.vars (git-ignored) holds Cloudflare's always-pass test secret and TURNSTILE_DEV=1.
 
 [observability]
 enabled = true

@@ -97,6 +97,8 @@ src/net/                    online play (ADR 0036): rooms, rollback, spectating,
   online.js                 Online (game.online, loaded on first use): the online screens' logic, the room, each
                             match's session (RollbackSession as a player, SpectateSession otherwise), the result report,
                             the match strip; Game hooks: update() per frame, menuKey() (Esc / pause), overlay
+  quickChat.js              QUICK: the quick-chat lines and emotes rooms talk in (sent as an index; ENG-095)
+  turnstile.js              Cloudflare Turnstile widget (its script loads only to open a public room): roomToken()
   lobby.js                  LobbyClient: one WebSocket to a room on the lobby server (server/), JSON messages, ping;
                             matchLink() is the transport a RollbackSession reads; LOBBY_URL / lobbyUrl(), room codes
   spectate.js               SpectateSession: replays the confirmed inputs the room feeds, a little behind, never
@@ -114,7 +116,8 @@ src/net/                    online play (ADR 0036): rooms, rollback, spectating,
                             values, time the fixed step; fixtures in public/det/, saved via the dev server;
                             det.netplay (simulated network), det.online (the real lobby server), det.bot (a stand-in
                             room member)
-server/                     the lobby server (Cloudflare Worker + one Durable Object per room, own package.json with
+server/                     the lobby server (Cloudflare Worker + one Durable Object per room + a Directory object
+                            for the public room list, names.js the nickname filter; own package.json with
                             wrangler; server/README.md has the protocol): roomCore.js (the room's rules, plain JS),
                             room.js (the Durable Object), index.js (routing, allowed origins)
 src/characters/             one file per fighter + index.js (ROSTER, getChar)

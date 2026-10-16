@@ -21,3 +21,5 @@ public/preview/
 
 # the lobby server's local state (wrangler dev, server/)
 .wrangler/
+# the lobby server's local secrets (wrangler dev: Turnstile test keys)
+server/.dev.vars

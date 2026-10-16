@@ -4,7 +4,12 @@
 // starts each match on every member's machine: its two players run a RollbackSession over the lobby link, everyone
 // else a SpectateSession on the confirmed inputs -> the server's `end` -> back to the room. Game hooks: game.online
 // (update() per rendered frame, menuKey() for Esc / the pause button, overlay), cfg.mode 'online'.
-import { LobbyClient, lobbyUrl, newCode, cleanCode } from './lobby.js';
+// Public rooms (ENG-095): BROWSE lists them (the lobby's directory, each room's ping measured to where it runs);
+// opening a public one takes the Turnstile check first (turnstile.js); rooms talk in quick-chat (quickChat.js), shown
+// on the room screen and as lines over a match; the host removes members, anyone can vote to.
+import { LobbyClient, lobbyUrl, newCode, cleanCode, fetchRooms, pingRoom } from './lobby.js';
+import { QUICK } from './quickChat.js';
+import { roomToken, checkOn } from './turnstile.js';
 import { RollbackSession, packInput } from './rollback.js';
 import { SpectateSession } from './spectate.js';
 import { ROSTER } from '../characters/index.js';
@@ -38,12 +43,20 @@ export class Online {
     this.error = '';
     this.note = ''; // a passing line on the room screen ('LINK COPIED')
     this.name = load('name', `Player${100 + ((Math.random() * 900) | 0)}`);
+    // this browser, for the room's bans (a removed member stays out a while; ENG-095)
+    this.cid = load('cid', '') || Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
+    keep('cid', this.cid);
     this.fighter = fighterId(load('fighter', ROSTER[0].id));
     this.play = true;
     this.strip = document.createElement('div');
     this.strip.className = 'on-strip hidden';
-    document.body.append(this.strip);
+    this.toasts = document.createElement('div');
+    this.toasts.className = 'on-toasts';
+    document.body.append(this.strip, this.toasts);
     this.stripAt = 0;
+    this.sayIndex = 0; // the quick-chat line the room screen has picked
+    this.target = null; // the member the KICK / VOTE row points at
+    this.rooms = null; // the public room list on the browse screen
   }
 
   get available() {
@@ -64,11 +77,59 @@ export class Online {
     keep('name', this.name);
   }
 
-  create() {
-    this.join(newCode());
+  // a new room: a public one opens after the Turnstile check when it is on (the server then turns it away without one)
+  async create(pub = false) {
+    const g = this.game;
+    if (!pub) return this.join(newCode());
+    if (!checkOn()) return this.join(newCode(), { public: true });
+    if (!lobbyUrl()) {
+      this.error = 'Online play is not set up yet.';
+      return g.menus.onlineEntry(this, '');
+    }
+    const box = g.menus.onlineVerify(this);
+    const tries = (this.verifyTry = (this.verifyTry || 0) + 1);
+    try {
+      const token = await roomToken(box);
+      if (tries !== this.verifyTry) return; // cancelled meanwhile
+      this.join(newCode(), { public: true, turnstile: token });
+    } catch (e) {
+      if (tries !== this.verifyTry) return;
+      this.error = e.message;
+      g.menus.onlineEntry(this, '');
+    }
   }
 
-  join(code) {
+  cancelVerify() {
+    this.verifyTry = (this.verifyTry || 0) + 1;
+    this.game.menus.onlineEntry(this, '');
+  }
+
+  // the public rooms, then each one's ping as it comes in
+  async browse() {
+    const g = this.game, url = lobbyUrl();
+    this.rooms = null;
+    g.menus.onlineBrowse(this);
+    if (!url) {
+      this.rooms = [];
+      this.error = 'Online play is not set up yet.';
+      return g.menus.onlineBrowseRefresh?.();
+    }
+    try {
+      this.rooms = await fetchRooms(url);
+      this.error = '';
+    } catch {
+      this.rooms = [];
+      this.error = 'Could not load the room list. Check your connection.';
+    }
+    const shown = this.rooms;
+    if (g.menus.screen === 'online-browse') g.menus.onlineBrowse(this);
+    await Promise.all(shown.slice(0, 12).map(async (r) => {
+      r.ping = await pingRoom(url, r.code);
+      if (this.rooms === shown) g.menus.onlineBrowseRefresh?.();
+    }));
+  }
+
+  join(code, extra = {}) {
     const g = this.game;
     code = cleanCode(code);
     const url = lobbyUrl();
@@ -80,7 +141,7 @@ export class Online {
     this.code = code;
     g.menus.onlineWait(this, `JOINING ROOM ${code}...`);
     const client = (this.client = new LobbyClient(url, code, {
-      open: () => client.send({ t: 'hello', name: this.name, fighter: this.fighter, sim: SIM, play: this.play, rtt: client.rtt }),
+      open: () => client.send({ t: 'hello', name: this.name, fighter: this.fighter, sim: SIM, play: this.play, rtt: client.rtt, cid: this.cid, ...extra }),
       welcome: (m) => {
         this.you = m.you;
         this.room = m.room;
@@ -94,6 +155,7 @@ export class Online {
       start: (m) => this.begin(m),
       feed: (m) => { if (this.match?.no === m.no && this.match.you < 0) this.match.session.feed(m.start, m.a, m.b); },
       end: (m) => this.end(m),
+      say: (m) => this.heard(m),
       error: (m) => { this.error = m.text; },
       close: (e) => this.lost(e),
     }));
@@ -110,6 +172,7 @@ export class Online {
       this.error = !joined ? 'Could not reach the room. Check your connection and try again.'
         : e.code === 4008 ? 'Disconnected: too many messages.' : 'Disconnected from the room.';
     }
+    this.toasts.replaceChildren();
     g.toMenu(() => g.menus.onlineEntry(this, this.code));
   }
 
@@ -122,6 +185,8 @@ export class Online {
     this.dropMatch();
     this.you = null;
     this.room = null;
+    this.target = null;
+    this.toasts.replaceChildren();
     this.setUrl(null);
     if (back) g.toMenu(() => g.menus.modeSelect(g.menus.modeIndex('online')));
   }
@@ -168,6 +233,53 @@ export class Online {
     this.refresh();
     clearTimeout(this.noteT);
     this.noteT = setTimeout(() => { this.note = ''; this.refresh(); }, 2500);
+  }
+
+  // ------------------------------------------------------------ talk and moderation (ENG-095)
+  say(i = this.sayIndex) {
+    this.client?.send({ t: 'say', i });
+  }
+
+  // a quick-chat line from the room: on the room screen, and over a match as a passing line
+  heard(m) {
+    const text = QUICK[m.i];
+    if (text == null || !this.room) return;
+    this.room.chat = [...(this.room.chat || []), { from: m.from, name: m.name, i: m.i }].slice(-8);
+    if (this.match && !this.overlay) this.toast(m.name, text);
+    this.refresh();
+  }
+
+  toast(name, text) {
+    const t = document.createElement('div');
+    t.className = 'on-toast';
+    const b = document.createElement('b');
+    b.textContent = name;
+    t.append(b, document.createTextNode(` ${text}`));
+    this.toasts.append(t);
+    while (this.toasts.children.length > 4) this.toasts.firstChild.remove();
+    setTimeout(() => t.remove(), 4000);
+  }
+
+  isHost() {
+    return !!this.room && this.room.host === this.you;
+  }
+
+  // the KICK / VOTE row's member: anyone but us (cycle, or a tap on their row)
+  others() {
+    return (this.room?.members || []).filter((m) => m.id !== this.you);
+  }
+
+  pickTarget(d) {
+    const list = this.others();
+    if (!list.length) return (this.target = null);
+    const i = list.findIndex((m) => m.id === this.target);
+    this.target = list[((i < 0 ? 0 : i + d) + list.length) % list.length].id;
+  }
+
+  remove() {
+    if (!this.target || !this.others().some((m) => m.id === this.target)) return;
+    this.client?.send({ t: this.isHost() ? 'kick' : 'vote', id: this.target });
+    if (!this.isHost()) this.flash('VOTE SENT');
   }
 
   // ------------------------------------------------------------ the room

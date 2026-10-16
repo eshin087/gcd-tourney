@@ -1,7 +1,8 @@
 // Lobby room rules test (ENG-094): RoomCore driven in plain Node with a fake clock and fake sockets.
 // Run: npm run test:lobby (from the repository root) or npm test (from server/).
 import assert from 'node:assert/strict';
-import { RoomCore, STREAK_CAP, NEXT_MATCH_MS, SILENT_MS, RESULT_WAIT_MS, MAX_MEMBERS, STATS_KEPT, pickDelay } from '../src/roomCore.js';
+import { RoomCore, STREAK_CAP, NEXT_MATCH_MS, SILENT_MS, RESULT_WAIT_MS, MAX_MEMBERS, STATS_KEPT, pickDelay, QUICK_COUNT, CHAT_GAP_MS, BAN_MS, VOTE_MS } from '../src/roomCore.js';
+import { isRude } from '../src/names.js';
 
 const INPUT_DELAY = 2; // two members with no round trip yet (80 ms assumed each) get 2 frames
 
@@ -19,14 +20,15 @@ const test = (name, fn) => {
 // a room with a fake clock; box[id] holds what each member received
 function makeRoom(saved = null) {
   const box = {};
-  const env = { clock: 1000, saved: null };
+  const env = { clock: 1000, saved: null, closed: [] };
   const io = {
     send: (id, msg) => (box[id] ||= []).push(structuredClone(msg)),
+    close: (id, code) => env.closed.push([id, code]),
     save: (s) => (env.saved = structuredClone(s)),
     now: () => env.clock,
   };
   const room = new RoomCore(io, saved);
-  const join = (id, extra = {}) => room.join(id, { name: id.toUpperCase(), fighter: 'naruto', sim: 'sim1', ...extra });
+  const join = (id, extra = {}, info = {}) => room.join(id, { name: id.toUpperCase(), fighter: 'naruto', sim: 'sim1', ...extra }, { ip: 'ip-' + id, ...info });
   const last = (id, t) => [...(box[id] || [])].reverse().find((m) => m.t === t);
   const all = (id, t) => (box[id] || []).filter((m) => m.t === t);
   const clear = () => { for (const k of Object.keys(box)) box[k] = []; };
@@ -303,6 +305,96 @@ test('connection stats are kept, cleaned and capped', () => {
   assert.equal(R.env.saved.stats.length, 1, 'persisted');
   for (let i = 0; i < STATS_KEPT + 5; i++) R.room.message('a', { t: 'stats', match: i });
   assert.equal(R.room.statsLog.length, STATS_KEPT);
+});
+
+test('a public room needs the anti-bot check; its title, region and listing', () => {
+  const R = makeRoom();
+  assert.equal(R.join('a', { public: true }), null);
+  assert.equal(R.last('a', 'error').code, 'verify');
+  assert.equal(R.room.members.size, 0);
+  R.join('a', { public: true, name: 'Eric' }, { verified: true, region: 'LAX' });
+  assert.equal(R.room.pub, true);
+  assert.equal(R.last('a', 'welcome').room.title, "Eric's room");
+  assert.deepEqual(R.room.summary(), { title: "Eric's room", region: 'LAX', members: 1, playing: null, waiting: 1, full: false });
+  R.join('b', { public: false }); // a later member doesn't change it
+  assert.equal(R.room.pub, true);
+  assert.deepEqual(R.room.summary().playing, ['Eric', 'B']);
+  R.room.leave('a');
+  R.room.leave('b');
+  assert.equal(R.room.summary(), null, 'empty: unlisted');
+  assert.equal(R.room.pub, false);
+  R.join('c');
+  assert.equal(R.room.pub, false, 'reopened private');
+  assert.equal(R.room.title, "C's room");
+});
+
+test('names pass the filter', () => {
+  const R = makeRoom();
+  R.join('a', { name: 'sh1tlord' });
+  assert.match(R.room.members.get('a').name, /^Player\d{3}$/);
+  R.room.message('a', { t: 'set', name: 'Kakashi' });
+  assert.equal(R.room.members.get('a').name, 'Kakashi');
+  assert.equal(isRude('Peacock'), false);
+});
+
+test('quick-chat: indexes only, rate limited, kept for latecomers', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b');
+  R.room.message('a', { t: 'say', i: 3 });
+  assert.deepEqual(R.last('b', 'say'), { t: 'say', from: 'a', name: 'A', i: 3 });
+  R.room.message('a', { t: 'say', i: 4 });
+  assert.equal(R.all('b', 'say').length, 1, 'too soon');
+  R.env.clock += CHAT_GAP_MS;
+  R.room.message('a', { t: 'say', i: QUICK_COUNT });
+  R.room.message('a', { t: 'say', i: 'hello' });
+  R.room.message('a', { t: 'say', text: 'free text' });
+  assert.equal(R.all('b', 'say').length, 1, 'no out-of-range index or free text');
+  R.join('c');
+  assert.deepEqual(R.last('c', 'welcome').room.chat, [{ from: 'a', name: 'A', i: 3 }]);
+});
+
+test('the host removes someone; the address stays out for a while', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b'); R.join('c');
+  R.room.message('b', { t: 'kick', id: 'c' });
+  assert.equal(R.room.members.size, 3, 'only the host can');
+  R.room.message('a', { t: 'kick', id: 'a' });
+  assert.equal(R.room.members.size, 3, 'not yourself');
+  R.room.message('a', { t: 'kick', id: 'b' });
+  assert.equal(R.last('b', 'error').code, 'removed');
+  assert.deepEqual(R.env.closed.at(-1), ['b', 4001]);
+  assert.equal(R.room.members.has('b'), false);
+  assert.equal(R.last('a', 'end').reason, 'forfeit', 'b was playing: forfeit');
+  assert.equal(R.join('b2', {}, { ip: 'ip-b' }), null);
+  assert.equal(R.last('b2', 'error').code, 'banned');
+  R.env.clock += BAN_MS + 1;
+  assert.ok(R.join('b3', {}, { ip: 'ip-b' }), 'the ban lapses');
+});
+
+test('one home network: removing someone on the host address bans their browser, not the address', () => {
+  const R = makeRoom();
+  R.join('host', {}, { ip: 'home' });
+  R.join('kid', { cid: 'browser-kid' }, { ip: 'home' });
+  R.room.message('host', { t: 'kick', id: 'kid' });
+  assert.equal(R.join('kid2', { cid: 'browser-kid' }, { ip: 'home' }), null, 'the same browser stays out');
+  assert.ok(R.join('sibling', { cid: 'browser-sib' }, { ip: 'home' }), 'others on the same Wi-Fi still get in');
+});
+
+test('vote to remove: a majority of the others, at least two', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b');
+  R.room.message('a', { t: 'vote', id: 'b' });
+  assert.ok(R.room.members.has('b'), 'two members: one vote is not enough');
+  R.join('c'); R.join('d'); R.join('e');
+  assert.equal(R.room.needed(), 3, 'five members: 3 of the other 4');
+  R.env.clock += VOTE_MS + 1; // a's vote lapses
+  R.room.message('c', { t: 'vote', id: 'b' });
+  R.room.message('d', { t: 'vote', id: 'b' });
+  assert.equal(R.last('e', 'room').room.votes.b, 2);
+  assert.ok(R.room.members.has('b'));
+  R.room.message('e', { t: 'vote', id: 'b' });
+  assert.equal(R.room.members.has('b'), false);
+  assert.equal(R.last('b', 'error').text, 'The room voted to remove you.');
 });
 
 console.log(process.exitCode ? `room test: ${passed} passed, some FAILED` : `room test: OK, ${passed} passed`);
