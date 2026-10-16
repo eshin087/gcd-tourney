@@ -1,3 +1,13 @@
+# Codex: Gojo run v14 Astra recheck PASS (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, inspected source commit `65ff1ea1`. Astra audited the actual quantized atlas run cells 8–15 against the approved title-style neutral/combat cells and packed idle. **PASS for visible atlas anatomy and discrete-frame continuity:** the v13 f6 free-arm/fist dropout is resolved; no new visible defect was established. V14 repeats Part A for both halves, so all four second-half cells are exact RGBA repeats of the first half. The user's accepted same-lead-leg and forward-fist choices were recorded, not failed.
+
+Audit: `art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md` (SHA256 `DF47A1B2AF24D20B6425D5ACC529D6F0BEEB5E85DBCBA8C49628F7DE6192A54E`). Audited packed atlas `public/characters/gojo/sheet.png` SHA256 `F20E42CB8DB1D7A1A109AFB2CF6FEF5B2548579DB5604797AA1C8F1C4D11094F`. The eight 60 ms review-GIF frames match the atlas pixels. This is not strict ±6% certification of hidden/foreshortened segments, successful live browser playback, runtime-contact QA, user approval, or merge clearance. No images, pack outputs, sidecars, manifest or approval rows were edited; no new calls or pack were run.
+
+Next: Claude handles live playback/runtime checks and technical disposition. This audit is not a new image approval. The parent committed the report and this handoff, then rang `gojo-run` with the scoped PASS.
+
+---
+
 # Codex: Gojo run v13 user-approved; Astra HOLD (2026-10-15, gojo-run lane)
 
 Branch `art/gojo-run`, PR #102. User approved the stitched and packed run v13 via relay #6: "Approve run v13." This approval is recorded in `art/REVIEW.md`, Gojo `REVIEW_ROWS.md` and manifest `run.approvedVersion=13`. Astra audited the actual packed atlas and returned **HOLD** for a new defect: f6 / slot 14 has no separately visible free arm/fist, which disappears between f5 and f7. Exact hashes, per-frame measurements, uncertainty, and the browser playback timeout are in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md` (report SHA256 `BA77A42F1EB2AE279B6F3E2FDFD373EB6FB0B2A502BC5BA7C1C07A72DE6D2445`; atlas SHA256 `610E84DC5972D2F810EC5114D4521E21282C3C4C87DFD89B0E92E9E8380B49D2`). The user's accepted same-leg, forward-fist and B-half-height differences were not failed. Visual approval stands; technical clearance and merge do not.
