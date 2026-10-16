@@ -2,7 +2,7 @@
 
 Branch `art/gojo-run`, PR #102. After the initial three calls, the user authorized exactly one additional Part B call. It used Luna/medium and again repeated A's contact/down/passing/flight lead-leg sequence. The output is preserved at `art/characters/gojo/raw/_qa_hold/run_v13_B_attempt02.png` (SHA256 `1EC01513032CB9EDDCF0802BC1BE69CF03A53B880069039BD307BB030EC7F0DF`), not selected. Part A remains at `raw/_parts/run_v13_A.png`; the full four-call provenance is in `art/characters/gojo/production/run-jkl/phase3_run_v13_attempt_inventory_v01.json` and `PHASE3_HANDOFF_v01.md`.
 
-**BLOCKED:** no valid Part B, complete run_v13, stitch, pack, Astra audit or preview exists. The one additional call is spent. No dashes or other strips were touched, and no image is approved. Await user authorization for another Part B budget before continuing.
+**User decision via relay #5: HOLD THE RUN.** No new Part B budget. Keep Part A and the held attempt as they are; the shipped Gojo run remains in the game. This is not image approval. There is no complete run_v13, stitch, pack, Astra audit or preview; no dashes or other strips were touched.
 
 ---
 

@@ -4,6 +4,7 @@
 - Status: **BLOCKED**. Part A was saved, but all three Part B results failed the required lead-leg alternation or generation call; no complete run strip exists. No stitch, strict pack, Astra audit, review preview, approval, or relay was performed.
 - Model/generator: `gpt-6-luna`, medium; built-in `image_gen__imagegen`.
 - Durable per-call ledger: [phase3_run_v13_attempt_inventory_v01.json](phase3_run_v13_attempt_inventory_v01.json). This includes the original three-call budget and the one additional user-authorized Part B call.
+- User decision via Claude relay #5: **“Hold the run.”** No new Part B budget. Keep Part A and the held Part B attempt unchanged; the shipped Gojo run remains in the game. This is not image approval.
 
 ## Artifacts and attempts
 
@@ -14,4 +15,4 @@
 | 3 | B correction | Failed before generation: image tool could not read malformed reference path ending `\.worktrees\art\gojo-run\...`; no source or output returned. | unavailable |
 | 4 | B, additional user-authorized call | Repeated A's contact/down/passing/flight lead-leg sequence. Preserved outside active raw parts at `raw/_qa_hold/run_v13_B_attempt02.png`; source and held output hashes match. | `1EC01513032CB9EDDCF0802BC1BE69CF03A53B880069039BD307BB030EC7F0DF` |
 
-Part A remains preserved. No K_v01, J_v02, L_v02, or other production strip was changed. Do not treat Part A or the held B result as a complete run candidate. Further work needs a new authorization and generation budget.
+Part A remains preserved. No K_v01, J_v02, L_v02, or other production strip was changed. Do not treat Part A or the held B result as a complete run candidate. Work stops here by the user's hold decision; the current shipped Gojo run remains active.
