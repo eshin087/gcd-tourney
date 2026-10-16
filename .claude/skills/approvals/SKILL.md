@@ -39,6 +39,8 @@ but never answers it. Run every relay command from the main checkout (find it wi
 3. Ask with **AskUserQuestion**, one question per ask (up to 4 per box; several image strips can be one multi-select
    question). Every question uses this shape, so it reads on a phone without context (user rule, 2026-10-15):
    - **header** = the asking chat, short ("Effects", "Gojo run", "Scale").
+   - Each part starts on its own line with a bold markdown label, so it scans fast on a phone (user rule): `**From:**`,
+     `**Approving:**`, `**Holds:**`, `**Look:**`. If the user reports seeing raw asterisks, switch to CAPS labels.
    - The question opens with **From:** the chat that asked (Claude chat title, or "Codex <lane> chat").
    - **Approving:** exactly what a yes approves, in plain words: character, asset name and what it is ("Sasuke
      Kirin super cutout"), version (vNN), and what happens on yes (ships in the game, unlocks the next step, ...).
