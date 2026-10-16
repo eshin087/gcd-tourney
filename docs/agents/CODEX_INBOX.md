@@ -46,10 +46,10 @@ needs the user).
 **USER APPROVAL via Claude:** the user answered **"Approved"** for Goku heavy v14, Luffy down v03 and Luffy getup v03. No other images or calls are approved by this reply.
 
 - [x] Record the exact approval in main's art/REVIEW.md; dispatch the existing fighter workers to update only their own branch records.
-- [ ] Set the three branch manifest approvedVersions and review/tracker records; retain all version history, pack and publish committed approval previews/PR descriptions.
+- [x] Set the three branch manifest approvedVersions and review/tracker records; retain all version history, pack and publish committed approval previews/PR descriptions. Goku `950aee59` + docs `13e15bc7`; Luffy `decb56f8` + docs `3f3384d5`. Exact prior audited atlas hashes reproduced locally and on hosted previews; both builds pass (2026-10-16).
 - [ ] Commit the combined handoff, update NOW, and ring goku-luffy for Claude's runtime/contact and integration review.
 
-Goku light3 v11 and Luffy special v01 remain technical holds. Their additional-call choices are already queued by Claude as `claude-20261016115631-dc3u`; do not duplicate the question or infer permission from this approval.
+Goku light3 v11 and Luffy special v01 remain technical holds. Their separate desk question `claude-20261016115631-dc3u` was answered while this update was being finalized: relay ledger send #11 records decision quote "Goku luffy retry", one light3 compact-pose call at true size and one special retry with at most five references preserving f0-f5. This newer request is queued separately; no retry was made during #10 approval processing. Do not repeat the question or treat #10's image approval as the source of that distinct call permission.
 
 ---
 

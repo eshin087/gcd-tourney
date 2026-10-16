@@ -1,3 +1,31 @@
+# Codex: three fighter approvals recorded; Claude runtime review next (2026-10-16, relay #10)
+
+**USER APPROVAL via Claude:** the user's question-box answer was **"Approved"** for exactly **Goku heavy v14, Luffy down v03 and Luffy getup v03**. Main's shared `art/REVIEW.md` records it at `25a28275`; fighter branches contain the corresponding manifest approvedVersion/status, character-local review rows and TRACKER updates. This does not approve other candidates or authorize any new image call.
+
+| Fighter / approval | Worktree and branch | Approval commit / final docs HEAD / published slim HEAD | Updated preview |
+|---|---|---|---|
+| Goku heavy v14 | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core`, `art/goku-core` (PR #123) | `950aee59` / `13e15bc7` / `32dd31f` | [Goku r4](https://gcd-tourney-j1kdu3fnk-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html) |
+| Luffy down v03, getup v03 | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core`, `art/luffy-core` (PR #96) | `decb56f8` / `3f3384d5` / `2b2bb6bc` | [Luffy r5](https://gcd-tourney-1sgd4nb1t-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html) |
+
+## Unchanged artwork and verification
+
+No generation, redraw, resize, new version or tool/code change occurred. Superseded versions remain preserved with review history. Repacking reproduced the previously audited outputs: Goku 22 animations / 101 frames, Luffy 22 animations / 100 frames, both 48 colors. Existing Astra audits remain applicable to these identical bytes; no new audit was claimed.
+
+- Goku sheet SHA256 `f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2`; metadata `2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6`.
+- Luffy sheet SHA256 `0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122`; metadata `dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f`.
+- Approval preview builds passed. Published approval labels and hosted atlas hashes were checked; prior local playback/game-load smoke evidence remains recorded in the earlier handoff. No repeat full gameplay/contact test or test suite was run.
+- Current root REVIEW_ROWS and PR bodies explicitly attribute approval to the user via Claude relay #10; historical audit findings retain their original date and scope. Main manifest remains main's integrated state; branch manifests own these unmerged source versions.
+
+## Holds and next owner
+
+**Goku light3 v11 remains HOLD/excluded** (800 foreground pixels clipped in 256px cells at true density, five calls consumed). **Luffy special v01 remains HOLD/excluded** (fourth request failed validation with six references, maximum five; no new image). These approvals do not resolve either hold.
+
+While finalizing this approval update, the local relay ledger advanced to **send #11**, decision quote **"Goku luffy retry"**, scoped to one Goku light3 compact-pose call at true size and one Luffy special retry with at most five references, preserving f0-f5. The desk question `claude-20261016115631-dc3u` is now answered. This newer request is queued separately from the active #10 message; no retry call was used during this approval update. Do not ask the user to repeat that decision. Call counts are still light3 five / special four until the new scoped work executes.
+
+Claude next: read these approval commits, perform the outstanding runtime/contact/grounding and approval-lineage checks for the broader PRs, consolidate shared records on integration, and continue under the existing merge safeguards. Goku's known getup contact warning and Luffy's accepted edge placements/beamFire continuation remain documented technical limits. No merge or production deployment by Codex; other unapproved core candidates retain their existing state. Both worker branches are clean. Handback is a normal `goku-luffy` ring acknowledging completion of #10 and noting queued #11, so Claude can reconcile the technical work and the newer request without another user question. Approval processing is complete; retry production belongs to the queued #11 scope and was not executed in this update.
+
+---
+
 # Codex: Goku/Luffy repair previews ready; three drawings to review, two holds (2026-10-16, goku-luffy)
 
 Answers USER DECISION relays #8 and #9. Permission was for calls only: Luffy "Fix down, Fix getup, Fix special (4th call)" and Goku "light3: B: one redraw call. heavy: B: one redraw call." All five authorized calls were consumed; four returned images, one failed input validation. No image approval, merge or production deployment occurred. Every version remains preserved.
