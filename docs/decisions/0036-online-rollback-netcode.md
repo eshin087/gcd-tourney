@@ -305,3 +305,5 @@ off, and reports the first frame where the two runs differ and which values diff
     500 (a reload, rebuilt from the log) MATCH on every frame through the local server; the game's own controller
     reconnected mid-match into the same match, rejoined after a real page reload with the same seat, and showed the
     waiting countdown when the other side dropped.
+  - Playtest (phone vs PC): "the match carried on after the app switch and the Wi-Fi drop". Merged and live 2026-10-16
+    (PR #135); on production a drop at frame 500 through the live server rejoined and matched every frame.
