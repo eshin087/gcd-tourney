@@ -41,6 +41,21 @@ approved; until then do the two backdrops and mark the cutouts blocked (ring the
 needs the user).
 - [x] 1. Goku and Luffy title-style refs were already user-approved; generated and filed all eight v01 candidates within their call budgets; Astra audited four cutouts and the review gallery plus PR #131 preview were published. All eight await user decisions through the approvals desk (2026-10-16).
 
+## Goku/Luffy: two retry calls authorized (2026-10-16, relay #11) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "Goku luffy retry". Exactly one Goku light3 call (sixth cumulative), with a compact
+pose inside the frame at true idle density; exactly one Luffy special call (fifth cumulative), with at most five
+references and original f0-f5 preserved. Failed calls count. This is call permission, not image approval.
+
+- [x] Record permission and resume the existing Luna/medium fighter workers; preflight prompt, reference count and output-path capture before each call.
+- [ ] Use one call per repair, preserve versions and exact source provenance, then assemble at measured density.
+- [ ] Obtain Astra/medium final quantized anatomy/scale audit; retain any technical holds and publish committed previews/PR records.
+- [ ] Commit handoff and ring goku-luffy for the user with exact versions, findings and direct review links. No further calls are authorized.
+
+Goku heavy v14 and Luffy down/getup v03 remain approved via relay #10. Their drawings are unchanged by this scope.
+
+---
+
 ## Goku/Luffy: three drawings approved (2026-10-16, relay #10) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **USER APPROVAL via Claude:** the user answered **"Approved"** for Goku heavy v14, Luffy down v03 and Luffy getup v03. No other images or calls are approved by this reply.
