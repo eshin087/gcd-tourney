@@ -15,6 +15,40 @@ How it works:
 
 ---
 
+## Super banners and ultimate splashes: Sasuke pilot (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
+
+**The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** supers, ultimates and specials should
+have "the iconic anime/manga stunning epic feel". Ultimates must show more than a partial face; the banner's empty
+space should show the move. Choices: a **wide banner for the SUPER, a full-screen splash for the ULTIMATE**, **hi-res
+pixel art** in the title style, **Sasuke as the pilot** before the rest of the cast. Every image still needs the user's
+approval. Claude builds the engine side at the same time (ENG-083: banner/splash presentation, packer, in-game
+Sharingan drawn in code; ENG-084: ground damage), so nothing in the game waits on this art.
+
+Contract (on main): [ADR 0035](../decisions/0035-super-banners-and-ultimate-splashes.md), art/SPEC.md "Per-character UI
+images" (four new rows). Brief: **art/characters/SUPER_ART_BRIEF.md** (sizes, rules, review page, Sasuke direction
+for Kirin and Amaterasu). Model policy (CLAUDE.md): every generation under `gpt-6-luna` medium; the anatomy check of
+the two `fg` images under `gpt-6-astra` medium against the approved title-style cells.
+
+**Round 1 (do now): Sasuke's four images**
+- [ ] 1. The worktree already exists: `.worktrees/art-sasuke-super-art` on branch `art/sasuke-super-art` (made with
+  `npm run pr -- start art/sasuke-super-art --art sasuke`; dev port 5247). Merge main into it first (it was cut before
+  this item landed), work only there and reuse it for every later version.
+- [ ] 2. Write the four prompts into art/characters/sasuke/PROMPTS.md as new UI sections (after "U2 · Super cut-in eye
+  strip"), from the brief's Sasuke section and rules. Then generate `raw/ui_super_bg_v01.png`, `ui_super_fg_v01.png`,
+  `ui_ult_bg_v01.png` and `ui_ult_fg_v01.png` (at most 3 calls each, failed ones count). Check: the Sharingan reads red
+  at a glance, the Mangekyō is his own pattern, the bg crops (4:1 middle band, 16:9 then 4:3) keep the focal shape, no
+  character or text in a bg, no magenta/violet on a fg.
+- [ ] 3. Astra anatomy check of both `fg` images against the approved title-style neutral/combat cells and his
+  select.png (face, hair, eyes, build). Hold anything that does not look like the approved Sasuke.
+- [ ] 4. The review page from the brief (public/reviews/super-art-sasuke-r1/: each image at final size and 3x, the
+  banner mock, the splash mock at 16:9 and 4:3, the heads beside the approved cells). REVIEW.md rows (`needs review`),
+  manifest/tracker rows; commit, `npm run pr -- open`, `npm run pr -- preview`. Add a handoff at the top of
+  docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls used, the review page, holds) and run
+  `node tools/relay.mjs ring effects --note "<one line>"`. **Then stop:** the user reviews.
+
+**Round 2 (only after Claude relays the user's verdict here):** Naruto, Killua, Gojo, then Goku and Luffy, with the
+same recipe; Claude writes each fighter's direction into the brief first.
+
 ## Beam clash art: struggle poses and clash effects (2026-10-15, Claude) - chat "5 - beam clash chat", relay lane `beam-clash`
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** the beam clash should look much better
