@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
+
 - Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.

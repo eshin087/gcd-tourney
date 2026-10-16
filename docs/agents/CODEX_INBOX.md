@@ -328,26 +328,26 @@ Branches: the round-5 branches are merged and gone. Start `npm run pr -- start a
 `npm run pr -- start art/killua-loose-ends --art killua` (real worktrees, sparse art). Gojo stays in
 `.worktrees/art-gojo-title-r3` (branch `codex/gojo-run-def`, already merged): run `git merge main` there first.
 
-- [ ] 1. **Naruto light2Alt v05** (alt of light2: 7 frames, phases 2/2/3, same timing). The four earlier versions are in
+- [x] 1. 2026-10-15: light2Alt05 filed; one call; contact overlaps, scale HOLD; PR106. Original task: **Naruto light2Alt v05** (alt of light2: 7 frames, phases 2/2/3, same timing). The four earlier versions are in
   `raw/_qa_hold/`: every kick landed 27-34 px under light2's fist. Contact target: the drawn strike on f2/f3 must land
   within **24 px** of light2's hit boxes (f2 `[189, 84, 34, 26]`, f3 `[190, 86, 24, 21]`, final-cell x, y, w, h: chest
   height, about 1 unit ahead of the pivot). The technique may change: a lead backfist, palm strike or elbow at chest height
   reads as a different straight and lands where light2 lands far more reliably than a kick. Feet on y 240, the whole pose
   inside x 4..251, head the same size as idle07. Save it as `raw/light2Alt_v05.png` (not in `_qa_hold/`).
-- [ ] 2. **Naruto airHeavyAlt v04** (alt of airHeavy: 6 frames, phases 2/2/2). v01-v03 are in `raw/_qa_hold/` (v03: the
+- [x] 2. 2026-10-15: airHeavyAlt04 filed; one call; contact/scale HOLD; PR106. Original task: **Naruto airHeavyAlt v04** (alt of airHeavy: 6 frames, phases 2/2/2). v01-v03 are in `raw/_qa_hold/` (v03: the
   head jumped from 0.95 to 1.13 between f1 and f3, and the active frames sat about 50 px behind the hammer, 95 px short).
   Contact target: the strike on f2/f3 within 24 px of airHeavy's hit boxes (f2 `[219, 178, 29, 26]`, f3
   `[224, 187, 27, 26]`: low and in front, a downward strike such as an axe kick or a double-fist smash). One head size
   in every frame; f5 returns to airHeavy's air recovery pose. Save as `raw/airHeavyAlt_v04.png`.
-- [ ] 3. **Killua charge v14** (4 frames). Keep v13's pose, aura and loop; draw the head at the approved idle/combat head
+- [x] 3. 2026-10-15: charge14 first output filed; HOLD; duplicate call quarantined/disclosed; PR105. Original task: **Killua charge v14** (4 frames). Keep v13's pose, aura and loop; draw the head at the approved idle/combat head
   size. v13 reads head 0.92 of the reference with feet 1.04, so the head is about 8 % small for the body (a recorded
   exception until now).
-- [ ] 4. **Killua down v08** (2 frames: impact, then lying) and **ko v09** (1 frame). v07 and v08 are drawn from above at an
+- [x] 4. 2026-10-15: down08/ko09 filed; one call each; clipping/grounding HOLD; PR105. Original task: **Killua down v08** (2 frames: impact, then lying) and **ko v09** (1 frame). v07 and v08 are drawn from above at an
   angle, so the head floats 16-24 px over the floor line in game. Redraw both side-on at the spec camera (about 12 degrees
   down) with head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020), same anatomy as the
   approved neutral cell.
 - [x] 5. 2026-10-15: user explicitly directed this batch to leave Gojo to the separate J/K/L chat. No G cleanup or Gojo call in the scale lane.
-- [ ] 6. **Astra audits** of every new candidate (every frame, transitions and loop; head, torso, limbs, shoes), then
+- [x] 6. 2026-10-15: Astra all20frames complete; protected five-card diagnostic preview7eaabfea ready for Claude. Original task: **Astra audits** of every new candidate (every frame, transitions and loop; head, torso, limbs, shoes), then
   one phone review page with the new candidates beside their bases or predecessors, the approved idle and the
   neutral/combat cells at one density.
 
