@@ -100,14 +100,14 @@ export class CpuBrain {
     const dist = Math.hypot(dx, dz);
     const toOpp = new THREE.Vector2(dx, dz).normalize();
     const moveWorld = (vx, vz) => {
-      const r = game.cam.right, fw = game.cam.fwd;
+      const r = game.basis.right, fw = game.basis.fwd;
       mx = vx * r.x + vz * r.z;
       my = vx * fw.x + vz * fw.z;
     };
     // 2.5D lanes: line up in depth and stand ~1.1 units beside them on screen
     const { sx, sd } = f.laneOffsets();
     const laneGo = () => {
-      const R = game.cam.right, F = game.cam.fwd;
+      const R = game.basis.right, F = game.basis.fwd;
       const want = Math.abs(sx) - 1.05;
       // stacked in depth right behind them (sx ~ 0, e.g. both against the barrier): step out toward the ring's
       // middle, or the depth step and the body push hold them there for good

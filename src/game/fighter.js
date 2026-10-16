@@ -9,6 +9,7 @@ import { chargeStyle } from './chargeFx.js';
 import { resetHitFlash, startHitFlash, flashTier, hitFlashUniforms, hitShake } from './hitFlash.js';
 import { TECH_ART, techPose, rollBackward, wallFacing, wallShift } from './techAnim.js';
 import { pickAnim } from './animAlts.js';
+import * as dmath from './dmath.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -178,34 +179,35 @@ export class Fighter {
   // 2.5D lanes: fighters face screen-left or screen-right, never into the camera,
   // so strikes always travel across the screen the way the sprite is drawn.
   faceOpponent() {
-    const o = this.opp, R = this.game.cam.right;
+    const o = this.opp, R = this.game.basis.right;
     const sx = (o.pos.x - this.pos.x) * R.x + (o.pos.z - this.pos.z) * R.z;
     if (Math.abs(sx) > 0.12) this.side = Math.sign(sx);
     this.setSide(this.side);
   }
 
   setSide(side) {
-    const R = this.game.cam.right;
+    const R = this.game.basis.right;
     this.side = side;
     this.face.set(R.x * side, R.z * side);
   }
 
   // Signed offsets to the opponent: along the screen (sx) and in depth (sd).
   laneOffsets() {
-    const o = this.opp, R = this.game.cam.right, F = this.game.cam.fwd;
+    const o = this.opp, R = this.game.basis.right, F = this.game.basis.fwd;
     const rx = o.pos.x - this.pos.x, rz = o.pos.z - this.pos.z;
     return { sx: rx * R.x + rz * R.z, sd: rx * F.x + rz * F.z };
   }
 
   distTo(o = this.opp) {
-    return Math.hypot(o.pos.x - this.pos.x, o.pos.z - this.pos.z);
+    return dmath.hypot(o.pos.x - this.pos.x, o.pos.z - this.pos.z);
   }
 
-  // Hold back to block (ENG-057): the stick held away from the opponent on screen. Only a person's pad gets it (no
-  // brain, or a lab script/replay that sets `autoBlock`): a CPU blocks at its level's own rate.
+  // Hold back to block (ENG-057): the stick held away from the opponent on screen. Only a person's pad gets it (the
+  // match setup's kind, Game.kinds, and no brain here; a lab script or replay sets `autoBlock`): a CPU blocks at its
+  // level's own rate.
   holdingBack() {
     const b = this.game.brains[this.index];
-    if (b && !b.autoBlock) return false;
+    if ((this.game.kinds?.[this.index] === 'cpu' || b) && !b?.autoBlock) return false;
     return this.pad.mx * kit.towardSide(this) < -0.5;
   }
 
@@ -216,7 +218,7 @@ export class Fighter {
     if (this.clock - (this.blockAt ?? -99) < 14) return true;
     if (o.state === 'beamCharge' || g.beams.some((bm) => bm.owner === o && !bm.dead)) return true;
     if (['attack', 'kit', 'superDash', 'vanish'].includes(o.state) && this.distTo() < 4.5) return true;
-    const near = (p, r) => Math.hypot(p.x - this.pos.x, p.z - this.pos.z) < r;
+    const near = (p, r) => dmath.hypot(p.x - this.pos.x, p.z - this.pos.z) < r;
     return g.projectiles.some((pr) => pr.owner === o && !pr.dead && near(pr.pos, 4.5)) || g.orbs.some((ob) => ob.owner === o && !ob.dead && near(ob.pos, 5.5));
   }
 
@@ -341,7 +343,7 @@ export class Fighter {
     this.backDash = d.dot(toOpp) < -0.4;
     if (!this.backDash) {
       this.face.copy(d);
-      const R = this.game.cam.right;
+      const R = this.game.basis.right;
       const along = d.x * R.x + d.y * R.z;
       if (Math.abs(along) > 0.3) this.side = Math.sign(along);
     }
@@ -511,7 +513,7 @@ export class Fighter {
     const B = DEFENSE.burst, o = this.opp;
     this.game.onBurstWave(this, k);
     if (this.burstHit) return;
-    const dx = o.pos.x - this.pos.x, dz = o.pos.z - this.pos.z, d = Math.hypot(dx, dz);
+    const dx = o.pos.x - this.pos.x, dz = o.pos.z - this.pos.z, d = dmath.hypot(dx, dz);
     if (d > B.radius || Math.abs(o.pos.y - this.pos.y) > B.radius) return;
     if (!o.hittable) {
       if (o.evading) this.game.onEvade(o);
@@ -1034,7 +1036,7 @@ export class Fighter {
         const W = DEFENSE.wavedash;
         this.vel.x *= W.friction; this.vel.z *= W.friction;
         this.faceOpponent();
-        if (this.t % 3 === 0 && Math.hypot(this.vel.x, this.vel.z) > 2) this.game.fx.dust(this.pos, 0.4);
+        if (this.t % 3 === 0 && dmath.hypot(this.vel.x, this.vel.z) > 2) this.game.fx.dust(this.pos, 0.4);
         if (this.t >= W.act) {
           const vx = this.vel.x, vz = this.vel.z;
           if (this.tryActions()) {
@@ -1065,7 +1067,7 @@ export class Fighter {
       case 'vanish':
         this.vel.set(0, 0, 0);
         if (this.t === VANISH.hideFrames) {
-          const o = this.opp, R = this.game.cam.right;
+          const o = this.opp, R = this.game.basis.right;
           // appear behind them on the screen axis (same lane), close enough for vanishKick's
           // hitbox; with their back to the barrier, appear in front instead of stacking
           let back = -o.side;
@@ -1116,7 +1118,7 @@ export class Fighter {
           const d = this.inputDir();
           const sp = this.speedStat;
           this.vel.x += d.x * 0.45; this.vel.z += d.y * 0.45;
-          const h = Math.hypot(this.vel.x, this.vel.z);
+          const h = dmath.hypot(this.vel.x, this.vel.z);
           if (h > sp) { this.vel.x *= sp / h; this.vel.z *= sp / h; }
         } else if (this.chase % 2 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
         this.faceOpponent();
@@ -1309,7 +1311,7 @@ export class Fighter {
       this.vel.x += (d.x * sp - this.vel.x) * 0.38;
       this.vel.z += (d.y * sp - this.vel.z) * 0.38;
       this.face.set(d.x, d.y).normalize();
-      const R = this.game.cam.right;
+      const R = this.game.basis.right;
       const along = this.face.x * R.x + this.face.y * R.z;
       if (Math.abs(along) > 0.3) this.side = Math.sign(along);
       if (this.state !== 'run') {
@@ -1369,7 +1371,7 @@ export class Fighter {
   // A melee clash (Game.meleeClash, ADR 0038): this swing is spent and holds for `stop` frames where it met the
   // other, then is pushed back away from them at `speed`, free to act after `act` frames (leaveClash)
   clashBounce(stop, speed, act = MELEE_CLASH.act, slide = MELEE_CLASH.slide) {
-    const o = this.opp, dx = this.pos.x - o.pos.x, dz = this.pos.z - o.pos.z, d = Math.hypot(dx, dz) || 1;
+    const o = this.opp, dx = this.pos.x - o.pos.x, dz = this.pos.z - o.pos.z, d = dmath.hypot(dx, dz) || 1;
     this.hitDone = true;
     this.moveHit = false;
     this.vel.set(0, Math.min(this.vel.y, 0), 0);
@@ -1415,7 +1417,7 @@ export class Fighter {
     if (t < B && !m.projectile) {
       const { sd } = this.laneOffsets();
       if (Math.abs(sd) < 2.6) {
-        const F = this.game.cam.fwd;
+        const F = this.game.basis.fwd;
         const step = Math.max(-0.1, Math.min(0.1, sd * 0.35));
         this.pos.x += F.x * step;
         this.pos.z += F.z * step;
@@ -1445,7 +1447,7 @@ export class Fighter {
       const o = this.opp;
       this.vel.set(o.vel.x, o.vel.y, o.vel.z);
       this.pos.y += (o.pos.y - 0.1 - this.pos.y) * 0.25;
-      const dx = o.pos.x - this.pos.x, dz = o.pos.z - this.pos.z, d = Math.hypot(dx, dz);
+      const dx = o.pos.x - this.pos.x, dz = o.pos.z - this.pos.z, d = dmath.hypot(dx, dz);
       if (d > JUGGLE_GAP) {
         const k = ((d - JUGGLE_GAP) * 0.3) / d;
         this.pos.x += dx * k;
@@ -1520,7 +1522,7 @@ export class Fighter {
   // Air tech (ADR 0022): the stick picks the hop, read against the opponent's side of the screen: neutral or away
   // hops back, toward hops over to their side, ↑ rises in place, ↓ drops straight to the floor.
   airRecover() {
-    const T = DEFENSE.tech, s = kit.towardSide(this), R = this.game.cam.right;
+    const T = DEFENSE.tech, s = kit.towardSide(this), R = this.game.basis.right;
     const x = this.pad.mx * s, y = this.pad.my;
     const kind = Math.abs(y) > 0.6 && Math.abs(y) > Math.abs(x) ? (y > 0 ? 'up' : 'down') : x > 0.5 ? 'toward' : 'back';
     const [along, up] = T[kind];
@@ -1771,7 +1773,7 @@ export class Fighter {
     const backBlock = !m.unblockable && (this.state === 'idle' || this.state === 'run') && !this.air && this.holdingBack();
     if (backBlock) this.faceOpponent();
     const tx = att.pos.x - this.pos.x, tz = att.pos.z - this.pos.z;
-    const tl = Math.hypot(tx, tz) || 1;
+    const tl = dmath.hypot(tx, tz) || 1;
     const facingAtt = (this.face.x * tx + this.face.y * tz) / tl > 0.05;
     const hs = m.hitstop ?? 6;
     const blocking = (this.state === 'guard' || this.state === 'block' || backBlock) && facingAtt && !m.unblockable;
@@ -1916,7 +1918,7 @@ export class Fighter {
       z += camRight.z * s;
     } else if (this.state === 'charge') {
       // trembling with the power: a pixel or so, more as it builds
-      const s = Math.sin(time * 70) * 0.012 * Math.min(1, this.t / 30);
+      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, this.t / 30);
       x += camRight.x * s;
       z += camRight.z * s;
     }
@@ -1947,13 +1949,13 @@ export class Fighter {
       flash = Math.max(flash, cs.bodyTint);
     } else if (this.state === 'beamCharge') {
       u.flashColor.value.set(this.def.color);
-      flash = Math.max(flash, 0.12 + 0.1 * Math.sin(time * 30));
+      flash = Math.max(flash, 0.12 + 0.1 * dmath.sin(time * 30));
     } else u.flashColor.value.set(0xffffff);
     if (this.invuln > 0 && this.state === 'getup' && (this.t >> 2) % 2) flash = Math.max(flash, 0.25);
     if (this.invuln > 0 && (this.state === 'dodge' || this.state === 'airDodge')) {
       // intangible shimmer, so a dodge reads at a glance
       u.flashColor.value.set(0xbfe8ff);
-      flash = Math.max(flash, 0.28 + 0.14 * Math.sin(time * 42));
+      flash = Math.max(flash, 0.28 + 0.14 * dmath.sin(time * 42));
     }
     if (this.game.superFlash?.who === this) flash = Math.max(flash, this.game.superFlash.t < 6 ? 1 : 0);
     u.flash.value = flash;

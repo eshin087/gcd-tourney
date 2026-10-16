@@ -7,6 +7,8 @@ import { buildVoidStage } from '../world/voidStage.js';
 import { Effects } from './effects.js';
 import { chargeTick, chargeBar, chargeEnd } from './chargeFx.js';
 import { CameraDirector } from './camera.js';
+import { ControlBasis } from './basis.js';
+import * as dmath from './dmath.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
@@ -93,6 +95,7 @@ export class Game {
     this.domain = null;
     this.fx = new Effects(this.scene);
     this.cam = new CameraDirector(this.camera);
+    this.basis = new ControlBasis(); // the screen axes the simulation reads (ADR 0036): the camera follows it, not the other way round
     const ui = document.getElementById('ui');
     this.hud = new Hud(ui);
     this.menus = new Menus(ui, this);
@@ -165,7 +168,7 @@ export class Game {
   }
 
   camDir(mx, my) {
-    return this.cam.dirFromInput(mx, my);
+    return this.basis.dir(mx, my);
   }
 
   // ------------------------------------------------------------ match setup
@@ -190,6 +193,9 @@ export class Game {
     this.seed = cfg.seed != null ? cfg.seed >>> 0 : (Math.random() * 4294967296) >>> 0;
     this.comboLog = []; // the CPUs' recent combo routes (aiCombo.js keeps them from repeating each other)
     this.matchNo = (this.matchNo ?? 0) + 1;
+    // who plays each side, for the rules that differ (holding back blocks only for a person): match setup both
+    // machines of an online match share, not whether this machine runs a brain for that pad (ADR 0036)
+    this.kinds = cfg.mode === 'solo' ? ['person', 'cpu'] : cfg.mode === 'cpu' ? ['cpu', 'cpu'] : ['person', 'person'];
     this.brains = cfg.mode === 'solo' ? [null, makeBrain(this.fighters[1], level, false, this.brainSeed(1))]
       : cfg.mode === 'cpu' ? this.fighters.map((f, i) => makeBrain(f, level, true, this.brainSeed(i)))
       : [null, null];
@@ -197,6 +203,8 @@ export class Game {
     this.input.bind(this.pads, cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
     this.hud.setup(this.fighters, assets, matchHint(cfg.mode, deviceLayout(this.input)));
     this.round = 1;
+    this.frameNo = 0; // per match: cooldown stamps and beam-clash charts read it, and every machine must agree
+    this.basis.reset();
     this.resetRound();
     this.beginIntro();
   }
@@ -222,10 +230,13 @@ export class Game {
     this.fx.ground.prepare(this.fighters, this.renderer.renderer);
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; });
+    this.kinds = ['person', 'cpu'];
     this.brains = [null, new DummyBrain(this.fighters[1], this.trainingCfg.dummy)];
     this.input.bind(this.pads, 'solo');
     this.input.flush(); // training goes live at once (no intro): the menu confirm press must not act
     this.hud.setup(this.fighters, assets, '');
+    this.frameNo = 0;
+    this.basis.reset();
     this.resetRound();
     this.setState('training');
     this.cam.set('fight');
@@ -474,11 +485,7 @@ export class Game {
     else this.handleGameEvents(events);
 
     if (!this.paused) {
-      if (this.slowT > 0) {
-        this.slowT -= dtReal;
-        if (this.slowT <= 0) this.timeScale = 1;
-      }
-      const dt = dtReal * this.timeScale;
+      const dt = dtReal * this.timeScale; // KO slow-mo paces how many fixed steps a second of wall clock runs
       if (this.fighters.length === 2) {
         this.acc += dt;
         let steps = 0;
@@ -490,9 +497,7 @@ export class Game {
         if (steps === 6) this.acc = 0;
         this.alpha = Math.min(1, this.acc / DT);
       }
-      this.time += dt;
-      this.stateT += dtReal;
-      this.flow(dtReal);
+      this.time += dt; // the render clock: effects and sprite wobble only, never the simulation
     }
     this.render(dtReal);
   }
@@ -564,8 +569,28 @@ export class Game {
 
   quitToTitle() { this.toMenu(() => this.menus.title()); }
 
+  // One simulation frame (DT): the world, then the match clock and its flow. Everything here counts frames, never the
+  // wall clock, so every machine and refresh rate plays the same match from the same inputs (ADR 0036).
   fixedUpdate() {
+    this.stepWorld();
+    this.tickFlow();
+  }
+
+  // The match clock: stateT and the KO slow-mo count the wall-clock seconds each frame stands for (a slowed frame
+  // stands for more of them), so the flow keeps its timing while staying a function of frames.
+  tickFlow() {
+    const dt = DT / this.timeScale;
+    this.stateT += dt;
+    if (this.slowT > 0) {
+      this.slowT -= dt;
+      if (this.slowT <= 0) this.timeScale = 1;
+    }
+    this.flow();
+  }
+
+  stepWorld() {
     this.frameNo++;
+    this.basis.step(this.fighters); // the axes this frame's inputs and lanes read, from where the fighters ended last frame
     this.input.poll();
     if (this.training) this.hud.history?.tick(this.pads[0], deviceLayout(this.input));
     this.director?.update();
@@ -634,7 +659,7 @@ export class Game {
     const [a, b] = this.fighters;
     if (a.ko || b.ko || this.clash || a.hidden || b.hidden) return;
     const dx = b.pos.x - a.pos.x, dz = b.pos.z - a.pos.z;
-    const d = Math.hypot(dx, dz);
+    const d = dmath.hypot(dx, dz);
     if (d < 0.72 && Math.abs(a.pos.y - b.pos.y) < 1.3) {
       const nx = d > 0.001 ? dx / d : 1, nz = d > 0.001 ? dz / d : 0;
       const push = (0.72 - d) / 2;
@@ -757,7 +782,7 @@ export class Game {
     // a dodge's intangibility still runs the overlap test, so a hit it lets pass gets its callout
     const evading = !def.hittable && def.evading;
     if (!def.hittable && !evading) return;
-    const R = this.cam.right, F = this.cam.fwd;
+    const R = this.basis.right, F = this.basis.fwd;
     const rx = def.pos.x - att.pos.x, rz = def.pos.z - att.pos.z;
     const sx = rx * R.x + rz * R.z, sd = rx * F.x + rz * F.z, sy = def.pos.y - att.pos.y;
     if (Math.abs(sd) > (m.lane ?? LANE)) return;
@@ -907,7 +932,7 @@ export class Game {
     const [a, b] = this.fighters;
     const act = (f) => f.state === 'attack' && f.move?.special && f.t >= f.move.startup && f.t < f.move.startup + f.move.active;
     if (this.clash || !act(a) || !act(b)) return;
-    if (Math.hypot(a.pos.x - b.pos.x, a.pos.z - b.pos.z) > 1.6) return;
+    if (dmath.hypot(a.pos.x - b.pos.x, a.pos.z - b.pos.z) > 1.6) return;
     if (this.spClashCool > 0) this.specialTrade();
     else this.startClash(this.fighterBody(a), this.fighterBody(b), 'beat');
   }
@@ -1100,7 +1125,7 @@ export class Game {
     const [fa, fb] = this.fighters;
     if (!this.hasEnergy(fa) || !this.hasEnergy(fb)) return false;
     for (const f of this.fighters) if (f.ko || f.hidden || !ENERGY_LOCK.has(f.state)) return false;
-    if (Math.hypot(fa.pos.x - fb.pos.x, fa.pos.z - fb.pos.z) < CLASH.struggle.minDist) return false; // too close: they trade
+    if (dmath.hypot(fa.pos.x - fb.pos.x, fa.pos.z - fb.pos.z) < CLASH.struggle.minDist) return false; // too close: they trade
     const A = this.energyBodies(fa, bodiesA), B = this.energyBodies(fb, bodiesB);
     for (const a of A) {
       for (const b of B) {
@@ -1124,7 +1149,7 @@ export class Game {
     if (d < n.r + l.r + CLASH.struggle.catch) return true;
     if (f.answerMove === f.move && f.answering && f.answering === l.obj) return true; // started as the answer to this shot
     // the live one heads at the starting one's owner from inside the answer range
-    const dx = f.pos.x - l.front.x, dy = f.pos.y + 0.85 - l.front.y, dz = f.pos.z - l.front.z, dist = Math.hypot(dx, dy, dz);
+    const dx = f.pos.x - l.front.x, dy = f.pos.y + 0.85 - l.front.y, dz = f.pos.z - l.front.z, dist = dmath.hypot(dx, dy, dz);
     const along = dx * l.dir.x + dy * l.dir.y + dz * l.dir.z;
     return dist < CLASH.struggle.answerRange && along > 0.6 * dist && dist * dist - along * along < 1.6 * 1.6;
   }
@@ -1305,7 +1330,7 @@ export class Game {
   // where a body's owner stands for struggle point P: a rusher stays `reach` behind the point; a beam's or an orb's
   // owner holds their ground until the beam is down to its stub / the orb is pressed into the hands, then gives it
   clashStance(c, s, P) {
-    const sg = s === c.a ? 1 : -1, ax = c.line.axis, fl = Math.hypot(ax.x, ax.z) || 1;
+    const sg = s === c.a ? 1 : -1, ax = c.line.axis, fl = dmath.hypot(ax.x, ax.z) || 1;
     const dx = (ax.x / fl) * sg, dz = (ax.z / fl) * sg, out = clashTmp.copy(s.base);
     if (s.kind === 'rush') { const r = s.reach ?? CLASH.rush.reach; out.x = P.x - dx * r; out.z = P.z - dz * r; return out; }
     const hold = s.kind === 'beam' ? BEAM_STUB : ORB_HANDS + 0.6 * s.obj.r, from = s.kind === 'beam' ? s.anchor : s.base;
@@ -1389,7 +1414,7 @@ export class Game {
     const adv = (R === c.a ? 1 : -1) * (c.t * 2 - 1); // > 0: the rush is winning
     const win = Math.max(0, adv), lose = Math.max(0, -adv);
     let ux = Bm.base.x - R.base.x, uz = Bm.base.z - R.base.z;
-    const ul = Math.hypot(ux, uz) || 1;
+    const ul = dmath.hypot(ux, uz) || 1;
     ux /= ul;
     uz /= ul;
     const cl = (v) => THREE.MathUtils.clamp(v, -ARENA_LIMIT, ARENA_LIMIT);
@@ -1429,7 +1454,7 @@ export class Game {
     if (c.tier === 'struggle' && (c.a.f.state !== 'clash' || c.b.f.state !== 'clash')) { this.endClash(c.a.f.state !== 'clash' ? 1 : 0); return; }
     const C = c.C, lead = JA.score - JB.score;
     const target = 0.5 + THREE.MathUtils.clamp(lead * C.push, -0.45, 0.45);
-    c.t = THREE.MathUtils.clamp(c.t + (target - c.t) * 0.12 + Math.sin(now * 0.11) * 0.0015, 0.02, 0.98);
+    c.t = THREE.MathUtils.clamp(c.t + (target - c.t) * 0.12 + dmath.sin(now * 0.11) * 0.0015, 0.02, 0.98);
     this.placeClash(c);
     this.hud.clash(true, c.t);
     // over when the chart is, or (a blowout) once the trailing player can't catch up any more; once the FINAL PUSH
@@ -1465,7 +1490,7 @@ export class Game {
   // fighters. Rings, sparks, smoke and debris keep it alive.
   clashSparks(c) {
     const p = c.point, now = c.timer, k = c.lite ? 0.55 : c.C.sparks ?? 1; // the special clash sits between two lit specials, a beam clash between two short streams
-    const pulse = 1 + Math.sin(now * 0.6) * 0.08 + c.kick * 0.18;
+    const pulse = 1 + dmath.sin(now * 0.6) * 0.08 + c.kick * 0.18;
     const size = (c.lite ? 0.5 : c.tier === 'struggle' ? 0.52 : 0.85) * pulse;
     const top = { order: 7, depthTest: false, glow: 0.25, opacity: 0.95 };
     this.fx.keep('clashA', 'clashBurst', p.x, p.y, p.z, { ...top, scale: size, color: c.ca });
@@ -1476,7 +1501,7 @@ export class Game {
     if (now % 18 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.2 * k, color: c.mix, order: 6, depthTest: false, glow: 0.6 });
     if (now % 3 === 0) {
       const a = Math.random() * Math.PI * 2;
-      this.fx.spawn('star', p.x, p.y, p.z, { scale: 0.3, frame: 2, vel: [Math.cos(a) * 5, Math.sin(a) * 4 + 2, (Math.random() - 0.5) * 5], grav: 8, life: 0.4, color: Math.random() < 0.5 ? c.ca : c.cb, depthTest: false, order: 9, glow: 1 });
+      this.fx.spawn('star', p.x, p.y, p.z, { scale: 0.3, frame: 2, vel: [dmath.cos(a) * 5, dmath.sin(a) * 4 + 2, (Math.random() - 0.5) * 5], grav: 8, life: 0.4, color: Math.random() < 0.5 ? c.ca : c.cb, depthTest: false, order: 9, glow: 1 });
     }
     if (c.lite) return;
     if (now % 20 === 0) this.fx.smoke(p.x + (Math.random() - 0.5) * 0.6, 0.05, p.z + (Math.random() - 0.5) * 0.6, 0.55); // low and small: it hid the nearer fighter's legs
@@ -1586,7 +1611,7 @@ export class Game {
   // ------------------------------------------------------------ event hooks
   onHit(att, def, m, dmg) {
     const tx = att.pos.x - def.pos.x, tz = att.pos.z - def.pos.z;
-    const tl = Math.hypot(tx, tz) || 1;
+    const tl = dmath.hypot(tx, tz) || 1;
     // spark where the fist/foot actually met the body
     const hp = att.hitPoint;
     const x = hp ? hp.x : def.pos.x + (tx / tl) * 0.25, y = hp ? hp.y : def.pos.y + (m.low ? 0.5 : 0.85), z = hp ? hp.z : def.pos.z + (tz / tl) * 0.25;
@@ -1653,7 +1678,7 @@ export class Game {
   tryGrab(att) {
     const def = att.opp, T = THROW;
     if (def.ko || def.hidden || def.air || def.pos.y > 0.05 || att.air) return false;
-    const R = this.cam.right, F = this.cam.fwd;
+    const R = this.basis.right, F = this.basis.fwd;
     const rx = def.pos.x - att.pos.x, rz = def.pos.z - att.pos.z;
     if (Math.abs(rx * R.x + rz * R.z) > T.range || Math.abs(rx * F.x + rz * F.z) > T.lane) return false;
     if (def.invuln > 0) {
@@ -1686,7 +1711,7 @@ export class Game {
   // Throw break: Light + Heavy within the window (or two throws at once). No damage; both get pushed apart.
   breakThrow(att, def) {
     const T = THROW;
-    const dx = def.pos.x - att.pos.x, dz = def.pos.z - att.pos.z, l = Math.hypot(dx, dz) || 1;
+    const dx = def.pos.x - att.pos.x, dz = def.pos.z - att.pos.z, l = dmath.hypot(dx, dz) || 1;
     for (const [f, s] of [[att, -1], [def, 1]]) {
       if (f.state === 'throw') f.releaseGrab();
       f.grab = null;
@@ -1936,7 +1961,7 @@ export class Game {
     this.slowT = Math.max(this.slowT, dur);
   }
 
-  // ------------------------------------------------------------ match flow (real time)
+  // ------------------------------------------------------------ match flow (stateT: frames as wall-clock seconds, tickFlow)
   flow() {
     const t = this.stateT;
     const once = (k) => (this.flowFlags[k] ? false : (this.flowFlags[k] = true));
@@ -2024,7 +2049,7 @@ export class Game {
     this.timeScale = 1;
     this.slowT = 0;
     w.setState('win');
-    w.face.set(Math.sin(this.cam.yaw), Math.cos(this.cam.yaw));
+    w.face.set(dmath.sin(this.basis.yaw), dmath.cos(this.basis.yaw)); // toward the camera, which follows the basis
     this.cam.set('victory', w);
     this.hud.announce(`${w.def.name} WINS`, 'win', 2600);
     audio.play('cheer', 1.3);

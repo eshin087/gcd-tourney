@@ -3,6 +3,7 @@ import { PROJECTILES, ULTIMATE } from './moves.js';
 import { DT, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 import { infinityStops } from './kit.js';
+import * as dmath from './dmath.js';
 import { PASSIVES } from './moves.js';
 
 const BEAM_VERT = /* glsl */ `
@@ -200,7 +201,7 @@ export class Beam {
     const normal = new THREE.Vector3().crossVectors(this.dir, side).normalize();
     const St = this.St;
     // an atlas band is as wide as one cell is long (square cells); the ribbon flickers
-    const w = St.fx ? St.seg : this.width * (0.92 + Math.sin(time * 40) * 0.08);
+    const w = St.fx ? St.seg : this.width * (0.92 + dmath.sin(time * 40) * 0.08);
     const m = this.mesh.matrix;
     m.makeBasis(this.dir.clone().multiplyScalar(this.len), side.multiplyScalar(w), normal);
     m.setPosition(o);
@@ -221,7 +222,7 @@ export class Beam {
     // it lights the palm without covering the body
     const color = new THREE.Color(this.pal.mid);
     const id = this.owner.index;
-    const pulse = 1 + Math.sin(time * 30) * 0.08;
+    const pulse = 1 + dmath.sin(time * 30) * 0.08;
     fx.keep('beamO' + id, 'glow', this.origin.x, this.origin.y, this.origin.z, { scale: (this.clash ? 0.34 : 0.5) * pulse * this.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
     const h = this.head;
     if (St.orb) {
@@ -285,25 +286,26 @@ export class Projectile {
     }
     const o = this.owner.opp;
     if (o.invuln > 0 || o.ko || o.state === 'down') {
-      if (o.evading && Math.hypot(this.pos.x - o.pos.x, this.pos.y - o.pos.y - 0.8, this.pos.z - o.pos.z) < this.P.radius + 0.7) this.game.onEvade(o);
+      if (o.evading && dmath.hypot(this.pos.x - o.pos.x, this.pos.y - o.pos.y - 0.8, this.pos.z - o.pos.z) < this.P.radius + 0.7) this.game.onEvade(o);
       return;
     }
     // distance to the victim's body capsule
     const by = THREE.MathUtils.clamp(this.pos.y, o.pos.y + 0.25, o.pos.y + 1.4);
-    const d = Math.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);
+    const d = dmath.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);
     // Infinity (Gojo's passive): the projectile slows to nothing before it can touch him
     if (d < this.P.radius + 1.15 && infinityStops(o)) {
       fx.spawn('ring', this.pos.x, this.pos.y, this.pos.z, { scale: 0.9, color: 0xd8f2ff, glow: 1, order: 8 });
       fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1, color: 0x9fd8ff, opacity: 0.5, life: 0.25, fade: true });
-      if (!o.infinityCallT || this.game.time - o.infinityCallT > 2) {
-        o.infinityCallT = this.game.time;
+      // frames, not the render clock: the ki charge below decides a fight (ADR 0036)
+      if (!o.infinityCallT || this.game.frameNo - o.infinityCallT > 120) {
+        o.infinityCallT = this.game.frameNo;
         this.game.hud.callout(o.index, 'INFINITY', '#d8f2ff');
       }
       audio.play('block', 0.6);
       // one charge per volley: a 3-shuriken throw costs Gojo 15 ki, not 45
-      if (!o.infinityPayT || this.game.time - o.infinityPayT > 0.35) {
+      if (!o.infinityPayT || this.game.frameNo - o.infinityPayT > 21) {
         o.ki = Math.max(0, o.ki - PASSIVES.infinity.kiCost);
-        o.infinityPayT = this.game.time;
+        o.infinityPayT = this.game.frameNo;
       }
       this.kill();
       return;
@@ -371,7 +373,7 @@ export class Orb {
       const o = this.owner.opp;
       if (!this.hit && !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
         const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
-        const touching = Math.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35;
+        const touching = dmath.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35;
         // a dodge carrying them through it only counts once it has rolled past without a hit: it is too wide and slow
         // for a spot dodge alone, so a callout on contact would come right before the hit
         if (touching && o.evading) this.slip = true;
@@ -388,7 +390,7 @@ export class Orb {
       }
       if (this.t > S.life * 60 || Math.abs(p.x) > ARENA_LIMIT + 3 || Math.abs(p.z) > ARENA_LIMIT + 3) { this.kill(); return; }
     }
-    const s = this.r * 1.35 * this.grow * (1 + 0.05 * Math.sin(this.t * 0.7));
+    const s = this.r * 1.35 * this.grow * (1 + 0.05 * dmath.sin(this.t * 0.7));
     fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: s, color: S.orb, order: 8, glow: 1.1 });
     fx.keep(this.id + 'c', 'orb', p.x, p.y, p.z, { scale: s * 0.5, color: 0xf2e2ff, order: 9, glow: 1.6 });
     fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: s * 1.25, color: S.glow, opacity: 0.32, order: 3, glow: 0.8 }); // larger reads as a flat square
@@ -417,7 +419,9 @@ export function spawnProjectiles(game, owner, type = owner.def.projectile) {
   const list = [];
   for (let i = 0; i < P.count; i++) {
     const off = (i - (P.count - 1) / 2) * P.spread;
-    const d = base.clone().applyAxisAngle(up, off);
+    // turned about the vertical by hand: three.js would turn it with the engine's Math.sin / cos (ADR 0036)
+    const c = dmath.cos(off), sn = dmath.sin(off);
+    const d = new THREE.Vector3(base.x * c + base.z * sn, base.y, base.z * c - base.x * sn);
     list.push(new Projectile(game, owner, type, d));
   }
   audio.play(P.sfx);
@@ -455,13 +459,13 @@ export class Vortex {
     if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: C.ring, glow: 0.8, life: 0.2, fade: true, order: 7 });
     if (this.t % 2 === 0) {
       const a = Math.random() * Math.PI * 2, r = 2.2;
-      const sx = p.x + Math.cos(a) * r, sy = p.y + Math.sin(a) * r * 0.6, sz = p.z + Math.sin(a * 1.7) * 0.5;
+      const sx = p.x + dmath.cos(a) * r, sy = p.y + dmath.sin(a) * r * 0.6, sz = p.z + dmath.sin(a * 1.7) * 0.5;
       fx.spawn('star', sx, sy, sz, { scale: 0.2, frame: 2, vel: [(p.x - sx) * 5, (p.y - sy) * 5, (p.z - sz) * 5], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     }
     // drag the opponent toward the core
     const canPull = !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup';
     const dx = p.x - o.pos.x, dz = p.z - o.pos.z, dy = p.y - 0.8 - o.pos.y;
-    const d = Math.hypot(dx, dz, dy) || 1;
+    const d = dmath.hypot(dx, dz, dy) || 1;
     const dir = new THREE.Vector2(-dx, -dz);
     if (this.fixed || dir.lengthSq() < 0.01) dir.set(this.owner.face.x, this.owner.face.y); // grind pops them away
     dir.normalize();

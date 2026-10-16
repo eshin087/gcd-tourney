@@ -604,27 +604,32 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 
 | Call | Does |
 |---|---|
-| `det.record({ p1, p2, seed, fixedBasis, detMath, name, maxFrames })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
-| `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs, brains replaced by idle stand-ins; `{ match, first: { frame, groups }, step, frame, rollback8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
+| `det.record({ p1, p2, seed, name, maxFrames, dumpAt })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
+| `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs with the brains off (the match setup, `Game.kinds`, still says CPU); `{ match, first: { frame, groups }, step, frame, burst8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
 | `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
 
-Every run starts from a fresh camera, frame counter 0 and render clock 0. `fixedBasis: true` pins the control basis
-to the world axes (the stand-in for a simulation-owned basis); without it, the rendered camera's smoothing, shake and
-window aspect feed the controls, so only the same render cadence replays. `detMath: true` swaps in `src/net/dmath.js` for `Math.hypot` / `sin` / `cos` (Safari's `hypot` differs from Chrome's in the last bit). Fixtures (`naruto-sasuke-s7`,
-`gojo-killua-s3`) are recorded with both, and carry one hash per frame, so a split reports its exact frame.
+There are no test workarounds (ENG-091): the simulation owns its control basis (`basis.js`), counts frames for the
+match flow and KO slow-mo, resets its frame counter per match, never reads the render clock and uses
+`src/game/dmath.js` instead of the engine's `Math.hypot` / `sin` / `cos` / `atan2`. Fixtures (`naruto-sasuke-s7`,
+`gojo-killua-s3`) carry one hash per frame, so a split reports its exact frame.
 
-Expected today: `replay` of a fresh recording at `'60'` and two `randomSeed`s match; `'120'`, `'144'` and `'jitter'`
-split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser (an iPhone matched on
-2026-10-15): open each fixture in Safari (iPhone) and Firefox and read the verdict, on production or a branch preview
+Expected today: a fresh recording replays exactly at `'60'`, `'120'`, `'144'` and `'jitter'`, with another
+`randomSeed`, and with `Math.hypot` / `Math.sin` deliberately skewed by an ulp (the simulation no longer calls them).
+Cross-browser (an iPhone matched on 2026-10-15): open each fixture in Safari (iPhone) and Firefox and read the
+verdict, on production or a branch preview
 (https://gcd-tourney.vercel.app/?det=naruto-sasuke-s7 and https://gcd-tourney.vercel.app/?det=gojo-killua-s3).
 A split inside a window the fixture has a trace for (`log.traces`, added with `det.addTrace(log, from, to)` then
 `det.save(log)`) also prints the first differing frame, the fields and that browser's values; compare them with
 `det.replay(log, { stopAt: k + 1, dumpAt: k })` here. Compare the per-frame hashes, never the final result: a
 split replay usually still ends with the same winner and HP. Each fixture records the simulation fingerprint it was made on (`import.meta.env.SIM_ID`, a hash of `src/game`, `src/characters`, the input, hash and math code and every `anims.json`; `vite.config.js` simId); a build with other gameplay code prints STALE FIXTURE above the verdict. After a change to the simulation, re-record the fixtures
-(`det.record({ ..., fixedBasis: true, detMath: true, name })`, `det.save(det.last)`), re-add their traces, and commit them with the
-change.
+(`det.record({ ..., name })`, `det.save(det.last)`; the dev server stamps the fingerprint of the files on disk when it
+saves), and commit them with the change.
+
+`npm run lint:simmath` (`tools/lint-sim-math.mjs`, part of `prebuild`) fails the build on `Math.sin`, `cos`, `hypot`,
+`atan2`, `pow`, `exp`, `log` ... in the simulation files (fighter, kit, game, projectiles, clash, techAnim, basis,
+moves, input, the character files); use `dmath.*` there.
 
 ## Performance budget
 

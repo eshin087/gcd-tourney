@@ -84,14 +84,17 @@ src/game/
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
                             rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
-src/net/                    online play (ADR 0036), so far its determinism spike:
-  simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, camera
+  basis.js                  ControlBasis (ADR 0036): the screen axes the simulation reads, from the fight framing's
+                            yaw on the fixed step (the render camera follows it); damp(), the spring both use
+  dmath.js                  deterministic hypot / sin / cos / atan / atan2 from + - * / and Math.sqrt for every
+                            gameplay file (Safari's Math.hypot differs from Chrome's in the last bit);
+                            tools/lint-sim-math.mjs keeps engine Math out of those files
+src/net/                    online play (ADR 0036), so far its determinism test:
+  simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, control
                             basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
   detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and
                             hashes, replay them (brains off, other render rates), report the first split and its
                             values, time the fixed step; fixtures in public/det/, saved via the dev server
-  dmath.js                  deterministic hypot / sin / cos from + - * / and Math.sqrt (Safari's Math.hypot differs
-                            from Chrome's in the last bit); installDetMath() swaps them in for a test run
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
   animGuide.js              canonical animation list (frames, phases, pose text) + ChatGPT prompt builder
@@ -132,17 +135,21 @@ src/style.css               all DOM UI styling
 frame(dtReal)                                   (real time, clamped to 0.1 s)
 ├─ input.pollMenu() -> menu events -> Menus.handle (menus/pause/results) or game events (skip intro, pause)
 ├─ if not paused:
-│   ├─ slow-mo bookkeeping (timeScale, slowT)
-│   ├─ accumulator += dt * timeScale
-│   ├─ while acc >= 1/60 (max 6 steps): fixedUpdate()          <- the simulation
-│   ├─ alpha = acc / DT                                         <- render interpolation factor
-│   └─ flow()                                                   <- match flow state machine (real time)
+│   ├─ accumulator += dt * timeScale                            <- KO slow-mo only paces the steps (presentation)
+│   ├─ while acc >= 1/60 (max 6 steps): fixedUpdate()          <- the simulation, match flow included
+│   └─ alpha = acc / DT                                         <- render interpolation factor
 └─ render(dtReal)
 ```
 
 ### fixedUpdate (60 Hz, deterministic order)
 
+Everything below counts frames and uses deterministic math (`src/game/dmath.js`, kept there by
+`npm run lint:simmath`), so the same inputs give the same match on every machine, browser and refresh rate
+(ADR 0036; the determinism test checks it).
+
 ```
+0. basis.step(fighters)         the control basis (basis.js): the fight framing's yaw from the fighters' positions,
+                                damped on the fixed step; its right / fwd are the screen axes the step reads
 1. input.poll()                 keyboard + gamepads -> Pad (pressed/released edges, buffers, double-tap dash)
 2. director?.update()           CPU vs CPU only: the show director's beam-clash cue (ADR 0027)
    brains[i].update(game)       CpuBrain / DummyBrain press buttons on their own Pad (same interface as a human)
@@ -163,6 +170,8 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 10. fxTicks(frozen)             charge styles (chargeFx), aura / signature-hand effects, speed-line focus; during a
                                 freeze or a special clash it runs with frozen = true (charges refresh, spawn nothing)
 11. round timer                 99 s countdown (not in training)
+12. tickFlow()                  stateT / slowT advance by DT / timeScale (the wall-clock seconds a frame stands for),
+                                then flow(): the match flow state machine
 ```
 
 Hitstop runs per fighter. `Fighter.update()` returns early while `hitstop > 0`, so attacker and victim
@@ -173,7 +182,8 @@ freeze while the rest of the world keeps going. Projectile and beam hits don't f
 ```
 fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + flip, flash uniforms (hit flash
                             pop/lift/rim from hitFlash.js, charge tint, dodge shimmer, super flash)
-cam.update(dt)              CameraDirector mode logic, shake/kick, zoom punch, spriteRefDepth
+cam.update(dt)              CameraDirector mode logic (its yaw is basis.viewYaw(alpha): it follows the simulation's
+                            control basis), shake/kick, zoom punch, spriteRefDepth
 fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
 beams.sync, fx.update       VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
 arena.setDim / update       super-flash dimming, crowd excitement
@@ -181,12 +191,13 @@ hud.update                  bars, timer, combo counter
 renderer.render             low-res render -> bloom -> grade -> nearest upscale
 ```
 
-### Match flow (`Game.flow`, real time)
+### Match flow (`Game.flow`, on the fixed step)
 
 `menu -> intro (flythrough, fighter cards) -> roundIntro ("ROUND n", "FIGHT!") -> fight -> ko | timeup
 -> roundEnd -> (nextRound | matchEnd -> results)`, plus `draw` and `training`. Best of 3 rounds
 (`ROUNDS_TO_WIN = 2`), 99 s each. `Game.state` and `Game.stateT` hold the current state and how long
-it has run.
+it has run, in seconds counted from frames (`tickFlow`: a KO slow-mo frame counts for more), so the flow keeps its
+timing on any refresh rate and every machine agrees on the frame each transition happens.
 
 Round wins use the orbiting `victory` shot. `matchEnd` cuts to the `results` hero shot instead: the loser's
 actor is hidden (only the winner, DBFZ-style; cleanupMatch disposes it, so a rematch brings it back), the winner
@@ -201,8 +212,10 @@ same way it does for the training panel, so the whole winner stands in the free 
   `ARENA_LIMIT = 8.55` except during a KO.
 - Time: the sim counts **frames at 60 fps** (`DT = 1/60`). Move data in `moves.js` is in frames. Velocities are
   units per second.
-- Screen axes: `cam.right` (screen horizontal) and `cam.fwd` (depth, away from the camera) are flattened onto
-  the floor. Player input is mapped through `cam.dirFromInput()`, so "right" always means screen-right.
+- Screen axes: `basis.right` (screen horizontal) and `basis.fwd` (depth, away from the camera) on the floor, owned
+  by the simulation (`src/game/basis.js`, ADR 0036); the render camera follows the same yaw. Player input is mapped
+  through `Game.camDir()` (`basis.dir`), so "right" means screen-right. Effects that only need the drawn camera
+  (auras, billboards) still read `cam.right`.
 - **2.5D lanes**: fighters face screen-left or screen-right only (`Fighter.side` = +1 or -1). Attacks auto-step in
   depth to line up with the opponent. A melee hit needs the same lane plus hitbox/hurtbox overlap.
   See [COMBAT_DESIGN.md](COMBAT_DESIGN.md#hit-detection-25d-lanes-and-frame-boxes) and
