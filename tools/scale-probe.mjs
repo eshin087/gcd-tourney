@@ -383,6 +383,11 @@ export function judgeStrip(name, measured, gate = GATE_DEFAULTS, exempt = {}) {
   else if (feet != null && Math.sign(head - 1) === Math.sign(feet - 1) && Math.abs(feet - 1) > gate.feetAgree &&
     Math.abs(feet - 1) >= gate.feetShare * Math.abs(head - 1)) verdict = 'uniform';
   else verdict = 'drift';
+  // a fighter whose head probe is known to misread (builds.json headProbe { mode: 'manual' }, TOOL-GOKU-PROBE: Goku's
+  // spiky hair breaks into outline-split blobs, Luffy's hat shares the vest/sash/skin colours) never passes or fails on
+  // its numbers: every strip is 'unmeasured' until a person's scaleManualQA of that version accepts it below. An
+  // exemption is still an exemption; the measured numbers stay in the result for the sheets.
+  if (gate.headProbeOff && verdict !== 'exempt' && verdict !== 'unmeasured') { verdict = 'unmeasured'; reason = `head probe off for this fighter: ${gate.headProbeOff}`; }
   // the readable frames pass but some beats were not read (ADR 0030): not a numeric pass of the whole strip
   if (verdict === 'ok' && low.length) { verdict = 'partial'; reason = `f${low.join(', f')} not measured (tucked, rolling or rotated beats)`; }
   // a pose the probe cannot read, checked by a person for exactly this version (scaleManualQA): accepted, and shown as
@@ -509,7 +514,14 @@ export function measurementCells(anims, idle, maxColors = 48, decl = {}) {
 // where the idle's own exact shades bias the probe: Killua's title-style idle palette fits its own hair perfectly and
 // maps the other strips' separately generated shading partly off the hair, so every strip read ~0.89 of a fair value
 // and even the user-approved combat cell read 0.912 against it.
+// builds.json fighter "headProbe": { "mode": "manual", "why": "..." } -> the gate with headProbeOff set (judgeStrip)
+export function gateFor(gate, decl) {
+  const hp = decl?.headProbe;
+  return hp?.mode === 'manual' ? { ...gate, headProbeOff: (typeof hp.why === 'string' && hp.why.trim()) || 'builds.json headProbe manual' } : gate;
+}
+
 export function auditCharacter(anims, { decl = {}, gate = GATE_DEFAULTS, exempt = {}, maxColors = 48, reference = null } = {}) {
+  gate = gateFor(gate, decl);
   if (reference?.error) return { error: reference.error };
   const external = !!reference?.cells?.length;
   const ref0 = external ? { name: REFERENCE, cells: reference.cells } : anims.find((a) => a.name === 'idle');
@@ -565,7 +577,8 @@ export function compactAudit(A, gate = GATE_DEFAULTS) {
 
 // The audit of a pack from its recorded measurements (meta.scaleAudit with method 'idle-palette'), judged with
 // today's gate and exemptions, in the shape auditCharacter returns. null when the pack predates the method.
-export function auditFromCompact(sa, { gate = GATE_DEFAULTS, exempt = {} } = {}) {
+export function auditFromCompact(sa, { gate = GATE_DEFAULTS, exempt = {}, decl = {} } = {}) {
+  gate = gateFor(gate, decl);
   if (!sa || sa.method !== AUDIT_METHOD || !sa.ref || !sa.anims) return null;
   const set = (l) => new Set((l || []).map(parseHex).filter((k) => k != null));
   const palette = { head: set(sa.ref.head), feet: set(sa.ref.feetColors), headSource: sa.ref.palette, feetSource: sa.ref.palette };
