@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beam Clash Art — Round 2</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101318;--panel:#1a2029;--line:#313b49;--text:#f2f5fa;--muted:#a8b3c2;--accent:#7dcfff;--hold:#ffc96b;--ok:#8be39b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+    main{max-width:1180px;margin:auto;padding:24px 16px 64px}h1{font-size:1.8rem;line-height:1.15;margin:0 0 8px}h2{font-size:1.3rem;margin:0 0 6px}p{margin:8px 0;color:var(--muted)}a{color:var(--accent)}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:18px 0}.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.8rem;margin:2px 6px 2px 0}.ok{color:var(--ok);border-color:#3c6b45}.hold{color:var(--hold);border-color:#806329}
+    .sheet{display:block;width:100%;height:auto;border-radius:8px;background:#191c22;image-rendering:pixelated;margin:10px 0}.scroll{overflow-x:auto}.scroll .sheet{min-width:720px}ul{padding-left:22px;color:var(--muted)}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Beam clash struggle poses — round 2</h1>
+  <p>Each strip is shown in its <strong>packed, 48-colour game pixels</strong>, beside the fighter's approved idle and combat cells at one density (floor = solid line, idle crown = dashed line). <strong>H</strong> = head size vs the idle (the scale gate), <strong>B</strong> = body/garment size vs the idle (advisory; a lunge or a hover naturally reads smaller).</p>
+  <p>Size calibrated by Claude (2026-10-15): Sasuke ground bodyHeight 198 → 122, Sasuke air 198 → 168; every strip shown passes the strict scale gate. <strong>Astra anatomy audit: pending</strong> (the model was unavailable in the Codex chat; CLAUDE.md lets it wait). See them move in a real clash: <a href="../../lab.html?p1=sasuke&p2=naruto">lab, Sasuke vs Naruto</a> → Scenarios → Beam clash (energy vs energy) or Beam clash from the air (swap fighters with the arrows at the top).</p>
+
+  <section class="card">
+    <h2>Naruto — <code>beamStruggle</code> v02 (two-handed Rasengan push)</h2>
+    <span class="badge ok">scale gate pass · H 0.95–0.98</span><span class="badge">B 0.65–0.67: crouched lunge, arms forward</span>
+    <div class="scroll"><img class="sheet" src="body-naruto.png" alt="Naruto idle, combat cell and beamStruggle v02 frames 0-2"></div>
+  </section>
+
+  <section class="card">
+    <h2>Sasuke — <code>beamStruggle</code> v01 (Chidori Spear thrust) and <code>beamStruggleAir</code> v01 (Great Fireball)</h2>
+    <span class="badge ok">ground: gate pass after calibration · H 0.92–0.99</span><span class="badge hold">ground B 0.71–0.80: reads a little small — your eye decides</span><span class="badge ok">air: H 0.94–1.02, B 0.84–0.91</span>
+    <div class="scroll"><img class="sheet" src="body-sasuke.png" alt="Sasuke idle, combat cell, beamStruggle and beamStruggleAir frames"></div>
+  </section>
+
+  <section class="card">
+    <h2>Killua — <code>beamStruggle</code> v01 (Narukami, open palm)</h2>
+    <span class="badge ok">ground: H 0.95–1.03, B 0.89–0.93</span><span class="badge hold">air v01: technical hold, not for review (different outfit, body 0.55–0.61) — Codex redraws it as v02</span>
+    <div class="scroll"><img class="sheet" src="body-killua.png" alt="Killua idle, combat cell and beamStruggle frames; the second row is the held air strip"></div>
+    <p>Only the first row (ground) is up for review. The second row is the held air strip, shown for the record.</p>
+  </section>
+
+  <section class="card">
+    <h2>Gojo — <code>beamStruggle</code> v01 (Red at two fingertips, hand in pocket) and <code>beamStruggleAir</code> v01</h2>
+    <span class="badge ok">ground: H 0.97–1.07, B 0.94–0.95</span><span class="badge ok">air: H 0.95–0.97, B 0.90–0.93</span>
+    <div class="scroll"><img class="sheet" src="body-gojo.png" alt="Gojo idle, combat cell, beamStruggle and beamStruggleAir frames"></div>
+    <p>Note: in the air strip his legs read as a mid-air kick more than a tucked hover.</p>
+  </section>
+
+  <section class="card">
+    <h2>Up for your review</h2>
+    <ul>
+      <li>Naruto beamStruggle v02</li>
+      <li>Sasuke beamStruggle v01, Sasuke beamStruggleAir v01</li>
+      <li>Killua beamStruggle v01 (air v01 held)</li>
+      <li>Gojo beamStruggle v01, Gojo beamStruggleAir v01</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

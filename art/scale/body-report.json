@@ -1,10 +1,10 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-16T04:05:37.435Z",
+ "generated": "2026-10-16T04:14:20.147Z",
  "fighters": {
   "naruto": {
-   "idleGarmentPx": 3311,
+   "idleGarmentPx": 3260,
    "anims": {
     "idle": {
      "v": 7,
@@ -779,23 +779,23 @@
     "beamStruggle": {
      "v": 2,
      "body": [
-      0.598,
-      0.605,
-      0.6
+      0.658,
+      0.648,
+      0.666
      ],
      "head": [
       0.981,
       0.963,
       0.954
      ],
-     "median": 0.6,
+     "median": 0.658,
      "headMedian": 0.963,
      "flag": "small"
     }
    }
   },
   "sasuke": {
-   "idleGarmentPx": 2817,
+   "idleGarmentPx": 2824,
    "anims": {
     "idle": {
      "v": 7,
@@ -1566,11 +1566,43 @@
      "median": 1.014,
      "headMedian": 1.013,
      "flag": null
+    },
+    "beamStruggle": {
+     "v": 1,
+     "body": [
+      0.706,
+      0.707,
+      0.799
+     ],
+     "head": [
+      0.949,
+      0.923,
+      0.987
+     ],
+     "median": 0.707,
+     "headMedian": 0.949,
+     "flag": "small"
+    },
+    "beamStruggleAir": {
+     "v": 1,
+     "body": [
+      0.907,
+      0.836,
+      0.914
+     ],
+     "head": [
+      0.943,
+      1.016,
+      1
+     ],
+     "median": 0.907,
+     "headMedian": 1,
+     "flag": null
     }
    }
   },
   "killua": {
-   "idleGarmentPx": 1262,
+   "idleGarmentPx": 1461,
    "anims": {
     "idle": {
      "v": 8,
@@ -2341,11 +2373,43 @@
      "median": 0.948,
      "headMedian": 0.996,
      "flag": null
+    },
+    "beamStruggle": {
+     "v": 1,
+     "body": [
+      0.893,
+      0.914,
+      0.928
+     ],
+     "head": [
+      0.951,
+      0.961,
+      1.03
+     ],
+     "median": 0.914,
+     "headMedian": 0.961,
+     "flag": null
+    },
+    "beamStruggleAir": {
+     "v": 1,
+     "body": [
+      0.551,
+      0.591,
+      0.607
+     ],
+     "head": [
+      0.975,
+      0.995,
+      1.052
+     ],
+     "median": 0.591,
+     "headMedian": 0.995,
+     "flag": "small"
     }
    }
   },
   "gojo": {
-   "idleGarmentPx": 7219,
+   "idleGarmentPx": 7675,
    "anims": {
     "idle": {
      "v": 6,
@@ -3115,6 +3179,38 @@
      ],
      "median": 0.96,
      "headMedian": 0.963,
+     "flag": null
+    },
+    "beamStruggle": {
+     "v": 1,
+     "body": [
+      0.946,
+      0.943,
+      0.951
+     ],
+     "head": [
+      0.971,
+      1,
+      1.069
+     ],
+     "median": 0.946,
+     "headMedian": 1,
+     "flag": null
+    },
+    "beamStruggleAir": {
+     "v": 1,
+     "body": [
+      0.925,
+      0.903,
+      0.934
+     ],
+     "head": [
+      0.956,
+      0.948,
+      0.971
+     ],
+     "median": 0.925,
+     "headMedian": 0.956,
      "flag": null
     }
    }
