@@ -686,10 +686,10 @@ Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; m
   above Naruto/Sasuke and below Gojo within uncertainty. Model-sheet v01 and expressions v01 remain held because
   they derive from withdrawn v01; their versioned sources are preserved. The fixed model and expression anchors
   now contain the user-approved v02 files. Idle02 is approved as drawn, with technical checks pending. Idle v01 approval remains historical and is not used as a candidate input.
-  Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
+  Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md). Round 2b UI: super_bg/super_fg/ult_bg/ult_fg v01 are raw and need user review; [gallery](../public/reviews/super-art-r2b/), [call ledger](characters/SUPER_ART_R2B_CALLS.md).
 ## luffy
 
-Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Round 2b UI: super_bg/super_fg/ult_bg/ult_fg v01 are raw and need user review; [gallery](../public/reviews/super-art-r2b/), [call ledger](characters/SUPER_ART_R2B_CALLS.md). Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
 
 ## Adding a character
 

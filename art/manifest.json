@@ -153,7 +153,11 @@
       "ui": {
         "portrait": { "file": "art/characters/goku/ui/portrait.png", "candidates": "art/characters/goku/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
         "cutin": { "file": "art/characters/goku/ui/cutin.png", "candidates": "art/characters/goku/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
-        "select": { "file": "art/characters/goku/ui/select.png", "candidates": "art/characters/goku/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "todo", "version": 0, "approvedVersion": null }
+        "select": { "file": "art/characters/goku/ui/select.png", "candidates": "art/characters/goku/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
+        "super_bg": { "file": "art/characters/goku/ui/super_bg.png", "candidates": "art/characters/goku/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "super_fg": { "file": "art/characters/goku/ui/super_fg.png", "candidates": "art/characters/goku/raw/ui_super_fg_vNN.png", "size": [384, 240], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1254, 1254] },
+        "ult_bg": { "file": "art/characters/goku/ui/ult_bg.png", "candidates": "art/characters/goku/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "ult_fg": { "file": "art/characters/goku/ui/ult_fg.png", "candidates": "art/characters/goku/raw/ui_ult_fg_vNN.png", "size": [576, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1024, 1536] }
       }
     },
     "luffy": {
@@ -227,7 +231,11 @@
       "ui": {
         "portrait": { "file": "art/characters/luffy/ui/portrait.png", "candidates": "art/characters/luffy/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
         "cutin": { "file": "art/characters/luffy/ui/cutin.png", "candidates": "art/characters/luffy/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
-        "select": { "file": "art/characters/luffy/ui/select.png", "candidates": "art/characters/luffy/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "todo", "version": 0, "approvedVersion": null }
+        "select": { "file": "art/characters/luffy/ui/select.png", "candidates": "art/characters/luffy/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
+        "super_bg": { "file": "art/characters/luffy/ui/super_bg.png", "candidates": "art/characters/luffy/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1881, 836] },
+        "super_fg": { "file": "art/characters/luffy/ui/super_fg.png", "candidates": "art/characters/luffy/raw/ui_super_fg_vNN.png", "size": [384, 240], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1254, 1254] },
+        "ult_bg": { "file": "art/characters/luffy/ui/ult_bg.png", "candidates": "art/characters/luffy/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "ult_fg": { "file": "art/characters/luffy/ui/ult_fg.png", "candidates": "art/characters/luffy/raw/ui_ult_fg_vNN.png", "size": [576, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1024, 1536] }
       }
     },
     "naruto": {
