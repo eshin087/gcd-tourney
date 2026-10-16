@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { exportTree } from './export-head.mjs';
 import { scratchDir } from './scratch-dir.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -41,11 +42,22 @@ if (!PREVIEW && branch !== 'main') {
 // without this they piled up to tens of GB in %TEMP%. Only folders older than an hour are touched,
 // so a deploy running concurrently in another worktree keeps its export.
 // Exports live in the scratch folder (tools/scratch-dir.mjs: the project's drive, not a small system
-// drive); the OS temp folder is swept too, for exports that older versions of this script left there.
+// drive); the OS temp folder is swept too, for exports that older versions of this script left there, and so are
+// its `codex-gcd-*` folders: Codex pointed GCD_SCRATCH_DIR at a new %TEMP%\codex-gcd-<task> per run, whose 4.9 GB
+// exports no sweep looked at (TOOL-052).
 const SCRATCH = scratchDir();
 const STALE_MS = 60 * 60 * 1000;
-for (const dir of new Set([SCRATCH, os.tmpdir()])) {
-  for (const name of fs.readdirSync(dir)) {
+const subdirs = (dir, prefix) => {
+  try {
+    return fs.readdirSync(dir, { withFileTypes: true }).filter((e) => e.isDirectory() && e.name.startsWith(prefix)).map((e) => path.join(dir, e.name));
+  } catch { return []; }
+};
+// Each agent may have its own TEMP (Claude's is on E:, Codex's on C:), so the Windows user temp folder is swept too.
+const temps = [...new Set([os.tmpdir(), process.env.LOCALAPPDATA && path.join(process.env.LOCALAPPDATA, 'Temp')].filter(Boolean))];
+for (const dir of new Set([SCRATCH, ...temps, ...temps.flatMap((t) => subdirs(t, 'codex-gcd-'))])) {
+  let names = [];
+  try { names = fs.readdirSync(dir); } catch { continue; }
+  for (const name of names) {
     if (!name.startsWith('gcd-deploy-')) continue;
     const p = path.join(dir, name);
     try {
@@ -59,14 +71,10 @@ for (const dir of new Set([SCRATCH, os.tmpdir()])) {
 }
 
 const work = fs.mkdtempSync(path.join(SCRATCH, 'gcd-deploy-'));
-// export HEAD with git itself, through a private index file so the shared index (and anything
-// another agent has staged) is never touched
+// export HEAD minus art/ with git itself (tools/export-head.mjs: a private index, safe in sparse art worktrees)
 const index = path.join(SCRATCH, `gcd-deploy-${process.pid}.index`);
-const gitIdx = (...args) => execFileSync('git', args, { cwd: ROOT, env: { ...process.env, GIT_INDEX_FILE: index } });
 try {
-  gitIdx('read-tree', 'HEAD');
-  gitIdx('rm', '--cached', '-r', '-q', '--ignore-unmatch', 'art');
-  gitIdx('checkout-index', '-a', `--prefix=${work.split(path.sep).join('/')}/`);
+  exportTree({ root: ROOT, rev: 'HEAD', dest: work, index });
   fs.mkdirSync(path.join(work, '.vercel'), { recursive: true });
   fs.copyFileSync(LINK, path.join(work, '.vercel', 'project.json'));
   if (PREVIEW) {
