@@ -192,6 +192,11 @@ function cmdSend() {
     die(`codex queue failed (give the user the inbox prompt to paste instead):\n${err.stderr || err.message}`);
   }
   writeJson(path.join(laneDir(lane), 'send.json'), { seq, hops: sent.hops + 1, at: now(), note });
+  // Claude sends only after reading the handoff, so every ring so far is answered: without this, a ring Claude read by
+  // hand (no watcher running) woke the next watcher at once, as if Codex had replied to this send.
+  const rang = readJson(path.join(laneDir(lane), 'ring.json'), { seq: 0 });
+  const seenFile = path.join(laneDir(lane), 'seen.json');
+  if (rang.seq > readJson(seenFile, { seq: 0 }).seq) writeJson(seenFile, { seq: rang.seq, at: now() });
   log(lane, { event: 'send', seq, note });
   console.log(`[relay] queued #${seq} into Codex chat ${l.title || l.thread} (round trip ${sent.hops + 1}/${HOP_LIMIT})`);
 }
