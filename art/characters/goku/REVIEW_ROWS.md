@@ -52,3 +52,15 @@ Moved into art/REVIEW.md by Claude when PR #94 merged (2026-10-15). Later Goku r
 | 2026-10-15 | goku | airHeavy | [held](characters/goku/raw/_qa_hold/airHeavy_v02.png) | v02 | held | Equal-scale redraw; source in `production/generation-source/airHeavy_v02_attempt02.png`. | Attempt 2/3. Strict gate pop: f2 0.50 vs f4 1.17. |
 | 2026-10-15 | goku | airHeavy | [held](characters/goku/raw/_qa_hold/airHeavy_v03.png) | v03 | held | Final equal-scale redraw; source in `production/generation-source/airHeavy_v03_attempt03.png`. | Attempt 3/3; budget exhausted. Strict gate pop: f1 0.50 vs f3 1.05. No atlas written; common-density contact sheet: [core six](characters/goku/production/scale-qa/goku-core-six_v01.png). |
 \n
+
+## Extra redraw candidates (2026-10-15)
+
+One additional generator call per strip was authorized by the user. Five retained v04 files remain held after strict packer dry-run; the `light2` attempt 4 call is counted but its output path was not captured, so no light2 v04 candidate exists in the repository. `run` and `light1` were left untouched. See the native-density comparison [goku-core-six_v02.png](characters/goku/production/scale-qa/goku-core-six_v02.png) and the full [redraw report](characters/goku/production/scale-qa/goku-core-redraw-v04.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-15 | goku | light3 | [held candidate](characters/goku/raw/_qa_hold/light3_v04.png) | v04 | held | Extra-authorized high-kick redraw. | Attempt 4/4. Source: `production/generation-source/light3_v04_attempt04.png`; strict dry-run head pop f1 0.50 vs f3 0.74 of idle; figure bounds touch panel edge in source. No atlas written.
+| 2026-10-15 | goku | light4 | [held candidate](characters/goku/raw/_qa_hold/light4_v04.png) | v04 | held | Extra-authorized spinning high-kick redraw. | Attempt 4/4. Strict dry-run head pop f2 0.50 vs f0 0.98; clips right 9px (f4), 2px (f5). Source and measurements in redraw report.
+| 2026-10-15 | goku | heavy | [held candidate](characters/goku/raw/_qa_hold/heavy_v04.png) | v04 | held | Extra-authorized rising punch redraw. | Attempt 4/4. Strict dry-run head pop f0 0.50 vs f1 1.13; clips right 10px (f3), 11px (f4), 13px (f5).
+| 2026-10-15 | goku | airLight1 | [held candidate](characters/goku/raw/_qa_hold/airLight1_v04.png) | v04 | held | Extra-authorized aerial straight-punch redraw. | Attempt 4/4. Strict dry-run head pop f4 0.50 vs f2 1.00; clips right 36px (f2), 29px (f3).
+| 2026-10-15 | goku | airHeavy | [held candidate](characters/goku/raw/_qa_hold/airHeavy_v04.png) | v04 | held | Extra-authorized descending double-fist redraw. | Attempt 4/4. Strict dry-run head pop f1 0.50 vs f0 0.63. No atlas written.
