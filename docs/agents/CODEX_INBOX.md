@@ -162,11 +162,11 @@ until the strip exists it holds the `throw` release frame). Contract and per-fig
 **art/characters/BEAM_STRUGGLE_BRIEF.md** ("Per fighter" and "The air strip"). **Naruto: the user chose "Redraw v02"
 (2026-10-15, in Claude's chat):** `beamStruggle_v02`, one call (his 2nd of 3), drawn to his approved idle's scale (v01 failed
 at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this round's page. Leave v01 where it is.
-**The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). PR #110's `public/vfx/atlas.*` must
-not ship: packed in the sparse worktree without the VFX raws, it dropped glow, bubble, wisp, arc, ripple and
-naruto_chakraTail.
+**The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). After merging main, keep main's
+`art/vfx/**` and `public/vfx/**`; never repack VFX in `art/beam-clash`. The sparse branch atlas dropped six live effects:
+glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atlas.*` must not ship.
 - [x] 1. Merged latest main into `.worktrees/art-beam-clash`; merge commit **881562f4**. Resolved all `art/vfx/**` and
-  `public/vfx/**` conflicts using main's versions. Never run `npm run sprites vfx` in this worktree.
+  `public/vfx/**` conflicts using main's versions; verified they match main. Never run any VFX repack in this worktree.
 - [x] 2. Generated and filed ground `beamStruggle_v01` for Sasuke, Killua and Gojo (max 3 calls each).
 - [x] 3. Generated and filed `beamStruggleAir_v01` for Sasuke, Killua and Gojo (max 3 calls each). Also generated Naruto
   `beamStruggle_v02` using the user's relayed decision (one call, 2nd of 3); this is not approval.
