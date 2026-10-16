@@ -8,7 +8,7 @@ paused._
 
 ## Your next actions
 
-**Super art round 2a review (2026-10-16):** approve/reject 12 v01 images for Naruto, Killua and Gojo via **0 - Approvals**. All six foregrounds have Astra technical holds; each finding is documented beside the candidate. [Review page](https://gcd-tourney-qyp9xzb78-eshin087s-projects.vercel.app/reviews/super-art-r2/) · [PR #129](https://github.com/eshin087/gcd-tourney/pull/129). Nothing is promoted to production UI until the decisions arrive.
+**Super art round 2a review (2026-10-16):** approve/reject 12 v01 images for Naruto, Killua and Gojo via **0 - Approvals**. All six foregrounds have Astra technical holds; each finding is documented beside the candidate. [Review page](https://gcd-tourney-khxcsnjkj-eshin087s-projects.vercel.app/reviews/super-art-r2/) · [PR #129](https://github.com/eshin087/gcd-tourney/pull/129). Nothing is promoted to production UI until the decisions arrive.
 
 **Beam clash art Round 2:** all seven poses are approved, including Killua `beamStruggleAir` v02 (Claude approval desk relay #10). The updated gallery is at [round-2 review](https://gcd-tourney-em7kwfazh-eshin087s-projects.vercel.app/reviews/beam-clash-r2/). Claude's next step is the pending Astra anatomy audit and exact hand-anchor measurements before runtime integration. See the newest beam-clash handoff in [CLAUDE_ART_HANDOFF.md](agents/CLAUDE_ART_HANDOFF.md).
 
