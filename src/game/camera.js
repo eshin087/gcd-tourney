@@ -183,7 +183,9 @@ export class CameraDirector {
         const orbit = Math.sin(this.modeT * 0.5) * 0.25;
         const s2 = side.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), orbit);
         tgtPos.set(p.x, RING_TOP + p.y, p.z).addScaledVector(s2, 6 + span * 0.85).add(new THREE.Vector3(0, 2.2, 0));
-        tgtLook.set(p.x, RING_TOP + p.y - 0.2, p.z);
+        // look under the struggle point, so the fighters sit in the upper middle and the rhythm ring and bar (HUD,
+        // bottom) stay below their feet (ADR 0034)
+        tgtLook.set(p.x, RING_TOP + p.y - 0.5, p.z);
         fov = 33;
         smoothP = 0.5;
         this.shake(dt * 0.6);

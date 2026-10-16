@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: beam clash visuals (ADR 0034, ENG-082): fighters no longer vanish in white (a contained two-color `clashBurst` instead of the full-size white glow, a thinner aura behind the body, short colored start/end flashes, a smaller colored finish on the loser); the origin glow no longer covers the firer; the Rasengan meets the stream at its held orb; no blocky streaks in the beam shader; BEAM CLASH! sits under the health bars and the rhythm ring and bar below the fighters. Each move keeps its own shape: Narukami a lightning zigzag, Chidori Spear a lance, Great Fireball a fire torrent, Reversal: Red an orb sending repulsion ripples; `beamStruggle` plays once a sheet has it.
+
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 - Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
 

@@ -195,21 +195,22 @@ export const SPECIALS = {
 
 // Air projectiles (half a ki bar)
 //  clash   'beam': an energy shot. Meeting the opponent's energy head-on it becomes a stream in a BEAM CLASH
-//          (CLASH.struggle, ADR 0027), drawn in its `stream` palette; a physical shot (shuriken) just cancels.
+//          (CLASH.struggle, ADR 0027), drawn in its `stream` palette and shape (`style`: bolt, lance, flame, orb or the
+//          ribbon; STREAM_STYLES in projectiles.js, ADR 0034); a physical shot (shuriken) just cancels.
 //          Rush specials with `clash: 'rush'` (Rasengan, Chidori) are driven into the stream by hand.
 export const PROJECTILES = {
   shuriken: { count: 3, spread: 0.2, speed: 22, radius: 0.35, dmg: 22, hitstun: 16, push: 2, airPop: 4, life: 1.2, sprite: 'shuriken', scale: 0.55, sfx: 'shuriken', spark: 'light' },
   fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'fire', scale: 1.5, sfx: 'fireball', big: true, spark: 'heavy', glowColor: 0xff7a20, trail: 'fire', burst: 'explosion', ground: 'fire',
-    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c' } },
+    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c', style: 'flame' } },
   // Killua's Narukami: a very fast lightning bolt with a long stun
   bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightning', scale: 0.95, color: 0xd8f0ff, glowColor: 0x6ab8ff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
-    clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff' } },
+    clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff', style: 'bolt' } },
   // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~6 units, but instantly
   spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
-    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc' } },
+    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance' } },
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
   red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
-    clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22' } },
+    clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22', style: 'orb' } },
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
   kiBlast: { count: 3, spread: 0.14, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'orb', scale: 0.5, color: 0xd8f2ff, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'light' },
@@ -450,7 +451,8 @@ export const PASSIVES = {
 //             startup; `answerRange`: an energy move started while their energy heads at you this close meets it at
 //             once (the answer); `width`: the stream's width (the ultimate beam is ULTIMATE.width); `sparks`: the
 //             struggle point's flare, x the ultimate clash's (two short streams would vanish under the full one);
-//             `rushReach`: how far ahead of a Rasengan / Chidori the streams meet it (in front of the orb, not on the body);
+//             `rushReach`: how far ahead of a Rasengan / Chidori a shot meets it (detection); once locked it sits at
+//             `handReach` + `orbReach` (ADR 0034);
 //             `craters`: the ground-damage force (ground.js) under the loser / between them on a draw (an ultimate
 //             clash uses GROUND.fixed clashWin / clashDraw)
 export const CLASH = {
@@ -467,6 +469,9 @@ export const CLASH = {
     intro: 30, lead: 36, phases: [{ notes: 4, every: 24 }, { notes: 5, every: 18, doubles: 1 }], hold: { gap: 24, len: 30 }, outro: 24,
     push: 0.045, drawMargin: 1, winDmg: 120, drawDmg: 45, launch: [16, 9], cooldown: 900, minDist: 2.2, catch: 0.4, answerRange: 5.5, width: 0.95,
     sparks: 0.45, rushReach: 1.5, craters: [0.9, 1.0],
+    // once locked, a rush meets the stream at its held technique's front (ADR 0034): the drawn hand (else these
+    // fixed offsets: a Rasengan-type orb, a Chidori held forward) plus the orb's radius
+    handReach: [0.6, 0.7], orbReach: 0.55,
   },
 };
 
