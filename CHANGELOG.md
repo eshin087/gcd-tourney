@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(gojo): record user visual approval of airLight1 v07, airLight2 v05, airRecover v05, jumpFall v06, light3 v06, superDash v09, throw v05; retain technical evidence and unrelated holds.
+
 - Review: publish three one-call targeted repair candidates with Astra findings and the user-approved Naruto taunt10 reference; distinguish improved arm/motion from unresolved contact and anatomy holds.
 
 - Added: phone-first round-5 review gallery for the 28 calibrated fighter strips, with current atlas provenance, approved-scale comparisons and Astra findings; feedback remains outside approval records (ART-ROUND5-PHONE).
