@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: a raw sidecar can list `"erase": [[x, y, w, h], ...]` rectangles that the packer clears before packing, for a leftover the stray cleanup keeps because it sits close to a body (TOOL-042; art/PIPELINE.md).
+
 - docs(scale): hand user-approved Sasuke jumpSquat07 and Killua stagger08 back to Claude for technical checks; retain Naruto light2Alt04 hold.
 
 - Fixed: relay `send` now marks every earlier ring as read, so a ring Claude handled by hand no longer wakes the next watcher as if Codex had already replied (ADR 0033).
