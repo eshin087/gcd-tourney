@@ -4,19 +4,16 @@ Instructions for Codex and any other coding agent working in this repository. Cl
 [CLAUDE.md](CLAUDE.md), which has the same rules plus engine detail. When the two disagree, fix
 the docs. Don't pick one silently.
 
-## Durable control-chat coordination
+## One central chat: Claude `0 - Approvals` (user decision, 2026-10-15; OPS-016)
 
 At every session start, read the main checkout's [docs/COORDINATION.md](docs/COORDINATION.md) and
-[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
-role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
-workers; workers publish their status and use the Claude relay. Claude remains the integration and
-approval desk under ADR 0037; since ADR 0039 that desk is the one Claude chat `0 - Approvals`, and
-`node tools/relay.mjs asks` lists everything waiting there. Do not start duplicate coordinators or monitors.
-
-When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
-the control identity, discover replacement workers, restore one attention monitor and notify existing
-workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
-must be reported honestly; no background service is implied by the rules alone.
+[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). The Claude chat **`0 - Approvals`** is the one
+central chat: it asks the user every approval and decision, gives the overview and forwards the user's
+instructions to you. **The Codex control chat ("0 - G") and its attention monitor are retired**: no Codex chat
+coordinates, monitors, or asks the user to approve or decide. When the user must act, leave it for the central
+chat: `node tools/relay.mjs ring <lane> --for user --kind approval|decision|blocked --note "<what exactly; versions;
+holds; direct preview link>"`, then stop on that item (`node tools/relay.mjs asks` lists the queue). In your status
+lines, point the user to Claude `0 - Approvals`. Deleted chats do not erase task records or approve work.
 
 ## Agent model selection (user direction, 2026-10-12)
 
@@ -182,7 +179,7 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    latest version with a 3-line verdict (identity / proportions and pose / technical plus a recommendation),
    and **ask for the approval through Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)):
    `node tools/relay.mjs ring <lane> --for user --kind approval --note "<asset vNN; one-line verdict; review link>"`.
-   Claude asks the user with buttons and relays the answer. Without a lane, wait for `approve vNN` here as before.
+   Claude asks the user with buttons and relays the answer. Without a lane, write it in your handoff and NOW.md and say "waiting for Claude 0 - Approvals"; do not ask the user here (OPS-016).
 9. **Apply the decision** (it arrives as a `[relay ...] USER APPROVAL via Claude` / `USER REJECTION via Claude`
    message quoting the user, or the user types it in this chat; record "approved by the user via Claude" when relayed):
    - `approve vNN`: row `approved`, `approvedVersion` = NN, status `approved`. Any other `needs review`
@@ -279,7 +276,8 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
      available, or create a real Git worktree with the project helper in a manual CLI session.
   3. For an art task created with the project helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the
      required raw art is included without a full checkout. A plain `git sparse-checkout add art/characters/<id>`
-     does not bring back its `raw/` directory.
+     does not bring back its `raw/` directory (and typed in Git Bash, `/art/...` becomes `C:/Program Files/Git/art/...`).
+     In an existing worktree run `npm run pr -- art <id>[,<id>]` there instead; it verifies the raws are on disk.
   4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
   5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
      finish cleanup of merged task worktrees. `npm run pr -- merge` automatically removes only the project-local
@@ -289,6 +287,20 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
      worktree root, change the user's global Worktree root, or reject an app-managed worktree because it is outside
      this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
      ignored files before moving, removing or archiving them.
+- **Storage hygiene (user request, 2026-10-15; OPS-013).** The project lives on a small USB drive; clean up what a
+  finished task leaves behind. Details: [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md#storage-hygiene-2026-10-15-ops-013).
+  1. After `npm run pr -- merge`, the coordinator runs `npm run pr -- prune` and archives the app-managed worktree of
+     every merged branch through its app (worktree rule 5). A `.worktrees/` folder that is no longer a registered
+     worktree (an empty shell, an old plain copy) is listed by `prune --dry-run` and deleted once it holds nothing unique.
+  2. When a task ends, delete its worktree's `node_modules/` and `dist/` (reinstall and rebuild are cheap).
+  3. Scratch (PR body `.md` files, one-off `.cjs`/`.mjs` helpers, QA comparison PNGs, `.tmp/`) goes in your own
+     scratch or temp folder, never the project root, `.worktrees/` or `deliverables/`. Anything in `deliverables/`
+     is deleted once the user has it.
+  4. A `_preserved-*` or `_codex-scratch-*` folder must hold a `README.md` saying why it is kept, what in it is
+     unique and a review-by date. Past that date it is reviewed and removed (or its README renewed with a reason).
+  5. Hygiene never touches `art/**/raw/` or any versioned `_vNN` input, approved art, unmerged commits or another
+     agent's uncommitted work. Deleting anything beyond rules 1-3's routine outputs needs the user's yes through the
+     approvals desk (Claude ADR 0039; Codex rings `--for user --kind decision`).
 - **The main folder is merge-only.** Never leave uncommitted work there (git can't merge over it); docs-only and
   bookkeeping commits there go in right away. `docs/NOW.md` and `docs/agents/CODEX_INBOX.md` are edited only on
   `main`, never in a branch. Read the moveset from `art/characters/<id>/KIT.md`; ask Claude to change a move there

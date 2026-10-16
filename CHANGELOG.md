@@ -12,10 +12,21 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Changed: Gojo runs instead of hover-gliding (ART-GOJO-RUN-JKL): run v14 in the K "fast athletic" direction, far hand in his pocket and the near fist forward, approved by the user via the approvals desk and passed by the Astra audit. Part A of the generated stride is used for both halves; the sidecar frameOffsets hold his head steady and lift the flight frames.
+- Fixed: relay watchers no longer crash on Windows when a state file is renamed while another watcher reads it (EPERM/EBUSY); the write retries briefly (TOOL-049).
+
+- Changed: one central chat (OPS-016): the Claude chat `0 - Approvals` now also gives the status overview, forwards the user's instructions to Codex chats and runs the reset after chats are deleted; the Codex control chat "0 - G", its attention monitor (OPS-014) and `$gcdtourney-attention` (OPS-015) are retired. Codex chats never ask the user; they ring `--for user` and stop.
+
+- Added: explicit-only `$gcdtourney-attention` project skill to run the multi-chat status check immediately and update or pause the existing bounded monitor (OPS-015).
+
+- Added: storage hygiene rule (OPS-013, CLAUDE.md, AGENTS.md, docs/AI_COLLABORATION.md): after a merge the coordinator prunes merged and unregistered worktree folders, a finished task deletes its `node_modules/` and `dist/`, agent scratch stays out of the project, `deliverables/` empties once the user has them, and `_preserved-*` folders carry a README with a review-by date; versioned `_vNN` art, approved art and unmerged commits are never touched.
+
+- Fixed: a sparse worktree can no longer silently pack without its raw art (TOOL-048). `npm run pr -- start --art` verifies every tracked `raw/` file of its folders is on disk and stops otherwise; new `npm run pr -- art <id>[,<id>]` adds raw art to an existing worktree (the art/beam-clash worktree had been recreated without `--art`, and a hand-typed `git sparse-checkout add` in Git Bash had become `C:/Program Files/Git/art/...`); the packer refuses a VFX atlas that would lose a shipped effect whose source is missing on disk (`--allow-drop` to intend it), which is how PR #110 committed an atlas without glow, bubble, wisp, arc, ripple and naruto_chakraTail. Test: `tools/test-sparse-art.mjs` in `npm run test:guard`, run 13d/e in `npm run test:sprites`.
+- Changed: the approvals desk command is `/approvals` (was `/desk`); desk questions must name the asking chat, say exactly what a yes approves and link the preview itself; the desk keeps one bounded background watcher and never restarts it in a loop (TOOL-047, ADR 0039).
+
 - Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).
 
 - Added: the drawn beam clash effects (ADR 0034, ART-BEAM-CLASH): clashBurst, streamBolt, streamLance, streamFlame and redOrb v01, approved by the user, replace the procedural stand-ins. Packed with every existing effect kept (Codex's branch atlas, packed in a sparse worktree without the VFX raws, had dropped glow, bubble, wisp, arc, ripple and naruto_chakraTail).
-- Added: one approvals desk (ADR 0039, TOOL-046): only the Claude chat `0 - Approvals` asks the user. Codex rings for the user and other Claude chats' new `relay ask` share one queue (`.relay/asks/`), watched by `relay wait all` and answered with `relay answer <id>`; lane watchers leave the user's rings to the desk. `/desk` project command and a SessionStart hook (`relay brief`) restore it after chats are deleted. `npm run status` opens with "Needs you now" and lists only each asset's newest REVIEW.md row (166 rows down to 39).
+- Added: one approvals desk (ADR 0039, TOOL-046): only the Claude chat `0 - Approvals` asks the user. Codex rings for the user and other Claude chats' new `relay ask` share one queue (`.relay/asks/`), watched by `relay wait all` and answered with `relay answer <id>`; lane watchers leave the user's rings to the desk. `/approvals` project command and a SessionStart hook (`relay brief`) restore it after chats are deleted. `npm run status` opens with "Needs you now" and lists only each asset's newest REVIEW.md row (166 rows down to 39).
 
 - Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
 
