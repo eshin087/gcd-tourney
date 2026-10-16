@@ -1,0 +1,165 @@
+{
+  "method": "Equal-weight median of nine directly visible torso/boot/belt target-source ratios from f0,f6,f7; projected belt secondary; +/-6 source length reading uncertainty, reference torso +/-5,boot/belt +/-4. Not fitted to bbox.",
+  "rows": [
+    {
+      "frame": 0,
+      "coords": "global source",
+      "torso": {
+        "endpoints": [
+          [
+            146,
+            307
+          ],
+          [
+            126,
+            354
+          ]
+        ],
+        "length": 51.07837115648854,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.7459125876052944
+      },
+      "boot": {
+        "endpoints": [
+          [
+            48,
+            472
+          ],
+          [
+            30,
+            530
+          ]
+        ],
+        "length": 60.728905802755904,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.7195914272181219
+      },
+      "belt": {
+        "endpoints": [
+          [
+            100,
+            354
+          ],
+          [
+            150,
+            354
+          ]
+        ],
+        "length": 50,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.72
+      }
+    },
+    {
+      "frame": 6,
+      "coords": "component-local",
+      "torso": {
+        "endpoints": [
+          [
+            154,
+            96
+          ],
+          [
+            128,
+            141
+          ]
+        ],
+        "length": 51.97114584074512,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.7330990953470529
+      },
+      "boot": {
+        "endpoints": [
+          [
+            33,
+            259
+          ],
+          [
+            14,
+            314
+          ]
+        ],
+        "length": 58.189346103904626,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.7509965814355085
+      },
+      "belt": {
+        "endpoints": [
+          [
+            104,
+            141
+          ],
+          [
+            154,
+            143
+          ]
+        ],
+        "length": 50.03998401278722,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.7194246902796883
+      }
+    },
+    {
+      "frame": 7,
+      "coords": "component-local",
+      "torso": {
+        "endpoints": [
+          [
+            137,
+            94
+          ],
+          [
+            111,
+            142
+          ]
+        ],
+        "length": 54.58937625582472,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.6979379984385645
+      },
+      "boot": {
+        "endpoints": [
+          [
+            29,
+            262
+          ],
+          [
+            14,
+            322
+          ]
+        ],
+        "length": 61.84658438426491,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.7065871209391834
+      },
+      "belt": {
+        "endpoints": [
+          [
+            83,
+            143
+          ],
+          [
+            135,
+            143
+          ]
+        ],
+        "length": 52,
+        "sourceLengthUncertainty": 6,
+        "ratio": 0.6923076923076923
+      }
+    }
+  ],
+  "sortedRatios": [
+    0.6923076923076923,
+    0.6979379984385645,
+    0.7065871209391834,
+    0.7194246902796883,
+    0.7195914272181219,
+    0.72,
+    0.7330990953470529,
+    0.7459125876052944,
+    0.7509965814355085
+  ],
+  "median": 0.7195914272181219,
+  "recommendedDiagnosticFactor": 0.72
+}

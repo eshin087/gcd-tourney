@@ -1,5 +1,24 @@
 # Proposed Goku review rows
 
+## Relay 9 redraw source inventory (2026-10-16)
+
+| Character | Asset | Version | Review state | Technical finding |
+|---|---|---:|---|---|
+| Goku | light3 | [v10 source](raw/_qa_hold/light3_v10.png) | technical hold; not ready for user review | One authorized redraw call; source is 2172x724; measured .62 assembly is v11. The 256px diagnostic has 800 clipped foreground-mask pixels; its complete 280px companion is preserved at the same density. Exact output recovery evidence and source/prompt/reference hashes in `production/relay9-generation/GENERATION_LEDGER.md` and `raw/_qa_hold/light3_v10.json`. No scale or anatomy pass claimed. |
+| Goku | heavy | [v12 source](raw/_qa_hold/heavy_v12.png) | technical hold; not ready for user review | One authorized redraw call; source is 2172x724; measured assemblies v13 (.73) and v14 (.720) are preserved. v14 is pending quick recheck in the normal combined atlas. Exact source/prompt/reference hashes in `production/relay9-generation/GENERATION_LEDGER.md` and `raw/_qa_hold/heavy_v12.json`. No scale or anatomy pass claimed. |
+
+These entries document the generated sources and later measured assemblies. The user-approved v04 drawings remain historical; neither relay9 call authorization nor a technical audit approves a new drawing.
+
+## Relay 9 measured assemblies (2026-10-16)
+
+| Character | Asset | Version | Review state | Technical finding |
+|---|---|---:|---|---|
+| Goku | light3 | [v11 256px diagnostic](raw/_qa_hold/light3_v11.png) | technical hold; capacity unresolved | Uniform factor .62 supported by torso/boot landmarks. 800 foreground-mask pixels clip in the 256px diagnostic; same-density 280px companion [preserves all scaled foreground pixels](raw/_qa_hold/light3_v11_roomy_280.png). Not a scale pass for normal cells; see `production/relay9-generation/ASSEMBLY_R4.json`, `QUANTIZED_FIXTURE_R4_V14.json`, and calibration-r4 gallery. |
+| Goku | heavy | [v14 assembly](raw/_qa_hold/heavy_v14.png) | Astra technical PASS; user design approval pending | Uniform factor .720 from independent f0/f6/f7 visible torso, boot and belt ratios; 8-connected component ownership; no clipped foreground pixels; native bodyHeight235 and pack x1. Final exact 22-animation/101-frame atlas PASS at hashes recorded in `production/manual-audit-r4/FINAL_STRICT_AUDIT.md`. See `production/relay9-generation/HEAVY_V14_ASSEMBLY.json` and `QUANTIZED_FIXTURE_R4_V14.json`. |
+| Goku | heavy | [v13 preserved assembly](raw/_qa_hold/heavy_v13.png) | superseded diagnostic; preserved | Earlier uniform .73 assembly, initially inspected at top y=1. Retained unchanged as version history; v14 uses the independent multi-frame estimator and provides additional margin. |
+
+Call allowance remains exactly five generation calls per move; these assemblies used no new image-generation calls.
+
 ## Final r03 reassembly and strict audit (2026-10-16)
 
 These are deterministic reassemblies of existing Goku source art; **zero image-generation calls** were used. The strict branch-preview atlas contains approved idle v02 plus the 20 exact candidate versions marked Astra PASS below. Its sheet SHA256 is `fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054`; metadata SHA256 is `e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f`. See [final5 exact-pixel Astra audit](production/manual-audit-r3/FINAL5_STRICT_AUDIT.md), [23-animation handoff inventory](production/reassembly-r03/FINAL_HANDOFF_R03.md), [full immutable version rows](production/reassembly-r03/R03_REVIEW_ROWS.md), and [branch-preview gallery](../../../public/characters/goku/calibration-r3/index.html). Technical PASS does not grant a new drawing approval. Existing v04 drawing approvals remain attached to their source designs through uniform reassembly.
@@ -176,3 +195,5 @@ One additional generator call per strip was authorized by the user. The six reta
 | 2026-10-15 | goku | beamFire | [held candidate](characters/goku/raw/_qa_hold/beamFire_v04.png) | v04 | held | Three-frame palms-forward release loop; no beam or aura. | 3 calls total; strict dry-run head 0.50 against idle with hair-scale drift. Budget exhausted. v03 preserved in `_qa_hold/`. |
 | 2026-10-15 | goku | special | [held candidate](characters/goku/raw/_qa_hold/special_v02.png) | v02 | held | Eight-frame Ki Blast Volley; no energy effects. | 3 calls total including two part calls; strict dry-run pop f2 head 0.50 vs f1 0.83 of idle. Budget exhausted. |
 | 2026-10-15 | goku | win | [held candidate](characters/goku/raw/_qa_hold/win_v03.png) | v03 | held | Four-frame victory pose. | 3 calls total; strict dry-run pop f0 head 0.50 vs f2 0.66 of idle. Budget exhausted. v02 preserved in `_qa_hold/`. |
+
+| 2026-10-16 | goku | heavy | [heavy v14 candidate](characters/goku/raw/heavy_v14.png) | v14 | needs review | One-call relay9 redraw assembled uniformly at measured .720 density; bodyHeight 235, eight canonical phases. Exact final 22-animation/101-frame strict atlas passed Astra anatomy/scale audit at x1; no clipping, tallest top y=5. This is technical pass only; user drawing approval is pending and approvedVersion remains v04. |

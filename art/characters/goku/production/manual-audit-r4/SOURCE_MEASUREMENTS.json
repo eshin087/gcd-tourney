@@ -1,0 +1,277 @@
+{
+  "method": "Independent manual f0 pixel endpoints. Source coordinates global since f0 crop origin 0,0. Uncertainty is reading/projection range, not statistical confidence. Shin joints concealed by gi; no numeric shin pass.",
+  "rows": [
+    {
+      "name": "light3",
+      "file": "light3_v10.png",
+      "points": {
+        "torso": [
+          [
+            164,
+            309
+          ],
+          [
+            145,
+            368
+          ]
+        ],
+        "boot": [
+          [
+            59,
+            515
+          ],
+          [
+            35,
+            580
+          ]
+        ],
+        "belt": [
+          [
+            112,
+            368
+          ],
+          [
+            176,
+            369
+          ]
+        ],
+        "forearm": [
+          [
+            81,
+            350
+          ],
+          [
+            106,
+            345
+          ]
+        ]
+      },
+      "measurements": {
+        "torso": {
+          "endpoints": [
+            [
+              164,
+              309
+            ],
+            [
+              145,
+              368
+            ]
+          ],
+          "length": 61.98386886924693,
+          "lengthUncertainty": 6,
+          "target": 38.1,
+          "targetUncertainty": 5,
+          "centralRatio": 0.6146760551583312,
+          "interval": [
+            0.4868802048271345,
+            0.7698646211940472
+          ],
+          "caution": "visible landmark"
+        },
+        "boot": {
+          "endpoints": [
+            [
+              59,
+              515
+            ],
+            [
+              35,
+              580
+            ]
+          ],
+          "length": 69.28924880528002,
+          "lengthUncertainty": 6,
+          "target": 43.7,
+          "targetUncertainty": 4,
+          "centralRatio": 0.6306894756906348,
+          "interval": [
+            0.5272997224700142,
+            0.7536825116499177
+          ],
+          "caution": "visible landmark"
+        },
+        "belt": {
+          "endpoints": [
+            [
+              112,
+              368
+            ],
+            [
+              176,
+              369
+            ]
+          ],
+          "length": 64.00781202322104,
+          "lengthUncertainty": 6,
+          "target": 36,
+          "targetUncertainty": 4,
+          "centralRatio": 0.5624313480195161,
+          "interval": [
+            0.4570918455412641,
+            0.6895622952299537
+          ],
+          "caution": "projected width, not body length"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              81,
+              350
+            ],
+            [
+              106,
+              345
+            ]
+          ],
+          "length": 25.495097567963924,
+          "lengthUncertainty": 8,
+          "target": 19.4,
+          "targetUncertainty": 6,
+          "centralRatio": 0.760930604336154,
+          "interval": [
+            0.4000585450694822,
+            1.4518352870755693
+          ],
+          "caution": "projection-sensitive; not primary calibration"
+        }
+      }
+    },
+    {
+      "name": "heavy",
+      "file": "heavy_v12.png",
+      "points": {
+        "torso": [
+          [
+            146,
+            307
+          ],
+          [
+            126,
+            354
+          ]
+        ],
+        "boot": [
+          [
+            48,
+            472
+          ],
+          [
+            30,
+            530
+          ]
+        ],
+        "belt": [
+          [
+            100,
+            354
+          ],
+          [
+            150,
+            354
+          ]
+        ],
+        "forearm": [
+          [
+            65,
+            343
+          ],
+          [
+            90,
+            340
+          ]
+        ]
+      },
+      "measurements": {
+        "torso": {
+          "endpoints": [
+            [
+              146,
+              307
+            ],
+            [
+              126,
+              354
+            ]
+          ],
+          "length": 51.07837115648854,
+          "lengthUncertainty": 6,
+          "target": 38.1,
+          "targetUncertainty": 5,
+          "centralRatio": 0.7459125876052944,
+          "interval": [
+            0.5799044249046913,
+            0.9561126299435119
+          ],
+          "caution": "visible landmark"
+        },
+        "boot": {
+          "endpoints": [
+            [
+              48,
+              472
+            ],
+            [
+              30,
+              530
+            ]
+          ],
+          "length": 60.728905802755904,
+          "lengthUncertainty": 6,
+          "target": 43.7,
+          "targetUncertainty": 4,
+          "centralRatio": 0.7195914272181219,
+          "interval": [
+            0.5949445674615033,
+            0.8715686765584494
+          ],
+          "caution": "visible landmark"
+        },
+        "belt": {
+          "endpoints": [
+            [
+              100,
+              354
+            ],
+            [
+              150,
+              354
+            ]
+          ],
+          "length": 50,
+          "lengthUncertainty": 6,
+          "target": 36,
+          "targetUncertainty": 4,
+          "centralRatio": 0.72,
+          "interval": [
+            0.5714285714285714,
+            0.9090909090909091
+          ],
+          "caution": "projected width, not body length"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              65,
+              343
+            ],
+            [
+              90,
+              340
+            ]
+          ],
+          "length": 25.179356624028344,
+          "lengthUncertainty": 8,
+          "target": 19.4,
+          "targetUncertainty": 6,
+          "centralRatio": 0.7704724266658515,
+          "interval": [
+            0.4038655767754031,
+            1.4785186986847716
+          ],
+          "caution": "projection-sensitive; not primary calibration"
+        }
+      }
+    }
+  ]
+}

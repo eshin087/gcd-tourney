@@ -1,0 +1,295 @@
+{
+  "schema": "goku-relay9-source-component-inventory-v1",
+  "method": "Foreground mask = not (R>200 and B>200 and G<80); a 9x9 close is used only to connect pose art for bounding-box discovery; it does not modify candidate PNGs. Each crop bbox has 2px margin. No rescaling, palette edits, or pixel writes. Foreground pixel coverage is measured on the original source mask.",
+  "files": [
+    {
+      "asset": "light3",
+      "version": 10,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/light3_v10.png",
+      "sourceSha256": "5079524DE75F308A6421F24D2B88B8BD57EBABCF407C0C9AB1A00CD78656DAB5",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "expectedFrames": 7,
+      "detectedFigureComponents": 7,
+      "sourceForegroundPixelCount": 300523,
+      "foregroundCoveredByCropUnion": 300523,
+      "uncoveredForegroundPixelCount": 0,
+      "frames": [
+        {
+          "frame": 0,
+          "closedComponentBounds": [
+            20,
+            195,
+            273,
+            389
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            18,
+            193,
+            295,
+            586
+          ],
+          "closedComponentPixelArea": 44469,
+          "sourceForegroundPixelsWithinCrop": 43877
+        },
+        {
+          "frame": 1,
+          "closedComponentBounds": [
+            340,
+            219,
+            224,
+            365
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            338,
+            217,
+            566,
+            586
+          ],
+          "closedComponentPixelArea": 43013,
+          "sourceForegroundPixelsWithinCrop": 42239
+        },
+        {
+          "frame": 2,
+          "closedComponentBounds": [
+            617,
+            186,
+            261,
+            397
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            615,
+            184,
+            880,
+            585
+          ],
+          "closedComponentPixelArea": 41850,
+          "sourceForegroundPixelsWithinCrop": 41299
+        },
+        {
+          "frame": 3,
+          "closedComponentBounds": [
+            922,
+            187,
+            337,
+            396
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            920,
+            185,
+            1261,
+            585
+          ],
+          "closedComponentPixelArea": 42558,
+          "sourceForegroundPixelsWithinCrop": 41972
+        },
+        {
+          "frame": 4,
+          "closedComponentBounds": [
+            1294,
+            163,
+            206,
+            424
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1292,
+            161,
+            1502,
+            589
+          ],
+          "closedComponentPixelArea": 44125,
+          "sourceForegroundPixelsWithinCrop": 43459
+        },
+        {
+          "frame": 5,
+          "closedComponentBounds": [
+            1566,
+            196,
+            272,
+            388
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1564,
+            194,
+            1840,
+            586
+          ],
+          "closedComponentPixelArea": 44511,
+          "sourceForegroundPixelsWithinCrop": 43941
+        },
+        {
+          "frame": 6,
+          "closedComponentBounds": [
+            1875,
+            196,
+            272,
+            388
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1873,
+            194,
+            2149,
+            586
+          ],
+          "closedComponentPixelArea": 44314,
+          "sourceForegroundPixelsWithinCrop": 43736
+        }
+      ]
+    },
+    {
+      "asset": "heavy",
+      "version": 12,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/heavy_v12.png",
+      "sourceSha256": "8789FFDCD3ECF07FCAB091896429FFC80A1524E7B3C0E7FD72F7B8072E17DA01",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "expectedFrames": 8,
+      "detectedFigureComponents": 8,
+      "sourceForegroundPixelCount": 249109,
+      "foregroundCoveredByCropUnion": 249109,
+      "uncoveredForegroundPixelCount": 0,
+      "frames": [
+        {
+          "frame": 0,
+          "closedComponentBounds": [
+            16,
+            213,
+            227,
+            320
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            14,
+            211,
+            245,
+            535
+          ],
+          "closedComponentPixelArea": 30893,
+          "sourceForegroundPixelsWithinCrop": 30412
+        },
+        {
+          "frame": 1,
+          "closedComponentBounds": [
+            266,
+            226,
+            246,
+            307
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            264,
+            224,
+            514,
+            535
+          ],
+          "closedComponentPixelArea": 33870,
+          "sourceForegroundPixelsWithinCrop": 33051
+        },
+        {
+          "frame": 2,
+          "closedComponentBounds": [
+            541,
+            217,
+            229,
+            316
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            539,
+            215,
+            772,
+            535
+          ],
+          "closedComponentPixelArea": 32323,
+          "sourceForegroundPixelsWithinCrop": 31732
+        },
+        {
+          "frame": 3,
+          "closedComponentBounds": [
+            797,
+            206,
+            293,
+            327
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            795,
+            204,
+            1092,
+            535
+          ],
+          "closedComponentPixelArea": 31799,
+          "sourceForegroundPixelsWithinCrop": 32363
+        },
+        {
+          "frame": 4,
+          "closedComponentBounds": [
+            1065,
+            211,
+            316,
+            322
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1063,
+            209,
+            1383,
+            535
+          ],
+          "closedComponentPixelArea": 31958,
+          "sourceForegroundPixelsWithinCrop": 32677
+        },
+        {
+          "frame": 5,
+          "closedComponentBounds": [
+            1365,
+            206,
+            305,
+            327
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1363,
+            204,
+            1672,
+            535
+          ],
+          "closedComponentPixelArea": 31660,
+          "sourceForegroundPixelsWithinCrop": 32286
+        },
+        {
+          "frame": 6,
+          "closedComponentBounds": [
+            1653,
+            218,
+            236,
+            315
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1651,
+            216,
+            1891,
+            535
+          ],
+          "closedComponentPixelArea": 30809,
+          "sourceForegroundPixelsWithinCrop": 30770
+        },
+        {
+          "frame": 7,
+          "closedComponentBounds": [
+            1917,
+            212,
+            232,
+            321
+          ],
+          "cropBoundsLeftTopRightBottom": [
+            1915,
+            210,
+            2151,
+            535
+          ],
+          "closedComponentPixelArea": 30121,
+          "sourceForegroundPixelsWithinCrop": 29608
+        }
+      ]
+    }
+  ]
+}
