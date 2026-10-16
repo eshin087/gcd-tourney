@@ -379,9 +379,9 @@
         "portrait": { "file": "art/characters/sasuke/ui/portrait.png", "candidates": "art/characters/sasuke/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
         "cutin": { "file": "art/characters/sasuke/ui/cutin.png", "candidates": "art/characters/sasuke/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
         "select": { "file": "art/characters/sasuke/ui/select.png", "candidates": "art/characters/sasuke/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "super_bg": { "file": "art/characters/sasuke/ui/super_bg.png", "candidates": "art/characters/sasuke/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "sourceSize": [1536, 1024] },
+        "super_bg": { "file": "art/characters/sasuke/ui/super_bg.png", "candidates": "art/characters/sasuke/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "approvalSource": "user via Claude relay effects #2", "sourceSize": [1536, 1024] },
         "super_fg": { "file": "art/characters/sasuke/ui/super_fg.png", "candidates": "art/characters/sasuke/raw/ui_super_fg_vNN.png", "size": [384, 240], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "sourceSize": [1254, 1254], "technicalHold": true },
-        "ult_bg": { "file": "art/characters/sasuke/ui/ult_bg.png", "candidates": "art/characters/sasuke/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "sourceSize": [1536, 1024] },
+        "ult_bg": { "file": "art/characters/sasuke/ui/ult_bg.png", "candidates": "art/characters/sasuke/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "approvalSource": "user via Claude relay effects #2", "sourceSize": [1536, 1024] },
         "ult_fg": { "file": "art/characters/sasuke/ui/ult_fg.png", "candidates": "art/characters/sasuke/raw/ui_ult_fg_vNN.png", "size": [576, 432], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "sourceSize": [1024, 1536], "technicalHold": true }
       }
     },
@@ -3041,5 +3041,6 @@
     }
   }
 }
+
 
 

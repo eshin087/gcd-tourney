@@ -707,16 +707,16 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 | Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; review page; not packed. |
 | Sasuke | ult_fg | v01 | approved | v01 | Amaterasu; Astra technical HOLD. |
 
-All four candidates await user review; none is installed. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+All four v01 candidates are user-approved for the in-game preview; engine integration remains pending. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
 
 
 ## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
 
 | Fighter | Asset | Latest | Status | Approved | Notes |
 |---|---|---|---|---|---|
-| Sasuke | super_bg | v01 | approved | v01 | Kirin; not packed. |
+| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
 | Sasuke | super_fg | v01 | approved | v01 | Kirin; Astra technical HOLD. |
-| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; not packed. |
+| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
 | Sasuke | ult_fg | v01 | approved | v01 | Amaterasu; Astra technical HOLD. |
 
-User approved all four v01 images on 2026-10-15 for in-game preview. Foreground Astra technical holds remain documented; preview approval is not a technical pass. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+User approved all four v01 images on 2026-10-15 for in-game preview; the backdrop approvals were explicitly confirmed via Claude relay effects #2. Foreground Astra technical holds remain documented; preview approval is not a technical pass. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).

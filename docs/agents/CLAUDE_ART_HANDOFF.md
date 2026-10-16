@@ -1,6 +1,6 @@
 # Codex: Sasuke super / ultimate pilot review package (2026-10-15, effects lane)
 
-Branch `art/sasuke-super-art`, worktree `.worktrees/art-sasuke-super-art`. Round 1 has four v01 sources and a phone-first gallery at `public/reviews/super-art-sasuke-r1/`. The user approved Kirin backdrop/foreground and Amaterasu backdrop/foreground on 2026-10-15 **for a preview demo only**. Approved source copies are in `art/characters/sasuke/ui/`, manifest approvedVersion=1, and the four REVIEW rows are approved. Per-image calls: super_bg 1, super_fg 2, ult_bg 1, ult_fg 2. Exact source paths, dimensions, hashes, unselected edits and budgets are in `art/characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md`.
+Branch `art/sasuke-super-art`, worktree `.worktrees/art-sasuke-super-art`. Round 1 has four v01 sources and a phone-first gallery at `public/reviews/super-art-sasuke-r1/`. The user approved Kirin backdrop/foreground and Amaterasu backdrop/foreground on 2026-10-15 **for a preview demo only**. The two backdrop approvals were explicitly reconfirmed via Claude relay effects #2 (user answer: approve `ui_super_bg v01` and `ui_ult_bg v01`). Approved source copies are in `art/characters/sasuke/ui/`, manifest approvedVersion=1, and the four REVIEW rows are approved. Per-image calls: super_bg 1, super_fg 2, ult_bg 1, ult_fg 2. Exact source paths, dimensions, hashes, unselected edits and budgets are in `art/characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md`.
 
 Astra audited both foregrounds against approved Sasuke title-style neutral/combat cells and select art: **HOLD both**. Kirin face is too wide-eyed/soft and arm angles outward rather than overhead. Amaterasu right Mangekyo lacks the three-blade pattern, blood is below uncovered right eye rather than covered left eye, and sword/rope details drift. No numeric anatomy or final-size validation. Review page notes all findings. Super fg generator returned 1254×1254 rather than requested 1024 square.
 
@@ -551,3 +551,4 @@ checked per animation against both sources (identical alpha masks; mean color sh
 Sasuke charge ships v02. A fresh repack of all four on merged main is byte-identical to the committed sheets.
 The merged art worktrees are kept only because they hold untracked production scratch (PR bodies, before/after PNGs,
 helper scripts); remove them with `npm run pr -- prune` once that scratch is no longer needed.
+
