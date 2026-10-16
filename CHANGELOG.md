@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved, visual anatomy screening passes. Runtime grounding and aura retention remain unverified; all candidates still need user review. No new generation or calibration edits.
+
 - art(killua): Charge14/down08/ko09 sources filed; normal scale gate fails; diagnostic-only atlas for Astra. Charge used one unauthorized duplicate call, quarantined and excluded; first authorized output retained.
 - Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
 
