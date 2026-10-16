@@ -1,0 +1,1727 @@
+{
+  "method": "Independent manual coordinate reading on atlas-extracted nearest-neighbor overlays. Measurements are projected garment/joint-center estimates, not anatomical ground truth. No template-matched numbers reused. Crown uses extreme visible hair, chin and concealed joints are uncertain. Reference source crown uncertainty +/-12 source px also remains; not converted into a spurious exact native tolerance.",
+  "uncertaintyPx": {
+    "head": 4,
+    "torso": 6,
+    "upperArm": 6,
+    "forearm": 6,
+    "thigh": 6,
+    "shin": 6,
+    "shoe": 4,
+    "armChain": 12,
+    "legChain": 12
+  },
+  "decision": "HOLD; no image approval; visible numerical suspects whose propagated uncertainty overlaps tolerance do not authorize generation.",
+  "frames": {
+    "idle06-f0": {
+      "landmarks": {
+        "crown": [
+          129,
+          7
+        ],
+        "chin": [
+          138,
+          44
+        ],
+        "collar": [
+          132,
+          48
+        ],
+        "hem": [
+          138,
+          127
+        ],
+        "shoulder": [
+          114,
+          57
+        ],
+        "elbow": [
+          98,
+          91
+        ],
+        "wrist": [
+          116,
+          118
+        ],
+        "hip": [
+          137,
+          127
+        ],
+        "knee": [
+          143,
+          177
+        ],
+        "ankle": [
+          145,
+          229
+        ],
+        "heel": [
+          141,
+          236
+        ],
+        "toe": [
+          174,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 38.1,
+        "torso": 79.2,
+        "upperArm": 37.6,
+        "forearm": 32.4,
+        "thigh": 50.4,
+        "shin": 52.0,
+        "shoe": 33.0,
+        "armChain": 70.0,
+        "legChain": 102.4
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "combat": {
+      "landmarks": {
+        "crown": [
+          129,
+          28
+        ],
+        "chin": [
+          129,
+          64
+        ],
+        "collar": [
+          125,
+          68
+        ],
+        "hem": [
+          115,
+          137
+        ],
+        "shoulder": [
+          99,
+          73
+        ],
+        "elbow": [
+          87,
+          102
+        ],
+        "wrist": [
+          108,
+          120
+        ],
+        "hip": [
+          120,
+          141
+        ],
+        "knee": [
+          164,
+          164
+        ],
+        "ankle": [
+          177,
+          220
+        ],
+        "heel": [
+          171,
+          235
+        ],
+        "toe": [
+          205,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 36.0,
+        "torso": 69.7,
+        "upperArm": 31.4,
+        "forearm": 27.7,
+        "thigh": 49.6,
+        "shin": 57.5,
+        "shoe": 34.0,
+        "armChain": 59.1,
+        "legChain": 107.1
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "neutral": {
+      "landmarks": {
+        "crown": [
+          129,
+          5
+        ],
+        "chin": [
+          132,
+          44
+        ],
+        "collar": [
+          125,
+          47
+        ],
+        "hem": [
+          126,
+          123
+        ],
+        "shoulder": [
+          107,
+          60
+        ],
+        "elbow": [
+          96,
+          98
+        ],
+        "wrist": [
+          96,
+          144
+        ],
+        "hip": [
+          126,
+          129
+        ],
+        "knee": [
+          113,
+          178
+        ],
+        "ankle": [
+          97,
+          224
+        ],
+        "heel": [
+          83,
+          236
+        ],
+        "toe": [
+          101,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 39.1,
+        "torso": 76.0,
+        "upperArm": 39.6,
+        "forearm": 46.0,
+        "thigh": 50.7,
+        "shin": 48.7,
+        "shoe": 18.0,
+        "armChain": 85.6,
+        "legChain": 99.4
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f0": {
+      "landmarks": {
+        "crown": [
+          128,
+          5
+        ],
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          45
+        ],
+        "hem": [
+          128,
+          130
+        ],
+        "shoulder": [
+          112,
+          56
+        ],
+        "elbow": [
+          93,
+          94
+        ],
+        "wrist": [
+          116,
+          118
+        ],
+        "hip": [
+          130,
+          134
+        ],
+        "knee": [
+          169,
+          171
+        ],
+        "ankle": [
+          170,
+          222
+        ],
+        "heel": [
+          165,
+          236
+        ],
+        "toe": [
+          197,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 35.9,
+        "torso": 85.1,
+        "upperArm": 42.5,
+        "forearm": 33.2,
+        "thigh": 53.8,
+        "shin": 51.0,
+        "shoe": 32.0,
+        "armChain": 75.7,
+        "legChain": 104.8
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f1": {
+      "landmarks": {
+        "crown": [
+          128,
+          5
+        ],
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          45
+        ],
+        "hem": [
+          128,
+          130
+        ],
+        "shoulder": [
+          112,
+          56
+        ],
+        "elbow": [
+          93,
+          93
+        ],
+        "wrist": [
+          116,
+          118
+        ],
+        "hip": [
+          130,
+          134
+        ],
+        "knee": [
+          167,
+          168
+        ],
+        "ankle": [
+          169,
+          223
+        ],
+        "heel": [
+          164,
+          236
+        ],
+        "toe": [
+          196,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 35.9,
+        "torso": 85.1,
+        "upperArm": 41.6,
+        "forearm": 34.0,
+        "thigh": 50.2,
+        "shin": 55.0,
+        "shoe": 32.0,
+        "armChain": 75.6,
+        "legChain": 105.2
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f2": {
+      "landmarks": {
+        "crown": [
+          128,
+          5
+        ],
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          45
+        ],
+        "hem": [
+          127,
+          129
+        ],
+        "shoulder": [
+          112,
+          56
+        ],
+        "elbow": [
+          92,
+          93
+        ],
+        "wrist": [
+          116,
+          118
+        ],
+        "hip": [
+          130,
+          134
+        ],
+        "knee": [
+          166,
+          169
+        ],
+        "ankle": [
+          168,
+          224
+        ],
+        "heel": [
+          164,
+          236
+        ],
+        "toe": [
+          196,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 35.9,
+        "torso": 84.1,
+        "upperArm": 42.1,
+        "forearm": 34.7,
+        "thigh": 50.2,
+        "shin": 55.0,
+        "shoe": 32.0,
+        "armChain": 76.8,
+        "legChain": 105.2
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f3": {
+      "landmarks": {
+        "crown": [
+          128,
+          5
+        ],
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          45
+        ],
+        "hem": [
+          128,
+          130
+        ],
+        "shoulder": [
+          113,
+          56
+        ],
+        "elbow": [
+          94,
+          93
+        ],
+        "wrist": [
+          117,
+          118
+        ],
+        "hip": [
+          131,
+          135
+        ],
+        "knee": [
+          168,
+          169
+        ],
+        "ankle": [
+          169,
+          224
+        ],
+        "heel": [
+          164,
+          236
+        ],
+        "toe": [
+          196,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 35.9,
+        "torso": 85.1,
+        "upperArm": 41.6,
+        "forearm": 34.0,
+        "thigh": 50.2,
+        "shin": 55.0,
+        "shoe": 32.0,
+        "armChain": 75.6,
+        "legChain": 105.2
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f4": {
+      "landmarks": {
+        "crown": [
+          128,
+          6
+        ],
+        "chin": [
+          136,
+          40
+        ],
+        "collar": [
+          132,
+          46
+        ],
+        "hem": [
+          127,
+          130
+        ],
+        "shoulder": [
+          112,
+          57
+        ],
+        "elbow": [
+          94,
+          93
+        ],
+        "wrist": [
+          117,
+          118
+        ],
+        "hip": [
+          130,
+          134
+        ],
+        "knee": [
+          166,
+          170
+        ],
+        "ankle": [
+          168,
+          224
+        ],
+        "heel": [
+          164,
+          236
+        ],
+        "toe": [
+          196,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 34.9,
+        "torso": 84.1,
+        "upperArm": 40.2,
+        "forearm": 34.0,
+        "thigh": 50.9,
+        "shin": 54.0,
+        "shoe": 32.0,
+        "armChain": 74.2,
+        "legChain": 104.9
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f5": {
+      "landmarks": {
+        "crown": [
+          129,
+          6
+        ],
+        "chin": [
+          138,
+          41
+        ],
+        "collar": [
+          132,
+          46
+        ],
+        "hem": [
+          128,
+          130
+        ],
+        "shoulder": [
+          112,
+          58
+        ],
+        "elbow": [
+          95,
+          94
+        ],
+        "wrist": [
+          118,
+          118
+        ],
+        "hip": [
+          131,
+          135
+        ],
+        "knee": [
+          169,
+          171
+        ],
+        "ankle": [
+          170,
+          224
+        ],
+        "heel": [
+          164,
+          236
+        ],
+        "toe": [
+          196,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 36.1,
+        "torso": 84.1,
+        "upperArm": 39.8,
+        "forearm": 33.2,
+        "thigh": 52.3,
+        "shin": 53.0,
+        "shoe": 32.0,
+        "armChain": 73.0,
+        "legChain": 105.3
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f6": {
+      "landmarks": {
+        "crown": [
+          128,
+          7
+        ],
+        "chin": [
+          134,
+          42
+        ],
+        "collar": [
+          130,
+          47
+        ],
+        "hem": [
+          127,
+          130
+        ],
+        "shoulder": [
+          111,
+          59
+        ],
+        "elbow": [
+          93,
+          94
+        ],
+        "wrist": [
+          115,
+          118
+        ],
+        "hip": [
+          130,
+          135
+        ],
+        "knee": [
+          165,
+          171
+        ],
+        "ankle": [
+          168,
+          224
+        ],
+        "heel": [
+          162,
+          236
+        ],
+        "toe": [
+          195,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 35.5,
+        "torso": 83.1,
+        "upperArm": 39.4,
+        "forearm": 32.6,
+        "thigh": 50.2,
+        "shin": 53.1,
+        "shoe": 33.0,
+        "armChain": 72.0,
+        "legChain": 103.3
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "idle07-f7": {
+      "landmarks": {
+        "crown": [
+          128,
+          6
+        ],
+        "chin": [
+          135,
+          42
+        ],
+        "collar": [
+          131,
+          46
+        ],
+        "hem": [
+          128,
+          130
+        ],
+        "shoulder": [
+          114,
+          59
+        ],
+        "elbow": [
+          94,
+          94
+        ],
+        "wrist": [
+          118,
+          118
+        ],
+        "hip": [
+          130,
+          135
+        ],
+        "knee": [
+          168,
+          169
+        ],
+        "ankle": [
+          169,
+          224
+        ],
+        "heel": [
+          164,
+          236
+        ],
+        "toe": [
+          195,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 36.7,
+        "torso": 84.1,
+        "upperArm": 40.3,
+        "forearm": 33.9,
+        "thigh": 51.0,
+        "shin": 55.0,
+        "shoe": 31.0,
+        "armChain": 74.2,
+        "legChain": 106.0
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "superDash09-f0": {
+      "landmarks": {
+        "crown": [
+          162,
+          96
+        ],
+        "chin": [
+          165,
+          133
+        ],
+        "collar": [
+          156,
+          136
+        ],
+        "hem": [
+          127,
+          181
+        ],
+        "shoulder": [
+          129,
+          137
+        ],
+        "elbow": [
+          109,
+          151
+        ],
+        "wrist": [
+          115,
+          171
+        ],
+        "hip": [
+          127,
+          185
+        ],
+        "knee": [
+          147,
+          209
+        ],
+        "ankle": [
+          103,
+          219
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 37.1,
+        "torso": 53.5,
+        "upperArm": 24.4,
+        "forearm": 20.9,
+        "thigh": 31.2,
+        "shin": 45.1,
+        "shoe": null,
+        "armChain": 45.3,
+        "legChain": 76.3
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Shoes and far leg: crossed/tucked/oblique. Extended far arm is depth-foreshortened."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "superDash09-f1": {
+      "landmarks": {
+        "crown": [
+          162,
+          95
+        ],
+        "chin": [
+          166,
+          132
+        ],
+        "collar": [
+          156,
+          136
+        ],
+        "hem": [
+          127,
+          181
+        ],
+        "shoulder": [
+          129,
+          137
+        ],
+        "elbow": [
+          108,
+          151
+        ],
+        "wrist": [
+          115,
+          171
+        ],
+        "hip": [
+          127,
+          185
+        ],
+        "knee": [
+          147,
+          209
+        ],
+        "ankle": [
+          102,
+          219
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 37.2,
+        "torso": 53.5,
+        "upperArm": 25.2,
+        "forearm": 21.2,
+        "thigh": 31.2,
+        "shin": 46.1,
+        "shoe": null,
+        "armChain": 46.4,
+        "legChain": 77.3
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Shoes and far leg: crossed/tucked/oblique. Extended far arm is depth-foreshortened."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "guard04-f0": {
+      "landmarks": {
+        "crown": [
+          133,
+          30
+        ],
+        "chin": [
+          137,
+          66
+        ],
+        "collar": [
+          130,
+          68
+        ],
+        "hem": [
+          132,
+          139
+        ],
+        "shoulder": null,
+        "elbow": null,
+        "wrist": null,
+        "hip": [
+          131,
+          140
+        ],
+        "knee": [
+          169,
+          166
+        ],
+        "ankle": [
+          171,
+          220
+        ],
+        "heel": [
+          165,
+          235
+        ],
+        "toe": [
+          198,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 36.2,
+        "torso": 71.0,
+        "upperArm": null,
+        "forearm": null,
+        "thigh": 46.0,
+        "shin": 54.0,
+        "shoe": 33.0,
+        "armChain": null,
+        "legChain": 100.0
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Both arms: crossed guard occludes elbow/wrist landmarks."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "guard04-f1": {
+      "landmarks": {
+        "crown": [
+          126,
+          28
+        ],
+        "chin": [
+          130,
+          64
+        ],
+        "collar": [
+          124,
+          66
+        ],
+        "hem": [
+          126,
+          139
+        ],
+        "shoulder": null,
+        "elbow": null,
+        "wrist": null,
+        "hip": [
+          127,
+          140
+        ],
+        "knee": [
+          163,
+          167
+        ],
+        "ankle": [
+          170,
+          220
+        ],
+        "heel": [
+          164,
+          235
+        ],
+        "toe": [
+          199,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 36.2,
+        "torso": 73.0,
+        "upperArm": null,
+        "forearm": null,
+        "thigh": 45.0,
+        "shin": 53.5,
+        "shoe": 35.0,
+        "armChain": null,
+        "legChain": 98.5
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Both arms: crossed guard occludes elbow/wrist landmarks."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "jumpUp04-f0": {
+      "landmarks": {
+        "crown": [
+          141,
+          41
+        ],
+        "chin": [
+          147,
+          76
+        ],
+        "collar": [
+          142,
+          79
+        ],
+        "hem": [
+          145,
+          149
+        ],
+        "shoulder": [
+          119,
+          91
+        ],
+        "elbow": [
+          104,
+          123
+        ],
+        "wrist": [
+          119,
+          141
+        ],
+        "hip": [
+          143,
+          150
+        ],
+        "knee": [
+          149,
+          181
+        ],
+        "ankle": [
+          123,
+          219
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 35.5,
+        "torso": 70.1,
+        "upperArm": 35.3,
+        "forearm": 23.4,
+        "thigh": 31.6,
+        "shin": 46.0,
+        "shoe": null,
+        "armChain": 58.7,
+        "legChain": 77.6
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Shoes: toe-on/oblique projection; heel-to-toe anatomical length cannot be certified.",
+        "Pocket-side wrist obscured: measured forearm estimate is not a pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "jumpUp04-f1": {
+      "landmarks": {
+        "crown": [
+          144,
+          41
+        ],
+        "chin": [
+          150,
+          76
+        ],
+        "collar": [
+          145,
+          79
+        ],
+        "hem": [
+          143,
+          150
+        ],
+        "shoulder": [
+          119,
+          92
+        ],
+        "elbow": [
+          104,
+          122
+        ],
+        "wrist": [
+          118,
+          141
+        ],
+        "hip": [
+          142,
+          150
+        ],
+        "knee": [
+          149,
+          182
+        ],
+        "ankle": [
+          120,
+          219
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 35.5,
+        "torso": 71.0,
+        "upperArm": 33.5,
+        "forearm": 23.6,
+        "thigh": 32.8,
+        "shin": 47.0,
+        "shoe": null,
+        "armChain": 57.1,
+        "legChain": 79.8
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Shoes: toe-on/oblique projection; heel-to-toe anatomical length cannot be certified.",
+        "Pocket-side wrist obscured: measured forearm estimate is not a pass."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "airLight3v12-f0": {
+      "landmarks": {
+        "crown": [
+          145,
+          58
+        ],
+        "chin": [
+          148,
+          94
+        ],
+        "collar": [
+          139,
+          98
+        ],
+        "hem": [
+          141,
+          155
+        ],
+        "shoulder": null,
+        "elbow": null,
+        "wrist": null,
+        "hip": [
+          137,
+          158
+        ],
+        "knee": [
+          131,
+          190
+        ],
+        "ankle": [
+          125,
+          225
+        ],
+        "heel": [
+          119,
+          235
+        ],
+        "toe": [
+          140,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 36.1,
+        "torso": 57.0,
+        "upperArm": null,
+        "forearm": null,
+        "thigh": 32.6,
+        "shin": 35.5,
+        "shoe": 21.0,
+        "armChain": null,
+        "legChain": 68.1
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Hip center under flared hem; active torso foreshortened. Shoe rotates through depth; short projected length is not proof of short shoe."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "airLight3v12-f1": {
+      "landmarks": {
+        "crown": [
+          146,
+          60
+        ],
+        "chin": [
+          151,
+          97
+        ],
+        "collar": [
+          142,
+          101
+        ],
+        "hem": [
+          142,
+          155
+        ],
+        "shoulder": [
+          124,
+          107
+        ],
+        "elbow": [
+          103,
+          116
+        ],
+        "wrist": [
+          88,
+          129
+        ],
+        "hip": [
+          137,
+          158
+        ],
+        "knee": [
+          131,
+          191
+        ],
+        "ankle": [
+          124,
+          225
+        ],
+        "heel": [
+          118,
+          235
+        ],
+        "toe": [
+          139,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 37.3,
+        "torso": 54.0,
+        "upperArm": 22.8,
+        "forearm": 19.8,
+        "thigh": 33.5,
+        "shin": 34.7,
+        "shoe": 21.0,
+        "armChain": 42.6,
+        "legChain": 68.2
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Hip center under flared hem; active torso foreshortened. Shoe rotates through depth; short projected length is not proof of short shoe."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "airLight3v12-f2": {
+      "landmarks": {
+        "crown": [
+          117,
+          105
+        ],
+        "chin": [
+          122,
+          140
+        ],
+        "collar": [
+          115,
+          141
+        ],
+        "hem": [
+          126,
+          190
+        ],
+        "shoulder": [
+          94,
+          141
+        ],
+        "elbow": [
+          78,
+          155
+        ],
+        "wrist": [
+          72,
+          164
+        ],
+        "hip": [
+          120,
+          188
+        ],
+        "knee": [
+          161,
+          180
+        ],
+        "ankle": [
+          199,
+          172
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 35.4,
+        "torso": 50.2,
+        "upperArm": 21.3,
+        "forearm": 10.8,
+        "thigh": 41.8,
+        "shin": 38.8,
+        "shoe": null,
+        "armChain": 32.1,
+        "legChain": 80.6
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Hip center under flared hem; active torso foreshortened. Shoe rotates through depth; short projected length is not proof of short shoe."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "airLight3v12-f3": {
+      "landmarks": {
+        "crown": [
+          123,
+          104
+        ],
+        "chin": [
+          130,
+          139
+        ],
+        "collar": [
+          122,
+          140
+        ],
+        "hem": [
+          132,
+          190
+        ],
+        "shoulder": [
+          100,
+          140
+        ],
+        "elbow": [
+          83,
+          152
+        ],
+        "wrist": [
+          76,
+          162
+        ],
+        "hip": [
+          127,
+          188
+        ],
+        "knee": [
+          166,
+          180
+        ],
+        "ankle": [
+          204,
+          172
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 35.7,
+        "torso": 51.0,
+        "upperArm": 20.8,
+        "forearm": 12.2,
+        "thigh": 39.8,
+        "shin": 38.8,
+        "shoe": null,
+        "armChain": 33.0,
+        "legChain": 78.6
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Hip center under flared hem; active torso foreshortened. Shoe rotates through depth; short projected length is not proof of short shoe."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "airLight3v12-f4": {
+      "landmarks": {
+        "crown": [
+          132,
+          27
+        ],
+        "chin": [
+          136,
+          64
+        ],
+        "collar": [
+          128,
+          66
+        ],
+        "hem": [
+          139,
+          133
+        ],
+        "shoulder": [
+          111,
+          74
+        ],
+        "elbow": [
+          88,
+          100
+        ],
+        "wrist": [
+          73,
+          129
+        ],
+        "hip": [
+          140,
+          136
+        ],
+        "knee": [
+          149,
+          174
+        ],
+        "ankle": [
+          127,
+          218
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 37.2,
+        "torso": 67.9,
+        "upperArm": 34.7,
+        "forearm": 32.6,
+        "thigh": 39.1,
+        "shin": 49.2,
+        "shoe": null,
+        "armChain": 67.3,
+        "legChain": 88.3
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Hip center under flared hem; active torso foreshortened. Shoe rotates through depth; short projected length is not proof of short shoe."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "airLight3v12-f5": {
+      "landmarks": {
+        "crown": [
+          158,
+          23
+        ],
+        "chin": [
+          163,
+          61
+        ],
+        "collar": [
+          157,
+          64
+        ],
+        "hem": [
+          159,
+          129
+        ],
+        "shoulder": [
+          135,
+          75
+        ],
+        "elbow": [
+          116,
+          106
+        ],
+        "wrist": [
+          130,
+          98
+        ],
+        "hip": [
+          151,
+          132
+        ],
+        "knee": [
+          149,
+          168
+        ],
+        "ankle": [
+          129,
+          216
+        ],
+        "heel": null,
+        "toe": null
+      },
+      "projectedPx": {
+        "head": 38.3,
+        "torso": 65.0,
+        "upperArm": 36.4,
+        "forearm": 16.1,
+        "thigh": 36.1,
+        "shin": 52.0,
+        "shoe": null,
+        "armChain": 52.5,
+        "legChain": 88.1
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Hip center under flared hem; active torso foreshortened. Shoe rotates through depth; short projected length is not proof of short shoe."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "hurtLow04-f0": {
+      "landmarks": {
+        "crown": [
+          162,
+          73
+        ],
+        "chin": [
+          151,
+          106
+        ],
+        "collar": [
+          140,
+          106
+        ],
+        "hem": [
+          124,
+          141
+        ],
+        "shoulder": [
+          120,
+          89
+        ],
+        "elbow": [
+          103,
+          116
+        ],
+        "wrist": [
+          122,
+          127
+        ],
+        "hip": [
+          126,
+          141
+        ],
+        "knee": [
+          155,
+          173
+        ],
+        "ankle": [
+          154,
+          222
+        ],
+        "heel": [
+          148,
+          236
+        ],
+        "toe": [
+          180,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 34.8,
+        "torso": 38.5,
+        "upperArm": 31.9,
+        "forearm": 22.0,
+        "thigh": 43.2,
+        "shin": 49.0,
+        "shoe": 32.0,
+        "armChain": 53.9,
+        "legChain": 92.2
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Torso bends/foreshortens in f0/f1; central hip under coat uncertain."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "hurtLow04-f1": {
+      "landmarks": {
+        "crown": [
+          154,
+          57
+        ],
+        "chin": [
+          150,
+          94
+        ],
+        "collar": [
+          143,
+          95
+        ],
+        "hem": [
+          123,
+          141
+        ],
+        "shoulder": [
+          119,
+          93
+        ],
+        "elbow": [
+          103,
+          115
+        ],
+        "wrist": [
+          128,
+          126
+        ],
+        "hip": [
+          125,
+          142
+        ],
+        "knee": [
+          154,
+          173
+        ],
+        "ankle": [
+          155,
+          222
+        ],
+        "heel": [
+          147,
+          236
+        ],
+        "toe": [
+          181,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 37.2,
+        "torso": 50.2,
+        "upperArm": 27.2,
+        "forearm": 27.3,
+        "thigh": 42.4,
+        "shin": 49.0,
+        "shoe": 34.0,
+        "armChain": 54.5,
+        "legChain": 91.4
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Torso bends/foreshortens in f0/f1; central hip under coat uncertain."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    },
+    "hurtLow04-f2": {
+      "landmarks": {
+        "crown": [
+          147,
+          43
+        ],
+        "chin": [
+          146,
+          78
+        ],
+        "collar": [
+          139,
+          80
+        ],
+        "hem": [
+          127,
+          142
+        ],
+        "shoulder": [
+          116,
+          84
+        ],
+        "elbow": [
+          101,
+          110
+        ],
+        "wrist": [
+          126,
+          118
+        ],
+        "hip": [
+          127,
+          143
+        ],
+        "knee": [
+          153,
+          176
+        ],
+        "ankle": [
+          155,
+          223
+        ],
+        "heel": [
+          148,
+          236
+        ],
+        "toe": [
+          182,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 35.0,
+        "torso": 63.2,
+        "upperArm": 30.0,
+        "forearm": 26.2,
+        "thigh": 42.0,
+        "shin": 47.0,
+        "shoe": 34.0,
+        "armChain": 56.2,
+        "legChain": 89.0
+      },
+      "skips": [
+        "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+        "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass.",
+        "Torso bends/foreshortens in f0/f1; central hip under coat uncertain."
+      ],
+      "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+    }
+  }
+}

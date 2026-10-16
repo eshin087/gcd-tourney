@@ -1,0 +1,3110 @@
+{
+  "method": "Manual projected skeletal centre lines on actual quantized atlas, everyframe viewed at3x. H visible hair crown-chin axial distance inclusive1. T collar-hem; A UA+FA; L thigh+shin; S visible heel-to-toe plantar axis; sole-facing values cannot certify shoe length. Endpoint±2 propagated to T±4, chains±6; additional uncertainty as noted. Old neutral head requirement and combat anatomical denominator explicit. No colour or garment-area pass. No complete ±6% pass for any frame.",
+  "baselines": {
+    "endpoints": {
+      "oldIdle": [
+        [
+          134,
+          10,
+          138,
+          45
+        ],
+        [
+          132,
+          48,
+          138,
+          127
+        ],
+        [
+          114,
+          57,
+          98,
+          91,
+          116,
+          118
+        ],
+        [
+          137,
+          127,
+          143,
+          177,
+          145,
+          229
+        ],
+        [
+          141,
+          236,
+          174,
+          236
+        ]
+      ],
+      "combat": [
+        [
+          127,
+          29,
+          132,
+          66
+        ],
+        [
+          129,
+          68,
+          119,
+          138
+        ],
+        [
+          103,
+          76,
+          88,
+          107,
+          111,
+          121
+        ],
+        [
+          125,
+          143,
+          164,
+          167,
+          177,
+          227
+        ],
+        [
+          175,
+          236,
+          205,
+          239
+        ]
+      ]
+    },
+    "px": {
+      "oldIdle": {
+        "H": 36.22782990761707,
+        "T": 79.22752047110902,
+        "UA": 37.57658845611187,
+        "FA": 32.449961479175904,
+        "A": 70.02654993528778,
+        "TH": 50.35871324805669,
+        "SH": 52.038447325030745,
+        "L": 102.39716057308743,
+        "S": 33
+      },
+      "combat": {
+        "H": 38.33630940518894,
+        "T": 70.71067811865476,
+        "UA": 34.43835071544513,
+        "FA": 26.92582403567252,
+        "A": 61.36417475111765,
+        "TH": 45.79301256742124,
+        "SH": 61.39218191268331,
+        "L": 107.18519448010456,
+        "S": 30.14962686336267
+      }
+    },
+    "uncertainty": {
+      "H": 3,
+      "T": 4,
+      "A": 6,
+      "L": 6,
+      "S": 4
+    }
+  },
+  "rows": {
+    "guard": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            131,
+            30,
+            137,
+            66
+          ],
+          [
+            131,
+            70,
+            138,
+            136
+          ],
+          [
+            104,
+            73,
+            121,
+            94,
+            150,
+            73
+          ],
+          [
+            131,
+            141,
+            167,
+            168,
+            168,
+            225
+          ],
+          [
+            160,
+            237,
+            195,
+            237
+          ]
+        ],
+        "px": {
+          "H": 37.5,
+          "T": 66.4,
+          "UA": 27,
+          "FA": 35.8,
+          "A": 62.8,
+          "TH": 45,
+          "SH": 57,
+          "L": 102,
+          "S": 35
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Crossed wrists obscure far arm. Near thigh has depth component. Heel/toe both visible but shoe3/4 projected. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 3.5,
+            "T": -16.2,
+            "A": -10.3,
+            "L": -0.4,
+            "S": 6.1
+          },
+          "combat": {
+            "H": -2.2,
+            "T": -6.1,
+            "A": 2.4,
+            "L": -4.8,
+            "S": 16.1
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            124,
+            29,
+            130,
+            64
+          ],
+          [
+            125,
+            68,
+            130,
+            135
+          ],
+          [
+            99,
+            71,
+            114,
+            93,
+            142,
+            73
+          ],
+          [
+            126,
+            139,
+            158,
+            169,
+            167,
+            225
+          ],
+          [
+            159,
+            237,
+            195,
+            237
+          ]
+        ],
+        "px": {
+          "H": 36.5,
+          "T": 67.2,
+          "UA": 26.6,
+          "FA": 34.4,
+          "A": 61,
+          "TH": 43.9,
+          "SH": 56.7,
+          "L": 100.6,
+          "S": 36
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Crossed wrists obscure far arm. Near thigh has depth component. Heel/toe both visible but shoe3/4 projected. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 0.8,
+            "T": -15.2,
+            "A": -12.8,
+            "L": -1.8,
+            "S": 9.1
+          },
+          "combat": {
+            "H": -4.8,
+            "T": -5,
+            "A": -0.5,
+            "L": -6.2,
+            "S": 19.4
+          }
+        }
+      }
+    ],
+    "jumpUp": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            139,
+            44,
+            145,
+            80
+          ],
+          [
+            144,
+            84,
+            148,
+            149
+          ],
+          [
+            114,
+            96,
+            106,
+            128,
+            121,
+            140
+          ],
+          [
+            132,
+            155,
+            149,
+            185,
+            122,
+            218
+          ],
+          [
+            118,
+            223,
+            130,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.5,
+          "T": 65.1,
+          "UA": 33,
+          "FA": 19.2,
+          "A": 52.2,
+          "TH": 34.5,
+          "SH": 42.6,
+          "L": 77.1,
+          "S": 20
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Pocket wrist partly hidden. Both thighs point into depth with knees flexed; near diagonal plantar length is projected. Far leg crossed/occluded; shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 3.5,
+            "T": -17.8,
+            "A": -25.5,
+            "L": -24.7,
+            "S": -39.4
+          },
+          "combat": {
+            "H": -2.2,
+            "T": -7.9,
+            "A": -14.9,
+            "L": -28,
+            "S": -33.7
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            144,
+            44,
+            150,
+            81
+          ],
+          [
+            146,
+            85,
+            147,
+            148
+          ],
+          [
+            114,
+            94,
+            103,
+            123,
+            119,
+            138
+          ],
+          [
+            129,
+            152,
+            146,
+            181,
+            116,
+            216
+          ],
+          [
+            112,
+            222,
+            126,
+            239
+          ]
+        ],
+        "px": {
+          "H": 38.5,
+          "T": 63,
+          "UA": 31,
+          "FA": 21.9,
+          "A": 52.9,
+          "TH": 33.6,
+          "SH": 46.1,
+          "L": 79.7,
+          "S": 22
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Pocket wrist partly hidden. Both thighs point into depth with knees flexed; near diagonal plantar length is projected. Far leg crossed/occluded; shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 6.2,
+            "T": -20.5,
+            "A": -24.4,
+            "L": -22.2,
+            "S": -33.3
+          },
+          "combat": {
+            "H": 0.4,
+            "T": -10.9,
+            "A": -13.7,
+            "L": -25.6,
+            "S": -27
+          }
+        }
+      }
+    ],
+    "jumpFall": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            157,
+            41,
+            161,
+            76
+          ],
+          [
+            151,
+            81,
+            151,
+            133
+          ],
+          [
+            124,
+            80,
+            111,
+            110,
+            128,
+            124
+          ],
+          [
+            132,
+            137,
+            149,
+            159,
+            124,
+            208
+          ],
+          [
+            117,
+            213,
+            128,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.2,
+          "T": 52,
+          "UA": 32.7,
+          "FA": 22,
+          "A": 54.7,
+          "TH": 27.8,
+          "SH": 55,
+          "L": 82.8,
+          "S": 28.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Mild chest lean, no curl: torso52±4 robust fail vscombat70.7±4. Pocket wrist and bent thigh/depth prevent full-limb pass; diagonal shoe projected. Far limbs occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 0,
+            "T": -34.4,
+            "A": -21.9,
+            "L": -19.1,
+            "S": -14.5
+          },
+          "combat": {
+            "H": -5.5,
+            "T": -26.5,
+            "A": -10.8,
+            "L": -22.7,
+            "S": -6.4
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            150,
+            39,
+            154,
+            75
+          ],
+          [
+            145,
+            80,
+            142,
+            132
+          ],
+          [
+            119,
+            79,
+            106,
+            109,
+            124,
+            124
+          ],
+          [
+            129,
+            137,
+            145,
+            161,
+            121,
+            208
+          ],
+          [
+            113,
+            214,
+            126,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.2,
+          "T": 52.1,
+          "UA": 32.7,
+          "FA": 23.4,
+          "A": 56.1,
+          "TH": 28.8,
+          "SH": 52.8,
+          "L": 81.6,
+          "S": 28.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Mild chest lean, no curl: torso52±4 robust fail vscombat70.7±4. Pocket wrist and bent thigh/depth prevent full-limb pass; diagonal shoe projected. Far limbs occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 2.7,
+            "T": -34.3,
+            "A": -19.8,
+            "L": -20.3,
+            "S": -14.6
+          },
+          "combat": {
+            "H": -2.9,
+            "T": -26.3,
+            "A": -8.5,
+            "L": -23.9,
+            "S": -6.5
+          }
+        }
+      }
+    ],
+    "airRecover": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            43,
+            155,
+            70,
+            173
+          ],
+          [
+            71,
+            177,
+            90,
+            216
+          ],
+          [
+            62,
+            186,
+            77,
+            210,
+            110,
+            192
+          ],
+          [
+            98,
+            220,
+            113,
+            175,
+            140,
+            218
+          ],
+          [
+            139,
+            231,
+            172,
+            222
+          ]
+        ],
+        "px": {
+          "H": 33.4,
+          "T": 43.4,
+          "UA": 28.3,
+          "FA": 37.6,
+          "A": 65.9,
+          "TH": 47.4,
+          "SH": 50.8,
+          "L": 98.2,
+          "S": 34.2
+        },
+        "uncertainty": {
+          "H": 8,
+          "T": 12,
+          "A": 12,
+          "L": 16,
+          "S": 8
+        },
+        "notes": "f0/f1 inverted tuck: head axis, collar/hem and hip partly hidden, enlarged uncertainty (H8/T12/A12/L16/S8). f2 unfolds with slight lean, visible near arm38.9±6 robust fail vscombat61.4±6. Bent thigh/depth and diagonal shoe; far limbs overlap.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -7.7,
+            "T": -45.2,
+            "A": -5.9,
+            "L": -4.1,
+            "S": 3.7
+          },
+          "combat": {
+            "H": -12.7,
+            "T": -38.6,
+            "A": 7.4,
+            "L": -8.4,
+            "S": 13.5
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            131,
+            237,
+            120,
+            207
+          ],
+          [
+            122,
+            202,
+            141,
+            164
+          ],
+          [
+            142,
+            194,
+            147,
+            178,
+            114,
+            159
+          ],
+          [
+            142,
+            156,
+            107,
+            182,
+            109,
+            125
+          ],
+          [
+            114,
+            108,
+            86,
+            122
+          ]
+        ],
+        "px": {
+          "H": 33,
+          "T": 42.5,
+          "UA": 16.8,
+          "FA": 38.1,
+          "A": 54.8,
+          "TH": 43.6,
+          "SH": 57,
+          "L": 100.6,
+          "S": 31.3
+        },
+        "uncertainty": {
+          "H": 8,
+          "T": 12,
+          "A": 12,
+          "L": 16,
+          "S": 8
+        },
+        "notes": "f0/f1 inverted tuck: head axis, collar/hem and hip partly hidden, enlarged uncertainty (H8/T12/A12/L16/S8). f2 unfolds with slight lean, visible near arm38.9±6 robust fail vscombat61.4±6. Bent thigh/depth and diagonal shoe; far limbs overlap.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -9,
+            "T": -46.4,
+            "A": -21.7,
+            "L": -1.7,
+            "S": -5.1
+          },
+          "combat": {
+            "H": -14,
+            "T": -39.9,
+            "A": -10.6,
+            "L": -6.1,
+            "S": 3.8
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            123,
+            41,
+            125,
+            77
+          ],
+          [
+            120,
+            82,
+            113,
+            133
+          ],
+          [
+            91,
+            82,
+            65,
+            91,
+            58,
+            100
+          ],
+          [
+            104,
+            138,
+            123,
+            158,
+            122,
+            214
+          ],
+          [
+            122,
+            223,
+            140,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.1,
+          "T": 51.5,
+          "UA": 27.5,
+          "FA": 11.4,
+          "A": 38.9,
+          "TH": 27.6,
+          "SH": 56,
+          "L": 83.6,
+          "S": 24.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f0/f1 inverted tuck: head axis, collar/hem and hip partly hidden, enlarged uncertainty (H8/T12/A12/L16/S8). f2 unfolds with slight lean, visible near arm38.9±6 robust fail vscombat61.4±6. Bent thigh/depth and diagonal shoe; far limbs overlap.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 2.3,
+            "T": -35,
+            "A": -44.4,
+            "L": -18.4,
+            "S": -27
+          },
+          "combat": {
+            "H": -3.3,
+            "T": -27.2,
+            "A": -36.6,
+            "L": -22,
+            "S": -20.1
+          }
+        }
+      }
+    ],
+    "throw": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            150,
+            37,
+            156,
+            72
+          ],
+          [
+            152,
+            76,
+            168,
+            127
+          ],
+          [
+            132,
+            80,
+            148,
+            104,
+            163,
+            85
+          ],
+          [
+            153,
+            131,
+            138,
+            168,
+            125,
+            215
+          ],
+          [
+            124,
+            224,
+            126,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.5,
+          "T": 53.5,
+          "UA": 28.8,
+          "FA": 24.2,
+          "A": 53.1,
+          "TH": 39.9,
+          "SH": 48.8,
+          "L": 88.7,
+          "S": 15.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright/mild leaning air pose, torso49.6–53.5±4 robust fail vscombat70.7±4. f1 extended arm planar; other raised forearms depth-facing. Legs slight depth, shoe pointing down hides plantar length. Far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 0.8,
+            "T": -32.5,
+            "A": -24.2,
+            "L": -13.4,
+            "S": -54.1
+          },
+          "combat": {
+            "H": -4.8,
+            "T": -24.4,
+            "A": -13.5,
+            "L": -17.3,
+            "S": -49.8
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            190,
+            43,
+            191,
+            79
+          ],
+          [
+            186,
+            83,
+            178,
+            132
+          ],
+          [
+            165,
+            84,
+            188,
+            92,
+            205,
+            96
+          ],
+          [
+            165,
+            134,
+            145,
+            165,
+            126,
+            215
+          ],
+          [
+            124,
+            223,
+            127,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37,
+          "T": 49.6,
+          "UA": 24.4,
+          "FA": 17.5,
+          "A": 41.8,
+          "TH": 36.9,
+          "SH": 53.5,
+          "L": 90.4,
+          "S": 16.3
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright/mild leaning air pose, torso49.6–53.5±4 robust fail vscombat70.7±4. f1 extended arm planar; other raised forearms depth-facing. Legs slight depth, shoe pointing down hides plantar length. Far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 2.2,
+            "T": -37.3,
+            "A": -40.3,
+            "L": -11.7,
+            "S": -50.7
+          },
+          "combat": {
+            "H": -3.4,
+            "T": -29.8,
+            "A": -31.9,
+            "L": -15.7,
+            "S": -46
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            160,
+            38,
+            163,
+            73
+          ],
+          [
+            162,
+            77,
+            170,
+            128
+          ],
+          [
+            142,
+            83,
+            127,
+            95,
+            122,
+            82
+          ],
+          [
+            153,
+            131,
+            138,
+            168,
+            125,
+            215
+          ],
+          [
+            124,
+            224,
+            126,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.1,
+          "T": 51.6,
+          "UA": 19.2,
+          "FA": 13.9,
+          "A": 33.1,
+          "TH": 39.9,
+          "SH": 48.8,
+          "L": 88.7,
+          "S": 15.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright/mild leaning air pose, torso49.6–53.5±4 robust fail vscombat70.7±4. f1 extended arm planar; other raised forearms depth-facing. Legs slight depth, shoe pointing down hides plantar length. Far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -0.3,
+            "T": -34.8,
+            "A": -52.7,
+            "L": -13.4,
+            "S": -54.1
+          },
+          "combat": {
+            "H": -5.8,
+            "T": -27,
+            "A": -46,
+            "L": -17.3,
+            "S": -49.8
+          }
+        }
+      },
+      {
+        "frame": 3,
+        "endpoints": [
+          [
+            156,
+            38,
+            159,
+            73
+          ],
+          [
+            156,
+            77,
+            166,
+            129
+          ],
+          [
+            133,
+            84,
+            128,
+            107,
+            128,
+            129
+          ],
+          [
+            153,
+            134,
+            138,
+            168,
+            125,
+            215
+          ],
+          [
+            124,
+            224,
+            126,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.1,
+          "T": 53,
+          "UA": 23.5,
+          "FA": 22,
+          "A": 45.5,
+          "TH": 37.2,
+          "SH": 48.8,
+          "L": 85.9,
+          "S": 15.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright/mild leaning air pose, torso49.6–53.5±4 robust fail vscombat70.7±4. f1 extended arm planar; other raised forearms depth-facing. Legs slight depth, shoe pointing down hides plantar length. Far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -0.3,
+            "T": -33.2,
+            "A": -35,
+            "L": -16.1,
+            "S": -54.1
+          },
+          "combat": {
+            "H": -5.8,
+            "T": -25.1,
+            "A": -25.8,
+            "L": -19.8,
+            "S": -49.8
+          }
+        }
+      }
+    ],
+    "airLight1": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            153,
+            28,
+            155,
+            64
+          ],
+          [
+            154,
+            68,
+            156,
+            123
+          ],
+          [
+            131,
+            75,
+            124,
+            95,
+            139,
+            91
+          ],
+          [
+            139,
+            128,
+            136,
+            166,
+            126,
+            215
+          ],
+          [
+            123,
+            225,
+            127,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.1,
+          "T": 55,
+          "UA": 21.2,
+          "FA": 15.5,
+          "A": 36.7,
+          "TH": 38.1,
+          "SH": 50,
+          "L": 88.1,
+          "S": 14.6
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright torso54.1–55.2±4 robust fail vscombat70.7±4. f1/f2 extended planar arm47.2–49.2±6; difference overlaps6% interval after baselineuncertainty, not numeric pass. Other forearms bent into depth. Down shoe plantar length hidden; far bent leg occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 2.3,
+            "T": -30.5,
+            "A": -47.6,
+            "L": -13.9,
+            "S": -55.9
+          },
+          "combat": {
+            "H": -3.3,
+            "T": -22.2,
+            "A": -40.2,
+            "L": -17.8,
+            "S": -51.7
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            157,
+            29,
+            158,
+            64
+          ],
+          [
+            155,
+            68,
+            160,
+            122
+          ],
+          [
+            163,
+            73,
+            187,
+            76,
+            212,
+            75
+          ],
+          [
+            139,
+            127,
+            136,
+            166,
+            126,
+            215
+          ],
+          [
+            123,
+            225,
+            127,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36,
+          "T": 54.2,
+          "UA": 24.2,
+          "FA": 25,
+          "A": 49.2,
+          "TH": 39.1,
+          "SH": 50,
+          "L": 89.1,
+          "S": 14.6
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright torso54.1–55.2±4 robust fail vscombat70.7±4. f1/f2 extended planar arm47.2–49.2±6; difference overlaps6% interval after baselineuncertainty, not numeric pass. Other forearms bent into depth. Down shoe plantar length hidden; far bent leg occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -0.6,
+            "T": -31.6,
+            "A": -29.7,
+            "L": -13,
+            "S": -55.9
+          },
+          "combat": {
+            "H": -6.1,
+            "T": -23.3,
+            "A": -19.8,
+            "L": -16.8,
+            "S": -51.7
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            158,
+            28,
+            159,
+            64
+          ],
+          [
+            156,
+            68,
+            161,
+            123
+          ],
+          [
+            164,
+            74,
+            188,
+            77,
+            211,
+            78
+          ],
+          [
+            141,
+            128,
+            137,
+            167,
+            126,
+            215
+          ],
+          [
+            123,
+            225,
+            127,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37,
+          "T": 55.2,
+          "UA": 24.2,
+          "FA": 23,
+          "A": 47.2,
+          "TH": 39.2,
+          "SH": 49.2,
+          "L": 88.4,
+          "S": 14.6
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright torso54.1–55.2±4 robust fail vscombat70.7±4. f1/f2 extended planar arm47.2–49.2±6; difference overlaps6% interval after baselineuncertainty, not numeric pass. Other forearms bent into depth. Down shoe plantar length hidden; far bent leg occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 2.2,
+            "T": -30.3,
+            "A": -32.6,
+            "L": -13.6,
+            "S": -55.9
+          },
+          "combat": {
+            "H": -3.4,
+            "T": -21.9,
+            "A": -23.1,
+            "L": -17.5,
+            "S": -51.7
+          }
+        }
+      },
+      {
+        "frame": 3,
+        "endpoints": [
+          [
+            157,
+            29,
+            159,
+            64
+          ],
+          [
+            156,
+            69,
+            160,
+            123
+          ],
+          [
+            133,
+            76,
+            124,
+            97,
+            143,
+            93
+          ],
+          [
+            141,
+            128,
+            137,
+            167,
+            126,
+            215
+          ],
+          [
+            123,
+            225,
+            127,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.1,
+          "T": 54.1,
+          "UA": 22.8,
+          "FA": 19.4,
+          "A": 42.3,
+          "TH": 39.2,
+          "SH": 49.2,
+          "L": 88.4,
+          "S": 14.6
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright torso54.1–55.2±4 robust fail vscombat70.7±4. f1/f2 extended planar arm47.2–49.2±6; difference overlaps6% interval after baselineuncertainty, not numeric pass. Other forearms bent into depth. Down shoe plantar length hidden; far bent leg occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -0.5,
+            "T": -31.7,
+            "A": -39.6,
+            "L": -13.6,
+            "S": -55.9
+          },
+          "combat": {
+            "H": -5.9,
+            "T": -23.4,
+            "A": -31.1,
+            "L": -17.5,
+            "S": -51.7
+          }
+        }
+      },
+      {
+        "frame": 4,
+        "endpoints": [
+          [
+            153,
+            28,
+            155,
+            64
+          ],
+          [
+            154,
+            68,
+            156,
+            123
+          ],
+          [
+            131,
+            75,
+            124,
+            95,
+            139,
+            91
+          ],
+          [
+            139,
+            128,
+            136,
+            166,
+            126,
+            215
+          ],
+          [
+            123,
+            225,
+            127,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.1,
+          "T": 55,
+          "UA": 21.2,
+          "FA": 15.5,
+          "A": 36.7,
+          "TH": 38.1,
+          "SH": 50,
+          "L": 88.1,
+          "S": 14.6
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "Upright torso54.1–55.2±4 robust fail vscombat70.7±4. f1/f2 extended planar arm47.2–49.2±6; difference overlaps6% interval after baselineuncertainty, not numeric pass. Other forearms bent into depth. Down shoe plantar length hidden; far bent leg occluded.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 2.3,
+            "T": -30.5,
+            "A": -47.6,
+            "L": -13.9,
+            "S": -55.9
+          },
+          "combat": {
+            "H": -3.3,
+            "T": -22.2,
+            "A": -40.2,
+            "L": -17.8,
+            "S": -51.7
+          }
+        }
+      }
+    ],
+    "airLight2": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            154,
+            18,
+            155,
+            56
+          ],
+          [
+            151,
+            60,
+            157,
+            124
+          ],
+          [
+            123,
+            68,
+            111,
+            92,
+            126,
+            90
+          ],
+          [
+            140,
+            130,
+            137,
+            165,
+            126,
+            213
+          ],
+          [
+            123,
+            224,
+            129,
+            239
+          ]
+        ],
+        "px": {
+          "H": 39,
+          "T": 64.3,
+          "UA": 26.8,
+          "FA": 15.1,
+          "A": 42,
+          "TH": 35.1,
+          "SH": 49.2,
+          "L": 84.4,
+          "S": 16.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f1/f2 fully extended near leg76.1±6 robust fail vscombat107.2±6, hip beneath hem±3. Sole faces camera: shoe measurements are visible projection only. Torso leans back and hem behind thigh, no torso-only proof. Other frames knee depth and far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 7.7,
+            "T": -18.9,
+            "A": -40.1,
+            "L": -17.6,
+            "S": -51
+          },
+          "combat": {
+            "H": 1.8,
+            "T": -9.1,
+            "A": -31.6,
+            "L": -21.3,
+            "S": -46.4
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            131,
+            28,
+            137,
+            64
+          ],
+          [
+            133,
+            68,
+            142,
+            123
+          ],
+          [
+            109,
+            73,
+            94,
+            90,
+            91,
+            101
+          ],
+          [
+            132,
+            118,
+            170,
+            117,
+            208,
+            119
+          ],
+          [
+            213,
+            116,
+            228,
+            118
+          ]
+        ],
+        "px": {
+          "H": 37.5,
+          "T": 55.7,
+          "UA": 22.7,
+          "FA": 11.4,
+          "A": 34.1,
+          "TH": 38,
+          "SH": 38.1,
+          "L": 76.1,
+          "S": 15.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f1/f2 fully extended near leg76.1±6 robust fail vscombat107.2±6, hip beneath hem±3. Sole faces camera: shoe measurements are visible projection only. Torso leans back and hem behind thigh, no torso-only proof. Other frames knee depth and far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 3.5,
+            "T": -29.7,
+            "A": -51.3,
+            "L": -25.7,
+            "S": -54.1
+          },
+          "combat": {
+            "H": -2.2,
+            "T": -21.2,
+            "A": -44.5,
+            "L": -29,
+            "S": -49.8
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            131,
+            28,
+            137,
+            64
+          ],
+          [
+            133,
+            68,
+            142,
+            123
+          ],
+          [
+            109,
+            73,
+            93,
+            89,
+            90,
+            96
+          ],
+          [
+            132,
+            118,
+            170,
+            117,
+            208,
+            119
+          ],
+          [
+            213,
+            116,
+            226,
+            118
+          ]
+        ],
+        "px": {
+          "H": 37.5,
+          "T": 55.7,
+          "UA": 22.6,
+          "FA": 7.6,
+          "A": 30.2,
+          "TH": 38,
+          "SH": 38.1,
+          "L": 76.1,
+          "S": 13.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f1/f2 fully extended near leg76.1±6 robust fail vscombat107.2±6, hip beneath hem±3. Sole faces camera: shoe measurements are visible projection only. Torso leans back and hem behind thigh, no torso-only proof. Other frames knee depth and far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 3.5,
+            "T": -29.7,
+            "A": -56.8,
+            "L": -25.7,
+            "S": -60.1
+          },
+          "combat": {
+            "H": -2.2,
+            "T": -21.2,
+            "A": -50.7,
+            "L": -29,
+            "S": -56.4
+          }
+        }
+      },
+      {
+        "frame": 3,
+        "endpoints": [
+          [
+            154,
+            18,
+            155,
+            56
+          ],
+          [
+            151,
+            60,
+            157,
+            124
+          ],
+          [
+            123,
+            68,
+            111,
+            92,
+            126,
+            90
+          ],
+          [
+            140,
+            130,
+            137,
+            165,
+            126,
+            213
+          ],
+          [
+            123,
+            224,
+            129,
+            239
+          ]
+        ],
+        "px": {
+          "H": 39,
+          "T": 64.3,
+          "UA": 26.8,
+          "FA": 15.1,
+          "A": 42,
+          "TH": 35.1,
+          "SH": 49.2,
+          "L": 84.4,
+          "S": 16.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f1/f2 fully extended near leg76.1±6 robust fail vscombat107.2±6, hip beneath hem±3. Sole faces camera: shoe measurements are visible projection only. Torso leans back and hem behind thigh, no torso-only proof. Other frames knee depth and far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 7.7,
+            "T": -18.9,
+            "A": -40.1,
+            "L": -17.6,
+            "S": -51
+          },
+          "combat": {
+            "H": 1.8,
+            "T": -9.1,
+            "A": -31.6,
+            "L": -21.3,
+            "S": -46.4
+          }
+        }
+      },
+      {
+        "frame": 4,
+        "endpoints": [
+          [
+            154,
+            18,
+            155,
+            56
+          ],
+          [
+            151,
+            60,
+            157,
+            124
+          ],
+          [
+            123,
+            68,
+            111,
+            92,
+            126,
+            90
+          ],
+          [
+            140,
+            130,
+            137,
+            165,
+            126,
+            213
+          ],
+          [
+            123,
+            224,
+            129,
+            239
+          ]
+        ],
+        "px": {
+          "H": 39,
+          "T": 64.3,
+          "UA": 26.8,
+          "FA": 15.1,
+          "A": 42,
+          "TH": 35.1,
+          "SH": 49.2,
+          "L": 84.4,
+          "S": 16.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f1/f2 fully extended near leg76.1±6 robust fail vscombat107.2±6, hip beneath hem±3. Sole faces camera: shoe measurements are visible projection only. Torso leans back and hem behind thigh, no torso-only proof. Other frames knee depth and far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 7.7,
+            "T": -18.9,
+            "A": -40.1,
+            "L": -17.6,
+            "S": -51
+          },
+          "combat": {
+            "H": 1.8,
+            "T": -9.1,
+            "A": -31.6,
+            "L": -21.3,
+            "S": -46.4
+          }
+        }
+      }
+    ],
+    "airLight3": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            143,
+            61,
+            149,
+            95
+          ],
+          [
+            137,
+            96,
+            126,
+            155
+          ],
+          [
+            146,
+            104,
+            170,
+            122,
+            172,
+            113
+          ],
+          [
+            135,
+            158,
+            133,
+            191,
+            124,
+            223
+          ],
+          [
+            120,
+            237,
+            141,
+            239
+          ]
+        ],
+        "px": {
+          "H": 35.5,
+          "T": 60,
+          "UA": 30,
+          "FA": 9.2,
+          "A": 39.2,
+          "TH": 33.1,
+          "SH": 33.2,
+          "L": 66.3,
+          "S": 21.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 8,
+          "S": 4
+        },
+        "notes": "Rear/twisted body, shoulder and forearm into depth, hip beneath hem±4. Active near leg90.1–90.8±8 vscombat107.2±6 reaches6% boundary; no robust fail. Torso curl/twist projection cannot certify. Sole-facing/diagonal plantar length, far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -1.9,
+            "T": -24.2,
+            "A": -44,
+            "L": -35.3,
+            "S": -36.1
+          },
+          "combat": {
+            "H": -7.3,
+            "T": -15.1,
+            "A": -36.1,
+            "L": -38.1,
+            "S": -30
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            146,
+            61,
+            153,
+            97
+          ],
+          [
+            141,
+            99,
+            136,
+            155
+          ],
+          [
+            119,
+            105,
+            99,
+            118,
+            90,
+            123
+          ],
+          [
+            139,
+            159,
+            134,
+            193,
+            124,
+            224
+          ],
+          [
+            121,
+            237,
+            141,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.7,
+          "T": 56.2,
+          "UA": 23.9,
+          "FA": 10.3,
+          "A": 34.1,
+          "TH": 34.4,
+          "SH": 32.6,
+          "L": 66.9,
+          "S": 20.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 8,
+          "S": 4
+        },
+        "notes": "Rear/twisted body, shoulder and forearm into depth, hip beneath hem±4. Active near leg90.1–90.8±8 vscombat107.2±6 reaches6% boundary; no robust fail. Torso curl/twist projection cannot certify. Sole-facing/diagonal plantar length, far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 4,
+            "T": -29,
+            "A": -51.2,
+            "L": -34.6,
+            "S": -39.1
+          },
+          "combat": {
+            "H": -1.7,
+            "T": -20.5,
+            "A": -44.3,
+            "L": -37.5,
+            "S": -33.3
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            116,
+            108,
+            120,
+            143
+          ],
+          [
+            111,
+            145,
+            108,
+            195
+          ],
+          [
+            93,
+            145,
+            82,
+            153,
+            74,
+            158
+          ],
+          [
+            111,
+            195,
+            151,
+            183,
+            199,
+            177
+          ],
+          [
+            205,
+            164,
+            207,
+            182
+          ]
+        ],
+        "px": {
+          "H": 36.2,
+          "T": 50.1,
+          "UA": 13.6,
+          "FA": 9.4,
+          "A": 23,
+          "TH": 41.8,
+          "SH": 48.4,
+          "L": 90.1,
+          "S": 18.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 8,
+          "S": 4
+        },
+        "notes": "Rear/twisted body, shoulder and forearm into depth, hip beneath hem±4. Active near leg90.1–90.8±8 vscombat107.2±6 reaches6% boundary; no robust fail. Torso curl/twist projection cannot certify. Sole-facing/diagonal plantar length, far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 0,
+            "T": -36.8,
+            "A": -67.1,
+            "L": -12,
+            "S": -45.1
+          },
+          "combat": {
+            "H": -5.5,
+            "T": -29.2,
+            "A": -62.5,
+            "L": -15.9,
+            "S": -39.9
+          }
+        }
+      },
+      {
+        "frame": 3,
+        "endpoints": [
+          [
+            121,
+            108,
+            124,
+            143
+          ],
+          [
+            116,
+            145,
+            113,
+            195
+          ],
+          [
+            97,
+            145,
+            85,
+            153,
+            78,
+            158
+          ],
+          [
+            116,
+            195,
+            159,
+            184,
+            205,
+            178
+          ],
+          [
+            212,
+            162,
+            215,
+            183
+          ]
+        ],
+        "px": {
+          "H": 36.1,
+          "T": 50.1,
+          "UA": 14.4,
+          "FA": 8.6,
+          "A": 23,
+          "TH": 44.4,
+          "SH": 46.4,
+          "L": 90.8,
+          "S": 21.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 8,
+          "S": 4
+        },
+        "notes": "Rear/twisted body, shoulder and forearm into depth, hip beneath hem±4. Active near leg90.1–90.8±8 vscombat107.2±6 reaches6% boundary; no robust fail. Torso curl/twist projection cannot certify. Sole-facing/diagonal plantar length, far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -0.3,
+            "T": -36.8,
+            "A": -67.1,
+            "L": -11.4,
+            "S": -35.7
+          },
+          "combat": {
+            "H": -5.8,
+            "T": -29.2,
+            "A": -62.5,
+            "L": -15.3,
+            "S": -29.6
+          }
+        }
+      },
+      {
+        "frame": 4,
+        "endpoints": [
+          [
+            132,
+            29,
+            139,
+            65
+          ],
+          [
+            128,
+            68,
+            128,
+            129
+          ],
+          [
+            104,
+            77,
+            87,
+            98,
+            72,
+            117
+          ],
+          [
+            131,
+            137,
+            149,
+            168,
+            123,
+            215
+          ],
+          [
+            123,
+            226,
+            132,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.7,
+          "T": 61,
+          "UA": 27,
+          "FA": 24.2,
+          "A": 51.2,
+          "TH": 35.8,
+          "SH": 53.7,
+          "L": 89.6,
+          "S": 15.8
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 8,
+          "S": 4
+        },
+        "notes": "Rear/twisted body, shoulder and forearm into depth, hip beneath hem±4. Active near leg90.1–90.8±8 vscombat107.2±6 reaches6% boundary; no robust fail. Torso curl/twist projection cannot certify. Sole-facing/diagonal plantar length, far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 4,
+            "T": -23,
+            "A": -26.8,
+            "L": -12.5,
+            "S": -52.1
+          },
+          "combat": {
+            "H": -1.7,
+            "T": -13.7,
+            "A": -16.5,
+            "L": -16.4,
+            "S": -47.6
+          }
+        }
+      },
+      {
+        "frame": 5,
+        "endpoints": [
+          [
+            154,
+            24,
+            162,
+            61
+          ],
+          [
+            152,
+            65,
+            164,
+            130
+          ],
+          [
+            129,
+            73,
+            113,
+            99,
+            128,
+            98
+          ],
+          [
+            146,
+            136,
+            142,
+            169,
+            124,
+            217
+          ],
+          [
+            123,
+            226,
+            132,
+            239
+          ]
+        ],
+        "px": {
+          "H": 38.9,
+          "T": 66.1,
+          "UA": 30.5,
+          "FA": 15,
+          "A": 45.6,
+          "TH": 33.2,
+          "SH": 51.3,
+          "L": 84.5,
+          "S": 15.8
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 8,
+          "S": 4
+        },
+        "notes": "Rear/twisted body, shoulder and forearm into depth, hip beneath hem±4. Active near leg90.1–90.8±8 vscombat107.2±6 reaches6% boundary; no robust fail. Torso curl/twist projection cannot certify. Sole-facing/diagonal plantar length, far limbs hidden.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 7.3,
+            "T": -16.6,
+            "A": -34.9,
+            "L": -17.5,
+            "S": -52.1
+          },
+          "combat": {
+            "H": 1.4,
+            "T": -6.5,
+            "A": -25.8,
+            "L": -21.2,
+            "S": -47.6
+          }
+        }
+      }
+    ],
+    "light3": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            146,
+            28,
+            151,
+            63
+          ],
+          [
+            142,
+            66,
+            153,
+            128
+          ],
+          [
+            121,
+            75,
+            113,
+            106,
+            130,
+            118
+          ],
+          [
+            135,
+            135,
+            136,
+            174,
+            127,
+            224
+          ],
+          [
+            122,
+            237,
+            138,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.4,
+          "T": 63,
+          "UA": 32,
+          "FA": 20.8,
+          "A": 52.8,
+          "TH": 39,
+          "SH": 50.8,
+          "L": 89.8,
+          "S": 16.1
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 0.4,
+            "T": -20.5,
+            "A": -24.6,
+            "L": -12.3,
+            "S": -51.1
+          },
+          "combat": {
+            "H": -5.2,
+            "T": -10.9,
+            "A": -13.9,
+            "L": -16.2,
+            "S": -46.5
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            132,
+            26,
+            139,
+            62
+          ],
+          [
+            131,
+            65,
+            144,
+            128
+          ],
+          [
+            106,
+            75,
+            100,
+            106,
+            117,
+            119
+          ],
+          [
+            137,
+            126,
+            160,
+            107,
+            165,
+            146
+          ],
+          [
+            162,
+            157,
+            171,
+            174
+          ]
+        ],
+        "px": {
+          "H": 37.7,
+          "T": 64.3,
+          "UA": 31.6,
+          "FA": 21.4,
+          "A": 53,
+          "TH": 29.8,
+          "SH": 39.3,
+          "L": 69.2,
+          "S": 19.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 4,
+            "T": -18.8,
+            "A": -24.3,
+            "L": -32.5,
+            "S": -41.7
+          },
+          "combat": {
+            "H": -1.7,
+            "T": -9,
+            "A": -13.7,
+            "L": -35.5,
+            "S": -36.2
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            128,
+            26,
+            135,
+            62
+          ],
+          [
+            129,
+            66,
+            141,
+            129
+          ],
+          [
+            104,
+            75,
+            99,
+            105,
+            115,
+            119
+          ],
+          [
+            131,
+            134,
+            161,
+            119,
+            193,
+            111
+          ],
+          [
+            195,
+            109,
+            199,
+            98
+          ]
+        ],
+        "px": {
+          "H": 37.7,
+          "T": 64.1,
+          "UA": 30.4,
+          "FA": 21.3,
+          "A": 51.7,
+          "TH": 33.5,
+          "SH": 33,
+          "L": 66.5,
+          "S": 11.7
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 4,
+            "T": -19.1,
+            "A": -26.2,
+            "L": -35,
+            "S": -64.5
+          },
+          "combat": {
+            "H": -1.7,
+            "T": -9.3,
+            "A": -15.8,
+            "L": -37.9,
+            "S": -61.2
+          }
+        }
+      },
+      {
+        "frame": 3,
+        "endpoints": [
+          [
+            127,
+            26,
+            135,
+            62
+          ],
+          [
+            128,
+            66,
+            140,
+            130
+          ],
+          [
+            104,
+            75,
+            99,
+            105,
+            115,
+            119
+          ],
+          [
+            130,
+            136,
+            173,
+            117,
+            210,
+            112
+          ],
+          [
+            213,
+            110,
+            219,
+            96
+          ]
+        ],
+        "px": {
+          "H": 37.9,
+          "T": 65.1,
+          "UA": 30.4,
+          "FA": 21.3,
+          "A": 51.7,
+          "TH": 47,
+          "SH": 37.3,
+          "L": 84.3,
+          "S": 15.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 4.6,
+            "T": -17.8,
+            "A": -26.2,
+            "L": -17.6,
+            "S": -53.8
+          },
+          "combat": {
+            "H": -1.2,
+            "T": -7.9,
+            "A": -15.8,
+            "L": -21.3,
+            "S": -49.5
+          }
+        }
+      },
+      {
+        "frame": 4,
+        "endpoints": [
+          [
+            131,
+            31,
+            137,
+            66
+          ],
+          [
+            132,
+            69,
+            143,
+            130
+          ],
+          [
+            107,
+            79,
+            99,
+            110,
+            117,
+            122
+          ],
+          [
+            136,
+            132,
+            167,
+            113,
+            173,
+            151
+          ],
+          [
+            170,
+            164,
+            181,
+            178
+          ]
+        ],
+        "px": {
+          "H": 36.5,
+          "T": 62,
+          "UA": 32,
+          "FA": 21.6,
+          "A": 53.6,
+          "TH": 36.4,
+          "SH": 38.5,
+          "L": 74.8,
+          "S": 17.8
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 0.8,
+            "T": -21.8,
+            "A": -23.4,
+            "L": -26.9,
+            "S": -46
+          },
+          "combat": {
+            "H": -4.8,
+            "T": -12.3,
+            "A": -12.6,
+            "L": -30.2,
+            "S": -40.9
+          }
+        }
+      },
+      {
+        "frame": 5,
+        "endpoints": [
+          [
+            126,
+            31,
+            134,
+            66
+          ],
+          [
+            128,
+            70,
+            143,
+            130
+          ],
+          [
+            107,
+            79,
+            96,
+            109,
+            116,
+            123
+          ],
+          [
+            129,
+            135,
+            134,
+            169,
+            104,
+            208
+          ],
+          [
+            105,
+            219,
+            116,
+            236
+          ]
+        ],
+        "px": {
+          "H": 36.9,
+          "T": 61.8,
+          "UA": 32,
+          "FA": 24.4,
+          "A": 56.4,
+          "TH": 34.4,
+          "SH": 49.2,
+          "L": 83.6,
+          "S": 20.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 1.9,
+            "T": -21.9,
+            "A": -19.5,
+            "L": -18.4,
+            "S": -38.6
+          },
+          "combat": {
+            "H": -3.7,
+            "T": -12.5,
+            "A": -8.1,
+            "L": -22,
+            "S": -32.8
+          }
+        }
+      },
+      {
+        "frame": 6,
+        "endpoints": [
+          [
+            129,
+            31,
+            137,
+            66
+          ],
+          [
+            129,
+            70,
+            142,
+            129
+          ],
+          [
+            108,
+            80,
+            96,
+            109,
+            116,
+            121
+          ],
+          [
+            137,
+            135,
+            142,
+            174,
+            143,
+            226
+          ],
+          [
+            140,
+            237,
+            169,
+            237
+          ]
+        ],
+        "px": {
+          "H": 36.9,
+          "T": 60.4,
+          "UA": 31.4,
+          "FA": 23.3,
+          "A": 54.7,
+          "TH": 39.3,
+          "SH": 52,
+          "L": 91.3,
+          "S": 29
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 4,
+          "A": 6,
+          "L": 6,
+          "S": 4
+        },
+        "notes": "f2/f3 fully extended planar near kick66.5/84.3±6 vscombat107.2±6 robust fail; sole-facing/diagonal plantar length not dimensional inference. Other knees bend into depth, hands pocketed. Supporting leg visible but hip under hem. Shoulders oblique.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 1.9,
+            "T": -23.7,
+            "A": -21.9,
+            "L": -10.8,
+            "S": -12.1
+          },
+          "combat": {
+            "H": -3.7,
+            "T": -14.6,
+            "A": -10.8,
+            "L": -14.8,
+            "S": -3.8
+          }
+        }
+      }
+    ],
+    "hurtLow": [
+      {
+        "frame": 0,
+        "endpoints": [
+          [
+            162,
+            76,
+            155,
+            109
+          ],
+          [
+            145,
+            100,
+            128,
+            143
+          ],
+          [
+            119,
+            86,
+            105,
+            119,
+            122,
+            128
+          ],
+          [
+            124,
+            146,
+            114,
+            177,
+            90,
+            217
+          ],
+          [
+            87,
+            237,
+            100,
+            239
+          ]
+        ],
+        "px": {
+          "H": 34.7,
+          "T": 46.2,
+          "UA": 35.8,
+          "FA": 19.2,
+          "A": 55.1,
+          "TH": 32.6,
+          "SH": 46.6,
+          "L": 79.2,
+          "S": 13.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 8,
+          "A": 6,
+          "L": 10,
+          "S": 4
+        },
+        "notes": "Abdominal curl shortens collar-to-hem projection; T±8. Thighs angle into depth and knees flex, joint centres under cloth±3; L±10. Near shoe front-facing, plantar length hidden. Hands obscure wrist/far arm; no robust scale inference.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -4.1,
+            "T": -41.6,
+            "A": -21.3,
+            "L": -22.6,
+            "S": -60.1
+          },
+          "combat": {
+            "H": -9.4,
+            "T": -34.6,
+            "A": -10.2,
+            "L": -26.1,
+            "S": -56.4
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "endpoints": [
+          [
+            154,
+            58,
+            149,
+            94
+          ],
+          [
+            139,
+            92,
+            129,
+            144
+          ],
+          [
+            116,
+            92,
+            102,
+            120,
+            128,
+            129
+          ],
+          [
+            124,
+            148,
+            114,
+            177,
+            90,
+            217
+          ],
+          [
+            88,
+            237,
+            101,
+            239
+          ]
+        ],
+        "px": {
+          "H": 37.3,
+          "T": 53,
+          "UA": 31.3,
+          "FA": 27.5,
+          "A": 58.8,
+          "TH": 30.7,
+          "SH": 46.6,
+          "L": 77.3,
+          "S": 13.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 8,
+          "A": 6,
+          "L": 10,
+          "S": 4
+        },
+        "notes": "Abdominal curl shortens collar-to-hem projection; T±8. Thighs angle into depth and knees flex, joint centres under cloth±3; L±10. Near shoe front-facing, plantar length hidden. Hands obscure wrist/far arm; no robust scale inference.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": 3.1,
+            "T": -33.2,
+            "A": -16,
+            "L": -24.5,
+            "S": -60.1
+          },
+          "combat": {
+            "H": -2.6,
+            "T": -25.1,
+            "A": -4.1,
+            "L": -27.9,
+            "S": -56.4
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "endpoints": [
+          [
+            145,
+            45,
+            142,
+            80
+          ],
+          [
+            140,
+            85,
+            131,
+            143
+          ],
+          [
+            115,
+            86,
+            100,
+            113,
+            126,
+            125
+          ],
+          [
+            124,
+            148,
+            114,
+            177,
+            90,
+            217
+          ],
+          [
+            88,
+            237,
+            101,
+            239
+          ]
+        ],
+        "px": {
+          "H": 36.1,
+          "T": 58.7,
+          "UA": 30.9,
+          "FA": 28.6,
+          "A": 59.5,
+          "TH": 30.7,
+          "SH": 46.6,
+          "L": 77.3,
+          "S": 13.2
+        },
+        "uncertainty": {
+          "H": 3,
+          "T": 8,
+          "A": 6,
+          "L": 10,
+          "S": 4
+        },
+        "notes": "Abdominal curl shortens collar-to-hem projection; T±8. Thighs angle into depth and knees flex, joint centres under cloth±3; L±10. Near shoe front-facing, plantar length hidden. Hands obscure wrist/far arm; no robust scale inference.",
+        "shoulder": "Oblique, no frontal numerical comparison",
+        "farChains": "Occluded or projected; no numeric pass",
+        "driftPercent": {
+          "oldIdle": {
+            "H": -0.3,
+            "T": -25.9,
+            "A": -15,
+            "L": -24.5,
+            "S": -60.1
+          },
+          "combat": {
+            "H": -5.8,
+            "T": -17,
+            "A": -3,
+            "L": -27.9,
+            "S": -56.4
+          }
+        }
+      }
+    ]
+  },
+  "confirmedRedraw": [
+    "jumpFall",
+    "airRecover",
+    "throw",
+    "airLight1",
+    "airLight2",
+    "light3"
+  ],
+  "inconclusiveNoRedraw": [
+    "guard",
+    "jumpUp",
+    "airLight3",
+    "hurtLow"
+  ]
+}

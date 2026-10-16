@@ -1,0 +1,20 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const dest='public/reviews/gojo-round4';
+if(fs.existsSync(dest)) throw new Error(`refusing to reuse existing gallery target: ${dest}`);
+fs.mkdirSync(dest,{recursive:true});
+const copy=(src,rel)=>{const out=path.join(dest,rel);fs.mkdirSync(path.dirname(out),{recursive:true});fs.copyFileSync(src,out)};
+copy('art/characters/gojo/production/round4/final-candidate-public/characters/gojo/sheet.png','atlas/sheet.png');
+copy('art/characters/gojo/production/round4/final-candidate-public/characters/gojo/anims.json','atlas/anims.json');
+copy('art/characters/gojo/production/round4/final-candidate-art/manifest.json','atlas/diagnostic-manifest.json');
+copy('art/characters/gojo/production/round4/final-candidate-atlas-measurements.json','qa/head-and-body-proxies.json');
+copy('art/characters/gojo/production/round4/sources/attempt-ledger.json','qa/attempt-ledger.json');
+copy('art/characters/gojo/production/round4/inventory.json','qa/round4-inventory.json');
+copy('art/characters/gojo/production/round4/complete-anatomy-recovery.json','qa/historical-anatomy-record.json');
+copy('art/characters/gojo/production/round4/remaining-landmark-recovery.json','qa/historical-landmarks.json');
+copy('public/art-review/title-style-pilot/gojo-neutral_v01.png','references/approved-neutral.png');
+copy('public/art-review/title-style-pilot/gojo-combat_v01.png','references/approved-combat.png');
+for(const f of fs.readdirSync('art/characters/gojo/raw')) if(/^(idle_v0[67]|superDash_v0[789]|jumpFall_v0[456]|airRecover_v0[345]|throw_v0[345]|airLight1_v0[67]|airLight2_v0[45]|airLight3_v12|light3_v0[45]|guard_v04|jumpUp_v04|hurtLow_v04)\.(png|json)$/.test(f)) copy(`art/characters/gojo/raw/${f}`,`raw/${f}`);
+for(const f of fs.readdirSync('art/characters/gojo/raw/_parts')) if(/^(idle_v07_[AB]|light3_v05_[AB])\.png$/.test(f)) copy(`art/characters/gojo/raw/_parts/${f}`,`raw/parts/${f}`);
+for(const f of ['idle-diagnostic-native.png','idle-all8-native.png','idle-f0-comparison-2x.png','idle-landmarks.json','idle-bounds.json','superDash-v09-native.png','superDash-v09-2x.png','superDash-landmarks.json','jumpFall-round4-2x.png','airRecover-round4-2x.png','throw-round4-2x.png','airLight1-round4-2x.png','airLight2-round4-2x.png','light3-round4-2x.png','guard-round4-2x.png','jumpUp-round4-2x.png','airLight3-round4-2x.png','hurtLow-round4-2x.png','astra-audit/atlas-evidence.json','astra-audit/independent-landmarks.json']) {const src=`art/characters/gojo/production/round4/${f}`;if(fs.existsSync(src))copy(src,`qa/${f}`);}
+console.log(`gallery assets copied to ${dest}`);

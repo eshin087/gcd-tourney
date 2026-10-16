@@ -11,6 +11,29 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(gojo): record user visual approval of airLight1 v07, airLight2 v05, airRecover v05, jumpFall v06, light3 v06, superDash v09, throw v05; retain technical evidence and unrelated holds.
+
+- Review: publish three one-call targeted repair candidates with Astra findings and the user-approved Naruto taunt10 reference; distinguish improved arm/motion from unresolved contact and anatomy holds.
+
+- Added: phone-first round-5 review gallery for the 28 calibrated fighter strips, with current atlas provenance, approved-scale comparisons and Astra findings; feedback remains outside approval records (ART-ROUND5-PHONE).
+
+- Art: User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
+
+- Added: mobile feedback gallery for exact Gojo idle08 and Goku idle02 source candidates, approved references, provenance and explicit technical holds (ART-IDLE-PHONE).
+
+- Gojo round4: re-stitched light3 v06 from immutable v05 parts at Claude's hair-measured factor 1.024, downscaling A to preserve relative fit; saved one authorized idle v08 whole-strip redraw from the approved combat cell with generation hash and pose hold. No calibration, pack or production atlas changed.
+
+- Gojo round4: added a hash-identified Claude handoff for idle/superDash calibration review, light3 seam diagnosis and airLight1/throw source-column assembly; separates confirmed envelope/torso/seam concerns from projection uncertainty and records remaining image-call budgets. No art, calibration, production atlas or approval changed.
+
+- Gojo round4: saved jumpFall v06, airRecover v05, throw v05, airLight1 v07, airLight2 v05 and light3 v05 as unapproved candidates; added quantized diagnostic atlas, per-frame Astra H/T/A/L/S holds and review gallery. Full strict pack remains blocked; airLight2 call overrun and source recovery are disclosed. No production atlas, scale calibration or approval changed.
+
+- Gojo round4: versioned combat-stance idle v07 and superDash v08/v09 candidates with strict diagnostic reports and actual atlas segment landmarks; QA holds retained, production approvals/calibration and run studies preserved.
+
+- User selected Gojo G relaxed-arm glide direction; H/I study sources retained as rejected alternatives. Leg-phase/seam technical holds remain; production runv12 unchanged.
+
+- Gojo G/H/I review-only run/glide studies following D, with relaxed swing, one-pocket and low floating arm treatments; versioned sources, eight-frame contacts, playable GIF/MP4 and verified embedded demo. Measured density correction clears neutral head probe; leg/seam review holds remain. Production runv12 unchanged.
+
+- Gojo D/E/F eight-frame run/glide direction studies: versioned review-only sources,48color native cells, contact sheets, GIF/MP4, embedded offline demo and browser/media QA; earlier B/C rejected. Production runv12 unchanged; scale/anatomy/leg-continuity holds remain.
 - art(sasuke): record user visual approval of beamFire v07, dash v07, superDash v07; retain technical evidence and unrelated holds.
 
 - art(sasuke): jumpSquat — User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.

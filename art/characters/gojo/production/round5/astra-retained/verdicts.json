@@ -1,0 +1,37 @@
+[
+  {
+    "animation": "airLight1",
+    "version": 7,
+    "verdict": "HOLD",
+    "summary": "HOLD for full-segment \u00b16% certification: guarded/palm frames intact; f2 retracted arm overlaps torso; airborne limb and shoe projections lack matched references.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "airLight2",
+    "version": 5,
+    "verdict": "HOLD",
+    "summary": "HOLD for full-segment \u00b16% certification: f0\u2192f1 crown lowers9px into kick, f2\u2192f3 returns; kick extension and depth conceal comparable joint lengths.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "jumpFall",
+    "version": 6,
+    "verdict": "HOLD",
+    "summary": "HOLD for full-segment \u00b16% certification: stable body across two-frame loop, but reaching hand swings about15px and elbows/airborne shoes remain projection-limited.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "superDash",
+    "version": 9,
+    "verdict": "HOLD",
+    "summary": "HOLD: projected torso ~52px vs combat71px is a current compact-trunk residual. Forward pitch prevents turning chord ratio into a definitive anatomical length; folded legs/shoes remain uncertified.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "throw",
+    "version": 5,
+    "verdict": "HOLD",
+    "summary": "HOLD for full-segment \u00b16% certification: four intact rotating gestures; no split/cut figure observed, but raised/retracted arms and airborne legs lack pose-matched length evidence.",
+    "evidence": "AUDIT.md"
+  }
+]
