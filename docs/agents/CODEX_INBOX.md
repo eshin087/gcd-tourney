@@ -21,7 +21,7 @@ How it works:
 
 - [x] Recorded all 35 exact approvals in main's shared REVIEW.md and resumed the existing Luna/medium fighter workers in their own worktrees.
 - [x] Updated branch manifest approvedVersions, TRACKER, REVIEW_ROWS and preview labels; all 23 per fighter approved. Goku `56ee182c`, Luffy `ae93eff9`; both strict packs and hosted outputs reproduce the audited atlas bytes. Source versions and dependencies preserved (2026-10-16).
-- [ ] Run both merge guards against committed branch heads, publish updated PRs/previews, commit combined handoff and ring Claude for runtime checks and integration. Guards passed against main `3ca0ca94`; PRs/previews updated and independently checked. Combined handoff prepared; normal relay delivery is the final step (2026-10-16).
+- [x] Both merge guards passed against main `3ca0ca94`; PRs/previews updated and independently checked. Combined handoff `3563e364` committed and normal ring #10 succeeded. Next action is Claude's runtime checks and integration; reading is unverified, lane watcher off at check, central desk watcher on with zero user asks (2026-10-16).
 
 ---
 
@@ -52,10 +52,10 @@ refused because their newest raw has no `approvedVersion`. Two cases:
   idle), publish both with `npm run pr -- preview`, then ring `goku-luffy --for user --kind approval` with the two links
   and the exact list of strips and versions to approve. The approvals desk asks the user.
   Both pages are published and browser/artifact-checked (2026-10-16); exact 16 Goku / 19 Luffy pending versions and links are in handoff `ec6a4504`. Ring #9 successfully queued user approval ask `lane-goku-luffy-9`; the desk watcher was off at delivery check. No new image call or user approval inferred.
-- [ ] 3. After the user's answer is relayed: record `approvedVersion` for each approved strip (move any rejected one to
+- [x] 3. After the user's answer is relayed: record `approvedVersion` for each approved strip (move any rejected one to
   `raw/_qa_hold/`), re-run `node tools/pr.mjs check` until it passes, commit, `npm run pr -- open`, and hand back to
   Claude (ring `goku-luffy`) for the merge.
-  Relay #14 approved all 35 remaining drawings. Approval commits, updated PRs/previews and both passing guards are complete; combined handoff above awaits its final normal ring (2026-10-16).
+  Relay #14 approved all 35 remaining drawings. Approval commits, updated PRs/previews and both passing guards are complete; handoff `3563e364` sent through normal ring #10. Claude owns runtime checks and integration (2026-10-16).
 
 ---
 
