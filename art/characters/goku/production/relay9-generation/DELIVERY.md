@@ -15,3 +15,7 @@ The strict real-input 48-color pack exited 0 and reproduced the Astra-audited sh
 Relay 9 used exactly one new generation call each for light3 and heavy, the fifth cumulative call for each. No further image calls occurred. light3 v11 remains on hold: its 256px diagnostic clips 800 foreground-mask pixels, and it is excluded; the roomy same-density companion is preserved. heavy v14 passed the exact final atlas anatomy/scale audit at uniform .720, bodyHeight235, x1. It awaits user drawing approval; approvedVersion4 remains the approved drawing. The light3 source path was recovered from the exact generator session and call time window after the wrapper omitted `output_hint`; the original output hint was not captured. See `GENERATION_LEDGER.md` and `light3-call05-recovery-receipt.json`.
 
 The hosted calibration page is for review. Runtime contacts/timing and full gameplay behavior remain outside the completed QA; the getup floor/contact warning is documented for Claude. No tests, merge, or production deployment were performed.
+
+## Hosted verification
+
+Parent authenticated fetch verified the hosted sheet and metadata bytes against the exact hashes above. Hosted HTML reports the heavy14 PASS / drawing approval pending state, light3v11 HOLD/excluded state and 101-frame count. Browser navigation reaches Vercel login, so hosted interactive rendering was not verified; local interactive QA passed.

@@ -29,3 +29,19 @@ Real-input pack command: `node tools/pack-sprites.mjs goku --strict-scale --quan
 - Candidate diagnostics and assembly details: `art/characters/goku/production/relay9-generation/`
 - Browser QA: `art/characters/goku/production/relay9-generation/PARENT_BROWSER_R4.md`
 - Per-candidate review rows: `art/characters/goku/REVIEW_ROWS.md`
+
+## Current review rows
+
+| Candidate | Review state | Technical result and provenance |
+|---|---|---|
+| light3 v10 source — [preserved source](art/characters/goku/raw/_qa_hold/light3_v10.png) | Technical hold; not ready for drawing review | Fifth cumulative generation call. Exact output path was recovered from the same session's generated-images folder and call window after the wrapper omitted its output hint; the original output_hint was not recorded. Source, prompt/reference hashes and recovery receipt are in art/characters/goku/production/relay9-generation/GENERATION_LEDGER.md. |
+| light3 v11 — [256px diagnostic](art/characters/goku/raw/_qa_hold/light3_v11.png) and [280px companion](art/characters/goku/raw/_qa_hold/light3_v11_roomy_280.png) | Technical HOLD; excluded | Uniform .62 factor; 800 foreground-mask pixels clip in the standard 256px cells, while the same-density roomy companion preserves all scaled foreground pixels. |
+| heavy v12 source — [preserved source](art/characters/goku/raw/_qa_hold/heavy_v12.png) | Source preserved; v14 is current candidate | Fifth cumulative generation call. Source, prompt/reference hashes and component provenance are in the relay9 generation ledger. |
+| heavy v13 — [preserved assembly](art/characters/goku/raw/_qa_hold/heavy_v13.png) | Superseded diagnostic; preserved | Earlier uniform .73 assembly; retained as version history. |
+| heavy v14 — [current selected candidate](art/characters/goku/raw/heavy_v14.png) | Needs user drawing review; not approved | Uniform .720 factor from independent f0/f6/f7 torso, boot and belt landmarks; bodyHeight235, native x1, zero clipping. Exact final atlas anatomy/scale audit PASS. Manifest status remains approved for v04 only; approvedVersion remains 4. |
+
+Relay 9 authorized exactly one new generation call for each move, making five cumulative calls each. No further calls were made. The exact source receipt and all assembly candidates are recorded in art/characters/goku/REVIEW_ROWS.md.
+
+## Hosted verification
+
+Parent authenticated fetch verified that the hosted branch sheet.png and anims.json match the exact hashes above. Hosted HTML reports heavy v14 technical PASS pending drawing approval, light3 v11 HOLD and excluded, and the 101-frame atlas. Vercel browser access reaches the login page, so hosted interactive rendering was not browser-verified; local interactive QA passed as documented above.
