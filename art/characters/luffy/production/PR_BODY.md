@@ -23,7 +23,7 @@ The final 48-color strict pack contains 23 animations / 108 frames. Special is i
 - Attempt receipt and prompt/input hashes: `art/characters/luffy/production/relay11-generation/PENDING_CALL.md`
 - f0–f5 source preservation comparison: `art/characters/luffy/production/relay11-generation/special_v02_sourceA-preservation.json`
 
-The image-generation budget is exhausted for this round: the relay #8 input-validation failure counted as call 4/4; relay #11 authorized and used exactly one fifth call, which returned special v02. No retry remains. The candidate remains `needs review` and `approvedVersion` is unset.
+The image-generation budget is exhausted for this round: the relay #8 input-validation failure counted as call 4/4; relay #11 authorized and used exactly one fifth call, which returned special v02. No retry remains. Manifest status is `packed`, while the review row remains `needs review` and `approvedVersion` is unset.
 
 ## Preview verification
 
