@@ -379,9 +379,12 @@ const PAINTERS = {
       ctx.stroke();
       return pts;
     };
-    zig(10, 2, '#c8c8c8');
-    const main = zig(16, 3, '#ffffff');
-    ctx.lineWidth = 1;
+    zig(12, 3, '#c8c8c8');
+    const main = zig(18, 6, '#e6e6e6');
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0, 32); main.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(64, 32); ctx.stroke();
+    ctx.lineWidth = 2;
     ctx.strokeStyle = '#ffffff';
     for (let k = 0; k < 3; k++) {
       const [x, y] = main[1 + Math.floor(R() * 5)], s = R() < 0.5 ? -1 : 1;
@@ -392,14 +395,16 @@ const PAINTERS = {
   streamLance(i, n, ctx) {
     const R = rng(640 + i * 19);
     ctx.fillStyle = '#c8c8c8';
-    ctx.fillRect(0, 29, 64, 7);
+    ctx.fillRect(0, 26, 64, 12);
+    ctx.fillStyle = '#e6e6e6';
+    ctx.fillRect(0, 28, 64, 8);
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 30, 64, 4);
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 1;
     for (let k = 0; k < 4; k++) {
       const x = 6 + R() * 48, s = k % 2 ? -1 : 1;
-      ctx.beginPath(); ctx.moveTo(x, 32 + s * 3); ctx.lineTo(x + 2 + R() * 3, 32 + s * (6 + R() * 3)); ctx.lineTo(x + 5 + R() * 3, 32 + s * (5 + R() * 6)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x, 32 + s * 6); ctx.lineTo(x + 2 + R() * 3, 32 + s * (9 + R() * 3)); ctx.lineTo(x + 5 + R() * 3, 32 + s * (8 + R() * 6)); ctx.stroke();
     }
   },
   // Great Fireball: a rolling torrent of fire (fixed colors); the bulges are periodic over the cell so it tiles

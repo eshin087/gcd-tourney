@@ -13,7 +13,7 @@
     { "step": 6, "name": "reactions", "items": ["guard", "hurtHigh", "launched", "down", "getup"] },
     { "step": 7, "name": "specials", "items": ["charge", "beamCharge", "beamFire", "special"] },
     { "step": 8, "name": "rest (core)", "items": ["dash", "jumpUp", "jumpFall", "land", "win"] },
-    { "step": 9, "name": "rest (optional)", "items": ["backDash", "superDash", "jumpSquat", "airLight2", "airLight3", "block", "hurtLow", "spin", "airRecover", "throw", "vanish", "stagger", "ko", "intro", "taunt", "specialForward", "specialUp", "specialDown", "superPose", "beamStruggle", "light1Alt", "light2Alt", "light3Alt", "light4Alt", "heavyAlt", "airLight1Alt", "airLight2Alt", "airLight3Alt", "airHeavyAlt", "hurtHighAlt", "hurtLowAlt"] },
+    { "step": 9, "name": "rest (optional)", "items": ["backDash", "superDash", "jumpSquat", "airLight2", "airLight3", "block", "hurtLow", "spin", "airRecover", "throw", "vanish", "stagger", "ko", "intro", "taunt", "specialForward", "specialUp", "specialDown", "superPose", "beamStruggle", "beamStruggleAir", "light1Alt", "light2Alt", "light3Alt", "light4Alt", "heavyAlt", "airLight1Alt", "airLight2Alt", "airLight3Alt", "airHeavyAlt", "hurtHighAlt", "hurtLowAlt"] },
     { "step": 10, "name": "VFX", "items": ["vfx.spark", "vfx.burst", "vfx.ring", "vfx.dust", "vfx.smoke", "vfx.shuriken", "vfx.fire", "vfx.flame", "vfx.lightning", "vfx.orb", "vfx.glow", "vfx.streak", "vfx.star", "vfx.crater", "vfx.lines"] },
     { "step": 11, "name": "UI", "items": ["ui.portrait", "ui.cutin", "ui.select", "sharedUi.logo", "sharedUi.titleArt"] },
     { "step": 12, "name": "ground decals (style sheet first, ADR 0024)", "items": ["decals.styleSheet", "decals.crack_s", "decals.crack", "decals.crater", "decals.crater_big", "decals.crater_huge", "decals.fracture_ring", "decals.scuff", "decals.skid", "decals.rubble", "decals.dirt_crater", "decals.dirt_skid", "decals.barrier_crack", "decals.crater_wall", "decals.burn_lightning", "decals.burn_lightning_big", "decals.fracture_lightning", "decals.burn_fire", "decals.burn_black", "decals.scour_spiral", "decals.scour_spiral_big", "decals.cut_wind", "decals.claw", "decals.scorch_chakra", "decals.fracture_chakra", "decals.erasure", "decals.erasure_trench", "decals.crush_implode", "decals.gouge_repel", "decals.fracture_cursed", "decals.fracture_cursed_big", "decals.scorch_ki"] }
@@ -63,6 +63,7 @@
     "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 160, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "beamStruggle": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [70, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "beamStruggleAir": { "frames": 3, "loop": true, "bodyHeight": 190, "ms": [70, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "techGround": { "frames": 4, "loop": false, "phases": [1, 2, 1], "bodyHeight": 204, "ms": [67, 83, 83, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "techRoll": { "frames": 6, "loop": false, "phases": [1, 4, 1], "bodyHeight": 162, "ms": [50, 63, 62, 63, 62, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "wallTech": { "frames": 5, "loop": false, "phases": [2, 1, 2], "bodyHeight": 209, "ms": [50, 50, 67, 67, 66], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
@@ -133,6 +134,7 @@
           "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 160, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "superPose": { "frames": 4, "loop": true, "bodyHeight": 208, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "beamStruggle": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [70, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "beamStruggleAir": { "frames": 3, "loop": true, "bodyHeight": 190, "ms": [70, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "techGround": { "frames": 4, "loop": false, "phases": [1, 2, 1], "bodyHeight": 204, "ms": [67, 83, 83, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "techRoll": { "frames": 6, "loop": false, "phases": [1, 4, 1], "bodyHeight": 162, "ms": [50, 63, 62, 63, 62, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "wallTech": { "frames": 5, "loop": false, "phases": [2, 1, 2], "bodyHeight": 209, "ms": [50, 50, 67, 67, 66], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
@@ -1384,11 +1386,11 @@
       "ripple": {"frames":5,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":2,"approvedVersion":2},
       "naruto_chakraTail": {"frames":6,"ms":60,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1},
       "dustWave": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "clashBurst": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "streamBolt": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "streamLance": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "streamFlame": {"frames":4,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "redOrb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null}
+      "clashBurst": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streamBolt": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streamLance": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streamFlame": {"frames":4,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "redOrb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1}
     }
   },
   "decals": {

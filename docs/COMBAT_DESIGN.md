@@ -358,7 +358,17 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
 - **The struggle**: BEAM CLASH!, both attack names called out, the clash camera and HUD (rings + struggle bar), the
   round timer stops, both invulnerable. A shot becomes a stream (`Beam`, the shot's `stream` palette, width 0.95)
   from its owner's hands, an airborne owner hovers; a Rasengan / Chidori is held on its rush frame with its orb lit.
-  Two streams meet halfway between the hands, a stream meets a Rasengan 1.5 ahead of the fist (`rushReach`).
+  Two streams meet halfway between the hands, a stream meets a Rasengan at the held orb's front (the drawn hand +
+  `orbReach`; a shot detects it `rushReach` 1.5 ahead of the fist).
+- **How it looks** (ADR 0034): each move keeps its shape (`stream.style`): Narukami a branching lightning zigzag,
+  Chidori Spear a straight lightning lance, Great Fireball a fire torrent (atlas bands tiled along the stream), Reversal:
+  Red the orb at Gojo's fingertips sending repulsion ripples, a Rasengan / Dragon Fist held at the hand. Two `clashBurst`
+  knots (one per side's color) mark the meeting point inside a size budget; the aura thins and the flashes are short and
+  colored, so both fighters stay readable. A fighter whose sheet has `beamStruggle` plays it for the whole struggle.
+- **From the air** (ADR 0034 section 5): the airborne owner eases down to a low hover (`airHover`) in its air pose
+  (`beamStruggleAir`, else the `throw` release frame). A grounded rush answering it stays planted and holds the technique
+  up the stream line; losing ground shoves the rusher back along the floor or the air owner back and up. A winning rush
+  blasts up the line into them; a winning stream runs through the grounded loser.
 - **The chart**: a fresh chart every time (the same for both players): count-in 30 f, 4 notes every 24 f, 5 every
   18 f with a double, then the FINAL PUSH (30 f); about 4.5 s, 12 graded presses. Same grades as the ultimate clash;
   the point moves 0.045 per point of lead.

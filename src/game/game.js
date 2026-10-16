@@ -280,7 +280,7 @@ export class Game {
     this.arena.npcCue('super');
     // an ultimate gets the full-screen splash (ADR 0035); an answer's short flash keeps the banner
     this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name, ultimate && !answer ? 'ult' : 'super');
-    if (answer) this.hud.announce('COUNTER!', 'clash', 700);
+    if (answer) this.hud.announce('COUNTER!', 'clash-call', 700);
     this.fx.overlay.flash(S.color || f.def.color, 0.45);
     this.excite = 1;
   }
@@ -309,7 +309,7 @@ export class Game {
     }
     for (const b of this.beams) if (b.owner === o) b.kill();
     for (const ob of this.orbs) if (ob.owner === o) ob.kill();
-    this.hud.announce('UNLIMITED VOID', 'clash', 1500);
+    this.hud.announce('UNLIMITED VOID', 'clash-call', 1500);
     this.fx.overlay.flash('#ffffff', 0.9);
     this.fx.overlay.impactFrame(4);
     this.cam.shake(0.6);
@@ -724,7 +724,8 @@ export class Game {
         this.fx.auraTick(f, 1.8, this.cam.right);
         lines = 1;
         this.linesFocus = f;
-      } else if (f.state === 'beamFire' || f.state === 'clash') this.fx.auraTick(f, 0.6, this.cam.right);
+      } else if (f.state === 'beamFire') this.fx.auraTick(f, 0.6, this.cam.right);
+      else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
       const held = f.state === 'clash' ? this.clashHand(f) : null;
       if (f.state === 'attack' && f.move?.fx) {
         const m = f.move;
@@ -732,7 +733,7 @@ export class Game {
         const phase = t < A ? 0 : t < B ? 1 : 2;
         if (phase < 2 || (f.moveHit && t < B + 6)) this.fx.handTick(f, m.fx, phase, t / A);
         else this.fx.dropHand(f);
-      } else if (held) this.fx.handTick(f, held, 1, 1); // a Rasengan / Chidori driven into a beam clash stays lit
+      } else if (held) this.fx.handTick(f, held, 2, 1, true, this.clashHold(f)); // a Rasengan / Chidori driven into a beam clash stays lit, held forward
       else this.fx.dropHand(f);
     }
     if (this.clash) lines = 0.75;
@@ -864,7 +865,7 @@ export class Game {
     audio.play(heavy ? 'smash' : 'hitHeavy', Math.min(1.3, 0.8 + 0.1 * n));
     audio.play('block');
     if (n >= 2) audio.play('cheer', Math.min(1.2, 0.2 + 0.2 * n));
-    this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash', 650);
+    this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash-call', 650);
   }
 
   // what every melee clash shares: the push-in on the contact, speed lines on it and a dimmed stage for `frames` sim
@@ -890,7 +891,7 @@ export class Game {
     audio.play('cheer', 1.4);
     this.cam.shake(0.9);
     this.excite = 1;
-    this.hud.announce('CLASH BREAK!', 'clash', 1100);
+    this.hud.announce('CLASH BREAK!', 'clash-call', 1100);
   }
 
   // a heavy that met a light blows through it (the hit itself follows in resolveMelee)
@@ -1135,7 +1136,8 @@ export class Game {
     f.endMoveFx();
     f.move = null;
     f.faceOpponent(); // the stream leaves the hands toward them, whichever way the owner was turned
-    const bm = new Beam(this, f, { palette: s.palette ?? f.def.beam, width: CLASH.struggle.width });
+    const air = f.pos.y > CLASH.struggle.airMin, pose = air ? this.airStrugglePose(f) : this.strugglePose(f);
+    const bm = new Beam(this, f, { palette: s.palette ?? f.def.beam, width: CLASH.struggle.width, pose: pose ?? (air ? 'throw' : 'beamFire'), poseFrame: !pose && air ? 1 : 0 });
     this.beams.push(bm);
     f.beam = s.obj = bm;
     s.kind = 'beam';
@@ -1151,6 +1153,41 @@ export class Game {
     const c = this.clash;
     const s = c && !c.lite ? (c.a.f === f ? c.a : c.b.f === f ? c.b : null) : null;
     return s?.kind === 'rush' ? s.fx ?? null : null;
+  }
+
+  // where that held technique is drawn: where the stream meets it (placeClash), not the frame's hand, which a
+  // Chidori-type run frame trails behind the body
+  clashHold(f) {
+    const c = this.clash;
+    const s = c && !c.lite ? (c.a.f === f ? c.a : c.b.f === f ? c.b : null) : null;
+    return s?.hold ?? null;
+  }
+
+  // the struggle pose (ADR 0034): a fighter's own `beamStruggle` strip, once its sheet has one (never a FALLBACK);
+  // in the air its `beamStruggleAir`, else the `throw` release frame held (airHover)
+  strugglePose(f) {
+    return f.actor?.hasAnim?.('beamStruggle') ? 'beamStruggle' : null;
+  }
+
+  airStrugglePose(f) {
+    return f.actor?.hasAnim?.('beamStruggleAir') ? 'beamStruggleAir' : null;
+  }
+
+  // a fighter's drawn hand in the world (the frame on screen), else fixed offsets
+  handAt(f, fwd, up, out) {
+    const H = f.actor?.hand?.();
+    const x = H ? H.x : fwd;
+    return out.set(f.pos.x + f.face.x * x, f.pos.y + (H ? H.y : up), f.pos.z + f.face.y * x);
+  }
+
+  // A rush special driven into a beam clash meets the stream at its technique's front: the drawn hand plus the held
+  // orb's radius, not a fixed reach ahead of the body (the Rasengan used to float 1.5 out with a gap to the hand)
+  rushStruggleReach(s) {
+    const SC = CLASH.struggle, pose = this.strugglePose(s.f);
+    const H = pose ? s.f.actor.hand(pose) : null;
+    s.reach = (H ? H.x : s.fx === 'chidori' ? SC.handReach[1] : SC.handReach[0]) + SC.orbReach;
+    s.front.copy(s.back).addScaledVector(s.dir, s.reach);
+    s.tip.copy(s.front);
   }
 
   // The two lock where they met and both players play the same note chart (clash.js): the score lead pushes the
@@ -1171,11 +1208,22 @@ export class Game {
     if (lite) c.point.addVectors(A.origin, B.origin).multiplyScalar(0.5);
     else {
       for (const s of [A, B]) if (s.charging) this.materialize(s);
+      if (struggle) for (const s of [A, B]) if (s.kind === 'rush') this.rushStruggleReach(s);
+      // a stream fired from the air (ADR 0034): its owner eases down to a low hover; against a grounded rush the rusher
+      // stays planted and the struggle shoves bodies (placeAirRush) instead of dragging the rusher under the stream
+      const SC = CLASH.struggle;
+      for (const s of [A, B]) if (struggle && s.kind === 'beam' && s.f.pos.y > SC.airMin) s.hover = { y0: s.f.pos.y, y1: Math.min(s.f.pos.y, SC.airHover) };
+      c.air = struggle && !!(A.hover || B.hover);
+      c.airRush = c.air && (A.kind === 'rush' || B.kind === 'rush');
       this.clashLine(c);
       for (const s of [A, B]) {
         const f = s.f;
         if (s.obj) s.obj.clash = c;
-        f.setState('clash', s.kind === 'beam' ? 'beamFire' : s.kind === 'orb' ? (s.S.strikePose ?? 'beamFire') : (s.S.strikePose ?? 'dash'));
+        // a beam clash plays the fighter's struggle push when its sheet has one (placeClash then leaves the pose alone);
+        // a held rush shows its thrust frame
+        s.pose = struggle ? (s.hover ? this.airStrugglePose(f) : this.strugglePose(f)) : null;
+        if (struggle && s.kind === 'rush') s.maulAt = 0.99;
+        f.setState('clash', s.pose ?? (s.hover ? 'throw' : s.kind === 'beam' ? 'beamFire' : s.kind === 'orb' ? (s.S.strikePose ?? 'beamFire') : (s.S.strikePose ?? 'dash')));
         f.invuln = 99999;
         f.vel.set(0, 0, 0);
         f.faceOpponent();
@@ -1190,10 +1238,10 @@ export class Game {
     else this.cam.set('clash', c);
     const hint = clashHint(this.cfg.mode, deviceLayout(this.input));
     this.hud.clashStart(c, ['#' + c.ca.getHexString(), '#' + c.cb.getHexString()], hint);
-    this.hud.announce(struggle ? 'BEAM CLASH!' : 'CLASH!', 'clash', 900);
+    this.hud.announce(struggle ? 'BEAM CLASH!' : 'CLASH!', 'clash-call top', 750);
     if (struggle) for (const s of [A, B]) if (s.name) this.hud.callout(s.f.index, s.name, '#' + (s === A ? c.ca : c.cb).getHexString());
     audio.play('explosion', lite ? 0.4 : 0.6);
-    this.fx.overlay.flash('#ffffff', lite ? 0.4 : 0.6);
+    this.fx.overlay.flash('#' + c.mix.getHexString(), lite ? 0.3 : 0.35); // the two sides' colors, not a white-out
     this.excite = 1;
     audio.play('cheer');
   }
@@ -1261,6 +1309,15 @@ export class Game {
     const dx = (ax.x / fl) * sg, dz = (ax.z / fl) * sg, out = clashTmp.copy(s.base);
     if (s.kind === 'rush') { const r = s.reach ?? CLASH.rush.reach; out.x = P.x - dx * r; out.z = P.z - dz * r; return out; }
     const hold = s.kind === 'beam' ? BEAM_STUB : ORB_HANDS + 0.6 * s.obj.r, from = s.kind === 'beam' ? s.anchor : s.base;
+    if (s.hover) {
+      // an air owner gives ground along the slanted line itself, back and up, so the point never climbs past its hands
+      const ux = ax.x * sg, uy = ax.y * sg, uz = ax.z * sg;
+      const give = Math.min(0, (P.x - from.x) * ux + (P.y - from.y) * uy + (P.z - from.z) * uz - hold);
+      out.x += ux * give;
+      out.y += uy * give;
+      out.z += uz * give;
+      return out;
+    }
     const give = Math.min(0, (P.x - from.x) * dx + (P.z - from.z) * dz - hold);
     out.x += dx * give;
     out.z += dz * give;
@@ -1269,6 +1326,8 @@ export class Game {
 
   // Bodies on the line for the struggle point: c.t 0.5 = where they met, 0 / 1 = all the way back to A's / B's side.
   placeClash(c) {
+    if (c.air) this.airHover(c);
+    if (c.airRush) { this.placeAirRush(c); return; }
     const { axis, C, room } = c.line;
     const u = c.t * 2 - 1;
     const P = c.point.copy(C).addScaledVector(axis, u >= 0 ? u * room[1] : u * room[0]);
@@ -1289,15 +1348,63 @@ export class Game {
         const bm = s.obj;
         bm.origin.x += gx; // the hands slide back with the body
         bm.origin.z += gz;
+        if (s.hover) { bm.origin.y += at.y - f.pos.y; f.pos.y = at.y; }
         bm.dir.set(dx, dy, dz);
         bm.len = Math.max(0.4, (P.x - bm.origin.x) * dx + (P.y - bm.origin.y) * dy + (P.z - bm.origin.z) * dz);
       } else if (s.kind === 'orb') s.obj.pos.set(P.x - dx * s.obj.r, P.y - dy * s.obj.r, P.z - dz * s.obj.r);
       else {
         s.origin.set(f.pos.x, f.pos.y + 0.7, f.pos.z);
-        f.actor.setPhase(s.S.maulPose ?? 'heavy', s.S.maulPhase ?? 1, 0.5); // claws dug into it
+        if (!s.pose) f.actor.setPhase(s.S.maulPose ?? 'heavy', s.S.maulPhase ?? 1, s.maulAt ?? 0.5); // claws dug into it
+        if (c.tier === 'struggle') (s.hold ??= new THREE.Vector3()).set(P.x - dx * c.C.orbReach, P.y - dy * c.C.orbReach, P.z - dz * c.C.orbReach);
         clashFx(f, s.S, c.timer);
       }
     }
+  }
+
+  // An air owner eases down to its hover (CLASH.struggle airHover) over the first frames, holding the `throw` release
+  // frame unless it has a `beamStruggleAir`; the stream's line follows it down
+  airHover(c) {
+    const SC = c.C;
+    for (const s of [c.a, c.b]) {
+      if (!s.hover) continue;
+      const f = s.f;
+      if (!s.pose) f.actor.setPhase('throw', 1, 0.5);
+      if (s.hover.done) continue; // eased down: from here the struggle moves the body (clashStance, placeAirRush)
+      const k = Math.min(1, c.timer / SC.airEase), y = s.hover.y0 + (s.hover.y1 - s.hover.y0) * (1 - (1 - k) * (1 - k));
+      s.hoverY = y;
+      s.hover.done = k >= 1;
+      if (c.airRush) continue; // placeAirRush places the body itself
+      const dy = y - f.pos.y;
+      f.pos.y = y;
+      s.obj.origin.y += dy;
+      if (Math.abs(dy) > 1e-5) this.clashLine(c); // the line (and the room to give) follows the owner down
+    }
+  }
+
+  // A grounded rush against a stream from the air (ADR 0034, the user's call 2026-10-15): the rusher stays planted and
+  // holds the technique up the stream line; the side losing ground is shoved, the rusher back along the floor, the air
+  // owner back and up. The struggle point sits just past the technique, on the line from the hand to the air owner's.
+  placeAirRush(c) {
+    const SC = c.C, R = c.a.kind === 'rush' ? c.a : c.b, Bm = R === c.a ? c.b : c.a;
+    const adv = (R === c.a ? 1 : -1) * (c.t * 2 - 1); // > 0: the rush is winning
+    const win = Math.max(0, adv), lose = Math.max(0, -adv);
+    let ux = Bm.base.x - R.base.x, uz = Bm.base.z - R.base.z;
+    const ul = Math.hypot(ux, uz) || 1;
+    ux /= ul;
+    uz /= ul;
+    const cl = (v) => THREE.MathUtils.clamp(v, -ARENA_LIMIT, ARENA_LIMIT);
+    R.f.pos.set(cl(R.base.x - ux * lose * SC.airPush), R.f.pos.y, cl(R.base.z - uz * lose * SC.airPush));
+    Bm.f.pos.set(cl(Bm.base.x + ux * win * SC.airPush), (Bm.hoverY ?? Bm.f.pos.y) + win * SC.airLift, cl(Bm.base.z + uz * win * SC.airPush));
+    if (!R.pose) R.f.actor.setPhase(R.S.maulPose ?? 'special', R.S.maulPhase ?? 1, R.maulAt ?? 0.5);
+    const bm = Bm.obj, O = this.handAt(Bm.f, 0.5, 0.9, bm.origin);
+    const H = this.handAt(R.f, R.fx === 'chidori' ? SC.handReach[1] : SC.handReach[0], 0.8, clashTmp);
+    const d = v3.subVectors(O, H).normalize();
+    (R.hold ??= new THREE.Vector3()).copy(H).addScaledVector(d, SC.airTech[0]);
+    const P = c.point.copy(H).addScaledVector(d, SC.airTech[1]);
+    R.origin.copy(H);
+    bm.dir.copy(d).negate();
+    bm.len = Math.max(0.4, O.distanceTo(P));
+    clashFx(R.f, R.S, c.timer);
   }
 
   updateClash() {
@@ -1339,7 +1446,7 @@ export class Game {
     if (r.g === 'perfect' || r.g === 'great') {
       c.kick = 1;
       const p = c.point;
-      this.fx.spawn('ring', p.x, p.y, p.z, { scale: (r.g === 'perfect' ? 2.2 : 1.6) * (c.lite ? 0.55 : c.C.sparks ?? 1), color: i === 0 ? c.ca : c.cb, order: 6, depthTest: false, glow: 1.2 });
+      this.fx.spawn('ring', p.x, p.y, p.z, { scale: (r.g === 'perfect' ? 2.2 : 1.6) * (c.lite ? 0.55 : c.C.sparks ?? 1), color: i === 0 ? c.ca : c.cb, order: 6, depthTest: false, glow: 0.7 });
     }
     if (this.brains[i]) return; // only a player's own grades make a sound
     if (hit) audio.play('beatHit', r.g === 'perfect' ? 1 : r.g === 'great' ? 0.7 : 0.45);
@@ -1353,21 +1460,26 @@ export class Game {
     return ka === kb ? -1 : ka > kb ? 0 : 1;
   }
 
+  // The meeting point (ADR 0034): two clashBurst knots, one in each side's color (the second mirrored), around a small
+  // white core, inside a size budget below the fighters' height. No full-size white glow: with the bloom it buried the
+  // fighters. Rings, sparks, smoke and debris keep it alive.
   clashSparks(c) {
     const p = c.point, now = c.timer, k = c.lite ? 0.55 : c.C.sparks ?? 1; // the special clash sits between two lit specials, a beam clash between two short streams
-    const pulse = (1 + Math.sin(now * 0.6) * 0.12 + c.kick * 0.15) * k;
-    this.fx.keep('clashGlow', 'glow', p.x, p.y, p.z, { scale: 1.35 * pulse, color: c.mix, opacity: 1, order: 7, depthTest: false, glow: 1.2 });
-    this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: 0.75 * pulse, color: 0xffffff, opacity: 1, order: 8, depthTest: false, glow: 2 });
-    const lt = this.fx.keep('clashBolt', 'lightning', p.x, p.y, p.z, { scale: 1.3 * k, color: 0xffffff, order: 9, depthTest: false, glow: 2 });
-    lt.random = true;
-    lt.rot = Math.random() * 6.28;
-    if (now % 10 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.5 * k, color: c.mix, order: 6, depthTest: false, glow: 1 });
+    const pulse = 1 + Math.sin(now * 0.6) * 0.08 + c.kick * 0.18;
+    const size = (c.lite ? 0.5 : c.tier === 'struggle' ? 0.52 : 0.85) * pulse;
+    const top = { order: 7, depthTest: false, glow: 0.25, opacity: 0.95 };
+    this.fx.keep('clashA', 'clashBurst', p.x, p.y, p.z, { ...top, scale: size, color: c.ca });
+    const b = this.fx.keep('clashB', 'clashBurst', p.x, p.y, p.z, { ...top, scale: size * 0.86, color: c.cb });
+    b.mesh.scale.x = -Math.abs(b.mesh.scale.x);
+    if (b.t === 0) b.t = 0.09; // out of step with the first knot
+    this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: 0.3 * pulse, color: 0xffffff, opacity: 1, order: 8, depthTest: false, glow: 0.8 });
+    if (now % 18 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.2 * k, color: c.mix, order: 6, depthTest: false, glow: 0.6 });
     if (now % 3 === 0) {
       const a = Math.random() * Math.PI * 2;
-      this.fx.spawn('star', p.x, p.y, p.z, { scale: 0.3, frame: 2, vel: [Math.cos(a) * 5, Math.sin(a) * 4 + 2, (Math.random() - 0.5) * 5], grav: 8, life: 0.4, color: Math.random() < 0.5 ? c.ca : c.cb, depthTest: false, order: 9, glow: 1.5 });
+      this.fx.spawn('star', p.x, p.y, p.z, { scale: 0.3, frame: 2, vel: [Math.cos(a) * 5, Math.sin(a) * 4 + 2, (Math.random() - 0.5) * 5], grav: 8, life: 0.4, color: Math.random() < 0.5 ? c.ca : c.cb, depthTest: false, order: 9, glow: 1 });
     }
     if (c.lite) return;
-    if (now % 14 === 0) this.fx.smoke(p.x + (Math.random() - 0.5) * 2, 0.2, p.z + (Math.random() - 0.5) * 2, 1);
+    if (now % 20 === 0) this.fx.smoke(p.x + (Math.random() - 0.5) * 0.6, 0.05, p.z + (Math.random() - 0.5) * 0.6, 0.55); // low and small: it hid the nearer fighter's legs
     if (now % 20 === 0) this.fx.debris(p.x, p.z, 3, 0.7);
   }
 
@@ -1378,8 +1490,10 @@ export class Game {
     audio.duckMusic('clash', false);
     this.hud.clash(false);
     const P = c.point.clone();
-    this.fx.overlay.impactFrame(4);
-    this.fx.overlay.flash('#ffffff', c.tier === 'struggle' ? 0.5 : 0.9); // a 1-bar beam clash ends a notch quieter
+    // colored and short: the winner's color (both sides' on a draw), so the ending reads instead of whiting out
+    this.fx.overlay.impactFrame(c.tier === 'struggle' ? 2 : 3);
+    const endCol = winner < 0 ? c.mix : winner === 0 ? c.ca : c.cb;
+    this.fx.overlay.flash('#' + endCol.getHexString(), c.tier === 'struggle' ? 0.3 : 0.45); // a 1-bar beam clash ends a notch quieter
     this.cam.set('fight');
     this.cam.shake(1);
     this.slowmo(0.3, 0.8);
@@ -1388,11 +1502,12 @@ export class Game {
     const ax = c.line.axis, C = c.C;
     if (c.tier === 'struggle') this.struggleCool = C.cooldown;
     if (winner < 0) {
-      // even: both ultimates blow up between them
-      this.fx.explosion(P.x, P.y, P.z, new THREE.Color(0xffffff));
+      // even: both ultimates blow up between them (a beam clash in both sides' colors, without the white-out)
+      if (c.tier === 'struggle') this.fx.clashBlast(P.x, P.y, P.z, c.mix);
+      else this.fx.explosion(P.x, P.y, P.z, new THREE.Color(0xffffff));
       this.fx.ground.impact(P, { kind: 'clashDraw', force: C.craters?.[1] });
       audio.play('explosion', 1.3);
-      this.hud.announce('DRAW!', 'clash', 900);
+      this.hud.announce('DRAW!', 'clash-call top', 900);
       [c.a, c.b].forEach((s, i) => {
         s.obj?.kill();
         const sg = i === 0 ? -1 : 1;
@@ -1403,9 +1518,10 @@ export class Game {
     const WS = winner === 0 ? c.a : c.b, LS = winner === 0 ? c.b : c.a;
     const W = WS.f, L = LS.f, sg = winner === 0 ? 1 : -1;
     LS.obj?.kill();
-    this.overwhelm(WS, L);
+    this.overwhelm(WS, L, c);
     L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash', noTech: c.tier !== 'struggle' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
-    this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
+    if (c.tier === 'struggle') this.fx.clashBlast(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
+    else this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
     this.fx.ground.impact(L.pos, { kind: 'clashWin', force: C.craters?.[0], style: WS.S?.ground ?? W.def.ground?.style, tint: W.def.ground?.tint ?? W.def.color, dir: { x: ax.x * sg, z: ax.z * sg } });
     audio.play('explosion', 1.4);
     audio.play('cheer');
@@ -1413,16 +1529,20 @@ export class Game {
   }
 
   // the winning ultimate goes on through: the beam runs its last stretch, the orb rolls over them, the beast roars on
-  overwhelm(WS, L) {
+  overwhelm(WS, L, c = null) {
     const W = WS.f;
     if (WS.kind === 'beam') {
       const bm = WS.obj;
       bm.clash = null;
       bm.spent = true; // the clash dealt the damage; the rest of the beam is the show
-      bm.len = bm.origin.distanceTo(v3.set(L.pos.x, L.pos.y + 0.85, L.pos.z)) + 0.5;
+      // on through the loser's chest: from the air (or past a planted rusher's raised technique) that is off the line
+      v3.set(L.pos.x, L.pos.y + 0.85, L.pos.z);
+      bm.dir.subVectors(v3, bm.origin).normalize();
+      bm.len = bm.origin.distanceTo(v3) + 0.5;
       bm.t = ULTIMATE.duration - 30;
       bm.finished = true;
-      W.setState('beamFire');
+      // from the air it stays in its air pose (a ground beamFire would stand on nothing) until it falls
+      W.setState('beamFire', WS.hover ? this.airStrugglePose(W) ?? 'throw' : undefined);
     } else if (WS.kind === 'orb') {
       const ob = WS.obj;
       ob.clash = null;
@@ -1434,7 +1554,9 @@ export class Game {
       if (W.pos.y > 0.05) { W.air = true; W.setState('air', 'jumpFall'); }
       else { W.landLag = 18; W.setState('land'); }
     } else if (WS.move) {
-      // a Rasengan / Chidori driven through a beam clash: on into its follow-through, its hit already dealt
+      // a Rasengan / Chidori driven through a beam clash: on into its follow-through, its hit already dealt; against a
+      // stream from the air the technique blasts up the line into them (the rusher stays on the floor)
+      if (c?.airRush && WS.hold) this.fx.techBlast(WS.fx, WS.hold, v3.set(L.pos.x, L.pos.y + 0.85, L.pos.z), WS.color);
       W.setState('attack', null);
       W.move = WS.move;
       W.moveName = 'special';
@@ -1755,7 +1877,7 @@ export class Game {
     this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true, f.def.beam.name, counter ? 'super' : 'ult');
     this.fx.overlay.flash(f.def.color, 0.4);
     this.excite = 1;
-    if (counter) this.hud.announce('COUNTER!', 'clash', 700);
+    if (counter) this.hud.announce('COUNTER!', 'clash-call', 700);
   }
 
   triggerKO(loser, winner) {

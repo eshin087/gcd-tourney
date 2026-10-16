@@ -378,17 +378,18 @@ section's table when its strips are generated (the manifest gets the same entrie
 ## Beam clash struggle (ADR 0034)
 
 One optional strip for every fighter with an energy move (step 9): `beamStruggle` (3 frames, loop, 70 ms), braced and
-pushing the 1-bar energy technique into the other side's. Until a fighter's strip is packed, the clash shows `beamFire`.
+pushing the 1-bar energy technique into the other side's, and `beamStruggleAir` for a fighter with an air energy shot
+(the same, hovering). Until a fighter's strip is packed, the clash shows `beamFire` / the `throw` release frame.
 Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characters/BEAM_STRUGGLE_BRIEF.md)
 (ART-BEAM-CLASH). Luffy has no energy move and draws none.
 
-| fighter | beamStruggle | the technique | notes |
-|---|---|---|---|
-| naruto | todo | Rasengan, two-handed push | |
-| sasuke | todo | Chidori Spear thrust (also plays for the air Great Fireball) | |
-| killua | todo | Narukami, open palm | |
-| gojo | todo | Reversal: Red at two fingertips, other hand in the pocket | |
-| goku | todo | Dragon Fist lunge | after his core art is on main |
+| fighter | beamStruggle | beamStruggleAir | the technique | notes |
+|---|---|---|---|---|
+| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
+| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
+| killua | todo | todo | Narukami, open palm (in the air driven down) | |
+| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)
 
@@ -438,11 +439,11 @@ ones.
 | ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
-| clashBurst | 6 | 45 | white (tinted) | center | todo | - | - | Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
-| streamBolt | 4 | 40 | white (tinted) | center, tiles | todo | - | - | Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
-| streamLance | 4 | 40 | white (tinted) | center, tiles | todo | - | - | Beam clash: Chidori Spear stream band; exact tiles. |
-| streamFlame | 4 | 50 | full color | center, tiles | todo | - | - | Beam clash: Great Fireball stream band; exact tiles. |
-| redOrb | 6 | 40 | full color | center | todo | - | - | Beam clash: Reversal: Red held in a struggle. |
+| clashBurst | 6 | 45 | white (tinted) | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
+| streamBolt | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
+| streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Chidori Spear stream band; exact tiles. |
+| streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Great Fireball stream band; exact tiles. |
+| redOrb | 6 | 40 | full color | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Reversal: Red held in a struggle. |
 
 ## Shared UI (step 11)
 

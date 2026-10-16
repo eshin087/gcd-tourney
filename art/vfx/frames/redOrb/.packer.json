@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/redOrb_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/redOrb_v01.png"
+  ],
+  "sourceHash": "61b33de6589cab2de23180cb4c20aec31084df1a",
+  "files": {
+    "redOrb_00.png": "c2f5aeec30f3be8d49897743ad96b0f8dbbcf1a2",
+    "redOrb_01.png": "cd3f83a6dfc09305f7865c57610200bb378f69d8",
+    "redOrb_02.png": "a3953bef5d104442537121edb8e4456583702723",
+    "redOrb_03.png": "f8648d7f77b2eba1994081a71edbff51f1935b22",
+    "redOrb_04.png": "8173c1a69236767ebc2c65869abb619094592e8e",
+    "redOrb_05.png": "7727a6fabc8b8f3fa7a30ce09c4539ceb19feb8e"
+  }
+}
