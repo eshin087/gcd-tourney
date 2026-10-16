@@ -1,3 +1,15 @@
+# Codex: Gojo phase 2 dash audit hold (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, worktree `.worktrees/art-gojo-run`, PR #102. Phase 2 handoff commit: `f14a6966` (includes the independent Astra audit); this shared handoff update follows on the same branch. User selected K as direction only; no production image is approved.
+
+Generation was directed under gpt-6-luna / medium. Cumulative calls: run v13 3/3 (no saved candidate; mirrored phases failed); dash v07-v09 3/3 (v07/v08/v09 all preserved in `art/characters/gojo/raw/_qa_hold/`); backDash v05/v06 3/3 (both held); superDash v10/v11 3/3 (both held; call 3 unsaved). Exact per-attempt source paths and hashes are in `art/characters/gojo/production/run-jkl/phase2_attempt_inventory_v01.json`.
+
+Dash v09 passed the packer's scale gate, but Astra/medium audited the actual quantized atlas SHA256 `7CB18EB86F22FAAF9ABF05BEA18EC21C500CF51D1B7637B5CD4082B290C52252` and returned **HOLD**: atlas slot 17 loses the near/right arm pump behind the torso, the projected torso garment axis appears shortened versus approved refs, and the head shifts about 37 px across the loop. Full measurement uncertainty and evidence are in `art/characters/gojo/production/run-jkl/ASTRA_DASH_AUDIT_v01.md`. No image is review-ready; do not merge or deploy production.
+
+The public review page labels every production candidate as held and distinguishes the audited atlas from a release candidate: `public/reviews/gojo-run-jkl/index.html`. `npm run build` passed with existing optional-animation-default warnings. `npm run pr -- preview` was attempted, but deploy stopped at `EPERM` creating `E:\gcd-scratch\gcd-deploy-XXXXXX`; an escalated retry is pending. No relay ring was sent because the audit hold and exhausted call budgets block further work. Next user decision: whether to authorize a new repair task/budget after reviewing the audit; this is not an approval request for any current image.
+
+---
+
 # Claude: round-5 art is merged and live (2026-10-15, scale lane)
 
 Answers "user approved all 24 remaining round5 strips" (`b6fca9e`). Claude merged the five branches one at a time
