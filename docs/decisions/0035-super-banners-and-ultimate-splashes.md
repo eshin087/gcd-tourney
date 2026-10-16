@@ -31,9 +31,9 @@ move them separately (parallax, a slide-in that breaks the frame):
 | file (public/characters/<id>/) | size | content |
 |---|---|---|
 | `super_bg.png` | 768 x 192 (4:1), opaque | the move's backdrop: sky, energy, symbol. No character, no text |
-| `super_fg.png` | at most 768 x 240, transparent | the fighter chest-up in the move's pose. The banner is 192 tall; the head may break 48 px out of its top edge |
+| `super_fg.png` | 384 x 240, transparent | the fighter chest-up in the move's pose. The banner is 192 tall; the head may break 48 px out of its top edge |
 | `ult_bg.png` | 768 x 432 (16:9), opaque | the ultimate's full-screen backdrop. No character, no text |
-| `ult_fg.png` | at most 768 x 432, transparent | the fighter, three-quarter or full figure, in the ultimate's pose |
+| `ult_fg.png` | 576 x 432, transparent | the fighter, three-quarter or full figure, in the ultimate's pose |
 
 The art-pixel grid is 768 across for all four (2.5x on a 1080p screen, nearest-neighbor), so banner, splash and
 fighter share one pixel density. Raws are generated as usual (`art/characters/<id>/raw/ui_super_bg_vNN.png` etc.), the
@@ -47,8 +47,9 @@ center-crop to the aspect; fg: magenta removed, trimmed, contain-fitted, bottom-
   the super's existing `flash`.
 - **Ultimate splash.** A full-screen splash: a colored flash in, letterbox bars, the backdrop slowly zooming, the
   fighter sliding in over it, the move name large. The splash is cropped to the screen (`cover`), keeping the middle
-  4:3 safe. The ultimate's flash freeze becomes long enough to read it (about 1.1 s, a number in moves.js, the same
-  for every fighter whether or not the art exists).
+  4:3 safe. The ultimate's flash freeze becomes long enough to read it: `ULTIMATE.splashHold` (24 frames, moves.js)
+  is added to every ultimate's flash, beam or kit, whether or not the art exists. The world is paused, so no frame
+  data moves; an ultimate fired as an answer keeps its short flash and gets the banner.
 - **Fail soft.** A missing layer falls back: no `*_bg` gives today's speed-line stripes, no `*_fg` gives today's eye
   strip, and a fighter with neither looks exactly like today. One `[sprites]` console line per missing file.
 - **Eye flash.** The existing eye strip (`cutin.png`) becomes a short eye flash for a fighter's eye techniques (data:
@@ -56,10 +57,12 @@ center-crop to the aspect; fg: magenta removed, trimmed, contain-fitted, bottom-
 
 ### 3. Sharingan and other in-game eye effects
 
-Drawn in code, not image art: a large, crisp, rotating Sharingan (iris, ring, three tomoe; the Mangekyō pattern for
-Amaterasu) behind the fighter for the counter, a red eye glint at the head with a short light trail, and the eye
-flash. The pattern is data on the character (`eyes: { kind, color }`), so Gojo's Six Eyes and later fighters use the
-same system without a character check.
+Drawn in code, not image art (`src/game/sigil.js`): a large, crisp, turning Sharingan (iris, ring, three tomoe; his
+Mangekyō for Amaterasu) behind the fighter, drawn after the stage and before the sprites so the fighter stands in
+front of it. A move opts in with `sigil` (true: the character's own pattern; a name: that pattern) and `eyeFlash`
+(the eye strip snaps across a thin band in the HUD). A successful Sharingan read spins the pattern up and flares it.
+The pattern and colors are data on the character (`eyes: { kind, iris, rim, light }`), so Gojo's Six Eyes and later
+fighters only add a PATTERNS entry and data, never a character check.
 
 ## Consequences
 

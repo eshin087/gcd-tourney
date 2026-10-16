@@ -4,6 +4,7 @@ import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
 import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { GroundDamage } from './ground.js';
+import { Sigils } from './sigil.js';
 
 const VERT = /* glsl */ `
   uniform vec4 uvRect;
@@ -82,6 +83,7 @@ export class Effects {
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
     this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
+    this.sigils = new Sigils(scene); // Sharingan / Mangekyō behind an eye technique (ADR 0035)
   }
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
@@ -226,6 +228,7 @@ export class Effects {
 
   update(dt, camera) {
     camera.getWorldDirection(this.camFwd);
+    this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
     for (const [id, it] of this.keepers) {
       if (now - it.seenAt > 90) { it.life = -1; this.keepers.delete(id); }
@@ -306,6 +309,7 @@ export class Effects {
     this.items.length = 0;
     this.keepers.clear();
     this.ground.clear();
+    this.sigils.clear();
     for (const r of this.rocks) this.scene.remove(r.mesh);
     this.rocks.length = 0;
     for (const w of this.walls) {

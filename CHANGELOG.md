@@ -11,6 +11,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: super banners and ultimate splashes (ADR 0035, ENG-083): a taller super banner with the move's backdrop and the fighter breaking out of its top, a full-screen ultimate splash (backdrop push-in, letterbox bars, the fighter sliding in, the move name), four optional layer images per fighter (`super_bg`, `super_fg`, `ult_bg`, `ult_fg`; packer fits them), each falling back to today's eye strip on speed lines; every ultimate's flash holds 24 frames longer (`ULTIMATE.splashHold`).
+- Added: eye techniques (ADR 0035): Sasuke's Sharingan counter shows a large turning Sharingan behind him and flashes his red eyes across the HUD, a successful read spins it up; Amaterasu shows his Mangekyō. Drawn in code from character data (`eyes`, a move's `sigil` / `eyeFlash`).
+
 - docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
 
 - Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
