@@ -39,7 +39,7 @@ Ask exactly: **approve goku light3 v13** and **approve luffy special v02**, or r
 
 Candidate review rows are in each fighter's `REVIEW_ROWS.md` and PR body; Claude owns shared REVIEW/TASKS/CHANGELOG consolidation, remaining approval-lineage/runtime/contact checks, guarded sequential integration, and worktree cleanup after merge. Codex did not merge or deploy production. Goku is clean; Luffy has no tracked changes and only the helper-created `art/characters/luffy/production/deploy-scratch/` residue. Scoped cleanup was attempted after verifying its resolved path, but Windows still locks a generated `heavyAlt-endpoints.png` inside that export. Preserve it until unlocked; it is not source art or a review blocker. Luffy special's final status is `packed`, version2, approvedVersion null; the bookkeeping change reproduced the same atlas/meta hashes without redeployment.
 
-After committing this handoff, ring `goku-luffy --for user --kind approval` once with both exact versions and direct links, then stop. Delivery status is recorded in the inbox/NOW after the ring. The desk watcher was off at the pre-handoff status check; a queued ask is not evidence Claude read it. No further generation or background monitoring is running in this chat.
+Delivery: handoff committed as `c43d9dc9`; `goku-luffy --for user --kind approval` ring #8 succeeded. Ask `lane-goku-luffy-8` is queued with both exact versions and direct previews. The lane is waiting for the user. The desk watcher is off; Claude's reading is unverified. Open `0 - Approvals` and type `/approvals` to surface the queued request if needed. Codex workers have stopped, with no further generation or background monitoring in this chat.
 
 ---
 
