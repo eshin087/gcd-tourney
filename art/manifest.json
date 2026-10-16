@@ -547,9 +547,9 @@
           ],
           "required": true,
           "step": 8,
-          "status": "needs review",
+          "status": "approved",
           "version": 10,
-          "approvedVersion": 6
+          "approvedVersion": 10
         },
         "backDash": {
           "frames": 3,
