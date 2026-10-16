@@ -39,7 +39,21 @@ review link in the note. Never ask the user in the Codex chat. Only a relayed `U
 **Round 2b (after 2a is approved):** Goku and Luffy the same way. Their `fg` only once their title-style reference is
 approved; until then do the two backdrops and mark the cutouts blocked (ring the desk with `--kind blocked` if that
 needs the user).
+- [x] 1. Goku and Luffy title-style refs were already user-approved; generated and filed all eight v01 candidates within their call budgets; Astra audited four cutouts and the review gallery plus PR #131 preview were published. All eight await user decisions through the approvals desk (2026-10-16).
 
+## Goku: two redraw calls authorized (2026-10-16, relay #9) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "light3: B: one redraw call. heavy: B: one redraw call."
+Exactly one redraw call each for held light3 v09 and heavy v11, keeping the intended pose inside the frame
+at Goku's true size (approved idle density). Failed calls count. This is call permission, not image approval.
+
+- [x] Record permission and dispatch Luna/medium in the existing `.worktrees/art-goku-core`, PR #123.
+- [ ] Generate one correction per move, preserve every version, record cumulative attempts and exact source
+  provenance; assemble at measured density and have Astra/medium audit the actual final quantized frames.
+- [ ] Publish committed preview and root fighter review rows, commit handoff, then ring `goku-luffy --for user
+  --kind approval` with the direct preview and exact versions/technical holds. No further redraw is authorized.
+
+---
 ## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **USER DECISION via Claude:** "Fix down, Fix getup, Fix special (4th call)". This authorizes exactly one new call
@@ -47,13 +61,20 @@ for each repair: down v01, getup v01, and special v01 recovery only, preserving 
 approve any image. The preceding no-call round is complete; this permission applies to these three repairs only.
 
 - [x] Record the permission and dispatch the existing Luna/medium Luffy worker in `.worktrees/art-luffy-core`.
-- [ ] Generate one targeted correction per move, including failed calls in the cumulative count: down 1/3 to 2/3,
+- [x] Generate one targeted correction per move, including failed calls in the cumulative count: down 1/3 to 2/3,
   getup 1/3 to 2/3, special 3/3 to 4/4. No further retry is authorized in this round. Preserve every version and bind
   every result to its exact returned path, prompt, inputs and hashes.
 - [ ] Assemble at measured density, obtain Astra/medium review of the actual quantized candidates, retain any
   technical holds, and publish committed PR #96 preview with root fighter review rows and exact final versions.
 - [ ] Commit the handoff and ring `goku-luffy --for user` with a direct review link and the exact approval/hold
   decision. Stop; call permission never becomes image approval. Goku's two calibration holds remain with Claude.
+
+**Call outcomes (2026-10-16):** down call2 and getup call2 returned sources and are being assembled for audit.
+Special call4 failed at input validation before generation because six reference paths exceeded the tool's maximum
+of five. No special v02 image exists; the failure counts as 4/4 under the failed-attempt rule. No retry was made.
+Exact prompts, reference hashes, returned sources and error outcome are in Luffy's
+`production/relay8-generation/`. A future special retry needs explicit permission for one fifth call, with at most
+five relevant references. Complete the two successful repairs and their preview before queuing the decision.
 
 ---
 
