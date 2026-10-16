@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight remain unapproved and technically held for palette/crop or anatomy review.
+- Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.
 
 - Added: rollback groundwork (ENG-092, ADR 0036): `Game.saveState()` / `loadState()` (`src/game/snapshot.js`), `Game.quiet()` for silent re-simulation, shots drawn from state by `ShotViews` (projectiles keyed by id, beam meshes in `BeamView`), and a rollback stress test (`det.replay(log, { rollback })`, also on the `?det=` page): four pairings stay frame-exact through 500-1,000 rewinds.
 - Changed: the melee clash's CLASH! / CLASH ×n! / CLASH BREAK! text is a right-hand side banner like TECH! (each count replaces the last) instead of a center-screen callout over the fighters (ENG-096, ADR 0038).
