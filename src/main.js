@@ -4,6 +4,8 @@ import { audio } from './core/audio.js';
 import { Game } from './game/game.js';
 import { TouchControls, IS_TOUCH_DEVICE } from './core/touch.js';
 import { HIT_FLASH } from './game/moves.js';
+import { ARENA_LIMIT } from './game/constants.js';
+import { rng } from './game/rng.js';
 
 const renderer = new PixelRenderer(document.getElementById('app'));
 const input = new InputManager();
@@ -212,40 +214,108 @@ if (qs.has('debug')) {
       edges: tally(log.flatMap((r) => r.edges), (e) => e),
     };
   };
-  // soak(n, pairs, level): n CPU vs CPU matches back to back, stepped in chunks (so it runs in a hidden tab too), cycling
-  // through `pairs` ([['naruto', 'sasuke'], ...]); returns the live status object (window.soakStatus), which counts
-  // errors, NaN positions, ring-outs outside a KO and states stuck for 10 s, then comboStats() has the combo numbers
-  window.soak = (n = 3, pairs = [[game.cfg?.p1 ?? 'naruto', game.cfg?.p2 ?? 'sasuke']], level = 'impossible') => {
-    const S = window.soakStatus = { done: 0, n, errors: [], nan: 0, ring: 0, stuck: [], matches: [], finished: false };
-    const onErr = (e) => S.errors.push(String(e.message ?? e.reason ?? e).slice(0, 200));
+  // soak(n, opts) (ENG-012): n CPU vs CPU matches back to back on the fixed step, every frame checked for NaN positions or
+  // velocities, a fighter outside the ring barrier (ARENA_LIMIT + RING_TOL = 0.01) outside a KO, a non-idle state running longer
+  // than opts.stuck frames (state time, which stands still in hitstop and super flashes) and console / uncaught errors.
+  // opts: pairs ([['naruto','sasuke'], ...], cycled; default: the current match), level ('impossible'), stuck (600 frames),
+  // maxFrames (a match that runs longer is a violation; 40000), seed (Math.random is reseeded per match from it, so
+  // the same seed gives the same CPU personas and a similar match, not a frame-exact replay: wall-clock effects and state
+  // left over from earlier matches still differ; the violation's frame, state and position say where to look). Runs as an async loop that yields
+  // between chunks (a MessageChannel, which a hidden tab doesn't throttle): returns the live status at once, also
+  // window.__soak ({ done, n, match, frame, violations, finished, summary }); `await status.promise` or poll `finished`.
+  // The summary: matches, winners, rounds and durations per match, every violation (frame, fighter, state, position).
+  window.soak = (n = 3, opts = {}) => {
+    if (Array.isArray(opts)) opts = { pairs: opts };
+    const pairs = opts.pairs ?? [[game.cfg?.p1 ?? 'naruto', game.cfg?.p2 ?? 'sasuke']];
+    const level = opts.level ?? 'impossible', STUCK = opts.stuck ?? 600, MAX_FRAMES = opts.maxFrames ?? 40000, seed0 = (opts.seed ?? 1) >>> 0;
+    const RING_TOL = 0.01, CAP = 300;
+    const S = window.__soak = window.soakStatus = { done: 0, n, match: 0, frame: 0, violations: [], finished: false, summary: null };
+    const matches = [], t0 = performance.now(), realRandom = Math.random;
+    const errs = [];
+    const onErr = (e) => errs.push(String(e.message ?? e.reason ?? e).slice(0, 200));
+    const realConsoleError = console.error;
+    console.error = (...a) => { errs.push(a.map(String).join(' ').slice(0, 200)); realConsoleError.apply(console, a); };
     window.addEventListener('error', onErr);
     window.addEventListener('unhandledrejection', onErr);
+    const yieldNow = () => new Promise((r) => { const c = new MessageChannel(); c.port1.onmessage = () => r(); c.port2.postMessage(0); });
+    let M, f0;
+    const violate = (kind, f, extra = {}) => {
+      if (S.violations.length >= CAP) return;
+      S.violations.push({ kind, match: M.i, frame: game.frameNo - f0, round: game.round, fighter: f?.def.id, side: f?.index, state: f ? `${f.state}${f.moveName ? '/' + f.moveName : f.kitState?.kind ? '/' + f.kitState.kind : ''}` : undefined,
+        pos: f ? [+f.pos.x.toFixed(2), +f.pos.y.toFixed(2), +f.pos.z.toFixed(2)] : undefined, game: game.state, ...extra });
+    };
     const start = () => {
       const [p1, p2] = pairs[S.done % pairs.length];
-      game.startMatch({ mode: 'cpu', p1, p2, level });
+      const seed = (seed0 + S.done) >>> 0;
+      M = { i: S.done, pair: `${p1} vs ${p2}`, seed, frames: 0, clashes: {}, maxOver: -99 };
+      Math.random = rng(seed);
+      game.startMatch({ mode: 'cpu', p1, p2, level, seed });
       game.skipIntro();
+      f0 = game.frameNo;
     };
-    const seen = [{ s: '', t: 0, n: 0 }, { s: '', t: 0, n: 0 }]; // one state that keeps counting up (not re-entered)
+    window.__manualStep = true;
     start();
-    (async () => {
-      while (S.done < n) {
-        try { window.step(120); } catch (e) { S.errors.push(e.stack.split('\n').slice(0, 3).join(' | ')); break; }
-        game.fighters.forEach((f, i) => {
-          if (![f.pos.x, f.pos.y, f.pos.z, f.vel.x, f.vel.y, f.vel.z].every(Number.isFinite)) S.nan++;
-          if (!f.ko && Math.max(Math.abs(f.pos.x), Math.abs(f.pos.z)) > 8.6) { S.ring++; S.ringAt = `${f.def.id}:${f.state}/${f.moveName ?? f.kitState?.kind ?? ''} (${f.pos.x.toFixed(2)}, ${f.pos.z.toFixed(2)}) game:${game.state}`; }
-          const live = game.state === 'fight' && !['idle', 'run', 'guard'].includes(f.state);
-          if (live && f.state === seen[i].s && f.t >= seen[i].t) { seen[i].t = f.t; if (++seen[i].n === 5) S.stuck.push(`${f.def.id}:${f.state}/${f.moveName ?? f.kitState?.kind ?? ''}`); } else seen[i] = { s: f.state, t: f.t, n: 0 };
-        });
-        if (game.state === 'results') {
-          S.matches.push({ pair: game.fighters.map((f) => f.def.id).join(' vs '), winner: game.roundWinner?.def.id, personas: game.brains.map((b) => b?.persona?.name) });
-          if (++S.done < n) start();
+    const ringState = [null, null], stuckState = [null, null];
+    const p = (async () => {
+      let iter = 0, lastClash = null, lastNo = -1, still = 0;
+      try {
+        while (S.done < n) {
+          game.frame(1 / 60);
+          // frameNo not advancing for 600 frame() calls (a paused or wedged game) would spin this loop forever
+          if (game.frameNo === lastNo) { if (++still === 600) { violate('stall', null, { game: game.state, paused: game.paused }); break; } } else { still = 0; lastNo = game.frameNo; }
+          M.frames = S.frame = game.frameNo - f0;
+          game.fighters.forEach((f, i) => {
+            if (![f.pos.x, f.pos.y, f.pos.z, f.vel.x, f.vel.y, f.vel.z].every(Number.isFinite)) violate('nan', f, { vel: [f.vel.x, f.vel.y, f.vel.z].map(String) });
+            // ring-out: one violation per excursion (the worst overshoot is kept in `over`)
+            const over = Math.max(Math.abs(f.pos.x), Math.abs(f.pos.z)) - ARENA_LIMIT;
+            if (!f.ko && over > M.maxOver) M.maxOver = +over.toFixed(3);
+            if (!f.ko && over > RING_TOL) {
+              if (!ringState[i]) { violate('ring', f, { over: +over.toFixed(2) }); ringState[i] = S.violations[S.violations.length - 1]; }
+              else if (ringState[i] && over > ringState[i].over) ringState[i].over = +over.toFixed(2);
+            } else ringState[i] = null;
+            const live = game.state === 'fight' && !['idle', 'run', 'guard'].includes(f.state);
+            const key = f.state + '/' + (f.moveName ?? '');
+            if (live && f.t > STUCK) { if (stuckState[i] !== key) { stuckState[i] = key; violate('stuck', f, { t: f.t }); } } else if (!live || f.t <= STUCK) stuckState[i] = null;
+          });
+          if (game.clash && game.clash !== lastClash) M.clashes[game.clash.tier] = (M.clashes[game.clash.tier] ?? 0) + 1;
+          lastClash = game.clash;
+          if (errs.length) { for (const e of errs.splice(0)) violate('error', null, { msg: e }); }
+          if (M.frames > MAX_FRAMES) { violate('timeout', null, { frames: M.frames }); game.state = 'results'; }
+          if (game.state === 'results') {
+            M.winner = game.roundWinner?.def.id ?? null;
+            M.side = game.roundWinner?.index ?? null;
+            M.rounds = game.round;
+            M.wins = game.fighters.map((f) => f.wins);
+            M.seconds = +(M.frames / 60).toFixed(1);
+            matches.push(M);
+            ringState.fill(null); stuckState.fill(null);
+            S.done++;
+            if (S.done < n) start();
+          }
+          if (++iter % 240 === 0) await yieldNow();
+          S.match = S.done;
         }
-        await new Promise((r) => setTimeout(r, 0));
+      } catch (e) {
+        violate('exception', null, { msg: e.stack.split('\n').slice(0, 3).join(' | ') });
+      } finally {
+        Math.random = realRandom;
+        console.error = realConsoleError;
+        window.removeEventListener('error', onErr);
+        window.removeEventListener('unhandledrejection', onErr);
       }
+      const count = {};
+      for (const v of S.violations) count[v.kind] = (count[v.kind] ?? 0) + 1;
+      const winners = {};
+      for (const m of matches) winners[m.winner ?? 'draw'] = (winners[m.winner ?? 'draw'] ?? 0) + 1;
+      S.summary = {
+        pass: S.violations.length === 0 && matches.length === n, requested: n, matches: matches.length, winners,
+        rounds: matches.reduce((s, m) => s + m.rounds, 0), frames: matches.reduce((s, m) => s + m.frames, 0),
+        violationCounts: count, violations: S.violations, perMatch: matches, ms: Math.round(performance.now() - t0),
+      };
       S.finished = true;
-      window.removeEventListener('error', onErr);
-      window.removeEventListener('unhandledrejection', onErr);
+      return S.summary;
     })();
+    Object.defineProperty(S, 'promise', { value: p });
     return S;
   };
   window.freezeCpu = () => {

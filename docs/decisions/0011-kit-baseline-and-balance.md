@@ -53,6 +53,21 @@ Hebi-era Sasuke), a balance pass across the cast, and a baseline that every futu
 | passive | - | - | - | Infinity (15 ki per volley stopped) |
 | stats (index) | 5.9 / 1.0 / 1.0 (0.95) | 6.2 / 1.0 / 1.0 (1.00) | 6.8 / 0.97 / 0.95 (1.01) | 6.0 / 1.0 / 1.0 (0.97) |
 
+Added by [ADR 0032](0032-goku-and-luffy-kits.md) (2026-10-13):
+
+| | Goku (Super Saiyan, Cell saga) | Luffy (Enies Lobby) |
+|---|---|---|
+| neutral | Ki Blast Volley (shot ½, 3 × 24) | Gum-Gum Pistol (shot ½, 70, ~6 u) |
+| forward | Dragon Fist (rush, 150) | Gum-Gum Bazooka (rush, 145) |
+| up | Rising Kick (dive 38 + 96) | Gum-Gum Rocket (dive 36 + 100) |
+| down | Instant Transmission (teleport behind + kick 75) | Gear Second (mode: ×1.25 speed, ×1.1 dmg) |
+| back | = down | Gum-Gum Whip (rush ½, 90, low) |
+| air / air↓ | Ki Blast Volley / Rising Kick dive | Pistol / Rocket dive |
+| SUPER | Kaio-ken Rush (flurry, 8×22 + 130) | Gear Second: Jet Gatling (flurry from the front, 9×20 + 125) |
+| ultimate | **Kamehameha** (the shared beam: the cast's one beam) | **Gear Third: Gigant Pistol** (laneStrike: 270, dodgeable) |
+| passive | - | - |
+| stats (index) | 6.2 / 1.02 / 1.0 (1.02) | 6.1 / 1.0 / 1.0 (0.98) |
+
 ### 3. New engine pieces (all data-driven)
 
 - **Counter outcomes** (`onCounter`): `freeze` (Infinity), `strike` (Sharingan: an instant `follow` move),

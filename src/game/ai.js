@@ -9,6 +9,7 @@ function ultimateFits(U, dist, sd) {
   if (!U || U.kind === 'orb') return dist > 2.6;
   if (U.kind === 'rampage') return dist < (U.range ?? 8) - 0.6 && sd < 1;
   if (U.kind === 'reflex') return dist < 4;
+  if (U.kind === 'laneStrike') return dist < U.reach - 0.4 && sd < 1; // Gigant Pistol: their lane, within the arm's reach
   return true;
 }
 import { MasterBrain } from './aiMaster.js';

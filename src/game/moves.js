@@ -210,6 +210,12 @@ export const PROJECTILES = {
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
   red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
     clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22' } },
+  // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
+  // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
+  kiBlast: { count: 3, spread: 0.14, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'orb', scale: 0.5, color: 0xd8f2ff, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'light' },
+  // Luffy's Gum-Gum Pistol: the stretched fist itself, very fast and short-lived (~6 u, like the Chidori Spear).
+  // Physical, so it cancels shots but never beam-clashes; the drawn arm comes from the `special` strip
+  pistol: { count: 1, spread: 0, speed: 42, radius: 0.5, dmg: 70, hitstun: 30, push: 6, airPop: 6, life: 0.15, sprite: 'orb', scale: 0.6, color: 0xf6c9a0, sfx: 'whooshHeavy', spark: 'heavy' },
 };
 
 // Special moves by id (ADR 0009). A fighter's kit maps input slots to these ids.
@@ -299,10 +305,67 @@ export const SPECIAL_MOVES = {
   redAir: { kind: 'shot', anim: 'throw', startup: 10, active: 3, recovery: 16, air: true, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a' },
   blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff' },
   infinity: { kind: 'counter', anim: 'specialDown', cost: 50, len: 24, recovery: 14, stagger: 48, onCounter: 'freeze', name: 'INFINITY', callout: 'INFINITY!', color: '#d8f2ff' },
+
+  // ---- Goku (Super Saiyan, Cell saga; ADR 0032)
+  kiVolley: { kind: 'shot', anim: 'special', startup: 12, active: 3, recovery: 18, projectile: true, proj: 'kiBlast', cost: 50, name: 'KI BLAST VOLLEY', color: '#9fd8ff' },
+  kiVolleyAir: { kind: 'shot', anim: 'throw', startup: 9, active: 3, recovery: 14, air: true, projectile: true, proj: 'kiBlast', cost: 50, name: 'KI BLAST VOLLEY', color: '#9fd8ff' },
+  // Dragon Fist: a ki-wrapped dash punch (the user's pick, 2026-10-13, though the technique is from GT)
+  dragonFist: {
+    kind: 'rush', anim: 'specialForward', startup: 26, cancelStartup: 16, active: 20, recovery: 22, dmg: 150, reach: 1.35, width: 1.05,
+    launch: [18, 10], hitstop: 20, rush: 16, cost: 100, big: true, shake: 1.0, special: true, wallBounce: true,
+    fx: 'kiFist', color: '#ffd84a', name: 'DRAGON FIST', spark: 'smash', ground: 'ki', clash: 'rush',
+  },
+  // rising kick into a flip, then the axe-kick drop (dive)
+  risingKick: {
+    kind: 'dive', anim: 'specialUp', cost: 100, rise: 13, riseV: 15, hang: 4, slamV: -34, area: 1.6, recovery: 16, landFx: 'dust',
+    name: 'RISING KICK', color: '#ffd84a', ground: 'stone',
+    riseHit: { dmg: 38, launch: [3, 12], hitstop: 8, spark: 'heavy' },
+    hit: { dmg: 96, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
+  },
+  risingKickAir: {
+    kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.6, recovery: 16, landFx: 'dust', name: 'RISING KICK', color: '#ffd84a', ground: 'stone',
+    hit: { dmg: 92, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
+  },
+  // Instant Transmission: two fingers to the forehead (specialDown), gone, and a kick from behind
+  instantTransmission: {
+    kind: 'teleport', anim: 'specialDown', startup: 8, recovery: 4, cost: 100, hide: 6, to: 'behind', off: 0.85, ghosts: 0, follow: 'vanishKick',
+    name: 'INSTANT TRANSMISSION', color: '#ffd84a',
+  },
+
+  // ---- Luffy (Enies Lobby arc, Gear Second / Gear Third; ADR 0032)
+  gumPistol: { kind: 'shot', anim: 'special', startup: 11, active: 3, recovery: 20, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
+  gumPistolAir: { kind: 'shot', anim: 'throw', startup: 9, active: 3, recovery: 16, air: true, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
+  // both palms shoved forward: a short lunge that sends them into the wall. Physical: no beam clash
+  gumBazooka: {
+    kind: 'rush', anim: 'specialForward', startup: 22, cancelStartup: 14, active: 14, recovery: 24, dmg: 145, reach: 1.6, width: 1.15,
+    launch: [22, 8], hitstop: 18, rush: 10, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
+    color: '#e8402a', name: 'GUM-GUM BAZOOKA', spark: 'smash', ground: 'stone',
+  },
+  // slingshot launch straight up, then he comes down on them
+  gumRocket: {
+    kind: 'dive', anim: 'specialUp', cost: 100, rise: 16, riseV: 17, hang: 4, slamV: -34, area: 1.7, recovery: 16, landFx: 'dust',
+    name: 'GUM-GUM ROCKET', color: '#e8402a', ground: 'stone',
+    riseHit: { dmg: 36, launch: [3, 12], hitstop: 8, spark: 'heavy' },
+    hit: { dmg: 100, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
+  },
+  gumRocketAir: {
+    kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, landFx: 'dust', name: 'GUM-GUM ROCKET', color: '#e8402a', ground: 'stone',
+    hit: { dmg: 94, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
+  },
+  // a long low sweeping kick that trips them: barely moves him, but the leg stretches far
+  gumWhip: {
+    kind: 'rush', anim: 'specialDown', startup: 14, cancelStartup: 10, active: 8, recovery: 20, dmg: 90, reach: 2.3, width: 1.0,
+    launch: [10, 5], hitstop: 12, rush: 3, cost: 50, special: true, color: '#e8402a', name: 'GUM-GUM WHIP', spark: 'heavy', ground: 'stone',
+  },
+  // Gear Second: he pumps his blood and steams; faster and a little stronger (ADR 0011 mode budget: 1.25 × 1.1 × 1.0)
+  gearSecond: {
+    kind: 'mode', anim: 'charge', cost: 100, startup: 20, recovery: 8, len: 420, speed: 1.25, damage: 1.1, defense: 1.0,
+    fx: 'chakra', auraColor: '#ff9c9c', auraCore: [1.0, 0.86, 0.86], name: 'GEAR SECOND', color: '#ff7a7a', charge: { level: 1 },
+  },
 };
 
 // Second supers on the SUPER button, and non-beam ultimates (kit.ultimate), 3 bars each.
-// kind: flurry | domain | ignite | skyStrike | orb | rampage | reflex (src/game/kit.js). `range` = the CPU only fires
+// kind: flurry | domain | ignite | skyStrike | orb | rampage | reflex | laneStrike (src/game/kit.js). `range` = the CPU only fires
 // it this close. pose = the animation during the super flash (default superPose); strikePose = the release.
 export const SUPERS = {
   speedOfLightning: { kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8, hitFx: 'lightning', finalFx: 'thunder', name: 'GODSPEED: SPEED OF LIGHTNING', color: '#bfe6ff', ground: 'lightning' },
@@ -337,6 +400,26 @@ export const SUPERS = {
   whirlwind: {
     kind: 'reflex', cost: 300, flash: 40, recovery: 12, len: 300, counters: 4, hide: 4, follow: 'echoStrike',
     pose: 'beamCharge', name: 'GODSPEED: WHIRLWIND', callout: 'WHIRLWIND!', color: '#bfe6ff',
+  },
+
+  // ---- Goku and Luffy (ADR 0032)
+  // Kaio-ken (Goku): the red aura flares and he rushes them; same budget as the other flurries
+  kaiokenRush: {
+    kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8,
+    hitFx: 'chakra', hitColor: 0xff3020, finalFx: 'impact', finalColor: 0xff4030, name: 'KAIO-KEN RUSH', color: '#ff3a2a', ground: 'ki',
+  },
+  // Jet Gatling (Luffy, Gear Second): a blur of fists from in front (`front`), then one last straight punch that sends
+  // them into the wall instead of a slam from above
+  jetGatling: {
+    kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 9, every: 6, hitDmg: 20, finalDmg: 125, minScale: 0.8, front: true,
+    finalLaunch: [20, 9], hitFx: 'ring', hitColor: 0xffd8d8, finalFx: 'impact', finalColor: 0xff7a7a, name: 'GEAR SECOND: JET GATLING', color: '#ff7a7a', ground: 'stone',
+  },
+  // Gigant Pistol (Luffy, Gear Third): he blows his arm up to giant size (`windup`, on beamCharge), then the giant fist
+  // shoots down his lane to `reach` in `extend` frames (beamFire). One unblockable hit; you dodge it by leaving the
+  // lane or jumping over it during the long windup. No clash: a fist has nothing to push against (ADR 0032).
+  gigantPistol: {
+    kind: 'laneStrike', cost: 300, flash: 44, windup: 34, extend: 8, reach: 7, width: 1.1, height: 2.0, dmg: 270, launch: [22, 9], recovery: 30,
+    pose: 'beamCharge', strikePose: 'beamFire', fist: { color: 0xf6c9a0, scale: 2.4 }, name: 'GEAR THIRD: GIGANT PISTOL', color: '#e8402a', ground: 'stone',
   },
 };
 

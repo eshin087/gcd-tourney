@@ -8,6 +8,7 @@ import * as kit from './kit.js';
 import { chargeStyle } from './chargeFx.js';
 import { resetHitFlash, startHitFlash, flashTier, hitFlashUniforms, hitShake } from './hitFlash.js';
 import { TECH_ART, techPose, rollBackward, wallFacing, wallShift } from './techAnim.js';
+import { pickAnim } from './animAlts.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -36,6 +37,11 @@ export class Fighter {
     this.asset = asset;
     this.index = index;
     this.actor = new SpriteActor(asset, game.scene);
+    // attack alts (ADR 0031): uses per base strip this match (animAlts.pickAnim), and the sheet test it reads
+    this.animUses = {};
+    this.hasStrip = (name) => this.actor.hasAnim(name);
+    this.moveAnim = null; // the strip the running move shows (its base or alt), for the move in moveAnimOf
+    this.moveAnimOf = null;
     this.pos = new THREE.Vector3();
     this.prev = new THREE.Vector3();
     this.vel = new THREE.Vector3();
@@ -155,6 +161,7 @@ export class Fighter {
       this.counterT = 0;
       this.hidden = false;
       this.actor.setVisible(true);
+      this.game.fx.drop('fist' + this.index); // a Gigant Pistol cut off mid-punch (kit.js laneStrike)
     }
     if (STUN_STATES.has(this.state) && !STUN_STATES.has(s)) this.freeAt = this.clock;
     // the push-off pose belongs to the wall jump's first airborne frames only (wallKick sets it after this): any other
@@ -272,7 +279,15 @@ export class Fighter {
       audio.loop('sp' + this.index, m.sfxLoop);
       this.game.onSpecialStart(this, m);
     }
-    this.actor.setPhase(m.anim, 0, 0);
+    // the base strip or its alt (ADR 0031): same frames and phases, so updateAttack's phase clock plays either
+    this.moveAnim = this.pickAnim(m.anim);
+    this.moveAnimOf = m;
+    this.actor.setPhase(this.moveAnim, 0, 0);
+  }
+
+  // The strip one use of an attack or hit reaction shows: the base, or its alt when this sheet has one (animAlts.js).
+  pickAnim(base) {
+    return pickAnim(base, this.animUses, this.hasStrip);
   }
 
   // The stick picks which special comes out (kit.js, ADR 0009).
@@ -1334,7 +1349,8 @@ export class Fighter {
     const A = m.startup, B = m.startup + m.active, C = B + m.recovery;
     const phase = t < A ? 0 : t < B ? 1 : 2;
     const prog = phase === 0 ? t / A : phase === 1 ? (t - A) / m.active : (t - B) / m.recovery;
-    this.actor.setPhase(m.anim, phase, Math.min(0.999, prog));
+    // a move set without startMove (a beam clash resuming a rush, Game) has no pick: it plays its base strip
+    this.actor.setPhase(this.moveAnimOf === m ? this.moveAnim : m.anim, phase, Math.min(0.999, prog));
 
     if (t === Math.max(1, A - 2) && m.sfx) audio.play(m.sfx);
     if (t < A - 1) this.faceOpponent();
@@ -1791,7 +1807,8 @@ export class Fighter {
     } else {
       this.stun = Math.round((m.hitstun ?? 20) * decay);
       this.hurtAlt = !this.hurtAlt;
-      this.setState('hitstun', m.low || this.hurtAlt ? 'hurtLow' : 'hurtHigh');
+      // high / low as before, then that reaction's base or alt strip (ADR 0031)
+      this.setState('hitstun', this.pickAnim(m.low || this.hurtAlt ? 'hurtLow' : 'hurtHigh'));
       const pw = m.push ?? 3;
       this.vel.x = dir.x * pw;
       this.vel.z = dir.y * pw;

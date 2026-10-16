@@ -4,8 +4,9 @@
 //   npm run pr -- start <branch> [--art <id>[,<id>]] [--full]   new worktree + branch off main in .worktrees/<branch>
 //   npm run pr -- open [--title "..."]      (inside the worktree) publish the branch slim + open the GitHub PR
 //   npm run pr -- preview                   (inside the worktree) deploy the branch to a Vercel preview, link it in the PR
-//   npm run pr -- merge <branch> [--no-deploy]  (in the main checkout) merge --no-ff, publish main, remove the worktree,
-//                                           deploy main to production
+//   npm run pr -- merge <branch> [--no-deploy] [--force-art "<reason>"]  (in the main checkout) art guard, merge --no-ff,
+//                                           publish main, remove the worktree, deploy main to production
+//   npm run pr -- check <branch>            (anywhere) the art guard alone, read-only: what `merge` would refuse (tools/pr-guard.mjs)
 //   npm run pr -- prune [--dry-run]         (in the main checkout) remove clean worktrees whose branch is merged
 //
 // Why worktrees: Claude sessions and Codex share the main checkout, so `git checkout` there would yank files
@@ -23,6 +24,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead } from './pr-guard.mjs';
 
 // The main checkout, wherever this copy of the script lives (it also runs from inside a worktree).
 const ROOT = path.dirname(execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
@@ -34,7 +36,7 @@ const PREFIXES = ['feature/', 'fix/', 'art/', 'docs/', 'chore/'];
 const [cmd, ...rest] = process.argv.slice(2);
 const flag = (name) => rest.includes(name);
 const opt = (name) => { const i = rest.indexOf(name); return i >= 0 ? rest[i + 1] : undefined; };
-const positional = rest.find((a, i) => !a.startsWith('--') && rest[i - 1] !== '--title');
+const positional = positionalArg(rest);
 
 const git = (args, cwd = ROOT, inherit = false) =>
   execFileSync('git', args, { cwd, stdio: inherit ? 'inherit' : ['ignore', 'pipe', 'inherit'] })?.toString().trim();
@@ -114,14 +116,26 @@ function merge() {
   const branch = positional;
   if (!branch) die('usage: pr merge <branch>');
   if (currentBranch() !== 'main') die('the main checkout is not on main');
+  let reason;
+  try { reason = forceReason(rest); } catch (e) { die(e.message); }
   // Conflicts get resolved in the feature worktree (git merge main there), never on main.
+  let tree;
   try {
-    execFileSync('git', ['merge-tree', '--write-tree', 'main', branch], { cwd: ROOT, stdio: 'pipe' });
+    tree = execFileSync('git', ['merge-tree', '--write-tree', 'main', branch], { cwd: ROOT, stdio: 'pipe' }).toString().split('\n')[0].trim();
   } catch {
     die(`${branch} conflicts with main: run \`git merge main\` in its worktree, resolve, commit, \`npm run pr -- open\`, retry`);
   }
+  // Fighter art ships by what the packer finds, not by what the user approved (TOOL-028): judge the merge result first.
+  const guard = checkArt({ root: ROOT, base: 'main', head: tree });
+  formatReport(guard, branch).forEach((l) => console.log(l));
+  let message = [];
+  if (!guard.ok) {
+    if (!reason) die(`art guard refused ${branch}: fix the strips above, or override with --force-art "<reason>" (the reason goes into the merge commit)`);
+    message = overrideMessage(branch, reason, guard).flatMap((m) => ['-m', m]);
+    console.warn(`[pr] --force-art: merging despite ${guard.refusals.length} refusal(s); the reason is recorded in the merge commit`);
+  } else if (reason) console.log('[pr] --force-art was not needed: the art guard passed');
   try {
-    git(['merge', '--no-ff', '--no-edit', branch], ROOT, true);
+    git(['merge', '--no-ff', ...(message.length ? message : ['--no-edit']), branch], ROOT, true);
   } catch {
     die('merge refused: another session has uncommitted edits on main in files this branch changes. ' +
       'Ask it to commit or move them to its own branch, then retry.');
@@ -142,6 +156,17 @@ function merge() {
     }
   }
   console.log(`[pr] merged ${branch}. Revert later with: git revert -m 1 ${mergeCommit}`);
+}
+
+// The art guard alone, read-only: what `merge` would refuse for this branch right now (main + branch, no checkout needed).
+function check() {
+  const branch = positional;
+  if (!branch) die('usage: pr check <branch>');
+  const { head, base, merged } = resolveHead(ROOT, 'main', branch);
+  if (!merged) console.warn(`[pr] ${branch} does not merge cleanly into main (docs conflicts are normal for a stale branch; \`merge\` will refuse until they are resolved): judging the merge result anyway`);
+  const guard = checkArt({ root: ROOT, base, head });
+  formatReport(guard, branch).forEach((l) => console.log(l));
+  process.exitCode = guard.ok ? 0 : 1;
 }
 
 // Worktrees outlive their branch when a merge could not remove them (a session was still inside, or a branch
@@ -183,4 +208,4 @@ function prune() {
   }
 }
 
-({ start, open, preview, merge, prune }[cmd] || (() => die('usage: pr start|open|preview|merge|prune (see tools/pr.mjs)')))();
+({ start, open, preview, merge, check, prune }[cmd] || (() => die('usage: pr start|open|preview|merge|check|prune (see tools/pr.mjs)')))();

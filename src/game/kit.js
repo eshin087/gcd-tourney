@@ -1,6 +1,6 @@
 // Fighter kits (ADR 0009, baseline ADR 0011): which special each input slot fires, and the shared
 // behaviour of every special kind (shot, teleport, pull, dive, counter, mode), the second supers and
-// non-beam ultimates (flurry, domain, ignite, skyStrike; orb, rampage, reflex: ADR 0017), status effects
+// non-beam ultimates (flurry, domain, ignite, skyStrike; orb, rampage, reflex: ADR 0017; laneStrike: ADR 0032), status effects
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
@@ -734,9 +734,15 @@ const UPDATE = {
       }
       if (k.t0 % S.every !== 1) return;
       if (k.i < S.hits) {
-        const R = g.cam.right, F = g.cam.fwd, a = k.i * 2.39996 + 0.6;
-        const ox = Math.cos(a) * 1.05, oz = Math.sin(a) * 0.7;
-        f.teleport(o.pos.x + R.x * ox + F.x * oz, o.pos.y + (k.i % 3) * 0.35, o.pos.z + R.z * ox + F.z * oz);
+        if (S.front) {
+          // a blur of fists from one spot in front of them (Jet Gatling), not strikes from every side
+          const d = (k.dir ??= dirTo(f, o));
+          f.teleport(o.pos.x - d.x * 0.95, o.pos.y, o.pos.z - d.y * 0.95);
+        } else {
+          const R = g.cam.right, F = g.cam.fwd, a = k.i * 2.39996 + 0.6;
+          const ox = Math.cos(a) * 1.05, oz = Math.sin(a) * 0.7;
+          f.teleport(o.pos.x + R.x * ox + F.x * oz, o.pos.y + (k.i % 3) * 0.35, o.pos.z + R.z * ox + F.z * oz);
+        }
         f.hidden = false;
         f.actor.setVisible(true);
         f.faceOpponent();
@@ -745,19 +751,27 @@ const UPDATE = {
         o.heldT = Math.max(o.heldT, 30);
         o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
         if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
-        burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, 0xd8f0ff, 1.1);
+        burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, S.hitColor ?? 0xd8f0ff, 1.1);
         if (S.hitFx === 'smoke') burst(g, 'smoke', f.pos.x, f.pos.y + 0.7, f.pos.z, null, 0.6); // a clone pops
         g.cam.shake(0.25);
         k.i++;
         return;
       }
-      // final: from above, slammed into the floor (lightning, or a Giant Rasengan)
-      f.teleport(o.pos.x, o.pos.y + 2.4, o.pos.z);
-      f.faceOpponent();
-      f.actor.setPhase('airHeavy', 1, 0.5);
       o.heldT = 0;
-      o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+      if (S.front) {
+        // final: one last straight punch from in front that sends them flying into the wall
+        f.faceOpponent();
+        f.actor.setPhase('heavy', 1, 0.5);
+        o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.finalLaunch ?? [20, 9], wallBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+      } else {
+        // final: from above, slammed into the floor (lightning, or a Giant Rasengan)
+        f.teleport(o.pos.x, o.pos.y + 2.4, o.pos.z);
+        f.faceOpponent();
+        f.actor.setPhase('airHeavy', 1, 0.5);
+        o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+      }
       if (S.finalFx === 'rasengan') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(0x6ab4ff));
+      else if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
       g.cam.shake(1.1);
@@ -998,6 +1012,56 @@ const UPDATE = {
     loop(f, S.pose ?? 'beamCharge');
     if (k.t0 >= S.recovery) finish(f);
   },
+
+  // ---- Gigant Pistol (Luffy, ADR 0032): the arm blows up during `windup`, then the giant fist shoots down his lane
+  // to `reach` in `extend` frames. It commits to the lane he faces when the punch leaves: leave the lane or be in the
+  // air above `height` and it misses. One unblockable hit, then the arm snaps back during `recovery`.
+  laneStrike(f, k, S) {
+    const g = f.game, o = f.opp, id = 'fist' + f.index;
+    if (k.phase === 'flash') { k.phase = 'windup'; k.t0 = 0; audio.play('beamCharge', 0.8); }
+    k.t0++;
+    if (k.phase === 'windup') {
+      loop(f, S.pose ?? 'beamCharge');
+      if (k.t0 % 6 === 1) g.fx.smoke(f.pos.x - f.face.x * 0.3, f.pos.y + 1.0, f.pos.z - f.face.y * 0.3, 0.5);
+      if (k.t0 >= S.windup) {
+        k.phase = 'punch';
+        k.t0 = 0;
+        k.dir = new THREE.Vector2(f.face.x, f.face.y);
+        audio.play('whooshHeavy', 1.2);
+        g.cam.shake(0.5);
+      }
+      return;
+    }
+    if (k.phase === 'punch') {
+      loop(f, S.strikePose ?? 'beamFire');
+      const d = k.dir, ext = S.reach * Math.min(1, k.t0 / S.extend);
+      const x = f.pos.x + d.x * (0.6 + ext), z = f.pos.z + d.y * (0.6 + ext);
+      g.fx.keep(id, 'orb', x, f.pos.y + 1.0, z, { scale: S.fist.scale, color: S.fist.color, order: 8, glow: 0 });
+      if (k.t0 % 2 === 0) g.fx.spawn('lines', x, f.pos.y + 1.0, z, { scale: 1.4, glow: 0.4, depthTest: false, order: 8 });
+      // along the lane (0 at his body, out to the fist) and across it
+      const rx = o.pos.x - f.pos.x, rz = o.pos.z - f.pos.z;
+      const along = rx * d.x + rz * d.y, across = Math.abs(rx * d.y - rz * d.x);
+      if (!k.hit && o.hittable && along > 0 && along < 0.6 + ext + S.width * 0.5 && across < S.width && o.pos.y - f.pos.y < S.height) {
+        k.hit = true;
+        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d.clone());
+        g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.color));
+        g.fx.ground.impact(o.pos, { kind: 'slam', style: S.ground, tint: S.color, dir: d });
+        g.fx.overlay.impactFrame(4);
+        g.cam.shake(1.2);
+        audio.play('explosion', 1.3);
+        g.excite = 1;
+      }
+      if (k.t0 >= S.extend + 6) {
+        if (!k.hit) { g.tag(o, 'dodge'); if (o.evading) g.onEvade(o); }
+        g.fx.drop(id);
+        k.phase = 'recover';
+        k.t0 = 0;
+      }
+      return;
+    }
+    loop(f, S.strikePose ?? 'beamFire');
+    if (k.t0 >= S.recovery) finish(f);
+  },
 };
 
 // ------------------------------------------------------------------ landing / gravity
@@ -1018,7 +1082,7 @@ export function onLand(f) {
   }
   if (k.kind === 'flurry') return; // keeps its own recovery
   if (k.kind === 'teleport') return;
-  if (k.kind === 'rampage' || k.kind === 'orb' || k.kind === 'reflex') return; // their phases run to the end
+  if (k.kind === 'rampage' || k.kind === 'orb' || k.kind === 'reflex' || k.kind === 'laneStrike') return; // their phases run to the end
   finish(f);
 }
 
@@ -1027,7 +1091,7 @@ export function gravityScale(f) {
   if (!k) return 1;
   if (k.kind === 'dive' || k.kind === 'teleport') return 0;
   if (k.kind === 'flurry') return k.phase === 'land' ? 1 : 0;
-  if (k.kind === 'orb' || k.kind === 'reflex') return 0; // cast where they stand, in the air too
+  if (k.kind === 'orb' || k.kind === 'reflex' || k.kind === 'laneStrike') return 0; // cast where they stand, in the air too
   if (k.kind === 'rampage') return k.phase === 'whiff' || k.phase === 'recover' ? 1 : 0;
   return 1;
 }
@@ -1049,6 +1113,7 @@ const RECOVERING = {
   orb: (k) => k.phase === 'fire', // the orb rolls on by itself
   rampage: (k) => k.phase === 'whiff' || k.phase === 'recover',
   reflex: (k) => k.phase === 'set',
+  laneStrike: (k) => k.phase === 'recover', // the arm is snapping back
 };
 
 export function inRecovery(f) {

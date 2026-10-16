@@ -25,7 +25,8 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
   npm run pr -- open                        # from the worktree: slim publish + gh pr create (re-run to update)
   npm run pr -- preview                     # from the worktree: a Vercel preview of the branch, linked on the PR (ADR 0018)
   git merge main                            # in the worktree, only if merge reports conflicts
-  npm run pr -- merge feature/<name>        # from the main folder: --no-ff merge, publish main, remove worktree
+  npm run pr -- check art/<name>            # optional, read-only: the art guard's verdict (unapproved or off-size fighter strips)
+  npm run pr -- merge feature/<name>        # from the main folder: art guard, --no-ff merge, publish main, remove worktree
   npm run deploy
   ```
 
@@ -146,11 +147,19 @@ exists for architectural decisions, and the commit is conventional.
 
 - **GitHub** (private): https://github.com/eshin087/gcd-tourney. PRs come from `npm run pr` (above). `npm run publish:github` pushes `main`
   without raw image generations (`art/**/raw/`, `_rejected/`, `_old/`, contact sheets), which stay only in
-  the local repository (~1 GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
+  the local repository (several GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
   `python -m pip install git-filter-repo`.
+- **The publish cache** (`.publish-cache/` in the main checkout, git-ignored): every publish (`npm run publish:github`,
+  `npm run pr -- open`, `npm run pr -- merge`) from any worktree, Claude session or Codex thread uses the one bare
+  repository there. It borrows the main repository's objects (`git clone --shared`, no copy), fetches the branch,
+  rewrites it in about a second without a gc and pushes, so a publish takes seconds plus the push instead of a full
+  clone every time. `.publish-cache/publish.lock` makes concurrent publishes wait their turn. A missing or broken
+  cache rebuilds itself; `npm run publish:github -- --full` forces a rebuild, and deleting the folder is always safe.
+  Each run rewrites the whole branch on purpose: filter-repo's incremental `--state-branch` mode gives revert
+  commits different ids than a full rewrite (see tools/publish.mjs).
 - **Vercel**: https://gcd-tourney.vercel.app. `npm run deploy` (tools/deploy.mjs) exports HEAD without `art/` into
-  a temp folder, builds it there (`prebuild` writes `public/art-index.json`, the list of packed art, so production
-  never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
+  a temp folder, builds it there (`prebuild` runs the build lints, `tools/lint-anims.mjs` and `tools/check-undeclared.mjs`, then writes
+  `public/art-index.json`, the list of packed art, so production never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
   changes are listed as "not deployed". Deploys are on demand, not on every push.
 - The site and repo contain fan art of copyrighted characters: keep the repo private, and see ADR 0008
   (ENG-020) before any public release.
