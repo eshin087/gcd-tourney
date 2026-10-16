@@ -413,3 +413,5 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 | OPS-015 | Add an on-demand project skill for the GCD Tourney attention queue | Codex | done | User request 2026-10-15; `.codex/skills/gcdtourney-attention/` is explicitly invokable as `$gcdtourney-attention`; linked from docs/COORDINATION.md. Skill validator passed. Project-local `.codex/` is ignored on this machine; force-add only the two skill files for cross-checkout availability. |
 
 | ART-LOOSE-NARUTO-20261015 | Scale loose ends | Codex | review | User approved light2Alt v05 and airHeavyAlt v04 as drawn via Claude relay on 2026-10-15. Approval bookkeeping recorded; strict contact/anatomy holds remain for Claude calibration. No atlas promotion, merge or deploy. |
+
+| ART-LOOSE-KILLUA-20261015 | Scale loose ends | Codex | review | User approved charge v14, down v08 and ko v09 as drawn via Claude relay scale#6 (“i approve those 5”); visual approval only. Runtime grounding/state-transition and charge aura checks plus calibration uncertainty remain with Claude. No source, sidecar, hitbox or atlas edits; no commit/merge/deploy. |
