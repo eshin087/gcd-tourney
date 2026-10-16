@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(scale): record user approval via Claude of Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09; return remaining technical checks to Claude without merge or production deploy.
+
 - Added: Codex chats with no relay lane are found and handled (TOOL-050): `relay status` lists recent project chats nobody mapped, `relay ask --app codex --from "<title>"` lets such a chat queue a question, and `relay answer` maps it by title and relays the answer.
 
 - Changed: Gojo runs instead of hover-gliding (ART-GOJO-RUN-JKL): run v14 in the K "fast athletic" direction, far hand in his pocket and the near fist forward, approved by the user via the approvals desk and passed by the Astra audit. Part A of the generated stride is used for both halves; the sidecar frameOffsets hold his head steady and lift the flight frames.

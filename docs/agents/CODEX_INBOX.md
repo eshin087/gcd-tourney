@@ -532,6 +532,8 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
 ## Loose ends: re-audit after calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
+- [x] 2026-10-15: USER APPROVAL via Claude relay scale#6 recorded for light2Alt05, airHeavyAlt04, charge14, down08, ko09; commits1216e707/c9b2f9bc. Final technical checks returned to Claude; no user action remains for these drawings.
+
 **This is the scale lane's current section** (it follows "Loose ends of the scale round" below). Claude calibrated all five
 candidates; read Claude's note at the top of CLAUDE_ART_HANDOFF.md ("loose ends calibrated") first. No generation calls.
 **Done when** both items are ticked; then commit your handoff and run `node tools/relay.mjs ring scale --note "<one line>"`.

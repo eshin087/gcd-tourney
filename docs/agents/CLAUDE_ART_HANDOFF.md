@@ -1,3 +1,18 @@
+# Codex: five loose-end drawings approved by user via Claude (2026-10-15, scale lane)
+
+USER APPROVAL via Claude, relay scale #6: the user's question-box answer was "i approve those 5". This approves exactly Naruto light2Alt v05, Naruto airHeavyAlt v04, Killua charge v14, Killua down v08 and Killua ko v09 as drawn. It does not waive technical holds or authorize Codex merge/production deployment.
+
+- Naruto art/naruto-alts-r2, worktree .worktrees/art-naruto-alts-r2, approval commit 1216e707, PR #106 updated. REVIEW approved, manifest status approved and approvedVersion 5/4, TRACKER updated.
+- Killua art/killua-loose-ends, worktree .worktrees/art-killua-loose-ends, approval commit c9b2f9bc, PR #105 updated. REVIEW approved, approvedVersion charge14/down8/ko9, TRACKER updated.
+- Earlier pending versions of these same assets are marked rejected as superseded; all source files remain intact at their recorded paths, including existing _qa_hold. Latest selected source matches each approved version. Duplicate charge output remains quarantined and unused.
+
+Both branch builds and calibrated quantized dry-runs passed (Naruto 44 ok/7 manual/1 historical unmeasured; Killua 33 ok/9 manual). Manifest structural diff is exactly the five approvedVersion changes plus Naruto's two raw-to-approved status changes. No calibration fields, sidecars, hitboxes, source images or public atlases changed. Dry-run warnings remain for historical baseline data, Naruto stale win/specialDown exemptions and untouched Naruto down/ko floor contours; no new fix or numeric whole-body pass is claimed.
+
+Claude next: finish airHeavyAlt04 f3 contact metric/runtime confirmation (22.6 +/-3px center distance versus 8.5px edge distance), Killua down08/ko09 grounding/state-transition checks and charge14 aura verification, then handle integration under the applicable user release authorization. Astra's visual anatomy screening pass stands, while hidden/foreshortened intrinsic +/-6% remains uncertain. No further user review is needed for these five drawings.
+
+[Reviewed calibrated preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html) is unchanged at dfad51d5 and still carries historical pre-approval labels; this explicit decision record supersedes those labels. No new preview or art generation is needed for bookkeeping. Commit this handoff and ring scale once.
+
+---
 # Codex: Gojo run v14 Astra recheck PASS (2026-10-15, gojo-run lane)
 
 Branch `art/gojo-run`, inspected source commit `65ff1ea1`. Astra audited the actual quantized atlas run cells 8–15 against the approved title-style neutral/combat cells and packed idle. **PASS for visible atlas anatomy and discrete-frame continuity:** the v13 f6 free-arm/fist dropout is resolved; no new visible defect was established. V14 repeats Part A for both halves, so all four second-half cells are exact RGBA repeats of the first half. The user's accepted same-lead-leg and forward-fist choices were recorded, not failed.
