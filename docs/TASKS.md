@@ -1,5 +1,7 @@
 # Task board
 
+ART-NAR-TAUNT10-DECISION | Codex | done | User explicitly approved taunt10 as drawn on 2026-10-15. Visual approval only; Astra round5 technical HOLD retained. No calibration changes or generation. files: art/manifest.json, art/REVIEW.md, art/TRACKER.md, art/characters/naruto/raw/_rejected/, docs/TASKS.md, CHANGELOG.md.
+
 ART-GOJO-TITLE-R2 | Codex | review | Full strict pack exit0; airLight3 v12 recommends review; best airHeavy v08 is HOLD f3 hair-volume caveat, v09 failed and archived. Run v12 glide and special v07 remain visual HOLD after named retry budgets. Existing PR72 worktree; no ART-TECH-01. files: art/characters/gojo/raw/, art/characters/gojo/production/title-style/round2/, art/scale/heads-gojo.png, art/scale/lineup-gojo-round2.*, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/characters/gojo/, public/reviews/gojo-round2/, CHANGELOG.md.
 
 ART-GOJO-RUN10 | Codex | review | Run-only bounded title-style redraw in existing PR72 worktree after git merge main. A1 and B2 authorized calls used; upright214–221px/margins/normal run gate pass, but requested2% head tolerance and leg alternation remain held. Full strict pack exits1 on existing airLight3/airHeavy; isolated strict idle/run exits0. See art/characters/gojo/production/title-style/run-v10/QA.md. files: art/characters/gojo/raw/run_v10.*, art/characters/gojo/raw/_parts/run_v10_*.png, art/characters/gojo/production/title-style/run-v10/, art/scale/lineup-gojo-run_v10.*, public/reviews/gojo-run-v10/, art/manifest.json, art/REVIEW.md, art/TRACKER.md, CHANGELOG.md.
