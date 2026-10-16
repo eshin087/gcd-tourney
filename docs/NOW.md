@@ -7,6 +7,7 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
+**Super art Round 2b ready for your review:** eight Goku and Luffy v01 candidates (super_bg, super_fg, ult_bg, ult_fg) are in [the review gallery](https://gcd-tourney-hk1p80en5-eshin087s-projects.vercel.app/reviews/super-art-r2b/), PR #131. All remain unapproved. Astra placed technical holds on all eight for color counts above 48; both SUPER cutouts also clip at the side edges, with additional face/build findings noted in the gallery. Please approve or request redo for each image through the 0 - Approvals desk. No image is packed into the game yet.
 
 **Super art round 2a approved (2026-10-16):** all 12 Naruto, Killua and Gojo v01s were approved via Claude relay effects #8, including the six foregrounds with Astra holds. Sources and fitted UI outputs are committed on PR #129. Claude's next step is the full-checkout pack/runtime check and integration; the sparse worktree pack emitted missing-animation warnings, documented in the [handoff](agents/CLAUDE_ART_HANDOFF.md). [Approved preview](https://gcd-tourney-891njl4yw-eshin087s-projects.vercel.app/reviews/super-art-r2/).
 
@@ -104,4 +105,3 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - 49aff9ea 10-15 23:23 test(net): re-record determinism fixtures on the current simulation
 - 19364caa 10-15 23:20 docs(now): super art round 2a live (PR #129); Goku and Luffy next (ART-SUPER-ART)
 <!-- status:end -->
-

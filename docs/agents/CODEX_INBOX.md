@@ -39,6 +39,7 @@ review link in the note. Never ask the user in the Codex chat. Only a relayed `U
 **Round 2b (after 2a is approved):** Goku and Luffy the same way. Their `fg` only once their title-style reference is
 approved; until then do the two backdrops and mark the cutouts blocked (ring the desk with `--kind blocked` if that
 needs the user).
+- [x] 1. Goku and Luffy title-style refs were already user-approved; generated and filed all eight v01 candidates within their call budgets; Astra audited four cutouts and the review gallery plus PR #131 preview were published. All eight await user decisions through the approvals desk (2026-10-16).
 
 ## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
