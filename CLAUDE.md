@@ -380,6 +380,29 @@ Locate main with git worktree list. Run node tools/relay.mjs status from main.
   waiting for the user, no Claude action needed, or delivery blocked (reason). On failure, retain the
   handoff and report the exact failure; never claim successful delivery.
 
+### Mandatory user-facing status (every Codex chat, 2026-10-15)
+
+Every final response or task handback must end with these four short status lines, even when there is
+no action needed. Use current evidence from this task, main's inbox and relay state; never make the user
+infer who acts next from "done", "ready", a commit, or a preview link:
+
+- **Status:** Complete / Waiting for you / Waiting for Claude / Blocked / In progress. If multiple waits
+  apply, name each. Complete means the requested scope is finished, with no required approval, validation,
+  delivery or handoff outstanding. Distinguish this task's completion from the larger project's completion.
+- **Your action:** None, or the exact approval/decision/test/input needed. Link the specific candidate or
+  review page, name its version, and say what reply to give. Separate visual approval from technical holds.
+- **Claude:** None, or the exact next action/reply awaited and handoff delivery state (sent/queued/failed,
+  lane and commit when applicable). If Claude asked Codex for unfinished work, say so and identify that work.
+  Do not claim Claude has read or completed anything without evidence; mark unknown status as unverified.
+- **Next:** Who acts next and what resumes afterward. Say whether Codex is continuing, waiting for a relay,
+  waiting for the user's reply, or finished with no follow-up. Never imply background work or monitoring
+  continues unless it is actually running.
+
+When code/art is only committed locally or on a preview, say so; do not imply merged, deployed, approved
+or fully validated. Keep these lines concise and actionable. An idle rule-reminder turn reports the current
+wait without starting unrequested work. Subagents give the same facts to their parent for the final handback.
+Read this rule from main alongside the mandatory Claude handoff check; it applies to older worktrees too.
+
 ## Gotchas
 
 - `step()` sets `window.__manualStep = true`, which stops the rAF loop from driving the game. Call

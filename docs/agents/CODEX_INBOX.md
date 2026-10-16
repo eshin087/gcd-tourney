@@ -1087,6 +1087,9 @@ How to run it:
 
 ## Every thread
 
+**Standing status rule (2026-10-15; every handback):** Read main's AGENTS.md "Mandatory user-facing status". End each final response with Status / Your action / Claude / Next. Explicitly state approvals or input required, any action or reply pending from Claude (and relay delivery state), who acts next, or that the requested scope is completely finished with nothing to do. Apply this now, including idle chats; do not start unrequested work.
+
+
 **Standing rule (2026-10-15; applies every turn, never tick off):** Before finishing, read the main checkout's AGENTS.md "Mandatory Claude handoff check" and run node tools/relay.mjs status from main. Decide whether Claude has the next action, commit the handoff and ring the correct lane when required. Report the outcome in your final response. This applies to direct user tasks and relayed tasks, including chats using older worktrees. Preserve user approval and pause brakes.
 
 

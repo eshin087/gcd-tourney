@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: every Codex handback explicitly reports completion/wait status, required user actions, pending Claude work and the next actor; existing project chats receive the rule (OPS-010).
+
 - Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
 
 - docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.

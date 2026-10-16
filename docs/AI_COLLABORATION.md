@@ -176,6 +176,8 @@ Stops:  an image waits for approval, BLOCKED, a decision for the user, 4 round t
 
 Every chat and subagent must perform the mandatory Claude handoff check in [AGENTS.md](../AGENTS.md) at session start and before finishing, using main's current rules/inbox and relay status. The owning chat sends required handbacks without a user reminder. Explicit review-ready notifications report "awaiting user approval; do not proceed" without authorizing another production round.
 
+Every Codex handback also ends with Status / Your action / Claude / Next, as specified in AGENTS.md "Mandatory user-facing status". Name exact approvals, pending Claude work and the next actor; explicitly say None when no action is required. A commit or preview is not proof of full completion.
+
 ### Art review loop (every generated image)
 
 ```
