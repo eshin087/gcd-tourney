@@ -4,7 +4,7 @@ This update preserves versioned sources and adopts the final strict 48-color pac
 
 ## Review gallery
 
-[Open the down/getup r5 review gallery](https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html). It shows playback from the actual packed atlas, approved reference context, and native-size v01/v02/v03 comparisons. The gallery marks down v03 and getup v03 approved and keeps special visibly held.
+[Open the down/getup r5 review gallery](https://gcd-tourney-1sgd4nb1t-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html). It shows playback from the actual packed atlas, approved reference context, and native-size v01/v02/v03 comparisons. The gallery marks down v03 and getup v03 approved and keeps special visibly held.
 
 ## Proposed review rows
 
@@ -39,6 +39,6 @@ Local parent browser QA verified the gallery playback, native-size comparison ce
 
 - Source worktree commit: `3a0476c917d013a6c79b62a0553f7c3d4bdc4f8f`.
 - Initial art-only slim branch head: `9add7fb9`.
-- Preview deployment: https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app
+- Preview deployment: https://gcd-tourney-1sgd4nb1t-eshin087s-projects.vercel.app
 
 No merge or production deployment is included.
