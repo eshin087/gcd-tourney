@@ -265,14 +265,16 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   **heavy**. A swing that lands while the other fighter's classed swing is live (active, or at most
   `MELEE_CLASH.window` = 4 frames before its first active frame) meets it (`Game.swingsMeet`). Lights pressed up
   to about 3 frames apart clash at close range.
-- **Same class: CLASH!** Neither hit applies. Both freeze in the strike (hit stop 10 light / 14 heavy, +2 per
-  chain step, at most 22), then bounce apart in the `clashBack` state (7.5 / 9 units/s). After 3 frames of
-  slide they can do anything; a Light or Heavy pressed during the freeze comes out then, so pressing again meets
-  the next swing. Air clashes bounce with a small hop.
+- **Same class: CLASH!** Neither hit applies. Every clash plays the same slow-mo (0.3x for 0.5 s) with the strikes
+  held pressed together (hit stop 7 light / 9 heavy): sparks and arcs in both fighters' colors at the contact, a
+  thin shockwave ring, speed lines on the contact, the stage dimmed a little and the camera pushing in on the fists.
+  No screen flash. Then both slide back a step in the `clashBack` state (4 / 5 units/s, playing the move's own
+  recovery). After 3 frames of it they can do anything; a Light or Heavy pressed during the slow-mo comes out then,
+  so pressing again meets the next swing. Air clashes hop a little.
 - **Chain:** a clash within 80 frames of the last one counts up `Game.meleeChain` (CLASH ×2, ×3...). Each step
-  grows the spark, shockwave ring, flash, shake, zoom punch, slow-mo (from ×2) and the cheer, and gives both
-  fighters ki: 10 per light clash, 18 per heavy, ×(1 + 0.25 per step). The **5th** is **CLASH BREAK!**: an
-  explosion and a crater, 30 damage to each, both launched apart into a knockdown.
+  grows the spray, the shockwave, the camera push-in and the cheer, and gives both fighters ki: 10 per light
+  clash, 18 per heavy, ×(1 + 0.25 per step). The **5th** is **CLASH BREAK!**: the biggest spray, smoke and a
+  crater, 30 damage to each, both launched apart into a knockdown.
 - **Light vs heavy: CRUSH!** The light's hits that frame are dropped and the heavy lands now, even a few frames
   before its active frames.
 - Specials, the vanish kick, the super dash hit and throws have no class: they trade as before.
@@ -586,8 +588,8 @@ the CPU dashes out of a Kirin mark.
 
 Melee clash (ADR 0034, `src/game/aiClash.js`): once per opposing light or heavy that has just started in reach,
 the CPU presses the same button at its level's `meleeClash` rate (Easy 4 %, Normal 8 %, Hard 12 %, ×1.5 when
-spectated; INSANE 8 %, IMPOSSIBLE 10 %, the CPU-vs-CPU showman 18 %), and once per clash bounce it goes again at
-that rate × 1.6, so chains happen in solo and spectated play.
+spectated; INSANE 8 %, IMPOSSIBLE 10 %, the CPU-vs-CPU showman 18 %), and once per clash slide it goes again at
+that rate × 1.1, so chains happen in solo and spectated play.
 
 Easy, Normal and Hard also use the defensive options at their level's rate (`parry` with a timing error of
 `slop` frames, `spot`, `airDodge`, `wavedash` in `LEVELS`): a timed Guard press against attacks and

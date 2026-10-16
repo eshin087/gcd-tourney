@@ -104,6 +104,8 @@ export class Game {
     this.orbs = []; // Hollow Purple (ADR 0017)
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
     this.meleeChain = { n: 0, at: -1e9 }; // the running MELEE CLASH chain: clashes in it, frame of the last (ADR 0034)
+    this.meleeFxF = 0; // frames left of a melee clash's speed lines and stage dim (clashMoment)
+    this.meleeFocus = { pos: new THREE.Vector3() }; // where those speed lines center (a stand-in for linesFocus' fighter)
     this.clash = null;
     this.spClashCool = 0; // frames until two specials may clash again (a rush-off can't stall the round)
     this.struggleCool = 0; // frames until the next BEAM CLASH (ADR 0027)
@@ -393,6 +395,7 @@ export class Game {
     this.vortices = [];
     this.pendingMelee = [];
     this.meleeChain = { n: 0, at: -1e9 };
+    this.meleeFxF = 0;
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
     this.spClashCool = 0;
@@ -732,6 +735,12 @@ export class Game {
       else this.fx.dropHand(f);
     }
     if (this.clash) lines = 0.75;
+    if (this.meleeFxF > 0) {
+      this.meleeFxF--;
+      lines = Math.max(lines, MELEE_CLASH.slow.lines);
+      this.linesFocus = this.meleeFocus;
+      if (!this.meleeFxF && !this.superFlash) this.dimTarget = 0;
+    }
     if (this.superFlash) { lines = 1; this.linesFocus = this.superFlash.who; }
     const o = this.fx.overlay;
     o.lines += (lines - o.lines) * (lines > o.lines ? 0.3 : 0.08);
@@ -826,9 +835,10 @@ export class Game {
     return def.t >= d.startup - MELEE_CLASH.window && def.t < d.startup + d.active;
   }
 
-  // Two lights (or two heavies) met: no damage, both freeze where the strikes meet, then bounce apart free to act. A
-  // chain (the next clash within chainGap frames) grows the show each time and pays both ki; the finale-th blows both
-  // apart (clashFinale).
+  // Two lights (or two heavies) met: no damage. Both hold their strikes pressed together through a short slow-mo
+  // (sparks in both colors, a shockwave, speed lines, the stage dimmed, the camera pushing in on the fists), then
+  // slide back a step free to act. A chain (the next clash within chainGap frames) grows the spray and the push-in
+  // and pays both ki; the finale-th blows both apart (clashFinale).
   meleeClash(a, b, at) {
     const C = MELEE_CLASH, ch = this.meleeChain, cls = a.move.meleeClash, heavy = cls === 'heavy';
     ch.n = this.frameNo - ch.at <= C.chainGap ? ch.n + 1 : 1;
@@ -839,46 +849,51 @@ export class Game {
     for (const f of [a, b]) f.ki = Math.min(MAX_KI, f.ki + ki);
     this.arena.npcCue('clash');
     this.excite = Math.min(1, this.excite + 0.25 + 0.1 * n);
+    this.clashMoment(mid, C.stop[cls] + 4, Math.min(C.camMax, C.cam + C.camPer * (n - 1)));
     if (n >= C.finale) {
       ch.n = 0;
       this.clashFinale(a, b, mid);
       return;
     }
-    const stop = Math.min(C.stopMax, C.stop[cls] + C.stopPer * (n - 1));
-    a.clashBounce(stop, C.push[cls]);
-    b.clashBounce(stop, C.push[cls]);
-    if (n >= 3) this.fx.bigImpact(mid.x, mid.y, mid.z, 0xfff2c0);
-    else this.fx.hit(mid.x, mid.y, mid.z, heavy || n === 2 ? 'smash' : 'heavy', 0xfff2c0);
-    this.fx.ring(mid, '#fff3d0', 0.7 + 0.3 * n, Math.min(a.pos.y, b.pos.y) + 0.05);
-    this.fx.overlay.flash('#ffffff', Math.min(0.6, 0.15 + 0.1 * n));
-    if (n >= 3) this.fx.overlay.impactFrame(2);
-    this.cam.shake(0.25 + 0.12 * n + (heavy ? 0.2 : 0));
-    this.cam.zoomPunch(0.2 + 0.12 * n);
-    if (n >= 2) this.slowmo(Math.max(0.3, 0.62 - 0.07 * n), 0.08 + 0.05 * n);
+    a.clashBounce(C.stop[cls], C.push[cls]);
+    b.clashBounce(C.stop[cls], C.push[cls]);
+    this.fx.clashSpark(mid.x, mid.y, mid.z, a.def.color, b.def.color, (heavy ? 1.25 : 1) * (1 + 0.12 * (n - 1)));
+    this.fx.ring(mid, '#f4f0ff', 0.6 + 0.15 * n, Math.min(a.pos.y, b.pos.y) + 0.05);
+    this.cam.shake(0.18 + 0.05 * n + (heavy ? 0.12 : 0));
     audio.play(heavy ? 'smash' : 'hitHeavy', Math.min(1.3, 0.8 + 0.1 * n));
     audio.play('block');
     if (n >= 2) audio.play('cheer', Math.min(1.2, 0.2 + 0.2 * n));
     this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash', 650);
   }
 
+  // what every melee clash shares: the slow-mo, the push-in on the contact, speed lines on it and a dimmed stage
+  // for `frames` sim frames (fxTicks lifts them)
+  clashMoment(at, frames, cam) {
+    const S = MELEE_CLASH.slow;
+    this.slowmo(S.scale, S.dur);
+    this.cam.pushIn(at.x, at.y, at.z, cam, S.dur);
+    this.meleeFocus.pos.set(at.x, at.y - 0.9, at.z); // the speed lines center on pos + 0.9
+    this.meleeFxF = frames;
+    if (!this.superFlash) this.dimTarget = S.dim;
+  }
+
   // the last clash of a chain: a blast between them throws both apart (a little damage each, a knockdown)
   clashFinale(a, b, mid) {
     const F = MELEE_CLASH.finaleHit;
-    this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xfff0c0));
+    this.fx.clashSpark(mid.x, mid.y, mid.z, a.def.color, b.def.color, 1.6);
+    for (let k = 0; k < 4; k++) this.fx.smoke(mid.x + (Math.random() - 0.5) * 1.4, mid.y * 0.5 + Math.random() * 0.5, mid.z + (Math.random() - 0.5) * 1.4, 1);
     if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
     else this.fx.debris(mid.x, mid.z, 12, 1.2);
-    this.fx.overlay.impactFrame(4);
-    this.fx.overlay.flash('#ffffff', 0.8);
+    this.fx.overlay.flash('#ffe2b0', 0.22);
     audio.play('explosion', 1.2);
     audio.play('cheer', 1.4);
-    this.cam.shake(1.1);
-    this.cam.zoomPunch(1);
-    this.slowmo(0.25, 0.8);
+    this.cam.shake(0.9);
     this.excite = 1;
     this.hud.announce('CLASH BREAK!', 'clash', 1100);
+    // the clash spray is the show: each knockback hit only adds a small spark
     for (const f of [a, b]) {
       const o = f.opp, d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: F.dmg, launch: F.launch, hitstop: F.hitstop, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
+      f.takeHit(o, { dmg: F.dmg, launch: F.launch, hitstop: F.hitstop, unblockable: true, big: true, projectileHit: true, spark: 'light', hitFlash: 'heavy' }, d);
     }
   }
 

@@ -105,8 +105,9 @@ custom keys.
   or Special as each ring closes on the target, then hold the last one (FINAL PUSH). Better timing pushes harder,
   presses off the beat push you back, and the winner's ultimate lands.
 - **Melee clash**: throw a Light into their Light (or a Heavy into their Heavy) as theirs comes out and the strikes
-  meet: CLASH!, no damage, both bounce apart. Press again during the freeze and the next swings meet too: CLASH ×2,
-  ×3... with a bigger shockwave, slow-mo and ki for both each time, until the 5th blows you both apart (CLASH BREAK!).
+  meet in slow motion: CLASH!, no damage, sparks in both fighters' colors, the camera pushes in on the fists, then you
+  both step back. Press again during the slow-mo and the next swings meet too: CLASH ×2, ×3... with a bigger spray and
+  ki for both each time, until the 5th blows you both apart (CLASH BREAK!).
   A Light that meets a Heavy loses (CRUSH!).
 - **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
 - **Beam clash**: fire an energy special (Killua's Narukami, Gojo's → Red, Sasuke's → Chidori Spear or air Fireball)

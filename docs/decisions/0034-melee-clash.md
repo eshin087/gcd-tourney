@@ -16,8 +16,12 @@ The user's answers to the design questions:
 - **Matchups:** same class only. Light vs light and heavy vs heavy clash; a light meeting a heavy is beaten by it.
 - **Timing:** active frames overlap, so it happens naturally when both press within a few frames (not only on the
   exact same frame, which would be near impossible between people).
-- **After a clash:** both bounce back and can act at once, so pressing again starts the next clash.
+- **After a clash:** both can act at once, so pressing again starts the next clash.
 - **Chains:** escalating spectacle, ki for both, a finale after a set number, and the CPU seeks clashes.
+
+After the first preview (same day) the user found the white flash too bright and the bounce wrong, and chose: sparks
+in both fighters' colors with a shockwave instead of the flash, no bounce (the fighters hold their ground and slide
+back only a little at the end), the same short slow-mo on every clash, and the camera pushing in on the contact.
 
 ## Decision
 
@@ -29,27 +33,34 @@ The user's answers to the design questions:
    (`Game.swingsMeet`). Same class: `Game.meleeClash`, and no hit of that frame applies. Different class: every hit
    by the light's owner that frame is dropped and the heavy lands now (`heavyBeatsLight`, a CRUSH! callout), even
    when the heavy was still a few frames from active.
-3. **The bounce.** Both fighters freeze in their swing (hit stop `stop[class]` + `stopPer` per chain step), then
-   `Fighter.leaveClash` puts them in a new `clashBack` state sliding apart at `push[class]`. After `act` (3) frames
-   they can do anything; a Light or Heavy pressed during the freeze (`buffer`) comes out then. The short slide is
-   there so the bounce reads before the next swing pulls them back in; without it a chain glued the fighters
-   together. An air clash bounces with a small hop and lands with 2 frames of lag.
-4. **The chain.** A clash within `chainGap` (80) frames of the last one adds to `Game.meleeChain`. Each step grows the
-   spark, ring, flash, camera shake and zoom punch, slow-mo (from the second), crowd cheer and the `CLASH ×n!`
-   banner, and pays both fighters `ki[class]` × (1 + `kiPer` × (n − 1)). The `finale`-th (5th) clash is
-   **CLASH BREAK!**: an explosion and a crater, and both take `finaleHit` (30 damage, a launch apart, a knockdown).
-5. **The CPU.** `src/game/aiClash.js` `seekClash` is shared by `CpuBrain` and `MasterBrain`: once per opposing light
+3. **The moment.** Every clash plays the same slow-mo (`slow`: 0.3x for 0.5 s) with the strikes held pressed
+   together (hit stop `stop[class]`, 7 light / 9 heavy), speed lines centred on the contact, the stage dimmed a
+   little and the camera pushing in on the fists (`CameraDirector.pushIn`, `cam` + `camPer` per chain step). The
+   impact is `Effects.clashSpark`: a small contact star, sparks and arcs in both fighters' colors, a thin shockwave
+   ring and coloured particles. No screen flash and no glow sprite, so the frozen strikes stay readable.
+4. **The slide.** `Fighter.leaveClash` then puts both in a new `clashBack` state that plays the clashed move's own
+   recovery while they slide back a step (`push[class]`, 4 / 5 units/s). After `act` (3) frames they can do
+   anything; a Light or Heavy pressed during the freeze (`buffer`) comes out then. The step back gives the next
+   swings room to meet; with none, a chain glued the fighters together. An air clash hops a little and lands with
+   2 frames of lag.
+5. **The chain.** A clash within `chainGap` (80) frames of the last one adds to `Game.meleeChain`. Each step grows the
+   spray, the shockwave and the push-in, the crowd cheer and the `CLASH ×n!` banner, and pays both fighters
+   `ki[class]` × (1 + `kiPer` × (n − 1)). The `finale`-th (5th) clash is **CLASH BREAK!**: the biggest spray, smoke
+   and a crater, and both take `finaleHit` (30 damage, a launch apart, a knockdown) with only a small hit spark.
+6. **The CPU.** `src/game/aiClash.js` `seekClash` is shared by `CpuBrain` and `MasterBrain`: once per opposing light
    or heavy that has just started in reach, it presses the same button at its level's `meleeClash` rate (Easy 4 %
-   to Hard 12 %, ×1.5 spectated; INSANE 8 %, IMPOSSIBLE 10 %, showman 18 %), and once per bounce it presses again
+   to Hard 12 %, ×1.5 spectated; INSANE 8 %, IMPOSSIBLE 10 %, showman 18 %), and once per slide it presses again
    at that rate × `chainSeek`. `MasterBrain` rolls with `Math.random`, so the seeded combo routes stay the same.
    Two CPUs also clash on their own, jabbing into each other: the first soak at twice these rates gave Hard CPU vs
-   CPU 25 clashes a match; at these about 7 exchanges a match (16 clashes) and a CLASH BREAK every other match.
+   CPU 25 clashes a match; at these about 7 exchanges a match (16 clashes). Without the bounce the fighters stay
+   close and clash more often, so `chainSeek` went from 1.6 to 1.1 to keep that (Hard soak: 49 clashes in 22
+   exchanges over 3 matches).
 
 ## Alternatives considered
 
 - **Any normal clashes with any** (light vs heavy too): the user chose same class, with the heavy winning.
 - **Exact same frame only:** would almost never happen between two people.
-- **A locked button-mash exchange** (both held until one wins): the user chose free bounces, which keeps the
+- **A locked button-mash exchange** (both held until one wins): the user chose free recoveries, which keeps the
   exchange in the players' hands and reuses the normal moves.
 - **Reusing the special clash (`startClash` 'beat')**: that freezes the world for a rhythm beat and has a winner,
   where a melee clash is a wash that keeps the fight moving.
@@ -58,7 +69,10 @@ The user's answers to the design questions:
 
 - Two lights or heavies thrown together no longer trade; the old trade rule still applies to every other pair of
   melee hits (a special into a normal, normals out of the window).
-- `clashBack` is a new fighter state (no new animation: it plays `backDash`, or `airRecover` in the air). Code that
-  lists states (HOLDABLE, onLand) knows it.
+- `clashBack` is a new fighter state (no new animation: it plays the clashed move's recovery phase). Code that lists
+  states (HOLDABLE, onLand) knows it.
+- **A bounce apart and a white flash were tried first** (7.5 units/s, a smash spark, a screen flash from ×1 and an
+  impact frame from ×3): the flash hid both fighters and the bounce read as being knocked away. Keep the clash
+  colored and readable.
 - Tuning lives in `MELEE_CLASH` and the per-level `meleeClash` rates. Revisit the rates if spectated matches feel
   clash-heavy, and the finale damage if chains turn into a damage race.

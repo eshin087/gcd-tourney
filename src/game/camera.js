@@ -65,6 +65,7 @@ export class CameraDirector {
     this.mode = mode;
     this.modeT = 0;
     this.data = data;
+    this.lean = null;
     // the results shot cuts to a fixed angle off the fight's yaw, well clear of where the victory orbit
     // ends (about yaw + 0.1), so the cut reads as a cut and not as a jump
     if (mode === 'results') this.resYaw = this.yaw + RESULTS_SHOT.yaw;
@@ -86,6 +87,12 @@ export class CameraDirector {
 
   zoomPunch(a) {
     this.punch = Math.max(this.punch, a);
+  }
+
+  // MELEE CLASH (ADR 0034): the fight framing eases in toward a point (the meeting strikes, ring-relative) by `amt`
+  // (0-1), holds `hold` seconds, then eases back out
+  pushIn(x, y, z, amt, hold) {
+    this.lean = { p: new THREE.Vector3(x, RING_TOP + y, z), amt, hold, t: 0 };
   }
 
   dirFromInput(mx, my) {
@@ -137,17 +144,25 @@ export class CameraDirector {
         // frame for the visible width (the training panel can cover part of the screen)
         const visAspect = (cam.aspect || 1.7) * (1 - (game.viewCover || 0));
         const aspectK = Math.max(1, 1.7 / visAspect);
-        const dist = THREE.MathUtils.clamp(9.6 + sep * 0.78 + hd * 0.7, 11, 21) * aspectK;
+        let dist = THREE.MathUtils.clamp(9.6 + sep * 0.78 + hd * 0.7, 11, 21) * aspectK;
         const pitch = 0.44 - Math.min(0.12, avgH * 0.035);
         const mid = new THREE.Vector3((a.x + b.x) / 2, RING_TOP + 0.85 + avgH * 0.55 + Math.max(0, maxH - 2.5) * 0.25, (a.z + b.z) / 2);
+        const L = this.lean;
+        if (L) {
+          const IN = 0.14, OUT = 0.6, T = (L.t += dt);
+          const k = L.amt * (T < IN ? ease(T / IN) : T < IN + L.hold ? 1 : 1 - ease(Math.min(1, (T - IN - L.hold) / OUT)));
+          if (T >= IN + L.hold + OUT) this.lean = null;
+          dist *= 1 - 0.55 * k;
+          mid.lerp(L.p, 0.7 * k);
+        }
         tgtLook.copy(mid);
         tgtPos.set(
           mid.x + Math.sin(this.yaw) * Math.cos(pitch) * dist,
           mid.y + Math.sin(pitch) * dist,
           mid.z + Math.cos(this.yaw) * Math.cos(pitch) * dist,
         );
-        smoothP = 0.32;
-        smoothL = 0.16;
+        smoothP = this.lean ? 0.16 : 0.32; // a push-in has to arrive within its slow-mo
+        smoothL = this.lean ? 0.1 : 0.16;
         break;
       }
       case 'focus': {

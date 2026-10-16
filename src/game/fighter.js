@@ -1267,10 +1267,11 @@ export class Fighter {
         freeAnim();
         break;
       case 'clashBack': {
-        // bounced out of a melee clash (ADR 0034): free after `act` frames, and a Light / Heavy pressed during the freeze
+        // sliding back out of a melee clash (ADR 0034): free after `act` frames, and a Light / Heavy pressed during the freeze
         // comes out then, so pressing again meets the next swing
         this.vel.x *= 0.82; this.vel.z *= 0.82;
-        if (this.t < MELEE_CLASH.act) { freeAnim(); break; } // the bounce shows before the next swing pulls them back in
+        this.actor.setPhase(this.clashAnim, 2, Math.min(0.999, this.t / MELEE_CLASH.slide));
+        if (this.t < MELEE_CLASH.act) break; // the slide shows before the next swing pulls them back in
         const w = this.clashBuf + this.t;
         const heavy = p.buffered('heavy', w), light = !heavy && p.buffered('light', w);
         if ((heavy || light) && !p.b.special.down) {
@@ -1284,7 +1285,6 @@ export class Fighter {
           if (this.air) this.setState('air', 'jumpFall');
           else this.setState('idle');
         }
-        freeAnim();
         break;
       }
       default:
@@ -1365,8 +1365,8 @@ export class Fighter {
     }
   }
 
-  // A melee clash (Game.meleeClash, ADR 0034): this swing is spent and freezes for `stop` frames where it met the
-  // other, then bounces away from them at `speed` (leaveClash)
+  // A melee clash (Game.meleeClash, ADR 0034): this swing is spent and holds for `stop` frames where it met the
+  // other, then slides back away from them at `speed` (leaveClash)
   clashBounce(stop, speed) {
     const o = this.opp, dx = this.pos.x - o.pos.x, dz = this.pos.z - o.pos.z, d = Math.hypot(dx, dz) || 1;
     this.hitDone = true;
@@ -1380,9 +1380,11 @@ export class Fighter {
   leaveClash() {
     const c = this.clashOut;
     if (this.state !== 'attack') { this.clashOut = null; return; }
+    // the slide back plays the clashed move's own recovery (the strike pulls back), not a hop
+    this.clashAnim = this.moveAnimOf === this.move ? this.moveAnim : this.move.anim;
     this.move = null;
     this.airAttack = false; // a clashed air swing doesn't use up the jump's attack
-    this.setState('clashBack', this.air ? 'airRecover' : 'backDash');
+    this.setState('clashBack', null);
     this.clashBuf = c.buf;
     this.vel.x = c.x;
     this.vel.z = c.z;
