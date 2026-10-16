@@ -62,7 +62,10 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
      https://<direct gallery or in-game preview URL>
      ```
      (For a decision rather than an approval, use `❓ DECIDING:` in place of `✅ APPROVING:`.)
-   - FROM is the chat that asked (Claude chat title, or "Codex <lane> chat").
+   - FROM is the chat's exact title as the app shows it, plus which app: `Claude chat "3 - Gojo Running"` or
+     `Codex chat "5 - beam clash chat" (lane beam-clash)` (`relay lanes` maps lane -> title). Never only a lane name.
+   - Say why a blocker is a blocker in plain words (e.g. "the project requires GPT-6 Luna for art; this chat runs
+     another model and can't switch itself"), not just the rule's name.
    - APPROVING is exactly what a yes approves, in plain words: character, asset name and what it is ("Sasuke
      Kirin super cutout"), version (vNN), and what happens on yes (ships in the game, unlocks the next step, ...).
    - HOLDS lists Astra/technical holds, one short bullet each, or "none".
