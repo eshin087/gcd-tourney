@@ -1,0 +1,2690 @@
+{
+  "reviewer": "GPT-6 Astra / medium",
+  "atlasHash": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+  "hashes": {
+    "public/characters/gojo/sheet.png": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+    "public/characters/gojo/anims.json": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+    "public/art-review/title-style-pilot/gojo-neutral_v01.png": "d9fd4dca67c7cc133e897773a3c8128d6c5320a42402642c11409fea770175a0",
+    "public/art-review/title-style-pilot/gojo-combat_v01.png": "ab42bc6facd14659bf35b48a4bce8682cd17218f200d1e7fcdc6430f58451656",
+    "art/characters/gojo/raw/airLight1_v07.png": "9f258845eb022b0fee0ae13125510fbfb7a78c75b06423874779d9923772ab30",
+    "art/characters/gojo/raw/airLight2_v05.png": "84a80437cc13504a6c34567eeaab84f71e22d510ea0aaada0ad077bf5491f989",
+    "art/characters/gojo/raw/jumpFall_v06.png": "05e864ec3d006dcf77d5510b87c477d55aa206bae4aef4164b22a05cdc0b8b3f",
+    "art/characters/gojo/raw/superDash_v09.png": "401b2bb5d7b5ace9155f641e20412d1c75dedd37199f7c8fbeacc3d2009cb17f",
+    "art/characters/gojo/raw/throw_v05.png": "fccc76c4387a1c919d1f7ab37901871d01176be7c8da5c98799dd056560380c1"
+  },
+  "method": "New manual measurements of current atlas; prior references only reused after exact SHA256 identity checks. Coordinates native256px. H includes hair. Projected segment estimates and conservative landmark uncertainty are not reconstructed bone lengths. All18 frames independently inspected; no old candidate measurements carried forward.",
+  "references": {
+    "neutral": {
+      "landmarks": {
+        "crown": [
+          125,
+          8
+        ],
+        "chin": [
+          130,
+          42
+        ],
+        "collar": [
+          124,
+          46
+        ],
+        "hem": [
+          132,
+          125
+        ],
+        "shoulder": [
+          103,
+          60
+        ],
+        "elbow": [
+          93,
+          94
+        ],
+        "wrist": [
+          94,
+          125
+        ],
+        "hip": [
+          141,
+          130
+        ],
+        "knee": [
+          141,
+          178
+        ],
+        "ankle": [
+          145,
+          224
+        ],
+        "heel": [
+          138,
+          236
+        ],
+        "toe": [
+          173,
+          236
+        ],
+        "shoulderFar": [
+          142,
+          60
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 34.4,
+        "torso": 79.4,
+        "upperArm": 35.4,
+        "forearm": 31.0,
+        "thigh": 48.0,
+        "shin": 46.2,
+        "shoe": 35.0,
+        "shoulders": 39.0
+      }
+    },
+    "combat": {
+      "landmarks": {
+        "crown": [
+          132,
+          28
+        ],
+        "chin": [
+          137,
+          66
+        ],
+        "collar": [
+          126,
+          65
+        ],
+        "hem": [
+          124,
+          136
+        ],
+        "shoulder": [
+          103,
+          75
+        ],
+        "elbow": [
+          89,
+          104
+        ],
+        "wrist": [
+          109,
+          121
+        ],
+        "hip": [
+          130,
+          139
+        ],
+        "knee": [
+          162,
+          169
+        ],
+        "ankle": [
+          175,
+          224
+        ],
+        "heel": [
+          169,
+          236
+        ],
+        "toe": [
+          205,
+          236
+        ],
+        "shoulderFar": [
+          141,
+          78
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 38.3,
+        "torso": 71.0,
+        "upperArm": 32.2,
+        "forearm": 26.2,
+        "thigh": 43.9,
+        "shin": 56.5,
+        "shoe": 36.0,
+        "shoulders": 38.1
+      }
+    }
+  },
+  "frames": [
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "frame": 0,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          151,
+          28
+        ],
+        "chin": [
+          153,
+          62
+        ],
+        "collar": [
+          147,
+          65
+        ],
+        "hem": [
+          154,
+          121
+        ],
+        "shoulder": [
+          128,
+          72
+        ],
+        "elbow": [
+          120,
+          96
+        ],
+        "wrist": [
+          137,
+          90
+        ],
+        "hip": [
+          145,
+          126
+        ],
+        "knee": [
+          139,
+          164
+        ],
+        "ankle": [
+          128,
+          213
+        ],
+        "heel": [
+          126,
+          222
+        ],
+        "toe": [
+          128,
+          240
+        ],
+        "shoulderFar": [
+          161,
+          74
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 34.1,
+        "torso": 56.4,
+        "upperArm": 25.3,
+        "forearm": 18.0,
+        "thigh": 38.5,
+        "shin": 50.2,
+        "shoe": 18.1,
+        "shoulders": 33.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.89,
+        "torso": 0.794,
+        "upperArm": 0.786,
+        "forearm": 0.687,
+        "thigh": 0.877,
+        "shin": 0.888,
+        "shoe": 0.503,
+        "shoulders": 0.869
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.712,
+          1.111
+        ],
+        "torso": [
+          0.655,
+          0.96
+        ],
+        "upperArm": [
+          0.505,
+          1.195
+        ],
+        "forearm": [
+          0.373,
+          1.188
+        ],
+        "thigh": [
+          0.588,
+          1.295
+        ],
+        "shin": [
+          0.654,
+          1.2
+        ],
+        "shoe": [
+          0.353,
+          0.691
+        ],
+        "shoulders": [
+          0.615,
+          1.218
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        113,
+        27,
+        190,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          155,
+          27
+        ],
+        "chin": [
+          157,
+          62
+        ],
+        "collar": [
+          151,
+          65
+        ],
+        "hem": [
+          157,
+          122
+        ],
+        "shoulder": [
+          169,
+          72
+        ],
+        "elbow": [
+          194,
+          72
+        ],
+        "wrist": [
+          217,
+          71
+        ],
+        "hip": [
+          145,
+          126
+        ],
+        "knee": [
+          139,
+          164
+        ],
+        "ankle": [
+          128,
+          213
+        ],
+        "heel": [
+          126,
+          222
+        ],
+        "toe": [
+          128,
+          240
+        ],
+        "shoulderFar": [
+          128,
+          72
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.1,
+        "torso": 57.3,
+        "upperArm": 25.0,
+        "forearm": 23.0,
+        "thigh": 38.5,
+        "shin": 50.2,
+        "shoe": 18.1,
+        "shoulders": 41.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.916,
+        "torso": 0.807,
+        "upperArm": 0.776,
+        "forearm": 0.878,
+        "thigh": 0.877,
+        "shin": 0.888,
+        "shoe": 0.503,
+        "shoulders": 1.076
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.735,
+          1.14
+        ],
+        "torso": [
+          0.666,
+          0.974
+        ],
+        "upperArm": [
+          0.497,
+          1.183
+        ],
+        "forearm": [
+          0.528,
+          1.436
+        ],
+        "thigh": [
+          0.588,
+          1.295
+        ],
+        "shin": [
+          0.654,
+          1.2
+        ],
+        "shoe": [
+          0.353,
+          0.691
+        ],
+        "shoulders": [
+          0.794,
+          1.464
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        112,
+        26,
+        229,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "frame": 2,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          156,
+          28
+        ],
+        "chin": [
+          158,
+          63
+        ],
+        "collar": [
+          152,
+          66
+        ],
+        "hem": [
+          158,
+          122
+        ],
+        "shoulder": [
+          169,
+          72
+        ],
+        "elbow": [
+          194,
+          73
+        ],
+        "wrist": [
+          218,
+          72
+        ],
+        "hip": [
+          145,
+          127
+        ],
+        "knee": [
+          139,
+          165
+        ],
+        "ankle": [
+          128,
+          213
+        ],
+        "heel": [
+          126,
+          222
+        ],
+        "toe": [
+          128,
+          240
+        ],
+        "shoulderFar": [
+          129,
+          72
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.1,
+        "torso": 56.3,
+        "upperArm": 25.0,
+        "forearm": 24.0,
+        "thigh": 38.5,
+        "shin": 49.2,
+        "shoe": 18.1,
+        "shoulders": 40.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.916,
+        "torso": 0.793,
+        "upperArm": 0.776,
+        "forearm": 0.916,
+        "thigh": 0.877,
+        "shin": 0.871,
+        "shoe": 0.503,
+        "shoulders": 1.05
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.735,
+          1.14
+        ],
+        "torso": [
+          0.653,
+          0.958
+        ],
+        "upperArm": [
+          0.497,
+          1.183
+        ],
+        "forearm": [
+          0.559,
+          1.485
+        ],
+        "thigh": [
+          0.588,
+          1.295
+        ],
+        "shin": [
+          0.639,
+          1.179
+        ],
+        "shoe": [
+          0.353,
+          0.691
+        ],
+        "shoulders": [
+          0.771,
+          1.433
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Retracted arm merges with back/torso; separate forearm is not visible.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        115,
+        27,
+        230,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "frame": 3,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          156,
+          28
+        ],
+        "chin": [
+          158,
+          63
+        ],
+        "collar": [
+          151,
+          66
+        ],
+        "hem": [
+          157,
+          122
+        ],
+        "shoulder": [
+          132,
+          73
+        ],
+        "elbow": [
+          123,
+          96
+        ],
+        "wrist": [
+          140,
+          88
+        ],
+        "hip": [
+          146,
+          127
+        ],
+        "knee": [
+          140,
+          165
+        ],
+        "ankle": [
+          129,
+          213
+        ],
+        "heel": [
+          127,
+          222
+        ],
+        "toe": [
+          129,
+          240
+        ],
+        "shoulderFar": [
+          166,
+          75
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.1,
+        "torso": 56.3,
+        "upperArm": 24.7,
+        "forearm": 18.8,
+        "thigh": 38.5,
+        "shin": 49.2,
+        "shoe": 18.1,
+        "shoulders": 34.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.916,
+        "torso": 0.793,
+        "upperArm": 0.767,
+        "forearm": 0.718,
+        "thigh": 0.877,
+        "shin": 0.871,
+        "shoe": 0.503,
+        "shoulders": 0.895
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.735,
+          1.14
+        ],
+        "torso": [
+          0.653,
+          0.958
+        ],
+        "upperArm": [
+          0.49,
+          1.172
+        ],
+        "forearm": [
+          0.398,
+          1.228
+        ],
+        "thigh": [
+          0.588,
+          1.295
+        ],
+        "shin": [
+          0.639,
+          1.179
+        ],
+        "shoe": [
+          0.353,
+          0.691
+        ],
+        "shoulders": [
+          0.637,
+          1.249
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        116,
+        27,
+        195,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "frame": 4,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          154,
+          27
+        ],
+        "chin": [
+          156,
+          62
+        ],
+        "collar": [
+          149,
+          65
+        ],
+        "hem": [
+          155,
+          121
+        ],
+        "shoulder": [
+          130,
+          72
+        ],
+        "elbow": [
+          121,
+          96
+        ],
+        "wrist": [
+          138,
+          88
+        ],
+        "hip": [
+          145,
+          126
+        ],
+        "knee": [
+          139,
+          164
+        ],
+        "ankle": [
+          128,
+          213
+        ],
+        "heel": [
+          126,
+          222
+        ],
+        "toe": [
+          128,
+          240
+        ],
+        "shoulderFar": [
+          164,
+          74
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.1,
+        "torso": 56.3,
+        "upperArm": 25.6,
+        "forearm": 18.8,
+        "thigh": 38.5,
+        "shin": 50.2,
+        "shoe": 18.1,
+        "shoulders": 34.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.916,
+        "torso": 0.793,
+        "upperArm": 0.795,
+        "forearm": 0.718,
+        "thigh": 0.877,
+        "shin": 0.888,
+        "shoe": 0.503,
+        "shoulders": 0.895
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.735,
+          1.14
+        ],
+        "torso": [
+          0.653,
+          0.958
+        ],
+        "upperArm": [
+          0.513,
+          1.206
+        ],
+        "forearm": [
+          0.398,
+          1.228
+        ],
+        "thigh": [
+          0.588,
+          1.295
+        ],
+        "shin": [
+          0.654,
+          1.2
+        ],
+        "shoe": [
+          0.353,
+          0.691
+        ],
+        "shoulders": [
+          0.637,
+          1.249
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        114,
+        26,
+        192,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight2",
+      "version": 5,
+      "frame": 0,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          152,
+          18
+        ],
+        "chin": [
+          156,
+          55
+        ],
+        "collar": [
+          146,
+          58
+        ],
+        "hem": [
+          151,
+          113
+        ],
+        "shoulder": [
+          126,
+          65
+        ],
+        "elbow": [
+          113,
+          91
+        ],
+        "wrist": [
+          131,
+          84
+        ],
+        "hip": [
+          144,
+          119
+        ],
+        "knee": [
+          140,
+          160
+        ],
+        "ankle": [
+          129,
+          213
+        ],
+        "heel": [
+          126,
+          222
+        ],
+        "toe": [
+          130,
+          240
+        ],
+        "shoulderFar": [
+          163,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.2,
+        "torso": 55.2,
+        "upperArm": 29.1,
+        "forearm": 19.3,
+        "thigh": 41.2,
+        "shin": 54.1,
+        "shoe": 18.4,
+        "shoulders": 37.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.971,
+        "torso": 0.777,
+        "upperArm": 0.904,
+        "forearm": 0.737,
+        "thigh": 0.938,
+        "shin": 0.958,
+        "shoe": 0.511,
+        "shoulders": 0.971
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.785,
+          1.201
+        ],
+        "torso": [
+          0.639,
+          0.942
+        ],
+        "upperArm": [
+          0.605,
+          1.34
+        ],
+        "forearm": [
+          0.413,
+          1.252
+        ],
+        "thigh": [
+          0.64,
+          1.37
+        ],
+        "shin": [
+          0.715,
+          1.28
+        ],
+        "shoe": [
+          0.36,
+          0.7
+        ],
+        "shoulders": [
+          0.703,
+          1.34
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        104,
+        17,
+        192,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight2",
+      "version": 5,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          129,
+          27
+        ],
+        "chin": [
+          135,
+          62
+        ],
+        "collar": [
+          128,
+          65
+        ],
+        "hem": [
+          138,
+          115
+        ],
+        "shoulder": [
+          109,
+          72
+        ],
+        "elbow": [
+          96,
+          89
+        ],
+        "wrist": [
+          91,
+          105
+        ],
+        "hip": [
+          139,
+          117
+        ],
+        "knee": [
+          175,
+          117
+        ],
+        "ankle": [
+          210,
+          117
+        ],
+        "heel": [
+          210,
+          128
+        ],
+        "toe": [
+          216,
+          98
+        ],
+        "shoulderFar": [
+          145,
+          73
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.5,
+        "torso": 51.0,
+        "upperArm": 21.4,
+        "forearm": 16.8,
+        "thigh": 36.0,
+        "shin": 35.0,
+        "shoe": 30.6,
+        "shoulders": 36.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.927,
+        "torso": 0.718,
+        "upperArm": 0.665,
+        "forearm": 0.641,
+        "thigh": 0.82,
+        "shin": 0.619,
+        "shoe": 0.85,
+        "shoulders": 0.945
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.745,
+          1.152
+        ],
+        "torso": [
+          0.584,
+          0.877
+        ],
+        "upperArm": [
+          0.403,
+          1.046
+        ],
+        "forearm": [
+          0.335,
+          1.129
+        ],
+        "thigh": [
+          0.539,
+          1.226
+        ],
+        "shin": [
+          0.419,
+          0.887
+        ],
+        "shoe": [
+          0.665,
+          1.081
+        ],
+        "shoulders": [
+          0.68,
+          1.308
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        83,
+        26,
+        222,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight2",
+      "version": 5,
+      "frame": 2,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          133,
+          26
+        ],
+        "chin": [
+          138,
+          62
+        ],
+        "collar": [
+          132,
+          65
+        ],
+        "hem": [
+          140,
+          115
+        ],
+        "shoulder": [
+          111,
+          72
+        ],
+        "elbow": [
+          99,
+          88
+        ],
+        "wrist": [
+          93,
+          97
+        ],
+        "hip": [
+          141,
+          118
+        ],
+        "knee": [
+          178,
+          117
+        ],
+        "ankle": [
+          219,
+          118
+        ],
+        "heel": [
+          219,
+          129
+        ],
+        "toe": [
+          226,
+          99
+        ],
+        "shoulderFar": [
+          149,
+          73
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 36.3,
+        "torso": 50.6,
+        "upperArm": 20.0,
+        "forearm": 10.8,
+        "thigh": 37.0,
+        "shin": 41.0,
+        "shoe": 30.8,
+        "shoulders": 38.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.948,
+        "torso": 0.713,
+        "upperArm": 0.621,
+        "forearm": 0.412,
+        "thigh": 0.843,
+        "shin": 0.726,
+        "shoe": 0.856,
+        "shoulders": 0.997
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.764,
+          1.175
+        ],
+        "torso": [
+          0.579,
+          0.871
+        ],
+        "upperArm": [
+          0.366,
+          0.992
+        ],
+        "forearm": [
+          0.149,
+          0.832
+        ],
+        "thigh": [
+          0.559,
+          1.253
+        ],
+        "shin": [
+          0.512,
+          1.01
+        ],
+        "shoe": [
+          0.67,
+          1.087
+        ],
+        "shoulders": [
+          0.726,
+          1.371
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        84,
+        25,
+        231,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight2",
+      "version": 5,
+      "frame": 3,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          150,
+          18
+        ],
+        "chin": [
+          155,
+          55
+        ],
+        "collar": [
+          145,
+          58
+        ],
+        "hem": [
+          150,
+          113
+        ],
+        "shoulder": [
+          125,
+          65
+        ],
+        "elbow": [
+          112,
+          91
+        ],
+        "wrist": [
+          130,
+          84
+        ],
+        "hip": [
+          143,
+          119
+        ],
+        "knee": [
+          139,
+          160
+        ],
+        "ankle": [
+          128,
+          213
+        ],
+        "heel": [
+          125,
+          222
+        ],
+        "toe": [
+          129,
+          240
+        ],
+        "shoulderFar": [
+          162,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.3,
+        "torso": 55.2,
+        "upperArm": 29.1,
+        "forearm": 19.3,
+        "thigh": 41.2,
+        "shin": 54.1,
+        "shoe": 18.4,
+        "shoulders": 37.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.974,
+        "torso": 0.777,
+        "upperArm": 0.904,
+        "forearm": 0.737,
+        "thigh": 0.938,
+        "shin": 0.958,
+        "shoe": 0.511,
+        "shoulders": 0.971
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.787,
+          1.204
+        ],
+        "torso": [
+          0.639,
+          0.942
+        ],
+        "upperArm": [
+          0.605,
+          1.34
+        ],
+        "forearm": [
+          0.413,
+          1.252
+        ],
+        "thigh": [
+          0.64,
+          1.37
+        ],
+        "shin": [
+          0.715,
+          1.28
+        ],
+        "shoe": [
+          0.36,
+          0.7
+        ],
+        "shoulders": [
+          0.703,
+          1.34
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        103,
+        17,
+        191,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "airLight2",
+      "version": 5,
+      "frame": 4,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          151,
+          18
+        ],
+        "chin": [
+          155,
+          55
+        ],
+        "collar": [
+          145,
+          58
+        ],
+        "hem": [
+          151,
+          113
+        ],
+        "shoulder": [
+          126,
+          65
+        ],
+        "elbow": [
+          113,
+          91
+        ],
+        "wrist": [
+          131,
+          84
+        ],
+        "hip": [
+          144,
+          119
+        ],
+        "knee": [
+          140,
+          160
+        ],
+        "ankle": [
+          129,
+          213
+        ],
+        "heel": [
+          126,
+          222
+        ],
+        "toe": [
+          130,
+          240
+        ],
+        "shoulderFar": [
+          163,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.2,
+        "torso": 55.3,
+        "upperArm": 29.1,
+        "forearm": 19.3,
+        "thigh": 41.2,
+        "shin": 54.1,
+        "shoe": 18.4,
+        "shoulders": 37.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.971,
+        "torso": 0.779,
+        "upperArm": 0.904,
+        "forearm": 0.737,
+        "thigh": 0.938,
+        "shin": 0.958,
+        "shoe": 0.511,
+        "shoulders": 0.971
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.785,
+          1.201
+        ],
+        "torso": [
+          0.64,
+          0.943
+        ],
+        "upperArm": [
+          0.605,
+          1.34
+        ],
+        "forearm": [
+          0.413,
+          1.252
+        ],
+        "thigh": [
+          0.64,
+          1.37
+        ],
+        "shin": [
+          0.715,
+          1.28
+        ],
+        "shoe": [
+          0.36,
+          0.7
+        ],
+        "shoulders": [
+          0.703,
+          1.34
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        103,
+        17,
+        192,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "jumpFall",
+      "version": 6,
+      "frame": 0,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          157,
+          16
+        ],
+        "chin": [
+          154,
+          53
+        ],
+        "collar": [
+          148,
+          56
+        ],
+        "hem": [
+          150,
+          116
+        ],
+        "shoulder": [
+          122,
+          61
+        ],
+        "elbow": [
+          105,
+          91
+        ],
+        "wrist": [
+          121,
+          111
+        ],
+        "hip": [
+          139,
+          124
+        ],
+        "knee": [
+          148,
+          153
+        ],
+        "ankle": [
+          120,
+          204
+        ],
+        "heel": [
+          111,
+          216
+        ],
+        "toe": [
+          123,
+          240
+        ],
+        "shoulderFar": [
+          166,
+          64
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.1,
+        "torso": 60.0,
+        "upperArm": 34.5,
+        "forearm": 25.6,
+        "thigh": 30.4,
+        "shin": 58.2,
+        "shoe": 26.8,
+        "shoulders": 44.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.969,
+        "torso": 0.845,
+        "upperArm": 1.071,
+        "forearm": 0.977,
+        "thigh": 0.692,
+        "shin": 1.03,
+        "shoe": 0.744,
+        "shoulders": 1.157
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.783,
+          1.198
+        ],
+        "torso": [
+          0.701,
+          1.015
+        ],
+        "upperArm": [
+          0.746,
+          1.546
+        ],
+        "forearm": [
+          0.609,
+          1.564
+        ],
+        "thigh": [
+          0.432,
+          1.07
+        ],
+        "shin": [
+          0.778,
+          1.365
+        ],
+        "shoe": [
+          0.57,
+          0.963
+        ],
+        "shoulders": [
+          0.864,
+          1.561
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        94,
+        15,
+        235,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "jumpFall",
+      "version": 6,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          157,
+          15
+        ],
+        "chin": [
+          154,
+          52
+        ],
+        "collar": [
+          148,
+          55
+        ],
+        "hem": [
+          150,
+          115
+        ],
+        "shoulder": [
+          122,
+          60
+        ],
+        "elbow": [
+          105,
+          90
+        ],
+        "wrist": [
+          121,
+          110
+        ],
+        "hip": [
+          139,
+          123
+        ],
+        "knee": [
+          148,
+          152
+        ],
+        "ankle": [
+          120,
+          204
+        ],
+        "heel": [
+          111,
+          216
+        ],
+        "toe": [
+          123,
+          240
+        ],
+        "shoulderFar": [
+          166,
+          63
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.1,
+        "torso": 60.0,
+        "upperArm": 34.5,
+        "forearm": 25.6,
+        "thigh": 30.4,
+        "shin": 59.1,
+        "shoe": 26.8,
+        "shoulders": 44.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.969,
+        "torso": 0.845,
+        "upperArm": 1.071,
+        "forearm": 0.977,
+        "thigh": 0.692,
+        "shin": 1.046,
+        "shoe": 0.744,
+        "shoulders": 1.157
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.783,
+          1.198
+        ],
+        "torso": [
+          0.701,
+          1.015
+        ],
+        "upperArm": [
+          0.746,
+          1.546
+        ],
+        "forearm": [
+          0.609,
+          1.564
+        ],
+        "thigh": [
+          0.432,
+          1.07
+        ],
+        "shin": [
+          0.792,
+          1.384
+        ],
+        "shoe": [
+          0.57,
+          0.963
+        ],
+        "shoulders": [
+          0.864,
+          1.561
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Bent airborne torso and turned pelvis are not exactly pose-matched to combat."
+      },
+      "alphaBounds": [
+        94,
+        14,
+        236,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "superDash",
+      "version": 9,
+      "frame": 0,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          180,
+          97
+        ],
+        "chin": [
+          181,
+          135
+        ],
+        "collar": [
+          174,
+          138
+        ],
+        "hem": [
+          157,
+          187
+        ],
+        "shoulder": [
+          147,
+          138
+        ],
+        "elbow": [
+          126,
+          155
+        ],
+        "wrist": [
+          134,
+          174
+        ],
+        "hip": [
+          153,
+          192
+        ],
+        "knee": [
+          172,
+          214
+        ],
+        "ankle": [
+          124,
+          220
+        ],
+        "heel": [
+          117,
+          224
+        ],
+        "toe": [
+          107,
+          239
+        ],
+        "shoulderFar": [
+          190,
+          140
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 38.0,
+        "torso": 51.9,
+        "upperArm": 27.0,
+        "forearm": 20.6,
+        "thigh": 29.1,
+        "shin": 48.4,
+        "shoe": 18.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.992,
+        "torso": 0.731,
+        "upperArm": 0.839,
+        "forearm": 0.786,
+        "thigh": 0.663,
+        "shin": 0.857,
+        "shoe": 0.5,
+        "shoulders": 1.129
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.804,
+          1.224
+        ],
+        "torso": [
+          0.596,
+          0.891
+        ],
+        "upperArm": [
+          0.55,
+          1.26
+        ],
+        "forearm": [
+          0.453,
+          1.317
+        ],
+        "thigh": [
+          0.407,
+          1.033
+        ],
+        "shin": [
+          0.626,
+          1.163
+        ],
+        "shoe": [
+          0.35,
+          0.688
+        ],
+        "shoulders": [
+          0.839,
+          1.526
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Forward-pitched, flexed trunk: short projected collar/hem chord is a residual, not reconstructed spine length."
+      },
+      "alphaBounds": [
+        79,
+        96,
+        248,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "superDash",
+      "version": 9,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          180,
+          96
+        ],
+        "chin": [
+          181,
+          134
+        ],
+        "collar": [
+          174,
+          137
+        ],
+        "hem": [
+          157,
+          186
+        ],
+        "shoulder": [
+          147,
+          137
+        ],
+        "elbow": [
+          126,
+          154
+        ],
+        "wrist": [
+          134,
+          173
+        ],
+        "hip": [
+          153,
+          191
+        ],
+        "knee": [
+          172,
+          213
+        ],
+        "ankle": [
+          124,
+          220
+        ],
+        "heel": [
+          117,
+          224
+        ],
+        "toe": [
+          107,
+          239
+        ],
+        "shoulderFar": [
+          190,
+          139
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 38.0,
+        "torso": 51.9,
+        "upperArm": 27.0,
+        "forearm": 20.6,
+        "thigh": 29.1,
+        "shin": 48.5,
+        "shoe": 18.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.992,
+        "torso": 0.731,
+        "upperArm": 0.839,
+        "forearm": 0.786,
+        "thigh": 0.663,
+        "shin": 0.858,
+        "shoe": 0.5,
+        "shoulders": 1.129
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.804,
+          1.224
+        ],
+        "torso": [
+          0.596,
+          0.891
+        ],
+        "upperArm": [
+          0.55,
+          1.26
+        ],
+        "forearm": [
+          0.453,
+          1.317
+        ],
+        "thigh": [
+          0.407,
+          1.033
+        ],
+        "shin": [
+          0.628,
+          1.165
+        ],
+        "shoe": [
+          0.35,
+          0.688
+        ],
+        "shoulders": [
+          0.839,
+          1.526
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Forward-pitched, flexed trunk: short projected collar/hem chord is a residual, not reconstructed spine length."
+      },
+      "alphaBounds": [
+        79,
+        95,
+        248,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "throw",
+      "version": 5,
+      "frame": 0,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          155,
+          11
+        ],
+        "chin": [
+          157,
+          48
+        ],
+        "collar": [
+          152,
+          51
+        ],
+        "hem": [
+          167,
+          112
+        ],
+        "shoulder": [
+          134,
+          58
+        ],
+        "elbow": [
+          145,
+          82
+        ],
+        "wrist": [
+          166,
+          60
+        ],
+        "hip": [
+          153,
+          119
+        ],
+        "knee": [
+          142,
+          159
+        ],
+        "ankle": [
+          125,
+          213
+        ],
+        "heel": [
+          122,
+          222
+        ],
+        "toe": [
+          125,
+          240
+        ],
+        "shoulderFar": [
+          173,
+          61
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.1,
+        "torso": 62.8,
+        "upperArm": 26.4,
+        "forearm": 30.4,
+        "thigh": 41.5,
+        "shin": 56.6,
+        "shoe": 18.2,
+        "shoulders": 39.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.969,
+        "torso": 0.885,
+        "upperArm": 0.82,
+        "forearm": 1.16,
+        "thigh": 0.945,
+        "shin": 1.002,
+        "shoe": 0.506,
+        "shoulders": 1.026
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.783,
+          1.198
+        ],
+        "torso": [
+          0.738,
+          1.058
+        ],
+        "upperArm": [
+          0.534,
+          1.237
+        ],
+        "forearm": [
+          0.758,
+          1.802
+        ],
+        "thigh": [
+          0.645,
+          1.379
+        ],
+        "shin": [
+          0.753,
+          1.332
+        ],
+        "shoe": [
+          0.355,
+          0.694
+        ],
+        "shoulders": [
+          0.751,
+          1.405
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Turned raised-arm pose and flaring hem vary projected chord."
+      },
+      "alphaBounds": [
+        117,
+        10,
+        213,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "throw",
+      "version": 5,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          195,
+          13
+        ],
+        "chin": [
+          193,
+          50
+        ],
+        "collar": [
+          186,
+          53
+        ],
+        "hem": [
+          179,
+          115
+        ],
+        "shoulder": [
+          174,
+          60
+        ],
+        "elbow": [
+          205,
+          72
+        ],
+        "wrist": [
+          225,
+          75
+        ],
+        "hip": [
+          164,
+          121
+        ],
+        "knee": [
+          146,
+          165
+        ],
+        "ankle": [
+          124,
+          216
+        ],
+        "heel": [
+          120,
+          225
+        ],
+        "toe": [
+          122,
+          240
+        ],
+        "shoulderFar": [
+          157,
+          61
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.1,
+        "torso": 62.4,
+        "upperArm": 33.2,
+        "forearm": 20.2,
+        "thigh": 47.5,
+        "shin": 55.5,
+        "shoe": 15.1,
+        "shoulders": 17.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.969,
+        "torso": 0.879,
+        "upperArm": 1.031,
+        "forearm": 0.771,
+        "thigh": 1.082,
+        "shin": 0.982,
+        "shoe": 0.419,
+        "shoulders": 0.446
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.783,
+          1.198
+        ],
+        "torso": [
+          0.732,
+          1.052
+        ],
+        "upperArm": [
+          0.712,
+          1.496
+        ],
+        "forearm": [
+          0.441,
+          1.297
+        ],
+        "thigh": [
+          0.761,
+          1.546
+        ],
+        "shin": [
+          0.736,
+          1.309
+        ],
+        "shoe": [
+          0.277,
+          0.597
+        ],
+        "shoulders": [
+          0.249,
+          0.717
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Turned raised-arm pose and flaring hem vary projected chord."
+      },
+      "alphaBounds": [
+        115,
+        12,
+        251,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "throw",
+      "version": 5,
+      "frame": 2,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          176,
+          11
+        ],
+        "chin": [
+          178,
+          47
+        ],
+        "collar": [
+          172,
+          50
+        ],
+        "hem": [
+          183,
+          114
+        ],
+        "shoulder": [
+          146,
+          57
+        ],
+        "elbow": [
+          133,
+          70
+        ],
+        "wrist": [
+          127,
+          49
+        ],
+        "hip": [
+          164,
+          121
+        ],
+        "knee": [
+          144,
+          165
+        ],
+        "ankle": [
+          124,
+          216
+        ],
+        "heel": [
+          120,
+          225
+        ],
+        "toe": [
+          122,
+          240
+        ],
+        "shoulderFar": [
+          188,
+          61
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 36.1,
+        "torso": 64.9,
+        "upperArm": 18.4,
+        "forearm": 21.8,
+        "thigh": 48.3,
+        "shin": 54.8,
+        "shoe": 15.1,
+        "shoulders": 42.2
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.943,
+        "torso": 0.914,
+        "upperArm": 0.571,
+        "forearm": 0.832,
+        "thigh": 1.1,
+        "shin": 0.97,
+        "shoe": 0.419,
+        "shoulders": 1.108
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.759,
+          1.169
+        ],
+        "torso": [
+          0.765,
+          1.091
+        ],
+        "upperArm": [
+          0.325,
+          0.931
+        ],
+        "forearm": [
+          0.491,
+          1.376
+        ],
+        "thigh": [
+          0.776,
+          1.568
+        ],
+        "shin": [
+          0.726,
+          1.295
+        ],
+        "shoe": [
+          0.277,
+          0.597
+        ],
+        "shoulders": [
+          0.821,
+          1.502
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Turned raised-arm pose and flaring hem vary projected chord."
+      },
+      "alphaBounds": [
+        116,
+        10,
+        222,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    },
+    {
+      "animation": "throw",
+      "version": 5,
+      "frame": 3,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          161,
+          11
+        ],
+        "chin": [
+          162,
+          47
+        ],
+        "collar": [
+          157,
+          50
+        ],
+        "hem": [
+          169,
+          113
+        ],
+        "shoulder": [
+          137,
+          61
+        ],
+        "elbow": [
+          127,
+          91
+        ],
+        "wrist": [
+          129,
+          115
+        ],
+        "hip": [
+          151,
+          120
+        ],
+        "knee": [
+          139,
+          164
+        ],
+        "ankle": [
+          125,
+          216
+        ],
+        "heel": [
+          121,
+          225
+        ],
+        "toe": [
+          124,
+          240
+        ],
+        "shoulderFar": [
+          176,
+          63
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 36.0,
+        "torso": 64.1,
+        "upperArm": 31.6,
+        "forearm": 24.1,
+        "thigh": 45.6,
+        "shin": 53.9,
+        "shoe": 15.3,
+        "shoulders": 39.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.047,
+        "torso": 0.807,
+        "upperArm": 0.893,
+        "forearm": 0.777,
+        "thigh": 0.95,
+        "shin": 1.167,
+        "shoe": 0.437,
+        "shoulders": 1.003
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.833,
+          1.316
+        ],
+        "torso": [
+          0.68,
+          0.955
+        ],
+        "upperArm": [
+          0.618,
+          1.279
+        ],
+        "forearm": [
+          0.489,
+          1.204
+        ],
+        "thigh": [
+          0.671,
+          1.34
+        ],
+        "shin": [
+          0.847,
+          1.62
+        ],
+        "shoe": [
+          0.29,
+          0.623
+        ],
+        "shoulders": [
+          0.736,
+          1.367
+        ]
+      },
+      "exclusions": {
+        "skullHead": "Skull crown hidden: H includes hair; no skull-length pass.",
+        "farArm": "Overlapping/different-depth chain not independently measurable to6%.",
+        "farLeg": "Bent thigh/overlap/depth differs from reference; no second chain certification.",
+        "shoulders": "Garment shoulder centers, not skeletal acromia; oblique span not directly interchangeable.",
+        "shoe": "Airborne pointed or rotated shoe: projected heel-to-toe is not comparable to reference flat side profile.",
+        "thigh": "Clothing hides hip/knee centers; oblique bent joint estimate.",
+        "shin": "Clothing and depth obscure joint centers; projected estimate.",
+        "torso": "Turned raised-arm pose and flaring hem vary projected chord."
+      },
+      "alphaBounds": [
+        118,
+        10,
+        210,
+        241
+      ],
+      "numericCertification": "HOLD; uncertain/projected segments cannot certify the whole frame within +/-6%"
+    }
+  ]
+}

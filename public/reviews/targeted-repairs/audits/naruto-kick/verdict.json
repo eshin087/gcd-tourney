@@ -1,0 +1,57 @@
+{
+  "asset": "naruto/light2Alt",
+  "version": 4,
+  "decision": "HOLD",
+  "contactResolved": false,
+  "verticalImprovementEstablished": false,
+  "horizontalImprovement": "f3 retracts about 6.5px more than v03; f2 change about 1px within reading uncertainty",
+  "fullAnatomyNumericPass": false,
+  "qualitativeAnatomy": "No newly demonstrated gross limb defect or whole-body scale pop; exact intrinsic +/-6% unproven",
+  "allSevenFramesAndSixAdjacentTransitionsInspected": true,
+  "repeatBoundary": "f6 to f0 inspected; non-loop gameplay animation, preview repeat only",
+  "approval": "needs review; no user approval",
+  "contact": [
+    {
+      "frame": 2,
+      "hitRectXYWH": [
+        189,
+        84,
+        34,
+        26
+      ],
+      "footExtentXYXY": [
+        220,
+        116,
+        249,
+        132
+      ],
+      "centerDeltaPx": [
+        28.5,
+        27.0
+      ],
+      "footLandmarkUncertaintyPx": 3,
+      "verticalOverlapPx": 0
+    },
+    {
+      "frame": 3,
+      "hitRectXYWH": [
+        190,
+        86,
+        24,
+        21
+      ],
+      "footExtentXYXY": [
+        204,
+        117,
+        229,
+        132
+      ],
+      "centerDeltaPx": [
+        14.5,
+        28.0
+      ],
+      "footLandmarkUncertaintyPx": 3,
+      "verticalOverlapPx": 0
+    }
+  ]
+}

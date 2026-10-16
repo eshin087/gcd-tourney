@@ -1,0 +1,331 @@
+{
+  "method": "Current vNN candidates measured from the actual isolated 48-color packed atlas, against approved idle v06. Head is the packer scale probe; B is TOOL-036 garment area, advisory +/-10%, not a segment pass. Full frame-by-frame visible anatomy remains manually assessed against the approved combat cell; occluded, depth-projected, curled, or sole-facing landmarks are marked inconclusive in the anatomy ledger.",
+  "atlas": "art/characters/gojo/production/round4/diagnostic-v05-public/characters/gojo/sheet.png",
+  "animsJson": "art/characters/gojo/production/round4/diagnostic-v05-public/characters/gojo/anims.json",
+  "gate": "warn in disposable fixture only; production thresholds unchanged; no approval inferred",
+  "candidates": {
+    "jumpFall": {
+      "source": "jumpFall_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.057,
+          "B": 0.963,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.073,
+          "B": 0.96,
+          "verdict": "uniform",
+          "notes": []
+        }
+      ]
+    },
+    "throw": {
+      "source": "throw_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.886,
+          "B": 0.777,
+          "verdict": "drift",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.914,
+          "B": 0.806,
+          "verdict": "drift",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.886,
+          "B": 0.808,
+          "verdict": "drift",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.891,
+          "B": 0.809,
+          "verdict": "drift",
+          "notes": []
+        }
+      ]
+    },
+    "airLight1": {
+      "source": "airLight1_v07.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.95,
+          "B": 0.795,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.949,
+          "B": 0.849,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.945,
+          "B": 0.861,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.949,
+          "B": 0.797,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.947,
+          "B": 0.795,
+          "verdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "airRecover": {
+      "source": "airRecover_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.026,
+          "B": 0.718,
+          "verdict": "unmeasured",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.993,
+          "B": 0.694,
+          "verdict": "unmeasured",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.971,
+          "B": 0.869,
+          "verdict": "unmeasured",
+          "notes": []
+        }
+      ]
+    },
+    "airLight2": {
+      "source": "airLight2_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.971,
+          "B": 0.824,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.962,
+          "B": 0.8,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.97,
+          "B": 0.807,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.971,
+          "B": 0.818,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.971,
+          "B": 0.827,
+          "verdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "light3": {
+      "source": "light3_v05.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.914,
+          "B": 0.844,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 0.914,
+          "B": 0.856,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.943,
+          "B": 0.863,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.914,
+          "B": 0.856,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.87,
+          "B": 0.824,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 5,
+          "H": 0.864,
+          "B": 0.878,
+          "verdict": "uniform",
+          "notes": []
+        },
+        {
+          "frame": 6,
+          "H": 0.884,
+          "B": 0.885,
+          "verdict": "uniform",
+          "notes": []
+        }
+      ]
+    },
+    "guard": {
+      "source": "guard_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.978,
+          "B": 0.964,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1,
+          "B": 0.958,
+          "verdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "jumpUp": {
+      "source": "jumpUp_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.009,
+          "B": 0.867,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.001,
+          "B": 0.879,
+          "verdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "airLight3": {
+      "source": "airLight3_v12.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 0.967,
+          "B": 0.809,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1,
+          "B": 0.773,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.965,
+          "B": 0.824,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 3,
+          "H": 0.989,
+          "B": 0.745,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 4,
+          "H": 0.973,
+          "B": 0.852,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 5,
+          "H": 0.97,
+          "B": 0.858,
+          "verdict": "ok",
+          "notes": []
+        }
+      ]
+    },
+    "hurtLow": {
+      "source": "hurtLow_v04.png",
+      "frames": [
+        {
+          "frame": 0,
+          "H": 1.025,
+          "B": 0.804,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 1,
+          "H": 1.003,
+          "B": 0.832,
+          "verdict": "ok",
+          "notes": []
+        },
+        {
+          "frame": 2,
+          "H": 0.971,
+          "B": 0.877,
+          "verdict": "ok",
+          "notes": []
+        }
+      ]
+    }
+  }
+}

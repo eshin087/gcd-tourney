@@ -1,0 +1,714 @@
+{
+  "generatedBy": "prepare-crops.mjs",
+  "method": "Exact 256x256 RGBA cell extraction from copied packed atlas frames; no resize or color changes.",
+  "sourceAtlases": {
+    "gojo": {
+      "branch": "codex/gojo-run-def",
+      "commit": "ede1cdc",
+      "sheet": "atlases/gojo/sheet.png",
+      "sheetSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "metadata": "atlases/gojo/anims.json",
+      "metadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0"
+    },
+    "naruto": {
+      "branch": "art/naruto-title-r3",
+      "commit": "ac58516",
+      "sheet": "atlases/naruto/sheet.png",
+      "sheetSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "metadata": "atlases/naruto/anims.json",
+      "metadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2"
+    },
+    "naruto-alts": {
+      "branch": "art/naruto-alts",
+      "commit": "357951e",
+      "sheet": "atlases/naruto-alts/sheet.png",
+      "sheetSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "metadata": "atlases/naruto-alts/anims.json",
+      "metadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047"
+    },
+    "killua": {
+      "branch": "art/killua-title-r3",
+      "commit": "2da444f",
+      "sheet": "atlases/killua/sheet.png",
+      "sheetSha256": "16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02",
+      "metadata": "atlases/killua/anims.json",
+      "metadataSha256": "ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861"
+    },
+    "killua-approved": {
+      "branch": "main · approved production atlas",
+      "commit": "main snapshot 2026-10-15",
+      "sheet": "atlases/killua-approved/sheet.png",
+      "sheetSha256": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+      "metadata": "atlases/killua-approved/anims.json",
+      "metadataSha256": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3"
+    },
+    "sasuke": {
+      "branch": "art/sasuke-title-r3",
+      "commit": "536b7bc",
+      "sheet": "atlases/sasuke/sheet.png",
+      "sheetSha256": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "metadata": "atlases/sasuke/anims.json",
+      "metadataSha256": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb"
+    }
+  },
+  "crops": [
+    {
+      "output": "crops/approved-idle-gojo-v08.png",
+      "sha256": "fed83ef6de802f4d7f37a98892c770db774b95180aaf5480a1a3217a95969e1c",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "approved idle v8",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/gojo/airLight1.png",
+      "sha256": "3ec5c88a2a83dc60f0d26c0f6b587cb13fc51c928f735b5c34ac39239e6cb2a0",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "airLight1",
+      "sourceFrames": [
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "dimensions": "1280x256"
+    },
+    {
+      "output": "crops/gojo/airLight2.png",
+      "sha256": "793bc77df6cc8a407ac4c0ff2e96f10f0ed250b358054fb51a9232884a8eb2bf",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "airLight2",
+      "sourceFrames": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "dimensions": "1280x256"
+    },
+    {
+      "output": "crops/gojo/airRecover.png",
+      "sha256": "b190264eddfd31d726a5063c674b55e5f7b4017d663301fbfefa37d04ba3adef",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "airRecover",
+      "sourceFrames": [
+        105,
+        106,
+        107
+      ],
+      "dimensions": "768x256"
+    },
+    {
+      "output": "crops/gojo/jumpFall.png",
+      "sha256": "65d0437324f2d1d6a0ef6d788d5274a388c8981ade3ff8b2f0e07b1ea8340e81",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "jumpFall",
+      "sourceFrames": [
+        26,
+        27
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/gojo/light3.png",
+      "sha256": "d716a9bf1479bc858e62ae0c584732ba1413ae070a6a1af5e9a556123a15473d",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "light3",
+      "sourceFrames": [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/gojo/superDash.png",
+      "sha256": "53d2ad367b270750ca915c54dffddf2261ea7252a5dede996d5917b9fe875bc4",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "superDash",
+      "sourceFrames": [
+        21,
+        22
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/gojo/throw.png",
+      "sha256": "24d880cf3cc0400d4448fe0ef6be2a8d1b0e495293e2f87fce81b77ef124f0de",
+      "sourceAtlas": "atlases/gojo/sheet.png",
+      "sourceAtlasSha256": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+      "sourceMetadataSha256": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+      "animation": "throw",
+      "sourceFrames": [
+        119,
+        120,
+        121,
+        122
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/approved-idle-naruto-v07.png",
+      "sha256": "2565b0a42a2d7304a8bf053bca1b499a48719a8b57a99168ff12dbad6899468b",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/naruto/stagger.png",
+      "sha256": "637be0d8a3d7c8271ccbbe46d84d1afabedcefba4f981fa6db2d6f55835edab4",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "stagger",
+      "sourceFrames": [
+        131,
+        132,
+        133,
+        134
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/naruto/taunt.png",
+      "sha256": "5702ba3578b1712a4e2fb5df831859ad3f5547983f29fefc2e790432d15e2ea5",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "taunt",
+      "sourceFrames": [
+        148,
+        149
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/naruto/win.png",
+      "sha256": "42e160e1f788f42c604c8d101df19050b252ad33600b1da1fa6bf99ffacd84c0",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "win",
+      "sourceFrames": [
+        150,
+        151,
+        152,
+        153
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/approved-idle-naruto-alts-v07.png",
+      "sha256": "2565b0a42a2d7304a8bf053bca1b499a48719a8b57a99168ff12dbad6899468b",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/naruto-alts/airLight1Alt.png",
+      "sha256": "709b4430c9beb039713db661d267209cf5466691222a9bc0d5128204219b0558",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "airLight1Alt",
+      "sourceFrames": [
+        212,
+        213,
+        214,
+        215,
+        216
+      ],
+      "dimensions": "1280x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-airLight1.png",
+      "sha256": "8af7cc4137c6b11b9370de686b3af7adaadc06944fc17d97383fbdba3c412da5",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "airLight1",
+      "sourceFrames": [
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "dimensions": "1280x256"
+    },
+    {
+      "output": "crops/naruto-alts/airLight2Alt.png",
+      "sha256": "9cb775e663887f2d97db71ab5deb1a5032078421cf03ea4db5623ffa334e30e6",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "airLight2Alt",
+      "sourceFrames": [
+        217,
+        218,
+        219,
+        220,
+        221
+      ],
+      "dimensions": "1280x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-airLight2.png",
+      "sha256": "e315040901a94dd0c43bd4276300037ea4adf375a6067cc5bfae826e7c269e4a",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "airLight2",
+      "sourceFrames": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "dimensions": "1280x256"
+    },
+    {
+      "output": "crops/naruto-alts/airLight3Alt.png",
+      "sha256": "0e29193c3976d91984032f563921351469f4e3e7ac99b7cd31d98f36c00d2465",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "airLight3Alt",
+      "sourceFrames": [
+        222,
+        223,
+        224,
+        225,
+        226,
+        227
+      ],
+      "dimensions": "1536x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-airLight3.png",
+      "sha256": "79c12755784e53bdb7f10d61ae0511b5b10b806e4caba6d6a603a5b8bbb41daa",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "airLight3",
+      "sourceFrames": [
+        77,
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "dimensions": "1536x256"
+    },
+    {
+      "output": "crops/naruto-alts/heavyAlt.png",
+      "sha256": "0207602d020b08fcb813e301fd29a8317a51177f2d1e66e9419cd070d9ff1787",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "heavyAlt",
+      "sourceFrames": [
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211
+      ],
+      "dimensions": "2048x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-heavy.png",
+      "sha256": "385695660959dc7f758c34fda8163dbffb85567a94843a70f22d7be4e8569572",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "heavy",
+      "sourceFrames": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "dimensions": "2048x256"
+    },
+    {
+      "output": "crops/naruto-alts/hurtHighAlt.png",
+      "sha256": "6383493a10add3676a6bdec6cc1dd637723cbbb82206bbd749b7033b7ce048bf",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "hurtHighAlt",
+      "sourceFrames": [
+        228,
+        229,
+        230
+      ],
+      "dimensions": "768x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-hurtHigh.png",
+      "sha256": "5d9fc3f80e5df3583a36bbdab4ed9b1939a4f68aa1bf8458e9c6b6f28af9456c",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "hurtHigh",
+      "sourceFrames": [
+        93,
+        94,
+        95
+      ],
+      "dimensions": "768x256"
+    },
+    {
+      "output": "crops/naruto-alts/hurtLowAlt.png",
+      "sha256": "6453a463d0582f0c99fc5dcd5e06229bc934fe98d76f0d5d41ff3ec59086fd7f",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "hurtLowAlt",
+      "sourceFrames": [
+        231,
+        232,
+        233
+      ],
+      "dimensions": "768x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-hurtLow.png",
+      "sha256": "1dfbf95cfa38e30d95efaf5f579ff2d8b9fd9560affa13d8dc0d298f70884a46",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "hurtLow",
+      "sourceFrames": [
+        96,
+        97,
+        98
+      ],
+      "dimensions": "768x256"
+    },
+    {
+      "output": "crops/naruto-alts/light1Alt.png",
+      "sha256": "8efe7775cb36825ab18f30d53425b9d5e4bc0a1bdb7277c62b6b05bcd59ff8d6",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light1Alt",
+      "sourceFrames": [
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-light1.png",
+      "sha256": "28482aebafa0cb968d1c37ae78329d52fee41422a0cc82bcc826d3a996f942d3",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light1",
+      "sourceFrames": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/light2Alt.png",
+      "sha256": "b11aba325e6926fd48dd94b57a4bc05989917c26ec7344df5489277fd56e7868",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light2Alt",
+      "sourceFrames": [
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-light2.png",
+      "sha256": "f8401f4b13fac51df35e75de84efeebe3612478d343e46ab327c63afa0f73260",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light2",
+      "sourceFrames": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/light3Alt.png",
+      "sha256": "a1df582f6f1921ba0f78bcfad02b423f04acec47c405a6bfdc4a7e859fa38328",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light3Alt",
+      "sourceFrames": [
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-light3.png",
+      "sha256": "4403a6274ccfc3944ee6e86eb562dcdd143d27846845dfcf9feea6da1ce9faa6",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light3",
+      "sourceFrames": [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/light4Alt.png",
+      "sha256": "561f0c2430b7daa245ed811657aa8266e7e577edd93d1c2eca33cf6faf8b1d56",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light4Alt",
+      "sourceFrames": [
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203
+      ],
+      "dimensions": "2048x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-light4.png",
+      "sha256": "29f392c8c009f69bfb556cdec861cc58584502681ed489bc8f1527a3ae74ca77",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+      "sourceMetadataSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+      "animation": "light4",
+      "sourceFrames": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "dimensions": "2048x256"
+    },
+    {
+      "output": "crops/approved-idle-killua-v08.png",
+      "sha256": "ae7262a4ada30ee0730511b5cab62a82c2eb9e826204f00a1ab9234b7236df62",
+      "sourceAtlas": "atlases/killua-approved/sheet.png",
+      "sourceAtlasSha256": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+      "sourceMetadataSha256": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3",
+      "animation": "approved idle v8",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/killua/guard.png",
+      "sha256": "a2c3c3ed22e006dadbc38eccac7e3988745a0fca76ba4b6b243438976f94973d",
+      "sourceAtlas": "atlases/killua/sheet.png",
+      "sourceAtlasSha256": "16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02",
+      "sourceMetadataSha256": "ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861",
+      "animation": "guard",
+      "sourceFrames": [
+        89,
+        90
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/killua/idle.png",
+      "sha256": "d59d72dbe444fa9285dcfeb7a7b79981879ed96c668357d0ee744af027828e1c",
+      "sourceAtlas": "atlases/killua/sheet.png",
+      "sourceAtlasSha256": "16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02",
+      "sourceMetadataSha256": "ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861",
+      "animation": "idle",
+      "sourceFrames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dimensions": "2048x256"
+    },
+    {
+      "output": "crops/killua/stagger.png",
+      "sha256": "867cf626f42d29d7be5018d979f0a7dec511d0f39187a9bfea26588dc3548e12",
+      "sourceAtlas": "atlases/killua/sheet.png",
+      "sourceAtlasSha256": "16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02",
+      "sourceMetadataSha256": "ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861",
+      "animation": "stagger",
+      "sourceFrames": [
+        131,
+        132,
+        133,
+        134
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/killua/superDash.png",
+      "sha256": "74c67962e0f31967668090727b1d1e2d6db4d32122da324edbeae4a5b95cb5b3",
+      "sourceAtlas": "atlases/killua/sheet.png",
+      "sourceAtlasSha256": "16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02",
+      "sourceMetadataSha256": "ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861",
+      "animation": "superDash",
+      "sourceFrames": [
+        21,
+        22
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/approved-idle-sasuke-v07.png",
+      "sha256": "49822ba370f95da71da9c0f14aefda1fcd2345a02c6a769a0428af8742b0502b",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "sourceMetadataSha256": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/sasuke/beamFire.png",
+      "sha256": "31fbb4791d6c505f2da05b4bfe8d26db2008236584bbf6b31fc270c22e50e4cd",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "sourceMetadataSha256": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+      "animation": "beamFire",
+      "sourceFrames": [
+        126,
+        127,
+        128
+      ],
+      "dimensions": "768x256"
+    },
+    {
+      "output": "crops/sasuke/dash.png",
+      "sha256": "5308a111500c585a7e9235d8e4d98a63cb37690e4164923f40ae63e34c26aeeb",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "sourceMetadataSha256": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+      "animation": "dash",
+      "sourceFrames": [
+        16,
+        17
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/sasuke/jumpSquat.png",
+      "sha256": "d33ccab95fe4088456db6082dcc11f83e4d793d247f1cac7e16df642b321c786",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "sourceMetadataSha256": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+      "animation": "jumpSquat",
+      "sourceFrames": [
+        23
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/sasuke/superDash.png",
+      "sha256": "3ea90c9a341d1c2e715551ba87b9b9b490e401abd4269ce805cfc1c9826ab3e9",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+      "sourceMetadataSha256": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+      "animation": "superDash",
+      "sourceFrames": [
+        21,
+        22
+      ],
+      "dimensions": "512x256"
+    }
+  ]
+}

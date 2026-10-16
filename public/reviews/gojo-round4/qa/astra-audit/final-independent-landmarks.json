@@ -1,0 +1,3197 @@
+{
+  "atlasSha256": "89fd7021575060d70a065c620607d3a80fd526d6b8b6f709d2106766381f0b28",
+  "method": "Independent manual coordinate reading on atlas-extracted nearest-neighbor overlays. Measurements are projected garment/joint-center estimates, not anatomical ground truth. No template-matched numbers reused. Crown uses extreme visible hair, chin and concealed joints are uncertain. Reference source crown uncertainty +/-12 source px also remains; not converted into a spurious exact native tolerance.",
+  "uncertaintyPx": {
+    "head": 4,
+    "torso": 6,
+    "upperArm": 6,
+    "forearm": 6,
+    "thigh": 6,
+    "shin": 6,
+    "shoe": 4,
+    "armChain": 12,
+    "legChain": 12
+  },
+  "baseline": {
+    "landmarks": {
+      "crown": [
+        129,
+        7
+      ],
+      "chin": [
+        138,
+        44
+      ],
+      "collar": [
+        132,
+        48
+      ],
+      "hem": [
+        138,
+        127
+      ],
+      "shoulder": [
+        114,
+        57
+      ],
+      "elbow": [
+        98,
+        91
+      ],
+      "wrist": [
+        116,
+        118
+      ],
+      "hip": [
+        137,
+        127
+      ],
+      "knee": [
+        143,
+        177
+      ],
+      "ankle": [
+        145,
+        229
+      ],
+      "heel": [
+        141,
+        236
+      ],
+      "toe": [
+        174,
+        236
+      ]
+    },
+    "projectedPx": {
+      "head": 38.1,
+      "torso": 79.2,
+      "upperArm": 37.6,
+      "forearm": 32.4,
+      "thigh": 50.4,
+      "shin": 52.0,
+      "shoe": 33.0,
+      "armChain": 70.0,
+      "legChain": 102.4
+    },
+    "skips": [
+      "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+      "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+    ],
+    "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+  },
+  "combat": {
+    "landmarks": {
+      "crown": [
+        129,
+        28
+      ],
+      "chin": [
+        129,
+        64
+      ],
+      "collar": [
+        125,
+        68
+      ],
+      "hem": [
+        115,
+        137
+      ],
+      "shoulder": [
+        99,
+        73
+      ],
+      "elbow": [
+        87,
+        102
+      ],
+      "wrist": [
+        108,
+        120
+      ],
+      "hip": [
+        120,
+        141
+      ],
+      "knee": [
+        164,
+        164
+      ],
+      "ankle": [
+        177,
+        220
+      ],
+      "heel": [
+        171,
+        235
+      ],
+      "toe": [
+        205,
+        235
+      ]
+    },
+    "projectedPx": {
+      "head": 36.0,
+      "torso": 69.7,
+      "upperArm": 31.4,
+      "forearm": 27.7,
+      "thigh": 49.6,
+      "shin": 57.5,
+      "shoe": 34.0,
+      "armChain": 59.1,
+      "legChain": 107.1
+    },
+    "skips": [
+      "Frontal shoulder width: pose is three-quarter or oblique, cannot compare as frontal.",
+      "Far arm and far leg: overlap/depth or clothing hides joint center; no anatomical-length pass."
+    ],
+    "status": "HOLD / insufficient precision for all-segment +/-6% certification"
+  },
+  "frames": {
+    "jumpFall06-f0": {
+      "landmarks": {
+        "crown": [
+          156,
+          15
+        ],
+        "chin": [
+          158,
+          53
+        ],
+        "collar": [
+          151,
+          57
+        ],
+        "hem": [
+          149,
+          121
+        ],
+        "shoulder": [
+          121,
+          62
+        ],
+        "elbow": [
+          105,
+          91
+        ],
+        "wrist": [
+          120,
+          111
+        ],
+        "hip": [
+          143,
+          126
+        ],
+        "knee": [
+          148,
+          156
+        ],
+        "ankle": [
+          124,
+          207
+        ],
+        "heel": [
+          113,
+          220
+        ],
+        "toe": [
+          127,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 38.1,
+        "torso": 64.0,
+        "upperArm": 33.1,
+        "forearm": 25.0,
+        "thigh": 30.4,
+        "shin": 56.4,
+        "shoe": 23.6,
+        "armChain": 58.1,
+        "legChain": 86.8
+      },
+      "intervalPx": {
+        "head": [
+          34.1,
+          42.1
+        ],
+        "torso": [
+          58.0,
+          70.0
+        ],
+        "upperArm": [
+          27.1,
+          39.1
+        ],
+        "forearm": [
+          19.0,
+          31.0
+        ],
+        "thigh": [
+          24.4,
+          36.4
+        ],
+        "shin": [
+          50.4,
+          62.4
+        ],
+        "shoe": [
+          19.6,
+          27.6
+        ],
+        "armChain": [
+          46.1,
+          70.1
+        ],
+        "legChain": [
+          74.8,
+          98.8
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 0.0,
+        "torso": -19.2,
+        "upperArm": -12.0,
+        "forearm": -22.8,
+        "thigh": -39.7,
+        "shin": 8.5,
+        "shoe": -28.5,
+        "armChain": -17.0,
+        "legChain": -15.2
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden; bent thigh has depth foreshortening; shoes angled toward viewer."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "jumpFall06-f1": {
+      "landmarks": {
+        "crown": [
+          156,
+          14
+        ],
+        "chin": [
+          158,
+          53
+        ],
+        "collar": [
+          151,
+          57
+        ],
+        "hem": [
+          149,
+          121
+        ],
+        "shoulder": [
+          121,
+          62
+        ],
+        "elbow": [
+          105,
+          91
+        ],
+        "wrist": [
+          120,
+          111
+        ],
+        "hip": [
+          143,
+          126
+        ],
+        "knee": [
+          148,
+          156
+        ],
+        "ankle": [
+          123,
+          207
+        ],
+        "heel": [
+          112,
+          220
+        ],
+        "toe": [
+          126,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 39.1,
+        "torso": 64.0,
+        "upperArm": 33.1,
+        "forearm": 25.0,
+        "thigh": 30.4,
+        "shin": 56.8,
+        "shoe": 23.6,
+        "armChain": 58.1,
+        "legChain": 87.2
+      },
+      "intervalPx": {
+        "head": [
+          35.1,
+          43.1
+        ],
+        "torso": [
+          58.0,
+          70.0
+        ],
+        "upperArm": [
+          27.1,
+          39.1
+        ],
+        "forearm": [
+          19.0,
+          31.0
+        ],
+        "thigh": [
+          24.4,
+          36.4
+        ],
+        "shin": [
+          50.8,
+          62.8
+        ],
+        "shoe": [
+          19.6,
+          27.6
+        ],
+        "armChain": [
+          46.1,
+          70.1
+        ],
+        "legChain": [
+          75.2,
+          99.2
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 2.6,
+        "torso": -19.2,
+        "upperArm": -12.0,
+        "forearm": -22.8,
+        "thigh": -39.7,
+        "shin": 9.2,
+        "shoe": -28.5,
+        "armChain": -17.0,
+        "legChain": -14.8
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden; bent thigh has depth foreshortening; shoes angled toward viewer."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "airRecover05-f0": {
+      "landmarks": {
+        "crown": [
+          37,
+          145
+        ],
+        "chin": [
+          60,
+          173
+        ],
+        "collar": [
+          61,
+          176
+        ],
+        "hem": [
+          102,
+          232
+        ],
+        "shoulder": [
+          58,
+          185
+        ],
+        "elbow": [
+          74,
+          207
+        ],
+        "wrist": [
+          116,
+          193
+        ],
+        "hip": [
+          103,
+          223
+        ],
+        "knee": [
+          116,
+          174
+        ],
+        "ankle": [
+          144,
+          216
+        ],
+        "heel": [
+          144,
+          237
+        ],
+        "toe": [
+          188,
+          222
+        ]
+      },
+      "projectedPx": {
+        "head": 36.2,
+        "torso": 69.4,
+        "upperArm": 27.2,
+        "forearm": 44.3,
+        "thigh": 50.7,
+        "shin": 50.5,
+        "shoe": 46.5,
+        "armChain": 71.5,
+        "legChain": 101.2
+      },
+      "intervalPx": {
+        "head": [
+          32.2,
+          40.2
+        ],
+        "torso": [
+          63.4,
+          75.4
+        ],
+        "upperArm": [
+          21.2,
+          33.2
+        ],
+        "forearm": [
+          38.3,
+          50.3
+        ],
+        "thigh": [
+          44.7,
+          56.7
+        ],
+        "shin": [
+          44.5,
+          56.5
+        ],
+        "shoe": [
+          42.5,
+          50.5
+        ],
+        "armChain": [
+          59.5,
+          83.5
+        ],
+        "legChain": [
+          89.2,
+          113.2
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.0,
+        "torso": -12.4,
+        "upperArm": -27.7,
+        "forearm": 36.7,
+        "thigh": 0.6,
+        "shin": -2.9,
+        "shoe": 40.9,
+        "armChain": 2.1,
+        "legChain": -1.2
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Tumbling torso/limbs are depth-foreshortened; projected H/T/A/L/S are not anatomical pass/fail. Joint centers and inverted crown particularly uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "airRecover05-f1": {
+      "landmarks": {
+        "crown": [
+          128,
+          232
+        ],
+        "chin": [
+          124,
+          196
+        ],
+        "collar": [
+          124,
+          195
+        ],
+        "hem": [
+          140,
+          145
+        ],
+        "shoulder": [
+          130,
+          188
+        ],
+        "elbow": [
+          151,
+          169
+        ],
+        "wrist": [
+          111,
+          146
+        ],
+        "hip": [
+          140,
+          148
+        ],
+        "knee": [
+          108,
+          163
+        ],
+        "ankle": [
+          101,
+          98
+        ],
+        "heel": [
+          99,
+          82
+        ],
+        "toe": [
+          65,
+          94
+        ]
+      },
+      "projectedPx": {
+        "head": 36.2,
+        "torso": 52.5,
+        "upperArm": 28.3,
+        "forearm": 46.1,
+        "thigh": 35.3,
+        "shin": 65.4,
+        "shoe": 36.1,
+        "armChain": 74.4,
+        "legChain": 100.7
+      },
+      "intervalPx": {
+        "head": [
+          32.2,
+          40.2
+        ],
+        "torso": [
+          46.5,
+          58.5
+        ],
+        "upperArm": [
+          22.3,
+          34.3
+        ],
+        "forearm": [
+          40.1,
+          52.1
+        ],
+        "thigh": [
+          29.3,
+          41.3
+        ],
+        "shin": [
+          59.4,
+          71.4
+        ],
+        "shoe": [
+          32.1,
+          40.1
+        ],
+        "armChain": [
+          62.4,
+          86.4
+        ],
+        "legChain": [
+          88.7,
+          112.7
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.0,
+        "torso": -33.7,
+        "upperArm": -24.7,
+        "forearm": 42.3,
+        "thigh": -30.0,
+        "shin": 25.8,
+        "shoe": 9.4,
+        "armChain": 6.3,
+        "legChain": -1.7
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Tumbling torso/limbs are depth-foreshortened; projected H/T/A/L/S are not anatomical pass/fail. Joint centers and inverted crown particularly uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "airRecover05-f2": {
+      "landmarks": {
+        "crown": [
+          118,
+          39
+        ],
+        "chin": [
+          116,
+          79
+        ],
+        "collar": [
+          109,
+          83
+        ],
+        "hem": [
+          95,
+          146
+        ],
+        "shoulder": [
+          87,
+          87
+        ],
+        "elbow": [
+          60,
+          94
+        ],
+        "wrist": [
+          32,
+          100
+        ],
+        "hip": [
+          103,
+          148
+        ],
+        "knee": [
+          129,
+          177
+        ],
+        "ankle": [
+          136,
+          222
+        ],
+        "heel": [
+          133,
+          238
+        ],
+        "toe": [
+          155,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 40.0,
+        "torso": 64.5,
+        "upperArm": 27.9,
+        "forearm": 28.6,
+        "thigh": 38.9,
+        "shin": 45.5,
+        "shoe": 22.0,
+        "armChain": 56.5,
+        "legChain": 84.4
+      },
+      "intervalPx": {
+        "head": [
+          36.0,
+          44.0
+        ],
+        "torso": [
+          58.5,
+          70.5
+        ],
+        "upperArm": [
+          21.9,
+          33.9
+        ],
+        "forearm": [
+          22.6,
+          34.6
+        ],
+        "thigh": [
+          32.9,
+          44.9
+        ],
+        "shin": [
+          39.5,
+          51.5
+        ],
+        "shoe": [
+          18.0,
+          26.0
+        ],
+        "armChain": [
+          44.5,
+          68.5
+        ],
+        "legChain": [
+          72.4,
+          96.4
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 5.0,
+        "torso": -18.6,
+        "upperArm": -25.8,
+        "forearm": -11.7,
+        "thigh": -22.8,
+        "shin": -12.5,
+        "shoe": -33.3,
+        "armChain": -19.3,
+        "legChain": -17.6
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Tumbling torso/limbs are depth-foreshortened; projected H/T/A/L/S are not anatomical pass/fail. Joint centers and inverted crown particularly uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "throw05-f0": {
+      "landmarks": {
+        "crown": [
+          153,
+          35
+        ],
+        "chin": [
+          157,
+          70
+        ],
+        "collar": [
+          153,
+          73
+        ],
+        "hem": [
+          171,
+          131
+        ],
+        "shoulder": [
+          137,
+          84
+        ],
+        "elbow": [
+          142,
+          104
+        ],
+        "wrist": [
+          159,
+          86
+        ],
+        "hip": [
+          167,
+          132
+        ],
+        "knee": [
+          144,
+          178
+        ],
+        "ankle": [
+          128,
+          222
+        ],
+        "heel": [
+          123,
+          232
+        ],
+        "toe": [
+          123,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 35.2,
+        "torso": 60.7,
+        "upperArm": 20.6,
+        "forearm": 24.8,
+        "thigh": 51.4,
+        "shin": 46.8,
+        "shoe": null,
+        "armChain": 45.4,
+        "legChain": 98.2
+      },
+      "intervalPx": {
+        "head": [
+          31.2,
+          39.2
+        ],
+        "torso": [
+          54.7,
+          66.7
+        ],
+        "upperArm": [
+          14.6,
+          26.6
+        ],
+        "forearm": [
+          18.8,
+          30.8
+        ],
+        "thigh": [
+          45.4,
+          57.4
+        ],
+        "shin": [
+          40.8,
+          52.8
+        ],
+        "shoe": null,
+        "armChain": [
+          33.4,
+          57.4
+        ],
+        "legChain": [
+          86.2,
+          110.2
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -7.6,
+        "torso": -23.4,
+        "upperArm": -45.2,
+        "forearm": -23.5,
+        "thigh": 2.0,
+        "shin": -10.0,
+        "shoe": null,
+        "armChain": -35.1,
+        "legChain": -4.1
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Torso rotates; near raised thigh foreshortened. Dangling foot heel cannot be reliably localized; reported shoe is visible projected fragment only, not full shoe length."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 7.0
+    },
+    "throw05-f1": {
+      "landmarks": {
+        "crown": [
+          189,
+          37
+        ],
+        "chin": [
+          193,
+          73
+        ],
+        "collar": [
+          184,
+          76
+        ],
+        "hem": [
+          180,
+          132
+        ],
+        "shoulder": [
+          167,
+          83
+        ],
+        "elbow": [
+          194,
+          89
+        ],
+        "wrist": [
+          214,
+          98
+        ],
+        "hip": [
+          176,
+          133
+        ],
+        "knee": [
+          147,
+          176
+        ],
+        "ankle": [
+          128,
+          218
+        ],
+        "heel": [
+          121,
+          233
+        ],
+        "toe": [
+          123,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 36.2,
+        "torso": 56.1,
+        "upperArm": 27.7,
+        "forearm": 21.9,
+        "thigh": 51.9,
+        "shin": 46.1,
+        "shoe": null,
+        "armChain": 49.6,
+        "legChain": 98.0
+      },
+      "intervalPx": {
+        "head": [
+          32.2,
+          40.2
+        ],
+        "torso": [
+          50.1,
+          62.1
+        ],
+        "upperArm": [
+          21.7,
+          33.7
+        ],
+        "forearm": [
+          15.9,
+          27.9
+        ],
+        "thigh": [
+          45.9,
+          57.9
+        ],
+        "shin": [
+          40.1,
+          52.1
+        ],
+        "shoe": null,
+        "armChain": [
+          37.6,
+          61.6
+        ],
+        "legChain": [
+          86.0,
+          110.0
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.0,
+        "torso": -29.2,
+        "upperArm": -26.3,
+        "forearm": -32.4,
+        "thigh": 3.0,
+        "shin": -11.3,
+        "shoe": null,
+        "armChain": -29.1,
+        "legChain": -4.3
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Torso rotates; near raised thigh foreshortened. Dangling foot heel cannot be reliably localized; reported shoe is visible projected fragment only, not full shoe length."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 6.3
+    },
+    "throw05-f2": {
+      "landmarks": {
+        "crown": [
+          170,
+          36
+        ],
+        "chin": [
+          173,
+          73
+        ],
+        "collar": [
+          166,
+          76
+        ],
+        "hem": [
+          175,
+          131
+        ],
+        "shoulder": [
+          150,
+          84
+        ],
+        "elbow": [
+          131,
+          92
+        ],
+        "wrist": [
+          127,
+          79
+        ],
+        "hip": [
+          170,
+          133
+        ],
+        "knee": [
+          145,
+          176
+        ],
+        "ankle": [
+          128,
+          219
+        ],
+        "heel": [
+          121,
+          232
+        ],
+        "toe": [
+          123,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 37.1,
+        "torso": 55.7,
+        "upperArm": 20.6,
+        "forearm": 13.6,
+        "thigh": 49.7,
+        "shin": 46.2,
+        "shoe": null,
+        "armChain": 34.2,
+        "legChain": 95.9
+      },
+      "intervalPx": {
+        "head": [
+          33.1,
+          41.1
+        ],
+        "torso": [
+          49.7,
+          61.7
+        ],
+        "upperArm": [
+          14.6,
+          26.6
+        ],
+        "forearm": [
+          7.6,
+          19.6
+        ],
+        "thigh": [
+          43.7,
+          55.7
+        ],
+        "shin": [
+          40.2,
+          52.2
+        ],
+        "shoe": null,
+        "armChain": [
+          22.2,
+          46.2
+        ],
+        "legChain": [
+          83.9,
+          107.9
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -2.6,
+        "torso": -29.7,
+        "upperArm": -45.2,
+        "forearm": -58.0,
+        "thigh": -1.4,
+        "shin": -11.2,
+        "shoe": null,
+        "armChain": -51.1,
+        "legChain": -6.3
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Torso rotates; near raised thigh foreshortened. Dangling foot heel cannot be reliably localized; reported shoe is visible projected fragment only, not full shoe length."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 7.3
+    },
+    "throw05-f3": {
+      "landmarks": {
+        "crown": [
+          160,
+          35
+        ],
+        "chin": [
+          163,
+          71
+        ],
+        "collar": [
+          157,
+          74
+        ],
+        "hem": [
+          168,
+          131
+        ],
+        "shoulder": [
+          139,
+          85
+        ],
+        "elbow": [
+          131,
+          110
+        ],
+        "wrist": [
+          131,
+          127
+        ],
+        "hip": [
+          167,
+          133
+        ],
+        "knee": [
+          144,
+          177
+        ],
+        "ankle": [
+          128,
+          219
+        ],
+        "heel": [
+          122,
+          232
+        ],
+        "toe": [
+          124,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 36.1,
+        "torso": 58.1,
+        "upperArm": 26.2,
+        "forearm": 17.0,
+        "thigh": 49.6,
+        "shin": 44.9,
+        "shoe": null,
+        "armChain": 43.2,
+        "legChain": 94.5
+      },
+      "intervalPx": {
+        "head": [
+          32.1,
+          40.1
+        ],
+        "torso": [
+          52.1,
+          64.1
+        ],
+        "upperArm": [
+          20.2,
+          32.2
+        ],
+        "forearm": [
+          11.0,
+          23.0
+        ],
+        "thigh": [
+          43.6,
+          55.6
+        ],
+        "shin": [
+          38.9,
+          50.9
+        ],
+        "shoe": null,
+        "armChain": [
+          31.2,
+          55.2
+        ],
+        "legChain": [
+          82.5,
+          106.5
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.2,
+        "torso": -26.6,
+        "upperArm": -30.3,
+        "forearm": -47.5,
+        "thigh": -1.6,
+        "shin": -13.7,
+        "shoe": null,
+        "armChain": -38.3,
+        "legChain": -7.7
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Torso rotates; near raised thigh foreshortened. Dangling foot heel cannot be reliably localized; reported shoe is visible projected fragment only, not full shoe length."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 7.3
+    },
+    "airLight1v07-f0": {
+      "landmarks": {
+        "crown": [
+          152,
+          27
+        ],
+        "chin": [
+          155,
+          63
+        ],
+        "collar": [
+          151,
+          67
+        ],
+        "hem": [
+          153,
+          124
+        ],
+        "shoulder": [
+          131,
+          79
+        ],
+        "elbow": [
+          120,
+          102
+        ],
+        "wrist": [
+          139,
+          89
+        ],
+        "hip": [
+          146,
+          128
+        ],
+        "knee": [
+          137,
+          171
+        ],
+        "ankle": [
+          128,
+          218
+        ],
+        "heel": [
+          123,
+          226
+        ],
+        "toe": [
+          129,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 36.1,
+        "torso": 57.0,
+        "upperArm": 25.5,
+        "forearm": 23.0,
+        "thigh": 43.9,
+        "shin": 47.9,
+        "shoe": null,
+        "armChain": 48.5,
+        "legChain": 91.8
+      },
+      "intervalPx": {
+        "head": [
+          32.1,
+          40.1
+        ],
+        "torso": [
+          51.0,
+          63.0
+        ],
+        "upperArm": [
+          19.5,
+          31.5
+        ],
+        "forearm": [
+          17.0,
+          29.0
+        ],
+        "thigh": [
+          37.9,
+          49.9
+        ],
+        "shin": [
+          41.9,
+          53.9
+        ],
+        "shoe": null,
+        "armChain": [
+          36.5,
+          60.5
+        ],
+        "legChain": [
+          79.8,
+          103.8
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.2,
+        "torso": -28.0,
+        "upperArm": -32.2,
+        "forearm": -29.0,
+        "thigh": -12.9,
+        "shin": -7.9,
+        "shoe": null,
+        "armChain": -30.7,
+        "legChain": -10.4
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 arm is the visible extended arm; other frames use bent near arm. Bent forearm points in depth; hanging shoe heel obscured, only projected visible fragment recorded. Far raised thigh foreshortened."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 14.3
+    },
+    "airLight1v07-f1": {
+      "landmarks": {
+        "crown": [
+          158,
+          26
+        ],
+        "chin": [
+          159,
+          64
+        ],
+        "collar": [
+          156,
+          68
+        ],
+        "hem": [
+          157,
+          124
+        ],
+        "shoulder": [
+          171,
+          74
+        ],
+        "elbow": [
+          193,
+          74
+        ],
+        "wrist": [
+          217,
+          75
+        ],
+        "hip": [
+          149,
+          129
+        ],
+        "knee": [
+          141,
+          170
+        ],
+        "ankle": [
+          128,
+          218
+        ],
+        "heel": [
+          123,
+          226
+        ],
+        "toe": [
+          129,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 38.0,
+        "torso": 56.0,
+        "upperArm": 22.0,
+        "forearm": 24.0,
+        "thigh": 41.8,
+        "shin": 49.7,
+        "shoe": null,
+        "armChain": 46.0,
+        "legChain": 91.5
+      },
+      "intervalPx": {
+        "head": [
+          34.0,
+          42.0
+        ],
+        "torso": [
+          50.0,
+          62.0
+        ],
+        "upperArm": [
+          16.0,
+          28.0
+        ],
+        "forearm": [
+          18.0,
+          30.0
+        ],
+        "thigh": [
+          35.8,
+          47.8
+        ],
+        "shin": [
+          43.7,
+          55.7
+        ],
+        "shoe": null,
+        "armChain": [
+          34.0,
+          58.0
+        ],
+        "legChain": [
+          79.5,
+          103.5
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -0.3,
+        "torso": -29.3,
+        "upperArm": -41.5,
+        "forearm": -25.9,
+        "thigh": -17.1,
+        "shin": -4.4,
+        "shoe": null,
+        "armChain": -34.3,
+        "legChain": -10.6
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 arm is the visible extended arm; other frames use bent near arm. Bent forearm points in depth; hanging shoe heel obscured, only projected visible fragment recorded. Far raised thigh foreshortened."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 14.3
+    },
+    "airLight1v07-f2": {
+      "landmarks": {
+        "crown": [
+          159,
+          27
+        ],
+        "chin": [
+          160,
+          65
+        ],
+        "collar": [
+          157,
+          69
+        ],
+        "hem": [
+          158,
+          124
+        ],
+        "shoulder": [
+          173,
+          74
+        ],
+        "elbow": [
+          195,
+          74
+        ],
+        "wrist": [
+          218,
+          75
+        ],
+        "hip": [
+          150,
+          129
+        ],
+        "knee": [
+          141,
+          170
+        ],
+        "ankle": [
+          128,
+          218
+        ],
+        "heel": [
+          123,
+          226
+        ],
+        "toe": [
+          129,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 38.0,
+        "torso": 55.0,
+        "upperArm": 22.0,
+        "forearm": 23.0,
+        "thigh": 42.0,
+        "shin": 49.7,
+        "shoe": null,
+        "armChain": 45.0,
+        "legChain": 91.7
+      },
+      "intervalPx": {
+        "head": [
+          34.0,
+          42.0
+        ],
+        "torso": [
+          49.0,
+          61.0
+        ],
+        "upperArm": [
+          16.0,
+          28.0
+        ],
+        "forearm": [
+          17.0,
+          29.0
+        ],
+        "thigh": [
+          36.0,
+          48.0
+        ],
+        "shin": [
+          43.7,
+          55.7
+        ],
+        "shoe": null,
+        "armChain": [
+          33.0,
+          57.0
+        ],
+        "legChain": [
+          79.7,
+          103.7
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -0.3,
+        "torso": -30.6,
+        "upperArm": -41.5,
+        "forearm": -29.0,
+        "thigh": -16.7,
+        "shin": -4.4,
+        "shoe": null,
+        "armChain": -35.7,
+        "legChain": -10.4
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 arm is the visible extended arm; other frames use bent near arm. Bent forearm points in depth; hanging shoe heel obscured, only projected visible fragment recorded. Far raised thigh foreshortened."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 14.3
+    },
+    "airLight1v07-f3": {
+      "landmarks": {
+        "crown": [
+          156,
+          27
+        ],
+        "chin": [
+          158,
+          64
+        ],
+        "collar": [
+          154,
+          68
+        ],
+        "hem": [
+          157,
+          124
+        ],
+        "shoulder": [
+          134,
+          80
+        ],
+        "elbow": [
+          124,
+          102
+        ],
+        "wrist": [
+          144,
+          88
+        ],
+        "hip": [
+          149,
+          129
+        ],
+        "knee": [
+          139,
+          170
+        ],
+        "ankle": [
+          128,
+          218
+        ],
+        "heel": [
+          123,
+          226
+        ],
+        "toe": [
+          129,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 37.1,
+        "torso": 56.1,
+        "upperArm": 24.2,
+        "forearm": 24.4,
+        "thigh": 42.2,
+        "shin": 49.2,
+        "shoe": null,
+        "armChain": 48.6,
+        "legChain": 91.4
+      },
+      "intervalPx": {
+        "head": [
+          33.1,
+          41.1
+        ],
+        "torso": [
+          50.1,
+          62.1
+        ],
+        "upperArm": [
+          18.2,
+          30.2
+        ],
+        "forearm": [
+          18.4,
+          30.4
+        ],
+        "thigh": [
+          36.2,
+          48.2
+        ],
+        "shin": [
+          43.2,
+          55.2
+        ],
+        "shoe": null,
+        "armChain": [
+          36.6,
+          60.6
+        ],
+        "legChain": [
+          79.4,
+          103.4
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -2.6,
+        "torso": -29.2,
+        "upperArm": -35.6,
+        "forearm": -24.7,
+        "thigh": -16.3,
+        "shin": -5.4,
+        "shoe": null,
+        "armChain": -30.6,
+        "legChain": -10.7
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 arm is the visible extended arm; other frames use bent near arm. Bent forearm points in depth; hanging shoe heel obscured, only projected visible fragment recorded. Far raised thigh foreshortened."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 14.3
+    },
+    "airLight1v07-f4": {
+      "landmarks": {
+        "crown": [
+          153,
+          26
+        ],
+        "chin": [
+          156,
+          64
+        ],
+        "collar": [
+          152,
+          68
+        ],
+        "hem": [
+          155,
+          124
+        ],
+        "shoulder": [
+          132,
+          80
+        ],
+        "elbow": [
+          122,
+          101
+        ],
+        "wrist": [
+          141,
+          89
+        ],
+        "hip": [
+          148,
+          129
+        ],
+        "knee": [
+          138,
+          170
+        ],
+        "ankle": [
+          128,
+          218
+        ],
+        "heel": [
+          123,
+          226
+        ],
+        "toe": [
+          129,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 38.1,
+        "torso": 56.1,
+        "upperArm": 23.3,
+        "forearm": 22.5,
+        "thigh": 42.2,
+        "shin": 49.0,
+        "shoe": null,
+        "armChain": 45.8,
+        "legChain": 91.2
+      },
+      "intervalPx": {
+        "head": [
+          34.1,
+          42.1
+        ],
+        "torso": [
+          50.1,
+          62.1
+        ],
+        "upperArm": [
+          17.3,
+          29.3
+        ],
+        "forearm": [
+          16.5,
+          28.5
+        ],
+        "thigh": [
+          36.2,
+          48.2
+        ],
+        "shin": [
+          43.0,
+          55.0
+        ],
+        "shoe": null,
+        "armChain": [
+          33.8,
+          57.8
+        ],
+        "legChain": [
+          79.2,
+          103.2
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 0.0,
+        "torso": -29.2,
+        "upperArm": -38.0,
+        "forearm": -30.6,
+        "thigh": -16.3,
+        "shin": -5.8,
+        "shoe": null,
+        "armChain": -34.6,
+        "legChain": -10.9
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 arm is the visible extended arm; other frames use bent near arm. Bent forearm points in depth; hanging shoe heel obscured, only projected visible fragment recorded. Far raised thigh foreshortened."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 14.3
+    },
+    "airLight2v05-f0": {
+      "landmarks": {
+        "crown": [
+          154,
+          17
+        ],
+        "chin": [
+          158,
+          57
+        ],
+        "collar": [
+          152,
+          60
+        ],
+        "hem": [
+          149,
+          124
+        ],
+        "shoulder": [
+          128,
+          71
+        ],
+        "elbow": [
+          115,
+          95
+        ],
+        "wrist": [
+          135,
+          86
+        ],
+        "hip": [
+          145,
+          129
+        ],
+        "knee": [
+          137,
+          174
+        ],
+        "ankle": [
+          128,
+          219
+        ],
+        "heel": [
+          124,
+          229
+        ],
+        "toe": [
+          130,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 40.2,
+        "torso": 64.1,
+        "upperArm": 27.3,
+        "forearm": 21.9,
+        "thigh": 45.7,
+        "shin": 45.9,
+        "shoe": null,
+        "armChain": 49.2,
+        "legChain": 91.6
+      },
+      "intervalPx": {
+        "head": [
+          36.2,
+          44.2
+        ],
+        "torso": [
+          58.1,
+          70.1
+        ],
+        "upperArm": [
+          21.3,
+          33.3
+        ],
+        "forearm": [
+          15.9,
+          27.9
+        ],
+        "thigh": [
+          39.7,
+          51.7
+        ],
+        "shin": [
+          39.9,
+          51.9
+        ],
+        "shoe": null,
+        "armChain": [
+          37.2,
+          61.2
+        ],
+        "legChain": [
+          79.6,
+          103.6
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 5.5,
+        "torso": -19.1,
+        "upperArm": -27.4,
+        "forearm": -32.4,
+        "thigh": -9.3,
+        "shin": -11.7,
+        "shoe": null,
+        "armChain": -29.7,
+        "legChain": -10.5
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 leg is horizontal kicking chain, other frames hanging leg. Kicking thigh/hip depth uncertain. Hanging shoe heel obscured; projected fragment only."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 11.7
+    },
+    "airLight2v05-f1": {
+      "landmarks": {
+        "crown": [
+          130,
+          26
+        ],
+        "chin": [
+          135,
+          64
+        ],
+        "collar": [
+          128,
+          67
+        ],
+        "hem": [
+          140,
+          122
+        ],
+        "shoulder": [
+          110,
+          76
+        ],
+        "elbow": [
+          95,
+          94
+        ],
+        "wrist": [
+          91,
+          106
+        ],
+        "hip": [
+          140,
+          119
+        ],
+        "knee": [
+          173,
+          118
+        ],
+        "ankle": [
+          209,
+          122
+        ],
+        "heel": [
+          210,
+          129
+        ],
+        "toe": [
+          219,
+          101
+        ]
+      },
+      "projectedPx": {
+        "head": 38.3,
+        "torso": 56.3,
+        "upperArm": 23.4,
+        "forearm": 12.6,
+        "thigh": 33.0,
+        "shin": 36.2,
+        "shoe": 29.4,
+        "armChain": 36.0,
+        "legChain": 69.2
+      },
+      "intervalPx": {
+        "head": [
+          34.3,
+          42.3
+        ],
+        "torso": [
+          50.3,
+          62.3
+        ],
+        "upperArm": [
+          17.4,
+          29.4
+        ],
+        "forearm": [
+          6.6,
+          18.6
+        ],
+        "thigh": [
+          27.0,
+          39.0
+        ],
+        "shin": [
+          30.2,
+          42.2
+        ],
+        "shoe": [
+          25.4,
+          33.4
+        ],
+        "armChain": [
+          24.0,
+          48.0
+        ],
+        "legChain": [
+          57.2,
+          81.2
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 0.5,
+        "torso": -28.9,
+        "upperArm": -37.8,
+        "forearm": -61.1,
+        "thigh": -34.5,
+        "shin": -30.4,
+        "shoe": -10.9,
+        "armChain": -48.6,
+        "legChain": -32.4
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 leg is horizontal kicking chain, other frames hanging leg. Kicking thigh/hip depth uncertain. Hanging shoe heel obscured; projected fragment only."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "airLight2v05-f2": {
+      "landmarks": {
+        "crown": [
+          132,
+          25
+        ],
+        "chin": [
+          136,
+          63
+        ],
+        "collar": [
+          129,
+          66
+        ],
+        "hem": [
+          142,
+          122
+        ],
+        "shoulder": [
+          112,
+          74
+        ],
+        "elbow": [
+          97,
+          93
+        ],
+        "wrist": [
+          94,
+          100
+        ],
+        "hip": [
+          140,
+          118
+        ],
+        "knee": [
+          177,
+          118
+        ],
+        "ankle": [
+          216,
+          120
+        ],
+        "heel": [
+          217,
+          129
+        ],
+        "toe": [
+          227,
+          100
+        ]
+      },
+      "projectedPx": {
+        "head": 38.2,
+        "torso": 57.5,
+        "upperArm": 24.2,
+        "forearm": 7.6,
+        "thigh": 37.0,
+        "shin": 39.1,
+        "shoe": 30.7,
+        "armChain": 31.8,
+        "legChain": 76.1
+      },
+      "intervalPx": {
+        "head": [
+          34.2,
+          42.2
+        ],
+        "torso": [
+          51.5,
+          63.5
+        ],
+        "upperArm": [
+          18.2,
+          30.2
+        ],
+        "forearm": [
+          1.6,
+          13.6
+        ],
+        "thigh": [
+          31.0,
+          43.0
+        ],
+        "shin": [
+          33.1,
+          45.1
+        ],
+        "shoe": [
+          26.7,
+          34.7
+        ],
+        "armChain": [
+          19.8,
+          43.8
+        ],
+        "legChain": [
+          64.1,
+          88.1
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 0.3,
+        "torso": -27.4,
+        "upperArm": -35.6,
+        "forearm": -76.5,
+        "thigh": -26.6,
+        "shin": -24.8,
+        "shoe": -7.0,
+        "armChain": -54.6,
+        "legChain": -25.7
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 leg is horizontal kicking chain, other frames hanging leg. Kicking thigh/hip depth uncertain. Hanging shoe heel obscured; projected fragment only."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "airLight2v05-f3": {
+      "landmarks": {
+        "crown": [
+          151,
+          17
+        ],
+        "chin": [
+          155,
+          57
+        ],
+        "collar": [
+          149,
+          60
+        ],
+        "hem": [
+          149,
+          124
+        ],
+        "shoulder": [
+          127,
+          71
+        ],
+        "elbow": [
+          114,
+          94
+        ],
+        "wrist": [
+          133,
+          86
+        ],
+        "hip": [
+          145,
+          129
+        ],
+        "knee": [
+          137,
+          173
+        ],
+        "ankle": [
+          128,
+          219
+        ],
+        "heel": [
+          124,
+          229
+        ],
+        "toe": [
+          130,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 40.2,
+        "torso": 64.0,
+        "upperArm": 26.4,
+        "forearm": 20.6,
+        "thigh": 44.7,
+        "shin": 46.9,
+        "shoe": null,
+        "armChain": 47.0,
+        "legChain": 91.6
+      },
+      "intervalPx": {
+        "head": [
+          36.2,
+          44.2
+        ],
+        "torso": [
+          58.0,
+          70.0
+        ],
+        "upperArm": [
+          20.4,
+          32.4
+        ],
+        "forearm": [
+          14.6,
+          26.6
+        ],
+        "thigh": [
+          38.7,
+          50.7
+        ],
+        "shin": [
+          40.9,
+          52.9
+        ],
+        "shoe": null,
+        "armChain": [
+          35.0,
+          59.0
+        ],
+        "legChain": [
+          79.6,
+          103.6
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 5.5,
+        "torso": -19.2,
+        "upperArm": -29.8,
+        "forearm": -36.4,
+        "thigh": -11.3,
+        "shin": -9.8,
+        "shoe": null,
+        "armChain": -32.9,
+        "legChain": -10.5
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 leg is horizontal kicking chain, other frames hanging leg. Kicking thigh/hip depth uncertain. Hanging shoe heel obscured; projected fragment only."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 11.7
+    },
+    "airLight2v05-f4": {
+      "landmarks": {
+        "crown": [
+          153,
+          17
+        ],
+        "chin": [
+          157,
+          57
+        ],
+        "collar": [
+          151,
+          60
+        ],
+        "hem": [
+          149,
+          124
+        ],
+        "shoulder": [
+          128,
+          72
+        ],
+        "elbow": [
+          114,
+          94
+        ],
+        "wrist": [
+          134,
+          87
+        ],
+        "hip": [
+          145,
+          129
+        ],
+        "knee": [
+          137,
+          173
+        ],
+        "ankle": [
+          128,
+          219
+        ],
+        "heel": [
+          124,
+          229
+        ],
+        "toe": [
+          130,
+          239
+        ]
+      },
+      "projectedPx": {
+        "head": 40.2,
+        "torso": 64.0,
+        "upperArm": 26.1,
+        "forearm": 21.2,
+        "thigh": 44.7,
+        "shin": 46.9,
+        "shoe": null,
+        "armChain": 47.3,
+        "legChain": 91.6
+      },
+      "intervalPx": {
+        "head": [
+          36.2,
+          44.2
+        ],
+        "torso": [
+          58.0,
+          70.0
+        ],
+        "upperArm": [
+          20.1,
+          32.1
+        ],
+        "forearm": [
+          15.2,
+          27.2
+        ],
+        "thigh": [
+          38.7,
+          50.7
+        ],
+        "shin": [
+          40.9,
+          52.9
+        ],
+        "shoe": null,
+        "armChain": [
+          35.3,
+          59.3
+        ],
+        "legChain": [
+          79.6,
+          103.6
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 5.5,
+        "torso": -19.2,
+        "upperArm": -30.6,
+        "forearm": -34.6,
+        "thigh": -11.3,
+        "shin": -9.8,
+        "shoe": null,
+        "armChain": -32.4,
+        "legChain": -10.5
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "f1/f2 leg is horizontal kicking chain, other frames hanging leg. Kicking thigh/hip depth uncertain. Hanging shoe heel obscured; projected fragment only."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization",
+      "visibleShoeFragmentPx": 11.7
+    },
+    "light3v05-f0": {
+      "landmarks": {
+        "crown": [
+          138,
+          25
+        ],
+        "chin": [
+          140,
+          63
+        ],
+        "collar": [
+          135,
+          66
+        ],
+        "hem": [
+          149,
+          126
+        ],
+        "shoulder": [
+          117,
+          76
+        ],
+        "elbow": [
+          110,
+          104
+        ],
+        "wrist": [
+          127,
+          117
+        ],
+        "hip": [
+          143,
+          128
+        ],
+        "knee": [
+          133,
+          179
+        ],
+        "ankle": [
+          127,
+          226
+        ],
+        "heel": [
+          119,
+          236
+        ],
+        "toe": [
+          148,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 38.1,
+        "torso": 61.6,
+        "upperArm": 28.9,
+        "forearm": 21.4,
+        "thigh": 52.0,
+        "shin": 47.4,
+        "shoe": 29.0,
+        "armChain": 50.3,
+        "legChain": 99.4
+      },
+      "intervalPx": {
+        "head": [
+          34.1,
+          42.1
+        ],
+        "torso": [
+          55.6,
+          67.6
+        ],
+        "upperArm": [
+          22.9,
+          34.9
+        ],
+        "forearm": [
+          15.4,
+          27.4
+        ],
+        "thigh": [
+          46.0,
+          58.0
+        ],
+        "shin": [
+          41.4,
+          53.4
+        ],
+        "shoe": [
+          25.0,
+          33.0
+        ],
+        "armChain": [
+          38.3,
+          62.3
+        ],
+        "legChain": [
+          87.4,
+          111.4
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": 0.0,
+        "torso": -22.2,
+        "upperArm": -23.1,
+        "forearm": -34.0,
+        "thigh": 3.2,
+        "shin": -8.8,
+        "shoe": -12.1,
+        "armChain": -28.1,
+        "legChain": -2.9
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "light3v05-f1": {
+      "landmarks": {
+        "crown": [
+          127,
+          26
+        ],
+        "chin": [
+          128,
+          63
+        ],
+        "collar": [
+          123,
+          66
+        ],
+        "hem": [
+          137,
+          127
+        ],
+        "shoulder": [
+          108,
+          77
+        ],
+        "elbow": [
+          98,
+          103
+        ],
+        "wrist": [
+          116,
+          116
+        ],
+        "hip": [
+          138,
+          128
+        ],
+        "knee": [
+          130,
+          178
+        ],
+        "ankle": [
+          127,
+          226
+        ],
+        "heel": [
+          119,
+          236
+        ],
+        "toe": [
+          151,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 37.0,
+        "torso": 62.6,
+        "upperArm": 27.9,
+        "forearm": 22.2,
+        "thigh": 50.6,
+        "shin": 48.1,
+        "shoe": 32.0,
+        "armChain": 50.1,
+        "legChain": 98.7
+      },
+      "intervalPx": {
+        "head": [
+          33.0,
+          41.0
+        ],
+        "torso": [
+          56.6,
+          68.6
+        ],
+        "upperArm": [
+          21.9,
+          33.9
+        ],
+        "forearm": [
+          16.2,
+          28.2
+        ],
+        "thigh": [
+          44.6,
+          56.6
+        ],
+        "shin": [
+          42.1,
+          54.1
+        ],
+        "shoe": [
+          28.0,
+          36.0
+        ],
+        "armChain": [
+          38.1,
+          62.1
+        ],
+        "legChain": [
+          86.7,
+          110.7
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -2.9,
+        "torso": -21.0,
+        "upperArm": -25.8,
+        "forearm": -31.5,
+        "thigh": 0.4,
+        "shin": -7.5,
+        "shoe": -3.0,
+        "armChain": -28.4,
+        "legChain": -3.6
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "light3v05-f2": {
+      "landmarks": {
+        "crown": [
+          129,
+          27
+        ],
+        "chin": [
+          131,
+          63
+        ],
+        "collar": [
+          126,
+          66
+        ],
+        "hem": [
+          141,
+          127
+        ],
+        "shoulder": [
+          109,
+          77
+        ],
+        "elbow": [
+          100,
+          105
+        ],
+        "wrist": [
+          118,
+          117
+        ],
+        "hip": [
+          139,
+          119
+        ],
+        "knee": [
+          180,
+          118
+        ],
+        "ankle": [
+          220,
+          112
+        ],
+        "heel": [
+          218,
+          124
+        ],
+        "toe": [
+          231,
+          99
+        ]
+      },
+      "projectedPx": {
+        "head": 36.1,
+        "torso": 62.8,
+        "upperArm": 29.4,
+        "forearm": 21.6,
+        "thigh": 41.0,
+        "shin": 40.4,
+        "shoe": 28.2,
+        "armChain": 51.0,
+        "legChain": 81.4
+      },
+      "intervalPx": {
+        "head": [
+          32.1,
+          40.1
+        ],
+        "torso": [
+          56.8,
+          68.8
+        ],
+        "upperArm": [
+          23.4,
+          35.4
+        ],
+        "forearm": [
+          15.6,
+          27.6
+        ],
+        "thigh": [
+          35.0,
+          47.0
+        ],
+        "shin": [
+          34.4,
+          46.4
+        ],
+        "shoe": [
+          24.2,
+          32.2
+        ],
+        "armChain": [
+          39.0,
+          63.0
+        ],
+        "legChain": [
+          69.4,
+          93.4
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.2,
+        "torso": -20.7,
+        "upperArm": -21.8,
+        "forearm": -33.3,
+        "thigh": -18.7,
+        "shin": -22.3,
+        "shoe": -14.5,
+        "armChain": -27.1,
+        "legChain": -20.5
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "light3v05-f3": {
+      "landmarks": {
+        "crown": [
+          128,
+          26
+        ],
+        "chin": [
+          130,
+          63
+        ],
+        "collar": [
+          125,
+          66
+        ],
+        "hem": [
+          140,
+          127
+        ],
+        "shoulder": [
+          109,
+          77
+        ],
+        "elbow": [
+          100,
+          105
+        ],
+        "wrist": [
+          118,
+          117
+        ],
+        "hip": [
+          139,
+          119
+        ],
+        "knee": [
+          179,
+          118
+        ],
+        "ankle": [
+          218,
+          112
+        ],
+        "heel": [
+          216,
+          124
+        ],
+        "toe": [
+          229,
+          99
+        ]
+      },
+      "projectedPx": {
+        "head": 37.1,
+        "torso": 62.8,
+        "upperArm": 29.4,
+        "forearm": 21.6,
+        "thigh": 40.0,
+        "shin": 39.5,
+        "shoe": 28.2,
+        "armChain": 51.0,
+        "legChain": 79.5
+      },
+      "intervalPx": {
+        "head": [
+          33.1,
+          41.1
+        ],
+        "torso": [
+          56.8,
+          68.8
+        ],
+        "upperArm": [
+          23.4,
+          35.4
+        ],
+        "forearm": [
+          15.6,
+          27.6
+        ],
+        "thigh": [
+          34.0,
+          46.0
+        ],
+        "shin": [
+          33.5,
+          45.5
+        ],
+        "shoe": [
+          24.2,
+          32.2
+        ],
+        "armChain": [
+          39.0,
+          63.0
+        ],
+        "legChain": [
+          67.5,
+          91.5
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -2.6,
+        "torso": -20.7,
+        "upperArm": -21.8,
+        "forearm": -33.3,
+        "thigh": -20.6,
+        "shin": -24.0,
+        "shoe": -14.5,
+        "armChain": -27.1,
+        "legChain": -22.4
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "light3v05-f4": {
+      "landmarks": {
+        "crown": [
+          132,
+          36
+        ],
+        "chin": [
+          133,
+          72
+        ],
+        "collar": [
+          127,
+          76
+        ],
+        "hem": [
+          136,
+          137
+        ],
+        "shoulder": [
+          109,
+          87
+        ],
+        "elbow": [
+          99,
+          116
+        ],
+        "wrist": [
+          117,
+          123
+        ],
+        "hip": [
+          140,
+          137
+        ],
+        "knee": [
+          133,
+          180
+        ],
+        "ankle": [
+          128,
+          226
+        ],
+        "heel": [
+          120,
+          236
+        ],
+        "toe": [
+          152,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 36.0,
+        "torso": 61.7,
+        "upperArm": 30.7,
+        "forearm": 19.3,
+        "thigh": 43.6,
+        "shin": 46.3,
+        "shoe": 32.0,
+        "armChain": 50.0,
+        "legChain": 89.9
+      },
+      "intervalPx": {
+        "head": [
+          32.0,
+          40.0
+        ],
+        "torso": [
+          55.7,
+          67.7
+        ],
+        "upperArm": [
+          24.7,
+          36.7
+        ],
+        "forearm": [
+          13.3,
+          25.3
+        ],
+        "thigh": [
+          37.6,
+          49.6
+        ],
+        "shin": [
+          40.3,
+          52.3
+        ],
+        "shoe": [
+          28.0,
+          36.0
+        ],
+        "armChain": [
+          38.0,
+          62.0
+        ],
+        "legChain": [
+          77.9,
+          101.9
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -5.5,
+        "torso": -22.1,
+        "upperArm": -18.4,
+        "forearm": -40.4,
+        "thigh": -13.5,
+        "shin": -11.0,
+        "shoe": -3.0,
+        "armChain": -28.6,
+        "legChain": -12.2
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "light3v05-f5": {
+      "landmarks": {
+        "crown": [
+          122,
+          36
+        ],
+        "chin": [
+          123,
+          74
+        ],
+        "collar": [
+          118,
+          78
+        ],
+        "hem": [
+          134,
+          139
+        ],
+        "shoulder": [
+          104,
+          86
+        ],
+        "elbow": [
+          93,
+          113
+        ],
+        "wrist": [
+          109,
+          124
+        ],
+        "hip": [
+          135,
+          139
+        ],
+        "knee": [
+          140,
+          181
+        ],
+        "ankle": [
+          141,
+          226
+        ],
+        "heel": [
+          137,
+          237
+        ],
+        "toe": [
+          169,
+          237
+        ]
+      },
+      "projectedPx": {
+        "head": 38.0,
+        "torso": 63.1,
+        "upperArm": 29.2,
+        "forearm": 19.4,
+        "thigh": 42.3,
+        "shin": 45.0,
+        "shoe": 32.0,
+        "armChain": 48.6,
+        "legChain": 87.3
+      },
+      "intervalPx": {
+        "head": [
+          34.0,
+          42.0
+        ],
+        "torso": [
+          57.1,
+          69.1
+        ],
+        "upperArm": [
+          23.2,
+          35.2
+        ],
+        "forearm": [
+          13.4,
+          25.4
+        ],
+        "thigh": [
+          36.3,
+          48.3
+        ],
+        "shin": [
+          39.0,
+          51.0
+        ],
+        "shoe": [
+          28.0,
+          36.0
+        ],
+        "armChain": [
+          36.6,
+          60.6
+        ],
+        "legChain": [
+          75.3,
+          99.3
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -0.3,
+        "torso": -20.3,
+        "upperArm": -22.3,
+        "forearm": -40.1,
+        "thigh": -16.1,
+        "shin": -13.5,
+        "shoe": -3.0,
+        "armChain": -30.6,
+        "legChain": -14.7
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    },
+    "light3v05-f6": {
+      "landmarks": {
+        "crown": [
+          125,
+          36
+        ],
+        "chin": [
+          126,
+          74
+        ],
+        "collar": [
+          121,
+          78
+        ],
+        "hem": [
+          137,
+          138
+        ],
+        "shoulder": [
+          107,
+          86
+        ],
+        "elbow": [
+          96,
+          113
+        ],
+        "wrist": [
+          112,
+          124
+        ],
+        "hip": [
+          137,
+          139
+        ],
+        "knee": [
+          141,
+          181
+        ],
+        "ankle": [
+          142,
+          226
+        ],
+        "heel": [
+          138,
+          237
+        ],
+        "toe": [
+          169,
+          237
+        ]
+      },
+      "projectedPx": {
+        "head": 38.0,
+        "torso": 62.1,
+        "upperArm": 29.2,
+        "forearm": 19.4,
+        "thigh": 42.2,
+        "shin": 45.0,
+        "shoe": 31.0,
+        "armChain": 48.6,
+        "legChain": 87.2
+      },
+      "intervalPx": {
+        "head": [
+          34.0,
+          42.0
+        ],
+        "torso": [
+          56.1,
+          68.1
+        ],
+        "upperArm": [
+          23.2,
+          35.2
+        ],
+        "forearm": [
+          13.4,
+          25.4
+        ],
+        "thigh": [
+          36.2,
+          48.2
+        ],
+        "shin": [
+          39.0,
+          51.0
+        ],
+        "shoe": [
+          27.0,
+          35.0
+        ],
+        "armChain": [
+          36.6,
+          60.6
+        ],
+        "legChain": [
+          75.2,
+          99.2
+        ]
+      },
+      "nominalPercentVsIdle06": {
+        "head": -0.3,
+        "torso": -21.6,
+        "upperArm": -22.3,
+        "forearm": -40.1,
+        "thigh": -16.3,
+        "shin": -13.5,
+        "shoe": -6.1,
+        "armChain": -30.6,
+        "legChain": -14.8
+      },
+      "skips": [
+        "Frontal shoulder width: all poses are oblique/three-quarter, not frontal.",
+        "Unlisted far arm/leg: overlaps or points through depth; do not infer anatomical length.",
+        "Pocket wrist partly hidden. f2/f3 leg is visible horizontal kicking chain; other frames supporting leg. Kicking thigh/hip depth uncertain."
+      ],
+      "status": "HOLD: no all-segment +/-6% certification; do not treat nominal outliers as automatic redraw authorization"
+    }
+  }
+}

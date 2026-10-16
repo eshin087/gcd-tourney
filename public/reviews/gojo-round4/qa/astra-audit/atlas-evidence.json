@@ -1,0 +1,479 @@
+{
+  "idle": {
+    "sha": {
+      "sheet.png": "79d3407f91ef490e9c925151b412741f43e470e16da72e089affef0582cce7c9",
+      "anims.json": "c205a3d74f57fd18518d26ec5992c30e965bddcfb3d95d080d193ebb8e36f4c3"
+    },
+    "animations": {
+      "idle": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              60,
+              5,
+              198,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              60,
+              5,
+              197,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 2,
+            "boundsExclusive": [
+              60,
+              5,
+              197,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 3,
+            "boundsExclusive": [
+              61,
+              5,
+              197,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 4,
+            "boundsExclusive": [
+              60,
+              6,
+              197,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 5,
+            "boundsExclusive": [
+              61,
+              6,
+              197,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 6,
+            "boundsExclusive": [
+              60,
+              7,
+              196,
+              241
+            ],
+            "colors": 46
+          },
+          {
+            "frame": 7,
+            "boundsExclusive": [
+              61,
+              6,
+              196,
+              241
+            ],
+            "colors": 47
+          }
+        ],
+        "loop": true,
+        "durations": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "loopEndpointBoundsDelta": [
+          1,
+          1,
+          -2,
+          0
+        ]
+      }
+    },
+    "alphaValues": [
+      0,
+      255
+    ],
+    "opaqueMagentaPixels": 0
+  },
+  "superDash": {
+    "sha": {
+      "sheet.png": "32a50e32b78f992fadfa825dc2cb6f0751de8b56e589ba42cad58c00d34bfa12",
+      "anims.json": "d0a731a8b5456064d0d2d6b6f511d5e6d4b217bd2844acd00d393814460eebd4"
+    },
+    "animations": {
+      "superDash": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              62,
+              96,
+              231,
+              241
+            ],
+            "colors": 45
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              62,
+              95,
+              231,
+              241
+            ],
+            "colors": 44
+          }
+        ],
+        "loop": true,
+        "durations": [
+          50,
+          50
+        ],
+        "loopEndpointBoundsDelta": [
+          0,
+          -1,
+          0,
+          0
+        ]
+      }
+    },
+    "alphaValues": [
+      0,
+      255
+    ],
+    "opaqueMagentaPixels": 0
+  },
+  "retained": {
+    "sha": {
+      "sheet.png": "fdec935c9870a212ff6e448b2d1e29e70ce0c7d5aa6dd8c34ffcbc10fe8498c3",
+      "anims.json": "44017a4087bd6d807602205966be61ebf7b23cd84fc2764b3c51dfe4648db0dd"
+    },
+    "animations": {
+      "guard": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              58,
+              30,
+              199,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              57,
+              28,
+              200,
+              241
+            ],
+            "colors": 46
+          }
+        ],
+        "loop": true,
+        "durations": [
+          300,
+          300
+        ],
+        "loopEndpointBoundsDelta": [
+          -1,
+          -2,
+          1,
+          0
+        ]
+      },
+      "jumpUp": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              95,
+              41,
+              207,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              92,
+              41,
+              210,
+              241
+            ],
+            "colors": 48
+          }
+        ],
+        "loop": true,
+        "durations": [
+          80,
+          80
+        ],
+        "loopEndpointBoundsDelta": [
+          -3,
+          0,
+          3,
+          0
+        ]
+      },
+      "airLight3": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              86,
+              58,
+              185,
+              241
+            ],
+            "colors": 46
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              77,
+              60,
+              190,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 2,
+            "boundsExclusive": [
+              59,
+              105,
+              213,
+              241
+            ],
+            "colors": 46
+          },
+          {
+            "frame": 3,
+            "boundsExclusive": [
+              64,
+              104,
+              215,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 4,
+            "boundsExclusive": [
+              60,
+              27,
+              178,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 5,
+            "boundsExclusive": [
+              104,
+              23,
+              207,
+              241
+            ],
+            "colors": 48
+          }
+        ],
+        "loop": false,
+        "durations": [
+          50,
+          40,
+          50,
+          70,
+          60,
+          30
+        ]
+      },
+      "hurtLow": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              81,
+              73,
+              181,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              81,
+              57,
+              182,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 2,
+            "boundsExclusive": [
+              81,
+              43,
+              183,
+              241
+            ],
+            "colors": 46
+          }
+        ],
+        "loop": false,
+        "durations": [
+          70,
+          90,
+          100
+        ]
+      },
+      "idle": {
+        "frames": [
+          {
+            "frame": 0,
+            "boundsExclusive": [
+              87,
+              7,
+              176,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 1,
+            "boundsExclusive": [
+              87,
+              7,
+              176,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 2,
+            "boundsExclusive": [
+              87,
+              7,
+              176,
+              241
+            ],
+            "colors": 48
+          },
+          {
+            "frame": 3,
+            "boundsExclusive": [
+              87,
+              6,
+              175,
+              241
+            ],
+            "colors": 47
+          },
+          {
+            "frame": 4,
+            "boundsExclusive": [
+              87,
+              6,
+              176,
+              241
+            ],
+            "colors": 46
+          },
+          {
+            "frame": 5,
+            "boundsExclusive": [
+              87,
+              7,
+              176,
+              241
+            ],
+            "colors": 44
+          },
+          {
+            "frame": 6,
+            "boundsExclusive": [
+              87,
+              7,
+              176,
+              241
+            ],
+            "colors": 44
+          },
+          {
+            "frame": 7,
+            "boundsExclusive": [
+              87,
+              6,
+              176,
+              241
+            ],
+            "colors": 45
+          }
+        ],
+        "loop": true,
+        "durations": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "loopEndpointBoundsDelta": [
+          0,
+          -1,
+          0,
+          0
+        ]
+      }
+    },
+    "alphaValues": [
+      0,
+      255
+    ],
+    "opaqueMagentaPixels": 0
+  },
+  "neutral": {
+    "sha256": "d9fd4dca67c7cc133e897773a3c8128d6c5320a42402642c11409fea770175a0",
+    "bounds": [
+      82,
+      5,
+      173,
+      241
+    ]
+  },
+  "combat": {
+    "sha256": "ab42bc6facd14659bf35b48a4bce8682cd17218f200d1e7fcdc6430f58451656",
+    "bounds": [
+      50,
+      28,
+      206,
+      241
+    ]
+  }
+}

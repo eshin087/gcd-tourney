@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-15",
+  "total": 4,
+  "fighters": 3,
+  "note": "Three new candidates await review; taunt10 is user-approved as drawn.",
+  "sources": {
+    "naruto": {
+      "sheet": "atlases/naruto/sheet.png",
+      "metadata": "atlases/naruto/anims.json",
+      "branch": "art/naruto-title-r3",
+      "commit": "3d6db5d",
+      "calibrationCommit": "5dee03f",
+      "sheetHash": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "metadataHash": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2"
+    },
+    "naruto-alts": {
+      "sheet": "atlases/naruto-alts/sheet.png",
+      "metadata": "atlases/naruto-alts/anims.json",
+      "branch": "art/naruto-alts",
+      "commit": "348f4bc",
+      "calibrationCommit": "Byte-identical v03 sidecar; actual-manifest pack",
+      "sheetHash": "57e7121351e064a0ca0e4b7d898f29b9739d9d71dfd6b15486f7b6f0f28a7e0f",
+      "metadataHash": "e753b6da62a2bc78cff2c3966af33eb90db0a387a26ee639d7b5a267ed631ef6"
+    },
+    "killua": {
+      "sheet": "atlases/killua/sheet.png",
+      "metadata": "atlases/killua/anims.json",
+      "branch": "art/killua-title-r3",
+      "commit": "7546a45",
+      "calibrationCommit": "Byte-identical v07 sidecar; actual-manifest pack to separate output",
+      "sheetHash": "b7694cc7c450288d76ebe6069c0ecc1d580b6cb4ddcb7f7304714e70a938f74c",
+      "metadataHash": "9dfcbfb70ce37ddb1faa9094bc5aa9d544ed24e937d2b815bb593dd0de43a566"
+    },
+    "killua-approved": {
+      "sheet": "atlases/killua-approved/sheet.png",
+      "metadata": "atlases/killua-approved/anims.json",
+      "branch": "main · approved production atlas",
+      "commit": "main snapshot 2026-10-15",
+      "calibrationCommit": "approved idle v08",
+      "sheetHash": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+      "metadataHash": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3"
+    },
+    "sasuke": {
+      "sheet": "atlases/sasuke/sheet.png",
+      "metadata": "atlases/sasuke/anims.json",
+      "branch": "art/sasuke-title-r3",
+      "commit": "d4a06e7",
+      "calibrationCommit": "Inherited v06 parameters; diagnostic gate set to warn, strict clearance pending",
+      "sheetHash": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+      "metadataHash": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043"
+    }
+  },
+  "groups": [
+    {
+      "id": "sasuke",
+      "name": "Sasuke",
+      "sourceKey": "sasuke",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "sasuke",
+      "neutral": "refs/sasuke-neutral_v01.png",
+      "combat": "refs/sasuke-combat_v01.png",
+      "note": "Provisional diagnostic rendering with inherited calibration. The automatic gate is inconclusive; Claude must clear the final pack.",
+      "items": [
+        {
+          "animation": "jumpSquat",
+          "version": 7,
+          "frames": 1,
+          "verdict": "HOLD",
+          "decision": false,
+          "summary": "Arm repair improved: the bent shoulder-to-wrist chain reads about 67.9 px versus the previous 88.7 px. No new robust anatomy defect found. Full ±6% certification remains uncertain; standard pack still needs Claude’s v07-specific clearance.",
+          "evidence": [
+            {
+              "href": "audits/sasuke-arm/AUDIT.md",
+              "label": "Astra anatomy audit"
+            },
+            {
+              "href": "audits/sasuke-arm/comparison-3x.png",
+              "label": "New v07, previous v06 and approved references"
+            }
+          ],
+          "sourceFrames": [
+            23
+          ],
+          "durations": [
+            70
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/sasuke/jumpSquat.png",
+          "auditNote": "Inherited v06 parameters; diagnostic gate set to warn, strict clearance pending",
+          "residual": "Review the shorter forearm and closer hands. The two hands overlap more than before, but Astra found no established fusion."
+        }
+      ],
+      "idleSource": {
+        "key": "sasuke",
+        "branch": "art/sasuke-title-r3",
+        "commit": "d4a06e7",
+        "sheetHash": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+        "metadataHash": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043",
+        "frame": 0,
+        "preview": "crops/approved-idle-sasuke-v07.png"
+      },
+      "neutralHash": "fbc6b37701c9055b7e1349aec0b1f035ed1aa21638a66541ffbf71ba3e222352",
+      "combatHash": "4b1c4fec691c6d29e42be5e02ee5f1b72c431f0df281ce8122276b93e3e185d7"
+    },
+    {
+      "id": "naruto-alts",
+      "name": "Naruto · attack alts",
+      "sourceKey": "naruto-alts",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "naruto",
+      "neutral": "refs/naruto-neutral_v01.png",
+      "combat": "refs/naruto-combat_v01.png",
+      "note": "Only active f2/f3 were replaced; five other raw frames unchanged. Existing hitboxes and calibration preserved.",
+      "items": [
+        {
+          "animation": "light2Alt",
+          "version": 4,
+          "frames": 7,
+          "baseAnimation": "light2",
+          "verdict": "HOLD",
+          "decision": false,
+          "summary": "HOLD: the redraw did not fix vertical contact. Foot centers remain 27–28 px below the inherited hit centers; f3 retracts about 6.5 px horizontally. No additional call remains.",
+          "evidence": [
+            {
+              "href": "audits/naruto-kick/AUDIT.md",
+              "label": "Astra audit of all seven frames"
+            },
+            {
+              "href": "audits/naruto-kick/contact.png",
+              "label": "Kick versus inherited contact rectangles"
+            },
+            {
+              "href": "audits/naruto-kick/MEASUREMENTS.md",
+              "label": "All-frame measurements and uncertainty"
+            }
+          ],
+          "sourceFrames": [
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188
+          ],
+          "durations": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "loop": false,
+          "oneShot": true,
+          "preview": "crops/naruto-alts/light2Alt.png",
+          "baseSourceFrames": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "basePreview": "crops/naruto-alts/base-light2.png",
+          "auditNote": "Byte-identical v03 sidecar; actual-manifest pack",
+          "residual": "Recommendation: keep this alternative held; use the base light2 while Claude reviews the remaining contact discrepancy."
+        }
+      ],
+      "idleSource": {
+        "key": "naruto",
+        "branch": "art/naruto-title-r3",
+        "commit": "3d6db5d",
+        "sheetHash": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+        "metadataHash": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+        "frame": 0,
+        "preview": "crops/approved-idle-naruto-alts-v07.png"
+      },
+      "neutralHash": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "combatHash": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    },
+    {
+      "id": "killua",
+      "name": "Killua",
+      "sourceKey": "killua",
+      "approvedIdleVersion": 8,
+      "idleSourceKey": "killua-approved",
+      "neutral": "refs/killua-neutral_v01.png",
+      "combat": "refs/killua-combat_v01.png",
+      "note": "Only stagger f3 was replaced; raw f0–f2 remain pixel-identical. Rendered using the actual manifest into separate diagnostic output.",
+      "items": [
+        {
+          "animation": "stagger",
+          "version": 8,
+          "frames": 4,
+          "verdict": "HOLD",
+          "decision": false,
+          "summary": "The guard-pose reset is fixed: f3 keeps the arms hanging in the dazed loop. Overall HOLD: a detached 13-pixel fragment remains beside the f3 foot, and the unchanged upright frames retain a short-shirt proportion concern.",
+          "evidence": [
+            {
+              "href": "audits/killua-stagger/AUDIT.md",
+              "label": "Astra audit of all four frames and wrap"
+            },
+            {
+              "href": "audits/killua-stagger/comparison.png",
+              "label": "All frames beside approved references"
+            },
+            {
+              "href": "audits/killua-stagger/loop.gif",
+              "label": "Loop at metadata timing"
+            }
+          ],
+          "sourceFrames": [
+            131,
+            132,
+            133,
+            134
+          ],
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/killua/stagger.png",
+          "auditNote": "Byte-identical v07 sidecar; actual-manifest pack to separate output",
+          "residual": "The largest remaining head movement is f2→f3, about 26 px diagonally. Review motion only; the fragment and technical anatomy holds still need resolution."
+        }
+      ],
+      "idleSource": {
+        "key": "killua-approved",
+        "branch": "main · approved production atlas",
+        "commit": "main snapshot 2026-10-15",
+        "sheetHash": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+        "metadataHash": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3",
+        "frame": 0,
+        "preview": "crops/approved-idle-killua-v08.png"
+      },
+      "neutralHash": "86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855",
+      "combatHash": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6"
+    },
+    {
+      "id": "naruto",
+      "name": "Naruto",
+      "sourceKey": "naruto",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "naruto",
+      "neutral": "refs/naruto-neutral_v01.png",
+      "combat": "refs/naruto-combat_v01.png",
+      "note": "Approval recorded at3d6db5d; no new image call. This card is a reference, not another approval request.",
+      "items": [
+        {
+          "animation": "taunt",
+          "version": 10,
+          "frames": 2,
+          "verdict": "HOLD",
+          "decision": false,
+          "summary": "User approved taunt10 as drawn on 2026-10-15. The appearance decision is complete; Astra’s technical uncertainty remains recorded.",
+          "evidence": [
+            {
+              "href": "audits/naruto-taunt/AUDIT.md",
+              "label": "Retained technical audit (appearance approved)"
+            }
+          ],
+          "sourceFrames": [
+            148,
+            149
+          ],
+          "durations": [
+            250,
+            250
+          ],
+          "loop": true,
+          "oneShot": false,
+          "preview": "crops/naruto/taunt.png",
+          "visualApproved": true
+        }
+      ],
+      "idleSource": {
+        "key": "naruto",
+        "branch": "art/naruto-title-r3",
+        "commit": "3d6db5d",
+        "sheetHash": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+        "metadataHash": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+        "frame": 0,
+        "preview": "crops/approved-idle-naruto-v07.png"
+      },
+      "neutralHash": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "combatHash": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    }
+  ]
+}

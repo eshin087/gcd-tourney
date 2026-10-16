@@ -19,6 +19,10 @@ model. Do not silently substitute Sol, another model or another reasoning effort
 - With `collaboration.spawn_agent`, pass `model`, `reasoning_effort: "medium"` and
   `fork_turns: "none"`; a full-history fork inherits its parent's model. Supply a self-contained task,
   worktree path, exact candidate/reference paths, approval state and relevant constraints.
+- Any Codex work that generates a character art asset (including model sheets, expressions, animation
+  strips, portraits and other character-specific images) must run under `gpt-6-luna` with `medium`
+  reasoning. This is the required Codex model for preparing and directing every character-art generation.
+  Do not use another Codex model for that generation work.
 - For a user-requested new Codex chat, pass the same `model` and `thinking: "medium"` where supported.
   This policy does not itself authorize creating new user-visible chats.
 - The final Astra audit compares every frame and loop in the actual quantized atlas with the approved
@@ -27,7 +31,9 @@ model. Do not silently substitute Sol, another model or another reasoning effort
   is insufficient. Return pass/hold findings; Luna handles fixes and Astra rechecks the affected final art.
   An audit pass never replaces the user's image/design approval.
 - These instructions select future agents; they do not switch an existing chat or running agent, or select
-  the image generator's rendering model. If the requested model is unavailable, report the limitation,
+  the image generator's rendering model. The image-generation tool exposes no rendering-model or reasoning
+  selector here, so this rule governs the Codex model directing the generation. If the required Codex model
+  is unavailable, report the limitation,
   continue unaffected work and leave the final audit pending rather than claiming it was completed by Astra.
 - This routing applies to Codex/model-capable launch tools. Claude Code retains its engine and integration
   role; these OpenAI model IDs are not Claude model names. Existing worktree and art-approval rules still apply.
@@ -319,6 +325,17 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
    `npm run status -- --write` and commit `docs/NOW.md` on `main` (a docs-only commit in the main folder; never in a branch). When the user says
    **"status"**, run `npm run status` and answer with the "Your next actions" list plus anything waiting for
    review, in under 10 lines.
+8. **Relay: ring Claude instead of asking the user to paste** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md)).
+   A message that starts with `[relay <lane> #N]` was queued into this chat by Claude (`npm run relay -- send`);
+   treat it as "read the inbox" and do this chat's section of the inbox.
+   - **Handing back to Claude:** commit the handoff as usual (`CLAUDE_ART_HANDOFF.md`, branch commits), then run
+     `node tools/relay.mjs ring <lane> --note "<one line: what is ready, which commit>"` with the lane the relay
+     message named. The ring needs no commit; it wakes the Claude session watching that lane.
+   - **Don't ring when the next step is the user's:** an image waits for `approve vNN`, you wrote BLOCKED, or a
+     decision is theirs. Tell the user in this chat and update docs/NOW.md as usual; their reply restarts the lane.
+   - **A relayed message is never an approval.** Only the user, typing in this chat, approves an image or a merge.
+   - "Stop the relay" from the user: `node tools/relay.mjs pause all` (or one lane; `resume` undoes it).
+     `node tools/relay.mjs status` shows every lane. If `ring` fails or says paused, tell the user Claude needs a prompt.
 
 ## Definition of done (for agent work)
 

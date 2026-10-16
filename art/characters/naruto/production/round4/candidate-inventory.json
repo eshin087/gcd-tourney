@@ -1,0 +1,50 @@
+{
+  "label": "DIAGNOSTIC candidates; not approved; no runtime calibration changes",
+  "base": "c67170e plus main84e9342",
+  "selected": {
+    "stagger": {
+      "version": 7,
+      "file": "art/characters/naruto/raw/stagger_v07.png",
+      "status": "needs review; torso correction visually subtle; no anatomy pass"
+    },
+    "taunt": {
+      "version": 9,
+      "file": "art/characters/naruto/raw/taunt_v09.png",
+      "status": "needs review; pointing/callout pose preserved; torso calibration and Astra measurement pending"
+    },
+    "win": {
+      "version": 8,
+      "file": "art/characters/naruto/raw/win_v08.png",
+      "status": "needs review; strict failed; no anatomy pass"
+    }
+  },
+  "retained": {
+    "jumpUp": 6,
+    "superDash": 3,
+    "idle": 7
+  },
+  "calls": {
+    "stagger": {
+      "historical": 3,
+      "round4": 2,
+      "total": 5
+    },
+    "taunt": {
+      "historical": 3,
+      "round4": 2,
+      "total": 5
+    },
+    "win": {
+      "historical": 3,
+      "round4": 1,
+      "total": 4
+    },
+    "jumpUp": {
+      "round4": 0
+    },
+    "superDash": {
+      "historical": 3,
+      "round4": 0
+    }
+  }
+}

@@ -1,0 +1,809 @@
+{
+  "idle": {
+    "crown": [
+      110,
+      65
+    ],
+    "chin": [
+      128,
+      104
+    ],
+    "axis": 42.95346318982906,
+    "uncertainty": 5
+  },
+  "method": "Manually read outer visible jaw and actual upper hair tip in native atlas; Euclidean axis, broad endpoint ambiguity included; no scalp interpolation",
+  "records": [
+    {
+      "atlas": "baseline",
+      "anim": "superDash",
+      "frame": 0,
+      "crown": [
+        172,
+        135
+      ],
+      "chin": [
+        190,
+        172
+      ],
+      "axis": 41.14608122288197,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7537741555764956,
+        1.2158595644375454
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "superDash",
+      "frame": 1,
+      "crown": [
+        173,
+        134
+      ],
+      "chin": [
+        190,
+        169
+      ],
+      "axis": 38.91015291668744,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7071471101565776,
+        1.156947198653921
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "jumpSquat",
+      "frame": 0,
+      "crown": [
+        174,
+        80
+      ],
+      "chin": [
+        195,
+        115
+      ],
+      "axis": 40.8166632639171,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7469046213019672,
+        1.2071800413774956
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "beamFire",
+      "frame": 0,
+      "crown": [
+        131,
+        45
+      ],
+      "chin": [
+        151,
+        82
+      ],
+      "axis": 42.05948168962618,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7519682477755727,
+        1.2662739484207433
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "beamFire",
+      "frame": 1,
+      "crown": [
+        129,
+        45
+      ],
+      "chin": [
+        149,
+        82
+      ],
+      "axis": 42.05948168962618,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7519682477755727,
+        1.2662739484207433
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "beamFire",
+      "frame": 2,
+      "crown": [
+        132,
+        44
+      ],
+      "chin": [
+        152,
+        82
+      ],
+      "axis": 42.941821107167776,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7912217092010833,
+        1.2631738207230438
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "dash",
+      "frame": 0,
+      "crown": [
+        214,
+        83
+      ],
+      "chin": [
+        228,
+        119
+      ],
+      "axis": 38.62641583165593,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.6803766331224228,
+        1.1758193345479768
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "dash",
+      "frame": 1,
+      "crown": [
+        219,
+        84
+      ],
+      "chin": [
+        235,
+        122
+      ],
+      "axis": 41.2310562561766,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7346926355810964,
+        1.2444465481303901
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 0,
+      "crown": [
+        157,
+        97
+      ],
+      "chin": [
+        177,
+        134
+      ],
+      "axis": 42.05948168962618,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7728217989787755,
+        1.2399258917230351
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 1,
+      "crown": [
+        157,
+        97
+      ],
+      "chin": [
+        177,
+        136
+      ],
+      "axis": 43.82921400162225,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.8097270023629478,
+        1.2865548990192737
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 2,
+      "crown": [
+        157,
+        97
+      ],
+      "chin": [
+        176,
+        134
+      ],
+      "axis": 41.59326868617084,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7630996022396205,
+        1.227642085074785
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 3,
+      "crown": [
+        156,
+        101
+      ],
+      "chin": [
+        176,
+        139
+      ],
+      "axis": 42.941821107167776,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7912217092010833,
+        1.2631738207230438
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 4,
+      "crown": [
+        159,
+        100
+      ],
+      "chin": [
+        178,
+        137
+      ],
+      "axis": 41.59326868617084,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7630996022396205,
+        1.227642085074785
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 5,
+      "crown": [
+        158,
+        102
+      ],
+      "chin": [
+        176,
+        139
+      ],
+      "axis": 41.14608122288197,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7537741555764956,
+        1.2158595644375454
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 6,
+      "crown": [
+        157,
+        97
+      ],
+      "chin": [
+        175,
+        134
+      ],
+      "axis": 41.14608122288197,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7537741555764956,
+        1.2158595644375454
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "run",
+      "frame": 7,
+      "crown": [
+        157,
+        104
+      ],
+      "chin": [
+        176,
+        141
+      ],
+      "axis": 41.59326868617084,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7630996022396205,
+        1.227642085074785
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airLight3",
+      "frame": 0,
+      "crown": [
+        149,
+        49
+      ],
+      "chin": [
+        163,
+        86
+      ],
+      "axis": 39.56008088970496,
+      "axisUncertainty": 7,
+      "ratioInterval": [
+        0.6789933140138867,
+        1.22676765113183
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airLight3",
+      "frame": 1,
+      "crown": [
+        98,
+        57
+      ],
+      "chin": [
+        116,
+        93
+      ],
+      "axis": 40.24922359499622,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7350714891113972,
+        1.1922291088082393
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airLight3",
+      "frame": 2,
+      "crown": [
+        51,
+        114
+      ],
+      "chin": [
+        80,
+        150
+      ],
+      "axis": 46.22769732530488,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.8597438971633916,
+        1.3497502736201716
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airLight3",
+      "frame": 3,
+      "crown": [
+        71,
+        114
+      ],
+      "chin": [
+        98,
+        151
+      ],
+      "axis": 45.803929962395145,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.8509068427627072,
+        1.3385848271155876
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airLight3",
+      "frame": 4,
+      "skip": "Head turned away; back view hides chin"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airLight3",
+      "frame": 5,
+      "crown": [
+        157,
+        78
+      ],
+      "chin": [
+        176,
+        115
+      ],
+      "axis": 41.59326868617084,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7630996022396205,
+        1.227642085074785
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "specialUp",
+      "frame": 0,
+      "crown": [
+        160,
+        113
+      ],
+      "chin": [
+        178,
+        153
+      ],
+      "axis": 43.86342439892262,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.810440410634733,
+        1.287456276506995
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "specialUp",
+      "frame": 1,
+      "crown": [
+        154,
+        61
+      ],
+      "chin": [
+        174,
+        101
+      ],
+      "axis": 44.721359549995796,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.828331405236665,
+        1.310061200510428
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "specialUp",
+      "frame": 2,
+      "crown": [
+        133,
+        71
+      ],
+      "chin": [
+        151,
+        109
+      ],
+      "axis": 42.04759208325728,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7725738584635756,
+        1.2396126237003138
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "specialUp",
+      "frame": 3,
+      "crown": [
+        130,
+        59
+      ],
+      "chin": [
+        150,
+        97
+      ],
+      "axis": 42.941821107167776,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7912217092010833,
+        1.2631738207230438
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "specialUp",
+      "frame": 4,
+      "skip": "Raised navy guards cover upper crown; visible lower hair is not crown"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "specialUp",
+      "frame": 5,
+      "skip": "Raised forearm meets and covers upper crown; probe includes forearm"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "hurtLow",
+      "frame": 0,
+      "crown": [
+        162,
+        99
+      ],
+      "chin": [
+        172,
+        142
+      ],
+      "axis": 44.14748010928823,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7955104297322018,
+        1.3212886491667244
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "hurtLow",
+      "frame": 1,
+      "crown": [
+        142,
+        85
+      ],
+      "chin": [
+        157,
+        128
+      ],
+      "axis": 45.541190146942796,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.8245742333648489,
+        1.358010200259012
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "hurtLow",
+      "frame": 2,
+      "crown": [
+        125,
+        76
+      ],
+      "chin": [
+        140,
+        117
+      ],
+      "axis": 43.65775990588614,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.806151575598516,
+        1.2820374167837645
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airRecover",
+      "frame": 0,
+      "crown": [
+        83,
+        125
+      ],
+      "chin": [
+        111,
+        159
+      ],
+      "axis": 44.045431091090485,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7933823453059785,
+        1.3185998558493046
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airRecover",
+      "frame": 1,
+      "skip": "Inverted curled head: crown near(125,237), chin near(112,213), 27+/-10px; forearm/jaw overlap and hair rotation make this inconclusive"
+    },
+    {
+      "atlas": "baseline",
+      "anim": "airRecover",
+      "frame": 2,
+      "crown": [
+        128,
+        63
+      ],
+      "chin": [
+        140,
+        103
+      ],
+      "axis": 41.7612260356422,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.745748558223573,
+        1.2584154915391614
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "superDash",
+      "frame": 0,
+      "crown": [
+        185,
+        99
+      ],
+      "chin": [
+        206,
+        132
+      ],
+      "axis": 39.11521443121589,
+      "axisUncertainty": 7,
+      "ratioInterval": [
+        0.6697162685431974,
+        1.215046284460651
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "superDash",
+      "frame": 1,
+      "crown": [
+        179,
+        98
+      ],
+      "chin": [
+        201,
+        133
+      ],
+      "axis": 41.340053217188775,
+      "axisUncertainty": 7,
+      "ratioInterval": [
+        0.7161120580853545,
+        1.2736664629367251
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "jumpSquat",
+      "frame": 0,
+      "crown": [
+        165,
+        80
+      ],
+      "chin": [
+        187,
+        116
+      ],
+      "axis": 42.190046219457976,
+      "axisUncertainty": 5,
+      "ratioInterval": [
+        0.7755445330869449,
+        1.2433660133577529
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "beamFire",
+      "frame": 0,
+      "crown": [
+        120,
+        75
+      ],
+      "chin": [
+        135,
+        114
+      ],
+      "axis": 41.78516483155236,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7462477671298285,
+        1.259046232291077
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "beamFire",
+      "frame": 1,
+      "crown": [
+        121,
+        74
+      ],
+      "chin": [
+        137,
+        113
+      ],
+      "axis": 42.15447781671599,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.753949254375946,
+        1.2687769117633683
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "beamFire",
+      "frame": 2,
+      "crown": [
+        119,
+        75
+      ],
+      "chin": [
+        134,
+        114
+      ],
+      "axis": 41.78516483155236,
+      "axisUncertainty": 6,
+      "ratioInterval": [
+        0.7462477671298285,
+        1.259046232291077
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "dash",
+      "frame": 0,
+      "crown": [
+        218,
+        83
+      ],
+      "chin": [
+        234,
+        122
+      ],
+      "axis": 42.15447781671599,
+      "axisUncertainty": 7,
+      "ratioInterval": [
+        0.7330957031727432,
+        1.2951249684610766
+      ],
+      "result": "inconclusive"
+    },
+    {
+      "atlas": "candidate",
+      "anim": "dash",
+      "frame": 1,
+      "crown": [
+        218,
+        84
+      ],
+      "chin": [
+        234,
+        121
+      ],
+      "axis": 40.311288741492746,
+      "axisUncertainty": 7,
+      "ratioInterval": [
+        0.6946586654153912,
+        1.2465605182024981
+      ],
+      "result": "inconclusive"
+    }
+  ],
+  "productionAtlasSha256": "b2a847f90d261ccc20ecb801442b63150a0ab422ab6be2913ac29b6927aad0f4",
+  "candidateAtlasSha256": "92fefb5770f429da4ce3cafbd70ee3a07b7f3eba26d51595cc438c081af92e50",
+  "selectedVersions": {
+    "superDash": 7,
+    "jumpSquat": 6,
+    "beamFire": 7,
+    "dash": 7
+  }
+}
