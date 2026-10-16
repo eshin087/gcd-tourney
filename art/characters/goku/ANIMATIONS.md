@@ -4,7 +4,7 @@ Canonical names, counts, phases, timing, and required flags remain those reserve
 
 ## Reference gate
 
-The corrected title-style reference v02 is user-approved and is shown beside the four approved neutral cells in `reference/title_style_lineup_v02.png`. The user also approved model sheet v02, expressions v02 and idle v02. These approvals do not extend to other animations. Run v04 and light1 v02 remain held and unchanged. Light2, light3, light4, heavy, airLight1 and airHeavy each have a saved v04 candidate after an extra authorized redraw, and all six remain held after strict scale-gate failure; light2 required attempt 5 because the attempt-4 output path was lost. See [REVIEW_ROWS.md](REVIEW_ROWS.md); no core atlas is available for final audit yet.
+The corrected title-style reference v02 is user-approved and is shown beside the four approved neutral cells in `reference/title_style_lineup_v02.png`. The user also approved model sheet v02, expressions v02 and idle v02. These approvals do not extend to other animations. Run v04 and light1 v02 remain held and unchanged. Light2, light3, light4, heavy, airLight1 and airHeavy each have a saved v04 candidate after an extra authorized redraw, and v04 is now user-approved as drawn, with strict scale/clipping warnings retained for technical follow-up; light2 required attempt 5 because the attempt-4 output path was lost. See [REVIEW_ROWS.md](REVIEW_ROWS.md); no core atlas is available for final audit yet.
 
 ## Shared combat language
 
