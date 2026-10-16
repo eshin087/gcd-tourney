@@ -4,11 +4,16 @@
 //   npm run publish:github                    (local main -> GitHub main)
 //   npm run publish:github -- --branch <name> (a local branch -> the same GitHub branch, e.g. for a PR)
 //   npm run publish:github -- --full          (rebuild the publish cache first)
+//   npm run publish:github -- --force         (main only: replace GitHub main when the rewrite changed on purpose)
 //
 // The local repository keeps everything (raw ChatGPT/Codex images, several GB and growing). GitHub gets the
 // same history minus art/**/raw/, _rejected/, _old/ and contact sheets, rewritten with git-filter-repo. The
 // rewrite is deterministic, so every run produces the same commit ids for old commits and the push is a
-// normal fast-forward.
+// normal fast-forward. Commit messages keep their local commit ids (--preserve-commit-hashes): filter-repo
+// otherwise translates an id only once that commit is in the rewritten history, so a main commit whose message
+// cited a branch commit ("... (3ac8bfa)") changed, with every commit after it, the day that branch merged
+// (TOOL-043). A branch publish replaces its GitHub branch (a PR head mirrors the local branch); main is
+// fast-forward only unless --force is given.
 //
 // The publish cache: one bare repository at <main checkout>/.publish-cache/repo.git, shared by the main
 // checkout, every worktree, Claude session and Codex thread (git-ignored, outside Vite's watch, safe to
@@ -18,8 +23,7 @@
 // transfer), rewrites that one ref with --refs (partial mode: no gc or repack, ~1 s for the whole history)
 // and pushes it. The old way, a full throw-away clone plus gc on every run, took minutes to ~50 min.
 // Why not filter-repo's incremental --state-branch mode: a commit rewritten in an earlier run is opaque to
-// it, so it leaves the id in a revert's "This reverts commit <id>" untranslated and can't see pruned raw-only
-// parents of a merge. Its ids would drift from a full rewrite, and the next rebuild (new cache, --full) could
+// it, so it can't see pruned raw-only parents of a merge. Its ids would drift from a full rewrite, and the next rebuild (new cache, --full) could
 // no longer fast-forward GitHub. So every run rewrites the whole branch, inside the cache.
 // .publish-cache/publish.lock makes concurrent publishes wait their turn instead of sharing the cache.
 // A missing or broken cache (e.g. the project moved, or main pruned objects it pointed at) is rebuilt;
@@ -44,6 +48,7 @@ const REMOTE = process.env.GCD_PUBLISH_REMOTE || 'https://github.com/eshin087/gc
 const bi = process.argv.indexOf('--branch');
 const BRANCH = bi > 0 && process.argv[bi + 1] ? process.argv[bi + 1] : 'main';
 const FULL = process.argv.includes('--full');
+const FORCE = BRANCH !== 'main' || process.argv.includes('--force');
 const EXCLUDE = ['art/*/raw/*', 'art/*/_rejected/*', 'art/*/_old/*', 'art/*/contact/*'];
 const PYTHON = process.platform === 'win32' ? 'python' : 'python3';
 // A publish takes seconds plus the push, so a lock this old was left behind by a crash.
@@ -140,7 +145,7 @@ function rewrite() {
   git(['update-ref', `refs/publish/${BRANCH}`, `refs/heads/${BRANCH}`]);
   // the previous run's metadata; a day-old already_ran file makes filter-repo stop and ask on stdin
   fs.rmSync(path.join(REPO, 'filter-repo'), { recursive: true, force: true });
-  run(PYTHON, ['-m', 'git_filter_repo', '--force', '--quiet', '--invert-paths',
+  run(PYTHON, ['-m', 'git_filter_repo', '--force', '--quiet', '--preserve-commit-hashes', '--invert-paths',
     ...EXCLUDE.flatMap((g) => ['--path-glob', g]), '--refs', `refs/publish/${BRANCH}`], { cwd: REPO, env: CACHE_ENV });
   const slim = git(['rev-parse', `refs/publish/${BRANCH}`]);
   // never push raw art: git pathspecs match `*` across folders, like filter-repo's --path-glob
@@ -176,7 +181,8 @@ try {
     fresh = true;
     slim = rewrite();
   }
-  execFileSync('git', ['push', REMOTE, `refs/publish/${BRANCH}:refs/heads/${BRANCH}`], { env: CACHE_ENV, stdio: 'inherit' });
+  if (FORCE && BRANCH === 'main') console.warn('[publish] --force: GitHub main is replaced by this rewrite (local history is untouched)');
+  execFileSync('git', ['push', ...(FORCE ? ['--force'] : []), REMOTE, `refs/publish/${BRANCH}:refs/heads/${BRANCH}`], { env: CACHE_ENV, stdio: 'inherit' });
   try { tidy(); } catch (e) { console.warn(`[publish] cache housekeeping skipped: ${String(e.message).split('\n')[0]}`); }
   const secs = ((Date.now() - t0) / 1000).toFixed(1);
   console.log(`published ${BRANCH} (${slim.slice(0, 7)}) to ${REMOTE} without raw art in ${secs} s` +
