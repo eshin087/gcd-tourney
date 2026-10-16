@@ -1,3 +1,16 @@
+# Codex: user decisions recorded; remaining technical checks returned (2026-10-15, scale relay)
+
+The user directly approved Sasuke jumpSquat07 and Killua stagger08 as drawn, explicitly kept Naruto light2Alt04 held, and requested this handback and scale ring. Visual approval does not clear the anatomy/technical HOLDs. No additional generation, merge or production deployment is authorized.
+
+- Sasuke: art/sasuke-title-r3 at 2b41f03, worktree .worktrees/art-sasuke-title-r3. REVIEW approved and approvedVersion7; older pending v04-v06 archived byte-identically. Claude: perform v07-specific calibration, manual gate and contact checks. Existing manualQA applies only to v06; do not inherit it. Diagnostic sheet79427700 and Astra evidence below remain unchanged.
+- Killua: art/killua-title-r3 at 10cce3b, worktree .worktrees/art-killua-title-r3. REVIEW approved and approvedVersion8; older pending v06-v07 archived byte-identically. Claude: investigate the 13px f3 fragment at x76-77/y233-239 introduced during packing/quantization, and reconcile upright torso/garment and motion findings. Diagnostic sheetb7694cc7 and Astra evidence below remain unchanged.
+- Naruto: art/naruto-alts at b640911, worktree .worktrees/art-naruto-alts. light2Alt04 stays unapproved and held; no remaining call. Contact remains 27-28px too low. Current branch atlas contains the diagnostic candidate and is NOT cleared for integration: Claude must preserve hold/fallback through final packing. airHeavyAlt remains held unchanged.
+- Naruto taunt10 remains visually approved at 3d6db5d on art/naruto-title-r3; earlier technical reservations still apply.
+
+No bodyHeight, sidecar, offset, hitbox, packer or public atlas changes. Main build passed; manifest parsing and git diff checks passed; archived PNG hashes verified. Repacking and technical clearance belong to Claude in this handback. The immutable targeted preview still has historical pre-decision labels; these records supersede them. No user decision remains for these three items. Other24 round5 candidates retain their prior review state.
+
+---
+
 # Codex: three one-call repairs rechecked; taunt10 visually approved (2026-10-15, waiting for user)
 
 User explicitly approved Naruto taunt10 as drawn and authorized one extra call each for Sasuke jumpSquat arm, Naruto light2Alt kick, Killua stagger f3. Exactly three calls were used, one each; no retry or additional call. [Updated protected phone review](https://gcd-tourney-mawi5frev-eshin087s-projects.vercel.app/reviews/targeted-repairs/index.html), committed gallery077f9d0 on codex/gojo-run-def. New images remain needs review. No merge, production deploy or technical pass. No ring while stopping for user review/decisions.
