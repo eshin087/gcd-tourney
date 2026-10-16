@@ -15,7 +15,7 @@
 <body>
 <main>
   <h1>Beam clash struggle poses — round 2</h1>
-  <p class="badge ok">User approved six images via Claude approval desk (relay #7): Naruto v02, Sasuke ground/air v01, Killua ground v01, Gojo ground/air v01. <strong>Astra anatomy audit remains pending.</strong></p>
+  <p class="badge ok">User approved six images via Claude approval desk (relay #7): Naruto v02, Sasuke ground/air v01, Killua ground v01, Gojo ground/air v01. <strong>Astra anatomy audit remains pending.</strong> Killua air v02 below is a new candidate awaiting your review, not approved.</p>
   <p>Each review candidate is shown in its <strong>packed, 48-colour game pixels</strong>, beside the fighter's approved idle and combat cells at one density (floor = solid line, idle crown = dashed line). <strong>H</strong> = head size vs the idle (the scale gate), <strong>B</strong> = body/garment size vs the idle (advisory; a lunge or a hover naturally reads smaller). Naruto's technique palm anchor is [232,124] on all three frames (estimated uncertainty ±3 px).</p>
   <p>Size calibrated by Claude (2026-10-15): Sasuke ground bodyHeight 198 → 122, Sasuke air 198 → 168. The six candidates listed for review pass the strict scale gate; Killua air v01 remains a technical hold and is shown only for the record. <strong>Astra anatomy audit: pending</strong> (the model was unavailable in the Codex chat; CLAUDE.md lets it wait). See them move in a real clash: <a href="../../lab.html?p1=sasuke&p2=naruto">lab, Sasuke vs Naruto</a> → Scenarios → Beam clash (energy vs energy) or Beam clash from the air (swap fighters with the arrows at the top).</p>
 
@@ -33,9 +33,18 @@
 
   <section class="card">
     <h2>Killua — <code>beamStruggle</code> v01 (Narukami, open palm)</h2>
-    <span class="badge ok">ground: H 0.95–1.03, B 0.89–0.93</span><span class="badge hold">air v01: technical hold, not for review (different outfit, body 0.55–0.61) — Codex redraws it as v02</span>
+    <span class="badge ok">ground: H 0.95–1.03, B 0.89–0.93</span><span class="badge hold">air v01: held (wrong outfit, body 0.55–0.61); preserved below for record</span>
     <div class="scroll"><img class="sheet" src="body-killua.png" alt="Killua idle, combat cell and beamStruggle frames; the second row is the held air strip"></div>
-    <p>Only the first row (ground) is up for review. The second row is the held air strip, shown for the record.</p>
+    <p>Only the first row (ground) is approved. The second row is the held v01 air strip, shown for the record.</p>
+  </section>
+
+  <section class="card">
+    <h2>Killua — <code>beamStruggleAir</code> v02 (Narukami, hovering down-push)</h2>
+    <span class="badge ok">strict quantized scale gate pass · packed 48 colors</span><span class="badge ok">body sheet: H 0.97–1.03, B 0.97–0.99 · no body flag</span><span class="badge hold">Astra anatomy audit pending · hand anchor awaits exact measurement</span>
+    <p>New candidate in the correct purple sweater and dark shorts. Knees stay tucked in the hover; the open palm drives down-forward. Compare the raw strip and the packed game-scale frames below.</p>
+    <div class="scroll"><img class="sheet" src="killua-beamStruggleAir-v02.png" alt="Killua beamStruggleAir v02 raw three-frame strip"></div>
+    <div class="scroll"><img class="sheet" src="body-killua-air-v02.png" alt="Approved Killua idle, combat cell, and packed beamStruggleAir v02 frames at equal density"></div>
+    <p><a href="killua-beamStruggleAir-v02.png">Open raw v02</a> · <a href="body-killua-air-v02.png">Open packed body sheet</a>. User review is still required; no runtime integration or approval is implied.</p>
   </section>
 
   <section class="card">

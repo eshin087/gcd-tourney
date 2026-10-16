@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-BEAM-CLASH): generated Killua `beamStruggleAir` v02 in the approved purple sweater at idle scale; strict quantized scale gate and body sheet pass. User review and Astra anatomy audit are pending; v01 stays held.
 - Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
 - Changed: the approvals desk command is `/approvals` (was `/desk`); desk questions must name the asking chat, say exactly what a yes approves and link the preview itself; the desk keeps one bounded background watcher and never restarts it in a loop (TOOL-047, ADR 0039).
 

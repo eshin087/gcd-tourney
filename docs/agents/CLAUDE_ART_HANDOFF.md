@@ -1,3 +1,11 @@
+# Codex: Killua air v02 ready for user review (2026-10-15, beam-clash)
+
+The user approved the one retry call via relay #9. Killua `beamStruggleAir_v02` is filed and on the updated round-2 review page as `needs review`; this is not an image approval. Strict quantized pack passed (48 colors), no scale-gate finding for the strip, and the body sheet has H=.97–1.03 / B=.97–.99 with 0 flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. v01 remains held, and no other raw strip was touched.
+
+The packer rewrote other ignored/derived local outputs while running the candidate check. Cleanup was declined by automatic approval review because it bundled broad restores/deletes. Only explicit beam-clash v02 and review-page paths will be committed; unrelated pack outputs remain local.
+
+---
+
 # Codex: beam clash Round 2 approvals recorded; Killua air v02 blocked (2026-10-15, beam-clash)
 
 Branch `art/beam-clash`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash`; current main merge **2de7bbb0**; approval bookkeeping **b98d262b**. Final PR #110 preview: https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (built from branch handoff commit **568d5624**). The user approved six candidates via Claude approval desk relay #7 (“Approve all 6”): Naruto ground `beamStruggle` v02; Sasuke ground and air v01; Killua ground v01; Gojo ground and air v01. Their manifest versions, REVIEW rows and tracker entries record approval. This does not complete Astra's anatomy audit.
