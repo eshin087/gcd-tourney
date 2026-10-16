@@ -890,7 +890,7 @@ export class Game {
     audio.play(heavy ? 'smash' : 'hitHeavy', Math.min(1.3, 0.8 + 0.1 * n));
     audio.play('block');
     if (n >= 2) audio.play('cheer', Math.min(1.2, 0.2 + 0.2 * n));
-    this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash-call', 650);
+    this.tag(this.fighters[1], n > 1 ? 'clash' + n : 'clash'); // a right-hand side banner like TECH!, off the action
   }
 
   // what every melee clash shares: the push-in on the contact, speed lines on it and a dimmed stage for `frames` sim
@@ -916,7 +916,7 @@ export class Game {
     audio.play('cheer', 1.4);
     this.cam.shake(0.9);
     this.excite = 1;
-    this.hud.announce('CLASH BREAK!', 'clash-call', 1100);
+    this.tag(this.fighters[1], 'clashBreak');
   }
 
   // a heavy that met a light blows through it (the hit itself follows in resolveMelee)
