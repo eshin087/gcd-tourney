@@ -991,6 +991,7 @@ function main() {
   techPoseTests(base);
   attackAltTests(base);
   standingHitBoxTests(base);
+  sidecarEraseTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1794,6 +1795,39 @@ function standingHitBoxTests(base) {
     const note = fro.C.notes.find((n) => /no clear strike limb/.test(n)) || '';
     check(/^1 active frame\(s\) had no clear strike limb/.test(note) && /light2#2\b/.test(note) && !/light2#3\b/.test(note) && rules(fro.C, 'light2') === 'front/override',
       `hit boxes: the no-strike-limb note skips frames hitboxes.json overrides (${note}; rules ${rules(fro.C, 'light2')})`);
+  }
+}
+
+// sidecar "erase": a residue the stray cleanup keeps (close to the body) is cleared from the raw before packing
+function sidecarEraseTests(base) {
+  const eraw = (n) => path.join(ART, 'characters', 'erasy', 'raw', n);
+  const img = strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 991, specks: 0 });
+  const foot = (30 + 2 * 46) * S, floor = 90 * S; // pose 2 (strip(): x = 30 + k * 46 art px, floor 10 art px above the bottom)
+  const rand = mulberry(992);
+  rect(img, foot + 14 * S, floor - 6 * S, 4 * S, 7 * S, COL.outline, rand); // an old toe tip 8 art px right of the shoe
+  rect(img, foot + 15 * S, floor - 5 * S, 2 * S, 5 * S, [250, 250, 250], rand);
+  savePng(eraw('idle_v01.png'), img);
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.erasy = { name: 'Erasy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const packIdle = () => {
+    const r = pack([...base, 'erasy']);
+    const C = r.json?.characters.find((c) => c.id === 'erasy');
+    const metaFile = path.join(OUT, 'characters', 'erasy', 'anims.json');
+    if (r.code !== 0 || !C || !fs.existsSync(metaFile)) { check(false, `erase: erasy packed, exit 0 (${r.code})`); return null; }
+    const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
+    const sheet = loadPng(path.join(OUT, 'characters', 'erasy', 'sheet.png'));
+    return { C, notes: C.packed.find((p) => p.anim === 'idle')?.notes || [], w: (k) => bb(cell(sheet, meta.animations.idle.frames[k])).w };
+  };
+  const kept = packIdle();
+  if (kept) check(kept.w(2) > kept.w(3) + v2px(4), `erase: without a sidecar the residue next to the shoe stays in frame 2 (width ${kept.w(2)} vs ${kept.w(3)})`);
+  fs.writeFileSync(eraw('idle_v01.json'), JSON.stringify({ erase: [[foot + 13 * S, floor - 7 * S, 6 * S, 8 * S], [1, 2, 3]] }));
+  const gone = packIdle();
+  if (gone) {
+    check(Math.abs(gone.w(2) - gone.w(3)) <= 2 && gone.notes.some((n) => /erased 1 rect\(s\) of idle_v01\.png \(sidecar\)/.test(n)),
+      `erase: the sidecar rect clears it and the report says so (width ${gone.w(2)} vs ${gone.w(3)}; ${gone.notes.filter((n) => /erase/.test(n)).join(' | ')})`);
+    check(anyWarn(gone.C.warnings, /sidecar "erase" \[1,2,3\] ignored/), `erase: a malformed rect warns and is skipped (${gone.C.warnings.filter((w) => /erase/.test(w)).join(' | ')})`);
   }
 }
 
