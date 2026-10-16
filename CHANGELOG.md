@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(naruto): record user visual approval of airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01; retain technical evidence and unrelated holds.
+
 - art(naruto): light2Alt — User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
 
 - Art (ART-ALTS-NAR): added Naruto light2Alt v04 with a single user-authorized paired f2/f3 contact repair call; diagnostic pack still shows a 30px reach and height residual. Candidate remains unapproved and on technical hold.
