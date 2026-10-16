@@ -48,3 +48,20 @@ v04 is the approved version and carries a manual scale QA for v4 (standing 185-1
 Normal gate: 32 ok, 9 manual, 1 drift (charge 0.92, the recorded pre-existing exception). Atlas: sheet sha256
 `16b78e56bbcda15d5d9490fb3459f08fc8edf27fe948326275ab198411c4fb02`, anims.json sha256
 `ca1e81d9f8a8f9f8485e50adc5c2cd3d4cc056f117b4bf606afa4eb0e3074861`.
+
+# Round 6 (2026-10-15): stagger v08 (user-approved as drawn)
+
+**The 13 px f3 fragment was source residue, not packing.** v08 differs from v07 only in raw x 1152-1535 (the f3 slot
+of the 1536 px strip); the fragment sits at raw x 1146-1151, y 803-835, and those pixels are identical in v07: the toe
+tip of v07's f3, which crossed the slot edge, survived when the repair replaced only the slot. The packer's stray
+cleanup keeps small pieces close to a body on purpose (45 raw px from the f3 shoe, inside its reach), so it packed as a
+2 x 7 px mark beside the shoe. Fix without touching the approved PNG: the new packer sidecar key (TOOL-042, PR #98)
+`"erase": [[1140, 795, 20, 45]]` in `raw/stagger_v08.json` clears exactly that piece (152 raw px inside the rectangle,
+none of either figure). Packed f3 is now one connected component.
+
+Size: unchanged (auto-head fit x0.9311 as before; gate 32 ok, 9 manual, 1 drift = charge 0.92, the recorded exception).
+Residuals the user accepted with the drawing: f0-f2 are v07's frames with the upright shirt at about 35-36 px against
+the neutral's 50 (Astra), and the loop's coarse motion (head step f2 -> f3 about 26 px, wrap about 12 px).
+
+Atlas: sheet sha256 `55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d`, anims.json sha256
+`f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a`.
