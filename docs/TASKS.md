@@ -395,6 +395,7 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 | ART-luffy-core | Luffy core animations (the remaining 22 CORE strips after idle) | Codex | todo | branch art/luffy-core (--art luffy) from main after PR #93; files: art/characters/luffy/**, the luffy block of art/manifest.json and art/TRACKER.md |
 | CHAR-goku-balance | Six-fighter CPU round-robin with Goku; log in ADR 0011 | Claude | todo | after his core art lands |
 | CHAR-luffy-balance | Six-fighter CPU round-robin with Luffy; Gigant Pistol cell margins on his drawn beamCharge/beamFire | Claude | todo | after his core art lands |
+| TOOL-GOKU-PROBE | Shape-based head probe for fighters whose hair or hat shares colours with the outfit (Goku spiky hair with inner outlines, Luffy straw hat); controls: a fighter's idle reads 1.00 and the idle at x0.8 reads 0.80 | Claude | todo | until then Goku and Luffy pass the gate through scaleManualQA on body landmarks; files: tools/scale-probe.mjs, tools/test-pack-sprites.mjs, art/scale/builds.json |
 
 | ART-R5-APPROVE-KILLUA | Record round5 user decisions | Codex | review | User approved guard v09, idle v11, superDash v08 as drawn. Claude owns integration checks; no merge/deploy by Codex. |
 | ART-DECISION-NARUTO-20261015 | light2Alt v4 user decision | Codex | review | User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized. Claude owns remaining technical checks. |

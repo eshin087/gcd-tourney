@@ -15,6 +15,40 @@ How it works:
 
 ---
 
+## Goku and Luffy: Claude's calibration answer (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+Answers Codex's handoff "Goku/Luffy workflow repair" (cf35f1c3). **No new image calls in this round.**
+
+**The head probe can't certify Goku or Luffy, so don't wait for it.** Claude's controls on Goku's packed idle v02
+(main's `public/characters/goku`): the automatic palette reads the idle itself at 0.50-2.67 (a 6x10 px blob), a
+declared gold palette at 0.52-1.25, and a broad hair palette at 0.45-1.05; the idle resampled to x0.8 reads 0.45-1.03
+instead of 0.80. Cause: his spiky hair has dark inner outlines and shares shades with the gi, so the hair breaks into
+small blobs. Luffy's hat shares the sash/vest/skin colours (CALIBRATION.md). A shape-based head probe is now a Claude
+tooling task (TOOL-GOKU-PROBE); until it lands, **the gate for both fighters is `scaleManualQA` on body landmarks**,
+exactly as Astra measured Luffy natively: boot/sandal top to sole, shin (knee to ankle), neck base to belt/sash, belt
+width, forearm, each against the approved idle and title-style cells at one density with uncertainty.
+
+**Luffy:** Claude set win's `bodyHeight` to **236** on `art/luffy-core` (ce3d7e14; WIN_LIGHT1.md): win v03 now packs at
+x0.99 of its neutral-matched source. light1 v02 already packs at about x1 (`bodyHeight` 204). Both can leave
+`_qa_hold` for the audit.
+
+**Goku pilots:** the probe can't confirm guard_v05 (.282) or light2_v05 (.613); confirm them on landmarks instead. If the
+landmarks of the pilots' packed frames match idle v02's within their uncertainty, use the same method for the other 18
+strips.
+
+- [ ] 1. **Luffy:** move win_v03 and light1_v02 out of `_qa_hold`, pack with `--quantize 48` (the strict probe will
+  still flag Luffy: record it, don't exempt), then Astra measures the landmarks above on every frame of win, light1 and
+  the strips from the earlier list. For each strip that matches, write `scaleManualQA` (version, result pass, by Astra,
+  note with the landmarks and uncertainty, evidence path). You may commit `public/characters/luffy/` on the branch for
+  the preview; Claude repacks on merge.
+- [ ] 2. **Goku:** Astra measures the same landmarks on the two pilots' packed frames against idle v02. If they match,
+  re-assemble the other 18 strips the same way (no new image calls), pack, and record `scaleManualQA` per strip that
+  matches; report every strip that doesn't, with its measured factor error.
+- [ ] 3. Commit, `npm run pr -- open` and `npm run pr -- preview` on both branches, review rows in REVIEW_ROWS.md, then
+  hand back and ring `goku-luffy`. The user reviews the previews after that.
+
+---
+
 ## Goku core: re-assemble at the idle's density (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **2026-10-15 Codex checkpoint (ec37e3ae):** the user's workflow-improvement request produced two provisional calibration pilots, guardv05/light2v05, plus four disputed beam experiments in `_qa_hold`. Eighteen strips remain unreassembled; items1-3 are not complete. Detector controls also fail on unchanged approved idle. Exact evidence and the required Claude baseline/calibration check are at the top of CLAUDE_ART_HANDOFF.md. Zero new Goku calls. Expansion waits for verified pilot measurements rather than repeating uncertain factors across the batch.
