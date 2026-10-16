@@ -58,12 +58,16 @@ off, and reports the first frame where the two runs differ and which values diff
      (or the baked placeholder). Two peers with different packs fight different fights. The log records an art
      fingerprint per fighter; the replay page reports a mismatch.
 4. **Cost.** The fixed step averaged 0.03–0.08 ms (p95 0.1–0.3 ms, max ~5 ms) on this PC, so 8 re-simulated frames
-   cost ~2 ms at p95. Today's step still spawns effects, plays sounds and paints decals; a re-simulation must skip
-   them. Phone numbers: pending (below).
-5. **Cross-engine (pending).** The simulation calls `Math.sin`, `cos`, `atan2`, `hypot` and `pow` (about 40 calls in
-   fighter/kit/projectiles/game, more in the camera framing it reads), whose last bit the spec leaves to each engine;
-   `+ - * /` and `Math.sqrt` are exactly rounded everywhere. The `?det=<fixture>` page replays a fixture against the
-   Chrome checkpoints; the user runs it on an iPhone (Safari's engine) and in Firefox from the branch preview.
+   cost ~2 ms at p95. On the user's iPhone (iOS 18.7, Safari 27) it averaged 0.029 ms, max 3 ms (Safari's timer
+   rounds to 1 ms, so the page now also sums 8 consecutive steps). Today's step still spawns effects, plays sounds and
+   paints decals; a re-simulation must skip them.
+5. **Cross-engine: Safari splits.** The simulation calls `Math.sin`, `cos`, `atan2`, `hypot` and `pow` (about 40
+   calls in fighter/kit/projectiles/game, more in the camera framing it reads), whose last bit the spec leaves to each
+   engine; `+ - * /` and `Math.sqrt` are exactly rounded everywhere. On the user's iPhone both fixtures split from the
+   Chrome reference early (naruto-sasuke-s7 in frames 240–269 in fighter 1; gojo-killua-s3 in frames 120–149 in both
+   fighters), although both matches ended with the reference's winner, rounds and HP. A matching result proves
+   nothing: a 120 Hz Chrome replay also splits and still ends the same. The fixtures now carry per-field traces for
+   those windows, so the next phone run names the frame and the fields (pending). Firefox: not run yet.
 
 ## Decision
 
@@ -134,4 +138,5 @@ off, and reports the first frame where the two runs differ and which values diff
 - The fixtures in `public/det/` (~90 KB) ship with the game until the local netplay mode replaces them; the
   dev-server `/__det/save` endpoint (vite.config.js) only exists under `vite serve`.
 - New: a `server/` package and a Cloudflare account (the user's), needed from ENG-094.
-- Revisit after the phone/Firefox results: if they split, deterministic math moves to the front of ENG-092.
+- Safari splits, so deterministic math moves to the front of ENG-092 once the trace names the fields; if the trace
+  points at something other than math (an engine-dependent sort, a device check), that is fixed first.

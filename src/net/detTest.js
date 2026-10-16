@@ -9,7 +9,7 @@
 import { ACTIONS } from '../core/input.js';
 import { rng } from '../game/rng.js';
 import { CameraDirector } from '../game/camera.js';
-import { GROUPS, hashSim, dumpSim, diffDumps, hashString } from './simHash.js';
+import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
 
 const EVERY = 30; // a saved log keeps the chained group hashes every 30 frames: another browser places a split within 30
 const NG = GROUPS.length;
@@ -95,7 +95,7 @@ function show(text) {
     ui.id = 'det-overlay';
     Object.assign(ui.style, {
       position: 'fixed', left: '8px', top: '8px', right: '8px', zIndex: 99999, margin: 0, padding: '12px', maxHeight: '90vh', overflow: 'auto',
-      background: 'rgba(10,12,20,0.92)', color: '#e8f0ff', font: '12px/1.45 ui-monospace, Menlo, Consolas, monospace', whiteSpace: 'pre-wrap', borderRadius: '8px',
+      background: 'rgba(10,12,20,0.92)', color: '#e8f0ff', font: '12px/1.45 ui-monospace, Menlo, Consolas, monospace', whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', borderRadius: '8px',
     });
     document.body.append(ui);
   }
@@ -159,8 +159,9 @@ export function install(game, ready, qs) {
   // dumpAt: also return dumpSim() right after that frame. noDraw skips the GPU draw (the camera still updates).
   // ref: per-frame hashes to compare against instead (another replay's `per`, kept with keepPer). randomSeed: the
   // Math.random sequence (by default another one than the recording's: a draw that reaches the simulation shows).
+  // onStep(k): called after every step; returning true stops the replay there.
   async function replay(log, { dt = '60', stopAt = log.frames, dumpAt = null, noDraw = false, onProgress = null, fixedBasis = log.test?.fixedBasis,
-    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0 } = {}) {
+    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(randomSeed);
     const f0 = startRun(game, log.cfg, { fixedBasis });
@@ -174,7 +175,7 @@ export function install(game, ready, qs) {
     if (noDraw) game.renderer.render = () => {};
     const ref = refPer ?? log.per ?? null, checks = ref ? null : unhex(log.checks);
     const H = new Uint32Array(NG), chain = new Uint32Array(NG), timing = [], drawT = [], per = keepPer ? [] : null;
-    let frames = 0, first = null, dump = null;
+    let frames = 0, first = null, dump = null, halt = false;
     const groupsAt = (a, b) => GROUPS.filter((_, g) => a[g] !== b[g]);
     const unhook = hookStep(game, f0, (k) => {
       hashSim(game, H);
@@ -189,6 +190,7 @@ export function install(game, ready, qs) {
         if (c * NG < checks.length && chain.some((h, g) => h !== R[g])) first = { window: [k - EVERY + 1, k], groups: groupsAt(chain, R), probe: { ref: log.probes[c], here: probe(game) } };
       }
       if (k === dumpAt) dump = dumpSim(game);
+      if (onStep?.(k)) halt = true;
       frames = k + 1;
     }, timing);
     const render = game.render;
@@ -196,7 +198,7 @@ export function install(game, ready, qs) {
     const next = dtSource(dt);
     try {
       let it = 0;
-      while (frames < stopAt && game.state !== 'results') {
+      while (frames < stopAt && game.state !== 'results' && !halt) {
         game.frame(next());
         if (++it % 120 === 0) { onProgress?.(frames, log.frames, first); await yieldNow(); }
       }
@@ -208,10 +210,15 @@ export function install(game, ready, qs) {
       Math.random = realRandom;
     }
     const step = stats(timing);
+    // 8 consecutive steps (a rollback's worth): their summed time is still meaningful where the timer is coarse
+    // (Safari rounds performance.now() to 1 ms, so one step reads 0 or 1)
+    const burst = [];
+    for (let i = 8; i <= timing.length; i++) { let s = 0; for (let j = i - 8; j < i; j++) s += timing[j]; burst.push(s); }
+    const tick = timing.reduce((m, t) => (t > 0 && t < m ? t : m), Infinity);
     return {
       dt, frames, of: log.frames, match: !first && frames === Math.min(stopAt, log.frames), first, dump, per: per && Uint32Array.from(per),
       art: { same: JSON.stringify(art) === JSON.stringify(log.art), here: art, ref: log.art },
-      step, frame: stats(drawT), rollback8: step && +(8 * step.p95).toFixed(2),
+      step, frame: stats(drawT), rollback8: step && +(8 * step.p95).toFixed(2), burst8: stats(burst), timerMs: Number.isFinite(tick) ? +tick.toFixed(3) : null,
       result: { winner: game.roundWinner?.index ?? null, rounds: game.round, hp: game.fighters.map((f) => f.hp) },
     };
   }
@@ -230,6 +237,37 @@ export function install(game, ready, qs) {
     const B = await replay(log, { ...base, dt, randomSeed, stopAt: k + 1, dumpAt: k });
     r.diff = diffDumps(A.dump, B.dump);
     return r;
+  }
+
+  // Traces: the hash of every top-level value (simHash.hashKeys) for each frame of [from, to], recorded here and saved
+  // in the log, so a device whose checkpoints split inside that window finds the first frame and the fields that
+  // differ on its own. addTrace(log, from, to) replays to `to` and appends the trace to log.traces.
+  async function addTrace(log, from, to) {
+    const rows = [];
+    await replay(log, { stopAt: to + 1, noDraw: true, onStep: (k) => { if (k >= from) rows.push(hashKeys(game)); } });
+    const paths = [...new Set(rows.flatMap((r) => Object.keys(r)))];
+    const tr = { from, to, paths, frames: rows.map((r) => paths.map((p) => (r[p] ?? 0).toString(16).padStart(8, '0')).join('')) };
+    (log.traces ??= []).push(tr);
+    return tr;
+  }
+
+  // The first frame in the trace's window where this browser differs, the fields, and this browser's values for them.
+  async function traceCheck(log, tr, dt = '60') {
+    let hit = null;
+    await replay(log, {
+      dt, stopAt: tr.to + 1, noDraw: true, onStep: (k) => {
+        if (k < tr.from) return false;
+        const here = hashKeys(game), ref = tr.frames[k - tr.from];
+        const bad = tr.paths.filter((p, i) => (here[p] ?? 0) !== parseInt(ref.slice(i * 8, i * 8 + 8), 16));
+        for (const p of Object.keys(here)) if (!tr.paths.includes(p)) bad.push(p);
+        if (!bad.length) return false;
+        const d = dumpSim(game), values = [];
+        for (const p of bad) for (const [q, v] of Object.entries(d)) if (q === p || q.startsWith(p + '.') || q.startsWith(p + '[')) values.push([q, v]);
+        hit = { frame: k, paths: bad, values };
+        return true;
+      },
+    });
+    return hit;
   }
 
   // Dev server only: write the log to public/det/<name>.json (vite.config.js det-fixtures).
@@ -259,26 +297,38 @@ export function install(game, ready, qs) {
       + `${log.test?.fixedBasis ? ', control basis pinned' : ''}\nscreenshot this when it finishes and send it to Claude`;
     const r = await replay(log, { dt, onProgress: (k, n, first) => show(`${head}\nreplaying... ${k} / ${n}${first ? '  (already split)' : ''}`) });
     const f = r.first;
+    const sameEnd = r.result.winner === log.result.winner && r.result.rounds === log.result.rounds && r.result.hp.join() === log.result.hp.join();
     const lines = [
       head,
       '',
       r.match ? 'RESULT: MATCH. Every checkpoint equals the reference.' : f ? `RESULT: SPLIT in frames ${f.window?.join('-') ?? f.frame}, first in: ${f.groups.join(', ')}` : `RESULT: stopped early at ${r.frames} / ${r.of}`,
-      f?.probe ? `  positions + hp at that checkpoint\n    reference: ${JSON.stringify(f.probe.ref)}\n    this run:  ${JSON.stringify(f.probe.here)}` : null,
+      f?.probe ? `  positions + hp at that checkpoint ${JSON.stringify(f.probe.ref) === JSON.stringify(f.probe.here) ? 'are identical' : `differ\n    reference: ${JSON.stringify(f.probe.ref)}\n    this run:  ${JSON.stringify(f.probe.here)}`}` : null,
       `art: ${r.art.same ? 'same as the reference' : `DIFFERENT (here ${JSON.stringify(r.art.here)}, reference ${JSON.stringify(r.art.ref)})`}`,
-      `result: winner ${r.result.winner}, rounds ${r.result.rounds}, hp ${r.result.hp.join(' / ')} (reference: winner ${log.result.winner}, rounds ${log.result.rounds}, hp ${log.result.hp.join(' / ')})`,
+      `result: winner ${r.result.winner}, rounds ${r.result.rounds}, hp ${r.result.hp.join(' / ')} (${sameEnd ? 'same as the reference' : `reference: winner ${log.result.winner}, rounds ${log.result.rounds}, hp ${log.result.hp.join(' / ')}`})`,
+    ].filter((l) => l !== null);
+    const tr = f?.window && log.traces?.find((t) => t.from <= f.window[0] && t.to >= f.window[1]);
+    if (tr) {
+      show(`${lines.join('\n')}\n\ntracing frames ${tr.from}-${tr.to}...`);
+      const hit = await traceCheck(log, tr, dt);
+      lines.push('', hit ? `TRACE: first differing frame ${hit.frame}, fields: ${hit.paths.join(', ')}` : 'TRACE: no field differs in that window (the trace and the checkpoints disagree)');
+      if (hit) lines.push('  this browser\'s values:', ...hit.values.slice(0, 40).map(([q, v]) => `    ${q} = ${typeof v === 'number' ? String(v) : JSON.stringify(v)}`));
+      det.trace = hit;
+    } else if (f?.window) lines.push('', `TRACE: none recorded for frames ${f.window.join('-')} yet; Claude adds one from this screenshot`);
+    lines.push(
       '',
-      `fixed step ms: avg ${r.step?.avg}, p95 ${r.step?.p95}, max ${r.step?.max}; 8 re-simulated frames at p95: ${r.rollback8} ms (budget 16.7)`,
+      `fixed step ms: avg ${r.step?.avg}, p95 ${r.step?.p95}, max ${r.step?.max} (timer step ${r.timerMs} ms)`,
+      `8 consecutive steps ms (one rollback): avg ${r.burst8?.avg}, p95 ${r.burst8?.p95}, max ${r.burst8?.max} (budget 16.7)`,
       `frame (draw) ms: avg ${r.frame?.avg}, p95 ${r.frame?.p95}`,
       `reference fixed step ms (${(log.ua.match(/(Chrome|Firefox|Version)\/[\d.]+/) || ['?'])[0]}): avg ${log.step?.avg}, p95 ${log.step?.p95}`,
       '',
       navigator.userAgent,
-    ].filter((l) => l !== null);
+    );
     show(lines.join('\n'));
     det.result = r;
     return r;
   }
 
-  const det = { record, replay, diagnose, save, load, run, dump: () => dumpSim(game), hash: () => Array.from(hashSim(game)) };
+  const det = { record, replay, diagnose, addTrace, traceCheck, save, load, run, dump: () => dumpSim(game), hash: () => Array.from(hashSim(game)) };
   window.det = det;
   if (qs.get('det')) ready.then(() => run(qs.get('det'), qs.get('dt') || '60'));
   return det;

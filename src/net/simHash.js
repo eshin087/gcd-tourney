@@ -133,6 +133,29 @@ export function hashSim(game, out = new Uint32Array(GROUPS.length)) {
   return out;
 }
 
+// One hash per top-level value of each group ({ 'f0.pos': h, 'f0.face': h, 'game.timeLeft': h, ... }): a split can be
+// traced to the field it started in on another device, against a reference recorded here (detTest.js traces).
+export function hashKeys(game, groups = GROUPS) {
+  const out = {}, F = game.fighters;
+  const one = (path, v) => { const s = new Hasher(); walk(v, s, null, 1, new Set(), F); out[path] = s.done(); };
+  for (const g of groups) {
+    switch (g) {
+      case 'game': for (const k of GAME_KEYS) one(`game.${k}`, game[k]); break;
+      case 'f0': case 'f1': {
+        const f = F[g === 'f0' ? 0 : 1];
+        if (!f) break;
+        for (const k of Object.keys(f)) if (!SKIP.has(k) && k !== 'pad') one(`${g}.${k}`, f[k]);
+        one(`${g}.actor`, actorOf(f.actor));
+        break;
+      }
+      case 'pads': game.pads.forEach((p, i) => { for (const k of Object.keys(p)) one(`pads.${i}.${k}`, p[k]); }); break;
+      case 'shots': for (const k of ['projectiles', 'beams', 'orbs', 'vortices']) one(`shots.${k}`, game[k]); break;
+      case 'cam': one('cam.right', game.cam.right); one('cam.fwd', game.cam.fwd); break;
+    }
+  }
+  return out;
+}
+
 // The same values as a flat { 'f0.pos.x': 1.25, ... } map (diff two of them with diffDumps).
 export function dumpSim(game, groups = GROUPS) {
   const d = new Dumper();
