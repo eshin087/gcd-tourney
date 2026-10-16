@@ -4,6 +4,19 @@ Instructions for Codex and any other coding agent working in this repository. Cl
 [CLAUDE.md](CLAUDE.md), which has the same rules plus engine detail. When the two disagree, fix
 the docs. Don't pick one silently.
 
+## Durable control-chat coordination
+
+At every session start, read the main checkout's [docs/COORDINATION.md](docs/COORDINATION.md) and
+[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
+role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
+workers; workers publish their status and use the Claude relay. Claude remains the integration and
+approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
+
+When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
+the control identity, discover replacement workers, restore one attention monitor and notify existing
+workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
+must be reported honestly; no background service is implied by the rules alone.
+
 ## Agent model selection (user direction, 2026-10-12)
 
 For every newly spawned Codex agent, select the model and reasoning effort explicitly:

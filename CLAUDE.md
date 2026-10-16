@@ -3,6 +3,19 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
+## Durable control-chat coordination
+
+At every session start, read the main checkout's [docs/COORDINATION.md](docs/COORDINATION.md) and
+[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
+role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
+workers; workers publish their status and use the Claude relay. Claude remains the integration and
+approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
+
+When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
+the control identity, discover replacement workers, restore one attention monitor and notify existing
+workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
+must be reported honestly; no background service is implied by the rules alone.
+
 ## Agent model selection (user direction, 2026-10-12)
 
 For every newly spawned Codex agent, select the model and reasoning effort explicitly:

@@ -385,7 +385,7 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 
 | fighter | beamStruggle | beamStruggleAir | the technique | notes |
 |---|---|---|---|---|
-| naruto | v01 (technical hold) | - | Rasengan, two-handed push | strict scale gate failed: head 1.40x idle and feet 0.62x; estimated hand point also drifts across frames; no body sheet or Astra atlas audit; no air energy shot |
+| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
 | sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
 | killua | todo | todo | Narukami, open palm (in the air driven down) | |
 | gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
@@ -439,11 +439,11 @@ ones.
 | ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
-| clashBurst | 6 | 45 | white (tinted) | center | approved | v01 | v01 | Beam clash (ADR 0034, ART-BEAM-CLASH): 2 calls; user approved v01 on 2026-10-15; approved atlas repacked. |
-| streamBolt | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked; user approved v01 on 2026-10-15; approved atlas repacked. |
-| streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked; user approved v01 on 2026-10-15; approved atlas repacked. |
-| streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked; user approved v01 on 2026-10-15; approved atlas repacked. |
-| redOrb | 6 | 40 | full color | center | approved | v01 | v01 | Beam clash: 1 call; user approved v01 on 2026-10-15; approved atlas repacked. |
+| clashBurst | 6 | 45 | white (tinted) | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
+| streamBolt | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
+| streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Chidori Spear stream band; exact tiles. |
+| streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Great Fireball stream band; exact tiles. |
+| redOrb | 6 | 40 | full color | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Reversal: Red held in a struggle. |
 
 ## Shared UI (step 11)
 
