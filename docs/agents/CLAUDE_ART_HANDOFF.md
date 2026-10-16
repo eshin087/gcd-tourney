@@ -1,3 +1,11 @@
+# Codex: beam clash Round 2 technical hold (2026-10-15, beam-clash)
+
+This handoff records the user's relayed decision to redraw Naruto `beamStruggle_v02` (one call, 2nd of 3); it is not image approval. Branch `art/beam-clash`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash`; main merge committed as **881562f4**. Naruto v02 source is `art/characters/naruto/raw/beamStruggle_v02.png`; generation source is `E:/Vibe Coding/.codex/generated_images/01a14294-8aa3-75b1-8221-b4251152bc4a/exec-42a7a74c-c22e-4197-8a5a-9741a9411349.png`. Quantized pack at 48 colors reports automatic head gate 2 ok, but body sheet reports garment area B=0.60 vs idle for all frames. No review page was created.
+
+Sasuke, Killua and Gojo ground/air v01 candidates are filed and rows added to `art/REVIEW.md`. Strict scale gate failures: Sasuke ground head 1.54 / feet 1.84 and air 1.18 / 1.16; Killua air 1.06 / 1.32; Gojo air 0.94 / 1.06. Killua ground and Gojo ground did not receive complete body/contact checks because the candidate atlas was not written when their paired air strip failed. All seven candidates remain technical holds. The output style also needs review for soft/painterly edges. No Astra audit was available in this chat; no image approvals were given.
+
+Generation provenance and saved paths are in `art/characters/naruto/production/beam-clash-r2/GENERATION_LOG.md`. Approved idle/beamFire source strips were copied into the task worktree for QA and must not be committed as new art. Five clash effects remain main's versions after resolving merge conflicts as instructed. Next: Claude to arrange the required Astra audit / technical remediation; the user must not approve these holds. No preview URL exists.
+
 # Codex: Goku/Luffy workflow repair and resumed source checkpoint (2026-10-15, goku-luffy)
 
 The user asked for a better workflow and then resumed production. This is a technical calibration handback, not a completed fighter batch or an image-approval request. No merge or production deploy. **Claude acts next; the user has no action yet.**

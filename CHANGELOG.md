@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-BEAM-CLASH): added beam-clash ground/air struggle v01 candidates for Sasuke, Killua and Gojo, plus user-directed Naruto `beamStruggle` v02. All candidates remain technical holds after scale/body checks; no approval page published.
+
 - Added: the drawn beam clash effects (ADR 0034, ART-BEAM-CLASH): clashBurst, streamBolt, streamLance, streamFlame and redOrb v01, approved by the user, replace the procedural stand-ins. Packed with every existing effect kept (Codex's branch atlas, packed in a sparse worktree without the VFX raws, had dropped glow, bubble, wisp, arc, ripple and naruto_chakraTail).
 
 - Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).

@@ -385,10 +385,10 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 
 | fighter | beamStruggle | beamStruggleAir | the technique | notes |
 |---|---|---|---|---|
-| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
-| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
-| killua | todo | todo | Narukami, open palm (in the air driven down) | |
-| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| naruto | raw | - | Rasengan, two-handed push | v01 remains held; user chose redraw v02 (one call, 2nd of 3) via Claude relay beam-clash #3. v02 packed; body sheet B=0.60 of idle and Astra audit pending, so technical hold. |
+| sasuke | raw | raw | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | v01 ground and air candidates packed in sparse worktree; body/contact checks and Astra audit pending; technical hold. |
+| killua | raw | raw | Narukami, open palm (in the air driven down) | v01 ground and air candidates packed in sparse worktree; body/contact checks and Astra audit pending; technical hold. |
+| gojo | raw | raw | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | v01 ground and air candidates packed in sparse worktree; body/contact checks and Astra audit pending; technical hold. |
 | goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)
