@@ -19,8 +19,8 @@
     ]
   },
   "budget": "3 calls total across A, B, and one correction; all calls including failed calls count",
-  "callsUsed": 3,
-  "result": "blocked: Part A saved, first Part B repeated Part A leg lead; final Part B correction call failed before image generation due invalid worktree reference paths. No stitched run_v13, strict pack, Astra audit, or preview.",
+  "callsUsed": 4,
+  "result": "BLOCKED: Part A saved; first B repeated A; original final correction call failed before generation; one extra user-authorized B call also repeated A and was preserved in raw/_qa_hold. No B selected, no completed run strip.",
   "attempts": [
     {
       "call": 1,
@@ -51,6 +51,17 @@
       "outputSha256": null,
       "status": "failed before generation; counted against budget",
       "reason": "image_gen could not read referenced image at E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art\\gojo-run\\art\\characters\\gojo\\reference\\title_style_approved.png (path not found). No generated image/source path was returned."
+    },
+    {
+      "call": 4,
+      "part": "B, one additional user-authorized call (frames f4-f7)",
+      "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-b9933ff2-9e3b-4858-867d-c11e88f6a3e3.png",
+      "sourceSha256": "1EC01513032CB9EDDCF0802BC1BE69CF03A53B880069039BD307BB030EC7F0DF",
+      "output": "art/characters/gojo/raw/_qa_hold/run_v13_B_attempt02.png",
+      "outputSha256": "1EC01513032CB9EDDCF0802BC1BE69CF03A53B880069039BD307BB030EC7F0DF",
+      "status": "held/discarded; not selected; moved out of raw parts",
+      "reason": "Visual comparison against Part A shows the same contact/down/passing/flight leg sequence repeated: the lead-leg alternation requested for f4-f7 is not achieved.",
+      "visualQa": "Four right-facing 3/4 figures, left hand pocketed, near R arm pumps, hard-edge magenta background. However the pose/leg sequence substantially repeats A f0-f3, so this does not qualify as a mirrored second gait phase."
     }
   ],
   "untouched": [
@@ -58,5 +69,6 @@
     "art/characters/gojo/production/run-jkl/J_v02.png",
     "art/characters/gojo/production/run-jkl/L_v02.png",
     "all other production animation strips"
-  ]
+  ],
+  "additionalAuthorization": "User relayed: Allow 1 Part B call. Exactly one additional generation call was used under gpt-6-luna/medium."
 }
