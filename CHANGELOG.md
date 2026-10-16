@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Sasuke's approved Kirin banner backdrop and Amaterasu splash backdrop (ART-SUPER-ART); until his cutouts are approved the HUD shows his eye strip as a framed panel on his side of the banner and as a band across the splash, so the backdrops stay visible (ADR 0035).
+
 - Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. User approved the two backdrops and rejected both foregrounds via Claude relay on 2026-10-15; foreground technical holds remain recorded.
 - Added: melee clash (ENG-096, ADR 0038): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
 - docs(scale): hand back calibrated five-candidate Astra re-audit and corrected protected preview; oversizing/clipping resolved, precise contact/grounding/aura follow-up retained for Claude. No image approvals or new generation.
