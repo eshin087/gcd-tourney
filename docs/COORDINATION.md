@@ -10,9 +10,11 @@ Read this from the main checkout at the start of every Codex or Claude session, 
   the app's thread tools before sending; a title alone or a stale UUID is not proof of identity.
 - Worker chats execute their assigned tasks and report Status / Your action / Claude / Next. Their
   assignment is in `docs/agents/CODEX_INBOX.md` and `docs/TASKS.md`, not just chat history.
-- Claude remains integration coordinator and the default approval desk under ADR 0037. Codex rings
-  the lane with `--for user --kind approval|decision|blocked` when the user must act. The control chat
-  lists the same decision, review link and holds; it does not create a competing approval request.
+- Claude remains integration coordinator and the approval desk under ADR 0037. Since ADR 0039 the desk is
+  one Claude chat, titled `0 - Approvals`: the only chat that asks the user. Codex rings the lane with
+  `--for user --kind approval|decision|blocked` when the user must act, and other Claude chats queue with
+  `relay ask`; both land in `node tools/relay.mjs asks`. The control chat lists the same decision, review link
+  and holds and points the user to `0 - Approvals`; it does not create a competing approval request.
 - Branches, commits, versioned candidates, REVIEW/manifest, and CLAUDE_ART_HANDOFF preserve work.
   `docs/NOW.md` is the durable next-actions page. `.relay/lanes.json` is the machine-local worker mapping;
   use the relay CLI to maintain it rather than editing it by hand. Never store credentials here.
@@ -23,6 +25,8 @@ Discover current project chats with list_threads and project/worktree evidence; 
 list of chat names. Inspect compact wait_threads snapshots, then read_thread only for missing context.
 Read main's inbox, NOW and relay status. An idle/completed turn is not proof the user's task is finished.
 Report four groups: Needs you, Waiting for Claude, Working, Finished. Show unresolved blockers explicitly.
+"Needs you" starts from `node tools/relay.mjs asks` (the desk's queue) and says where to answer: the Claude chat
+`0 - Approvals`. If `relay status` shows the desk watcher off while asks are open, report that as a lost watcher.
 Each actionable item names the exact chat/lane, asset/version, review link, next actor, requested answer,
 technical holds and last-checked time. Mark unavailable or conflicting evidence as unverified.
 
@@ -58,8 +62,9 @@ That explicitly selects this chat as coordinator and authorizes restoring this c
    monitor if present, then update or recreate it on this chat; never assume it transferred. Save its returned
    id and actual schedule. Reuse an existing matching monitor instead of creating duplicates.
 6. Send existing workers a scoped setup notice to read main's current rules. Claude reads the same procedure
-   through CLAUDE.md and restores the lane watchers. Report watcher-off states, never claim Claude is listening
-   merely because a ring succeeded. Do not remove pauses during setup.
+   through CLAUDE.md and restores the lane watchers; the user restores the approvals desk by naming one Claude chat
+   `0 - Approvals` and typing `/desk` (ADR 0039). Report watcher-off states (lanes and desk), never claim Claude is
+   listening merely because a ring succeeded. Do not remove pauses during setup.
 7. Present one consolidated attention queue. State missing bindings or tool limitations and the minimal action
    needed to restore them. No per-worker reminder from the user should be necessary.
 

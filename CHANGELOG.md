@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: one approvals desk (ADR 0039, TOOL-046): only the Claude chat `0 - Approvals` asks the user. Codex rings for the user and other Claude chats' new `relay ask` share one queue (`.relay/asks/`), watched by `relay wait all` and answered with `relay answer <id>`; lane watchers leave the user's rings to the desk. `/desk` project command and a SessionStart hook (`relay brief`) restore it after chats are deleted. `npm run status` opens with "Needs you now" and lists only each asset's newest REVIEW.md row (166 rows down to 39).
+
 - Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
 
 - Fixed: the determinism page (`?det=`) reports a fixture recorded on other gameplay code as STALE instead of as a split: fixtures carry a simulation fingerprint (`vite.config.js` simId, `import.meta.env.SIM_ID`); both fixtures re-recorded on the beam-clash and melee-clash code (ENG-090, ADR 0036).
