@@ -528,9 +528,9 @@
           ],
           "required": true,
           "step": 4,
-          "status": "needs review",
+          "status": "approved",
           "version": 14,
-          "approvedVersion": 13
+          "approvedVersion": 14
         },
         "dash": {
           "frames": 2,
