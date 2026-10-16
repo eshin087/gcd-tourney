@@ -1,0 +1,230 @@
+{
+  "generatedBy": "prepare-crops.mjs",
+  "method": "Exact 256x256 RGBA cell extraction from copied packed atlas frames; no resize or color changes.",
+  "sourceAtlases": {
+    "naruto-alts-r2": {
+      "branch": "art/naruto-alts-r2",
+      "commit": "bf01a1a0",
+      "sheet": "atlases/naruto-alts-r2/sheet.png",
+      "sheetSha256": "99e7bda1f087e85c82d586d5a9db70abed7e672bbf082cd19b8b52cfb1c71a73",
+      "metadata": "atlases/naruto-alts-r2/anims.json",
+      "metadataSha256": "3a0b09f235e1f10d06151dd37dc2a1e0b3a0c1008cb8e9ee8883893a7234b3d0"
+    },
+    "killua-loose-ends": {
+      "branch": "art/killua-loose-ends",
+      "commit": "084a7cd2",
+      "sheet": "atlases/killua-loose-ends/sheet.png",
+      "sheetSha256": "dcfa207a5a30cf9ae31e185e6684d4472ae6012727b50525f1199bf75bd3a628",
+      "metadata": "atlases/killua-loose-ends/anims.json",
+      "metadataSha256": "f07b4887bc898a340f63fb559e99db0a4efa2ef48cb2f48524ae4ae84ba4f5cc"
+    },
+    "naruto-approved": {
+      "branch": "main",
+      "commit": "f09938de",
+      "sheet": "atlases/naruto-approved/sheet.png",
+      "sheetSha256": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+      "metadata": "atlases/naruto-approved/anims.json",
+      "metadataSha256": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0"
+    },
+    "killua-approved": {
+      "branch": "main",
+      "commit": "f09938de",
+      "sheet": "atlases/killua-approved/sheet.png",
+      "sheetSha256": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "metadata": "atlases/killua-approved/anims.json",
+      "metadataSha256": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a"
+    },
+    "naruto-calibrated": {
+      "branch": "art/naruto-alts-r2",
+      "commit": "802e673b",
+      "sheet": "atlases/naruto-calibrated/sheet.png",
+      "sheetSha256": "dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c",
+      "metadata": "atlases/naruto-calibrated/anims.json",
+      "metadataSha256": "9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b"
+    },
+    "killua-calibrated": {
+      "branch": "art/killua-loose-ends",
+      "commit": "5bda5260",
+      "sheet": "atlases/killua-calibrated/sheet.png",
+      "sheetSha256": "aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25",
+      "metadata": "atlases/killua-calibrated/anims.json",
+      "metadataSha256": "9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696"
+    }
+  },
+  "crops": [
+    {
+      "output": "crops/approved-idle-naruto-v07.png",
+      "sha256": "f4c16421307ba54f950eadae5d7c5c7793983c6c9010e8a0d216221064a9d8f2",
+      "sourceAtlas": "atlases/naruto-approved/sheet.png",
+      "sourceAtlasSha256": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+      "sourceMetadataSha256": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/calibrated/naruto/light2Alt.png",
+      "sha256": "16dbd44a1cf2e5f57425f456b3f3385574664c7fec5727ada2e661ebcfb4bb6b",
+      "sourceAtlas": "atlases/naruto-calibrated/sheet.png",
+      "sourceAtlasSha256": "dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c",
+      "sourceMetadataSha256": "9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b",
+      "animation": "light2Alt",
+      "sourceFrames": [
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/calibrated/naruto/base-light2.png",
+      "sha256": "6cec6c80333bfa17cfe6f1c2e356871f2ebdd95bf345e7bd13e1eb227b4b3142",
+      "sourceAtlas": "atlases/naruto-approved/sheet.png",
+      "sourceAtlasSha256": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+      "sourceMetadataSha256": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+      "animation": "light2",
+      "sourceFrames": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/calibrated/naruto/airHeavyAlt.png",
+      "sha256": "7023e729b7a82a0a15457ac249465998ddfa674f42b08cbaad9fb901235e77f9",
+      "sourceAtlas": "atlases/naruto-calibrated/sheet.png",
+      "sourceAtlasSha256": "dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c",
+      "sourceMetadataSha256": "9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b",
+      "animation": "airHeavyAlt",
+      "sourceFrames": [
+        228,
+        229,
+        230,
+        231,
+        232,
+        233
+      ],
+      "dimensions": "1536x256"
+    },
+    {
+      "output": "crops/calibrated/naruto/base-airHeavy.png",
+      "sha256": "a7560bef2276dc08f006e54b8f1c9032090c2dcd2ab4ed6457f1030f64f42658",
+      "sourceAtlas": "atlases/naruto-approved/sheet.png",
+      "sourceAtlasSha256": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+      "sourceMetadataSha256": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+      "animation": "airHeavy",
+      "sourceFrames": [
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "dimensions": "1536x256"
+    },
+    {
+      "output": "crops/approved-idle-killua-v11.png",
+      "sha256": "fb750595fc2f082448d5dc3dcd16e3408431a491dbf242068672105078d38406",
+      "sourceAtlas": "atlases/killua-approved/sheet.png",
+      "sourceAtlasSha256": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "sourceMetadataSha256": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+      "animation": "approved idle v11",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/calibrated/killua/charge.png",
+      "sha256": "de297f71a7e7f3a001fef695ecad9860217ba108c61a7eccc2068b3ad8f83725",
+      "sourceAtlas": "atlases/killua-calibrated/sheet.png",
+      "sourceAtlasSha256": "aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25",
+      "sourceMetadataSha256": "9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696",
+      "animation": "charge",
+      "sourceFrames": [
+        115,
+        116,
+        117,
+        118
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/calibrated/killua/base-charge.png",
+      "sha256": "97cc604a22d6bd14e208f70074491bb10f1137c55215e99bb7b1d65c7f8c01f0",
+      "sourceAtlas": "atlases/killua-approved/sheet.png",
+      "sourceAtlasSha256": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "sourceMetadataSha256": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+      "animation": "charge",
+      "sourceFrames": [
+        115,
+        116,
+        117,
+        118
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/calibrated/killua/down.png",
+      "sha256": "62de9a707d3158c3cc2377cba8e7c271646592c069bf230ad60e0d71cb6f8e35",
+      "sourceAtlas": "atlases/killua-calibrated/sheet.png",
+      "sourceAtlasSha256": "aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25",
+      "sourceMetadataSha256": "9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696",
+      "animation": "down",
+      "sourceFrames": [
+        108,
+        109
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/calibrated/killua/base-down.png",
+      "sha256": "e8699c7324aaec51bda1f083a891865f2583424d25f9e2a7dde58367fd165510",
+      "sourceAtlas": "atlases/killua-approved/sheet.png",
+      "sourceAtlasSha256": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "sourceMetadataSha256": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+      "animation": "down",
+      "sourceFrames": [
+        108,
+        109
+      ],
+      "dimensions": "512x256"
+    },
+    {
+      "output": "crops/calibrated/killua/ko.png",
+      "sha256": "df353cf6170a3b9d27715f9ded5bc73bd090c4d8b0b6996ebcb952ae8f0d36f1",
+      "sourceAtlas": "atlases/killua-calibrated/sheet.png",
+      "sourceAtlasSha256": "aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25",
+      "sourceMetadataSha256": "9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696",
+      "animation": "ko",
+      "sourceFrames": [
+        135
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/calibrated/killua/base-ko.png",
+      "sha256": "95c9813558b0571f4e2f4cc3d2595dcbd7b87fb3f0ecfa9157518df556057980",
+      "sourceAtlas": "atlases/killua-approved/sheet.png",
+      "sourceAtlasSha256": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "sourceMetadataSha256": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+      "animation": "ko",
+      "sourceFrames": [
+        135
+      ],
+      "dimensions": "256x256"
+    }
+  ]
+}

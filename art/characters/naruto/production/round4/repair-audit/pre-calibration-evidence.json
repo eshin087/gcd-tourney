@@ -1,0 +1,774 @@
+{
+  "status": "HOLD; no robust mandatory-redraw proof established",
+  "scope": "Pre-calibration f0 marker inspection, not final all-frame certification",
+  "independent_markers": {
+    "title-neutral": {
+      "H": {
+        "points": [
+          [
+            131,
+            37
+          ],
+          [
+            131,
+            76
+          ]
+        ],
+        "interval": [
+          37,
+          41
+        ],
+        "nominal": 39.0
+      },
+      "T": {
+        "points": [
+          [
+            134,
+            78
+          ],
+          [
+            141,
+            128
+          ]
+        ],
+        "interval": [
+          48,
+          55
+        ],
+        "nominal": 50.49
+      },
+      "S": {
+        "points": [
+          [
+            146,
+            234
+          ],
+          [
+            173,
+            234
+          ]
+        ],
+        "interval": [
+          25,
+          29
+        ],
+        "nominal": 27.0
+      },
+      "shoulder": "Excluded: three-quarter, not frontal.",
+      "limbs": "No new high-confidence joint-center reconstruction. Retain original \u00b112 px chains and pose exclusions; not numeric pass."
+    },
+    "title-combat": {
+      "H": {
+        "points": [
+          [
+            139,
+            78
+          ],
+          [
+            139,
+            115
+          ]
+        ],
+        "interval": [
+          35,
+          40
+        ],
+        "nominal": 37.0
+      },
+      "T": {
+        "points": [
+          [
+            137,
+            117
+          ],
+          [
+            131,
+            155
+          ]
+        ],
+        "interval": [
+          36,
+          42
+        ],
+        "nominal": 38.47
+      },
+      "S": {
+        "points": [
+          [
+            173,
+            233
+          ],
+          [
+            199,
+            233
+          ]
+        ],
+        "interval": [
+          24,
+          28
+        ],
+        "nominal": 26.0
+      },
+      "shoulder": "Excluded: three-quarter, not frontal.",
+      "limbs": "No new high-confidence joint-center reconstruction. Retain original \u00b112 px chains and pose exclusions; not numeric pass."
+    },
+    "idle07-f0": {
+      "H": {
+        "points": [
+          [
+            140,
+            78
+          ],
+          [
+            140,
+            116
+          ]
+        ],
+        "interval": [
+          37,
+          41
+        ],
+        "nominal": 38.0
+      },
+      "T": {
+        "points": [
+          [
+            138,
+            118
+          ],
+          [
+            131,
+            156
+          ]
+        ],
+        "interval": [
+          36,
+          42
+        ],
+        "nominal": 38.64
+      },
+      "S": {
+        "points": [
+          [
+            170,
+            235
+          ],
+          [
+            197,
+            235
+          ]
+        ],
+        "interval": [
+          25,
+          30
+        ],
+        "nominal": 27.0
+      },
+      "shoulder": "Excluded: three-quarter, not frontal.",
+      "limbs": "No new high-confidence joint-center reconstruction. Retain original \u00b112 px chains and pose exclusions; not numeric pass."
+    },
+    "stagger06-f0": {
+      "H": {
+        "points": [
+          [
+            138,
+            27
+          ],
+          [
+            138,
+            77
+          ]
+        ],
+        "interval": [
+          48,
+          52
+        ],
+        "nominal": 50.0
+      },
+      "T": {
+        "points": [
+          [
+            135,
+            79
+          ],
+          [
+            131,
+            126
+          ]
+        ],
+        "interval": [
+          44,
+          50
+        ],
+        "nominal": 47.17
+      },
+      "S": {
+        "points": [
+          [
+            146,
+            237
+          ],
+          [
+            181,
+            237
+          ]
+        ],
+        "interval": [
+          33,
+          37
+        ],
+        "nominal": 35.0
+      },
+      "shoulder": "Excluded: three-quarter, not frontal.",
+      "limbs": "No new high-confidence joint-center reconstruction. Retain original \u00b112 px chains and pose exclusions; not numeric pass."
+    },
+    "taunt07-f0": {
+      "H": {
+        "points": [
+          [
+            126,
+            44
+          ],
+          [
+            126,
+            91
+          ]
+        ],
+        "interval": [
+          45,
+          49
+        ],
+        "nominal": 47.0
+      },
+      "T": {
+        "points": [
+          [
+            125,
+            92
+          ],
+          [
+            131,
+            136
+          ]
+        ],
+        "interval": [
+          42,
+          48
+        ],
+        "nominal": 44.41
+      },
+      "S": {
+        "points": [
+          [
+            160,
+            235
+          ],
+          [
+            191,
+            235
+          ]
+        ],
+        "interval": [
+          29,
+          34
+        ],
+        "nominal": 31.0
+      },
+      "shoulder": "Excluded: three-quarter, not frontal.",
+      "limbs": "No new high-confidence joint-center reconstruction. Retain original \u00b112 px chains and pose exclusions; not numeric pass."
+    },
+    "win08-f0": {
+      "H": {
+        "points": [
+          [
+            137,
+            50
+          ],
+          [
+            137,
+            96
+          ]
+        ],
+        "interval": [
+          44,
+          49
+        ],
+        "nominal": 46.0
+      },
+      "T": {
+        "points": [
+          [
+            132,
+            98
+          ],
+          [
+            134,
+            142
+          ]
+        ],
+        "interval": [
+          41,
+          47
+        ],
+        "nominal": 44.05
+      },
+      "S": {
+        "points": [
+          [
+            158,
+            237
+          ],
+          [
+            186,
+            237
+          ]
+        ],
+        "interval": [
+          25,
+          30
+        ],
+        "nominal": 28.0
+      },
+      "shoulder": "Excluded: three-quarter, not frontal.",
+      "limbs": "No new high-confidence joint-center reconstruction. Retain original \u00b112 px chains and pose exclusions; not numeric pass."
+    }
+  },
+  "original_all_frame_uncertainty_screen": {
+    "stagger06": {
+      "intersection": [
+        0.6880799999999999,
+        0.9021276595744682
+      ],
+      "constraints": [
+        {
+          "segment": "H",
+          "frame": 0,
+          "possible_k": [
+            0.6635294117647058,
+            0.9021276595744682
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 1,
+          "possible_k": [
+            0.6635294117647058,
+            0.9021276595744682
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 2,
+          "possible_k": [
+            0.6635294117647058,
+            0.9021276595744682
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 3,
+          "possible_k": [
+            0.6635294117647058,
+            0.9021276595744682
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 0,
+          "possible_k": [
+            0.6880799999999999,
+            0.9355652173913044
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 1,
+          "possible_k": [
+            0.6880799999999999,
+            0.9355652173913044
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 2,
+          "possible_k": [
+            0.6745882352941176,
+            0.9156595744680851
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 3,
+          "possible_k": [
+            0.6880799999999999,
+            0.9355652173913044
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 0,
+          "possible_k": [
+            0.4770149253731343,
+            1.4297674418604651
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 1,
+          "possible_k": [
+            0.4770149253731343,
+            1.4297674418604651
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 2,
+          "possible_k": [
+            0.4770149253731343,
+            1.4297674418604651
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 3,
+          "possible_k": [
+            0.4770149253731343,
+            1.4297674418604651
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 0,
+          "possible_k": [
+            0.6192941176470589,
+            1.3901639344262298
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 1,
+          "possible_k": [
+            0.6192941176470589,
+            1.3901639344262298
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 2,
+          "possible_k": [
+            0.6120930232558139,
+            1.3677419354838711
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 3,
+          "possible_k": [
+            0.6120930232558139,
+            1.3677419354838711
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 0,
+          "possible_k": [
+            0.6376756756756757,
+            0.9347272727272729
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 1,
+          "possible_k": [
+            0.6376756756756757,
+            0.9347272727272729
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 2,
+          "possible_k": [
+            0.6376756756756757,
+            0.9347272727272729
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 3,
+          "possible_k": [
+            0.6376756756756757,
+            0.9347272727272729
+          ]
+        }
+      ],
+      "meaning": "Necessary feasibility screen only; not a scale recommendation, pass, or proof of joint correlated feasibility."
+    },
+    "taunt07": {
+      "intersection": [
+        0.7319999999999999,
+        0.9422222222222223
+      ],
+      "constraints": [
+        {
+          "segment": "H",
+          "frame": 0,
+          "possible_k": [
+            0.6906122448979591,
+            0.9422222222222223
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 1,
+          "possible_k": [
+            0.6906122448979591,
+            0.9422222222222223
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 0,
+          "possible_k": [
+            0.7319999999999999,
+            1.0008372093023257
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 1,
+          "possible_k": [
+            0.7319999999999999,
+            1.0008372093023257
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 0,
+          "possible_k": [
+            0.4770149253731343,
+            1.4297674418604651
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 1,
+          "possible_k": [
+            0.4842424242424242,
+            1.463809523809524
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 0,
+          "possible_k": [
+            0.5848888888888889,
+            1.2848484848484851
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 1,
+          "possible_k": [
+            0.5848888888888889,
+            1.2848484848484851
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 0,
+          "possible_k": [
+            0.6939411764705883,
+            1.0282000000000002
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 1,
+          "possible_k": [
+            0.6939411764705883,
+            1.0282000000000002
+          ]
+        }
+      ],
+      "meaning": "Necessary feasibility screen only; not a scale recommendation, pass, or proof of joint correlated feasibility."
+    },
+    "win08": {
+      "intersection": [
+        0.8135862068965518,
+        0.9422222222222223
+      ],
+      "constraints": [
+        {
+          "segment": "H",
+          "frame": 0,
+          "possible_k": [
+            0.6906122448979591,
+            0.9422222222222223
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 1,
+          "possible_k": [
+            0.705,
+            0.9636363636363637
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 2,
+          "possible_k": [
+            0.705,
+            0.9636363636363637
+          ]
+        },
+        {
+          "segment": "H",
+          "frame": 3,
+          "possible_k": [
+            0.6906122448979591,
+            0.9422222222222223
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 0,
+          "possible_k": [
+            0.7479130434782608,
+            1.0246666666666666
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 1,
+          "possible_k": [
+            0.7319999999999999,
+            1.0008372093023257
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 2,
+          "possible_k": [
+            0.7319999999999999,
+            1.0008372093023257
+          ]
+        },
+        {
+          "segment": "T",
+          "frame": 3,
+          "possible_k": [
+            0.7319999999999999,
+            1.0008372093023257
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 0,
+          "possible_k": [
+            0.47,
+            1.3972727272727274
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 1,
+          "possible_k": [
+            0.4631884057971014,
+            1.3662222222222222
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 2,
+          "possible_k": [
+            0.47,
+            1.3972727272727274
+          ]
+        },
+        {
+          "segment": "A",
+          "frame": 3,
+          "possible_k": [
+            0.47,
+            1.3972727272727274
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 0,
+          "possible_k": [
+            0.5848888888888889,
+            1.2848484848484851
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 1,
+          "possible_k": [
+            0.5848888888888889,
+            1.2848484848484851
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 2,
+          "possible_k": [
+            0.5848888888888889,
+            1.2848484848484851
+          ]
+        },
+        {
+          "segment": "L",
+          "frame": 3,
+          "possible_k": [
+            0.5784615384615385,
+            1.265671641791045
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 0,
+          "possible_k": [
+            0.8135862068965518,
+            1.23384
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 1,
+          "possible_k": [
+            0.7864666666666668,
+            1.1863846153846156
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 2,
+          "possible_k": [
+            0.8135862068965518,
+            1.23384
+          ]
+        },
+        {
+          "segment": "S",
+          "frame": 3,
+          "possible_k": [
+            0.8135862068965518,
+            1.23384
+          ]
+        }
+      ],
+      "meaning": "Necessary feasibility screen only; not a scale recommendation, pass, or proof of joint correlated feasibility."
+    }
+  },
+  "reference_hashes": {
+    "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-title-r3\\public\\art-review\\title-style-pilot\\naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-title-r3\\public\\art-review\\title-style-pilot\\naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751",
+    "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-title-r3\\art\\characters\\naruto\\reference\\idle_approved.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3"
+  },
+  "candidate_hashes": {
+    "sheet.png": "0496c7aae6da74b5611e8cab204d193d7de865d1bf09589eac20ed52ed3578a2",
+    "anims.json": "28e28ad9c9d859d9875b3d137322d7730a1933e166a9afe4623b9bb9ed40439b"
+  }
+}

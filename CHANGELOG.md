@@ -11,6 +11,158 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (TOOL-GOKU-PROBE, interim): `art/scale/builds.json` fighter `headProbe: { mode: "manual", why }`. For a fighter whose head the probe provably misreads (Goku, Luffy), no strip passes or fails on the head numbers: each is unmeasured until a version-bound `scaleManualQA` landmark check accepts it. Not an exemption; other fighters unchanged.
+
+- Changed: the simulation is replayable with no test workarounds (ENG-091, ADR 0036): it owns its control basis (`src/game/basis.js`; the render camera follows its yaw), runs the match flow and KO slow-mo on the fixed step, resets its frame counter per match, never reads the render clock (Gojo's Infinity charge counts frames), takes the hold-back-to-block rule from the match setup (`Game.kinds`), stores -0 sticks as 0, and uses deterministic math (`src/game/dmath.js`; `npm run lint:simmath` in prebuild). Fixtures re-recorded; replays match at 60/120/144 Hz and uneven frame times.
+- Art (ART-BEAM-CLASH): generated and recorded user approval via Claude relay #10 for Killua `beamStruggleAir` v02; strict quantized scale gate and body sheet pass, and superseded v01 is archived. Astra anatomy audit and exact hand-anchor measurement remain pending.
+- Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
+- Added: the approvals desk stops itself when all work is done (TOOL-051, ADR 0039): Claude chats report `relay chat active|done`, and `relay wait all` exits after 15 quiet minutes with no open ask, no lane waiting on Codex and no active chat; `relay status` says what keeps it awake.
+
+- art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
+
+- art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved and visual anatomy screening passes. Runtime grounding and aura retention remain unverified; calibration uncertainties remain. User approval is recorded in the entry above. No new generation or calibration edits.
+
+- art(killua): Charge14/down08/ko09 sources filed; normal scale gate fails; diagnostic-only atlas for Astra. Charge used one unauthorized duplicate call, quarantined and excluded; first authorized output retained.
+- art(naruto): record user approval via Claude for light2Alt v05 and airHeavyAlt v04 as drawn; retain Claude-owned contact and anatomy holds.
+
+- Review: refreshed the five-candidate scale-loose-ends page from the calibrated atlases with Astra's final screening results, exact comparison crops and full audit evidence; unresolved technical checks remain and no art is approved.
+
+- art(naruto): One authorized call each for light2Alt05 and airHeavyAlt04; normal scale gate fails; diagnostic-only atlas and Astra review for Claude calibration.
+- art(scale): record user approval via Claude of Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09; return remaining technical checks to Claude without merge or production deploy.
+
+- Added: Codex chats with no relay lane are found and handled (TOOL-050): `relay status` lists recent project chats nobody mapped, `relay ask --app codex --from "<title>"` lets such a chat queue a question, and `relay answer` maps it by title and relays the answer.
+
+- Changed: Gojo runs instead of hover-gliding (ART-GOJO-RUN-JKL): run v14 in the K "fast athletic" direction, far hand in his pocket and the near fist forward, approved by the user via the approvals desk and passed by the Astra audit. Part A of the generated stride is used for both halves; the sidecar frameOffsets hold his head steady and lift the flight frames.
+- Fixed: relay watchers no longer crash on Windows when a state file is renamed while another watcher reads it (EPERM/EBUSY); the write retries briefly (TOOL-049).
+
+- Changed: one central chat (OPS-016): the Claude chat `0 - Approvals` now also gives the status overview, forwards the user's instructions to Codex chats and runs the reset after chats are deleted; the Codex control chat "0 - G", its attention monitor (OPS-014) and `$gcdtourney-attention` (OPS-015) are retired. Codex chats never ask the user; they ring `--for user` and stop.
+
+- Added: explicit-only `$gcdtourney-attention` project skill to run the multi-chat status check immediately and update or pause the existing bounded monitor (OPS-015).
+
+- Added: storage hygiene rule (OPS-013, CLAUDE.md, AGENTS.md, docs/AI_COLLABORATION.md): after a merge the coordinator prunes merged and unregistered worktree folders, a finished task deletes its `node_modules/` and `dist/`, agent scratch stays out of the project, `deliverables/` empties once the user has them, and `_preserved-*` folders carry a README with a review-by date; versioned `_vNN` art, approved art and unmerged commits are never touched.
+
+- Fixed: a sparse worktree can no longer silently pack without its raw art (TOOL-048). `npm run pr -- start --art` verifies every tracked `raw/` file of its folders is on disk and stops otherwise; new `npm run pr -- art <id>[,<id>]` adds raw art to an existing worktree (the art/beam-clash worktree had been recreated without `--art`, and a hand-typed `git sparse-checkout add` in Git Bash had become `C:/Program Files/Git/art/...`); the packer refuses a VFX atlas that would lose a shipped effect whose source is missing on disk (`--allow-drop` to intend it), which is how PR #110 committed an atlas without glow, bubble, wisp, arc, ripple and naruto_chakraTail. Test: `tools/test-sparse-art.mjs` in `npm run test:guard`, run 13d/e in `npm run test:sprites`.
+- Changed: the approvals desk command is `/approvals` (was `/desk`); desk questions must name the asking chat, say exactly what a yes approves and link the preview itself; the desk keeps one bounded background watcher and never restarts it in a loop (TOOL-047, ADR 0039).
+
+- Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).
+
+- Added: the drawn beam clash effects (ADR 0034, ART-BEAM-CLASH): clashBurst, streamBolt, streamLance, streamFlame and redOrb v01, approved by the user, replace the procedural stand-ins. Packed with every existing effect kept (Codex's branch atlas, packed in a sparse worktree without the VFX raws, had dropped glow, bubble, wisp, arc, ripple and naruto_chakraTail).
+- Added: one approvals desk (ADR 0039, TOOL-046): only the Claude chat `0 - Approvals` asks the user. Codex rings for the user and other Claude chats' new `relay ask` share one queue (`.relay/asks/`), watched by `relay wait all` and answered with `relay answer <id>`; lane watchers leave the user's rings to the desk. `/approvals` project command and a SessionStart hook (`relay brief`) restore it after chats are deleted. `npm run status` opens with "Needs you now" and lists only each asset's newest REVIEW.md row (166 rows down to 39).
+
+- Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
+
+- Fixed: the determinism page (`?det=`) reports a fixture recorded on other gameplay code as STALE instead of as a split: fixtures carry a simulation fingerprint (`vite.config.js` simId, `import.meta.env.SIM_ID`); both fixtures re-recorded on the beam-clash and melee-clash code (ENG-090, ADR 0036).
+
+- Added: online-play determinism test (ENG-090, ADR 0036): `src/net/simHash.js` (per-frame state hash in groups, dumps to diff), `src/net/detTest.js` (`?debug` -> `det.record/replay/diagnose`, `?det=<fixture>` replays a saved match against its reference in any browser), fixtures in `public/det/` (per-frame hashes, per-field traces), `src/net/dmath.js` (deterministic hypot/sin/cos: Safari's `Math.hypot` differs from Chrome's), and ADR 0036 (rollback netcode, lobby server and the leaks the spike found).
+- Fixed: beam clashes from the air (ADR 0034 section 5, ENG-082): the airborne fighter eases down to a low hover in an air pose (new optional `beamStruggleAir`, else the `throw` release frame) instead of standing on nothing at jump height; a grounded Rasengan / Chidori answer stays planted and holds its technique up the stream line instead of being dragged under it (it could end on the other side); a held Chidori shows forward, not trailing behind; a winning rush blasts up the line into the air fighter; the clash camera frames both bodies.
+- Fixed: beam clash visuals (ADR 0034, ENG-082): fighters no longer vanish in white (a contained two-color `clashBurst` instead of the full-size white glow, a thinner aura behind the body, short colored start/end flashes, a smaller colored finish on the loser); the origin glow no longer covers the firer; the Rasengan meets the stream at its held orb; no blocky streaks in the beam shader; BEAM CLASH! sits under the health bars and the rhythm ring and bar below the fighters. Each move keeps its own shape: Narukami a lightning zigzag, Chidori Spear a lance, Great Fireball a fire torrent, Reversal: Red an orb sending repulsion ripples; `beamStruggle` plays once a sheet has it.
+- Added: Sasuke's approved Kirin banner backdrop and Amaterasu splash backdrop (ART-SUPER-ART); until his cutouts are approved the HUD shows his eye strip as a framed panel on his side of the banner and as a band across the splash, so the backdrops stay visible (ADR 0035).
+
+- Art (ART-SUPER-ART): recorded the user-approved Sasuke Kirin and Amaterasu v01 backdrops and packed them with the merged ENG-083 runtime. User rejected v01 foregrounds and then authorized v02 and v03 redos; both v03 foregrounds were approved via Claude relay effects #6 despite Astra holds and packed into the review branch.
+- Added: melee clash (ENG-096, ADR 0038): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
+- docs(scale): hand back calibrated five-candidate Astra re-audit and corrected protected preview; oversizing/clipping resolved, precise contact/grounding/aura follow-up retained for Claude. No image approvals or new generation.
+
+- Added: super banners and ultimate splashes (ADR 0035, ENG-083): a taller super banner with the move's backdrop and the fighter breaking out of its top, a full-screen ultimate splash (backdrop push-in, letterbox bars, the fighter sliding in, the move name), four optional layer images per fighter (`super_bg`, `super_fg`, `ult_bg`, `ult_fg`; packer fits them), each falling back to today's eye strip on speed lines; every ultimate's flash holds 24 frames longer (`ULTIMATE.splashHold`).
+- Added: eye techniques (ADR 0035): Sasuke's Sharingan counter shows a large turning Sharingan behind him and flashes his red eyes across the HUD, a successful read spins it up; Amaterasu shows his Mangekyō. Drawn in code from character data (`eyes`, a move's `sigil` / `eyeFlash`).
+- Changed: approvals happen in Claude (TOOL-045, ADR 0037): Codex rings the relay `--for user --kind approval|decision|blocked`, Claude notifies and asks with a question box, then relays the user's quoted answer (`send --user-approved|--user-rejected|--user-decision`); `relay status` shows "turn: you". Also: round trips count only sends that answer a new ring, watchers wait 24 h and say when to restart, `send` unarchives an archived Codex chat, `send --direct`, `add <lane> <chat>` without `--thread`, `remove <lane>`.
+
+- Changed: every Codex handback explicitly reports completion/wait status, required user actions, pending Claude work and the next actor; existing project chats receive the rule (OPS-010).
+
+- Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
+
+- docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
+- Changed: ring damage looks like broken stone in the floor instead of stickers on it: decals show the ring's own texture and grid, only their cracks, pits and scorch darken it, craters sink into a lit bowl with parallax depth, the drawn rubble is off on the ring, and hot seams glow half as long and much dimmer; permanent craters stay (ENG-084, ADR 0024 amended).
+
+- Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
+- Fixed: `npm run pr -- merge` names its own merge commit in the revert hint, finishes the worktree cleanup and the deploy when the GitHub publish fails (with a warning), and says which worktree holds a branch it cannot delete (TOOL-038).
+
+- docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
+- Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
+- Art (ART-BEAM-CLASH): user approved all five v01 clash effects on 2026-10-15; updated manifest/review/tracker and repacked the approved VFX atlas. Naruto `beamStruggle` v01 remains on technical hold: strict scale measured head/hair at 1.40x and feet at 0.62x approved idle; body sheet and Astra atlas audit remain pending.
+- Changed: while a new idle candidate is the newest raw, the scale gate measures every strip (and the candidate idle) against the approved idle instead, so a pending idle no longer moves head numbers or auto head fits (TOOL-040; art/CHARACTER_SCALE.md).
+
+- Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
+
+- art(naruto): record user visual approval of airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01; retain technical evidence and unrelated holds.
+
+- art(naruto): light2Alt — User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
+
+- Art (ART-ALTS-NAR): added Naruto light2Alt v04 with a single user-authorized paired f2/f3 contact repair call; diagnostic pack still shows a 30px reach and height residual. Candidate remains unapproved and on technical hold.
+- Art (ART-ALTS-NAR): added a measured heavyAlt v02 restitch and source repairs for light2Alt v03, light3Alt v02 and airHeavyAlt v03; airHeavyAlt v03 is now held byte-for-byte under `raw/_qa_hold/`. Raw v01/v02 remain, so v02 may be selected and base fallback is unverified; Claude owns repack/cache/fallback resolution. No candidate is approved or in public output.
+- Art (ART-ALTS-NAR): filed 11 Naruto attack-alt candidates (including v02 selections assembled from already generated parts), reconciled cumulative call budgets, and produced isolated 48-color quantized QA with paired base/alt atlas, exact input hashes, per-frame bounds and active hitbox deltas. Candidate assets remain unapproved; multiple technical holds are recorded in REVIEW.md.
+- art(naruto): record user visual approval of stagger v08, win v09; retain technical evidence and unrelated holds.
+
+- art(naruto): record the user's taunt v10 visual approval; preserve Astra's technical HOLD and archive superseded pending v07/v09 sources (ART-NAR-TAUNT10-DECISION).
+
+- Naruto stagger v08 and taunt v10: final source-only Astra screen measured T/H 1.20 against neutral 1.292 (about 7% short centrally), improved about 12% for stagger and 7% for taunt. Uncertainty overlaps the relative 6% band, so both remain numeric anatomy HOLDs, not passes; poses are preserved, with no packed atlas assessment. Ready for Claude inspection and calibration.
+
+- Audit Naruto stagger v07 and taunt v09 in Claude-calibrated atlas 0725f44: six frames and loop wraps, full hashes and bilateral projected measurements; both remain anatomy HOLD with torso residual and explicit uncertainty. No art approval or production changes.
+
+- Naruto stagger v07 and taunt v09: one authorized round-4 source call each. Stagger retains its four-pose sway but the torso correction remains visually subtle and needs measurement. The task-local taunt output retains the requested pointing/callout poses; torso calibration and Astra measurement remain pending. An unrelated worker's four-frame kick output was quarantined after it was mistakenly copied to v08. Neither candidate was packed or certified. Win09 Astra audit recorded as strict-numeric HOLD, not a pass or approval.
+
+- Naruto win v09: one authorized round-4 redraw preserves the four victory gestures and restores upright anatomy against the approved title references. Candidate awaits Claude calibration and technical review; no atlas or gameplay change.
+
+- Naruto round4: measured every suspect packed frame; saved unapproved stagger v06, taunt v07 and win v08 after robust torso-marker failures. Self-contained diagnostic review with per-frame segment estimates and uncertainty; strict scale fails at current calibration. JumpUp v06 and superDash v03 retained as inconclusive. No runtime calibration, approval, merge or production change (ART-SCALE-R4-NAR).
+- art(gojo): record user visual approval of airLight1 v07, airLight2 v05, airRecover v05, jumpFall v06, light3 v06, superDash v09, throw v05; retain technical evidence and unrelated holds.
+
+- Review: publish three one-call targeted repair candidates with Astra findings and the user-approved Naruto taunt10 reference; distinguish improved arm/motion from unresolved contact and anatomy holds.
+
+- Added: phone-first round-5 review gallery for the 28 calibrated fighter strips, with current atlas provenance, approved-scale comparisons and Astra findings; feedback remains outside approval records (ART-ROUND5-PHONE).
+
+- Art: User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
+
+- Added: mobile feedback gallery for exact Gojo idle08 and Goku idle02 source candidates, approved references, provenance and explicit technical holds (ART-IDLE-PHONE).
+
+- Gojo round4: re-stitched light3 v06 from immutable v05 parts at Claude's hair-measured factor 1.024, downscaling A to preserve relative fit; saved one authorized idle v08 whole-strip redraw from the approved combat cell with generation hash and pose hold. No calibration, pack or production atlas changed.
+
+- Gojo round4: added a hash-identified Claude handoff for idle/superDash calibration review, light3 seam diagnosis and airLight1/throw source-column assembly; separates confirmed envelope/torso/seam concerns from projection uncertainty and records remaining image-call budgets. No art, calibration, production atlas or approval changed.
+
+- Gojo round4: saved jumpFall v06, airRecover v05, throw v05, airLight1 v07, airLight2 v05 and light3 v05 as unapproved candidates; added quantized diagnostic atlas, per-frame Astra H/T/A/L/S holds and review gallery. Full strict pack remains blocked; airLight2 call overrun and source recovery are disclosed. No production atlas, scale calibration or approval changed.
+
+- Gojo round4: versioned combat-stance idle v07 and superDash v08/v09 candidates with strict diagnostic reports and actual atlas segment landmarks; QA holds retained, production approvals/calibration and run studies preserved.
+
+- User selected Gojo G relaxed-arm glide direction; H/I study sources retained as rejected alternatives. Leg-phase/seam technical holds remain; production runv12 unchanged.
+
+- Gojo G/H/I review-only run/glide studies following D, with relaxed swing, one-pocket and low floating arm treatments; versioned sources, eight-frame contacts, playable GIF/MP4 and verified embedded demo. Measured density correction clears neutral head probe; leg/seam review holds remain. Production runv12 unchanged.
+
+- Gojo D/E/F eight-frame run/glide direction studies: versioned review-only sources,48color native cells, contact sheets, GIF/MP4, embedded offline demo and browser/media QA; earlier B/C rejected. Production runv12 unchanged; scale/anatomy/leg-continuity holds remain.
+- art(sasuke): record user visual approval of beamFire v07, dash v07, superDash v07; retain technical evidence and unrelated holds.
+
+- art(sasuke): jumpSquat — User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
+
+- Sasuke round4: file jumpSquat v07 from the single authorized arm-repair call; exact generation event and SHA256 recorded, candidate awaits review and packed anatomy QA.
+- Sasuke round4: audit the calibrated a2a8faed atlas (8 frames), resolve prior fist clipping, record native bilateral segment evidence and remaining anatomy HOLDs; jumpSquat extended-arm concern, existing v06 manual QA preserved.
+
+- Added Sasuke round-4 calibration handoff with exact source/candidate hashes, strict-pack evidence and remaining call budgets; superDash v07 remains held for Claude's measured placement review.
+- Sasuke round4: measured sandal failures trigger beamFire/dash redraws; superDash and spot-dodge candidates filed for full-body audit. No art approval or runtime calibration change.
+- art(killua): record user visual approval of guard v09, idle v11, superDash v08; retain technical evidence and unrelated holds.
+
+- art(killua): stagger — User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
+
+- ART-SCALE-R4-KIL: one authorized imagegen call patched Killua stagger v07 f3; v08 preserves f0-f2 pixel-for-pixel. Actual-manifest diagnostic pack uses unchanged bodyHeight186 and byte-identical auto-head sidecar; packed probe reads head1.025/feet1.235, with shoe/body review still held and approval pending.
+
+- Audit Killua calibrated idle11, guard09, superDash08 and win05 from exact atlas hashes: stance heights pass; explicit head target and upright win torso remain HOLD, with all16 per-frame bilateral measurements and uncertainty. No art approval or output changes.
+
+- ART-SCALE-R4-KIL: corrected the Killua gallery to foreground selected candidates, play exact diagnostic atlas frames beside approved references with pause/step controls, and expose Astra’s stagger loop-reset hold; art and approvals unchanged.
+
+- ART-SCALE-R4: Killua unapproved taller idle/guard and superDash/stagger/win redraws, per-frame native48 anatomy evidence and diagnostic review gallery; strict packing/calibration holds, shipped atlas unchanged.
+- docs(scale): hand all24 explicit round5 user approvals back to Claude; retain light2Alt and airHeavyAlt holds.
+
+- Added: a raw sidecar can list `"erase": [[x, y, w, h], ...]` rectangles that the packer clears before packing, for a leftover the stray cleanup keeps because it sits close to a body (TOOL-042; art/PIPELINE.md).
+
+- docs(scale): hand user-approved Sasuke jumpSquat07 and Killua stagger08 back to Claude for technical checks; retain Naruto light2Alt04 hold.
+
+- Fixed: relay `send` now marks every earlier ring as read, so a ring Claude handled by hand no longer wakes the next watcher as if Codex had already replied (ADR 0033).
+
+- Added: Goku's approved art references (PR #94): title-style neutral + combat v02 (v01 superseded: too small), model sheet v02, expressions v02 and idle v02 (calibrated: idle bodyHeight 233, packs at x1). He still plays on the baked placeholder until his core animations land.
+
+- Art: record explicit user approval of Goku model sheet v02 and expressions v02; promote exact approved fixed references, preserving idle technical holds.
+
+- Art: User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
+- Art: completed scale-relay calibrated audits, held airHeavyAlt03, re-stitched Gojo light3 and saved the authorized final Naruto/Gojo source calls; all holds and user-feedback stop recorded, relay not rung.
+
+- Changed: clarified that Codex character-art generation work must use `gpt-6-luna` at `medium` reasoning; documented that the image-generation tool's rendering model is controlled separately.
+
 - Added: Luffy's approved art references (PR #93): title-style neutral + combat v01, model sheet v01, expressions v01 and idle v01, plus his CHARACTER, ANIMATIONS, MOVES_AND_VFX and PROMPTS briefs. He still plays on the baked placeholder until his core animations land.
 
 - Added: Claude-Codex relay (TOOL-041, ADR 0033): `npm run relay` queues the inbox prompt into a lane's Codex chat (`codex queue`), Codex rings a git-ignored doorbell that wakes Claude's background watcher, with a 4-round-trip limit per lane between user replies, a pause switch, and approvals never relayed; `npm run test:relay`. AGENTS.md, CLAUDE.md and AI_COLLABORATION.md say when to send, ring and stop.
@@ -664,3 +816,5 @@ Reconstructed from the codebase when the changelog was introduced.
 [0.1.0]: #010---2026-10-04
 
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
+
+- ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.

@@ -1,0 +1,87 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 16,
+  "pivot": [128, 240],
+  "pixelsPerUnit": 128,
+  "facing": "right",
+  "spec": "hi-res sprite spec v2",
+  "source": "art-pack",
+  "character": "gojo",
+  "packer": 2,
+  "complete": false,
+  "missingCore": [
+    "run",
+    "dash",
+    "jumpUp",
+    "jumpFall",
+    "land",
+    "light1",
+    "light2",
+    "light3",
+    "light4",
+    "heavy",
+    "airLight1",
+    "airHeavy",
+    "guard",
+    "hurtHigh",
+    "launched",
+    "down",
+    "getup",
+    "charge",
+    "beamCharge",
+    "beamFire",
+    "special",
+    "win"
+  ],
+  "animations": {
+    "idle": { "frames": [0, 1, 2, 3, 4, 5, 6, 7], "durations": [150, 150, 150, 150, 150, 150, 150, 150], "loop": true }
+  },
+  "boxes": {
+    "0": { "hurt": [[85, 14, 88, 227]] },
+    "1": { "hurt": [[85, 14, 87, 227]] },
+    "2": { "hurt": [[85, 14, 87, 227]] },
+    "3": { "hurt": [[85, 14, 88, 227]] },
+    "4": { "hurt": [[85, 15, 87, 226]] },
+    "5": { "hurt": [[85, 15, 88, 226]] },
+    "6": { "hurt": [[84, 16, 88, 225]] },
+    "7": { "hurt": [[85, 15, 87, 226]] }
+  },
+  "scaleAudit": {
+    "tool": "tools/scale-probe.mjs",
+    "method": "idle-palette",
+    "tol": 0.06,
+    "pop": 0.12,
+    "ref": {
+      "box": [111, 9, 140, 26],
+      "headPx": [30, 17],
+      "hA": 192,
+      "hW": 30,
+      "hH": 17,
+      "feet": 2945.5,
+      "palette": "auto",
+      "head": ["#e9e9f3", "#7d81ac", "#abb0cc", "#c7c4e2", "#dcdbe2"],
+      "feetColors": ["#191a26", "#483e4f", "#3b2f35", "#7d81ac", "#595f7b"]
+    },
+    "anims": {
+      "idle": {
+        "head": 1,
+        "feet": 1,
+        "verdict": "ref",
+        "v": 7,
+        "frames": [1.059, 1, 0.992, 1.008, 1, 1, 0.96, 0.941],
+        "feetFrames": [1.004, 1.022, 1.02, 1.003, 0.99, 0.989, 0.997, 0.979],
+        "boxes": [
+          [111, 9, 140, 26],
+          [110, 10, 139, 26],
+          [109, 12, 138, 25],
+          [110, 9, 139, 26],
+          [111, 10, 139, 26],
+          [111, 10, 140, 27],
+          [109, 14, 138, 27],
+          [111, 11, 139, 26]
+        ]
+      }
+    }
+  }
+}

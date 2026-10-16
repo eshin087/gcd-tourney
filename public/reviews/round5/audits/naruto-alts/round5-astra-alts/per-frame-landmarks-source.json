@@ -1,0 +1,3873 @@
+{
+  "airLight1Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          176,
+          49
+        ],
+        "estimatedSkullCrown": [
+          176,
+          66
+        ],
+        "chin": [
+          174,
+          91
+        ],
+        "collar": [
+          171,
+          94
+        ],
+        "jacketHem": [
+          164,
+          134
+        ],
+        "armShoulderElbowWrist": [
+          [
+            149,
+            100
+          ],
+          [
+            139,
+            120
+          ],
+          [
+            157,
+            106
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            157,
+            155
+          ],
+          [
+            143,
+            183
+          ],
+          [
+            125,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Raised screen-right thigh projects toward camera; its knee and far hip overlap the orange crotch, so the far leg is not assigned intrinsic lengths. Guarded far upper arm is behind fist/collar.",
+      "shoeExclusion": "Hanging sandal points toward viewer/down; heel is hidden behind ankle wrap."
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          182,
+          49
+        ],
+        "estimatedSkullCrown": [
+          182,
+          67
+        ],
+        "chin": [
+          180,
+          93
+        ],
+        "collar": [
+          179,
+          95
+        ],
+        "jacketHem": [
+          166,
+          135
+        ],
+        "armShoulderElbowWrist": [
+          [
+            188,
+            99
+          ],
+          [
+            211,
+            98
+          ],
+          [
+            235,
+            98
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            160,
+            155
+          ],
+          [
+            140,
+            184
+          ],
+          [
+            122,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-right punching arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Near guard arm is deeply folded over torso; selected extended arm is a projected shoulder-to-wrist chain, far shoulder joint hidden by collar. Lifted leg hip/knee overlap.",
+      "shoeExclusion": "Toe-on hanging foot; heel not visible."
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          179,
+          49
+        ],
+        "estimatedSkullCrown": [
+          179,
+          67
+        ],
+        "chin": [
+          177,
+          93
+        ],
+        "collar": [
+          176,
+          95
+        ],
+        "jacketHem": [
+          163,
+          135
+        ],
+        "armShoulderElbowWrist": [
+          [
+            185,
+            99
+          ],
+          [
+            207,
+            98
+          ],
+          [
+            231,
+            98
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            157,
+            155
+          ],
+          [
+            137,
+            184
+          ],
+          [
+            120,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-right punching arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Lifted leg remains depth-foreshortened with hip under crotch fold; guarding forearm crosses chest.",
+      "shoeExclusion": "Toe-on hanging foot; heel not visible."
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          180,
+          49
+        ],
+        "estimatedSkullCrown": [
+          179,
+          66
+        ],
+        "chin": [
+          178,
+          92
+        ],
+        "collar": [
+          176,
+          95
+        ],
+        "jacketHem": [
+          167,
+          135
+        ],
+        "armShoulderElbowWrist": [
+          [
+            151,
+            100
+          ],
+          [
+            140,
+            120
+          ],
+          [
+            159,
+            110
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            160,
+            155
+          ],
+          [
+            143,
+            184
+          ],
+          [
+            126,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Screen-right elbow/cuff merges into chest; raised thigh is viewed end-on and knee partly behind trousers.",
+      "shoeExclusion": "Hanging sandal heel hidden by ankle wrap and toe-facing projection."
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          178,
+          49
+        ],
+        "estimatedSkullCrown": [
+          177,
+          66
+        ],
+        "chin": [
+          176,
+          92
+        ],
+        "collar": [
+          174,
+          95
+        ],
+        "jacketHem": [
+          165,
+          135
+        ],
+        "armShoulderElbowWrist": [
+          [
+            151,
+            100
+          ],
+          [
+            141,
+            118
+          ],
+          [
+            158,
+            106
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            160,
+            155
+          ],
+          [
+            143,
+            185
+          ],
+          [
+            125,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Raised knee and its hip are partly hidden by crotch folds; far guarding forearm nearly end-on.",
+      "shoeExclusion": "Heel hidden in downward/toe-on sandal."
+    }
+  ],
+  "airLight2Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          160,
+          63
+        ],
+        "estimatedSkullCrown": [
+          160,
+          80
+        ],
+        "chin": [
+          159,
+          103
+        ],
+        "collar": [
+          157,
+          106
+        ],
+        "jacketHem": [
+          142,
+          145
+        ],
+        "armShoulderElbowWrist": [
+          [
+            136,
+            110
+          ],
+          [
+            124,
+            130
+          ],
+          [
+            148,
+            119
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            146,
+            160
+          ],
+          [
+            150,
+            190
+          ],
+          [
+            122,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Raised thigh projects forward; hip and upper thigh under jacket/crotch. Far elbow behind chest/fist.",
+      "shoeExclusion": "Hanging sandal is toe-on; hidden heel."
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          135,
+          65
+        ],
+        "estimatedSkullCrown": [
+          134,
+          80
+        ],
+        "chin": [
+          132,
+          102
+        ],
+        "collar": [
+          130,
+          105
+        ],
+        "jacketHem": [
+          130,
+          144
+        ],
+        "armShoulderElbowWrist": [
+          [
+            114,
+            113
+          ],
+          [
+            91,
+            129
+          ],
+          [
+            70,
+            138
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            133,
+            153
+          ],
+          [
+            172,
+            147
+          ],
+          [
+            215,
+            144
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            221,
+            146
+          ],
+          [
+            243,
+            139
+          ]
+        ]
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "screen-right extended kicking leg",
+      "frameSpecificExclusions": "Selected kick knee center inferred under straight trouser cloth (+/-7px); hanging other thigh is sharply folded and its hip occluded.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          130,
+          65
+        ],
+        "estimatedSkullCrown": [
+          129,
+          80
+        ],
+        "chin": [
+          127,
+          103
+        ],
+        "collar": [
+          126,
+          105
+        ],
+        "jacketHem": [
+          128,
+          144
+        ],
+        "armShoulderElbowWrist": [
+          [
+            111,
+            112
+          ],
+          [
+            88,
+            130
+          ],
+          [
+            68,
+            139
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            132,
+            153
+          ],
+          [
+            175,
+            150
+          ],
+          [
+            220,
+            145
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            225,
+            147
+          ],
+          [
+            249,
+            139
+          ]
+        ]
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "screen-right extended kicking leg",
+      "frameSpecificExclusions": "Kick knee under cloth (+/-7px); hanging leg hip is obscured by belt/pouch and flexed toward viewer.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          151,
+          66
+        ],
+        "estimatedSkullCrown": [
+          150,
+          81
+        ],
+        "chin": [
+          148,
+          105
+        ],
+        "collar": [
+          145,
+          107
+        ],
+        "jacketHem": [
+          136,
+          147
+        ],
+        "armShoulderElbowWrist": [
+          [
+            127,
+            112
+          ],
+          [
+            125,
+            131
+          ],
+          [
+            145,
+            117
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            145,
+            161
+          ],
+          [
+            149,
+            191
+          ],
+          [
+            121,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Raised knee obscures torso lower-right; its thigh points into depth. Far guard elbow is hidden by knee/chest overlap.",
+      "shoeExclusion": "Hanging foot faces viewer with heel hidden."
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          164,
+          63
+        ],
+        "estimatedSkullCrown": [
+          162,
+          80
+        ],
+        "chin": [
+          161,
+          104
+        ],
+        "collar": [
+          158,
+          107
+        ],
+        "jacketHem": [
+          146,
+          146
+        ],
+        "armShoulderElbowWrist": [
+          [
+            139,
+            112
+          ],
+          [
+            127,
+            131
+          ],
+          [
+            150,
+            120
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            148,
+            160
+          ],
+          [
+            150,
+            191
+          ],
+          [
+            123,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Raised thigh/hip overlap the jacket hem and crotch; far guard elbow lies behind fist/torso.",
+      "shoeExclusion": "Hanging foot points down/toward viewer; no exposed heel."
+    }
+  ],
+  "airLight3Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          155,
+          73
+        ],
+        "estimatedSkullCrown": [
+          154,
+          88
+        ],
+        "chin": [
+          153,
+          114
+        ],
+        "collar": [
+          149,
+          116
+        ],
+        "jacketHem": [
+          143,
+          153
+        ],
+        "armShoulderElbowWrist": [
+          [
+            141,
+            123
+          ],
+          [
+            167,
+            140
+          ],
+          [
+            174,
+            127
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            147,
+            176
+          ],
+          [
+            153,
+            199
+          ],
+          [
+            122,
+            229
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-right guarding arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Selected guarding forearm points into depth; its projected length is not intrinsic. Other arm is behind back/torso. Raised knee and hip merge in foreshortened orange cloth.",
+      "shoeExclusion": "Hanging sandal is toe-on; heel hidden."
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          151,
+          82
+        ],
+        "estimatedSkullCrown": [
+          150,
+          98
+        ],
+        "chin": [
+          147,
+          122
+        ],
+        "collar": [
+          144,
+          125
+        ],
+        "jacketHem": [
+          143,
+          164
+        ],
+        "armShoulderElbowWrist": [
+          [
+            119,
+            137
+          ],
+          [
+            96,
+            151
+          ],
+          [
+            83,
+            161
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            147,
+            178
+          ],
+          [
+            153,
+            200
+          ],
+          [
+            123,
+            229
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Other forearm/open palm points right with cuff overlap; raised thigh points toward viewer and hip is obscured by crotch.",
+      "shoeExclusion": "Toe-on dangling sandal, no separate heel."
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          124,
+          85
+        ],
+        "estimatedSkullCrown": [
+          124,
+          98
+        ],
+        "chin": [
+          125,
+          125
+        ],
+        "collar": [
+          120,
+          126
+        ],
+        "jacketHem": [
+          134,
+          165
+        ],
+        "armShoulderElbowWrist": [
+          [
+            97,
+            137
+          ],
+          [
+            80,
+            157
+          ],
+          [
+            66,
+            175
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            132,
+            172
+          ],
+          [
+            173,
+            160
+          ],
+          [
+            219,
+            152
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            224,
+            155
+          ],
+          [
+            234,
+            135
+          ]
+        ]
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "screen-right kicking leg",
+      "frameSpecificExclusions": "Crescent is excluded. Kicking knee center is garment estimate; supporting thigh curls into depth with hip under pouch/crotch. Far hand near waist hides far wrist/elbow.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          124,
+          85
+        ],
+        "estimatedSkullCrown": [
+          124,
+          98
+        ],
+        "chin": [
+          125,
+          125
+        ],
+        "collar": [
+          120,
+          126
+        ],
+        "jacketHem": [
+          134,
+          165
+        ],
+        "armShoulderElbowWrist": [
+          [
+            97,
+            137
+          ],
+          [
+            80,
+            157
+          ],
+          [
+            66,
+            175
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            132,
+            172
+          ],
+          [
+            177,
+            160
+          ],
+          [
+            225,
+            150
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            232,
+            154
+          ],
+          [
+            246,
+            132
+          ]
+        ]
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "screen-right kicking leg",
+      "frameSpecificExclusions": "No crescent in this frame. Supporting hip hidden under pouch/crotch; far hand is partly hidden at waist. Extended kicking knee center under cloth, uncertainty retained.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          167,
+          88
+        ],
+        "estimatedSkullCrown": [
+          166,
+          102
+        ],
+        "chin": [
+          164,
+          128
+        ],
+        "collar": [
+          160,
+          130
+        ],
+        "jacketHem": [
+          153,
+          165
+        ],
+        "armShoulderElbowWrist": [
+          [
+            138,
+            138
+          ],
+          [
+            113,
+            153
+          ],
+          [
+            94,
+            164
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            149,
+            187
+          ],
+          [
+            146,
+            205
+          ],
+          [
+            122,
+            230
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Raised thigh projects forward, its hip obscured by hem; guard elbow on screen-right partly merged with jacket. Hanging thigh itself is flexed toward depth.",
+      "shoeExclusion": "Hanging foot toe-on, heel not delineated."
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          166,
+          82
+        ],
+        "estimatedSkullCrown": [
+          164,
+          98
+        ],
+        "chin": [
+          162,
+          121
+        ],
+        "collar": [
+          159,
+          123
+        ],
+        "jacketHem": [
+          155,
+          163
+        ],
+        "armShoulderElbowWrist": [
+          [
+            140,
+            132
+          ],
+          [
+            128,
+            148
+          ],
+          [
+            150,
+            136
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            147,
+            183
+          ],
+          [
+            132,
+            205
+          ],
+          [
+            112,
+            229
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left visible arm",
+      "selectedLeg": "hanging screen-left leg",
+      "frameSpecificExclusions": "Far guarding forearm points toward face; raised thigh projects forward with hip covered by hem.",
+      "shoeExclusion": "Hanging sandal toe-on; heel hidden."
+    }
+  ],
+  "heavyAlt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          159,
+          93
+        ],
+        "estimatedSkullCrown": [
+          159,
+          107
+        ],
+        "chin": [
+          158,
+          133
+        ],
+        "collar": [
+          149,
+          134
+        ],
+        "jacketHem": [
+          132,
+          166
+        ],
+        "armShoulderElbowWrist": [
+          [
+            127,
+            136
+          ],
+          [
+            101,
+            149
+          ],
+          [
+            89,
+            158
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            143,
+            179
+          ],
+          [
+            177,
+            189
+          ],
+          [
+            178,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            172,
+            235
+          ],
+          [
+            200,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-right support leg",
+      "frameSpecificExclusions": "Trailing forearm partly directed toward viewer; far guarding upper arm lies under face/fist. Other hip is hidden by pouch and crotch fold.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          159,
+          106
+        ],
+        "estimatedSkullCrown": [
+          159,
+          119
+        ],
+        "chin": [
+          158,
+          146
+        ],
+        "collar": [
+          149,
+          145
+        ],
+        "jacketHem": [
+          137,
+          170
+        ],
+        "armShoulderElbowWrist": [
+          [
+            128,
+            146
+          ],
+          [
+            98,
+            152
+          ],
+          [
+            86,
+            164
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            144,
+            185
+          ],
+          [
+            176,
+            190
+          ],
+          [
+            175,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            169,
+            235
+          ],
+          [
+            198,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-right support leg",
+      "frameSpecificExclusions": "Deep crouch compresses collar-to-hem projection; no standing-height inference. Far guard elbow lies behind forearm/torso. Other hip hidden by pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          138,
+          42
+        ],
+        "estimatedSkullCrown": [
+          139,
+          58
+        ],
+        "chin": [
+          138,
+          80
+        ],
+        "collar": [
+          137,
+          83
+        ],
+        "jacketHem": [
+          140,
+          123
+        ],
+        "armShoulderElbowWrist": [
+          [
+            111,
+            90
+          ],
+          [
+            91,
+            109
+          ],
+          [
+            81,
+            123
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            143,
+            144
+          ],
+          [
+            143,
+            176
+          ],
+          [
+            127,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            121,
+            232
+          ],
+          [
+            140,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Raised thigh points toward viewer and overlaps hem; its hip/knee are ambiguous. Far guard elbow partially behind raised leg. Selected ankle joint estimated inside wrap.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          122,
+          66
+        ],
+        "estimatedSkullCrown": [
+          121,
+          81
+        ],
+        "chin": [
+          124,
+          102
+        ],
+        "collar": [
+          121,
+          106
+        ],
+        "jacketHem": [
+          118,
+          146
+        ],
+        "armShoulderElbowWrist": [
+          [
+            102,
+            115
+          ],
+          [
+            85,
+            142
+          ],
+          [
+            75,
+            159
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            132,
+            150
+          ],
+          [
+            143,
+            109
+          ],
+          [
+            151,
+            73
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            160,
+            65
+          ],
+          [
+            147,
+            48
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-right raised kicking leg",
+      "frameSpecificExclusions": "Head tilted back; skull estimate low confidence. Straight raised-kick knee is inferred from trouser taper (+/-7px), not visible patella. Bent hanging hip occluded by raised thigh; far elbow obscured by kick.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          122,
+          82
+        ],
+        "estimatedSkullCrown": [
+          121,
+          97
+        ],
+        "chin": [
+          122,
+          119
+        ],
+        "collar": [
+          119,
+          122
+        ],
+        "jacketHem": [
+          118,
+          163
+        ],
+        "armShoulderElbowWrist": [
+          [
+            102,
+            131
+          ],
+          [
+            83,
+            157
+          ],
+          [
+            72,
+            171
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            127,
+            170
+          ],
+          [
+            147,
+            126
+          ],
+          [
+            157,
+            91
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            172,
+            79
+          ],
+          [
+            165,
+            57
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-right raised kicking leg",
+      "frameSpecificExclusions": "Raised-kick knee is cloth/taper estimate (+/-7px); head tilt changes hair contour. Hanging leg hip behind kick; far wrist/elbow hidden at waist.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          137,
+          51
+        ],
+        "estimatedSkullCrown": [
+          137,
+          66
+        ],
+        "chin": [
+          135,
+          89
+        ],
+        "collar": [
+          135,
+          92
+        ],
+        "jacketHem": [
+          145,
+          128
+        ],
+        "armShoulderElbowWrist": [
+          [
+            155,
+            99
+          ],
+          [
+            162,
+            76
+          ],
+          [
+            155,
+            53
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            141,
+            146
+          ],
+          [
+            133,
+            181
+          ],
+          [
+            118,
+            226
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-right raised arm",
+      "selectedLeg": "screen-left hanging leg",
+      "frameSpecificExclusions": "Raised elbow is inside sleeve (+/-6px). Other lifted thigh is foreshortened into depth and hip covered by hem; hanging ankle visible but heel is not.",
+      "shoeExclusion": "Hanging sandal points toward viewer/down; heel hidden behind wrap."
+    },
+    {
+      "frame": 6,
+      "landmarks": {
+        "hairCrown": [
+          150,
+          76
+        ],
+        "estimatedSkullCrown": [
+          149,
+          92
+        ],
+        "chin": [
+          148,
+          115
+        ],
+        "collar": [
+          143,
+          117
+        ],
+        "jacketHem": [
+          125,
+          151
+        ],
+        "armShoulderElbowWrist": [
+          [
+            121,
+            122
+          ],
+          [
+            98,
+            126
+          ],
+          [
+            80,
+            132
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            143,
+            168
+          ],
+          [
+            161,
+            184
+          ],
+          [
+            151,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            145,
+            235
+          ],
+          [
+            174,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-right support leg",
+      "frameSpecificExclusions": "Trailing forearm has depth shortening; far guard elbow lies behind fist. Screen-left rear hip is behind pouch/hem and bent thigh.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 7,
+      "landmarks": {
+        "hairCrown": [
+          141,
+          75
+        ],
+        "estimatedSkullCrown": [
+          140,
+          91
+        ],
+        "chin": [
+          139,
+          114
+        ],
+        "collar": [
+          135,
+          117
+        ],
+        "jacketHem": [
+          130,
+          153
+        ],
+        "armShoulderElbowWrist": [
+          [
+            114,
+            125
+          ],
+          [
+            101,
+            140
+          ],
+          [
+            120,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            141,
+            171
+          ],
+          [
+            169,
+            189
+          ],
+          [
+            177,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            172,
+            235
+          ],
+          [
+            200,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right support leg",
+      "frameSpecificExclusions": "Near guarding arm folded in depth; other shoulder/collar and far elbow overlap. Rear hip behind pouch; not a second measured leg.",
+      "shoeExclusion": null
+    }
+  ],
+  "hurtHighAlt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          92,
+          65
+        ],
+        "estimatedSkullCrown": [
+          98,
+          78
+        ],
+        "chin": [
+          110,
+          99
+        ],
+        "collar": [
+          108,
+          102
+        ],
+        "jacketHem": [
+          132,
+          140
+        ],
+        "armShoulderElbowWrist": [
+          [
+            95,
+            114
+          ],
+          [
+            79,
+            135
+          ],
+          [
+            66,
+            149
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            137,
+            159
+          ],
+          [
+            159,
+            182
+          ],
+          [
+            161,
+            224
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            153,
+            235
+          ],
+          [
+            184,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Head rolled back, crown under hair uncertain. Far shoulder behind collar/torso; rear hip covered by pouch. Selected arm projects obliquely toward viewer.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          124,
+          67
+        ],
+        "estimatedSkullCrown": [
+          125,
+          82
+        ],
+        "chin": [
+          126,
+          106
+        ],
+        "collar": [
+          124,
+          108
+        ],
+        "jacketHem": [
+          132,
+          144
+        ],
+        "armShoulderElbowWrist": [
+          [
+            104,
+            116
+          ],
+          [
+            82,
+            133
+          ],
+          [
+            61,
+            143
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            137,
+            161
+          ],
+          [
+            159,
+            183
+          ],
+          [
+            163,
+            224
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            155,
+            235
+          ],
+          [
+            187,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far upper arm runs behind torso and only cuff/hand emerge; rear hip hidden by pouch. Chest rotation changes visible shoulder span.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          104,
+          66
+        ],
+        "estimatedSkullCrown": [
+          106,
+          80
+        ],
+        "chin": [
+          114,
+          102
+        ],
+        "collar": [
+          112,
+          105
+        ],
+        "jacketHem": [
+          133,
+          144
+        ],
+        "armShoulderElbowWrist": [
+          [
+            96,
+            114
+          ],
+          [
+            82,
+            133
+          ],
+          [
+            106,
+            139
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            138,
+            159
+          ],
+          [
+            158,
+            181
+          ],
+          [
+            164,
+            223
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            157,
+            235
+          ],
+          [
+            189,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Near forearm crosses torso; far shoulder/elbow behind jacket and guarding hand. Rear hip is obscured by pouch; skull estimate affected by backward tilt.",
+      "shoeExclusion": null
+    }
+  ],
+  "hurtLowAlt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          170,
+          86
+        ],
+        "estimatedSkullCrown": [
+          170,
+          100
+        ],
+        "chin": [
+          168,
+          127
+        ],
+        "collar": [
+          153,
+          126
+        ],
+        "jacketHem": [
+          127,
+          153
+        ],
+        "armShoulderElbowWrist": [
+          [
+            131,
+            125
+          ],
+          [
+            116,
+            144
+          ],
+          [
+            137,
+            151
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            168
+          ],
+          [
+            160,
+            186
+          ],
+          [
+            162,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            155,
+            235
+          ],
+          [
+            188,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Two hands overlap abdomen; far forearm/elbow cannot be separated from near hand/hem. Back hip behind pouch. Neck/collar partly hidden by bowed head.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          162,
+          91
+        ],
+        "estimatedSkullCrown": [
+          161,
+          105
+        ],
+        "chin": [
+          157,
+          130
+        ],
+        "collar": [
+          147,
+          129
+        ],
+        "jacketHem": [
+          130,
+          155
+        ],
+        "armShoulderElbowWrist": [
+          [
+            119,
+            124
+          ],
+          [
+            100,
+            129
+          ],
+          [
+            88,
+            143
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            137,
+            170
+          ],
+          [
+            161,
+            186
+          ],
+          [
+            164,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            156,
+            235
+          ],
+          [
+            188,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left trailing arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Screen-right guarding arm crosses abdomen and its wrist merges with jacket folds. Rear shoulder in selected trailing arm inferred beneath upper sleeve; rear hip behind pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          169,
+          81
+        ],
+        "estimatedSkullCrown": [
+          168,
+          96
+        ],
+        "chin": [
+          164,
+          120
+        ],
+        "collar": [
+          151,
+          123
+        ],
+        "jacketHem": [
+          128,
+          153
+        ],
+        "armShoulderElbowWrist": [
+          [
+            130,
+            122
+          ],
+          [
+            115,
+            143
+          ],
+          [
+            137,
+            150
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            169
+          ],
+          [
+            160,
+            186
+          ],
+          [
+            162,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            154,
+            235
+          ],
+          [
+            187,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Overlapping hands hide far wrist and elbow; rear hip obscured by pouch. Collar at bent neck partly under face/hair.",
+      "shoeExclusion": null
+    }
+  ],
+  "light1Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          138,
+          74
+        ],
+        "estimatedSkullCrown": [
+          137,
+          89
+        ],
+        "chin": [
+          137,
+          115
+        ],
+        "collar": [
+          134,
+          117
+        ],
+        "jacketHem": [
+          130,
+          152
+        ],
+        "armShoulderElbowWrist": [
+          [
+            115,
+            126
+          ],
+          [
+            101,
+            139
+          ],
+          [
+            119,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            139,
+            170
+          ],
+          [
+            166,
+            188
+          ],
+          [
+            174,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Other guard shoulder and elbow overlap collar/raised fist. Rear hip covered by pouch; rear toe faces viewer.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          138,
+          74
+        ],
+        "estimatedSkullCrown": [
+          137,
+          89
+        ],
+        "chin": [
+          136,
+          114
+        ],
+        "collar": [
+          134,
+          117
+        ],
+        "jacketHem": [
+          130,
+          152
+        ],
+        "armShoulderElbowWrist": [
+          [
+            114,
+            126
+          ],
+          [
+            110,
+            139
+          ],
+          [
+            129,
+            119
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            139,
+            170
+          ],
+          [
+            166,
+            188
+          ],
+          [
+            174,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Loaded far arm folds behind guard fist and chest: wrist cannot be isolated. Selected forearm points toward viewer; rear hip covered by pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          139,
+          74
+        ],
+        "estimatedSkullCrown": [
+          138,
+          89
+        ],
+        "chin": [
+          137,
+          114
+        ],
+        "collar": [
+          134,
+          117
+        ],
+        "jacketHem": [
+          130,
+          152
+        ],
+        "armShoulderElbowWrist": [
+          [
+            149,
+            119
+          ],
+          [
+            171,
+            116
+          ],
+          [
+            193,
+            115
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            140,
+            170
+          ],
+          [
+            166,
+            189
+          ],
+          [
+            174,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-right striking arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Guard forearm/fist overlaps face and hides its wrist/shoulder separation. Extended shoulder estimated through sleeve; rear hip hidden by pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          139,
+          74
+        ],
+        "estimatedSkullCrown": [
+          138,
+          89
+        ],
+        "chin": [
+          137,
+          114
+        ],
+        "collar": [
+          134,
+          117
+        ],
+        "jacketHem": [
+          130,
+          152
+        ],
+        "armShoulderElbowWrist": [
+          [
+            147,
+            119
+          ],
+          [
+            165,
+            118
+          ],
+          [
+            181,
+            116
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            139,
+            170
+          ],
+          [
+            166,
+            189
+          ],
+          [
+            174,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-right striking arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Guard forearm crosses face; selected punch is less extended and projects into depth, so its short forearm is not intrinsic length. Rear hip hidden by pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          143,
+          75
+        ],
+        "estimatedSkullCrown": [
+          142,
+          90
+        ],
+        "chin": [
+          141,
+          116
+        ],
+        "collar": [
+          137,
+          119
+        ],
+        "jacketHem": [
+          134,
+          155
+        ],
+        "armShoulderElbowWrist": [
+          [
+            114,
+            126
+          ],
+          [
+            100,
+            143
+          ],
+          [
+            111,
+            145
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            143,
+            172
+          ],
+          [
+            168,
+            189
+          ],
+          [
+            174,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            198,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left lowered arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Selected near forearm crosses torso almost toward viewer; far arm crosses upper chest and hides elbow/wrist boundary. Rear hip behind pouch/hem.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          143,
+          75
+        ],
+        "estimatedSkullCrown": [
+          142,
+          90
+        ],
+        "chin": [
+          141,
+          116
+        ],
+        "collar": [
+          137,
+          119
+        ],
+        "jacketHem": [
+          134,
+          155
+        ],
+        "armShoulderElbowWrist": [
+          [
+            117,
+            127
+          ],
+          [
+            102,
+            140
+          ],
+          [
+            122,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            143,
+            172
+          ],
+          [
+            168,
+            190
+          ],
+          [
+            175,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard upper arm partly hidden by raised hand and collar; rear hip behind pouch. Both forearms folded in depth.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 6,
+      "landmarks": {
+        "hairCrown": [
+          141,
+          75
+        ],
+        "estimatedSkullCrown": [
+          140,
+          90
+        ],
+        "chin": [
+          139,
+          116
+        ],
+        "collar": [
+          136,
+          118
+        ],
+        "jacketHem": [
+          132,
+          154
+        ],
+        "armShoulderElbowWrist": [
+          [
+            115,
+            127
+          ],
+          [
+            101,
+            140
+          ],
+          [
+            121,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            141,
+            172
+          ],
+          [
+            166,
+            190
+          ],
+          [
+            173,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            169,
+            235
+          ],
+          [
+            197,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard elbow under cuff/chest; rear hip covered by pouch. Selected arm remains folded in depth.",
+      "shoeExclusion": null
+    }
+  ],
+  "light2Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          132,
+          65
+        ],
+        "estimatedSkullCrown": [
+          132,
+          81
+        ],
+        "chin": [
+          130,
+          104
+        ],
+        "collar": [
+          128,
+          107
+        ],
+        "jacketHem": [
+          123,
+          145
+        ],
+        "armShoulderElbowWrist": [
+          [
+            107,
+            116
+          ],
+          [
+            92,
+            130
+          ],
+          [
+            112,
+            119
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            165
+          ],
+          [
+            167,
+            185
+          ],
+          [
+            173,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            169,
+            235
+          ],
+          [
+            200,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard elbow/shoulder overlap the collar and fist; rear hip behind pouch. Guard arm has depth shortening.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          140,
+          57
+        ],
+        "estimatedSkullCrown": [
+          139,
+          73
+        ],
+        "chin": [
+          138,
+          97
+        ],
+        "collar": [
+          137,
+          100
+        ],
+        "jacketHem": [
+          141,
+          141
+        ],
+        "armShoulderElbowWrist": [
+          [
+            117,
+            109
+          ],
+          [
+            111,
+            127
+          ],
+          [
+            131,
+            110
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            142,
+            159
+          ],
+          [
+            134,
+            191
+          ],
+          [
+            127,
+            226
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left planted leg",
+      "frameSpecificExclusions": "Raised thigh points toward viewer with knee/hip partly under hem; far fist overlaps raised knee and hides forearm endpoint.",
+      "shoeExclusion": "Planted foot is toe-on; heel obscured."
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          135,
+          65
+        ],
+        "estimatedSkullCrown": [
+          135,
+          78
+        ],
+        "chin": [
+          134,
+          103
+        ],
+        "collar": [
+          133,
+          106
+        ],
+        "jacketHem": [
+          146,
+          146
+        ],
+        "armShoulderElbowWrist": [
+          [
+            119,
+            114
+          ],
+          [
+            110,
+            130
+          ],
+          [
+            128,
+            114
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            143,
+            155
+          ],
+          [
+            179,
+            133
+          ],
+          [
+            213,
+            124
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            222,
+            124
+          ],
+          [
+            250,
+            125
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right striking leg",
+      "frameSpecificExclusions": "Kick knee center inferred beneath straight trouser cloth; far guard elbow overlaps extended thigh. Supporting hip obscured by pouch/crotch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          135,
+          66
+        ],
+        "estimatedSkullCrown": [
+          134,
+          81
+        ],
+        "chin": [
+          133,
+          104
+        ],
+        "collar": [
+          132,
+          107
+        ],
+        "jacketHem": [
+          144,
+          147
+        ],
+        "armShoulderElbowWrist": [
+          [
+            118,
+            115
+          ],
+          [
+            109,
+            131
+          ],
+          [
+            128,
+            115
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            142,
+            156
+          ],
+          [
+            174,
+            136
+          ],
+          [
+            204,
+            126
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            212,
+            126
+          ],
+          [
+            234,
+            127
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right striking leg",
+      "frameSpecificExclusions": "Kick knee under cloth; shortened f3 kick has a depth component, so projected length is not intrinsic. Far elbow merges with upper thigh; supporting hip behind pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          155,
+          60
+        ],
+        "estimatedSkullCrown": [
+          154,
+          77
+        ],
+        "chin": [
+          153,
+          101
+        ],
+        "collar": [
+          150,
+          104
+        ],
+        "jacketHem": [
+          143,
+          143
+        ],
+        "armShoulderElbowWrist": [
+          [
+            129,
+            113
+          ],
+          [
+            119,
+            130
+          ],
+          [
+            141,
+            120
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            142,
+            160
+          ],
+          [
+            133,
+            192
+          ],
+          [
+            128,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left planted leg",
+      "frameSpecificExclusions": "Raised leg folds toward viewer and hides hip/knee separation; far guard forearm lies behind chest/knee.",
+      "shoeExclusion": "Planted sandal points toward viewer; heel not separable."
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          134,
+          65
+        ],
+        "estimatedSkullCrown": [
+          133,
+          82
+        ],
+        "chin": [
+          132,
+          107
+        ],
+        "collar": [
+          129,
+          110
+        ],
+        "jacketHem": [
+          126,
+          149
+        ],
+        "armShoulderElbowWrist": [
+          [
+            110,
+            119
+          ],
+          [
+            99,
+            136
+          ],
+          [
+            120,
+            123
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            166
+          ],
+          [
+            156,
+            187
+          ],
+          [
+            165,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            161,
+            235
+          ],
+          [
+            193,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Other guard arm partly behind fist/chest; rear hip covered by pouch. Both forearms flex toward viewer.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 6,
+      "landmarks": {
+        "hairCrown": [
+          138,
+          66
+        ],
+        "estimatedSkullCrown": [
+          137,
+          83
+        ],
+        "chin": [
+          136,
+          107
+        ],
+        "collar": [
+          132,
+          110
+        ],
+        "jacketHem": [
+          128,
+          149
+        ],
+        "armShoulderElbowWrist": [
+          [
+            110,
+            119
+          ],
+          [
+            98,
+            135
+          ],
+          [
+            120,
+            125
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            138,
+            166
+          ],
+          [
+            170,
+            185
+          ],
+          [
+            176,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            172,
+            235
+          ],
+          [
+            201,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far elbow is masked by guard cuff/chest; rear hip behind pouch. Forearm depth projection remains unknown.",
+      "shoeExclusion": null
+    }
+  ],
+  "light3Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          133,
+          74
+        ],
+        "estimatedSkullCrown": [
+          133,
+          90
+        ],
+        "chin": [
+          132,
+          114
+        ],
+        "collar": [
+          129,
+          117
+        ],
+        "jacketHem": [
+          126,
+          152
+        ],
+        "armShoulderElbowWrist": [
+          [
+            109,
+            126
+          ],
+          [
+            97,
+            139
+          ],
+          [
+            117,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            168
+          ],
+          [
+            159,
+            188
+          ],
+          [
+            167,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            164,
+            235
+          ],
+          [
+            189,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guarding elbow is partly concealed by cuff/chest; back hip behind pouch. Skull crown inferred under bangs.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          145,
+          73
+        ],
+        "estimatedSkullCrown": [
+          144,
+          89
+        ],
+        "chin": [
+          144,
+          113
+        ],
+        "collar": [
+          141,
+          116
+        ],
+        "jacketHem": [
+          137,
+          149
+        ],
+        "armShoulderElbowWrist": [
+          [
+            125,
+            125
+          ],
+          [
+            114,
+            140
+          ],
+          [
+            137,
+            128
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            138,
+            170
+          ],
+          [
+            131,
+            195
+          ],
+          [
+            129,
+            226
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left planted leg",
+      "frameSpecificExclusions": "Raised thigh is directed toward viewer with hip covered by jacket; far guard forearm overlaps the raised knee/torso.",
+      "shoeExclusion": "Planted sandal points toward viewer with heel hidden."
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          143,
+          74
+        ],
+        "estimatedSkullCrown": [
+          141,
+          88
+        ],
+        "chin": [
+          140,
+          114
+        ],
+        "collar": [
+          139,
+          117
+        ],
+        "jacketHem": [
+          136,
+          150
+        ],
+        "armShoulderElbowWrist": [
+          [
+            118,
+            127
+          ],
+          [
+            111,
+            142
+          ],
+          [
+            129,
+            132
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            140,
+            158
+          ],
+          [
+            178,
+            150
+          ],
+          [
+            219,
+            143
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            229,
+            147
+          ],
+          [
+            245,
+            123
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right kicking leg",
+      "frameSpecificExclusions": "Straight kicking knee is garment-center estimate; support hip hidden behind pouch and overlapping kicking thigh. Far guard elbow merges with torso.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          144,
+          74
+        ],
+        "estimatedSkullCrown": [
+          142,
+          89
+        ],
+        "chin": [
+          141,
+          114
+        ],
+        "collar": [
+          139,
+          117
+        ],
+        "jacketHem": [
+          137,
+          151
+        ],
+        "armShoulderElbowWrist": [
+          [
+            119,
+            126
+          ],
+          [
+            111,
+            141
+          ],
+          [
+            130,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            140,
+            158
+          ],
+          [
+            179,
+            151
+          ],
+          [
+            219,
+            144
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            228,
+            150
+          ],
+          [
+            244,
+            127
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right kicking leg",
+      "frameSpecificExclusions": "Kicking knee lies under trouser cloth; support hip hidden by pouch/crotch overlap. Far guard upper arm and forearm masked by fist/collar.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          107,
+          76
+        ],
+        "estimatedSkullCrown": [
+          107,
+          92
+        ],
+        "chin": [
+          106,
+          117
+        ],
+        "collar": [
+          103,
+          120
+        ],
+        "jacketHem": [
+          100,
+          157
+        ],
+        "armShoulderElbowWrist": [
+          [
+            86,
+            128
+          ],
+          [
+            76,
+            140
+          ],
+          [
+            93,
+            130
+          ]
+        ],
+        "legHipKneeAnkle": [
+          null,
+          [
+            126,
+            195
+          ],
+          [
+            130,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            126,
+            235
+          ],
+          [
+            151,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted lower leg; thigh occluded",
+      "frameSpecificExclusions": "Selected planted thigh is N/A: hip and upper thigh completely behind crossed raised thigh, so no independent hip endpoint can be assigned. Raised leg points into depth; its knee/hip overlap. Far elbow behind guarding hand.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          140,
+          79
+        ],
+        "estimatedSkullCrown": [
+          140,
+          95
+        ],
+        "chin": [
+          139,
+          119
+        ],
+        "collar": [
+          134,
+          122
+        ],
+        "jacketHem": [
+          128,
+          157
+        ],
+        "armShoulderElbowWrist": [
+          [
+            114,
+            130
+          ],
+          [
+            99,
+            143
+          ],
+          [
+            121,
+            132
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            139,
+            173
+          ],
+          [
+            166,
+            191
+          ],
+          [
+            174,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            170,
+            235
+          ],
+          [
+            196,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far arm folded across upper chest; rear hip hidden by pouch. Selected guarding forearm is depth-foreshortened.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 6,
+      "landmarks": {
+        "hairCrown": [
+          139,
+          80
+        ],
+        "estimatedSkullCrown": [
+          138,
+          96
+        ],
+        "chin": [
+          136,
+          119
+        ],
+        "collar": [
+          132,
+          122
+        ],
+        "jacketHem": [
+          126,
+          158
+        ],
+        "armShoulderElbowWrist": [
+          [
+            113,
+            130
+          ],
+          [
+            98,
+            143
+          ],
+          [
+            119,
+            133
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            138,
+            174
+          ],
+          [
+            165,
+            192
+          ],
+          [
+            173,
+            227
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            168,
+            235
+          ],
+          [
+            195,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far cuff/fist obscures its forearm-to-elbow boundary; rear hip behind pouch. Head tips forward, skull crown remains an estimate.",
+      "shoeExclusion": null
+    }
+  ],
+  "light4Alt": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          144,
+          65
+        ],
+        "estimatedSkullCrown": [
+          143,
+          81
+        ],
+        "chin": [
+          141,
+          106
+        ],
+        "collar": [
+          137,
+          109
+        ],
+        "jacketHem": [
+          133,
+          147
+        ],
+        "armShoulderElbowWrist": [
+          [
+            117,
+            119
+          ],
+          [
+            104,
+            133
+          ],
+          [
+            125,
+            122
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            145,
+            165
+          ],
+          [
+            173,
+            184
+          ],
+          [
+            177,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            173,
+            235
+          ],
+          [
+            201,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard elbow is behind the fist/cuff/chest; rear hip behind pouch. Selected forearm points toward viewer.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          150,
+          65
+        ],
+        "estimatedSkullCrown": [
+          149,
+          81
+        ],
+        "chin": [
+          147,
+          106
+        ],
+        "collar": [
+          141,
+          109
+        ],
+        "jacketHem": [
+          135,
+          147
+        ],
+        "armShoulderElbowWrist": [
+          [
+            122,
+            120
+          ],
+          [
+            112,
+            134
+          ],
+          [
+            136,
+            128
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            147,
+            166
+          ],
+          [
+            177,
+            183
+          ],
+          [
+            177,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            171,
+            235
+          ],
+          [
+            204,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Both palms open; far elbow hidden by near forearm/chest. Rear hip behind pouch. Near wrist partly under palm cuff.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          151,
+          65
+        ],
+        "estimatedSkullCrown": [
+          150,
+          81
+        ],
+        "chin": [
+          148,
+          106
+        ],
+        "collar": [
+          143,
+          109
+        ],
+        "jacketHem": [
+          130,
+          150
+        ],
+        "armShoulderElbowWrist": [
+          [
+            130,
+            119
+          ],
+          [
+            152,
+            122
+          ],
+          [
+            167,
+            123
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            145,
+            169
+          ],
+          [
+            179,
+            184
+          ],
+          [
+            183,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            177,
+            235
+          ],
+          [
+            208,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "near screen-right extending palm arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far shoulder hidden by neck/near shoulder; its forearm endpoints separately noted. Rear hip behind pouch; near extended arm projects into depth.",
+      "shoeExclusion": null,
+      "additionalVisibleForearm": {
+        "side": "far extending palm arm",
+        "elbowWrist": [
+          [
+            180,
+            125
+          ],
+          [
+            198,
+            125
+          ]
+        ],
+        "uncertaintyPx": 6,
+        "upperArm": "N/A: shoulder hidden behind neck and near arm"
+      }
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          153,
+          67
+        ],
+        "estimatedSkullCrown": [
+          153,
+          81
+        ],
+        "chin": [
+          153,
+          107
+        ],
+        "collar": [
+          148,
+          109
+        ],
+        "jacketHem": [
+          131,
+          149
+        ],
+        "armShoulderElbowWrist": [
+          [
+            134,
+            120
+          ],
+          [
+            163,
+            122
+          ],
+          [
+            184,
+            123
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            147,
+            167
+          ],
+          [
+            182,
+            179
+          ],
+          [
+            188,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            185,
+            235
+          ],
+          [
+            214,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "near screen-right extending palm arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far shoulder is hidden by near arm/neck; far forearm separately noted. Rear hip under pouch/hem. Lunge changes torso projection.",
+      "shoeExclusion": null,
+      "additionalVisibleForearm": {
+        "side": "far extending palm arm",
+        "elbowWrist": [
+          [
+            195,
+            123
+          ],
+          [
+            215,
+            123
+          ]
+        ],
+        "uncertaintyPx": 6,
+        "upperArm": "N/A: shoulder hidden behind neck and near arm"
+      }
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          145,
+          76
+        ],
+        "estimatedSkullCrown": [
+          144,
+          92
+        ],
+        "chin": [
+          143,
+          119
+        ],
+        "collar": [
+          138,
+          121
+        ],
+        "jacketHem": [
+          126,
+          158
+        ],
+        "armShoulderElbowWrist": [
+          [
+            126,
+            128
+          ],
+          [
+            147,
+            132
+          ],
+          [
+            167,
+            132
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            140,
+            177
+          ],
+          [
+            172,
+            192
+          ],
+          [
+            179,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            173,
+            235
+          ],
+          [
+            205,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "near screen-right extending palm arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far shoulder hidden behind near arm; far forearm separately noted. Rear hip behind pouch. Bent waist and lowered palms shorten torso projection.",
+      "shoeExclusion": null,
+      "additionalVisibleForearm": {
+        "side": "far extending palm arm",
+        "elbowWrist": [
+          [
+            180,
+            134
+          ],
+          [
+            196,
+            134
+          ]
+        ],
+        "uncertaintyPx": 6,
+        "upperArm": "N/A: shoulder hidden behind neck and near arm"
+      }
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          141,
+          73
+        ],
+        "estimatedSkullCrown": [
+          140,
+          89
+        ],
+        "chin": [
+          140,
+          113
+        ],
+        "collar": [
+          138,
+          116
+        ],
+        "jacketHem": [
+          132,
+          155
+        ],
+        "armShoulderElbowWrist": [
+          [
+            116,
+            126
+          ],
+          [
+            101,
+            139
+          ],
+          [
+            122,
+            133
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            138,
+            174
+          ],
+          [
+            154,
+            196
+          ],
+          [
+            162,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            156,
+            235
+          ],
+          [
+            185,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far palm/forearm partly turned toward viewer, elbow obscured by torso. Rear step sandal is tilted/toe-on (heel hidden), not used for shoe length; its hip under pouch.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 6,
+      "landmarks": {
+        "hairCrown": [
+          134,
+          72
+        ],
+        "estimatedSkullCrown": [
+          133,
+          88
+        ],
+        "chin": [
+          133,
+          114
+        ],
+        "collar": [
+          129,
+          117
+        ],
+        "jacketHem": [
+          126,
+          153
+        ],
+        "armShoulderElbowWrist": [
+          [
+            111,
+            125
+          ],
+          [
+            98,
+            140
+          ],
+          [
+            120,
+            129
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            170
+          ],
+          [
+            159,
+            190
+          ],
+          [
+            164,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            159,
+            235
+          ],
+          [
+            187,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard elbow merges into chest/cuff; rear hip behind pouch. Selected forearm folded into depth.",
+      "shoeExclusion": null
+    },
+    {
+      "frame": 7,
+      "landmarks": {
+        "hairCrown": [
+          135,
+          75
+        ],
+        "estimatedSkullCrown": [
+          134,
+          91
+        ],
+        "chin": [
+          134,
+          114
+        ],
+        "collar": [
+          131,
+          117
+        ],
+        "jacketHem": [
+          127,
+          153
+        ],
+        "armShoulderElbowWrist": [
+          [
+            109,
+            125
+          ],
+          [
+            97,
+            139
+          ],
+          [
+            119,
+            129
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            137,
+            171
+          ],
+          [
+            166,
+            190
+          ],
+          [
+            174,
+            226
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            168,
+            235
+          ],
+          [
+            198,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard elbow/collar overlap; rear hip under pouch. Both forearms folded toward viewer.",
+      "shoeExclusion": null
+    }
+  ]
+}

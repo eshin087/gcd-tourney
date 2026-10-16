@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111923">
+  <title>Calibrated scale review · Astra pending</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101720;--panel:#192432;--edge:#344557;--text:#edf3fa;--muted:#b2c0cf;--blue:#8cc8ff;--amber:#ffe2a3;--green:#a3e4bd}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+    main{max-width:1180px;margin:auto;padding:20px 14px 64px}h1{font-size:clamp(30px,6vw,48px);line-height:1.06;margin:8px 0 12px}h2{font-size:clamp(24px,4vw,32px);margin:0}h3{font-size:20px;margin:0}.eyebrow,.muted{color:var(--muted)}.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase}.intro{max-width:850px;color:#d4deea}
+    nav{display:flex;gap:8px;overflow-x:auto;padding:10px 0 14px;scrollbar-width:thin}nav a,.button{color:var(--text);text-decoration:none;background:#243446;border:1px solid #49617a;border-radius:10px;padding:10px 13px;white-space:nowrap;font:inherit}nav a:focus-visible,.button:focus-visible,textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+    .notice{border:1px solid #765c31;background:#322919;color:#f7e8c7;border-radius:12px;padding:13px 15px;margin:16px 0}.counts{font-weight:650;color:var(--green)}.group{scroll-margin-top:14px;margin-top:32px}.group-head{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between;margin-bottom:12px}.group-count{color:var(--muted);font-size:14px}.group-note a{color:var(--blue)}
+    .card{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:15px;margin:13px 0 18px;scroll-margin-top:12px}.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.title-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.version{color:var(--muted);font-size:15px}.badge{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:750;letter-spacing:.04em}.hold{background:#493b20;color:var(--amber)}.decision{background:#472e36;color:#ffc4c4}.pass{background:#1d4935;color:#b5f0ce}.summary{color:#d5dfeb;margin:10px 0 12px}.residual{border-left:3px solid #d5a84c;padding:7px 10px;margin:8px 0;color:#f1dfbb;background:#29271f}
+    .compare{display:flex;gap:10px;overflow-x:auto;padding:3px 2px 12px;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-color:#59718b #202d3a}.view{flex:0 0 clamp(150px,43vw,224px);scroll-snap-align:start}.view-label{font-size:13px;line-height:1.35;min-height:2.7em;display:flex;align-items:flex-end;color:var(--muted);font-weight:650;margin:0 0 5px}.cell{width:100%;aspect-ratio:1/1;background-color:#252e39;background-image:linear-gradient(45deg,#303b48 25%,transparent 25%),linear-gradient(-45deg,#303b48 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#303b48 75%),linear-gradient(-45deg,transparent 75%,#303b48 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0;border:1px solid #53677b;border-radius:9px;image-rendering:pixelated;display:block}.frame-state{font-size:13px;color:var(--muted);margin:8px 0}.controls{display:flex;gap:8px;flex-wrap:wrap}.button{cursor:pointer;min-height:42px}.button:hover{background:#30465c}.button.primary{background:#29496a;border-color:#5c8bb6}.button:disabled{opacity:.58;cursor:wait}.hint{font-size:13px;color:var(--muted);margin:8px 0 0}.evidence{margin-top:12px}.evidence summary{cursor:pointer;color:var(--blue);padding:7px 0}.evidence p{margin:8px 0;color:#c2cfdd;overflow-wrap:anywhere}.evidence a{color:var(--blue)}code{font-size:12px;overflow-wrap:anywhere;color:#d7e3f2}.user-call{border-left:3px solid #d47078;padding:7px 10px;background:#302329;color:#ffdce0;margin:9px 0}
+    .draft{margin-top:38px;background:#1b2735;border:1px solid var(--edge);border-radius:16px;padding:16px}.draft textarea{display:block;width:100%;min-height:130px;margin:10px 0;background:#0f1721;color:var(--text);border:1px solid #52677b;border-radius:10px;padding:12px;font:inherit}.draft-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.live{color:var(--green);font-size:14px}footer{margin-top:26px;color:var(--muted);font-size:14px}
+    @media(min-width:900px){main{padding:30px 24px 72px}.card{padding:18px}.compare{gap:14px}.view{flex-basis:224px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">GCD Tourney · Scale loose ends</p>
+  <h1>Five calibrated candidates</h1>
+  <p class="intro">These five candidates are shown from their final calibrated production atlases. Each card compares every frame beside its predecessor or base, approved idle, and approved title neutral and combat cells at the same 256 × 256 pixel density. Astra's technical screening findings and remaining limits are shown on each card and in the linked full reports.</p>
+  <p class="counts" id="counts" aria-live="polite">Loading review set…</p>
+  <div class="notice"><strong>Technical review:</strong> Astra's visual screening passes all five candidates. Numeric whole-body ±6% certification remains unverified for hidden or foreshortened anatomy; Naruto airHeavyAlt f3 contact and Killua's runtime grounding/aura checks remain open. These candidates are not approved, and this page is not an approval request. Earlier pre-calibration audit evidence is retained separately.</div>
+  <nav id="nav" aria-label="Jump to a fighter"></nav>
+  <div id="groups"></div>
+
+  <footer>Calibrated atlas previews and comparison crops are tied to their source commits and frame metadata. No candidate is approved on this page.</footer>
+</main>
+<script type="module" src="./review.js"></script>
+</body>
+</html>

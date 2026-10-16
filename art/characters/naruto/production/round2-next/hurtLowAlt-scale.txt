@@ -1,0 +1,7 @@
+
+== naruto: idle head 29x19 px (declared palette #fcb540)
+   1 ref, 1 drift
+   hurtLowAlt      v01  head  +9%  feet    -  DRIFT    f: 1.16 1.09 1.06
+   wrote art\characters\naruto\production\round2-next\scale-hurtLowAlt\heads-naruto.png
+
+[scale] 1 flagged strip(s); wrote art\characters\naruto\production\round2-next\scale-hurtLowAlt\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

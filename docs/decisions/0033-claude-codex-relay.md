@@ -3,6 +3,7 @@
 **Status:** Proposed
 **Date:** 2026-10-15
 **Task:** TOOL-041
+**Amended by:** [ADR 0037](0037-approvals-in-claude.md) (2026-10-15): approvals happen in Claude and are relayed; Codex rings `--for user`
 
 ## Context
 
@@ -37,7 +38,8 @@ What exists on this machine:
 4. **Codex -> Claude:** Codex commits its handback as before, then `relay ring <lane> --note "..."` writes the lane's
    doorbell file (no commit). Claude runs `relay wait <lane>` as a background command named "Relay watcher: <lane>";
    it stats the file every 10 s (no tokens, no network) and exits when the ring number passes the last one Claude
-   read, so a ring that lands before the watcher starts still wakes it. Default limit 8 h.
+   read, so a ring that lands before the watcher starts still wakes it. A `send` counts every earlier ring as read
+   (Claude sends only after reading the handoff), so the next watcher waits for the reply to that send. Default limit 8 h.
 5. **Brakes.** The agents stop instead of handing over when an image waits for the user's approval, when a step is
    BLOCKED, or when a decision is the user's; the one who stops tells the user (Claude with a push notification).
    The tool enforces two more: a **hop limit** of 4 round trips per lane between user replies (`send` exits 3;

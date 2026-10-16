@@ -1,0 +1,5324 @@
+{
+  "atlasSha256": "bddb6bfb78d2d71097e375875296f3b85dd697cf16873a699f875a9544f8310c",
+  "method": "Independent coarse manual readings from each actual quantized frame coordinate grid (20px grid, native/2x nearest-neighbor views). Integer estimates deliberately reflect landmark ambiguity; no subpixel precision claimed. H=crown-to-chin; T=collar-to-garment hem; A=selected visible shoulder/elbow/wrist chain; L=selected visible hip/knee/ankle chain; S=heel/toe when unambiguous. Bounds and contact rectangles are exact in frozen-atlas-evidence.json. This table is not an automated anatomy gate.",
+  "uncertaintyPx": {
+    "head": 4,
+    "torso": 6,
+    "upperArm": 6,
+    "forearm": 6,
+    "thigh": 6,
+    "shin": 6,
+    "shoe": 4,
+    "armChain": 12,
+    "legChain": 12
+  },
+  "baselineReferences": {
+    "idle07": {
+      "landmarks": {
+        "crown": [
+          141,
+          76
+        ],
+        "chin": [
+          141,
+          116
+        ],
+        "collar": [
+          138,
+          117
+        ],
+        "hem": [
+          134,
+          157
+        ],
+        "shoulder": [
+          119,
+          124
+        ],
+        "elbow": [
+          103,
+          139
+        ],
+        "wrist": [
+          121,
+          129
+        ],
+        "hip": [
+          140,
+          167
+        ],
+        "knee": [
+          168,
+          187
+        ],
+        "ankle": [
+          175,
+          222
+        ],
+        "heel": [
+          170,
+          235
+        ],
+        "toe": [
+          198,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 40.0,
+        "torso": 40.2,
+        "upperArm": 21.9,
+        "forearm": 20.6,
+        "thigh": 34.4,
+        "shin": 35.7,
+        "shoe": 28.0,
+        "armChain": 42.5,
+        "legChain": 70.1
+      },
+      "skips": [
+        "Frontal shoulder width not applicable to three-quarter view.",
+        "Far arm/leg occluded or depth-foreshortened. Crouched torso/upper limbs have depth projection uncertainty beyond landmark interval."
+      ]
+    },
+    "combat": {
+      "landmarks": {
+        "crown": [
+          142,
+          76
+        ],
+        "chin": [
+          139,
+          113
+        ],
+        "collar": [
+          137,
+          115
+        ],
+        "hem": [
+          131,
+          157
+        ],
+        "shoulder": [
+          119,
+          122
+        ],
+        "elbow": [
+          102,
+          138
+        ],
+        "wrist": [
+          120,
+          127
+        ],
+        "hip": [
+          138,
+          166
+        ],
+        "knee": [
+          172,
+          191
+        ],
+        "ankle": [
+          181,
+          226
+        ],
+        "heel": [
+          175,
+          236
+        ],
+        "toe": [
+          201,
+          236
+        ]
+      },
+      "projectedPx": {
+        "head": 37.1,
+        "torso": 42.4,
+        "upperArm": 23.3,
+        "forearm": 21.1,
+        "thigh": 42.2,
+        "shin": 36.1,
+        "shoe": 26.0,
+        "armChain": 44.4,
+        "legChain": 78.3
+      },
+      "skips": [
+        "Frontal shoulder width not applicable to three-quarter view.",
+        "Far arm/leg occluded or depth-foreshortened. Crouched torso/upper limbs have depth projection uncertainty beyond landmark interval."
+      ]
+    },
+    "neutral": {
+      "landmarks": {
+        "crown": [
+          132,
+          36
+        ],
+        "chin": [
+          133,
+          75
+        ],
+        "collar": [
+          131,
+          78
+        ],
+        "hem": [
+          132,
+          137
+        ],
+        "shoulder": [
+          113,
+          84
+        ],
+        "elbow": [
+          100,
+          113
+        ],
+        "wrist": [
+          96,
+          142
+        ],
+        "hip": [
+          138,
+          143
+        ],
+        "knee": [
+          146,
+          179
+        ],
+        "ankle": [
+          151,
+          222
+        ],
+        "heel": [
+          145,
+          235
+        ],
+        "toe": [
+          173,
+          235
+        ]
+      },
+      "projectedPx": {
+        "head": 39.0,
+        "torso": 59.0,
+        "upperArm": 31.8,
+        "forearm": 29.3,
+        "thigh": 36.9,
+        "shin": 43.3,
+        "shoe": 28.0,
+        "armChain": 61.1,
+        "legChain": 80.2
+      },
+      "skips": [
+        "Frontal shoulder width not applicable to three-quarter view.",
+        "Far arm/leg occluded or depth-foreshortened. Crouched torso/upper limbs have depth projection uncertainty beyond landmark interval."
+      ]
+    }
+  },
+  "frames": {
+    "light1Alt:0": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 44,
+        "upperArm": 22,
+        "forearm": 22,
+        "thigh": 35,
+        "shin": 39,
+        "shoe": 28,
+        "armChain": 44,
+        "legChain": 74
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          38,
+          50
+        ],
+        "upperArm": [
+          16,
+          28
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          29,
+          41
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          32,
+          56
+        ],
+        "legChain": [
+          62,
+          86
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 9.5,
+        "upperArm": 0.5,
+        "forearm": 6.8,
+        "thigh": 1.7,
+        "shin": 9.2,
+        "shoe": 0.0,
+        "armChain": 3.5,
+        "legChain": 5.6
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light1Alt:1": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 44,
+        "upperArm": 20,
+        "forearm": 22,
+        "thigh": 36,
+        "shin": 39,
+        "shoe": 28,
+        "armChain": 42,
+        "legChain": 75
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          38,
+          50
+        ],
+        "upperArm": [
+          14,
+          26
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          30,
+          54
+        ],
+        "legChain": [
+          63,
+          87
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 9.5,
+        "upperArm": -8.7,
+        "forearm": 6.8,
+        "thigh": 4.7,
+        "shin": 9.2,
+        "shoe": 0.0,
+        "armChain": -1.2,
+        "legChain": 7.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light1Alt:2": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 44,
+        "upperArm": 25,
+        "forearm": 26,
+        "thigh": 36,
+        "shin": 40,
+        "shoe": 28,
+        "armChain": 51,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          38,
+          50
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          20,
+          32
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          39,
+          63
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 9.5,
+        "upperArm": 14.2,
+        "forearm": 26.2,
+        "thigh": 4.7,
+        "shin": 12.0,
+        "shoe": 0.0,
+        "armChain": 20.0,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light1Alt:3": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 44,
+        "upperArm": 20,
+        "forearm": 21,
+        "thigh": 36,
+        "shin": 40,
+        "shoe": 28,
+        "armChain": 41,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          38,
+          50
+        ],
+        "upperArm": [
+          14,
+          26
+        ],
+        "forearm": [
+          15,
+          27
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          29,
+          53
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 9.5,
+        "upperArm": -8.7,
+        "forearm": 1.9,
+        "thigh": 4.7,
+        "shin": 12.0,
+        "shoe": 0.0,
+        "armChain": -3.5,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light1Alt:4": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 45,
+        "upperArm": 23,
+        "forearm": 22,
+        "thigh": 35,
+        "shin": 40,
+        "shoe": 29,
+        "armChain": 45,
+        "legChain": 75
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          39,
+          51
+        ],
+        "upperArm": [
+          17,
+          29
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          29,
+          41
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          25,
+          33
+        ],
+        "armChain": [
+          33,
+          57
+        ],
+        "legChain": [
+          63,
+          87
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 11.9,
+        "upperArm": 5.0,
+        "forearm": 6.8,
+        "thigh": 1.7,
+        "shin": 12.0,
+        "shoe": 3.6,
+        "armChain": 5.9,
+        "legChain": 7.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light1Alt:5": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 45,
+        "upperArm": 23,
+        "forearm": 22,
+        "thigh": 37,
+        "shin": 39,
+        "shoe": 29,
+        "armChain": 45,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          39,
+          51
+        ],
+        "upperArm": [
+          17,
+          29
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          31,
+          43
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          25,
+          33
+        ],
+        "armChain": [
+          33,
+          57
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": 11.9,
+        "upperArm": 5.0,
+        "forearm": 6.8,
+        "thigh": 7.6,
+        "shin": 9.2,
+        "shoe": 3.6,
+        "armChain": 5.9,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light1Alt:6": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 44,
+        "upperArm": 23,
+        "forearm": 22,
+        "thigh": 36,
+        "shin": 40,
+        "shoe": 28,
+        "armChain": 45,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          38,
+          50
+        ],
+        "upperArm": [
+          17,
+          29
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          33,
+          57
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 9.5,
+        "upperArm": 5.0,
+        "forearm": 6.8,
+        "thigh": 4.7,
+        "shin": 12.0,
+        "shoe": 0.0,
+        "armChain": 5.9,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:0": {
+      "projectedPx": {
+        "head": 38,
+        "torso": 46,
+        "upperArm": 25,
+        "forearm": 22,
+        "thigh": 37,
+        "shin": 39,
+        "shoe": 27,
+        "armChain": 47,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          34,
+          42
+        ],
+        "torso": [
+          40,
+          52
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          31,
+          43
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          23,
+          31
+        ],
+        "armChain": [
+          35,
+          59
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -5.0,
+        "torso": 14.4,
+        "upperArm": 14.2,
+        "forearm": 6.8,
+        "thigh": 7.6,
+        "shin": 9.2,
+        "shoe": -3.6,
+        "armChain": 10.6,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:1": {
+      "projectedPx": {
+        "head": 39,
+        "torso": 53,
+        "upperArm": 27,
+        "forearm": 26,
+        "thigh": 46,
+        "shin": 43,
+        "shoe": null,
+        "armChain": 53,
+        "legChain": 89
+      },
+      "intervalPx": {
+        "head": [
+          35,
+          43
+        ],
+        "torso": [
+          47,
+          59
+        ],
+        "upperArm": [
+          21,
+          33
+        ],
+        "forearm": [
+          20,
+          32
+        ],
+        "thigh": [
+          40,
+          52
+        ],
+        "shin": [
+          37,
+          49
+        ],
+        "shoe": null,
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          77,
+          101
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -2.5,
+        "torso": 31.8,
+        "upperArm": 23.3,
+        "forearm": 26.2,
+        "thigh": 33.7,
+        "shin": 20.4,
+        "shoe": null,
+        "armChain": 24.7,
+        "legChain": 27.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:2": {
+      "projectedPx": {
+        "head": 38,
+        "torso": 49,
+        "upperArm": 22,
+        "forearm": 20,
+        "thigh": 50,
+        "shin": 42,
+        "shoe": null,
+        "armChain": 42,
+        "legChain": 92
+      },
+      "intervalPx": {
+        "head": [
+          34,
+          42
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          16,
+          28
+        ],
+        "forearm": [
+          14,
+          26
+        ],
+        "thigh": [
+          44,
+          56
+        ],
+        "shin": [
+          36,
+          48
+        ],
+        "shoe": null,
+        "armChain": [
+          30,
+          54
+        ],
+        "legChain": [
+          80,
+          104
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -5.0,
+        "torso": 21.9,
+        "upperArm": 0.5,
+        "forearm": -2.9,
+        "thigh": 45.3,
+        "shin": 17.6,
+        "shoe": null,
+        "armChain": -1.2,
+        "legChain": 31.2
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment.",
+        "Rightmost striking foot reaches x=255; tip length cannot be certified."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:3": {
+      "projectedPx": {
+        "head": 38,
+        "torso": 49,
+        "upperArm": 22,
+        "forearm": 20,
+        "thigh": 49,
+        "shin": 41,
+        "shoe": 24,
+        "armChain": 42,
+        "legChain": 90
+      },
+      "intervalPx": {
+        "head": [
+          34,
+          42
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          16,
+          28
+        ],
+        "forearm": [
+          14,
+          26
+        ],
+        "thigh": [
+          43,
+          55
+        ],
+        "shin": [
+          35,
+          47
+        ],
+        "shoe": [
+          20,
+          28
+        ],
+        "armChain": [
+          30,
+          54
+        ],
+        "legChain": [
+          78,
+          102
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -5.0,
+        "torso": 21.9,
+        "upperArm": 0.5,
+        "forearm": -2.9,
+        "thigh": 42.4,
+        "shin": 14.8,
+        "shoe": -14.3,
+        "armChain": -1.2,
+        "legChain": 28.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:4": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 54,
+        "upperArm": 26,
+        "forearm": 22,
+        "thigh": 42,
+        "shin": 40,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 82
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          48,
+          60
+        ],
+        "upperArm": [
+          20,
+          32
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          36,
+          48
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          70,
+          94
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 34.3,
+        "upperArm": 18.7,
+        "forearm": 6.8,
+        "thigh": 22.1,
+        "shin": 12.0,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": 17.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:5": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 49,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 37,
+        "shin": 40,
+        "shoe": 28,
+        "armChain": 48,
+        "legChain": 77
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          31,
+          43
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          65,
+          89
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 21.9,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": 7.6,
+        "shin": 12.0,
+        "shoe": 0.0,
+        "armChain": 12.9,
+        "legChain": 9.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light2Alt:6": {
+      "projectedPx": {
+        "head": 39,
+        "torso": 47,
+        "upperArm": 25,
+        "forearm": 22,
+        "thigh": 38,
+        "shin": 40,
+        "shoe": 29,
+        "armChain": 47,
+        "legChain": 78
+      },
+      "intervalPx": {
+        "head": [
+          35,
+          43
+        ],
+        "torso": [
+          41,
+          53
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          32,
+          44
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          25,
+          33
+        ],
+        "armChain": [
+          35,
+          59
+        ],
+        "legChain": [
+          66,
+          90
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -2.5,
+        "torso": 16.9,
+        "upperArm": 14.2,
+        "forearm": 6.8,
+        "thigh": 10.5,
+        "shin": 12.0,
+        "shoe": 3.6,
+        "armChain": 10.6,
+        "legChain": 11.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:0": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 48,
+        "upperArm": 25,
+        "forearm": 24,
+        "thigh": 45,
+        "shin": 40,
+        "shoe": 28,
+        "armChain": 49,
+        "legChain": 85
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          42,
+          54
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          18,
+          30
+        ],
+        "thigh": [
+          39,
+          51
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          37,
+          61
+        ],
+        "legChain": [
+          73,
+          97
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 19.4,
+        "upperArm": 14.2,
+        "forearm": 16.5,
+        "thigh": 30.8,
+        "shin": 12.0,
+        "shoe": 0.0,
+        "armChain": 15.3,
+        "legChain": 21.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:1": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 49,
+        "upperArm": 26,
+        "forearm": 24,
+        "thigh": 32,
+        "shin": 30,
+        "shoe": 26,
+        "armChain": 50,
+        "legChain": 62
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          20,
+          32
+        ],
+        "forearm": [
+          18,
+          30
+        ],
+        "thigh": [
+          26,
+          38
+        ],
+        "shin": [
+          24,
+          36
+        ],
+        "shoe": [
+          22,
+          30
+        ],
+        "armChain": [
+          38,
+          62
+        ],
+        "legChain": [
+          50,
+          74
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 21.9,
+        "upperArm": 18.7,
+        "forearm": 16.5,
+        "thigh": -7.0,
+        "shin": -16.0,
+        "shoe": -7.1,
+        "armChain": 17.6,
+        "legChain": -11.6
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:2": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 50,
+        "upperArm": 30,
+        "forearm": 23,
+        "thigh": 54,
+        "shin": 50,
+        "shoe": 23,
+        "armChain": 53,
+        "legChain": 104
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          48,
+          60
+        ],
+        "shin": [
+          44,
+          56
+        ],
+        "shoe": [
+          19,
+          27
+        ],
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          92,
+          116
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 24.4,
+        "upperArm": 37.0,
+        "forearm": 11.7,
+        "thigh": 57.0,
+        "shin": 40.1,
+        "shoe": -17.9,
+        "armChain": 24.7,
+        "legChain": 48.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:3": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 50,
+        "upperArm": 30,
+        "forearm": 23,
+        "thigh": 48,
+        "shin": 52,
+        "shoe": 24,
+        "armChain": 53,
+        "legChain": 100
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          42,
+          54
+        ],
+        "shin": [
+          46,
+          58
+        ],
+        "shoe": [
+          20,
+          28
+        ],
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          88,
+          112
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 24.4,
+        "upperArm": 37.0,
+        "forearm": 11.7,
+        "thigh": 39.5,
+        "shin": 45.7,
+        "shoe": -14.3,
+        "armChain": 24.7,
+        "legChain": 42.7
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:4": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 56,
+        "upperArm": 30,
+        "forearm": 25,
+        "thigh": 45,
+        "shin": 47,
+        "shoe": 29,
+        "armChain": 55,
+        "legChain": 92
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          50,
+          62
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          39,
+          51
+        ],
+        "shin": [
+          41,
+          53
+        ],
+        "shoe": [
+          25,
+          33
+        ],
+        "armChain": [
+          43,
+          67
+        ],
+        "legChain": [
+          80,
+          104
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 39.3,
+        "upperArm": 37.0,
+        "forearm": 21.4,
+        "thigh": 30.8,
+        "shin": 31.7,
+        "shoe": 3.6,
+        "armChain": 29.4,
+        "legChain": 31.2
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:5": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 53,
+        "upperArm": 28,
+        "forearm": 24,
+        "thigh": 47,
+        "shin": 42,
+        "shoe": 30,
+        "armChain": 52,
+        "legChain": 89
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          47,
+          59
+        ],
+        "upperArm": [
+          22,
+          34
+        ],
+        "forearm": [
+          18,
+          30
+        ],
+        "thigh": [
+          41,
+          53
+        ],
+        "shin": [
+          36,
+          48
+        ],
+        "shoe": [
+          26,
+          34
+        ],
+        "armChain": [
+          40,
+          64
+        ],
+        "legChain": [
+          77,
+          101
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 31.8,
+        "upperArm": 27.9,
+        "forearm": 16.5,
+        "thigh": 36.6,
+        "shin": 17.6,
+        "shoe": 7.1,
+        "armChain": 22.4,
+        "legChain": 27.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light3Alt:6": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 51,
+        "upperArm": 28,
+        "forearm": 24,
+        "thigh": 48,
+        "shin": 43,
+        "shoe": 30,
+        "armChain": 52,
+        "legChain": 91
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          45,
+          57
+        ],
+        "upperArm": [
+          22,
+          34
+        ],
+        "forearm": [
+          18,
+          30
+        ],
+        "thigh": [
+          42,
+          54
+        ],
+        "shin": [
+          37,
+          49
+        ],
+        "shoe": [
+          26,
+          34
+        ],
+        "armChain": [
+          40,
+          64
+        ],
+        "legChain": [
+          79,
+          103
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 26.9,
+        "upperArm": 27.9,
+        "forearm": 16.5,
+        "thigh": 39.5,
+        "shin": 20.4,
+        "shoe": 7.1,
+        "armChain": 22.4,
+        "legChain": 29.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:0": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 50,
+        "upperArm": 26,
+        "forearm": 23,
+        "thigh": 40,
+        "shin": 39,
+        "shoe": 30,
+        "armChain": 49,
+        "legChain": 79
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          20,
+          32
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          34,
+          46
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          26,
+          34
+        ],
+        "armChain": [
+          37,
+          61
+        ],
+        "legChain": [
+          67,
+          91
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 24.4,
+        "upperArm": 18.7,
+        "forearm": 11.7,
+        "thigh": 16.3,
+        "shin": 9.2,
+        "shoe": 7.1,
+        "armChain": 15.3,
+        "legChain": 12.7
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:1": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 52,
+        "upperArm": 27,
+        "forearm": 24,
+        "thigh": 41,
+        "shin": 39,
+        "shoe": 30,
+        "armChain": 51,
+        "legChain": 80
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          46,
+          58
+        ],
+        "upperArm": [
+          21,
+          33
+        ],
+        "forearm": [
+          18,
+          30
+        ],
+        "thigh": [
+          35,
+          47
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          26,
+          34
+        ],
+        "armChain": [
+          39,
+          63
+        ],
+        "legChain": [
+          68,
+          92
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 29.4,
+        "upperArm": 23.3,
+        "forearm": 16.5,
+        "thigh": 19.2,
+        "shin": 9.2,
+        "shoe": 7.1,
+        "armChain": 20.0,
+        "legChain": 14.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:2": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 50,
+        "upperArm": 32,
+        "forearm": 28,
+        "thigh": 42,
+        "shin": 38,
+        "shoe": 30,
+        "armChain": 60,
+        "legChain": 80
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          26,
+          38
+        ],
+        "forearm": [
+          22,
+          34
+        ],
+        "thigh": [
+          36,
+          48
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": [
+          26,
+          34
+        ],
+        "armChain": [
+          48,
+          72
+        ],
+        "legChain": [
+          68,
+          92
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 24.4,
+        "upperArm": 46.1,
+        "forearm": 35.9,
+        "thigh": 22.1,
+        "shin": 6.4,
+        "shoe": 7.1,
+        "armChain": 41.2,
+        "legChain": 14.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:3": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 51,
+        "upperArm": 34,
+        "forearm": 30,
+        "thigh": 45,
+        "shin": 38,
+        "shoe": 32,
+        "armChain": 64,
+        "legChain": 83
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          45,
+          57
+        ],
+        "upperArm": [
+          28,
+          40
+        ],
+        "forearm": [
+          24,
+          36
+        ],
+        "thigh": [
+          39,
+          51
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": [
+          28,
+          36
+        ],
+        "armChain": [
+          52,
+          76
+        ],
+        "legChain": [
+          71,
+          95
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 26.9,
+        "upperArm": 55.3,
+        "forearm": 45.6,
+        "thigh": 30.8,
+        "shin": 6.4,
+        "shoe": 14.3,
+        "armChain": 50.6,
+        "legChain": 18.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:4": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 49,
+        "upperArm": 30,
+        "forearm": 25,
+        "thigh": 43,
+        "shin": 37,
+        "shoe": 31,
+        "armChain": 55,
+        "legChain": 80
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          37,
+          49
+        ],
+        "shin": [
+          31,
+          43
+        ],
+        "shoe": [
+          27,
+          35
+        ],
+        "armChain": [
+          43,
+          67
+        ],
+        "legChain": [
+          68,
+          92
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 21.9,
+        "upperArm": 37.0,
+        "forearm": 21.4,
+        "thigh": 25.0,
+        "shin": 3.6,
+        "shoe": 10.7,
+        "armChain": 29.4,
+        "legChain": 14.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:5": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 56,
+        "upperArm": 28,
+        "forearm": 25,
+        "thigh": 33,
+        "shin": 39,
+        "shoe": null,
+        "armChain": 53,
+        "legChain": 72
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          50,
+          62
+        ],
+        "upperArm": [
+          22,
+          34
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          27,
+          39
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": null,
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          60,
+          84
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 39.3,
+        "upperArm": 27.9,
+        "forearm": 21.4,
+        "thigh": -4.1,
+        "shin": 9.2,
+        "shoe": null,
+        "armChain": 24.7,
+        "legChain": 2.7
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:6": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 49,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 39,
+        "shin": 40,
+        "shoe": 28,
+        "armChain": 48,
+        "legChain": 79
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          33,
+          45
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          67,
+          91
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": 21.9,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": 13.4,
+        "shin": 12.0,
+        "shoe": 0.0,
+        "armChain": 12.9,
+        "legChain": 12.7
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "light4Alt:7": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 49,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 40,
+        "shin": 40,
+        "shoe": 29,
+        "armChain": 48,
+        "legChain": 80
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          34,
+          46
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          25,
+          33
+        ],
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          68,
+          92
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": 21.9,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": 16.3,
+        "shin": 12.0,
+        "shoe": 3.6,
+        "armChain": 12.9,
+        "legChain": 14.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:0": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 39,
+        "upperArm": 30,
+        "forearm": 25,
+        "thigh": 44,
+        "shin": 34,
+        "shoe": 31,
+        "armChain": 55,
+        "legChain": 78
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          33,
+          45
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          38,
+          50
+        ],
+        "shin": [
+          28,
+          40
+        ],
+        "shoe": [
+          27,
+          35
+        ],
+        "armChain": [
+          43,
+          67
+        ],
+        "legChain": [
+          66,
+          90
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": -3.0,
+        "upperArm": 37.0,
+        "forearm": 21.4,
+        "thigh": 27.9,
+        "shin": -4.8,
+        "shoe": 10.7,
+        "armChain": 29.4,
+        "legChain": 11.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:1": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 37,
+        "upperArm": 30,
+        "forearm": 25,
+        "thigh": 43,
+        "shin": 34,
+        "shoe": 31,
+        "armChain": 55,
+        "legChain": 77
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          31,
+          43
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          37,
+          49
+        ],
+        "shin": [
+          28,
+          40
+        ],
+        "shoe": [
+          27,
+          35
+        ],
+        "armChain": [
+          43,
+          67
+        ],
+        "legChain": [
+          65,
+          89
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": -8.0,
+        "upperArm": 37.0,
+        "forearm": 21.4,
+        "thigh": 25.0,
+        "shin": -4.8,
+        "shoe": 10.7,
+        "armChain": 29.4,
+        "legChain": 9.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:2": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 62,
+        "upperArm": 30,
+        "forearm": 28,
+        "thigh": 53,
+        "shin": 45,
+        "shoe": null,
+        "armChain": 58,
+        "legChain": 98
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          56,
+          68
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          22,
+          34
+        ],
+        "thigh": [
+          47,
+          59
+        ],
+        "shin": [
+          39,
+          51
+        ],
+        "shoe": null,
+        "armChain": [
+          46,
+          70
+        ],
+        "legChain": [
+          86,
+          110
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 54.2,
+        "upperArm": 37.0,
+        "forearm": 35.9,
+        "thigh": 54.1,
+        "shin": 26.1,
+        "shoe": null,
+        "armChain": 36.5,
+        "legChain": 39.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:3": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 61,
+        "upperArm": 30,
+        "forearm": 25,
+        "thigh": 57,
+        "shin": 54,
+        "shoe": 25,
+        "armChain": 55,
+        "legChain": 111
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          55,
+          67
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          51,
+          63
+        ],
+        "shin": [
+          48,
+          60
+        ],
+        "shoe": [
+          21,
+          29
+        ],
+        "armChain": [
+          43,
+          67
+        ],
+        "legChain": [
+          99,
+          123
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 51.7,
+        "upperArm": 37.0,
+        "forearm": 21.4,
+        "thigh": 65.7,
+        "shin": 51.3,
+        "shoe": -10.7,
+        "armChain": 29.4,
+        "legChain": 58.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:4": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 57,
+        "upperArm": 30,
+        "forearm": 25,
+        "thigh": 60,
+        "shin": 52,
+        "shoe": 25,
+        "armChain": 55,
+        "legChain": 112
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          51,
+          63
+        ],
+        "upperArm": [
+          24,
+          36
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          54,
+          66
+        ],
+        "shin": [
+          46,
+          58
+        ],
+        "shoe": [
+          21,
+          29
+        ],
+        "armChain": [
+          43,
+          67
+        ],
+        "legChain": [
+          100,
+          124
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": 41.8,
+        "upperArm": 37.0,
+        "forearm": 21.4,
+        "thigh": 74.4,
+        "shin": 45.7,
+        "shoe": -10.7,
+        "armChain": 29.4,
+        "legChain": 59.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:5": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 56,
+        "upperArm": 32,
+        "forearm": 28,
+        "thigh": 43,
+        "shin": 35,
+        "shoe": null,
+        "armChain": 60,
+        "legChain": 78
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          50,
+          62
+        ],
+        "upperArm": [
+          26,
+          38
+        ],
+        "forearm": [
+          22,
+          34
+        ],
+        "thigh": [
+          37,
+          49
+        ],
+        "shin": [
+          29,
+          41
+        ],
+        "shoe": null,
+        "armChain": [
+          48,
+          72
+        ],
+        "legChain": [
+          66,
+          90
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 39.3,
+        "upperArm": 46.1,
+        "forearm": 35.9,
+        "thigh": 25.0,
+        "shin": -2.0,
+        "shoe": null,
+        "armChain": 41.2,
+        "legChain": 11.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:6": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 42,
+        "upperArm": 31,
+        "forearm": 28,
+        "thigh": 39,
+        "shin": 37,
+        "shoe": 30,
+        "armChain": 59,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          36,
+          48
+        ],
+        "upperArm": [
+          25,
+          37
+        ],
+        "forearm": [
+          22,
+          34
+        ],
+        "thigh": [
+          33,
+          45
+        ],
+        "shin": [
+          31,
+          43
+        ],
+        "shoe": [
+          26,
+          34
+        ],
+        "armChain": [
+          47,
+          71
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 4.5,
+        "upperArm": 41.6,
+        "forearm": 35.9,
+        "thigh": 13.4,
+        "shin": 3.6,
+        "shoe": 7.1,
+        "armChain": 38.8,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "heavyAlt:7": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 49,
+        "upperArm": 28,
+        "forearm": 25,
+        "thigh": 45,
+        "shin": 40,
+        "shoe": 31,
+        "armChain": 53,
+        "legChain": 85
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          43,
+          55
+        ],
+        "upperArm": [
+          22,
+          34
+        ],
+        "forearm": [
+          19,
+          31
+        ],
+        "thigh": [
+          39,
+          51
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          27,
+          35
+        ],
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          73,
+          97
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 21.9,
+        "upperArm": 27.9,
+        "forearm": 21.4,
+        "thigh": 30.8,
+        "shin": 12.0,
+        "shoe": 10.7,
+        "armChain": 24.7,
+        "legChain": 21.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight1Alt:0": {
+      "projectedPx": {
+        "head": 39,
+        "torso": 47,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 44,
+        "shin": 44,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 88
+      },
+      "intervalPx": {
+        "head": [
+          35,
+          43
+        ],
+        "torso": [
+          41,
+          53
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          38,
+          50
+        ],
+        "shin": [
+          38,
+          50
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          76,
+          100
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -2.5,
+        "torso": 16.9,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": 27.9,
+        "shin": 23.2,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": 25.5
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight1Alt:1": {
+      "projectedPx": {
+        "head": 39,
+        "torso": 45,
+        "upperArm": 29,
+        "forearm": 27,
+        "thigh": 44,
+        "shin": 43,
+        "shoe": null,
+        "armChain": 56,
+        "legChain": 87
+      },
+      "intervalPx": {
+        "head": [
+          35,
+          43
+        ],
+        "torso": [
+          39,
+          51
+        ],
+        "upperArm": [
+          23,
+          35
+        ],
+        "forearm": [
+          21,
+          33
+        ],
+        "thigh": [
+          38,
+          50
+        ],
+        "shin": [
+          37,
+          49
+        ],
+        "shoe": null,
+        "armChain": [
+          44,
+          68
+        ],
+        "legChain": [
+          75,
+          99
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -2.5,
+        "torso": 11.9,
+        "upperArm": 32.4,
+        "forearm": 31.1,
+        "thigh": 27.9,
+        "shin": 20.4,
+        "shoe": null,
+        "armChain": 31.8,
+        "legChain": 24.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight1Alt:2": {
+      "projectedPx": {
+        "head": 39,
+        "torso": 45,
+        "upperArm": 29,
+        "forearm": 27,
+        "thigh": 44,
+        "shin": 43,
+        "shoe": null,
+        "armChain": 56,
+        "legChain": 87
+      },
+      "intervalPx": {
+        "head": [
+          35,
+          43
+        ],
+        "torso": [
+          39,
+          51
+        ],
+        "upperArm": [
+          23,
+          35
+        ],
+        "forearm": [
+          21,
+          33
+        ],
+        "thigh": [
+          38,
+          50
+        ],
+        "shin": [
+          37,
+          49
+        ],
+        "shoe": null,
+        "armChain": [
+          44,
+          68
+        ],
+        "legChain": [
+          75,
+          99
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -2.5,
+        "torso": 11.9,
+        "upperArm": 32.4,
+        "forearm": 31.1,
+        "thigh": 27.9,
+        "shin": 20.4,
+        "shoe": null,
+        "armChain": 31.8,
+        "legChain": 24.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight1Alt:3": {
+      "projectedPx": {
+        "head": 38,
+        "torso": 47,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 44,
+        "shin": 44,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 88
+      },
+      "intervalPx": {
+        "head": [
+          34,
+          42
+        ],
+        "torso": [
+          41,
+          53
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          38,
+          50
+        ],
+        "shin": [
+          38,
+          50
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          76,
+          100
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -5.0,
+        "torso": 16.9,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": 27.9,
+        "shin": 23.2,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": 25.5
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight1Alt:4": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 48,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 43,
+        "shin": 44,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 87
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          42,
+          54
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          37,
+          49
+        ],
+        "shin": [
+          38,
+          50
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          75,
+          99
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 19.4,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": 25.0,
+        "shin": 23.2,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": 24.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "Active A uses the extended arm; other frames use the near guard/recovery arm.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight2Alt:0": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 46,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 30,
+        "shin": 38,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 68
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          40,
+          52
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          24,
+          36
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          56,
+          80
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 14.4,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": -12.8,
+        "shin": 6.4,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": -3.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight2Alt:1": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 50,
+        "upperArm": 25,
+        "forearm": 17,
+        "thigh": 48,
+        "shin": 39,
+        "shoe": 28,
+        "armChain": 42,
+        "legChain": 87
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          11,
+          23
+        ],
+        "thigh": [
+          42,
+          54
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          24,
+          32
+        ],
+        "armChain": [
+          30,
+          54
+        ],
+        "legChain": [
+          75,
+          99
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 24.4,
+        "upperArm": 14.2,
+        "forearm": -17.5,
+        "thigh": 39.5,
+        "shin": 9.2,
+        "shoe": 0.0,
+        "armChain": -1.2,
+        "legChain": 24.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight2Alt:2": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 50,
+        "upperArm": 25,
+        "forearm": 17,
+        "thigh": 50,
+        "shin": 44,
+        "shoe": null,
+        "armChain": 42,
+        "legChain": 94
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          11,
+          23
+        ],
+        "thigh": [
+          44,
+          56
+        ],
+        "shin": [
+          38,
+          50
+        ],
+        "shoe": null,
+        "armChain": [
+          30,
+          54
+        ],
+        "legChain": [
+          82,
+          106
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 24.4,
+        "upperArm": 14.2,
+        "forearm": -17.5,
+        "thigh": 45.3,
+        "shin": 23.2,
+        "shoe": null,
+        "armChain": -1.2,
+        "legChain": 34.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment.",
+        "Rightmost striking foot reaches x=255; tip length cannot be certified."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight2Alt:3": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 43,
+        "upperArm": 24,
+        "forearm": 23,
+        "thigh": 36,
+        "shin": 39,
+        "shoe": null,
+        "armChain": 47,
+        "legChain": 75
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          37,
+          49
+        ],
+        "upperArm": [
+          18,
+          30
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": null,
+        "armChain": [
+          35,
+          59
+        ],
+        "legChain": [
+          63,
+          87
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 7.0,
+        "upperArm": 9.6,
+        "forearm": 11.7,
+        "thigh": 4.7,
+        "shin": 9.2,
+        "shoe": null,
+        "armChain": 10.6,
+        "legChain": 7.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight2Alt:4": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 46,
+        "upperArm": 25,
+        "forearm": 23,
+        "thigh": 30,
+        "shin": 38,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 68
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          40,
+          52
+        ],
+        "upperArm": [
+          19,
+          31
+        ],
+        "forearm": [
+          17,
+          29
+        ],
+        "thigh": [
+          24,
+          36
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          56,
+          80
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 14.4,
+        "upperArm": 14.2,
+        "forearm": 11.7,
+        "thigh": -12.8,
+        "shin": 6.4,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": -3.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight3Alt:0": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 56,
+        "upperArm": 27,
+        "forearm": 26,
+        "thigh": 31,
+        "shin": 38,
+        "shoe": null,
+        "armChain": 53,
+        "legChain": 69
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          50,
+          62
+        ],
+        "upperArm": [
+          21,
+          33
+        ],
+        "forearm": [
+          20,
+          32
+        ],
+        "thigh": [
+          25,
+          37
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": null,
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          57,
+          81
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 39.3,
+        "upperArm": 23.3,
+        "forearm": 26.2,
+        "thigh": -9.9,
+        "shin": 6.4,
+        "shoe": null,
+        "armChain": 24.7,
+        "legChain": -1.6
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight3Alt:1": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 51,
+        "upperArm": 35,
+        "forearm": 30,
+        "thigh": 32,
+        "shin": 36,
+        "shoe": null,
+        "armChain": 65,
+        "legChain": 68
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          45,
+          57
+        ],
+        "upperArm": [
+          29,
+          41
+        ],
+        "forearm": [
+          24,
+          36
+        ],
+        "thigh": [
+          26,
+          38
+        ],
+        "shin": [
+          30,
+          42
+        ],
+        "shoe": null,
+        "armChain": [
+          53,
+          77
+        ],
+        "legChain": [
+          56,
+          80
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 26.9,
+        "upperArm": 59.8,
+        "forearm": 45.6,
+        "thigh": -7.0,
+        "shin": 0.8,
+        "shoe": null,
+        "armChain": 52.9,
+        "legChain": -3.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight3Alt:2": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 57,
+        "upperArm": 31,
+        "forearm": 28,
+        "thigh": 63,
+        "shin": 54,
+        "shoe": null,
+        "armChain": 59,
+        "legChain": 117
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          51,
+          63
+        ],
+        "upperArm": [
+          25,
+          37
+        ],
+        "forearm": [
+          22,
+          34
+        ],
+        "thigh": [
+          57,
+          69
+        ],
+        "shin": [
+          48,
+          60
+        ],
+        "shoe": null,
+        "armChain": [
+          47,
+          71
+        ],
+        "legChain": [
+          105,
+          129
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 41.8,
+        "upperArm": 41.6,
+        "forearm": 35.9,
+        "thigh": 83.1,
+        "shin": 51.3,
+        "shoe": null,
+        "armChain": 38.8,
+        "legChain": 66.9
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment.",
+        "Rightmost striking foot reaches x=255; tip length cannot be certified."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight3Alt:3": {
+      "projectedPx": {
+        "head": 42,
+        "torso": 57,
+        "upperArm": 31,
+        "forearm": 28,
+        "thigh": 64,
+        "shin": 55,
+        "shoe": null,
+        "armChain": 59,
+        "legChain": 119
+      },
+      "intervalPx": {
+        "head": [
+          38,
+          46
+        ],
+        "torso": [
+          51,
+          63
+        ],
+        "upperArm": [
+          25,
+          37
+        ],
+        "forearm": [
+          22,
+          34
+        ],
+        "thigh": [
+          58,
+          70
+        ],
+        "shin": [
+          49,
+          61
+        ],
+        "shoe": null,
+        "armChain": [
+          47,
+          71
+        ],
+        "legChain": [
+          107,
+          131
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 5.0,
+        "torso": 41.8,
+        "upperArm": 41.6,
+        "forearm": 35.9,
+        "thigh": 86.0,
+        "shin": 54.1,
+        "shoe": null,
+        "armChain": 38.8,
+        "legChain": 69.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment.",
+        "Rightmost striking foot reaches x=255; tip length cannot be certified."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight3Alt:4": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 50,
+        "upperArm": 29,
+        "forearm": 29,
+        "thigh": 36,
+        "shin": 40,
+        "shoe": null,
+        "armChain": 58,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          23,
+          35
+        ],
+        "forearm": [
+          23,
+          35
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": null,
+        "armChain": [
+          46,
+          70
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 24.4,
+        "upperArm": 32.4,
+        "forearm": 40.8,
+        "thigh": 4.7,
+        "shin": 12.0,
+        "shoe": null,
+        "armChain": 36.5,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airLight3Alt:5": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 48,
+        "upperArm": 26,
+        "forearm": 22,
+        "thigh": 43,
+        "shin": 44,
+        "shoe": null,
+        "armChain": 48,
+        "legChain": 87
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          42,
+          54
+        ],
+        "upperArm": [
+          20,
+          32
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          37,
+          49
+        ],
+        "shin": [
+          38,
+          50
+        ],
+        "shoe": null,
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          75,
+          99
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 19.4,
+        "upperArm": 18.7,
+        "forearm": 6.8,
+        "thigh": 25.0,
+        "shin": 23.2,
+        "shoe": null,
+        "armChain": 12.9,
+        "legChain": 24.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airHeavyAlt:0": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 55,
+        "upperArm": 35,
+        "forearm": 29,
+        "thigh": 36,
+        "shin": 44,
+        "shoe": null,
+        "armChain": 64,
+        "legChain": 80
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          49,
+          61
+        ],
+        "upperArm": [
+          29,
+          41
+        ],
+        "forearm": [
+          23,
+          35
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          38,
+          50
+        ],
+        "shoe": null,
+        "armChain": [
+          52,
+          76
+        ],
+        "legChain": [
+          68,
+          92
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 36.8,
+        "upperArm": 59.8,
+        "forearm": 40.8,
+        "thigh": 4.7,
+        "shin": 23.2,
+        "shoe": null,
+        "armChain": 50.6,
+        "legChain": 14.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airHeavyAlt:1": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 53,
+        "upperArm": 31,
+        "forearm": 29,
+        "thigh": 25,
+        "shin": 40,
+        "shoe": null,
+        "armChain": 60,
+        "legChain": 65
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          47,
+          59
+        ],
+        "upperArm": [
+          25,
+          37
+        ],
+        "forearm": [
+          23,
+          35
+        ],
+        "thigh": [
+          19,
+          31
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": null,
+        "armChain": [
+          48,
+          72
+        ],
+        "legChain": [
+          53,
+          77
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 31.8,
+        "upperArm": 41.6,
+        "forearm": 40.8,
+        "thigh": -27.3,
+        "shin": 12.0,
+        "shoe": null,
+        "armChain": 41.2,
+        "legChain": -7.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airHeavyAlt:2": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 42,
+        "upperArm": 34,
+        "forearm": 14,
+        "thigh": 39,
+        "shin": 38,
+        "shoe": 27,
+        "armChain": 48,
+        "legChain": 77
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          36,
+          48
+        ],
+        "upperArm": [
+          28,
+          40
+        ],
+        "forearm": [
+          8,
+          20
+        ],
+        "thigh": [
+          33,
+          45
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": [
+          23,
+          31
+        ],
+        "armChain": [
+          36,
+          60
+        ],
+        "legChain": [
+          65,
+          89
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": 4.5,
+        "upperArm": 55.3,
+        "forearm": -32.0,
+        "thigh": 13.4,
+        "shin": 6.4,
+        "shoe": -3.6,
+        "armChain": 12.9,
+        "legChain": 9.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airHeavyAlt:3": {
+      "projectedPx": {
+        "head": 43,
+        "torso": 39,
+        "upperArm": 32,
+        "forearm": 15,
+        "thigh": 38,
+        "shin": 36,
+        "shoe": 26,
+        "armChain": 47,
+        "legChain": 74
+      },
+      "intervalPx": {
+        "head": [
+          39,
+          47
+        ],
+        "torso": [
+          33,
+          45
+        ],
+        "upperArm": [
+          26,
+          38
+        ],
+        "forearm": [
+          9,
+          21
+        ],
+        "thigh": [
+          32,
+          44
+        ],
+        "shin": [
+          30,
+          42
+        ],
+        "shoe": [
+          22,
+          30
+        ],
+        "armChain": [
+          35,
+          59
+        ],
+        "legChain": [
+          62,
+          86
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 7.5,
+        "torso": -3.0,
+        "upperArm": 46.1,
+        "forearm": -27.2,
+        "thigh": 10.5,
+        "shin": 0.8,
+        "shoe": -7.1,
+        "armChain": 10.6,
+        "legChain": 5.6
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airHeavyAlt:4": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 50,
+        "upperArm": 31,
+        "forearm": 31,
+        "thigh": 43,
+        "shin": 35,
+        "shoe": 24,
+        "armChain": 62,
+        "legChain": 78
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          44,
+          56
+        ],
+        "upperArm": [
+          25,
+          37
+        ],
+        "forearm": [
+          25,
+          37
+        ],
+        "thigh": [
+          37,
+          49
+        ],
+        "shin": [
+          29,
+          41
+        ],
+        "shoe": [
+          20,
+          28
+        ],
+        "armChain": [
+          50,
+          74
+        ],
+        "legChain": [
+          66,
+          90
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 24.4,
+        "upperArm": 41.6,
+        "forearm": 50.5,
+        "thigh": 25.0,
+        "shin": -2.0,
+        "shoe": -14.3,
+        "armChain": 45.9,
+        "legChain": 11.3
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "airHeavyAlt:5": {
+      "projectedPx": {
+        "head": 44,
+        "torso": 47,
+        "upperArm": null,
+        "forearm": null,
+        "thigh": 40,
+        "shin": 39,
+        "shoe": 29,
+        "armChain": null,
+        "legChain": 79
+      },
+      "intervalPx": {
+        "head": [
+          40,
+          48
+        ],
+        "torso": [
+          41,
+          53
+        ],
+        "upperArm": null,
+        "forearm": null,
+        "thigh": [
+          34,
+          46
+        ],
+        "shin": [
+          33,
+          45
+        ],
+        "shoe": [
+          25,
+          33
+        ],
+        "armChain": null,
+        "legChain": [
+          67,
+          91
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 10.0,
+        "torso": 16.9,
+        "upperArm": null,
+        "forearm": null,
+        "thigh": 16.3,
+        "shin": 9.2,
+        "shoe": 3.6,
+        "armChain": null,
+        "legChain": 12.7
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "Active-frame L uses the visible striking leg; other frames use the most visible supporting/hanging leg. Folded/chambered thigh is foreshortened.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "S null: heel obscured, toe-on, or clipped; cannot measure whole sandal from visible fragment.",
+        "Arm chain null: left hand/arm cut by x=0 boundary; endpoint is an attack pose, not base recovery."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "hurtHighAlt:0": {
+      "projectedPx": {
+        "head": 38,
+        "torso": 45,
+        "upperArm": 28,
+        "forearm": 21,
+        "thigh": 36,
+        "shin": 37,
+        "shoe": 32,
+        "armChain": 49,
+        "legChain": 73
+      },
+      "intervalPx": {
+        "head": [
+          34,
+          42
+        ],
+        "torso": [
+          39,
+          51
+        ],
+        "upperArm": [
+          22,
+          34
+        ],
+        "forearm": [
+          15,
+          27
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          31,
+          43
+        ],
+        "shoe": [
+          28,
+          36
+        ],
+        "armChain": [
+          37,
+          61
+        ],
+        "legChain": [
+          61,
+          85
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -5.0,
+        "torso": 11.9,
+        "upperArm": 27.9,
+        "forearm": 1.9,
+        "thigh": 4.7,
+        "shin": 3.6,
+        "shoe": 14.3,
+        "armChain": 15.3,
+        "legChain": 4.1
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "Torso twists/bends; projected collar-to-hem length is not a straightened anatomical length."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "hurtHighAlt:1": {
+      "projectedPx": {
+        "head": 40,
+        "torso": 46,
+        "upperArm": 29,
+        "forearm": 24,
+        "thigh": 36,
+        "shin": 38,
+        "shoe": 32,
+        "armChain": 53,
+        "legChain": 74
+      },
+      "intervalPx": {
+        "head": [
+          36,
+          44
+        ],
+        "torso": [
+          40,
+          52
+        ],
+        "upperArm": [
+          23,
+          35
+        ],
+        "forearm": [
+          18,
+          30
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": [
+          28,
+          36
+        ],
+        "armChain": [
+          41,
+          65
+        ],
+        "legChain": [
+          62,
+          86
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 0.0,
+        "torso": 14.4,
+        "upperArm": 32.4,
+        "forearm": 16.5,
+        "thigh": 4.7,
+        "shin": 6.4,
+        "shoe": 14.3,
+        "armChain": 24.7,
+        "legChain": 5.6
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "Torso twists/bends; projected collar-to-hem length is not a straightened anatomical length."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "hurtHighAlt:2": {
+      "projectedPx": {
+        "head": 38,
+        "torso": 48,
+        "upperArm": 23,
+        "forearm": 18,
+        "thigh": 37,
+        "shin": 38,
+        "shoe": 32,
+        "armChain": 41,
+        "legChain": 75
+      },
+      "intervalPx": {
+        "head": [
+          34,
+          42
+        ],
+        "torso": [
+          42,
+          54
+        ],
+        "upperArm": [
+          17,
+          29
+        ],
+        "forearm": [
+          12,
+          24
+        ],
+        "thigh": [
+          31,
+          43
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": [
+          28,
+          36
+        ],
+        "armChain": [
+          29,
+          53
+        ],
+        "legChain": [
+          63,
+          87
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": -5.0,
+        "torso": 19.4,
+        "upperArm": 5.0,
+        "forearm": -12.6,
+        "thigh": 7.6,
+        "shin": 6.4,
+        "shoe": 14.3,
+        "armChain": -3.5,
+        "legChain": 7.0
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "Torso twists/bends; projected collar-to-hem length is not a straightened anatomical length."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "hurtLowAlt:0": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 39,
+        "upperArm": 27,
+        "forearm": 19,
+        "thigh": 36,
+        "shin": 38,
+        "shoe": 31,
+        "armChain": 46,
+        "legChain": 74
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          33,
+          45
+        ],
+        "upperArm": [
+          21,
+          33
+        ],
+        "forearm": [
+          13,
+          25
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          32,
+          44
+        ],
+        "shoe": [
+          27,
+          35
+        ],
+        "armChain": [
+          34,
+          58
+        ],
+        "legChain": [
+          62,
+          86
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": -3.0,
+        "upperArm": 23.3,
+        "forearm": -7.8,
+        "thigh": 4.7,
+        "shin": 6.4,
+        "shoe": 10.7,
+        "armChain": 8.2,
+        "legChain": 5.6
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "Torso twists/bends; projected collar-to-hem length is not a straightened anatomical length."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "hurtLowAlt:1": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 43,
+        "upperArm": 27,
+        "forearm": 16,
+        "thigh": 37,
+        "shin": 40,
+        "shoe": 32,
+        "armChain": 43,
+        "legChain": 77
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          37,
+          49
+        ],
+        "upperArm": [
+          21,
+          33
+        ],
+        "forearm": [
+          10,
+          22
+        ],
+        "thigh": [
+          31,
+          43
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          28,
+          36
+        ],
+        "armChain": [
+          31,
+          55
+        ],
+        "legChain": [
+          65,
+          89
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": 7.0,
+        "upperArm": 23.3,
+        "forearm": -22.3,
+        "thigh": 7.6,
+        "shin": 12.0,
+        "shoe": 14.3,
+        "armChain": 1.2,
+        "legChain": 9.8
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "Torso twists/bends; projected collar-to-hem length is not a straightened anatomical length."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    },
+    "hurtLowAlt:2": {
+      "projectedPx": {
+        "head": 41,
+        "torso": 45,
+        "upperArm": 28,
+        "forearm": 22,
+        "thigh": 36,
+        "shin": 40,
+        "shoe": 31,
+        "armChain": 50,
+        "legChain": 76
+      },
+      "intervalPx": {
+        "head": [
+          37,
+          45
+        ],
+        "torso": [
+          39,
+          51
+        ],
+        "upperArm": [
+          22,
+          34
+        ],
+        "forearm": [
+          16,
+          28
+        ],
+        "thigh": [
+          30,
+          42
+        ],
+        "shin": [
+          34,
+          46
+        ],
+        "shoe": [
+          27,
+          35
+        ],
+        "armChain": [
+          38,
+          62
+        ],
+        "legChain": [
+          64,
+          88
+        ]
+      },
+      "nominalPercentVsIdle07": {
+        "head": 2.5,
+        "torso": 11.9,
+        "upperArm": 27.9,
+        "forearm": 6.8,
+        "thigh": 4.7,
+        "shin": 12.0,
+        "shoe": 10.7,
+        "armChain": 17.6,
+        "legChain": 8.4
+      },
+      "skips": [
+        "Frontal shoulder width: oblique three-quarter pose, no frontal width comparison.",
+        "Unlisted far-side limb: overlapping/depth-foreshortened; no anatomical-length certification.",
+        "Hip/shoulder joint centers under clothing; foreshortening is additional to stated landmark uncertainty.",
+        "L uses the near supporting/hanging leg.",
+        "A uses the most visible near-side arm; crossed guard/raised arms are foreshortened.",
+        "Torso twists/bends; projected collar-to-hem length is not a straightened anatomical length."
+      ],
+      "status": "HOLD: anatomy not certified; use independent contact/technique/endpoint verdicts too"
+    }
+  },
+  "stripSummary": {
+    "light1Alt": {
+      "rangesPx": {
+        "head": [
+          40,
+          41
+        ],
+        "torso": [
+          44,
+          45
+        ],
+        "armChain": [
+          41,
+          51
+        ],
+        "legChain": [
+          74,
+          76
+        ],
+        "shoe": [
+          28,
+          29
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          0.0,
+          2.5
+        ],
+        "torso": [
+          9.5,
+          11.9
+        ],
+        "armChain": [
+          -3.5,
+          20.0
+        ],
+        "legChain": [
+          5.6,
+          8.4
+        ],
+        "shoe": [
+          0.0,
+          3.6
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "light2Alt": {
+      "rangesPx": {
+        "head": [
+          38,
+          40
+        ],
+        "torso": [
+          46,
+          54
+        ],
+        "armChain": [
+          42,
+          53
+        ],
+        "legChain": [
+          76,
+          92
+        ],
+        "shoe": [
+          24,
+          29
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          -5.0,
+          0.0
+        ],
+        "torso": [
+          14.4,
+          34.3
+        ],
+        "armChain": [
+          -1.2,
+          24.7
+        ],
+        "legChain": [
+          8.4,
+          31.2
+        ],
+        "shoe": [
+          -14.3,
+          3.6
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "light3Alt": {
+      "rangesPx": {
+        "head": [
+          42,
+          44
+        ],
+        "torso": [
+          48,
+          56
+        ],
+        "armChain": [
+          49,
+          55
+        ],
+        "legChain": [
+          62,
+          104
+        ],
+        "shoe": [
+          23,
+          30
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          5.0,
+          10.0
+        ],
+        "torso": [
+          19.4,
+          39.3
+        ],
+        "armChain": [
+          15.3,
+          29.4
+        ],
+        "legChain": [
+          -11.6,
+          48.4
+        ],
+        "shoe": [
+          -17.9,
+          7.1
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "light4Alt": {
+      "rangesPx": {
+        "head": [
+          41,
+          43
+        ],
+        "torso": [
+          49,
+          56
+        ],
+        "armChain": [
+          48,
+          64
+        ],
+        "legChain": [
+          72,
+          83
+        ],
+        "shoe": [
+          28,
+          32
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          2.5,
+          7.5
+        ],
+        "torso": [
+          21.9,
+          39.3
+        ],
+        "armChain": [
+          12.9,
+          50.6
+        ],
+        "legChain": [
+          2.7,
+          18.4
+        ],
+        "shoe": [
+          0.0,
+          14.3
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "heavyAlt": {
+      "rangesPx": {
+        "head": [
+          40,
+          43
+        ],
+        "torso": [
+          37,
+          62
+        ],
+        "armChain": [
+          53,
+          60
+        ],
+        "legChain": [
+          76,
+          112
+        ],
+        "shoe": [
+          25,
+          31
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          0.0,
+          7.5
+        ],
+        "torso": [
+          -8.0,
+          54.2
+        ],
+        "armChain": [
+          24.7,
+          41.2
+        ],
+        "legChain": [
+          8.4,
+          59.8
+        ],
+        "shoe": [
+          -10.7,
+          10.7
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "airLight1Alt": {
+      "rangesPx": {
+        "head": [
+          38,
+          40
+        ],
+        "torso": [
+          45,
+          48
+        ],
+        "armChain": [
+          48,
+          56
+        ],
+        "legChain": [
+          87,
+          88
+        ],
+        "shoe": null
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          -5.0,
+          0.0
+        ],
+        "torso": [
+          11.9,
+          19.4
+        ],
+        "armChain": [
+          12.9,
+          31.8
+        ],
+        "legChain": [
+          24.1,
+          25.5
+        ],
+        "shoe": null
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "airLight2Alt": {
+      "rangesPx": {
+        "head": [
+          40,
+          40
+        ],
+        "torso": [
+          43,
+          50
+        ],
+        "armChain": [
+          42,
+          48
+        ],
+        "legChain": [
+          68,
+          94
+        ],
+        "shoe": [
+          28,
+          28
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          0.0,
+          0.0
+        ],
+        "torso": [
+          7.0,
+          24.4
+        ],
+        "armChain": [
+          -1.2,
+          12.9
+        ],
+        "legChain": [
+          -3.0,
+          34.1
+        ],
+        "shoe": [
+          0.0,
+          0.0
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "airLight3Alt": {
+      "rangesPx": {
+        "head": [
+          42,
+          44
+        ],
+        "torso": [
+          48,
+          57
+        ],
+        "armChain": [
+          48,
+          65
+        ],
+        "legChain": [
+          68,
+          119
+        ],
+        "shoe": null
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          5.0,
+          10.0
+        ],
+        "torso": [
+          19.4,
+          41.8
+        ],
+        "armChain": [
+          12.9,
+          52.9
+        ],
+        "legChain": [
+          -3.0,
+          69.8
+        ],
+        "shoe": null
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "airHeavyAlt": {
+      "rangesPx": {
+        "head": [
+          40,
+          44
+        ],
+        "torso": [
+          39,
+          55
+        ],
+        "armChain": [
+          47,
+          64
+        ],
+        "legChain": [
+          65,
+          80
+        ],
+        "shoe": [
+          24,
+          29
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          0.0,
+          10.0
+        ],
+        "torso": [
+          -3.0,
+          36.8
+        ],
+        "armChain": [
+          10.6,
+          50.6
+        ],
+        "legChain": [
+          -7.3,
+          14.1
+        ],
+        "shoe": [
+          -14.3,
+          3.6
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "hurtHighAlt": {
+      "rangesPx": {
+        "head": [
+          38,
+          40
+        ],
+        "torso": [
+          45,
+          48
+        ],
+        "armChain": [
+          41,
+          53
+        ],
+        "legChain": [
+          73,
+          75
+        ],
+        "shoe": [
+          32,
+          32
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          -5.0,
+          0.0
+        ],
+        "torso": [
+          11.9,
+          19.4
+        ],
+        "armChain": [
+          -3.5,
+          24.7
+        ],
+        "legChain": [
+          4.1,
+          7.0
+        ],
+        "shoe": [
+          14.3,
+          14.3
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    },
+    "hurtLowAlt": {
+      "rangesPx": {
+        "head": [
+          41,
+          41
+        ],
+        "torso": [
+          39,
+          45
+        ],
+        "armChain": [
+          43,
+          50
+        ],
+        "legChain": [
+          74,
+          77
+        ],
+        "shoe": [
+          31,
+          32
+        ]
+      },
+      "nominalPercentRangeVsIdle07": {
+        "head": [
+          2.5,
+          2.5
+        ],
+        "torso": [
+          -3.0,
+          11.9
+        ],
+        "armChain": [
+          1.2,
+          17.6
+        ],
+        "legChain": [
+          5.6,
+          9.8
+        ],
+        "shoe": [
+          10.7,
+          14.3
+        ]
+      },
+      "uncertaintyPx": {
+        "head": 4,
+        "torso": 6,
+        "armChain": 12,
+        "legChain": 12,
+        "shoe": 4
+      },
+      "status": "HOLD; ranges omit explicitly skipped segments, never a full pass"
+    }
+  }
+}

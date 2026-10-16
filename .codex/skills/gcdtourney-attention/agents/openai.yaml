@@ -1,0 +1,6 @@
+interface:
+  display_name: "GCD Tourney Attention"
+  short_description: "Check approvals, blockers, and worker status now"
+  default_prompt: "Use $gcdtourney-attention to check all current GCD Tourney chats now."
+policy:
+  allow_implicit_invocation: false

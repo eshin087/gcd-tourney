@@ -1,0 +1,1976 @@
+{
+  "audit_model": "GPT-6 Astra",
+  "reasoning": "medium",
+  "source_head": "f3191a6",
+  "audit_date": "2026-10-13 local session date; Claude handoff dated 2026-10-14",
+  "scope": "14 actual quantized atlas frames; no raw/source generation used as audit substitute",
+  "method": "Manual pixel landmarks read on nearest-neighbor crops. Values are projected garment/visible segment estimates. Range endpoints explicitly include landmark ambiguity; no anatomical bone reconstruction. H includes crown hair through chin. S heel-to-toe only for visible profile shoe. No neutral-height normalization. Limb \u00b16/\u00b17 is not a \u00b16% pass.",
+  "hashes": {
+    "public/characters/naruto/sheet.png": "051c6c59baf0f1a137b8174eea6e19b8d4327aa4d0dae0c1fcae22620ff4d93e",
+    "public/characters/naruto/anims.json": "7debe0114b917e14a2cbb5023219b88b893b864379f705ca392c008c655ef923",
+    "public/art-review/title-style-pilot/naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "public/art-review/title-style-pilot/naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751",
+    "art/characters/naruto/reference/idle_approved.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+    "art/characters/naruto/raw/stagger_v06.png": "77b7774aa8e61be98c15a26e3d2759b3233cc9832d68e059f1c510b0aadd183f",
+    "art/characters/naruto/raw/taunt_v07.png": "9a8c014d73394dc9161d4ad43f59158ad0b3d583acec9393ef08631c2c3fd35f",
+    "art/characters/naruto/raw/win_v08.png": "61b39b5d3fcb7edc217bba99453a10af5777dab5369f85a4667599ced63a39da",
+    "art/characters/naruto/raw/jumpUp_v06.png": "85c8259c0a8aaf78585768e7987b1ff0e5336d818bbadf7a001a7b8469c80769",
+    "art/characters/naruto/raw/superDash_v03.png": "59fcea7da7eb2355ae08c1e54d33b2aa4869c75946dd9d10a2a04f8118318ddf"
+  },
+  "reference_measurements": {
+    "neutral": {
+      "H": [
+        39,
+        37,
+        41
+      ],
+      "T": [
+        [
+          133,
+          76
+        ],
+        [
+          139,
+          126
+        ]
+      ],
+      "T_range": [
+        48,
+        53
+      ],
+      "S": [
+        29,
+        27,
+        31
+      ],
+      "UA": [
+        [
+          148,
+          85
+        ],
+        [
+          155,
+          110
+        ]
+      ],
+      "LA": [
+        [
+          155,
+          110
+        ],
+        [
+          159,
+          135
+        ]
+      ],
+      "thigh": [
+        [
+          141,
+          139
+        ],
+        [
+          149,
+          174
+        ]
+      ],
+      "shin": [
+        [
+          149,
+          174
+        ],
+        [
+          150,
+          208
+        ]
+      ],
+      "projected_segment_values_px": {
+        "UA": 26.0,
+        "LA": 25.3,
+        "thigh": 35.9,
+        "shin": 34.0
+      },
+      "arm_uncertainty_px": 6,
+      "leg_uncertainty_px": 7,
+      "comparison_limit": "Garment-covered joint estimates; projected, not skeletal. Ratio numbers are screening estimates, never a strict anatomical pass."
+    },
+    "combat": {
+      "H": [
+        39,
+        37,
+        41
+      ],
+      "T": [
+        [
+          138,
+          117
+        ],
+        [
+          128,
+          155
+        ]
+      ],
+      "T_range": [
+        36,
+        42
+      ],
+      "S": [
+        29,
+        27,
+        31
+      ],
+      "UA": [
+        [
+          157,
+          119
+        ],
+        [
+          166,
+          139
+        ]
+      ],
+      "LA": [
+        [
+          166,
+          139
+        ],
+        [
+          155,
+          126
+        ]
+      ],
+      "thigh": [
+        [
+          139,
+          164
+        ],
+        [
+          174,
+          186
+        ]
+      ],
+      "shin": [
+        [
+          174,
+          186
+        ],
+        [
+          178,
+          211
+        ]
+      ],
+      "projected_segment_values_px": {
+        "UA": 21.9,
+        "LA": 17.0,
+        "thigh": 41.3,
+        "shin": 25.3
+      },
+      "arm_uncertainty_px": 6,
+      "leg_uncertainty_px": 7,
+      "comparison_limit": "Garment-covered joint estimates; projected, not skeletal. Ratio numbers are screening estimates, never a strict anatomical pass."
+    },
+    "idle07_f0": {
+      "H": [
+        41,
+        39,
+        43
+      ],
+      "T": [
+        [
+          138,
+          120
+        ],
+        [
+          131,
+          157
+        ]
+      ],
+      "T_range": [
+        35,
+        41
+      ],
+      "S": [
+        29,
+        27,
+        31
+      ],
+      "UA": [
+        [
+          157,
+          122
+        ],
+        [
+          171,
+          142
+        ]
+      ],
+      "LA": [
+        [
+          171,
+          142
+        ],
+        [
+          159,
+          128
+        ]
+      ],
+      "thigh": [
+        [
+          140,
+          166
+        ],
+        [
+          174,
+          188
+        ]
+      ],
+      "shin": [
+        [
+          174,
+          188
+        ],
+        [
+          175,
+          214
+        ]
+      ],
+      "projected_segment_values_px": {
+        "UA": 24.4,
+        "LA": 18.4,
+        "thigh": 40.5,
+        "shin": 26.0
+      },
+      "arm_uncertainty_px": 6,
+      "leg_uncertainty_px": 7,
+      "comparison_limit": "Garment-covered joint estimates; projected, not skeletal. Ratio numbers are screening estimates, never a strict anatomical pass."
+    }
+  },
+  "frames": [
+    {
+      "animation": "stagger",
+      "version": 6,
+      "frame": 0,
+      "atlas_index": 131,
+      "head_crown_to_chin_px": [
+        40,
+        38,
+        43
+      ],
+      "torso_endpoints": {
+        "collar": [
+          135,
+          109
+        ],
+        "hem": [
+          131,
+          148
+        ]
+      },
+      "torso_projected_px": 39.2,
+      "torso_interval_px": [
+        36,
+        43
+      ],
+      "shoe_profile_px": [
+        29,
+        27,
+        31
+      ],
+      "arm_endpoints": [
+        [
+          148,
+          114
+        ],
+        [
+          153,
+          133
+        ],
+        [
+          158,
+          155
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          137,
+          158
+        ],
+        [
+          147,
+          184
+        ],
+        [
+          150,
+          215
+        ]
+      ],
+      "pose": "Upright trunk, minor lateral sway; no combat-like forward fold",
+      "torso_reference": "neutral",
+      "notes": "Sleeve/pant landmarks inferred through garment volume; \u00b16/\u00b17px prevents strict \u00b16% limb certification. Current upright torso is robustly short.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 19.6,
+      "lower_arm_projected_px": 22.6,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.9,
+      "shin_projected_px": 31.1,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right arm/leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            111,
+            114
+          ],
+          [
+            104,
+            134
+          ],
+          [
+            99,
+            154
+          ]
+        ],
+        "upper_arm_projected_px": 21.2,
+        "lower_arm_projected_px": 20.6,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            118,
+            159
+          ],
+          [
+            114,
+            184
+          ],
+          [
+            99,
+            215
+          ]
+        ],
+        "thigh_projected_px": 25.3,
+        "shin_projected_px": 34.4,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite screen-left arm hangs visibly; screen-left leg bends outward. Both garment-covered; same broad endpoint uncertainty."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.754,
+          "LA": 0.893,
+          "thigh": 0.777,
+          "shin": 0.915
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "stagger",
+      "version": 6,
+      "frame": 1,
+      "atlas_index": 132,
+      "head_crown_to_chin_px": [
+        40,
+        38,
+        43
+      ],
+      "torso_endpoints": {
+        "collar": [
+          133,
+          109
+        ],
+        "hem": [
+          130,
+          148
+        ]
+      },
+      "torso_projected_px": 39.1,
+      "torso_interval_px": [
+        36,
+        43
+      ],
+      "shoe_profile_px": [
+        29,
+        27,
+        31
+      ],
+      "arm_endpoints": [
+        [
+          148,
+          114
+        ],
+        [
+          153,
+          133
+        ],
+        [
+          158,
+          155
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          137,
+          158
+        ],
+        [
+          147,
+          184
+        ],
+        [
+          150,
+          215
+        ]
+      ],
+      "pose": "Upright trunk, minor lateral sway; no combat-like forward fold",
+      "torso_reference": "neutral",
+      "notes": "Sleeve/pant landmarks inferred through garment volume; \u00b16/\u00b17px prevents strict \u00b16% limb certification. Current upright torso is robustly short.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 19.6,
+      "lower_arm_projected_px": 22.6,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.9,
+      "shin_projected_px": 31.1,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right arm/leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            111,
+            114
+          ],
+          [
+            104,
+            134
+          ],
+          [
+            99,
+            154
+          ]
+        ],
+        "upper_arm_projected_px": 21.2,
+        "lower_arm_projected_px": 20.6,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            118,
+            159
+          ],
+          [
+            114,
+            184
+          ],
+          [
+            99,
+            215
+          ]
+        ],
+        "thigh_projected_px": 25.3,
+        "shin_projected_px": 34.4,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite screen-left arm hangs visibly; screen-left leg bends outward. Both garment-covered; same broad endpoint uncertainty."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.754,
+          "LA": 0.893,
+          "thigh": 0.777,
+          "shin": 0.915
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "stagger",
+      "version": 6,
+      "frame": 2,
+      "atlas_index": 133,
+      "head_crown_to_chin_px": [
+        40,
+        38,
+        43
+      ],
+      "torso_endpoints": {
+        "collar": [
+          136,
+          110
+        ],
+        "hem": [
+          132,
+          149
+        ]
+      },
+      "torso_projected_px": 39.2,
+      "torso_interval_px": [
+        36,
+        43
+      ],
+      "shoe_profile_px": [
+        29,
+        27,
+        31
+      ],
+      "arm_endpoints": [
+        [
+          148,
+          114
+        ],
+        [
+          153,
+          133
+        ],
+        [
+          158,
+          155
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          137,
+          158
+        ],
+        [
+          147,
+          184
+        ],
+        [
+          150,
+          215
+        ]
+      ],
+      "pose": "Upright trunk, minor lateral sway; no combat-like forward fold",
+      "torso_reference": "neutral",
+      "notes": "Sleeve/pant landmarks inferred through garment volume; \u00b16/\u00b17px prevents strict \u00b16% limb certification. Current upright torso is robustly short.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 19.6,
+      "lower_arm_projected_px": 22.6,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.9,
+      "shin_projected_px": 31.1,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right arm/leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            111,
+            114
+          ],
+          [
+            104,
+            134
+          ],
+          [
+            99,
+            154
+          ]
+        ],
+        "upper_arm_projected_px": 21.2,
+        "lower_arm_projected_px": 20.6,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            118,
+            159
+          ],
+          [
+            114,
+            184
+          ],
+          [
+            99,
+            215
+          ]
+        ],
+        "thigh_projected_px": 25.3,
+        "shin_projected_px": 34.4,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite screen-left arm hangs visibly; screen-left leg bends outward. Both garment-covered; same broad endpoint uncertainty."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.754,
+          "LA": 0.893,
+          "thigh": 0.777,
+          "shin": 0.915
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "stagger",
+      "version": 6,
+      "frame": 3,
+      "atlas_index": 134,
+      "head_crown_to_chin_px": [
+        40,
+        38,
+        43
+      ],
+      "torso_endpoints": {
+        "collar": [
+          134,
+          110
+        ],
+        "hem": [
+          130,
+          149
+        ]
+      },
+      "torso_projected_px": 39.2,
+      "torso_interval_px": [
+        36,
+        43
+      ],
+      "shoe_profile_px": [
+        29,
+        27,
+        31
+      ],
+      "arm_endpoints": [
+        [
+          148,
+          114
+        ],
+        [
+          153,
+          133
+        ],
+        [
+          158,
+          155
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          137,
+          158
+        ],
+        [
+          147,
+          184
+        ],
+        [
+          150,
+          215
+        ]
+      ],
+      "pose": "Upright trunk, minor lateral sway; no combat-like forward fold",
+      "torso_reference": "neutral",
+      "notes": "Sleeve/pant landmarks inferred through garment volume; \u00b16/\u00b17px prevents strict \u00b16% limb certification. Current upright torso is robustly short.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 19.6,
+      "lower_arm_projected_px": 22.6,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.9,
+      "shin_projected_px": 31.1,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right arm/leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            111,
+            114
+          ],
+          [
+            104,
+            134
+          ],
+          [
+            99,
+            154
+          ]
+        ],
+        "upper_arm_projected_px": 21.2,
+        "lower_arm_projected_px": 20.6,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            118,
+            159
+          ],
+          [
+            114,
+            184
+          ],
+          [
+            99,
+            215
+          ]
+        ],
+        "thigh_projected_px": 25.3,
+        "shin_projected_px": 34.4,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite screen-left arm hangs visibly; screen-left leg bends outward. Both garment-covered; same broad endpoint uncertainty."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.754,
+          "LA": 0.893,
+          "thigh": 0.777,
+          "shin": 0.915
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "taunt",
+      "version": 7,
+      "frame": 0,
+      "atlas_index": 148,
+      "head_crown_to_chin_px": [
+        39,
+        37,
+        42
+      ],
+      "torso_endpoints": {
+        "collar": [
+          125,
+          115
+        ],
+        "hem": [
+          131,
+          151
+        ]
+      },
+      "torso_projected_px": 36.5,
+      "torso_interval_px": [
+        34,
+        41
+      ],
+      "shoe_profile_px": [
+        28,
+        26,
+        30
+      ],
+      "arm_endpoints": [
+        [
+          143,
+          118
+        ],
+        [
+          166,
+          116
+        ],
+        [
+          186,
+          116
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          132,
+          162
+        ],
+        [
+          153,
+          190
+        ],
+        [
+          158,
+          217
+        ]
+      ],
+      "pose": "Upright pointing pose, small lateral lean; straight zipper, no visible trunk fold",
+      "torso_reference": "neutral",
+      "notes": "Pointing sleeve has no exposed elbow: upper/lower split uncertain. Pelvis rotated; near thigh/shin are only projected estimates. Current upright torso is robustly short.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 23.1,
+      "lower_arm_projected_px": 20.0,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 35.0,
+      "shin_projected_px": 27.5,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right pointing arm and screen-right leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            107,
+            120
+          ],
+          [
+            86,
+            142
+          ],
+          [
+            104,
+            151
+          ]
+        ],
+        "upper_arm_projected_px": 30.4,
+        "lower_arm_projected_px": 20.1,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            119,
+            165
+          ],
+          [
+            104,
+            190
+          ],
+          [
+            89,
+            215
+          ]
+        ],
+        "thigh_projected_px": 29.2,
+        "shin_projected_px": 29.2,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Screen-left hand on hip; elbow and wrist visible but shoulder partly covered. Pointing arm depth rotation and bent opposite elbow prevent physical length comparison from projection alone."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.888,
+          "LA": 0.791,
+          "thigh": 0.975,
+          "shin": 0.809
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Taunt pointing arm cannot use neutral lowered-arm projection to establish physical length; ratio is diagnostic only."
+      }
+    },
+    {
+      "animation": "taunt",
+      "version": 7,
+      "frame": 1,
+      "atlas_index": 149,
+      "head_crown_to_chin_px": [
+        39,
+        37,
+        42
+      ],
+      "torso_endpoints": {
+        "collar": [
+          125,
+          115
+        ],
+        "hem": [
+          131,
+          152
+        ]
+      },
+      "torso_projected_px": 37.5,
+      "torso_interval_px": [
+        34,
+        41
+      ],
+      "shoe_profile_px": [
+        28,
+        26,
+        30
+      ],
+      "arm_endpoints": [
+        [
+          143,
+          118
+        ],
+        [
+          166,
+          116
+        ],
+        [
+          186,
+          116
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          132,
+          162
+        ],
+        [
+          153,
+          190
+        ],
+        [
+          158,
+          217
+        ]
+      ],
+      "pose": "Upright pointing pose, small lateral lean; straight zipper, no visible trunk fold",
+      "torso_reference": "neutral",
+      "notes": "Pointing sleeve has no exposed elbow: upper/lower split uncertain. Pelvis rotated; near thigh/shin are only projected estimates. Current upright torso is robustly short.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 23.1,
+      "lower_arm_projected_px": 20.0,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 35.0,
+      "shin_projected_px": 27.5,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right pointing arm and screen-right leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            107,
+            120
+          ],
+          [
+            86,
+            142
+          ],
+          [
+            104,
+            151
+          ]
+        ],
+        "upper_arm_projected_px": 30.4,
+        "lower_arm_projected_px": 20.1,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            119,
+            165
+          ],
+          [
+            104,
+            190
+          ],
+          [
+            89,
+            215
+          ]
+        ],
+        "thigh_projected_px": 29.2,
+        "shin_projected_px": 29.2,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Screen-left hand on hip; elbow and wrist visible but shoulder partly covered. Pointing arm depth rotation and bent opposite elbow prevent physical length comparison from projection alone."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.888,
+          "LA": 0.791,
+          "thigh": 0.975,
+          "shin": 0.809
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Taunt pointing arm cannot use neutral lowered-arm projection to establish physical length; ratio is diagnostic only."
+      }
+    },
+    {
+      "animation": "win",
+      "version": 8,
+      "frame": 0,
+      "atlas_index": 150,
+      "head_crown_to_chin_px": [
+        39,
+        37,
+        42
+      ],
+      "torso_endpoints": {
+        "collar": [
+          132,
+          117
+        ],
+        "hem": [
+          134,
+          153
+        ]
+      },
+      "torso_projected_px": 36.1,
+      "torso_interval_px": [
+        34,
+        40
+      ],
+      "shoe_profile_px": [
+        24,
+        22,
+        26
+      ],
+      "arm_endpoints": [
+        [
+          146,
+          121
+        ],
+        [
+          154,
+          145
+        ],
+        [
+          160,
+          163
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          139,
+          164
+        ],
+        [
+          151,
+          189
+        ],
+        [
+          158,
+          217
+        ]
+      ],
+      "pose": "Upright trunk; slight lateral lean; no forward bend",
+      "torso_reference": "neutral",
+      "notes": "Head/shoe central-value mismatch agrees with Claude. Broad uncertainty does not establish a universal no-uniform-fit proof. Upright torso is robustly short now; redraw diagnosis is body too small relative to preserved head.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 25.3,
+      "lower_arm_projected_px": 19.0,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.7,
+      "shin_projected_px": 28.9,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right lowered arm f0-f2; screen-left lowered arm f3; screen-right leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            117,
+            122
+          ],
+          [
+            102,
+            144
+          ],
+          [
+            113,
+            137
+          ]
+        ],
+        "upper_arm_projected_px": 26.6,
+        "lower_arm_projected_px": 13.0,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            123,
+            165
+          ],
+          [
+            111,
+            192
+          ],
+          [
+            89,
+            217
+          ]
+        ],
+        "thigh_projected_px": 29.5,
+        "shin_projected_px": 33.3,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite arm is bent toward chest in f0, raised/foreshortened beside head f1-f2, opposite raised fist f3. Projected upper arm can shorten without physical limb shortening; no neutral-length pass from those values."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.973,
+          "LA": 0.751,
+          "thigh": 0.772,
+          "shin": 0.85
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "win",
+      "version": 8,
+      "frame": 1,
+      "atlas_index": 151,
+      "head_crown_to_chin_px": [
+        39,
+        37,
+        42
+      ],
+      "torso_endpoints": {
+        "collar": [
+          132,
+          117
+        ],
+        "hem": [
+          134,
+          153
+        ]
+      },
+      "torso_projected_px": 36.1,
+      "torso_interval_px": [
+        34,
+        40
+      ],
+      "shoe_profile_px": [
+        24,
+        22,
+        26
+      ],
+      "arm_endpoints": [
+        [
+          146,
+          121
+        ],
+        [
+          154,
+          145
+        ],
+        [
+          160,
+          163
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          139,
+          164
+        ],
+        [
+          151,
+          189
+        ],
+        [
+          158,
+          217
+        ]
+      ],
+      "pose": "Upright trunk; slight lateral lean; raised arm does not compress trunk",
+      "torso_reference": "neutral",
+      "notes": "Head/shoe central-value mismatch agrees with Claude. Broad uncertainty does not establish a universal no-uniform-fit proof. Upright torso is robustly short now; redraw diagnosis is body too small relative to preserved head.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 25.3,
+      "lower_arm_projected_px": 19.0,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.7,
+      "shin_projected_px": 28.9,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right lowered arm f0-f2; screen-left lowered arm f3; screen-right leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            117,
+            122
+          ],
+          [
+            111,
+            108
+          ],
+          [
+            119,
+            88
+          ]
+        ],
+        "upper_arm_projected_px": 15.2,
+        "lower_arm_projected_px": 21.5,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            123,
+            165
+          ],
+          [
+            111,
+            192
+          ],
+          [
+            89,
+            217
+          ]
+        ],
+        "thigh_projected_px": 29.5,
+        "shin_projected_px": 33.3,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite arm is bent toward chest in f0, raised/foreshortened beside head f1-f2, opposite raised fist f3. Projected upper arm can shorten without physical limb shortening; no neutral-length pass from those values."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.973,
+          "LA": 0.751,
+          "thigh": 0.772,
+          "shin": 0.85
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "win",
+      "version": 8,
+      "frame": 2,
+      "atlas_index": 152,
+      "head_crown_to_chin_px": [
+        39,
+        37,
+        42
+      ],
+      "torso_endpoints": {
+        "collar": [
+          132,
+          116
+        ],
+        "hem": [
+          134,
+          153
+        ]
+      },
+      "torso_projected_px": 37.1,
+      "torso_interval_px": [
+        34,
+        40
+      ],
+      "shoe_profile_px": [
+        24,
+        22,
+        26
+      ],
+      "arm_endpoints": [
+        [
+          146,
+          121
+        ],
+        [
+          154,
+          145
+        ],
+        [
+          160,
+          163
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          139,
+          164
+        ],
+        [
+          151,
+          189
+        ],
+        [
+          158,
+          217
+        ]
+      ],
+      "pose": "Upright trunk; slight lateral lean; raised arm does not compress trunk",
+      "torso_reference": "neutral",
+      "notes": "Head/shoe central-value mismatch agrees with Claude. Broad uncertainty does not establish a universal no-uniform-fit proof. Upright torso is robustly short now; redraw diagnosis is body too small relative to preserved head.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 25.3,
+      "lower_arm_projected_px": 19.0,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.7,
+      "shin_projected_px": 28.9,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right lowered arm f0-f2; screen-left lowered arm f3; screen-right leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            117,
+            122
+          ],
+          [
+            111,
+            108
+          ],
+          [
+            119,
+            88
+          ]
+        ],
+        "upper_arm_projected_px": 15.2,
+        "lower_arm_projected_px": 21.5,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            123,
+            165
+          ],
+          [
+            111,
+            192
+          ],
+          [
+            89,
+            217
+          ]
+        ],
+        "thigh_projected_px": 29.5,
+        "shin_projected_px": 33.3,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite arm is bent toward chest in f0, raised/foreshortened beside head f1-f2, opposite raised fist f3. Projected upper arm can shorten without physical limb shortening; no neutral-length pass from those values."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.973,
+          "LA": 0.751,
+          "thigh": 0.772,
+          "shin": 0.85
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "win",
+      "version": 8,
+      "frame": 3,
+      "atlas_index": 153,
+      "head_crown_to_chin_px": [
+        39,
+        37,
+        42
+      ],
+      "torso_endpoints": {
+        "collar": [
+          132,
+          117
+        ],
+        "hem": [
+          134,
+          153
+        ]
+      },
+      "torso_projected_px": 36.1,
+      "torso_interval_px": [
+        34,
+        40
+      ],
+      "shoe_profile_px": [
+        24,
+        22,
+        26
+      ],
+      "arm_endpoints": [
+        [
+          115,
+          122
+        ],
+        [
+          110,
+          145
+        ],
+        [
+          105,
+          164
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          139,
+          164
+        ],
+        [
+          151,
+          189
+        ],
+        [
+          158,
+          217
+        ]
+      ],
+      "pose": "Upright trunk; slight lateral lean; no forward bend",
+      "torso_reference": "neutral",
+      "notes": "Head/shoe central-value mismatch agrees with Claude. Broad uncertainty does not establish a universal no-uniform-fit proof. Upright torso is robustly short now; redraw diagnosis is body too small relative to preserved head.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 23.5,
+      "lower_arm_projected_px": 19.6,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 27.7,
+      "shin_projected_px": 28.9,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-right lowered arm f0-f2; screen-left lowered arm f3; screen-right leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            146,
+            120
+          ],
+          [
+            164,
+            132
+          ],
+          [
+            156,
+            118
+          ]
+        ],
+        "upper_arm_projected_px": 21.6,
+        "lower_arm_projected_px": 16.1,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": [
+          [
+            123,
+            165
+          ],
+          [
+            111,
+            192
+          ],
+          [
+            89,
+            217
+          ]
+        ],
+        "thigh_projected_px": 29.5,
+        "shin_projected_px": 33.3,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite arm is bent toward chest in f0, raised/foreshortened beside head f1-f2, opposite raised fist f3. Projected upper arm can shorten without physical limb shortening; no neutral-length pass from those values."
+      },
+      "segment_comparison": {
+        "reference": "neutral",
+        "primary_projected_ratio_screen": {
+          "UA": 0.904,
+          "LA": 0.775,
+          "thigh": 0.772,
+          "shin": 0.85
+        },
+        "status": "HOLD: broad joint uncertainty and limb-specific projection; no numeric pass",
+        "opposite_ratio": "SKIP: bent/rotated opposite limb lacks matching approved projection; explicit projected estimates retained",
+        "arm_caveat": "Lowered clearest arm is the nearest neutral projection; uncertainty remains much wider than \u00b16%."
+      }
+    },
+    {
+      "animation": "jumpUp",
+      "version": 6,
+      "frame": 0,
+      "atlas_index": 24,
+      "head_crown_to_chin_px": [
+        42,
+        39,
+        45
+      ],
+      "torso_endpoints": {
+        "collar": [
+          156,
+          80
+        ],
+        "hem": [
+          162,
+          123
+        ]
+      },
+      "torso_projected_px": 43.4,
+      "torso_interval_px": [
+        40,
+        47
+      ],
+      "shoe_profile_px": null,
+      "arm_endpoints": [
+        [
+          137,
+          89
+        ],
+        [
+          118,
+          120
+        ],
+        [
+          103,
+          143
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          154,
+          141
+        ],
+        [
+          151,
+          174
+        ],
+        [
+          135,
+          205
+        ]
+      ],
+      "pose": "Airborne, lifted near thigh and pelvis; trunk extended/oblique, sagittal tilt unresolved",
+      "torso_reference": "neutral/combat envelope",
+      "notes": "Both shoes are toward camera/oblique, no comparable profile S. Raised leg folds toward camera; opposite leg shown as projected estimates. T falls between approved projections; cannot assign physical torso length from it.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 36.4,
+      "lower_arm_projected_px": 27.5,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 33.1,
+      "shin_projected_px": 34.9,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-left lowered arm and hanging leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            175,
+            89
+          ],
+          [
+            194,
+            86
+          ],
+          [
+            188,
+            67
+          ]
+        ],
+        "upper_arm_projected_px": 19.2,
+        "lower_arm_projected_px": 19.9,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": null,
+        "thigh_projected_px": null,
+        "shin_projected_px": null,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite arm raised beside head and foreshortened. Raised leg orange silhouette is visible but hip is under jacket and knee is hidden within a broad folded trouser contour; separate thigh/shin joint-center lengths unmeasurable. Distal lower leg overlaps hanging thigh/foot more in f1."
+      },
+      "segment_comparison": {
+        "reference": "combat/idle projection context",
+        "primary_projected_ratio_screen": null,
+        "status": "SKIP ratio: airborne limb rotations have no matching 2D approved reference projection; hidden joints/foreshortening prevents physical-length inference",
+        "opposite_ratio": "SKIP with side-specific occlusion reasons above"
+      }
+    },
+    {
+      "animation": "jumpUp",
+      "version": 6,
+      "frame": 1,
+      "atlas_index": 25,
+      "head_crown_to_chin_px": [
+        42,
+        39,
+        45
+      ],
+      "torso_endpoints": {
+        "collar": [
+          146,
+          80
+        ],
+        "hem": [
+          148,
+          123
+        ]
+      },
+      "torso_projected_px": 43.0,
+      "torso_interval_px": [
+        40,
+        47
+      ],
+      "shoe_profile_px": null,
+      "arm_endpoints": [
+        [
+          128,
+          89
+        ],
+        [
+          107,
+          121
+        ],
+        [
+          94,
+          143
+        ]
+      ],
+      "leg_endpoints": [
+        [
+          146,
+          141
+        ],
+        [
+          151,
+          174
+        ],
+        [
+          132,
+          205
+        ]
+      ],
+      "pose": "Airborne, lifted near thigh and pelvis; trunk extended/oblique, sagittal tilt unresolved",
+      "torso_reference": "neutral/combat envelope",
+      "notes": "Foot and shins overlap more than f0. No reliable profile shoe or frontal shoulder measurement; all limb lengths remain estimates through clothes.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 38.3,
+      "lower_arm_projected_px": 25.6,
+      "arm_segment_uncertainty_px": 6,
+      "thigh_projected_px": 33.4,
+      "shin_projected_px": 36.4,
+      "leg_segment_uncertainty_px": 7,
+      "measured_side": "screen-left lowered arm and hanging leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            165,
+            89
+          ],
+          [
+            184,
+            86
+          ],
+          [
+            178,
+            67
+          ]
+        ],
+        "upper_arm_projected_px": 19.2,
+        "lower_arm_projected_px": 19.9,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": null,
+        "thigh_projected_px": null,
+        "shin_projected_px": null,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite arm raised beside head and foreshortened. Raised leg orange silhouette is visible but hip is under jacket and knee is hidden within a broad folded trouser contour; separate thigh/shin joint-center lengths unmeasurable. Distal lower leg overlaps hanging thigh/foot more in f1."
+      },
+      "segment_comparison": {
+        "reference": "combat/idle projection context",
+        "primary_projected_ratio_screen": null,
+        "status": "SKIP ratio: airborne limb rotations have no matching 2D approved reference projection; hidden joints/foreshortening prevents physical-length inference",
+        "opposite_ratio": "SKIP with side-specific occlusion reasons above"
+      }
+    },
+    {
+      "animation": "superDash",
+      "version": 3,
+      "frame": 0,
+      "atlas_index": 21,
+      "head_crown_to_chin_px": [
+        44,
+        40,
+        47
+      ],
+      "torso_endpoints": {
+        "collar": [
+          169,
+          170
+        ],
+        "hem": [
+          146,
+          201
+        ]
+      },
+      "torso_projected_px": 38.6,
+      "torso_interval_px": [
+        35,
+        42
+      ],
+      "shoe_profile_px": null,
+      "arm_endpoints": [
+        [
+          193,
+          172
+        ],
+        [
+          212,
+          162
+        ],
+        [
+          227,
+          162
+        ]
+      ],
+      "leg_endpoints": null,
+      "pose": "Strong forward/diagonal trunk lean and tucked airborne legs",
+      "torso_reference": "combat/idle",
+      "notes": "Head pitched/oblique: H is a projection with larger uncertainty. Rear/near leg portions overlap and knees hide hip landmarks; separate thigh/shin lengths not measurable. Shoes are rear-facing/occluded, no profile S.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 21.5,
+      "lower_arm_projected_px": 15.0,
+      "arm_segment_uncertainty_px": 6,
+      "measured_side": "screen-right reaching arm; no measurable complete leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            154,
+            177
+          ],
+          [
+            131,
+            181
+          ],
+          [
+            123,
+            193
+          ]
+        ],
+        "upper_arm_projected_px": 23.3,
+        "lower_arm_projected_px": 14.4,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": null,
+        "thigh_projected_px": null,
+        "shin_projected_px": null,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite screen-left arm trails with shoulder/elbow under dark/orange sleeve. Both thighs tuck beneath torso; hip and knee centers hidden by torso, clothing and each other. Distal rear lower leg partly visible, but knee unseen; neither left nor right thigh/shin length certifiable."
+      },
+      "segment_comparison": {
+        "reference": "combat/idle projection context",
+        "primary_projected_ratio_screen": null,
+        "status": "SKIP ratio: airborne limb rotations have no matching 2D approved reference projection; hidden joints/foreshortening prevents physical-length inference",
+        "opposite_ratio": "SKIP with side-specific occlusion reasons above"
+      }
+    },
+    {
+      "animation": "superDash",
+      "version": 3,
+      "frame": 1,
+      "atlas_index": 22,
+      "head_crown_to_chin_px": [
+        44,
+        40,
+        47
+      ],
+      "torso_endpoints": {
+        "collar": [
+          164,
+          170
+        ],
+        "hem": [
+          143,
+          201
+        ]
+      },
+      "torso_projected_px": 37.4,
+      "torso_interval_px": [
+        34,
+        42
+      ],
+      "shoe_profile_px": null,
+      "arm_endpoints": [
+        [
+          188,
+          172
+        ],
+        [
+          205,
+          162
+        ],
+        [
+          220,
+          162
+        ]
+      ],
+      "leg_endpoints": null,
+      "pose": "Strong forward/diagonal trunk lean and tucked airborne legs",
+      "torso_reference": "combat/idle",
+      "notes": "Same occlusions as f0; no numeric pass for hidden leg chains, shoes or frontal shoulder span.",
+      "shoulder_width": null,
+      "shoulder_reason": "3/4/oblique view; frontal shoulder width not measurable",
+      "upper_arm_projected_px": 19.7,
+      "lower_arm_projected_px": 15.0,
+      "arm_segment_uncertainty_px": 6,
+      "measured_side": "screen-right reaching arm; no measurable complete leg",
+      "opposite_side": {
+        "arm_endpoints": [
+          [
+            149,
+            177
+          ],
+          [
+            126,
+            181
+          ],
+          [
+            118,
+            193
+          ]
+        ],
+        "upper_arm_projected_px": 23.3,
+        "lower_arm_projected_px": 14.4,
+        "arm_uncertainty_px": 6,
+        "leg_endpoints": null,
+        "thigh_projected_px": null,
+        "shin_projected_px": null,
+        "leg_uncertainty_px": 7,
+        "reason_and_projection_limit": "Opposite screen-left arm trails with shoulder/elbow under dark/orange sleeve. Both thighs tuck beneath torso; hip and knee centers hidden by torso, clothing and each other. Distal rear lower leg partly visible, but knee unseen; neither left nor right thigh/shin length certifiable."
+      },
+      "segment_comparison": {
+        "reference": "combat/idle projection context",
+        "primary_projected_ratio_screen": null,
+        "status": "SKIP ratio: airborne limb rotations have no matching 2D approved reference projection; hidden joints/foreshortening prevents physical-length inference",
+        "opposite_ratio": "SKIP with side-specific occlusion reasons above"
+      }
+    }
+  ],
+  "scale_possibility_screens": {
+    "stagger": {
+      "possible_k_intervals": {
+        "H": [
+          0.8088,
+          1.1995
+        ],
+        "T": [
+          1.0493,
+          1.5606
+        ],
+        "S": [
+          0.8187,
+          1.217
+        ]
+      },
+      "joint_possible_k": [
+        1.0493,
+        1.1995
+      ],
+      "interpretation": "Only a generous possibility screen; overlapping intervals do not certify a calibration. BodyHeight selection remains Claude-owned."
+    },
+    "taunt": {
+      "possible_k_intervals": {
+        "H": [
+          0.8281,
+          1.2319
+        ],
+        "T": [
+          1.1005,
+          1.6524
+        ],
+        "S": [
+          0.846,
+          1.2638
+        ]
+      },
+      "joint_possible_k": [
+        1.1005,
+        1.2319
+      ],
+      "interpretation": "Only a generous possibility screen; overlapping intervals do not certify a calibration. BodyHeight selection remains Claude-owned."
+    },
+    "win": {
+      "possible_k_intervals": {
+        "H": [
+          0.8281,
+          1.2319
+        ],
+        "T": [
+          1.128,
+          1.6524
+        ],
+        "S": [
+          0.9762,
+          1.4936
+        ]
+      },
+      "joint_possible_k": [
+        1.128,
+        1.2319
+      ],
+      "interpretation": "Only a generous possibility screen; overlapping intervals do not certify a calibration. BodyHeight selection remains Claude-owned."
+    }
+  },
+  "loops": {
+    "stagger": {
+      "atlas_frames": [
+        131,
+        132,
+        133,
+        134
+      ],
+      "durations_ms": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "inspected_transitions": [
+        "0->1",
+        "1->2",
+        "2->3",
+        "3->0"
+      ],
+      "inspection": "all ordered frame pairs including final->first; no browser playback available to this agent",
+      "result": "No missing/cut limb or frame-boundary clipping found. Small torso/head sway; scale failure persists throughout loop."
+    },
+    "taunt": {
+      "atlas_frames": [
+        148,
+        149
+      ],
+      "durations_ms": [
+        250,
+        250
+      ],
+      "loop": true,
+      "inspected_transitions": [
+        "0->1",
+        "1->0"
+      ],
+      "inspection": "all ordered frame pairs including final->first; no browser playback available to this agent",
+      "result": "No missing/cut limb or frame-boundary clipping found. Mouth opens; pointing body stable."
+    },
+    "win": {
+      "atlas_frames": [
+        150,
+        151,
+        152,
+        153
+      ],
+      "durations_ms": [
+        110,
+        90,
+        260,
+        180
+      ],
+      "loop": true,
+      "inspected_transitions": [
+        "0->1",
+        "1->2",
+        "2->3",
+        "3->0"
+      ],
+      "inspection": "all ordered frame pairs including final->first; no browser playback available to this agent",
+      "result": "No missing/cut limb or frame-boundary clipping found. Arm pumps from chest to overhead, holds and changes to other-side fist, then returns; wrap is a visible pose snap, not an anatomy scale fix."
+    },
+    "jumpUp": {
+      "atlas_frames": [
+        24,
+        25
+      ],
+      "durations_ms": [
+        80,
+        80
+      ],
+      "loop": true,
+      "inspected_transitions": [
+        "0->1",
+        "1->0"
+      ],
+      "inspection": "all ordered frame pairs including final->first; no browser playback available to this agent",
+      "result": "No missing/cut limb or frame-boundary clipping found. Raised leg and arm move between two poses; overlapping shoe in f1 is occlusion, not loss of anatomy."
+    },
+    "superDash": {
+      "atlas_frames": [
+        21,
+        22
+      ],
+      "durations_ms": [
+        50,
+        50
+      ],
+      "loop": true,
+      "inspected_transitions": [
+        "0->1",
+        "1->0"
+      ],
+      "inspection": "all ordered frame pairs including final->first; no browser playback available to this agent",
+      "result": "No missing/cut limb or frame-boundary clipping found. Two poses preserve tuck; cloth/headband changes, no gross scale pop observed."
+    }
+  },
+  "strip_verdicts": {
+    "stagger": "HOLD: current upright torso robustly short; calibration feasibility unresolved; no extra generation authorized by this audit.",
+    "taunt": "HOLD: current upright torso robustly short; calibration feasibility unresolved; no extra generation authorized by this audit.",
+    "win": "HOLD: current upright torso robustly short and body/head mismatch; one redraw direction sent to coordinator. H/S no-fit claim not proven after broad uncertainty.",
+    "jumpUp": "HOLD for strict numeric certification: no robust redraw-level failure found, but projection/occlusion prevents \u00b16% certification of every segment. Retain source pending Claude assessment.",
+    "superDash": "HOLD for strict numeric certification: no robust redraw-level failure found; hidden legs/profile shoes and pitched head prevent all-segment \u00b16% certification. Retain source pending Claude assessment."
+  }
+}

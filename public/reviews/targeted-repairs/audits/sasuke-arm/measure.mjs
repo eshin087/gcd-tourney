@@ -1,0 +1,10 @@
+import fs from 'node:fs';import crypto from 'node:crypto';import {PNG} from 'pngjs';
+const d='art/characters/sasuke/production/targeted-repairs/jumpSquat-v07-astra';
+const prior=JSON.parse(fs.readFileSync('art/characters/sasuke/production/round4/post-calibration-20261015/measurements.json'));
+const points={H:[[160,85],[184,122]],T:[[168,122],[145,163]],NA:[[145,125],[102,133],[92,155]],hand:[[92,155],[76,163]],FA:null,NL:[[146,177],[181,185],[164,225]],FL:[[118,177],[91,194],[79,226]],S:34};
+const len=(a,b)=>Math.round(Math.hypot(a[0]-b[0],a[1]-b[1])*10)/10;
+const measurements=Object.fromEntries(Object.entries(points).map(([k,v])=>[k,Array.isArray(v)?v.length===3?[len(v[0],v[1]),len(v[1],v[2])]:len(v[0],v[1]):v]));
+const files=['art/characters/sasuke/raw/jumpSquat_v07.png','art/characters/sasuke/production/round6/diagnostic-v07/packed/characters/sasuke/sheet.png','art/characters/sasuke/production/round6/diagnostic-v07/packed/characters/sasuke/anims.json', 'public/art-review/title-style-pilot/sasuke-neutral_v01.png','public/art-review/title-style-pilot/sasuke-combat_v01.png'];
+const p=PNG.sync.read(fs.readFileSync(d+'/cell.png'));let xs=[],ys=[];for(let y=0;y<256;y++)for(let x=0;x<256;x++)if(p.data[(y*256+x)*4+3]){xs.push(x);ys.push(y);}
+fs.writeFileSync(d+'/measurements.json',JSON.stringify({commit:'5b1fe90',atlasIndex:23,durationMs:70,loop:false,gate:'diagnostic warn; actual standard strict gate unmeasured/fails',hashes:Object.fromEntries(files.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')])),bounds:[Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)],points,measurements,uncertaintyPx:{H:5,T:7,UA:10,FA:10,hand:4,wholeBentArm:15,thigh:12,shin:10,S:2},references:prior.records.filter(r=>['neutral','combat','idle-0','jumpSquat-0'].includes(r.name)),exclusions:'Far arm and hand overlap near hand/torso; no separate chain. Shoulders not frontal. Covered joint centers low confidence. Shortened projected bent arm is not intrinsic bone-length proof. H outer hair tip to chin, hidden skull crown cannot be certified.'},null,2)+'\n');
+console.log(JSON.stringify(measurements));

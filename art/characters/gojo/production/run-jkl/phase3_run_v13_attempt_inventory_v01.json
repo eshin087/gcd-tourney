@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-15",
+  "character": "gojo",
+  "task": "phase 3 run v13 two-part generation",
+  "codexModel": "gpt-6-luna",
+  "reasoning": "medium",
+  "generator": "built-in image_gen (image_gen__imagegen)",
+  "references": {
+    "identityAndAnatomy": [
+      "art/characters/gojo/reference/title_style_approved.png",
+      "art/characters/gojo/reference/title_neutral_approved.png",
+      "art/characters/gojo/reference/idle_approved.png"
+    ],
+    "direction": [
+      "art/characters/gojo/production/run-jkl/K_v01.png"
+    ],
+    "partBContinuity": [
+      "art/characters/gojo/raw/_parts/run_v13_A.png"
+    ]
+  },
+  "budget": "3 calls total across A, B, and one correction; all calls including failed calls count",
+  "callsUsed": 4,
+  "result": "BLOCKED: Part A saved; first B repeated A; original final correction call failed before generation; one extra user-authorized B call also repeated A and was preserved in raw/_qa_hold. No B selected, no completed run strip.",
+  "attempts": [
+    {
+      "call": 1,
+      "part": "A (frames f0-f3)",
+      "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-8b5a051c-e3ea-443d-9c55-32fe895fbea7.png",
+      "sourceSha256": "561951D6C1FE5DA76ABC3AEB5521EAC662572C9C0E31897019BD6037E18DD0CE",
+      "output": "art/characters/gojo/raw/_parts/run_v13_A.png",
+      "outputSha256": "561951D6C1FE5DA76ABC3AEB5521EAC662572C9C0E31897019BD6037E18DD0CE",
+      "status": "selected and preserved",
+      "visualQa": "Four plausible right-facing 3/4 K run poses: contact, down, passing, flight. Far L hand remains pocketed; near R arm pumps. Contact lead-leg identity was not independently verified with quantized atlas because the strip could not be completed."
+    },
+    {
+      "call": 2,
+      "part": "B first attempt (frames f4-f7)",
+      "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-74cf3a23-76b0-40e7-9a10-961befc7f116.png",
+      "sourceSha256": "89505143FBF0FA9D5FAF0C9798128649D72015288F45F9F4E0BF2086BB47F869",
+      "output": null,
+      "outputSha256": null,
+      "status": "discarded; not copied into raw",
+      "reason": "Visual inspection showed B repeated A's lead-leg sequence, including the high-knee flight phase, instead of the required R-leading mirrored gait phase."
+    },
+    {
+      "call": 3,
+      "part": "B correction (frames f4-f7)",
+      "source": null,
+      "sourceSha256": null,
+      "output": null,
+      "outputSha256": null,
+      "status": "failed before generation; counted against budget",
+      "reason": "image_gen could not read referenced image at E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art\\gojo-run\\art\\characters\\gojo\\reference\\title_style_approved.png (path not found). No generated image/source path was returned."
+    },
+    {
+      "call": 4,
+      "part": "B, one additional user-authorized call (frames f4-f7)",
+      "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-b9933ff2-9e3b-4858-867d-c11e88f6a3e3.png",
+      "sourceSha256": "1EC01513032CB9EDDCF0802BC1BE69CF03A53B880069039BD307BB030EC7F0DF",
+      "output": "art/characters/gojo/raw/_qa_hold/run_v13_B_attempt02.png",
+      "outputSha256": "1EC01513032CB9EDDCF0802BC1BE69CF03A53B880069039BD307BB030EC7F0DF",
+      "status": "held/discarded; not selected; moved out of raw parts",
+      "reason": "Visual comparison against Part A shows the same contact/down/passing/flight leg sequence repeated: the lead-leg alternation requested for f4-f7 is not achieved.",
+      "visualQa": "Four right-facing 3/4 figures, left hand pocketed, near R arm pumps, hard-edge magenta background. However the pose/leg sequence substantially repeats A f0-f3, so this does not qualify as a mirrored second gait phase."
+    }
+  ],
+  "untouched": [
+    "art/characters/gojo/production/run-jkl/K_v01.png",
+    "art/characters/gojo/production/run-jkl/J_v02.png",
+    "art/characters/gojo/production/run-jkl/L_v02.png",
+    "all other production animation strips"
+  ],
+  "additionalAuthorization": "User relayed: Allow 1 Part B call. Exactly one additional generation call was used under gpt-6-luna/medium."
+}

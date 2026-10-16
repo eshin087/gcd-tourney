@@ -1,18 +1,8 @@
 import * as THREE from 'three';
 import { RING_TOP } from './constants.js';
+import { damp } from './basis.js';
 
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-// Critically damped spring toward a target (Unity's SmoothDamp).
-function damp(cur, target, vel, key, smooth, dt) {
-  const omega = 2 / Math.max(0.0001, smooth);
-  const x = omega * dt;
-  const exp = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
-  const change = cur - target;
-  const temp = (vel[key] + omega * change) * dt;
-  vel[key] = (vel[key] - omega * temp) * exp;
-  return target + (change + temp) * exp;
-}
 
 function dampV(cur, target, vel, smooth, dt) {
   cur.x = damp(cur.x, target.x, vel, 'x', smooth, dt);
@@ -44,8 +34,7 @@ export class CameraDirector {
     this.trauma = 0;
     this.kick = new THREE.Vector3();
     this.kickVel = new THREE.Vector3();
-    this.yaw = 0;
-    this.yawVel = { v: 0 };
+    this.yaw = 0; // the fight's yaw: the simulation's control basis (basis.js) once a match runs
     this.fov = 30;
     this.pos = new THREE.Vector3(0, 14, 30);
     this.look = new THREE.Vector3(0, 1, 0);
@@ -65,6 +54,7 @@ export class CameraDirector {
     this.mode = mode;
     this.modeT = 0;
     this.data = data;
+    this.lean = null;
     // the results shot cuts to a fixed angle off the fight's yaw, well clear of where the victory orbit
     // ends (about yaw + 0.1), so the cut reads as a cut and not as a jump
     if (mode === 'results') this.resYaw = this.yaw + RESULTS_SHOT.yaw;
@@ -88,8 +78,10 @@ export class CameraDirector {
     this.punch = Math.max(this.punch, a);
   }
 
-  dirFromInput(mx, my) {
-    return new THREE.Vector2(this.right.x * mx + this.fwd.x * my, this.right.z * mx + this.fwd.z * my);
+  // MELEE CLASH (ADR 0038): the fight framing eases in toward a point (the meeting strikes, ring-relative) by `amt`
+  // (0-1), holds `hold` seconds, then eases back out
+  pushIn(x, y, z, amt, hold) {
+    this.lean = { p: new THREE.Vector3(x, RING_TOP + y, z), amt, hold, t: 0 };
   }
 
   update(dt, game) {
@@ -100,6 +92,9 @@ export class CameraDirector {
     let fov = 30, smoothP = 0.35, smoothL = 0.22;
     const f = game.fighters;
     const rp = (ft) => ft.renderPos || ft.pos;
+    // the fight's yaw is the simulation's control basis (basis.js), drawn between its fixed steps: the framing turns
+    // with the axes the controls use, and every machine agrees on those (ADR 0036)
+    if (game.basis && f[0] && f[1]) this.yaw = game.basis.viewYaw(game.freeze > 0 ? 1 : game.alpha ?? 1);
 
     switch (this.mode) {
       case 'orbit': {
@@ -126,28 +121,28 @@ export class CameraDirector {
         const dx = b.x - a.x, dz = b.z - a.z;
         const sep = Math.hypot(dx, dz);
         const avgH = (a.y + b.y) / 2, maxH = Math.max(a.y, b.y), hd = Math.abs(a.y - b.y);
-        if (sep > 2.2) {
-          let ideal = Math.atan2(dx, dz) - Math.PI / 2;
-          while (ideal - this.yaw > Math.PI / 2) ideal -= Math.PI;
-          while (ideal - this.yaw < -Math.PI / 2) ideal += Math.PI;
-          ideal = THREE.MathUtils.clamp(ideal, -0.42, 0.42);
-          this.targetYaw = ideal;
-        }
-        this.yaw = damp(this.yaw, this.targetYaw ?? 0, this.yawVel, 'v', 1.1, dt);
         // frame for the visible width (the training panel can cover part of the screen)
         const visAspect = (cam.aspect || 1.7) * (1 - (game.viewCover || 0));
         const aspectK = Math.max(1, 1.7 / visAspect);
-        const dist = THREE.MathUtils.clamp(9.6 + sep * 0.78 + hd * 0.7, 11, 21) * aspectK;
+        let dist = THREE.MathUtils.clamp(9.6 + sep * 0.78 + hd * 0.7, 11, 21) * aspectK;
         const pitch = 0.44 - Math.min(0.12, avgH * 0.035);
         const mid = new THREE.Vector3((a.x + b.x) / 2, RING_TOP + 0.85 + avgH * 0.55 + Math.max(0, maxH - 2.5) * 0.25, (a.z + b.z) / 2);
+        const L = this.lean;
+        if (L) {
+          const IN = 0.14, OUT = 0.6, T = (L.t += dt);
+          const k = L.amt * (T < IN ? ease(T / IN) : T < IN + L.hold ? 1 : 1 - ease(Math.min(1, (T - IN - L.hold) / OUT)));
+          if (T >= IN + L.hold + OUT) this.lean = null;
+          dist *= 1 - 0.55 * k;
+          mid.lerp(L.p, 0.7 * k);
+        }
         tgtLook.copy(mid);
         tgtPos.set(
           mid.x + Math.sin(this.yaw) * Math.cos(pitch) * dist,
           mid.y + Math.sin(pitch) * dist,
           mid.z + Math.cos(this.yaw) * Math.cos(pitch) * dist,
         );
-        smoothP = 0.32;
-        smoothL = 0.16;
+        smoothP = this.lean ? 0.16 : 0.32; // a push-in has to arrive within its slow-mo
+        smoothL = this.lean ? 0.1 : 0.16;
         break;
       }
       case 'focus': {
@@ -183,7 +178,11 @@ export class CameraDirector {
         const orbit = Math.sin(this.modeT * 0.5) * 0.25;
         const s2 = side.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), orbit);
         tgtPos.set(p.x, RING_TOP + p.y, p.z).addScaledVector(s2, 6 + span * 0.85).add(new THREE.Vector3(0, 2.2, 0));
-        tgtLook.set(p.x, RING_TOP + p.y - 0.2, p.z);
+        // frame both bodies, under the struggle point, so the fighters sit in the upper middle and the rhythm ring and bar
+        // (HUD, bottom) stay below their feet; a fighter hovering in the air widens the shot (ADR 0034)
+        const fa = c.a.f.pos, fb = c.b.f.pos, lo = Math.min(fa.y, fb.y), hi = Math.max(fa.y, fb.y) + 1.7;
+        tgtLook.set(p.x, RING_TOP + (lo + hi) / 2 - 0.55, p.z);
+        tgtPos.addScaledVector(s2, (hi - lo - 1.7) * 1.4).y += (hi - lo - 1.7) * 0.5;
         fov = 33;
         smoothP = 0.5;
         this.shake(dt * 0.6);

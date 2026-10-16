@@ -1,0 +1,14 @@
+# Gojo round4 named-art checkpoint
+
+Worktree E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney, branch codex/gojo-run-def. This is incomplete Part1, not final review or production delivery. Parent coordinator requested this checkpoint to free the Naruto worker slot; remaining Gojo work resumes by follow-up.
+
+Named candidates: idle_v07 (A3 calls, selected A2; B1), superDash_v08 immutable intermediate and superDash_v09 selected final (3 calls total). Historical recorded plus new calls: idle A4/B2, superDash4. Older unrecorded sessions are not asserted to have zero calls. Source lineage in inventory.json. No self-approval, bodyHeight/offset tuning, exemptions or production merge/deploy.
+
+Full strict quantize48 pack with idle_v07 failed and wrote no main atlas: new idle hair-probe denominator changes all other strips. Isolated idle strict atlas uses the unchanged main bodyHeight236 and is only a diagnostic partial sheet:234-236px tall/135-138px wide, target210-216/145-160 failed. Measured segment vectors and uncertainty in idle-landmarks.json; f5 chin template tracking low-confidence, not numeric pass. Collar-to-hem83.1-85.1 versus approved idle79.2; no anatomical approval. Shoulders oblique; far limb chains occluded/foreshortened.
+
+SuperDash v08 strict isolated: head0.90, no atlas. v09 strict isolated against approved idle_v06: head1.03, exit0, partial10-frame atlas,48colors. Anatomical f0/f1: head38/37, torso53.7/53.7, arm44.6/45.7, folded leg73.9/74.0, shoe34.1/34.1px. Approved idle36/79.2/70.0/102.4/33.0px. Torso, arm and leg materially fail6%; shoe diagonal foreshortened/inconclusive. Landmark endpoints under clothing +/-2px each, chain +/-5px. Strict head passes nothing by itself. All diagnostic atlases are clearly named under production/round4, never public production outputs.
+
+Remaining authorized work: complete every-frame anatomical audit of guard_v04, jumpUp_v04, jumpFall_v04, airRecover_v03, throw_v04, airLight1/2/3 selected latest, light3_v04 and hurtLow_v04 against approved idle and approved combat at one density. Preliminary guard torso estimate is small, but full numeric audit must precede redraw authorization. Redraw only evidenced fail, at most3 NEW calls per image/part; uncertainty crossing6% is inconclusive. Do not use unapproved idle_v07 as identity reference. Preserve D/E/F and G/H/I studies and user's G direction selection. Round3 special/airHeavy/run items untouched.
+
+Next technical work: correct any measurement landmark mistakes using all visible segments, inspect actual quantized cells and loops, heads sheet/lineup, full strict pack, browser/in-game evidence, commit PR/committed preview. No PR or preview yet because scope remains unfinished. Claude owns runtime bodyHeight/offset/contact integration. Root owns main NOW/inbox.
+`nBuild adapter passed (82 modules, 1m17s), see build.txt; git diff --check passed. Browser/in-game QA, heads/lineup and remaining audits still pending.

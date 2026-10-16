@@ -242,6 +242,23 @@ manually edited `frames/<anim>/` folder keeps precedence and produces a warning.
 earlier `_vNN` image, save a new candidate version and its matching sidecar, then re-pack and
 queue that version for user review. A placement correction does not approve the image.
 
+### Erasing a leftover in the raw
+
+The packer drops specks and small marks far from the body on its own, but it keeps small pieces close to a
+body on purpose (smears, sweat drops, sparks). When such a piece is a leftover instead, for example the toe of
+an earlier version's pose left at a slot edge after one frame of a strip was replaced, list it in that
+version's sidecar as `"erase": [[x, y, w, h], ...]`: raw-image pixels (top-left corner, width, height) that
+the packer paints magenta before it removes the background. The approved PNG stays untouched, and the report
+line notes `erased N rect(s) of <file> (sidecar)`. A malformed or out-of-image rectangle is warned and
+skipped. Keep each rectangle off the figures: it erases whatever is inside it.
+
+### Mirroring a pose drawn the wrong way
+
+A character pose drawn facing the other way (a lying pose with the head at the wrong end compared with the strips
+around it) can be mirrored at pack time with `"flipX": true` in that version's sidecar. The packer mirrors each frame
+after splitting the strip, so the frame order stays the drawing's; the report notes `mirrored left-right (sidecar
+flipX)`. Character strips only. Mirroring also mirrors asymmetric costume details, so check the result.
+
 ## Hitbox tuning
 
 1. Pack, then preview the attack in game with `?art=custom` (and `?debug`, if the lead engineer

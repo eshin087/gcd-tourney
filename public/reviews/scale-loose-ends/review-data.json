@@ -1,0 +1,366 @@
+{
+  "date": "2026-10-15",
+  "total": 5,
+  "fighters": 2,
+  "status": "calibrated-astra-audited",
+  "note": "Final calibrated atlases audited by Astra. Technical screening findings are recorded per card; no image is approved by this page.",
+  "sources": {
+    "naruto-alts-r2": {
+      "sheet": "atlases/naruto-alts-r2/sheet.png",
+      "metadata": "atlases/naruto-alts-r2/anims.json",
+      "sheetHash": "99e7bda1f087e85c82d586d5a9db70abed7e672bbf082cd19b8b52cfb1c71a73",
+      "metadataHash": "3a0b09f235e1f10d06151dd37dc2a1e0b3a0c1008cb8e9ee8883893a7234b3d0",
+      "branch": "art/naruto-alts-r2",
+      "commit": "bf01a1a0",
+      "note": "Isolated warn-mode diagnostic; unmodified production gate failed"
+    },
+    "killua-loose-ends": {
+      "sheet": "atlases/killua-loose-ends/sheet.png",
+      "metadata": "atlases/killua-loose-ends/anims.json",
+      "sheetHash": "dcfa207a5a30cf9ae31e185e6684d4472ae6012727b50525f1199bf75bd3a628",
+      "metadataHash": "f07b4887bc898a340f63fb559e99db0a4efa2ef48cb2f48524ae4ae84ba4f5cc",
+      "branch": "art/killua-loose-ends",
+      "commit": "084a7cd2",
+      "note": "Isolated warn-mode diagnostic; unmodified production gate failed"
+    },
+    "naruto-approved": {
+      "sheet": "atlases/naruto-approved/sheet.png",
+      "metadata": "atlases/naruto-approved/anims.json",
+      "sheetHash": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+      "metadataHash": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+      "branch": "main",
+      "commit": "f09938de",
+      "note": "Current approved production comparator"
+    },
+    "killua-approved": {
+      "sheet": "atlases/killua-approved/sheet.png",
+      "metadata": "atlases/killua-approved/anims.json",
+      "sheetHash": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "metadataHash": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+      "branch": "main",
+      "commit": "f09938de",
+      "note": "Current approved production comparator"
+    },
+    "naruto-calibrated": {
+      "sheet": "atlases/naruto-calibrated/sheet.png",
+      "metadata": "atlases/naruto-calibrated/anims.json",
+      "sheetHash": "dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c",
+      "metadataHash": "9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b",
+      "branch": "art/naruto-alts-r2",
+      "commit": "802e673b",
+      "calibrationCommit": "802e673b",
+      "note": "Final calibrated production atlas; audited by Astra in the linked final report"
+    },
+    "killua-calibrated": {
+      "sheet": "atlases/killua-calibrated/sheet.png",
+      "metadata": "atlases/killua-calibrated/anims.json",
+      "sheetHash": "aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25",
+      "metadataHash": "9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696",
+      "branch": "art/killua-loose-ends",
+      "commit": "5bda5260",
+      "calibrationCommit": "5bda5260",
+      "note": "Final calibrated production atlas; audited by Astra in the linked final report"
+    }
+  },
+  "groups": [
+    {
+      "id": "naruto",
+      "name": "Naruto · attack alternatives",
+      "sourceKey": "naruto-calibrated",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "naruto-approved",
+      "neutral": "refs/naruto-neutral_v01.png",
+      "combat": "refs/naruto-combat_v01.png",
+      "note": "Astra audited all 13 Naruto candidate frames at commit 802e673b. Light2Alt passes visual screening; airHeavyAlt has a borderline f3 contact hold. Numeric whole-body ±6% certification remains unverified. See each card audit.",
+      "items": [
+        {
+          "animation": "light2Alt",
+          "version": 5,
+          "frames": 7,
+          "baseAnimation": "light2",
+          "phaseGroups": [
+            2,
+            2,
+            3
+          ],
+          "status": "astra-visual-pass-numeric-open",
+          "loop": false,
+          "summary": "Astra visual anatomy/contact screening passes. The corrected head relationship reads consistently across all seven frames, and active palms touch the base light2 boxes. The hits are not centered; full numeric ±6% anatomy certification remains unverified.",
+          "verdict": "ASTRA PASS · NUMERIC SCALE OPEN",
+          "auditNote": "Astra measured f2/f3 palm-center offsets at 19.7px and 18.5px from the base-box centers (±3px placement uncertainty). This meets the 24px screening tolerance but is not a centered strike or a full-body scale pass.",
+          "baseSourceKey": "naruto-approved",
+          "sourceFrames": [
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188
+          ],
+          "durations": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "oneShot": true,
+          "preview": "crops/calibrated/naruto/light2Alt.png",
+          "baseSourceFrames": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "basePreview": "crops/calibrated/naruto/base-light2.png",
+          "residual": "Head 36–41px; torso 34–45px; best-visible upper/lower arms 22–33/18–31px; thighs/shins 37–48/28–38px; shoes 26–33px. Endpoint and segment uncertainty exceeds ±6% for many landmarks; hidden anatomy remains unmeasurable.",
+          "evidence": [
+            {
+              "href": "audits/naruto-calibrated/AUDIT.md",
+              "label": "Final calibrated Astra audit"
+            },
+            {
+              "href": "audits/naruto/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            },
+            {
+              "href": "audits/naruto/AUDIT.md",
+              "label": "Prior pre-calibration Astra audit (historical)"
+            }
+          ]
+        },
+        {
+          "animation": "airHeavyAlt",
+          "version": 4,
+          "frames": 6,
+          "baseAnimation": "airHeavy",
+          "phaseGroups": [
+            2,
+            2,
+            2
+          ],
+          "status": "astra-contact-hold-numeric-open",
+          "loop": false,
+          "summary": "Astra visual anatomy screening passes, with no clear intrinsic enlargement. F3 center-to-center contact is borderline and remains a strict contact HOLD. This uses the same double-fist smash technique as base airHeavy, so it reads as a variant of the same hammer rather than a distinct technique.",
+          "verdict": "ASTRA HOLD · F3 CONTACT",
+          "auditNote": "Base-box center distances: f2 12.1px, f3 22.6px with ±3px hand-placement uncertainty; f3 therefore straddles the 24px threshold. Its fist center is about 8.5px below the box edge. Edge distance and center distance are different measures.",
+          "baseSourceKey": "naruto-approved",
+          "sourceFrames": [
+            228,
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "durations": [
+            50,
+            45,
+            45,
+            70,
+            70,
+            40
+          ],
+          "oneShot": true,
+          "preview": "crops/calibrated/naruto/airHeavyAlt.png",
+          "baseSourceFrames": [
+            83,
+            84,
+            85,
+            86,
+            87,
+            88
+          ],
+          "basePreview": "crops/calibrated/naruto/base-airHeavy.png",
+          "residual": "Head 31–39px; torso 33–46px; best-visible upper/lower arms 20–38/17–35px; thighs/shins 21–43/16–35px; shoes 13–22px. Deep flexion and occlusion make intrinsic limb lengths unmeasurable; no numeric ±6% pass.",
+          "evidence": [
+            {
+              "href": "audits/naruto-calibrated/AUDIT.md",
+              "label": "Final calibrated Astra audit"
+            },
+            {
+              "href": "audits/naruto/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            },
+            {
+              "href": "audits/naruto/AUDIT.md",
+              "label": "Prior pre-calibration Astra audit (historical)"
+            }
+          ]
+        }
+      ],
+      "idleSource": {
+        "key": "naruto-approved",
+        "branch": "main",
+        "commit": "f09938de",
+        "sheetHash": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+        "metadataHash": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+        "frame": 0,
+        "preview": "crops/approved-idle-naruto-v07.png"
+      },
+      "neutralHash": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "combatHash": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    },
+    {
+      "id": "killua",
+      "name": "Killua",
+      "sourceKey": "killua-calibrated",
+      "approvedIdleVersion": 11,
+      "idleSourceKey": "killua-approved",
+      "neutral": "refs/killua-neutral_v01.png",
+      "combat": "refs/killua-combat_v01.png",
+      "note": "Astra audited all seven Killua candidate frames at commit 5bda5260. Visual scale/clipping/orientation screening passes with numeric anatomy and runtime grounding limits recorded on the cards. See the calibrated audit.",
+      "items": [
+        {
+          "animation": "charge",
+          "version": 14,
+          "frames": 4,
+          "status": "astra-visual-pass-aura-open",
+          "loop": true,
+          "summary": "Astra visual anatomy and ordered-loop screening passes. Head/body proportions and the four-frame breathing loop read consistently. Numeric intrinsic ±6% certification is unavailable for occluded/foreshortened joints; broad aura retention is unverified in the quantized cells.",
+          "verdict": "ASTRA PASS · AURA UNVERIFIED",
+          "auditNote": "Final auto head ratio is 1.002 (frame probes 0.995–1.009); feet ratio 1.065 is color-area-derived, not shoe length. The report does not certify whole-body numeric scale.",
+          "baseSourceKey": "killua-approved",
+          "baseAnimation": "charge",
+          "baseLabel": "Approved predecessor charge v13",
+          "sourceFrames": [
+            115,
+            116,
+            117,
+            118
+          ],
+          "durations": [
+            50,
+            50,
+            50,
+            50
+          ],
+          "oneShot": false,
+          "preview": "crops/calibrated/killua/charge.png",
+          "baseSourceFrames": [
+            115,
+            116,
+            117,
+            118
+          ],
+          "basePreview": "crops/calibrated/killua/base-charge.png",
+          "evidence": [
+            {
+              "href": "audits/killua-calibrated/AUDIT.md",
+              "label": "Final calibrated Astra audit"
+            },
+            {
+              "href": "audits/killua/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            },
+            {
+              "href": "audits/killua/AUDIT.md",
+              "label": "Prior pre-calibration Astra audit (historical)"
+            }
+          ],
+          "residual": "Head 37–43px; torso 22–32px; upper/lower arms 17–27/14–24px; thighs/shins 18–30/16–27px; shoes 18–26px. Crouch foreshortening and covered far joints exceed numeric-certification confidence."
+        },
+        {
+          "animation": "down",
+          "version": 8,
+          "frames": 2,
+          "status": "astra-visual-pass-runtime-open",
+          "loop": false,
+          "summary": "Astra visual scale and clipping screening passes: the complete head and both shoes fit, with an articulated raised-knee fall into leg extension. Numeric intrinsic ±6% anatomy remains unverified; floor/contact grounding still needs Claude runtime review.",
+          "verdict": "ASTRA PASS · RUNTIME GROUNDING OPEN",
+          "auditNote": "Projected total extents are 188–193px versus a 186px upright neutral extent; pose and footwear projection prevent treating this as an anatomy measurement. Hands/shoes reach y240, while some head/back contours sit 2–9px above it.",
+          "baseSourceKey": "killua-approved",
+          "baseAnimation": "down",
+          "baseLabel": "Approved predecessor down v7",
+          "sourceFrames": [
+            108,
+            109
+          ],
+          "durations": [
+            80,
+            420
+          ],
+          "oneShot": true,
+          "preview": "crops/calibrated/killua/down.png",
+          "baseSourceFrames": [
+            108,
+            109
+          ],
+          "basePreview": "crops/calibrated/killua/base-down.png",
+          "evidence": [
+            {
+              "href": "audits/killua-calibrated/AUDIT.md",
+              "label": "Final calibrated Astra audit"
+            },
+            {
+              "href": "audits/killua/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            },
+            {
+              "href": "audits/killua/AUDIT.md",
+              "label": "Prior pre-calibration Astra audit (historical)"
+            }
+          ],
+          "residual": "Head 33–41px; torso 39–51px; upper/lower arms 15–28/14–27px; thighs/shins 25–40/25–40px; shoes 24–33px. Lying shoulder width and hidden joints are unmeasurable; floor contour is not proof of in-game contact."
+        },
+        {
+          "animation": "ko",
+          "version": 9,
+          "frames": 1,
+          "status": "astra-visual-pass-runtime-open",
+          "loop": false,
+          "summary": "Astra visual scale, clipping, and orientation screening passes. The complete head-left pose matches down and the approved KO orientation; no gross head/torso enlargement remains. Numeric intrinsic ±6% anatomy is unverified, and runtime grounding/contact remains for Claude.",
+          "verdict": "ASTRA PASS · RUNTIME GROUNDING OPEN",
+          "auditNote": "Head and shoes are inside the cell with maximum opaque y=240. Some head/back contours remain 4–13px above y240; these curved/oblique contours require runtime floor/camera evaluation.",
+          "baseSourceKey": "killua-approved",
+          "baseAnimation": "ko",
+          "baseLabel": "Approved predecessor ko v8",
+          "sourceFrames": [
+            135
+          ],
+          "durations": [
+            500
+          ],
+          "oneShot": true,
+          "preview": "crops/calibrated/killua/ko.png",
+          "baseSourceFrames": [
+            135
+          ],
+          "basePreview": "crops/calibrated/killua/base-ko.png",
+          "evidence": [
+            {
+              "href": "audits/killua-calibrated/AUDIT.md",
+              "label": "Final calibrated Astra audit"
+            },
+            {
+              "href": "audits/killua/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            },
+            {
+              "href": "audits/killua/AUDIT.md",
+              "label": "Prior pre-calibration Astra audit (historical)"
+            }
+          ],
+          "residual": "Head 32–40px; torso 36–50px; upper/lower arms 15–28/14–27px; thighs/shins 23–38/23–37px; shoes 22–31px. Intrinsic side-lying shoulder width and hidden joints are unmeasurable; no numeric ±6% pass."
+        }
+      ],
+      "idleSource": {
+        "key": "killua-approved",
+        "branch": "main",
+        "commit": "f09938de",
+        "sheetHash": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+        "metadataHash": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+        "frame": 0,
+        "preview": "crops/approved-idle-killua-v11.png"
+      },
+      "neutralHash": "86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855",
+      "combatHash": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6"
+    }
+  ]
+}

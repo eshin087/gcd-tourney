@@ -1,0 +1,90 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-14T05:39:59.790Z",
+ "fighters": {
+  "naruto": {
+   "idleGarmentPx": 3363,
+   "anims": {
+    "superDash": {
+     "v": 3,
+     "body": [
+      0.855,
+      0.857
+     ],
+     "head": [
+      0.973,
+      1
+     ],
+     "median": 0.856,
+     "headMedian": 0.986,
+     "flag": "small"
+    },
+    "jumpUp": {
+     "v": 6,
+     "body": [
+      1.116,
+      1.101
+     ],
+     "head": [
+      0.97,
+      1.053
+     ],
+     "median": 1.109,
+     "headMedian": 1.011,
+     "flag": null
+    },
+    "stagger": {
+     "v": 6,
+     "body": [
+      0.918,
+      0.904,
+      0.926,
+      0.919
+     ],
+     "head": [
+      0.967,
+      0.955,
+      0.954,
+      0.963
+     ],
+     "median": 0.919,
+     "headMedian": 0.959,
+     "flag": null
+    },
+    "taunt": {
+     "v": 7,
+     "body": [
+      0.68,
+      0.692
+     ],
+     "head": [
+      1,
+      1.014
+     ],
+     "median": 0.686,
+     "headMedian": 1.007,
+     "flag": "small"
+    },
+    "win": {
+     "v": 8,
+     "body": [
+      0.646,
+      0.681,
+      0.688,
+      0.668
+     ],
+     "head": [
+      1.074,
+      1.01,
+      1.014,
+      1.063
+     ],
+     "median": 0.675,
+     "headMedian": 1.039,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,425 @@
+{
+  "frozenHashes": {
+    "frozen\\naruto-alt-base-paired-native.png": "2d357e36178d015f30ec49fd80076b7fab0f8b669b425e30dba99a745f8e8402",
+    "frozen\\audit-manifest.json": "2d00f4989dddb7a44dbbbeb722bab64be77c14b620a085ba3feb77096dfd1fa8",
+    "frozen\\approved-contact-deltas.json": "796824896dabbe4e38d7911da66579cb7c9a3a669d1b1abbb55d9e2912105179",
+    "frozen\\packed\\characters\\naruto\\sheet.png": "bddb6bfb78d2d71097e375875296f3b85dd697cf16873a699f875a9544f8310c",
+    "frozen\\packed\\characters\\naruto\\anims.json": "bc8d81f9beb535151af926d9e8a5423603e918dc374f0407d9473cf0e037dd42"
+  },
+  "inputs": {
+    "idle_v7.png": {
+      "actualSha256": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "idle_v7.json": {
+      "actualSha256": "3fb1f4b6cb115308a88be3c76f2a6b52b8f5379e93fe61b12dd06ce1c51cf7a3",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light1_v4.png": {
+      "actualSha256": "4c98e072bf14607509de2fa55053f05c9c837eca8d740a690c727279c88a4a4b",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light1_v4.json": {
+      "actualSha256": "fd30a0b43c56ba7fee680dc6bf1f593e5bd9c286c12a3346eab40a212f8baaf5",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light1Alt_v1.png": {
+      "actualSha256": "330794591126925a3c32c09cfdad7d8e6c0ac6474d2e983ce34fcfbd0f1c5fff",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light1Alt_v1.json": {
+      "actualSha256": "0c41f4bfae055bbffd454907551af0ad2ecf5eb43bcb886cd34489e51f4dc6fb",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light2_v6.png": {
+      "actualSha256": "1541327eaf6f2a01f0e10843040dcd13b2c721bae82484949ce205983a3372ce",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light2_v6.json": {
+      "actualSha256": "9f7cbd2dd440da8a59b96d1bba42ac1095bf6a2ef16ebf07faccb0ef6b2eb0b3",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light2Alt_v2.png": {
+      "actualSha256": "289d32b7c797826dfe6295a185b34e146e05ad6b4478793e96021779af9a7285",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light2Alt_v2.json": {
+      "actualSha256": "326f40dab44d26eb19daf1819721c5382e9a161c522ce2421b8034b3534d1892",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light3_v4.png": {
+      "actualSha256": "0f8ccff85fce2ab4c8754f77022cac896604d6e4ae3af1b99bd2057639f41ff5",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light3_v4.json": {
+      "actualSha256": "e8393dd56491fb9bf10f64833e1eee86e4a6c6487200b4ce91129d6be813d1e0",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light3Alt_v1.png": {
+      "actualSha256": "14e32265d4887336d7689e665c41ed275dd2b5910e2b7ce24807369bc4b8cc91",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light3Alt_v1.json": {
+      "actualSha256": "822d133c3e865d986a09b6e1b78406d31dc5ca69311bbce3d5838f16aeb3c5e4",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light4_v8.png": {
+      "actualSha256": "b4a0d1945183245b105914bb936a8cdbd02012461c6e7a11e9550234c596aadf",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light4_v8.json": {
+      "actualSha256": "02b3b2e39f270525bac38f21c3ed4852bbed163ec838d07a5dcb54ca14980470",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light4Alt_v1.png": {
+      "actualSha256": "11ffdabd01973afa9a7c903385a9db0adb00a2f6e7b5addf9b921748e702671d",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "light4Alt_v1.json": {
+      "actualSha256": "cfb8a2d54cc8f8a36b43d4c1f8caac665936bf085881a73800e191aa5cb0fe7c",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "heavy_v12.png": {
+      "actualSha256": "1d875ba55c7ba0db077181a390546aa8f315d0e5f2db5eb5408b2a71b015cfd0",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "heavy_v12.json": {
+      "actualSha256": "b8ead0d939a047aa13d1ada134b9cc321a3a3f63f065db942d2d8b4aa16d7dab",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "heavyAlt_v1.png": {
+      "actualSha256": "13b21ab505aa7de43a413ef7632db366ecb73bfaee13144e9171bd4f01bdd861",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "heavyAlt_v1.json": {
+      "actualSha256": "2f22a8ebb68100aa765b42bc2cd729db16040ba1ec94ee30c5c09844ad5fcd3f",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight1_v6.png": {
+      "actualSha256": "7bae27897996b0a383d59638dd4e423d92d8bee10b3828fc1b107a42567431cd",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight1Alt_v1.png": {
+      "actualSha256": "bae2be080738f37b13213c94ce304fbee09d436ebe17b5180ff3ccf2a8665636",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight2_v5.png": {
+      "actualSha256": "59012a6bb4b7c71b7afd3bcad5811e1dc3877c797227558d2bf0a0ecf3cad69b",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight2Alt_v1.png": {
+      "actualSha256": "8cce73a56f420224b3d20103cbc0c525dc12ab1de523fbd70f2a63e185c5e153",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight3_v9.png": {
+      "actualSha256": "c85253d98237257dfddedd98d6781bfa2f9b44dccac021c5c5520787ce5bd518",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight3_v9.json": {
+      "actualSha256": "0899823645521fe17925777c4a27e5a15494e02297d9257b4e22f596a8ba8db4",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight3Alt_v1.png": {
+      "actualSha256": "e80f731a272908090d4aa31e774f827ebcacddc9516be4280d3c0106a82a78ee",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airLight3Alt_v1.json": {
+      "actualSha256": "dabb15a5dc9c173a4f8e9883530fba93edecde072d9f6df66296912d3e31cf08",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airHeavy_v9.png": {
+      "actualSha256": "49216746133e11de1a83cb89cdc49fb861ff280aa07883d1eaeb2b116cedabfe",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airHeavy_v9.json": {
+      "actualSha256": "1877e8c1e90e77f733372e592a3a5783b72034290daf31c022575b929447fa13",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airHeavyAlt_v2.png": {
+      "actualSha256": "6dd86b6e1bb3d56f91d21a10b9da312c31a3f601bd61c0c37a69a6328dd6691c",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "airHeavyAlt_v2.json": {
+      "actualSha256": "475369ead675dc02053eef592aa109824449beae7b22a12c35efe6ae969c2feb",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "hurtHigh_v4.png": {
+      "actualSha256": "4aed34b6afb1ae0e88ca60a11e46041151b7b6fb52a16af058d11540269562a8",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "hurtHighAlt_v1.png": {
+      "actualSha256": "c1644a78c96a197dbcf54dd06d6ba37b5212efca2858457403514d40222b3cb3",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "hurtLow_v3.png": {
+      "actualSha256": "870290a6f0772b4a3d274ce78548f4744e719087214cce72a019a6fab17ba75c",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    },
+    "hurtLowAlt_v1.png": {
+      "actualSha256": "38d653b40c6a95f78545a86d70242e760bf04d8bdd8314f955a576c68b6c8d68",
+      "matchesDeclared": true,
+      "matchesVersionedRaw": true
+    }
+  },
+  "pairedAltFramesEqual": {
+    "light1Alt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "light2Alt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "light3Alt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "light4Alt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "heavyAlt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "airLight1Alt": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "airLight2Alt": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "airLight3Alt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "airHeavyAlt": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "hurtHighAlt": [
+      true,
+      true,
+      true
+    ],
+    "hurtLowAlt": [
+      true,
+      true,
+      true
+    ]
+  },
+  "baseContactDifferences": [
+    {
+      "base": "light2",
+      "frame": 3,
+      "fixtureReported": [
+        91,
+        61,
+        78,
+        29
+      ],
+      "approvedProduction": [
+        190,
+        86,
+        24,
+        21
+      ]
+    },
+    {
+      "base": "light4",
+      "frame": 3,
+      "fixtureReported": [
+        215,
+        87,
+        32,
+        59
+      ],
+      "approvedProduction": [
+        213,
+        88,
+        33,
+        19
+      ]
+    },
+    {
+      "base": "heavy",
+      "frame": 3,
+      "fixtureReported": [
+        102,
+        46,
+        79,
+        43
+      ],
+      "approvedProduction": [
+        156,
+        50,
+        24,
+        54
+      ]
+    },
+    {
+      "base": "heavy",
+      "frame": 4,
+      "fixtureReported": [
+        123,
+        20,
+        74,
+        57
+      ],
+      "approvedProduction": [
+        177,
+        21,
+        19,
+        25
+      ]
+    },
+    {
+      "base": "airLight3",
+      "frame": 2,
+      "fixtureReported": [
+        197,
+        96,
+        56,
+        86
+      ],
+      "approvedProduction": [
+        215,
+        117,
+        31,
+        34
+      ]
+    },
+    {
+      "base": "airLight3",
+      "frame": 3,
+      "fixtureReported": [
+        189,
+        115,
+        58,
+        46
+      ],
+      "approvedProduction": [
+        215,
+        117,
+        31,
+        34
+      ]
+    },
+    {
+      "base": "airHeavy",
+      "frame": 2,
+      "fixtureReported": [
+        198,
+        90,
+        51,
+        115
+      ],
+      "approvedProduction": [
+        219,
+        178,
+        29,
+        26
+      ]
+    },
+    {
+      "base": "airHeavy",
+      "frame": 3,
+      "fixtureReported": [
+        219,
+        163,
+        35,
+        52
+      ],
+      "approvedProduction": [
+        224,
+        187,
+        27,
+        26
+      ]
+    }
+  ],
+  "opaqueColorsWholePack": 48,
+  "alphaValues": [
+    0,
+    255
+  ]
+}

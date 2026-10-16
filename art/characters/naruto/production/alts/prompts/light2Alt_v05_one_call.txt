@@ -1,0 +1,14 @@
+Use case: illustration-story
+Asset type: one complete seven-frame 256x256-cell fighting-game sprite strip
+Primary request: Create Naruto's light2Alt v05 as a single continuous horizontal sprite strip with exactly seven equally spaced full-body poses, one pose per equal-width cell, in order f0-f6. Use the supplied approved Naruto idle and title-style references for identity, head size, build, clothing volume and pixel density; use the approved light2_v06 strip only for the timing, facing and base attack contact target. The alternate is a compact lead-left chest-height backfist or palm straight, distinct from the base right fist.
+Input images: Image 1: approved idle_approved strip, identity and consistent head size; Image 2: approved title-style neutral cell, body anatomy and scale; Image 3: approved title-style combat cell, stance and shading; Image 4: approved light2_v06, timing/facing and active contact target only.
+Scene/backdrop: one flat exact #FF00FF background across all cells; no floor shadow.
+Subject: Naruto Shippuden-era teenage ninja, same approved face, spiky blond hair, forehead protector, black-and-orange zip jacket, orange trousers, thigh holster and black open-toed sandals.
+Style/medium: crisp hard-edged pixel-art game sprite matching the approved references; no anti-aliasing, blur, gradients or dithering.
+Composition/framing: seven equal square cells in a horizontal strip, right-facing 3/4 view, full figure and trailing headband cloth visible in each cell. Use same body/head scale throughout. Feet touch the y=240 floor line in every frame; all pixels stay within x=4..251. No extra panels or duplicates.
+Lighting/mood: consistent flat game-sprite lighting; focused, forceful expression on impact.
+Color palette: use the approved Naruto palette, no new colors.
+Materials/textures: clean pixel clusters and crisp dark outlines.
+Text (verbatim): none.
+Constraints: f0 exact light2 f0 guard. f1 steps the lead left foot and draws the left fist beside the chest. f2 drives a compact left backfist/palm straight at chest height; the hand is the clear strike point and should fall in hit box [189,84,34,26] within 24 pixels in final 256-cell coordinates. f3 holds contact with only a 2-4 px retract and falls within [190,86,24,21] within 24 pixels. f4 bends the elbow and retracts the hand along the same line. f5 reforms the guard. f6 returns to the light2 f6 stance. Preserve anatomy and clothing volume across poses; no enlarged hand, stretched arm, body resizing or head-size change.
+Avoid: kicks, low belly strikes, a long straight punch that duplicates the base move, cropped hair/feet/tails, text, labels, borders, effects detached from the arm, watermark, extra frames, extra characters.

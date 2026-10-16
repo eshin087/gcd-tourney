@@ -13,5 +13,7 @@
   "specialForward": {"_v": 6, "2": {"hand": [188, 69]}, "3": {"hit": []}},
   "specialUp": {"_v": 3, "2": {"hit": []}, "3": {"hit": []}},
   "throw": {"_v": 4, "1": {"hand": [227, 95]}, "_refit": "scaled x0.9443 about the pivot with the strip's bodyHeight 219 -> 207 (size consistency pass, 2026-10-11)"},
-  "beamFire": {"_v": 4, "_scale": 0.8688, "0": {"hand": [205, 107]}, "1": {"hand": [188, 117]}, "2": {"hand": [200, 106]}}
+  "beamFire": {"_v": 4, "_scale": 0.8688, "0": {"hand": [205, 107]}, "1": {"hand": [188, 117]}, "2": {"hand": [200, 106]}},
+  "beamStruggle": {"0": {"hand": [223, 71]}, "1": {"hand": [224, 71]}, "2": {"hand": [228, 70]}, "_note": "the two pointing fingertips (Red); Claude 2026-10-15 on the packed approved strip (48 colours), stream origin for the beam clash (ADR 0034)"},
+  "beamStruggleAir": {"0": {"hand": [224, 129]}, "1": {"hand": [209, 137]}, "2": {"hand": [213, 135]}, "_note": "the two pointing fingertips, driven down (Red); Claude 2026-10-15 on the packed approved strip (48 colours), stream origin for the beam clash (ADR 0034)"}
 }

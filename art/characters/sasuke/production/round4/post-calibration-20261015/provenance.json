@@ -1,0 +1,222 @@
+{
+  "commit": "ffb6abfd94ed30ad1fac277f5b6833e7709b8e1b",
+  "hashes": {
+    "public/characters/sasuke/sheet.png": "a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e",
+    "public/characters/sasuke/anims.json": "3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb",
+    "public/art-review/title-style-pilot/sasuke-neutral_v01.png": "fbc6b37701c9055b7e1349aec0b1f035ed1aa21638a66541ffbf71ba3e222352",
+    "public/art-review/title-style-pilot/sasuke-combat_v01.png": "4b1c4fec691c6d29e42be5e02ee5f1b72c431f0df281ce8122276b93e3e185d7",
+    "art/characters/sasuke/reference/idle_approved.png": "e2a9a1f44bef56a16cfb4807f5539179e7140607e2056e08772649435fb1680c",
+    "art/characters/sasuke/raw/superDash_v07.png": "5f67a214dc6c4e8f680aa32083d83b0fe81f384add9bd68f53506407d6989a14",
+    "art/characters/sasuke/raw/jumpSquat_v06.png": "5a100831589c45c9d4207b687b2ddc22800954bb058482677de774fcd67ed741",
+    "art/characters/sasuke/raw/beamFire_v07.png": "281088c67ef774351943b130cbe2dffe25a8ac219f4b612c975d955b180b4d4c",
+    "art/characters/sasuke/raw/dash_v07.png": "65fd971a7d230854855d7cb4c82c3fdbf3f86610bb3d43acc1e5659c7143814e"
+  },
+  "frames": [
+    {
+      "name": "idle",
+      "frame": 0,
+      "index": 0,
+      "bounds": [
+        46,
+        64,
+        204,
+        240
+      ],
+      "margins": [
+        46,
+        64,
+        51,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ]
+    },
+    {
+      "name": "superDash",
+      "frame": 0,
+      "index": 21,
+      "bounds": [
+        69,
+        89,
+        251,
+        240
+      ],
+      "margins": [
+        69,
+        89,
+        4,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        50,
+        50
+      ]
+    },
+    {
+      "name": "superDash",
+      "frame": 1,
+      "index": 22,
+      "bounds": [
+        67,
+        88,
+        245,
+        240
+      ],
+      "margins": [
+        67,
+        88,
+        10,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        50,
+        50
+      ]
+    },
+    {
+      "name": "jumpSquat",
+      "frame": 0,
+      "index": 23,
+      "bounds": [
+        39,
+        84,
+        200,
+        240
+      ],
+      "margins": [
+        39,
+        84,
+        55,
+        15
+      ],
+      "loop": false,
+      "durations": [
+        70
+      ]
+    },
+    {
+      "name": "beamFire",
+      "frame": 0,
+      "index": 126,
+      "bounds": [
+        52,
+        73,
+        200,
+        240
+      ],
+      "margins": [
+        52,
+        73,
+        55,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "name": "beamFire",
+      "frame": 1,
+      "index": 127,
+      "bounds": [
+        51,
+        73,
+        202,
+        240
+      ],
+      "margins": [
+        51,
+        73,
+        53,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "name": "beamFire",
+      "frame": 2,
+      "index": 128,
+      "bounds": [
+        52,
+        73,
+        199,
+        240
+      ],
+      "margins": [
+        52,
+        73,
+        56,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "name": "dash",
+      "frame": 0,
+      "index": 16,
+      "bounds": [
+        65,
+        81,
+        239,
+        240
+      ],
+      "margins": [
+        65,
+        81,
+        16,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        60,
+        60
+      ]
+    },
+    {
+      "name": "dash",
+      "frame": 1,
+      "index": 17,
+      "bounds": [
+        65,
+        81,
+        239,
+        240
+      ],
+      "margins": [
+        65,
+        81,
+        16,
+        15
+      ],
+      "loop": true,
+      "durations": [
+        60,
+        60
+      ]
+    }
+  ]
+}

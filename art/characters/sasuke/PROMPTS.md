@@ -1662,6 +1662,42 @@ PALETTE (use only these 34 colors): outline #141018; skin #fff1e4 #fbd8bd #e0a28
 BACKGROUND: flat solid magenta #FF00FF above and below the band only. No text, no speed lines, no borders.
 ```
 
+### U4 · SUPER banner — Kirin backdrop
+
+Attach: `reference/model_sheet.png` and the approved Sasuke title-style neutral/combat cells. **Save as:
+`raw/ui_super_bg_vNN.png`**. Generate at 1536×1024; the packer center-crops y=320..704 to a 4:1 banner.
+
+```text
+Standalone background art for a hi-res pixel-art anime fighting-game super-move banner. 1536x1024 landscape canvas. Draw a night thunderstorm over a ruined mountaintop. In the middle horizontal band (y=320..704), black-violet clouds churn in a spiral around KIRIN, a gigantic white-blue lightning dragon coiling and diving toward screen-right; make its head and open jaws the brightest, unmistakable silhouette, right of center. Thin jagged lightning forks branch to the ruined ground and slanted rain streaks cross the storm. Keep the band dark at both edges and luminous around the dragon's head. Above and below the band, continue only the same storm sky and mountain ground so the center crop is seamless. Crisp hard-edged hi-res pixel art in the approved title style, on a 2x pixel grid, solid pixel clusters, limited palette (no more than 48 colors), 3-5 hard tone bands per material. NO character, people, lettering, logo, border, speed lines, blur, anti-aliasing, gradients, dithering, noise or painterly texture. Opaque image, no transparency.
+```
+
+### U5 · SUPER banner — Kirin fighter cutout
+
+Attach: `reference/model_sheet.png`, `reference/expressions.png`, `ui/select.png`, and the approved Sasuke title-style neutral/combat cells. **Save as:
+`raw/ui_super_fg_vNN.png`** on a 1024×1024 flat #FF00FF background. Sasuke is chest-up; the packer fits him to 240 px tall.
+
+```text
+Single-character hi-res pixel-art UI cutout for a fighting-game super banner, 1024x1024 square. Draw Sasuke in the attached approved Hebi-era design, chest-up, body three-quarter toward screen-right. His RIGHT arm rises vertically straight overhead from shoulder through elbow to wrist, with an open hand reaching straight up (not diagonally outward). A few sharp white-blue lightning sparks trace the raised arm, not a full Chidori ball. Keep the approved straight overhead arm. Match the title-style face: narrow angular jaw and cheek, narrow sharp almond eyes (not wide or round), level chin, cold certain expression. For a correction, edit only the face region; preserve pose, arm, outfit and framing. Show both eyes with unmistakably red three-tomoe Sharingan irises (#d81e28, rim #7c0c16, black tomoe). Black hair with dark-blue sheen and swept-back spikes; long bangs frame both sides of the face. White long-sleeved open-V shirt with tall collar, purple rope belt just visible at lower crop, navy forearm guards. Hair and collar blown by wind. Match the attached title-style references exactly: lean narrow shoulders, long neck, angular face, serious anime proportions, no chibi features, no forehead protector, no drawn sword. Pixel art on a 2x2 hard-pixel grid, crisp dark outline, 3-5 cel-shading tones, no antialiasing, blur, gradients, noise or painterly texture. Flat solid #FF00FF background only; no magenta or hot pink on the character. Sasuke's established purple rope palette is correct and must remain purple. No text, border or ground shadow. Keep the full raised hand inside canvas with clear margin.
+```
+
+### U6 · ULTIMATE splash — Amaterasu backdrop
+
+Attach: `reference/model_sheet.png`, `reference/expressions.png` and Sasuke's approved title-style neutral/combat cells. **Save as:
+`raw/ui_ult_bg_vNN.png`** at 1536×1024. Keep the Mangekyo focal symbol inside the center 1152 px for phone crops.
+
+```text
+Standalone background for a dramatic hi-res pixel-art anime fighting-game ultimate splash, 1536x1024 landscape. Blood-red night sky with a colossal Mangekyo Sharingan filling the upper-middle like an eclipsing moon: use Sasuke's own angular three-bladed pinwheel pattern from the attached approved references, a black pattern inside vivid red with a dark crimson rim. Across the entire lower width, a wall of black Amaterasu flames rises from burned-rock silhouettes; flame bodies are pure near-black with thin dark-crimson pixel rims and a few ember-orange sparks. Palette limited to blood red, black, crimson and small ember-orange accents. Keep the eye emblem and flame wall readable in a 16:9 center crop, with every important part inside the middle 1152 pixels so a 4:3 crop still works. Opaque pixel art in the approved title style, crisp square pixels, hard bands of 3-5 tones, no blur, antialiasing, gradients, dithering, noise or painterly texture. No character, people, text, logo, border, speed lines or transparency.
+```
+
+### U7 · ULTIMATE splash — Amaterasu fighter cutout
+
+Attach: `reference/model_sheet.png`, `reference/expressions.png`, `ui/select.png`, and the approved Sasuke title-style neutral/combat cells. **Save as:
+`raw/ui_ult_fg_vNN.png`** on a 1024×1536 flat #FF00FF background. Sasuke is three-quarter to full figure; bottom of the figure meets the canvas bottom.
+
+```text
+Single-character hi-res pixel-art UI cutout for a fighting-game ultimate splash, 1024x1536 portrait. Draw Sasuke in the attached approved Hebi-era design, three-quarter to full figure, body turned toward screen-right. His LEFT hand covers his left eye; his visible right eye stares straight at the viewer and clearly shows his unmistakable bold three-blade Mangekyo using the exact angular pattern from superPose and the approved Mangekyo backdrop, not three tomoe, a spiral or a tiny generic pinwheel; it must remain legible at full-figure splash size. One thin line of blood runs below the eye covered by the left hand, on that cheek only; do not put blood beneath the visible eye. Cold, focused expression, angular mature teenage face. Black hair with dark-blue sheen, swept-back spikes and long side bangs. White long-sleeved shirt open in a deep V with tall collar, thick purple rope belt and rear bow, navy knee-length waist cloth over navy pants, navy forearm guards, black open-toed sandals; Kusanagi remains sheathed horizontally across the lower back at belt height, nearly level left-to-right, with sheath and grip visibly extending behind the hips. Lean long-limbed anime build matching the attached title-style neutral/combat cells and select art exactly, never chibi. Black flames lick around his feet and lower legs; crimson rim light on his right side, rest of body in deep shadow, eye brightest feature. Show more than a partial face: include his upper body and enough of his full silhouette to read the pose. Pixel art on a 2x2 hard-pixel grid, crisp dark outlines, 3-5 hard cel-shading tones, no antialiasing, blur, soft glow, gradients, dithering, noise or painterly texture. Flat solid #FF00FF background only; no magenta or hot pink on Sasuke. His established purple rope palette is correct and must remain purple. Keep the full figure inside frame and bottom-aligned, no text or border.
+```
+
 ### U3 · Character select art (384×384)
 
 **Save as: `raw/ui_select_vNN.png`** → approved copy `ui/select.png` (packed to 384×384, transparent).

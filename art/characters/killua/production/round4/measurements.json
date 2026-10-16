@@ -1,0 +1,2620 @@
+{
+  "status": "NO full-anatomy passes; manual raster readings with uncertainty",
+  "basis": {
+    "head": 38,
+    "torso": 38,
+    "arm": 39,
+    "leg": 61,
+    "shoe": 25
+  },
+  "uncertainty": {
+    "head": 2,
+    "torso": 2,
+    "arm": 4,
+    "leg": 6,
+    "shoe": 2
+  },
+  "tables": {
+    "shipped jumpUp v05": [
+      [
+        41,
+        35,
+        41,
+        null,
+        24
+      ],
+      [
+        41,
+        36,
+        40,
+        null,
+        25
+      ]
+    ],
+    "shipped jumpFall v05": [
+      [
+        39,
+        32,
+        33,
+        null,
+        25
+      ],
+      [
+        41,
+        31,
+        34,
+        null,
+        26
+      ]
+    ],
+    "shipped airRecover v05": [
+      [
+        37,
+        null,
+        null,
+        null,
+        25
+      ],
+      [
+        39,
+        null,
+        null,
+        null,
+        26
+      ],
+      [
+        40,
+        29,
+        35,
+        null,
+        25
+      ]
+    ],
+    "shipped stagger v05": [
+      [
+        40,
+        47,
+        49,
+        60,
+        27
+      ],
+      [
+        40,
+        48,
+        49,
+        61,
+        27
+      ],
+      [
+        41,
+        48,
+        48,
+        61,
+        27
+      ],
+      [
+        40,
+        48,
+        49,
+        61,
+        27
+      ]
+    ],
+    "shipped win v04": [
+      [
+        41,
+        47,
+        null,
+        61,
+        27
+      ],
+      [
+        41,
+        46,
+        null,
+        61,
+        27
+      ],
+      [
+        40,
+        47,
+        null,
+        61,
+        27
+      ],
+      [
+        41,
+        47,
+        null,
+        61,
+        27
+      ]
+    ],
+    "shipped airLight1 v06": [
+      [
+        38,
+        37,
+        null,
+        null,
+        24
+      ],
+      [
+        39,
+        37,
+        43,
+        null,
+        24
+      ],
+      [
+        39,
+        37,
+        43,
+        null,
+        24
+      ],
+      [
+        39,
+        36,
+        null,
+        null,
+        24
+      ],
+      [
+        38,
+        37,
+        null,
+        null,
+        24
+      ]
+    ],
+    "shipped airLight2 v07": [
+      [
+        41,
+        37,
+        null,
+        null,
+        26
+      ],
+      [
+        40,
+        38,
+        null,
+        null,
+        25
+      ],
+      [
+        40,
+        38,
+        null,
+        null,
+        25
+      ],
+      [
+        41,
+        37,
+        null,
+        null,
+        26
+      ],
+      [
+        41,
+        37,
+        null,
+        null,
+        26
+      ]
+    ],
+    "candidate idle v10": [
+      [
+        40,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        40,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        39,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        40,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        40,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        39,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        39,
+        39,
+        35,
+        54,
+        23
+      ],
+      [
+        40,
+        39,
+        35,
+        54,
+        23
+      ]
+    ],
+    "candidate guard v08": [
+      [
+        39,
+        33,
+        null,
+        54,
+        22
+      ],
+      [
+        40,
+        34,
+        null,
+        54,
+        22
+      ]
+    ],
+    "candidate superDash v08": [
+      [
+        34,
+        29,
+        39,
+        44,
+        23
+      ],
+      [
+        34,
+        30,
+        39,
+        45,
+        23
+      ]
+    ],
+    "candidate stagger v07": [
+      [
+        43,
+        31,
+        49,
+        68,
+        29
+      ],
+      [
+        42,
+        33,
+        48,
+        69,
+        29
+      ],
+      [
+        44,
+        32,
+        50,
+        68,
+        29
+      ],
+      [
+        41,
+        34,
+        null,
+        65,
+        30
+      ]
+    ],
+    "candidate win v05": [
+      [
+        38,
+        37,
+        null,
+        58,
+        24
+      ],
+      [
+        38,
+        37,
+        null,
+        58,
+        24
+      ],
+      [
+        38,
+        37,
+        null,
+        58,
+        24
+      ],
+      [
+        38,
+        37,
+        null,
+        58,
+        24
+      ]
+    ],
+    "candidate idle v11": [
+      [
+        36,
+        38,
+        35,
+        56,
+        23
+      ],
+      [
+        37,
+        38,
+        35,
+        57,
+        23
+      ],
+      [
+        38,
+        38,
+        35,
+        57,
+        23
+      ],
+      [
+        38,
+        38,
+        35,
+        57,
+        23
+      ],
+      [
+        37,
+        38,
+        35,
+        57,
+        23
+      ],
+      [
+        37,
+        38,
+        35,
+        58,
+        23
+      ],
+      [
+        38,
+        38,
+        35,
+        58,
+        23
+      ],
+      [
+        37,
+        38,
+        35,
+        58,
+        23
+      ]
+    ],
+    "candidate guard v09": [
+      [
+        34,
+        34,
+        null,
+        56,
+        23
+      ],
+      [
+        34,
+        34,
+        null,
+        56,
+        23
+      ]
+    ]
+  },
+  "notes": {
+    "shipped jumpUp v05": "hip and knee under folded shorts: leg chain unmeasured; shoe pitched; arm shoulder under sleeve ±4. Torso slightly turned.",
+    "shipped jumpFall v05": "torso forward pitch and billowing hem: projected distance only; both upper thighs under shorts, shoe pitched. No ratio certification from projected arm/torso.",
+    "shipped airRecover v05": "f0 curl hides collar/hem and elbow; f1 inverted head axis rotated, trunk folded/hidden; f2 torso pitch, hip/knee occluded. Shoes rotated: projected heel-to-toe.",
+    "shipped stagger v05": "upright collar/hem visible: torso confidently oversized (+18 to +39% after ±2 px uncertainty). Shoulder joint under sleeve; hip covered ±6.",
+    "shipped win v04": "upright collar/hem visible: torso confidently oversized (+15 to +36% after ±2 px uncertainty). Raised arms occlude wrist/head; hip under shorts ±6.",
+    "shipped airLight1 v06": "f0/f3/f4 curled arms hide elbow/wrist; f1/f2 straight near arm visible but shoulder under sleeve. Chambered thigh hip/knee hidden; shoes end-on.",
+    "shipped airLight2 v07": "arms curled/overlapped; hip beneath shorts on chamber and kick; the active far thigh overlaps shorts. Rotated shoe lengths are projected only.",
+    "candidate idle v10": "same near-side joints selected across loop; sleeve/shorts conceal joint centres. Head fit passes but shoes probe 1.24–1.27; body 144 px, target156–162 unmet.",
+    "candidate guard v08": "crossed forearms occlude elbow/shoulder chain; visible torso/leg distances uncertain; body133px, desired taller stance unmet.",
+    "candidate superDash v08": "legacy posed-height fit shrinks head to0.83combat; folded near leg hip concealed. Torso pitch/shoulder perspective. Calibration hold, not anatomical pass.",
+    "candidate stagger v07": "shortened torso selected after3calls; native pack overlong arms and shoes. Shoe lower bound27/idle upper27 crosses6%, so uncertain against shipped; relative candidateidle upper25 gives ≥8% fail. Budget exhausted.",
+    "candidate win v05": "raised hands behind head hide elbow/wrist chain. Torso and near leg visible with stated uncertainty. No full anatomy pass."
+  },
+  "bounds": {
+    "idle": [
+      {
+        "bbox": [
+          72,
+          97,
+          181,
+          240
+        ],
+        "occupiedHeight": 144,
+        "floorBandSpan": 110
+      },
+      {
+        "bbox": [
+          72,
+          97,
+          181,
+          240
+        ],
+        "occupiedHeight": 144,
+        "floorBandSpan": 110
+      },
+      {
+        "bbox": [
+          72,
+          97,
+          181,
+          240
+        ],
+        "occupiedHeight": 144,
+        "floorBandSpan": 110
+      },
+      {
+        "bbox": [
+          72,
+          97,
+          181,
+          240
+        ],
+        "occupiedHeight": 144,
+        "floorBandSpan": 110
+      },
+      {
+        "bbox": [
+          71,
+          95,
+          181,
+          240
+        ],
+        "occupiedHeight": 146,
+        "floorBandSpan": 111
+      },
+      {
+        "bbox": [
+          72,
+          95,
+          182,
+          240
+        ],
+        "occupiedHeight": 146,
+        "floorBandSpan": 111
+      },
+      {
+        "bbox": [
+          72,
+          95,
+          182,
+          240
+        ],
+        "occupiedHeight": 146,
+        "floorBandSpan": 111
+      },
+      {
+        "bbox": [
+          72,
+          95,
+          182,
+          240
+        ],
+        "occupiedHeight": 146,
+        "floorBandSpan": 111
+      }
+    ],
+    "guard": [
+      {
+        "bbox": [
+          86,
+          109,
+          168,
+          240
+        ],
+        "occupiedHeight": 132,
+        "floorBandSpan": 83
+      },
+      {
+        "bbox": [
+          86,
+          109,
+          168,
+          240
+        ],
+        "occupiedHeight": 132,
+        "floorBandSpan": 83
+      }
+    ],
+    "superDash": [
+      {
+        "bbox": [
+          75,
+          142,
+          216,
+          240
+        ],
+        "occupiedHeight": 99,
+        "floorBandSpan": 46
+      },
+      {
+        "bbox": [
+          67,
+          141,
+          204,
+          240
+        ],
+        "occupiedHeight": 100,
+        "floorBandSpan": 60
+      }
+    ],
+    "stagger": [
+      {
+        "bbox": [
+          85,
+          62,
+          175,
+          240
+        ],
+        "occupiedHeight": 179,
+        "floorBandSpan": 89
+      },
+      {
+        "bbox": [
+          89,
+          55,
+          170,
+          240
+        ],
+        "occupiedHeight": 186,
+        "floorBandSpan": 82
+      },
+      {
+        "bbox": [
+          88,
+          57,
+          169,
+          240
+        ],
+        "occupiedHeight": 184,
+        "floorBandSpan": 82
+      },
+      {
+        "bbox": [
+          75,
+          62,
+          179,
+          240
+        ],
+        "occupiedHeight": 179,
+        "floorBandSpan": 105
+      }
+    ],
+    "win": [
+      {
+        "bbox": [
+          92,
+          77,
+          162,
+          240
+        ],
+        "occupiedHeight": 164,
+        "floorBandSpan": 69
+      },
+      {
+        "bbox": [
+          93,
+          76,
+          163,
+          240
+        ],
+        "occupiedHeight": 165,
+        "floorBandSpan": 70
+      },
+      {
+        "bbox": [
+          93,
+          78,
+          163,
+          240
+        ],
+        "occupiedHeight": 163,
+        "floorBandSpan": 69
+      },
+      {
+        "bbox": [
+          94,
+          77,
+          163,
+          240
+        ],
+        "occupiedHeight": 164,
+        "floorBandSpan": 69
+      }
+    ]
+  },
+  "hashes": {
+    "idle_v09": "529d5e72a6729085f30fe95f493b977cc5ab46bb0d8b4e4e1d1927ed788257d7",
+    "idle_v10": "9441b29a4ee4e8cd663af60338769061f1dede8b488d399560e1ce93776f32db",
+    "guard_v08": "816456c0c41f85e32b76cdde8838742b1ce51a76dbbb250ce016c0cbb14150fa",
+    "superDash_v07": "bffe93cfcfbd31a56450df7873039d2c9df7d51f9a5506764cd19da3e2c65a26",
+    "superDash_v08": "810e986d1ef749aa08b45fda03c64f69a1cdd3bcaeb056251e61098e756c029a",
+    "stagger_v06": "e2836e39d7533cacaaf79565b970537204dfef68a7d296be8046d2f20ada2eaf",
+    "stagger_v07": "d747963987fccf4e8357e844a7f3a6b0cffa4c07c85c301ad6cdd9cc7ba921c5",
+    "win_v05": "2cf3be95fe422b31c409d1c487be88e69c13753e7287a838376b4501ed51f1a6",
+    "idle_v11": "67e7016328a35ae12aaa2969f5e8c911d64b093039d9b1612583b21bff655aa9",
+    "guard_v09": "71444147e5840a8a7bf91aa1dc71693da0b19b2635a157ead5371dcb3a6bdd2e"
+  },
+  "scaleAudit": {
+    "tool": "tools/scale-probe.mjs",
+    "method": "idle-palette",
+    "tol": 0.06,
+    "pop": 0.12,
+    "ref": {
+      "box": [
+        108,
+        98,
+        147,
+        128
+      ],
+      "headPx": [
+        40,
+        31
+      ],
+      "hA": 739,
+      "hW": 40,
+      "hH": 31,
+      "feet": 1325,
+      "palette": "auto",
+      "head": [
+        "#36356f",
+        "#3d3e79",
+        "#cdc8e8",
+        "#7a5eb4",
+        "#6a5c8b",
+        "#f0eff6",
+        "#b2acd3",
+        "#bdb8d7",
+        "#8a80b4"
+      ],
+      "feetColors": [
+        "#43276d",
+        "#f0eff6",
+        "#594a68",
+        "#4a4a81",
+        "#382161",
+        "#bdb8d7",
+        "#443345"
+      ],
+      "reference": "characters/killua/reference/title_style_combat_cell_v01.png"
+    },
+    "anims": {
+      "idle": {
+        "head": 0.966,
+        "feet": 1.235,
+        "verdict": "ok",
+        "v": 11,
+        "frames": [
+          0.942,
+          0.968,
+          0.975,
+          1,
+          0.944,
+          0.964,
+          0.975,
+          0.96
+        ],
+        "feetFrames": [
+          1.211,
+          1.237,
+          1.23,
+          1.223,
+          1.233,
+          1.238,
+          1.242,
+          1.239
+        ],
+        "boxes": [
+          [
+            110,
+            98,
+            147,
+            125
+          ],
+          [
+            110,
+            98,
+            148,
+            127
+          ],
+          [
+            109,
+            98,
+            147,
+            128
+          ],
+          [
+            109,
+            98,
+            148,
+            128
+          ],
+          [
+            109,
+            96,
+            147,
+            124
+          ],
+          [
+            110,
+            96,
+            149,
+            124
+          ],
+          [
+            110,
+            96,
+            148,
+            126
+          ],
+          [
+            110,
+            96,
+            148,
+            123
+          ]
+        ]
+      },
+      "run": {
+        "head": 1.001,
+        "feet": 1.128,
+        "verdict": "ok",
+        "v": 9,
+        "frames": [
+          1.001,
+          1,
+          1.003,
+          1.009,
+          1.001,
+          0.997,
+          0.988,
+          0.999
+        ],
+        "feetFrames": [
+          1.129,
+          1.064,
+          1.04,
+          1.01,
+          1.17,
+          1.154,
+          1.127,
+          1.174
+        ],
+        "boxes": [
+          [
+            125,
+            90,
+            165,
+            119
+          ],
+          [
+            139,
+            100,
+            180,
+            130
+          ],
+          [
+            162,
+            86,
+            202,
+            115
+          ],
+          [
+            156,
+            105,
+            197,
+            135
+          ],
+          [
+            133,
+            92,
+            174,
+            122
+          ],
+          [
+            121,
+            94,
+            162,
+            122
+          ],
+          [
+            163,
+            90,
+            202,
+            119
+          ],
+          [
+            134,
+            99,
+            174,
+            128
+          ]
+        ]
+      },
+      "dash": {
+        "head": 1.003,
+        "feet": 1.017,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [
+          1.007,
+          1
+        ],
+        "feetFrames": [
+          1.012,
+          1.021
+        ],
+        "boxes": [
+          [
+            148,
+            127,
+            189,
+            156
+          ],
+          [
+            140,
+            124,
+            180,
+            154
+          ]
+        ]
+      },
+      "backDash": {
+        "head": 0.995,
+        "feet": 0.994,
+        "verdict": "ok",
+        "v": 4,
+        "frames": [
+          0.995,
+          0.982,
+          1.011
+        ],
+        "feetFrames": [
+          0.941,
+          0.994,
+          1.002
+        ],
+        "boxes": [
+          [
+            118,
+            91,
+            156,
+            121
+          ],
+          [
+            80,
+            111,
+            118,
+            142
+          ],
+          [
+            108,
+            89,
+            146,
+            121
+          ]
+        ]
+      },
+      "superDash": {
+        "head": 0.832,
+        "feet": 1.052,
+        "verdict": "drift",
+        "v": 8,
+        "frames": [
+          0.825,
+          0.839
+        ],
+        "feetFrames": [
+          1.019,
+          1.085
+        ],
+        "boxes": [
+          [
+            140,
+            144,
+            172,
+            168
+          ],
+          [
+            133,
+            142,
+            165,
+            167
+          ]
+        ]
+      },
+      "jumpSquat": {
+        "head": 0.963,
+        "feet": 0.998,
+        "verdict": "manual",
+        "v": 5,
+        "frames": [
+          0.963
+        ],
+        "feetFrames": [
+          0.998
+        ],
+        "boxes": [
+          [
+            129,
+            130,
+            166,
+            159
+          ]
+        ]
+      },
+      "jumpUp": {
+        "head": 0.997,
+        "feet": 1.094,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [
+          0.975,
+          1.019
+        ],
+        "feetFrames": [
+          1.095,
+          1.093
+        ],
+        "boxes": [
+          [
+            115,
+            89,
+            153,
+            125
+          ],
+          [
+            114,
+            90,
+            153,
+            124
+          ]
+        ]
+      },
+      "jumpFall": {
+        "head": 1.008,
+        "feet": 1.012,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [
+          0.995,
+          1.02
+        ],
+        "feetFrames": [
+          0.994,
+          1.03
+        ],
+        "boxes": [
+          [
+            89,
+            87,
+            127,
+            117
+          ],
+          [
+            97,
+            76,
+            134,
+            109
+          ]
+        ]
+      },
+      "land": {
+        "head": 1,
+        "feet": 1.066,
+        "verdict": "ok",
+        "v": 4,
+        "frames": [
+          1,
+          1
+        ],
+        "feetFrames": [
+          1.037,
+          1.094
+        ],
+        "boxes": [
+          [
+            140,
+            128,
+            179,
+            155
+          ],
+          [
+            117,
+            108,
+            156,
+            138
+          ]
+        ]
+      },
+      "light1": {
+        "head": 1.008,
+        "feet": 1.254,
+        "verdict": "ok",
+        "v": 10,
+        "frames": [
+          0.999,
+          1.008,
+          1.027,
+          1.009,
+          0.998,
+          0.999,
+          1.026
+        ],
+        "feetFrames": [
+          1.209,
+          1.254,
+          1.278,
+          1.287,
+          1.262,
+          1.217,
+          1.227
+        ],
+        "boxes": [
+          [
+            107,
+            93,
+            146,
+            122
+          ],
+          [
+            102,
+            94,
+            140,
+            125
+          ],
+          [
+            99,
+            95,
+            140,
+            124
+          ],
+          [
+            96,
+            95,
+            136,
+            124
+          ],
+          [
+            110,
+            102,
+            147,
+            132
+          ],
+          [
+            121,
+            103,
+            160,
+            132
+          ],
+          [
+            108,
+            112,
+            149,
+            141
+          ]
+        ]
+      },
+      "light2": {
+        "head": 1,
+        "feet": 1.142,
+        "verdict": "ok",
+        "v": 6,
+        "frames": [
+          1,
+          1.01,
+          1,
+          1.015,
+          0.989,
+          1,
+          0.975
+        ],
+        "feetFrames": [
+          1.174,
+          1.132,
+          1.122,
+          1.141,
+          1.142,
+          1.162,
+          1.142
+        ],
+        "boxes": [
+          [
+            123,
+            84,
+            162,
+            114
+          ],
+          [
+            106,
+            84,
+            145,
+            118
+          ],
+          [
+            106,
+            89,
+            145,
+            119
+          ],
+          [
+            102,
+            89,
+            141,
+            120
+          ],
+          [
+            111,
+            102,
+            148,
+            132
+          ],
+          [
+            115,
+            103,
+            154,
+            132
+          ],
+          [
+            113,
+            114,
+            151,
+            143
+          ]
+        ]
+      },
+      "light3": {
+        "head": 0.986,
+        "feet": 0.99,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [
+          1,
+          0.986,
+          1.025,
+          1.005,
+          0.954,
+          0.958,
+          0.983
+        ],
+        "feetFrames": [
+          1.005,
+          1.019,
+          0.99,
+          0.981,
+          0.97,
+          0.984,
+          1.077
+        ],
+        "boxes": [
+          [
+            115,
+            74,
+            154,
+            104
+          ],
+          [
+            107,
+            74,
+            145,
+            105
+          ],
+          [
+            106,
+            75,
+            146,
+            106
+          ],
+          [
+            105,
+            75,
+            145,
+            105
+          ],
+          [
+            113,
+            88,
+            151,
+            114
+          ],
+          [
+            116,
+            90,
+            155,
+            118
+          ],
+          [
+            108,
+            105,
+            147,
+            134
+          ]
+        ]
+      },
+      "light4": {
+        "head": 1,
+        "feet": 1.207,
+        "verdict": "ok",
+        "v": 10,
+        "frames": [
+          1.05,
+          0.99,
+          0.99,
+          1,
+          1.025,
+          0.985,
+          1,
+          1
+        ],
+        "feetFrames": [
+          1.247,
+          1.093,
+          1.11,
+          1.205,
+          1.209,
+          1.135,
+          1.276,
+          1.289
+        ],
+        "boxes": [
+          [
+            112,
+            87,
+            153,
+            121
+          ],
+          [
+            102,
+            81,
+            139,
+            111
+          ],
+          [
+            100,
+            77,
+            138,
+            109
+          ],
+          [
+            113,
+            86,
+            151,
+            116
+          ],
+          [
+            108,
+            86,
+            148,
+            117
+          ],
+          [
+            109,
+            87,
+            147,
+            117
+          ],
+          [
+            110,
+            88,
+            149,
+            120
+          ],
+          [
+            114,
+            108,
+            153,
+            138
+          ]
+        ]
+      },
+      "heavy": {
+        "head": 1,
+        "feet": 1.126,
+        "verdict": "ok",
+        "v": 11,
+        "frames": [
+          1,
+          0.975,
+          1,
+          1,
+          0.926,
+          1,
+          1.019,
+          0.975
+        ],
+        "feetFrames": [
+          1.085,
+          1.024,
+          1.064,
+          1.233,
+          1.217,
+          1.156,
+          1.095,
+          1.284
+        ],
+        "boxes": [
+          [
+            131,
+            113,
+            170,
+            142
+          ],
+          [
+            132,
+            140,
+            170,
+            167
+          ],
+          [
+            126,
+            96,
+            164,
+            126
+          ],
+          [
+            131,
+            68,
+            170,
+            99
+          ],
+          [
+            115,
+            57,
+            151,
+            89
+          ],
+          [
+            113,
+            113,
+            152,
+            144
+          ],
+          [
+            139,
+            120,
+            179,
+            149
+          ],
+          [
+            109,
+            109,
+            147,
+            138
+          ]
+        ]
+      },
+      "airLight1": {
+        "head": 1.007,
+        "feet": 1.196,
+        "verdict": "ok",
+        "v": 6,
+        "frames": [
+          1.007,
+          1.017,
+          0.975,
+          1,
+          1.025
+        ],
+        "feetFrames": [
+          1.187,
+          1.211,
+          1.196,
+          1.195,
+          1.202
+        ],
+        "boxes": [
+          [
+            128,
+            78,
+            167,
+            109
+          ],
+          [
+            134,
+            81,
+            174,
+            110
+          ],
+          [
+            138,
+            81,
+            176,
+            110
+          ],
+          [
+            131,
+            80,
+            170,
+            109
+          ],
+          [
+            128,
+            78,
+            168,
+            109
+          ]
+        ]
+      },
+      "airLight2": {
+        "head": 1,
+        "feet": 1.164,
+        "verdict": "ok",
+        "v": 7,
+        "frames": [
+          1,
+          0.988,
+          0.975,
+          1.018,
+          1.025
+        ],
+        "feetFrames": [
+          1.208,
+          1.159,
+          1.14,
+          1.164,
+          1.215
+        ],
+        "boxes": [
+          [
+            124,
+            71,
+            163,
+            98
+          ],
+          [
+            99,
+            85,
+            137,
+            115
+          ],
+          [
+            100,
+            85,
+            138,
+            114
+          ],
+          [
+            123,
+            71,
+            162,
+            103
+          ],
+          [
+            125,
+            71,
+            165,
+            101
+          ]
+        ]
+      },
+      "airLight3": {
+        "head": 1,
+        "feet": 1.063,
+        "verdict": "ok",
+        "v": 9,
+        "frames": [
+          1.026,
+          1,
+          1,
+          0.975,
+          1.025,
+          1
+        ],
+        "feetFrames": [
+          1.084,
+          1.042,
+          0.966,
+          0.986,
+          1.194,
+          1.206
+        ],
+        "boxes": [
+          [
+            101,
+            64,
+            140,
+            95
+          ],
+          [
+            95,
+            71,
+            134,
+            101
+          ],
+          [
+            112,
+            121,
+            151,
+            151
+          ],
+          [
+            112,
+            120,
+            150,
+            149
+          ],
+          [
+            88,
+            80,
+            128,
+            110
+          ],
+          [
+            93,
+            78,
+            132,
+            107
+          ]
+        ]
+      },
+      "airHeavy": {
+        "head": 1,
+        "feet": 0.984,
+        "verdict": "ok",
+        "v": 8,
+        "frames": [
+          0.824,
+          0.806,
+          1,
+          1.025,
+          0.858,
+          0.99
+        ],
+        "feetFrames": [
+          0.929,
+          0.936,
+          0.984,
+          1.003,
+          0.893,
+          0.967
+        ],
+        "boxes": [
+          [
+            125,
+            95,
+            149,
+            126
+          ],
+          [
+            121,
+            98,
+            152,
+            122
+          ],
+          [
+            139,
+            103,
+            178,
+            132
+          ],
+          [
+            139,
+            110,
+            179,
+            140
+          ],
+          [
+            127,
+            98,
+            153,
+            131
+          ],
+          [
+            131,
+            87,
+            169,
+            117
+          ]
+        ]
+      },
+      "guard": {
+        "head": 0.904,
+        "feet": 1.073,
+        "verdict": "drift",
+        "v": 9,
+        "frames": [
+          0.9,
+          0.908
+        ],
+        "feetFrames": [
+          1.068,
+          1.077
+        ],
+        "boxes": [
+          [
+            110,
+            110,
+            145,
+            136
+          ],
+          [
+            110,
+            110,
+            146,
+            136
+          ]
+        ]
+      },
+      "block": {
+        "head": 1.015,
+        "feet": 1.227,
+        "verdict": "ok",
+        "v": 7,
+        "frames": [
+          1.032,
+          0.998
+        ],
+        "feetFrames": [
+          1.235,
+          1.218
+        ],
+        "boxes": [
+          [
+            69,
+            95,
+            111,
+            126
+          ],
+          [
+            104,
+            93,
+            141,
+            123
+          ]
+        ]
+      },
+      "hurtHigh": {
+        "head": 1.013,
+        "feet": 1.001,
+        "verdict": "ok",
+        "v": 6,
+        "frames": [
+          0.999,
+          1.05,
+          1.013
+        ],
+        "feetFrames": [
+          0.984,
+          1.023,
+          1.001
+        ],
+        "boxes": [
+          [
+            74,
+            85,
+            111,
+            126
+          ],
+          [
+            130,
+            92,
+            171,
+            122
+          ],
+          [
+            124,
+            94,
+            164,
+            123
+          ]
+        ]
+      },
+      "hurtLow": {
+        "head": 1,
+        "feet": 0.967,
+        "verdict": "ok",
+        "v": 6,
+        "frames": [
+          1.027,
+          1,
+          0.975
+        ],
+        "feetFrames": [
+          0.96,
+          0.967,
+          0.969
+        ],
+        "boxes": [
+          [
+            138,
+            115,
+            175,
+            148
+          ],
+          [
+            131,
+            107,
+            169,
+            137
+          ],
+          [
+            123,
+            94,
+            161,
+            122
+          ]
+        ]
+      },
+      "launched": {
+        "head": 0.543,
+        "feet": 1.435,
+        "verdict": "manual",
+        "v": 5,
+        "frames": [
+          0.5,
+          0.585
+        ],
+        "feetFrames": [
+          1.404,
+          1.465
+        ],
+        "boxes": [
+          [
+            170,
+            152,
+            180,
+            183
+          ],
+          [
+            90,
+            143,
+            109,
+            179
+          ]
+        ]
+      },
+      "spin": {
+        "head": 0.797,
+        "feet": 0.915,
+        "verdict": "manual",
+        "v": 4,
+        "frames": [
+          1.025,
+          0.464,
+          0.6,
+          0.993
+        ],
+        "feetFrames": [
+          0.909,
+          0.877,
+          0.995,
+          0.921
+        ],
+        "boxes": [
+          [
+            82,
+            158,
+            122,
+            192
+          ],
+          [
+            126,
+            166,
+            150,
+            179
+          ],
+          [
+            109,
+            154,
+            132,
+            172
+          ],
+          [
+            147,
+            177,
+            181,
+            215
+          ]
+        ]
+      },
+      "airRecover": {
+        "head": 1.01,
+        "feet": 0.971,
+        "verdict": "manual",
+        "v": 5,
+        "frames": [
+          1.011,
+          0.975,
+          1.01
+        ],
+        "feetFrames": [
+          0.919,
+          0.971,
+          0.979
+        ],
+        "boxes": [
+          [
+            64,
+            166,
+            103,
+            202
+          ],
+          [
+            109,
+            208,
+            147,
+            237
+          ],
+          [
+            121,
+            104,
+            161,
+            132
+          ]
+        ]
+      },
+      "down": {
+        "head": 1.063,
+        "feet": 1.253,
+        "verdict": "manual",
+        "v": 7,
+        "frames": [
+          1.094,
+          1.031
+        ],
+        "feetFrames": [
+          1.274,
+          1.231
+        ],
+        "boxes": [
+          [
+            63,
+            174,
+            97,
+            217
+          ],
+          [
+            42,
+            182,
+            73,
+            222
+          ]
+        ]
+      },
+      "getup": {
+        "head": 1.034,
+        "feet": 1.322,
+        "verdict": "manual",
+        "v": 7,
+        "frames": [
+          1.097,
+          0.548,
+          1.034,
+          1.05,
+          1
+        ],
+        "feetFrames": [
+          1.145,
+          1.341,
+          1.352,
+          1.194,
+          1.322
+        ],
+        "boxes": [
+          [
+            76,
+            187,
+            112,
+            239
+          ],
+          [
+            96,
+            83,
+            129,
+            99
+          ],
+          [
+            61,
+            99,
+            96,
+            138
+          ],
+          [
+            143,
+            103,
+            184,
+            135
+          ],
+          [
+            124,
+            101,
+            162,
+            131
+          ]
+        ]
+      },
+      "charge": {
+        "head": 0.92,
+        "feet": 1.045,
+        "verdict": "drift",
+        "v": 13,
+        "frames": [
+          0.917,
+          0.922,
+          0.943,
+          0.9
+        ],
+        "feetFrames": [
+          1.046,
+          1.023,
+          1.044,
+          1.047
+        ],
+        "boxes": [
+          [
+            125,
+            119,
+            161,
+            144
+          ],
+          [
+            124,
+            119,
+            161,
+            145
+          ],
+          [
+            124,
+            118,
+            162,
+            145
+          ],
+          [
+            126,
+            119,
+            161,
+            145
+          ]
+        ]
+      },
+      "throw": {
+        "head": 0.983,
+        "feet": 1.023,
+        "verdict": "ok",
+        "v": 6,
+        "frames": [
+          0.956,
+          0.991,
+          0.975,
+          1.003
+        ],
+        "feetFrames": [
+          1.023,
+          1.034,
+          1.013,
+          1.024
+        ],
+        "boxes": [
+          [
+            101,
+            71,
+            138,
+            100
+          ],
+          [
+            88,
+            74,
+            127,
+            102
+          ],
+          [
+            75,
+            74,
+            113,
+            103
+          ],
+          [
+            98,
+            72,
+            138,
+            101
+          ]
+        ]
+      },
+      "beamCharge": {
+        "head": 1.002,
+        "feet": 1.08,
+        "verdict": "ok",
+        "v": 8,
+        "frames": [
+          1.002,
+          1.002,
+          0.986
+        ],
+        "feetFrames": [
+          1.055,
+          1.08,
+          1.099
+        ],
+        "boxes": [
+          [
+            108,
+            81,
+            147,
+            112
+          ],
+          [
+            109,
+            81,
+            147,
+            112
+          ],
+          [
+            109,
+            82,
+            146,
+            112
+          ]
+        ]
+      },
+      "beamFire": {
+        "head": 0.996,
+        "feet": 1.22,
+        "verdict": "ok",
+        "v": 9,
+        "frames": [
+          0.996,
+          0.992,
+          0.997
+        ],
+        "feetFrames": [
+          1.22,
+          1.227,
+          1.212
+        ],
+        "boxes": [
+          [
+            120,
+            120,
+            160,
+            148
+          ],
+          [
+            104,
+            120,
+            144,
+            148
+          ],
+          [
+            119,
+            121,
+            160,
+            147
+          ]
+        ]
+      },
+      "vanish": {
+        "head": 1.005,
+        "feet": 1.124,
+        "verdict": "manual",
+        "v": 4,
+        "frames": [
+          1,
+          1.009
+        ],
+        "feetFrames": [
+          1.165,
+          1.083
+        ],
+        "boxes": [
+          [
+            126,
+            117,
+            165,
+            145
+          ],
+          [
+            140,
+            59,
+            178,
+            90
+          ]
+        ]
+      },
+      "stagger": {
+        "head": 1.041,
+        "feet": 1.35,
+        "verdict": "ok",
+        "v": 7,
+        "frames": [
+          1.097,
+          1.032,
+          1.05,
+          1.004
+        ],
+        "feetFrames": [
+          1.289,
+          1.352,
+          1.348,
+          1.361
+        ],
+        "boxes": [
+          [
+            128,
+            64,
+            172,
+            97
+          ],
+          [
+            109,
+            58,
+            153,
+            89
+          ],
+          [
+            94,
+            59,
+            135,
+            96
+          ],
+          [
+            112,
+            63,
+            155,
+            93
+          ]
+        ]
+      },
+      "ko": {
+        "head": 0.915,
+        "feet": 1.227,
+        "verdict": "manual",
+        "v": 8,
+        "frames": [
+          0.915
+        ],
+        "feetFrames": [
+          1.227
+        ],
+        "boxes": [
+          [
+            6,
+            164,
+            37,
+            200
+          ]
+        ]
+      },
+      "special": {
+        "head": 0.996,
+        "feet": 1.208,
+        "verdict": "ok",
+        "v": 7,
+        "frames": [
+          0.973,
+          0.975,
+          0.975,
+          1,
+          1.006,
+          1.025,
+          0.993,
+          1
+        ],
+        "feetFrames": [
+          1.243,
+          1.248,
+          1.198,
+          1.24,
+          1.156,
+          1.218,
+          1.156,
+          1.148
+        ],
+        "boxes": [
+          [
+            122,
+            79,
+            160,
+            108
+          ],
+          [
+            120,
+            89,
+            158,
+            118
+          ],
+          [
+            108,
+            84,
+            146,
+            113
+          ],
+          [
+            109,
+            89,
+            147,
+            119
+          ],
+          [
+            113,
+            97,
+            151,
+            128
+          ],
+          [
+            110,
+            97,
+            150,
+            129
+          ],
+          [
+            94,
+            96,
+            132,
+            126
+          ],
+          [
+            103,
+            97,
+            142,
+            127
+          ]
+        ]
+      },
+      "intro": {
+        "head": 1.004,
+        "feet": 1.015,
+        "verdict": "ok",
+        "v": 4,
+        "frames": [
+          1,
+          0.975,
+          1.01,
+          1.008
+        ],
+        "feetFrames": [
+          1.023,
+          1.005,
+          1.017,
+          1.012
+        ],
+        "boxes": [
+          [
+            110,
+            68,
+            148,
+            98
+          ],
+          [
+            106,
+            65,
+            144,
+            97
+          ],
+          [
+            107,
+            67,
+            147,
+            97
+          ],
+          [
+            108,
+            68,
+            146,
+            99
+          ]
+        ]
+      },
+      "taunt": {
+        "head": 0.996,
+        "feet": 1.28,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [
+          0.993,
+          1
+        ],
+        "feetFrames": [
+          1.262,
+          1.298
+        ],
+        "boxes": [
+          [
+            109,
+            58,
+            147,
+            90
+          ],
+          [
+            110,
+            59,
+            148,
+            89
+          ]
+        ]
+      },
+      "win": {
+        "head": 1.005,
+        "feet": 1.179,
+        "verdict": "ok",
+        "v": 5,
+        "frames": [
+          1.012,
+          0.984,
+          0.998,
+          1.013
+        ],
+        "feetFrames": [
+          1.18,
+          1.197,
+          1.173,
+          1.177
+        ],
+        "boxes": [
+          [
+            101,
+            79,
+            148,
+            109
+          ],
+          [
+            102,
+            79,
+            145,
+            108
+          ],
+          [
+            102,
+            80,
+            149,
+            109
+          ],
+          [
+            103,
+            79,
+            149,
+            108
+          ]
+        ]
+      },
+      "specialForward": {
+        "head": 1,
+        "feet": 1.01,
+        "verdict": "ok",
+        "v": 12,
+        "frames": [
+          1,
+          0.975,
+          0.963,
+          0.975,
+          1.025,
+          1.006,
+          1.009
+        ],
+        "feetFrames": [
+          0.976,
+          0.942,
+          1.005,
+          1.01,
+          1.179,
+          1.148,
+          1.218
+        ],
+        "boxes": [
+          [
+            135,
+            125,
+            174,
+            156
+          ],
+          [
+            146,
+            110,
+            184,
+            139
+          ],
+          [
+            138,
+            117,
+            176,
+            145
+          ],
+          [
+            134,
+            117,
+            172,
+            142
+          ],
+          [
+            126,
+            104,
+            166,
+            135
+          ],
+          [
+            125,
+            113,
+            165,
+            141
+          ],
+          [
+            115,
+            113,
+            155,
+            142
+          ]
+        ]
+      },
+      "specialUp": {
+        "head": 0.993,
+        "feet": 1.068,
+        "verdict": "ok",
+        "v": 8,
+        "frames": [
+          0.986,
+          0.95,
+          1,
+          1.05,
+          1,
+          0.94
+        ],
+        "feetFrames": [
+          1.05,
+          1.086,
+          1.107,
+          1.094,
+          1.024,
+          1.015
+        ],
+        "boxes": [
+          [
+            140,
+            122,
+            178,
+            155
+          ],
+          [
+            138,
+            86,
+            175,
+            120
+          ],
+          [
+            135,
+            68,
+            174,
+            102
+          ],
+          [
+            135,
+            68,
+            176,
+            102
+          ],
+          [
+            121,
+            115,
+            168,
+            145
+          ],
+          [
+            112,
+            104,
+            143,
+            137
+          ]
+        ]
+      },
+      "specialDown": {
+        "head": 1.01,
+        "feet": 1.29,
+        "verdict": "ok",
+        "v": 7,
+        "frames": [
+          1,
+          1.02,
+          1.05,
+          1
+        ],
+        "feetFrames": [
+          1.248,
+          1.271,
+          1.412,
+          1.309
+        ],
+        "boxes": [
+          [
+            125,
+            109,
+            164,
+            139
+          ],
+          [
+            125,
+            107,
+            163,
+            138
+          ],
+          [
+            104,
+            63,
+            145,
+            96
+          ],
+          [
+            123,
+            96,
+            162,
+            124
+          ]
+        ]
+      },
+      "superPose": {
+        "head": 0.996,
+        "feet": 1.35,
+        "verdict": "ok",
+        "v": 8,
+        "frames": [
+          0.993,
+          0.975,
+          1.012,
+          1
+        ],
+        "feetFrames": [
+          1.35,
+          1.335,
+          1.349,
+          1.375
+        ],
+        "boxes": [
+          [
+            112,
+            61,
+            149,
+            91
+          ],
+          [
+            113,
+            61,
+            151,
+            89
+          ],
+          [
+            114,
+            58,
+            152,
+            90
+          ],
+          [
+            112,
+            61,
+            151,
+            89
+          ]
+        ]
+      }
+    }
+  }
+}
