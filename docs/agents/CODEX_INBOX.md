@@ -350,6 +350,23 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
 ---
 
+## Loose ends: re-audit after calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+**This is the scale lane's current section** (it follows "Loose ends of the scale round" below). Claude calibrated all five
+candidates; read Claude's note at the top of CLAUDE_ART_HANDOFF.md ("loose ends calibrated") first. No generation calls.
+**Done when** both items are ticked; then commit your handoff and run `node tools/relay.mjs ring scale --note "<one line>"`.
+
+- [ ] 1. **Astra/medium re-audit of the final calibrated atlases** (every frame, transitions and replay; head, torso,
+  limbs, shoes; contact for the two alts against their bases' hit boxes; grounding for down/ko): Naruto
+  `art/naruto-alts-r2` at `802e673b` (light2Alt v05, airHeavyAlt v04) and Killua `art/killua-loose-ends` at
+  `5bda5260` (charge v14, down v08, ko v09 mirrored).
+- [ ] 2. **Refresh the phone review page** with those final atlases (the five candidates beside their bases or
+  predecessors, idle and the neutral/combat cells at one density), the Astra verdicts, and the airHeavyAlt note (same
+  double-fist technique as the base airHeavy). Put the URL in NOW.md "Your next actions".
+
+Rules: no generation, no merge, no production deploy, no approvals; do not edit Claude's sidecars, manifest calibration
+fields, hitboxes.json or public/ atlases. If something blocks you, write BLOCKED here and in NOW.md and do not ring.
+
 ## Loose ends of the scale round (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
 **The user asked Claude (2026-10-15, in Claude's chat) to address the round's optional loose ends with this chat's help.**
