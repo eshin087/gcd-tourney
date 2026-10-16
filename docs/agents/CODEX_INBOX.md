@@ -121,8 +121,10 @@ Round 1 review page is ready (2026-10-15): user approved all five VFX v01 direct
 engine side (PR #107 merged, d16aa67e, live): beam clashes now play `beamStruggle` on the ground and the new optional
 `beamStruggleAir` in the air (ADR 0034 section 5: the air fighter eases down to a low hover above a grounded opponent;
 until the strip exists it holds the `throw` release frame). Contract and per-fighter poses: art/SPEC.md and
-**art/characters/BEAM_STRUGGLE_BRIEF.md** ("Per fighter" and "The air strip"). Naruto's v01 stays on hold; the user is
-deciding about a v02 in Claude's chat, so do not touch Naruto in this round.
+**art/characters/BEAM_STRUGGLE_BRIEF.md** ("Per fighter" and "The air strip"). **Naruto: the user chose "Redraw v02"
+(2026-10-15, in Claude's chat):** `beamStruggle_v02`, one call (his 2nd of 3), drawn to his approved idle's scale (v01 failed
+at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this round's page. Leave v01 where it is: Claude
+moves it to `raw/_qa_hold/` on main while shipping the approved effects (below).
 - [ ] 1. In `.worktrees/art-beam-clash`: `git merge main` (brings the `beamStruggleAir` contract and the packer tables),
   commit the merge.
 - [ ] 2. `beamStruggle_v01` for Sasuke (Chidori Spear thrust), Killua (Narukami, open palm), Gojo (Red at two fingertips,
