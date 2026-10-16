@@ -190,6 +190,12 @@ const UI_ITEMS = {
   portrait: { w: 96, h: 96, align: 'bottom' },
   cutin: { w: 480, h: 128, align: 'center' },
   select: { w: 384, h: 384, align: 'bottom' },
+  // super banner and ultimate splash layers (ADR 0035): opaque backdrops are center-cropped to the aspect, the
+  // fighter cutouts contain-fitted and bottom-aligned
+  super_bg: { w: 768, h: 192, align: 'center' },
+  super_fg: { w: 384, h: 240, align: 'bottom' },
+  ult_bg: { w: 768, h: 432, align: 'center' },
+  ult_fg: { w: 576, h: 432, align: 'bottom' },
 };
 
 const MAGENTA = [255, 0, 255];
@@ -2410,7 +2416,7 @@ function packCharacter(id, env) {
   return R;
 }
 
-// portrait / cutin / select: remove magenta bg, fit to the spec size, write next to the sheet.
+// portrait / cutin / select / super and ultimate layers: remove magenta bg, fit to the spec size, write next to the sheet.
 function packUi(id, charDir, env, R) {
   const uiDir = path.join(charDir, 'ui');
   for (const [name, spec] of Object.entries(UI_ITEMS)) {

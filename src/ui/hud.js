@@ -37,6 +37,25 @@ const RATINGS = [[20, 'LEGENDARY'], [15, 'AMAZING'], [10, 'GREAT']];
 const STYLISH = 4;
 const CHIPS = 7; // ticker chips kept under a combo counter (the oldest scroll out)
 const TAG_STACK = 3; // banners per side; a fourth pushes the oldest out
+
+// A super/ultimate layer as a crisp <img> (the decoded image is shared, nothing is copied); the right-hand player's
+// art is mirrored so the fighter faces the opponent.
+const layerImg = (img, cls, mirror) => {
+  const el = new Image();
+  el.src = img.src;
+  el.className = cls + (mirror ? ' mirror' : '');
+  el.draggable = false;
+  return el;
+};
+const mirroredCanvas = (src, mirror) => {
+  const cv = document.createElement('canvas');
+  cv.width = src.width;
+  cv.height = src.height;
+  const ctx = cv.getContext('2d');
+  if (mirror) { ctx.translate(cv.width, 0); ctx.scale(-1, 1); }
+  ctx.drawImage(src, 0, 0);
+  return cv;
+};
 const h = (tag, cls, html = '') => {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -150,26 +169,63 @@ export class Hud {
     this.root.parentNode.append(this.cutin);
   }
 
-  // DBFZ-style super flash banner: the character's eyes slide across a speed-line strip.
-  superCutin(i, canvas, color, name) {
+  // DBFZ-style super flash (ADR 0035). asset: the fighter's SheetAsset (cutin = the eye strip, super/ult = { bg, fg }
+  // layer images, each optional). tier 'super' slides a banner across the screen: the move's backdrop (or speed
+  // lines) with the fighter breaking out of its top edge (or the eye strip inside it). tier 'ult' plays the
+  // full-screen splash when the fighter has either splash layer, else the banner. o.secs = how long the world is frozen.
+  superCutin(i, asset, color, name, o = {}) {
+    const L = o.tier === 'ult' ? asset?.ult : asset?.super;
+    if (o.tier === 'ult' && (L?.bg || L?.fg)) return this.ultSplash(i, L, color, name, o.secs ?? 0.8);
+    this.splash?.remove();
     const c = this.cutin;
     c.innerHTML = '';
     c.className = 'cutin';
     c.style.setProperty('--cc', color);
     const strip = h('div', 'cutin-strip');
-    if (canvas) {
-      const cv = document.createElement('canvas');
-      cv.width = canvas.width;
-      cv.height = canvas.height;
-      const ctx = cv.getContext('2d');
-      if (i === 1) { ctx.translate(cv.width, 0); ctx.scale(-1, 1); }
-      ctx.drawImage(canvas, 0, 0);
-      strip.append(cv);
+    if (L?.bg) {
+      c.classList.add('art');
+      strip.append(layerImg(L.bg, 'cutin-bg', i === 1));
     }
+    if (!L?.fg && asset?.cutin) strip.append(mirroredCanvas(asset.cutin, i === 1));
     const label = h('div', 'cutin-name', `<span>${name}</span>`);
-    c.append(strip, label);
+    c.append(strip);
+    if (L?.fg) {
+      c.classList.add('art');
+      // outside the clipped strip, so the head and a raised hand can break out of the banner's top edge
+      c.append(layerImg(L.fg, 'cutin-fg', i === 1));
+    }
+    c.append(label);
     void c.offsetWidth;
     c.classList.add(i === 1 ? 'go-r' : 'go-l');
+  }
+
+  // An eye technique's flash (a move's `eyeFlash`): the eye strip snaps across a thin band for half a second, so the
+  // red eyes read even while the fighter is small on screen.
+  eyeFlash(i, eyes, color) {
+    if (!eyes) return;
+    this.eyes?.remove();
+    const e = h('div', `eyeflash ${i === 1 ? 'p2' : 'p1'}`);
+    e.style.setProperty('--cc', color);
+    e.append(mirroredCanvas(eyes, i === 1));
+    this.root.parentNode.append(e);
+    this.eyes = e;
+    e.addEventListener('animationend', () => e.remove());
+  }
+
+  // The ultimate's full-screen splash: a colored flash in, letterbox bars, the backdrop slowly pushing in, the
+  // fighter sliding over it from their side, the move name large. It lives for the frozen frames and then fades.
+  ultSplash(i, L, color, name, secs) {
+    this.cutin.className = 'cutin';
+    this.splash?.remove();
+    const s = h('div', `splash ${i === 1 ? 'p2' : 'p1'}`);
+    s.style.setProperty('--cc', color);
+    s.style.setProperty('--d', `${Math.max(0.5, secs).toFixed(2)}s`);
+    if (L.bg) s.append(layerImg(L.bg, 'sp-bg', i === 1));
+    if (L.fg) s.append(layerImg(L.fg, 'sp-fg', i === 1));
+    s.append(h('div', 'sp-bar top'), h('div', 'sp-bar bot'), h('div', 'sp-name', `<span>${name}</span>`), h('div', 'sp-flash'));
+    this.root.parentNode.append(s);
+    this.splash = s;
+    s.addEventListener('animationend', (e) => { if (e.target === s) s.remove(); });
   }
 
   setup(fighters, assets, hint) {

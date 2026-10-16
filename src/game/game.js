@@ -271,10 +271,11 @@ export class Game {
   }
 
   // `answer`: fired into the opponent's running ultimate, so a short flash (they can meet, ADR 0017)
-  onSuperStart(f, S, answer = false) {
+  onSuperStart(f, S, answer = false, ultimate = false) {
     this.comboChip(f, 'SUPER', 'super'); // a three-bar finisher on the end of a combo
     this.arena.npcCue('super');
-    this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name);
+    // an ultimate gets the full-screen splash (ADR 0035); an answer's short flash keeps the banner
+    this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name, ultimate && !answer ? 'ult' : 'super');
     if (answer) this.hud.announce('COUNTER!', 'clash', 700);
     this.fx.overlay.flash(S.color || f.def.color, 0.45);
     this.excite = 1;
@@ -1634,12 +1635,14 @@ export class Game {
     }
   }
 
-  // DBFZ super flash: freeze time, darken the stage, flash the user, cut-in
-  superFlashFor(f, len, dim, cutin = false, name = f.def.beam.name) {
+  // DBFZ super flash: freeze time, darken the stage, flash the user, cut-in. tier 'ult' holds the frozen world a
+  // little longer (ULTIMATE.splashHold) so the full-screen splash can be read; frame data does not change.
+  superFlashFor(f, len, dim, cutin = false, name = f.def.beam.name, tier = 'super') {
+    if (cutin && tier === 'ult') len += ULTIMATE.splashHold;
     this.freeze = Math.max(this.freeze, len);
     this.superFlash = { who: f, t: 0, len };
     this.dimTarget = dim;
-    if (cutin) this.hud.superCutin(f.index, f.asset?.cutin, f.def.color, name);
+    if (cutin) this.hud.superCutin(f.index, f.asset, f.def.color, name, { tier, secs: len / 60 });
     audio.play('flash');
   }
 
@@ -1653,7 +1656,7 @@ export class Game {
   onUltimateStart(f, counter) {
     this.arena.npcCue('ultimate');
     this.cam.set('focus', f);
-    this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true);
+    this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true, f.def.beam.name, counter ? 'super' : 'ult');
     this.fx.overlay.flash(f.def.color, 0.4);
     this.excite = 1;
     if (counter) this.hud.announce('COUNTER!', 'clash', 700);

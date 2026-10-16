@@ -66,6 +66,7 @@ src/game/
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
+  sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
   chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
                             (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
   auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha)
@@ -423,6 +424,8 @@ click-to-rebind. Bindings persist in localStorage.
 | a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight + where `MasterBrain` uses it (`kitOptions`, `pickBig`) and its link time in the combo composer (`gapKit` / `bigOption` in `aiCombo.js`); `aiShow.js` `toolsOf` lists it automatically |
 | a projectile type | `PROJECTILES` in `moves.js` (sprite = a VFX atlas name) |
 | a VFX effect | `VFX_ANIMS` + painter in `vfxPainter.js`; custom art via `art/vfx/` |
+| an eye technique (Sharingan, Mangekyō) | the character's `eyes` data and a move's `sigil` / `eyeFlash`; a new pattern is a `PATTERNS` entry in `sigil.js` (ADR 0035) |
+| super / ultimate cut-in art | `ui/super_bg|super_fg|ult_bg|ult_fg.png` per fighter (art/SPEC.md, ADR 0035); the HUD falls back layer by layer |
 | a ground damage look | a `ground` field on the move / projectile / super / character; a new look is a `GROUND_STYLES` entry in `ground.js` (+ decal names in `DECALS`, decalPainter.js, and their art) |
 | a sound | a case in `AudioEngine.play()` / `loop()` |
 | a camera move | a mode in `CameraDirector.update()` |

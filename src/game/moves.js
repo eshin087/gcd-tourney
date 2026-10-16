@@ -278,6 +278,7 @@ export const SPECIAL_MOVES = {
   sharingan: {
     kind: 'counter', anim: 'specialDown', cost: 50, len: 20, recovery: 14, stagger: 22, onCounter: 'strike', follow: 'vanishKick',
     name: 'SHARINGAN', callout: 'SHARINGAN!', color: '#ff3040',
+    sigil: true, eyeFlash: true, // the fighter's `eyes` pattern behind him and the red eyes in the HUD (ADR 0035)
   },
 
   // ---- Killua (Godspeed era)
@@ -372,7 +373,7 @@ export const SUPERS = {
   shadowCloneBarrage: { kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 7, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8, hitFx: 'smoke', finalFx: 'rasengan', name: 'SHADOW CLONE BARRAGE', color: '#ffb43a', ground: 'spiralBig' },
   unlimitedVoid: { kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff' },
   kirin: { kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'beamCharge', strikePose: 'beamFire', name: 'KIRIN', color: '#9fd8ff', ground: 'lightningBig' },
-  amaterasu: { kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14 }, name: 'AMATERASU', callout: 'AMATERASU', color: '#c040ff', ground: 'blackFire' },
+  amaterasu: { kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14 }, name: 'AMATERASU', callout: 'AMATERASU', color: '#c040ff', ground: 'blackFire', sigil: 'mangekyo' },
 
   // ---- ultimates with their own shape (ADR 0017): one beam in the cast at most, every other finisher different
   // Hollow Purple (Gojo): Red from the near hand and Blue from the far hand meet in front of him (`merge` frames) and
@@ -474,4 +475,7 @@ export const CLASH = {
 export const ULTIMATE = {
   cost: 300, windup: 46, counterWindup: 14, duration: 84, speed: 34, maxLen: 26, width: 1.25,
   tickEvery: 5, tickDmg: 12, finalDmg: 130, launch: [17, 10], flash: 42,
+  // extra frozen frames on every ultimate's flash (beam or kit) for the full-screen splash (ADR 0035); the world
+  // is paused, so no frame data moves
+  splashHold: 24,
 };
