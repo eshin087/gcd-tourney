@@ -116,6 +116,22 @@ Create one pixel-art expression sheet candidate for the same adult Super Saiyan 
 
 ## Idle v02: `raw/idle_v02.png`
 
+## Super banner and ultimate splash prompts (Round 2b)
+
+The four UI images below are unapproved candidates. Identity inputs were the approved title-style v02 fixed reference, model sheet and expressions plus approved title-style pilot neutral/combat cells. Preserve the approved face, eyes, hair, build and outfit. Backdrops have no fighter or text; cutouts use solid #FF00FF. See `art/characters/SUPER_ART_BRIEF.md` for the crop contract.
+
+### SUPER: Kaio-ken Rush
+
+`raw/ui_super_bg_v01.png` — 1536×1024 background only: dark-sky rocky wasteland, cracking stone pillars and a vivid red Kaio-ken flare. Put readable solid-pixel punch afterimages across the middle 4:1 crop band (raw y=320..704); continue only sky/ground above and below. No character, text, logo, border or UI. Crisp hard pixel clusters, hard-edged light bands, no blur, antialiasing, gradients or painterly texture; up to 48 colors.
+
+`raw/ui_super_fg_v01.png` — 1024×1024 chest-up Goku, facing and looking screen-right in three-quarter view, fist cocked near shoulder, teeth clenched. Match the approved Goku face, eye shape, golden hair silhouette, orange gi and blue undershirt/sash/wristbands; red hard-edged aura may lick around the silhouette without hiding the face. Solid #FF00FF only, no shadow/text/logos/extra figures; crisp outlined pixel clusters, limited cel shading, up to 48 colors.
+
+### ULTIMATE: Kamehameha
+
+`raw/ui_ult_bg_v01.png` — 1536×1024 background only: Cell Games arena and dramatic sky, a bright blue-white beam crossing left-to-right and washing the clouds and ring. Keep arena and beam focal action within the 16:9 center crop and central 1152px for phone 4:3. No character/text/logo/border; hard-pixel clusters, crisp stepped outlines, no blur, gradients, painterly texture or dithering; up to 48 colors.
+
+`raw/ui_ult_fg_v01.png` — 1024×1536 full-body Goku in the classic Kamehameha stance, three-quarter facing screen-right, knees bent, palms cupped forward with a small blue-white core between them. Golden Super Saiyan hair, teal-green eyes, orange gi, deep blue undershirt/sash/wristbands/boots. Preserve approved face and adult anatomy; full silhouette, soles at bottom. Solid #FF00FF, no shadow/text/logo/other figures; crisp hard-pixel shading, no blur/antialiasing/gradients; at most 48 colors.
+
 Attempts: 3 of max 3; attempts 1–2 discarded, attempt 3 selected. Inputs to every attempt: approved fixed reference/title_style_draft.png and unapproved working continuity reference/model_sheet_v02.png. No idle_v01 or held reference was used. Attempt 1 output `exec-f4efd004-fbd8-46a0-b5c8-401c15ac2a39.png` was discarded because its oversized hair and rendered dimensions could not fit native 256px cells without shrinking the approved body scale. Attempt 2 output `exec-957e5f2a-6bab-4fb2-b089-294ae3b082d4.png` was discarded for the same oversized hair and incompatible 8:1 single-row layout. Attempt 3 output `exec-6d2d3a06-45c0-4b61-95c6-4555584fa055.png` is the sole saved candidate source; it is a 4×2 grid at 1536×1024. It was split into eight panels, background keyed to the magenta family and normalized to #FF00FF, then each full figure was uniformly fitted to a common 234px silhouette height and bottom-aligned in an 8×256 cell strip. This is a layout/canvas fit only; no pose/head/body deformation. Source background was nonuniform, so background replacement is disclosed. Candidate SHA-256: `57FBBD3CB99FC92A30DAFDD478479971E4E9D497E035C846E9FD28ECB126FE03`; 2048×256. Estimated body-only height is about 180±10px from visible scalp crown to soles, low-confidence because crown is masked by hair; it fails the approved neutral's 207±4px target and is on scale hold. Do not pack or use it as an animation anchor pending user direction.
 
 Attempt 1 exact prompt (discarded):

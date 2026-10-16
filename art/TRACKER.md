@@ -699,6 +699,8 @@ Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; m
 
 
 **Relay #14 approval (2026-10-16):** The user approved all 16 remaining Goku core drawings via Claude. Exact quote: "Approve all 16 Goku strips and all 19 Luffy strips as drawn." Approved latest versions: run v09, dash v09, jumpUp v04, jumpFall v04, land v07, light1 v04, guard v05, hurtHigh v08, launched v08, down v05, getup v11, charge v05, beamCharge v07, beamFire v07, special v05, win v05. Manifest version and approvedVersion match for every strip. Combined with idle v02, retained v04-design reassemblies and earlier light3 v13/heavy v14 approvals, all 23 core drawings are user-approved. No new calls or pixel changes. The getup floor/contact caveat still needs Claude runtime review; no integration, contact or timing approval is implied.
+
+Round 2b UI (ADR 0035): super_bg, super_fg, ult_bg and ult_fg v01 approved by the user via the approvals desk (relay effects #10, PR #131).
 ## luffy
 
 Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). Title-style reference, model sheet, expressions, and idle v01 are user-approved. The user approved down v03 and getup v03 via Claude relay #10, quote “Approved”, and special v02 via Claude relay #12, quote “Approve Goku light3 v13 and Luffy special v02 as drawn.” On 2026-10-16, all 19 remaining core strips were approved via Claude relay #14, exact quote “Approve all 16 Goku strips and all 19 Luffy strips as drawn.”: run v01, dash v02, jumpUp v01, jumpFall v03, land v01, light1 v02, light2 v01, light3 v02, light4 v02, heavy v01, airLight1 v01, airHeavy v01, guard v01, hurtHigh v01, launched v02, charge v01, beamCharge v01, beamFire v02, win v03. Exact attempt history is in [REVIEW_ROWS.md](characters/luffy/REVIEW_ROWS.md).
@@ -707,6 +709,8 @@ The final strict r6 review pack exits 0: 23 animations / 108 frames, 4096×1792,
 
 The earlier down v01 and getup v01 holds are superseded by user-approved v03; manifest approvedVersion is 3 for both. Special v02 was generated under relay #11 (attempt 5/5 cumulative) as a two-pose f6/f7 recovery continuation assembled with the original source-A part. Its manifest status is approved and approvedVersion is 2, following the user's approval via Claude relay #12, exact quote “Approve Goku light3 v13 and Luffy special v02 as drawn.” Astra final r6 review found body-scale and static sequence PASS within measurement uncertainty. The four user-accepted placement exceptions remain run rear foot f3/f4/f7, airLight1 fist f2/f3, light3 toe f3, and light4 foot f4; beamFire arm-only clipping is a separate Claude continuation exception. Ten active frames use the front-28% fallback hitbox and the documented placement clips. See [r6 review gallery](../public/characters/luffy/calibration-r6/index.html), [final Astra audit](characters/luffy/production/manual-audit-r6/FINAL_STRICT_AUDIT.md), and [r5 parent browser check](characters/luffy/production/relay8-generation/PARENT_BROWSER_R5.md). Runtime contacts/grounding remain Claude's responsibility.
 
+
+Round 2b UI (ADR 0035): super_bg, super_fg, ult_bg and ult_fg v01 approved by the user via the approvals desk (relay effects #10, PR #131).
 ## Adding a character
 
 Copy the naruto section, rename it, and add the same block to `manifest.json`
