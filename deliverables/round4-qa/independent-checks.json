@@ -1,0 +1,408 @@
+{
+  "sasuke": {
+    "opaqueColors": 48,
+    "selected": {
+      "superDash": [
+        {
+          "bounds": [
+            94,
+            98,
+            256,
+            241
+          ],
+          "height": 143
+        },
+        {
+          "bounds": [
+            92,
+            97,
+            256,
+            241
+          ],
+          "height": 144
+        }
+      ],
+      "jumpSquat": [
+        {
+          "bounds": [
+            36,
+            79,
+            203,
+            241
+          ],
+          "height": 162
+        }
+      ],
+      "beamFire": [
+        {
+          "bounds": [
+            52,
+            73,
+            201,
+            241
+          ],
+          "height": 168
+        },
+        {
+          "bounds": [
+            51,
+            73,
+            203,
+            241
+          ],
+          "height": 168
+        },
+        {
+          "bounds": [
+            52,
+            73,
+            200,
+            241
+          ],
+          "height": 168
+        }
+      ],
+      "dash": [
+        {
+          "bounds": [
+            65,
+            81,
+            240,
+            241
+          ],
+          "height": 160
+        },
+        {
+          "bounds": [
+            65,
+            81,
+            240,
+            241
+          ],
+          "height": 160
+        }
+      ]
+    },
+    "sourceHashMatches": {
+      "superDash": true,
+      "jumpSquat": true,
+      "beamFire": true,
+      "dash": true
+    },
+    "sourceHashes": {}
+  },
+  "killua": {
+    "opaqueColors": 48,
+    "selected": {
+      "idle": [
+        {
+          "bounds": [
+            72,
+            97,
+            182,
+            241
+          ],
+          "height": 144
+        },
+        {
+          "bounds": [
+            72,
+            97,
+            182,
+            241
+          ],
+          "height": 144
+        },
+        {
+          "bounds": [
+            72,
+            97,
+            182,
+            241
+          ],
+          "height": 144
+        },
+        {
+          "bounds": [
+            72,
+            97,
+            182,
+            241
+          ],
+          "height": 144
+        },
+        {
+          "bounds": [
+            71,
+            95,
+            182,
+            241
+          ],
+          "height": 146
+        },
+        {
+          "bounds": [
+            72,
+            95,
+            183,
+            241
+          ],
+          "height": 146
+        },
+        {
+          "bounds": [
+            72,
+            95,
+            183,
+            241
+          ],
+          "height": 146
+        },
+        {
+          "bounds": [
+            72,
+            95,
+            183,
+            241
+          ],
+          "height": 146
+        }
+      ],
+      "guard": [
+        {
+          "bounds": [
+            86,
+            109,
+            169,
+            241
+          ],
+          "height": 132
+        },
+        {
+          "bounds": [
+            86,
+            109,
+            169,
+            241
+          ],
+          "height": 132
+        }
+      ],
+      "superDash": [
+        {
+          "bounds": [
+            75,
+            142,
+            217,
+            241
+          ],
+          "height": 99
+        },
+        {
+          "bounds": [
+            67,
+            141,
+            205,
+            241
+          ],
+          "height": 100
+        }
+      ],
+      "stagger": [
+        {
+          "bounds": [
+            85,
+            62,
+            176,
+            241
+          ],
+          "height": 179
+        },
+        {
+          "bounds": [
+            89,
+            55,
+            171,
+            241
+          ],
+          "height": 186
+        },
+        {
+          "bounds": [
+            88,
+            57,
+            170,
+            241
+          ],
+          "height": 184
+        },
+        {
+          "bounds": [
+            75,
+            62,
+            180,
+            241
+          ],
+          "height": 179
+        }
+      ],
+      "win": [
+        {
+          "bounds": [
+            92,
+            77,
+            163,
+            241
+          ],
+          "height": 164
+        },
+        {
+          "bounds": [
+            93,
+            76,
+            164,
+            241
+          ],
+          "height": 165
+        },
+        {
+          "bounds": [
+            93,
+            78,
+            164,
+            241
+          ],
+          "height": 163
+        },
+        {
+          "bounds": [
+            94,
+            77,
+            164,
+            241
+          ],
+          "height": 164
+        }
+      ]
+    },
+    "sourceHashMatches": {
+      "idle_v09": true,
+      "idle_v10": true,
+      "guard_v08": true,
+      "superDash_v07": true,
+      "superDash_v08": true,
+      "stagger_v06": true,
+      "stagger_v07": true,
+      "win_v05": true,
+      "idle_v11": true,
+      "guard_v09": true
+    },
+    "sourceHashes": {}
+  },
+  "naruto": {
+    "opaqueColors": 48,
+    "selected": {
+      "stagger": [
+        {
+          "bounds": [
+            73,
+            25,
+            183,
+            241
+          ],
+          "height": 216
+        },
+        {
+          "bounds": [
+            74,
+            25,
+            184,
+            241
+          ],
+          "height": 216
+        },
+        {
+          "bounds": [
+            74,
+            25,
+            184,
+            241
+          ],
+          "height": 216
+        },
+        {
+          "bounds": [
+            75,
+            25,
+            184,
+            241
+          ],
+          "height": 216
+        }
+      ],
+      "taunt": [
+        {
+          "bounds": [
+            64,
+            43,
+            232,
+            241
+          ],
+          "height": 198
+        },
+        {
+          "bounds": [
+            65,
+            43,
+            232,
+            241
+          ],
+          "height": 198
+        }
+      ],
+      "win": [
+        {
+          "bounds": [
+            70,
+            50,
+            187,
+            241
+          ],
+          "height": 191
+        },
+        {
+          "bounds": [
+            69,
+            48,
+            186,
+            241
+          ],
+          "height": 193
+        },
+        {
+          "bounds": [
+            69,
+            48,
+            186,
+            241
+          ],
+          "height": 193
+        },
+        {
+          "bounds": [
+            68,
+            50,
+            187,
+            241
+          ],
+          "height": 191
+        }
+      ]
+    },
+    "sourceHashes": {
+      "stagger": "77b7774aa8e61be98c15a26e3d2759b3233cc9832d68e059f1c510b0aadd183f",
+      "taunt": "9a8c014d73394dc9161d4ad43f59158ad0b3d583acec9393ef08631c2c3fd35f",
+      "win": "61b39b5d3fcb7edc217bba99453a10af5777dab5369f85a4667599ced63a39da"
+    }
+  }
+}

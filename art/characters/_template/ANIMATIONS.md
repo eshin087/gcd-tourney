@@ -70,6 +70,17 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [techGround](#techground) | 4 | 1/2/1 beats | - | 204 | - (tech) | 9 |
 | [techRoll](#techroll) | 6 | 1/4/1 beats | - | 162 | - (tech) | 9 |
 | [wallTech](#walltech) | 5 | 2/1/2 beats | - | 209 | - (tech) | 9 |
+| [light1Alt](#attack-alts) | 7 | 2/2/3 | - | 204 | - (alt) | 9 |
+| [light2Alt](#attack-alts) | 7 | 2/2/3 | - | 204 | - (alt) | 9 |
+| [light3Alt](#attack-alts) | 7 | 2/2/3 | - | 215 | - (alt) | 9 |
+| [light4Alt](#attack-alts) | 8 | 3/2/3 | - | 207 | - (alt) | 9 |
+| [heavyAlt](#attack-alts) | 8 | 3/2/3 | - | 218 | - (alt) | 9 |
+| [airLight1Alt](#attack-alts) | 5 | 1/2/2 | - | 198 | - (alt) | 9 |
+| [airLight2Alt](#attack-alts) | 5 | 1/2/2 | - | 207 | - (alt) | 9 |
+| [airLight3Alt](#attack-alts) | 6 | 2/2/2 | - | 201 | - (alt) | 9 |
+| [airHeavyAlt](#attack-alts) | 6 | 2/2/2 | - | 198 | - (alt) | 9 |
+| [hurtHighAlt](#attack-alts) | 3 | - | - | 195 | - (alt) | 9 |
+| [hurtLowAlt](#attack-alts) | 3 | - | - | 183 | - (alt) | 9 |
 
 The four **kit** rows ([ADR 0009](../../../docs/decisions/0009-move-system-v2.md)) are part of every
 fighter's baseline kit ([ADR 0011](../../../docs/decisions/0011-kit-baseline-and-balance.md)): fill them for
@@ -81,6 +92,12 @@ The three **tech** rows ([ADR 0030](../../../docs/decisions/0030-tech-recovery-a
 [SPEC.md "Tech poses"](../../SPEC.md#tech-poses)) are the tech recoveries; every fighter draws them, after its idle is
 approved. Until then the game shows `land` / `airRecover` / `jumpUp` for them. The engine plays each on the tech's own
 clock in three beats, so the "beat" column below is which beat a frame belongs to.
+
+The eleven **alt** rows ([ADR 0031](../../../docs/decisions/0031-attack-alt-animations.md),
+[SPEC.md "Attack alts"](../../SPEC.md#attack-alts)) are optional alternate versions of the attacks and hit reactions; the
+game alternates each with its base in a fixed pattern and plays the base while the alt is missing. Each alt keeps its
+base's frame count, phases and body height. Write each alt's section right after its base's section, in the format of
+[Attack alts](#attack-alts) below.
 
 ## idle
 
@@ -841,3 +858,54 @@ to `jumpFall` f0. The wall jump (↑ at the kick) shows 00-01, 02 for 4 frames, 
 | 02 | push-off | legs fully extended, toes just leaving the wall, body launched up and to the right, arms swept back | _{{fill in}}_ |
 | 03 | recovery | uncurling in mid-air, knees tucking under, arms opening | _{{fill in}}_ |
 | 04 | recovery | falling pose like `jumpFall` f0: legs extending down, arms out | _{{fill in}}_ |
+
+## Attack alts
+
+Optional alternate strips of the nine attacks and both hit reactions ([ADR 0031](../../../docs/decisions/0031-attack-alt-animations.md),
+[SPEC.md "Attack alts"](../../SPEC.md#attack-alts)). The game alternates each base with its alt in a fixed, balanced
+pattern (never the same version three times in a row), on the base move's timing, and keeps the base while the alt is
+missing. Melee hits use the art's hit boxes, so the contract is a gameplay rule:
+
+- the base's **frame count and phases** (the index above);
+- the **same strike height and reach**: the active frames hit in the base's contact zone (the packer warns beyond 12 px of
+  reach or 16 px of height). `light3Alt` stays a low; `heavyAlt` launches upward; `light4Alt` and `airLight3Alt` send
+  the opponent forward; `airHeavyAlt` spikes downward. A hit reaction alt keeps the height it was hit at;
+- the first frame leaves from the base's first pose and the last returns to its recovery pose, so any mix of base and
+  alt in a string blends (air alts start and end in the air base pose);
+- a **clearly different technique** (another limb or motion), not a re-pose of the same strike;
+- the same anatomy at the idle's scale.
+
+| alt | base (keep its timing) | {{NAME}} alt technique |
+|---|---|---|
+| light1Alt | jab | _{{fill in: e.g. a short hook or a backfist at the jab's height}}_ |
+| light2Alt | rear straight | _{{fill in: e.g. a front snap kick to the midsection, the foot at the fist's reach}}_ |
+| light3Alt | front kick (LOW) | _{{fill in: e.g. a low sweep at shin height}}_ |
+| light4Alt | spinning roundhouse finisher | _{{fill in: e.g. a stepping double-palm shove at chest height}}_ |
+| heavyAlt | rising uppercut launcher | _{{fill in: e.g. a rising flip kick from the floor to above the head}}_ |
+| airLight1Alt | air jab | _{{fill in: e.g. an air backfist}}_ |
+| airLight2Alt | air front kick | _{{fill in: e.g. an air knee}}_ |
+| airLight3Alt | air spinning kick | _{{fill in: e.g. an air roundhouse (forward launch)}}_ |
+| airHeavyAlt | double-fist hammer spike | _{{fill in: e.g. an axe kick, the heel chopping down-forward}}_ |
+| hurtHighAlt | hit in the face | _{{fill in: e.g. head and shoulders snapped sideways, torso twisting away}}_ |
+| hurtLowAlt | hit in the stomach | _{{fill in: e.g. struck in the ribs, folding sideways, one arm clutching}}_ |
+
+Each alt gets its own section right after its base's, in this format (the example is `light1Alt`):
+
+> ## light1Alt
+>
+> **alternate of light1: {{technique}}**
+> 7 frames · phases 2/2/3 (startup/active/recovery, the same as light1) · plays once · body height = light1's · optional ·
+> step 9 · default ms = light1's
+>
+> Plays instead of `light1` on every other use or so (the same move data). Strike point: **{{limb}}**. Contact zone on
+> active frames: **light1's, x 206-226, y 64-86** (frame-local px, 256 cell, facing right).
+>
+> | # | phase | {{NAME}} pose |
+> |---|---|---|
+> | 00 | startup | leaves from light1 f00's pose, then {{...}} |
+> | 01 | startup | _{{fill in}}_ |
+> | 02 | ACTIVE | {{limb}} fully out in light1's contact zone, the forward-most pixel |
+> | 03 | ACTIVE | _{{fill in}}_ |
+> | 04 | recovery | _{{fill in}}_ |
+> | 05 | recovery | _{{fill in}}_ |
+> | 06 | recovery | back in light1 f06's recovery pose (close to idle 00) |

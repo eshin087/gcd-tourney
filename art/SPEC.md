@@ -196,12 +196,25 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `techGround` | 4 | - | 1/2/1 beats | 204 | - | 67 83 83 67 | **tech** ([Tech poses](#tech-poses), ADR 0030): ground tech in place: impact brace low on the floor, push up, rise, back in the fighting stance. Missing → `land` |
 | `techRoll` | 6 | - | 1/4/1 beats | 162 | - | 50 63 62 63 62 67 | **tech**: ground tech roll: shoulder contact, one tight forward roll toward screen-right (4 quarter turns), low crouch. Missing → `airRecover` |
 | `wallTech` | 5 | - | 2/1/2 beats | 209 | - | 50 50 67 67 66 | **tech**: wall tech: lands feet-first on a wall at the cell's left (2 frames), pushes off toward screen-right, airborne recovery into `jumpFall`. Missing → `land`, then `airRecover` |
+| `light1Alt` | 7 | - | 2/2/3 | 204 | - | 30 30 40 50 50 50 30 | **alt** ([Attack alts](#attack-alts), ADR 0031) of `light1`: another technique at the jab's height and reach (e.g. a short hook or a backfist). Missing → `light1` |
+| `light2Alt` | 7 | - | 2/2/3 | 204 | - | 35 30 40 50 60 50 30 | **alt** of `light2`: e.g. a front snap kick to the midsection, the foot at the fist's reach. Missing → `light2` |
+| `light3Alt` | 7 | - | 2/2/3 | 215 | - | 40 35 45 60 60 60 30 | **alt** of `light3`: e.g. a low sweep; **it stays a low** (light3 is `low` in MOVES). Missing → `light3` |
+| `light4Alt` | 8 | - | 3/2/3 | 207 | - | 50 45 35 40 70 70 70 40 | **alt** of `light4`: e.g. a stepping double-palm shove at chest height; it still sends them forward (wall bounce). Missing → `light4` |
+| `heavyAlt` | 8 | - | 3/2/3 | 218 | - | 40 35 30 50 70 70 60 30 | **alt** of `heavy`: e.g. a rising flip kick; it still launches upward. Missing → `heavy` |
+| `airLight1Alt` | 5 | - | 1/2/2 | 198 | - | 45 35 50 50 30 | **alt** of `airLight1`: e.g. a mid-air backfist. Missing → `airLight1` |
+| `airLight2Alt` | 5 | - | 1/2/2 | 207 | - | 45 40 50 50 30 | **alt** of `airLight2`: e.g. a mid-air knee. Missing → `airLight2` |
+| `airLight3Alt` | 6 | - | 2/2/2 | 201 | - | 50 40 50 70 60 30 | **alt** of `airLight3`: e.g. a mid-air roundhouse; it still knocks them forward. Missing → `airLight3` |
+| `airHeavyAlt` | 6 | - | 2/2/2 | 198 | - | 50 45 45 70 70 40 | **alt** of `airHeavy`: e.g. an axe kick chopping down-forward; it still spikes downward. Missing → `airHeavy` |
+| `hurtHighAlt` | 3 | - | - | 195 | - | 70 90 100 | **alt** of `hurtHigh`: another reaction to a hit in the face (e.g. head and shoulders snapped sideways). Missing → `hurtHigh` |
+| `hurtLowAlt` | 3 | - | - | 183 | - | 70 90 100 | **alt** of `hurtLow`: another reaction to a hit in the body (e.g. folding sideways, one arm clutching the ribs). Missing → `hurtLow` |
 
 Totals: 38 animations, 154 frames per character; 23 core animations. Every fighter has a kit
 ([ADR 0011](../docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter also draws the 4 **kit**
 animations (optional for the `complete` flag because they fall back): 42 animations, 175 frames, an 11-row
 sheet. The three **tech** strips ([Tech poses](#tech-poses)) are optional for every fighter and fall back too: with them,
-45 animations, 190 frames, a 12-row sheet (4096 x 3072). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
+45 animations, 190 frames, a 12-row sheet (4096 x 3072). The eleven **alt** strips ([Attack alts](#attack-alts)) are optional
+for every fighter as well: with all of them, 56 animations, 255 frames, a 16-row sheet (4096 x 4096, still inside a
+4096 texture). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
 of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`).
 
@@ -261,6 +274,37 @@ tech's timing, invulnerability or movement:
   first frames follow `launched` / `spin` (a body falling into the floor or the wall). Keep `down` and `ko` separate:
   a tech never lies down.
 
+<a id="attack-alts"></a>
+
+**Attack alts** (`light1Alt` ... `light4Alt`, `heavyAlt`, `airLight1Alt` ... `airLight3Alt`, `airHeavyAlt`, `hurtHighAlt`,
+`hurtLowAlt`; [ADR 0031](../docs/decisions/0031-attack-alt-animations.md)). Every attack and both hit reactions may have
+one alternate strip. The game alternates each base with its alt in a fixed, balanced pattern (never the same version
+three times in a row; `src/game/animAlts.js`) and plays the base while the alt is missing, so an alt only adds
+variety: it never changes a move. The move data stays the base's (startup, active, recovery, damage, reach, launch in
+`src/game/moves.js`), and so do the **hit and hurt boxes**: the packer copies the base's boxes onto the alt frame for
+frame, so what connects and what can be hit never depend on the alt's drawing (amended 2026-10-14). The rules:
+
+- **Same frame count and phases** as the base strip (the table above). The engine stretches either over the base
+  move's startup / active / recovery.
+- **Drawn to land where the base's hit lands.** The hit spark appears where the base's boxes meet the opponent, so
+  the alt's fist or foot has to reach that spot on its active frames ([Strikes and contact
+  zones](#strikes-and-contact-zones)). The packer reads the alt's own drawn strike (its auto hit box, or a
+  `hitboxes.json` entry on the alt pointing at the fist or foot; that entry only feeds this check) and warns
+  `<alt>: drawn strike reach ...` / `drawn strike height ...` when it lands more than **24 px** from the base's hit
+  (cell px, facing right). Keep each move's character: a mid-height strike stays mid-height (`light3`'s contact is a
+  front kick to the body even though the move counts as a low), `heavyAlt` rises, `light4Alt` and `airLight3Alt`
+  drive forward, `airHeavyAlt` comes down. A hit reaction alt keeps the height it was hit at (face or body).
+- **Same frame count as the base** is also what lets the boxes copy frame for frame: an alt with another frame count
+  keeps its own boxes, and the packer warns.
+- **Start and end on the base's poses.** The first frame leaves from the base's first pose and the last frame returns
+  to its recovery pose, so any mix of base and alt in a string blends. Air alts start and end in the air base pose.
+- **A different technique**: another limb or motion, not a re-pose of the same strike.
+- **The same anatomy at the idle's scale** (one anatomical scale with the approved neutral and idle, the measuring rule
+  of the current scale round); the alt's `bodyHeight` starts at its base's.
+
+The packer also warns when an alt's frame count or phases differ from its base's, and when an alt is packed without
+its base. All of it warns, never fails.
+
 <a id="lying-poses"></a>
 
 **Lying poses** (`ko`, the resting `down` frame, the first `getup` frame; [ADR 0020](../docs/decisions/0020-lying-pose-ground-contact.md)).
@@ -315,7 +359,8 @@ x 194-222, y 128-158.
 
 Hit detection uses the packed boxes, so **where the art puts the fist is where the hit lands**: a
 strike that stops short of its contact zone simply misses at normal spacing. Claude tunes `reach` /
-`lunge` in `src/game/moves.js` to the packed boxes so attacks connect at normal combo range.
+`lunge` in `src/game/moves.js` to the packed boxes so attacks connect at normal combo range. An attack alt plays its
+base's move with its base's boxes, copied frame for frame by the packer ([Attack alts](#attack-alts)).
 
 ## Effect anchor points
 
@@ -404,8 +449,12 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
        idle pose's bounding box `maxX - 9 px` (6 px at the spec v1 scale, scaled by
        standingBodyPx / 136), as one box (the limb only: the box stops where the
        columns get torso-thick, and a guard fist next to a kick is left out);
-    2) rising strike above the idle head (uppercut): the fist/forearm blob around the highest pixel
-       (when it rises further above the idle head than it reaches forward, this rule is tried first);
+    2) rising strike above the **standing head** (uppercut): the fist/forearm blob around the highest pixel
+       (when it rises further above the standing head than it reaches forward, this rule is tried first). The
+       standing head is the top of the fighter's approved upright cell (`art/scale/builds.json` fighter
+       `standingReference.cells`, the title-style neutral cell), not the idle's: the title-style idles are crouched
+       combat stances (Killua's is 146 px tall against a 186 px neutral), so against the idle every upright pose's
+       hair "rose above the head". A fighter without a `standingReference` keeps the idle as the measure (TOOL-037);
     3) otherwise the forward-most **28 %** of the bounding box, full height.
   - That is why the idle pose must stay compact (lead fist around x 170-185, the v1 position at the v2
     scale) and the strike must be the forward-most point.
@@ -448,9 +497,12 @@ repeated until something exists (last resort `idle`):
 | airRecover | jumpUp | vanish | dash |
 | spin | launched | jumpFall | jumpUp |
 | techGround, wallTech | land | techRoll | airRecover |
+| light1Alt ... airHeavyAlt | its base (`light1` ...) | hurtHighAlt, hurtLowAlt | hurtHigh, hurtLow |
 
 The tech strips are also switched on per strip: until a sheet has one, the engine keeps showing exactly what that tech
-showed before (`land`; `airRecover`; the wall tech's `land` cling, `airRecover` kick and `jumpUp` wall jump).
+showed before (`land`; `airRecover`; the wall tech's `land` cling, `airRecover` kick and `jumpUp` wall jump). An attack alt
+is picked only when the sheet has it as its own strip ([Attack alts](#attack-alts)); a FALLBACK to its base is never
+counted as an alt.
 
 ## Per-character UI images
 
@@ -639,8 +691,8 @@ bottom 20 % of rows) on x 128 and the lowest opaque pixel on y 240, and writes 2
 16-column sheet. It computes boxes, applies `hitboxes.json`, writes cleaned frames back to
 `frames/<anim>/` when they came from `raw/`, writes `public/characters/<id>/sheet.png` + `anims.json`,
 fits and copies `ui/*.png`, and prints a report (packed animations and source files, missing core
-animations, frame-count mismatches, frames clipped by the cell margin, palettes over 64 colors).
-Missing folders never crash it.
+animations, frame-count mismatches, frames clipped by the cell margin, palettes over 64 colors, attack alts whose frame
+count, phases or strike differ from their base's: [Attack alts](#attack-alts)). Missing folders never crash it.
 
 Packer-written `frames/<anim>/` folders carry a `.packer.json` marker: they are re-imported
 automatically when the chosen raw file changes (a new `_vNN` counts as a change). Delete
@@ -673,6 +725,8 @@ Implemented by the lead engineer (Claude) in `src/`; documented here so art and 
 - Sheets are 4096 x 2816: fine on desktop GPUs; a GPU with a 2048 px texture limit gets a downscaled
   sheet (three.js warns).
 - It uses `boxes` for hit detection.
+- It alternates each attack and hit reaction with its `<anim>Alt` strip when the sheet has one, in a fixed pattern
+  (`src/game/animAlts.js`; `?alts=0` never, `?alts=1` always), on the base move's timing ([Attack alts](#attack-alts)).
 - It loads `portrait.png` / `cutin.png` when present.
 - It loads `public/vfx/atlas.png` + `atlas.json` when present (approved effects only; missing effects stay
   procedural). `?art=custom` prefers the unapproved candidates in `public/preview/` (local only).

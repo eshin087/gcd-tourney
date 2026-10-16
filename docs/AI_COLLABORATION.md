@@ -95,6 +95,7 @@ sandbox/runtime solution; no broader read access or Git executable modification 
   conflicts in the branch, reruns checks against current main, then uses the existing PR merge script.
 - Routine technical work and eligible merges need no new user confirmation. Art/design gates remain.
 - There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
+- **Art guard on every merge (TOOL-028).** `npm run pr -- merge` first judges the merge result (`tools/pr-guard.mjs`): a fighter strip the branch changed must have its newest raw `_vNN` equal to the manifest `approvedVersion`, must not ship an unapproved committed pack, and must pass the packer's strict scale gate (a dry run on scratch copies; `art/` and `public/` are never written). Fix by approving the version (the user's call), or by moving the candidate to `raw/_qa_hold/`. `npm run pr -- check <branch>` previews the verdict read-only. Only the coordinator uses `--force-art "<reason>"`, and only when the user has said the art may ship; the reason is recorded in the merge commit. Code branches are unaffected.
 - Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
   candidates and review history; transfer selected changes into real worktrees before Git operations.
   Never make new copies: each was a full ~2.2 GB project, and seven filled 15 GB. Art worktrees use
@@ -139,6 +140,7 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 | [art/manifest.json](../art/manifest.json) | machine-readable asset status (`todo, raw, packed, approved`, plus `version` and `approvedVersion`) | Codex, plus the packer report |
 | [docs/decisions/](decisions/README.md) | ADRs | Claude drafts, the user accepts |
 | `CLAUDE.md`, `AGENTS.md` | standing instructions per tool | Claude (keep the two consistent) |
+| `.relay/` (git-ignored, main checkout) | relay lanes, doorbells, round-trip counts, watcher heartbeats ([ADR 0033](decisions/0033-claude-codex-relay.md)) | `tools/relay.mjs` only: Claude sends and waits, Codex rings |
 
 ## Handoff protocol
 
@@ -153,6 +155,24 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 5. **Review gate** (below). Then `done`.
 
 Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` with the reason in notes).
+
+### Relay: handoffs without paste-in prompts ([ADR 0033](decisions/0033-claude-codex-relay.md))
+
+```
+Claude: CODEX_INBOX item -> npm run relay -- send <lane>   (queues "[relay <lane> #N] read the inbox..." into the lane's Codex chat)
+        -> node tools/relay.mjs wait <lane>                 (background watcher in the Claude session; no tokens while it waits)
+Codex:  works -> commits the handoff -> node tools/relay.mjs ring <lane> --note "..."
+Claude: watcher exits, Claude wakes, reads the handoff, works -> send again ...
+Stops:  an image waits for approval, BLOCKED, a decision for the user, 4 round trips without the user (send exits 3),
+        or `relay pause <lane|all>`. The one who stops tells the user; their reply restarts the lane (`relay reset`).
+```
+
+- A **lane** is one Codex chat plus the Claude session working with it; `.relay/lanes.json` (machine-local) maps
+  it to the chat's UUID. Parallel work runs in parallel lanes; each watcher only wakes for its own lane.
+- The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. A relayed
+  message is never the user's approval; approvals stay in the Codex chat, typed by the user.
+- If `codex queue` fails, Claude gives the user the paste-in prompt, as before. `npm run relay -- status` shows
+  whose turn each lane is, its round trips and whether a watcher is running.
 
 ### Art review loop (every generated image)
 

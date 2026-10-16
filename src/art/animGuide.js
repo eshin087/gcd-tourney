@@ -50,7 +50,28 @@ export const ANIM_GUIDE = {
   techGround: { frames: 4, phases: [1, 2, 1], optional: true, pose: 'ground tech in place: impact brace low on the floor (feet wide, one palm slapped down, head up), pushing up, rising, back in the fighting stance' },
   techRoll: { frames: 6, phases: [1, 4, 1], optional: true, pose: 'ground tech roll: hits the floor on the back of the shoulder, one tight forward roll along the floor toward screen-right (4 frames, about a quarter turn each), up into a low crouch facing right' },
   wallTech: { frames: 5, phases: [2, 1, 2], optional: true, pose: 'wall tech: lands feet-first on a wall at screen-left, soles flat on it, knees to the chest (2 frames), legs explode off it toward screen-right, airborne recovery into the fall' },
+  // attack alts (ADR 0031): optional for every fighter. Each has its base's (`altOf`) frames and phases; the game
+  // alternates the two in a fixed pattern (src/game/animAlts.js) and plays the base while the alt is missing (FALLBACK).
+  // Melee hit boxes come from the art, so an alt strikes at the base's height and reach (the packer warns otherwise).
+  light1Alt: { frames: 7, phases: [2, 2, 3], optional: true, altOf: 'light1', pose: altPose('light1', 'e.g. a short hook or a backfist at the jab\'s height') },
+  light2Alt: { frames: 7, phases: [2, 2, 3], optional: true, altOf: 'light2', pose: altPose('light2', 'e.g. a front snap kick to the midsection, the foot at the fist\'s reach') },
+  light3Alt: { frames: 7, phases: [2, 2, 3], optional: true, altOf: 'light3', pose: altPose('light3', 'e.g. a low sweep at shin height; it stays a low') },
+  light4Alt: { frames: 8, phases: [3, 2, 3], optional: true, altOf: 'light4', pose: altPose('light4', 'e.g. a stepping double-palm shove at chest height that blasts them away') },
+  heavyAlt: { frames: 8, phases: [3, 2, 3], optional: true, altOf: 'heavy', pose: altPose('heavy', 'e.g. a rising flip kick from the floor to above the head; it launches upward') },
+  airLight1Alt: { frames: 5, phases: [1, 2, 2], optional: true, altOf: 'airLight1', pose: altPose('airLight1', 'e.g. a mid-air backfist') },
+  airLight2Alt: { frames: 5, phases: [1, 2, 2], optional: true, altOf: 'airLight2', pose: altPose('airLight2', 'e.g. a mid-air knee') },
+  airLight3Alt: { frames: 6, phases: [2, 2, 2], optional: true, altOf: 'airLight3', pose: altPose('airLight3', 'e.g. a mid-air roundhouse that knocks them forward') },
+  airHeavyAlt: { frames: 6, phases: [2, 2, 2], optional: true, altOf: 'airHeavy', pose: altPose('airHeavy', 'e.g. an axe kick, the heel chopping down-forward; it spikes downward') },
+  hurtHighAlt: { frames: 3, optional: true, altOf: 'hurtHigh', pose: altPose('hurtHigh', 'e.g. head and shoulders snapped sideways, torso twisting away') },
+  hurtLowAlt: { frames: 3, optional: true, altOf: 'hurtLow', pose: altPose('hurtLow', 'e.g. struck in the ribs, folding sideways, one arm clutching') },
 };
+
+// An alt's pose line: the shared contract (art/SPEC.md "Attack alts"), then a technique idea for that base. A hit
+// reaction has no strike: it keeps the height it was hit at and changes the reaction instead.
+function altPose(base, idea) {
+  const keep = base.startsWith('hurt') ? 'same timing, hit at the same height, a different reaction' : 'same timing, same strike height and reach, a different technique';
+  return `alternate of ${base}: ${keep} (${idea}); first and last frames match the base's so any mix blends`;
+}
 
 export function chatgptPrompt(charName, look, anim) {
   const g = ANIM_GUIDE[anim];

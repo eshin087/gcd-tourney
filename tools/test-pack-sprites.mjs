@@ -989,6 +989,9 @@ function main() {
 
   scaleGateTests(base);
   techPoseTests(base);
+  attackAltTests(base);
+  standingHitBoxTests(base);
+  sidecarEraseTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1632,6 +1635,200 @@ function techPoseTests(base) {
   const rt = probe.auditFromCompact(probe.compactAudit(A, G), { gate: G })?.anims.techRoll;
   check(sx1.low?.join() === '1' && rt?.verdict === 'partial' && rt.low?.join() === '1' && rt.frames[1].low === true,
     `tech poses: the compact audit keeps an exempted unread frame unread (${sx1.low}; re-judged ${rt?.verdict}, low ${rt?.low})`);
+}
+
+// Attack alts (ADR 0031): an alt packs like its base (the fighter's base bodyHeight when its own entry has none, the
+// guide's frames and phases when the manifest has no entry) and ships its base's hit and hurt boxes frame for frame.
+// The packer warns, never fails, when a drawn alt's frame count or phases differ from its base's, or its drawn strike
+// lands more than 24 px (reach or height) from the base's hit. An alt entry with no art yet (status todo) stays silent.
+function attackAltTests(base) {
+  const araw = (n) => path.join(ART, 'characters', 'alty', 'raw', n);
+  const jab = [{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}];
+  const kick = [{}, { kick: 4 }, { kick: 16 }, { kick: 16 }, { kick: 8 }, { kick: 3 }, {}];
+  const upper = [{}, { bob: -1 }, { bob: -2 }, { up: 16 }, { up: 18 }, { up: 6 }, { bob: -1 }, {}];
+  const opt = (seed) => ({ seed, specks: 0 });
+  savePng(araw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), opt(951)));
+  savePng(araw('light1_v01.png'), strip(jab, opt(952)));
+  savePng(araw('light1Alt_v01.png'), strip(jab, opt(953))); // the same strike: silent
+  savePng(araw('light2_v01.png'), strip(jab, opt(954)));
+  savePng(araw('light2Alt_v01.png'), strip(jab.map((q) => (q.punch ? { punch: Math.min(q.punch, 3) } : q)), opt(955))); // falls short
+  savePng(araw('light3_v01.png'), strip(kick, opt(956)));
+  savePng(araw('light3Alt_v01.png'), strip(jab, opt(957))); // the low kick's alt punches at head height
+  savePng(araw('heavy_v01.png'), strip(upper, opt(958)));
+  savePng(araw('heavyAlt_v01.png'), strip(upper.filter((q, k) => k !== 6), opt(959))); // 7 frames: phases 3/2/2
+  savePng(araw('hurtHigh_v01.png'), strip([{}, { bob: -1 }, { bob: -2 }], opt(960)));
+  savePng(araw('hurtHighAlt_v01.png'), strip([{}, { bob: -2 }, { bob: -1 }], opt(961))); // no strike: frame count only
+  savePng(araw('airLight1Alt_v01.png'), strip([{}, { punch: 16 }, { punch: 16 }, { punch: 8 }, {}], opt(962))); // no base drawn
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  // light2Alt, heavyAlt, hurtHighAlt and airLight1Alt have no manifest entry: the guide gives frames, phases and altOf
+  man.characters.alty = { name: 'Alty', scaleGate: 'warn', animations: {
+    idle: { frames: 8, loop: true, bodyHeight: 204 },
+    light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 190 },
+    light1Alt: { altOf: 'light1', status: 'todo' },
+    light3Alt: { frames: 7, phases: [2, 2, 3], bodyHeight: 215, altOf: 'light3', status: 'todo' },
+    airHeavyAlt: { frames: 6, phases: [2, 2, 2], altOf: 'airHeavy', status: 'todo', version: 0, approvedVersion: null },
+  } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  const r = pack([...base, 'alty']);
+  const C = r.json?.characters.find((c) => c.id === 'alty');
+  const metaFile = path.join(OUT, 'characters', 'alty', 'anims.json');
+  if (r.code !== 0 || !fs.existsSync(metaFile)) { check(false, `attack alts: alty packed, exit 0 (${r.code}; ${(C?.warnings || []).join(' | ').slice(0, 400)})`); return; }
+  const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
+  const sheet = loadPng(path.join(OUT, 'characters', 'alty', 'sheet.png'));
+  const W = C.warnings, A = C.alts || {};
+  const about = (name) => W.filter((w) => w.startsWith(`${name}:`));
+  const alts = ['light1Alt', 'light2Alt', 'light3Alt', 'heavyAlt', 'hurtHighAlt', 'airLight1Alt'];
+  check(alts.every((n) => meta.animations[n]?.frames.length), `attack alts: every drawn alt is packed (${alts.filter((n) => !meta.animations[n]).join(', ') || 'all'})`);
+  const tallest = Math.max(...(meta.animations.light1Alt?.frames || []).map((f) => bb(cell(sheet, f))?.h ?? 0));
+  check(tallest >= 188 && tallest <= 190 && JSON.stringify(meta.animations.light1Alt?.phases) === '[2,2,3]',
+    `attack alts: an alt entry without frames or bodyHeight packs like the fighter's base (light1Alt ${tallest}px, light1 bodyHeight 190)`);
+  check(JSON.stringify(meta.animations.light2Alt?.durations) === JSON.stringify(meta.animations.light2?.durations) && JSON.stringify(meta.animations.light2Alt?.phases) === '[2,2,3]',
+    'attack alts: an alt with no manifest entry takes its base\'s default timing and the guide\'s phases');
+  check(!about('light1Alt').length && A.light1Alt?.base === 'light1' && Math.abs(A.light1Alt.strike.reach - A.light1Alt.baseStrike.reach) <= 12,
+    `attack alts: an alt striking like its base is silent (${about('light1Alt').join(' | ')}; ${JSON.stringify(A.light1Alt)})`);
+  check(anyWarn(W, /^light2Alt: drawn strike reach \d+px from the pivot, light2's hit \d+px \(-\d+(\.\d)?px, tolerance 24px\) - an alt plays its base's move data and hit boxes/),
+    `attack alts: an alt drawn falling short warns with both reaches (a lower strike may warn too) (${about('light2Alt').join(' | ')})`);
+  check(anyWarn(W, /^light3Alt: drawn strike height [\d.]+px above the floor, light3's hit [\d.]+px \(\+[\d.]+px, tolerance 24px\) - an alt plays/),
+    `attack alts: an alt drawn striking far higher than its base warns with both heights (${about('light3Alt').join(' | ')})`);
+  // the base's boxes ship on every alt frame (ADR 0031): same contact whatever the alt draws
+  const boxesOf = (name) => meta.animations[name]?.frames.map((f) => JSON.stringify({ hit: meta.boxes[f]?.hit ?? null, hurt: meta.boxes[f]?.hurt ?? null }));
+  const same = (alt, b) => JSON.stringify(boxesOf(alt)) === JSON.stringify(boxesOf(b));
+  check(same('light2Alt', 'light2') && same('light3Alt', 'light3') && same('hurtHighAlt', 'hurtHigh') && A.light3Alt?.boxes === 'base',
+    `attack alts: an alt with its base's frame count ships the base's hit and hurt boxes frame for frame (light3Alt ${JSON.stringify(boxesOf('light3Alt')?.slice(2, 4))} vs light3 ${JSON.stringify(boxesOf('light3')?.slice(2, 4))})`);
+  check(!same('heavyAlt', 'heavy') && !A.heavyAlt?.boxes, 'attack alts: an alt with another frame count keeps its own boxes (no frame-for-frame match)');
+  check((C.hitBoxes?.light3Alt || []).every((e) => e.rule === 'base light3') && JSON.stringify(C.hitBoxes?.light3Alt?.map((e) => e.hit)) === JSON.stringify(C.hitBoxes?.light3?.map((e) => e.hit)),
+    `attack alts: the --json hit box report shows the inherited boxes (${JSON.stringify(C.hitBoxes?.light3Alt)})`);
+  check(anyWarn(W, /^heavyAlt: 7 frame\(s\) \(phases 3\/2\/2\), its base heavy has 8 \(phases 3\/2\/3\)/) && !anyWarn(W, /^heavyAlt: strike/),
+    `attack alts: an alt with another frame count warns (its strike still matches) (${about('heavyAlt').join(' | ')})`);
+  check(!about('hurtHighAlt').length && A.hurtHighAlt?.base === 'hurtHigh' && !A.hurtHighAlt.strike, `attack alts: a hit reaction alt with its base's frame count is silent (${about('hurtHighAlt').join(' | ')})`);
+  check(anyWarn(W, /^airLight1Alt: packed without its base airLight1/), 'attack alts: an alt packed without its base warns');
+  check(!W.some((w) => /airHeavyAlt/.test(w)) && C.missing.includes('airHeavyAlt') && !C.missingCore.some((n) => /Alt$/.test(n)),
+    'attack alts: an alt entry with no art yet is a silent missing optional, never core');
+}
+
+// Auto hit boxes against the approved standing pose (TOOL-037). The title-style idles are crouched combat stances, so
+// "a fist above the idle head" fired on the hair of every upright strike. builds.json "standingReference" (the approved
+// neutral cell) is the upright head the rising-strike rule measures against; without one the idle stays the measure.
+// crouchy: idle drawn at 146 px, strikes at 204 px (the idle's top sits 58 px below an upright head).
+function standingHitBoxTests(base) {
+  const jab = [{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}];
+  const upper = [{}, { bob: -1 }, { bob: -2 }, { up: 16 }, { up: 18 }, { up: 6 }, { bob: -1 }, {}];
+  const opt = (seed) => ({ seed, specks: 0 });
+  const cr = (n) => path.join(ART, 'characters', 'crouchy', 'raw', n);
+  savePng(cr('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), opt(971)));
+  savePng(cr('light1_v01.png'), strip(jab, opt(972)));
+  savePng(cr('heavy_v01.png'), strip(upper, opt(973)));
+  // fronty: an upright idle, and a light2 whose active frames show no striking limb at all (the "front 28%" rule)
+  const fr = (n) => path.join(ART, 'characters', 'fronty', 'raw', n);
+  savePng(fr('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), opt(974)));
+  savePng(fr('light2_v01.png'), strip(Array.from({ length: 7 }, () => ({})), opt(975)));
+  fs.writeFileSync(path.join(ART, 'characters', 'fronty', 'hitboxes.json'), JSON.stringify({ light2: { 3: { hit: [[180, 80, 40, 30]] } } }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.crouchy = { name: 'Crouchy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 146 } } };
+  man.characters.fronty = { name: 'Fronty', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  // the approved neutral cell: an upright idle frame at the strikes' size (testy's idle is 204 px tall, packed in run 1)
+  const tm = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'testy', 'anims.json'), 'utf8'));
+  const standing = cell(loadPng(path.join(OUT, 'characters', 'testy', 'sheet.png')), tm.animations.idle.frames[2]);
+  const standTop = bb(standing).y0;
+  savePng(path.join(ART, 'characters', 'crouchy', 'reference', 'standing_v01.png'), standing);
+  const buildsPath = path.join(ART, 'scale', 'builds.json');
+  const buildsBefore = fs.existsSync(buildsPath) ? fs.readFileSync(buildsPath, 'utf8') : null;
+  const withStanding = (cells) => {
+    const b = buildsBefore ? JSON.parse(buildsBefore) : { fighters: {} };
+    b.fighters = { ...b.fighters, crouchy: cells ? { standingReference: { cells } } : {} };
+    fs.mkdirSync(path.dirname(buildsPath), { recursive: true });
+    fs.writeFileSync(buildsPath, JSON.stringify(b));
+  };
+  const packBoxes = (id) => {
+    const r = pack([...base, id]);
+    const C = r.json?.characters.find((c) => c.id === id);
+    const metaFile = path.join(OUT, 'characters', id, 'anims.json');
+    if (r.code !== 0 || !C || !fs.existsSync(metaFile)) { check(false, `hit boxes: ${id} packed, exit 0 (${r.code}; ${(C?.warnings || []).join(' | ').slice(0, 300)})`); return null; }
+    return { C, meta: JSON.parse(fs.readFileSync(metaFile, 'utf8')), sheet: loadPng(path.join(OUT, 'characters', id, 'sheet.png')) };
+  };
+  const rules = (C, anim) => (C.hitBoxes[anim] || []).map((f) => f.rule).join('/');
+  const hitOf = (R, anim, k) => R.C.hitBoxes[anim]?.[k]?.hit?.[0];
+
+  // without a standing reference the idle is the measure: the upright jab's hair reads as a rising strike (the old behaviour)
+  withStanding(null);
+  const old = packBoxes('crouchy');
+  if (old) {
+    const fist = bb(cell(old.sheet, old.meta.animations.light1.frames[2])).x1;
+    const h = hitOf(old, 'light1', 0);
+    check(rules(old.C, 'light1') === 'up/up' && h && h[0] + h[2] < fist - 20 && !old.C.hitRef,
+      `hit boxes: no standingReference -> measured against the crouched idle, the hair is the strike (${rules(old.C, 'light1')} ${JSON.stringify(h)}, fist x ${fist})`);
+  }
+
+  // with the approved neutral cell the jab is the fist, and an uppercut that clears the standing head still rises
+  withStanding(['characters/crouchy/reference/standing_v01.png']);
+  const fix = packBoxes('crouchy');
+  if (fix) {
+    const sheetOf = (a, k) => bb(cell(fix.sheet, fix.meta.animations[a].frames[k]));
+    const h = hitOf(fix, 'light1', 0), fist = sheetOf('light1', 2).x1;
+    check(rules(fix.C, 'light1') === 'forward/forward' && h && h[0] + h[2] >= fist && h[3] < v2px(30),
+      `hit boxes: standingReference -> the upright jab is boxed on its fist, not the hair (${rules(fix.C, 'light1')} ${JSON.stringify(h)}, fist x ${fist})`);
+    check(fix.C.hitRef?.minY === standTop && fix.C.hitRef.idleMinY > standTop + 40 && /standing_v01\.png$/.test(fix.C.hitRef.source),
+      `hit boxes: the report records the reference top ${standTop} against the idle's ${fix.C.hitRef?.idleMinY} (${JSON.stringify(fix.C.hitRef)})`);
+    const up = hitOf(fix, 'heavy', 0), top = sheetOf('heavy', 3).y0;
+    check(rules(fix.C, 'heavy') === 'up/up' && up && up[1] <= top + 2 && up[1] + up[3] >= standTop && up[3] < v2px(40),
+      `hit boxes: an uppercut that clears the standing head still gets the rising-strike box (${rules(fix.C, 'heavy')} ${JSON.stringify(up)}, top ${top}, standing head ${standTop})`);
+  }
+
+  // a missing reference cell warns and keeps the idle as the measure instead of failing the pack
+  withStanding(['characters/crouchy/reference/missing_v01.png']);
+  const miss = packBoxes('crouchy');
+  if (miss) {
+    check(anyWarn(miss.C.warnings, /standingReference: characters\/crouchy\/reference\/missing_v01\.png does not exist.*measured against the idle/) && rules(miss.C, 'light1') === 'up/up',
+      `hit boxes: a missing standingReference cell warns and falls back to the idle (${miss.C.warnings.filter((w) => /standingReference/.test(w)).join(' | ')})`);
+  }
+  if (buildsBefore == null) fs.rmSync(buildsPath, { force: true });
+  else fs.writeFileSync(buildsPath, buildsBefore);
+
+  // the "no clear strike limb" note counts only the frames still on the auto box: light2 f3 is overridden by hitboxes.json
+  const fro = packBoxes('fronty');
+  if (fro) {
+    const note = fro.C.notes.find((n) => /no clear strike limb/.test(n)) || '';
+    check(/^1 active frame\(s\) had no clear strike limb/.test(note) && /light2#2\b/.test(note) && !/light2#3\b/.test(note) && rules(fro.C, 'light2') === 'front/override',
+      `hit boxes: the no-strike-limb note skips frames hitboxes.json overrides (${note}; rules ${rules(fro.C, 'light2')})`);
+  }
+}
+
+// sidecar "erase": a residue the stray cleanup keeps (close to the body) is cleared from the raw before packing
+function sidecarEraseTests(base) {
+  const eraw = (n) => path.join(ART, 'characters', 'erasy', 'raw', n);
+  const img = strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 991, specks: 0 });
+  const foot = (30 + 2 * 46) * S, floor = 90 * S; // pose 2 (strip(): x = 30 + k * 46 art px, floor 10 art px above the bottom)
+  const rand = mulberry(992);
+  rect(img, foot + 14 * S, floor - 6 * S, 4 * S, 7 * S, COL.outline, rand); // an old toe tip 8 art px right of the shoe
+  rect(img, foot + 15 * S, floor - 5 * S, 2 * S, 5 * S, [250, 250, 250], rand);
+  savePng(eraw('idle_v01.png'), img);
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.erasy = { name: 'Erasy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const packIdle = () => {
+    const r = pack([...base, 'erasy']);
+    const C = r.json?.characters.find((c) => c.id === 'erasy');
+    const metaFile = path.join(OUT, 'characters', 'erasy', 'anims.json');
+    if (r.code !== 0 || !C || !fs.existsSync(metaFile)) { check(false, `erase: erasy packed, exit 0 (${r.code})`); return null; }
+    const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
+    const sheet = loadPng(path.join(OUT, 'characters', 'erasy', 'sheet.png'));
+    return { C, notes: C.packed.find((p) => p.anim === 'idle')?.notes || [], w: (k) => bb(cell(sheet, meta.animations.idle.frames[k])).w };
+  };
+  const kept = packIdle();
+  if (kept) check(kept.w(2) > kept.w(3) + v2px(4), `erase: without a sidecar the residue next to the shoe stays in frame 2 (width ${kept.w(2)} vs ${kept.w(3)})`);
+  fs.writeFileSync(eraw('idle_v01.json'), JSON.stringify({ erase: [[foot + 13 * S, floor - 7 * S, 6 * S, 8 * S], [1, 2, 3]] }));
+  const gone = packIdle();
+  if (gone) {
+    check(Math.abs(gone.w(2) - gone.w(3)) <= 2 && gone.notes.some((n) => /erased 1 rect\(s\) of idle_v01\.png \(sidecar\)/.test(n)),
+      `erase: the sidecar rect clears it and the report says so (width ${gone.w(2)} vs ${gone.w(3)}; ${gone.notes.filter((n) => /erase/.test(n)).join(' | ')})`);
+    check(anyWarn(gone.C.warnings, /sidecar "erase" \[1,2,3\] ignored/), `erase: a malformed rect warns and is skipped (${gone.C.warnings.filter((w) => /erase/.test(w)).join(' | ')})`);
+  }
 }
 
 function finish() {
