@@ -173,10 +173,10 @@ pumps bent about 90° opposite the near/right leg. Keep both legs visibly distin
 Hair tips and jacket hem stream back to screen-left with a small alternating flutter; trouser legs
 ripple.
 
-**As drawn in v13 (candidate, 2026-10-15):** f0-f3 is Part A and f4-f7 is Part B. The generator would not swap the
-lead leg, so both halves put the L leg forward, and the near fist stays forward in every frame (a held-fist look). The
-user chose to stitch and review it as-is. The sidecar `frameOffsets` hold the head at x 169 (the foot-centre anchor
-slid this pose ~95 px) and lift the flight frames f3/f7. A redraw that follows the list below still replaces it.
+**As drawn in v14 (candidate, 2026-10-15):** Part A (f0-f3, L leg forward) is used for both halves: the generator
+would not swap the lead leg, and v13's Part B lost the near arm in f6. The near fist stays forward in every frame (a
+held-fist look). The sidecar frameOffsets hold the head at x 166 (the foot-centre anchor slides this pose ~76 px)
+and lift the flight frames f3/f7 28 px. A redraw that follows the list below still replaces it.
 
 - **f0**: contact. L leg reaches forward; near R arm is forward. R leg trails, toes pushing off.
 - **f1**: down. Weight on the L leg, knee bent deepest, body at its lowest; R heel lifts behind.
