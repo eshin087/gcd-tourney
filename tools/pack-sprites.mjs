@@ -190,6 +190,12 @@ const UI_ITEMS = {
   portrait: { w: 96, h: 96, align: 'bottom' },
   cutin: { w: 480, h: 128, align: 'center' },
   select: { w: 384, h: 384, align: 'bottom' },
+  // super banner and ultimate splash layers (ADR 0035): opaque backdrops are center-cropped to the aspect, the
+  // fighter cutouts contain-fitted and bottom-aligned
+  super_bg: { w: 768, h: 192, align: 'center' },
+  super_fg: { w: 384, h: 240, align: 'bottom' },
+  ult_bg: { w: 768, h: 432, align: 'center' },
+  ult_fg: { w: 576, h: 432, align: 'bottom' },
 };
 
 const MAGENTA = [255, 0, 255];
@@ -299,6 +305,14 @@ function readJson(file) {
 
 // ============================================================== image helpers (RGBA8)
 function newImage(w, h) { return { w, h, data: new Uint8Array(w * h * 4) }; }
+function flipH(img) {
+  const out = newImage(img.w, img.h);
+  for (let y = 0; y < img.h; y++) for (let x = 0; x < img.w; x++) {
+    const s = (y * img.w + x) * 4, d = (y * img.w + (img.w - 1 - x)) * 4;
+    for (let k = 0; k < 4; k++) out.data[d + k] = img.data[s + k];
+  }
+  return out;
+}
 
 const PNG_SIG = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const MAX_PIXELS = 40e6; // ChatGPT images are ~2 MP; anything this big is a mistake and could exhaust memory
@@ -1379,6 +1393,12 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
   if (strays) notes.push(`dropped ${strays} stray mark(s) far from the body`);
   if (foreign.size) warn(`${label}: background ${[...foreign].join('/')} is not magenta #FF00FF - removed with half tolerance; gaps enclosed by the body (between arm and torso) stay filled. Regenerate on magenta`);
   let frames = out;
+  // Sidecar "flipX": a pose drawn facing the other way (Killua ko v09 lies head-right where down and the approved ko lie
+  // head-left) is mirrored frame by frame, after the split, so the frame order stays the drawing's
+  if (side.flipX === true) {
+    if (mode === 'char') { frames = frames.map(flipH); notes.push('mirrored left-right (sidecar flipX)'); }
+    else warn(`${label}: sidecar "flipX" is for character strips only - ignored`);
+  }
   if (Array.isArray(side.drop) && side.drop.length) {
     const drop = new Set(side.drop.map(Number).filter((k) => Number.isInteger(k) && k >= 0 && k < frames.length));
     const bad = side.drop.filter((k) => !drop.has(Number(k)));
@@ -2396,7 +2416,7 @@ function packCharacter(id, env) {
   return R;
 }
 
-// portrait / cutin / select: remove magenta bg, fit to the spec size, write next to the sheet.
+// portrait / cutin / select / super and ultimate layers: remove magenta bg, fit to the spec size, write next to the sheet.
 function packUi(id, charDir, env, R) {
   const uiDir = path.join(charDir, 'ui');
   for (const [name, spec] of Object.entries(UI_ITEMS)) {

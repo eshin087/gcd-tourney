@@ -47,9 +47,19 @@ export const GROUND = {
   life: { scuff: 3, skid: 3, extras: 26, overflow: 8 }, // extras: satellites and rubble of a persistent crater
   caps: { decals: 40, soft: 34, persistent: 8, barrier: 4, wallCraters: 4, chunks: 128, slabs: 20, trail: 24, pages: 4 },
   dissolve: { normal: 0.6, overflow: 0.35, merge: 0.25 },
+  // ring damage drawn into the ring's own stone (GD_FLOOR): `depth` how far a pit's floor sinks per unit of decal
+  // diameter (parallax), `bump` how strongly its slopes catch the scene light (`crackBump`: the drawn cracks' share),
+  // `crackDark` the shade of a texel at depth 0 (cracks are mixed from it up to the stone), `snap` the depth above which a texel
+  // counts as unbroken stone (the drawn rubble's mid tones; only cracks, pits and scorch stay), `surface` the
+  // untouched stone tone the art is measured against (stone ring palette, art/decals/DECALS.md), `bowl` how deep the
+  // ring sinks under each crater name (drawn in code, so the floor's own tiles slope into it)
+  floor: { depth: 0.05, bump: 1.6, crackBump: 0.4, crackDark: 0.2, snap: 0.5, surface: '#e3d5bf', bowl: { crater: 0.7, crater_big: 0.85, crater_huge: 1, scour_spiral: 0.5, scour_spiral_big: 0.6, crush_implode: 0.9 } },
+  // hot seams: a short, dim ember of the element's color (seconds = the style's heat x heatScale), never a neon line
+  heatScale: 0.5,
+  heatGlow: 0.9,
   trailStep: 0.9,
   satellites: { at: 0.85, n: [1, 3], dist: [0.45, 0.65], big: 1.15, bigN: [2, 4], underlay: 1.25 },
-  rubble: { at: 0.7, d: 1.1 },
+  rubble: { at: 0.7, d: 1.1, ring: false }, // ring: off since the stone draws its own damage (GD_FLOOR): the drawn pebble field read as a sticker, the 3D chunks are the rubble
   chunks: { at: 0.55, base: 4, per: 12, size: [0.05, 0.14] },
   slabs: { at: 0.85, n: [2, 5], tilt: [12, 30], ring: [0.35, 0.55], clear: 0.6, sink: 0.3 },
   dustRing: { at: 0.55, n: [7, 12], r: 0.3 },
@@ -112,12 +122,40 @@ uniform vec4 uRect, uClip;
 uniform vec3 uClipY, uTint, uCool, uLine;
 uniform vec2 uCell, uTile;
 uniform float uReveal, uKeep, uHeat, uDir;
+#ifdef GD_FLOOR
+uniform sampler2D uFloor;
+uniform vec3 uSurf;
+uniform vec4 uAxes;
+uniform float uRing, uDepth, uBump, uSnap, uBowl, uCrackBump, uCrackDark;
+#endif
 varying vec2 vGdUv;
 varying vec3 vGdW;
 float gdHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 `;
+// GD_FLOOR: the slope of the broken stone tilts the normal (world xz from the decal's u/v axes), so a crater's walls
+// take the scene's light like the rest of the ring instead of carrying painted light
+const FRAG_FLOOR_NORMAL = /* glsl */ `
+#ifdef GD_FLOOR
+{
+  vec2 gdG = (uAxes.xy * gdSlope.x + uAxes.zw * gdSlope.y) * uBump;
+  normal = normalize((viewMatrix * vec4(-gdG.x, 1.0, -gdG.y, 0.0)).xyz);
+}
+#endif
+`;
+// GD_FLOOR helpers, after <map_pars_fragment> declares the map: a texel's depth, 1 = untouched stone, 0 = the pit
+const FRAG_FLOOR_FN = /* glsl */ `
+#ifdef GD_FLOOR
+float gdDepthOf(vec4 t) {
+  if (t.a < 0.5) return 1.0;
+  float h = clamp(dot(t.rgb, vec3(0.3, 0.59, 0.11)) / dot(uSurf, vec3(0.3, 0.59, 0.11)), 0.0, 1.0);
+  return h > uSnap ? 1.0 : h;
+}
+float gdDepthAt(vec2 t) { return gdDepthOf(texture2D(map, uRect.xy + clamp(t, 0.0, 1.0) * uRect.zw)); }
+#endif
+`;
 const FRAG_MAP = /* glsl */ `
 float gdHeat = 0.0;
+vec2 gdSlope = vec2(0.0);
 {
   // world clip: the ring edge, the grass around the ring, the wall's face
   bool gdIn = all(greaterThan(vGdW.xz, uClip.xy)) && all(lessThan(vGdW.xz, uClip.zw)) && vGdW.y > uClipY.x && vGdW.y < uClipY.y;
@@ -130,8 +168,15 @@ float gdHeat = 0.0;
   if (gdHash(gdPx) > uKeep) discard;
   vec2 gdT = vec2(fract(vGdUv.x * uTile.x + uTile.y), vGdUv.y);
   vec4 gdTex = texture2D(map, uRect.xy + gdT * uRect.zw);
-  if (gdTex.a < 0.5) discard;
-  float gdHot = step(0.985, min(gdTex.r, min(gdTex.g, gdTex.b)));
+  #ifdef GD_FLOOR
+    // a crater's bowl: the ring sinks toward the middle in a few hard steps (pixel-art banding), lit by its slope
+    float gdBr = length(vGdUv - 0.5) * 2.0;
+    float gdB = uDir > 0.5 ? 0.0 : uBowl * floor((1.0 - smoothstep(0.12, 0.8, gdBr)) * 5.0) / 5.0;
+    if (gdTex.a < 0.5 && gdB <= 0.0) discard;
+  #else
+    if (gdTex.a < 0.5) discard;
+  #endif
+  float gdHot = step(0.985, min(gdTex.r, min(gdTex.g, gdTex.b))) * step(0.5, gdTex.a); // (a bowl keeps clear texels)
   gdHeat = gdHot * uHeat;
   #if defined(GD_TINTED)
     diffuseColor.rgb = uTint * dot(gdTex.rgb, vec3(0.3, 0.59, 0.11)) * 1.8;
@@ -145,6 +190,27 @@ float gdHeat = 0.0;
       gdE = max(gdE, n.a < 0.5 ? 1.0 : abs(gdL - dot(n.rgb, vec3(0.3, 0.59, 0.11))) * 3.0);
     }
     diffuseColor.rgb = uLine * (min(gdE, 1.0) * 1.4 + (1.0 - gdL) * 0.18) + uTint * gdHeat * 2.0;
+  #elif defined(GD_FLOOR)
+    // Ring damage is the ring's own stone, broken: the art only says how much darker (and how deep) each texel is
+    // than untouched stone, and the floor texture under it shows through, grid lines included. Painted rim tones
+    // and chips lighter than the floor sink into it, so there is no sticker edge and no bright highlight.
+    vec2 gdD = 1.0 / uCell;
+    float gdH = gdDepthOf(gdTex);
+    gdSlope = vec2(gdDepthAt(gdT + vec2(gdD.x, 0.0)) - gdDepthAt(gdT - vec2(gdD.x, 0.0)),
+      gdDepthAt(gdT + vec2(0.0, gdD.y)) - gdDepthAt(gdT - vec2(0.0, gdD.y))) * uCrackBump;
+    // the bowl's wall rises outward (its steepest band between the pit and the rim)
+    float gdBs = uDir > 0.5 ? 0.0 : uBowl * smoothstep(0.1, 0.35, gdBr) * (1.0 - smoothstep(0.55, 0.85, gdBr));
+    gdSlope += normalize(vGdUv - 0.5 + 1e-4) * gdBs * 0.5;
+    // the floor seen in a pit slides against the view like a lower surface would (one parallax step)
+    vec3 gdV = normalize(cameraPosition - vGdW);
+    vec2 gdW = vGdW.xz - gdV.xz / max(gdV.y, 0.3) * (1.0 - gdH + gdB * 0.6) * uDepth;
+    vec3 gdFl = texture2D(uFloor, vec2(gdW.x / uRing + 0.5, 0.5 - gdW.y / uRing)).rgb;
+    // grey shade only: the stone keeps the floor's color (no painted hue, no magenta fringe), and the mid tones of
+    // the drawn rubble melt into the stone so only cracks, pits and scorch read
+    float gdK = gdH > uSnap ? 1.0 : mix(uCrackDark, 1.0, gdH);
+    gdK = mix(gdK, 0.22, gdHot); // a hot seam is a dark crack under its ember
+    gdK *= 1.0 - 0.28 * gdB; // less light reaches the bottom of the bowl
+    diffuseColor.rgb *= gdFl * gdK;
   #else
     diffuseColor.rgb *= mix(gdTex.rgb, mix(uCool, uTint, uHeat), gdHot);
   #endif
@@ -154,11 +220,13 @@ function gdCompile(shader) {
   Object.assign(shader.uniforms, this.userData.gd);
   shader.vertexShader = 'varying vec2 vGdUv;\nvarying vec3 vGdW;\n' + shader.vertexShader.replace('#include <project_vertex>', '#include <project_vertex>\n\tvGdUv = uv;\n\tvGdW = (modelMatrix * vec4(transformed, 1.0)).xyz;');
   shader.fragmentShader = FRAG_HEAD + shader.fragmentShader
+    .replace('#include <map_pars_fragment>', '#include <map_pars_fragment>\n' + FRAG_FLOOR_FN)
     .replace('#include <map_fragment>', FRAG_MAP)
-    .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n\ttotalEmissiveRadiance += uTint * 2.2 * gdHeat;');
+    .replace('#include <normal_fragment_maps>', '#include <normal_fragment_maps>\n' + FRAG_FLOOR_NORMAL)
+    .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>\n\ttotalEmissiveRadiance += uTint * ${GROUND.heatGlow.toFixed(2)} * gdHeat;`);
 }
 // every decal of one kind shares one program
-const PROGRAM_KEY = { lit: () => 'gd-lit', holo: () => 'gd-holo', tinted: () => 'gd-tinted' };
+const PROGRAM_KEY = { lit: () => 'gd-lit', floor: () => 'gd-floor', holo: () => 'gd-holo', tinted: () => 'gd-tinted' };
 
 function pageTexture(image) {
   const t = new THREE.Texture(image);
@@ -233,6 +301,8 @@ export class GroundDamage {
     this.slabMats = null;
     this.line = new THREE.Color(GROUND.colors.holo);
     this.cool = new THREE.Color(GROUND.colors.cool);
+    this.surfTone = new THREE.Color(GROUND.floor.surface);
+    this.floorTex = null;
     // decal art: name -> { tex, pw, ph, w, h, frames, mode, tinted, src }
     this.active = {};
     this.procCache = new Map();
@@ -389,6 +459,7 @@ export class GroundDamage {
       if (!this.slabGeos.length) this.slabGeos = Array.from({ length: 6 }, () => this.slabGeo());
     }
     if (s?.walls) this.walls = s.walls;
+    if (s?.slabTop) this.floorTex = s.slabTop.map ?? null; // ring damage samples the ring's own stone (GD_FLOOR)
     if (s?.line) this.line.set(s.line);
     this.arenaGroup.visible = kind === 'arena';
     this.holoGroup.visible = kind === 'training';
@@ -557,7 +628,7 @@ export class GroundDamage {
       part(base, x, z, D, { dir, heat: S.replace ? S.heat ?? 0 : 0 });
       const over = S.overlay ? (big && S.big ? S.big : S.overlay) : null;
       if (over) part(over, x + rand(-0.04, 0.04) * D, z + rand(-0.04, 0.04) * D, D * rand(0.8, 1.0), { heat: S.heat ?? 0 });
-      if (F >= GROUND.rubble.at && !S.noDebris && !S.noRubble && !ground) part('rubble', x, z, D * GROUND.rubble.d, { delay: 0.05, extra: true });
+      if (F >= GROUND.rubble.at && !S.noDebris && !S.noRubble && !ground && (surf !== 'ring' || GROUND.rubble.ring)) part('rubble', x, z, D * GROUND.rubble.d, { delay: 0.05, extra: true });
     }
     if (!c.parts.length) return null;
     this.clusters.push(c);
@@ -595,7 +666,16 @@ export class GroundDamage {
     if (directional && o.origin) { x += Math.cos(yaw) * d / 2; z -= Math.sin(yaw) * d / 2; }
     const y = c.surface === 'grass' ? 0.035 : RING_TOP + 0.012;
     const flip = !o.noFlip && Math.random() < 0.5; // directional decals mirror across their path, not along it
-    const p = this.makeDecal(e, kind, o.variant ?? this.pick(name, e.frames.length), { flipU: !directional && flip, flipV: directional && flip, dir: directional, tint: o.tint, heat: o.heat ?? 0 });
+    const heat = (o.heat ?? 0) * GROUND.heatScale;
+    const floor = kind === 'lit' && c.surface === 'ring' && !!this.floorTex;
+    const p = this.makeDecal(e, floor ? 'floor' : kind, o.variant ?? this.pick(name, e.frames.length), { flipU: !directional && flip, flipV: directional && flip, dir: directional, tint: o.tint, heat });
+    if (floor) {
+      // decal u runs along the mesh's +x, v along its -z (flatGeo), both turned by the yaw
+      const cy = Math.cos(yaw), sy = Math.sin(yaw);
+      p.u.uAxes.value.set(cy / d, -sy / d, -sy / width, -cy / width);
+      p.u.uDepth.value = d * GROUND.floor.depth;
+      p.u.uBowl.value = GROUND.floor.bowl[name] ?? 0;
+    }
     const H = RING_HALF;
     if (c.surface === 'grass') p.u.uClip.value.set(-H - 0.4, -H - 0.4, H + 0.4, H + 0.4), p.u.uClipY.value.set(-9, 99, 1);
     else p.u.uClip.value.set(-H + 0.03, -H + 0.03, H - 0.03, H - 0.03), p.u.uClipY.value.set(-9, 99, 0);
@@ -605,7 +685,7 @@ export class GroundDamage {
     p.cluster = c;
     p.delay = o.delay ?? 0;
     p.reveal = o.reveal ?? 0.2;
-    p.heat = o.heat ?? 0;
+    p.heat = heat;
     p.life = o.extra && c.life === 0 ? GROUND.life.extras : 0;
     p.dissolveAt = -1;
     p.name = name;
@@ -623,6 +703,13 @@ export class GroundDamage {
       uCell: { value: new THREE.Vector2(e.w, e.h) }, uTile: { value: new THREE.Vector2(1, 0) },
       uReveal: { value: 0 }, uKeep: { value: 1 }, uHeat: { value: o.heat > 0 ? 1 : 0 }, uDir: { value: o.dir ? 1 : 0 },
     };
+    if (kind === 'floor') {
+      Object.assign(u, {
+        uFloor: { value: this.floorTex }, uSurf: { value: this.surfTone }, uAxes: { value: new THREE.Vector4() },
+        uRing: { value: RING_HALF * 2 }, uDepth: { value: 0 }, uBump: { value: GROUND.floor.bump }, uSnap: { value: GROUND.floor.snap }, uBowl: { value: 0 },
+        uCrackBump: { value: GROUND.floor.crackBump }, uCrackDark: { value: GROUND.floor.crackDark },
+      });
+    }
     // the variant's cell on its page, half a texel inside (flipY: v counts up from the page bottom)
     const du = (e.w - 1) / e.pw, dv = (e.h - 1) / e.ph;
     let u0 = (fx + 0.5) / e.pw, v0 = 1 - (fy + e.h - 0.5) / e.ph, su = du, sv = dv;
@@ -630,14 +717,15 @@ export class GroundDamage {
     if (o.flipV) { v0 += dv; sv = -dv; }
     u.uRect.value.set(u0, v0, su, sv);
     const common = { map: e.tex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -4 };
-    const mat = kind === 'lit' ? new THREE.MeshLambertMaterial(common)
+    const lit = kind === 'lit' || kind === 'floor';
+    const mat = lit ? new THREE.MeshLambertMaterial(common)
       : new THREE.MeshBasicMaterial({ ...common, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
-    if (kind !== 'lit') mat.defines = { [kind === 'holo' ? 'GD_HOLO' : 'GD_TINTED']: '' };
+    if (!lit || kind === 'floor') mat.defines = { [{ holo: 'GD_HOLO', tinted: 'GD_TINTED', floor: 'GD_FLOOR' }[kind]]: '' };
     mat.userData.gd = u;
     mat.onBeforeCompile = gdCompile;
     mat.customProgramCacheKey = PROGRAM_KEY[kind];
     const mesh = new THREE.Mesh(o.wall ? wallGeo : flatGeo, mat);
-    mesh.receiveShadow = kind === 'lit';
+    mesh.receiveShadow = lit;
     // older decals draw first, all of them before the fighters' blob shadows (renderOrder 0)
     mesh.renderOrder = -1 + (this.seq++ % 500000) * 1e-6;
     return { mesh, mat, u };

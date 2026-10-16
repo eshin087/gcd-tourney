@@ -3,6 +3,7 @@
 **Status:** Proposed
 **Date:** 2026-10-15
 **Task:** TOOL-041
+**Amended by:** [ADR 0037](0037-approvals-in-claude.md) (2026-10-15): approvals happen in Claude and are relayed; Codex rings `--for user`
 
 ## Context
 
