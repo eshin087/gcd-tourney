@@ -337,8 +337,35 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
    - "Stop the relay" from the user: `node tools/relay.mjs pause all` (or one lane; `resume` undoes it).
      `node tools/relay.mjs status` shows every lane. If `ring` fails or says paused, tell the user Claude needs a prompt.
 
+### Mandatory Claude handoff check (every chat and agent, 2026-10-15)
+
+At session start and before every final response or task handback, check whether Claude needs a reply,
+even for direct user tasks without a relay prefix. Read the main checkout's current AGENTS.md relay rules
+and docs/agents/CODEX_INBOX.md (your section plus Every thread); an older task-worktree copy is insufficient.
+Locate main with git worktree list. Run node tools/relay.mjs status from main.
+
+- Identify the lane from the relay message, inbox section or registered chat mapping. Never guess, broadcast
+  or ring another chat's lane. If Claude needs the result but no lane can be identified, preserve the written
+  handoff and report the missing mapping instead of silently omitting the handback.
+- When Claude has the next actionable step (review, calibration, integration, requested report or follow-up),
+  commit the handoff with branch/worktree, commit, results and remaining holds, then run
+  node tools/relay.mjs ring <lane> --note "<what is ready; commit; next Claude action>" from main.
+  This user-authorized handback needs no reminder or further permission. Check the command result: a written
+  handoff alone is not a sent notification. Ring once per new handoff, not on every status response.
+- Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, stop and
+  update NOW.md. If the task explicitly requests notifying Claude that a review package is ready, send that
+  one notification with "awaiting user approval; do not proceed"; this never authorizes further production.
+  Do not reset/resume a paused lane or bypass a hop limit to complete this check.
+- Subagents report the handoff requirement to their parent; the owning chat rings once unless the handback
+  was explicitly delegated. Claude maintains a background watcher for each active lane and reads the
+  committed handoff when notified. A ring without a watcher is queued, not proof that Claude read it.
+- Briefly report the outcome in the final response: Claude notified (lane and commit), already notified,
+  waiting for the user, no Claude action needed, or delivery blocked (reason). On failure, retain the
+  handoff and report the exact failure; never claim successful delivery.
+
 ## Definition of done (for agent work)
 
+- [ ] Mandatory Claude handoff check completed and its delivery/wait outcome reported.
 - [ ] Every image you saved has a `_vNN` name and a REVIEW.md row, and the user decided on the latest one
       (or it's clearly marked `needs review`).
 - [ ] `npm run sprites` runs without errors for the touched character, and the report has no new warnings

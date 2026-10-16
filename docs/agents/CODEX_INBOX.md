@@ -48,6 +48,62 @@ character-art generation under `gpt-6-luna` medium; the final anatomy audit of t
 **Round 2 (only after Claude relays the user's verdict here):** Sasuke, Killua and Gojo's `beamStruggle` in the same
 way, then Goku's once his core art is on main. Claude will write it as its own item with the budget.
 
+## Gojo running phase 2: production in direction K (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**The user picked K (fast athletic) on 2026-10-15 in Claude's chat:** "Go with K (fast athletic) for Gojo's run." This
+picks a direction only. It approves no image, and every strip below still needs the user's review. Claude has already
+re-included `art/characters/gojo/**` (raw/ included) in the sparse set of `.worktrees/art-gojo-run`, so raw/ is
+present there now. Keep working on branch `art/gojo-run` (PR #102, dev port 5243).
+
+**Goal / done when:** four production strips in the K pose exist as review candidates (run, dash, backDash,
+superDash), packed, Astra-audited and on the PR preview. Then add a handoff at the top of
+docs/agents/CLAUDE_ART_HANDOFF.md **on the branch** (per-strip version, calls used, measured heights, scale-gate
+result, Astra verdict, preview link with `?fight=gojo,naruto`) and run
+`node tools/relay.mjs ring gojo-run --note "<one line>"`. Then stop: approval is the user's.
+
+The K pose, in every strip: **far (L) hand in his pocket the whole time** (it must not slip out, as it did in J f3/f7),
+**near, camera-side (R) arm bent ~90° and pumping** with a loose fist or relaxed hand, torso lean ~35°, strong knee
+drive, chin up, lazy smile, blindfold on. Hair and the jacket hem stream back; no aura, trail or energy anywhere.
+Use K_v01.png (art/characters/gojo/production/run-jkl/) as the direction reference and the approved
+title_style_approved / title_neutral_approved / idle_approved cells for anatomy and size.
+
+Fix the study holds in production:
+- **True mirror phases.** f0-f3 and f4-f7 must swap legs: f0 L leg forward, f4 R leg forward (see ANIMATIONS.md
+  §run for contact/down/passing/flight). The near arm swings opposite to the near (R) leg. In every frame the two
+  legs must read as distinct L and R (shading, overlap order), and f7 must flow into f0 with no jump.
+- **Head and hair at the neutral's size in every frame.** K f2/f6 hair was ~26% wider. Don't rescale single frames;
+  redraw them.
+- Don't shrink a leaning pose to standing height. Report each strip's measured hair-to-sole and posed extents.
+
+- [ ] 1. **run:** the next free `raw/run_vNN.png` (expected v13), 8 frames, loop, at most 3 calls.
+- [ ] 2. **dash** (expected v07, 2 frames, loop, ≤3 calls): a low burst lunge in the K pose. Lean ~45°, lead knee
+  driven forward under the chest, back leg extended, near arm pumped back hard. f1: stride 6 px wider, hem flutter.
+- [ ] 3. **backDash** (expected v05, 3 frames, ≤3 calls): a quick hop back while still facing right. f0 push-off,
+  f1 airborne with knees tucked and the near arm forward for balance (hair and hem whip forward), f2 landing on the
+  back foot. The far hand stays pocketed in all three.
+- [ ] 4. **superDash** (expected v10, 2 frames, loop, ≤3 calls): the K flight frame stretched into blur speed. Body
+  angled ~30° up along the flight line, lead knee driven forward-up, back leg extended behind, near arm swept back,
+  far hand pocketed, hair flattened back. The shape is about 230 x 140 px, kept inside x 4..251. f1: limbs 2-4 px
+  further apart, hem flutter. (This replaces the open-palm superDash v09. The user asked for the same one-hand pose.)
+- [ ] 5. Rewrite the run, dash, backDash and superDash sections of art/characters/gojo/ANIMATIONS.md to match what
+  you drew. Set each strip's manifest `version` with status `needs review`; leave `approvedVersion`, `bodyHeight`,
+  offsets and hit boxes to Claude.
+- [ ] 6. `node tools/pack-sprites.mjs gojo --quantize 48`. Fix scale-gate failures within the budget, then make a
+  one-scale contact sheet (idle f0 beside every frame, lines at the idle's top and y240). Strips that still fail go to
+  `raw/_qa_hold/` with the reason.
+- [ ] 7. Astra/medium audits every frame and loop of the packed atlas against the approved neutral and combat cells
+  (head, torso, limbs, build, clothing volume, pocket hand, leg identity, loop seam). Luna fixes holds within the
+  remaining budget; Astra rechecks.
+- [ ] 8. Review rows (`needs review`) in art/characters/gojo/REVIEW_ROWS.md, commit, `npm run pr -- open`,
+  `npm run pr -- preview`, the handoff, then ring.
+
+Rules: as in phase 1 below (Luna/medium for generation, Astra/medium for the audit; edit only art/characters/gojo/**,
+public/reviews/gojo-run-jkl/**, public/characters/gojo/** via the packer, the gojo block of art/manifest.json and the
+"## gojo" section of art/TRACKER.md; never overwrite an existing `_vNN`; no merge, no production deploy, no approvals).
+Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
+
+---
+
 ## Gojo running: new run + dashes, studies first (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** replace Gojo's shipped run (v12, the
@@ -958,6 +1014,9 @@ How to run it:
   Sasuke's heavy is the Lion's Barrage opening kick (clearly apart from his `specialUp`).
 
 ## Every thread
+
+**Standing rule (2026-10-15; applies every turn, never tick off):** Before finishing, read the main checkout's AGENTS.md "Mandatory Claude handoff check" and run node tools/relay.mjs status from main. Decide whether Claude has the next action, commit the handoff and ring the correct lane when required. Report the outcome in your final response. This applies to direct user tasks and relayed tasks, including chats using older worktrees. Preserve user approval and pause brakes.
+
 
 - [x] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** Done by Claude
   2026-10-10 (PR art/approve-fighter-batch): 76 rows approved, Sasuke UI installed. Nothing left for Codex here. The user reviewed

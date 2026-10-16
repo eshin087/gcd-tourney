@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
+
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 - Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
 - Changed: while a new idle candidate is the newest raw, the scale gate measures every strip (and the candidate idle) against the approved idle instead, so a pending idle no longer moves head numbers or auto head fits (TOOL-040; art/CHARACTER_SCALE.md).
