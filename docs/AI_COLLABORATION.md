@@ -162,8 +162,8 @@ Follow [COORDINATION.md](COORDINATION.md) for the persistent control-chat role, 
 
 ### Approvals desk ([ADR 0039](decisions/0039-approvals-desk.md))
 
-One Claude chat, titled `0 - Approvals`, is the only chat that asks the user anything; it runs `/desk`
-(`.claude/skills/desk/SKILL.md`). Everything for the user lands in one queue, the main checkout's `.relay/asks/`:
+One Claude chat, titled `0 - Approvals`, is the only chat that asks the user anything; it runs `/approvals`
+(`.claude/skills/approvals/SKILL.md`). Everything for the user lands in one queue, the main checkout's `.relay/asks/`:
 
 ```
 Codex:        ring <lane> --for user --kind approval|decision|blocked --note "..."   -> an ask (lane-<lane>-<ring>)
@@ -174,10 +174,10 @@ Desk:         relay wait all (background) -> push notification -> one question b
 ```
 
 Lane watchers in the other Claude chats leave rings for the user to the desk while it runs; with the desk off they
-wake their chat only to point the user at `/desk`. `relay asks` lists the queue and `relay status` opens with the desk
+wake their chat only to point the user at `/approvals`. `relay asks` lists the queue and `relay status` opens with the desk
 line. The Codex control chat shows the same queue in its overview and never answers it. A committed SessionStart hook
 (`relay brief`) tells every new Claude chat the rule, so after chats are deleted: name a Claude chat
-`0 - Approvals` and type `/desk`.
+`0 - Approvals` and type `/approvals`.
 
 ### Relay: handoffs without paste-in prompts ([ADR 0033](decisions/0033-claude-codex-relay.md))
 
