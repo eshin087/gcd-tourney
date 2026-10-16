@@ -13,7 +13,14 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Fixed: relay `send` now marks every earlier ring as read, so a ring Claude handled by hand no longer wakes the next watcher as if Codex had already replied (ADR 0033).
 
+- Added: Goku's approved art references (PR #94): title-style neutral + combat v02 (v01 superseded: too small), model sheet v02, expressions v02 and idle v02 (calibrated: idle bodyHeight 233, packs at x1). He still plays on the baked placeholder until his core animations land.
+
+- Art: record explicit user approval of Goku model sheet v02 and expressions v02; promote exact approved fixed references, preserving idle technical holds.
+
+- Art: User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
 - Art: completed scale-relay calibrated audits, held airHeavyAlt03, re-stitched Gojo light3 and saved the authorized final Naruto/Gojo source calls; all holds and user-feedback stop recorded, relay not rung.
+
+- Changed: clarified that Codex character-art generation work must use `gpt-6-luna` at `medium` reasoning; documented that the image-generation tool's rendering model is controlled separately.
 
 - Added: Luffy's approved art references (PR #93): title-style neutral + combat v01, model sheet v01, expressions v01 and idle v01, plus his CHARACTER, ANIMATIONS, MOVES_AND_VFX and PROMPTS briefs. He still plays on the baked placeholder until his core animations land.
 
