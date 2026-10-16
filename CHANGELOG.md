@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: one central chat (OPS-016): the Claude chat `0 - Approvals` now also gives the status overview, forwards the user's instructions to Codex chats and runs the reset after chats are deleted; the Codex control chat "0 - G", its attention monitor (OPS-014) and `$gcdtourney-attention` (OPS-015) are retired. Codex chats never ask the user; they ring `--for user` and stop.
+
 - Added: explicit-only `$gcdtourney-attention` project skill to run the multi-chat status check immediately and update or pause the existing bounded monitor (OPS-015).
 
 - Added: storage hygiene rule (OPS-013, CLAUDE.md, AGENTS.md, docs/AI_COLLABORATION.md): after a merge the coordinator prunes merged and unregistered worktree folders, a finished task deletes its `node_modules/` and `dist/`, agent scratch stays out of the project, `deliverables/` empties once the user has them, and `_preserved-*` folders carry a README with a review-by date; versioned `_vNN` art, approved art and unmerged commits are never touched.

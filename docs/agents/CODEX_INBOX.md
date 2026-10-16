@@ -165,20 +165,23 @@ at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this rou
 **The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). After merging main, keep main's
 `art/vfx/**` and `public/vfx/**`; never repack VFX in `art/beam-clash`. The sparse branch atlas dropped six live effects:
 glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atlas.*` must not ship.
-- [x] 1. Merged latest main into `.worktrees/art-beam-clash`; merge commit **881562f4**. Resolved all `art/vfx/**` and
-  `public/vfx/**` conflicts using main's versions; verified they match main. Never run any VFX repack in this worktree.
+- [x] 1. Merged latest main into `.worktrees/art-beam-clash`; latest merge commit **2de7bbb0** (earlier merge 881562f4). Kept main's `art/vfx/**` and
+  `public/vfx/**` unchanged and verified them against main. Never run any VFX repack in this worktree.
 - [x] 2. Generated and filed ground `beamStruggle_v01` for Sasuke, Killua and Gojo (max 3 calls each).
 - [x] 3. Generated and filed `beamStruggleAir_v01` for Sasuke, Killua and Gojo (max 3 calls each). Also generated Naruto
   `beamStruggle_v02` using the user's relayed decision (one call, 2nd of 3); this is not approval.
-- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the
-  loop), `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
-  technical hold (say so on the page; do not present it for approval).
-  **BLOCKED:** Sasuke ground scale ratios head 1.54 / feet 1.84 and air 1.18 / 1.16; Killua air 1.06 / 1.32; Gojo air
-  0.94 / 1.06. Naruto v02 head gate 2 ok but body sheet garment-area ratio B=0.60 vs idle in all frames. Killua/Gojo
-  ground body/contact checks are incomplete because the gate failure prevented a pack. Astra audit unavailable in this chat.
-  Candidates are on technical hold; do not request image approval.
-- [ ] 5. Phone review page `public/reviews/beam-clash-r2/` and PR preview are not ready because the candidates are held.
-  No review URL exists. Claude must arrange the remaining technical/audit path before the user reviews any image.
+- [x] 4. Strict quantized packing and body sheets were rerun after restoring sparse raw folders. Six candidates passed and the
+  user approved them via Claude approval desk relay #7 (“Approve all 6”): Naruto ground v02, Sasuke ground/air v01,
+  Killua ground v01, Gojo ground/air v01. Recorded in manifest, REVIEW and TRACKER. Naruto anchor [232,124] is stable;
+  the other five per-frame hand anchors still need measurement before runtime integration. Astra audit remains pending.
+  Killua air v01 failed (head .93, feet 1.19, body B .55-.61), stays in `raw/_qa_hold/`, and was omitted from the atlas.
+- [x] 5. Phone review page and PR #110 preview are ready:
+  https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (preview build passed).
+  Main VFX sources and atlas were preserved unchanged. No VFX pack was run.
+
+**Next:** Killua air `beamStruggleAir_v02` is authorized (one call remains), but this chat cannot switch to the required
+`gpt-6-luna` medium model. No image call was made. Continue the redraw in a Codex chat configured to Luna/medium;
+the Astra anatomy audit remains pending and does not block the recorded image approvals.
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
@@ -1232,7 +1235,7 @@ How to run it:
 
 ## Every thread
 
-**Standing coordination rule (2026-10-15):** Read main's docs/COORDINATION.md and docs/agents/CONTROL_CHAT.json at startup. Keep task evidence and explicit status durable; the control chat gathers the queue and routes scoped user notes. Preserve ADR 0037 approval routing to Claude. Do not appoint a replacement coordinator or start another monitor; the reset phrase and recovery steps are in COORDINATION.md.
+**Standing coordination rule (2026-10-15, updated OPS-016):** Read main's docs/COORDINATION.md at startup. The Claude chat `0 - Approvals` is the one central chat (approvals, status, forwarding the user's notes); the Codex control chat "0 - G" and its monitor are retired. When the user must approve or decide, `relay ring <lane> --for user ...` and stop; never ask in your own chat. Do not appoint a coordinator or start a monitor.
 
 
 **Standing status rule (2026-10-15; every handback):** Read main's AGENTS.md "Mandatory user-facing status". End each final response with Status / Your action / Claude / Next. Explicitly state approvals or input required, any action or reply pending from Claude (and relay delivery state), who acts next, or that the requested scope is completely finished with nothing to do. Apply this now, including idle chats; do not start unrequested work.

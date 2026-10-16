@@ -156,9 +156,11 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 
 Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` with the reason in notes).
 
-### Control chat and restart
+### Central chat and restart
 
-Follow [COORDINATION.md](COORDINATION.md) for the persistent control-chat role, consolidated attention queue and single-command reset after chats are deleted. CONTROL_CHAT.json records the replaceable current identity; ADR 0037 continues to own approvals in Claude.
+Follow [COORDINATION.md](COORDINATION.md): the Claude chat `0 - Approvals` is the one central chat (approvals, status,
+forwarding the user's instructions to Codex chats, reset after chats are deleted; OPS-016). CONTROL_CHAT.json records
+its identity. The Codex control chat and its attention monitor were retired on 2026-10-15.
 
 ### Approvals desk ([ADR 0039](decisions/0039-approvals-desk.md))
 
@@ -175,7 +177,7 @@ Desk:         relay wait all (background) -> push notification -> one question b
 
 Lane watchers in the other Claude chats leave rings for the user to the desk while it runs; with the desk off they
 wake their chat only to point the user at `/approvals`. `relay asks` lists the queue and `relay status` opens with the desk
-line. The Codex control chat shows the same queue in its overview and never answers it. A committed SessionStart hook
+line. A committed SessionStart hook
 (`relay brief`) tells every new Claude chat the rule, so after chats are deleted: name a Claude chat
 `0 - Approvals` and type `/approvals`.
 

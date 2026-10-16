@@ -1,14 +1,14 @@
 ---
 name: approvals
-description: Run this Claude chat as the gcdTourney approvals desk ("0 - Approvals", ADR 0039), the one chat that asks the user for approvals and decisions and relays the answers to Codex lanes and Claude chats. Use when the user types /approvals (formerly /desk), says "make this the approvals desk / main approver", or after wiping chats.
+description: Run this Claude chat as the gcdTourney central chat ("0 - Approvals", ADR 0039, OPS-016): the one chat that asks the user for approvals and decisions, relays the answers, gives the status overview, forwards the user's instructions to Codex chats, and runs the reset after chats are deleted. Use when the user types /approvals (formerly /desk), says "make this the approvals desk / main approver", or after wiping chats.
 ---
 
-# Approvals desk
+# Approvals desk (the central chat)
 
 You are the only chat that asks the user anything (ADR 0039, `docs/decisions/0039-approvals-desk.md`). Other Claude
 chats queue questions with `node tools/relay.mjs ask`; Codex lanes ring `--for user`. Both land in one queue in the
-main checkout's `.relay/asks/`. The Codex control chat (`docs/COORDINATION.md`) shows the same queue in its overview
-but never answers it. Run every relay command from the main checkout (find it with `git worktree list`).
+main checkout's `.relay/asks/`. You are also the only coordinator (`docs/COORDINATION.md`): the Codex control chat and its
+monitor are retired, so status and forwarding are yours too. Run every relay command from the main checkout (find it with `git worktree list`).
 
 ## Start (every time /approvals runs)
 
@@ -16,8 +16,10 @@ but never answers it. Run every relay command from the main checkout (find it wi
    (`set_pinned self true`) only while asks are open.
 2. Check that no other chat is already the desk: `node tools/relay.mjs status` names the desk watcher. If it is on
    and this chat did not start it, tell the user and stop rather than run two desks.
-3. `node tools/relay.mjs asks` lists everything open now. Ask about all of it (see below) before watching.
-4. Start the watcher as a **background** command whose description starts with "Relay watcher (desk)":
+3. If `docs/agents/CONTROL_CHAT.json` names another session, this is a reset: follow COORDINATION.md "Starting over"
+   (record this session id there on main, rebind lanes only when unambiguous, notify workers, one consolidated list).
+4. `node tools/relay.mjs asks` lists everything open now. Ask about all of it (see below) before watching.
+5. Start the watcher as a **background** command whose description starts with "Relay watcher (desk)":
    `node tools/relay.mjs wait all`. It exits when a new ask arrives (exit 0), after 24 h (exit 2) or when all lanes
    are paused (exit 4).
 
@@ -85,10 +87,7 @@ but never answers it. Run every relay command from the main checkout (find it wi
    For a Codex ask this sends it to the lane. For a Claude chat's ask the command prints the message; deliver it
    with SendMessage to the `local_...` session it names (or find the chat by its title with `list_sessions`).
    "Hold" is a decision: relay it with `--user-decision`.
-   An ask from lane `control` (the Codex control chat "0 - G", COORDINATION.md) whose note starts "for lane <x>":
-   answer it as usual (that tells the control chat), then also send the same answer to lane x with
-   `relay send <x> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>"`, because workers
-   accept approvals only from the desk. A stale ask: `answer <id> --dismiss "<why>"`.
+   (Lane `control`, the old Codex control chat, is retired; if it ever rings, answer it and remind it of OPS-016.) A stale ask: `answer <id> --dismiss "<why>"`.
 5. Unpin this chat when `asks` shows nothing open, then start the watcher again (see the rules below).
 
 ## Rules
@@ -98,3 +97,13 @@ but never answers it. Run every relay command from the main checkout (find it wi
 - The desk asks and relays. The Claude chat that owns a lane still does that lane's technical work (handoffs,
   integration, merges); the desk does not take it over.
 - Keep the end-of-reply footer (Pending / Your review / Codex) with direct links.
+
+## Status, forwarding and health (central chat, OPS-016)
+
+- **"status"**: run `npm run status` and `node tools/relay.mjs status`; answer in under 10 lines: Needs you, Waiting
+  for Claude, Codex working, Finished, plus watchers off on Claude's turn, paused lanes, lanes at the round-trip limit.
+- **"tell / ask the <x> chat ..."**: forward the user's words to the verified lane, `node tools/relay.mjs send <lane>
+  --direct --note "<their words>"` (a Claude chat: SendMessage). Keep their wording and scope; report delivery.
+  Never invent tasks, approve, merge, deploy or unpause through a forward; an approval goes `--user-approved`.
+- **On every wake**, glance at `relay status` and mention once a lane that looks stuck (Claude's turn, no watcher;
+  or Codex's turn for hours without a ring). No timers or monitors for this.

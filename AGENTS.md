@@ -4,19 +4,16 @@ Instructions for Codex and any other coding agent working in this repository. Cl
 [CLAUDE.md](CLAUDE.md), which has the same rules plus engine detail. When the two disagree, fix
 the docs. Don't pick one silently.
 
-## Durable control-chat coordination
+## One central chat: Claude `0 - Approvals` (user decision, 2026-10-15; OPS-016)
 
 At every session start, read the main checkout's [docs/COORDINATION.md](docs/COORDINATION.md) and
-[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
-role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
-workers; workers publish their status and use the Claude relay. Claude remains the integration and
-approval desk under ADR 0037; since ADR 0039 that desk is the one Claude chat `0 - Approvals`, and
-`node tools/relay.mjs asks` lists everything waiting there. Do not start duplicate coordinators or monitors.
-
-When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
-the control identity, discover replacement workers, restore one attention monitor and notify existing
-workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
-must be reported honestly; no background service is implied by the rules alone.
+[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). The Claude chat **`0 - Approvals`** is the one
+central chat: it asks the user every approval and decision, gives the overview and forwards the user's
+instructions to you. **The Codex control chat ("0 - G") and its attention monitor are retired**: no Codex chat
+coordinates, monitors, or asks the user to approve or decide. When the user must act, leave it for the central
+chat: `node tools/relay.mjs ring <lane> --for user --kind approval|decision|blocked --note "<what exactly; versions;
+holds; direct preview link>"`, then stop on that item (`node tools/relay.mjs asks` lists the queue). In your status
+lines, point the user to Claude `0 - Approvals`. Deleted chats do not erase task records or approve work.
 
 ## Agent model selection (user direction, 2026-10-12)
 
@@ -182,7 +179,7 @@ Unless a task says otherwise, you produce the art and keep the tracking files tr
    latest version with a 3-line verdict (identity / proportions and pose / technical plus a recommendation),
    and **ask for the approval through Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)):
    `node tools/relay.mjs ring <lane> --for user --kind approval --note "<asset vNN; one-line verdict; review link>"`.
-   Claude asks the user with buttons and relays the answer. Without a lane, wait for `approve vNN` here as before.
+   Claude asks the user with buttons and relays the answer. Without a lane, write it in your handoff and NOW.md and say "waiting for Claude 0 - Approvals"; do not ask the user here (OPS-016).
 9. **Apply the decision** (it arrives as a `[relay ...] USER APPROVAL via Claude` / `USER REJECTION via Claude`
    message quoting the user, or the user types it in this chat; record "approved by the user via Claude" when relayed):
    - `approve vNN`: row `approved`, `approvedVersion` = NN, status `approved`. Any other `needs review`
