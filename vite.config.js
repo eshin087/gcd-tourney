@@ -1,6 +1,34 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import { writeFileSync, mkdirSync } from 'fs';
+import { resolve, join } from 'path';
+import { writeFileSync, mkdirSync, readdirSync, readFileSync, existsSync } from 'fs';
+import { createHash } from 'crypto';
+
+// The simulation's fingerprint (import.meta.env.SIM_ID): a hash of everything a fight is computed from (the game,
+// fighter and input code, the state hash and its deterministic math, every fighter's anims.json with its boxes).
+// A determinism fixture (ADR 0036) records it, so a build whose gameplay changed reports the fixture as stale instead
+// of as a split. Line endings are normalized: a Windows checkout and the deploy's clean export hash the same.
+function simId() {
+  const files = [];
+  const add = (p) => { if (existsSync(p)) files.push(p); };
+  const walk = (dir, test) => {
+    if (!existsSync(dir)) return;
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) walk(p, test);
+      else if (test(e.name)) files.push(p);
+    }
+  };
+  walk(resolve(__dirname, 'src/game'), (n) => n.endsWith('.js'));
+  walk(resolve(__dirname, 'src/characters'), (n) => n.endsWith('.js'));
+  walk(resolve(__dirname, 'public/characters'), (n) => n === 'anims.json');
+  for (const f of ['src/core/input.js', 'src/net/simHash.js', 'src/net/dmath.js']) add(resolve(__dirname, f));
+  const h = createHash('sha1');
+  for (const f of files.map((p) => p.slice(__dirname.length).replace(/\\/g, '/')).sort()) {
+    h.update(f);
+    h.update(readFileSync(join(__dirname, f), 'utf8').replace(/\r\n/g, '\n'));
+  }
+  return h.digest('hex').slice(0, 12);
+}
 
 // Dev server only: the determinism test (ADR 0036, src/net/detTest.js) saves a recorded match log as a fixture in
 // public/det/, so another browser or a phone can replay it against the reference hashes.
@@ -37,6 +65,7 @@ const publishCache = resolve(__dirname, '.publish-cache').replace(/\\/g, '/') + 
 
 export default defineConfig({
   plugins: [detFixtures()],
+  define: { 'import.meta.env.SIM_ID': JSON.stringify(simId()) },
   server: { port: 5188, strictPort: true, host: '127.0.0.1', watch: { ignored: [worktrees, publishCache] } },
   // only the real pages: the default crawls every .html under the root, worktree copies included
   optimizeDeps: { entries: ['index.html', 'sprites.html', 'art-review.html', 'lab.html'] },

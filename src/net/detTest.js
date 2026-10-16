@@ -12,6 +12,8 @@ import { CameraDirector } from '../game/camera.js';
 import { installDetMath } from './dmath.js';
 import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
 
+// this build's simulation fingerprint (vite.config.js simId): a fixture recorded on another one is stale
+const SIM = import.meta.env.SIM_ID ?? null;
 const EVERY = 30; // a saved log keeps the chained group hashes every 30 frames: another browser places a split within 30
 const NG = GROUPS.length;
 
@@ -159,7 +161,7 @@ export function install(game, ready, qs) {
       Math.random = realRandom;
     }
     const log = {
-      v: 1, name, made: new Date().toISOString(), ua: navigator.userAgent, cfg, test, frames, every: EVERY, groups: GROUPS,
+      v: 1, name, made: new Date().toISOString(), ua: navigator.userAgent, sim: import.meta.env.SIM_ID, cfg, test, frames, every: EVERY, groups: GROUPS,
       result: { winner: game.roundWinner?.index ?? null, rounds: game.round, wins: game.fighters.map((f) => f.wins), hp: game.fighters.map((f) => f.hp) },
       art: game.assets.map(artPrint), inputs, checks: hex(checks), frameHashes: hex(frameH), probes, step: stats(timing),
     };
@@ -315,10 +317,12 @@ export function install(game, ready, qs) {
       + `${log.test?.fixedBasis ? ', control basis pinned' : ''}${log.test?.detMath ? ', deterministic math' : ''}\nscreenshot this when it finishes and send it to Claude`;
     const r = await replay(log, { dt, onProgress: (k, n, first) => show(`${head}\nreplaying... ${k} / ${n}${first ? '  (already split)' : ''}`) });
     const f = r.first;
+    const stale = !!log.sim && log.sim !== SIM; // gameplay changed since the recording (vite.config.js simId)
     const sameEnd = r.result.winner === log.result.winner && r.result.rounds === log.result.rounds && r.result.hp.join() === log.result.hp.join();
     const lines = [
       head,
       '',
+      stale ? `STALE FIXTURE: recorded on simulation ${log.sim}, this build is ${SIM}. Gameplay code changed since; a split below means nothing until Claude re-records it.` : null,
       r.match ? 'RESULT: MATCH. Every checkpoint equals the reference.' : f ? `RESULT: SPLIT ${f.frame != null ? `at frame ${f.frame}` : ''}${f.window ? ` (checkpoint frames ${f.window.join('-')}, first in: ${f.groups.join(', ')})` : ''}` : `RESULT: stopped early at ${r.frames} / ${r.of}`,
       f?.probe ? `  positions + hp at that checkpoint ${JSON.stringify(f.probe.ref) === JSON.stringify(f.probe.here) ? 'are identical' : `differ\n    reference: ${JSON.stringify(f.probe.ref)}\n    this run:  ${JSON.stringify(f.probe.here)}`}` : null,
       `art: ${r.art.same ? 'same as the reference' : `DIFFERENT (here ${JSON.stringify(r.art.here)}, reference ${JSON.stringify(r.art.ref)})`}`,
