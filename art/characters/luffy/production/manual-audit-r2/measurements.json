@@ -1,0 +1,3039 @@
+{
+  "method": "Independent manual approximate visible endpoints from actual 48-color atlas cells and exact reference crops. Native pixel coordinates, rounded; identical stable points across breathing frames intentionally rounded identically. Projected lengths are NOT reconstructed bone lengths. Shin ratios use approved idle left shin52.8px. A ratio alone does not imply failure where pose changes projection; null never means numeric pass. Additional body landmarks supplement each sequence; concealed joints not invented.",
+  "rows": [
+    {
+      "animation": "idle",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            174
+          ],
+          [
+            53,
+            221
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            175
+          ],
+          [
+            53,
+            222
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            174
+          ],
+          [
+            53,
+            221
+          ]
+        ],
+        "projectedPx": 53.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.009
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            175
+          ],
+          [
+            53,
+            222
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            174
+          ],
+          [
+            53,
+            221
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            175
+          ],
+          [
+            53,
+            222
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            174
+          ],
+          [
+            53,
+            221
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "idle",
+      "frame": 7,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            175
+          ],
+          [
+            53,
+            222
+          ]
+        ],
+        "projectedPx": 52.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            187,
+            176
+          ],
+          [
+            181,
+            226
+          ]
+        ],
+        "projectedPx": 50.4,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.954
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            111,
+            179
+          ],
+          [
+            124,
+            225
+          ]
+        ],
+        "projectedPx": 47.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.906
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            159,
+            177
+          ],
+          [
+            180,
+            225
+          ]
+        ],
+        "projectedPx": 52.4,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.993
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            142,
+            185
+          ],
+          [
+            154,
+            226
+          ]
+        ],
+        "projectedPx": 42.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.81
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            106,
+            184
+          ],
+          [
+            126,
+            225
+          ]
+        ],
+        "projectedPx": 45.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.864
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            132,
+            181
+          ],
+          [
+            119,
+            226
+          ]
+        ],
+        "projectedPx": 46.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.888
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            145,
+            178
+          ],
+          [
+            175,
+            225
+          ]
+        ],
+        "projectedPx": 55.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.057
+      }
+    },
+    {
+      "animation": "run",
+      "frame": 7,
+      "shin": {
+        "endpoints": [
+          [
+            143,
+            187
+          ],
+          [
+            154,
+            226
+          ]
+        ],
+        "projectedPx": 40.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.768
+      }
+    },
+    {
+      "animation": "dash",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            199,
+            181
+          ],
+          [
+            179,
+            227
+          ]
+        ],
+        "projectedPx": 50.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.95
+      }
+    },
+    {
+      "animation": "dash",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            184,
+            183
+          ],
+          [
+            165,
+            226
+          ]
+        ],
+        "projectedPx": 47,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.891
+      }
+    },
+    {
+      "animation": "jumpUp",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            195,
+            184
+          ],
+          [
+            169,
+            223
+          ]
+        ],
+        "projectedPx": 46.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.888
+      }
+    },
+    {
+      "animation": "jumpUp",
+      "frame": 1,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "jumpFall",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            176,
+            173
+          ],
+          [
+            147,
+            214
+          ]
+        ],
+        "projectedPx": 50.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.952
+      }
+    },
+    {
+      "animation": "jumpFall",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            170,
+            175
+          ],
+          [
+            149,
+            223
+          ]
+        ],
+        "projectedPx": 52.4,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.993
+      }
+    },
+    {
+      "animation": "land",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            87,
+            187
+          ],
+          [
+            48,
+            227
+          ]
+        ],
+        "projectedPx": 55.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.059
+      }
+    },
+    {
+      "animation": "land",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            83,
+            187
+          ],
+          [
+            54,
+            226
+          ]
+        ],
+        "projectedPx": 48.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.921
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            77,
+            177
+          ],
+          [
+            54,
+            225
+          ]
+        ],
+        "projectedPx": 53.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.009
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            179
+          ],
+          [
+            54,
+            225
+          ]
+        ],
+        "projectedPx": 51.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.983
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            81,
+            177
+          ],
+          [
+            55,
+            225
+          ]
+        ],
+        "projectedPx": 54.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.034
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            79,
+            177
+          ],
+          [
+            54,
+            225
+          ]
+        ],
+        "projectedPx": 54.1,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.026
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            79,
+            179
+          ],
+          [
+            51,
+            227
+          ]
+        ],
+        "projectedPx": 55.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.053
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            179
+          ],
+          [
+            51,
+            227
+          ]
+        ],
+        "projectedPx": 55.1,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.044
+      }
+    },
+    {
+      "animation": "light1",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            179
+          ],
+          [
+            52,
+            227
+          ]
+        ],
+        "projectedPx": 54.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.034
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            82,
+            181
+          ],
+          [
+            60,
+            226
+          ]
+        ],
+        "projectedPx": 50.1,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.949
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            91,
+            182
+          ],
+          [
+            49,
+            226
+          ]
+        ],
+        "projectedPx": 60.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.153
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            91,
+            185
+          ],
+          [
+            54,
+            226
+          ]
+        ],
+        "projectedPx": 55.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.046
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            93,
+            186
+          ],
+          [
+            52,
+            226
+          ]
+        ],
+        "projectedPx": 57.3,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.085
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            183
+          ],
+          [
+            50,
+            227
+          ]
+        ],
+        "projectedPx": 53.3,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.009
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            182
+          ],
+          [
+            50,
+            227
+          ]
+        ],
+        "projectedPx": 53,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.004
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            182
+          ],
+          [
+            51,
+            227
+          ]
+        ],
+        "projectedPx": 53.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.014
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            85,
+            174
+          ],
+          [
+            73,
+            225
+          ]
+        ],
+        "projectedPx": 52.4,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.993
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            140,
+            174
+          ],
+          [
+            126,
+            225
+          ]
+        ],
+        "projectedPx": 52.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.002
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            141,
+            174
+          ],
+          [
+            126,
+            225
+          ]
+        ],
+        "projectedPx": 53.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.007
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            139,
+            174
+          ],
+          [
+            124,
+            225
+          ]
+        ],
+        "projectedPx": 53.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.007
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            141,
+            177
+          ],
+          [
+            126,
+            226
+          ]
+        ],
+        "projectedPx": 51.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.971
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            139,
+            176
+          ],
+          [
+            126,
+            226
+          ]
+        ],
+        "projectedPx": 51.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.979
+      }
+    },
+    {
+      "animation": "light3",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            87,
+            177
+          ],
+          [
+            70,
+            226
+          ]
+        ],
+        "projectedPx": 51.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.983
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            83,
+            178
+          ],
+          [
+            58,
+            225
+          ]
+        ],
+        "projectedPx": 53.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.009
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            149,
+            177
+          ],
+          [
+            170,
+            225
+          ]
+        ],
+        "projectedPx": 52.4,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.993
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            130,
+            181
+          ],
+          [
+            128,
+            227
+          ]
+        ],
+        "projectedPx": 46,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.872
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            140,
+            178
+          ],
+          [
+            132,
+            226
+          ]
+        ],
+        "projectedPx": 48.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.922
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            139,
+            179
+          ],
+          [
+            132,
+            227
+          ]
+        ],
+        "projectedPx": 48.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.919
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            139,
+            180
+          ],
+          [
+            128,
+            228
+          ]
+        ],
+        "projectedPx": 49.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.933
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            145,
+            183
+          ],
+          [
+            166,
+            226
+          ]
+        ],
+        "projectedPx": 47.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.907
+      }
+    },
+    {
+      "animation": "light4",
+      "frame": 7,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            181
+          ],
+          [
+            49,
+            226
+          ]
+        ],
+        "projectedPx": 54.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.035
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            85,
+            183
+          ],
+          [
+            62,
+            225
+          ]
+        ],
+        "projectedPx": 47.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.907
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            85,
+            190
+          ],
+          [
+            65,
+            226
+          ]
+        ],
+        "projectedPx": 41.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.78
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            173,
+            184
+          ],
+          [
+            175,
+            226
+          ]
+        ],
+        "projectedPx": 42,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.797
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            90,
+            187
+          ],
+          [
+            68,
+            226
+          ]
+        ],
+        "projectedPx": 44.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.848
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            91,
+            189
+          ],
+          [
+            62,
+            226
+          ]
+        ],
+        "projectedPx": 47,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.891
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            91,
+            188
+          ],
+          [
+            64,
+            226
+          ]
+        ],
+        "projectedPx": 46.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.883
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 6,
+      "shin": {
+        "endpoints": [
+          [
+            89,
+            185
+          ],
+          [
+            62,
+            226
+          ]
+        ],
+        "projectedPx": 49.1,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.93
+      }
+    },
+    {
+      "animation": "heavy",
+      "frame": 7,
+      "shin": {
+        "endpoints": [
+          [
+            83,
+            186
+          ],
+          [
+            58,
+            226
+          ]
+        ],
+        "projectedPx": 47.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.894
+      }
+    },
+    {
+      "animation": "airLight1",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            193,
+            183
+          ],
+          [
+            152,
+            215
+          ]
+        ],
+        "projectedPx": 52,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.986
+      }
+    },
+    {
+      "animation": "airLight1",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            190,
+            184
+          ],
+          [
+            144,
+            211
+          ]
+        ],
+        "projectedPx": 53.3,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.011
+      }
+    },
+    {
+      "animation": "airLight1",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            198,
+            185
+          ],
+          [
+            151,
+            212
+          ]
+        ],
+        "projectedPx": 54.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.027
+      }
+    },
+    {
+      "animation": "airLight1",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            198,
+            185
+          ],
+          [
+            151,
+            212
+          ]
+        ],
+        "projectedPx": 54.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.027
+      }
+    },
+    {
+      "animation": "airLight1",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            190,
+            185
+          ],
+          [
+            149,
+            215
+          ]
+        ],
+        "projectedPx": 50.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.963
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 0,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 1,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 2,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 3,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 4,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            192
+          ],
+          [
+            36,
+            224
+          ]
+        ],
+        "projectedPx": 54.4,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.031
+      }
+    },
+    {
+      "animation": "guard",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            81,
+            184
+          ],
+          [
+            55,
+            225
+          ]
+        ],
+        "projectedPx": 48.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.92
+      }
+    },
+    {
+      "animation": "guard",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            185
+          ],
+          [
+            55,
+            225
+          ]
+        ],
+        "projectedPx": 47.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.894
+      }
+    },
+    {
+      "animation": "hurtHigh",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            79,
+            182
+          ],
+          [
+            51,
+            226
+          ]
+        ],
+        "projectedPx": 52.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.988
+      }
+    },
+    {
+      "animation": "hurtHigh",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            94,
+            184
+          ],
+          [
+            67,
+            226
+          ]
+        ],
+        "projectedPx": 49.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.946
+      }
+    },
+    {
+      "animation": "hurtHigh",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            87,
+            185
+          ],
+          [
+            58,
+            226
+          ]
+        ],
+        "projectedPx": 50.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.952
+      }
+    },
+    {
+      "animation": "launched",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            94,
+            192
+          ],
+          [
+            112,
+            224
+          ]
+        ],
+        "projectedPx": 36.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.696
+      }
+    },
+    {
+      "animation": "launched",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            101,
+            190
+          ],
+          [
+            118,
+            226
+          ]
+        ],
+        "projectedPx": 39.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.754
+      }
+    },
+    {
+      "animation": "down",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            168,
+            196
+          ],
+          [
+            204,
+            225
+          ]
+        ],
+        "projectedPx": 46.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.876
+      }
+    },
+    {
+      "animation": "down",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            182,
+            213
+          ],
+          [
+            240,
+            221
+          ]
+        ],
+        "projectedPx": 58.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.109
+      }
+    },
+    {
+      "animation": "getup",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            173,
+            183
+          ],
+          [
+            213,
+            222
+          ]
+        ],
+        "projectedPx": 55.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.059
+      }
+    },
+    {
+      "animation": "getup",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            170,
+            174
+          ],
+          [
+            190,
+            223
+          ]
+        ],
+        "projectedPx": 52.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.003
+      }
+    },
+    {
+      "animation": "getup",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            107,
+            222
+          ],
+          [
+            60,
+            220
+          ]
+        ],
+        "projectedPx": 47,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.891
+      }
+    },
+    {
+      "animation": "getup",
+      "frame": 3,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "getup",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            69,
+            181
+          ],
+          [
+            34,
+            227
+          ]
+        ],
+        "projectedPx": 57.8,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.095
+      }
+    },
+    {
+      "animation": "charge",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            66,
+            174
+          ],
+          [
+            39,
+            226
+          ]
+        ],
+        "projectedPx": 58.6,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.11
+      }
+    },
+    {
+      "animation": "charge",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            64,
+            174
+          ],
+          [
+            39,
+            226
+          ]
+        ],
+        "projectedPx": 57.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.093
+      }
+    },
+    {
+      "animation": "charge",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            64,
+            174
+          ],
+          [
+            39,
+            226
+          ]
+        ],
+        "projectedPx": 57.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.093
+      }
+    },
+    {
+      "animation": "charge",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            64,
+            174
+          ],
+          [
+            39,
+            226
+          ]
+        ],
+        "projectedPx": 57.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.093
+      }
+    },
+    {
+      "animation": "beamCharge",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            181
+          ],
+          [
+            49,
+            226
+          ]
+        ],
+        "projectedPx": 53.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.014
+      }
+    },
+    {
+      "animation": "beamCharge",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            181
+          ],
+          [
+            49,
+            226
+          ]
+        ],
+        "projectedPx": 53.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.014
+      }
+    },
+    {
+      "animation": "beamCharge",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            78,
+            181
+          ],
+          [
+            49,
+            226
+          ]
+        ],
+        "projectedPx": 53.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.014
+      }
+    },
+    {
+      "animation": "beamFire",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            68,
+            177
+          ],
+          [
+            41,
+            226
+          ]
+        ],
+        "projectedPx": 55.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.06
+      }
+    },
+    {
+      "animation": "beamFire",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            64,
+            177
+          ],
+          [
+            38,
+            226
+          ]
+        ],
+        "projectedPx": 55.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.051
+      }
+    },
+    {
+      "animation": "beamFire",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            64,
+            177
+          ],
+          [
+            38,
+            226
+          ]
+        ],
+        "projectedPx": 55.5,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.051
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            79,
+            184
+          ],
+          [
+            53,
+            227
+          ]
+        ],
+        "projectedPx": 50.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.952
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            184
+          ],
+          [
+            55,
+            227
+          ]
+        ],
+        "projectedPx": 49.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.943
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            184
+          ],
+          [
+            55,
+            227
+          ]
+        ],
+        "projectedPx": 49.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.943
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            80,
+            184
+          ],
+          [
+            55,
+            227
+          ]
+        ],
+        "projectedPx": 49.7,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.943
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 4,
+      "shin": {
+        "endpoints": [
+          [
+            79,
+            184
+          ],
+          [
+            53,
+            227
+          ]
+        ],
+        "projectedPx": 50.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.952
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 5,
+      "shin": {
+        "endpoints": [
+          [
+            79,
+            184
+          ],
+          [
+            53,
+            227
+          ]
+        ],
+        "projectedPx": 50.2,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 0.952
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 6,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "special",
+      "frame": 7,
+      "shin": {
+        "unmeasurable": "Foreshortening/occlusion or damaged frame prevents a defensible stable projected shin; no numeric pass for this segment."
+      }
+    },
+    {
+      "animation": "win",
+      "frame": 0,
+      "shin": {
+        "endpoints": [
+          [
+            95,
+            175
+          ],
+          [
+            75,
+            224
+          ]
+        ],
+        "projectedPx": 52.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.003
+      }
+    },
+    {
+      "animation": "win",
+      "frame": 1,
+      "shin": {
+        "endpoints": [
+          [
+            95,
+            175
+          ],
+          [
+            75,
+            224
+          ]
+        ],
+        "projectedPx": 52.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.003
+      }
+    },
+    {
+      "animation": "win",
+      "frame": 2,
+      "shin": {
+        "endpoints": [
+          [
+            95,
+            175
+          ],
+          [
+            75,
+            224
+          ]
+        ],
+        "projectedPx": 52.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.003
+      }
+    },
+    {
+      "animation": "win",
+      "frame": 3,
+      "shin": {
+        "endpoints": [
+          [
+            95,
+            175
+          ],
+          [
+            75,
+            224
+          ]
+        ],
+        "projectedPx": 52.9,
+        "lengthUncertaintyPx": 6,
+        "ratioToIdle": 1.003
+      }
+    }
+  ],
+  "additional": [
+    {
+      "animation": "idle",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          126,
+          93
+        ],
+        [
+          115,
+          133
+        ]
+      ],
+      "projectedPx": 41.5,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "idle",
+      "frame": 0,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          133
+        ],
+        [
+          126,
+          133
+        ]
+      ],
+      "projectedPx": 25,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "idle",
+      "frame": 0,
+      "name": "leftForearm",
+      "endpoints": [
+        [
+          77,
+          109
+        ],
+        [
+          107,
+          97
+        ]
+      ],
+      "projectedPx": 32.3,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "idle",
+      "frame": 0,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          51,
+          227
+        ],
+        [
+          48,
+          239
+        ]
+      ],
+      "projectedPx": 12.4,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "neutral",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          121,
+          65
+        ],
+        [
+          124,
+          108
+        ]
+      ],
+      "projectedPx": 43.1,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "neutral",
+      "frame": 0,
+      "name": "shin",
+      "endpoints": [
+        [
+          92,
+          174
+        ],
+        [
+          73,
+          230
+        ]
+      ],
+      "projectedPx": 59.1,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "neutral",
+      "frame": 0,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          112,
+          108
+        ],
+        [
+          137,
+          108
+        ]
+      ],
+      "projectedPx": 25,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "combat",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          132,
+          94
+        ],
+        [
+          121,
+          133
+        ]
+      ],
+      "projectedPx": 40.5,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "combat",
+      "frame": 0,
+      "name": "shin",
+      "endpoints": [
+        [
+          69,
+          179
+        ],
+        [
+          45,
+          228
+        ]
+      ],
+      "projectedPx": 54.6,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "combat",
+      "frame": 0,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          106,
+          134
+        ],
+        [
+          133,
+          134
+        ]
+      ],
+      "projectedPx": 27,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "guard",
+      "frame": 0,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          106,
+          139
+        ],
+        [
+          132,
+          139
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "guard",
+      "frame": 1,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          106,
+          140
+        ],
+        [
+          132,
+          140
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "guard",
+      "frame": 0,
+      "name": "forearmProjected",
+      "endpoints": [
+        [
+          121,
+          118
+        ],
+        [
+          145,
+          99
+        ]
+      ],
+      "projectedPx": 30.6,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "guard",
+      "frame": 1,
+      "name": "forearmProjected",
+      "endpoints": [
+        [
+          121,
+          118
+        ],
+        [
+          144,
+          100
+        ]
+      ],
+      "projectedPx": 29.2,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "land",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          129,
+          153
+        ],
+        [
+          110,
+          174
+        ]
+      ],
+      "projectedPx": 28.3,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "land",
+      "frame": 1,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          135,
+          114
+        ],
+        [
+          121,
+          148
+        ]
+      ],
+      "projectedPx": 36.8,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "jumpUp",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          157,
+          112
+        ],
+        [
+          140,
+          147
+        ]
+      ],
+      "projectedPx": 38.9,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "jumpUp",
+      "frame": 1,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          147,
+          111
+        ],
+        [
+          139,
+          144
+        ]
+      ],
+      "projectedPx": 34,
+      "lengthUncertaintyPx": 7
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          169,
+          90
+        ],
+        [
+          169,
+          128
+        ]
+      ],
+      "projectedPx": 38,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "airHeavy",
+      "frame": 5,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          164,
+          120
+        ],
+        [
+          133,
+          154
+        ]
+      ],
+      "projectedPx": 46,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "heavy",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          125,
+          107
+        ],
+        [
+          115,
+          144
+        ]
+      ],
+      "projectedPx": 38.3,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "heavy",
+      "frame": 5,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          125,
+          108
+        ],
+        [
+          126,
+          143
+        ]
+      ],
+      "projectedPx": 35,
+      "lengthUncertaintyPx": 7
+    },
+    {
+      "animation": "launched",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          58,
+          139
+        ],
+        [
+          77,
+          162
+        ]
+      ],
+      "projectedPx": 29.8,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "launched",
+      "frame": 1,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          65,
+          138
+        ],
+        [
+          82,
+          160
+        ]
+      ],
+      "projectedPx": 27.8,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "charge",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          145,
+          101
+        ],
+        [
+          126,
+          136
+        ]
+      ],
+      "projectedPx": 39.8,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "beamCharge",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          129,
+          99
+        ],
+        [
+          118,
+          138
+        ]
+      ],
+      "projectedPx": 40.5,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "beamFire",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          121,
+          94
+        ],
+        [
+          110,
+          132
+        ]
+      ],
+      "projectedPx": 39.6,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          124,
+          95
+        ],
+        [
+          114,
+          136
+        ]
+      ],
+      "projectedPx": 42.2,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 0,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 0,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "light1",
+      "frame": 1,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          124,
+          95
+        ],
+        [
+          114,
+          136
+        ]
+      ],
+      "projectedPx": 42.2,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 1,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 1,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "light1",
+      "frame": 2,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          126,
+          94
+        ],
+        [
+          117,
+          135
+        ]
+      ],
+      "projectedPx": 42,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 2,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 2,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "light1",
+      "frame": 3,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          126,
+          94
+        ],
+        [
+          117,
+          135
+        ]
+      ],
+      "projectedPx": 42,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 3,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 3,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "light1",
+      "frame": 4,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          126,
+          95
+        ],
+        [
+          115,
+          136
+        ]
+      ],
+      "projectedPx": 42.4,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 4,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 4,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "light1",
+      "frame": 5,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          125,
+          95
+        ],
+        [
+          115,
+          136
+        ]
+      ],
+      "projectedPx": 42.2,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 5,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 5,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "light1",
+      "frame": 6,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          125,
+          95
+        ],
+        [
+          115,
+          136
+        ]
+      ],
+      "projectedPx": 42.2,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "light1",
+      "frame": 6,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          101,
+          136
+        ],
+        [
+          127,
+          136
+        ]
+      ],
+      "projectedPx": 26,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "light1",
+      "frame": 6,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          53,
+          228
+        ],
+        [
+          51,
+          239
+        ]
+      ],
+      "projectedPx": 11.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "win",
+      "frame": 0,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          129,
+          60
+        ],
+        [
+          134,
+          108
+        ]
+      ],
+      "projectedPx": 48.3,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 0,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          116,
+          109
+        ],
+        [
+          147,
+          109
+        ]
+      ],
+      "projectedPx": 31,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "win",
+      "frame": 0,
+      "name": "leftForearm",
+      "endpoints": [
+        [
+          72,
+          74
+        ],
+        [
+          86,
+          42
+        ]
+      ],
+      "projectedPx": 34.9,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 0,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          72,
+          229
+        ],
+        [
+          70,
+          239
+        ]
+      ],
+      "projectedPx": 10.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "win",
+      "frame": 1,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          129,
+          60
+        ],
+        [
+          134,
+          108
+        ]
+      ],
+      "projectedPx": 48.3,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 1,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          116,
+          109
+        ],
+        [
+          147,
+          109
+        ]
+      ],
+      "projectedPx": 31,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "win",
+      "frame": 1,
+      "name": "leftForearm",
+      "endpoints": [
+        [
+          72,
+          74
+        ],
+        [
+          86,
+          42
+        ]
+      ],
+      "projectedPx": 34.9,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 1,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          72,
+          229
+        ],
+        [
+          70,
+          239
+        ]
+      ],
+      "projectedPx": 10.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "win",
+      "frame": 2,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          129,
+          60
+        ],
+        [
+          134,
+          108
+        ]
+      ],
+      "projectedPx": 48.3,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 2,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          116,
+          109
+        ],
+        [
+          147,
+          109
+        ]
+      ],
+      "projectedPx": 31,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "win",
+      "frame": 2,
+      "name": "leftForearm",
+      "endpoints": [
+        [
+          72,
+          74
+        ],
+        [
+          86,
+          42
+        ]
+      ],
+      "projectedPx": 34.9,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 2,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          72,
+          229
+        ],
+        [
+          70,
+          239
+        ]
+      ],
+      "projectedPx": 10.2,
+      "lengthUncertaintyPx": 3
+    },
+    {
+      "animation": "win",
+      "frame": 3,
+      "name": "neckBaseToSash",
+      "endpoints": [
+        [
+          129,
+          60
+        ],
+        [
+          134,
+          108
+        ]
+      ],
+      "projectedPx": 48.3,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 3,
+      "name": "sashWidth",
+      "endpoints": [
+        [
+          116,
+          109
+        ],
+        [
+          147,
+          109
+        ]
+      ],
+      "projectedPx": 31,
+      "lengthUncertaintyPx": 4
+    },
+    {
+      "animation": "win",
+      "frame": 3,
+      "name": "leftForearm",
+      "endpoints": [
+        [
+          72,
+          74
+        ],
+        [
+          86,
+          42
+        ]
+      ],
+      "projectedPx": 34.9,
+      "lengthUncertaintyPx": 6
+    },
+    {
+      "animation": "win",
+      "frame": 3,
+      "name": "sandalTopToSole",
+      "endpoints": [
+        [
+          72,
+          229
+        ],
+        [
+          70,
+          239
+        ]
+      ],
+      "projectedPx": 10.2,
+      "lengthUncertaintyPx": 3
+    }
+  ]
+}

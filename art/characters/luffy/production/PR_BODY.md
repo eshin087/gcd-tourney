@@ -1,3 +1,50 @@
+## 2026-10-15 calibration r2 — manual audit complete, pack policy hold
+
+No new image calls. Claude's win bodyHeight236 retained; light1 remains204. Astra inspected all23 animations/108frames in the exact48-color diagnostic atlas. Eighteen version-bound manual body-scale passes are recorded; four strips remain held. No user approval, merge, or production deployment.
+
+Review gallery: deployed with this committed branch at /characters/luffy/calibration-r2/index.html (new preview URL will be added after publication). It contains full diagnostic playback, exact-frame contacts and audit findings. The gameplay atlas is still the earlier subset and is not newly certified.
+
+Strict pack still exits1 on11 false measured head-probe findings: scaleManualQA currently converts only unmeasured/partial. Claude must resolve that detector/policy mismatch, repack and return final pixels for identity recheck; then check contact/grounding and route image decisions. No gate weakening or exemptions were added.
+
+Validation: adapter production build passed; local gallery loads, playback/frame-step and one-shot stop work, all images loaded, no console warnings/errors in observed session. Final gameplay validation remains open. Source versions/hash evidence and cumulative budgets are preserved.
+
+### Current proposed review update
+
+## Astra manual body-scale audit r2 (2026-10-15)
+
+Astra inspected every frame of the exact 48-color diagnostic fixture atlas (23 animations / 108 frames; SHA-256 `67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e`). These are version-bound manual body-scale results only; they do not approve images, hidden anatomy, timing/contact, grounding, or release. Landmark readings carry shin ±6px, torso ±6–8px, sash ±4px, sandal ±3px endpoint uncertainty; see [AUDIT.md](production/manual-audit-r2/AUDIT.md) and [measurements.json](production/manual-audit-r2/measurements.json).
+
+| Animation | Version | Astra body-scale result | Remaining review |
+|---|---:|---|---|
+| [run v01](characters/luffy/raw/run_v01.png) | v01 | PASS; visible shin 40.5–55.8px, upright supports 47.8–55.8px | User-accepted rear-foot placement clips f3/f4/f7 only; contact/runtime review remains. |
+| [dash v02](characters/luffy/raw/dash_v02.png) | v02 | PASS; shin 47.0–50.2px | Timing/contact review remains. |
+| [jumpUp v01](characters/luffy/raw/jumpUp_v01.png) | v01 | PASS; f0 shin 46.9px, tucked f1 unmeasurable; torso 38.9/34.0px | Projection/timing limits remain. |
+| [jumpFall v03](characters/luffy/raw/jumpFall_v03.png) | v03 | PASS; shin 50.2–52.4px | Timing/contact review remains. |
+| [land v01](characters/luffy/raw/land_v01.png) | v01 | PASS; shin 48.6–55.9px | Grounding/timing review remains. |
+| [light1 v02](characters/luffy/raw/light1_v02.png) | v02 | PASS; shin 51.9–55.6px, torso ~42px, sash 26px, sandal 11.2px | Contact review remains. |
+| [light2 v01](characters/luffy/raw/light2_v01.png) | v01 | PASS; shin 50.1–60.8px | Contact review remains; f2 fallback hitbox is a separate gameplay issue. |
+| [light3 v02](characters/luffy/raw/light3_v02.png) | v02 | PASS; planted shin 51.2–53.2px | User-accepted toe f3 placement clip only; contact review remains. |
+| [light4 v02](characters/luffy/raw/light4_v02.png) | v02 | PASS; planted shin 46.0–54.6px | User-accepted foot f4 placement clip only; contact review remains. |
+| [heavy v01](characters/luffy/raw/heavy_v01.png) | v01 | PASS within broad uncertainty; shin 41.2–49.1px; torso 38.3±6 / 35.0±7px | Mild apparent smallness unresolved inside combined uncertainty; contact review remains. |
+| [airLight1 v01](characters/luffy/raw/airLight1_v01.png) | v01 | PASS; bent back-leg chain 50.8–54.2px | User-accepted fist f2/f3 placement clips only; contact review remains. |
+| [airHeavy v01](characters/luffy/raw/airHeavy_v01.png) | v01 | PASS with occlusion limits; recovery shin 54.4px, torso f0 38±6/f5 46±8px | Middle tucked shins unmeasurable; weakest numerical coverage, contact review remains. |
+| [guard v01](characters/luffy/raw/guard_v01.png) | v01 | PASS; shin 47.2–48.5px, sash 26px, forearm ~29–31px | Torso obscured; no hidden segment inferred. |
+| [hurtHigh v01](characters/luffy/raw/hurtHigh_v01.png) | v01 | PASS; shin 49.9–52.2px | Timing/contact review remains. |
+| [charge v01](characters/luffy/raw/charge_v01.png) | v01 | PASS; shin 57.7–58.6px, torso 40.6±6px | Gear Second color and activation-cycle timing are intentional; runtime review remains. |
+| [beamCharge v01](characters/luffy/raw/beamCharge_v01.png) | v01 | PASS; shin 53.5px, torso 40.5±6px | Gear Third enlarged hand is intentional; runtime review remains. |
+| [beamFire v02](characters/luffy/raw/beamFire_v02.png) | v02 | PASS body scale; shin 55.5–55.9px, torso 39.6±6px | Claude accepted only giant-arm placement beyond cell f1/f2 for engine continuation; runtime fist/contact remains. |
+| [win v03](characters/luffy/raw/win_v03.png) | v03 | PASS; shin 52.9px, torso 48.3±6px, sash 31±4px | User image approval and gameplay review remain. |
+| [launched v01](characters/luffy/raw/_qa_hold/launched_v01.png) | v01 | HOLD; undersized shins 36.7/39.8px, torso 29.8/27.8px | Do not use as scale pass. |
+| [down v01](characters/luffy/raw/_qa_hold/down_v01.png) | v01 | HOLD; f1 loses right 9px and floor contour warning 7px | Grounding/placement remains unresolved. |
+| [getup v01](characters/luffy/raw/_qa_hold/getup_v01.png) | v01 | HOLD; f0 loses left 6/right 7px, floor warning 8px | Grounding/placement and low-confidence pose remain unresolved. |
+| [special v01](characters/luffy/raw/_qa_hold/special_v01.png) | v01 | HOLD; f6/f7 recovery split/cut | No pass despite coherent earlier frames. |
+
+The actual strict command `node tools/pack-sprites.mjs luffy --quantize 48` exited 1 and wrote nothing: the automatic probe still flags run, jumpUp, land, light1, light4, heavy, airLight1, airHeavy, guard, charge and beamCharge. Current packer policy converts only `unmeasured`/`partial` verdicts to manual; measured `drift`, `uniform` and `pop` findings remain strict failures even when a matching manual record exists. It selected 19 animations / 91 frames and reported four missing core strips (launched, down, getup, special). No tool or gate override was applied. The prior public sheet/anims remain unchanged and are not certified by this audit. See [strict attempt log](production/strict-pack-after-manual-audit-r2.log). All candidates still require user approval.
+
+---
+
+## Earlier PR record (superseded where r2 updates it)
+
 ## 2026-10-15 repair checkpoint — calibration pending
 
 New source corrections are filed; neither is approved or ready to ship. `production/IMAGE_CALL_CAPTURE.md` / the source ledger document result capture before another call. The first new light1 response hint was omitted, then recovered from its exact child-session completion event without another generation. Original bytes and hashes are retained.

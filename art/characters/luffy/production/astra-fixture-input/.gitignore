@@ -1,0 +1,4 @@
+# Reproducible local snapshot of source inputs; see sibling astra-audit-r2/inventory.json.
+*
+!.gitignore
+!manifest.json

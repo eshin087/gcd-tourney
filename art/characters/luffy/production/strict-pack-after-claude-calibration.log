@@ -1,0 +1,26 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  art/characters/luffy/production/strict-pack-attempt
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== luffy =======================================================
+  packed 7 anims, 33 frames -> sheet 4096x768, 47 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v01.png             x0.872
+    dash         2     <- raw/dash_v02.png             x0.269
+    jumpFall     2     <- raw/jumpFall_v03.png         x0.274
+    light1       7     <- raw/light1_v02.png           x1
+    light2       7     <- raw/light2_v01.png           x0.455
+    hurtHigh     3     <- raw/hurtHigh_v01.png         x0.328
+    win          4     <- raw/win_v03.png              x0.992
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 5 ok, 1 drift  FAILED: light1 - nothing written
+  missing core (16): run, jumpUp, land, light3, light4, heavy, airLight1, airHeavy, guard, launched, down, getup, charge, beamCharge, beamFire, special
+  missing optional (33): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  - 3 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light1#3, light2#2; check them in the Sprite Lab or add hitboxes.json overrides)
+  ! scale gate: light1 head 1.10 of idle (feet 0.99): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v02, not approved yet]
+  ! scale gate: did not write art/characters/luffy/production/strict-pack-attempt/characters/luffy/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+
+SCALE GATE FAILED: luffy (light1) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 2 warning(s).
+EXIT_CODE=1
