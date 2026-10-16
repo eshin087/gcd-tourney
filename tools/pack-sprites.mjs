@@ -580,6 +580,24 @@ function removeSpecks(img, { frac = 0.0015, min = 4 } = {}) {
   return { blobs, removed };
 }
 
+// Sidecar "erase": [[x, y, w, h], ...] in raw-image pixels, painted magenta before background removal. For a leftover the
+// automatic cleanup rightly keeps because it sits close to a body (the toe of an earlier version's pose left at a slot edge
+// when one frame of a strip was replaced): the approved PNG stays immutable (ADR 0007) and the cleanup is recorded beside it.
+function eraseRects(img, list, warn) {
+  let n = 0;
+  for (const r of list) {
+    const ok = Array.isArray(r) && r.length === 4 && r.every((v) => Number.isInteger(v)) && r[0] >= 0 && r[1] >= 0 && r[2] > 0 && r[3] > 0;
+    if (!ok || r[0] >= img.w || r[1] >= img.h) { warn(`sidecar "erase" ${JSON.stringify(r)} ignored - expected [x, y, w, h] integers inside the ${img.w}x${img.h} raw image`); continue; }
+    const x1 = Math.min(img.w, r[0] + r[2]), y1 = Math.min(img.h, r[1] + r[3]);
+    for (let y = r[1]; y < y1; y++) for (let x = r[0]; x < x1; x++) {
+      const i = (y * img.w + x) * 4;
+      img.data[i] = 255; img.data[i + 1] = 0; img.data[i + 2] = 255; img.data[i + 3] = 255;
+    }
+    n++;
+  }
+  return n;
+}
+
 // Per-frame cleanup of a raw character pose: a small blob far from the body (a stray mark above the
 // head) or below the soles would set the trimmed height (= the scale of the whole animation) or the
 // floor line. Small blobs close to the body (smears, sweat drops, sparks at the fist) are kept.
@@ -1300,6 +1318,10 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
   for (const f of rawFiles) {
     let img;
     try { img = readPng(f); } catch (e) { warn(`${label}: cannot read ${path.basename(f)} (${e.message})`); unreadable++; continue; }
+    if (Array.isArray(side.erase) && side.erase.length) {
+      const n = eraseRects(img, side.erase, (m) => warn(`${label}: ${m}`));
+      if (n) notes.push(`erased ${n} rect(s) of ${path.basename(f)} (sidecar)`);
+    }
     const bg = removeBackground(img, { tol, mode });
     if (!bg.magentaBg && bg.removed === 0 && !hasTransparency(img)) warn(`${label}: ${path.basename(f)} has no removable background (use flat magenta #FF00FF)`);
     else if (mode === 'char' && bg.foreign && bg.removed) foreign.add(bg.foreign);
