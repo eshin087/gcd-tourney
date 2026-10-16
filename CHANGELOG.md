@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: online-play determinism test (ENG-082, ADR 0034): `src/net/simHash.js` (per-frame state hash in groups, dumps to diff), `src/net/detTest.js` (`?debug` -> `det.record/replay/diagnose`, `?det=<fixture>` replays a saved match against its reference in any browser), fixtures in `public/det/`, and ADR 0034 (rollback netcode, lobby server and the leaks the spike found).
+
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
