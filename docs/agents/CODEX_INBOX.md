@@ -15,6 +15,16 @@ How it works:
 
 ---
 
+## Goku/Luffy: final repairs approved (2026-10-16, relay #12) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER APPROVAL via Claude:** "Approve Goku light3 v13 and Luffy special v02 as drawn." Exactly these two drawings are approved. No new calls are authorized.
+
+- [x] Recorded the exact user approval in main's shared REVIEW.md and resumed one Luna/medium worker per existing fighter worktree.
+- [ ] Update branch manifests, TRACKER and character review rows; preserve/version-archive superseded candidates, repack and verify exact audited pixels.
+- [ ] Complete Claude's following full-set review request, commit combined handoff and route remaining drawing approvals through the desk.
+
+---
+
 ## Goku and Luffy: final full-set review before merge (2026-10-16, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 Do this after recording the user's approval of Goku light3 v13 and Luffy special v02 (send #12). **No new image calls.**

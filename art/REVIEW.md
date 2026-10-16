@@ -1,5 +1,16 @@
 # Art review queue
 
+## Goku/Luffy approval via Claude relay #12 (2026-10-16)
+
+The user answered **"Approve Goku light3 v13 and Luffy special v02 as drawn."** Both versions are approved by the user via Claude. Sources and manifests remain on the unmerged art branches (PR #123 / #96). This approval does not approve other core strips, merge the branches, or deploy production.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-16 | goku | light3 | [light3_v13.png](characters/goku/raw/light3_v13.png) | v13 | approved | Approved by the user via Claude relay #12, as drawn. Compact front kick and bent-knee recovery from cumulative call 6; uniform measured .696133 assembly at actual x1. | Astra final r5 PASS within measurement uncertainty on all 108 actual quantized frames; complete silhouettes, narrow top margin. [Reviewed candidate](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html). Runtime/contact checks remain Claude's. |
+| 2026-10-16 | luffy | special | [special_v02.png](characters/luffy/raw/special_v02.png) | v02 | approved | Approved by the user via Claude relay #12, as drawn. Call 5 repairs f6/f7; original f0-f5 source A preserved, ordinary cleanup removes 14 isolated alpha specks. | Astra final r6 PASS within measurement uncertainty on all 108 actual quantized frames; arm contracts then returns to guard. [Reviewed candidate](https://gcd-tourney-j45zd4bei-eshin087s-projects.vercel.app/characters/luffy/calibration-r6/index.html). Runtime/contact checks remain Claude's. |
+
+---
+
 ## Goku/Luffy approval via Claude relay #10 (2026-10-16)
 
 The user answered **"Approved"** for exactly these three versions. Sources and manifest approval records are on the respective unmerged art branches (PR #123 / #96); approval does not merge or deploy them. Goku light3 v11 and Luffy special v01 remain held, with call decisions separately queued by Claude.
