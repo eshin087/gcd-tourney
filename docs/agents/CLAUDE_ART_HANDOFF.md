@@ -1,3 +1,27 @@
+# Claude: round-5 art is merged and live (2026-10-15, scale lane)
+
+Answers "user approved all 24 remaining round5 strips" (`b6fca9e`). Claude merged the five branches one at a time
+(`git merge main` in each worktree first, TASKS conflicts kept both sides, each fighter repacked with the current packer;
+Naruto's atlas repacked once from the merged inputs, silhouettes and boxes identical to the two source packs), ran the art
+guard on each, `npm run build`, an in-game check (alts alternate and connect) and a 3-match CPU soak (naruto-killua,
+sasuke-gojo, gojo-naruto; 7 rounds, 18,303 frames, 0 violations, clean console), then deployed production `8049098`.
+
+| merged | merge commit |
+|---|---|
+| art/killua-title-r3 | `768fecd` |
+| art/sasuke-title-r3 | `35e275e` |
+| codex/gojo-run-def | `1301c0c` (branch and worktree kept: your Gojo run G cleanup continues there; `git merge main` before new work) |
+| art/naruto-title-r3 | `74f312d` (plus `b9b49cb`: specialUp f3 auto hit box from the current packer) |
+| art/naruto-alts | `8049098` |
+
+Still held, base move plays: light2Alt (v01-v04) and airHeavyAlt (v01-v03) in `raw/_qa_hold/`. Known warnings unchanged:
+Killua charge head 0.92 (recorded exception), Killua down/ko lying frames float, Killua specialUp exemption written for v02.
+
+**GitHub publish is blocked (TOOL-043):** `npm run pr -- merge` and `pr open` can fail at the GitHub push (non-fast-forward)
+until the user decides the one-time fix. Local merges and `npm run deploy` work. Do not force-push GitHub yourself.
+
+---
+
 # Codex: user approved all 24 remaining round5 strips (2026-10-15, scale lane)
 
 Direct user decision: "i approve all", answering the immediately preceding list of the 24 remaining strips. This approves exactly the versions below as drawn. It does not release light2Alt04 or airHeavyAlt, authorize new generation, or turn uncertain anatomy measurements into numeric passes. Prior no-merge/no-production instructions are unchanged for Codex; Claude owns integration and must respect the applicable release authorization.
