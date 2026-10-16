@@ -529,6 +529,13 @@ final size.
 | `ui/portrait.png` | 96 x 96 | head and shoulders, facing right, transparent background, same pixel style |
 | `ui/cutin.png` | 480 x 128 | DBFZ super-flash eye strip: both eyes and brows, intense expression. The face fills the strip (opaque); a flat background band color (the character color or dark navy) may show only around the eyes/brows. No speed lines: the HUD adds them |
 | `ui/select.png` | 384 x 384 | full-body character-select art, facing right, transparent background |
+| `ui/super_bg.png` | 768 x 192 | super banner backdrop (4:1), opaque, no character or text ([ADR 0035](../docs/decisions/0035-super-banners-and-ultimate-splashes.md), brief: [characters/SUPER_ART_BRIEF.md](characters/SUPER_ART_BRIEF.md)) |
+| `ui/super_fg.png` | 384 x 240 | the fighter chest-up in the super's pose, facing right, transparent, contain-fitted and bottom-aligned; the HUD lets it break out of the 192 banner's top |
+| `ui/ult_bg.png` | 768 x 432 | ultimate splash backdrop (16:9), opaque, focal symbol inside the middle 4:3 |
+| `ui/ult_fg.png` | 576 x 432 | the fighter, three-quarter to full figure, in the ultimate's pose, facing right, transparent, bottom-aligned |
+
+The four super/ultimate layers are optional and fall back one by one (no `bg`: speed-line stripes; no `fg`: the eye
+strip), so `cutin.png` stays required as the fallback and as the eye flash.
 
 ## VFX atlas
 

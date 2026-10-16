@@ -10,7 +10,7 @@ import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
-import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES } from './moves.js';
+import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
 import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy, ENERGY_LOCK } from './kit.js';
 import { ShowDirector } from './showDirector.js';
@@ -32,6 +32,7 @@ const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0,
 const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vector3(), sdc = new THREE.Vector3();
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const clashTmp = new THREE.Vector3();
+const meleeAt = new THREE.Vector3(); // where two swings met (meleeClash)
 const burstCol = new THREE.Color();
 const TECH_SPARK = 0xc8f8ff; // the timed impact tech's white-cyan (ADR 0028)
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
@@ -102,6 +103,9 @@ export class Game {
     this.beams = [];
     this.orbs = []; // Hollow Purple (ADR 0017)
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
+    this.meleeChain = { n: 0, at: -1e9 }; // the running MELEE CLASH chain: clashes in it, frame of the last (ADR 0038)
+    this.meleeFxF = 0; // frames left of a melee clash's speed lines and stage dim (clashMoment)
+    this.meleeFocus = { pos: new THREE.Vector3() }; // where those speed lines center (a stand-in for linesFocus' fighter)
     this.clash = null;
     this.spClashCool = 0; // frames until two specials may clash again (a rush-off can't stall the round)
     this.struggleCool = 0; // frames until the next BEAM CLASH (ADR 0027)
@@ -271,10 +275,11 @@ export class Game {
   }
 
   // `answer`: fired into the opponent's running ultimate, so a short flash (they can meet, ADR 0017)
-  onSuperStart(f, S, answer = false) {
+  onSuperStart(f, S, answer = false, ultimate = false) {
     this.comboChip(f, 'SUPER', 'super'); // a three-bar finisher on the end of a combo
     this.arena.npcCue('super');
-    this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name);
+    // an ultimate gets the full-screen splash (ADR 0035); an answer's short flash keeps the banner
+    this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name, ultimate && !answer ? 'ult' : 'super');
     if (answer) this.hud.announce('COUNTER!', 'clash-call', 700);
     this.fx.overlay.flash(S.color || f.def.color, 0.45);
     this.excite = 1;
@@ -390,6 +395,8 @@ export class Game {
     this.orbs = [];
     this.vortices = [];
     this.pendingMelee = [];
+    this.meleeChain = { n: 0, at: -1e9 };
+    this.meleeFxF = 0;
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
     this.spClashCool = 0;
@@ -730,6 +737,12 @@ export class Game {
       else this.fx.dropHand(f);
     }
     if (this.clash) lines = 0.75;
+    if (this.meleeFxF > 0) {
+      this.meleeFxF--;
+      lines = Math.max(lines, MELEE_CLASH.look.lines);
+      this.linesFocus = this.meleeFocus;
+      if (!this.meleeFxF && !this.superFlash) this.dimTarget = 0;
+    }
     if (this.superFlash) { lines = 1; this.linesFocus = this.superFlash.who; }
     const o = this.fx.overlay;
     o.lines += (lines - o.lines) * (lines > o.lines ? 0.3 : 0.08);
@@ -782,8 +795,20 @@ export class Game {
 
   resolveMelee() {
     if (!this.pendingMelee.length) return;
-    const list = this.pendingMelee;
+    let list = this.pendingMelee;
     this.pendingMelee = [];
+    // MELEE CLASH (ADR 0038): a swing landing on the other's live swing of the same class cancels both; a light that
+    // meets a heavy is beaten by it (its hit is dropped, the heavy lands now)
+    const met = list.find((h) => this.swingsMeet(h.att, h.def));
+    if (met) {
+      const { att, def } = met;
+      if (att.move.meleeClash === def.move.meleeClash) { this.meleeClash(att, def, met.at); return; }
+      const H = att.move.meleeClash === 'heavy' ? att : def;
+      list = list.filter((h) => h.att === H);
+      if (!list.length) list.push({ att: H, def: H.opp, m: H.move, dir: H.face.clone(), at: met.at });
+      H.hitDone = true;
+      this.heavyBeatsLight(H, met.at);
+    }
     for (const { att, def, m, dir, at } of list) {
       // a burst started after the hit was queued (P2 updates after P1) still beats it: the attack whiffs, as it
       // would against P1
@@ -802,6 +827,78 @@ export class Game {
       // air juggles: start riding up with the victim (Fighter.updateAttack keeps following)
       if (m.air || m.hover) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
     }
+  }
+
+  // Both swings live at once: att's lands now and def's is in its active frames or at most MELEE_CLASH.window frames
+  // from them (both pressed a few frames apart), each a light or heavy normal
+  swingsMeet(att, def) {
+    const a = att.move, d = def.move;
+    if (att.state !== 'attack' || def.state !== 'attack' || !a?.meleeClash || !d?.meleeClash || def.moveHit || def.ko) return false;
+    return def.t >= d.startup - MELEE_CLASH.window && def.t < d.startup + d.active;
+  }
+
+  // Two lights (or two heavies) met: no damage. Both hold their strikes pressed together for a moment (sparks in both
+  // colors, a shockwave, speed lines, the stage dimmed, the camera pushing in on the fists), then get pushed back a
+  // step free to act. A chain (the next clash within chainGap frames) grows the spray and the push-in and pays both
+  // ki; the finale-th pushes both far back (clashFinale).
+  meleeClash(a, b, at) {
+    const C = MELEE_CLASH, ch = this.meleeChain, cls = a.move.meleeClash, heavy = cls === 'heavy';
+    ch.n = this.frameNo - ch.at <= C.chainGap ? ch.n + 1 : 1;
+    ch.at = this.frameNo;
+    ch.cls = cls; // the CPUs press it again out of the bounce (aiClash.js)
+    const n = ch.n, mid = meleeAt.set((a.pos.x + b.pos.x) / 2, at.y, (a.pos.z + b.pos.z) / 2);
+    const ki = C.ki[cls] * (1 + C.kiPer * (n - 1));
+    for (const f of [a, b]) f.ki = Math.min(MAX_KI, f.ki + ki);
+    this.arena.npcCue('clash');
+    this.excite = Math.min(1, this.excite + 0.25 + 0.1 * n);
+    this.clashMoment(mid, C.stop[cls] + 4, Math.min(C.camMax, C.cam + C.camPer * (n - 1)));
+    if (n >= C.finale) {
+      ch.n = 0;
+      this.clashFinale(a, b, mid);
+      return;
+    }
+    a.clashBounce(C.stop[cls], C.push[cls]);
+    b.clashBounce(C.stop[cls], C.push[cls]);
+    this.fx.clashSpark(mid.x, mid.y, mid.z, a.def.color, b.def.color, (heavy ? 1.25 : 1) * (1 + 0.12 * (n - 1)));
+    this.fx.ring(mid, '#f4f0ff', 0.6 + 0.15 * n, Math.min(a.pos.y, b.pos.y) + 0.05);
+    this.cam.shake(0.18 + 0.05 * n + (heavy ? 0.12 : 0));
+    audio.play(heavy ? 'smash' : 'hitHeavy', Math.min(1.3, 0.8 + 0.1 * n));
+    audio.play('block');
+    if (n >= 2) audio.play('cheer', Math.min(1.2, 0.2 + 0.2 * n));
+    this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash-call', 650);
+  }
+
+  // what every melee clash shares: the push-in on the contact, speed lines on it and a dimmed stage for `frames` sim
+  // frames (fxTicks lifts them). No slow-mo: the user found it dragged (2026-10-15).
+  clashMoment(at, frames, cam) {
+    const S = MELEE_CLASH.look;
+    this.cam.pushIn(at.x, at.y, at.z, cam, S.hold);
+    this.meleeFocus.pos.set(at.x, at.y - 0.9, at.z); // the speed lines center on pos + 0.9
+    this.meleeFxF = frames;
+    if (!this.superFlash) this.dimTarget = S.dim;
+  }
+
+  // the last clash of a chain: a blast between them pushes both far back, skidding (no damage, no knockdown)
+  clashFinale(a, b, mid) {
+    const P = MELEE_CLASH.breakPush;
+    for (const f of [a, b]) f.clashBounce(P.stop, P.speed, P.act, P.slide);
+    this.fx.clashSpark(mid.x, mid.y, mid.z, a.def.color, b.def.color, 1.6);
+    for (let k = 0; k < 4; k++) this.fx.smoke(mid.x + (Math.random() - 0.5) * 1.4, mid.y * 0.5 + Math.random() * 0.5, mid.z + (Math.random() - 0.5) * 1.4, 1);
+    if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
+    else this.fx.debris(mid.x, mid.z, 12, 1.2);
+    this.fx.overlay.flash('#ffe2b0', 0.22);
+    audio.play('explosion', 1.2);
+    audio.play('cheer', 1.4);
+    this.cam.shake(0.9);
+    this.excite = 1;
+    this.hud.announce('CLASH BREAK!', 'clash-call', 1100);
+  }
+
+  // a heavy that met a light blows through it (the hit itself follows in resolveMelee)
+  heavyBeatsLight(H, at) {
+    this.fx.hit(at.x, at.y, at.z, 'heavy', 0xfff2c0);
+    this.hud.callout(H.index, 'CRUSH!', H.def.color);
+    audio.play('smash', 0.7);
   }
 
   // Two rush specials meeting head-on (Rasengan into Chidori): one beat decides it (ADR 0017). Right after another
@@ -1756,12 +1853,14 @@ export class Game {
     }
   }
 
-  // DBFZ super flash: freeze time, darken the stage, flash the user, cut-in
-  superFlashFor(f, len, dim, cutin = false, name = f.def.beam.name) {
+  // DBFZ super flash: freeze time, darken the stage, flash the user, cut-in. tier 'ult' holds the frozen world a
+  // little longer (ULTIMATE.splashHold) so the full-screen splash can be read; frame data does not change.
+  superFlashFor(f, len, dim, cutin = false, name = f.def.beam.name, tier = 'super') {
+    if (cutin && tier === 'ult') len += ULTIMATE.splashHold;
     this.freeze = Math.max(this.freeze, len);
     this.superFlash = { who: f, t: 0, len };
     this.dimTarget = dim;
-    if (cutin) this.hud.superCutin(f.index, f.asset?.cutin, f.def.color, name);
+    if (cutin) this.hud.superCutin(f.index, f.asset, f.def.color, name, { tier, secs: len / 60 });
     audio.play('flash');
   }
 
@@ -1775,7 +1874,7 @@ export class Game {
   onUltimateStart(f, counter) {
     this.arena.npcCue('ultimate');
     this.cam.set('focus', f);
-    this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true);
+    this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true, f.def.beam.name, counter ? 'super' : 'ult');
     this.fx.overlay.flash(f.def.color, 0.4);
     this.excite = 1;
     if (counter) this.hud.announce('COUNTER!', 'clash-call', 700);

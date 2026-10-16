@@ -191,6 +191,12 @@ const UI_ITEMS = {
   portrait: { w: 96, h: 96, align: 'bottom' },
   cutin: { w: 480, h: 128, align: 'center' },
   select: { w: 384, h: 384, align: 'bottom' },
+  // super banner and ultimate splash layers (ADR 0035): opaque backdrops are center-cropped to the aspect, the
+  // fighter cutouts contain-fitted and bottom-aligned
+  super_bg: { w: 768, h: 192, align: 'center' },
+  super_fg: { w: 384, h: 240, align: 'bottom' },
+  ult_bg: { w: 768, h: 432, align: 'center' },
+  ult_fg: { w: 576, h: 432, align: 'bottom' },
 };
 
 const MAGENTA = [255, 0, 255];
@@ -300,6 +306,14 @@ function readJson(file) {
 
 // ============================================================== image helpers (RGBA8)
 function newImage(w, h) { return { w, h, data: new Uint8Array(w * h * 4) }; }
+function flipH(img) {
+  const out = newImage(img.w, img.h);
+  for (let y = 0; y < img.h; y++) for (let x = 0; x < img.w; x++) {
+    const s = (y * img.w + x) * 4, d = (y * img.w + (img.w - 1 - x)) * 4;
+    for (let k = 0; k < 4; k++) out.data[d + k] = img.data[s + k];
+  }
+  return out;
+}
 
 const PNG_SIG = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const MAX_PIXELS = 40e6; // ChatGPT images are ~2 MP; anything this big is a mistake and could exhaust memory
@@ -1380,6 +1394,12 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
   if (strays) notes.push(`dropped ${strays} stray mark(s) far from the body`);
   if (foreign.size) warn(`${label}: background ${[...foreign].join('/')} is not magenta #FF00FF - removed with half tolerance; gaps enclosed by the body (between arm and torso) stay filled. Regenerate on magenta`);
   let frames = out;
+  // Sidecar "flipX": a pose drawn facing the other way (Killua ko v09 lies head-right where down and the approved ko lie
+  // head-left) is mirrored frame by frame, after the split, so the frame order stays the drawing's
+  if (side.flipX === true) {
+    if (mode === 'char') { frames = frames.map(flipH); notes.push('mirrored left-right (sidecar flipX)'); }
+    else warn(`${label}: sidecar "flipX" is for character strips only - ignored`);
+  }
   if (Array.isArray(side.drop) && side.drop.length) {
     const drop = new Set(side.drop.map(Number).filter((k) => Number.isInteger(k) && k >= 0 && k < frames.length));
     const bad = side.drop.filter((k) => !drop.has(Number(k)));
@@ -1946,8 +1966,36 @@ function auditAnims(id, anims, env) {
   const decl = env.builds?.[id] || {};
   return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version, phases: a.def.phases })), {
     decl, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
-    reference: loadScaleReference(env.artDir, decl),
+    reference: scaleReferenceFor(id, env),
   });
+}
+const scaleReferenceFor = (id, env) => loadScaleReference(env.artDir, env.builds?.[id] || {}) || env.approvedIdleRef?.[id] || null;
+
+// A new idle candidate as the newest raw would become the scale gate's reference and move every strip's head numbers
+// and auto head fits (TOOL-040: Gojo idle v07 made superDash read 0.47). While the packed idle is not the approved
+// version, the gate measures against the approved idle instead, imported and placed exactly like the live one, and
+// the candidate idle is gated like any other strip. A builds.json scaleReference still wins.
+function approvedIdleReference(id, defs, anims, rawIdx, env, R, warn) {
+  const def = defs.find((d) => d.name === 'idle');
+  const live = anims.find((a) => a.def.name === 'idle');
+  if (def?.approvedVersion == null || live?.version == null || live.version === def.approvedVersion) return;
+  if (loadScaleReference(env.artDir, env.builds?.[id] || {})) return;
+  const vv = (n) => `v${String(n).padStart(2, '0')}`;
+  const raw = pickRaw(rawIdx.get('idle'), 'idle', def.approvedVersion);
+  if (raw?.version !== def.approvedVersion) {
+    warn(`idle: candidate ${vv(live.version)} is packed and no raw/idle_${vv(def.approvedVersion)}.png is left - every strip is measured against the candidate`);
+    return;
+  }
+  const side = readSidecars(raw.sidecars, warn, 'idle');
+  const { frames } = framesFromRaw(raw.files, def.frames, side, env, 'char', () => {}, 'idle', raw.strip);
+  if (!frames.length) return;
+  const bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
+  const maxH = Math.max(...frames.map((s) => s.h));
+  const scale = Math.abs(maxH - bodyHeight) <= 1 ? 1 : bodyHeight / maxH;
+  const offsets = frameOffsetsFor(side, frames.length, env.spec, () => {}, 'idle');
+  const cells = frames.map((s, k) => placeCharFrame(resample(s, scale, { coverage: 0.5, alphaMin: 128 }), env.spec, offsets?.[k], null).cell);
+  (env.approvedIdleRef ??= {})[id] = { cells, label: `approved idle ${vv(def.approvedVersion)} (${raw.label})` };
+  R.notes.push(`scale: measured against the approved idle ${vv(def.approvedVersion)}, not the packed candidate ${vv(live.version)}`);
 }
 
 // builds.json fighter "scaleReference": { "cells": ["characters/<id>/reference/<approved cell>.png", ...], "why": "..." }
@@ -2033,7 +2081,7 @@ function scaleGate(id, anims, env, R) {
   R.scale = out;
   const approved = (a) => a.def.approvedVersion != null && (a.version == null || a.version <= a.def.approvedVersion);
   // the idle is the reference and never fails, unless builds.json names an approved reference: then it is gated too
-  const external = !!loadScaleReference(env.artDir, env.builds?.[id] || {})?.cells;
+  const external = !!scaleReferenceFor(id, env)?.cells;
   const isStrict = (a) => (a.def.name !== 'idle' || external) && (mode === 'strict' || (mode === 'auto' && !approved(a)));
   if (!anims.some((a) => a.def.name === 'idle')) { out.error = 'no idle packed yet - nothing to measure against'; R.notes.push(`scale: ${out.error}`); return null; }
   const A = auditAnims(id, anims, env);
@@ -2209,6 +2257,8 @@ function packCharacter(id, env) {
     }
   }
 
+  approvedIdleReference(id, defs, anims, rawIdx, env, R, warn);
+
   // UI images are independent of the sheet
   packUi(id, charDir, env, R);
 
@@ -2367,7 +2417,7 @@ function packCharacter(id, env) {
   return R;
 }
 
-// portrait / cutin / select: remove magenta bg, fit to the spec size, write next to the sheet.
+// portrait / cutin / select / super and ultimate layers: remove magenta bg, fit to the spec size, write next to the sheet.
 function packUi(id, charDir, env, R) {
   const uiDir = path.join(charDir, 'ui');
   for (const [name, spec] of Object.entries(UI_ITEMS)) {

@@ -9,6 +9,9 @@ Since [ADR 0007](../decisions/0007-art-spec-v2-shippuden-256.md) (art spec v2), 
 images itself** with its built-in image generator, saves every image with a `_vNN` version suffix, and
 queues it in [art/REVIEW.md](../../art/REVIEW.md). The user reviews and answers `approve vNN` or gives
 feedback. The user can still generate an image by hand in ChatGPT; Codex files it the same way.
+Since [ADR 0037](../decisions/0037-approvals-in-claude.md), every "wait for approve vNN" below means: ring Claude with
+`node tools/relay.mjs ring <lane> --for user --kind approval --note "..."` and stop; the approval arrives as a
+`USER APPROVAL via Claude` relay quoting the user (or the user types it in the chat).
 
 | Prompt | Use it when |
 |---|---|
