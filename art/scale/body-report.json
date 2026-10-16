@@ -1,7 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-16T04:14:20.147Z",
+ "generated": "2026-10-16T04:23:25.236Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3260,
@@ -1602,7 +1602,7 @@
    }
   },
   "killua": {
-   "idleGarmentPx": 1461,
+   "idleGarmentPx": 1395,
    "anims": {
     "idle": {
      "v": 8,
@@ -2377,16 +2377,16 @@
     "beamStruggle": {
      "v": 1,
      "body": [
-      0.893,
-      0.914,
-      0.928
+      0.92,
+      0.938,
+      0.954
      ],
      "head": [
       0.951,
       0.961,
       1.03
      ],
-     "median": 0.914,
+     "median": 0.938,
      "headMedian": 0.961,
      "flag": null
     },

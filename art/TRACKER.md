@@ -385,10 +385,10 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 
 | fighter | beamStruggle | beamStruggleAir | the technique | notes |
 |---|---|---|---|---|
-| naruto | raw | - | Rasengan, two-handed push | v01 remains held; user chose redraw v02 (one call, 2nd of 3) via Claude relay beam-clash #3. v02 packed; body sheet B=0.60 of idle and Astra audit pending, so technical hold. |
-| sasuke | raw | raw | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | v01 ground and air candidates packed in sparse worktree; body/contact checks and Astra audit pending; technical hold. |
-| killua | raw | raw | Narukami, open palm (in the air driven down) | v01 ground and air candidates packed in sparse worktree; body/contact checks and Astra audit pending; technical hold. |
-| gojo | raw | raw | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | v01 ground and air candidates packed in sparse worktree; body/contact checks and Astra audit pending; technical hold. |
+| naruto | approved | - | Rasengan, two-handed push | v02 approved as drawn via Claude approval desk relay #7 (“Approve all 6”); v01 remains held. Strict pack passes (head .95-.98); body-area B=.65-.67 advisory accepted. Palm anchor [232,124] across frames. Astra audit pending; see Round 2 review page. |
+| sasuke | approved | approved | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | Ground and air v01 approved via Claude approval desk relay #7. Strict packs pass after bodyHeight calibration; ground B=.71-.80 advisory accepted, air B=.84-.91. Astra audit pending; see Round 2 review page. |
+| killua | approved | raw | Narukami, open palm (in the air driven down) | Ground v01 approved via Claude approval desk relay #7; strict pack passes (B=.92-.95). Air v01 was not approved, fails the strict gate and remains in raw/_qa_hold; redraw v02 needed. Astra audit pending for ground; see Round 2 review page. |
+| gojo | approved | approved | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | Ground and air v01 approved via Claude approval desk relay #7; strict packs pass. Astra audit pending; see Round 2 review page. |
 | goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)

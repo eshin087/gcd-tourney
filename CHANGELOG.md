@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Art (ART-BEAM-CLASH): added beam-clash ground/air struggle v01 candidates for Sasuke, Killua and Gojo, plus user-directed Naruto `beamStruggle` v02. All candidates remain technical holds after scale/body checks; no approval page published.
+- Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
 - Changed: the approvals desk command is `/approvals` (was `/desk`); desk questions must name the asking chat, say exactly what a yes approves and link the preview itself; the desk keeps one bounded background watcher and never restarts it in a loop (TOOL-047, ADR 0039).
 
 - Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).
