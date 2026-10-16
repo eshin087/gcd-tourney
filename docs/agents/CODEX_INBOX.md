@@ -15,6 +15,25 @@ How it works:
 
 ---
 
+## Luffy core: the user's decisions (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:**
+- **special:** one more generation attempt is authorized; save it as `raw/special_v02.png` (keep the output this time).
+- **light1:** up to **2 more** generation attempts are authorized (attempts 4-5), at the approved idle's density, whole
+  figures only, no divider lines, every frame in the same style.
+- **win:** one more generation attempt is authorized: the same victory pose with the fists at about head height so
+  he fits the 256 px cell at his true size (his upright hat-to-sole must match the approved neutral, ~237 px).
+- **Edge clips accepted, no new images:** run (rear foot f3/f4/f7), light3 v02 f3 (toe), airLight1 v01 f2/f3 (fist)
+  and light4 v02 f4 (foot). Record "edge clip accepted by the user 2026-10-15" in their review rows. These clips
+  are not anatomy passes; the strips still need their size checks.
+
+**Goal / done when:** after the Goku core items, the three authorized strips exist (or are recorded as failed within
+their budget), Luffy is packed with `--quantize 48`, the preview is updated and the review rows are in
+art/characters/luffy/REVIEW_ROWS.md. Then hand back in docs/agents/CLAUDE_ART_HANDOFF.md and ring `goku-luffy`.
+Same rules as "Luffy core animations" below; no other new images.
+
+---
+
 ## Goku core animations (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **Do this after "Luffy core calibration fixes" is handed back.** **Goal:** Goku's 22 remaining CORE strips exist as
