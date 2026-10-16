@@ -741,6 +741,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
   `bodyHeight` −6 px), Naruto `win` keeps its authored timing, one cut-in background rule (DOC-004).
 
 ### Fixed
+- Preview deploys from sparse art worktrees no longer export every raw PNG (4.9 GB left on C: per Codex preview): `git rm --cached art` skipped sparse paths, so the export is now built from `ls-tree` minus art/ and checked for art/; the stale sweep also covers `%TEMP%\codex-gcd-*` folders and the Windows user temp, and a GCD_SCRATCH_DIR on the system drive is warned about (TOOL-052).
 - KO'd fighters no longer look like they float (ENG-066, TOOL-024, ADR 0020): lying frames get a contact shadow along
   the whole body and a caster turned with the billboard (anims.json `footprint`), a body never rests across the ring
   edge (it slides off onto the grass), a KO during a flurry super or the Four-Tails mauling keeps its launch, and the
