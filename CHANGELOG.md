@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(naruto): record user visual approval of stagger v08, win v09; retain technical evidence and unrelated holds.
+
 - art(naruto): record the user's taunt v10 visual approval; preserve Astra's technical HOLD and archive superseded pending v07/v09 sources (ART-NAR-TAUNT10-DECISION).
 
 - Naruto stagger v08 and taunt v10: final source-only Astra screen measured T/H 1.20 against neutral 1.292 (about 7% short centrally), improved about 12% for stagger and 7% for taunt. Uncertainty overlaps the relative 6% band, so both remain numeric anatomy HOLDs, not passes; poses are preserved, with no packed atlas assessment. Ready for Claude inspection and calibration.
