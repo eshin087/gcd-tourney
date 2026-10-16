@@ -18,6 +18,7 @@ const FAKE = path.join(FIX, 'fake-codex.mjs');
 const CALLS = path.join(FIX, 'codex-calls.jsonl');
 const SCALE = '01a13380-96ab-7493-b632-49eb14bebc7a';
 const GOKU = '01a13b01-566a-70d3-bfd5-3418b577e972';
+const STALE_MS = 24 * 36e5;
 
 let passes = 0, failures = 0;
 const check = (ok, msg) => {
@@ -204,6 +205,77 @@ check(relay(['answer', second, '--dismiss', '']).code === 1 && relay(['answer', 
 r = relay(['brief']);
 check(r.code === 0 && r.out.includes('only the Claude chat "0 - Approvals" asks') && /0 open ask/.test(r.out) && r.out.includes('run /approvals'), 'brief: states the rule and the queue');
 check(relay(['brief'], { RELAY_HOME: path.join(FIX, 'nowhere') }).code === 0, 'brief: never fails, even with no relay folder');
+
+// ---- Codex chats with no lane (the thread table knows each chat's folder): found, and answerable through `ask --app codex`
+{
+  const { DatabaseSync } = await import('node:sqlite');
+  const projectRoot = mainRoot(HERE);
+  const db = new DatabaseSync(path.join(CODEX_HOME, 'state_5.sqlite'));
+  db.exec('create table threads (id text, name text, cwd text, source text, archived integer, updated_at_ms integer)');
+  const ins = db.prepare('insert into threads values (?,?,?,?,?,?)');
+  const NEWCHAT = '01a15000-0000-7000-8000-000000000001';
+  ins.run(NEWCHAT, '8 - Brand New Chat', `\\\\?\\${projectRoot}`, 'cli', 0, Date.now());
+  ins.run('01a15000-0000-7000-8000-000000000002', 'Other project chat', '\\\\?\\E:\\Somewhere\\else', 'cli', 0, Date.now());
+  ins.run('01a15000-0000-7000-8000-000000000003', 'Old project chat', `\\\\?\\${projectRoot}`, 'cli', 0, Date.now() - 10 * 24 * 36e5);
+  ins.run('01a15000-0000-7000-8000-000000000004', 'Guardian review', `\\\\?\\${projectRoot}`, 'cli', 0, Date.now());
+  db.close();
+  r = relay(['status']);
+  check(/Codex chats with NO lane.*"8 - Brand New Chat"/.test(r.out), 'status: a recent project Codex chat with no lane is listed');
+  check(!/Other project chat|Old project chat|Guardian review/.test(r.out.split('\n').filter((l) => /NO lane/.test(l)).join('')), 'status: other projects\' chats, old chats and Guardian reviews are not');
+  check(relay(['ask', '--app', 'robot', '--from', 'x', '--note', 'y']).code === 1, 'ask: --app is claude or codex');
+  r = relay(['ask', '--app', 'codex', '--from', '8 - Brand New Chat', '--kind', 'decision', '--note', 'Keep the stretch punch? review/luffy.html']);
+  const looseAsk = /\((claude-[a-z0-9-]+)\)/.exec(r.out)?.[1];
+  check(r.code === 0 && looseAsk && /Codex chat "8 - Brand New Chat" \(no lane yet\)/.test(relay(['asks']).out), 'ask --app codex: a lane-less Codex chat queues a question the desk can see');
+  callsBefore = calls().length;
+  r = relay(['answer', looseAsk, '--user-decision', 'Luffy punch', '--quote', 'Keep it']);
+  c = calls();
+  check(r.code === 0 && /lane 8-brand-new-chat -> /.test(r.out) && c.length === callsBefore + 1 && c.at(-1)[2] === NEWCHAT, 'answer: a lane-less Codex chat is mapped by its title and the answer is queued into it');
+  check(/USER DECISION via Claude on Luffy punch: "Keep it"/.test(c.at(-1)[4]) && !/NO lane.*Brand New/.test(relay(['status']).out), 'answer: it reads as a normal relayed decision and the chat now has a lane');
+}
+
+// ---- the desk stops itself once every Claude chat is done, no lane waits on Codex and no ask is open
+{
+  const QHOME = path.join(FIX, 'quiet-home');
+  const q = (args) => relay(args, { RELAY_HOME: QHOME });
+  const deskWait = (extra = []) => q(['wait', 'all', '--interval', '50ms', '--idle', '300ms', '--timeout', '1500ms', ...extra]);
+  const laneFile = (lane, name, value) => {
+    fs.mkdirSync(path.join(QHOME, lane), { recursive: true });
+    fs.writeFileSync(path.join(QHOME, lane, `${name}.json`), JSON.stringify(value));
+  };
+  r = deskWait();
+  check(r.code === 5 && /stopped itself/.test(r.out) && !fs.existsSync(path.join(QHOME, 'desk', 'watcher.json')), 'wait all: with nothing going on it stops itself after the quiet spell (exit 5)');
+  check(deskWait(['--no-auto-stop']).code === 2, 'wait all --no-auto-stop: runs until the timeout instead');
+  check(q(['chat', 'maybe', '--from', 'x']).code === 1 && q(['chat', 'done']).code === 1, 'chat: the state is active or done, and --from is needed');
+  check(q(['chat', 'done', '--from', '0 - Approvals']).code === 1, 'chat: the desk does not report on itself');
+  r = q(['chat', 'active', '--from', '3 - Gojo Running', '--session', 'local_g1']);
+  check(r.code === 0 && /active/.test(r.out), 'chat active: recorded');
+  r = deskWait();
+  check(r.code === 2 && /still busy: Claude chat "3 - Gojo Running" is still on its task/.test(r.out), 'wait all: an active Claude chat keeps it watching');
+  check(/auto-stop: keeps watching because Claude chat "3 - Gojo Running"/.test(q(['status']).out) && /"3 - Gojo Running" active/.test(q(['status']).out), 'status: says why the desk keeps watching and lists chat states');
+  q(['chat', 'done', '--from', '3 - Gojo Running', '--session', 'local_g1']);
+  check(deskWait().code === 5, 'wait all: once that chat reports done it stops itself');
+  const old = new Date(Date.now() - 2 * STALE_MS).toISOString();
+  fs.writeFileSync(path.join(QHOME, 'chats', 'local_g1.json'), JSON.stringify({ from: 'Ghost', state: 'active', at: old }));
+  check(deskWait().code === 5 && /"Ghost" active \(stale\)/.test(q(['status']).out), 'wait all: an active report older than a day is stale and does not hold it');
+  laneFile('gojo', 'send', { seq: 1, at: new Date().toISOString() });
+  r = deskWait();
+  check(r.code === 2 && /lane gojo: Codex is working/.test(r.out), 'wait all: a lane where it is Codex\'s turn keeps it watching');
+  laneFile('gojo', 'ring', { seq: 1, at: new Date(Date.now() + 1000).toISOString(), note: 'done' });
+  check(/lane gojo: Codex rang, no Claude chat has read it/.test(deskWait().out), 'wait all: an unread ring for Claude keeps it watching');
+  laneFile('gojo', 'seen', { seq: 1 });
+  laneFile('gojo', 'watcher', { pid: 1, lastCheck: new Date().toISOString() });
+  check(/lane gojo: a Claude chat is waiting on Codex/.test(deskWait().out), 'wait all: a running lane watcher keeps it watching');
+  fs.rmSync(path.join(QHOME, 'gojo', 'watcher.json'));
+  q(['pause', 'gojo']);
+  laneFile('gojo', 'send', { seq: 2, at: new Date(Date.now() + 2000).toISOString() });
+  check(deskWait().code === 5, 'wait all: a paused lane does not hold it');
+  q(['resume', 'gojo']);
+  q(['ask', '--from', 'Effects', '--note', 'ship it?']);
+  r = deskWait();
+  check(r.code === 0 && /1 new for the USER/.test(r.out), 'wait all: an open ask still wakes it first');
+  check(/open ask/.test(deskWait().out), 'wait all: and an open ask, even one already shown, keeps it from stopping');
+  check(/chat active/.test(q(['brief']).out), 'brief: tells new chats to report their task state');
+}
 
 // ---- an archived chat is unarchived and the send retried once
 const archived = path.join(FIX, 'archived.flag');

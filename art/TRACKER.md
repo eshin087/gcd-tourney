@@ -263,9 +263,9 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 6 | guard | 2 | - | **yes** | 140 | approved | v09 | v09 | User approved guard v09 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 6 | hurtHigh | 3 | - | **yes** | 150 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | launched | 2 | - | **yes** | 106 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | down | 2 | - | **yes** | 90 | approved | v07 | v07 | HOLD (strict gate): v07 f0 hair flare reads 1.09 with the body at reference size (needs a decision or a redraw). Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | down | 2 | - | **yes** | 90 | approved | v08 | v08 | User approved v08 as drawn via Claude 2026-10-15 (relay scale#6, quote: “i approve those 5”). Runtime grounding/contact remains Claude-owned; calibration uncertainty is not a numeric ±6% pass. |
 | 6 | getup | 5 | - | **yes** | 158 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | charge | 4 | - | **yes** | 125 | approved | v13 | v13 | Title-style v13 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. Size exception recorded: the head reads 0.92 of the combat cell (strict drift) until charge v14. |
+| 7 | charge | 4 | - | **yes** | 125 | approved | v14 | v14 | User approved v14 as drawn via Claude 2026-10-15 (relay scale#6, quote: “i approve those 5”). Aura retention in quantized cells remains unverified; calibration uncertainty is not a numeric ±6% pass. |
 | 7 | beamCharge | 3 | - | **yes** | 170 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamFire | 3 | - | **yes** | 123 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 7 | special | 8 | 3/3/2 | **yes** | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -286,7 +286,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 9 | throw | 4 | 1/1/2 | no | 173 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | vanish | 2 | - | no | 185 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | stagger | 4 | - | no | 186 | approved | v08 | v08 | User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization. |
-| 9 | ko | 1 | - | no | 78 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | ko | 1 | - | no | 78 | approved | v09 | v09 | User approved v09 as drawn via Claude 2026-10-15 (relay scale#6, quote: “i approve those 5”). Runtime grounding and state-transition remain Claude-owned; calibration uncertainty is not a numeric ±6% pass. |
 | 9 | intro | 4 | - | no | 186 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | taunt | 2 | - | no | 186 | approved | v05 | v05 | User approved v05 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. New v05 needs review: compact hair, head0.996 ok; recommend approval. One authorized call remains unused. [QA](characters/killua/production/title-style/round2/QA.md). |
 | 9 | specialForward | 7 | 2/2/3 | no | 139 | approved | v12 | v12 | Title-style v12 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -393,10 +393,10 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 
 | fighter | beamStruggle | beamStruggleAir | the technique | notes |
 |---|---|---|---|---|
-| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
-| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
-| killua | todo | todo | Narukami, open palm (in the air driven down) | |
-| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| naruto | approved | - | Rasengan, two-handed push | v02 approved as drawn via Claude approval desk relay #7 (“Approve all 6”); v01 remains held. Strict pack passes (head .95-.98); body-area B=.65-.67 advisory accepted. Palm anchor [232,124] across frames. Astra audit pending; see Round 2 review page. |
+| sasuke | approved | approved | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | Ground and air v01 approved via Claude approval desk relay #7. Strict packs pass after bodyHeight calibration; ground B=.71-.80 advisory accepted, air B=.84-.91. Astra audit pending; see Round 2 review page. |
+| killua | approved | approved | Narukami, open palm (in the air driven down) | Ground v01 approved via Claude approval desk relay #7; air v02 approved as drawn via relay #10 (“Approve v02”). Air v01 remains preserved as rejected/superseded in raw/_rejected after its technical gate failure. V02 strict quantized pack passes; body sheet H=.97–1.03, B=.97–.99, no body flag. Astra audit and exact hand-anchor measurement remain before runtime integration. See Round 2 review page. |
+| gojo | approved | approved | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | Ground and air v01 approved via Claude approval desk relay #7; strict packs pass. Astra audit pending; see Round 2 review page. |
 | goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)
@@ -412,7 +412,7 @@ move into its own section's table when its alts are generated.
 
 | fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
 |---|---|---|---|---|---|---|
-| naruto | 5 candidates: light1Alt v01, light2Alt v01/v02/v03/v04, light3Alt v01/v02, light4Alt v01 | heavyAlt v01/v02 (v02 is byte-identical measured restitch) | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v01/v02; v03 held under `raw/_qa_hold/` | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: light2Alt v04 source repair filed 2026-10-15 under one extra user-authorized imagegen call; local diagnostic pack still reports +30px reach / -30px height contact residual. All candidates await independent anatomy/contact review. airHeavyAlt v03 is quarantined; v02 may remain the highest raw candidate and base fallback is unverified. Claude owns repack/cache/fallback resolution (see production/alts/HOLD_AIRHEAVY_20261015.md). No candidate approved or deployed. |
+| naruto | 5 candidates: light1Alt v01, light2Alt v01/v02/v03/v04/v05 (v05 user-approved), light3Alt v01/v02, light4Alt v01 | heavyAlt v01/v02 (v02 is byte-identical measured restitch) | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v01/v02; v03 held; v04 user-approved | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: user approved light2Alt v05 and airHeavyAlt v04 as drawn via Claude on 2026-10-15; manifest approval recorded. Claude still owns production calibration/contact checks: light2Alt full intrinsic +/-6% anatomy remains uncertain; airHeavyAlt strict f3 center-contact certification and numeric anatomy remain held. Calibrated quantized dry-run exits 0 (44 ok, 7 manual, 1 historical unmeasured); no production promotion. Older candidates are rejected as superseded and retained at their listed source paths.
 | sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
@@ -711,9 +711,9 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 
 | Fighter | Asset | Latest | Status | Approved | Notes |
 |---|---|---|---|---|---|
-| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
-| Sasuke | super_fg | v01 (rejected) | raw | — | Kirin; user rejected via Claude relay effects #3; source archived. |
-| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
-| Sasuke | ult_fg | v01 (rejected) | raw | — | Amaterasu; user rejected via Claude relay effects #3; source archived. |
+| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; packed to public/characters/sasuke/super_bg.png. |
+| Sasuke | super_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; arm passes, eyes remain relatively open/round and chin slightly elevated. |
+| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; packed to public/characters/sasuke/ult_bg.png. |
+| Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
-User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved; foreground technical holds remain documented. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).

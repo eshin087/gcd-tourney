@@ -12,6 +12,24 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Added: Gojo dash-family candidates in the approved run v14 pose (ART-GOJO-RUN-JKL): backDash v07 is packed for technical review with an Astra HOLD on tucked-frame placement and uncertain occluded anatomy; dash v10 and superDash v12 remain quarantined after clipping/scale failures. No image approval or production promotion.
+- Art (ART-BEAM-CLASH): generated and recorded user approval via Claude relay #10 for Killua `beamStruggleAir` v02; strict quantized scale gate and body sheet pass, and superseded v01 is archived. Astra anatomy audit and exact hand-anchor measurement remain pending.
+- Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
+- Added: the approvals desk stops itself when all work is done (TOOL-051, ADR 0039): Claude chats report `relay chat active|done`, and `relay wait all` exits after 15 quiet minutes with no open ask, no lane waiting on Codex and no active chat; `relay status` says what keeps it awake.
+
+- art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
+
+- art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved and visual anatomy screening passes. Runtime grounding and aura retention remain unverified; calibration uncertainties remain. User approval is recorded in the entry above. No new generation or calibration edits.
+
+- art(killua): Charge14/down08/ko09 sources filed; normal scale gate fails; diagnostic-only atlas for Astra. Charge used one unauthorized duplicate call, quarantined and excluded; first authorized output retained.
+- art(naruto): record user approval via Claude for light2Alt v05 and airHeavyAlt v04 as drawn; retain Claude-owned contact and anatomy holds.
+
+- Review: refreshed the five-candidate scale-loose-ends page from the calibrated atlases with Astra's final screening results, exact comparison crops and full audit evidence; unresolved technical checks remain and no art is approved.
+
+- art(naruto): One authorized call each for light2Alt05 and airHeavyAlt04; normal scale gate fails; diagnostic-only atlas and Astra review for Claude calibration.
+- art(scale): record user approval via Claude of Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09; return remaining technical checks to Claude without merge or production deploy.
+
+- Added: Codex chats with no relay lane are found and handled (TOOL-050): `relay status` lists recent project chats nobody mapped, `relay ask --app codex --from "<title>"` lets such a chat queue a question, and `relay answer` maps it by title and relays the answer.
+
 - Changed: Gojo runs instead of hover-gliding (ART-GOJO-RUN-JKL): run v14 in the K "fast athletic" direction, far hand in his pocket and the near fist forward, approved by the user via the approvals desk and passed by the Astra audit. Part A of the generated stride is used for both halves; the sidecar frameOffsets hold his head steady and lift the flight frames.
 - Fixed: relay watchers no longer crash on Windows when a state file is renamed while another watcher reads it (EPERM/EBUSY); the write retries briefly (TOOL-049).
 
@@ -38,7 +56,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Fixed: beam clash visuals (ADR 0034, ENG-082): fighters no longer vanish in white (a contained two-color `clashBurst` instead of the full-size white glow, a thinner aura behind the body, short colored start/end flashes, a smaller colored finish on the loser); the origin glow no longer covers the firer; the Rasengan meets the stream at its held orb; no blocky streaks in the beam shader; BEAM CLASH! sits under the health bars and the rhythm ring and bar below the fighters. Each move keeps its own shape: Narukami a lightning zigzag, Chidori Spear a lance, Great Fireball a fire torrent, Reversal: Red an orb sending repulsion ripples; `beamStruggle` plays once a sheet has it.
 - Added: Sasuke's approved Kirin banner backdrop and Amaterasu splash backdrop (ART-SUPER-ART); until his cutouts are approved the HUD shows his eye strip as a framed panel on his side of the banner and as a band across the splash, so the backdrops stay visible (ADR 0035).
 
-- Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. User approved the two backdrops and rejected both foregrounds via Claude relay on 2026-10-15; foreground technical holds remain recorded.
+- Art (ART-SUPER-ART): recorded the user-approved Sasuke Kirin and Amaterasu v01 backdrops and packed them with the merged ENG-083 runtime. User rejected v01 foregrounds and then authorized v02 and v03 redos; both v03 foregrounds were approved via Claude relay effects #6 despite Astra holds and packed into the review branch.
 - Added: melee clash (ENG-096, ADR 0038): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
 - docs(scale): hand back calibrated five-candidate Astra re-audit and corrected protected preview; oversizing/clipping resolved, precise contact/grounding/aura follow-up retained for Claude. No image approvals or new generation.
 
@@ -58,6 +76,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 - Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
+- Art (ART-BEAM-CLASH): user approved all five v01 clash effects on 2026-10-15; updated manifest/review/tracker and repacked the approved VFX atlas. Naruto `beamStruggle` v01 remains on technical hold: strict scale measured head/hair at 1.40x and feet at 0.62x approved idle; body sheet and Astra atlas audit remain pending.
 - Changed: while a new idle candidate is the newest raw, the scale gate measures every strip (and the candidate idle) against the approved idle instead, so a pending idle no longer moves head numbers or auto head fits (TOOL-040; art/CHARACTER_SCALE.md).
 
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).

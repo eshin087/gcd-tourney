@@ -373,17 +373,17 @@ Second hit of the auto combo: a heavier rear straight with full hip rotation.
 
 <a id="light2alt"></a>
 
-### `light2Alt`:  lead-left snap kick to the upper torso
-7 frames · phases 2/2/3 · ms 35/30/40/50/60/50/30 · active f2-f3. Swapped from a low midsection kick: current packed base boxes are high, so target upper torso/chest with the L foot. Current base boxes: f2 `[189,84,34,26]`, f3 override `[190,86,24,21]`; each alt rectangle within 12 px.
+### `light2Alt`: lead-left chest-height backfist
+7 frames · phases 2/2/3 · ms 35/30/40/50/60/50/30 · active f2-f3. This one-call loose-end redraw replaces the earlier kick approach: use a distinct lead-hand straight (backfist or palm strike) at chest height, where the base light2 fist lands. Keep the strike point within 24 px of the inherited base hit boxes: f2 `[189,84,34,26]`, f3 `[190,86,24,21]`. Feet touch y=240; full pose stays inside x=4..251; keep the head the same size as approved idle07.
 
 | f | phase | pose | face and continuity |
 |---|---|---|---|
 | 0 | startup | Exact `light2` f0 stance: R fist cocked beside jaw, L guard forward, weight on R rear leg. | focused |
-| 1 | startup | Shift to planted R support leg; L knee chambers forward at chest height, torso leans back slightly, hands counterbalance. | fierce |
-| 2 | active | L snap kick extends toward screen-right at upper-torso height; foot/toes occupy the current f2 contact region around x189-223, y84-110. Keep rectangle within 12 px of `[189,84,34,26]`. | shout; solid leg-only pixel smear allowed behind the shin |
-| 3 | active | Hold extension with the foot 2 px back; target the f3 override `[190,86,24,21]` within 12 px. | fierce |
-| 4 | recovery | L knee re-chambers, heel drawn back; hips rotate out of the kick. | fierce |
-| 5 | recovery | L foot plants forward then slides to the lead position; torso unwinds. | focused |
+| 1 | startup | Step the lead L foot forward and rotate the shoulder; the L fist draws back beside the chest for a short straight. Feet remain grounded. | fierce |
+| 2 | active | Drive a compact L backfist/palm straight to chest height; the hand is the clear rightmost strike and lands in `[189,84,34,26]` within 24 px. Torso and shoulder drive behind it. | shout; at most a short solid smear attached to the forearm |
+| 3 | active | Hold the same chest-height hand contact with a small 2-4 px retraction; hand remains within 24 px of `[190,86,24,21]`. | fierce |
+| 4 | recovery | L elbow bends and hand retracts along the same line; torso begins to unwind. | fierce |
+| 5 | recovery | R fist returns beside jaw; lead foot settles and guard reforms. | focused |
 | 6 | recovery | Exact `light2` f6 stance. | determined |
 
 <a id="light3"></a>
@@ -637,17 +637,17 @@ Air finisher: smashes the opponent into the floor (ground bounce).
 
 <a id="airheavyalt"></a>
 
-### `airHeavyAlt`:  airborne right axe-heel downward spike
-6 frames · phases 2/2/2 · ms 50/45/45/70/70/40 · active f2-f3. Current overrides: f2 `[219,178,29,26]`, f3 `[224,187,27,26]`; match each within 12 px. The R heel chops down-forward; do not use clasped fists.
+### `airHeavyAlt`: airborne downward heel spike
+6 frames · phases 2/2/2 · ms 50/45/45/70/70/40 · active f2-f3. This one-call loose-end redraw must put a clear downward strike (axe heel or a double-fist smash) into the inherited low-forward base contact boxes f2 `[219,178,29,26]` and f3 `[224,187,27,26]`, each within 24 px. Keep one consistent head size in every frame and return f5 to the `airHeavy` air recovery pose.
 
 | f | phase | pose | face and continuity |
 |---|---|---|---|
 | 0 | startup | Exact `airHeavy` f0 air base pose: arms raised, torso arched back, knees tucked. | shout |
-| 1 | startup | Wind-up: R leg lifts high above hip, knee bent, heel poised over the down-forward target; arms open to counterbalance. | shout |
-| 2 | active | R knee extends and axe heel chops down-forward into the current box `[219,178,29,26]`, body jackknifes and left leg trails above the floor. Heel remains above the lowest foot. | shout; solid attached leg-color arc above/behind heel |
-| 3 | active | Hold downward R heel contact, shifted only enough to match `[224,187,27,26]` ±12 px; heel never below the lowest foot. | shout |
-| 4 | recovery | R leg folds back upward; torso begins to uncurl. | focused |
-| 5 | recovery | Exact air base pose endpoint. | focused |
+| 1 | startup | Wind-up: lift the striking R leg high, or bring both fists overhead; compact torso coil and counterbalance with the other arm/leg. | shout |
+| 2 | active | Strike down-forward with a clear R axe heel or double-fist smash into `[219,178,29,26]` within 24 px. The contact limb is visibly the rightmost low-forward point; torso folds behind it. | shout; any effect stays solid and attached |
+| 3 | active | Continue the same downward strike, shifted only enough to reach `[224,187,27,26]` within 24 px; keep the striking point low and forward. | shout |
+| 4 | recovery | Strike limb folds back; torso rebounds and arms open to balance. | focused |
+| 5 | recovery | Match `airHeavy` f5 air recovery pose with knees tucked and arms returning to chest height. | focused |
 
 <a id="throw"></a>
 

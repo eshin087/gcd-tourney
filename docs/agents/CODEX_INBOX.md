@@ -36,7 +36,7 @@ x0.99 of its neutral-matched source. light1 v02 already packs at about x1 (`body
 landmarks of the pilots' packed frames match idle v02's within their uncertainty, use the same method for the other 18
 strips.
 
-- [ ] 1. **Luffy:** move win_v03 and light1_v02 out of `_qa_hold`, pack with `--quantize 48` (the strict probe will
+- [x] 1. **Luffy:** move win_v03 and light1_v02 out of `_qa_hold`, pack with `--quantize 48` (the strict probe will
   still flag Luffy: record it, don't exempt), then Astra measures the landmarks above on every frame of win, light1 and
   the strips from the earlier list. For each strip that matches, write `scaleManualQA` (version, result pass, by Astra,
   note with the landmarks and uncertainty, evidence path). You may commit `public/characters/luffy/` on the branch for
@@ -44,8 +44,11 @@ strips.
 - [ ] 2. **Goku:** Astra measures the same landmarks on the two pilots' packed frames against idle v02. If they match,
   re-assemble the other 18 strips the same way (no new image calls), pack, and record `scaleManualQA` per strip that
   matches; report every strip that doesn't, with its measured factor error.
-- [ ] 3. Commit, `npm run pr -- open` and `npm run pr -- preview` on both branches, review rows in REVIEW_ROWS.md, then
+- [x] 3. Commit, `npm run pr -- open` and `npm run pr -- preview` on both branches, review rows in REVIEW_ROWS.md, then
   hand back and ring `goku-luffy`. The user reviews the previews after that.
+
+
+**2026-10-15 Codex r2 result:** Luffy18 version-bound manual body passes and4 holds; strict pack exits1/writes nothing because manualQA does not override false measured drift/uniform/pop. Goku pilots passed only at native fixture heights;15/18 source reassemblies saved and all81 final fixture frames audited. Three source holds (airHeavy/down/charge), several size/crop holds and production calibration remain, so item2 is deliberately open. Proposed Goku passes cannot be written unconditionally against current bodyHeights. Final commits1366aec7 /12586584; PRs #123/#96 and committed previews published. Exact hashes, review rows, factor-error findings and Claude next actions are in the newest CLAUDE_ART_HANDOFF.md. Zero calls; no user action yet.
 
 ---
 
@@ -179,9 +182,10 @@ glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atl
   https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (preview build passed).
   Main VFX sources and atlas were preserved unchanged. No VFX pack was run.
 
-**Next:** Killua air `beamStruggleAir_v02` is authorized (one call remains), but this chat cannot switch to the required
-`gpt-6-luna` medium model. No image call was made. Continue the redraw in a Codex chat configured to Luna/medium;
-the Astra anatomy audit remains pending and does not block the recorded image approvals.
+**Completed 2026-10-16 (Codex):** Killua air `beamStruggleAir_v02` was generated, passed the strict quantized scale
+gate and body sheet, and was approved by the user via Claude relay #10. The superseded v01 is archived. Approval is
+recorded in REVIEW, manifest and TRACKER; the updated page and branch handoff are in progress. Astra anatomy audit and
+exact hand-anchor measurements remain pending for Claude before runtime integration.
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
@@ -200,22 +204,22 @@ the torso in a frame (dash v09 f1), and the torso came out short. **The fist mus
 torso/legs should match the run's proportions. Don't worry about the horizontal head drift between frames: Claude sets
 the per-frame offsets at packing.
 
-- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-dashes --art gojo` (dev port 5244). Work only there.
-- [ ] 2. **dash** `raw/dash_v10.png` (2 frames, loop, ≤3 calls): a low burst lunge, the run's f0 contact pose pushed
+- [x] 1. From the main checkout: `npm run pr -- start art/gojo-dashes --art gojo` (dev port 5244). Work only there. Done 2026-10-15: branch `art/gojo-dashes`, commits `fcb0cc06` and `36ed9895`; PR #124.
+- [x] 2. **dash** `raw/dash_v10.png` (2 frames, loop, ≤3 calls): a low burst lunge, the run's f0 contact pose pushed
   lower and longer (lean ~45°, lead knee driven forward, back leg extended, fist forward). f1: the stride a little
   wider, hem flutter.
-- [ ] 3. **backDash** `raw/backDash_v07.png` (3 frames, ≤3 calls): a quick hop back, still facing right. f0 push-off,
+- [x] 3. **backDash** `raw/backDash_v07.png` (3 frames, ≤3 calls): a quick hop back, still facing right. f0 push-off,
   f1 airborne with knees tucked (hair and hem whip forward), f2 landing on the back foot. Fist forward, pocket hand
   pocketed in all three.
-- [ ] 4. **superDash** `raw/superDash_v12.png` (2 frames, loop, ≤3 calls): the run's f3 flight pose stretched into blur
+- [x] 4. **superDash** `raw/superDash_v12.png` (2 frames, loop, ≤3 calls): the run's f3 flight pose stretched into blur
   speed, the body angled ~30° up along the flight line, lead knee forward-up, back leg extended, fist forward, hair
   flattened back. About 230 x 140 px after packing, inside x 4..251. f1: limbs 2-4 px further apart, hem flutter.
-- [ ] 5. Set each manifest `version` with status `needs review` (leave `approvedVersion`, `bodyHeight`, offsets and hit
+- [x] 5. Set each manifest `version` with status `needs review` (leave `approvedVersion`, `bodyHeight`, offsets and hit
   boxes to Claude), update ANIMATIONS.md §dash/§backDash/§superDash to what you drew, and pack with `--quantize 48`.
   Strips that fail the scale gate after their budget go to `raw/_qa_hold/` with the reason.
-- [ ] 6. Astra/medium audits every frame and loop in the packed atlas (fist visible, pocket hand, torso/limbs vs the
+- [x] 6. Astra/medium audits every frame and loop in the packed atlas (fist visible, pocket hand, torso/limbs vs the
   approved cells). Luna fixes holds within the remaining budget; Astra rechecks.
-- [ ] 7. Review rows (`needs review`), commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the
+- [x] 7. Review rows (`needs review`), commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the
   branch's docs/agents/CLAUDE_ART_HANDOFF.md (per-strip version, calls used, heights, Astra verdict, preview link),
   then `node tools/relay.mjs ring gojo-run --note "<one line>"` from main **for Claude** (Claude sets the offsets and
   checks the boxes before the review goes to the desk).
@@ -531,6 +535,8 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 ---
 
 ## Loose ends: re-audit after calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+- [x] 2026-10-15: USER APPROVAL via Claude relay scale#6 recorded for light2Alt05, airHeavyAlt04, charge14, down08, ko09; commits1216e707/c9b2f9bc. Final technical checks returned to Claude; no user action remains for these drawings.
 
 **This is the scale lane's current section** (it follows "Loose ends of the scale round" below). Claude calibrated all five
 candidates; read Claude's note at the top of CLAUDE_ART_HANDOFF.md ("loose ends calibrated") first. No generation calls.

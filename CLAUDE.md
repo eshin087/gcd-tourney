@@ -24,6 +24,12 @@ prints this rule and the queue size in every new chat. After chats are deleted, 
 `/approvals`. Routine technical questions to the user that need no decision (a quick clarification while they are
 talking to this chat) are fine; anything they must approve or decide goes through the desk.
 
+**Report your task state so the desk can stop itself** (user request 2026-10-15): every Claude chat other than the desk
+runs `node tools/relay.mjs chat active --from "<this chat's title>" --session <its local_ id>` when it starts or resumes
+a task, and `node tools/relay.mjs chat done` (same flags, optional `--note`) when the task is finished: merged or handed
+off, nothing pending from Codex, no lane watcher left running (stop yours first). The desk's `wait all` stops itself
+after 15 quiet minutes: no open ask, no lane where it is Codex's turn or a watcher runs, and no chat reporting `active`.
+
 After chats are deleted: in a Claude chat named `0 - Approvals`, type `/approvals`; it follows COORDINATION.md's
 reset. Deleted chats do not erase task records or approve work.
 

@@ -22,8 +22,11 @@
 //   node tools/relay.mjs asks [--all]                   open asks (Codex rings for the user + Claude chats' asks)
 //   node tools/relay.mjs answer <id> --user-approved|--user-rejected|--user-decision "<what>" --quote "<answer>"
 //        answer <id> --dismiss "<why>"                  close a stale ask without an answer
+//        ask --app codex --from "<exact Codex chat title>" ...   a Codex chat with no lane asks; answer maps it by title
 //   node tools/relay.mjs wait all [--timeout 24h]       the desk's watcher: exits when a new ask arrives
 //   node tools/relay.mjs brief                          one-paragraph rule + queue size (the SessionStart hook)
+//   node tools/relay.mjs chat active|done --from "<title>" --session <local_ id> [--note]   a Claude chat reports
+//        its task state; `wait all` stops itself once no chat is active, no lane waits on Codex and no ask is open
 // (`npm run relay -- ...` works too, but npm swallows some flags such as --thread: prefer node.)
 //
 // Why this shape: Claude can type into a Codex chat (`codex queue`), but nothing outside can type into a Claude
@@ -37,7 +40,8 @@
 // push notification) is one place to see and answer everything waiting. Codex rings `--for user`, Claude asks, and
 // a `--user-approved` send carries the user's own answer word for word; a plain note still may not say "approve".
 // Round trips count only the sends that answer a new ring (a follow-up does not), and a relayed user answer
-// starts the count again. Exit codes: 0 ok, 1 error, 2 wait timed out, 3 round-trip limit reached, 4 paused.
+// starts the count again. Exit codes: 0 ok, 1 error, 2 wait timed out, 3 round-trip limit reached, 4 paused,
+// 5 the desk stopped itself because everything was quiet (`wait all`).
 // Why one desk (ADR 0039): with a watcher per lane, every Claude chat could ask the user, so the user had to visit
 // each one to learn whether anything waited. Asks now land in .relay/asks/ (one file each, so a Codex ring and a
 // Claude ask never race on one file) and only the desk's `wait all` wakes on them; lane watchers skip rings for the
@@ -64,7 +68,7 @@ const ANSWER_FLAGS = ['--user-approved', '--user-rejected', '--user-decision'];
 
 const [cmd, ...rest] = process.argv.slice(2);
 const VALUE_FLAGS = new Set(['--note', '--thread', '--timeout', '--interval', '--for', '--kind', '--quote',
-  '--user-approved', '--user-rejected', '--user-decision', '--from', '--session', '--link', '--dismiss']);
+  '--user-approved', '--user-rejected', '--user-decision', '--from', '--session', '--link', '--dismiss', '--app', '--idle']);
 const opt = (name) => { const i = rest.indexOf(name); return i >= 0 ? rest[i + 1] : undefined; };
 const flag = (name) => rest.includes(name);
 const positionals = rest.filter((a, i) => !a.startsWith('--') && !VALUE_FLAGS.has(rest[i - 1]));
@@ -141,7 +145,9 @@ export const deskAlive = () => {
   return w && Date.now() - Date.parse(w.lastCheck) < 2 * 6e4 ? w : null;
 };
 const stamp = (iso) => (iso ? new Date(iso).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-');
-const askSource = (a) => (a.source === 'codex' ? `Codex lane ${a.lane}` : `Claude chat "${a.from}"${a.session ? ` (${a.session})` : ''}`);
+const askSource = (a) => (a.source === 'codex' ? `Codex lane ${a.lane}`
+  : a.source === 'codex-chat' ? `Codex chat "${a.from}" (no lane yet)`
+    : `Claude chat "${a.from}"${a.session ? ` (${a.session})` : ''}`);
 
 export function listAsks() {
   const dir = path.join(HOME, 'asks');
@@ -171,6 +177,37 @@ export function syncAsks() {
 }
 export const openAsks = () => { syncAsks(); return listAsks().filter((a) => a.status === 'open'); };
 
+// ---- when the desk may stop itself (user request 2026-10-15): every Claude chat reports `relay chat active|done`;
+// a report, a Codex turn or a ring older than a day is stale (a chat closed mid-task) and no longer keeps the desk
+// awake, so a forgotten chat cannot hold it open forever.
+const CHAT_STATES = ['active', 'done'];
+const STALE = 24 * 36e5;
+const recent = (iso) => Boolean(iso) && Date.now() - Date.parse(iso) < STALE;
+const chatKey = (s) => s.toLowerCase().replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'chat';
+
+export function listChats() {
+  const dir = path.join(HOME, 'chats');
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => readJson(path.join(dir, f), null)).filter(Boolean);
+}
+
+// Why the desk must keep watching; empty means quiet. `open` saves re-reading the asks the caller already has.
+export function busyReasons(open = openAsks()) {
+  const reasons = [];
+  if (open.length) reasons.push(`${open.length} open ask(s) for the user`);
+  for (const lane of laneNames()) {
+    if (isPaused(lane)) continue;
+    const sent = readJson(path.join(laneDir(lane), 'send.json'), {});
+    const rang = readJson(path.join(laneDir(lane), 'ring.json'), { seq: 0 });
+    const seen = readJson(path.join(laneDir(lane), 'seen.json'), { seq: 0 });
+    if (watcherAlive(lane)) reasons.push(`lane ${lane}: a Claude chat is waiting on Codex`);
+    else if (sent.at && (!rang.at || sent.at > rang.at) && recent(sent.at)) reasons.push(`lane ${lane}: Codex is working`);
+    else if (rang.seq > seen.seq && rang.for !== 'user' && recent(rang.at)) reasons.push(`lane ${lane}: Codex rang, no Claude chat has read it`);
+  }
+  for (const c of listChats()) if (c.state === 'active' && recent(c.at)) reasons.push(`Claude chat "${c.from}" is still on its task`);
+  return reasons;
+}
+
 const oneLine = (name, value) => {
   if (/[\r\n]/.test(value ?? '')) die(`${name} must be one line`);
   return (value ?? '').trim();
@@ -197,14 +234,27 @@ async function codexChats() {
       process.emitWarning = () => {}; // node:sqlite is experimental on Node 22; its warning is noise here
       const { DatabaseSync } = await import('node:sqlite');
       const con = new DatabaseSync(db, { readOnly: true });
-      const rows = con.prepare(`select id, name, updated_at_ms from threads
+      const rows = con.prepare(`select id, name, cwd, updated_at_ms from threads
         where archived = 0 and name is not null and source not like '%subagent%'`).all();
-      for (const r of rows) byId.set(r.id, { id: r.id, title: r.name, updated: new Date(Number(r.updated_at_ms)).toISOString() });
+      for (const r of rows) byId.set(r.id, { id: r.id, title: r.name, cwd: r.cwd, updated: new Date(Number(r.updated_at_ms)).toISOString() });
       con.close();
     } catch { /* an older Node or another schema: the index above is enough */ } finally { process.emitWarning = emit; }
   }
   return [...byId.values()].filter((c) => c.title && c.title !== 'Guardian review')
     .sort((a, b) => b.updated.localeCompare(a.updated));
+}
+
+// Project Codex chats (working folder inside this repo or its worktrees) touched in the last 3 days that no lane maps:
+// they cannot ring, so the desk would never hear them. Chats whose folder is unknown are skipped, not guessed.
+export async function unmappedChats() {
+  const root = mainRoot(path.dirname(fileURLToPath(import.meta.url)));
+  if (!root) return [];
+  const base = path.basename(root).toLowerCase();
+  const mapped = new Set(Object.values(lanes()).flatMap((l) => [l.thread, l.title]));
+  const recent = Date.now() - 3 * 24 * 36e5;
+  return (await codexChats()).filter((c) => c.cwd && Date.parse(c.updated) > recent
+    && c.cwd.replace(/^\\\\\?\\/, '').toLowerCase().split(/[\\/]/).includes(base)
+    && !mapped.has(c.id) && !mapped.has(c.title));
 }
 
 // The Codex app's bundled CLI (not on PATH), newest install first; RELAY_CODEX overrides, a .js/.mjs one runs on node.
@@ -428,14 +478,26 @@ function turnOf(sent, rang, seen) {
   return rang.at ? 'Claude' : '-';
 }
 
-function cmdStatus() {
+async function cmdStatus() {
   const all = lanes();
   const names = positional ? [positional] : laneNames();
   if (fs.existsSync(path.join(HOME, 'paused'))) console.log('ALL LANES PAUSED (node tools/relay.mjs resume all)');
   if (!positional) {
     const desk = deskAlive();
+    const open = openAsks();
     console.log(`Approvals desk "${DESK_TITLE}": watcher ${desk ? `on (checked ${clock(desk.lastCheck)})` : 'off'}; `
-      + `${openAsks().length} open ask(s) for you (node tools/relay.mjs asks)`);
+      + `${open.length} open ask(s) for you (node tools/relay.mjs asks)`);
+    const busy = busyReasons(open);
+    console.log(`  auto-stop: ${busy.length ? `keeps watching because ${busy.join('; ')}` : 'all quiet (the desk stops itself after 15 quiet min)'}`);
+    const chats = listChats().sort((a, b) => String(b.at).localeCompare(String(a.at)));
+    if (chats.length) console.log(`  Claude chats: ${chats.map((c) => `"${c.from}" ${c.state}${recent(c.at) ? '' : ' (stale)'}`).join(', ')}`);
+  }
+  if (!positional) {
+    const loose = await unmappedChats();
+    if (loose.length) {
+      console.log(`Codex chats with NO lane (they cannot ring the desk): ${loose.map((c) => `"${c.title}"`).join(', ')}`);
+      console.log('  fix: the chat runs relay ask --app codex --from "<its exact title>" ...; the desk maps it when answering, or: node tools/relay.mjs add <lane> "<title>"');
+    }
   }
   if (!names.length) { console.log('[relay] no lanes yet (node tools/relay.mjs lanes)'); return; }
   for (const lane of names) {
@@ -481,7 +543,9 @@ function cmdAsk() {
   if (!KINDS.includes(kind)) die(`--kind is one of ${KINDS.join(', ')}`);
   if (from === DESK_TITLE) die('the desk asks the user itself; ask is for the other chats');
   const id = `claude-${now().replace(/\D/g, '').slice(0, 14)}-${Math.random().toString(36).slice(2, 6)}`;
-  writeJson(askFile(id), { id, at: now(), source: 'claude', from, session, kind, note, link, status: 'open' });
+  const app = opt('--app') ?? 'claude';
+  if (!['claude', 'codex'].includes(app)) die('--app is claude or codex');
+  writeJson(askFile(id), { id, at: now(), source: app === 'codex' ? 'codex-chat' : 'claude', from, session, kind, note, link, status: 'open' });
   log('desk', { event: 'ask', id, from, kind, note });
   console.log(`[relay] queued for the user at the approvals desk (${id}). Do not ask the user in this chat: stop here; the desk sends their answer to this chat.`);
   if (!deskAlive()) {
@@ -525,7 +589,15 @@ function cmdAnswer() {
   const note = noteArg();
   if (!subject || !quote) die(`${answers[0]} needs what it is about and --quote "<the user's answer, word for word>"`);
   const kind = { '--user-approved': 'approval', '--user-rejected': 'rejection', '--user-decision': 'decision' }[answers[0]];
-  if (ask.source === 'codex') {
+  if (ask.source === 'codex-chat' && !ask.lane) {
+    // A Codex chat with no lane asked: map it by its exact title (lane name = slug of it), then send like any lane.
+    const lane = ask.from.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 31) || 'codex-chat';
+    const added = spawnSync(process.execPath, [fileURLToPath(import.meta.url), 'add', lane, ask.from], { encoding: 'utf8', env: process.env });
+    process.stdout.write(added.stdout ?? '');
+    if (added.status !== 0) die(`could not map the Codex chat "${ask.from}" to a lane: ${added.stderr}`, added.status ?? 1);
+    ask.lane = lane;
+  }
+  if (ask.source === 'codex' || ask.source === 'codex-chat') {
     const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), 'send', ask.lane, answers[0], subject,
       '--quote', quote, ...(note ? ['--note', note] : [])], { encoding: 'utf8', env: process.env });
     process.stdout.write(r.stdout ?? '');
@@ -547,8 +619,14 @@ async function cmdDeskWait() {
   const started = Date.now();
   const seenFile = path.join(HOME, 'desk', 'seen.json');
   const watcherFile = path.join(HOME, 'desk', 'watcher.json');
-  console.log(`[relay] the approvals desk is watching every lane and Claude chat (every ${interval / 1e3}s, up to ${Math.round(timeout / 6e4)} min)`);
+  // Quiet must last a while before the desk stops, so a send about to land or a chat between two steps does not end
+  // it; --no-auto-stop keeps it running until the timeout.
+  const idle = flag('--no-auto-stop') ? Infinity : parseDuration(opt('--idle'), 15 * 6e4);
+  console.log(`[relay] the approvals desk is watching every lane and Claude chat (every ${interval / 1e3}s, up to ${Math.round(timeout / 6e4)} min`
+    + `${Number.isFinite(idle) ? `; stops itself after ${Math.round(idle / 6e4)} quiet min` : ''})`);
   let lastBeat = 0;
+  let quietSince = null;
+  let lastBusy = null;
   for (;;) {
     if (fs.existsSync(path.join(HOME, 'paused'))) die('all lanes were paused; the desk stopped watching', 4);
     const open = openAsks();
@@ -564,7 +642,23 @@ async function cmdDeskWait() {
         + 'with node tools/relay.mjs answer <id> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>", then start this watcher again');
       return;
     }
-    writeJson(watcherFile, { pid: process.pid, startedAt: new Date(started).toISOString(), lastCheck: now() });
+    const busy = busyReasons(open);
+    if (busy.length) quietSince = null;
+    else quietSince ??= Date.now();
+    if (busy.join('|') !== lastBusy) {
+      console.log(`[relay] ${busy.length ? `still busy: ${busy.join('; ')}` : 'all quiet'} (${clock(now())})`);
+      lastBusy = busy.join('|');
+    }
+    writeJson(watcherFile, { pid: process.pid, startedAt: new Date(started).toISOString(), lastCheck: now(),
+      quietSince: quietSince && new Date(quietSince).toISOString() });
+    if (quietSince !== null && Date.now() - quietSince >= idle) {
+      fs.rmSync(watcherFile, { force: true });
+      log('desk', { event: 'auto-stop', quietMs: Date.now() - quietSince });
+      console.log(`[relay] everything has been quiet for ${Math.round((Date.now() - quietSince) / 6e4)} min: no open asks, no lane waiting on Codex, `
+        + 'no Claude chat on a task. The desk stopped itself.');
+      console.log('[relay] tell the user once, unpin, and do not restart; /approvals (or a new ask, which says the desk is off) brings it back');
+      process.exit(5);
+    }
     if (Date.now() - started >= timeout) {
       fs.rmSync(watcherFile, { force: true });
       die(`no new asks after ${Math.round(timeout / 6e4)} min; start the desk watcher again`, 2);
@@ -582,7 +676,10 @@ function cmdBrief() {
     console.log(`[relay] Approvals desk (ADR 0039): only the Claude chat "${DESK_TITLE}" asks the user for approvals or decisions. `
       + 'Any other chat that needs the user runs node tools/relay.mjs ask --from "<this chat\'s title>" --session <its local_ id (get_session self)> '
       + '--kind approval|decision|blocked --note "<question; versions>" --link <review url>, then stops; the desk sends the answer back. '
-      + 'Codex lanes keep ringing --for user; lane watchers leave those to the desk.');
+      + 'Codex lanes keep ringing --for user; lane watchers leave those to the desk. '
+      + 'So the desk can stop itself when all work is finished, report your task state: node tools/relay.mjs chat active '
+      + '--from "<this chat\'s title>" --session <its local_ id> when you start a task, and chat done (same flags) when it is '
+      + 'finished and nothing is pending from Codex.');
     console.log(`[relay] Now: ${open.length} open ask(s) for the user; desk watcher ${desk ? 'on' : 'off'}.`
       + (desk ? '' : ` If this chat is "${DESK_TITLE}", run /approvals.`));
   } catch (err) {
@@ -590,11 +687,27 @@ function cmdBrief() {
   }
 }
 
+// A Claude chat says it is working (active) or that its task is finished and it waits on nothing (done).
+function cmdChat() {
+  const state = positional;
+  if (!CHAT_STATES.includes(state)) die('usage: relay chat active|done --from "<this chat\'s title>" --session <its local_ id> [--note "..."]');
+  const from = oneLine('--from', opt('--from'));
+  const session = oneLine('--session', opt('--session'));
+  const note = noteArg();
+  if (!from) die('chat needs --from "<this chat\'s title>" (and --session <its local_ id> when you have it)');
+  if (from === DESK_TITLE) die('the desk does not report on itself');
+  writeJson(path.join(HOME, 'chats', `${chatKey(session || from)}.json`), { from, session, state, note, at: now() });
+  log('desk', { event: `chat-${state}`, from, session, note });
+  console.log(`[relay] ${from}: ${state}.${state === 'done'
+    ? ' Stop any lane watcher you still run; the desk stops itself once every chat is done and no lane waits on Codex.'
+    : ' Report `relay chat done` when the task is finished and nothing is pending from Codex.'}`);
+}
+
 const COMMANDS = {
   lanes: cmdLanes, add: cmdAdd, remove: cmdRemove, send: cmdSend, ring: cmdRing,
   wait: () => (positional === 'all' ? cmdDeskWait() : cmdWait()), status: cmdStatus,
   reset: cmdReset, pause: () => cmdPause(true), resume: () => cmdPause(false),
-  ask: cmdAsk, asks: cmdAsks, answer: cmdAnswer, brief: cmdBrief,
+  ask: cmdAsk, asks: cmdAsks, answer: cmdAnswer, brief: cmdBrief, chat: cmdChat,
 };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (!COMMANDS[cmd]) die(`usage: relay ${Object.keys(COMMANDS).join('|')} ... (header of tools/relay.mjs)`);
