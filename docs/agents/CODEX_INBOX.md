@@ -165,22 +165,20 @@ at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this rou
 **The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). PR #110's `public/vfx/atlas.*` must
 not ship: packed in the sparse worktree without the VFX raws, it dropped glow, bubble, wisp, arc, ripple and
 naruto_chakraTail.
-- [ ] 1. In `.worktrees/art-beam-clash`: `git merge main` (brings the `beamStruggleAir` contract, the packer tables and the
-  shipped effects); resolve every `art/vfx/**`, `public/vfx/**` and vfx manifest conflict by taking main's side
-  (`git checkout main -- public/vfx art/vfx`), commit the merge. Never run `npm run sprites vfx` in this worktree.
-- [ ] 2. `beamStruggle_v01` for Sasuke (Chidori Spear thrust), Killua (Narukami, open palm), Gojo (Red at two fingertips,
-  other hand in the pocket); at most 3 calls each, failed ones count.
-- [ ] 3. `beamStruggleAir_v01` for Killua (palm driven down, knees up), Sasuke (Great Fireball blown from the mouth, tiger
-  sign at the lips; `hand` = the mouth), Gojo (two fingers pointed down, relaxed); at most 3 calls each. Legs never
-  stand on an invisible floor.
-- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the loop),
-  `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
+- [x] 1. Merged latest main into `.worktrees/art-beam-clash`; merge commit **881562f4**. Resolved all `art/vfx/**` and
+  `public/vfx/**` conflicts using main's versions. Never run `npm run sprites vfx` in this worktree.
+- [x] 2. Generated and filed ground `beamStruggle_v01` for Sasuke, Killua and Gojo (max 3 calls each).
+- [x] 3. Generated and filed `beamStruggleAir_v01` for Sasuke, Killua and Gojo (max 3 calls each). Also generated Naruto
+  `beamStruggle_v02` using the user's relayed decision (one call, 2nd of 3); this is not approval.
+- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the
+  loop), `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
   technical hold (say so on the page; do not present it for approval).
-- [ ] 5. One phone review page public/reviews/beam-clash-r2/ (each strip beside the fighter's approved idle and beamFire /
-  throw at one density, a looping GIF at 70 ms); REVIEW.md rows, manifest versions, tracker rows; commit,
-  `npm run pr -- open`, `npm run pr -- preview`; a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md with the
-  **direct review page URL**; then `node tools/relay.mjs ring beam-clash --for user --kind approval --note "<one line with
-  the review URL>"`. **Then stop:** Claude asks the user (ADR 0037).
+  **BLOCKED:** Sasuke ground scale ratios head 1.54 / feet 1.84 and air 1.18 / 1.16; Killua air 1.06 / 1.32; Gojo air
+  0.94 / 1.06. Naruto v02 head gate 2 ok but body sheet garment-area ratio B=0.60 vs idle in all frames. Killua/Gojo
+  ground body/contact checks are incomplete because the gate failure prevented a pack. Astra audit unavailable in this chat.
+  Candidates are on technical hold; do not request image approval.
+- [ ] 5. Phone review page `public/reviews/beam-clash-r2/` and PR preview are not ready because the candidates are held.
+  No review URL exists. Claude must arrange the remaining technical/audit path before the user reviews any image.
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 

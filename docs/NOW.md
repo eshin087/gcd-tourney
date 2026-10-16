@@ -8,6 +8,8 @@ paused._
 
 ## Your next actions
 
+**Beam clash art Round 2 (2026-10-15):** Codex generated Sasuke/Killua/Gojo ground and air v01 candidates plus Naruto `beamStruggle_v02` after your relayed “Redraw v02” decision. All remain technical holds: strict scale failures on four strips; Naruto v02 body area is 60% of idle; hand checks and the required Astra audit are incomplete. No review page or approval request exists. Claude has been notified through the beam-clash lane and must coordinate the technical/audit path before asking you to review images. See the newest beam-clash handoff in [CLAUDE_ART_HANDOFF.md](agents/CLAUDE_ART_HANDOFF.md).
+
 **One place to answer (2026-10-15, ADR 0039, PR #117):** every approval and decision now comes to the Claude chat **"0 - Approvals"** (pinned while something waits, plus a phone notification). Other Claude chats and Codex lanes queue their questions there instead of asking you. `npm run status` opens with "Needs you now". After deleting chats: name a Claude chat `0 - Approvals` and type `/desk`; the Codex control chat follows docs/COORDINATION.md.
 
 **Goku/Luffy workflow repair: waiting for Claude (2026-10-15).** No user action yet. Goku has two provisional calibration pilots (ec37e3ae), four disputed beam trials held, and18 strips still to reassemble. Luffy's new light1v02 and winv03 (5f0bbf66, PR #96) are filed with technical holds; the recovered special source is unusable. Claude must validate the scale measurements, calibrate final packs and provide an updated review preview before the next audit/approval. The historical preview does not contain these new candidates. See the newest [handoff](agents/CLAUDE_ART_HANDOFF.md); no more redraw calls are running.
