@@ -30,6 +30,7 @@ The pack report also noted existing warnings: approved down v05 and ko v06 lying
 ## Audit and review state
 
 - Independent `gpt-6-astra` / medium audit of actual atlas hash `7CB18EB86F22FAAF9ABF05BEA18EC21C500CF51D1B7637B5CD4082B290C52252` returned **HOLD**: slot 17 loses the near/right arm pump behind the torso; torso garment axis appears shortened versus approved refs; head shifts approximately 37 px across the loop. v09 is preserved at `raw/_qa_hold/dash_v09.png` (same candidate hash above). Its 3/3 generation budget is exhausted; no production strip is review-ready.
+- Full audit evidence, decoded atlas measurements and uncertainty are in [ASTRA_DASH_AUDIT_v01.md](ASTRA_DASH_AUDIT_v01.md).
 - Run v13, backDash v06 and superDash v11 are exhausted technical holds. Full reasons and all source/output hashes are in the attempt inventory.
 - Review rows: [REVIEW_ROWS.md](../../REVIEW_ROWS.md). Public review page: [Gojo J/K/L and phase 2](../../../../../public/reviews/gojo-run-jkl/index.html).
-- The public review page clearly labels the audited atlas as a technical hold and lists all unavailable strips. PR #102 is the existing branch PR; preview refresh is pending coordinator review of this commit. No merge, deployment, image approval or relay ring is claimed.
+- The public review page clearly labels the audited atlas as a technical hold and lists all unavailable strips. PR #102 is the existing branch PR; preview refresh was attempted but is blocked by an `EPERM` creating `E:\gcd-scratch\gcd-deploy-XXXXXX`. No merge, preview deployment, production deployment, image approval or relay ring is claimed.
