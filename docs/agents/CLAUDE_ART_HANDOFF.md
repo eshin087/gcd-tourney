@@ -1,3 +1,57 @@
+# Codex: Goku/Luffy strict packs published; three repair-call decisions for the desk (2026-10-16, goku-luffy)
+
+Answers relay #7 and inbox "probe policy resolved, calibration bound". **Zero new image calls.** Existing source drawings were reassembled, calibrated and audited. All versioned files are preserved. No new design approvals, merge or production deployment. The two branches are clean; local preview servers were stopped after QA.
+
+## Delivery and exact audited pixels
+
+| Fighter | Worktree / branch | Art commit; final docs HEAD; published slim HEAD | Review |
+|---|---|---|---|
+| Goku | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core`; `art/goku-core` | `db3b5aca`; `89c6b0b7`; `562fb55e` | [PR #123](https://github.com/eshin087/gcd-tourney/pull/123), [r3 preview](https://gcd-tourney-f5adk3i5g-eshin087s-projects.vercel.app/characters/goku/calibration-r3/index.html) built from `db3b5aca` |
+| Luffy | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core`; `art/luffy-core` | `b01eab94`; `c5d60de8`; `2b063d56` | [PR #96](https://github.com/eshin087/gcd-tourney/pull/96), [r4 preview](https://gcd-tourney-3m9eawvhw-eshin087s-projects.vercel.app/characters/luffy/calibration-r4/index.html) built from `b01eab94` |
+
+Both strict quantized packs exited 0 and contain 48 colors. Goku: **21 animations / 93 frames**, approved idle02 plus 20 version-bound manual passes. Luffy: **20 animations / 93 frames**, approved idle01 plus 19 manual passes, including salvaged launched02. GPT-6 Astra at medium rechecked every one of the 186 selected final quantized frames against approved references, with landmark uncertainty recorded. This is visible anatomy/discrete sequence evidence, not complete timed gameplay/contact certification. All Goku selected frames pack at x1; the native `bodyHeight` edits are exercised under this inbox's explicit permission.
+
+| Actual public output | SHA256, also verified on its hosted preview |
+|---|---|
+| Goku sheet.png | `fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054` |
+| Goku anims.json | `e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f` |
+| Luffy sheet.png | `563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996` |
+| Luffy anims.json | `7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a` |
+
+Evidence is under each branch's `art/characters/<id>/production/`: Goku `manual-audit-r3/FINAL5_STRICT_AUDIT.md`, `FINAL4_AUDIT.md`, `reassembly-r03/FINAL_HANDOFF_R03.md` and complete version inventory; Luffy `manual-audit-r3/LAUNCHED02_AUDIT.md`, `LAUNCHED02_PIXELS.json`, `launched-calibration-r4/` and `HELD_STRIP_DECISIONS_R3.md`. Root fighter `REVIEW_ROWS.md` and both PR bodies carry the proposed rows. Raw files are excluded from slim publication; preserve both local worktrees for integration. No registered merged task worktree needed removal; unrelated plain-copy residue was preserved.
+
+## What fixed the repeated failures
+
+Whole-figure extraction recovered limbs crossing nominal source panels; verified grid separators and neighboring fragments were excluded. Landmark endpoints were corrected against actual anatomy and their uncertainty recorded. A uniform source factor preserves proportions; native maximum height prevents the packer from undoing that factor. Measured horizontal offsets keep intact poses inside the cell. The 237px packer height ceiling is explicitly checked before treating a candidate as x1. Charge05 uses existing source frames [1,2,3,1] to remove the neutral/combat snap; this is a new assembly, not a new drawing or design approval.
+
+One isolated Goku fixture initially omitted `art/scale/builds.json`, bringing back the obsolete false-probe failures. Copying the current config unchanged restored the intended manual policy; no tool/policy workaround was added. `reassembly-r03/WORKFLOW.md` now requires complete configuration/reference inputs, exact source bindings, whole-pose bounds, native-height checks and final atlas hashes. Final4-to-final5 removed the two held moves: all 93 retained silhouettes were unchanged, the shared palette changed, and Astra rechecked the resulting actual pixels. Rebuildable fixture mirrors are ignored; evidence and sources remain.
+
+## Goku: two calibration holds for Claude, no redraw request yet
+
+`light3_v09` and `heavy_v11` fit their cells but remain held for collective body undersize versus idle. Both original drawings are complete. Their central measured factors (.568 and .666) put some poses above the cell's usable height; current factors (.499 and .599) trend small across torso, belt and boot measurements. This establishes a capacity conflict at the central estimates, not impossibility throughout the uncertainty intervals. Claude should choose calibration/compact-pose handling before requesting generation. Both are excluded from the strict pack, with original approved v04 files preserved unchanged in `_qa_hold` so the packer cannot silently fall back. Existing six v04 attack design approvals remain attached to their original versions; no new approval was invented.
+
+Goku getup11 retains a floor/contact warning (f0: 35% within 6px of y240, worst fifth 8px high). Broad x offsets, strike roots, fallback hitboxes and actual timed transitions need Claude review. Body PASS does not certify these runtime effects.
+
+## User decision to queue in 0 - Approvals
+
+Authorize **one call for each chosen repair**, or keep it held; this is a call authorization, not image approval:
+
+| Luffy held candidate | Exact problem | Smallest requested call / cumulative budget |
+|---|---|---|
+| down v01 | f1 loses about 9px at right and has a 7px floor gap; complete width exceeds the 248px safe area | One targeted 2-pose correction, narrowing/reposing f1 and repairing floor contact; 1/3 used, this would be 2/3 |
+| getup v01 | Lying f0 loses about 6px left and 7px right, with an 8px floor gap; f3 support projection remains uncertain | One targeted 5-pose correction, narrowing f0 and preserving floor continuity; 1/3 used, this would be 2/3 |
+| special v01 | Required f6 arm retraction and f7 upright return are absent from the original sources; the extra source contains guard poses | One extra focused 2-frame recovery call, preserving f0-f5; 3/3 exhausted, explicitly authorize a fourth call |
+
+**Do not ask for a launched redraw:** its complete original source yielded launched02 at a uniform measured factor .313821, native height193, with an Astra pass on the exact final atlas. Its design review remains pending. Luffy's prior narrow placement exceptions remain: run rear feet, light3 toe, light4 foot, airLight1 fists, and Claude's separate beamFire arm-continuation exception. JumpFall03 retains its 17px/80ms continuity concern; grounding/contact and fallback hitboxes still need runtime disposition.
+
+## Validation and handback
+
+Both adapter builds and committed preview builds passed. Local gallery controls, native 256px cells/reference density, one-shot playback, selected loop stepping and image loads were checked; both games visibly rendered the custom sprites without captured warning/error logs. Reports: `PARENT_BROWSER_R3.md` (Goku), `PARENT_BROWSER_R4.md` (Luffy). Hosted sheet/metadata bytes were verified through authenticated Vercel fetches. Goku's hosted HTML differs only by Vercel's appended feedback script. Hosted interactive QA and every gameplay transition were not repeated. No tests added or run. The Goku deploy helper left its locked temporary export `E:/gcd-scratch/gcd-deploy-kkyfvA`; it reports cleanup on the next deploy.
+
+After committing this handoff, ring `goku-luffy --for user --kind decision` with the three Luffy choices and both previews, then stop. The approvals desk relays the user's exact answer. Claude owns the two Goku calibration dispositions, runtime/contact checks, review-row/TASKS/CHANGELOG consolidation, approval-lineage reconciliation and sequential guarded integration. Codex has not merged or deployed production.
+
+---
+
 # Codex: Super art round 2a approved and packed; Claude in-game check next (2026-10-16, effects)
 
 Branch `art/super-art-r2`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-super-art-r2`. This covers Naruto, Killua and Gojo only. The user approved all 12 `v01` images via Claude relay effects #8 on 2026-10-16, including all six foregrounds despite Astra technical holds. Approval is recorded in REVIEW.md, manifest and TRACKER. Approved sources are copied to each `art/characters/<id>/ui/` and fitted files are packed under `public/characters/<id>/`. No image was regenerated. Source dimensions, exact-call provenance and SHA-256 hashes: `art/characters/SUPER_ART_R2A_CALLS.md`. Prompt sections were added after U2 in all three `PROMPTS.md` files. Call use: one per asset except Naruto `super_bg` (two calls; first result was not captured), within the 3-call cap for every image.

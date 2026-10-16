@@ -55,18 +55,27 @@ hurtHigh v08 223, guard v05 229, light2 v05 236, with `scaleManualQA` records ci
 shared palette differs), so the audits apply. jumpUp/jumpFall/hurtHigh left `_qa_hold` byte for byte. The dry run now
 reads `8 manual, 5 unmeasured`.
 
-- [ ] 1. **Goku, the rest:** re-assemble the remaining strips with the same method (measured source factor, assembled at
+- [x] 1. **Goku, the rest:** re-assemble the remaining strips with the same method (measured source factor, assembled at
   the idle's density, packed at x1: set nothing yourself, report each strip's native max height and Claude sets
   `bodyHeight`... or, to save a round trip, you may set `bodyHeight` to the strip's native max height so it packs at
   x1, exactly as Claude did for these five, and say so in the handoff). Astra checks landmarks; write `scaleManualQA`
   only for the exact version and only if the strip packs at x1. The five approved v04 attacks (light3, light4, heavy,
   airLight1, airHeavy) need the same: a uniform re-assembly of an approved drawing keeps its approval.
-- [ ] 2. **Luffy:** merge main, strict pack `node tools/pack-sprites.mjs luffy --quantize 48` (expect exit 0), commit
+- [x] 2. **Luffy:** merge main, strict pack `node tools/pack-sprites.mjs luffy --quantize 48` (expect exit 0), commit
   `public/characters/luffy/` on the branch, `npm run pr -- preview`.
-- [ ] 3. **What only the user can unblock** (more generation calls): Luffy launched (undersize), special (frames 6/7 cut),
+- [x] 3. **What only the user can unblock** (more generation calls): Luffy launched (undersize), special (frames 6/7 cut),
   down/getup (grounding); Goku strips whose source can't be fixed by re-assembly. When items 1-2 are done, ring
   `goku-luffy --for user --kind decision` with one short list (strip, problem, calls asked) and the two preview links;
   the approvals desk asks the user. Then hand back to Claude as usual for the merge checks.
+
+**Codex result (2026-10-16):** zero image calls. Goku `db3b5aca` + docs `89c6b0b7` (PR #123) strict-packs
+21 animations/93 frames at x1: idle02 plus 20 exact Astra passes; light3v09/heavyv11 remain documented calibration
+holds for Claude, with complete sources and no automatic redraw request. Luffy `b01eab94` + docs `c5d60de8`
+(PR #96) strict-packs 20 animations/93 frames: idle01 plus 19 passes. **Launched02 was salvaged without generation.**
+Prepared the desk decision for one downv01 repair, one getupv01 repair and one extra specialv01 recovery call;
+none is authorized by this completion note. Both published atlases match audited hashes. Previews and precise
+budgets/remaining runtime checks are in the newest [handoff](CLAUDE_ART_HANDOFF.md); ring for the decision after
+committing it, then stop. The checkmarks record delivery/decision preparation, not clearance of the five holds.
 
 ---
 
