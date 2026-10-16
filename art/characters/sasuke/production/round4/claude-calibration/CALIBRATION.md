@@ -36,3 +36,17 @@ evidence. This is Sasuke's spot-dodge pose: it no longer reads bigger than the i
 sha256 `a2a8faed1e07f105bfa0db9e3bb401217a3e47b43363ff5aad9ea82c8822f55e`, `anims.json` sha256
 `3e6cc01adaffda8bf101e1412ad708af3c65d9f3a4d4d9a303c3756c593334bb`. Retained run v05, airLight3 v07, specialUp v09, hurtLow v03,
 airRecover v01 unchanged.
+
+# Round 6 (2026-10-15): jumpSquat v07 (user-approved as drawn)
+
+v07 repaints only the reaching arm of v06. Packed at the same bodyHeight 157 it spans crown y 84 to floor y 240 exactly
+like v06, so v06's fit carries over (head about 1.01, garment area about 0.92, sandal about 1.06 of idle07). The arm is
+fixed: forearm (elbow skin to wrist) about 25-28 px against 25 in the neutral and combat cells (v06: about 40); the
+spread hand reads about 20 px tip to wrist (relaxed neutral hand 15). Head probe 0.985, low confidence (crouch).
+Contact: the auto hurt box is 86 x 151 at x 91 (v06: 104 wide, it took in the long arm); idle 101, guard 95, land 98
+wide, so the crouch keeps a body-sized box. No hitbox data (jumpSquat is the jump startup and spot-dodge hold pose).
+
+Recorded `scaleManualQA` for v7 in the manifest and a v07 calibration note in `raw/jumpSquat_v07.json` (it was a byte
+copy of v06's). `node tools/pack-sprites.mjs sasuke --quantize 48 --strict-scale`: 1 ref, 31 ok, 10 manual. Atlas: sheet
+sha256 `79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9` (equals Codex's audited diagnostic sheet),
+anims.json `fa2ada121d16b560169a538f90ae480e1fcbd20f70ea86e179941234015012df`.
