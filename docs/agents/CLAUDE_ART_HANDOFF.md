@@ -1,4 +1,14 @@
+# Codex: Killua air v02 approved; technical follow-up to Claude (2026-10-15, beam-clash)
+
+The user approved Killua `beamStruggleAir_v02` as drawn via Claude relay #10 (“Approve v02”). Approval is recorded in REVIEW, manifest and TRACKER. Superseded v01 is preserved at `art/characters/killua/raw/_rejected/beamStruggleAir_v01.png`; v02's strict quantized pack passed (48 colors), no scale-gate finding for this strip, and the body sheet has H=.97–1.03 / B=.97–.99 with zero flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. The full Killua atlas was refreshed locally but its outputs were not committed because they also changed other move metadata; Claude owns the clean integration pack. No VFX was packed.
+
+Next: reconcile the approved air v02 into integration, complete the Astra atlas audit and exact hand-anchor measurement, then run runtime/integration checks. The updated review page is under `public/reviews/beam-clash-r2/`.
+
+---
+
 # Codex: Killua air v02 ready for user review (2026-10-15, beam-clash)
+
+Superseded by the user's approval via relay #10; see the current note above.
 
 The user approved the one retry call via relay #9. Killua `beamStruggleAir_v02` is filed and on the updated round-2 review page as `needs review`; this is not an image approval. Strict quantized pack passed (48 colors), no scale-gate finding for the strip, and the body sheet has H=.97–1.03 / B=.97–.99 with 0 flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. v01 remains held, and no other raw strip was touched.
 

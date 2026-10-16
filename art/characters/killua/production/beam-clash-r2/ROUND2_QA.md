@@ -1,6 +1,6 @@
 # Killua beam clash round 2 QA
 
-Date: 2026-10-15. Candidate: `beamStruggleAir_v02.png`. Prior v01 remains held in `raw/_qa_hold/`.
+Date: 2026-10-15. Candidate: `beamStruggleAir_v02.png`. User approved v02 via Claude relay #10. Superseded v01 is preserved in `raw/_rejected/` with its gate findings.
 
 ## Packing and scale
 
