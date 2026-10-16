@@ -187,6 +187,13 @@ Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
 ## Gojo run v13: Astra audit before merge (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
+**Follow-up, 2026-10-15:** the v14 recheck was completed at source commit `65ff1ea1` and recorded on branch
+`art/gojo-run` in `9b25a5a8`. Astra returned **PASS for visible atlas anatomy and discrete-frame continuity**:
+the f6 free arm/fist is restored, and no new visible defect was established. The 60 ms GIF pixels match the atlas.
+Strict hidden-segment measurements, live browser playback and runtime contact checks remain unverified; Claude owns
+those checks and technical disposition. Full evidence: `art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md`.
+No art, pack, sidecar or approval data changed in the recheck.
+
 **Status:** the user chose "Stitch and preview" at the approvals desk. Claude stitched run v13 from Part A plus the held
 Part B attempt 02 (no new calls), packed it and set sidecar `frameOffsets` (the head holds at x 169; f3/f7 lifted).
 **The user approved run v13 as drawn via the desk** ("Approve run v13"), with these holds accepted: the same lead
