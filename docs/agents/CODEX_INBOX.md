@@ -21,7 +21,7 @@ How it works:
 
 - [x] Recorded the exact user approval in main's shared REVIEW.md and resumed one Luna/medium worker per existing fighter worktree.
 - [x] Updated branch manifests, TRACKER and character review rows; version-archived superseded candidates byte-identically. Both strict packs and hosted outputs match the final audited pixels (2026-10-16; Goku `f1d3e245`, Luffy `9eb545e8`).
-- [ ] Complete Claude's following full-set review request, commit combined handoff and route remaining drawing approvals through the desk.
+- [x] Completed the full-set review pages and committed combined handoff `ec6a4504`; ring #9 queued approval ask `lane-goku-luffy-9` with both links and the exact 16/19 pending versions. Desk watcher was off at delivery check; waiting for the user through 0 - Approvals (2026-10-16).
 
 ---
 
@@ -37,11 +37,11 @@ refused because their newest raw has no `approvedVersion`. Two cases:
   no new image call): set `approvedVersion` to the newest version with a REVIEW_ROWS note "re-assembly of the
   user-approved vNN drawing at the measured density; no new image". Only where that's exactly true.
   Completed 2026-10-16: Goku light2 v05, light4 v09, airLight1 v07 and airHeavy v06 retain the approved v04 drawings; source/candidate hashes and no-call lineage independently checked. No additional Luffy source drawing had proven approval.
-- [ ] 2. **Strips the user has never approved as drawings** (everything else in the guard's list): build one final review
+- [x] 2. **Strips the user has never approved as drawings** (everything else in the guard's list): build one final review
   page per fighter showing the complete packed set (every core strip, playable frame by frame, at one scale beside the
   idle), publish both with `npm run pr -- preview`, then ring `goku-luffy --for user --kind approval` with the two links
   and the exact list of strips and versions to approve. The approvals desk asks the user.
-  Both pages are published and browser/artifact-checked (2026-10-16); exact 16 Goku / 19 Luffy pending versions and links are in the newest CLAUDE_ART_HANDOFF.md entry. Approval relay follows the handoff commit.
+  Both pages are published and browser/artifact-checked (2026-10-16); exact 16 Goku / 19 Luffy pending versions and links are in handoff `ec6a4504`. Ring #9 successfully queued user approval ask `lane-goku-luffy-9`; the desk watcher was off at delivery check. No new image call or user approval inferred.
 - [ ] 3. After the user's answer is relayed: record `approvedVersion` for each approved strip (move any rejected one to
   `raw/_qa_hold/`), re-run `node tools/pr.mjs check` until it passes, commit, `npm run pr -- open`, and hand back to
   Claude (ring `goku-luffy`) for the merge.
