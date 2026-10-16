@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. No candidate approved or packed.
+- Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. User approved all four v01 candidates for preview on 2026-10-15; the two Astra foreground technical holds remain recorded.
 
 - Art (ART-SUPER-ART): filed Sasuke Kirin super and Amaterasu ultimate v01 background/foreground candidates for review; both foregrounds carry Astra technical holds. No candidate approved or packed.
 - docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.

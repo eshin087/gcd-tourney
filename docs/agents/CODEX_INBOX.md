@@ -76,7 +76,7 @@ the two `fg` images under `gpt-6-astra` medium against the approved title-style 
   character or text in a bg, no magenta/violet on a fg.
 - [x] 3. Astra audited both foregrounds; both are held of both `fg` images against the approved title-style neutral/combat cells and his
   select.png (face, hair, eyes, build). Hold anything that does not look like the approved Sasuke.
-- [x] 4. Review page and tracking package prepared; all candidates remain unapproved. from the brief (public/reviews/super-art-sasuke-r1/: each image at final size and 3x, the
+- [x] 4. Review package delivered; user approved all four v01 for preview-only demo, with Astra fg technical holds retained. from the brief (public/reviews/super-art-sasuke-r1/: each image at final size and 3x, the
   banner mock, the splash mock at 16:9 and 4:3, the heads beside the approved cells). REVIEW.md rows (`needs review`),
   manifest/tracker rows; commit, `npm run pr -- open`, `npm run pr -- preview`. Add a handoff at the top of
   docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls used, the review page, holds) and run
