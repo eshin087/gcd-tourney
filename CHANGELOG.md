@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- docs(scale): hand all24 explicit round5 user approvals back to Claude; retain light2Alt and airHeavyAlt holds.
+
 - Added: a raw sidecar can list `"erase": [[x, y, w, h], ...]` rectangles that the packer clears before packing, for a leftover the stray cleanup keeps because it sits close to a body (TOOL-042; art/PIPELINE.md).
 
 - docs(scale): hand user-approved Sasuke jumpSquat07 and Killua stagger08 back to Claude for technical checks; retain Naruto light2Alt04 hold.

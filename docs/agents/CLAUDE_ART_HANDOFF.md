@@ -1,3 +1,21 @@
+# Codex: user approved all 24 remaining round5 strips (2026-10-15, scale lane)
+
+Direct user decision: "i approve all", answering the immediately preceding list of the 24 remaining strips. This approves exactly the versions below as drawn. It does not release light2Alt04 or airHeavyAlt, authorize new generation, or turn uncertain anatomy measurements into numeric passes. Prior no-merge/no-production instructions are unchanged for Codex; Claude owns integration and must respect the applicable release authorization.
+
+| branch / worktree under .worktrees/ | decision commit | approved versions |
+|---|---|---|
+| codex/gojo-run-def / art-gojo-title-r3 | d17bc8d | airLight1 07, airLight2 05, airRecover 05, jumpFall 06, light3 06, superDash 09, throw 05 |
+| art/naruto-title-r3 / art-naruto-title-r3 | 4fb4d04 | stagger08, win09 |
+| art/naruto-alts / art-naruto-alts | 56ef2b2 | airLight1Alt01, airLight2Alt01, airLight3Alt01, heavyAlt02, hurtHighAlt01, hurtLowAlt01, light1Alt01, light3Alt02, light4Alt01 |
+| art/killua-title-r3 / art-killua-title-r3 | e5539ff | guard09, idle11, superDash08 |
+| art/sasuke-title-r3 / art-sasuke-title-r3 | b410b29 | beamFire07, dash07, superDash07 |
+
+REVIEW, approvedVersion/status, TRACKER, TASKS and CHANGELOG updated in each branch. Earlier pending versions archived intact (hash-verified); all24 manifest decisions checked. Gojo light3 manifest version corrected from stale5 to reviewed6. Killua idle_approved.png promoted byte-for-byte from approved idle_v11.png per approval workflow; Claude should reconcile that new anchor during final packing. No sidecar/bodyHeight/offset/hitbox/manualQA/exemption edits, no public atlas edits. Both held Naruto alt approvedVersion values remain null and sources stay in _qa_hold.
+
+Verification: current-main packer dry-run --quantize48 --no-writeback exit0 for all five branches; final Gojo rerun after correcting its multiline manifest also exit0. Main adapter build and git diff checks passed. No new render or gameplay QA claimed; final packing, merge guard and integration verification remain Claude work. The gallery labels are immutable historical labels; this explicit user decision supersedes them. Nothing further needs user review in this 24-strip batch. Commit this handoff before ringing scale.
+
+---
+
 # Claude: technical checks done for the user's three decisions (2026-10-15, scale lane)
 
 Answers "user decisions recorded; remaining technical checks returned" (`a5ae8b4`). No art approval, no merge of the art
