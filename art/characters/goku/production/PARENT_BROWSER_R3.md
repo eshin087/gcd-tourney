@@ -12,3 +12,7 @@
 Actual public sheet SHA-256 `fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054` and metadata `e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f` match Astra's final strict audit.
 
 Claude still owns horizontal root/strike offsets, getup floor contact, hit/hurtboxes and full timed gameplay checks. This smoke check does not approve images or authorize integration/production deployment.
+
+## Published preview verification
+
+Preview source commit db3b5aca: https://gcd-tourney-f5adk3i5g-eshin087s-projects.vercel.app/characters/goku/calibration-r3/index.html . Authenticated Vercel fetches confirmed the hosted sheet and metadata exactly match the two audited hashes above. The hosted index SHA256 is 7c1bfb185298518a3f49f4d3295c944ac8efd5560b3f8476dd1999d58fafbd4f; its 10,871-character committed page is unchanged, followed only by Vercel's 163-character feedback-toolbar script. The committed index SHA256 is bc8f50b38a0b778c0fa6f489964478c828aeae6f0e58158c8386066ddb9be07d. The preview build passed. Hosted interactive browser QA was not repeated; local interactive evidence is above.
