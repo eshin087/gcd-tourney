@@ -10,11 +10,11 @@ paused._
 
 **Online play, determinism check, run 3 (2026-10-15, PR #109, ADR 0036, ENG-090):** run 2 traced the iPhone split to `Math.hypot` (Safari rounds it one last digit differently). The test now uses its own deterministic math; open each link on the iPhone (Vercel login), wait about a minute, screenshot the whole result and send both to Claude. Nothing to approve.<br>https://gcd-tourney-5vvkn62it-eshin087s-projects.vercel.app/?det=naruto-sasuke-s7<br>https://gcd-tourney-5vvkn62it-eshin087s-projects.vercel.app/?det=gojo-killua-s3
 
-**Sasuke backdrops live (2026-10-15):** the approved Kirin and Amaterasu backdrops are on https://gcd-tourney.vercel.app (merge d84127c0); his eye strip stands in for the cutouts. Codex is preparing the v02 cutouts on PR #111; Claude will bring you the preview to approve.
+**Sasuke super/ultimate v02 decision (2026-10-15):** PR #111 preview is live: [review gallery](https://gcd-tourney-i6ei3qasw-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/) and [in-game demo](https://gcd-tourney-i6ei3qasw-eshin087s-projects.vercel.app/?fight=sasuke,sasuke&mode=solo&level=hard). Both v02 cutouts await your decision; Astra holds remaining face/eye corrections and both 3-call budgets are spent. The game uses the approved backdrops and runtime fallback cutouts. Review in Claude when the effects lane asks whether to approve these despite the holds or authorize a new budget.
 
 **Effects and ground live (2026-10-15):** you approved after the demo; PR #108 (natural ground damage) and PR #113 (super banner, ultimate splash, Sharingan) are merged and on https://gcd-tourney.vercel.app. Nothing to do.
 
-**Sasuke super/ultimate pilot (2026-10-15):** you approved the Kirin and Amaterasu backdrops (ui_super_bg v01, ui_ult_bg v01) via Claude and rejected both foregrounds (ui_super_fg v01, ui_ult_fg v01). The rejected sources are archived; do not use them. Claude is integrating the two approved backgrounds with ENG-083 and runtime fallback layers for a playable preview. No further art generation or production deploy is authorized.
+**Sasuke art history:** v01 foregrounds were rejected and archived; v02 candidates and Astra hold findings are in the live PR #111 review gallery above. No production deploy has been made for this art branch.
 
 
 **Automatic handback rule (2026-10-15, OPS-009):** every agent must check whether Claude needs its result before finishing and ring the matching lane when required. No manual reminder is needed once the chat reads the updated main-checkout rules/inbox. Already-running chats may still hold older instructions; approval and paused-lane stops remain.
