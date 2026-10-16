@@ -194,6 +194,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `specialDown` | 4 | - | 2/1/1 | 204 | - | 80 80 160 90 | **kit**: a stance or power-up, no hit box (Killua's Godspeed activation, Gojo's Infinity palm). Missing → `charge` |
 | `superPose` | 4 | yes | - | 208 | - | 140 each | **kit**: the second super's pose during the super flash (Whirlwind, Domain Expansion hand sign; Gojo lifts the blindfold here). Missing → `taunt` |
 | `beamStruggle` | 3 | yes | - | 198 | - | 70 each | **struggle** ([ADR 0034](../docs/decisions/0034-beam-clash-visuals.md)): the beam clash push: braced and straining, the fighter's 1-bar energy technique thrust forward in the hand(s) against the opponent's (front knee bent, back leg driving, hair and clothes blown back; loop). Only fighters with an energy move draw it (not Luffy). Missing → `beamFire` |
+| `beamStruggleAir` | 3 | yes | - | 190 | - | 70 each | **struggle** (ADR 0034): the same struggle from the air: hovering low, legs tucked under the body, the air energy technique driven down-forward at a target below (hair and clothes blown back and up; loop). Only fighters with an air energy shot draw it (Killua, Sasuke, Gojo). Missing → the `throw` release frame, held |
 | `techGround` | 4 | - | 1/2/1 beats | 204 | - | 67 83 83 67 | **tech** ([Tech poses](#tech-poses), ADR 0030): ground tech in place: impact brace low on the floor, push up, rise, back in the fighting stance. Missing → `land` |
 | `techRoll` | 6 | - | 1/4/1 beats | 162 | - | 50 63 62 63 62 67 | **tech**: ground tech roll: shoulder contact, one tight forward roll toward screen-right (4 quarter turns), low crouch. Missing → `airRecover` |
 | `wallTech` | 5 | - | 2/1/2 beats | 209 | - | 50 50 67 67 66 | **tech**: wall tech: lands feet-first on a wall at the cell's left (2 frames), pushes off toward screen-right, airborne recovery into `jumpFall`. Missing → `land`, then `airRecover` |
@@ -218,7 +219,8 @@ for every fighter as well: with all of them, 56 animations, 255 frames, a 16-row
 4096 texture). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
 of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. The optional `beamStruggle` (ADR 0034)
 follows the fighter's 1-bar energy move the same way (Naruto's Rasengan, Sasuke's Chidori Spear, Killua's Narukami, Gojo's
-Reversal: Red, Goku's Dragon Fist): one more 3-frame strip. `special`, `intro`, `taunt` and
+Reversal: Red, Goku's Dragon Fist): one more 3-frame strip, and `beamStruggleAir` for a fighter with an air energy shot
+(Killua's air Narukami, Sasuke's Great Fireball, Gojo's air Red). `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`).
 
 **Pose notes forced by the 256 px width.** A realistic body lying flat or flying is about 210-240 px
@@ -351,6 +353,7 @@ cell, facing right. Active-frame numbers are the same as in v1.
 | `throw` | throwing hand (release point) | 01 | release point | x 186-212, y 116-142 |
 | `beamFire` | both palms (beam origin) | all (loop) | beam origin | x 222-238, y 112-132 |
 | `beamStruggle` | the technique hand (stream origin) | all (loop) | stream origin | x 196-240, y 100-150; record it as `hand` on every frame |
+| `beamStruggleAir` | the technique hand, driven down-forward (stream origin) | all (loop) | stream origin | x 190-240, y 110-170; record it as `hand` on every frame |
 | `special` | technique hand | 03, 04, 05 | LOW (stomach) | x 194-222, y 128-158 |
 
 Notes: the `heavy` row names the fist, but the striking limb is the fighter's own launcher (Sasuke's rising foot,
@@ -503,7 +506,7 @@ repeated until something exists (last resort `idle`):
 | spin | launched | jumpFall | jumpUp |
 | techGround, wallTech | land | techRoll | airRecover |
 | light1Alt ... airHeavyAlt | its base (`light1` ...) | hurtHighAlt, hurtLowAlt | hurtHigh, hurtLow |
-| beamStruggle | beamFire | | |
+| beamStruggle | beamFire | beamStruggleAir | throw (its release frame, held) |
 
 The tech strips are also switched on per strip: until a sheet has one, the engine keeps showing exactly what that tech
 showed before (`land`; `airRecover`; the wall tech's `land` cling, `airRecover` kick and `jumpUp` wall jump). An attack alt

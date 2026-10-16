@@ -25,7 +25,7 @@ export const FALLBACK = {
   hurtHighAlt: 'hurtHigh', hurtLowAlt: 'hurtLow',
   // beam clash struggle (ADR 0034): the clash plays it only when the sheet has its own strip, so this covers direct
   // lookups; the 3D placeholder bakes none
-  beamStruggle: 'beamFire',
+  beamStruggle: 'beamFire', beamStruggleAir: 'throw', // the clash holds throw's release frame when the strip is missing
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
@@ -366,11 +366,11 @@ export class SpriteActor {
     this.shadowTex.repeat.set(uv.z - uv.x, uv.w - uv.y);
   }
 
-  // Hand anchor of the frame on screen (or of `name`'s frames); see SheetAsset.hand.
-  hand(name = null) {
+  // Hand anchor of the frame on screen (or of `name`'s frame `i`); see SheetAsset.hand.
+  hand(name = null, i = 0) {
     if (!name) return this.asset.hand(this.anim, this.frame);
     const a = this.asset.anim(name);
-    return this.asset.hand(a, a?.frames?.[0]);
+    return this.asset.hand(a, a?.frames?.[Math.min(i, (a?.frames?.length ?? 1) - 1)]);
   }
 
   // Free-running playback (loops / one-shots).

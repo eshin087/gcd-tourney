@@ -183,9 +183,11 @@ export class CameraDirector {
         const orbit = Math.sin(this.modeT * 0.5) * 0.25;
         const s2 = side.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), orbit);
         tgtPos.set(p.x, RING_TOP + p.y, p.z).addScaledVector(s2, 6 + span * 0.85).add(new THREE.Vector3(0, 2.2, 0));
-        // look under the struggle point, so the fighters sit in the upper middle and the rhythm ring and bar (HUD,
-        // bottom) stay below their feet (ADR 0034)
-        tgtLook.set(p.x, RING_TOP + p.y - 0.5, p.z);
+        // frame both bodies, under the struggle point, so the fighters sit in the upper middle and the rhythm ring and bar
+        // (HUD, bottom) stay below their feet; a fighter hovering in the air widens the shot (ADR 0034)
+        const fa = c.a.f.pos, fb = c.b.f.pos, lo = Math.min(fa.y, fb.y), hi = Math.max(fa.y, fb.y) + 1.7;
+        tgtLook.set(p.x, RING_TOP + (lo + hi) / 2 - 0.55, p.z);
+        tgtPos.addScaledVector(s2, (hi - lo - 1.7) * 1.4).y += (hi - lo - 1.7) * 0.5;
         fov = 33;
         smoothP = 0.5;
         this.shake(dt * 0.6);

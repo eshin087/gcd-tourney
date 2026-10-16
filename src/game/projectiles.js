@@ -69,15 +69,15 @@ const up = new THREE.Vector3(0, 1, 0);
 const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.Vector3();
 
 // opts.palette / opts.width: a BEAM CLASH stream (ADR 0027) in its shot's colors; the ultimate beam uses the
-// fighter's def.beam. The palette's `style` picks how it is drawn (STREAM_STYLES, ADR 0034); opts.pose: the pose whose
-// drawn hand the stream leaves from (a struggle's `beamStruggle`)
+// fighter's def.beam. The palette's `style` picks how it is drawn (STREAM_STYLES, ADR 0034); opts.pose / poseFrame: the
+// pose (and frame) whose drawn hand the stream leaves from (a struggle's `beamStruggle`, the air `throw` release)
 export class Beam {
   constructor(game, owner, opts = {}) {
     this.game = game;
     this.owner = owner;
     const o = owner.opp;
     // from the drawn palms of the pose when the art pack marks them
-    const H = owner.actor?.hand?.(opts.pose ?? 'beamFire');
+    const H = owner.actor?.hand?.(opts.pose ?? 'beamFire', opts.poseFrame ?? 0);
     const fwd = H ? H.x : 0.8, up = H ? H.y : 0.92;
     this.origin = new THREE.Vector3(owner.pos.x + owner.face.x * fwd, owner.pos.y + up, owner.pos.z + owner.face.y * fwd);
     const target = new THREE.Vector3(o.pos.x, o.pos.y + 0.85, o.pos.z);

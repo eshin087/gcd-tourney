@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: beam clashes from the air (ADR 0034 section 5, ENG-082): the airborne fighter eases down to a low hover in an air pose (new optional `beamStruggleAir`, else the `throw` release frame) instead of standing on nothing at jump height; a grounded Rasengan / Chidori answer stays planted and holds its technique up the stream line instead of being dragged under it (it could end on the other side); a held Chidori shows forward, not trailing behind; a winning rush blasts up the line into the air fighter; the clash camera frames both bodies.
 - Fixed: beam clash visuals (ADR 0034, ENG-082): fighters no longer vanish in white (a contained two-color `clashBurst` instead of the full-size white glow, a thinner aura behind the body, short colored start/end flashes, a smaller colored finish on the loser); the origin glow no longer covers the firer; the Rasengan meets the stream at its held orb; no blocky streaks in the beam shader; BEAM CLASH! sits under the health bars and the rhythm ring and bar below the fighters. Each move keeps its own shape: Narukami a lightning zigzag, Chidori Spear a lance, Great Fireball a fire torrent, Reversal: Red an orb sending repulsion ripples; `beamStruggle` plays once a sheet has it.
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.

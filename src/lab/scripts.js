@@ -205,7 +205,7 @@ export const SCENARIOS = [
     b: ([a, b]) => energyTap(0, energyOf(b, a)),
   },
   {
-    id: 'beamAir', name: 'Beam clash from the air', info: 'You jump and fire your air energy shot down at the dummy; it answers from the ground. Locked in the air, you hover through the clash and fall once it is over.',
+    id: 'beamAir', name: 'Beam clash from the air', info: 'You jump and fire your air energy shot down at the dummy; it answers from the ground. Locked in the air, you ease down to a low hover through the clash and fall once it is over; a Rasengan / Chidori answer stays planted and holds its technique up the stream line.',
     needs: ([a, b]) => (airEnergyMoves(a).length && energyOf(b, a) ? null : 'your fighter has no air energy shot (Killua, Sasuke, Gojo do)'),
     setup: { gap: 5, kiA: 100, kiB: 100 },
     a: ([a]) => (airEnergyMoves(a).length ? [tap(0, 'jump'), tap(14, 'special')] : []),

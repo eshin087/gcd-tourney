@@ -472,6 +472,11 @@ export const CLASH = {
     // once locked, a rush meets the stream at its held technique's front (ADR 0034): the drawn hand (else these
     // fixed offsets: a Rasengan-type orb, a Chidori held forward) plus the orb's radius
     handReach: [0.6, 0.7], orbReach: 0.55,
+    // a stream from the air (ADR 0034): an owner higher than `airMin` eases down to `airHover` over `airEase` frames. Against
+    // a grounded rush the rusher stays planted and holds the technique up the stream line, `airTech` = [technique centre,
+    // struggle point] ahead of the hand; the side losing ground is shoved `airPush` along the floor (the rusher) or back
+    // and `airLift` up (the air owner)
+    airMin: 0.3, airHover: 1.1, airEase: 24, airTech: [0.4, 0.82], airPush: 1.4, airLift: 0.5,
   },
 };
 

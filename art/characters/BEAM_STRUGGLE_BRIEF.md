@@ -44,6 +44,21 @@ The pose follows each fighter's 1-bar energy move (`src/game/moves.js`), like `b
 
 Luffy has no energy move and draws no `beamStruggle`.
 
+## The air strip: `beamStruggleAir`
+
+The user's call (2026-10-15): a fighter who fires an energy shot from a jump hovers through the clash, eased down to a low
+hover about one body height up, above an opponent standing in front of them, so it gets its own strip. Same loop as
+above (push, strain, surge), 3 frames, 70 ms, body height 190 to start, `hand` on every frame (zone x 190-240,
+y 110-170). Until it exists the clash holds the `throw` release frame.
+
+| fighter | air move | pose (facing right, hovering) |
+|---|---|---|
+| Killua | air Narukami | knees drawn up, one arm driven down-forward with the palm open and fingers splayed, the other fist at the hip; hair streaming back and up |
+| Sasuke | Great Fireball | the canon fire release: one hand in the tiger sign at the lips, the fire blown from the mouth (so `hand` = the mouth), body bent toward the target below, robe flaring up |
+| Gojo | air Reversal: Red | relaxed even in the air: legs loosely bent, two fingers pointed down-forward at the target (Red at the fingertips), the other hand in his pocket, coat floating up |
+
+Rules: legs are never planted on an invisible floor; the same anatomy and scale lock as every strip; no effects drawn.
+
 ## Rules for this batch
 
 - **One task worktree for the batch:** `npm run pr -- start art/beam-clash --art naruto,sasuke,killua,gojo,goku,vfx`

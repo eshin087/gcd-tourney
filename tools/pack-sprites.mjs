@@ -48,6 +48,7 @@ const BODY_HEIGHT = {
   // fall handoff (= jumpFall); a fighter drawn at another stature overrides them per animation in the manifest
   techGround: 204, techRoll: 162, wallTech: 209,
   beamStruggle: 198, // beam clash struggle (ADR 0034): braced, no taller than beamFire
+  beamStruggleAir: 190, // its air version: hovering, legs tucked (about the throw's height)
 };
 const DEFAULT_BODY_HEIGHT = 204;
 
@@ -70,7 +71,7 @@ const DEFAULT_MS = {
   vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
   // tech poses: their beats at 60 fps (DEFENSE animPhases); the engine drives them by the tech state's clock anyway
   techGround: [67, 83, 83, 67], techRoll: [50, 63, 62, 63, 62, 67], wallTech: [50, 50, 67, 67, 66],
-  beamStruggle: 70,
+  beamStruggle: 70, beamStruggleAir: 70,
 };
 
 // Attacks whose damage comes from something else (projectile), and phased strips that never strike (the tech
@@ -139,7 +140,7 @@ const FALLBACK_GUIDE = {
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
   techGround: { frames: 4, phases: [1, 2, 1] }, techRoll: { frames: 6, phases: [1, 4, 1] }, wallTech: { frames: 5, phases: [2, 1, 2] },
-  beamStruggle: { frames: 3, loop: true },
+  beamStruggle: { frames: 3, loop: true }, beamStruggleAir: { frames: 3, loop: true },
   light1Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light1' }, light2Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light2' },
   light3Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light3' }, light4Alt: { frames: 8, phases: [3, 2, 3], altOf: 'light4' },
   heavyAlt: { frames: 8, phases: [3, 2, 3], altOf: 'heavy' }, airLight1Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight1' },
