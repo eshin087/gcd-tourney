@@ -1,3 +1,11 @@
+# Codex: Gojo phase 3 run v13 blocked (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, PR #102. Phase 3 used all three authorized Luna/medium image calls. Part A is preserved at `art/characters/gojo/raw/_parts/run_v13_A.png` (SHA256 `561951D6C1FE5DA76ABC3AEB5521EAC662572C9C0E31897019BD6037E18DD0CE`). Part B call 2 repeated A's lead-leg sequence and was discarded (source SHA256 `89505143FBF0FA9D5FAF0C9798128649D72015288F45F9F4E0BF2086BB47F869`). Call 3 failed before generation because the image tool received a bad reference path; the failure is counted. Full provenance is in `art/characters/gojo/production/run-jkl/phase3_run_v13_attempt_inventory_v01.json`; detailed note is `PHASE3_HANDOFF_v01.md`.
+
+**BLOCKED:** no Part B, complete run_v13, stitch, pack, Astra audit or preview exists. No dashes or other strips were touched, and no image is approved. Await user authorization for a corrected Part B generation call before continuing.
+
+---
+
 # Codex: Gojo phase 2 dash audit hold (2026-10-15, gojo-run lane)
 
 Branch `art/gojo-run`, worktree `.worktrees/art-gojo-run`, PR #102. Phase 2 handoff commit: `f14a6966` (includes the independent Astra audit); this shared handoff update follows on the same branch. User selected K as direction only; no production image is approved.
