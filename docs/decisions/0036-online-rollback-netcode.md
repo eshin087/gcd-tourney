@@ -178,5 +178,29 @@ off, and reports the first frame where the two runs differ and which values diff
     (naruto-sasuke, gojo-killua, goku-luffy, killua-sasuke). They also replay exactly with `Math.hypot` /
     `Math.sin` deliberately skewed by an ulp, and the first match after a page load replays like any other.
     A 3-match CPU soak is clean.
-  - Pending: the user's controls playtest. Movement now follows the basis's yaw instead of the drawn camera's
-    (the same rule, without shake and window-shape effects).
+  - Merged 2026-10-16 (PR #125) after the user's playtest ("Feels the same").
+- **ENG-092, 2026-10-16:** save / restore and quiet re-simulation, the two things a rollback does.
+  - `src/game/snapshot.js`: `Game.saveState()` / `loadState(S)`. The state is a deep copy of the match fields
+    (`GAME_STATE`), both fighters, both pads, the shots, the clash, the basis and each sprite's playback. Shared
+    structure stays shared, and move tables, characters and art packs are kept by reference. Positions, velocities
+    and facings are restored in place, so anything holding them still holds the live ones. The view fields on
+    fighters (`chargeFx`, `hfx`, `groundMark`) are neither saved nor restored.
+  - Shots no longer own their visuals. `ShotViews` (projectiles.js) draws each projectile's sprite and glow and
+    each beam's ribbon (`BeamView`) from the simulation every render, keyed by a per-match shot `id`. A restored
+    or re-simulated shot therefore finds its view again. Beam styles check `game.fxMeta`, never the effects
+    object.
+  - `Game.quiet(fn)` runs re-simulated steps with the HUD, camera, effects, stages and menus replaced by a no-op
+    stand-in, sound off (`audio.quiet`), no afterimages (`actorView.quiet`) and no effect ticks.
+  - `Game.syncView()` keeps the stage in step with the domain every frame. After a restore it also resets the
+    clash camera and bar and the beam, orb, charge and clash hums.
+  - Test: `det.replay(log, { rollback: { every, depth } })` saves every `every` frames, plays `depth` frames on
+    random inputs, restores, re-simulates quietly on the right inputs, and checks every frame against the
+    recording.
+  - Result: four pairings matched through 500–1,011 rewinds each (8 frames every 10). On desktop Chrome a save
+    costs ≈0.06 ms, a restore ≈0.06 ms, and 8 quiet frames ≈0.3–0.5 ms (one 12 ms outlier, likely garbage
+    collection), well inside a 16.7 ms frame. The `?det=` page now runs this stress test too and prints the
+    timings. A 3-match soak is clean, with no leftover shot views.
+  - Known gaps for ENG-093 to watch:
+    - One-off events (a hit spark, a callout, a camera cut) that a mispredicted frame played are not taken back.
+    - A rewind across a match's end would miss its results screen (the menus are stood in for).
+    - The CPU brains are not saved: rollback is for person-vs-person.

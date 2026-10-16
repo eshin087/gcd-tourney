@@ -10,6 +10,8 @@ const musicGain = (v) => MUSIC_MAX * v * v; // a squared fader: the steps sound 
 export class AudioEngine {
   constructor() {
     this.ctx = null;
+    // a rollback re-simulates frames that already played (ADR 0036): Game.quiet sets this so they stay silent
+    this.quiet = false;
     this.muted = (() => { try { return localStorage.getItem('gcd.muted') === '1'; } catch { return false; } })();
     this.musicVolume = (() => {
       try {
@@ -134,6 +136,7 @@ export class AudioEngine {
   }
 
   play(name, vol = 1) {
+    if (this.quiet) return;
     if (!this.ctx || this.muted) return;
     const v = vol;
     switch (name) {
@@ -300,6 +303,7 @@ export class AudioEngine {
   // ---- loops (charging aura, rasengan whirr, chidori chirp, beams, clash) ----
   // `variant`: the charge loop's voice per fighter (def.charge.sound, chargeFx.js): hum | boil | crackle | calm
   loop(id, kind, variant = null) {
+    if (this.quiet) return;
     if (!this.ctx || this.loops.has(id)) return;
     const ctx = this.ctx;
     const out = ctx.createGain();
@@ -443,10 +447,12 @@ export class AudioEngine {
 
   // adjust a running loop that supports it (the charge hum); a no-op otherwise
   tune(id, k) {
+    if (this.quiet) return;
     this.loops.get(id)?.tune?.(k);
   }
 
   stopLoop(id) {
+    if (this.quiet) return;
     const l = this.loops.get(id);
     if (!l) return;
     this.loops.delete(id);
@@ -461,6 +467,7 @@ export class AudioEngine {
   }
 
   stopAllLoops() {
+    if (this.quiet) return;
     for (const id of [...this.loops.keys()]) this.stopLoop(id);
   }
 
@@ -487,12 +494,14 @@ export class AudioEngine {
   }
 
   setCrowd(level) {
+    if (this.quiet) return;
     if (!this.ctx) return;
     this.amb.gain.setTargetAtTime(level, this.t, 0.4);
   }
 
   // ---- music (ADR 0019): moods 'menu' | 'battle' | 'training'; a mood already playing is a no-op ----
   startMusic(mood = 'battle') {
+    if (this.quiet) return;
     this.mus.play(mood);
   }
 
@@ -521,10 +530,12 @@ export class AudioEngine {
 
   // duck the music under a moment: 'pause' | 'clash' | 'ko' | 'domain' (musicPlan.js DUCKS)
   duckMusic(id, on) {
+    if (this.quiet) return;
     this.mus.setDuck(id, on);
   }
 
   clearMusicDucks() {
+    if (this.quiet) return;
     this.mus.clearDucks();
   }
 }

@@ -63,7 +63,11 @@ src/game/
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette and shape:
-                            the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES)
+                            the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES).
+                            Simulation state only, keyed by a per-match `id`: ShotViews draws their sprites, glows
+                            and BeamView ribbons from the shots every render (ADR 0036)
+  snapshot.js               saveState / loadState (ADR 0036): a deep copy of the simulation (GAME_STATE, fighters,
+                            pads, shots, clash, basis, sprite playback); static tables, assets and the view shared
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
@@ -145,7 +149,9 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 
 Everything below counts frames and uses deterministic math (`src/game/dmath.js`, kept there by
 `npm run lint:simmath`), so the same inputs give the same match on every machine, browser and refresh rate
-(ADR 0036; the determinism test checks it).
+(ADR 0036; the determinism test checks it). `Game.saveState()` / `loadState()` (snapshot.js) save and restore all of
+it, and `Game.quiet(fn)` runs steps with the HUD, camera, effects, stages, menus and sound stood in for: the two
+pieces a rollback needs (re-simulated frames were already shown once).
 
 ```
 0. basis.step(fighters)         the control basis (basis.js): the fight framing's yaw from the fighters' positions,
@@ -185,7 +191,9 @@ fighters.sync(alpha)        interpolate prev -> pos, hitstop shake, billboard + 
 cam.update(dt)              CameraDirector mode logic (its yaw is basis.viewYaw(alpha): it follows the simulation's
                             control basis), shake/kick, zoom punch, spriteRefDepth
 fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
-beams.sync, fx.update       VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
+shotViews.sync, syncView    the shots' sprites and beam ribbons from the simulation; the stage (and after a
+                            restore the clash camera / bar and the hums) follows the simulation
+fx.update                   VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
 arena.setDim / update       super-flash dimming, crowd excitement
 hud.update                  bars, timer, combo counter
 renderer.render             low-res render -> bloom -> grade -> nearest upscale
