@@ -39,13 +39,32 @@ but never answers it. Run every relay command from the main checkout (find it wi
 3. Ask with **AskUserQuestion**, one question per ask (up to 4 per box; several image strips can be one multi-select
    question). Every question uses this shape, so it reads on a phone without context (user rule, 2026-10-15):
    - **header** = the asking chat, short ("Effects", "Gojo run", "Scale").
-   - Each part starts on its own line with a bold markdown label, so it scans fast on a phone (user rule): `**From:**`,
-     `**Approving:**`, `**Holds:**`, `**Look:**`. If the user reports seeing raw asterisks, switch to CAPS labels.
-   - The question opens with **From:** the chat that asked (Claude chat title, or "Codex <lane> chat").
-   - **Approving:** exactly what a yes approves, in plain words: character, asset name and what it is ("Sasuke
+   - The box shows plain text: markdown does not render (raw asterisks), but line breaks and links do. Use this
+     layout, which the user approved on 2026-10-15: an emoji + CAPS label on its own line, the content on the lines
+     below, a blank line between sections, one item per numbered line, holds as `•` bullets, short words (no
+     run-on `·` lists):
+
+     ```
+     📍 FROM
+     5 - Beam Clash Fix (Claude chat), PR #110
+
+     ✅ APPROVING: 6 beam-clash struggle poses
+       1.  Naruto: ground, v02
+       2.  Sasuke: air, v01
+
+     ⚠️ HOLDS
+       •  Astra audit pending on all 6
+       •  #2: body reads a little small
+
+     👀 LOOK
+     https://<direct gallery or in-game preview URL>
+     ```
+     (For a decision rather than an approval, use `❓ DECIDING:` in place of `✅ APPROVING:`.)
+   - FROM is the chat that asked (Claude chat title, or "Codex <lane> chat").
+   - APPROVING is exactly what a yes approves, in plain words: character, asset name and what it is ("Sasuke
      Kirin super cutout"), version (vNN), and what happens on yes (ships in the game, unlocks the next step, ...).
-   - **Holds:** Astra/technical holds in one plain sentence each, or "none".
-   - **Look:** a direct link to the thing itself: the review gallery page or the in-game preview URL. Never just a
+   - HOLDS lists Astra/technical holds, one short bullet each, or "none".
+   - LOOK is a direct link to the thing itself: the review gallery page or the in-game preview URL. Never just a
      PR, a commit or a file path when the decision is visual. If no preview exists, say "no preview yet", and for a
      visual approval ask the lane to make one (relay it as a decision) instead of asking for approval blind.
    - Options with a description of what each does: "Approve vNN" / "Reject (say why)" / "Hold"; for decisions,
