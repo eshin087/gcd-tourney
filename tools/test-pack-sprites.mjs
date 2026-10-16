@@ -1653,6 +1653,27 @@ function techPoseTests(base) {
   const rt = probe.auditFromCompact(probe.compactAudit(A, G), { gate: G })?.anims.techRoll;
   check(sx1.low?.join() === '1' && rt?.verdict === 'partial' && rt.low?.join() === '1' && rt.frames[1].low === true,
     `tech poses: the compact audit keeps an exempted unread frame unread (${sx1.low}; re-judged ${rt?.verdict}, low ${rt?.low})`);
+
+  // TOOL-GOKU-PROBE: builds.json headProbe { mode: 'manual' } for a fighter the probe misreads. Its numbers neither pass
+  // nor fail a strip: a measured 'uniform' and a measured 'ok' both become 'unmeasured' (a strict strip still fails),
+  // a scaleManualQA record of that version accepts it as 'manual', an exemption stays an exemption, and the recorded
+  // audit judged again (npm run scale) gives the same verdicts when it gets the fighter's builds row.
+  const off = probe.gateFor(G, { headProbe: { mode: 'manual', why: 'test hair' } });
+  const small = [{ k: 0, head: 0.8, feet: 0.8 }, { k: 1, head: 0.81, feet: 0.79 }], fine = [{ k: 0, head: 1, feet: 1 }];
+  const hp = {
+    plain: probe.judgeStrip('light1', small, G).verdict,
+    off: probe.judgeStrip('light1', small, off),
+    offFine: probe.judgeStrip('light1', fine, off).verdict,
+    manual: probe.judgeStrip('light1', small, off, { manual: { v: 1, by: 'test', note: 'landmarks' } }).verdict,
+    exempt: probe.judgeStrip('light1', small, off, { reason: 'hidden head' }).verdict,
+    other: probe.gateFor(G, { headProbe: { mode: 'auto' } }) === G && probe.gateFor(G, {}) === G,
+  };
+  check(hp.plain === 'uniform' && hp.off.verdict === 'unmeasured' && /head probe off for this fighter: test hair/.test(hp.off.reason) &&
+    hp.offFine === 'unmeasured' && hp.manual === 'manual' && hp.exempt === 'exempt' && hp.other,
+    `headProbe manual: numbers never pass or fail, only a manual QA record does (${hp.plain}/${hp.off.verdict}/${hp.offFine}/${hp.manual}/${hp.exempt}/${hp.other})`);
+  const Ahp = { anims: { light1: { ...probe.judgeStrip('light1', small, G), version: 1 } }, ref: { box: null, headPx: 30, hA: 1, hW: 1, hH: 1, feet: 1 }, palette: { headSource: 'idle', head: new Set(), feet: new Set() } };
+  const reHp = probe.auditFromCompact(probe.compactAudit(Ahp, G), { gate: G, decl: { headProbe: { mode: 'manual', why: 'test hair' } } })?.anims.light1;
+  check(reHp?.verdict === 'unmeasured', `headProbe manual: the recorded audit re-judged with the builds row is unmeasured too (${reHp?.verdict})`);
 }
 
 // Attack alts (ADR 0031): an alt packs like its base (the fighter's base bodyHeight when its own entry has none, the
