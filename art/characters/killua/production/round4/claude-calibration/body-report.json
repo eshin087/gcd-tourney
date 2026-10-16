@@ -1,0 +1,102 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-15T05:54:03.964Z",
+ "fighters": {
+  "killua": {
+   "idleGarmentPx": 1455,
+   "anims": {
+    "idle": {
+     "v": 11,
+     "body": [
+      1,
+      1.002,
+      1.012,
+      1,
+      1.022,
+      1.018,
+      1.016,
+      1.003
+     ],
+     "head": [
+      1.032,
+      1.035,
+      1.04,
+      1.045,
+      1.015,
+      1.04,
+      1.05,
+      1.035
+     ],
+     "median": 1.007,
+     "headMedian": 1.038,
+     "flag": null
+    },
+    "superDash": {
+     "v": 8,
+     "body": [
+      1.085,
+      1.097
+     ],
+     "head": [
+      1,
+      1.009
+     ],
+     "median": 1.091,
+     "headMedian": 1.005,
+     "flag": null
+    },
+    "guard": {
+     "v": 9,
+     "body": [
+      0.766,
+      0.78
+     ],
+     "head": [
+      1.035,
+      1.037
+     ],
+     "median": 0.773,
+     "headMedian": 1.036,
+     "flag": "small"
+    },
+    "stagger": {
+     "v": 7,
+     "body": [
+      1.023,
+      1.035,
+      1.023,
+      1.039
+     ],
+     "head": [
+      1.097,
+      1.032,
+      1.05,
+      1.004
+     ],
+     "median": 1.029,
+     "headMedian": 1.041,
+     "flag": null
+    },
+    "win": {
+     "v": 5,
+     "body": [
+      1.024,
+      1.027,
+      1.021,
+      1.022
+     ],
+     "head": [
+      1.012,
+      0.984,
+      0.998,
+      1.013
+     ],
+     "median": 1.023,
+     "headMedian": 1.005,
+     "flag": null
+    }
+   }
+  }
+ }
+}

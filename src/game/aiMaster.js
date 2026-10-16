@@ -664,6 +664,8 @@ export class MasterBrain {
       if (S.kind === 'orb') return !inCombo && (anyRange || (c.dist > 2.6 && Math.abs(c.sd) < 1));
       if (S.kind === 'rampage') return c.dist < (S.range ?? 8) - 0.6 && (anyRange || Math.abs(c.sd) < 1);
       if (S.kind === 'reflex') return !inCombo && (anyRange || c.dist < 4.5);
+      // Gigant Pistol: a long windup, so only on a reeling victim or one standing in his lane within the arm's reach
+      if (S.kind === 'laneStrike') return c.dist < S.reach - 0.4 && (anyRange || Math.abs(c.sd) < 1);
       return !inCombo && S.kind === 'skyStrike';
     };
     const w = { hold: inCombo ? 1.2 : 1 };

@@ -103,6 +103,14 @@ const WALL_LINE = 8;
 const wallLineOf = (spec) => Math.max(WALL_LINE, spec.cellMargin);
 const WALL_CONTACT = { cols: 4, minPx: 12 };
 
+// Attack alts (ADR 0031, art/SPEC.md "Attack alts"): an alt plays its base's move data (startup, active, recovery,
+// reach) AND its base's hit and hurt boxes, copied frame for frame (inheritAltBoxes), so a different technique never
+// changes what connects. The drawn strike still has to land near the base's box, or the hit spark (drawn where the
+// boxes overlap) floats away from the fist or foot: altCheck compares the alt's own active-phase boxes (the auto
+// finder or a hitboxes.json entry on the alt, before inheritance) with the base's, in cell px facing right. reach =
+// the far edge right of the pivot, height = the vertical centre above the floor line. Warn only.
+const ALT_TOLERANCE = { reachPx: 24, centrePx: 24 };
+
 // Frame indices of an animation's beats (phase indices) for a strip of n frames (its phases rescaled to n, as packed).
 function beatFrames(phases, n, beats) {
   const ph = phases && beats?.length ? rescalePhases(phases, n) : null;
@@ -129,6 +137,11 @@ const FALLBACK_GUIDE = {
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
   techGround: { frames: 4, phases: [1, 2, 1] }, techRoll: { frames: 6, phases: [1, 4, 1] }, wallTech: { frames: 5, phases: [2, 1, 2] },
+  light1Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light1' }, light2Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light2' },
+  light3Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light3' }, light4Alt: { frames: 8, phases: [3, 2, 3], altOf: 'light4' },
+  heavyAlt: { frames: 8, phases: [3, 2, 3], altOf: 'heavy' }, airLight1Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight1' },
+  airLight2Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight2' }, airLight3Alt: { frames: 6, phases: [2, 2, 2], altOf: 'airLight3' },
+  airHeavyAlt: { frames: 6, phases: [2, 2, 2], altOf: 'airHeavy' }, hurtHighAlt: { frames: 3, altOf: 'hurtHigh' }, hurtLowAlt: { frames: 3, altOf: 'hurtLow' },
 };
 
 // VFX atlas spec. fill = size of the largest frame of the strip as a fraction of the cell
@@ -567,6 +580,24 @@ function removeSpecks(img, { frac = 0.0015, min = 4 } = {}) {
   return { blobs, removed };
 }
 
+// Sidecar "erase": [[x, y, w, h], ...] in raw-image pixels, painted magenta before background removal. For a leftover the
+// automatic cleanup rightly keeps because it sits close to a body (the toe of an earlier version's pose left at a slot edge
+// when one frame of a strip was replaced): the approved PNG stays immutable (ADR 0007) and the cleanup is recorded beside it.
+function eraseRects(img, list, warn) {
+  let n = 0;
+  for (const r of list) {
+    const ok = Array.isArray(r) && r.length === 4 && r.every((v) => Number.isInteger(v)) && r[0] >= 0 && r[1] >= 0 && r[2] > 0 && r[3] > 0;
+    if (!ok || r[0] >= img.w || r[1] >= img.h) { warn(`sidecar "erase" ${JSON.stringify(r)} ignored - expected [x, y, w, h] integers inside the ${img.w}x${img.h} raw image`); continue; }
+    const x1 = Math.min(img.w, r[0] + r[2]), y1 = Math.min(img.h, r[1] + r[3]);
+    for (let y = r[1]; y < y1; y++) for (let x = r[0]; x < x1; x++) {
+      const i = (y * img.w + x) * 4;
+      img.data[i] = 255; img.data[i + 1] = 0; img.data[i + 2] = 255; img.data[i + 3] = 255;
+    }
+    n++;
+  }
+  return n;
+}
+
 // Per-frame cleanup of a raw character pose: a small blob far from the body (a stray mark above the
 // head) or below the soles would set the trimmed height (= the scale of the whole animation) or the
 // floor line. Small blobs close to the body (smears, sweat drops, sparks at the fist) are kept.
@@ -942,6 +973,8 @@ async function loadGuide(file) {
       const phases = /phases\s*:\s*\[\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\]/.exec(body);
       g[m[1]] = { frames: +frames[1], loop: /loop\s*:\s*true/.test(body) };
       if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
+      const altOf = /altOf\s*:\s*'(\w+)'/.exec(body);
+      if (altOf) g[m[1]].altOf = altOf[1];
     }
     if (Object.keys(g).length >= 10) return { guide: g, source: 'animGuide.js (parsed)' };
   } catch { /* fall through */ }
@@ -956,6 +989,7 @@ function normalizeGuide(g) {
     if (Array.isArray(a.phases) && a.phases.length === 3) out[name].phases = a.phases.map((v) => v | 0);
     if (a.durations) out[name].durations = a.durations;
     if (a.ms) out[name].ms = a.ms;
+    if (typeof a.altOf === 'string') out[name].altOf = a.altOf;
   }
   return out;
 }
@@ -985,6 +1019,7 @@ function normalizeAnimEntry(v) {
   if (typeof v.hitbox === 'boolean') o.hitbox = v.hitbox;
   if (typeof v.status === 'string') o.status = v.status;
   if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) o.approvedVersion = v.approvedVersion;
+  if (typeof v.altOf === 'string') o.altOf = v.altOf;
   return o;
 }
 
@@ -1071,16 +1106,22 @@ function animDefsFor(id, env) {
     const g = env.guide[name] || {};
     const d = env.manifest.defaults[name] || {};
     const c = mc[name] || {};
-    const pick = (k) => c[k] ?? d[k] ?? g[k];
+    // an attack alt (ADR 0031) packs like this fighter's base strip wherever its own entry is silent: same frames,
+    // phases and timing (the packer warns when a drawn alt differs, altCheck)
+    const altOf = c.altOf ?? d.altOf ?? g.altOf ?? null;
+    const b = (altOf && mc[altOf]) || {};
+    const pick = (k) => c[k] ?? b[k] ?? d[k] ?? g[k];
+    const ms = (e) => e.durations ?? (e.ms != null ? e.ms : undefined);
     return {
       name,
+      altOf,
       frames: pick('frames') || 1,
       phases: pick('phases') || null,
       loop: !!pick('loop'),
-      bodyHeight: c.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? DEFAULT_BODY_HEIGHT,
+      bodyHeight: c.bodyHeight ?? b.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? BODY_HEIGHT[altOf] ?? DEFAULT_BODY_HEIGHT,
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
-      durations: c.durations ?? (c.ms != null ? c.ms : undefined) ?? d.durations ?? (d.ms != null ? d.ms : undefined) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? 100,
-      hitbox: (c.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
+      durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
+      hitbox: (c.hitbox ?? b.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
       approvedVersion: c.approvedVersion ?? null,
     };
   });
@@ -1277,6 +1318,10 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
   for (const f of rawFiles) {
     let img;
     try { img = readPng(f); } catch (e) { warn(`${label}: cannot read ${path.basename(f)} (${e.message})`); unreadable++; continue; }
+    if (Array.isArray(side.erase) && side.erase.length) {
+      const n = eraseRects(img, side.erase, (m) => warn(`${label}: ${m}`));
+      if (n) notes.push(`erased ${n} rect(s) of ${path.basename(f)} (sidecar)`);
+    }
     const bg = removeBackground(img, { tol, mode });
     if (!bg.magentaBg && bg.removed === 0 && !hasTransparency(img)) warn(`${label}: ${path.basename(f)} has no removable background (use flat magenta #FF00FF)`);
     else if (mode === 'char' && bg.foreign && bg.removed) foreign.add(bg.foreign);
@@ -1570,6 +1615,82 @@ function techPoseCheck(anims, meta, spec, standingBodyPx, warn, R) {
   return out;
 }
 
+// Attack alts (ALT_TOLERANCE, ADR 0031), warn only: every packed alt whose base is packed keeps the base's frame count
+// and phases, and its drawn strike (its own active-phase hit boxes, after hitboxes.json and before inheritAltBoxes)
+// lands within the tolerance of the base's. R.alts gets the measurements:
+// { "<alt>": { base, strike: { reach, centre }, baseStrike, boxes } } in px; boxes is set by inheritAltBoxes.
+function altCheck(packed, meta, spec, warn, R) {
+  const byName = new Map(packed.map((p) => [p.name, p]));
+  const [px, py] = spec.pivot;
+  const strike = (p) => {
+    const ph = p.phases;
+    if (!ph) return null;
+    let x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let k = ph[0]; k < ph[0] + ph[1] && k < p.indices.length; k++) {
+      for (const [x, y, w, h] of meta.boxes[String(p.indices[k])]?.hit || []) {
+        x1 = Math.max(x1, x + w);
+        y0 = Math.min(y0, y);
+        y1 = Math.max(y1, y + h);
+      }
+    }
+    return Number.isFinite(x1) ? { reach: x1 - px, centre: +(py - (y0 + y1) / 2).toFixed(1) } : null;
+  };
+  const signed = (v) => `${v > 0 ? '+' : ''}${+v.toFixed(1)}px`;
+  const rule = 'an alt plays its base\'s move data and hit boxes, so it keeps the frame count and phases, and its drawn strike lands where the base\'s hit registers, or the hit spark floats off the limb (art/SPEC.md "Attack alts", ADR 0031)';
+  for (const p of packed) {
+    const baseName = p.def.altOf;
+    if (!baseName) continue;
+    const base = byName.get(baseName);
+    if (!base) {
+      warn(`${p.name}: packed without its base ${baseName} - the game alternates it with whatever stands in for ${baseName}; pack ${baseName} first`);
+      continue;
+    }
+    const rec = { base: baseName };
+    const phases = (q) => (q.phases ? ` (phases ${q.phases.join('/')})` : '');
+    if (p.indices.length !== base.indices.length || String(p.phases) !== String(base.phases)) {
+      warn(`${p.name}: ${p.indices.length} frame(s)${phases(p)}, its base ${baseName} has ${base.indices.length}${phases(base)} - ${rule}`);
+    }
+    const a = strike(p), b = strike(base);
+    if (a) rec.strike = a;
+    if (b) rec.baseStrike = b;
+    if (b && !a) warn(`${p.name}: no hit box found on its active frames, ${baseName} strikes ${b.reach}px out at ${b.centre}px high - draw the strike on the active frames, or point a hitboxes.json entry for ${p.name} at the drawn fist or foot (it only feeds this check); ${rule}`);
+    // the auto finder can pick a torso or a guard fist on a new drawing: a hitboxes.json entry on the alt fixes the reading
+    if (a && b) {
+      const dReach = a.reach - b.reach, dCentre = a.centre - b.centre;
+      if (Math.abs(dReach) > ALT_TOLERANCE.reachPx) {
+        warn(`${p.name}: drawn strike reach ${a.reach}px from the pivot, ${baseName}'s hit ${b.reach}px (${signed(dReach)}, tolerance ${ALT_TOLERANCE.reachPx}px) - ${rule}`);
+      }
+      if (Math.abs(dCentre) > ALT_TOLERANCE.centrePx) {
+        warn(`${p.name}: drawn strike height ${a.centre}px above the floor, ${baseName}'s hit ${b.centre}px (${signed(dCentre)}, tolerance ${ALT_TOLERANCE.centrePx}px) - ${rule}`);
+      }
+    }
+    R.alts[p.name] = rec;
+  }
+}
+
+// Attack alts take their base's hit and hurt boxes frame for frame (ADR 0031): what connects, what can be hit and
+// the hit spark's spot are the base move's, whatever the alt draws, so the alternation is visual only. Runs after
+// altCheck, which judged the alt's own drawn strike. An alt's own `hand` anchor stays (hand effects follow the drawn
+// hand). An alt whose frame count differs from its base's has no frame-for-frame match: it keeps its own boxes, and
+// altCheck has already warned.
+function inheritAltBoxes(packed, meta, R) {
+  const byName = new Map(packed.map((p) => [p.name, p]));
+  const copy = (list) => list.map((b) => [...b]);
+  for (const p of packed) {
+    const base = byName.get(p.def.altOf);
+    if (!base || base.indices.length !== p.indices.length) continue;
+    p.indices.forEach((frame, k) => {
+      const from = meta.boxes[String(base.indices[k])] || {}, key = String(frame);
+      const to = meta.boxes[key] = meta.boxes[key] || {};
+      if (from.hit?.length) to.hit = copy(from.hit); else delete to.hit;
+      if (from.hurt?.length) to.hurt = copy(from.hurt); else delete to.hurt;
+    });
+    // the --json hit box report describes what ships
+    if (R.hitBoxes[p.name]) R.hitBoxes[p.name] = R.hitBoxes[p.name].map((e) => ({ frame: e.frame, hit: meta.boxes[String(p.indices[e.frame])]?.hit ?? null, rule: `base ${base.name}` }));
+    if (R.alts[p.name]) R.alts[p.name].boxes = 'base';
+  }
+}
+
 // The striking part: the 8-connected blob containing (sx, sy) inside a region, plus any other blob
 // of the region within `near` px of it (a smear or spark drawn just in front of the fist).
 function strikeBox(img, sx, sy, x0, y0, x1, y1, near = 6) {
@@ -1635,8 +1756,9 @@ function colCount(img, x) {
 //  1. forward strike (reaches past the idle front): walk back from the tip until the columns get
 //     torso-thick, so only the limb counts; take the blob holding the forward-most pixel (+ smears
 //     touching it) within +-T.band px of the tip row (a guard fist next to a kick is excluded);
-//  2. rising strike (uppercut, rises above the idle head): the same idea around the highest pixel;
-//     whichever of 1/2 reaches further past the idle pose is tried first;
+//  2. rising strike (uppercut, rises above the standing head): the same idea around the highest pixel;
+//     whichever of 1/2 reaches further past the reference is tried first. ref.minY is the approved upright cell's top
+//     (builds.json standingReference), not the idle's: a crouched idle made every upright pose's hair "rise";
 //  3. otherwise the forward-most 28% of the body at strike height.
 function hitBox(cell, ref, T) {
   const b = bbox(cell);
@@ -1679,7 +1801,7 @@ function hitBox(cell, ref, T) {
 
 function validBox(b) { return Array.isArray(b) && b.length === 4 && b.every((v) => Number.isFinite(v)); }
 
-function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = null, notes = null) {
+function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = null, notes = null, hitSet = null) {
   const r = readJson(file);
   if (!r.exists) return 0;
   if (r.error) { warn(`${label}/hitboxes.json is not valid JSON (${r.error}) - ignored`); return 0; }
@@ -1709,6 +1831,7 @@ function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = n
           if (list.length) boxes[key][kind] = list.map((bx) => (tf ? scaleAboutPivot(bx, tf, true) : bx).map((v) => Math.round(v)));
           else if (kind === 'hit') boxes[key].hit = [];
           else delete boxes[key][kind];
+          if (kind === 'hit') hitSet?.add(key);
         }
         // hand: the palm/fingertip point the engine anchors hand effects, shots and beams to
         // ([x, y] in the 256 cell; the engine falls back to the hit box, then fixed offsets)
@@ -1819,24 +1942,31 @@ function auditAnims(id, anims, env) {
 // builds.json fighter "scaleReference": { "cells": ["characters/<id>/reference/<approved cell>.png", ...], "why": "..." }
 // (paths under art/): approved reference cells at the packed scale (256 px, feet on the pivot line) that the gate
 // measures every strip against, the idle included, instead of the idle (scale-probe auditCharacter). null when unset;
-// a missing or wrong-size cell is { error } (the gate then fails every strict strip), never silently the idle.
+// a missing or wrong-size cell is { error }, never silently the idle.
+// "standingReference" has the same shape and is the approved upright cell the hit box finder measures "above the head"
+// against (loadStandingReference).
 const scaleRefCache = new Map();
-export function loadScaleReference(artDir, decl) {
-  const list = decl?.scaleReference?.cells;
+function loadReferenceCells(artDir, list, key) {
   if (!Array.isArray(list) || !list.length) return null;
-  const key = `${artDir}|${list.join('|')}`;
-  if (scaleRefCache.has(key)) return scaleRefCache.get(key);
+  const ck = `${key}|${artDir}|${list.join('|')}`;
+  if (scaleRefCache.has(ck)) return scaleRefCache.get(ck);
   const cells = list.map((f) => {
     const file = path.join(artDir, f);
-    if (!fs.existsSync(file)) return `builds.json scaleReference: ${f} does not exist under ${artDir}`;
+    if (!fs.existsSync(file)) return `builds.json ${key}: ${f} does not exist under ${artDir}`;
     const img = readPng(file);
-    if (img.w !== SPEC_CELL || img.h !== SPEC_CELL) return `builds.json scaleReference: ${f} is ${img.w}x${img.h}, not a ${SPEC_CELL} px game cell`;
+    if (img.w !== SPEC_CELL || img.h !== SPEC_CELL) return `builds.json ${key}: ${f} is ${img.w}x${img.h}, not a ${SPEC_CELL} px game cell`;
     return img;
   });
   const bad = cells.find((c) => typeof c === 'string');
   const out = bad ? { error: bad } : { cells, label: list.join(', ') };
-  scaleRefCache.set(key, out);
+  scaleRefCache.set(ck, out);
   return out;
+}
+export function loadScaleReference(artDir, decl) {
+  return loadReferenceCells(artDir, decl?.scaleReference?.cells, 'scaleReference');
+}
+export function loadStandingReference(artDir, decl) {
+  return loadReferenceCells(artDir, decl?.standingReference?.cells, 'standingReference');
 }
 const SPEC_CELL = 256;
 
@@ -1941,7 +2071,7 @@ const scaleAboutPivot = (v, t, isBox) => {
 };
 
 function packCharacter(id, env) {
-  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {} };
+  const R = { id, packed: [], missing: [], missingCore: [], failed: [], blocked: [], versions: {}, complete: false, frames: 0, sheet: null, colors: 0, warnings: [], notes: [], wrote: [], writeback: [], ui: [], uiItems: [], ground: {}, tech: {}, alts: {}, hitBoxes: {} };
   const warn = (m) => R.warnings.push(m);
   const spec = env.spec;
   const charDir = path.join(env.artDir, 'characters', id);
@@ -2126,7 +2256,14 @@ function packCharacter(id, env) {
   }
 
   // 4) boxes: hurt on every frame, hit on active attack frames
+  // ref.minY is the top of an UPRIGHT head: the rising-strike rule (hitBox) looks for a fist above it. The title-style
+  // idles are crouched combat stances (Killua's is 146 px against a 186 px neutral), so every upright pose's hair would
+  // read as "rising above the idle head"; builds.json "standingReference" (the approved neutral cell) is the measure
+  // instead, and a fighter without one keeps the idle (TOOL-037). ref.maxX stays the idle's front (the forward rule).
   const idle = packed.find((p) => p.name === 'idle');
+  const standing = loadStandingReference(env.artDir, env.builds?.[id] || {});
+  if (standing?.error) warn(`${standing.error} - the rising-strike hit box rule is measured against the idle`);
+  const standingTop = standing?.cells ? Math.min(...standing.cells.map((c) => bbox(c)?.y0).filter(Number.isFinite)) : NaN;
   let ref;
   if (idle) {
     const bs = idle.cells.map((c) => bbox(c)).filter(Boolean);
@@ -2136,8 +2273,9 @@ function packCharacter(id, env) {
     ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
     warn('idle is not packed yet - hitboxes estimated from the idle bodyHeight');
   }
+  if (Number.isFinite(standingTop)) { ref.idleMinY = ref.minY; ref.minY = standingTop; R.hitRef = { maxX: ref.maxX, minY: ref.minY, idleMinY: ref.idleMinY, source: standing.label }; }
   const T = boxTuning({ ...spec, standingBodyPx: env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx });
-  const rules = {};
+  const autoRule = new Map(); // frame index -> { rule, at } that drew its auto hit box (R.hitBoxes, the "front" note)
   const big = [];
   for (const p of packed) {
     p.cells.forEach((cell, k) => {
@@ -2149,7 +2287,7 @@ function packCharacter(id, env) {
         const h = hitBox(cell, ref, T);
         if (h?.box) {
           meta.boxes[key].hit = [h.box];
-          rules[h.rule] = (rules[h.rule] || 0) + 1;
+          autoRule.set(key, { rule: h.rule, at: `${p.name}#${k}` });
           const b = bbox(cell);
           if (h.box[2] * h.box[3] > 0.4 * b.w * b.h) big.push(`${p.name}#${k}`);
         }
@@ -2158,15 +2296,33 @@ function packCharacter(id, env) {
   }
   if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
   const fits = new Map(anims.filter((a) => a.autoHead != null && a.autoHead !== 1).map((a) => [a.def.name, a.autoHead]));
-  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes);
+  const overridden = new Set(); // frames whose hit box hitboxes.json replaced
+  const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes, overridden);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
-  if (rules.front) R.notes.push(`${rules.front} active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)`);
+  // the active-frame hit boxes as shipped, with the rule that drew each auto one (--json report: before/after tables)
+  for (const p of packed) {
+    if (!p.phases || !p.def.hitbox) continue;
+    const list = [];
+    for (let k = p.phases[0]; k < p.phases[0] + p.phases[1] && k < p.indices.length; k++) {
+      const key = String(p.indices[k]);
+      list.push({ frame: k, hit: meta.boxes[key]?.hit ?? null, rule: overridden.has(key) ? 'override' : autoRule.get(key)?.rule ?? null });
+    }
+    R.hitBoxes[p.name] = list;
+  }
+  // only the frames still on the auto box: an override replaced the rest, so "check them" would send the artist to
+  // frames that are already handled (TOOL-037)
+  const front = [...autoRule].filter(([key, a]) => a.rule === 'front' && !overridden.has(key)).map(([, a]) => a.at);
+  if (front.length) R.notes.push(`${front.length} active frame(s) had no clear strike limb - hitbox = front 28% of the body (${front.join(', ')}; check them in the Sprite Lab or add hitboxes.json overrides)`);
   // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
   const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(footprint).length) meta.footprint = footprint;
   // tech poses (ADR 0030): the wall line contact and the tucked / braced size band (warn only), and the wall anchors
   const wallAnchor = techPoseCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(wallAnchor).length) { meta.wallAnchor = wallAnchor; meta.wallLine = wallLineOf(spec); }
+  // attack alts (ADR 0031): frame count, phases and where the drawn strike lands against the base (warn only), then
+  // the base's hit and hurt boxes on every alt frame, so an alt never changes what connects
+  altCheck(packed, meta, spec, warn, R);
+  inheritAltBoxes(packed, meta, R);
 
   // 5) write sheet + json (+ write-back of cleaned frames)
   const cols = spec.columns;

@@ -5,9 +5,11 @@ import { resolve } from 'path';
 // Only this checkout's own folder: a dev server started inside a worktree sits under a .worktrees/ path too,
 // and a '**/.worktrees/**' glob made it ignore every one of its own files (no reload after an edit).
 const worktrees = resolve(__dirname, '.worktrees').replace(/\\/g, '/') + '/**';
+// .publish-cache/ is the bare repository tools/publish.mjs rewrites history in; nothing there is served.
+const publishCache = resolve(__dirname, '.publish-cache').replace(/\\/g, '/') + '/**';
 
 export default defineConfig({
-  server: { port: 5188, strictPort: true, host: '127.0.0.1', watch: { ignored: [worktrees] } },
+  server: { port: 5188, strictPort: true, host: '127.0.0.1', watch: { ignored: [worktrees, publishCache] } },
   // only the real pages: the default crawls every .html under the root, worktree copies included
   optimizeDeps: { entries: ['index.html', 'sprites.html', 'art-review.html', 'lab.html'] },
   build: {

@@ -56,6 +56,9 @@ when a decision should be revisited.
 | [0028](0028-timed-impact-tech.md) | Timed impact tech (Smash style): a fresh Guard press before a floor or wall impact; wall tech, wall jump, lockout | Proposed (in PR) |
 | [0029](0029-title-style-scale-baseline.md) | The approved title-style cells are the cast and new-character scale/anatomy baseline; older numeric targets are historical | Accepted |
 | [0030](0030-tech-recovery-animations.md) | Tech recovery animations: techGround, techRoll, wallTech on the tech's clock, wall anchoring, unread beats are not a scale pass | Proposed |
+| [0031](0031-attack-alt-animations.md) | Attack alts: optional `<anim>Alt` strips for the nine attacks and both hit reactions, same frames and phases, deterministic Thue-Morse alternation, fail-soft to the base, packer hit-box check | Proposed |
+| [0032](0032-goku-and-luffy-kits.md) | Goku and Luffy join: their kits (Goku keeps the cast's one beam), and the `laneStrike` ultimate kind for Gigant Pistol | Accepted |
+| [0033](0033-claude-codex-relay.md) | Claude-Codex relay: Claude queues the inbox prompt into the lane's Codex chat, Codex rings a git-ignored doorbell that wakes Claude's background watcher; per-lane hop limit and pause switch; approvals never relayed | Proposed |
 
 ## Template
 

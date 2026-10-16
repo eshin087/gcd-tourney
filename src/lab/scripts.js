@@ -290,6 +290,12 @@ export const SCENARIOS = [
     id: 'wallBounce', name: 'Wall bounce', info: 'The light auto combo ends in light4, which bounces them off the ring barrier.',
     setup: { gap: 1.2, nearWall: true }, a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light')], b: [],
   },
+  {
+    id: 'attackAlts', name: 'Attack alts (repeat a string)', info: 'Light ×3 three times, then two heavies. A fighter with alt strips (light1Alt ..., hurtHighAlt, hurtLowAlt; ADR 0031) alternates each base with its alt in a fixed pattern, never the same version three times running; without them every swing plays the base. Add ?alts=1 to the URL to see every alt, ?alts=0 to see none.',
+    setup: { gap: 1.2 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(66, 'light'), tap(78, 'light'), tap(90, 'light'), tap(132, 'light'), tap(144, 'light'), tap(156, 'light'), tap(200, 'heavy'), tap(260, 'heavy')],
+    b: [],
+  },
   // combo composer routes (ADR 0026): `room` = units from the dummy to the barrier behind it
   {
     id: 'handball', name: 'Handball (3 wall bounces)', info: 'Light ×4 into the barrier (WALL BOUNCE!), super dash after the bounce, air Light ×3 into the same wall (WALL BOUNCE ×2!), then a vanish kick bounces them a third time (HANDBALL!). The bounce budget: 3 wall bounces per combo, 32 / 28 / 22 frames of stun.',

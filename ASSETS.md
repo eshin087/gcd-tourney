@@ -43,6 +43,13 @@ art/SPEC.md "Tech poses"): `techGround` (tech in place), `techRoll` (tech roll) 
 fighter has one, the game keeps showing `land` / `airRecover` / `jumpUp` for that tech. Per-frame brief and prompts:
 `art/characters/TECH_POSES_BRIEF.md`.
 
+Every attack and both hit reactions can also have one optional **alt** strip
+([ADR 0031](docs/decisions/0031-attack-alt-animations.md), art/SPEC.md "Attack alts"): `light1Alt`, `light2Alt`,
+`light3Alt`, `light4Alt`, `heavyAlt`, `airLight1Alt`, `airLight2Alt`, `airLight3Alt`, `airHeavyAlt`, `hurtHighAlt` and
+`hurtLowAlt`. An alt has its base's frame count and phases and strikes at the base's height and reach with another
+technique; the game alternates the two in a fixed pattern and plays the base while the alt is missing. The packer warns
+when an alt's frames, phases or strike differ from its base's. Review with `?alts=1` (every alt) or `?alts=0` (none).
+
 ## Sprite Lab
 
 Open **http://127.0.0.1:5188/sprites.html** (or *Sprite Lab* in the main menu) while `npm run dev`

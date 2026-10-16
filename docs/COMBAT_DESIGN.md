@@ -71,6 +71,14 @@ Frames are at 60 fps. **Startup** is the frames before the hitbox is live, **act
 hitbox can connect, and **recovery** is the frames after. Animation frames are spread across these
 phases using `phases` in anims.json (see `SpriteActor.setPhase`). Damage is before scaling (HP 1000).
 
+**Attack alts** ([ADR 0031](decisions/0031-attack-alt-animations.md)): each normal (light1-4, heavy, airLight1-3,
+airHeavy, and the kit moves that borrow those strips, e.g. `vanishKick` = `light4`) and both hit reactions may have an
+`<anim>Alt` strip. The fighter alternates base and alt per use in a fixed Thue-Morse pattern (no randomness; never the
+same version three times in a row; `src/game/animAlts.js`), only when its sheet has that alt. The row's numbers never
+change: an alt plays the same move data on the same phases, and the packer gives every alt frame its base frame's hit
+and hurt boxes, so the alternation is visual only (amended 2026-10-14). The alt is still drawn to land where the base's
+hit lands, so the hit spark sits on the fist or foot (the packer warns past 24 px). The throw keeps its `light1` / `light4` poses.
+
 | Move | Input | Startup | Active | Recovery | Total | Dmg | Reach / width | Hitstop | On hit | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
 | light1 | Light | 5 | 3 | 11 | 19 | 28 | 1.3 / 0.95 | 7 | stun 22, push 2.2 | jab; chains to light2 from f7; lunge 4.5 |
@@ -234,6 +242,11 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   the opponent wherever they are (no range limit, can't be blocked, misses only if they're invulnerable or
   hidden): 80 on ignition, then a **burn** status, 14 every 20 frames for 200 frames. Burn ticks never stun
   or add to the combo, but they can KO.
+- **Gear Third: Gigant Pistol** (Luffy, kind `laneStrike`, ADR 0032): a 44-frame flash, a 34-frame windup while the
+  arm blows up, then the giant fist shoots down the lane he faces to 7 units in 8 frames and hits once for 270
+  (unblockable, wall bounce) anything within 1.1 of the lane and below 2.0 up. It commits to the lane when the punch
+  leaves: leave the lane or jump during the windup. It never clashes. 30 frames of recovery.
+- **Kamehameha** (Goku): the shared beam (below), his `beam` palette; the cast's only beam.
 
 ### Passives
 - **Infinity** (Gojo): a projectile that comes within its radius + 1.15 units of him is stopped (ring

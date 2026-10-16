@@ -3,6 +3,40 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
+## Agent model selection (user direction, 2026-10-12)
+
+For every newly spawned Codex agent, select the model and reasoning effort explicitly:
+
+| Work | Model | Reasoning |
+|---|---|---|
+| All work except the final anatomy/scale audit: planning, art prompts, generation, packing, previews, routine QA, fixes, code, docs and Git | `gpt-6-luna` (GPT-6 Luna) | `medium` |
+| Final anatomy and scale audit of completed art candidates | `gpt-6-astra` (GPT-6 Astra) | `medium` |
+
+The user's "6.1 Astra" request maps to the available GPT-6 Astra model above; GPT-6.1 Sol is a different
+model. Do not silently substitute Sol, another model or another reasoning effort.
+
+- With `collaboration.spawn_agent`, pass `model`, `reasoning_effort: "medium"` and
+  `fork_turns: "none"`; a full-history fork inherits its parent's model. Supply a self-contained task,
+  worktree path, exact candidate/reference paths, approval state and relevant constraints.
+- Any Codex work that generates a character art asset (including model sheets, expressions, animation
+  strips, portraits and other character-specific images) must run under `gpt-6-luna` with `medium`
+  reasoning. This is the required Codex model for preparing and directing every character-art generation.
+  Do not use another Codex model for that generation work.
+- For a user-requested new Codex chat, pass the same `model` and `thinking: "medium"` where supported.
+  This policy does not itself authorize creating new user-visible chats.
+- The final Astra audit compares every frame and loop in the actual quantized atlas with the approved
+  title-style neutral/combat cells and production contract. Inspect heads, torsos, limbs, build and clothing
+  volume across poses; record exact versions, evidence and measurement uncertainty. Head-gate success alone
+  is insufficient. Return pass/hold findings; Luna handles fixes and Astra rechecks the affected final art.
+  An audit pass never replaces the user's image/design approval.
+- These instructions select future agents; they do not switch an existing chat or running agent, or select
+  the image generator's rendering model. The image-generation tool exposes no rendering-model or reasoning
+  selector here, so this rule governs the Codex model directing the generation. If the required Codex model
+  is unavailable, report the limitation,
+  continue unaffected work and leave the final audit pending rather than claiming it was completed by Astra.
+- This routing applies to Codex/model-capable launch tools. Claude Code retains its engine and integration
+  role; these OpenAI model IDs are not Claude model names. Existing worktree and art-approval rules still apply.
+
 ## Approved anatomy and cast scale (user decision, 2026-10-11; ADR 0029)
 
 The user approved the four title-style references (`title_style_draft_v01`) and their neutral/combat lineups
@@ -81,6 +115,8 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
+| `npm run relay -- <cmd>` | Claude-Codex relay (ADR 0033, `tools/relay.mjs`): `lanes`, `add <lane> --thread <id\|title>`, `send <lane>` (queue the inbox prompt into the lane's Codex chat), `ring <lane>` (Codex wakes Claude), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; state in git-ignored `.relay/` |
+| `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
 | `npm run sprites vfx` | pack only the VFX atlas into `public/vfx/` (approved effects only) |
@@ -93,11 +129,17 @@ documentation that stays true.
 | `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
-| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it) |
+| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it). **Art guard first (TOOL-028, `tools/pr-guard.mjs`):** for every fighter strip the merge changes it refuses an unapproved newest raw (newest `raw/<anim>_vNN.png` != manifest `approvedVersion`; approve it or move it to `raw/_qa_hold/`, which the packer skips), a committed pack of an unapproved version, or a strict-scale-gate failure (packer dry run on scratch copies). Code branches skip it. `--force-art "<reason>"` overrides and records the reason in the merge commit |
+| `npm run pr -- check <branch>` | the art guard alone, read-only, from any checkout: prints what `merge` would refuse (exit 1 when it would) |
 | `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
 | `npm run body [id] [anim...]` | body sheet (TOOL-036): every packed frame beside idle f0 and the approved combat cell at one density, labelled with body size B (garment area vs idle f0) and head H; writes `art/scale/body-<id>.png` + `body-report.json`. Advisory (±10 %): confirm a flagged strip by its segments |
+| `npm run lint:anims` | animation-contract lint (TOOL-004, `tools/lint-anims.mjs`; also the first step of `prebuild`, so `npm run build` fails on it): every `animGuide.js` animation has a manifest default and a per-fighter entry, optional ones have a `FALLBACK` entry that reaches an animation the placeholder bakes, every `altOf` repeats its base's frames and phases, `art/SPEC.md` names every animation. `--strict` fails on its warnings (optional strips a fighter lacks, SPEC wording) too |
+| `npm run lint:undeclared` | undeclared-identifier check (TOOL-027, `tools/check-undeclared.mjs [dir]`; second step of `prebuild`): every `src/**/*.js` name that is used but never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug) fails the build with `file:line` |
+| `npm run test:lints` | lint regression test (`tools/test-lints.mjs`, fixtures in tools/.test-fixtures/lints/): the planted `MODE_ORDER` bug, a wide valid-syntax sample, one doctored case per animation-contract rule; run after any change to the two lints |
 | `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
+| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing); run after changes to `tools/pr-guard.mjs` or `tools/pr.mjs` |
+| `npm run test:alts` | attack-alt picker test (`tools/test-anim-alts.mjs`: balanced Thue-Morse alternation, never three in a row, base when the alt is missing, `?alts` override; ADR 0031); run after changes to `src/game/animAlts.js` or the alt hooks in fighter.js |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
 The project path contains a space (`.../Claude Code/gcdTourney`). Always quote paths in shell
@@ -301,6 +343,16 @@ A change is done when:
   problem, fix the tool, not the output.
 - The handoff protocol is in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md). In short: claim a task in
   docs/TASKS.md, make the change, log it in CHANGELOG, then hand back with a status and a note.
+- **The relay replaces paste-in prompts** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md)). A lane is one
+  Codex chat (`npm run relay -- lanes`, then `add <lane> --thread <uuid|title>`). To hand a lane to Codex: write the
+  CODEX_INBOX item as usual, run `npm run relay -- send <lane> --note "<one line>"`, then start
+  `node tools/relay.mjs wait <lane>` as a **background** command whose description starts with "Relay watcher"
+  (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue. If `send`
+  fails, give the user the paste-in prompt instead.
+  Brakes: don't send when the next step is the user's (an image to approve, BLOCKED, their decision) or when `send`
+  exits 3 (4 round trips without them); notify the user (PushNotification) and stop. After the user replies on a
+  lane, run `npm run relay -- reset <lane>`. "Stop the relay" means `npm run relay -- pause all`. Never put an
+  approval in a relay note. "status" also reports `npm run relay -- status`.
 
 ## Gotchas
 
