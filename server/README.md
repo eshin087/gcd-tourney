@@ -6,9 +6,11 @@ folder's own `package.json`, out of the game's dependencies.
 
 | File | What it is |
 |---|---|
-| `src/index.js` | the Worker: `GET /` health text, `GET /room/<CODE>` WebSocket upgrade (allowed origins only) to that room's object |
-| `src/room.js` | the `Room` Durable Object: hibernating WebSockets, the alarm, storage; runs `RoomCore` |
-| `src/roomCore.js` | the room's rules in plain JavaScript (no Cloudflare API): members, the winner-stays-on line, the match relay, the spectator feed |
+| `src/index.js` | the Worker: `GET /` health text, `GET /rooms` (the public room list), `GET /room/<CODE>` WebSocket upgrade (allowed origins only) to that room's object, `GET /room/<CODE>/ping` and `/stats` |
+| `src/room.js` | the `Room` Durable Object: hibernating WebSockets, the alarm, storage, the Turnstile check, reporting to the directory; runs `RoomCore` |
+| `src/directory.js` | the `Directory` Durable Object (one for the game): public rooms' summaries, dropped 7 minutes after their last report |
+| `src/names.js` | the nickname filter (roots ROT13-encoded) |
+| `src/roomCore.js` | the room's rules in plain JavaScript (no Cloudflare API): members, the winner-stays-on line, the match relay, the spectator feed, public / private, quick-chat, removing members |
 | `test/room.test.mjs` | `RoomCore` in Node with a fake clock (`npm test` here, `npm run test:lobby` from the repository root) |
 
 ## Run it locally
@@ -33,6 +35,15 @@ docs/TESTING.md.
 Deployed: https://gcd-tourney-lobby.eshin087.workers.dev (2026-10-16). After a change to `src/` here, run
 `npm test`, then `npm run deploy` again; the game needs no redeploy unless the protocol changed.
 
+## The anti-bot check (Cloudflare Turnstile)
+
+Opening a public room takes a Turnstile token: the client's widget (`src/net/turnstile.js`, action `create_room`)
+produces it, and the room checks it once with siteverify before listing the room. The widget's site key is `SITEKEY` in
+`src/net/turnstile.js`; its secret is the Worker secret `TURNSTILE_SECRET` (`wrangler secret put`, never in a file).
+Tokens must come from production or a preview (`gcd-tourney*.vercel.app`), and each preview address must be on the
+widget's domain list. Locally, `server/.dev.vars` (git-ignored) holds Cloudflare's always-pass test secret and
+`TURNSTILE_DEV=1`, and a page on localhost uses the test site key.
+
 ## Protocol
 
 JSON text messages over one WebSocket per member; the text `ping` gets `pong` (keepalive and round trip, answered
@@ -43,7 +54,10 @@ Client to server:
 
 | Message | When |
 |---|---|
-| `{ t: 'hello', name, fighter, sim, play, rtt }` | first, once (`play`: false only watches; `rtt`: the first ping's round trip, ms) |
+| `{ t: 'hello', name, fighter, sim, play, rtt, cid, public?, turnstile? }` | first, once (`play`: false only watches; `rtt`: the first ping's round trip, ms; `cid`: this browser's id, for bans; into an empty room, `public: true` with a Turnstile token opens it public) |
+| `{ t: 'say', i }` | a quick-chat line or emote: an index into `src/net/quickChat.js` (no free text; one per 1.2 s) |
+| `{ t: 'kick', id }` | the host removes a member |
+| `{ t: 'vote', id }` | a vote to remove a member (a majority of the others, at least two, within 90 s) |
 | `{ t: 'rtt', ms }` | every 5 s: the round trip to the room; a match's input delay comes from its two players' (`pickDelay`) |
 | `{ t: 'set', name?, fighter?, play? }` | any time; a fighter change counts from the next match |
 | `{ t: 'in', start, v: [packed...], ack, adv }` | a player, every frame: its inputs from frame `start` (rollback.js) |
@@ -57,17 +71,25 @@ Server to client:
 | Message | Means |
 |---|---|
 | `{ t: 'welcome', you, room }` | joined; `you` is this member's id |
-| `{ t: 'room', room }` | anything changed: `{ members: [{ id, name, fighter, play, wins, streak }], queue: [ids], match: { no, players, fighters } \| null, host, nextIn }` |
+| `{ t: 'room', room }` | anything changed: `{ members: [{ id, name, fighter, play, wins, streak }], queue: [ids], match: { no, players, fighters } \| null, host, nextIn, pub, title, region, chat: [{ from, name, i }], votes: { id: count }, needed }` |
+| `{ t: 'say', from, name, i }` | a quick-chat line |
 | `{ t: 'start', no, players: [{ id, name, fighter }], seed, delay, you }` | a match starts: `you` 0 / 1 plays that side, -1 watches; `delay`: input delay in frames, 1 when the two players' round trips average 67 ms or less, 2 up to 117 ms, else 3 |
 | `{ t: 'in', from, ... }`, `{ t: 'ck', ... }` | the other player's messages, passed on |
 | `{ t: 'feed', no, start, a: [...], b: [...] }` | to everyone not playing: both players' inputs for the frames from `start` on, once both are known (from 0 for a late joiner) |
 | `{ t: 'end', no, winner, reason, streak, capped, frame? }` | the match is over: `reason` is `ko`, `forfeit` (left), `timeout` (silent 10 s), `desync`, `mismatch` (results differ) or `server` (the room restarted) |
-| `{ t: 'error', code, text }` | refused (`full`, `version`); the socket closes |
+| `{ t: 'error', code, text }` | refused (`full`, `version`, `verify`: no valid Turnstile token for a public room, `banned`: removed from this room lately) or `removed` (kicked or voted out); the socket closes |
 
 `GET /room/<CODE>/stats` returns the players' stats of the room's recent matches (JSON), for diagnosing lag after a
 playtest: `stalls` (frames waiting for the other side's inputs), `syncWaits` (time sync), `rollbacks` / `maxDepth`,
 `fps` / `fpsLow` (the average and the worst second) and `longFrames` (frames over two refreshes), per device.
 
+`GET /rooms` lists the public rooms: `[{ code, title, region, members, playing: [names] | null, waiting, full, at }]`,
+matches first. `GET /room/<CODE>/ping` answers `pong` from the room's object, for the list's ping to where it runs.
+
 Rules: the first two in line play; the winner stays on and the loser goes to the back; after five wins in a row the
 winner goes to the back too. A no contest puts the same pair first again. The next match starts six seconds after the
-last one ended. A member sending more than 150 messages a second for long is disconnected (code 4008).
+last one ended. A member sending more than 150 messages a second for long is disconnected (code 4008). The first member opens the room,
+public or private, and names it ("<name>'s room"); the longest-standing member is the host. Names pass the filter
+(`names.js`: a rude one becomes Player<digits>). A removed member's browser stays out for 10 minutes, and so does its
+address unless someone still in the room shares it (one home's Wi-Fi). When the last member leaves, the room is unlisted
+and its code free for a fresh room.

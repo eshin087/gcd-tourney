@@ -48,8 +48,9 @@ Then open http://127.0.0.1:5188
   whole kit over a match (specials, modes, supers, ultimates) and, from Normal up, parries, spot dodges, air
   dodges and wavedashes now and then.
 - **2 Players**: shared keyboard, or two gamepads
-- **Online**: make a room, send the invite link (or the five-letter room code) to your friends, on a computer or a
-  phone. The first two in line fight, the winner stays on (up to five wins in a row) and the loser goes to the back;
+- **Online**: browse the public rooms and join one, open your own public room (a quick Cloudflare check that you are a
+  person) or a private one, and send the invite link (or the five-letter room code) to friends, on a computer or a
+  phone. Rooms talk in quick-chat lines and emotes (no free text); the host can remove someone and anyone can vote to. The first two in line fight, the winner stays on (up to five wins in a row) and the loser goes to the back;
   everyone else watches the match live. Matches run on rollback netcode: your own inputs are two frames late and the
   game corrects for the other player's lag. Esc (or the pause button) opens the room while you watch; a match has no
   pause, and leaving it counts as a loss

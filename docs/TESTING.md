@@ -653,6 +653,20 @@ Expected today (`det.netplay` on fresh recordings): a MATCH for every frame of n
 with up to 8-frame rewinds, stalls under heavy lag and no desyncs; `tamper: 600` reports a desync at frame 600.
 `startAt: 20` (the other machine starts 20 ticks late) still matches, time sync waiting out the head start.
 
+### Public rooms (ENG-095)
+
+Locally (`npm run lobby`; the page on localhost uses Cloudflare's test Turnstile key, the server its test secret):
+
+1. ONLINE, CREATE A PUBLIC ROOM: the check passes by itself and the room opens with "PUBLIC ROOM · <name>'s room · <region>";
+   `curl http://127.0.0.1:8787/rooms` lists it.
+2. Add stand-ins (`det.bot(game.online.code, { play: false })`), leave, BROWSE PUBLIC ROOMS: the room is listed with its
+   member count and ping; joining from the list works.
+3. SAY sends a line both ways (`bot.client.on.say` sees it); a watcher sees lines over the match as passing lines.
+4. The host's REMOVE takes a member out (`error removed`, socket 4001) and they can't come back for 10 minutes; a
+   non-host sees VOTE TO REMOVE (v/n) and a majority removes. A bot named `sh1tlord` shows as Player<digits>.
+5. `npm run test:lobby`: the rules (public needs the check, listing, chat limits, kicks, votes, bans across one home
+   network, the name filter).
+
 ### Online rooms (ENG-094)
 
 The lobby server is `server/` (its README has the protocol). Locally:

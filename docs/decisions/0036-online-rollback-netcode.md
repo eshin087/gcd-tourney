@@ -269,3 +269,18 @@ off, and reports the first frame where the two runs differ and which values diff
   - Playtest 2 (phone vs PC, room DUEL2): "it feels right now". The phone's stats: 1 frame of delay, 22 ms to the
     room, 59 fps (worst second 41), no stalls, rollbacks of at most 3 frames. Merged and live 2026-10-16 (PR #132).
   - Not yet: reconnecting to a match after a dropped connection; public lobbies, chat and moderation (ENG-095).
+- **ENG-095, 2026-10-16:** public lobbies.
+  - A `Directory` Durable Object lists public rooms (`GET /rooms`); a room reports its summary when the listing
+    changes and every 3 minutes, and drops out 7 minutes after its last report. The online menu browses it, each
+    room with its region (where its first member connected) and a ping measured to where it runs (`/room/<CODE>/ping`).
+  - Opening a public room takes Cloudflare Turnstile (decision 7): the client's widget, loaded only then, and one
+    siteverify from the room with the `TURNSTILE_SECRET` Worker secret, checking the action and the page's hostname.
+    Private rooms (invite only) don't need it.
+  - Quick-chat and emotes: 24 fixed lines sent as an index, one per 1.2 s, kept for latecomers, shown over matches.
+  - Names pass a filter (`server/src/names.js`). The host removes members; anyone can vote, and a majority of the
+    others (at least two) removes. A removed member's browser (a random id the client keeps) stays out 10 minutes,
+    and its address too unless someone still in the room shares it: the first version banned the address alone and
+    locked the host out with the member they removed, on one Wi-Fi.
+  - Tests: 24 room-rule cases in Node; locally through wrangler dev a public room opened through the check, listed,
+    browsed (ping 5 ms) and joined; quick-chat both ways and over a watched match; host removal and the ban; a vote
+    taking out a player mid-match (forfeit); a filtered name. `det.online` still matches.

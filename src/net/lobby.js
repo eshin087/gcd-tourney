@@ -20,6 +20,30 @@ export function lobbyUrl(qs = new URLSearchParams(location.search)) {
   return LOBBY_URL;
 }
 
+// the lobby's HTTP side (same host as its WebSockets): the public room list and a room's ping
+const httpBase = (url) => url.replace(/^ws/, 'http');
+
+export async function fetchRooms(url) {
+  const r = await fetch(`${httpBase(url)}/rooms`, { cache: 'no-store' });
+  if (!r.ok) throw new Error(`rooms ${r.status}`);
+  return r.json();
+}
+
+// round trip (ms) to where a room runs: the second request, the first warms the connection
+export async function pingRoom(url, code) {
+  const go = async () => {
+    const t0 = performance.now();
+    await fetch(`${httpBase(url)}/room/${code}/ping`, { cache: 'no-store' });
+    return performance.now() - t0;
+  };
+  try {
+    await go();
+    return Math.round(await go());
+  } catch {
+    return null;
+  }
+}
+
 export class LobbyClient {
   // on: { open, close(event), welcome, room, start, feed, end, error } (each gets the message)
   constructor(url, code, on) {
