@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Relay regression test (ADR 0033): every command against a throw-away .relay/ home, a fake Codex chat index and
+// Relay regression test (ADR 0033, approvals in Claude: ADR 0037): every command against a throw-away .relay/ home, a fake Codex chat index and
 // a fake `codex` that records its arguments. Never touches the real .relay/, the Codex app or a chat.
 //   npm run test:relay
 
@@ -30,6 +30,10 @@ fs.mkdirSync(CODEX_HOME, { recursive: true });
 fs.writeFileSync(FAKE, `import fs from 'node:fs';
 fs.appendFileSync(${JSON.stringify(CALLS)}, JSON.stringify(process.argv.slice(2)) + '\\n');
 if (process.env.FAKE_CODEX_FAIL) { console.error('thread not found'); process.exit(1); }
+// An archived chat refuses the queue until it is unarchived (the flag file stands for the archived state).
+const flagFile = process.env.FAKE_CODEX_ARCHIVED;
+if (flagFile && process.argv[2] === 'unarchive') fs.rmSync(flagFile, { force: true });
+else if (flagFile && fs.existsSync(flagFile)) { console.error('Error: failed to queue session message: thread/queue/add failed: session ' + fs.readFileSync(flagFile, 'utf8') + ' is archived.'); process.exit(1); }
 `);
 // The app appends a line per rename: the latest title wins, Guardian reviews are noise.
 fs.writeFileSync(path.join(CODEX_HOME, 'session_index.jsonl'), [
@@ -78,16 +82,18 @@ r = relay(['add', 'goku', '--thread', GOKU]);
 check(r.code === 0 && /2 - Goku Luffy/.test(r.out), 'add: a UUID works and shows its title');
 check(relay(['add', 'Bad Lane', '--thread', GOKU]).code === 1, 'add: lane names are lowercase-dash');
 
+check(relay(['add', 'gojo', 'relay-gojo-chat']).code === 0 && JSON.parse(fs.readFileSync(path.join(HOME, 'lanes.json'), 'utf8')).gojo.thread === 'relay-gojo-chat', 'add: the chat can follow the lane without --thread');
+
 // ---- send
 r = relay(['send', 'scale', '--note', 'stagger07 recalibrated on fec0703']);
 let c = calls();
-check(r.code === 0 && /round trip 1\/4/.test(r.out), `send: queues and counts the round trip (${r.out.trim()})`);
+check(r.code === 0 && /round trips 0\/4/.test(r.out), `send: the first send answers no ring, so it is no round trip (${r.out.trim()})`);
 check(c.length === 1 && c[0][0] === 'queue' && c[0][1] === '--thread' && c[0][2] === SCALE && c[0][3] === '--message', 'send: runs codex queue --thread <uuid> --message');
 check(/^\[relay scale #1\] /.test(c[0][4]) && c[0][4].includes('docs/agents/CODEX_INBOX.md'), 'send: the message names the lane, its number and the inbox');
-check(c[0][4].includes('node tools/relay.mjs ring scale') && c[0][4].includes("Claude's note: stagger07"), 'send: the message tells Codex how to ring back and carries the note');
-check(c[0][4].includes('never the user\'s approval') && !/[\r\n]/.test(c[0][4]), 'send: one line, and says it is no approval');
+check(c[0][4].includes('node tools/relay.mjs ring scale --note') && c[0][4].includes("Claude's note: stagger07"), 'send: the message tells Codex how to ring back and carries the note');
+check(c[0][4].includes('ring scale --for user --kind approval|decision|blocked') && c[0][4].includes('USER APPROVAL via Claude') && !/[\r\n]/.test(c[0][4]), 'send: one line that says how to ring for the user and what counts as an approval');
 r = relay(['send', 'scale', '--note', 'approve naruto stagger v07']);
-check(r.code === 1 && /never carries an approval/.test(r.out) && calls().length === 1, 'send: refuses a note that reads like an approval');
+check(r.code === 1 && /never carries an approval/.test(r.out) && calls().length === 1, 'send: refuses a plain note that reads like an approval');
 check(relay(['send', 'scale', '--note', 'two\nlines']).code === 1, 'send: refuses a multi-line note');
 check(relay(['send', 'nowhere']).code === 1, 'send: refuses an unmapped lane');
 r = relay(['send', 'scale', '--dry-run']);
@@ -95,27 +101,82 @@ check(r.code === 0 && /would queue/.test(r.out) && calls().length === 1 && state
 r = relay(['send', 'scale'], { FAKE_CODEX_FAIL: '1' });
 check(r.code === 1 && /paste instead/.test(r.out) && state('scale', 'send').seq === 1, 'send: a failed codex queue says to fall back and counts nothing');
 
-// ---- the hop limit between user replies
-relay(['send', 'scale']); relay(['send', 'scale']); relay(['send', 'scale']);
-r = relay(['send', 'scale']);
-check(r.code === 3 && /4 round trips without the user/.test(r.out) && state('scale', 'send').hops === 4, 'send: the 5th round trip stops for the user (exit 3)');
+// ---- direct messages
+check(relay(['send', 'scale', '--direct']).code === 1, 'send --direct: needs a note');
+r = relay(['send', 'scale', '--direct', '--note', 'Are the Luffy refs packed?']);
+c = calls();
+check(r.code === 0 && /^\[relay scale #2\] Claude asks \(no inbox item\): Are the Luffy refs packed\?/.test(c.at(-1)[4]) && !c.at(-1)[4].includes('CODEX_INBOX'), 'send --direct: the message is the question, without the inbox');
+check(c.at(-1)[4].includes('ring scale --note'), 'send --direct: still says how to ring back');
+
+// ---- round trips: only sends that answer a new ring count
+const ringAndSend = (lane, extra) => { relay(['ring', lane, '--note', 'ready']); return relay(['send', lane], extra); };
+r = relay(['send', 'scale', '--note', 'update: one more thing']);
+check(r.code === 0 && state('scale', 'send').hops === 0, 'round trips: a follow-up with no new ring does not count');
+for (let i = 1; i <= 4; i++) {
+  r = ringAndSend('scale');
+  check(r.code === 0 && state('scale', 'send').hops === i, `round trips: answering ring ${i} counts (${i}/4)`);
+}
+check(relay(['send', 'scale', '--note', 'follow-up at the limit']).code === 0, 'round trips: a follow-up still goes at the limit (it answers no ring)');
+r = ringAndSend('scale');
+check(r.code === 3 && /4 round trips without the user/.test(r.out) && state('scale', 'send').hops === 4, 'round trips: answering a 5th ring stops for the user (exit 3)');
 r = relay(['reset', 'scale']);
-check(r.code === 0 && state('scale', 'send').hops === 0 && state('scale', 'send').seq === 4, 'reset: hops back to 0, numbering kept');
-check(relay(['send', 'scale']).code === 0 && state('scale', 'send').seq === 5, 'send: works again after reset');
-check(relay(['send', 'goku'], { RELAY_HOP_LIMIT: '1' }).code === 0 && relay(['send', 'goku'], { RELAY_HOP_LIMIT: '1' }).code === 3, 'send: RELAY_HOP_LIMIT overrides the limit');
+check(r.code === 0 && state('scale', 'send').hops === 0, 'reset: round trips back to 0, numbering kept');
+check(relay(['send', 'scale']).code === 0 && state('scale', 'send').hops === 1, 'send: answering after reset counts from 1');
+relay(['ring', 'goku', '--note', 'ready']);
+check(relay(['send', 'goku'], { RELAY_HOP_LIMIT: '1' }).code === 0 && ringAndSend('goku', { RELAY_HOP_LIMIT: '1' }).code === 3, 'send: RELAY_HOP_LIMIT overrides the limit');
+
+// ---- approvals and decisions travel through Claude
+r = relay(['ring', 'goku', '--for', 'user', '--kind', 'approval', '--note', 'naruto stagger v08 ready; review art/review/r5.html']);
+check(r.code === 0 && state('goku', 'ring').for === 'user' && state('goku', 'ring').kind === 'approval', 'ring --for user: records what the user must answer');
+check(relay(['ring', 'goku', '--for', 'user', '--kind', 'vibes', '--note', 'x']).code === 1, 'ring --for user: the kind is approval, decision or blocked');
+check(relay(['ring', 'goku', '--for', 'user']).code === 1, 'ring --for user: needs a note saying what to answer');
+check(relay(['ring', 'goku', '--kind', 'approval', '--note', 'x']).code === 1, 'ring: --kind goes with --for user');
+check(/turn: you, via Claude \(unread: approval\)/.test(relay(['status', 'goku']).out), 'status: an unread ring for the user puts the turn on the user');
+r = relay(['wait', 'goku', '--timeout', '5s', '--interval', '50ms']);
+check(r.code === 0 && /needs the USER on lane goku \(approval/.test(r.out) && r.out.includes('naruto stagger v08') && /--user-approved/.test(r.out), 'wait: a ring for the user says so and how to relay the answer');
+check(/turn: you \(approval: naruto stagger v08/.test(relay(['status', 'goku']).out), 'status: until Claude relays an answer, the turn is the user\'s');
+check(relay(['send', 'goku', '--user-approved', 'naruto stagger v08']).code === 1, 'send --user-approved: needs the user\'s quoted answer');
+check(relay(['send', 'goku', '--user-approved', 'a', '--user-rejected', 'b', '--quote', 'x']).code === 1, 'send: one user answer at a time');
+r = relay(['send', 'goku', '--user-approved', 'naruto stagger v08', '--quote', 'Approve v08']);
+c = calls();
+check(r.code === 0 && /\(approved\)/.test(r.out), 'send --user-approved: goes through');
+check(/^\[relay goku #\d+\] USER APPROVAL via Claude: the user approved naruto stagger v08\. Their answer in Claude's question box: "Approve v08"\./.test(c.at(-1)[4]), 'send --user-approved: Codex reads who approved what, in the user\'s words');
+check(state('goku', 'send').hops === 0, 'send --user-approved: the user spoke, so round trips start again');
+check(/turn: Codex/.test(relay(['status', 'goku']).out), 'status: after the relayed answer the turn is Codex\'s');
+r = relay(['send', 'goku', '--user-rejected', 'naruto taunt v09', '--quote', 'Reject', '--note', 'the torso is still short']);
+check(r.code === 0 && /USER REJECTION via Claude: the user rejected naruto taunt v09\. Their answer: "Reject"\. Their feedback: the torso is still short/.test(calls().at(-1)[4]), 'send --user-rejected: carries the answer and the feedback');
+r = relay(['send', 'goku', '--user-decision', 'Luffy special', '--quote', 'Keep the stretch punch']);
+check(r.code === 0 && /USER DECISION via Claude on Luffy special: "Keep the stretch punch"\. .*not an image approval/.test(calls().at(-1)[4]), 'send --user-decision: relays other decisions, marked as no approval');
+check(relay(['send', 'goku', '--user-decision', 'x', '--quote', 'two\nlines']).code === 1, 'send: the quote must be one line');
+
+// ---- an archived chat is unarchived and the send retried once
+const archived = path.join(FIX, 'archived.flag');
+fs.writeFileSync(archived, SCALE);
+let before = calls().length;
+r = relay(['send', 'scale'], { FAKE_CODEX_ARCHIVED: archived });
+c = calls().slice(before);
+check(r.code === 0 && /unarchived Codex chat/.test(r.out), 'send: an archived chat is unarchived and the send goes through');
+check(c.map((a) => a[0]).join() === 'queue,unarchive,queue' && c[1][1] === SCALE, 'send: queue, unarchive <uuid>, queue again');
+relay(['add', 'titled', 'Some title']);
+fs.writeFileSync(archived, GOKU);
+before = calls().length;
+r = relay(['send', 'titled'], { FAKE_CODEX_ARCHIVED: archived });
+c = calls().slice(before);
+check(r.code === 0 && c[1]?.[0] === 'unarchive' && c[1][1] === GOKU, 'send: a lane mapped by title unarchives the id the error names');
 
 // ---- ring and wait
 r = relay(['wait', 'scale', '--timeout', '300ms', '--interval', '50ms']);
-check(r.code === 2 && /no ring/.test(r.out), 'wait: times out with exit 2 when Codex has not rung');
+check(r.code === 2 && /no ring/.test(r.out) && /still Codex's turn: start the watcher again/.test(r.out), 'wait: times out with exit 2 and says to restart while it is Codex\'s turn');
 check(!fs.existsSync(path.join(HOME, 'scale', 'watcher.json')), 'wait: a timed-out watcher leaves no heartbeat');
 r = relay(['ring', 'scale', '--note', 'Naruto calibration returned at 0725f44']);
-check(r.code === 0 && state('scale', 'ring').seq === 1, 'ring: writes the doorbell (#1)');
+const scaleRing = state('scale', 'ring').seq;
+check(r.code === 0, 'ring: writes the doorbell');
 // The ring landed before the watcher started: it must still wake.
 r = relay(['wait', 'scale', '--timeout', '5s', '--interval', '50ms']);
-check(r.code === 0 && /Codex rang lane scale \(#1/.test(r.out) && r.out.includes('0725f44'), 'wait: an earlier ring wakes it at once with the note');
-check(state('scale', 'seen').seq === 1, 'wait: records the ring as read');
+check(r.code === 0 && r.out.includes(`Codex rang lane scale (#${scaleRing}`) && r.out.includes('0725f44'), 'wait: an earlier ring wakes it at once with the note');
+check(state('scale', 'seen').seq === scaleRing, 'wait: records the ring as read');
 r = relay(['wait', 'scale', '--timeout', '200ms', '--interval', '50ms']);
-check(r.code === 2, 'wait: a read ring does not wake it twice');
+check(r.code === 2 && !/still Codex's turn/.test(r.out), 'wait: a read ring does not wake it twice (and no restart hint on Claude\'s turn)');
 const late = spawnSync(process.execPath, ['-e', `
   const { spawn } = require('node:child_process');
   const env = { ...process.env, RELAY_HOME: ${JSON.stringify(HOME)} };
@@ -125,13 +186,24 @@ const late = spawnSync(process.execPath, ['-e', `
   w.on('exit', (code) => { console.log(JSON.stringify({ code, out })); });
 `], { encoding: 'utf8' });
 const lateResult = JSON.parse(late.stdout.trim().split('\n').pop() || '{}');
-check(lateResult.code === 0 && /#2 .*late/.test(lateResult.out), 'wait: a ring while it watches wakes it');
+check(lateResult.code === 0 && new RegExp(`#${scaleRing + 1} .*late`).test(lateResult.out), 'wait: a ring while it watches wakes it');
 // Claude read a ring by hand (no watcher), then sent: the next watcher waits for Codex's reply to that send.
 relay(['ring', 'goku', '--note', 'read by hand']);
 const seenSeq = (lane) => (fs.existsSync(path.join(HOME, lane, 'seen.json')) ? state(lane, 'seen').seq : 0);
 check(relay(['send', 'goku']).code === 0 && seenSeq('goku') === state('goku', 'ring').seq, 'send: answers every ring before it');
 r = relay(['wait', 'goku', '--timeout', '200ms', '--interval', '50ms']);
 check(r.code === 2, 'wait: a ring answered by a send does not wake the next watcher');
+
+// ---- remove
+relay(['add', 'scratch', GOKU]);
+check(relay(['remove', 'scratch']).code === 0 && !JSON.parse(fs.readFileSync(path.join(HOME, 'lanes.json'), 'utf8')).scratch, 'remove: forgets the lane');
+check(relay(['remove', 'scratch']).code === 1, 'remove: an unknown lane is an error');
+relay(['add', 'busy', GOKU]);
+fs.mkdirSync(path.join(HOME, 'busy'), { recursive: true });
+fs.writeFileSync(path.join(HOME, 'busy', 'watcher.json'), JSON.stringify({ pid: 1, lastCheck: new Date().toISOString() }));
+check(relay(['remove', 'busy']).code === 1 && fs.existsSync(path.join(HOME, 'busy')), 'remove: refused while a watcher runs');
+fs.rmSync(path.join(HOME, 'busy', 'watcher.json'));
+check(relay(['remove', 'busy']).code === 0 && !fs.existsSync(path.join(HOME, 'busy')), 'remove: its state goes with it');
 
 // ---- pause
 relay(['pause', 'scale']);

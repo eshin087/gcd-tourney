@@ -378,17 +378,18 @@ section's table when its strips are generated (the manifest gets the same entrie
 ## Beam clash struggle (ADR 0034)
 
 One optional strip for every fighter with an energy move (step 9): `beamStruggle` (3 frames, loop, 70 ms), braced and
-pushing the 1-bar energy technique into the other side's. Until a fighter's strip is packed, the clash shows `beamFire`.
+pushing the 1-bar energy technique into the other side's, and `beamStruggleAir` for a fighter with an air energy shot
+(the same, hovering). Until a fighter's strip is packed, the clash shows `beamFire` / the `throw` release frame.
 Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characters/BEAM_STRUGGLE_BRIEF.md)
 (ART-BEAM-CLASH). Luffy has no energy move and draws none.
 
-| fighter | beamStruggle | the technique | notes |
-|---|---|---|---|
-| naruto | v01 (technical hold) | Rasengan, two-handed push | strict scale gate failed: head 1.40x idle and feet 0.62x; estimated hand point also drifts across frames; no body sheet or Astra atlas audit |
-| sasuke | todo | Chidori Spear thrust (also plays for the air Great Fireball) | |
-| killua | todo | Narukami, open palm | |
-| gojo | todo | Reversal: Red at two fingertips, other hand in the pocket | |
-| goku | todo | Dragon Fist lunge | after his core art is on main |
+| fighter | beamStruggle | beamStruggleAir | the technique | notes |
+|---|---|---|---|---|
+| naruto | v01 (technical hold) | - | Rasengan, two-handed push | strict scale gate failed: head 1.40x idle and feet 0.62x; estimated hand point also drifts across frames; no body sheet or Astra atlas audit; no air energy shot |
+| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
+| killua | todo | todo | Narukami, open palm (in the air driven down) | |
+| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)
 
@@ -696,3 +697,15 @@ Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; spec
 
 Killua latest QA: specialDown07 retained after final hair-only correction; diagnostic reference28 ok/8 unmeasured/5 flagged. Block151/specialUp197 measured fits retained after peer anatomy review. Full production remains blocked; no new image approved.
 Title-style pilot v01: all four sheets and neutral/combat lineups approved by user 2026-10-11. Full animation production authorized; new strips require final review. Original down/KO poses retained with new style.
+
+
+## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
+
+| Fighter | Asset | Latest | Status | Approved | Notes |
+|---|---|---|---|---|---|
+| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
+| Sasuke | super_fg | v01 (rejected) | raw | — | Kirin; user rejected via Claude relay effects #3; source archived. |
+| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
+| Sasuke | ult_fg | v01 (rejected) | raw | — | Amaterasu; user rejected via Claude relay effects #3; source archived. |
+
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved; foreground technical holds remain documented. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).

@@ -4,6 +4,7 @@ import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
 import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { GroundDamage } from './ground.js';
+import { Sigils } from './sigil.js';
 
 const VERT = /* glsl */ `
   uniform vec4 uvRect;
@@ -82,6 +83,7 @@ export class Effects {
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
     this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
+    this.sigils = new Sigils(scene); // Sharingan / Mangekyō behind an eye technique (ADR 0035)
   }
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
@@ -226,6 +228,7 @@ export class Effects {
 
   update(dt, camera) {
     camera.getWorldDirection(this.camFwd);
+    this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
     for (const [id, it] of this.keepers) {
       if (now - it.seenAt > 90) { it.life = -1; this.keepers.delete(id); }
@@ -306,6 +309,7 @@ export class Effects {
     this.items.length = 0;
     this.keepers.clear();
     this.ground.clear();
+    this.sigils.clear();
     for (const r of this.rocks) this.scene.remove(r.mesh);
     this.rocks.length = 0;
     for (const w of this.walls) {
@@ -366,6 +370,28 @@ export class Effects {
     }
   }
 
+  // MELEE CLASH (ADR 0038): two strikes meeting. A crisp contact star, sparks and arcs in both fighters' colors
+  // sprayed out of the contact point, a thin shockwave ring and speed lines; no white glow, so the frozen strikes
+  // stay readable. `power` grows the spray with the chain.
+  clashSpark(x, y, z, colA, colB, power = 1) {
+    const top = { depthTest: false, order: 8 };
+    this.spawn('star', x, y, z, { ...top, scale: 0.42 * power, color: 0xfff6e0, glow: 0.35 });
+    for (const col of [colA, colB]) {
+      this.spawn('spark', x, y, z, { ...top, scale: 0.6 * power, rot: Math.random() * Math.PI * 2, color: col, glow: 0.3 });
+      this.spawn('arc', x, y, z, { ...top, order: 7, scale: 0.7 * power, rot: Math.random() * Math.PI * 2, color: col, glow: 0.25, opacity: 0.85 });
+    }
+    this.spawn('ring', x, y, z, { ...top, order: 7, scale: 0.45, color: 0xf4f0ff, glow: 0.1, opacity: 0.75, grow: 4.5 * power, fade: true, life: 0.32 });
+    this.spawn('lines', x, y, z, { ...top, scale: 0.8 * power, color: 0xffffff, opacity: 0.35, rot: Math.random() * 6 });
+    const n = Math.round(6 + 3 * power);
+    for (let k = 0; k < n * 2; k++) {
+      const a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 4 * power;
+      this.spawn('star', x, y, z, {
+        ...top, scale: 0.16 + Math.random() * 0.08, vel: [Math.cos(a) * sp, Math.sin(a) * sp * 0.8 + 1.5, (Math.random() - 0.5) * sp],
+        grav: 10, life: 0.3 + Math.random() * 0.15, frame: 2, color: k % 2 ? colA : colB, glow: 0.45,
+      });
+    }
+  }
+
   // backwards-compatible helper
   hitSpark(x, y, z, big = false, color = 0xffffff) {
     this.hit(x, y, z, big ? 'heavy' : 'light', color);
@@ -401,6 +427,26 @@ export class Effects {
 
   smoke(x, y, z, scale = 1) {
     this.spawn('smoke', x, y, z, { scale: 1.1 * scale, flipX: Math.random() < 0.5 });
+  }
+
+  // a beam clash's finish (ADR 0034): a heavy hit in the side's color without the smash's white flash, and less smoke,
+  // so the loser still reads as they fly
+  clashBlast(x, y, z, color) {
+    this.spawn('glow', x, y, z, { scale: 0.8, color, life: 0.3, fade: true, grow: 1.4, depthTest: false, order: 6, opacity: 0.7, glow: 0.4 });
+    this.hit(x, y, z, 'heavy', color);
+    this.spawn('ring', x, 0.1, z, { scale: 1.6, color, order: 6, ms: 50, glow: 0.3 });
+    for (let k = 0; k < 3; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.4 + Math.random() * 0.4, z + (Math.random() - 0.5) * 1.2, 0.7);
+  }
+
+  // a held technique that won a beam clash against a stream from the air bursts up the line into them (ADR 0034): a few
+  // copies of it racing from the hand to the target, the lead one biggest
+  techBlast(kind, from, to, color) {
+    const name = kind === 'chidori' ? 'lightning' : kind === 'kiFist' ? 'glow' : 'orb';
+    const life = 0.12, vel = [(to.x - from.x) / life, (to.y - from.y) / life, (to.z - from.z) / life];
+    for (let k = 0; k < 3; k++) {
+      this.spawn(name, from.x, from.y, from.z, { scale: 0.75 - k * 0.18, vel, life: life + k * 0.03, color: kind === 'rasengan' || kind === 'rasenshuriken' ? 0xffffff : color, random: name === 'lightning', order: 8, glow: 0.6, depthTest: false });
+    }
+    this.spawn('ring', to.x, to.y, to.z, { scale: 1.1, color, depthTest: false, order: 8, glow: 0.5 });
   }
 
   explosion(x, y, z, color = 0xffb040) {
@@ -458,7 +504,8 @@ export class Effects {
   }
 
   // Charging aura: flame tongues + light streaks + glow, tinted per character.
-  // `front`: the share of flames drawn in front of the body (a power-up keeps them behind, so the fighter reads)
+  // `front`: the share of flames drawn in front of the body (a power-up keeps them behind, so the fighter reads).
+  // Under half power (a beam clash's thin aura) a frame may spawn no flame and never a light streak.
   auraTick(f, power = 1, camRight, front = 0.2) {
     // a mode can recolor the aura (Nine-Tails Cloak burns red-orange)
     const c = new THREE.Color(f.mode?.auraColor ?? f.def.color);
@@ -466,7 +513,7 @@ export class Effects {
     const back = this.camFwd;
     const p = f.renderPos || f.pos;
     const count = Math.random() < power % 1 ? Math.ceil(power) : Math.floor(power);
-    for (let k = 0; k < Math.max(1, count); k++) {
+    for (let k = 0; k < Math.max(power >= 0.5 ? 1 : 0, count); k++) {
       const off = (Math.random() - 0.5) * 1.15;
       const ahead = Math.random() < front;
       const d = ahead ? -0.25 : 0.35;
@@ -474,7 +521,7 @@ export class Effects {
         bottom: true, scale: (ahead ? 0.4 : 0.55) + Math.random() * 0.28, color: Math.random() < 0.35 ? core : c, vel: [0, 1.3, 0], opacity: ahead ? 0.5 : 0.8, order: ahead ? 4 : 1, glow: 0.12,
       });
     }
-    if (Math.random() < 0.6 * power) {
+    if (power >= 0.5 && Math.random() < 0.6 * power) {
       const off = (Math.random() - 0.5) * 1.6;
       this.spawn('streak', p.x + camRight.x * off + back.x * 0.2, p.y, p.z + camRight.z * off + back.z * 0.2, { bottom: true, scale: 0.7 + Math.random() * 0.35, color: core, vel: [0, 2.6, 0], order: front > 0.1 ? 4 : 1, glow: 0.35 });
     }
@@ -485,8 +532,10 @@ export class Effects {
     this.keep('aura' + f.index, 'glow', p.x + back.x * 0.4, p.y + 0.8, p.z + back.z * 0.4, { scale: 1.1 + Math.sin(performance.now() * 0.02) * 0.06, color: c, opacity: 0.28 * Math.min(1, power), order: 1, glow: 0.25 });
   }
 
-  // Signature move hand effects.
-  handTick(f, kind, phase, prog) {
+  // Signature move hand effects. `quiet`: held into a beam clash, where its halo would cover the holder; `pos`: where
+  // the clash holds it (the struggle line), instead of the frame's hand (ADR 0034)
+  handTick(f, kind, phase, prog, quiet = false, pos = null) {
+    const halo = quiet ? 0.45 : 1;
     const fx = f.face.x, fz = f.face.y;
     const P = f.renderPos || f.pos;
     // an art pack's drawn palm (anims.json `hand` / hit box) wins over the placeholder's tuned offsets
@@ -494,19 +543,19 @@ export class Effects {
     // the body draws scaled by depthK about its feet (SpriteActor.syncDepth, ENG-067), so the held effect scales its
     // offset and size with it to stay on the drawn palm; visual only, these positions never feed the simulation
     const k = f.actor?.depthK ?? 1;
-    const at = (fwd, up) => (H ? { x: P.x + fx * H.x * k, y: P.y + H.y * k, z: P.z + fz * H.x * k } : { x: P.x + fx * fwd * k, y: P.y + up * k, z: P.z + fz * fwd * k });
+    const at = (fwd, up) => (pos ? pos : H ? { x: P.x + fx * H.x * k, y: P.y + H.y * k, z: P.z + fz * H.x * k } : { x: P.x + fx * fwd * k, y: P.y + up * k, z: P.z + fz * fwd * k });
     if (kind === 'rasengan') {
       const s = (phase === 0 ? 0.25 + prog * 0.45 : 0.72) * k;
       const p = at(0.6, 0.72);
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.7 });
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45 * halo, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('star', p.x, p.y, p.z, { scale: 0.2, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     } else if (kind === 'rasenshuriken') {
       // a big wind orb ringed by spinning blades, held high in startup and thrust forward in active
       const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
       const s = (phase === 0 ? 0.3 + prog * 0.6 : 0.9) * k;
       this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, color: 0xe8f6ff, order: 9, glow: 0.8 });
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45, order: 3, glow: 1 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45 * halo, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('ring', p.x, p.y, p.z, { scale: s * 2.1, color: 0xffffff, glow: 0.6, life: 0.12, fade: true, order: 8 });
       if (Math.random() < 0.6) {
         const a = Math.random() * Math.PI * 2;
@@ -516,18 +565,18 @@ export class Effects {
       // Dragon Fist (Goku): golden ki wrapped round the fist, drawn back in startup and driven forward in active
       const p = phase === 0 ? at(-0.2, 0.8) : at(0.7, 0.85);
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.5, color: 0xffd84a, opacity: 0.55, order: 3, glow: 1 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.5, color: 0xffd84a, opacity: 0.55 * halo, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
       const p = phase === 2 ? at(0.7, 0.78) : at(-0.5, 0.32);
       const s = (phase === 0 ? 0.4 + prog * 0.5 : 0.9) * k;
-      const it = this.keep('hand' + f.index, 'lightning', p.x, p.y, p.z, { scale: s, color: 0xd8f0ff, order: 9, glow: 1.0 });
+      const it = this.keep('hand' + f.index, 'lightning', p.x, p.y, p.z, { scale: s * (quiet ? 0.6 : 1), color: 0xd8f0ff, order: 9, glow: quiet ? 0.5 : 1.0 });
       it.random = true;
       it.rot = Math.random() * 6.28;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.1, color: 0x5aa8ff, opacity: 0.5, order: 3, glow: 1 });
-      if (Math.random() < 0.6) {
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.1, color: 0x5aa8ff, opacity: 0.5 * halo, order: 3, glow: 1 });
+      if (Math.random() < (quiet ? 0.3 : 0.6)) {
         const a = Math.random() * Math.PI * 2;
-        this.spawn('lightning', p.x + Math.cos(a) * 0.3, p.y + Math.sin(a) * 0.3, p.z, { scale: 0.35, random: true, life: 0.08, color: 0xffffff, rot: a, order: 9, glow: 2 });
+        this.spawn('lightning', p.x + Math.cos(a) * 0.3, p.y + Math.sin(a) * 0.3, p.z, { scale: 0.35, random: true, life: 0.08, color: 0xffffff, rot: a, order: 9, glow: quiet ? 1 : 2 });
       }
     }
   }

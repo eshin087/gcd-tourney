@@ -25,7 +25,7 @@ export const FALLBACK = {
   hurtHighAlt: 'hurtHigh', hurtLowAlt: 'hurtLow',
   // beam clash struggle (ADR 0034): the clash plays it only when the sheet has its own strip, so this covers direct
   // lookups; the 3D placeholder bakes none
-  beamStruggle: 'beamFire',
+  beamStruggle: 'beamFire', beamStruggleAir: 'throw', // the clash holds throw's release frame when the strip is missing
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
@@ -183,8 +183,16 @@ export class SheetAsset {
 // complete; otherwise the character is baked from the procedural 3D rig.
 export async function loadFighterAsset(def, renderer = null) {
   const base = `/characters/${def.id}/`;
-  // hand-made UI art (portrait 96, cut-in 480x128, select 384) loads on its own: it can ship before the body sprites
-  const ui = () => (ART_MODE === 'procedural' ? [null, null, null] : Promise.all(['portrait', 'cutin', 'select'].map((n) => loadImage(`${base}${n}.png`))));
+  // hand-made UI art (portrait 96, cut-in 480x128, select 384, the super banner and ultimate splash layers of ADR
+  // 0035) loads on its own: it can ship before the body sprites. Every layer is optional (the HUD falls back).
+  const UI = ['portrait', 'cutin', 'select', 'super_bg', 'super_fg', 'ult_bg', 'ult_fg'];
+  const ui = async () => {
+    const im = ART_MODE === 'procedural' ? UI.map(() => null) : await Promise.all(UI.map((n) => loadImage(`${base}${n}.png`)));
+    const [portrait, cutin, select, superBg, superFg, ultBg, ultFg] = im;
+    const missing = UI.slice(3).filter((n, k) => !im[3 + k]);
+    if (ART_MODE !== 'procedural' && missing.length && missing.length < 4) console.info(`[sprites] ${def.id}: no ${missing.join(', ')} yet, the HUD falls back for those`);
+    return { portrait, cutin, select, super: { bg: superBg, fg: superFg }, ult: { bg: ultBg, fg: ultFg } };
+  };
   if (ART_MODE !== 'procedural') {
     try {
       const meta = await fetchArtJson(base + 'anims.json');
@@ -195,7 +203,7 @@ export async function loadFighterAsset(def, renderer = null) {
           const img = await loadImage(`${base}sheet.png?v=${Date.now()}`);
           if (img) {
             const asset = new SheetAsset(img, meta, 'custom');
-            [asset.portrait, asset.cutin, asset.select] = await ui();
+            Object.assign(asset, await ui());
             console.info(`[sprites] using custom sheet for ${def.id} (${Object.keys(meta.animations).length} animations${meta.complete ? '' : ', incomplete preview'})`);
             return asset;
           }
@@ -213,10 +221,10 @@ export async function loadFighterAsset(def, renderer = null) {
   console.info(`[sprites] baked ${def.id} from 3D in ${(performance.now() - t0).toFixed(0)} ms`);
   const asset = new SheetAsset(canvas, meta, 'procedural');
   // hand-made UI images may arrive before the body sprites
-  const [p, c, sel] = await ui();
-  asset.portrait = p || portrait;
-  asset.cutin = c || cutin;
-  asset.select = sel;
+  const u = await ui();
+  Object.assign(asset, u);
+  asset.portrait = u.portrait || portrait;
+  asset.cutin = u.cutin || cutin;
   return asset;
 }
 
@@ -366,11 +374,11 @@ export class SpriteActor {
     this.shadowTex.repeat.set(uv.z - uv.x, uv.w - uv.y);
   }
 
-  // Hand anchor of the frame on screen (or of `name`'s frames); see SheetAsset.hand.
-  hand(name = null) {
+  // Hand anchor of the frame on screen (or of `name`'s frame `i`); see SheetAsset.hand.
+  hand(name = null, i = 0) {
     if (!name) return this.asset.hand(this.anim, this.frame);
     const a = this.asset.anim(name);
-    return this.asset.hand(a, a?.frames?.[0]);
+    return this.asset.hand(a, a?.frames?.[Math.min(i, (a?.frames?.length ?? 1) - 1)]);
   }
 
   // Free-running playback (loops / one-shots).

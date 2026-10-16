@@ -4,7 +4,7 @@
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
-import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH, PROJECTILES } from './moves.js';
+import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH, PROJECTILES, ULTIMATE } from './moves.js';
 import { ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 
@@ -112,7 +112,12 @@ export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   f.invuln = (answer ? CLASH.answerFlash : S.flash) + 12;
   f.vel.set(0, 0, 0);
   f.faceOpponent();
-  f.game.onSuperStart(f, S, answer);
+  f.game.onSuperStart(f, S, answer, ultimate);
+  // an eye technique's sigil stays up through the flash (and the splash hold) into the move itself
+  if (S.sigil) {
+    const flash = answer ? CLASH.answerFlash : S.flash + (ultimate ? ULTIMATE.splashHold : 0);
+    f.game.fx.sigils.show(f, S.sigil, (flash + (S.delay ?? 0) + 30) / 60);
+  }
 }
 
 // ------------------------------------------------------------------ clashes (ADR 0017)
@@ -287,6 +292,7 @@ export function counterHit(f, att, m) {
   g.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 2, color: C.color ?? 0x9fd8ff, opacity: 0.6, glow: 1 });
   g.hud.callout(f.index, C.callout ?? 'COUNTER!', C.color ?? '#d8f2ff');
   g.fx.overlay.flash(C.color ?? '#d8f2ff', 0.35);
+  if (C.sigil) g.fx.sigils.burst(f); // the read: the pattern spins up and flares
   g.freeze = Math.max(g.freeze, 6);
   audio.play('block', 1.2);
   if (C.onCounter === 'behind') {
@@ -518,8 +524,11 @@ const START = {
     enter(f, { kind: 'counter', m }, m.anim);
     f.vel.set(0, 0, 0);
     f.counterT = m.len;
-    const p = f.pos;
-    f.game.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.1, color: m.color ?? 0xd8f2ff, glow: 0.8, order: 8 });
+    const p = f.pos, g = f.game;
+    g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.1, color: m.color ?? 0xd8f2ff, glow: 0.8, order: 8 });
+    // an eye technique (data: `sigil`, `eyeFlash`): the pattern behind the fighter for the stance, the eyes in the HUD
+    if (m.sigil) g.fx.sigils.show(f, m.sigil, (m.len + m.recovery) / 60);
+    if (m.eyeFlash) g.hud.eyeFlash(f.index, f.asset?.cutin, m.color ?? f.def.color);
     audio.play('flash', 0.6);
   },
 

@@ -82,6 +82,23 @@ approves the art:
 
 The `stream*` bands are laid end to end along the stream (the engine repeats them; column 0 continues column 127).
 
+### 5. Beam clashes from the air (amendment, the user's calls of 2026-10-15)
+
+The air clash looked broken: the airborne owner froze at jump height in a standing `beamFire` pose, a grounded rush
+answering it was dragged along the floor under the struggle point as the point climbed (Sasuke ended on Killua's side),
+the held Chidori trailed behind the body, the camera framed only the point, and a rush that won finished on the floor
+two units under the launched air fighter. Decided:
+
+- **The air owner eases down** to a low hover (`airHover` 1.1 over `airEase` 24 frames) and holds its air pose:
+  `beamStruggleAir` (a new optional strip, 3 frames, loop, 70 ms, FALLBACK `throw`), else the `throw` release frame.
+- **A grounded rush stays planted** (`placeAirRush`): it holds its technique up the stream line, the struggle point sits
+  `airTech` ahead of the drawn hand on the line to the air owner's hand, and the side losing ground is shoved: the rusher
+  back along the floor, the air owner back and up (`airPush`, `airLift`). Streams against streams keep the line model.
+- **A held technique is drawn where the stream meets it**, not at the frame's hand; a struggle rush shows its thrust frame.
+- **A rush that wins blasts up the line** (`Effects.techBlast`) into the air fighter; the rusher stays on the floor. A
+  stream that wins from the air aims through the loser's chest, and its owner keeps the air pose until it falls.
+- **The clash camera frames both bodies** (the vertical span widens and lifts the shot).
+
 ## Alternatives considered
 
 - **One beam ribbon styled per move** (colors and texture only): less work, but the user picked distinct shapes.
@@ -91,7 +108,8 @@ The `stream*` bands are laid end to end along the stream (the engine repeats the
 
 ## Consequences
 
-- One more optional strip for five fighters, and five effects, all through the normal approval queue. Until each is
+- One more optional strip for five fighters (`beamStruggle`) and one for the three with an air energy shot
+  (`beamStruggleAir`), and five effects, all through the normal approval queue. Until each is
   approved, the engine draws the stand-in (procedural effect, `beamFire` pose).
 - The fixes in section 1 ship without any art.
 - A new fighter with an energy move picks a `stream.style` and draws `beamStruggle`.

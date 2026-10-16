@@ -252,6 +252,13 @@ the packer paints magenta before it removes the background. The approved PNG sta
 line notes `erased N rect(s) of <file> (sidecar)`. A malformed or out-of-image rectangle is warned and
 skipped. Keep each rectangle off the figures: it erases whatever is inside it.
 
+### Mirroring a pose drawn the wrong way
+
+A character pose drawn facing the other way (a lying pose with the head at the wrong end compared with the strips
+around it) can be mirrored at pack time with `"flipX": true` in that version's sidecar. The packer mirrors each frame
+after splitting the strip, so the frame order stays the drawing's; the report notes `mirrored left-right (sidecar
+flipX)`. Character strips only. Mirroring also mirrors asymmetric costume details, so check the result.
+
 ## Hitbox tuning
 
 1. Pack, then preview the attack in game with `?art=custom` (and `?debug`, if the lead engineer
