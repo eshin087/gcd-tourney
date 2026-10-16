@@ -1,0 +1,181 @@
+{
+  "sourceCommit": "b8d800bdd676045730f4077d41bb41365a2bbbd3",
+  "hashes": {
+    "public\\characters\\naruto\\sheet.png": "57e7121351e064a0ca0e4b7d898f29b9739d9d71dfd6b15486f7b6f0f28a7e0f",
+    "public\\characters\\naruto\\anims.json": "e753b6da62a2bc78cff2c3966af33eb90db0a387a26ee639d7b5a267ed631ef6",
+    "art\\characters\\naruto\\raw\\light2Alt_v03.png": "0b3ec8ed9f7ac50d2350f56727158a558c17e66abb8cda85627f5d292db97d5f",
+    "art\\characters\\naruto\\raw\\light2Alt_v04.png": "447bd8842c27636bf0056f1672ac38df74676855363f023fc7388b28448e4d53",
+    "art\\characters\\naruto\\raw\\light2Alt_v04.json": "0bdbb90c577b67e862629aedce429dd57c2f990ef285465ee9d36b42810e0b28",
+    "art\\characters\\naruto\\raw\\light2Alt_02-03_fix01.png": "b00f0443bc3f512205cfdec263b50c6f7244043c30c1979125ade137153b42a3",
+    "public\\art-review\\title-style-pilot\\naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "public\\art-review\\title-style-pilot\\naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+  },
+  "sidecarByteEqualV03": true,
+  "rawDifferenceBounds": [
+    785,
+    45,
+    1665,
+    533
+  ],
+  "packedVersionMetadata": {
+    "head": 1.048,
+    "feet": 0.68,
+    "verdict": "ok",
+    "v": 4,
+    "frames": [
+      1.019,
+      1.047,
+      1.111,
+      1.087,
+      1.031,
+      1.048,
+      1.087
+    ],
+    "feetFrames": [
+      0.674,
+      0.739,
+      null,
+      null,
+      0.682,
+      0.68,
+      0.672
+    ],
+    "boxes": [
+      [
+        116,
+        67,
+        147,
+        83
+      ],
+      [
+        123,
+        58,
+        154,
+        76
+      ],
+      [
+        121,
+        66,
+        154,
+        84
+      ],
+      [
+        120,
+        67,
+        152,
+        85
+      ],
+      [
+        141,
+        61,
+        171,
+        78
+      ],
+      [
+        118,
+        66,
+        150,
+        84
+      ],
+      [
+        121,
+        67,
+        154,
+        85
+      ]
+    ]
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "atlasIndex": 182,
+      "rgbaSha256": "c045dffa7c5613575760a069ea1ab57698e7a63369b9752cbe71f31c1e590eb0",
+      "bounds": [
+        54,
+        64,
+        202,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 0,
+      "boxesEqualBase": true
+    },
+    {
+      "frame": 1,
+      "atlasIndex": 183,
+      "rgbaSha256": "62a949bca894cd8197621d31449854c72bcc691efeebf44041a9c96b0231706f",
+      "bounds": [
+        90,
+        56,
+        202,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 0,
+      "boxesEqualBase": true
+    },
+    {
+      "frame": 2,
+      "atlasIndex": 184,
+      "rgbaSha256": "36f91cf666235840ddbd114cef5618b3f9d395b487c653a0d24537bbd5a7df08",
+      "bounds": [
+        87,
+        64,
+        250,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 1284,
+      "boxesEqualBase": true
+    },
+    {
+      "frame": 3,
+      "atlasIndex": 185,
+      "rgbaSha256": "b3d39f778d55a81fdc09137648aa12fbc5d955e048ab19fafc629408e60ee0be",
+      "bounds": [
+        86,
+        65,
+        230,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 923,
+      "boxesEqualBase": true
+    },
+    {
+      "frame": 4,
+      "atlasIndex": 186,
+      "rgbaSha256": "0a5cad12f14c60a5639e48bf3582a63a9fa4001d0e8d86d092c12147d9690a76",
+      "bounds": [
+        105,
+        59,
+        195,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 0,
+      "boxesEqualBase": true
+    },
+    {
+      "frame": 5,
+      "atlasIndex": 187,
+      "rgbaSha256": "43f111b3c14294ff1a8512421b3e0ab83d45f9c016e3bf3a86ec17e062d8f9ec",
+      "bounds": [
+        62,
+        64,
+        196,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 0,
+      "boxesEqualBase": true
+    },
+    {
+      "frame": 6,
+      "atlasIndex": 188,
+      "rgbaSha256": "6764e472c18e8e9bd3bf1dce20d6fd62ecc5c84cb3881ac8c7db1e1ec8d9f56d",
+      "bounds": [
+        55,
+        65,
+        203,
+        241
+      ],
+      "occupancyDifferencePixelsVsV03": 0,
+      "boxesEqualBase": true
+    }
+  ]
+}
