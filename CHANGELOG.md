@@ -12,6 +12,16 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - art(killua): Charge14/down08/ko09 sources filed; normal scale gate fails; diagnostic-only atlas for Astra. Charge used one unauthorized duplicate call, quarantined and excluded; first authorized output retained.
+- Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
+
+- docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
+
+- Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
+- Fixed: `npm run pr -- merge` names its own merge commit in the revert hint, finishes the worktree cleanup and the deploy when the GitHub publish fails (with a warning), and says which worktree holds a branch it cannot delete (TOOL-038).
+
+- docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
+- Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
+- Changed: while a new idle candidate is the newest raw, the scale gate measures every strip (and the candidate idle) against the approved idle instead, so a pending idle no longer moves head numbers or auto head fits (TOOL-040; art/CHARACTER_SCALE.md).
 
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
 

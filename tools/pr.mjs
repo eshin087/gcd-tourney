@@ -24,7 +24,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead } from './pr-guard.mjs';
+import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead, worktreeHolding } from './pr-guard.mjs';
 
 // The main checkout, wherever this copy of the script lives (it also runs from inside a worktree).
 const ROOT = path.dirname(execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
@@ -140,19 +140,32 @@ function merge() {
     die('merge refused: another session has uncommitted edits on main in files this branch changes. ' +
       'Ask it to commit or move them to its own branch, then retry.');
   }
-  sh('node', [path.join(ROOT, 'tools', 'publish.mjs')], ROOT);
+  // read right after the merge: another agent's commit landing on main during the publish must not become the revert hint
+  const mergeCommit = git(['rev-parse', '--short', 'HEAD']);
+  // A failed publish (GitHub unreachable, a non-fast-forward) does not undo the merge: say so, then finish the cleanup and
+  // the deploy instead of stopping half way (TOOL-038)
+  let published = true;
+  try { sh('node', [path.join(ROOT, 'tools', 'publish.mjs')], ROOT); } catch {
+    published = false;
+    console.warn('[pr] merged, but the GitHub publish failed (see above): GitHub shows the PR open until `npm run publish:github` succeeds');
+  }
   const dir = worktreeDir(branch);
   if (fs.existsSync(dir)) {
-    try { git(['worktree', 'remove', dir], ROOT, true); } catch { console.warn(`[pr] left ${dir} (uncommitted files in it)`); }
+    try { git(['worktree', 'remove', dir], ROOT, true); } catch { console.warn(`[pr] left ${dir}: git could not remove it (uncommitted files, or a file still open there); \`git worktree remove\` it later`); }
   }
-  try { git(['branch', '-d', branch], ROOT, true); } catch { /* still checked out somewhere */ }
-  const mergeCommit = git(['rev-parse', '--short', 'HEAD']);
+  const holder = worktreeHolding(git(['worktree', 'list', '--porcelain']), branch);
+  if (holder) console.log(`[pr] kept branch ${branch}: it is checked out in ${holder} (delete it once that worktree is done)`);
+  else {
+    try { execFileSync('git', ['branch', '-d', branch], { cwd: ROOT, stdio: 'pipe' }); } catch (e) {
+      console.warn(`[pr] kept branch ${branch}: ${String(e.stderr || e.message).trim().split('\n')[0]}`);
+    }
+  }
   // The user's call (2026-10-10): a merge should be live, not only on GitHub. Vercel isn't wired to the slim
   // GitHub copy, so the merge deploys the merged main itself. A failed deploy never undoes the merge.
   if (flag('--no-deploy')) console.log('[pr] skipped the production deploy (--no-deploy): run `npm run deploy` when ready');
   else {
     try { sh('node', [path.join(ROOT, 'tools', 'deploy.mjs')], ROOT); } catch {
-      console.warn('[pr] merged and published, but the production deploy failed: run `npm run deploy` from the main checkout');
+      console.warn(`[pr] merged${published ? ' and published' : ''}, but the production deploy failed: run \`npm run deploy\` from the main checkout`);
     }
   }
   console.log(`[pr] merged ${branch}. Revert later with: git revert -m 1 ${mergeCommit}`);

@@ -44,6 +44,8 @@ export const ANIM_GUIDE = {
   specialUp: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'up special: a leap or rising anti-air technique' },
   specialDown: { frames: 4, phases: [2, 1, 1], optional: true, pose: 'down special: a power-up or a calm defensive stance' },
   superPose: { frames: 4, loop: true, optional: true, pose: 'second super activation pose (the cut-in moment)' },
+  // beam clash struggle (ADR 0034): optional for every fighter with an energy move; missing -> beamFire
+  beamStruggle: { frames: 3, loop: true, optional: true, pose: 'beam clash struggle: braced and straining, pushing the energy technique forward in the hand(s) against the opponent\'s, front knee bent, back leg driving, hair and clothes blown back' },
   // tech recoveries (ADR 0030): optional for every fighter; missing ones fall back to the poses the engine showed
   // before (FALLBACK, src/game/techAnim.js). The engine plays them on the tech state's own clock (DEFENSE animPhases in
   // src/game/moves.js), so `phases` here are art frames per beat: contact, main motion, settle.

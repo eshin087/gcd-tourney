@@ -174,6 +174,8 @@ Stops:  an image waits for approval, BLOCKED, a decision for the user, 4 round t
 - If `codex queue` fails, Claude gives the user the paste-in prompt, as before. `npm run relay -- status` shows
   whose turn each lane is, its round trips and whether a watcher is running.
 
+Every chat and subagent must perform the mandatory Claude handoff check in [AGENTS.md](../AGENTS.md) at session start and before finishing, using main's current rules/inbox and relay status. The owning chat sends required handbacks without a user reminder. Explicit review-ready notifications report "awaiting user approval; do not proceed" without authorizing another production round.
+
 ### Art review loop (every generated image)
 
 ```

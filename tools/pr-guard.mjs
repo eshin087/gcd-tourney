@@ -79,6 +79,18 @@ export function resolveHead(root, base, branch) {
   return { head: branch, base: mb.status === 0 ? mb.stdout.trim() : base, merged: false };
 }
 
+// The worktree that has <branch> checked out, from `git worktree list --porcelain` output (null when none). `pr merge`
+// cannot delete such a branch (an app-managed worktree, or one kept for more work), so it says where the branch lives
+// instead of passing on git's refusal (TOOL-038).
+export function worktreeHolding(porcelain, branch) {
+  let wt = null;
+  for (const line of String(porcelain).split(/\r?\n/)) {
+    if (line.startsWith('worktree ')) wt = line.slice('worktree '.length);
+    else if (line === `branch refs/heads/${branch}`) return wt;
+  }
+  return null;
+}
+
 // ------------------------------------------------------------------ arguments
 const VALUE_FLAGS = ['--title', '--force-art', '--art'];
 // The first bare argument that is not the value of an option (the reason of --force-art must never become the branch).
