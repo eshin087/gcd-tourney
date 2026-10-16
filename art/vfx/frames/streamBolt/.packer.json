@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/streamBolt_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/streamBolt_v01.png",
+    "vfx/raw/streamBolt.json"
+  ],
+  "sourceHash": "bf93e3a38cabf783342a0161496a024dc7663832",
+  "files": {
+    "streamBolt_00.png": "c2bcf1841a39646c7eb40a86230aafcb18debaaa",
+    "streamBolt_01.png": "f338c0c227cc5296424ac27d0bc74d3d03cd21c8",
+    "streamBolt_02.png": "f92ec2b4649b30d4255e9c20887bc55387e46ec5",
+    "streamBolt_03.png": "9f2244ba16f09a008fd27d47e1193bb97112c82f"
+  }
+}
