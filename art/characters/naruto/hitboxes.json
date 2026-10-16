@@ -18,5 +18,7 @@
   "specialForward": {"0": {"hand": [164, 44]}, "1": {"hand": [166, 55]}, "2": {"hand": [242, 114]}, "3": {"hand": [242, 114]}},
   "throw": {"1": {"hand": [216, 124]}, "2": {"hand": [207, 158]}, "_refit": "scaled x1.0277 about the pivot with the strip's bodyHeight 163 -> 168 (size consistency pass, 2026-10-11)"},
   "beamCharge": {"0": {"hand": [100, 153]}, "1": {"hand": [99, 153]}, "2": {"hand": [99, 154]}, "_refit": "scaled x0.9804 about the pivot with the strip's bodyHeight 174 -> 171 (size consistency pass, 2026-10-11)"},
-  "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}}
+  "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}},
+  "beamStruggle": {"0": {"hand": [238, 97]}, "1": {"hand": [218, 94]}, "2": {"hand": [241, 82]}},
+  "_beamStruggle": "Approximate fingertip/palm centers on the diagnostic 48-color pack (about +/-4 px): [238,97], [218,94], [241,82]. The spread exceeds the required 6 px stability and frames 1-2 miss the specified contact zone; technical hold, do not ship."
 }

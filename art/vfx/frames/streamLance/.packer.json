@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/streamLance_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/streamLance_v01.png",
+    "vfx/raw/streamLance.json"
+  ],
+  "sourceHash": "0731ff98e28861a8ea2bb7cea55760f1e0d1cdfb",
+  "files": {
+    "streamLance_00.png": "8f609d29627c7cf0e1363f33f245cd60aae0ca70",
+    "streamLance_01.png": "20f72b34357485387fa81f7a30d70027d6b5daea",
+    "streamLance_02.png": "0125f86efda6301bfaaaa17f39fcfd5f62313697",
+    "streamLance_03.png": "4d80fdffe1edc4d6e030a2f3bdd8cbba71e8d966"
+  }
+}

@@ -384,7 +384,7 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 
 | fighter | beamStruggle | the technique | notes |
 |---|---|---|---|
-| naruto | todo | Rasengan, two-handed push | |
+| naruto | v01 (technical hold) | Rasengan, two-handed push | strict scale gate failed: head 1.40x idle and feet 0.62x; estimated hand point also drifts across frames; no body sheet or Astra atlas audit |
 | sasuke | todo | Chidori Spear thrust (also plays for the air Great Fireball) | |
 | killua | todo | Narukami, open palm | |
 | gojo | todo | Reversal: Red at two fingertips, other hand in the pocket | |
@@ -438,11 +438,11 @@ ones.
 | ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
-| clashBurst | 6 | 45 | white (tinted) | center | todo | - | - | Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
-| streamBolt | 4 | 40 | white (tinted) | center, tiles | todo | - | - | Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
-| streamLance | 4 | 40 | white (tinted) | center, tiles | todo | - | - | Beam clash: Chidori Spear stream band; exact tiles. |
-| streamFlame | 4 | 50 | full color | center, tiles | todo | - | - | Beam clash: Great Fireball stream band; exact tiles. |
-| redOrb | 6 | 40 | full color | center | todo | - | - | Beam clash: Reversal: Red held in a struggle. |
+| clashBurst | 6 | 45 | white (tinted) | center | packed | v01 | - | Beam clash (ADR 0034, ART-BEAM-CLASH): 2 calls; candidate pack passed with no effect warning. |
+| streamBolt | 4 | 40 | white (tinted) | center, tiles | packed | v01 | - | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked. |
+| streamLance | 4 | 40 | white (tinted) | center, tiles | packed | v01 | - | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked. |
+| streamFlame | 4 | 50 | full color | center, tiles | packed | v01 | - | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked. |
+| redOrb | 6 | 40 | full color | center | packed | v01 | - | Beam clash: 1 call; candidate pack passed with no effect warning. |
 
 ## Shared UI (step 11)
 
