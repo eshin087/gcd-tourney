@@ -702,21 +702,9 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 
 | Fighter | Asset | Latest | Status | Approved | Notes |
 |---|---|---|---|---|---|
-| Sasuke | super_bg | v01 | approved | v01 | Kirin; review page; not packed. |
-| Sasuke | super_fg | v01 | approved | v01 | Kirin; Astra technical HOLD. |
-| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; review page; not packed. |
-| Sasuke | ult_fg | v01 | approved | v01 | Amaterasu; Astra technical HOLD. |
-
-All four v01 candidates are user-approved for the in-game preview; engine integration remains pending. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
-
-
-## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
-
-| Fighter | Asset | Latest | Status | Approved | Notes |
-|---|---|---|---|---|---|
 | Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
-| Sasuke | super_fg | v01 | approved | v01 | Kirin; Astra technical HOLD. |
+| Sasuke | super_fg | v01 (rejected) | raw | — | Kirin; user rejected via Claude relay effects #3; source archived. |
 | Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
-| Sasuke | ult_fg | v01 | approved | v01 | Amaterasu; Astra technical HOLD. |
+| Sasuke | ult_fg | v01 (rejected) | raw | — | Amaterasu; user rejected via Claude relay effects #3; source archived. |
 
-User approved all four v01 images on 2026-10-15 for in-game preview; the backdrop approvals were explicitly confirmed via Claude relay effects #2. Foreground Astra technical holds remain documented; preview approval is not a technical pass. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved; foreground technical holds remain documented. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
