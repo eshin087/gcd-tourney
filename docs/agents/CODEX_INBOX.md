@@ -185,6 +185,48 @@ the Astra anatomy audit remains pending and does not block the recorded image ap
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
+## Gojo dashes in the run's pose (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**Status:** run v14 is live. The user approved it via the desk, Astra passed it, and Claude merged it (`c4b04539`) and
+deployed it. **The user decided earlier (in Claude's chat, 2026-10-15) that the dashes retry after the run: 3 new tries
+each, with the finished run as the reference.** No image is approved by this item.
+
+Reference image for every call: `art/characters/gojo/raw/_parts/run_v14_A.png` (the approved run poses), plus the
+approved title_style / title_neutral / idle cells for anatomy. Same look as the run: **far (L) hand in his pocket**,
+**near (R) arm bent with the fist forward**, navy jacket and trousers, black shoes, blindfold, lazy smile. No effects.
+
+Lessons from phase 2 (raw/_qa_hold/ dash v07-v09, backDash v05-v06, superDash v10-v11): the near arm vanished behind
+the torso in a frame (dash v09 f1), and the torso came out short. **The fist must stay visible in every frame**, and the
+torso/legs should match the run's proportions. Don't worry about the horizontal head drift between frames: Claude sets
+the per-frame offsets at packing.
+
+- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-dashes --art gojo` (dev port 5244). Work only there.
+- [ ] 2. **dash** `raw/dash_v10.png` (2 frames, loop, ≤3 calls): a low burst lunge, the run's f0 contact pose pushed
+  lower and longer (lean ~45°, lead knee driven forward, back leg extended, fist forward). f1: the stride a little
+  wider, hem flutter.
+- [ ] 3. **backDash** `raw/backDash_v07.png` (3 frames, ≤3 calls): a quick hop back, still facing right. f0 push-off,
+  f1 airborne with knees tucked (hair and hem whip forward), f2 landing on the back foot. Fist forward, pocket hand
+  pocketed in all three.
+- [ ] 4. **superDash** `raw/superDash_v12.png` (2 frames, loop, ≤3 calls): the run's f3 flight pose stretched into blur
+  speed, the body angled ~30° up along the flight line, lead knee forward-up, back leg extended, fist forward, hair
+  flattened back. About 230 x 140 px after packing, inside x 4..251. f1: limbs 2-4 px further apart, hem flutter.
+- [ ] 5. Set each manifest `version` with status `needs review` (leave `approvedVersion`, `bodyHeight`, offsets and hit
+  boxes to Claude), update ANIMATIONS.md §dash/§backDash/§superDash to what you drew, and pack with `--quantize 48`.
+  Strips that fail the scale gate after their budget go to `raw/_qa_hold/` with the reason.
+- [ ] 6. Astra/medium audits every frame and loop in the packed atlas (fist visible, pocket hand, torso/limbs vs the
+  approved cells). Luna fixes holds within the remaining budget; Astra rechecks.
+- [ ] 7. Review rows (`needs review`), commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the
+  branch's docs/agents/CLAUDE_ART_HANDOFF.md (per-strip version, calls used, heights, Astra verdict, preview link),
+  then `node tools/relay.mjs ring gojo-run --note "<one line>"` from main **for Claude** (Claude sets the offsets and
+  checks the boxes before the review goes to the desk).
+
+Rules: Luna/medium for generation; Astra/medium for the audit. Edit only art/characters/gojo/**, public/reviews/**
+for Gojo, public/characters/gojo/** via the packer, the gojo block of art/manifest.json and the "## gojo" section of
+art/TRACKER.md. Never overwrite an existing `_vNN`; no merge, no production deploy, no approvals. Blocked: write
+BLOCKED under the item and in NOW.md, and ring the desk (`--for user --kind blocked`).
+
+---
+
 ## Gojo run v13: Astra audit before merge (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
 **Follow-up, 2026-10-15:** the v14 recheck was completed at source commit `65ff1ea1` and recorded on branch
