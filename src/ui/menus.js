@@ -63,10 +63,11 @@ const NO_COVER = Object.freeze({ x: 0, y: 0 }); // resultsCover() off the result
 
 // SELECT MODE rows in display order. modeIndex() reads the same table, so a new row can't desync the
 // cursor a screen returns to (a hard-coded index went stale when CPU VS CPU was added). The ids of the
-// first three rows are the charSelect / startMatch mode strings.
+// fight rows (solo, versus, cpu) are the charSelect / startMatch mode strings.
 const MODES = [
   { id: 'solo', label: 'VS CPU', sub: 'fight the computer' },
   { id: 'versus', label: '2 PLAYERS', sub: 'same keyboard or two gamepads' },
+  { id: 'online', label: 'ONLINE', sub: 'a room for you and your friends · watch while you wait' },
   { id: 'cpu', label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out' },
   { id: 'training', label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind' },
   { id: 'sprites', label: 'SPRITE LAB', sub: 'preview & export sprite sheets' },
@@ -176,7 +177,7 @@ export class Menus {
       back: opts.back ? () => { audio.play('ui'); opts.back(); } : null,
       pause: opts.back ? () => opts.back() : null,
     };
-    return { box, ctrl };
+    return { box, ctrl, refresh: render };
   }
 
   // ------------------------------------------------------------ screens
@@ -217,6 +218,7 @@ export class Menus {
     // rows without an entry here are fight modes: they go to character select
     const act = {
       training: () => this.game.startTraining(),
+      online: () => this.game.openOnline(),
       sprites: () => window.open('/sprites.html', '_blank'),
     };
     const { box, ctrl } = this.list(
@@ -521,6 +523,113 @@ export class Menus {
     };
     showSide(1, null);
     render();
+  }
+
+  // ------------------------------------------------------------ online (ADR 0036, ENG-094; the logic is net/online.js)
+  // your name and a room code: create a room or join one (code: from an invite link, JOIN is then selected)
+  onlineEntry(online, code = '') {
+    this.clear();
+    this.screen = 'online-entry';
+    this.root.classList.add('panel-screen', 'online-screen');
+    this.root.append(el('div', 'screen-title', 'ONLINE'));
+    const field = (label, input) => {
+      const f = el('label', 'on-field');
+      f.append(el('span', '', label), input);
+      return f;
+    };
+    const input = (cls, value, max, placeholder) => {
+      const i = el('input', 'on-input ' + cls);
+      Object.assign(i, { value, maxLength: max, placeholder, autocomplete: 'off', spellcheck: false });
+      return i;
+    };
+    const name = input('on-name', online.name, 16, 'your name');
+    const room = input('on-code', code, 5, 'CODE');
+    room.autocapitalize = 'characters';
+    room.addEventListener('input', () => { room.value = room.value.toUpperCase(); });
+    const form = el('div', 'on-form');
+    form.append(field('YOUR NAME', name), field('ROOM CODE', room));
+    const msg = el('div', 'on-msg');
+    msg.textContent = online.error || (online.available ? '' : 'Online play is not set up yet.');
+    const create = () => { online.setName(name.value); online.create(); };
+    const join = () => { online.setName(name.value); online.join(room.value); };
+    const { box, ctrl } = this.list([
+      { label: 'CREATE A ROOM', sub: 'then send your friends the invite link', action: create },
+      { label: 'JOIN A ROOM', sub: 'with the code a friend sent you', action: join },
+    ], { index: code ? 1 : 0, back: () => this.modeSelect(this.modeIndex('online')) });
+    // Enter in a field: join with a code, else create
+    for (const i of [name, room]) i.addEventListener('keydown', (e) => { if (e.key === 'Enter') (room.value.trim() ? join : create)(); });
+    this.root.append(form, msg, box);
+    this.ctrl = ctrl;
+  }
+
+  // connecting
+  onlineWait(online, text) {
+    this.clear();
+    this.screen = 'online-wait';
+    this.root.classList.add('panel-screen', 'online-screen');
+    this.root.append(el('div', 'screen-title', text));
+    const { box, ctrl } = this.list([{ label: 'CANCEL', action: () => online.leaveRoom() }], { back: () => online.leaveRoom() });
+    this.root.append(box);
+    this.ctrl = ctrl;
+  }
+
+  // The room between matches (or over a match being watched: overlay): who is here, who plays, the line, your
+  // fighter and whether you queue. onlineRefresh() repaints it on every room update without moving the cursor.
+  onlineRoom(online, overlay = false) {
+    this.clear();
+    this.screen = 'online-room';
+    this.root.classList.add('panel-screen', 'online-screen');
+    if (overlay) this.root.classList.add('dim');
+    const roster = this.game.roster, assets = this.game.rosterAssets;
+    const fighterName = (id) => roster.find((c) => c.id === id)?.name ?? id;
+    const title = el('div', 'screen-title', `ROOM ${online.code}`);
+    const status = el('div', 'on-status');
+    const members = el('div', 'on-members');
+    const { box, ctrl, refresh } = this.list([
+      { label: () => `FIGHTER: ◀ ${fighterName(online.fighter).toUpperCase()} ▶`, cycle: (d) => online.cycleFighter(d) },
+      { label: () => `PLAY: ◀ ${online.play ? 'YES, IN LINE' : 'NO, JUST WATCH'} ▶`, cycle: () => online.setPlay(!online.play) },
+      { label: 'INVITE A FRIEND', sub: online.inviteUrl().replace(/^https?:\/\//, ''), action: () => online.invite() },
+      ...(overlay ? [{ label: 'BACK TO THE MATCH', action: () => online.menuKey() }] : []),
+      { label: 'LEAVE ROOM', action: () => online.leaveRoom() },
+    ], { cls: 'on-actions', back: overlay ? () => online.menuKey() : null });
+    const cols = el('div', 'on-cols');
+    cols.append(members, box);
+    this.root.append(title, status, cols);
+    this.ctrl = ctrl;
+    const paint = () => {
+      const R = online.room;
+      if (!R) return;
+      const playing = R.match?.players ?? [];
+      const order = (m) => (playing.includes(m.id) ? playing.indexOf(m.id) : R.queue.includes(m.id) ? 2 + R.queue.indexOf(m.id) : 1e3);
+      const names = (ids) => ids.map((id) => R.members.find((m) => m.id === id)?.name ?? '?').join(' vs ');
+      status.textContent = online.note
+        || (R.match ? `NOW: ${names(playing)}`
+          : R.queue.length >= 2 ? `NEXT: ${names(R.queue.slice(0, 2))}`
+          : R.members.length < 2 ? 'Waiting for a second player: send the invite link'
+          : 'Waiting for a second player to get in line');
+      members.innerHTML = '';
+      for (const m of [...R.members].sort((a, b) => order(a) - order(b))) {
+        const q = R.queue.indexOf(m.id);
+        const role = playing.includes(m.id) ? 'PLAYING'
+          : q < 0 ? 'WATCHING'
+          : !R.match && R.queue.length < 2 ? 'READY'
+          : (R.match ? q === 0 : q < 2) ? 'NEXT' : `IN LINE ${R.match ? q + 1 : q}`;
+        const row = el('div', 'on-row' + (m.id === online.you ? ' me' : '') + (playing.includes(m.id) ? ' live' : ''));
+        const i = roster.findIndex((c) => c.id === m.fighter);
+        const pic = i >= 0 ? portraitCanvas(assets[i], 22) : el('span', 'on-pic');
+        const who = el('div', 'on-who');
+        const nm = el('b');
+        nm.textContent = m.name + (m.id === online.you ? ' (you)' : '');
+        const sub = el('small');
+        sub.textContent = fighterName(m.fighter) + (m.wins ? ` · ${m.wins} win${m.wins > 1 ? 's' : ''}` : '') + (m.streak > 1 ? ` · ${m.streak} in a row` : '');
+        who.append(nm, sub);
+        row.append(pic, who, el('span', 'on-role', role));
+        members.append(row);
+      }
+      refresh();
+    };
+    this.onlineRefresh = paint;
+    paint();
   }
 
   pause(onResume, onQuit, training = false, index = 0) {

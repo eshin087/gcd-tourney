@@ -11,6 +11,8 @@ import { rng } from '../game/rng.js';
 import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
 import { RollbackSession, packInput, applyInput, foldHash } from './rollback.js';
 import { SimLink, SimRemote } from './netSim.js';
+import { LobbyClient, lobbyUrl, newCode } from './lobby.js';
+import { SpectateSession } from './spectate.js';
 
 // this build's simulation fingerprint (vite.config.js simId): a fixture recorded on another one is stale
 const SIM = import.meta.env.SIM_ID ?? null;
@@ -279,12 +281,13 @@ export function install(game, ready, qs) {
     };
   }
 
-  // netplay(log, { delay, latency, jitter, loss, seed, localPlayer, maxRollback }): the log's two players through a
+  // netplay(log, { delay, latency, jitter, loss, seed, localPlayer, maxRollback, startAt }): the log's two players through a
   // rollback session (rollback.js) over a simulated network (netSim.js): one is local, the other's inputs arrive
   // `latency` ± `jitter` frames late or not at all (`loss`). Every frame's final state must equal a straight replay of
   // the same packed inputs, and the remote's hash reports (the desync check) must all agree. tamper: a frame from
   // which the remote reports hashes of a different input (its jump pressed): the desync check must catch it.
-  async function netplay(log, { delay = 2, latency = 6, jitter = 2, loss = 0.05, seed = 1, localPlayer = 0, maxRollback = 8, onProgress = null, tamper = null } = {}) {
+  // startAt: the other machine starts that many ticks late; time sync must even the two out.
+  async function netplay(log, { delay = 2, latency = 6, jitter = 2, loss = 0.05, seed = 1, localPlayer = 0, maxRollback = 8, startAt = 0, onProgress = null, tamper = null } = {}) {
     const table = packedInputs(log.inputs, log.frames, delay);
     const ref = await replay(log, { packed: table, keepPer: true, noDraw: true, ref: new Uint32Array(0) }); // nothing to compare: it is the reference
     const refFold = [];
@@ -296,7 +299,7 @@ export function install(game, ready, qs) {
     game.director = null;
     const remotePlayer = 1 - localPlayer, link = new SimLink({ latency, jitter, loss, seed });
     const source = (f) => (table[remotePlayer][f] ?? 0) ^ (tamper != null && f === tamper ? 1 << (16 + ACTIONS.indexOf('jump')) : 0);
-    new SimRemote(link, { player: remotePlayer, delay, maxRollback, source, check: (f) => refFold[f], checkEvery: 60 });
+    new SimRemote(link, { player: remotePlayer, delay, maxRollback, source, check: (f) => refFold[f], checkEvery: 60, startAt });
     const session = new RollbackSession(game, { link, local: (p, f) => table[p][f] ?? 0, localPlayers: [localPlayer], remotePlayers: [remotePlayer], delay, maxRollback, hashEvery: 1 });
     const draw = game.renderer.render;
     game.renderer.render = () => {};
@@ -324,6 +327,125 @@ export function install(game, ready, qs) {
       match: first === null && session.stats.desyncs === 0 && compared > 0.9 * ref.frames, first, compared,
       frames: game.frameNo, of: ref.frames, net: { latency, jitter, loss, delay, maxRollback }, stats: { ...session.stats }, link: { ...link.stats },
     };
+  }
+
+  // online(log, { lobby, frames }): the real lobby server end to end (ENG-094; `npm run lobby` locally). Three sockets
+  // join a fresh room: a spectator, this game as player 1 (RollbackSession over the lobby link) and a bot as player 2
+  // (SimRemote playing the log's second pad over its own socket). The intro is played, as online. Every frame of this
+  // game must equal the same inputs replayed straight through a spectator session, the bot's hash reports must agree
+  // (the desync check, through the server), and the spectator's feed must be exactly the inputs both players sent.
+  async function online(log, { lobby = lobbyUrl(), frames = 3000, delay = 2, onProgress = null } = {}) {
+    if (!lobby) throw new Error('no lobby server: run npm run lobby, or pass { lobby: "ws://..." }');
+    const N = Math.min(frames, log.frames);
+    const table = packedInputs(log.inputs, N + 600, delay);
+    const cfg = { mode: 'online', p1: log.cfg.p1, p2: log.cfg.p2 };
+    const draw = game.renderer.render;
+    game.renderer.render = () => {};
+    window.__manualStep = true;
+    const sockets = [];
+    try {
+      // the reference: the same inputs straight through, as a spectator would play them
+      game.netplay = null;
+      game.startMatch({ ...cfg, spectate: true });
+      const ref = new SpectateSession(game);
+      ref.feed(0, table[0], table[1]);
+      game.netplay = ref;
+      const refFold = [];
+      for (let f = 0; f < N; f++) {
+        ref.simulate();
+        refFold.push(foldHash(hashSim(game)));
+        if (f % 600 === 0) await yieldNow();
+      }
+      game.netplay = null;
+
+      // the room: a spectator first, then us (player 1), then the bot (player 2): the server starts the match
+      const code = newCode(), sim = import.meta.env.SIM_ID || 'dev';
+      const feed = [[], []], closed = [];
+      let start = null, botStart = null, ended = null;
+      const connect = (hello, on) => new Promise((resolve, reject) => {
+        const c = new LobbyClient(lobby, code, {
+          ...on,
+          open: () => c.send({ t: 'hello', sim, ...hello }),
+          welcome: () => resolve(c),
+          error: (m) => reject(new Error(m.text)),
+          close: (e) => { closed.push(`${hello.name} ${e.code}`); reject(new Error('closed ' + e.code)); },
+        });
+        sockets.push(c);
+      });
+      await connect({ name: 'Watcher', fighter: cfg.p1, play: false }, {
+        feed: (m) => m.a.forEach((v, k) => { if (m.start + k === feed[0].length) { feed[0].push(v); feed[1].push(m.b[k]); } }),
+      });
+      const A = await connect({ name: 'Det A', fighter: cfg.p1 }, { start: (m) => { start = m; }, end: (m) => { ended = m; } });
+      let remote = null;
+      const botLink = { deliver: (msg) => B.send(msg), remote: null };
+      const B = await connect({ name: 'Det B', fighter: cfg.p2 }, { start: (m) => { botStart = m; } });
+      B.inbox = { push: (m) => { if (m.t === 'in') remote?.onMessage(m); } }; // the bot reads our inputs at once
+      for (let i = 0; !(start && botStart) && i < 200; i++) await new Promise((r) => setTimeout(r, 10));
+      if (!start || start.you !== 0 || botStart.you !== 1) throw new Error('the match did not start as expected');
+
+      game.startMatch({ ...cfg, spectate: false });
+      const session = new RollbackSession(game, { link: A.matchLink(), local: (p, f) => table[p][f] ?? 0, localPlayers: [0], remotePlayers: [1], delay, hashEvery: 1 });
+      remote = new SimRemote(botLink, { player: 1, delay, maxRollback: 8, source: (f) => table[1][f] ?? 0, check: (f) => refFold[f], checkEvery: 60 });
+      game.netplay = session;
+      // real time, 60 ticks a second: the server holds each socket to a real client's message rate. Like Game.frame
+      // (which clamps a long frame to 0.1 s), a stall of this page (a hidden tab) is not made up in a burst.
+      const t0 = performance.now();
+      let due = t0;
+      for (let it = 0; game.frameNo < N && it < N * 3 && !ended; it++) {
+        due = Math.max(due + 1000 / 60, performance.now() - 100);
+        do await yieldNow(); while (performance.now() < due); // the sockets deliver meanwhile
+        remote.tick();
+        game.frame(1 / 60);
+        if (it % 120 === 0) onProgress?.(game.frameNo, N);
+      }
+      const ms = performance.now() - t0;
+      const done = Math.min(session.remoteConfirmed(), game.frameNo - 1);
+      let first = null, compared = 0;
+      for (let f = 0; f <= done; f++) {
+        const h = session.hashes.get(f);
+        if (h === undefined) continue;
+        compared++;
+        if (h !== refFold[f]) { first = f; break; }
+      }
+      await new Promise((r) => setTimeout(r, 300)); // the last feed batches
+      let feedFirst = null;
+      for (let f = 0; f < feed[0].length; f++) if (feed[0][f] !== table[0][f] || feed[1][f] !== table[1][f]) { feedFirst = f; break; }
+      const stats = { ...session.stats };
+      return {
+        match: first === null && stats.desyncs === 0 && compared > 0.9 * N && feedFirst === null && feed[0].length > 0.8 * N && !ended,
+        first, compared, frames: game.frameNo, of: N, seconds: +(ms / 1000).toFixed(1), stats,
+        feed: { frames: feed[0].length, first: feedFirst }, ended, closed, rtt: A.rtt, ids: { A: start.players[0].id, B: start.players[1].id },
+      };
+    } finally {
+      for (const c of sockets) c.close();
+      game.netplay = null;
+      game.renderer.render = draw;
+    }
+  }
+
+  // bot(code, { name, fighter, play, style, auto }): a stand-in member for trying the online screens alone (ENG-094).
+  // It joins the room and, when it plays, sends inputs like a real peer (SimRemote: its own 60 Hz clock and stall rule)
+  // without running a game: 'idle' stands still, 'mash' walks in and attacks. It never reports a result, so a KO ends
+  // after the server's result wait. auto: false leaves its ticks to the caller (handle.tick(): a hidden page throttles
+  // timers). Returns { client, tick(), close() }.
+  function bot(code, { name = 'Bot', fighter = 'sasuke', play = true, style = 'mash', auto = true, lobby = lobbyUrl() } = {}) {
+    let remote = null, timer = null;
+    const link = { deliver: (msg) => client.send(msg), remote: null };
+    const stop = () => { clearInterval(timer); remote = null; };
+    const client = new LobbyClient(lobby, code, {
+      open: () => client.send({ t: 'hello', name, fighter, play, sim: import.meta.env.SIM_ID || 'dev' }),
+      start: (m) => {
+        stop();
+        if (m.you < 0) return;
+        const toward = m.you === 0 ? 1 : -1;
+        const source = (f) => (style === 'idle' ? 0 : packInput(f % 150 < 70 ? toward : 0, 0, { light: f % 12 < 3, heavy: f % 97 < 3, jump: f % 211 < 3 }));
+        remote = new SimRemote(link, { player: m.you, delay: m.delay, maxRollback: 8, source });
+        if (auto) timer = setInterval(() => remote?.tick(), 1000 / 60);
+      },
+      end: stop,
+    });
+    client.inbox = { push: (m) => { if (m.t === 'in') remote?.onMessage(m); } };
+    return { client, tick: () => remote?.tick(), close: () => { stop(); client.close(); }, get remote() { return remote; } };
   }
 
   // Two replays of the same inputs, the second at another render rate (`dt`) and/or another Math.random sequence
@@ -442,7 +564,7 @@ export function install(game, ready, qs) {
     return r;
   }
 
-  const det = { record, replay, netplay, diagnose, addTrace, traceCheck, save, load, run, dump: () => dumpSim(game), hash: () => Array.from(hashSim(game)) };
+  const det = { record, replay, netplay, online, bot, diagnose, addTrace, traceCheck, save, load, run, dump: () => dumpSim(game), hash: () => Array.from(hashSim(game)) };
   window.det = det;
   if (qs.get('det')) ready.then(() => run(qs.get('det'), qs.get('dt') || '60'));
   return det;

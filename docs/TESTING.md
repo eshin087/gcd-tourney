@@ -608,6 +608,8 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 | `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs with the brains off (the match setup, `Game.kinds`, still says CPU); `{ match, first: { frame, groups }, step, frame, burst8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
 | `det.replay(log, { rollback: { every: 10, depth: 8 } })` | the rollback stress test (ADR 0036): every `every` frames save the state, play `depth` frames on random inputs, restore, re-simulate them quietly (`Game.quiet`) on the right ones; every frame is still checked. `.rollback` holds the rewind count and the save / restore / re-simulation times |
 | `det.netplay(log, { latency, jitter, loss, delay, maxRollback, localPlayer, seed, tamper })` | the rollback session (`src/net/rollback.js`, ENG-093) over a simulated network (`src/net/netSim.js`): one side is this game, the other the recording's inputs arriving `latency` ± `jitter` frames late with `loss` (0-1) dropped; every frame is compared with a plain replay. `{ match, first, compared, frames, stats }` (rollbacks, deepest rewind, stalls, mispredictions, desync checks). `tamper: frame`: the other side sends another input there (jump) but reports the recording's hashes, so the desync check must fire |
+| `det.online(log, { lobby, frames })` | the real lobby server end to end (ENG-094; `npm run lobby` first): a spectator, this game as player 1 and a bot as player 2 (the log's second pad) join a fresh room; the match (intro included) must equal the same inputs replayed through a spectator session on every frame, the hash checks through the server must agree, and the spectator feed must be exactly what both players sent. Runs in real time (60 ticks a second) |
+| `det.bot(code, { name, fighter, play, style, auto })` | a stand-in room member: plays like a real peer ('mash' or 'idle') without running a game, or only watches (`play: false`); never reports a result, so a KO ends after the server's 8 s wait. `auto: false`: tick it yourself (`handle.tick()`) on a hidden page |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
 | `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, the rollback stress test (ROLLBACK: MATCH, with save / restore / 8-frame re-simulation times), and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
@@ -649,6 +651,26 @@ side, so rollback can be felt and tested before the lobby server exists:
 Expected today (`det.netplay` on fresh recordings): a MATCH for every frame of naruto-sasuke (6 ± 2, 5 % loss; 12 ± 4,
 15 % loss), gojo-killua (4 ± 3, 10 %, as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke (6 ± 2, 5 %),
 with up to 8-frame rewinds, stalls under heavy lag and no desyncs; `tamper: 600` reports a desync at frame 600.
+`startAt: 20` (the other machine starts 20 ticks late) still matches, time sync waiting out the head start.
+
+### Online rooms (ENG-094)
+
+The lobby server is `server/` (its README has the protocol). Locally:
+
+1. `npm run lobby` (wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself, any other page takes
+   `&lobby=ws://127.0.0.1:8787`). `npm run test:lobby` runs the room rules in Node (no server needed).
+2. `det.online(log)` (above) checks the whole path: expected MATCH on every frame, the feed exact, no desyncs.
+3. The screens alone: ONLINE on the mode list, CREATE A ROOM, then `det.bot(game.online.code)` adds an opponent (the match
+   starts at once); `det.bot(code, { play: false })` a watcher. Two bots in a room and `play: false` for you shows
+   spectating; join a room whose bots have played a while to see the late-join fast-forward. Esc while watching opens
+   the room over the match. A hidden page throttles timers: drive the game and the bots (`auto: false`) in a loop.
+4. Two real devices: deploy the server (server/README.md), open the same room on both (the invite link), play a match,
+   and have a third device watch. Check: both see the same result, the watcher's match matches, leaving mid-match
+   gives the other player the win, a phone put in the background for 10 s loses by timeout.
+
+Expected today: `det.online` MATCH (naruto-sasuke 1,500 frames, gojo-killua 2,400 frames, intro included) with 25-40
+hash checks through the server; a room with a bot plays to a KO, reports it, and is back in the room with the win
+counted; a late joiner fast-forwards about 650 frames and then watches about 20 frames behind.
 
 ## Performance budget
 

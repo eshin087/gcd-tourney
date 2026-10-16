@@ -51,10 +51,11 @@ export class SimLink {
 // The other machine. source(frame) -> its packed input for that frame; check(frame) -> its state hash for a frame
 // it has confirmed (optional: the test uses a reference run's hashes). It keeps its own frame clock: one frame per
 // tick, except that, like our session, it stalls rather than run more than `maxRollback` frames past our newest
-// input (our messages reach it at once, so it always knows that).
+// input (our messages reach it at once, so it always knows that) and waits out a clear frame advantage (time sync).
+// startAt: ticks before it starts (a machine that loaded later).
 export class SimRemote {
-  constructor(link, { player = 1, delay = 2, maxRollback = 8, source, check = null, checkEvery = 60 }) {
-    Object.assign(this, { link, player, delay, maxRollback, source, check, checkEvery });
+  constructor(link, { player = 1, delay = 2, maxRollback = 8, source, check = null, checkEvery = 60, startAt = 0 }) {
+    Object.assign(this, { link, player, delay, maxRollback, source, check, checkEvery, startAt });
     this.reset();
     link.remote = this;
   }
@@ -67,10 +68,24 @@ export class SimRemote {
     this.acked = this.delay - 1; // the newest of its inputs we have confirmed
     this.peerNewest = this.delay - 1; // the newest of our inputs it has
     this.checked = -1;
+    this.ticks = 0;
+    this.peerAdv = null;
+    this.wait = 0;
+  }
+
+  // the same frame advantage RollbackSession reports
+  advantage() {
+    return this.frame - (this.peerNewest - this.delay);
   }
 
   tick() {
-    if (this.frame - this.peerNewest <= this.maxRollback) {
+    if (++this.ticks <= this.startAt) return;
+    if (this.ticks % 60 === 0 && this.peerAdv != null) {
+      const diff = this.advantage() - this.peerAdv;
+      if (diff >= 2) this.wait = Math.min(this.maxRollback, diff >> 1);
+    }
+    if (this.wait > 0) this.wait--;
+    else if (this.frame - this.peerNewest <= this.maxRollback) {
       const f = this.frame + this.delay;
       this.inputs.set(f, this.source(f));
       this.inputs.delete(f - 64);
@@ -80,7 +95,7 @@ export class SimRemote {
     const start = Math.max(this.acked + 1, this.newest - 15);
     const v = [];
     for (let k = start; k <= this.newest; k++) v.push(this.inputs.get(k) ?? 0);
-    this.link.deliver({ t: 'in', from: this.player, start, v, ack: null });
+    this.link.deliver({ t: 'in', from: this.player, start, v, ack: null, adv: this.advantage() });
     // its own check for a frame it settled a little while ago (it would only know its hash once confirmed)
     const c = Math.floor((this.frame - 20) / this.checkEvery) * this.checkEvery;
     if (this.check && c >= 0 && c > this.checked) {
@@ -92,6 +107,7 @@ export class SimRemote {
   onMessage(msg) {
     if (msg.t !== 'in') return;
     if (msg.ack != null) this.acked = Math.max(this.acked, msg.ack);
+    if (Number.isFinite(msg.adv)) this.peerAdv = msg.adv;
     this.peerNewest = Math.max(this.peerNewest, msg.start + msg.v.length - 1);
   }
 }
