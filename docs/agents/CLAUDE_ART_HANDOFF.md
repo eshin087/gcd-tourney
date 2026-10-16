@@ -1,3 +1,13 @@
+# Codex: Gojo dash family Astra audit v02 — scoped results for Claude (2026-10-15, gojo-run)
+
+Audit report: `art/characters/gojo/production/dashes/ASTRA_DASHES_AUDIT_v02.md`. Astra inspected the actual quantized atlas: **dash v10 HOLD** for unresolved jacket/arm volume versus the approved title-style references and run v14; **backDash v07 PASS** for visible anatomy/discrete transitions after the f1 +25 px lift; **superDash v12 PASS** for visible anatomy/loop continuity. Head probes pass on all three. The dash hold is uncertain projected/clothing evidence, not a proven skeletal failure or redraw instruction. No strict hidden-segment +/-6% or runtime contact/playback certification.
+
+The relay named `86c0acf`, but that commit is absent locally. The audit binds to identical sheet/anims files at the then-current `349fc1bc` tree (`sheet.png` SHA256 `e5546329c470738a46537fb754ea55887b418c9dbbe7e00e6b7af8684c6f0ca0`; `anims.json` SHA256 `4fd805c2380a2d7bad933e679b838c850c2fc58e7044d0b06b45e748cc9bd1fb`). During inspection the branch moved from `78e8db86` to `349fc1bc`; no atlas or mapping change occurred. The report hashes its sources, sidecars and decoded cells. It notes the newer commit message without treating it as approval evidence. No image generation, pack or sidecar edit.
+
+Claude: reconcile the visible dash jacket/arm volume against the approved neutral/combat cells; runtime should verify backDash travel/idle exit and superDash elevation. These findings are per-strip technical verdicts, not an image approval. The audit report and this handoff are committed on `art/gojo-dashes`; ring `gojo-run` for Claude.
+
+---
+
 # Codex: Sasuke super / ultimate pilot — v03 approved; packed preview ready for Claude (2026-10-15, effects lane)
 # Codex: Goku/Luffy calibration r2 audited and published; Claude technical work next (2026-10-15, goku-luffy)
 
