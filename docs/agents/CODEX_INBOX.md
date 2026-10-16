@@ -89,7 +89,7 @@ Then continue with "Luffy core: the user's decisions" below. Same rules as "Goku
 
 ## Super banners and ultimate splashes: Sasuke pilot (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
 
-**Latest state (2026-10-15, effects relay #5):** the user authorized 3 additional calls each for the Sasuke v02 foreground redraws. Codex completed v03, Astra audited, and both remain on technical HOLD. PR #111 commit `753409cb` has the updated gallery and game preview; see docs/NOW.md. The next step is the user's decision whether to accept either v03 despite its hold, leave it held, or authorize more generation. Do not ring Claude; Codex routes the decision through the existing effects relay.
+**Latest state (2026-10-15, effects relay #6):** the user approved both v03 foregrounds via Claude despite Astra holds. They are copied to approved UI files and packed; PR #111 has the live preview. See docs/NOW.md and the latest CLAUDE_ART_HANDOFF.md entry. Claude is next for integration and final in-game review; no further user decision is pending in this task.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** supers, ultimates and specials should
 have "the iconic anime/manga stunning epic feel". Ultimates must show more than a partial face; the banner's empty
@@ -182,6 +182,30 @@ glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atl
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
+## Gojo run v13: Astra audit before merge (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**Status:** the user chose "Stitch and preview" at the approvals desk. Claude stitched run v13 from Part A plus the held
+Part B attempt 02 (no new calls), packed it and set sidecar `frameOffsets` (the head holds at x 169; f3/f7 lifted).
+**The user approved run v13 as drawn via the desk** ("Approve run v13"), with these holds accepted: the same lead
+leg in both halves, the near fist forward in every frame, and the B half sitting ~10 px lower. Branch `art/gojo-run`
+at `e09e4d11` (manifest run approvedVersion 13, review rows updated); the art guard passes. Claude merges after this audit.
+
+- [ ] 1. Astra/medium audits run v13 in the **packed atlas** on the branch (`public/characters/gojo/sheet.png`,
+  anims.json run = cells 8-15) against the approved neutral/combat cells and idle f0: head and hair, torso, limbs,
+  build, clothing volume, pocket hand, cell edges, and the loop played at 60 ms. Record exact hashes and measurement
+  uncertainty in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md`. The three accepted holds above
+  are the user's call: note them, don't fail on them alone.
+- [ ] 2. **No new images and no edits to the pack or sidecar.** If Astra finds a new defect, report it with the
+  frame and evidence; Claude decides the fix (offsets are Claude's).
+- [ ] 3. Commit the audit on the branch, add a handoff at the top of the branch's docs/agents/CLAUDE_ART_HANDOFF.md
+  (verdict, commit), then `node tools/relay.mjs ring gojo-run --note "<PASS|HOLD; commit>"` from main. A PASS goes to
+  Claude for the merge, not to the user.
+
+Dashes come next as a separate item after the merge (the user's earlier choice: 3 new tries each, with the finished run
+as the reference). Don't start them now.
+
+---
+
 ## Gojo running phase 3: K run in two halves, new budget (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
 **The user decided on 2026-10-15 in Claude's chat, after reading the phase-2 holds:** (1) the run gets a **new budget of
@@ -216,7 +240,7 @@ single 8-frame image doesn't get the generator to swap legs, so the swap gets it
 Rules: as in phase 1 below. Budget: 3 calls total for run v13 (A + B + one retry or fix); no other new images.
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
-**BLOCKED (2026-10-15):** After the initial 3 calls, the user authorized one extra Part B call. It repeated A's lead-leg sequence and is preserved in `_qa_hold/run_v13_B_attempt02.png`; the additional budget is spent. Part A remains saved, but no complete run_v13, stitch, pack, Astra audit or preview exists. Updated handoff and attempt ledger are in `PHASE3_HANDOFF_v01.md` / `phase3_run_v13_attempt_inventory_v01.json` on `art/gojo-run` commit `56a1d071`. Relay #4 sent a blocked decision asking whether to authorize another Part B budget or hold the run. No dashes were generated.
+**HOLD (user decision via relay #5, 2026-10-15):** “Hold the run.” No new Part B budget. Keep Part A and the held attempt unchanged; the game keeps the current Gojo run. No image is approved. Updated record is on `art/gojo-run` commit `1daae55c`; no dashes were generated.
 
 ---
 

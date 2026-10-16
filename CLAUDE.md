@@ -13,15 +13,15 @@ approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
 
 ## Approvals desk (user decision, 2026-10-15; ADR 0039)
 
-Only the Claude chat titled **`0 - Approvals`** asks the user for an approval or decision; it runs `/desk`
-(`.claude/skills/desk/SKILL.md`) and watches one queue with `node tools/relay.mjs wait all`. **Every other Claude
+Only the Claude chat titled **`0 - Approvals`** asks the user for an approval or decision; it runs `/approvals`
+(`.claude/skills/approvals/SKILL.md`) and watches one queue with `node tools/relay.mjs wait all`. **Every other Claude
 chat never asks the user itself** (no AskUserQuestion for approvals or decisions): it runs
 `node tools/relay.mjs ask --from "<this chat's title>" --session <its local_ id from get_session self> --kind
 approval|decision|blocked --note "<question; versions>" --link <review url>`, then stops; the desk asks, and sends
 the answer back with SendMessage (`USER APPROVAL|REJECTION|DECISION via the approvals desk ...`). Codex rings
 `--for user` reach the desk the same way; lane watchers leave them to it. A SessionStart hook (`relay brief`)
 prints this rule and the queue size in every new chat. After chats are deleted, a chat named `0 - Approvals` types
-`/desk`. Routine technical questions to the user that need no decision (a quick clarification while they are
+`/approvals`. Routine technical questions to the user that need no decision (a quick clarification while they are
 talking to this chat) are fine; anything they must approve or decide goes through the desk.
 
 When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
@@ -380,7 +380,7 @@ A change is done when:
 - **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)), **at the desk**
   `0 - Approvals` ([ADR 0039](docs/decisions/0039-approvals-desk.md); the rest of this bullet is the desk's job).
   In any other chat, a lane watcher that says "Codex needs the USER" means the desk is off: send one PushNotification
-  pointing at `0 - Approvals` and `/desk`, ask nothing, restart the watcher. When the desk's `wait all` wakes it, send a
+  pointing at `0 - Approvals` and `/approvals`, ask nothing, restart the watcher. When the desk's `wait all` wakes it, send a
   PushNotification (what is waiting, one line), then ask with **AskUserQuestion**:
   one question per approval or decision, the review link and versions in the question, options such as
   "Approve vNN" / "Reject (say why)" / "Hold"; several strips can be one multi-select question. Relay the answer
