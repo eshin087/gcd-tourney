@@ -1,5 +1,17 @@
 # Art review queue
 
+## Goku/Luffy approval via Claude relay #10 (2026-10-16)
+
+The user answered **"Approved"** for exactly these three versions. Sources and manifest approval records are on the respective unmerged art branches (PR #123 / #96); approval does not merge or deploy them. Goku light3 v11 and Luffy special v01 remain held, with call decisions separately queued by Claude.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-16 | goku | heavy | [heavy_v14.png](characters/goku/raw/heavy_v14.png) | v14 | approved | User approved via Claude relay #10, quote: "Approved". Uniform measured .720 assembly from fifth-call source; native bodyHeight235/x1. | Astra final r4 PASS within landmark uncertainty; 8 poses, no clipping, exact 22-animation/101-frame atlas audited. [Approved review](https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html). Runtime contacts and integration remain Claude's. |
+| 2026-10-16 | luffy | down | [down_v03.png](characters/luffy/raw/down_v03.png) | v03 | approved | User approved via Claude relay #10, quote: "Approved". Original f0 source preserved; repaired f1 at measured .205 density, bodyHeight106/x1. | Astra final r5 PASS within landmark uncertainty on exact 22-animation/100-frame atlas. [Approved review](https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html). Runtime grounding/contacts and integration remain Claude's. |
+| 2026-10-16 | luffy | getup | [getup_v03.png](characters/luffy/raw/getup_v03.png) | v03 | approved | User approved via Claude relay #10, quote: "Approved". Five complete figures at uniform measured .477 density, bodyHeight209/x1. | Astra final r5 PASS within landmark uncertainty on exact 22-animation/100-frame atlas. [Approved review](https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html). Runtime grounding/contacts and integration remain Claude's. |
+
+---
+
 Every generated image waits here until the user approves or rejects it. One row per candidate,
 **newest first**, so the top of the table is always what needs looking at. Rules:
 [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md) and [SPEC.md](SPEC.md#files-and-naming).

@@ -41,6 +41,18 @@ approved; until then do the two backdrops and mark the cutouts blocked (ring the
 needs the user).
 - [x] 1. Goku and Luffy title-style refs were already user-approved; generated and filed all eight v01 candidates within their call budgets; Astra audited four cutouts and the review gallery plus PR #131 preview were published. All eight await user decisions through the approvals desk (2026-10-16).
 
+## Goku/Luffy: three drawings approved (2026-10-16, relay #10) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER APPROVAL via Claude:** the user answered **"Approved"** for Goku heavy v14, Luffy down v03 and Luffy getup v03. No other images or calls are approved by this reply.
+
+- [x] Record the exact approval in main's art/REVIEW.md; dispatch the existing fighter workers to update only their own branch records.
+- [ ] Set the three branch manifest approvedVersions and review/tracker records; retain all version history, pack and publish committed approval previews/PR descriptions.
+- [ ] Commit the combined handoff, update NOW, and ring goku-luffy for Claude's runtime/contact and integration review.
+
+Goku light3 v11 and Luffy special v01 remain technical holds. Their additional-call choices are already queued by Claude as `claude-20261016115631-dc3u`; do not duplicate the question or infer permission from this approval.
+
+---
+
 ## Goku: two redraw calls authorized (2026-10-16, relay #9) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **USER DECISION via Claude:** "light3: B: one redraw call. heavy: B: one redraw call."
