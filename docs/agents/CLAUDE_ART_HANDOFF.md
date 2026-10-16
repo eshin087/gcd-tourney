@@ -1,3 +1,4 @@
+# Codex: Sasuke super / ultimate pilot — v03 approved; packed preview ready for Claude (2026-10-15, effects lane)
 # Codex: Goku/Luffy calibration r2 audited and published; Claude technical work next (2026-10-15, goku-luffy)
 
 Answers relay #6, inbox "Goku and Luffy: Claude's calibration answer". **Zero new image calls.** All versioned art is preserved. Existing user drawing approvals remain; these audits do not approve new images or authorize production. Both review galleries are published from committed work. No merge or production deploy.
@@ -165,12 +166,15 @@ Ring `goku-luffy` once after committing this handoff. Codex waits for the verifi
 
 # Codex: Sasuke super / ultimate pilot review package (2026-10-15, effects lane)
 
-Branch `art/sasuke-super-art`, worktree `.worktrees/art-sasuke-super-art`. Round 1 has four v01 sources and a phone-first gallery at `public/reviews/super-art-sasuke-r1/`. The user approved Kirin backdrop `ui_super_bg v01` and Amaterasu backdrop `ui_ult_bg v01` via Claude relay effects #2, and rejected foregrounds `ui_super_fg v01` and `ui_ult_fg v01` via Claude relay effects #3. Only approved backdrop copies are in `art/characters/sasuke/ui/`; fg sources are archived intact in `raw/_rejected/`. Per-image calls: super_bg 1, super_fg 2, ult_bg 1, ult_fg 2. Exact source paths, dimensions, hashes, unselected edits and budgets are in `art/characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md`.
+**Latest:** branch art/sasuke-super-art, worktree .worktrees/art-sasuke-super-art, art approval commit 4da6f6b6. Relay #6 approved both v03 foregrounds via Claude despite Astra holds. Sources copied to approved ui/ files and packed into public game outputs; no engine changes, merge or production deploy. Preview built from this commit: review gallery https://gcd-tourney-enuuc9gcz-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/ ; in-game route https://gcd-tourney-enuuc9gcz-eshin087s-projects.vercel.app/?fight=sasuke,sasuke&mode=solo&level=hard. Claude is next for integration and final in-game review.
 
-Astra audited both foregrounds against approved Sasuke title-style neutral/combat cells and select art: **HOLD both**. Kirin face is too wide-eyed/soft and arm angles outward rather than overhead. Amaterasu right Mangekyo lacks the three-blade pattern, blood is below uncovered right eye rather than covered left eye, and sword/rope details drift. No numeric anatomy or final-size validation. Review page notes all findings. Super fg generator returned 1254×1254 rather than requested 1024 square.
+# Previous handoff — Sasuke super / ultimate pilot (2026-10-15)
 
-Astra technical holds remain for both rejected fg images. Claude: integrate only the two approved backdrops with the in-progress ENG-083 engine branch, use the existing fallback for foreground layers, finish packer/runtime wiring and publish a playable preview. Do not reintroduce rejected fg files, production-deploy or start round 2. Candidate commit: b7393425; PR #111; review preview https://gcd-tourney-2fzqlrcon-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/. Preview integration is still pending.
+Branch `art/sasuke-super-art`; worktree `.worktrees/art-sasuke-super-art`. The user approved Kirin `ui_super_bg v01` and Amaterasu `ui_ult_bg v01` via relay effects #2; both approved backdrops are packed to `public/characters/sasuke/`. The user rejected both v01 foregrounds via relay effects #3; rejected sources remain intact in `raw/_rejected/`.
 
+Both v02 foregrounds are saved and shown at `public/reviews/super-art-sasuke-r1/`. Astra/medium audited the actual raw files and placed both on HOLD: Kirin's overhead arm improved, but face remains too round and chin raised; Amaterasu's rear rope bow and horizontal sword improved, but blood remains under uncovered right eye and the visible eye does not clearly show a bold three-blade Mangekyo. Lower-body scale remains uncertain. The two foreground budgets are exhausted at 3/3 each; no more calls remain. The purple rope is correct.
+
+**Next: user decision** on whether to approve these v02 candidates despite the recorded Astra holds or authorize a new generation budget. Do not ship the foregrounds or start other fighters before that decision. Review page is included in PR #111; PR #113 engine integration is on main and deployed.
 ---
 # Codex: calibrated loose ends re-audited; runtime checks remain (2026-10-15, scale lane)
 
