@@ -1,0 +1,2643 @@
+{
+  "reviewer": "GPT-6 Astra / medium",
+  "auditedCommit": "941d8e08f85b79d47ffaae1774e14530613ad856",
+  "hashes": {
+    "public/characters/gojo/sheet.png": "0298b272fde74f64412a0e7a40dbdbb86f2ebf683e4d585501d0eefa668daf3f",
+    "public/characters/gojo/anims.json": "6d53aac11d62e13df9305b7e566fcad01169f2d2345720d79ff2911676a207f0",
+    "public/art-review/title-style-pilot/gojo-neutral_v01.png": "d9fd4dca67c7cc133e897773a3c8128d6c5320a42402642c11409fea770175a0",
+    "public/art-review/title-style-pilot/gojo-combat_v01.png": "ab42bc6facd14659bf35b48a4bce8682cd17218f200d1e7fcdc6430f58451656",
+    "art/characters/gojo/raw/idle_v08.png": "6c1ec47c2c1e2b7df2d3aa6ccf2256e46dc93bdd8e426607f2990f6f963913bb",
+    "art/characters/gojo/raw/light3_v06.png": "b6553f61c1c0e330343cbb80408da7cb252ac6de02c40b5516281927f9904faa",
+    "art/characters/gojo/raw/airRecover_v05.png": "74656fc7e548ecff9b0fd0701da8523cdbd65959dce2bf611072238672bf7b3e"
+  },
+  "method": "Manual projected landmarks in actual quantized atlas crops, native 256px local coordinates. All values estimates. Hair crown is not skull crown. Endpoint uncertainty includes identification, joint concealment and pixel raster; projected geometry does not reconstruct anatomy. Not copied from prior audit.",
+  "references": {
+    "neutral": {
+      "landmarks": {
+        "crown": [
+          125,
+          8
+        ],
+        "chin": [
+          130,
+          42
+        ],
+        "collar": [
+          124,
+          46
+        ],
+        "hem": [
+          132,
+          125
+        ],
+        "shoulder": [
+          103,
+          60
+        ],
+        "elbow": [
+          93,
+          94
+        ],
+        "wrist": [
+          94,
+          125
+        ],
+        "hip": [
+          141,
+          130
+        ],
+        "knee": [
+          141,
+          178
+        ],
+        "ankle": [
+          145,
+          224
+        ],
+        "heel": [
+          138,
+          236
+        ],
+        "toe": [
+          173,
+          236
+        ],
+        "shoulderFar": [
+          142,
+          60
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 34.4,
+        "torso": 79.4,
+        "upperArm": 35.4,
+        "forearm": 31.0,
+        "thigh": 48.0,
+        "shin": 46.2,
+        "shoe": 35.0,
+        "shoulders": 39.0
+      }
+    },
+    "combat": {
+      "landmarks": {
+        "crown": [
+          132,
+          28
+        ],
+        "chin": [
+          137,
+          66
+        ],
+        "collar": [
+          126,
+          65
+        ],
+        "hem": [
+          124,
+          136
+        ],
+        "shoulder": [
+          103,
+          75
+        ],
+        "elbow": [
+          89,
+          104
+        ],
+        "wrist": [
+          109,
+          121
+        ],
+        "hip": [
+          130,
+          139
+        ],
+        "knee": [
+          162,
+          169
+        ],
+        "ankle": [
+          175,
+          224
+        ],
+        "heel": [
+          169,
+          236
+        ],
+        "toe": [
+          205,
+          236
+        ],
+        "shoulderFar": [
+          141,
+          78
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 38.3,
+        "torso": 71.0,
+        "upperArm": 32.2,
+        "forearm": 26.2,
+        "thigh": 43.9,
+        "shin": 56.5,
+        "shoe": 36.0,
+        "shoulders": 38.1
+      }
+    }
+  },
+  "frames": [
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 0,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          12
+        ],
+        "chin": [
+          141,
+          49
+        ],
+        "collar": [
+          130,
+          52
+        ],
+        "hem": [
+          138,
+          128
+        ],
+        "shoulder": [
+          104,
+          65
+        ],
+        "elbow": [
+          95,
+          96
+        ],
+        "wrist": [
+          100,
+          124
+        ],
+        "hip": [
+          138,
+          132
+        ],
+        "knee": [
+          167,
+          169
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 38.1,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 53.1,
+        "shoe": 32.0,
+        "shoulders": 42.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.108,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.149,
+        "shoe": 0.914,
+        "shoulders": 1.077
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.888,
+          1.385
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.832,
+          1.599
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.8,
+          1.455
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        80,
+        10,
+        183,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 1,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          11
+        ],
+        "chin": [
+          141,
+          48
+        ],
+        "collar": [
+          131,
+          51
+        ],
+        "hem": [
+          138,
+          127
+        ],
+        "shoulder": [
+          104,
+          64
+        ],
+        "elbow": [
+          95,
+          95
+        ],
+        "wrist": [
+          100,
+          123
+        ],
+        "hip": [
+          138,
+          131
+        ],
+        "knee": [
+          167,
+          168
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          65
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 38.1,
+        "torso": 76.3,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 54.1,
+        "shoe": 32.0,
+        "shoulders": 42.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.108,
+        "torso": 0.961,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.171,
+        "shoe": 0.914,
+        "shoulders": 1.077
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.888,
+          1.385
+        ],
+        "torso": [
+          0.823,
+          1.121
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.851,
+          1.626
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.8,
+          1.455
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        80,
+        9,
+        183,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 2,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          12
+        ],
+        "chin": [
+          140,
+          49
+        ],
+        "collar": [
+          130,
+          52
+        ],
+        "hem": [
+          138,
+          128
+        ],
+        "shoulder": [
+          104,
+          65
+        ],
+        "elbow": [
+          95,
+          96
+        ],
+        "wrist": [
+          100,
+          124
+        ],
+        "hip": [
+          138,
+          132
+        ],
+        "knee": [
+          167,
+          169
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.9,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 53.1,
+        "shoe": 32.0,
+        "shoulders": 42.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.102,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.149,
+        "shoe": 0.914,
+        "shoulders": 1.077
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.883,
+          1.378
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.832,
+          1.599
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.8,
+          1.455
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        80,
+        10,
+        183,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 3,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          12
+        ],
+        "chin": [
+          140,
+          49
+        ],
+        "collar": [
+          130,
+          52
+        ],
+        "hem": [
+          138,
+          128
+        ],
+        "shoulder": [
+          103,
+          65
+        ],
+        "elbow": [
+          94,
+          96
+        ],
+        "wrist": [
+          99,
+          124
+        ],
+        "hip": [
+          138,
+          132
+        ],
+        "knee": [
+          167,
+          169
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.9,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 53.1,
+        "shoe": 32.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.102,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.149,
+        "shoe": 0.914,
+        "shoulders": 1.103
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.883,
+          1.378
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.832,
+          1.599
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.822,
+          1.485
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        79,
+        10,
+        183,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 4,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          12
+        ],
+        "chin": [
+          140,
+          49
+        ],
+        "collar": [
+          130,
+          52
+        ],
+        "hem": [
+          138,
+          128
+        ],
+        "shoulder": [
+          103,
+          65
+        ],
+        "elbow": [
+          94,
+          96
+        ],
+        "wrist": [
+          99,
+          124
+        ],
+        "hip": [
+          138,
+          132
+        ],
+        "knee": [
+          167,
+          169
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.9,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 53.1,
+        "shoe": 32.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.102,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.149,
+        "shoe": 0.914,
+        "shoulders": 1.103
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.883,
+          1.378
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.832,
+          1.599
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.822,
+          1.485
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        79,
+        10,
+        183,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 5,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          11
+        ],
+        "chin": [
+          140,
+          48
+        ],
+        "collar": [
+          130,
+          51
+        ],
+        "hem": [
+          138,
+          127
+        ],
+        "shoulder": [
+          104,
+          64
+        ],
+        "elbow": [
+          95,
+          95
+        ],
+        "wrist": [
+          100,
+          123
+        ],
+        "hip": [
+          138,
+          131
+        ],
+        "knee": [
+          167,
+          168
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          147,
+          65
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.9,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 54.1,
+        "shoe": 32.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.102,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.171,
+        "shoe": 0.914,
+        "shoulders": 1.103
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.883,
+          1.378
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.851,
+          1.626
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.822,
+          1.485
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        80,
+        9,
+        184,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 6,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          12
+        ],
+        "chin": [
+          140,
+          49
+        ],
+        "collar": [
+          130,
+          52
+        ],
+        "hem": [
+          138,
+          128
+        ],
+        "shoulder": [
+          103,
+          65
+        ],
+        "elbow": [
+          94,
+          96
+        ],
+        "wrist": [
+          99,
+          124
+        ],
+        "hip": [
+          138,
+          132
+        ],
+        "knee": [
+          167,
+          169
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          182,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          66
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.9,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 53.1,
+        "shoe": 32.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.102,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.149,
+        "shoe": 0.914,
+        "shoulders": 1.103
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.883,
+          1.378
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.832,
+          1.599
+        ],
+        "shoe": [
+          0.718,
+          1.161
+        ],
+        "shoulders": [
+          0.822,
+          1.485
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia."
+      },
+      "alphaBounds": [
+        79,
+        10,
+        183,
+        241
+      ]
+    },
+    {
+      "animation": "idle",
+      "version": 8,
+      "frame": 7,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          132,
+          11
+        ],
+        "chin": [
+          140,
+          48
+        ],
+        "collar": [
+          130,
+          51
+        ],
+        "hem": [
+          138,
+          127
+        ],
+        "shoulder": [
+          103,
+          64
+        ],
+        "elbow": [
+          94,
+          95
+        ],
+        "wrist": [
+          99,
+          123
+        ],
+        "hip": [
+          138,
+          131
+        ],
+        "knee": [
+          167,
+          168
+        ],
+        "ankle": [
+          164,
+          222
+        ],
+        "heel": [
+          150,
+          235
+        ],
+        "toe": [
+          181,
+          235
+        ],
+        "shoulderFar": [
+          146,
+          65
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 37.9,
+        "torso": 76.4,
+        "upperArm": 32.3,
+        "forearm": 28.4,
+        "thigh": 47.0,
+        "shin": 54.1,
+        "shoe": 31.0,
+        "shoulders": 43.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.102,
+        "torso": 0.962,
+        "upperArm": 0.912,
+        "forearm": 0.916,
+        "thigh": 0.979,
+        "shin": 1.171,
+        "shoe": 0.886,
+        "shoulders": 1.103
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.883,
+          1.378
+        ],
+        "torso": [
+          0.824,
+          1.123
+        ],
+        "upperArm": [
+          0.635,
+          1.303
+        ],
+        "forearm": [
+          0.605,
+          1.376
+        ],
+        "thigh": [
+          0.696,
+          1.375
+        ],
+        "shin": [
+          0.851,
+          1.626
+        ],
+        "shoe": [
+          0.692,
+          1.129
+        ],
+        "shoulders": [
+          0.822,
+          1.485
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "shoe": "Source right toe intersects image boundary; measured surviving contour is a lower bound, missing extent unknown."
+      },
+      "alphaBounds": [
+        80,
+        9,
+        182,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 0,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          138,
+          20
+        ],
+        "chin": [
+          140,
+          54
+        ],
+        "collar": [
+          132,
+          58
+        ],
+        "hem": [
+          147,
+          118
+        ],
+        "shoulder": [
+          113,
+          65
+        ],
+        "elbow": [
+          107,
+          96
+        ],
+        "wrist": [
+          124,
+          111
+        ],
+        "hip": [
+          145,
+          123
+        ],
+        "knee": [
+          174,
+          134
+        ],
+        "ankle": [
+          157,
+          171
+        ],
+        "heel": [
+          152,
+          177
+        ],
+        "toe": [
+          168,
+          196
+        ],
+        "shoulderFar": [
+          147,
+          67
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 34.1,
+        "torso": 61.8,
+        "upperArm": 31.6,
+        "forearm": 22.7,
+        "thigh": 31.0,
+        "shin": 40.7,
+        "shoe": 24.8,
+        "shoulders": 34.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.991,
+        "torso": 0.778,
+        "upperArm": 0.893,
+        "forearm": 0.732,
+        "thigh": 0.646,
+        "shin": 0.881,
+        "shoe": 0.709,
+        "shoulders": 0.874
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.784,
+          1.253
+        ],
+        "torso": [
+          0.653,
+          0.924
+        ],
+        "upperArm": [
+          0.618,
+          1.279
+        ],
+        "forearm": [
+          0.451,
+          1.148
+        ],
+        "thigh": [
+          0.411,
+          0.975
+        ],
+        "shin": [
+          0.603,
+          1.275
+        ],
+        "shoe": [
+          0.533,
+          0.929
+        ],
+        "shoulders": [
+          0.624,
+          1.215
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        101,
+        16,
+        186,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          131,
+          21
+        ],
+        "chin": [
+          132,
+          55
+        ],
+        "collar": [
+          125,
+          59
+        ],
+        "hem": [
+          136,
+          121
+        ],
+        "shoulder": [
+          104,
+          67
+        ],
+        "elbow": [
+          99,
+          98
+        ],
+        "wrist": [
+          117,
+          113
+        ],
+        "hip": [
+          135,
+          126
+        ],
+        "knee": [
+          177,
+          102
+        ],
+        "ankle": [
+          166,
+          145
+        ],
+        "heel": [
+          162,
+          150
+        ],
+        "toe": [
+          178,
+          175
+        ],
+        "shoulderFar": [
+          139,
+          68
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 34.0,
+        "torso": 63.0,
+        "upperArm": 31.4,
+        "forearm": 23.4,
+        "thigh": 48.4,
+        "shin": 44.4,
+        "shoe": 29.7,
+        "shoulders": 35.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.888,
+        "torso": 0.887,
+        "upperArm": 0.975,
+        "forearm": 0.893,
+        "thigh": 1.103,
+        "shin": 0.786,
+        "shoe": 0.825,
+        "shoulders": 0.919
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.709,
+          1.108
+        ],
+        "torso": [
+          0.74,
+          1.062
+        ],
+        "upperArm": [
+          0.665,
+          1.427
+        ],
+        "forearm": [
+          0.54,
+          1.455
+        ],
+        "thigh": [
+          0.778,
+          1.571
+        ],
+        "shin": [
+          0.564,
+          1.08
+        ],
+        "shoe": [
+          0.642,
+          1.053
+        ],
+        "shoulders": [
+          0.658,
+          1.277
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        90,
+        18,
+        188,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 2,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          127,
+          23
+        ],
+        "chin": [
+          127,
+          54
+        ],
+        "collar": [
+          121,
+          58
+        ],
+        "hem": [
+          131,
+          119
+        ],
+        "shoulder": [
+          102,
+          67
+        ],
+        "elbow": [
+          96,
+          96
+        ],
+        "wrist": [
+          115,
+          111
+        ],
+        "hip": [
+          132,
+          117
+        ],
+        "knee": [
+          181,
+          112
+        ],
+        "ankle": [
+          222,
+          109
+        ],
+        "heel": [
+          225,
+          119
+        ],
+        "toe": [
+          235,
+          89
+        ],
+        "shoulderFar": [
+          137,
+          69
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 31.0,
+        "torso": 61.8,
+        "upperArm": 29.6,
+        "forearm": 24.2,
+        "thigh": 49.3,
+        "shin": 41.1,
+        "shoe": 31.6,
+        "shoulders": 35.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.809,
+        "torso": 0.87,
+        "upperArm": 0.919,
+        "forearm": 0.924,
+        "thigh": 1.123,
+        "shin": 0.727,
+        "shoe": 0.878,
+        "shoulders": 0.921
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.638,
+          1.02
+        ],
+        "torso": [
+          0.725,
+          1.043
+        ],
+        "upperArm": [
+          0.618,
+          1.359
+        ],
+        "forearm": [
+          0.565,
+          1.495
+        ],
+        "thigh": [
+          0.796,
+          1.596
+        ],
+        "shin": [
+          0.513,
+          1.012
+        ],
+        "shoe": [
+          0.69,
+          1.113
+        ],
+        "shoulders": [
+          0.66,
+          1.28
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        90,
+        17,
+        237,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 3,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          127,
+          23
+        ],
+        "chin": [
+          127,
+          54
+        ],
+        "collar": [
+          121,
+          58
+        ],
+        "hem": [
+          131,
+          119
+        ],
+        "shoulder": [
+          102,
+          67
+        ],
+        "elbow": [
+          96,
+          96
+        ],
+        "wrist": [
+          115,
+          111
+        ],
+        "hip": [
+          132,
+          117
+        ],
+        "knee": [
+          181,
+          112
+        ],
+        "ankle": [
+          222,
+          109
+        ],
+        "heel": [
+          225,
+          119
+        ],
+        "toe": [
+          235,
+          89
+        ],
+        "shoulderFar": [
+          137,
+          69
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 31.0,
+        "torso": 61.8,
+        "upperArm": 29.6,
+        "forearm": 24.2,
+        "thigh": 49.3,
+        "shin": 41.1,
+        "shoe": 31.6,
+        "shoulders": 35.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.809,
+        "torso": 0.87,
+        "upperArm": 0.919,
+        "forearm": 0.924,
+        "thigh": 1.123,
+        "shin": 0.727,
+        "shoe": 0.878,
+        "shoulders": 0.921
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.638,
+          1.02
+        ],
+        "torso": [
+          0.725,
+          1.043
+        ],
+        "upperArm": [
+          0.618,
+          1.359
+        ],
+        "forearm": [
+          0.565,
+          1.495
+        ],
+        "thigh": [
+          0.796,
+          1.596
+        ],
+        "shin": [
+          0.513,
+          1.012
+        ],
+        "shoe": [
+          0.69,
+          1.113
+        ],
+        "shoulders": [
+          0.66,
+          1.28
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        91,
+        18,
+        234,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 4,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          130,
+          12
+        ],
+        "chin": [
+          130,
+          46
+        ],
+        "collar": [
+          123,
+          50
+        ],
+        "hem": [
+          131,
+          116
+        ],
+        "shoulder": [
+          102,
+          60
+        ],
+        "elbow": [
+          94,
+          91
+        ],
+        "wrist": [
+          113,
+          107
+        ],
+        "hip": [
+          134,
+          123
+        ],
+        "knee": [
+          174,
+          99
+        ],
+        "ankle": [
+          160,
+          138
+        ],
+        "heel": [
+          155,
+          143
+        ],
+        "toe": [
+          171,
+          169
+        ],
+        "shoulderFar": [
+          138,
+          62
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 34.0,
+        "torso": 66.5,
+        "upperArm": 32.0,
+        "forearm": 24.8,
+        "thigh": 46.6,
+        "shin": 41.4,
+        "shoe": 30.5,
+        "shoulders": 36.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.888,
+        "torso": 0.937,
+        "upperArm": 0.994,
+        "forearm": 0.947,
+        "thigh": 1.062,
+        "shin": 0.733,
+        "shoe": 0.847,
+        "shoulders": 0.948
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.709,
+          1.108
+        ],
+        "torso": [
+          0.786,
+          1.115
+        ],
+        "upperArm": [
+          0.681,
+          1.45
+        ],
+        "forearm": [
+          0.584,
+          1.525
+        ],
+        "thigh": [
+          0.744,
+          1.521
+        ],
+        "shin": [
+          0.518,
+          1.019
+        ],
+        "shoe": [
+          0.662,
+          1.078
+        ],
+        "shoulders": [
+          0.683,
+          1.312
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        88,
+        11,
+        187,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 5,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          125,
+          12
+        ],
+        "chin": [
+          125,
+          47
+        ],
+        "collar": [
+          119,
+          51
+        ],
+        "hem": [
+          129,
+          120
+        ],
+        "shoulder": [
+          98,
+          61
+        ],
+        "elbow": [
+          88,
+          92
+        ],
+        "wrist": [
+          110,
+          108
+        ],
+        "hip": [
+          142,
+          126
+        ],
+        "knee": [
+          145,
+          161
+        ],
+        "ankle": [
+          151,
+          220
+        ],
+        "heel": [
+          135,
+          237
+        ],
+        "toe": [
+          174,
+          237
+        ],
+        "shoulderFar": [
+          133,
+          62
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.0,
+        "torso": 69.7,
+        "upperArm": 32.6,
+        "forearm": 27.2,
+        "thigh": 35.1,
+        "shin": 59.3,
+        "shoe": 39.0,
+        "shoulders": 35.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.017,
+        "torso": 0.878,
+        "upperArm": 0.921,
+        "forearm": 0.877,
+        "thigh": 0.731,
+        "shin": 1.284,
+        "shoe": 1.114,
+        "shoulders": 0.897
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.807,
+          1.283
+        ],
+        "torso": [
+          0.746,
+          1.031
+        ],
+        "upperArm": [
+          0.643,
+          1.313
+        ],
+        "forearm": [
+          0.573,
+          1.328
+        ],
+        "thigh": [
+          0.484,
+          1.078
+        ],
+        "shin": [
+          0.946,
+          1.762
+        ],
+        "shoe": [
+          0.897,
+          1.387
+        ],
+        "shoulders": [
+          0.644,
+          1.242
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        81,
+        11,
+        176,
+        241
+      ]
+    },
+    {
+      "animation": "light3",
+      "version": 6,
+      "frame": 6,
+      "baseline": "neutral",
+      "landmarks": {
+        "crown": [
+          125,
+          12
+        ],
+        "chin": [
+          125,
+          47
+        ],
+        "collar": [
+          119,
+          51
+        ],
+        "hem": [
+          129,
+          120
+        ],
+        "shoulder": [
+          98,
+          61
+        ],
+        "elbow": [
+          88,
+          92
+        ],
+        "wrist": [
+          110,
+          108
+        ],
+        "hip": [
+          142,
+          126
+        ],
+        "knee": [
+          145,
+          161
+        ],
+        "ankle": [
+          151,
+          220
+        ],
+        "heel": [
+          135,
+          237
+        ],
+        "toe": [
+          174,
+          237
+        ],
+        "shoulderFar": [
+          133,
+          62
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 35.0,
+        "torso": 69.7,
+        "upperArm": 32.6,
+        "forearm": 27.2,
+        "thigh": 35.1,
+        "shin": 59.3,
+        "shoe": 39.0,
+        "shoulders": 35.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.017,
+        "torso": 0.878,
+        "upperArm": 0.921,
+        "forearm": 0.877,
+        "thigh": 0.731,
+        "shin": 1.284,
+        "shoe": 1.114,
+        "shoulders": 0.897
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.807,
+          1.283
+        ],
+        "torso": [
+          0.746,
+          1.031
+        ],
+        "upperArm": [
+          0.643,
+          1.313
+        ],
+        "forearm": [
+          0.573,
+          1.328
+        ],
+        "thigh": [
+          0.484,
+          1.078
+        ],
+        "shin": [
+          0.946,
+          1.762
+        ],
+        "shoe": [
+          0.897,
+          1.387
+        ],
+        "shoulders": [
+          0.644,
+          1.242
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "forearm": "Pocket wrist and turned elbow conceal anatomical endpoints; short projection is not proof of short bone.",
+        "torso": "Twisted kicking pelvis/garment hem cannot establish neutral anatomical length."
+      },
+      "alphaBounds": [
+        85,
+        10,
+        177,
+        241
+      ]
+    },
+    {
+      "animation": "airRecover",
+      "version": 5,
+      "frame": 0,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          32,
+          137
+        ],
+        "chin": [
+          59,
+          169
+        ],
+        "collar": [
+          61,
+          172
+        ],
+        "hem": [
+          104,
+          225
+        ],
+        "shoulder": [
+          55,
+          181
+        ],
+        "elbow": [
+          75,
+          207
+        ],
+        "wrist": [
+          113,
+          193
+        ],
+        "hip": [
+          113,
+          216
+        ],
+        "knee": [
+          115,
+          168
+        ],
+        "ankle": [
+          150,
+          217
+        ],
+        "heel": [
+          148,
+          235
+        ],
+        "toe": [
+          187,
+          218
+        ],
+        "shoulderFar": [
+          84,
+          181
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 41.9,
+        "torso": 68.2,
+        "upperArm": 32.8,
+        "forearm": 40.5,
+        "thigh": 48.0,
+        "shin": 60.2,
+        "shoe": 42.5,
+        "shoulders": 29.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 1.094,
+        "torso": 0.961,
+        "upperArm": 1.019,
+        "forearm": 1.546,
+        "thigh": 1.093,
+        "shin": 1.065,
+        "shoe": 1.181,
+        "shoulders": 0.761
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.896,
+          1.338
+        ],
+        "torso": [
+          0.808,
+          1.142
+        ],
+        "upperArm": [
+          0.702,
+          1.481
+        ],
+        "forearm": [
+          1.071,
+          2.302
+        ],
+        "thigh": [
+          0.771,
+          1.56
+        ],
+        "shin": [
+          0.809,
+          1.406
+        ],
+        "shoe": [
+          0.963,
+          1.453
+        ],
+        "shoulders": [
+          0.522,
+          1.09
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "torso": "Curved/tucked torso: endpoint chord is not trunk length; reference pose is not equivalent.",
+        "thigh": "Fold and overlapping trousers obscure hip/knee; projected estimate only.",
+        "shoe": "Oblique shoe projection; no equally oriented reference shoe.",
+        "upperArm": "Raised/tucked rotation; no equally oriented reference arm."
+      },
+      "alphaBounds": [
+        18,
+        133,
+        191,
+        241
+      ]
+    },
+    {
+      "animation": "airRecover",
+      "version": 5,
+      "frame": 1,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          128,
+          236
+        ],
+        "chin": [
+          126,
+          204
+        ],
+        "collar": [
+          129,
+          196
+        ],
+        "hem": [
+          147,
+          150
+        ],
+        "shoulder": [
+          141,
+          185
+        ],
+        "elbow": [
+          105,
+          165
+        ],
+        "wrist": [
+          103,
+          143
+        ],
+        "hip": [
+          148,
+          151
+        ],
+        "knee": [
+          153,
+          126
+        ],
+        "ankle": [
+          101,
+          92
+        ],
+        "heel": [
+          107,
+          81
+        ],
+        "toe": [
+          66,
+          96
+        ],
+        "shoulderFar": [
+          122,
+          183
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 32.1,
+        "torso": 49.4,
+        "upperArm": 41.2,
+        "forearm": 22.1,
+        "thigh": 25.5,
+        "shin": 62.1,
+        "shoe": 43.7,
+        "shoulders": 19.1
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.838,
+        "torso": 0.696,
+        "upperArm": 1.28,
+        "forearm": 0.844,
+        "thigh": 0.581,
+        "shin": 1.099,
+        "shoe": 1.214,
+        "shoulders": 0.501
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.664,
+          1.052
+        ],
+        "torso": [
+          0.564,
+          0.852
+        ],
+        "upperArm": [
+          0.921,
+          1.802
+        ],
+        "forearm": [
+          0.5,
+          1.391
+        ],
+        "thigh": [
+          0.337,
+          0.933
+        ],
+        "shin": [
+          0.839,
+          1.445
+        ],
+        "shoe": [
+          0.993,
+          1.491
+        ],
+        "shoulders": [
+          0.297,
+          0.782
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "torso": "Curved/tucked torso: endpoint chord is not trunk length; reference pose is not equivalent.",
+        "thigh": "Fold and overlapping trousers obscure hip/knee; projected estimate only.",
+        "shoe": "Oblique shoe projection; no equally oriented reference shoe.",
+        "upperArm": "Raised/tucked rotation; no equally oriented reference arm."
+      },
+      "alphaBounds": [
+        63,
+        74,
+        169,
+        241
+      ]
+    },
+    {
+      "animation": "airRecover",
+      "version": 5,
+      "frame": 2,
+      "baseline": "combat",
+      "landmarks": {
+        "crown": [
+          135,
+          42
+        ],
+        "chin": [
+          139,
+          78
+        ],
+        "collar": [
+          127,
+          83
+        ],
+        "hem": [
+          119,
+          137
+        ],
+        "shoulder": [
+          105,
+          85
+        ],
+        "elbow": [
+          76,
+          92
+        ],
+        "wrist": [
+          51,
+          102
+        ],
+        "hip": [
+          124,
+          143
+        ],
+        "knee": [
+          136,
+          163
+        ],
+        "ankle": [
+          145,
+          213
+        ],
+        "heel": [
+          146,
+          223
+        ],
+        "toe": [
+          159,
+          238
+        ],
+        "shoulderFar": [
+          146,
+          94
+        ]
+      },
+      "projectedPx": {
+        "hairHead": 36.2,
+        "torso": 54.6,
+        "upperArm": 29.8,
+        "forearm": 26.9,
+        "thigh": 23.3,
+        "shin": 50.8,
+        "shoe": 19.8,
+        "shoulders": 42.0
+      },
+      "uncertaintyPx": {
+        "hairHead": 4,
+        "torso": 6,
+        "upperArm": 6,
+        "forearm": 6,
+        "thigh": 8,
+        "shin": 8,
+        "shoe": 4,
+        "shoulders": 6
+      },
+      "ratio": {
+        "hairHead": 0.945,
+        "torso": 0.769,
+        "upperArm": 0.925,
+        "forearm": 1.027,
+        "thigh": 0.531,
+        "shin": 0.899,
+        "shoe": 0.55,
+        "shoulders": 1.102
+      },
+      "ratioIntervals": {
+        "hairHead": [
+          0.761,
+          1.172
+        ],
+        "torso": [
+          0.631,
+          0.932
+        ],
+        "upperArm": [
+          0.623,
+          1.366
+        ],
+        "forearm": [
+          0.649,
+          1.629
+        ],
+        "thigh": [
+          0.295,
+          0.872
+        ],
+        "shin": [
+          0.664,
+          1.212
+        ],
+        "shoe": [
+          0.395,
+          0.744
+        ],
+        "shoulders": [
+          0.816,
+          1.495
+        ]
+      },
+      "numericCertification": "HOLD: intervals and projection exclusions do not establish all segments within [0.94,1.06]",
+      "exclusions": {
+        "skullHead": "Skull crown hidden by hair; hair-inclusive projected H only.",
+        "farArm": "Overlapping silhouette/torso depth; no separate reliable elbow/wrist chain.",
+        "farLeg": "Overlaps near leg or projects at a different depth; not an independent anatomical scale pass.",
+        "shoulders": "Outer sleeve centers approximate projected shoulder span; oblique view and clothing obscure acromia.",
+        "torso": "Curved/tucked torso: endpoint chord is not trunk length; reference pose is not equivalent.",
+        "thigh": "Fold and overlapping trousers obscure hip/knee; projected estimate only.",
+        "shoe": "Oblique shoe projection; no equally oriented reference shoe.",
+        "upperArm": "Raised/tucked rotation; no equally oriented reference arm."
+      },
+      "alphaBounds": [
+        9,
+        39,
+        181,
+        241
+      ]
+    }
+  ]
+}

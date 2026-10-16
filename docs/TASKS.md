@@ -1,5 +1,7 @@
 # Task board
 
+ART-ROUND5-PHONE | Codex | review | Phone-first gallery for 28 round-5 calibrated fighter strips with exact branch atlases, approved comparison cells, current Astra verdicts and complete source evidence. Deep links, mobile controls, atlas crops and evidence links verified. Review-only; no approval recording, generation, packing, production atlas edits, merge or deploy. files: public/reviews/round5/, docs/TASKS.md, CHANGELOG.md.
+
 ART-IDLE-DECISION-GOJO | Codex | review | User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. files: art/manifest.json, art/TRACKER.md, art/REVIEW.md, art/characters/gojo/IDLE_APPROVAL_20261015.md, docs/TASKS.md, CHANGELOG.md.
 
 ART-IDLE-PHONE | Codex | review | Host exact Gojo idle08 and Goku idle02 sources for mobile feedback; no generation, packing or approval. files: public/reviews/idle-feedback/, docs/TASKS.md, CHANGELOG.md.

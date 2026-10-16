@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: phone-first round-5 review gallery for the 28 calibrated fighter strips, with current atlas provenance, approved-scale comparisons and Astra findings; feedback remains outside approval records (ART-ROUND5-PHONE).
+
 - Art: User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized.
 
 - Added: mobile feedback gallery for exact Gojo idle08 and Goku idle02 source candidates, approved references, provenance and explicit technical holds (ART-IDLE-PHONE).

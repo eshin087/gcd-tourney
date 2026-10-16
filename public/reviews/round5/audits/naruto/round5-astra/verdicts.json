@@ -1,0 +1,16 @@
+[
+  {
+    "animation": "stagger",
+    "version": 8,
+    "verdict": "HOLD",
+    "summary": "Torso corrected centrally (51px vs neutral50.4); head/shoe compatible centrally. Near-upright legs still read short; cloth-joint uncertainty prevents full \u00b16% anatomy pass. All4 frames/wrap stable.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "taunt",
+    "version": 10,
+    "verdict": "HOLD",
+    "summary": "Upper-collar/black-hem torso46.1px vs neutral50.4 (~0.915); uncertainty overlaps tolerance. Prior0.80\u20130.85 uses different landmarks and is not independently confirmed. Foreshortened limbs unverified; both frames/wrap stable.",
+    "evidence": "AUDIT.md"
+  }
+]
