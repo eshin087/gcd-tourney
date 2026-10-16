@@ -142,10 +142,10 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
-| 11 | ui/super_bg.png (768x192) | - | - | no | - | raw | v01 | — | Round 2a Naruto candidate; approval pending via the desk. Source 1536x1024; final 4:1 crop and hard-pixel/color checks are pending. |
-| 11 | ui/super_fg.png (384x240) | - | - | no | - | raw | v01 | — | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: required clone silhouettes absent, palm angles viewer-left; source has soft edges, excessive colors/partial alpha. |
-| 11 | ui/ult_bg.png (768x432) | - | - | no | - | raw | v01 | — | Round 2a Naruto candidate; approval pending via the desk. Source 1672x941; final crop and hard-pixel/color checks are pending. |
-| 11 | ui/ult_fg.png (576x432) | - | - | no | - | raw | v01 | — | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: substantial normal hair, skin and orange clothing remain exposed rather than a continuous Four-Tails shroud; soft edges/excessive colors/partial alpha. |
+| 11 | ui/super_bg.png (768x192) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Source 1536x1024; final 4:1 crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/super_fg.png (384x240) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: required clone silhouettes absent, palm angles viewer-left; source has soft edges, excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_bg.png (768x432) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Source 1672x941; final crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_fg.png (576x432) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: substantial normal hair, skin and orange clothing remain exposed rather than a continuous Four-Tails shroud; soft edges/excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
 
 User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
 
@@ -300,10 +300,10 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
-| 11 | ui/super_bg.png (768x192) | - | - | no | - | raw | v01 | — | Round 2a Killua candidate; approval pending via the desk. Source 1536x1024; final 4:1 crop and hard-pixel/color checks are pending. |
-| 11 | ui/super_fg.png (384x240) | - | - | no | - | raw | v01 | — | Round 2a Killua candidate; visual identity passes Astra review; technical HOLD: wide source leaves the bust small at fit, with edge contact/soft pixels and excessive colors/partial alpha. |
-| 11 | ui/ult_bg.png (768x432) | - | - | no | - | raw | v01 | — | Round 2a Killua candidate; approval pending via the desk. Source 1536x1024; final crop and hard-pixel/color checks are pending. |
-| 11 | ui/ult_fg.png (576x432) | - | - | no | - | raw | v01 | — | Round 2a Killua candidate; visual identity passes Astra review; technical HOLD for soft aura edges and excessive colors/partial alpha. |
+| 11 | ui/super_bg.png (768x192) | - | - | no | - | approved | v01 | v01 | Round 2a Killua candidate; approval pending via the desk. Source 1536x1024; final 4:1 crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/super_fg.png (384x240) | - | - | no | - | approved | v01 | v01 | Round 2a Killua candidate; visual identity passes Astra review; technical HOLD: wide source leaves the bust small at fit, with edge contact/soft pixels and excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_bg.png (768x432) | - | - | no | - | approved | v01 | v01 | Round 2a Killua candidate; approval pending via the desk. Source 1536x1024; final crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_fg.png (576x432) | - | - | no | - | approved | v01 | v01 | Round 2a Killua candidate; visual identity passes Astra review; technical HOLD for soft aura edges and excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
 
 User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
 
@@ -375,10 +375,10 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 11 | ui/portrait.png (96x96) | - | - | no | - | approved | v02 | v01 | v02 never shown (the preview showed v01); v01 ships. Approved v01. |
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v01 | v02 never shown; v01 ships. Approved v01. |
-| 11 | ui/super_bg.png (768x192) | - | - | no | - | raw | v01 | — | Round 2a Gojo candidate; approval pending via the desk. Source 2172x724; final crop and hard-pixel/color checks are pending. |
-| 11 | ui/super_fg.png (384x240) | - | - | no | - | raw | v01 | — | Round 2a Gojo candidate; Astra HOLD: blindfold is raised rather than pulled down; gesture is near the face instead of chest height. Technical size, edge, color and alpha checks also HOLD. |
-| 11 | ui/ult_bg.png (768x432) | - | - | no | - | raw | v01 | — | Round 2a Gojo candidate; approval pending via the desk. Source 1536x1024; final crop and hard-pixel/color checks are pending. |
-| 11 | ui/ult_fg.png (576x432) | - | - | no | - | raw | v01 | — | Round 2a Gojo candidate; Astra HOLD: energy color assignment appears reversed by anatomical hand, red reads hot pink and reflects on figure; technical colors/partial alpha HOLD. |
+| 11 | ui/super_bg.png (768x192) | - | - | no | - | approved | v01 | v01 | Round 2a Gojo candidate; approval pending via the desk. Source 2172x724; final crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/super_fg.png (384x240) | - | - | no | - | approved | v01 | v01 | Round 2a Gojo candidate; Astra HOLD: blindfold is raised rather than pulled down; gesture is near the face instead of chest height. Technical size, edge, color and alpha checks also HOLD. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_bg.png (768x432) | - | - | no | - | approved | v01 | v01 | Round 2a Gojo candidate; approval pending via the desk. Source 1536x1024; final crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_fg.png (576x432) | - | - | no | - | approved | v01 | v01 | Round 2a Gojo candidate; Astra HOLD: energy color assignment appears reversed by anatomical hand, red reads hot pink and reflects on figure; technical colors/partial alpha HOLD. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
 
 ## Tech poses (ADR 0030)
 
