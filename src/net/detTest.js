@@ -334,30 +334,15 @@ export function install(game, ready, qs) {
   // (SimRemote playing the log's second pad over its own socket). The intro is played, as online. Every frame of this
   // game must equal the same inputs replayed straight through a spectator session, the bot's hash reports must agree
   // (the desync check, through the server), and the spectator's feed must be exactly the inputs both players sent.
-  async function online(log, { lobby = lobbyUrl(), frames = 3000, delay = 2, onProgress = null } = {}) {
+  async function online(log, { lobby = lobbyUrl(), frames = 3000, onProgress = null } = {}) {
     if (!lobby) throw new Error('no lobby server: run npm run lobby, or pass { lobby: "ws://..." }');
     const N = Math.min(frames, log.frames);
-    const table = packedInputs(log.inputs, N + 600, delay);
     const cfg = { mode: 'online', p1: log.cfg.p1, p2: log.cfg.p2 };
     const draw = game.renderer.render;
     game.renderer.render = () => {};
     window.__manualStep = true;
     const sockets = [];
     try {
-      // the reference: the same inputs straight through, as a spectator would play them
-      game.netplay = null;
-      game.startMatch({ ...cfg, spectate: true });
-      const ref = new SpectateSession(game);
-      ref.feed(0, table[0], table[1]);
-      game.netplay = ref;
-      const refFold = [];
-      for (let f = 0; f < N; f++) {
-        ref.simulate();
-        refFold.push(foldHash(hashSim(game)));
-        if (f % 600 === 0) await yieldNow();
-      }
-      game.netplay = null;
-
       // the room: a spectator first, then us (player 1), then the bot (player 2): the server starts the match
       const code = newCode(), sim = import.meta.env.SIM_ID || 'dev';
       const feed = [[], []], closed = [];
@@ -365,7 +350,7 @@ export function install(game, ready, qs) {
       const connect = (hello, on) => new Promise((resolve, reject) => {
         const c = new LobbyClient(lobby, code, {
           ...on,
-          open: () => c.send({ t: 'hello', sim, ...hello }),
+          open: () => c.send({ t: 'hello', sim, rtt: c.rtt, ...hello }),
           welcome: () => resolve(c),
           error: (m) => reject(new Error(m.text)),
           close: (e) => { closed.push(`${hello.name} ${e.code}`); reject(new Error('closed ' + e.code)); },
@@ -382,6 +367,23 @@ export function install(game, ready, qs) {
       B.inbox = { push: (m) => { if (m.t === 'in') remote?.onMessage(m); } }; // the bot reads our inputs at once
       for (let i = 0; !(start && botStart) && i < 200; i++) await new Promise((r) => setTimeout(r, 10));
       if (!start || start.you !== 0 || botStart.you !== 1) throw new Error('the match did not start as expected');
+
+      // the reference, now that the server picked the input delay (the neutral frames at the start): the same inputs
+      // straight through, as a spectator would play them
+      const delay = start.delay;
+      const table = packedInputs(log.inputs, N + 600, delay);
+      game.netplay = null;
+      game.startMatch({ ...cfg, spectate: true });
+      const ref = new SpectateSession(game);
+      ref.feed(0, table[0], table[1]);
+      game.netplay = ref;
+      const refFold = [];
+      for (let f = 0; f < N; f++) {
+        ref.simulate();
+        refFold.push(foldHash(hashSim(game)));
+        if (f % 600 === 0) await yieldNow();
+      }
+      game.netplay = null;
 
       game.startMatch({ ...cfg, spectate: false });
       const session = new RollbackSession(game, { link: A.matchLink(), local: (p, f) => table[p][f] ?? 0, localPlayers: [0], remotePlayers: [1], delay, hashEvery: 1 });
@@ -414,7 +416,7 @@ export function install(game, ready, qs) {
       return {
         match: first === null && stats.desyncs === 0 && compared > 0.9 * N && feedFirst === null && feed[0].length > 0.8 * N && !ended,
         first, compared, frames: game.frameNo, of: N, seconds: +(ms / 1000).toFixed(1), stats,
-        feed: { frames: feed[0].length, first: feedFirst }, ended, closed, rtt: A.rtt, ids: { A: start.players[0].id, B: start.players[1].id },
+        feed: { frames: feed[0].length, first: feedFirst }, ended, closed, rtt: A.rtt, delay, ids: { A: start.players[0].id, B: start.players[1].id },
       };
     } finally {
       for (const c of sockets) c.close();
@@ -433,7 +435,7 @@ export function install(game, ready, qs) {
     const link = { deliver: (msg) => client.send(msg), remote: null };
     const stop = () => { clearInterval(timer); remote = null; };
     const client = new LobbyClient(lobby, code, {
-      open: () => client.send({ t: 'hello', name, fighter, play, sim: import.meta.env.SIM_ID || 'dev' }),
+      open: () => client.send({ t: 'hello', name, fighter, play, sim: import.meta.env.SIM_ID || 'dev', rtt: client.rtt }),
       start: (m) => {
         stop();
         if (m.you < 0) return;

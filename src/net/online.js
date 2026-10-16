@@ -80,7 +80,7 @@ export class Online {
     this.code = code;
     g.menus.onlineWait(this, `JOINING ROOM ${code}...`);
     const client = (this.client = new LobbyClient(url, code, {
-      open: () => client.send({ t: 'hello', name: this.name, fighter: this.fighter, sim: SIM, play: this.play }),
+      open: () => client.send({ t: 'hello', name: this.name, fighter: this.fighter, sim: SIM, play: this.play, rtt: client.rtt }),
       welcome: (m) => {
         this.you = m.you;
         this.room = m.room;
@@ -216,7 +216,7 @@ export class Online {
       })
       : new SpectateSession(g);
     g.netplay = session;
-    this.match = { no: m.no, you, players: m.players, session, reported: false, ended: null, endAt: 0, resultsAt: 0 };
+    this.match = { no: m.no, you, players: m.players, session, delay: m.delay, reported: false, ended: null, endAt: 0, resultsAt: 0, perf: null };
     this.paintStrip();
   }
 
@@ -230,6 +230,7 @@ export class Online {
     if (!M || M.no !== m.no) return this.refresh();
     M.ended = m;
     M.endAt = performance.now();
+    if (M.you >= 0) this.sendStats(M);
     if (m.reason !== 'ko') {
       const loser = m.winner ? M.players.find((p) => p.id !== m.winner)?.name ?? '' : '';
       g.netplay = FROZEN;
@@ -238,11 +239,39 @@ export class Online {
     this.paintStrip();
   }
 
+  // How the match went for this machine's connection (server: GET /room/<CODE>/stats): rollbacks, stalls (waiting
+  // for the other side's inputs), time-sync waits, the frame rate. Lag that a player feels shows up here device by device.
+  sendStats(M) {
+    const s = M.session.stats, P = M.perf;
+    const secs = P ? (P.last - P.t0) / 1000 : 0;
+    this.client?.send({
+      t: 'stats', match: M.no, slot: M.you, device: this.game.input.lastDevice, delay: M.delay, rtt: this.client.rtt,
+      frames: s.frames, rollbacks: s.rollbacks, maxDepth: s.maxDepth, resimFrames: s.resimFrames, stalls: s.stalls,
+      syncWaits: s.syncWaits, fps: secs ? P.frames / secs : null, fpsLow: P && P.low < Infinity ? P.low : null,
+      longFrames: P?.long ?? null, seconds: secs,
+    });
+  }
+
+  // the frame rate during a match, for sendStats: the average, the worst second, frames over two refreshes
+  measure(M, now) {
+    const P = (M.perf ||= { t0: now, last: now, frames: 0, long: 0, sec: now, secFrames: 0, low: Infinity });
+    if (now - P.last > 34) P.long++;
+    P.frames++;
+    P.secFrames++;
+    P.last = now;
+    if (now - P.sec >= 1000) {
+      P.low = Math.min(P.low, P.secFrames);
+      P.sec = now;
+      P.secFrames = 0;
+    }
+  }
+
   // per rendered frame (Game.frame): report our result once every frame is confirmed, and go back to the room
   // a little after the match ended
   update() {
     const M = this.match, g = this.game, now = performance.now();
     if (M) {
+      if (!M.ended) this.measure(M, now);
       if (g.state === 'results' && !M.resultsAt) M.resultsAt = now;
       if (M.you >= 0 && !M.reported && !M.ended && g.state === 'results' && M.session.remoteConfirmed() >= g.frameNo - 1) {
         M.reported = true;
@@ -278,7 +307,7 @@ export class Online {
     if (!show) return;
     const ping = this.client.rtt != null ? ` · ${Math.round(this.client.rtt)} ms` : '';
     const [a, b] = M.players.map((p) => p.name);
-    let line = `${a} vs ${b}`;
+    let line = `${a} vs ${b}` + (M.you >= 0 ? ` · input delay ${M.delay}f` : '');
     if (M.you < 0) {
       const pos = R.queue.indexOf(this.you);
       line = `watching ${line}` + (pos === 0 ? ' · you play next' : pos > 0 ? ` · ${pos} ahead of you in line` : '');

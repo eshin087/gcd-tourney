@@ -1,7 +1,9 @@
 // Lobby room rules test (ENG-094): RoomCore driven in plain Node with a fake clock and fake sockets.
 // Run: npm run test:lobby (from the repository root) or npm test (from server/).
 import assert from 'node:assert/strict';
-import { RoomCore, STREAK_CAP, NEXT_MATCH_MS, SILENT_MS, RESULT_WAIT_MS, INPUT_DELAY, MAX_MEMBERS } from '../src/roomCore.js';
+import { RoomCore, STREAK_CAP, NEXT_MATCH_MS, SILENT_MS, RESULT_WAIT_MS, MAX_MEMBERS, STATS_KEPT, pickDelay } from '../src/roomCore.js';
+
+const INPUT_DELAY = 2; // two members with no round trip yet (80 ms assumed each) get 2 frames
 
 let passed = 0;
 const test = (name, fn) => {
@@ -265,6 +267,42 @@ test('a restarted room keeps its line and tells a cut match its end', () => {
   assert.equal(R2.last('a', 'end').reason, 'server');
   R2.join('d');
   assert.ok(R2.room.match, 'the line plays on');
+});
+
+test('input delay follows the players\' round trips', () => {
+  assert.equal(pickDelay(20, 50), 1, 'home Wi-Fi: 1 frame');
+  assert.equal(pickDelay(60, 60), 1, '60 ms from player to player: still 1');
+  assert.equal(pickDelay(100, 100), 2);
+  assert.equal(pickDelay(160, 170), 3);
+  assert.equal(pickDelay(null, null), 2, 'unknown: 80 ms assumed');
+  const R = makeRoom();
+  R.join('a', { rtt: 24 });
+  R.room.message('a', { t: 'rtt', ms: 30 });
+  R.room.message('a', { t: 'rtt', ms: 'x' });
+  assert.equal(R.room.members.get('a').rtt, 26);
+  R.join('b', { rtt: 45 });
+  assert.equal(R.last('a', 'start').delay, 1);
+  assert.equal(R.room.match.inputs[0].length, 1, 'one neutral frame');
+  R.room.message('a', { t: 'in', start: 1, v: [3, 3, 3, 3, 3, 3] });
+  R.room.message('b', { t: 'in', start: 1, v: [4, 4, 4, 4, 4, 4] });
+  R.join('c');
+  const feed = R.last('c', 'feed');
+  assert.deepEqual(feed.a, [0, 3, 3, 3, 3, 3, 3]);
+});
+
+test('connection stats are kept, cleaned and capped', () => {
+  const R = makeRoom();
+  R.join('a');
+  R.room.message('a', { t: 'stats', match: 1, slot: 0, device: 'touch', delay: 1, rtt: 41.26, rollbacks: 12, stalls: 3, fps: 58.4, junk: 'x', frames: -5 });
+  const e = R.room.statsLog[0];
+  assert.equal(e.name, 'A');
+  assert.equal(e.device, 'touch');
+  assert.equal(e.rtt, 41.3);
+  assert.equal(e.frames, 0);
+  assert.equal(e.junk, undefined);
+  assert.equal(R.env.saved.stats.length, 1, 'persisted');
+  for (let i = 0; i < STATS_KEPT + 5; i++) R.room.message('a', { t: 'stats', match: i });
+  assert.equal(R.room.statsLog.length, STATS_KEPT);
 });
 
 console.log(process.exitCode ? `room test: ${passed} passed, some FAILED` : `room test: OK, ${passed} passed`);

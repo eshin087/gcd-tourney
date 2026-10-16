@@ -26,7 +26,8 @@ export class Room extends DurableObject {
     });
   }
 
-  async fetch() {
+  async fetch(req) {
+    if (new URL(req.url).pathname.endsWith('/stats')) return Response.json(this.core.statsLog); // index.js: GET only
     const [client, server] = Object.values(new WebSocketPair());
     const id = crypto.randomUUID().replace(/-/g, '').slice(0, 10);
     this.ctx.acceptWebSocket(server, [id]); // the tag finds this member's socket again (getWebSockets(id))
@@ -54,7 +55,7 @@ export class Room extends DurableObject {
     } else {
       if (this.core.message(a.id, msg) === 'flood') return ws.close(4008, 'too many messages');
       const m = this.core.members.get(a.id);
-      if (msg?.t === 'set' && m) ws.serializeAttachment({ ...m, joined: true });
+      if ((msg?.t === 'set' || msg?.t === 'rtt') && m) ws.serializeAttachment({ ...m, joined: true });
     }
     await this.schedule();
   }

@@ -1,7 +1,8 @@
 // The lobby connection (ADR 0036, ENG-094): one WebSocket to a room on the lobby server (server/), JSON messages
 // (the protocol is in server/README.md). Match messages (`in`, `ck`) wait in an inbox the rollback session reads
 // through matchLink(); everything else goes to the handlers (online.js). A 'ping' every 2 s keeps the socket open
-// and measures the round trip: the server answers 'pong' without waking the room.
+// and measures the round trip (the server answers 'pong' without waking the room); the room hears it every 5 s, and
+// it sets a match's input delay, so `open` fires after the first round trip (or 1 s) to put it in the hello.
 
 // the deployed lobby server (server/README.md: the user's Cloudflare account). ?lobby=<ws url> overrides it, and a
 // page served from localhost uses `npm run lobby` (wrangler dev) on port 8787 instead
@@ -29,16 +30,28 @@ export class LobbyClient {
     this.open = false;
     this.pingAt = 0;
     this.ws = new WebSocket(`${url}/room/${code}`);
-    this.ws.onopen = () => {
+    this.rttSent = 0;
+    const opened = () => {
+      clearTimeout(this.openT);
+      if (this.open) return;
       this.open = true;
-      this.pinger = setInterval(() => this.ping(), 2000);
       this.on.open?.();
+    };
+    this.ws.onopen = () => {
+      this.pinger = setInterval(() => this.ping(), 2000);
       this.ping();
+      this.openT = setTimeout(opened, 1000);
     };
     this.ws.onmessage = (e) => {
       if (e.data === 'pong') {
-        if (this.pingAt) this.rtt = performance.now() - this.pingAt;
+        const now = performance.now();
+        if (this.pingAt) this.rtt = now - this.pingAt;
         this.pingAt = 0;
+        if (!this.open) opened();
+        else if (this.rtt != null && now - this.rttSent > 5000) {
+          this.rttSent = now;
+          this.send({ t: 'rtt', ms: Math.round(this.rtt) });
+        }
         return;
       }
       let m;
@@ -49,6 +62,7 @@ export class LobbyClient {
     this.ws.onclose = (e) => {
       this.open = false;
       clearInterval(this.pinger);
+      clearTimeout(this.openT);
       this.on.close?.(e);
     };
     this.ws.onerror = () => {}; // onclose follows with the code
@@ -68,6 +82,7 @@ export class LobbyClient {
   close() {
     this.on = {};
     clearInterval(this.pinger);
+    clearTimeout(this.openT);
     try { this.ws.close(1000); } catch { /* not open yet */ }
   }
 

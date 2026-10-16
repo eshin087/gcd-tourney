@@ -666,7 +666,9 @@ The lobby server is `server/` (its README has the protocol). Locally:
    spectating; join a room whose bots have played a while to see the late-join fast-forward. Esc while watching opens
    the room over the match. A hidden page throttles timers: drive the game and the bots (`auto: false`) in a loop.
 4. Two real devices: deploy the server (server/README.md), open the same room on both (the invite link), play a match,
-   and have a third device watch. Check: both see the same result, the watcher's match matches, leaving mid-match
+   and have a third device watch. Afterwards `https://gcd-tourney-lobby.eshin087.workers.dev/room/<CODE>/stats` shows
+   each player's input delay, ping, rollbacks, stalls and frame rate: stalls or a low `fpsLow` on one device point at
+   that device (or its connection), not at rollback. Check: both see the same result, the watcher's match matches, leaving mid-match
    gives the other player the win, a phone put in the background for 10 s loses by timeout.
 
 Expected today: `det.online` MATCH (naruto-sasuke 1,500 frames, gojo-killua 2,400 frames, intro included) with 25-40

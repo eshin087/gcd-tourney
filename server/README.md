@@ -43,12 +43,14 @@ Client to server:
 
 | Message | When |
 |---|---|
-| `{ t: 'hello', name, fighter, sim, play }` | first, once (`play`: false only watches) |
+| `{ t: 'hello', name, fighter, sim, play, rtt }` | first, once (`play`: false only watches; `rtt`: the first ping's round trip, ms) |
+| `{ t: 'rtt', ms }` | every 5 s: the round trip to the room; a match's input delay comes from its two players' (`pickDelay`) |
 | `{ t: 'set', name?, fighter?, play? }` | any time; a fighter change counts from the next match |
 | `{ t: 'in', start, v: [packed...], ack, adv }` | a player, every frame: its inputs from frame `start` (rollback.js) |
 | `{ t: 'ck', frame, hash }` | a player: its state hash of a frame both sides have confirmed |
 | `{ t: 'result', winner: 0 \| 1 }` | a player, once every frame of its match is confirmed |
 | `{ t: 'desync', frame }` | a player whose hash differed from the other side's |
+| `{ t: 'stats', match, slot, device, delay, rtt, frames, rollbacks, maxDepth, resimFrames, stalls, syncWaits, fps, fpsLow, longFrames, seconds }` | a player, when its match ends: how its connection and frame rate held up (kept, newest 20, at `GET /room/<CODE>/stats`) |
 
 Server to client:
 
@@ -56,11 +58,15 @@ Server to client:
 |---|---|
 | `{ t: 'welcome', you, room }` | joined; `you` is this member's id |
 | `{ t: 'room', room }` | anything changed: `{ members: [{ id, name, fighter, play, wins, streak }], queue: [ids], match: { no, players, fighters } \| null, host, nextIn }` |
-| `{ t: 'start', no, players: [{ id, name, fighter }], seed, delay, you }` | a match starts: `you` 0 / 1 plays that side, -1 watches |
+| `{ t: 'start', no, players: [{ id, name, fighter }], seed, delay, you }` | a match starts: `you` 0 / 1 plays that side, -1 watches; `delay`: input delay in frames, 1 when the two players' round trips average 67 ms or less, 2 up to 117 ms, else 3 |
 | `{ t: 'in', from, ... }`, `{ t: 'ck', ... }` | the other player's messages, passed on |
 | `{ t: 'feed', no, start, a: [...], b: [...] }` | to everyone not playing: both players' inputs for the frames from `start` on, once both are known (from 0 for a late joiner) |
 | `{ t: 'end', no, winner, reason, streak, capped, frame? }` | the match is over: `reason` is `ko`, `forfeit` (left), `timeout` (silent 10 s), `desync`, `mismatch` (results differ) or `server` (the room restarted) |
 | `{ t: 'error', code, text }` | refused (`full`, `version`); the socket closes |
+
+`GET /room/<CODE>/stats` returns the players' stats of the room's recent matches (JSON), for diagnosing lag after a
+playtest: `stalls` (frames waiting for the other side's inputs), `syncWaits` (time sync), `rollbacks` / `maxDepth`,
+`fps` / `fpsLow` (the average and the worst second) and `longFrames` (frames over two refreshes), per device.
 
 Rules: the first two in line play; the winner stays on and the loser goes to the back; after five wins in a row the
 winner goes to the back too. A no contest puts the same pair first again. The next match starts six seconds after the

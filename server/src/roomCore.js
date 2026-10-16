@@ -8,10 +8,12 @@
 // back. The two players exchange the rollback session's messages (`in` inputs, `ck` state hashes) through the room,
 // which keeps every input and feeds the confirmed frames to everyone else; spectators replay them and never roll
 // back. Both players report the winner once all their frames are confirmed. A disagreement, a desync report, a
-// player leaving or going silent ends the match early.
+// player leaving or going silent ends the match early. Each member reports its round trip to the room (`rtt`), and a
+// match's input delay comes from its two players' (pickDelay); players send their connection stats after a match
+// (`stats`), kept for GET /room/<CODE>/stats.
 
 export const STREAK_CAP = 5;
-export const INPUT_DELAY = 2;
+export const STATS_KEPT = 20; // the newest per-player match stats a room keeps
 export const NEXT_MATCH_MS = 6000; // the results on screen, then the next pair
 export const SILENT_MS = 10000; // a player whose inputs stop this long (closed laptop, app in the background) forfeits
 export const RESULT_WAIT_MS = 8000; // one player reported the winner: how long the other has to agree
@@ -25,6 +27,15 @@ const cleanName = (s) => String(s ?? '').replace(/[^\p{L}\p{N} _.-]/gu, '').trim
 const cleanFighter = (s) => (typeof s === 'string' && /^[a-z0-9_-]{1,24}$/.test(s) ? s : null);
 const isInput = (v) => Number.isInteger(v) && v >= 0 && v < 1 << 23;
 const isFrame = (f) => Number.isInteger(f) && f >= 0 && f < 1e7;
+const num = (v, max = 1e7) => (Number.isFinite(v) ? Math.max(0, Math.min(max, Math.round(v * 10) / 10)) : null);
+
+// A match's input delay in frames, from its two players' round trips to the room (ms; unknown counts as 80). A move
+// takes about (rttA + rttB) / 2 to reach the other player; rollback hides what the delay doesn't, so a good
+// connection gets 1 frame (the least a player feels next to playing offline) and only long ones get more.
+export function pickDelay(rttA, rttB) {
+  const oneWay = ((rttA ?? 80) + (rttB ?? 80)) / 2 / (1000 / 60);
+  return oneWay <= 4 ? 1 : oneWay <= 7 ? 2 : 3;
+}
 
 export class RoomCore {
   // io: { send(id, msg), save(state), now() -> ms }. saved: the last save(), for an object that restarted.
@@ -41,11 +52,12 @@ export class RoomCore {
     this.cut = s.live ?? null; // the match a restart cut short, if any: its players hear it ended
     this.told = new Set();
     this.bucket = new Map(); // id -> { tokens, at }: the flood limit
+    this.statsLog = s.stats || []; // the players' connection stats of recent matches, newest last
   }
 
   // a member a restarted object finds on its sockets (room.js): back in, without a broadcast
   restore(m) {
-    this.members.set(m.id, { id: m.id, name: m.name, fighter: m.fighter, play: m.play, sim: m.sim });
+    this.members.set(m.id, { id: m.id, name: m.name, fighter: m.fighter, play: m.play, sim: m.sim, rtt: m.rtt ?? null });
   }
 
   // a new connection's hello; returns the member, or null (rejected: the socket is closed after the error)
@@ -54,7 +66,8 @@ export class RoomCore {
     const first = this.members.values().next().value;
     if (this.members.size >= MAX_MEMBERS) return this.reject(id, 'full', 'This room is full.');
     if (first && first.sim !== sim) return this.reject(id, 'version', 'This room runs another version of the game. Refresh the page to update.');
-    const m = { id, name: cleanName(hello?.name), fighter: cleanFighter(hello?.fighter) || 'naruto', play: hello?.play !== false, sim };
+    const m = { id, name: cleanName(hello?.name), fighter: cleanFighter(hello?.fighter) || 'naruto', play: hello?.play !== false, sim, rtt: null };
+    this.rtt(m, { ms: hello?.rtt });
     this.members.set(id, m);
     this.queue = this.queue.filter((q) => this.members.has(q)); // ids a restart left behind
     if (m.play) this.queue.push(id);
@@ -91,7 +104,26 @@ export class RoomCore {
       case 'ck': return this.check(m, msg);
       case 'result': return this.result(m, msg);
       case 'desync': return this.desync(m, msg);
+      case 'rtt': return this.rtt(m, msg);
+      case 'stats': return this.stats(m, msg);
     }
+  }
+
+  // the member's round trip to the room (its ping / pong), smoothed: it sets the next match's input delay
+  rtt(m, msg) {
+    const ms = num(msg.ms, 5000);
+    if (ms == null) return;
+    m.rtt = m.rtt == null ? ms : Math.round(m.rtt * 0.7 + ms * 0.3);
+  }
+
+  // a player's connection over its last match (what the lag felt like, device by device): kept, not broadcast
+  stats(m, msg) {
+    const keys = ['match', 'slot', 'delay', 'rtt', 'frames', 'rollbacks', 'maxDepth', 'resimFrames', 'stalls', 'syncWaits', 'fps', 'fpsLow', 'longFrames', 'seconds'];
+    const entry = { at: new Date(this.io.now()).toISOString(), name: m.name, device: String(msg.device ?? '').slice(0, 16) };
+    for (const k of keys) entry[k] = num(msg[k]);
+    this.statsLog.push(entry);
+    if (this.statsLog.length > STATS_KEPT) this.statsLog.splice(0, this.statsLog.length - STATS_KEPT);
+    this.persist();
   }
 
   spend(id) {
@@ -123,14 +155,15 @@ export class RoomCore {
     const ms = players.map((id) => this.members.get(id));
     this.matchNo++;
     const now = this.io.now();
+    const delay = pickDelay(ms[0].rtt, ms[1].rtt);
     this.match = {
       no: this.matchNo,
       players,
       fighters: ms.map((m) => m.fighter),
       names: ms.map((m) => m.name),
       seed: (Math.random() * 4294967296) >>> 0,
-      delay: INPUT_DELAY,
-      inputs: [new Array(INPUT_DELAY).fill(0), new Array(INPUT_DELAY).fill(0)], // the first `delay` frames are neutral
+      delay,
+      inputs: [new Array(delay).fill(0), new Array(delay).fill(0)], // the first `delay` frames are neutral
       fed: -1, // the newest frame sent to spectators
       lastIn: [now, now],
       result: [null, null],
@@ -288,6 +321,10 @@ export class RoomCore {
     this.maybeStart();
     const room = this.view();
     for (const id of this.members.keys()) this.io.send(id, { t: 'room', room });
-    this.io.save({ queue: this.queue, wins: this.wins, streak: this.streak, matchNo: this.matchNo, nextAt: this.nextAt, live: this.match?.no ?? null });
+    this.persist();
+  }
+
+  persist() {
+    this.io.save({ queue: this.queue, wins: this.wins, streak: this.streak, matchNo: this.matchNo, nextAt: this.nextAt, live: this.match?.no ?? null, stats: this.statsLog });
   }
 }

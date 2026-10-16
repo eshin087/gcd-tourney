@@ -257,5 +257,13 @@ off, and reports the first frame where the two runs differ and which values diff
     (`LOBBY_URL`). `det.online` against it from a local page: naruto-sasuke, 1,800 frames, MATCH on every frame at a
     23 ms ping, 30 hash checks, the feed exact. A page on localhost still uses `npm run lobby` unless `?lobby=` says
     otherwise.
-  - Not yet: a real two-device playtest; reconnecting to a match after a dropped connection; public lobbies, chat and
-    moderation (ENG-095).
+  - Playtest 1 (phone vs PC, 2026-10-16): "seems to be some input delay or lag compared to single player". Every
+    match had 2 frames (33 ms) of input delay, on top of a phone's own touch latency. Now the server picks the delay
+    per match from the two players' measured round trips to the room (`pickDelay`): 1 frame up to 67 ms player to
+    player (home Wi-Fi, one region), 2 up to 117 ms, else 3; rollback hides the rest. Clients measure the round trip
+    before joining (the hello carries it) and report it every 5 s. Each player also sends its match's connection
+    stats (rollbacks, stalls, time-sync waits, frame rate) to the room (`GET /room/<CODE>/stats`), so the next
+    playtest shows device by device whether any lag left is the network or a slow frame rate. The match strip shows
+    the delay. `det.online` over the deployed server: MATCH at 1 frame of delay (10 ms ping, rollbacks of at most
+    3 frames, no stalls).
+  - Not yet: reconnecting to a match after a dropped connection; public lobbies, chat and moderation (ENG-095).
