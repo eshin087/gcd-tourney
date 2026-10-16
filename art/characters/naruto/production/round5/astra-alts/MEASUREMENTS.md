@@ -1,4 +1,6 @@
-# Fresh projected landmark samples
+# Initial projected landmark samples
+
+Supplement: [all 59 frame annotations](PER-FRAME-MEASUREMENTS.md) and [endpoint coordinates](per-frame-measurements.json) now cover every frame; the original reference samples below remain for comparison.
 
 Fresh manual native-cell representative landmarks on exact final quantized pixels; all 59 frames visually inspected. Numeric samples do NOT stand in for all-frame numeric clearance. H_hair includes hair; H_skullEstimate estimates skull under hair and is low confidence. T consistently collar to black jacket hem, not to crotch/trouser folds. Segment coordinates are projected, not depth corrected.
 

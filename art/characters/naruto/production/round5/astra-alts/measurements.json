@@ -1,5 +1,5 @@
 {
-  "method": "Fresh manual native-cell representative landmarks on exact final quantized pixels; all 59 frames visually inspected. Numeric samples do NOT stand in for all-frame numeric clearance. H_hair includes hair; H_skullEstimate estimates skull under hair and is low confidence. T consistently collar to black jacket hem, not to crotch/trouser folds. Segment coordinates are projected, not depth corrected.",
+  "method": "Fresh manual native-cell representative landmarks on exact final quantized pixels; all 59 frames visually inspected. Supplemental per-frame-measurements.json now annotates all 59 frames; neither representative nor full projected coordinates certify hidden intrinsic lengths. H_hair includes hair; H_skullEstimate estimates skull under hair and is low confidence. T consistently collar to black jacket hem, not to crotch/trouser folds. Segment coordinates are projected, not depth corrected.",
   "uncertaintyPx": {
     "H_hair": 4,
     "H_skullEstimate": 4,
@@ -1059,7 +1059,19 @@
           "build/clothing"
         ],
         "sampleKey": "airLight1Alt:0",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 42.0,
+          "H_skullEstimate": 25.1,
+          "T": 40.6,
+          "upperArm": 22.4,
+          "forearm": 22.8,
+          "thigh": 31.3,
+          "shin": 47.5,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised screen-right thigh projects toward camera; its knee and far hip overlap the orange crotch, so the far leg is not assigned intrinsic lengths. Guarded far upper arm is behind fist/collar."
       },
       {
         "frame": 1,
@@ -1073,7 +1085,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 44.0,
+          "H_skullEstimate": 26.1,
+          "T": 42.1,
+          "upperArm": 23.0,
+          "forearm": 24.0,
+          "thigh": 35.2,
+          "shin": 46.6,
+          "S": null
+        },
+        "frameSpecificExclusions": "Near guard arm is deeply folded over torso; selected extended arm is a projected shoulder-to-wrist chain, far shoulder joint hidden by collar. Lifted leg hip/knee overlap."
       },
       {
         "frame": 2,
@@ -1087,7 +1111,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 44.0,
+          "H_skullEstimate": 26.1,
+          "T": 42.1,
+          "upperArm": 22.0,
+          "forearm": 24.0,
+          "thigh": 35.2,
+          "shin": 46.2,
+          "S": null
+        },
+        "frameSpecificExclusions": "Lifted leg remains depth-foreshortened with hip under crotch fold; guarding forearm crosses chest."
       },
       {
         "frame": 3,
@@ -1101,7 +1137,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 43.0,
+          "H_skullEstimate": 26.0,
+          "T": 41.0,
+          "upperArm": 22.8,
+          "forearm": 21.5,
+          "thigh": 33.6,
+          "shin": 46.2,
+          "S": null
+        },
+        "frameSpecificExclusions": "Screen-right elbow/cuff merges into chest; raised thigh is viewed end-on and knee partly behind trousers."
       },
       {
         "frame": 4,
@@ -1115,7 +1163,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 43.0,
+          "H_skullEstimate": 26.0,
+          "T": 41.0,
+          "upperArm": 20.6,
+          "forearm": 20.8,
+          "thigh": 34.5,
+          "shin": 45.7,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised knee and its hip are partly hidden by crotch folds; far guarding forearm nearly end-on."
       }
     ],
     "airLight2Alt": [
@@ -1131,7 +1191,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 23.0,
+          "T": 41.8,
+          "upperArm": 23.3,
+          "forearm": 26.4,
+          "thigh": 30.3,
+          "shin": 46.4,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised thigh projects forward; hip and upper thigh under jacket/crotch. Far elbow behind chest/fist."
       },
       {
         "frame": 1,
@@ -1145,7 +1217,19 @@
           "build/clothing"
         ],
         "sampleKey": "airLight2Alt:1",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 37.1,
+          "H_skullEstimate": 22.1,
+          "T": 39.0,
+          "upperArm": 28.0,
+          "forearm": 22.8,
+          "thigh": 39.5,
+          "shin": 43.1,
+          "S": 23.1
+        },
+        "frameSpecificExclusions": "Selected kick knee center inferred under straight trouser cloth (+/-7px); hanging other thigh is sharply folded and its hip occluded."
       },
       {
         "frame": 2,
@@ -1159,7 +1243,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 38.1,
+          "H_skullEstimate": 23.1,
+          "T": 39.1,
+          "upperArm": 29.2,
+          "forearm": 21.9,
+          "thigh": 43.1,
+          "shin": 45.3,
+          "S": 25.3
+        },
+        "frameSpecificExclusions": "Kick knee under cloth (+/-7px); hanging leg hip is obscured by belt/pouch and flexed toward viewer."
       },
       {
         "frame": 3,
@@ -1173,7 +1269,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.1,
+          "H_skullEstimate": 24.1,
+          "T": 41.0,
+          "upperArm": 19.1,
+          "forearm": 24.4,
+          "thigh": 30.3,
+          "shin": 45.6,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised knee obscures torso lower-right; its thigh points into depth. Far guard elbow is hidden by knee/chest overlap."
       },
       {
         "frame": 4,
@@ -1187,7 +1295,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.1,
+          "H_skullEstimate": 24.0,
+          "T": 40.8,
+          "upperArm": 22.5,
+          "forearm": 25.5,
+          "thigh": 31.1,
+          "shin": 45.0,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised thigh/hip overlap the jacket hem and crotch; far guard elbow lies behind fist/torso."
       }
     ],
     "airLight3Alt": [
@@ -1203,7 +1323,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 26.0,
+          "T": 37.5,
+          "upperArm": 31.1,
+          "forearm": 14.8,
+          "thigh": 23.8,
+          "shin": 43.1,
+          "S": null
+        },
+        "frameSpecificExclusions": "Selected guarding forearm points into depth; its projected length is not intrinsic. Other arm is behind back/torso. Raised knee and hip merge in foreshortened orange cloth."
       },
       {
         "frame": 1,
@@ -1217,7 +1349,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.2,
+          "H_skullEstimate": 24.2,
+          "T": 39.0,
+          "upperArm": 26.9,
+          "forearm": 16.4,
+          "thigh": 22.8,
+          "shin": 41.7,
+          "S": null
+        },
+        "frameSpecificExclusions": "Other forearm/open palm points right with cuff overlap; raised thigh points toward viewer and hip is obscured by crotch."
       },
       {
         "frame": 2,
@@ -1231,7 +1375,19 @@
           "build/clothing"
         ],
         "sampleKey": "airLight3Alt:2",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 27.0,
+          "T": 41.4,
+          "upperArm": 26.2,
+          "forearm": 22.8,
+          "thigh": 42.7,
+          "shin": 46.7,
+          "S": 22.4
+        },
+        "frameSpecificExclusions": "Crescent is excluded. Kicking knee center is garment estimate; supporting thigh curls into depth with hip under pouch/crotch. Far hand near waist hides far wrist/elbow."
       },
       {
         "frame": 3,
@@ -1245,7 +1401,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 27.0,
+          "T": 41.4,
+          "upperArm": 26.2,
+          "forearm": 22.8,
+          "thigh": 46.6,
+          "shin": 49.0,
+          "S": 26.1
+        },
+        "frameSpecificExclusions": "No crescent in this frame. Supporting hip hidden under pouch/crotch; far hand is partly hidden at waist. Extended kicking knee center under cloth, uncertainty retained."
       },
       {
         "frame": 4,
@@ -1259,7 +1427,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.1,
+          "H_skullEstimate": 26.1,
+          "T": 35.7,
+          "upperArm": 29.2,
+          "forearm": 22.0,
+          "thigh": 18.2,
+          "shin": 34.7,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised thigh projects forward, its hip obscured by hem; guard elbow on screen-right partly merged with jacket. Hanging thigh itself is flexed toward depth."
       },
       {
         "frame": 5,
@@ -1273,7 +1453,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.2,
+          "H_skullEstimate": 23.1,
+          "T": 40.2,
+          "upperArm": 20.0,
+          "forearm": 25.1,
+          "thigh": 26.6,
+          "shin": 31.2,
+          "S": null
+        },
+        "frameSpecificExclusions": "Far guarding forearm points toward face; raised thigh projects forward with hip covered by hem."
       }
     ],
     "heavyAlt": [
@@ -1289,7 +1481,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 26.0,
+          "T": 36.2,
+          "upperArm": 29.1,
+          "forearm": 15.0,
+          "thigh": 35.4,
+          "shin": 37.0,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Trailing forearm partly directed toward viewer; far guarding upper arm lies under face/fist. Other hip is hidden by pouch and crotch fold."
       },
       {
         "frame": 1,
@@ -1303,7 +1507,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 27.0,
+          "T": 27.7,
+          "upperArm": 30.6,
+          "forearm": 17.0,
+          "thigh": 32.4,
+          "shin": 36.0,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Deep crouch compresses collar-to-hem projection; no standing-height inference. Far guard elbow lies behind forearm/torso. Other hip hidden by pouch."
       },
       {
         "frame": 2,
@@ -1317,7 +1533,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 38.0,
+          "H_skullEstimate": 22.0,
+          "T": 40.1,
+          "upperArm": 27.6,
+          "forearm": 17.2,
+          "thigh": 32.0,
+          "shin": 51.5,
+          "S": 19.2
+        },
+        "frameSpecificExclusions": "Raised thigh points toward viewer and overlaps hem; its hip/knee are ambiguous. Far guard elbow partially behind raised leg. Selected ankle joint estimated inside wrap."
       },
       {
         "frame": 3,
@@ -1331,7 +1559,19 @@
           "build/clothing"
         ],
         "sampleKey": "heavyAlt:3",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 36.1,
+          "H_skullEstimate": 21.2,
+          "T": 40.1,
+          "upperArm": 31.9,
+          "forearm": 19.7,
+          "thigh": 42.4,
+          "shin": 36.9,
+          "S": 21.4
+        },
+        "frameSpecificExclusions": "Head tilted back; skull estimate low confidence. Straight raised-kick knee is inferred from trouser taper (+/-7px), not visible patella. Bent hanging hip occluded by raised thigh; far elbow obscured by kick."
       },
       {
         "frame": 4,
@@ -1345,7 +1585,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 37.0,
+          "H_skullEstimate": 22.0,
+          "T": 41.0,
+          "upperArm": 32.2,
+          "forearm": 17.8,
+          "thigh": 48.3,
+          "shin": 36.4,
+          "S": 23.1
+        },
+        "frameSpecificExclusions": "Raised-kick knee is cloth/taper estimate (+/-7px); head tilt changes hair contour. Hanging leg hip behind kick; far wrist/elbow hidden at waist."
       },
       {
         "frame": 5,
@@ -1359,7 +1611,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 38.1,
+          "H_skullEstimate": 23.1,
+          "T": 37.4,
+          "upperArm": 24.0,
+          "forearm": 24.0,
+          "thigh": 35.9,
+          "shin": 47.4,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised elbow is inside sleeve (+/-6px). Other lifted thigh is foreshortened into depth and hip covered by hem; hanging ankle visible but heel is not."
       },
       {
         "frame": 6,
@@ -1373,7 +1637,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.1,
+          "H_skullEstimate": 23.0,
+          "T": 38.5,
+          "upperArm": 23.3,
+          "forearm": 19.0,
+          "thigh": 24.1,
+          "shin": 43.2,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Trailing forearm has depth shortening; far guard elbow lies behind fist. Screen-left rear hip is behind pouch/hem and bent thigh."
       },
       {
         "frame": 7,
@@ -1387,7 +1663,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.1,
+          "H_skullEstimate": 23.0,
+          "T": 36.3,
+          "upperArm": 19.8,
+          "forearm": 21.5,
+          "thigh": 33.3,
+          "shin": 37.9,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Near guarding arm folded in depth; other shoulder/collar and far elbow overlap. Rear hip behind pouch; not a second measured leg."
       }
     ],
     "hurtHighAlt": [
@@ -1403,7 +1691,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 38.5,
+          "H_skullEstimate": 24.2,
+          "T": 44.9,
+          "upperArm": 26.4,
+          "forearm": 19.1,
+          "thigh": 31.8,
+          "shin": 42.0,
+          "S": 31.0
+        },
+        "frameSpecificExclusions": "Head rolled back, crown under hair uncertain. Far shoulder behind collar/torso; rear hip covered by pouch. Selected arm projects obliquely toward viewer."
       },
       {
         "frame": 1,
@@ -1417,7 +1717,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.1,
+          "H_skullEstimate": 24.0,
+          "T": 36.9,
+          "upperArm": 27.8,
+          "forearm": 23.3,
+          "thigh": 31.1,
+          "shin": 41.2,
+          "S": 32.0
+        },
+        "frameSpecificExclusions": "Far upper arm runs behind torso and only cuff/hand emerge; rear hip hidden by pouch. Chest rotation changes visible shoulder span."
       },
       {
         "frame": 2,
@@ -1431,7 +1743,19 @@
           "build/clothing"
         ],
         "sampleKey": "hurtHighAlt:2",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 37.4,
+          "H_skullEstimate": 23.4,
+          "T": 44.3,
+          "upperArm": 23.6,
+          "forearm": 24.7,
+          "thigh": 29.7,
+          "shin": 42.4,
+          "S": 32.0
+        },
+        "frameSpecificExclusions": "Near forearm crosses torso; far shoulder/elbow behind jacket and guarding hand. Rear hip is obscured by pouch; skull estimate affected by backward tilt."
       }
     ],
     "hurtLowAlt": [
@@ -1447,7 +1771,19 @@
           "build/clothing"
         ],
         "sampleKey": "hurtLowAlt:0",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 27.1,
+          "T": 37.5,
+          "upperArm": 24.2,
+          "forearm": 22.1,
+          "thigh": 30.8,
+          "shin": 39.1,
+          "S": 33.0
+        },
+        "frameSpecificExclusions": "Two hands overlap abdomen; far forearm/elbow cannot be separated from near hand/hem. Back hip behind pouch. Neck/collar partly hidden by bowed head."
       },
       {
         "frame": 1,
@@ -1461,7 +1797,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.3,
+          "H_skullEstimate": 25.3,
+          "T": 31.1,
+          "upperArm": 19.6,
+          "forearm": 18.4,
+          "thigh": 28.8,
+          "shin": 39.1,
+          "S": 32.0
+        },
+        "frameSpecificExclusions": "Screen-right guarding arm crosses abdomen and its wrist merges with jacket folds. Rear shoulder in selected trailing arm inferred beneath upper sleeve; rear hip behind pouch."
       },
       {
         "frame": 2,
@@ -1475,7 +1823,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.3,
+          "H_skullEstimate": 24.3,
+          "T": 37.8,
+          "upperArm": 25.8,
+          "forearm": 23.1,
+          "thigh": 30.2,
+          "shin": 39.1,
+          "S": 33.0
+        },
+        "frameSpecificExclusions": "Overlapping hands hide far wrist and elbow; rear hip obscured by pouch. Collar at bent neck partly under face/hair."
       }
     ],
     "light1Alt": [
@@ -1491,7 +1851,19 @@
           "build/clothing"
         ],
         "sampleKey": "light1Alt:0",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 26.0,
+          "T": 35.2,
+          "upperArm": 19.1,
+          "forearm": 20.1,
+          "thigh": 32.4,
+          "shin": 37.9,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Other guard shoulder and elbow overlap collar/raised fist. Rear hip covered by pouch; rear toe faces viewer."
       },
       {
         "frame": 1,
@@ -1505,7 +1877,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 25.0,
+          "T": 35.2,
+          "upperArm": 13.6,
+          "forearm": 27.6,
+          "thigh": 32.4,
+          "shin": 37.9,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Loaded far arm folds behind guard fist and chest: wrist cannot be isolated. Selected forearm points toward viewer; rear hip covered by pouch."
       },
       {
         "frame": 2,
@@ -1519,7 +1903,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 25.0,
+          "T": 35.2,
+          "upperArm": 22.2,
+          "forearm": 22.0,
+          "thigh": 32.2,
+          "shin": 36.9,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Guard forearm/fist overlaps face and hides its wrist/shoulder separation. Extended shoulder estimated through sleeve; rear hip hidden by pouch."
       },
       {
         "frame": 3,
@@ -1533,7 +1929,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 25.0,
+          "T": 35.2,
+          "upperArm": 18.0,
+          "forearm": 16.1,
+          "thigh": 33.0,
+          "shin": 36.9,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Guard forearm crosses face; selected punch is less extended and projects into depth, so its short forearm is not intrinsic length. Rear hip hidden by pouch."
       },
       {
         "frame": 4,
@@ -1547,7 +1955,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 26.0,
+          "T": 36.1,
+          "upperArm": 22.0,
+          "forearm": 11.2,
+          "thigh": 30.2,
+          "shin": 37.5,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Selected near forearm crosses torso almost toward viewer; far arm crosses upper chest and hides elbow/wrist boundary. Rear hip behind pouch/hem."
       },
       {
         "frame": 5,
@@ -1561,7 +1981,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 26.0,
+          "T": 36.1,
+          "upperArm": 19.8,
+          "forearm": 22.4,
+          "thigh": 30.8,
+          "shin": 36.7,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Far guard upper arm partly hidden by raised hand and collar; rear hip behind pouch. Both forearms folded in depth."
       },
       {
         "frame": 6,
@@ -1575,7 +2007,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 26.0,
+          "T": 36.2,
+          "upperArm": 19.1,
+          "forearm": 22.4,
+          "thigh": 30.8,
+          "shin": 36.7,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Far guard elbow under cuff/chest; rear hip covered by pouch. Selected arm remains folded in depth."
       }
     ],
     "light2Alt": [
@@ -1591,7 +2035,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.1,
+          "H_skullEstimate": 23.1,
+          "T": 38.3,
+          "upperArm": 20.5,
+          "forearm": 22.8,
+          "thigh": 37.7,
+          "shin": 40.4,
+          "S": 31.0
+        },
+        "frameSpecificExclusions": "Far guard elbow/shoulder overlap the collar and fist; rear hip behind pouch. Guard arm has depth shortening."
       },
       {
         "frame": 1,
@@ -1605,7 +2061,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 24.0,
+          "T": 41.2,
+          "upperArm": 19.0,
+          "forearm": 26.2,
+          "thigh": 33.0,
+          "shin": 35.7,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised thigh points toward viewer with knee/hip partly under hem; far fist overlaps raised knee and hides forearm endpoint."
       },
       {
         "frame": 2,
@@ -1619,7 +2087,19 @@
           "build/clothing"
         ],
         "sampleKey": "light2Alt:2",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 38.0,
+          "H_skullEstimate": 25.0,
+          "T": 42.1,
+          "upperArm": 18.4,
+          "forearm": 24.1,
+          "thigh": 42.2,
+          "shin": 35.2,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Kick knee center inferred beneath straight trouser cloth; far guard elbow overlaps extended thigh. Supporting hip obscured by pouch/crotch."
       },
       {
         "frame": 3,
@@ -1633,7 +2113,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 38.1,
+          "H_skullEstimate": 23.0,
+          "T": 41.8,
+          "upperArm": 18.4,
+          "forearm": 24.8,
+          "thigh": 37.7,
+          "shin": 31.6,
+          "S": 22.0
+        },
+        "frameSpecificExclusions": "Kick knee under cloth; shortened f3 kick has a depth component, so projected length is not intrinsic. Far elbow merges with upper thigh; supporting hip behind pouch."
       },
       {
         "frame": 4,
@@ -1647,7 +2139,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 24.0,
+          "T": 39.6,
+          "upperArm": 19.7,
+          "forearm": 24.2,
+          "thigh": 33.2,
+          "shin": 35.4,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised leg folds toward viewer and hides hip/knee separation; far guard forearm lies behind chest/knee."
       },
       {
         "frame": 5,
@@ -1661,7 +2165,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 42.0,
+          "H_skullEstimate": 25.0,
+          "T": 39.1,
+          "upperArm": 20.2,
+          "forearm": 24.7,
+          "thigh": 29.7,
+          "shin": 39.1,
+          "S": 32.0
+        },
+        "frameSpecificExclusions": "Other guard arm partly behind fist/chest; rear hip covered by pouch. Both forearms flex toward viewer."
       },
       {
         "frame": 6,
@@ -1675,7 +2191,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 24.0,
+          "T": 39.2,
+          "upperArm": 20.0,
+          "forearm": 24.2,
+          "thigh": 37.2,
+          "shin": 40.4,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Far elbow is masked by guard cuff/chest; rear hip behind pouch. Forearm depth projection remains unknown."
       }
     ],
     "light3Alt": [
@@ -1691,7 +2219,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 24.0,
+          "T": 35.1,
+          "upperArm": 17.7,
+          "forearm": 21.9,
+          "thigh": 31.2,
+          "shin": 38.8,
+          "S": 25.0
+        },
+        "frameSpecificExclusions": "Far guarding elbow is partly concealed by cuff/chest; back hip behind pouch. Skull crown inferred under bangs."
       },
       {
         "frame": 1,
@@ -1705,7 +2245,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 24.0,
+          "T": 33.2,
+          "upperArm": 18.6,
+          "forearm": 25.9,
+          "thigh": 26.0,
+          "shin": 31.1,
+          "S": null
+        },
+        "frameSpecificExclusions": "Raised thigh is directed toward viewer with hip covered by jacket; far guard forearm overlaps the raised knee/torso."
       },
       {
         "frame": 2,
@@ -1719,7 +2271,19 @@
           "build/clothing"
         ],
         "sampleKey": "light3Alt:2",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.1,
+          "H_skullEstimate": 26.0,
+          "T": 33.1,
+          "upperArm": 16.6,
+          "forearm": 20.6,
+          "thigh": 38.8,
+          "shin": 41.6,
+          "S": 28.8
+        },
+        "frameSpecificExclusions": "Straight kicking knee is garment-center estimate; support hip hidden behind pouch and overlapping kicking thigh. Far guard elbow merges with torso."
       },
       {
         "frame": 3,
@@ -1733,7 +2297,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.1,
+          "H_skullEstimate": 25.0,
+          "T": 34.1,
+          "upperArm": 17.0,
+          "forearm": 22.0,
+          "thigh": 39.6,
+          "shin": 40.6,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Kicking knee lies under trouser cloth; support hip hidden by pouch/crotch overlap. Far guard upper arm and forearm masked by fist/collar."
       },
       {
         "frame": 4,
@@ -1747,7 +2323,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.0,
+          "H_skullEstimate": 25.0,
+          "T": 37.1,
+          "upperArm": 15.6,
+          "forearm": 19.7,
+          "thigh": null,
+          "shin": 31.3,
+          "S": 25.0
+        },
+        "frameSpecificExclusions": "Selected planted thigh is N/A: hip and upper thigh completely behind crossed raised thigh, so no independent hip endpoint can be assigned. Raised leg points into depth; its knee/hip overlap. Far elbow behind guarding hand."
       },
       {
         "frame": 5,
@@ -1761,7 +2349,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 24.0,
+          "T": 35.5,
+          "upperArm": 19.8,
+          "forearm": 24.6,
+          "thigh": 32.4,
+          "shin": 35.9,
+          "S": 26.0
+        },
+        "frameSpecificExclusions": "Far arm folded across upper chest; rear hip hidden by pouch. Selected guarding forearm is depth-foreshortened."
       },
       {
         "frame": 6,
@@ -1775,7 +2375,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.1,
+          "H_skullEstimate": 23.1,
+          "T": 36.5,
+          "upperArm": 19.8,
+          "forearm": 23.3,
+          "thigh": 32.4,
+          "shin": 35.9,
+          "S": 27.0
+        },
+        "frameSpecificExclusions": "Far cuff/fist obscures its forearm-to-elbow boundary; rear hip behind pouch. Head tips forward, skull crown remains an estimate."
       }
     ],
     "light4Alt": [
@@ -1791,7 +2403,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.1,
+          "H_skullEstimate": 25.1,
+          "T": 38.2,
+          "upperArm": 19.1,
+          "forearm": 23.7,
+          "thigh": 33.8,
+          "shin": 42.2,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Far guard elbow is behind the fist/cuff/chest; rear hip behind pouch. Selected forearm points toward viewer."
       },
       {
         "frame": 1,
@@ -1805,7 +2429,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.1,
+          "H_skullEstimate": 25.1,
+          "T": 38.5,
+          "upperArm": 17.2,
+          "forearm": 24.7,
+          "thigh": 34.5,
+          "shin": 43.0,
+          "S": 33.0
+        },
+        "frameSpecificExclusions": "Both palms open; far elbow hidden by near forearm/chest. Rear hip behind pouch. Near wrist partly under palm cuff."
       },
       {
         "frame": 2,
@@ -1819,7 +2455,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 41.1,
+          "H_skullEstimate": 25.1,
+          "T": 43.0,
+          "upperArm": 22.2,
+          "forearm": 15.0,
+          "thigh": 37.2,
+          "shin": 42.2,
+          "S": 31.0
+        },
+        "frameSpecificExclusions": "Far shoulder hidden by neck/near shoulder; its forearm endpoints separately noted. Rear hip behind pouch; near extended arm projects into depth."
       },
       {
         "frame": 3,
@@ -1833,7 +2481,19 @@
           "build/clothing"
         ],
         "sampleKey": "light4Alt:3",
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 26.0,
+          "T": 43.5,
+          "upperArm": 29.1,
+          "forearm": 21.0,
+          "thigh": 37.0,
+          "shin": 46.4,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Far shoulder is hidden by near arm/neck; far forearm separately noted. Rear hip under pouch/hem. Lunge changes torso projection."
       },
       {
         "frame": 4,
@@ -1847,7 +2507,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 43.0,
+          "H_skullEstimate": 27.0,
+          "T": 38.9,
+          "upperArm": 21.4,
+          "forearm": 20.0,
+          "thigh": 35.3,
+          "shin": 34.7,
+          "S": 32.0
+        },
+        "frameSpecificExclusions": "Far shoulder hidden behind near arm; far forearm separately noted. Rear hip behind pouch. Bent waist and lowered palms shorten torso projection."
       },
       {
         "frame": 5,
@@ -1861,7 +2533,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 40.0,
+          "H_skullEstimate": 24.0,
+          "T": 39.5,
+          "upperArm": 19.8,
+          "forearm": 21.8,
+          "thigh": 27.2,
+          "shin": 31.0,
+          "S": 29.0
+        },
+        "frameSpecificExclusions": "Far palm/forearm partly turned toward viewer, elbow obscured by torso. Rear step sandal is tilted/toe-on (heel hidden), not used for shoe length; its hip under pouch."
       },
       {
         "frame": 6,
@@ -1875,7 +2559,19 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 42.0,
+          "H_skullEstimate": 26.0,
+          "T": 36.1,
+          "upperArm": 19.8,
+          "forearm": 24.6,
+          "thigh": 31.2,
+          "shin": 36.3,
+          "S": 28.0
+        },
+        "frameSpecificExclusions": "Far guard elbow merges into chest/cuff; rear hip behind pouch. Selected forearm folded into depth."
       },
       {
         "frame": 7,
@@ -1889,8 +2585,47 @@
           "build/clothing"
         ],
         "sampleKey": null,
-        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+        "numericStatus": "Frame endpoints annotated in per-frame-measurements.json; intrinsic +/-6% remains unresolved where landmark uncertainty/depth excludes certification.",
+        "fullMeasurementEvidence": "per-frame-measurements.json",
+        "projectedMetrics": {
+          "H_hair": 39.0,
+          "H_skullEstimate": 23.0,
+          "T": 36.2,
+          "upperArm": 18.4,
+          "forearm": 24.2,
+          "thigh": 34.7,
+          "shin": 36.9,
+          "S": 30.0
+        },
+        "frameSpecificExclusions": "Far guard elbow/collar overlap; rear hip under pouch. Both forearms folded toward viewer."
       }
     ]
+  },
+  "completeFrameAnnotation": "per-frame-measurements.json",
+  "coverage": {
+    "totalFrames": 59,
+    "frameRows": 59,
+    "measuredProjectedMetricCounts": {
+      "H_hair": 59,
+      "H_skullEstimate": 59,
+      "T": 59,
+      "upperArm": 59,
+      "forearm": 59,
+      "thigh": 58,
+      "shin": 59,
+      "S": 43
+    },
+    "notMeasuredCounts": {
+      "H_hair": 0,
+      "H_skullEstimate": 0,
+      "T": 0,
+      "upperArm": 0,
+      "forearm": 0,
+      "thigh": 1,
+      "shin": 0,
+      "S": 16
+    },
+    "allFramesHaveSpecificExclusionText": true,
+    "unresolvedIntrinsicComparisons": "All metrics remain subject to documented landmark and depth uncertainty; no blanket all-frame +/-6% pass asserted."
   }
 }

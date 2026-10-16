@@ -5,10 +5,12 @@
     "verdict": "HOLD",
     "summary": "No new visible scale pop; punch remains close to base technique. Full limb/foot +/-6% unresolved under foreshortening.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "airLight2Alt",
@@ -16,10 +18,12 @@
     "verdict": "HOLD",
     "summary": "No new visible scale pop; kick and chamber remain close to base. Bent/occluded limb +/-6% unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "airLight3Alt",
@@ -27,10 +31,12 @@
     "verdict": "HOLD",
     "summary": "Calibrated kick is intact; start/end poses and spin differ from base. Full projected limb/foot +/-6% unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "heavyAlt",
@@ -38,10 +44,12 @@
     "verdict": "HOLD",
     "summary": "High-kick parts show no clear head-size jump; rear tipped head is a probe limitation. Full limb +/-6% unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "hurtHighAlt",
@@ -49,10 +57,12 @@
     "verdict": "HOLD",
     "summary": "Reaction is intact and broadly follows base; tilted head and projected sandals cannot certify strict +/-6%.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "hurtLowAlt",
@@ -60,10 +70,12 @@
     "verdict": "HOLD",
     "summary": "Folded reaction is intact; near hands/waist and bent knees prevent full +/-6% certification.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "light1Alt",
@@ -71,10 +83,12 @@
     "verdict": "HOLD",
     "summary": "Active art reads a straight punch rather than a compact hook; endpoint stance differs. Full anatomy +/-6% unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "light2Alt",
@@ -82,10 +96,12 @@
     "verdict": "HOLD",
     "summary": "Confirmed drawn-foot contact residual: about 27-28 px below base hit center; f2 toe about 31 px beyond drawn fist. Anatomy precision separately unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "HOLD_DRAWN_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "light3Alt",
@@ -93,10 +109,12 @@
     "verdict": "HOLD",
     "summary": "Kick contact is now mid-height and intact; f3 to f4 chamber is a large pose reset, startup differs from base. Full anatomy +/-6% unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   },
   {
     "animation": "light4Alt",
@@ -104,9 +122,11 @@
     "verdict": "HOLD",
     "summary": "Distinct double-palm move; no new visible global scale pop, recovery differs from base. Full anatomy +/-6% unresolved.",
     "evidence": "AUDIT.md",
-    "anatomyStatus": "UNRESOLVED_MEASUREMENT",
+    "anatomyStatus": "UNRESOLVED_PRECISION_AND_PROJECTION",
     "contactStatus": "BASE_BOXES_VERIFIED_NO_NEW_CONFIRMED_OFFSET",
     "visualScaleStatus": "NO_CONFIRMED_NEW_GLOBAL_POP",
-    "approval": "needs review"
+    "approval": "needs review",
+    "frameAnnotationComplete": true,
+    "frameMeasurementEvidence": "PER-FRAME-MEASUREMENTS.md"
   }
 ]
