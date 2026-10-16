@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: approvals happen in Claude (TOOL-045, ADR 0037): Codex rings the relay `--for user --kind approval|decision|blocked`, Claude notifies and asks with a question box, then relays the user's quoted answer (`send --user-approved|--user-rejected|--user-decision`); `relay status` shows "turn: you". Also: round trips count only sends that answer a new ring, watchers wait 24 h and say when to restart, `send` unarchives an archived Codex chat, `send --direct`, `add <lane> <chat>` without `--thread`, `remove <lane>`.
+
 - Changed: every Codex handback explicitly reports completion/wait status, required user actions, pending Claude work and the next actor; existing project chats receive the rule (OPS-010).
 
 - Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).

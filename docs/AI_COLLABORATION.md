@@ -118,7 +118,7 @@ sandbox/runtime solution; no broader read access or Git executable modification 
 | Packer bug or new packer feature | Claude (Codex reports it with the exact repro) |
 | "Generate the next asset" / "where does the art stand?" | Codex |
 | Drawing a model sheet, sprite strip, VFX strip, portrait or logo | Codex (built-in image generator); the user in ChatGPT if they prefer |
-| Approving or rejecting an image | the user, in art/REVIEW.md or in chat (`approve vNN` or feedback) |
+| Approving or rejecting an image | the user, in Claude's question box (relayed to Codex, [ADR 0037](decisions/0037-approvals-in-claude.md)) or typed in the Codex chat (`approve vNN` or feedback) |
 | "I saved an image from ChatGPT, file it" | Codex (next free `_vNN`, REVIEW.md row) |
 | Touching up a few pixels on a frame | the user (any pixel editor, in `frames/<anim>/`) or a patched pose saved as the next strip version ([art/PIPELINE.md "Fixing frames"](../art/PIPELINE.md#fixing-frames)), then re-pack |
 | Writing a new character's briefs | Codex (from `_template`), then Claude reviews the gameplay-facing parts |
@@ -159,20 +159,24 @@ Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` wi
 ### Relay: handoffs without paste-in prompts ([ADR 0033](decisions/0033-claude-codex-relay.md))
 
 ```
-Claude: CODEX_INBOX item -> npm run relay -- send <lane>   (queues "[relay <lane> #N] read the inbox..." into the lane's Codex chat)
+Claude: CODEX_INBOX item -> node tools/relay.mjs send <lane>   (queues "[relay <lane> #N] read the inbox..." into the lane's Codex chat)
         -> node tools/relay.mjs wait <lane>                 (background watcher in the Claude session; no tokens while it waits)
 Codex:  works -> commits the handoff -> node tools/relay.mjs ring <lane> --note "..."
 Claude: watcher exits, Claude wakes, reads the handoff, works -> send again ...
-Stops:  an image waits for approval, BLOCKED, a decision for the user, 4 round trips without the user (send exits 3),
-        or `relay pause <lane|all>`. The one who stops tells the user; their reply restarts the lane (`relay reset`).
+User:   Codex: ring <lane> --for user --kind approval|decision|blocked -> Claude notifies the user and asks with buttons
+        -> send <lane> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>" -> Codex continues
+Stops:  4 round trips without the user (send exits 3; only sends that answer a new ring count), or `relay pause
+        <lane|all>`. A relayed user answer starts the count again; so does `relay reset` after the user replies.
 ```
 
 - A **lane** is one Codex chat plus the Claude session working with it; `.relay/lanes.json` (machine-local) maps
   it to the chat's UUID. Parallel work runs in parallel lanes; each watcher only wakes for its own lane.
-- The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. A relayed
-  message is never the user's approval; approvals stay in the Codex chat, typed by the user.
-- If `codex queue` fails, Claude gives the user the paste-in prompt, as before. `npm run relay -- status` shows
-  whose turn each lane is, its round trips and whether a watcher is running.
+- The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. Approvals
+  happen in Claude ([ADR 0037](decisions/0037-approvals-in-claude.md)): only a `USER APPROVAL via Claude` relay
+  quoting the user's answer (or the user typing in the Codex chat) approves an image; a plain relay note cannot.
+- If `codex queue` fails, Claude gives the user the paste-in prompt, as before (an archived chat is unarchived
+  and retried first). `node tools/relay.mjs status` shows whose turn each lane is (Claude, Codex or you), its round
+  trips and whether a watcher is running.
 
 Every chat and subagent must perform the mandatory Claude handoff check in [AGENTS.md](../AGENTS.md) at session start and before finishing, using main's current rules/inbox and relay status. The owning chat sends required handbacks without a user reminder. Explicit review-ready notifications report "awaiting user approval; do not proceed" without authorizing another production round.
 
@@ -186,7 +190,8 @@ Codex generates (up to 3 attempts), then saves ONLY the single best attempt
      number; never overwrite, reuse or delete a version)
   -> packs it (strips, VFX), runs QA
   -> adds a REVIEW.md row "needs review", updates TRACKER + manifest (version)
-  -> STOPS and shows the user the latest version with a 3-line verdict
+  -> STOPS and shows the user the latest version with a 3-line verdict, and rings Claude --for user (ADR 0037):
+     Claude asks the user with buttons and relays the answer
 user: "approve vNN"  -> row approved, manifest approvedVersion = NN, fixed-name copy
                         (reference/model_sheet.png, expressions.png, idle_approved.png, ui/<name>.png);
                         any other "needs review" row of the asset -> rejected (superseded by vNN),
@@ -313,7 +318,8 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 
 - Both AIs update "Your next actions" and run `npm run status -- --write` before handing back.
 - The user can type **"status"** to either AI and gets the short version.
-- Approvals still happen in the Codex thread that owns the asset (`approve <id> vNN`); NOW.md only points to them.
+- Approvals happen in Claude's question box and are relayed to the Codex chat that owns the asset (ADR 0037);
+  typing `approve <id> vNN` in that chat still works. NOW.md only points to them.
 
 
 ## Worktree location audit (2026-10-12, OPS-005)
