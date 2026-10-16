@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luffy special v02 — relay 11 technical review</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#10131b;color:#f2f3f8}body{margin:0 auto;padding:24px;max-width:1120px}h1,h2{line-height:1.15}h1{font-size:clamp(1.7rem,4vw,2.3rem)}h2{margin-top:2rem}.status{padding:14px 16px;border:1px solid #d49a28;background:#33250b;border-radius:8px}.status strong{color:#ffd36b}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(256px,100%),1fr));gap:14px}.card{padding:12px;background:#1a1f2b;border:1px solid #343b4b;border-radius:8px;min-width:0}.cell{display:block;width:256px;min-width:256px;height:256px;object-fit:contain;image-rendering:pixelated;background:#ff00ff}.cells{display:grid;grid-template-columns:repeat(4,256px);gap:12px;width:max-content}.source{display:block;max-width:100%;height:auto;image-rendering:pixelated;background:#ff00ff}.refs{display:grid;grid-template-columns:repeat(3,256px);gap:12px;width:max-content}.ref{width:256px;min-width:256px;height:256px;object-fit:contain;image-rendering:pixelated;background:#ff00ff}canvas{display:block;width:256px;min-width:256px;height:256px;image-rendering:pixelated;background:#ff00ff;border:1px solid #606778}.controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.controls button{padding:8px 12px;background:#283044;color:#fff;border:1px solid #65708b;border-radius:6px;cursor:pointer}.small{color:#b8c0d0;font-size:.92rem}a{color:#9cc7ff;overflow-wrap:anywhere}code,pre{overflow-wrap:anywhere;white-space:pre-wrap}details{margin-top:14px;background:#171c26;border-radius:6px;padding:10px 14px}summary{cursor:pointer;font-weight:650}figure{margin:0}figcaption{margin-top:8px;color:#c3cada}img{max-width:100%}.scroll{overflow-x:auto}.hash{font:12px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<h1>Luffy special v02 — relay 11</h1>
+<p class="status"><strong>Unapproved candidate; final strict technical audit PASS.</strong> One authorized call was used (cumulative attempt 5/5). The r6 48-color preview includes special v02 for review. It does not approve the image or certify runtime contacts, timing or gameplay. Down v03 and getup v03 were separately approved via Claude relay #10 (“Approved”); this page requests a decision on special v02 only.</p>
+<p>Candidate v02 preserves the six original attack poses as source A and adds two generated recovery poses. The stitch scaled only source B by 0.5057 from a head-probe measurement; Astra's anatomy judgment used body landmarks on the actual quantized pixels. f6 visibly retracts the arm from f5's extended reach; f7 returns to a compact guard. Review the actual f5→f6→f7 sequence below.</p>
+<ul><li><strong>Identity:</strong> approved design, face, and outfit remain coherent across f0–f7.</li><li><strong>Proportions and pose:</strong> Astra PASSed body landmarks and the f5→f6→f7 recovery sequence within recorded uncertainty.</li><li><strong>Technical:</strong> strict 48-color pack and all 108-frame static audit pass; runtime contacts and gameplay are not validated.</li></ul>
+
+<h2>Quantized candidate — native 256 px cells</h2>
+<div class="card">
+<canvas id="player" width="256" height="256" aria-label="Luffy special v02 frame playback"></canvas>
+<div class="controls"><button id="play">Play once</button><button id="pause">Pause</button><button id="step">Step</button><button id="reset">Reset</button></div>
+<p class="small" id="frame-label">Loading exact quantized diagnostic frames…</p>
+</div>
+<div class="scroll"><div class="cells" id="cells"></div></div>
+<p class="small">The eight cells were extracted without rescaling from the strict 48-color atlas. Open each image at its native 256×256 size for pixel inspection.</p>
+
+<h2>Approved Luffy references</h2>
+<div class="scroll"><div class="refs">
+<figure class="card"><img class="ref" src="sources/approved-neutral.png" alt="Approved Luffy neutral reference"><figcaption>Approved neutral reference (256 px cell)</figcaption></figure>
+<figure class="card"><img class="ref" src="sources/approved-combat.png" alt="Approved Luffy combat reference"><figcaption>Approved combat reference (256 px cell)</figcaption></figure>
+<figure class="card"><img class="ref" src="sources/approved-idle-f0.png" alt="Approved Luffy idle frame 0"><figcaption>Approved idle f0 (256 px cell)</figcaption></figure>
+</div></div>
+
+<h2>Source and assembly</h2>
+<div class="grid">
+<figure class="card"><img class="source" src="sources/generated-special-v02.png" alt="Exact generated two-pose source"><figcaption>Exact returned call 5/5 source (1774×887). Both generated poses; no part of f0–f5 is regenerated.</figcaption></figure>
+<figure class="card"><img class="source" src="sources/assembled-special-v02.png" alt="Assembled eight-pose raw strip"><figcaption>Assembled raw v02: six preserved A poses plus two measured B poses, before quantization.</figcaption></figure>
+<figure class="card"><img class="source" src="sources/held-special-v01.png" alt="Held prior special candidate"><figcaption>Held v01 context; its f6/f7 were guard poses, so it remains held.</figcaption></figure>
+</div>
+<figure class="card"><img class="source" src="sources/sourceA-comparison-native.png" alt="Before and after comparison for frames zero through five"><figcaption>Responsive view of rows comparing original A and assembled v02 f0–f5 at 1× with matching crop dimensions and top-left registration. <a href="sources/sourceA-comparison-native.png">Open the comparison at native size</a>. The original source-A file is unchanged. The stitch cleanup removed 14 isolated alpha pixels total; opaque RGB and crop bounds matched.</figcaption></figure>
+
+<p class="status"><strong>Please review special v02:</strong> reply “approve luffy special v02” or give pose/design feedback. This approval applies only to this image. Existing placement exceptions remain: user-accepted run rear foot f3/f4/f7, airLight1 fist f2/f3, light3 toe f3 and light4 foot f4; Claude separately accepted beamFire arm continuation clips. Other placement/contact warnings and fallback hitboxes remain technical integration checks.</p>
+
+<details><summary>Call, hashes, packing and preservation evidence</summary>
+<p class="hash">Returned source SHA-256: 5f3216c13285a791c76a6f5190c062cc2244f22264dc7505aaaea9bd710eb877<br>Original source-A SHA-256: 7ec7381d83ca597c9e91f6c05bc7390c241a0fc24befa9a77e506828d1a55ceb<br>Assembled v02 SHA-256: 362ddaf4cd82c6bf13708cb54d855e8abdad9bec541d9c7b9b4811d148085853<br>Final strict sheet SHA-256: e8d5ba9f95a833af82bd13441d3099d15cf44449573e15db5af404f01eb92ce0<br>Final strict metadata SHA-256: 7acf280f3c8a7b7b7f2ae8ec75119d8bc61c42e507faaa6ae14a1ee84816ebcd</p>
+<p>The strict `node tools/pack-sprites.mjs luffy --quantize 48` run wrote 23 animations / 108 frames at 48 colors. Astra's final strict r6 audit PASSed all 108 actual quantized frames; the strict sheet is byte-identical to the audited diagnostic sheet, and animation maps/timings match. The isolated warn-mode pack was only used to prepare the candidate before version-bound manualQA; it is not the final result. This preview pack includes the unapproved special candidate for review.</p>
+<p><a href="final-strict-audit.md">Open final Astra audit</a> · <a href="final-pixel-hashes.json">Open per-frame pixel hashes</a> · <a href="special_v02_sourceA-preservation.json">Open f0–f5 preservation metrics</a> · <a href="call-record.md">Open exact prompt, five input hashes and call receipt</a></p>
+</details>
+
+<script>
+const dataPromise=fetch('frames.json').then(r=>{if(!r.ok)throw Error('frames.json unavailable');return r.json()});
+const canvas=document.getElementById('player'),ctx=canvas.getContext('2d'),label=document.getElementById('frame-label');
+const controls=[...document.querySelectorAll('.controls button')];controls.forEach(button=>button.disabled=true);
+let data=null,images=[],frame=0,timer=null;
+function draw(){if(!data||!images.length)return;ctx.clearRect(0,0,256,256);ctx.drawImage(images[frame],0,0);label.textContent=`Frame ${frame} / 7 · ${data.durations[frame]} ms · one-shot`;}
+function stop(){if(timer){clearTimeout(timer);timer=null;}}
+function tick(){if(!data)return;draw();timer=setTimeout(()=>{if(frame>=7){stop();return}frame++;tick()},data.durations[frame]);}
+function loadImage(name){return new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('Could not load '+name));image.src='cells/'+name;});}
+dataPromise.then(async d=>{const loaded=await Promise.all(d.frames.map(loadImage));data=d;images=loaded;const list=document.getElementById('cells');d.frames.forEach((name,i)=>{const f=document.createElement('figure');f.className='card';f.innerHTML=`<img class="cell" src="cells/${name}" alt="Special frame ${i}"><figcaption>f${i} · ${d.durations[i]} ms</figcaption>`;list.appendChild(f)});controls.forEach(button=>button.disabled=false);draw()}).catch(e=>label.textContent='Could not load strict review frames: '+e.message);
+document.getElementById('play').onclick=()=>{if(!data)return;stop();if(frame>=7)frame=0;tick()};
+document.getElementById('pause').onclick=stop;
+document.getElementById('step').onclick=()=>{if(!data)return;stop();frame=Math.min(7,frame+1);draw()};
+document.getElementById('reset').onclick=()=>{stop();frame=0;draw()};
+</script>
+</body>
+</html>

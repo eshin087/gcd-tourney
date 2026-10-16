@@ -1,0 +1,144 @@
+{
+  "diagnosticOnly": true,
+  "notGameplayAtlas": true,
+  "reason": "Bounded deterministic v03 assembly from immutable returned sources; bodyHeight equals cleaned max assembled height for x1 packer scale. Candidate pixels only; no approval/manual QA.",
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "quantize": 48,
+  "quantizeColorCount": 48,
+  "atlas": {
+    "path": "sheet.png",
+    "sha256": "4f53696f1bd8bb6f053fdad300dc35c1d53a2dce1628578d10477a8cf05b0345",
+    "size": [
+      1792,
+      256
+    ]
+  },
+  "source": {
+    "down": {
+      "candidate": "art/characters/luffy/raw/down_v03.png",
+      "candidateSha256": "b40f4b01cf7f861d083fb153f156495bc23150324328078182e75782b7100e00",
+      "sidecar": "art/characters/luffy/raw/down_v03.json",
+      "sidecarSha256": "2535b5e6d13a0c1948406572b33dc36dd35c5909fb85c20a95bd78f9352172e2",
+      "bodyHeight": 106,
+      "commonScale": 1,
+      "f0NativeCellSha256": "ce2323a10ebc6e0c8be2310990e17ea786c15a0203cbea42770c0a1de8d5273e",
+      "f1SourceScale": 0.205
+    },
+    "getup": {
+      "candidate": "art/characters/luffy/raw/getup_v03.png",
+      "candidateSha256": "e14761e7f80b58eeb7d08eb465b5347bba192e9e3baae7ada6e3f2cbea018ad0",
+      "sidecar": "art/characters/luffy/raw/getup_v03.json",
+      "sidecarSha256": "5f79f079d0e9e63ff60f6d3e53ccc0bd67efd975005d5f9b5d5c47fc2d0c2be6",
+      "bodyHeight": 209,
+      "commonScale": 1,
+      "sourceScale": 0.477
+    }
+  },
+  "frames": [
+    {
+      "anim": "down",
+      "frame": 0,
+      "index": 0,
+      "bodyHeight": 106,
+      "durationMs": 80,
+      "bounds": [
+        53,
+        145,
+        221,
+        240
+      ],
+      "cellSha256": "ce2323a10ebc6e0c8be2310990e17ea786c15a0203cbea42770c0a1de8d5273e"
+    },
+    {
+      "anim": "down",
+      "frame": 1,
+      "index": 1,
+      "bodyHeight": 106,
+      "durationMs": 420,
+      "bounds": [
+        18,
+        135,
+        226,
+        240
+      ],
+      "cellSha256": "0ef14888dcb37dfe498e3c45eaeee8140d5c0a055671715e7316c2dcb261778b"
+    },
+    {
+      "anim": "getup",
+      "frame": 0,
+      "index": 2,
+      "bodyHeight": 209,
+      "durationMs": 70,
+      "bounds": [
+        15,
+        157,
+        239,
+        240
+      ],
+      "cellSha256": "ff52b0cbe1fc7f1c74a40a00be9de5779c7d2601bc360a06ce81f1bd2662bae7"
+    },
+    {
+      "anim": "getup",
+      "frame": 1,
+      "index": 3,
+      "bodyHeight": 209,
+      "durationMs": 60,
+      "bounds": [
+        41,
+        126,
+        215,
+        240
+      ],
+      "cellSha256": "f6bdb629f67054ebe6330eef2c0d09ae72d8bdd4763efaa63219d7590a09fc66"
+    },
+    {
+      "anim": "getup",
+      "frame": 2,
+      "index": 4,
+      "bodyHeight": 209,
+      "durationMs": 60,
+      "bounds": [
+        44,
+        103,
+        224,
+        240
+      ],
+      "cellSha256": "3c547744e8c986d319396f0d4921add42b0c04ddc2430f09e8d8c141ec709380"
+    },
+    {
+      "anim": "getup",
+      "frame": 3,
+      "index": 5,
+      "bodyHeight": 209,
+      "durationMs": 80,
+      "bounds": [
+        65,
+        77,
+        217,
+        240
+      ],
+      "cellSha256": "8c9be9223203aa3478cc2cdc9badb3fea8ccbec864f4ad410f2745c85a5c85e1"
+    },
+    {
+      "anim": "getup",
+      "frame": 4,
+      "index": 6,
+      "bodyHeight": 209,
+      "durationMs": 70,
+      "bounds": [
+        33,
+        32,
+        219,
+        240
+      ],
+      "cellSha256": "3b8fd62fca3121dbd6ed0338e788ff7a9a69685329a4f8cb16a91541371148d0"
+    }
+  ]
+}

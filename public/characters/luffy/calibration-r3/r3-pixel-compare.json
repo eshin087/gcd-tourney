@@ -1,0 +1,1127 @@
+{
+  "oldAtlas": {
+    "width": 4096,
+    "height": 1792
+  },
+  "newAtlas": {
+    "width": 4096,
+    "height": 1536
+  },
+  "animations": [
+    {
+      "anim": "idle",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 0,
+          "newAtlasIndex": 0,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11058,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 1,
+          "newAtlasIndex": 1,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11042,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 2,
+          "newAtlasIndex": 2,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11183,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 3,
+          "newAtlasIndex": 3,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11034,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 4,
+          "newAtlasIndex": 4,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11084,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 5,
+          "newAtlasIndex": 5,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10993,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 6,
+          "newAtlasIndex": 6,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11045,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        },
+        {
+          "frame": 7,
+          "oldAtlasIndex": 7,
+          "newAtlasIndex": 7,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11042,
+          "maskDiffBounds": null,
+          "oldDuration": 150,
+          "newDuration": 150
+        }
+      ]
+    },
+    {
+      "anim": "run",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 8,
+          "newAtlasIndex": 8,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11161,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 9,
+          "newAtlasIndex": 9,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10307,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 10,
+          "newAtlasIndex": 10,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10865,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 11,
+          "newAtlasIndex": 11,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10224,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 12,
+          "newAtlasIndex": 12,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9834,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 13,
+          "newAtlasIndex": 13,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9820,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 14,
+          "newAtlasIndex": 14,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10604,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 7,
+          "oldAtlasIndex": 15,
+          "newAtlasIndex": 15,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10031,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        }
+      ]
+    },
+    {
+      "anim": "dash",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 16,
+          "newAtlasIndex": 16,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9668,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 17,
+          "newAtlasIndex": 17,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9751,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        }
+      ]
+    },
+    {
+      "anim": "jumpUp",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 18,
+          "newAtlasIndex": 18,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12381,
+          "maskDiffBounds": null,
+          "oldDuration": 80,
+          "newDuration": 80
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 19,
+          "newAtlasIndex": 19,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12495,
+          "maskDiffBounds": null,
+          "oldDuration": 80,
+          "newDuration": 80
+        }
+      ]
+    },
+    {
+      "anim": "jumpFall",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 20,
+          "newAtlasIndex": 20,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8884,
+          "maskDiffBounds": null,
+          "oldDuration": 80,
+          "newDuration": 80
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 21,
+          "newAtlasIndex": 21,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9460,
+          "maskDiffBounds": null,
+          "oldDuration": 80,
+          "newDuration": 80
+        }
+      ]
+    },
+    {
+      "anim": "land",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 22,
+          "newAtlasIndex": 22,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8533,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 23,
+          "newAtlasIndex": 23,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9202,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        }
+      ]
+    },
+    {
+      "anim": "light1",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 24,
+          "newAtlasIndex": 24,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10670,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 25,
+          "newAtlasIndex": 25,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10388,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 26,
+          "newAtlasIndex": 26,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10347,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 27,
+          "newAtlasIndex": 27,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10348,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 28,
+          "newAtlasIndex": 28,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10922,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 29,
+          "newAtlasIndex": 29,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10624,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 30,
+          "newAtlasIndex": 30,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10500,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        }
+      ]
+    },
+    {
+      "anim": "light2",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 31,
+          "newAtlasIndex": 31,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10335,
+          "maskDiffBounds": null,
+          "oldDuration": 35,
+          "newDuration": 35
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 32,
+          "newAtlasIndex": 32,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11262,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 33,
+          "newAtlasIndex": 33,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10738,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 34,
+          "newAtlasIndex": 34,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10802,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 35,
+          "newAtlasIndex": 35,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10506,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 36,
+          "newAtlasIndex": 36,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9648,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 37,
+          "newAtlasIndex": 37,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10099,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        }
+      ]
+    },
+    {
+      "anim": "light3",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 38,
+          "newAtlasIndex": 38,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10214,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 39,
+          "newAtlasIndex": 39,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9411,
+          "maskDiffBounds": null,
+          "oldDuration": 35,
+          "newDuration": 35
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 40,
+          "newAtlasIndex": 40,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9094,
+          "maskDiffBounds": null,
+          "oldDuration": 45,
+          "newDuration": 45
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 41,
+          "newAtlasIndex": 41,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9164,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 42,
+          "newAtlasIndex": 42,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9263,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 43,
+          "newAtlasIndex": 43,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9237,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 44,
+          "newAtlasIndex": 44,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10070,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        }
+      ]
+    },
+    {
+      "anim": "light4",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 45,
+          "newAtlasIndex": 45,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9433,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 46,
+          "newAtlasIndex": 46,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8514,
+          "maskDiffBounds": null,
+          "oldDuration": 45,
+          "newDuration": 45
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 47,
+          "newAtlasIndex": 47,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8609,
+          "maskDiffBounds": null,
+          "oldDuration": 35,
+          "newDuration": 35
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 48,
+          "newAtlasIndex": 48,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8209,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 49,
+          "newAtlasIndex": 49,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9426,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 50,
+          "newAtlasIndex": 50,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10757,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 51,
+          "newAtlasIndex": 51,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10681,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 7,
+          "oldAtlasIndex": 52,
+          "newAtlasIndex": 52,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10874,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        }
+      ]
+    },
+    {
+      "anim": "heavy",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 53,
+          "newAtlasIndex": 53,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 7896,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 54,
+          "newAtlasIndex": 54,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 7332,
+          "maskDiffBounds": null,
+          "oldDuration": 35,
+          "newDuration": 35
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 55,
+          "newAtlasIndex": 55,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 7163,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 56,
+          "newAtlasIndex": 56,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8392,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 57,
+          "newAtlasIndex": 57,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9007,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 58,
+          "newAtlasIndex": 58,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8885,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 6,
+          "oldAtlasIndex": 59,
+          "newAtlasIndex": 59,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8649,
+          "maskDiffBounds": null,
+          "oldDuration": 60,
+          "newDuration": 60
+        },
+        {
+          "frame": 7,
+          "oldAtlasIndex": 60,
+          "newAtlasIndex": 60,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8632,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        }
+      ]
+    },
+    {
+      "anim": "airLight1",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 61,
+          "newAtlasIndex": 61,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11210,
+          "maskDiffBounds": null,
+          "oldDuration": 45,
+          "newDuration": 45
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 62,
+          "newAtlasIndex": 62,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10699,
+          "maskDiffBounds": null,
+          "oldDuration": 35,
+          "newDuration": 35
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 63,
+          "newAtlasIndex": 63,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11709,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 64,
+          "newAtlasIndex": 64,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11667,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 65,
+          "newAtlasIndex": 65,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 11251,
+          "maskDiffBounds": null,
+          "oldDuration": 30,
+          "newDuration": 30
+        }
+      ]
+    },
+    {
+      "anim": "airHeavy",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 66,
+          "newAtlasIndex": 66,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 8920,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 67,
+          "newAtlasIndex": 67,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 6678,
+          "maskDiffBounds": null,
+          "oldDuration": 45,
+          "newDuration": 45
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 68,
+          "newAtlasIndex": 68,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 7913,
+          "maskDiffBounds": null,
+          "oldDuration": 45,
+          "newDuration": 45
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 69,
+          "newAtlasIndex": 69,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9047,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 4,
+          "oldAtlasIndex": 70,
+          "newAtlasIndex": 70,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9591,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 5,
+          "oldAtlasIndex": 71,
+          "newAtlasIndex": 71,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10732,
+          "maskDiffBounds": null,
+          "oldDuration": 40,
+          "newDuration": 40
+        }
+      ]
+    },
+    {
+      "anim": "guard",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 72,
+          "newAtlasIndex": 72,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9580,
+          "maskDiffBounds": null,
+          "oldDuration": 300,
+          "newDuration": 300
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 73,
+          "newAtlasIndex": 73,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9349,
+          "maskDiffBounds": null,
+          "oldDuration": 300,
+          "newDuration": 300
+        }
+      ]
+    },
+    {
+      "anim": "hurtHigh",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 74,
+          "newAtlasIndex": 74,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9657,
+          "maskDiffBounds": null,
+          "oldDuration": 70,
+          "newDuration": 70
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 75,
+          "newAtlasIndex": 75,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10042,
+          "maskDiffBounds": null,
+          "oldDuration": 90,
+          "newDuration": 90
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 76,
+          "newAtlasIndex": 76,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9695,
+          "maskDiffBounds": null,
+          "oldDuration": 100,
+          "newDuration": 100
+        }
+      ]
+    },
+    {
+      "anim": "charge",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 86,
+          "newAtlasIndex": 77,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 13439,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 87,
+          "newAtlasIndex": 78,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 13406,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 88,
+          "newAtlasIndex": 79,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 14655,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 89,
+          "newAtlasIndex": 80,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 14731,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        }
+      ]
+    },
+    {
+      "anim": "beamCharge",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 90,
+          "newAtlasIndex": 81,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 9669,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 91,
+          "newAtlasIndex": 82,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 10241,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 92,
+          "newAtlasIndex": 83,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 13905,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        }
+      ]
+    },
+    {
+      "anim": "beamFire",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 93,
+          "newAtlasIndex": 84,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12799,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 94,
+          "newAtlasIndex": 85,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 13156,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 95,
+          "newAtlasIndex": 86,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12068,
+          "maskDiffBounds": null,
+          "oldDuration": 50,
+          "newDuration": 50
+        }
+      ]
+    },
+    {
+      "anim": "win",
+      "version": null,
+      "frames": [
+        {
+          "frame": 0,
+          "oldAtlasIndex": 104,
+          "newAtlasIndex": 87,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12123,
+          "maskDiffBounds": null,
+          "oldDuration": 200,
+          "newDuration": 200
+        },
+        {
+          "frame": 1,
+          "oldAtlasIndex": 105,
+          "newAtlasIndex": 88,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12499,
+          "maskDiffBounds": null,
+          "oldDuration": 200,
+          "newDuration": 200
+        },
+        {
+          "frame": 2,
+          "oldAtlasIndex": 106,
+          "newAtlasIndex": 89,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12317,
+          "maskDiffBounds": null,
+          "oldDuration": 200,
+          "newDuration": 200
+        },
+        {
+          "frame": 3,
+          "oldAtlasIndex": 107,
+          "newAtlasIndex": 90,
+          "maskDiff": 0,
+          "alphaDiff": 0,
+          "rgbDiff": 12355,
+          "maskDiffBounds": null,
+          "oldDuration": 200,
+          "newDuration": 200
+        }
+      ]
+    }
+  ]
+}

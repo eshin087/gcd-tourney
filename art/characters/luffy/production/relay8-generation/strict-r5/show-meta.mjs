@@ -1,0 +1,1 @@
+import fs from 'node:fs';const p='art/characters/luffy/production/relay8-generation/strict-r5/output/characters/luffy/anims.json';const m=JSON.parse(fs.readFileSync(p,'utf8'));console.log(JSON.stringify({atlas:m.atlas,animations:{idle:m.animations.idle,down:m.animations.down,getup:m.animations.getup}},null,2));

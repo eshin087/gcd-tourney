@@ -1,0 +1,7 @@
+# Luffy win v03 capture record (source call 2/3)
+
+- Authorization: coordinator message on 2026-10-16; one call only, candidate version `win_v03`. This is cumulative source-generation call 2 (v01 was call1; v02 was a transform), and consumes the 1/1 call authorized for this correction round. No further win call is authorized in this assignment.
+- Purpose: correct the real source-scale defect in win v01/v02. Keep the same victory pose from the approved brief: upright, laughing, straw hat on, both fists raised around head height (not above the head). At native 256px cell density, use the approved title-style neutral hat-top-to-sole height (~237px) as the standing target. Do not change production bodyHeight/calibration.
+- Capture completed: pre-call pending state was recorded here. On return, the complete result was stored immediately under `luffy_win_attempt03_full_result`, only `output_hint` metadata was printed, and the generated image was rendered. Exact returned PNG was copied and hash-checked before further processing. No further source-generation call was made. See `win_v03_attempt02.md`.
+- Inputs to attach, with SHA-256 recorded before call: `reference/title_style_draft.png`, `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`, and `raw/_qa_hold/win_v02.png` (pose correction reference only).
+- The single authorized call is consumed. An uncertain source-to-reference transform remains HOLD; no second call is authorized.

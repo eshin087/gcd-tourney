@@ -1,0 +1,64 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/luffy/production/astra-fixture-input
+  out:  art/characters/luffy/production/astra-fixture-output
+  anims: animGuide.js + art/characters/luffy/production/astra-fixture-input/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== luffy =======================================================
+  packed 23 anims, 108 frames -> sheet 4096x1792, 48 colors, COMPLETE (game will use it)
+    idle         8     <- raw/idle_v01.png             x0.872
+    run          8     <- raw/run_v01.png              x0.404
+    dash         2     <- raw/dash_v02.png             x0.269
+    jumpUp       2     <- raw/jumpUp_v01.png           x0.34
+    jumpFall     2     <- raw/jumpFall_v03.png         x0.274
+    land         2     <- raw/land_v01.png             x0.31
+    light1       7     <- raw/light1_v02.png           x1
+    light2       7     <- raw/light2_v01.png           x0.455
+    light3       7     <- raw/light3_v02.png           x0.652
+    light4       8     <- raw/light4_v02.png           x0.408
+    heavy        8     <- raw/heavy_v01.png            x0.363
+    airLight1    5     <- raw/airLight1_v01.png        x0.476
+    airHeavy     6     <- raw/airHeavy_v01.png         x0.367
+    guard        2     <- raw/guard_v01.png            x0.257
+    hurtHigh     3     <- raw/hurtHigh_v01.png         x0.328
+    launched     2     <- raw/launched_v01.png         x0.221
+    down         2     <- raw/down_v01.png             x0.282
+    getup        5     <- raw/getup_v01.png            x0.557
+    charge       4     <- raw/charge_v01.png           x0.419
+    beamCharge   3     <- raw/beamCharge_v01.png       x0.322
+    beamFire     3     <- raw/beamFire_v02.png         x0.414
+    special      8     <- raw/special_v01.png          x0.483  (split 1 touching pose group(s))
+    win          4     <- raw/win_v03.png              x0.992
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 6 drift, 7 ok, 3 uniform, 3 pop, 3 unmeasured
+    ~ run head 1.14 of idle (feet 0.82): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ jumpUp head 1.21 of idle (feet 0.86): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ land head 0.91 of idle (feet 0.72): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ light1 head 1.10 of idle (feet 0.99): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v02]
+    ~ light4 pops inside the strip: f0 0.90 vs f6 1.27 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ heavy head 0.91 of idle (feet 0.76): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ airLight1 head 1.17 of idle (feet 0.98): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ airHeavy pops inside the strip: f1 0.58 vs f3 1.05 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v01]
+    ~ guard head 1.07 of idle (feet 0.58): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ charge head 1.13 of idle (feet 0.80): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ beamCharge head 0.92 of idle (feet 0.70): the whole figure is off - re-import with the auto head fit (sidecar anatomy { "measurement": "auto-head" }) or fix the strip's bodyHeight [approved v01]
+    ~ special pops inside the strip: f6 0.88 vs f0 1.05 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v01]
+  missing optional (33): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  - 11 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light1#3, light2#2, light4#3, heavy#3, heavy#4, airLight1#1, airHeavy#2, airHeavy#3, special#3, special#4; check them in the Sprite Lab or add hitboxes.json overrides)
+  ! run: 3 frame(s) clipped by the 256x256 cell (#3 left 21px, #4 left 32px, #7 left 16px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light3: 1 frame(s) clipped by the 256x256 cell (#3 right 8px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light4: 1 frame(s) clipped by the 256x256 cell (#4 right 29px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light4: 1 frame(s) reach into the 4px cell margin (#5 left 4px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw
+  ! airLight1: 2 frame(s) clipped by the 256x256 cell (#2 right 15px, #3 right 15px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! launched: 1 frame(s) clipped by the 256x256 cell (#0 left 3px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! down: 1 frame(s) clipped by the 256x256 cell (#1 right 9px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! getup: 1 frame(s) clipped by the 256x256 cell (#0 left 6px/right 7px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! beamFire: 2 frame(s) clipped by the 256x256 cell (#1 right 44px, #2 right 130px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! special: the column split cuts a figure between frames 6/7 and the poses touch - leave a gap between them (a hand reaching into the next pose's column ends up in that frame)
+  ! down: 1 lying frame(s) float above the floor line (#1: 34% of the body within 6px of y 240, worst fifth 7px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  ! getup: 1 lying frame(s) float above the floor line (#0: 29% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  wrote art/characters/luffy/production/astra-fixture-output/characters/luffy/sheet.png
+  wrote art/characters/luffy/production/astra-fixture-output/characters/luffy/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 12 warning(s).
+EXIT_CODE=0

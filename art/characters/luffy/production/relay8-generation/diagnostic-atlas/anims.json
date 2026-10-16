@@ -1,0 +1,195 @@
+{
+  "diagnosticOnly": true,
+  "notGameplayAtlas": true,
+  "reason": "The standard strict packer refuses the unmeasured low-confidence getup candidate. These cells use the packer exported background removal, figure split, resample, placement, quantization helpers for an isolated Astra review fixture; no manualQA/pass or approval is implied.",
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "quantize": 48,
+  "quantizeColorCount": 48,
+  "atlas": {
+    "path": "sheet.png",
+    "sha256": "fb8efd04a08d7c47c3ad2ce84ab07b01825cd163e2579af0d71dfab131dbca58",
+    "size": [
+      1792,
+      256
+    ]
+  },
+  "source": {
+    "down": {
+      "candidate": "art/characters/luffy/raw/down_v02.png",
+      "sha256": "09c67ad0b61621ad5beb32d9ac552be30d2f26939f3474205c60b5b9d3dc0479",
+      "sourceScale": 0.28152492668621704,
+      "boxes": [
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 600,
+          "y1": 340,
+          "w": 601,
+          "h": 341,
+          "n": 85125
+        },
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 468,
+          "y1": 238,
+          "w": 469,
+          "h": 239,
+          "n": 63303
+        }
+      ]
+    },
+    "getup": {
+      "candidate": "art/characters/luffy/raw/getup_v02.png",
+      "sha256": "94c7666ebc59f696a7acea845b2a64ee576af179310682ad4d087ee9125598d4",
+      "sourceScale": 0.4328018223234624,
+      "boxes": [
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 470,
+          "y1": 176,
+          "w": 471,
+          "h": 177,
+          "n": 49822
+        },
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 366,
+          "y1": 240,
+          "w": 367,
+          "h": 241,
+          "n": 53204
+        },
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 378,
+          "y1": 288,
+          "w": 379,
+          "h": 289,
+          "n": 55217
+        },
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 320,
+          "y1": 343,
+          "w": 321,
+          "h": 344,
+          "n": 55501
+        },
+        {
+          "x0": 0,
+          "y0": 0,
+          "x1": 390,
+          "y1": 438,
+          "w": 391,
+          "h": 439,
+          "n": 60965
+        }
+      ]
+    }
+  },
+  "frames": [
+    {
+      "anim": "down",
+      "frame": 0,
+      "index": 0,
+      "bodyHeight": 96,
+      "durationMs": 80,
+      "bounds": [
+        53,
+        145,
+        221,
+        240
+      ]
+    },
+    {
+      "anim": "down",
+      "frame": 1,
+      "index": 1,
+      "bodyHeight": 96,
+      "durationMs": 420,
+      "bounds": [
+        59,
+        174,
+        190,
+        240
+      ]
+    },
+    {
+      "anim": "getup",
+      "frame": 0,
+      "index": 2,
+      "bodyHeight": 190,
+      "durationMs": 70,
+      "bounds": [
+        25,
+        164,
+        228,
+        240
+      ]
+    },
+    {
+      "anim": "getup",
+      "frame": 1,
+      "index": 3,
+      "bodyHeight": 190,
+      "durationMs": 60,
+      "bounds": [
+        49,
+        137,
+        207,
+        240
+      ]
+    },
+    {
+      "anim": "getup",
+      "frame": 2,
+      "index": 4,
+      "bodyHeight": 190,
+      "durationMs": 60,
+      "bounds": [
+        51,
+        116,
+        214,
+        240
+      ]
+    },
+    {
+      "anim": "getup",
+      "frame": 3,
+      "index": 5,
+      "bodyHeight": 190,
+      "durationMs": 80,
+      "bounds": [
+        71,
+        92,
+        209,
+        240
+      ]
+    },
+    {
+      "anim": "getup",
+      "frame": 4,
+      "index": 6,
+      "bodyHeight": 190,
+      "durationMs": 70,
+      "bounds": [
+        42,
+        51,
+        210,
+        240
+      ]
+    }
+  ]
+}

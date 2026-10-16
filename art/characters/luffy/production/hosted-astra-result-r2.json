@@ -1,0 +1,77 @@
+{
+  "verdict": "HOLD",
+  "auditor": "GPT-6 Astra, 2026-10-15",
+  "scope": "Manual body-scale findings only; not user image approval, contact validation, runtime timing, grounding, or release certification.",
+  "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+  "metadataSha256": "17e1b30bba502d6508ffd37e99d5fbbb8e31ab40a1cc4fc0aab4f5e3f01d711c",
+  "manualBodyScalePasses": [
+    "run_v01",
+    "dash_v02",
+    "jumpUp_v01",
+    "jumpFall_v03",
+    "land_v01",
+    "light1_v02",
+    "light2_v01",
+    "light3_v02",
+    "light4_v02",
+    "heavy_v01",
+    "airLight1_v01",
+    "airHeavy_v01",
+    "guard_v01",
+    "hurtHigh_v01",
+    "charge_v01",
+    "beamCharge_v01",
+    "beamFire_v02",
+    "win_v03"
+  ],
+  "holds": [
+    "launched_v01: undersized body landmarks",
+    "special_v01: recovery cells f6/f7 cut",
+    "down_v01: placement and grounding hold",
+    "getup_v01: placement and grounding hold"
+  ],
+  "acceptedPlacementOnly": [
+    "run_v01 f3/f4/f7 rear foot",
+    "airLight1_v01 f2/f3 fist",
+    "light3_v02 f3 toe",
+    "light4_v02 f4 foot"
+  ],
+  "separateClaudeException": "beamFire_v02 giant arm clips beyond cell in f1/f2 for engine continuation; runtime fist/contact remains unchecked.",
+  "limits": {
+    "shinUncertaintyPx": 6,
+    "torsoUncertaintyPx": "6-8",
+    "sashUncertaintyPx": 4,
+    "sandalUncertaintyPx": 3
+  },
+  "strictPack": {
+    "command": "node tools/pack-sprites.mjs luffy --quantize 48",
+    "exitCode": 1,
+    "outputWritten": false,
+    "selectedAnimations": 19,
+    "selectedFrames": 91,
+    "autoProbeFlags": [
+      "run",
+      "jumpUp",
+      "land",
+      "light1",
+      "light4",
+      "heavy",
+      "airLight1",
+      "airHeavy",
+      "guard",
+      "charge",
+      "beamCharge"
+    ],
+    "missingCore": [
+      "launched",
+      "down",
+      "getup",
+      "special"
+    ],
+    "publicAtlasChanged": false,
+    "manualPolicy": "Matching scaleManualQA converts only unmeasured/partial verdicts to manual. The 11 remaining findings are measured drift/uniform/pop, which remain strict failures under current policy."
+  },
+  "reportSource": "art/characters/luffy/production/manual-audit-r2/AUDIT.md",
+  "measurementsSource": "art/characters/luffy/production/manual-audit-r2/measurements.json",
+  "strictLog": "art/characters/luffy/production/strict-pack-after-manual-audit-r2.log"
+}

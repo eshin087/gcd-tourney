@@ -1,0 +1,6 @@
+Command: node tools/pack-sprites.mjs luffy --quantize 48
+Exit code: 1
+
+The packer selected 19 animations / 91 frames, but strict automatic scale gate refused output. It flagged run, jumpUp, land, light1, light4, heavy, airLight1, airHeavy, guard, charge, and beamCharge. Matching `scaleManualQA` records do not override measured `drift`, `uniform` and `pop` auto findings under current packer policy; only `unmeasured`/`partial` verdicts convert to manual. Four held/missing core strips: launched, down, getup, special. No public output was written; prior public sheet.png/anims.json remain untouched.
+
+Astra audit coverage is only the diagnostic fixture atlas SHA-256 67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e; the prior public atlas is not certified by this audit. No warning-mode production pack, tool edit, exemption, or gate override was used.

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luffy down/getup v03 approval record — r5</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#14141a;color:#f2f2f5}body{max-width:1120px;margin:auto;padding:20px}h1,h2{line-height:1.2}a{color:#9bd2ff;overflow-wrap:anywhere}code{overflow-wrap:anywhere}.banner{border:2px solid #73be86;background:#183522;padding:14px;border-radius:8px;font-weight:650}.meta{color:#d4d4dd}.player{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}.player canvas{width:min(512px,100%);height:auto;aspect-ratio:1;background:#000;border:1px solid #555;image-rendering:pixelated}.controls{display:flex;gap:8px;flex-wrap:wrap}.refs,.versions{display:flex;gap:12px;overflow-x:auto;padding:8px 0 14px}.ref,.frame,.version-cell{flex:0 0 256px;width:256px}.ref img,.frame img,.version-cell img{display:block;width:256px;height:256px;object-fit:contain;background:#000;image-rendering:pixelated;border:1px solid #555}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(256px,100%),1fr));gap:16px}.card{border:1px solid #444;background:#202027;padding:12px;border-radius:8px;overflow-wrap:anywhere}.hold{color:#ffb2a9}.ok{color:#b7e6bd}img{max-width:100%}.small{font-size:.9rem;color:#ccc}.links{display:flex;gap:14px;flex-wrap:wrap}.versions{border-top:1px solid #555}.version-cell{flex:0 0 256px}.foot{border-top:1px solid #555;margin-top:28px;padding-top:12px}
+</style>
+</head>
+<body>
+<h1>Luffy down/getup v03 — r5 approval record</h1>
+<div class="banner">The user approved down v03 and getup v03 via Claude relay #10, quote “Approved”. Astra body/scale PASSed within measurement uncertainty on the exact 22-animation, 100-frame pack. Special remains held and absent; runtime contact and grounding are not certified.</div>
+
+<h2>Playback from the actual pack</h2>
+<div class="player"><canvas id="screen" width="256" height="256" aria-label="Actual packed Luffy animation player"></canvas><div><label>Animation <select id="animation"><option value="down">approved down v03</option><option value="getup">approved getup v03</option></select></label><p class="controls"><button id="play">Play</button><button id="pause">Pause</button><button id="step">Step</button><button id="reset">Reset</button></p><p id="frameinfo" class="small">Loading actual pack…</p><p class="small">The canvas reads the exact sheet and frame timing from ../anims.json. Down is a one-shot (80ms, 420ms); getup is a one-shot (70ms, 60ms, 60ms, 80ms, 70ms).</p></div></div>
+
+<details><summary>Pack hashes, source-call inventory, and audit evidence</summary><p class="meta">Actual pack: 48 colors; sheet SHA-256 <code>0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122</code>; metadata SHA-256 <code>dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f</code>. Packer selected down v03 at bodyHeight 106 and getup v03 at bodyHeight 209, both with pack scale 1. Special is the only missing CORE animation.</p><p>Call inventory: down 2/3, getup 2/3, special 4/4. Down v03 and getup v03 are deterministic reassemblies from preserved sources, not new generation calls. Special call 4 failed input validation before generation because six refs exceeded the five-ref limit; no special v02 output exists.</p><div class="links"><a href="../sheet.png">Open actual gameplay sheet</a><a href="../anims.json">Actual animation metadata</a><a href="final-strict-audit.md">Astra final strict audit</a><a href="final-pixel-hashes.json">All 100 actual-cell hashes</a><a href="candidate-diagnostic-atlas.png">Earlier v02 candidate-only atlas</a><a href="source-ledger.md">Call/provenance ledger</a></div></details>
+
+<h2>Approved scale and anatomy context — 256px cells</h2>
+<p class="small">Every image is shown in a horizontally scrollable strip at native 256×256 cell density.</p>
+<div class="refs">
+<div class="ref"><img src="../calibration-r3/reference-neutral.png" alt="Luffy approved neutral reference"><b>Luffy approved neutral</b></div>
+<div class="ref"><img src="../calibration-r3/reference-combat.png" alt="Luffy approved combat reference"><b>Luffy approved combat</b></div>
+<div class="ref"><img src="../calibration-r3/reference-approved-idle-f0.png" alt="Luffy approved idle frame 0"><b>Luffy approved idle f0</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="Approved Gojo neutral"><b>Approved Gojo neutral</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/gojo-combat_v01.png" alt="Approved Gojo combat"><b>Approved Gojo combat</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/killua-neutral_v01.png" alt="Approved Killua neutral"><b>Approved Killua neutral</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/killua-combat_v01.png" alt="Approved Killua combat"><b>Approved Killua combat</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/naruto-neutral_v01.png" alt="Approved Naruto neutral"><b>Approved Naruto neutral</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/naruto-combat_v01.png" alt="Approved Naruto combat"><b>Approved Naruto combat</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/sasuke-neutral_v01.png" alt="Approved Sasuke neutral"><b>Approved Sasuke neutral</b></div>
+<div class="ref"><img src="../../../art-review/title-style-pilot/sasuke-combat_v01.png" alt="Approved Sasuke combat"><b>Approved Sasuke combat</b></div>
+</div>
+
+<h2>Rejected v01/v02 and user-approved v03 cells — native 256px</h2>
+<p class="small">Each version is an exact 256×256 cell at the same density. V01 cells are preserved extractions from the earlier diagnostic; v02 cells are the frozen earlier candidate fixture; v03 cells are exact copies from the final audited actual atlas. The user approved only down/getup v03.</p>
+<div id="candidate-cells"></div>
+
+<h2>Measured changes and remaining review</h2>
+<div class="card"><b>Special v01 remains held and absent.</b> Its authorized fourth request failed before generation; no source for v02 exists. No art/design approval is implied by the technical audit. Review the exact versioned images in the <a href="review-rows.md">Luffy review rows</a>; respond with direct image approval or feedback.</div>
+<p class="foot small">This gallery reads the actual selected gameplay atlas. Existing user-accepted placement clips and the Claude beamFire arm-continuation exception are documented separately in the final audit and REVIEW_ROWS.</p>
+<img id="atlas" src="../sheet.png" hidden>
+<script>
+const atlas=document.querySelector('#atlas'),canvas=document.querySelector('#screen'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;const select=document.querySelector('#animation'),info=document.querySelector('#frameinfo');let meta=null,anim='down',i=0,playing=false,timer=0;
+const sequences={down:{priorCount:2,ms:[80,420]},getup:{priorCount:5,ms:[70,60,60,80,70]}};
+function current(){return meta?.animations?.[anim]}
+function draw(){if(!meta||!atlas.complete)return;const a=current(),idx=a.frames[i],col=idx%16,row=Math.floor(idx/16);ctx.clearRect(0,0,256,256);ctx.drawImage(atlas,col*256,row*256,256,256,0,0,256,256);info.textContent=`${anim} v03 · frame ${i+1}/${a.frames.length} · ${a.durations[i]} ms · ${playing?'playing':'paused'} · atlas cell ${idx}`}
+function advance(){if(!playing)return;const a=current();i++;if(i>=a.frames.length){if(!a.loop){i=a.frames.length-1;playing=false;draw();return}i=0}draw();timer=setTimeout(advance,a.durations[i])}
+function selectAnim(){clearTimeout(timer);anim=select.value;i=0;playing=false;draw();document.querySelector('#candidate-cells').innerHTML=sequences[anim].ms.map((_,n)=>`<section class="card"><h3>${anim} frame ${n}</h3><div class="versions"><div class="version-cell"><img src="cells/prior-${anim}-${n}.png" alt="${anim} v01 frame ${n}"><b>Prior ${anim} v01 f${n}</b></div><div class="version-cell"><img src="cells/${anim}-${n}.png" alt="${anim} v02 frame ${n}"><b>Rejected ${anim} v02 f${n}</b></div><div class="version-cell"><img src="cells/v03-${anim}-${n}.png" alt="${anim} v03 frame ${n}"><b>Current ${anim} v03 f${n}</b></div></div></section>`).join('')}
+document.querySelector('#play').onclick=()=>{clearTimeout(timer);playing=true;draw();timer=setTimeout(advance,current().durations[i])};document.querySelector('#pause').onclick=()=>{clearTimeout(timer);playing=false;draw()};document.querySelector('#step').onclick=()=>{clearTimeout(timer);playing=false;i=(i+1)%current().frames.length;draw()};document.querySelector('#reset').onclick=()=>{clearTimeout(timer);playing=false;i=0;draw()};select.onchange=selectAnim;Promise.all([new Promise((resolve,reject)=>{atlas.onload=resolve;atlas.onerror=reject;if(atlas.complete){if(atlas.naturalWidth)resolve();else reject(Error("atlas image failed to load"))}}),fetch('../anims.json').then(r=>{if(!r.ok)throw Error(`metadata HTTP ${r.status}`);return r.json()})]).then(([,m])=>{meta=m;selectAnim()}).catch(e=>{info.textContent=`Could not load actual pack: ${e.message}`});
+</script>
+</body>
+</html>
