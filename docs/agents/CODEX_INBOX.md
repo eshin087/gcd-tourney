@@ -1476,6 +1476,8 @@ How to run it:
 **Standing rule (2026-10-15; applies every turn, never tick off):** Before finishing, read the main checkout's AGENTS.md "Mandatory Claude handoff check" and run node tools/relay.mjs status from main. Decide whether Claude has the next action, commit the handoff and ring the correct lane when required. Report the outcome in your final response. This applies to direct user tasks and relayed tasks, including chats using older worktrees. Preserve user approval and pause brakes.
 
 
+**Standing scratch-drive rule (2026-10-16, TOOL-052; never tick off):** Do not point `GCD_SCRATCH_DIR` at C: or `%TEMP%` (no more `%TEMP%\codex-gcd-<task>` folders). Leave it unset so tools use the default `E:\gcd-scratch` on the project drive, or point it at a folder on E:. Each preview deploy from a sparse worktree used to leave a 4.9 GB export (all raw art plus node_modules) on C:; PR #133 removes art/ from the export and sweeps old `codex-gcd-*\gcd-deploy-*` folders, but scratch on the system drive still fills it, and the tools now warn with `[scratch]` when it is.
+
 - [x] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** Done by Claude
   2026-10-10 (PR art/approve-fighter-batch): 76 rows approved, Sasuke UI installed. Nothing left for Codex here. The user reviewed
   PR #9 and approved it in chat with Claude on 2026-10-10; Claude merged #8 + #9 into main. On `main` (approval
