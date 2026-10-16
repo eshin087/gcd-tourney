@@ -1,0 +1,43 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== luffy =======================================================
+  packed 19 anims, 91 frames -> sheet 4096x1536, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v01.png             x0.872
+    run          8     <- raw/run_v01.png              x0.404
+    dash         2     <- raw/dash_v02.png             x0.269
+    jumpUp       2     <- raw/jumpUp_v01.png           x0.34
+    jumpFall     2     <- raw/jumpFall_v03.png         x0.274
+    land         2     <- raw/land_v01.png             x0.31
+    light1       7     <- raw/light1_v02.png           x1
+    light2       7     <- raw/light2_v01.png           x0.455
+    light3       7     <- raw/light3_v02.png           x0.652
+    light4       8     <- raw/light4_v02.png           x0.408
+    heavy        8     <- raw/heavy_v01.png            x0.363
+    airLight1    5     <- raw/airLight1_v01.png        x0.476
+    airHeavy     6     <- raw/airHeavy_v01.png         x0.367
+    guard        2     <- raw/guard_v01.png            x0.257
+    hurtHigh     3     <- raw/hurtHigh_v01.png         x0.328
+    charge       4     <- raw/charge_v01.png           x0.419
+    beamCharge   3     <- raw/beamCharge_v01.png       x0.322
+    beamFire     3     <- raw/beamFire_v02.png         x0.414
+    win          4     <- raw/win_v03.png              x0.992
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 18 manual
+  missing core (4): launched, down, getup, special
+  missing optional (35): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, beamStruggle, beamStruggleAir, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  - 9 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light1#3, light2#2, light4#3, heavy#3, heavy#4, airLight1#1, airHeavy#2, airHeavy#3; check them in the Sprite Lab or add hitboxes.json overrides)
+  ! run: 3 frame(s) clipped by the 256x256 cell (#3 left 21px, #4 left 32px, #7 left 16px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light3: 1 frame(s) clipped by the 256x256 cell (#3 right 8px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light4: 1 frame(s) clipped by the 256x256 cell (#4 right 29px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light4: 1 frame(s) reach into the 4px cell margin (#5 left 4px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw
+  ! airLight1: 2 frame(s) clipped by the 256x256 cell (#2 right 15px, #3 right 15px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! beamFire: 2 frame(s) clipped by the 256x256 cell (#1 right 44px, #2 right 130px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  wrote public/characters/luffy/sheet.png
+  wrote public/characters/luffy/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 6 warning(s).
+EXIT=0

@@ -147,3 +147,14 @@ Astra created version-bound 256px/cell comparisons for all 15 requested candidat
 - win v02 source enlargement is normalized away by current bodyHeight212. Annotated f0 shins are 46.5/45.1px vs neutral 59.1/55.2px, and torso 35.2px vs 45.1px (each projected segment +/-6px). Native-size hold remains.
 - Other anatomy/continuity holds remain; no scaleManualQA pass is supported.
 - Special: the user-authorized third-call output was recovered on 2026-10-16 at production/recovered-special-v02/returned-source.png. Direct comparison shows both panels as wide-leg guard poses, with neither the mid-retraction f6 nor upright-return f7 required by KIT; not suitable to replace recovery frames. No viable special v02 exists and no generation calls remain.
+
+## Actual gameplay pack r3 (2026-10-16)
+
+The strict `node tools/pack-sprites.mjs luffy --quantize 48` run now exits 0 and packs 19 animations / 91 frames at 48 colors. Selected versions are idle v01, run v01, dash v02, jumpUp v01, jumpFall v03, land v01, light1 v02, light2 v01, light3 v02, light4 v02, heavy v01, airLight1 v01, airHeavy v01, guard v01, hurtHigh v01, charge v01, beamCharge v01, beamFire v02, win v03. The four held CORE rows above (launched v01, down v01, getup v01, special v01) are absent from this pack.
+
+Actual atlas `public/characters/luffy/sheet.png`: SHA-256 `73e1d99a75d22190ee3bb684fca30d9080f14dcc44af175d3f8c4bd2d9034a00`; metadata `public/characters/luffy/anims.json`: `9b357b1cd0ba48e421434523049d64157f607a8261ac8d3347b59d26d4f94ee8`. It is 4096×1536, 48 colors, 19 animations / 91 frames. Per-cell comparison against the r2 Astra diagnostic fixture found zero alpha occupancy or alpha-byte differences across 91 matching cells; mutually opaque RGB differs from palette recomputation. See `production/r3-pixel-compare.md` and `.json`.
+
+Astra's r2 result covers only the 23-animation diagnostic fixture, not this actual gameplay atlas. Astra final actual-pixel r3 recheck PASSed these 18 versions on the exact atlas above; the four held moves remain unpassed. Candidates remain unapproved. Packer placement warnings include the user-accepted clips on run, light3, light4 and airLight1, plus the Claude-accepted giant-arm continuation clips on beamFire; other contact and hitbox findings remain separate. Read-only diagnosis finds down/getup require source pose geometry changes rather than rigid offsets; see `production/HELD_STRIP_DECISIONS_R3.md`. The full output and warning inventory are in `production/r3-strict-pack-after-sparse-repair.log`. Parent browser smoke check is in `production/PARENT_BROWSER_R3.md`. No image call occurred in this round.
+
+
+Final r3 evidence: production/manual-audit-r3/AUDIT.md and production/manual-audit-r3/pixel-hashes-and-comparison.json bind all 91 actual packed frames to the public atlas/metadata hashes above. No design approval is implied.
