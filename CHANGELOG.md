@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
+
 - art(naruto): record user visual approval of airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01; retain technical evidence and unrelated holds.
 
 - art(naruto): light2Alt — User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
