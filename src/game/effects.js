@@ -370,6 +370,28 @@ export class Effects {
     }
   }
 
+  // MELEE CLASH (ADR 0038): two strikes meeting. A crisp contact star, sparks and arcs in both fighters' colors
+  // sprayed out of the contact point, a thin shockwave ring and speed lines; no white glow, so the frozen strikes
+  // stay readable. `power` grows the spray with the chain.
+  clashSpark(x, y, z, colA, colB, power = 1) {
+    const top = { depthTest: false, order: 8 };
+    this.spawn('star', x, y, z, { ...top, scale: 0.42 * power, color: 0xfff6e0, glow: 0.35 });
+    for (const col of [colA, colB]) {
+      this.spawn('spark', x, y, z, { ...top, scale: 0.6 * power, rot: Math.random() * Math.PI * 2, color: col, glow: 0.3 });
+      this.spawn('arc', x, y, z, { ...top, order: 7, scale: 0.7 * power, rot: Math.random() * Math.PI * 2, color: col, glow: 0.25, opacity: 0.85 });
+    }
+    this.spawn('ring', x, y, z, { ...top, order: 7, scale: 0.45, color: 0xf4f0ff, glow: 0.1, opacity: 0.75, grow: 4.5 * power, fade: true, life: 0.32 });
+    this.spawn('lines', x, y, z, { ...top, scale: 0.8 * power, color: 0xffffff, opacity: 0.35, rot: Math.random() * 6 });
+    const n = Math.round(6 + 3 * power);
+    for (let k = 0; k < n * 2; k++) {
+      const a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 4 * power;
+      this.spawn('star', x, y, z, {
+        ...top, scale: 0.16 + Math.random() * 0.08, vel: [Math.cos(a) * sp, Math.sin(a) * sp * 0.8 + 1.5, (Math.random() - 0.5) * sp],
+        grav: 10, life: 0.3 + Math.random() * 0.15, frame: 2, color: k % 2 ? colA : colB, glow: 0.45,
+      });
+    }
+  }
+
   // backwards-compatible helper
   hitSpark(x, y, z, big = false, color = 0xffffff) {
     this.hit(x, y, z, big ? 'heavy' : 'light', color);

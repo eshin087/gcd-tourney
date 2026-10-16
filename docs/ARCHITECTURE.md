@@ -31,7 +31,8 @@ src/core/
   musicPlan.js              pure seeded composer (ADR 0019): MOODS / DUCKS data, voiceLead, composeSong (Node-tested)
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
-                            (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
+                            (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade, and two live
+                            lights or heavies meet in a melee clash instead: meleeClash, ADR 0038),
                             projectile/beam/orb collisions, special, beam (ADR 0027) and ultimate clashes (clash
                             bodies, the struggle line, endings; startClash tiers 'ultimate' | 'struggle' | 'beat'),
                             event hooks

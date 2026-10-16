@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: melee clash (ENG-096, ADR 0038): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
 - docs(scale): hand back calibrated five-candidate Astra re-audit and corrected protected preview; oversizing/clipping resolved, precise contact/grounding/aura follow-up retained for Claude. No image approvals or new generation.
 
 - Added: super banners and ultimate splashes (ADR 0035, ENG-083): a taller super banner with the move's backdrop and the fighter breaking out of its top, a full-screen ultimate splash (backdrop push-in, letterbox bars, the fighter sliding in, the move name), four optional layer images per fighter (`super_bg`, `super_fg`, `ult_bg`, `ult_fg`; packer fits them), each falling back to today's eye strip on speed lines; every ultimate's flash holds 24 frames longer (`ULTIMATE.splashHold`).
