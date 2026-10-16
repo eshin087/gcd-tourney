@@ -188,18 +188,20 @@ Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 Part B attempt 02 (no new calls), packed it and set sidecar `frameOffsets` (the head holds at x 169; f3/f7 lifted).
 **The user approved run v13 as drawn via the desk** ("Approve run v13"), with these holds accepted: the same lead
 leg in both halves, the near fist forward in every frame, and the B half sitting ~10 px lower. Branch `art/gojo-run`
-at `e09e4d11` (manifest run approvedVersion 13, review rows updated); the art guard passes. Claude merges after this audit.
+has the approval records (`run.approvedVersion=13`; `e09e4d11`) and audit handoff (`25bc6c60`); the art guard passes.
+The Astra audit returned **HOLD** for a new free-arm/fist disappearance in f6 / atlas slot 14. User approval stands;
+Claude must decide the technical disposition before merge.
 
-- [ ] 1. Astra/medium audits run v13 in the **packed atlas** on the branch (`public/characters/gojo/sheet.png`,
+- [x] 1. Astra/medium audited run v13 in the **packed atlas** on the branch (`public/characters/gojo/sheet.png`,
   anims.json run = cells 8-15) against the approved neutral/combat cells and idle f0: head and hair, torso, limbs,
-  build, clothing volume, pocket hand, cell edges, and the loop played at 60 ms. Record exact hashes and measurement
-  uncertainty in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md`. The three accepted holds above
-  are the user's call: note them, don't fail on them alone.
-- [ ] 2. **No new images and no edits to the pack or sidecar.** If Astra finds a new defect, report it with the
-  frame and evidence; Claude decides the fix (offsets are Claude's).
-- [ ] 3. Commit the audit on the branch, add a handoff at the top of the branch's docs/agents/CLAUDE_ART_HANDOFF.md
-  (verdict, commit), then `node tools/relay.mjs ring gojo-run --note "<PASS|HOLD; commit>"` from main. A PASS goes to
-  Claude for the merge, not to the user.
+  build, clothing volume, pocket hand, cell edges, and the loop timing at 60 ms. Exact hashes and measurement
+  uncertainty are recorded in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md`. The three accepted
+  holds above are the user's call and were not failed on alone.
+- [x] 2. **No new images and no edits to the pack or sidecar.** Astra found a new defect and reported it with
+  frame-level evidence; no art or sidecar was edited.
+- [x] 3. Committed the audit and handoff at `25bc6c60`; Astra verdict is **HOLD** for free-arm/fist disappearance in
+  f6 / atlas slot 14. The three user-accepted deviations were not failed. Live browser playback timed out and remains
+  unverified. Main ring #6 hands the new defect to Claude for disposition; no merge or dash work yet.
 
 Dashes come next as a separate item after the merge (the user's earlier choice: 3 new tries each, with the finished run
 as the reference). Don't start them now.
@@ -240,7 +242,7 @@ single 8-frame image doesn't get the generator to swap legs, so the swap gets it
 Rules: as in phase 1 below. Budget: 3 calls total for run v13 (A + B + one retry or fix); no other new images.
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
-**HOLD (user decision via relay #5, 2026-10-15):** “Hold the run.” No new Part B budget. Keep Part A and the held attempt unchanged; the game keeps the current Gojo run. No image is approved. Updated record is on `art/gojo-run` commit `1daae55c`; no dashes were generated.
+**Historical hold (user decision via relay #5, 2026-10-15):** “Hold the run.” No new Part B budget; keep Part A and the held attempt unchanged. This was superseded when the user later approved the stitched candidate via relay #6; see the Astra audit item above. No dashes were generated.
 
 ---
 
