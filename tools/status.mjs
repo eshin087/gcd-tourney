@@ -92,7 +92,7 @@ function render() {
   L.push(`_Answered only in the Claude chat "${DESK_TITLE}" (ADR 0039); its watcher is ${desk.on ? 'on' : 'off: open that chat and type /approvals'}._`);
   if (!desk.open.length) L.push('- nothing');
   for (const a of desk.open) {
-    const from = a.source === 'codex' ? `Codex lane ${a.lane}` : `Claude chat "${a.from}"`;
+    const from = a.source === 'codex' ? `Codex lane ${a.lane}` : a.source === 'codex-chat' ? `Codex chat "${a.from}"` : `Claude chat "${a.from}"`;
     L.push(`- **${a.kind}** from ${from}: ${clip(a.note, 220)}${a.link ? ` ${a.link}` : ''}`);
   }
   L.push('');
