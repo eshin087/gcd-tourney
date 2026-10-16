@@ -8,6 +8,8 @@ paused._
 
 ## Your next actions
 
+**Online play, determinism check (2026-10-15, PR #109, ADR 0034):** on your iPhone (Safari) and, if you have it, in Firefox, open https://gcd-tourney-iefo8cw97-eshin087s-projects.vercel.app/?det=naruto-sasuke-s7 and then `?det=gojo-killua-s3` (Vercel login). Each replays a recorded match for about a minute and prints MATCH or SPLIT plus timings; screenshot both results and send them to Claude. Chrome already matches. Nothing to approve.
+
 **Sasuke super/ultimate pilot (2026-10-15):** review the four v01 images on PR #111 preview https://gcd-tourney-pmrqg8xc1-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/. Both foregrounds have technical holds; no candidate is approved. Please give per-image approval or correction notes. Stop all further Sasuke super-art generation until then.
 
 
