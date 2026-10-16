@@ -1,6 +1,10 @@
 # Task board
 
-OPS-008 | Codex | review | Matched model policy: future Codex agents use gpt-6-luna/medium; final anatomy/scale audits use gpt-6-astra/medium with exact-version evidence and user approval preserved. files: AGENTS.md, CLAUDE.md, docs/TASKS.md, CHANGELOG.md. Diff check passes; local-adapter production build transformed 82 modules but has not completed. docs/NOW.md remains claimed by Claude DOC-010. Next action: use updated instructions for future spawns; existing chats/worktree copies retain their current model/instructions until refreshed.
+ART-GOKU-REF-DECISION | Codex | done | User approved model_sheet02 and expressions02 on 2026-10-15; fixed references promoted byte-for-byte. Claude handoff pending coordinator record. files: art/characters/goku/reference/model_sheet.png, art/characters/goku/reference/expressions.png, art/characters/goku/REVIEW_ROWS.md, art/manifest.json, art/TRACKER.md, docs/TASKS.md, CHANGELOG.md.
+
+ART-IDLE-DECISION-GOKU | Codex | done | User approved goku idle v02 as drawn on 2026-10-15. Claude calibrated it (idle bodyHeight 233, packs at x1, 40b3eab) and promoted idle_approved.png; merged with PR #94. No new generation, merge or production deployment authorized. files: art/manifest.json, art/TRACKER.md, art/characters/goku/REVIEW_ROWS.md, art/characters/goku/IDLE_APPROVAL_20261015.md, docs/TASKS.md, CHANGELOG.md.
+
+OPS-008 | Codex | review | Clarified that Codex character-art generation work uses gpt-6-luna/medium; final anatomy/scale audits use gpt-6-astra/medium with exact-version evidence and user approval preserved. Imagegen rendering model is controlled separately. files: AGENTS.md, CLAUDE.md, docs/TASKS.md, CHANGELOG.md. Next action: apply the model rule to future character-art generation; existing chats/worktree copies retain their current model/instructions until refreshed.
 
 ART-GOJO-TITLE-R2 | Codex | review | Full strict pack exit0; airLight3 v12 recommends review; best airHeavy v08 is HOLD f3 hair-volume caveat, v09 failed and archived. Run v12 glide and special v07 remain visual HOLD after named retry budgets. Existing PR72 worktree; no ART-TECH-01. files: art/characters/gojo/raw/, art/characters/gojo/production/title-style/round2/, art/scale/heads-gojo.png, art/scale/lineup-gojo-round2.*, art/manifest.json, art/REVIEW.md, art/TRACKER.md, public/characters/gojo/, public/reviews/gojo-round2/, CHANGELOG.md.
 
@@ -337,7 +341,8 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 |---|---|---|---|---|
 | CHAR-goku-data | Goku data: kit, placeholder model, KIT.md, manifest block | Claude | done | merged PR #91 (fff5c0b), live; files: src/characters/goku.js, src/game/moves.js, art/characters/goku/KIT.md |
 | CHAR-luffy-data | Luffy data: kit, placeholder model, KIT.md, manifest block; laneStrike kind | Claude | done | merged PR #91 (fff5c0b), live; files: src/characters/luffy.js, src/game/moves.js, src/game/kit.js, ai.js, aiMaster.js, art/characters/luffy/KIT.md |
-| ART-goku-ref | Goku briefs + title-style neutral/combat reference, preview stop; then model sheet, expressions, idle | Codex | todo | after the data PR merges; branch art/goku-refs (--art goku); files: art/characters/goku/**, the goku block of art/manifest.json and art/TRACKER.md |
+| ART-goku-ref | Goku briefs + title-style reference, model sheet, expressions, idle | Codex | done | title v02, model sheet v02, expressions v02, idle v02 approved by the user; idle calibrated by Claude; merged PR #94 |
+| ART-goku-core | Goku core animations (the remaining 22 CORE strips after idle) | Codex | todo | branch art/goku-core (--art goku) from main after PR #94; files: art/characters/goku/**, the goku block of art/manifest.json and art/TRACKER.md |
 | ART-luffy-ref | Luffy briefs + title-style neutral/combat reference, model sheet, expressions, idle | Codex | done | all v01 approved by the user 2026-10-14; merged PR #93 |
 | ART-luffy-core | Luffy core animations (the remaining 22 CORE strips after idle) | Codex | todo | branch art/luffy-core (--art luffy) from main after PR #93; files: art/characters/luffy/**, the luffy block of art/manifest.json and art/TRACKER.md |
 | CHAR-goku-balance | Six-fighter CPU round-robin with Goku; log in ADR 0011 | Claude | todo | after his core art lands |
