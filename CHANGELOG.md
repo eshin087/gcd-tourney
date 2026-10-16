@@ -13,7 +13,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 - Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
-- Art (ART-BEAM-CLASH): packed five v01 clash-effect candidates and prepared a phone review page with frame sheets, loops, and stream seam checks. Naruto `beamStruggle` v01 is on technical hold: strict scale measured head/hair at 1.40x and feet at 0.62x approved idle; body sheet and Astra atlas audit remain pending. No art is approved.
+- Art (ART-BEAM-CLASH): user approved all five v01 clash effects on 2026-10-15; updated manifest/review/tracker and repacked the approved VFX atlas. Naruto `beamStruggle` v01 remains on technical hold: strict scale measured head/hair at 1.40x and feet at 0.62x approved idle; body sheet and Astra atlas audit remain pending.
 
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
 

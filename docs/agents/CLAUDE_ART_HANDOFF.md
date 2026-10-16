@@ -502,15 +502,15 @@ checked per animation against both sources (identical alpha masks; mean color sh
 Sasuke charge ships v02. A fresh repack of all four on merged main is byte-identical to the committed sheets.
 The merged art worktrees are kept only because they hold untracked production scratch (PR bodies, before/after PNGs,
 helper scripts); remove them with `npm run pr -- prune` once that scratch is no longer needed.
-# Codex: beam-clash round 1 review package ready (2026-10-15, beam-clash lane)
+# Codex: beam-clash effects approved; Naruto pilot held (2026-10-15, beam-clash lane)
 
-Branch `art/beam-clash`, worktree `.worktrees/art-beam-clash`. Round-one candidates and phone review page are committed in this branch (commit recorded after creation). Review page: `public/reviews/beam-clash-r1/index.html`.
+Branch `art/beam-clash`, worktree `.worktrees/art-beam-clash`. PR #110 contains the recorded approval and approved atlas repack. Phone review page: `public/reviews/beam-clash-r1/index.html`.
 
-Five VFX candidates are packed for review: `clashBurst_v01` (2 generation calls), `streamBolt_v01`, `streamLance_v01`, `streamFlame_v01`, and `redOrb_v01` (1 call each). The three stream strips use four exact 128x128 frames; doubled seam checks are included. New effects had no packer tile warnings. All five are `needs review`; none is approved.
+The user explicitly approved all five VFX v01 candidates in Codex chat on 2026-10-15: `clashBurst_v01` (2 generation calls), `streamBolt_v01`, `streamLance_v01`, `streamFlame_v01`, and `redOrb_v01` (1 call each). The three stream strips use four exact 128x128 frames; doubled seam checks are included. Their review rows and manifest approval fields are updated, and `npm run sprites -- vfx` repacked the approved atlas. It reports six missing-source warnings for unrelated sparse-worktree legacy effects; the five new effects pack cleanly.
 
 Naruto `beamStruggle_v01` used 3 generation calls and is a technical hold. Strict quantized packing failed the scale gate (head/hair 1.40x approved idle; feet 0.62x); estimated hand centers vary beyond the 6 px contact stability limit. The body sheet could not be produced because the required idle atlas was unavailable to that tool run; the final GPT-6 Astra anatomy audit is pending. The review page asks the user not to approve this as production art. The approved atlas was restored unchanged.
 
-The five effects and Naruto pilot are recorded in `art/REVIEW.md`, `art/manifest.json`, `art/TRACKER.md`, `docs/TASKS.md`, and `CHANGELOG.md`. Do not begin round two until the user reviews this page and Claude relays the verdict. No user image approval, merge, or deployment has occurred.
+The approval is visual approval of these five VFX only; it does not clear the Naruto pilot, authorize the other fighters' strips, or merge/deploy this branch. Relay this user verdict to the coordination lane after the approval commit and preview update. Round two remains gated on Claude relaying the verdict back here and writing its item.
 
 ---
 

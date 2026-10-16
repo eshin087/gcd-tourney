@@ -438,11 +438,11 @@ ones.
 | ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
-| clashBurst | 6 | 45 | white (tinted) | center | packed | v01 | - | Beam clash (ADR 0034, ART-BEAM-CLASH): 2 calls; candidate pack passed with no effect warning. |
-| streamBolt | 4 | 40 | white (tinted) | center, tiles | packed | v01 | - | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked. |
-| streamLance | 4 | 40 | white (tinted) | center, tiles | packed | v01 | - | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked. |
-| streamFlame | 4 | 50 | full color | center, tiles | packed | v01 | - | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked. |
-| redOrb | 6 | 40 | full color | center | packed | v01 | - | Beam clash: 1 call; candidate pack passed with no effect warning. |
+| clashBurst | 6 | 45 | white (tinted) | center | approved | v01 | v01 | Beam clash (ADR 0034, ART-BEAM-CLASH): 2 calls; user approved v01 on 2026-10-15; approved atlas repacked. |
+| streamBolt | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked; user approved v01 on 2026-10-15; approved atlas repacked. |
+| streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked; user approved v01 on 2026-10-15; approved atlas repacked. |
+| streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | Beam clash: 1 call; four exact 128 x 128 tiles; all four doubled seam previews checked; user approved v01 on 2026-10-15; approved atlas repacked. |
+| redOrb | 6 | 40 | full color | center | approved | v01 | v01 | Beam clash: 1 call; user approved v01 on 2026-10-15; approved atlas repacked. |
 
 ## Shared UI (step 11)
 

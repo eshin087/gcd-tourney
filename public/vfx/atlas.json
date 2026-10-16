@@ -1,7 +1,7 @@
 {
   "cell": 128,
   "cols": 7,
-  "rows": 20,
+  "rows": 19,
   "ppu": 56,
   "source": "art-pack",
   "packer": 2,
@@ -16,15 +16,14 @@
     "flame": { "row": 7, "n": 7, "ms": 55 },
     "lightning": { "row": 8, "n": 6, "ms": 40 },
     "orb": { "row": 9, "n": 6, "ms": 40 },
-    "glow": { "row": 10, "n": 2, "ms": 60 },
-    "streak": { "row": 11, "n": 6, "ms": 45 },
-    "star": { "row": 12, "n": 5, "ms": 40 },
-    "crater": { "row": 13, "n": 3, "ms": 1000 },
-    "lines": { "row": 14, "n": 4, "ms": 40 },
-    "bubble": { "row": 15, "n": 6, "ms": 50 },
-    "wisp": { "row": 16, "n": 7, "ms": 55 },
-    "arc": { "row": 17, "n": 6, "ms": 40 },
-    "ripple": { "row": 18, "n": 5, "ms": 50 },
-    "naruto_chakraTail": { "row": 19, "n": 6, "ms": 60 }
+    "streak": { "row": 10, "n": 6, "ms": 45 },
+    "star": { "row": 11, "n": 5, "ms": 40 },
+    "crater": { "row": 12, "n": 3, "ms": 1000 },
+    "lines": { "row": 13, "n": 4, "ms": 40 },
+    "clashBurst": { "row": 14, "n": 6, "ms": 45 },
+    "streamBolt": { "row": 15, "n": 4, "ms": 40 },
+    "streamLance": { "row": 16, "n": 4, "ms": 40 },
+    "streamFlame": { "row": 17, "n": 4, "ms": 50 },
+    "redOrb": { "row": 18, "n": 6, "ms": 40 }
   }
 }
