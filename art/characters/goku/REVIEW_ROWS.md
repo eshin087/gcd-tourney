@@ -55,7 +55,7 @@ Moved into art/REVIEW.md by Claude when PR #94 merged (2026-10-15). Later Goku r
 
 ## Extra redraw candidates (2026-10-15)
 
-One additional generator call per strip was authorized by the user. Five retained v04 files remain held after strict packer dry-run; the `light2` attempt 4 call is counted but its output path was not captured, so no light2 v04 candidate exists in the repository. `run` and `light1` were left untouched. See the native-density comparison [goku-core-six_v02.png](characters/goku/production/scale-qa/goku-core-six_v02.png) and the full [redraw report](characters/goku/production/scale-qa/goku-core-redraw-v04.md).
+One additional generator call per strip was authorized by the user. Six retained v04 files remain held after the strict packer dry-run. The `light2` attempt-4 call is counted but its path was lost; the user authorized a replacement, saved as v04 on attempt 5. `run` and `light1` were left untouched. See the native-density comparison [goku-core-six_v02.png](characters/goku/production/scale-qa/goku-core-six_v02.png) and the full [redraw report](characters/goku/production/scale-qa/goku-core-redraw-v04.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
@@ -64,3 +64,4 @@ One additional generator call per strip was authorized by the user. Five retaine
 | 2026-10-15 | goku | heavy | [held candidate](characters/goku/raw/_qa_hold/heavy_v04.png) | v04 | held | Extra-authorized rising punch redraw. | Attempt 4/4. Strict dry-run head pop f0 0.50 vs f1 1.13; clips right 10px (f3), 11px (f4), 13px (f5).
 | 2026-10-15 | goku | airLight1 | [held candidate](characters/goku/raw/_qa_hold/airLight1_v04.png) | v04 | held | Extra-authorized aerial straight-punch redraw. | Attempt 4/4. Strict dry-run head pop f4 0.50 vs f2 1.00; clips right 36px (f2), 29px (f3).
 | 2026-10-15 | goku | airHeavy | [held candidate](characters/goku/raw/_qa_hold/airHeavy_v04.png) | v04 | held | Extra-authorized descending double-fist redraw. | Attempt 4/4. Strict dry-run head pop f1 0.50 vs f0 0.63. No atlas written.
+| 2026-10-15 | goku | light2 | [held candidate](characters/goku/raw/_qa_hold/light2_v04.png) | v04 | held | Extra-authorized replacement redraw for the lost attempt-4 output; rear straight punch sequence. | Attempt 5 total; attempt 4 was counted but not retained because its path was not captured. Strict dry-run head pop f4 0.52 vs f2 0.86 of idle. No atlas written. Source and SHA-256 are recorded in the redraw report. |
