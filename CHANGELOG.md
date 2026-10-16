@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
+
 - Fixed: the determinism page (`?det=`) reports a fixture recorded on other gameplay code as STALE instead of as a split: fixtures carry a simulation fingerprint (`vite.config.js` simId, `import.meta.env.SIM_ID`); both fixtures re-recorded on the beam-clash and melee-clash code (ENG-090, ADR 0036).
 
 - Added: online-play determinism test (ENG-090, ADR 0036): `src/net/simHash.js` (per-frame state hash in groups, dumps to diff), `src/net/detTest.js` (`?debug` -> `det.record/replay/diagnose`, `?det=<fixture>` replays a saved match against its reference in any browser), fixtures in `public/det/` (per-frame hashes, per-field traces), `src/net/dmath.js` (deterministic hypot/sin/cos: Safari's `Math.hypot` differs from Chrome's), and ADR 0036 (rollback netcode, lobby server and the leaks the spike found).

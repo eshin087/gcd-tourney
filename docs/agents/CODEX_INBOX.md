@@ -1127,6 +1127,9 @@ How to run it:
 
 ## Every thread
 
+**Standing coordination rule (2026-10-15):** Read main's docs/COORDINATION.md and docs/agents/CONTROL_CHAT.json at startup. Keep task evidence and explicit status durable; the control chat gathers the queue and routes scoped user notes. Preserve ADR 0037 approval routing to Claude. Do not appoint a replacement coordinator or start another monitor; the reset phrase and recovery steps are in COORDINATION.md.
+
+
 **Standing status rule (2026-10-15; every handback):** Read main's AGENTS.md "Mandatory user-facing status". End each final response with Status / Your action / Claude / Next. Explicitly state approvals or input required, any action or reply pending from Claude (and relay delivery state), who acts next, or that the requested scope is completely finished with nothing to do. Apply this now, including idle chats; do not start unrequested work.
 
 

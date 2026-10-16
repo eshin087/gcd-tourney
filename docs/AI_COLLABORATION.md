@@ -156,6 +156,10 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 
 Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` with the reason in notes).
 
+### Control chat and restart
+
+Follow [COORDINATION.md](COORDINATION.md) for the persistent control-chat role, consolidated attention queue and single-command reset after chats are deleted. CONTROL_CHAT.json records the replaceable current identity; ADR 0037 continues to own approvals in Claude.
+
 ### Relay: handoffs without paste-in prompts ([ADR 0033](decisions/0033-claude-codex-relay.md))
 
 ```
