@@ -48,6 +48,17 @@ but never answers it. Run every relay command from the main checkout (find it wi
      visual approval ask the lane to make one (relay it as a decision) instead of asking for approval blind.
    - Options with a description of what each does: "Approve vNN" / "Reject (say why)" / "Hold"; for decisions,
      the choices the ask names plus any option a Claude chat added.
+
+   **Table mode, when the box is too small** (user rule, 2026-10-15): more than 4 items at once, or an item whose
+   From/Approving/Holds/Look will not fit in a few short lines. Write a table in the chat first, one numbered row per
+   item: `# | From | Approving (asset, version, what yes does) | Holds | Look (direct link)`. Then make answering
+   one tap:
+   - a question box whose options cover the common answers ("Approve all as drawn", "Approve all except some (say
+     which in notes)", "Hold all"), each item number in the question, so the user taps instead of typing; or
+   - when the turn ends, the next-step box buttons with the full reply as the button's message ("Approve 1-5 as
+     drawn"), so one tap sends it.
+   The user may also type a short reply ("approve 1-4, reject 5: torso short"). Relay each item's part of that reply
+   word for word as its quote. Never infer an answer for a row the reply does not cover; ask about it again.
 4. Relay each answer word for word, only an answer the user gave here:
    `node tools/relay.mjs answer <id> --user-approved|--user-rejected|--user-decision "<what, versions>" --quote "<their answer>" [--note "<their feedback>"]`.
    For a Codex ask this sends it to the lane. For a Claude chat's ask the command prints the message; deliver it
