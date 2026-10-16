@@ -1,6 +1,6 @@
 # Luffy: animation brief (frame by frame)
 
-This character brief is downstream of the pending title-style reference approval. No idle or other animation is authorized or created in this task. Canonical names, counts, phases and timing remain those in `art/manifest.json` and `art/SPEC.md`; the specifics below translate [KIT.md](KIT.md) only.
+The title-style neutral/combat reference, model sheet, expressions and idle v01 were approved by the user (PR #93 merged 2026-10-15). The inbox assignment authorizes this core-animation batch. Canonical names, counts, phases and timing remain those in `art/manifest.json` and `art/SPEC.md`; the specifics below translate [KIT.md](KIT.md) only.
 
 Shared pose rules: 256×256 cells, pivot `[128,240]`, face screen-right in 3/4 view, hard pixels, flat magenta raw background. Preserve head, torso, limb lengths, build and clothing volume from the approved Luffy neutral/combat cells once approved. Do not apply older cast constants or scale a pose by its bounding box.
 

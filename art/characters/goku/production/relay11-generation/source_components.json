@@ -1,0 +1,88 @@
+{
+  "source": "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-goku-core\\art\\characters\\goku\\raw\\_qa_hold\\light3_v12.png",
+  "dimensions": [
+    1659,
+    948
+  ],
+  "foregroundRule": "not (R>200 and B>200 and G<80)",
+  "method": "9x9 rectangular morphological close used only for connected-component discovery; source pixels are untouched",
+  "components": [
+    {
+      "x": 23,
+      "y": 291,
+      "width": 202,
+      "height": 342,
+      "areaAfterClose": 31820,
+      "centroid": [
+        119.8,
+        464.4
+      ]
+    },
+    {
+      "x": 250,
+      "y": 292,
+      "width": 145,
+      "height": 335,
+      "areaAfterClose": 26360,
+      "centroid": [
+        326.5,
+        444.3
+      ]
+    },
+    {
+      "x": 443,
+      "y": 293,
+      "width": 237,
+      "height": 334,
+      "areaAfterClose": 28684,
+      "centroid": [
+        529.7,
+        443.5
+      ]
+    },
+    {
+      "x": 702,
+      "y": 293,
+      "width": 242,
+      "height": 334,
+      "areaAfterClose": 29006,
+      "centroid": [
+        790.6,
+        442.9
+      ]
+    },
+    {
+      "x": 981,
+      "y": 292,
+      "width": 142,
+      "height": 335,
+      "areaAfterClose": 26040,
+      "centroid": [
+        1055.2,
+        445.1
+      ]
+    },
+    {
+      "x": 1168,
+      "y": 291,
+      "width": 214,
+      "height": 342,
+      "areaAfterClose": 31995,
+      "centroid": [
+        1275.6,
+        465.3
+      ]
+    },
+    {
+      "x": 1423,
+      "y": 291,
+      "width": 202,
+      "height": 342,
+      "areaAfterClose": 31780,
+      "centroid": [
+        1520.6,
+        464.6
+      ]
+    }
+  ]
+}

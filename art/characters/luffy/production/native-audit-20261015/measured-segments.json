@@ -1,0 +1,437 @@
+{
+  "method": "Astra manual readings of visible knee center and ankle above sandal in the saved native diagnostic PNGs. Projected distances, not reconstructed anatomical lengths. Each endpoint has approximately 3px uncertainty; conservative segment length uncertainty is plus/minus 6px. Concealed upper legs, hips and skull are not inferred. Points are supplied so the reading is reviewable.",
+  "rows": [
+    {
+      "image": "neutral.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          92,
+          174
+        ],
+        [
+          73,
+          230
+        ]
+      ],
+      "projectedPx": 59.1,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "neutral.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          137,
+          174
+        ],
+        [
+          142,
+          229
+        ]
+      ],
+      "projectedPx": 55.2,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "combat.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          69,
+          179
+        ],
+        [
+          45,
+          228
+        ]
+      ],
+      "projectedPx": 54.6,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "combat.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          179,
+          175
+        ],
+        [
+          188,
+          228
+        ]
+      ],
+      "projectedPx": 53.8,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "idle-f0.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          77,
+          177
+        ],
+        [
+          50,
+          223
+        ]
+      ],
+      "projectedPx": 53.3,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "idle-f0.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          172,
+          173
+        ],
+        [
+          185,
+          224
+        ]
+      ],
+      "projectedPx": 52.6,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "guard-v01-f0.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          80,
+          180
+        ],
+        [
+          51,
+          226
+        ]
+      ],
+      "projectedPx": 54.4,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "guard-v01-f0.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          172,
+          178
+        ],
+        [
+          186,
+          226
+        ]
+      ],
+      "projectedPx": 50,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "charge-v01-f0.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          72,
+          173
+        ],
+        [
+          44,
+          226
+        ]
+      ],
+      "projectedPx": 59.9,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "charge-v01-f0.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          194,
+          172
+        ],
+        [
+          199,
+          226
+        ]
+      ],
+      "projectedPx": 54.2,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "dash-v02-f0.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          93,
+          186
+        ],
+        [
+          51,
+          225
+        ]
+      ],
+      "projectedPx": 57.3,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "dash-v02-f0.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          202,
+          184
+        ],
+        [
+          175,
+          228
+        ]
+      ],
+      "projectedPx": 51.6,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "dash-v02-f1.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          84,
+          188
+        ],
+        [
+          38,
+          204
+        ]
+      ],
+      "projectedPx": 48.7,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "dash-v02-f1.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          179,
+          182
+        ],
+        [
+          154,
+          228
+        ]
+      ],
+      "projectedPx": 52.4,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "light3-v02-f0.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          91,
+          173
+        ],
+        [
+          76,
+          227
+        ]
+      ],
+      "projectedPx": 56,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "light3-v02-f0.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          158,
+          173
+        ],
+        [
+          178,
+          225
+        ]
+      ],
+      "projectedPx": 55.7,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "win-v02-f0.png",
+      "segment": "screen-left knee to ankle",
+      "points": [
+        [
+          102,
+          183
+        ],
+        [
+          87,
+          227
+        ]
+      ],
+      "projectedPx": 46.5,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "win-v02-f0.png",
+      "segment": "screen-right knee to ankle",
+      "points": [
+        [
+          151,
+          184
+        ],
+        [
+          161,
+          228
+        ]
+      ],
+      "projectedPx": 45.1,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "neutral.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          121,
+          58
+        ],
+        [
+          124,
+          103
+        ]
+      ],
+      "projectedPx": 45.1,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "combat.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          127,
+          91
+        ],
+        [
+          119,
+          129
+        ]
+      ],
+      "projectedPx": 38.8,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "idle-f0.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          126,
+          88
+        ],
+        [
+          118,
+          130
+        ]
+      ],
+      "projectedPx": 42.8,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "charge-v01-f0.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          153,
+          102
+        ],
+        [
+          135,
+          136
+        ]
+      ],
+      "projectedPx": 38.5,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "hurtHigh-v01-f0.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          128,
+          98
+        ],
+        [
+          118,
+          136
+        ]
+      ],
+      "projectedPx": 39.3,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "beamCharge-v01-f0.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          134,
+          99
+        ],
+        [
+          124,
+          136
+        ]
+      ],
+      "projectedPx": 38.3,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "light4-v02-f0.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          125,
+          94
+        ],
+        [
+          117,
+          134
+        ]
+      ],
+      "projectedPx": 40.8,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "light4-v02-f7.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          137,
+          92
+        ],
+        [
+          127,
+          134
+        ]
+      ],
+      "projectedPx": 43.2,
+      "uncertaintyPx": 6
+    },
+    {
+      "image": "win-v02-f0.png",
+      "segment": "visible neck base to top sash",
+      "points": [
+        [
+          127,
+          96
+        ],
+        [
+          131,
+          131
+        ]
+      ],
+      "projectedPx": 35.2,
+      "uncertaintyPx": 6
+    }
+  ]
+}

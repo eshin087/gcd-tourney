@@ -1,0 +1,161 @@
+{
+  "reassembly": {
+    "measurement": "manual",
+    "factor": 0.282,
+    "uncertainty": "±0.03",
+    "reason": "single common source-to-cell factor measured from stable anatomical landmarks against approved idle v02; no whole-figure fit or pose-specific scaling",
+    "landmarks": {
+      "method": "inverse-map of Astra-marked v04 native-control frame 0 through the recorded old grid-to-cells transform; source coordinates are approximate and include prior raster resampling uncertainty",
+      "sourceFrame0": {
+        "neckBaseToBeltCenter": {
+          "from": [
+            411,
+            224
+          ],
+          "to": [
+            425,
+            387
+          ],
+          "lengthPx": 164,
+          "idleTargetPx": 46,
+          "factor": 0.28,
+          "uncertaintyPx": 18
+        },
+        "beltWidth": {
+          "from": [
+            360,
+            387
+          ],
+          "to": [
+            492,
+            387
+          ],
+          "lengthPx": 132,
+          "idleTargetPx": 36,
+          "factor": 0.273,
+          "uncertaintyPx": 12
+        },
+        "leftBootTopToSole": {
+          "from": [
+            214,
+            693
+          ],
+          "to": [
+            160,
+            831
+          ],
+          "lengthPx": 148,
+          "idleTargetPx": 45,
+          "factor": 0.304,
+          "uncertaintyPx": 12
+        }
+      },
+      "validationFrames": "guard source frames 0 and 1 show the same broad planted guard; frame 1 has greater arm occlusion, so frame 0 drives the estimate.",
+      "decision": "factor is the median of torso, belt and boot ratios. Combined spread and inverse-map uncertainty are about ±0.030; not a numeric pass."
+    },
+    "source": "art/characters/goku/production/generation-source/guard_v04_attempt03.png",
+    "sourceSha256": "c1d19e09c37b55e9fbd08a31de0dea60e2ed23564eec1489f669f2f606b9a104",
+    "previousCandidate": "art/characters/goku/raw/_qa_hold/guard_v04.png",
+    "previousSourceTransform": "The inverse-map used only to express measured landmarks in original-source coordinates; not used to select the new scale.",
+    "grid": {
+      "columns": 2,
+      "rows": 1,
+      "frames": 2
+    },
+    "idleReference": {
+      "path": "art/characters/goku/raw/idle_v02.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "frame": 0,
+      "bounds": {
+        "minX": 46,
+        "minY": 8,
+        "maxX": 208,
+        "maxY": 239,
+        "width": 163,
+        "height": 232
+      },
+      "measuredLandmarksPx": {
+        "neckBaseToBeltCenter": 46,
+        "beltWidth": 36,
+        "leftBootTopToSole": 45
+      }
+    },
+    "panels": [
+      {
+        "frame": 0,
+        "crop": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 887,
+          "y1": 887
+        },
+        "sourceBounds": {
+          "minX": 131,
+          "minY": 17,
+          "maxX": 757,
+          "maxY": 831,
+          "width": 627,
+          "height": 815
+        },
+        "output": {
+          "x": 40,
+          "y": 11,
+          "width": 177,
+          "height": 230,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 40,
+          "minY": 12,
+          "maxX": 216,
+          "maxY": 240,
+          "width": 177,
+          "height": 229
+        }
+      },
+      {
+        "frame": 1,
+        "crop": {
+          "x0": 887,
+          "y0": 0,
+          "x1": 1774,
+          "y1": 887
+        },
+        "sourceBounds": {
+          "minX": 998,
+          "minY": 18,
+          "maxX": 1604,
+          "maxY": 831,
+          "width": 607,
+          "height": 814
+        },
+        "output": {
+          "x": 43,
+          "y": 11,
+          "width": 172,
+          "height": 230,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 299,
+          "minY": 12,
+          "maxX": 470,
+          "maxY": 240,
+          "width": 172,
+          "height": 229
+        }
+      }
+    ],
+    "review": "Technical hold pending Claude calibration and pack/contact review; this does not record or imply image approval."
+  }
+}

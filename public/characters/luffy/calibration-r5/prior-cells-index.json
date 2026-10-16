@@ -1,0 +1,65 @@
+[
+  {
+    "animation": "down",
+    "frame": 0,
+    "index": 79,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-down-0.png",
+    "sha256": "3bbf172182098f51716600a82ec793804c6d199dbbf94ee755c53a2755f40aeb"
+  },
+  {
+    "animation": "down",
+    "frame": 1,
+    "index": 80,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-down-1.png",
+    "sha256": "41e09199eefd135ee6ae721a0e08f332dc0ac0533b5942640a20517422b596f6"
+  },
+  {
+    "animation": "getup",
+    "frame": 0,
+    "index": 81,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-getup-0.png",
+    "sha256": "56223b8ce1ff3b8cb6dd9e3d9d3583fdfde8353544c0c31156563028d0289274"
+  },
+  {
+    "animation": "getup",
+    "frame": 1,
+    "index": 82,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-getup-1.png",
+    "sha256": "db8395d1b2d1d8fa0a3c3300ca4d15aa745a63ca2023a9329c3773a0477b3caf"
+  },
+  {
+    "animation": "getup",
+    "frame": 2,
+    "index": 83,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-getup-2.png",
+    "sha256": "18f61f6c28bf05e9fb5c5e04f9ebb23c2bb65e2182f5b6620eb108ffeae24332"
+  },
+  {
+    "animation": "getup",
+    "frame": 3,
+    "index": 84,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-getup-3.png",
+    "sha256": "da9872b7a55b2b3d6d09715766aa64f4c3ae8fbab178bb093a9dcfc8e9b80d70"
+  },
+  {
+    "animation": "getup",
+    "frame": 4,
+    "index": 85,
+    "version": "v01",
+    "atlasSha256": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+    "path": "cells/prior-getup-4.png",
+    "sha256": "a459f971135e37e9a7250ad4660144cd7b4ddccfb2fb282c967b3b832e9f813a"
+  }
+]

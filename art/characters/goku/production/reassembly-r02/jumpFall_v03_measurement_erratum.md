@@ -1,0 +1,3 @@
+# jumpFall v03 measurement HOLD
+
+The saved v03 pixels and sidecar are immutable. Astra's independent source inspection found the frame-0 neckline mark likely too low (saved start `[468,287]` falls inside the blue chest; neckline appears near `[477,267]`, approximately ±6 source px) and the belt span likely too short (saved x=398–480; visible outer span is approximately x=395–496). The saved factor `.452` is therefore disputed and must not be used as a calibrated measurement. The dangling boot endpoint must be reconsidered with a comparable-axis definition rather than excluded merely for being near vertical. Preserve v03 on HOLD; any corrected factor requires a new version after direct annotated source endpoints are reviewed.

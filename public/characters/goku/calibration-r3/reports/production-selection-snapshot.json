@@ -1,0 +1,116 @@
+{
+  "selected": [
+    {
+      "animation": "run",
+      "version": 9,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "dash",
+      "version": 9,
+      "bodyHeight": 207
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "bodyHeight": 206
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "bodyHeight": 232
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235
+    },
+    {
+      "animation": "light1",
+      "version": 4,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "bodyHeight": 236
+    },
+    {
+      "animation": "light4",
+      "version": 9,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "airHeavy",
+      "version": 6,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "guard",
+      "version": 5,
+      "bodyHeight": 229
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "bodyHeight": 223
+    },
+    {
+      "animation": "launched",
+      "version": 8,
+      "bodyHeight": 200
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115
+    },
+    {
+      "animation": "getup",
+      "version": 11,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "charge",
+      "version": 5,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "beamCharge",
+      "version": 7,
+      "bodyHeight": 236
+    },
+    {
+      "animation": "beamFire",
+      "version": 7,
+      "bodyHeight": 233
+    },
+    {
+      "animation": "special",
+      "version": 5,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "win",
+      "version": 5,
+      "bodyHeight": 237
+    }
+  ],
+  "omittedOnHold": [
+    "light3_v09",
+    "heavy_v11"
+  ],
+  "heldApprovedSources": [
+    "light3_v04",
+    "heavy_v04"
+  ],
+  "atlasSha256": "fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054",
+  "metadataSha256": "e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f",
+  "manifestSha256": "5a3d6525c8e489b6a9f0a4223704dffc3b2633ca178544c1d7c7b25a1c11000b",
+  "note": "Only selected Goku animation version/bodyHeight/scaleManualQA objects were edited in place. approvedVersion fields and all other manifest data were preserved."
+}

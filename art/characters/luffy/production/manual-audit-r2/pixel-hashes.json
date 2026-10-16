@@ -1,0 +1,708 @@
+{
+  "sheet": "67152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e",
+  "metadata": "17e1b30bba502d6508ffd37e99d5fbbb8e31ab40a1cc4fc0aab4f5e3f01d711c",
+  "colors": 48,
+  "animations": {
+    "idle": {
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "f38040700bceefac28e02bd2a20bf678d0e3c7a61f621e8789fc34624ecc94a0"
+        },
+        {
+          "frame": 1,
+          "hash": "9b2d216e195a459f15fa1a69e3c86bdf80684c802360c15c3e1cf370414b04a4"
+        },
+        {
+          "frame": 2,
+          "hash": "0d44c33734ba9b4866f4f4c8f057ff3abba00935b5a5f24e0302b1a8c29ee1a4"
+        },
+        {
+          "frame": 3,
+          "hash": "260f2f0e54ec4e2d829bbec3dbeba771ea37fffbd12d75ee1c27a002d8d04422"
+        },
+        {
+          "frame": 4,
+          "hash": "5013968dad130d6e3779267b03cda1dbc894d553540a645d42297176a9b7834e"
+        },
+        {
+          "frame": 5,
+          "hash": "41c662d2ac01c2ecaed78de28503efa86c50b83fdaf3ab4fcc07419e26fb0a29"
+        },
+        {
+          "frame": 6,
+          "hash": "de9f2a7cf12b88783b22f84337c2572e79a7127e97b1f721e6fc804df715b5f5"
+        },
+        {
+          "frame": 7,
+          "hash": "3476947a6551e9203c98786a1c03b324504136bb3ffc0b4b23496a8732a9a66d"
+        }
+      ]
+    },
+    "run": {
+      "loop": true,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "bb6d35c87e41f9c2ccf169827c32752a4c657ceafe57d17148ddc7ebc018adeb"
+        },
+        {
+          "frame": 1,
+          "hash": "627a215d3c421aa3368a841c6e61b82ca3adf15cf0287e9c7837b2678d9e7880"
+        },
+        {
+          "frame": 2,
+          "hash": "df9e72fd65026665128a6dab7a5456fecd3db819f68deac42982f3aad5268c6c"
+        },
+        {
+          "frame": 3,
+          "hash": "f9fe487beee0c6096aca923c0211268b90e91692816b8a5005059f2024ca00e1"
+        },
+        {
+          "frame": 4,
+          "hash": "063c1d53127ed479a44d9dddedbafa92f5d15c9693ce777f1753af09f42c900e"
+        },
+        {
+          "frame": 5,
+          "hash": "409038609e7fa91fe7a7dd903e214539dd9964ec60bcf1b09e649a5372dc8852"
+        },
+        {
+          "frame": 6,
+          "hash": "5cc35e841c4ba4b517ee4c7ee5dfc696cff3addb6bd5e06a21af3bef06fa55f5"
+        },
+        {
+          "frame": 7,
+          "hash": "20c54f892cc63ab439f13cc8f71c0ad38ee9423538e70e2482efeb1d202e702b"
+        }
+      ]
+    },
+    "dash": {
+      "loop": true,
+      "durations": [
+        60,
+        60
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "ab5087d0dcf7617967bfa807a67223bc10cb86f218ac4a8559446235685749a4"
+        },
+        {
+          "frame": 1,
+          "hash": "3d9ccc4e96e2141b6265f3a77b77705c730d9eee129a6f39c79df7c0682dd92c"
+        }
+      ]
+    },
+    "jumpUp": {
+      "loop": true,
+      "durations": [
+        80,
+        80
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "944b8a3246ad0a9f56eee6d7e389ca37726af0b4e9e8d321fb7e9d9f624ffd20"
+        },
+        {
+          "frame": 1,
+          "hash": "b7de74d973768f9b39b883c3e92a2930906fc15a62b84108d8b5addf5da98c5a"
+        }
+      ]
+    },
+    "jumpFall": {
+      "loop": true,
+      "durations": [
+        80,
+        80
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "8e92cd8f9f3a444383012be70882a57a10be6281d8fcc80e007759349f8edf53"
+        },
+        {
+          "frame": 1,
+          "hash": "9fcfef296a090df6ac2ad14101286f3d3a30687479d933c449204d05e3f8c8c8"
+        }
+      ]
+    },
+    "land": {
+      "loop": false,
+      "durations": [
+        50,
+        70
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "75a93dec3b7af93823093a78decc5c4c4ca3802cd63691f786caf5d5dd85085d"
+        },
+        {
+          "frame": 1,
+          "hash": "5c3df4e3e582b8fe302c9a6e21d0bf444f6725868ae69a5e215b9e7ae02be2dd"
+        }
+      ]
+    },
+    "light1": {
+      "loop": false,
+      "durations": [
+        30,
+        30,
+        40,
+        50,
+        50,
+        50,
+        30
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "db144983b35b3943748f834897a46b0d4465d13d4d7225d08e7bc3adb8fffca6"
+        },
+        {
+          "frame": 1,
+          "hash": "4048054e055ba3dba46b2e698fec5c8536d73fc417fba04579707bdec3210642"
+        },
+        {
+          "frame": 2,
+          "hash": "8fe4144d7789c111ca786c2d405848e2ad0cc0f53fa779503b33f2a78e20c7ab"
+        },
+        {
+          "frame": 3,
+          "hash": "65dcad214bccf27615111085f2451676d247297138131a47f01ad27cac9d384c"
+        },
+        {
+          "frame": 4,
+          "hash": "b1b076ec0deeaf899dc03ded1f6bc3a968e6015df61cd174c5912861bca7ec28"
+        },
+        {
+          "frame": 5,
+          "hash": "4f36afd49b7c2841ca2c4509495735bd687677f2786eecfb3facff891d586983"
+        },
+        {
+          "frame": 6,
+          "hash": "ff269f2c9e2f0e956dbb43cb33b93ff94adfd3156f8c5fedaffdafac04c7ce93"
+        }
+      ]
+    },
+    "light2": {
+      "loop": false,
+      "durations": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "b787cdb45f7529ebc98908dc60baaa2e3893d166fed873ad9c186f2feeb92c10"
+        },
+        {
+          "frame": 1,
+          "hash": "09a350f0434e09851cd8af324c6f00d9d5e02b797925ac8bf0a63e2d701c4d7e"
+        },
+        {
+          "frame": 2,
+          "hash": "843527bf417c90268802a0063a36e190231dfd9937852a67851c38f7c1d458f0"
+        },
+        {
+          "frame": 3,
+          "hash": "6c756fa3acfb51ed3f5ebeb89438eee203f30600a88a55710aba23cd8436b8cf"
+        },
+        {
+          "frame": 4,
+          "hash": "861eec08d08d303d74fed6b53ce17c60b2bf9ff3614af90a96aebd754f6f7909"
+        },
+        {
+          "frame": 5,
+          "hash": "a4f45934f2e313800b1cef4a4d5f24d064af66be13ab53b6dfff8b0344fcf961"
+        },
+        {
+          "frame": 6,
+          "hash": "f138e73f57bb3b38b312ece4d6d727f3ab4e8bc56e7bf020e085b196675626c4"
+        }
+      ]
+    },
+    "light3": {
+      "loop": false,
+      "durations": [
+        40,
+        35,
+        45,
+        60,
+        60,
+        60,
+        30
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "29514d574f6c0c177c5d4716d52aefe9369c0f0ae045525732de83907e6e64cc"
+        },
+        {
+          "frame": 1,
+          "hash": "a99f60f49dbec602aee631554f8336dad3eff897de380c3e8ccdcef4ccbcee08"
+        },
+        {
+          "frame": 2,
+          "hash": "43c8c057b70020d5ef74b5c3c1c07323798d4e09bc31801246f0af054f5ec129"
+        },
+        {
+          "frame": 3,
+          "hash": "3594670f1bc002f7c5ad6408f0a49f6550de0f1ec67b922e5ff4df7a23e3ecda"
+        },
+        {
+          "frame": 4,
+          "hash": "fc8903378eeedabed96f17956c099c0df4dd978662fbd0c543444b5fd6b3fbaa"
+        },
+        {
+          "frame": 5,
+          "hash": "257a74c69f2574935f3fb2632cfc60a640aca00342db878d9fc99da3cf134d0a"
+        },
+        {
+          "frame": 6,
+          "hash": "c0b0088625851f7aaf6b20a46c94faa61f38f89e34c26d001a89d7e3dafd6590"
+        }
+      ]
+    },
+    "light4": {
+      "loop": false,
+      "durations": [
+        50,
+        45,
+        35,
+        40,
+        70,
+        70,
+        70,
+        40
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "93cd5c18990c8dbc0fa01230e7f6b71ac1b7f439c764fa34d302dce4faa5e1fe"
+        },
+        {
+          "frame": 1,
+          "hash": "fb1bd140b9c8439484c891acae46ec12d9abb909a456de3b8463bfd5f8413c16"
+        },
+        {
+          "frame": 2,
+          "hash": "63610a907b430fa90a7a4a0c04d3f0886c6a002a151914e43d551d9ec284c48d"
+        },
+        {
+          "frame": 3,
+          "hash": "df27653db9d67ba95fd940749cb0a80999205b3d6808bdc5e523a3821909615e"
+        },
+        {
+          "frame": 4,
+          "hash": "65abf0398af9a84c5abc202c478cc8cdd35bdfb65e0fa951861fdbe4aca2b7ea"
+        },
+        {
+          "frame": 5,
+          "hash": "ec5e03b5817472b291bc18dcc0c8feecd11ec8adeca19bbb87af3a73149a48bc"
+        },
+        {
+          "frame": 6,
+          "hash": "179da752d8e9167e4843a368af3685f71649bbe3fc150fb5b1fdb3e900103a3b"
+        },
+        {
+          "frame": 7,
+          "hash": "68c56a29b11b5f952d272ca63956b125c42a3a49cb9b7eff03d81f1778d393e3"
+        }
+      ]
+    },
+    "heavy": {
+      "loop": false,
+      "durations": [
+        40,
+        35,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "de7664b3a1695e94465202762bc8f6f4c4cff9ea75934574081252c0bbcfe402"
+        },
+        {
+          "frame": 1,
+          "hash": "37bb960166b1abf8f8be80fc63e91e945cb3bfd777bed88fc80edb80559464d4"
+        },
+        {
+          "frame": 2,
+          "hash": "f9551e49e374c6452c4afe9c9edfc5515ab6c35794c683e4356cfb680278c49c"
+        },
+        {
+          "frame": 3,
+          "hash": "d8162e21de9b6c6772fdbd0d0a81070741e0db6dc694262d047742703be8c499"
+        },
+        {
+          "frame": 4,
+          "hash": "bb5eec319f339e5b162c4edc26056c76337fdc2f0f927bccae172f7c779a8fcd"
+        },
+        {
+          "frame": 5,
+          "hash": "87adea49c9e6ffdb73409b8cd2efbf78da3bf3161a6d3dd9bb1995b9402fc771"
+        },
+        {
+          "frame": 6,
+          "hash": "788dd3226f2a0efc4606d254b5d5744091f9228680f13eba65a047a99f744d6b"
+        },
+        {
+          "frame": 7,
+          "hash": "e7a7b71cb144300892b5984ed2d188cc9eb6a188f2dc913e27c55af10554a88d"
+        }
+      ]
+    },
+    "airLight1": {
+      "loop": false,
+      "durations": [
+        45,
+        35,
+        50,
+        50,
+        30
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "ef2af9e261a79aa26f8405e4523cf5a5d1c3db59c1cc36de87591cc7981ef223"
+        },
+        {
+          "frame": 1,
+          "hash": "446ac351cd23c6e7c4842e405845419799adc3b9e8d8348006bfb7d4210b992e"
+        },
+        {
+          "frame": 2,
+          "hash": "498443c0dd7e5996aebb7c86fbd2ff7b67ca20dd20f29823e89bed13c4b02151"
+        },
+        {
+          "frame": 3,
+          "hash": "fb3f9b6d3c560339b928893fb7dac10b52d5bd3be81cd7a2f99fd94325acef68"
+        },
+        {
+          "frame": 4,
+          "hash": "9094a82bb66e858f8d3e46297022677b6046f0b4276993d09e83f82d4b36cf05"
+        }
+      ]
+    },
+    "airHeavy": {
+      "loop": false,
+      "durations": [
+        50,
+        45,
+        45,
+        70,
+        70,
+        40
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "9df7dcd6cc9f785fcd8a791e29978633230635a71e4526083b6f1835312a3e97"
+        },
+        {
+          "frame": 1,
+          "hash": "147d0971d8c2a54efd8cf7d6c0c6f27e2067934312b6b97487d17ca438472b78"
+        },
+        {
+          "frame": 2,
+          "hash": "7f377093497082be00303e25a98c53a0d28f401e40e8b210f682aad61a942a97"
+        },
+        {
+          "frame": 3,
+          "hash": "ce9301d434b69f6fe7f773193b945c9e81adbfe7d28d01412648329edad25f14"
+        },
+        {
+          "frame": 4,
+          "hash": "ab700f19e3a47f5dcc3985d87370d21b1bfa40ded6993d22d68f8a71fd121d0e"
+        },
+        {
+          "frame": 5,
+          "hash": "78df4f41e95993af141697e7fde26cd49b28da65430e7e6df68fcb2707f27f21"
+        }
+      ]
+    },
+    "guard": {
+      "loop": true,
+      "durations": [
+        300,
+        300
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "7caa21017d11d1585e5dcb3957b7d54778e870d419449094b2bd5a9d005836e0"
+        },
+        {
+          "frame": 1,
+          "hash": "4951cdf99ec609a26dc7fb09915803a6035e70e427a717ffb6c7cdc15c62b701"
+        }
+      ]
+    },
+    "hurtHigh": {
+      "loop": false,
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "80615fb8d750e87d765de36ea20fffb9b86de1b29b97c6f15236cc62b65a0925"
+        },
+        {
+          "frame": 1,
+          "hash": "9f70f81128cd360d51d396b61c27c9b9a1137261a9230c00221d6d79c0d07c29"
+        },
+        {
+          "frame": 2,
+          "hash": "2f10b0bf7b88f496ec79399c6d0d8ed2ee61a64f8b9cf40498933dfbec23f857"
+        }
+      ]
+    },
+    "launched": {
+      "loop": true,
+      "durations": [
+        70,
+        70
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "a4dd6354770d7ce38bda8db2912ed4091432a6827072412c1db76e532a546d47"
+        },
+        {
+          "frame": 1,
+          "hash": "b266a435b58922f5340e66f9260e219a020d07e4cf4913b06b4f71d70d275fe5"
+        }
+      ]
+    },
+    "down": {
+      "loop": false,
+      "durations": [
+        80,
+        420
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "3bbf172182098f51716600a82ec793804c6d199dbbf94ee755c53a2755f40aeb"
+        },
+        {
+          "frame": 1,
+          "hash": "41e09199eefd135ee6ae721a0e08f332dc0ac0533b5942640a20517422b596f6"
+        }
+      ]
+    },
+    "getup": {
+      "loop": false,
+      "durations": [
+        70,
+        60,
+        60,
+        80,
+        70
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "56223b8ce1ff3b8cb6dd9e3d9d3583fdfde8353544c0c31156563028d0289274"
+        },
+        {
+          "frame": 1,
+          "hash": "db8395d1b2d1d8fa0a3c3300ca4d15aa745a63ca2023a9329c3773a0477b3caf"
+        },
+        {
+          "frame": 2,
+          "hash": "18f61f6c28bf05e9fb5c5e04f9ebb23c2bb65e2182f5b6620eb108ffeae24332"
+        },
+        {
+          "frame": 3,
+          "hash": "da9872b7a55b2b3d6d09715766aa64f4c3ae8fbab178bb093a9dcfc8e9b80d70"
+        },
+        {
+          "frame": 4,
+          "hash": "a459f971135e37e9a7250ad4660144cd7b4ddccfb2fb282c967b3b832e9f813a"
+        }
+      ]
+    },
+    "charge": {
+      "loop": true,
+      "durations": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "f08e815029f4d233897f674173918de53e980b50fbe8615e04a00af59d2f5fff"
+        },
+        {
+          "frame": 1,
+          "hash": "e89b6025c09a1630c07786f932c3709f32be8d7bf6b482f1eed44adece12b08f"
+        },
+        {
+          "frame": 2,
+          "hash": "98edc30fc951b7c479ea31f8f1092e37cc0bccb807934ad5c4e2b6f195765795"
+        },
+        {
+          "frame": 3,
+          "hash": "8a47750f2c739a396c4e79fd820cab54b9016d299972b97f576babe1d213c296"
+        }
+      ]
+    },
+    "beamCharge": {
+      "loop": true,
+      "durations": [
+        50,
+        50,
+        50
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "ae0228604fffd8a931090a49d56f66a08a0caba5af92acd77d87474e168e15c5"
+        },
+        {
+          "frame": 1,
+          "hash": "cffc568767367a3048ad6290a591fc8935a0945fb25b9478d1adeda9df453391"
+        },
+        {
+          "frame": 2,
+          "hash": "f63bccd12c3cfeb8fca88ef6bc8ca03dc596b351cdeee013a9969d9e876b951a"
+        }
+      ]
+    },
+    "beamFire": {
+      "loop": true,
+      "durations": [
+        50,
+        50,
+        50
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "58e11c207206338451cc774e4b48e99b781cc92768aff9c85196c38ed623e22e"
+        },
+        {
+          "frame": 1,
+          "hash": "23c3febbb9ab74049fe8e0d666186fae11ca5f5795ca0cb414ec1942e606d9e6"
+        },
+        {
+          "frame": 2,
+          "hash": "51be9ec8b61e1ddccd90cfd9b4e79379cb08fff8c5614d29f403851747375a2c"
+        }
+      ]
+    },
+    "special": {
+      "loop": false,
+      "durations": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        160,
+        110,
+        70
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "e4aa8fbbc2681338f83271e057b71f480a8f9a1259c6e1c3ec05e156ea48d08c"
+        },
+        {
+          "frame": 1,
+          "hash": "d1925e31bfd0dd057cf588ef24328a79e769ca11e2d7ad5dd5a293cd540ab1c9"
+        },
+        {
+          "frame": 2,
+          "hash": "7f1544970053cfcbfeca08600331a11d6ace6a59b74a04a240e26a8697cbd488"
+        },
+        {
+          "frame": 3,
+          "hash": "5722e463ca4030ad3ed5c9782ddb6ddf4c4b395febc1f0040ce7f2aa890b2240"
+        },
+        {
+          "frame": 4,
+          "hash": "5c9daa43ca0c38efabfdf53f7a92e9ce7b2b9c6f67b64f0a560521ccb9b1dfb2"
+        },
+        {
+          "frame": 5,
+          "hash": "e98ee52ec62c69bb1aec402ff1bcdc326b9b81a93d58a2edf7a3fc2163e29464"
+        },
+        {
+          "frame": 6,
+          "hash": "d0f91ed9fff56d2f12dc2a580d6ef7874c39266f3ba4c4890a1e82c0339ca37b"
+        },
+        {
+          "frame": 7,
+          "hash": "949e769aaade9ebbb80781daec8d9f7f95c8bef005644fea8208c35546ca2efa"
+        }
+      ]
+    },
+    "win": {
+      "loop": true,
+      "durations": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "hash": "2dc595b39710a2c768d6a1e9d72852cc074aceb03370d4460a920ab512dc5f03"
+        },
+        {
+          "frame": 1,
+          "hash": "81363edcfb2d57261b845e790bf723564ab84b1625c1f334b28346b6b1f2ab9f"
+        },
+        {
+          "frame": 2,
+          "hash": "94e686758fa17ddbee09971cb47e3368b464f9eb7dcd854a386fb50849ccbb50"
+        },
+        {
+          "frame": 3,
+          "hash": "cfd33681755ae9cf7fe59b88494cac10784b90ae328deb306e4221c79dfc2fed"
+        }
+      ]
+    }
+  }
+}

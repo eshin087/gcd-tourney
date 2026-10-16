@@ -1,0 +1,788 @@
+{
+  "method": "Independent manual visible endpoint readings on native-height atlas crops at 2x nearest-neighbor, coordinates divided by two. Approximate endpoints; rounded to native pixels. Neck base means collar-center/sternoclavicular region, unlike earlier posterior-neck screening point. No inferred hidden joints. Uncertainty applies to lengths, not a statistical confidence interval.",
+  "reference": {
+    "titleNeutral": {
+      "torso": [
+        [
+          135,
+          64
+        ],
+        [
+          134,
+          101
+        ]
+      ],
+      "boot": [
+        [
+          94,
+          200
+        ],
+        [
+          87,
+          239
+        ]
+      ],
+      "belt": [
+        [
+          118,
+          101
+        ],
+        [
+          150,
+          101
+        ]
+      ]
+    },
+    "titleCombat": {
+      "torso": [
+        [
+          135,
+          84
+        ],
+        [
+          125,
+          120
+        ]
+      ],
+      "boot": [
+        [
+          64,
+          200
+        ],
+        [
+          55,
+          239
+        ]
+      ],
+      "belt": [
+        [
+          110,
+          120
+        ],
+        [
+          143,
+          120
+        ]
+      ]
+    }
+  },
+  "rows": [
+    {
+      "animation": "idle",
+      "frame": 0,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              136,
+              75
+            ],
+            [
+              127,
+              112
+            ]
+          ],
+          "projectedPx": 38.1,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              109,
+              112
+            ],
+            [
+              145,
+              112
+            ]
+          ],
+          "projectedPx": 36,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              70,
+              197
+            ],
+            [
+              58,
+              239
+            ]
+          ],
+          "projectedPx": 43.7,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              88,
+              103
+            ],
+            [
+              107,
+              99
+            ]
+          ],
+          "projectedPx": 19.4,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "guard",
+      "frame": 0,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              129,
+              76
+            ],
+            [
+              121,
+              113
+            ]
+          ],
+          "projectedPx": 37.9,
+          "ratioToIdle": 0.994,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              103,
+              113
+            ],
+            [
+              139,
+              113
+            ]
+          ],
+          "projectedPx": 36,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              63,
+              197
+            ],
+            [
+              47,
+              239
+            ]
+          ],
+          "projectedPx": 44.9,
+          "ratioToIdle": 1.029,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              83,
+              104
+            ],
+            [
+              101,
+              101
+            ]
+          ],
+          "projectedPx": 18.2,
+          "ratioToIdle": 0.94,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "guard",
+      "frame": 1,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              135,
+              76
+            ],
+            [
+              123,
+              114
+            ]
+          ],
+          "projectedPx": 39.8,
+          "ratioToIdle": 1.047,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              110,
+              114
+            ],
+            [
+              146,
+              114
+            ]
+          ],
+          "projectedPx": 36,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              65,
+              198
+            ],
+            [
+              51,
+              239
+            ]
+          ],
+          "projectedPx": 43.3,
+          "ratioToIdle": 0.992,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              173,
+              104
+            ],
+            [
+              169,
+              89
+            ]
+          ],
+          "projectedPx": 15.5,
+          "ratioToIdle": 0.8,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 0,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              130,
+              70
+            ],
+            [
+              120,
+              109
+            ]
+          ],
+          "projectedPx": 40.3,
+          "ratioToIdle": 1.057,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              102,
+              109
+            ],
+            [
+              137,
+              109
+            ]
+          ],
+          "projectedPx": 35,
+          "ratioToIdle": 0.972,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              68,
+              196
+            ],
+            [
+              55,
+              239
+            ]
+          ],
+          "projectedPx": 44.9,
+          "ratioToIdle": 1.028,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              83,
+              102
+            ],
+            [
+              101,
+              98
+            ]
+          ],
+          "projectedPx": 18.4,
+          "ratioToIdle": 0.95,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 1,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              139,
+              73
+            ],
+            [
+              124,
+              111
+            ]
+          ],
+          "projectedPx": 40.9,
+          "ratioToIdle": 1.073,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              107,
+              111
+            ],
+            [
+              144,
+              111
+            ]
+          ],
+          "projectedPx": 37,
+          "ratioToIdle": 1.028,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              64,
+              197
+            ],
+            [
+              52,
+              239
+            ]
+          ],
+          "projectedPx": 43.7,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              74,
+              84
+            ],
+            [
+              88,
+              97
+            ]
+          ],
+          "projectedPx": 19.1,
+          "ratioToIdle": 0.984,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 2,
+      "segments": {
+        "neckBaseToBelt": {
+          "unmeasurable": "neck base hidden by rear torso rotation"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              104,
+              112
+            ],
+            [
+              137,
+              112
+            ]
+          ],
+          "projectedPx": 33,
+          "ratioToIdle": 0.917,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              63,
+              197
+            ],
+            [
+              49,
+              239
+            ]
+          ],
+          "projectedPx": 44.3,
+          "ratioToIdle": 1.014,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              185,
+              78
+            ],
+            [
+              212,
+              75
+            ]
+          ],
+          "projectedPx": 27.2,
+          "ratioToIdle": 1.399,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 3,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              138,
+              77
+            ],
+            [
+              124,
+              114
+            ]
+          ],
+          "projectedPx": 39.6,
+          "ratioToIdle": 1.039,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              108,
+              114
+            ],
+            [
+              144,
+              114
+            ]
+          ],
+          "projectedPx": 36,
+          "ratioToIdle": 1,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              64,
+              197
+            ],
+            [
+              51,
+              239
+            ]
+          ],
+          "projectedPx": 44,
+          "ratioToIdle": 1.007,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              194,
+              82
+            ],
+            [
+              220,
+              79
+            ]
+          ],
+          "projectedPx": 26.2,
+          "ratioToIdle": 1.348,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 4,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              132,
+              80
+            ],
+            [
+              121,
+              116
+            ]
+          ],
+          "projectedPx": 37.6,
+          "ratioToIdle": 0.989,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              103,
+              116
+            ],
+            [
+              140,
+              116
+            ]
+          ],
+          "projectedPx": 37,
+          "ratioToIdle": 1.028,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              63,
+              199
+            ],
+            [
+              50,
+              239
+            ]
+          ],
+          "projectedPx": 42.1,
+          "ratioToIdle": 0.963,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              193,
+              83
+            ],
+            [
+              219,
+              82
+            ]
+          ],
+          "projectedPx": 26,
+          "ratioToIdle": 1.34,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 5,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              137,
+              66
+            ],
+            [
+              125,
+              105
+            ]
+          ],
+          "projectedPx": 40.8,
+          "ratioToIdle": 1.072,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              107,
+              105
+            ],
+            [
+              142,
+              105
+            ]
+          ],
+          "projectedPx": 35,
+          "ratioToIdle": 0.972,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              70,
+              195
+            ],
+            [
+              60,
+              238
+            ]
+          ],
+          "projectedPx": 44.1,
+          "ratioToIdle": 1.011,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              91,
+              96
+            ],
+            [
+              105,
+              87
+            ]
+          ],
+          "projectedPx": 16.6,
+          "ratioToIdle": 0.857,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    },
+    {
+      "animation": "light2",
+      "frame": 6,
+      "segments": {
+        "neckBaseToBelt": {
+          "endpoints": [
+            [
+              134,
+              71
+            ],
+            [
+              122,
+              108
+            ]
+          ],
+          "projectedPx": 38.9,
+          "ratioToIdle": 1.021,
+          "lengthUncertaintyPx": 5,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "beltWidth": {
+          "endpoints": [
+            [
+              106,
+              108
+            ],
+            [
+              141,
+              108
+            ]
+          ],
+          "projectedPx": 35,
+          "ratioToIdle": 0.972,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "bootTopToSole": {
+          "endpoints": [
+            [
+              69,
+              197
+            ],
+            [
+              55,
+              239
+            ]
+          ],
+          "projectedPx": 44.3,
+          "ratioToIdle": 1.014,
+          "lengthUncertaintyPx": 4,
+          "ratioMeaning": "screening comparison; endpoints and projection uncertain"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              90,
+              101
+            ],
+            [
+              105,
+              96
+            ]
+          ],
+          "projectedPx": 15.8,
+          "ratioToIdle": 0.814,
+          "lengthUncertaintyPx": 6,
+          "ratioMeaning": "projection only; changed pose/side prevents direct scale inference"
+        }
+      },
+      "shin": {
+        "unmeasurable": "knee and ankle skeletal centers concealed by baggy gi and boot; do not substitute garment fold for a measured joint"
+      }
+    }
+  ]
+}

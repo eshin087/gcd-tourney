@@ -1,0 +1,58 @@
+{
+  "rows": [
+    {
+      "animation": "airLight1",
+      "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+      "annotation": "airLight1-source-f0-hold-endpoints.png",
+      "factors": {
+        "collarToBelt": 0.5581,
+        "beltWidth": 0.4235,
+        "bootTopToSole": 0.6197
+      },
+      "holdReason": "Frame 0 is a tucked airborne guard with a raised leg; belt-width projection is short relative to collar/boot estimates. Other frames are airborne strikes and do not supply an upright independent check. Keep measured HOLD pending Astra review; no common factor asserted."
+    },
+    {
+      "animation": "airHeavy",
+      "sourceSha256": "39fc7ce748f4234f88b0d72631f5db9e9e0048e11dd6fa47f9760e7329def6e8",
+      "annotation": "airHeavy-source-f5-hold-endpoints.png",
+      "factors": {
+        "collarToBelt": 0.5426,
+        "beltWidth": 0.3913,
+        "bootTopToSole": 0.5375
+      },
+      "holdReason": "The best recovery/guard frame 5 remains midair with bent legs; torso and belt measurements disagree, and boot perspective is only a secondary check. Frames 1-4 are increasingly tucked/rotated. Keep measured HOLD; no common factor asserted."
+    },
+    {
+      "animation": "launched",
+      "sourceSha256": "7468616598613a3b004ac5663dd248712d6bc024fc2b12c2aac1252bfd245f9e",
+      "annotation": "launched-source-f0-hold-endpoints.png",
+      "factors": {
+        "collarToBelt": 0.3083,
+        "beltWidth": 0.2581,
+        "bootTopToSole": 0.3424
+      },
+      "holdReason": "Both source frames are airborne recoil poses with body foreshortening and no planted neutral limb; frame-0 torso, belt and boot directions carry different projection. Preserve source and record HOLD, not a scale impossibility claim."
+    },
+    {
+      "animation": "down",
+      "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+      "annotation": "down-source-f0-hold-endpoints.png",
+      "factors": {
+        "collarToBelt": 0.4821,
+        "beltWidth": 0.3711
+      },
+      "holdReason": "Frame 0 is a hands-and-knees fall pose and frame 1 is prone; neither offers an independent boot axis or a comparable neutral torso. The two recorded measurements are projection-sensitive, so no factor or resample is supported. Measured HOLD."
+    },
+    {
+      "animation": "special",
+      "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+      "annotation": "special-source-f0-hold-endpoints.png",
+      "factors": {
+        "collarToBelt": 0.3571,
+        "beltWidth": 0.3273,
+        "bootTopToSole": 0.6009
+      },
+      "holdReason": "Three directly marked frame-0 ratios are materially different, while all frames use a wide power-stance or extended-arm pose; source anatomy cannot be inferred from its bounds. Keep measured HOLD for Astra comparison; no factor selected."
+    }
+  ]
+}

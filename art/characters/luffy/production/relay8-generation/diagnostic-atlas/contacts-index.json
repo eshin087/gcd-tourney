@@ -1,0 +1,48 @@
+{
+  "animations": {
+    "down": {
+      "frames": [
+        {
+          "index": 0,
+          "ms": 80
+        },
+        {
+          "index": 1,
+          "ms": 420
+        }
+      ]
+    },
+    "getup": {
+      "frames": [
+        {
+          "index": 2,
+          "ms": 70
+        },
+        {
+          "index": 3,
+          "ms": 60
+        },
+        {
+          "index": 4,
+          "ms": 60
+        },
+        {
+          "index": 5,
+          "ms": 80
+        },
+        {
+          "index": 6,
+          "ms": 70
+        }
+      ]
+    }
+  },
+  "atlas": {
+    "path": "sheet.png",
+    "sha256": "fb8efd04a08d7c47c3ad2ce84ab07b01825cd163e2579af0d71dfab131dbca58",
+    "size": [
+      1792,
+      256
+    ]
+  }
+}

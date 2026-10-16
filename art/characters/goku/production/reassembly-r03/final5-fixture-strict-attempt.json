@@ -1,0 +1,1076 @@
+{
+  "art": "art/characters/goku/production/reassembly-r03/final5-fixture-art",
+  "artExists": true,
+  "out": "art/characters/goku/production/reassembly-r03/final5-fixture-public",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "goku",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v02.png",
+          "from": "raw/idle_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "run",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/run_v09.png",
+          "from": "raw/run_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "dash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/dash_v09.png",
+          "from": "raw/dash_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpUp",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpUp_v04.png",
+          "from": "raw/jumpUp_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpFall",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpFall_v04.png",
+          "from": "raw/jumpFall_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "land",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/land_v07.png",
+          "from": "raw/land_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light1",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light1_v04.png",
+          "from": "raw/light1_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v05.png",
+          "from": "raw/light2_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": [
+            "candidate v05 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v09.png",
+          "from": "raw/light4_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": [
+            "candidate v09 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v07.png",
+          "from": "raw/airLight1_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": [
+            "candidate v07 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v06.png",
+          "from": "raw/airHeavy_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": [
+            "candidate v06 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v05.png",
+          "from": "raw/guard_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "hurtHigh",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtHigh_v08.png",
+          "from": "raw/hurtHigh_v08.png",
+          "version": 8,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v08.png",
+          "from": "raw/launched_v08.png",
+          "version": 8,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v05.png",
+          "from": "raw/down_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v11.png",
+          "from": "raw/getup_v11.png",
+          "version": 11,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "charge",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/charge_v05.png",
+          "from": "raw/charge_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamCharge",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamCharge_v07.png",
+          "from": "raw/beamCharge_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamFire",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamFire_v07.png",
+          "from": "raw/beamFire_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "special",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/special_v05.png",
+          "from": "raw/special_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "win",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/win_v05.png",
+          "from": "raw/win_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        }
+      ],
+      "missing": [
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "light3",
+        "heavy",
+        "airLight2",
+        "airLight3",
+        "block",
+        "hurtLow",
+        "spin",
+        "airRecover",
+        "throw",
+        "vanish",
+        "stagger",
+        "ko",
+        "intro",
+        "taunt",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose",
+        "beamStruggle",
+        "beamStruggleAir",
+        "techGround",
+        "techRoll",
+        "wallTech",
+        "light1Alt",
+        "light2Alt",
+        "light3Alt",
+        "light4Alt",
+        "heavyAlt",
+        "airLight1Alt",
+        "airLight2Alt",
+        "airLight3Alt",
+        "airHeavyAlt",
+        "hurtHighAlt",
+        "hurtLowAlt"
+      ],
+      "missingCore": [
+        "light3",
+        "heavy"
+      ],
+      "failed": [],
+      "blocked": [],
+      "versions": {
+        "idle": 2,
+        "run": 9,
+        "dash": 9,
+        "jumpUp": 4,
+        "jumpFall": 4,
+        "land": 7,
+        "light1": 4,
+        "light2": 5,
+        "light4": 9,
+        "airLight1": 7,
+        "airHeavy": 6,
+        "guard": 5,
+        "hurtHigh": 8,
+        "launched": 8,
+        "down": 5,
+        "getup": 11,
+        "charge": 5,
+        "beamCharge": 7,
+        "beamFire": 7,
+        "special": 5,
+        "win": 5
+      },
+      "complete": false,
+      "frames": 93,
+      "sheet": "4096x1536",
+      "colors": 48,
+      "warnings": [
+        "getup: 1 lying frame(s) float above the floor line (#0: 35% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020)"
+      ],
+      "notes": [
+        "palette snapped to 48 colors",
+        "4 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light4#3, airLight1#1, airHeavy#3; check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [
+        "art/characters/goku/production/reassembly-r03/final5-fixture-public/characters/goku/sheet.png",
+        "art/characters/goku/production/reassembly-r03/final5-fixture-public/characters/goku/anims.json"
+      ],
+      "writeback": [],
+      "ui": [],
+      "uiItems": [],
+      "ground": {
+        "down": [
+          {
+            "frame": 1,
+            "contact": 0.55,
+            "gaps": [
+              5,
+              0,
+              5,
+              4,
+              8
+            ],
+            "worst": 8,
+            "h": 73,
+            "ok": true
+          }
+        ],
+        "getup": [
+          {
+            "frame": 0,
+            "contact": 0.35,
+            "gaps": [
+              2,
+              0,
+              8,
+              8,
+              4
+            ],
+            "worst": 8,
+            "h": 163,
+            "ok": false
+          }
+        ]
+      },
+      "tech": {},
+      "alts": {},
+      "hitBoxes": {
+        "light1": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                162,
+                24,
+                51,
+                216
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                72,
+                47,
+                26
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light2": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                64,
+                42,
+                24
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                66,
+                53,
+                28
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light4": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                157,
+                87,
+                58,
+                157
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                199,
+                17,
+                56,
+                56
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airLight1": [
+          {
+            "frame": 1,
+            "hit": [
+              [
+                208,
+                8,
+                47,
+                166
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                62,
+                56,
+                27
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airHeavy": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                8,
+                25,
+                55
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                144,
+                34,
+                44,
+                210
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "special": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                49,
+                36,
+                44
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                199,
+                46,
+                49,
+                47
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 5,
+            "hit": [
+              [
+                199,
+                48,
+                32,
+                43
+              ]
+            ],
+            "rule": "forward"
+          }
+        ]
+      },
+      "scale": {
+        "gate": "strict",
+        "failed": [],
+        "findings": [],
+        "anims": {
+          "idle": {
+            "head": 0.645,
+            "feet": 1,
+            "range": 2.167,
+            "verdict": "ref",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              2.667,
+              0.516,
+              0.606,
+              0.5,
+              0.516,
+              1.183,
+              0.876,
+              0.683
+            ]
+          },
+          "run": {
+            "head": 0.754,
+            "feet": 0.995,
+            "range": 0.747,
+            "verdict": "manual",
+            "strict": true,
+            "version": 9,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.577,
+              1,
+              1.053,
+              0.606,
+              0.876,
+              0.632,
+              0.516,
+              1.263
+            ]
+          },
+          "dash": {
+            "head": 1.041,
+            "feet": 0.861,
+            "range": 0.747,
+            "verdict": "manual",
+            "strict": true,
+            "version": 9,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.667,
+              1.414
+            ]
+          },
+          "jumpUp": {
+            "head": 0.611,
+            "feet": 0.8,
+            "range": 0.191,
+            "verdict": "manual",
+            "strict": true,
+            "version": 4,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.707,
+              0.516
+            ]
+          },
+          "jumpFall": {
+            "head": 0.882,
+            "feet": 0.874,
+            "range": 0.303,
+            "verdict": "manual",
+            "strict": true,
+            "version": 4,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.73,
+              1.033
+            ]
+          },
+          "land": {
+            "head": 0.619,
+            "feet": 0.938,
+            "range": 0.026,
+            "verdict": "manual",
+            "strict": true,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.606,
+              0.632
+            ]
+          },
+          "light1": {
+            "head": 0.606,
+            "feet": 0.978,
+            "range": 0.151,
+            "verdict": "manual",
+            "strict": true,
+            "version": 4,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.516,
+              0.658,
+              0.667,
+              0.526,
+              0.577,
+              0.606,
+              0.632
+            ]
+          },
+          "light2": {
+            "head": 0.606,
+            "feet": 1.015,
+            "range": 0.167,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.632,
+              0.667,
+              0.516,
+              0.667,
+              0.606,
+              0.5,
+              0.5
+            ]
+          },
+          "light4": {
+            "head": 0.742,
+            "feet": 0.982,
+            "range": 0.655,
+            "verdict": "manual",
+            "strict": true,
+            "version": 9,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.577,
+              0.5,
+              0.667,
+              1.155,
+              0.516,
+              0.816,
+              0.816,
+              1.14
+            ]
+          },
+          "airLight1": {
+            "head": 0.516,
+            "feet": 0.963,
+            "range": 0.132,
+            "verdict": "manual",
+            "strict": true,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.577,
+              0.516,
+              0.632,
+              0.5,
+              0.516
+            ]
+          },
+          "airHeavy": {
+            "head": 0.552,
+            "feet": 0.932,
+            "range": 0.253,
+            "verdict": "manual",
+            "strict": true,
+            "version": 6,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.632,
+              0.516,
+              0.526,
+              0.753,
+              0.577,
+              0.5
+            ]
+          },
+          "guard": {
+            "head": 0.737,
+            "feet": 0.987,
+            "range": 0.21,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.632,
+              0.842
+            ]
+          },
+          "hurtHigh": {
+            "head": 1,
+            "feet": 0.761,
+            "range": 0.221,
+            "verdict": "manual",
+            "strict": true,
+            "version": 8,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              1.017,
+              0.796,
+              1
+            ]
+          },
+          "launched": {
+            "head": 0.547,
+            "feet": 0.896,
+            "range": 0.061,
+            "verdict": "manual",
+            "strict": true,
+            "version": 8,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.577,
+              0.516
+            ]
+          },
+          "down": {
+            "head": 0.658,
+            "feet": 0.734,
+            "range": 0,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.658,
+              0.658
+            ]
+          },
+          "getup": {
+            "head": 0.606,
+            "feet": 0.983,
+            "range": 0.655,
+            "verdict": "manual",
+            "strict": true,
+            "version": 11,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.5,
+              0.606,
+              0.606,
+              1.155,
+              0.606
+            ]
+          },
+          "charge": {
+            "head": 0.521,
+            "feet": 0.933,
+            "range": 0.214,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.516,
+              0.526,
+              0.73,
+              0.516
+            ]
+          },
+          "beamCharge": {
+            "head": 0.5,
+            "feet": 0.895,
+            "range": 0.132,
+            "verdict": "manual",
+            "strict": true,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.5,
+              0.5,
+              0.632
+            ]
+          },
+          "beamFire": {
+            "head": 1.111,
+            "feet": 1.018,
+            "range": 0.697,
+            "verdict": "manual",
+            "strict": true,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.5,
+              1.111,
+              1.197
+            ]
+          },
+          "special": {
+            "head": 0.579,
+            "feet": 1.004,
+            "range": 0.765,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.526,
+              0.632,
+              0.667,
+              0.526,
+              0.516,
+              0.913,
+              1.265,
+              0.5
+            ]
+          },
+          "win": {
+            "head": 0.666,
+            "feet": 0.889,
+            "range": 0.333,
+            "verdict": "manual",
+            "strict": true,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium) final4 quantized-pixel audit; fixture-only diagnostic record: Exact version-bound anatomy/fit recommendation from FINAL4_AUDIT.md. Private fixture only: no production calibration or approval is implied; final5 uses the same selected pixels at bodyHeight equal to native maximum, pack scale x1. (art/characters/goku/production/manual-audit-r3/FINAL4_AUDIT.md)",
+            "frames": [
+              0.833,
+              0.816,
+              0.5,
+              0.516
+            ]
+          }
+        },
+        "ref": {
+          "box": [
+            124,
+            14,
+            139,
+            43
+          ],
+          "headPx": [
+            6,
+            10
+          ],
+          "palette": [
+            "#b62827",
+            "#791f0d",
+            "#faa231",
+            "#fc8b17",
+            "#fcca6e"
+          ],
+          "source": "auto"
+        }
+      }
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "decals": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/characters/goku/production/reassembly-r03/final5-fixture-art/manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 1
+}

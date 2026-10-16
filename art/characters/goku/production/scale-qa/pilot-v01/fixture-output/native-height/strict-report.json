@@ -1,0 +1,312 @@
+{
+  "art": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/input",
+  "artExists": true,
+  "out": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "goku",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v02.png",
+          "from": "raw/idle_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v05.png",
+          "from": "raw/light2_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": [
+            "candidate v05 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v05.png",
+          "from": "raw/guard_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        }
+      ],
+      "missing": [
+        "run",
+        "dash",
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "jumpUp",
+        "jumpFall",
+        "land",
+        "light1",
+        "light3",
+        "light4",
+        "heavy",
+        "airLight1",
+        "airLight2",
+        "airLight3",
+        "airHeavy",
+        "block",
+        "hurtHigh",
+        "hurtLow",
+        "launched",
+        "spin",
+        "airRecover",
+        "down",
+        "getup",
+        "charge",
+        "throw",
+        "beamCharge",
+        "beamFire",
+        "vanish",
+        "stagger",
+        "ko",
+        "special",
+        "intro",
+        "taunt",
+        "win",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose",
+        "techGround",
+        "techRoll",
+        "wallTech",
+        "light1Alt",
+        "light2Alt",
+        "light3Alt",
+        "light4Alt",
+        "heavyAlt",
+        "airLight1Alt",
+        "airLight2Alt",
+        "airLight3Alt",
+        "airHeavyAlt",
+        "hurtHighAlt",
+        "hurtLowAlt"
+      ],
+      "missingCore": [
+        "run",
+        "dash",
+        "jumpUp",
+        "jumpFall",
+        "land",
+        "light1",
+        "light3",
+        "light4",
+        "heavy",
+        "airLight1",
+        "airHeavy",
+        "hurtHigh",
+        "launched",
+        "down",
+        "getup",
+        "charge",
+        "beamCharge",
+        "beamFire",
+        "special",
+        "win"
+      ],
+      "failed": [],
+      "blocked": [],
+      "versions": {
+        "idle": 2,
+        "light2": 5,
+        "guard": 5
+      },
+      "complete": false,
+      "frames": 17,
+      "sheet": "4096x512",
+      "colors": 48,
+      "warnings": [
+        "scale gate: light2 pops inside the strip: f5 0.50 vs f1 0.67 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: guard pops inside the strip: f0 0.63 vs f1 0.84 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: would not write art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/characters/goku/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion"
+      ],
+      "notes": [
+        "palette snapped to 48 colors"
+      ],
+      "wrote": [],
+      "writeback": [],
+      "ui": [],
+      "uiItems": [],
+      "ground": {},
+      "tech": {},
+      "alts": {},
+      "hitBoxes": {
+        "light2": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                64,
+                42,
+                24
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                66,
+                53,
+                28
+              ]
+            ],
+            "rule": "forward"
+          }
+        ]
+      },
+      "scale": {
+        "gate": "strict",
+        "failed": [
+          "light2",
+          "guard"
+        ],
+        "findings": [],
+        "anims": {
+          "idle": {
+            "head": 0.645,
+            "feet": 1,
+            "range": 2.167,
+            "verdict": "ref",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              2.667,
+              0.516,
+              0.606,
+              0.5,
+              0.516,
+              1.183,
+              0.876,
+              0.683
+            ]
+          },
+          "light2": {
+            "head": 0.606,
+            "feet": 1.015,
+            "range": 0.167,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.632,
+              0.667,
+              0.516,
+              0.667,
+              0.606,
+              0.5,
+              0.5
+            ]
+          },
+          "guard": {
+            "head": 0.737,
+            "feet": 0.987,
+            "range": 0.21,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.632,
+              0.842
+            ]
+          }
+        },
+        "ref": {
+          "box": [
+            124,
+            14,
+            139,
+            43
+          ],
+          "headPx": [
+            6,
+            10
+          ],
+          "palette": [
+            "#b62827",
+            "#791f0d",
+            "#faa231",
+            "#fc8b17",
+            "#fcca6e"
+          ],
+          "source": "auto"
+        },
+        "refused": true
+      },
+      "refused": true
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "decals": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/diagnostic-manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 3
+}

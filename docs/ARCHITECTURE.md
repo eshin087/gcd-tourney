@@ -93,12 +93,34 @@ src/game/
   dmath.js                  deterministic hypot / sin / cos / atan / atan2 from + - * / and Math.sqrt for every
                             gameplay file (Safari's Math.hypot differs from Chrome's in the last bit);
                             tools/lint-sim-math.mjs keeps engine Math out of those files
-src/net/                    online play (ADR 0036), so far its determinism test:
+src/net/                    online play (ADR 0036): rooms, rollback, spectating, a simulated network, the tests
+  online.js                 Online (game.online, loaded on first use): the online screens' logic, the room, each
+                            match's session (RollbackSession as a player, SpectateSession otherwise), the result report,
+                            the match strip, rejoining after a drop (reconnect, resend or rebuild from the room's
+                            log); Game hooks: update() per frame, menuKey() (Esc / pause), overlay
+  quickChat.js              QUICK: the quick-chat lines and emotes rooms talk in (sent as an index; ENG-095)
+  turnstile.js              Cloudflare Turnstile widget (its script loads only to open a public room): roomToken()
+  lobby.js                  LobbyClient: one WebSocket to a room on the lobby server (server/), JSON messages, ping;
+                            matchLink() is the transport a RollbackSession reads; LOBBY_URL / lobbyUrl(), room codes
+  spectate.js               SpectateSession: replays the confirmed inputs the room feeds, a little behind, never
+                            rolling back; a late joiner fast-forwards quietly
+  rollback.js               RollbackSession (GGPO-style, transport-agnostic): packed inputs (packInput / applyInput),
+                            input delay, prediction, save / restore and quiet re-simulation, stalls past maxRollback,
+                            time sync (frame advantage), state-hash checks (desync); takes over Game.frame's step when
+                            game.netplay
+  netSim.js                 SimLink (latency / jitter / loss) + SimRemote (the other machine) for tests and ?net=sim
+                            (a normal match through rollback, CPU or player 2 on the far side, stats overlay)
   simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, control
                             basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
   detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and
                             hashes, replay them (brains off, other render rates), report the first split and its
-                            values, time the fixed step; fixtures in public/det/, saved via the dev server
+                            values, time the fixed step; fixtures in public/det/, saved via the dev server;
+                            det.netplay (simulated network), det.online (the real lobby server), det.bot (a stand-in
+                            room member)
+server/                     the lobby server (Cloudflare Worker + one Durable Object per room + a Directory object
+                            for the public room list, names.js the nickname filter; own package.json with
+                            wrangler; server/README.md has the protocol): roomCore.js (the room's rules, plain JS),
+                            room.js (the Durable Object), index.js (routing, allowed origins)
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
   animGuide.js              canonical animation list (frames, phases, pose text) + ChatGPT prompt builder
@@ -141,6 +163,7 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 ├─ if not paused:
 │   ├─ accumulator += dt * timeScale                            <- KO slow-mo only paces the steps (presentation)
 │   ├─ while acc >= 1/60 (max 6 steps): fixedUpdate()          <- the simulation, match flow included
+│   │      (online / ?net=sim: netplay.tick() instead: send, receive, rewind, then fixedUpdate or a stall)
 │   └─ alpha = acc / DT                                         <- render interpolation factor
 └─ render(dtReal)
 ```
@@ -156,7 +179,9 @@ pieces a rollback needs (re-simulated frames were already shown once).
 ```
 0. basis.step(fighters)         the control basis (basis.js): the fight framing's yaw from the fighters' positions,
                                 damped on the fixed step; its right / fwd are the screen axes the step reads
-1. input.poll()                 keyboard + gamepads -> Pad (pressed/released edges, buffers, double-tap dash)
+1. input.poll()                 keyboard + gamepads -> Pad (pressed/released edges, buffers, double-tap dash);
+                                poll = sample() (the devices) + the pad writes. With game.netplay, steps 1-2 are
+                                netplay.applyInputs(): every pad gets its frame's packed input (rollback.js)
 2. director?.update()           CPU vs CPU only: the show director's beam-clash cue (ADR 0027)
    brains[i].update(game)       CpuBrain / DummyBrain press buttons on their own Pad (same interface as a human)
 3. superFlash timer             a running super flash counts down

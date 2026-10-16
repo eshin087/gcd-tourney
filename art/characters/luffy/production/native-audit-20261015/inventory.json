@@ -1,0 +1,1984 @@
+{
+  "diagnosticOnly": true,
+  "method": "Whole-figure extraction; existing bodyHeight and offsets; resample and placement from packer; 48-color diagnostic palette; no gate or public output; not a production pack certification",
+  "manifestSha256": "a0d80030d1d1ea4ecdff2474008078b1faff462e62b4bb72a91b150c4ae86c5f",
+  "referenceSha256": "1b7717c259a4da07a512508d702a6bd5775bdfc4298b4f1c3fcc671d283cb963",
+  "records": [
+    {
+      "name": "idle",
+      "version": 1,
+      "source": "art/characters/luffy/raw/idle_v01.png",
+      "sha256": "b11ae08cddc02bd2be95a21663f0dfba993d2743c356a7a346dfdd00d7cecb4b",
+      "sidecarSha256": null,
+      "bodyHeight": 204,
+      "sourceMaxHeight": 234,
+      "scale": 0.8717948717948718,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            210,
+            233
+          ],
+          "normalizedSize": [
+            183,
+            203
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 38,
+            "x1": 217,
+            "y1": 240,
+            "w": 183,
+            "h": 203,
+            "n": 11771
+          },
+          "cellSha256": "a26d94992f0c3ee5fcff26cc043bc6ba797f432ea9def450d6f6afafd90e522d"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            211,
+            230
+          ],
+          "normalizedSize": [
+            184,
+            201
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 40,
+            "x1": 218,
+            "y1": 240,
+            "w": 184,
+            "h": 201,
+            "n": 11818
+          },
+          "cellSha256": "fe302e68492a692f797fa4b1aebf2abc0011c830a80a783143623c34ad6dd95e"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            211,
+            234
+          ],
+          "normalizedSize": [
+            184,
+            204
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 37,
+            "x1": 218,
+            "y1": 240,
+            "w": 184,
+            "h": 204,
+            "n": 11878
+          },
+          "cellSha256": "6a97de363da4d1cad83b56a733b3c15c05a637736062b242034c0cf977fe1f46"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            211,
+            231
+          ],
+          "normalizedSize": [
+            184,
+            201
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 34,
+            "y0": 40,
+            "x1": 217,
+            "y1": 240,
+            "w": 184,
+            "h": 201,
+            "n": 11751
+          },
+          "cellSha256": "93c879852655430b74a34d9198f83dcda9b9c497afa9e4aa9b4e467ab60ac21d"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            211,
+            233
+          ],
+          "normalizedSize": [
+            184,
+            203
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 38,
+            "x1": 218,
+            "y1": 240,
+            "w": 184,
+            "h": 203,
+            "n": 11836
+          },
+          "cellSha256": "9cea97fd3850c8639316857ec775453c7d9b1a1443386d03cc8728bf434b7ec0"
+        },
+        {
+          "frame": 5,
+          "sourceTrim": [
+            211,
+            230
+          ],
+          "normalizedSize": [
+            184,
+            201
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 40,
+            "x1": 218,
+            "y1": 240,
+            "w": 184,
+            "h": 201,
+            "n": 11767
+          },
+          "cellSha256": "7e1c02f0b72a4c472b4bfdcebeabdc109fc3807c79f86cf3c44b61890db02059"
+        },
+        {
+          "frame": 6,
+          "sourceTrim": [
+            211,
+            232
+          ],
+          "normalizedSize": [
+            184,
+            202
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 39,
+            "x1": 218,
+            "y1": 240,
+            "w": 184,
+            "h": 202,
+            "n": 11815
+          },
+          "cellSha256": "f6707b5eba62c472de7a684c900bd360fe536b051f1c52024740953c7a451e7c"
+        },
+        {
+          "frame": 7,
+          "sourceTrim": [
+            211,
+            233
+          ],
+          "normalizedSize": [
+            184,
+            203
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 38,
+            "x1": 218,
+            "y1": 240,
+            "w": 184,
+            "h": 203,
+            "n": 11803
+          },
+          "cellSha256": "88c82fe94d05841dbd3abb36e1a59d6ab094bc7abe6081193d9800e12d0305bf"
+        }
+      ]
+    },
+    {
+      "name": "guard",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/guard_v01.png",
+      "sha256": "c87f4517f786631ce7c5cc9f9c03e278afcf4909bf6e157ff0b7d6a1cad6ce76",
+      "sidecarSha256": null,
+      "bodyHeight": 198,
+      "sourceMaxHeight": 770,
+      "scale": 0.2571428571428571,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            667,
+            770
+          ],
+          "normalizedSize": [
+            172,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 39,
+            "y0": 43,
+            "x1": 210,
+            "y1": 240,
+            "w": 172,
+            "h": 198,
+            "n": 10595
+          },
+          "cellSha256": "196131fe48e5a2e18c1f7999af80c9d10f15eb4ac97f4b36ac8ace60917ad9ca"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            667,
+            756
+          ],
+          "normalizedSize": [
+            172,
+            194
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 40,
+            "y0": 47,
+            "x1": 211,
+            "y1": 240,
+            "w": 172,
+            "h": 194,
+            "n": 10416
+          },
+          "cellSha256": "e854ce38cec4d605317fd50e44a91126f55d4f379fbb6fcaa776dd2a1fe8afed"
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/charge_v01.png",
+      "sha256": "c286f934aa9b79243f3865c0b502f8d891ecec1d5d2a389317ccc220ed3e1b28",
+      "sidecarSha256": null,
+      "bodyHeight": 198,
+      "sourceMaxHeight": 473,
+      "scale": 0.4186046511627907,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            492,
+            471
+          ],
+          "normalizedSize": [
+            206,
+            197
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 23,
+            "y0": 44,
+            "x1": 228,
+            "y1": 240,
+            "w": 206,
+            "h": 197,
+            "n": 14864
+          },
+          "cellSha256": "d20ff1914d24e66ebd465da8135401e8159d495abdb7bdef70fbdc2a5e46ef6c"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            491,
+            473
+          ],
+          "normalizedSize": [
+            206,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 22,
+            "y0": 43,
+            "x1": 227,
+            "y1": 240,
+            "w": 206,
+            "h": 198,
+            "n": 14906
+          },
+          "cellSha256": "de975b21d917d0d1c8db1a49a82130bc331ea61bf1503996f09b56cd4b6fbda1"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            493,
+            473
+          ],
+          "normalizedSize": [
+            206,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 21,
+            "y0": 43,
+            "x1": 226,
+            "y1": 240,
+            "w": 206,
+            "h": 198,
+            "n": 14879
+          },
+          "cellSha256": "77abf30c2749c7ded44e3e01c87325a6e9152c1e3bde95c37294e59a7e881681"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            492,
+            472
+          ],
+          "normalizedSize": [
+            206,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 22,
+            "y0": 43,
+            "x1": 227,
+            "y1": 240,
+            "w": 206,
+            "h": 198,
+            "n": 14925
+          },
+          "cellSha256": "7b0dca4c02f17f058acc6a1100297bd6b0f387354dbcefb03d6080fa5def026d"
+        }
+      ]
+    },
+    {
+      "name": "land",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/land_v01.png",
+      "sha256": "cb1ef48d52e31ed49959e995bb90c4703d81995cb1df4bf37746de8ac6c90eff",
+      "sidecarSha256": null,
+      "bodyHeight": 174,
+      "sourceMaxHeight": 562,
+      "scale": 0.3096085409252669,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            567,
+            421
+          ],
+          "normalizedSize": [
+            176,
+            130
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 33,
+            "y0": 111,
+            "x1": 208,
+            "y1": 240,
+            "w": 176,
+            "h": 130,
+            "n": 9618
+          },
+          "cellSha256": "ca5a2cc04eebde2ef461f1faee2410482f46f214cad980231a476679b326dc46"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            577,
+            562
+          ],
+          "normalizedSize": [
+            179,
+            174
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 38,
+            "y0": 67,
+            "x1": 216,
+            "y1": 240,
+            "w": 179,
+            "h": 174,
+            "n": 10029
+          },
+          "cellSha256": "1720e0e6696a4a03c045011ae4831d51ec746cdd5ae5e1e3e4fd4c3a2b398ba6"
+        }
+      ]
+    },
+    {
+      "name": "jumpUp",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/jumpUp_v01.png",
+      "sha256": "b2f48f184a87bbd796ecbef3ef372ab8336f1f2b08f0b3b25199a949ec03b927",
+      "sidecarSha256": null,
+      "bodyHeight": 198,
+      "sourceMaxHeight": 583,
+      "scale": 0.33962264150943394,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            558,
+            532
+          ],
+          "normalizedSize": [
+            190,
+            181
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 49,
+            "y0": 60,
+            "x1": 238,
+            "y1": 240,
+            "w": 190,
+            "h": 181,
+            "n": 14591
+          },
+          "cellSha256": "60d534e825eb61738e7a23215c1552bf67128cc75c616bd43a6bf037389dba04"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            624,
+            583
+          ],
+          "normalizedSize": [
+            212,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 29,
+            "y0": 43,
+            "x1": 240,
+            "y1": 240,
+            "w": 212,
+            "h": 198,
+            "n": 14445
+          },
+          "cellSha256": "2b393025dbed9c9846e79254e057a31c56398c374927c847f984fd3113acef25"
+        }
+      ]
+    },
+    {
+      "name": "jumpFall",
+      "version": 3,
+      "source": "art/characters/luffy/raw/jumpFall_v03.png",
+      "sha256": "5801ee67257af097c9b3028bd3fc781417b96bc1b1b5515f4b3975523eb1e823",
+      "sidecarSha256": null,
+      "bodyHeight": 209,
+      "sourceMaxHeight": 764,
+      "scale": 0.27356020942408377,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            414,
+            702
+          ],
+          "normalizedSize": [
+            113,
+            192
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 78,
+            "y0": 49,
+            "x1": 190,
+            "y1": 240,
+            "w": 113,
+            "h": 192,
+            "n": 10219
+          },
+          "cellSha256": "00e127e1b445ccbdc4d3dff2b34448511656ad4612b8777db9ccfc89ccbc3b1a"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            410,
+            764
+          ],
+          "normalizedSize": [
+            112,
+            209
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 72,
+            "y0": 32,
+            "x1": 183,
+            "y1": 240,
+            "w": 112,
+            "h": 209,
+            "n": 10699
+          },
+          "cellSha256": "e51a7526964fc3727ba43ca82253245598e32c200f2fd93d6b93972c946259df"
+        }
+      ]
+    },
+    {
+      "name": "dash",
+      "version": 2,
+      "source": "art/characters/luffy/raw/dash_v02.png",
+      "sha256": "f27f669e4dc5a4887ab095a3439dba98aa5e813a1864f7f46229da93f1a4bd35",
+      "sidecarSha256": null,
+      "bodyHeight": 160,
+      "sourceMaxHeight": 594,
+      "scale": 0.26936026936026936,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            752,
+            594
+          ],
+          "normalizedSize": [
+            203,
+            160
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 40,
+            "y0": 81,
+            "x1": 242,
+            "y1": 240,
+            "w": 203,
+            "h": 160,
+            "n": 11328
+          },
+          "cellSha256": "d420d933c7013ba4010a391cabe72ff68cacf63e271c4b4282dac0a3d726b97b"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            738,
+            578
+          ],
+          "normalizedSize": [
+            199,
+            156
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 23,
+            "y0": 85,
+            "x1": 221,
+            "y1": 240,
+            "w": 199,
+            "h": 156,
+            "n": 11438
+          },
+          "cellSha256": "55d52b3fdcbab3184d833af0945bd42a3ae2dfc3981c1868538d82c2b44f9ea7"
+        }
+      ]
+    },
+    {
+      "name": "run",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/run_v01.png",
+      "sha256": "546e561987217856a6efd1b166597cbb63aee4d419a5cfe2c64628e02eeded21",
+      "sidecarSha256": "ecaa3f0fa91c9c2878d73c869fc835136671da77fa70b8f3cf490e8bb41919d1",
+      "bodyHeight": 204,
+      "sourceMaxHeight": 505,
+      "scale": 0.403960396039604,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            421,
+            497
+          ],
+          "normalizedSize": [
+            170,
+            201
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 47,
+            "y0": 40,
+            "x1": 216,
+            "y1": 240,
+            "w": 170,
+            "h": 201,
+            "n": 12390
+          },
+          "cellSha256": "a23a5c1f72463fa049ab8667ead130ba047c601d1d8c0d5f0a54856cc8e70a01"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            392,
+            505
+          ],
+          "normalizedSize": [
+            158,
+            204
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 4,
+            "y0": 37,
+            "x1": 161,
+            "y1": 240,
+            "w": 158,
+            "h": 204,
+            "n": 11574
+          },
+          "cellSha256": "eef130d366924926ab7c5a6fa8805ef0d3424029f55f7dee857a899b256644ab"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            468,
+            497
+          ],
+          "normalizedSize": [
+            189,
+            201
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 29,
+            "y0": 40,
+            "x1": 217,
+            "y1": 240,
+            "w": 189,
+            "h": 201,
+            "n": 12175
+          },
+          "cellSha256": "a9325237dc55ba2413da0320856d7b45a8f5a8202fb25051215cfe3504ffa7f9"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            479,
+            459
+          ],
+          "normalizedSize": [
+            193,
+            185
+          ],
+          "lostPixels": 611,
+          "clip": [
+            "left 21px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 0,
+            "y0": 56,
+            "x1": 171,
+            "y1": 240,
+            "w": 172,
+            "h": 185,
+            "n": 11288
+          },
+          "cellSha256": "f2491a39a0bb1516a2155cbe627ea687dd0d3de61137826b753643ef2e51098a"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            470,
+            486
+          ],
+          "normalizedSize": [
+            190,
+            196
+          ],
+          "lostPixels": 737,
+          "clip": [
+            "left 32px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 0,
+            "y0": 45,
+            "x1": 157,
+            "y1": 240,
+            "w": 158,
+            "h": 196,
+            "n": 10771
+          },
+          "cellSha256": "6d2fd188fd7e9a815a0c0ad64077829c5c3f17a3d1e43b1cdbbf6e649c261eb4"
+        },
+        {
+          "frame": 5,
+          "sourceTrim": [
+            327,
+            477
+          ],
+          "normalizedSize": [
+            132,
+            193
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 62,
+            "y0": 48,
+            "x1": 193,
+            "y1": 240,
+            "w": 132,
+            "h": 193,
+            "n": 10724
+          },
+          "cellSha256": "1002aad38d8a9944430d225c386cd35816c148b3648cb5f922a3c0ec8e3fa29f"
+        },
+        {
+          "frame": 6,
+          "sourceTrim": [
+            461,
+            483
+          ],
+          "normalizedSize": [
+            186,
+            195
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 19,
+            "y0": 46,
+            "x1": 204,
+            "y1": 240,
+            "w": 186,
+            "h": 195,
+            "n": 11599
+          },
+          "cellSha256": "812366f3b926f94914bc813b3e24dbd6f708dc06803e4df3cacfe49c8dd93547"
+        },
+        {
+          "frame": 7,
+          "sourceTrim": [
+            469,
+            448
+          ],
+          "normalizedSize": [
+            189,
+            181
+          ],
+          "lostPixels": 464,
+          "clip": [
+            "left 16px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 0,
+            "y0": 60,
+            "x1": 172,
+            "y1": 240,
+            "w": 173,
+            "h": 181,
+            "n": 10892
+          },
+          "cellSha256": "06b1c35afddca3da5d39d8bea1500d527644933443d42a7d39d524fe40beb832"
+        }
+      ]
+    },
+    {
+      "name": "light2",
+      "version": 1,
+      "source": "art/characters/luffy/raw/light2_v01.png",
+      "sha256": "6fe1f3c5d10ead87f56812dabb53fa2ee72141c26d89e0839089b2f52d09271e",
+      "sidecarSha256": "9773c94d202004a4c4a3197decef96ceb5cbb66d1bb488c9adedc8036d66377f",
+      "bodyHeight": 204,
+      "sourceMaxHeight": 448,
+      "scale": 0.45535714285714285,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            357,
+            436
+          ],
+          "normalizedSize": [
+            163,
+            199
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 46,
+            "y0": 42,
+            "x1": 208,
+            "y1": 240,
+            "w": 163,
+            "h": 199,
+            "n": 11282
+          },
+          "cellSha256": "28b27ebf8615c6a0045bb435f04a3f9650cfa70bfe0f136152f0eb19b9862e52"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            405,
+            433
+          ],
+          "normalizedSize": [
+            184,
+            197
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 34,
+            "y0": 44,
+            "x1": 217,
+            "y1": 240,
+            "w": 184,
+            "h": 197,
+            "n": 12144
+          },
+          "cellSha256": "6a28c7ae78d6d91c07624090b854c1a90986b13c95dc0fcc4a33afb22cc8a80c"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            396,
+            430
+          ],
+          "normalizedSize": [
+            180,
+            196
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 38,
+            "y0": 45,
+            "x1": 217,
+            "y1": 240,
+            "w": 180,
+            "h": 196,
+            "n": 11647
+          },
+          "cellSha256": "23b4eed28a99764480306b2352265706e8e21d943214a79932c6ac8ef0219e2f"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            445,
+            431
+          ],
+          "normalizedSize": [
+            203,
+            196
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 32,
+            "y0": 45,
+            "x1": 234,
+            "y1": 240,
+            "w": 203,
+            "h": 196,
+            "n": 11715
+          },
+          "cellSha256": "48500b37df63807f49c6c0067e87674ade9cff673b55c7d84313e8b8bf9ee7af"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            395,
+            446
+          ],
+          "normalizedSize": [
+            180,
+            203
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 35,
+            "y0": 38,
+            "x1": 214,
+            "y1": 240,
+            "w": 180,
+            "h": 203,
+            "n": 12054
+          },
+          "cellSha256": "51ca7da2788597faca9f6a9dbfae4b89e8b37cc8a30802fcb7b056a6ab0b20fe"
+        },
+        {
+          "frame": 5,
+          "sourceTrim": [
+            409,
+            446
+          ],
+          "normalizedSize": [
+            186,
+            203
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 33,
+            "y0": 38,
+            "x1": 218,
+            "y1": 240,
+            "w": 186,
+            "h": 203,
+            "n": 11160
+          },
+          "cellSha256": "af5c881e839e8a0a9b220217e0325e261a4b5f32af005ce29955c7b3d1c04f80"
+        },
+        {
+          "frame": 6,
+          "sourceTrim": [
+            383,
+            448
+          ],
+          "normalizedSize": [
+            174,
+            204
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 39,
+            "y0": 37,
+            "x1": 212,
+            "y1": 240,
+            "w": 174,
+            "h": 204,
+            "n": 11700
+          },
+          "cellSha256": "e3b028518ab38012cc7a2a653c1eb5af74a9f5b37b9b498aaead74e97095e27e"
+        }
+      ]
+    },
+    {
+      "name": "light3",
+      "version": 2,
+      "source": "art/characters/luffy/raw/_qa_hold/light3_v02.png",
+      "sha256": "1210235c6278437df7e49d57b688e8ee84e34624eac3fb78a6bf11bd14d21ce5",
+      "sidecarSha256": null,
+      "bodyHeight": 215,
+      "sourceMaxHeight": 330,
+      "scale": 0.6515151515151515,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            218,
+            330
+          ],
+          "normalizedSize": [
+            142,
+            215
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 57,
+            "y0": 26,
+            "x1": 198,
+            "y1": 240,
+            "w": 142,
+            "h": 215,
+            "n": 11238
+          },
+          "cellSha256": "b985dbd4697927a68560a2332c171232deff0c35d7266a2f85825e8dc2273997"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            164,
+            330
+          ],
+          "normalizedSize": [
+            107,
+            215
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 95,
+            "y0": 26,
+            "x1": 201,
+            "y1": 240,
+            "w": 107,
+            "h": 215,
+            "n": 10388
+          },
+          "cellSha256": "5f1b040716fd44a86fb577c5f58f7382bf45a486cd868a42c5721b96b363488d"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            231,
+            330
+          ],
+          "normalizedSize": [
+            151,
+            215
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 97,
+            "y0": 26,
+            "x1": 247,
+            "y1": 240,
+            "w": 151,
+            "h": 215,
+            "n": 10140
+          },
+          "cellSha256": "9efc2e20b11952a4ec3a0d458a6bc8d35a8d398b2d803716b32adc3fb9a6f78c"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            258,
+            330
+          ],
+          "normalizedSize": [
+            168,
+            215
+          ],
+          "lostPixels": 236,
+          "clip": [
+            "right 8px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 96,
+            "y0": 26,
+            "x1": 255,
+            "y1": 240,
+            "w": 160,
+            "h": 215,
+            "n": 10201
+          },
+          "cellSha256": "92c9393032bb99fd5505fd9feb0f4bae5ca61ff869f15a8cf9751ede7c3b1ee2"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            165,
+            330
+          ],
+          "normalizedSize": [
+            108,
+            215
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 97,
+            "y0": 26,
+            "x1": 204,
+            "y1": 240,
+            "w": 108,
+            "h": 215,
+            "n": 10264
+          },
+          "cellSha256": "40f6f12489ded538b981b1a2784d56ddc465bd0bf4811b0a954bb529a25da840"
+        },
+        {
+          "frame": 5,
+          "sourceTrim": [
+            159,
+            330
+          ],
+          "normalizedSize": [
+            104,
+            215
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 98,
+            "y0": 26,
+            "x1": 201,
+            "y1": 240,
+            "w": 104,
+            "h": 215,
+            "n": 10365
+          },
+          "cellSha256": "431ebc2748d3c6a14a8370e46f95ffc05776b3e6026b5efc7baf69c5084c5a34"
+        },
+        {
+          "frame": 6,
+          "sourceTrim": [
+            217,
+            330
+          ],
+          "normalizedSize": [
+            141,
+            215
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 57,
+            "y0": 26,
+            "x1": 197,
+            "y1": 240,
+            "w": 141,
+            "h": 215,
+            "n": 11200
+          },
+          "cellSha256": "38a84704165b8201ca34d968a6afac7ddad6eb655fb7a8d07c5cd358493f5c30"
+        }
+      ]
+    },
+    {
+      "name": "airLight1",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/airLight1_v01.png",
+      "sha256": "c122c39e8c2baef470b4951e3af67ff015b95929b2118bdd93fa080621a0eba3",
+      "sidecarSha256": null,
+      "bodyHeight": 198,
+      "sourceMaxHeight": 416,
+      "scale": 0.47596153846153844,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            238,
+            415
+          ],
+          "normalizedSize": [
+            113,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 92,
+            "y0": 43,
+            "x1": 204,
+            "y1": 240,
+            "w": 113,
+            "h": 198,
+            "n": 12301
+          },
+          "cellSha256": "b2973c6bb4c184c0cf13df697b90b5aa9e5cc991730efbd4e3520b3b07e4fdf6"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            250,
+            373
+          ],
+          "normalizedSize": [
+            119,
+            178
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 93,
+            "y0": 63,
+            "x1": 211,
+            "y1": 240,
+            "w": 119,
+            "h": 178,
+            "n": 11845
+          },
+          "cellSha256": "ac14aeb711ff4d0ccf6669ee4900aa931007c753886bd7322145ccd200715872"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            378,
+            389
+          ],
+          "normalizedSize": [
+            180,
+            185
+          ],
+          "lostPixels": 258,
+          "clip": [
+            "right 15px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 91,
+            "y0": 56,
+            "x1": 255,
+            "y1": 240,
+            "w": 165,
+            "h": 185,
+            "n": 13050
+          },
+          "cellSha256": "234e3793f63934f3829a50d2f43e05562de2aeb690a7ce1050f9c9792379c7e8"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            378,
+            389
+          ],
+          "normalizedSize": [
+            180,
+            185
+          ],
+          "lostPixels": 257,
+          "clip": [
+            "right 15px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 91,
+            "y0": 56,
+            "x1": 255,
+            "y1": 240,
+            "w": 165,
+            "h": 185,
+            "n": 13042
+          },
+          "cellSha256": "bc2aa04ba77e0c7691c146e2838b673faad9fe72bb3008fa07fe4f737a1cccd7"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            236,
+            416
+          ],
+          "normalizedSize": [
+            112,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 90,
+            "y0": 43,
+            "x1": 201,
+            "y1": 240,
+            "w": 112,
+            "h": 198,
+            "n": 12416
+          },
+          "cellSha256": "658bf3d9d0a2d92b537b9a9d007f1d66249fa0983dcee89260eaa527e97ff5cc"
+        }
+      ]
+    },
+    {
+      "name": "airHeavy",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/airHeavy_v01.png",
+      "sha256": "53213b08da8a155f9b55bbb90cd097c443a60f9d9ae5ecdb87eea1e92a075ec1",
+      "sidecarSha256": "dfe7def9008805500364f17aff18eae64e78be91164469748e302a69c54388be",
+      "bodyHeight": 198,
+      "sourceMaxHeight": 540,
+      "scale": 0.36666666666666664,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            306,
+            540
+          ],
+          "normalizedSize": [
+            112,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 113,
+            "y0": 43,
+            "x1": 224,
+            "y1": 240,
+            "w": 112,
+            "h": 198,
+            "n": 9967
+          },
+          "cellSha256": "e685407ff17cdaf810da885042b36955512263b0ca593cec1974c37c0dbc7146"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            303,
+            315
+          ],
+          "normalizedSize": [
+            111,
+            115
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 91,
+            "y0": 126,
+            "x1": 201,
+            "y1": 240,
+            "w": 111,
+            "h": 115,
+            "n": 7450
+          },
+          "cellSha256": "05195b579398e752ad02c049d269d8c30c09606c8eb5af2329fdead65686966b"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            357,
+            409
+          ],
+          "normalizedSize": [
+            131,
+            150
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 14,
+            "y0": 91,
+            "x1": 144,
+            "y1": 240,
+            "w": 131,
+            "h": 150,
+            "n": 8875
+          },
+          "cellSha256": "f8ea2e6b0305d82716c0439bddd9e63693bfa2e8acaec5b75191ecfb0673ed16"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            369,
+            507
+          ],
+          "normalizedSize": [
+            135,
+            186
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 7,
+            "y0": 55,
+            "x1": 141,
+            "y1": 240,
+            "w": 135,
+            "h": 186,
+            "n": 10181
+          },
+          "cellSha256": "32572b94cdf64c1baf3e20a471699878116a2f40061d637570047e4a9b20ebaa"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            421,
+            416
+          ],
+          "normalizedSize": [
+            154,
+            153
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 40,
+            "y0": 88,
+            "x1": 193,
+            "y1": 240,
+            "w": 154,
+            "h": 153,
+            "n": 11216
+          },
+          "cellSha256": "328b0eb78f351047e6508edc9c6588b5b23c9a50bb77583e4cd268824360a95f"
+        },
+        {
+          "frame": 5,
+          "sourceTrim": [
+            519,
+            405
+          ],
+          "normalizedSize": [
+            190,
+            149
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 20,
+            "y0": 92,
+            "x1": 209,
+            "y1": 240,
+            "w": 190,
+            "h": 149,
+            "n": 12379
+          },
+          "cellSha256": "579afbef7f753ec2199da0ab2d270558177db93561042ce1ebebcf0b7cb867d6"
+        }
+      ]
+    },
+    {
+      "name": "hurtHigh",
+      "version": 1,
+      "source": "art/characters/luffy/raw/hurtHigh_v01.png",
+      "sha256": "48bfe53f848b0a179d5984f622a8f0bac912c4b8cf0d988d0b6c33a6385b05dc",
+      "sidecarSha256": null,
+      "bodyHeight": 195,
+      "sourceMaxHeight": 594,
+      "scale": 0.3282828282828283,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            523,
+            582
+          ],
+          "normalizedSize": [
+            172,
+            191
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 38,
+            "y0": 50,
+            "x1": 209,
+            "y1": 240,
+            "w": 172,
+            "h": 191,
+            "n": 10399
+          },
+          "cellSha256": "b90db5b8de62ab100f8d9bea1b6b07f98b803fc0ed0918b2805ae23274fe95ce"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            459,
+            594
+          ],
+          "normalizedSize": [
+            151,
+            195
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 51,
+            "y0": 46,
+            "x1": 201,
+            "y1": 240,
+            "w": 151,
+            "h": 195,
+            "n": 10701
+          },
+          "cellSha256": "0c7c276eadf0f50e1e77b8e7f8b75f746a3f49687fd5d4c2512b4461a4f7fce9"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            489,
+            569
+          ],
+          "normalizedSize": [
+            161,
+            187
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 47,
+            "y0": 54,
+            "x1": 207,
+            "y1": 240,
+            "w": 161,
+            "h": 187,
+            "n": 10350
+          },
+          "cellSha256": "534ed59e6bcfde4ed142982389765d56d1319830977539393cdaa8c4e549a03e"
+        }
+      ]
+    },
+    {
+      "name": "beamCharge",
+      "version": 1,
+      "source": "art/characters/luffy/raw/_qa_hold/beamCharge_v01.png",
+      "sha256": "34d66dbb7027b703d565fec32305a5738ee88d2104b242cf0ddea4896d1145f5",
+      "sidecarSha256": null,
+      "bodyHeight": 198,
+      "sourceMaxHeight": 615,
+      "scale": 0.32195121951219513,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            565,
+            576
+          ],
+          "normalizedSize": [
+            182,
+            185
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 34,
+            "y0": 56,
+            "x1": 215,
+            "y1": 240,
+            "w": 182,
+            "h": 185,
+            "n": 10067
+          },
+          "cellSha256": "bc97572ee03c0a0decd27ef9f69fd7b46cd228b06693f864b308a99c6f10bdd1"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            570,
+            576
+          ],
+          "normalizedSize": [
+            184,
+            185
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 33,
+            "y0": 56,
+            "x1": 216,
+            "y1": 240,
+            "w": 184,
+            "h": 185,
+            "n": 10608
+          },
+          "cellSha256": "bd5e9c42769469dc8b73ce71175f8e54ed5c0673cd6c54a86cd04777f3bdc869"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            612,
+            615
+          ],
+          "normalizedSize": [
+            197,
+            198
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 19,
+            "y0": 43,
+            "x1": 215,
+            "y1": 240,
+            "w": 197,
+            "h": 198,
+            "n": 14327
+          },
+          "cellSha256": "ba7c05ef4e739f78dcc72a0273143414be589d85b5d98101ddeaf8990bed46db"
+        }
+      ]
+    },
+    {
+      "name": "light4",
+      "version": 2,
+      "source": "art/characters/luffy/raw/_qa_hold/light4_v02.png",
+      "sha256": "2547d41f81656b9755ce9eafba50bed1ad416b1c4a9ec4f1f43bf9b5611e826b",
+      "sidecarSha256": "e3d866152802b98b6ec1ac63b8bcc5a3ac2eb7e11a93186069167945febc920f",
+      "bodyHeight": 207,
+      "sourceMaxHeight": 507,
+      "scale": 0.40828402366863903,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            387,
+            482
+          ],
+          "normalizedSize": [
+            158,
+            197
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 46,
+            "y0": 44,
+            "x1": 203,
+            "y1": 240,
+            "w": 158,
+            "h": 197,
+            "n": 9948
+          },
+          "cellSha256": "9baf479d87a98209bf34aa1e2e554577b7f6599ea7cb57545cfcbccea1d8774a"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            330,
+            479
+          ],
+          "normalizedSize": [
+            135,
+            196
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 59,
+            "y0": 45,
+            "x1": 193,
+            "y1": 240,
+            "w": 135,
+            "h": 196,
+            "n": 9074
+          },
+          "cellSha256": "271ae0ab05d2a74123e903a11cc960ac27df6519c9cf1dd5dfa720cc7029d1c1"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            293,
+            490
+          ],
+          "normalizedSize": [
+            120,
+            200
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 59,
+            "y0": 41,
+            "x1": 178,
+            "y1": 240,
+            "w": 120,
+            "h": 200,
+            "n": 9363
+          },
+          "cellSha256": "c4b09aac0931f60d0cd20a436c31268aa6b333eba6f55953c83f40f7a8e15bb7"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            354,
+            478
+          ],
+          "normalizedSize": [
+            145,
+            195
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 37,
+            "y0": 46,
+            "x1": 181,
+            "y1": 240,
+            "w": 145,
+            "h": 195,
+            "n": 8729
+          },
+          "cellSha256": "e83896a1e3aa91eee09471db32eb8c992a5d28503365e705ac2b423575e45ca3"
+        },
+        {
+          "frame": 4,
+          "sourceTrim": [
+            535,
+            477
+          ],
+          "normalizedSize": [
+            218,
+            195
+          ],
+          "lostPixels": 476,
+          "clip": [
+            "right 29px"
+          ],
+          "margin": [],
+          "occupied": {
+            "x0": 67,
+            "y0": 46,
+            "x1": 255,
+            "y1": 240,
+            "w": 189,
+            "h": 195,
+            "n": 10050
+          },
+          "cellSha256": "3ff8551ea9d228b0ac4d041c10a2695c3e983efa8e4393792243cfe465f495b6"
+        },
+        {
+          "frame": 5,
+          "sourceTrim": [
+            495,
+            492
+          ],
+          "normalizedSize": [
+            202,
+            201
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [
+            "left 4px"
+          ],
+          "occupied": {
+            "x0": 0,
+            "y0": 40,
+            "x1": 201,
+            "y1": 240,
+            "w": 202,
+            "h": 201,
+            "n": 11165
+          },
+          "cellSha256": "219997a27e7cb8bb29b025cdc395966f02463e6d48b332f29d7bc0de8329be1f"
+        },
+        {
+          "frame": 6,
+          "sourceTrim": [
+            325,
+            507
+          ],
+          "normalizedSize": [
+            133,
+            207
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 53,
+            "y0": 34,
+            "x1": 185,
+            "y1": 240,
+            "w": 133,
+            "h": 207,
+            "n": 11119
+          },
+          "cellSha256": "6b7920ff3b0bcfdd13ed0d09521dea2b39a1e53c1f151158fb5e313319677f0e"
+        },
+        {
+          "frame": 7,
+          "sourceTrim": [
+            453,
+            483
+          ],
+          "normalizedSize": [
+            185,
+            197
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 34,
+            "y0": 44,
+            "x1": 218,
+            "y1": 240,
+            "w": 185,
+            "h": 197,
+            "n": 11308
+          },
+          "cellSha256": "81026bd4d7854578aa335f14a688ddd86253c0ef7fa7d6f22b57cdae238d6be8"
+        }
+      ]
+    },
+    {
+      "name": "win",
+      "version": 2,
+      "source": "art/characters/luffy/raw/_qa_hold/win_v02.png",
+      "sha256": "9b49d44e5a48bf3b60aad3a84ecae217f65dc32b869f1ed09be1cc6fa8c6c444",
+      "sidecarSha256": "b0d7a3a44bbe24fed1e8993380f7d14ff6c83bc208728c04a4628161b4795acd",
+      "bodyHeight": 212,
+      "sourceMaxHeight": 896,
+      "scale": 0.23660714285714285,
+      "split": "whole figures, exact expected count",
+      "frames": [
+        {
+          "frame": 0,
+          "sourceTrim": [
+            446,
+            896
+          ],
+          "normalizedSize": [
+            106,
+            212
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 75,
+            "y0": 29,
+            "x1": 180,
+            "y1": 240,
+            "w": 106,
+            "h": 212,
+            "n": 8068
+          },
+          "cellSha256": "325e626fa72841b9c14224e287840687eb81275925d94f647ba1b6b819879bc9"
+        },
+        {
+          "frame": 1,
+          "sourceTrim": [
+            447,
+            797
+          ],
+          "normalizedSize": [
+            106,
+            189
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 75,
+            "y0": 52,
+            "x1": 180,
+            "y1": 240,
+            "w": 106,
+            "h": 189,
+            "n": 7871
+          },
+          "cellSha256": "cb9f781eb1e0338ec1932d5aa695f8920566aada7ad67c92d93e74d0379b2801"
+        },
+        {
+          "frame": 2,
+          "sourceTrim": [
+            448,
+            741
+          ],
+          "normalizedSize": [
+            106,
+            175
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 75,
+            "y0": 66,
+            "x1": 180,
+            "y1": 240,
+            "w": 106,
+            "h": 175,
+            "n": 7367
+          },
+          "cellSha256": "de1a9260bb134619e0cdb236b08d196657dfd4e69741da6864dcf5e2135b8d31"
+        },
+        {
+          "frame": 3,
+          "sourceTrim": [
+            450,
+            887
+          ],
+          "normalizedSize": [
+            106,
+            210
+          ],
+          "lostPixels": 0,
+          "clip": [],
+          "margin": [],
+          "occupied": {
+            "x0": 76,
+            "y0": 31,
+            "x1": 181,
+            "y1": 240,
+            "w": 106,
+            "h": 210,
+            "n": 8034
+          },
+          "cellSha256": "5ca99af2d56872b6e02df92072fad3d39f203aad973a21f40fb385d81f3ef949"
+        }
+      ]
+    }
+  ]
+}

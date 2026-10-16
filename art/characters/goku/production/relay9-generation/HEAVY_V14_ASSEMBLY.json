@@ -1,0 +1,234 @@
+{
+  "schema": "goku-relay9-heavy-v14-assembly",
+  "source": "art\\characters\\goku\\raw\\_qa_hold\\heavy_v12.png",
+  "sourceSha256": "8789ffdcd3ecf07fcab091896429ffc80a1524e7b3c0e7fd72f7b8072e17da01",
+  "sourceDimensions": [
+    2172,
+    724
+  ],
+  "componentMethod": "8-connected non-magenta foreground components; pixels owned by component label",
+  "factor": 0.72,
+  "factorEvidence": "Astra HEAVY_MULTIFRAME_ESTIMATOR.json: equal-weight median f0/f6/f7 visible torso/boot/belt ratios .719591, rounded .720",
+  "pivotBottomY": 240,
+  "frameCount": 8,
+  "frames": [
+    {
+      "frame": 0,
+      "sourceComponentId": 4,
+      "sourceComponentBoundsXYWH": [
+        16,
+        213,
+        227,
+        320
+      ],
+      "sourceForegroundPixels": 30412,
+      "resampledForegroundPixels": 15694,
+      "resamplingPixelDelta": 14718,
+      "scaledSize": [
+        163,
+        230
+      ],
+      "offsetTopLeft": [
+        10,
+        44
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 1,
+      "sourceComponentId": 8,
+      "sourceComponentBoundsXYWH": [
+        266,
+        226,
+        246,
+        307
+      ],
+      "sourceForegroundPixels": 33051,
+      "resampledForegroundPixels": 17120,
+      "resamplingPixelDelta": 15931,
+      "scaledSize": [
+        177,
+        221
+      ],
+      "offsetTopLeft": [
+        19,
+        33
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 2,
+      "sourceComponentId": 6,
+      "sourceComponentBoundsXYWH": [
+        541,
+        217,
+        229,
+        316
+      ],
+      "sourceForegroundPixels": 31732,
+      "resampledForegroundPixels": 16473,
+      "resamplingPixelDelta": 15259,
+      "scaledSize": [
+        165,
+        228
+      ],
+      "offsetTopLeft": [
+        12,
+        38
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 3,
+      "sourceComponentId": 1,
+      "sourceComponentBoundsXYWH": [
+        797,
+        206,
+        293,
+        327
+      ],
+      "sourceForegroundPixels": 31300,
+      "resampledForegroundPixels": 16187,
+      "resamplingPixelDelta": 15113,
+      "scaledSize": [
+        211,
+        235
+      ],
+      "offsetTopLeft": [
+        5,
+        31
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 4,
+      "sourceComponentId": 3,
+      "sourceComponentBoundsXYWH": [
+        1065,
+        211,
+        316,
+        322
+      ],
+      "sourceForegroundPixels": 31430,
+      "resampledForegroundPixels": 16326,
+      "resamplingPixelDelta": 15104,
+      "scaledSize": [
+        228,
+        232
+      ],
+      "offsetTopLeft": [
+        8,
+        19
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 5,
+      "sourceComponentId": 2,
+      "sourceComponentBoundsXYWH": [
+        1365,
+        206,
+        305,
+        327
+      ],
+      "sourceForegroundPixels": 31267,
+      "resampledForegroundPixels": 16226,
+      "resamplingPixelDelta": 15041,
+      "scaledSize": [
+        220,
+        235
+      ],
+      "offsetTopLeft": [
+        5,
+        23
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 6,
+      "sourceComponentId": 7,
+      "sourceComponentBoundsXYWH": [
+        1653,
+        218,
+        236,
+        315
+      ],
+      "sourceForegroundPixels": 30309,
+      "resampledForegroundPixels": 15724,
+      "resamplingPixelDelta": 14585,
+      "scaledSize": [
+        170,
+        227
+      ],
+      "offsetTopLeft": [
+        13,
+        32
+      ],
+      "clippedForegroundPixels": 0
+    },
+    {
+      "frame": 7,
+      "sourceComponentId": 5,
+      "sourceComponentBoundsXYWH": [
+        1917,
+        212,
+        232,
+        321
+      ],
+      "sourceForegroundPixels": 29608,
+      "resampledForegroundPixels": 15348,
+      "resamplingPixelDelta": 14260,
+      "scaledSize": [
+        167,
+        231
+      ],
+      "offsetTopLeft": [
+        9,
+        44
+      ],
+      "clippedForegroundPixels": 0
+    }
+  ],
+  "candidate": "art\\characters\\goku\\raw\\_qa_hold\\heavy_v14.png",
+  "candidateDimensions": [
+    2048,
+    256
+  ],
+  "candidateSha256": "e6402a00a760d5262553e977f16ebfa9ca14523a3aa1b394b678019676310adc",
+  "status": "isolated held candidate; diagnostic only; no final audit or drawing approval",
+  "packerFrameOffsets": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      -28,
+      0
+    ],
+    [
+      -35,
+      0
+    ],
+    [
+      -31,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "placementNote": "FrameOffsets are measured packer placement-only corrections from the first exact fixture pack clip report; they do not rescale or remove source pixels. Final offsets/margins must be confirmed in the combined pack report."
+}

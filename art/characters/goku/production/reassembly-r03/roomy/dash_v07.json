@@ -1,0 +1,35 @@
+{
+  "animation": "dash",
+  "version": 7,
+  "factor": 0.291,
+  "sourcePath": "art/characters/goku/production/generation-source/dash_v03_attempt03.png",
+  "sourceSha256": "7243edf0b162bd933879baf183bc91c83e59ff290b846fad3e4ba6b56eae2b2a",
+  "standardStrip": "art/characters/goku/raw/_qa_hold/dash_v07.png",
+  "standardStripSha256": "de18ea1f4c62657b374d9e7278308ab3cb5b88356374450bf340693f2fb206cf",
+  "standardStripLostSourcePixels": 0,
+  "method": "unclipped nearest-neighbor diagnostic rendering from exact per-frame source rectangles; no palette quantization, no approval, not pack-ready",
+  "frames": [
+    {
+      "frame": 0,
+      "dimensions": [
+        188,
+        205
+      ],
+      "nativeHeight": 205,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/dash_v07-f00.png",
+      "sha256": "fa43ea5d6231000a987a0002bf7414d3f1f8dfc93ec4893c4fb41d5607665c88"
+    },
+    {
+      "frame": 1,
+      "dimensions": [
+        192,
+        208
+      ],
+      "nativeHeight": 208,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/dash_v07-f01.png",
+      "sha256": "86ed18e1cf2f83f1f3c8148f0af3fe385cd52132c235480cdcbded28f1814b61"
+    }
+  ],
+  "contactPath": "art/characters/goku/production/reassembly-r03/roomy/dash_v07-contact.png",
+  "contactSha256": "9fdc141ced3f94b05f609ba8b4eb02688e464ec88370dc7ff9ffa26d1628ddfd"
+}

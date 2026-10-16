@@ -1,0 +1,291 @@
+{
+  "title": "Goku calibration r2 — pilot source method conditional pass; current pack HOLD",
+  "label": "DIAGNOSTIC ONLY · current production shrink is held · no approval or calibration change",
+  "branch": "art/goku-core",
+  "sourceCommit": "ec37e3ae3eb2a97aa3e9afc54d8b4ee14a1ec694",
+  "modes": {
+    "current": {
+      "label": "Current manifest settings",
+      "bodyHeight": {
+        "guard": 198,
+        "light2": 204
+      },
+      "packFactor": {
+        "guard": 0.86463,
+        "light2": 0.86441
+      },
+      "use": "Warn-mode isolated render of current production settings. The strict pack refused to write an atlas."
+    },
+    "native-height": {
+      "label": "Native-height diagnostic fixture",
+      "bodyHeight": {
+        "guard": 229,
+        "light2": 236
+      },
+      "packFactor": {
+        "guard": 1,
+        "light2": 1
+      },
+      "use": "Private fixture only. Body heights equal measured max occupied source frame heights; not a production bodyHeight proposal."
+    }
+  },
+  "animationTiming": {
+    "guard": {
+      "loop": true,
+      "durationsMs": [
+        300,
+        300
+      ]
+    },
+    "light2": {
+      "loop": false,
+      "durationsMs": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ]
+    }
+  },
+  "files": [
+    {
+      "file": "assets/current/frames/guard/f00.png",
+      "sha256": "5722ca1461f5367f13da5909b868de6fb43b929524179db08d0e6cf2ad25c699",
+      "bytes": 21187
+    },
+    {
+      "file": "assets/current/frames/guard/f01.png",
+      "sha256": "645c7e58bf8ae22679d5f3e174ece8585805d0f2f25e7f7a73e29d41a1a0a1b8",
+      "bytes": 19800
+    },
+    {
+      "file": "assets/current/contacts/guard-one-density.png",
+      "sha256": "2a2f4e42d651e353b7c756819be6f9383238fc134f394422c8816150ab865b69",
+      "bytes": 68980
+    },
+    {
+      "file": "assets/current/frames/light2/f00.png",
+      "sha256": "15e400dcb2d40719558e583b2bd1d3c13e22c8bfdbef7f6f458524c2ab7ebbf4",
+      "bytes": 24167
+    },
+    {
+      "file": "assets/current/frames/light2/f01.png",
+      "sha256": "d3d12879d676f3035ee12f8f39653a819da8ef18c06b82a0c9f2ec19c45e53cd",
+      "bytes": 25673
+    },
+    {
+      "file": "assets/current/frames/light2/f02.png",
+      "sha256": "a94232f768c59d3adfa3b82211825b0bd2341f52c3c47ce8c6cd799840efa9ae",
+      "bytes": 23251
+    },
+    {
+      "file": "assets/current/frames/light2/f03.png",
+      "sha256": "ba4f98d6c46542546f96c00a1034c554706b1b0429399bcd4058011a4ddb548d",
+      "bytes": 24362
+    },
+    {
+      "file": "assets/current/frames/light2/f04.png",
+      "sha256": "4da403c8a38f10c374bde090bc38bdfe6d0c50eafcc78b42be82fa9af509c32f",
+      "bytes": 24186
+    },
+    {
+      "file": "assets/current/frames/light2/f05.png",
+      "sha256": "2a0ef712effad2fc903da4beea1595e08e25600c10c088b9f334df1d5586ed1c",
+      "bytes": 24351
+    },
+    {
+      "file": "assets/current/frames/light2/f06.png",
+      "sha256": "09e2aae6ed5053b4b1ff086b36fbdedee84d1961fad494d10f48d45bfde7f9dc",
+      "bytes": 24297
+    },
+    {
+      "file": "assets/current/contacts/light2-one-density.png",
+      "sha256": "4c29a8ef13c834d81ad683732d0dbe68057315460765b62a864fdb3a4a8f507b",
+      "bytes": 193341
+    },
+    {
+      "file": "reports/current-strict-report.json",
+      "sha256": "59ff257465609f446ccc7952abff057ebda0619b2b3e40cb5841668e9caa3aba",
+      "bytes": 7002
+    },
+    {
+      "file": "reports/current-render-report.json",
+      "sha256": "d905b8394f735cd39ac762084a0f0bffec01062c91f6b3167d3416525ab1ab32",
+      "bytes": 6861
+    },
+    {
+      "file": "reports/current-atlas.png",
+      "sha256": "bb4eb2d7e03d075f90784784d009906fd09cbc4e420fb89b68d67a85b11d3a55",
+      "bytes": 460620
+    },
+    {
+      "file": "reports/current-anims.json",
+      "sha256": "229ab74b97556ef3a2b2dd8bd4148323b4509d5a840d4c5374ec66573454367c",
+      "bytes": 3554
+    },
+    {
+      "file": "reports/current-diagnostic-manifest.json",
+      "sha256": "655e6a4db73446be5b0305ab83c27361060d9dfa703eb0cdbc546c05e2b9f770",
+      "bytes": 186809
+    },
+    {
+      "file": "assets/native-height/frames/guard/f00.png",
+      "sha256": "279e6a6cfd5e734142facb47826e47ffafb7f96edaa63551d9e42d0b34fce5d5",
+      "bytes": 27136
+    },
+    {
+      "file": "assets/native-height/frames/guard/f01.png",
+      "sha256": "7f2efdec2ce3f86cedaea9a89430a990ba45eee20d58106bdb7ef669d05819df",
+      "bytes": 25421
+    },
+    {
+      "file": "assets/native-height/contacts/guard-one-density.png",
+      "sha256": "d9598dfa43c147eb81c2436608d485a04de6adb85c9e61c977a62e89630759c9",
+      "bytes": 81142
+    },
+    {
+      "file": "assets/native-height/frames/light2/f00.png",
+      "sha256": "c88069838a546906e61184983b8254a237f1792bfffec08b706dc524303b1569",
+      "bytes": 30628
+    },
+    {
+      "file": "assets/native-height/frames/light2/f01.png",
+      "sha256": "1aef4dcddb845435b8bc165ff494f2b14ec2975d53d37b1d984af9a314fd89db",
+      "bytes": 32426
+    },
+    {
+      "file": "assets/native-height/frames/light2/f02.png",
+      "sha256": "5d589ee7996ce99d30af294227cfe877a03591f46adcd0d576d7864286151644",
+      "bytes": 28522
+    },
+    {
+      "file": "assets/native-height/frames/light2/f03.png",
+      "sha256": "64697b0bad98d95c1e6750c4a272466b694a515d956b8594ba42d416402d52ba",
+      "bytes": 30277
+    },
+    {
+      "file": "assets/native-height/frames/light2/f04.png",
+      "sha256": "0c9c29d772a3f197daa7ad584375d8468031b7f62e9ec44a2bfca05bd8b10979",
+      "bytes": 29686
+    },
+    {
+      "file": "assets/native-height/frames/light2/f05.png",
+      "sha256": "2af95157017f2b83f62260c7374faeb2d881a4eadd060dae435e1525fddeb8e7",
+      "bytes": 30197
+    },
+    {
+      "file": "assets/native-height/frames/light2/f06.png",
+      "sha256": "6c2e1409d416dc2176dbbf210e177ea6b0fe104068c765df9bcced7e8ff878d6",
+      "bytes": 30289
+    },
+    {
+      "file": "assets/native-height/contacts/light2-one-density.png",
+      "sha256": "4c64b9c211da01e1e0a8ebceda39045280143ed4aba127e783cc2f5ce651e6fd",
+      "bytes": 235573
+    },
+    {
+      "file": "reports/native-height-strict-report.json",
+      "sha256": "49bbdd1a133a7657b59b9eddcf0379348667f05c514ac59ce68e900bd7f49bba",
+      "bytes": 7000
+    },
+    {
+      "file": "reports/native-height-render-report.json",
+      "sha256": "4c6b00a121de8de06c982bff15e08784fa768f87b0843553438b6c113b2efd3e",
+      "bytes": 6865
+    },
+    {
+      "file": "reports/native-height-atlas.png",
+      "sha256": "b319f07b217b76f1292eeba0f1559464b6d6104d7091790180bc8db7293abfe8",
+      "bytes": 517715
+    },
+    {
+      "file": "reports/native-height-anims.json",
+      "sha256": "b4df0fed72369440395e697d5a78cde9a0487f9c6a443830ad497c92e94cf324",
+      "bytes": 3561
+    },
+    {
+      "file": "reports/native-height-diagnostic-manifest.json",
+      "sha256": "c3f5db6b61a1564602d0c6b6cf0e08c772fee8c58ab48a4804446021e3792d95",
+      "bytes": 186809
+    },
+    {
+      "file": "assets/references/title-neutral-v02.png",
+      "sha256": "748ace13116f05cde59ca1ad390655bca26156e351fd6afcf307d2aad7ee7445",
+      "bytes": 27416
+    },
+    {
+      "file": "assets/references/title-combat-v02.png",
+      "sha256": "5714f663bd847e7ce9bb258d49872b85190fbcc9de3a75678acaa2fc25bfd69c",
+      "bytes": 28459
+    },
+    {
+      "file": "assets/references/approved-reference-lineup.png",
+      "sha256": "c83be1440ccfe7d215c4933f72344a03305ad04cece988336e860e016533f798",
+      "bytes": 86063
+    },
+    {
+      "file": "assets/references/idle_v02.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "bytes": 293042
+    },
+    {
+      "file": "assets/references/idle_approved.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "bytes": 293042
+    },
+    {
+      "file": "assets/references/title_style_draft-v02.png",
+      "sha256": "f7ae672771e9282f31e7804b02bb3f0ed46488618efd6050a4b864b2203dea42",
+      "bytes": 43903
+    },
+    {
+      "file": "assets/references/title_style_lineup-v02.png",
+      "sha256": "7cd53f5cff685fd50408c9b2b268996fc387cfa7203d9f1d0165222e1fa3d415",
+      "bytes": 158522
+    },
+    {
+      "file": "assets/raw/guard_v05.png",
+      "sha256": "517c51ce2899ac06bcf4c8ab99c710f9e0660742bc637e9a11c084124bba8406",
+      "bytes": 78432
+    },
+    {
+      "file": "assets/raw/light2_v05.png",
+      "sha256": "248b5c7c2b4e8dfed110585c19d868477588d4f3b2cf899a1a446423a59ce2b3",
+      "bytes": 290621
+    },
+    {
+      "file": "assets/raw/guard_v05.json",
+      "sha256": "70cebec2603b7d50ad6839f652907e682d2d9b6926f36661a5e3e79af0dd9a16",
+      "bytes": 4291
+    },
+    {
+      "file": "assets/raw/light2_v05.json",
+      "sha256": "0996d9213c40d6bb5161ec7877cb6827b419e85f039858611ebbb16609b3babf",
+      "bytes": 8121
+    },
+    {
+      "file": "reports/inventory.json",
+      "sha256": "e9ff41c4cfd039c10d0a338a25cb255790ab34445289e448ce4fdb0f1472291e",
+      "bytes": 5944
+    },
+    {
+      "file": "reports/packed-frames.json",
+      "sha256": "6e5bb2795684f5d3f8dc3ea39a55bf43b345179c7bcb02f80d04a8884e9e206c",
+      "bytes": 14640
+    },
+    {
+      "file": "reports/production-strict-pack-report.json",
+      "sha256": "d37d167412f80d379797f95949fe6bfcccb830c0af40222391046753fd06c920",
+      "bytes": 20089
+    }
+  ],
+  "refs": {
+    "inventory": "reports/inventory.json",
+    "packedFrames": "reports/packed-frames.json",
+    "strictReport": "reports/production-strict-pack-report.json",
+    "referenceLineup": "assets/references/approved-reference-lineup.png"
+  }
+}

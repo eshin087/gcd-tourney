@@ -1,0 +1,4 @@
+# Fixture inputs duplicate versioned character PNGs; preserve manifest/settings and reports.
+/characters/goku/raw/*.png
+/characters/goku/raw/*.fixture.json
+/characters/goku/reference/*.png

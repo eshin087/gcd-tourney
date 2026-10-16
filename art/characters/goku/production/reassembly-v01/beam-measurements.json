@@ -1,0 +1,275 @@
+{
+  "note": "Two additional direct-source-frame estimates. Both remain technical holds pending Claude calibration and user review where applicable.",
+  "idleReference": {
+    "path": "raw/idle_v02.png",
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "eyeToChinPx": 17,
+    "leftBootTopToSolePx": 40
+  },
+  "strips": [
+    {
+      "animation": "beamCharge",
+      "version": 5,
+      "factor": 0.292,
+      "uncertainty": 0.04,
+      "source": "beamCharge_v04_attempt03.png",
+      "sourceSha256": "fa242621ee5f3904072d1f5dab2aa2587de23bc4e43d29cb498ac4ba022fa411",
+      "output": "raw/_qa_hold/beamCharge_v05.png",
+      "outputSha256": "d0cf36e6eb32e25954a91d7efee939601996ffdba3d9f84fac19451088927c63",
+      "endpoints": {
+        "eyeToChin": {
+          "from": [
+            407,
+            145
+          ],
+          "to": [
+            438,
+            185
+          ],
+          "sourceLengthPx": 51,
+          "idleLengthPx": 17,
+          "ratio": 0.333,
+          "uncertaintyPx": 8
+        },
+        "leftBootTopToSole": {
+          "from": [
+            133,
+            535
+          ],
+          "to": [
+            97,
+            660
+          ],
+          "sourceLengthPx": 130,
+          "idleLengthPx": 40,
+          "ratio": 0.308,
+          "uncertaintyPx": 12
+        },
+        "note": "Direct inspection/marking on original 724x724 panel 0. Measurements are approximate projected spans; boot axis is diagonal and face is three-quarter view. Ratios are independent checks, not a numeric pass."
+      },
+      "panels": [
+        {
+          "frame": 0,
+          "crop": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "sourceBounds": {
+            "minX": 77,
+            "minY": 10,
+            "maxX": 639,
+            "maxY": 667,
+            "width": 563,
+            "height": 658
+          },
+          "output": {
+            "x": 46,
+            "y": 48,
+            "width": 165,
+            "height": 193,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          }
+        },
+        {
+          "frame": 1,
+          "crop": [
+            724,
+            0,
+            1448,
+            724
+          ],
+          "sourceBounds": {
+            "minX": 787,
+            "minY": 10,
+            "maxX": 1341,
+            "maxY": 667,
+            "width": 555,
+            "height": 658
+          },
+          "output": {
+            "x": 47,
+            "y": 48,
+            "width": 163,
+            "height": 193,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          }
+        },
+        {
+          "frame": 2,
+          "crop": [
+            1448,
+            0,
+            2172,
+            724
+          ],
+          "sourceBounds": {
+            "minX": 1491,
+            "minY": 10,
+            "maxX": 2049,
+            "maxY": 667,
+            "width": 559,
+            "height": 658
+          },
+          "output": {
+            "x": 47,
+            "y": 48,
+            "width": 164,
+            "height": 193,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          }
+        }
+      ],
+      "annotation": "production\\scale-qa\\reassembly-v01\\beamCharge-source-f0-endpoints.png",
+      "contact": "production\\scale-qa\\reassembly-v01\\beamCharge-v05-contact.png"
+    },
+    {
+      "animation": "beamFire",
+      "version": 5,
+      "factor": 0.292,
+      "uncertainty": 0.045,
+      "source": "beamFire_v04_attempt03.png",
+      "sourceSha256": "ea671eed06fcb55609c39f531d2064025099d4f92255d60470c8b2b4177b6779",
+      "output": "raw/_qa_hold/beamFire_v05.png",
+      "outputSha256": "2ae55e7ab800494e1faf53147bd5bc8609fec8087e573c8c9c5e190094a607d5",
+      "endpoints": {
+        "eyeToChin": {
+          "from": [
+            365,
+            145
+          ],
+          "to": [
+            397,
+            184
+          ],
+          "sourceLengthPx": 50,
+          "idleLengthPx": 17,
+          "ratio": 0.333,
+          "uncertaintyPx": 8
+        },
+        "leftBootTopToSole": {
+          "from": [
+            134,
+            535
+          ],
+          "to": [
+            97,
+            660
+          ],
+          "sourceLengthPx": 130,
+          "idleLengthPx": 40,
+          "ratio": 0.308,
+          "uncertaintyPx": 12
+        },
+        "note": "Direct inspection/marking on original 724x724 panel 0. Measurements are approximate projected spans; boot axis is diagonal and face is three-quarter view. Ratios are independent checks, not a numeric pass."
+      },
+      "panels": [
+        {
+          "frame": 0,
+          "crop": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "sourceBounds": {
+            "minX": 80,
+            "minY": 14,
+            "maxX": 642,
+            "maxY": 675,
+            "width": 563,
+            "height": 662
+          },
+          "output": {
+            "x": 46,
+            "y": 47,
+            "width": 165,
+            "height": 194,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          }
+        },
+        {
+          "frame": 1,
+          "crop": [
+            724,
+            0,
+            1448,
+            724
+          ],
+          "sourceBounds": {
+            "minX": 803,
+            "minY": 15,
+            "maxX": 1364,
+            "maxY": 674,
+            "width": 562,
+            "height": 660
+          },
+          "output": {
+            "x": 46,
+            "y": 48,
+            "width": 165,
+            "height": 193,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          }
+        },
+        {
+          "frame": 2,
+          "crop": [
+            1448,
+            0,
+            2172,
+            724
+          ],
+          "sourceBounds": {
+            "minX": 1527,
+            "minY": 14,
+            "maxX": 2088,
+            "maxY": 675,
+            "width": 562,
+            "height": 662
+          },
+          "output": {
+            "x": 46,
+            "y": 47,
+            "width": 165,
+            "height": 194,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          }
+        }
+      ],
+      "annotation": "production\\scale-qa\\reassembly-v01\\beamFire-source-f0-endpoints.png",
+      "contact": "production\\scale-qa\\reassembly-v01\\beamFire-v05-contact.png"
+    }
+  ]
+}

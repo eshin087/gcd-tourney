@@ -15,6 +15,50 @@ How it works:
 
 ---
 
+## Goku/Luffy: all remaining core drawings approved (2026-10-16, relay #14) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." Exact versions are in the new shared REVIEW.md section and the final full-set handoff. All 23 core drawings per fighter are now user-approved when combined with prior approvals; runtime/integration checks remain separate. No new image calls.
+
+- [x] Recorded all 35 exact approvals in main's shared REVIEW.md and resumed the existing Luna/medium fighter workers in their own worktrees.
+- [x] Updated branch manifest approvedVersions, TRACKER, REVIEW_ROWS and preview labels; all 23 per fighter approved. Goku `56ee182c`, Luffy `ae93eff9`; both strict packs and hosted outputs reproduce the audited atlas bytes. Source versions and dependencies preserved (2026-10-16).
+- [x] Both merge guards passed against main `3ca0ca94`; PRs/previews updated and independently checked. Combined handoff `3563e364` committed and normal ring #10 succeeded. Next action is Claude's runtime checks and integration; reading is unverified, lane watcher off at check, central desk watcher on with zero user asks (2026-10-16).
+
+---
+
+## Goku/Luffy: final repairs approved (2026-10-16, relay #12) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER APPROVAL via Claude:** "Approve Goku light3 v13 and Luffy special v02 as drawn." Exactly these two drawings are approved. No new calls are authorized.
+
+- [x] Recorded the exact user approval in main's shared REVIEW.md and resumed one Luna/medium worker per existing fighter worktree.
+- [x] Updated branch manifests, TRACKER and character review rows; version-archived superseded candidates byte-identically. Both strict packs and hosted outputs match the final audited pixels (2026-10-16; Goku `f1d3e245`, Luffy `9eb545e8`).
+- [x] Completed the full-set review pages and committed combined handoff `ec6a4504`; ring #9 queued approval ask `lane-goku-luffy-9` with both links and the exact 16/19 pending versions. Desk watcher was off at delivery check; waiting for the user through 0 - Approvals (2026-10-16).
+
+---
+
+## Goku and Luffy: final full-set review before merge (2026-10-16, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+Do this after recording the user's approval of Goku light3 v13 and Luffy special v02 (send #12). **No new image calls.**
+
+Claude ran the merge guard (`node tools/pr.mjs check art/goku-core` / `art/luffy-core`): 21 Goku and 20 Luffy strips are
+refused because their newest raw has no `approvedVersion`. Two cases:
+
+- [x] 1. **Re-assemblies of drawings the user already approved** (Goku light2 v05, light4, airLight1, airHeavy from the
+  approved v04 drawings, and any other strip whose newest version is a uniform re-assembly of an approved drawing with
+  no new image call): set `approvedVersion` to the newest version with a REVIEW_ROWS note "re-assembly of the
+  user-approved vNN drawing at the measured density; no new image". Only where that's exactly true.
+  Completed 2026-10-16: Goku light2 v05, light4 v09, airLight1 v07 and airHeavy v06 retain the approved v04 drawings; source/candidate hashes and no-call lineage independently checked. No additional Luffy source drawing had proven approval.
+- [x] 2. **Strips the user has never approved as drawings** (everything else in the guard's list): build one final review
+  page per fighter showing the complete packed set (every core strip, playable frame by frame, at one scale beside the
+  idle), publish both with `npm run pr -- preview`, then ring `goku-luffy --for user --kind approval` with the two links
+  and the exact list of strips and versions to approve. The approvals desk asks the user.
+  Both pages are published and browser/artifact-checked (2026-10-16); exact 16 Goku / 19 Luffy pending versions and links are in handoff `ec6a4504`. Ring #9 successfully queued user approval ask `lane-goku-luffy-9`; the desk watcher was off at delivery check. No new image call or user approval inferred.
+- [x] 3. After the user's answer is relayed: record `approvedVersion` for each approved strip (move any rejected one to
+  `raw/_qa_hold/`), re-run `node tools/pr.mjs check` until it passes, commit, `npm run pr -- open`, and hand back to
+  Claude (ring `goku-luffy`) for the merge.
+  Relay #14 approved all 35 remaining drawings. Approval commits, updated PRs/previews and both passing guards are complete; handoff `3563e364` sent through normal ring #10. Claude owns runtime checks and integration (2026-10-16).
+
+---
+
 ## Super banners and ultimate splashes, round 2: Naruto, Killua, Gojo, Goku, Luffy (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
 
 **The user said on 2026-10-15 (in Claude's chat), recorded here by Claude:** "Start round 2 and make sure to route all
@@ -39,6 +83,86 @@ review link in the note. Never ask the user in the Codex chat. Only a relayed `U
 **Round 2b (after 2a is approved):** Goku and Luffy the same way. Their `fg` only once their title-style reference is
 approved; until then do the two backdrops and mark the cutouts blocked (ring the desk with `--kind blocked` if that
 needs the user).
+- [x] 1. Goku and Luffy title-style refs were already user-approved; generated and filed all eight v01 candidates within their call budgets; Astra audited four cutouts and the review gallery plus PR #131 preview were published. User approved all eight via Claude relay effects #10, including cutouts despite Astra holds. Approved sources and fitted UI outputs are committed on `art/super-art-r2b` (b41d344d), PR #131 preview published; Claude owns full-checkout pack and in-game integration (2026-10-16).
+
+## Goku/Luffy: two retry calls authorized (2026-10-16, relay #11) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "Goku luffy retry". Exactly one Goku light3 call (sixth cumulative), with a compact
+pose inside the frame at true idle density; exactly one Luffy special call (fifth cumulative), with at most five
+references and original f0-f5 preserved. Failed calls count. This is call permission, not image approval.
+
+- [x] Record permission and resume the existing Luna/medium fighter workers; preflight prompt, reference count and output-path capture before each call.
+- [x] Used exactly one call per repair (Goku cumulative 6, Luffy cumulative 5); preserved returned-source receipts and all versions. Goku source v12/assembly v13; Luffy special v02 with original source A preserved (2026-10-16).
+- [x] Astra/medium passed all 216 actual final quantized frames; each strict atlas has 23 core animations/108 frames/48 colors. Committed previews and PR rows published; parent independently matched hosted atlas/meta hashes. Goku PR #123 preview source 3bc9169b, Luffy PR #96 source c85c1e71. New drawings remain unapproved; browser transport unavailable, so current interactive/runtime QA is not claimed (2026-10-16).
+- [x] Committed handoff c43d9dc9 and sent goku-luffy ring #8 for user approval; queued ask `lane-goku-luffy-8` contains both exact versions and direct previews. Desk watcher is off and Claude's reading is unverified; user can open `0 - Approvals` and type `/approvals`. No further calls are authorized; Codex workers stopped (2026-10-16).
+
+Goku heavy v14 and Luffy down/getup v03 remain approved via relay #10. Their drawings are unchanged by this scope.
+
+---
+
+## Goku/Luffy: three drawings approved (2026-10-16, relay #10) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER APPROVAL via Claude:** the user answered **"Approved"** for Goku heavy v14, Luffy down v03 and Luffy getup v03. No other images or calls are approved by this reply.
+
+- [x] Record the exact approval in main's art/REVIEW.md; dispatch the existing fighter workers to update only their own branch records.
+- [x] Set the three branch manifest approvedVersions and review/tracker records; retain all version history, pack and publish committed approval previews/PR descriptions. Goku `950aee59` + docs `13e15bc7`; Luffy `decb56f8` + docs `3f3384d5`. Exact prior audited atlas hashes reproduced locally and on hosted previews; both builds pass (2026-10-16).
+- [x] Commit the combined handoff, update NOW, and ring goku-luffy for Claude's runtime/contact and integration review. Handoff `dfad4c8b`, relay ring #7 succeeded (2026-10-16); watcher on, unread at the delivery check. Ring explicitly distinguishes completed approval #10 from queued retry #11.
+
+Goku light3 v11 and Luffy special v01 remain technical holds. Their separate desk question `claude-20261016115631-dc3u` was answered while this update was being finalized: relay ledger send #11 records decision quote "Goku luffy retry", one light3 compact-pose call at true size and one special retry with at most five references preserving f0-f5. This newer request is queued separately; no retry was made during #10 approval processing. Do not repeat the question or treat #10's image approval as the source of that distinct call permission.
+
+---
+
+## Goku: two redraw calls authorized (2026-10-16, relay #9) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "light3: B: one redraw call. heavy: B: one redraw call."
+Exactly one redraw call each for held light3 v09 and heavy v11, keeping the intended pose inside the frame
+at Goku's true size (approved idle density). Failed calls count. This is call permission, not image approval.
+
+- [x] Record permission and dispatch Luna/medium in the existing `.worktrees/art-goku-core`, PR #123.
+- [x] Generate one correction per move, preserve every version, record cumulative attempts and exact source
+  provenance; assemble at measured density and have Astra/medium audit the actual final quantized frames.
+- [x] Publish committed preview and root fighter review rows, commit handoff, then ring `goku-luffy --for user
+  --kind approval` with the direct preview and exact versions/technical holds. No further redraw is authorized.
+
+**Result (2026-10-16):** one call each consumed (cumulative five each). Heavy v14 passes final Astra screening;
+light3 v11 remains HOLD/excluded because 256px cells lose 800 foreground pixels at the supported density. Complete
+280px companion preserved. PR #123 art `1a0b198d`, docs `11a9c270`; committed
+[r4 preview](https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html).
+Actual strict pack: 22 animations/101 frames, exact final audit and hosted hashes verified. Only prior getup contact
+warning remains. Light3 source attribution was recovered from the exact session/call window after its returned-path
+hint was omitted; receipt and caveat preserved. Heavy14 needs image approval; light3 stays held pending a hold/one
+sixth-call decision. No new image was approved. Combined handoff `94fc1a7a` was queued by relay ring #6 for the
+user (approval) on 2026-10-16; the desk watcher was off, so this records queued delivery, not proof Claude read it.
+
+---
+## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "Fix down, Fix getup, Fix special (4th call)". This authorizes exactly one new call
+for each repair: down v01, getup v01, and special v01 recovery only, preserving special frames 0-5. It does not
+approve any image. The preceding no-call round is complete; this permission applies to these three repairs only.
+
+- [x] Record the permission and dispatch the existing Luna/medium Luffy worker in `.worktrees/art-luffy-core`.
+- [x] Generate one targeted correction per move, including failed calls in the cumulative count: down 1/3 to 2/3,
+  getup 1/3 to 2/3, special 3/3 to 4/4. No further retry is authorized in this round. Preserve every version and bind
+  every result to its exact returned path, prompt, inputs and hashes.
+- [x] Assemble at measured density, obtain Astra/medium review of the actual quantized candidates, retain any
+  technical holds, and publish committed PR #96 preview with root fighter review rows and exact final versions.
+- [x] Commit the handoff and ring `goku-luffy --for user` with a direct review link and the exact approval/hold
+  decision. Stop; call permission never becomes image approval. Goku's two calibration holds remain with Claude.
+
+**Call outcomes (2026-10-16):** down call2 and getup call2 returned sources; final down v03/getup v03 assemblies pass
+Astra's final 22-animation/100-frame audit and need image approval. PR #96 art `3a0476c9`, docs `a00f091c`;
+[r5 preview](https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html).
+Actual branch pack and hosted sheet/metadata match the final audit; only documented prior warnings remain.
+Special call4 failed at input validation before generation because six reference paths exceeded the tool's maximum
+of five. No special v02 image exists; the failure counts as 4/4 under the failed-attempt rule. No retry was made.
+Exact prompts, reference hashes, returned sources and error outcome are in Luffy's
+`production/relay8-generation/`. A future special retry needs explicit permission for one fifth call, with at most
+five relevant references. The two successful repairs and their preview are complete; the special hold/fifth-call
+decision is included in the combined handoff `94fc1a7a`, queued by relay ring #6 for the user (approval).
+No retry or image approval occurred. Production agents stopped while the exact decisions wait at 0 - Approvals.
+
+---
 
 ## Goku and Luffy: probe policy resolved, calibration bound (2026-10-16, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
@@ -55,18 +179,27 @@ hurtHigh v08 223, guard v05 229, light2 v05 236, with `scaleManualQA` records ci
 shared palette differs), so the audits apply. jumpUp/jumpFall/hurtHigh left `_qa_hold` byte for byte. The dry run now
 reads `8 manual, 5 unmeasured`.
 
-- [ ] 1. **Goku, the rest:** re-assemble the remaining strips with the same method (measured source factor, assembled at
+- [x] 1. **Goku, the rest:** re-assemble the remaining strips with the same method (measured source factor, assembled at
   the idle's density, packed at x1: set nothing yourself, report each strip's native max height and Claude sets
   `bodyHeight`... or, to save a round trip, you may set `bodyHeight` to the strip's native max height so it packs at
   x1, exactly as Claude did for these five, and say so in the handoff). Astra checks landmarks; write `scaleManualQA`
   only for the exact version and only if the strip packs at x1. The five approved v04 attacks (light3, light4, heavy,
   airLight1, airHeavy) need the same: a uniform re-assembly of an approved drawing keeps its approval.
-- [ ] 2. **Luffy:** merge main, strict pack `node tools/pack-sprites.mjs luffy --quantize 48` (expect exit 0), commit
+- [x] 2. **Luffy:** merge main, strict pack `node tools/pack-sprites.mjs luffy --quantize 48` (expect exit 0), commit
   `public/characters/luffy/` on the branch, `npm run pr -- preview`.
-- [ ] 3. **What only the user can unblock** (more generation calls): Luffy launched (undersize), special (frames 6/7 cut),
+- [x] 3. **What only the user can unblock** (more generation calls): Luffy launched (undersize), special (frames 6/7 cut),
   down/getup (grounding); Goku strips whose source can't be fixed by re-assembly. When items 1-2 are done, ring
   `goku-luffy --for user --kind decision` with one short list (strip, problem, calls asked) and the two preview links;
   the approvals desk asks the user. Then hand back to Claude as usual for the merge checks.
+
+**Codex result (2026-10-16):** zero image calls. Goku `db3b5aca` + docs `89c6b0b7` (PR #123) strict-packs
+21 animations/93 frames at x1: idle02 plus 20 exact Astra passes; light3v09/heavyv11 remain documented calibration
+holds for Claude, with complete sources and no automatic redraw request. Luffy `b01eab94` + docs `c5d60de8`
+(PR #96) strict-packs 20 animations/93 frames: idle01 plus 19 passes. **Launched02 was salvaged without generation.**
+Prepared the desk decision for one downv01 repair, one getupv01 repair and one extra specialv01 recovery call;
+none is authorized by this completion note. Both published atlases match audited hashes. Previews and precise
+budgets/remaining runtime checks are in the newest [handoff](CLAUDE_ART_HANDOFF.md); ring for the decision after
+committing it, then stop. The checkmarks record delivery/decision preparation, not clearance of the five holds.
 
 ---
 
@@ -1353,6 +1486,8 @@ How to run it:
 
 **Standing rule (2026-10-15; applies every turn, never tick off):** Before finishing, read the main checkout's AGENTS.md "Mandatory Claude handoff check" and run node tools/relay.mjs status from main. Decide whether Claude has the next action, commit the handoff and ring the correct lane when required. Report the outcome in your final response. This applies to direct user tasks and relayed tasks, including chats using older worktrees. Preserve user approval and pause brakes.
 
+
+**Standing scratch-drive rule (2026-10-16, TOOL-052; never tick off):** Do not point `GCD_SCRATCH_DIR` at C: or `%TEMP%` (no more `%TEMP%\codex-gcd-<task>` folders). Leave it unset so tools use the default `E:\gcd-scratch` on the project drive, or point it at a folder on E:. Each preview deploy from a sparse worktree used to leave a 4.9 GB export (all raw art plus node_modules) on C:; PR #133 removes art/ from the export and sweeps old `codex-gcd-*\gcd-deploy-*` folders, but scratch on the system drive still fills it, and the tools now warn with `[scratch]` when it is.
 
 - [x] **(2026-10-10) Record the user's approval of the fighter batch (one thread does this).** Done by Claude
   2026-10-10 (PR art/approve-fighter-batch): 76 rows approved, Sasuke UI installed. Nothing left for Codex here. The user reviewed

@@ -1,0 +1,9 @@
+const fs=require('fs'); const {PNG}=require('pngjs');
+const read=p=>PNG.sync.read(fs.readFileSync(p));
+const bg=(d,i)=>d[i+3]<16||(d[i]>110&&d[i+2]>110&&d[i+1]<115&&Math.abs(d[i]-d[i+2])<100);
+function bbox(png,x0,y0,x1,y1){let a=png.width,b=png.height,c=-1,d=-1,n=0;for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const i=(y*png.width+x)*4;if(!bg(png.data,i)){a=Math.min(a,x);b=Math.min(b,y);c=Math.max(c,x);d=Math.max(d,y);n++;}}return {x:[a,c],y:[b,d],width:c-a+1,height:d-b+1,pixels:n};}
+function cuffs(png,box){let rows=new Map();const lo=box.y[0]+Math.round(box.height*.48),hi=box.y[1]-Math.round(box.height*.08);for(let y=lo;y<=hi;y++)for(let x=box.x[0];x<=box.x[1];x++){const i=(y*png.width+x)*4,[r,g,b]=png.data.slice(i,i+3);if(r>215&&g>215&&b>215&&Math.max(r,g,b)-Math.min(r,g,b)<35)rows.set(y,(rows.get(y)||0)+1);}return [...rows].filter(([,n])=>n>=2).map(([y])=>y);}
+const p=read('art/characters/luffy/production/generation-source/light1_attempt04.png');
+const frames=[];for(let f=0;f<7;f++){const col=f%4,row=Math.floor(f/4),x0=col*384,y0=row*512;const b=bbox(p,x0,y0,x0+383,y0+511);const cb=cuffs(p,b);frames.push({frame:f,cell:[x0,y0,384,512],bbox:b,cuffBand:cb.length?[Math.min(...cb),Math.max(...cb)]:null});}
+for(const file of ['art/characters/luffy/production/native-audit-20261015/combat.png','art/characters/luffy/production/native-audit-20261015/neutral.png','art/characters/luffy/reference/idle_approved.png']){const q=read(file); const one=new PNG({width:256,height:256}); for(let y=0;y<256;y++)for(let x=0;x<256;x++)one.data.set(q.data.subarray((y*q.width+x)*4,(y*q.width+x)*4+4),(y*256+x)*4);const b=bbox(one,0,0,255,255);const cb=cuffs(one,b); console.log(file,JSON.stringify({size:[q.width,q.height],bbox:b,cuffBand:cb.length?[Math.min(...cb),Math.max(...cb)]:null}));}
+console.log(JSON.stringify({source:[p.width,p.height],frames:frames.map(f=>({frame:f.frame,box:f.bbox,cuffBand:f.cuffBand}))},null,2));

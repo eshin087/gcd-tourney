@@ -1,0 +1,42 @@
+# Goku reassembly v01 review rows
+
+Date: 2026-10-15. These are calibration candidates reconstructed from retained generator sources. They are not a design approval or a production pass. Factors are estimates with stated uncertainty; Claude must independently calibrate bodyHeight, inspect the packed output, run contacts and decide what proceeds. No generation calls were made.
+
+| date | character | asset | candidate | version | status | source and measured reassembly | evidence / hold |
+|---|---|---|---|---:|---|---|---|
+| 2026-10-15 | goku | guard | [raw candidate](../../raw/guard_v05.png) | v05 | needs technical review | Reassembled from `production/generation-source/guard_v04_attempt03.png` (SHA-256 `c1d19e09c37b55e9fbd08a31de0dea60e2ed23564eec1489f669f2f606b9a104`) using one source-to-cell factor 0.282 ±0.030. Approximate idle/source ratios: collar-to-belt 46/164=.280; belt width 36/132=.273; boot-top-to-sole 45/148=.304. Factor .282 is an approximate choice within this spread, not the exact median (.280). Two readable planted poses; output occupied heights 229px each, no overflow. | [contact v02](guard-v05-contact-v02.png), [sidecar](../../raw/guard_v05.json). Source coordinates are inverse-mapped from Astra's earlier measured candidate endpoints, so prior resampling uncertainty is included. Not a numeric pass; no approval state changed. |
+| 2026-10-15 | goku | light2 | [raw candidate](../../raw/light2_v05.png) | v05 | needs technical review | Reassembled from user-approved v04 source `production/generation-source/light2_v04_attempt05.png` (SHA-256 `f9541b3fbabd570bf9db80152add3331d4b7753ff9f1bee52065683608e61753`) using one source-to-cell factor 0.613 ±0.075. Approximate frame-0 idle/source ratios: collar-to-belt 46/75=.613; belt width 36/58=.621; boot-top-to-sole 45/72=.625. Neutral/recovery belt spans across f0/f1/f6 are 57/58/59px. Frame heights: 236, 235, 232, 232, 227, 236, 236px; no overflow. | [contact](../scale-qa/reassembly-v01/light2-v05-contact.png), [sidecar](../../raw/light2_v05.json). Landmark projection and boot endpoint uncertainty dominate ±.075. Uniform rescale only. Existing approval covers the v04 drawing; technical calibration and packed audit remain pending. |
+
+| 2026-10-15 | goku | beamCharge | [raw candidate](../../raw/_qa_hold/beamCharge_v06.png) | v06 | technical hold (disputed measurement) | Reassembled from `production/generation-source/beamCharge_v04_attempt03.png` (SHA-256 `fa242621ee5f3904072d1f5dab2aa2587de23bc4e43d29cb498ac4ba022fa411`), grid 3x1 at 2172x724, using common factor 0.320 ±0.040. Direct source-frame-0 spans: eye-to-chin 51px vs idle 17px (.333); left boot-top-to-sole 130px vs 40px (.308). Frame occupied heights 211/211/211px, no cell overflow. | [source endpoints](../scale-qa/reassembly-v01/beamCharge-source-f0-endpoints.png), [contact](../scale-qa/reassembly-v01/beamCharge-v06-contact.png), [sidecar](../../raw/_qa_hold/beamCharge_v06.json). Projected hand marks have uncertainty and are not a scale-gate pass. v05 and v06 are preserved disputed experiments; neither is selected for review. |
+| 2026-10-15 | goku | beamFire | [raw candidate](../../raw/_qa_hold/beamFire_v06.png) | v06 | technical hold (disputed measurement) | Reassembled from `production/generation-source/beamFire_v04_attempt03.png` (SHA-256 `ea671eed06fcb55609c39f531d2064025099d4f92255d60470c8b2b4177b6779`), grid 3x1 at 2172x724, using common factor 0.320 ±0.045. Direct source-frame-0 spans: eye-to-chin 50px vs idle 17px (idle/source .340); left boot-top-to-sole 130px vs 40px (.308). Frame occupied heights 212/212/212px, no cell overflow. | [source endpoints](../scale-qa/reassembly-v01/beamFire-source-f0-endpoints.png), [contact](../scale-qa/reassembly-v01/beamFire-v06-contact.png), [sidecar](../../raw/_qa_hold/beamFire_v06.json). Projected hand marks have uncertainty and are not a scale-gate pass. v05 is a preserved exploratory factor; v06 supersedes it for review. |
+
+## Remaining selected candidates
+
+**Beam v05/v06 are disputed experiments, not ready-for-review calibrated candidates.** Their source annotations show approximate source spans, but the matching idle endpoints lack exact recorded coordinates. v05's .292 factor does not match its recorded ratios (.333 and .308); v06's .320 is only their midpoint and does not repair the missing idle provenance. Preserve all files; Claude should establish the idle endpoint coordinates before selecting either version. See [checkpoint](CHECKPOINT.md).
+
+These 18 candidates were not reassembled in this checkpoint. The selected source inventory and hold reasons below remain incomplete; no factor or pass is claimed for them. The pilot workflow should be confirmed by Claude before extending calibration across the remaining strips.
+
+| animation | selected source / candidate | current decision |
+|---|---|---|
+| run | `generation-source/run_v02_attempt04.png`; `_qa_hold/run_v04.png` | Source parts/whole-strip mapping needs verification; prior sheet clips at left. |
+| dash | `generation-source/dash_v03_attempt03.png`; `_qa_hold/dash_v03.png` | Low crouched pose; belt/boot landmarks are foreshortened and disagree. |
+| jumpUp | `generation-source/jumpUp_v03_attempt03.png`; `_qa_hold/jumpUp_v03.png` | Tuck-to-extension makes a shared body landmark factor uncertain. |
+| jumpFall | `generation-source/jumpFall_v02_attempt03.png`; `_qa_hold/jumpFall_v02.png` | Rotated airborne poses; no stable unforeshortened landmark pair established. |
+| land | `generation-source/land_v03_attempt03.png`; `_qa_hold/land_v03.png` | Crouch-to-landing changes projection; requires Claude's calibration and grounding review. |
+| light1 | generation parts `light1_v01_attempt01_A.png`, `light1_v01_attempt02_B.png` / `light1_v01_attempt03_B.png`; `_qa_hold/light1_v02.png` | Part/source-call mapping and source-to-part transforms need reconciliation first. |
+| light3 | `generation-source/light3_v04_attempt04.png`; `light3_v04.png` | Visible detached right hand and truncated rear arm; scale cannot repair source segmentation. |
+| light4 | `generation-source/light4_v04_attempt04.png`; `light4_v04.png` | Kicking frames have right-edge overflow; uniform calibration cannot resolve placement. |
+| heavy | `generation-source/heavy_v04_attempt04.png`; `heavy_v04.png` | Some frames contain detached wrist/hand fragments and right-edge overflow. |
+| airLight1 | `generation-source/airLight1_v04_attempt04.png`; `airLight1_v04.png` | Severe strike-limb overflow; no safe cell fit at target density. |
+| airHeavy | `generation-source/airHeavy_v04_attempt04.png`; `airHeavy_v04.png` | Tucked/rotated frames obscure stable landmarks; source-to-cell factor remains uncertain. |
+| hurtHigh | `generation-source/hurtHigh_v07_attempt03.png`; `_qa_hold/hurtHigh_v07.png` | Recoil pose and overlapping arms obscure enough landmarks to prevent a measured factor. |
+| launched | `generation-source/launched_v06_attempt02.png`; `_qa_hold/launched_v06.png` | Rotated pose and visible packed-cell overflow; source/pivot fit must be resolved. |
+| down | `generation-source/down_v04_attempt02.png`; `down_v04.png` | Lying pose is rotated and requires grounded-contact review; not a standing-height normalization. |
+| getup | `generation-source/getup_v03_attempt02.png`; `getup_v03.png` | Crouch/kneel transitions do not provide consistent projected landmarks across frames. |
+| charge | `generation-source/charge_v04_attempt03.png`; `_qa_hold/charge_v04.png` | Loop pose snap remains; calibration alone does not resolve motion continuity. |
+| beamCharge | `generation-source/beamCharge_v04_attempt03.png`; `_qa_hold/beamCharge_v04.png` | Cupped hands overlap forearms; source landmarks not yet marked independently. |
+| beamFire | `generation-source/beamFire_v04_attempt03.png`; `_qa_hold/beamFire_v04.png` | Extended palm/forearm foreshortening makes current source factor uncertain. |
+| special | `generation-source/special_v02_attempt03.png`; `_qa_hold/special_v02.png` | Multiphase gestures vary projection; no stable multi-landmark factor documented. |
+| win | `generation-source/win_v03_attempt03.png`; `_qa_hold/win_v03.png` | Hair touches source top; source panel/top-margin integrity needs review before resampling. |
+
+The directory `production/preflight-v01/` remains parent-owned and unchanged. The prior generated `*-contact.png` files without `v02` in their names are superseded by the corrected `*-contact-v02.png` files; they contain a stride error in their idle reference and must not be used as evidence.

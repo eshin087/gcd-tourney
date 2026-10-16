@@ -1,0 +1,29 @@
+# GCD Tourney lobby server (ADR 0036, ENG-094). Local: npm run dev (ws://127.0.0.1:8787). Deploy: npm run deploy
+# (needs `npx wrangler login` once, on the user's Cloudflare account; see README.md).
+name = "gcd-tourney-lobby"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "Room"
+
+# the public room list (ENG-095): one object for the whole game
+[[durable_objects.bindings]]
+name = "DIRECTORY"
+class_name = "Directory"
+
+# SQLite-backed Durable Objects: the kind the Workers free plan includes
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["Directory"]
+
+# Secrets (not in this file): TURNSTILE_SECRET, the Turnstile widget's secret (`wrangler secret put`). Locally,
+# server/.dev.vars (git-ignored) holds Cloudflare's always-pass test secret and TURNSTILE_DEV=1.
+
+[observability]
+enabled = true

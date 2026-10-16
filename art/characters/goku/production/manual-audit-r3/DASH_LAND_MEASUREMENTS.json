@@ -1,0 +1,194 @@
+{
+  "sheet": "1af3b61123a94fe0844afb59f02a91a15c3cf6b0fab7dbd2b3cc85d379fd7737",
+  "metadata": "0ca0cc2788ca9acc24a9d34001ef8e0dbbd868a521f660ce8abd92b68d37baf5",
+  "records": {
+    "dash0": {
+      "animation": "dash",
+      "version": 7,
+      "frame": 0,
+      "cellSha256": "aa02ddee20d72223438e3faff4216d00fed615cccba3025e50fd5e62aa15ccd9",
+      "segments": [
+        {
+          "name": "collarToBelt",
+          "a": [
+            202,
+            107
+          ],
+          "b": [
+            177,
+            131
+          ],
+          "lengthPx": 34.66,
+          "uncertaintyPx": 6
+        },
+        {
+          "name": "beltWidth",
+          "a": [
+            155,
+            123
+          ],
+          "b": [
+            186,
+            136
+          ],
+          "lengthPx": 33.62,
+          "uncertaintyPx": 4
+        },
+        {
+          "name": "bootTopToSole",
+          "a": [
+            85,
+            204
+          ],
+          "b": [
+            74,
+            238
+          ],
+          "lengthPx": 35.74,
+          "uncertaintyPx": 6
+        }
+      ]
+    },
+    "dash1": {
+      "animation": "dash",
+      "version": 7,
+      "frame": 1,
+      "cellSha256": "b290b0731f7165219bdc4343ffd70dce2ab185a6229f8924cd774cfede2769f9",
+      "segments": [
+        {
+          "name": "collarToBelt",
+          "a": [
+            110,
+            107
+          ],
+          "b": [
+            86,
+            132
+          ],
+          "lengthPx": 34.66,
+          "uncertaintyPx": 6
+        },
+        {
+          "name": "beltWidth",
+          "a": [
+            65,
+            124
+          ],
+          "b": [
+            96,
+            137
+          ],
+          "lengthPx": 33.62,
+          "uncertaintyPx": 4
+        },
+        {
+          "name": "bootTopToSole",
+          "a": [
+            128,
+            207
+          ],
+          "b": [
+            135,
+            236
+          ],
+          "lengthPx": 29.83,
+          "uncertaintyPx": 6
+        }
+      ]
+    },
+    "land0": {
+      "animation": "land",
+      "version": 7,
+      "frame": 0,
+      "cellSha256": "2beceba1b5da5843afe44edf258cd9cb119c36f8d89831106b5138dfd9c55cfd",
+      "segments": [
+        {
+          "name": "collarToBelt",
+          "a": [
+            164,
+            112
+          ],
+          "b": [
+            140,
+            138
+          ],
+          "lengthPx": 35.38,
+          "uncertaintyPx": 6
+        },
+        {
+          "name": "beltWidth",
+          "a": [
+            120,
+            132
+          ],
+          "b": [
+            151,
+            142
+          ],
+          "lengthPx": 32.57,
+          "uncertaintyPx": 4
+        },
+        {
+          "name": "bootTopToSole",
+          "a": [
+            73,
+            199
+          ],
+          "b": [
+            58,
+            238
+          ],
+          "lengthPx": 41.79,
+          "uncertaintyPx": 4
+        }
+      ]
+    },
+    "land1": {
+      "animation": "land",
+      "version": 7,
+      "frame": 1,
+      "cellSha256": "841b5eb59800a930edd6fc8be267630506bd4d64415c1ec5527a3b527d345dac",
+      "segments": [
+        {
+          "name": "collarToBelt",
+          "a": [
+            136,
+            76
+          ],
+          "b": [
+            125,
+            110
+          ],
+          "lengthPx": 35.74,
+          "uncertaintyPx": 6
+        },
+        {
+          "name": "beltWidth",
+          "a": [
+            110,
+            110
+          ],
+          "b": [
+            146,
+            110
+          ],
+          "lengthPx": 36,
+          "uncertaintyPx": 4
+        },
+        {
+          "name": "bootTopToSole",
+          "a": [
+            68,
+            198
+          ],
+          "b": [
+            56,
+            238
+          ],
+          "lengthPx": 41.76,
+          "uncertaintyPx": 4
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "status": "technical source-preservation comparison; no approval",
+  "sourceA": {
+    "path": "art/characters/luffy/raw/_parts/special_v01_A.png",
+    "sha256": "7ec7381d83ca597c9e91f6c05bc7390c241a0fc24befa9a77e506828d1a55ceb",
+    "bytes": 1622738
+  },
+  "candidate": {
+    "path": "art/characters/luffy/raw/special_v02.png",
+    "sha256": "362ddaf4cd82c6bf13708cb54d855e8abdad9bec541d9c7b9b4811d148085853",
+    "bytes": 842258,
+    "stitch": {
+      "bFactor": 0.5057,
+      "measured": 0.5057,
+      "scaledPart": "B",
+      "scaledBy": 0.5057,
+      "idleScaleA": 0.4837,
+      "idleScaleB": 0.2446,
+      "afterB_vs_A": 0.984,
+      "parts": [
+        "raw/_parts/special_v02_A.png",
+        "raw/_parts/special_v02_B.png"
+      ],
+      "poses": [
+        6,
+        2
+      ],
+      "layout": [
+        "figures",
+        "figures"
+      ],
+      "gapPx": 24,
+      "tool": "tools/stitch-parts.mjs"
+    }
+  },
+  "method": "Apply the stitch/painter packer background removal and speck filter to original source-A and assembled candidate at the same native source density; split whole figures in manifest order; compare each f0-f5 crop top-left at 1.0x (no per-frame rescale), and place paired crops at equal origin/baseline in the contact sheet. This compares source geometry before final shared palette quantization.",
+  "contactSheet": "art/characters/luffy/production/relay11-generation/special_v02_sourceA-comparison_native.png",
+  "frames": [
+    {
+      "frame": 0,
+      "nativeCellCrop": "353x393",
+      "sourceSHA256": "30567fd6b1eda120f5bfd4a18a5aac2b7141198e950ee689c79760a5334c7d64",
+      "candidateSHA256": "7153afdb3c9ca503f752a93441460eed28279ba79d891af3e3ff6aa5771b9ad1",
+      "sameCropOriginAndSize": true,
+      "uniformSourceScale": 1,
+      "alphaDiff": 1,
+      "sourceOnlyAlpha": 1,
+      "candidateOnlyAlpha": 0,
+      "opaqueRgbDiff": 0
+    },
+    {
+      "frame": 1,
+      "nativeCellCrop": "333x390",
+      "sourceSHA256": "0e04cee44535b8b818a94ab4b9c4779c243350ba95dbd7bc90515f021e004a21",
+      "candidateSHA256": "d3e785fc2eb0eb7befff6fdc3556f08f2bb0b019c7879d6fd655290439e22980",
+      "sameCropOriginAndSize": true,
+      "uniformSourceScale": 1,
+      "alphaDiff": 4,
+      "sourceOnlyAlpha": 4,
+      "candidateOnlyAlpha": 0,
+      "opaqueRgbDiff": 0
+    },
+    {
+      "frame": 2,
+      "nativeCellCrop": "306x393",
+      "sourceSHA256": "33106d9cc7bc5d87def625c1c93bc4d339a2f5f3f7565d0d9891752d8249a615",
+      "candidateSHA256": "e39028141d05f4ac5ac55c6d4d3325edb75f0bbf040be758e4aba364bd41d7a1",
+      "sameCropOriginAndSize": true,
+      "uniformSourceScale": 1,
+      "alphaDiff": 3,
+      "sourceOnlyAlpha": 3,
+      "candidateOnlyAlpha": 0,
+      "opaqueRgbDiff": 0
+    },
+    {
+      "frame": 3,
+      "nativeCellCrop": "328x393",
+      "sourceSHA256": "bbc2425fc8764a74a7c9f89fd43af070d40f2bfafbc39edfe55714839c61b03b",
+      "candidateSHA256": "fa82289e11729899938be3e929b4f5e138b4c0d6d2cc2f4a2248d115549eed4e",
+      "sameCropOriginAndSize": true,
+      "uniformSourceScale": 1,
+      "alphaDiff": 3,
+      "sourceOnlyAlpha": 3,
+      "candidateOnlyAlpha": 0,
+      "opaqueRgbDiff": 0
+    },
+    {
+      "frame": 4,
+      "nativeCellCrop": "369x394",
+      "sourceSHA256": "ba92dc278194557ef09e3c27b14fd34c0df9c49d34c4d3243b584856e4448ab6",
+      "candidateSHA256": "ba92dc278194557ef09e3c27b14fd34c0df9c49d34c4d3243b584856e4448ab6",
+      "sameCropOriginAndSize": true,
+      "uniformSourceScale": 1,
+      "alphaDiff": 0,
+      "sourceOnlyAlpha": 0,
+      "candidateOnlyAlpha": 0,
+      "opaqueRgbDiff": 0
+    },
+    {
+      "frame": 5,
+      "nativeCellCrop": "418x394",
+      "sourceSHA256": "841b9bea74b7f32909aae6c1fa3feb74a2bdd6ec52274945057f0438a525c3f5",
+      "candidateSHA256": "cac85489c3f6c15b947f13c18b6e849943bb8b2f77660cd936a9bcc704beb10b",
+      "sameCropOriginAndSize": true,
+      "uniformSourceScale": 1,
+      "alphaDiff": 3,
+      "sourceOnlyAlpha": 3,
+      "candidateOnlyAlpha": 0,
+      "opaqueRgbDiff": 0
+    }
+  ],
+  "totals": {
+    "alphaDiff": 14,
+    "sourceOnlyAlpha": 14,
+    "candidateOnlyAlpha": 0,
+    "opaqueRgbDiff": 0
+  },
+  "limits": "The original A file remains byte-identical. Geometry crop bounds/dimensions and opaque RGB agree at 1.0x; the packer-equivalent second cleanup removed 14 isolated alpha pixels (no added opaque pixels), so alpha masks are not literally identical. Final shared palette may change RGB and must be separately checked on the quantized atlas."
+}

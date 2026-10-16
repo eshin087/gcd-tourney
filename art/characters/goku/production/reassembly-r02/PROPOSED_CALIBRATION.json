@@ -1,0 +1,72 @@
+{
+  "title": "Goku r02 proposed calibration rows",
+  "status": "Proposed only. Do not change production bodyHeight or scaleManualQA until Claude selects calibration and verifies matching production packed pixels. These rows are bound to the exact isolated fixture hashes and do not grant art approval.",
+  "fixture": {
+    "atlasSha256": "c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0",
+    "metadataSha256": "dec929ae11544546e7a8a8f3c23c860ffa33f4844882bfda2cc9313d7cab9167",
+    "report": "art/characters/goku/production/manual-audit-r2/REASSEMBLY_R02_FINAL_AUDIT.md"
+  },
+  "rows": [
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "source": "art/characters/goku/raw/_qa_hold/jumpUp_v04.png",
+      "sourceSha256": "262d801b7fee1686c474cb03a4c9b338decfbb9a518bcaa134568a4539bd3d30",
+      "factor": 0.257,
+      "factorUncertainty": 0.06,
+      "proposedFixtureBodyHeight": 206,
+      "pivot": [
+        128,
+        240
+      ],
+      "fixturePackScale": 1,
+      "audit": "Qualified proposed body/anatomy PASS; tucked boot projection uncertainty retained.",
+      "scaleManualQA": "not applied; Claude to bind after identical production pixels are packed"
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "source": "art/characters/goku/raw/_qa_hold/jumpFall_v04.png",
+      "factor": 0.356,
+      "factorUncertainty": 0.04,
+      "proposedFixtureBodyHeight": 232,
+      "pivot": [
+        128,
+        240
+      ],
+      "fixturePackScale": 1,
+      "audit": "Proposed full visible-anatomy PASS.",
+      "scaleManualQA": "not applied; Claude to bind after identical production pixels are packed"
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "source": "art/characters/goku/raw/_qa_hold/hurtHigh_v08.png",
+      "factor": 0.335,
+      "factorUncertainty": 0.04,
+      "proposedFixtureBodyHeight": 223,
+      "pivot": [
+        128,
+        240
+      ],
+      "fixturePackScale": 1,
+      "audit": "Proposed full visible-anatomy PASS within stated uncertainty.",
+      "scaleManualQA": "not applied; Claude to bind after identical production pixels are packed"
+    },
+    {
+      "animation": "light1",
+      "version": 3,
+      "source": "art/characters/goku/raw/_qa_hold/light1_v03.png",
+      "factor": 0.385,
+      "factorUncertainty": 0.05,
+      "proposedFixtureBodyHeight": 238,
+      "pivot": [
+        128,
+        240
+      ],
+      "fixturePackScale": 1,
+      "audit": "Body-only PASS; placement HOLD because hair reaches y3, one pixel inside nominal 4px margin.",
+      "scaleManualQA": "not proposed due separate placement hold"
+    }
+  ]
+}

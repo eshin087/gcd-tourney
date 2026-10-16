@@ -1,0 +1,3 @@
+import fs from 'node:fs'; import {PNG} from 'pngjs';
+const arr=[['special_v02_attempt03.png','special-f0-crop.png',0,0,512,512],['airHeavy_v04_attempt04.png','airHeavy-f5-crop.png',1024,512,512,512],['launched_v06_attempt02.png','launched-f5-crop.png',512,512,512,512]];
+for(const [n,o,x,y,w,h] of arr){const p=`art/characters/goku/production/generation-source/${n}`,im=PNG.sync.read(fs.readFileSync(p)),out=new PNG({width:w,height:h});for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){const si=((y+yy)*im.width+x+xx)*4;out.data.set(im.data.subarray(si,si+4),(yy*w+xx)*4)}fs.writeFileSync(`art/characters/goku/production/reassembly-r02/${o}`,PNG.sync.write(out));}

@@ -1,0 +1,24 @@
+{
+  "animation": "run",
+  "sourcePath": "art/characters/goku/production/generation-source/run_v02_attempt04.png",
+  "sourceSha256": "d98480645714f0778debcbf67fffef932feedacdc65a008adb8fce99c6af2486",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame": 0,
+  "frameOrigin": [
+    0,
+    0
+  ],
+  "panelDimensions": [
+    443,
+    443
+  ],
+  "gridSpacingPx": 50,
+  "lines": "cyan lines are every 50 source px in panel-local coordinates"
+}

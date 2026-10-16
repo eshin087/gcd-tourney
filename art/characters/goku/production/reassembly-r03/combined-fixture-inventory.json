@@ -1,0 +1,47 @@
+{
+  "label": "Goku r03 combined diagnostic fixture; isolated quantized atlas, warn-only, not a gameplay release or approval.",
+  "quantizeColors": 48,
+  "scaleGate": "warn",
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "calibratedInheritedSelections": [
+    "guard_v05",
+    "light2_v05",
+    "jumpUp_v04",
+    "jumpFall_v04",
+    "hurtHigh_v08"
+  ],
+  "newlySelected": [
+    {
+      "animation": "dash",
+      "version": 8,
+      "bodyHeight": 207,
+      "source": "raw/_qa_hold/dash_v08.png",
+      "sourceSha256": "de18ea1f4c62657b374d9e7278308ab3cb5b88356374450bf340693f2fb206cf",
+      "scaleGate": "warn-only fixture; no approval or pass implied"
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235,
+      "source": "raw/_qa_hold/land_v07.png",
+      "sourceSha256": "813e55ab269ae3e4cdd1ab7e4f191de25b9ae17d3173989c9ed2eba7173390cc",
+      "scaleGate": "warn-only fixture; no approval or pass implied"
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115,
+      "source": "raw/_qa_hold/down_v05.png",
+      "sourceSha256": "e703d5e2620931956bccd989ed4d7ce48858f912b6d8b8acbf037ad526c566ac",
+      "scaleGate": "warn-only fixture; no approval or pass implied"
+    }
+  ],
+  "sourceFixture": "production/scale-qa/reassembly-r02/fixture-art"
+}

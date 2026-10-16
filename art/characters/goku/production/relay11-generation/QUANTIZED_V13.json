@@ -1,0 +1,18 @@
+{
+  "schema": "goku-relay11-light3-quantized-v13",
+  "status": "isolated candidate diagnostic; exact quantized pixels for Astra review only; no manualQA or user drawing approval",
+  "quantizer": "tools/pack-sprites.mjs exported removeBackground(mode=char) and quantizeFrames(cells,48), run jointly over all seven candidate cells",
+  "source": "art/characters/goku/raw/_qa_hold/light3_v13.png",
+  "sourceSha256": "3A55C5C25E389C6336A3938EF9716929EEEA7D6A90B7D834FAF0ED06A701CBC8",
+  "frameCount": 7,
+  "cellSize": 256,
+  "paletteLimit": 48,
+  "visibleColorCount": 48,
+  "paletteSizeReported": 48,
+  "output": "art/characters/goku/production/relay11-generation/light3_v13_48c_diagnostic.png",
+  "outputDimensions": [
+    1792,
+    256
+  ],
+  "outputSha256": "159D350A181B95B766057A09120DBFAC2496F3D873E1B940ECD312FD7D60A112"
+}

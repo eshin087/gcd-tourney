@@ -1,0 +1,65 @@
+{
+  "label": "Fixture 2 additions; warn-only, preserved approval fields, technical diagnostic only.",
+  "candidates": [
+    {
+      "animation": "launched",
+      "version": 7,
+      "sourceCandidatePath": "art/characters/goku/raw/_qa_hold/launched_v07.png",
+      "sourceCandidateSha256": "e89a02399955d828fcef54f94929905663bb755cdb2e78f63c764dde1c9d3338",
+      "fixturePath": "characters/goku/raw/launched_v07.png",
+      "fixtureSha256": "e89a02399955d828fcef54f94929905663bb755cdb2e78f63c764dde1c9d3338",
+      "bodyHeight": 200,
+      "pivot": [
+        128,
+        240
+      ],
+      "perFrameHeights": [
+        200,
+        165
+      ],
+      "sourceFactor": 0.258,
+      "sourceFactorUncertainty": "±0.07, source endpoints ±8–10 px plus independent reference uncertainties; separate from target uncertainty",
+      "sourceClipping": [
+        0,
+        0
+      ],
+      "scaleReviewExcluded": true
+    },
+    {
+      "animation": "special",
+      "version": 3,
+      "sourceCandidatePath": "art/characters/goku/raw/_qa_hold/special_v03.png",
+      "sourceCandidateSha256": "882a952e4a0bb675e782b60f7f50057de5a3f8eff8467765fbf503256ae49ee0",
+      "fixturePath": "characters/goku/raw/special_v03.png",
+      "fixtureSha256": "882a952e4a0bb675e782b60f7f50057de5a3f8eff8467765fbf503256ae49ee0",
+      "bodyHeight": 241,
+      "pivot": [
+        128,
+        240
+      ],
+      "perFrameHeights": [
+        241,
+        241,
+        241,
+        241,
+        241,
+        241,
+        241,
+        241
+      ],
+      "sourceFactor": 0.628,
+      "sourceFactorUncertainty": "±0.07; source endpoint ±6–8px and approved idle target uncertainty retained separately",
+      "sourceClipping": [
+        106,
+        100,
+        83,
+        87,
+        108,
+        89,
+        95,
+        100
+      ],
+      "scaleReviewExcluded": true
+    }
+  ]
+}

@@ -607,6 +607,10 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 | `det.record({ p1, p2, seed, name, maxFrames, dumpAt })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
 | `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs with the brains off (the match setup, `Game.kinds`, still says CPU); `{ match, first: { frame, groups }, step, frame, burst8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
 | `det.replay(log, { rollback: { every: 10, depth: 8 } })` | the rollback stress test (ADR 0036): every `every` frames save the state, play `depth` frames on random inputs, restore, re-simulate them quietly (`Game.quiet`) on the right ones; every frame is still checked. `.rollback` holds the rewind count and the save / restore / re-simulation times |
+| `det.netplay(log, { latency, jitter, loss, delay, maxRollback, localPlayer, seed, tamper })` | the rollback session (`src/net/rollback.js`, ENG-093) over a simulated network (`src/net/netSim.js`): one side is this game, the other the recording's inputs arriving `latency` ± `jitter` frames late with `loss` (0-1) dropped; every frame is compared with a plain replay. `{ match, first, compared, frames, stats }` (rollbacks, deepest rewind, stalls, mispredictions, desync checks). `tamper: frame`: the other side sends another input there (jump) but reports the recording's hashes, so the desync check must fire |
+| `det.online(log, { lobby, frames })` | the real lobby server end to end (ENG-094; `npm run lobby` first): a spectator, this game as player 1 and a bot as player 2 (the log's second pad) join a fresh room; the match (intro included) must equal the same inputs replayed through a spectator session on every frame, the hash checks through the server must agree, and the spectator feed must be exactly what both players sent. Runs in real time (60 ticks a second) |
+| `det.online(log, { drop: { at, ms, reload } })` | the same, with our connection dropping at frame `at` for `ms` and coming back on the seat's token (ENG-097); `reload: true` rebuilds the match from the room's log as a reloaded page would. Expected: MATCH on every frame, `drop.done` |
+| `det.bot(code, { name, fighter, play, style, auto })` | a stand-in room member: plays like a real peer ('mash' or 'idle') without running a game, or only watches (`play: false`); never reports a result, so a KO ends after the server's 8 s wait. `auto: false`: tick it yourself (`handle.tick()`) on a hidden page |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
 | `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, the rollback stress test (ROLLBACK: MATCH, with save / restore / 8-frame re-simulation times), and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
@@ -631,6 +635,72 @@ saves), and commit them with the change.
 `npm run lint:simmath` (`tools/lint-sim-math.mjs`, part of `prebuild`) fails the build on `Math.sin`, `cos`, `hypot`,
 `atan2`, `pow`, `exp`, `log` ... in the simulation files (fighter, kit, game, projectiles, clash, techAnim, basis,
 moves, input, the character files); use `dmath.*` there.
+
+### Rollback netplay on a simulated network (ENG-093)
+
+`?net=sim` plays a normal match through the rollback session, with a simulated network between you and the other
+side, so rollback can be felt and tested before the lobby server exists:
+
+- `/?fight=naruto,sasuke&mode=solo&net=sim&lag=6&jitter=2&loss=5`: you against a CPU whose inputs cross the network.
+- `/?fight=naruto,sasuke&mode=versus&net=sim&lag=8&loss=10`: player 2's keys cross it (two people, one keyboard).
+- `lag` and `jitter` are one-way frames (6 = 100 ms, a 200 ms ping), `loss` is in %, `delay` the input delay
+  (default 2). The overlay at the top shows the ping, rollbacks per second, the deepest rewind and the stalls. Your
+  own inputs are `delay` frames late, as online; mispredicted frames are re-simulated silently, so a hit you saw may
+  turn out not to have happened.
+- There is one simulation, so this mode has no desync check; `det.netplay` covers that.
+
+Expected today (`det.netplay` on fresh recordings): a MATCH for every frame of naruto-sasuke (6 ± 2, 5 % loss; 12 ± 4,
+15 % loss), gojo-killua (4 ± 3, 10 %, as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke (6 ± 2, 5 %),
+with up to 8-frame rewinds, stalls under heavy lag and no desyncs; `tamper: 600` reports a desync at frame 600.
+`startAt: 20` (the other machine starts 20 ticks late) still matches, time sync waiting out the head start.
+
+### Rejoining after a drop (ENG-097)
+
+1. `det.online(log, { frames: 1500, drop: { at: 700, ms: 3000 } })` and the same with `reload: true`: MATCH.
+2. In a room with a stand-in (`det.bot(code, { auto: false })`, ticked in your loop): `game.online.client.kill()`
+   mid-match shows "RECONNECTING TO ROOM ..." and the match goes on; `bot.client.kill()` shows "WAITING FOR Bot TO
+   RECONNECT · 19s" and the match stands still; after 20 s the stand-in forfeits.
+3. On two devices: mid-match, switch the phone to another app for 5-10 s or turn its Wi-Fi off and on; the match
+   resumes. Close the tab and reopen the invite link within 20 s: back in the same match.
+
+### Public rooms (ENG-095)
+
+Locally (`npm run lobby`; the page on localhost uses Cloudflare's test Turnstile key, the server its test secret, so the
+switched-off anti-bot check runs here as it would when on; production has neither and skips it):
+
+1. ONLINE, CREATE A PUBLIC ROOM: the check passes by itself and the room opens with "PUBLIC ROOM · <name>'s room · <region>";
+   `curl http://127.0.0.1:8787/rooms` lists it.
+2. Add stand-ins (`det.bot(game.online.code, { play: false })`), leave, BROWSE PUBLIC ROOMS: the room is listed with its
+   member count and ping; joining from the list works.
+3. SAY sends a line both ways (`bot.client.on.say` sees it); a watcher sees lines over the match as passing lines.
+4. The host's REMOVE takes a member out (`error removed`, socket 4001) and they can't come back for 10 minutes; a
+   non-host sees VOTE TO REMOVE (v/n) and a majority removes. A bot named `sh1tlord` shows as Player<digits>.
+5. A fourth step for the deployed server (no secret): three public rooms opened from one address list only two
+   (`curl https://gcd-tourney-lobby.eshin087.workers.dev/rooms`).
+6. `npm run test:lobby`: the rules (public needs the check, listing, chat limits, kicks, votes, bans across one home
+   network, the name filter).
+
+### Online rooms (ENG-094)
+
+The lobby server is `server/` (its README has the protocol). Locally:
+
+1. `npm run lobby` (wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself, any other page takes
+   `&lobby=ws://127.0.0.1:8787`). `npm run test:lobby` runs the room rules in Node (no server needed).
+2. `det.online(log)` (above) checks the whole path: expected MATCH on every frame, the feed exact, no desyncs. Against
+   the deployed server from a local page: `?debug&lobby=wss://gcd-tourney-lobby.eshin087.workers.dev`.
+3. The screens alone: ONLINE on the mode list, CREATE A ROOM, then `det.bot(game.online.code)` adds an opponent (the match
+   starts at once); `det.bot(code, { play: false })` a watcher. Two bots in a room and `play: false` for you shows
+   spectating; join a room whose bots have played a while to see the late-join fast-forward. Esc while watching opens
+   the room over the match. A hidden page throttles timers: drive the game and the bots (`auto: false`) in a loop.
+4. Two real devices: deploy the server (server/README.md), open the same room on both (the invite link), play a match,
+   and have a third device watch. Afterwards `https://gcd-tourney-lobby.eshin087.workers.dev/room/<CODE>/stats` shows
+   each player's input delay, ping, rollbacks, stalls and frame rate: stalls or a low `fpsLow` on one device point at
+   that device (or its connection), not at rollback. Check: both see the same result, the watcher's match matches, leaving mid-match
+   gives the other player the win, a phone put in the background for 10 s loses by timeout.
+
+Expected today: `det.online` MATCH (naruto-sasuke 1,500 frames, gojo-killua 2,400 frames, intro included) with 25-40
+hash checks through the server; a room with a bot plays to a KO, reports it, and is back in the room with the win
+counted; a late joiner fast-forwards about 650 frames and then watches about 20 frames behind.
 
 ## Performance budget
 

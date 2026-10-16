@@ -1,0 +1,51 @@
+{
+  "sourceRoot": "isolated copy of current Luffy and art-scale inputs; final files under output are candidate-only and public baseline unchanged",
+  "copiedAt": "2026-10-16",
+  "command": "node tools/pack-sprites.mjs luffy --root <strict-r5/art> --out <strict-r5/output> --manifest <strict-r5/art/manifest.json> --quantize 48 --json --no-writeback",
+  "files": [
+    {
+      "path": "art/manifest.json",
+      "sha256": "51448163b5981d8ab45bf30d51fa60d7f406854456c8705071813b2d9643bddc"
+    },
+    {
+      "path": "art/scale/builds.json",
+      "sha256": "ef0a6b9b5debd11ae5382d79a4e0c99b3cc8ddc006d6a51040a2b2adad2d73b7"
+    },
+    {
+      "path": "art/scale/scale-baseline.json",
+      "sha256": "f5d59b07ab06227226619c924229be52703bf3bc99f9cd3411d27f8e641bb97f"
+    },
+    {
+      "path": "art/characters/luffy/reference/idle_approved.png",
+      "sha256": "b11ae08cddc02bd2be95a21663f0dfba993d2743c356a7a346dfdd00d7cecb4b"
+    },
+    {
+      "path": "art/characters/luffy/raw/down_v03.png",
+      "sha256": "b40f4b01cf7f861d083fb153f156495bc23150324328078182e75782b7100e00"
+    },
+    {
+      "path": "art/characters/luffy/raw/down_v03.json",
+      "sha256": "2535b5e6d13a0c1948406572b33dc36dd35c5909fb85c20a95bd78f9352172e2"
+    },
+    {
+      "path": "art/characters/luffy/raw/getup_v03.png",
+      "sha256": "e14761e7f80b58eeb7d08eb465b5347bba192e9e3baae7ada6e3f2cbea018ad0"
+    },
+    {
+      "path": "art/characters/luffy/raw/getup_v03.json",
+      "sha256": "5f79f079d0e9e63ff60f6d3e53ccc0bd67efd975005d5f9b5d5c47fc2d0c2be6"
+    },
+    {
+      "path": "art/characters/luffy/production/relay8-generation/strict-r5/output/characters/luffy/sheet.png",
+      "sha256": "0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122"
+    },
+    {
+      "path": "art/characters/luffy/production/relay8-generation/strict-r5/output/characters/luffy/anims.json",
+      "sha256": "dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f"
+    },
+    {
+      "path": "art/characters/luffy/production/relay8-generation/strict-r5/pack-report.json",
+      "sha256": "3c7395e85d6b6b65b8ac712923c5d7e9ceff7d0962eb7f7554eb6ff3d13bf09e"
+    }
+  ]
+}

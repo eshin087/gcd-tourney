@@ -1,0 +1,330 @@
+{
+  "method": "Corrected source endpoints based on direct original inspection and Astra screening; uncertainty retained.",
+  "rows": [
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "factor": 0.257,
+      "sourceSha256": "c8b5ee50491068292041519b5533f41a78ec77084a80c846d5307686c2309e81",
+      "outputSha256": "262d801b7fee1686c474cb03a4c9b338decfbb9a518bcaa134568a4539bd3d30",
+      "roomy": "art/characters/goku/production/reassembly-r02/jumpUp_v04-uncropped-roomy.png",
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            480,
+            350
+          ],
+          "b": [
+            398,
+            473
+          ],
+          "definition": "collar-center/sternoclavicular point to belt center, f0",
+          "sourceLengthPx": 147.828,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 38.1,
+          "targetUncertaintyPx": 5,
+          "ratio": 0.25773265
+        },
+        "beltWidth": {
+          "a": [
+            331,
+            453
+          ],
+          "b": [
+            476,
+            453
+          ],
+          "definition": "outer visible blue belt edge span at y453, f0",
+          "sourceLengthPx": 145,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 36,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.24827586
+        },
+        "bootTopToSole": {
+          "a": [
+            304,
+            645
+          ],
+          "b": [
+            269,
+            794
+          ],
+          "definition": "left boot shaft top to sole along diagonal, f0",
+          "sourceLengthPx": 153.056,
+          "sourceEndpointUncertaintyPx": [
+            10,
+            10
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.28551726
+        },
+        "otherBoot": {
+          "a": [
+            407,
+            655
+          ],
+          "b": [
+            409,
+            826
+          ],
+          "definition": "other boot shaft top to sole, near-vertical f0; secondary projection check",
+          "sourceLengthPx": 171.012,
+          "sourceEndpointUncertaintyPx": [
+            10,
+            10
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.25553808
+        }
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "sourceRect": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "sourceBounds": {
+            "left": 238,
+            "top": 109,
+            "right": 661,
+            "bottom": 832,
+            "width": 424,
+            "height": 724
+          },
+          "scaledBounds": {
+            "x": 74,
+            "y": 54,
+            "width": 109,
+            "height": 187
+          },
+          "lostPixelsIn256": 0
+        },
+        {
+          "frame": 1,
+          "sourceRect": [
+            887,
+            0,
+            1774,
+            887
+          ],
+          "sourceBounds": {
+            "left": 180,
+            "top": 36,
+            "right": 614,
+            "bottom": 834,
+            "width": 435,
+            "height": 799
+          },
+          "scaledBounds": {
+            "x": 73,
+            "y": 35,
+            "width": 112,
+            "height": 206
+          },
+          "lostPixelsIn256": 0
+        }
+      ]
+    },
+    {
+      "animation": "airLight1",
+      "version": 5,
+      "factor": 0.546,
+      "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+      "outputSha256": "b3b43210f14297e7fbf7f559a6f9f6cefd1f8fa9e179e0ec786245aaf290b0b8",
+      "roomy": "art/characters/goku/production/reassembly-r02/airLight1_v05-uncropped-roomy.png",
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            278,
+            147
+          ],
+          "b": [
+            251,
+            212
+          ],
+          "definition": "collar-center/sternoclavicular point to belt center, f0",
+          "sourceLengthPx": 70.385,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 38.1,
+          "targetUncertaintyPx": 5,
+          "ratio": 0.54131115
+        },
+        "beltWidth": {
+          "a": [
+            218,
+            213
+          ],
+          "b": [
+            279,
+            213
+          ],
+          "definition": "outer blue belt span; excludes pants edge, f0",
+          "sourceLengthPx": 61,
+          "sourceEndpointUncertaintyPx": [
+            6,
+            6
+          ],
+          "targetPx": 36,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.59016393
+        },
+        "bootTopToSole": {
+          "a": [
+            150,
+            386
+          ],
+          "b": [
+            132,
+            464
+          ],
+          "definition": "left boot shaft top to sole along axis, f0",
+          "sourceLengthPx": 80.05,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.54590891
+        }
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "sourceRect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "sourceBounds": {
+            "left": 117,
+            "top": 33,
+            "right": 372,
+            "bottom": 471,
+            "width": 256,
+            "height": 439
+          },
+          "scaledBounds": {
+            "x": 59,
+            "y": 1,
+            "width": 140,
+            "height": 240
+          },
+          "lostPixelsIn256": 0
+        },
+        {
+          "frame": 1,
+          "sourceRect": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "sourceBounds": {
+            "left": 82,
+            "top": 33,
+            "right": 355,
+            "bottom": 465,
+            "width": 274,
+            "height": 433
+          },
+          "scaledBounds": {
+            "x": 54,
+            "y": 4,
+            "width": 150,
+            "height": 237
+          },
+          "lostPixelsIn256": 0
+        },
+        {
+          "frame": 2,
+          "sourceRect": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "sourceBounds": {
+            "left": 36,
+            "top": 42,
+            "right": 453,
+            "bottom": 465,
+            "width": 418,
+            "height": 424
+          },
+          "scaledBounds": {
+            "x": 14,
+            "y": 9,
+            "width": 229,
+            "height": 232
+          },
+          "lostPixelsIn256": 0
+        },
+        {
+          "frame": 3,
+          "sourceRect": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "sourceBounds": {
+            "left": 88,
+            "top": 32,
+            "right": 479,
+            "bottom": 456,
+            "width": 392,
+            "height": 425
+          },
+          "scaledBounds": {
+            "x": 21,
+            "y": 8,
+            "width": 215,
+            "height": 233
+          },
+          "lostPixelsIn256": 0
+        },
+        {
+          "frame": 4,
+          "sourceRect": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "sourceBounds": {
+            "left": 115,
+            "top": 23,
+            "right": 363,
+            "bottom": 456,
+            "width": 249,
+            "height": 434
+          },
+          "scaledBounds": {
+            "x": 61,
+            "y": 4,
+            "width": 136,
+            "height": 237
+          },
+          "lostPixelsIn256": 0
+        }
+      ]
+    }
+  ]
+}

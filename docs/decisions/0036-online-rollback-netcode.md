@@ -204,3 +204,109 @@ off, and reports the first frame where the two runs differ and which values diff
     - One-off events (a hit spark, a callout, a camera cut) that a mispredicted frame played are not taken back.
     - A rewind across a match's end would miss its results screen (the menus are stood in for).
     - The CPU brains are not saved: rollback is for person-vs-person.
+- **ENG-093, 2026-10-16:** the rollback session, proven over a simulated network.
+  - `src/net/rollback.js` `RollbackSession`: one packed number per player and frame (stick as signed 8 bits per axis,
+    buttons as bits), local inputs `delay` frames ahead (default 2), unacknowledged ones resent in every message,
+    remote ones predicted by repeating the last real one. A wrong prediction restores the state saved before that
+    frame and re-simulates to the present quietly. It never runs more than `maxRollback` (8) frames past the newest
+    remote input; past that it stalls, which keeps both machines in step. Every 60 frames the two sides compare the
+    hash of a frame both have confirmed.
+  - `Game.frame` runs `netplay.tick()` instead of `fixedUpdate()` when `game.netplay` is set, and `stepWorld` takes
+    the pads' inputs from it instead of the devices and brains. `InputManager.poll` is now `sample()` (the devices,
+    no pad writes) plus the pad writes, so a session can read the devices for a future frame.
+  - `src/net/netSim.js`: `SimLink` (latency, jitter, loss) and `SimRemote` (the other machine, with its own frame
+    clock and the same stall rule). `?net=sim` plays a normal match through it (a CPU or player 2 on the far side)
+    with a stats overlay.
+  - Test: `det.netplay(log, opts)` plays a recording's two players through the session, one local and one over the
+    simulated network, and compares every frame with a plain replay. Result: MATCH on every frame for naruto-sasuke
+    (6 ± 2 frames one way, 5 % loss: 321 rollbacks up to 7 frames deep; 12 ± 4, 15 % loss: 9 stalls, 8-frame
+    rollbacks), gojo-killua (4 ± 3, 10 %, local as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke
+    (6 ± 2, 5 %), no desyncs; a tampered input at frame 600 is reported as a desync at frame 600. A `?net=sim`
+    match against the CPU ran to its KO with 289 rollbacks and a clean console, and a 3-match soak is clean.
+  - Both fixtures were stale on production (recorded before later gameplay changes; same split at frame 821 there)
+    and are re-recorded on this build: both MATCH on `?det=`, and `det.netplay` matches them at 10 ± 4 frames with
+    12 % loss and at 6 ± 2 with 5 % loss as player 2.
+  - Known gaps for ENG-094:
+    - The CPU brain on the far side of `?net=sim` thinks on the predicted present, not the confirmed past; online
+      matches are person vs person.
+    - A rewind across the match's last KO would replay its results quietly; the server should decide the result
+      from confirmed frames.
+    - The transport is the remaining piece: the lobby server relays the same `in` / `ck` messages.
+- **ENG-094, 2026-10-16:** online rooms on the lobby server.
+  - `server/`: a Cloudflare Worker and one `Room` Durable Object per room code (hibernating WebSockets, an alarm for
+    timers). The rules live in `roomCore.js`, plain JavaScript that a Node test drives with a fake clock. It handles
+    members, the winner-stays-on line (streak cap 5), the relay of `in` / `ck` between the two players, the
+    spectator feed of confirmed frames (all of them for a late joiner), and both players' results. A match ends
+    early on a mismatch, a desync report, a player leaving (forfeit) or a player silent for 10 s (timeout). Every
+    member must run the same simulation build (`SIM_ID`). Allowed origins only, and a flood limit.
+  - Client: `src/net/lobby.js` (the socket), `online.js` (the screens' logic and each match: a RollbackSession for a
+    player, a `SpectateSession` that replays the feed a little behind for everyone else), ONLINE on the mode list,
+    `?room=CODE` invite links, the room screen and the match strip. Online matches have no pause and no intro skip
+    (both run on every machine), and the results screen is the room.
+  - Time sync (frame advantage, GGPO-style) in RollbackSession: a machine that started earlier waits out half the
+    difference instead of making the other roll back every frame.
+  - Fixes the real network exposed: the intro's length was read from the camera, which a quiet re-simulation stands
+    in for (a rollback in the intro would have ended it early on one machine); it is a constant now (`INTRO_DUR`).
+    `link.pump?.(++ticks)` never counted ticks on a link without `pump` (optional chaining skips the argument).
+  - Test: `det.online(log)` plays a recording through the real server (wrangler dev): naruto-sasuke (1,500 frames) and
+    gojo-killua (2,400) MATCH on every frame with the intro, the hash checks pass through the server, and the
+    spectator feed equals both players' inputs. With stand-in bots: winner stays on, forfeit, timeout, a full match
+    to KO reported and counted, spectating, a late join fast-forwarding about 650 frames, the room over a watched
+    match, phone landscape layout. A 3-match soak is clean.
+  - Deployed 2026-10-16 on the user's Cloudflare account (free plan): https://gcd-tourney-lobby.eshin087.workers.dev
+    (`LOBBY_URL`). `det.online` against it from a local page: naruto-sasuke, 1,800 frames, MATCH on every frame at a
+    23 ms ping, 30 hash checks, the feed exact. A page on localhost still uses `npm run lobby` unless `?lobby=` says
+    otherwise.
+  - Playtest 1 (phone vs PC, 2026-10-16): "seems to be some input delay or lag compared to single player". Every
+    match had 2 frames (33 ms) of input delay, on top of a phone's own touch latency. Now the server picks the delay
+    per match from the two players' measured round trips to the room (`pickDelay`): 1 frame up to 67 ms player to
+    player (home Wi-Fi, one region), 2 up to 117 ms, else 3; rollback hides the rest. Clients measure the round trip
+    before joining (the hello carries it) and report it every 5 s. Each player also sends its match's connection
+    stats (rollbacks, stalls, time-sync waits, frame rate) to the room (`GET /room/<CODE>/stats`), so the next
+    playtest shows device by device whether any lag left is the network or a slow frame rate. The match strip shows
+    the delay. `det.online` over the deployed server: MATCH at 1 frame of delay (10 ms ping, rollbacks of at most
+    3 frames, no stalls).
+  - Playtest 2 (phone vs PC, room DUEL2): "it feels right now". The phone's stats: 1 frame of delay, 22 ms to the
+    room, 59 fps (worst second 41), no stalls, rollbacks of at most 3 frames. Merged and live 2026-10-16 (PR #132).
+  - Not yet: reconnecting to a match after a dropped connection; public lobbies, chat and moderation (ENG-095).
+- **ENG-095, 2026-10-16:** public lobbies.
+  - A `Directory` Durable Object lists public rooms (`GET /rooms`); a room reports its summary when the listing
+    changes and every 3 minutes, and drops out 7 minutes after its last report. The online menu browses it, each
+    room with its region (where its first member connected) and a ping measured to where it runs (`/room/<CODE>/ping`).
+  - Cloudflare Turnstile on opening a public room (decision 7) is built but switched off: the user chose "Not now"
+    for creating the widget (2026-10-16). With a site key in the game and the `TURNSTILE_SECRET` Worker secret it
+    turns on (the client's widget, loaded only then, and one siteverify from the room checking the action and the
+    page's hostname). Until then anyone may open a public room, and the directory lists at most two per address.
+    Private rooms (invite only) never need it.
+  - Quick-chat and emotes: 24 fixed lines sent as an index, one per 1.2 s, kept for latecomers, shown over matches.
+  - Names pass a filter (`server/src/names.js`). The host removes members; anyone can vote, and a majority of the
+    others (at least two) removes. A removed member's browser (a random id the client keeps) stays out 10 minutes,
+    and its address too unless someone still in the room shares it: the first version banned the address alone and
+    locked the host out with the member they removed, on one Wi-Fi.
+  - Tests: 24 room-rule cases in Node; locally through wrangler dev a public room opened through the check, listed,
+    browsed (ping 5 ms) and joined; quick-chat both ways and over a watched match; host removal and the ban; a vote
+    taking out a player mid-match (forfeit); a filtered name. `det.online` still matches. On the deployed server
+    (no secret): public rooms open without a token, and a third from one address stays unlisted.
+  - Playtest (phone vs PC): "it works". Merged and live 2026-10-16 (PR #134); on production a public room opened
+    without the check, was listed and joined, and quick-chat went through.
+- **ENG-097, 2026-10-16:** rejoining after a dropped connection (the user's choice after ENG-095).
+  - The server keeps a dropped member's seat for 20 seconds (`GRACE_MS`, marked away; the silence rule for a
+    player is 20 seconds too). The welcome carries a secret token; a hello with `resume` takes the seat back on the
+    new socket (room.js maps members to sockets, so the old socket's late close is ignored).
+  - A player coming back gets its match's start again with how many inputs the room holds, and `log` messages with
+    the ones it lacks. A page that kept the match takes the other side's missed inputs and resends its own
+    (`RollbackSession.resendFrom`). A page that reloaded finds its seat in sessionStorage (the URL still has
+    ?room=) and rebuilds the match from the log (`RollbackSession.resume`: confirmed frames straight, the last few as
+    predictions), quietly, then plays on. The other side stands still with "waiting for X to reconnect" and a
+    countdown; the dropped side shows "reconnecting".
+  - An away member keeps its place in line but isn't put into a new match (found when a reload left an away
+    stand-in in line: the next match waited on it).
+  - Tests: 28 room-rule cases; `det.online` with a drop at frame 700 (the page kept its match) and at frame 800 and
+    500 (a reload, rebuilt from the log) MATCH on every frame through the local server; the game's own controller
+    reconnected mid-match into the same match, rejoined after a real page reload with the same seat, and showed the
+    waiting countdown when the other side dropped.
+  - Playtest (phone vs PC): "the match carried on after the app switch and the Wi-Fi drop". Merged and live 2026-10-16
+    (PR #135); on production a drop at frame 500 through the live server rejoined and matched every frame.
+- **Paused, 2026-10-16 (the user's call):** the online core is live (ENG-094/095/097). Open: peer-to-peer for private
+  rooms (ENG-098, decision 5), switching on the anti-bot check (ENG-099, built but off), and the licensing decision
+  before promoting public play (OPS-017).

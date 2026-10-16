@@ -1,0 +1,58 @@
+[
+  {
+    "frame": 0,
+    "dx": -2,
+    "dy": 1,
+    "diff": 0,
+    "rawPixels": 14635,
+    "finalPixels": 14635
+  },
+  {
+    "frame": 1,
+    "dx": 3,
+    "dy": 1,
+    "diff": 1,
+    "rawPixels": 12071,
+    "finalPixels": 12070
+  },
+  {
+    "frame": 2,
+    "dx": 15,
+    "dy": 1,
+    "diff": 1,
+    "rawPixels": 13201,
+    "finalPixels": 13200
+  },
+  {
+    "frame": 3,
+    "dx": 16,
+    "dy": 1,
+    "diff": 1,
+    "rawPixels": 13330,
+    "finalPixels": 13329
+  },
+  {
+    "frame": 4,
+    "dx": 5,
+    "dy": 1,
+    "diff": 0,
+    "rawPixels": 11947,
+    "finalPixels": 11947
+  },
+  {
+    "frame": 5,
+    "dx": 1,
+    "dy": 1,
+    "diff": 2,
+    "rawPixels": 14687,
+    "finalPixels": 14685
+  },
+  {
+    "frame": 6,
+    "dx": -1,
+    "dy": 1,
+    "diff": 0,
+    "rawPixels": 14616,
+    "finalPixels": 14616
+  }
+]

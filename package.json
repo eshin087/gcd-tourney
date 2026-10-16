@@ -30,7 +30,9 @@
     "test:guard": "node tools/test-pr-guard.mjs && node tools/test-sparse-art.mjs",
     "test:lints": "node tools/test-lints.mjs",
     "relay": "node tools/relay.mjs",
-    "test:relay": "node tools/test-relay.mjs"
+    "test:relay": "node tools/test-relay.mjs",
+    "lobby": "npm --prefix server run dev",
+    "test:lobby": "node server/test/room.test.mjs"
   },
   "dependencies": {
     "three": "^0.170.0"

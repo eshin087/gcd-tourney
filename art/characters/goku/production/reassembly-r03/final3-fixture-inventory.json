@@ -1,0 +1,221 @@
+{
+  "label": "Goku r03 final3 combined 48-color quantized diagnostic fixture. Source-bound candidates plus current calibrated pixels; isolated warn-only copy; no source approvals, body-size approvals, or production scale passes implied.",
+  "warning": "All candidates are deterministic reassemblies of existing drawings; zero generator calls this round. Existing drawing approvals remain attached only to their original approved versions. This fixture changes version/bodyHeight selection in its private manifest copy only.",
+  "scaleGate": "warn",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "selectedNew": [
+    {
+      "animation": "dash",
+      "version": 9,
+      "bodyHeight": 207,
+      "factor": 0.291,
+      "sourceSha256": "7243edf0b162bd933879baf183bc91c83e59ff290b846fad3e4ba6b56eae2b2a",
+      "outputSha256": "de18ea1f4c62657b374d9e7278308ab3cb5b88356374450bf340693f2fb206cf",
+      "factorMethod": null,
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          35,
+          0
+        ]
+      ],
+      "rawLoss": 0
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235,
+      "factor": 0.3,
+      "sourceSha256": "3cd093cacc6742804e94702467514ec3e19e3dda039c00ccad2a703e5861709c",
+      "outputSha256": "813e55ab269ae3e4cdd1ab7e4f191de25b9ae17d3173989c9ed2eba7173390cc",
+      "factorMethod": null,
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115,
+      "factor": 0.272,
+      "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+      "outputSha256": "e703d5e2620931956bccd989ed4d7ce48858f912b6d8b8acbf037ad526c566ac",
+      "factorMethod": null,
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "beamCharge",
+      "version": 7,
+      "bodyHeight": 236,
+      "factor": 0.357620533,
+      "sourceSha256": "fa242621ee5f3904072d1f5dab2aa2587de23bc4e43d29cb498ac4ba022fa411",
+      "outputSha256": "c8261840a2b00918398c9aee69108ebb4a7dd76cdf687a600067c3dd8aacc2f0",
+      "factorMethod": "direct boot-ratio estimate, independently checked against visible second landmark with source and reference uncertainty; no bounding-box scaling",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "beamFire",
+      "version": 7,
+      "bodyHeight": 233,
+      "factor": 0.35057737,
+      "sourceSha256": "ea671eed06fcb55609c39f531d2064025099d4f92255d60470c8b2b4177b6779",
+      "outputSha256": "d4fc7ab44026b0e7ef6909644785225172999989dd1d9b9291c4c4a75565657b",
+      "factorMethod": "direct boot-ratio estimate, independently checked against visible second landmark with source and reference uncertainty; no bounding-box scaling",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "run",
+      "version": 8,
+      "bodyHeight": 237,
+      "factor": 0.589,
+      "sourceSha256": "d98480645714f0778debcbf67fffef932feedacdc65a008adb8fce99c6af2486",
+      "outputSha256": "6b5bcf59b85b51b2e22dbb4f2f1fb6c408c636dbbeb677b634fa0c87dcdf2cdf",
+      "factorMethod": "Astra interval-constrained diagnostic candidate using source endpoint uncertainty; one-factor density remains unverified against every pose",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "light1",
+      "version": 4,
+      "bodyHeight": 237,
+      "factor": 0.383,
+      "sourceSha256": null,
+      "outputSha256": "88c7e9871964e102342e35f531bb4bd043f5218d0fe51b11ccbdc36ba89d2b5b",
+      "factorMethod": "single uniform factor .383 constrained by recorded idle-target uncertainty intervals; follows the source A/B factor relation in v03 (.385), reduced by 0.52% to fit the 237px packer body-height ceiling; not a bounds-selected art rescale",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "light3",
+      "version": 8,
+      "bodyHeight": 237,
+      "factor": 0.499,
+      "sourceSha256": "6ac8c834982930f4ee24c43e8de3fda78d2ff84a28a1694c7ef5a3156f19d72c",
+      "outputSha256": "2a7d311efe0fd19f764039558a7f8bb4dd6e208a3cb15457e8a11c7581550845",
+      "factorMethod": "Astra interval-constrained diagnostic candidate using source endpoint uncertainty; not a bounds fit and undersizing must be reviewed",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "light4",
+      "version": 8,
+      "bodyHeight": 237,
+      "factor": 0.652,
+      "sourceSha256": "1a968ce8893d3217f122244227eb2fad9a9502e2a965c5e0ad832863063ca7d2",
+      "outputSha256": "a04374c4d2bf0a223d48c2d2caba7a7b6b2f859636b7bb17e6f51f97097d5b6c",
+      "factorMethod": "Astra interval-constrained candidate; three independent targets overlap within endpoint/reference uncertainty; not a bounds fit",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 10,
+      "bodyHeight": 237,
+      "factor": 0.599,
+      "sourceSha256": "c7822c99040c120d564dbe76af54f9b9aa23dd2b4a9e799d99a5c21bfc0a3116",
+      "outputSha256": "a3c61d05a58ec28e7f2f1e9cf2133022c9f83181b71012b86f85a4540c389304",
+      "factorMethod": "Astra interval-constrained diagnostic candidate within endpoint/reference uncertainty; near capacity threshold, not a bounds fit",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "airLight1",
+      "version": 6,
+      "bodyHeight": 237,
+      "factor": 0.539,
+      "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+      "outputSha256": "ee5258351a58bb1760e36a31ca6e814f55f9c58fa803fc3695baa2cc6c78b125",
+      "factorMethod": "Astra interval-constrained candidate supported by three direct source lengths; old arm clipping was after packing/anchoring, not source loss",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 6,
+      "bodyHeight": 237,
+      "factor": 0.573,
+      "sourceSha256": "39fc7ce748f4234f88b0d72631f5db9e9e0048e11dd6fa47f9760e7329def6e8",
+      "outputSha256": "bb752a3fad8654542507d92bd0b34ac3ac4ad66f37dd544fad3177a64868eb1d",
+      "factorMethod": "Astra interval-constrained diagnostic candidate; three independent target intervals overlap, source endpoint uncertainty retained; not a bounds fit",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "launched",
+      "version": 7,
+      "bodyHeight": 200,
+      "factor": 0.258,
+      "sourceSha256": "7468616598613a3b004ac5663dd248712d6bc024fc2b12c2aac1252bfd245f9e",
+      "outputSha256": "e89a02399955d828fcef54f94929905663bb755cdb2e78f63c764dde1c9d3338",
+      "factorMethod": "exact median of three visible direct source landmark ratios, calculated programmatically and rounded to 0.001; nearest-neighbor uniform rescale, no per-frame or bounds normalization",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "getup",
+      "version": 11,
+      "bodyHeight": 237,
+      "factor": 0.532,
+      "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+      "outputSha256": "4952721628ffaf64764a5293f224d404ed1955110b548458276c7395e6c1beb8",
+      "factorMethod": "uncertainty-compatible constrained candidate within all three direct landmark intervals; exact density remains uncertain and factor is not selected by image bounds",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "special",
+      "version": 5,
+      "bodyHeight": 237,
+      "factor": 0.596,
+      "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+      "outputSha256": "d53faf9ed2ab3eaed4ee4ee0ad0780fe8e7d596295ea655754fd7c18e78f5e83",
+      "factorMethod": "Astra uncertainty-constrained candidate from two visible landmarks; high uncertainty and no bounds fit",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "win",
+      "version": 5,
+      "bodyHeight": 237,
+      "factor": 0.42,
+      "sourceSha256": "ed788ec4fa8bb96295835de29016c60a33e9db69708e47bc2b921866115b30ca",
+      "outputSha256": "76b35a18d2c0e6c0a51407d2c4e259ea979cf24fc6a753635932fa30903ca130",
+      "factorMethod": "Astra uncertainty-constrained candidate from torso/belt/boot intervals; source-complete, no bounds fit",
+      "frameOffsets": null,
+      "rawLoss": 0
+    },
+    {
+      "animation": "charge",
+      "version": 5,
+      "bodyHeight": 237,
+      "factor": 0.373354296,
+      "sourceSha256": "f857cf8ffc6ffdeebd7938c5dd238fd38c11ca0f989137803653db8bccf6b703",
+      "outputSha256": "c142d365fa85cff79d9fc0b2d229cd80c7bac1f67815bd7d65727466242a0502",
+      "factorMethod": "direct rear-boot ratio, with torso and belt as independent uncertainty-compatible cross-checks; not a median and not a bounds fit",
+      "frameOffsets": null,
+      "rawLoss": 0
+    }
+  ],
+  "calibratedCurrentRows": [
+    "guard_v05=229",
+    "light2_v05=236",
+    "jumpUp_v04=206",
+    "jumpFall_v04=232",
+    "hurtHigh_v08=223"
+  ],
+  "fixtureManifestSourceSha256": "244cc92f294dd316a1cb427ee5d0e65b587193eadad3d19e46c01d4bb97b859f",
+  "fixtureRawSource": "current worktree art/characters/goku/raw copied at build time"
+}

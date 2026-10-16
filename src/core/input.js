@@ -184,6 +184,7 @@ export class InputManager {
       this.suppressPad.delete(e.gamepad.index);
     });
     window.addEventListener('keydown', (e) => {
+      if (e.target?.closest?.('input, textarea')) return; // typing a name or a room code (online menu)
       // Enter too: a focused <button> would otherwise be clicked on top of the queued 'confirm'
       if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Slash', 'Quote', 'Tab', 'Enter', 'NumpadEnter'].includes(e.code)) e.preventDefault();
       if (this.capture) {
@@ -331,7 +332,9 @@ export class InputManager {
     return gps.find((p) => p.index === this.lastPad) || gps[0] || null;
   }
 
-  poll() {
+  // Every bound player's controls right now, without touching a pad: [{ x, y, b: { light: bool, ... } }], the stick
+  // as screen right / up in -1..1. poll() puts it on the pads; online play (ADR 0036) sends it as that frame's input.
+  sample() {
     const capturing = !!this.capture;
     const gps = capturing ? [] : this.activeGamepads();
     for (const [gi, held] of this.suppressPad) {
@@ -342,7 +345,7 @@ export class InputManager {
     }
     const live = (c) => !capturing && !this.suppressKeys.has(c) && (this.keys.has(c) || this.tapped.has(c));
     const touch = !capturing && this.touch?.visible ? this.touch : null;
-    this.bindings.forEach(({ pad, keymap, gp }, bi) => {
+    const out = this.bindings.map(({ keymap, gp }, bi) => {
       const t = bi === 0 ? touch : null; // on-screen controls drive player 1
       const k = (list) => (list || []).some(live);
       let x = (k(keymap.right) ? 1 : 0) - (k(keymap.left) ? 1 : 0);
@@ -360,11 +363,21 @@ export class InputManager {
         if (gb([13])) y = -1;
       }
       if (t && (t.mx || t.my)) { x = t.mx; y = t.my; }
-      pad.tick();
-      pad.setMove(x, y);
-      for (const a of ACTIONS) pad.set(a, k(keymap[a]) || !!gb(PAD_BUTTONS[a]) || !!t?.isHeld(a));
+      const b = {};
+      for (const a of ACTIONS) b[a] = k(keymap[a]) || !!gb(PAD_BUTTONS[a]) || !!t?.isHeld(a);
+      return { x, y, b };
     });
     this.tapped.clear();
+    return out;
+  }
+
+  poll() {
+    this.sample().forEach((s, bi) => {
+      const pad = this.bindings[bi].pad;
+      pad.tick();
+      pad.setMove(s.x, s.y);
+      for (const a of ACTIONS) pad.set(a, s.b[a]);
+    });
   }
 
   // Gamepad menu navigation (edge-triggered) + rebinding capture; call once per rendered frame.

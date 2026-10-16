@@ -1,0 +1,75 @@
+{
+  "animation": "charge",
+  "sourcePath": "art\\characters\\goku\\production\\generation-source\\charge_v04_attempt03.png",
+  "sourceSha256": "f857cf8ffc6ffdeebd7938c5dd238fd38c11ca0f989137803653db8bccf6b703",
+  "inspectedSourceFrame": 0,
+  "sourceFrameLayout": "4 columns x 1 row; source panel 542x725px",
+  "landmarks": {
+    "collar_to_belt": {
+      "a": [
+        274,
+        205
+      ],
+      "b": [
+        274,
+        289
+      ],
+      "targetPx": 38.1,
+      "uncertaintyPx": 5,
+      "definition": "collar-center/sternoclavicular to belt center, source f0",
+      "sourceLengthPx": 84.0,
+      "ratio": 0.4536
+    },
+    "belt_width": {
+      "a": [
+        228,
+        289
+      ],
+      "b": [
+        322,
+        289
+      ],
+      "targetPx": 36,
+      "uncertaintyPx": 4,
+      "definition": "horizontal outer belt edges, source f0",
+      "sourceLengthPx": 94.0,
+      "ratio": 0.383
+    },
+    "boot_top_to_sole": {
+      "a": [
+        140,
+        552
+      ],
+      "b": [
+        125,
+        669
+      ],
+      "targetPx": 43.7,
+      "uncertaintyPx": 6,
+      "definition": "left boot shaft top to sole endpoint, source f0",
+      "sourceLengthPx": 117.96,
+      "ratio": 0.3705
+    }
+  },
+  "targetPx": {
+    "collarToBelt": 38.1,
+    "beltWidth": 36,
+    "bootTopToSole": 43.7
+  },
+  "observedRatios": [
+    {
+      "landmark": "collar_to_belt",
+      "factor": 0.4536
+    },
+    {
+      "landmark": "belt_width",
+      "factor": 0.383
+    },
+    {
+      "landmark": "boot_top_to_sole",
+      "factor": 0.3705
+    }
+  ],
+  "hold": "Source f0 is visibly standing but gives torso ratio .4536, belt ratio .3830 and boot ratio .3705; spread exceeds endpoint uncertainty. Other frames are crouched guard/charge poses and do not provide a second unforeshortened torso/boot pair. No single uniform factor is supported. Do not rescale from body bounds; source remains on technical HOLD without resampling.",
+  "annotation": "charge-source-f0-endpoints.png"
+}

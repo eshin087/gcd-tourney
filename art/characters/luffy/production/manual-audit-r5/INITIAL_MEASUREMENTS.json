@@ -1,0 +1,123 @@
+{
+  "scope": "Source screening plus all7 exact diagnostic cells, no pass",
+  "source": [
+    {
+      "key": "getup-f4",
+      "sourceCrop": "art/characters/luffy/production/relay8-generation/getup-f4.png",
+      "sha256": "00c111636525f055445276a5c41d7821ce6f8a9d14c65ffd2b11cb9cbd6fa005",
+      "segments": [
+        {
+          "name": "neckBaseToSash",
+          "a": [
+            185,
+            115
+          ],
+          "b": [
+            178,
+            202
+          ],
+          "uncertaintyPx": 8,
+          "lengthPx": 87.28115489611717
+        },
+        {
+          "name": "shin",
+          "a": [
+            72,
+            300
+          ],
+          "b": [
+            31,
+            402
+          ],
+          "uncertaintyPx": 8,
+          "lengthPx": 109.9317970379817
+        }
+      ]
+    },
+    {
+      "key": "down-new-f1",
+      "sourceCrop": "art/characters/luffy/production/relay8-generation/down-v02-generated-sourcecrop.png",
+      "sha256": "58f50ff5eacbaa0f2f6738501c3c199ec1e787fecf792a386df6a798c242e01c",
+      "segments": [
+        {
+          "name": "neckBaseToSash",
+          "a": [
+            261,
+            279
+          ],
+          "b": [
+            371,
+            432
+          ],
+          "uncertaintyPx": 12,
+          "lengthPx": 188.4383188207749
+        },
+        {
+          "name": "shin",
+          "a": [
+            700,
+            239
+          ],
+          "b": [
+            874,
+            435
+          ],
+          "uncertaintyPx": 12,
+          "lengthPx": 262.09158704544484
+        }
+      ]
+    }
+  ],
+  "atlas": {
+    "sha256": "fb8efd04a08d7c47c3ad2ce84ab07b01825cd163e2579af0d71dfab131dbca58",
+    "metadataSha256": "efdc35842ced8d9a750eaa18d3b059f21b36361015676c1e27186a4dbef1953a",
+    "dimensions": [
+      1792,
+      256
+    ]
+  },
+  "cells": [
+    {
+      "name": "down-0",
+      "slot": 0,
+      "pngSha256": "678992d814dc0d62794f1ce9eb48a360523880e115e0cab59744f1c75475ad2d",
+      "rgbaSha256": "d987731e95073d98eb928fa8047cbbb81ac5205a20213c1520402e9c6fd53c1a"
+    },
+    {
+      "name": "down-1",
+      "slot": 1,
+      "pngSha256": "553b099b3157945caeb5ac558884353d3ccd0d025bf7c8b56c0a1cbcf7fda4d1",
+      "rgbaSha256": "0523fde13bfc309f0d70dfd7fdecb00318c6f2878454085ade04a3e914999ed3"
+    },
+    {
+      "name": "getup-0",
+      "slot": 2,
+      "pngSha256": "4ec36f8320a1a0ce91615286d17efa8d0b2e3db01b3bb6e5b64057abddb2952d",
+      "rgbaSha256": "da4abb02a04104a04ea2a82234da93dd620f2421e4f26116701ecc67935cdbdf"
+    },
+    {
+      "name": "getup-1",
+      "slot": 3,
+      "pngSha256": "affa42a42d4e5da761a1454721203f6270bff38e4f49a513cbdcf6133518575f",
+      "rgbaSha256": "c1dd6c12b20c56f03214170119c8e486587df6f9f53550672928e4886ed06fee"
+    },
+    {
+      "name": "getup-2",
+      "slot": 4,
+      "pngSha256": "ca2f55267983ae3ec9a65fef0b90f857485b485f304b2796f65d3e3c3e328bbf",
+      "rgbaSha256": "e020bb53e68e678b4b92e19aeb30009a682c4683f1c10245e761ee9f0ca3dcb3"
+    },
+    {
+      "name": "getup-3",
+      "slot": 5,
+      "pngSha256": "e06e9949f816df14054915877b45c3c8587f42eb6d81b925b4143d1225ec24a5",
+      "rgbaSha256": "512ebe6f81c4e4bc54b423962b56ccca7ba017fe13ecc89ab902841101bb3f2d"
+    },
+    {
+      "name": "getup-4",
+      "slot": 6,
+      "pngSha256": "ee99a925a170895a9f028341f8dae7f8bb1616316c860439c2b2a7dc97e88570",
+      "rgbaSha256": "8a6049f9a41cfbda83c77af210c14ae138b12a2b7f8e0b885a45aa5c7e695560"
+    }
+  ]
+}

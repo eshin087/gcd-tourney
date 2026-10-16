@@ -1,0 +1,13 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== luffy =======================================================
+  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md
+  missing core (23): idle, run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (35): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, beamStruggle, beamStruggleAir, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - removed the stale art pack (nothing packable left): public/characters/luffy/anims.json, public/characters/luffy/sheet.png; the game uses the placeholder
+
+done: 0/1 character(s) packed, vfx skipped, crowd skipped, 0 warning(s).
