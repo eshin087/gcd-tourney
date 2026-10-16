@@ -19,6 +19,10 @@ model. Do not silently substitute Sol, another model or another reasoning effort
 - With `collaboration.spawn_agent`, pass `model`, `reasoning_effort: "medium"` and
   `fork_turns: "none"`; a full-history fork inherits its parent's model. Supply a self-contained task,
   worktree path, exact candidate/reference paths, approval state and relevant constraints.
+- Any Codex work that generates a character art asset (including model sheets, expressions, animation
+  strips, portraits and other character-specific images) must run under `gpt-6-luna` with `medium`
+  reasoning. This is the required Codex model for preparing and directing every character-art generation.
+  Do not use another Codex model for that generation work.
 - For a user-requested new Codex chat, pass the same `model` and `thinking: "medium"` where supported.
   This policy does not itself authorize creating new user-visible chats.
 - The final Astra audit compares every frame and loop in the actual quantized atlas with the approved
@@ -27,7 +31,9 @@ model. Do not silently substitute Sol, another model or another reasoning effort
   is insufficient. Return pass/hold findings; Luna handles fixes and Astra rechecks the affected final art.
   An audit pass never replaces the user's image/design approval.
 - These instructions select future agents; they do not switch an existing chat or running agent, or select
-  the image generator's rendering model. If the requested model is unavailable, report the limitation,
+  the image generator's rendering model. The image-generation tool exposes no rendering-model or reasoning
+  selector here, so this rule governs the Codex model directing the generation. If the required Codex model
+  is unavailable, report the limitation,
   continue unaffected work and leave the final audit pending rather than claiming it was completed by Astra.
 - This routing applies to Codex/model-capable launch tools. Claude Code retains its engine and integration
   role; these OpenAI model IDs are not Claude model names. Existing worktree and art-approval rules still apply.

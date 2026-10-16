@@ -78,6 +78,36 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
 ---
 
+## Round 5: final audits and one review page (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+**Goal:** every candidate the merge guard still refuses has an Astra verdict on Claude's final calibrated atlas and sits on
+one phone review page, so the user can approve or reject per strip in one sitting. **Done when** items 1-2 are ticked;
+then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
+`node tools/relay.mjs ring scale --note "<one line>"` (Claude updates NOW.md and tells the user). Read Claude's note at
+the top of CLAUDE_ART_HANDOFF.md ("round-5 calibration done on all five branches") first. Astra/medium for audits, Luna
+for the page (CLAUDE.md model table).
+
+- [ ] 1. **Astra audits of the atlases Claude changed** (every frame, transitions and loop wrap; head, torso, limbs,
+  shoes; uncertainty; no head-only pass):
+  - Gojo `codex/gojo-run-def` at `941d8e0`: idle08 (packed at 232; the user accepted the lowered-hand stance as drawn,
+    so judge anatomy and scale against the neutral and combat cells, not the old guard brief; re-check f7's shoe edge),
+    light3 v06 (231) and airRecover v05.
+  - Naruto `art/naruto-title-r3` at `5dee03f`: stagger08 (179) and taunt10 (170). Claude measured taunt10's torso at
+    0.80-0.85 of the neutral; record it as a residual for the user, no further call.
+  - Naruto alts `art/naruto-alts` at `357951e`: the ten packed alts against their bases and the neutral cell.
+    airHeavyAlt is held entirely (the base plays); light2Alt's kick lands about 28 px under and 32 px past light2's fist.
+  - Killua (`2da444f`) and Sasuke (`ffb6abf`) need no new audit: Killua's win is the approved v04 again, and Sasuke's
+    atlas did not change.
+- [ ] 2. **One phone review page** (a committed preview deployment, like the idle-feedback page): the 28 strips the merge
+  guard lists in Claude's note, each animated from its branch's calibrated atlas next to the approved idle and the
+  neutral/combat cells at one density, with its Astra verdict and residuals in one line. Group by fighter. Flag the
+  four user decisions: taunt10's short torso, Sasuke jumpSquat06's long reaching arm (a redraw would need new budget),
+  light2Alt's low kick, and Killua stagger07's f2 -> f3 pose reset. Put the URL in NOW.md "Your next actions".
+
+Rules: no generation calls, no merge, no production deploy, no approvals; do not edit Claude's sidecar calibration
+fields, manifest bodyHeight / exemptions / scaleManualQA, hitboxes.json or public/ atlases. If something blocks you,
+write BLOCKED here and in NOW.md, tell the user and do not ring.
+
 ## Round 4 after Claude's calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
 **2026-10-15 continuation:** user explicitly approved Gojo idle08 and Goku idle02 as drawn. Recorded at 7dd0a5d / 8788b46; design feedback stop lifted. Claude calibration/technical checks requested in newest handoff. No generation or technical pass.
