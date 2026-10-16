@@ -50,7 +50,7 @@ at Goku's true size (approved idle density). Failed calls count. This is call pe
 - [x] Record permission and dispatch Luna/medium in the existing `.worktrees/art-goku-core`, PR #123.
 - [x] Generate one correction per move, preserve every version, record cumulative attempts and exact source
   provenance; assemble at measured density and have Astra/medium audit the actual final quantized frames.
-- [ ] Publish committed preview and root fighter review rows, commit handoff, then ring `goku-luffy --for user
+- [x] Publish committed preview and root fighter review rows, commit handoff, then ring `goku-luffy --for user
   --kind approval` with the direct preview and exact versions/technical holds. No further redraw is authorized.
 
 **Result (2026-10-16):** one call each consumed (cumulative five each). Heavy v14 passes final Astra screening;
@@ -60,7 +60,8 @@ light3 v11 remains HOLD/excluded because 256px cells lose 800 foreground pixels 
 Actual strict pack: 22 animations/101 frames, exact final audit and hosted hashes verified. Only prior getup contact
 warning remains. Light3 source attribution was recovered from the exact session/call window after its returned-path
 hint was omitted; receipt and caveat preserved. Heavy14 needs image approval; light3 stays held pending a hold/one
-sixth-call decision. No new image was approved. Combined handoff is prepared for the approvals desk.
+sixth-call decision. No new image was approved. Combined handoff `94fc1a7a` was queued by relay ring #6 for the
+user (approval) on 2026-10-16; the desk watcher was off, so this records queued delivery, not proof Claude read it.
 
 ---
 ## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
@@ -75,7 +76,7 @@ approve any image. The preceding no-call round is complete; this permission appl
   every result to its exact returned path, prompt, inputs and hashes.
 - [x] Assemble at measured density, obtain Astra/medium review of the actual quantized candidates, retain any
   technical holds, and publish committed PR #96 preview with root fighter review rows and exact final versions.
-- [ ] Commit the handoff and ring `goku-luffy --for user` with a direct review link and the exact approval/hold
+- [x] Commit the handoff and ring `goku-luffy --for user` with a direct review link and the exact approval/hold
   decision. Stop; call permission never becomes image approval. Goku's two calibration holds remain with Claude.
 
 **Call outcomes (2026-10-16):** down call2 and getup call2 returned sources; final down v03/getup v03 assemblies pass
@@ -87,7 +88,8 @@ of five. No special v02 image exists; the failure counts as 4/4 under the failed
 Exact prompts, reference hashes, returned sources and error outcome are in Luffy's
 `production/relay8-generation/`. A future special retry needs explicit permission for one fifth call, with at most
 five relevant references. The two successful repairs and their preview are complete; the special hold/fifth-call
-decision is included in the combined handoff. No retry or image approval occurred.
+decision is included in the combined handoff `94fc1a7a`, queued by relay ring #6 for the user (approval).
+No retry or image approval occurred. Production agents stopped while the exact decisions wait at 0 - Approvals.
 
 ---
 
