@@ -25,6 +25,7 @@ The user's four accepted placement exceptions and Claude's separate beamFire arm
 ### Evidence
 
 - Review gallery: `public/characters/luffy/calibration-r4/index.html`.
+- Preview deployment: https://gcd-tourney-3m9eawvhw-eshin087s-projects.vercel.app
 - Final Astra report and exact atlas binding: `art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md`.
 - Candidate source, measurement uncertainty and strict-pack provenance: `art/characters/luffy/production/launched-calibration-r4/launched_v02-QA.md`.
 - Version rows and current status: `art/characters/luffy/REVIEW_ROWS.md`, `art/TRACKER.md`, and `art/manifest.json`.
