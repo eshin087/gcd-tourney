@@ -17,6 +17,8 @@ How it works:
 
 ## Goku core: re-assemble at the idle's density (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
+**2026-10-15 Codex checkpoint (ec37e3ae):** the user's workflow-improvement request produced two provisional calibration pilots, guardv05/light2v05, plus four disputed beam experiments in `_qa_hold`. Eighteen strips remain unreassembled; items1-3 are not complete. Detector controls also fail on unchanged approved idle. Exact evidence and the required Claude baseline/calibration check are at the top of CLAUDE_ART_HANDOFF.md. Zero new Goku calls. Expansion waits for verified pilot measurements rather than repeating uncertain factors across the batch.
+
 **Why the scale kept varying (Claude's review of 441b2910 / e9ffcd38):**
 1. **The manifest was unreadable.** 441b2910 rewrote `art/manifest.json` pretty-printed (3032 -> 13362 lines) and left
    a literal `\n` after the closing brace. The packer couldn't read it and packed every strip at template

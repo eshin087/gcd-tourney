@@ -8,6 +8,8 @@ paused._
 
 ## Your next actions
 
+**Goku/Luffy workflow repair: waiting for Claude (2026-10-15).** No user action yet. Goku has two provisional calibration pilots (ec37e3ae), four disputed beam trials held, and18 strips still to reassemble. Luffy's new light1v02 and winv03 (5f0bbf66, PR #96) are filed with technical holds; the recovered special source is unusable. Claude must validate the scale measurements, calibrate final packs and provide an updated review preview before the next audit/approval. The historical preview does not contain these new candidates. See the newest [handoff](agents/CLAUDE_ART_HANDOFF.md); no more redraw calls are running.
+
 **Control chat (2026-10-15):** the registered Codex control chat gathers pending actions and routes your scoped notes. Claude remains the approval desk. After deleting chats, open a new chat on this repository and say **"Initialize this as the gcdTourney control chat."** It follows [COORDINATION.md](COORDINATION.md) to restore bindings and one monitor; no need to repeat the rules per worker.
 
 **Online play, determinism spike done (2026-10-15, PR #109 + #115, ADR 0036, ENG-090):** your iPhone and Chrome now compute the same fight frame for frame (deterministic math + the camera/clock fixes in the test). Live and matching: https://gcd-tourney.vercel.app/?det=naruto-sasuke-s7 and https://gcd-tourney.vercel.app/?det=gojo-killua-s3. Nothing to do; next is ENG-091 (the simulation fixes for real) when you want online work to continue.
