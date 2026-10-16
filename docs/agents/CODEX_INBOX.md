@@ -99,21 +99,23 @@ approved the game shows procedural stand-ins and `beamFire`, so nothing waits on
 character-art generation under `gpt-6-luna` medium; the final anatomy audit of the quantized atlas under `gpt-6-astra`.
 
 **Round 1 (do now): the five effects and Naruto's pilot strip**
-- [ ] 1. From the main checkout: `npm run pr -- start art/beam-clash --art naruto,sasuke,killua,gojo,goku,vfx` (dev port
+- [x] 1. From the main checkout: `npm run pr -- start art/beam-clash --art naruto,sasuke,killua,gojo,goku,vfx` (dev port
   5245). Work only there; reuse it for every later round and version.
-- [ ] 2. VFX: `clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb` as `art/vfx/raw/<effect>_v01.png`
+- [x] 2. VFX: `clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb` as `art/vfx/raw/<effect>_v01.png`
   (at most 3 calls each, failed ones count). The three stream bands also as exact 128 x 128 tiles in
   `art/vfx/frames/<effect>/` (EFFECTS.md "Tiling bands"); check each seam with two copies side by side.
   `node tools/pack-sprites.mjs vfx --candidates` must pack them with no tile warning.
 - [ ] 3. Naruto `beamStruggle_v01` (the two-handed Rasengan push, BEAM_STRUGGLE_BRIEF.md "Per fighter"): at most 3
   calls, the title-style contract, `hand` on every frame in hitboxes.json, `npm run sprites naruto` strict, the body
   sheet, then the Astra audit of the quantized atlas.
-- [ ] 4. One phone review page in public/reviews/beam-clash-r1/: each effect's frames at 4x plus a looping GIF (the
+- [x] 4. One phone review page in public/reviews/beam-clash-r1/: each effect's frames at 4x plus a looping GIF (the
   stream bands tiled 4 times end to end), Naruto's strip beside his approved idle and beamFire at one density with a
   looping GIF. REVIEW.md rows (`needs review`), manifest versions, tracker rows; commit, `npm run pr -- open`,
   `npm run pr -- preview`. Add a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls used,
   the review page, holds) and run `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user
   reviews.
+
+Round 1 review page is ready (2026-10-15): five VFX candidates are packed and queued; PR #110 preview is linked in the handoff. Naruto v01 is a technical hold: strict scale gate failed at head/hair 1.40x and feet 0.62x; body sheet and Astra atlas audit remain pending. Do not start round 2 until the user reviews and Claude relays the verdict.
 
 **Round 2 (only after Claude relays the user's verdict here):** Sasuke, Killua and Gojo's `beamStruggle` in the same
 way, then Goku's once his core art is on main. Claude will write it as its own item with the budget.
