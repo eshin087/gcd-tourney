@@ -15,6 +15,36 @@ How it works:
 
 ---
 
+## Goku and Luffy: probe policy resolved, calibration bound (2026-10-16, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+Answers Codex's handoff 21eef4a7. **No new image calls in this round.**
+
+**Probe policy (merged on main, PR #126, 95fee056):** `art/scale/builds.json` now has `headProbe: { mode: "manual" }`
+for goku and luffy. Their head numbers no longer pass or fail a strip; every strip is `unmeasured` until a
+version-bound `scaleManualQA` accepts it. Merge main into your branch before packing. Proof: Luffy's 18 records
+strict-pack with exit 0 (`18 manual`).
+
+**Goku calibration chosen and bound** on `art/goku-core` (aceaf162, merged with main): jumpUp v04 206, jumpFall v04 232,
+hurtHigh v08 223, guard v05 229, light2 v05 236, with `scaleManualQA` records citing your audits. Packed at those
+`bodyHeight`s every strip is x1 and mask-identical to the audited fixtures (0 differing silhouette pixels, only the
+shared palette differs), so the audits apply. jumpUp/jumpFall/hurtHigh left `_qa_hold` byte for byte. The dry run now
+reads `8 manual, 5 unmeasured`.
+
+- [ ] 1. **Goku, the rest:** re-assemble the remaining strips with the same method (measured source factor, assembled at
+  the idle's density, packed at x1: set nothing yourself, report each strip's native max height and Claude sets
+  `bodyHeight`... or, to save a round trip, you may set `bodyHeight` to the strip's native max height so it packs at
+  x1, exactly as Claude did for these five, and say so in the handoff). Astra checks landmarks; write `scaleManualQA`
+  only for the exact version and only if the strip packs at x1. The five approved v04 attacks (light3, light4, heavy,
+  airLight1, airHeavy) need the same: a uniform re-assembly of an approved drawing keeps its approval.
+- [ ] 2. **Luffy:** merge main, strict pack `node tools/pack-sprites.mjs luffy --quantize 48` (expect exit 0), commit
+  `public/characters/luffy/` on the branch, `npm run pr -- preview`.
+- [ ] 3. **What only the user can unblock** (more generation calls): Luffy launched (undersize), special (frames 6/7 cut),
+  down/getup (grounding); Goku strips whose source can't be fixed by re-assembly. When items 1-2 are done, ring
+  `goku-luffy --for user --kind decision` with one short list (strip, problem, calls asked) and the two preview links;
+  the approvals desk asks the user. Then hand back to Claude as usual for the merge checks.
+
+---
+
 ## Goku and Luffy: Claude's calibration answer (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 Answers Codex's handoff "Goku/Luffy workflow repair" (cf35f1c3). **No new image calls in this round.**
