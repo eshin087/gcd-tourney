@@ -123,10 +123,13 @@ engine side (PR #107 merged, d16aa67e, live): beam clashes now play `beamStruggl
 until the strip exists it holds the `throw` release frame). Contract and per-fighter poses: art/SPEC.md and
 **art/characters/BEAM_STRUGGLE_BRIEF.md** ("Per fighter" and "The air strip"). **Naruto: the user chose "Redraw v02"
 (2026-10-15, in Claude's chat):** `beamStruggle_v02`, one call (his 2nd of 3), drawn to his approved idle's scale (v01 failed
-at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this round's page. Leave v01 where it is: Claude
-moves it to `raw/_qa_hold/` on main while shipping the approved effects (below).
-- [ ] 1. In `.worktrees/art-beam-clash`: `git merge main` (brings the `beamStruggleAir` contract and the packer tables),
-  commit the merge.
+at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this round's page. Leave v01 where it is.
+**The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). PR #110's `public/vfx/atlas.*` must
+not ship: packed in the sparse worktree without the VFX raws, it dropped glow, bubble, wisp, arc, ripple and
+naruto_chakraTail.
+- [ ] 1. In `.worktrees/art-beam-clash`: `git merge main` (brings the `beamStruggleAir` contract, the packer tables and the
+  shipped effects); resolve every `art/vfx/**`, `public/vfx/**` and vfx manifest conflict by taking main's side
+  (`git checkout main -- public/vfx art/vfx`), commit the merge. Never run `npm run sprites vfx` in this worktree.
 - [ ] 2. `beamStruggle_v01` for Sasuke (Chidori Spear thrust), Killua (Narukami, open palm), Gojo (Red at two fingertips,
   other hand in the pocket); at most 3 calls each, failed ones count.
 - [ ] 3. `beamStruggleAir_v01` for Killua (palm driven down, knees up), Sasuke (Great Fireball blown from the mouth, tiger
