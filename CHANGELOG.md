@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Gojo's dash, backDash and superDash are redrawn in the new run's pose (ART-GOJO-RUN-JKL): far hand in his pocket, near fist forward. Dash v10, backDash v07 and superDash v12 approved by the user via the approvals desk and passed by the Astra audit (dash with a comparison note). SuperDash drops the open palm. Sidecar frameOffsets hold the head steady and lift backDash's tucked frame.
 - Added: Gojo dash-family candidates in the approved run v14 pose (ART-GOJO-RUN-JKL): backDash v07 is packed for technical review with an Astra HOLD on tucked-frame placement and uncertain occluded anatomy; dash v10 and superDash v12 remain quarantined after clipping/scale failures. No image approval or production promotion.
 - Art (ART-BEAM-CLASH): generated and recorded user approval via Claude relay #10 for Killua `beamStruggleAir` v02; strict quantized scale gate and body sheet pass, and superseded v01 is archived. Astra anatomy audit and exact hand-anchor measurement remain pending.
 - Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
