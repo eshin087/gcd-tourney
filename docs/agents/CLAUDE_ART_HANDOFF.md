@@ -1,3 +1,54 @@
+# Codex: Goku/Luffy calibration r2 audited and published; Claude technical work next (2026-10-15, goku-luffy)
+
+Answers relay #6, inbox "Goku and Luffy: Claude's calibration answer". **Zero new image calls.** All versioned art is preserved. Existing user drawing approvals remain; these audits do not approve new images or authorize production. Both review galleries are published from committed work. No merge or production deploy.
+
+## Delivery
+
+| Fighter | Local branch / worktree | Source + final docs commit | PR / published slim head | Preview |
+|---|---|---|---|---|
+| Goku | art/goku-core; E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core | 7f934fda + 1366aec7 | [#123](https://github.com/eshin087/gcd-tourney/pull/123); 257a952e | [Latest reassemblies](https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/reassembly/index.html), [pilots](https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/index.html); preview source7f934fda |
+| Luffy | art/luffy-core; E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core | 69458e91 + 12586584 | [#96](https://github.com/eshin087/gcd-tourney/pull/96); 0e4ed774 | [All candidates](https://gcd-tourney-auxet8r2u-eshin087s-projects.vercel.app/characters/luffy/calibration-r2/index.html); preview source69458e91 |
+
+Previews require Vercel sign-in. Local browser checks passed for image loading, frame stepping, one-shot controls, version/absence labels and observed console output. Hosted browser stopped at login; authenticated Vercel fetch verified committed audit records. Goku hosted FINAL_AUDIT.md SHA2565888caf794e675305f05c1c19171539b421d032460cb399c464e987464df90fc (Git LF bytes); Luffy astra-result.json SHA256000e3f1a32fa67e3c748de491f83cbd639586cd30e968c443338a0436b3ee7dc. Both adapter builds passed; Goku hosted build passed. These checks do not certify gameplay contacts or every timed loop. No tests added or run.
+
+Raw art stays in the local worktrees and is excluded from slim PR publication/deploy exports. Public diagnostic galleries contain the exact audited atlas/crops/reports. Both PR bodies and fighter REVIEW_ROWS.md contain proposed review rows; Claude owns shared REVIEW/TASKS/CHANGELOG integration. Keep the worktrees until integration and source preservation are complete. The prune dry-run found only preserved non-worktree residue to audit, no task worktree was removed.
+
+## Luffy: 18 manual body-scale passes; strict pack still writes nothing
+
+Astra inspected all23 animations/108 quantized frames. Report: art/characters/luffy/production/manual-audit-r2/AUDIT.md, measurements.json and pixel-hashes.json. Exact atlas SHA25667152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e; metadata17e1b30bba502d6508ffd37e99d5fbbb8e31ab40a1cc4fc0aab4f5e3f01d711c. All findings are within visible-landmark uncertainty, with concealed/foreshortened segments qualified.
+
+Version-bound scaleManualQA entries were written for run01, dash02, jumpUp01, jumpFall03, land01, light102, light201, light302, light402, heavy01, airLight101, airHeavy01, guard01, hurtHigh01, charge01, beamCharge01, beamFire02 and win03. Those sources are out of _qa_hold with hashes unchanged. Claude's ce3d7e14 win236 and existing light1204 calibration retained. No exemptions or tool changes.
+
+Four holds remain: launched01 real undersize; special01 severed recovery frames6/7; down01/getup01 clipping/grounding and uncertain recovery. Accepted rear-foot/toe/fist placement on run/light3/light4/airLight1 remains separate from body scale. Claude's beamFire arm-only exception is recorded. jumpFall03 retains a17px/80ms loop-continuity concern. Runtime contact fallback28% still needs Claude review. All Luffy core image approvals remain pending. Calls unchanged: light1 total4 (one extra authorization unused), win total2 (single correction used), special total3 spent.
+
+Strict command node tools/pack-sprites.mjs luffy --quantize 48 still exits1 with11 false measured head findings and writes nothing. Log: production/strict-pack-after-manual-audit-r2.log. **Exact policy mismatch:** tools/scale-probe.mjs judgeStrip honors manualQA for unmeasured/partial; false drift/uniform/pop findings are still rejected. This is not a missing manualQA implementation. Claude owns the scoped probe/policy fix; do not add blanket exemptions. Old untracked gameplay sheet/anims remain unchanged and are not certified by r2 (sheet307f96d497147975c7932628cf0ed59a45be8324e59f59cd9c660260ecd63631; animsdb8345df426b8460b3cd269622a6821d1b19e7f579c021259f37b8578c9887f4).
+
+## Goku: 15 reassemblies, 3 source holds, proposed calibration only
+
+Latest outputs: run05, dash04, jumpUp04, jumpFall04, land04, light103, light305, light405, heavy05, airLight105, hurtHigh08, launched07, getup05, special03, win04. All stay in raw/_qa_hold. Intermediate jumpFall03/getup04 are preserved and listed. All18 requested source slots are inventoried; airHeavy/down/charge have no new candidate because reliable landmark/sequence evidence is unresolved. Beam experiments remain unchanged, disputed and outside r2.
+
+Final report: art/characters/goku/production/manual-audit-r2/REASSEMBLY_R02_FINAL_AUDIT.md; all81 quantized frames/16 animations inspected. Atlas c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0; metadata dec929ae11544546e7a8a8f3c23c860ffa33f4844882bfda2cc9313d7cab9167. Forty-eight opaque RGB colors independently counted. All62 retained frames changed RGB in the final palette and were visually rechecked; alpha masks matched. Reference collar-center to belt38.1±5px, belt36±4, boot43.7±4; every-frame evidence/pose uncertainty in FIXTURE2_MEASUREMENTS. No hidden shin/knee numeric certification.
+
+- Proposed visible-anatomy PASS: jumpUp04 at bodyHeight206 (tucked boot projection qualified), jumpFall04 at232, hurtHigh08 at223.
+- light103 body-only PASS at238; hair at y3 remains a1px intrusion into the4px margin.
+- Separate native-height pilot PASS: guard05 at229 and light205 at236, exact atlas b319f07b217b76f1292eeba0f1559464b6d6104d7091790180bc8db7293abfe8 / metadata b4df0fed72369440395e697d5a78cde9a0487f9c6a443830ad497c92e94cf324. Production198/204 shrinks them about13.5% and remains HOLD. Approved light2v04 drawing approval survives calibration.
+- Body undersize holds: run05 torso/boot32.5/32.9 (screening correction1.17/1.33); dash04 25.8/26.2 (1.48/1.67); land04 recovery28.2/35.4 (1.23–1.35); light405 recovery30.1/35.7 (1.22–1.27); heavy05 27.9/34.8 (1.26–1.37); getup05 25/32.6 (1.33–1.52). Ratios are screening evidence, NOT approved uniform factors; re-mark source endpoints first.
+- Fit/source holds: run rear bootsf3/f6; dash rear bootf1; light3 detached/cut armf1–3 and top cropf4 (raw already lost11rows); light4 kickf4/f5; heavy arms/fragmentsf3–5; airLight1 attack armsf2/f3; launched head left bothframes; special all8 hair top/raw loss768pixels; win all4 hair top/f2 fist/staging loss928pixels. Body-consistent but cut outputs are not full anatomy passes. Roomy diagnostic companions preserve overflow where available.
+- Source-only holds: airHeavy prior boot endpoint was in background (no proven anatomy mismatch; needs reliable re-marking); down prior torso endpoints were on head/upper torso (needs second stable segment); charge has neutral/combat loop snap, while central ratios alone do not prove impossible anatomy. No new generation requested or authorized here.
+
+Consolidated inventory and proposed-only settings: production/reassembly-r02/FINAL_INVENTORY.json and PROPOSED_CALIBRATION.json. Manifest diff is exactly15 .version token changes, with approval/status/bodyHeight untouched. **No unconditional Goku scaleManualQA was written against production settings that render different pixels.** Existing raw-only low-pose manualQA for launched06/down04/getup03 needs Claude review/supersession, not reuse as final atlas proof. Current strict production pack remains held and writes nothing.
+
+## Concrete next action for Claude
+
+1. Resolve the known-invalid head classification/manualQA policy for these audited versions under TOOL-GOKU-PROBE; no broad exemptions. Luffy's18 records already exist. Goku settings/passes are proposed and must stay bound to the audited pixels.
+2. Choose Goku calibration, re-pack into actual production candidates, compare frame hashes and send changed final pixels for Astra recheck. Correct remaining source factors/placement from reliable endpoints; three source holds and beams remain unresolved. Do not use bbox-height fitting or diagnostic ratios as blind rescale factors.
+3. Strict re-pack Luffy, compare final cell pixels to r2 and have changed pixels rechecked; resolve its four holds, loop/grounding and contact findings. Then provide the technically dispositioned preview for the user's image decisions through 0 - Approvals.
+4. Carry these review rows/status into shared records when integrating. No merge or production release authorization is supplied by this handoff.
+
+**Status:** Waiting for Claude; not ready for a blanket image approval. **User action:** none for this checkpoint. Codex stops after committing and ringing goku-luffy; no generation/monitor continues. Remaining Goku reassemblies are explicitly unfinished because evidence is insufficient, not silently marked complete.
+
+---
+
 # Codex: Killua air v02 approved; technical follow-up to Claude (2026-10-15, beam-clash)
 
 The user approved Killua `beamStruggleAir_v02` as drawn via Claude relay #10 (“Approve v02”). Approval is recorded in REVIEW, manifest and TRACKER. Superseded v01 is preserved at `art/characters/killua/raw/_rejected/beamStruggleAir_v01.png`; v02's strict quantized pack passed (48 colors), no scale-gate finding for this strip, and the body sheet has H=.97–1.03 / B=.97–.99 with zero flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. The full Killua atlas was refreshed locally but its outputs were not committed because they also changed other move metadata; Claude owns the clean integration pack. No VFX was packed.
