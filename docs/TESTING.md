@@ -607,6 +607,7 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 | `det.record({ p1, p2, seed, name, maxFrames, dumpAt })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
 | `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs with the brains off (the match setup, `Game.kinds`, still says CPU); `{ match, first: { frame, groups }, step, frame, burst8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
 | `det.replay(log, { rollback: { every: 10, depth: 8 } })` | the rollback stress test (ADR 0036): every `every` frames save the state, play `depth` frames on random inputs, restore, re-simulate them quietly (`Game.quiet`) on the right ones; every frame is still checked. `.rollback` holds the rewind count and the save / restore / re-simulation times |
+| `det.netplay(log, { latency, jitter, loss, delay, maxRollback, localPlayer, seed, tamper })` | the rollback session (`src/net/rollback.js`, ENG-093) over a simulated network (`src/net/netSim.js`): one side is this game, the other the recording's inputs arriving `latency` ± `jitter` frames late with `loss` (0-1) dropped; every frame is compared with a plain replay. `{ match, first, compared, frames, stats }` (rollbacks, deepest rewind, stalls, mispredictions, desync checks). `tamper: frame`: the other side sends another input there (jump) but reports the recording's hashes, so the desync check must fire |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
 | `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, the rollback stress test (ROLLBACK: MATCH, with save / restore / 8-frame re-simulation times), and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
@@ -631,6 +632,23 @@ saves), and commit them with the change.
 `npm run lint:simmath` (`tools/lint-sim-math.mjs`, part of `prebuild`) fails the build on `Math.sin`, `cos`, `hypot`,
 `atan2`, `pow`, `exp`, `log` ... in the simulation files (fighter, kit, game, projectiles, clash, techAnim, basis,
 moves, input, the character files); use `dmath.*` there.
+
+### Rollback netplay on a simulated network (ENG-093)
+
+`?net=sim` plays a normal match through the rollback session, with a simulated network between you and the other
+side, so rollback can be felt and tested before the lobby server exists:
+
+- `/?fight=naruto,sasuke&mode=solo&net=sim&lag=6&jitter=2&loss=5`: you against a CPU whose inputs cross the network.
+- `/?fight=naruto,sasuke&mode=versus&net=sim&lag=8&loss=10`: player 2's keys cross it (two people, one keyboard).
+- `lag` and `jitter` are one-way frames (6 = 100 ms, a 200 ms ping), `loss` is in %, `delay` the input delay
+  (default 2). The overlay at the top shows the ping, rollbacks per second, the deepest rewind and the stalls. Your
+  own inputs are `delay` frames late, as online; mispredicted frames are re-simulated silently, so a hit you saw may
+  turn out not to have happened.
+- There is one simulation, so this mode has no desync check; `det.netplay` covers that.
+
+Expected today (`det.netplay` on fresh recordings): a MATCH for every frame of naruto-sasuke (6 ± 2, 5 % loss; 12 ± 4,
+15 % loss), gojo-killua (4 ± 3, 10 %, as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke (6 ± 2, 5 %),
+with up to 8-frame rewinds, stalls under heavy lag and no desyncs; `tamper: 600` reports a desync at frame 600.
 
 ## Performance budget
 

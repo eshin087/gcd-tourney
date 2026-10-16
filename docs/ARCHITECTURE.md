@@ -93,7 +93,12 @@ src/game/
   dmath.js                  deterministic hypot / sin / cos / atan / atan2 from + - * / and Math.sqrt for every
                             gameplay file (Safari's Math.hypot differs from Chrome's in the last bit);
                             tools/lint-sim-math.mjs keeps engine Math out of those files
-src/net/                    online play (ADR 0036), so far its determinism test:
+src/net/                    online play (ADR 0036): rollback, a simulated network, the determinism test
+  rollback.js               RollbackSession (GGPO-style, transport-agnostic): packed inputs (packInput / applyInput),
+                            input delay, prediction, save / restore and quiet re-simulation, stalls past maxRollback
+                            (time sync), state-hash checks (desync); takes over Game.frame's step when game.netplay
+  netSim.js                 SimLink (latency / jitter / loss) + SimRemote (the other machine) for tests and ?net=sim
+                            (a normal match through rollback, CPU or player 2 on the far side, stats overlay)
   simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, control
                             basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
   detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and
@@ -141,6 +146,7 @@ frame(dtReal)                                   (real time, clamped to 0.1 s)
 ├─ if not paused:
 │   ├─ accumulator += dt * timeScale                            <- KO slow-mo only paces the steps (presentation)
 │   ├─ while acc >= 1/60 (max 6 steps): fixedUpdate()          <- the simulation, match flow included
+│   │      (online / ?net=sim: netplay.tick() instead: send, receive, rewind, then fixedUpdate or a stall)
 │   └─ alpha = acc / DT                                         <- render interpolation factor
 └─ render(dtReal)
 ```
@@ -156,7 +162,9 @@ pieces a rollback needs (re-simulated frames were already shown once).
 ```
 0. basis.step(fighters)         the control basis (basis.js): the fight framing's yaw from the fighters' positions,
                                 damped on the fixed step; its right / fwd are the screen axes the step reads
-1. input.poll()                 keyboard + gamepads -> Pad (pressed/released edges, buffers, double-tap dash)
+1. input.poll()                 keyboard + gamepads -> Pad (pressed/released edges, buffers, double-tap dash);
+                                poll = sample() (the devices) + the pad writes. With game.netplay, steps 1-2 are
+                                netplay.applyInputs(): every pad gets its frame's packed input (rollback.js)
 2. director?.update()           CPU vs CPU only: the show director's beam-clash cue (ADR 0027)
    brains[i].update(game)       CpuBrain / DummyBrain press buttons on their own Pad (same interface as a human)
 3. superFlash timer             a running super flash counts down
