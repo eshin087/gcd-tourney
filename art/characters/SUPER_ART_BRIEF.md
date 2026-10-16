@@ -74,3 +74,71 @@ rim, black tomoe; they must read as **red at a glance** in every image.
   his left eye**, the right eye's Mangekyō staring straight out at the viewer, a thin line of blood under the left eye
   (the strain of the technique; keep it one thin line). Black flames lick around his feet and lower legs. Rim light
   in crimson on his right side, the rest of him in shadow so the eye is the brightest thing on him.
+
+## Lessons from the Sasuke pilot (apply to every fighter)
+
+- The two backdrops passed on their first call; both cutouts needed three rounds, always for the **face** (wider,
+  rounder eyes and a raised chin than the approved cells) and for **small identity details** (the eye pattern, which
+  eye bleeds). So for every `fg`: compare the face with the approved title-style cells *before* review, name the
+  identity details in the prompt as hard constraints, and when a version is close, **edit only the face/detail region**
+  of it instead of regenerating the whole figure.
+- The character's own CHARACTER.md palette always wins (purples included).
+- The HUD shows a backdrop with the eye strip until a cutout is approved, so a backdrop can be approved and shipped alone.
+
+## Round 2 (user go-ahead 2026-10-15): Naruto, Killua, Gojo, Goku, Luffy
+
+Read each fighter's CHARACTER.md (identity checklist, face, palette) first. Same four images per fighter, same sizes and
+rules. Goku and Luffy: draw their `fg` only once their title-style reference is approved (else do the two backdrops
+and mark the cutouts blocked).
+
+### Naruto (Shippuden, Sage-era look per CHARACTER.md)
+
+- **SUPER: Shadow Clone Barrage.** `super_bg`: a wall of shadow clones charging across a dusk battlefield in a blur of
+  orange and black, smoke puffs where clones vanish, a **Giant Rasengan** forming at the right of the band (blue-white
+  sphere, spiraling streaks). `super_fg`: Naruto chest-up, one palm thrust forward toward the right holding the
+  Rasengan's glow (no full orb, the engine draws it), grin of effort, headband tails whipping, two clone silhouettes
+  just behind his shoulders.
+- **ULTIMATE: Four-Tails.** `ult_bg`: a scorched crater under a blood-red sky, boiling red-black chakra rising like
+  smoke, **four chakra tails** silhouetted huge across the upper half, cracks glowing ember-orange. `ult_fg`: Naruto in
+  the Four-Tails cloak: a dark crimson-black chakra shroud over his body, bubbling edge, white glowing eyes and mouth,
+  four tails behind him, crouched on all fours, roaring toward the right. Keep his build readable under the shroud.
+
+### Killua (Godspeed era per CHARACTER.md)
+
+- **SUPER: Speed of Lightning.** `super_bg`: a dark night city rooftop band shattered by **dozens of blue-white
+  afterimage streaks** criss-crossing, lightning forks, a faint Godspeed aura glow at the right. `super_fg`: Killua
+  chest-up, hair standing up crackling with blue lightning, claw hand raised beside his face, cold half-lidded stare
+  toward the right, blue sparks along both arms.
+- **ULTIMATE: Whirlwind (Godspeed).** `ult_bg`: a storm-black void filled by a **spiral of electricity** coiling around
+  the center like a tornado, a pale blue core, shards of rock floating. `ult_fg`: Killua full figure in a low ready
+  crouch toward the right, his whole body sheathed in crackling blue-white electricity, hair streaming up, eyes glowing
+  blue, one hand forward in a claw.
+
+### Gojo (blindfold look per CHARACTER.md)
+
+- **SUPER: Domain Expansion: Unlimited Void.** `super_bg`: an infinite starfield of white and violet light lines
+  rushing toward a vanishing point at the right, the floor a mirror-black plane; a faint ring of the domain's boundary.
+  `super_fg`: Gojo chest-up, **blindfold pulled down to reveal the Six Eyes** (bright cyan-blue, iris rings), right
+  hand raised at chest height with index and middle fingers crossed (the domain sign), slight smile.
+- **ULTIMATE: Hollow Purple.** `ult_bg`: a city skyline torn open by a **violet orb carving a trench** toward the
+  viewer, red and blue light fusing at the center into purple, debris lifting. `ult_fg`: Gojo three-quarter figure,
+  Six Eyes uncovered, one arm extended toward the right with the hand open, the other raised, both glowing (left blue,
+  right red), hair lifted by the force.
+
+### Goku (Cell saga, Super Saiyan per CHARACTER.md)
+
+- **SUPER: Kaio-ken Rush.** `super_bg`: a rocky wasteland under a dark sky, a **red Kaio-ken aura** flaring across the
+  band, afterimages of punches, rock pillars cracking. `super_fg`: Goku chest-up, fist pulled back, red aura licking
+  around him, teeth clenched, eyes locked right.
+- **ULTIMATE: Kamehameha.** `ult_bg`: the Cell Games ring and sky, a **blue-white beam** blasting across from left to
+  right, the light washing the clouds. `ult_fg`: Goku full figure in the classic Kamehameha pose, both palms cupped
+  forward to the right, golden hair, blue-white glow between his hands (the engine draws the beam).
+
+### Luffy (Enies Lobby per CHARACTER.md)
+
+- **SUPER: Jet Gatling (Gear Second).** `super_bg`: a stone courthouse plaza band, **steam billowing**, a storm of
+  blurred fists hammering toward the right. `super_fg`: Luffy chest-up in Gear Second: flushed pink-red skin, steam
+  rising off his body, fist cocked back, straw hat on, fierce grin.
+- **ULTIMATE: Gigant Pistol (Gear Third).** `ult_bg`: the Enies Lobby tower and sea at sunset, a **giant inflated fist**
+  silhouette smashing down toward the right. `ult_fg`: Luffy full figure with one **gigantic inflated arm** raised
+  behind him (Gear Third), the rest of him normal size, straw hat, determined shout toward the right.

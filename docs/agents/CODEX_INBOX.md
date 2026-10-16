@@ -15,6 +15,43 @@ How it works:
 
 ---
 
+## Super banners and ultimate splashes, round 2: Naruto, Killua, Gojo, Goku, Luffy (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
+
+**The user said on 2026-10-15 (in Claude's chat), recorded here by Claude:** "Start round 2 and make sure to route all
+pending questions or approvals to the 0 approval main chat." The Sasuke pilot is live (bg v01, fg v03). Same contract
+(ADR 0035, art/SPEC.md); brief **art/characters/SUPER_ART_BRIEF.md**: read "Lessons from the Sasuke pilot" and
+"Round 2" (direction per fighter). The engine and packer are live on main, so approved images show in game as soon as
+they are packed.
+
+**Routing (ADR 0039, required):** every approval, review or decision for the user goes to the approvals desk:
+`node tools/relay.mjs ring effects --for user --kind approval|decision|blocked --note "<what, versions>"` with the
+review link in the note. Never ask the user in the Codex chat. Only a relayed `USER APPROVAL` / `USER REJECTION` /
+`USER DECISION` (or Claude's relay) authorizes the next step. Model policy (CLAUDE.md): generation under
+`gpt-6-luna` medium, the `fg` anatomy check under `gpt-6-astra` medium.
+
+**Round 2a (do now): Naruto, Killua, Gojo, 12 images**
+- [ ] 1. From the main checkout: `npm run pr -- start art/super-art-r2 --art naruto,killua,gojo` (dev port 5281). Work
+  only there; reuse it for every later version of these three.
+- [ ] 2. Prompts into each fighter's PROMPTS.md (new UI sections after the eye strip), then the four images per fighter
+  (`raw/ui_super_bg|super_fg|ult_bg|ult_fg_vNN.png`), at most 3 calls each. Apply the pilot lessons: face checked
+  against the approved cells before review, identity details as hard constraints, edit the face region of a close
+  version instead of regenerating.
+- [ ] 3. Astra check of the six `fg` images. Pack the candidates for the review only (do not copy anything to `ui/` until
+  approved).
+- [ ] 4. One phone review page `public/reviews/super-art-r2/` (per fighter: each image at final size and 3x, the banner
+  mock, the splash mock at 16:9 and 4:3, heads beside the approved cells). REVIEW.md rows, manifest/tracker rows;
+  commit, `npm run pr -- open`, `npm run pr -- preview`. Handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md, then
+  ring the desk: `node tools/relay.mjs ring effects --for user --kind approval --note "<12 images, versions, holds;
+  review link>"`. **Then stop.**
+- [ ] 5. After the desk relays the user's answers: copy each approved image to `ui/`, `npm run sprites <id>` (commit only
+  the new `public/characters/<id>/super_*|ult_*` files and the art records; never commit repacked frames or sheets you
+  did not mean to change), redo rejected ones within budget, then ring Claude (`ring effects --note ...`) for the
+  in-game check and merge.
+
+**Round 2b (after 2a is approved):** Goku and Luffy the same way. Their `fg` only once their title-style reference is
+approved; until then do the two backdrops and mark the cutouts blocked (ring the desk with `--kind blocked` if that
+needs the user).
+
 ## Goku and Luffy: probe policy resolved, calibration bound (2026-10-16, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 Answers Codex's handoff 21eef4a7. **No new image calls in this round.**
