@@ -1,0 +1,65 @@
+{
+  "animation": "getup",
+  "version": 8,
+  "factor": 0.545,
+  "sourcePath": "art/characters/goku/production/generation-source/getup_v03_attempt02.png",
+  "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+  "standardStrip": "art/characters/goku/raw/_qa_hold/getup_v08.png",
+  "standardStripSha256": "81685742876917c76be36cc75a271bc8f1920726d7f683a2ce84eaf3d918dae0",
+  "standardStripLostSourcePixels": 1,
+  "method": "unclipped nearest-neighbor diagnostic rendering from exact per-frame source rectangles; no palette quantization, no approval, not pack-ready",
+  "frames": [
+    {
+      "frame": 0,
+      "dimensions": [
+        187,
+        168
+      ],
+      "nativeHeight": 168,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/getup_v08-f00.png",
+      "sha256": "115084c17ce0ed5deef4a32949e150f1f482bb5150b2bf8ac1732489b564a0fb"
+    },
+    {
+      "frame": 1,
+      "dimensions": [
+        154,
+        196
+      ],
+      "nativeHeight": 196,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/getup_v08-f01.png",
+      "sha256": "41307507817617ea21414a97a61d95dac9e7bb0b110a93faaaea1191bcdaa97f"
+    },
+    {
+      "frame": 2,
+      "dimensions": [
+        162,
+        200
+      ],
+      "nativeHeight": 200,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/getup_v08-f02.png",
+      "sha256": "f60731a793a5f1697e19f3e222a2944398cb81951cb4adaac5b66794b23fa8d5"
+    },
+    {
+      "frame": 3,
+      "dimensions": [
+        173,
+        222
+      ],
+      "nativeHeight": 222,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/getup_v08-f03.png",
+      "sha256": "91169f221f91e74e914bed9135e8241e13c4c83de78d3f19b1aaaf415d41b383"
+    },
+    {
+      "frame": 4,
+      "dimensions": [
+        164,
+        242
+      ],
+      "nativeHeight": 242,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/getup_v08-f04.png",
+      "sha256": "ae086036729d743463961fb17d7343620e40a1e6ee43ca9d96a6e17bcf5dd644"
+    }
+  ],
+  "contactPath": "art/characters/goku/production/reassembly-r03/roomy/getup_v08-contact.png",
+  "contactSha256": "05120f15888f280f4d3616ece66aa3b1c1876eb0e4846d086f9a7be7cd180cf5"
+}

@@ -1,0 +1,24 @@
+{
+  "animation": "light4",
+  "sourcePath": "art/characters/goku/production/generation-source/light4_v04_attempt04.png",
+  "sourceSha256": "1a968ce8893d3217f122244227eb2fad9a9502e2a965c5e0ad832863063ca7d2",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame": 7,
+  "frameOrigin": [
+    1330,
+    443
+  ],
+  "panelDimensions": [
+    444,
+    444
+  ],
+  "gridSpacingPx": 50,
+  "lines": "cyan lines are every 50 source px in panel-local coordinates"
+}

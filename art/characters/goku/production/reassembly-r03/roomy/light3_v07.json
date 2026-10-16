@@ -1,0 +1,85 @@
+{
+  "animation": "light3",
+  "version": 7,
+  "factor": 0.568,
+  "sourcePath": "art/characters/goku/production/generation-source/light3_v04_attempt04.png",
+  "sourceSha256": "6ac8c834982930f4ee24c43e8de3fda78d2ff84a28a1694c7ef5a3156f19d72c",
+  "standardStrip": "art/characters/goku/raw/_qa_hold/light3_v07.png",
+  "standardStripSha256": "4b8572f6b76ec35352cf0eed1050c094d2e16fd491fe299fe6e3ebfe1bd172f0",
+  "standardStripLostSourcePixels": 1137,
+  "method": "unclipped nearest-neighbor diagnostic rendering from exact per-frame source rectangles; no palette quantization, no approval, not pack-ready",
+  "frames": [
+    {
+      "frame": 0,
+      "dimensions": [
+        164,
+        229
+      ],
+      "nativeHeight": 229,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f00.png",
+      "sha256": "a326247dda01a1d56610d38dc442a7653c68aedc0ecc2c05cc472d23ef8fddb4"
+    },
+    {
+      "frame": 1,
+      "dimensions": [
+        148,
+        224
+      ],
+      "nativeHeight": 224,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f01.png",
+      "sha256": "175ee5263b9c2d659939f72331c108b0919f6e44e1007dcf4e23fba1d135cc4a"
+    },
+    {
+      "frame": 2,
+      "dimensions": [
+        161,
+        248
+      ],
+      "nativeHeight": 248,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f02.png",
+      "sha256": "529470dca15a9db70788d6dd7b95af22f9864a639bfd2d5c7074066a793d74ea"
+    },
+    {
+      "frame": 3,
+      "dimensions": [
+        198,
+        248
+      ],
+      "nativeHeight": 248,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f03.png",
+      "sha256": "8a3c6d8b86369260635544330722e44b5512efd1d8b8b4fd98b6cebcdead9e15"
+    },
+    {
+      "frame": 4,
+      "dimensions": [
+        153,
+        270
+      ],
+      "nativeHeight": 270,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f04.png",
+      "sha256": "4cc58bb666c6638cff0adb5d44232d8eb9f5850f1f4aae1ef5485854396a4422"
+    },
+    {
+      "frame": 5,
+      "dimensions": [
+        163,
+        241
+      ],
+      "nativeHeight": 241,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f05.png",
+      "sha256": "8a8f2361d3308bdfe294c36b92fc3af038e4a2aac45a0c6f349384840a358b38"
+    },
+    {
+      "frame": 6,
+      "dimensions": [
+        163,
+        241
+      ],
+      "nativeHeight": 241,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-f06.png",
+      "sha256": "8a8f2361d3308bdfe294c36b92fc3af038e4a2aac45a0c6f349384840a358b38"
+    }
+  ],
+  "contactPath": "art/characters/goku/production/reassembly-r03/roomy/light3_v07-contact.png",
+  "contactSha256": "629dfdeda60e5adebc34f38d0a0845c6887e4dfeb0817b36c2b2589490ec348d"
+}

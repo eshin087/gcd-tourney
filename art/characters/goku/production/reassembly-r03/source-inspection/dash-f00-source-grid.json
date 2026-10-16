@@ -1,0 +1,24 @@
+{
+  "animation": "dash",
+  "sourcePath": "art/characters/goku/production/generation-source/dash_v03_attempt03.png",
+  "sourceSha256": "7243edf0b162bd933879baf183bc91c83e59ff290b846fad3e4ba6b56eae2b2a",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "grid": [
+    2,
+    1
+  ],
+  "frame": 0,
+  "frameOrigin": [
+    0,
+    0
+  ],
+  "panelDimensions": [
+    887,
+    887
+  ],
+  "gridSpacingPx": 50,
+  "lines": "cyan lines are every 50 source px in panel-local coordinates"
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "animation": "beamFire",
+    "version": 7,
+    "factor": 0.35057737,
+    "nativeMaxHeight": 233,
+    "totalLostPixels": 0,
+    "sourceSha256": "ea671eed06fcb55609c39f531d2064025099d4f92255d60470c8b2b4177b6779",
+    "outputSha256": "d4fc7ab44026b0e7ef6909644785225172999989dd1d9b9291c4c4a75565657b"
+  },
+  {
+    "animation": "beamCharge",
+    "version": 7,
+    "factor": 0.357620533,
+    "nativeMaxHeight": 236,
+    "totalLostPixels": 0,
+    "sourceSha256": "fa242621ee5f3904072d1f5dab2aa2587de23bc4e43d29cb498ac4ba022fa411",
+    "outputSha256": "c8261840a2b00918398c9aee69108ebb4a7dd76cdf687a600067c3dd8aacc2f0"
+  }
+]
