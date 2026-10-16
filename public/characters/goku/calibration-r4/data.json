@@ -1,9 +1,9 @@
 {
   "status": {
-    "drawingApproval": "PENDING — heavy v14 technical pass is not drawing approval; approved v04 remains the approved version.",
-    "technicalAudit": "PASS — exact combined strict atlas, 22 animations / 101 frames; drawing approval pending.",
-    "holdDecision": "Separate from drawing approval; decision pending.",
-    "finalAtlas": "Final Astra exact-pixel audit PASS; approvedVersion4 remains selected approval; v14 drawing approval pending."
+    "drawingApproval": "APPROVED — Goku heavy v14 approved by user via Claude relay #10 (\"Approved\"); light3 v11 remains unapproved and on technical HOLD.",
+    "technicalAudit": "PASS — exact combined strict atlas, 22 animations / 101 frames; heavy v14 approved by user.",
+    "holdDecision": "Separate from drawing approval; light3 v11 hold decision remains pending.",
+    "finalAtlas": "Final Astra exact-pixel audit PASS; heavy v14 approved via relay #10; light3 v11 remains excluded."
   },
   "animations": {
     "light3": {

@@ -13,7 +13,7 @@
 <p>Drawing approval: <span id="drawingApproval"></span></p>
 <p>Technical audit: <span id="technicalAudit"></span></p>
 <p>Hold decision: <span id="holdDecision"></span></p>
-<p class="small">These are separate decisions. The redraw-call authorization did not approve the images. Heavy v14 has a technical PASS and awaits drawing approval; light3 v11 is on technical HOLD for clipping and is excluded from the atlas.</p>
+<p class="small">These are separate decisions. Relay #10 user decision: "Approved" applies to Goku heavy v14. The call authorization itself did not approve the images. Light3 v11 remains on technical HOLD for clipping and is excluded from the atlas.</p>
 </section>
 <section class="panel">
 <h2>Native candidate player</h2>
@@ -42,16 +42,16 @@
 </section>
 <section class="panel">
 <h2>Heavy candidate at native size</h2>
-<p>Heavy v14 is shown at uniform 0.720 density and native bodyHeight 235. The exact final audit passed all eight poses at x1; tallest top is y=5, with no clipped foreground-mask pixels. User drawing approval is pending; v04 remains the approved version.</p>
+<p>Heavy v14 is shown at uniform 0.720 density and native bodyHeight 235. The exact final audit passed all eight poses at x1; tallest top is y=5, with no clipped foreground-mask pixels. User approved heavy v14 via Claude relay #10 on 2026-10-16 ("Approved").</p>
 <div class="contacts"><img src="assets/heavy-contact.png" alt="All eight heavy quantized diagnostic frames"></div>
 </section>
 <section class="panel">
 <h2>Final exact combined strict atlas</h2>
-<p id="finalAtlasState">This actual branch atlas contains 93 retained audited frames plus heavy v14 (101 total); light3 remains excluded. Final Astra exact-pixel audit passed. User drawing approval is pending.</p>
+<p id="finalAtlasState">This actual branch atlas contains 93 retained audited frames plus heavy v14 (101 total); light3 remains excluded. Final Astra exact-pixel audit passed. Heavy v14 was approved by the user via Claude relay #10; light3 v11 remains on technical HOLD and excluded.</p>
 <p class="small">Sheet SHA256 <code>f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2</code> · metadata SHA256 <code>2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6</code> · all 101 frames at x1, 48 colors.</p>
 <div class="row"><label>Atlas animation <select id="atlasMove"></select></label><button id="atlasPlay">Pause</button><button id="atlasReplay">Replay</button><button id="atlasPrev">Previous</button><button id="atlasNext">Next</button><span id="atlasCaption" class="badge"></span></div>
 <div class="row" style="margin-top:12px"><div><p class="small">Exact final-atlas cell</p><img id="atlasCell" class="frame" alt="Exact final strict atlas cell"></div><div style="flex:1;min-width:220px"><p class="small">Nearest-neighbor enlargement</p><img id="atlasZoom" class="zoom" alt="Enlarged final strict atlas cell"></div></div><div id="atlasContact" class="contacts"></div>
-<p class="small">The player below reads the exact audited branch public sheet and anims.json. Technical pass does not grant drawing approval.</p></section>
+<p class="small">The player below reads the exact audited branch public sheet and anims.json. Heavy v14 is user-approved; light3 v11 remains held and excluded.</p></section>
 <section class="panel">
 <h2>Source and QA evidence</h2>
 <details><summary>Measured source screen, original source images, factors, and exact hashes</summary>
