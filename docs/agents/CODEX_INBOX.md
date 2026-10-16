@@ -20,7 +20,7 @@ How it works:
 **USER APPROVAL via Claude:** "Approve Goku light3 v13 and Luffy special v02 as drawn." Exactly these two drawings are approved. No new calls are authorized.
 
 - [x] Recorded the exact user approval in main's shared REVIEW.md and resumed one Luna/medium worker per existing fighter worktree.
-- [ ] Update branch manifests, TRACKER and character review rows; preserve/version-archive superseded candidates, repack and verify exact audited pixels.
+- [x] Updated branch manifests, TRACKER and character review rows; version-archived superseded candidates byte-identically. Both strict packs and hosted outputs match the final audited pixels (2026-10-16; Goku `f1d3e245`, Luffy `9eb545e8`).
 - [ ] Complete Claude's following full-set review request, commit combined handoff and route remaining drawing approvals through the desk.
 
 ---
@@ -32,14 +32,16 @@ Do this after recording the user's approval of Goku light3 v13 and Luffy special
 Claude ran the merge guard (`node tools/pr.mjs check art/goku-core` / `art/luffy-core`): 21 Goku and 20 Luffy strips are
 refused because their newest raw has no `approvedVersion`. Two cases:
 
-- [ ] 1. **Re-assemblies of drawings the user already approved** (Goku light2 v05, light4, airLight1, airHeavy from the
+- [x] 1. **Re-assemblies of drawings the user already approved** (Goku light2 v05, light4, airLight1, airHeavy from the
   approved v04 drawings, and any other strip whose newest version is a uniform re-assembly of an approved drawing with
   no new image call): set `approvedVersion` to the newest version with a REVIEW_ROWS note "re-assembly of the
   user-approved vNN drawing at the measured density; no new image". Only where that's exactly true.
+  Completed 2026-10-16: Goku light2 v05, light4 v09, airLight1 v07 and airHeavy v06 retain the approved v04 drawings; source/candidate hashes and no-call lineage independently checked. No additional Luffy source drawing had proven approval.
 - [ ] 2. **Strips the user has never approved as drawings** (everything else in the guard's list): build one final review
   page per fighter showing the complete packed set (every core strip, playable frame by frame, at one scale beside the
   idle), publish both with `npm run pr -- preview`, then ring `goku-luffy --for user --kind approval` with the two links
   and the exact list of strips and versions to approve. The approvals desk asks the user.
+  Both pages are published and browser/artifact-checked (2026-10-16); exact 16 Goku / 19 Luffy pending versions and links are in the newest CLAUDE_ART_HANDOFF.md entry. Approval relay follows the handoff commit.
 - [ ] 3. After the user's answer is relayed: record `approvedVersion` for each approved strip (move any rejected one to
   `raw/_qa_hold/`), re-run `node tools/pr.mjs check` until it passes, commit, `npm run pr -- open`, and hand back to
   Claude (ring `goku-luffy`) for the merge.
