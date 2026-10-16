@@ -143,6 +143,42 @@ moves it to `raw/_qa_hold/` on main while shipping the approved effects (below).
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
+## Gojo running phase 3: K run in two halves, new budget (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**The user decided on 2026-10-15 in Claude's chat, after reading the phase-2 holds:** (1) the run gets a **new budget of
+3 calls** using the **two-part method** below; (2) **the dashes retry only after the run is done**, with the finished
+run frames as their reference. That will be a later item with its own budget, so don't draw dashes now. K stays the
+direction. J/L v02 are not chosen. This approves no image.
+
+Why two parts: every phase-2 call (and J/L v02) drew the second half of the stride with the same leg forward again. A
+single 8-frame image doesn't get the generator to swap legs, so the swap gets its own drawing.
+
+- [ ] 1. **Part A, 1 call:** `raw/_parts/run_v13_A.png`, the 4 first-half frames (f0 contact with the **L** leg
+  forward, f1 down, f2 passing, f3 flight), in the K pose of phase 2 (far L hand pocketed, near R arm bent and
+  pumping, lean ~35°, knee drive). Use K_v01 f0-f3 as the pose reference, but **redraw** f2's hair at the neutral's
+  size (K's f2/f6 hair was ~26% too wide). The near arm swings opposite the near (R) leg: forward in f0, while the
+  R leg is behind.
+- [ ] 2. **Part B, 1 call, with Part A attached as the reference image:** `raw/_parts/run_v13_B.png`, "the same four
+  poses, same size and framing, with the legs swapped: the **R** (near) leg forward in f4, and the near R arm swung
+  back". Spell out per frame which leg is forward and which leg is drawn in front; the near leg is lighter and drawn
+  over the far leg. If B comes back with the same leg forward, the third call is the retry. Don't mirror the image
+  (that would put the pocket hand on the wrong side).
+- [ ] 3. `npm run stitch -- gojo run v13 --counts 4,4` (dry run first). Check that f3→f4 and f7→f0 flow without a jump,
+  and that the legs really alternate across all 8 frames on a one-scale contact sheet beside idle f0.
+- [ ] 4. `node tools/pack-sprites.mjs gojo --quantize 48` (keep dash/backDash/superDash on the shipped approved
+  versions: the phase-2 holds stay in `raw/_qa_hold/`). Then Astra/medium audits run v13 in the packed atlas (every
+  frame and the loop; pocket hand, leg identity, head/hair, torso). Use the third call for a fix only if it's unused.
+- [ ] 5. Review row (`needs review`), `art/characters/gojo/ANIMATIONS.md` §run rewritten to match, manifest
+  `version` 13 (leave `approvedVersion`/`bodyHeight` to Claude), commit, `npm run pr -- open`, `npm run pr -- preview`,
+  a handoff at the top of the branch's docs/agents/CLAUDE_ART_HANDOFF.md (calls used, stitch factor, heights, Astra
+  verdict, preview link with `?fight=gojo,naruto`), then `node tools/relay.mjs ring gojo-run --note "<one line>"`
+  from main. Then stop: approval is the user's.
+
+Rules: as in phase 1 below. Budget: 3 calls total for run v13 (A + B + one retry or fix); no other new images.
+Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
+
+---
+
 ## Gojo running phase 2: production in direction K (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
 
 **The user picked K (fast athletic) on 2026-10-15 in Claude's chat:** "Go with K (fast athletic) for Gojo's run." This
