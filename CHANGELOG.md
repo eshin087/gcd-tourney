@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: the drawn beam clash effects (ADR 0034, ART-BEAM-CLASH): clashBurst, streamBolt, streamLance, streamFlame and redOrb v01, approved by the user, replace the procedural stand-ins. Packed with every existing effect kept (Codex's branch atlas, packed in a sparse worktree without the VFX raws, had dropped glow, bubble, wisp, arc, ripple and naruto_chakraTail).
+
 - Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
 
 - Fixed: the determinism page (`?det=`) reports a fixture recorded on other gameplay code as STALE instead of as a split: fixtures carry a simulation fingerprint (`vite.config.js` simId, `import.meta.env.SIM_ID`); both fixtures re-recorded on the beam-clash and melee-clash code (ENG-090, ADR 0036).

@@ -1386,11 +1386,11 @@
       "ripple": {"frames":5,"ms":50,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":2,"approvedVersion":2},
       "naruto_chakraTail": {"frames":6,"ms":60,"colorRule":"tinted","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1},
       "dustWave": {"frames":6,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "clashBurst": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "streamBolt": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "streamLance": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "streamFlame": {"frames":4,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null},
-      "redOrb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":0,"approvedVersion":null}
+      "clashBurst": {"frames":6,"ms":45,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streamBolt": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streamLance": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "streamFlame": {"frames":4,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
+      "redOrb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1}
     }
   },
   "decals": {
