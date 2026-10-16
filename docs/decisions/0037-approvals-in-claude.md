@@ -4,6 +4,7 @@
 **Date:** 2026-10-15
 **Task:** TOOL-045
 **Amends:** [ADR 0033](0033-claude-codex-relay.md) decision 5 and 6
+**Amended by:** [ADR 0039](0039-approvals-desk.md): one Claude chat, `0 - Approvals`, asks for every lane
 
 ## Context
 

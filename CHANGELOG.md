@@ -14,6 +14,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).
 
 - Added: the drawn beam clash effects (ADR 0034, ART-BEAM-CLASH): clashBurst, streamBolt, streamLance, streamFlame and redOrb v01, approved by the user, replace the procedural stand-ins. Packed with every existing effect kept (Codex's branch atlas, packed in a sparse worktree without the VFX raws, had dropped glow, bubble, wisp, arc, ripple and naruto_chakraTail).
+- Added: one approvals desk (ADR 0039, TOOL-046): only the Claude chat `0 - Approvals` asks the user. Codex rings for the user and other Claude chats' new `relay ask` share one queue (`.relay/asks/`), watched by `relay wait all` and answered with `relay answer <id>`; lane watchers leave the user's rings to the desk. `/desk` project command and a SessionStart hook (`relay brief`) restore it after chats are deleted. `npm run status` opens with "Needs you now" and lists only each asset's newest REVIEW.md row (166 rows down to 39).
 
 - Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
 
