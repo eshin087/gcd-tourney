@@ -1,6 +1,28 @@
 # Proposed shared review rows (Claude to integrate)
 
-Current r4 findings below supersede earlier technical-pending notes; all candidate image approvals remain pending. Historical evidence follows unchanged apart from corrected file links.
+Current r5 finding: Astra's final strict audit PASSed all 22 selected animations / 100 quantized frames, including down v03 and getup v03, on sheet SHA-256 `0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122` and metadata SHA-256 `dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f`. Earlier down/getup v01 holds are superseded by v03; special v01 remains the only absent/held core animation after the failed fourth request. No user art/design approval or runtime contact/grounding approval is implied. Historical evidence follows.
+
+## Relay #8 repair candidates (2026-10-16)
+
+These candidate rows document the initial repair candidates and interim findings. Their seven-cell diagnostic atlas and measurements are historical; the final r5 result and adopted atlas are summarized above. No art/design approval is recorded. Interim Astra screening found down v02 torso/shin undersized; corrected getup endpoints supported a larger uniform factor. Those candidates remain preserved as superseded history.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-16 | luffy | down | [v02](characters/luffy/raw/down_v02.png) | v02 | needs review | Preserves v01 f0 and replaces only f1 with a complete new low side-lying pose. | Generation call 2/3. f0 is an exact source crop; f1 uses provisional 0.46 nearest-neighbor brim-span transform; Astra interim audit finds torso/shin undersized (27.8±5px / 33.2±4px vs 41.5±6px / 52.8±6px). Source endpoint ratios suggest ~0.205–0.210 direct factor, pending final check; v02 is held. Isolated strict pack refused to write pending low-confidence manual QA. See [candidate QA](production/relay8-generation/down_v02-QA.md). Not approved. |
+| 2026-10-16 | luffy | getup | [v02](characters/luffy/raw/getup_v02.png) | v02 | needs review | Five intact recovery poses; full-source extraction avoids nominal panel separators crossing outlines. | Generation call 2/3. Sidecar bodyHeight 190; frozen diagnostic helper scale 190/439=0.43280 after cleanup. Astra's interim corrected f4 torso/shin points support ~0.478 vs current 0.43280, so v02 may be undersized; final audit pending. No manual pass. See [candidate QA](production/relay8-generation/getup_v02-QA.md). Not approved. |
+
+Relay #8 special call 4/4 was rejected before generation because the call supplied six refs to a five-ref maximum. No special v02 source or candidate exists; keep special v01 held. See `production/relay8-generation/special-v02-call04.md`. No retry is authorized this round.
+## Relay #8 deterministic v03 assemblies (2026-10-16)
+
+These immutable v03s are deterministic reassemblies, not new image-generation calls. Cumulative calls remain down 2/3, getup 2/3, special 4/4 failed/no output. Astra's final strict audit PASSed all 22 selected animations / 100 actual quantized frames on the exact adopted shared-palette atlas and metadata hashes recorded above. Down/getup v03 are current technical passes within measurement uncertainty; runtime contact/grounding checks and user art approval remain pending. Special remains absent/held.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-16 | luffy | down | [v03](characters/luffy/raw/down_v03.png) | v03 | needs review | Preserves the original f0 source crop and rebuilds only f1 from its intact original source crop at a direct measured factor. | Deterministic, no new generation call; f1 factor .205; bodyHeight106/x1. Final palette quantization may change RGB values from diagnostic cells. Astra final strict r5 audit PASS on the exact adopted 22-animation/100-frame atlas, within measurement uncertainty. Runtime/contact and user art approval pending. See [QA](production/relay8-generation/down_v03-QA.md) and [final audit](production/manual-audit-r5/FINAL_STRICT_AUDIT.md). |
+| 2026-10-16 | luffy | getup | [v03](characters/luffy/raw/getup_v03.png) | v03 | needs review | Reassembles all five complete figures from the original continuous source with one uniform measured density. | Deterministic, no new generation call; factor .477; bodyHeight209/x1. Astra final strict r5 audit PASS on the exact adopted 22-animation/100-frame atlas, within measurement uncertainty. Runtime/contact and user art approval pending. See [QA](production/relay8-generation/getup_v03-QA.md) and [final audit](production/manual-audit-r5/FINAL_STRICT_AUDIT.md). |
+
+Astra evidence: [candidate audit](production/manual-audit-r5/V03_CANDIDATE_AUDIT.md), [cell hashes](production/manual-audit-r5/V03_PIXEL_HASHES.json). Isolated full-format atlas and pack logs live under `production/relay8-generation/strict-r5/`; do not copy these pixels into the public gameplay atlas until final Astra recheck completes.
+
 
 ## Astra manual body-scale audit r2 (2026-10-15)
 
