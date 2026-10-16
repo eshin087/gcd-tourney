@@ -10,5 +10,7 @@
   "_hands": "hand: palm point (256 cell) for shots and beams: the centroid of the drawn hand past the wrist, measured by Claude 2026-10-11 on the title-style art from the packed frames. special f3 is the Narukami bolt's spawn frame (without a hand it spawned from the auto hit box on his head), throw f1 the air Narukami's; beamFire f0 is the beam / beam clash origin. beamFire re-measured 2026-10-12 (Claude QA agent, round 3) on v09 packed at bodyHeight 123: the centroid of the skin of both hands past the sleeve cuff; f1 is the recoil frame (palms 15 px behind f0/f2, the beam root stays at f0).",
   "special": {"3": {"hit": [[166, 116, 30, 29]], "hand": [183, 132]}, "4": {"hit": [[169, 117, 27, 29]], "hand": [181, 133]}, "5": {"hit": [[162, 121, 26, 26]], "hand": [177, 135]}, "_refit": "scaled x0.9737 about the pivot with the strip's bodyHeight 170 -> 166 (size consistency pass, 2026-10-11)"},
   "throw": {"1": {"hand": [167, 111]}, "2": {"hand": [158, 112]}},
-  "beamFire": {"0": {"hand": [183, 157]}, "1": {"hand": [168, 157]}, "2": {"hand": [183, 157]}}
+  "beamFire": {"0": {"hand": [183, 157]}, "1": {"hand": [168, 157]}, "2": {"hand": [183, 157]}},
+  "beamStruggle": {"0": {"hand": [192, 154]}, "1": {"hand": [191, 154]}, "2": {"hand": [189, 154]}, "_note": "the Narukami palm; Claude 2026-10-15 on the packed approved strip (48 colours), stream origin for the beam clash (ADR 0034)"},
+  "beamStruggleAir": {"0": {"hand": [199, 168]}, "1": {"hand": [199, 167]}, "2": {"hand": [203, 178]}, "_note": "the Narukami palm, driven down; Claude 2026-10-15 on the packed approved strip (48 colours), stream origin for the beam clash (ADR 0034)"}
 }

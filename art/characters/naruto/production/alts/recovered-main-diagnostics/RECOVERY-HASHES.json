@@ -1,0 +1,34 @@
+[
+  {
+    "sha256": "91CCF198BEDA5E27DF538215E2861BCAC6ECD7A0C581E18CA6FC7036F11E1257",
+    "name": "fixture\\manifest.json"
+  },
+  {
+    "sha256": "3FB1F4B6CB115308A88BE3C76F2A6B52B8F5379E93FE61B12DD06CE1C51CF7A3",
+    "name": "fixture\\characters\\naruto\\raw\\idle_v07.json"
+  },
+  {
+    "sha256": "EEB62E3D8981C168CCC48FFEB847EF8308E267C84F9B3B5E2B29A690D1A15DB3",
+    "name": "fixture\\characters\\naruto\\raw\\idle_v07.png"
+  },
+  {
+    "sha256": "84F750AE1058118673D9CDA8F59D32C39A185173CA5F2CBBF7ED5BA163A8BB7F",
+    "name": "fixture\\characters\\naruto\\raw\\light3Alt_vNaN.png"
+  },
+  {
+    "sha256": "1BC340D852A23202DEC4497176F014196A3A4AEF2ED79E8790EC3A9E90B85A6B",
+    "name": "fixture\\scale\\builds.json"
+  },
+  {
+    "sha256": "61651D5370B10DD9D76973138C9533407D7F3E00A0D98C1B1BF7865E97113A2D",
+    "name": "packed-light3Alt\\characters\\naruto\\anims.json"
+  },
+  {
+    "sha256": "C2E2D766B7DFC89E933824646D242936F6A52CFDE0FF7D0F58C0A98FFE926EE7",
+    "name": "packed-light3Alt\\characters\\naruto\\sheet.png"
+  },
+  {
+    "sha256": "19E1D7B7D820B69DFEFE93EA385867AF01BEF9922A6A62C1C060EC4B7551FECA",
+    "name": "light3Alt-strict.txt"
+  }
+]

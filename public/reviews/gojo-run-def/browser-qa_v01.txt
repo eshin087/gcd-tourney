@@ -1,0 +1,1 @@
+Browser verified 2026-10-12: final localhost demo loaded 3/3 images, autoplay progressed16loops, pause worked, step reached frame7 then wrapped to0 and incremented loop17, playback resumed. Browser captured errors:0. Screenshot: public/reviews/gojo-run-def/demo_browser_v01.png. This proves playback and controls, not natural anatomical leg alternation or production QA.

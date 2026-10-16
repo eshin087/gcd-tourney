@@ -1,0 +1,1194 @@
+{
+  "audit_model": "GPT-6 Astra",
+  "reasoning": "medium",
+  "date": "2026-10-15",
+  "source_commit": "5dee03f74b5113eae1951a0393c4e66865132956",
+  "hashes": {
+    "public/characters/naruto/sheet.png": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+    "public/characters/naruto/anims.json": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+    "public/art-review/title-style-pilot/naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "public/art-review/title-style-pilot/naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751",
+    "art/characters/naruto/reference/idle_approved.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+    "art/characters/naruto/raw/idle_v07.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+    "art/characters/naruto/raw/stagger_v08.png": "be43bf84a100d4b4e0e03eb794b48d941291f426ada8630f291f4b5dd6f11ac7",
+    "art/characters/naruto/raw/stagger_v08.json": "35d4afca2f495558c8fdbec2a12bcc3ed11e9f12a75435c4770f7215437d0403",
+    "art/characters/naruto/raw/taunt_v10.png": "a7699b300b2600979e3fe11bb78ddfede0fe7f28f918433d6210e19f9180eb7f",
+    "art/characters/naruto/raw/taunt_v10.json": "f87cb5c92cc5662570150580ab089277bf374c83dc71086bd041c1aaad6f42a1"
+  },
+  "frames": {
+    "idle": {
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "stagger": {
+      "frames": [
+        131,
+        132,
+        133,
+        134
+      ],
+      "durations": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "taunt": {
+      "frames": [
+        148,
+        149
+      ],
+      "durations": [
+        250,
+        250
+      ],
+      "loop": true
+    }
+  },
+  "method": "Manual independent endpoint estimates on actual quantized atlas at 4x nearest neighbor. No rescaling of comparison cells. Limb uncertainties are total lengths, not per-endpoint errors. Ratios are central screens, not numeric passes. H includes hair. S is lateral sandal length.",
+  "measurements": {
+    "neutral": {
+      "H": [
+        [
+          132,
+          37
+        ],
+        [
+          132,
+          76
+        ]
+      ],
+      "T": [
+        [
+          133,
+          76
+        ],
+        [
+          139,
+          126
+        ]
+      ],
+      "right": [
+        [
+          149,
+          86
+        ],
+        [
+          155,
+          111
+        ],
+        [
+          159,
+          143
+        ],
+        [
+          142,
+          139
+        ],
+        [
+          149,
+          181
+        ],
+        [
+          150,
+          210
+        ]
+      ],
+      "left": [
+        [
+          111,
+          86
+        ],
+        [
+          103,
+          114
+        ],
+        [
+          97,
+          141
+        ],
+        [
+          123,
+          140
+        ],
+        [
+          110,
+          180
+        ],
+        [
+          97,
+          209
+        ]
+      ],
+      "S": [
+        [
+          146,
+          233
+        ],
+        [
+          174,
+          233
+        ]
+      ],
+      "lengths_px": {
+        "H": 39.0,
+        "T": 50.4,
+        "S": 28.0,
+        "right": {
+          "upper_arm": 25.7,
+          "forearm": 32.2,
+          "thigh": 42.6,
+          "shin": 29.0
+        },
+        "left": {
+          "upper_arm": 29.1,
+          "forearm": 27.7,
+          "thigh": 42.1,
+          "shin": 31.8
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.0,
+        "T": 1.0,
+        "S": 1.0
+      }
+    },
+    "combat": {
+      "H": [
+        [
+          139,
+          79
+        ],
+        [
+          139,
+          117
+        ]
+      ],
+      "T": [
+        [
+          138,
+          117
+        ],
+        [
+          128,
+          155
+        ]
+      ],
+      "right": [
+        [
+          157,
+          119
+        ],
+        [
+          166,
+          139
+        ],
+        [
+          155,
+          126
+        ],
+        [
+          139,
+          164
+        ],
+        [
+          174,
+          186
+        ],
+        [
+          178,
+          211
+        ]
+      ],
+      "left": [
+        [
+          117,
+          123
+        ],
+        [
+          99,
+          139
+        ],
+        [
+          121,
+          126
+        ],
+        [
+          117,
+          163
+        ],
+        [
+          94,
+          190
+        ],
+        [
+          75,
+          211
+        ]
+      ],
+      "S": [
+        [
+          173,
+          234
+        ],
+        [
+          202,
+          234
+        ]
+      ],
+      "lengths_px": {
+        "H": 38.0,
+        "T": 39.3,
+        "S": 29.0,
+        "right": {
+          "upper_arm": 21.9,
+          "forearm": 17.0,
+          "thigh": 41.3,
+          "shin": 25.3
+        },
+        "left": {
+          "upper_arm": 24.1,
+          "forearm": 25.6,
+          "thigh": 35.5,
+          "shin": 28.3
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length.",
+        "Bent/raised arm projection is foreshortened; not a strict length comparator.",
+        "Crouched/splayed thigh and shin projections cannot certify standing skeletal lengths."
+      ],
+      "ratios_to_neutral": {
+        "H": 0.974,
+        "T": 0.78,
+        "S": 1.036
+      }
+    },
+    "idle0": {
+      "H": [
+        [
+          139,
+          80
+        ],
+        [
+          139,
+          120
+        ]
+      ],
+      "T": [
+        [
+          138,
+          120
+        ],
+        [
+          131,
+          157
+        ]
+      ],
+      "right": [
+        [
+          158,
+          120
+        ],
+        [
+          170,
+          142
+        ],
+        [
+          157,
+          127
+        ],
+        [
+          141,
+          165
+        ],
+        [
+          173,
+          189
+        ],
+        [
+          178,
+          212
+        ]
+      ],
+      "left": [
+        [
+          119,
+          123
+        ],
+        [
+          100,
+          140
+        ],
+        [
+          124,
+          127
+        ],
+        [
+          118,
+          164
+        ],
+        [
+          95,
+          190
+        ],
+        [
+          79,
+          211
+        ]
+      ],
+      "S": [
+        [
+          174,
+          235
+        ],
+        [
+          203,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 37.7,
+        "S": 29.0,
+        "right": {
+          "upper_arm": 25.1,
+          "forearm": 19.8,
+          "thigh": 40.0,
+          "shin": 23.5
+        },
+        "left": {
+          "upper_arm": 25.5,
+          "forearm": 27.3,
+          "thigh": 34.7,
+          "shin": 26.4
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length.",
+        "Bent/raised arm projection is foreshortened; not a strict length comparator.",
+        "Crouched/splayed thigh and shin projections cannot certify standing skeletal lengths."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 0.748,
+        "S": 1.036
+      }
+    },
+    "stagger0": {
+      "H": [
+        [
+          136,
+          63
+        ],
+        [
+          136,
+          103
+        ]
+      ],
+      "T": [
+        [
+          133,
+          104
+        ],
+        [
+          131,
+          155
+        ]
+      ],
+      "right": [
+        [
+          148,
+          113
+        ],
+        [
+          155,
+          139
+        ],
+        [
+          158,
+          158
+        ],
+        [
+          139,
+          168
+        ],
+        [
+          146,
+          193
+        ],
+        [
+          150,
+          212
+        ]
+      ],
+      "left": [
+        [
+          109,
+          115
+        ],
+        [
+          101,
+          138
+        ],
+        [
+          95,
+          158
+        ],
+        [
+          119,
+          168
+        ],
+        [
+          109,
+          192
+        ],
+        [
+          98,
+          212
+        ]
+      ],
+      "S": [
+        [
+          143,
+          235
+        ],
+        [
+          174,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 51.0,
+        "S": 31.0,
+        "right": {
+          "upper_arm": 26.9,
+          "forearm": 19.2,
+          "thigh": 26.0,
+          "shin": 19.4
+        },
+        "left": {
+          "upper_arm": 24.4,
+          "forearm": 20.9,
+          "thigh": 26.0,
+          "shin": 22.8
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 1.012,
+        "S": 1.107
+      }
+    },
+    "stagger1": {
+      "H": [
+        [
+          134,
+          63
+        ],
+        [
+          134,
+          103
+        ]
+      ],
+      "T": [
+        [
+          131,
+          104
+        ],
+        [
+          130,
+          155
+        ]
+      ],
+      "right": [
+        [
+          147,
+          113
+        ],
+        [
+          154,
+          139
+        ],
+        [
+          158,
+          158
+        ],
+        [
+          139,
+          168
+        ],
+        [
+          145,
+          193
+        ],
+        [
+          150,
+          212
+        ]
+      ],
+      "left": [
+        [
+          108,
+          115
+        ],
+        [
+          100,
+          138
+        ],
+        [
+          95,
+          158
+        ],
+        [
+          119,
+          168
+        ],
+        [
+          108,
+          192
+        ],
+        [
+          98,
+          212
+        ]
+      ],
+      "S": [
+        [
+          143,
+          235
+        ],
+        [
+          173,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 51.0,
+        "S": 30.0,
+        "right": {
+          "upper_arm": 26.9,
+          "forearm": 19.4,
+          "thigh": 25.7,
+          "shin": 19.6
+        },
+        "left": {
+          "upper_arm": 24.4,
+          "forearm": 20.6,
+          "thigh": 26.4,
+          "shin": 22.4
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 1.012,
+        "S": 1.071
+      }
+    },
+    "stagger2": {
+      "H": [
+        [
+          136,
+          63
+        ],
+        [
+          136,
+          103
+        ]
+      ],
+      "T": [
+        [
+          133,
+          104
+        ],
+        [
+          131,
+          155
+        ]
+      ],
+      "right": [
+        [
+          148,
+          113
+        ],
+        [
+          154,
+          139
+        ],
+        [
+          158,
+          158
+        ],
+        [
+          139,
+          168
+        ],
+        [
+          146,
+          193
+        ],
+        [
+          150,
+          212
+        ]
+      ],
+      "left": [
+        [
+          109,
+          115
+        ],
+        [
+          101,
+          138
+        ],
+        [
+          95,
+          158
+        ],
+        [
+          119,
+          168
+        ],
+        [
+          109,
+          192
+        ],
+        [
+          98,
+          212
+        ]
+      ],
+      "S": [
+        [
+          143,
+          235
+        ],
+        [
+          173,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 51.0,
+        "S": 30.0,
+        "right": {
+          "upper_arm": 26.7,
+          "forearm": 19.4,
+          "thigh": 26.0,
+          "shin": 19.4
+        },
+        "left": {
+          "upper_arm": 24.4,
+          "forearm": 20.9,
+          "thigh": 26.0,
+          "shin": 22.8
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 1.012,
+        "S": 1.071
+      }
+    },
+    "stagger3": {
+      "H": [
+        [
+          134,
+          63
+        ],
+        [
+          134,
+          103
+        ]
+      ],
+      "T": [
+        [
+          131,
+          104
+        ],
+        [
+          130,
+          155
+        ]
+      ],
+      "right": [
+        [
+          147,
+          113
+        ],
+        [
+          154,
+          139
+        ],
+        [
+          158,
+          158
+        ],
+        [
+          139,
+          168
+        ],
+        [
+          145,
+          193
+        ],
+        [
+          150,
+          212
+        ]
+      ],
+      "left": [
+        [
+          108,
+          115
+        ],
+        [
+          100,
+          138
+        ],
+        [
+          95,
+          158
+        ],
+        [
+          119,
+          168
+        ],
+        [
+          108,
+          192
+        ],
+        [
+          98,
+          212
+        ]
+      ],
+      "S": [
+        [
+          143,
+          235
+        ],
+        [
+          173,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 51.0,
+        "S": 30.0,
+        "right": {
+          "upper_arm": 26.9,
+          "forearm": 19.4,
+          "thigh": 25.7,
+          "shin": 19.6
+        },
+        "left": {
+          "upper_arm": 24.4,
+          "forearm": 20.6,
+          "thigh": 26.4,
+          "shin": 22.4
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 1.012,
+        "S": 1.071
+      }
+    },
+    "taunt0": {
+      "H": [
+        [
+          126,
+          71
+        ],
+        [
+          126,
+          111
+        ]
+      ],
+      "T": [
+        [
+          125,
+          112
+        ],
+        [
+          129,
+          158
+        ]
+      ],
+      "right": [
+        [
+          146,
+          119
+        ],
+        [
+          164,
+          120
+        ],
+        [
+          190,
+          113
+        ],
+        [
+          137,
+          175
+        ],
+        [
+          153,
+          197
+        ],
+        [
+          159,
+          217
+        ]
+      ],
+      "left": [
+        [
+          104,
+          120
+        ],
+        [
+          89,
+          142
+        ],
+        [
+          101,
+          154
+        ],
+        [
+          117,
+          175
+        ],
+        [
+          104,
+          199
+        ],
+        [
+          92,
+          217
+        ]
+      ],
+      "S": [
+        [
+          154,
+          235
+        ],
+        [
+          182,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 46.2,
+        "S": 28.0,
+        "right": {
+          "upper_arm": 18.0,
+          "forearm": 26.9,
+          "thigh": 27.2,
+          "shin": 20.9
+        },
+        "left": {
+          "upper_arm": 26.6,
+          "forearm": 17.0,
+          "thigh": 27.3,
+          "shin": 21.6
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length.",
+        "Bent/raised arm projection is foreshortened; not a strict length comparator.",
+        "Crouched/splayed thigh and shin projections cannot certify standing skeletal lengths."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 0.917,
+        "S": 1.0
+      }
+    },
+    "taunt1": {
+      "H": [
+        [
+          127,
+          71
+        ],
+        [
+          127,
+          111
+        ]
+      ],
+      "T": [
+        [
+          126,
+          112
+        ],
+        [
+          129,
+          158
+        ]
+      ],
+      "right": [
+        [
+          146,
+          119
+        ],
+        [
+          164,
+          120
+        ],
+        [
+          190,
+          113
+        ],
+        [
+          137,
+          175
+        ],
+        [
+          153,
+          197
+        ],
+        [
+          159,
+          217
+        ]
+      ],
+      "left": [
+        [
+          104,
+          120
+        ],
+        [
+          89,
+          142
+        ],
+        [
+          101,
+          154
+        ],
+        [
+          117,
+          175
+        ],
+        [
+          104,
+          199
+        ],
+        [
+          92,
+          217
+        ]
+      ],
+      "S": [
+        [
+          154,
+          235
+        ],
+        [
+          182,
+          235
+        ]
+      ],
+      "lengths_px": {
+        "H": 40.0,
+        "T": 46.1,
+        "S": 28.0,
+        "right": {
+          "upper_arm": 18.0,
+          "forearm": 26.9,
+          "thigh": 27.2,
+          "shin": 20.9
+        },
+        "left": {
+          "upper_arm": 26.6,
+          "forearm": 17.0,
+          "thigh": 27.3,
+          "shin": 21.6
+        }
+      },
+      "uncertainty_px": {
+        "H": 2,
+        "T": 3,
+        "S": 2,
+        "upper_arm": 6,
+        "forearm": 6,
+        "thigh": 7,
+        "shin": 7
+      },
+      "exclusions": [
+        "Frontal shoulder width unavailable: all are three-quarter views.",
+        "Cranial crown is hidden by hair; H is hair crown to chin, not skull height.",
+        "Cloth-covered elbow, hip and knee centers are projection estimates, not recovered bone lengths.",
+        "Screen-left sandal points toward viewer; its width is not anatomical foot length.",
+        "Bent/raised arm projection is foreshortened; not a strict length comparator.",
+        "Crouched/splayed thigh and shin projections cannot certify standing skeletal lengths."
+      ],
+      "ratios_to_neutral": {
+        "H": 1.026,
+        "T": 0.915,
+        "S": 1.0
+      }
+    }
+  },
+  "transitions": {
+    "stagger": [
+      "0->1",
+      "1->2",
+      "2->3",
+      "3->0 wrap"
+    ],
+    "taunt": [
+      "0->1",
+      "1->0 wrap"
+    ]
+  },
+  "transition_findings": "All six frames inspected, including consecutive transitions and wrap. Small facial/head-outline changes and limited sway; no isolated limb/torso scale pop or cut-off body part. This is frame-by-frame atlas inspection, not browser gameplay verification.",
+  "taunt_torso_endpoint_sensitivity": {
+    "upper_collar_to_black_hem_px": [
+      46.1,
+      46.2
+    ],
+    "uncertainty_px": 3,
+    "alternative_lower_collar_to_orange_hem_px": [
+      40,
+      43
+    ],
+    "note": "Do not compare lower collar/orange hem with neutral upper collar/black hem. Claude 0.80-0.85 cannot be independently certified with matching endpoint definitions."
+  }
+}

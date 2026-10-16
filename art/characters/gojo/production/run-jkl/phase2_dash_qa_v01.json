@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-15",
+  "character": "gojo",
+  "animation": "dash",
+  "version": "v09",
+  "source": "public/characters/gojo/sheet.png",
+  "sourceSha256": "7CB18EB86F22FAAF9ABF05BEA18EC21C500CF51D1B7637B5CD4082B290C52252",
+  "candidateSource": "art/characters/gojo/raw/_qa_hold/dash_v09.png",
+  "candidateSha256": "56C50DC259FC60CE8D7791C7221F549B40E5E1ECDAB4155302FAABF563918727",
+  "atlasFrameIndices": {
+    "idleF0": 0,
+    "dashF0": 16,
+    "dashF1": 17
+  },
+  "measurement": "Alpha bounds in actual quantized atlas; each cell is 256x256 at one shared pixel scale. Bounds measure pose envelope, not skeleton/body height.",
+  "frames": [
+    {
+      "label": "idle f0",
+      "index": 0,
+      "bounds": {
+        "x": 80,
+        "y": 10,
+        "width": 103,
+        "height": 231,
+        "right": 182,
+        "bottom": 240
+      },
+      "hairToSolePx": 231,
+      "posedWidthPx": 103,
+      "xMarginPx": 73
+    },
+    {
+      "label": "dash v09 f0",
+      "index": 16,
+      "bounds": {
+        "x": 54,
+        "y": 67,
+        "width": 143,
+        "height": 174,
+        "right": 196,
+        "bottom": 240
+      },
+      "hairToSolePx": 174,
+      "posedWidthPx": 143,
+      "xMarginPx": 54
+    },
+    {
+      "label": "dash v09 f1",
+      "index": 17,
+      "bounds": {
+        "x": 30,
+        "y": 67,
+        "width": 134,
+        "height": 174,
+        "right": 163,
+        "bottom": 240
+      },
+      "hairToSolePx": 174,
+      "posedWidthPx": 134,
+      "xMarginPx": 30
+    }
+  ],
+  "contactSheet": "public/reviews/gojo-run-jkl/dash_v09_contact_v01.png",
+  "technical": {
+    "packerCommand": "node tools/pack-sprites.mjs gojo --quantize 48",
+    "packerExitCode": 0,
+    "scaleGate": "pass; independent anatomy/loop audit HOLD",
+    "palette": 48,
+    "warnings": [
+      "Existing approved down v05 and ko v06 lying frames float above floor line.",
+      "Existing light2#3 uses fallback hitbox."
+    ]
+  },
+  "astraAudit": {
+    "model": "gpt-6-astra",
+    "reasoning": "medium",
+    "target": "actual quantized atlas sheet hash listed above",
+    "result": "HOLD",
+    "findings": [
+      "Slot 17 loses the near/right arm pump behind the torso.",
+      "Torso garment axis appears shortened versus approved references.",
+      "Head shifts approximately 37 px across the loop."
+    ],
+    "action": "Preserve dash_v09 as a technical hold. Generation budget is exhausted; do not regenerate or claim production readiness."
+  },
+  "holds": {
+    "run": "v13 not saved; 3/3 calls exhausted. Calls 2 and 3 repeat rather than mirror phases; no candidate.",
+    "backDash": "v05 and v06 held; v06 3/3 calls exhausted, scale gate head 1.11 / feet 1.03 of idle.",
+    "superDash": "v10 and v11 held; v12 not saved after third call; target aspect/height not achieved."
+  },
+  "approval": "No image/design approval. Dash v09 and the audited atlas are technical holds; no production strip is review-ready."
+}

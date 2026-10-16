@@ -1,0 +1,109 @@
+# Naruto attack alts: Claude calibration and contact (QA-NAR-ALTS-CAL, 2026-10-14)
+
+Requested by NOW.md (PR88 blocked on Claude's calibration and contact work); reserved in
+docs/agents/CLAUDE_ART_HANDOFF.md. Inputs: Astra's `../astra-audit/REPORT.md` and `ANATOMY-TABLE.md`, source `92ac54c`.
+No generation, no budget change, no art approval, no merge, no deploy.
+
+## 1. Contact is now the base's by construction (main, PR92, ADR 0031 amendment)
+
+Seven of nine attack alts failed the old 12 / 16 px art-box contract. Most failures were the packer's auto hit box
+finder reading a torso, a guard fist or a foot area on the new drawings, not where the alt actually strikes. The packer
+now copies each base frame's hit and hurt boxes onto its alt frame (`inheritAltBoxes`), so an alt can never change
+what connects, what can be hit or the AI's reach estimate. This is what the user was promised: "damage, timing and
+hitboxes stay the same; only the art changes". `altCheck` now judges the drawing only: the alt's drawn strike must land
+within **24 px** of the base's hit, or the hit spark (drawn where the base's boxes meet the opponent) floats off the
+fist or foot. This branch merged main (`47a73a6`) to get that packer.
+
+## 2. Calibrated on this branch (Claude's files)
+
+| alt | change | why | after (warn-mode pack) |
+|---|---|---|---|
+| light1Alt v01 | bodyHeight 173 -> 168 (k 0.97) | head probe 1.06; Astra H 40-41 vs 40: k 0.928-1.000 | head 1.022, no warning |
+| light1Alt v01 | `hitboxes.json` light1Alt f2/f3 on the drawn hook fist | the auto finder read the strike at knee height (-63 px); the drawn fist lands 12-19 px short of light1's hit and 6 px lower, inside 24 px | no visual warning; ships light1's boxes |
+| light4Alt v01 | bodyHeight 192 -> 177 (k 0.92) | probe 1.12; H 41-43: k 0.895-0.946; S stays within 6 % | head 1.038, no warning |
+| airLight3Alt v01 | bodyHeight 192 -> 169 (k 0.88), f2/f3 7 px back | probe 1.19; H 42-44: k 0.874-0.891; the smaller size cut the 15/21 px clip to 3 px, the shift removes the rest | head 1.031, no warning |
+| hurtLowAlt v01 | bodyHeight 170 -> 161 (k 0.945) | probe 1.09; H 41: k 0.917-0.972 | head 1.037 |
+| airLight1Alt v01 | f1/f2 3 px back | f1 reached 3 px into the 4 px margin | no warning |
+| airLight2Alt v01 | f1/f2 4 px back | f2 reached 4 px into the margin | no warning |
+
+Sizes live in each version's raw sidecar (top-level `bodyHeight` / `frameOffsets`, next to the stitch data), so a
+redraw is not resized by them. hurtHighAlt v01 needed nothing (head 1.059 strip, f2 1.103: Astra's audit decides).
+
+## 3. Needs Codex (no Claude fix exists)
+
+| alt | finding | suggested remedy |
+|---|---|---|
+| light3Alt v01 | the sweep is drawn at shin height, **95 px below** light3's hit (a front kick to the body; the move counts as a low but its contact is mid-height), and its head reads 1.18 | redraw: a mid-height technique, e.g. a side kick or knee to the body, at the base's contact. Claude's original technique suggestion ("low sweep at shin height") caused this; the miss is on Claude, not the art |
+| light2Alt v02 | f2 clipped 7 px at the right; the kick lands 33 px further and 34 px lower than light2's fist | redraw with the foot at chest height and inside x 4..251 (a snap kick lands where the straight lands) |
+| heavyAlt v01 | two parts at two scales (f1 1.15 vs f5 0.95 of the idle head) | re-stitch with a measured factor (`npm run stitch -- naruto heavyAlt v01`, no new call), then Claude recalibrates and rechecks where the kick lands |
+| airHeavyAlt v02 | two scales (f1 0.90 vs f3 1.16); the drawn strike is 95 px short of the hammer's hit; f5 clipped 7 px at the left and is another attack, not the air-base recovery (Astra) | re-stitch can fix the scale but not the strike or f5: a redraw is the remedy. Its budget is exhausted, so it needs the user's authorization |
+
+Technique and pose fidelity findings (light1Alt reads close to the jab, airLight1-3Alt not clearly distinct from their
+bases, start/end pose differences) are Astra's and the user's art-direction call; calibration does not touch them.
+
+## 4. What is not on the branch yet, and why
+
+`public/characters/naruto/` on this branch is not repacked: the normal scale gate (strict for unapproved new versions)
+refuses the pack while light3Alt drifts and heavyAlt / airHeavyAlt pop, and nothing is shipped from a forced pack. The
+numbers above come from a warn-mode diagnostic pack in Claude's scratch (manifest copy with naruto `scaleGate: "warn"`;
+sheet sha256 `b064ef97e24a67e3da75f9c1c3221b93124a6333930d6f05cf376ebc5953d5b4`, anims.json
+`76a422246c59f5d22f39b7fc40039a23ecfb226eec30d3c4531ecce64138ea58`). The branch pack is written once the three
+strips above are re-stitched or redrawn; Claude repacks and rechecks then.
+
+Evidence: `calibrated-2x.png` (idle f0, then base / alt strike frames of light1, light4, airLight3, hurtLow) and
+`needs-codex-2x.png` (base / alt of light2, light3, heavy, airHeavy, plus airHeavyAlt f5), both from the diagnostic pack.
+
+# Round 2 (2026-10-14): Codex's repairs at `2a1e7aa`
+
+| alt | Claude change | result (warn-mode pack) |
+|---|---|---|
+| light3Alt v02 | bodyHeight 196 -> 169 (head probe 1.158 -> 0.998); f2/f3 10 px back (the kick ran 26-28 px past the cell) | **clean**: drawn strike within 24 px of light3's hit (reach 128 vs 126, height 111.5 vs 118 before the shift), no warning |
+| light2Alt v03 | no size change (head 1.041); f2/f3 16 px back (12 px clip) | clip fixed; **visual residual**: the drawn kick still lands about 28 px lower and 32 px further than light2's fist (belly vs chest). Contact is light2's; the spark sits a little above the foot |
+| heavyAlt v02 | bodyHeight 218 -> 205 (k 0.94); manifest `scaleExemptFrames` f3-f5 (v02); `hitboxes.json` heavyAlt f3/f4 on the kicking foot | **clean**. v02 = v01 byte for byte, so the re-stitch could not change anything, and nothing needed it: Astra's crown-to-chin H for this drawing is 40-43 px in every frame (no jump); the probe's f3-f5 dip is the head tipped back in the flip kick. The drawn foot lands within 19 px of heavy's uppercut |
+| airHeavyAlt v03 | none | **hold, a source residual no calibration fixes**: (1) a real head-size jump, f3's hair about 40 px wide vs about 37 in f1/f5 (probe f1 0.95 vs f3 1.13; `round2-airHeavyAlt-f2-f3-heads-3x.png`); (2) the active frames are drawn about 50 px further back in the cell than airHeavy's, so the kick lands 95 px short of the hammer's hit and well behind where the spark appears. Its budget, including the user's one extra call, is spent |
+
+The normal scale gate still refuses this branch's pack, only because of airHeavyAlt's jump, so `public/` here stays
+unpacked. To pack the other ten alts, Codex can move `raw/airHeavyAlt_v03.png` to `raw/_qa_hold/` (the packer skips
+it and the base airHeavy plays), then ask Claude to repack. Diagnostic warn-mode pack: sheet sha256
+`7067cd70303c5a48fad7a12833f81344ba16ebf416703ceee26005d706a4dae3`, anims.json
+`a72b6f87855eee99bb2284e72c2e0370f2cd890ae7e6be6ced547708fbf6547c`.
+
+# Round 3 (2026-10-15): airHeavyAlt fallback and the branch pack
+
+Codex held `airHeavyAlt_v03.png` (`4017920`), but the packer ships the newest raw it finds, so v02 (which failed too:
+a head jump and a strike 95 px short) would have shipped instead of the base. v01 and v02 (PNG + sidecar) now sit in
+`raw/_qa_hold/` beside v03, moved byte for byte with `git mv`: no airHeavyAlt raw is left, the packer packs no
+airHeavyAlt, and the game plays the base airHeavy for that slot (ADR 0031: a missing alt is its base).
+
+The branch now packs: `node tools/pack-sprites.mjs naruto --quantize 48` passes (1 ref, 43 ok, 7 manual, 1 unmeasured
+non-alt strip). Ten alts, every one at head 1.022-1.059 and every one carrying its base's hit and hurt boxes. The only
+alt warning left is light2Alt's visual offset (the kick lands about 28 px under and 32 px past light2's fist; contact
+is light2's). Atlas: sheet sha256 `68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e`, anims.json sha256
+`1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047`.
+
+# Round 4 (2026-10-15): light2Alt held as the user decided
+
+The user kept light2Alt v04 held (its one repair call left the kick 27-28 px under light2's contact). Holding only v04
+would have shipped v03 (the same low kick, unapproved), so every light2Alt version, v01 to v04 with their sidecars, is
+now in `raw/_qa_hold/` (moved byte for byte with `git mv`). The packer packs no light2Alt and the game plays the base
+light2 in that slot (ADR 0031), like airHeavyAlt. `raw/light2Alt_02-03_fix01.png` (Codex's repair part, not a `_vNN`
+version) stays where it is; the packer ignores it.
+
+Pack: `node tools/pack-sprites.mjs naruto --quantize 48`, gate 1 ref, 42 ok, 7 manual, 1 unmeasured (a non-alt strip).
+Nine alts ship, each with its base's hit and hurt boxes: light1Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt,
+airLight2Alt, airLight3Alt, hurtHighAlt, hurtLowAlt. Atlas: sheet sha256
+`1ee677ccd32d74e54a8975b36f7e13f3129d6dc7e3b02d19aaf591a4ed669db7`, anims.json sha256
+`f858b7f36cf590c64e5489c473c4aaf5983fc0ec1d6f5ce4bb3ef22522914f9b`.
+
+# Round 5 (2026-10-15): loose ends, light2Alt v05 and airHeavyAlt v04
+
+| alt | Claude change | result |
+|---|---|---|
+| light2Alt v05 (palm strike) | bodyHeight 185 -> 165 (`raw/light2Alt_v05.json`); `hitboxes.json` light2Alt f2/f3 on the drawn palm (visual check only) | head 0.995 (frames 0.98-1.05; it was 1.128 uniform). The palm lands 9-13 px short of and 18 px under light2's hit on both active frames, inside 24 px. At the calibrated size the auto finder read the strike at knee height, hence the measured box |
+| airHeavyAlt v04 (double-fist smash) | bodyHeight 183 -> 170, frameOffsets f3 +40 / f4 +30 px (`raw/airHeavyAlt_v04.json`); `hitboxes.json` airHeavyAlt f2/f3 on the drawn fists; manifest `scaleExemptFrames` f2/f3 (v4) | f0/f1/f4/f5 heads 0.97-1.01. The foot-centred placement read the low f3 fists as feet and set f3/f4 back; with the offsets the head path (126-133-186-205-204-170) follows airHeavy's (129-122-187-204-208-170) and the fists land within 14 px (f2) and about 10 px (f3) of airHeavy's hit. f2/f3's probe reading (1.07-1.10) is the orange sleeve highlights in the hair colour range during the smash, the same as the approved airHeavy's f2/f3 |
+
+For the user's review: airHeavyAlt v04 is a double-fist smash like the base airHeavy (Claude's brief suggested that technique), so it reads as a variant of the same hammer more than a new move (overhead wind-up, crouched smash, no arc trail).
+
+Pack: `node tools/pack-sprites.mjs naruto --quantize 48`, gate 1 ref, 44 ok, 7 manual, 1 unmeasured (spin, approved and untouched); eleven alts ship with their bases' boxes. The strict run fails only on that untouched spin.
+
+Atlas: sheet sha256 `dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c`, anims.json sha256 `9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b`.

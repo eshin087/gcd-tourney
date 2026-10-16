@@ -1,0 +1,3 @@
+Use case: stylized-concept. Exactly two full-body airborne continuation poses f4-f5 for Naruto airHeavyAlt in a horizontal 256x256 sprite strip. Match same-attempt Part A's identity, outfit, pixel scale and approved anatomy; fixed-name references remain identity authority. Serious anime fan-art pixel clusters, right-facing 3/4, flat #FF00FF, <=48 colors, no antialias/blur/gradients/dither/dividers/text/effects/opponent. No crop or anatomy resizing.
+
+f4 recovery: R leg folds upward again and torso begins to uncurl; focused. f5 recovery: exact approved airHeavy f5 airborne base endpoint, focused. Finish precisely on the base pose. Maintain continuity from the attached Part A and preserve long leg proportions; no additional strike.

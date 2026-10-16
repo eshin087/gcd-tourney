@@ -1,0 +1,170 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-13T05:18:39.791Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2807,
+   "anims": {
+    "run": {
+     "v": 5,
+     "body": [
+      0.869,
+      0.853,
+      0.866,
+      0.862,
+      0.887,
+      0.854,
+      0.864,
+      0.859
+     ],
+     "head": [
+      1.024,
+      1.003,
+      1.024,
+      0.996,
+      1.021,
+      1.006,
+      1.013,
+      0.997
+     ],
+     "median": 0.863,
+     "headMedian": 1.01,
+     "flag": "small"
+    },
+    "dash": {
+     "v": 7,
+     "body": [
+      0.944,
+      0.938
+     ],
+     "head": [
+      1.03,
+      0.996
+     ],
+     "median": 0.941,
+     "headMedian": 1.013,
+     "flag": null
+    },
+    "superDash": {
+     "v": 7,
+     "body": [
+      0.898,
+      0.925
+     ],
+     "head": [
+      0.951,
+      0.958
+     ],
+     "median": 0.912,
+     "headMedian": 0.954,
+     "flag": null
+    },
+    "jumpSquat": {
+     "v": 6,
+     "body": [
+      0.95
+     ],
+     "head": [
+      1.037
+     ],
+     "median": 0.95,
+     "headMedian": 1.037,
+     "flag": null
+    },
+    "airLight3": {
+     "v": 7,
+     "body": [
+      1.17,
+      1.184,
+      1.224,
+      1.042,
+      1.128,
+      0.973
+     ],
+     "head": [
+      1,
+      0.986,
+      1.019,
+      1.023,
+      1.015,
+      0.974
+     ],
+     "median": 1.149,
+     "headMedian": 1.007,
+     "flag": "big"
+    },
+    "hurtLow": {
+     "v": 3,
+     "body": [
+      0.772,
+      0.792,
+      0.855
+     ],
+     "head": [
+      0.969,
+      0.994,
+      1
+     ],
+     "median": 0.792,
+     "headMedian": 0.994,
+     "flag": "small"
+    },
+    "airRecover": {
+     "v": 1,
+     "body": [
+      0.776,
+      0.81,
+      0.909
+     ],
+     "head": [
+      1.055,
+      1.969,
+      1
+     ],
+     "median": 0.81,
+     "headMedian": 1.055,
+     "flag": "small"
+    },
+    "beamFire": {
+     "v": 7,
+     "body": [
+      1.029,
+      1.129,
+      1.031
+     ],
+     "head": [
+      0.974,
+      0.995,
+      1
+     ],
+     "median": 1.031,
+     "headMedian": 0.995,
+     "flag": null
+    },
+    "specialUp": {
+     "v": 9,
+     "body": [
+      0.734,
+      0.796,
+      0.773,
+      0.794,
+      0.991,
+      1.048
+     ],
+     "head": [
+      1.038,
+      1.013,
+      1.005,
+      0.975,
+      0.564,
+      1.436
+     ],
+     "median": 0.795,
+     "headMedian": 1.009,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

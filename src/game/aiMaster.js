@@ -15,6 +15,7 @@ import { mixDefense, reachT } from './aiDefense.js';
 import { rng } from './rng.js';
 import { ComboComposer, makePersona } from './aiCombo.js';
 import { TechTimer } from './aiTech.js';
+import { seekClash } from './aiClash.js';
 
 const BUTTONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -39,14 +40,15 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // burst   chance per combo (3+ hits, ki and the round's burst in hand) that it bursts out (×1.5 when low on
 //         health or when the attacker sits on three bars); bait: chance per combo that it stops its own combo and
 //         guards against a victim who could burst (ADR 0022)
+// meleeClash  chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0038)
 // impactTech  chance per techable impact (floor or wall bounce) to go for the timed tech (ADR 0028), pressed `techSd`
 //         frames off on average (aiTech.js: too early locks it out, too late misses)
 export const STYLES = {
   // INSANE, between HARD and IMPOSSIBLE: the same reads at a person's reaction time (12 f), fewer parries, dodges,
   // techs and throw breaks, and some dropped combos
-  insane: { beat: { sd: 2.6, miss: 0.03 }, impactTech: 0.55, techSd: 2.5, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
-  impossible: { beat: { sd: 1.6, miss: 0.012 }, impactTech: 0.65, techSd: 2, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
-  showman: { beat: { sd: 2.2, miss: 0.02 }, impactTech: 0.65, techSd: 2, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
+  insane: { meleeClash: 0.08, beat: { sd: 2.6, miss: 0.03 }, impactTech: 0.55, techSd: 2.5, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
+  impossible: { meleeClash: 0.1, beat: { sd: 1.6, miss: 0.012 }, impactTech: 0.65, techSd: 2, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
+  showman: { meleeClash: 0.18, beat: { sd: 2.2, miss: 0.02 }, impactTech: 0.65, techSd: 2, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
 };
 // combo persona per style (aiCombo.js, ADR 0026): IMPOSSIBLE and INSANE run the optimal one (the most damage that
 // links); the showman (CPU vs CPU) draws one per match from its kit, so every spectated fight combos differently
@@ -220,6 +222,9 @@ export class MasterBrain {
     this.composer.watch(game, c); // our combo's life, bounces, links (aiCombo.js)
     if (game.freeze > 0) return this.frozen(game, c);
     this.clock++;
+    // melee clash (ADR 0038): Math.random, so the seeded combo routes stay the same
+    const cl = seekClash(f, this.S.meleeClash ?? 0, this, Math.random);
+    if (cl) { this.tap(cl, 2); return; }
     if (this.pendingPunish && this.parryPunish(game, c)) return;
     if (this.recover(game, c)) return;
     if (this.holdBait()) return;
@@ -244,7 +249,7 @@ export class MasterBrain {
   }
 
   sense(game) {
-    const f = this.f, o = f.opp, R = game.cam.right, F = game.cam.fwd;
+    const f = this.f, o = f.opp, R = game.basis.right, F = game.basis.fwd;
     const rx = o.pos.x - f.pos.x, rz = o.pos.z - f.pos.z;
     const c = this.c || (this.c = {});
     c.R = R;

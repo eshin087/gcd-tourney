@@ -1,0 +1,525 @@
+{
+  "commit": "5b1fe90",
+  "atlasIndex": 23,
+  "durationMs": 70,
+  "loop": false,
+  "gate": "diagnostic warn; actual standard strict gate unmeasured/fails",
+  "hashes": {
+    "art/characters/sasuke/raw/jumpSquat_v07.png": "8b8cb826e0d4105e5bc66dc1bd25e6c6e8399b1d7b8930f778b35428ed3ad1bb",
+    "art/characters/sasuke/production/round6/diagnostic-v07/packed/characters/sasuke/sheet.png": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+    "art/characters/sasuke/production/round6/diagnostic-v07/packed/characters/sasuke/anims.json": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043",
+    "public/art-review/title-style-pilot/sasuke-neutral_v01.png": "fbc6b37701c9055b7e1349aec0b1f035ed1aa21638a66541ffbf71ba3e222352",
+    "public/art-review/title-style-pilot/sasuke-combat_v01.png": "4b1c4fec691c6d29e42be5e02ee5f1b72c431f0df281ce8122276b93e3e185d7"
+  },
+  "bounds": [
+    67,
+    84,
+    200,
+    240
+  ],
+  "points": {
+    "H": [
+      [
+        160,
+        85
+      ],
+      [
+        184,
+        122
+      ]
+    ],
+    "T": [
+      [
+        168,
+        122
+      ],
+      [
+        145,
+        163
+      ]
+    ],
+    "NA": [
+      [
+        145,
+        125
+      ],
+      [
+        102,
+        133
+      ],
+      [
+        92,
+        155
+      ]
+    ],
+    "hand": [
+      [
+        92,
+        155
+      ],
+      [
+        76,
+        163
+      ]
+    ],
+    "FA": null,
+    "NL": [
+      [
+        146,
+        177
+      ],
+      [
+        181,
+        185
+      ],
+      [
+        164,
+        225
+      ]
+    ],
+    "FL": [
+      [
+        118,
+        177
+      ],
+      [
+        91,
+        194
+      ],
+      [
+        79,
+        226
+      ]
+    ],
+    "S": 34
+  },
+  "measurements": {
+    "H": 44.1,
+    "T": 47,
+    "NA": [
+      43.7,
+      24.2
+    ],
+    "hand": 17.9,
+    "FA": null,
+    "NL": [
+      35.9,
+      43.5
+    ],
+    "FL": [
+      31.9,
+      34.2
+    ],
+    "S": 34
+  },
+  "uncertaintyPx": {
+    "H": 5,
+    "T": 7,
+    "UA": 10,
+    "FA": 10,
+    "hand": 4,
+    "wholeBentArm": 15,
+    "thigh": 12,
+    "shin": 10,
+    "S": 2
+  },
+  "references": [
+    {
+      "name": "neutral",
+      "points": {
+        "H": [
+          [
+            119,
+            34
+          ],
+          [
+            135,
+            73
+          ]
+        ],
+        "T": [
+          [
+            125,
+            75
+          ],
+          [
+            128,
+            121
+          ]
+        ],
+        "NA": [
+          [
+            110,
+            85
+          ],
+          [
+            96,
+            119
+          ],
+          [
+            90,
+            144
+          ]
+        ],
+        "FA": [
+          [
+            143,
+            87
+          ],
+          [
+            151,
+            122
+          ],
+          [
+            158,
+            145
+          ]
+        ],
+        "NL": [
+          [
+            137,
+            150
+          ],
+          [
+            148,
+            194
+          ],
+          [
+            151,
+            224
+          ]
+        ],
+        "FL": [
+          [
+            111,
+            150
+          ],
+          [
+            104,
+            193
+          ],
+          [
+            97,
+            225
+          ]
+        ],
+        "S": 28
+      },
+      "measurements": {
+        "H": 42.2,
+        "T": 46.1,
+        "NA": [
+          36.8,
+          25.7
+        ],
+        "FA": [
+          35.9,
+          24
+        ],
+        "NL": [
+          45.4,
+          30.1
+        ],
+        "FL": [
+          43.6,
+          32.8
+        ],
+        "S": 28
+      }
+    },
+    {
+      "name": "combat",
+      "points": {
+        "H": [
+          [
+            121,
+            63
+          ],
+          [
+            136,
+            101
+          ]
+        ],
+        "T": [
+          [
+            124,
+            100
+          ],
+          [
+            122,
+            143
+          ]
+        ],
+        "NA": [
+          [
+            141,
+            108
+          ],
+          [
+            166,
+            120
+          ],
+          [
+            183,
+            114
+          ]
+        ],
+        "FA": [
+          [
+            98,
+            108
+          ],
+          [
+            79,
+            127
+          ],
+          [
+            104,
+            118
+          ]
+        ],
+        "NL": [
+          [
+            139,
+            166
+          ],
+          [
+            167,
+            193
+          ],
+          [
+            181,
+            226
+          ]
+        ],
+        "FL": [
+          [
+            109,
+            166
+          ],
+          [
+            79,
+            194
+          ],
+          [
+            64,
+            226
+          ]
+        ],
+        "S": 29
+      },
+      "measurements": {
+        "H": 40.9,
+        "T": 43,
+        "NA": [
+          27.7,
+          18
+        ],
+        "FA": [
+          26.9,
+          26.6
+        ],
+        "NL": [
+          38.9,
+          35.8
+        ],
+        "FL": [
+          41,
+          35.3
+        ],
+        "S": 29
+      }
+    },
+    {
+      "name": "idle-0",
+      "points": {
+        "H": [
+          [
+            110,
+            65
+          ],
+          [
+            128,
+            104
+          ]
+        ],
+        "T": [
+          [
+            113,
+            100
+          ],
+          [
+            113,
+            145
+          ]
+        ],
+        "NA": [
+          [
+            139,
+            113
+          ],
+          [
+            160,
+            124
+          ],
+          [
+            179,
+            118
+          ]
+        ],
+        "FA": [
+          [
+            94,
+            113
+          ],
+          [
+            73,
+            131
+          ],
+          [
+            97,
+            123
+          ]
+        ],
+        "NL": [
+          [
+            131,
+            165
+          ],
+          [
+            164,
+            194
+          ],
+          [
+            180,
+            226
+          ]
+        ],
+        "FL": [
+          [
+            106,
+            165
+          ],
+          [
+            75,
+            195
+          ],
+          [
+            60,
+            226
+          ]
+        ],
+        "S": 32
+      },
+      "measurements": {
+        "H": 43,
+        "T": 45,
+        "NA": [
+          23.7,
+          19.9
+        ],
+        "FA": [
+          27.7,
+          25.3
+        ],
+        "NL": [
+          43.9,
+          35.8
+        ],
+        "FL": [
+          43.1,
+          34.4
+        ],
+        "S": 32
+      }
+    },
+    {
+      "name": "jumpSquat-0",
+      "points": {
+        "H": [
+          [
+            160,
+            85
+          ],
+          [
+            184,
+            122
+          ]
+        ],
+        "T": [
+          [
+            168,
+            122
+          ],
+          [
+            145,
+            163
+          ]
+        ],
+        "NA": [
+          [
+            145,
+            125
+          ],
+          [
+            102,
+            139
+          ],
+          [
+            62,
+            156
+          ]
+        ],
+        "FA": null,
+        "NL": [
+          [
+            146,
+            177
+          ],
+          [
+            181,
+            185
+          ],
+          [
+            164,
+            225
+          ]
+        ],
+        "FL": [
+          [
+            118,
+            177
+          ],
+          [
+            91,
+            194
+          ],
+          [
+            79,
+            226
+          ]
+        ],
+        "S": 34
+      },
+      "measurements": {
+        "H": 44.1,
+        "T": 47,
+        "NA": [
+          45.2,
+          43.5
+        ],
+        "FA": null,
+        "NL": [
+          35.9,
+          43.5
+        ],
+        "FL": [
+          31.9,
+          34.2
+        ],
+        "S": 34
+      }
+    }
+  ],
+  "exclusions": "Far arm and hand overlap near hand/torso; no separate chain. Shoulders not frontal. Covered joint centers low confidence. Shortened projected bent arm is not intrinsic bone-length proof. H outer hair tip to chin, hidden skull crown cannot be certified."
+}

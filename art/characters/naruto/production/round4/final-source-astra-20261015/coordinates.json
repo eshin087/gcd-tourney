@@ -1,0 +1,226 @@
+{
+  "scope": "SOURCE ONLY, all six new poses; not quantized atlas or approval",
+  "verdict": "HOLD numeric certification; improved source ready for Claude inspection",
+  "hashes": {
+    "art/characters/naruto/raw/stagger_v08.png": "be43bf84a100d4b4e0e03eb794b48d941291f426ada8630f291f4b5dd6f11ac7",
+    "art/characters/naruto/raw/taunt_v10.png": "a7699b300b2600979e3fe11bb78ddfede0fe7f28f918433d6210e19f9180eb7f",
+    "art/characters/naruto/raw/stagger_v07.png": "51b9e2717b5bfe448fd1ef53a9dd895af6157978b2dc284291b0ae9dcd8b9b6b",
+    "art/characters/naruto/raw/taunt_v09.png": "fa32086af1cf55398f81d840e8af7ef96eb31ff85bc69cef840b481cb47967ff",
+    "art/characters/naruto/raw/idle_v07.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+    "art/characters/naruto/reference/idle_approved.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+    "public/art-review/title-style-pilot/naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "public/art-review/title-style-pilot/naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+  },
+  "frames": [
+    {
+      "asset": "stagger_v08",
+      "frame": 0,
+      "coordinates_source_px": {
+        "crown": [
+          332,
+          80
+        ],
+        "chin": [
+          329,
+          212
+        ],
+        "collar": [
+          319,
+          212
+        ],
+        "hem": [
+          310,
+          370
+        ]
+      },
+      "H_vertical": 132,
+      "T_projected": 158.3,
+      "H_uncertainty_px": 4,
+      "T_uncertainty_px": 6,
+      "note": "Manually selected visual landmarks; per-frame endpoint precision limited by collar overlap and hem thickness. Same central values reflect near-identical source poses, not measured pixel identity."
+    },
+    {
+      "asset": "stagger_v08",
+      "frame": 1,
+      "coordinates_source_px": {
+        "crown": [
+          832,
+          80
+        ],
+        "chin": [
+          829,
+          212
+        ],
+        "collar": [
+          819,
+          212
+        ],
+        "hem": [
+          810,
+          370
+        ]
+      },
+      "H_vertical": 132,
+      "T_projected": 158.3,
+      "H_uncertainty_px": 4,
+      "T_uncertainty_px": 6,
+      "note": "Manually selected visual landmarks; per-frame endpoint precision limited by collar overlap and hem thickness. Same central values reflect near-identical source poses, not measured pixel identity."
+    },
+    {
+      "asset": "stagger_v08",
+      "frame": 2,
+      "coordinates_source_px": {
+        "crown": [
+          1367,
+          80
+        ],
+        "chin": [
+          1364,
+          212
+        ],
+        "collar": [
+          1354,
+          212
+        ],
+        "hem": [
+          1345,
+          370
+        ]
+      },
+      "H_vertical": 132,
+      "T_projected": 158.3,
+      "H_uncertainty_px": 4,
+      "T_uncertainty_px": 6,
+      "note": "Manually selected visual landmarks; per-frame endpoint precision limited by collar overlap and hem thickness. Same central values reflect near-identical source poses, not measured pixel identity."
+    },
+    {
+      "asset": "stagger_v08",
+      "frame": 3,
+      "coordinates_source_px": {
+        "crown": [
+          1877,
+          80
+        ],
+        "chin": [
+          1874,
+          212
+        ],
+        "collar": [
+          1864,
+          212
+        ],
+        "hem": [
+          1855,
+          370
+        ]
+      },
+      "H_vertical": 132,
+      "T_projected": 158.3,
+      "H_uncertainty_px": 4,
+      "T_uncertainty_px": 6,
+      "note": "Manually selected visual landmarks; per-frame endpoint precision limited by collar overlap and hem thickness. Same central values reflect near-identical source poses, not measured pixel identity."
+    },
+    {
+      "asset": "taunt_v10",
+      "frame": 0,
+      "coordinates_source_px": {
+        "crown": [
+          490,
+          141
+        ],
+        "chin": [
+          510,
+          292
+        ],
+        "collar": [
+          493,
+          292
+        ],
+        "hem": [
+          507,
+          473
+        ]
+      },
+      "H_vertical": 151,
+      "T_projected": 181.5,
+      "H_uncertainty_px": 4,
+      "T_uncertainty_px": 6,
+      "note": "Manually selected visual landmarks; per-frame endpoint precision limited by collar overlap and hem thickness. Same central values reflect near-identical source poses, not measured pixel identity."
+    },
+    {
+      "asset": "taunt_v10",
+      "frame": 1,
+      "coordinates_source_px": {
+        "crown": [
+          1227,
+          141
+        ],
+        "chin": [
+          1247,
+          292
+        ],
+        "collar": [
+          1230,
+          292
+        ],
+        "hem": [
+          1244,
+          473
+        ]
+      },
+      "H_vertical": 151,
+      "T_projected": 181.5,
+      "H_uncertainty_px": 4,
+      "T_uncertainty_px": 6,
+      "note": "Manually selected visual landmarks; per-frame endpoint precision limited by collar overlap and hem thickness. Same central values reflect near-identical source poses, not measured pixel identity."
+    }
+  ],
+  "neutral": {
+    "H": 39,
+    "H_range": [
+      37,
+      41
+    ],
+    "collar": [
+      133,
+      76
+    ],
+    "hem": [
+      139,
+      126
+    ],
+    "T": 50.4,
+    "T_range": [
+      48,
+      53
+    ],
+    "T_over_H": 1.292
+  },
+  "prior_source_estimates": {
+    "stagger_v07": {
+      "H": 132,
+      "collar": [
+        319,
+        212
+      ],
+      "hem": [
+        310,
+        353
+      ],
+      "T": 141.3
+    },
+    "taunt_v09": {
+      "H": 151,
+      "collar": [
+        493,
+        292
+      ],
+      "hem": [
+        507,
+        461
+      ],
+      "T": 169.6
+    }
+  },
+  "uncertainty": "Manual projected garment endpoints; no skeletal reconstruction; source coordinates are native, no conversion into packed px."
+}

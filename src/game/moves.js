@@ -17,16 +17,17 @@
 //  lock       a multi-hit tick keeps air stun / hit stun at least this long, so one move can't be teched midway
 //  noTech     the timed impact tech can't beat the floor or barrier impact after this hit (super finishes, ADR 0028)
 //  ground     the floor damage style a special, shot or super leaves (GROUND_STYLES in ground.js, ADR 0024)
+//  meleeClash 'light' | 'heavy': meets the same class head-on in a MELEE CLASH; a heavy beats a light (MELEE_CLASH)
 export const MOVES = {
-  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
-  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
-  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true },
-  light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true },
-  heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3] },
-  airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light' },
-  airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light' },
-  airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true },
-  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45] },
+  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, meleeClash: 'light' },
+  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, meleeClash: 'light' },
+  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true, meleeClash: 'light' },
+  light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true, meleeClash: 'light' },
+  heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3], meleeClash: 'heavy' },
+  airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light', meleeClash: 'light' },
+  airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light', meleeClash: 'light' },
+  airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true, meleeClash: 'light' },
+  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45], meleeClash: 'heavy' },
   throw: { anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, cost: 50 },
   // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport
   echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy' },
@@ -195,21 +196,22 @@ export const SPECIALS = {
 
 // Air projectiles (half a ki bar)
 //  clash   'beam': an energy shot. Meeting the opponent's energy head-on it becomes a stream in a BEAM CLASH
-//          (CLASH.struggle, ADR 0027), drawn in its `stream` palette; a physical shot (shuriken) just cancels.
+//          (CLASH.struggle, ADR 0027), drawn in its `stream` palette and shape (`style`: bolt, lance, flame, orb or the
+//          ribbon; STREAM_STYLES in projectiles.js, ADR 0034); a physical shot (shuriken) just cancels.
 //          Rush specials with `clash: 'rush'` (Rasengan, Chidori) are driven into the stream by hand.
 export const PROJECTILES = {
   shuriken: { count: 3, spread: 0.2, speed: 22, radius: 0.35, dmg: 22, hitstun: 16, push: 2, airPop: 4, life: 1.2, sprite: 'shuriken', scale: 0.55, sfx: 'shuriken', spark: 'light' },
   fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'fire', scale: 1.5, sfx: 'fireball', big: true, spark: 'heavy', glowColor: 0xff7a20, trail: 'fire', burst: 'explosion', ground: 'fire',
-    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c' } },
+    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c', style: 'flame' } },
   // Killua's Narukami: a very fast lightning bolt with a long stun
   bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightning', scale: 0.95, color: 0xd8f0ff, glowColor: 0x6ab8ff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
-    clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff' } },
+    clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff', style: 'bolt' } },
   // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~6 units, but instantly
   spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
-    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc' } },
+    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance' } },
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
   red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
-    clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22' } },
+    clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22', style: 'orb' } },
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
   kiBlast: { count: 3, spread: 0.14, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'orb', scale: 0.5, color: 0xd8f2ff, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'light' },
@@ -278,6 +280,7 @@ export const SPECIAL_MOVES = {
   sharingan: {
     kind: 'counter', anim: 'specialDown', cost: 50, len: 20, recovery: 14, stagger: 22, onCounter: 'strike', follow: 'vanishKick',
     name: 'SHARINGAN', callout: 'SHARINGAN!', color: '#ff3040',
+    sigil: true, eyeFlash: true, // the fighter's `eyes` pattern behind him and the red eyes in the HUD (ADR 0035)
   },
 
   // ---- Killua (Godspeed era)
@@ -372,7 +375,7 @@ export const SUPERS = {
   shadowCloneBarrage: { kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 7, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8, hitFx: 'smoke', finalFx: 'rasengan', name: 'SHADOW CLONE BARRAGE', color: '#ffb43a', ground: 'spiralBig' },
   unlimitedVoid: { kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff' },
   kirin: { kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'beamCharge', strikePose: 'beamFire', name: 'KIRIN', color: '#9fd8ff', ground: 'lightningBig' },
-  amaterasu: { kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14 }, name: 'AMATERASU', callout: 'AMATERASU', color: '#c040ff', ground: 'blackFire' },
+  amaterasu: { kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14 }, name: 'AMATERASU', callout: 'AMATERASU', color: '#c040ff', ground: 'blackFire', sigil: 'mangekyo' },
 
   // ---- ultimates with their own shape (ADR 0017): one beam in the cast at most, every other finisher different
   // Hollow Purple (Gojo): Red from the near hand and Blue from the far hand meet in front of him (`merge` frames) and
@@ -450,7 +453,8 @@ export const PASSIVES = {
 //             startup; `answerRange`: an energy move started while their energy heads at you this close meets it at
 //             once (the answer); `width`: the stream's width (the ultimate beam is ULTIMATE.width); `sparks`: the
 //             struggle point's flare, x the ultimate clash's (two short streams would vanish under the full one);
-//             `rushReach`: how far ahead of a Rasengan / Chidori the streams meet it (in front of the orb, not on the body);
+//             `rushReach`: how far ahead of a Rasengan / Chidori a shot meets it (detection); once locked it sits at
+//             `handReach` + `orbReach` (ADR 0034);
 //             `craters`: the ground-damage force (ground.js) under the loser / between them on a draw (an ultimate
 //             clash uses GROUND.fixed clashWin / clashDraw)
 export const CLASH = {
@@ -467,11 +471,50 @@ export const CLASH = {
     intro: 30, lead: 36, phases: [{ notes: 4, every: 24 }, { notes: 5, every: 18, doubles: 1 }], hold: { gap: 24, len: 30 }, outro: 24,
     push: 0.045, drawMargin: 1, winDmg: 120, drawDmg: 45, launch: [16, 9], cooldown: 900, minDist: 2.2, catch: 0.4, answerRange: 5.5, width: 0.95,
     sparks: 0.45, rushReach: 1.5, craters: [0.9, 1.0],
+    // once locked, a rush meets the stream at its held technique's front (ADR 0034): the drawn hand (else these
+    // fixed offsets: a Rasengan-type orb, a Chidori held forward) plus the orb's radius
+    handReach: [0.6, 0.7], orbReach: 0.55,
+    // a stream from the air (ADR 0034): an owner higher than `airMin` eases down to `airHover` over `airEase` frames. Against
+    // a grounded rush the rusher stays planted and holds the technique up the stream line, `airTech` = [technique centre,
+    // struggle point] ahead of the hand; the side losing ground is shoved `airPush` along the floor (the rusher) or back
+    // and `airLift` up (the air owner)
+    airMin: 0.3, airHover: 1.1, airEase: 24, airTech: [0.4, 0.82], airPush: 1.4, airLift: 0.5,
   },
+};
+
+// MELEE CLASH (ADR 0038): a light meeting a light (or a heavy a heavy) while both swings are live cancels both: no
+// damage, both hold their strikes together for a moment, then get pushed back a step and can act, so pressing again
+// starts the next one. Clashes within `chainGap` frames of the last one form a chain that grows the sparks and the
+// camera push-in and pays both fighters ki; the `finale`-th pushes both far back (CLASH BREAK!). A light meeting a
+// heavy loses: the heavy lands at once.
+//  window     frames before its first active frame the other swing still counts as live (both pressed a few frames apart)
+//  stop       frames the strikes stay pressed together (hit stop) per class
+//  look       while they do: `dim` darkens the stage and `lines` sets the speed lines on the contact; the camera push-in
+//             holds `hold` seconds
+//  cam        how far the camera pushes in on the contact (0-1), + camPer per chain step, at most camMax
+//  push       the pushback (units/s) once the strikes part; act: frames of it before they can act (a swing pressed
+//             during the freeze comes out then); slide: frames of it before they stand (cancellable from act)
+//  breakPush  the finale's pushback instead: its hit stop, speed, act and slide (no damage, no knockdown)
+//  buffer     extra frames a Light or Heavy pressed during the freeze is kept for (it comes out on the first free frame)
+//  ki         ki for each fighter per clash by class, x (1 + kiPer * (n - 1)) in a chain
+//  seekRange  screen distance the CPU tries a clash from; chainSeek: its rate multiplier for pressing again out of a
+//             slide (the per-level rates are `meleeClash` in ai.js / aiMaster.js)
+export const MELEE_CLASH = {
+  window: 4, chainGap: 80, finale: 5,
+  stop: { light: 12, heavy: 14 },
+  look: { dim: 0.3, lines: 0.5, hold: 0.25 },
+  cam: 0.6, camPer: 0.08, camMax: 0.9,
+  push: { light: 6.5, heavy: 7.5 }, act: 3, slide: 10, buffer: 8,
+  ki: { light: 10, heavy: 18 }, kiPer: 0.25,
+  breakPush: { stop: 18, speed: 13, act: 12, slide: 18 },
+  seekRange: 2.6, chainSeek: 1.1,
 };
 
 // Ultimate beam (full 3 bars)
 export const ULTIMATE = {
   cost: 300, windup: 46, counterWindup: 14, duration: 84, speed: 34, maxLen: 26, width: 1.25,
   tickEvery: 5, tickDmg: 12, finalDmg: 130, launch: [17, 10], flash: 42,
+  // extra frozen frames on every ultimate's flash (beam or kit) for the full-screen splash (ADR 0035); the world
+  // is paused, so no frame data moves
+  splashHold: 24,
 };

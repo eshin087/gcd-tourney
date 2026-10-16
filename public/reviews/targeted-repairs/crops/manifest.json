@@ -1,0 +1,172 @@
+{
+  "generatedBy": "prepare-crops.mjs",
+  "method": "Exact 256x256 RGBA cell extraction from copied packed atlas frames; no resize or color changes.",
+  "sourceAtlases": {
+    "naruto": {
+      "branch": "art/naruto-title-r3",
+      "commit": "3d6db5d",
+      "sheet": "atlases/naruto/sheet.png",
+      "sheetSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "metadata": "atlases/naruto/anims.json",
+      "metadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2"
+    },
+    "naruto-alts": {
+      "branch": "art/naruto-alts",
+      "commit": "348f4bc",
+      "sheet": "atlases/naruto-alts/sheet.png",
+      "sheetSha256": "57e7121351e064a0ca0e4b7d898f29b9739d9d71dfd6b15486f7b6f0f28a7e0f",
+      "metadata": "atlases/naruto-alts/anims.json",
+      "metadataSha256": "e753b6da62a2bc78cff2c3966af33eb90db0a387a26ee639d7b5a267ed631ef6"
+    },
+    "killua": {
+      "branch": "art/killua-title-r3",
+      "commit": "7546a45",
+      "sheet": "atlases/killua/sheet.png",
+      "sheetSha256": "b7694cc7c450288d76ebe6069c0ecc1d580b6cb4ddcb7f7304714e70a938f74c",
+      "metadata": "atlases/killua/anims.json",
+      "metadataSha256": "9dfcbfb70ce37ddb1faa9094bc5aa9d544ed24e937d2b815bb593dd0de43a566"
+    },
+    "killua-approved": {
+      "branch": "main · approved production atlas",
+      "commit": "main snapshot 2026-10-15",
+      "sheet": "atlases/killua-approved/sheet.png",
+      "sheetSha256": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+      "metadata": "atlases/killua-approved/anims.json",
+      "metadataSha256": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3"
+    },
+    "sasuke": {
+      "branch": "art/sasuke-title-r3",
+      "commit": "d4a06e7",
+      "sheet": "atlases/sasuke/sheet.png",
+      "sheetSha256": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+      "metadata": "atlases/sasuke/anims.json",
+      "metadataSha256": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043"
+    }
+  },
+  "crops": [
+    {
+      "output": "crops/approved-idle-sasuke-v07.png",
+      "sha256": "1bfcff87e01b2f51d9659634b1c5f1788e41e08cf09b67149eb3ff60741ead73",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+      "sourceMetadataSha256": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/sasuke/jumpSquat.png",
+      "sha256": "d9bc79f448119a72397a9dbc04ba11e2511725b1b4842f911e413414cbae33dc",
+      "sourceAtlas": "atlases/sasuke/sheet.png",
+      "sourceAtlasSha256": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+      "sourceMetadataSha256": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043",
+      "animation": "jumpSquat",
+      "sourceFrames": [
+        23
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/approved-idle-naruto-alts-v07.png",
+      "sha256": "2565b0a42a2d7304a8bf053bca1b499a48719a8b57a99168ff12dbad6899468b",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/naruto-alts/light2Alt.png",
+      "sha256": "6d2a6711b0f5c7c0b05b78ab5176e2c2e1149addd57eba4e61fb0263ba98cc50",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "57e7121351e064a0ca0e4b7d898f29b9739d9d71dfd6b15486f7b6f0f28a7e0f",
+      "sourceMetadataSha256": "e753b6da62a2bc78cff2c3966af33eb90db0a387a26ee639d7b5a267ed631ef6",
+      "animation": "light2Alt",
+      "sourceFrames": [
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/naruto-alts/base-light2.png",
+      "sha256": "0bf043efa6d9672fa15bfcf9d55ffb1fe1577e1933bcfe437c025606a38fbf98",
+      "sourceAtlas": "atlases/naruto-alts/sheet.png",
+      "sourceAtlasSha256": "57e7121351e064a0ca0e4b7d898f29b9739d9d71dfd6b15486f7b6f0f28a7e0f",
+      "sourceMetadataSha256": "e753b6da62a2bc78cff2c3966af33eb90db0a387a26ee639d7b5a267ed631ef6",
+      "animation": "light2",
+      "sourceFrames": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "dimensions": "1792x256"
+    },
+    {
+      "output": "crops/approved-idle-killua-v08.png",
+      "sha256": "ae7262a4ada30ee0730511b5cab62a82c2eb9e826204f00a1ab9234b7236df62",
+      "sourceAtlas": "atlases/killua-approved/sheet.png",
+      "sourceAtlasSha256": "771b510a9e82aa664abb936c597f416b2c3058e63dacf29efe5b7c9f0a062686",
+      "sourceMetadataSha256": "e2dd023ad409b384f8910fb21785b2c7096dc9019a4d088689a2482ea13cb0e3",
+      "animation": "approved idle v8",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/killua/stagger.png",
+      "sha256": "24b9e852351012abf0236e2f78454c035d301b3d3dea74721c04258619a6d2d2",
+      "sourceAtlas": "atlases/killua/sheet.png",
+      "sourceAtlasSha256": "b7694cc7c450288d76ebe6069c0ecc1d580b6cb4ddcb7f7304714e70a938f74c",
+      "sourceMetadataSha256": "9dfcbfb70ce37ddb1faa9094bc5aa9d544ed24e937d2b815bb593dd0de43a566",
+      "animation": "stagger",
+      "sourceFrames": [
+        131,
+        132,
+        133,
+        134
+      ],
+      "dimensions": "1024x256"
+    },
+    {
+      "output": "crops/approved-idle-naruto-v07.png",
+      "sha256": "2565b0a42a2d7304a8bf053bca1b499a48719a8b57a99168ff12dbad6899468b",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "approved idle v7",
+      "sourceFrames": [
+        0
+      ],
+      "dimensions": "256x256"
+    },
+    {
+      "output": "crops/naruto/taunt.png",
+      "sha256": "5702ba3578b1712a4e2fb5df831859ad3f5547983f29fefc2e790432d15e2ea5",
+      "sourceAtlas": "atlases/naruto/sheet.png",
+      "sourceAtlasSha256": "715a177322a6347bb86365430035e9610d0210122e2582da94fcee9ac67dd241",
+      "sourceMetadataSha256": "de68f9d5dfe3cf596f9b7d09a65316d9d3043b323978cde39f7bac7b714cfcf2",
+      "animation": "taunt",
+      "sourceFrames": [
+        148,
+        149
+      ],
+      "dimensions": "512x256"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+baseline/
+baseline-strict/
+attempt-input/
+attempt-output/
+candidate-input/
+candidate-public/
+official-strict/
+*-attempt*.png
+baseline-*.png
+candidate-*.png
+attempt-pack.mjs
+publish-gallery.mjs
+bookkeeping.mjs
+finalize.mjs
+minimal-manifest.mjs
+native-cell.mjs

@@ -4,8 +4,9 @@
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
 // needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
 import * as THREE from 'three';
-import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH, PROJECTILES } from './moves.js';
+import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH, PROJECTILES, ULTIMATE } from './moves.js';
 import { ARENA_LIMIT } from './constants.js';
+import * as dmath from './dmath.js';
 import { audio } from '../core/audio.js';
 
 const tmp = new THREE.Vector2();
@@ -60,7 +61,7 @@ export function specialSlot(f, air) {
 
 // +1 when the opponent is to the screen-right, -1 to the left (falls back to the facing when level).
 export function towardSide(f) {
-  const R = f.game.cam.right, o = f.opp;
+  const R = f.game.basis.right, o = f.opp;
   const sx = (o.pos.x - f.pos.x) * R.x + (o.pos.z - f.pos.z) * R.z;
   return Math.abs(sx) > 0.12 ? Math.sign(sx) : f.side;
 }
@@ -112,7 +113,12 @@ export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   f.invuln = (answer ? CLASH.answerFlash : S.flash) + 12;
   f.vel.set(0, 0, 0);
   f.faceOpponent();
-  f.game.onSuperStart(f, S, answer);
+  f.game.onSuperStart(f, S, answer, ultimate);
+  // an eye technique's sigil stays up through the flash (and the splash hold) into the move itself
+  if (S.sigil) {
+    const flash = answer ? CLASH.answerFlash : S.flash + (ultimate ? ULTIMATE.splashHold : 0);
+    f.game.fx.sigils.show(f, S.sigil, (flash + (S.delay ?? 0) + 30) / 60);
+  }
 }
 
 // ------------------------------------------------------------------ clashes (ADR 0017)
@@ -226,8 +232,8 @@ export function incomingEnergy(f) {
   let best = null, bd = R;
   for (const p of g.projectiles) {
     if (p.owner === f || p.dead || p.P.clash !== 'beam') continue;
-    const dx = f.pos.x - p.pos.x, dy = f.pos.y + 0.85 - p.pos.y, dz = f.pos.z - p.pos.z, d = Math.hypot(dx, dy, dz);
-    const v = Math.hypot(p.vel.x, p.vel.y, p.vel.z) || 1;
+    const dx = f.pos.x - p.pos.x, dy = f.pos.y + 0.85 - p.pos.y, dz = f.pos.z - p.pos.z, d = dmath.hypot(dx, dy, dz);
+    const v = dmath.hypot(p.vel.x, p.vel.y, p.vel.z) || 1;
     const along = (dx * p.vel.x + dy * p.vel.y + dz * p.vel.z) / v;
     if (d > bd || along < 0.6 * d || Math.sqrt(Math.max(0, d * d - along * along)) > 1.6) continue;
     best = p;
@@ -248,7 +254,7 @@ export function canBeamClashNow(f, lead = 0) {
   const g = f.game, o = f.opp;
   if (!g || !o || g.clash || g.struggleCool > 0 || !g.inputLive || (g.state !== 'fight' && !g.training)) return false;
   if (o.ko || o.hidden || !ENERGY_LOCK.has(o.state)) return false;
-  let gap = Math.hypot(f.pos.x - o.pos.x, f.pos.z - o.pos.z);
+  let gap = dmath.hypot(f.pos.x - o.pos.x, f.pos.z - o.pos.z);
   const m = o.state === 'attack' ? o.move : null;
   if (m?.kind === 'rush' && isEnergy(m) && !o.moveHit) {
     gap -= (Math.max(0, Math.min(o.t + lead, m.startup + m.active) - Math.max(o.t, m.startup)) * m.rush) / 60;
@@ -287,6 +293,7 @@ export function counterHit(f, att, m) {
   g.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 2, color: C.color ?? 0x9fd8ff, opacity: 0.6, glow: 1 });
   g.hud.callout(f.index, C.callout ?? 'COUNTER!', C.color ?? '#d8f2ff');
   g.fx.overlay.flash(C.color ?? '#d8f2ff', 0.35);
+  if (C.sigil) g.fx.sigils.burst(f); // the read: the pattern spins up and flares
   g.freeze = Math.max(g.freeze, 6);
   audio.play('block', 1.2);
   if (C.onCounter === 'behind') {
@@ -327,7 +334,7 @@ export function tickMode(f) {
     if (f.t % 2 === 0) g.fx.auraTick(f, 0.45, g.cam.right);
   } else if (f.t % 3 === 0) {
     const a = Math.random() * Math.PI * 2;
-    g.fx.spawn('lightning', p.x + Math.cos(a) * 0.35, p.y + 0.3 + Math.random() * 1.1, p.z + Math.sin(a) * 0.2, { scale: 0.32, random: true, life: 0.08, color: 0xd8f0ff, rot: a, order: 9, glow: 1.6 });
+    g.fx.spawn('lightning', p.x + dmath.cos(a) * 0.35, p.y + 0.3 + Math.random() * 1.1, p.z + dmath.sin(a) * 0.2, { scale: 0.32, random: true, life: 0.08, color: 0xd8f0ff, rot: a, order: 9, glow: 1.6 });
   }
 }
 
@@ -353,7 +360,7 @@ export function tickReflex(f) {
   const g = f.game, p = f.pos;
   if (R.t % 2 === 0) {
     const a = Math.random() * Math.PI * 2;
-    g.fx.spawn('lightning', p.x + Math.cos(a) * 0.4, p.y + 0.2 + Math.random() * 1.3, p.z + Math.sin(a) * 0.25, { scale: 0.38, random: true, life: 0.08, color: 0xe8f6ff, rot: a, order: 9, glow: 1.8 });
+    g.fx.spawn('lightning', p.x + dmath.cos(a) * 0.4, p.y + 0.2 + Math.random() * 1.3, p.z + dmath.sin(a) * 0.25, { scale: 0.38, random: true, life: 0.08, color: 0xe8f6ff, rot: a, order: 9, glow: 1.8 });
   }
   if (R.t % 9 === 0) f.actor.ghost(R.m.color, 0.25, 0.4);
 }
@@ -399,7 +406,7 @@ function shroudFx(f, S, t) {
   if (t % 2 === 1) {
     for (let i = 0; i < 4; i++) {
       // four tails fanned out behind the hips, swaying
-      const sway = Math.sin(t * 0.22 + i * 1.7);
+      const sway = dmath.sin(t * 0.22 + i * 1.7);
       const back = 0.45 + 0.12 * i;
       g.fx.spawn('flame', p.x - f.face.x * back, p.y + 0.55 + 0.12 * i, p.z - f.face.y * back + (i - 1.5) * 0.12, {
         scale: 0.32, color: i % 2 ? C.chakra : C.core, vel: [-f.face.x * 2.6, 1.4 + sway * 0.9, -f.face.y * 2.6 + sway * 0.6],
@@ -455,7 +462,7 @@ function dirTo(f, o) {
 
 // Point at screen-offset `back` (+1 = the side the opponent is not facing) from the opponent.
 function besideOpponent(f, back, off) {
-  const o = f.opp, R = f.game.cam.right;
+  const o = f.opp, R = f.game.basis.right;
   let s = back;
   if (Math.abs(o.pos.x + R.x * s * off) > ARENA_LIMIT || Math.abs(o.pos.z + R.z * s * off) > ARENA_LIMIT) s = -s;
   return {
@@ -465,7 +472,7 @@ function besideOpponent(f, back, off) {
 }
 
 function inLane(f, o, tol = 1.0) {
-  const F = f.game.cam.fwd;
+  const F = f.game.basis.fwd;
   return Math.abs((o.pos.x - f.pos.x) * F.x + (o.pos.z - f.pos.z) * F.z) < tol;
 }
 
@@ -518,8 +525,11 @@ const START = {
     enter(f, { kind: 'counter', m }, m.anim);
     f.vel.set(0, 0, 0);
     f.counterT = m.len;
-    const p = f.pos;
-    f.game.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.1, color: m.color ?? 0xd8f2ff, glow: 0.8, order: 8 });
+    const p = f.pos, g = f.game;
+    g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.1, color: m.color ?? 0xd8f2ff, glow: 0.8, order: 8 });
+    // an eye technique (data: `sigil`, `eyeFlash`): the pattern behind the fighter for the stance, the eyes in the HUD
+    if (m.sigil) g.fx.sigils.show(f, m.sigil, (m.len + m.recovery) / 60);
+    if (m.eyeFlash) g.hud.eyeFlash(f.index, f.asset?.cutin, m.color ?? f.def.color);
     audio.play('flash', 0.6);
   },
 
@@ -739,8 +749,8 @@ const UPDATE = {
           const d = (k.dir ??= dirTo(f, o));
           f.teleport(o.pos.x - d.x * 0.95, o.pos.y, o.pos.z - d.y * 0.95);
         } else {
-          const R = g.cam.right, F = g.cam.fwd, a = k.i * 2.39996 + 0.6;
-          const ox = Math.cos(a) * 1.05, oz = Math.sin(a) * 0.7;
+          const R = g.basis.right, F = g.basis.fwd, a = k.i * 2.39996 + 0.6;
+          const ox = dmath.cos(a) * 1.05, oz = dmath.sin(a) * 0.7;
           f.teleport(o.pos.x + R.x * ox + F.x * oz, o.pos.y + (k.i % 3) * 0.35, o.pos.z + R.z * ox + F.z * oz);
         }
         f.hidden = false;
@@ -823,7 +833,7 @@ const UPDATE = {
     if (k.phase === 'mark') {
       f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
       const a = k.at;
-      g.fx.keep('kirin' + f.index, 'glow', a.x, 0.1, a.z, { scale: S.radius * (1 + 0.15 * Math.sin(k.t0 * 0.5)), color: S.color, opacity: 0.55, order: 2, glow: 1 });
+      g.fx.keep('kirin' + f.index, 'glow', a.x, 0.1, a.z, { scale: S.radius * (1 + 0.15 * dmath.sin(k.t0 * 0.5)), color: S.color, opacity: 0.55, order: 2, glow: 1 });
       if (k.t0 % 5 === 0) g.fx.spawn('lightning', a.x + (Math.random() - 0.5) * 1.4, 3.2 + Math.random(), a.z, { scale: 0.9, random: true, life: 0.1, color: 0xd8f0ff, order: 9, glow: 2 });
       if (k.t0 >= S.delay) {
         g.fx.drop('kirin' + f.index);
@@ -835,7 +845,7 @@ const UPDATE = {
         g.cam.shake(1.2);
         audio.play('explosion', 1.3);
         const dx = o.pos.x - a.x, dz = o.pos.z - a.z;
-        if (o.hittable && Math.hypot(dx, dz) < S.radius && o.pos.y < 3) {
+        if (o.hittable && dmath.hypot(dx, dz) < S.radius && o.pos.y < 3) {
           const d = tmp.set(dx, dz);
           if (d.lengthSq() < 1e-4) d.set(f.face.x, f.face.y);
           o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special' }, d.clone().normalize());
@@ -877,7 +887,7 @@ const UPDATE = {
       const a = Math.min(1, k.t0 / mergeOf(k)), e = a * a * (3 - 2 * a);
       const at = (fwd) => ({ x: f.pos.x + f.face.x * fwd, y: f.pos.y + 1.06 - 0.08 * e, z: f.pos.z + f.face.y * fwd });
       const r = at(-0.58 + 1.48 * e), b = at(0.59 + 0.31 * e);
-      const s = 0.42 + 0.25 * e + 0.04 * Math.sin(k.t0 * 0.9);
+      const s = 0.42 + 0.25 * e + 0.04 * dmath.sin(k.t0 * 0.9);
       g.fx.keep(id + 'r', 'orb', r.x, r.y, r.z, { scale: s, color: S.red, order: 8, glow: 1.3 });
       g.fx.keep(id + 'b', 'orb', b.x, b.y, b.z, { scale: s, color: S.blue, order: 8, glow: 1.3 });
       g.fx.keep(id + 'g', 'glow', (r.x + b.x) / 2, r.y, (r.z + b.z) / 2, { scale: 0.6 + 1.6 * e, color: S.glow, opacity: 0.35 + 0.4 * e, order: 3, glow: 1 });
@@ -942,7 +952,7 @@ const UPDATE = {
         g.cam.shake(0.6);
         return;
       }
-      if (k.t0 > S.dash || Math.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) {
+      if (k.t0 > S.dash || dmath.hypot(f.pos.x - k.from.x, f.pos.z - k.from.z) > S.range) {
         if (k.slip) g.onEvade(o);
         k.phase = 'whiff';
         k.t0 = 0;

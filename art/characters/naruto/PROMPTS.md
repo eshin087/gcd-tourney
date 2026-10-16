@@ -3,8 +3,10 @@
 > **ART-SCALE-01 user correction:** preserve Gojo's original approved compact head and slender adult proportions (model v03, idle v02). The enlarged-head candidates are rejected. Use the original Gojo as the visual scale reference when reviewing the cast; retain character height differences and stable anatomy through animations. Never enlarge Gojo to satisfy the nominal 31px target. See [CHARACTER_SCALE.md](../../CHARACTER_SCALE.md).
 
 > Copy-paste prompts for the image generator, in the order to run them. **Spec v2**
-> ([ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md)): Naruto Shippuden design,
-> about 6.5 heads tall (not chibi), 256×256 cells. Each prompt is self-contained. The poses are the
+> ([ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md)) governs cell and pixel
+> production values. Naruto's anatomy and scale follow the user-approved title-style cells and
+> [production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md), not a universal head ratio.
+> Each prompt is self-contained. The poses are the
 > same as [ANIMATIONS.md](ANIMATIONS.md), described in words. Look, palette and fallback wording:
 > [CHARACTER.md](CHARACTER.md). Pipeline and QA: [art/PIPELINE.md](../../PIPELINE.md). Review queue:
 > [art/REVIEW.md](../../REVIEW.md). If anything here disagrees with ADR 0007 or

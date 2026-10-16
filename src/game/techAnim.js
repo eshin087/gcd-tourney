@@ -6,6 +6,7 @@
 // missing art never changes a current character. With the strip, the pose follows the tech state's own clock in three
 // beats (DEFENSE animPhases in moves.js), so the art's frame count never touches gameplay timing, invulnerability or
 // movement.
+import * as dmath from './dmath.js';
 
 export const TECH_ART = Object.freeze({ inPlace: 'techGround', roll: 'techRoll', wall: 'wallTech' });
 
@@ -47,7 +48,7 @@ export function techPose(kind, t, beats, art, reverse = false, out = {}) {
 // cross-up mid-roll never turns the sprite around or flips the tumble.
 export const ROLL_SIDE = 0.25;
 export function rollBackward(vx, vz, fx, fz) {
-  const v = Math.hypot(vx, vz), f = Math.hypot(fx, fz);
+  const v = dmath.hypot(vx, vz), f = dmath.hypot(fx, fz);
   if (v < 1e-4 || f < 1e-4) return false;
   return (vx * fx + vz * fz) / (v * f) < -ROLL_SIDE;
 }

@@ -1,0 +1,60 @@
+{
+  "D": {
+    "title": "Upright Infinity glide",
+    "calls": 3,
+    "parts": [
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-def/source/D_A_v01.png",
+        "sha256": "81aa30d9982643cd56b4d88a41753af64c52d008bc89285c714dae51228e812f"
+      },
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-def/source/D_B_v01.png",
+        "sha256": "a40457c7eb4d50e699b8af39a93d7405f7ecd51f0ff8481e908d4dec6625b4fe"
+      }
+    ],
+    "unsavedInitial": "exec-8e8b44ea-8fe3-40b1-a298-5036365e694a.png; repeated lead, not selected"
+  },
+  "E": {
+    "title": "Skating / run hybrid",
+    "calls": 3,
+    "parts": [
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-def/source/E_A_v01.png",
+        "rows": 2,
+        "indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "sha256": "95ea4167890fa548d137c586a816f6e2b2654cff026c42b4cac51d086140507e"
+      },
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-def/source/E_B_v01.png",
+        "sha256": "cbd4b9d0019694ad3292a15600cd2697cc9d672f8a6f95f648fb907573b5f3eb"
+      }
+    ],
+    "unsavedCorrection": "exec-8642ae6c-fc8c-4343-af07-861026d1a636.png; shorter proportions and repeated rear heel, not selected"
+  },
+  "F": {
+    "title": "Supernatural air-step",
+    "calls": 3,
+    "parts": [
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-def/source/F_A_v01.png",
+        "sha256": "d18721d5e613ca8237de0e64480a53bbff2d4aad5325778344bba0aa2af523ba"
+      },
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-def/source/F_B_v01.png",
+        "sha256": "0ac6b787777736c703c04bedd8002b00e1c7c674c0450c984821293049dab9a7"
+      }
+    ],
+    "unsavedInitial": "exec-d1267c12-e488-45fc-8139-07facffb1f03.png; repeated lead, not selected"
+  },
+  "authorization": "User explicitly authorized three new review candidates D/E/F beyond prior budget on 2026-10-12; 3 calls each, 9 total.",
+  "status": "needs review; technical HOLD; no production promotion",
+  "references": [
+    "reference/title_style_approved.png",
+    "reference/idle_approved.png"
+  ]
+}

@@ -1,0 +1,60 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/alts/frozen/fixture
+  out:  art/characters/naruto/production/alts/frozen/packed
+  anims: animGuide.js + art/characters/naruto/production/alts/frozen/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 23 anims, 138 frames -> sheet 4096x2304, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.286
+    light1       7     <- raw/light1_v04.png           x0.288
+    light2       7     <- raw/light2_v06.png           x0.301
+    light3       7     <- raw/light3_v04.png           x0.336
+    light4       8     <- raw/light4_v08.png           x0.429
+    heavy        8     <- raw/heavy_v12.png            x0.366
+    airLight1    5     <- raw/airLight1_v06.png        x0.364  (removed 14 specks)
+    airLight2    5     <- raw/airLight2_v05.png        x0.4  (removed 8 specks)
+    airLight3    6     <- raw/airLight3_v09.png        x0.371
+    airHeavy     6     <- raw/airHeavy_v09.png         x0.374
+    hurtHigh     3     <- raw/hurtHigh_v04.png         x0.269
+    hurtLow      3     <- raw/hurtLow_v03.png          x0.263
+    light1Alt    7     <- raw/light1Alt_v01.png        x0.316
+    light2Alt    7     <- raw/light2Alt_v02.png        x0.36
+    light3Alt    7     <- raw/light3Alt_v01.png        x0.347
+    light4Alt    8     <- raw/light4Alt_v01.png        x0.412
+    heavyAlt     8     <- raw/heavyAlt_v01.png         x0.407
+    airLight1Alt  5     <- raw/airLight1Alt_v01.png     x0.348  (removed 13 specks)
+    airLight2Alt  5     <- raw/airLight2Alt_v01.png     x0.423
+    airLight3Alt  6     <- raw/airLight3Alt_v01.png     x0.383
+    airHeavyAlt  6     <- raw/airHeavyAlt_v02.png      x0.325
+    hurtHighAlt  3     <- raw/hurtHighAlt_v01.png      x0.271
+    hurtLowAlt   3     <- raw/hurtLowAlt_v01.png       x0.264
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 15 ok, 5 drift, 2 pop
+    ~ light1Alt head 1.06 of idle (feet 0.69): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ light3Alt head 1.18 of idle (feet 0.88): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ light4Alt head 1.12 of idle (feet 0.82): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ heavyAlt pops inside the strip: f5 0.95 vs f1 1.15 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v01]
+    ~ airLight3Alt head 1.19 of idle (feet 0.64): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+    ~ airHeavyAlt pops inside the strip: f1 0.90 vs f3 1.16 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]
+    ~ hurtLowAlt head 1.09 of idle (feet not measurable): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v01]
+  missing core (14): run, dash, jumpUp, jumpFall, land, guard, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (19): backDash, superDash, jumpSquat, block, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech
+  - palette snapped to 48 colors
+  - 5 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! light2Alt: 1 frame(s) clipped by the 256x256 cell (#2 right 7px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! airLight1Alt: 1 frame(s) reach into the 4px cell margin (#1 right 3px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw
+  ! airLight2Alt: 1 frame(s) reach into the 4px cell margin (#2 right 4px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw
+  ! airLight3Alt: 2 frame(s) clipped by the 256x256 cell (#2 right 15px, #3 right 21px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! airHeavyAlt: 1 frame(s) clipped by the 256x256 cell (#5 left 7px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light1Alt: strike height 68.5px above the floor, light1 130px (-61.5px, tolerance 16px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! light2Alt: strike reach 128px from the pivot, light2 95px (+33px, tolerance 12px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! light2Alt: strike height 108.5px above the floor, light2 154.5px (-46px, tolerance 16px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! light3Alt: strike reach 93px from the pivot, light3 126px (-33px, tolerance 12px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! light3Alt: strike height 22.5px above the floor, light3 118px (-95.5px, tolerance 16px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! heavyAlt: strike reach 55px from the pivot, heavy 69px (-14px, tolerance 12px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! airLight3Alt: strike height 129px above the floor, airLight3 101px (+28px, tolerance 16px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  ! airHeavyAlt: strike reach 28px from the pivot, airHeavy 126px (-98px, tolerance 12px) - an alt plays its base's move data, so it keeps the frame count and phases and strikes at the same height and reach (art/SPEC.md "Attack alts", ADR 0031)
+  wrote art/characters/naruto/production/alts/frozen/packed/characters/naruto/sheet.png
+  wrote art/characters/naruto/production/alts/frozen/packed/characters/naruto/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 13 warning(s).

@@ -1,0 +1,97 @@
+{
+  "G": {
+    "title": "Relaxed arm swing",
+    "calls": 3,
+    "parts": [
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/G_A_v01.png",
+        "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-715b7a65-655b-4a1d-8be0-3d7c7d0123a8.png",
+        "sha256": "823A60CD6D096FD693FF46435021566E78D532D264CDFB3E65A856138EBB1863"
+      },
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/G_B_v01.png",
+        "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-8f172c64-5401-48ef-af8c-2fa1e216355b.png",
+        "sha256": "F4C38E22131053749EAB4CFD330E3A59BA7009609D91211C83A14D8FA7BEF265"
+      }
+    ],
+    "unselectedB": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-affd44e0-1efc-44ee-83f3-6da55e012139.png",
+    "partCalls": {
+      "A": 1,
+      "B": 2
+    },
+    "diagnosticHeadRatio": 0.914,
+    "authorization": "User requested a few more from D on 2026-10-12 and allowed hands outside pockets; three new candidates, three calls each (A1/B2).",
+    "references": [
+      "reference/title_style_approved.png",
+      "reference/idle_approved.png",
+      "prior D_A_v01 direction only"
+    ],
+    "reviewStatus": "approved",
+    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains.",
+    "selectionScope": "Direction study only; production run remains v12 and technical holds remain.",
+    "selectedOn": "2026-10-13T04:27:31.298Z",
+    "userDecision": "ok lets go with G"
+  },
+  "H": {
+    "title": "One-pocket glide",
+    "calls": 3,
+    "parts": [
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/H_A_v01.png",
+        "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-2a6d5cd1-c952-4054-b2a1-a2bd8e8db1e1.png",
+        "sha256": "4C6CDAD4800C4DC5A597E65ACB021BFDB6CB85F8EE89B627BB1D25032A819B81"
+      },
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/H_B_v01.png",
+        "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-b6b421b5-1786-406d-bafd-d2ec5cfb0c8b.png",
+        "sha256": "3E27638B99294D6B9185996E9F804FBF70AEBD0E0FB32D0A5E63FCC57A90307B"
+      }
+    ],
+    "unselectedB": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-f4e65439-ac41-451c-9b28-3aacd6b0b5bd.png",
+    "partCalls": {
+      "A": 1,
+      "B": 2
+    },
+    "diagnosticHeadRatio": 0.913,
+    "authorization": "User requested a few more from D on 2026-10-12 and allowed hands outside pockets; three new candidates, three calls each (A1/B2).",
+    "references": [
+      "reference/title_style_approved.png",
+      "reference/idle_approved.png",
+      "prior D_A_v01 direction only"
+    ],
+    "reviewStatus": "rejected",
+    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains.",
+    "rejectionReason": "Not selected; superseded by user-selected G direction."
+  },
+  "I": {
+    "title": "Low floating gesture",
+    "calls": 3,
+    "parts": [
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/I_A_v01.png",
+        "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-1338e938-0de1-48c2-ab28-dd9fdb0bb996.png",
+        "sha256": "5D118366C7AF7F974965C38173CAD6FE3EE6AB58491A1816BCB1A64EF7BFB6B9"
+      },
+      {
+        "file": "E:/Vibe Coding/.codex/worktrees/gojo-title-r3/gcdTourney/art/characters/gojo/production/run-ghi/source/_rejected/I_B_v01.png",
+        "original": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-16b4bd19-4fa7-45d0-abb1-56adcd4be74a.png",
+        "sha256": "8A114DA70DBAF103DC6E37E591E1A08B41E36E19047ED28D6AAC3018540DF0AA"
+      }
+    ],
+    "unselectedB": "E:\\Vibe Coding\\.codex\\generated_images\\01a1333f-e157-7aa0-8d60-4a6d0fccf448\\exec-fe57a6eb-add2-47cf-b991-df7ecf29d858.png",
+    "partCalls": {
+      "A": 1,
+      "B": 2
+    },
+    "diagnosticHeadRatio": 0.94,
+    "authorization": "User requested a few more from D on 2026-10-12 and allowed hands outside pockets; three new candidates, three calls each (A1/B2).",
+    "references": [
+      "reference/title_style_approved.png",
+      "reference/idle_approved.png",
+      "prior D_A_v01 direction only"
+    ],
+    "reviewStatus": "rejected",
+    "technicalHold": "Anatomical leg identity repeats or is ambiguous; seam and clothing-volume review remains.",
+    "rejectionReason": "Not selected; superseded by user-selected G direction."
+  }
+}

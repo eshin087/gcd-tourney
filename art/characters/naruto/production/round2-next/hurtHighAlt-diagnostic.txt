@@ -1,0 +1,20 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round2-next/fixture
+  out:  art/characters/naruto/production/round2-next/packed-hurtHighAlt
+  anims: animGuide.js + art/characters/naruto/production/round2-next/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 2 anims, 11 frames -> sheet 4096x256, 47 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.286
+    hurtHighAlt  3     <- raw/hurtHighAlt_v01.png      x0.27  (dropped 2 stray mark(s) far from the body)
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 pop
+    ~ hurtHighAlt pops inside the strip: f0 1.00 vs f2 1.14 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v01]
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (32): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  ! hurtHighAlt: packed without its base hurtHigh - the game alternates it with whatever stands in for hurtHigh; pack hurtHigh first
+  wrote art/characters/naruto/production/round2-next/packed-hurtHighAlt/characters/naruto/sheet.png
+  wrote art/characters/naruto/production/round2-next/packed-hurtHighAlt/characters/naruto/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 1 warning(s).

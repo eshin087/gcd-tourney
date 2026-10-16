@@ -22,6 +22,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
 import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, staleExemptText, FLAGGED, hex } from './scale-probe.mjs';
 import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
+import { skippedFiles } from './sparse-art.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -47,6 +48,8 @@ const BODY_HEIGHT = {
   // tech poses (ADR 0030): the tallest frame is the settle stance (= idle), the recovery crouch (= jumpSquat) and the
   // fall handoff (= jumpFall); a fighter drawn at another stature overrides them per animation in the manifest
   techGround: 204, techRoll: 162, wallTech: 209,
+  beamStruggle: 198, // beam clash struggle (ADR 0034): braced, no taller than beamFire
+  beamStruggleAir: 190, // its air version: hovering, legs tucked (about the throw's height)
 };
 const DEFAULT_BODY_HEIGHT = 204;
 
@@ -69,6 +72,7 @@ const DEFAULT_MS = {
   vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
   // tech poses: their beats at 60 fps (DEFENSE animPhases); the engine drives them by the tech state's clock anyway
   techGround: [67, 83, 83, 67], techRoll: [50, 63, 62, 63, 62, 67], wallTech: [50, 50, 67, 67, 66],
+  beamStruggle: 70, beamStruggleAir: 70,
 };
 
 // Attacks whose damage comes from something else (projectile), and phased strips that never strike (the tech
@@ -137,6 +141,7 @@ const FALLBACK_GUIDE = {
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
   techGround: { frames: 4, phases: [1, 2, 1] }, techRoll: { frames: 6, phases: [1, 4, 1] }, wallTech: { frames: 5, phases: [2, 1, 2] },
+  beamStruggle: { frames: 3, loop: true }, beamStruggleAir: { frames: 3, loop: true },
   light1Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light1' }, light2Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light2' },
   light3Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light3' }, light4Alt: { frames: 8, phases: [3, 2, 3], altOf: 'light4' },
   heavyAlt: { frames: 8, phases: [3, 2, 3], altOf: 'heavy' }, airLight1Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight1' },
@@ -172,6 +177,13 @@ const VFX_EFFECTS = {
   ripple: { frames: 5, ms: 50, tinted: true, fill: 0.95 },
   naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom', baseX: true },
   dustWave: { frames: 6, ms: 60, tinted: false, fill: 0.7, anchor: 'bottom' }, // ground damage (ADR 0024)
+  // beam clash (ADR 0034). The stream bands tile horizontally: they ship as exact 128 x 128 frames in
+  // art/vfx/frames/<effect>/ (final, never rescaled or re-centered); fill 1 keeps a full-width strip edge to edge
+  clashBurst: { frames: 6, ms: 45, tinted: true, fill: 0.9 },
+  streamBolt: { frames: 4, ms: 40, tinted: true, fill: 1, tile: true },
+  streamLance: { frames: 4, ms: 40, tinted: true, fill: 1, tile: true },
+  streamFlame: { frames: 4, ms: 50, tinted: false, fill: 1, tile: true },
+  redOrb: { frames: 6, ms: 40, tinted: false, fill: 0.5 },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
@@ -180,6 +192,12 @@ const UI_ITEMS = {
   portrait: { w: 96, h: 96, align: 'bottom' },
   cutin: { w: 480, h: 128, align: 'center' },
   select: { w: 384, h: 384, align: 'bottom' },
+  // super banner and ultimate splash layers (ADR 0035): opaque backdrops are center-cropped to the aspect, the
+  // fighter cutouts contain-fitted and bottom-aligned
+  super_bg: { w: 768, h: 192, align: 'center' },
+  super_fg: { w: 384, h: 240, align: 'bottom' },
+  ult_bg: { w: 768, h: 432, align: 'center' },
+  ult_fg: { w: 576, h: 432, align: 'bottom' },
 };
 
 const MAGENTA = [255, 0, 255];
@@ -212,6 +230,8 @@ options
                     "approvedVersion" in the manifest are packed, and stale outputs are removed when their
                     approval is gone. --candidates packs every latest candidate into <out>/preview/<kind>/
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
+  --allow-drop      let the vfx atlas lose an effect it ships whose source (raw/ or frames/) is missing on disk;
+                    without it the packer refuses (exit 1) and leaves the atlas as it is (TOOL-048)
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
   --strict-scale    scale gate (art/CHARACTER_SCALE.md): every strip whose head is off the idle's is an error,
@@ -225,7 +245,7 @@ options
 `;
 
 function parseArgs(argv) {
-  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, allowDrop: false, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const eq = a.indexOf('=');
@@ -247,6 +267,7 @@ function parseArgs(argv) {
       case '--guide': o.guide = val(); break;
       case '--dry-run': o.dryRun = true; break;
       case '--no-writeback': o.writeback = false; break;
+      case '--allow-drop': o.allowDrop = true; break;
       case '--json': o.json = true; break;
       case '--update-manifest': o.updateManifest = true; break;
       case '--candidates': o.candidates = true; break;
@@ -289,6 +310,14 @@ function readJson(file) {
 
 // ============================================================== image helpers (RGBA8)
 function newImage(w, h) { return { w, h, data: new Uint8Array(w * h * 4) }; }
+function flipH(img) {
+  const out = newImage(img.w, img.h);
+  for (let y = 0; y < img.h; y++) for (let x = 0; x < img.w; x++) {
+    const s = (y * img.w + x) * 4, d = (y * img.w + (img.w - 1 - x)) * 4;
+    for (let k = 0; k < 4; k++) out.data[d + k] = img.data[s + k];
+  }
+  return out;
+}
 
 const PNG_SIG = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const MAX_PIXELS = 40e6; // ChatGPT images are ~2 MP; anything this big is a mistake and could exhaust memory
@@ -578,6 +607,24 @@ function removeSpecks(img, { frac = 0.0015, min = 4 } = {}) {
   for (let k = 1; k < comps.length; k++) if (comps[k].n < limit) { kill[k] = 1; blobs++; removed += comps[k].n; }
   if (blobs) clearLabels(img, label, kill);
   return { blobs, removed };
+}
+
+// Sidecar "erase": [[x, y, w, h], ...] in raw-image pixels, painted magenta before background removal. For a leftover the
+// automatic cleanup rightly keeps because it sits close to a body (the toe of an earlier version's pose left at a slot edge
+// when one frame of a strip was replaced): the approved PNG stays immutable (ADR 0007) and the cleanup is recorded beside it.
+function eraseRects(img, list, warn) {
+  let n = 0;
+  for (const r of list) {
+    const ok = Array.isArray(r) && r.length === 4 && r.every((v) => Number.isInteger(v)) && r[0] >= 0 && r[1] >= 0 && r[2] > 0 && r[3] > 0;
+    if (!ok || r[0] >= img.w || r[1] >= img.h) { warn(`sidecar "erase" ${JSON.stringify(r)} ignored - expected [x, y, w, h] integers inside the ${img.w}x${img.h} raw image`); continue; }
+    const x1 = Math.min(img.w, r[0] + r[2]), y1 = Math.min(img.h, r[1] + r[3]);
+    for (let y = r[1]; y < y1; y++) for (let x = r[0]; x < x1; x++) {
+      const i = (y * img.w + x) * 4;
+      img.data[i] = 255; img.data[i + 1] = 0; img.data[i + 2] = 255; img.data[i + 3] = 255;
+    }
+    n++;
+  }
+  return n;
 }
 
 // Per-frame cleanup of a raw character pose: a small blob far from the body (a stray mark above the
@@ -1300,6 +1347,10 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
   for (const f of rawFiles) {
     let img;
     try { img = readPng(f); } catch (e) { warn(`${label}: cannot read ${path.basename(f)} (${e.message})`); unreadable++; continue; }
+    if (Array.isArray(side.erase) && side.erase.length) {
+      const n = eraseRects(img, side.erase, (m) => warn(`${label}: ${m}`));
+      if (n) notes.push(`erased ${n} rect(s) of ${path.basename(f)} (sidecar)`);
+    }
     const bg = removeBackground(img, { tol, mode });
     if (!bg.magentaBg && bg.removed === 0 && !hasTransparency(img)) warn(`${label}: ${path.basename(f)} has no removable background (use flat magenta #FF00FF)`);
     else if (mode === 'char' && bg.foreign && bg.removed) foreign.add(bg.foreign);
@@ -1347,6 +1398,12 @@ function framesFromRaw(rawFiles, expected, side, env, mode, warn, label, strip) 
   if (strays) notes.push(`dropped ${strays} stray mark(s) far from the body`);
   if (foreign.size) warn(`${label}: background ${[...foreign].join('/')} is not magenta #FF00FF - removed with half tolerance; gaps enclosed by the body (between arm and torso) stay filled. Regenerate on magenta`);
   let frames = out;
+  // Sidecar "flipX": a pose drawn facing the other way (Killua ko v09 lies head-right where down and the approved ko lie
+  // head-left) is mirrored frame by frame, after the split, so the frame order stays the drawing's
+  if (side.flipX === true) {
+    if (mode === 'char') { frames = frames.map(flipH); notes.push('mirrored left-right (sidecar flipX)'); }
+    else warn(`${label}: sidecar "flipX" is for character strips only - ignored`);
+  }
   if (Array.isArray(side.drop) && side.drop.length) {
     const drop = new Set(side.drop.map(Number).filter((k) => Number.isInteger(k) && k >= 0 && k < frames.length));
     const bad = side.drop.filter((k) => !drop.has(Number(k)));
@@ -1913,8 +1970,36 @@ function auditAnims(id, anims, env) {
   const decl = env.builds?.[id] || {};
   return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version, phases: a.def.phases })), {
     decl, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
-    reference: loadScaleReference(env.artDir, decl),
+    reference: scaleReferenceFor(id, env),
   });
+}
+const scaleReferenceFor = (id, env) => loadScaleReference(env.artDir, env.builds?.[id] || {}) || env.approvedIdleRef?.[id] || null;
+
+// A new idle candidate as the newest raw would become the scale gate's reference and move every strip's head numbers
+// and auto head fits (TOOL-040: Gojo idle v07 made superDash read 0.47). While the packed idle is not the approved
+// version, the gate measures against the approved idle instead, imported and placed exactly like the live one, and
+// the candidate idle is gated like any other strip. A builds.json scaleReference still wins.
+function approvedIdleReference(id, defs, anims, rawIdx, env, R, warn) {
+  const def = defs.find((d) => d.name === 'idle');
+  const live = anims.find((a) => a.def.name === 'idle');
+  if (def?.approvedVersion == null || live?.version == null || live.version === def.approvedVersion) return;
+  if (loadScaleReference(env.artDir, env.builds?.[id] || {})) return;
+  const vv = (n) => `v${String(n).padStart(2, '0')}`;
+  const raw = pickRaw(rawIdx.get('idle'), 'idle', def.approvedVersion);
+  if (raw?.version !== def.approvedVersion) {
+    warn(`idle: candidate ${vv(live.version)} is packed and no raw/idle_${vv(def.approvedVersion)}.png is left - every strip is measured against the candidate`);
+    return;
+  }
+  const side = readSidecars(raw.sidecars, warn, 'idle');
+  const { frames } = framesFromRaw(raw.files, def.frames, side, env, 'char', () => {}, 'idle', raw.strip);
+  if (!frames.length) return;
+  const bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
+  const maxH = Math.max(...frames.map((s) => s.h));
+  const scale = Math.abs(maxH - bodyHeight) <= 1 ? 1 : bodyHeight / maxH;
+  const offsets = frameOffsetsFor(side, frames.length, env.spec, () => {}, 'idle');
+  const cells = frames.map((s, k) => placeCharFrame(resample(s, scale, { coverage: 0.5, alphaMin: 128 }), env.spec, offsets?.[k], null).cell);
+  (env.approvedIdleRef ??= {})[id] = { cells, label: `approved idle ${vv(def.approvedVersion)} (${raw.label})` };
+  R.notes.push(`scale: measured against the approved idle ${vv(def.approvedVersion)}, not the packed candidate ${vv(live.version)}`);
 }
 
 // builds.json fighter "scaleReference": { "cells": ["characters/<id>/reference/<approved cell>.png", ...], "why": "..." }
@@ -2000,7 +2085,7 @@ function scaleGate(id, anims, env, R) {
   R.scale = out;
   const approved = (a) => a.def.approvedVersion != null && (a.version == null || a.version <= a.def.approvedVersion);
   // the idle is the reference and never fails, unless builds.json names an approved reference: then it is gated too
-  const external = !!loadScaleReference(env.artDir, env.builds?.[id] || {})?.cells;
+  const external = !!scaleReferenceFor(id, env)?.cells;
   const isStrict = (a) => (a.def.name !== 'idle' || external) && (mode === 'strict' || (mode === 'auto' && !approved(a)));
   if (!anims.some((a) => a.def.name === 'idle')) { out.error = 'no idle packed yet - nothing to measure against'; R.notes.push(`scale: ${out.error}`); return null; }
   const A = auditAnims(id, anims, env);
@@ -2176,6 +2261,8 @@ function packCharacter(id, env) {
     }
   }
 
+  approvedIdleReference(id, defs, anims, rawIdx, env, R, warn);
+
   // UI images are independent of the sheet
   packUi(id, charDir, env, R);
 
@@ -2334,7 +2421,7 @@ function packCharacter(id, env) {
   return R;
 }
 
-// portrait / cutin / select: remove magenta bg, fit to the spec size, write next to the sheet.
+// portrait / cutin / select / super and ultimate layers: remove magenta bg, fit to the spec size, write next to the sheet.
 function packUi(id, charDir, env, R) {
   const uiDir = path.join(charDir, 'ui');
   for (const [name, spec] of Object.entries(UI_ITEMS)) {
@@ -2396,8 +2483,31 @@ function removeOutputs(env, dir, names, R) {
 const vv = (n) => `v${String(n).padStart(2, '0')}`;
 
 // ============================================================== VFX packing
+// any opaque pixel in the first and in the last column (a horizontally tiling stream band)
+function reachesSides(img) {
+  const hit = (x) => { for (let y = 0; y < img.h; y++) if (img.data[(y * img.w + x) * 4 + 3] >= 128) return true; return false; };
+  return hit(0) && hit(img.w - 1);
+}
+
+// TOOL-048: effects the current atlas ships that this pack would lose because their source is missing on disk. An
+// effect that lost its approval leaves on purpose; one whose raw/ and frames/ are simply not there is almost always a
+// checkout problem (a sparse worktree without art/vfx/raw/ dropped six live effects from a committed atlas on
+// 2026-10-15), so the atlas is refused until the raws are back or --allow-drop says the loss is intended.
+function lostVfx(env, outVfx, R) {
+  if (env.candidates || env.allowDrop) return [];
+  const shipped = readJson(path.join(outVfx, 'atlas.json')).data?.anims;
+  const lost = shipped ? Object.keys(shipped).filter((n) => R.missing.includes(n) && !R.unapproved.includes(n)) : [];
+  if (!lost.length) return lost;
+  const skipped = isDir(env.artDir) ? skippedFiles(env.artDir, 'vfx/raw').filter((p) => !/\/(_rejected|_old)\//.test(p)) : [];
+  const fix = skipped.length
+    ? `art/vfx/raw/ is not checked out in this sparse worktree (${skipped.length} tracked file(s) left off disk): run \`npm run pr -- art vfx\` in this worktree, then pack again`
+    : 'restore their raw/ or frames/, or pass --allow-drop if removing them from the atlas is intended';
+  R.warnings.push(`VFX ATLAS NOT WRITTEN: ${rel(env.cwd, path.join(outVfx, 'atlas.json'))} ships ${lost.join(', ')}, but their source is missing here - ${fix}`);
+  return lost;
+}
+
 function packVfx(env) {
-  const R = { packed: [], missing: [], failed: [], unapproved: [], removed: [], preview: !!env.candidates, versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
+  const R = { packed: [], missing: [], failed: [], unapproved: [], removed: [], refused: [], preview: !!env.candidates, versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
   const warn = (m) => R.warnings.push(m);
   const vfxDir = path.join(env.artDir, 'vfx');
   const outVfx = worldOut(env, 'vfx');
@@ -2405,7 +2515,12 @@ function packVfx(env) {
   for (const [name, e] of Object.entries(env.manifest.vfx)) effects[name] = { ...(VFX_EFFECTS[name] || { frames: e.frames || 4, ms: 50, tinted: false, fill: 0.8 }), ...e };
   // an approval recorded on a worldArt.vfx batch (vfx-<effect>, vfx-<effect>-rN) counts like vfx.effects (highest wins)
   for (const [name, v] of worldApprovals(env.manifestRaw, 'vfx')) if (effects[name] && v > (effects[name].approvedVersion || 0)) effects[name].approvedVersion = v;
-  if (!isDir(vfxDir)) { R.missing = Object.keys(effects); removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
+  if (!isDir(vfxDir)) {
+    R.missing = Object.keys(effects);
+    if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
+    removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R);
+    return R;
+  }
   const names = Object.keys(effects);
   const rawIdx = scanRaw(path.join(vfxDir, 'raw'), names, warn, 'vfx/raw');
   const framesRoot = path.join(vfxDir, 'frames');
@@ -2473,6 +2588,8 @@ function packVfx(env) {
         if (colored > 0.05) warn(`${name}: drawn in color but the engine tints it - converted to greyscale (draw it white/grey)`);
       }
       if (e.lumaAlpha) cells.forEach((c, k) => { if (!items[k].final) lumaToAlpha(c); });
+      // a stream band is laid end to end along the stream (ADR 0034): every frame must reach both cell edges
+      if (e.tile) cells.forEach((c, k) => { if (!reachesSides(c)) warn(`${name}: frame ${k} does not reach both cell edges, so it cannot tile along a stream (deliver exact 128 x 128 tiles in frames/${name}/)`); });
       for (const c of cells) quantizeAlpha(c);
       if (cells.length !== e.frames) warn(`${name}: ${cells.length} frame(s), expected ${e.frames}`);
       packed.push({ name, e, cells, src, sourceLabel, notes, scale, origin, version, edited: !!src.edited, handMade: src.kind === 'frames' && !src.packerMade });
@@ -2482,6 +2599,7 @@ function packVfx(env) {
       R.failed.push(name);
     }
   }
+  if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
   if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
 
   const cols = Math.max(...packed.map((p) => p.cells.length));
@@ -3054,7 +3172,8 @@ function printReport(rep, env) {
     L(`== vfx ${'='.repeat(57)}`);
     if (v.preview) L('  candidates: every effect, approved or not -> preview/vfx/ (the game shows it with ?art=custom)');
     else if (v.unapproved.length) L(`  not approved yet (${v.unapproved.length}, procedural in game; preview with --candidates): ${v.unapproved.join(', ')}`);
-    if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
+    if (v.refused?.length) L(`  NOT WRITTEN: the atlas would lose ${v.refused.join(', ')} (source missing on disk; see the ! line below)`);
+    else if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
     else {
       L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas} (missing ones stay procedural)`);
       for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${(String(p.frames).padStart(2) + (p.frames !== p.expected ? '/' + p.expected : '')).padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -3106,10 +3225,11 @@ function printReport(rep, env) {
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
   const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image'], ['decals', 'decal']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
   const gateFailed = rep.characters.filter((c) => c.scale?.failed.length);
+  if (rep.vfx?.refused?.length) L(`VFX ATLAS NOT WRITTEN: it would lose ${rep.vfx.refused.join(', ')} - check out art/vfx/raw/ (\`npm run pr -- art vfx\` in a sparse worktree) or pass --allow-drop`);
   if (gateFailed.length) L(`SCALE GATE FAILED: ${gateFailed.map((c) => `${c.id} (${c.scale.failed.join(', ')})`).join('; ')} - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"`);
   const shadowed = rep.characters.filter((c) => c.blocked?.length);
   if (shadowed.length) L(`OLD HAND EDITS SHADOW A NEWER VERSION: ${shadowed.map((c) => `${c.id} (${c.blocked.join(', ')})`).join('; ')} - not written; move each frames/<anim>/ to frames/_old/ or redo the edits on the new version`);
-  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
+  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.refused?.length ? 'vfx atlas NOT WRITTEN' : rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
 
 // The decal packer (tools/pack-decals.mjs, ADR 0024) uses this file's helpers, passed in (it predates the export list
@@ -3141,7 +3261,7 @@ async function main() {
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
-  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
+  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
   // scale gate inputs (TOOL-025): thresholds from spec.scaleGate, declared head/feet colours, the committed baseline
   const gateIssues = [];
   Object.assign(env, {
@@ -3197,6 +3317,7 @@ async function main() {
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);
   if (rep.characters.some((c) => c.scale?.failed.length || c.blocked?.length)) return 1; // the scale gate failed or old hand edits shadow a newer version
+  if (rep.vfx?.refused?.length) return 1; // the vfx atlas would lose effects whose source is not on disk (TOOL-048)
   return opts.strict && rep.totalWarnings ? 2 : 0;
 }
 

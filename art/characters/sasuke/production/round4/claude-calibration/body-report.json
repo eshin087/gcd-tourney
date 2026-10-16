@@ -1,0 +1,94 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-15T05:49:42.460Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2825,
+   "anims": {
+    "idle": {
+     "v": 7,
+     "body": [
+      1,
+      0.984,
+      0.981,
+      1.003,
+      1.03,
+      1.027,
+      1.014,
+      1.039
+     ],
+     "head": [
+      1,
+      1,
+      1,
+      0.991,
+      1.016,
+      1.012,
+      1,
+      1
+     ],
+     "median": 1.009,
+     "headMedian": 1,
+     "flag": null
+    },
+    "dash": {
+     "v": 7,
+     "body": [
+      1.024,
+      1.038
+     ],
+     "head": [
+      1.03,
+      0.996
+     ],
+     "median": 1.031,
+     "headMedian": 1.013,
+     "flag": null
+    },
+    "superDash": {
+     "v": 7,
+     "body": [
+      0.988,
+      0.99
+     ],
+     "head": [
+      1.001,
+      1.015
+     ],
+     "median": 0.989,
+     "headMedian": 1.008,
+     "flag": null
+    },
+    "jumpSquat": {
+     "v": 6,
+     "body": [
+      1.033
+     ],
+     "head": [
+      0.996
+     ],
+     "median": 1.033,
+     "headMedian": 0.996,
+     "flag": null
+    },
+    "beamFire": {
+     "v": 7,
+     "body": [
+      1.034,
+      1.141,
+      1.038
+     ],
+     "head": [
+      0.974,
+      0.995,
+      1
+     ],
+     "median": 1.038,
+     "headMedian": 0.995,
+     "flag": null
+    }
+   }
+  }
+ }
+}

@@ -64,7 +64,7 @@ export function auditPacked(id, { artDir = path.join(ROOT, 'art'), publicDir = p
   builds = builds ?? readJson(path.join(artDir, 'scale', 'builds.json'))?.fighters ?? {};
   const gate = resolveGate(manifest.spec?.scaleGate);
   const exempt = exemptionsFrom(manifest.characters?.[id]?.animations);
-  let A = auditFromCompact(P.meta.scaleAudit, { gate, exempt });
+  let A = auditFromCompact(P.meta.scaleAudit, { gate, exempt, decl: builds[id] || {} });
   if (!A) {
     A = auditCharacter(P.anims.map((a) => ({ name: a.name, cells: a.cells, phases: a.phases, version: versionOf(id, a.name, P.meta, artDir) })), {
       decl: builds[id] || {}, gate, exempt, maxColors: manifest.spec?.maxColors ?? 48, reference: loadScaleReference(artDir, builds[id] || {}),

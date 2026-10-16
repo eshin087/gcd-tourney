@@ -1,0 +1,53 @@
+{
+  "disclaimer": "Review-only preview. This fixed allowlist includes the selected quantized base/alt comparison, approved production references, and compact QA metadata. Generated attempts, raw parts, prompt files, and private call history remain in art/ and are not copied into the preview.",
+  "files": {
+    "pairedAtlas": {
+      "file": "assets/naruto-alt-base-paired-native.png",
+      "sha256": "2d357e36178d015f30ec49fd80076b7fab0f8b669b425e30dba99a745f8e8402"
+    },
+    "auditManifest": {
+      "file": "assets/audit-manifest.json",
+      "sha256": "2d00f4989dddb7a44dbbbeb722bab64be77c14b620a085ba3feb77096dfd1fa8"
+    },
+    "contactDeltas": {
+      "file": "assets/approved-contact-deltas.json",
+      "sha256": "796824896dabbe4e38d7911da66579cb7c9a3a669d1b1abbb55d9e2912105179"
+    },
+    "productionAnims": {
+      "file": "assets/approved-production-anims.json",
+      "sha256": "334f92a6cf8237e83c664ea5c7b384ee3291d85ce509d39903d62f7c377abe7b"
+    },
+    "productionSheet": {
+      "file": "assets/approved-production-sheet.png",
+      "sha256": "8d33ba2116321822db29f76c6e6edd3433c155775e5cb599b3f1774aa2effe53"
+    },
+    "anatomyTable": {
+      "file": "assets/ANATOMY-TABLE.md",
+      "sha256": "ea33be82386fc6ed060ce93485f138290f2d0fb6fc65aeb25d52aed94877df09"
+    },
+    "anatomyMeasurements": {
+      "file": "assets/anatomy-measurements.json",
+      "sha256": "50225d77c797deffa7993c167234b646450fd1542533b10f6d93bacb25df7a1e"
+    },
+    "neutral": {
+      "file": "assets/references/naruto-neutral_v01.png",
+      "sha256": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f"
+    },
+    "combat": {
+      "file": "assets/references/naruto-combat_v01.png",
+      "sha256": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    },
+    "packLog": {
+      "file": "assets/qa/pack-log.txt",
+      "sha256": "56c68c96032f5d84ae868d8527fffee6645d6c3aa2d7368c1acbdd68287d03b2"
+    },
+    "astraReport": {
+      "file": "assets/REPORT.md",
+      "sha256": "b43534c6b4cfd6dfce4db77c59d6b99a3fe83f7f32e97fd4cdcf5ca293588ced"
+    },
+    "verdicts": {
+      "file": "assets/verdicts.json",
+      "sha256": "38630394959463de0ba3f92bf100ad2f9a1cfd8a11fec3ad21ebfb26478c81b7"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Browser tab2: loaded3/3, autoplay12loops observed, Pause at frame7/7, Nextframe wrapped to0/7 and loops13, Play resumed. Captured warn/error logs: []. Screenshot ghi_browser_v01.png.

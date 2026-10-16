@@ -1,0 +1,20 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round2-next/fixture
+  out:  art/characters/naruto/production/round2-next/packed-light2Alt
+  anims: animGuide.js + art/characters/naruto/production/round2-next/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 2 anims, 15 frames -> sheet 4096x256, 48 colors, PARTIAL (complete=false; preview with ?art=custom)
+    idle         8     <- raw/idle_v07.png             x0.286
+    light2Alt    7     <- raw/light2Alt_v02.png        x0.36
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 ok
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (32): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech, light1Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  ! light2Alt: 1 frame(s) clipped by the 256x256 cell (#2 right 7px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! light2Alt: packed without its base light2 - the game alternates it with whatever stands in for light2; pack light2 first
+  wrote art/characters/naruto/production/round2-next/packed-light2Alt/characters/naruto/sheet.png
+  wrote art/characters/naruto/production/round2-next/packed-light2Alt/characters/naruto/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 2 warning(s).

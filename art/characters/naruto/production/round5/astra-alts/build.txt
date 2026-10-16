@@ -1,0 +1,30 @@
+
+> gcd-tourney@0.1.0 prebuild
+> node tools/lint-anims.mjs && node tools/check-undeclared.mjs && node tools/art-index.mjs
+
+lint-anims: warning: characters.naruto.animations has no entry for optional techGround, techRoll, wallTech (the animationDefaults entry applies)
+lint-anims: ok (4 warning(s)) in 89 ms
+lint-anims: warning: characters.sasuke.animations has no entry for optional techGround, techRoll, wallTech (the animationDefaults entry applies)
+lint-anims: warning: characters.killua.animations has no entry for optional techGround, techRoll, wallTech (the animationDefaults entry applies)
+lint-anims: warning: characters.gojo.animations has no entry for optional techGround, techRoll, wallTech (the animationDefaults entry applies)
+check-undeclared: ok in 890 ms
+art-index: 657 file(s)
+
+> gcd-tourney@0.1.0 build
+> vite build
+
+vite v6.4.3 building for production...
+✓ 0 modules transformed.
+✗ Build failed in 8ms
+error during build:
+[commonjs--resolver] EPERM: operation not permitted, realpath 'E:\Vibe Coding\Claude Code\gcdTourney\.worktrees\art-naruto-alts\index.html'
+    at node:fs:2849:18
+    at getRealPath (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:16363:16)
+    at tryResolveRealFileOrType (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:16354:20)
+    at tryCleanFsResolve (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:15954:22)
+    at tryFsResolve (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:15947:15)
+    at Object.resolveId (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:15801:56)
+    at Object.handler (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:46618:15)
+    at file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/rollup/dist/es/shared/node-entry.js:23456:40
+    at async PluginDriver.hookFirstAndGetPlugin (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/rollup/dist/es/shared/node-entry.js:23338:28)
+    at async resolveId (file:///E:/Vibe%20Coding/Claude%20Code/gcdTourney/node_modules/rollup/dist/es/shared/node-entry.js:21791:26)

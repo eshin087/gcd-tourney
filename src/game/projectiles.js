@@ -3,15 +3,17 @@ import { PROJECTILES, ULTIMATE } from './moves.js';
 import { DT, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { audio } from '../core/audio.js';
 import { infinityStops } from './kit.js';
+import * as dmath from './dmath.js';
 import { PASSIVES } from './moves.js';
 
 const BEAM_VERT = /* glsl */ `
   varying vec2 vUv;
   void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
 
-// Banded energy beam: white core, bright mid, colored rim, scrolling streaks and wobbling edges.
+// Banded energy beam: white core, bright mid, colored rim, thin streaks racing along it and wobbling edges.
+// uHot scales the HDR of the core: a beam clash keeps it low, or the bloom buries the fighters (ADR 0034).
 const BEAM_FRAG = /* glsl */ `
-  uniform float uTime, uLen, uWidthPx, uFade;
+  uniform float uTime, uLen, uWidthPx, uFade, uHot;
   uniform vec3 cCore, cMid, cEdge;
   varying vec2 vUv;
   void main() {
@@ -23,25 +25,60 @@ const BEAM_FRAG = /* glsl */ `
     if (d > edge) discard;
     float r = d / max(edge, 0.001);
     // HDR so the bloom pass makes the beam glow
-    vec3 col = r < 0.38 ? cCore * 1.55 : (r < 0.7 ? cMid * 1.08 : cEdge);
-    float streak = step(0.82, fract(x * 0.9 - uTime * 7.0 + floor(vUv.y * 7.0) * 0.31));
-    if (r > 0.38 && r < 0.92) col = mix(col, cCore * 1.3, streak * 0.7);
+    vec3 col = r < 0.34 ? cCore * uHot : (r < 0.7 ? cMid * 1.05 : cEdge);
+    // streaks: thin pointed dashes in 6 lanes across the band (each lane offset), never full-height blocks
+    float lane = floor(vUv.y * 6.0), ly = abs(fract(vUv.y * 6.0) - 0.5);
+    float s = fract(x * 0.55 - uTime * 6.0 + lane * 0.37);
+    float streak = s > 0.72 && ly < 0.22 * (s - 0.72) / 0.28 ? 1.0 : 0.0;
+    if (r > 0.34 && r < 0.9) col = mix(col, cCore * 1.15, streak * 0.75);
     gl_FragColor = vec4(col, 1.0);
     #include <colorspace_fragment>
   }`;
+
+// A stream drawn from a VFX atlas band (streamBolt, streamLance, streamFlame; ADR 0034): the cell repeats every uSeg
+// world units along the stream, scrolling toward its head, and fades in over its first stretch out of the hand.
+const STREAM_FRAG = /* glsl */ `
+  uniform sampler2D map;
+  uniform vec4 uvRect;
+  uniform float uLen, uSeg, uScroll, uFade, uGlow;
+  uniform vec3 color;
+  varying vec2 vUv;
+  void main() {
+    float x = vUv.x * uLen;
+    float u = fract((x - uScroll) / uSeg);
+    vec4 c = texture2D(map, vec2(mix(uvRect.x, uvRect.z, u), mix(uvRect.y, uvRect.w, vUv.y)));
+    float a = c.a * uFade * smoothstep(0.0, 0.35, x);
+    if (a < 0.08) discard;
+    gl_FragColor = vec4(c.rgb * color * (1.0 + uGlow), a);
+    #include <colorspace_fragment>
+  }`;
+
+// How each stream style is drawn (PROJECTILES[id].stream.style, def.beam.style; ADR 0034). fx: the atlas band, seg:
+// world length of one cell (also the ribbon's width, the cell being square), scroll: units/s toward the head, tint:
+// how far the white art is tinted from the core toward the mid color (full-color art stays as drawn), glow: bloom.
+// 'orb' (Reversal: Red) holds the orb effect at the hand and sends repulsion ripples down a faint channel in the mid
+// color (no white core) to the struggle point; 'ribbon' is the shader beam (the ultimate beams).
+export const STREAM_STYLES = {
+  ribbon: {},
+  bolt: { fx: 'streamBolt', seg: 1.5, scroll: 9, tint: 0.55, glow: 0.45 },
+  lance: { fx: 'streamLance', seg: 1.4, scroll: 14, tint: 0.4, glow: 0.4 },
+  flame: { fx: 'streamFlame', seg: 1.6, scroll: 6, full: true, glow: 0.2 },
+  orb: { orb: 'redOrb', orbScale: 0.5, width: 0.42, wave: 'ripple', waveEvery: 0.11, waveLife: 0.3 },
+};
 
 const up = new THREE.Vector3(0, 1, 0);
 const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.Vector3();
 
 // opts.palette / opts.width: a BEAM CLASH stream (ADR 0027) in its shot's colors; the ultimate beam uses the
-// fighter's def.beam
+// fighter's def.beam. The palette's `style` picks how it is drawn (STREAM_STYLES, ADR 0034); opts.pose / poseFrame: the
+// pose (and frame) whose drawn hand the stream leaves from (a struggle's `beamStruggle`, the air `throw` release)
 export class Beam {
   constructor(game, owner, opts = {}) {
     this.game = game;
     this.owner = owner;
     const o = owner.opp;
-    // from the drawn palms of the beamFire pose when the art pack marks them
-    const H = owner.actor?.hand?.('beamFire');
+    // from the drawn palms of the pose when the art pack marks them
+    const H = owner.actor?.hand?.(opts.pose ?? 'beamFire', opts.poseFrame ?? 0);
     const fwd = H ? H.x : 0.8, up = H ? H.y : 0.92;
     this.origin = new THREE.Vector3(owner.pos.x + owner.face.x * fwd, owner.pos.y + up, owner.pos.z + owner.face.y * fwd);
     const target = new THREE.Vector3(o.pos.x, o.pos.y + 0.85, o.pos.z);
@@ -60,17 +97,35 @@ export class Beam {
     this.hasHit = false;
     const b = (this.pal = opts.palette ?? owner.def.beam);
     this.width = opts.width ?? b.width ?? ULTIMATE.width; // Hollow Purple is wider
-    this.mat = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 }, uLen: { value: 1 }, uWidthPx: { value: 1 }, uFade: { value: 1 },
-        cCore: { value: new THREE.Color(b.core) }, cMid: { value: new THREE.Color(b.mid) }, cEdge: { value: new THREE.Color(b.edge) },
-      },
-      vertexShader: BEAM_VERT,
-      fragmentShader: BEAM_FRAG,
-      side: THREE.DoubleSide,
-      depthWrite: false,
-      transparent: true,
-    });
+    // an atlas style needs its band in the atlas; without it (an old pack) the stream falls back to the ribbon
+    const St = STREAM_STYLES[b.style] ?? STREAM_STYLES.ribbon;
+    this.St = St.fx && !game.fx.meta.anims[St.fx] ? STREAM_STYLES.ribbon : St;
+    if (St !== this.St) console.warn(`[vfx] no ${St.fx} in the atlas: the ${b.style} stream draws as a ribbon`);
+    if (this.St.width) this.width = this.St.width;
+    this.mat = this.St.fx
+      ? new THREE.ShaderMaterial({
+        uniforms: {
+          map: { value: game.fx.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: this.St.seg },
+          uScroll: { value: 0 }, uFade: { value: 1 }, uGlow: { value: this.St.glow ?? 0.3 },
+          color: { value: this.St.full ? new THREE.Color(0xffffff) : new THREE.Color(b.core).lerp(new THREE.Color(b.mid), this.St.tint ?? 0.5) },
+        },
+        vertexShader: BEAM_VERT,
+        fragmentShader: STREAM_FRAG,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        transparent: true,
+      })
+      : new THREE.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0 }, uLen: { value: 1 }, uWidthPx: { value: 1 }, uFade: { value: 1 }, uHot: { value: 1.4 },
+          cCore: { value: new THREE.Color(this.St.orb ? b.mid : b.core) }, cMid: { value: new THREE.Color(b.mid) }, cEdge: { value: new THREE.Color(b.edge) },
+        },
+        vertexShader: BEAM_VERT,
+        fragmentShader: BEAM_FRAG,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        transparent: true,
+      });
     const geo = new THREE.PlaneGeometry(1, 1, 1, 1);
     geo.translate(0.5, 0, 0);
     this.mesh = new THREE.Mesh(geo, this.mat);
@@ -144,25 +199,46 @@ export class Beam {
     const view = tmpB.copy(camera.position).sub(o).normalize();
     const side = new THREE.Vector3().crossVectors(this.dir, view).normalize();
     const normal = new THREE.Vector3().crossVectors(this.dir, side).normalize();
-    const w = this.width * (0.92 + Math.sin(time * 40) * 0.08);
+    const St = this.St;
+    // an atlas band is as wide as one cell is long (square cells); the ribbon flickers
+    const w = St.fx ? St.seg : this.width * (0.92 + dmath.sin(time * 40) * 0.08);
     const m = this.mesh.matrix;
     m.makeBasis(this.dir.clone().multiplyScalar(this.len), side.multiplyScalar(w), normal);
     m.setPosition(o);
     this.mesh.matrixWorldNeedsUpdate = true;
     const u = this.mat.uniforms;
-    u.uTime.value = time;
+    const fx = this.game.fx;
     u.uLen.value = this.len;
     u.uFade.value = Math.max(0, this.fade);
-    // glowing bulbs at the hands and the head
-    const fx = this.game.fx;
+    if (St.fx) {
+      const a = fx.meta.anims[St.fx];
+      fx.uv(St.fx, Math.floor((time * 1000) / a.ms) % a.n, u.uvRect.value);
+      u.uScroll.value = (time * St.scroll) % St.seg;
+    } else {
+      u.uTime.value = time;
+      u.uHot.value = this.clash ? 1.1 : 1.4; // in a clash the two streams sit beside the fighters
+    }
+    // bulbs at the hands and the head. The hand bulb is small and drawn behind the sprite (fighters are order 2), so
+    // it lights the palm without covering the body
     const color = new THREE.Color(this.pal.mid);
     const id = this.owner.index;
-    const pulse = 1 + Math.sin(time * 30) * 0.08;
-    fx.keep('beamO' + id, 'glow', this.origin.x, this.origin.y, this.origin.z, { scale: 0.7 * pulse * this.fade, color, opacity: 1, order: 7, glow: 0.35 });
-    if (!this.clash) {
-      const h = this.head;
+    const pulse = 1 + dmath.sin(time * 30) * 0.08;
+    fx.keep('beamO' + id, 'glow', this.origin.x, this.origin.y, this.origin.z, { scale: (this.clash ? 0.34 : 0.5) * pulse * this.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
+    const h = this.head;
+    if (St.orb) {
+      // the orb is the technique (Reversal: Red), held just ahead of the fingertips; it pulses on a good beat and
+      // sends repulsion ripples down the channel to the struggle point
+      const s = St.orbScale * (this.clash ? 1 + this.clash.kick * 0.2 : 1) * this.fade;
+      const at = 0.3 + 0.2 * s, ox = this.origin.x + this.dir.x * at, oy = this.origin.y + this.dir.y * at, oz = this.origin.z + this.dir.z * at;
+      fx.keep('beamOrb' + id, St.orb, ox, oy, oz, { scale: s, order: 7, glow: 0.3 });
+      if (time - (this.waveT ?? -1) >= St.waveEvery && this.fade > 0.5) {
+        this.waveT = time;
+        const v = Math.max(0.5, this.len - at) / St.waveLife;
+        fx.spawn(St.wave, ox, oy, oz, { scale: 0.32, grow: 2.2, life: St.waveLife, fade: true, vel: [this.dir.x * v, this.dir.y * v, this.dir.z * v], color, opacity: 0.7, order: 6, glow: 0.3 });
+      }
+    } else if (!this.clash && !St.fx) {
       fx.keep('beamH' + id, 'glow', h.x, h.y, h.z, { scale: (this.hitting ? 1.25 : 0.95) * pulse * this.fade, color, opacity: 1, order: 7, glow: 0.4 });
-      fx.keep('beamH2' + id, 'glow', h.x, h.y, h.z, { scale: 0.5 * pulse * this.fade, color: 0xffffff, opacity: 1, order: 8, glow: 0.8 });
+      fx.keep('beamH2' + id, 'glow', h.x, h.y, h.z, { scale: 0.5 * pulse * this.fade, color: 0xffffff, opacity: 1, order: 8, glow: 0.6 });
     }
   }
 }
@@ -210,25 +286,26 @@ export class Projectile {
     }
     const o = this.owner.opp;
     if (o.invuln > 0 || o.ko || o.state === 'down') {
-      if (o.evading && Math.hypot(this.pos.x - o.pos.x, this.pos.y - o.pos.y - 0.8, this.pos.z - o.pos.z) < this.P.radius + 0.7) this.game.onEvade(o);
+      if (o.evading && dmath.hypot(this.pos.x - o.pos.x, this.pos.y - o.pos.y - 0.8, this.pos.z - o.pos.z) < this.P.radius + 0.7) this.game.onEvade(o);
       return;
     }
     // distance to the victim's body capsule
     const by = THREE.MathUtils.clamp(this.pos.y, o.pos.y + 0.25, o.pos.y + 1.4);
-    const d = Math.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);
+    const d = dmath.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);
     // Infinity (Gojo's passive): the projectile slows to nothing before it can touch him
     if (d < this.P.radius + 1.15 && infinityStops(o)) {
       fx.spawn('ring', this.pos.x, this.pos.y, this.pos.z, { scale: 0.9, color: 0xd8f2ff, glow: 1, order: 8 });
       fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1, color: 0x9fd8ff, opacity: 0.5, life: 0.25, fade: true });
-      if (!o.infinityCallT || this.game.time - o.infinityCallT > 2) {
-        o.infinityCallT = this.game.time;
+      // frames, not the render clock: the ki charge below decides a fight (ADR 0036)
+      if (!o.infinityCallT || this.game.frameNo - o.infinityCallT > 120) {
+        o.infinityCallT = this.game.frameNo;
         this.game.hud.callout(o.index, 'INFINITY', '#d8f2ff');
       }
       audio.play('block', 0.6);
       // one charge per volley: a 3-shuriken throw costs Gojo 15 ki, not 45
-      if (!o.infinityPayT || this.game.time - o.infinityPayT > 0.35) {
+      if (!o.infinityPayT || this.game.frameNo - o.infinityPayT > 21) {
         o.ki = Math.max(0, o.ki - PASSIVES.infinity.kiCost);
-        o.infinityPayT = this.game.time;
+        o.infinityPayT = this.game.frameNo;
       }
       this.kill();
       return;
@@ -296,7 +373,7 @@ export class Orb {
       const o = this.owner.opp;
       if (!this.hit && !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
         const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
-        const touching = Math.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35;
+        const touching = dmath.hypot(p.x - o.pos.x, p.y - by, p.z - o.pos.z) < this.r * this.grow + 0.35;
         // a dodge carrying them through it only counts once it has rolled past without a hit: it is too wide and slow
         // for a spot dodge alone, so a callout on contact would come right before the hit
         if (touching && o.evading) this.slip = true;
@@ -313,7 +390,7 @@ export class Orb {
       }
       if (this.t > S.life * 60 || Math.abs(p.x) > ARENA_LIMIT + 3 || Math.abs(p.z) > ARENA_LIMIT + 3) { this.kill(); return; }
     }
-    const s = this.r * 1.35 * this.grow * (1 + 0.05 * Math.sin(this.t * 0.7));
+    const s = this.r * 1.35 * this.grow * (1 + 0.05 * dmath.sin(this.t * 0.7));
     fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: s, color: S.orb, order: 8, glow: 1.1 });
     fx.keep(this.id + 'c', 'orb', p.x, p.y, p.z, { scale: s * 0.5, color: 0xf2e2ff, order: 9, glow: 1.6 });
     fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: s * 1.25, color: S.glow, opacity: 0.32, order: 3, glow: 0.8 }); // larger reads as a flat square
@@ -342,7 +419,9 @@ export function spawnProjectiles(game, owner, type = owner.def.projectile) {
   const list = [];
   for (let i = 0; i < P.count; i++) {
     const off = (i - (P.count - 1) / 2) * P.spread;
-    const d = base.clone().applyAxisAngle(up, off);
+    // turned about the vertical by hand: three.js would turn it with the engine's Math.sin / cos (ADR 0036)
+    const c = dmath.cos(off), sn = dmath.sin(off);
+    const d = new THREE.Vector3(base.x * c + base.z * sn, base.y, base.z * c - base.x * sn);
     list.push(new Projectile(game, owner, type, d));
   }
   audio.play(P.sfx);
@@ -380,13 +459,13 @@ export class Vortex {
     if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: C.ring, glow: 0.8, life: 0.2, fade: true, order: 7 });
     if (this.t % 2 === 0) {
       const a = Math.random() * Math.PI * 2, r = 2.2;
-      const sx = p.x + Math.cos(a) * r, sy = p.y + Math.sin(a) * r * 0.6, sz = p.z + Math.sin(a * 1.7) * 0.5;
+      const sx = p.x + dmath.cos(a) * r, sy = p.y + dmath.sin(a) * r * 0.6, sz = p.z + dmath.sin(a * 1.7) * 0.5;
       fx.spawn('star', sx, sy, sz, { scale: 0.2, frame: 2, vel: [(p.x - sx) * 5, (p.y - sy) * 5, (p.z - sz) * 5], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     }
     // drag the opponent toward the core
     const canPull = !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup';
     const dx = p.x - o.pos.x, dz = p.z - o.pos.z, dy = p.y - 0.8 - o.pos.y;
-    const d = Math.hypot(dx, dz, dy) || 1;
+    const d = dmath.hypot(dx, dz, dy) || 1;
     const dir = new THREE.Vector2(-dx, -dz);
     if (this.fixed || dir.lengthSq() < 0.01) dir.set(this.owner.face.x, this.owner.face.y); // grind pops them away
     dir.normalize();

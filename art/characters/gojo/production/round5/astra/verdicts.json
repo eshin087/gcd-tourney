@@ -1,0 +1,23 @@
+[
+  {
+    "animation": "idle",
+    "version": 8,
+    "verdict": "HOLD",
+    "summary": "User-approved design retained. Stable eight-frame silhouette, but source f7 right toe is cut at image edge; missing extent unknown. Full \u00b16% segment certification inconclusive.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "light3",
+    "version": 6,
+    "verdict": "HOLD",
+    "summary": "Seven complete poses; f3\u2192f4 crown rises about11px during recoil. Torso/arm projection and shoe orientation prevent full \u00b16% certification; no new robust bone-length defect established.",
+    "evidence": "AUDIT.md"
+  },
+  {
+    "animation": "airRecover",
+    "version": 5,
+    "verdict": "HOLD",
+    "summary": "Three intact rotation phases; tucked/foreshortened torso, limbs and footwear lack matched pose references. Projected numbers cannot certify \u00b16%; no robust new defect established.",
+    "evidence": "AUDIT.md"
+  }
+]

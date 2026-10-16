@@ -1,0 +1,25 @@
+{
+  "stitch": {
+    "bFactor": 1.0032,
+    "measured": 1.0115,
+    "manual": {
+      "factor": 1.0032,
+      "reason": "Direct source top140px head-envelope median widths A155.5 B155 give1.0032; body A910 B906-909 confirms equal scale. Old-idle automatic probe gave inaccurate1.0636."
+    },
+    "scaledPart": "A",
+    "scaledBy": 0.9968,
+    "idleScaleA": 0.2654,
+    "idleScaleB": 0.2685,
+    "afterB_vs_A": null,
+    "parts": [
+      "raw/_parts/idle_v05_A.png",
+      "raw/_parts/idle_v05_B.png"
+    ],
+    "poses": [
+      4,
+      4
+    ],
+    "gapPx": 24,
+    "tool": "tools/stitch-parts.mjs"
+  }
+}

@@ -1,0 +1,1693 @@
+{
+  "method": "Independent manual readings of every actual quantized frame on a fixed 20px grid at 2x nearest-neighbor. Each record selects a visible arm and leg; anatomical side is not inferred. All coordinates native cell x/y. Garment-covered joints estimated conservatively, not exact bones. H skull is an estimate under hair. N/A means a required endpoint is hidden. Projected measurements do not certify intrinsic lengths under rotation/depth.",
+  "uncertaintyPx": {
+    "H_hair": 4,
+    "H_skullEstimate": 4,
+    "T": 6,
+    "upperArm": 6,
+    "forearm": 6,
+    "thigh": 7,
+    "shin": 7,
+    "S": 4
+  },
+  "references": {
+    "neutral": {
+      "landmarks": {
+        "hair": [
+          132,
+          39
+        ],
+        "skull": [
+          132,
+          53
+        ],
+        "chin": [
+          134,
+          75
+        ],
+        "collar": [
+          131,
+          79
+        ],
+        "hem": [
+          134,
+          128
+        ],
+        "arm": [
+          [
+            112,
+            86
+          ],
+          [
+            101,
+            117
+          ],
+          [
+            96,
+            144
+          ]
+        ],
+        "leg": [
+          [
+            138,
+            147
+          ],
+          [
+            146,
+            181
+          ],
+          [
+            151,
+            227
+          ]
+        ],
+        "shoe": [
+          [
+            146,
+            235
+          ],
+          [
+            174,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 36.1,
+        "H_skullEstimate": 22.1,
+        "T": 49.1,
+        "upperArm": 32.9,
+        "forearm": 27.5,
+        "thigh": 34.9,
+        "shin": 46.3,
+        "S": 28.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "combat": {
+      "landmarks": {
+        "hair": [
+          142,
+          77
+        ],
+        "skull": [
+          141,
+          91
+        ],
+        "chin": [
+          139,
+          113
+        ],
+        "collar": [
+          137,
+          116
+        ],
+        "hem": [
+          131,
+          154
+        ],
+        "arm": [
+          [
+            118,
+            124
+          ],
+          [
+            102,
+            138
+          ],
+          [
+            120,
+            128
+          ]
+        ],
+        "leg": [
+          [
+            139,
+            169
+          ],
+          [
+            172,
+            191
+          ],
+          [
+            181,
+            228
+          ]
+        ],
+        "shoe": [
+          [
+            176,
+            236
+          ],
+          [
+            202,
+            236
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 36.1,
+        "H_skullEstimate": 22.1,
+        "T": 38.5,
+        "upperArm": 21.3,
+        "forearm": 20.6,
+        "thigh": 39.7,
+        "shin": 38.1,
+        "S": 26.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "idle:0": {
+      "landmarks": {
+        "hair": [
+          140,
+          76
+        ],
+        "skull": [
+          140,
+          91
+        ],
+        "chin": [
+          139,
+          114
+        ],
+        "collar": [
+          138,
+          117
+        ],
+        "hem": [
+          133,
+          153
+        ],
+        "arm": [
+          [
+            118,
+            125
+          ],
+          [
+            104,
+            140
+          ],
+          [
+            122,
+            129
+          ]
+        ],
+        "leg": [
+          [
+            140,
+            169
+          ],
+          [
+            168,
+            188
+          ],
+          [
+            175,
+            226
+          ]
+        ],
+        "shoe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 38.0,
+        "H_skullEstimate": 23.0,
+        "T": 36.3,
+        "upperArm": 20.5,
+        "forearm": 21.1,
+        "thigh": 33.8,
+        "shin": 38.6,
+        "S": 29.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "landmarks": {
+        "hairCrown": [
+          132,
+          65
+        ],
+        "estimatedSkullCrown": [
+          132,
+          81
+        ],
+        "chin": [
+          130,
+          104
+        ],
+        "collar": [
+          128,
+          107
+        ],
+        "jacketHem": [
+          123,
+          145
+        ],
+        "armShoulderElbowWrist": [
+          [
+            107,
+            116
+          ],
+          [
+            92,
+            130
+          ],
+          [
+            112,
+            119
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            165
+          ],
+          [
+            167,
+            185
+          ],
+          [
+            173,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            169,
+            235
+          ],
+          [
+            200,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far guard elbow/shoulder overlap the collar and fist; rear hip behind pouch. Guard arm has depth shortening.",
+      "shoeExclusion": null,
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              132,
+              65
+            ],
+            [
+              130,
+              104
+            ]
+          ],
+          "valuePx": 39.1,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              132,
+              81
+            ],
+            [
+              130,
+              104
+            ]
+          ],
+          "valuePx": 23.1,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              128,
+              107
+            ],
+            [
+              123,
+              145
+            ]
+          ],
+          "valuePx": 38.3,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              107,
+              116
+            ],
+            [
+              92,
+              130
+            ]
+          ],
+          "valuePx": 20.5,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              92,
+              130
+            ],
+            [
+              112,
+              119
+            ]
+          ],
+          "valuePx": 22.8,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              135,
+              165
+            ],
+            [
+              167,
+              185
+            ]
+          ],
+          "valuePx": 37.7,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              167,
+              185
+            ],
+            [
+              173,
+              225
+            ]
+          ],
+          "valuePx": 40.4,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": [
+            [
+              169,
+              235
+            ],
+            [
+              200,
+              235
+            ]
+          ],
+          "valuePx": 31.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 182,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Far guard elbow/shoulder overlap the collar and fist; rear hip behind pouch."
+      },
+      "readingProvenance": "Prior endpoint coordinates rechecked visually; exact occupancy mask unchanged"
+    },
+    {
+      "frame": 1,
+      "landmarks": {
+        "hairCrown": [
+          140,
+          57
+        ],
+        "estimatedSkullCrown": [
+          139,
+          73
+        ],
+        "chin": [
+          138,
+          97
+        ],
+        "collar": [
+          137,
+          100
+        ],
+        "jacketHem": [
+          141,
+          141
+        ],
+        "armShoulderElbowWrist": [
+          [
+            117,
+            109
+          ],
+          [
+            111,
+            127
+          ],
+          [
+            131,
+            110
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            142,
+            159
+          ],
+          [
+            134,
+            191
+          ],
+          [
+            127,
+            226
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left planted leg",
+      "frameSpecificExclusions": "Raised thigh points toward viewer with knee/hip partly under hem; far fist overlaps raised knee and hides forearm endpoint.",
+      "shoeExclusion": "Planted foot is toe-on; heel obscured.",
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              140,
+              57
+            ],
+            [
+              138,
+              97
+            ]
+          ],
+          "valuePx": 40.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              139,
+              73
+            ],
+            [
+              138,
+              97
+            ]
+          ],
+          "valuePx": 24.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              137,
+              100
+            ],
+            [
+              141,
+              141
+            ]
+          ],
+          "valuePx": 41.2,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              117,
+              109
+            ],
+            [
+              111,
+              127
+            ]
+          ],
+          "valuePx": 19.0,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              111,
+              127
+            ],
+            [
+              131,
+              110
+            ]
+          ],
+          "valuePx": 26.2,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              142,
+              159
+            ],
+            [
+              134,
+              191
+            ]
+          ],
+          "valuePx": 33.0,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              134,
+              191
+            ],
+            [
+              127,
+              226
+            ]
+          ],
+          "valuePx": 35.7,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": null,
+          "valuePx": null,
+          "uncertaintyPx": 4,
+          "status": "OCCLUDED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 183,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Raised thigh points toward viewer with knee/hip partly under hem; far fist overlaps raised knee and hides forearm endpoint."
+      },
+      "readingProvenance": "Prior endpoint coordinates rechecked visually; exact occupancy mask unchanged"
+    },
+    {
+      "frame": 2,
+      "landmarks": {
+        "hairCrown": [
+          137,
+          64
+        ],
+        "estimatedSkullCrown": [
+          137,
+          80
+        ],
+        "chin": [
+          136,
+          105
+        ],
+        "collar": [
+          133,
+          107
+        ],
+        "jacketHem": [
+          146,
+          147
+        ],
+        "armShoulderElbowWrist": [
+          [
+            118,
+            113
+          ],
+          [
+            108,
+            131
+          ],
+          [
+            129,
+            115
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            141,
+            155
+          ],
+          [
+            179,
+            129
+          ],
+          [
+            214,
+            124
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            220,
+            124
+          ],
+          [
+            248,
+            124
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right striking leg",
+      "frameSpecificExclusions": "Striking knee/hip under orange fabric are approximate; far hip/upper arm concealed. Supporting leg visually intact but overlaps hip cloth. No depth correction or intrinsic-length claim.",
+      "shoeExclusion": "S is the visible horizontal foot envelope; heel is estimated beneath ankle wrap.",
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              137,
+              64
+            ],
+            [
+              136,
+              105
+            ]
+          ],
+          "valuePx": 41.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              137,
+              80
+            ],
+            [
+              136,
+              105
+            ]
+          ],
+          "valuePx": 25.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              133,
+              107
+            ],
+            [
+              146,
+              147
+            ]
+          ],
+          "valuePx": 42.1,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              118,
+              113
+            ],
+            [
+              108,
+              131
+            ]
+          ],
+          "valuePx": 20.6,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              108,
+              131
+            ],
+            [
+              129,
+              115
+            ]
+          ],
+          "valuePx": 26.4,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              141,
+              155
+            ],
+            [
+              179,
+              129
+            ]
+          ],
+          "valuePx": 46.0,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              179,
+              129
+            ],
+            [
+              214,
+              124
+            ]
+          ],
+          "valuePx": 35.4,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": [
+            [
+              220,
+              124
+            ],
+            [
+              248,
+              124
+            ]
+          ],
+          "valuePx": 28.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 184,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Kick knee center inferred beneath straight trouser cloth; far guard elbow overlaps extended thigh."
+      },
+      "readingProvenance": "Fresh f2/f3 annotation"
+    },
+    {
+      "frame": 3,
+      "landmarks": {
+        "hairCrown": [
+          134,
+          65
+        ],
+        "estimatedSkullCrown": [
+          134,
+          81
+        ],
+        "chin": [
+          133,
+          104
+        ],
+        "collar": [
+          132,
+          107
+        ],
+        "jacketHem": [
+          144,
+          147
+        ],
+        "armShoulderElbowWrist": [
+          [
+            117,
+            113
+          ],
+          [
+            108,
+            131
+          ],
+          [
+            128,
+            115
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            140,
+            156
+          ],
+          [
+            173,
+            132
+          ],
+          [
+            200,
+            124
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            204,
+            124
+          ],
+          [
+            228,
+            125
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right striking leg",
+      "frameSpecificExclusions": "Striking knee/hip under orange fabric are approximate; far hip/upper arm concealed. Supporting leg visually intact but overlaps hip cloth. No depth correction or intrinsic-length claim.",
+      "shoeExclusion": "S is the visible horizontal foot envelope; heel is estimated beneath ankle wrap.",
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              134,
+              65
+            ],
+            [
+              133,
+              104
+            ]
+          ],
+          "valuePx": 39.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              134,
+              81
+            ],
+            [
+              133,
+              104
+            ]
+          ],
+          "valuePx": 23.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              132,
+              107
+            ],
+            [
+              144,
+              147
+            ]
+          ],
+          "valuePx": 41.8,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              117,
+              113
+            ],
+            [
+              108,
+              131
+            ]
+          ],
+          "valuePx": 20.1,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              108,
+              131
+            ],
+            [
+              128,
+              115
+            ]
+          ],
+          "valuePx": 25.6,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              140,
+              156
+            ],
+            [
+              173,
+              132
+            ]
+          ],
+          "valuePx": 40.8,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              173,
+              132
+            ],
+            [
+              200,
+              124
+            ]
+          ],
+          "valuePx": 28.2,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": [
+            [
+              204,
+              124
+            ],
+            [
+              228,
+              125
+            ]
+          ],
+          "valuePx": 24.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 185,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Kick knee under cloth; shortened f3 kick has a depth component, so projected length is not intrinsic."
+      },
+      "readingProvenance": "Fresh f2/f3 annotation"
+    },
+    {
+      "frame": 4,
+      "landmarks": {
+        "hairCrown": [
+          155,
+          60
+        ],
+        "estimatedSkullCrown": [
+          154,
+          77
+        ],
+        "chin": [
+          153,
+          101
+        ],
+        "collar": [
+          150,
+          104
+        ],
+        "jacketHem": [
+          143,
+          143
+        ],
+        "armShoulderElbowWrist": [
+          [
+            129,
+            113
+          ],
+          [
+            119,
+            130
+          ],
+          [
+            141,
+            120
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            142,
+            160
+          ],
+          [
+            133,
+            192
+          ],
+          [
+            128,
+            227
+          ]
+        ],
+        "shoeHeelToe": null
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-left planted leg",
+      "frameSpecificExclusions": "Raised leg folds toward viewer and hides hip/knee separation; far guard forearm lies behind chest/knee.",
+      "shoeExclusion": "Planted sandal points toward viewer; heel not separable.",
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              155,
+              60
+            ],
+            [
+              153,
+              101
+            ]
+          ],
+          "valuePx": 41.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              154,
+              77
+            ],
+            [
+              153,
+              101
+            ]
+          ],
+          "valuePx": 24.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              150,
+              104
+            ],
+            [
+              143,
+              143
+            ]
+          ],
+          "valuePx": 39.6,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              129,
+              113
+            ],
+            [
+              119,
+              130
+            ]
+          ],
+          "valuePx": 19.7,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              119,
+              130
+            ],
+            [
+              141,
+              120
+            ]
+          ],
+          "valuePx": 24.2,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              142,
+              160
+            ],
+            [
+              133,
+              192
+            ]
+          ],
+          "valuePx": 33.2,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              133,
+              192
+            ],
+            [
+              128,
+              227
+            ]
+          ],
+          "valuePx": 35.4,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": null,
+          "valuePx": null,
+          "uncertaintyPx": 4,
+          "status": "OCCLUDED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 186,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Raised leg folds toward viewer and hides hip/knee separation; far guard forearm lies behind chest/knee."
+      },
+      "readingProvenance": "Prior endpoint coordinates rechecked visually; exact occupancy mask unchanged"
+    },
+    {
+      "frame": 5,
+      "landmarks": {
+        "hairCrown": [
+          134,
+          65
+        ],
+        "estimatedSkullCrown": [
+          133,
+          82
+        ],
+        "chin": [
+          132,
+          107
+        ],
+        "collar": [
+          129,
+          110
+        ],
+        "jacketHem": [
+          126,
+          149
+        ],
+        "armShoulderElbowWrist": [
+          [
+            110,
+            119
+          ],
+          [
+            99,
+            136
+          ],
+          [
+            120,
+            123
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            135,
+            166
+          ],
+          [
+            156,
+            187
+          ],
+          [
+            165,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            161,
+            235
+          ],
+          [
+            193,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Other guard arm partly behind fist/chest; rear hip covered by pouch. Both forearms flex toward viewer.",
+      "shoeExclusion": null,
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              134,
+              65
+            ],
+            [
+              132,
+              107
+            ]
+          ],
+          "valuePx": 42.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              133,
+              82
+            ],
+            [
+              132,
+              107
+            ]
+          ],
+          "valuePx": 25.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              129,
+              110
+            ],
+            [
+              126,
+              149
+            ]
+          ],
+          "valuePx": 39.1,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              110,
+              119
+            ],
+            [
+              99,
+              136
+            ]
+          ],
+          "valuePx": 20.2,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              99,
+              136
+            ],
+            [
+              120,
+              123
+            ]
+          ],
+          "valuePx": 24.7,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              135,
+              166
+            ],
+            [
+              156,
+              187
+            ]
+          ],
+          "valuePx": 29.7,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              156,
+              187
+            ],
+            [
+              165,
+              225
+            ]
+          ],
+          "valuePx": 39.1,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": [
+            [
+              161,
+              235
+            ],
+            [
+              193,
+              235
+            ]
+          ],
+          "valuePx": 32.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 187,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Other guard arm partly behind fist/chest; rear hip covered by pouch."
+      },
+      "readingProvenance": "Prior endpoint coordinates rechecked visually; exact occupancy mask unchanged"
+    },
+    {
+      "frame": 6,
+      "landmarks": {
+        "hairCrown": [
+          138,
+          66
+        ],
+        "estimatedSkullCrown": [
+          137,
+          83
+        ],
+        "chin": [
+          136,
+          107
+        ],
+        "collar": [
+          132,
+          110
+        ],
+        "jacketHem": [
+          128,
+          149
+        ],
+        "armShoulderElbowWrist": [
+          [
+            110,
+            119
+          ],
+          [
+            98,
+            135
+          ],
+          [
+            120,
+            125
+          ]
+        ],
+        "legHipKneeAnkle": [
+          [
+            138,
+            166
+          ],
+          [
+            170,
+            185
+          ],
+          [
+            176,
+            225
+          ]
+        ],
+        "shoeHeelToe": [
+          [
+            172,
+            235
+          ],
+          [
+            201,
+            235
+          ]
+        ]
+      },
+      "selectedArm": "screen-left guarding arm",
+      "selectedLeg": "screen-right planted leg",
+      "frameSpecificExclusions": "Far elbow is masked by guard cuff/chest; rear hip behind pouch. Forearm depth projection remains unknown.",
+      "shoeExclusion": null,
+      "metrics": {
+        "H_hair": {
+          "endpoints": [
+            [
+              138,
+              66
+            ],
+            [
+              136,
+              107
+            ]
+          ],
+          "valuePx": 41.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "H_skullEstimate": {
+          "endpoints": [
+            [
+              137,
+              83
+            ],
+            [
+              136,
+              107
+            ]
+          ],
+          "valuePx": 24.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "T": {
+          "endpoints": [
+            [
+              132,
+              110
+            ],
+            [
+              128,
+              149
+            ]
+          ],
+          "valuePx": 39.2,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "upperArm": {
+          "endpoints": [
+            [
+              110,
+              119
+            ],
+            [
+              98,
+              135
+            ]
+          ],
+          "valuePx": 20.0,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "forearm": {
+          "endpoints": [
+            [
+              98,
+              135
+            ],
+            [
+              120,
+              125
+            ]
+          ],
+          "valuePx": 24.2,
+          "uncertaintyPx": 6,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "thigh": {
+          "endpoints": [
+            [
+              138,
+              166
+            ],
+            [
+              170,
+              185
+            ]
+          ],
+          "valuePx": 37.2,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "shin": {
+          "endpoints": [
+            [
+              170,
+              185
+            ],
+            [
+              176,
+              225
+            ]
+          ],
+          "valuePx": 40.4,
+          "uncertaintyPx": 7,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        },
+        "S": {
+          "endpoints": [
+            [
+              172,
+              235
+            ],
+            [
+              201,
+              235
+            ]
+          ],
+          "valuePx": 29.0,
+          "uncertaintyPx": 4,
+          "status": "MEASURED_PROJECTED",
+          "intrinsicPlusMinus6Status": "UNRESOLVED: landmark uncertainty and depth"
+        }
+      },
+      "atlasIndex": 188,
+      "referenceMethod": "Same fixed native density as approved neutral/combat and packed idle; no per-pose normalization.",
+      "shoulderWidth": {
+        "status": "N/A",
+        "reason": "Oblique pose: both deltoid endpoints at one depth are not exposed; Far elbow is masked by guard cuff/chest; rear hip behind pouch."
+      },
+      "readingProvenance": "Prior endpoint coordinates rechecked visually; exact occupancy mask unchanged"
+    }
+  ],
+  "contact": [
+    {
+      "frame": 2,
+      "hitRectXYWH": [
+        189,
+        84,
+        34,
+        26
+      ],
+      "footExtentXYXY": [
+        220,
+        116,
+        249,
+        132
+      ],
+      "centerDeltaPx": [
+        28.5,
+        27.0
+      ],
+      "footLandmarkUncertaintyPx": 3,
+      "verticalOverlapPx": 0
+    },
+    {
+      "frame": 3,
+      "hitRectXYWH": [
+        190,
+        86,
+        24,
+        21
+      ],
+      "footExtentXYXY": [
+        204,
+        117,
+        229,
+        132
+      ],
+      "centerDeltaPx": [
+        14.5,
+        28.0
+      ],
+      "footLandmarkUncertaintyPx": 3,
+      "verticalOverlapPx": 0
+    }
+  ]
+}

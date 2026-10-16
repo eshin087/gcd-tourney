@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const q='art/characters/gojo/production/round4';
+const root=q+'/diagnostic-art';
+fs.mkdirSync(root+'/characters/gojo/raw',{recursive:true});
+const m=JSON.parse(fs.readFileSync('art/manifest.json'));
+const c=structuredClone(m.characters.gojo);
+c.animations={idle:c.animations.idle};
+c.animations.idle.version=7;
+const d={...m,characters:{gojo:c}};
+fs.writeFileSync(root+'/manifest.json',JSON.stringify(d,null,2));
+for(const n of ['idle_v07.png','idle_v07.json']) fs.copyFileSync('art/characters/gojo/raw/'+n,root+'/characters/gojo/raw/'+n);

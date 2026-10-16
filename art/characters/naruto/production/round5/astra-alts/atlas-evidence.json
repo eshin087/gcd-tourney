@@ -1,0 +1,785 @@
+{
+  "sheetSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+  "animsSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047",
+  "animations": {
+    "airLight1Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 212,
+          "bounds": [
+            116,
+            49,
+            214,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "610cb59ca2d25d7154702a8e0bbda3b7d65219a3225aa6a296e432e9f1877277"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 213,
+          "bounds": [
+            113,
+            49,
+            252,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "85b6e830aa3af167f3c02a0416068add3fc016e9c08e1857e76b37e064201550"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 214,
+          "bounds": [
+            112,
+            49,
+            247,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "c8ab1bb4ff125c4cd94b05b7e8c984599ab76ffdc13cb4602478ddae4161eba4"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 215,
+          "bounds": [
+            116,
+            49,
+            218,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "59d785391d89d46fda7bac195754f1d1ffacb19b7cf92b26c996e6349f6e1863"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 216,
+          "bounds": [
+            116,
+            49,
+            217,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "7851b2de1e65c4968c4b2eef348082ec3879aed229f114f001fe56c9d41d3128"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "airLight2Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 217,
+          "bounds": [
+            109,
+            62,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "3b37719aae36cde03407cfa0d937462f6a42d4505ea53f1ead24c9d7f8b1067b"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 218,
+          "bounds": [
+            58,
+            64,
+            245,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "542cff3c100c7fa7a4a2e1b9fc4f3f7df89d834388f9455d0518665add68cbd0"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 219,
+          "bounds": [
+            56,
+            64,
+            252,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "ff312f2953a14594be4ba219b48f4ec649aa92d7cf79a387f5a03911f094b333"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 220,
+          "bounds": [
+            99,
+            65,
+            189,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "d918d943fce19d9438b2b25feecbbbe45fba88b912a246b05d8a59758d08e9d4"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 221,
+          "bounds": [
+            112,
+            62,
+            201,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "cb6fc20c471aa771cd7fb7856f3a826cf479bc009707f587150b74f1beafda9a"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "airLight3Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 222,
+          "bounds": [
+            104,
+            72,
+            202,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "b43fc4a665ea8533d4658e631706b66487c5d5e9555b5f25e9c4ecac650c0fba"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 223,
+          "bounds": [
+            68,
+            81,
+            215,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "9609e9ae2521c39debe181621f954922a33e3d561803448e20fd37c645a4dcad"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 224,
+          "bounds": [
+            55,
+            84,
+            246,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "3c631d402363b5e01c3e50db99cbf8d54170c16313f2fc516783657340a94103"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 225,
+          "bounds": [
+            55,
+            84,
+            252,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "c1a16284091487336700c23ffb22b72aafa7ef8ff6f384a8895b8eae87a8bfbb"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 226,
+          "bounds": [
+            80,
+            87,
+            204,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "bf4c341d9fdbe09ccdddc9ec667f3a460b4acf0c1701026a17f7f4c7aecb2089"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 227,
+          "bounds": [
+            102,
+            81,
+            203,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "de25ea102a4a2d2cf5fcef1495aec72acad12ddc2cd6fcc9a8414ce8a4177f62"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "heavyAlt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 204,
+          "bounds": [
+            62,
+            92,
+            201,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "d048a963ff9920cf9a3154228dbbd2a4861e7ef6c4a2ad7e6f284717c6579195"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 205,
+          "bounds": [
+            60,
+            105,
+            199,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "703d1c6ab974a4efddf5503fe880deed011ef0671bcfb8897c47da4d4224df8b"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 206,
+          "bounds": [
+            71,
+            41,
+            192,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "a3f5992d660617eb7c377427df58cead8796dc62b8d448609bc6e614fa465ff0"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 207,
+          "bounds": [
+            64,
+            46,
+            168,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "cdefdbb293ee02fd7a043ce49c52816a27b5ccde8b5a2918f5dd51407403bdfb"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 208,
+          "bounds": [
+            62,
+            54,
+            177,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "33b55f599007f18aaf750fd6609022a1358ed8617eff4a1d7d786b3992f59483"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 209,
+          "bounds": [
+            78,
+            36,
+            188,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "8f18bf0f7e3ca1ec6e1fdb8771e9b703f4bd39738e63f8632efa1d332ddc75b7"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 210,
+          "bounds": [
+            63,
+            75,
+            177,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "b43fdcaab2c2ca06a4c20a0dfc5c576517db0aade4cfd0964783f5058cfabc14"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 211,
+          "bounds": [
+            57,
+            74,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "606ce7497fdc69e7a8fdb0b52544731b4f2e5b8418f6d2248aaaf17210faa921"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "hurtHighAlt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 228,
+          "bounds": [
+            48,
+            64,
+            186,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "27b4543370d457a275535de2f8467d066aa6f3f8eb0c78904df0f248f185994c"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 229,
+          "bounds": [
+            40,
+            66,
+            189,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "46c9720caefa763ff8be4aca2167fe03e2f59e5b26f2d8e985412932b60bf052"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 230,
+          "bounds": [
+            66,
+            65,
+            189,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "99c43a657bc0c93a607587210d5cd559c13923617743a26c7ff2e824e2feb224"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "hurtLowAlt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 231,
+          "bounds": [
+            71,
+            86,
+            190,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "02b212489673b9651eeae2d79b88abde5394507658bcb75980e8d1dd62690624"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 232,
+          "bounds": [
+            71,
+            90,
+            187,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "29e4d297562339deae911f5040a8a16bdb16a30da27516806d66c2966c1856e7"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 233,
+          "bounds": [
+            71,
+            80,
+            187,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "35ec13833d9023b685df5a8a2157d706f56c2f0f57cfd0db0e153045b138523e"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "light1Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 175,
+          "bounds": [
+            55,
+            73,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "dd0dc6f5ebd5b0af80646ef3e3995ea74cf48e035a5378d674e70a3e726f6943"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 176,
+          "bounds": [
+            55,
+            73,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "a1d8997b7beb3be1e420aeffa20e15811f6bcac8edc9f74d93e265879929769c"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 177,
+          "bounds": [
+            57,
+            73,
+            208,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "60d07c9c982ecaec942c539fcf873c99013c33acc01327b69c0010b81f7c6da6"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 178,
+          "bounds": [
+            56,
+            73,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "08a5910dcd5780f6558fe00fa206830542a86838139fcc5b31b9042267e85aa6"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 179,
+          "bounds": [
+            58,
+            74,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "863208f4b716caf27536f012a22cfd2e707a42b7d2a17cfcb454d38781f4d964"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 180,
+          "bounds": [
+            57,
+            74,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "cbf08523a1871969458ac5ab799658a1f9bdd34f7de8b052892114cfc3af0cf7"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 181,
+          "bounds": [
+            58,
+            74,
+            198,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "253d00c30fa6b2d50052e34b5ba66843acb08a848d018e951ef0a881061b93da"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "light2Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 182,
+          "bounds": [
+            54,
+            64,
+            202,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "8c4b4e965b9a471bf27b392e8d147ca0777dbbeb56b5bf9ed7db628c15ccf8ec"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 183,
+          "bounds": [
+            90,
+            56,
+            202,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "b16f06ba4a8f81e44d4bebc365b5e6cc7d05c07f73e1c2dff4986fc6bd894750"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 184,
+          "bounds": [
+            89,
+            63,
+            252,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "bc52b14ce5c11355bde39465fd4bc623a97bc6e91ad821eea2aa6238414c832c"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 185,
+          "bounds": [
+            88,
+            65,
+            236,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "f77177b0efe0c02d2e04fee0dc3e81481d811a766d84ef89aa05998739c640c5"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 186,
+          "bounds": [
+            105,
+            59,
+            195,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "fd2135f35d144ea858fd822b9c77b0fc4d9539839955dee3ef3fae95e6149fb6"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 187,
+          "bounds": [
+            62,
+            64,
+            196,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "adac5eccd2fc9497266dbb7aee0baadfcd16b8eb3a118bfbad0754604d068f79"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 188,
+          "bounds": [
+            55,
+            65,
+            203,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "2ef843d996236ed6005d14e701ba7fc67c6a9b1abd3dbea2fdff1eb2f9741d54"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "light3Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 189,
+          "bounds": [
+            67,
+            73,
+            191,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "df49b365ad3a50230919dc1adcf5b453b70f532e6314245585b5a0646a635cf8"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 190,
+          "bounds": [
+            100,
+            72,
+            183,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "24b350df5c875c0f48a800d538c9d5eec6c6639c1de5f1d52b7e0f84b44f35b4"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 191,
+          "bounds": [
+            95,
+            73,
+            252,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "3db6a373438fde3459a0b39668387f368e76a94a1df57e32914bd7a80cd373ad"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 192,
+          "bounds": [
+            95,
+            73,
+            251,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "5eb1bede4fa1fea4121bf66681c5233a040c33283f1b51e9e0348bf8dd56bee5"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 193,
+          "bounds": [
+            58,
+            75,
+            152,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "ba61be36f8237c76c000ec01c85b03f67713e7e07737164a3b8cb8c756c302ce"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 194,
+          "bounds": [
+            58,
+            78,
+            197,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "e43f0819bcf5ad093888cd8545effdebff0b6f9f69e633cddf9fef8a24f77ccc"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 195,
+          "bounds": [
+            58,
+            79,
+            197,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "8f9a17164b06c807460a8a8cfc4c1fc6e4b81cb307c72b18377e9347f4c65ca6"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    },
+    "light4Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 196,
+          "bounds": [
+            56,
+            64,
+            203,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "ead67d217d7d5f21fa22003e5435a74a75c767341f4d69eb0ae4db4f13aa9c9f"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 197,
+          "bounds": [
+            58,
+            64,
+            206,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "45b3939d1dbcd6b96f309201eba7c4632d981c0035d09d0024de1f374dd98b1c"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 198,
+          "bounds": [
+            52,
+            64,
+            218,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "3fa03141fb6f566d1efe3eeb52c18258e249f9736144bb2fd36d159e485dba18"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 199,
+          "bounds": [
+            44,
+            66,
+            231,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "00ecae5548f28e39d22ada3385a70544da8f249c4d199869fd65401a2d851ac8"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 200,
+          "bounds": [
+            49,
+            75,
+            213,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "0dc95c4ae633efee050ccbe0e5b07db0df68b5fe44e573f4f7eab326ccdda567"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 201,
+          "bounds": [
+            66,
+            72,
+            187,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "ddabfd4b3603f153685680954a9c89d04f15fd1f93078cba0e69f659f7ba9b42"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 202,
+          "bounds": [
+            64,
+            71,
+            189,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "a8b0bd2c3a86421e138346944edd07c287f913a9f64fa0c4193dc5c98a50252d"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 203,
+          "bounds": [
+            55,
+            74,
+            200,
+            241
+          ],
+          "boxesEqualBase": true,
+          "sha256Rgba": "a01f194f3d49ae086eb2cbcab624853fdcda72b0e722d9dcefc1b8d4222384c1"
+        }
+      ],
+      "durationsEqualBase": true,
+      "phasesEqualBase": true,
+      "loop": false
+    }
+  },
+  "airHeavyAltAbsent": true
+}

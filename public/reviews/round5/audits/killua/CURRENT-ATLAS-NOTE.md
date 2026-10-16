@@ -1,0 +1,3 @@
+# Killua current-atlas note
+
+The four 2026-10-15 Astra findings are linked in `post-calibration-20261015/AUDIT.md`; that report inspected the earlier sheet `32526013...` at commit `6b911419`. This review uses the handed-off sheet `16b78e56...` and metadata `ca1e81d9...` from `art/killua-title-r3` at `2da444f`. The user’s handoff records that source geometry and silhouettes are unchanged while palette pixels changed. The earlier report’s numeric measurements are historical and are not presented as measurements of this current atlas. Its qualitative HOLD findings and the user-flagged stagger07 f2→f3 reset remain review context.
