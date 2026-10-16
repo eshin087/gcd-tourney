@@ -8,6 +8,19 @@ See [workflow and diagnosis](production/WORKFLOW.md), [frozen diagnostic invento
 
 The parent task keeps shared review files untouched. Claude should copy the candidate row into art/REVIEW.md when integrating the PR. These proposed rows preserve the user's explicit title-style v01 withdrawal and the dependent-reference hold.
 
+## Source reassembly checkpoint (2026-10-15)
+
+Zero generation calls. Two provisional calibration pilots, four disputed beam experiments, and 18 unreassembled strips; the 22-strip reassembly request is incomplete. Exact sources, hashes, factors, endpoints, uncertainty and errata: [checkpoint](production/reassembly-v01/CHECKPOINT.md), [detailed rows](production/reassembly-v01/REVIEW_ROWS.md). Only newest-version bookkeeping changed in the manifest; bodyHeight, approval, exemptions and scaleManualQA are untouched.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-15 | goku | guard | [pilot](characters/goku/raw/guard_v05.png) | v05 | held | Existing source reassembled at approximate factor .282 +/- .030. | 229px occupied height in both frames; no overflow. Inverse-mapped landmarks, not independently certified. Claude verifies baseline and calibration before final packed audit or user review. |
+| 2026-10-15 | goku | light2 | [pilot](characters/goku/raw/light2_v05.png) | v05 | held technically; v04 drawing approved | Re-assembled from approved v04 at measured density, approximate factor .613 +/- .075. | 227-236px occupied heights, no overflow. Prior design approval retained; calibration and final packed audit pending. |
+| 2026-10-15 | goku | beamCharge | [held experiment](characters/goku/raw/_qa_hold/beamCharge_v05.png) | v05 | held | Existing source resampled at .292. | Factor does not follow recorded ratios; disputed, excluded from packing. |
+| 2026-10-15 | goku | beamCharge | [held experiment](characters/goku/raw/_qa_hold/beamCharge_v06.png) | v06 | held | Existing source resampled at .320. | Missing exact idle endpoint provenance; disputed, excluded from packing. |
+| 2026-10-15 | goku | beamFire | [held experiment](characters/goku/raw/_qa_hold/beamFire_v05.png) | v05 | held | Existing source resampled at .292. | Factor unsupported; sidecar arithmetic erratum documented, excluded from packing. |
+| 2026-10-15 | goku | beamFire | [held experiment](characters/goku/raw/_qa_hold/beamFire_v06.png) | v06 | held | Existing source resampled at .320. | Missing exact idle endpoints; sidecar arithmetic erratum documented, excluded from packing. |
+
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
 | 2026-10-14 | goku | model sheet | [candidate](characters/goku/reference/model_sheet_v02.png) | v02 | approved | New turnaround/guard/palette candidate derived from the approved title-style v02. | 1 generation attempt of max 3. 1536×1024 source, crisp pixel rendering and correct Cell-saga Super Saiyan outfit; review face/side view and anatomy consistency against approved title cells. Not packed, no 48-color reduction or production atlas check. User explicitly approved model_sheet02 and expressions02 on 2026-10-15; exact v02 copied to the fixed approved reference. |

@@ -598,6 +598,8 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 
 ## goku
 
+**Current repair checkpoint (2026-10-15):** [diagnose-before-redraw workflow](characters/goku/production/WORKFLOW.md) replaces the earlier probe-only redraw decisions. Approved idle itself produces fragmented head readings; cell-fit assembly and second normalization also changed size. Astra reviewed all 108 frames in isolated diagnostic atlases, with genuine clipping/arm/loop holds retained. Two provisional source-reassembly pilots, guard05 and light2_05, await Claude's baseline and calibration check. Four disputed beam resamples (beamCharge05/06, beamFire05/06) are preserved in `_qa_hold`; 18 other strips remain unreassembled. No new Goku generation calls. [Checkpoint](characters/goku/production/reassembly-v01/CHECKPOINT.md). Manifest changes are four newest-version numbers only; calibration controls and design approvals remain unchanged. The older batch description below is historical, not a current numeric anatomy verdict.
+
 **2026-10-15 reference approvals:** User approved model_sheet_v02 and expressions_v02. Both fixed reference PNGs now match v02 byte-for-byte; manifest status approved and approvedVersion 2. Idle02 visual approval is recorded separately; Claude calibration and technical checks remain pending.
 
 **2026-10-15 idle decision:** User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
